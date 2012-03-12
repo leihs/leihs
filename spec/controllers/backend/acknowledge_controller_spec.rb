@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Backend::AcknowledgeController do
+  render_views
+  
   before(:each) do
     @admin = Persona.create :ramon
     @inventory_manager = Persona.create :mike
@@ -15,14 +17,15 @@ describe Backend::AcknowledgeController do
   describe "add a line to an order during acknowledge process" do
     
     it "adds a line to the order by providing a serial_number" do
-       post :add_line, {:inventory_pool_id => @inventory_pool.id,
-                        :order_id => @order.id,
+       post :add_line, {:format => :json,
+                        :id => @order.id,
+                        :inventory_pool_id => @inventory_pool.id,
                         :quantity => 1,
                         :start_date => Date.today,
                         :end_date => Date.tomorrow,
                         :code => @item.serial_number},
                        {user_id: @lending_manager.id}
-       binding.pry
+        
     end
     
     it "adds a line to the order by providing a inventory_code" do

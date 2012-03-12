@@ -96,7 +96,6 @@ class Backend::AcknowledgeController < Backend::BackendController
   end    
   
 ###################################################################################
-# new code #
 
   def add_line( quantity = params[:quantity].to_i,
                 start_date = params[:start_date],
@@ -108,22 +107,25 @@ class Backend::AcknowledgeController < Backend::BackendController
     model = if code
       item = current_inventory_pool.items.where(:inventory_code => code).first 
       item ||= current_inventory_pool.items.where(:serial_number => code).first
-      error = item.model ? nil : {:error => {:message => _("A model for the Inventory Code / Serial Number '%s' was not found" % code)}}
+      @error =  {:message => _("A model for the Inventory Code / Serial Number '%s' was not found" % code)} unless item.model
       item.model
     elsif model_group_id
       ModelGroup.find(model_group_id) # TODO scope current_inventory_pool ?
     elsif model_id
       current_inventory_pool.models.find(model_id)
     else
-      error = (model_id) ? {:error => {:message => _("A model with the ID '%s' was not found" % model_id)}} : {:error => {:message => _("A template with the ID '%s' was not found" % model_group_id)}}
+      @error = (model_id) ? {:message => _("A model with the ID '%s' was not found" % model_id)} : {:message => _("A template with the ID '%s' was not found" % model_group_id)}
     end
     
-    binding.pry
-    
     model.add_to_document(@order, current_user.id, quantity, start_date, end_date, current_inventory_pool)
-
-    order_json_response
+    @order.reload
+    
+    respond_to do |format|
+      format.json { render :template => @error ? "/errors/show" : "/backend/orders/show" } 
+    end
   end
+  
+###################################################################################
 
   def update_lines(line_ids = params[:line_ids] || [],
                    line_id_model_id = params[:line_id_model_id] || {},

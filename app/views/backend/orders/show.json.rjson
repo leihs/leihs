@@ -1,0 +1,19 @@
+h = {id: @order.id}
+
+if(params[:with] and params[:with][:quantity])
+  h["quantity"] = @order.quantity
+end
+
+if params[:with] and params[:with][:lines]
+  h["lines"] = @order.lines.as_json(:include => {:model   => {},
+                                                 :order   => {:include => {:user => {:include => :groups}}},
+                                                 :with    => {:availability => {:inventory_pool => current_inventory_pool}},
+                                                 :methods => :is_available})
+end
+  
+if params[:with] and params[:with][:user]
+  @user = @order.user
+  h["user"] = render :template => "backend/users/show"
+end
+
+h

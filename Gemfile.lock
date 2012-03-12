@@ -95,6 +95,7 @@ GEM
       fast_gettext
     gherkin (2.9.0)
       json (>= 1.4.6)
+    git (1.2.5)
     growl (1.0.3)
     guard (0.10.0)
       ffi (>= 0.5.0)
@@ -134,6 +135,11 @@ GEM
       rails (>= 3.1.0)
     jasminerice (0.0.8)
       haml
+    jeweler (1.8.3)
+      bundler (~> 1.0)
+      git (>= 1.2.5)
+      rake
+      rdoc
     journey (1.0.3)
     jquery-rails (1.0.19)
       railties (~> 3.0)
@@ -174,9 +180,6 @@ GEM
       slop (>= 2.4.4, < 3)
     pry-rails (0.1.6)
       pry
-    rabl (0.6.0)
-      activesupport (>= 2.3.14)
-      multi_json (~> 1.0.3)
     rack (1.4.1)
     rack-cache (1.1)
       rack (>= 0.4)
@@ -209,6 +212,10 @@ GEM
     rgl (0.4.0)
       rake
       stream (>= 0.5)
+    rjson (0.1.5)
+      jeweler
+      rails (> 3.0.0)
+      rjson
     rspec (2.8.0)
       rspec-core (~> 2.8.0)
       rspec-expectations (~> 2.8.0)
@@ -308,11 +315,11 @@ DEPENDENCIES
   prawnto (~> 0.1)
   pry
   pry-rails
-  rabl (~> 0.6)
   rails (= 3.2.2)
   rails_autolink (~> 1.0)
   rb-fsevent (~> 0.4.3.1)
   rgl (~> 0.4.0)
+  rjson (~> 0.1.5)
   rspec (~> 2.7)
   rspec-rails (~> 2.7)
   ruby-net-ldap (~> 0.0.4)
