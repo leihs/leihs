@@ -2,8 +2,7 @@ class Backend::AcknowledgeController < Backend::BackendController
 
   before_filter do
     begin
-      @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
-      @order = @user.orders.submitted.scoped_by_inventory_pool_id(current_inventory_pool).find(params[:id]) if params[:id] and @user
+      @order = current_inventory_pool.orders.submitted.find(params[:id]) if params[:id]
     rescue
       respond_to do |format|
         format.html { redirect_to :action => 'index' unless @order }
@@ -14,21 +13,6 @@ class Backend::AcknowledgeController < Backend::BackendController
   
 ######################################################################
  
-  def index
-=begin    
-    with = { :inventory_pool_id => current_inventory_pool.id }
-    with[:user_id] = @user.id if @user
-
-    @orders = Order.sphinx_submitted.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
-                                                              :with => with }
-
-    respond_to do |format|
-      format.html
-      format.js { search_result_rjs(@orders) }
-    end
-=end
-  end
-  
   def show
     # OLD ? @source_path = request.env['REQUEST_URI']
     add_visitor(@order.user)
@@ -114,24 +98,31 @@ class Backend::AcknowledgeController < Backend::BackendController
 ###################################################################################
 # new code #
 
-  def add_line( quantity = params[:quantity],
+  def add_line( quantity = params[:quantity].to_i,
                 start_date = params[:start_date],
                 end_date = params[:end_date],
                 model_id = params[:model_id],
-                model_group_id = params[:model_group_id] )
-    
-    model = if model_group_id
+                model_group_id = params[:model_group_id],
+                code = params[:code])
+   
+    model = if code
+      item = current_inventory_pool.items.where(:inventory_code => code).first 
+      item ||= current_inventory_pool.items.where(:serial_number => code).first
+      error = item.model ? nil : {:error => {:message => _("A model for the Inventory Code / Serial Number '%s' was not found" % code)}}
+      item.model
+    elsif model_group_id
       ModelGroup.find(model_group_id) # TODO scope current_inventory_pool ?
     elsif model_id
       current_inventory_pool.models.find(model_id)
     else
-      raise "either model_id or model_group_id required"
+      error = (model_id) ? {:error => {:message => _("A model with the ID '%s' was not found" % model_id)}} : {:error => {:message => _("A template with the ID '%s' was not found" % model_group_id)}}
     end
+    
+    binding.pry
     
     model.add_to_document(@order, current_user.id, quantity, start_date, end_date, current_inventory_pool)
 
-    flash[:notice] = @order.errors.full_messages unless @order.save
-    order_respond_to
+    order_json_response
   end
 
   def update_lines(line_ids = params[:line_ids] || [],
@@ -198,7 +189,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   def change_purpose
     if request.post?
       @order.change_purpose(params[:purpose], current_user.id)
-      redirect_to backend_inventory_pool_user_acknowledge_path(current_inventory_pool, @order.user, @order)
+      redirect_to backend_inventory_pool_acknowledge_path(current_inventory_pool, @order)
     else
       params[:layout] = "modal"
     end
@@ -211,7 +202,7 @@ class Backend::AcknowledgeController < Backend::BackendController
       else
         @order.swap_user(params[:swap_user_id], current_user.id)
       end  
-      redirect_to backend_inventory_pool_user_acknowledge_path(current_inventory_pool, @order.user, @order)
+      redirect_to backend_inventory_pool_acknowledge_path(current_inventory_pool, @order)
     else
       redirect_to backend_inventory_pool_users_path(current_inventory_pool,
                                                     :layout => 'modal',

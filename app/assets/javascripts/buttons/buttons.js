@@ -17,10 +17,17 @@ function Buttons() {
   this.loadingImgClones = Array();
   
   this.setup = function() {
+    this.preventDefault();
     this.cloneLoadingImg(5);
     this.setupAjaxListener();
     this.setupDialogListener();
     this.setupMultibutton();
+  }
+  
+  this.preventDefault = function() {
+    $(".button.preventDefault").live("click",function(event){
+      event.preventDefault();
+    });
   }
   
   this.cloneLoadingImg = function(x, color) {

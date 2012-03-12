@@ -99,7 +99,20 @@ Leihs::Application.routes.draw do
     resources :mails
 
     resources :inventory_pools do
-      resources :acknowledge, :only => :index
+      resources :acknowledge, :except => :index do
+        member do
+          post :approve
+          get :reject
+          post :reject
+          get :delete
+          post :add_line
+          post :update_lines 
+          get :swap_user
+          post :swap_user
+          get :change_purpose
+          post :change_purpose
+        end
+      end
       resources :hand_over, :only => :index
       resources :take_back, :only => :index
       match 'search', :to => 'backend#search'
@@ -216,28 +229,6 @@ Leihs::Application.routes.draw do
           put :add_group
           delete :remove_group
           post :update_badge_id          
-        end
-        resources :acknowledge do
-          member do
-            #NOTE: (Not needed any more) get :approve 
-            post :approve
-            get :reject
-            post :reject
-            get :delete
-            #get :add_line # TODO remove soon 
-            post :add_line
-            #post :change_line_quantity # TODO remove soon
-            #get :remove_lines
-            #delete :remove_lines
-            #get :swap_model_line # TODO remove soon
-            #post :swap_model_line # TODO remove soon
-            post :time_lines # TODO remove soon
-            post :update_lines 
-            get :swap_user
-            post :swap_user
-            get :change_purpose
-            post :change_purpose
-          end
         end
         resource :hand_over, :controller => 'hand_over' do
           member do

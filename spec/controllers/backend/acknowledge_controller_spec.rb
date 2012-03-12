@@ -1,44 +1,36 @@
 require 'spec_helper'
-require "rspec/expectations"
 
-require "#{Rails.root}/features/support/leihs_factory.rb"
-
-
-# It seems really hard to test our controllers (?)
-# Remove this file if you think it's too hard, and test by model.
-
-# What do we describe, the mailer model or the controller that uses it? Huh?
 describe Backend::AcknowledgeController do
-
-# Check e-mails like this after issuing them:  
-#   @emails = ActionMailer::Base.deliveries
-#   @emails.count.should == num.to_i
-#   @emails[index].subject.should == subject
-  
-  before(:all) do
-    @ip = LeihsFactory.create_inventory_pool
-    u = LeihsFactory.create_user({:login => 'foo', :email => 'foo@example.com'}, {:password => 'barbarbar'})
-    @borrowing_user = u
-    
-    admin_user = LeihsFactory.create_user({:login => 'admin', :email => 'admin@example.com'}, 
-                                     {:password => 'barbarbar', :role => 'admin', :inventory_pool => @ip})
-    current_user = admin_user
-  end
-  
   before(:each) do
+    @admin = Persona.create :ramon
+    @inventory_manager = Persona.create :mike
+    @lending_manager = Persona.create :pius
+    @user = Persona.create :normin
+    @inventory_pool = (@user.inventory_pools & @lending_manager.inventory_pools).first
+    @order = Factory :order, :user => @user, :status_const => 2, :inventory_pool => @inventory_pool
+    @model = Factory :model
+    @item = Factory :item, :model => @model, :owner => @inventory_pool 
   end
   
-  it "should do nothing" do
-    true.should == true
-  end
-  
-  describe "approving an order" do
-    it "should send a confirmation e-mail to the user when their order is confirmed" do
-      # That doesn't work. we need to post to approve something, and then check if it sends e-mail
-      #post "/backend/inventory_pools/#{@ip.id}/approve"
+  describe "add a line to an order during acknowledge process" do
+    
+    it "adds a line to the order by providing a serial_number" do
+       post :add_line, {:inventory_pool_id => @inventory_pool.id,
+                        :order_id => @order.id,
+                        :quantity => 1,
+                        :start_date => Date.today,
+                        :end_date => Date.tomorrow,
+                        :code => @item.serial_number},
+                       {user_id: @lending_manager.id}
+       binding.pry
+    end
+    
+    it "adds a line to the order by providing a inventory_code" do
+      
+    end
+    
+    it "adds a line to the order by providing a model_id" do
       
     end
   end
-  
-  
 end

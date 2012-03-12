@@ -19,7 +19,6 @@ function Barcode() {
   this.scannerInput = "";
   
   this.setup = function() {
-    this.setupBarcodeFields();
     this.setupRecognition();
   }
   
@@ -40,22 +39,6 @@ function Barcode() {
         Barcode.scannerDelayTimer = window.setTimeout(function(){
           Barcode.scannerInput = "";
         }, Barcode.scannerMaxDelay);
-      }
-    });
-  }
-  
-  this.setupBarcodeFields = function() {
-    $("input.barcode").data("start_text", $("input.barcode").val());
-    
-    $("input.barcode").focus(function(){
-      if($(this).val() == $(this).data("start_text")) {
-        $(this).val("");
-      }
-    });
-    
-    $("input.barcode").blur(function(){
-      if($(this).val() == "") {
-        $(this).val($(this).data("start_text"));
       }
     });
   }

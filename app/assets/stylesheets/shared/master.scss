@@ -89,6 +89,10 @@ input, textarea, select, span.select {
   }
   
   &:focus+label, &:hover+label {color: $darkergrey !important;}
+  
+  &[type=text] {
+    height: 22px;
+  }
 }
 
 label[disabled=disabled] {

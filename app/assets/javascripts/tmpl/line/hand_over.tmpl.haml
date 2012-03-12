@@ -51,12 +51,12 @@
           .icon.delete
           = _("Delete")
       -#TODO: "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/hand_over"    
-      = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');",  :class => "button white" do
+      = link_to "", :onclick => "alert('Diese Funktion wird bald implementiert...');",  :class => "button white" do
         .icon.hand_over
         = _("Hand Over")
     {{else}}
     -#TODO: "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/hand_over"
-    = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do
+    = link_to "", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do
       .icon.hand_over
       = _("Hand Over")
     {{/if}}

@@ -4,7 +4,6 @@ Add Item
 
 This script provides functionalities to add items to orders and visits
  
-http://leihs.zhdk.ch/backend/inventory_pools/1/models?end_date=2012-02-24&layout=modal%3D2012-02-22&start_date=2012-02-22&user_id=5397
 ###
    
 jQuery ->
@@ -13,25 +12,29 @@ jQuery ->
 class AddItem
   
   @setup: ->
-    @bind_open_dialog()
+    $("#add_item_button").live "click", (event)->
+      quick_add = $(this).closest("#add_item").find("#quick_add")
+      if quick_add.length > 0 and quick_add.val() != ""
+        stop
+        console.log "ADD ITEM WITH VALUE:"+quick_add.val()
+      else
+        AddItem.open_dialog $(this)
+        
+  @open_dialog: (trigger)->
+    data = eval trigger.data("ref_for_dialog")
+    start_date = $("#add_start_date").datepicker("getDate")
+    start_date = start_date.getFullYear()+"-"+(start_date.getMonth()+1)+"-"+start_date.getDate()
+    end_date = $("#add_end_date").datepicker("getDate")
+    end_date = end_date.getFullYear()+"-"+(end_date.getMonth()+1)+"-"+end_date.getDate()
+    AddItem.load_model_data
+      url: trigger.attr("href")
+      data:
+        user_id: data.user.id
+        start_date: start_date
+        end_date: end_date
+        with:
+          availability: 1
    
-  @bind_open_dialog: ->
-    $(".open_dialog.add_item").live "click", ->
-      _this = $(this) 
-      data = eval _this.data("ref_for_dialog")
-      start_date = $("#add_start_date").datepicker("getDate")
-      start_date = start_date.getFullYear()+"-"+(start_date.getMonth()+1)+"-"+start_date.getDate()
-      end_date = $("#add_end_date").datepicker("getDate")
-      end_date = end_date.getFullYear()+"-"+(end_date.getMonth()+1)+"-"+end_date.getDate()
-      AddItem.load_model_data
-        url: _this.attr("href")
-        data:
-          user_id: data.user.id
-          start_date: start_date
-          end_date: end_date
-          with:
-            availability: 1
-      
   @load_model_data: ()->
     ajax_options = arguments[0]
     $.extend true, ajax_options, data: format:"json"

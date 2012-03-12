@@ -7,14 +7,14 @@ end
 
 When "$who chooses $name's order" do | who, name |
   order = @orders.detect { |o| o.user.login == name }
-  get backend_inventory_pool_user_acknowledge_path(@inventory_pool, order.user, order)
+  get backend_inventory_pool_acknowledge_path(@inventory_pool, order)
   response.should render_template('backend/acknowledge/show')
   @order = assigns(:order)
   @response = response
 end
 
 When "$who rejects order with reason '$reason'" do |who, reason|
-  post reject_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order, :comment => reason)
+  post reject_backend_inventory_pool_acknowledge_path(@inventory_pool, @order, :comment => reason)
   @order = assigns(:order)
   @orders.should_not be_nil
   @order.should_not be_nil
@@ -25,7 +25,7 @@ end
 When "$who changes number of items of model '$model' to $quantity" do |who, model, quantity|
   id = find_line(model).id
   id.should > 0
-  post change_line_quantity_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order, :order_line_id => id, :quantity => quantity)
+  post change_line_quantity_backend_inventory_pool_acknowledge_path(@inventory_pool, @order, :order_line_id => id, :quantity => quantity)
   response.should render_template('backend/acknowledge/change_line_quantity')
   @order = assigns(:order)
   @order.has_changes?.should == true
@@ -34,13 +34,13 @@ end
 
 When "$who adds $quantity item '$model'" do |who, quantity, model|
   model_id = Model.find_by_name(model).id
-  post add_line_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order, :model_id => model_id, :quantity => quantity)
+  post add_line_backend_inventory_pool_acknowledge_path(@inventory_pool, @order, :model_id => model_id, :quantity => quantity)
   @order = assigns(:order)
   @order.order_lines.each do | line |
     line.model.should_not be_nil
   end
   @response = response #new#
-  @response.redirect_url.should include("backend/inventory_pools/#{@inventory_pool.id}/users/#{@order.user.id}/acknowledge/#{@order.id}")
+  @response.redirect_url.should include("backend/inventory_pools/#{@inventory_pool.id}/acknowledge/#{@order.id}")
 end
 
 
@@ -50,14 +50,14 @@ end
 
 When "$who chooses 'swap' on order line '$model'" do |who, model|
   line = find_line(model)
-  get swap_model_line_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order, :line_id => line.id)
+  get swap_model_line_backend_inventory_pool_acknowledge_path(@inventory_pool, @order, :line_id => line.id)
   @order_line_id = line.id
   @response = response    
 end
 
 When "$who searches for '$model'" do |who, model|
   get backend_inventory_pool_models_path(@inventory_pool, :query => model, :user_id => @order.user_id,
-                                        :source_path => swap_model_line_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order, :line_id => @order_line_id),
+                                        :source_path => swap_model_line_backend_inventory_pool_acknowledge_path(@inventory_pool, @order, :line_id => @order_line_id),
                                         :order_line_id => @order_line_id )
   @models = assigns(:models)
   @models.should_not be_nil
@@ -65,7 +65,7 @@ end
 
 When "$who selects '$model'" do |who, model|
   model_id = Model.where(:name => model).first.id
-  post swap_model_line_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order, :line_id => @order_line_id, :model_id => model_id)
+  post swap_model_line_backend_inventory_pool_acknowledge_path(@inventory_pool, @order, :line_id => @order_line_id, :model_id => model_id)
   @order = assigns(:order)
   @order.should_not be_nil
 end
@@ -89,7 +89,7 @@ end
 #end
 
 Then "Swap Item screen opens" do 
-  @response.redirect_url.should include("/backend/inventory_pools/#{@inventory_pool.id}/models?layout=modal&order_line_id=#{@order_line_id}&source_path=%2Fbackend%2Finventory_pools%2F#{@inventory_pool.id}%2Fusers%2F#{@order.user.id}%2Facknowledge%2F#{@order.id}%2Fswap_model_line%3Fline_id%3D#{@order_line_id}")
+  @response.redirect_url.should include("/backend/inventory_pools/#{@inventory_pool.id}/models?layout=modal&order_line_id=#{@order_line_id}&source_path=%2Fbackend%2Finventory_pools%2F#{@inventory_pool.id}%2Facknowledge%2F#{@order.id}%2Fswap_model_line%3Fline_id%3D#{@order_line_id}")
 end
 
 Then "a choice of $size item appears" do |size|

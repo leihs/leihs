@@ -29,9 +29,10 @@ end
 
 # This one 'really' goes through the auth process
 When /^I log in as '([^']*)' with password '([^']*)'$/ do |who,password|
-  step 'I go to the home page'
-  fill_in 'login_user',     :with => who
-  fill_in 'login_password', :with => password
+  visit "/logout"
+  visit login_authenticator_path
+  fill_in 'username',     :with => who
+  fill_in 'password', :with => password
   click_button 'Login'
 end
 

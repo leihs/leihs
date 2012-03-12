@@ -13,11 +13,9 @@
     top: -5px;
   }
   
-  .barcode {
-    border: 1px solid $lightergrey;
+  .quick_add {
     color: $grey;
     font-size: 1.2em;
-    height: 22px;
     padding: 0 6px;
     position: relative;
     top: 1px;
@@ -36,7 +34,7 @@
     left: 0;
   }
   
-  .item_code {
+  .quick_add_box {
     display: inline-block;
     position: relative;
     margin-right: 6px;
@@ -53,7 +51,6 @@
     }
     
     & input {
-      height: 22px;
       padding: 0 8px;
       top: 1px;
       position: relative;

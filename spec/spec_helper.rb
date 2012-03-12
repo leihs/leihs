@@ -4,6 +4,8 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'database_cleaner'
+require 'pry'
+require 'persona'
 
 require 'simplecov'
 SimpleCov.start 'rails' do

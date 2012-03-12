@@ -261,7 +261,7 @@ end
       link_string, link_path =
         if line.is_a?(OrderLine)
           [ icon_tag("accept") + _("Acknowledge"),
-            backend_inventory_pool_user_acknowledge_path(current_inventory_pool, line.document.user, line.document) ]
+            backend_inventory_pool_acknowledge_path(current_inventory_pool, line.document) ]
         elsif line.document.status_const == Contract::UNSIGNED
           [ icon_tag("arrow_turn_right") + _("Hand Over"),
             backend_inventory_pool_user_hand_over_path(current_inventory_pool, line.document.user) ]
