@@ -1,8 +1,8 @@
 FactoryGirl.define do
 
   factory :item do
-    inventory_code { "#{Faker::Lorem.words(3).join.slice(0,3)}#{rand(1000..9999)}" }
-    serial_number { "#{Faker::Lorem.words(3).join.slice(0,3)}-#{rand(1000..9999)}#{Faker::Lorem.words(3).join.slice(0,2)}#{rand(1000..9999)}" }
+    inventory_code { "#{Faker::Lorem.words(3).join.slice(0,3)}#{rand(9999)+1000}" }
+    serial_number { "#{Faker::Lorem.words(3).join.slice(0,3)}-#{rand(9999)+1000}#{Faker::Lorem.words(3).join.slice(0,2)}#{rand(9999)+1000}" }
     model { Factory :model }
     location { Factory :location }
     supplier { Factory :supplier }
