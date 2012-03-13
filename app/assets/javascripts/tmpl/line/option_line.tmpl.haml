@@ -1,0 +1,14 @@
+%ul.line{:class => "${type}"}
+  .container  
+    %li.select
+      %label
+        = check_box_tag "selected"
+        
+    %li.inventory_code
+      ${option.inventory_code}
+      
+    %li.quantity
+      %input{:type => "text", :value => "${quantity}"}
+        
+    %li.name
+      ${option.name}

@@ -1,0 +1,16 @@
+@import "../../shared/mixins";
+@import "../../shared/variables";
+@import "../variables";
+
+.item_line.line {
+  
+  &.valid {
+    background: $highlight-green !important;
+    border-bottom: 1px solid $borderhighlightgreen !important;
+    border-top: 1px solid $highlight-darkgreen !important;
+    
+    &:hover {
+      background: $highlight-darkgreen !important;	
+    }
+  }
+}

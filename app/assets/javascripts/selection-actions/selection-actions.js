@@ -11,8 +11,10 @@ var SelectionActions = new SelectionActions();
 function SelectionActions() {
   
   this.selected_lines;
+  this.target;
   
-  this.setup = function() {
+  this.setup = function(_target) {
+    this.target = _target;
     this.deselectRadioButtons();
     this.setupMainSelection();
     this.setupGroupSelections();
@@ -48,6 +50,7 @@ function SelectionActions() {
   }
   
   this.setupEditSelection = function() {
+    // TODO move this to the view where its needed
     $(".actiongroup #edit_selection").live("click", function(event){
       SelectionActions.storeSelectedLines();
     });
@@ -76,17 +79,16 @@ function SelectionActions() {
       }
     });
     
-    // add data to #order template item data
     SelectionActions.selected_lines = lines_data;
-    $("#order").tmplItem().data.selected_lines = lines_data;
-    $("#order").tmplItem().data.selected_range = {start_date: min_start_date, end_date: max_end_date};
+    SelectionActions.target.tmplItem().data.selected_lines = lines_data;
+    SelectionActions.target.tmplItem().data.selected_range = {start_date: min_start_date, end_date: max_end_date};
   }
   
   this.restoreSelectedLines = function() {
     var selected_lines = this.selected_lines;
         
     // select all selected lines again
-    $("#order .line").each(function(i_line,line){
+    SelectionActions.target.find(".line").each(function(i_line,line){
       $.each(selected_lines, function(i_selected, selected_line){
         if($(line).tmplItem().data.id == selected_line.id) {
           $(line).find("input[type=checkbox]").attr("checked",true);

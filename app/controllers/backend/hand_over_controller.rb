@@ -88,7 +88,6 @@ class Backend::HandOverController < Backend::BackendController
       
       required_item_inventory_code = params[:code]
       @contract_line.item = Item.where(:inventory_code => required_item_inventory_code).first
-
       if @contract_line.save
         # TODO refactor in model: change = _("Changed dates for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => "#{original_start_date} - #{original_end_date}", :to => "#{line.start_date} - #{line.end_date}" }
         # TODO refactor in model: log_change(change, user_id)
@@ -104,6 +103,8 @@ class Backend::HandOverController < Backend::BackendController
   # given an inventory_code, searches for a matching contract_line
   # and if not found, adds an option
   def assign_inventory_code
+    params[:code] = params[:inventory_code] # TODO define the signature
+    
     item = current_inventory_pool.items.where(:inventory_code => params[:code]).first
     
     unless item.nil?

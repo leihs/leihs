@@ -1,0 +1,14 @@
+{
+  id: line.id,
+  type: line.type.underscore,
+  start_date: line.start_date,
+  end_date: line.end_date,
+  quantity: line.quantity,
+
+  is_valid: line.valid?,  
+  
+  option: line.option, #TODO
+  user: {
+    id: line.contract.user_id
+  }
+}

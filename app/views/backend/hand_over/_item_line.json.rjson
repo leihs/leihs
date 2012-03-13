@@ -1,0 +1,16 @@
+{
+  id: line.id,
+  type: line.type.underscore,
+  start_date: line.start_date,
+  end_date: line.end_date,
+  quantity: line.quantity,
+
+  is_valid: line.valid?,  
+  is_available: line.is_available, # FIXME this is too slow!
+  
+  item: line.item, #TODO
+  model: line.model, #TODO
+  user: {
+    id: line.contract.user_id
+  }
+}

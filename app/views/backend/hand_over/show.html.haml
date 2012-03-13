@@ -17,19 +17,28 @@
             %span.count= "(0)"
         .actions
           = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/hand_over/#{@user.id}/sign_contract", 
-          :class => "button green",
-          :id => "hand_over" do
+          :class => "button green open_dialog",
+          :"data-rel" => "tmpl/dialog/hand_over/summary",
+          :"data-dialog_class" => "hand_over",
+          :"data-ref_for_dialog" => "$('#hand_overs').tmplItem().data",
+          :id => "hand_over_button" do
             = _("Hand Over")
       .clear
     
   %hr
   
-  %section#hand_overs
+  #hand_overs
     
 :javascript
   
   $(document).ready(function(){
     HandOver.setup();
+    SelectionActions.setup($("#hand_overs"));
+    
+    // bind the hand over button
+    $("#hand_over_button").on("click", function(event){
+      SelectionActions.storeSelectedLines();
+    });
   });
   
   var HandOver = new HandOver();
@@ -37,10 +46,28 @@
   function HandOver() {
     
     this.setup = function(){
-      this.setupTemplates();    
+      this.setupTemplates();
+      this.setupInventoryCodeInputs(); 
     }
     
-    this.setupTemplates = function () {
-      $('#hand_over #hand_overs').replaceWith($.tmpl("tmpl/hand_overs", #{render(template: "backend/hand_over/show.json.rjson")}));
+    this.setupTemplates = function() {
+      $('#hand_over #hand_overs').replaceWith($.tmpl("tmpl/hand_overs", #{render(partial: "backend/hand_over/show.json.rjson", locals: {contract: @contract})}));
+    }
+    
+    this.setupInventoryCodeInputs = function() {
+      $(".item_line .inventory_code form").live("submit", HandOver.assignInventoryCode);
+    }
+    
+    this.assignInventoryCode = function(event) {
+      var form = $(event.currentTarget);
+      event.preventDefault();
+      $.ajax({
+        url: form.attr("action"),
+        type: form.attr("method"),
+        data: {inventory_code: form.find("input").val()},
+        success: function(response_data){
+          console.log(response_data);
+        }
+      });
     }
   } 

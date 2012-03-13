@@ -1,0 +1,12 @@
+{
+	lines: contract.lines.map do |line|
+	  render :partial => "backend/hand_over/#{line.type.underscore}.json.rjson", :locals => {:line => line} 
+	end,
+  user: begin
+    user = contract.user
+    {
+      id: user.id,
+      name: user.to_s
+    }
+  end,
+}
