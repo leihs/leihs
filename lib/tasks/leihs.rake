@@ -70,7 +70,7 @@ namespace :leihs do
 
     ENV['CUCUMBER_FORMAT'] = 'pretty' unless ENV['CUCUMBER_FORMAT']
     # We skip the tests that broke due to the new UI. We need to re-implement them with the new UI.
-    system "bundle exec cucumber -r features --format pretty --format junit --out tmp/junit --format html --out tmp/html/cucumber.html --tags=~@old-ui features"
+    system "bundle exec cucumber -p default"
     exit_code = $? >> 8 # magic brainfuck
     raise "Tests failed with: #{exit_code}" if exit_code != 0
 

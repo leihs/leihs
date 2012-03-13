@@ -1,0 +1,1 @@
+default:  -r features --format pretty --format junit --out tmp/junit --format html --out tmp/html/cucumber.html --tags=~@old-ui features
