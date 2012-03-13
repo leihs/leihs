@@ -12,7 +12,11 @@ jQuery ->
 class AddItem
   
   @setup: ->
-    $("#add_item_button").live "click", (event)->
+    @setup_click()
+    @setup_line_group_highlighting()
+    
+  @setup_click: ()->
+    $("#add_item_button").on "click", (event)->
       quick_add = $(this).closest("#add_item").find("#quick_add")
       if quick_add.length > 0 and quick_add.val() != ""
         stop
@@ -20,6 +24,10 @@ class AddItem
       else
         AddItem.open_dialog $(this)
         
+  @setup_line_group_highlighting: ()->
+    $("#add_item .date").on "change", (event)->
+      LineGroup.highlightSelected $("#add_item #add_start_date").val(), $("#add_item #add_end_date").val()
+      
   @open_dialog: (trigger)->
     data = eval trigger.data("ref_for_dialog")
     start_date = $("#add_start_date").datepicker("getDate")
@@ -46,5 +54,13 @@ class AddItem
     $(".ui-dialog.add_item .models.list").append $.tmpl "tmpl/line/add_item/model", data
     Dialog.rescale($(".add_item .dialog"))
     $(".ui-dialog.add_item .models.list").removeClass("invisible").addClass("visible")
+    
+  @updateTimerange: (start_date, end_date)->
+    if($("#add_item #add_start_date").val() != $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, start_date))
+      $("#add_item #add_start_date").val($.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, start_date)).change()
+    
+    if($("#add_item #add_end_date").val() != $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, end_date))
+      $("#add_item #add_end_date").val($.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, end_date)).change();
+      $("#add_item #add_end_date").datepicker('setDate', $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, end_date));
    
 window.AddItem = AddItem

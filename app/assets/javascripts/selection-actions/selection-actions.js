@@ -1,10 +1,9 @@
 /*
  * Selection Actions
  *
- * This script sets up functionalities for selection based functionalities (hand over, take back, acknowledge, etc...)
+ * This script sets up functionalities for selection based functionalities
  *
 */
-
 
 var SelectionActions = new SelectionActions();
 
@@ -19,41 +18,11 @@ function SelectionActions() {
     this.setupMainSelection();
     this.setupGroupSelections();
     this.setupLineSelections();
-    this.setupTimerangeUpdater();
-    this.setupLinegroupHighlighting();
-    this.setupDeleteSelection();
-    this.setupEditSelection();
-    this.checkIfLinegroupIsSelected();
+    LineGroup.highlightSelected($("#add_item #add_start_date").val(), $("#add_item #add_end_date").val());
   }
   
   this.deselectRadioButtons = function() {
-    $(".actiongroup input[type=radio]").attr("checked", false);
-  }
-  
-  this.setupLinegroupHighlighting = function() {
-    $("#add_item .date").live("change", function(){
-      SelectionActions.checkIfLinegroupIsSelected();
-   });
-  }
-  
-  this.checkIfLinegroupIsSelected = function() {
-    // highlight selected group of lines
-    $(".linegroup").each(function(){
-      var start_date = $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, new Date($(this).tmplItem().data.start_date));
-      var end_date = $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, new Date($(this).tmplItem().data.end_date));
-      if(start_date == $("#add_item #add_start_date").val() && end_date == $("#add_item #add_end_date").val()) {
-        $(this).addClass("selected");
-      } else {
-        $(this).removeClass("selected");
-      }
-    }); 
-  }
-  
-  this.setupEditSelection = function() {
-    // TODO move this to the view where its needed
-    $(".actiongroup #edit_selection").live("click", function(event){
-      SelectionActions.storeSelectedLines();
-    });
+    $("#selection_actions input[type=radio]").attr("checked", false);
   }
   
   this.storeSelectedLines = function() {
@@ -98,42 +67,10 @@ function SelectionActions() {
     });
   }
   
-  this.setupDeleteSelection = function() {
-    $(".actiongroup #delete_selection").live("mousedown", function(event){
-      // add all selected lines to delete selections buttons data + params for the remote action
-      var lines = [];
-      var action = $(this).attr("href");
-      action = action.replace(/\?.*?$/,"");
-      action += "?"
-      $(".line input:checked").each(function(i, input){
-        var line = $(this).closest(".line");
-        lines.push($(line));
-        if(i==0) {
-          action += "delete_line_ids[]=" + line.tmplItem().data.id;          
-        } else {
-          action += "&delete_line_ids[]=" + line.tmplItem().data.id;
-        }
-      });
-      $(this).data("lines", lines);
-      $(this).attr("href", action);
-      console.log($(this).attr("href"));
-    });
-  }
-  
-  this.setupTimerangeUpdater = function() {
-    $(".linegroup").live("click", function() {
-      SelectionActions.updateTimerange(new Date($(this).tmplItem().data.start_date.replace(/-/g, "/")), new Date($(this).tmplItem().data.end_date.replace(/-/g, "/")));
-    });
-
-    $(".linegroup .button").live("click", function() {
-      SelectionActions.updateTimerange(new Date($(this).closest(".linegroup").tmplItem().data.start_date.replace(/-/g, "/")), new Date($(this).closest(".linegroup").tmplItem().data.end_date.replace(/-/g, "/")));
-    });
-  }
-  
   this.setupMainSelection = function() {
     SelectionActions.updateSelectionCount();
     
-    $(".actiongroup input[value='all']").live("change", function(){
+    $("#selection_actions input[value='all']").live("change", function(){
       $(".lines>.line .select input[type='checkbox']:not(:checked)").attr("checked",true);
       $(".linegroup .dates input[type='checkbox']:not(:checked)").attr("checked",true);
       SelectionActions.updateSelectionCount();
@@ -173,22 +110,22 @@ function SelectionActions() {
   
   this.checkIfEverythingIsSelected = function() {
     if($(".lines>.line .select input[type='checkbox']:not(:checked)").length == 0) {
-      $(".actiongroup input[value='all']").attr("checked", true);
+      $("#selection_actions input[value='all']").attr("checked", true);
       SelectionActions.disableSelectionActionRange();
     } else {
       if($(".lines>.line .select input[type='checkbox']:checked").length == 0) {
         SelectionActions.disableSelectionActionRange();
-        $(".actiongroup input[value='selection']").attr("checked", false);
+        $("#selection_actions input[value='selection']").attr("checked", false);
       } else {
         SelectionActions.enableSelectionActionRange();
-        $(".actiongroup input[value='selection']").attr("checked", true);
+        $("#selection_actions input[value='selection']").attr("checked", true);
       }
     }
   }
   
   this.updateSelectionCount = function() {
     var _newCount = "("+ $(".lines>.line .select input[type='checkbox']:checked").length +")";
-    $(".actiongroup input#selection_range_selection").siblings(".count").html(_newCount);
+    $("#selection_actions input#selection_range_selection").siblings(".count").html(_newCount);
       
     if($(".lines>.line .select input[type='checkbox']:checked").length) {
       SelectionActions.enableSelectionActionButton();
@@ -200,18 +137,6 @@ function SelectionActions() {
     
     // store changes
     SelectionActions.storeSelectedLines();
-  }
-  
-  this.updateTimerange = function(start_date, end_date) {
-    // show new selected start date
-    if($("#add_item #add_start_date").val() != $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, start_date)) {
-      $("#add_item #add_start_date").val($.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, start_date)).change();
-    }
-    // show new selected end date
-    if($("#add_item #add_end_date").val() != $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, end_date)) {
-      $("#add_item #add_end_date").val($.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, end_date)).change();
-      $("#add_item #add_end_date").datepicker('setDate', $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, end_date));
-    }
   }
   
   this.disableSelectionActionButton = function() {

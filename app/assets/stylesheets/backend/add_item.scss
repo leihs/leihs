@@ -5,15 +5,16 @@
   display: block;
   float: left;
   height: 50px;
+  margin-top: 25px;
+  margin-bottom: -25px;
   position: relative;
-  top: 6px;
   
   &>.button {
     position: relative;
-    top: -5px;
+    top: -4px;
   }
   
-  .quick_add {
+  #quick_add {
     color: $grey;
     font-size: 1.2em;
     padding: 0 6px;

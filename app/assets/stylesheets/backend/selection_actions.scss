@@ -1,16 +1,13 @@
 @import "../shared/mixins";
 @import "../shared/variables";
 
-.actiongroup {
-  top: 26px;
-  position: relative;
-}
-
 #selection_actions {
   display: inline-block;
   float: right;
+  height: 50px;
+  margin-top: 25px;
+  margin-bottom: -25px;
   position: relative;
-  top: 10px;
   
   &>.selection {
     display: inline-block;
@@ -21,7 +18,7 @@
     &>label {
       cursor: pointer;
       font-size: 1.3em;
-      margin-right: 14px;
+      margin-right: 6px;
       
       input[type='checkbox'] {
         cursor: pointer;
@@ -33,17 +30,12 @@
     display: inline-block;
     position: relative;
     bottom: 6px;
+    top: -4px;
+    margin-right: -2px;
     
-    .multibutton, &>.button {
+    .multibutton > .button {
       padding-right: 6px;
       position: relative;
-      top: -3px;
-      
-      .alternatives {
-        .trigger {
-          right: 6px;
-        }
-      }
     }
   }
 }

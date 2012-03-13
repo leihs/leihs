@@ -6,7 +6,6 @@
         
     %li.inventory_code
       %form{:action => "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/hand_over/assign_inventory_code", :method => :post}
-        %input{:type => "text", :placeholder => _("Inventory Code"), :value => "${item.inventory_code}"}
         
     %li.name
       ${model.name}

@@ -23,6 +23,7 @@
 //= require_tree ./lines
 //= require_tree ./availability
 //= require_tree ./add_item
+//= require_tree ./line_group
 
 /////////// Templates /////////////
 //= require_tree ./tmpl

@@ -3,27 +3,27 @@
 #hand_over.innercontent
   .top
     %h1= yield :title
+    %p.subtitle= "#{@user.visits.hand_over.size} hand overs in the next #{(@user.visits.last.lines.as_json.max{|x| x[:end_date]}["end_date"]-Date.today).to_i} days."
 
   .indent      
-    %section.actiongroup
-      #selection_actions
-        .selection
-          %label
-            = radio_button_tag "selection_range", "all"
-            = _("All")
-          %label
-            = radio_button_tag "selection_range", "selection"
-            = _("Auswahl")
-            %span.count= "(0)"
-        .actions
-          = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/hand_over/#{@user.id}/sign_contract", 
-          :class => "button green open_dialog",
-          :"data-rel" => "tmpl/dialog/hand_over/summary",
-          :"data-dialog_class" => "hand_over",
-          :"data-ref_for_dialog" => "$('#hand_overs').tmplItem().data",
-          :id => "hand_over_button" do
-            = _("Hand Over")
-      .clear
+    #selection_actions
+      .selection
+        %label
+          = radio_button_tag "selection_range", "all"
+          = _("All")
+        %label
+          = radio_button_tag "selection_range", "selection"
+          = _("Auswahl")
+          %span.count= "(0)"
+      .actions
+        = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/hand_over/#{@user.id}/sign_contract", 
+        :class => "button green open_dialog",
+        :"data-rel" => "tmpl/dialog/hand_over/summary",
+        :"data-dialog_class" => "hand_over",
+        :"data-ref_for_dialog" => "$('#hand_overs').tmplItem().data",
+        :id => "hand_over_button" do
+          = _("Hand Over")
+    .clear
     
   %hr
   
