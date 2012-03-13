@@ -113,8 +113,6 @@ Leihs::Application.routes.draw do
           post :change_purpose
         end
       end
-      resources :hand_over, :only => :index
-      resources :take_back, :only => :index
       match 'search', :to => 'backend#search'
   
       resources :mails

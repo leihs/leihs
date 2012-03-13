@@ -2,7 +2,7 @@
 
 #acknowledge.innercontent
   .top
-    %h1= _("Order from %s") % @user
+    %h1= yield :title
     %p.subtitle= "#{@order.quantity} Items for max. #{(@order.max_single_range).to_i} days straight"
       
     .content_navigation

@@ -29,10 +29,6 @@ module Backend::BackendHelper
         !!(request.path =~ /acknowledge\/\d+$/)
       when "search"
         current_page?(:controller => "backend", :action => :search)
-      when "hand_over"
-        current_page?(:controller => "backend/hand_over")
-      when "take_back"
-        current_page?(:controller => "backend/take_back")
       when "contracts"
         current_page?(:controller => "backend/contracts")
       when "visits"
