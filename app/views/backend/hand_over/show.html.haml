@@ -1,1 +1,46 @@
-= "HANDOVER"
+-content_for :title, _("Hand Over to %s") % @user
+
+#hand_over.innercontent
+  .top
+    %h1= yield :title
+
+  .indent      
+    %section.actiongroup
+      #selection_actions
+        .selection
+          %label
+            = radio_button_tag "selection_range", "all"
+            = _("All")
+          %label
+            = radio_button_tag "selection_range", "selection"
+            = _("Auswahl")
+            %span.count= "(0)"
+        .actions
+          = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/hand_over/#{@user.id}/sign_contract", 
+          :class => "button green",
+          :id => "hand_over" do
+            = _("Hand Over")
+      .clear
+    
+  %hr
+  
+  %section#hand_overs
+    
+:javascript
+  
+  $(document).ready(function(){
+    HandOver.setup();
+  });
+  
+  var HandOver = new HandOver();
+  
+  function HandOver() {
+    
+    this.setup = function(){
+      this.setupTemplates();    
+    }
+    
+    this.setupTemplates = function () {
+      $('#hand_over #hand_overs').replaceWith($.tmpl("tmpl/hand_overs", #{render(template: "backend/hand_over/show.json.rjson")}));
+    }
+  } 

@@ -7,33 +7,9 @@ class Backend::HandOverController < Backend::BackendController
 
 ######################################################################
 
-  def index
-=begin AFTER HERE IS OLD CODE
-    visits = current_inventory_pool.hand_over_visits
-    
-    unless params[:query].blank?
-      @contracts = Contract.sphinx_unsigned.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
-                                                                     :with => { :inventory_pool_id => current_inventory_pool.id } }
-
-      # OPTIMIZE display only effective visits (i.e. for a given model name, ...)
-      visits = visits.select {|v| v.contract_lines.any? {|l| @contracts.include?(l.contract) } } # OPTIMIZE scope intersection?
-    end
-
-    visits = visits.select {|v| v.user == @user} if @user # OPTIMIZE scope intersection?
-    
-    @visits = visits.paginate :page => params[:page], :per_page => $per_page
-    
-    respond_to do |format|
-      format.html
-      format.js { search_result_rjs(@contracts) }
-    end
-=end
-  end
-
   def show
     #OLD? @missing_fields = @user.authentication_system.missing_required_fields(@user)
     add_visitor(@user)
-
   end
   
   def set_purpose
