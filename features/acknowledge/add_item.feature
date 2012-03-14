@@ -7,12 +7,8 @@ Feature: Add Item during acknowledge process
   Background: Load the personas
     Given personas are loaded
     
-  @javascript @wip
+  @javascript
   Scenario: Adding a model quickly to an order by just typing in the serial_number or inventory_number
-   Given I am "Pius"
-     And I edit an order for acknowledgment
-    When I add an item through the quick add item field
-    Then the item is added to the order 
     
   @javascript
   Scenario: Autocompletion of quick add input
