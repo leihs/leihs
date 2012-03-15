@@ -205,7 +205,8 @@ class Model < ActiveRecord::Base
       s << "CONCAT_WS(' ', models.name, models.manufacturer) LIKE '%#{x}%'"
       s << "model_groups.name LIKE '%#{x}%'"
       s << "properties.value LIKE '%#{x}%'"
-      s << "items.inventory_code LIKE '%#{x}%'"
+      s << "CONCAT_WS(' ', items.inventory_code, items.serial_number, items.invoice_number, items.note, items.name) LIKE '%#{x}%'"
+
       "(%s)" % s.join(' OR ')
     end.join(' AND ')
     sql.where(w)

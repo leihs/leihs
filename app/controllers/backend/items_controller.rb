@@ -18,8 +18,9 @@ class Backend::ItemsController < Backend::BackendController
 
 ######################################################################
 
-  def index
-=begin
+  def index(query = params[:query],
+            page = params[:page])
+=begin    
     # OPTIMIZE 0501 
     params[:sort] ||= 'model_name'
     params[:sort_mode] ||= 'ASC'
@@ -73,45 +74,48 @@ class Backend::ItemsController < Backend::BackendController
       page = params[:page]
       per_page = $per_page
     end
-
-    search_options = { :star => true, :page => page, :per_page => per_page,
-                       :sphinx_select => sphinx_select,
-                       :with => with, #:without => without,
-                       :order => params[:sort], :sort_mode => params[:sort_mode],
-                       :include => { :model => nil,
-                                     :location => :building,
-                                     :parent => :model } }    
+=end
     
     # OPTIMIZE
-    @items = if params[:filter] == "retired"
+    search_sql = if params[:filter] == "retired"
+=begin
+      search_options = { :star => true, :page => page, :per_page => per_page,
+                         :sphinx_select => sphinx_select,
+                         :with => with, #:without => without,
+                         :order => params[:sort], :sort_mode => params[:sort_mode],
+                         :include => { :model => nil,
+                                       :location => :building,
+                                       :parent => :model } }    
       search_options[:per_page] = (2**30)
       #no-sphinx# 
       Item.unscoped { Item.where(:id => Item.search_for_ids(params[:query], search_options)) }.paginate(:per_page => per_page)
+=end
     else
-      #no-sphinx#
-      Item.search(params[:query], search_options)
+      Item.search2(query)
     end
 
     respond_to do |format|
-      format.html
-      format.js { search_result_rjs(@items) }
-      format.auto_complete { render :layout => false }
-      
-      format.csv do
+      format.html {
+        @entries = search_sql.order("items.created_at DESC").paginate(:page => page, :per_page => $per_page)
+        @entries_json = @entries.to_json#(:with => {:lines => {:include => :model}, 
+                                        #           :user => {:methods => [:image_url]}},
+                                        # :methods => :quantity)
+        @pages = @entries.total_pages
+        @total_entries = @entries.total_entries
+      }
+      #old leihs# format.js { search_result_rjs(@items) }
+      #old leihs# format.auto_complete { render :layout => false }
+      format.csv {
+        @items = search_sql
        csv_string = FasterCSV.generate({ :col_sep => ";", :quote_char => "\"", :force_quotes => true }) do |csv|
          csv << Item.csv_header
          @items.each do |i|
            csv << i.to_csv_array unless i.nil? # How could an item ever be nil?
          end
        end
-       
-       send_data csv_string,
-                :type => 'text/csv; charset=utf-8; header=present',
-                :disposition => "attachment; filename=leihs_items.csv"
-      end
-      
+       send_data csv_string, :type => 'text/csv; charset=utf-8; header=present', :disposition => "attachment; filename=leihs_items.csv"
+      }
     end
-=end
   end
 
   def new(id = params[:original_id])

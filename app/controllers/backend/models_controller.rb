@@ -29,18 +29,33 @@ class Backend::ModelsController < Backend::BackendController
             sort_attr = params[:sort_attr] || 'name',
             sort_dir = params[:sort_dir] || 'ASC',
             page = (params[:page] || 1).to_i,
+            per_page = (params[:page] || 10).to_i,
             category_id = params[:category_id].try(:to_i),
             borrower_user = params[:user_id].try{|x| current_inventory_pool.users.find(x)},
             start_date = params[:start_date].try{|x| Date.parse(x)},
             end_date = params[:end_date].try{|x| Date.parse(x)})
 
-    @models = Model.search2(query).
+    models = Model.search2(query).
               filter2(:inventory_pool_id => current_inventory_pool.id).
               order("#{sort_attr} #{sort_dir}").
               paginate(:page => page, :per_page => 10)
-    
+              
+    options = current_inventory_pool.options.search2(query).paginate(:page => page, :per_page => 10)
+              
+    models_and_options = (models + options).sort{|a,b| a.name <=> b.name}.paginate(:page => page, :per_page => 10)
+
     respond_to do |format|
-      format.json 
+      format.html {
+        @entries = models_and_options
+        @entries_json = @entries.map do |entry|
+          h = {type: entry.class.to_s.underscore}
+          h.merge!({ items: query ? entry.items.search2(query) : entry.items }) if entry.respond_to? :items
+          h.merge(entry.attributes)
+        end.to_json
+        @pages = @entries.total_pages
+        @total_entries = @entries.total_entries
+      }
+      #format.json 
     end
   end
 

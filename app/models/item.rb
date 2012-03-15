@@ -99,7 +99,7 @@ class Item < ActiveRecord::Base
 
     w = query.split.map do |x|
       s = []
-      s << "CONCAT_WS(' ', items.name, items.inventory_code, items.serial_number, items.invoice_number, items.note) LIKE '%#{x}%'"
+      s << "CONCAT_WS(' ', items.inventory_code, items.serial_number, items.invoice_number, items.note, items.name) LIKE '%#{x}%'"
       s << "CONCAT_WS(' ', models.name, models.manufacturer) LIKE '%#{x}%'"
       s << "inventory_pools.name LIKE '%#{x}%'"
       "(%s)" % s.join(' OR ')

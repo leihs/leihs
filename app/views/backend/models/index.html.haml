@@ -1,0 +1,44 @@
+-content_for :title, _("List of Models/Items/Options")
+#items.innercontent
+
+  .top
+    %h1= yield :title
+  
+  %section
+    .list
+      %ul.navigation.line
+        %li.search
+          = form_tag("", :method => :get, :autocomplete => :off) do
+            %input{:type => "query", :name => "query", :value => "#{params[:query]}", :"data-start_text" => _("Suchen..."), :class => "clearable"}
+            = image_tag "loading.gif", :class => "loading"
+            -unless params[:query].blank?
+              %strong
+                = _("found %i") % @entries.total_entries
+            = _("in")
+            %strong
+              = @total_entries
+            = _("entries%s") % "."
+          = image_tag "loading.gif", :class => "loading"
+        %li.historical_search
+      - if @entries.blank?
+        %ul.line
+          %li.name
+            %strong
+              = _("No entry found")
+              - unless params[:query].blank?
+                = _("for '%s'") % params[:query]
+  
+  - unless @entries.blank?
+    .pagination_container
+
+:javascript
+  
+  $(document).ready(function(){
+    $('section .list').append($.tmpl("tmpl/line", #{@entries_json}));
+    List.current_page = #{params[:page].blank? ? 0 : params[:page]};
+    List.per_page = #{$per_page};
+    List.total_entries = #{@entries.total_entries};
+    List.next_text = "#{_('Next')}";
+    List.previous_text = "#{_('Previous')}";
+    List.setup();
+  });

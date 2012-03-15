@@ -1,5 +1,7 @@
-%ul.line{:class => "${type}"}
-  
+{{if items != undefined}}
+{{tmpl "tmpl/line/model_block"}}
+{{else}}
+%ul.line{:class => "${type}"}  
   .container
     
     %li.modelname
@@ -56,3 +58,4 @@
       = link_to "", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/models/${id}
         .icon.view_model
         = _("View Model")
+{{/if}}
