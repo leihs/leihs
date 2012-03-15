@@ -1,1 +1,75 @@
-= "TAKEBACK SHOW"
+-content_for :title, _("Take Back from %s") % @user
+
+#take_back.innercontent
+  .top
+    %h1= yield :title
+    %p.subtitle
+      = _("%i take backs" % @visits.size)
+      = _("in the next %i days" % range) if (range = (@visits.last.date - Date.today).to_i) > 0
+
+  .indent      
+    #selection_actions
+      .selection
+        %label
+          = radio_button_tag "selection_range", "all"
+          = _("All")
+        %label
+          = radio_button_tag "selection_range", "selection"
+          = _("Auswahl")
+          %span.count= "(0)"
+      .actions
+        = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/take_back/#{@user.id}/sign_contract", 
+        :class => "button green open_dialog",
+        :"data-rel" => "tmpl/dialog/take_back/summary",
+        :"data-dialog_class" => "take_back",
+        :"data-ref_for_dialog" => "$('#take_backs').tmplItem().data",
+        :id => "take_back_button" do
+          = _("Take Back")
+    .clear
+    
+  %hr
+  
+  #visits
+    
+:javascript
+  
+  $(document).ready(function(){
+    TakeBack.setup();
+    SelectionActions.setup($("#take_backs"));
+    
+    // bind the take back button
+    $("#take_back_button").on("click", function(event){
+      SelectionActions.storeSelectedLines();
+    });
+  });
+  
+  var TakeBack = new TakeBack();
+  
+  function TakeBack() {
+    
+    this.setup = function(){
+      this.setupTemplates();
+      this.setupInventoryCodeInputs(); 
+    }
+    
+    this.setupTemplates = function() {
+      $('#visits').replaceWith($.tmpl("tmpl/visits", #{render(partial: "backend/visits/index.json.rjson", locals: {visits: @visits})}));
+    }
+    
+    this.setupInventoryCodeInputs = function() {
+      $(".item_line .inventory_code form").live("submit", TakeBack.assignInventoryCode);
+    }
+    
+    this.assignInventoryCode = function(event) {
+      var form = $(event.currentTarget);
+      event.preventDefault();
+      $.ajax({
+        url: form.attr("action"),
+        type: form.attr("method"),
+        data: {inventory_code: form.find("input").val()},
+        success: function(response_data){
+          console.log(response_data);
+        }
+      });
+    }
+  } 

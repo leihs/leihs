@@ -2,13 +2,14 @@ class Backend::HandOverController < Backend::BackendController
 
   before_filter do
     @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
-    @contract = @user.get_current_contract(current_inventory_pool) if @user
+    #tmp# @contract = @user.get_current_contract(current_inventory_pool) if @user
   end
 
 ######################################################################
 
   def show
     #OLD? @missing_fields = @user.authentication_system.missing_required_fields(@user)
+    @visits = @user.visits.hand_over.scoped_by_inventory_pool_id(current_inventory_pool)
     add_visitor(@user)
   end
   

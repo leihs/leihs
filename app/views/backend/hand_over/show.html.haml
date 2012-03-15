@@ -3,7 +3,9 @@
 #hand_over.innercontent
   .top
     %h1= yield :title
-    %p.subtitle= "#{@user.visits.hand_over.size} hand overs in the next #{(@user.visits.last.lines.as_json.max{|x| x[:end_date]}["end_date"]-Date.today).to_i} days."
+    %p.subtitle
+      = _("%i hand overs" % @visits.size)
+      = _("in the next %i days" % range) if (range = (@visits.last.date - Date.today).to_i) > 0
 
   .indent      
     #selection_actions
@@ -27,7 +29,7 @@
     
   %hr
   
-  #hand_overs
+  #visits
     
 :javascript
   
@@ -51,7 +53,7 @@
     }
     
     this.setupTemplates = function() {
-      $('#hand_over #hand_overs').replaceWith($.tmpl("tmpl/hand_overs", #{render(partial: "backend/hand_over/show.json.rjson", locals: {contract: @contract})}));
+      $('#visits').replaceWith($.tmpl("tmpl/visits", #{render(partial: "backend/visits/index.json.rjson", locals: {visits: @visits})}));
     }
     
     this.setupInventoryCodeInputs = function() {

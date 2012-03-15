@@ -6,39 +6,9 @@ class Backend::TakeBackController < Backend::BackendController
 
 ######################################################################
 
-=begin
-  def index
-    visits = if params[:remind]
-               current_inventory_pool.take_back_visits(Date.yesterday)
-             else
-               current_inventory_pool.take_back_visits
-             end
-                                              
-    unless params[:query].blank?
-      @contracts = Contract.sphinx_signed.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
-                                                                   :with => { :inventory_pool_id => current_inventory_pool.id } }
-
-      # TODO search by inventory_code
-
-      # OPTIMIZE scope intersection?
-      visits = visits.select {|v| v.contract_lines.any? {|l| @contracts.include?(l.contract) } }
-    end
-
-    visits = visits.select {|v| v.user == @user} if @user # OPTIMIZE scope intersection?
-
-    @visits = visits.paginate :page => params[:page], :per_page => $per_page
-
-    respond_to do |format|
-      format.html
-      format.js { search_result_rjs(@contracts) }
-    end
-  end
-=end
-
   # get current contracts for a given user
   def show
-    @contract_lines = @user.get_signed_contract_lines(current_inventory_pool.id)
-    @contract_lines.sort! {|a,b| [a.end_date, a.model.name] <=> [b.end_date, b.model.name] }
+    @visits = @user.visits.take_back.scoped_by_inventory_pool_id(current_inventory_pool)
     add_visitor(@user)
   end
 

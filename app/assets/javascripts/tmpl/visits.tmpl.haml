@@ -1,0 +1,10 @@
+#visits
+  {{each(i,visit) visits}}
+  %h3
+    ${$item.date = new Date(visit.date.replace(/-/g, "/")), ""}
+    ${formatDate($item.date, i18n.selected.tips.dateFormat)}
+  {{if visit.lines.length>0}}
+  ${$grouped_lines = new GroupedLines(visit.lines), ""}
+  {{tmpl($grouped_lines) "tmpl/linegroup"}}
+  {{/if}}
+  {{/each}}

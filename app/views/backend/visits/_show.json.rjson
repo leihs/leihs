@@ -1,0 +1,10 @@
+{
+  date: visit.date,
+	lines: visit.lines.map do |line|
+	  render :partial => "backend/contracts/#{line.type.underscore}.json.rjson", :locals => {:line => line} 
+	end,
+  user: {
+    id: visit.user.id,
+    name: visit.user.to_s
+  }
+}
