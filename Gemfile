@@ -11,7 +11,7 @@ gem 'haml', '~> 3.1'
 gem 'sass', '~> 3.1'
 gem 'coffee-script', '~> 2.2'
 gem "coffee-filter", "~> 0.1.1"
-gem 'jquery-rails', '~> 1.0'
+gem 'jquery-rails', '~> 2.0'
 gem 'jquery-tmpl-rails', '~> 0.1.2' #:git => "git://github.com/Jaen/jquery-tmpl-rails.git"
 gem 'haml_assets'
 gem "rjson", "~> 0.1.5"
@@ -35,9 +35,7 @@ gem 'geocoder', '~> 1.1'
 #tmp# gem 'squeel', '~> 0.8.4'
 #gem "cairo" # Needed to print SVG barcodes
 # gem "RubyInline", '3.8.2', :require => "inline"
-#tmp# gem 'builder', '~> 3.0' 
-#tmp# gem 'i18n', '~> 0.6.0' # Need this explicitly, otherwise can't deploy
-  #tmp# gem 'png', '~> 1.2.0'
+#tmp# gem 'png', '~> 1.2.0'
 
 group :assets do # Gems used only for assets and not required in production environments by default.
   gem 'sass-rails', '~> 3.2'
@@ -51,7 +49,7 @@ end
 
 group :test, :development do
   gem "growl", "~> 1.0.3"
-  gem "guard", "~> 0.10.0"
+  gem "guard", "~> 1.0.1"
   gem "guard-cucumber", "~> 0.7.4"
   gem "guard-rspec", "~> 0.6.0"
   gem "guard-spork", "~> 0.5.1"
@@ -61,8 +59,8 @@ group :test, :development do
   gem "jasminerice", "~> 0.0.8" # needed for implement coffeescript, fixtures and asset pipeline serverd css into jasmine
   gem "rb-fsevent", "~> 0.4.3.1"
   gem "ruby_gntp", "~> 0.3.4"
-  gem 'factory_girl', "~> 2.1.0"
-  gem 'factory_girl_rails', "~> 1.2"
+  gem 'factory_girl', "~> 2.6"
+  gem 'factory_girl_rails', "~> 1.7"
   gem 'faker'
   gem 'pry'
   gem 'pry-rails'
