@@ -2,9 +2,8 @@
   %td
     -# working here TODO async post
     - check_box_today = @line.start_date <= Date.today ? "contract_line_check_today" : ""
-    - is_valid = @line.valid?
     - is_available = @line.available?
-    - is_checked = (is_valid and is_available)
+    - is_checked = (@line.item_id and @line.valid? and is_available)
     - model = @line.model
 
     = check_box_tag 'contract_lines[]',
