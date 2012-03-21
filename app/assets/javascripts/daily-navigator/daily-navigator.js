@@ -89,7 +89,7 @@ function DailyNavigator() {
       dayNamesShort: i18n.days.trunc,
       dayNamesMin: i18n.days.trunc,
       weekHeader: 'Wo',
-      dateFormat: i18n.date.trunc.replace(/M/g, "m"), //note jquery uses small m for months
+      dateFormat: i18n.date.XS.replace(/M/g, "m"), //note jquery uses small m for months
       firstDay: i18n.days.first,
       isRTL: false,
       showMonthAfterYear: false,
