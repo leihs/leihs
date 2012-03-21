@@ -12,7 +12,7 @@ gem 'sass', '~> 3.1'
 gem 'coffee-script', '~> 2.2'
 gem "coffee-filter", "~> 0.1.1"
 gem 'jquery-rails', '~> 2.0'
-gem 'jquery-tmpl-rails', '~> 0.1.2' #:git => "git://github.com/Jaen/jquery-tmpl-rails.git"
+gem 'jquery-tmpl-rails', '~> 0.1.2'
 gem 'haml_assets'
 gem "rjson", "~> 0.1.5"
 
@@ -57,7 +57,7 @@ group :test, :development do
   gem "jasmine-headless-webkit", "~> 0.8.4" # needed for "headless" running of jasmine tests (needed for CI)
   gem "jasmine-rails", "~> 0.0.2" # javascript test environment
   gem "jasminerice", "~> 0.0.8" # needed for implement coffeescript, fixtures and asset pipeline serverd css into jasmine
-  gem "rb-fsevent", "~> 0.4.3.1"
+  gem "rb-fsevent", "~> 0.9"
   gem "ruby_gntp", "~> 0.3.4"
   gem 'factory_girl', "~> 2.6"
   gem 'factory_girl_rails', "~> 1.7"
@@ -72,7 +72,7 @@ group :test, :development do
   gem 'nokogiri', '~> 1.5.0'
   gem 'capybara', '~> 1.1'
   gem 'simplecov'
-  gem 'launchy', '~> 2.0.5'
+  gem 'launchy', '~> 2.1'
   gem "uuidtools", "~> 2.1.2" # needed for creating unique ids during tests (factories)
 end
 
