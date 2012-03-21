@@ -22,7 +22,7 @@
         :class => "button green open_dialog",
         :"data-rel" => "tmpl/dialog/hand_over/summary",
         :"data-dialog_class" => "hand_over",
-        :"data-ref_for_dialog" => "$('#hand_overs').tmplItem().data",
+        :"data-ref_for_dialog" => "$('#visits').tmplItem().data",
         :id => "hand_over_button" do
           = _("Hand Over")
     .clear
@@ -35,7 +35,7 @@
   
   $(document).ready(function(){
     HandOver.setup();
-    SelectionActions.setup($("#hand_overs"));
+    SelectionActions.setup($("#visits"));
     
     // bind the hand over button
     $("#hand_over_button").on("click", function(event){
@@ -49,27 +49,14 @@
     
     this.setup = function(){
       this.setupTemplates();
-      this.setupInventoryCodeInputs(); 
+      this.setupAssignInventoryCodes();
     }
     
     this.setupTemplates = function() {
       $('#visits').replaceWith($.tmpl("tmpl/visits", #{render(partial: "backend/visits/index.json.rjson", locals: {visits: @visits})}));
     }
     
-    this.setupInventoryCodeInputs = function() {
-      $(".item_line .inventory_code form").live("submit", HandOver.assignInventoryCode);
-    }
-    
-    this.assignInventoryCode = function(event) {
-      var form = $(event.currentTarget);
-      event.preventDefault();
-      $.ajax({
-        url: form.attr("action"),
-        type: form.attr("method"),
-        data: {inventory_code: form.find("input").val()},
-        success: function(response_data){
-          console.log(response_data);
-        }
-      });
+    this.setupAssignInventoryCodes = function() {
+      $(".item_line .inventory_code form").live("submit", ItemLine.assign_inventory_code);
     }
   } 

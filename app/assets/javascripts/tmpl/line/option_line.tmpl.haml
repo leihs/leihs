@@ -5,10 +5,10 @@
         = check_box_tag "selected"
         
     %li.inventory_code
-      ${option.inventory_code}
+      ${model.inventory_code}
       
     %li.quantity
       %input{:type => "text", :value => "${quantity}"}
         
     %li.name
-      ${option.name}
+      ${model.name}
