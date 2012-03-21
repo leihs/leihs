@@ -87,7 +87,23 @@
     }
     
     this.seti18n = function() {
-      $.datepicker.setDefaults(i18n.selected.datepicker);
+      $.datepicker.setDefaults({
+        closeText: i18n.close,
+        prevText: '&lt;',
+        nextText: '&gt;',
+        currentText: i18n.today,
+        monthNames: i18n.months.full,
+        monthNamesShort: i18n.months.trunc,
+        dayNames: i18n.days.full,
+        dayNamesShort: i18n.days.trunc,
+        dayNamesMin: i18n.days.trunc,
+        weekHeader: 'Wo',
+        dateFormat: i18n.date.replace(/M/g, "m"), //note jquery uses small m for months
+        firstDay: i18n.days.first,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ''
+      });
     }
     
     this.setupFromStorage = function() {
@@ -110,7 +126,7 @@
           $(this).removeClass("openendDatepicker");
           
           if(this.id == "start_date") {
-            var date = $.datepicker.parseDate(i18n.selected.datepicker.dateFormat, selectedDate, instance.settings);
+            var date = $.datepicker.parseDate(i18n.local.date.full, selectedDate, instance.settings);
             date = new Date(date.setDate(date.getDate()))
             $('#topfilter .availability #end_date').datepicker( "option", "minDate", date );
           }
@@ -126,15 +142,15 @@
     }
     
     this.updateStorage = function() {
-      sessionStorage.start_date = JSON.stringify(formatDate($.datepicker.parseDate(i18n.selected.datepicker.dateFormat, $('#topfilter .availability #start_date').val()), "yyyy-MM-dd"));
-      sessionStorage.end_date = JSON.stringify(formatDate($.datepicker.parseDate(i18n.selected.datepicker.dateFormat, $('#topfilter .availability #end_date').val()), "yyyy-MM-dd"));
+      sessionStorage.start_date = JSON.stringify(formatDate($.datepicker.parseDate(i18n.local.date.full, $('#topfilter .availability #start_date').val()), "yyyy-MM-dd"));
+      sessionStorage.end_date = JSON.stringify(formatDate($.datepicker.parseDate(i18n.local.date.full, $('#topfilter .availability #end_date').val()), "yyyy-MM-dd"));
       sessionStorage.available_only = JSON.stringify($("#available-only").attr("checked"));
     }
     
     this.formatDates = function() {
       $('#topfilter .availability .date').each(function(){
         var date = new Date($(this).val().replace(/-/g, "/")); // SAFARI Workarround for the Date.parse problem
-        $(this).val($.datepicker.formatDate(i18n.selected.datepicker.dateFormat, date));
+        $(this).val($.datepicker.formatDate(i18n.local.date.full, date));
       });
     }
     

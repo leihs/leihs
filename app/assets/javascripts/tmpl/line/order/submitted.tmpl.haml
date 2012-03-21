@@ -5,7 +5,7 @@
     {{tmpl($item.data) "tmpl/cell/items"}}
     
     %li.date
-      {{html formatDate(new Date(created_at.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+      {{html moment(created_at.replace(/T.*$/g, "")).format(i18n.date.L) }}
     
     %li.range
       {{if lines.length}}    

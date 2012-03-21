@@ -1,10 +1,16 @@
+require 'persona'
+
 class SessionsController < ApplicationController
 
   AUTHENTICATION_URL = 'http://localhost:3000/backend/temporary/login'
 
   # render new.rhtml
   def new
-    redirect_to :action => 'authenticate'
+    if Rails.env.development? and params["bypass"] and params["login"] and User.find_by_login(params[:login])
+      create
+    else
+      redirect_to :action => 'authenticate'
+    end
   end
 
   # TODO 05** temporary

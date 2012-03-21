@@ -4,6 +4,7 @@
 .list .line {
   border-bottom: 1px solid $borderlightergrey;
   border-top: 1px solid white;
+  cursor: default;
   display: table;
   height: 40px;
   position: relative;
@@ -93,14 +94,6 @@
         @include opacity(1.0);
       }
     }
-  }
-  
-  span.grey {
-    color: $grey;
-  }
-  
-  span.red {
-    color: $red;
   }
   
   span.digits {

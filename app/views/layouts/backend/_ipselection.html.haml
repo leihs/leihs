@@ -3,7 +3,8 @@
     = link_to "javascript: void(0)", :class => "anchor", :title => current_inventory_pool.name do
       .leftend
       = truncate(current_inventory_pool.name, :length => 28)
-      .icon
+      -unless current_managed_inventory_pools.size
+        .icon 
       
     .popup
       .inner

@@ -4,9 +4,10 @@ ${$item.days = Math.round(($item.end_date-$item.start_date) / (1000 * 60 * 60 * 
 
 .topline
   .date
-    {{html formatDate($item.start_date, i18n.selected.tips.dateFormat)}}
+    {{html moment($item.start_date).format(i18n.date.L)}}
+    
     = "-"
-    {{html formatDate($item.end_date, i18n.selected.tips.dateFormat)}}
+    {{html moment($item.end_date).format(i18n.date.L)}}
   .range
     ${Math.round(($item.end_date - $item.start_date) / (1000 * 60 * 60 * 24)+1)}
     = _("Days")

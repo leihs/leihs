@@ -65,7 +65,7 @@
       :"data-ref_for_dialog" => "$('#order').tmplItem().data",
       :"data-dialog_class" => "add_item" do
         .icon.additem
-        = _("Add Item")
+        = _("Add")
         
     #selection_actions
       .selection
@@ -179,13 +179,29 @@
     }
     
     this.setupDatepicker = function () {
-      $.datepicker.setDefaults(i18n.selected.datepicker_backend);
+      $.datepicker.setDefaults({
+        closeText: i18n.close,
+        prevText: '&lt;',
+        nextText: '&gt;',
+        currentText: i18n.today,
+        monthNames: i18n.months.full,
+        monthNamesShort: i18n.months.trunc,
+        dayNames: i18n.days.full,
+        dayNamesShort: i18n.days.trunc,
+        dayNamesMin: i18n.days.trunc,
+        weekHeader: 'Wo',
+        dateFormat: i18n.date.replace(/M/g, "m"), //note jquery uses small m for months
+        firstDay: i18n.days.first,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ''
+      });
       
       $('#add_item .dates input').each(function(){
         // format date
         if(! $(this).val().match(/\./)) {
           var date = new Date($(this).val().replace(/-/g, "/"));
-          $(this).val($.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, date));
+          $(this).val($.datepicker.formatDate(i18n.date.full, date));
         }
         
         // setup datepicker

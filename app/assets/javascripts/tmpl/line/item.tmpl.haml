@@ -15,7 +15,7 @@
         = _("no serial number")
       {{/if}}
     
-    %li.item_status{:title => "{{if current_borrower}} #{_("%s returns the item on %s") % ["${current_borrower.firstname} ${current_borrower.lastname}", '{{html formatDate(new Date(current_return_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}'] } {{/if}}"}
+    %li.item_status{:title => "{{if current_borrower}} #{_("%s returns the item on %s") % ["${current_borrower.firstname} ${current_borrower.lastname}", '{{html formatDate(new Date(current_return_date.replace(/-/g, "/")), i18n.date.L)}}'] } {{/if}}"}
       {{if $item.data["in_stock?"]}}
       = _("In Stock")
       {{else}}
@@ -24,7 +24,7 @@
       ${current_borrower.lastname}
       {{/if}}
       {{if current_return_date}}
-      ({{html formatDate(new Date(current_return_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}})
+      ({{html formatDate(new Date(current_return_date.replace(/-/g, "/")), i18n.date.L)}})
       {{/if}}
       {{/if}}
       

@@ -1,0 +1,94 @@
+#my_timeline table tr {
+	background: none;
+	border: none;
+}
+#my_timeline table tr td {
+	vertical-align: top;
+	padding-top: 30px;
+	padding-left: 0.2em;
+	font-size: 0.6em;
+	color: #555555;
+}
+#my_timeline .timeline-date-label {
+	color: #111111;
+	padding-left: 0.5em;
+}
+#my_timeline .timeline-band-0 .timeline-ether-bg {
+	background-color: #e9ef6f;
+}
+#my_timeline .timeline-ether-highlight {
+	background-color: #98d9e7;
+}
+#my_timeline .timeline-event-label {
+	padding-left: 0.4em;
+	font-size: 0.9em;
+}
+.tape-unavailable {
+	background-color: #90c1c8;
+	border: 1px solid red;
+}
+
+.tape-no-assigned-item {
+	background-color: #90c1c8;
+}
+
+.tape-is-late {
+	background-color: red;
+}
+
+.tape-is-returned {
+	background-color: #e1e157;
+}
+
+.tape-is-reserved {
+	background-color: chocolate;
+}
+
+.tape-without-conflict {
+	background-color: #e3aa01;
+}
+
+div.timeline-legend {
+	margin-top: 2px;
+	border: 1px solid rgb(170, 170, 170);
+}
+
+table.timeline-legend {
+	width="100%"
+	margin-top:   2px;
+	border: 1px solid rgb(170, 170, 170);
+}
+
+table.timeline-legend td {
+	padding: 2px 0 2px 0;
+}
+.timeline-legend .title {
+	font-weight: bold;
+	vertical-align: top;
+	padding-left: 0.5em;
+	padding-right: 1em;
+}
+
+.timeline-legend .kinds div {
+	height:  15px;
+	display: inline-block;
+	margin-right: 1px;
+	margin-bottom: 1px;
+	padding: 1px 2px 2px 2px;
+	padding-right: 2px;
+	overflow: visible;
+	white-space: nowrap;
+}
+
+/* we render the event times ourselves. The reason why we do
+ * this is, that we set the end date of overdue events to
+ * "ETERNITY"
+ * TODO: do not render the 'timeline-event-bubble-time' in the
+ *       first place */
+.timeline-event-bubble-time {
+	display: none;
+}
+
+.timeline-highlight-label.timeline-highlight-label-start td {
+	text-align: right;
+}

@@ -10,6 +10,7 @@ html {
 
 body {
   background: #f4f2ed url($background) repeat-x top center;
+  min-width: 990px;
 }
 
 a, a:link, a:visited {
@@ -120,4 +121,9 @@ label[disabled=disabled] {
 
 header {
   padding-top: 18px !important;
+}
+
+span {
+  &.grey {color: $grey;}
+  &.red {color: $red;}
 }

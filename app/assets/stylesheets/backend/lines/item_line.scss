@@ -13,4 +13,14 @@
       background: $highlight-darkgreen !important;	
     }
   }
+  
+  .inventory_code {
+    
+    input {
+      font-size: 1.0em;
+      color: $lightgrey;
+      text-align: center;
+      width: 95px;
+    }
+  }
 }

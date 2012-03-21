@@ -29,11 +29,11 @@
   ${$enddate = line.end_date, ""}
   .topline
     .date
-      {{html formatDate(new Date(line.start_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+      {{html moment(start_date).format(i18n.date.L)}}
       = "-"
-      {{html formatDate(new Date(line.end_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+      {{html moment(end_date).format(i18n.date.L)}}
     .range
-      ${Math.round((new Date(line.end_date.replace(/-/g, "/")) - new Date(line.start_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
+      ${moment(end_date).diff(start_date, "days")}
       = _("Days")
   .clear
   .list

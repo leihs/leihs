@@ -1,0 +1,20 @@
+#visits {
+  
+  .visit_day {
+    font-size: 1.35em;
+    font-weight: normal;
+    margin-left: 13px;
+  }
+  
+  hr:nth-last-child(1) {
+    display: none;
+  }
+  
+  .overdue {
+    float: right;
+    font-size: 0.9em;
+    font-weight: bold;
+    padding-top: 3px;
+    margin-right: 13px;
+  }
+}

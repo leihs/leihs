@@ -11,9 +11,10 @@ ${$grouped_lines = new GroupedLines(lines), ""}
     %hr
     {{/if}}
     .date
-      {{html formatDate(new Date(linegroup.start_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+      {{html moment(start_date).format(i18n.date.L)}}
+      
       = "-"
-      {{html formatDate(new Date(linegroup.end_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+      {{html moment(end_date).format(i18n.date.L)}}
     .range
       ${Math.round((new Date(linegroup.end_date.replace(/-/g, "/")) - new Date(linegroup.start_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
       = _("Days")

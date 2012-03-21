@@ -103,10 +103,10 @@ class Backend::HandOverController < Backend::BackendController
 
   # given an inventory_code, searches for a matching contract_line
   # and if not found, adds an option
-  def assign_inventory_code
-    params[:code] = params[:inventory_code] # TODO define the signature
+  def assign_inventory_code (inventory_code = params[:inventory_code])
+    binding.pry
     
-    item = current_inventory_pool.items.where(:inventory_code => params[:code]).first
+    item = current_inventory_pool.items.where(:inventory_code => inventory_code).first
     
     unless item.nil?
       if @contract.items.include?(item)
@@ -124,7 +124,7 @@ class Backend::HandOverController < Backend::BackendController
           @prevent_redirect = true
           params[:model_id] = item.model.id
           add_line
-          params[:code] = item.inventory_code
+          inventory_code = item.inventory_code
           assign_inventory_code
           flash[:notice] = _("New item added to contract.")
           @contract_line = @contract.contract_lines.first
@@ -134,7 +134,7 @@ class Backend::HandOverController < Backend::BackendController
     else 
       # Inventory Code is not an item - might be an option...
       # Increment quantity if the option is already present
-      option = current_inventory_pool.options.where(:inventory_code => params[:code]).first
+      option = current_inventory_pool.options.where(:inventory_code => inventory_code).first
       if option
         conditions = {:option_id => option, :start_date => params[:start_date], :end_date => params[:end_date]}
         @option_line = @contract.option_lines.where(conditions).first
@@ -146,7 +146,7 @@ class Backend::HandOverController < Backend::BackendController
                                                                           
         flash[:notice] = _("Option %s added.") % option.name
       else
-        flash[:error] = _("The Inventory Code %s was not found.") % params[:code]
+        flash[:error] = _("The Inventory Code %s was not found.") % params[:inventory_code]
       end   
     end
     

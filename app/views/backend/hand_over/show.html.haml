@@ -31,32 +31,34 @@
   
   #visits
     
-:javascript
+:coffeescript    
+    
+  jQuery ->
+    HandOver.setup()
+    SelectionActions.setup $("#visits")
   
-  $(document).ready(function(){
-    HandOver.setup();
-    SelectionActions.setup($("#visits"));
-    
-    // bind the hand over button
-    $("#hand_over_button").on("click", function(event){
-      SelectionActions.storeSelectedLines();
-    });
-  });
+  class HandOver
   
-  var HandOver = new HandOver();
+    @setup = ()->
+      @setup_templates()
+      @setup_assign_inventory_code()
+      @setup_hand_over_button()
+    
+    @setup_templates = ()->
+      $('#visits').replaceWith($.tmpl("tmpl/visits", #{render(partial: "backend/visits/index.json.rjson", locals: {visits: @visits})}))
+      
+    @setup_hand_over_button = ()->
+      
+    @setup_assign_inventory_code = ()->
+      $(".item_line .inventory_code form").live "submit", HandOver.assign_inventory_code
+    
+    @setup_hand_over_button = ()->
+      $("#hand_over_button").on "click", ()->
+        SelectionActions.storeSelectedLines()
+    
+    @assing_inventory_code = (event)->
+      event.preventDefault()
+      console.log "ASSIGN"
   
-  function HandOver() {
-    
-    this.setup = function(){
-      this.setupTemplates();
-      this.setupAssignInventoryCodes();
-    }
-    
-    this.setupTemplates = function() {
-      $('#visits').replaceWith($.tmpl("tmpl/visits", #{render(partial: "backend/visits/index.json.rjson", locals: {visits: @visits})}));
-    }
-    
-    this.setupAssignInventoryCodes = function() {
-      $(".item_line .inventory_code form").live("submit", ItemLine.assign_inventory_code);
-    }
-  } 
+  window.HandOver = HandOver
+  

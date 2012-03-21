@@ -56,11 +56,11 @@ class AddItem
     $(".ui-dialog.add_item .models.list").removeClass("invisible").addClass("visible")
     
   @updateTimerange: (start_date, end_date)->
-    if($("#add_item #add_start_date").val() != $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, start_date))
-      $("#add_item #add_start_date").val($.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, start_date)).change()
+    if($("#add_item #add_start_date").val() != moment(start_date).format(i18n.date.L))
+      $("#add_item #add_start_date").val(moment(start_date).format(i18n.date.L)).change()
     
-    if($("#add_item #add_end_date").val() != $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, end_date))
-      $("#add_item #add_end_date").val($.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, end_date)).change();
-      $("#add_item #add_end_date").datepicker('setDate', $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, end_date));
+    if($("#add_item #add_end_date").val() != moment(end_date).format(i18n.date.L))
+      $("#add_item #add_end_date").val(moment(end_date).format(i18n.date.L)).change();
+      $("#add_item #add_end_date").datepicker('setDate', moment(end_date).format(i18n.date.L));
    
 window.AddItem = AddItem

@@ -29,8 +29,8 @@ function LineGroup() {
   
   this.highlightSelected = function(target_start_date, target_end_date) {
     $(".linegroup").each(function(){
-      var start_date = $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, new Date($(this).tmplItem().data.start_date));
-      var end_date = $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, new Date($(this).tmplItem().data.end_date));
+      var start_date = $.datepicker.formatDate(i18n.date.L, new Date($(this).tmplItem().data.start_date));
+      var end_date = $.datepicker.formatDate(i18n.date.L, new Date($(this).tmplItem().data.end_date));
       if(start_date == target_start_date && end_date == target_end_date) {
         $(this).addClass("selected");
       } else {

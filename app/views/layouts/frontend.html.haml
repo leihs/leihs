@@ -9,7 +9,7 @@
     = javascript_include_tag "frontend"    
     = favicon_link_tag "frontend/favicon.ico", :type => "image/x-icon"
     = csrf_meta_tag
-    = javascript_tag "i18n.selected = i18n.locales['#{current_user.language.locale_name.dasherize}']";
+    = javascript_tag "i18n = i18n.locals['#{current_user.language.locale_name.dasherize}']";
     = yield :head
 
   %body
@@ -18,7 +18,3 @@
     %section#main.wrapper
       = yield
       .clear
-      
-    -#FIXME This is for feedback and click map ... remove in production
-    = javascript_include_tag "http://sdscdn.userreport.com/popup.min.js"
-    = javascript_tag 'try { _bvt.initSite("4febdfd0-2d9c-42dc-a4ec-6e79d164e00c"); } catch(err) {}' 

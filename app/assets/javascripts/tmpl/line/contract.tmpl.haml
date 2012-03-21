@@ -8,7 +8,7 @@
       ${id}
       
     %li.date
-      {{html formatDate(new Date(created_at.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+      {{html formatDate(new Date(created_at.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.date.L)}}
   
     {{tmpl($item.data) "tmpl/cell/items"}}
   
@@ -23,7 +23,7 @@
       = _("Closed")
       {{/if}}
       %span.grey
-        ({{html formatDate(new Date(updated_at.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.selected.tips.dateFormat)}})
+        ({{html formatDate(new Date(updated_at.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.date.L)}})
       
   %li.actions
     {{if status_const == 2}}

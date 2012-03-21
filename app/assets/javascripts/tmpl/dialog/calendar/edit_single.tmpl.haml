@@ -8,9 +8,9 @@
       ${order.user.firstname}
       ${order.user.lastname}
     %span.date
-      ({{html formatDate(new Date(start_date.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+      ({{html moment(start_date).format(i18n.date.L)}}
       = "-"
-      {{html formatDate(new Date(end_date.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.selected.tips.dateFormat)}})
+      {{html moment(end_date).format(i18n.date.L)}})
   .navigation
     %a.button.red.close_dialog
       = _("Cancel")
