@@ -1,7 +1,7 @@
 = form_tag '', :remote => true do
 
   %h1
-    = _("Hand Over to")
+    = _("Take Back from")
     ${visits[0].user.name}
   %p.subtitle= "X Items"
   
@@ -10,6 +10,6 @@
       .icon.return
       = _("Back")
     %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}'}
-      = _("Hand Over")
+      = _("Take Back")
    
   {{tmpl(visits) "tmpl/cell/dialog_lines"}}

@@ -7,7 +7,7 @@
 
   is_valid: line.valid?,  
   
-  option: line.option, #TODO
+  model: line.option, # this is an alias for option
   user: {
     id: line.contract.user_id
   }
