@@ -32,6 +32,7 @@ gem 'prawnto', '~> 0.1'
 gem 'nested_set', '~> 1.7'
 gem 'acts-as-dag', :git => "git://github.com/jrust/acts-as-dag.git" #tmp# '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
 gem 'geocoder', '~> 1.1'
+gem "underscore-rails", "~> 1.3.1"
 #tmp# gem 'squeel', '~> 0.8.4'
 #gem "cairo" # Needed to print SVG barcodes
 # gem "RubyInline", '3.8.2', :require => "inline"
