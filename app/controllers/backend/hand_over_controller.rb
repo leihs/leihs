@@ -104,7 +104,6 @@ class Backend::HandOverController < Backend::BackendController
   # given an inventory_code, searches for a matching contract_line
   # and if not found, adds an option
   def assign_inventory_code (inventory_code = params[:inventory_code])
-    binding.pry
     
     item = current_inventory_pool.items.where(:inventory_code => inventory_code).first
     

@@ -1,7 +1,7 @@
 ${$start_date = new MinDate(lines), ""}
 ${$end_date = new MaxDate(lines), ""}
 ${merged_lines_availabilities = new MultipleMergedLinesAvailabilities(selected_lines), ""}
-= form_tag '${$item.action}', :remote => true do
+= form_tag '${$item.action}', :remote => true, :"data-submit_button" => true do
   %h1
     = _("Edit multiple selected items")
   %p.subtitle

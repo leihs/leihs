@@ -9,6 +9,10 @@ i18n.locals['en-US'] =
     XXL: "DD.MM.YYYY LT"
     XXXL: "dddd DD.MM.YYYY LT"  
     XS: 'DD.MM.YY'
+    
+  # jQuery Datepicker has different convetions for formating dates
+  datepicker:
+    L: "dd.mm.yy"
   
   today: "Heute"
   month: "Monat"

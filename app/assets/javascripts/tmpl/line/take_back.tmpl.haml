@@ -5,7 +5,7 @@
     {{tmpl($item.data) "tmpl/cell/items"}}
     
     %li.date
-      {{html formatDate(new Date(date.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.date.L)}}
+      ${moment(date).format(i18n.date.L)}
     
     %li.range
       {{if is_overdue}}
@@ -42,7 +42,7 @@
         = "{{if ($item.latest_remind.getHours()+'').length == 1}}0{{/if}}${$item.latest_remind.getHours()}:{{if ($item.latest_remind.getMinutes()+'').length == 1}}0{{/if}}${$item.latest_remind.getMinutes()}"
         {{else}}
         %strong
-          {{html formatDate(new Date(latest_remind.replace(/-/g, "/")), i18n.date.L)}}
+          ${moment(latest_remind).format(i18n.date.L)}
         {{/if}}
         {{/if}}
       %span{:class => "grey{{if latest_remind}} invisible{{else}} visible{{/if}}"}
@@ -50,7 +50,7 @@
     {{else}}
     
     %li.note
-      {{html formatDate($min_date, i18n.date.L)}}
+      ${moment($min_date).format(i18n.date.L)}
     {{/if}}
    
   %li.actions

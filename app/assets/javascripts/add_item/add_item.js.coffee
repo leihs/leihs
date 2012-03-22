@@ -13,20 +13,20 @@ class AddItem
   
   @setup: ->
     @setup_click()
-    @setup_line_group_highlighting()
+    @setup_date_change()
     
   @setup_click: ()->
     $("#add_item_button").on "click", (event)->
       quick_add = $(this).closest("#add_item").find("#quick_add")
       if quick_add.length > 0 and quick_add.val() != ""
-        stop
         console.log "ADD ITEM WITH VALUE:"+quick_add.val()
       else
         AddItem.open_dialog $(this)
         
-  @setup_line_group_highlighting: ()->
+  @setup_date_change: ()->
     $("#add_item .date").on "change", (event)->
-      LineGroup.highlightSelected $("#add_item #add_start_date").val(), $("#add_item #add_end_date").val()
+      $(this).data "date", moment($(this).val(),i18n.date.L) 
+      LineGroup.highlightSelected $("#add_item #add_start_date").data("date"), $("#add_item #add_end_date").data("date")
       
   @open_dialog: (trigger)->
     data = eval trigger.data("ref_for_dialog")

@@ -5,12 +5,12 @@
     {{tmpl($item.data) "tmpl/cell/items"}}
           
     %li.date
-      {{html formatDate(new Date(created_at.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.date.L)}}
+      ${moment(created_at).format(i18n.date.L)}
     
     %li.status
       %span.red
         = _("Rejected")
-        ({{html formatDate(new Date(updated_at.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.date.L)}})
+        ${moment(updated_at).format(i18n.date.L)}
         
   %li.actions
     = link_to "", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/order/${id}

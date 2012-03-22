@@ -18,7 +18,7 @@ function SelectionActions() {
     this.setupMainSelection();
     this.setupGroupSelections();
     this.setupLineSelections();
-    LineGroup.highlightSelected($("#add_item #add_start_date").val(), $("#add_item #add_end_date").val());
+    LineGroup.highlightSelected($("#add_item #add_start_date").data("date"), $("#add_item #add_end_date").data("date"));
   }
   
   this.deselectRadioButtons = function() {

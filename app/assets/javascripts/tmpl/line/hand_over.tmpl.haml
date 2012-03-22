@@ -5,7 +5,7 @@
     {{tmpl($item.data) "tmpl/cell/items"}}
     
     %li.date
-      {{html formatDate(new Date(date.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.date.L)}}
+      ${moment(date).format(i18n.date.L)}
     
     %li{:class => "range"}
       {{if is_overdue}}

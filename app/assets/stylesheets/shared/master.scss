@@ -101,6 +101,10 @@ label[disabled=disabled] {
   @include opacity(0.7);
 }
 
+label {
+  cursor: pointer;
+}
+
 .floatright {
   float: right;
 }

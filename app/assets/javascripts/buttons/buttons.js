@@ -94,14 +94,15 @@ function Buttons() {
       .live("ajax:beforeSend", Buttons.ajaxBeforeSend)
       .live("ajax:success", Buttons.ajaxSuccess)
       .live("ajax:error", Buttons.ajaxError); 
-      
-     $("form[data-remote='true']")
+     
+     $("form[data-remote='true'][data-submit_button]")
       .live("ajax:beforeSend", Buttons.ajaxBeforeSendForm)
       .live("ajax:success", Buttons.ajaxSuccessForm)
       .live("ajax:error", Buttons.ajaxErrorForm);
   }
   
   this.ajaxBeforeSend = function(event, request, settings) {
+    console.log($(this));
     Buttons.disable($(event.currentTarget));
     Buttons.addLoading($(event.currentTarget));
   }

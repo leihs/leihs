@@ -43,13 +43,13 @@
     %section#add_item 
       .dates
         .container
-          %input.date.start{:type => "text", :name => "add_start_date", :id => "add_start_date", :value => (@order.min_date).blank? ? Date.today : @order.min_date , :title => _("Start Date")}
+          %input.date.start{:type => "text", :name => "add_start_date", :id => "add_start_date", :"data-date" => (@order.min_date).blank? ? Date.today : @order.min_date , :title => _("Start Date")}
           %label{:for => "add_start_date"}
             = _("Start Date")
           %label.datepicker.icon{:for => "add_start_date", :title => _("Open Datepicker")}
         = "-"
         .container
-          %input.date.end{:type => "text", :name => "add_end_date", :id => "add_end_date", :value => (@order.max_date).blank? ? Date.today : @order.max_date, :title => _("End Date")}
+          %input.date.end{:type => "text", :name => "add_end_date", :id => "add_end_date", :"data-date" => (@order.max_date).blank? ? Date.today : @order.max_date, :title => _("End Date")}
           %label{:for => "add_end_date"}
             = _("End Date")
           %label.datepicker.icon{:for => "add_end_date", :title => _("Open Datepicker")}  
@@ -127,7 +127,7 @@
   
     this.setup = function () {
       this.setupPurpose();
-      this.setupDatepicker();    
+      this.setupDatepicker();
       this.setupTemplates();
       AcknowledgeOrder.checkApproveOrderAvailability();
     }
@@ -190,7 +190,7 @@
         dayNamesShort: i18n.days.trunc,
         dayNamesMin: i18n.days.trunc,
         weekHeader: 'Wo',
-        dateFormat: i18n.date.replace(/M/g, "m"), //note jquery uses small m for months
+        dateFormat: i18n.datepicker.L,
         firstDay: i18n.days.first,
         isRTL: false,
         showMonthAfterYear: false,
@@ -199,10 +199,8 @@
       
       $('#add_item .dates input').each(function(){
         // format date
-        if(! $(this).val().match(/\./)) {
-          var date = new Date($(this).val().replace(/-/g, "/"));
-          $(this).val($.datepicker.formatDate(i18n.date.full, date));
-        }
+        var date = moment($(this).data("date"));
+        $(this).val(moment(date).format(i18n.date.L));
         
         // setup datepicker
         $(this).datepicker({

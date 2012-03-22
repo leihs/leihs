@@ -1,7 +1,7 @@
 i18n.locals['gsw-CH'] =
 
   to_s: "gsw-CH"
-
+  
   # MOMENT.JS is our standard date parser
   date:
     L: "DD.MM.YYYY" 
@@ -9,6 +9,10 @@ i18n.locals['gsw-CH'] =
     XXL: "DD.MM.YYYY LT"
     XXXL: "dddd DD.MM.YYYY LT"  
     XS: 'DD.MM.YY'
+    
+  # jQuery Datepicker has different convetions for formating dates
+  datepicker:
+    L: "dd.mm.yy"
   
   today: "Heute"
   month: "Monat"
