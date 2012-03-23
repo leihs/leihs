@@ -2,7 +2,8 @@ class Mailer::User < ActionMailer::Base
 
 
   def choose_language_for(user)
-    set_locale(user.language.locale_name)
+    language = user.language.try(:locale_name) || Language.default_language
+    set_locale(language) 
   end
 
   def remind(user, visits, sent_at = Time.now)
