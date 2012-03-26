@@ -21,7 +21,8 @@ module Persona
         select_inventory_pool 
         create_user
         create_orders
-        create_contracts
+        create_unsigned_contracts
+        create_signed_contracts
       end
     end
     
@@ -43,14 +44,19 @@ module Persona
     
     def create_orders
       @camera_model = Model.find_by_name "Kamera Nikon X12"
-      @order_for_camera = FactoryGirl.create(:order, :user => @user, :inventory_pool => @inventory_pool, :status_const => 2)
+      @order_for_camera = FactoryGirl.create(:order, :user => @user, :inventory_pool => @inventory_pool, :status_const => Order::SUBMITTED)
       @order_line_camera = FactoryGirl.create(:order_line, :inventory_pool => @inventory_pool, :model => @camera_model, :order => @order_for_camera, :start_date => Date.today, :end_date => Date.tomorrow)
     end
     
-    def create_contracts
+    def create_unsigned_contracts
       @tripod_model = Model.find_by_name "Kamera Stativ"
-      @contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool)
-      @contract_line = FactoryGirl.create(:contract_line, :contract => @contract, :model_id => @tripod_model.id)
+      @unsigned_contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool)
+      @contract_line = FactoryGirl.create(:contract_line, :contract => @unsigned_contract, :model_id => @tripod_model.id)
+    end
+    
+    def create_signed_contracts
+      @signed_contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status_const => Contract::SIGNED)
+      @contract_line = FactoryGirl.create(:contract_line, :contract => @signed_contract, :item_id => @inventory_pool.items.select{|x| x.model ==  @camera_model}.first.id, :model_id => @camera_model.id, :start_date => Date.yesterday, :end_date => Date.today)
     end
   end  
 end
