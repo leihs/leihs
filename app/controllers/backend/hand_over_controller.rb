@@ -2,7 +2,7 @@ class Backend::HandOverController < Backend::BackendController
 
   before_filter do
     @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
-    #tmp# @contract = @user.get_current_contract(current_inventory_pool) if @user
+    @contract = @user.get_current_contract(current_inventory_pool) if @user
   end
 
 ######################################################################
@@ -29,10 +29,19 @@ class Backend::HandOverController < Backend::BackendController
   end
   
   # Sign definitely the contract
-  def sign_contract
-    @lines = @contract.contract_lines.find(params[:lines].split(',')) if params[:lines]
-    @lines ||= []
-    params[:layout] = "modal"
+  def sign_contract(line_ids = params[:line_ids] || raise("line_ids is required"),
+                    note = params[:note])
+    lines = @contract.contract_lines.find(line_ids)
+
+    @contract.note = note
+    @contract.sign(lines, current_user)
+
+    respond_to do |format|
+      format.json { render :partial => "backend/contracts/show.json.rjson", :locals => {contract: @contract}  }
+    end
+
+    
+=begin
     if request.post?
       @contract.note = params[:note]
       @contract.sign(@lines, current_user)
@@ -58,6 +67,7 @@ class Backend::HandOverController < Backend::BackendController
         end
       end
     end    
+=end
   end
 
   # change quantity: duplicating item_line or (TODO) changing quantity for option_line
@@ -103,10 +113,59 @@ class Backend::HandOverController < Backend::BackendController
 
   # given an inventory_code, searches for a matching contract_line
   # and if not found, adds an option
-  def assign_inventory_code (inventory_code = params[:inventory_code])
-    
+  def assign_inventory_code (inventory_code = params[:inventory_code] || raise("inventory_code is required"),
+                             line_id = params[:line_id])
+
     item = current_inventory_pool.items.where(:inventory_code => inventory_code).first
+
+    if item and line_id and (line = @contract.lines.where(:model_id => item.model_id, :id => line_id))
+      line.update_attributes(item: item)
+    elsif line_id and (line = @contract.lines.find(line_id))
+      # The Inventory Code was not found.
+      line.errors.add(:inventory_code, _("%s was not found") % inventory_code)
+      line.update_attributes(item_id: nil)
+    else
+      # pending
+    end
     
+    respond_to do |format|
+      format.json { render :partial => "backend/contracts/#{line.type.underscore}.json.rjson", :locals => {:line => line}}
+    end 
+    
+=begin NOTE TRYOUT TMP COMMENTED OUT
+ 
+  items = current_inventory_pool.items.where(:inventory_code => inventory_code)
+    
+    if line_id
+      lines = @contract.lines.where(id: line_id)
+      #if lines.empty
+      
+      if (item = items.in_stock.first)
+        if (line = lines.where(:model_id => item.model_id).first)
+          line.update_attributes(item: item)
+        else
+          # the item is in stock, but doesn't matcht a contracts's line's model
+        end
+      elsif (item = items.not_in_stock.first)
+        line = lines.first 
+        line.errors.add(:base, _("The item is already handed over or assigned to a different contract line"))
+        line.update_attributes(item_id: nil)
+      else
+        if (line = lines.first) 
+          line.errors.add(:base, _("The inventory code %s was not found") % inventory_code)
+          line.update_attributes(item_id: nil)
+        else
+          # pending
+        end
+      end
+      
+    else
+    
+    end
+ 
+=end
+      
+=begin OLD CODE
     unless item.nil?
       if @contract.items.include?(item)
           flash[:error] = _("The item is already in the current contract.")
@@ -149,7 +208,10 @@ class Backend::HandOverController < Backend::BackendController
       end   
     end
     
-    render :action => 'change_line' unless @prevent_redirect # TODO 29**
+    #render :action => 'change_line' unless @prevent_redirect # TODO 29**
+     
+=end
+   
   end
 
   def add_option(start_date = params[:start_date], end_date = params[:end_date])
