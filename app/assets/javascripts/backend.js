@@ -9,8 +9,8 @@
 //= require daily-navigator/daily-navigator
 //= require_tree ./lines
 //= require_tree ./availability
-//= require_tree ./add_item
-//= require_tree ./line_group
+//= require_tree ./add-item
+//= require_tree ./line-group
 //= require_tree ./tmpl
 //= require showMore/showMore
 //= require historical-search/historical-search
