@@ -13,12 +13,8 @@ var Buttons = new Buttons();
 
 function Buttons() {
   
-  this.loadingImg = $("<img src='/assets/loading.gif' class='loading icon'/>");
-  this.loadingImgClones = Array();
-  
   this.setup = function() {
     this.preventDefault();
-    this.cloneLoadingImg(5);
     this.setupAjaxListener();
     this.setupDialogListener();
     this.setupMultibutton();
@@ -28,16 +24,6 @@ function Buttons() {
     $(".button.preventDefault").live("click",function(event){
       event.preventDefault();
     });
-  }
-  
-  this.cloneLoadingImg = function(x, color) {
-    for(var i = 0; i < x; i++) {
-      this.loadingImgClones.push($(this.loadingImg).clone());
-    }
-  }
-  
-  this.getLoadingImg = function() {
-    return this.loadingImgClones.shift();
   }
   
   this.setupMultibutton = function() {
@@ -154,11 +140,9 @@ function Buttons() {
   
   this.addLoading = function(element) {
     if($(element).children(".icon").length > 0) {
-      $(element).find(".icon").hide().after(Buttons.getLoadingImg());
-      Buttons.cloneLoadingImg(1, "black");
+      $(element).find(".icon").hide().after(LoadingImage.get());
     } else {
-      $(element).prepend(Buttons.getLoadingImg());  
-      Buttons.cloneLoadingImg(1, "black");    
+      $(element).prepend(LoadingImage.get());  
     }
     
     if($(element).parent().hasClass("multibutton") || $(element).parent().hasClass("alternatives")) {
