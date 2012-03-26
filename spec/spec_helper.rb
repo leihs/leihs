@@ -43,6 +43,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
+    Persona.create_all
   end
 
   config.before(:each) do
