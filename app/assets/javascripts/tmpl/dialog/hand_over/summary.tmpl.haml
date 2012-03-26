@@ -1,4 +1,4 @@
-= form_tag '', :remote => true, :"data-submit_button" => true do
+= form_tag '${$item.action}', :remote => true, :"data-submit_button" => true do
 
   %h1
     = _("Hand Over to")
@@ -12,4 +12,7 @@
     %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}'}
       = _("Hand Over")
    
-  {{tmpl(visits) "tmpl/cell/dialog_lines"}}
+  %hr
+  %section.lines.scalable
+    ${$grouped_lines = new GroupedLines(selected_lines), ""}
+    {{tmpl($grouped_lines) "tmpl/dialog/acknowledge/lines"}}

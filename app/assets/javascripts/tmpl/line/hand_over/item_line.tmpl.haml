@@ -1,0 +1,33 @@
+{{html $valid = (is_available && is_valid), ""}}
+{{html $error = (!is_available || !is_valid), ""}}
+{{html $assigned = (item != undefined), ""}}
+
+%ul{:class => "line ${type}{{if $valid}} valid{{/if}}{{if $error}} error{{/if}}{{if $assigned}} assigned{{/if}}"}
+  
+  .main  
+  
+    %li.select
+      %label
+        %input{:type => "checkbox", :checked => "{{if is_valid && is_available}}checked{{else}}{{/if}}"}
+        
+    %li.inventory_code
+      .container
+        = form_tag "/backend/inventory_pools/${current_inventory_pool}/users/${contract.user.id}/hand_over/assign_inventory_code", :method => :post, :remote => true do
+          = hidden_field_tag "line_id", "${id}"
+          %input{:type => "text", :name => "inventory_code", :placeholder => _("Inventory Code"), :title => _("Inventory Code"), :value => "{{if item}}${item.inventory_code}{{/if}}"}
+        
+    %li.name
+      %strong ${model.name}
+      
+  .extended
+    
+    {{if ($error || errors)}}
+    .errors
+      {{if !is_available}}
+      .error= _("The model is not available")
+      {{/if}}
+      {{each(i,error) errors}}
+      .error ${error}
+      {{/each}}
+    {{/if}}
+

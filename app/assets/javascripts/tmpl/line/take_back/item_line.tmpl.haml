@@ -1,0 +1,13 @@
+%ul{:class => "line ${type}"}
+  
+  .main  
+  
+    %li.select
+      %label
+        %input{:type => "checkbox"}
+        
+    %li.inventory_code
+      ${item.inventory_code}
+            
+    %li.name
+      %strong ${model.name}

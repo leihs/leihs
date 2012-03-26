@@ -14,17 +14,11 @@
         ${moment(visit.date).format(i18n.date.XL)}
         {{/if}}
       
-    ${$is_overdue = moment().sod().diff(moment(visit.date).sod())>0, ""}
-    ${$days_overdue = moment().sod().diff(moment(visit.date).sod(), "days"), ""}
-    {{if $is_overdue}}
-    %span.overdue.red 
-      ${$days_overdue}
-      = _("Days")
-      = _("overdue")
-    {{/if}}
-      
     {{if visit.lines.length>0}}
     ${$grouped_lines = new GroupedLines(visit.lines), ""}
     {{tmpl($grouped_lines) "tmpl/linegroup"}}
+    
+  %hr
+    
   {{/if}}
   {{/each}}

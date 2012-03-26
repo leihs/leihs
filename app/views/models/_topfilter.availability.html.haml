@@ -126,7 +126,7 @@
           $(this).removeClass("openendDatepicker");
           
           if(this.id == "start_date") {
-            var date = $.datepicker.parseDate(i18n.local.date.full, selectedDate, instance.settings);
+            var date = $.datepicker.parseDate(i18n.local.date.L, selectedDate, instance.settings);
             date = new Date(date.setDate(date.getDate()))
             $('#topfilter .availability #end_date').datepicker( "option", "minDate", date );
           }

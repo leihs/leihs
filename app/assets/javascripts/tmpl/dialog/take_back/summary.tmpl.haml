@@ -12,4 +12,7 @@
     %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}'}
       = _("Take Back")
    
-  {{tmpl(visits) "tmpl/cell/dialog_lines"}}
+  %hr
+  %section.lines.scalable
+    ${$grouped_lines = new GroupedLines(selected_lines), ""}
+    {{tmpl($grouped_lines) "tmpl/dialog/acknowledge/lines"}}

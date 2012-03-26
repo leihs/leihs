@@ -1,8 +1,9 @@
 {{if items != undefined}}
 {{tmpl "tmpl/line/model_block"}}
 {{else}}
-%ul.line{:class => "${type}"}  
-  .container
+%ul.line{:class => "${type}"}
+    
+  .main
     
     %li.modelname
       ${name}

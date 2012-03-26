@@ -1,12 +1,1 @@
-%ul{:class => "line ${type}{{if is_available && is_valid}} valid{{/if}}"}
-  .container  
-    %li.select
-      %label
-        %input{:type => "checkbox", :checked => "{{if is_valid && is_available}}checked{{else}}{{/if}}"}
-        
-    %li.inventory_code
-      = form_tag "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/hand_over/assign_inventory_code", :method => :post, :remote => true do
-        %input{:type => "text", :name => "inventory_code", :placeholder => _("Inventory Code"), :title => _("Inventory Code"), :value => "{{if item}}${item.inventory_code}{{/if}}"}
-        
-    %li.name
-      %strong ${model.name}
+{{tmpl "tmpl/line/"+contract.action+"/item_line"}}
