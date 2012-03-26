@@ -4,7 +4,7 @@
 
 .item_line.line {
   
-  &.valid {
+  &.valid.assigned {
     background: $highlight-green !important;
     border-top: 1px solid $highlight-darkgreen !important;
     border-bottom: 1px solid $borderhighlightgreen !important;
@@ -38,6 +38,7 @@
   }
   
   .inventory_code {
+    width: 63px;
     
     .container {
       position: relative;

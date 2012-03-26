@@ -21,7 +21,6 @@ module Persona
         select_inventory_pool 
         create_user
         create_orders
-        create_contracts
       end
     end
     
@@ -42,15 +41,9 @@ module Persona
     end
     
     def create_orders
-      @camera_model = Model.find_by_name "Kamera Nikon X12"
+      @camera_model = Model.find_by_name "Kamera Stativ"
       @order_for_camera = FactoryGirl.create(:order, :user => @user, :inventory_pool => @inventory_pool, :status_const => 2)
       @order_line_camera = FactoryGirl.create(:order_line, :inventory_pool => @inventory_pool, :model => @camera_model, :order => @order_for_camera, :start_date => Date.today, :end_date => Date.tomorrow)
-    end
-    
-    def create_contracts
-      @tripod_model = Model.find_by_name "Kamera Stativ"
-      @contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool)
-      @contract_line = FactoryGirl.create(:contract_line, :contract => @contract)
     end
   end  
 end

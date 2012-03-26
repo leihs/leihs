@@ -46,10 +46,11 @@ section {
       
       .line {
         background: $highlight-grey;
+        background: white;
         height: 34px; 
         
         &:hover {
-          background: white;
+          background: $highlight-darkergrey;
         }
       }
     }

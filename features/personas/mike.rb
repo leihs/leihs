@@ -41,12 +41,12 @@ module Persona
     end
     
     def create_minimal_inventory
-      setup_beamer
+      setup_sharp_beamer
       setup_camera
       setup_tripod
     end
     
-    def setup_beamer
+    def setup_sharp_beamer
       @beamer_category = FactoryGirl.create(:category, :name => "Beamer")
       @beamer_model = FactoryGirl.create(:model, :name => "Sharp Beamer",
                                 :manufacturer => "Sharp", 

@@ -1,0 +1,19 @@
+@import "../../shared/mixins";
+@import "../../shared/variables";
+@import "../variables";
+
+.option_line.line {
+  
+  .inventory_code {
+    width: 80px;
+  }
+  
+  .quantity {
+    width: 63px;
+    
+    input {
+      text-align: center;
+      width: 45px;
+    }
+  }
+}

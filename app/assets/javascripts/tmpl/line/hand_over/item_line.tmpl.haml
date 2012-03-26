@@ -8,7 +8,7 @@
   
     %li.select
       %label
-        {{if ($valid && $assigned)}}
+        {{if ($assigned)}}
         %input{:type => "checkbox", :checked => true}
         {{else}}
         %input{:type => "checkbox", :disabled => true}        

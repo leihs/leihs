@@ -6,11 +6,9 @@
       %label
         = check_box_tag "selected"
         
-    %li.inventory_code
-      ${model.inventory_code}
-      
     %li.quantity
       %input{:type => "text", :value => "${quantity}"}
-        
+      
     %li.name
       ${model.name}
+      (${model.inventory_code})

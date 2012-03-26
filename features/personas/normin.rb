@@ -50,7 +50,7 @@ module Persona
     def create_contracts
       @tripod_model = Model.find_by_name "Kamera Stativ"
       @contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool)
-      @contract_line = FactoryGirl.create(:contract_line, :contract => @contract)
+      @contract_line = FactoryGirl.create(:contract_line, :contract => @contract, :model_id => @tripod_model.id)
     end
   end  
 end
