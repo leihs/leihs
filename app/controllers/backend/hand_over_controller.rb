@@ -118,7 +118,7 @@ class Backend::HandOverController < Backend::BackendController
 
     item = current_inventory_pool.items.where(:inventory_code => inventory_code).first
 
-    if item and line_id and (line = @contract.lines.where(:model_id => item.model_id, :id => line_id))
+    if item and line_id and (line = @contract.lines.where(:model_id => item.model_id, :id => line_id).first)
       line.update_attributes(item: item)
     elsif line_id and (line = @contract.lines.find(line_id))
       # The Inventory Code was not found.

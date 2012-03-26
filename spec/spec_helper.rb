@@ -42,7 +42,6 @@ RSpec.configure do |config|
   ## DATA BASE CLEANER
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
     Persona.create_all
   end
 

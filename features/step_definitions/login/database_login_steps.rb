@@ -7,6 +7,7 @@ When /^I visit the homepage$/ do
 end
 
 When /^I login$/ do
+  step 'I visit the homepage'
   find("#login").click
   fill_in 'username', :with => @user.login
   fill_in 'password', :with => 'password'

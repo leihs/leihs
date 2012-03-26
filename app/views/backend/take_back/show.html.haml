@@ -5,7 +5,8 @@
     %h1= yield :title
     %p.subtitle
       = _("%i take backs" % @visits.size)
-      = _("in the next %i days" % range) if (range = (@visits.last.date - Date.today).to_i) > 0
+      - range = (@visits.last.date - Date.today).to_i
+      = _("in the next %i days" % range) if range > 0
 
   .indent      
     #selection_actions

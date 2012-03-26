@@ -71,7 +71,7 @@ hr {
   margin: 14px 0 0 0;
 }
 
-input, textarea, select, span.select {
+input[type=text], input[type=password], textarea, select, span.select {
   border: 1px solid $lightergrey;
   color: $grey;
   display: inline-block;
@@ -90,10 +90,10 @@ input, textarea, select, span.select {
   }
   
   &:focus+label, &:hover+label {color: $darkergrey !important;}
-  
-  &[type=text] {
-    height: 22px;
-  }
+}
+
+input[type=text], input[type=password] {
+  height: 23px;
 }
 
 label[disabled=disabled] {

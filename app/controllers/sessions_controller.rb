@@ -42,8 +42,8 @@ class SessionsController < ApplicationController
   end
 
   # TODO 05** temporary, needed by Rspec tests
-  def create
-    self.current_user = User.find_by_login(params[:login])
+  def create(login = params[:login])
+    self.current_user = User.find_by_login(login)
     if logged_in?
       if current_user.access_rights.size == 0
         render :text => _("You don't have any rights to access this application.") 
