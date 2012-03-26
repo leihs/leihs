@@ -12,7 +12,7 @@ gem 'sass', '~> 3.1'
 gem 'coffee-script', '~> 2.2'
 gem "coffee-filter", "~> 0.1.1"
 gem 'jquery-rails', '~> 2.0'
-gem 'jquery-tmpl-rails', '~> 0.1.2'
+gem 'jquery-tmpl-rails', '~> 1.1'
 gem 'haml_assets'
 gem "rjson", "~> 0.1.5"
 
@@ -60,8 +60,8 @@ group :test, :development do
   gem "jasminerice", "~> 0.0.8" # needed for implement coffeescript, fixtures and asset pipeline serverd css into jasmine
   gem "rb-fsevent", "~> 0.9"
   gem "ruby_gntp", "~> 0.3.4"
-  gem 'factory_girl', "~> 2.6"
-  gem 'factory_girl_rails', "~> 1.7"
+  gem 'factory_girl', "~> 3.0"
+  gem 'factory_girl_rails', "~> 3.0"
   gem 'faker'
   gem 'pry'
   gem 'pry-rails'
