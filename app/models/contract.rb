@@ -197,5 +197,15 @@ class Contract < Document
     update_attributes(:status_const => Contract::CLOSED)
   end
 
+  def action
+    if status_const == Contract::UNSIGNED
+      :hand_over
+    elsif status_const == Contract::SIGNED
+      :take_back
+    else
+      nil
+    end
+  end
+
 end
 
