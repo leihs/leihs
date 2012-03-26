@@ -4,9 +4,13 @@
   .top
     %h1= yield :title
     %p.subtitle
-      = _("%i take backs" % @visits.size)
-      - range = (@visits.last.date - Date.today).to_i
-      = _("in the next %i days" % range) if range > 0
+      - unless @visits.empty?
+        = _("%i take backs" % @visits.size)
+        - range = (@visits.last.date - Date.today).to_i
+        = _("in the next %i days" % range) if range > 0
+      - else
+        = _("No take backs")
+        
 
   .indent      
     #selection_actions
@@ -19,7 +23,7 @@
           = _("Auswahl")
           %span.count= "(0)"
       .actions
-        = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/take_back/#{@user.id}/close_contract", 
+        = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@user.id}/take_back/close_contract", 
         :class => "button green open_dialog",
         :"data-rel" => "tmpl/dialog/take_back/summary",
         :"data-dialog_class" => "take_back",

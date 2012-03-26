@@ -28,10 +28,10 @@ module Persona
     end
     
     def create_lending_manager_user
-      @user = Factory(:user, :firstname => @@name, :lastname => @@lastname, :login => @@name.downcase, :email => @@email)
+      @user = FactoryGirl.create(:user, :firstname => @@name, :lastname => @@lastname, :login => @@name.downcase, :email => @@email)
       @inventory_pool = InventoryPool.find_by_name(@@inventory_pool_name)
       @user.access_rights.create(:role => Role.find_by_name("manager"), :inventory_pool => @inventory_pool, :access_level => 2)
-      @database_authentication = Factory(:database_authentication, :user => @user, :password => @@password)
+      @database_authentication = FactoryGirl.create(:database_authentication, :user => @user, :password => @@password)
     end
 
   end  

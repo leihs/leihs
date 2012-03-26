@@ -37,15 +37,15 @@ module Persona
     end
     
     def create_admin_user
-      @user = Factory(:user, :firstname => @@name, :lastname => @@lastname, :login => @@name.downcase, :email => @@email)
+      @user = FactoryGirl.create(:user, :firstname => @@name, :lastname => @@lastname, :login => @@name.downcase, :email => @@email)
       @user.access_rights.create(:role => Role.find_by_name("admin"))
-      @database_authentication = Factory(:database_authentication, :user => @user, :password => @@password)
+      @database_authentication = FactoryGirl.create(:database_authentication, :user => @user, :password => @@password)
     end
     
     def create_inventory_pool
       description = "Wichtige Hinweise...\n Bitte die Gegenstände rechtzeitig zurückbringen"
       contact_details = "A Verleih  /  ZHdK\nav@zh-dk.ch\n+41 00 00 00 00"
-      Factory(:inventory_pool, :name => @@inventory_pool_name, :description => description, :contact_details => contact_details, :contract_description => "Gerät erhalten", :email => "av@zhdk.ch", :shortname => "A")
+      FactoryGirl.create(:inventory_pool, :name => @@inventory_pool_name, :description => description, :contact_details => contact_details, :contract_description => "Gerät erhalten", :email => "av@zhdk.ch", :shortname => "A")
     end
 
   end  

@@ -254,7 +254,7 @@ Leihs::Application.routes.draw do
         end
         resource :take_back, :controller => 'take_back' do
           member do
-            get :close_contract
+            #old leihs# get :close_contract
             post :close_contract
             post :assign_inventory_code
             get :inspection

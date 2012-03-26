@@ -9,9 +9,9 @@ describe Backend::AcknowledgeController do
     @lending_manager = Persona.create :pius
     @user = Persona.create :normin
     @inventory_pool = (@user.inventory_pools & @lending_manager.inventory_pools).first
-    @order = Factory :order, :user => @user, :status_const => 2, :inventory_pool => @inventory_pool
-    @model = Factory :model
-    @item = Factory :item, :model => @model, :owner => @inventory_pool 
+    @order = FactoryGirl.create :order, :user => @user, :status_const => 2, :inventory_pool => @inventory_pool
+    @model = FactoryGirl.create :model
+    @item = FactoryGirl.create :item, :model => @model, :owner => @inventory_pool 
   end
   
   describe "add a line to an order during acknowledge process" do

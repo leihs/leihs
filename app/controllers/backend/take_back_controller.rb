@@ -13,15 +13,38 @@ class Backend::TakeBackController < Backend::BackendController
   end
 
   # Close definitely the contract
-  def close_contract
+  def close_contract(line_ids = params[:line_ids]  || raise("line_ids is required"),
+                     returned_quantity = params[:returned_quantity])
+
+    lines = current_inventory_pool.contract_lines.find(line_ids)
+
+    # set the return dates to the given contract_lines
+    lines.each do |l|
+      l.update_attributes(:returned_date => Date.today) 
+      l.item.histories.create(:user => current_user, :text => _("Item taken back"), :type_const => History::ACTION) unless l.item.is_a? Option
+    end
+
+    # fetch all envolved contracts    
+    contracts = lines.collect(&:contract).uniq 
+
+    # close the envolved contracts where all lines are finally returned
+    contracts.each do |c|
+      c.close if c.lines.all? { |l| !l.returned_date.nil? }
+    end
+
+    respond_to do |format|
+      format.json { render :partial => "backend/contracts/index", :locals => {contracts: contracts}  }
+    end
+
+=begin
     params[:layout] = "modal"
     if request.post?
       # TODO 2702** merge duplications
-      @lines = current_inventory_pool.contract_lines.find(params[:lines]) if params[:lines]
+      @lines = current_inventory_pool.contract_lines.find(line_ids) if line_ids
       @lines ||= []
       
-      if params[:returned_quantity]
-        params[:returned_quantity].each_pair do |k,v|
+      if returned_quantity
+        returned_quantity.each_pair do |k,v|
           line = @lines.detect {|l| l.id == k.to_i }
           if line and v.to_i < line.quantity
             # NOTE: line is an OptionLine, since the ItemLine's quantity is always 1
@@ -63,13 +86,14 @@ class Backend::TakeBackController < Backend::BackendController
     else
       # TODO 2702** merge duplications
       @lines = current_inventory_pool.contract_lines.find(params[:lines].split(',')) if params[:lines]
-      if params[:returned_quantity]
-        params[:returned_quantity].each_pair do |k,v|
+      if returned_quantity
+        returned_quantity.each_pair do |k,v|
           line = @lines.detect {|l| l.id == k.to_i }
           line.quantity = v.to_i if line and v.to_i < line.quantity
         end
       end
     end    
+=end                    
   end
   
   

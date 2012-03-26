@@ -7,7 +7,7 @@ module LanguageFactory
     if languages.empty?
       Language.first
     else
-      Factory(:language, :name => languages.first[:name], :locale_name => languages.first[:locale_name])
+      FactoryGirl.create(:language, :name => languages.first[:name], :locale_name => languages.first[:locale_name])
     end
   end
   
