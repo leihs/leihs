@@ -14,6 +14,6 @@
         {{html moment(updated_at).format(i18n.date.L)}}
         
   %li.actions
-    = link_to "", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/order/${id}
+    = link_to "/backend/inventory_pools/${current_inventory_pool}/order/${id}", :class => "button white" do
       .icon.view_order
       = _("View")

@@ -50,10 +50,10 @@
       .alternatives
         .trigger
           .arrow
-        = link_to "", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/items/${id}/retire
+        = link_to "/backend/inventory_pools/${current_inventory_pool}/items/${id}/retire", :class => "button white" do
           .icon.retire
           = _("Retire")
-      = link_to "", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/items/${id}
+      = link_to "/backend/inventory_pools/${current_inventory_pool}/items/${id}", :class => "button white" do
         .icon.view_item
         = _("View Item")
         

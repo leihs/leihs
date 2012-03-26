@@ -29,12 +29,13 @@
         %li.seperator
         
         %li.item
-          = link_to current_user, "javascript:void(0);", :onclick => "alert('Dieser Bereich wird bald umgesetzt...');", :class => "anchor" #TODO: user_path
+          = link_to current_user, user_path, :class => "anchor"
         %li.seperator
         
-        %li.item
-          = link_to _("Help"), "javascript:void(0);", :onclick => "alert('Dieser Bereich wird bald umgesetzt...');", :class => "anchor" #TODO: help_path
-        %li.seperator
+        /
+          %li.item
+            =# link_to _("Help"), help_path, :class => "anchor" # TODO remove ??
+          %li.seperator
         
         %li.item.language
           = link_to "javascript: void(0)", :class => "anchor" do

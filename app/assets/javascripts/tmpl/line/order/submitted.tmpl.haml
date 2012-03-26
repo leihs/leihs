@@ -45,9 +45,7 @@
           .icon.edit
           = _("Edit")
         
-        -#TODO: "/backend/inventory_pools/${current_inventory_pool}/acknowledge/${id}/approve"
-        -#TODO: :remote => true,
-        = link_to "", :onclick => "alert('Diese Funktion wird bald implementiert...'); return false;",  
+        = link_to "/backend/inventory_pools/${current_inventory_pool}/acknowledge/${id}/approve", :remote => true,  
           :class => "button white",
           :method => :post,
           :"data-rel" => "tmpl/dialog/acknowledge/approve", 

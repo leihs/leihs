@@ -32,13 +32,13 @@
       .alternatives
         .trigger
           .arrow
-        = link_to "", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf
+        = link_to "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf", :class => "button white" do
           .icon.contract
           = _("Contract PDF")
-        = link_to "", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf?template=value_list
+        = link_to "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf?template=value_list", :class => "button white" do
           .icon.valuelist  
           = _("Value List")
-      = link_to "", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/users/${user.id}/take_back
+      = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/take_back", :class => "button white" do
         .icon.take_back
         = _("Take Back")
     {{/if}}
@@ -48,10 +48,10 @@
       .alternatives
         .trigger
           .arrow
-        = link_to "", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf?template=value_list
+        = link_to "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf?template=value_list", :class => "button white" do
           .icon.valuelist  
           = _("Value List")
-      = link_to "", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf
+      = link_to "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf", :class => "button white" do
         .icon.contract
         = _("Contract PDF")
     {{/if}}
