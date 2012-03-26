@@ -241,7 +241,7 @@ Leihs::Application.routes.draw do
             post :swap_model_line
             get :time_lines
             post :time_lines
-            get :sign_contract
+            #old leihs# get :sign_contract
             post :sign_contract
             get :add_option
             post :add_option
