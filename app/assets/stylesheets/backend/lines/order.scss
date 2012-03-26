@@ -20,17 +20,18 @@
   }
   
   li.range {
-    width: 112px;
+    white-space: nowrap;
+    width: 115px;
     
     span.number {
       display: inline-block;
       text-align: right;
-      width: 25px;
+      width: 30px;
     }
   }
   
   li.date {
-    width: 70px;
+    width: 85px;
   }
   
   li.purpose {

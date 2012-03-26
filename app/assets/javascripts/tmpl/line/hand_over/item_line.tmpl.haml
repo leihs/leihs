@@ -8,7 +8,11 @@
   
     %li.select
       %label
-        %input{:type => "checkbox", :checked => "{{if is_valid && is_available}}checked{{else}}{{/if}}"}
+        {{if ($valid && $assigned)}}
+        %input{:type => "checkbox", :checked => true}
+        {{else}}
+        %input{:type => "checkbox", :disabled => true}        
+        {{/if}}
         
     %li.inventory_code
       .container
