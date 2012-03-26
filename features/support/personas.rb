@@ -22,4 +22,12 @@ module Persona
       raise "Persona #{name} does not exist"
     end
   end
+  
+  def create_all
+    Dir.glob(File.join(Rails.root, "features/personas", "**", "*"))
+      .select {|x| not File.directory? x}
+      .each do |file|
+        Persona.create File.basename(file, File.extname(file))
+    end
+  end
 end
