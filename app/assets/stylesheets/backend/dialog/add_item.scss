@@ -30,7 +30,7 @@
     &:invisible { @include opacity(0.0); }
     &:visible { @include opacity(1.0); }
     
-    .container {
+    .main {
       width: 400px;
       
       .model.line {

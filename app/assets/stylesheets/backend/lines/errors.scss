@@ -1,0 +1,16 @@
+@import "../../shared/mixins";
+@import "../../shared/variables";
+@import "../variables";
+
+.line .extended .errors {
+  
+  .error {
+    background: white;
+    border: 2px solid $highlight-darkred;
+    display: block;
+    font-weight: bold;
+    margin: 4px 8px;
+    padding: 4px 8px;
+    text-align: center;
+  }
+}

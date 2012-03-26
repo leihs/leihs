@@ -6,21 +6,58 @@
   
   &.valid {
     background: $highlight-green !important;
-    border-bottom: 1px solid $borderhighlightgreen !important;
     border-top: 1px solid $highlight-darkgreen !important;
+    border-bottom: 1px solid $borderhighlightgreen !important;
     
     &:hover {
       background: $highlight-darkgreen !important;	
     }
   }
   
+  &.error {
+    background: $highlight-red !important;  
+    border-top: 1px solid $highlight-darkred !important;
+    border-bottom: 1px solid $borderhighlightred !important;
+    
+    &:hover {
+      background: $highlight-darkred !important;  
+    }
+  }
+  
+  &.assigned .inventory_code {
+    input {
+      background: rgba(255,255,255,0.2);
+      border: 1px dashed rgba(50,50,50,0.2);
+      color: $darkgrey !important;
+      
+      &:hover, &:focus {
+        background: white;
+        border: 1px solid $lightergrey;
+      }
+    }
+  }
+  
   .inventory_code {
     
-    input {
-      font-size: 1.0em;
-      color: $lightgrey;
-      text-align: center;
-      width: 95px;
+    .container {
+      position: relative;
+      
+      input {
+        font-size: 1.0em;
+        color: $lightgrey;
+        text-align: center;
+        padding: 0 20px 0 10px;
+        position: relative;
+        width: 95px;
+      }
+      
+      .loading {
+        height: 16px;
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        width: 16px;
+      }      
     }
   }
 }
