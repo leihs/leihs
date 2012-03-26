@@ -1,16 +1,28 @@
-{
-  id: line.id,
-  type: line.type.underscore,
-  start_date: line.start_date,
-  end_date: line.end_date,
-  quantity: line.quantity,
+h = {
+      id: line.id,
+      type: line.type.underscore,
+      start_date: line.start_date,
+      end_date: line.end_date,
+      quantity: line.quantity,
+      
+           
+      is_valid: line.valid?,
+      
+      item: line.item,
+      model: line.model, #TODO
+      contract: {
+        id: line.contract.id,
+        action: line.contract.action,
+        user: {
+          id: line.contract.user_id
+        }
+      },
+    
+      errors: line.errors.full_messages
+    }
 
-  is_valid: line.valid?,  
-  is_available: line.is_available, # FIXME this is too slow!
-  
-  item: line.item, #TODO
-  model: line.model, #TODO
-  user: {
-    id: line.contract.user_id
-  }
-}
+if line.contract.action == :hand_over
+  h[:is_available] = line.is_available  # FIXME this is too slow!
+end
+
+h
