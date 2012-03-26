@@ -15,9 +15,16 @@ module Persona
     @@inventory_pool_name = "A-Ausleihe"
     
     def initialize
+      setup_dependencies
+      
       ActiveRecord::Base.transaction do
         create_lending_manager_user
       end
+    end
+    
+    def setup_dependencies 
+      Persona.create :ramon
+      Persona.create :mike
     end
     
     def create_lending_manager_user

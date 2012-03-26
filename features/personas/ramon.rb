@@ -16,11 +16,17 @@ module Persona
     @@inventory_pool_name = "A-Ausleihe"
     
     def initialize
+      setup_dependencies
+      
       ActiveRecord::Base.transaction do 
         create_minimal_setup
         create_admin_user
         create_inventory_pool
       end
+    end
+    
+    def setup_dependencies 
+      # no dependencies for ramon
     end
     
     def create_minimal_setup
