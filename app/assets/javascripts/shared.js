@@ -14,6 +14,8 @@
 //= require dialog/dialog
 //= require qtip/qtip.min
 
+//= require loading-img/loading-img
+
 // type or global formating/accepting of ajax requestes
 // TODO GET RID OF THAT (Technical Debt)
 $.ajaxSetup({
