@@ -6,7 +6,7 @@ section {
   .linegroup {
     display: block;
     margin: 10px 0 20px 0;
-    padding: 14px 0 0 0;
+    padding: 14px 0 9px 0;
     position: relative;
     @include inset-box;
     
@@ -50,11 +50,6 @@ section {
         
         &:hover {
           background: white;
-        }
-        
-        &:nth-last-child(1) {
-          @include borderRadius(6px);
-          @include boxShadow(inset 0 -2px 2px rgba(0,0,0,0.1)); 
         }
       }
     }
