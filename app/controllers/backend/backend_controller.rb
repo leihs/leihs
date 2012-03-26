@@ -3,7 +3,7 @@ class Backend::BackendController < ApplicationController
   before_filter do
     unless logged_in?
       store_location
-      redirect_to :controller => '/session', :action => 'new' and return
+      redirect_to new_session_path and return
     else
       require_role "manager", current_inventory_pool
     end
