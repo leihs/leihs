@@ -5,9 +5,9 @@ end
 Given "a reservation exists for $quantity '$model' from $from to $to" \
 do |quantity, model, from, to|
   model = Model.find_by_name(model)
-  order = LeihsFactory.create_order({:user_id => LeihsFactory.create_user.id})
+  order = FactoryGirl.create :order, :inventory_pool => model.inventory_pools.first # OPTIMIZE
   order.add_line(quantity.to_i, model, nil, to_date(from), to_date(to))
-  order.submit.should == true
+  order.submit.should be_true
   order.lines.size.should >= 1
   model.running_reservations(order.inventory_pool).size.should >= 1
 end

@@ -130,20 +130,10 @@ end
 When /^I lend (\w+) item(s?) of that model to "([^"]*)"$/ do |n, plural, user|
   @user = User.find_by_login user
   n = to_number(n)
-  o = Order.new
-  o.user = @user
-  o.inventory_pool = @inventory_pool
-  ol = OrderLine.new
-  ol.model = @model
-  ol.quantity = n
-  ol.inventory_pool = @inventory_pool
-  ol.start_date = Date.today
-  ol.end_date   = Date.tomorrow
-  o.lines << ol
-  ol.order = o
-  o.save.should == true
-  o.submit.should == true
-  o.approve("foo'lish comment") == true
+  order = FactoryGirl.create :order, :user => @user, :inventory_pool => @inventory_pool
+  order.add_line(n, @model, nil, Date.today, Date.tomorrow, @inventory_pool)
+  order.submit.should be_true
+  order.approve("foo'lish comment").should be_true
   c = Contract.find_by_user_id @user
   c.sign
 end
@@ -151,5 +141,5 @@ end
 When /^"([^"]*)" returns the item$/ do |user|
   @user = User.find_by_login user
   c = Contract.find_by_user_id @user
-  c.close.should == true
+  c.close.should be_true
 end

@@ -4,13 +4,10 @@ Feature: Login through database authentication
   As a normal user
   I want to be able to login using a database authentication
 
-  Background: Load the personas
-    Given personas are loaded
-    Given I am "Ramon"
-    
   @javascript
   Scenario: Login through database authentication
-   Given I am logged out 
+   Given I am "Ramon"
+     And I am logged out 
     When I visit the homepage
      And I login
     Then I am logged in

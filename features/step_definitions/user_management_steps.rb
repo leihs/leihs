@@ -6,7 +6,8 @@ end
 
 Given /^a customer "([^"]*)"( exists)?$/ do |name,foo|
   @user = LeihsFactory.create_user({:login => name },
-                              {:role => 'customer'})
+                                  {:role => 'customer',
+                                   :inventory_pool => @inventory_pool})
   r = @user.access_rights.first
   r.save
 end
@@ -20,7 +21,7 @@ Given /a (\w+) '([^']*)' for inventory pool '([^']*)'( with access level )?(\d)?
   access_level = access_level ? access_level.to_i : 0
   @user = LeihsFactory.create_user({:login => who},
                               {:role => role,
-                              :inventory_pool => @inventory_pool,
+                              :inventory_pool => InventoryPool.find_by_name(ip_name),
                               :password => 'pass',
                               :access_level => access_level })
   @role = Role.find_by_name role

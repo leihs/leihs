@@ -71,7 +71,7 @@ module LeihsFactory
     
     options[:role] ||= "customer"
     options[:access_level] ||= 0
-    options[:inventory_pool] = InventoryPool.first unless options.has_key?(:inventory_pool)
+    options[:inventory_pool] ||= InventoryPool.first
     LeihsFactory.define_role(u, options[:inventory_pool], options[:role], options[:access_level])
 
     u.save

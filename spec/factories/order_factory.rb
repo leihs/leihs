@@ -9,5 +9,14 @@ FactoryGirl.define do
     }
     status_const 1
     purpose { Faker::Lorem.sentence }
+    
+    factory :order_with_lines do
+      after_create do |order, evaluator|
+        3.times do
+          order.order_lines << FactoryGirl.create(:order_line, :order => order, :inventory_pool => evaluator.inventory_pool)
+        end
+      end
+    end
+    
   end
 end
