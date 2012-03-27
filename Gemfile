@@ -57,7 +57,9 @@ group :cucumber, :test do
 	gem 'rspec', '1.3.0', :require => false
 	gem 'rspec-rails', '1.3.2', :require => false
 	gem 'nokogiri'
-	gem 'capybara', '>=0.3.5'
+        gem 'capybara', '~> 1.1'
+
+#	gem 'capybara', '>=0.3.5'
         gem 'launchy'
 end
 
