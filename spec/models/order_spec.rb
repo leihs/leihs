@@ -21,7 +21,9 @@ describe Order do
       3.times do
         FactoryGirl.create(:order_line, :order => order, :inventory_pool => @ip)
       end
+      order.reload # the order has now nested lines
       order.approve("That will be fine.", @current_user)
+      order.is_approved?.should be_true
       @emails = ActionMailer::Base.deliveries
       @emails.count.should == 1
       @emails[0].subject.should == "[leihs] Reservation Confirmation"

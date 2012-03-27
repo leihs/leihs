@@ -85,7 +85,6 @@ module Availability
     end
 
     def maximum_available_quantity
-      binding.pry
       model.availability_changes_in(inventory_pool).maximum_available_in_period_for_user(document.user, start_date, end_date)      
     end
 
