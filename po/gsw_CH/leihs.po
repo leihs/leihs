@@ -4,19 +4,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2\n"
 "POT-Creation-Date: 2012-02-01 16:02+0100\n"
-"PO-Revision-Date: 2010-06-03 11:58+0100\n"
-"Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
+"PO-Revision-Date: 2012-03-28 15:48+0200\n"
+"Last-Translator: admin <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: Swiss-German (Zürich area)\n"
-"Language: \n"
+"Language: gsw_CH\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.6\n"
 
 #: app/helpers/backend/mails_helper.rb:15
-#, fuzzy
 msgid "Write Email"
-msgstr "E-Mail"
+msgstr "E-Mail schriibe"
 
 #: app/helpers/backend/backend_helper.rb:38
 msgid " <b>%d</b> results"
@@ -101,7 +101,7 @@ msgstr "Startdatum muess vor em Enddatum si"
 
 #: app/helpers/backend/backend_helper.rb:230
 msgid "You can't have a Start Date before today"
-msgstr ""
+msgstr "Du chasch e kes startdatum ha, wo vor hüt ligt"
 
 #: app/helpers/backend/backend_helper.rb:368
 msgid "Month"
@@ -141,9 +141,8 @@ msgid "Yesterday"
 msgstr "Geschter"
 
 #: app/helpers/backend/availability_helper.rb:18
-#, fuzzy
 msgid "From date"
-msgstr "Vo hüt"
+msgstr "Startdatum"
 
 #: app/helpers/backend/availability_helper.rb:19
 #, fuzzy
