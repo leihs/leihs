@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2\n"
 "POT-Creation-Date: 2012-02-01 16:02+0100\n"
-"PO-Revision-Date: 2012-03-28 15:48+0200\n"
+"PO-Revision-Date: 2012-03-28 15:50+0200\n"
 "Last-Translator: admin <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: Swiss-German (Zürich area)\n"
 "Language: gsw_CH\n"
@@ -163,9 +163,8 @@ msgid "Available in group '"
 msgstr ""
 
 #: app/helpers/backend/models_helper.rb:250
-#, fuzzy
 msgid "Quantity: %d"
-msgstr "Aazahl"
+msgstr "Aazahl: %d"
 
 #: app/helpers/backend/models_helper.rb:260
 #: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:10
