@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2\n"
 "POT-Creation-Date: 2012-02-01 16:02+0100\n"
-"PO-Revision-Date: 2012-03-28 15:50+0200\n"
+"PO-Revision-Date: 2012-03-28 15:56+0200\n"
 "Last-Translator: admin <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: Swiss-German (Zürich area)\n"
 "Language: gsw_CH\n"
@@ -156,7 +156,7 @@ msgstr "Verfüegbari Aazahl"
 
 #: app/helpers/backend/models_helper.rb:180
 msgid "general"
-msgstr ""
+msgstr "allgemein"
 
 #: app/helpers/backend/models_helper.rb:181
 msgid "Available in group '"
@@ -195,16 +195,15 @@ msgstr "Zruggnäh"
 
 #: app/helpers/backend/models_helper.rb:274
 msgid "Item is overdue and therefore unavailable!"
-msgstr ""
+msgstr "Die sach isch überfällig und weg dem nöd verfüegbar!"
 
 #: app/helpers/backend/models_helper.rb:275
 msgid "Item is reserved in the future, therefore it's not available!"
-msgstr ""
+msgstr "Die sach isch i de zuekunft reserviert und weg dem nöd verfüegbar!"
 
 #: app/helpers/backend/models_helper.rb:280
-#, fuzzy
 msgid "until"
-msgstr "Vom %s bis am %s "
+msgstr "bis"
 
 #: app/helpers/backend/categories_helper.rb:11
 #: app/views/backend/hand_over/show.html.erb:39
@@ -215,17 +214,19 @@ msgstr "Ali"
 
 #: app/helpers/application_helper.rb:76
 msgid "Day"
-msgstr ""
+msgstr "Tag"
 
 #: app/helpers/application_helper.rb:76
 msgid "Days"
-msgstr ""
+msgstr "Täg"
 
 #: app/helpers/application_helper.rb:137
 msgid ""
 "Possibly not all matches are being displayed because your search text was "
 "shorter than the minumum %s characters"
 msgstr ""
+"Es werdend wohrschinli nöd alli resultat azeigt, will dini suech-afrog "
+"chürzer als %s zeichä gsi isch"
 
 #: app/controllers/backend/hand_over_controller.rb:60
 msgid ""
@@ -236,9 +237,8 @@ msgstr ""
 "zuewiisä, wo Du wetsch ussegäh."
 
 #: app/controllers/backend/hand_over_controller.rb:69
-#, fuzzy
 msgid "The start date has been changed for item %s"
-msgstr "S Startdatum isch veränderet worde"
+msgstr "S Startdatum isch veränderet worde für %s"
 
 #: app/controllers/backend/hand_over_controller.rb:88
 msgid "New lines have been generated"
@@ -254,7 +254,7 @@ msgstr "Dä Gägestand isch scho in dem Vertrag drin."
 
 #: app/controllers/backend/hand_over_controller.rb:127
 msgid "This item is part of package %s."
-msgstr ""
+msgstr "Diä sach isch teil vom paket %s."
 
 #: app/controllers/backend/hand_over_controller.rb:132
 msgid "Inventory Code assigned"
