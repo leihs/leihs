@@ -17,11 +17,7 @@ describe Order do
   
   describe "approving an order" do
     it "should send a confirmation e-mail to the user when their order is confirmed" do
-      order = FactoryGirl.create :order, :inventory_pool => @ip
-      3.times do
-        FactoryGirl.create(:order_line, :order => order, :inventory_pool => @ip)
-      end
-      order.reload # the order has now nested lines
+      order = FactoryGirl.create :order_with_lines, :inventory_pool => @ip
       order.approve("That will be fine.", @current_user)
       order.is_approved?.should be_true
       @emails = ActionMailer::Base.deliveries

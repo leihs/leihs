@@ -1,7 +1,7 @@
 FactoryGirl.define do
 
   factory :user do
-    login { Faker::Internet.user_name }
+    login { [Faker::Internet.user_name, "123"].join('_') } # make sure the login has at least 3 chars
     firstname { Faker::Name.first_name }
     lastname { Faker::Name.last_name }
     phone { Faker::PhoneNumber.phone_number.gsub(/\D/, "") }
@@ -13,7 +13,7 @@ FactoryGirl.define do
     city { Faker::Address.city }
     zip { Faker::Address.zip_code }
     country { Faker::Address.country }
-    language { Language.exists? ? Language.find_by_default(1) : LanguageFactory.create }
+    language { Language.find_by_default(true) || LanguageFactory.create }
   end
 
 end

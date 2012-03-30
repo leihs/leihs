@@ -1,4 +1,5 @@
 Before do
+  Persona.create_all
   DatabaseCleaner.start
 end
 
