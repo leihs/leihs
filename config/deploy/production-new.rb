@@ -94,6 +94,10 @@ task :bundle_install do
   run "cd #{release_path} && bundle install --gemfile '#{release_path}/Gemfile' --path '#{deploy_to}/#{shared_dir}/bundle' --deployment --without development test"
 end
 
+task :precompile_assets do
+  run "cd #{release_path} && RAILS_ENV=production bundle exec rake assets:precompile"
+end
+
 namespace :deploy do
   task :start do
   # we do absolutely nothing here, as we currently aren't
@@ -120,6 +124,7 @@ after "deploy:symlink", :chmod_tmp
 
 after "link_config", :migrate_database
 after "link_config", :modify_config
+after "link_config", "precompile_assets"
 
 before "deploy:restart", :make_tmp
 
