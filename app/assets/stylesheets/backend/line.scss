@@ -103,7 +103,7 @@
   &.toggle {
     background: white;
     border-bottom: none;
-    cursor: s-resize;
+    cursor: pointer;
     font-size: 1.1em;
     overflow: hidden;
     position: relative;
@@ -146,7 +146,7 @@
     }
     
     &.show_less {
-      cursor: n-resize;
+      cursor: pointer;
       
       .shadow {
         display: none;

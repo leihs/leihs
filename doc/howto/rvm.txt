@@ -3,7 +3,8 @@ https://rvm.beginrescueend.com/
 
 ### Upgrading to the last release version
 # https://rvm.beginrescueend.com/rvm/upgrading/
-$ rvm get latest
+$ rvm get stable
+  (or $ rvm get latest)
 $ rvm reload
 
 ###

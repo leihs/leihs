@@ -14,7 +14,6 @@ module Backend::BackendHelper
     # return false if caller == is_current_page?(section)
     
     case section
-      
       when "lending"
         is_current_page?("daily") or
         is_current_page?("orders") or
@@ -50,6 +49,11 @@ module Backend::BackendHelper
       when "items"
         current_page?(:controller => "backend/items")
     end
+    
+    # We rescue everything because backend/hand_over and backend/take_back are failing sometimes
+    rescue
+      false
+    
   end
   
 # EVERYTHING AFTER HERE IS OLD STUFF
