@@ -193,7 +193,7 @@ button .icon {
 }
 
 .search.icon {
-  background: url("image-sprite.png") no-repeat scroll -32px -30px transparent;
+  background: url($image-sprite) no-repeat scroll -32px -30px transparent;
   height: 12px;
   width: 13px;
 }
