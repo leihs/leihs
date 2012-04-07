@@ -1,24 +1,9 @@
 #visits
   {{each(i,visit) visits}}
   .visit
-    %label.visit_day
-      %input{:type => "checkbox"}
-      
-      %span      
-        ${$is_today = moment().sod().diff(moment(visit.date).sod())==0, ""}
-        {{if $is_today}}
-        %strong
-          = _("Heute")
-        ${moment(visit.date).format(i18n.date.L)}
-        {{else}} 
-        ${moment(visit.date).format(i18n.date.XL)}
-        {{/if}}
-      
     {{if visit.lines.length>0}}
     ${$grouped_lines = new GroupedLines(visit.lines), ""}
     {{tmpl($grouped_lines) "tmpl/linegroup"}}
-    
-  %hr
-    
-  {{/if}}
+    %hr
+    {{/if}}
   {{/each}}

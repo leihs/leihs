@@ -12,8 +12,8 @@
     background-color: white;
     color: $darkergrey;
     padding: 10px 14px;
-    @include borderRadius(6px);
-    @include boxShadow (0 0 10px #888);
+    @include border-radius(6px);
+    @include box-shadow (0 0 10px #888);
   }
   
   .tip {

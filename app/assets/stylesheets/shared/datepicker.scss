@@ -12,8 +12,8 @@
   position: absolute;
   z-index: 1005 !important;
   @include greylinks;
-  @include borderRadius(12px);
-  @include boxShadow (0 0 4px #AAA);
+  @include border-radius(12px);
+  @include box-shadow (0 0 4px #AAA);
   
   .ui-datepicker-header {
     background: url($slices-h) repeat-x 0 -131px;
@@ -38,7 +38,7 @@
       position: absolute;
       top: 1px;
       width: 14px;
-      @include borderRadius(4px);
+      @include border-radius(4px);
     }
     
     .ui-datepicker-prev {

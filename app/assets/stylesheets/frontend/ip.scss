@@ -14,7 +14,7 @@
       margin-right: 14px;
       position: relative;
       width: 140px;
-      @include boxShadow (0 0 8px #EEE);
+      @include box-shadow (0 0 8px #EEE);
       
       table tr td {
         color: #DDD;
@@ -116,8 +116,8 @@
     height: 300px;
     margin-right: 18px;
     width: 500px;
-    @include boxShadow (0 0 8px #AAA);
-    @include borderRadius (12px);
+    @include box-shadow (0 0 8px #AAA);
+    @include border-radius (12px);
   }
   
   section.openingHours {

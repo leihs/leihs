@@ -1,6 +1,5 @@
 @import "../../shared/mixins";
 @import "../../shared/variables";
-@import "../variables";
 
 .ui-dialog.calendar {
   
@@ -46,7 +45,7 @@
           padding-top: 4px;
           position: relative;
           width: 100%;
-          @include borderRadius(4px);
+          @include border-radius(4px);
           
           .name {
             font-weight: bold;
@@ -168,15 +167,21 @@
   }
   
   #fullcalendar {
-    margin-bottom: 10px;
+    margin-bottom: -13px;
     position: relative;
     top: -13px;
     height: 567px;
   }
   
   .list {
+    margin-top: 1px;
+    margin-left: 3px;
+    margin-right: 2px;
     
     .line {
+      border-bottom: 1px solid #E5E5E5;
+      border-left: 1px solid #E5E5E5;
+      border-right: 1px solid #E5E5E5;
       
       &:hover {
         z-index: 99999;
@@ -202,10 +207,6 @@
         .button, .multibutton {
           @include opacity(1.0);
         }
-      }
-      
-      &:nth-last-child(1) {
-        border-bottom: none;
       }
       
       &:nth-child(1) {

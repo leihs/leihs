@@ -10,12 +10,6 @@ section {
     position: relative;
     @include inset-box;
     
-    &.selected {
-      background: $highlight-darkergrey;
-      border: 1px solid $borderdarkgrey;
-      @include boxShadow(0 0 8px #CDD);
-    }
-    
     .dates {
       color: $darkgrey;
       font-size: 1.3em;
@@ -29,6 +23,17 @@ section {
         input {
           cursor: pointer;
         }
+      }
+    }
+    
+    &.selected {
+      background: $highlight-darkgrey;
+      border: 1px solid $borderdarkgrey;
+      @include box-shadows(0 0 8px #CDD, inset 0 0 4px #FFF);
+      
+      .dates {
+        color: $darkergrey;
+        font-weight: bold;
       }
     }
     

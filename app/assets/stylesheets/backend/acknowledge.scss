@@ -32,7 +32,7 @@
         padding-top: 2px;
         position: relative;
         text-align: left;
-        @include boxShadow(0 -4px 8px rgba(0,0,0,0.4));
+        @include box-shadow(0 -4px 8px rgba(0,0,0,0.4));
       }
       
       &:hover {
@@ -43,7 +43,7 @@
         &+.showmore{
           position: relative;
           top: 1px;
-          @include boxShadow(0 -4px 8px rgba(0,0,0,0.5));
+          @include box-shadow(0 -4px 8px rgba(0,0,0,0.5));
         }
       }
     }

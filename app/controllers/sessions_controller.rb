@@ -6,8 +6,8 @@ class SessionsController < ApplicationController
 
   # render new.rhtml
   def new
-    if Rails.env.development? and params["bypass"] and params["login"] and User.find_by_login(params[:login])
-      create
+    if Rails.env.development? and params["bypass"] and User.find_by_login(params["bypass"])
+      create params["bypass"]
     else
       redirect_to :action => 'authenticate'
     end

@@ -79,13 +79,13 @@ input[type=text], input[type=password], textarea, select, span.select {
   font-size: 1.2em;
   padding: 0 6px;
   position: relative;
-  @include borderRadius(4px);
+  @include border-radius(4px);
   
   &:not([type=submit]) {
     &:focus, &:hover {
       color: $darkergrey !important;
       border-color: $borderdarkgrey !important;
-      @include boxShadow (0 0 6px #DDD);
+      @include box-shadow (0 0 6px #DDD);
     }
   }
   

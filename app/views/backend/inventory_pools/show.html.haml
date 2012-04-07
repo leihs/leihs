@@ -24,7 +24,8 @@
           != last_visitors
     -else
       %p.subtitle 
-        = _("This is a preview of that day")
+        - days_ahead = (@date - Date.today).to_i
+        = _("%d %s ahead of time") % [days_ahead, "days".pluralize(days_ahead)]
         
   -if @date == Date.today
     %section.order

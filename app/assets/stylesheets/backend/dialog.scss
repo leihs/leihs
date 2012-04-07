@@ -1,6 +1,5 @@
 @import "../shared/mixins";
 @import "../shared/variables";
-@import "../backend/variables";
 
 .ui-dialog {
   
@@ -30,7 +29,7 @@
     text-align: center;
     padding: 12px;
     margin: 12px 0 16px 0;
-    @include boxShadow (0 0 8px #AAA);
+    @include box-shadow (0 0 8px #AAA);
     
     &.visible {
       display: block;
@@ -59,7 +58,7 @@
       padding: 10px;
       vertical-align: top;
       width: 700px;
-      @include borderRadius(6px);
+      @include border-radius(6px);
       
       &[disabled=disabled] {
         border: 1px solid $lightergrey;

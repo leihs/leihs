@@ -23,7 +23,7 @@
       margin-bottom: 5px;
       text-align:center;
       min-width:1em;
-      @include borderRadius(6px);
+      @include border-radius(6px);
       
       &:hover {
         background: url($slices-h) repeat-x 0 -284px;

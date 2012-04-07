@@ -255,9 +255,12 @@ class Backend::HandOverController < Backend::BackendController
     generic_time_lines(@contract)
   end    
 
-  # remove a contract line for a given contract
-  def remove_lines
-    generic_remove_lines(@contract)
+  def remove_lines(line_ids = params[:line_ids] || raise("line_ids is required"))
+    line_ids.each {|l| @contract.remove_line(l, current_user.id)}
+    
+    respond_to do |format|
+      format.json { render :json => true, :status => 200  }
+    end
   end
 
   def swap_user

@@ -21,7 +21,7 @@
     position: relative;
     top: 1px;
     width: 110px;
-    @include borderRadius(4px);
+    @include border-radius(4px);
     
     &:focus {
       border: 1px solid $lightgrey;

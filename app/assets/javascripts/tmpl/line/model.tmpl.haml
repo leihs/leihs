@@ -47,16 +47,17 @@
       ${total_rentable_in_stock}
       = "/"
       ${total_rentable}
-      
-  %li.actions
-    .multibutton
-      .alternatives
-        .trigger
-          .arrow
-        = link_to "/backend/inventory_pools/${current_inventory_pool}/models/${id}/edit",  :class => "button white" do
-          .icon.edit
-          = _("Edit")
-      = link_to "/backend/inventory_pools/${current_inventory_pool}/models/${id}", :class => "button white" do
-        .icon.view_model
-        = _("View Model")
+  
+  .actions    
+    %li.actions
+      .multibutton
+        .alternatives
+          .trigger
+            .arrow
+          = link_to "/backend/inventory_pools/${current_inventory_pool}/models/${id}/edit",  :class => "button white" do
+            .icon.edit
+            = _("Edit")
+        = link_to "/backend/inventory_pools/${current_inventory_pool}/models/${id}", :class => "button white" do
+          .icon.view_model
+          = _("View Model")
 {{/if}}

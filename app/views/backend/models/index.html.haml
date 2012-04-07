@@ -9,7 +9,7 @@
       %ul.navigation.line
         %li.search
           = form_tag("", :method => :get, :autocomplete => :off) do
-            %input{:type => "text", :name => "query", :value => "#{params[:query]}", :"data-start_text" => _("Suchen..."), :class => "clearable"}
+            %input{:type => "text", :name => "query", :value => "#{params[:query]}", :placeholder => _("Suchen..."), :class => "clearable"}
             = image_tag "loading.gif", :class => "loading"
             -unless params[:query].blank?
               %strong

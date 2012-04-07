@@ -29,12 +29,13 @@
       ${badge_id}
     {{/if}}
   
-  %li.actions
-    .multibutton
-      .alternatives
-        .trigger
-          .arrow
-        = mail_to "${email}", "<div class='icon send'></div>#{_('E-Mail')}".html_safe, :class => "button white"
-      = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${id}/new_contract", :class => "button white" do
-        .icon.hand_over
-        = _("Hand Over")
+  .actions
+    %li.actions
+      .multibutton
+        .alternatives
+          .trigger
+            .arrow
+          = mail_to "${email}", "<div class='icon send'></div>#{_('E-Mail')}".html_safe, :class => "button white"
+        = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${id}/new_contract", :class => "button white" do
+          .icon.hand_over
+          = _("Hand Over")

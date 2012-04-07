@@ -17,8 +17,8 @@
   border-left: 1px solid $bordergrey;
   border-right: 1px solid $borderlightgrey;
   border-bottom: 1px solid $borderlightgrey; 
-  @include borderRadius(6px);
-  @include boxShadow(inset 0 2px 2px #CCC);
+  @include border-radius(6px);
+  @include box-shadow(inset 0 2px 2px #CCC);
 }
 
 @mixin greylinks {
@@ -82,7 +82,7 @@
   opacity: $value; // THE REST
 }
 
-@mixin borderRadius($value) {
+@mixin border-radius($value) {
   -moz-border-radius: $value; /* Firefox */
   -webkit-border-radius: $value; /* Safari, Chrome */
   border-radius: $value; /* CSS3 */
@@ -97,19 +97,19 @@
   }
 }
 
-@mixin boxShadow ($value) {
+@mixin box-shadow ($value) {
   -moz-box-shadow: $value;
   -webkit-box-shadow: $value;
   box-shadow: $value;
 }
 
-@mixin noBoxShadow () {
+@mixin nobox-shadow () {
   -moz-box-shadow: none !important;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
 }
 
-@mixin doubledBoxShadow ($value1, $value2) {
+@mixin box-shadows ($value1, $value2) {
   -moz-box-shadow: $value1, $value2;
   -webkit-box-shadow: $value1, $value2;
   box-shadow: $value1, $value2;
@@ -118,13 +118,13 @@
 @mixin highlightItem () {
   background: $highlight-darkgrey;
   position: relative;
-  //@include doubledBoxShadow (0 2px 10px rgba(20,20,20,0.2), 0 -2px 10px rgba(20,20,20,0.2));
+  //@include box-shadows (0 2px 10px rgba(20,20,20,0.2), 0 -2px 10px rgba(20,20,20,0.2));
 }
 
 @mixin highlightSmallItem () {
   background: $highlight-darkgrey;
   position: relative;
-  //@include doubledBoxShadow (0 2px 5px rgba(0,0,0,0.2), 0 -2px 5px rgba(0,0,0,0.2));
+  //@include box-shadows (0 2px 5px rgba(0,0,0,0.2), 0 -2px 5px rgba(0,0,0,0.2));
 }
 
 @mixin modelsGrid () {

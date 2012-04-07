@@ -1,6 +1,7 @@
 %ul.line{:class => "${type}"}
-  = link_to "javascript:void(0);" do #TODO: /backend/inventory_pools/${current_inventory_pool}/items/${id}
-    
+
+  .main
+      
     %li.modelname
       ${model.name}
       
@@ -44,16 +45,17 @@
       %span.red
         %b= _("Incomplete")
       {{/if}}
-      
-  %li.actions
-    .multibutton
-      .alternatives
-        .trigger
-          .arrow
-        = link_to "/backend/inventory_pools/${current_inventory_pool}/items/${id}/retire", :class => "button white" do
-          .icon.retire
-          = _("Retire")
-      = link_to "/backend/inventory_pools/${current_inventory_pool}/items/${id}", :class => "button white" do
-        .icon.view_item
-        = _("View Item")
-        
+    
+  .actions  
+    %li.actions
+      .multibutton
+        .alternatives
+          .trigger
+            .arrow
+          = link_to "/backend/inventory_pools/${current_inventory_pool}/items/${id}/retire", :class => "button white" do
+            .icon.retire
+            = _("Retire")
+        = link_to "/backend/inventory_pools/${current_inventory_pool}/items/${id}", :class => "button white" do
+          .icon.view_item
+          = _("View Item")
+          

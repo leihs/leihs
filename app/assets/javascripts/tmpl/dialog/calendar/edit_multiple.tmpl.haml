@@ -3,17 +3,12 @@ ${$end_date = new MaxDate(lines), ""}
 ${merged_lines_availabilities = new MultipleMergedLinesAvailabilities(selected_lines), ""}
 = form_tag '${$item.action}', :remote => true, :"data-submit_button" => true do
   %h1
-    = _("Edit multiple selected items")
+    %strong= _("Multiple selected items")
   %p.subtitle
-    = _("for")
+    = _("Editing for")
     %strong
       ${user.firstname}
       ${user.lastname}
-    %span.date
-      
-      ({{html moment($start_date).format(i18n.date.L)}}
-      = "-"
-      {{html moment($end_date).format(i18n.date.L)}})
   .navigation
     %a.button.red.close_dialog
       = _("Cancel")
@@ -69,4 +64,4 @@ ${merged_lines_availabilities = new MultipleMergedLinesAvailabilities(selected_l
   #fullcalendar.multiple
   
 .list
-  {{tmpl(selected_lines, {multiple: true}) "tmpl/line/calendar/order_line"}}
+  {{tmpl(selected_lines) "tmpl/line/calendar/line"}}

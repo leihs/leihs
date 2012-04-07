@@ -64,7 +64,7 @@
       height: 20px;
       position: relative;
       text-align: center;
-      @include borderRadius(4px);
+      @include border-radius(4px);
     }
     
     .quantity {
@@ -147,7 +147,7 @@
         padding-top: 4px;
         position: relative;
         width: 100%;
-        @include borderRadius(4px);
+        @include border-radius(4px);
         
         .name {
           font-weight: bold;

@@ -1,9 +1,8 @@
 = form_tag '${$item.action}', :remote => true, :"data-submit_button" => true do
   %h1
-    = _("Edit ordered item")
-    "${model.name}" 
+    %strong{:title => "${model.name}"} ${Str.sliced_trunc(model.name, 40)} 
   %p.subtitle
-    = _("for")
+    = _("Edit ordered item for")
     %strong
       ${order.user.firstname}
       ${order.user.lastname}
@@ -79,4 +78,4 @@
   #fullcalendar
   
 .list
-  {{tmpl($item.data) "tmpl/line/calendar/order_line"}}
+  {{tmpl($item.data) "tmpl/line/calendar/line"}}

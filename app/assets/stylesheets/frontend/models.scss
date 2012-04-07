@@ -131,7 +131,7 @@
         margin: 0 auto;
         overflow: hidden;
         width: 40px;
-        @include borderRadius(8px);
+        @include border-radius(8px);
         
         table {
           height: 100%;

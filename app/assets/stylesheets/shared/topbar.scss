@@ -99,8 +99,8 @@
         position: absolute;
         top: 43px;
         z-index: 999;
-        @include boxShadow (0 4px 8px #DDD);
-        @include borderRadius(6px);
+        @include box-shadow (0 4px 8px #DDD);
+        @include border-radius(6px);
         border-top-right-radius: 0;
         border-top-left-radius: 0;
         

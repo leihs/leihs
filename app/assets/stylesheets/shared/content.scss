@@ -50,7 +50,7 @@
     display: block;
     padding: 8px 0 8px 0;
     position: relative;
-    @include boxShadow(0 8px 12px rgba(0,0,0,0.1));  
+    @include box-shadow(0 8px 12px rgba(0,0,0,0.1));  
     
     .top {
       padding-left: $inner-padding-left;

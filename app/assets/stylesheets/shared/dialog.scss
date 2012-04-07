@@ -6,8 +6,8 @@
   border: 1px solid $lightgrey;
   display: inline-block;
   position: absolute;
-  @include borderRadius(6px);
-  @include boxShadow (0 0 18px rgba(0,0,0,0.2));
+  @include border-radius(6px);
+  @include box-shadow (0 0 18px rgba(0,0,0,0.2));
   
   &.error {
     border: 3px solid red;  
@@ -58,7 +58,7 @@
       
       &:hover {
         background: none !important;  
-        @include noBoxShadow;
+        @include nobox-shadow;
       }
       
       &li:first-child {
@@ -93,7 +93,7 @@
     right: 3px; 
     top: 5px;
     width: 15px;
-    @include borderRadius(4px);
+    @include border-radius(4px);
     
     span {
       display: block;
@@ -120,7 +120,7 @@
   .ui-dialog-content {
     border-top: 1px solid $lightergrey;    
     position: relative;
-    padding: 20px;
+    padding: 20px 20px 10px 20px;
     zoom: 1;
    }
    
@@ -135,7 +135,7 @@
     button { 
       cursor: pointer; 
       padding: 2px 10px;
-      @include borderRadius(4px);
+      @include border-radius(4px);
     }
   }
 }

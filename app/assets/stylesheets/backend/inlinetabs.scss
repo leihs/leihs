@@ -20,7 +20,7 @@
     padding: 4px 10px 0 10px;
     position: relative;
     margin-right: -4px;
-    @include borderRadius(4px);
+    @include border-radius(4px);
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
     
@@ -44,8 +44,8 @@
       margin-left: 1px;
       text-align: center;
       z-index: 999;
-      @include borderRadius(5px);
-      @include boxShadow (0 0 1px #DDD);
+      @include border-radius(5px);
+      @include box-shadow (0 0 1px #DDD);
     }
   }
   

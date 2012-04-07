@@ -112,8 +112,8 @@
       position: relative;
       white-space: nowrap;
       margin-left: 1px;
-      @include borderRadius(0);
-      @include boxShadow (0 3px 7px #BBB);
+      @include border-radius(0);
+      @include box-shadow (0 3px 7px #BBB);
       
       .icon {
         margin-left: 2px;
@@ -184,7 +184,7 @@
   &.loading {
     @include opacity(1.0 !important);
     .button {
-      @include boxShadow (0 0 3px #BBB);
+      @include box-shadow (0 0 3px #BBB);
     }
   }
 }

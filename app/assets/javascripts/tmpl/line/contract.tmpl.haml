@@ -25,34 +25,35 @@
       {{/if}}
       %span.grey
         ${moment(updated_at).format(i18n.date.L)}
+  
+  .actions    
+    %li.actions
+      {{if status_const == 2}}
+      .multibutton
+        .alternatives
+          .trigger
+            .arrow
+          = link_to "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf", :class => "button white" do
+            .icon.contract
+            = _("Contract PDF")
+          = link_to "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf?template=value_list", :class => "button white" do
+            .icon.valuelist  
+            = _("Value List")
+        = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/take_back", :class => "button white" do
+          .icon.take_back
+          = _("Take Back")
+      {{/if}}
       
-  %li.actions
-    {{if status_const == 2}}
-    .multibutton
-      .alternatives
-        .trigger
-          .arrow
+      {{if status_const == 3}}
+      .multibutton
+        .alternatives
+          .trigger
+            .arrow
+          = link_to "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf?template=value_list", :class => "button white" do
+            .icon.valuelist  
+            = _("Value List")
         = link_to "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf", :class => "button white" do
           .icon.contract
           = _("Contract PDF")
-        = link_to "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf?template=value_list", :class => "button white" do
-          .icon.valuelist  
-          = _("Value List")
-      = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/take_back", :class => "button white" do
-        .icon.take_back
-        = _("Take Back")
-    {{/if}}
-    
-    {{if status_const == 3}}
-    .multibutton
-      .alternatives
-        .trigger
-          .arrow
-        = link_to "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf?template=value_list", :class => "button white" do
-          .icon.valuelist  
-          = _("Value List")
-      = link_to "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf", :class => "button white" do
-        .icon.contract
-        = _("Contract PDF")
-    {{/if}}
+      {{/if}}
     

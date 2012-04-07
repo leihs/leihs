@@ -2,7 +2,7 @@
 @import "../shared/variables";
 
 .qtip.closed-day-alert {
-  @include boxShadow (0 0 10px #C66);
+  @include box-shadow (0 0 10px #C66);
   
   .ui-tooltip-titlebar {
     border-color: $red;
@@ -10,6 +10,26 @@
   
   .ui-tooltip-content {
     border-color: $red;
+  }
+}
+
+.qtip.target-selection {
+  @include box-shadow (0 0 6px rgba(0,0,0,0.2));
+  
+  .ui-tooltip-content {
+    background: white;
+    border-color: $borderdarkergrey;
+    @include border-radius(4px);
+  }
+  
+  a {
+    color: $lightgrey;
+    cursor: pointer;
+    font-weight: bold;
+    
+    &:hover {
+      color: $darkgrey;
+    }
   }
 }
 
@@ -22,8 +42,8 @@
     background-color: white;
     color: $darkergrey;
     padding: 10px 14px;
-    @include borderRadius(6px);
-    @include boxShadow (0 0 10px #888);
+    @include border-radius(6px);
+    @include box-shadow (0 0 10px #888);
   }
   
   .ui-tooltip-titlebar {
@@ -32,7 +52,7 @@
     background-color: white;
     color: $darkgrey;
     padding: 10px 10px 0 10px;
-    @include borderRadius(6px);
+    @include border-radius(6px);
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
     border-bottom: none;
@@ -41,7 +61,7 @@
       border-top-right-radius: 0;
       border-top-left-radius: 0;
       border-top: none;
-       @include noBoxShadow;
+       @include nobox-shadow;
     }
   }
 
@@ -139,8 +159,8 @@
               height: auto;
               position: relative;
               width: 90px;
-              @include borderRadius(4px);
-              @include boxShadow (0 0 4px #AAA);
+              @include border-radius(4px);
+              @include box-shadow (0 0 4px #AAA);
               z-index: 1000;
             }
             

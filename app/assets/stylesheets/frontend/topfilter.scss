@@ -84,8 +84,8 @@
           height: 100%;
           position: relative;
           padding: 0 4px;
-          @include boxShadow (0 4px 8px #DDD);
-          @include borderRadius(6px);
+          @include box-shadow (0 4px 8px #DDD);
+          @include border-radius(6px);
           border-top-right-radius: 0;
           border-top-left-radius: 0;
           
@@ -229,7 +229,7 @@
         height: 18px;
         padding: 0 21px 0 6px;
         width: 45px;
-        @include borderRadius(4px);
+        @include border-radius(4px);
       }
       
       .dateicon {

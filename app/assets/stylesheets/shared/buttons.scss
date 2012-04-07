@@ -14,7 +14,7 @@
   padding: 0 10px;
   position: relative;
   vertical-align: middle;
-  @include borderRadius(6px);
+  @include border-radius(6px);
   
   &>img.loading {
     display: inline-block;
@@ -28,7 +28,7 @@
   
   &.loading {
     @include opacity(1.0 !important);
-    @include boxShadow (0 0 3px #BBB);
+    @include box-shadow (0 0 3px #BBB);
     margin-right: 5px;
   }
 }

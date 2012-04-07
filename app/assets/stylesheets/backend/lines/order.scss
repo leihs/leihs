@@ -1,6 +1,5 @@
 @import "../../shared/mixins";
 @import "../../shared/variables";
-@import "../variables";
 
 .order.line {
   
@@ -37,7 +36,7 @@
   li.purpose {
     line-height: 1.2em;
     padding-right: 0;
-    width: 215px;
+    width: 212px;
   }
   
   li.status {

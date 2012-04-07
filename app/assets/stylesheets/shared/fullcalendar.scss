@@ -41,6 +41,15 @@
       cursor: move;
     }
     
+    .fc-widget-content:hover, .fc-widget-content.selected_for_target_selection {
+      background: $highlight-grey; 
+    }
+    
+    .fc-widget-content.history:hover {
+      cursor: default;
+      background: white !important; 
+    }
+    
     .fc-widget-content.available.selected {
       background-color: #87ef7c !important;
       border-left: 1px dashed #73d769 !important;
@@ -53,6 +62,10 @@
       .fc-day-number {
         color: #595c58 !important;
         @include opacity(1.0);
+      }
+      
+      &:hover, &.selected_for_target_selection {
+        background-color: #61eb52 !important;
       }
     }
     
@@ -74,6 +87,10 @@
       .fc-day-number {
         color: #3a3a3a !important;
         @include opacity(1.0);
+      }
+      
+      &:hover, &.selected_for_target_selection {
+        background-color: #f8393a !important;
       }
     }
     
@@ -276,8 +293,15 @@
          font-weight: bold;
        }
        
+       &:hover, &.selected_for_target_selection {
+         background: $highlight-darkgrey !important;
+       }
+       
        &.available.selected {
          background-color: #73e766 !important;
+         &:hover, &.selected_for_target_selection {
+           background: $highlight-darkgrey;
+         }
        }
        
        &.unavailable.selected {
@@ -307,7 +331,7 @@
       background: #c0c0c0 url($slices-h) repeat-x 0 -252px;
       padding-top: 1px;
       top: -2px;
-      @include borderRadius(4px);
+      @include border-radius(4px);
     }
       
     .fc-state-default {
@@ -318,7 +342,7 @@
       position: relative;
       float: left;
       overflow: hidden;
-      @include borderRadius(4px);
+      @include border-radius(4px);
     }
       
     .fc-button-content {
@@ -328,7 +352,7 @@
       line-height: 1.9em;
       padding: 0 .6em;
       white-space: nowrap;
-      @include borderRadius(4px);
+      @include border-radius(4px);
     }
       
     .fc-button-prev, .fc-button-next {

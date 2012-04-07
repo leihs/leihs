@@ -30,8 +30,8 @@
         margin-left: 1px;
         text-align: center;
         z-index: 999;
-        @include borderRadius(5px);
-        @include boxShadow (0 0 1px #DDD);
+        @include border-radius(5px);
+        @include box-shadow (0 0 1px #DDD);
       }
     }
     

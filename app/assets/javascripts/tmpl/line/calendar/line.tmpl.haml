@@ -1,0 +1,11 @@
+= hidden_field("line_ids", "", :value => "${id}")
+%ul.line
+  .main
+    %li.amount
+      ${quantity} /          
+      %span.grey
+        ="${total_rentable}"
+        = _("total rentable")
+    %li.name
+      %strong
+        ${model.name}

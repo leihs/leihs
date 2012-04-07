@@ -10,20 +10,15 @@
   position: relative;
   
   &>.selection {
-    display: inline-block;
-    position: relative;
+    background: $highlight-darkgrey;
+    border: 1px solid $highlight-darkergrey; 
     bottom: 0;
+    display: inline-block;
+    font-size: 1.3em;
+    padding: 4px 8px;
+    position: relative;
     margin-right: 6px;
-    
-    &>label {
-      cursor: pointer;
-      font-size: 1.3em;
-      margin-right: 6px;
-      
-      input[type='checkbox'] {
-        cursor: pointer;
-      }
-    }
+    @include border-radius(4px);
   }
   
   &>.actions {
