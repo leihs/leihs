@@ -9,19 +9,14 @@
         - range = (@visits.last.date - Date.today).to_i
         = _("in the next %i days" % range) if range > 0
       - else
-        = _("No take backs")
+        = _("No take backs found")
         
 
   .indent      
     #selection_actions
       .selection
-        %label
-          = radio_button_tag "selection_range", "all"
-          = _("All")
-        %label
-          = radio_button_tag "selection_range", "selection"
-          = _("Auswahl")
-          %span.count= "(0)"
+        = _("Auswahl")
+        %span.count= "(0)"
       .actions
         = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@user.id}/take_back/close_contract", 
         :class => "button green open_dialog",

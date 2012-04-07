@@ -125,7 +125,7 @@ function SelectionActions() {
   
   this.updateSelectionCount = function() {
     var _newCount = "("+ $(".lines>.line .select input[type='checkbox']:checked").length +")";
-    $("#selection_actions input#selection_range_selection").siblings(".count").html(_newCount);
+    $("#selection_actions .selection .count").html(_newCount);
       
     if($(".lines>.line .select input[type='checkbox']:checked").length) {
       SelectionActions.enableSelectionActionButton();

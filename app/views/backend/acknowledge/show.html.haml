@@ -69,13 +69,8 @@
         
     #selection_actions
       .selection
-        %label
-          = radio_button_tag "selection_range", "all"
-          = _("All")
-        %label
-          = radio_button_tag "selection_range", "selection"
-          = _("Auswahl")
-          %span.count= "(0)"
+        = _("Auswahl")
+        %span.count= "(0)"
       .actions
         .multibutton
           .alternatives
