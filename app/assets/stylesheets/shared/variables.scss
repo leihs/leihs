@@ -6,7 +6,6 @@ $borderlightergrey: #e5e5e5;
 $borderhighlightred: #fe9393;
 $borderhighlightgreen: #c6f3c1;
 
-
 $grey: #616161;
 $darkgrey: #515151;
 $darkergrey: #3a3a3a;
@@ -34,3 +33,6 @@ $background: image-path("background.png");
 
 $inner-padding-left: 12px;
 $inner-padding-right: 12px;
+
+$backend-image-sprite: image-path("backend/image-sprite.png");
+$backend-slices-h: image-path("backend/slices-h.png");
