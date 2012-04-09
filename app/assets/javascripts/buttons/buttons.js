@@ -88,7 +88,6 @@ function Buttons() {
   }
   
   this.ajaxBeforeSend = function(event, request, settings) {
-    console.log($(this));
     Buttons.disable($(event.currentTarget));
     Buttons.addLoading($(event.currentTarget));
   }
@@ -101,7 +100,7 @@ function Buttons() {
     eval($(_this).data("on_success"));
   }
   
-  this.ajaxError = function(event, request, settings) {
+  this.ajaxError = function(event, response, settings) {
     var _this = $(event.currentTarget);
     Buttons.enable(_this);
     Buttons.removeLoading(_this);
@@ -119,7 +118,7 @@ function Buttons() {
     Buttons.addLoading($(event.currentTarget).find(".button[type='submit']"));
   }
   
-  this.ajaxSuccessForm = function(event, request, settings) {
+  this.ajaxSuccessForm = function(event, response, settings) {
     var _this = $(event.currentTarget).find(".button[type='submit']");
     Buttons.enable(_this);
     Buttons.removeLoading(_this);
@@ -131,10 +130,10 @@ function Buttons() {
     $(event.currentTarget).parents(".dialog").dialog("close");
   }
   
-  this.ajaxErrorForm = function(event, request, settings) {
+  this.ajaxErrorForm = function(event, response, settings) {
     Buttons.enable($(event.currentTarget).find(".button[type='submit']"));
     Buttons.removeLoading($(event.currentTarget).find(".button[type='submit']"));
-    $(event.currentTarget).find(".flash_message").html(request.responseText).show();
+    $(event.currentTarget).find(".flash_message").html(response.responseText).show();
     $(event.currentTarget).closest(".ui-dialog").css("height", "auto");
   }
   

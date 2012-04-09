@@ -1,3 +1,5 @@
+{{html $problems = Line.get_problems($item.data), ""}}
+
 %ul{:class => "line ${type}{{if is_available}} available{{else}} unavailable{{/if}}"}
   
   .main
@@ -13,7 +15,8 @@
         ="/ ${total_rentable} #{_('total rentable')}"
         
     %li.name
-      ${model.name}
+      %strong
+        ${model.name}
       
       {{if model.package_models}}
       {{if model.package_models.length > 0}}
@@ -36,9 +39,16 @@
       {{/if}}
       {{/if}}
     
-    {{if !is_available}}
-    %li.unavailable
-      = _("Unavailable") 
+    {{if $problems.length > 0}}
+    %li.problems.hastip
+      .tip.problems
+        %ul
+          {{each(i, problem) $problems}}
+          %li= "${problem}"
+          {{/each}}
+      %strong 
+        = _("Problems")
+        (${$problems.length})
     {{/if}}
   
   .actions    
@@ -58,8 +68,7 @@
             .icon.delete
             = _("Delete")
             
-          -#/backend/inventory_pools/${current_inventory_pool}/acknowledge/${order.id}/update_lines  
-        = link_to "#",
+        = link_to "/backend/inventory_pools/${current_inventory_pool}/acknowledge/${order.id}/update_lines",
           :class => "button white open_dialog", 
           :"data-rel" => "tmpl/dialog/calendar/edit_single", 
           :"data-dialog_class" => "calendar",

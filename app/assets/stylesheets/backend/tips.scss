@@ -19,18 +19,25 @@
   .ui-tooltip-content {
     background: white;
     border-color: $borderdarkergrey;
+    padding: 4px 3px;
     @include border-radius(4px);
   }
   
   a {
-    color: $lightgrey;
+    background: $highlight-grey;
+    border: 1px solid $highlight-darkgrey;
     cursor: pointer;
     font-weight: bold;
+    padding: 2px 4px;
+    @include border-radius(4px);
     
     &:hover {
-      color: $darkgrey;
+      background: $highlight-darkgrey;
+      border: 1px solid $highlight-darkergrey;
     }
   }
+  
+  @include darkGreylinks();
 }
 
 .list_tip {

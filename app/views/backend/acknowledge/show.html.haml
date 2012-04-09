@@ -128,7 +128,6 @@
     }
     
     this.update_order = function(order) {
-      console.log("UPDATE ORDER");
       // reset the order template with the new data
       $("#order").html("");
       $('#order').replaceWith($.tmpl("tmpl/order", order));

@@ -42,7 +42,7 @@
     }
     
     .fc-widget-content:hover, .fc-widget-content.selected_for_target_selection {
-      background: $highlight-grey; 
+      background: $highlight-darkgrey; 
     }
     
     .fc-widget-content.history:hover {
@@ -90,7 +90,7 @@
       }
       
       &:hover, &.selected_for_target_selection {
-        background-color: #f8393a !important;
+        background-color: #e52526 !important;
       }
     }
     

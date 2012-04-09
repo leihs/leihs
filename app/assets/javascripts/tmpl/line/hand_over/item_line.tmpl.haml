@@ -1,6 +1,7 @@
 {{html $valid = (is_available && is_valid), ""}}
 {{html $error = (!is_available || !is_valid), ""}}
 {{html $assigned = (item != undefined), ""}}
+{{html $problems = Line.get_problems($item.data), ""}}
 
 %ul{:class => "line ${type}{{if $valid}} valid{{/if}}{{if $error}} error{{/if}}{{if $assigned}} assigned{{/if}}"}
   
@@ -19,6 +20,18 @@
           %input{:type => "text", :name => "inventory_code", :placeholder => _("Inventory Code"), :title => _("Inventory Code"), :value => "{{if item}}${item.inventory_code}{{/if}}"}
     %li.name
       %strong ${model.name}
+      
+    {{if $problems.length > 0}}
+    %li.problems.hastip
+      .tip.problems
+        %ul
+          {{each(i, problem) $problems}}
+          %li= "${problem}"
+          {{/each}}
+      %strong 
+        = _("Problems")
+        (${$problems.length})
+    {{/if}}
  
   .actions     
     %li.actions
@@ -47,12 +60,7 @@
           = _("Edit")
         
   .extended
-    {{if ($error || errors)}}
-    .errors
-      {{if !is_available}}
-      .error= _("The model is not available")
-      {{/if}}
-      {{each(i,error) errors}}
-      .error ${error}
-      {{/each}}
+    {{if model.hand_over_note}}
+    .note
+      ${model.hand_over_note}
     {{/if}}
