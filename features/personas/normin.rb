@@ -44,8 +44,10 @@ module Persona
     
     def create_orders
       @camera_model = Model.find_by_name "Kamera Nikon X12"
+      @tripod_model = Model.find_by_name "Kamera Stativ"
       @order_for_camera = FactoryGirl.create(:order, :user => @user, :inventory_pool => @inventory_pool, :status_const => Order::SUBMITTED)
       @order_line_camera = FactoryGirl.create(:order_line, :inventory_pool => @inventory_pool, :model => @camera_model, :order => @order_for_camera, :start_date => Date.today, :end_date => Date.tomorrow)
+      @order_line_tripod = FactoryGirl.create(:order_line, :inventory_pool => @inventory_pool, :model => @tripod_model, :order => @order_for_camera, :start_date => Date.today, :end_date => Date.tomorrow)
     end
     
     def create_unsigned_contracts

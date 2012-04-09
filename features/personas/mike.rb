@@ -41,12 +41,12 @@ module Persona
     end
     
     def create_minimal_inventory
-      setup_sharp_beamer
-      setup_camera
-      setup_tripod
+      setup_sharp_beamers
+      setup_cameras
+      setup_tripods
     end
     
-    def setup_sharp_beamer
+    def setup_sharp_beamers
       @beamer_category = FactoryGirl.create(:category, :name => "Beamer")
       @beamer_model = FactoryGirl.create(:model, :name => "Sharp Beamer",
                                 :manufacturer => "Sharp", 
@@ -55,9 +55,10 @@ module Persona
                                 :maintenance_period => 0)
       @beamer_model.model_links.create :model_group => @beamer_category
       @beamer_item = FactoryGirl.create(:item, :inventory_code => "beam123", :serial_number => "xyz456", :model => @beamer_model, :location => @location, :owner => @inventory_pool)
+      @beamer_item2 = FactoryGirl.create(:item, :inventory_code => "beam345", :serial_number => "xyz890", :model => @beamer_model, :location => @location, :owner => @inventory_pool)
     end
     
-    def setup_camera
+    def setup_cameras
       @camera_category = FactoryGirl.create(:category, :name => "Kameras")
       @camera_model = FactoryGirl.create(:model, :name => "Kamera Nikon X12",
                                 :manufacturer => "Nikon", 
@@ -66,9 +67,10 @@ module Persona
                                 :maintenance_period => 0)
       @camera_model.model_links.create :model_group => @camera_category
       @camera_item = FactoryGirl.create(:item, :inventory_code => "cam123", :serial_number => "abc234", :model => @camera_model, :location => @location, :owner => @inventory_pool)
+      @camera_item2= FactoryGirl.create(:item, :inventory_code => "cam345", :serial_number => "ab567", :model => @camera_model, :location => @location, :owner => @inventory_pool)
     end
     
-    def setup_tripod
+    def setup_tripods
       @tripod_category = FactoryGirl.create(:category, :name => "Stative")
       @tripod_model = FactoryGirl.create(:model, :name => "Kamera Stativ",
                                 :manufacturer => "Feli", 
@@ -77,6 +79,7 @@ module Persona
                                 :maintenance_period => 0)
       @tripod_model.model_links.create :model_group => @tripod_category
       @tripod_item = FactoryGirl.create(:item, :inventory_code => "tri789", :serial_number => "fgh567", :model => @tripod_model, :location => @location, :owner => @inventory_pool)
+      @tripod_item2 = FactoryGirl.create(:item, :inventory_code => "tri123", :serial_number => "fgh987", :model => @tripod_model, :location => @location, :owner => @inventory_pool)
     end
 
   end  
