@@ -15,21 +15,21 @@
           = _("today")
       - else
         = _("No hand overs found")
-        
 
   .indent      
     #selection_actions
       .selection
         = _("Auswahl")
         %span.count= "(0)"
-      .actions
-        = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@user.id}/hand_over/sign_contract", 
-        :class => "button green open_dialog",
-        :"data-rel" => "tmpl/dialog/hand_over/summary",
-        :"data-dialog_class" => "hand_over",
-        :"data-ref_for_dialog" => "$('#visits').tmplItem().data",
-        :id => "hand_over_button" do
-          = _("Hand Over")
+      - unless @visits.empty?
+        .actions
+          = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@user.id}/hand_over/sign_contract", 
+          :class => "button green open_dialog",
+          :"data-rel" => "tmpl/dialog/hand_over/summary",
+          :"data-dialog_class" => "hand_over",
+          :"data-ref_for_dialog" => "$('#visits').tmplItem().data",
+          :id => "hand_over_button" do
+            = _("Hand Over")
     .clear
     
   %hr
