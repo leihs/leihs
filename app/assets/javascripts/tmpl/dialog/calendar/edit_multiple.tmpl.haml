@@ -5,7 +5,7 @@ ${merged_lines_availabilities = new MultipleMergedLinesAvailabilities(selected_l
   %h1
     %strong= _("Multiple selected items")
   %p.subtitle
-    = _("Editing for")
+    = _("Edit multiple ordered items for")
     %strong
       ${user.firstname}
       ${user.lastname}
@@ -62,6 +62,6 @@ ${merged_lines_availabilities = new MultipleMergedLinesAvailabilities(selected_l
   .clear
   
   #fullcalendar.multiple
-  
-.list
-  {{tmpl(selected_lines) "tmpl/line/calendar/line"}}
+    
+  .list
+    {{tmpl(selected_lines) "tmpl/line/calendar/line"}}
