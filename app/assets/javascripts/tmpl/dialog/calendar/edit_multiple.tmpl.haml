@@ -39,14 +39,14 @@ ${merged_lines_availabilities = new MultipleMergedLinesAvailabilities(selected_l
     
     .date.container
       .start_date
-        = text_field_tag :start_date, "${$start_date}", :tabindex => "2", :autocomplete => "off"
+        = text_field_tag :start_date, "${moment($start_date).format('YYYY-MM-DD')}", :tabindex => "2", :autocomplete => "off"
         %label{:for => "start_date"}
           = _("Start Date")
           .icon.jumpto.fc-goto-start{:title => _("jump to this date")}
       .dash
         = "-"
       .end_date
-        = text_field_tag :end_date, "${$end_date}", :tabindex => "3", :autocomplete => "off"
+        = text_field_tag :end_date, "${moment($end_date).format('YYYY-MM-DD')}", :tabindex => "3", :autocomplete => "off"
         %label{:for => "end_date"}
           = _("End Date")
           .icon.jumpto.fc-goto-end{:title => _("jump to this date")}

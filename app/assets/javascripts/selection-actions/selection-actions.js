@@ -36,15 +36,15 @@ function SelectionActions() {
       lines_data.push($(line).tmplItem().data);
       // set start date
       if(min_start_date == undefined){
-        min_start_date = new Date($(line).tmplItem().data.start_date.replace(/-/g, "/"));
-      } else if(new Date(line.tmplItem().data.start_date.replace(/-/g, "/")).getTime() < min_start_date.getTime()) {
-        min_start_date = new Date($(line).tmplItem().data.start_date.replace(/-/g, "/"));
+        min_start_date = moment($(line).tmplItem().data.start_date).sod().toDate();
+      } else if (moment($(line).tmplItem().data.start_date).sod().toDate().getTime() < min_start_date.getTime()) {
+        min_start_date = moment($(line).tmplItem().data.start_date).sod().toDate();
       }
       // set end date
       if(max_end_date == undefined){
-        max_end_date = new Date($(line).tmplItem().data.end_date.replace(/-/g, "/"));
-      } else if(new Date(line.tmplItem().data.end_date.replace(/-/g, "/")).getTime() > max_end_date.getTime()) {
-        max_end_date = new Date($(line).tmplItem().data.end_date.replace(/-/g, "/"));
+        max_end_date = moment($(line).tmplItem().data.end_date).sod().toDate();
+      } else if(moment($(line).tmplItem().data.end_date).sod().toDate().getTime() > max_end_date.getTime()) {
+        max_end_date = moment($(line).tmplItem().data.end_date).sod().toDate();
       }
     });
     
