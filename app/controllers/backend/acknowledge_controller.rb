@@ -133,7 +133,7 @@ class Backend::AcknowledgeController < Backend::BackendController
                    start_date = params[:start_date],
                    end_date = params[:end_date],
                    delete_line_ids = params[:delete_line_ids] || [])
-
+    
     OrderLine.transaction do
       unless delete_line_ids.blank?
         to_delete_lines = @order.lines.find(delete_line_ids)
@@ -150,9 +150,12 @@ class Backend::AcknowledgeController < Backend::BackendController
         order_line.quantity = [quantity.to_i, 0].max if quantity
         order_line.start_date = Date.parse(start_date) if start_date
         order_line.end_date = Date.parse(end_date) if end_date
-        order_line.model = order_line.order.user.models.find(new_model_id) if (new_model_id = line_id_model_id[order_line.id.to_s]) 
-        
-        change = _("[Model %s] ") % order_line.model 
+        # log changes
+        change = ""
+        if (new_model_id = line_id_model_id[order_line.id.to_s]) 
+          order_line.model = order_line.order.user.models.find(new_model_id) 
+          change = _("[Model %s] ") % order_line.model 
+        end
         change += order_line.changes.map do |c|
           what = c.first
           if what == "model_id"
