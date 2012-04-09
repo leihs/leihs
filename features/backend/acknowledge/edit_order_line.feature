@@ -24,10 +24,3 @@ Feature: Edit order line during acknowledge process
      When I open an order for acknowledgement with more then one line
       And I change the time range for multiple lines
      Then the time range for that order lines is changed
-     
-  @javascript
-  Scenario: Change the quantity of multiple order lines
-    Given I am "Pius"
-     When I open an order for acknowledgement with more then one line
-      And I change the quantity for multiple lines
-     Then the quantity for that order lines is changed

@@ -72,17 +72,14 @@ When /^I change the time range for multiple lines$/ do
   @line2_element = find(".line", :text => @line2.model.name)
   @line2_element.find("input[type=checkbox]").click
   step 'I edit the timerange of the selection'
-  binding.pry
+  @new_start_date = @line1.start_date+2
+  @new_start_date_element = find(".fc-widget-content:not(.fc-other-month) .fc-day-number", :text => @new_start_date.day.to_s)
+  @new_start_date_element.click
+  find("a", :text => "Start Date").click
+  step 'I save the booking calendar'
 end
 
 Then /^the time range for that order lines is changed$/ do
-  pending # express the regexp above with the code you wish you had
-end
-
-When /^I change the quantity for multiple lines$/ do
-  pending # express the regexp above with the code you wish you had
-end
-
-Then /^the quantity for that order lines is changed$/ do
-  pending # express the regexp above with the code you wish you had
+  @line1.reload.start_date.should == @line2.reload.start_date 
+  @line1.reload.start_date.should == @new_start_date
 end
