@@ -12,17 +12,8 @@ jQuery ->
 class AddItem
   
   @setup: ->
-    @setup_click()
     @setup_date_change()
-    
-  @setup_click: ()->
-    $("#add_item_button").on "click", (event)->
-      quick_add = $(this).closest("#add_item").find("#quick_add")
-      if quick_add.length > 0 and quick_add.val() != ""
-        console.log "ADD ITEM WITH VALUE:"+quick_add.val()
-      else
-        AddItem.open_dialog $(this)
-        
+  
   @setup_date_change: ()->
     $("#add_item .date").on "change", (event)->
       $(this).data "date", moment($(this).val(),i18n.date.L) 

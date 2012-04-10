@@ -40,7 +40,7 @@
       %p= "#{@order.purpose}"
       
   .indent      
-    %section#add_item 
+    = form_tag add_line_backend_inventory_pool_acknowledge_path(current_inventory_pool, @order), :id => "add_item", :method => :post, :remote => true, :"data-submit_button" => true do
       .dates
         .container
           %input.date.start{:type => "text", :name => "add_start_date", :id => "add_start_date", :"data-date" => (@order.min_date).blank? ? Date.today : @order.min_date , :title => _("Start Date")}
@@ -55,15 +55,11 @@
           %label.datepicker.icon{:for => "add_end_date", :title => _("Open Datepicker")}  
             
       .quick_add_box
-        %input{:type => "text", :name => "quick_add", :value => "", :placeholder => _('Code / Name'), :name => "quick_add", :id => "quick_add"}
+        %input{:type => "text", :name => "quick_add", :value => "", :placeholder => _('Name / Code'), :name => "quick_add", :id => "quick_add"}
         %label{:for => "quick_add"}
           = _("Quick Add")
         
-      = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/models", :id => "add_item_button", :class=> "button white preventDefault",
-      :"data-rel" => "tmpl/dialog/add_item/add_item",
-      :"data-on_success" => '',
-      :"data-ref_for_dialog" => "$('#order').tmplItem().data",
-      :"data-dialog_class" => "add_item" do
+      %button.button.white{:type => "submit"}
         .icon.additem
         = _("Add")
         

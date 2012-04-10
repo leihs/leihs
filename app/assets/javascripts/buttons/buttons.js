@@ -122,7 +122,6 @@ function Buttons() {
     var _this = $(event.currentTarget).find(".button[type='submit']");
     Buttons.enable(_this);
     Buttons.removeLoading(_this);
-    var dialog_trigger = $(event.currentTarget).parents(".dialog").data("trigger").parents(".line");
     
     // execute on success before dialog is closed    
     eval($(_this).data("on_success"));

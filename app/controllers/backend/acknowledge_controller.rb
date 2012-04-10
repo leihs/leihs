@@ -107,7 +107,7 @@ class Backend::AcknowledgeController < Backend::BackendController
     model = if code
       item = current_inventory_pool.items.where(:inventory_code => code).first 
       item ||= current_inventory_pool.items.where(:serial_number => code).first
-      @error =  {:message => _("A model for the Inventory Code / Serial Number '%s' was not found" % code)} unless item.model
+      @error =  {:message => _("A model for the Inventory Code / Serial Number '%s' was not found" % code)} 
       item.model
     elsif model_group_id
       ModelGroup.find(model_group_id) # TODO scope current_inventory_pool ?
@@ -117,11 +117,19 @@ class Backend::AcknowledgeController < Backend::BackendController
       @error = (model_id) ? {:message => _("A model with the ID '%s' was not found" % model_id)} : {:message => _("A template with the ID '%s' was not found" % model_group_id)}
     end
     
-    model.add_to_document(@order, current_user.id, quantity, start_date, end_date, current_inventory_pool)
-    @order.reload
+    if @error.blank?
+      model.add_to_document(@order, current_user.id, quantity, start_date, end_date, current_inventory_pool)
+      @order.reload
+    end
     
     respond_to do |format|
-      format.json { render :template => @error ? "/errors/show" : "/backend/orders/show" } 
+      format.json {
+        if @error.blank?
+          render :template => "/backend/orders/show"
+        else
+          render :template => "/errors/show", status: 500
+        end
+      } 
     end
   end
   
