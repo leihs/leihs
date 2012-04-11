@@ -1,0 +1,6 @@
+h = {
+  id: model.id,
+  name: model.name
+}
+
+h

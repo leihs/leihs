@@ -1,0 +1,3 @@
+models.map do |model|
+  render :partial => "show", :locals => {model: model}
+end

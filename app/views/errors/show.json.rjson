@@ -1,5 +1,5 @@
 {
   error:{
-    message: @error["message"]
+    message: @error[:message]
   }
 }
