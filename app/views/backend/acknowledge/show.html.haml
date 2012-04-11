@@ -43,23 +43,26 @@
     = form_tag add_line_backend_inventory_pool_acknowledge_path(current_inventory_pool, @order), :id => "add_item", :method => :post, :remote => true, :"data-submit_button" => true do
       .dates
         .container
-          %input.date.start{:type => "text", :name => "add_start_date", :id => "add_start_date", :"data-date" => (@order.min_date).blank? ? Date.today : @order.min_date , :title => _("Start Date")}
+          %input.date.start{:type => "text", :name => "start_date", :id => "add_start_date", :"data-date" => (@order.min_date).blank? ? Date.today : @order.min_date , :title => _("Start Date")}
           %label{:for => "add_start_date"}
             = _("Start Date")
           %label.datepicker.icon{:for => "add_start_date", :title => _("Open Datepicker")}
         = "-"
         .container
-          %input.date.end{:type => "text", :name => "add_end_date", :id => "add_end_date", :"data-date" => (@order.max_date).blank? ? Date.today : @order.max_date, :title => _("End Date")}
+          %input.date.end{:type => "text", :name => "end_date", :id => "add_end_date", :"data-date" => (@order.max_date).blank? ? Date.today : @order.max_date, :title => _("End Date")}
           %label{:for => "add_end_date"}
             = _("End Date")
           %label.datepicker.icon{:for => "add_end_date", :title => _("Open Datepicker")}  
             
       .quick_add_box
-        %input{:type => "text", :name => "quick_add", :value => "", :placeholder => _('Name / Code'), :name => "quick_add", :id => "quick_add"}
+        %input.autocomplete{:type => "text", :name => "code", :placeholder => _('Name / Code'), :autocomplete => "off", :id => "quick_add", 
+        :"data-autocomplete_class" => "add_item", 
+        :"data-url" => backend_inventory_pool_models_path(current_inventory_pool),
+        :"data-autocomplete_select_callback" => "AcknowledgeOrder.autocomplete_add_item"}
         %label{:for => "quick_add"}
           = _("Quick Add")
         
-      %button.button.white{:type => "submit"}
+      %button.button.white{:type => "submit", :"data-on_success" => 'AcknowledgeOrder.update_order(response)'}
         .icon.additem
         = _("Add")
         
@@ -121,6 +124,16 @@
       this.setupDatepicker();
       this.setupTemplates();
       AcknowledgeOrder.checkApproveOrderAvailability();
+    }
+    
+    this.autocomplete_add_item = function(element) {
+      var id = element.item.id;
+      $("#quick_add").val(id)
+      $("#quick_add").attr("name", "model_id")
+      $("#quick_add").closest("form").submit()
+      $("#quick_add").attr("name", "code")
+      $("#quick_add").val("")
+      $("#quick_add").autocomplete("widget").hide()
     }
     
     this.update_order = function(order) {
