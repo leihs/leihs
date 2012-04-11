@@ -67,7 +67,7 @@ module Availability
       
       return av
     end
-    alias :is_available :available?
+    alias :is_available :available? # NOTE remove if custom as_json is gone 
 
     def allocated_group
       availability_quantities.first.try(:group)
