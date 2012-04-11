@@ -169,6 +169,18 @@ class Order < Document
     end
   end
 
+  def add_line(quantity, model, user_id, start_date = nil, end_date = nil, inventory_pool = nil)
+    line = lines.where(:model_id => model, :start_date => start_date, :end_date => end_date).first
+    if line
+      line.quantity += quantity
+      if line.save
+        log_change( _("Incremented quantity from %i to %i for %s") % [line.quantity-quantity, line.quantity, model.name], user_id )        
+      end
+    else
+      super
+    end
+  end
+
   # keep the user required quantity, force positive quantity 
   def update_line(order_line_id, required_quantity, user_id)
     order_line = order_lines.find(order_line_id)
