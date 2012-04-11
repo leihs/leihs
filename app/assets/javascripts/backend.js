@@ -18,3 +18,4 @@
 //= require fullcalendar/fullcalendar
 //= require jqBarGraph/jqBarGraph.1.2.js
 //= require pagination/pagination
+//= require autocomplete/autocomplete
