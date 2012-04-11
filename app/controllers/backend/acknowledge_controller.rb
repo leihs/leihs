@@ -85,10 +85,6 @@ class Backend::AcknowledgeController < Backend::BackendController
   def remove_lines
     generic_remove_lines(@order)
   end
-
-  def add_line
-    generic_add_line(@order)
-  end
 =end
 
   def time_lines
@@ -104,7 +100,7 @@ class Backend::AcknowledgeController < Backend::BackendController
                 model_group_id = params[:model_group_id],
                 code = params[:code])
    
-    model = if code
+    model = if not code.blank?
       item = current_inventory_pool.items.where(:inventory_code => code).first 
       item ||= current_inventory_pool.items.where(:serial_number => code).first
       item.model if item
@@ -113,7 +109,7 @@ class Backend::AcknowledgeController < Backend::BackendController
     elsif model_id
       current_inventory_pool.models.find(model_id)
     end
-
+    
     unless model
       @error = if code
         {:message => _("A model for the Inventory Code / Serial Number '%s' was not found" % code)}
