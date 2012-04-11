@@ -29,20 +29,20 @@ class Backend::ModelsController < Backend::BackendController
             sort_attr = params[:sort_attr] || 'name',
             sort_dir = params[:sort_dir] || 'ASC',
             page = (params[:page] || 1).to_i,
-            per_page = (params[:page] || 10).to_i,
+            per_page = (params[:page] || $per_page).to_i,
             category_id = params[:category_id].try(:to_i),
             borrower_user = params[:user_id].try{|x| current_inventory_pool.users.find(x)},
             start_date = params[:start_date].try{|x| Date.parse(x)},
             end_date = params[:end_date].try{|x| Date.parse(x)})
-
+    
     models = Model.search2(query).
               filter2(:inventory_pool_id => current_inventory_pool.id).
               order("#{sort_attr} #{sort_dir}").
-              paginate(:page => page, :per_page => 10)
+              paginate(:page => page, :per_page => $per_page)
               
-    options = current_inventory_pool.options.search2(query).paginate(:page => page, :per_page => 10)
+    options = current_inventory_pool.options.search2(query).paginate(:page => page, :per_page => $per_page)
               
-    models_and_options = (models + options).sort{|a,b| a.name <=> b.name}.paginate(:page => page, :per_page => 10)
+    models_and_options = (models + options).sort{|a,b| a.name <=> b.name}.paginate(:page => page, :per_page => $per_page)
 
     respond_to do |format|
       format.html {
@@ -55,7 +55,9 @@ class Backend::ModelsController < Backend::BackendController
         @pages = @entries.total_pages
         @total_entries = @entries.total_entries
       }
-      #format.json 
+      format.json {
+        render :partial => "index", :locals => {:models => models_and_options} 
+      } 
     end
   end
 
