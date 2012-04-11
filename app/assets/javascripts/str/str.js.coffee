@@ -14,7 +14,7 @@ class Str
     seperator = if arguments[2]? then arguments[2] else "..."
     
     if string.length > max_length
-      string = string.slice(0, max_length/2)+"..."+string.slice(string.length - max_length/2, string.length)
+      string = string.slice(0, max_length/2)+seperator+string.slice(string.length - max_length/2, string.length)
     
     return string
             
