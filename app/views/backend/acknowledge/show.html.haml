@@ -43,13 +43,13 @@
     = form_tag add_line_backend_inventory_pool_acknowledge_path(current_inventory_pool, @order), :id => "add_item", :method => :post, :remote => true, :"data-submit_button" => true do
       .dates
         .container
-          %input.date.start{:type => "text", :name => "start_date", :id => "add_start_date", :"data-date" => (@order.min_date).blank? ? Date.today : @order.min_date , :title => _("Start Date")}
+          %input.start.date{:type => "text", :name => "start_date", :id => "add_start_date", :"data-date" => (@order.min_date).blank? ? Date.today : @order.min_date , :title => _("Start Date")}
           %label{:for => "add_start_date"}
             = _("Start Date")
           %label.datepicker.icon{:for => "add_start_date", :title => _("Open Datepicker")}
         = "-"
         .container
-          %input.date.end{:type => "text", :name => "end_date", :id => "add_end_date", :"data-date" => (@order.max_date).blank? ? Date.today : @order.max_date, :title => _("End Date")}
+          %input.end.date{:type => "text", :name => "end_date", :id => "add_end_date", :"data-date" => (@order.max_date).blank? ? Date.today : @order.max_date, :title => _("End Date")}
           %label{:for => "add_end_date"}
             = _("End Date")
           %label.datepicker.icon{:for => "add_end_date", :title => _("Open Datepicker")}  
@@ -202,8 +202,8 @@
       
       $('#add_item .dates input').each(function(){
         // format date
-        var date = moment($(this).data("date"));
-        $(this).val(moment(date).format(i18n.date.L));
+        var date_today = moment($(this).data("date")).sod();
+        $(this).val(moment(date_today).format(i18n.date.L));
         
         // setup datepicker
         $(this).datepicker({
@@ -212,15 +212,18 @@
         });
         
         // set min date only for end date
-        if($(this).hasClass("end_date")) {
-          $(this).datepicker( "option", "minDate", date);
+        if($(this).hasClass("end")) {
+          $(this).datepicker( "option", "minDate", date_today.toDate());
         }
         
         // set min date updater when start date is closed
-        if($(this).hasClass("start_date")) {
+        if($(this).hasClass("start")) {
           $(this).change(function(){
-            var date = $(this).datepicker("getDate");
-            $(this).siblings(".end_date").datepicker("option", "minDate", date);
+            var min_date = $(this).datepicker("getDate");
+            var end_date_element = $(this).closest(".dates").find(".end");
+            
+            end_date_element.datepicker("option", "minDate", min_date);
+            end_date_element.val(moment(min_date).sod().add("days",1).format(i18n.date.L));
           });
         }
       });
