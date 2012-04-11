@@ -198,7 +198,7 @@ class Model < ActiveRecord::Base
       joins("LEFT JOIN `model_links` ON `model_links`.`model_id` = `models`.`id`").
       joins("LEFT JOIN `model_groups` ON `model_groups`.`id` = `model_links`.`model_group_id` AND `model_groups`.`type` = 'Category'").
       joins("LEFT JOIN `properties` ON `properties`.`model_id` = `models`.`id`").
-      joins("LEFT JOIN `items` ON `items`.`model_id` = `models`.`id`")
+      joins("LEFT JOIN `items` ON `items`.`model_id` = `models`.`id` AND `items`.`retired` IS NULL")
 
     w = query.split.map do |x|
       s = []
