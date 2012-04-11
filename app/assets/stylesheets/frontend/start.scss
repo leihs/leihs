@@ -4,7 +4,7 @@
 #start {
 
   .subtitle {
-    @include greylinks;
+    @include grey-links;
     
     a {
       font-size: 0.9em;
@@ -18,7 +18,7 @@
   }
    
   #categories {
-    @include darkGreylinks;
+    @include dark-grey-links;
     @include categoriesGrid;
   }
 }

@@ -155,7 +155,7 @@
     
     ul {
       padding-bottom: 8px;
-      @include greylinks;
+      @include grey-links;
       
       li {
         display: inline-block;
@@ -183,7 +183,7 @@
       }
       
       li.item:hover {
-        @include highlightSmallItem();
+        @include highlight-item();
         
         span a {
           color: $darkgrey !important;
@@ -194,7 +194,7 @@
     #compactOrder {
     
       section.pool {
-        @include greylinks;
+        @include grey-links;
         
         h4 a {
           color: $grey !important;

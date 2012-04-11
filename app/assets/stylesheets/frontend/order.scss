@@ -21,7 +21,7 @@
         font-weight: bold;
         padding-bottom: 4px;
         margin-bottom: 1px;
-        @include greylinks();
+        @include grey-links();
         
         a {
           display: inline-block;
@@ -111,7 +111,7 @@
     }
     
     .item.with_hover:hover {
-      @include highlightItem();
+      @include highlight-item();
       
       td.actions {
         @include opacity(1);

@@ -8,7 +8,7 @@
   position: absolute;
   right: 0;
   z-index: 998;
-  @include darkGreylinks;
+  @include dark-grey-links;
   
   .anchor {
     display: block;
@@ -51,7 +51,7 @@
       @include border-radius(6px);
       border-top-right-radius: 0;
       border-top-left-radius: 0;
-      @include greylinks;
+      @include grey-links;
       
       .inner {
         height: 100%;

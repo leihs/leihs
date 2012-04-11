@@ -15,16 +15,16 @@
   }
   
   #quick_add {
-    color: $grey;
-    font-size: 1.2em;
-    padding: 0 6px;
-    position: relative;
-    top: 1px;
-    width: 110px;
-    @include border-radius(4px);
+    padding: 0 26px 0 6px;
+    width: 115px;
     
-    &:focus {
-      border: 1px solid $lightgrey;
+    &+.loading {
+      height: 16px;
+      position: relative;
+      left: -20px;
+      margin-right: -16px;
+      top: -1px;
+      width: 16px;
     }
   }
   

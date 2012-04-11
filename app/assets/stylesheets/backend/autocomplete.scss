@@ -1,0 +1,31 @@
+@import "../shared/mixins";
+@import "../shared/variables";
+
+.ui-autocomplete {
+  background: #FFF;
+  border: 1px solid $borderdarkergrey;
+  display: inline-block; 
+  z-index: 1010 !important;
+  @include box-shadow (0 2px 4px rgba(0,0,0,0.2));
+  
+  .ui-menu-item {
+    @include dark-grey-links();
+    
+    &:nth-child(even) a {
+      background: $highlight-grey;
+    }
+    
+    a {
+      border-bottom: 1px solid $borderlightergrey;
+      border-top: 1px solid white;
+      cursor: pointer;
+      display: block;
+      font-size: 1.2em;
+      padding: 4px 6px;
+      
+      &:hover, &#ui-active-menuitem {
+        background: $highlight-darkgrey;
+      }
+    }
+  }
+}

@@ -85,7 +85,7 @@
       
       .categories {
         margin: 8px 0;
-        @include greylinks();
+        @include grey-links();
         
         a {
           font-size: 1.2em;
@@ -150,7 +150,7 @@
   }
   
   #categories {
-    @include greylinks;
+    @include grey-links;
     @include categoriesGrid;
     
     .row { 

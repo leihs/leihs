@@ -182,7 +182,7 @@
     }
     
     .switcher:hover {
-      @include highlightItem();
+      @include highlight-item();
       
       .icon {
         @include opacity(1.0);
@@ -200,7 +200,7 @@
   
   #accessories {
      padding-top: 6px;
-     @include greylinks;
+     @include grey-links;
      @include modelsGrid;
      
      h2 {
