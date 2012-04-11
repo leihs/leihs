@@ -97,9 +97,9 @@ class Backend::AcknowledgeController < Backend::BackendController
   
 ###################################################################################
 
-  def add_line( quantity = params[:quantity].to_i,
-                start_date = params[:start_date],
-                end_date = params[:end_date],
+  def add_line( quantity = (params[:quantity] || 1).to_i,
+                start_date = params[:start_date].try{|x| Date.parse(x)} || Date.today,
+                end_date = params[:end_date].try{|x| Date.parse(x)} || Date.tomorrow,
                 model_id = params[:model_id],
                 model_group_id = params[:model_group_id],
                 code = params[:code])
@@ -107,17 +107,22 @@ class Backend::AcknowledgeController < Backend::BackendController
     model = if code
       item = current_inventory_pool.items.where(:inventory_code => code).first 
       item ||= current_inventory_pool.items.where(:serial_number => code).first
-      @error =  {:message => _("A model for the Inventory Code / Serial Number '%s' was not found" % code)} 
-      item.model
+      item.model if item
     elsif model_group_id
       ModelGroup.find(model_group_id) # TODO scope current_inventory_pool ?
     elsif model_id
       current_inventory_pool.models.find(model_id)
-    else
-      @error = (model_id) ? {:message => _("A model with the ID '%s' was not found" % model_id)} : {:message => _("A template with the ID '%s' was not found" % model_group_id)}
     end
-    
-    if @error.blank?
+
+    unless model
+      @error = if code
+        {:message => _("A model for the Inventory Code / Serial Number '%s' was not found" % code)}
+      elsif model_id
+        {:message => _("A model with the ID '%s' was not found" % model_id)}
+      elsif model_group_id
+        {:message => _("A template with the ID '%s' was not found" % model_group_id)}
+      end
+    else
       model.add_to_document(@order, current_user.id, quantity, start_date, end_date, current_inventory_pool)
       @order.reload
     end
@@ -125,6 +130,19 @@ class Backend::AcknowledgeController < Backend::BackendController
     respond_to do |format|
       format.json {
         if @error.blank?
+          params.merge!({:with => {:lines => {
+                                      :model => true,
+                                      :order => true, 
+                                      :is_available => true, 
+                                      :availability_for_inventory_pool => true, 
+                                      :inventory_pool_id => true,
+                                      :order => true,
+                                      :quantity => true,
+                                      :dates => true},
+                                   :quantity => true,
+                                   :inventory_pool_id => true,
+                                   :purpose => true,
+                                   :user => true}})
           render :template => "/backend/orders/show"
         else
           render :template => "/errors/show", status: 500
