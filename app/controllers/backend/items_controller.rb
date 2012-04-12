@@ -104,7 +104,6 @@ class Backend::ItemsController < Backend::BackendController
         @total_entries = @entries.total_entries
       }
       #old leihs# format.js { search_result_rjs(@items) }
-      #old leihs# format.auto_complete { render :layout => false }
       format.csv {
         @items = search_sql
        csv_string = FasterCSV.generate({ :col_sep => ";", :quote_char => "\"", :force_quotes => true }) do |csv|
