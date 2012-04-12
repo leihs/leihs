@@ -149,7 +149,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   
 ###################################################################################
 
-  def update_lines(line_ids = params[:line_ids] || [],
+  def update_lines(line_ids = params[:line_ids] || raise("line_ids is required"),
                    line_id_model_id = params[:line_id_model_id] || {},
                    quantity = params[:quantity],
                    start_date = params[:start_date],
@@ -158,27 +158,22 @@ class Backend::AcknowledgeController < Backend::BackendController
     
     OrderLine.transaction do
       unless delete_line_ids.blank?
-        to_delete_lines = @order.lines.find(delete_line_ids)
-        to_delete_lines.each do |line|
-          change = _("Deleted %s (%s - %s)") % [line.model, line.start_date, line.end_date]
-          @order.log_change(change, current_user.id)
-        end
-        OrderLine.delete(to_delete_lines.map(&:id))
+        delete_line_ids.each {|l| @order.remove_line(l, current_user.id)}
       end
 
-      order_lines = @order.lines.find(line_ids - delete_line_ids)
+      lines = @order.lines.find(line_ids - delete_line_ids)
       # TODO merge to Order#update_line
-      order_lines.each do |order_line|
-        order_line.quantity = [quantity.to_i, 0].max if quantity
-        order_line.start_date = Date.parse(start_date) if start_date
-        order_line.end_date = Date.parse(end_date) if end_date
+      lines.each do |line|
+        line.quantity = [quantity.to_i, 0].max if quantity
+        line.start_date = Date.parse(start_date) if start_date
+        line.end_date = Date.parse(end_date) if end_date
         # log changes
         change = ""
-        if (new_model_id = line_id_model_id[order_line.id.to_s]) 
-          order_line.model = order_line.order.user.models.find(new_model_id) 
-          change = _("[Model %s] ") % order_line.model 
+        if (new_model_id = line_id_model_id[line.id.to_s]) 
+          line.model = line.order.user.models.find(new_model_id) 
+          change = _("[Model %s] ") % line.model 
         end
-        change += order_line.changes.map do |c|
+        change += line.changes.map do |c|
           what = c.first
           if what == "model_id"
             from = Model.find(from).to_s
@@ -190,10 +185,9 @@ class Backend::AcknowledgeController < Backend::BackendController
           end
         end.join(', ')
 
-        @order.log_change(change, current_user.id) if order_line.save
+        @order.log_change(change, current_user.id) if line.save
       end
     end
-    
     
     respond_to do |format|
       format.js { render :json => order_json_response, :status => 200 }
