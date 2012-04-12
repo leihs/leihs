@@ -1,14 +1,14 @@
 ${$start_date = new MinDate(lines), ""}
 ${$end_date = new MaxDate(lines), ""}
 ${merged_lines_availabilities = new MultipleMergedLinesAvailabilities(selected_lines), ""}
+${$name = Str.sliced_trunc(user.firstname+" "+order.user.lastname, 20, "... "), ""}
 = form_tag '${$item.action}', :remote => true, :"data-submit_button" => true do
   %h1
     %strong= _("Multiple selected items")
   %p.subtitle
     = _("Edit multiple ordered items for")
     %strong
-      ${user.firstname}
-      ${user.lastname}
+      ${$name}
   .navigation
     %a.button.red.close_dialog
       = _("Cancel")

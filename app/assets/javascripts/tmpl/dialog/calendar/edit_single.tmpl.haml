@@ -1,11 +1,12 @@
+${$name = Str.sliced_trunc(order.user.firstname+" "+order.user.lastname, 20, "... "), ""}
+
 = form_tag '${$item.action}', :remote => true, :"data-submit_button" => true do
   %h1
     %strong{:title => "${model.name}"} ${Str.sliced_trunc(model.name, 40)} 
-  %p.subtitle
+  %p.subtitle{:title=>"${order.user.firstname} ${order.user.lastname}"}
     = _("Edit ordered item for")
     %strong
-      ${order.user.firstname}
-      ${order.user.lastname}
+      ${$name}
     %span.date
       ({{html moment(start_date).format(i18n.date.L)}}
       = "-"
