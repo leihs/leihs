@@ -8,25 +8,26 @@ class Backend::CategoriesController < Backend::BackendController
     params[:sort_mode] ||= 'ASC'
     params[:sort_mode] = params[:sort_mode].downcase.to_sym
 
-# working here #
-    if @category
+    search_options = { :star => true, :page => params[:page], :per_page => $per_page,
+                       :order => params[:sort], :sort_mode => params[:sort_mode] }
+
+    @categories = if @category
       # TODO 12** optimize filter
-      categories =  if request.env['REQUEST_URI'].include?("parents")
-                        @category.parents
-                    else #if request.env['REQUEST_URI'].include?("children")
-                        @category.children
-                    end
+      with = if request.env['REQUEST_URI'].include?("parents")
+              { :sphinx_internal_id => @category.parent_ids }
+            else #if request.env['REQUEST_URI'].include?("children")
+              { :sphinx_internal_id => @category.child_ids }
+            end
+      Category.search params[:query], search_options.merge({:with => with})
     else
-      if request.format == :ext_json
-        @categories = Category.roots
-      else
-        categories = Category
-      end
       @show_categories_tree = params[:source_path].blank?
+      if request.format == :ext_json
+        Category.roots
+      else
+        Category.search params[:query], search_options
+      end
     end    
     
-    @categories ||= categories.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
-                                                        :order => params[:sort], :sort_mode => params[:sort_mode] }
 
 # TODO vertical tree
 #    ############ start graph
