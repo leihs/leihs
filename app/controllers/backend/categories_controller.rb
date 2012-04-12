@@ -16,27 +16,27 @@ class Backend::CategoriesController < Backend::BackendController
     params[:sort_mode] ||= 'ASC'
     params[:sort_mode] = params[:sort_mode].downcase.to_sym
 
-# working here #
-    if @category
+    @categories = if @category
       # TODO 12** optimize filter
-      categories =  if request.env['REQUEST_URI'].include?("parents")
-                        @category.parents
-                    else #if request.env['REQUEST_URI'].include?("children")
-                        @category.children
-                    end
-    else
-      if request.format == :ext_json # TODO remove
-        @categories = Category.roots
-      else
-        categories = Category
+      ids = if request.env['REQUEST_URI'].include?("parents")
+        @category.parent_ids
+      else #if request.env['REQUEST_URI'].include?("children")
+        @category.child_ids
       end
+      Category.search2(params[:query]).
+                paginate(:page => params[:page], :per_page => $per_page).
+                order("#{params[:sort]} #{params[:sort_mode]}").
+                where(:id => ids)
+    else
       @show_categories_tree = params[:source_path].blank?
+      if request.format == :ext_json # TODO remove
+        Category.roots
+      else
+        Category.search2(params[:query]).
+                  paginate(:page => params[:page], :per_page => $per_page).
+                  order("#{params[:sort]} #{params[:sort_mode]}")
+      end
     end    
-    
-    @categories ||= categories.search2(params[:query]).
-                    paginate(:page => params[:page], :per_page => $per_page).
-                    order("#{params[:sort]} #{params[:sort_mode]}")
-
 
 # TODO vertical tree
 #    ############ start graph
@@ -62,7 +62,6 @@ class Backend::CategoriesController < Backend::BackendController
     respond_to do |format|
       format.html
       format.js { search_result_rjs(@categories) }
-      format.auto_complete { render :layout => false }
     end
   end
     
