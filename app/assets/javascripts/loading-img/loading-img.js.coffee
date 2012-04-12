@@ -17,7 +17,7 @@ class LoadingImage
   @clones
   
   @setup = ()->
-    @img = $("<img src='<%= asset_path('loading.gif') %>' class='loading icon'/>")
+    @img = $.tmpl "tmpl/loading/loading_img"
     @clones = Array()
     @clone(5)
     
