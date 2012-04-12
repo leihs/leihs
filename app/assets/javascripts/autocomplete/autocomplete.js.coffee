@@ -3,6 +3,7 @@
   Autocomplete
 
   This script provides functionalities for autocompleting things 
+  
 ###
 
 jQuery ->

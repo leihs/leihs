@@ -49,14 +49,22 @@
   
   $(document).ready(function(){
     $('section .list').append($.tmpl("tmpl/line", #{@entries_json}));
-    List.current_page = #{params[:page].blank? ? 0 : params[:page]};
-    List.per_page = #{$per_page};
-    List.total_entries = #{@entries.total_entries};
-    List.next_text = "#{_('Next')}";
-    List.previous_text = "#{_('Previous')}";
-    List.available_months = #{@available_months.to_json};
-    List.available_years = #{@available_years.to_json};
-    List.selected_year = #{params[:year].blank? ? "undefined" : params[:year]};
-    List.selected_month = #{params[:month].blank? ? "undefined" : params[:month]};
-    List.setup();
+    
+    // setup ListSearch
+    ListSearch.setup();
+    
+    // setup ListPagination
+    ListPagination.current_page = #{params[:page].blank? ? 0 : params[:page]};
+    ListPagination.per_page = #{$per_page};
+    ListPagination.total_entries = #{@entries.total_entries};
+    ListPagination.next_text = "#{_('Next')}";
+    ListPagination.previous_text = "#{_('Previous')}";
+    ListPagination.setup();
+    
+    // setup HistoricalSearch
+    HistoricalSearch.available_months = #{@available_months.to_json};
+    HistoricalSearch.available_years = #{@available_years.to_json};
+    HistoricalSearch.selected_year = #{params[:year].blank? ? "undefined" : params[:year]};
+    HistoricalSearch.selected_month = #{params[:month].blank? ? "undefined" : params[:month]};
+    HistoricalSearch.setup();
   });

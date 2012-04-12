@@ -3,7 +3,7 @@
 
 .ui-dialog {
   background: #FFF;
-  border: 1px solid $lightgrey;
+  border: 1px solid rgba(0,0,0,0.45);
   display: inline-block;
   position: absolute;
   @include border-radius(6px);

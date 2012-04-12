@@ -7,19 +7,14 @@
   top: -3px;
   
   .note {
-    background: rgba(255,255,255,0.8);
+    background: white;
+    border: 1px solid rgba(0,0,0,0.3);
     display: block;
     font-size: 1.1em;
     font-weight: bold;
+    margin: 0 12px 4px;
     padding: 6px 10px;
-    @include box-shadow(0 2px 2px rgba(0,0,0,0.2));
+    @include box-shadow(0 1px 4px rgba(0,0,0,0.2));
+    @include border-radius(4px);
   }  
-}
-
-.line:hover {
-  .extended {
-    .note {
-      background: rgba(255,255,255,1.0);  
-    }
-  }
 }

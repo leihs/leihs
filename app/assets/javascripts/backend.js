@@ -19,3 +19,7 @@
 //= require jqBarGraph/jqBarGraph.1.2.js
 //= require pagination/pagination
 //= require autocomplete/autocomplete
+//= require historical_search/historical_search
+//= require list_pagination/list_pagination
+//= require list_search/list_search
+//= require line/line

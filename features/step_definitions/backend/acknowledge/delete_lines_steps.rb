@@ -1,5 +1,5 @@
-When /^I delete a line$/ do
-  @line = @order.lines.first
+When /^I delete a line of this order$/ do
+  @line = @customer.contracts.unsigned.first.lines.first
   @line_element = find(".line", :text => @line.model.name)
   @line_element.find(".multibutton .trigger").click
   @line_element.find(".button", :text => "Delete").click
@@ -8,6 +8,6 @@ When /^I delete a line$/ do
   }
 end
 
-Then /^this line is deleted$/ do
-  lambda {@line.reload}.should raise_error(ActiveRecord::RecordNotFound) 
+Then /^this orderline is deleted$/ do
+  @order.lines.include?(@line).should == false
 end

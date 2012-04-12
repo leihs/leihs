@@ -63,7 +63,7 @@
           :remote => "true",
           :"data-rel" => "tmpl/dialog/order_line/delete",
           :"data-dialog_class" => "order_line",
-          :"data-on_success" => 'List.remove_line({"element": $(this).parents(".line"), "color": "red", "callback": function(){AcknowledgeOrder.update_order(response)}});' ,
+          :"data-on_success" => 'Line.remove({"element": $(this).parents(".line"), "color": "red", "callback": function(){AcknowledgeOrder.update_order(response)}});' ,
           :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
             .icon.delete
             = _("Delete")

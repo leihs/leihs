@@ -84,7 +84,7 @@
             :method => "post",
             :"data-rel" => "tmpl/dialog/order_line/delete_multiple",
             :"data-dialog_class" => "order_line",
-            :"data-on_success" => '$.each($(_this).data("lines"), function(line){List.remove_line($(this), "red");})' ,
+            :"data-on_success" => '$.each($(_this).data("lines"), function(line){Line.remove({element: $(this), color: "red"});})' ,
             :"data-ref_for_dialog" => "$(_this).data()",
             :id => "delete_selection" do
               .icon.delete

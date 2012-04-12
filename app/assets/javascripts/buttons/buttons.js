@@ -94,6 +94,7 @@ function Buttons() {
   
   this.ajaxSuccess = function(event, response, settings) {
     var _this = $(event.currentTarget);
+    console.log(_this);
     Buttons.enable(_this);
     Buttons.removeLoading(_this);
     

@@ -19,6 +19,7 @@ function SelectionActions() {
     this.setupGroupSelections();
     this.setupLineSelections();
     LineGroup.highlightSelected($("#add_item #add_start_date").data("date"), $("#add_item #add_end_date").data("date"));
+    this.setupRemovedLines();
   }
   
   this.deselectRadioButtons = function() {
@@ -121,6 +122,12 @@ function SelectionActions() {
         $("#selection_actions input[value='selection']").attr("checked", true);
       }
     }
+  }
+  
+  this.setupRemovedLines = function() {
+    $(document).live("after_remove_line", function() {
+      SelectionActions.updateSelectionCount();
+    });
   }
   
   this.updateSelectionCount = function() {
