@@ -89,6 +89,7 @@ class Backend::HandOverController < Backend::BackendController
     end
   end
 
+=begin
   # Changes the line according to the inserted inventory code
   def change_line
     if request.post?
@@ -110,6 +111,58 @@ class Backend::HandOverController < Backend::BackendController
       end
     end
   end  
+=end
+
+  def update_lines(line_ids = params[:line_ids] || raise("line_ids is required"),
+                   line_id_model_id = params[:line_id_model_id] || {},
+                   #quantity = params[:quantity],
+                   start_date = params[:start_date],
+                   end_date = params[:end_date],
+                   delete_line_ids = params[:delete_line_ids] || [])
+
+    ContractLine.transaction do
+      unless delete_line_ids.blank?
+        delete_line_ids.each {|l| @contract.remove_line(l, current_user.id)}
+      end
+
+      lines = @contract.lines.find(line_ids - delete_line_ids)
+      # TODO merge to Contract#update_line
+      lines.each do |line|
+        # line.quantity = [quantity.to_i, 0].max if quantity
+        line.start_date = Date.parse(start_date) if start_date
+        line.end_date = Date.parse(end_date) if end_date
+        # log changes
+        change = ""
+        if (new_model_id = line_id_model_id[line.id.to_s]) 
+          line.model = line.contract.user.models.find(new_model_id) 
+          change = _("[Model %s] ") % line.model 
+        end
+        change += line.changes.map do |c|
+          what = c.first
+          if what == "model_id"
+            from = Model.find(from).to_s
+            _("Swapped from %s ") % [from]
+          else
+            from = c.last.first
+            to = c.last.last
+            _("Changed %s from %s to %s") % [what, from, to]
+          end
+        end.join(', ')
+
+        @contract.log_change(change, current_user.id) if line.save
+      end
+    end
+
+    respond_to do |format|
+      format.json {
+        @visits = @user.visits.hand_over.scoped_by_inventory_pool_id(current_inventory_pool)
+        render :partial => "backend/visits/index.json.rjson", locals: {visits: @visits}
+      }
+    end
+  end
+
+###################################################################################
+
 
   # given an inventory_code, searches for a matching contract_line
   # and if not found, adds an option
@@ -254,14 +307,6 @@ class Backend::HandOverController < Backend::BackendController
   def time_lines
     generic_time_lines(@contract)
   end    
-
-  def remove_lines(line_ids = params[:line_ids] || raise("line_ids is required"))
-    line_ids.each {|l| @contract.remove_line(l, current_user.id)}
-    
-    respond_to do |format|
-      format.json { render :json => true, :status => 200  }
-    end
-  end
 
   def swap_user
     if request.post?

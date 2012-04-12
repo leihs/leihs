@@ -1,4 +1,9 @@
-${$name = Str.sliced_trunc(order.user.firstname+" "+order.user.lastname, 20, "... "), ""}
+{{if order}}
+${$document = order, ""}
+{{else}}
+${$document = contract, ""}
+{{/if}}
+${$name = Str.sliced_trunc($document.user.firstname+" "+$document.user.lastname, 20, "... "), ""}
 
 = form_tag '${$item.action}', :remote => true, :"data-submit_button" => true do
   %h1
@@ -27,7 +32,7 @@ ${$name = Str.sliced_trunc(order.user.firstname+" "+order.user.lastname, 20, "..
           = "Borrower"
         .arrow
         %select{:id => "partition", :name => "partition"}
-          ${$users_availablility = new UserAvailability(availability_for_inventory_pool, order.user.groups), ""}
+          ${$users_availablility = new UserAvailability(availability_for_inventory_pool, $document.user.groups), ""}
           ${$user_groups = $users_availablility.user_group_ids.join(","), ""}
           %option{:value => "[${$user_groups}]", :"data-name" => _("Borrower"), :"data-total_rentable" => "${$users_availablility.total_rentable}"}
             = _("Borrower (max. ${$users_availablility.total_rentable})")

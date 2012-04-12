@@ -14,7 +14,10 @@ h = {
         id: line.contract.id,
         action: line.contract.action,
         user: {
-          id: line.contract.user_id
+          id: line.contract.user_id,
+          firstname: line.contract.user.firstname,
+          lastname: line.contract.user.lastname,
+          groups: line.contract.user.groups
         }
       },
     
@@ -23,6 +26,11 @@ h = {
 
 if line.contract.action == :hand_over
   h[:is_available] = line.is_available  # FIXME this is too slow!
+
+  # FIXME !!!!! forward with
+  h[:total_rentable] = line.model.items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable.count
+  h[:total_rentable_in_stock] = line.model.items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable.in_stock.count
+  h[:availability_for_inventory_pool] = line.model.non_selfblocking_av_periods_for_inventory_pool(current_inventory_pool, line).as_json(:include => :group)
 end
 
 h
