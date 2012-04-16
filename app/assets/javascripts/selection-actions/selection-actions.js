@@ -18,8 +18,11 @@ function SelectionActions() {
     this.setupMainSelection();
     this.setupGroupSelections();
     this.setupLineSelections();
-    LineGroup.highlightSelected($("#add_item #add_start_date").data("date"), $("#add_item #add_end_date").data("date"));
     this.setupRemovedLines();
+  }
+  
+  this.set_target = function(_target) {
+    this.target = _target;
   }
   
   this.deselectRadioButtons = function() {
@@ -56,9 +59,9 @@ function SelectionActions() {
   
   this.restoreSelectedLines = function() {
     var selected_lines = this.selected_lines;
-        
+    
     // select all selected lines again
-    SelectionActions.target.find(".line").each(function(i_line,line){
+    $(SelectionActions.target).find(".line").each(function(i_line,line){
       $.each(selected_lines, function(i_selected, selected_line){
         if($(line).tmplItem().data.id == selected_line.id) {
           $(line).find("input[type=checkbox]").attr("checked",true);
@@ -66,6 +69,9 @@ function SelectionActions() {
         }
       });
     });
+    
+    // save the new_select_lines data
+    this.storeSelectedLines();
   }
   
   this.setupMainSelection = function() {
