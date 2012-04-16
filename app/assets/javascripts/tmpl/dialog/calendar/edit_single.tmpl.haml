@@ -8,7 +8,7 @@ ${$name = Str.sliced_trunc($document.user.firstname+" "+$document.user.lastname,
 = form_tag '${$item.action}', :remote => true, :"data-submit_button" => true do
   %h1
     %strong{:title => "${model.name}"} ${Str.sliced_trunc(model.name, 40)} 
-  %p.subtitle{:title=>"${order.user.firstname} ${order.user.lastname}"}
+  %p.subtitle{:title=>"${$document.user.firstname} ${$document.user.lastname}"}
     = _("Edit ordered item for")
     %strong
       ${$name}
@@ -51,9 +51,9 @@ ${$name = Str.sliced_trunc($document.user.firstname+" "+$document.user.lastname,
       = text_field_tag :quantity, "${quantity}", :min => 1, :max => "${total_rentable}", :tabindex => "1", :class => "focus", :autocomplete => "off"
       %label{:for => "quantity"}
         = _("Quantity")
-      = link_to "", :class => "increase" do
+      .increase
         %span.icon
-      = link_to "", :class => "decrease" do
+      .decrease
         %span.icon
     
     .date.container
