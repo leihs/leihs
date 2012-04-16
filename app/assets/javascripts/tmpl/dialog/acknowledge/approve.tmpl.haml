@@ -19,12 +19,16 @@
       {{if location.href.match($link_to)}}
       ${$link_class = "close_dialog", ""}
       {{/if}}
-      = link_to "", :class => "button white{{if $link_class}} ${$link_class}{{/if}}" do
+      = link_to "${$link_to}", :class => "button white{{if $link_class}} ${$link_class}{{/if}}" do
         .icon.edit
         = _("Edit this Order")
     {{else}}
-    %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}'}
+    %button.button.green.hide_on_error{:type => "submit", :"data-on_success" => '${$item.on_success}'}
       = _("Approve")
+      
+    %button.button.white.show_on_error{:type => "submit", :"data-on_success" => '${$item.on_success}', :name => "force", :value => true}
+      .icon.approve
+      = _("Approve anyway")
     {{/if}}
   
   {{if $item.error}}
