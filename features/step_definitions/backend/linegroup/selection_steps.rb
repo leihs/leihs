@@ -26,7 +26,7 @@ When /^I select all lines of an linegroup$/ do
 end
 
 Then /^the linegroup is selected$/ do
-  @linegroup.find("#select_group").checked?.should == true
+  @linegroup.find(".select_group").checked?.should == true
 end
 
 Then /^the count matches the amount of selected lines$/ do
