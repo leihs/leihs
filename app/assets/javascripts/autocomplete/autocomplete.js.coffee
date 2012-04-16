@@ -12,7 +12,11 @@ jQuery ->
       AutoComplete.setup $(this)
     else if $(this).val() != ""
       $(this).autocomplete("widget").show()
-    
+      $(this).autocomplete("widget").position
+        of: $(this)
+        my: "left top"
+        at: "left bottom"
+
 class AutoComplete
   
   @setup = (input_field)->
