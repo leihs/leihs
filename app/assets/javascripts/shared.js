@@ -8,13 +8,11 @@
 
 //= require i18n/i18n
 //= require_tree ./i18n/lang
-
-//= require str/str
-
-//= require dialog/dialog
+//= require_tree ./str
+//= require_tree ./dialog
 //= require qtip/qtip.min
-
-//= require loading-img/loading-img
+//= require_tree ./loading-img
+//= require_tree ./notification
 
 // type or global formating/accepting of ajax requestes
 // TODO GET RID OF THAT (Technical Debt)
