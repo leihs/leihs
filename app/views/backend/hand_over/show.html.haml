@@ -50,7 +50,7 @@
       @setup_hand_over_button()
     
     @setup_templates = ()->
-      $('#visits').replaceWith($.tmpl("tmpl/visits", #{render(partial: "backend/visits/index.json.rjson", locals: {visits: @visits})}))
+      $('#visits').replaceWith($.tmpl("tmpl/visits", #{render(:partial => "backend/visits/index.json.rjson", :locals => {:visits => @visits})}))
       
     @setup_assign_inventory_code = ()->
       # before assign
