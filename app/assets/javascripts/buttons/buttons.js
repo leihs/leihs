@@ -60,7 +60,6 @@ function Buttons() {
     var data = (_this.data("ref_for_dialog") != undefined) ? eval(_this.data("ref_for_dialog")) : {};
     var template = (_this.data("rel") != undefined) ? _this.data("rel") : "";
     
-    
     Dialog.add({
       trigger: _trigger,
       content: $.tmpl(template, data, {action: _this.attr("href"), on_success: _this.data("on_success")}),
@@ -94,10 +93,8 @@ function Buttons() {
   
   this.ajaxSuccess = function(event, response, settings) {
     var _this = $(event.currentTarget);
-    console.log(_this);
     Buttons.enable(_this);
     Buttons.removeLoading(_this);
-    
     eval($(_this).data("on_success"));
   }
   
@@ -115,8 +112,8 @@ function Buttons() {
   }
   
   this.ajaxBeforeSendForm = function(event, request, settings) {
-    Buttons.disable($(event.currentTarget).find(".button[type='submit']"));
-    Buttons.addLoading($(event.currentTarget).find(".button[type='submit']"));
+    Buttons.disable($(event.currentTarget).find(".button[type='submit']:visible:first"));
+    Buttons.addLoading($(event.currentTarget).find(".button[type='submit']:visible:first"));
   }
   
   this.ajaxSuccessForm = function(event, response, settings) {
@@ -135,6 +132,8 @@ function Buttons() {
     Buttons.removeLoading($(event.currentTarget).find(".button[type='submit']"));
     $(event.currentTarget).find(".flash_message").html(response.responseText).show();
     $(event.currentTarget).closest(".ui-dialog").css("height", "auto");
+    $(event.currentTarget).find(".show_on_error").show();
+    $(event.currentTarget).find(".hide_on_error").hide();
   }
   
   this.addLoading = function(element) {
