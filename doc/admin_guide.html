@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 8.6.6" />
+<meta name="generator" content="AsciiDoc 8.6.7" />
 <title>leihs administration and installation guide</title>
 <style type="text/css">
 /* Shared CSS for AsciiDoc xhtml11 and html5 backends */
@@ -349,7 +349,7 @@ div.colist td img {
   margin-bottom: 0.1em;
 }
 
-div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
   margin-top: 0;
   margin-bottom: 0;
 }
@@ -407,6 +407,8 @@ span.underline { text-decoration: underline; }
 span.overline { text-decoration: overline; }
 span.line-through { text-decoration: line-through; }
 
+div.unbreakable { page-break-inside: avoid; }
+
 
 /*
  * xhtml11 specific
@@ -414,7 +416,7 @@ span.line-through { text-decoration: line-through; }
  * */
 
 tt {
-  font-family: monospace;
+  font-family: "Courier New", Courier, monospace;
   font-size: inherit;
   color: navy;
 }
@@ -453,7 +455,7 @@ div.tableblock > table[frame="vsides"] {
  * */
 
 .monospaced {
-  font-family: monospace;
+  font-family: "Courier New", Courier, monospace;
   font-size: inherit;
   color: navy;
 }
@@ -581,7 +583,7 @@ toc: function (toclevels) {
 
   function tocEntries(el, toclevels) {
     var result = new Array;
-    var re = new RegExp('[hH]([2-'+(toclevels+1)+'])');
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
     // Function that scans the DOM tree for header elements (the DOM2
     // nodeIterator API would be a better technique but not supported by all
     // browsers).
@@ -610,7 +612,7 @@ toc: function (toclevels) {
   var i;
   for (i = 0; i < toc.childNodes.length; i++) {
     var entry = toc.childNodes[i];
-    if (entry.nodeName == 'div'
+    if (entry.nodeName.toLowerCase() == 'div'
      && entry.getAttribute("class")
      && entry.getAttribute("class").match(/^toclevel/))
       tocEntriesToRemove.push(entry);
@@ -656,7 +658,7 @@ footnotes: function () {
   var entriesToRemove = [];
   for (i = 0; i < noteholder.childNodes.length; i++) {
     var entry = noteholder.childNodes[i];
-    if (entry.nodeName == 'div' && entry.getAttribute("class") == "footnote")
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
       entriesToRemove.push(entry);
   }
   for (i = 0; i < entriesToRemove.length; i++) {
@@ -763,11 +765,11 @@ asciidoc.install(2);
 <div class="olist arabic"><ol class="arabic">
 <li>
 <p>
-Install Ruby, irb and libxslt:
+Install Ruby, irb, libxslt, Cairo, MySQL client libraries, libxml2:
 </p>
 <div class="literalblock">
 <div class="content">
-<pre><tt># apt-get install ruby irb rdoc libopenssl-ruby ruby-dev libxslt-dev</tt></pre>
+<pre><tt># apt-get install ruby irb rdoc libopenssl-ruby ruby-dev libxslt-dev libcairo2-dev libmysqlclient-dev libxml2-dev</tt></pre>
 </div></div>
 </li>
 <li>
@@ -823,7 +825,7 @@ Optional: If you want to use images of inventory items, install ImageMagick:
 </p>
 <div class="literalblock">
 <div class="content">
-<pre><tt># apt-get install imagemagick graphicsmagick-libmagick-dev-compat libmagickwand-dev</tt></pre>
+<pre><tt># apt-get install imagemagick libmagickwand-dev</tt></pre>
 </div></div>
 </li>
 <li>
@@ -930,20 +932,20 @@ Optional: Speed boost thanks to memcached
 </div>
 </div>
 <div class="sect1">
-<h2 id="_default_admin_username_password">Default admin username/password</h2>
+<h2 id="_users_logins_and_levels">Users, logins and levels</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_default_admin_username_password">Default admin username/password</h3>
 <div class="paragraph"><p>After installation, a default user is created for the Database Authentication module. Username: super_user_1. Password: pass.</p></div>
 <div class="paragraph"><p>+
 Please change the super_user_1 password immediately after logging in the first time. Otherwise other people will also be able to log in using the well known default password.</p></div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_hooking_up_to_ldap_for_logins">Hooking up to LDAP for logins</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_hooking_up_to_ldap_for_logins">Hooking up to LDAP for logins</h3>
 <div class="paragraph"><p>Currently, leihs contains only a very rudimentary LDAP login adapter. It was developed by the Zurich University of the Arts specifically for the Hochschule der Künste Bern, Switzerland, and some parts of it are hardcoded to fit the environment there.</p></div>
 <div class="paragraph"><p>However, it&#8217;s not impossible to get leihs to authenticate against your own LDAP server if you are willing to modify two files in leihs.</p></div>
-<div class="sect2">
-<h3 id="_modifying_config_ldap_yml">Modifying config/LDAP.yml</h3>
+<div class="sect3">
+<h4 id="_modifying_config_ldap_yml">Modifying config/LDAP.yml</h4>
 <div class="paragraph"><p>Open config/LDAP.yml and adapt the configuration to your own LDAP server:</p></div>
 <div class="literalblock">
 <div class="content">
@@ -960,8 +962,8 @@ Please change the super_user_1 password immediately after logging in the first t
 </div></div>
 <div class="paragraph"><p>You may have to adapt the <tt>search_field</tt> option to point at the LDAP attribute that contains your usernames. The <tt>search_field</tt> dictates what users will have to write in the "Login" field on login.</p></div>
 </div>
-<div class="sect2">
-<h3 id="_modifying_app_controllers_authenticator_ldap_authentication_controller_rb">Modifying app/controllers/authenticator/ldap_authentication_controller.rb</h3>
+<div class="sect3">
+<h4 id="_modifying_app_controllers_authenticator_ldap_authentication_controller_rb">Modifying app/controllers/authenticator/ldap_authentication_controller.rb</h4>
 <div class="paragraph"><p>This controller handles the login itself. You will have to modify a few strings to point at the right attributes for your own LDAP server.</p></div>
 <div class="paragraph"><p>On line 33:</p></div>
 <div class="literalblock">
@@ -979,8 +981,8 @@ u.phone = users.first["telephonenumber"].to_s unless users.first["telephonenumbe
 </div></div>
 <div class="paragraph"><p>You can add any Ruby code here that extracts this user information from your LDAP. Currently things are set up to point at the default fields from the InetOrgPerson class (givenname, sn, telephonenumber, etc.). This should be okay for most LDAP servers, but feel free to change the strings in e.g. <tt>users.first["givenname"].to_s</tt> to your own field names. For a field called "firstname", that would change to: <tt>users.first["firstname"].to_s</tt>.</p></div>
 </div>
-<div class="sect2">
-<h3 id="_enabling_ldap_authentication_in_the_system">Enabling LDAP authentication in the system</h3>
+<div class="sect3">
+<h4 id="_enabling_ldap_authentication_in_the_system">Enabling LDAP authentication in the system</h4>
 <div class="paragraph"><p>Finally, you need to tell leihs that you want to use LDAP, not local database authentication. Start a Rails console inside your leihs directory:</p></div>
 <div class="literalblock">
 <div class="content">
@@ -1006,10 +1008,144 @@ u.phone = users.first["telephonenumber"].to_s unless users.first["telephonenumbe
 <div class="paragraph"><p>Warning: Please make sure that your Rails application server has SSL enabled before you put this configuration into production. You don&#8217;t want to send passwords unencrypted over the web.</p></div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_user_levels_and_roles">User levels and roles</h3>
+<div class="paragraph"><p>leihs decides what it lets users do based on their role and level. Each role or level is specific to an inventory pool, the only exception is the admin role, which covers the whole system.</p></div>
+<div class="paragraph"><p>Therer are three available roles: customer, manager and admin.</p></div>
+<div class="sect3">
+<h4 id="_customer">Customer</h4>
+<div class="paragraph"><p>Customers may only use the frontend and submit orders.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_manager_level_1">Manager level 1</h4>
+<div class="paragraph"><p>Think of this manager as the "lending and borrowing manager".</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+May only use the "Booking" section of the backend and parts of the "Administration" section
+</p>
+</li>
+<li>
+<p>
+May acknowledge orders for their inventory pool
+</p>
+</li>
+<li>
+<p>
+May hand over orders and create contracts
+</p>
+</li>
+<li>
+<p>
+May take back orders
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_manager_level_2">Manager level 2</h4>
+<div class="paragraph"><p>Think of this manager as a "junior manager".</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Everything that a manager at level 1 can do, plus:
+</p>
+</li>
+<li>
+<p>
+May assign levels and permissions (within their own inventory pool) up to and including level 2
+</p>
+</li>
+<li>
+<p>
+May create new models
+</p>
+</li>
+<li>
+<p>
+May create new items that are not inventory relevant, and the manager may not change this setting
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+These items have "Responsible department" set to their own inventory pool and the manager may not change this setting
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_manager_level_3">Manager level 3</h4>
+<div class="paragraph"><p>Think of this manager as a "senior manager".</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Everything that levels 1 and 2 can do, plus:
+</p>
+</li>
+<li>
+<p>
+Sees the "Inventory" section of leihs
+</p>
+</li>
+<li>
+<p>
+Has no restrictions on editing items
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+May create things that are inventory relevant
+</p>
+</li>
+<li>
+<p>
+May assign items to any inventory pool as "Responsible department"
+</p>
+</li>
+<li>
+<p>
+Using these functions, managers of level 3 can purchase items using their own inventory pool, but assign responsibility for the items to other inventory pools, so those other pools can manage their borrowing and lending independently
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+May manage categories
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_admin">Admin</h4>
+<div class="ulist"><ul>
+<li>
+<p>
+May manage users and assign permissions
+</p>
+</li>
+<li>
+<p>
+May manage inventory pools
+</p>
+</li>
+<li>
+<p>
+May manage groups
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
 </div>
 <div class="sect1">
-<h2 id="_upgrading_from_leihs_2_0_to_leihs_2_1">Upgrading from leihs 2.0 to leihs 2.1</h2>
+<h2 id="_performing_upgrades">Performing upgrades</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_upgrading_from_leihs_2_0_to_leihs_2_1">Upgrading from leihs 2.0 to leihs 2.1</h3>
 <div class="paragraph"><p>The upgrade should be painless.</p></div>
 <div class="olist arabic"><ol class="arabic">
 <li>
@@ -1072,10 +1208,8 @@ Run the server. Make sure you stop your previous leihs server!
 </ol></div>
 <div class="paragraph"><p>If everything went correctly, you should see leihs coming up at <a href="http://localhost:3000">http://localhost:3000</a>.</p></div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_upgrading_from_leihs_2_1_to_leihs_2_2">Upgrading from leihs 2.1 to leihs 2.2</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_upgrading_from_leihs_2_1_to_leihs_2_2">Upgrading from leihs 2.1 to leihs 2.2</h3>
 <div class="paragraph"><p>The upgrade should be painless.</p></div>
 <div class="olist arabic"><ol class="arabic">
 <li>
@@ -1133,16 +1267,14 @@ Run the server. Make sure you stop your previous leihs server!
 </ol></div>
 <div class="paragraph"><p>If everything went correctly, you should see leihs coming up at <a href="http://localhost:3000">http://localhost:3000</a>.</p></div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_upgrading_from_leihs_2_2_to_leihs_2_9">Upgrading from leihs 2.2 to leihs 2.9</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_upgrading_from_leihs_2_2_to_leihs_2_9">Upgrading from leihs 2.2 to leihs 2.9</h3>
 <div class="admonitionblock">
 <table><tr>
 <td class="icon">
 <div class="title">Warning</div>
 </td>
-<td class="content">You must upgrade form 2.2.x to 2.9.1 before continuing on on the 2.9 series. The reason is that with 2.9, we rolled up all previous migrations into one single file to make future migrations faster and easier. The system will warn you if you try to upgrade beyond 2.9.1 without installing 2.9.1 first. The sequence of actions is the same for all 2.9 releases, so once you have 2.9.1, you can just grab e.g. 2.9.4 and follow these instructions again.</td>
+<td class="content">You must upgrade from 2.2.x to 2.9.1 before continuing on with the 2.9 series. The reason is that with 2.9, we rolled up all previous migrations into one single file to make future migrations faster and easier. The system will warn you if you try to upgrade beyond 2.9.1 without installing 2.9.1 first. The sequence of actions is the same for all 2.9 releases, so once you have 2.9.1, you can just grab e.g. 2.9.4 and follow these instructions again.</td>
 </tr></table>
 </div>
 <div class="paragraph"><p>The upgrade should be painless, but please note that the access levels were replaced by user groups in this release. This can give you almost the same behavior, but it&#8217;s different to manage. You now specify groups in the admin interface or your inventory pool&#8217;s backend, and then specify how many items of each model that each group can have.</p></div>
@@ -1234,8 +1366,8 @@ $ RAILS_ENV=production bundle exec rake ts:start</tt></pre>
 </li>
 </ol></div>
 <div class="paragraph"><p>If everything went correctly, you should see leihs coming up at <a href="http://localhost:3000">http://localhost:3000</a> or, if using mod_passenger, at the location you configured.</p></div>
-<div class="sect2">
-<h3 id="_installation_on_mac_os_x_not_officially_supported">Installation on Mac OS X (not officially supported)</h3>
+<div class="sect3">
+<h4 id="_installation_on_mac_os_x_not_officially_supported">Installation on Mac OS X (not officially supported)</h4>
 <div class="paragraph"><p>The following steps were tested on Mac OS X 10.5 and 10.6 on an x86. They may also work for later versions.</p></div>
 <div class="paragraph"><p><strong>Running leihs on Mac OS X is unsupported</strong> at this time. You may try the following steps, but they are not guaranteed to work and no longer updated since Apple stopped producing servers. If you manage to get leihs to work well, feel free to update this installation guide. leihs usually isn&#8217;t the problem, the problems start when installing all the dependencies on OS X. Environment variables, bundler, compiling native extensions etc. is more easily done on a Linux distribution.</p></div>
 <div class="paragraph"><p><strong>Make sure you are running Ruby 1.8.x, not Ruby 1.9.x</strong> since leihs is a Rails 2.x project for now and Ruby 1.9.x is not supported by Rails 2.</p></div>
@@ -1412,6 +1544,7 @@ Optional: Speed boost thanks to memcached
 </div>
 </div>
 </div>
+</div>
 <div class="sect1">
 <h2 id="_installing_a_production_environment">Installing a production environment</h2>
 <div class="sectionbody">
@@ -1446,8 +1579,10 @@ Optional: Speed boost thanks to memcached
 </div>
 </div>
 <div class="sect1">
-<h2 id="_appendix_a_zhdk_configuration_file_for_mongrel_cluster">Appendix A: ZHdK configuration file for mongrel cluster</h2>
+<h2 id="_appendices">Appendices</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_appendix_a_zhdk_configuration_file_for_mongrel_cluster">Appendix A: ZHdK configuration file for mongrel cluster</h3>
 <div class="paragraph"><p>As an example to help you set up a production environment, here is the Apache configuration we use. You will need mod_proxy:</p></div>
 <div class="listingblock">
 <div class="content">
@@ -1503,10 +1638,8 @@ Optional: Speed boost thanks to memcached
 &lt;/VirtualHost&gt;</tt></pre>
 </div></div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_appendix_b_zhdk_configuration_file_for_mod_passenger">Appendix B: ZHdK configuration file for mod_passenger</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_appendix_b_zhdk_configuration_file_for_mod_passenger">Appendix B: ZHdK configuration file for mod_passenger</h3>
 <div class="paragraph"><p>This configuration is recommended for anyone who is already running an Apache or nginx web server.</p></div>
 <div class="paragraph"><p><a href="http://www.modrails.com">Download Phusion Passenger</a> and install it according to the <a href="http://modrails.com/install.html">installation instructions</a>.</p></div>
 <div class="paragraph"><p>Afterwards, a simple VirtualHost entry will be enough for Apache to pick up your leihs/Rails app:</p></div>
@@ -1526,10 +1659,11 @@ Optional: Speed boost thanks to memcached
 </div>
 </div>
 </div>
+</div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2011-11-07 15:51:46 CET
+Last updated 2012-04-18 09:04:13 CEST
 </div>
 </div>
 </body>

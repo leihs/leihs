@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 8.6.6" />
+<meta name="generator" content="AsciiDoc 8.6.7" />
 <title>leihs user guide</title>
 <style type="text/css">
 /* Shared CSS for AsciiDoc xhtml11 and html5 backends */
@@ -349,7 +349,7 @@ div.colist td img {
   margin-bottom: 0.1em;
 }
 
-div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
   margin-top: 0;
   margin-bottom: 0;
 }
@@ -407,6 +407,8 @@ span.underline { text-decoration: underline; }
 span.overline { text-decoration: overline; }
 span.line-through { text-decoration: line-through; }
 
+div.unbreakable { page-break-inside: avoid; }
+
 
 /*
  * xhtml11 specific
@@ -414,7 +416,7 @@ span.line-through { text-decoration: line-through; }
  * */
 
 tt {
-  font-family: monospace;
+  font-family: "Courier New", Courier, monospace;
   font-size: inherit;
   color: navy;
 }
@@ -453,7 +455,7 @@ div.tableblock > table[frame="vsides"] {
  * */
 
 .monospaced {
-  font-family: monospace;
+  font-family: "Courier New", Courier, monospace;
   font-size: inherit;
   color: navy;
 }
@@ -581,7 +583,7 @@ toc: function (toclevels) {
 
   function tocEntries(el, toclevels) {
     var result = new Array;
-    var re = new RegExp('[hH]([2-'+(toclevels+1)+'])');
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
     // Function that scans the DOM tree for header elements (the DOM2
     // nodeIterator API would be a better technique but not supported by all
     // browsers).
@@ -610,7 +612,7 @@ toc: function (toclevels) {
   var i;
   for (i = 0; i < toc.childNodes.length; i++) {
     var entry = toc.childNodes[i];
-    if (entry.nodeName == 'div'
+    if (entry.nodeName.toLowerCase() == 'div'
      && entry.getAttribute("class")
      && entry.getAttribute("class").match(/^toclevel/))
       tocEntriesToRemove.push(entry);
@@ -656,7 +658,7 @@ footnotes: function () {
   var entriesToRemove = [];
   for (i = 0; i < noteholder.childNodes.length; i++) {
     var entry = noteholder.childNodes[i];
-    if (entry.nodeName == 'div' && entry.getAttribute("class") == "footnote")
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
       entriesToRemove.push(entry);
   }
   for (i = 0; i < entriesToRemove.length; i++) {
@@ -889,6 +891,137 @@ process.</p></div>
 <div class="paragraph"><p>If the inventory pool manager does not wish to see contracts when he hands over
 items, then he can configure that.  There is a checkbox "Print contracts" in
 Backend&#8594;Administration&#8594;Inventory Pool&#8594;bottom of the page.</p></div>
+<div class="sect2">
+<h3 id="_user_levels_and_roles">User levels and roles</h3>
+<div class="paragraph"><p>leihs decides what it lets users do based on their role and level. Each role or level is specific to an inventory pool, the only exception is the admin role, which covers the whole system.</p></div>
+<div class="paragraph"><p>Therer are three available roles: customer, manager and admin.</p></div>
+<div class="sect3">
+<h4 id="_customer">Customer</h4>
+<div class="paragraph"><p>Customers may only use the frontend and submit orders.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_manager_level_1">Manager level 1</h4>
+<div class="paragraph"><p>Think of this manager as the "lending and borrowing manager".</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+May only use the "Booking" section of the backend and parts of the "Administration" section
+</p>
+</li>
+<li>
+<p>
+May acknowledge orders for their inventory pool
+</p>
+</li>
+<li>
+<p>
+May hand over orders and create contracts
+</p>
+</li>
+<li>
+<p>
+May take back orders
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_manager_level_2">Manager level 2</h4>
+<div class="paragraph"><p>Think of this manager as a "junior manager".</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Everything that a manager at level 1 can do, plus:
+</p>
+</li>
+<li>
+<p>
+May assign levels and permissions (within their own inventory pool) up to and including level 2
+</p>
+</li>
+<li>
+<p>
+May create new models
+</p>
+</li>
+<li>
+<p>
+May create new items that are not inventory relevant, and the manager may not change this setting
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+These items have "Responsible department" set to their own inventory pool and the manager may not change this setting
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_manager_level_3">Manager level 3</h4>
+<div class="paragraph"><p>Think of this manager as a "senior manager".</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Everything that levels 1 and 2 can do, plus:
+</p>
+</li>
+<li>
+<p>
+Sees the "Inventory" section of leihs
+</p>
+</li>
+<li>
+<p>
+Has no restrictions on editing items
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+May create things that are inventory relevant
+</p>
+</li>
+<li>
+<p>
+May assign items to any inventory pool as "Responsible department"
+</p>
+</li>
+<li>
+<p>
+Using these functions, managers of level 3 can purchase items using their own inventory pool, but assign responsibility for the items to other inventory pools, so those other pools can manage their borrowing and lending independently
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+May manage categories
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_admin">Admin</h4>
+<div class="ulist"><ul>
+<li>
+<p>
+May manage users and assign permissions
+</p>
+</li>
+<li>
+<p>
+May manage inventory pools
+</p>
+</li>
+<li>
+<p>
+May manage groups
+</p>
+</li>
+</ul></div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -949,7 +1082,8 @@ repository from <a href="http://github.com/psy-q/leihs">http://github.com/psy-q/
 <div class="paragraph"><p>from withing the leihs directory.</p></div>
 <div class="sect2">
 <h3 id="_contributors">Contributors</h3>
-<div class="paragraph"><p>Tomáš Pospíšek &lt;<a href="mailto:tomas.pospisek@zhdk.ch">tomas.pospisek@zhdk.ch</a>&gt;</p></div>
+<div class="paragraph"><p>Tomáš Pospíšek &lt;<a href="mailto:tomas.pospisek@zhdk.ch">tomas.pospisek@zhdk.ch</a>&gt;
+Ramón Cahenzli &lt;<a href="mailto:ramon.cahenzli@zhdk.ch">ramon.cahenzli@zhdk.ch</a>&gt;</p></div>
 </div>
 </div>
 </div>
@@ -963,7 +1097,7 @@ repository from <a href="http://github.com/psy-q/leihs">http://github.com/psy-q/
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2011-06-27 12:44:00 CEST
+Last updated 2012-04-18 09:04:34 CEST
 </div>
 </div>
 </body>
