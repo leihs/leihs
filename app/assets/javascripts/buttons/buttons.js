@@ -39,6 +39,15 @@ function Buttons() {
       event.preventDefault();
       return false;
     });
+    
+    $(".multibutton .button").live("click", function(event){
+      // close multibutton
+      _button = this
+      $(_button).closest(".multibutton").find(".alternatives .button").hide()
+      setTimeout(function(){
+        $(_button).closest(".multibutton").find(".alternatives .button").removeAttr("style")  
+      },200);
+    });
   }
   
   this.setupDialogListener = function() {
