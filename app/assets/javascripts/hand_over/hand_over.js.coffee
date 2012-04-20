@@ -76,7 +76,6 @@ class HandOver
     for line in lines_with_the_same_model 
       new_line_data = $(line).tmplItem().data 
       new_line_data.availability_for_inventory_pool = line_data.availability_for_inventory_pool
-      Line.recompute_availability(new_line_data)
       HandOver.update_line(line, new_line_data)
     matching_line = Underscore.find $("#visits .line"), (line)-> $(line).tmplItem().data.id == line_data.id
     if matching_line?

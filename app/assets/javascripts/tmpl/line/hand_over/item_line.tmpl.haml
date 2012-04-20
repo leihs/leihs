@@ -1,3 +1,5 @@
+${Line.recompute_availability($item.data), ""}
+
 {{html $valid = (is_available && is_valid), ""}}
 {{html $error = (!is_available || !is_valid), ""}}
 {{html $assigned = (item != undefined), ""}}
