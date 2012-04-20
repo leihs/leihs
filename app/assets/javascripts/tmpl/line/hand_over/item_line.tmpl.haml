@@ -10,11 +10,7 @@ ${Line.recompute_availability($item.data), ""}
   .main  
     %li.select
       %label
-        {{if ($assigned)}}
-        %input{:type => "checkbox", :checked => true}
-        {{else}}
         %input{:type => "checkbox"}        
-        {{/if}}
     %li.inventory_code
       %label.container{:for => "inventory_code_${id}"}
         = form_tag "/backend/inventory_pools/${current_inventory_pool}/users/${contract.user.id}/hand_over/assign_inventory_code", :method => :post, :remote => true do
@@ -28,8 +24,8 @@ ${Line.recompute_availability($item.data), ""}
                               :"data-autocomplete_class" => "assign_inventory_code", 
                               :"data-autocomplete_element_tmpl" => "tmpl/autocomplete/assign_inventory_code",
                               :"data-autocomplete_value_attribute" => "inventory_code",
-                              :"data-autocomplete_search_only_once" => 'true',
                               :"data-autocomplete_search_on_focus" => 'true',
+                              :"data-autocomplete_search_only_on_focus" => 'true',
                               :"data-autocomplete_select_callback" => "HandOver.assign_through_autocomplete",
                               :value => "{{if item}}${item.inventory_code}{{/if}}"}
           .arrow.icon
