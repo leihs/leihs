@@ -39,6 +39,17 @@ class Option < ActiveRecord::Base
     end.join(' AND ')
     where(w)
   end
+  
+  def self.filter2(options)
+    sql = scoped
+    options.each_pair do |k,v|
+      case k
+        when :inventory_pool_id
+          sql = sql.where(k => v)
+      end
+    end
+    sql
+  end
 
 ##########################################
 

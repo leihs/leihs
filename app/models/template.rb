@@ -23,9 +23,20 @@ class Template < ModelGroup
     return scoped unless query
 
     w = query.split.map do |x|
-      "name LIKE '%#{x}%'"
+      "model_groups.name LIKE '%#{x}%'"
     end.join(' AND ')
     where(w)
+  end
+
+  def self.filter2(options)
+    sql = select("DISTINCT model_groups.*")
+    options.each_pair do |k,v|
+      case k
+        when :inventory_pool_id
+          sql = sql.joins(:inventory_pools).where(:inventory_pools_model_groups => {k => v})
+      end
+    end
+    sql
   end
 
   ####################################################################################
