@@ -38,7 +38,7 @@ class Backend::BackendController < ApplicationController
     conditions[:klasses][Order] = {:sort_by => "created_at DESC", :with => {:user => {}}, :methods => [:lines, :quantity]} if types.blank? or types.include?("order")
     conditions[:klasses][Contract] = {:sort_by => "created_at DESC", :filter => {:status_const => Contract::SIGNED..Contract::CLOSED}, :with => {:user => {}}, :methods => [:lines,:quantity]} if types.blank? or types.include?("contract")
     conditions[:klasses][Model] = {:sort_by => "name ASC", :include => :categories, :with => {:availability => {:inventory_pool => current_inventory_pool}}} if types.blank? or types.include?("model")
-    conditions[:klasses][Item] = {:sort_by => "models.name ASC"} if types.blank? or types.include?("item")
+    conditions[:klasses][Item] = {:sort_by => "inventory_code ASC"} if types.blank? or types.include?("item")
     # no default
     conditions[:klasses][Option] = {:sort_by => "options.name ASC"} if types.include?("option")
     conditions[:klasses][Template] = {:sort_by => "model_groups.name ASC"} if types.include?("template")
@@ -60,13 +60,17 @@ class Backend::BackendController < ApplicationController
             order(options[:sort_by]).
             paginate(:page => params[:page], :per_page => 54)
 
-      results << r #.as_json(:include => options[:include], :methods => options[:methods], :with => options[:with])
+      # FIXME as_json => rjson
+      results << if request.format == :html
+        r.as_json(:include => options[:include], :methods => options[:methods], :with => options[:with])
+      else
+        r
+      end
       @hits[klass.to_s.underscore] = r.total_entries 
     end
     
-    # @results = results.flatten.to_json
     respond_to do |format|
-      format.html
+      format.html { @results = results.flatten.to_json }
       format.json { render :partial => "backend/backend/search", :locals => {results: results.flatten.sort_by(&:name).compact} }
     end
   end
