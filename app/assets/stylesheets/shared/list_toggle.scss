@@ -1,0 +1,86 @@
+@import "../shared/mixins";
+@import "../shared/variables";
+
+.line.toggle {
+  background: white !important;
+  border-bottom: none !important;
+  border-top: 1px solid #CCC !important;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: -32px;
+  top: -23px;
+  height: 32px;
+  
+  .shadow {
+    background: transparent;
+    height: 30px;
+    position: absolute;
+    top: 0;
+    width: 96%;
+    z-index: 1;
+    @include box-shadow(0 -25px 31px rgba(0, 0, 0, 0.1));
+  }
+  
+  &>li {
+    color: $grey;
+    height: 32px;
+    padding-left: 0 !important;
+    text-align: center;
+  }
+  
+  .icon {
+    background: url($image-sprite) no-repeat -53px -37px;
+    display: inline-block;
+    height: 6px;
+    margin-right: 8px;
+    margin-left: 6px;
+    position: relative;
+    top: -1px;
+    width: 7px;
+    z-index: 102;
+    @include opacity(0.6);
+  }
+  
+  .text {
+    background: none repeat scroll 0 0 #F8F8F8;
+    border: 1px solid #E0DFDE;
+    color: $lightgrey;
+    cursor: pointer;
+    padding: 4px 0 4px 8px;
+    position: relative;
+    top: -4px;
+    z-index: 101;
+    @include border-radius(4px);
+    
+    &:hover {
+      color: $darkergrey;
+      .icon {
+        @include opacity(1.0);
+      }
+    }
+  }
+  
+  &.show_less {
+    border-top: none !important;
+    margin-bottom: -12px;
+    top: 0;
+    
+    .shadow {
+      display: none;
+    }
+    
+    .icon {
+      background: url($image-sprite) no-repeat -73px -37px;  
+    }
+  }
+  
+  &:hover {
+    li {
+      color: $darkgrey;
+    }
+  }
+  
+  .hidden {
+    display: none;
+  }
+}

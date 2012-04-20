@@ -21,6 +21,8 @@
  *= require shared/master
  *= require shared/pagination
  *= require shared/notification
+ *= require shared/list_toggle
+ *= require shared/show_more
  * 
  *= require_tree ./backend
  * 
