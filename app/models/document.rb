@@ -69,7 +69,9 @@ class Document < ActiveRecord::Base
         item_lines.create(attr)
       end
 
-      log_change(_("Added") + " #{quantity} #{model.name} #{start_date} #{end_date}", user_id) unless line.new_record?             
+      log_change(_("Added") + " #{quantity} #{model.name} #{start_date} #{end_date}", user_id) unless line.new_record?
+      
+      line             
   end
 
   def swap_line(line_id, model_id, user_id)

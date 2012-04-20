@@ -177,8 +177,9 @@ class Order < Document
         log_change( _("Incremented quantity from %i to %i for %s") % [line.quantity-quantity, line.quantity, model.name], user_id )        
       end
     else
-      super
+      line = super
     end
+    line
   end
 
   # keep the user required quantity, force positive quantity 
