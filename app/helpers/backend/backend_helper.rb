@@ -45,9 +45,9 @@ module Backend::BackendHelper
         current_page?(:controller => "backend/inventory_pools", :action => :index)
         
       when "inventory"
-        is_current_page?("items")
-      when "items"
-        current_page?(:controller => "backend/items")
+        is_current_page?("models")
+      when "models"
+        current_page?(:controller => "backend/models")
     end
     
     # We rescue everything because backend/hand_over and backend/take_back are failing sometimes
