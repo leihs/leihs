@@ -52,6 +52,10 @@ class AddItem
           end_date_element.datepicker "option", "minDate", min_date
   
   @setup_submit: ->
+    $('#add_item').bind "submit", (event)->
+      if $(this).find("#quick_add").val() == ""
+        event.preventDefault
+        return false
     $('#add_item').bind "ajax:beforeSend", (event, jqXHR, settings)->
        # add selected line ids
       if SelectionActions? and SelectionActions.selected_lines? and SelectionActions.selected_lines.length
@@ -102,10 +106,17 @@ class AddItem
     $("#add_item #add_start_date").val(moment(start_date).format(i18n.date.L)).change()
     $("#add_item #add_end_date").val(moment(end_date).format(i18n.date.L)).change()
       
-  @autocomplete = (element)->
+  @through_autocomplete = (element)->
     id = element.item.id
+    type = element.item.type
     $("#quick_add").val(id)
-    $("#quick_add").attr("name", "model_id")
+    switch type
+      when "model"
+        $("#quick_add").attr("name", "model_id")
+      when "option"
+        $("#quick_add").attr("name", "option_id")
+      when "template"
+        $("#quick_add").attr("name", "model_group_id")
     $("#quick_add").closest("form").submit()
     $("#quick_add").attr("name", "code")
     $("#quick_add").val("")
