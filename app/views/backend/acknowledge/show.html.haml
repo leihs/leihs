@@ -55,15 +55,15 @@
           %label.datepicker.icon{:for => "add_end_date", :title => _("Open Datepicker")}  
             
       .quick_add_box
-        %input.autocomplete{:type => "text", :name => "code", :placeholder => _('Name / Code'), :autocomplete => "off", :id => "quick_add", 
+        %input.autocomplete.barcode_target{:type => "text", :name => "code", :autocomplete => "off", :id => "quick_add", 
+        :"data-url" => backend_inventory_pool_search_path(current_inventory_pool, :types => ["model", "template"]),
         :"data-autocomplete_class" => "add_item", 
-        :"data-url" => backend_inventory_pool_models_path(current_inventory_pool),
+        :"data-autocomplete_element_tmpl" => "tmpl/autocomplete/add_item",
         :"data-autocomplete_select_callback" => "AddItem.through_autocomplete"}
         %label{:for => "quick_add"}
-          = _("Quick Add")
+          = _("Inventory Code / Name")
         
       %button.button.white{:type => "submit"}
-        .icon.additem
         = _("Add")
         
     #selection_actions
@@ -93,7 +93,7 @@
           :class => "button white open_dialog",
           :"data-rel" => "tmpl/dialog/calendar/edit_multiple", 
           :"data-dialog_class" => "calendar multiple",
-          :"data-on_success" => 'AcknowledgeOrder.update_order(response);',
+          :"data-on_success" => 'Acknowledge.update_order(response);',
           :"data-ref_for_dialog" => "$('#order').tmplItem().data",
           :id => "edit_selection" do
             .icon.timerange
@@ -107,8 +107,6 @@
   
   jQuery ->
     $('#acknowledge #order').replaceWith($.tmpl("tmpl/order", #{@order_json}))
-    AcknowledgeOrder.setup()
+    Acknowledge.setup()
     AddItem.setup()
     SelectionActions.setup($("#order"))
-  
-  
