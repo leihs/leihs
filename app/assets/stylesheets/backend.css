@@ -20,6 +20,7 @@
  *= require shared/navigation
  *= require shared/master
  *= require shared/pagination
+ *= require shared/notification
  * 
  *= require_tree ./backend
  * 

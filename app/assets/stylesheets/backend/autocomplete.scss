@@ -5,8 +5,11 @@
   background: #FFF;
   border: 1px solid $borderdarkergrey;
   display: inline-block; 
+  max-height: 130px;
+  overflow: auto;
+  position: absolute;
   z-index: 1010 !important;
-  @include box-shadow (0 2px 4px rgba(0,0,0,0.2));
+  @include box-shadow (0 2px 4px rgba(0,0,0,0.4));
   
   .ui-menu-item {
     @include dark-grey-links();
@@ -19,14 +22,50 @@
       border-bottom: 1px solid $borderlightergrey;
       border-top: 1px solid white;
       cursor: pointer;
+      color: $darkergrey;
       display: block;
       font-size: 1.2em;
-      padding: 4px 6px;
+      padding: 9px 6px;
+      position: relative;
       
       &:hover, &#ui-active-menuitem {
         background: $highlight-darkgrey;
-        color: $darkergrey;
       }
+    }
+  }
+  
+  &.add_item {
+    width: 348px !important;
+    
+    .label {
+      display: block;
+      width: 320px;
+    }
+    
+    .type {
+      color: $lightgrey;
+      display: inline-block;
+      font-weight: bold;
+      position: absolute;
+      right: 5px;
+      top: 9px;
+    }
+  }
+  
+   &.assign_inventory_code {
+    width: 348px !important;
+    
+    .label {
+      padding-left: 4px;
+      font-weight: bold;
+      width: 320px;
+    }
+    
+    .location {
+      color: $grey;
+      position: absolute;
+      right: 5px;
+      top: 9px;
     }
   }
 }

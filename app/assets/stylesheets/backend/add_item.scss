@@ -15,6 +15,7 @@
   }
   
   #quick_add {
+    color: $lightgrey;
     padding: 0 26px 0 6px;
     width: 115px;
     
@@ -53,7 +54,6 @@
     
     & input {
       padding: 0 8px;
-      top: 1px;
       position: relative;
       width: 100px;
     }

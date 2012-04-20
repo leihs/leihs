@@ -7,14 +7,10 @@
   top: -3px;
   
   .note {
-    background: white;
-    border: 1px solid rgba(0,0,0,0.3);
     display: block;
     font-size: 1.1em;
     font-weight: bold;
-    margin: 0 12px 4px;
-    padding: 6px 10px;
-    @include box-shadow(0 1px 4px rgba(0,0,0,0.2));
-    @include border-radius(4px);
+    margin: 0 9px 4px;
+    padding: 0 10px 6px 194px;
   }  
 }

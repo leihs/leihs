@@ -4,10 +4,12 @@
 .option_line.line {
   
   .inventory_code {
-    width: 80px;
+    padding-right: 6px;
+    width: 63px;
   }
   
   .quantity {
+    padding-right: 16px;
     width: 63px;
     
     input {

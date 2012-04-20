@@ -33,7 +33,7 @@
   }
 }
 
-a.button:active {
+a.button:active:not([disabled]) {
   line-height: 1.5em;
 }
 
@@ -52,12 +52,12 @@ a.button {
   border-top: 1px solid $color3;
   background: url($slices-h) repeat-x 0 $pos;
   
-  &:hover {
+  &:hover:not([disabled]) {
     background: url($slices-h) repeat-x 0 $pos-hover;
     color: $color4;
   }
   
-  &:active {
+  &:active:not([disabled]) {
     background: url($slices-h) repeat-x 0 $pos-active;
   }
   
@@ -92,7 +92,7 @@ a.button.small {
   height: 19px;
 }
 
-.button.small:active {
+.button.small:active:not([disabled]) {
   line-height: 1.4em;
 }
 

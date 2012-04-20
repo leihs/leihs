@@ -8,6 +8,10 @@
   vertical-align: middle;
 }
 
+.placeholder {
+  position: absolute;
+}
+
 a.button .icon {
   vertical-align: middle;
 }
@@ -199,4 +203,11 @@ button .icon {
 
 .loading.icon {
   background: none;
+}
+
+.arrow.icon {
+  background: url($image-sprite) no-repeat;
+  background-position: -53px -37px;
+  height: 6px;
+  width: 7px;
 }

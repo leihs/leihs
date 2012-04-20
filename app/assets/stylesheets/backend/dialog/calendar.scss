@@ -95,7 +95,7 @@
           width: 30px;
         }
         
-        a {
+        >div {
           display: block;
           height: 12px;
           position: absolute;
@@ -113,7 +113,7 @@
           @include opacity(0.6);
         }
         
-        a:hover {
+        div:hover {
           .icon {
             @include opacity(1.0);
           }

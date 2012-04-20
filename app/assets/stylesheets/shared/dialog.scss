@@ -6,6 +6,7 @@
   border: 1px solid rgba(0,0,0,0.45);
   display: inline-block;
   position: absolute;
+  z-index: 99999;
   @include border-radius(6px);
   @include box-shadow (0 0 18px rgba(0,0,0,0.2));
   
@@ -23,8 +24,11 @@
     top: 20px;
   }
   
+  .show_on_error {
+    display: none;
+  }
+  
   section.lines {
-    
     .topline {
       margin-top: 22px;
       

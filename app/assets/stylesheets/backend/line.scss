@@ -2,6 +2,7 @@
 @import "../shared/variables";
 
 .list .line {
+  background-color: white;
   border-bottom: 1px solid $borderlightergrey;
   border-top: 1px solid white;
   cursor: default;
@@ -110,6 +111,14 @@
     }
   }
   
+  &.highlight {
+    background-color: $highlight-darkgrey !important;
+    
+    &.success {
+      background-color: $highlight-green !important;  
+    }
+  }
+  
   span.digits {
     letter-spacing: -1px;
   }
@@ -117,7 +126,7 @@
   &.toggle {
     background: white;
     border-bottom: none;
-    cursor: pointer;
+    cursor: s-resize;
     font-size: 1.1em;
     overflow: hidden;
     position: relative;
@@ -160,7 +169,7 @@
     }
     
     &.show_less {
-      cursor: pointer;
+      cursor: n-resize;
       
       .shadow {
         display: none;

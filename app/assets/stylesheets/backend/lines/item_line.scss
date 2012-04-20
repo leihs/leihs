@@ -21,6 +21,10 @@
     &:hover {
       background: $highlight-darkred !important;  
     }
+    
+    input, input:hover, input:focus {
+      border: 1px solid $highlight-darkred;
+    }
   }
   
   &.assigned .inventory_code {
@@ -40,6 +44,7 @@
     width: 63px;
     
     .container {
+      display: block;
       position: relative;
       
       input {
@@ -57,7 +62,16 @@
         top: 4px;
         right: 4px;
         width: 16px;
+      }
+      
+      .arrow {
+        position: absolute;
+        right: 8px;
+        top: 10px;
+        @include opacity(0.6);
       }      
+      
+      &:hover .arrow { @include opacity(1.0); }
     }
   }
   

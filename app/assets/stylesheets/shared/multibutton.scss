@@ -12,13 +12,13 @@
     &>.button {
       cursor: default;
       
-      &:hover {
+      &:hover:not([disabled]) {
         background: url($slices-h) repeat-x 0 -252px;
         color: #808080;
         border-bottom-right-radius: 0;
       }
       
-      &.green:hover {
+      &.green:hover:not([disabled]) {
         color: #2e7929;
         background: url($slices-h) repeat-x 0 -156px;  
       }
@@ -50,7 +50,7 @@
   }
   
   &>.button {
-    border: 1px solid $lightgrey;
+    border: 1px solid rgba(153,153,153,0.7);
     display: inline-block;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
@@ -72,7 +72,7 @@
     
     .trigger {
       background: url($slices-h) repeat-x 0 -252px;
-      border: 1px solid $lightgrey;
+      border: 1px solid rgba(153,153,153,0.7);
       border-left: none;
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
@@ -105,7 +105,7 @@
     }
     
     .button {
-      border: 1px solid $lightgrey !important;
+      border: 1px solid rgba(153,153,153,0.7) !important;
       border-top: none !important;
       display: none;
       text-align: left;
@@ -113,7 +113,7 @@
       white-space: nowrap;
       margin-left: 1px;
       @include border-radius(0);
-      @include box-shadow (0 3px 7px #BBB);
+      @include box-shadow (0 2px 4px rgba(0,0,0,0.4));
       
       .icon {
         margin-left: 2px;
@@ -126,8 +126,8 @@
       }
     }
     
-    &:hover {
-      z-index: 9999;
+    &:hover:not([disabled]) {
+      z-index: 9998;
       
       .trigger {
         background: url($slices-h) repeat-x 0 -284px;
@@ -155,8 +155,7 @@
   &.open {
     
     .alternatives {
-      
-      z-index: 9999;
+      z-index: 9998;
       
       .trigger {
         background: url($slices-h) repeat-x 0 -284px;
@@ -184,7 +183,7 @@
   &.loading {
     @include opacity(1.0 !important);
     .button {
-      @include box-shadow (0 0 3px #BBB);
+      @include box-shadow (0 2px 4px rgba(0,0,0,0.4));
     }
   }
 }
