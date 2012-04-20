@@ -343,16 +343,12 @@ class Backend::HandOverController < Backend::BackendController
       line = if line_ids and code
         @contract.lines.where(:id => line_ids, :model_id => item.model, :item_id => nil).first
       end
-      
       line ||= begin
         model.add_to_document(@contract, @user, quantity, start_date, end_date, current_inventory_pool)
-        @contract.lines.sort_by(&:created_at).last
       end
-
-      if item and line and not line.update_attributes(item: item)
+      if model_group_id.nil? and item and line and not line.update_attributes(item: item)
         @error = {:message => line.errors.values.join}
       end
-  
     elsif option
       if line = @contract.lines.where(:model_id => model, :start_date => start_date, :end_date => end_date).first
         line.quantity += quantity
@@ -373,7 +369,7 @@ class Backend::HandOverController < Backend::BackendController
     respond_to do |format|
       format.json {
         if @error.blank?
-          render :partial => "backend/contracts/#{line.type.underscore}.json.rjson", :locals => {:line => line}
+          render :partial => "backend/contracts/lines.json.rjson", :locals => {:lines => Array(line)}
         else
           render :template => "/errors/show", status: 500
         end
