@@ -95,8 +95,7 @@
 :coffeescript    
     
   jQuery ->
-    $('#visits').replaceWith($.tmpl("tmpl/visits", #{render(partial: "backend/visits/index.json.rjson", locals: {visits: @visits})}))
+    $('#visits').replaceWith($.tmpl("tmpl/visits", #{render(:partial => "backend/visits/index.json.rjson", :locals => {:visits => @visits})}))
     HandOver.setup()
     AddItem.setup()
     SelectionActions.setup $("#visits")
-    

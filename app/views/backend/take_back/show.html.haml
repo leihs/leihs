@@ -53,7 +53,7 @@
     }
     
     this.setupTemplates = function() {
-      $('#visits').replaceWith($.tmpl("tmpl/visits", #{render(partial: "backend/visits/index.json.rjson", locals: {visits: @visits})}));
+      $('#visits').replaceWith($.tmpl("tmpl/visits", #{render(:partial => "backend/visits/index.json.rjson", :locals => {:visits => @visits})}));
     }
     
     this.setupInventoryCodeInputs = function() {
