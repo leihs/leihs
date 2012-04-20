@@ -12,30 +12,46 @@ class HandOver
     @setup_assign_inventory_code()
     @setup_hand_over_button()
     @setup_add_item()
+    
+  @assign_through_autocomplete = (element, event)->
+    $(event.target).val(element.item.inventory_code)
+    $(event.target).closest("form").submit()
   
   @setup_assign_inventory_code = ()->
-    # before assign
     $(".item_line .inventory_code form").live "ajax:beforeSend", ()->
-      $(this).find("input").attr("disabled", true)
+      $(this).find(".icon").hide()
+      $(this).find("input[type=text]").attr("disabled", true)
       $(this).append LoadingImage.get()
+      $(this).find("input:focus").blur()
+      
     $(".item_line .inventory_code form").live "ajax:success", (event, data)->
       $(this).closest(".line").replaceWith $.tmpl("tmpl/line", data)
       # notification
       Notification.add_headline
-        title: "Assigned"
-        text: "#{data.model.name} to #{data.m}"
+        title: "#{data.item.inventory_code}"
+        text: "assigned to #{data.model.name}"
         type: "success"
+        
     $(".item_line .inventory_code form").live "ajax:error", ()->
-      $(this).find("input").val("")
+      $(this).find("input[type=text]").val("")
+      
     $(".item_line .inventory_code form").live "ajax:complete", ->
       $(this).find(".loading").remove()
-      $(this).find("input").removeAttr("disabled")
+      $(this).find(".icon").show()
+      $(this).find("input[type=text]").removeAttr("disabled")
+      $(this).find("input[type=text]").autocomplete("destroy")
       $(this).closest(".line").removeClass "assigned"
-  
-  @setup_hand_over_button = ()->
-    $("#hand_over_button").on "click", ()->
-      SelectionActions.storeSelectedLines()
       
+    $(".item_line .inventory_code input").live "focus", (event)->
+      $(this).data("value_on_focus", $(this).val())
+    $(".item_line .inventory_code input").live "blur", (event)->
+      if $(this).val() != $(this).data("value_on_focus")
+        trigger = $(this)
+        setTimeout ()->
+          if $(trigger).siblings(".loading:visible").length == 0
+            $(trigger).closest("form").submit()
+        ,100
+  
   @setup_hand_over_button = ()->
     $("#hand_over_button").on "click", ()->
       SelectionActions.storeSelectedLines()
@@ -51,14 +67,27 @@ class HandOver
       HandOver.add_line data
   
   @add_line: (line_data)->
+    Notification.add_headline
+      title: "+ #{Str.sliced_trunc(line_data.model.name, 36)}"
+      text: "#{moment(line_data.start_date).sod().format(i18n.date.XL)}-#{moment(line_data.end_date).format(i18n.date.L)}"
+      type: "success"
+    # update availability for the lines with the same model
+    lines_with_the_same_model = Underscore.filter $("#visits .line"), (line)-> $(line).tmplItem().data.model.id == line_data.model.id
+    for line in lines_with_the_same_model 
+      new_line_data = $(line).tmplItem().data 
+      new_line_data.availability_for_inventory_pool = line_data.availability_for_inventory_pool
+      Line.recompute_availability(new_line_data)
+      HandOver.update_line(line, new_line_data)
+    matching_line = Underscore.find $("#visits .line"), (line)-> $(line).tmplItem().data.id == line_data.id
+    if matching_line?
+      HandOver.update_line(matching_line, line_data)
+    else 
+      HandOver.add_new_line(line_data)
+  
+  @add_new_line: (line_data)->
     line_start_date = moment(line_data.start_date).sod()
     line_end_date = moment(line_data.end_date).sod()
     $(line_as_tmpl).find(".select input").attr("checked", true)
-    # notification
-    Notification.add_headline
-      title: "Added"
-      text: "#{line_data.model.name} (#{line_start_date.format(i18n.date.L)} - #{line_end_date.format(i18n.date.L)})"
-      type: "success"
     # add template
     for visit in $(".visit")
       visit_date = moment($(visit).tmplItem().data.date).sod()
@@ -97,6 +126,10 @@ class HandOver
       user: line_data.contract.user
     new_visit_tmpl = $.tmpl("tmpl/visit", new_visit)
     $(".visit:last").after new_visit_tmpl
+  
+  @update_line = (line_element, line_data)->
+    new_line = $.tmpl("tmpl/line", line_data)
+    $(line_element).replaceWith new_line
   
   @update_subtitle = ->
     console.log "UPDATE SUBTITLE"
