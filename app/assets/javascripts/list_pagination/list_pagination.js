@@ -16,6 +16,8 @@ function ListPagination() {
   this.previous_text = "Previous";
   
   this.setup = function() {
+    if (this.total_entries <= this.per_page) return true; 
+    
     current_page = (ListPagination.current_page == 0) ? 0 : ListPagination.current_page-1;
     
     $(".pagination_container").pagination(ListPagination.total_entries, {
