@@ -340,17 +340,19 @@ class Backend::HandOverController < Backend::BackendController
     # create new line
     if model
       # try to assign for line_ids first
-      if line_ids and code
-        
-      else
-        model.add_to_document(@contract, @user, quantity, start_date, end_date, current_inventory_pool)
-        line = @contract.lines.sort_by(&:created_at).last
-        if item
-          unless line.update_attributes(item: item)
-            @error = {:message => line.errors.values.join}
-          end
-        end
+      line = if line_ids and code
+        @contract.lines.where(:id => line_ids, :model_id => item.model, :item_id => nil).first
       end
+      
+      line ||= begin
+        model.add_to_document(@contract, @user, quantity, start_date, end_date, current_inventory_pool)
+        @contract.lines.sort_by(&:created_at).last
+      end
+
+      if item and line and not line.update_attributes(item: item)
+        @error = {:message => line.errors.values.join}
+      end
+  
     elsif option
       if line = @contract.lines.where(:model_id => model, :start_date => start_date, :end_date => end_date).first
         line.quantity += quantity
