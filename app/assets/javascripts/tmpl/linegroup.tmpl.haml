@@ -13,8 +13,6 @@ ${$item.days = $item.end_date.diff($item.start_date, "days"), ""}
       ${i18n.days.trunc[$item.start_date.toDate().getDay()]}
       {{/if}} 
       ${$item.start_date.format(i18n.date.L)}
-      
-      {{if moment($item.start_date).sod().diff(moment($item.end_date).sod(),"days") != 0}}
       = "-"
       {{if moment($item.end_date).eod().diff(moment().eod(),"days") == 0}}
       %strong
@@ -23,7 +21,6 @@ ${$item.days = $item.end_date.diff($item.start_date, "days"), ""}
       ${i18n.days.trunc[$item.end_date.toDate().getDay()]}
       {{/if}}
       ${$item.end_date.format(i18n.date.L)}
-      {{/if}}
     .days
       ${$item.days}
       {{if $item.days<2}}
