@@ -12,41 +12,62 @@ jQuery ->
       AutoComplete.setup $(this)
     else if $(this).val() != ""
       $(this).autocomplete("widget").show()
-      $(this).autocomplete("widget").position
-        of: $(this)
-        my: "left top"
-        at: "left bottom"
 
 class AutoComplete
   
-  @setup = (input_field)->
-    $(input_field).autocomplete
-      source: @source
-      select: @select
+  @setup = (input_field, source)->
+    # initialize autocomplete
+    options = {}
+    options.source = if source? then source else @source
+    options.select = @select
+    $(input_field).autocomplete options
+    # add class name to autocomplete widget
     $(input_field).autocomplete("widget").addClass($(input_field).data("autocomplete_class"))
-  
+    # show on focus
+    if $(input_field).data("autocomplete_search_on_focus") == true
+      $(input_field).bind "focus", ()->
+        $(input_field).autocomplete( "option", "minLength", 0 )
+        $(input_field).autocomplete("search", "")
+        $(this).autocomplete("widget").position
+          of: $(this)
+          my: "left top"
+          at: "left bottom"
+    # render autocomplete item
+    if $(input_field).data("autocomplete_element_tmpl")?
+      $(input_field).data("autocomplete")._renderItem = (ul, item)->
+        $( "<li></li>" ).data("item.autocomplete", item).append( $.tmpl($(input_field).data("autocomplete_element_tmpl"), item) ).appendTo(ul)
+      
   @source = (request, response)->
     trigger = $(this.element)
+    $(trigger).autocomplete("widget").scrollTop 0
     $.ajax 
       url: $(trigger).data("url")
       data:
         format: "json"
-        query: request.term
+        term: request.term
       dataType: "json"
       beforeSend: ->
         $(trigger).next(".loading").remove()
+        $(trigger).next(".icon").hide()
         $(trigger).after LoadingImage.get()
+        $(trigger).autocomplete("close")
       complete: ->
         $(trigger).next(".loading").remove()
+        $(trigger).next(".icon").show()
       success: (data)->
-        entries = $.map(data, (element)-> { id: element.id, value: Str.sliced_trunc(element.name, 45) })
+        entries = $.map data, (element)-> 
+          element.value = element[$(trigger).data("autocomplete_value_attribute")] if $(trigger).data("autocomplete_value_attribute")?
+          element
+        AutoComplete.setup trigger, entries if $(trigger).data("autocomplete_search_only_once")?
         response entries
       
   @select = (event, element)->
+    $(this).val("")
+    $(this).autocomplete("close")
     if $(this).data("autocomplete_select_callback")?
       callback = eval $(this).data("autocomplete_select_callback")
       if callback?
-        callback(element)
+        callback(element, event)
         return false
 
 window.AutoComplete = AutoComplete
