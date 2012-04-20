@@ -55,10 +55,15 @@ class AutoComplete
         $(trigger).next(".loading").remove()
         $(trigger).next(".icon").show()
       success: (data)->
+        # compute entries
         entries = $.map data, (element)-> 
           element.value = element[$(trigger).data("autocomplete_value_attribute")] if $(trigger).data("autocomplete_value_attribute")?
           element
-        AutoComplete.setup trigger, entries if $(trigger).data("autocomplete_search_only_once")?
+        # setup autocomplete search only once & only search on focus
+        if $(trigger).data("autocomplete_search_only_on_focus")? or $(trigger).data("autocomplete_search_only_once")?
+          AutoComplete.setup trigger, entries
+          $(trigger).bind "blur", ()-> AutoComplete.setup(trigger, AutoComplete.source)  
+        # return entries
         response entries
       
   @select = (event, element)->
