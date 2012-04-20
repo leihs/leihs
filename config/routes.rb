@@ -235,7 +235,7 @@ Leihs::Application.routes.draw do
             post :add_line_with_item # TODO 29**
             post :change_line_quantity
             #old leihs# post :change_line
-            #old leihs# delete :remove_lines
+            delete :remove_lines
             post :update_lines
             get :swap_model_line
             post :swap_model_line
