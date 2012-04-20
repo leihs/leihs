@@ -10,29 +10,41 @@ class Line
   
   @remove = (options)->
     $(options.element).trigger('before_remove_line', [options])
-    if $(options.element).closest("linegroup").length
-      @remove_element_of_a_line_group(options)
-    else
-      @remove_element_of_a_list(options)
-    options.callback() if options.callback? 
-    $(document).trigger('after_remove_line', [options])
     
-  @remove_element_of_a_line_group = (options)->
+    # animate and remove    
     $(options.element).css("background-color", options.color).fadeOut 400, ()->
       if $(this).closest(".linegroup").find(".lines .line").length == 1
-        $(this).closest(".indent").next("hr").remove()
-        $(this).closest(".indent").remove()
+        if $(this).closest(".visit").find(".line").length == 1
+          $(this).closest(".visit").remove()
+        else
+          $(this).closest(".indent").next("hr").remove()
+          $(this).closest(".indent").remove()
       else
-        $(this).remove()
-  
-  @remove_element_of_a_list = (options)->
-    parent = $(options.element).parents(".list")
-    $(options.element).css("background-color", options.color).fadeOut 400, ()->
-      List.remove(options.element)
+        $(this).remove()    
+      
+    options.callback() if options.callback? 
+    $(document).trigger('after_remove_line', [options])
       
   @get_problems = (data)->
     problems = []
     problems.push "The model is not available" if data.is_available == false
     return problems
+  
+  @highlight = (line_element, type)->
+    $(line_element).addClass("highlight #{type}")
+    setTimeout ()->
+      $(line_element).removeClass("highlight #{type}")  
+    , 300
+    
+  @recompute_availability = (line_data)->
+    availability = line_data.availability_for_inventory_pool.availability
+    line_id = line_data.id
+    line_type = line_data.type
+    
+    # for change in availability
+      # allocations = change[2]
+      # for allocation in allocations
+        # for out_document_line in allocation.out_document_lines[]     
+    
         
 window.Line = Line
