@@ -22,4 +22,4 @@ $.ajaxSetup({
 });
 
 // make Underscore available for jQuery templates
-window.Underscore = _
+window.Underscore = _;
