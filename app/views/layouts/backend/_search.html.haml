@@ -1,7 +1,7 @@
-%section#search{:class => is_current_page?("search") ?"active" : nil}
+%label.search{:for => "search", :class => is_current_page?("search") ?"active" : nil}
   .inner
     = form_tag(url_for([:backend, current_inventory_pool, :search].compact), :method => :get, :autocomplete => :off) do
-      %input{:type => "text", :name => "text", :value => params[:text], :class => "clearable"}
+      %input#search{:type => "text", :name => "text", :value => params[:text], :class => "clearable barcode_target"}
       = submit_tag "", :class => "search icon"
       = image_tag "loading.gif", :class => "loading"
     .borderright
@@ -22,25 +22,25 @@
     }
     
     this.setupFocus = function() {
-      var search_input = $("#search input[name='text']");
+      var search_input = $("#tabs .search input[name='text']");
         
-      if(search_input.parents("#search").hasClass("active")){
+      if(search_input.parents("#tabs .search").hasClass("active")){
         search_input.focus().val(search_input.val() + " "); // NOTE: This puts the Cursor at the end on focus
         search_input.addClass("on_search_page");        
       }
       
       search_input.focus(function(){
         if (! $(this).hasClass("on_search_page"))
-          $(this).parents("#search").addClass("active");
+          $(this).parents("#tabs .search").addClass("active");
       }).blur(function() {
         if (! $(this).hasClass("on_search_page"))
-          $(this).parents("#search").removeClass("active");
+          $(this).parents("#tabs .search").removeClass("active");
       });
     }
     
     this.setupSubmittion = function() {
       
-      $("#search form").submit(function() {
+      $("#tabs .search form").submit(function() {
         $(this).find(".icon").remove();
         $(this).find(".clear_icon").remove();
         $(this).find(".loading").show();
@@ -53,10 +53,10 @@
     this.setupUnload = function() {
       
       $(window).unload(function(){
-        $("#search").find(".icon").show();
-        $("#search").find(".loading").hide();
-        $("#search input:text").val("");
-        $("#search input:text").blur();
+        $("#tabs .search").find(".icon").show();
+        $("#tabs .search").find(".loading").hide();
+        $("#tabs .search input:text").val("");
+        $("#tabs .search input:text").blur();
       });
     }
   }

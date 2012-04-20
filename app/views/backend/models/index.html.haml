@@ -1,10 +1,21 @@
--content_for :title, _("List of Models/Items/Options")
-#items.innercontent
+-content_for :title, _("List of Inventory")
+#inventory.innercontent
 
   .top
     %h1= yield :title
   
   %section
+    .inlinetabs
+      = link_to backend_inventory_pool_contracts_path(current_inventory_pool, :filter => "", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' inactive' if params[:filter] && params[:filter] != ""}" do
+        %span.text
+          = _("All")
+      = link_to backend_inventory_pool_contracts_path(current_inventory_pool, :filter => "signed", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' inactive' unless params[:filter] == 'signed'}" do
+        %span.text
+          = _("Own Inventory")
+      = link_to backend_inventory_pool_contracts_path(current_inventory_pool, :filter => "closed", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' inactive' unless params[:filter] == 'closed'}" do
+        %span.text
+          = _("Packages")
+    
     .list
       %ul.navigation.line
         %li.search

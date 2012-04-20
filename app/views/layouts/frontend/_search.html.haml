@@ -1,7 +1,7 @@
-%section#search
+%label.search{:for => "search"}
   .inner
     = form_tag("") do
-      %input{:type => "text"}
+      %input#search{:type => "text"}
       = submit_tag "", :class => "icon"
       = image_tag "loading.gif", :class => "loading"
     .borderright
@@ -22,12 +22,12 @@
     }
     
     this.setupBindings = function() {
-      $("#search input:text").bind("focus", function() {
-        $(this).parents("#search").addClass("active");
+      $("#tabs .search input:text").bind("focus", function() {
+        $(this).parents(".search").addClass("active");
       });
       
-      $("#search input:text").bind("blur", function() {
-        $(this).parents("#search").removeClass("active");
+      $("#tabs .search input:text").bind("blur", function() {
+        $(this).parents(".search").removeClass("active");
       });
     }
     
@@ -59,8 +59,8 @@
               }
               
               var _label = item.label;
-              var _regExp = new RegExp($("#search input:text").val(), "i" );
-              var _match = _label.match(_regExp, $("#search input:text").val());
+              var _regExp = new RegExp($("#tabs .search input:text").val(), "i" );
+              var _match = _label.match(_regExp, $("#tabs .search input:text").val());
               _label = _label.replace(_regExp, "<span class='marked'>" + _match + "</span>");
               
               _item.find("a").append("<span class='label'>" + _label + "</span>");
@@ -73,24 +73,24 @@
         }
       });
       
-      $("#search input:text").catcomplete({
+      $("#tabs .search input:text").catcomplete({
         delay: 500,
         source: "/search",
         minLength: 2,
       	select: function(event, ui) {
       		window.location = ui.item.link;
       	},
-      	appendTo: "#search",
+      	appendTo: "#tabs .search",
       	position: {
           offset: "0 3"      	  
       	},
       	search: function(event, ui) {
-      	 $("#search .loading").show();
-      	 $("#search .icon").hide();
+      	 $("#tabs .search .loading").show();
+      	 $("#tabs .search .icon").hide();
       	},
       	open: function(event, ui) {
-      	 $("#search .loading").hide();
-         $("#search .icon").show();
+      	 $("#tabs .search .loading").hide();
+         $("#tabs .search .icon").show();
       	}
       }).bind("focus", function(event){
         if($(event.target).val().length >= 2) {
@@ -100,7 +100,7 @@
     }
     
     this.setupInput = function(){
-      $("#search input[type=text]").bind("keyup", function(){
+      $("#tabs .search input[type=text]").bind("keyup", function(){
         Search.highlightText($(this).val());
       });
     }

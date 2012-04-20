@@ -1,4 +1,4 @@
--content_for :title, _("Order from %s") % @user
+-content_for :title, _("Order from %s") % @order.user
 
 #acknowledge.innercontent
   .top
@@ -58,11 +58,11 @@
         %input.autocomplete{:type => "text", :name => "code", :placeholder => _('Name / Code'), :autocomplete => "off", :id => "quick_add", 
         :"data-autocomplete_class" => "add_item", 
         :"data-url" => backend_inventory_pool_models_path(current_inventory_pool),
-        :"data-autocomplete_select_callback" => "AcknowledgeOrder.autocomplete_add_item"}
+        :"data-autocomplete_select_callback" => "AddItem.through_autocomplete"}
         %label{:for => "quick_add"}
           = _("Quick Add")
         
-      %button.button.white{:type => "submit", :"data-on_success" => 'AcknowledgeOrder.update_order(response)'}
+      %button.button.white{:type => "submit"}
         .icon.additem
         = _("Add")
         
@@ -99,133 +99,16 @@
             .icon.timerange
             = _("Edit Selection")
     .clear
-    
   %hr
   
   %section#order
 
-:javascript
+:coffeescript
   
-  $(document).ready(function(){
-    AcknowledgeOrder.setup();
-    SelectionActions.setup($("#order"));
-    
-    $("#edit_selection").on("click", function(event){
-      SelectionActions.storeSelectedLines();
-    });
-  });
+  jQuery ->
+    $('#acknowledge #order').replaceWith($.tmpl("tmpl/order", #{@order_json}))
+    AcknowledgeOrder.setup()
+    AddItem.setup()
+    SelectionActions.setup($("#order"))
   
-  var AcknowledgeOrder = new AcknowledgeOrder();
   
-  function AcknowledgeOrder() {
-  
-    this.setup = function () {
-      this.setupPurpose();
-      this.setupDatepicker();
-      this.setupTemplates();
-      AcknowledgeOrder.checkApproveOrderAvailability();
-    }
-    
-    this.autocomplete_add_item = function(element) {
-      var id = element.item.id;
-      $("#quick_add").val(id)
-      $("#quick_add").attr("name", "model_id")
-      $("#quick_add").closest("form").submit()
-      $("#quick_add").attr("name", "code")
-      $("#quick_add").val("")
-      $("#quick_add").autocomplete("widget").hide()
-    }
-    
-    this.update_order = function(order) {
-      // reset the order template with the new data
-      $("#order").html("");
-      $('#order').replaceWith($.tmpl("tmpl/order", order));
-      
-      // update the subtitle numbers
-      var subtitle_text = $("#acknowledge .subtitle").html();
-      subtitle_text.replace(/^\d+/, order.quantity);
-      subtitle_text.replace(/\s\d+/, " "+new MaxRange(order.lines).value);
-      $("#acknowledge .subtitle").html(subtitle_text);
-      
-      
-      // restore lines which were selected before re templating
-      SelectionActions.restoreSelectedLines();
-    }
-    
-    this.checkApproveOrderAvailability = function () {
-      if ($("#order").find(".lines").length == 0) {
-        Buttons.disable($("#approve.multibutton"));
-      } else {
-        Buttons.enable($("#approve.multibutton"));
-      }      
-    }
-    
-    this.setupPurpose = function () {
-      if($(".indent.purpose").height() > 70){
-        $(".indent.purpose").addClass("collapsed");
-        $(".indent.purpose").after("<div class='showmore'></div>");
-      }
-      
-      $(".indent.purpose.collapsed").live("click", function(){
-        $(this).removeClass("collapsed");
-        $(this).addClass("expanded");
-      });
-      
-      $(".indent.purpose.expanded").live("click", function(){
-        $(this).removeClass("expanded");
-        $(this).addClass("collapsed");
-      });
-    }
-    
-    this.setupTemplates = function () {
-      $('#acknowledge #order').replaceWith($.tmpl("tmpl/order", #{@order_json}));
-    }
-    
-    this.setupDatepicker = function () {
-      $.datepicker.setDefaults({
-        closeText: i18n.close,
-        prevText: '&lt;',
-        nextText: '&gt;',
-        currentText: i18n.today,
-        monthNames: i18n.months.full,
-        monthNamesShort: i18n.months.trunc,
-        dayNames: i18n.days.full,
-        dayNamesShort: i18n.days.trunc,
-        dayNamesMin: i18n.days.trunc,
-        weekHeader: 'Wo',
-        dateFormat: i18n.datepicker.L,
-        firstDay: i18n.days.first,
-        isRTL: false,
-        showMonthAfterYear: false,
-        yearSuffix: ''
-      });
-      
-      $('#add_item .dates input').each(function(){
-        // format date
-        var date_today = moment($(this).data("date")).sod();
-        $(this).val(moment(date_today).format(i18n.date.L));
-        
-        // setup datepicker
-        $(this).datepicker({
-          showOtherMonths: true,
-          selectOtherMonths: true,
-        });
-        
-        // set min date only for end date
-        if($(this).hasClass("end")) {
-          $(this).datepicker( "option", "minDate", date_today.toDate());
-        }
-        
-        // set min date updater when start date is closed
-        if($(this).hasClass("start")) {
-          $(this).change(function(){
-            var min_date = $(this).datepicker("getDate");
-            var end_date_element = $(this).closest(".dates").find(".end");
-            
-            end_date_element.datepicker("option", "minDate", min_date);
-            end_date_element.val(moment(min_date).sod().add("days",1).format(i18n.date.L));
-          });
-        }
-      });
-    }
-  }
