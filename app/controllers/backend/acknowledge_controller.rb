@@ -100,9 +100,9 @@ class Backend::AcknowledgeController < Backend::BackendController
                 model_group_id = params[:model_group_id],
                 code = params[:code])
    
+     # find model 
     model = if not code.blank?
       item = current_inventory_pool.items.where(:inventory_code => code).first 
-      item ||= current_inventory_pool.items.where(:serial_number => code).first
       item.model if item
     elsif model_group_id
       ModelGroup.find(model_group_id) # TODO scope current_inventory_pool ?
@@ -110,7 +110,13 @@ class Backend::AcknowledgeController < Backend::BackendController
       current_inventory_pool.models.find(model_id)
     end
     
-    unless model
+    # create new line
+    if model
+      line = model.add_to_document(@order, @user, quantity, start_date, end_date, current_inventory_pool)
+      if model_group_id.nil? and item and line and not line.update_attributes(item: item)
+        @error = {:message => line.errors.values.join}
+      end
+    else
       @error = if code
         {:message => _("A model for the Inventory Code / Serial Number '%s' was not found" % code)}
       elsif model_id
@@ -118,28 +124,24 @@ class Backend::AcknowledgeController < Backend::BackendController
       elsif model_group_id
         {:message => _("A template with the ID '%s' was not found" % model_group_id)}
       end
-    else
-      model.add_to_document(@order, current_user.id, quantity, start_date, end_date, current_inventory_pool)
-      @order.reload
     end
     
     respond_to do |format|
       format.json {
         if @error.blank?
-          params.merge!({:with => {:lines => {
-                                      :model => true,
-                                      :order => true, 
-                                      :is_available => true, 
-                                      :availability_for_inventory_pool => true, 
-                                      :inventory_pool_id => true,
-                                      :order => true,
-                                      :quantity => true,
-                                      :dates => true},
-                                   :quantity => true,
-                                   :inventory_pool_id => true,
-                                   :purpose => true,
-                                   :user => true}})
-          render :template => "/backend/orders/show"
+          with = {:model => true,
+                  :order => true, 
+                  :is_available => true, 
+                  :availability_for_inventory_pool => true, 
+                  :inventory_pool_id => true,
+                  :order => true,
+                  :quantity => true,
+                  :dates => true,
+                  :quantity => true,
+                  :inventory_pool_id => true,
+                  :purpose => true,
+                  :user => true}
+          render :partial => "backend/orders/lines.json.rjson", :locals => {:lines => Array(line), :with => with}
         else
           render :template => "/errors/show", status: 500
         end
