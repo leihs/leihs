@@ -1,0 +1,40 @@
+h = {
+  id: line.id,
+  type: "order_line",
+}
+
+if with ||= nil
+  
+  if with[:model]
+    h["model"] = line.model
+  end
+  
+  if with[:order]
+    h["order"] = line.order.as_json(:include => {:user => {:include => :groups}})
+  end
+  
+  if with[:is_available]
+    h["is_available"] = line.available?
+  end
+  
+  if with[:availability_for_inventory_pool]
+    h['total_rentable'] = line.model.items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable.count
+    h['total_rentable_in_stock'] = line.model.items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable.in_stock.count
+    h['availability_for_inventory_pool'] = line.model.non_selfblocking_av_periods_for_inventory_pool(current_inventory_pool, line).as_json(:include => :group)
+  end
+  
+  if with[:dates]
+    h['start_date'] = line.start_date
+    h['end_date'] = line.end_date
+  end
+  
+  if with[:inventory_pool_id]
+    h['inventory_pool_id'] = line.inventory_pool_id
+  end
+  
+  if with[:quantity]
+    h['quantity'] = line.quantity
+  end
+end
+
+h                              

@@ -1,0 +1,3 @@
+lines.map do |line|
+  render :partial => "backend/orders/#{line.type.underscore}.json.rjson", :locals => {:line => line, :with => with}
+end
