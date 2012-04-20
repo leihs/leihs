@@ -44,22 +44,22 @@ module Availability
     end
     
     # Returns the availability periods for the given inventory pool but
-    # recovers the availability reserved from the given OrderLine back to the availability.
+    # recovers the availability reserved from the given DocumentLine back to the availability.
     # 
     # @param [InventoryPool] InventoryPool the InventoryPool for the av calculation 
-    # @param [OrderLine] OrderLine the OrderLine that should be added to the availability again
+    # @param [DocumentLine] DocumentLine the DocumentLine that should be added to the availability again
     # @return [Hash] a Hash that containts informations for: inventory_pool, partions and availability
-    def non_selfblocking_av_periods_for_inventory_pool(ip, ol) 
+    def non_selfblocking_av_periods_for_inventory_pool(ip, dl) 
       av = availability_periods_for_inventory_pool ip
       
       av[:availability].each do |availability|
-        next unless (ol.start_date..ol.end_date).include?(availability[0])
+        next unless (dl.start_date..dl.end_date).include?(availability[0])
         # recover the total quantity
-        availability[1] += ol.quantity
+        availability[1] += dl.quantity
         # recover the partition/group availability
         availability[2].each do |partition|
           odl = partition[:out_document_lines]
-          partition[:in_quantity] += ol.quantity if odl.has_key?("OrderLine") and odl["OrderLine"].include?(ol.id)
+          partition[:in_quantity] += dl.quantity if odl[dl.class.name] and odl[dl.class.name].include?(dl.id)
         end        
       end
       
