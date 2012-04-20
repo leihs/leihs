@@ -14,12 +14,25 @@
         %input{:type => "checkbox"}        
         {{/if}}
     %li.inventory_code
-      .container
+      %label.container{:for => "inventory_code_${id}"}
         = form_tag "/backend/inventory_pools/${current_inventory_pool}/users/${contract.user.id}/hand_over/assign_inventory_code", :method => :post, :remote => true do
           = hidden_field_tag "line_id", "${id}"
-          %input{:type => "text", :name => "inventory_code", :placeholder => _("Inventory Code"), :title => _("Inventory Code"), :value => "{{if item}}${item.inventory_code}{{/if}}"}
+          %input.autocomplete{:id => "inventory_code_${id}",
+                              :type => "text",
+                              :name => "inventory_code",
+                              :placeholder => _("Inventory Code"),
+                              :title => _("Inventory Code"),
+                              :"data-url" => "/backend/inventory_pools/${current_inventory_pool}/items?model_id=${model.id}&with[location]=true",
+                              :"data-autocomplete_class" => "assign_inventory_code", 
+                              :"data-autocomplete_element_tmpl" => "tmpl/autocomplete/assign_inventory_code",
+                              :"data-autocomplete_value_attribute" => "inventory_code",
+                              :"data-autocomplete_search_only_once" => 'true',
+                              :"data-autocomplete_search_on_focus" => 'true',
+                              :"data-autocomplete_select_callback" => "HandOver.assign_through_autocomplete",
+                              :value => "{{if item}}${item.inventory_code}{{/if}}"}
+          .arrow.icon
     %li.name
-      %strong ${model.name}
+      %strong{:title => "${model.name}"} ${Str.sliced_trunc(model.name, 62)}
       
     {{if $problems.length > 0}}
     %li.problems.hastip
@@ -54,7 +67,7 @@
           :class => "button white open_dialog", 
           :"data-rel" => "tmpl/dialog/calendar/edit_single", 
           :"data-dialog_class" => "calendar",
-          :"data-on_success" => '',
+          :"data-on_success" => 'HandOver.update_visits(response);',
           :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
           .icon.timerange
           = _("Edit")

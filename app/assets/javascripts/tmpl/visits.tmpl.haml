@@ -1,9 +1,4 @@
 #visits
   {{each(i,visit) visits}}
-  .visit
-    {{if visit.lines.length>0}}
-    ${$grouped_lines = new GroupedLines(visit.lines), ""}
-    {{tmpl($grouped_lines) "tmpl/linegroup"}}
-    %hr
-    {{/if}}
+  {{tmpl(visit) "tmpl/visit"}}
   {{/each}}
