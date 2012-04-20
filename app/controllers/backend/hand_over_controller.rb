@@ -117,15 +117,12 @@ class Backend::HandOverController < Backend::BackendController
                    line_id_model_id = params[:line_id_model_id] || {},
                    #quantity = params[:quantity],
                    start_date = params[:start_date],
-                   end_date = params[:end_date],
-                   delete_line_ids = params[:delete_line_ids] || [])
-
+                   end_date = params[:end_date])
+    
+    #TODO Franco: quantity should duplicate the contract line/model here
+    
     ContractLine.transaction do
-      unless delete_line_ids.blank?
-        delete_line_ids.each {|l| @contract.remove_line(l, current_user.id)}
-      end
-
-      lines = @contract.lines.find(line_ids - delete_line_ids)
+      lines = @contract.lines.find(line_ids)
       # TODO merge to Contract#update_line
       lines.each do |line|
         # line.quantity = [quantity.to_i, 0].max if quantity
@@ -160,7 +157,17 @@ class Backend::HandOverController < Backend::BackendController
       }
     end
   end
-
+  
+###################################################################################
+  
+  def remove_lines(line_ids = params[:line_ids] || raise("line_ids is required"))    
+    line_ids.each {|l| @contract.remove_line(l, current_user.id)}
+    
+    respond_to do |format|
+      format.json { render :json => {} }
+    end
+  end
+  
 ###################################################################################
 
 
@@ -170,19 +177,29 @@ class Backend::HandOverController < Backend::BackendController
                              line_id = params[:line_id])
 
     item = current_inventory_pool.items.where(:inventory_code => inventory_code).first
+    line = @contract.lines.find(line_id)
 
-    if item and line_id and (line = @contract.lines.where(:model_id => item.model_id, :id => line_id).first)
+    
+
+    if item and line and line.model == item.model
       line.update_attributes(item: item)
-    elsif line_id and (line = @contract.lines.find(line_id))
-      # The Inventory Code was not found.
-      line.errors.add(:inventory_code, _("%s was not found") % inventory_code)
-      line.update_attributes(item_id: nil)
     else
-      # pending
+      @error = {:message => _("The inventory code %s is not valid for this model" % inventory_code)} if item and line and line.model != item.model
+      @error ||= {:message => _("The assignment for #{line.model.name} was removed" % inventory_code)} if line and inventory_code == ""
+      @error ||= {:message => _("The item with the inventory code %s was not found" % inventory_code)} if line
+      @error ||= {:message => _("The line was not found")} if item
+      @error ||= {:message => _("Assigning the inventory code fails")}
+      line.update_attributes(item: nil)
     end
     
     respond_to do |format|
-      format.json { render :partial => "backend/contracts/#{line.type.underscore}.json.rjson", :locals => {:line => line}}
+      format.json {
+        if @error.blank? 
+          render :partial => "backend/contracts/#{line.type.underscore}.json.rjson", :locals => {:line => line}
+        else
+          render :template => "/errors/show", status: 500
+        end
+      }
     end 
     
 =begin NOTE TRYOUT TMP COMMENTED OUT
@@ -285,7 +302,7 @@ class Backend::HandOverController < Backend::BackendController
     end
   end
 
-  # TODO 29**
+=begin old
   def add_line_with_item
     @prevent_redirect = true
     item = current_inventory_pool.items.find(params[:item_id])
@@ -295,9 +312,71 @@ class Backend::HandOverController < Backend::BackendController
     assign_inventory_code
     redirect_to :action => 'show'
   end
+=end
 
-  def add_line
-    generic_add_line(@contract)
+  def add_line( quantity = (params[:quantity] || 1).to_i,
+                start_date = params[:start_date].try{|x| Date.parse(x)} || Date.today,
+                end_date = params[:end_date].try{|x| Date.parse(x)} || Date.tomorrow,
+                model_id = params[:model_id],
+                model_group_id = params[:model_group_id],
+                option_id = params[:option_id],
+                code = params[:code],
+                line_ids = params[:line_ids])
+    
+    # find model or option   
+    model = if not code.blank?
+      item = current_inventory_pool.items.where(:inventory_code => code).first 
+      item.model if item
+    elsif model_group_id
+      ModelGroup.find(model_group_id) # TODO scope current_inventory_pool ?
+    elsif model_id
+      current_inventory_pool.models.find(model_id)
+    end
+    unless model
+      option = current_inventory_pool.options.find option_id if option_id
+      option ||= current_inventory_pool.options.where(:inventory_code => code).first
+    end
+    
+    # create new line
+    if model
+      # try to assign for line_ids first
+      if line_ids and code
+        
+      else
+        model.add_to_document(@contract, @user, quantity, start_date, end_date, current_inventory_pool)
+        line = @contract.lines.sort_by(&:created_at).last
+        if item
+          unless line.update_attributes(item: item)
+            @error = {:message => line.errors.values.join}
+          end
+        end
+      end
+    elsif option
+      if line = @contract.lines.where(:model_id => model, :start_date => start_date, :end_date => end_date).first
+        line.quantity += quantity
+        line.save
+      elsif ! line = @contract.option_lines.create(:option => option, :quantity => quantity, :start_date => start_date, :end_date => end_date)
+        @error = {:message => _("The option could not be added" % code)}
+      end
+    else
+      @error = if code
+        {:message => _("A model for the Inventory Code / Serial Number '%s' was not found" % code)}
+      elsif model_id
+        {:message => _("A model with the ID '%s' was not found" % model_id)}
+      elsif model_group_id
+        {:message => _("A template with the ID '%s' was not found" % model_group_id)}
+      end
+    end
+    
+    respond_to do |format|
+      format.json {
+        if @error.blank?
+          render :partial => "backend/contracts/#{line.type.underscore}.json.rjson", :locals => {:line => line}
+        else
+          render :template => "/errors/show", status: 500
+        end
+      } 
+    end
   end
 
   def swap_model_line
