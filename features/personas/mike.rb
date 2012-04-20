@@ -44,6 +44,7 @@ module Persona
       setup_sharp_beamers
       setup_cameras
       setup_tripods
+      setup_options
     end
     
     def setup_sharp_beamers
@@ -81,6 +82,17 @@ module Persona
       @tripod_item = FactoryGirl.create(:item, :inventory_code => "tri789", :serial_number => "fgh567", :model => @tripod_model, :location => @location, :owner => @inventory_pool)
       @tripod_item2 = FactoryGirl.create(:item, :inventory_code => "tri123", :serial_number => "fgh987", :model => @tripod_model, :location => @location, :owner => @inventory_pool)
     end
-
+    
+    def setup_options
+      @akku_aa = FactoryGirl.create(:option, :name => "Akku AA",
+                                             :inventory_pool => @inventory_pool,
+                                             :inventory_code => "akku-aa")      
+      @akku_aaa = FactoryGirl.create(:option, :name => "Akku AAA",
+                                             :inventory_pool => @inventory_pool,
+                                             :inventory_code => "akku-aaa")      
+      @usb_cable = FactoryGirl.create(:option, :name => "USB Kabel",
+                                             :inventory_pool => @inventory_pool,
+                                             :inventory_code => "usb")      
+    end
   end  
 end

@@ -33,6 +33,5 @@ module Persona
       @user.access_rights.create(:role => Role.find_by_name("manager"), :inventory_pool => @inventory_pool, :access_level => 2)
       @database_authentication = FactoryGirl.create(:database_authentication, :user => @user, :password => @@password)
     end
-
   end  
 end
