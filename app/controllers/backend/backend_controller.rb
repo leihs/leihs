@@ -18,7 +18,7 @@ class Backend::BackendController < ApplicationController
     if current_user.managed_inventory_pools.blank? and current_user.has_role? :admin
       redirect_to backend_inventory_pools_path
     elsif current_user.access_rights.managers.where(:access_level => 3).exists? # user has manager level 3 => inventory manager
-      redirect_to backend_inventory_pool_items_path(current_user.managed_inventory_pools.first)
+      redirect_to backend_inventory_pool_models_path(current_user.managed_inventory_pools.first)
     elsif current_user.access_rights.managers.where(:access_level => 1..2).exists? # user has at least manager level 1 => lending manager
       redirect_to backend_inventory_pool_path(current_user.managed_inventory_pools.first)
     else
@@ -29,15 +29,19 @@ class Backend::BackendController < ApplicationController
   
 ###############################################################    
   
-  def search
-
-    conditions = [ { :klasses => { User => {:sort_by => "firstname ASC, lastname ASC"},
-                                   Order => {:sort_by => "created_at DESC", :with => {:user => {}}, :methods => [:lines, :quantity]},
-                                   Contract => {:sort_by => "created_at DESC", :filter => {:status_const => Contract::SIGNED..Contract::CLOSED}, :with => {:user => {}}, :methods => [:lines,:quantity]},
-                                   Model => {:sort_by => "name ASC", :include => :categories, :with => {:availability => {:inventory_pool => current_inventory_pool}}},
-                                   Item => {:sort_by => "models.name ASC"} },
-                     :filter => { :inventory_pool_id => [current_inventory_pool.id] }
-                    } ]
+  def search(term = params[:term], types = Array(params[:types]))
+    
+    conditions = { :klasses => {}, :filter => { :inventory_pool_id => [current_inventory_pool.id] } }
+    
+    # default if types are not provided
+    conditions[:klasses][User] = {:sort_by => "firstname ASC, lastname ASC"} if types.blank? or types.include?("user")
+    conditions[:klasses][Order] = {:sort_by => "created_at DESC", :with => {:user => {}}, :methods => [:lines, :quantity]} if types.blank? or types.include?("order")
+    conditions[:klasses][Contract] = {:sort_by => "created_at DESC", :filter => {:status_const => Contract::SIGNED..Contract::CLOSED}, :with => {:user => {}}, :methods => [:lines,:quantity]} if types.blank? or types.include?("contract")
+    conditions[:klasses][Model] = {:sort_by => "name ASC", :include => :categories, :with => {:availability => {:inventory_pool => current_inventory_pool}}} if types.blank? or types.include?("model")
+    conditions[:klasses][Item] = {:sort_by => "models.name ASC"} if types.blank? or types.include?("item")
+    # no default
+    conditions[:klasses][Option] = {:sort_by => "options.name ASC"} if types.include?("option")
+    conditions[:klasses][Template] = {:sort_by => "model_groups.name ASC"} if types.include?("template")
     
     #TODO conditions << { :filter => { :owner_id => [current_inventory_pool.id]} } if  # INVENTORY MANAGER
     
@@ -47,22 +51,24 @@ class Backend::BackendController < ApplicationController
                 # TODO implement this later on :filter => { :owner_id => [current_inventory_pool.id]}
                 # TODO implement serach for all user "ADMIN" and merge with users
 
+    
     results = []
     @hits = {}
-    conditions.each do |s|
-      s[:klasses].each_pair do |klass, options|
-        r = klass.search2(params[:text]).
-              filter2(s[:filter].merge(options[:filter] || {})).
-              order(options[:sort_by]).
-              paginate(:page => params[:page], :per_page => 54)
+    conditions[:klasses].each_pair do |klass, options|
+      r = klass.search2(term).
+            filter2(conditions[:filter].merge(options[:filter] || {})).
+            order(options[:sort_by]).
+            paginate(:page => params[:page], :per_page => 54)
 
-        results << r.as_json(:include => options[:include], :methods => options[:methods], :with => options[:with]) # FIXME drop :with and use :include instead
-        @hits[klass.to_s.underscore] = r.total_entries 
-      end
+      results << r #.as_json(:include => options[:include], :methods => options[:methods], :with => options[:with])
+      @hits[klass.to_s.underscore] = r.total_entries 
     end
     
-    #old# @results_json = results.flatten.as_json(:current_inventory_pool => current_inventory_pool, :with => {:user => {}}).to_json
-    @results_json = results.flatten.to_json
+    # @results = results.flatten.to_json
+    respond_to do |format|
+      format.html
+      format.json { render :partial => "backend/backend/search", :locals => {results: results.flatten.sort_by(&:name).compact} }
+    end
   end
 
 ###############################################################  
