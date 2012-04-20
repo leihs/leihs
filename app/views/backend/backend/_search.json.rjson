@@ -1,0 +1,4 @@
+results.map do |result|
+  type = result.class.name.underscore
+  render :partial => "backend/#{type.pluralize}/show", :locals => {type.to_sym => result}
+end

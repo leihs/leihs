@@ -1,7 +1,7 @@
 {
   action: visit.action,
   date: visit.date,
-	lines: visit.lines.map do |line|
+	lines: visit.lines.sort_by(&:created_at).map do |line|
 	  render :partial => "backend/contracts/#{line.type.underscore}.json.rjson", :locals => {:line => line} 
 	end,
   user: render(:partial => "backend/users/show.json.rjson", :locals => {:user => visit.user})

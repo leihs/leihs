@@ -1,0 +1,10 @@
+# default response
+h = {
+  id: option.id,
+  name: option.name,
+  type: option.class.to_s.underscore
+}
+
+# extendable informations
+
+h

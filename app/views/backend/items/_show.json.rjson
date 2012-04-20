@@ -1,0 +1,16 @@
+# default response
+h = {
+  id: item.id,
+  inventory_code: item.inventory_code,
+  type: item.class.to_s.underscore
+}
+
+# extendable informations
+if with ||= nil
+  
+  if with[:location]
+    h[:location] = item.location.to_s
+  end
+end
+
+h

@@ -4,7 +4,6 @@ h = {
       start_date: line.start_date,
       end_date: line.end_date,
       quantity: line.quantity,
-      
            
       is_valid: line.valid?,
       
@@ -25,9 +24,9 @@ h = {
     }
 
 if line.contract.action == :hand_over
-  h[:is_available] = line.is_available  # FIXME this is too slow!
+  
+  h[:is_available] = line.is_available
 
-  # FIXME !!!!! forward with
   h[:total_rentable] = line.model.items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable.count
   h[:total_rentable_in_stock] = line.model.items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable.in_stock.count
   h[:availability_for_inventory_pool] = line.model.non_selfblocking_av_periods_for_inventory_pool(current_inventory_pool, line).as_json(:include => :group)
