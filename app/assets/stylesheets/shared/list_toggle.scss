@@ -14,11 +14,12 @@
   .shadow {
     background: transparent;
     height: 30px;
+    left: 1%;
     position: absolute;
     top: 0;
-    width: 96%;
+    width: 98%;
     z-index: 1;
-    @include box-shadow(0 -25px 31px rgba(0, 0, 0, 0.1));
+    @include box-shadow(0 -12px 15px -6px rgba(0, 0, 0, 0.1));
   }
   
   &>li {

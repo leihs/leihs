@@ -47,5 +47,5 @@ class Line
         if allocation.out_document_lines[line_type]? and (allocation.out_document_lines[line_type].indexOf(line_data.id) > -1) and (allocation.in_quantity < 0)
           line_data.is_available = false
           break
-        
+
 window.Line = Line

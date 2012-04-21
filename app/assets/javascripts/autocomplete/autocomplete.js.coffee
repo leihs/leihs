@@ -51,11 +51,10 @@ class AutoComplete
         $(trigger).next(".icon").hide()
         $(trigger).after LoadingImage.get()
         $(trigger).autocomplete("close")
-      complete: ->
-        $(trigger).next(".loading").remove()
-        $(trigger).next(".icon").show()
       success: (data)->
         # compute entries
+        $(trigger).next(".loading").remove()
+        $(trigger).next(".icon").show()
         entries = $.map data, (element)-> 
           element.value = element[$(trigger).data("autocomplete_value_attribute")] if $(trigger).data("autocomplete_value_attribute")?
           element

@@ -29,7 +29,6 @@ class GroupedLines
           return true
       else
         return true 
-    console.log grouped_lines
     return grouped_lines 
     
 window.GroupedLines = GroupedLines
