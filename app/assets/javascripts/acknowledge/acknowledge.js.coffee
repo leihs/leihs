@@ -19,7 +19,7 @@ class Acknowledge
         Acknowledge.add_line line
         
   @add_line: (line_data)->
-    Acknowledge.add_new_line(line_data)
+    AddItem.allocate_line(line_data)
     Notification.add_headline
       title: "+ #{Str.sliced_trunc(line_data.model.name, 36)}"
       text: "#{moment(line_data.start_date).sod().format(i18n.date.XL)}-#{moment(line_data.end_date).format(i18n.date.L)}"
@@ -33,18 +33,19 @@ class Acknowledge
     for linegroup in $(".linegroup")
       linegroup_start_date = moment($(linegroup).tmplItem().data.start_date).sod()
       linegroup_end_date = moment($(linegroup).tmplItem().data.end_date).sod()
-      if linegroup_start_date.diff(line_start_date.toDate(), "days") < 0 # set new linegroup before this one
+      if line_start_date.diff(linegroup_start_date, "days") < 0 or (line_start_date.diff(linegroup_start_date, "days") == 0 and line_end_date.diff(linegroup_end_date, "days") < 0)
+        # set new linegroup before this one
         new_linegroup_data = new GroupedLines([line_data])
         new_linegroup_tmpl = $.tmpl("tmpl/linegroup", new_linegroup_data)
         $(linegroup).closest(".indent").before new_linegroup_tmpl
         return true
-      else if (linegroup_start_date.diff(line_start_date.toDate(), "days") == 0) and (linegroup_end_date.diff(line_end_date.toDate(), "days") == 0)
+      else if (linegroup_start_date.diff(line_start_date, "days") == 0)
         $(linegroup).find(".lines").append line_as_tmpl
         return true
     # set new linegroup after the last linegroup
     new_linegroup_data = new GroupedLines([line_data])
     new_linegroup_tmpl = $.tmpl("tmpl/linegroup", new_linegroup_data)
-    $(visit).find(".linegroup:last").closest(".indent").after new_linegroup_tmpl                
+    $(".linegroup:last").closest(".indent").after new_linegroup_tmpl 
     return true
   
   @setup_purpose: ->

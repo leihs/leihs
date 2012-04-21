@@ -122,4 +122,48 @@ class AddItem
     $("#quick_add").val("")
     $("#quick_add").autocomplete("widget").hide()
    
+  @allocate_line = (line_data)->
+    if $(".visit").length
+      @allocate_visit line_data, $(".visit")
+    else if $(".linegroup").length
+      @allocate_linegroup line_data, $(".linegroup")
+    # select line if linegroup was selected 
+    line = _.find $(".line"), (line)-> $(line).tmplItem().id == line_data.id
+    if $(line).closest(".linegroup").find(".select_group").is(":checked")
+      $(line).find(".select input").attr("checked", true)
+        
+  @allocate_visit = (line_data, visits)->
+    line_start_date = moment(line_data.start_date).sod()
+    line_end_date = moment(line_data.end_date).sod()
+    for visit in visits
+      visit_date = moment($(visit).tmplItem().data.date).sod()
+      if line_start_date.diff(visit_date, "days") < 0
+        # set new line before this visit
+        $(visit).before $.tmpl("tmpl/visit", { action: line_data.contract.action, date: line_data.start_date, lines: [line_data], user: line_data.contract.user })
+        return true
+      else if line_start_date.diff(visit_date, "days") == 0
+        # set new line inside this visit
+        @allocate_linegroup line_data, $(visit).find(".linegroup")
+        return true
+    # set new line after the last visit
+    $(_.last visits).after $.tmpl("tmpl/visit", { action: line_data.contract.action, date: line_data.start_date, lines: [line_data], user: line_data.contract.user })
+    return true
+
+  @allocate_linegroup = (line_data, linegroups)->
+    line_start_date = moment(line_data.start_date).sod()
+    line_end_date = moment(line_data.end_date).sod()
+    for linegroup in linegroups
+      linegroup_start_date = moment($(linegroup).tmplItem().data.start_date).sod()
+      linegroup_end_date = moment($(linegroup).tmplItem().data.end_date).sod()
+      if line_start_date.diff(linegroup_start_date, "days") < 0 or (line_start_date.diff(linegroup_start_date, "days") == 0 and line_end_date.diff(linegroup_end_date, "days") < 0)
+        # set new linegroup before this one
+        $(linegroup).closest(".indent").before $.tmpl("tmpl/linegroup", new GroupedLines([line_data]))
+        return true
+      else if (linegroup_start_date.diff(line_start_date, "days") == 0) and (linegroup_end_date.diff(line_end_date, "days") == 0)
+        $(linegroup).find(".lines").append $.tmpl("tmpl/line", line_data)
+        return true
+    # set new linegroup after the last linegroup
+    $(_.last linegroups).closest(".indent").after $.tmpl("tmpl/linegroup", new GroupedLines([line_data])) 
+    return true
+   
 window.AddItem = AddItem

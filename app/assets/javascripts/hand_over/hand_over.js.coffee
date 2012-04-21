@@ -78,61 +78,18 @@ class HandOver
     matching_line = Underscore.find $("#visits .line"), (line)-> $(line).tmplItem().data.id == line_data.id
     if matching_line?
       HandOver.update_line(matching_line, line_data)
+      title = if line_data.item? then line_data.item.inventory_code else line_data.model.inventory_code
       Notification.add_headline
-        title: "#{line_data.item.inventory_code}"
+        title: "#{title}"
         text: "assigned to #{line_data.model.name}"
         type: "success"
     else 
       # add line
-      HandOver.add_new_line(line_data)
+      AddItem.allocate_line(line_data)
       Notification.add_headline
         title: "+ #{Str.sliced_trunc(line_data.model.name, 36)}"
         text: "#{moment(line_data.start_date).sod().format(i18n.date.XL)}-#{moment(line_data.end_date).format(i18n.date.L)}"
         type: "success"
-  
-  @add_new_line: (line_data)->
-    line_start_date = moment(line_data.start_date).sod()
-    line_end_date = moment(line_data.end_date).sod()
-    # create template and select line
-    line_as_tmpl = $.tmpl("tmpl/line", line_data)
-    $(line_as_tmpl).find(".select input").attr("checked", true)
-    # add template
-    for visit in $(".visit")
-      visit_date = moment($(visit).tmplItem().data.date).sod()
-      if line_start_date.diff(visit_date, "days") < 0 # set new line before this visit
-        new_visit = 
-          action: line_data.contract.action
-          date: line_data.start_date
-          lines: [line_data]
-          user: line_data.contract.user
-        new_visit_tmpl = $.tmpl("tmpl/visit", new_visit)
-        $(visit).before new_visit_tmpl
-        return true
-      else if line_start_date.diff(visit_date, "days") == 0 # set new line inside this visit
-        for linegroup in $(visit).find(".linegroup")
-          linegroup_start_date = moment($(linegroup).tmplItem().data.start_date).sod()
-          linegroup_end_date = moment($(linegroup).tmplItem().data.end_date).sod()
-          if linegroup_start_date.diff(line_start_date.toDate(), "days") < 0 # set new linegroup before this one
-            new_linegroup_data = new GroupedLines([line_data])
-            new_linegroup_tmpl = $.tmpl("tmpl/linegroup", new_linegroup_data)
-            $(linegroup).closest(".indent").before new_linegroup_tmpl
-            return true
-          else if (linegroup_start_date.diff(line_start_date.toDate(), "days") == 0) and (linegroup_end_date.diff(line_end_date.toDate(), "days") == 0)
-            $(linegroup).find(".lines").append line_as_tmpl
-            return true
-        # set new linegroup after the last linegroup
-        new_linegroup_data = new GroupedLines([line_data])
-        new_linegroup_tmpl = $.tmpl("tmpl/linegroup", new_linegroup_data)
-        $(visit).find(".linegroup:last").closest(".indent").after new_linegroup_tmpl                
-        return true
-    # set new line after the last visit
-    new_visit = 
-      action: line_data.contract.action
-      date: line_data.start_date
-      lines: [line_data]
-      user: line_data.contract.user
-    new_visit_tmpl = $.tmpl("tmpl/visit", new_visit)
-    $(".visit:last").after new_visit_tmpl
   
   @update_line = (line_element, line_data)->
     new_line = $.tmpl("tmpl/line", line_data)
