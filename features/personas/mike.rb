@@ -45,6 +45,7 @@ module Persona
       setup_cameras
       setup_tripods
       setup_options
+      setup_templates
     end
     
     def setup_sharp_beamers
@@ -69,6 +70,7 @@ module Persona
       @camera_model.model_links.create :model_group => @camera_category
       @camera_item = FactoryGirl.create(:item, :inventory_code => "cam123", :serial_number => "abc234", :model => @camera_model, :location => @location, :owner => @inventory_pool)
       @camera_item2= FactoryGirl.create(:item, :inventory_code => "cam345", :serial_number => "ab567", :model => @camera_model, :location => @location, :owner => @inventory_pool)
+      @camera_item3= FactoryGirl.create(:item, :inventory_code => "cam567", :serial_number => "ab789", :model => @camera_model, :location => @location, :owner => @inventory_pool)
     end
     
     def setup_tripods
@@ -81,6 +83,7 @@ module Persona
       @tripod_model.model_links.create :model_group => @tripod_category
       @tripod_item = FactoryGirl.create(:item, :inventory_code => "tri789", :serial_number => "fgh567", :model => @tripod_model, :location => @location, :owner => @inventory_pool)
       @tripod_item2 = FactoryGirl.create(:item, :inventory_code => "tri123", :serial_number => "fgh987", :model => @tripod_model, :location => @location, :owner => @inventory_pool)
+      @tripod_item3 = FactoryGirl.create(:item, :inventory_code => "tri923", :serial_number => "asd213", :model => @tripod_model, :location => @location, :owner => @inventory_pool)
     end
     
     def setup_options
@@ -94,5 +97,12 @@ module Persona
                                              :inventory_pool => @inventory_pool,
                                              :inventory_code => "usb")      
     end
+    
+    def setup_templates
+      @camera_tripod_template = FactoryGirl.create(:template, :name => "Kamera & Stativ")
+      @camera_tripod_template.inventory_pools << @inventory_pool
+      FactoryGirl.create(:model_link, :model_group => @camera_tripod_template, :model => @camera_model, :quantity => 1)      
+      FactoryGirl.create(:model_link, :model_group => @camera_tripod_template, :model => @tripod_model, :quantity => 1)      
+    end    
   end  
 end

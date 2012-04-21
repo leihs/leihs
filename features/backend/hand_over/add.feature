@@ -16,7 +16,7 @@ Feature: Add lines during hand over
     Given I am "Pius"
      When I open a hand over
       And I add an option to the hand over by providing an inventory code and a date range
-     Then the option is added to the hand over for the provided date range
+     Then the option is added to the hand over
      
   @javascript
   Scenario: Increase the quantity of an option of the hand over by adding an option providing an inventory code
@@ -29,34 +29,34 @@ Feature: Add lines during hand over
   Scenario: Add an option to the hand over picking an autocomplete element
     Given I am "Pius"
      When I open a hand over
-      And I type the beginning of an option to the add/assign input field
+      And I type the beginning of an option name to the add/assign input field
      Then I see a list of suggested option names
-     When I select an option from the list
-     Then this option is added to the hand over for the setted date range
+     When I select the option from the list
+     Then the option is added to the hand over
      
   @javascript
   Scenario: Add an model to the hand over picking an autocomplete element
     Given I am "Pius"
      When I open a hand over
-      And I type the beginning of a modelname to the add/assign input field
+      And I type the beginning of a model name to the add/assign input field
      Then I see a list of suggested model names
-     When I select a modle from the list
-     Then this model is added to the hand over for the setted date range but there is no inventory code assigned
+     When I select the modle from the list
+     Then the model is added to the hand over
 
   @javascript
-  Scenario: Add an template (modelgroup) to the hand over picking an autocomplete element
+  Scenario: Add an template to the hand over picking an autocomplete element
     Given I am "Pius"
      When I open a hand over
-      And I type the beginning of a template's name to the add/assign input field
-     Then I see a list of suggested templates
-     When I select a template from the list
+      And I type the beginning of a template name to the add/assign input field
+     Then I see a list of suggested template names
+     When I select the template from the list
      Then each model of the template is added to the hand over for the provided date range
      
   @javascript
   Scenario: Add lines which changes other lines availability
     Given I am "Pius"
      When I open a hand over
-      And I add a model which is already part of this hand over for the same time range
-     Then the availability of the already existing line is updated
+      And I add so many lines that I break the maximal quantity of an model
+     Then I see that all lines of that model have availability problems
      
   
