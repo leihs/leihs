@@ -1,7 +1,11 @@
 {{if order}}
 ${$document = order, ""}
 {{else}}
+{{if contract}}
 ${$document = contract, ""}
+{{else}}
+${$document = $item.data, ""}
+{{/if}}
 {{/if}}
 ${$name = Str.sliced_trunc($document.user.firstname+" "+$document.user.lastname, 20, "... "), ""}
 
@@ -26,6 +30,8 @@ ${$name = Str.sliced_trunc($document.user.firstname+" "+$document.user.lastname,
   .flash_message
   
   .calendar_input
+  
+    {{if availability_for_inventory_pool}}
     .partition.container
       %span.select
         %span.name
@@ -46,7 +52,8 @@ ${$name = Str.sliced_trunc($document.user.firstname+" "+$document.user.lastname,
             = _("In Total (max. ${total_rentable})")
       %label{:for => "partition"}
         = _("Show Availability")
-  
+    {{/if}}
+      
     .quantity.container
       = text_field_tag :quantity, "${quantity}", :min => 1, :max => "${total_rentable}", :tabindex => "1", :class => "focus", :autocomplete => "off"
       %label{:for => "quantity"}
@@ -69,7 +76,8 @@ ${$name = Str.sliced_trunc($document.user.firstname+" "+$document.user.lastname,
         %label{:for => "end_date"}
           = _("End Date")
           .icon.jumpto.fc-goto-end{:title => _("jump to this date")}
-          
+    
+    {{if availability_for_inventory_pool}}
     .inventorypool.container
       %select{:id => "inventory_pool_id", :name => "inventory_pool_id"}
         %option{:value => "current",
@@ -78,10 +86,13 @@ ${$name = Str.sliced_trunc($document.user.firstname+" "+$document.user.lastname,
                 :"data-availability_dates" => "${JSON.stringify(availability_for_inventory_pool.availability)}",
                 :"data-holidays" => "${JSON.stringify(availability_for_inventory_pool.inventory_pool.holidays)}"}
           ${availability_for_inventory_pool.inventory_pool.name}
+    {{/if}}
   
   .clear
   
   #fullcalendar
   
+  {{if availability_for_inventory_pool}}
   .list
     {{tmpl($item.data) "tmpl/line/calendar/line"}}
+  {{/if}}

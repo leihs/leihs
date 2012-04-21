@@ -2,10 +2,13 @@
 %ul.line
   .main
     %li.amount
-      ${quantity} /          
+      ${quantity}
+      {{if total_rentable}} 
+      = "/"          
       %span.grey
         ="${total_rentable}"
         = _("total rentable")
+      {{/if}}
     %li.name
       %strong
         ${model.name}
