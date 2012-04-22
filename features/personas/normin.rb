@@ -51,9 +51,14 @@ module Persona
     end
     
     def create_unsigned_contracts
-      @tripod_model = Model.find_by_name "Kamera Stativ"
-      @unsigned_contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool)
-      @contract_line = FactoryGirl.create(:contract_line, :contract => @unsigned_contract, :model_id => @tripod_model.id)
+      # unsigned_contract_1
+      @unsigned_contract_1 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool)
+      FactoryGirl.create(:contract_line, :contract => @unsigned_contract_1, :model_id => @tripod_model.id)
+      
+      # unsigned_contract_2
+      @unsigned_contract_2 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool)
+      FactoryGirl.create(:contract_line, :contract => @unsigned_contract_2, :model_id => @tripod_model.id)
+      FactoryGirl.create(:contract_line, :contract => @unsigned_contract_2, :model_id => @camera_model.id)
     end
     
     def create_signed_contracts
