@@ -27,7 +27,7 @@
   {{if line.start_date != $startdate || line.end_date != $enddate}}
   ${$startdate = line.start_date, ""}
   ${$enddate = line.end_date, ""}
-  .topline
+  .date_range
     .date
       {{html moment(line.start_date).format(i18n.date.L)}}
       = "-"

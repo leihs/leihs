@@ -10,7 +10,6 @@ class Line
   
   @remove = (options)->
     $(options.element).trigger('before_remove_line', [options])
-    
     # animate and remove    
     $(options.element).css("background-color", options.color).fadeOut 400, ()->
       if $(this).closest(".linegroup").find(".lines .line").length == 1
@@ -21,9 +20,8 @@ class Line
           $(this).closest(".indent").remove()
       else
         $(this).remove()    
-      
-    options.callback() if options.callback? 
-    $(document).trigger('after_remove_line', [options])
+      options.callback() if options.callback? 
+      $(document).trigger('after_remove_line', [options])
       
   @get_problems = (data)->
     problems = []
@@ -47,5 +45,17 @@ class Line
         if allocation.out_document_lines[line_type]? and (allocation.out_document_lines[line_type].indexOf(line_data.id) > -1) and (allocation.in_quantity < 0)
           line_data.is_available = false
           break
+
+  @remove_line_from_availability = (line_data, availability)->
+    availability = line_data.availability_for_inventory_pool.availability
+    line_type = Underscore.str.classify(line_data.type)
+    for change in availability
+      allocations = change[2]
+      for allocation in allocations
+        if allocation.out_document_lines[line_type]? and (allocation.out_document_lines[line_type].indexOf(line_data.id) > -1)
+          allocation.out_document_lines[line_type] = _.filter allocation.out_document_lines[line_type], (line)-> line != line_data.id
+          allocation.in_quantity += 1
+          change[1] += 1
+    availability
 
 window.Line = Line

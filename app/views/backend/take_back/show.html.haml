@@ -22,6 +22,7 @@
         :class => "button green open_dialog",
         :"data-rel" => "tmpl/dialog/take_back/summary",
         :"data-dialog_class" => "take_back",
+        :"data-add_selected_line_ids" => "true",
         :"data-ref_for_dialog" => "$('#visits').tmplItem().data",
         :id => "take_back_button" do
           = _("Take Back")
@@ -35,12 +36,7 @@
   
   $(document).ready(function(){
     TakeBack.setup();
-    SelectionActions.setup($("#visits"));
-    
-    // bind the take back button
-    $("#take_back_button").on("click", function(event){
-      SelectionActions.storeSelectedLines();
-    });
+    SelectedLines.setup();
   });
   
   var TakeBack = new TakeBack();

@@ -2,7 +2,7 @@ ${$item.start_date = new Date(start_date.replace(/-/g, "/")), ""}
 ${$item.end_date = new Date(end_date.replace(/-/g, "/")), ""}
 ${$item.days = Math.round(($item.end_date-$item.start_date) / (1000 * 60 * 60 * 24)+1), ""}
 
-.topline
+.date_range
   .date
     {{html moment($item.start_date).format(i18n.date.L)}}
     

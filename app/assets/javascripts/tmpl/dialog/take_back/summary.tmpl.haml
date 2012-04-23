@@ -14,5 +14,5 @@
    
   %hr
   %section.lines.scalable
-    ${$grouped_lines = new GroupedLines(selected_lines), ""}
+    ${$grouped_lines = new GroupedLines(SelectedLines.lines_data), ""}
     {{tmpl($grouped_lines) "tmpl/dialog/acknowledge/lines"}}

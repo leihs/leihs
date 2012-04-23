@@ -3,7 +3,9 @@
   %h1
     = _("Hand Over to")
     ${visits[0].user.name}
-  %p.subtitle= "X Items"
+  %p.subtitle
+    {{html Underscore.reduce(SelectedLines.lines_data, function(mem, ele){ return mem+ele.quantity;}, 0)}}
+    = "Items"
   
   .navigation
     %button.button.white.close_dialog
@@ -14,5 +16,5 @@
    
   %hr
   %section.lines.scalable
-    ${$grouped_lines = new GroupedLines(selected_lines), ""}
-    {{tmpl($grouped_lines) "tmpl/dialog/acknowledge/lines"}}
+    ${$grouped_lines = new GroupedLines(SelectedLines.lines_data), ""}
+    {{tmpl($grouped_lines) "tmpl/dialog/summary/linegroup"}}

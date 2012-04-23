@@ -109,4 +109,4 @@
     $('#acknowledge #order').replaceWith($.tmpl("tmpl/order", #{@order_json}))
     Acknowledge.setup()
     AddItem.setup()
-    SelectionActions.setup($("#order"))
+    SelectedLines.setup()

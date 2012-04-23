@@ -1,10 +1,10 @@
-${merged_lines_availabilities = new MultipleMergedLinesAvailabilities(selected_lines), ""}
-${$start_date = new MinDate(selected_lines), ""}
-${$end_date = new MaxDate(selected_lines), ""}
+${merged_lines_availabilities = new MultipleMergedLinesAvailabilities(SelectedLines.lines_data), ""}
+${$start_date = new MinDate(SelectedLines.lines_data), ""}
+${$end_date = new MaxDate(SelectedLines.lines_data), ""}
 {{if order}}
 ${$document = order, ""}
 {{else}}
-${$document = selected_lines[0].contract, ""}
+${$document = SelectedLines.lines_data[0].contract, ""}
 {{/if}}
 ${$name = Str.sliced_trunc($document.user.firstname+" "+$document.user.lastname, 20, "... "), ""}
 
@@ -70,4 +70,4 @@ ${$name = Str.sliced_trunc($document.user.firstname+" "+$document.user.lastname,
   #fullcalendar.multiple
     
   .list
-    {{tmpl(selected_lines) "tmpl/line/calendar/line"}}
+    {{tmpl(SelectedLines.lines_data) "tmpl/line/calendar/line"}}

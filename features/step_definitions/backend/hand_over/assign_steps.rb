@@ -23,7 +23,7 @@ Then /^the item line is assigned to the selected inventory code$/ do
   @item_line.reload.item.inventory_code.should == @selected_inventory_code
 end
 
-When /^I select multiple unassigned item lines$/ do
+When /^I select a linegroup$/ do
   find(".linegroup .dates input").click
 end
 

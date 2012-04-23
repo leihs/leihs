@@ -160,7 +160,7 @@ class Backend::HandOverController < Backend::BackendController
   
 ###################################################################################
   
-  def remove_lines(line_ids = params[:line_ids] || raise("line_ids is required"))    
+  def remove_lines(line_ids = params[:line_ids] || raise("line_ids is required"))
     line_ids.each {|l| @contract.remove_line(l, current_user.id)}
     
     respond_to do |format|
@@ -178,8 +178,6 @@ class Backend::HandOverController < Backend::BackendController
 
     item = current_inventory_pool.items.where(:inventory_code => inventory_code).first
     line = @contract.lines.find(line_id)
-
-    
 
     if item and line and line.model == item.model
       line.update_attributes(item: item)

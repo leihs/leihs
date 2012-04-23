@@ -112,10 +112,16 @@ function Buttons() {
     Buttons.enable(_this);
     Buttons.removeLoading(_this);
     var _trigger = $(_this).parent().hasClass("alternatives") ? $(_this).closest(".multibutton") : _this;
+    var content;
+    if (_this.data("rel") != undefined && _this.data("ref_for_dialog") != undefined) {
+      content = $.tmpl(_this.data("rel"), eval(_this.data("ref_for_dialog")), {error: response.responseText, action: _this.attr("href"), on_success: _this.data("on_success")})      
+    } else {
+      content = $.tmpl("tmpl/dialog/error")
+    }
     
     Dialog.add({
       trigger: _trigger,
-      content: $.tmpl(_this.data("rel"), eval(_this.data("ref_for_dialog")), {error: response.responseText, action: _this.attr("href"), on_success: _this.data("on_success")}),
+      content: content,
       dialogClass: _this.data("dialog_class")+" error"
     });
   }

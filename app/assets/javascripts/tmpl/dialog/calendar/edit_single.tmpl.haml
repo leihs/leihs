@@ -31,7 +31,7 @@ ${$name = Str.sliced_trunc($document.user.firstname+" "+$document.user.lastname,
   
   .calendar_input
   
-    {{if availability_for_inventory_pool}}
+    {{if (availability_for_inventory_pool && availability_for_inventory_pool.partitions && total_rentable)}}
     .partition.container
       %span.select
         %span.name
@@ -81,7 +81,7 @@ ${$name = Str.sliced_trunc($document.user.firstname+" "+$document.user.lastname,
     .inventorypool.container
       %select{:id => "inventory_pool_id", :name => "inventory_pool_id"}
         %option{:value => "current",
-                :"data-total_borrowable" => "${JSON.stringify(total_rentable)}",
+                :"data-total_borrowable" => "{{if total_rentable}}${JSON.stringify(total_rentable)}{{else}}undefined{{/if}}",
                 :"data-closed_days" => "${JSON.stringify(availability_for_inventory_pool.inventory_pool.closed_days)}",
                 :"data-availability_dates" => "${JSON.stringify(availability_for_inventory_pool.availability)}",
                 :"data-holidays" => "${JSON.stringify(availability_for_inventory_pool.inventory_pool.holidays)}"}

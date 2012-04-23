@@ -10,7 +10,6 @@ class HandOver
   
   @setup = ()->
     @setup_assign_inventory_code()
-    @setup_hand_over_button()
     @setup_add_item()
     
   @assign_through_autocomplete = (element, event)->
@@ -51,15 +50,10 @@ class HandOver
       if $(this).val() == "" and $(this).data("value_on_focus") != ""
         $(this).closest("form").submit()
         $(this).focus()
-  
-  @setup_hand_over_button = ()->
-    $("#hand_over_button").on "click", ()->
-      SelectionActions.storeSelectedLines()
       
   @update_visits = (data)->
     $('#visits').replaceWith($.tmpl("tmpl/visits", data))
-    SelectionActions.set_target($('#visits'))
-    SelectionActions.restoreSelectedLines()
+    SelectedLines.restore()
     @update_subtitle()
   
   @setup_add_item: ->
@@ -69,11 +63,7 @@ class HandOver
   
   @add_line: (line_data)->
     # update availability for the lines with the same model
-    lines_with_the_same_model = Underscore.filter $("#visits .line"), (line)-> $(line).tmplItem().data.model.id == line_data.model.id
-    for line in lines_with_the_same_model 
-      new_line_data = $(line).tmplItem().data 
-      new_line_data.availability_for_inventory_pool = line_data.availability_for_inventory_pool
-      HandOver.update_line(line, new_line_data)
+    HandOver.update_model_availability line_data
     # try to assign first
     matching_line = Underscore.find $("#visits .line"), (line)-> $(line).tmplItem().data.id == line_data.id
     if matching_line?
@@ -91,14 +81,35 @@ class HandOver
         text: "#{moment(line_data.start_date).sod().format(i18n.date.XL)}-#{moment(line_data.end_date).format(i18n.date.L)}"
         type: "success"
   
+  @update_model_availability: (line_data)->
+    lines_with_the_same_model = Underscore.filter $("#visits .line"), (line)-> 
+      ($(line).tmplItem().data.model.id == line_data.model.id) and not $(line).hasClass("removed")
+    for line in lines_with_the_same_model
+      if not $(line).hasClass("removed") 
+        new_line_data = $(line).tmplItem().data 
+        new_line_data.availability_for_inventory_pool = line_data.availability_for_inventory_pool
+        HandOver.update_line(line, new_line_data)
+  
+  @remove_lines: (line_elements)->
+    for line_element in line_elements
+      $(line_element).addClass("removed")
+      line_data = $(line_element).tmplItem().data
+      if line_data.availability_for_inventory_pool?
+        line_data.availability_for_inventory_pool.availability = Line.remove_line_from_availability line_data, line_data.availability_for_inventory_pool.availability
+      Line.remove
+        element: line_element
+        color: "red"
+        callback: ()->
+          if line_data.availability_for_inventory_pool? 
+            HandOver.update_model_availability line_data 
+  
   @update_line = (line_element, line_data)->
     new_line = $.tmpl("tmpl/line", line_data)
     $(new_line).find("input").attr("checked", true) if $(line_element).find(".select input").is(":checked")
-      
     $(line_element).replaceWith new_line
   
   @update_subtitle = ->
-    console.log "UPDATE SUBTITLE"
+    return true
     # var subtitle_text = $("#acknowledge .subtitle").html();
     # subtitle_text.replace(/^\d+/, order.quantity);
     # subtitle_text.replace(/\s\d+/, " "+new MaxRange(order.lines).value);

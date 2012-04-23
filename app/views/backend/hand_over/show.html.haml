@@ -17,7 +17,12 @@
         = _("No hand overs found")
 
   .indent
-    = form_tag add_line_backend_inventory_pool_user_hand_over_path(current_inventory_pool, @contract.user), :id => "add_item", :method => :post, :remote => true, :"data-submit_button" => true do
+    = form_tag add_line_backend_inventory_pool_user_hand_over_path(current_inventory_pool, @contract.user), 
+    :id => "add_item", 
+    :method => :post, 
+    :remote => true,
+    :"data-add_selected_line_ids" => "true",
+    :"data-submit_button" => true do
       .dates
         .container
           %input.start.date{:type => "text", :name => "start_date", :id => "add_start_date", :"data-date" => (@visits.blank?) ? Date.today : @visits.first.lines.first.start_date  , :title => _("Start Date")}
@@ -51,7 +56,7 @@
         %span.count= "(0)"
         
       .actions
-        .multibutton
+        .multibutton{:"data-toggle_on_line_selection" => true}
           .alternatives
             .trigger.green
               .arrow
@@ -67,14 +72,15 @@
             = link_to "/backend/inventory_pools/${current_inventory_pool}/acknowledge/${id}/reject", :class => "button white", :remote => "true" do
               .icon.valuelist
               = _("Value List")
-            = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/acknowledge/#{@contract.id}/update_lines",
+            = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@contract.user.id}/hand_over/remove_lines",
             :class => "button white",
             :remote => "true",
-            :method => "post",
-            :"data-rel" => "tmpl/dialog/order_line/delete_multiple",
-            :"data-dialog_class" => "order_line",
-            :"data-on_success" => '$.each($(_this).data("lines"), function(line){Line.remove({element: $(this), color: "red"});})' ,
-            :"data-ref_for_dialog" => "$(_this).data()",
+            :method => "delete",
+            :"data-rel" => "",
+            :"data-dialog_class" => "",
+            :"data-add_selected_line_ids" => "true",
+            :"data-on_success" => "HandOver.remove_lines(SelectedLines.lines);",
+            :"data-ref_for_dialog" => "",
             :id => "delete_selection" do
               .icon.delete
               = _("Delete")
@@ -83,6 +89,7 @@
           :class => "button green open_dialog",
           :"data-rel" => "tmpl/dialog/hand_over/summary",
           :"data-dialog_class" => "hand_over",
+          :"data-add_selected_line_ids" => "true",
           :"data-ref_for_dialog" => "$('#visits').tmplItem().data",
           :id => "hand_over_button" do
             = _("Hand Over Items")
@@ -98,4 +105,4 @@
     $('#visits').replaceWith($.tmpl("tmpl/visits", #{render(:partial => "backend/visits/index.json.rjson", :locals => {:visits => @visits})}))
     HandOver.setup()
     AddItem.setup()
-    SelectionActions.setup $("#visits")
+    SelectedLines.setup()

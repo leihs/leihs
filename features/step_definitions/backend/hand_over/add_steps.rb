@@ -85,6 +85,7 @@ When /^I add so many lines that I break the maximal quantity of an model$/ do
     find("#quick_add").set @target_name
     step 'I see a list of suggested model names'
     step 'I select the model from the list'
+    sleep(1)
   end
 end
 

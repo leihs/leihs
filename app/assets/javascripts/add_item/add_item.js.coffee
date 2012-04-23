@@ -56,14 +56,8 @@ class AddItem
       if $(this).find("#quick_add").val() == ""
         event.preventDefault
         return false
-    $('#add_item').bind "ajax:beforeSend", (event, jqXHR, settings)->
-       # add selected line ids
-      if SelectionActions? and SelectionActions.selected_lines? and SelectionActions.selected_lines.length
-        line_ids = Underscore.map(SelectionActions.selected_lines, (line)-> line.id)
-        for line_id in line_ids
-          settings.data += "&line_ids[]="+line_id
-      # clear input field
-      $(this).find("#quick_add").val("")
+    # clear input field
+    $('#add_item').bind "ajax:beforeSend", (event, jqXHR, settings)-> $(this).find("#quick_add").val("")
   
   @setup_timerange_update: ->
     $(".line .select input, .linegroup .select_group").live "change", ->
@@ -128,7 +122,7 @@ class AddItem
     else if $(".linegroup").length
       @allocate_linegroup line_data, $(".linegroup")
     # select line if linegroup was selected 
-    line = _.find $(".line"), (line)-> $(line).tmplItem().id == line_data.id
+    line = _.find $(".line"), (line)-> $(line).tmplItem().data.id == line_data.id
     if $(line).closest(".linegroup").find(".select_group").is(":checked")
       $(line).find(".select input").attr("checked", true)
         

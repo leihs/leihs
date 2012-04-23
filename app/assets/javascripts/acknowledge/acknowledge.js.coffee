@@ -63,15 +63,13 @@ class Acknowledge
     # reset the order template with the new data
     $("#order").html("")
     $('#order').replaceWith($.tmpl("tmpl/order", order))
-    #update selection target
-    SelectionActions.set_target($('#order'))
     #update the subtitle numbers
     subtitle_text = $("#acknowledge .subtitle").html()
     subtitle_text.replace(/^\d+/, order.quantity)
     subtitle_text.replace(/\s\d+/, " "+new MaxRange(order.lines).value)
     $("#acknowledge .subtitle").html(subtitle_text)
     #restore lines which were selected before re templating
-    SelectionActions.restoreSelectedLines()
+    SelectedLines.restore()
   
   @validate_approve_button: ->
     if $("#order").find(".lines").length == 0

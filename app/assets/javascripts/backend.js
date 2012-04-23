@@ -3,7 +3,6 @@
 //= require buttons/buttons
 //= require dialog/dialog
 //= require list/list
-//= require selection-actions/selection-actions
 //= require barcode/barcode
 //= require clearable-input/clearable-input
 //= require daily-navigator/daily-navigator
@@ -24,3 +23,4 @@
 //= require line/line
 //= require acknowledge/acknowledge
 //= require hand_over/hand_over
+//= require selected_lines/selected_lines

@@ -1,4 +1,4 @@
-{
+h = {
   id: line.id,
   type: line.type.underscore,
   start_date: line.start_date,
@@ -9,6 +9,12 @@
   
   model: line.option, # this is an alias for option
   user: {
-    id: line.contract.user_id
+    id: line.contract.user_id,
+    firstname: line.contract.user.firstname,
+    lastname: line.contract.user.lastname
   }
 }
+
+h[:availability_for_inventory_pool] = {:inventory_pool => current_inventory_pool.as_json } 
+
+h
