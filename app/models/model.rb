@@ -1,22 +1,3 @@
-# == Schema Information
-#
-# Table name: models
-#
-#  id                   :integer(4)      not null, primary key
-#  name                 :string(255)     not null
-#  manufacturer         :string(255)
-#  description          :string(255)
-#  internal_description :string(255)
-#  info_url             :string(255)
-#  rental_price         :decimal(8, 2)
-#  maintenance_period   :integer(4)      default(0)
-#  is_package           :boolean(1)      default(FALSE)
-#  created_at           :datetime
-#  updated_at           :datetime
-#  technical_detail     :string(255)
-#  delta                :boolean(1)      default(TRUE)
-#
-
 # A Model is a type of a thing which is available inside
 # an #InventoryPool for borrowing. If a customer wants to
 # borrow a thing, he opens an #Order and chooses the

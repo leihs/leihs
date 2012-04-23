@@ -1,18 +1,3 @@
-# == Schema Information
-#
-# Table name: contracts
-#
-#  id                :integer(4)      not null, primary key
-#  user_id           :integer(4)
-#  inventory_pool_id :integer(4)
-#  status_const      :integer(4)      default(1)
-#  purpose           :text
-#  created_at        :datetime
-#  updated_at        :datetime
-#  note              :text
-#  delta             :boolean(1)      default(TRUE)
-#
-
 # A Contract is a #Document containing #ContractLine s. It gets
 # created from an #Order, once the #Order is acknowledged by an
 # #InventoryPool manager.

@@ -1,22 +1,3 @@
-# == Schema Information
-#
-# Table name: inventory_pools
-#
-#  id                    :integer(4)      not null, primary key
-#  name                  :string(255)
-#  description           :text
-#  contact_details       :string(255)
-#  contract_description  :string(255)
-#  contract_url          :string(255)
-#  logo_url              :string(255)
-#  default_contract_note :text
-#  shortname             :string(255)
-#  email                 :string(255)
-#  color                 :text
-#  delta                 :boolean(1)      default(TRUE)
-#  print_contracts       :boolean(1)      default(TRUE)
-#
-
 class InventoryPool < ActiveRecord::Base
   include Availability::InventoryPool
 

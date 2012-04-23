@@ -1,15 +1,3 @@
-# == Schema Information
-#
-# Table name: groups
-#
-#  id                :integer(4)      not null, primary key
-#  name              :string(255)
-#  inventory_pool_id :integer(4)
-#  delta             :boolean(1)      default(TRUE)
-#  created_at        :datetime
-#  updated_at        :datetime
-#
-
 class Group < ActiveRecord::Base
   include Availability::Group
 

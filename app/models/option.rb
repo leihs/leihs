@@ -1,15 +1,3 @@
-# == Schema Information
-#
-# Table name: options
-#
-#  id                :integer(4)      not null, primary key
-#  inventory_pool_id :integer(4)
-#  inventory_code    :string(255)
-#  name              :string(255)
-#  delta             :boolean(1)      default(TRUE)
-#  price             :decimal(8, 2)
-#
-
 # Options are things that can be borrowed. The are listed
 # within #OptionLines which can be added to a #Contract.
 # Options don't have their own barcode and thus don't have

@@ -1,21 +1,3 @@
-# == Schema Information
-#
-# Table name: contract_lines
-#
-#  id            :integer(4)      not null, primary key
-#  contract_id   :integer(4)
-#  item_id       :integer(4)
-#  model_id      :integer(4)
-#  quantity      :integer(4)      default(1)
-#  start_date    :date
-#  end_date      :date
-#  returned_date :date
-#  created_at    :datetime
-#  updated_at    :datetime
-#  option_id     :integer(4)
-#  type          :string(255)     default("ItemLine"), not null
-#
-
 # A ContractLine is a line in a #Contract (based on an #Order) and
 # differentiated into its subclasses #ItemLine and #OptionLine.
 #

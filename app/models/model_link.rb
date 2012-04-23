@@ -1,13 +1,3 @@
-# == Schema Information
-#
-# Table name: model_links
-#
-#  id             :integer(4)      not null, primary key
-#  model_group_id :integer(4)
-#  model_id       :integer(4)
-#  quantity       :integer(4)      default(1)
-#
-
 class ModelLink < ActiveRecord::Base
   
   belongs_to :model_group
