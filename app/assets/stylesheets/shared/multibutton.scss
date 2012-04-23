@@ -50,7 +50,6 @@
   }
   
   &>.button {
-    border: 1px solid rgba(153,153,153,0.7);
     display: inline-block;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
@@ -72,7 +71,8 @@
     
     .trigger {
       background: url($slices-h) repeat-x 0 -252px;
-      border: 1px solid rgba(153,153,153,0.7);
+      border: 1px solid rgba(80,80,80,0.3);
+      border-top: 1px solid rgba(80,80,80,0.4);
       border-left: none;
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;

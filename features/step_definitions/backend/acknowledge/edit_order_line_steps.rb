@@ -16,23 +16,17 @@ end
 
 When /^I open the booking calendar for this line$/ do
   @line_element.find(".button", :text => "Edit").click
-  wait_until {
-    find("#fullcalendar .fc-day-content")
-  }
+  wait_until { find("#fullcalendar .fc-day-content") }
 end
 
 When /^I edit the timerange of the selection$/ do
   find(".button", :text => "Edit Selection").click
-  wait_until {
-    find("#fullcalendar .fc-day-content")
-  }
+  wait_until { find("#fullcalendar .fc-day-content") }
 end
 
 When /^I save the booking calendar$/ do
   find(".dialog .button", :text => "Save Changes").click
-  wait_until {
-    all(".dialog").size == 0
-  }
+  wait_until { all(".dialog").size == 0 }
 end
 
 When /^I change a lines time range$/ do
@@ -40,7 +34,8 @@ When /^I change a lines time range$/ do
   @line_element = find(".line", :text => @line.model.name)
   step 'I open the booking calendar for this line'
   @new_start_date = @line.start_date+1
-  @new_start_date_element = find(".fc-widget-content:not(.fc-other-month) .fc-day-number", :text => @new_start_date.day.to_s)
+  wait_until { find(".fc-widget-content:not(.fc-other-month) .fc-day-number") }
+  @new_start_date_element = all(".fc-widget-content .fc-day-number", :text => /^#{@new_start_date.day}$/).last
   @new_start_date_element.click
   find("a", :text => "Start Date").click
   step 'I save the booking calendar'
@@ -73,7 +68,7 @@ When /^I change the time range for multiple lines$/ do
   @line2_element.find("input[type=checkbox]").click
   step 'I edit the timerange of the selection'
   @new_start_date = @line1.start_date+2
-  @new_start_date_element = find(".fc-widget-content:not(.fc-other-month) .fc-day-number", :text => @new_start_date.day.to_s)
+  @new_start_date_element = all(".fc-widget-content .fc-day-number", :text => /^#{@new_start_date.day}$/).last
   @new_start_date_element.click
   find("a", :text => "Start Date").click
   step 'I save the booking calendar'

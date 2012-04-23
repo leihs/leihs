@@ -1,8 +1,8 @@
 ${merged_lines_availabilities = new MultipleMergedLinesAvailabilities(SelectedLines.lines_data), ""}
 ${$start_date = new MinDate(SelectedLines.lines_data), ""}
 ${$end_date = new MaxDate(SelectedLines.lines_data), ""}
-{{if order}}
-${$document = order, ""}
+{{if SelectedLines.lines_data[0].order}}
+${$document = SelectedLines.lines_data[0].order, ""}
 {{else}}
 ${$document = SelectedLines.lines_data[0].contract, ""}
 {{/if}}
