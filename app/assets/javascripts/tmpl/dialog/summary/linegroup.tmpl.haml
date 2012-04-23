@@ -16,7 +16,7 @@
       %li.model
         ${line.model.name}
     {{if !line.is_available}}
-    %li.availability
-      = _("Unavailable")
+    %li.problems
+      = _("Problems")
     {{/if}}
   {{/each}}  

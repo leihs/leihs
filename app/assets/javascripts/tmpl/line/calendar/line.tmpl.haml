@@ -3,7 +3,7 @@
   .main
     %li.amount
       ${quantity}
-      {{if total_rentable}} 
+      {{if (total_rentable || total_rentable == 0)}} 
       = "/"          
       %span.grey
         ="${total_rentable}"

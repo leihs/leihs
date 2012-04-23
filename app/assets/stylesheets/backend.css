@@ -23,6 +23,7 @@
  *= require shared/notification
  *= require shared/list_toggle
  *= require shared/show_more
+ *= require shared/summary
  * 
  *= require_tree ./backend
  * 

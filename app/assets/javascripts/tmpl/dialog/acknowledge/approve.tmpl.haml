@@ -1,6 +1,9 @@
-= form_tag '${$item.action}', :remote => true, :"data-submit_button" => true do
+= form_tag '${$item.action}', :remote => true, :"data-submit_button" => true, :class => "summary" do
 
-  {{tmpl($item.data) "tmpl/cell/dialog_order_head"}}
+  %h1
+    = _("Order from")
+    ${user.firstname} ${user.lastname}
+  %p.subtitle= "${quantity} Items for max. ${new MaxRange(lines).value} days straight"
   
   .navigation
     %button.button.white.close_dialog
@@ -38,9 +41,14 @@
   .flash_message
   {{/if}}
   
-  {{tmpl($item.data) "tmpl/cell/dialog_purpose"}}
+  %section.purpose
+    %label= _("Purpose")
+    %p= "${purpose}"  
   
-  {{tmpl($item.data) "tmpl/cell/dialog_lines"}}
+  %hr
+  %section.lines.scalable
+    ${$grouped_lines = new GroupedLines(lines), ""}
+    {{tmpl($grouped_lines) "tmpl/dialog/summary/linegroup"}}
     
   %section.comment
     = text_area_tag "comment", "", :class => "focus"

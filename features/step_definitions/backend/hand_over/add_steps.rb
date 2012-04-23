@@ -1,4 +1,5 @@
 When /^I add an item to the hand over by providing an inventory code and a date range$/ do
+  binding.pry
   @inventory_code = @user.managed_inventory_pools.first.items.in_stock.first.inventory_code
   find("#quick_add").set @inventory_code
   find("#add_item .button").click
@@ -14,6 +15,7 @@ end
 When /^I add an option to the hand over by providing an inventory code and a date range$/ do
   @inventory_code = @user.managed_inventory_pools.first.options.first.inventory_code
   find("#quick_add").set @inventory_code
+  page.execute_script('$("#quick_add").focus()')
   find("#add_item .button").click
   wait_until(5){ all("#add_item .loading", :visible => true).size == 0 }
 end

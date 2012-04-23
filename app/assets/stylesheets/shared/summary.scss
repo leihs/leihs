@@ -1,0 +1,27 @@
+@import "mixins";
+@import "variables";
+
+.dialog .summary {
+  
+  .list {
+    
+    .line {
+      
+      li.model {
+        width: 500px;
+      }
+      
+      li.problems {
+        color: $red;
+        font-weight: bold;
+        padding-right: 12px;
+        text-align: right;
+      }
+      
+      &:hover {
+        border-bottom: 1px solid $borderlightergrey !important;
+        li.problems { color: $red !important; }
+      }
+    }
+  }
+}

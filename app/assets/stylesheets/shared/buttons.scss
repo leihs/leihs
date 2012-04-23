@@ -42,10 +42,10 @@ a.button {
   }
 }
 
-@mixin button($color, $color2, $color3, $color4, $pos, $pos-hover, $pos-active) {
+@mixin button($color, $color4, $pos, $pos-hover, $pos-active) {
   color: $color;
-  border: 1px solid $color2;
-  border-top: 1px solid $color3;
+  border: 1px solid rgba(80,80,80,0.3);
+  border-top: 1px solid rgba(80,80,80,0.4);
   background: url($slices-h) repeat-x 0 $pos;
   
   &:hover:not([disabled]) {
@@ -65,9 +65,9 @@ a.button {
   }
 }
 
-.button.green {@include button(#2e7929, rgba(80,80,80,0.3), rgba(80,80,80,0.4), #1d5f18, -156px, -188px, -220px)};
-.button.white {@include button(#808080, rgba(80,80,80,0.3), rgba(80,80,80,0.4), #515151, -252px, -284px, -316px)};
-.button.red {@include button(#db5252, rgba(80,80,80,0.3), rgba(80,80,80,0.4), #f60000, -252px, -284px, -316px)};
+.button.green {@include button(#2e7929, #1d5f18, -156px, -188px, -220px)};
+.button.white {@include button(#808080, #515151, -252px, -284px, -316px)};
+.button.red {@include button(#db5252, #f60000, -252px, -284px, -316px)};
 
 // SMALLBUTTON ////////////////////////////////
 
@@ -92,6 +92,6 @@ a.button.small {
   line-height: 1.4em;
 }
 
-.button.small.green {@include button(#2e7929, rgba(80,80,80,0.3), rgba(80,80,80,0.4), #1d5f18, -444px, -467px, -490px)};
-.button.small.white {@include button(#808080, rgba(80,80,80,0.3), rgba(80,80,80,0.4), #515151, -513px, -536px, -559px)};
-.button.small.red {@include button(#db5252, rgba(80,80,80,0.3), rgba(80,80,80,0.4), #f60000, -582px, -605px, -628px)};
+.button.small.green {@include button(#2e7929, #1d5f18, -444px, -467px, -490px)};
+.button.small.white {@include button(#808080, #515151, -513px, -536px, -559px)};
+.button.small.red {@include button(#db5252, #f60000, -582px, -605px, -628px)};
