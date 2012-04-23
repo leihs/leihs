@@ -59,18 +59,18 @@ When /^I type the beginning of (.*?) name to the add\/assign input field$/ do |t
       @template.name
   end
   find("#quick_add").set @target_name[0..(@target_name.size/2)]
-  wait_until { all("#add_item .loading", :visible => true).size == 0 }
+  wait_until(10){ all("#add_item .loading", :visible => true).size == 0 }
 end
 
 Then /^I see a list of suggested (.*?) names$/ do |type|
   page.execute_script('$("#quick_add").focus()')
-  wait_until { find(".ui-autocomplete") }
+  wait_until(10){ find(".ui-autocomplete") }
 end
 
 When /^I select the (.*?) from the list$/ do |type|
-  wait_until { find(".ui-autocomplete a", :text => @target_name) }
+  wait_until(10){ find(".ui-autocomplete a", :text => @target_name) }
   find(".ui-autocomplete a", :text => @target_name).click
-  wait_until { all("#add_item .loading", :visible => true).size == 0 }
+  wait_until(10){ all("#add_item .loading", :visible => true).size == 0 }
 end
 
 Then /^each model of the template is added to the hand over for the provided date range$/ do
