@@ -15,7 +15,7 @@ When /^I add an option to the hand over by providing an inventory code and a dat
   @inventory_code = @user.managed_inventory_pools.first.options.first.inventory_code
   find("#quick_add").set @inventory_code
   find("#add_item .button").click
-  wait_until { all("#add_item .loading", :visible => true).size == 0 }
+  wait_until(5){ all("#add_item .loading", :visible => true).size == 0 }
 end
 
 Then /^the (.*?) is added to the hand over$/ do |type|
