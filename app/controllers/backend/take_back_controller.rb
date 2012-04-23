@@ -96,6 +96,20 @@ class Backend::TakeBackController < Backend::BackendController
 =end                    
   end
   
+  def things_to_return(term = params[:term])
+    contract_lines = @user.get_signed_contract_lines(current_inventory_pool.id)
+    matched_lines = contract_lines.select do |line|
+      case line.type
+      when "ItemLine"
+        line if (line.item.inventory_code.match(/#{term}/i) or line.item.model.name.match(/#{term}/i) or term.blank?)  
+      when "OptionLine"
+        line if (line.item.inventory_code.match(/#{term}/i) or line.item.name.match(/#{term}/i) or term.blank?)
+      end
+    end
+    respond_to do |format|
+      format.json { render :partial => "backend/contracts/lines.json.rjson", :locals => {:lines => matched_lines} }
+    end
+  end
   
   # given an inventory_code, searches for the matching contract_line
   def assign_inventory_code

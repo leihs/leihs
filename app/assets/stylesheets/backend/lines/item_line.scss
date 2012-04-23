@@ -22,8 +22,8 @@
       background: $highlight-darkred !important;  
     }
     
-    input, input:hover, input:focus {
-      border: 1px solid $highlight-darkred;
+    input[type=text] {
+      &, &:hover, &:focus {border: 1px solid $highlight-darkred;}
     }
   }
   
@@ -81,5 +81,11 @@
   
   .problems {
     padding-right: 0;
+  }
+  
+  &.take_back {
+    .inventory_code {
+      width: 68px;
+    }
   }
 }

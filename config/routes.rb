@@ -258,6 +258,7 @@ Leihs::Application.routes.draw do
             post :close_contract
             post :assign_inventory_code
             get :inspection
+            get :things_to_return
             post :inspection
             get :time_lines
             post :time_lines

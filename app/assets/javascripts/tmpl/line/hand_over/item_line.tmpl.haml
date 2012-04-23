@@ -5,7 +5,6 @@ ${Line.recompute_availability($item.data), ""}
 {{html $problems = Line.get_problems($item.data), ""}}
 
 %ul{:class => "line ${type}{{if $valid}} valid{{/if}}{{if $error}} error{{/if}}{{if $assigned}} assigned{{/if}}"}
-  
   .main  
     %li.select
       %label

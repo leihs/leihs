@@ -56,7 +56,6 @@ class AutoComplete
         $(trigger).after LoadingImage.get()
         $(trigger).autocomplete("close")
       complete: ->
-        console.log "COMPLETE"
         $(trigger).next(".loading").remove()
         $(trigger).next(".icon").show()
       success: (data)->

@@ -5,7 +5,11 @@ h = {
   end_date: line.end_date,
   quantity: line.quantity,
 
-  is_valid: line.valid?,  
+  is_valid: line.valid?,
+  
+  contract: {
+    action: line.contract.action
+  },
   
   model: line.option, # this is an alias for option
   user: {
