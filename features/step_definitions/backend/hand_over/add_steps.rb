@@ -1,9 +1,9 @@
 When /^I add an item to the hand over by providing an inventory code and a date range$/ do
   binding.pry
   @inventory_code = @user.managed_inventory_pools.first.items.in_stock.first.inventory_code
-  find("#quick_add").set @inventory_code
-  find("#add_item .button").click
-  wait_until { all("#add_item .loading", :visible => true).size == 0 }
+  find("#code").set @inventory_code
+  find("#process_helper .button").click
+  wait_until { all("#process_helper .loading", :visible => true).size == 0 }
 end
 
 Then /^the item is added to the hand over for the provided date range and the inventory code is already assigend$/ do
@@ -14,10 +14,10 @@ end
 
 When /^I add an option to the hand over by providing an inventory code and a date range$/ do
   @inventory_code = @user.managed_inventory_pools.first.options.first.inventory_code
-  find("#quick_add").set @inventory_code
-  page.execute_script('$("#quick_add").focus()')
-  find("#add_item .button").click
-  wait_until(5){ all("#add_item .loading", :visible => true).size == 0 }
+  find("#code").set @inventory_code
+  page.execute_script('$("#code").focus()')
+  find("#process_helper .button").click
+  wait_until(5){ all("#process_helper .loading", :visible => true).size == 0 }
 end
 
 Then /^the (.*?) is added to the hand over$/ do |type|
@@ -58,19 +58,19 @@ When /^I type the beginning of (.*?) name to the add\/assign input field$/ do |t
       @template = @user.managed_inventory_pools.first.templates.first
       @template.name
   end
-  find("#quick_add").set @target_name[0..(@target_name.size/2)]
-  wait_until(10){ all("#add_item .loading", :visible => true).size == 0 }
+  find("#code").set @target_name[0..(@target_name.size/2)]
+  wait_until(10){ all("#process_helper .loading", :visible => true).size == 0 }
 end
 
 Then /^I see a list of suggested (.*?) names$/ do |type|
-  page.execute_script('$("#quick_add").focus()')
+  page.execute_script('$("#code").focus()')
   wait_until(10){ find(".ui-autocomplete") }
 end
 
 When /^I select the (.*?) from the list$/ do |type|
   wait_until(10){ find(".ui-autocomplete a", :text => @target_name) }
   find(".ui-autocomplete a", :text => @target_name).click
-  wait_until(10){ all("#add_item .loading", :visible => true).size == 0 }
+  wait_until(10){ all("#process_helper .loading", :visible => true).size == 0 }
 end
 
 Then /^each model of the template is added to the hand over for the provided date range$/ do
@@ -84,7 +84,7 @@ When /^I add so many lines that I break the maximal quantity of an model$/ do
   @model = @customer.contracts.unsigned.last.lines.first.model
   @target_name = @model.name
   (@model.items.size+1).times do 
-    find("#quick_add").set @target_name
+    find("#code").set @target_name
     step 'I see a list of suggested model names'
     step 'I select the model from the list'
     sleep(1)

@@ -16,19 +16,26 @@ class MultipleMergedLinesAvailabilities
     merged_lines_availabilities.partitions = []
     merged_lines_availabilities.inventory_pool = selected_lines[0].availability_for_inventory_pool.inventory_pool
     
+    # return availability undefined if none of the selected lines having availability (like option_lines)
+    if (_.filter selected_lines, (line)-> line.availability_for_inventory_pool.availability?).length == 0
+      merged_lines_availabilities.availability = undefined
+      return merged_lines_availabilities
+    
     # make a union of all possible partitions
     for line in selected_lines
-      for partition in line.availability_for_inventory_pool.partitions
-        existing_partition = (existing_partition for existing_partition in merged_lines_availabilities.partitions when partition.group_id is existing_partition.group_id)[0]
-        if not existing_partition?
-          if partition.group_id == null then partition.group_id = 0
-          merged_lines_availabilities.partitions.push partition
+      if line.availability_for_inventory_pool? and line.availability_for_inventory_pool.partitions?
+        for partition in line.availability_for_inventory_pool.partitions
+          existing_partition = (existing_partition for existing_partition in merged_lines_availabilities.partitions when partition.group_id is existing_partition.group_id)[0]
+          if not existing_partition?
+            if partition.group_id == null then partition.group_id = 0
+            merged_lines_availabilities.partitions.push partition
     
     # go trough all selected lines to just collect the possible existing availability dates first (before merging anything)
     summed_av_dates = []
-    for line in selected_lines
-      for av_date in line.availability_for_inventory_pool.availability
-        summed_av_dates.push av_date[0] if summed_av_dates.indexOf(av_date[0]) < 0
+    if line.availability_for_inventory_pool? and line.availability_for_inventory_pool.availability?
+      for line in selected_lines
+        for av_date in line.availability_for_inventory_pool.availability
+          summed_av_dates.push av_date[0] if summed_av_dates.indexOf(av_date[0]) < 0
     
     # sort summed_av_dates by date increasing
     summed_av_dates = summed_av_dates.sort (a,b)->

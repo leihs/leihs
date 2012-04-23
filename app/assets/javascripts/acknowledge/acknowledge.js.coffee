@@ -14,7 +14,7 @@ class Acknowledge
     @setup_add_line()
   
   @setup_add_line: ->
-    $('#add_item').bind "ajax:success", (xhr, lines)->
+    $('#process_helper').bind "ajax:success", (xhr, lines)->
       for line in lines
         Acknowledge.add_line line
         
@@ -29,7 +29,7 @@ class Acknowledge
         type: "success"
     else 
       # add line
-      AddItem.allocate_line(line_data)
+      ProcessHelper.allocate_line(line_data)
       Notification.add_headline
         title: "+ #{Str.sliced_trunc(line_data.model.name, 36)}"
         text: "#{moment(line_data.start_date).sod().format(i18n.date.XL)}-#{moment(line_data.end_date).format(i18n.date.L)}"

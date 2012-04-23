@@ -11,7 +11,8 @@ h = {
   user: {
     id: line.contract.user_id,
     firstname: line.contract.user.firstname,
-    lastname: line.contract.user.lastname
+    lastname: line.contract.user.lastname,
+    groups: line.contract.user.groups
   }
 }
 

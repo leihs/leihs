@@ -15,7 +15,7 @@
         ${line.quantity}
       %li.model
         ${line.model.name}
-    {{if !line.is_available}}
+    {{if !line.is_available && line.type != "option_line"}}
     %li.problems
       = _("Problems")
     {{/if}}

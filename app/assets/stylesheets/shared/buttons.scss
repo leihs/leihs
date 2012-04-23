@@ -45,7 +45,7 @@ a.button {
 @mixin button($color, $color4, $pos, $pos-hover, $pos-active) {
   color: $color;
   border: 1px solid rgba(80,80,80,0.3);
-  border-top: 1px solid rgba(80,80,80,0.4);
+  border-bottom: 1px solid rgba(80,80,80,0.4);
   background: url($slices-h) repeat-x 0 $pos;
   
   &:hover:not([disabled]) {

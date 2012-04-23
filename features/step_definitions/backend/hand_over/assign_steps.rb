@@ -29,8 +29,8 @@ end
 
 When /^I add an item which is matching the model of one of the selected lines to the hand over by providing an inventory code$/ do
   @item = @hand_over.lines.first.model.items.in_stock.first
-  find("#quick_add").set @item.inventory_code
-  page.execute_script('$("#add_item").submit()')
+  find("#code").set @item.inventory_code
+  page.execute_script('$("#process_helper").submit()')
   wait_until { all(".loading", :visible => true).size == 0 }
 end
 

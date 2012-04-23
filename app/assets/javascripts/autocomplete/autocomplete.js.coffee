@@ -12,6 +12,7 @@ jQuery ->
       AutoComplete.setup $(this)
     else if $(this).val() != ""
       $(this).autocomplete("widget").show()
+  $("input.autocomplete").live "blur", (event)-> AutoComplete.current_ajax.abort() if AutoComplete.current_ajax?
 
 class AutoComplete
   

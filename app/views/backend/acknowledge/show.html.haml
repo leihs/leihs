@@ -40,7 +40,7 @@
       %p= "#{@order.purpose}"
       
   .indent      
-    = form_tag add_line_backend_inventory_pool_acknowledge_path(current_inventory_pool, @order), :id => "add_item", :method => :post, :remote => true, :"data-submit_button" => true do
+    = form_tag add_line_backend_inventory_pool_acknowledge_path(current_inventory_pool, @order), :id => "process_helper", :method => :post, :remote => true, :"data-submit_button" => true do
       .dates
         .container
           %input.start.date{:type => "text", :name => "start_date", :id => "add_start_date", :"data-date" => (@order.min_date).blank? ? Date.today : @order.min_date , :title => _("Start Date")}
@@ -54,13 +54,13 @@
             = _("End Date")
           %label.datepicker.icon{:for => "add_end_date", :title => _("Open Datepicker")}  
             
-      .quick_add_box
-        %input.autocomplete.barcode_target{:type => "text", :name => "code", :autocomplete => "off", :id => "quick_add", 
+      .container
+        %input.autocomplete.barcode_target{:type => "text", :name => "code", :autocomplete => "off", :id => "code", 
         :"data-url" => backend_inventory_pool_search_path(current_inventory_pool, :types => ["model", "template"]),
         :"data-autocomplete_class" => "add_item", 
         :"data-autocomplete_element_tmpl" => "tmpl/autocomplete/add_item",
-        :"data-autocomplete_select_callback" => "AddItem.through_autocomplete"}
-        %label{:for => "quick_add"}
+        :"data-autocomplete_select_callback" => "ProcessHelper.add_through_autocomplete"}
+        %label{:for => "code"}
           = _("Inventory Code / Name")
         
       %button.button.white{:type => "submit"}
@@ -108,5 +108,5 @@
   jQuery ->
     $('#acknowledge #order').replaceWith($.tmpl("tmpl/order", #{@order_json}))
     Acknowledge.setup()
-    AddItem.setup()
+    ProcessHelper.setup()
     SelectedLines.setup()

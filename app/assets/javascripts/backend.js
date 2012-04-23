@@ -8,7 +8,7 @@
 //= require daily-navigator/daily-navigator
 //= require_tree ./lines
 //= require_tree ./availability
-//= require_tree ./add_item
+//= require_tree ./process_helper
 //= require_tree ./tmpl
 //= require showMore/showMore
 //= require historical-search/historical-search
@@ -23,4 +23,5 @@
 //= require line/line
 //= require acknowledge/acknowledge
 //= require hand_over/hand_over
+//= require take_back/take_back
 //= require selected_lines/selected_lines
