@@ -15,6 +15,8 @@ jQuery ->
 
 class AutoComplete
   
+  @current_ajax
+  
   @setup = (input_field, source)->
     # initialize autocomplete
     options = {}
@@ -40,7 +42,8 @@ class AutoComplete
   @source = (request, response)->
     trigger = $(this.element)
     $(trigger).autocomplete("widget").scrollTop 0
-    $.ajax 
+    AutoComplete.current_ajax.abort() if AutoComplete.current_ajax?
+    AutoComplete.current_ajax = $.ajax 
       url: $(trigger).data("url")
       data:
         format: "json"
@@ -51,10 +54,12 @@ class AutoComplete
         $(trigger).next(".icon").hide()
         $(trigger).after LoadingImage.get()
         $(trigger).autocomplete("close")
-      success: (data)->
-        # compute entries
+      complete: ->
+        console.log "COMPLETE"
         $(trigger).next(".loading").remove()
         $(trigger).next(".icon").show()
+      success: (data)->
+        # compute entries
         entries = $.map data, (element)-> 
           element.value = element[$(trigger).data("autocomplete_value_attribute")] if $(trigger).data("autocomplete_value_attribute")?
           element

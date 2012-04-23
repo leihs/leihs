@@ -56,6 +56,8 @@ class AddItem
       if $(this).find("#quick_add").val() == ""
         event.preventDefault
         return false
+      # abort autocomplete on submit
+      AutoComplete.current_ajax.abort() if AutoComplete.current_ajax?
     # clear input field
     $('#add_item').bind "ajax:beforeSend", (event, jqXHR, settings)-> $(this).find("#quick_add").val("")
   

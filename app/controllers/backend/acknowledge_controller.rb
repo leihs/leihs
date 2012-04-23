@@ -99,7 +99,7 @@ class Backend::AcknowledgeController < Backend::BackendController
                 model_id = params[:model_id],
                 model_group_id = params[:model_group_id],
                 code = params[:code])
-   
+                
      # find model 
     model = if not code.blank?
       item = current_inventory_pool.items.where(:inventory_code => code).first 
@@ -113,9 +113,6 @@ class Backend::AcknowledgeController < Backend::BackendController
     # create new line
     if model
       line = model.add_to_document(@order, @user, quantity, start_date, end_date, current_inventory_pool)
-      if model_group_id.nil? and item and line and not line.update_attributes(item: item)
-        @error = {:message => line.errors.values.join}
-      end
     else
       @error = if code
         {:message => _("A model for the Inventory Code / Serial Number '%s' was not found" % code)}
