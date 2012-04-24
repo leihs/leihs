@@ -24,6 +24,19 @@ class Backend::TakeBackController < Backend::BackendController
       l.item.histories.create(:user => current_user, :text => _("Item taken back"), :type_const => History::ACTION) unless l.item.is_a? Option
     end
 
+    if returned_quantity
+      returned_quantity.each_pair do |k,v|
+        line = lines.detect {|l| l.id == k.to_i }
+        if line and v.to_i < line.quantity
+          # NOTE: line is an OptionLine, since the ItemLine's quantity is always 1
+          new_line = line.dup # NOTE use .dup instead of .clone (from Rails 3.1)
+          new_line.quantity -= v.to_i
+          new_line.save
+          line.update_attributes(:quantity => v.to_i)
+        end
+      end
+    end
+
     # fetch all envolved contracts    
     contracts = lines.collect(&:contract).uniq 
 
@@ -42,20 +55,7 @@ class Backend::TakeBackController < Backend::BackendController
       # TODO 2702** merge duplications
       @lines = current_inventory_pool.contract_lines.find(line_ids) if line_ids
       @lines ||= []
-      
-      if returned_quantity
-        returned_quantity.each_pair do |k,v|
-          line = @lines.detect {|l| l.id == k.to_i }
-          if line and v.to_i < line.quantity
-            # NOTE: line is an OptionLine, since the ItemLine's quantity is always 1
-            new_line = line.clone
-            new_line.quantity -= v.to_i
-            new_line.save
-            line.update_attributes(:quantity => v.to_i)
-          end
-        end
-      end
-      
+            
       @contracts = @lines.collect(&:contract).uniq
       
       # set the return dates to the given contract_lines

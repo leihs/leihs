@@ -1,14 +1,3 @@
-# == Schema Information
-#
-# Table name: locations
-#
-#  id          :integer(4)      not null, primary key
-#  room        :string(255)
-#  shelf       :string(255)
-#  building_id :integer(4)
-#  delta       :boolean(1)      default(TRUE)
-#
-
 class Location < ActiveRecord::Base
 
   has_many :items

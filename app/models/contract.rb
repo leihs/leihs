@@ -1,18 +1,3 @@
-# == Schema Information
-#
-# Table name: contracts
-#
-#  id                :integer(4)      not null, primary key
-#  user_id           :integer(4)
-#  inventory_pool_id :integer(4)
-#  status_const      :integer(4)      default(1)
-#  purpose           :text
-#  created_at        :datetime
-#  updated_at        :datetime
-#  note              :text
-#  delta             :boolean(1)      default(TRUE)
-#
-
 # A Contract is a #Document containing #ContractLine s. It gets
 # created from an #Order, once the #Order is acknowledged by an
 # #InventoryPool manager.
@@ -170,26 +155,27 @@ class Contract < Document
   #       -> eliminate the default value and the assignement current_user ||=
   def sign(contract_lines = nil, current_user = nil)
     current_user ||= self.user
+    contract_lines ||= self.contract_lines
+ 
+    unless contract_lines.any? {|l| l.item.nil? }
+      transaction do
+        update_attributes({:status_const => Contract::SIGNED, :created_at => Time.now}) 
+        log_history(_("Contract %d has been signed by %s") % [self.id, self.user.name], current_user.id)
     
-    transaction do
-      update_attributes({:status_const => Contract::SIGNED, :created_at => Time.now}) 
-  
-      if contract_lines and contract_lines.any? { |cl| cl.item }
-  
         # Forces handover date to be today.
         contract_lines.each {|cl| cl.update_attributes(:start_date => Date.today) if cl.start_date != Date.today }
-        
-        log_history(_("Contract %d has been signed by %s") % [self.id, self.user.name], current_user.id)
-        
-        lines_for_new_contract = self.contract_lines - contract_lines
-        if not lines_for_new_contract.empty?
+
+        unless (lines_for_new_contract = self.contract_lines - contract_lines).empty?
           new_contract = user.get_current_contract(self.inventory_pool)
-    
           lines_for_new_contract.each do |cl|
             cl.update_attributes(:contract => new_contract)
           end
         end        
       end
+      true
+    else
+      errors.add(:base, _("This contract is not signable because some lines are not assigned."))
+      false
     end
   end
 

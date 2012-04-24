@@ -1,36 +1,3 @@
-# == Schema Information
-#
-# Table name: items
-#
-#  id                    :integer(4)      not null, primary key
-#  inventory_code        :string(255)
-#  serial_number         :string(255)
-#  model_id              :integer(4)
-#  location_id           :integer(4)
-#  supplier_id           :integer(4)
-#  owner_id              :integer(4)
-#  parent_id             :integer(4)
-#  invoice_number        :string(255)
-#  invoice_date          :date
-#  last_check            :date
-#  retired               :date
-#  retired_reason        :string(255)
-#  price                 :decimal(8, 2)
-#  is_broken             :boolean(1)      default(FALSE)
-#  is_incomplete         :boolean(1)      default(FALSE)
-#  is_borrowable         :boolean(1)      default(FALSE)
-#  created_at            :datetime
-#  updated_at            :datetime
-#  needs_permission      :boolean(1)      default(FALSE)
-#  inventory_pool_id     :integer(4)
-#  is_inventory_relevant :boolean(1)      default(TRUE)
-#  responsible           :string(255)
-#  insurance_number      :string(255)
-#  note                  :text
-#  name                  :text
-#  delta                 :boolean(1)      default(TRUE)
-#
-
 # An Item is a borrowable thing (unless being flagged as
 # not being borrowable), is an instance of a #Model, has
 # its own barcode and thus its own identity. This is in

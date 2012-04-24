@@ -163,7 +163,7 @@ class Backend::AcknowledgeController < Backend::BackendController
       lines = @order.lines.find(line_ids - delete_line_ids)
       # TODO merge to Order#update_line
       lines.each do |line|
-        line.quantity = [quantity.to_i, 0].max if quantity
+        line.quantity = [quantity.to_i, 1].max if quantity
         line.start_date = Date.parse(start_date) if start_date
         line.end_date = Date.parse(end_date) if end_date
         # log changes

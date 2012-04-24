@@ -1,24 +1,3 @@
-# == Schema Information
-#
-# Table name: authentication_systems
-#
-#  id         :integer(4)      not null, primary key
-#  name       :string(255)
-#  class_name :string(255)
-#  is_default :boolean(1)      default(FALSE)
-#  is_active  :boolean(1)      default(FALSE)
-#
-
-# == Schema Information
-#
-# Table name: authentication_systems
-#
-#  id         :integer(4)      not null, primary key
-#  name       :string(255)
-#  class_name :string(255)
-#  is_default :boolean(1)      default(FALSE)
-#  is_active  :boolean(1)      default(FALSE)
-#
 class AuthenticationSystem < ActiveRecord::Base
 
   scope :default_system, where(:is_default => true)

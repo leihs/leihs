@@ -1,18 +1,3 @@
-# == Schema Information
-#
-# Table name: order_lines
-#
-#  id                :integer(4)      not null, primary key
-#  model_id          :integer(4)
-#  order_id          :integer(4)
-#  inventory_pool_id :integer(4)
-#  quantity          :integer(4)      default(1)
-#  start_date        :date
-#  end_date          :date
-#  created_at        :datetime
-#  updated_at        :datetime
-#
-
 class OrderLine < DocumentLine
 
   belongs_to :order
