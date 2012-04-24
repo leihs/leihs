@@ -3,7 +3,7 @@
 #acknowledge.innercontent
   .top
     %h1= yield :title
-    %p.subtitle= "#{@order.quantity} Items for max. #{(@order.max_single_range).to_i} days straight"
+    %p.subtitle
       
     .content_navigation
       = link_to _("Reject"), reject_backend_inventory_pool_acknowledge_path(current_inventory_pool, @order),
@@ -110,3 +110,4 @@
     Acknowledge.setup()
     ProcessHelper.setup()
     SelectedLines.setup()
+    

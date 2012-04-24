@@ -12,14 +12,22 @@ class Acknowledge
     @setup_purpose()
     @validate_approve_button()
     @setup_add_line()
+    @setup_remove_line()
+    @update_subtitle()
+  
+  @setup_remove_line: ->
+    $(document).live "after_remove_line", ->
+      Acknowledge.update_subtitle()
   
   @setup_add_line: ->
     $('#process_helper').bind "ajax:success", (xhr, lines)->
       for line in lines
         Acknowledge.add_line line
+  
+  @update_subtitle: -> $(".top .subtitle").html $.tmpl "tmpl/subtitle/acknowledge", {lines_data: _.map($(".line"), (line)-> $(line).tmplItem().data)}
         
   @add_line: (line_data)->
-     # check if line was just increased
+    # check if line was just increased
     matching_line = Underscore.find $(".line"), (line)-> $(line).tmplItem().data.id == line_data.id
     if matching_line?
       Acknowledge.update_line(matching_line, line_data)
@@ -34,6 +42,7 @@ class Acknowledge
         title: "+ #{Str.sliced_trunc(line_data.model.name, 36)}"
         text: "#{moment(line_data.start_date).sod().format(i18n.date.XL)}-#{moment(line_data.end_date).format(i18n.date.L)}"
         type: "success"
+    Acknowledge.update_subtitle()
   
   @update_line = (line_element, line_data)->
     new_line = $.tmpl("tmpl/line", line_data)

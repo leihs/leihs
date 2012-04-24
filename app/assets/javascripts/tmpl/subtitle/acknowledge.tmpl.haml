@@ -1,0 +1,3 @@
+${$max_quantity = new MaxQuantity(lines_data),""}
+= _("%s Items") % "${$max_quantity.value}"
+= _("for max. %s days straight") % "${new MaxRange(lines_data).value}"

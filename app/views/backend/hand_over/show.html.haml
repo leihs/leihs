@@ -4,17 +4,6 @@
   .top
     %h1= yield :title
     %p.subtitle
-      - unless @visits.empty?
-        = _("%s" % pluralize(@visits.size, "hand over"))
-        - range = (@visits.last.date - Date.today).to_i
-        -if range > 0
-          = _("in the next %i days" % range)
-        -elsif range < 0
-          = _("%s ago" % pluralize(range*-1, "day"))
-        -else 
-          = _("today")
-      - else
-        = _("No hand overs found")
 
   .indent
     = form_tag add_line_backend_inventory_pool_user_hand_over_path(current_inventory_pool, @contract.user), 

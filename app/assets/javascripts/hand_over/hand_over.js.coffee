@@ -11,10 +11,18 @@ class HandOver
   @setup = ()->
     @setup_assign_inventory_code()
     @setup_process_helper()
+    @update_subtitle()
+    @setup_delete()
+    
+  @setup_delete: ->
+    $(document).live "after_remove_line", ->
+      HandOver.update_subtitle()
     
   @assign_through_autocomplete = (element, event)->
     $(event.target).val(element.item.inventory_code)
     $(event.target).closest("form").submit()
+  
+  @update_subtitle: -> $(".top .subtitle").html $.tmpl "tmpl/subtitle/hand_over", {visits_data: _.map($(".visit"), (visit)-> $(visit).tmplItem().data)}
   
   @setup_assign_inventory_code = ()->
     $(".item_line .inventory_code form").live "ajax:beforeSend", ()->
@@ -54,7 +62,7 @@ class HandOver
   @update_visits = (data)->
     $('#visits').replaceWith($.tmpl("tmpl/visits", data))
     SelectedLines.restore()
-    @update_subtitle()
+    HandOver.update_subtitle()
   
   @setup_process_helper: ->
     $('#process_helper').bind "ajax:success", (xhr, lines)->
@@ -80,6 +88,7 @@ class HandOver
         title: "+ #{Str.sliced_trunc(line_data.model.name, 36)}"
         text: "#{moment(line_data.start_date).sod().format(i18n.date.XL)}-#{moment(line_data.end_date).format(i18n.date.L)}"
         type: "success"
+    HandOver.update_subtitle()
   
   @update_model_availability: (line_data)->
     lines_with_the_same_model = Underscore.filter $("#visits .line"), (line)-> 
@@ -108,12 +117,5 @@ class HandOver
     new_line = $.tmpl("tmpl/line", line_data)
     $(new_line).find("input").attr("checked", true) if $(line_element).find(".select input").is(":checked")
     $(line_element).replaceWith new_line
-  
-  @update_subtitle = ->
-    return true
-    # var subtitle_text = $("#acknowledge .subtitle").html();
-    # subtitle_text.replace(/^\d+/, order.quantity);
-    # subtitle_text.replace(/\s\d+/, " "+new MaxRange(order.lines).value);
-    # $("#acknowledge .subtitle").html(subtitle_text);
   
 window.HandOver = HandOver

@@ -11,6 +11,7 @@ class TakeBack
   @setup: ->
     @setup_assign()
     @setup_option_lines()
+    @update_subtitle()
   
   @setup_assign: ->
     $("#process_helper").bind "submit", (event)->
@@ -19,6 +20,8 @@ class TakeBack
         TakeBack.assign $(this).find("#code").val()    
         $(this).find("#code").val("")    
       return false
+  
+  @update_subtitle: -> $(".top .subtitle").html $.tmpl "tmpl/subtitle/take_back", {visits_data: _.map($(".visit"), (visit)-> $(visit).tmplItem().data)}
   
   @setup_option_lines: ->
     $(".option_line .quantity input").live "change keyup", ()->

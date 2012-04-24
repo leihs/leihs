@@ -4,12 +4,6 @@
   .top
     %h1= yield :title
     %p.subtitle
-      - unless @visits.empty?
-        = _("%i take backs" % @visits.size)
-        - range = (@visits.last.date - Date.today).to_i
-        = _("in the next %i days" % range) if range > 0
-      - else
-        = _("No take backs found")
   
   .indent
     = form_tag "", :id => "process_helper" do 

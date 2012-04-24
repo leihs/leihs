@@ -10,18 +10,8 @@
   margin-bottom: -32px;
   top: -23px;
   height: 32px;
-  
-  .shadow {
-    background: transparent;
-    height: 30px;
-    left: 1%;
-    position: absolute;
-    top: 0;
-    width: 98%;
-    z-index: 1;
-    @include box-shadow(0 -12px 15px -6px rgba(0, 0, 0, 0.1));
-  }
-  
+  @include box-shadow(0 -12px 15px -6px rgba(0, 0, 0, 0.1));
+    
   &>li {
     color: $grey;
     height: 32px;
@@ -65,10 +55,6 @@
     border-top: none !important;
     margin-bottom: -12px;
     top: 0;
-    
-    .shadow {
-      display: none;
-    }
     
     .icon {
       background: url($image-sprite) no-repeat -73px -37px;  

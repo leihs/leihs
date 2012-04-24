@@ -24,4 +24,5 @@
 //= require acknowledge/acknowledge
 //= require hand_over/hand_over
 //= require take_back/take_back
+//= require visit/visit
 //= require selected_lines/selected_lines
