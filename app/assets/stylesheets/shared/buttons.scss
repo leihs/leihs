@@ -57,7 +57,7 @@ a.button {
     background: url($slices-h) repeat-x 0 $pos-active;
   }
   
-  &.disabled, &.disabled:hover, &.disabled:active {
+  &.disabled, &.disabled:hover, &.disabled:active, &[disabled=disabled], &[disabled=disabled]:hover, &[disabled=disabled]:active {
     background: url($slices-h) repeat-x 0 $pos;
     cursor: default;
     color: $color !important;

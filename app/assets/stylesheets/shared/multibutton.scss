@@ -6,43 +6,39 @@
   position: relative;
   text-align: left;
   
+  .alternatives {
+    @include opacity(1.0);
+  }
+  
   &[disabled=disabled], &[disabled=disabled]:hover, &[disabled=disabled]:active {
-    @include opacity(0.6);
-    
     &>.button {
       cursor: default;
-      
       &:hover:not([disabled]) {
         background: url($slices-h) repeat-x 0 -252px;
         color: #808080;
         border-bottom-right-radius: 0;
       }
-      
       &.green:hover:not([disabled]) {
         color: #2e7929;
         background: url($slices-h) repeat-x 0 -156px;  
       }
     }
     
+    .alternatives {
+      @include opacity(0.6);
+    }
+    
     &>.alternatives:hover {
-      
       .trigger {
         background: url($slices-h) repeat-x 0 -252px;
         border-bottom-right-radius: 6px;
-        
-        .arrow {
-          @include opacity(0.6);
-        }
-        
         &.green {
           background: url($slices-h) repeat-x 0 -156px;
         }
       }
-            
       .button {
         display: none;
       }
-      
       &+.button {
         border-bottom-left-radius: 6px;    
       }

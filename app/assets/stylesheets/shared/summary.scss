@@ -25,3 +25,14 @@
     }
   }
 }
+
+.ui-dialog.take_back {
+  
+  .list .line li.problems {
+    display: none;
+  }
+  
+  .dialog .summary {
+    padding-bottom: 18px;
+  }
+}
