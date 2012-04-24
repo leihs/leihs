@@ -93,7 +93,7 @@ class Backend::ItemsController < Backend::BackendController
       @item.model = @model if @model
       @item.invoice_date = Date.yesterday
     else 
-      @item = Item.find(id).clone
+      @item = Item.find(id).dup # NOTE use .dup instead of .clone (from Rails 3.1)
       @item.serial_number = nil
       @item.name = nil
     end

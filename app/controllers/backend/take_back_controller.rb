@@ -48,7 +48,7 @@ class Backend::TakeBackController < Backend::BackendController
           line = @lines.detect {|l| l.id == k.to_i }
           if line and v.to_i < line.quantity
             # NOTE: line is an OptionLine, since the ItemLine's quantity is always 1
-            new_line = line.clone
+            new_line = line.dup # NOTE use .dup instead of .clone (from Rails 3.1)
             new_line.quantity -= v.to_i
             new_line.save
             line.update_attributes(:quantity => v.to_i)

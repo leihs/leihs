@@ -70,6 +70,7 @@ class Backend::HandOverController < Backend::BackendController
 =end
   end
 
+=begin
   # change quantity: duplicating item_line or (TODO) changing quantity for option_line
   # preventing quantity less than 1
   def change_line_quantity(quantity = [params[:quantity].to_i, 1].max)
@@ -78,7 +79,7 @@ class Backend::HandOverController < Backend::BackendController
     # TODO refactor to model
     if @contract_line.is_a?(ItemLine)
       (quantity - @contract_line.quantity).times do
-        new_line = @contract_line.clone # OPTIMIZE keep contract history 
+        new_line = @contract_line.dup # OPTIMIZE keep contract history 
         new_line.item = nil
         new_line.save
       end
@@ -88,6 +89,7 @@ class Backend::HandOverController < Backend::BackendController
       flash[:notice] = _("The quantity has been changed")
     end
   end
+=end
 
 =begin
   # Changes the line according to the inserted inventory code
@@ -115,20 +117,31 @@ class Backend::HandOverController < Backend::BackendController
 
   def update_lines(line_ids = params[:line_ids] || raise("line_ids is required"),
                    line_id_model_id = params[:line_id_model_id] || {},
-                   #quantity = params[:quantity],
+                   quantity = (params[:quantity] ? [params[:quantity].to_i, 1].max : nil),
                    start_date = params[:start_date],
                    end_date = params[:end_date])
-    
-    #TODO Franco: quantity should duplicate the contract line/model here
     
     ContractLine.transaction do
       lines = @contract.lines.find(line_ids)
       # TODO merge to Contract#update_line
-      lines.each do |line|
-        # line.quantity = [quantity.to_i, 0].max if quantity
+      lines.each do |line|        
         line.start_date = Date.parse(start_date) if start_date
         line.end_date = Date.parse(end_date) if end_date
-        # log changes
+
+        # NOTE because cloning, this has to be the last change before saving
+        if quantity
+          if line.is_a?(ItemLine)
+            (quantity - line.quantity).times do
+              new_line = line.dup # NOTE use .dup instead of .clone (from Rails 3.1) 
+              new_line.item = nil
+              new_line.save # TODO log_change (not needed anymore with the new audits)
+            end
+          else
+            line.quantity = quantity
+          end
+        end
+
+        # TODO remove log changes (use the new audits)
         change = ""
         if (new_model_id = line_id_model_id[line.id.to_s]) 
           line.model = line.contract.user.models.find(new_model_id) 
