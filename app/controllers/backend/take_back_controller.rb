@@ -15,7 +15,7 @@ class Backend::TakeBackController < Backend::BackendController
   # Close definitely the contract
   def close_contract(line_ids = params[:line_ids]  || raise("line_ids is required"),
                      returned_quantity = params[:returned_quantity])
-
+                     
     lines = current_inventory_pool.contract_lines.find(line_ids)
 
     # set the return dates to the given contract_lines
@@ -31,6 +31,7 @@ class Backend::TakeBackController < Backend::BackendController
           # NOTE: line is an OptionLine, since the ItemLine's quantity is always 1
           new_line = line.dup # NOTE use .dup instead of .clone (from Rails 3.1)
           new_line.quantity -= v.to_i
+          new_line.returned_date = nil
           new_line.save
           line.update_attributes(:quantity => v.to_i)
         end

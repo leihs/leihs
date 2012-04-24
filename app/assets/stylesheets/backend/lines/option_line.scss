@@ -33,12 +33,25 @@
   }
   
   .quantity {
-    padding-right: 16px;
-    width: 63px;
+    padding-right: 18px;
+    width: 60px;
     
-    input {
-      text-align: center;
-      width: 45px;
+    .container {
+      display: block;
+      position: relative;
+      
+      input {
+        text-align: center;
+        width: 40px;
+      }
+      
+      .loading {
+        height: 16px;
+        position: absolute;
+        top: 4px;
+        right: -14px;
+        width: 16px;
+      }
     }
   }
   
@@ -52,6 +65,7 @@
         padding-right: 0;
         padding-left: 0;
         width: 49px;
+        text-align: center;
       }
     }
     

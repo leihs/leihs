@@ -10,6 +10,10 @@ we only care if a merged availabililty is 0 or greater then 0, we dont care abou
 class MultipleMergedLinesAvailabilities
   
   constructor: (selected_lines) ->
+    # remove line from their own availability (non-selfblocking problem)
+    for line in selected_lines
+      line.availability = Line.remove_line_from_availability line, line.availability
+    
     # prepare the returning format:  availability, partitions and inventory_pool
     merged_lines_availabilities = {}
     merged_lines_availabilities.availability = []

@@ -9,9 +9,18 @@
 .list
   {{each(i, line) lines}}
   %input{:type => :hidden, :name => "line_ids[]", :value => "${line.id}"}
+  
+  {{if line.returned_quantity}}
+  %input{:type => :hidden, :name => "returned_quantity[${line.id}]", :value => "${line.returned_quantity}"}
+  {{/if}}
+  
   %ul{:class => "line {{if !line.is_available}} unavailable{{/if}}"}
     .main
       %li.quantity
+        {{if line.returned_quantity}}
+        ${line.returned_quantity}
+        = "/"
+        {{/if}}
         ${line.quantity}
       %li.model
         ${line.model.name}

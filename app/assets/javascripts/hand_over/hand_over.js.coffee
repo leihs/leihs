@@ -8,12 +8,38 @@ This script provides functionalities for the hand over process
 
 class HandOver
   
+  @option_quantity_change_ajax
+  
   @setup = ()->
     @setup_assign_inventory_code()
     @setup_process_helper()
     @update_subtitle()
     @setup_delete()
+    @setup_option_quantity_changes()
     
+  @setup_option_quantity_changes: ->
+    $(".option_line .quantity input").live "keyup change", ()->
+      trigger = $(this)
+      new_quantity = parseInt $(this).val()
+      if new_quantity != NaN
+        line_data = $(this).closest(".line").tmplItem().data
+        HandOver.option_quantity_change_ajax.abort() if HandOver.option_quantity_change_ajax?
+        HandOver.option_quantity_change_ajax = $.ajax 
+          url: $(this).data("url")
+          data:
+            format: "json"
+            line_ids: [line_data.id]
+            quantity: new_quantity  
+          dataType: "json"
+          type: "POST"
+          beforeSend: ->
+            $(trigger).next(".loading").remove()
+            $(trigger).after LoadingImage.get()
+          complete: ->
+            $(trigger).next(".loading").remove()
+          success: (data)->
+            HandOver.update_visits data
+          
   @setup_delete: ->
     $(document).live "after_remove_line", ->
       HandOver.update_subtitle()

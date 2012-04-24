@@ -39,7 +39,7 @@ class Barcode
     else
       target = $(".barcode_target:last")
     # execute  
-    $(target).focus().val("").val Barcode.scanner_input
+    $(target).val("").val Barcode.scanner_input
     $(target).closest("form").submit()
   
 window.Barcode = Barcode

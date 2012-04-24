@@ -47,6 +47,7 @@ class Line
           break
 
   @remove_line_from_availability = (line_data, availability)->
+    return undefined if not availability?
     availability = line_data.availability_for_inventory_pool.availability
     line_type = Underscore.str.classify(line_data.type)
     for change in availability
@@ -54,13 +55,13 @@ class Line
       for allocation in allocations
         if allocation.out_document_lines[line_type]? and (allocation.out_document_lines[line_type].indexOf(line_data.id) > -1)
           allocation.out_document_lines[line_type] = _.filter allocation.out_document_lines[line_type], (line)-> line != line_data.id
-          allocation.in_quantity += 1
-          change[1] += 1
+          allocation.in_quantity += line_data.quantity
+          change[1] += line_data.quantity
     availability
     
   @get_user: (lines_data)->
-    return lines_data[0].order.user if lines_data[0].order?
-    return lines_data[0].contract.user if lines_data[0].contract?
-    return lines_data[0].user
+    return lines_data.order.user if lines_data.order? and lines_data.order.user?
+    return lines_data.contract.user if lines_data.contract? and lines_data.contract.user?
+    return lines_data.user
 
 window.Line = Line

@@ -68,9 +68,9 @@ class SelectedLines
       $("[data-toggle_on_line_selection]").find(".button").attr "disabled", true
 
   @restore: ->
-    selected_line_ids = _.map SelectedLines.lines, (line)-> line.id
-    selected_lines = _.filter $(".innercontent .line"), (line)-> _.include selected_line_ids, $(line).tmplItem().data.id  
-    $(selected_lines).find(".select input").attr "checked", true 
+    selected_line_ids = _.map SelectedLines.lines_data, (line)-> line.id
+    selected_lines = _.filter $(".innercontent .line"), (line)-> _.include selected_line_ids, $(line).tmplItem().data.id
+    $(selected_lines).find(".select input").attr("checked", true).change()
     @store()
 
   @update_counter: ->

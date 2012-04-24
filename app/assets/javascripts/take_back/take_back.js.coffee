@@ -18,19 +18,25 @@ class TakeBack
       event.preventDefault
       if $(this).find("#code").val().length > 0
         TakeBack.assign $(this).find("#code").val()    
-        $(this).find("#code").val("")    
+        $(this).find("#code").val("")
+        $(this).find("input").autocomplete("close")
       return false
   
   @update_subtitle: -> $(".top .subtitle").html $.tmpl "tmpl/subtitle/take_back", {visits_data: _.map($(".visit"), (visit)-> $(visit).tmplItem().data)}
   
   @setup_option_lines: ->
     $(".option_line .quantity input").live "change keyup", ()->
-      if parseInt($(this).val()) == $(this).closest(".line").tmplItem().data.quantity
+      line = $(this).closest(".line")
+      new_quantity = parseInt($(this).val())
+      if new_quantity == $(this).closest(".line").tmplItem().data.quantity
         $(this).closest(".line").removeClass("error")
         $(this).closest(".line").addClass("valid assigned")
       else
         $(this).closest(".line").removeClass("valid assigned")
         $(this).closest(".line").addClass("error")
+      # store new quantity
+      if new_quantity != NaN
+        $(line).tmplItem().data.returned_quantity = new_quantity
   
   @assign_through_autocomplete: (element)->
     if element.item.model.inventory_code?

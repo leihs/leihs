@@ -1,18 +1,10 @@
-{{if order}}
-${$document = order, ""}
-{{else}}
-{{if contract}}
-${$document = contract, ""}
-{{else}}
-${$document = $item.data, ""}
-{{/if}}
-{{/if}}
-${$name = Str.sliced_trunc($document.user.firstname+" "+$document.user.lastname, 20, "... "), ""}
+${$user = Line.get_user($item.data), ""}
+${$name = Str.sliced_trunc($user.firstname+" "+$user.lastname, 20, "... "), ""}
 
 = form_tag '${$item.action}', :remote => true, :"data-submit_button" => true do
   %h1
     %strong{:title => "${model.name}"} ${Str.sliced_trunc(model.name, 40)} 
-  %p.subtitle{:title=>"${$document.user.firstname} ${$document.user.lastname}"}
+  %p.subtitle{:title=>"${$name}"}
     = _("Edit ordered item for")
     %strong
       ${$name}
@@ -38,7 +30,7 @@ ${$name = Str.sliced_trunc($document.user.firstname+" "+$document.user.lastname,
           = "Borrower"
         .arrow
         %select{:id => "partition", :name => "partition"}
-          ${$users_availablility = new UserAvailability(availability_for_inventory_pool, $document.user.groups), ""}
+          ${$users_availablility = new UserAvailability(availability_for_inventory_pool, $user.groups), ""}
           ${$user_groups = $users_availablility.user_group_ids.join(","), ""}
           %option{:value => "[${$user_groups}]", :"data-name" => _("Borrower"), :"data-total_rentable" => "${$users_availablility.total_rentable}"}
             = _("Borrower (max. ${$users_availablility.total_rentable})")
@@ -83,7 +75,7 @@ ${$name = Str.sliced_trunc($document.user.firstname+" "+$document.user.lastname,
         %option{:value => "current",
                 :"data-total_borrowable" => "{{if total_rentable}}${JSON.stringify(total_rentable)}{{else}}undefined{{/if}}",
                 :"data-closed_days" => "${JSON.stringify(availability_for_inventory_pool.inventory_pool.closed_days)}",
-                :"data-availability_dates" => "${JSON.stringify(availability_for_inventory_pool.availability)}",
+                :"data-availability_dates" => "${JSON.stringify(Line.remove_line_from_availability($item.data, availability_for_inventory_pool.availability))}",
                 :"data-holidays" => "${JSON.stringify(availability_for_inventory_pool.inventory_pool.holidays)}"}
           ${availability_for_inventory_pool.inventory_pool.name}
     {{/if}}

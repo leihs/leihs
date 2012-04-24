@@ -125,7 +125,7 @@ class Backend::HandOverController < Backend::BackendController
                    quantity = (params[:quantity] ? [params[:quantity].to_i, 1].max : nil),
                    start_date = params[:start_date],
                    end_date = params[:end_date])
-    
+                   
     ContractLine.transaction do
       lines = @contract.lines.find(line_ids)
       # TODO merge to Contract#update_line
@@ -170,6 +170,7 @@ class Backend::HandOverController < Backend::BackendController
 
     respond_to do |format|
       format.json {
+        # TODO: RETURN ONLY UPDATED LINES
         @visits = @user.visits.hand_over.scoped_by_inventory_pool_id(current_inventory_pool)
         render :partial => "backend/visits/index.json.rjson", locals: {visits: @visits}
       }
