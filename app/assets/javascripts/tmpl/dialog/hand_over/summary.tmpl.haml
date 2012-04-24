@@ -1,4 +1,4 @@
-= form_tag '${$item.action}', :remote => true, :"data-submit_button" => true do
+= form_tag '${$item.action}', :remote => true, :"data-submit_button" => true, :class => "summary" do
 
   %h1
     = _("Hand Over to")
@@ -18,3 +18,7 @@
   %section.lines.scalable
     ${$grouped_lines = new GroupedLines(SelectedLines.lines_data), ""}
     {{tmpl($grouped_lines) "tmpl/dialog/summary/linegroup"}}
+    
+  %section.comment
+    %textarea#comment.focus{:name => "note"}
+    %p.hint= _("Write a note... (the note will be part of the contract)")

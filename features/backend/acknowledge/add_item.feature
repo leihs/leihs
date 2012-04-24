@@ -30,3 +30,10 @@ Feature: Add Item during acknowledge process
      Then I already see possible matches of models
      When I select one of the matched models
      Then the model is added to the order
+
+  @javascript
+  Scenario: Increase the quantity of an order line by adding an model from the same type and date range to the order
+    Given I am "Pius"
+     When I open an order for acknowledgement
+      And I add a model to the hand over which is already existing in the selected date range by providing an inventory code
+     Then the existing line quantity is increased

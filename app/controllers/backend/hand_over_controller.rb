@@ -199,87 +199,6 @@ class Backend::HandOverController < Backend::BackendController
         end
       }
     end 
-    
-=begin NOTE TRYOUT TMP COMMENTED OUT
- 
-  items = current_inventory_pool.items.where(:inventory_code => inventory_code)
-    
-    if line_id
-      lines = @contract.lines.where(id: line_id)
-      #if lines.empty
-      
-      if (item = items.in_stock.first)
-        if (line = lines.where(:model_id => item.model_id).first)
-          line.update_attributes(item: item)
-        else
-          # the item is in stock, but doesn't matcht a contracts's line's model
-        end
-      elsif (item = items.not_in_stock.first)
-        line = lines.first 
-        line.errors.add(:base, _("The item is already handed over or assigned to a different contract line"))
-        line.update_attributes(item_id: nil)
-      else
-        if (line = lines.first) 
-          line.errors.add(:base, _("The inventory code %s was not found") % inventory_code)
-          line.update_attributes(item_id: nil)
-        else
-          # pending
-        end
-      end
-      
-    else
-    
-    end
- 
-=end
-      
-=begin OLD CODE
-    unless item.nil?
-      if @contract.items.include?(item)
-          flash[:error] = _("The item is already in the current contract.")
-      elsif item.parent 
-        flash[:error] = _("This item is part of package %s.") % item.parent.inventory_code
-      else
-        contract_line = @contract.contract_lines.where(:model_id => item.model.id, :item_id => nil).first
-        unless contract_line.nil?
-          params[:contract_line_id] = contract_line.id.to_s
-          flash[:notice] = _("Inventory Code assigned")
-          change_line
-        else
-          #2207: No question should be asked @new_item = item
-          @prevent_redirect = true
-          params[:model_id] = item.model.id
-          add_line
-          inventory_code = item.inventory_code
-          assign_inventory_code
-          flash[:notice] = _("New item added to contract.")
-          @contract_line = @contract.contract_lines.first
-          render :action => 'change_line'
-        end
-      end
-    else 
-      # Inventory Code is not an item - might be an option...
-      # Increment quantity if the option is already present
-      option = current_inventory_pool.options.where(:inventory_code => inventory_code).first
-      if option
-        conditions = {:option_id => option, :start_date => params[:start_date], :end_date => params[:end_date]}
-        @option_line = @contract.option_lines.where(conditions).first
-        if @option_line
-          @option_line.increment!(:quantity)
-        else
-          @option_line = @contract.option_lines.create(conditions)
-        end
-                                                                          
-        flash[:notice] = _("Option %s added.") % option.name
-      else
-        flash[:error] = _("The Inventory Code %s was not found.") % params[:inventory_code]
-      end   
-    end
-    
-    #render :action => 'change_line' unless @prevent_redirect # TODO 29**
-     
-=end
-   
   end
 
   def add_option(start_date = params[:start_date], end_date = params[:end_date])
@@ -348,7 +267,7 @@ class Backend::HandOverController < Backend::BackendController
         @error = {:message => line.errors.values.join}
       end
     elsif option
-      if line = @contract.lines.where(:model_id => model, :start_date => start_date, :end_date => end_date).first
+      if line = @contract.lines.where(:option_id => option.id, :start_date => start_date, :end_date => end_date).first
         line.quantity += quantity
         line.save
       elsif ! line = @contract.option_lines.create(:option => option, :quantity => quantity, :start_date => start_date, :end_date => end_date)

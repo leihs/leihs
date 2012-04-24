@@ -68,4 +68,21 @@
       top: 9px;
     }
   }
+  
+   &.assign_line {
+    width: 348px !important;
+    
+    .inventory_code {
+      padding-left: 4px;
+      font-weight: bold;
+      width: 320px;
+    }
+    
+    .name {
+      color: $grey;
+      position: absolute;
+      right: 5px;
+      top: 9px;
+    }
+  }
 }

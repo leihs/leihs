@@ -1,0 +1,13 @@
+%ul.line{:class => "${type} ${contract.action}"}
+  .main
+    %li.select
+      %label
+        = check_box_tag "selected"
+    %li.quantity
+      %input{:type => "text", :value => "", :autocomplete => "off"}
+    %li.max_quantity
+      = "/${quantity}"
+    %li.inventory_code
+      ${model.inventory_code}    
+    %li.name
+      %strong ${model.name}

@@ -3,8 +3,8 @@
   .main
     %li.amount
       ${quantity}
-      {{if total_rentable}} 
-      = "/"          
+      {{if (type != "option_line")}} 
+      = "/"     
       %span.grey
         ="${total_rentable}"
         = _("total rentable")

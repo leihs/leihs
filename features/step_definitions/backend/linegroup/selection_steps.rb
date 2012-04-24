@@ -38,7 +38,7 @@ end
 
 When /^I select the linegroup$/ do
   @linegroup = find(".linegroup")
-  @linegroup.find(".dates label").click
+  @linegroup.find(".dates input").click
 end
 
 Then /^all lines of that linegroup are selected$/ do

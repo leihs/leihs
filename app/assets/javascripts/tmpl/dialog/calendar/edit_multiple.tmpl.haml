@@ -1,12 +1,8 @@
 ${merged_lines_availabilities = new MultipleMergedLinesAvailabilities(SelectedLines.lines_data), ""}
 ${$start_date = new MinDate(SelectedLines.lines_data), ""}
 ${$end_date = new MaxDate(SelectedLines.lines_data), ""}
-{{if order}}
-${$document = order, ""}
-{{else}}
-${$document = SelectedLines.lines_data[0].contract, ""}
-{{/if}}
-${$name = Str.sliced_trunc($document.user.firstname+" "+$document.user.lastname, 20, "... "), ""}
+${$user = Line.get_user(SelectedLines.lines_data), ""}
+${$name = Str.sliced_trunc($user.firstname+" "+$user.lastname, 20, "... "), ""}
 
 = form_tag '${$item.action}', :remote => true, :"data-submit_button" => true do
   %h1
@@ -31,7 +27,7 @@ ${$name = Str.sliced_trunc($document.user.firstname+" "+$document.user.lastname,
           = "Borrower"
         .arrow
         %select{:id => "partition", :name => "partition"}
-          ${$users_availablility = new UserAvailability(merged_lines_availabilities, $document.user.groups), ""}
+          ${$users_availablility = new UserAvailability(merged_lines_availabilities, $user.groups), ""}
           ${$user_groups = $users_availablility.user_group_ids.join(","), ""}
           %option{:value => "[${$user_groups}]", :"data-name" => _("Borrower")}
             = _("Borrower")

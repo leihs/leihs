@@ -1,6 +1,0 @@
-{{if lines.length>0}}
-%hr
-%section.lines.scalable
-  ${$grouped_lines = new GroupedLines(lines), ""}
-  {{tmpl($grouped_lines) "tmpl/dialog/acknowledge/lines"}}
-{{/if}}

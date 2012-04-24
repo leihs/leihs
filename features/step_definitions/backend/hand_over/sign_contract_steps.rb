@@ -13,6 +13,7 @@ When /^I select an item line by assigning an inventory code$/ do
   @line.find(".inventory_code input").set item.inventory_code
   @line.find(".inventory_code input").native.send_key(:enter)
   wait_until { @line.has_xpath?(".[contains(@class, 'assigned')]") }
+  @line.find(".select input").click
 end
 
 Then /^I see a summary of the things I selected for hand over$/ do
@@ -23,6 +24,7 @@ end
 
 When /^I click hand over$/ do
   find("#hand_over_button").click
+  wait_until { find ".dialog" }
 end
 
 When /^I click hand over inside the dialog$/ do

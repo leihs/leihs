@@ -57,5 +57,10 @@ class Line
           allocation.in_quantity += 1
           change[1] += 1
     availability
+    
+  @get_user: (lines_data)->
+    return lines_data[0].order.user if lines_data[0].order?
+    return lines_data[0].contract.user if lines_data[0].contract?
+    return lines_data[0].user
 
 window.Line = Line

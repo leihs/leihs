@@ -22,3 +22,4 @@ public/images/attachments
 .jhw-cache
 coverage
 public/assets
+db/structure.sql

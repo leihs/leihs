@@ -10,7 +10,7 @@ class HandOver
   
   @setup = ()->
     @setup_assign_inventory_code()
-    @setup_add_item()
+    @setup_process_helper()
     
   @assign_through_autocomplete = (element, event)->
     $(event.target).val(element.item.inventory_code)
@@ -56,8 +56,8 @@ class HandOver
     SelectedLines.restore()
     @update_subtitle()
   
-  @setup_add_item: ->
-    $('#add_item').bind "ajax:success", (xhr, lines)->
+  @setup_process_helper: ->
+    $('#process_helper').bind "ajax:success", (xhr, lines)->
       for line in lines
         HandOver.add_line line
   
@@ -75,7 +75,7 @@ class HandOver
         type: "success"
     else 
       # add line
-      AddItem.allocate_line(line_data)
+      ProcessHelper.allocate_line(line_data)
       Notification.add_headline
         title: "+ #{Str.sliced_trunc(line_data.model.name, 36)}"
         text: "#{moment(line_data.start_date).sod().format(i18n.date.XL)}-#{moment(line_data.end_date).format(i18n.date.L)}"
@@ -94,12 +94,13 @@ class HandOver
     for line_element in line_elements
       $(line_element).addClass("removed")
       line_data = $(line_element).tmplItem().data
-      if line_data.availability_for_inventory_pool?
+      if line_data.availability_for_inventory_pool? and line_data.availability_for_inventory_pool.availability?
         line_data.availability_for_inventory_pool.availability = Line.remove_line_from_availability line_data, line_data.availability_for_inventory_pool.availability
       Line.remove
         element: line_element
         color: "red"
         callback: ()->
+          SelectedLines.update_counter()
           if line_data.availability_for_inventory_pool? 
             HandOver.update_model_availability line_data 
   
