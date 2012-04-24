@@ -34,12 +34,17 @@ class Backend::HandOverController < Backend::BackendController
     lines = @contract.contract_lines.find(line_ids)
 
     @contract.note = note
-    @contract.sign(lines, current_user)
 
     respond_to do |format|
-      format.json { render :partial => "backend/contracts/show.json.rjson", :locals => {contract: @contract}  }
+      format.json {
+        if @contract.sign(lines, current_user)
+          render :partial => "backend/contracts/show.json.rjson", :locals => {contract: @contract}
+        else
+          @error = {:message => @contract.errors.full_messages}
+          render :template => "/errors/show", status: 500
+        end
+      }
     end
-
     
 =begin
     if request.post?
