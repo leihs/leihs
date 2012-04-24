@@ -72,7 +72,7 @@ class OrderLine < DocumentLine
         json['total_rentable'] = borrowable_items.count
         json['total_rentable_in_stock'] = borrowable_items.in_stock.count
         
-        av = model.non_selfblocking_av_periods_for_inventory_pool(current_inventory_pool, self)
+        av = model.availability_periods_for_inventory_pool(current_inventory_pool)
         
         json['availability_for_inventory_pool'] = av.as_json(:include => :group)
       end
