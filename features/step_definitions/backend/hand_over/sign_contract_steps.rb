@@ -5,7 +5,7 @@ When /^I open a hand over$/ do
   page.has_css?("#hand_over", :visible => true)
 end
 
-When /^I select an item line by assigning an inventory code$/ do
+When /^I select an item line and assign an inventory code$/ do
   @item_line = @customer.visits.first.lines.detect {|x| x.class.to_s == "ItemLine"}
   item = @ip.items.detect {|x| x.model == @item_line.model}
   @selected_items = [item]

@@ -107,9 +107,9 @@ class ProcessHelper
     $("#code").autocomplete("widget").hide()
    
   @allocate_line = (line_data)->
-    if $(".visit").length
+    if $("#visits").length
       @allocate_visit line_data, $(".visit")
-    else if $(".linegroup").length
+    else if $("#order").length
       @allocate_linegroup line_data, $(".linegroup")
     # select line if linegroup was selected 
     line = _.find $(".line"), (line)-> $(line).tmplItem().data.id == line_data.id
@@ -129,8 +129,12 @@ class ProcessHelper
         # set new line inside this visit
         @allocate_linegroup line_data, $(visit).find(".linegroup")
         return true
-    # set new line after the last visit
-    $(_.last visits).after $.tmpl("tmpl/visit", { action: line_data.contract.action, date: line_data.start_date, lines: [line_data], user: line_data.contract.user })
+    if visits.length > 0
+      # set new line after the last visit
+      $(_.last visits).after $.tmpl("tmpl/visit", { action: line_data.contract.action, date: line_data.start_date, lines: [line_data], user: line_data.contract.user })
+    else
+      # set new line inside the empty visits container
+      $("#visits").append $.tmpl("tmpl/visit", { action: line_data.contract.action, date: line_data.start_date, lines: [line_data], user: line_data.contract.user })
     return true
 
   @allocate_linegroup = (line_data, linegroups)->
@@ -146,8 +150,12 @@ class ProcessHelper
       else if (linegroup_start_date.diff(line_start_date, "days") == 0) and (linegroup_end_date.diff(line_end_date, "days") == 0)
         $(linegroup).find(".lines").append $.tmpl("tmpl/line", line_data)
         return true
-    # set new linegroup after the last linegroup
-    $(_.last linegroups).closest(".indent").after $.tmpl("tmpl/linegroup", new GroupedLines([line_data])) 
+    if linegroups.length > 0
+      # set new linegroup after the last linegroup
+      $(_.last linegroups).closest(".indent").after $.tmpl("tmpl/linegroup", new GroupedLines([line_data]))
+    else 
+      # set new linegroup inside the order container
+      $("#order").append $.tmpl("tmpl/linegroup", new GroupedLines([line_data]))
     return true
    
 window.ProcessHelper = ProcessHelper
