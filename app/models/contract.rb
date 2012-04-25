@@ -157,7 +157,10 @@ class Contract < Document
     current_user ||= self.user
     contract_lines ||= self.contract_lines
  
-    unless contract_lines.any? {|l| l.item.nil? }
+    if contract_lines.empty? # sign is only possible if there is at least one contract_line
+      errors.add(:base, _("This contract is not signable because it doesn't have any contract lines."))
+      false
+    elsif contract_lines.all? {|l| not l.item.nil? } # all lines need assigned items (for option_lines: item is aliased to option)
       transaction do
         update_attributes({:status_const => Contract::SIGNED, :created_at => Time.now}) 
         log_history(_("Contract %d has been signed by %s") % [self.id, self.user.name], current_user.id)

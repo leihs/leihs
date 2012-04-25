@@ -131,17 +131,24 @@ describe InventoryPool do
 
 
       it "should return a list of take_back events per user" do
-
         open_contracts = User.all.map { |user|
           LeihsFactory.create_contract( {:user => user},
                                    {:contract_lines => 3 } ) # arbitrary
         }
         make_sure_no_end_date_is_identical_to_any_other! open_contracts
 
-        open_contracts.each { |c| c.sign(c.contract_lines, @manager) }
+        open_contracts.each do |c|
+          # assign contract lines
+          c.contract_lines.each do |cl|
+            cl.item = cl.model.items.borrowable.in_stock.first
+            cl.save
+          end
+          # sign the contract
+          c.sign(c.contract_lines, @manager)
+        end
     
         take_back_visits = @ip.visits.take_back
-    
+        
         # We should have as many events as there are different start dates
         take_back_visits.count.should equal(
           open_contracts.flat_map(&:contract_lines).map(&:end_date).uniq.count )
@@ -160,6 +167,12 @@ describe InventoryPool do
         end_first_contract_line_on_same_date_as_second! open_contract
         end_third_contract_line_on_different_date! open_contract
 
+        # assign contract lines
+        open_contract.contract_lines.each do |cl|
+          cl.item = cl.model.items.borrowable.in_stock.first
+          cl.save
+        end
+        # sign the contract
         open_contract.sign(open_contract.contract_lines, @manager)
     
         take_back_visits = @ip.visits.take_back
@@ -181,7 +194,15 @@ describe InventoryPool do
           contract_lines[0].save
         }
 
-        [ open_contract, open_contract2].each { |c| c.sign(c.contract_lines, @manager) }
+        [ open_contract, open_contract2].each do |c| 
+          # assign contract lines
+          c.contract_lines.each do |cl|
+            cl.item = cl.model.items.borrowable.in_stock.first
+            cl.save
+          end
+          # sign the contract
+          c.sign(c.contract_lines, @manager)
+        end
 
         take_back_visits = @ip.visits.take_back
     
