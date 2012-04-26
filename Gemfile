@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.2'
+gem 'rails', '3.2.3'
 #tmp# gem 'builder', '~> 3.0' 
 #tmp# gem 'i18n', '~> 0.6.0' # Need this explicitly, otherwise can't deploy
 
@@ -52,8 +52,8 @@ group :test, :development do
   gem "growl", "~> 1.0.3"
   gem "guard", "~> 1.0.1"
   gem "guard-cucumber", "~> 0.7.4"
-  gem "guard-rspec", "~> 0.6.0"
-  gem "guard-spork", "~> 0.5.1"
+  gem "guard-rspec", "~> 0.7"
+  gem "guard-spork", "~> 0.7"
   gem "guard-jasmine-headless-webkit", "~> 0.3.2"
   gem "jasmine-headless-webkit", "~> 0.8.4" # needed for "headless" running of jasmine tests (needed for CI)
   gem "jasmine-rails", "~> 0.0.2" # javascript test environment
@@ -63,8 +63,8 @@ group :test, :development do
   gem 'factory_girl', "~> 3.0"
   gem 'factory_girl_rails', "~> 3.0"
   gem 'faker'
-  gem 'pry'
-  gem 'pry-rails'
+  gem 'pry', "~> 0.9"
+  gem 'pry-rails', "~> 0.1"
   gem 'spork'
   gem 'cucumber-rails', '~> 1.2', :require => false
   gem 'database_cleaner', '~> 0.7', :require => false
