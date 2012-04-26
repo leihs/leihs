@@ -2,15 +2,16 @@
 @import "variables";
 
 html {
-  background: #f4f2ed;
+  background: #F3F1EB;
   color: $darkgrey;
   font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
   font-size: 62.5%;
 }
 
 body {
-  background: #f4f2ed url($background) repeat-x top center;
+  background: #F3F1EB;
   min-width: 990px;
+  @include box-shadow(inset 0 28px 42px 7px rgba(255,255,255, 0.5));
 }
 
 a, a:link, a:visited {

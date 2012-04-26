@@ -187,6 +187,16 @@ class Order < Document
     [order_line, change]
   end
   
+  def remove_line(line_or_id, user_id)
+    if [APPROVED, REJECTED].include? status_const
+      false
+    elsif status_const == UNSUBMITTED or (status_const == SUBMITTED and lines.size > 1)
+      super
+    else
+      false
+    end
+  end
+  
   def change_purpose(new_purpose, user_id)
     change = _("Purpose changed '%{from}' for '%{to}'") % { :from => self.purpose, :to => new_purpose}
     self.purpose = new_purpose

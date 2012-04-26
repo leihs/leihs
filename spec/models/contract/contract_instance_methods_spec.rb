@@ -1,5 +1,4 @@
 require 'spec_helper'
-require "#{Rails.root}/features/support/leihs_factory.rb"
 
 describe Contract do
 
