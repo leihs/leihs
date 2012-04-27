@@ -9,7 +9,7 @@ FactoryGirl.define do
     }
     order { FactoryGirl.create(:order, :inventory_pool => inventory_pool) }
     quantity 1
-    start_date { Date.today }
-    end_date { Date.tomorrow }
+    start_date { inventory_pool.next_open_date(rand(1..300).days.from_now.to_date) }
+    end_date { inventory_pool.next_open_date(start_date + rand(1..300).days) }
   end
 end
