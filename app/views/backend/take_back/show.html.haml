@@ -41,6 +41,12 @@
 :coffeescript
   
   jQuery ->
-    $('#visits').replaceWith($.tmpl("tmpl/visits", #{render(:partial => "backend/visits/index.json.rjson", :locals => {:visits => @visits})}))
+    $('#visits').html($.tmpl("tmpl/visit", #{render(:partial => "backend/visits/index.json.rjson",
+                                                    :locals => {:visits => @visits,
+                                                                :with => {:lines => {:item => {},
+                                                                                     :model => {},
+                                                                                     :contract => {:user => {}}
+                                                                                     }}
+                                                                })}))
     TakeBack.setup()
     SelectedLines.setup()

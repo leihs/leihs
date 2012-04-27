@@ -61,7 +61,9 @@
   $(document).ready(function(){
     $('.list').hide();
   
-    $.each(#{@results}, function(i, result){
+    var results = #{results_json(@results)};
+  
+    $.each(results, function(i, result){
       $('.'+result.type+' .list').append($.tmpl("tmpl/line", result)).parent().show();
     });
     

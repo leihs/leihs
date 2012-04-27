@@ -27,14 +27,14 @@
             = image_tag "loading.gif", :class => "loading"
             -unless params[:query].blank?
               %strong
-                = _("found %i") % @entries.total_entries
+                = _("found %i") % @visits.total_entries
             = _("in")
             %strong
               = @total_entries
             = _("entries%s") % "."
           = image_tag "loading.gif", :class => "loading"
         %li.historical_search
-      - if @entries.blank?
+      - if @visits.blank?
         %ul.line
           %li.name
             %strong
@@ -42,15 +42,19 @@
               - unless params[:query].blank?
                 = _("for '%s'") % params[:query]
   
-  - unless @entries.blank?
+  - unless @visits.blank?
     .pagination_container
-
-- @visits_json = @entries.to_json(:with => {:lines => {}, :user => {:methods => [:image_url]}}, :methods => :is_overdue)
 
 :javascript
   
   $(document).ready(function(){
-    $('section .list').append($.tmpl("tmpl/line", #{@visits_json}));
+    $('section .list').append($.tmpl("tmpl/line", #{render(:partial => "backend/visits/index.json.rjson",
+                                                            :locals => {:visits => @visits,
+                                                                        :with => {:lines => {},
+                                                                                  :user => {:image_url => true},
+                                                                                  :quantity => true,
+                                                                                  :is_overdue => true}
+                                                                        })}));
     
     // setup ListSearch
     ListSearch.setup();
@@ -58,7 +62,7 @@
     // setup ListPagination
     ListPagination.current_page = #{params[:page].blank? ? 0 : params[:page]};
     ListPagination.per_page = #{$per_page};
-    ListPagination.total_entries = #{@entries.total_entries};
+    ListPagination.total_entries = #{@visits.total_entries};
     ListPagination.next_text = "#{_('Next')}";
     ListPagination.previous_text = "#{_('Previous')}";
     ListPagination.setup();

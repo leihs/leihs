@@ -57,29 +57,6 @@ class ContractLine < DocumentLine
     contract
   end
   
-  def as_json(options = {})
-    options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
-
-    required_options = {:include => {:model => {:methods => :package_models} }} # FIXME move package_models down to item_line ??
-
-    if (with = options[:with])
-      if with[:contract]
-        required_options[:include].merge(:contract => {:include => {:user => {:only => [:firstname, :lastname]}}})
-      end
-    end
-    
-    json = super(options.deep_merge(required_options))
-    
-    if (with = options[:with])
-      if with[:contract]
-        line_type = (contract.status_const == 1) ? "hand_over_line" : "take_back_line"
-        json['type'] = line_type
-      end
-    end
-    
-    json
-  end
-
 end
 
 

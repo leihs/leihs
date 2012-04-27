@@ -1,39 +1,27 @@
 h = {
-  id: line.id,
   type: "order_line",
+  id: line.id
 }
 
 if with ||= nil
-  
-  if with[:model]
-    h["model"] = line.model
+  [:model, :is_available, :inventory_pool_id, :quantity].each do |k|
+    h[k] = line.send(k) if with[k]
   end
-  
+
   if with[:order]
-    h["order"] = line.order.as_json(:include => {:user => {:include => :groups}})
-  end
-  
-  if with[:is_available]
-    h["is_available"] = line.available?
+    h[:order] = render :partial => "backend/orders/show.json.rjson", :locals => {order: line.order, with: with[:order]} 
   end
   
   if with[:availability_for_inventory_pool]
-    h['total_rentable'] = line.model.items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable.count
-    h['total_rentable_in_stock'] = line.model.items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable.in_stock.count
-    h['availability_for_inventory_pool'] = line.model.availability_periods_for_inventory_pool(current_inventory_pool).as_json(:include => :group)
+    borrowable_items = line.model.items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable
+    h[:total_rentable] = borrowable_items.count
+    h[:total_rentable_in_stock] = borrowable_items.in_stock.count
+    h[:availability_for_inventory_pool] = line.model.availability_periods_for_inventory_pool(current_inventory_pool).as_json(:include => :group) 
   end
   
   if with[:dates]
-    h['start_date'] = line.start_date
-    h['end_date'] = line.end_date
-  end
-  
-  if with[:inventory_pool_id]
-    h['inventory_pool_id'] = line.inventory_pool_id
-  end
-  
-  if with[:quantity]
-    h['quantity'] = line.quantity
+    h[:start_date] = line.start_date
+    h[:end_date] = line.end_date
   end
 end
 

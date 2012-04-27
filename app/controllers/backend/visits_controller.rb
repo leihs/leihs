@@ -36,12 +36,11 @@ class Backend::VisitsController < Backend::BackendController
       {}
     end
 
-    @total_entries = sql.where(time_range).count
-    @entries = search_sql.where(time_range).order("visits.date ASC").paginate(:page => page, :per_page => $per_page)
-    @pages = @entries.total_pages
-
     respond_to do |format|
-      format.html
+      format.html {
+        @total_entries = sql.where(time_range).count
+        @visits = search_sql.where(time_range).order("visits.date ASC").paginate(:page => page, :per_page => $per_page)
+      }
     end
 
   end  

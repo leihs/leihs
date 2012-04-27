@@ -34,23 +34,21 @@ class Backend::BackendController < ApplicationController
     conditions = { :klasses => {}, :filter => { :inventory_pool_id => [current_inventory_pool.id] } }
     
     # default if types are not provided
-    conditions[:klasses][User] = {:sort_by => "firstname ASC, lastname ASC"} if types.blank? or types.include?("user")
-    conditions[:klasses][Order] = {:sort_by => "created_at DESC", :with => {:user => {}}, :methods => [:lines, :quantity]} if types.blank? or types.include?("order")
-    conditions[:klasses][Contract] = {:sort_by => "created_at DESC", :filter => {:status_const => Contract::SIGNED..Contract::CLOSED}, :with => {:user => {}}, :methods => [:lines,:quantity]} if types.blank? or types.include?("contract")
-    conditions[:klasses][Model] = {:sort_by => "name ASC", :include => :categories, :with => {:availability => {:inventory_pool => current_inventory_pool}}} if types.blank? or types.include?("model")
-    conditions[:klasses][Item] = {:sort_by => "inventory_code ASC"} if types.blank? or types.include?("item")
+    conditions[:klasses][User]      = {:sort_by => "firstname ASC, lastname ASC"} if types.blank? or types.include?("user")
+    conditions[:klasses][Order]     = {:sort_by => "created_at DESC"} if types.blank? or types.include?("order")
+    conditions[:klasses][Contract]  = {:sort_by => "created_at DESC", :filter => {:status_const => Contract::SIGNED..Contract::CLOSED}} if types.blank? or types.include?("contract")
+    conditions[:klasses][Model]     = {:sort_by => "name ASC"} if types.blank? or types.include?("model")
+    conditions[:klasses][Item]      = {:sort_by => "inventory_code ASC"} if types.blank? or types.include?("item")
     # no default
-    conditions[:klasses][Option] = {:sort_by => "options.name ASC"} if types.include?("option")
-    conditions[:klasses][Template] = {:sort_by => "model_groups.name ASC"} if types.include?("template")
+    conditions[:klasses][Option]    = {:sort_by => "options.name ASC"} if types.include?("option")
+    conditions[:klasses][Template]  = {:sort_by => "model_groups.name ASC"} if types.include?("template")
     
     #TODO conditions << { :filter => { :owner_id => [current_inventory_pool.id]} } if  # INVENTORY MANAGER
-    
     #TODO conditions << { :filter => { :owner_id => [current_inventory_pool.id]} } if  # ADMIN find USERS
     
-                # TODO prevent search for Inventory if current_user doesn't have enough permissions
-                # TODO implement this later on :filter => { :owner_id => [current_inventory_pool.id]}
-                # TODO implement serach for all user "ADMIN" and merge with users
-
+    # TODO prevent search for Inventory if current_user doesn't have enough permissions
+    # TODO implement this later on :filter => { :owner_id => [current_inventory_pool.id]}
+    # TODO implement serach for all user "ADMIN" and merge with users
     
     results = []
     @hits = {}
@@ -60,25 +58,14 @@ class Backend::BackendController < ApplicationController
             order(options[:sort_by]).
             paginate(:page => params[:page], :per_page => $per_page)
 
-      # FIXME as_json => rjson
-      results << if request.format == :html
-        r.as_json(:include => options[:include], :methods => options[:methods], :with => options[:with])
-      else
-        r
-      end
+      results << r
       @hits[klass.to_s.underscore] = r.total_entries 
     end
     
     respond_to do |format|
       format.html {
-        @results = results.flatten.to_json
-        if types and types.size == 1
-          # search results focused on one type
-          render :template => "backend/backend/focused_search"
-        else
-          # search overview
-          render :template => "backend/backend/search"
-        end 
+        @results = results.flatten
+        render :template => "backend/backend/focused_search" if types and types.size == 1
       }
       format.json { render :partial => "backend/backend/search", :locals => {results: results.flatten.sort_by(&:name).compact} }
     end

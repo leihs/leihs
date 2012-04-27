@@ -1,3 +1,21 @@
-{
-  id: contract.id
+h = {
+  type: 'contract',
+  id: contract.id,
+  action: contract.action,
+  status_const: contract.status_const
 }
+
+if with ||= nil
+  [:quantity, :created_at, :updated_at, :inventory_pool_id].each do |k|
+    h[k] = contract.send(k) if with[k]
+  end
+
+  if with[:lines]
+    h[:lines] = render(:partial => "backend/contracts/lines.json.rjson", :locals => {:lines => contract.lines, :with => with[:lines]})
+  end
+  if with[:user]
+    h[:user] = render(:partial => "backend/users/show.json.rjson", :locals => {:user => contract.user, :with => with[:user]}) 
+  end
+end
+
+h

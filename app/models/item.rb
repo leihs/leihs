@@ -11,6 +11,7 @@
 # riding pleasure. 
 #
 class Item < ActiveRecord::Base
+  acts_as_audited :associated_with => :model
   
   belongs_to :parent, :class_name => "Item", :foreign_key => 'parent_id'
   has_many :children, :class_name => "Item", :foreign_key => 'parent_id', :dependent => :nullify,
@@ -399,18 +400,6 @@ class Item < ActiveRecord::Base
     children.each do |child|
       update_child_attributes(child)
     end
-  end
-
-####################################################################
-
-  def as_json(options = {})
-    options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
-  
-    required_options = {:methods => [:current_borrower, :current_return_date, :in_stock?],
-                        :include => { :model => {:only => :name}}}
-    
-    json = super(options.deep_merge(required_options))
-    json.merge({:type => self.class.to_s.underscore})
   end
 
 ####################################################################

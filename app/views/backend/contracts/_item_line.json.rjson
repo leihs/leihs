@@ -3,30 +3,42 @@ h = {
       type: line.type.underscore,
       start_date: line.start_date,
       end_date: line.end_date,
-      quantity: line.quantity,
-           
-      is_valid: line.valid?,
-      
-      item: line.item,
-      model: line.model, #TODO
-      contract: {
-        id: line.contract.id,
-        action: line.contract.action,
-        user: {
-          id: line.contract.user_id,
-          firstname: line.contract.user.firstname,
-          lastname: line.contract.user.lastname,
-          groups: line.contract.user.groups
-        }
-      },
-    
-      errors: line.errors.full_messages
+      quantity: line.quantity           
     }
 
-if line.contract.action == :hand_over
-  h[:total_rentable] = line.model.items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable.count
-  h[:total_rentable_in_stock] = line.model.items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable.in_stock.count
-  h[:availability_for_inventory_pool] = line.model.availability_periods_for_inventory_pool(current_inventory_pool).as_json(:include => :group)
+if with ||= nil
+  #[:start_date, :end_date, :quantity].each do |k|
+  #  h[k] = line.send(k) if with[k]
+  #end
+
+  if with[:is_valid]
+    h[:is_valid] = line.valid?
+  end
+
+  if with[:item]
+    h[:item] = render(:partial => "backend/items/show.json.rjson", :locals => {:item => line.item, :with => with[:item]})
+  end
+  
+  if with[:model]
+    h[:model] = render(:partial => "backend/models/show.json.rjson", :locals => {:model => line.model, :with => with[:model]})
+  end
+
+  if with[:contract]
+    h[:contract] = render(:partial => "backend/contracts/show.json.rjson", :locals => {:contract => line.contract, :with => with[:contract]})
+  end
+
+  if with[:availability]
+    if line.contract.action == :hand_over
+      borrowable_items = line.model.items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable
+      h[:total_rentable] = borrowable_items.count
+      h[:total_rentable_in_stock] = borrowable_items.in_stock.count
+      h[:availability_for_inventory_pool] = line.model.availability_periods_for_inventory_pool(current_inventory_pool).as_json(:include => :group)
+    end
+  end
+  
+  if with[:errors]
+    h[:errors] = line.errors.full_messages
+  end
 end
 
 h

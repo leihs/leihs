@@ -1,4 +1,4 @@
-${$name = Str.sliced_trunc(firstname+" "+lastname, 30, "... "), ""}
+${$name = Str.sliced_trunc(name, 30, "... "), ""}
 %li.overdue_icon
   .overdue.icon{:title => _("Overdue Visit")}
 
@@ -15,7 +15,6 @@ ${$name = Str.sliced_trunc(firstname+" "+lastname, 30, "... "), ""}
           {{else}}
           .noimage
           {{/if}}
-    ${$name=firstname+" "+lastname, ""}    
     %h3= "${$name}"
     %table
       {{if address}}

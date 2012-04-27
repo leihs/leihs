@@ -1,8 +1,23 @@
-{
+h = {
+  type: "visit",
   action: visit.action,
-  date: visit.date,
-	lines: visit.lines.sort_by(&:created_at).map do |line|
-	  render :partial => "backend/contracts/#{line.type.underscore}.json.rjson", :locals => {:line => line} 
-	end,
-  user: render(:partial => "backend/users/show.json.rjson", :locals => {:user => visit.user})
+  date: visit.date
 }
+
+if with ||= nil
+  [:quantity, :is_overdue].each do |k|
+    h[k] = visit.send(k) if with[k]
+  end
+
+  if with[:lines]
+    h[:lines] = visit.lines.sort_by(&:created_at).map do |line|
+      render :partial => "backend/contracts/#{line.type.underscore}.json.rjson", :locals => {:line => line, :with => with[:lines]} 
+    end
+  end
+  
+  if with[:user]
+    h[:user] = render(:partial => "backend/users/show.json.rjson", :locals => {:user => visit.user, :with => with[:user]}) 
+  end
+end
+
+h

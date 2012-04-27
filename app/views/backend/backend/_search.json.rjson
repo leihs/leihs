@@ -1,4 +1,5 @@
 results.map do |result|
   type = result.class.name.underscore
-  render :partial => "backend/#{type.pluralize}/show", :locals => {type.to_sym => result}
+  with ||= {} 
+  render :partial => "backend/#{type.pluralize}/show.json.rjson", :locals => {type.to_sym => result, :with => with[type.to_sym]}
 end

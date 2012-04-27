@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  acts_as_audited
+  has_associated_audits
 
   serialize :extended_info
 
@@ -271,16 +273,6 @@ class User < ActiveRecord::Base
       end
     end    
   end
-  
-###########################################
-
-def as_json(options = {})
-  options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
-
-  required_options = {}
-  json = super(options.deep_merge(required_options))
-  json.merge({:type => self.class.to_s.underscore})
-end
 
 #################### Start role_requirement
 

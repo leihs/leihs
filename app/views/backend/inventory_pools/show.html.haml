@@ -35,7 +35,7 @@
           %span.text
             = _("Open Orders")
           .badge
-            = @orders_size
+            = @orders.size
       .list
   
   %section.hand_over
@@ -45,7 +45,7 @@
         %span.text
           = _("Hand Overs")
         .badge
-          = @hand_overs_size
+          = @hand_overs.size
     .list
      
   %section.take_back
@@ -55,7 +55,7 @@
         %span.text
           = _("Take Backs")
         .badge
-          = @take_backs_size 
+          = @take_backs.size 
     .list
     
 = render :partial => 'backend/inventory_pools/bar_chart'
@@ -66,11 +66,31 @@
     DailyNavigator.setup();
   
     $('.list').hide();
-    
-    $('.order .list').append($.tmpl("tmpl/line", #{@orders_json}));
-    $('.hand_over .list').append($.tmpl("tmpl/line", #{@hand_overs_json}));
-    $('.take_back .list').append($.tmpl("tmpl/line", #{@take_backs_json}));
-    
+
+    $('.order .list').append($.tmpl("tmpl/line", #{render(:partial => "backend/orders/index.json.rjson",
+                                                          :locals => {:orders => @orders,
+                                                                      :with => {:user => {},
+                                                                                :purpose => true,
+                                                                                :created_at => true,
+                                                                                :quantity => true,
+                                                                                :lines => {:model => true, :dates => true}
+                                                                                }})}));
+    $('.hand_over .list').append($.tmpl("tmpl/line", #{render(:partial => "backend/visits/index.json.rjson",
+                                                              :locals => {:visits => @hand_overs,
+                                                                          :with => {:user => {},
+                                                                                    :lines => {},
+                                                                                    :quantity => true,
+                                                                                    :is_overdue => true}
+                                                                          })}));
+                                                      
+    $('.take_back .list').append($.tmpl("tmpl/line", #{render(:partial => "backend/visits/index.json.rjson",
+                                                              :locals => {:visits => @take_backs,
+                                                                          :with => {:user => {},
+                                                                                    :lines => {},
+                                                                                    :quantity => true,
+                                                                                    :is_overdue => true}
+                                                                          })}));
+
      $(".list").each(function(){
       var text = $(this).parent().find(".tab .text").first().html();
           text = text.replace(/<.*>.*<\/.*>/g, "");

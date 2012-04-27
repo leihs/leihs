@@ -1,5 +1,7 @@
 class InventoryPool < ActiveRecord::Base
   include Availability::InventoryPool
+  acts_as_audited
+  has_associated_audits
 
   belongs_to :address
   has_one :workday, :dependent => :delete
@@ -179,16 +181,6 @@ class InventoryPool < ActiveRecord::Base
     else
       create_address(attr)
     end
-  end
-
-###################################################################################
-
-  def as_json(options = {})
-    {:id => id,
-     :name => to_s,
-     :address => address.to_s,
-     :closed_days => workday.closed_days,
-     :holidays => holidays.future.as_json(:except => [:id, :inventory_pool_id]) }    
   end
 
 end

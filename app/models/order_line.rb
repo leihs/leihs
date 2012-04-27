@@ -52,34 +52,6 @@ class OrderLine < DocumentLine
   def type
     self.class.to_s.underscore
   end
-  
-###############################################
-
-  def as_json(options = {})
-    options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
-
-    default_options = {}
-    json = super(default_options.deep_merge(options))
-
-    if (with = options[:with]) and with[:availability]
-      if (customer_user = with[:availability][:user])
-        json['total_borrowable'] = model.total_borrowable_items_for_user(customer_user)
-        json['availability_for_user'] = model.availability_periods_for_user(customer_user, true)
-      end
-      
-      if (current_inventory_pool = with[:availability][:inventory_pool])
-        borrowable_items = model.items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable
-        json['total_rentable'] = borrowable_items.count
-        json['total_rentable_in_stock'] = borrowable_items.in_stock.count
-        
-        av = model.availability_periods_for_inventory_pool(current_inventory_pool)
-        
-        json['availability_for_inventory_pool'] = av.as_json(:include => :group)
-      end
-    end
     
-    json.merge({:type => self.class.to_s.underscore})
-  end
-  
 end
 
