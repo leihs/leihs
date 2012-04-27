@@ -58,7 +58,7 @@ class Backend::BackendController < ApplicationController
       r = klass.search2(term).
             filter2(conditions[:filter].merge(options[:filter] || {})).
             order(options[:sort_by]).
-            paginate(:page => params[:page], :per_page => 54)
+            paginate(:page => params[:page], :per_page => $per_page)
 
       # FIXME as_json => rjson
       results << if request.format == :html
@@ -70,7 +70,16 @@ class Backend::BackendController < ApplicationController
     end
     
     respond_to do |format|
-      format.html { @results = results.flatten.to_json }
+      format.html {
+        @results = results.flatten.to_json
+        if types and types.size == 1
+          # search results focused on one type
+          render :template => "backend/backend/focused_search"
+        else
+          # search overview
+          render :template => "backend/backend/search"
+        end 
+      }
       format.json { render :partial => "backend/backend/search", :locals => {results: results.flatten.sort_by(&:name).compact} }
     end
   end

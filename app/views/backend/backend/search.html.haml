@@ -1,9 +1,9 @@
--content_for :title, _("Search Results for \"%s\"") % params[:text]
+-content_for :title, _("Search Results for \"%s\"") % params[:term]
 
 #search_results.innercontent
 
   .top
-    %h1= _("Search Results for \"%s\"") % params[:text]
+    %h1= yield :title
     %p.subtitle= _("Found %d matches") % @hits.values.sum
   
   %section.model
@@ -69,7 +69,7 @@
       var text = $(this).parent().find(".tab .text").first().html();
           text = text.replace(/<.*>.*<\/.*>/g, "");
       $(this).showMore({
-        min: 4,
+        min: 3,
         offset: {
           top: -36
         },

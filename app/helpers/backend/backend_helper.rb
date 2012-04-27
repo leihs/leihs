@@ -28,6 +28,8 @@ module Backend::BackendHelper
         !!(request.path =~ /acknowledge\/\d+$/)
       when "search"
         current_page?(:controller => "backend", :action => :search)
+      when "focused_search"
+        current_page?(:controller => "backend", :action => :search) and params[:types] and params[:types].size == 1
       when "hand_over"
         current_page?(:controller => "backend/hand_over", :action => :show)
       when "take_back"
