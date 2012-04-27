@@ -22,8 +22,6 @@ class Order < Document
 
   validate :validates_order_lines
 
-  acts_as_commentable
-
   UNSUBMITTED = 1
   SUBMITTED = 2
   APPROVED = 3
