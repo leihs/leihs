@@ -40,17 +40,18 @@
   
   .logo {
     background: none;
-    color: #555555;
+    color: #444;
     display: inline-block;
     font-size: 21px;
     font-weight: bold;
     height: 30px;
     padding-top: 9px;
     position: absolute;
+    text-shadow: 1px 1px 2px #FFF;
     left: 6px;
     
     &:hover {
-      color: #313131;
+      color: #444;
       text-shadow: 1px 1px 2px #FFF;
     }
   }

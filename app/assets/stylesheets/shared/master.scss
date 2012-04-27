@@ -74,8 +74,8 @@ hr {
 }
 
 input[type=text], input[type=password], textarea, select, span.select {
-  border: 1px solid rgba(0,0,0,0.1);
-  border-top: 1px solid rgba(0,0,0,0.3);
+  border: 1px solid rgba(0,0,0,0.25);
+  border-top: 1px solid rgba(0,0,0,0.36);
   color: $grey;
   display: inline-block;
   font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
@@ -87,8 +87,8 @@ input[type=text], input[type=password], textarea, select, span.select {
   
   &:not([type=submit]) {
     &:focus, &:hover {
-      border: 1px solid rgba(0,0,0,0.2);
-      border-top: 1px solid rgba(0,0,0,0.3);
+      border: 1px solid rgba(0,0,0,0.32);
+      border-top: 1px solid rgba(0,0,0,0.36);
       color: $darkergrey !important;
       @include box-shadows (inset 0 2px 2px rgba(0,0,0,0.1), 0 0 6px rgba(220,220,220,0.7));
     }

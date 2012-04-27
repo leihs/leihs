@@ -6,4 +6,11 @@
   section {
     display: none;
   }  
+  
+  &.focused {
+    section {
+      border-top: 1px solid $bordergrey;
+      display: block
+    }
+  }
 }
