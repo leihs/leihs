@@ -44,7 +44,7 @@ Feature: Add lines during hand over
      Then the model is added to the hand over
 
   @javascript
-  Scenario: Add an template to the hand over picking an autocomplete element
+  Scenario: Add a template to the hand over picking an autocomplete element
     Given I am "Pius"
      When I open a hand over
       And I type the beginning of a template name to the add/assign input field

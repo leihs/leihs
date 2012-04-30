@@ -24,12 +24,12 @@ end
 
 When /^I click hand over$/ do
   find("#hand_over_button").click
-  wait_until { find ".dialog" }
+  wait_until { find ".dialog .button" }
 end
 
 When /^I click hand over inside the dialog$/ do
   find(".dialog .button", :text => "Hand Over").click
-  wait_until { ! page.has_css?(".dialog")}
+  wait_until(10){ all(".dialog").size == 0 }
 end
 
 Then /^the contract is signed for the selected items$/ do
