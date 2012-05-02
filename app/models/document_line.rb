@@ -6,6 +6,7 @@ class DocumentLine < ActiveRecord::Base
   include Availability::DocumentLine
   
   self.abstract_class = true
+  belongs_to :purpose
   
   before_validation :set_defaults, :on => :create
   validate :date_sequence  
