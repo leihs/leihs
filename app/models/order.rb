@@ -112,8 +112,7 @@ class Order < Document
           contract.item_lines.create( :model => ol.model,
                                       :quantity => 1,
                                       :start_date => ol.start_date,
-                                      :end_date => ol.end_date,
-                                      :purpose => ol.purpose )
+                                      :end_date => ol.end_date )
         end
       end   
       contract.save
