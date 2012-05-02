@@ -44,6 +44,10 @@ group :assets do # Gems used only for assets and not required in production envi
   gem 'uglifier', '~> 1.2'
 end
 
+group :development do
+  gem 'thin' # web server (Webrick do not support keep-alive connections)
+end
+
 group :profiling, :development do
 	gem 'newrelic_rpm', '~> 3.3'
 end
