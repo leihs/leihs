@@ -1,0 +1,22 @@
+= form_tag '${$item.action}', :remote => true, :"data-submit_button" => true do
+
+  %h1
+    = _("Edit purpose for order from")
+    ${user.firstname} ${user.lastname}
+  %p.subtitle= "${quantity} Items for max. ${new MaxRange(lines).value} days straight"
+  
+  .navigation
+    %button.button.white.close_dialog
+      .icon.return
+      = _("Back")
+    %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}'}
+      = _("Save")
+   
+  %hr
+  %section.lines.scalable
+    ${$grouped_lines = new GroupedLines(lines), ""}
+    {{tmpl($grouped_lines) "tmpl/dialog/summary/linegroup"}}
+    
+  %section.edit_purpose
+    %textarea#purpose.focus{:name => "purpose"}
+      ${purpose}

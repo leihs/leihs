@@ -8,15 +8,23 @@
     
     section.purpose {
       padding: 8px 4px 8px 4px;
+      position: relative;
       
       label {
         position: relative;
       }
       
       p {
+        font-size: 1.3em;
+        padding-right: 160px;
         position: relative;
         top: 2px;
-        font-size: 1.3em;
+      }
+      
+      .button {
+        position: absolute;
+        right: 0;
+        top: 7px;
       }
     }
     

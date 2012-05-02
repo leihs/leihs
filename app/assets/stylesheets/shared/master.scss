@@ -86,11 +86,11 @@ input[type=text], input[type=password], textarea, select, span.select {
   @include box-shadow (inset 0 2px 2px rgba(0,0,0,0.1));
   
   &:not([type=submit]) {
-    &:focus, &:hover {
+    &:focus {
       border: 1px solid rgba(0,0,0,0.32);
       border-top: 1px solid rgba(0,0,0,0.36);
       color: $darkergrey !important;
-      @include box-shadows (inset 0 2px 2px rgba(0,0,0,0.1), 0 0 6px rgba(220,220,220,0.7));
+      @include box-shadows (inset 0 2px 2px rgba(0,0,0,0.1), 0 0 4px rgba(60,60,250,1));
     }
   }
   

@@ -109,7 +109,6 @@ Leihs::Application.routes.draw do
           post :update_lines 
           get :swap_user
           post :swap_user
-          get :change_purpose
           post :change_purpose
         end
       end

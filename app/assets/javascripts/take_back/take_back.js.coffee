@@ -35,7 +35,7 @@ class TakeBack
         $(this).closest(".line").removeClass("valid assigned")
         $(this).closest(".line").addClass("error")
       # store new quantity
-      if new_quantity != NaN
+      if isNaN(new_quantity) == false
         $(line).tmplItem().data.returned_quantity = new_quantity
   
   @assign_through_autocomplete: (element)->

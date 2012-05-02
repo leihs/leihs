@@ -39,31 +39,50 @@
   
   .popup {
       display: none;
-      background: #FFF;
-      border: 1px solid $bordergrey;
-      display: none;
       font-weight: bold;
-      right: 0;
+      right: 2px;
       position: absolute;
       top: 27px;
       z-index: 999;
-      @include box-shadow (0 4px 8px #DDD);
-      @include border-radius(6px);
-      border-top-right-radius: 0;
-      border-top-left-radius: 0;
-      @include grey-links;
+      width: 104%;
       
       .inner {
+        background: transparent;
+        border: 1px solid $borderdarkgrey;
+        display: inline-block;
         height: 100%;
         position: relative;
+        width: 100%;
+        @include box-shadow (0 4px 10px rgba(0,0,0,0.5));
+        @include bottom-border-radius(6px);
+        @include dark-grey-links;
         
         a {
+          background: #FFF;
+          border: 1px solid transparent;
+          border-top: 1px solid $bordergrey;
           display: block;
           overflow: hidden;
           padding: 11px 25px 10px 20px;
           position: relative;
           text-align: right;
           white-space: nowrap;
+          
+          &:last-child {
+            @include bottom-border-radius(6px);
+          }
+          
+          &:first-child {
+            border-top: none;
+          }
+          
+          &:nth-child(even) {
+            background: $highlight-grey;
+          }
+          
+          &:hover {
+            background: $highlight-darkgrey;
+          }
         }
         
         hr {

@@ -49,6 +49,11 @@ class Acknowledge
     $(new_line).find("input").attr("checked", true) if $(line_element).find(".select input").is(":checked")
     $(line_element).replaceWith new_line
   
+  @update_purpose: (new_purpose)->
+    $("section.purpose p").html new_purpose
+    $("#order").tmplItem().data.purpose = new_purpose
+    @setup_purpose()
+  
   @setup_purpose: ->
     if $(".indent.purpose").height() > 70
       $(".indent.purpose").addClass("collapsed")

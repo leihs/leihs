@@ -22,7 +22,7 @@
     }
     
     this.setupFocus = function() {
-      var search_input = $("#tabs .search input[name='text']");
+      var search_input = $("#tabs .search input[type=text]");
         
       if(search_input.parents("#tabs .search").hasClass("active")){
         search_input.focus().val(search_input.val() + " "); // NOTE: This puts the Cursor at the end on focus

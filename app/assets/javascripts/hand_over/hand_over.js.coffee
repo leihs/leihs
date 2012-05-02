@@ -21,7 +21,7 @@ class HandOver
     $(".option_line .quantity input").live "keyup change", ()->
       trigger = $(this)
       new_quantity = parseInt $(this).val()
-      if new_quantity != NaN
+      if isNaN(new_quantity) == false
         line_data = $(this).closest(".line").tmplItem().data
         HandOver.option_quantity_change_ajax.abort() if HandOver.option_quantity_change_ajax?
         HandOver.option_quantity_change_ajax = $.ajax 

@@ -13,6 +13,7 @@
   &[disabled=disabled], &[disabled=disabled]:hover, &[disabled=disabled]:active {
     &>.button {
       cursor: default;
+      @include opacity(0.6);
       &:hover:not([disabled]) {
         background: url($slices-h) repeat-x 0 -252px;
         color: #808080;

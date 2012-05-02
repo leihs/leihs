@@ -106,6 +106,19 @@
   border-radius: $value; /* CSS3 */
 }
 
+@mixin bottom-border-radius($value) {
+  -moz-border-bottom-left-radius: $value;
+  -moz-border-bottom-right-radius: $value;
+  -webkit-border-bottom-left-radius: $value;
+  -webkit-border-bottom-right-radius: $value;
+  -o-border-bottom-left-radius: $value;
+  -o-border-bottom-right-radius: $value;
+  -ms-border-bottom-left-radius: $value;
+  -ms-border-bottom-right-radius: $value;
+  border-bottom-left-radius: $value;
+  border-bottom-right-radius: $value;
+}
+
 @mixin listanchor {
   a, a:link, a:visited, a:hover, a:active {
     color: $darkgrey;

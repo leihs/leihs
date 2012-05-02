@@ -68,10 +68,11 @@ function Buttons() {
     var _trigger = $(_this).parent().hasClass("alternatives") ? $(_this).closest(".multibutton") : _this;
     var data = (_this.data("ref_for_dialog") != undefined) ? eval(_this.data("ref_for_dialog")) : {};
     var template = (_this.data("rel") != undefined) ? _this.data("rel") : "";
+    var action = (_this.attr("href") != undefined) ? _this.attr("href") : _this.attr("action");
     
     Dialog.add({
       trigger: _trigger,
-      content: $.tmpl(template, data, {action: _this.attr("href"), on_success: _this.data("on_success")}),
+      content: $.tmpl(template, data, {action: action, on_success: _this.data("on_success")}),
       dialogClass: _this.data("dialog_class")
     });
     

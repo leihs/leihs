@@ -206,13 +206,9 @@ class Backend::AcknowledgeController < Backend::BackendController
 
 ###################################################################################
   
-  def change_purpose
-    if request.post?
-      @order.change_purpose(params[:purpose], current_user.id)
-      redirect_to backend_inventory_pool_acknowledge_path(current_inventory_pool, @order)
-    else
-      params[:layout] = "modal"
-    end
+  def change_purpose(purpose = params[:purpose])
+    @order.change_purpose(params[:purpose], current_user.id)
+    render :json => {:purpose => @order.purpose}, :status => :ok
   end
     
    def swap_user

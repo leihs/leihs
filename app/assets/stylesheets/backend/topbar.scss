@@ -19,7 +19,7 @@
   .logo {
     background: none;
     color: #FFF;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+    text-shadow: 0 0 1px rgba(0,0,0,0.5);
     display: inline-block;
     font-size: 21px;
     font-weight: bold;
@@ -30,7 +30,7 @@
     
     &:hover {
       color: #FFF;
-      text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+      text-shadow: 0 0 1px rgba(0,0,0,0.5);
     }
   }
   
@@ -46,15 +46,14 @@
     
       a, a:link, a:visited {
         color: #dedbd9;
-        
-        text-shadow: -1px 1px 4px rgba(0,0,0,0.3);
+        text-shadow: -1px 0 2px rgba(0,0,0,0.6);
       }
       
       &.active {
         .anchor {
           background: url($backend-slices-h) repeat-x 0 -46px;
           color: white;
-          text-shadow: -1px 1px 4px rgba(0,0,0,0.4);
+          text-shadow: -1px 0 2px rgba(0,0,0,0.6);
         }
       }
       
@@ -63,7 +62,7 @@
         .anchor {
           background: url($backend-slices-h) repeat-x 0 -46px;
           color: white;
-          text-shadow: -1px 1px 4px rgba(0,0,0,0.4);
+          text-shadow: -1px 0 2px rgba(0,0,0,0.6);
         }
       }
       
