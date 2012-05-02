@@ -1,3 +1,3 @@
 contracts.map do |contract|
-  render :partial => "backend/contracts/show", :locals => {contract: contract}
+  render :partial => "backend/contracts/show.json.rjson", :locals => {contract: contract, :with => with}
 end

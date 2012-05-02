@@ -42,21 +42,14 @@ class Backend::ModelsController < Backend::BackendController
               
     options = current_inventory_pool.options.search2(query).paginate(:page => page, :per_page => $per_page)
               
-    models_and_options = (models + options).sort{|a,b| a.name <=> b.name}.paginate(:page => page, :per_page => $per_page)
+    @models_and_options = (models + options).sort{|a,b| a.name <=> b.name}.paginate(:page => page, :per_page => $per_page)
 
     respond_to do |format|
       format.html {
-        @entries = models_and_options
-        @entries_json = @entries.map do |entry|
-          h = {type: entry.class.to_s.underscore}
-          h.merge!({ items: query ? entry.items.search2(query) : entry.items }) if entry.respond_to? :items
-          h.merge(entry.attributes)
-        end.to_json
-        @pages = @entries.total_pages
-        @total_entries = @entries.total_entries
+        @query = query
       }
       format.json {
-        render :partial => "index", :locals => {:models => models_and_options} 
+        render :partial => "index", :locals => {:models => @models_and_options} 
       } 
     end
   end

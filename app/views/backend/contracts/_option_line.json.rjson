@@ -20,6 +20,8 @@ h = {
   }
 }
 
-h[:availability_for_inventory_pool] = {:inventory_pool => current_inventory_pool.as_json } 
+h[:availability_for_inventory_pool] = {
+  :inventory_pool => render(:partial => "inventory_pools/show.json.rjson", :locals => {:inventory_pool => current_inventory_pool})
+} 
 
 h

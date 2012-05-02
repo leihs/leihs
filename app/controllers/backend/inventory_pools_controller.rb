@@ -47,29 +47,15 @@ class Backend::InventoryPoolsController < Backend::BackendController
          :value => "#{take_back_visits_on_day.size+hand_over_visits_on_day.size} Visits<br/>#{take_back_visits_on_day.sum(&:quantity)+hand_over_visits_on_day.sum(&:quantity)} Items"}]
     end
 
-    orders = current_inventory_pool.orders.submitted.includes(:order_lines => :model, :user => {})
-    @orders_json = orders.to_json(:with => {:lines => {:include => :model}, 
-                                            :user => {:methods => [:image_url]}},
-                                  :methods => :quantity)
-    @orders_size = orders.size
+    @orders = current_inventory_pool.orders.submitted.includes(:order_lines => :model, :user => {})
     
     if @date == Date.today
       grouped_visits.keep_if {|k, v| k[1] <= @date }
     else
       grouped_visits.keep_if {|k, v| k[1] == @date }
     end
-    
-    ho = grouped_visits.select {|k, v| k[0] == "hand_over" and k[1] <= @date }.values.flatten
-    @hand_overs_json = ho.to_json(:with => {:lines => {},
-                                            :user => {:methods => [:image_url]}},
-                                  :methods => :is_overdue)
-    @hand_overs_size = ho.size
-    
-    tb = grouped_visits.select {|k, v| k[0] == "take_back" and k[1] <= @date }.values.flatten
-    @take_backs_json = tb.to_json(:with => {:lines => {},
-                                            :user => {:methods => [:image_url]}},
-                                  :methods => :is_overdue)
-    @take_backs_size = tb.size
+    @hand_overs = grouped_visits.select {|k, v| k[0] == "hand_over" and k[1] <= @date }.values.flatten
+    @take_backs = grouped_visits.select {|k, v| k[0] == "take_back" and k[1] <= @date }.values.flatten
   end
   
   def new

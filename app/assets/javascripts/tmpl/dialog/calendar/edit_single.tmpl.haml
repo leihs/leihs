@@ -1,5 +1,5 @@
 ${$user = Line.get_user($item.data), ""}
-${$name = Str.sliced_trunc($user.firstname+" "+$user.lastname, 20, "... "), ""}
+${$name = Str.sliced_trunc($user.name, 20, "... "), ""}
 
 = form_tag '${$item.action}', :remote => true, :"data-submit_button" => true do
   %h1

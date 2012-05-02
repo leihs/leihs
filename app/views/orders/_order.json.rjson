@@ -1,0 +1,22 @@
+h = {
+  id: order.id,
+  type: 'order',
+  inventory_pool_id: order.inventory_pool_id,
+  purpose: order.purpose,
+  status_const: order.status_const,
+  created_at: order.created_at,
+  updated_at: order.updated_at
+}
+
+if with ||= nil
+  if with[:lines]
+    h[:lines] = order.lines.map do |line|
+      render :partial => "orders/order_line.json.rjson", :locals => {:line => line} 
+    end
+  end
+  if with[:user]
+    h[:user] = render(:partial => "backend/users/show.json.rjson", :locals => {:user => order.user}) 
+  end
+end
+
+h

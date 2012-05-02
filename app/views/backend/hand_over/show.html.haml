@@ -54,7 +54,6 @@
             :"data-rel" => "tmpl/dialog/calendar/edit_multiple", 
             :"data-dialog_class" => "calendar multiple",
             :"data-on_success" => 'HandOver.update_visits(response);',
-            :"data-ref_for_dialog" => "$('#visits').tmplItem().data",
             :id => "edit_selection" do
               .icon.timerange
               = _("Edit Selection")
@@ -79,7 +78,6 @@
           :"data-rel" => "tmpl/dialog/hand_over/summary",
           :"data-dialog_class" => "hand_over",
           :"data-add_selected_line_ids" => "true",
-          :"data-ref_for_dialog" => "$('#visits').tmplItem().data",
           :id => "hand_over_button" do
             = _("Hand Over Items")
             
@@ -91,7 +89,14 @@
 :coffeescript    
     
   jQuery ->
-    $('#visits').replaceWith($.tmpl("tmpl/visits", #{render(:partial => "backend/visits/index.json.rjson", :locals => {:visits => @visits})}))
+    $('#visits').html($.tmpl("tmpl/visit", #{render(:partial => "backend/visits/index.json.rjson",
+                                                            :locals => {:visits => @visits,
+                                                                        :with => {:lines => {:is_valid => true,
+                                                                                             :item => {},
+                                                                                             :model => {},
+                                                                                             :contract => {:user => {}},
+                                                                                             :availability => true}}
+                                                                        })}))
     HandOver.setup()
     ProcessHelper.setup()
     SelectedLines.setup()

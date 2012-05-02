@@ -16,7 +16,7 @@
   
   jQuery ->
     # setup result entries
-    results = #{@results}
+    results = #{results_json(@results)}
     if results?
       for result in results 
         $('.list').append $.tmpl("tmpl/line", result)

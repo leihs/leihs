@@ -100,7 +100,6 @@ class Order < Document
   alias :is_approvable :approvable?
 
 
-  # TODO 13** forward purpose
   # approves order then generates a new contract and item_lines for each item
   def approve(comment, send_mail = true, current_user = nil, force = false)
     if approvable? || force
@@ -113,7 +112,8 @@ class Order < Document
           contract.item_lines.create( :model => ol.model,
                                       :quantity => 1,
                                       :start_date => ol.start_date,
-                                      :end_date => ol.end_date)
+                                      :end_date => ol.end_date,
+                                      :purpose => ol.purpose )
         end
       end   
       contract.save
@@ -243,34 +243,6 @@ class Order < Document
   
   ############################################
   
-  # example: ip.orders.submitted.as_json(:with => {:user => {}, :lines => {:with => {:availability => {:inventory_pool => ip}},}})
-  def as_json(options = {})
-    options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
-    options.delete_if {|k,v| v.nil? }
-    
-    default_options = {:only => [:id, :inventory_pool_id, :purpose, :status_const, :created_at, :updated_at]}
-    more_json = {}
-    
-    if (with = options[:with])
-      if with[:user]
-        user_default_options = {:include => {:user => {:only => [:firstname, :lastname, :id, :phone, :email],
-                                                       :methods => [:image_url] }}}
-        default_options.deep_merge!(user_default_options.deep_merge(with[:user]))
-      end
-
-      if with[:lines]
-        more_json['lines'] = lines.as_json(with[:lines])
-      end
-    end
-    
-    json = super(default_options.deep_merge(options))
-    json['type'] = :order # needed for templating (type identifier)
-    
-    json.merge(more_json)
-  end
-  
-  ############################################
-
   private
   
   # TODO assign based on the order_lines' inventory_pools

@@ -86,7 +86,7 @@ class HandOver
         $(this).focus()
       
   @update_visits = (data)->
-    $('#visits').replaceWith($.tmpl("tmpl/visits", data))
+    $('#visits').html($.tmpl("tmpl/visit", data))
     SelectedLines.restore()
     HandOver.update_subtitle()
   

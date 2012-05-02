@@ -16,8 +16,6 @@ class Backend::AcknowledgeController < Backend::BackendController
   def show
     # OLD ? @source_path = request.env['REQUEST_URI']
     add_visitor(@order.user)
-    
-    @order_json = order_json_response
   end
   
   def approve(force = (params.has_key? :force) ? true : false)
@@ -126,18 +124,16 @@ class Backend::AcknowledgeController < Backend::BackendController
     respond_to do |format|
       format.json {
         if @error.blank?
-          with = {:model => true,
-                  :order => true, 
+          with = {:model => {},
+                  :order => {},
+                  :user => {}, 
                   :is_available => true, 
                   :availability_for_inventory_pool => true, 
                   :inventory_pool_id => true,
-                  :order => true,
                   :quantity => true,
                   :dates => true,
                   :quantity => true,
-                  :inventory_pool_id => true,
-                  :purpose => true,
-                  :user => true}
+                  :purpose => true}
           render :partial => "backend/orders/lines.json.rjson", :locals => {:lines => Array(line), :with => with}
         else
           render :template => "/errors/show", status: 500
@@ -189,19 +185,20 @@ class Backend::AcknowledgeController < Backend::BackendController
     end
     
     respond_to do |format|
-      format.js { render :json => order_json_response, :status => 200 }
+      format.js { 
+        render(:partial => "backend/orders/show",
+               :locals => {:order => @order,
+                           :with => {:lines => {:model => {},
+                                                :order => {:user => {:groups => true}}, # FIXME remove this, we already have it as parent
+                                                :availability_for_inventory_pool => true,
+                                                :dates => true,
+                                                :quantity => true,
+                                                :is_available => true},
+                                     :user => {:groups => true},
+                                     :quantity => true
+                                    }})
+      }
     end
-  end
-
-  def order_json_response
-    @order.to_json(:with => {:lines => {:include => {:model => {}, 
-                                                     :order => {:include => {:user => {:include => :groups}}}},
-                                        :with => {:availability => {:inventory_pool => current_inventory_pool}},
-                                        :methods => :is_available },
-                             :user => {}},
-                   :methods => :quantity,
-                   :include => {:user => {:include => [:groups]}}
-                   )
   end
 
 ###################################################################################

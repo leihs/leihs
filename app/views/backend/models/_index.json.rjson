@@ -1,3 +1,3 @@
 models.map do |model|
-  render :partial => "show", :locals => {model: model}
+  render :partial => "backend/models/show.json.rjson", :locals => {:model => model, :with => (with ||= nil)}
 end

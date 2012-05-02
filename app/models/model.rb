@@ -10,6 +10,8 @@
 #
 class Model < ActiveRecord::Base
   include Availability::Model
+  acts_as_audited
+  has_associated_audits
 
   before_destroy do
     errors.add(:base, "Model cannot be destroyed because related items are still present.") if Item.unscoped { items.count } > 0
@@ -112,46 +114,6 @@ class Model < ActiveRecord::Base
 
   scope :by_categories, lambda { |categories| joins("INNER JOIN model_links AS ml"). # OPTIMIZE no ON ??
                                               where(["ml.model_group_id IN (?)", categories]) }
-
-#############################################
-
-  def as_json(options = {})
-    options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
-
-    #old# required_options = {:include => [:properties, :categories, :inventory_pools] }
-
-    json = super(options)
-
-    if (with = options[:with]) and with[:availability]
-      customer_user = with[:availability][:user]
-      current_inventory_pool = with[:availability][:inventory_pool]
-      
-      if customer_user and current_inventory_pool and (start_date = with[:availability][:start_date]) and (end_date = with[:availability][:end_date])
-        # NOTE we display total_rentable_in_stock/total_rentable
-        json['max_available']  = availability_changes_in(current_inventory_pool).maximum_available_in_period_for_user(customer_user, start_date, end_date)
-        json['total_rentable'] = total_borrowable_items_for_user(customer_user, current_inventory_pool)
-        
-      else
-
-        # NOTE this is called from the Frontend
-        if customer_user
-          json['total_borrowable'] = total_borrowable_items_for_user(customer_user)
-          json['availability_for_user'] = availability_periods_for_user(customer_user)
-        end
-    
-        # NOTE this is called from the Backend
-        if current_inventory_pool
-          borrowable_items = items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable
-          # NOTE we display total_rentable_in_stock/total_rentable 
-          json['total_rentable_in_stock'] = borrowable_items.in_stock.count
-          json['total_rentable'] = borrowable_items.count
-        end
-      end
-    end
-    
-    json.merge({:type => self.class.to_s.underscore})
-  end
-
 
 #############################################
 

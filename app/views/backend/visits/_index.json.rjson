@@ -1,5 +1,3 @@
-{
-  visits: visits.map do |visit|
-    render :partial => "backend/visits/show.json.rjson", :locals => {:visit => visit} 
-  end
-}
+visits.map do |visit|
+  render :partial => "backend/visits/show.json.rjson", :locals => {:visit => visit, :with => (with ||= nil)}
+end

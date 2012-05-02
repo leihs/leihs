@@ -22,7 +22,7 @@ class ModelsController < FrontendController
     @children = model_group.children
 
     #1402 TODO refactor to User#accessible_models
-    models = model_group.all_models.
+    @models = model_group.all_models.
                       joins(:items, :partitions).
                       includes(:properties, :images). #not working# :inventory_pools
                       where(["items.inventory_pool_id IN (:ip_ids)
@@ -30,8 +30,6 @@ class ModelsController < FrontendController
                                    OR (partitions.group_id IS NULL AND partitions.inventory_pool_id IN (:ip_ids)))",
                               {:ip_ids => current_user.active_inventory_pool_ids,
                                :groups_ids => current_user.group_ids} ])
-
-    @models_attributes = models.as_json(:methods => :image_thumb, :include => :properties, :with => {:user => current_user })
 
     respond_to do |format|
       format.html { }

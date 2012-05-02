@@ -92,65 +92,6 @@ class Contract < Document
   
 #########################################################################
   
-  def as_json(options = {})
-    options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
-    options.delete_if {|k,v| v.nil? }
-
-    default_options = {:only => [:id, :status_const, :created_at, :updated_at]}
-    more_json = {}
-    
-    if (with = options[:with])
-      if with[:user]
-        user_default_options = {:include => {:user => {:only => [:firstname, :lastname, :id, :phone, :email],
-                                                       :methods => [:image_url] }}}
-        default_options.deep_merge!(user_default_options.deep_merge(with[:user]))
-      end
-      
-      if with[:lines]
-        more_json['lines'] = lines.as_json(with[:lines])
-      end
-    end
-        
-    json = super(default_options.deep_merge(options))
-    json['type'] =  :contract # needed for templating (type identifier)
-    json.merge(more_json)
-    
-=begin
-    default_options = {:only => [:id, :inventory_pool_id, :purpose, :status_const, :created_at, :updated_at],
-                       :include => {:items => {}}}
-
-    more_json = {}
-
-    if (with = options[:with])
-      if with[:user]
-        user_default_options = {:include => {:user => {:only => [:firstname, :lastname, :id, :phone, :email],
-                                                       :methods => [:image_url] }}}
-        default_options.deep_merge!(user_default_options.deep_merge(with[:user]))
-      end
-    end
-    
-    json = super(default_options.deep_merge(options))
-    json['type'] = :contract # needed for templating (type identifier)
-    
-    # FIXME give additional attributes (:inventory_code, :returned_date) ??
-    lines_array = contract_lines.map {|cl| OpenStruct.new({:start_date => cl.start_date, :end_date => cl.end_date, :model => cl.model, :quantity => cl.quantity}) }
-    
-    # FIXME do we really want to group ??
-    sorted_and_grouped_contract_lines = lines_array.sort {|a,b| [a.start_date, a.end_date, a.model.id] <=> [b.start_date, b.end_date, b.model.id] }.
-                                          group_by {|cl| [cl.start_date, cl.end_date, cl.model] }
-    
-    lines_hash = sorted_and_grouped_contract_lines.map {|k,v| {:start_date => k[0],
-                                                      :end_date => k[1],
-                                                      :model => {:name => k[2].name, :manufacturer => k[2].manufacturer}, :quantity => v.sum(&:quantity)} }
-    
-    json[:lines] = lines_hash
-    
-    json.merge(more_json)
-=end
-  end
-
-#########################################################################
-
   # TODO: we don't have a single place where we call sign without a current_user, except in a new test
   #       -> eliminate the default value and the assignement current_user ||=
   def sign(contract_lines = nil, current_user = nil)
