@@ -1,6 +1,4 @@
 class User < ActiveRecord::Base
-  acts_as_audited
-  has_associated_audits
 
   serialize :extended_info
 

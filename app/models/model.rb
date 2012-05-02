@@ -10,8 +10,6 @@
 #
 class Model < ActiveRecord::Base
   include Availability::Model
-  acts_as_audited
-  has_associated_audits
 
   before_destroy do
     errors.add(:base, "Model cannot be destroyed because related items are still present.") if Item.unscoped { items.count } > 0
