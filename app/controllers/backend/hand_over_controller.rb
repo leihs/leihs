@@ -13,13 +13,6 @@ class Backend::HandOverController < Backend::BackendController
     add_visitor(@user)
   end
   
-  def set_purpose
-    if request.post?
-      @contract.update_attributes(:purpose => params[:purpose])
-    end
-    redirect_to :action => 'show'
-  end
-  
   def delete_visit
     lines = params[:lines].split(",")
     lines.each {|l| @contract.remove_line(l, current_user.id) }
@@ -30,10 +23,12 @@ class Backend::HandOverController < Backend::BackendController
   
   # Sign definitely the contract
   def sign_contract(line_ids = params[:line_ids] || raise("line_ids is required"),
+                    purpose_description = params[:purpose],
                     note = params[:note])
     lines = @contract.contract_lines.find(line_ids)
 
-    @contract.note = note
+    @contract.note = note if note
+    @contract.purpose = purpose_description if purpose_description
 
     respond_to do |format|
       format.json {

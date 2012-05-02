@@ -5,16 +5,20 @@ h = {
 }
 
 if with ||= nil
-  [:quantity, :created_at, :updated_at, :inventory_pool_id, :purpose].each do |k|
+  [:quantity, :created_at, :updated_at, :inventory_pool_id].each do |k|
     h[k] = order.send(k) if with[k]
+  end
+  
+  if with[:purpose]
+    h[:purpose] = order.purpose ? render(:partial => "purposes/show.json.rjson", :locals => {purpose: order.purpose, with: with[:purpose]}) : nil
   end
 
   if with[:lines]
-    h["lines"] = render :partial => "backend/orders/lines.json.rjson", :locals => {lines: order.lines, with: with[:lines]}
+    h[:lines] = render :partial => "backend/orders/lines.json.rjson", :locals => {lines: order.lines, with: with[:lines]}
   end
     
   if with[:user]
-    h["user"] = render :partial => "backend/users/show.json.rjson", :locals => {user: order.user, with: with[:user]} 
+    h[:user] = render :partial => "backend/users/show.json.rjson", :locals => {user: order.user, with: with[:user]} 
   end
   
 end

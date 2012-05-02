@@ -24,4 +24,10 @@ h[:availability_for_inventory_pool] = {
   :inventory_pool => render(:partial => "inventory_pools/show.json.rjson", :locals => {:inventory_pool => current_inventory_pool})
 } 
 
+if with ||= nil
+  if with[:purpose]
+    h[:purpose] = line.purpose ? render(:partial => "purposes/show.json.rjson", :locals => {purpose: line.purpose, with: with[:purpose]}) : nil
+  end
+end
+
 h

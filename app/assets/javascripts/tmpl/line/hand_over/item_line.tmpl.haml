@@ -29,6 +29,8 @@ ${Line.recompute_availability($item.data), ""}
           .arrow.icon
     %li.name
       %strong{:title => "${model.name}"} ${Str.sliced_trunc(model.name, 62)}
+
+    {{tmpl(purpose) "tmpl/cell/purpose"}}
       
     {{if $problems.length > 0}}
     %li.problems.hastip

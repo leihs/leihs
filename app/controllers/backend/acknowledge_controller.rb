@@ -195,20 +195,21 @@ class Backend::AcknowledgeController < Backend::BackendController
                                                 :quantity => true,
                                                 :is_available => true},
                                      :user => {:groups => true},
-                                     :quantity => true
+                                     :quantity => true,
+                                     :purpose => true
                                     }})
       }
     end
   end
 
 ###################################################################################
-  
-  def change_purpose(purpose = params[:purpose])
-    @order.change_purpose(params[:purpose], current_user.id)
-    render :json => {:purpose => @order.purpose}, :status => :ok
+
+  def change_purpose(purpose_description = params[:purpose])
+    @order.change_purpose(purpose_description, current_user.id)
+    render :json => {:purpose => @order.purpose.to_s}
   end
     
-   def swap_user
+  def swap_user
     if request.post?
       if params[:swap_user_id].nil?
         flash[:notice] = _("User must be selected")

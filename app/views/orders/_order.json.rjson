@@ -2,7 +2,7 @@ h = {
   id: order.id,
   type: 'order',
   inventory_pool_id: order.inventory_pool_id,
-  purpose: order.purpose,
+  purpose: order.purpose.try(:to_s),
   status_const: order.status_const,
   created_at: order.created_at,
   updated_at: order.updated_at

@@ -248,7 +248,6 @@ Leihs::Application.routes.draw do
             delete :delete_visit
             get :swap_user 
             post :swap_user 
-            post :set_purpose
           end
         end
         resource :take_back, :controller => 'take_back' do

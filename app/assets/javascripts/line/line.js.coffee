@@ -63,5 +63,14 @@ class Line
     return lines_data.order.user if lines_data.order? and lines_data.order.user?
     return lines_data.contract.user if lines_data.contract? and lines_data.contract.user?
     return lines_data.user
+    
+  @concatinate_purposes: (lines_data)->
+    _map = _.map lines_data, (line)-> line.purpose
+    _compact = _.compact _map
+    _uniq = _.uniq _compact, false, (purpose)-> purpose.id
+    _final = _.map _uniq, (purpose)-> purpose.description
+    _final.join(', ')
+ 
+    
 
 window.Line = Line

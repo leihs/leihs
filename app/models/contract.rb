@@ -101,7 +101,13 @@ class Contract < Document
     if contract_lines.empty? # sign is only possible if there is at least one contract_line
       errors.add(:base, _("This contract is not signable because it doesn't have any contract lines."))
       false
-    elsif contract_lines.all? {|l| not l.item.nil? } # all lines need assigned items (for option_lines: item is aliased to option)
+    elsif contract_lines.any? {|l| l.purpose.nil? }
+      errors.add(:base, _("This contract is not signable because some lines do not have the purpose."))
+      false
+    elsif item_lines.any? {|l| l.item.nil? }
+      errors.add(:base, _("This contract is not signable because some lines are not assigned."))
+      false
+    else
       transaction do
         update_attributes({:status_const => Contract::SIGNED, :created_at => Time.now}) 
         log_history(_("Contract %d has been signed by %s") % [self.id, self.user.name], current_user.id)
@@ -117,9 +123,6 @@ class Contract < Document
         end        
       end
       true
-    else
-      errors.add(:base, _("This contract is not signable because some lines are not assigned."))
-      false
     end
   end
 
@@ -136,6 +139,24 @@ class Contract < Document
       nil
     end
   end
+
+  ############################################
+
+  # NOTE override the column attribute (until leihs 2 is switched off)
+  def purpose
+    nil
+  end
+  
+  # NOTE override the column attribute (until leihs 2 is switched off)
+  def purpose=(description)
+    Purpose.create(description: description, contract_lines: lines.where(purpose_id: nil))
+  end 
+
+  def change_purpose(new_purpose, user_id)
+    change = _("Purpose changed '%{from}' for '%{to}'") % { :from => self.purpose.try(:description), :to => new_purpose}
+    log_change(change, user_id)
+    self.purpose = new_purpose
+  end  
 
 end
 

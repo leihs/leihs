@@ -112,7 +112,8 @@ class Order < Document
           contract.item_lines.create( :model => ol.model,
                                       :quantity => 1,
                                       :start_date => ol.start_date,
-                                      :end_date => ol.end_date )
+                                      :end_date => ol.end_date,
+                                      :purpose => ol.purpose )
         end
       end   
       contract.save
@@ -136,16 +137,16 @@ class Order < Document
   end
 
   # submits order
-  def submit(purpose = nil)
-    self.purpose = purpose if purpose
-    save
+  def submit(purpose_description = nil)
+    # TODO relate to Application Settings (required_purpose)
+    self.purpose = purpose_description if purpose_description
 
     if approvable?
       self.status_const = Order::SUBMITTED
       split_and_assign_to_inventory_pool
 
-      Notification.order_submitted(self, purpose, false)
-      Notification.order_received(self, purpose, true)
+      Notification.order_submitted(self, purpose_description, false)
+      Notification.order_received(self, purpose_description, true)
       return true
     else
       return false
@@ -193,13 +194,28 @@ class Order < Document
       false
     end
   end
+
+  ############################################
+
+  # NOTE override the column attribute (until leihs 2 is switched off)
+  # NOTE all lines should have the same purpose
+  def purpose
+    lines.detect {|l| l.purpose }.try(:purpose)
+  end
   
+  # NOTE override the column attribute (until leihs 2 is switched off)
+  def purpose=(description)
+    p = self.purpose || Purpose.new(:order_lines => lines)
+    p.change_description(description, lines)
+  end 
+
   def change_purpose(new_purpose, user_id)
-    change = _("Purpose changed '%{from}' for '%{to}'") % { :from => self.purpose, :to => new_purpose}
-    self.purpose = new_purpose
+    change = _("Purpose changed '%{from}' for '%{to}'") % { :from => self.purpose.try(:description), :to => new_purpose}
     log_change(change, user_id)
-    save
+    self.purpose = new_purpose
   end  
+
+  ############################################
 
   # OPTIMIZE scope new_user_id by current_inventory_pool
   def swap_user(new_user_id, admin_user_id)
@@ -224,6 +240,8 @@ class Order < Document
     return false
   end
   
+  ############################################
+
   def min_date
     unless order_lines.blank?
       order_lines.min {|x| x.start_date}[:start_date]

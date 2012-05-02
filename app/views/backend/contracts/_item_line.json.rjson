@@ -16,7 +16,7 @@ if with ||= nil
   end
 
   if with[:item]
-    h[:item] = render(:partial => "backend/items/show.json.rjson", :locals => {:item => line.item, :with => with[:item]})
+    h[:item] = line.item ? render(:partial => "backend/items/show.json.rjson", :locals => {:item => line.item, :with => with[:item]}) : nil
   end
   
   if with[:model]
@@ -25,6 +25,10 @@ if with ||= nil
 
   if with[:contract]
     h[:contract] = render(:partial => "backend/contracts/show.json.rjson", :locals => {:contract => line.contract, :with => with[:contract]})
+  end
+
+  if with[:purpose]
+    h[:purpose] = line.purpose ? render(:partial => "purposes/show.json.rjson", :locals => {purpose: line.purpose, with: with[:purpose]}) : nil
   end
 
   if with[:availability]

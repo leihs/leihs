@@ -4196,7 +4196,6 @@
     user_id: "2473"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4208,7 +4207,6 @@
     user_id: "174"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4220,7 +4218,6 @@
     user_id: "1436"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4232,7 +4229,6 @@
     user_id: "2500"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4244,7 +4240,6 @@
     user_id: "2123"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4256,7 +4251,6 @@
     user_id: "134"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4268,7 +4262,6 @@
     user_id: "2530"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4280,7 +4273,6 @@
     user_id: "2536"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4292,7 +4284,6 @@
     user_id: "1545"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4304,7 +4295,6 @@
     user_id: "564"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4316,7 +4306,6 @@
     user_id: "864"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4328,7 +4317,6 @@
     user_id: "2576"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4340,7 +4328,6 @@
     user_id: "2579"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4352,7 +4339,6 @@
     user_id: "1496"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4364,7 +4350,6 @@
     user_id: "2608"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4376,7 +4361,6 @@
     user_id: "535"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4388,7 +4372,6 @@
     user_id: "2631"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4400,7 +4383,6 @@
     user_id: "1608"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4412,7 +4394,6 @@
     user_id: "1806"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4424,7 +4405,6 @@
     user_id: "2513"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4436,7 +4416,6 @@
     user_id: "2667"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4448,7 +4427,6 @@
     user_id: "2668"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4460,7 +4438,6 @@
     user_id: "1227"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4472,7 +4449,6 @@
     user_id: "2678"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4484,7 +4460,6 @@
     user_id: "2579"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4496,7 +4471,6 @@
     user_id: "682"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4508,7 +4482,6 @@
     user_id: "2684"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4520,7 +4493,6 @@
     user_id: "1687"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4532,7 +4504,6 @@
     user_id: "2713"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4544,7 +4515,6 @@
     user_id: "14"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4556,7 +4526,6 @@
     user_id: "1574"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4568,7 +4537,6 @@
     user_id: "2741"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4580,7 +4548,6 @@
     user_id: "602"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4592,7 +4559,6 @@
     user_id: "2749"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4604,7 +4570,6 @@
     user_id: "1231"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4616,7 +4581,6 @@
     user_id: "2115"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4628,7 +4592,6 @@
     user_id: "1971"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4640,7 +4603,6 @@
     user_id: "2015"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4652,7 +4614,6 @@
     user_id: "553"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4664,7 +4625,6 @@
     user_id: "147"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4676,7 +4636,6 @@
     user_id: "92"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4688,7 +4647,6 @@
     user_id: "1572"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4700,7 +4658,6 @@
     user_id: "3881"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4712,7 +4669,6 @@
     user_id: "1047"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4724,7 +4680,6 @@
     user_id: "369"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4736,7 +4691,6 @@
     user_id: "2536"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4748,7 +4702,6 @@
     user_id: "897"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4760,7 +4713,6 @@
     user_id: "2706"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4772,7 +4724,6 @@
     user_id: "731"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4784,7 +4735,6 @@
     user_id: "3846"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4796,7 +4746,6 @@
     user_id: "3862"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4808,7 +4757,6 @@
     user_id: "25"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4820,7 +4768,6 @@
     user_id: "417"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4832,7 +4779,6 @@
     user_id: "3900"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4844,7 +4790,6 @@
     user_id: "3907"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4856,7 +4801,6 @@
     user_id: "823"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4868,7 +4812,6 @@
     user_id: "486"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4880,7 +4823,6 @@
     user_id: "91"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4892,7 +4834,6 @@
     user_id: "317"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4904,7 +4845,6 @@
     user_id: "3927"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4916,7 +4856,6 @@
     user_id: "3912"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4928,7 +4867,6 @@
     user_id: "320"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4940,7 +4878,6 @@
     user_id: "1403"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4952,7 +4889,6 @@
     user_id: "3903"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4964,7 +4900,6 @@
     user_id: "413"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4976,7 +4911,6 @@
     user_id: "540"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -4988,7 +4922,6 @@
     user_id: "2628"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5000,7 +4933,6 @@
     user_id: "641"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5012,7 +4944,6 @@
     user_id: "1149"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5024,7 +4955,6 @@
     user_id: "1620"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5036,7 +4966,6 @@
     user_id: "3962"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5048,7 +4977,6 @@
     user_id: "3963"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5060,7 +4988,6 @@
     user_id: "1006"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5072,7 +4999,6 @@
     user_id: "12"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5084,7 +5010,6 @@
     user_id: "2984"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5096,7 +5021,6 @@
     user_id: "73"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5108,7 +5032,6 @@
     user_id: "739"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5120,7 +5043,6 @@
     user_id: "2101"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5132,7 +5054,6 @@
     user_id: "2897"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5144,7 +5065,6 @@
     user_id: "1130"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5156,7 +5076,6 @@
     user_id: "2673"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5168,7 +5087,6 @@
     user_id: "4191"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5180,7 +5098,6 @@
     user_id: "4199"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5192,7 +5109,6 @@
     user_id: "748"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5204,7 +5120,6 @@
     user_id: "4263"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5216,7 +5131,6 @@
     user_id: "3983"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5228,7 +5142,6 @@
     user_id: "3061"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5240,7 +5153,6 @@
     user_id: "862"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5252,7 +5164,6 @@
     user_id: "476"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5264,7 +5175,6 @@
     user_id: "1403"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5276,7 +5186,6 @@
     user_id: "117"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5288,7 +5197,6 @@
     user_id: "354"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5300,7 +5208,6 @@
     user_id: "1059"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5312,7 +5219,6 @@
     user_id: "2061"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5324,7 +5230,6 @@
     user_id: "3866"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5336,7 +5241,6 @@
     user_id: "4593"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5348,7 +5252,6 @@
     user_id: "1669"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5360,7 +5263,6 @@
     user_id: "2308"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5372,7 +5274,6 @@
     user_id: "1502"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5384,7 +5285,6 @@
     user_id: "3897"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5396,7 +5296,6 @@
     user_id: "2526"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5408,7 +5307,6 @@
     user_id: "176"
     note:
     inventory_pool_id: "90"
-    purpose:
   attributes_cache: {}
 
 - !ruby/object:Contract 
@@ -5420,7 +5318,6 @@
     user_id: "731"
     note:
     inventory_pool_id: "8"
-    purpose:
   attributes_cache: {}
 
 # Users that have borrowed that Model

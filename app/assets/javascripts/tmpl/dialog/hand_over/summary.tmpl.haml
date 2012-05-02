@@ -14,6 +14,10 @@
     %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}'}
       = _("Hand Over")
    
+  %section.purpose
+    %label= _("Purposes")
+    %p ${Line.concatinate_purposes(SelectedLines.lines_data)}  
+   
   %hr
   %section.lines.scalable
     ${$grouped_lines = new GroupedLines(SelectedLines.lines_data), ""}

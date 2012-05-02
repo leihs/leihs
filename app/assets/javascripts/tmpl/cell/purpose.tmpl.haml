@@ -1,0 +1,17 @@
+{{if description}}    
+{{if String(description).length > 55}}
+%li.purpose.hastip
+  %span.text
+    {{html String(description).substring(0, 55) }}
+    {{if String(description).length > 55}}
+    {{html "..."}}
+    {{/if}}
+  .tip
+    %p
+      ${description}
+{{else}}
+%li.purpose
+  %span.text
+    ${description}
+{{/if}}
+{{/if}}

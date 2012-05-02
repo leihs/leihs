@@ -19,22 +19,8 @@
       %span.text
         = _("Days")
       {{/if}}
-        
-    {{if String(purpose).length > 55}}
-    %li.purpose.hastip
-      %span.text
-        {{html String(purpose).substring(0, 55) }}
-        {{if String(purpose).length > 55}}
-        {{html "..."}}
-        {{/if}}
-      .tip
-        %p
-          ${purpose}
-    {{else}}
-    %li.purpose
-      %span.text
-        ${purpose}
-    {{/if}}
+    
+    {{tmpl(purpose) "tmpl/cell/purpose"}}
     
   .actions      
     %li.actions
