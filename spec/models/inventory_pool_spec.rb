@@ -35,14 +35,13 @@ describe InventoryPool do
 
 
       it "should return a list of hand_over events per user" do
-
         open_contracts = User.all.map { |user|
-          LeihsFactory.create_contract( {:user => user},
-                                   {:contract_lines => 3 } ) # arbitrary
+          FactoryGirl.create :contract_with_lines, :user => user, :inventory_pool => @ip
         }
         make_sure_no_start_date_is_identical_to_any_other! open_contracts
     
         hand_over_visits = @ip.visits.hand_over
+
         # We should have as many events as there are different start dates
         hand_over_visits.count.should equal(
           open_contracts.flat_map(&:contract_lines).map(&:start_date).uniq.count )
@@ -56,8 +55,7 @@ describe InventoryPool do
 
 
       it "should return an Event containing contract_lines for items that are reserved from the same day on by a user" do
-        open_contract = LeihsFactory.create_contract( {:user => User.first},
-                                                 {:contract_lines => 3 } )
+        open_contract = FactoryGirl.create :contract_with_lines, :user => User.first, :inventory_pool => @ip 
         start_first_contract_line_on_same_date_as_second! open_contract
         start_third_contract_line_on_different_date! open_contract
         hand_over_visits = @ip.visits.hand_over
@@ -132,23 +130,21 @@ describe InventoryPool do
 
       it "should return a list of take_back events per user" do
         open_contracts = User.all.map { |user|
-          LeihsFactory.create_contract( {:user => user},
-                                   {:contract_lines => 3 } ) # arbitrary
+          FactoryGirl.create :contract_with_lines, :user => user, :inventory_pool => @ip 
         }
         make_sure_no_end_date_is_identical_to_any_other! open_contracts
 
         open_contracts.each do |c|
           # assign contract lines
           c.contract_lines.each do |cl|
-            cl.item = cl.model.items.borrowable.in_stock.first
-            cl.save
+            cl.update_attributes(item: cl.model.items.borrowable.in_stock.first)
           end
           # sign the contract
           c.sign(c.contract_lines, @manager)
         end
-    
+
         take_back_visits = @ip.visits.take_back
-        
+
         # We should have as many events as there are different start dates
         take_back_visits.count.should equal(
           open_contracts.flat_map(&:contract_lines).map(&:end_date).uniq.count )
@@ -160,17 +156,14 @@ describe InventoryPool do
           should equal( open_contracts.flat_map(&:contract_lines).count )
       end
 
-
       it "should return an Event containing contract_lines for items that are reserved from the same day on by a user" do
-        open_contract = LeihsFactory.create_contract( {:user => User.first},
-                                                 {:contract_lines => 3 } )
+        open_contract = FactoryGirl.create :contract_with_lines, :user => User.first, :inventory_pool => @ip
         end_first_contract_line_on_same_date_as_second! open_contract
         end_third_contract_line_on_different_date! open_contract
 
         # assign contract lines
         open_contract.contract_lines.each do |cl|
-          cl.item = cl.model.items.borrowable.in_stock.first
-          cl.save
+          cl.update_attributes(item: cl.model.items.borrowable.in_stock.first)
         end
         # sign the contract
         open_contract.sign(open_contract.contract_lines, @manager)
@@ -184,11 +177,8 @@ describe InventoryPool do
     
 
       it "should not mix Events of different users" do
-        open_contract  = LeihsFactory.create_contract( {:user => User.first},
-                                                  {:contract_lines => 1 } )
-
-        open_contract2 = LeihsFactory.create_contract( {:user => User.last},
-                                                  {:contract_lines => 1 } )
+        open_contract  = FactoryGirl.create :contract_with_lines, :user => User.first, :inventory_pool => @ip
+        open_contract2 = FactoryGirl.create :contract_with_lines, :user => User.last, :inventory_pool => @ip
         open_contract2.instance_eval {
           contract_lines[0].end_date = open_contract.contract_lines[0].end_date
           contract_lines[0].save
@@ -197,8 +187,7 @@ describe InventoryPool do
         [ open_contract, open_contract2].each do |c| 
           # assign contract lines
           c.contract_lines.each do |cl|
-            cl.item = cl.model.items.borrowable.in_stock.first
-            cl.save
+            cl.update_attributes(item: cl.model.items.borrowable.in_stock.first)
           end
           # sign the contract
           c.sign(c.contract_lines, @manager)

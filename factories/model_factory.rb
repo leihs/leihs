@@ -9,6 +9,18 @@ FactoryGirl.define do
     is_package false
     technical_detail { Faker::Lorem.sentence }
     hand_over_note { Faker::Lorem.sentence }
+    
+    factory :model_with_items do
+      ignore do
+        inventory_pool { FactoryGirl.create :inventory_pool }
+      end
+      after_create do |model, evaluator|
+        3.times do
+          model.items << FactoryGirl.create(:item, :inventory_pool => evaluator.inventory_pool)
+        end
+      end
+    end
+    
   end
 
 end

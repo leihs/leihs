@@ -8,7 +8,6 @@ FactoryGirl.define do
       u
     }
     status_const 1
-    purpose { Faker::Lorem.sentence }
     
     factory :order_with_lines do
       after_create do |order, evaluator|
