@@ -68,6 +68,7 @@ Then /^I see a list of suggested (.*?) names$/ do |type|
 end
 
 When /^I select the (.*?) from the list$/ do |type|
+  page.execute_script('$("#code").focus()')
   wait_until(10){ find(".ui-autocomplete a", :text => @target_name) }
   find(".ui-autocomplete a", :text => @target_name).click
   wait_until(10){ all("#process_helper .loading", :visible => true).size == 0 }

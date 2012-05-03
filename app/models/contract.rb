@@ -94,17 +94,17 @@ class Contract < Document
   
   # TODO: we don't have a single place where we call sign without a current_user, except in a new test
   #       -> eliminate the default value and the assignement current_user ||=
-  def sign(contract_lines = nil, current_user = nil)
+  def sign(selected_lines = nil, current_user = nil)
     current_user ||= self.user
-    contract_lines ||= self.contract_lines
+    selected_lines ||= self.contract_lines
  
-    if contract_lines.empty? # sign is only possible if there is at least one contract_line
+    if selected_lines.empty? # sign is only possible if there is at least one line
       errors.add(:base, _("This contract is not signable because it doesn't have any contract lines."))
       false
-    elsif contract_lines.any? {|l| l.purpose.nil? }
+    elsif selected_lines.any? {|l| l.purpose.nil? }
       errors.add(:base, _("This contract is not signable because some lines do not have the purpose."))
       false
-    elsif item_lines.any? {|l| l.item.nil? }
+    elsif selected_lines.any? {|l| l.item.nil? }
       errors.add(:base, _("This contract is not signable because some lines are not assigned."))
       false
     else
@@ -113,9 +113,9 @@ class Contract < Document
         log_history(_("Contract %d has been signed by %s") % [self.id, self.user.name], current_user.id)
     
         # Forces handover date to be today.
-        contract_lines.each {|cl| cl.update_attributes(:start_date => Date.today) if cl.start_date != Date.today }
+        selected_lines.each {|cl| cl.update_attributes(:start_date => Date.today) if cl.start_date != Date.today }
 
-        unless (lines_for_new_contract = self.contract_lines - contract_lines).empty?
+        unless (lines_for_new_contract = self.contract_lines - selected_lines).empty?
           new_contract = user.get_current_contract(self.inventory_pool)
           lines_for_new_contract.each do |cl|
             cl.update_attributes(:contract => new_contract)

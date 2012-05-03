@@ -213,7 +213,13 @@ class Backend::HandOverController < Backend::BackendController
     respond_to do |format|
       format.json {
         if @error.blank? 
-          render :partial => "backend/contracts/#{line.type.underscore}.json.rjson", :locals => {:line => line}
+           with = { :is_valid => true,
+                    :item => {},
+                    :model => {},
+                    :contract => {:user => {:groups => {}}},
+                    :purpose => true,
+                    :availability => true}
+          render :partial => "backend/contracts/#{line.type.underscore}.json.rjson", :locals => {:line => line, :with => with}
         else
           render :template => "/errors/show", status: 500
         end
