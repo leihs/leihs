@@ -57,11 +57,9 @@ When /^I type the beginning of (.*?) name to the add\/assign input field$/ do |t
       @template = @user.managed_inventory_pools.first.templates.first
       @template.name
   end
-  page.execute_script('$("#code").select().focus()')
   find("#code").set @target_name[0..(@target_name.size/2)]
-  page.execute_script('$("#code").blur()')
-  wait_until(5){ find("#process_helper .loading", :visible => true) }
-  wait_until(10){ all("#process_helper .loading", :visible => true).size == 0 }
+  page.execute_script("$('#code').focus().change()")
+  wait_until(10){ find(".ui-autocomplete") }
 end
 
 Then /^I see a list of suggested (.*?) names$/ do |type|

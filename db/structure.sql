@@ -128,6 +128,7 @@ CREATE TABLE `contract_lines` (
   `option_id` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
+  `purpose_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_contract_lines_on_start_date` (`start_date`),
   KEY `index_contract_lines_on_end_date` (`end_date`),
@@ -306,7 +307,7 @@ CREATE TABLE `languages` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_languages_on_name` (`name`),
   KEY `index_languages_on_active_and_default` (`active`,`default`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `locations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -418,6 +419,7 @@ CREATE TABLE `order_lines` (
   `end_date` date DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
+  `purpose_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_order_lines_on_start_date` (`start_date`),
   KEY `index_order_lines_on_end_date` (`end_date`),
@@ -461,6 +463,12 @@ CREATE TABLE `properties` (
   `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_properties_on_model_id` (`model_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `purposes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `roles` (
@@ -558,3 +566,5 @@ INSERT INTO schema_migrations (version) VALUES ('20111118141748');
 INSERT INTO schema_migrations (version) VALUES ('20111123154235');
 
 INSERT INTO schema_migrations (version) VALUES ('20120106214650');
+
+INSERT INTO schema_migrations (version) VALUES ('20120424080000');
