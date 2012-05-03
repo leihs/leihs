@@ -79,6 +79,7 @@ group :test, :development do
   gem 'simplecov'
   gem 'launchy', '~> 2.1'
   gem "uuidtools", "~> 2.1.2" # needed for creating unique ids during tests (factories)
+  gem "timecop", "~> 0.3.5"
 end
 
 #group :culerity do

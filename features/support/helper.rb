@@ -93,26 +93,10 @@ end
 #
 # Date changing hackery
 
-def back_to_the_future( date )
-  if Date.respond_to? :today_original
-    # just overwrite the current Date.today
-    # 'cause we still have the original
-  else
-    class << Date
-      alias_method :today_original, :today
-    end
-  end
-
-  Date.class_exec(date) do |date|
-    @@my_date = date
-    def self.today
-      @@my_date
-    end
-  end
+def back_to_the_future(date)
+  Timecop.travel(date)
 end
 
 def back_to_the_present
-  class << Date
-    alias_method :today, :today_original
-  end
+  Timecop.return
 end
