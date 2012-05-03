@@ -169,7 +169,7 @@ class Backend::HandOverController < Backend::BackendController
         with = { :lines => {:is_valid => true,
                  :item => {},
                  :model => {},
-                 :contract => {:user => {}},
+                 :contract => {:user => {:groups => {}}},
                  :purpose => true,
                  :availability => true}}
         @visits = @user.visits.hand_over.scoped_by_inventory_pool_id(current_inventory_pool)
@@ -309,7 +309,7 @@ class Backend::HandOverController < Backend::BackendController
            with = { :is_valid => true,
                     :item => {},
                     :model => {},
-                    :contract => {:user => {}},
+                    :contract => {:user => {:groups => {}}},
                     :purpose => true,
                     :availability => true}
           render :partial => "backend/contracts/lines.json.rjson", :locals => {:lines => Array(line), :with => with}
