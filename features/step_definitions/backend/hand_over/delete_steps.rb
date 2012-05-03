@@ -41,7 +41,7 @@ end
 When /^I delete all lines of a model thats availability is blocked by these lines$/ do
   step 'I add so many lines that I break the maximal quantity of an model'
   all(".line", :text => @model.name).each do |line|
-    line.should have_content "Problems"
+    line[:class].match("error").should be_true
   end
   
   (all(".line", :text => @model.name).size-1).times do
@@ -51,5 +51,5 @@ When /^I delete all lines of a model thats availability is blocked by these line
 end
 
 Then /^the availability of the keeped line is updated$/ do
-  line = find(".line", :text => @model.name).should_not have_content "Problems"
+  line = find(".line", :text => @model.name)[:class].match("error").should be_nil
 end

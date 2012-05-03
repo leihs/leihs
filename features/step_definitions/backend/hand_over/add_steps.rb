@@ -57,9 +57,7 @@ When /^I type the beginning of (.*?) name to the add\/assign input field$/ do |t
       @template = @user.managed_inventory_pools.first.templates.first
       @template.name
   end
-  find("#code").set @target_name[0..(@target_name.size/2)]
-  page.execute_script("$('#code').focus().change()")
-  wait_until(10){ find(".ui-autocomplete") }
+  type_into_autocomplete "#code", @target_name[0..(@target_name.size/2)]
 end
 
 Then /^I see a list of suggested (.*?) names$/ do |type|
@@ -84,8 +82,8 @@ end
 When /^I add so many lines that I break the maximal quantity of an model$/ do
   @model = @customer.contracts.unsigned.last.lines.first.model
   @target_name = @model.name
-  (@model.items.size+1).times do 
-    find("#code").set @target_name
+  (@model.items.size+1).times do
+    type_into_autocomplete "#code", @target_name 
     step 'I see a list of suggested model names'
     step 'I select the model from the list'
     sleep(1)

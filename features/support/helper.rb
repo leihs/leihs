@@ -109,3 +109,9 @@ def get_fullcalendar_day_element(date, line)
     all(".fc-widget-content:not(.fc-other-month) .fc-day-number", :text => /^#{date.day}$/).last
   end
 end
+
+def type_into_autocomplete(selector, value)
+  find(selector).set value
+  page.execute_script("$('#{selector}').focus().change()")
+  wait_until(10){ find(".ui-autocomplete") }
+end
