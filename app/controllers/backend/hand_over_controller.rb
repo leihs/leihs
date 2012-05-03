@@ -166,8 +166,14 @@ class Backend::HandOverController < Backend::BackendController
     respond_to do |format|
       format.json {
         # TODO: RETURN ONLY UPDATED LINES
+        with = { :lines => {:is_valid => true,
+                 :item => {},
+                 :model => {},
+                 :contract => {:user => {}},
+                 :purpose => true,
+                 :availability => true}}
         @visits = @user.visits.hand_over.scoped_by_inventory_pool_id(current_inventory_pool)
-        render :partial => "backend/visits/index.json.rjson", locals: {visits: @visits}
+        render :partial => "backend/visits/index.json.rjson", locals: {visits: @visits, with: with}
       }
     end
   end

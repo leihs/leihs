@@ -41,11 +41,7 @@ When /^I change (.*?) lines time range$/ do |type|
   step 'I open the booking calendar for this line'
   @new_start_date = @line.start_date + 1.day
   wait_until { find(".fc-widget-content .fc-day-number") }
-  @new_start_date_element = if @new_start_date.month > @line.start_date.month or @new_start_date.year > @line.start_date.year 
-    all(".fc-widget-content.fc-other-month .fc-day-number", :text => /^#{@new_start_date.day}$/).last 
-  else
-    all(".fc-widget-content:not(.fc-other-month) .fc-day-number", :text => /^#{@new_start_date.day}$/).last
-  end
+  @new_start_date_element = get_fullcalendar_day_element(@new_start_date, @line)
   @new_start_date_element.click
   find("a", :text => "Start Date").click
   step 'I save the booking calendar'
@@ -83,11 +79,7 @@ When /^I change the time range for multiple lines$/ do
   @line2_element.find("input[type=checkbox]").click
   step 'I edit the timerange of the selection'
   @new_start_date = @line1.start_date + 2.days
-  @new_start_date_element = if @new_start_date.month > @line1.start_date.month or @new_start_date.year > @line1.start_date.year 
-    all(".fc-widget-content.fc-other-month .fc-day-number", :text => /^#{@new_start_date.day}$/).last
-  else
-    all(".fc-widget-content:not(.fc-other-month) .fc-day-number", :text => /^#{@new_start_date.day}$/).last
-  end
+  @new_start_date_element = get_fullcalendar_day_element(@new_start_date, @line1)
   @new_start_date_element.click
   find("a", :text => "Start Date").click
   step 'I save the booking calendar'

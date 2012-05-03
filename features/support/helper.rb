@@ -88,7 +88,6 @@ def equal_collections?(coll_a, coll_b)
     r
 end
 
-#
 ##############################################################
 #
 # Date changing hackery
@@ -99,4 +98,14 @@ end
 
 def back_to_the_present
   Timecop.return
+end
+
+##############################################################
+
+def get_fullcalendar_day_element(date, line)
+  if date.month > line.start_date.month or date.year > line.start_date.year 
+    all(".fc-widget-content.fc-other-month .fc-day-number", :text => /^#{date.day}$/).last 
+  else
+    all(".fc-widget-content:not(.fc-other-month) .fc-day-number", :text => /^#{date.day}$/).last
+  end
 end

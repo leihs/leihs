@@ -36,8 +36,8 @@ class MultipleMergedLinesAvailabilities
     
     # go trough all selected lines to just collect the possible existing availability dates first (before merging anything)
     summed_av_dates = []
-    if line.availability_for_inventory_pool? and line.availability_for_inventory_pool.availability?
-      for line in selected_lines
+    for line in selected_lines
+      if line.availability_for_inventory_pool? and line.availability_for_inventory_pool.availability?
         for av_date in line.availability_for_inventory_pool.availability
           summed_av_dates.push av_date[0] if summed_av_dates.indexOf(av_date[0]) < 0
     
@@ -54,6 +54,8 @@ class MultipleMergedLinesAvailabilities
       
       # go trough all selected lines availability dates (or last founded entry) that matches the current date to compute the merged availability for this date
       for selected_line in selected_lines
+        continue unless selected_line.availability_for_inventory_pool.availability?
+
         offset_date = new Date(date)
         last_av_entry = []
         # if the date of the first entry is higher then the offset_date then we assume that there was no out_quantity so the entry is available

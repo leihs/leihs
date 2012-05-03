@@ -8,9 +8,10 @@ When /^I change the time range for all contract lines, envolving option and item
     line.find(".select input").click
   end
   step 'I edit the timerange of the selection'
-  @old_start_date = @hand_over.lines.first.start_date
-  @new_start_date = @old_start_date+1
-  @new_start_date_element = all(".fc-widget-content .fc-day-number", :text => /^#{@new_start_date.day}$/).last
+  @line = @hand_over.lines.first
+  @old_start_date = @line.start_date
+  @new_start_date = @old_start_date + 1.day
+  @new_start_date_element = get_fullcalendar_day_element(@new_start_date, @line)
   @new_start_date_element.click
   find("a", :text => "Start Date").click
   step 'I save the booking calendar'
