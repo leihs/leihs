@@ -53,17 +53,17 @@ module Persona
     def create_unsigned_contracts
       # unsigned_contract_1
       @unsigned_contract_1 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool)
-      FactoryGirl.create(:contract_line, :contract => @unsigned_contract_1, :model_id => @tripod_model.id)
+      FactoryGirl.create(:contract_line, :contract => @unsigned_contract_1, :model => @tripod_model)
       
       # unsigned_contract_2
       @unsigned_contract_2 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool)
-      FactoryGirl.create(:contract_line, :contract => @unsigned_contract_2, :model_id => @tripod_model.id)
-      FactoryGirl.create(:contract_line, :contract => @unsigned_contract_2, :model_id => @camera_model.id)
+      FactoryGirl.create(:contract_line, :contract => @unsigned_contract_2, :model => @tripod_model)
+      FactoryGirl.create(:contract_line, :contract => @unsigned_contract_2, :model => @camera_model)
     end
     
     def create_signed_contracts
       @signed_contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status_const => Contract::SIGNED)
-      @contract_line = FactoryGirl.create(:contract_line, :contract => @signed_contract, :item_id => @inventory_pool.items.select{|x| x.model ==  @camera_model}.first.id, :model_id => @camera_model.id, :start_date => Date.yesterday, :end_date => Date.today)
+      @contract_line = FactoryGirl.create(:contract_line, :contract => @signed_contract, :item_id => @inventory_pool.items.select{|x| x.model ==  @camera_model}.first.id, :model => @camera_model, :start_date => Date.yesterday, :end_date => Date.today)
     end
   end  
 end

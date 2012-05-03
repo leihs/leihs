@@ -1,5 +1,4 @@
 When /^I add an item to the hand over by providing an inventory code and a date range$/ do
-  binding.pry
   @inventory_code = @user.managed_inventory_pools.first.items.in_stock.first.inventory_code
   find("#code").set @inventory_code
   find("#process_helper .button").click

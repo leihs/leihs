@@ -154,6 +154,7 @@ class Order < Document
   end
 
   def add_line(quantity, model, user_id, start_date = nil, end_date = nil, inventory_pool = nil)
+    quantity = quantity.to_i
     line = lines.where(:model_id => model, :start_date => start_date, :end_date => end_date).first
     if line
       line.quantity += quantity

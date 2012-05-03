@@ -25,5 +25,4 @@ end
 When /^I change the time range for that option$/ do
   @option_line = @customer.visits.collect(&:lines).flatten.detect{|x| x.is_a?(OptionLine)}
   find(".option_line", :text => @option_line.option.name).find(".button", :text => "Edit").click
-  binding.pry
 end
