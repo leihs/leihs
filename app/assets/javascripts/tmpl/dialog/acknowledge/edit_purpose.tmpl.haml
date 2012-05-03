@@ -19,4 +19,6 @@
     
   %section.edit_purpose
     %textarea#purpose.focus{:name => "purpose"}
+      {{if purpose}}
       ${purpose.description}
+      {{/if}}
