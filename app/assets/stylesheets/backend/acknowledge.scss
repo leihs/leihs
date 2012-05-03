@@ -19,6 +19,10 @@
         padding-right: 160px;
         position: relative;
         top: 2px;
+        
+        &.none {
+          color: $lightgrey;
+        }
       }
       
       .button {

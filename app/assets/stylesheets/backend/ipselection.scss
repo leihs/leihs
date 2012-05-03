@@ -44,7 +44,7 @@
       position: absolute;
       top: 27px;
       z-index: 999;
-      width: 104%;
+      min-width: 104%;
       
       .inner {
         background: transparent;

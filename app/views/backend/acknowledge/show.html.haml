@@ -37,7 +37,10 @@
   .indent.purpose
     %section.purpose
       %label= _("Purpose")
-      %p= "#{@order.purpose}"
+      -unless @order.purpose.blank?
+        %p= "#{@order.purpose}"
+      -else
+        %p.none= _("no purpose specified")
       %button.button.white.open_dialog{:action => change_purpose_backend_inventory_pool_acknowledge_path(current_inventory_pool, @order), :"data-dialog_class" => "acknowledge edit_purpose", :"data-rel" => "tmpl/dialog/acknowledge/edit_purpose", :"data-on_success" => "Acknowledge.update_purpose(response.purpose);", :"data-ref_for_dialog" => "$('#order').tmplItem().data"}
         = _("Edit Purpose")
       

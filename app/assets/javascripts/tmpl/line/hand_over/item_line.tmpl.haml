@@ -39,9 +39,13 @@ ${Line.recompute_availability($item.data), ""}
           {{each(i, problem) $problems}}
           %li= "${problem}"
           {{/each}}
-      %strong 
+      %strong
+        ${$problems.length}
+        {{if $problems.length > 1}} 
         = _("Problems")
-        (${$problems.length})
+        {{else}}
+        = _("Problem")
+        {{/if}}
     {{/if}}
  
   .actions     
