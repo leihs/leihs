@@ -17,7 +17,7 @@ end
 
 Then /^I already see possible matches of models$/ do
   page.execute_script('$("#code").focus()')
-  find(".ui-autocomplete").should have_content @item.model.name
+  wait_until { find(".ui-autocomplete", :text => @item.model.name) }
 end
 
 When /^I select one of the matched models$/ do

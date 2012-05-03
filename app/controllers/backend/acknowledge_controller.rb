@@ -186,7 +186,7 @@ class Backend::AcknowledgeController < Backend::BackendController
     
     respond_to do |format|
       format.js { 
-        render(:partial => "backend/orders/show",
+        render(:partial => "backend/orders/show.json.rjson",
                :locals => {:order => @order,
                            :with => {:lines => {:model => {},
                                                 :order => {:user => {:groups => true}}, # FIXME remove this, we already have it as parent

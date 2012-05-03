@@ -12,6 +12,6 @@ When /^I change the order's purpose$/ do
 end
 
 Then /^the order's purpose is changed$/ do
-  @order.reload.purpose.should == @new_purpose
-  find("section.purpose", :text => @order.purpose)
+  @order.reload.purpose.description.should == @new_purpose
+  find("section.purpose", :text => @order.purpose.description)
 end

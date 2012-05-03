@@ -300,7 +300,13 @@ class Backend::HandOverController < Backend::BackendController
     respond_to do |format|
       format.json {
         if @error.blank?
-          render :partial => "backend/contracts/lines.json.rjson", :locals => {:lines => Array(line)}
+           with = { :is_valid => true,
+                    :item => {},
+                    :model => {},
+                    :contract => {:user => {}},
+                    :purpose => true,
+                    :availability => true}
+          render :partial => "backend/contracts/lines.json.rjson", :locals => {:lines => Array(line), :with => with}
         else
           render :template => "/errors/show", status: 500
         end
