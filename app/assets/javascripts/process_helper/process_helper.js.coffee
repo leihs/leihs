@@ -1,8 +1,8 @@
 ###
 
-Add Item 
+ProcessHelper
 
-This script provides functionalities to add items to orders and visits
+This script provides functionalities to add/assign items to orders and visits
  
 ###
    

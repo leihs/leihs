@@ -46,23 +46,22 @@
     
       a, a:link, a:visited {
         color: #dedbd9;
-        text-shadow: -1px 0 2px rgba(0,0,0,0.6);
+        text-shadow: -1px -1px 0 rgba(0,0,0,0.3), 1px 1px 0 rgba(0,0,0,0.1);
       }
       
       &.active {
         .anchor {
           background: url($backend-slices-h) repeat-x 0 -46px;
           color: white;
-          text-shadow: -1px 0 2px rgba(0,0,0,0.6);
+          text-shadow: -1px -1px 0 rgba(0,0,0,0.3), 1px 1px 0 rgba(0,0,0,0.1);
         }
       }
       
       &:hover {
-      
         .anchor {
           background: url($backend-slices-h) repeat-x 0 -46px;
           color: white;
-          text-shadow: -1px 0 2px rgba(0,0,0,0.6);
+          text-shadow: -1px -1px 0 rgba(0,0,0,0.3), 1px 1px 0 rgba(0,0,0,0.1);
         }
       }
       

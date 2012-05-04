@@ -38,3 +38,11 @@ Funktionalität: Zweck
     Dann werde ich darauf hingewiesen einen Zweck anzugeben
     Und erst wenn ich einen Zweck angebebe
     Dann kann ich die Aushändigung durchführen
+
+  @javascript  
+  Szenario: Aushändigung mit Gegenständen teilweise ohne Zweck
+    Wenn ich eine Aushändigung mache
+    Und einige der ausgewählten Gegenstände hat keinen Zweck angegeben
+    Dann muss ich keinen Zweck angeben um die Aushändigung durchzuführen
+    Wenn ich aber einen Zweck angebe
+    Dann wird nur den Gegenständen ohne Zweck der angegebene Zweck zugewiesen    

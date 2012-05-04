@@ -48,22 +48,8 @@
     position: relative;
   }
   
-  section.comment {
-  position: relative;
-    
-    #comment {
-      &[disabled=disabled] {
-        border: 1px solid $lightergrey;
-      }
-    }
-        
-    .hint {
-      color: $lightgrey;
-      font-size: 1.4em;
-      position: absolute;
-      top: 12px;
-      left: 14px;
-    }
+  section {
+    position: relative;
   }
   
   textarea {
@@ -74,5 +60,17 @@
     padding: 10px;
     vertical-align: top;
     width: 700px;
+    
+    &[disabled=disabled] {
+      border: 1px solid $lightergrey;
+    }
+        
+    &+.hint {
+      color: $lightgrey;
+      font-size: 1.4em;
+      position: absolute;
+      top: 12px;
+      left: 14px;
+    }
   }
 }

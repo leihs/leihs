@@ -24,21 +24,17 @@
     }
     
     .add_purpose {
+      display: none;
+      
       #purpose {
-        display: none;
-        
-        +.hint {
-          display: none;
-        }
-        
-        &.focus {
-          display: block;
-          
-          +.hint {
-            display: block;
-          }
-        }
+        height: 36px;
+        width: 97.5%;
       }
+    }
+    
+    &.none {
+      .add_purpose { display: block; }
+      .button { display: none; }
     }
   }
 }

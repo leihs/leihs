@@ -55,10 +55,10 @@ function Dialog() {
     }
     
     this.autofocus = function(dialog) {
-      if($(dialog).find(".focus:first").val() != "") {
-        $(dialog).find(".focus:first").focus().select();        
+      if($(dialog).find(".focus:visible:first").val() != "") {
+        $(dialog).find(".focus:visible::first").focus().select();        
       } else {
-        $(dialog).find(".focus:first").focus();
+        $(dialog).find(".focus:visible::first").focus();
       }
     }
     
