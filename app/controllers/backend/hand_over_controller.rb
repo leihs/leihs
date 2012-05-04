@@ -23,7 +23,7 @@ class Backend::HandOverController < Backend::BackendController
   
   # Sign definitely the contract
   def sign_contract(line_ids = params[:line_ids] || raise("line_ids is required"),
-                    purpose_description = params[:purpose],
+                    purpose_description = (params[:purpose].empty?) ? nil : params[:purpose],
                     note = params[:note])
     lines = @contract.contract_lines.find(line_ids)
 

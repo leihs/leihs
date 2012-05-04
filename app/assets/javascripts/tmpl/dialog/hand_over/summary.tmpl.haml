@@ -1,3 +1,5 @@
+${$purposes = Line.concatinate_purposes(SelectedLines.lines_data), ""}
+
 = form_tag '${$item.action}', :remote => true, :"data-submit_button" => true, :class => "summary" do
 
   %h1
@@ -13,11 +15,17 @@
       = _("Back")
     %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}'}
       = _("Hand Over")
-   
+  
   %section.purpose
-    %label= _("Purposes")
-    %p ${Line.concatinate_purposes(SelectedLines.lines_data)}  
-   
+    %form
+      %label= _("Purposes")
+      %p ${$purposes}
+      %button.button.white
+        = _("Add Purpose")
+      %section.add_purpose
+        %input#purpose{:type => :text, :class => "{{if $purposes == ''}}focus{{/if}}", :name => "purpose"}
+        %p.hint= _("Please provide a purpose...")
+ 
   %hr
   %section.lines.scalable
     ${$grouped_lines = new GroupedLines(SelectedLines.lines_data), ""}

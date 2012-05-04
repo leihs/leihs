@@ -44,8 +44,12 @@
     width: 20px;
   }
   
-  section.comment {
+  section {
     position: relative;
+  }
+  
+  section.comment {
+  position: relative;
     
     #comment {
       &[disabled=disabled] {
@@ -63,8 +67,6 @@
   }
   
   textarea {
-    border: 1px solid rgba(0,0,0,0.3);
-    color: $darkergrey;
     display: block;
     font-size: 1.4em;
     height: 65px;        
@@ -72,6 +74,5 @@
     padding: 10px;
     vertical-align: top;
     width: 700px;
-    @include border-radius(6px);
   }
 }

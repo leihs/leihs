@@ -2,4 +2,43 @@
 
 .ui-dialog.hand_over {
   
+  .purpose {
+    background: $highlight-grey;
+    position: relative;
+    padding: 4px 24px 6px;
+    margin-top: 12px;
+    left: -17px;
+    width: 708px;
+    
+    p:not(.hint) {
+      padding-top: 2px;
+      font-size: 1.2em;
+      min-height: 17px;
+      width: 80%;
+    }
+    
+    .button {
+      position: absolute;
+      right: 14px;
+      top: 5px;
+    }
+    
+    .add_purpose {
+      #purpose {
+        display: none;
+        
+        +.hint {
+          display: none;
+        }
+        
+        &.focus {
+          display: block;
+          
+          +.hint {
+            display: block;
+          }
+        }
+      }
+    }
+  }
 }

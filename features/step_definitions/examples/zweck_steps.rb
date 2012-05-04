@@ -18,22 +18,36 @@ Wenn /^jeder Eintrag eines Vertrages kann auf einen Zweck referenzieren$/ do
   end
 end
 
-Wenn /^ich eine Bestellung genehmigen muss sehe ich den Zweck$/ do
-  pending # express the regexp above with the code you wish you had
+Wenn /^ich eine Bestellung genehmige$/ do
+  step 'I open an order for acknowledgement'
 end
 
-Wenn /^ich eine Aushändigung mache sehe ich auf jeder Zeile den zugewisenen Zweck$/ do
-  pending # express the regexp above with the code you wish you had
+Dann /^sehe ich den Zweck$/ do
+  page.should have_content @order.lines.first.purpose.description
 end
 
-Wenn /^ich eine Bestellung genehmige dann kann ich den Zweck editieren\.$/ do
-  pending # express the regexp above with the code you wish you had
+Wenn /^ich eine Aushändigung mache$/ do
+  step 'I open a hand over'
 end
 
-Wenn /^ich eine Aushändigung durchführe$/ do
-  pending # express the regexp above with the code you wish you had
+Dann /^sehe ich auf jeder Zeile den zugewisenen Zweck$/ do
+  @customer.contracts.unsigned.first.lines.each_with_index do |line, i|
+    all(".line")[i].should have_content line.model.name
+    all(".line")[i].should have_content line.purpose.description[0..10]
+  end
 end
 
-Dann /^kann ich einen zusätzlichen Zweck hinzufügen$/ do
-  pending # express the regexp above with the code you wish you had
+Dann /^kann ich den Zweck editieren$/ do
+  find(".button", :text => "Edit Purpose").click
+  wait_until{ find(".dialog #purpose") }
+  @new_purpose_description = "Benötigt für die Sommer-Austellung"
+  find(".dialog #purpose").set @new_purpose_description
+  find(".dialog button[type=submit]").click
+  wait_until { all(".dialog", :visible => true).size == 0 }
+  @order.reload.lines.first.purpose.description.should == @new_purpose_description
+  find("section.purpose").should have_content @new_purpose_description 
+end
+
+Dann /^kann ich einen Zweck hinzufügen$/ do
+  binding.pry
 end

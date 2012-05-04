@@ -102,7 +102,7 @@ class Contract < Document
       errors.add(:base, _("This contract is not signable because it doesn't have any contract lines."))
       false
     elsif selected_lines.any? {|l| l.purpose.nil? }
-      errors.add(:base, _("This contract is not signable because some lines do not have the purpose."))
+      errors.add(:base, _("This contract is not signable because some lines do not have a purpose."))
       false
     elsif selected_lines.any? {|l| l.item.nil? }
       errors.add(:base, _("This contract is not signable because some lines are not assigned."))

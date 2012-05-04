@@ -69,6 +69,7 @@ group :test, :development do
   gem 'faker'
   gem 'pry', "~> 0.9"
   gem 'pry-rails', "~> 0.1"
+  gem "pry-nav", "~> 0.2.1"
   gem 'spork'
   gem 'cucumber-rails', '~> 1.2', :require => false
   gem 'database_cleaner', '~> 0.7', :require => false

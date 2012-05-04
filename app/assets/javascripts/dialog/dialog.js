@@ -12,9 +12,22 @@
 $(document).ready(function(){
   
   // hide hint on comment input and click
-  $(".dialog .comment").live("keydown click mouseup", function() {
-    $(this).find(".hint").fadeOut();
-    $(this).find(".focus").focus();
+  $(".dialog textarea, .dialog input").live("keydown click mouseup", function() {
+    $(this).next(".hint").fadeOut();
+    $(this).focus();
+  });
+  
+  // focus input/textarea on click on hint
+  $(".dialog .hint").live("keydown click", function() {
+    $(this).fadeOut();
+    $(this).siblings("textarea, input").focus();
+  });
+  
+  // hide hint on comment input and click
+  $(".dialog textarea, .dialog input").live("blur", function() {
+    if($(this).val() == "") {
+      $(this).next(".hint").fadeIn();
+    }
   });
 });
 
@@ -42,10 +55,10 @@ function Dialog() {
     }
     
     this.autofocus = function(dialog) {
-      if($(dialog).find(".focus").val() != "") {
-        $(dialog).find(".focus").focus().select();        
+      if($(dialog).find(".focus:first").val() != "") {
+        $(dialog).find(".focus:first").focus().select();        
       } else {
-        $(dialog).find(".focus").focus();
+        $(dialog).find(".focus:first").focus();
       }
     }
     
