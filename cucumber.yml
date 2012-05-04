@@ -1,1 +1,3 @@
 default:  -r features --format pretty --format junit --out tmp/junit --format html --out tmp/html/cucumber.html --tags=~@old-ui features
+current_examples: -r features --tags=~@wip --format pretty --format junit --out tmp/junit --format html --out tmp/html/current_examples.html features/examples/current
+examples: -r features --format pretty --format junit --out tmp/junit --format html --out tmp/html/examples.html -e 'features/examples/(current|upcoming)' features/examples
