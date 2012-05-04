@@ -62,7 +62,7 @@ end
 
 Then /^I see a list of suggested (.*?) names$/ do |type|
   page.execute_script('$("#code").focus()')
-  wait_until(10){ find(".ui-autocomplete") }
+  wait_until(10){ find(".ui-autocomplete") and all(".ui-autocomplete a").size > 0 }
 end
 
 When /^I select the (.*?) from the list$/ do |type|
@@ -83,10 +83,9 @@ When /^I add so many lines that I break the maximal quantity of an model$/ do
   @model = @customer.contracts.unsigned.last.lines.first.model
   @target_name = @model.name
   (@model.items.size+1).times do
-    type_into_autocomplete "#code", @target_name 
+    type_into_autocomplete "#code", @target_name
     step 'I see a list of suggested model names'
     step 'I select the model from the list'
-    sleep(1)
   end
 end
 

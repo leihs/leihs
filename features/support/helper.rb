@@ -112,6 +112,7 @@ end
 
 def type_into_autocomplete(selector, value)
   find(selector).set value
-  page.execute_script("$('#{selector}').focus().change()")
+  page.execute_script("$('#{selector}').focus()")
+  page.execute_script("$('#{selector}').autocomplete('search')")
   wait_until(10){ find(".ui-autocomplete") }
 end
