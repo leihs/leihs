@@ -7,7 +7,7 @@ Funktionalität: Werteliste
   das mir das System für eine Auswahl eine Werteliste zur verfügung stellen kann
 
   Grundlage:
-    Gegeben sei man ist "Pius"
+    Angenommen man ist "Pius"
     Und man öffnet eine Werteliste
 
   Szenario: Laufende Nummern

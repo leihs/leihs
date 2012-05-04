@@ -7,7 +7,7 @@ Funktionalität: Zweck
   den vom Benutzer angegebenen Zweck sehen
   
   Grundlage:
-    Gegeben sei man ist "Pius"
+    Angenommen man ist "Pius"
   
   Szenario: Unabhängigkeit
     Wenn ein Zweck gespeichert wird ist er unabhängig von einer Bestellung

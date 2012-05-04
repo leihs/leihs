@@ -7,7 +7,7 @@ Funktionalität: Vertrag
   das mir das System einen Vertrag bereitstellen kann
 
   Grundlage:
-    Gegeben sei man ist "Pius"
+    Angenommen man ist "Pius"
     Und man öffnet einen Vertrag
 
   Szenario: Was ich auf dem Vertrag sehen möchte.
