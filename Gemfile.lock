@@ -52,6 +52,8 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
+    capybara-screenshot (0.1.10)
+      capybara (>= 1.0)
     childprocess (0.3.2)
       ffi (~> 1.0.6)
     coderay (1.0.6)
@@ -291,6 +293,7 @@ DEPENDENCIES
   acts-as-dag!
   barby (~> 0.5.0)
   capybara (~> 1.1)
+  capybara-screenshot
   coffee-filter (~> 0.1.1)
   coffee-rails (~> 3.2)
   coffee-script (~> 2.2)
