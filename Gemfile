@@ -80,6 +80,7 @@ group :test, :development do
   gem 'launchy', '~> 2.1'
   gem "uuidtools", "~> 2.1.2" # needed for creating unique ids during tests (factories)
   gem "timecop", "~> 0.3.5"
+  gem 'capybara-screenshot'
 end
 
 #group :culerity do
