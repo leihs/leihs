@@ -11,7 +11,7 @@ Funktionalität: Zweck
   
   Szenario: Unabhängigkeit
     Wenn ein Zweck gespeichert wird ist er unabhängig von einer Bestellung
-     Und jeder Eintrag der Bestellung referenziert auf den Zweck
+     Und jeder Eintrag einer Bestellung referenziert einen Zweck
      Und jeder Eintrag eines Vertrages refereziert auf einen Zweck
 
   Szenario: Orte an den ich den Zweck sehe
