@@ -38,7 +38,7 @@ module Availability
 
     def availability_periods_for_inventory_pool(inventory_pool)
       p = partitions.in(inventory_pool).by_groups(inventory_pool.groups) + partitions.in(inventory_pool).by_groups(Group::GENERAL_GROUP_ID)
-      {:inventory_pool => inventory_pool.as_json,
+      {:inventory_pool => inventory_pool.as_json(:include => :holidays, :methods => :closed_days),
        :partitions => p,
        :availability => availability_changes_in(inventory_pool).changes.available_total_quantities }
     end
