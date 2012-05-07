@@ -6,7 +6,7 @@ When /^I open a hand over$/ do
 end
 
 When /^I select an item line and assign an inventory code$/ do
-  @item_line = @customer.visits.first.lines.detect {|x| x.class.to_s == "ItemLine"}
+  @item_line = @customer.visits.hand_over.first.lines.detect {|x| x.class.to_s == "ItemLine"}
   item = @ip.items.detect {|x| x.model == @item_line.model}
   @selected_items = [item]
   @line_element = find(".line[data-id='#{@item_line.id}']")
