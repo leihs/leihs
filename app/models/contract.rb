@@ -101,8 +101,8 @@ class Contract < Document
     if selected_lines.empty? # sign is only possible if there is at least one line
       errors.add(:base, _("This contract is not signable because it doesn't have any contract lines."))
       false
-    elsif selected_lines.any? {|l| l.purpose.nil? }
-      errors.add(:base, _("This contract is not signable because some lines do not have a purpose."))
+    elsif selected_lines.all? {|l| l.purpose.nil? }
+      errors.add(:base, _("This contract is not signable because none of the lines does have a purpose."))
       false
     elsif selected_lines.any? {|l| l.item.nil? }
       errors.add(:base, _("This contract is not signable because some lines are not assigned."))

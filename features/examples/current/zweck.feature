@@ -45,4 +45,4 @@ Funktionalität: Zweck
     Und einige der ausgewählten Gegenstände hat keinen Zweck angegeben
     Dann muss ich keinen Zweck angeben um die Aushändigung durchzuführen
     Wenn ich aber einen Zweck angebe
-    Dann wird nur den Gegenständen ohne Zweck der angegebene Zweck zugewiesen    
+    Dann wird nur den Gegenständen ohne Zweck der angegebene Zweck zugewiesen

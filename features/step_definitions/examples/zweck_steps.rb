@@ -43,7 +43,7 @@ Dann /^kann ich den Zweck editieren$/ do
   @new_purpose_description = "Benötigt für die Sommer-Austellung"
   find(".dialog #purpose").set @new_purpose_description
   find(".dialog button[type=submit]").click
-  wait_until { all(".dialog", :visible => true).size == 0 }
+  wait_until(15){ all(".dialog", :visible => true).size == 0 }
   @order.reload.lines.first.purpose.description.should == @new_purpose_description
   find("section.purpose").should have_content @new_purpose_description 
 end
@@ -74,7 +74,41 @@ Dann /^erst wenn ich einen Zweck angebebe$/ do
 end
 
 Dann /^kann ich die Aushändigung durchführen$/ do
+  signed_contracts_size = @customer.contracts.signed.size
+  wait_until { find(".dialog .button[type=submit]", :text => "Hand Over") }
   find(".dialog .button[type=submit]", :text => "Hand Over").click
   wait_until { all(".loading", :visible => true).size == 0 }
-  binding.pry
+  @customer.contracts.signed.size.should > signed_contracts_size
+end
+
+Wenn /^einige der ausgewählten Gegenstände hat keinen Zweck angegeben$/ do
+  step 'I click an inventory code input field of an item line'
+  step 'I select one of those'
+  @item_line_element.find(".select input").click
+  step 'I add an item to the hand over by providing an inventory code and a date range'
+  step 'I add an option to the hand over by providing an inventory code and a date range'
+end
+
+Dann /^muss ich keinen Zweck angeben um die Aushändigung durchzuführen$/ do
+  find("#hand_over_button").click
+  wait_until{ find(".dialog .button") }
+  step 'kann ich die Aushändigung durchführen'
+end
+
+Wenn /^ich aber einen Zweck angebe$/ do
+  step 'ich eine Aushändigung mache'
+  step 'einige der ausgewählten Gegenstände hat keinen Zweck angegeben'
+  find("#hand_over_button").click
+  wait_until{ find(".dialog .button") }
+  find(".purpose .button").click
+  @added_purpose = "Another Purpose"
+  find("#purpose").set @added_purpose
+  @unsigned_lines = @customer.contracts.unsigned.first.lines
+  step 'kann ich die Aushändigung durchführen'
+end
+
+Dann /^wird nur den Gegenständen ohne Zweck der angegebene Zweck zugewiesen$/ do
+  @unsigned_lines.select{|l| l.purpose.blank?}.each do |line|
+    line.purpose.description.should == @added_purpose
+  end
 end

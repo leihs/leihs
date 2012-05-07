@@ -16,7 +16,7 @@ When /^I add an option to the hand over by providing an inventory code and a dat
   find("#code").set @inventory_code
   page.execute_script('$("#code").focus()')
   find("#process_helper .button").click
-  wait_until(5){ all("#process_helper .loading", :visible => true).size == 0 }
+  wait_until(15){ all("#process_helper .loading", :visible => true).size == 0 }
 end
 
 Then /^the (.*?) is added to the hand over$/ do |type|

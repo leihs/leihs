@@ -31,10 +31,12 @@ class Backend::HandOverController < Backend::BackendController
     if purpose_description
       purpose = Purpose.create :description => purpose_description
       lines.each do |line|
-        line.purpose = purpose if line.purpose.nil?
-        line.save
+        if line.purpose.nil?
+          line.purpose = purpose
+          line.save
+        end
       end
-    end 
+    end
 
     respond_to do |format|
       format.json {
