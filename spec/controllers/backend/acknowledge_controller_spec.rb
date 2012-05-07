@@ -15,17 +15,6 @@ describe Backend::AcknowledgeController do
   end
   
   describe "add a line to an order during acknowledge process" do
-    it "adds a line to the order by providing a serial_number" do
-      response = post :add_line, {:format => :json,
-                                  :id => @submitted_order.id,
-                                  :inventory_pool_id => @inventory_pool.id,
-                                  :quantity => 1,
-                                  :start_date => Date.today,
-                                  :end_date => Date.tomorrow,
-                                  :code => @item.serial_number}, {user_id: @lending_manager.id}
-      #FIXME# response.success?.should be_true
-    end
-    
     it "adds a line to the order by providing a inventory_code" do
       response = post :add_line, {:format => :json,
                                   :id => @submitted_order.id,
@@ -38,7 +27,7 @@ describe Backend::AcknowledgeController do
     end
     
     it "adds a line to the order by providing a model_id" do
-      
+      pending      
     end
 
     it "an added line has the same purpose of the existing lines" do
