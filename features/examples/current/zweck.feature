@@ -35,7 +35,7 @@ Funktionalität: Zweck
   Szenario: Aushändigung ohne Zweck
     Wenn ich eine Aushändigung mache
     Und keine der ausgewählten Gegenstände hat einen Zweck angegeben
-    Dann werde ich darauf hingewiesen einen Zweck anzugeben
+    Dann werde ich beim Aushändigen darauf hingewiesen einen Zweck anzugeben
     Und erst wenn ich einen Zweck angebebe
     Dann kann ich die Aushändigung durchführen
 

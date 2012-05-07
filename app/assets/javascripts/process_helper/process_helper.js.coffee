@@ -112,7 +112,7 @@ class ProcessHelper
     else if $("#order").length
       @allocate_linegroup line_data, $(".linegroup")
     # select line if linegroup was selected 
-    line = _.find $(".line"), (line)-> $(line).tmplItem().data.id == line_data.id
+    line = $(".line[data-id=#{line_data.id}]")
     if $(line).closest(".linegroup").find(".select_group").is(":checked")
       $(line).find(".select input").attr("checked", true)
         
@@ -159,3 +159,5 @@ class ProcessHelper
     return true
    
 window.ProcessHelper = ProcessHelper
+
+window.Blah = 123

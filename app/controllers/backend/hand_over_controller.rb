@@ -30,9 +30,9 @@ class Backend::HandOverController < Backend::BackendController
     @contract.note = note if note
     if purpose_description
       purpose = Purpose.create :description => purpose_description
-      @contract.purpose = purpose_description
-      @contract.lines.each do |line|
+      lines.each do |line|
         line.purpose = purpose if line.purpose.nil?
+        line.save
       end
     end 
 

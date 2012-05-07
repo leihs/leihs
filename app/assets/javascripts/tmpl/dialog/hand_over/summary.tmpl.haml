@@ -17,10 +17,11 @@ ${$purposes = Line.concatinate_purposes(SelectedLines.lines_data), ""}
       = _("Hand Over")
   
   %section{:class => "purpose{{if $purposes.length==0}} none{{/if}}"}
-    %label= _("Purposes")
+    %label= _("Purpose")
     %p ${$purposes}
     %button.button.white
       = _("Add Purpose")
+    .clear
     %section.add_purpose
       %textarea#purpose.focus{:type => :text, :name => "purpose"}
       %p.hint= _("Please provide a purpose...")

@@ -5,22 +5,27 @@
   .purpose {
     background: $highlight-grey;
     position: relative;
-    padding: 4px 24px 6px;
+    padding: 7px 24px 6px;
     margin-top: 12px;
     left: -17px;
     width: 708px;
     
     p:not(.hint) {
       padding-top: 2px;
+      float: left;
       font-size: 1.2em;
-      min-height: 17px;
       width: 80%;
     }
     
+    label {
+      display: block;
+    }
+    
     .button {
-      position: absolute;
-      right: 14px;
-      top: 5px;
+      float: right;
+      margin-bottom: -11px;
+      position: relative;
+      top: -13px;
     }
     
     .add_purpose {

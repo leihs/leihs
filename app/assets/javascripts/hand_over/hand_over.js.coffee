@@ -16,6 +16,22 @@ class HandOver
     @update_subtitle()
     @setup_delete()
     @setup_option_quantity_changes()
+    @setup_purpose()
+    
+  @setup_purpose: ->
+    $(".dialog .purpose button").live "click", (e)->
+      e.preventDefault()
+      if $(".dialog .add_purpose:visible").length == 0
+        $(this).hide()
+        $(".dialog .add_purpose").show()
+        $(".dialog .add_purpose #purpose").addClass("focus").focus()
+        Dialog.rescale $(".dialog")
+      return false
+    $(".dialog #purpose").live "blur", (e)->
+      # prevent sending spaces
+      value = $(this).val()
+      $(this).val value.replace(/\s\s+/, " ").replace(/^\s$/, "")
+      $(this).blur() if value != $(this).val() and $(this).val().length == 0
     
   @setup_option_quantity_changes: ->
     $(".option_line .quantity input").live "keyup change", ()->
@@ -97,10 +113,10 @@ class HandOver
   
   @add_line: (line_data)->
     # update availability for the lines with the same model
-    HandOver.update_model_availability line_data
+    HandOver.update_model_availability line_data if line_data.type == "item_line"
     # try to assign first
-    matching_line = Underscore.find $("#visits .line"), (line)-> $(line).tmplItem().data.id == line_data.id
-    if matching_line?
+    matching_line = $(".line[data-id=#{line_data.id}]")
+    if matching_line.length
       HandOver.update_line(matching_line, line_data)
       title = if line_data.item? then line_data.item.inventory_code else line_data.model.inventory_code
       Notification.add_headline
@@ -115,6 +131,8 @@ class HandOver
         text: "#{moment(line_data.start_date).sod().format(i18n.date.XL)}-#{moment(line_data.end_date).format(i18n.date.L)}"
         type: "success"
     HandOver.update_subtitle()
+    # select new line
+    $(".line[data-id=#{line_data.id}] .select input").attr("checked", true).change()
   
   @update_model_availability: (line_data)->
     lines_with_the_same_model = Underscore.filter $("#visits .line"), (line)-> 

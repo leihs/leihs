@@ -49,5 +49,32 @@ Dann /^kann ich den Zweck editieren$/ do
 end
 
 Dann /^kann ich einen Zweck hinzufügen$/ do
+  find(".line .select input").click
+  find("#hand_over_button").click
+  wait_until { find(".dialog .purpose") }
+  find(".purpose .button").click
+  find("#purpose")
+end
+
+Wenn /^keine der ausgewählten Gegenstände hat einen Zweck angegeben$/ do
+  step 'I add an item to the hand over by providing an inventory code and a date range'
+  step 'I add an option to the hand over by providing an inventory code and a date range'
+end
+
+Dann /^werde ich beim Aushändigen darauf hingewiesen einen Zweck anzugeben$/ do
+  find("#hand_over_button").click
+  wait_until{ find(".dialog .button") }
+  find(".purpose #purpose")
+end
+
+Dann /^erst wenn ich einen Zweck angebebe$/ do
+  find(".dialog .button[type=submit]", :text => "Hand Over").click
+  wait_until { find(".notification") }
+  find(".dialog #purpose").set "The purpose for this hand over"
+end
+
+Dann /^kann ich die Aushändigung durchführen$/ do
+  find(".dialog .button[type=submit]", :text => "Hand Over").click
+  wait_until { all(".loading", :visible => true).size == 0 }
   binding.pry
 end
