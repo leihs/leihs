@@ -12,12 +12,12 @@ end
 
 When /^I wait until the autocompletion is loaded$/ do
   page.execute_script('$("#code").keyup().focus()')
-  wait_until(10){ all("#process_helper .loading").size == 0 and find(".ui-autocomplete") }
+  wait_until(15){ all(".loading", :visible => true).size == 0 and find(".ui-autocomplete") }
 end
 
 Then /^I already see possible matches of models$/ do
   page.execute_script('$("#code").keyup().focus()')
-  wait_until(10){ find(".ui-autocomplete", :text => @item.model.name) }
+  wait_until(10){ all(".loading", :visible => true).size == 0 and find(".ui-autocomplete", :text => @item.model.name) }
 end
 
 When /^I select one of the matched models$/ do

@@ -68,9 +68,10 @@ end
 
 When /^I select the (.*?) from the list$/ do |type|
   page.execute_script('$("#code").focus()')
-  wait_until(10){ find(".ui-autocomplete a", :text => @target_name) }
+  wait_until(15){ all(".loading", :visible => true).size == 0 }
+  wait_until(15){ find(".ui-autocomplete a", :text => @target_name) }
   find(".ui-autocomplete a", :text => @target_name).click
-  wait_until(10){ all("#process_helper .loading", :visible => true).size == 0 }
+  wait_until(15){ all(".loading", :visible => true).size == 0 }
 end
 
 Then /^each model of the template is added to the hand over for the provided date range$/ do
