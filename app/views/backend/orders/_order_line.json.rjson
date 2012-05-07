@@ -16,7 +16,7 @@ if with ||= nil
     borrowable_items = line.model.items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable
     h[:total_rentable] = borrowable_items.count
     h[:total_rentable_in_stock] = borrowable_items.in_stock.count
-    h[:availability_for_inventory_pool] = line.model.availability_periods_for_inventory_pool(current_inventory_pool).as_json(:include => :group) 
+    h[:availability_for_inventory_pool] = render(:partial => "backend/models/availability_for_inventory_pool.json.rjson", :locals => {:model => line.model, :inventory_pool => current_inventory_pool})
   end
   
   if with[:dates]
