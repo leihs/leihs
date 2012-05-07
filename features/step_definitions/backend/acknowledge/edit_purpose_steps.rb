@@ -1,5 +1,5 @@
 Then /^I see the order's purpose$/ do
-  find("section.purpose", :text => @order.purpose)
+  find("section.purpose", :text => @order.purpose.description)
 end
 
 When /^I change the order's purpose$/ do

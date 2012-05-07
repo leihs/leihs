@@ -1,14 +1,14 @@
 When /^I delete a line$/ do
   @contract = @customer.contracts.unsigned.first
   @line = @contract.lines.first
-  @line_element = find(".line", :text => @line.model.name)
+  @line_element = find(".line[data-id='#{@line.id}']")
   step 'I delete this line element'
 end
 
 When /^I delete this line element$/ do
   @line_element.find(".multibutton .trigger").click
   @line_element.find(".button", :text => "Delete").click
-  wait_until{ all(".loading", :visible => true ).size == 0 }  
+  wait_until(10){ all(".loading", :visible => true ).size == 0 }  
   sleep(0.6)
 end
 

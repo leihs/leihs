@@ -12,11 +12,12 @@ Then /^the item is added to the hand over for the provided date range and the in
 end
 
 When /^I add an option to the hand over by providing an inventory code and a date range$/ do
+  wait_until(15){ all(".loading", :visible => true).size == 0 }
   @inventory_code = @user.managed_inventory_pools.first.options.first.inventory_code
   find("#code").set @inventory_code
   page.execute_script('$("#code").focus()')
   find("#process_helper .button").click
-  wait_until(15){ all("#process_helper .loading", :visible => true).size == 0 }
+  wait_until(15){ all(".loading", :visible => true).size == 0 }
 end
 
 Then /^the (.*?) is added to the hand over$/ do |type|
