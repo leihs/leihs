@@ -74,6 +74,13 @@ namespace :leihs do
     exit_code = $? >> 8 # magic brainfuck
     raise "Tests failed with: #{exit_code}" if exit_code != 0
 
+    system "bundle exec cucumber -p examples"
+    exit_code = $? >> 8 # magic brainfuck
+    raise "Tests failed with: #{exit_code}" if exit_code != 0
+
+    system "bundle exec cucumber -p current_examples"
+    exit_code = $? >> 8 # magic brainfuck
+    raise "Tests failed with: #{exit_code}" if exit_code != 0
   end
 
   desc "Recreate DB and reindex" 
