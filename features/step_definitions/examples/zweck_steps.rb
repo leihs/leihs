@@ -31,9 +31,9 @@ Wenn /^ich eine Aushändigung mache$/ do
 end
 
 Dann /^sehe ich auf jeder Zeile den zugewisenen Zweck$/ do
-  @customer.contracts.unsigned.first.lines.each_with_index do |line, i|
-    all(".line")[i].should have_content line.model.name
-    all(".line")[i].should have_content line.purpose.description[0..10]
+  @customer.contracts.unsigned.first.lines.each do |line|
+    find(".line[data-id='#{line.id}']").should have_content line.model.name
+    find(".line[data-id='#{line.id}']").should have_content line.purpose.description[0..10]
   end
 end
 
