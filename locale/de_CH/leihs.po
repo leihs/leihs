@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "POT-Creation-Date: 2012-05-08 10:43+0200\n"
-"PO-Revision-Date: 2011-05-10 14:05+0100\n"
-"Last-Translator: Ramón Cahenzli <rca@psy-q.ch>\n"
+"PO-Revision-Date: 2012-05-08 12:02+0100\n"
+"Last-Translator: Ramón Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -30,28 +30,25 @@ msgid "\"The assignment for #{line.model.name} was removed\""
 msgstr ""
 
 msgid "%d %s ahead of time"
-msgstr ""
+msgstr "%d %s zu früh"
 
 msgid "%s (View in Order)"
-msgstr ""
+msgstr "%s (In Bestellung ansehen)"
 
-#, fuzzy
 msgid "%s Items"
 msgstr "%d Gegenstände"
 
-#, fuzzy
 msgid "%s Search Results for \"%s\""
-msgstr "%d Resultate bei Suche nach '%s'"
+msgstr "%s Resultate bei Suche nach \"%s\""
 
-#, fuzzy
 msgid "%s returns the item on %s"
-msgstr "Zurückgegebene Artikel"
+msgstr "%s bringt den Gegenstand am %s zurück"
 
 msgid "%s until %s"
 msgstr "%s bis %s"
 
 msgid "(%s Parts)"
-msgstr ""
+msgstr "(%s Teile)"
 
 msgid "(maximum available: %{max})"
 msgstr "(maximal verfügbar: %{max})"
@@ -59,18 +56,17 @@ msgstr "(maximal verfügbar: %{max})"
 msgid "** This is an automatically generated response **"
 msgstr "** Automatisch generierte E-Mail **"
 
-#, fuzzy
 msgid "A model for the Inventory Code / Serial Number '%s' was not found"
-msgstr "Inventarcode %s nicht gefunden"
+msgstr "Modell für Inventarcode/Seriennummer '%s' wurde nicht gefunden"
 
 msgid "A model with the ID '%s' was not found"
-msgstr ""
+msgstr "Modell mit ID '%s' wurde nicht gefunden"
 
 msgid "A package cannot be nested to another package"
 msgstr "Ein Paket kann nicht Teil eines Pakets sein"
 
 msgid "A template with the ID '%s' was not found"
-msgstr ""
+msgstr "Vorlage mit ID '%s' wurde nicht gefunden"
 
 msgid "Access Level: %d"
 msgstr "Zugriffsstufe: %d"
@@ -87,20 +83,17 @@ msgstr "Zugriffsrechte wiederhergestellt"
 msgid "Add"
 msgstr "Hinzufügen"
 
-#, fuzzy
 msgid "Add Item"
 msgstr "Gegenstand hinzufügen"
 
-#, fuzzy
 msgid "Add Purpose"
-msgstr "Zweck"
+msgstr "Zweck hinzufügen"
 
-#, fuzzy
 msgid "Add to Order"
-msgstr "Zu Kategorie hinzufügen"
+msgstr "Zu Bestellung hinzufügen"
 
 msgid "Add/Assign"
-msgstr ""
+msgstr "Hinzufügen/Zuweisen"
 
 msgid "Added"
 msgstr "Hinzugefügt"
@@ -118,32 +111,28 @@ msgid "An order for the following items listed below was received in an inventor
 msgstr "Eine Bestellung für die folgenden Gegenstände ist in einem Inventarpool eingegangen, für den Sie verantwortlich sind."
 
 msgid "Approval Successful"
-msgstr ""
+msgstr "Genehmigung erfolgreich"
 
-#, fuzzy
 msgid "Approve"
-msgstr "Genehmigt"
+msgstr "Genehmigen"
 
 msgid "Approve Order"
 msgstr "Bestellung genehmigen"
 
-#, fuzzy
 msgid "Approve anyway"
-msgstr "Genehmigt"
+msgstr "Trotzdem genehmigen"
 
 msgid "Approved"
 msgstr "Genehmigt"
 
-#, fuzzy
 msgid "Approved Items"
-msgstr "Genehmigt"
+msgstr "Genehmigte Gegenstände"
 
 msgid "Assign"
-msgstr ""
+msgstr "Zuweisen"
 
-#, fuzzy
 msgid "Assigning the inventory code fails"
-msgstr "Freie Inventarcodes"
+msgstr "Inventarcode zuweisen fehlgeschlagen"
 
 msgid "Attachment was successfully created."
 msgstr "Attachment erfolgreich erstellt."
@@ -152,41 +141,34 @@ msgid "Attempt to add node to own graph collection"
 msgstr "Versuch, einen Zweig seiner eigenen Graph-Kollektion hinzuzufügen"
 
 msgid "Auswahl"
-msgstr ""
+msgstr "Selection"
 
-#, fuzzy
 msgid "Available"
-msgstr "nicht verfügbar"
+msgstr "Verfügbar"
 
-#, fuzzy
 msgid "Back"
-msgstr "Zurücknehmen"
+msgstr "Zurück"
 
 msgid "Backend"
-msgstr ""
+msgstr "Backend"
 
 msgid "Badge ID was updated"
 msgstr "Badge-Nummer wurde aktualisiert"
 
-#, fuzzy
 msgid "Badge:"
-msgstr "Badge"
+msgstr "Badge:"
 
-#, fuzzy
 msgid "Book"
-msgstr "Ausleihe"
+msgstr "Reservieren"
 
-#, fuzzy
 msgid "Book this"
-msgstr "Ausleihe"
+msgstr "Dies reservieren"
 
-#, fuzzy
 msgid "Borrowed Items"
-msgstr "Eigene Gegenstände"
+msgstr "Geliehene Gegenstände"
 
-#, fuzzy
 msgid "Borrower"
-msgstr "Ausleihbar"
+msgstr "Ausleihende/r"
 
 msgid "Borrower (max. ${$users_availablility.total_rentable})"
 msgstr ""
@@ -204,7 +186,7 @@ msgid "Categories"
 msgstr "Kategorien"
 
 msgid "Changed %s from %s to %s"
-msgstr ""
+msgstr "%s von %s zu %s geändert"
 
 msgid "Changed dates for %{model} from %{from} to %{to}"
 msgstr "Datum für %{model} von %{from} auf %{to} gesetzt"
@@ -224,22 +206,20 @@ msgstr "Vertrag"
 msgid "Contract %d has been signed by %s"
 msgstr "Vertrag %d wurde unterschrieben von %s"
 
-#, fuzzy
 msgid "Contract No."
-msgstr "Vertragsnummer"
+msgstr "Vertrags-Nr."
 
 msgid "Contract Nr."
 msgstr "Vertragsnummer"
 
-#, fuzzy
 msgid "Contract PDF"
-msgstr "Vertrag"
+msgstr "Vertrag-PDF"
 
 msgid "Contracts"
 msgstr "Verträge"
 
 msgid "Couldn't connect to LDAP: :"
-msgstr ""
+msgstr "Konnte nicht mit LDAP-Server verbinden::"
 
 msgid "Couldn't update "
 msgstr "Konnte nicht updaten"
@@ -247,37 +227,32 @@ msgstr "Konnte nicht updaten"
 msgid "Created at"
 msgstr "Erstellt am"
 
-#, fuzzy
 msgid "Current Order"
-msgstr "Bestellung ablehnen"
+msgstr "Aktuelle Bestellung"
 
-#, fuzzy
 msgid "Currently Rented Items"
-msgstr "Im Moment gesperrt bei:"
+msgstr "Momentan geliehene Gegenstände"
 
-#, fuzzy
 msgid "Currently has things to return"
-msgstr "Hat momentan die folgenden Dinge"
+msgstr "Hat momentan Dinge zurückzugeben"
 
 msgid "Currently you have no items in your order."
-msgstr ""
+msgstr "Momentan haben Sie keine Gegenstände in Ihrer Bestellung."
 
 msgid "Daily View"
-msgstr ""
+msgstr "Tagesansicht"
 
 msgid "Day"
 msgstr "Tag"
 
-#, fuzzy
 msgid "Day overdue"
-msgstr "überfällig"
+msgstr "Tag überfällig"
 
 msgid "Days"
 msgstr "Tage"
 
-#, fuzzy
 msgid "Days overdue"
-msgstr "überfällig"
+msgstr "Tage überfällig"
 
 msgid "Deadline soon"
 msgstr "Bald Deadline"
@@ -294,9 +269,8 @@ msgstr "Liebe/r leihs-Manager/in"
 msgid "Delete"
 msgstr "Löschen"
 
-#, fuzzy
 msgid "Delete this line"
-msgstr "Auswahl löschen"
+msgstr "Zeile löschen"
 
 msgid "Di"
 msgstr ""
@@ -311,46 +285,41 @@ msgid "E-Mail"
 msgstr ""
 
 msgid "ERROR"
-msgstr ""
+msgstr "FEHLER"
 
 msgid "Edit"
 msgstr "Editieren"
 
-#, fuzzy
 msgid "Edit Order"
-msgstr "Bestellung abschicken"
+msgstr "Bestellung editieren"
 
-#, fuzzy
 msgid "Edit Purpose"
-msgstr "Zweck bestimmen"
+msgstr "Zweck editieren"
 
-#, fuzzy
 msgid "Edit Selection"
-msgstr "Auswahl löschen"
+msgstr "Auswahl editieren"
 
 msgid "Edit multiple ordered items for"
-msgstr ""
+msgstr "Mehrere bestellte Gegenstände bearbeiten für"
 
 msgid "Edit ordered item for"
-msgstr ""
+msgstr "Bestellten Gegenstand bearbeiten für"
 
 msgid "Edit purpose for order from"
-msgstr ""
+msgstr "Zweck für Bestellung bearbeiten von"
 
 msgid "Edit this Order"
-msgstr ""
+msgstr "Diese Bestellung bearbeiten"
 
 msgid "Empty Username and/or Password"
 msgstr "Benutzername und/oder Passwort sind leer"
 
-#, fuzzy
 msgid "End Date"
 msgstr "Enddatum"
 
 msgid "Equipment Booking and Inventory Management System"
-msgstr ""
+msgstr "Geräte-Ausleihe und Inventarverwaltungssystem"
 
-#, fuzzy
 msgid "Equipment Pools"
 msgstr "Geräteparks"
 
@@ -382,21 +351,20 @@ msgid "Expected to be returned."
 msgstr "Zurückerwartet."
 
 msgid "Found %d matches"
-msgstr ""
+msgstr "%s Treffer"
 
 msgid "Found %s"
-msgstr ""
+msgstr "%s gefunden"
 
 #, fuzzy
 msgid "Fr"
 msgstr "Von"
 
 msgid "Frontend"
-msgstr ""
+msgstr "Frontend"
 
-#, fuzzy
 msgid "Go Back"
-msgstr "Zurücknehmen"
+msgstr "Zurück"
 
 msgid "Group ${partition.group.name} (max. ${partition.quantity})"
 msgstr ""
@@ -404,39 +372,32 @@ msgstr ""
 msgid "Hand Over"
 msgstr "Aushändigen"
 
-#, fuzzy
 msgid "Hand Over Items"
-msgstr "Besuche zum Aushändigen"
+msgstr "Auszuhändigende Gegenstände"
 
-#, fuzzy
 msgid "Hand Over to"
-msgstr "Aushändigen"
+msgstr "Aushändigen an"
 
-#, fuzzy
 msgid "Hand Over to %s"
-msgstr "Besuche zum Aushändigen"
+msgstr "Aushändigen an %s"
 
-#, fuzzy
 msgid "Hand Overs"
-msgstr "Aushändigen"
+msgstr "Aushändigungen"
 
 msgid "Help"
 msgstr "Hilfe"
 
-#, fuzzy
 msgid "Highlight available items."
-msgstr "Verfügbar"
+msgstr "Verfügbare hervorheben."
 
-#, fuzzy
 msgid "History"
 msgstr "Geschichte"
 
 msgid "In Stock"
 msgstr "An Lager"
 
-#, fuzzy
 msgid "In Total"
-msgstr "Total"
+msgstr "Insgesamt"
 
 msgid "In Total (max. ${total_rentable})"
 msgstr ""
@@ -451,11 +412,10 @@ msgid "Inconsistent Inventory Pool"
 msgstr "Inkonsistenter Geräterpark"
 
 msgid "Incremented quantity from %i to %i for %s"
-msgstr ""
+msgstr "Anzahl von %i auf %i erhöht für %s"
 
-#, fuzzy
 msgid "Introduction"
-msgstr "Ort"
+msgstr "Einführung"
 
 msgid "Invalid order_lines"
 msgstr "Ungültige order_lines"
@@ -472,9 +432,8 @@ msgstr "Inventar"
 msgid "Inventory Code"
 msgstr "Inventarcode"
 
-#, fuzzy
 msgid "Inventory Code / Name"
-msgstr "Inventarcode"
+msgstr "Inventarcode/Name"
 
 msgid "Inventory Pool"
 msgstr "Gerätepark"
@@ -512,33 +471,27 @@ msgstr "Gegenstände"
 msgid "Kind regards,"
 msgstr "Schöne Grüsse"
 
-#, fuzzy
 msgid "Last Visitors:"
-msgstr "Letzte Besucher"
+msgstr "Letzte Besucher:"
 
 #, fuzzy
 msgid "Lates Reminder:"
 msgstr "[leihs] Erinnerung"
 
-#, fuzzy
 msgid "Lending"
-msgstr "Offen"
+msgstr "Ausleihe"
 
-#, fuzzy
 msgid "List of Contracts"
-msgstr "Verträge"
+msgstr "Liste der Verträge"
 
-#, fuzzy
 msgid "List of Inventory"
-msgstr "Inventar"
+msgstr "Inventarliste"
 
-#, fuzzy
 msgid "List of Orders"
-msgstr "Bestellung wiederherstellen"
+msgstr "Liste der Bestellungen"
 
-#, fuzzy
 msgid "List of Visits"
-msgstr "Letzte Besucher"
+msgstr "Liste der Besuche"
 
 msgid "Loading"
 msgstr "Lade"
@@ -558,17 +511,14 @@ msgstr "Login"
 msgid "Logout"
 msgstr "Logout"
 
-#, fuzzy
 msgid "Manufacturer (A-Z)"
-msgstr "Hersteller"
+msgstr "Hersteller (A-Z)"
 
-#, fuzzy
 msgid "Manufacturer (Z-A)"
-msgstr "Hersteller"
+msgstr "Hersteller (Z-A)"
 
-#, fuzzy
 msgid "Matching Templates"
-msgstr "Vorlagen"
+msgstr "Passende Vorlagen"
 
 msgid "Maximum number of items available at that time is %{max}"
 msgstr "Die maximale Anzahl verfügbarer Artikel für diese Zeit ist %{max}"
@@ -581,27 +531,25 @@ msgid "Mo"
 msgstr ""
 
 msgid "Mobile"
-msgstr ""
+msgstr "Mobil"
 
 msgid "Model"
 msgstr "Modell"
 
-#, fuzzy
 msgid "Model (A-Z)"
-msgstr "Modelle  (%d)"
+msgstr "Modell (A-Z)"
 
-#, fuzzy
 msgid "Model (Z-A)"
-msgstr "Modelle  (%d)"
+msgstr "Modell (Z-A)"
 
 msgid "Model must be selected"
 msgstr "Modell muss ausgewählt sein"
 
 msgid "Model not present any more"
-msgstr ""
+msgstr "Modell ist nicht mehr hier"
 
 msgid "Model not present anymore"
-msgstr ""
+msgstr "Modell ist nicht mehr hier"
 
 msgid "Model successfully added as compatible"
 msgstr "Modell erfolgreich als kompatibel hinzugefügt"
@@ -609,9 +557,8 @@ msgstr "Modell erfolgreich als kompatibel hinzugefügt"
 msgid "Models"
 msgstr "Modelle"
 
-#, fuzzy
 msgid "Multiple selected items"
-msgstr "Ausgewähltes entfernen"
+msgstr "Mehrere Gegenstände ausgewählt"
 
 msgid "New item created."
 msgstr "Neuer Gegenstand erstellt."
@@ -620,59 +567,52 @@ msgid "Next"
 msgstr "Vorwärts"
 
 msgid "No description available for this model."
-msgstr ""
+msgstr "Dieses Modell hat keine Beschreibung."
 
 msgid "No entry found"
-msgstr ""
+msgstr "Kein Eintrag gefunden"
 
-#, fuzzy
 msgid "No hand overs found"
-msgstr "Zu viele Benutzer gefunden"
+msgstr "Keine Aushändigungen gefunden"
 
-#, fuzzy
 msgid "No reminder yet"
-msgstr "Erinnerung"
+msgstr "Noch keine Erinnerungen"
 
 msgid "No take backs found"
-msgstr ""
+msgstr "Keine Rücknahmen gefunden"
 
-#, fuzzy
 msgid "No."
-msgstr "Nein"
+msgstr "Nr."
 
 msgid "Number of items"
 msgstr "Anzahl Gegenstände"
 
 msgid "One of the managers approves/denies or changes your reservation"
-msgstr ""
+msgstr "Das Verwaltungspersonal bestätigt Ihre Bestellung oder lehnt sie ab"
 
 msgid "Open"
-msgstr ""
+msgstr "Öffnen"
 
 msgid "Open Datepicker"
-msgstr ""
+msgstr "Datumsauswahl öffnen"
 
-#, fuzzy
 msgid "Open Orders"
-msgstr "Bestellungen"
+msgstr "Offene Bestellungen"
 
-#, fuzzy
 msgid "Opening Hours"
 msgstr "Öffnungszeiten"
 
 msgid "Order"
 msgstr "Bestellung"
 
-#, fuzzy
 msgid "Order History"
-msgstr "Bestellung Nr."
+msgstr "Vergangene Bestellungen"
 
 msgid "Order approved"
 msgstr "Bestellung genehmigt"
 
-#, fuzzy
 msgid "Order from"
-msgstr "Bestellung von %s"
+msgstr "Bestellung von"
 
 msgid "Order from %s"
 msgstr "Bestellung von %s"
@@ -689,17 +629,14 @@ msgstr "Bestellung abgeschickt"
 msgid "Orders"
 msgstr "Bestellungen"
 
-#, fuzzy
 msgid "Overdue Returns"
-msgstr "Überfällig"
+msgstr "Überfällige Rückgaben"
 
-#, fuzzy
 msgid "Overdue Visit"
-msgstr "Überfällig"
+msgstr "Überfällige Besuche"
 
-#, fuzzy
 msgid "Own Inventory"
-msgstr "Inventar"
+msgstr "Eigenes Inventar"
 
 msgid "Package error"
 msgstr "Paketfehler"
@@ -725,37 +662,35 @@ msgstr "Offen"
 msgid "Phone"
 msgstr "Telefon"
 
-#, fuzzy
 msgid "Phone:"
 msgstr "Telefon:"
 
 msgid "Place reservations on items and then pick them up"
-msgstr ""
+msgstr "Gegenstände reservieren und abholen"
 
 msgid "Please note that these contracts, while they do belong to approved orders, may be changed by the lending manager at any time. They represent only a current snapshot of the order and might not contain the same items as the final contract once you pick up your items."
 msgstr "Bitte beachten Sie, dass diese Verträge zwar zu genehmigten Bestellungen gehören, die Bestellungen aber jederzeit von einem Inventarverwalter verändert werden können. Sie zeigen nur ein aktuelles Abbild der Bestellung. Diese kann bei Abholung durchaus andere Gegenstände enthalten."
 
 msgid "Please provide a purpose..."
-msgstr ""
+msgstr "Bitte füllen Sie den Zweck aus..."
 
 msgid "Please specify the purpose of your order here..."
-msgstr ""
+msgstr "Bitte geben Sie den Zweck Ihrer Bestellung hier an..."
 
 msgid "Previous"
 msgstr "Zurück"
 
 msgid "Problem"
-msgstr ""
+msgstr "Problem"
 
 msgid "Problems"
-msgstr ""
+msgstr "Probleme"
 
 msgid "Purpose"
 msgstr "Zweck"
 
-#, fuzzy
 msgid "Purpose changed '%s' for '%s'"
-msgstr "Zweck geändert von '%{from}' zu '%{to}'"
+msgstr "Zweck geändert von '%s' zu %s'"
 
 msgid "Purpose changed '%{from}' for '%{to}'"
 msgstr "Zweck geändert von '%{from}' zu '%{to}'"
@@ -766,13 +701,11 @@ msgstr "Anz."
 msgid "Quantity"
 msgstr "Anzahl"
 
-#, fuzzy
 msgid "Quick Approve"
-msgstr "Genehmigt"
+msgstr "Schnell-Genehmigung"
 
-#, fuzzy
 msgid "Recommended Accessories"
-msgstr "Zubehör"
+msgstr "Empfohlenes Zubehör"
 
 msgid "Reject"
 msgstr "Ablehnen"
@@ -780,9 +713,8 @@ msgstr "Ablehnen"
 msgid "Rejected"
 msgstr "Abgelehnt"
 
-#, fuzzy
 msgid "Rejection Successful"
-msgstr "Ort erfolgreich zugewiesen"
+msgstr "Ablehnen erfolgreich"
 
 msgid "Remind"
 msgstr "Erinnern"
@@ -796,9 +728,8 @@ msgstr "Erinnerung"
 msgid "Removed %{q} %{m}"
 msgstr "%{q} %{m} entfernt"
 
-#, fuzzy
 msgid "Requested Items"
-msgstr "Zurückgegebene Artikel"
+msgstr "Bestellte Artikel"
 
 msgid "Retire"
 msgstr "Ausmustern"
@@ -806,26 +737,23 @@ msgstr "Ausmustern"
 msgid "Save"
 msgstr "Speichern"
 
-#, fuzzy
 msgid "Save Changes"
-msgstr "Änderungen"
+msgstr "Änderungen speichern"
 
 msgid "Search"
 msgstr "Suche"
 
 msgid "Search Results for \"%s\""
-msgstr ""
+msgstr "Suchresultate für \"%s\""
 
-#, fuzzy
 msgid "Search..."
-msgstr "Suche"
+msgstr "Suche..."
 
-#, fuzzy
 msgid "Searching"
 msgstr "Suche"
 
 msgid "Selected Pools (%s)"
-msgstr ""
+msgstr "Ausgewählte Parks (%s)"
 
 msgid "Serial Number"
 msgstr "Seriennummer"
@@ -833,15 +761,14 @@ msgstr "Seriennummer"
 msgid "Show"
 msgstr "Anzeigen"
 
-#, fuzzy
 msgid "Show Availability"
-msgstr "Verfügbarkeit"
+msgstr "Verfügbarkeit anzeigen"
 
 msgid "Show Full History"
-msgstr ""
+msgstr "Gesamte Geschichte anzeigen"
 
 msgid "Show all ..."
-msgstr ""
+msgstr "Alles anzeigen..."
 
 msgid "Signed"
 msgstr "Unterschrieben"
@@ -853,13 +780,11 @@ msgid "Since we did not receive any request for renewal, we consequently demand 
 msgstr "Da Sie keine Verlängerung beantragt haben, bitten wir Sie, die Artikel sofort zurückzubringen."
 
 msgid "Something went wrong!"
-msgstr ""
+msgstr "Etwas ist schiefgelaufen!"
 
-#, fuzzy
 msgid "Start"
-msgstr "Startdatum"
+msgstr "Start"
 
-#, fuzzy
 msgid "Start Date"
 msgstr "Startdatum"
 
@@ -881,9 +806,8 @@ msgstr "Bestellung abschicken"
 msgid "Submitted"
 msgstr "Abgeschickt"
 
-#, fuzzy
 msgid "Successful Order"
-msgstr "Erfolgreich zugewiesen"
+msgstr "Bestellung erfolgreich"
 
 msgid "Successfully set."
 msgstr "Erfolgreich zugewiesen"
@@ -894,30 +818,26 @@ msgstr ""
 msgid "Swapped %{from} for %{to}"
 msgstr "%{from} durch %{to} ersetzt"
 
-#, fuzzy
 msgid "Swapped from %s "
-msgstr "%{from} durch %{to} ersetzt"
+msgstr "Ersetzt %s"
 
 msgid "Take Back"
 msgstr "Zurücknehmen"
 
-#, fuzzy
 msgid "Take Back from"
-msgstr "Zurücknehmen"
+msgstr "Rücknahme von"
 
-#, fuzzy
 msgid "Take Back from %s"
-msgstr "Zurücknehmen"
+msgstr "Rücknahme von %s"
 
-#, fuzzy
 msgid "Take Backs"
-msgstr "Zurücknehmen"
+msgstr "Rücknahmen"
 
 msgid "Templates"
 msgstr "Vorlagen"
 
 msgid "That means that the user probably did not get the approval mail and you need to contact him/her in a different way."
-msgstr ""
+msgstr "Das bedeutet, dass der/die Benutzer/in das Bestätigungsmail nicht erhalten hat und Sie die Person auf eine andere Art kontaktieren müssen."
 
 msgid "The Category must be empty"
 msgstr "Die Kategorie muss leer sein"
@@ -949,9 +869,8 @@ msgstr "Die folgenden Artikel sind überfällig:"
 msgid "The group quantities were successfully saved."
 msgstr "Die Gruppen-Verteilungen wurden gespeichert."
 
-#, fuzzy
 msgid "The inventory code %s is not valid for this model"
-msgstr "Inventarcode %s nicht gefunden"
+msgstr "Inventarcode %s ist nicht gültig für dieses Modell"
 
 msgid "The item belongs to a package"
 msgstr "Der Gegenstand gehört zu einem Paket"
@@ -968,13 +887,11 @@ msgstr "Dieser Artikel entspricht nicht dem reservierten Modell"
 msgid "The item is already handed over or assigned to a different contract line"
 msgstr "Dieser Gegenstand ist bereits einem anderen Vertrag zugewiesen"
 
-#, fuzzy
 msgid "The item with the inventory code %s was not found"
-msgstr "Inventarcode %s nicht gefunden"
+msgstr "Gegenstand mit Inventarcode %s nicht gefunden"
 
-#, fuzzy
 msgid "The line was not found"
-msgstr "Inventarcode %s nicht gefunden"
+msgstr "Zeile nicht gefunden"
 
 msgid "The mail was sent"
 msgstr "Das E-Mail wurde verschickt"
@@ -988,9 +905,8 @@ msgstr "Dieses Modell ist bereits kompatibel"
 msgid "The new user details could not be saved."
 msgstr "Die neuen Benutzerinformationen konnten nicht gespeichert werden."
 
-#, fuzzy
 msgid "The option could not be added"
-msgstr "Zeile konnte nicht hinzugefügt werden"
+msgstr "Option konnte nicht hinzugefügt werden"
 
 msgid "The option doesn't belong to the inventory pool related to this contract"
 msgstr "Die Option gehört nicht zum Gerätepark dieses Vertrags"
@@ -1020,30 +936,28 @@ msgid "These are the comments of the inventory manager:"
 msgstr "Vom Verleiher hinzugefügte Kommentare:"
 
 msgid "This contract is not signable because it doesn't have any contract lines."
-msgstr ""
+msgstr "Dieser Vertrag kann nicht unterschrieben werden, weil er keine Zeilen hat."
 
 msgid "This contract is not signable because none of the lines have a purpose."
-msgstr ""
+msgstr "Der Vertrag kann nicht unterschrieben werden, weil keine seiner Zeilen einen Zweck hat."
 
 msgid "This contract is not signable because some lines are not assigned."
-msgstr ""
+msgstr "Der Vertrag kann nicht unterschrieben werden, weil einige Zeilen noch nicht zugewiesen wurden."
 
 msgid "This is the list of items you requested. To complete this order, please %s."
-msgstr ""
+msgstr "Dies ist eine Liste der gewünschten Gegenstände. Um die Bestellung zu vervollständigen, %s bitte."
 
 msgid "This model is now in %d categories"
 msgstr "Modell ist jetzt in Kategorie %s"
 
-#, fuzzy
 msgid "This order has already been approved."
-msgstr "Diese Bestellung kann noch nicht genehmigt werden"
+msgstr "Diese Bestellung wurde bereits genemigt"
 
-#, fuzzy
 msgid "This order is not approvable because doesn't have any models."
-msgstr "Diese Bestellung kann noch nicht genehmigt werden"
+msgstr "Diese Bestellung kann noch nicht genehmigt werden, weil sie noch keine Modelle hat."
 
 msgid "This order is not approvable because some reserved models are not available."
-msgstr ""
+msgstr "Die Bestellung kann nicht genehmigt werden, weil einige reservierte Modelle nicht verfügbar sind."
 
 msgid "This order is still pending. Please log in to your leihs system and either approve or reject it."
 msgstr "Diese Bestellung ist noch hängig. Bitte loggen Sie sich in Ihr leihs-System ein, um sie zu genehmigen oder abzulehnen."
@@ -1063,9 +977,8 @@ msgstr "Leider konnte diese noch nicht bearbeitet werden. Sie werden zur Bestät
 msgid "Unsigned"
 msgstr "Nicht unterschrieben"
 
-#, fuzzy
 msgid "Unsigned (Hand Over)"
-msgstr "Aushändigen"
+msgstr "Nicht unterschrieben (Aushändigung)"
 
 msgid "Unsigned contracts"
 msgstr "Hängige Verträge"
@@ -1089,7 +1002,7 @@ msgid "User must be selected"
 msgstr "Benutzer muss ausgewählt sein"
 
 msgid "User or Order not found"
-msgstr ""
+msgstr "Benutzer oder Bestellung nicht gefunden"
 
 msgid "User swapped %{from} for %{to}"
 msgstr "Benutzer geändert von %{from} zu %{to}"
@@ -1097,14 +1010,12 @@ msgstr "Benutzer geändert von %{from} zu %{to}"
 msgid "User unknown"
 msgstr "Benutzer unbekannt"
 
-#, fuzzy
 msgid "Username"
-msgstr "Vorname/Nachname"
+msgstr "Benutzername"
 
 msgid "Users"
 msgstr "Benutzer"
 
-#, fuzzy
 msgid "Value List"
 msgstr "Werteverzeichnis"
 
@@ -1114,25 +1025,20 @@ msgstr "Werteverzeichnis"
 msgid "View"
 msgstr "Ansehen"
 
-#, fuzzy
 msgid "View %s"
-msgstr "Ansehen"
+msgstr "%s ansehen"
 
-#, fuzzy
 msgid "View Item"
-msgstr "Neuer Gegenstand"
+msgstr "Gegenstand ansehen"
 
-#, fuzzy
 msgid "View Model"
-msgstr "Neues Modell"
+msgstr "Modell ansehen"
 
-#, fuzzy
 msgid "View Option"
-msgstr "Option hinzufügen"
+msgstr "Option ansehen"
 
-#, fuzzy
 msgid "Visits"
-msgstr "Besuch um"
+msgstr "Besuche"
 
 msgid "We are just sending you this little reminder because someone else is already waiting for some of these items."
 msgstr "Wir senden Ihnen diese kleine Erinnerung, da für den/die genannten Artikel bereits eine neue Reservation besteht."
@@ -1140,34 +1046,32 @@ msgstr "Wir senden Ihnen diese kleine Erinnerung, da für den/die genannten Arti
 msgid "We therefore ask you to be fair and punctual! Thank you!"
 msgstr "Also seien Sie bitte fair und pünktlich!  Vielen Dank!"
 
-#, fuzzy
 msgid "Welcome %s"
-msgstr "Willkommen"
+msgstr "Willkommen %s"
 
-#, fuzzy
 msgid "Workload"
-msgstr "Arbeitstage"
+msgstr "Arbeitsbelastung"
 
 msgid "Write a comment. The comment will be part of the rejection e-mail."
-msgstr ""
+msgstr "Schreiben Sie einen Kommentar, damit dieser Teil der Ablehnungs-E-Mail wird."
 
 msgid "Write a comment... (your comment will be part of the confirmation e-mail)"
-msgstr ""
+msgstr "Schreiben Sie einen Kommentar... (der Kommentar wird Teil der Bestätigungsmail)"
 
 msgid "Write a note... (the note will be part of the contract)"
-msgstr ""
+msgstr "Schreiben Sie einen Kommentar... (der Kommentar wird Teil des Vertrags)"
 
 msgid "You bring back your items"
-msgstr ""
+msgstr "Sie bringen Ihre Gegenstände zurück"
 
 msgid "You can edit your personal data"
-msgstr ""
+msgstr "Sie können Ihre Personendaten editieren"
 
 msgid "You can't add a package to a package."
 msgstr "Ein Paket kann nicht einem Paket hinzugefügt werden."
 
 msgid "You do not have any items in your order. Please %s and choose items for your order."
-msgstr ""
+msgstr "Sie haben keine Gegenstände in Ihrer Bestellung. Bitte %s und fügen Sie Gegenstände hinzu."
 
 msgid "You don't have access to this item."
 msgstr "Sie haben keinen Zugriff auf diesen Gegenstand."
@@ -1178,13 +1082,11 @@ msgstr "Sie sind nicht berechtigt, diese Applikation zu verwenden"
 msgid "You have %{no_access} to any Equipment Pools!"
 msgstr ""
 
-#, fuzzy
 msgid "You have access to the following Equipment Pools:"
 msgstr "Sie sind für die folgenden Geräteparks berechtigt:"
 
-#, fuzzy
 msgid "You have access to the following inventory pools"
-msgstr "Sie sind für die folgenden Geräteparks berechtigt:"
+msgstr "Sie sind für die folgenden Geräteparks berechtigt"
 
 msgid "You have been logged out."
 msgstr "Sie sind nun ausgeloggt."
@@ -1193,16 +1095,16 @@ msgid "You might receive an admonishment and be subject to late fees as well as 
 msgstr "Dies kann eine Verwarnung nach sich ziehen und Sie können im Wiederholungsfall vom Verleiher bis zu 6 Monaten von der Ausleihe gesperrt werden!"
 
 msgid "You pick up the reserved items at the equipment pool"
-msgstr ""
+msgstr "Sie holen die reservierten Gegenstände beim Gerätepark ab"
 
 msgid "You place a reservation for some items in this system"
-msgstr ""
+msgstr "Sie reservieren Gegenstände in diesem System"
 
 msgid "You should redo your action or reload the page!"
-msgstr ""
+msgstr "Sie sollten die Aktion nochmals ausführen oder die Seite neu laden"
 
 msgid "You wait for confirmation from the equipment pools in question"
-msgstr ""
+msgstr "Sie warten auf Genehmigung von den involvierten Geräteparks"
 
 msgid "Your order for the following items has been confirmed by the inventory manager"
 msgstr "Ihre Bestellung der folgenden Artikel wurde vom Verleiher genehmigt:"
@@ -1213,13 +1115,11 @@ msgstr "Ihre folgende Bestellung ist bei uns eingetroffen:"
 msgid "Your order was rejected for the following reason:"
 msgstr "Ihre Bestellung wurde aus folgenden Gründen abgelehnt:"
 
-#, fuzzy
 msgid "Your order was successfully transmitted to those responsible and is %s."
-msgstr "Ihre Bestellung wurde folgendermassen empfangen:"
+msgstr "Ihre Bestellung wurde an die zuständigen Personen weitergeleitet und ist %s."
 
-#, fuzzy
 msgid "[Model %s] "
-msgstr "Modelle"
+msgstr "[Modell %s]"
 
 msgid "[leihs] Order received"
 msgstr "[leihs] Bestellung eingetroffen"
@@ -1246,53 +1146,49 @@ msgid "already in Category"
 msgstr "bereits in Kategorie"
 
 msgid "awaiting approval"
-msgstr ""
+msgstr "wartet auf Genehmigung"
 
 msgid "but a few changes were made to it"
 msgstr "aber es wurden einige Dinge daran verändert"
 
-#, fuzzy
 msgid "delete"
-msgstr "Löschen"
+msgstr "löschen"
 
-#, fuzzy
 msgid "doesn't match parent's attribute"
-msgstr "stimmt nicht mit dem Attribut des Eltern-Objekts überein"
+msgstr "stimmt nicht mit den Eltern-Attributen überein"
 
 msgid "entries%s"
-msgstr ""
+msgstr "Einträge%s"
 
 msgid "extend"
-msgstr ""
+msgstr "verlängern"
 
 msgid "for '%s'"
-msgstr ""
+msgstr "für '%s'"
 
 msgid "for max."
-msgstr ""
+msgstr "für max."
 
 msgid "for max. %s days straight"
-msgstr ""
+msgstr "für max. %s Tage am Stück"
 
 msgid "found %i"
-msgstr ""
+msgstr "%i gefunden"
 
 msgid "go back"
-msgstr ""
+msgstr "zurück gehen"
 
-#, fuzzy
 msgid "go to today"
-msgstr "Von heute"
+msgstr "zu heute springen"
 
 msgid "here"
-msgstr ""
+msgstr "hier"
 
-#, fuzzy
 msgid "in"
-msgstr "Haupt"
+msgstr "in"
 
 msgid "in time!"
-msgstr ""
+msgstr "pünktlich!"
 
 msgid "inventory pool is closed on end_date. "
 msgstr "Der Gerätepark ist am gewünschten Rückgabetag geschlossen"
@@ -1304,38 +1200,31 @@ msgid "item not assigned. "
 msgstr "kein Gegenstand zugeordnet"
 
 msgid "jump to this date"
-msgstr ""
+msgstr "zu diesem Datum springen"
 
 msgid "more"
-msgstr ""
+msgstr "mehr"
 
-#, fuzzy
 msgid "more categories"
-msgstr "Kategorien"
+msgstr "mehr Kategorien"
 
-#, fuzzy
 msgid "more properties"
-msgstr "Eigenschaften hinzufügen"
+msgstr "mehr Eigenschaften"
 
-#, fuzzy
 msgid "no category"
-msgstr "Kategorie"
+msgstr "keine Kategorie"
 
-#, fuzzy
 msgid "no image"
-msgstr "Bild"
+msgstr "kein Bild"
 
-#, fuzzy
 msgid "no more categories"
-msgstr "Zubehör hinzufügen"
+msgstr "keine weiteren Kategorien"
 
-#, fuzzy
 msgid "no purpose specified"
 msgstr "Kein Zweck angegeben."
 
-#, fuzzy
 msgid "no serial number"
-msgstr "Seriennummer"
+msgstr "keine Seriennummer"
 
 msgid "not available. "
 msgstr "nicht verfügbar."
@@ -1344,56 +1233,52 @@ msgid "not valid. "
 msgstr "nicht gültig."
 
 msgid "open datepicker"
-msgstr ""
+msgstr "Datumsauswahl öffnen"
 
 msgid "overdue"
 msgstr "überfällig"
 
 msgid "please wait"
-msgstr ""
+msgstr "bitte warten"
 
 msgid "please wait..."
-msgstr ""
+msgstr "bitte warten..."
 
 msgid "quantity not available. "
 msgstr "Anzahl nicht verfügbar."
 
 msgid "show less"
-msgstr ""
+msgstr "weniger zeigen"
 
-#, fuzzy
 msgid "show less properties"
-msgstr "Eigenschaften hinzufügen"
+msgstr "weniger Eigenschaften anzeigen"
 
 msgid "since max."
-msgstr ""
+msgstr "seit max."
 
-#, fuzzy
 msgid "submit it"
-msgstr "Nicht abgeschickt"
+msgstr "abschicken"
 
-#, fuzzy
 msgid "total rentable"
-msgstr "Zur Ausleihe"
+msgstr "ausleihbar"
 
 msgid "while deleting a hand over line"
-msgstr ""
+msgstr "während des Löschens einer Übergabe-Zeile"
 
 msgid "while deleting hand over for"
-msgstr ""
+msgstr "während die Übergabe gelöscht wurde für"
 
 msgid "while deleting multiple order lines"
-msgstr ""
+msgstr "während mehrere Bestellungs-Zeilen gelöscht wurden"
 
 msgid "while deleting order line for"
-msgstr ""
+msgstr "während eine Bestellungszeile gelöscht wurde für"
 
 msgid "while try to send an e-mail reminder to:"
-msgstr ""
+msgstr "während versucht wurde, ein Erinnerungsmail zu schicken an:"
 
-#, fuzzy
 msgid "with comment"
-msgstr "ohne Konflikt"
+msgstr "mit Kommentar"
 
 #~ msgid " <b>%d</b> results"
 #~ msgstr " <b>%d</b> Resultate "
