@@ -52,7 +52,7 @@
     - unless not_overdue_lines.empty?
       %hr
       %h3
-        = _("Rented Items")
+        = _("Borrowed Items")
       %ul.linelist
         = render :partial => "documents/line_li", :collection => not_overdue_lines, :as => :line
   

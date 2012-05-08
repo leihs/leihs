@@ -153,7 +153,7 @@ class Contract < Document
   end 
 
   def change_purpose(new_purpose, user_id)
-    change = _("Purpose changed '%{from}' for '%{to}'") % { :from => self.purpose.try(:description), :to => new_purpose}
+    change = _("Purpose changed '%s' for '%s'") % [self.purpose.try(:description), new_purpose]
     log_change(change, user_id)
     self.purpose = new_purpose
   end  

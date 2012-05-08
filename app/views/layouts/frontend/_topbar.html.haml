@@ -3,7 +3,7 @@
   .inner
     .light
     = link_to categories_path, :class => "logo" do
-      = "LEIHS"
+      = "leihs"
       
     %nav.navigation
       %ul
@@ -15,7 +15,7 @@
           %li.seperator
           
         %li.item{:class => request['controller'] == "inventory_pools" ? "active" : nil}
-          = link_to _("Equipment Pools"), inventory_pools_path , :class => "anchor"
+          = link_to _("Inventory Pools"), inventory_pools_path , :class => "anchor"
           .popup
             .inner
               %ul

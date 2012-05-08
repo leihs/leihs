@@ -8,9 +8,9 @@
     
   %p.subtitle
     - if @grouped_order_lines.blank?
-      != _("Currently you have no items in your order. Please %s and choose items for your order.") % link_to(_("go back"), "javascript: window.history.back();")
+      != _("You do not have any items in your order. Please %s and choose items for your order.") % link_to(_("go back"), "javascript: window.history.back();")
     - else 
-      != _("This is your current list of pre-reserved items. To complete this order please %s.") % content_tag(:strong, _("submit it"))
+      != _("This is the list of items you requested. To complete this order, please %s.") % content_tag(:strong, _("submit it"))
   
   - unless @grouped_order_lines.blank?
     %hr

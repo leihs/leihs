@@ -1,7 +1,7 @@
 #ipselector
   = link_to "javascript: void(0)" do
     %span.text
-      != _("Selected Parks (#{content_tag(:span, "/#{current_user.inventory_pools.length}", :class => 'amount')})")
+      != _("Selected Pools (%s)") % content_tag(:span, "/#{current_user.inventory_pools.length}", :class => 'amount')
     %span.icon
   .container
     .rollout

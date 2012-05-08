@@ -17,4 +17,4 @@
     %td.actions
       - if @order.status_const == 1
         = link_to _("Edit"), "javascript: void(0)", :class => "button small white edit"
-        = link_to _("Delete"), remove_lines_order_path(:lines => order_line.id), :class => "button small red delete", :title => _("Delete this Line"), :method => :delete, :remote => true
+        = link_to _("Delete"), remove_lines_order_path(:lines => order_line.id), :class => "button small red delete", :title => _("Delete this line"), :method => :delete, :remote => true

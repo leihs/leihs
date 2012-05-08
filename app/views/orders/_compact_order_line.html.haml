@@ -9,5 +9,5 @@
         %span.amount
           = "(#{compact_order_line.quantity})"
   %span.delete
-    = link_to "x", remove_lines_order_path(:lines => compact_order_line.id), :title => _("Delete this Line"), :method => :delete, :remote => true
+    = link_to "x", remove_lines_order_path(:lines => compact_order_line.id), :title => _("Delete this line"), :method => :delete, :remote => true
   %span.clear
