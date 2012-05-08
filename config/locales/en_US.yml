@@ -2,7 +2,7 @@
 #
 # Use this as the base for the locale file of your language.
 
-"en-US":
+"en_US":
   
   leihs:
     date:
