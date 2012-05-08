@@ -59,12 +59,14 @@ class ApplicationController < ActionController::Base
         language ||= Language.default_language
         current_user.language = language # language is a protected attribute, it can't be mass-asigned via update_attributes
         current_user.save
+        current_user.reload
       end
-  
-      I18n.locale = current_user.language.locale_name.to_sym
+      locale_symbol = current_user.language.locale_name.to_sym
     else
-      I18n.locale = Language.default_language.locale_name.to_sym
+      locale_symbol = Language.default_language.locale_name.to_sym
     end
+    
+    I18n.locale = locale_symbol
   end
 
 end
