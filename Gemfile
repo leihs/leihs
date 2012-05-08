@@ -46,6 +46,7 @@ end
 
 group :development do
   gem 'thin' # web server (Webrick do not support keep-alive connections)
+  gem 'gettext'
 end
 
 group :profiling, :development do
