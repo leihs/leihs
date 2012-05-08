@@ -1,8 +1,9 @@
 When /^I click an inventory code input field of an item line$/ do
   @item_line = @customer.contracts.unsigned.last.lines.first
   @item = @item_line.model.items.in_stock.last
-  @item_line_element = find(".item_line", :text => @item.model.name).find(".inventory_code input")
-  @item_line_element.click
+  @item_line_element = find(".item_line", :text => @item.model.name)
+  @item_line_element.find(".inventory_code input").click
+  page.execute_script("$('.line[data-id=#{@item_line.id}] .inventory_code input').focus()")
 end
 
 Then /^I see a list of inventory codes of items that are in stock and matching the model$/ do
@@ -13,6 +14,8 @@ Then /^I see a list of inventory codes of items that are in stock and matching t
 end
 
 When /^I select one of those$/ do
+  page.execute_script("$('.line[data-id=#{@item_line.id}] .inventory_code input').focus()")
+  wait_until { find(".ui-autocomplete a") }
   first_element = find(".ui-autocomplete a")
   @selected_inventory_code = first_element.find(".label").text
   first_element.click

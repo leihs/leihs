@@ -64,6 +64,7 @@ class Document < ActiveRecord::Base
       line = if self.is_a?(Order)
         order_lines.create(attr) do |l|
           l.inventory_pool = inventory_pool if inventory_pool
+          l.purpose = order_lines.first.purpose if !order_lines.empty? and order_lines.first.purpose
         end
       else
         item_lines.create(attr)

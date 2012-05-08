@@ -16,21 +16,22 @@ ${$purposes = Line.concatinate_purposes(SelectedLines.lines_data), ""}
     %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}'}
       = _("Hand Over")
   
-  %section.purpose
-    %form
-      %label= _("Purposes")
-      %p ${$purposes}
-      %button.button.white
-        = _("Add Purpose")
-      %section.add_purpose
-        %input#purpose{:type => :text, :class => "{{if $purposes == ''}}focus{{/if}}", :name => "purpose"}
-        %p.hint= _("Please provide a purpose...")
+  %section{:class => "purpose{{if $purposes.length==0}} none{{/if}}"}
+    %label= _("Purpose")
+    %p ${$purposes}
+    %button.button.white
+      = _("Add Purpose")
+    .clear
+    %section.add_purpose
+      %textarea#purpose.focus{:type => :text, :name => "purpose"}
+      %p.hint= _("Please provide a purpose...")
  
   %hr
   %section.lines.scalable
     ${$grouped_lines = new GroupedLines(SelectedLines.lines_data), ""}
     {{tmpl($grouped_lines) "tmpl/dialog/summary/linegroup"}}
     
-  %section.comment
+  %section.note
     %textarea#comment.focus{:name => "note"}
     %p.hint= _("Write a note... (the note will be part of the contract)")
+  

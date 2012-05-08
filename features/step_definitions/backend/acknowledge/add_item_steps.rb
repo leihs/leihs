@@ -11,13 +11,13 @@ When /^I start to type the inventory code of an item$/ do
 end
 
 When /^I wait until the autocompletion is loaded$/ do
-  page.execute_script('$("#code").focus()')
-  wait_until(10){ all("#process_helper .loading").size == 0 and find(".ui-autocomplete") }
+  page.execute_script('$("#code").keyup().focus()')
+  wait_until(15){ all(".loading", :visible => true).size == 0 and find(".ui-autocomplete") }
 end
 
 Then /^I already see possible matches of models$/ do
-  page.execute_script('$("#code").focus()')
-  wait_until { find(".ui-autocomplete", :text => @item.model.name) }
+  page.execute_script('$("#code").keyup().focus()')
+  wait_until(10){ all(".loading", :visible => true).size == 0 and find(".ui-autocomplete", :text => @item.model.name) }
 end
 
 When /^I select one of the matched models$/ do

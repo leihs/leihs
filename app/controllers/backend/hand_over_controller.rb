@@ -25,10 +25,18 @@ class Backend::HandOverController < Backend::BackendController
   def sign_contract(line_ids = params[:line_ids] || raise("line_ids is required"),
                     purpose_description = (params[:purpose].empty?) ? nil : params[:purpose],
                     note = params[:note])
+    
     lines = @contract.contract_lines.find(line_ids)
-
     @contract.note = note if note
-    @contract.purpose = purpose_description if purpose_description
+    if purpose_description
+      purpose = Purpose.create :description => purpose_description
+      lines.each do |line|
+        if line.purpose.nil?
+          line.purpose = purpose
+          line.save
+        end
+      end
+    end
 
     respond_to do |format|
       format.json {

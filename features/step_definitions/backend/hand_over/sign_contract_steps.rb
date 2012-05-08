@@ -6,14 +6,14 @@ When /^I open a hand over$/ do
 end
 
 When /^I select an item line and assign an inventory code$/ do
-  @item_line = @customer.visits.first.lines.detect {|x| x.class.to_s == "ItemLine"}
+  @item_line = @customer.visits.hand_over.first.lines.detect {|x| x.class.to_s == "ItemLine"}
   item = @ip.items.detect {|x| x.model == @item_line.model}
   @selected_items = [item]
-  @line = find("li.name",:text => @item_line.model.name).find(:xpath, "./../..")
-  @line.find(".inventory_code input").set item.inventory_code
-  @line.find(".inventory_code input").native.send_key(:enter)
-  wait_until { @line.has_xpath?(".[contains(@class, 'assigned')]") }
-  @line.find(".select input").click
+  @line_element = find(".line[data-id='#{@item_line.id}']")
+  @line_element.find(".inventory_code input").set item.inventory_code
+  @line_element.find(".inventory_code input").native.send_key(:enter)
+  wait_until(15){ @line_element.has_xpath?(".[contains(@class, 'assigned')]") }
+  @line_element.find(".select input").click
 end
 
 Then /^I see a summary of the things I selected for hand over$/ do
