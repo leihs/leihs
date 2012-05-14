@@ -70,9 +70,7 @@ namespace :app do
       tt1 = FactoryGirl.create(:model, :name => 'Test tube, 20 cm', :manufacturer => 'ACME')
       tt1.categories << chem
       tt1.save
-      10.times do
-        i = FactoryGirl.create(:item, :model => tt1, :owner => ip2, :inventory_pool => ip2)
-      end
+
 
       tt2 = FactoryGirl.create(:model, :name => 'Test tube, 10 cm', :manufacturer => 'ACME')
       tt2.categories << chem
@@ -89,6 +87,14 @@ namespace :app do
       cob = FactoryGirl.create(:model, :name => 'Chalice of blood', :manufacturer => 'ACME')
       cob.categories << chem
       cob.save
+
+      # Inventory that is exlusive to the chemistry guys
+      10.times do
+        [tt1, tt2, tt3, bb, cob].each do |model|
+          i = FactoryGirl.create(:item, :model => model, :owner => ip2, :inventory_pool => ip2)
+        end
+      end
+
 
       lc = FactoryGirl.create(:model, :name => 'Lighting case Arri Start-Up-Kit Fresnel', :manufacturer => 'Arri')
       lc.categories << lighting
@@ -126,6 +132,20 @@ namespace :app do
       sony_h.categories << head
       sony_h.save
 
+
+      # General pool and film guys share some equipment that might work for both
+      10.times do
+        [pb, genelec, sony, pana, manfrotto, acer, sony_h].each do |model|
+          i = FactoryGirl.create(:item, :model => model, :owner => ip1, :inventory_pool => ip1)
+          i = FactoryGirl.create(:item, :model => model, :owner => ip3, :inventory_pool => ip3)
+        end
+      end
+
+      10.times do
+        [lc, arri1].each do |model|
+          i = FactoryGirl.create(:item, :model => model, :owner => ip3, :inventory_pool => ip3)
+        end
+      end
 
       # Some items for those models
 
