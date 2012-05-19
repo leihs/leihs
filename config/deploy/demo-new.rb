@@ -98,6 +98,13 @@ task :precompile_assets do
   run "sed -i 's/config.assets.compile = true/config.assets.compile = false/' #{release_path}/config/environments/production.rb"
 end
 
+task :reset_demo_data do
+  run "mysql -h #{sql_host} --user=#{sql_username} --password=#{sql_password} #{sql_database} -e 'drop database #{sql_database}'"
+  run "mysql -h #{sql_host} --user=#{sql_username} --password=#{sql_password} -e 'create database #{sql_database}'"
+  run "cd #{release_path} && bundle exec rake leihs:reset"
+  run "cd #{release_path} && bundle exec rake app:seed:demo"
+end
+
 namespace :deploy do
   task :start do
   # we do absolutely nothing here, as we currently aren't
@@ -125,6 +132,7 @@ after "deploy:create_symlink", :chmod_tmp
 after "link_config", :migrate_database
 after "link_config", :modify_config
 after "link_config", "precompile_assets"
+after "precompile_assets", :reset_demo_data
 
 before "deploy:restart", :make_tmp
 
