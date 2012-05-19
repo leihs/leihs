@@ -2,7 +2,7 @@
   .date
     ${moment(start_date).format(i18n.date.L)} - ${moment(end_date).format(i18n.date.L)}
   .range
-    ${moment(end_date).diff(moment(start_date), "days")}
+    ${moment(end_date).eod().diff(moment(start_date).sod(), "days")}
     = _("Days")
     
 .clear

@@ -1,7 +1,3 @@
-Then /^the contract line was duplicated$/ do
-  pending # express the regexp above with the code you wish you had
-end
-
 When /^I change the time range for all contract lines, envolving option and item lines$/ do
   step 'I add an option to the hand over by providing an inventory code and a date range'
   all(".line").each do |line|

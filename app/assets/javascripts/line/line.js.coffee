@@ -71,6 +71,13 @@ class Line
     _final = _.map _uniq, (purpose)-> purpose.description
     _final.join(', ')
  
-    
+  @prepare_for_handover: (lines, date)->
+    _.each lines, (line)->
+      # set start date to today
+      line.start_date = moment().format("YYYY-MM-DD")
+      # set end date to today if end date is in history
+      if moment(line.end_date).eod().diff(moment().eod(), "days") < 0
+        line.end_date = moment().format("YYYY-MM-DD")
+    lines
 
 window.Line = Line

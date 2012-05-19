@@ -113,8 +113,10 @@ class Contract < Document
         log_history(_("Contract %d has been signed by %s") % [self.id, self.user.name], current_user.id)
     
         # Forces handover date to be today.
-        selected_lines.each {|cl| cl.update_attributes(:start_date => Date.today) if cl.start_date != Date.today }
-
+        selected_lines.each {|cl|
+          cl.update_attributes(:start_date => Date.today) if cl.start_date != Date.today 
+        }
+        
         unless (lines_for_new_contract = self.contract_lines - selected_lines).empty?
           new_contract = user.get_current_contract(self.inventory_pool)
           lines_for_new_contract.each do |cl|

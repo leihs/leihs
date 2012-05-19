@@ -21,6 +21,7 @@ module Persona
         select_inventory_pool 
         create_user
         create_orders
+        create_overdue_hand_overs
       end
     end
     
@@ -47,6 +48,13 @@ module Persona
       @order_for_camera_purpose = FactoryGirl.create :purpose, :description => "Für Aufnahmen im Fotokurs."
       @order_line_camera = FactoryGirl.create(:order_line, :purpose => @order_for_camera_purpose, :inventory_pool => @inventory_pool, :model => @camera_model, :order => @order_for_camera, :start_date => (Date.today + 7.days), :end_date => (Date.today + 10.days))
       @order_line_tripod = FactoryGirl.create(:order_line, :purpose => @order_for_camera_purpose, :inventory_pool => @inventory_pool, :model => @tripod_model, :order => @order_for_camera, :start_date => (Date.today + 7.days), :end_date => (Date.today + 10.days))
+    end
+    
+    def create_overdue_hand_overs
+      @beamer_model = Model.find_by_name "Sharp Beamer"
+      @unsigned_contract_1 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool)
+      @unsigned_contract_1_purpose = FactoryGirl.create :purpose, :description => "Ersatzstativ für die Ausstellung."
+      FactoryGirl.create(:contract_line, :purpose => @unsigned_contract_1_purpose, :contract => @unsigned_contract_1, :model => @beamer_model, :start_date => Date.yesterday-1, :end_date => Date.today + 1)
     end
   end  
 end
