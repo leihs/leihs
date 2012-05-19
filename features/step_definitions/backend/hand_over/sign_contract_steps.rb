@@ -24,10 +24,10 @@ end
 
 When /^I click hand over$/ do
   find("#hand_over_button").click
-  wait_until { find ".dialog .button" }
 end
 
 When /^I click hand over inside the dialog$/ do
+  wait_until { find ".dialog .button" }
   find(".dialog .button", :text => "Hand Over").click
   wait_until(10){ all(".dialog").size == 0 }
 end
@@ -37,4 +37,14 @@ Then /^the contract is signed for the selected items$/ do
   @selected_items.each do |item|
     to_take_back_lines.map(&:item).include?(item).should be_true
   end
+end
+
+When /^I select an item without assigning an inventory code$/ do
+  @item_line = @customer.visits.hand_over.first.lines.detect {|x| x.class.to_s == "ItemLine"}
+  @line_element = find(".line[data-id='#{@item_line.id}']")
+  @line_element.find(".select input").click
+end
+
+Then /^I got an error that i have to assign all selected item lines$/ do
+  find(".notification").should have_content("unassigned")
 end

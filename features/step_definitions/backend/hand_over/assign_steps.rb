@@ -58,3 +58,23 @@ When /^I open a hand over which has multiple lines$/ do
   visit backend_inventory_pool_user_hand_over_path(@ip, @customer)
   page.has_css?("#hand_over", :visible => true)
 end
+
+When /^I open a hand over with lines that have assigned inventory codes$/ do
+  steps %Q{
+    When I open a hand over
+     And I click an inventory code input field of an item line
+    Then I see a list of inventory codes of items that are in stock and matching the model
+    When I select one of those
+    Then the item line is assigned to the selected inventory code 
+  }
+end
+
+When /^I clean the inventory code of one of the lines$/ do
+  @item_line_element.find(".inventory_code input").click
+  @item_line_element.find(".inventory_code input").set ""
+  @item_line_element.click
+end
+
+Then /^the assignment of the line to an inventory code is removed$/ do
+  binding.pry
+end
