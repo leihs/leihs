@@ -27,6 +27,7 @@ ${Line.recompute_availability($item.data), ""}
                               :"data-autocomplete_select_callback" => "HandOver.assign_through_autocomplete",
                               :value => "{{if item}}${item.inventory_code}{{/if}}"}
           .arrow.icon
+          .clear.icon
     %li.name
       %strong{:title => "${model.name}"} ${Str.sliced_trunc(model.name, 62)}
 

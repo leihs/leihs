@@ -77,10 +77,24 @@
         right: 8px;
         top: 10px;
         @include opacity(0.6);
-      }      
-      
+      }
       &:hover .arrow { @include opacity(1.0); }
+      
+      .clear {
+        display: none !important;
+        position: absolute;
+        right: 6px;
+        top: 6px;
+        @include opacity(0.6);
+        
+        &:hover { @include opacity(1.0); }
+      }
     }
+  }
+  
+  &.assigned {
+    .inventory_code .arrow {display: none !important;}
+    .inventory_code .clear {display: block !important;}
   }
   
   .name {
