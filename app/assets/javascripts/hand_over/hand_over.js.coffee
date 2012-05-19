@@ -17,6 +17,19 @@ class HandOver
     @setup_delete()
     @setup_option_quantity_changes()
     @setup_purpose()
+    @setup_hand_over_button()
+    
+  @setup_hand_over_button: ->
+    $("#hand_over_button").click (e)->
+      selected_lines = _.filter $(".line"), (line)-> $(line).find(".select input").is ":checked"
+      if _.any(selected_lines, (line)-> not $(line).is ".assigned")
+        do e.preventDefault
+        do e.stopImmediatePropagation
+        Notification.add_headline
+          title: "Error"
+          text: "you cannot hand out lines with unassigned inventory codes"
+          type: "error"
+        return false
     
   @setup_purpose: ->
     $(".dialog .purpose button").live "click", (e)->
@@ -100,6 +113,9 @@ class HandOver
       if $(this).val() == "" and $(this).data("value_on_focus") != ""
         $(this).closest("form").submit()
         $(this).focus()
+    $(".item_line .inventory_code .clear").live "click", (event)->
+      $(this).closest(".inventory_code").find("input").val ""
+      $(this).closest("form").submit()
       
   @update_visits = (data)->
     $('#visits').html($.tmpl("tmpl/visit", data))
@@ -157,9 +173,13 @@ class HandOver
           if line_data.availability_for_inventory_pool? 
             HandOver.update_model_availability line_data 
   
-  @update_line = (line_element, line_data)->
+  @update_line: (line_element, line_data)->
     new_line = $.tmpl("tmpl/line", line_data)
     $(new_line).find("input").attr("checked", true) if $(line_element).find(".select input").is(":checked")
     $(line_element).replaceWith new_line
+    
+  @open_contract: (contract)->
+    console.log "OPEN CONTRACT"
+    console.log contract
   
 window.HandOver = HandOver
