@@ -1,4 +1,4 @@
-@import "../../shared/variables";
+@import "../../../shared/variables";
 
 .ui-dialog.hand_over {
   
@@ -41,6 +41,16 @@
     &.none {
       .add_purpose { display: block; }
       .button { display: none; }
+    }
+  }
+  
+  &.documents {
+    section.documents {
+      padding-top: 22px;
+      
+      .navigation {
+        right: -3px;
+      }
     }
   }
 }

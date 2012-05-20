@@ -21,8 +21,9 @@ class HandOver
     
   @setup_hand_over_button: ->
     $("#hand_over_button").click (e)->
-      selected_lines = _.filter $(".line"), (line)-> $(line).find(".select input").is ":checked"
-      if _.any(selected_lines, (line)-> not $(line).is ".assigned")
+      selected_item_lines = _.filter $(".line"), (line)-> 
+        $(line).find(".select input").is ":checked" and $(line).find(".select input").tmplItem().data.type == "item_line"
+      if _.any(selected_item_lines, (line)-> not $(line).is ".assigned")
         do e.preventDefault
         do e.stopImmediatePropagation
         Notification.add_headline
@@ -178,8 +179,27 @@ class HandOver
     $(new_line).find("input").attr("checked", true) if $(line_element).find(".select input").is(":checked")
     $(line_element).replaceWith new_line
     
-  @open_contract: (contract)->
-    console.log "OPEN CONTRACT"
-    console.log contract
-  
+  @open_documents: (contract)->
+    dialog = Dialog.add
+      trigger: $("#hand_over_button")
+      content: $.tmpl("tmpl/dialog/hand_over/documents", {contract: contract})
+      dialogClass: "hand_over documents"
+    # bind close dialog
+    dialog.delegate ".close_dialog", "click", (e)->
+      e.stopImmediatePropagation()
+      # go to daily view
+      window.location = "http://#{location.host}/backend/inventory_pools/#{current_inventory_pool}/"
+    # print on starts
+    dialog.find("section.contract").printElement()
+    # bind print on click
+    dialog.delegate ".navigation .print", "click", (e)->
+      dialog.find("section.active").printElement()
+    # inlinetab toggle
+    dialog.delegate ".inlinetabs .tab", "click", (e)->
+      $(this).closest(".inlinetabs").find(".active").removeClass("active")
+      $(this).removeClass("inactive").addClass("active")
+      $(this).closes(".inlinetabs").nextAll("sections").hide()
+      $(this).closes(".inlinetabs").nextAll("sections .#{$(this).data('section')}").show()
+      
+      
 window.HandOver = HandOver

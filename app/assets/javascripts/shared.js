@@ -13,6 +13,7 @@
 //= require qtip/qtip.min
 //= require_tree ./loading-img
 //= require_tree ./notification
+//= require_tree ../../../vendor/assets/javascripts/printElement
 
 // type or global formating/accepting of ajax requestes
 // TODO GET RID OF THAT (Technical Debt)

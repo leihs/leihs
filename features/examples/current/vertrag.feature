@@ -11,8 +11,8 @@ Funktionalität: Vertrag
     Und man öffnet einen Vertrag
 
   Szenario: Was ich auf dem Vertrag sehen möchte
-    Dann möchte ich die folgenden Sachen sehen:
-    | Sache                         |
+    Dann möchte ich die folgenden Bereiche sehen:
+    | Bereich                       |
     | Datum                         |
     | Titel                         |
     | Ausleihender                  |

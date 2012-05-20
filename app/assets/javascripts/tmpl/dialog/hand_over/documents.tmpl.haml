@@ -1,0 +1,28 @@
+%h1
+  = _("Documents for hand over")
+
+.navigation
+  %button.button.white.close_dialog
+    = _("Ready")
+    .hand_over.icon
+    
+%section.documents
+  
+  .navigation
+    %button.button.white.print
+      = _("Print")
+      .print.icon
+      
+  .inlinetabs
+    .tab.active{:"data-section" => "contract"}= _("Contract")
+    .tab{:"data-section" => "value_list"}= _("Value List")
+    
+  %section.contract.active
+    {{if template}}
+    {{tmpl(contract) template}}    
+    {{else}}
+    {{tmpl(contract) "tmpl/documents/contracts/default"}}    
+    {{/if}}
+    
+  %section.value_list
+    VALUE LIST

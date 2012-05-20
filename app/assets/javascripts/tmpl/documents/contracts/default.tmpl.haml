@@ -1,0 +1,4 @@
+%h1= _("Leihvertrag Nr. %s") % ["${id}"]
+.date
+  ${$now = moment(),""}
+  ${$now.format(i18n.date.L)}
