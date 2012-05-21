@@ -13,7 +13,7 @@ class Backend::ContractsController < Backend::BackendController
             page = params[:page])
             
     conditions = { :inventory_pool_id => current_inventory_pool.id }
-    conditions[:user_id] = @user.id if @user
+    conditions[:user_id] = @user.id if @userc
 
     scope = case filter
               when "signed"
@@ -57,27 +57,24 @@ class Backend::ContractsController < Backend::BackendController
   
   def show
     respond_to do |format|
-			# Evil hack? We need the contract information in that other template as well
-      require 'prawn/measurement_extensions'
-      prawnto :prawn => { :page_size => 'A4', 
-                          :left_margin => 25.mm,
-                          :right_margin => 15.mm,
-                          :bottom_margin => 15.mm,
-                          :top_margin => 15.mm
-                        }
-    
-			if params[:template] == "value_list"
-        
-        if @contract.status_const == Contract::SIGNED or @contract.status_const == Contract::CLOSED
-          format.pdf { send_data(render(:template => 'contracts/value_list_for_items', :layout => false), :type => 'application/pdf', :filename => "value_list_for_items#{@contract.id}.pdf") }
-        else       
-          format.pdf { send_data(render(:template => 'backend/contracts/value_list_for_models', :layout => false), :type => 'application/pdf', :filename => "maximum_value_list_#{@contract.id}.pdf") }
-        end
-      else
-        format.html
-        format.pdf { send_data(render(:template => 'contracts/show', :layout => false), :type => 'application/pdf', :filename => "contract_#{@contract.id}.pdf") }
-			end
-    end
+      format.pdf {
+        contract = render_to_string(:layout => false , :action => "../contracts/print/show")
+        kit = PDFKit.new(contract)
+        #kit.stylesheets << '/path/to/css/file'
+        send_data(kit.to_pdf, :type => 'application/pdf', :filename => "contract_#{@contract.id}.pdf") and return
+      }
+		end
   end
   
+  def value_list
+    respond_to do |format|
+      format.pdf {
+        if @contract.status_const == Contract::SIGNED or @contract.status_const == Contract::CLOSED
+          send_data(render(:template => 'contracts/value_list', :layout => false), :type => 'application/pdf', :filename => "value_list#{@contract.id}.pdf") 
+        else       
+          send_data(render(:template => 'backend/contracts/value_list', :layout => false), :type => 'application/pdf', :filename => "value_list#{@contract.id}.pdf")
+        end
+      }
+		end
+  end
 end

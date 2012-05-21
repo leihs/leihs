@@ -6,16 +6,16 @@
   
   %section
     .inlinetabs
-      = link_to backend_inventory_pool_orders_path(current_inventory_pool, :filter => "", :year => params[:year], :month => params[:month]), :class => "tab#{' inactive' if params[:filter] && params[:filter] != ""}" do
+      = link_to backend_inventory_pool_orders_path(current_inventory_pool, :filter => "", :year => params[:year], :month => params[:month]), :class => "tab#{' active' unless params[:filter] && params[:filter] == ""}" do
         %span.text
           = _("All")
-      = link_to backend_inventory_pool_orders_path(current_inventory_pool, :filter => "pending", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' inactive' unless params[:filter] == 'pending'}" do
+      = link_to backend_inventory_pool_orders_path(current_inventory_pool, :filter => "pending", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' active' if params[:filter] == 'pending'}" do
         %span.text
           = _("Pending")
-      = link_to backend_inventory_pool_orders_path(current_inventory_pool, :filter => "approved", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' inactive' unless params[:filter] == 'approved'}" do
+      = link_to backend_inventory_pool_orders_path(current_inventory_pool, :filter => "approved", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' active' if params[:filter] == 'approved'}" do
         %span.text
           = _("Approved")
-      = link_to backend_inventory_pool_orders_path(current_inventory_pool, :filter => "rejected", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' inactive' unless params[:filter] == 'rejected'}" do
+      = link_to backend_inventory_pool_orders_path(current_inventory_pool, :filter => "rejected", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' active' if params[:filter] == 'rejected'}" do
         %span.text
           = _("Rejected")
     .list

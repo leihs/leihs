@@ -22,21 +22,19 @@ gem 'will_paginate', :git => "https://github.com/halloffame/will_paginate.git" #
 gem 'gettext_i18n_rails', '~> 0.3'
 gem 'ruby_parser', '~> 2.3' # gettext dependency that Bundler seems unable to resolve
 gem 'barby', '~> 0.5.0'
+gem "cairo" # Needed to print SVG barcodes
 gem 'mini_magick', '~> 3.3'
 gem 'rgl', '~> 0.4.0', :require => 'rgl/adjacency'
 gem 'ruby-net-ldap', '~> 0.0.4', :require => 'net/ldap'
 gem 'fastercsv', '~> 1.5.4'
-gem 'prawn', '~> 0.12.0'
-gem 'prawnto', '~> 0.1'
+gem "pdfkit", "~> 0.5.2" # requires wkhtmltopdf
 
 gem 'nested_set', '~> 1.7'
 gem 'acts-as-dag', :git => "git://github.com/jrust/acts-as-dag.git" #tmp# '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
 gem 'geocoder', '~> 1.1'
 gem "underscore-rails", "~> 1.3.1"
 #tmp# gem 'squeel', '~> 0.8.4'
-#gem "cairo" # Needed to print SVG barcodes
 # gem "RubyInline", '3.8.2', :require => "inline"
-#tmp# gem 'png', '~> 1.2.0'
 
 group :assets do # Gems used only for assets and not required in production environments by default.
   gem 'sass-rails', '~> 3.2'

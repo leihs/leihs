@@ -46,3 +46,4 @@ Funktionalität: Zweck
     Dann muss ich keinen Zweck angeben um die Aushändigung durchzuführen
     Wenn ich aber einen Zweck angebe
     Dann wird nur den Gegenständen ohne Zweck der angegebene Zweck zugewiesen
+    

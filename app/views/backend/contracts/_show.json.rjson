@@ -16,6 +16,10 @@ if with ||= nil
   if with[:user]
     h[:user] = render(:partial => "backend/users/show.json.rjson", :locals => {:user => contract.user, :with => with[:user]}) 
   end
+  if with[:barcode]
+    # TODO: FIXME
+    #h[:barcode] = Barby::Code128B.new("P: #{contract.id}")
+  end
 end
 
 h

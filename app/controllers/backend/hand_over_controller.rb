@@ -1,5 +1,5 @@
 class Backend::HandOverController < Backend::BackendController
-
+  
   before_filter do
     @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
     @contract = @user.get_current_contract(current_inventory_pool) if @user
@@ -41,7 +41,8 @@ class Backend::HandOverController < Backend::BackendController
     respond_to do |format|
       format.json {
         if @contract.sign(lines, current_user)
-          render :partial => "backend/contracts/show.json.rjson", :locals => {contract: @contract}
+          with = {:barcode => true}
+          render :partial => "backend/contracts/show.json.rjson", :locals => {contract: @contract, with: with}
         else
           @error = {:message => @contract.errors.full_messages}
           render :template => "/errors/show", status: 500

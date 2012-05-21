@@ -69,8 +69,8 @@ Funktionalität: Vertrag
     Dann sehe ich den Ausleihenden oben links
       
   Szenario: Welche Informationen ich vom Ausleihenden sehen möchte
-    Dann möchte ich die folgenden Sachen sehen:
-    | Sache        |
+    Dann möchte ich die folgenden Bereiche sehen:
+    | Bereiche        |
     | Vorname      |
     | Nachname     |
     | Strasse      |

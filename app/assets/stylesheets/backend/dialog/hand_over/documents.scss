@@ -4,25 +4,26 @@
 .ui-dialog.hand_over.documents {
   
   section.documents {
-    padding-top: 22px;
+    padding-top: 10px;
     
     .navigation {
-      right: -3px;
+      top: 77px !important;
+      right: 8px !important;
+      top: auto;
+      z-index: 1000;
     }
     
     section {
-      display: none; 
+      border: 1px solid white;
+      display: none;
+      margin-top: 12px;
+      min-height: 60px;
+      z-index: 1;
+      @include box-shadow(1px 1px 4px rgba(0,0,0,0.4)); 
       
       &.active {
         display: block;
       }
-    }
-        
-    section.contract {
-      border: 1px solid white;
-      display: block;
-      margin-top: 12px;
-      @include box-shadow(1px 1px 2px rgba(0,0,0,0.4));
     }
   }
 }
