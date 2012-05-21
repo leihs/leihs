@@ -16,7 +16,7 @@ describe Backend::AcknowledgeController do
   
   describe "add a line to an order during acknowledge process" do
     it "adds a line to the order by providing a inventory_code" do
-      response = post :add_line, {:format => :json,
+      post :add_line, {:format => :json,
                                   :id => @submitted_order.id,
                                   :inventory_pool_id => @inventory_pool.id,
                                   :quantity => 1,
@@ -37,7 +37,7 @@ describe Backend::AcknowledgeController do
       purposes.each {|p| p.description.blank?.should be_false }
       @unsubmitted_order.submit
 
-      response = post :add_line, {:format => :json,
+      post :add_line, {:format => :json,
                                   :id => @unsubmitted_order.id,
                                   :inventory_pool_id => @inventory_pool.id,
                                   :quantity => 1,

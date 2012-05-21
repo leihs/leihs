@@ -7,9 +7,9 @@ h = {
     }
 
 if with ||= nil
-  #[:start_date, :end_date, :quantity].each do |k|
-  #  h[k] = line.send(k) if with[k]
-  #end
+  [:returned_date].each do |k|
+    h[k] = line.send(k) if with[k]
+  end
 
   if with[:is_valid]
     h[:is_valid] = line.valid?
