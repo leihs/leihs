@@ -21,8 +21,8 @@ class HandOver
     
   @setup_hand_over_button: ->
     $("#hand_over_button").click (e)->
-      selected_item_lines = _.filter $(".line"), (line)-> 
-        $(line).find(".select input").is ":checked" and $(line).find(".select input").tmplItem().data.type == "item_line"
+      selected_item_lines = _.filter $(".line"), (line)-> ($(line).find(".select input").is ":checked") and ($(line).tmplItem().data.type is "item_line")
+      _.any(selected_item_lines, (line)-> not $(line).hasClass "assigned")
       if _.any(selected_item_lines, (line)-> not $(line).is ".assigned")
         do e.preventDefault
         do e.stopImmediatePropagation
@@ -187,19 +187,30 @@ class HandOver
     # bind close dialog
     dialog.delegate ".close_dialog", "click", (e)->
       e.stopImmediatePropagation()
+      window.location = window.location
+    # bind ready action
+    dialog.delegate ".ready", "click", (e)->
       # go to daily view
       window.location = "http://#{location.host}/backend/inventory_pools/#{current_inventory_pool}/"
-    # print on starts
-    dialog.find("section.contract").printElement()
+    # print on start
+    contract_element = dialog.find("section.contract")
+    dialog.find("section.contract").printElement
+      overrideElementCSS: [{href:contract_element.data("css"), media:"all"}]
+      pageTitle: contract_element.data("print_title")
+      base: "#{window.location.protocol}//#{window.location.hostname}:#{window.location.port}/"
+      leaveOpen: true
     # bind print on click
     dialog.delegate ".navigation .print", "click", (e)->
-      dialog.find("section.active").printElement()
+      active_element = dialog.find("section.active")
+      active_element.printElement
+        overrideElementCSS: [{href:contract_element.data("css"), media:"all"}]
+        pageTitle: active_element.data("print_title")
+        base: "#{window.location.protocol}//#{window.location.hostname}:#{window.location.port}/"
     # inlinetab toggle
     dialog.delegate ".inlinetabs .tab", "click", (e)->
       $(this).closest(".inlinetabs").find(".active").removeClass("active")
       $(this).removeClass("inactive").addClass("active")
-      $(this).closes(".inlinetabs").nextAll("sections").hide()
-      $(this).closes(".inlinetabs").nextAll("sections .#{$(this).data('section')}").show()
-      
+      $(this).closest(".inlinetabs").nextAll("section").removeClass("active")
+      $(this).closest(".inlinetabs").nextAll("section .#{$(this).data('section')}").addClass("active")
       
 window.HandOver = HandOver

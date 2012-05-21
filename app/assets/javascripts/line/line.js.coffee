@@ -69,7 +69,7 @@ class Line
     _compact = _.compact _map
     _uniq = _.uniq _compact, false, (purpose)-> purpose.id
     _final = _.map _uniq, (purpose)-> purpose.description
-    _final.join(', ')
+    _final.join('; ')
  
   @prepare_for_handover: (lines, date)->
     _.each lines, (line)->
