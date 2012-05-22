@@ -13,7 +13,7 @@ class Backend::ContractsController < Backend::BackendController
             page = params[:page])
             
     conditions = { :inventory_pool_id => current_inventory_pool.id }
-    conditions[:user_id] = @user.id if @userc
+    conditions[:user_id] = @user.id if @user
 
     scope = case filter
               when "signed"
