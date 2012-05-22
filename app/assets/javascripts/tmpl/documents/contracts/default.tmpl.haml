@@ -1,4 +1,4 @@
-#contract
+.contract
 
   .barcode
     %img{:src => "${barcode}"}
@@ -14,8 +14,8 @@
       %span.name Max Mustermann
       %span.street Musterstrasse 12
       %span.plz_city DE-38108 Musterstadt
-    .renter
-      %label= _("Verleier")
+    .inventory_pool
+      %label= _("Verleiher")
       %span.name Max Mustermann
       %span.street Musterstrasse 12
       %span.plz_city DE-38108 Musterstadt
@@ -33,8 +33,6 @@
           %td.end_date= _("End-Datum")
           %td.returning_date= _("Rückgabe")
       %tbody
-        %tr.seperator
-          %td{:colspan => 6}
         %tr
           %td.quantity= "321"
           %td.inventory_code= "AVZ10548"
@@ -91,8 +89,6 @@
           %td.start_date= "19.01.2012"
           %td.end_date= "19.01.2012"
           %td.returning_date= "19.01.2012"
-        %tr.seperator
-          %td{:colspan => 6}
   
   %section.list.not_returned_items
     %h2= _("Ausgeliehene Gegenstände")
@@ -106,8 +102,6 @@
           %td.end_date= _("End-Datum")
           %td.returning_date= _("Rückgabe")
       %tbody
-        %tr.seperator
-          %td{:colspan => 6}
         %tr
           %td.quantity= "321"
           %td.inventory_code= "AVZ10548"
@@ -115,20 +109,16 @@
           %td.start_date= "19.01.2012"
           %td.end_date= "19.01.2012"
           %td.returning_date
-        %tr.seperator
-          %td{:colspan => 6}
-
-  %section.purposes
-    %h2= _("Zweck dieser Ausleihe")
-    %p= _("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.")
-    
-  %section.note
-    %h2= _("Zusätzliche Notiz")
-    %p= _("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.")
-    
-  %section.terms
-    %p= _("Es gelten die Ausleih- und Benutzungsreglemente des Verleihers.")
+  
+  .dontbreak
+    %section.purposes
+      %h2= _("Zweck dieser Ausleihe")
+      %p= _("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.")
+    %section.note
+      %h2= _("Zusätzliche Notiz")
+      %p= _("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.")
+    %section.terms
+      %p= _("Es gelten die Ausleih- und Benutzungsreglemente des Verleihers.")
+    %section.signature
+      %span= _("Unterschrift")
       
-  %section.signature
-    %span= _("Unterschrift")
-    

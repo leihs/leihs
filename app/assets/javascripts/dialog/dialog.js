@@ -48,10 +48,12 @@ function Dialog() {
       $(_dialog).data("startLeft", ($(_params.trigger).offset().left + $(_params.trigger).width()/2));
       $(_dialog).data("startTop", ($(_params.trigger).offset().top + $(_params.trigger).height()/2));
       $(_dialog).data("callback", _params.callback);
+      $(_dialog).data("dialog_ready", _params.dialog_ready);
       $(_dialog).data("trigger", _params.trigger);
       $(_dialog).data("padding", Dialog.default_padding);
       Dialog.setup(_dialog);
       _dialog.dialog(_params);
+      if(_params.dialogId != undefined) $(_dialog).closest(".ui-dialog").attr("id", _params.dialogId);
       return _dialog;
     }
     
@@ -133,6 +135,7 @@ function Dialog() {
       });
       
       $(_dialog).bind("dialogopen", function(event, ui) {
+        var _this = $(this)
         // bind scroll and resize
         $(window).bind("resize scroll", Dialog.checkPosition);
         // popup animation
@@ -159,6 +162,8 @@ function Dialog() {
             if($(".dialog #fullcalendar").length > 0) BookingCalendar.setup();
             // correct modal overlay height
             $(".ui-widget-overlay").height($(document).height());
+            // dialog ready callback
+            if ($(_this).data("dialog_ready")) $(_this).data("dialog_ready").apply(this);
           }
         });
       });
