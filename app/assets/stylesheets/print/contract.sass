@@ -1,58 +1,57 @@
 @import "document"
 
-#contract
-  
-  .barcode
-    display: block
-    height: 1cm
-    width: 100%
-  
-  h1
-    font-size: 14pt
-    display: block
-    padding-bottom: 1cm
+@media print
+
+  #contract
     
-  .date
-    display: inline-block
-    position: absolute
-    top: 1.2cm
-    right: 0
-    
-  .customer
-    display: block
-    float: left
-    width: 45%
-    
-  .owner
-    display: block
-    float: right
-    width: 45%
-    
-  .customer, .owner
-    &>span
+    .barcode
       display: block
-    &>label
-      font-weight: bold
-  
-  .purposes
-    h2
-      display: block
-      page-break-after: avoid
-    p
-      display: block
-      page-break-before: avoid
-  
-  .signature
-    border-bottom: 0.2pt solid black
-    display: block
-    height: 2cm
-    width: 100%
+      height: 1cm
+      width: 100%
     
-    span
+    h1
+      font-size: 14pt
+      display: block
+      padding-bottom: 1cm
+      
+    .date
       display: inline-block
       position: absolute
-      right: 0.2cm
-      bottom: -0.5cm
+      top: 1.2cm
+      right: 0
+      
+    .customer
+      display: block
+      float: left
+      width: 45%
+      
+    .renter
+      display: block
+      float: right
+      width: 45%
+      
+    .customer, .renter
+      &>span
+        display: block
+      &>label
+        font-weight: bold
     
-  
-  
+    .purposes
+      h2
+        display: block
+        page-break-after: avoid
+      p
+        display: block
+        page-break-before: avoid
+    
+    .signature
+      border-bottom: 0.2pt solid black
+      display: block
+      height: 2cm
+      width: 100%
+      
+      span
+        display: inline-block
+        position: absolute
+        right: 0.2cm
+        bottom: -0.5cm
