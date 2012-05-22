@@ -1,44 +1,40 @@
-*
-  color: black
-  font-size: 9pt
-  font-family: "Lucida Grande","Lucida Sans Unicode",sans-serif
-  position: relative
+@media print
 
-@mixin grey-bg
-  
-h2, h3, h4, h5
-  display: block
-  margin-top: 14pt
-  page-break-after: avoid
-  
-.clear
-  clear: both
-  
-table
-  empty-cells: show
-  border-collapse: collapse
+  *
+    color: black
+    font-size: 9pt
+    font-family: "Lucida Grande","Lucida Sans Unicode",sans-serif
+    position: relative
 
-  width: 100%
+  h2, h3, h4, h5
+    display: block
+    margin-top: 14pt
+    page-break-after: avoid
   
-  tr td
-    padding: 0.1cm 0 0 0.1cm
+  .clear
+    clear: both
   
-  .seperator:first-child td, .seperator:last-child td
-    border-bottom: 0.5pt dotted rgb(150,150,150)
+  table
+    empty-cells: show
+    border-collapse: collapse
+    width: 100%
+  
+    tr td
+      padding: 0.1cm 0 0 0.1cm
     
-  .seperator td
-    border-bottom: 0.5pt dotted rgb(100,100,100)
+    .seperator:first-child td, .seperator:last-child td
+      border-bottom: 0.5pt dotted rgb(150,150,150)
+      
+    .seperator td
+      border-bottom: 0.5pt dotted rgb(100,100,100)
+    
+    thead tr td
+      font-size: 7pt
+      font-weight: bold
   
-  thead tr td
-    font-size: 7pt
-    font-weight: bold
+  .hr
+    margin: 0.5cm 0 0 0
+    border-bottom: 0.5pt solid rgb(150,150,150)
   
-.hr
-  margin: 0.5cm 0 0 0
-  border-bottom: 0.5pt solid rgb(150,150,150)
-  
-.dont-break
-  page-break-before: avoid
-  
-section
-  display: block
+  section
+    display: block

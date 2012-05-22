@@ -193,12 +193,7 @@ class HandOver
       # go to daily view
       window.location = "http://#{location.host}/backend/inventory_pools/#{current_inventory_pool}/"
     # print on start
-    contract_element = dialog.find("section.contract")
-    dialog.find("section.contract").printElement
-      overrideElementCSS: [{href:contract_element.data("css"), media:"all"}]
-      pageTitle: contract_element.data("print_title")
-      base: "#{window.location.protocol}//#{window.location.hostname}:#{window.location.port}/"
-      leaveOpen: true
+    do window.print
     # bind print on click
     dialog.delegate ".navigation .print", "click", (e)->
       active_element = dialog.find("section.active")
