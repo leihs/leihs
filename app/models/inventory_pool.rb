@@ -118,7 +118,7 @@ class InventoryPool < ActiveRecord::Base
 #######################################################################
 
   def next_open_date(x = Date.today)
-    if closed_days.size < 7
+    if workday.closed_days.size < 7
       while not is_open_on?(x) do
         holiday = running_holiday_on(x)
         if holiday
@@ -132,7 +132,7 @@ class InventoryPool < ActiveRecord::Base
   end
   
   def last_open_date(x = Date.today)
-    if closed_days.size < 7
+    if workday.closed_days.size < 7
       while not is_open_on?(x) do
         holiday = running_holiday_on(x)
         if holiday
@@ -143,14 +143,6 @@ class InventoryPool < ActiveRecord::Base
       end
     end
     x
-  end
-  
-  def closed_days
-    workday.closed_days
-  end
-  
-  def closed_dates
-    ["01.01.2009"] #TODO **24** Get the dates from Holidays, put them in the correct format (depends on DatePicker)
   end
   
   def is_open_on?(date)
