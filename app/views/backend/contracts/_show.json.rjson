@@ -16,6 +16,9 @@ if with ||= nil
   if with[:user]
     h[:user] = render(:partial => "backend/users/show.json.rjson", :locals => {:user => contract.user, :with => with[:user]}) 
   end
+  if with[:inventory_pool]
+    h[:inventory_pool] = render(:partial => "backend/inventory_pool/show.json.rjson", :locals => {:inventory_pool => contract.inventory_pool, :with => with[:inventory_pool]}) 
+  end
   if with[:barcode]
     require 'barby' 
     require 'barby/barcode/code_128' 

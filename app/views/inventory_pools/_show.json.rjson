@@ -1,7 +1,18 @@
-{
-  :id => inventory_pool.id,
-  :name => inventory_pool.to_s,
-  :address => inventory_pool.address.to_s,
-  :closed_days => inventory_pool.workday.closed_days,
-  :holidays => inventory_pool.holidays.future.as_json(:except => [:id, :inventory_pool_id])
+h = {
+  id: inventory_pool.id,
+  name: inventory_pool.to_s
 }    
+
+if with ||= nil
+  if with[:address]
+    h[:address] = render(:partial => "addresses/show.json.rjson", :locals => {:lines => inventory_pool.address, :with => with[:address]})
+  end
+  if with[:closed_days]
+    h[:closed_days] = inventory_pool.workday.closed_days
+  end
+  if with[:holidays]
+    h[:holidays] = inventory_pool.holidays.future.as_json(:except => [:id, :inventory_pool_id])
+  end
+end
+
+h
