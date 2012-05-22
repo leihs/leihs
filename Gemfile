@@ -21,19 +21,20 @@ gem 'will_paginate', :git => "https://github.com/halloffame/will_paginate.git" #
 #gem 'will_paginate', '~> 3.0' # alternatives: kaminari
 gem 'gettext_i18n_rails', '~> 0.3'
 gem 'ruby_parser', '~> 2.3' # gettext dependency that Bundler seems unable to resolve
+
+gem "pdfkit", "~> 0.5.2" # requires wkhtmltopdf
 gem 'barby', '~> 0.5.0'
-gem "cairo" # Needed to print SVG barcodes
+gem "chunky_png", "~> 1.2.5"
+
 gem 'mini_magick', '~> 3.3'
 gem 'rgl', '~> 0.4.0', :require => 'rgl/adjacency'
 gem 'ruby-net-ldap', '~> 0.0.4', :require => 'net/ldap'
 gem 'fastercsv', '~> 1.5.4'
-gem "pdfkit", "~> 0.5.2" # requires wkhtmltopdf
 
 gem 'nested_set', '~> 1.7'
 gem 'acts-as-dag', :git => "git://github.com/jrust/acts-as-dag.git" #tmp# '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
 gem 'geocoder', '~> 1.1'
 gem "underscore-rails", "~> 1.3.1"
-#tmp# gem 'squeel', '~> 0.8.4'
 # gem "RubyInline", '3.8.2', :require => "inline"
 
 group :assets do # Gems used only for assets and not required in production environments by default.
@@ -54,7 +55,7 @@ end
 group :test, :development do
   gem "growl", "~> 1.0.3"
   gem "guard", "~> 1.0.1"
-  gem "guard-cucumber", "~> 0.7.4"
+  gem "guard-cucumber", "~> 0.8"
   gem "guard-rspec", "~> 0.7"
   gem "guard-spork", "~> 0.7"
   gem "guard-jasmine-headless-webkit", "~> 0.3.2"

@@ -1,6 +1,7 @@
 #contract
 
   .barcode
+    %img{:src => "${barcode}"}
   
   %h1= _("Leihvertrag Nr. %s") % ["${id}"]
   .date
@@ -13,7 +14,7 @@
       %span.name Max Mustermann
       %span.street Musterstrasse 12
       %span.plz_city DE-38108 Musterstadt
-    .owner
+    .renter
       %label= _("Verleier")
       %span.name Max Mustermann
       %span.street Musterstrasse 12

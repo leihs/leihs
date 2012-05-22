@@ -1,5 +1,6 @@
 class Backend::BarcodesController < Backend::BackendController
 
+=begin #OLD CODE#
 	def index
 	  unless params[:string]
       redirect_to :action => 'new'
@@ -24,4 +25,5 @@ class Backend::BarcodesController < Backend::BackendController
       #require 'barby/outputter/png_outputter'
       send_data(Barby::Code128B.new(@string.to_s).to_svg(:height => @height.to_f), :filename => "barcode_#{@string}.svg", :type => 'image/svg+xml')
   end
+=end
 end
