@@ -24,12 +24,12 @@
     .tab.active{:"data-section" => "contract"}= _("Contract")
     .tab{:"data-section" => "value_list"}= _("Value List")
     
-  %section.contract.active{:"data-css" => asset_path("print/contract.css"), :"data-print_title" => _("Leihvertrag Nr. %s") % ["${contract.id}"]}
+  %section.contract.active{:"data-print_title" => _("Leihvertrag Nr. %s") % ["${contract.id}"]}
     {{if template}}
     {{tmpl(contract) template}}    
     {{else}}
     {{tmpl(contract) "tmpl/documents/contracts/default"}}
     {{/if}}
     
-  %section.value_list{:"data-css" => asset_path("print/value_list.css"), :"data-print_title" => _("Werteverzeichniss zu Leihvertrag Nr. %s") % ["${contract.id}"]}
+  %section.value_list{:"data-print_title" => _("Werteverzeichniss zu Leihvertrag Nr. %s") % ["${contract.id}"]}
     VALUE LIST

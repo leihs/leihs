@@ -184,6 +184,12 @@ class HandOver
       trigger: $("#hand_over_button")
       content: $.tmpl("tmpl/dialog/hand_over/documents", {contract: contract})
       dialogClass: "hand_over documents"
+      dialogId: "print"
+      dialog_ready: ->
+        title_before = document.title
+        document.title = $(this).find(".documents>.active").data("print_title") 
+        do window.print
+        window.setTimeout((-> document.title = title_before), 200) # lets wait for opera to have the correct title inside of the contract
     # bind close dialog
     dialog.delegate ".close_dialog", "click", (e)->
       e.stopImmediatePropagation()
@@ -192,15 +198,12 @@ class HandOver
     dialog.delegate ".ready", "click", (e)->
       # go to daily view
       window.location = "http://#{location.host}/backend/inventory_pools/#{current_inventory_pool}/"
-    # print on start
-    do window.print
-    # bind print on click
+    # bind click on print
     dialog.delegate ".navigation .print", "click", (e)->
-      active_element = dialog.find("section.active")
-      active_element.printElement
-        overrideElementCSS: [{href:contract_element.data("css"), media:"all"}]
-        pageTitle: active_element.data("print_title")
-        base: "#{window.location.protocol}//#{window.location.hostname}:#{window.location.port}/"
+      title_before = document.title 
+      document.title = $(dialog).find(".documents>.active").data("print_title") 
+      do window.print
+      window.setTimeout((-> document.title = title_before), 200) # lets wait for opera to have the correct title inside of the contract
     # inlinetab toggle
     dialog.delegate ".inlinetabs .tab", "click", (e)->
       $(this).closest(".inlinetabs").find(".active").removeClass("active")

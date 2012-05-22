@@ -26,7 +26,7 @@
  *= require shared/summary
  * 
  *= require_tree ./backend
- * 
+ *
  *= require_self
  * 
 */
