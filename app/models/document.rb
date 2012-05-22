@@ -3,6 +3,8 @@
 #
 class Document < ActiveRecord::Base
   self.abstract_class = true
+  acts_as_audited :associated_with => :inventory_pool
+  has_associated_audits
   
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
   has_many :actions, :as => :target, :class_name => "History", :order => 'created_at ASC', :conditions => "type_const = #{History::ACTION}"

@@ -1,8 +1,9 @@
 class Attachment < ActiveRecord::Base
+  acts_as_audited :associated_with => :model
 
-    PATH_PREFIX = "/attachments"
+  PATH_PREFIX = "/attachments"
 
-    belongs_to :model
+  belongs_to :model
 
 =begin    
     has_attachment :size => 1.kilobytes..100.megabytes,

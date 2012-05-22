@@ -7,8 +7,9 @@
 # with the leihs system.
 #
 class Notification < ActiveRecord::Base
+  acts_as_audited :associated_with => :user
+
   belongs_to :user
-  
   
   def self.order_submitted(order, purpose, send_mail = false)
     o = Mailer::Order.submitted(order, purpose).deliver if send_mail

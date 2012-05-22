@@ -1,4 +1,6 @@
 class Holiday < ActiveRecord::Base
+  acts_as_audited :associated_with => :inventory_pool
+
   belongs_to :inventory_pool
   
   scope :future, where(['end_date >= ?', Date.today])

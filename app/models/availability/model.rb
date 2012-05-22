@@ -5,11 +5,6 @@ module Availability
       Availability::Main.new(:model_id => id, :inventory_pool_id => inventory_pool.id)
     end
 
-    def delete_availability_changes_in(inventory_pool)
-      #1402
-      partitions.in(inventory_pool).by_group(Group::GENERAL_GROUP_ID)
-    end
-
     #def total_available_in_period_for_user(user, start_date = Date.today, end_date = Date.today)
     #  inventory_pools.collect do |ip|
     #    availability_changes_in(ip).maximum_available_in_period_for_user(user, start_date, end_date)

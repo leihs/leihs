@@ -54,7 +54,8 @@ class Backend::ContractsController < Backend::BackendController
       }
     end
   end
-  
+
+=begin #OLD CODE ??#
   def show
     respond_to do |format|
       format.pdf {
@@ -77,4 +78,6 @@ class Backend::ContractsController < Backend::BackendController
       }
 		end
   end
+=end  
+
 end

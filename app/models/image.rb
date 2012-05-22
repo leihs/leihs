@@ -1,11 +1,12 @@
 class Image < ActiveRecord::Base
+  acts_as_audited :associated_with => :model
 
-    PATH_PREFIX = "/images/attachments"
+  PATH_PREFIX = "/images/attachments"
 
-    belongs_to :model
+  belongs_to :model
 
-    # TODO MiniMagick upload, resize, etc...
-    # TODO store thumbnails in Base64 directly to the database ??
+  # TODO MiniMagick upload, resize, etc...
+  # TODO store thumbnails in Base64 directly to the database ??
         
 #old#
 =begin 
