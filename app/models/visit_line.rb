@@ -11,6 +11,24 @@
 # this class should never be used directly, the main purpose is to provide a join association between visits and contract_lines 
 class VisitLine < ActiveRecord::Base
   self.primary_key = :contract_line_id
+
+  #######################################################
+  def readonly?
+    true
+  end
+  def delete
+    false
+  end
+  def self.delete_all
+    false
+  end
+  def self.destroy_all
+    false
+  end
+  before_destroy do
+    false
+  end
+  #######################################################
   
   #belongs_to :user
   #belongs_to :inventory_pool

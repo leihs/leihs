@@ -8,9 +8,25 @@
 #
 # Reading a MySQL View
 class Visit < ActiveRecord::Base
-  # TODO define as readonly ??
-  
   self.primary_key = :id
+
+  #######################################################
+  def readonly?
+    true
+  end
+  def delete
+    false
+  end
+  def self.delete_all
+    false
+  end
+  def self.destroy_all
+    false
+  end
+  before_destroy do
+    false
+  end
+  #######################################################
   
   belongs_to :user
   belongs_to :inventory_pool
