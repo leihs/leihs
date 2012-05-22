@@ -49,7 +49,6 @@
     .inventory_pool
       display: block
       float: right
-    width: 45%
 
     .customer, .inventory_pool
       &>span
@@ -67,15 +66,16 @@
       display: block
       page-break-before: avoid
 
-  .signature
-    border-top: $border-width solid $border-color
+  .terms_and_signature
     display: block
-    margin-top: 2cm
+    margin-top: 1cm
     width: 100%
+    
+    .terms
+      width: 65%
 
     span
       font-weight: bold
       display: inline-block
       position: absolute
-      top: 0.1cm
-      right: 0.1cm
+      right: 0.2cm

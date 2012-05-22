@@ -1,7 +1,7 @@
 body > * // hide screen elements
   display: none !important
 
-$border-width: 1pt
+$border-width: 0.5pt
 $border-color: rgb(100,100,100)
 
 #print
@@ -36,14 +36,23 @@ table
   width: 100%
 
   tr td
-    padding: 0.1cm 0 0 0.1cm
     border: $border-width solid $border-color
+    padding: 2pt 4pt
   
   thead tr td
     font-size: 7pt
     font-weight: bold
-
-.hr
-  margin: 0.5cm 0 0 0
+    
+  thead
+    display: table-header-group
+    
+table.hr
   border-bottom: $border-width solid $border-color
-  
+
+section
+  page-break-before: auto
+  page-break-after: auto
+
+.dontbreak
+  page-break-before: auto
+  page-break-inside: avoid

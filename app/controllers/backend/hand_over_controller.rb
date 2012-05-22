@@ -42,10 +42,11 @@ class Backend::HandOverController < Backend::BackendController
       format.json {
         if @contract.sign(lines, current_user)
           with = { barcode: true,
-                   inventory_pool: {},
+                   note: true,
+                   inventory_pool: {address: {}},
                    lines: {item: {}, model: {}, purpose: {}, returned_date: true},
                    user: {address: true, zip: true, city: true} }
-          render :partial => "backend/contracts/show.json.rjson", :locals => {contract: @contract, with: with}
+          render :partial => "backend/contracts/show.json.rjson", :locals => {contract: @contract.reload, with: with}
         else
           @error = {:message => @contract.errors.full_messages}
           render :template => "/errors/show", status: 500

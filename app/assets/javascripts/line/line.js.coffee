@@ -79,5 +79,11 @@ class Line
       if moment(line.end_date).eod().diff(moment().eod(), "days") < 0
         line.end_date = moment().format("YYYY-MM-DD")
     lines
+    
+  @get_returned: (lines)->
+    _.filter lines, (line)-> line.returned_date?
+    
+  @get_not_returned: (lines)->
+    _.filter lines, (line)-> not line.returned_date?
 
 window.Line = Line

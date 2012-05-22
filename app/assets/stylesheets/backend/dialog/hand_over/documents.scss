@@ -4,7 +4,8 @@
 .ui-dialog.hand_over.documents {
   
   section.documents {
-    padding-top: 10px;
+    position: relative;
+    top: -4px;
     
     .navigation {
       top: 77px !important;
@@ -13,10 +14,10 @@
       z-index: 1000;
     }
     
-    section {
+    &>section {
       border: 1px solid white;
       display: none;
-      margin-top: 12px;
+      margin: 12px 0;
       min-height: 60px;
       z-index: 1;
       @include box-shadow(1px 1px 4px rgba(0,0,0,0.4)); 

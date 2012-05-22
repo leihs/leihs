@@ -6,7 +6,7 @@ h = {
 }
 
 if with ||= nil
-  [:quantity, :created_at, :updated_at, :inventory_pool_id].each do |k|
+  [:quantity, :created_at, :updated_at, :inventory_pool_id, :note].each do |k|
     h[k] = contract.send(k) if with[k]
   end
 

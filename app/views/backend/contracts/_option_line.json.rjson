@@ -12,6 +12,9 @@ h = {
   },
   
   model: line.option, # this is an alias for option
+  item: {
+    inventory_code: line.option.inventory_code
+  },
   user: {
     id: line.contract.user_id,
     firstname: line.contract.user.firstname,
