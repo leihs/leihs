@@ -10,7 +10,7 @@ FactoryGirl.define do
     status_const 1
     
     factory :contract_with_lines do
-      after_create do |contract|
+      after(:create) do |contract|
         3.times do
           contract.contract_lines << FactoryGirl.create(:contract_line, :contract => contract)
         end

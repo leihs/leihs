@@ -10,7 +10,7 @@ FactoryGirl.define do
     status_const 1
     
     factory :order_with_lines do
-      after_create do |order, evaluator|
+      after(:create) do |order, evaluator|
         purpose = FactoryGirl.create :purpose
         3.times do
           order.order_lines << FactoryGirl.create(:order_line, :purpose => purpose, :order => order, :inventory_pool => evaluator.inventory_pool)

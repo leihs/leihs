@@ -14,7 +14,7 @@ FactoryGirl.define do
       ignore do
         inventory_pool { FactoryGirl.create :inventory_pool }
       end
-      after_create do |model, evaluator|
+      after(:create) do |model, evaluator|
         3.times do
           model.items << FactoryGirl.create(:item, :inventory_pool => evaluator.inventory_pool)
         end
