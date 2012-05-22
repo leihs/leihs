@@ -32,10 +32,6 @@ class Partition < ActiveRecord::Base
       end
       # if there's no more items of a model in a group accessible to the customer,
       # then he shouldn't be able to see the model in the frontend.
-      # TODO: we're breaking the separation of concerns principle here:
-      #       availablity concerns should be exclusively dealt with inside
-      #       models/availabilit/* 
-      @model.delete_availability_changes_in(@inventory_pool)
     end
   
     # returns a hash {nil => 10, 41 => 3, 42 => 6, ...}
