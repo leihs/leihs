@@ -1,4 +1,5 @@
 class ModelLink < ActiveRecord::Base
+  acts_as_audited :associated_with => :model
   
   belongs_to :model_group
   belongs_to :model

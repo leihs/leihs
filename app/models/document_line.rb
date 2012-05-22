@@ -4,8 +4,9 @@
 #
 class DocumentLine < ActiveRecord::Base
   include Availability::DocumentLine
-  
   self.abstract_class = true
+  acts_as_audited :associated_with => :model
+
   belongs_to :purpose
   
   before_validation :set_defaults, :on => :create

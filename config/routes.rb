@@ -281,4 +281,27 @@ Leihs::Application.routes.draw do
     end
   end
 
+############################################################################
+# Statistics
+
+=begin
+  namespace :statistics do
+    root :to => "statistics#index"
+
+    resources :statistics, :only => :index
+
+    match ':type/:id', :to => 'statistics#show'
+    match ':type/:id/activities', :to => 'statistics#activities'
+  end  
+=end
+
+  resource :statistics, :only => :show do
+    member do
+      get :activities  
+    end
+    
+    match ':type/:id/activities', :to => 'statistics#activities'
+    #match ':type/:id', :to => 'statistics#show'
+  end
+  
 end

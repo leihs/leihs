@@ -37,6 +37,8 @@ gem 'geocoder', '~> 1.1'
 gem "underscore-rails", "~> 1.3.1"
 # gem "RubyInline", '3.8.2', :require => "inline"
 
+gem "acts_as_audited", :git => "git://github.com/sellittf/acts_as_audited.git" #"~> 2.1"
+
 group :assets do # Gems used only for assets and not required in production environments by default.
   gem 'sass-rails', '~> 3.2'
   gem 'coffee-rails', '~> 3.2'

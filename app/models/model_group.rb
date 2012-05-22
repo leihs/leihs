@@ -1,4 +1,5 @@
 class ModelGroup < ActiveRecord::Base
+  acts_as_audited
   
   attr_accessor :current_parent_id
 

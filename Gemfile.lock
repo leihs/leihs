@@ -5,6 +5,13 @@ GIT
     acts-as-dag (2.5.7)
 
 GIT
+  remote: git://github.com/sellittf/acts_as_audited.git
+  revision: ec88a2d65c5278a62ac179ddc22a6a9e1c66fabb
+  specs:
+    acts_as_audited (2.1.0)
+      rails (~> 3.0, >= 3.0.3)
+
+GIT
   remote: https://github.com/halloffame/will_paginate.git
   revision: c16fc5229623c7e8514e9c953a7296168cc02cf6
   specs:
@@ -282,6 +289,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-dag!
+  acts_as_audited!
   barby (~> 0.5.0)
   capybara (~> 1.1)
   capybara-screenshot

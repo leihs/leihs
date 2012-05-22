@@ -1,5 +1,6 @@
 class Group < ActiveRecord::Base
   include Availability::Group
+  acts_as_audited :associated_with => :inventory_pool
 
   belongs_to :inventory_pool
   has_and_belongs_to_many :users

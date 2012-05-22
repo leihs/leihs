@@ -1,5 +1,7 @@
 class InventoryPool < ActiveRecord::Base
   include Availability::InventoryPool
+  acts_as_audited
+  has_associated_audits
 
   belongs_to :address
   has_one :workday, :dependent => :delete
