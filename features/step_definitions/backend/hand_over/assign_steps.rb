@@ -76,5 +76,5 @@ When /^I clean the inventory code of one of the lines$/ do
 end
 
 Then /^the assignment of the line to an inventory code is removed$/ do
-  binding.pry
+  pending
 end
