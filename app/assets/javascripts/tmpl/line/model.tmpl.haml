@@ -1,7 +1,3 @@
--# TODO for model blocks with nesting items -> create a template for its own
--# {{if items != undefined}}
--# {{tmpl "tmpl/line/model_block"}}
--# {{else}}
 %ul.line{:class => "${type}"}
     
   .main
@@ -61,4 +57,9 @@
         = link_to "/backend/inventory_pools/${current_inventory_pool}/models/${id}", :class => "button white" do
           .icon.view_model
           = _("View Model")
--# {{/if}}
+
+{{if items}}
+.items
+  {{tmpl(items) "tmpl/line/item" }}
+{{/if}}
+
