@@ -14,6 +14,8 @@ i18n.locals['gsw-CH'] =
   datepicker:
     L: "dd.mm.yy"
   
+  number: "#.###,00"
+  
   today: "Heute"
   month: "Monat"
   week: "Woche"

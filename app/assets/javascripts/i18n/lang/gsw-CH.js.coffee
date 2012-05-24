@@ -13,6 +13,8 @@ i18n.locals['gsw-CH'] =
   # jQuery Datepicker has different convetions for formating dates
   datepicker:
     L: "dd.mm.yy"
+    
+  number: "#'###.00"
   
   today: "Heute"
   month: "Monat"
