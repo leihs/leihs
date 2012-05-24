@@ -1,0 +1,14 @@
+.navigation
+  %button.button.white.close_dialog
+    .return.icon
+    = _("Back")
+    
+%section.documents
+  
+  .navigation
+    %button.button.white.print
+      = _("Print")
+      .print.icon
+      
+  %section.value_list{:"data-print_title" => _("Werteverzeichniss zu Leihvertrag Nr. %s") % ["${id}"]}
+    {{tmpl($item.data) "tmpl/documents/value_lists/default"}}

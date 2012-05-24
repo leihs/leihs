@@ -1,3 +1,4 @@
+# TODO (TD) separate optional with
 h = {
   id: line.id,
   type: line.type.underscore,
@@ -13,7 +14,8 @@ h = {
   
   model: line.option, # this is an alias for option
   item: {
-    inventory_code: line.option.inventory_code
+    inventory_code: line.option.inventory_code,
+    price: line.option.price
   },
   user: {
     id: line.contract.user_id,
@@ -23,9 +25,10 @@ h = {
   }
 }
 
+# FIXME extract this
 w1 = {closed_days: true, holidays: true}
 h[:availability_for_inventory_pool] = {
-  :inventory_pool => render(:partial => "inventory_pools/show.json.rjson", :locals => {:inventory_pool => current_inventory_pool, with: w1}) # FIXME extract
+  :inventory_pool => render(:partial => "inventory_pools/show.json.rjson", :locals => {:inventory_pool => current_inventory_pool, with: w1})
 } 
 
 if with ||= nil

@@ -32,4 +32,8 @@
     {{/if}}
     
   %section.value_list{:"data-print_title" => _("Werteverzeichniss zu Leihvertrag Nr. %s") % ["${contract.id}"]}
-    VALUE LIST
+    {{if template}}
+    {{tmpl(contract) template}}    
+    {{else}}
+    {{tmpl(contract) "tmpl/documents/value_lists/default"}}
+    {{/if}}
