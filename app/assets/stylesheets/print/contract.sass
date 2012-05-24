@@ -12,10 +12,11 @@
     &>*
       display: none !important
       
-    &>.contract
+    &>section.contract
       display: block !important
     
-#print .contract
+#print section.contract
+  min-height: none !important
   width: 100%
   
   .barcode
@@ -44,11 +45,11 @@
     .customer
       display: block
       float: left
-      width: 45%
+      width: 30%
   
     .inventory_pool
       display: block
-      float: right
+      float: left
 
     .customer, .inventory_pool
       &>span

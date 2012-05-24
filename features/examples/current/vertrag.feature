@@ -9,7 +9,8 @@ Funktionalität: Vertrag
   Grundlage:
     Angenommen man ist "Pius"
     Und man öffnet einen Vertrag
-
+  
+  @javascript
   Szenario: Was ich auf dem Vertrag sehen möchte
     Dann möchte ich die folgenden Bereiche sehen:
     | Bereich                       |

@@ -27,9 +27,10 @@ When /^I click hand over$/ do
 end
 
 When /^I click hand over inside the dialog$/ do
+  page.execute_script ("window.print = function(){return true;}")
   wait_until { find ".dialog .button" }
   find(".dialog .button", :text => "Hand Over").click
-  wait_until(10){ all(".dialog").size == 0 }
+  wait_until(10){ find(".dialog .documents") }
 end
 
 Then /^the contract is signed for the selected items$/ do

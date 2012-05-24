@@ -39,15 +39,15 @@ ${$not_returned_lines = Line.get_not_returned(lines), ""}
           %td.end_date= _("End-Datum")
           %td.returning_date= _("Rückgabe")
       %tbody
-        %tr
-          {{each(i,line) $returned_lines}}
+        {{each(i,line) $returned_lines}}
+        %tr  
           %td.quantity ${line.quantity}
           %td.inventory_code ${line.item.inventory_code}
           %td.model_name ${line.model.name}
           %td.start_date ${moment(line.start_date).format(i18n.date.L)}
           %td.end_date ${moment(line.end_date).format(i18n.date.L)}
           %td.returning_date ${moment(line.returned_date).format(i18n.date.L)}
-          {{/each}}
+        {{/each}}
   {{/if}}
   
   {{if $not_returned_lines.length}}
@@ -63,15 +63,15 @@ ${$not_returned_lines = Line.get_not_returned(lines), ""}
           %td.end_date= _("End-Datum")
           %td.returning_date= _("Rückgabe")
       %tbody
+        {{each(i,line) $not_returned_lines}}
         %tr
-          {{each(i,line) $not_returned_lines}}
           %td.quantity ${line.quantity}
           %td.inventory_code ${line.item.inventory_code}
           %td.model_name ${line.model.name}
           %td.start_date ${moment(line.start_date).format(i18n.date.L)}
           %td.end_date ${moment(line.end_date).format(i18n.date.L)}
           %td.returning_date
-          {{/each}}
+        {{/each}}
   {{/if}}
   
   .dontbreak
