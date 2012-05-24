@@ -1,3 +1,5 @@
+${lines = Line.extend_with_consecutive_numbers(lines),""}
+
 .contract
 
   %h1= _("Werteliste für Leihvertrag Nr. %s") % ["${id}"]
@@ -25,22 +27,34 @@
     %table
       %thead
         %tr
-          %td.quantity= _("Anzahl")
-          %td.inventory_code= _("Inventarcode")
+          %td.consecutive_number= _("Consecutive Number")
+          %td.inventory_code= _("Inventary Code")
           %td.model_name= _("Model")
+          %td.quantity= _("Quantity")
           %td.item_price= _("Value in %s") % "CHF"
       %tbody
+        {{each(i,line) lines}}
         %tr
-          {{each(i,line) lines}}
-          %td.quantity ${line.quantity}
+          %td.consecutive_number 
+            ${line.consecutive_numbers.from}
+            {{if line.consecutive_numbers.to}}
+            \/ ${line.consecutive_numbers.to}
+            {{/if}}
           %td.inventory_code ${line.item.inventory_code}
           %td.model_name ${line.model.name}
+          %td.quantity ${line.quantity}
           %td.item_price {{html Number(line.item.price) * line.quantity}}
-          {{/each}}
+        {{/each}}
+      %tfoot
+        %tr
+          %td{:colspan => 3}
+            = _("Total")
+          %td
+            {{html Underscore.reduce(lines, function(memo, line){ return memo + line.quantity; }, 0)}}
+          %td
+            {{html Underscore.reduce(lines, function(memo, line){ return memo + (Number(line.item.price) * line.quantity); }, 0)}}
   {{/if}}
   
-  = _("Total in %s") % "CHF"
-  {{html Underscore.reduce(lines, function(memo, line){ return memo + (Number(line.item.price) * line.quantity); }, 0)}}
     
   .dontbreak
     %section.purposes
