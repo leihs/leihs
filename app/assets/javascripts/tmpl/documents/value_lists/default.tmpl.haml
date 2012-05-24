@@ -35,7 +35,7 @@
           %td.quantity ${line.quantity}
           %td.inventory_code ${line.item.inventory_code}
           %td.model_name ${line.model.name}
-          %td.item_price {{html (Number(line.item.price) * line.quantity)}}
+          %td.item_price {{html Number(line.item.price) * line.quantity}}
           {{/each}}
   {{/if}}
   
