@@ -85,5 +85,14 @@ class Line
     
   @get_not_returned: (lines)->
     _.filter lines, (line)-> not line.returned_date?
+    
+  @extend_with_consecutive_numbers: (lines)->
+    last_total = 0
+    _.each lines, (line)->
+      line.consecutive_numbers = {}
+      line.consecutive_numbers.from = last_total + 1
+      last_total += line.quantity
+      line.consecutive_numbers.to = last_total if last_total > line.consecutive_numbers.from
+    lines
 
 window.Line = Line

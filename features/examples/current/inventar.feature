@@ -37,9 +37,44 @@ Funktionalität: Inventar
     Dann ist erstmal die Auswahl "Alles" aktiviert
     Und es sind keine Filtermöglichkeiten aktiviert
 
-  Szenario: Aussehen einer Gegenstands-Zeile
   Szenario: Aussehen einer Modell-Zeile
+    Wenn man eine Modell-Zeile sieht
+    Dann enthält die Modell-Zeile folgende Informationen:
+    | information              |
+    | Bild                     |
+    | Name des Modells         |
+    | Anzahl verfügbar (jetzt) |
+    | Anzahl verfügbar (Total) |
+
+  Szenario: Aussehen einer Gegenstands-Zeile
+    Wenn man eine Gegenstands-Zeile sieht
+    Dann enthält die Gegenstands-Zeile folgende Informationen:
+    | information         |
+    | Inventarcode        |
+    | Ort des Gegenstands |
+    Wenn der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist
+    Dann enthält die Gegenstands-Zeile folgende Informationen:
+    | information      |
+    | Gebäudeabkürzung |
+    | Raum             |
+    | Gestell          |
+    Wenn der Gegenstand nicht an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist
+    | information            |
+    | Aktueller Ausleihender |
+    | Enddatum der Ausleihe  |
+    Wenn der Gegenstand nicht an Lager ist und meine Abteilung Besitzer des Gegenstands ist
+    | information               |
+    | Verantwortliche Abteilung |
+    | Gebäudeabkürzung          |
+    | Raum                      |
+
   Szenario: Aussehen einer Options-Zeile
+    Wenn man eine Options-Zeile sieht
+    Dann enthält die Options-Zeile folgende Informationen
+    | information |
+    | Barcode     |
+    | Name        |
+    | Preis       |
 
   Szenario: Modell aufklappen
     Wenn man eine Liste von Inventar sieht

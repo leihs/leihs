@@ -33,10 +33,16 @@
         .alternatives
           .trigger
             .arrow
-          = link_to "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf", :class => "button white" do
+          = link_to "#", :class => "button white open_dialog",
+            :"data-rel" => "tmpl/dialog/documents/contract",
+            :"data-url_for_dialog" => "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.json",
+            :"data-dialog_class" => "large_dialog" do
             .icon.contract
-            = _("Contract PDF")
-          = link_to "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf?template=value_list", :class => "button white" do
+            = _("Contract")
+          = link_to "#", :class => "button white open_dialog",
+            :"data-rel" => "tmpl/dialog/documents/value_list",
+            :"data-url_for_dialog" => "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.json",
+            :"data-dialog_class" => "large_dialog" do
             .icon.valuelist  
             = _("Value List")
         = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/take_back", :class => "button white" do
@@ -49,11 +55,17 @@
         .alternatives
           .trigger
             .arrow
-          = link_to "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf?template=value_list", :class => "button white" do
+          = link_to "#", :class => "button white open_dialog",
+            :"data-rel" => "tmpl/dialog/documents/value_list",
+            :"data-url_for_dialog" => "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.json",
+            :"data-dialog_class" => "large_dialog" do
             .icon.valuelist  
             = _("Value List")
-        = link_to "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf", :class => "button white" do
+        = link_to "#", :class => "button white open_dialog",
+          :"data-rel" => "tmpl/dialog/documents/contract",
+          :"data-url_for_dialog" => "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.json",
+          :"data-dialog_class" => "large_dialog" do
           .icon.contract
-          = _("Contract PDF")
+          = _("Contract")
       {{/if}}
     

@@ -44,7 +44,7 @@ class Backend::HandOverController < Backend::BackendController
           with = { barcode: true,
                    note: true,
                    inventory_pool: {address: {}},
-                   lines: {item: {}, model: {}, purpose: {}, returned_date: true},
+                   lines: {item: {price: true}, model: {}, purpose: {}, returned_date: true},
                    user: {address: true, zip: true, city: true} }
           render :partial => "backend/contracts/show.json.rjson", :locals => {contract: @contract.reload, with: with}
         else

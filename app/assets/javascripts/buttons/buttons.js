@@ -66,24 +66,48 @@ function Buttons() {
   this.openDialog = function(event) {
     var _this = $(event.currentTarget);
     var _trigger = $(_this).parent().hasClass("alternatives") ? $(_this).closest(".multibutton") : _this;
-    var data = (_this.data("ref_for_dialog") != undefined) ? eval(_this.data("ref_for_dialog")) : {};
-    var template = (_this.data("rel") != undefined) ? _this.data("rel") : "";
-    var action = (_this.attr("href") != undefined) ? _this.attr("href") : _this.attr("action");
+    var createDialog = function(data) {
+      var template = (_this.data("rel") != undefined) ? _this.data("rel") : "";
+      var action = (_this.attr("href") != undefined) ? _this.attr("href") : _this.attr("action");
+      
+      var dialog = Dialog.add({
+        trigger: _trigger,
+        content: $.tmpl(template, data, {action: action, on_success: _this.data("on_success")}),
+        dialogClass: _this.data("dialog_class")
+      });
+      
+      // dont loose tmplItem().data
+      $(".dialog").tmplItem().data = eval(_this.data("ref_for_dialog"));
+    }
     
-    Dialog.add({
-      trigger: _trigger,
-      content: $.tmpl(template, data, {action: action, on_success: _this.data("on_success")}),
-      dialogClass: _this.data("dialog_class")
-    });
-    
-    // dont loose tmplItem().data
-    $(".dialog").tmplItem().data = eval(_this.data("ref_for_dialog"));
-    
+    // create dialog either for data or for a async data (url)    
+    if(_this.data("ref_for_dialog") != undefined) { // data
+      createDialog(eval(_this.data("ref_for_dialog")));
+    } else if(_this.data("url_for_dialog") != undefined) { // url
+      $.ajax({
+        url: _this.data("url_for_dialog"),
+        type: "GET",
+        beforeSend: function(){
+          Buttons.disable($(event.currentTarget));
+          Buttons.addLoading(_this);
+        },
+        success: function(response_data){
+          createDialog(response_data);    
+        },
+        complete: function(){
+          Buttons.enable(_this);
+          Buttons.removeLoading(_this);
+        }
+      });
+    } else {
+      createDialog();
+    }
+  
     // prevent default
     event.preventDefault();
     return false; 
   }
-  
+    
   this.setupAjaxListener = function() {
      $(".button[data-remote='true']")
       .live("ajax:beforeSend", Buttons.ajaxBeforeSend)

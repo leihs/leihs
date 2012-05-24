@@ -2,9 +2,11 @@
 
   .main
       
+    {{if model}}
     %li.modelname
       ${model.name}
-      
+    {{/if}}
+    
     %li.inventory_code{:title => _("Inventory Code")}
       ${inventory_code.replace("/", " / ")}
   
@@ -29,7 +31,7 @@
       {{/if}}
       {{/if}}
       
-      {{if is_broken || is_incomplete}}
+      {{if(is_broken || is_incomplete)}}
       = ", "
       {{/if}}
       

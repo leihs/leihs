@@ -55,18 +55,28 @@ class Backend::ContractsController < Backend::BackendController
     end
   end
 
-=begin #OLD CODE ??#
   def show
     respond_to do |format|
+=begin
       format.pdf {
         contract = render_to_string(:layout => false , :action => "../contracts/print/show")
         kit = PDFKit.new(contract)
         #kit.stylesheets << '/path/to/css/file'
         send_data(kit.to_pdf, :type => 'application/pdf', :filename => "contract_#{@contract.id}.pdf") and return
       }
+=end
+      format.json {
+        with = { barcode: true,
+                 note: true,
+                 inventory_pool: {address: {}},
+                 lines: {item: {price: true}, model: {}, purpose: {}, returned_date: true},
+                 user: {address: true, zip: true, city: true} }
+        render :partial => "backend/contracts/show.json.rjson", :locals => {contract: @contract.reload, with: with}
+      }
 		end
   end
   
+=begin #OLD CODE ??#
   def value_list
     respond_to do |format|
       format.pdf {
