@@ -18,7 +18,6 @@ class MultipleMergedLinesAvailabilities
     merged_lines_availabilities = {}
     merged_lines_availabilities.availability = []
     merged_lines_availabilities.partitions = []
-    merged_lines_availabilities.inventory_pool = selected_lines[0].availability_for_inventory_pool.inventory_pool
     
     # return availability undefined if none of the selected lines having availability (like option_lines)
     if (_.filter selected_lines, (line)-> line.availability_for_inventory_pool.availability?).length == 0

@@ -66,6 +66,7 @@ function Buttons() {
   this.openDialog = function(event) {
     var _this = $(event.currentTarget);
     var _trigger = $(_this).parent().hasClass("alternatives") ? $(_this).closest(".multibutton") : _this;
+    
     var createDialog = function(data) {
       var template = (_this.data("rel") != undefined) ? _this.data("rel") : "";
       var action = (_this.attr("href") != undefined) ? _this.attr("href") : _this.attr("action");
@@ -76,8 +77,8 @@ function Buttons() {
         dialogClass: _this.data("dialog_class")
       });
       
-      // dont loose tmplItem().data
-      $(".dialog").tmplItem().data = eval(_this.data("ref_for_dialog"));
+      // don't loose tmplItem().data
+      $(".dialog").tmplItem().data = data;
     }
     
     // create dialog either for data or for a async data (url)    

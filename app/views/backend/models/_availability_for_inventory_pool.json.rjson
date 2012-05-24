@@ -3,7 +3,4 @@ h = {
   :availability => model.availability_changes_in(inventory_pool).changes.available_total_quantities
 }
 
-w1 = {closed_days: true, holidays: true}
-h[:inventory_pool] = render(:partial => "inventory_pools/show.json.rjson", :locals => {:inventory_pool => inventory_pool, with: w1}) # FIXME extract this
-
 h

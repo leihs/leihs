@@ -74,10 +74,10 @@ ${$name = Str.sliced_trunc($user.name, 20, "... "), ""}
       %select{:id => "inventory_pool_id", :name => "inventory_pool_id"}
         %option{:value => "current",
                 :"data-total_borrowable" => "{{if total_rentable}}${JSON.stringify(total_rentable)}{{else}}undefined{{/if}}",
-                :"data-closed_days" => "${JSON.stringify(availability_for_inventory_pool.inventory_pool.closed_days)}",
+                :"data-closed_days" => "${JSON.stringify(InventoryPool.closed_days)}",
                 :"data-availability_dates" => "${JSON.stringify(Line.remove_line_from_availability($item.data, availability_for_inventory_pool.availability))}",
-                :"data-holidays" => "${JSON.stringify(availability_for_inventory_pool.inventory_pool.holidays)}"}
-          ${availability_for_inventory_pool.inventory_pool.name}
+                :"data-holidays" => "${JSON.stringify(InventoryPool.holidays)}"}
+          ${InventoryPool.name}
     {{/if}}
   
   .clear

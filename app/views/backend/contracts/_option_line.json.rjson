@@ -25,12 +25,6 @@ h = {
   }
 }
 
-# FIXME extract this
-w1 = {closed_days: true, holidays: true}
-h[:availability_for_inventory_pool] = {
-  :inventory_pool => render(:partial => "inventory_pools/show.json.rjson", :locals => {:inventory_pool => current_inventory_pool, with: w1})
-} 
-
 if with ||= nil
   if with[:purpose]
     h[:purpose] = line.purpose ? render(:partial => "purposes/show.json.rjson", :locals => {purpose: line.purpose, with: with[:purpose]}) : nil

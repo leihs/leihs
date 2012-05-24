@@ -86,20 +86,24 @@
   %hr
   
   #visits
-    
-:coffeescript    
-    
-  jQuery ->
-    $('#visits').html($.tmpl("tmpl/visit", #{render(:partial => "backend/visits/index.json.rjson",
+
+:ruby
+  inventory_pool_json = render(:partial => "inventory_pools/show.json.rjson", :locals => {:inventory_pool => current_inventory_pool,
+                                                                                          :with => {:closed_days => true, :holidays => true}})
+  visits_json = render(:partial => "backend/visits/index.json.rjson",
                                                             :locals => {:visits => @visits,
                                                                         :with => {:lines => {:is_valid => true,
                                                                                              :item => {},
                                                                                              :model => {},
                                                                                              :contract => {:user => {:groups => {}}},
                                                                                              :purpose => true,
-                                                                                             :availability => true}}
-                                                                        })}))
+                                                                                             :availability => true}} }) 
+    
+:coffeescript    
+  jQuery ->
+    $('#visits').html($.tmpl("tmpl/visit", #{visits_json}))
     HandOver.setup()
     ProcessHelper.setup()
     SelectedLines.setup()
+    window.InventoryPool = new InventoryPool(#{inventory_pool_json})
     

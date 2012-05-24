@@ -109,7 +109,9 @@
   %section#order
 
 :ruby
-  @order_json = render(:partial => "backend/orders/show.json.rjson",
+  inventory_pool_json = render(:partial => "inventory_pools/show.json.rjson", :locals => {:inventory_pool => current_inventory_pool,
+                                                                                          :with => {:closed_days => true, :holidays => true}})
+  order_json = render(:partial => "backend/orders/show.json.rjson",
                        :locals => {:order => @order,
                                    :with => {:lines => {:model => {},
                                                         :order => {:user => {:groups => true}}, # FIXME remove this, we already have it as parent
@@ -125,8 +127,9 @@
 :coffeescript
   
   jQuery ->
-    $('#acknowledge #order').replaceWith($.tmpl("tmpl/order", #{@order_json}))
+    $('#acknowledge #order').replaceWith($.tmpl("tmpl/order", #{order_json}))
     Acknowledge.setup()
     ProcessHelper.setup()
     SelectedLines.setup()
+    window.InventoryPool = new InventoryPool(#{inventory_pool_json})
     
