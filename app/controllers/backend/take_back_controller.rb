@@ -47,7 +47,7 @@ class Backend::TakeBackController < Backend::BackendController
     end
 
     respond_to do |format|
-      format.json { render :partial => "backend/contracts/index", :locals => {contracts: contracts}  }
+      format.json { render :json => view_context.json_for(contracts) }
     end
 
 =begin

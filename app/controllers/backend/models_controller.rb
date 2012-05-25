@@ -49,7 +49,7 @@ class Backend::ModelsController < Backend::BackendController
         @query = query
       }
       format.json {
-        render :partial => "index", :locals => {:models => @models_and_options} 
+        render :json => view_context.json_for(@models_and_options)
       } 
     end
   end

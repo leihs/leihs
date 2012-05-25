@@ -74,16 +74,14 @@ class Backend::ItemsController < Backend::BackendController
     end
 =end
   
-  def index
-    
+  def index(with = params[:with])
     items = if @model
       current_inventory_pool.items.in_stock.scoped_by_model_id @model
     else
       current_inventory_pool.items
     end
-      
     respond_to do |format|
-      format.json { render :partial => "backend/items/index", :locals => {items: items, with: params[:with]}}
+      format.json { render :json => view_context.json_for(items, with) }
     end
   end
 
