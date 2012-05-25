@@ -331,7 +331,7 @@ CREATE TABLE `languages` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_languages_on_name` (`name`),
   KEY `index_languages_on_active_and_default` (`active`,`default`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `locations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -383,13 +383,13 @@ CREATE TABLE `models` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `manufacturer` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `internal_description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  `internal_description` text COLLATE utf8_unicode_ci,
   `info_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `rental_price` decimal(8,2) DEFAULT NULL,
   `maintenance_period` int(11) DEFAULT '0',
   `is_package` tinyint(1) DEFAULT '0',
-  `technical_detail` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `technical_detail` text COLLATE utf8_unicode_ci,
   `delta` tinyint(1) DEFAULT '1',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
@@ -594,3 +594,5 @@ INSERT INTO schema_migrations (version) VALUES ('20120106214650');
 INSERT INTO schema_migrations (version) VALUES ('20120413154754');
 
 INSERT INTO schema_migrations (version) VALUES ('20120424080000');
+
+INSERT INTO schema_migrations (version) VALUES ('20120523134739');
