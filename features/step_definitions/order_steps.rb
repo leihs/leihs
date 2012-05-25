@@ -151,7 +151,7 @@ end
 
 When "'$who' searches for '$model' on frontend" do |who, model|
   post "/session", :login => who #, :password => "pass"
-  response = get search_path(:term => model, :format => :js)
+  response = get search_path(:term => model, :format => :json)
   @models_json = JSON.parse(response.body)
 end
 
