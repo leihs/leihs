@@ -119,7 +119,7 @@ class OrdersController < FrontendController
   def destroy
     @order.destroy if @order.deletable_by_user?
     respond_to do |format|
-      format.js { render :partial => "/orders/pending" }
+      format.json { render :partial => "/orders/pending" }
     end
   end
 

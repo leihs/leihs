@@ -18,7 +18,6 @@ class Backend::InventoryPoolsController < Backend::BackendController
     else
       respond_to do |format|
         format.html
-        format.js { search_result_rjs(@inventory_pools) }
       end
     end
 =end
@@ -97,11 +96,6 @@ class Backend::InventoryPoolsController < Backend::BackendController
       @inventory_pool.destroy
       respond_to do |format|
         format.html { redirect_to backend_inventory_pools_path }
-        format.js {
-          render :update do |page|
-            page.visual_effect :fade, "inventory_pool_#{@inventory_pool.id}" 
-          end
-        }
       end
     else
       # TODO 0607 ajax delete

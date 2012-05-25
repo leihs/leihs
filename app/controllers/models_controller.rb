@@ -33,7 +33,7 @@ class ModelsController < FrontendController
 
     respond_to do |format|
       format.html { }
-      format.js { render :json => @model }
+      format.json { render :json => @model }
     end
   end  
 

@@ -47,7 +47,6 @@ class Backend::UsersController < Backend::BackendController
 
     respond_to do |format|
       format.html
-      format.js { search_result_rjs(@users) }
     end
 =end
   end
@@ -120,11 +119,11 @@ class Backend::UsersController < Backend::BackendController
   def remind
     if @user.remind(current_user)
       respond_to do |format|
-        format.js { render :json => true, :status => 200 }
+        format.json { render :json => true, :status => 200 }
       end
     else
       respond_to do |format|
-        format.js { render :text => @user.errors, :status => 500 }
+        format.json { render :text => @user.errors, :status => 500 }
       end
     end
   end

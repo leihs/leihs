@@ -6,7 +6,7 @@ class Backend::AcknowledgeController < Backend::BackendController
     rescue
       respond_to do |format|
         format.html { redirect_to :action => 'index' unless @order }
-        format.js { render :text => _("User or Order not found"), :status => 500 }
+        format.json { render :text => _("User or Order not found"), :status => 500 }
       end
     end
   end
@@ -24,14 +24,14 @@ class Backend::AcknowledgeController < Backend::BackendController
       # TODO test# @order.destroy # TODO remove old orders ?
       respond_to do |format|
         #old# format.html { redirect_to :action => 'index' }
-        format.js { render :json => true, :status => 200  }
+        format.json { render :json => true, :status => 200  }
       end
     else
       errors = @order.errors.full_messages.join("\n")
       #old# flash[:error] = errors if @order.errors.size > 0
       respond_to do |format|
         #old# format.html { params[:layout] = "modal" }
-        format.js { render :text => errors, :status => 500 }
+        format.json { render :text => errors, :status => 500 }
       end
     end
   end
@@ -43,12 +43,12 @@ class Backend::AcknowledgeController < Backend::BackendController
       Notification.order_rejected(@order, params[:comment], true, current_user )
       
       respond_to do |format|
-        format.js { render :json => true, :status => 200 }
+        format.json { render :json => true, :status => 200 }
       end
     else
       errors = @order.errors.full_messages.join("\n")
       respond_to do |format|
-        format.js { render :text => errors, :status => 500 }
+        format.json { render :text => errors, :status => 500 }
       end
     end
   end 
@@ -185,7 +185,7 @@ class Backend::AcknowledgeController < Backend::BackendController
     end
     
     respond_to do |format|
-      format.js {
+      format.json {
         with = { :lines => {:model => {},
                             :order => {:user => {:groups => true}}, # FIXME remove this, we already have it as parent
                             :availability_for_inventory_pool => true,

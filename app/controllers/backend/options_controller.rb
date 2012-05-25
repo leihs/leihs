@@ -17,9 +17,7 @@ class Backend::OptionsController < Backend::BackendController
 
     respond_to do |format|
       format.html
-      format.js { search_result_rjs(@options) }
     end
-
   end
   
   def show

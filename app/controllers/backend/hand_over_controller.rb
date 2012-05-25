@@ -17,7 +17,7 @@ class Backend::HandOverController < Backend::BackendController
     lines = params[:lines].split(",")
     lines.each {|l| @contract.remove_line(l, current_user.id) }
     respond_to do |format|
-      format.js { render :json => true, :status => 200  }
+      format.json { render :json => true, :status => 200  }
     end
   end
   

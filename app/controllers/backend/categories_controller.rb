@@ -61,7 +61,6 @@ class Backend::CategoriesController < Backend::BackendController
 
     respond_to do |format|
       format.html
-      format.js { search_result_rjs(@categories) }
     end
   end
     
@@ -114,11 +113,6 @@ class Backend::CategoriesController < Backend::BackendController
         @category.destroy
         respond_to do |format|
           format.html { redirect_to backend_inventory_pool_categories_path(current_inventory_pool) }
-          format.js {
-            render :update do |page|
-              page.visual_effect :fade, "category_#{@category.id}" 
-            end
-          }
         end
       else
         # TODO 0607 ajax delete

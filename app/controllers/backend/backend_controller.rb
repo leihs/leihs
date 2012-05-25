@@ -169,11 +169,11 @@ class Backend::BackendController < ApplicationController
         @lines.each {|l| l.document.update_time_line(l.id, start_date, end_date, current_user.id) }
       rescue
         respond_to do |format|
-          format.js { render :text => "Error", :status => 500 }
+          format.json { render :text => "Error", :status => 500 }
         end
       end 
       respond_to do |format|
-        format.js { render :json => true, :status => 200 }
+        format.json { render :json => true, :status => 200 }
       end
     end   
   end    
@@ -214,19 +214,6 @@ class Backend::BackendController < ApplicationController
     end
 
     ##################################################
-    
-    # TODO remove ??
-    # helper for respond_to format.js called from derived controllers' indexes
-    def search_result_rjs(search_results)
-      render :update do |page|
-        #no-sphinx# flash_on_search_result(params[:query], search_results)
-        page.replace 'list_table', :partial => 'index' # will render derived controller's partial _index
-        page.replace_html 'flash', flash_content
-        flash.discard        
-      end
-    end
-
-    ##################################################
     # ACL
   
     def authorized_admin_user?
@@ -243,7 +230,7 @@ class Backend::BackendController < ApplicationController
           format.html { flash[:error] = msg
                         redirect_to backend_inventory_pools_path
                       } 
-          format.js { render :text => msg }
+          format.json { render :text => msg }
         end
     end
   

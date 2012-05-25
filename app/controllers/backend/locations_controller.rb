@@ -20,9 +20,7 @@ class Backend::LocationsController < Backend::BackendController
 
     respond_to do |format|
       format.html
-      format.js { search_result_rjs(@locations) }
     end
-
   end
 
   # still used by search

@@ -26,7 +26,7 @@ class FrontendController < ApplicationController
     end
 
     respond_to do |format|
-      format.js { render :json => results }
+      format.json { render :json => results }
     end
   end
   

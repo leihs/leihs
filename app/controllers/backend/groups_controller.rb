@@ -12,7 +12,6 @@ class Backend::GroupsController < Backend::BackendController
 
     respond_to do |format|
       format.html
-      format.js { search_result_rjs(@groups) }
     end
   end
 
