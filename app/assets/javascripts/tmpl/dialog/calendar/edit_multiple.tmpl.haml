@@ -56,10 +56,10 @@ ${$name = Str.sliced_trunc($user.firstname+" "+$user.lastname, 20, "... "), ""}
     .inventorypool.container
       %select{:id => "inventory_pool_id", :name => "inventory_pool_id"}
         %option{:value => "current",
-                :"data-closed_days" => "${JSON.stringify(merged_lines_availabilities.inventory_pool.closed_days)}",
+                :"data-closed_days" => "${JSON.stringify(InventoryPool.closed_days)}",
                 :"data-availability_dates" => "${JSON.stringify(merged_lines_availabilities.availability)}",
-                :"data-holidays" => "${JSON.stringify(merged_lines_availabilities.inventory_pool.holidays)}"}
-          ${merged_lines_availabilities.inventory_pool.name}
+                :"data-holidays" => "${JSON.stringify(InventoryPool.holidays)}"}
+          ${InventoryPool.name}
   
   .clear
   
