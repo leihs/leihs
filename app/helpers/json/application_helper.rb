@@ -8,7 +8,7 @@ module Json
     def hash_for(target, with = nil)
       klass = target.class
       case klass.name
-        when "Array", "ActiveRecord::Relation"
+        when "Array", "ActiveRecord::Relation", "WillPaginate::Collection"
           target.map do |t|
             hash_for(t, with)
           end
