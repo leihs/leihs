@@ -6,6 +6,7 @@ Funktionalität: Inventar
   Grundlage:
     Angenommen man ist "Mike"
 
+  @javascript
   Szenario: Was man auf einer Liste sieht
     Wenn man eine Liste von Inventar sieht
     Dann sieht man Modelle
