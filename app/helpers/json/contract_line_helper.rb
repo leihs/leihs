@@ -1,7 +1,25 @@
 module Json
-  module ItemLineHelper
+  module ContractLineHelper
+
+=begin
+    def hash_for_contract_line(line, with = nil)
+      h = line.as_json
+      h[:model] = line.model.as_json(:methods => :package_models) # FIXME move package_models down to item_line ??
+      
+      if with ||= nil
+        if with[:contract]
+          h[:contract] = line.contract.as_json(:include => {:user => {:only => [:firstname, :lastname]}})
+          h[:type] = (line.contract.status_const == 1) ? "hand_over_line" : "take_back_line"
+        end
+      end
+      
+      h
+    end
+=end
 
     def hash_for_item_line(line, with = nil)
+      # h = hash_for_contract_line line, with
+
       h = {
             id: line.id,
             type: line.type.underscore,
@@ -45,10 +63,53 @@ module Json
               :availability => line.model.availability_changes_in(current_inventory_pool).changes.available_total_quantities
             }
           end
+=begin
+          if (customer_user = with[:availability][:user])
+            h[:total_borrowable] = line.model.total_borrowable_items_for_user(customer_user)
+            h[:availability_for_user] = line.model.availability_periods_for_user(customer_user)
+          end
+=end
         end
         
         if with[:errors]
           h[:errors] = line.errors.full_messages
+        end
+      end
+      
+      h
+    end
+
+    def hash_for_option_line(line, with = nil)
+      # TODO (TD) separate optional with
+      h = {
+        id: line.id,
+        type: line.type.underscore,
+        start_date: line.start_date,
+        end_date: line.end_date,
+        quantity: line.quantity,
+      
+        is_valid: line.valid?,
+        
+        contract: {
+          action: line.contract.action
+        },
+        
+        model: line.option, # this is an alias for option
+        item: {
+          inventory_code: line.option.inventory_code,
+          price: line.option.price
+        },
+        user: {
+          id: line.contract.user_id,
+          firstname: line.contract.user.firstname,
+          lastname: line.contract.user.lastname,
+          groups: line.contract.user.groups
+        }
+      }
+      
+      if with ||= nil
+        if with[:purpose]
+          h[:purpose] = line.purpose ? hash_for(line.purpose, with[:purpose]) : nil
         end
       end
       

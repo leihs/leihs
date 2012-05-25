@@ -25,6 +25,15 @@ module Json
             :availability => line.model.availability_changes_in(current_inventory_pool).changes.available_total_quantities
           }
         end
+
+=begin
+        if with[:availability]
+          if (customer_user = with[:availability][:user])
+            h[:total_borrowable] = line.model.total_borrowable_items_for_user(customer_user)
+            h[:availability_for_user] = line.model.availability_periods_for_user(customer_user, true)
+          end
+        end
+=end
         
         if with[:dates]
           h[:start_date] = line.start_date
