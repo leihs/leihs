@@ -20,7 +20,10 @@ end
 ########################################################################
 
 Dann /^hat man folgende Auswahlmöglichkeiten:$/ do |table|
-  pending # express the regexp above with the code you wish you had
+  section_tabs = find("section .inlinetabs")
+  table.hashes.each do |row|
+    section_tabs.find("span", :text => row["auswahlmöglichkeit"])
+  end
 end
 
 Dann /^die Auswahlmöglichkeiten können nicht kombiniert werden$/ do
@@ -30,8 +33,10 @@ end
 ########################################################################
 
 Dann /^hat man folgende Filtermöglichkeiten$/ do |table|
-  # table is a Cucumber::Ast::Table
-  pending # express the regexp above with the code you wish you had
+  section_tabs = find("section .inlinetabs")
+  table.hashes.each do |row|
+    section_tabs.find("span", :text => row["filtermöglichkeit"])
+  end
 end
 
 Dann /^die Filter können kombiniert werden$/ do
