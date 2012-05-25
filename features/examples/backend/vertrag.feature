@@ -28,9 +28,11 @@ Funktionalität: Vertrag
     | Barcode                       |
     | Vertragsnummer                |
 
+  @javascript
   Szenario: Hinweis auf AGB
     Dann seh ich den Hinweis auf AGB "Es gelten die Ausleih- und Benutzungsreglemente des Verleihers."
-     
+  
+  @javascript   
   Szenario: Inhalt der Liste 1 und Liste 2
     Dann beinhalten Liste 1 und Liste 2 folgende Spalten:
     | Spaltenname   |
@@ -41,37 +43,34 @@ Funktionalität: Vertrag
     | Enddatum      |
     | Rückgabedatum |
   
+  @javascript
   Szenario: Zwecke
     Dann sehe ich eine Liste Zwecken, getrennt durch Kommas
-    
-  Szenario: Liste 1
-    Wenn es Gegenstände gibt, die zurückgegeben wurden
-    Dann sehe ich die Liste 1 mit dem Titel "Zurückgebene Gegenstände"
-    Und diese Liste enthält Gegenstände die ausgeliehen und zurückgegeben wurden
-  
+
+  @javascript    
   Szenario: Datum
     Dann sehe ich das heutige Datum oben rechts
-  
-  Szenario: Liste 2
-    Wenn es Gegenstände gibt, die noch nicht zurückgegeben wurden
-    Dann sehe ich die Liste 2 mit dem Titel "Ausgeliehene Gegenstände"
-    Und diese Liste enthält Gegenstände, die ausgeliehen und noch nicht zurückgegeben wurden
-
+    
+  @javascript
   Szenario: Titel
     Dann sehe ich den Titel im Format "Leihvertrag Nr. #"
-   
+  
+  @javascript 
   Szenario: Position des Barcodes
-    Dann sehe ich den Barcode unten rechts
-    
-  Szenario: Verleiher
-    Dann sehe ich den Verleiher neben dem Ausleihenden
-    
+    Dann sehe ich den Barcode oben links
+  
+  @javascript  
   Szenario: Position des Ausleihenden
     Dann sehe ich den Ausleihenden oben links
-      
+    
+  @javascript 
+  Szenario: Verleiher
+    Dann sehe ich den Verleiher neben dem Ausleihenden
+  
+  @javascript
   Szenario: Welche Informationen ich vom Ausleihenden sehen möchte
-    Dann möchte ich die folgenden Bereiche sehen:
-    | Bereiche        |
+    Dann möchte ich im Feld des Ausleihenden die folgenden Bereiche sehen:
+    | Bereich      |
     | Vorname      |
     | Nachname     |
     | Strasse      |
@@ -79,16 +78,21 @@ Funktionalität: Vertrag
     | Länderkürzel |
     | PLZ          |
     | Stadt        |
-   
+  
   Szenario: Vertragsnummer unter dem Barcode
-    Dann sehe ich die Vertragsnummer unter dem Barcode
-    
-  Szenario: Präfix für Barcode
-    Dann hat der Barcode ein Präfix
+  # Dann sehe ich die Vertragsnummer unter dem Barcode # Es liegt an den Browser Einstellungen ob die Vertragsnummer beim Druck auf jeder Seite wiederholt werden.  
     
   Szenario: Seitennummerierung
-    Dann sehe ich auf jeder Seite die Seitennummerierung im Format "X / Y"
-       
-  Szenario: Strikte Trennung
-    Dann sehe ich das bereits zurückgegebene Gegenstände getrennt sind von denen, die noch nicht zürückgegeben wurden.
+  # Dann sehe ich auf jeder Seite die Seitennummerierung im Format "X / Y" # Es liegt an den Browser Einstellungen ob man beim Druck auf jeder Seite die Seitennummerierung sieht.
   
+  @javascript
+  Szenario: Liste der zurückgebenen Gegenstände
+    Wenn es Gegenstände gibt, die zurückgegeben wurden
+    Dann sehe ich die Liste 1 mit dem Titel "Zurückgebene Gegenstände"
+    Und diese Liste enthält Gegenstände die ausgeliehen und zurückgegeben wurden
+  
+  @javascript
+  Szenario: Liste der ausgeliehenen Gegenstände
+    Wenn es Gegenstände gibt, die noch nicht zurückgegeben wurden
+    Dann sehe ich die Liste 2 mit dem Titel "Ausgeliehene Gegenstände"
+    Und diese Liste enthält Gegenstände, die ausgeliehen und noch nicht zurückgegeben wurden

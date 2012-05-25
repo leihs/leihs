@@ -11,8 +11,8 @@ FactoryGirl.define do
     badge_id { UUIDTools::UUID.random_create.to_s }
     address { Faker::Address.street_address }
     city { Faker::Address.city }
-    zip { Faker::Address.zip_code }
     country { Faker::Address.country }
+    zip { "#{country[0]}-#{Faker::Address.zip_code}" }
     language { Language.find_by_default(true) || LanguageFactory.create }
   end
 
