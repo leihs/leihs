@@ -71,7 +71,7 @@ class Backend::ContractsController < Backend::BackendController
                  inventory_pool: {address: {}},
                  lines: {item: {price: true}, model: {}, purpose: {}, returned_date: true},
                  user: {address: true, zip: true, city: true} }
-        render :partial => "backend/contracts/show.json.rjson", :locals => {contract: @contract.reload, with: with}
+        render :json => view_context.json_for(@contract.reload, with)
       }
 		end
   end

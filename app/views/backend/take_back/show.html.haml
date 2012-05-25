@@ -40,13 +40,9 @@
 :coffeescript
   
   jQuery ->
-    $('#visits').html($.tmpl("tmpl/visit", #{render(:partial => "backend/visits/index.json.rjson",
-                                                    :locals => {:visits => @visits,
-                                                                :with => {:lines => {:item => {},
-                                                                                     :model => {},
-                                                                                     :contract => {:user => {}},
-                                                                                     :purpose => true
-                                                                                     }}
-                                                                })}))
+    $('#visits').html($.tmpl("tmpl/visit", #{json_for(@visits, {:lines => {:item => {},
+                                                                           :model => {},
+                                                                           :contract => {:user => {}},
+                                                                           :purpose => true }})} ))
     TakeBack.setup()
     SelectedLines.setup()

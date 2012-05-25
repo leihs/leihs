@@ -1,3 +1,0 @@
-items.map do |item|
-  render :partial => "backend/items/show.json.rjson", :locals => {item: item, with: (with ||= nil)}
-end

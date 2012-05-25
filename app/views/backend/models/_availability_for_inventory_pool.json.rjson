@@ -1,6 +1,0 @@
-h = {
-  :partitions => (model.partitions.in(inventory_pool).by_groups(inventory_pool.groups) + model.partitions.in(inventory_pool).by_groups(Group::GENERAL_GROUP_ID)).as_json(:include => :group),
-  :availability => model.availability_changes_in(inventory_pool).changes.available_total_quantities
-}
-
-h

@@ -46,10 +46,10 @@ class Backend::HandOverController < Backend::BackendController
                    inventory_pool: {address: {}},
                    lines: {item: {price: true}, model: {}, purpose: {}, returned_date: true},
                    user: {address: true, zip: true, city: true} }
-          render :partial => "backend/contracts/show.json.rjson", :locals => {contract: @contract.reload, with: with}
+          render :json => view_context.json_for(@contract, with)
         else
           @error = {:message => @contract.errors.full_messages}
-          render :template => "/errors/show", status: 500
+          render :json => view_context.error_json(@error), status: 500
         end
       }
     end
@@ -186,7 +186,7 @@ class Backend::HandOverController < Backend::BackendController
                  :purpose => true,
                  :availability => true}}
         @visits = @user.visits.hand_over.scoped_by_inventory_pool_id(current_inventory_pool)
-        render :partial => "backend/visits/index.json.rjson", locals: {visits: @visits, with: with}
+        render :json => view_context.json_for(@visits, with)
       }
     end
   end
@@ -232,9 +232,9 @@ class Backend::HandOverController < Backend::BackendController
                     :contract => {:user => {:groups => {}}},
                     :purpose => true,
                     :availability => true}
-          render :partial => "backend/contracts/#{line.type.underscore}.json.rjson", :locals => {:line => line, :with => with}
+          render :json => view_context.json_for(line, with)
         else
-          render :template => "/errors/show", status: 500
+          render :json => view_context.error_json(@error), status: 500
         end
       }
     end 
@@ -331,9 +331,9 @@ class Backend::HandOverController < Backend::BackendController
                     :contract => {:user => {:groups => {}}},
                     :purpose => true,
                     :availability => true}
-          render :partial => "backend/contracts/lines.json.rjson", :locals => {:lines => Array(line), :with => with}
+          render :json => view_context.json_for(Array(line), with)
         else
-          render :template => "/errors/show", status: 500
+          render :json => view_context.error_json(@error), status: 500
         end
       } 
     end

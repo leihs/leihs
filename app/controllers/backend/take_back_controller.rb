@@ -108,7 +108,7 @@ class Backend::TakeBackController < Backend::BackendController
       end
     end
     respond_to do |format|
-      format.json { render :partial => "backend/contracts/lines.json.rjson", :locals => {:lines => matched_lines} }
+      format.json { render :json => view_context.json_for(matched_lines) }
     end
   end
   

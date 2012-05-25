@@ -45,11 +45,8 @@
 :javascript
   
   $(document).ready(function(){
-    $('section .list').append($.tmpl("tmpl/line", #{render(:partial => "backend/models/index.json.rjson",
-                                                            :locals => {:models => @models_and_options,
-                                                                        :with => {:items => {:query => @query},
-                                                                                  :categories => {}}
-                                                                        })}));
+    $('section .list').append($.tmpl("tmpl/line", #{json_for(@models_and_options, {:items => {:query => @query},
+                                                                                   :categories => {}})} ));
     
     // setup ListSearch
     ListSearch.setup();

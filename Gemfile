@@ -14,7 +14,6 @@ gem "coffee-filter", "~> 0.1.1"
 gem 'jquery-rails', '~> 2.0'
 gem 'jquery-tmpl-rails', '~> 1.1'
 gem 'haml_assets'
-gem "rjson", "~> 0.1.5"
 
 gem 'rails_autolink', '~> 1.0'
 gem 'will_paginate', :git => "https://github.com/halloffame/will_paginate.git" # fixing count distinct, alternatives: .count(:id, :distinct => true)

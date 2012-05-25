@@ -58,7 +58,14 @@ class Backend::OrdersController < Backend::BackendController
     end
   end
 
-  def show
+  def show(with = params[:with])
+    respond_to do |format|
+      format.html
+      format.json {
+        render :json => view_context.json_for(@order, with)
+      }
+    end
+  
   end
     
 end

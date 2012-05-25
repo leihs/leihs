@@ -1,5 +1,0 @@
-{
-  type: "purpose",
-  id: purpose.id,
-  description: purpose.description
-}

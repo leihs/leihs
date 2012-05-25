@@ -134,9 +134,9 @@ class Backend::AcknowledgeController < Backend::BackendController
                   :dates => true,
                   :quantity => true,
                   :purpose => true}
-          render :partial => "backend/orders/lines.json.rjson", :locals => {:lines => Array(line), :with => with}
+          render :json => view_context.json_for(Array(line), with)
         else
-          render :template => "/errors/show", status: 500
+          render :json => view_context.error_json(@error), status: 500
         end
       } 
     end
@@ -185,19 +185,17 @@ class Backend::AcknowledgeController < Backend::BackendController
     end
     
     respond_to do |format|
-      format.js { 
-        render(:partial => "backend/orders/show.json.rjson",
-               :locals => {:order => @order,
-                           :with => {:lines => {:model => {},
-                                                :order => {:user => {:groups => true}}, # FIXME remove this, we already have it as parent
-                                                :availability_for_inventory_pool => true,
-                                                :dates => true,
-                                                :quantity => true,
-                                                :is_available => true},
-                                     :user => {:groups => true},
-                                     :quantity => true,
-                                     :purpose => true
-                                    }})
+      format.js {
+        with = { :lines => {:model => {},
+                            :order => {:user => {:groups => true}}, # FIXME remove this, we already have it as parent
+                            :availability_for_inventory_pool => true,
+                            :dates => true,
+                            :quantity => true,
+                            :is_available => true},
+                 :user => {:groups => true},
+                 :quantity => true,
+                 :purpose => true }
+        render :json => view_context.json_for(@order, with)
       }
     end
   end

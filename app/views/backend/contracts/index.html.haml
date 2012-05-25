@@ -45,17 +45,16 @@
   - unless @contracts.blank?
     .pagination_container
 
+:ruby
+  contracts_json = json_for @contracts, {:lines => {:model => {}},
+                                         :user => {:image_url => true},
+                                         :quantity => true,
+                                         :created_at => true,
+                                         :updated_at => true}
+  
 :javascript
-
   $(document).ready(function(){
-    $('section .list').append($.tmpl("tmpl/line", #{render(:partial => "backend/contracts/index.json.rjson",
-                                                            :locals => {:contracts => @contracts,
-                                                                        :with => {:lines => {:model => {}},
-                                                                                  :user => {:image_url => true},
-                                                                                  :quantity => true,
-                                                                                  :created_at => true,
-                                                                                  :updated_at => true}
-                                                                        })}));
+    $('section .list').append($.tmpl("tmpl/line", #{contracts_json}));
     
     // setup ListSearch
     ListSearch.setup();

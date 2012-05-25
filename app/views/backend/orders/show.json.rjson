@@ -1,1 +1,0 @@
-render :partial => "backend/orders/show.json.rjson", :locals => {:order => @order, :with => params[:with]}

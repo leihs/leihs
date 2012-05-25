@@ -100,14 +100,13 @@ GEM
     fast_gettext (0.6.7)
     fastercsv (1.5.5)
     ffi (1.0.11)
-    geocoder (1.1.1)
+    geocoder (1.1.2)
     gettext (2.2.1)
       locale
-    gettext_i18n_rails (0.5.0)
+    gettext_i18n_rails (0.5.4)
       fast_gettext
     gherkin (2.10.0)
       json (>= 1.4.6)
-    git (1.2.5)
     growl (1.0.3)
     guard (1.0.3)
       ffi (>= 0.5.0)
@@ -147,11 +146,6 @@ GEM
       rails (>= 3.1.0)
     jasminerice (0.0.8)
       haml
-    jeweler (1.8.3)
-      bundler (~> 1.0)
-      git (>= 1.2.5)
-      rake
-      rdoc
     journey (1.0.3)
     jquery-rails (2.0.2)
       railties (>= 3.2.0, < 5.0)
@@ -202,7 +196,7 @@ GEM
       activesupport (= 3.2.3)
       bundler (~> 1.0)
       railties (= 3.2.3)
-    rails_autolink (1.0.7)
+    rails_autolink (1.0.8)
       rails (~> 3.1)
     railties (3.2.3)
       actionpack (= 3.2.3)
@@ -219,10 +213,6 @@ GEM
     rgl (0.4.0)
       rake
       stream (>= 0.5)
-    rjson (0.1.5)
-      jeweler
-      rails (> 3.0.0)
-      rjson
     rspec (2.10.0)
       rspec-core (~> 2.10.0)
       rspec-expectations (~> 2.10.0)
@@ -333,7 +323,6 @@ DEPENDENCIES
   rails_autolink (~> 1.0)
   rb-fsevent (~> 0.9)
   rgl (~> 0.4.0)
-  rjson (~> 0.1.5)
   rspec (~> 2.7)
   rspec-rails (~> 2.7)
   ruby-net-ldap (~> 0.0.4)

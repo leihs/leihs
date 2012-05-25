@@ -46,16 +46,12 @@
     .pagination_container
 
 :javascript
-  
   $(document).ready(function(){
-    $('section .list').append($.tmpl("tmpl/line", #{render(:partial => "backend/visits/index.json.rjson",
-                                                            :locals => {:visits => @visits,
-                                                                        :with => {:lines => {},
-                                                                                  :user => {:image_url => true},
-                                                                                  :quantity => true,
-                                                                                  :is_overdue => true}
-                                                                        })}));
-    
+    $('section .list').append($.tmpl("tmpl/line", #{json_for( @visits, {:lines => {},
+                                                                        :user => {:image_url => true},
+                                                                        :quantity => true,
+                                                                        :is_overdue => true})} ));
+
     // setup ListSearch
     ListSearch.setup();
     

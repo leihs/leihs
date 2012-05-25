@@ -88,16 +88,14 @@
   #visits
 
 :ruby
-  inventory_pool_json = render(:partial => "inventory_pools/show.json.rjson", :locals => {:inventory_pool => current_inventory_pool,
-                                                                                          :with => {:closed_days => true, :holidays => true}})
-  visits_json = render(:partial => "backend/visits/index.json.rjson",
-                                                            :locals => {:visits => @visits,
-                                                                        :with => {:lines => {:is_valid => true,
-                                                                                             :item => {},
-                                                                                             :model => {},
-                                                                                             :contract => {:user => {:groups => {}}},
-                                                                                             :purpose => true,
-                                                                                             :availability => true}} }) 
+  inventory_pool_json = json_for current_inventory_pool, {:closed_days => true, :holidays => true}
+  
+  visits_json = json_for @visits, {:lines => {:is_valid => true,
+                                              :item => {},
+                                              :model => {},
+                                              :contract => {:user => {:groups => {}}},
+                                              :purpose => true,
+                                              :availability => true}} 
     
 :coffeescript    
   jQuery ->

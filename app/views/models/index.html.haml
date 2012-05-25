@@ -73,13 +73,10 @@
       }
       
       this.setupTemplates = function() {
-         $('#modellist').append($("#model_template").tmpl(#{render(:partial => "models/index.json.rjson",
-                                                                   :locals => {:models => @models,
-                                                                               :with => { :image_thumb => true,
-                                                                                          :description => true,
-                                                                                          :properties => {},
-                                                                                          :availability => {:user => current_user}
-                                                                                        }})}));
+         $('#modellist').append($("#model_template").tmpl(#{json_for(@models, { :image_thumb => true,
+                                                                                :description => true,
+                                                                                :properties => {},
+                                                                                :availability => {:user => current_user}})} ));
       }
       
       this.setupTips = function() {

@@ -50,9 +50,7 @@
 :javascript
 
   $(document).ready(function(){
-    $('section .list').append($.tmpl("tmpl/line", #{render(:partial => "backend/orders/index.json.rjson",
-                                                            :locals => {:orders => @orders,
-                                                                        :with => {:lines => {:model => {},
+    $('section .list').append($.tmpl("tmpl/line", #{json_for(@orders, {:lines => {:model => {},
                                                                                              :dates => true},
                                                                                   :user => {:image_url => true,
                                                                                             :address => true,
@@ -61,8 +59,7 @@
                                                                                   :quantity => true,
                                                                                   :created_at => true,
                                                                                   :updated_at => true,
-                                                                                  :purpose => true}
-                                                                        })}));
+                                                                                  :purpose => true})} ));
     
     // setup ListSearch
     ListSearch.setup();
