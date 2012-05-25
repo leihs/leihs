@@ -46,7 +46,7 @@ class Backend::HandOverController < Backend::BackendController
                    inventory_pool: {address: {}},
                    lines: {item: {price: true}, model: {}, purpose: {}, returned_date: true},
                    user: {address: true, zip: true, city: true} }
-          render :json => view_context.json_for(@contract, with)
+          render :json => view_context.json_for(@contract.reload, with)
         else
           @error = {:message => @contract.errors.full_messages}
           render :json => view_context.error_json(@error), status: 500
