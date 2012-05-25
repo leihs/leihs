@@ -61,12 +61,12 @@ When /^I change the contract lines time range to tomorrow$/ do
 end
 
 Then /^I see that the time range in the summary starts today$/ do
+  wait_until { find(".summary .date") }
   find(".summary .date").should have_content("#{Date.today.strftime("%d.%m.%Y")} -")
 end
 
 Then /^the lines start date is today$/ do
-  @line.reload
-  @line.start_date.should == Date.today
+  @line.reload.start_date.should == Date.today
 end
 
 When /^I open a hand over with overdue lines$/ do
