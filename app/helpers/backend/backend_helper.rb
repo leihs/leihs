@@ -57,7 +57,7 @@ module Backend::BackendHelper
       false
     
   end
-  
+
 # EVERYTHING AFTER HERE IS OLD STUFF
 =begin
   def table(options = {}, html_options = {}, &block)
@@ -446,12 +446,6 @@ module Backend::BackendHelper
     end
   end
   
-############################################################################################
-
-  def select_tag_for_buildings(selected = nil)
-    select_tag 'location[building_id]', "<option value=''>#{_("None")}</option>" + options_from_collection_for_select(Building.all, :id, :to_s, selected)
-  end
-
 ############################################################################################
 
   def lines_preview(document)

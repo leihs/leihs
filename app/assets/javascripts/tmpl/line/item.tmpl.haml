@@ -54,6 +54,9 @@
         .alternatives
           .trigger
             .arrow
+          = link_to "/backend/inventory_pools/${current_inventory_pool}/items/${id}/edit", :class => "button white" do
+            .icon.edit
+            = _("Edit")
           = link_to "/backend/inventory_pools/${current_inventory_pool}/items/${id}/retire", :class => "button white" do
             .icon.retire
             = _("Retire")
