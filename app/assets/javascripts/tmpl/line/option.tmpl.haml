@@ -4,6 +4,14 @@
     
     %li.modelname
       ${name}
+
+    %li.inventory_code{:title => _("Inventory Code")}
+      ${inventory_code.replace("/", " / ")}
+
+    %li.price{:title => _("Price")}
+      {{if price}}
+      ${price}
+      {{/if}}
   
   .actions    
     %li.actions

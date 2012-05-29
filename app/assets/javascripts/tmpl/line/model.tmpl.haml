@@ -2,6 +2,14 @@
     
   .main
     
+    %li.image
+      {{if image_thumb}}
+      %img{:src => "${image_thumb}"}
+      {{else}}
+      .noimage
+        = _("no image")
+      {{/if}}
+      
     %li.modelname
       ${name}
       
