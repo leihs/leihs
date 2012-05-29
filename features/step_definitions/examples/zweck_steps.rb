@@ -49,7 +49,9 @@ Dann /^kann ich den Zweck editieren$/ do
 end
 
 Dann /^kann ich einen Zweck hinzufügen$/ do
-  find(".line .select input").click
+  step 'I click an inventory code input field of an item line'
+  step 'I select one of those'
+  @item_line_element.find(".select input").click
   find("#hand_over_button").click
   wait_until { find(".dialog .purpose") }
   find(".purpose .button").click
@@ -76,8 +78,7 @@ end
 Dann /^kann ich die Aushändigung durchführen$/ do
   signed_contracts_size = @customer.contracts.signed.size
   wait_until { find(".dialog .button[type=submit]", :text => "Hand Over") }
-  find(".dialog .button[type=submit]", :text => "Hand Over").click
-  wait_until { all(".loading", :visible => true).size == 0 }
+  step 'I click hand over inside the dialog'
   @customer.contracts.signed.size.should > signed_contracts_size
 end
 
@@ -111,4 +112,21 @@ Dann /^wird nur den Gegenständen ohne Zweck der angegebene Zweck zugewiesen$/ d
   @unsigned_lines.select{|l| l.purpose.blank?}.each do |line|
     line.purpose.description.should == @added_purpose
   end
+end
+
+Wenn /^alle der ausgewählten Gegenstände haben einen Zweck angegeben$/ do
+  @contract = @customer.contracts.unsigned.first
+  @contract.lines.each do |line|
+    @item_line = line
+    step 'I select one of those'
+  end
+  all(".line .select input").each do |select|
+    select.click unless select.selected?
+  end
+  find("#hand_over_button").click
+  wait_until { find(".dialog .purpose") }
+end
+
+Dann /^kann ich keinen weiteren Zweck angeben$/ do
+  all(".dialog .purpose button", :visible => true).size.should == 0
 end

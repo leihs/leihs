@@ -12,10 +12,8 @@ module Persona
       if persona.blank?
         require Rails.root+"features/personas/#{name.downcase}.rb"
         Persona.const_get(name.camelize).new
-        puts "#{name} was created"
         return Persona.get(name)
       else
-        puts "#{name} was already created"
         return persona
       end
     else 

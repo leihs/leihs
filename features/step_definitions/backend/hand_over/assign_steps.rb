@@ -14,7 +14,9 @@ Then /^I see a list of inventory codes of items that are in stock and matching t
 end
 
 When /^I select one of those$/ do
-  page.execute_script("$('.line[data-id=#{@item_line.id}] .inventory_code input').focus()")
+  wait_until { find(".line[data-id='#{@item_line.id}'] .inventory_code input") }  
+  find(".line[data-id='#{@item_line.id}'] .inventory_code input").click
+  page.execute_script("$(\".line[data-id='#{@item_line.id}'] .inventory_code input\").focus()")
   wait_until { find(".ui-autocomplete a") }
   first_element = find(".ui-autocomplete a")
   @selected_inventory_code = first_element.find(".label").text

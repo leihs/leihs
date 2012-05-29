@@ -4,6 +4,21 @@ body > * // hide screen elements
 $border-width: 0.5pt
 $border-color: rgb(100,100,100)
 
+#print > .dialog
+  display: block !important
+  
+  &>*
+    display: none !important
+    
+  &>.documents
+    display: block !important
+    
+    &>*
+      display: none !important
+      
+    &>section.active
+      display: block !important
+
 #print
   display: block !important
   display: block !important

@@ -32,11 +32,11 @@
       background: rgba(255,255,255,0.2);
       border: 1px dashed rgba(50,50,50,0.2);
       color: $darkgrey !important;
-      
-      &:hover, &:focus {
-        background: white;
-        border: 1px solid $lightergrey;
-      }
+    }
+    
+    form:hover input, input:focus {
+      background: white;
+      border: 1px solid $lightergrey;
     }
   }
   

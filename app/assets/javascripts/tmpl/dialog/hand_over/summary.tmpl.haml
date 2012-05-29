@@ -19,8 +19,10 @@ ${$purposes = Line.concatinate_purposes(SelectedLines.lines_data), ""}
   %section{:class => "purpose{{if $purposes.length==0}} none{{/if}}"}
     %label= _("Purpose")
     %p ${$purposes}
+    {{if _.any(SelectedLines.lines_data, function(line){return line.purpose.description.length})}}
     %button.button.white
       = _("Add Purpose")
+    {{/if}}
     .clear
     %section.add_purpose
       %textarea#purpose.focus{:type => :text, :name => "purpose"}

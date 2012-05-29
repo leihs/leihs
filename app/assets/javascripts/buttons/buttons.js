@@ -73,7 +73,7 @@ function Buttons() {
       
       var dialog = Dialog.add({
         trigger: _trigger,
-        content: $.tmpl(template, data, {action: action, on_success: _this.data("on_success")}),
+        content: $.tmpl(template, (data == undefined) ? {} : data, {action: action, on_success: _this.data("on_success")}),
         dialogClass: _this.data("dialog_class")
       });
       
