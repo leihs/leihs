@@ -25,7 +25,7 @@ end
 
 When /^I click take back inside the dialog$/ do
   find(".dialog button[type=submit]").click
-  wait_until { ! page.has_css?(".dialog")}
+  wait_until { all(".dialog.take_back").size == 0 }
 end
 
 Then /^the contract is closed and all items are returned$/ do
