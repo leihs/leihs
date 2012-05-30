@@ -29,6 +29,7 @@
         :"data-rel" => "tmpl/dialog/take_back/summary",
         :"data-dialog_class" => "take_back",
         :"data-add_selected_line_ids" => "true",
+        :"data-on_success" => "TakeBack.open_documents(response)",
         :id => "take_back_button" do
           = _("Take Back")
     .clear
@@ -37,12 +38,14 @@
   
   #visits
 
+:ruby
+  visits_json = json_for(@visits, {:lines => {:item => {},
+                                               :model => {},
+                                               :contract => {:user => {}},
+                                               :purpose => true }})
+
 :coffeescript
-  
   jQuery ->
-    $('#visits').html($.tmpl("tmpl/visit", #{json_for(@visits, {:lines => {:item => {},
-                                                                           :model => {},
-                                                                           :contract => {:user => {}},
-                                                                           :purpose => true }})} ))
+    $('#visits').html($.tmpl("tmpl/visit", #{visits_json} ))
     TakeBack.setup()
     SelectedLines.setup()

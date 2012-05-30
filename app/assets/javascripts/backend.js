@@ -27,3 +27,5 @@
 //= require visit/visit
 //= require selected_lines/selected_lines
 //= require inventory_pool/inventory_pool
+//= require print/print
+//= require inline_tabs/inline_tabs

@@ -1,8 +1,8 @@
 module Json
   module ContractLineHelper
 
-=begin
     def hash_for_contract_line(line, with = nil)
+=begin
       h = line.as_json
       h[:model] = line.model.as_json(:methods => :package_models) # FIXME move package_models down to item_line ??
       
@@ -12,27 +12,37 @@ module Json
           h[:type] = (line.contract.status_const == 1) ? "hand_over_line" : "take_back_line"
         end
       end
-      
-      h
-    end
 =end
 
-    def hash_for_item_line(line, with = nil)
-      # h = hash_for_contract_line line, with
-
       h = {
-            id: line.id,
             type: line.type.underscore,
+            id: line.id,
             start_date: line.start_date,
             end_date: line.end_date,
             quantity: line.quantity           
           }
-      
+
       if with ||= nil
         [:returned_date].each do |k|
           h[k] = line.send(k) if with[k]
         end
+
+        if with[:contract]
+          h[:contract] = hash_for(line.contract, with[:contract])
+        end
+
+        if with[:purpose]
+          h[:purpose] = line.purpose ? hash_for(line.purpose, with[:purpose]) : nil
+        end
+      end
       
+      h
+    end
+
+    def hash_for_item_line(line, with = nil)
+      h = hash_for_contract_line line, with
+      
+      if with ||= nil
         if with[:is_valid]
           h[:is_valid] = line.valid?
         end
@@ -44,15 +54,7 @@ module Json
         if with[:model]
           h[:model] = hash_for(line.model, with[:model])
         end
-      
-        if with[:contract]
-          h[:contract] = hash_for(line.contract, with[:contract])
-        end
-      
-        if with[:purpose]
-          h[:purpose] = line.purpose ? hash_for(line.purpose, with[:purpose]) : nil
-        end
-      
+                  
         if with[:availability]
           if line.contract.action == :hand_over
             borrowable_items = line.model.items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable
@@ -80,21 +82,13 @@ module Json
     end
 
     def hash_for_option_line(line, with = nil)
-      # TODO (TD) separate optional with
-      h = {
-        id: line.id,
-        type: line.type.underscore,
-        start_date: line.start_date,
-        end_date: line.end_date,
-        quantity: line.quantity,
-      
+      h = hash_for_contract_line line, with
+
+      # FIXME optional with
+      h.merge!({
         is_valid: line.valid?,
         
-        contract: {
-          action: line.contract.action
-        },
-        
-        model: line.option, # this is an alias for option
+        model: hash_for(line.option), # this is an alias for option
         item: {
           inventory_code: line.option.inventory_code,
           price: line.option.price
@@ -105,14 +99,8 @@ module Json
           lastname: line.contract.user.lastname,
           groups: line.contract.user.groups
         }
-      }
-      
-      if with ||= nil
-        if with[:purpose]
-          h[:purpose] = line.purpose ? hash_for(line.purpose, with[:purpose]) : nil
-        end
-      end
-      
+      })
+            
       h
     end
 

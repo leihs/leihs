@@ -1,0 +1,32 @@
+@import "../../../shared/variables"
+@import "../../../shared/mixins"
+
+.ui-dialog.documents 
+  
+  section.documents 
+    position: relative
+    top: -4px
+    
+    .navigation 
+      right: 8px !important
+      top: 77px !important
+      z-index: 1000
+    
+    &>section 
+      border: 1px solid white
+      display: none
+      margin: 12px 0
+      min-height: 60px
+      z-index: 1
+      @include box-shadow(1px 1px 4px rgba(0,0,0,0.4)) 
+      
+      &.active 
+        display: block
+      
+.ui-dialog.documents.contract, .ui-dialog.documents.value_list
+
+  section.document
+    margin-top: 50px
+    
+  section.documents .navigation
+    top: 13px !important

@@ -74,7 +74,8 @@ function Buttons() {
       var dialog = Dialog.add({
         trigger: _trigger,
         content: $.tmpl(template, (data == undefined) ? {} : data, {action: action, on_success: _this.data("on_success")}),
-        dialogClass: _this.data("dialog_class")
+        dialogClass: _this.data("dialog_class"),
+        dialogId: (_this.data("dialog_id") != undefined) ? _this.data("dialog_id") : undefined
       });
       
       // don't loose tmplItem().data

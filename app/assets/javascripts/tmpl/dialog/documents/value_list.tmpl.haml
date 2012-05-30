@@ -10,5 +10,5 @@
       = _("Print")
       .print.icon
       
-  %section.value_list{:"data-print_title" => _("Werteverzeichniss zu Leihvertrag Nr. %s") % ["${id}"]}
+  %section.value_list.document.active{:"data-print_title" => _("Werteverzeichniss zu Leihvertrag Nr. %s") % ["${id}"]}
     {{tmpl($item.data) "tmpl/documents/value_lists/default"}}

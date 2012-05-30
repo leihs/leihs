@@ -68,5 +68,20 @@ class TakeBack
       title: "#{code}"
       text: "was assigned for take back"
       type: "success"
+      
+  @open_documents: (contracts)->
+    dialog = Dialog.add
+      trigger: $("#take_back_button")
+      content: $.tmpl("tmpl/dialog/take_back/documents", {contracts: contracts})
+      dialogClass: "take_back documents"
+      dialogId: "print"
+    # bind close dialog
+    dialog.delegate ".close_dialog", "click", (e)->
+      e.stopImmediatePropagation()
+      window.location = window.location
+    # bind ready action
+    dialog.delegate ".ready", "click", (e)->
+      # go to daily view
+      window.location = "http://#{location.host}/backend/inventory_pools/#{current_inventory_pool}/"
   
 window.TakeBack = TakeBack

@@ -57,9 +57,6 @@
             :id => "edit_selection" do
               .icon.timerange
               = _("Edit Selection")
-            = link_to "/backend/inventory_pools/${current_inventory_pool}/acknowledge/${id}/reject", :class => "button white", :remote => "true" do
-              .icon.valuelist
-              = _("Value List")
             = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@contract.user.id}/hand_over/remove_lines",
             :class => "button white",
             :remote => "true",

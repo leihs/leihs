@@ -15,6 +15,8 @@ class Barcode
   @scanner_max_delay = 50;
   @scanner_delay_timer;
   @scanner_input = "";
+  @known_prefix =
+    "C": "open_contract"
   
   @setup: ->
     $(window).keypress (e)->
@@ -34,12 +36,30 @@ class Barcode
 
   @execute: ->
     # if a input field is focused user is interest for insert the barcode data in the focused input
-    if $("input:focus, textarea:focus").length
-      target = $("input:focus:first, textarea:focus:first")
-    else
-      target = $(".barcode_target:last")
-    # execute  
-    $(target).val("").val Barcode.scanner_input
+    target = if $("input:focus, textarea:focus").length then $("input:focus:first, textarea:focus:first") else $(".barcode_target:last")
+    # check for a known barcode prefix and execute command
+    prefix = Barcode.scanner_input.match(/^\s\w\s/).join().replace(/\s/g, "") if Barcode.scanner_input.match(/^\s\w\s/)?
+    code = Barcode.scanner_input.replace(/^\s\w\s/, "")
+    if target.is(":not(:focus)") and @known_prefix[prefix]? and (typeof(@[@known_prefix[prefix]]) == "function")
+      @[@known_prefix[prefix]].call @, code
+      return true
+    # execute code input and submit
+    $(target).val("").val code
     $(target).closest("form").submit()
   
+  @open_contract: (id)->
+    loading_dialog = Dialog.add
+      content: $.tmpl "tmpl/dialog/loading"
+      dialogClass: "loading"
+    $.ajax
+      url: "/backend/inventory_pools/#{current_inventory_pool}/contracts/#{id}.json"
+      type: "GET",
+      success: (data)->
+        Dialog.add
+          content: $.tmpl "tmpl/dialog/documents/contract", data
+          dialogClass: "documents contract",
+          dialogId: "print"
+      complete: ->
+        loading_dialog.dialog "close"
+    
 window.Barcode = Barcode

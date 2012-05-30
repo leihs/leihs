@@ -47,7 +47,14 @@ class Backend::TakeBackController < Backend::BackendController
     end
 
     respond_to do |format|
-      format.json { render :json => view_context.json_for(contracts) }
+      format.json {
+        # NOTE: reload contracts ??
+        with = { barcode: true,
+                 note: true,
+                 inventory_pool: {address: {}},
+                 lines: {item: {price: true}, model: {}, purpose: {}, returned_date: true},
+                 user: {address: true, zip: true, city: true} }
+        render :json => view_context.json_for(contracts, with)}
     end
 
 =begin

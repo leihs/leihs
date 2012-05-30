@@ -1,7 +1,7 @@
 @import "../shared/mixins";
 @import "../shared/variables";
 
-#tabs .search {
+#tabs > .search {
   width: 210px;
 
   .inner {

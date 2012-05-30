@@ -1,0 +1,37 @@
+%h1
+  = _("Documents for take back")
+
+.navigation
+  .multibutton
+    .alternatives
+      .trigger
+        .arrow
+      %a.button.white.close_dialog
+        .return.icon
+        = _("Back")
+    %button.button.white.ready
+      .take_back.icon
+      = _("Ready")
+ 
+%section.documents
+  
+  .navigation
+    %button.button.white.print
+      = _("Print")
+      .print.icon
+      
+  .inlinetabs
+    .tab.active{:"data-section" => "contract"}= _("Contracts")
+  
+  %section.contract.document.active{:"data-print_title" => _("Leihverträge Nr. %s") % ['${Print.map_contract_ids(contracts).join(", ")}']}
+    {{each(i, contract) contracts}}
+    {{if template}}
+    {{tmpl(contract) template}}    
+    {{else}}
+    {{tmpl(contract) "tmpl/documents/contracts/default"}}
+    {{/if}}
+    
+    {{if i != contracts.length-1}}
+    .page_break
+    {{/if}}
+    {{/each}}
