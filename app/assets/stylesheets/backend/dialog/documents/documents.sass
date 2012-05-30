@@ -13,16 +13,19 @@
       z-index: 1000
     
     &>section 
-      border: 1px solid white
       display: none
       margin: 12px 0
       min-height: 60px
       z-index: 1
-      @include box-shadow(1px 1px 4px rgba(0,0,0,0.4)) 
       
       &.active 
         display: block
-      
+        
+      &>*:not(.page_break)
+        min-height: 800px
+        border: 1px solid white
+        @include box-shadow(1px 1px 4px rgba(0,0,0,0.4))
+        
 .ui-dialog.documents.contract, .ui-dialog.documents.value_list
 
   section.document
