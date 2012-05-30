@@ -29,7 +29,8 @@ module Json
           require 'barby/outputter/png_outputter'
           with[:barcode] = {} unless with[:barcode].is_a?(Hash)
           with[:barcode][:height] ||= 25
-          png = Barby::Code128B.new("C: #{contract.id}").to_png(:height => with[:barcode][:height].to_i)
+          png = Barby::Code128B.new(" C #{contract.id}").to_png(:height => with[:barcode][:height].to_i)
+
           h[:barcode] = "data:image/png;base64,#{Base64.encode64(png)}"
         end
       end
