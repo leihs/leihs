@@ -17,7 +17,7 @@ When /^I select one of those$/ do
   wait_until { find(".line[data-id='#{@item_line.id}'] .inventory_code input") }  
   find(".line[data-id='#{@item_line.id}'] .inventory_code input").click
   page.execute_script("$(\".line[data-id='#{@item_line.id}'] .inventory_code input\").focus()")
-  wait_until(15) { find(".ui-autocomplete a") }
+  wait_until(25) { find(".ui-autocomplete a") }
   first_element = find(".ui-autocomplete a")
   @selected_inventory_code = first_element.find(".label").text
   first_element.click
