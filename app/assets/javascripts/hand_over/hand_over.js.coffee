@@ -194,5 +194,9 @@ class HandOver
     dialog.delegate ".ready", "click", (e)->
       # go to daily view
       window.location = "http://#{location.host}/backend/inventory_pools/#{current_inventory_pool}/"
-      
+
+  @any_missing_purpose: (lines)->
+    _.any lines, (line)->
+      console.log line
+
 window.HandOver = HandOver

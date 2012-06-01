@@ -19,7 +19,7 @@ ${$purposes = Line.concatinate_purposes(SelectedLines.lines_data), ""}
   %section{:class => "purpose{{if $purposes.length==0}} none{{/if}}"}
     %label= _("Purpose")
     %p ${$purposes}
-    {{if _.any(SelectedLines.lines_data, function(line){return line.purpose.description.length})}}
+    {{if HandOver.any_missing_purpose(SelectedLines.lines_data)}}
     %button.button.white
       = _("Add Purpose")
     {{/if}}
