@@ -43,7 +43,7 @@ Dann /^kann ich den Zweck editieren$/ do
   @new_purpose_description = "Benötigt für die Sommer-Austellung"
   find(".dialog #purpose").set @new_purpose_description
   find(".dialog button[type=submit]").click
-  wait_until(15){ all(".dialog", :visible => true).size == 0 }
+  wait_until(15){ all(".dialog", :visible => true).empty? }
   @order.reload.lines.first.purpose.description.should == @new_purpose_description
   find("section.purpose").should have_content @new_purpose_description 
 end
@@ -92,7 +92,7 @@ end
 
 Dann /^muss ich keinen Zweck angeben um die Aushändigung durchzuführen$/ do
   find("#hand_over_button").click
-  wait_until{ find(".dialog .button") }
+  wait_until(15) { find(".dialog .button") }
   step 'kann ich die Aushändigung durchführen'
 end
 
