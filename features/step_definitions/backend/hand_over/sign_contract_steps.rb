@@ -29,8 +29,10 @@ end
 When /^I click hand over inside the dialog$/ do
   page.execute_script ("window.print = function(){return true;}")
   wait_until { find ".dialog .button" }
+  sleep(0.5)
   find(".dialog .button", :text => "Hand Over").click
-  wait_until(10){ find(".dialog .documents") }
+  find(".dialog .button", :text => "Hand Over").click
+  wait_until(20){ find(".dialog .documents") }
 end
 
 Then /^the contract is signed for the selected items$/ do
@@ -63,6 +65,7 @@ end
 Then /^I see that the time range in the summary starts today$/ do
   wait_until { find(".summary .date") }
   find(".summary .date").should have_content("#{Date.today.strftime("%d.%m.%Y")} -")
+  sleep(0.5)
 end
 
 Then /^the lines start date is today$/ do
