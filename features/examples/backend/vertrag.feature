@@ -79,12 +79,10 @@ Funktionalität: Vertrag
     | PLZ          |
     | Stadt        |
     
-  @wip
-  Szenario: Vertragsnummer unter dem Barcode
+  # Szenario: Vertragsnummer unter dem Barcode
   # Dann sehe ich die Vertragsnummer unter dem Barcode # Es liegt an den Browser Einstellungen ob die Vertragsnummer beim Druck auf jeder Seite wiederholt werden.  
     
-  # @wip
-  Szenario: Seitennummerierung
+  # Szenario: Seitennummerierung
   # Dann sehe ich auf jeder Seite die Seitennummerierung im Format "X / Y" # Es liegt an den Browser Einstellungen ob man beim Druck auf jeder Seite die Seitennummerierung sieht.
   
   @javascript
