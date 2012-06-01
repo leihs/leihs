@@ -1,4 +1,4 @@
-<tr><td style="padding-top: 20px;font-weight: bold;background-color: white"><%= _("Location") %></td></tr>
+<tr><td><%= _("Location") %></td></tr>
 <tr><td><b><%= _("Building")%>:</b></td><td>
   <% options = options_from_collection_for_select(Building.all, :id, :to_s, (@item.location ? @item.location.building_id : nil)) %>
   <%= select_tag 'location[building_id]', "<option value=''>#{_("None")}</option>#{options}".html_safe %>
