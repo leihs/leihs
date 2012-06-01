@@ -27,11 +27,6 @@ Funktionalität: Zweck
     Dann kann ich den Zweck editieren
   
   @javascript  
-  Szenario: Orte, an denen ich einen Zweck hinzügen kann
-    Wenn ich eine Aushändigung mache
-    Dann kann ich einen Zweck hinzufügen
-
-  @javascript  
   Szenario: Aushändigung ohne Zweck
     Wenn ich eine Aushändigung mache
     Und keine der ausgewählten Gegenstände hat einen Zweck angegeben
