@@ -17,11 +17,11 @@ When /^I select one of those$/ do
   wait_until { find(".line[data-id='#{@item_line.id}'] .inventory_code input") }  
   find(".line[data-id='#{@item_line.id}'] .inventory_code input").click
   page.execute_script("$(\".line[data-id='#{@item_line.id}'] .inventory_code input\").focus()")
-  wait_until { find(".ui-autocomplete a") }
+  wait_until(25) { find(".ui-autocomplete a") }
   first_element = find(".ui-autocomplete a")
   @selected_inventory_code = first_element.find(".label").text
   first_element.click
-  wait_until { all(".loading", :visible => true).size == 0 }
+  wait_until { all(".loading", :visible => true).empty? }
 end
 
 Then /^the item line is assigned to the selected inventory code$/ do
@@ -36,7 +36,7 @@ When /^I add an item which is matching the model of one of the selected lines to
   @item = @hand_over.lines.first.model.items.in_stock.first
   find("#code").set @item.inventory_code
   page.execute_script('$("#process_helper").submit()')
-  wait_until { all(".loading", :visible => true).size == 0 }
+  wait_until { all(".loading", :visible => true).empty? }
 end
 
 Then /^the first itemline in the selection matching the provided inventory code is assigned$/ do
