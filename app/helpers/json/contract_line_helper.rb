@@ -34,6 +34,13 @@ module Json
         if with[:purpose]
           h[:purpose] = line.purpose ? hash_for(line.purpose, with[:purpose]) : nil
         end
+
+        if with[:availability]
+          if line.contract.action == :hand_over
+            h[:availability_for_inventory_pool] = {}
+          end
+        end
+
       end
       
       h
