@@ -39,9 +39,8 @@ end
 
 Dann /^kann ich den Zweck editieren$/ do
   find(".button", :text => "Edit Purpose").click
-  wait_until{ find(".dialog #purpose") }
   @new_purpose_description = "Benötigt für die Sommer-Austellung"
-  find(".dialog #purpose").set @new_purpose_description
+  wait_until{ find(".dialog #purpose") }.set @new_purpose_description
   find(".dialog button[type=submit]").click
   wait_until(15){ all(".dialog", :visible => true).empty? }
   @order.reload.lines.first.purpose.description.should == @new_purpose_description
