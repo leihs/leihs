@@ -2,7 +2,7 @@ When /^I add an item to the hand over by providing an inventory code and a date 
   @inventory_code = @user.managed_inventory_pools.first.items.in_stock.first.inventory_code
   find("#code").set @inventory_code
   find("#process_helper .button").click
-  wait_until(15) { all("#process_helper .loading", :visible => true).empty? }
+  wait_until(25) { all("#process_helper .loading", :visible => true).empty? }
 end
 
 Then /^the item is added to the hand over for the provided date range and the inventory code is already assigend$/ do

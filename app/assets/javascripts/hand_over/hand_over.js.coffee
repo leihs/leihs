@@ -197,6 +197,6 @@ class HandOver
 
   @any_missing_purpose: (lines)->
     _.any lines, (line)->
-      console.log line
+      not line.purpose?
 
 window.HandOver = HandOver
