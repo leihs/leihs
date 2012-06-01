@@ -20,16 +20,12 @@ describe Backend::AcknowledgeController do
                                   :id => @submitted_order.id,
                                   :inventory_pool_id => @inventory_pool.id,
                                   :quantity => 1,
-                                  :start_date => Date.today,
-                                  :end_date => Date.tomorrow,
+                                  :start_date => Date.today.to_s,
+                                  :end_date => Date.tomorrow.to_s,
                                   :code => @item.inventory_code}, {user_id: @lending_manager.id}
       response.success?.should be_true
     end
     
-    it "adds a line to the order by providing a model_id" do
-      pending      
-    end
-
     it "an added line has the same purpose of the existing lines" do
       @unsubmitted_order = FactoryGirl.create :order_with_lines, :status_const => 1, :inventory_pool => @inventory_pool
       purposes = @unsubmitted_order.lines.map(&:purpose)
@@ -41,8 +37,8 @@ describe Backend::AcknowledgeController do
                                   :id => @unsubmitted_order.id,
                                   :inventory_pool_id => @inventory_pool.id,
                                   :quantity => 1,
-                                  :start_date => Date.today,
-                                  :end_date => Date.tomorrow,
+                                  :start_date => Date.today.to_s,
+                                  :end_date => Date.tomorrow.to_s,
                                   :code => @item.inventory_code}, {user_id: @lending_manager.id }
       response.success?.should be_true
 
