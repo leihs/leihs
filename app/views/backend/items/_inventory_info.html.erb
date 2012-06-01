@@ -1,4 +1,4 @@
-<tr><td style="padding-top: 20px;font-weight: bold;background-color: white"><%= _("Inventory") %></td></tr>	
+<tr><td><%= _("Inventory") %></td></tr>	
 <tr><td><b><%= _("Relevant for inventory")%>:</b></td><td>
 							<% if is_super_user? %>
 								<%= f.select :is_inventory_relevant, { _("No") => false, _("Yes") => true} %>

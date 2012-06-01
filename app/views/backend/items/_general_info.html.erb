@@ -1,9 +1,9 @@
-<tr><td style="padding-top: 20px;font-weight: bold;background-color: white">
+<tr><td>
 	<%= _("General Information") %>
 	</td>
 </tr>
 <tr><td><b><%= _("Model")%>:</b></td>
-	<td><div id="model_name" style="display:inline"><%= link_to(@item.model.name, backend_inventory_pool_model_path(current_inventory_pool, @item.model)) if @item.model %></div>
+	<td><div id="model_name"><%= link_to(@item.model.name, backend_inventory_pool_model_path(current_inventory_pool, @item.model)) if @item.model %></div>
 		<%= f.hidden_field :model_id %>
 		<%= greybox_link(icon_tag('magnifier'), backend_inventory_pool_models_path(current_inventory_pool, :layout => "modal", :filter => 'all'),
 						:title => _("Search Model"),
@@ -14,7 +14,7 @@
   <% if @item.model %>
     <tr><td><b><%= _("Categories")%>:</b></td><td>
 
-        <% content_tag :ul, :style => "list-style: disc;" do
+        <% content_tag :ul do
           @item.model.categories.each do |category|
             content_tag :li do %>
               <%= category.name %>
@@ -35,7 +35,6 @@
 			<%= @item.inventory_code %>
 			<%= f.hidden_field :inventory_code %>
 		<% end %>
-		<%= link_to _("Barcode"), {:controller => 'backend/barcodes', :action => 'create', :string => @item.inventory_code.to_s }, :method => :post if @item.inventory_code %>
 	</td></tr>
 <tr><td><b><%= _("Serial Number:") %></b></td>
 	<td><%= (is_privileged_user? or @item.new_record?) ? f.text_field(:serial_number) : @item.serial_number %>

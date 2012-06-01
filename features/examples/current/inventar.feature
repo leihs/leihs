@@ -13,6 +13,7 @@ Funktionalität: Inventar
     Und man sieht Optionen
     Und man sieht Pakete
 
+  @wip @javascript
   Szenario: Auswahlmöglichkeiten
     Wenn man eine Liste von Inventar sieht
     Dann hat man folgende Auswahlmöglichkeiten:
@@ -23,6 +24,7 @@ Funktionalität: Inventar
     | Nicht ausleihbar   |
     Und die Auswahlmöglichkeiten können nicht kombiniert werden
 
+  @wip @javascript
   Szenario: Filtermöglichkeiten von Listen
     Wenn man eine Liste von Inventar sieht
     Dann hat man folgende Filtermöglichkeiten
