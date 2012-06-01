@@ -103,11 +103,13 @@ end
 ##############################################################
 
 def get_fullcalendar_day_element(date, line)
-  if date.month > line.start_date.month or date.year > line.start_date.year 
-    all(".fc-widget-content.fc-other-month .fc-day-number", :text => /^#{date.day}$/).last 
-  else
-    all(".fc-widget-content:not(.fc-other-month) .fc-day-number", :text => /^#{date.day}$/).last
-  end
+  wait_until {
+    if date.month > line.start_date.month or date.year > line.start_date.year 
+      all(".fc-widget-content.fc-other-month .fc-day-number", :text => /^#{date.day}$/).last 
+    else
+      all(".fc-widget-content:not(.fc-other-month) .fc-day-number", :text => /^#{date.day}$/).last
+    end
+  }
 end
 
 def type_into_autocomplete(selector, value)
@@ -115,4 +117,12 @@ def type_into_autocomplete(selector, value)
   page.execute_script("$('#{selector}').focus()")
   page.execute_script("$('#{selector}').autocomplete('search')")
   wait_until(10){ find(".ui-autocomplete") }
+end
+
+def change_line_start_date(line, days = 2)
+  new_start_date = line.start_date + days.days
+  get_fullcalendar_day_element(new_start_date, line).click
+  find("a", :text => "Start Date").click
+  step 'I save the booking calendar'
+  new_start_date
 end

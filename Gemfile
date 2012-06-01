@@ -1,8 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.3'
-#tmp# gem 'builder', '~> 3.0' 
-#tmp# gem 'i18n', '~> 0.6.0' # Need this explicitly, otherwise can't deploy
+gem 'rails', '3.2.5'
 
 gem 'mysql2', '~> 0.3.11'
 gem 'json', '~> 1.6'
@@ -21,7 +19,6 @@ gem 'will_paginate', :git => "https://github.com/halloffame/will_paginate.git" #
 gem 'gettext_i18n_rails', '~> 0.3'
 gem 'ruby_parser', '~> 2.3' # gettext dependency that Bundler seems unable to resolve
 
-gem "pdfkit", "~> 0.5.2" # requires wkhtmltopdf
 gem 'barby', '~> 0.5.0'
 gem "chunky_png", "~> 1.2.5"
 

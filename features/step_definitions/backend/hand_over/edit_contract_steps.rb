@@ -22,4 +22,9 @@ end
 When /^I change the time range for that option$/ do
   @option_line = @customer.visits.collect(&:lines).flatten.detect{|x| x.is_a?(OptionLine)}
   find(".option_line", :text => @option_line.option.name).find(".button", :text => "Edit").click
+  @new_start_date = change_line_start_date(@option_line, 2)
+end
+
+Then /^the time range for that option line is changed$/ do
+  @option_line.reload.start_date.should == @new_start_date
 end
