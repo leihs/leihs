@@ -21,7 +21,7 @@ module Json
           h[:model] = hash_for item.model, with[:model]
         end
 
-        if with[:children] and not item.children.empty?
+        if with[:children] and item.model.is_package? and not item.children.empty?
           h[:children] = hash_for item.children, with[:children]
         end
       end

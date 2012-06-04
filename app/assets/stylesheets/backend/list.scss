@@ -50,13 +50,9 @@
       }
     }
     
-    .selection {
+    .filter {
       float: right;
-      
-      select{
-        position: relative;
-        margin: 6px 6px 0 0;
-      }
+      padding: 6px 6px 0 0; 
     }
     
     .historical_search {

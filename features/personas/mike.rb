@@ -46,6 +46,7 @@ module Persona
       setup_tripods
       setup_options
       setup_templates
+      setup_package
     end
     
     def setup_sharp_beamers
@@ -103,6 +104,10 @@ module Persona
       @camera_tripod_template.inventory_pools << @inventory_pool
       FactoryGirl.create(:model_link, :model_group => @camera_tripod_template, :model => @camera_model, :quantity => 1)      
       FactoryGirl.create(:model_link, :model_group => @camera_tripod_template, :model => @tripod_model, :quantity => 1)      
-    end    
+    end   
+    
+    def setup_package
+      @camera_package = FactoryGirl.create(:package_with_items, :inventory_pool => @inventory_pool) 
+    end 
   end  
 end

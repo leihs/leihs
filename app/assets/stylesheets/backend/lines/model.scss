@@ -14,12 +14,20 @@
   }
  
   li.toggle {
-    width: 58px
+    width: 58px;
+    
+    .text {
+      float: right;
+    }
   }
   
   li.modelname {
     font-weight: bold;
     width: 480px;
+    
+    .icon {
+      margin: 0 4px;
+    }
   }
   
   li.image {

@@ -3,7 +3,7 @@
   .main
     
     %li.toggle{:"data-toggle_target" => "#model_${id}_items"}
-      .text{:title => _("show items"), :"data-open_title" => _("hide items")}
+      .text{:title => "{{if is_package}}#{_("show packages")}{{else}}#{_("show items")}{{/if}}", :"data-open_title" => _("hide items")}
         ${items.length}
         .icon
     
@@ -18,6 +18,9 @@
       
     %li.modelname
       ${name}
+      {{if is_package}}
+      .package.icon{:title => _("this is a package")}
+      {{/if}}
       
     %li.availability
       ${total_rentable_in_stock}
@@ -35,7 +38,11 @@
             = _("Edit")
         = link_to "/backend/inventory_pools/${current_inventory_pool}/models/${id}", :class => "button white" do
           .icon.view_model
+          {{if is_package}}
+          = _("View Package")
+          {{else}}
           = _("View Model")
+          {{/if}}
 
 {{if items}}
 .items{:id => "model_${id}_items"}

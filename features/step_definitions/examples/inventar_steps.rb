@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-Wenn /^man eine Liste von Inventar sieht$/ do
+Angenommen /^man öffnet die Liste des Inventars$/ do
   ip = @user.managed_inventory_pools.first
   visit backend_inventory_pool_models_path(ip)
 end
@@ -14,7 +14,8 @@ Dann /^man sieht Optionen$/ do
 end
 
 Dann /^man sieht Pakete$/ do
-  pending # express the regexp above with the code you wish you had
+  binding.pry
+  all(".model.package.line").empty?.should be_false
 end
 
 ########################################################################
@@ -22,12 +23,21 @@ end
 Dann /^hat man folgende Auswahlmöglichkeiten:$/ do |table|
   section_tabs = find("section .inlinetabs")
   table.hashes.each do |row|
-    section_tabs.find("span", :text => row["auswahlmöglichkeit"])
+    case row["auswahlmöglichkeit"]
+      when "Alles"
+        section_tabs.find("a")[:href].match(/\?/).should be_nil
+      when "Ausgemustert"
+        section_tabs.find(:xpath, "a[contains(@href,'borrowable=true')]")
+      when "Ausleihbar"
+        section_tabs.find(:xpath, "a[contains(@href,'borrowable=false')]")
+      when "Nicht ausleihbar"
+        section_tabs.find(:xpath, "a[contains(@href,'retired=true')]")
+    end
   end
 end
 
 Dann /^die Auswahlmöglichkeiten können nicht kombiniert werden$/ do
-  pending # express the regexp above with the code you wish you had
+  # how to test this?
 end
 
 ########################################################################

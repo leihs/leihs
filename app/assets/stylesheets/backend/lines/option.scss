@@ -1,0 +1,20 @@
+@import "../../shared/mixins";
+@import "../../shared/variables";
+
+.option.line {
+
+  li.inventory_code {
+    text-align: center;
+    width: 123px;
+  }
+  
+  li.modelname {
+    font-weight: bold;
+    width: 445px;
+  }
+  
+  li.price {
+    text-align: right;
+    width: 80px;
+  }
+}

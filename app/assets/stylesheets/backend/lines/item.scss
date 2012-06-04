@@ -3,6 +3,16 @@
 
 .item.line {
   
+  &+.children {
+    display: none;
+    
+    .line {
+      .main {
+        padding-left: 83px;
+      }
+    }
+  }
+  
   li.modelname {
     font-weight: bold;
     width: 205px;

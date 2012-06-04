@@ -14,8 +14,6 @@ i18n.locals['gsw-CH'] =
   datepicker:
     L: "dd.mm.yy"
     
-  number: "#'###.00"
-  
   today: "Heute"
   month: "Monat"
   week: "Woche"
@@ -64,3 +62,7 @@ i18n.locals['gsw-CH'] =
   close: 'schliessen'
   regard_opening_hours: "Öffnungszeiten beachten!"
   closed_at_this_day: "An diesem Tag ist die Ausleihe geschlossen."
+
+  number:
+    decimal: "."
+    thousand: "'"

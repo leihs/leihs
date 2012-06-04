@@ -6,16 +6,14 @@
   
   %section
     .inlinetabs
-      = link_to backend_inventory_pool_models_path(current_inventory_pool, :filter => nil, :query => params[:query]), :class => "tab#{' active' unless params[:filter] && params[:filter] == ""}" do
+      = link_to backend_inventory_pool_models_path(current_inventory_pool, :query => params[:query]), :class => "tab#{' active' if params[:borrowable].blank? and params[:retired].blank?}" do
         %span.text= _("All")
-      = link_to backend_inventory_pool_models_path(current_inventory_pool, :filter => "signed", :query => params[:query]), :class => "tab#{' active' if params[:filter] == 'signed'}" do
+      = link_to backend_inventory_pool_models_path(current_inventory_pool, :borrowable => true, :query => params[:query]), :class => "tab#{' active' if params[:borrowable].to_s == 'true'}" do
         %span.text= _("Borrowable")
-      = link_to backend_inventory_pool_models_path(current_inventory_pool, :filter => "closed", :query => params[:query]), :class => "tab#{' active' if params[:filter] == 'closed'}" do
+      = link_to backend_inventory_pool_models_path(current_inventory_pool, :borrowable => false, :query => params[:query]), :class => "tab#{' active' if params[:borrowable].to_s == 'false'}" do
         %span.text= _("Not Borrowable")
-      = link_to backend_inventory_pool_models_path(current_inventory_pool, :filter => "closed", :query => params[:query]), :class => "tab#{' active' if params[:filter] == 'closed'}" do
-        %span.text= _("In Stock")
-      = link_to backend_inventory_pool_models_path(current_inventory_pool, :filter => "closed", :query => params[:query]), :class => "tab#{' active' if params[:filter] == 'closed'}" do
-        %span.text= _("I'm the Owner")
+      = link_to backend_inventory_pool_models_path(current_inventory_pool, :retired => true, :query => params[:query]), :class => "tab#{' active' if params[:retired].to_s == 'true'}" do
+        %span.text= _("Retired")
     
     .list
       %ul.navigation.line
@@ -31,9 +29,22 @@
               = @models_and_options.total_entries
             = _("entries%s") % "."
           = image_tag "loading.gif", :class => "loading"
-        %li.selection
-          %select
-            %option 123
+        %li.filter
+          %label.broken
+            %input{:type => :checkbox}
+            %span= _("In Stock")
+          %label.owned
+            %input{:type => :checkbox}
+            %span= _("Owned")
+          %label.broken
+            %input{:type => :checkbox}
+            %span= _("Broken")
+          %label.responsible
+            %select{:title => _("Responsible Department")}
+              %option{:default => true}
+              %option "Responsible 1"
+              %option "Responsible 2"
+              %option "Responsible 3"
       - if @models_and_options.blank?
         %ul.line
           %li.name
@@ -48,20 +59,7 @@
 :javascript
   
   $(document).ready(function(){
-    $('section .list').append($.tmpl("tmpl/line", #{json_for(@models_and_options, {:image_thumb => true,
-                                                                                   :inventory_code => true, # for options
-                                                                                   :price => true, # for options
-                                                                                   :is_package => true,
-                                                                                   :items => {:query => @query,
-                                                                                              :current_borrower => true,
-                                                                                              :current_return_date => true,
-                                                                                              :in_stock? => true,
-                                                                                              :is_broken => true,
-                                                                                              :is_incomplete => true,
-                                                                                              :children => {:model => {}}
-                                                                                             },
-                                                                                   :availability => {:inventory_pool => current_inventory_pool},
-                                                                                   :categories => {}})} ));
+    $('section .list').append($.tmpl("tmpl/line", #{@list_json}));
     
     // setup ListSearch
     ListSearch.setup();

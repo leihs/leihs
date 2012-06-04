@@ -2,15 +2,15 @@
   
   .main
     
+    %li.inventory_code{:title => _("Inventory Code")}
+      ${inventory_code}
+      
     %li.modelname
       ${name}
 
-    %li.inventory_code{:title => _("Inventory Code")}
-      ${inventory_code.replace("/", " / ")}
-
     %li.price{:title => _("Price")}
       {{if price}}
-      ${price}
+      ${accounting.formatMoney(parseFloat(price))}
       {{/if}}
   
   .actions    

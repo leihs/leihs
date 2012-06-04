@@ -1,5 +1,5 @@
 class Backend::ModelsController < Backend::BackendController
-
+  
   before_filter do
     params[:model_id] ||= params[:id] if params[:id]
 
@@ -32,20 +32,57 @@ class Backend::ModelsController < Backend::BackendController
             per_page = (params[:page] || $per_page).to_i,
             category_id = params[:category_id].try(:to_i),
             borrower_user = params[:user_id].try{|x| current_inventory_pool.users.find(x)},
+            borrowable = (params[:borrowable] ? !(params[:borrowable] == "false") : nil),
+            retired = (params[:retired] == "true" ? true : nil),
             start_date = params[:start_date].try{|x| Date.parse(x)},
             end_date = params[:end_date].try{|x| Date.parse(x)})
     
-    models = Model.search2(query).
-              filter2(:inventory_pool_id => current_inventory_pool.id).
-              order("#{sort_attr} #{sort_dir}").
-              paginate(:page => page, :per_page => $per_page)
+    #models = Model.search2(query).
+    #          filter2(:inventory_pool_id => current_inventory_pool.id).
+    #          order("#{sort_attr} #{sort_dir}")
+
+    models = if not borrowable.nil?
+      items_scope = (borrowable ? :borrowable_items : :unborrowable_items) 
+      current_inventory_pool.models.search2(query).joins(items_scope)
+    elsif not retired.nil?
+      Item.unscoped {
+        current_inventory_pool.models.search2(query).joins(:retired_items)
+      }
+    else
+      current_inventory_pool.models.search2(query)
+    end.order("#{sort_attr} #{sort_dir}")
+    
+    options = if borrowable != false and retired.nil?
+      current_inventory_pool.options.search2(query)
+    else
+      []
+    end
               
-    options = current_inventory_pool.options.search2(query).paginate(:page => page, :per_page => $per_page)
-              
-    @models_and_options = (models + options).sort{|a,b| a.name <=> b.name}.paginate(:page => page, :per_page => $per_page)
+    @responsibles = models.flat_map {|m| m.items.where(:owner_id => current_inventory_pool)}.map(&:inventory_pool).uniq
+
+    @models_and_options = (models.paginate(:page => page, :per_page => $per_page) +
+                           options.paginate(:page => page, :per_page => $per_page)
+                          ).sort{|a,b| a.name <=> b.name}.paginate(:page => page, :per_page => $per_page)
+                          
 
     respond_to do |format|
       format.html {
+        @list_json = view_context.json_for(@models_and_options, {:image_thumb => true,
+                                                   :inventory_code => true, # for options
+                                                   :price => true, # for options
+                                                   :is_package => true,
+                                                   :items => {:query => @query,
+                                                              :current_borrower => true,
+                                                              :current_return_date => true,
+                                                              :in_stock? => true,
+                                                              :is_broken => true,
+                                                              :borrowable => borrowable,
+                                                              :retired => retired,
+                                                              :is_incomplete => true,
+                                                              :children => {:model => {}}
+                                                             },
+                                                   :availability => {:inventory_pool => current_inventory_pool},
+                                                   :categories => {}})
         @query = query
       }
       format.json {

@@ -31,9 +31,11 @@ class Model < ActiveRecord::Base
   end
 
   has_many :items # NOTE these are only the active items (unretired), because Item has a default_scope
-  has_many :unretired_items, :class_name => "Item", :conditions => {:retired => nil} # TODO this is redudant, do we need :retired_items ??
+  has_many :unretired_items, :class_name => "Item", :conditions => {:retired => nil} # TODO this is used by the filter
+  has_many :retired_items, :class_name => "Item", :conditions => Item.arel_table[:retired].not_eq(nil)
   #TODO  do we need a :all_items ??
   has_many :borrowable_items, :class_name => "Item", :conditions => {:retired => nil, :is_borrowable => true, :parent_id => nil}
+  has_many :unborrowable_items, :class_name => "Item", :conditions => {:retired => nil, :is_borrowable => false}
   has_many :unpackaged_items, :class_name => "Item", :conditions => {:parent_id => nil}
   
   has_many :locations, :through => :items, :uniq => true  # OPTIMIZE N+1 select problem, :include => :inventory_pools
@@ -160,6 +162,7 @@ class Model < ActiveRecord::Base
     options.each_pair do |k,v|
       case k
         when :inventory_pool_id
+          # NOTE joins(:items) doesn't consider the Item#default_scope
           sql = sql.joins(:unretired_items).where(:items => {k => v})
       end
     end

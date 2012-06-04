@@ -73,8 +73,26 @@ window.i18n =
   regard_opening_hours: "Öffnungszeiten beachten!"
   closed_at_this_day: "An diesem Tag ist die Ausleihe geschlossen."
   
-# set lang for moment js
+  number:
+    decimal: "."
+    thousand: "'"
+
 jQuery ()->
+  
+  # set number format with accounting
+  accounting.settings =
+    currency:
+      symbol: local_currency_string
+      format: "%v %s"
+      decimal: i18n.number.decimal
+      thousand: i18n.number.thousand
+      precision : 2
+    number:
+      precision: 0
+      decimal: i18n.number.decimal
+      thousand: i18n.number.thousand
+    
+  # set lang for moment js
   moment.lang i18n.to_s,
     months : i18n.months.full
     monthsShort : i18n.months.trunc

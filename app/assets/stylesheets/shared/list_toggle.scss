@@ -45,11 +45,12 @@
 }
 
 .line.toggle, li.toggle {
+  @include unselectable();
   
   .text {
     background: #F8F8F8;
     border: 1px solid #E0DFDE;
-    color: $lightgrey;
+    color: $grey;
     cursor: pointer;
     display: inline-block;
     padding: 4px 0 4px 8px;
@@ -94,6 +95,6 @@
     top: 0;
     width: 7px;
     z-index: 102;
-    @include opacity(0.6);
+    @include opacity(0.8);
   }
 }

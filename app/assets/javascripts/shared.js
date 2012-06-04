@@ -6,6 +6,7 @@
 //= require underscore
 //= require_tree ../../../vendor/assets/javascripts/underscore
 
+//= require accounting/accounting
 //= require i18n/i18n
 //= require_tree ./i18n/lang
 //= require_tree ./str

@@ -19,8 +19,20 @@ module Json
         end
 
         if with[:items] and model.respond_to? :items
-          items = model.items
-          items = items.search2(with[:items][:query]) if with[:items][:query] 
+          items = if with[:items][:retired]
+            #binding.pry
+            model.retired_items
+          elsif with[:items][:borrowable] == true
+            model.borrowable_items
+          elsif with[:items][:borrowable] == false
+            model.unborrowable_items
+          else
+            model.items
+          end
+  
+          if with[:items][:query]
+            items = items.search2(with[:items][:query])
+          end
           h[:items] = hash_for items, with[:items]
         end
       

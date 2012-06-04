@@ -1,6 +1,13 @@
 %ul.line{:class => "${type}"}
 
   .main
+    
+    {{if children}}
+    %li.toggle{:"data-toggle_target" => "#item_${id}_children"}
+      .text
+        ${children.length}
+        .icon
+    {{/if}}
       
     {{if model}}
     %li.modelname
