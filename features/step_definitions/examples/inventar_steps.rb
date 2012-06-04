@@ -26,18 +26,22 @@ Dann /^hat man folgende Auswahlmöglichkeiten:$/ do |table|
     case row["auswahlmöglichkeit"]
       when "Alles"
         section_tabs.find("a")[:href].match(/\?/).should be_nil
+        pending #test functionality
       when "Ausgemustert"
         section_tabs.find(:xpath, "a[contains(@href,'borrowable=true')]")
+        pending #test functionality
       when "Ausleihbar"
         section_tabs.find(:xpath, "a[contains(@href,'borrowable=false')]")
+        pending #test functionality
       when "Nicht ausleihbar"
         section_tabs.find(:xpath, "a[contains(@href,'retired=true')]")
+        pending #test functionality
     end
   end
 end
 
 Dann /^die Auswahlmöglichkeiten können nicht kombiniert werden$/ do
-  # how to test this?
+  pending #test functionality
 end
 
 ########################################################################

@@ -79,6 +79,8 @@ class Backend::ModelsController < Backend::BackendController
                                                               :borrowable => borrowable,
                                                               :retired => retired,
                                                               :is_incomplete => true,
+                                                              :location => true,
+                                                              :inventory_pool => true,
                                                               :children => {:model => {}}
                                                              },
                                                    :availability => {:inventory_pool => current_inventory_pool},

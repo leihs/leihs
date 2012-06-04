@@ -8,7 +8,13 @@
     
     .line {
       .main {
-        padding-left: 83px;
+        padding-left: 144px !important;
+      }
+      .model_name {
+        font-weight: normal !important;
+      }
+      .item_status {
+        display: none;
       }
     }
   }
@@ -27,6 +33,6 @@
   }
   
   li.item_status {
-    width: 230px;
+    width: 250px;
   }
 }

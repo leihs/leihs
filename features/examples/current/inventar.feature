@@ -22,7 +22,7 @@ Funktionalität: Inventar
     | Nicht ausleihbar   |
     Und die Auswahlmöglichkeiten können nicht kombiniert werden
 
-  @wip @javascript
+  @javascript
   Szenario: Filtermöglichkeiten von Listen
     Dann hat man folgende Filtermöglichkeiten
     | filtermöglichkeit         |

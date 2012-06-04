@@ -3,6 +3,16 @@
 
   .top
     %h1= yield :title
+    
+  .content_navigation
+    #approve.multibutton
+      .alternatives
+        .trigger
+          .arrow
+        %button.button.white
+          = _("CSV Export") 
+      %button.button.white
+        = _("CSV Export") 
   
   %section
     .inlinetabs
@@ -21,30 +31,25 @@
           = form_tag("", :method => :get, :autocomplete => :off) do
             %input{:type => "text", :name => "query", :value => "#{params[:query]}", :placeholder => _("Suchen..."), :class => "clearable"}
             = image_tag "loading.gif", :class => "loading"
-            -unless params[:query].blank?
-              %strong
-                = _("found %i") % @models_and_options.total_entries
-            = _("in")
-            %strong
-              = @models_and_options.total_entries
-            = _("entries%s") % "."
           = image_tag "loading.gif", :class => "loading"
         %li.filter
-          %label.broken
+          %label
             %input{:type => :checkbox}
             %span= _("In Stock")
-          %label.owned
+          %label
             %input{:type => :checkbox}
-            %span= _("Owned")
-          %label.broken
+            %span= _("Incomplete")
+          %label
             %input{:type => :checkbox}
             %span= _("Broken")
-          %label.responsible
+          %label
+            %input{:type => :checkbox}
+            %span= _("Owned")
+          %label
             %select{:title => _("Responsible Department")}
-              %option{:default => true}
-              %option "Responsible 1"
-              %option "Responsible 2"
-              %option "Responsible 3"
+              - @responsibles.each do |ip|
+                %option
+                  = ip.name
       - if @models_and_options.blank?
         %ul.line
           %li.name

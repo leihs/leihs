@@ -38,14 +38,10 @@
             = _("Edit")
         = link_to "/backend/inventory_pools/${current_inventory_pool}/models/${id}", :class => "button white" do
           .icon.view_model
-          {{if is_package}}
-          = _("View Package")
-          {{else}}
           = _("View Model")
-          {{/if}}
 
 {{if items}}
 .items{:id => "model_${id}_items"}
-  {{tmpl(items) "tmpl/line/item"}}
+  {{tmpl(items, {package: true}) "tmpl/line/item"}}
 {{/if}}
 

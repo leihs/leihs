@@ -11,6 +11,32 @@
       border-bottom: 1px solid $borderlightergrey !important;
     }
     
+    label {
+      background: #F8F8F8;
+      border: 1px solid #E0DFDE;
+      color: $grey;
+      cursor: pointer;
+      display: inline-block;
+      height: 28px;
+      position: relative;
+      vertical-align: top;
+      z-index: 101;
+      @include border-radius(4px);
+      
+      span {
+        display: inline-block;
+        margin: 6px 3px 0 0;
+      }
+      
+      select {
+        height: 28px;
+      }
+    }
+    
+    select {
+      font-size: 1.1em;
+    }
+    
     .search {
       padding: 0 0 0 4px !important;
       width: 335px;

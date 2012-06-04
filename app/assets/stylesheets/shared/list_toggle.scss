@@ -59,10 +59,9 @@
     @include border-radius(4px);
     
     &:hover {
-      background: white;
+      background: #EEE;
       border: 1px solid #BBB;  
       color: $darkergrey;
-      @include box-shadow(0 0 3px rgba(0,0,0,0.1));
       
       .icon {
         @include opacity(1.0);

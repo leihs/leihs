@@ -9,7 +9,7 @@ module Json
       }
       
       if with ||= nil
-        [:current_borrower, :current_return_date, :in_stock?, :is_broken, :is_incomplete, :price].each do |k|
+        [:current_borrower, :current_return_date, :in_stock?, :is_broken, :is_incomplete, :price, :inventory_pool].each do |k|
           h[k] = item.send(k) if with[k]
         end
       
@@ -20,7 +20,7 @@ module Json
         if with[:model]
           h[:model] = hash_for item.model, with[:model]
         end
-
+        
         if with[:children] and item.model.is_package? and not item.children.empty?
           h[:children] = hash_for item.children, with[:children]
         end
