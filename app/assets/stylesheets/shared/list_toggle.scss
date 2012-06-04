@@ -47,7 +47,7 @@
 .line.toggle, li.toggle {
   
   .text {
-    background: none repeat scroll 0 0 #F8F8F8;
+    background: #F8F8F8;
     border: 1px solid #E0DFDE;
     color: $lightgrey;
     cursor: pointer;
@@ -58,10 +58,29 @@
     @include border-radius(4px);
     
     &:hover {
+      background: white;
+      border: 1px solid #BBB;  
       color: $darkergrey;
+      @include box-shadow(0 0 3px rgba(0,0,0,0.1));
+      
       .icon {
         @include opacity(1.0);
       }
+    }
+  }
+  
+  &.open {
+    
+    .text {
+      background: white;
+      border: 1px solid #BBB;  
+      color: $darkergrey;
+      @include box-shadow(0 0 3px rgba(0,0,0,0.1))
+    }
+    
+    .icon {
+      background: url($image-sprite) no-repeat -73px -38px;
+      @include opacity(1.0);
     }
   }
   

@@ -5,6 +5,12 @@
   
   &+.items {
     display: none;
+    
+    .line {
+      .main {
+        padding-left: 83px;
+      }
+    }
   }
  
   li.toggle {
@@ -13,11 +19,11 @@
   
   li.modelname {
     font-weight: bold;
-    width: 245px;
+    width: 480px;
   }
   
   li.image {
-    width: 38px;
+    width: 44px;
     
     .container {
       position: relative;

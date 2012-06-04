@@ -2,8 +2,8 @@
     
   .main
     
-    %li.toggle
-      .text{:title => _("show items")}
+    %li.toggle{:"data-toggle_target" => "#model_${id}_items"}
+      .text{:title => _("show items"), :"data-open_title" => _("hide items")}
         ${items.length}
         .icon
     
@@ -38,7 +38,7 @@
           = _("View Model")
 
 {{if items}}
-.items
+.items{:id => "model_${id}_items"}
   {{tmpl(items) "tmpl/line/item"}}
 {{/if}}
 
