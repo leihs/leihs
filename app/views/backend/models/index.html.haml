@@ -51,12 +51,15 @@
     $('section .list').append($.tmpl("tmpl/line", #{json_for(@models_and_options, {:image_thumb => true,
                                                                                    :inventory_code => true, # for options
                                                                                    :price => true, # for options
+                                                                                   :is_package => true,
                                                                                    :items => {:query => @query,
                                                                                               :current_borrower => true,
                                                                                               :current_return_date => true,
                                                                                               :in_stock? => true,
                                                                                               :is_broken => true,
-                                                                                              :is_incomplete => true },
+                                                                                              :is_incomplete => true,
+                                                                                              :children => {:model => {}}
+                                                                                             },
                                                                                    :availability => {:inventory_pool => current_inventory_pool},
                                                                                    :categories => {}})} ));
     

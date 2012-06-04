@@ -64,3 +64,7 @@
           .icon.view_item
           = _("View Item")
           
+{{if children}}
+.children{:id => "item_${id}_children"}
+  {{tmpl(children) "tmpl/line/item"}}
+{{/if}}
