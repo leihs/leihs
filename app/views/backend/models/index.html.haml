@@ -7,17 +7,15 @@
   %section
     .inlinetabs
       = link_to backend_inventory_pool_models_path(current_inventory_pool, :filter => nil, :query => params[:query]), :class => "tab#{' active' unless params[:filter] && params[:filter] == ""}" do
-        %span.text
-          = _("All")
+        %span.text= _("All")
       = link_to backend_inventory_pool_models_path(current_inventory_pool, :filter => "signed", :query => params[:query]), :class => "tab#{' active' if params[:filter] == 'signed'}" do
-        %span.text
-          = _("Retired")
+        %span.text= _("Borrowable")
       = link_to backend_inventory_pool_models_path(current_inventory_pool, :filter => "closed", :query => params[:query]), :class => "tab#{' active' if params[:filter] == 'closed'}" do
-        %span.text
-          = _("Borrowable")
+        %span.text= _("Not Borrowable")
       = link_to backend_inventory_pool_models_path(current_inventory_pool, :filter => "closed", :query => params[:query]), :class => "tab#{' active' if params[:filter] == 'closed'}" do
-        %span.text
-          = _("Not Borrowable")
+        %span.text= _("In Stock")
+      = link_to backend_inventory_pool_models_path(current_inventory_pool, :filter => "closed", :query => params[:query]), :class => "tab#{' active' if params[:filter] == 'closed'}" do
+        %span.text= _("I'm the Owner")
     
     .list
       %ul.navigation.line
@@ -33,7 +31,9 @@
               = @models_and_options.total_entries
             = _("entries%s") % "."
           = image_tag "loading.gif", :class => "loading"
-        %li.historical_search
+        %li.selection
+          %select
+            %option 123
       - if @models_and_options.blank?
         %ul.line
           %li.name
