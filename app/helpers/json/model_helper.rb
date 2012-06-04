@@ -19,19 +19,9 @@ module Json
         end
 
         if with[:items] and model.respond_to? :items
-          items = if with[:items][:retired]
-            Item.unscoped { model.items.where(Item.arel_table[:retired].not_eq(nil)) }
-          elsif with[:items][:borrowable] == true
-            model.borrowable_items
-          elsif with[:items][:borrowable] == false
-            model.unborrowable_items
-          else
-            model.items
-          end
-  
-          if with[:items][:query]
-            items = items.search2(with[:items][:query])
-          end
+          items = model.items 
+          items = items.where("id IN (#{with[:items][:scoped_ids].to_sql})") unless with[:items][:scoped_ids].nil?
+          items = items.search2(with[:items][:query]) if with[:items][:query]
           h[:items] = hash_for items, with[:items]
         end
       
