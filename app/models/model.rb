@@ -32,7 +32,6 @@ class Model < ActiveRecord::Base
 
   has_many :items # NOTE these are only the active items (unretired), because Item has a default_scope
   has_many :unretired_items, :class_name => "Item", :conditions => {:retired => nil} # TODO this is used by the filter
-  has_many :retired_items, :class_name => "Item", :conditions => Item.arel_table[:retired].not_eq(nil)
   #TODO  do we need a :all_items ??
   has_many :borrowable_items, :class_name => "Item", :conditions => {:retired => nil, :is_borrowable => true, :parent_id => nil}
   has_many :unborrowable_items, :class_name => "Item", :conditions => {:retired => nil, :is_borrowable => false}
@@ -140,17 +139,17 @@ class Model < ActiveRecord::Base
     return scoped unless query
 
     sql = select("DISTINCT models.*"). #old# joins(:categories, :properties, :items)
-      joins("LEFT JOIN `model_links` ON `model_links`.`model_id` = `models`.`id`").
-      joins("LEFT JOIN `model_groups` ON `model_groups`.`id` = `model_links`.`model_group_id` AND `model_groups`.`type` = 'Category'").
-      joins("LEFT JOIN `properties` ON `properties`.`model_id` = `models`.`id`").
-      joins("LEFT JOIN `items` ON `items`.`model_id` = `models`.`id` AND `items`.`retired` IS NULL")
+      joins("LEFT JOIN `model_links` AS ml2 ON `ml2`.`model_id` = `models`.`id`").
+      joins("LEFT JOIN `model_groups` AS mg2 ON `mg2`.`id` = `ml2`.`model_group_id` AND `mg2`.`type` = 'Category'").
+      joins("LEFT JOIN `properties` AS p2 ON `p2`.`model_id` = `models`.`id`").
+      joins("LEFT JOIN `items` AS i2 ON `i2`.`model_id` = `models`.`id`") #old# AND `i2`.`retired` IS NULL
 
     w = query.split.map do |x|
       s = []
       s << "CONCAT_WS(' ', models.name, models.manufacturer) LIKE '%#{x}%'"
-      s << "model_groups.name LIKE '%#{x}%'"
-      s << "properties.value LIKE '%#{x}%'"
-      s << "CONCAT_WS(' ', items.inventory_code, items.serial_number, items.invoice_number, items.note, items.name) LIKE '%#{x}%'"
+      s << "mg2.name LIKE '%#{x}%'"
+      s << "p2.value LIKE '%#{x}%'"
+      s << "CONCAT_WS(' ', i2.inventory_code, i2.serial_number, i2.invoice_number, i2.note, i2.name) LIKE '%#{x}%'"
 
       "(%s)" % s.join(' OR ')
     end.join(' AND ')

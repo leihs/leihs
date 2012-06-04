@@ -20,8 +20,7 @@ module Json
 
         if with[:items] and model.respond_to? :items
           items = if with[:items][:retired]
-            #binding.pry
-            model.retired_items
+            Item.unscoped { model.items.where(Item.arel_table[:retired].not_eq(nil)) }
           elsif with[:items][:borrowable] == true
             model.borrowable_items
           elsif with[:items][:borrowable] == false

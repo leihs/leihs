@@ -46,7 +46,7 @@ class Backend::ModelsController < Backend::BackendController
       current_inventory_pool.models.search2(query).joins(items_scope)
     elsif not retired.nil?
       Item.unscoped {
-        current_inventory_pool.models.search2(query).joins(:retired_items)
+        current_inventory_pool.models.search2(query).joins(:items).where(Item.arel_table[:retired].not_eq(nil))
       }
     else
       current_inventory_pool.models.search2(query)
@@ -57,7 +57,7 @@ class Backend::ModelsController < Backend::BackendController
     else
       []
     end
-              
+        
     @responsibles = models.flat_map {|m| m.items.where(:owner_id => current_inventory_pool)}.map(&:inventory_pool).uniq
 
     @models_and_options = (models.paginate(:page => page, :per_page => $per_page) +
