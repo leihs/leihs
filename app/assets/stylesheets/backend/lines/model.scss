@@ -2,10 +2,34 @@
 @import "../../shared/variables";
 
 .model.line {
+  
+  &+.items {
+    display: none;
+  }
  
+  li.toggle {
+    width: 58px
+  }
+  
   li.modelname {
     font-weight: bold;
     width: 245px;
+  }
+  
+  li.image {
+    width: 38px;
+    
+    .container {
+      position: relative;
+      text-align: center;
+      vertical-align: middle;
+      @include listanchor;
+      
+      img {
+        max-height: 38px;
+        max-width: 38px;
+      }
+    }
   }
   
   li.category {

@@ -2,52 +2,23 @@
     
   .main
     
+    %li.toggle
+      .text{:title => _("show items")}
+        ${items.length}
+        .icon
+    
     %li.image
-      {{if image_thumb}}
-      %img{:src => "${image_thumb}"}
-      {{else}}
-      .noimage
-        = _("no image")
-      {{/if}}
+      .container
+        {{if image_thumb}}
+        %img{:src => "${image_thumb}"}
+        {{else}}
+        .noimage
+          = _("no image")
+        {{/if}}
       
     %li.modelname
       ${name}
       
-    {{if categories.length > 0}}
-    ${$count = 0, ""}
-    %li.category
-      {{each(i, category) categories}}
-      {{if i == 0}}
-      ${category.name}
-      {{else}}
-      ${$count = i, ""}
-      {{/if}}
-      {{/each}}
-    %li.categories.hastip
-      {{if categories.length > 1}}
-      ${$count}
-      = _("more categories")
-      .tip 
-        %table
-          {{each(i, category) categories}}
-          {{if i>0}}
-          %tr
-            %td
-              %p
-                ${category.name}
-          {{/if}}
-          {{/each}}
-      {{else}}
-      %span.grey
-        = _("no more categories")
-      {{/if}}
-    {{else}}
-    %li.category
-      %span.grey
-        = _("no category")
-    %li.categories
-    {{/if}}
-    
     %li.availability
       ${total_rentable_in_stock}
       = "/"
@@ -68,6 +39,6 @@
 
 {{if items}}
 .items
-  {{tmpl(items) "tmpl/line/item" }}
+  {{tmpl(items) "tmpl/line/item"}}
 {{/if}}
 

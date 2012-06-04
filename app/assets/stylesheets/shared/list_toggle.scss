@@ -11,44 +11,16 @@
   top: -23px;
   height: 32px;
   @include box-shadow(0 -12px 15px -6px rgba(0, 0, 0, 0.1));
-    
+  
+  .text {
+    top: -4px;
+  }
+  
   &>li {
     color: $grey;
     height: 32px;
     padding-left: 0 !important;
     text-align: center;
-  }
-  
-  .icon {
-    background: url($image-sprite) no-repeat -53px -37px;
-    display: inline-block;
-    height: 6px;
-    margin-right: 8px;
-    margin-left: 6px;
-    position: relative;
-    top: -1px;
-    width: 7px;
-    z-index: 102;
-    @include opacity(0.6);
-  }
-  
-  .text {
-    background: none repeat scroll 0 0 #F8F8F8;
-    border: 1px solid #E0DFDE;
-    color: $lightgrey;
-    cursor: pointer;
-    padding: 4px 0 4px 8px;
-    position: relative;
-    top: -4px;
-    z-index: 101;
-    @include border-radius(4px);
-    
-    &:hover {
-      color: $darkergrey;
-      .icon {
-        @include opacity(1.0);
-      }
-    }
   }
   
   &.show_less {
@@ -69,5 +41,40 @@
   
   .hidden {
     display: none;
+  }
+}
+
+.line.toggle, li.toggle {
+  
+  .text {
+    background: none repeat scroll 0 0 #F8F8F8;
+    border: 1px solid #E0DFDE;
+    color: $lightgrey;
+    cursor: pointer;
+    display: inline-block;
+    padding: 4px 0 4px 8px;
+    position: relative;
+    z-index: 101;
+    @include border-radius(4px);
+    
+    &:hover {
+      color: $darkergrey;
+      .icon {
+        @include opacity(1.0);
+      }
+    }
+  }
+  
+  .icon {
+    background: url($image-sprite) no-repeat -53px -37px;
+    display: inline-block;
+    height: 6px;
+    margin-right: 8px;
+    margin-left: 6px;
+    position: relative;
+    top: 0;
+    width: 7px;
+    z-index: 102;
+    @include opacity(0.6);
   }
 }
