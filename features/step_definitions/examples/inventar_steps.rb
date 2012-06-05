@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 
 Angenommen /^man öffnet die Liste des Inventars$/ do
-  ip = @user.managed_inventory_pools.first
-  visit backend_inventory_pool_models_path(ip)
+  @current_inventory_pool = @user.managed_inventory_pools.first
+  visit backend_inventory_pool_models_path(@current_inventory_pool)
 end
 
 Dann /^sieht man Modelle$/ do
@@ -14,34 +14,61 @@ Dann /^man sieht Optionen$/ do
 end
 
 Dann /^man sieht Pakete$/ do
-  binding.pry
   all(".model.package.line").empty?.should be_false
 end
 
 ########################################################################
 
-Dann /^hat man folgende Auswahlmöglichkeiten:$/ do |table|
+Dann /^hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind$/ do |table|
   section_tabs = find("section .inlinetabs")
+  items = Item.by_owner_or_responsible(@current_inventory_pool)
+  (section_tabs.all(".active").size == 1).should be_true
   table.hashes.each do |row|
+    tab = nil
     case row["auswahlmöglichkeit"]
       when "Alles"
-        section_tabs.find("a")[:href].match(/\?/).should be_nil
-        pending #test functionality
+        tab = section_tabs.find("a")
+        tab[:href].match(/\?/).should be_nil
+        all(".model.line").each do |model_el|
+          model_el.find(".toggle .text").click if model_el.all(".toggle.open").empty?
+          model_el.all(".item.line").each do |item_el|
+            items
+            .find_by_inventory_code(item_el.find(".inventory_code").text).should_not be_nil
+          end
+        end
       when "Ausgemustert"
-        section_tabs.find(:xpath, "a[contains(@href,'borrowable=true')]")
-        pending #test functionality
+        tab = section_tabs.find(:xpath, "a[contains(@href,'borrowable=true')]")
+        tab.click
+        all(".model.line").each do |model_el|
+          model_el.find(".toggle .text").click if model_el.all(".toggle.open").empty?
+          model_el.all(".item.line").each do |item_el|
+            items.unscoped.where(Item.arel_table[:retired].not_eq(nil))
+            .find_by_inventory_code(item_el.find(".inventory_code").text).should_not be_nil
+          end
+        end
       when "Ausleihbar"
-        section_tabs.find(:xpath, "a[contains(@href,'borrowable=false')]")
-        pending #test functionality
+        tab = section_tabs.find(:xpath, "a[contains(@href,'borrowable=false')]")
+        tab.click
+        all(".model.line").each do |model_el|
+          model_el.find(".toggle .text").click if model_el.all(".toggle.open").empty?
+          model_el.all(".item.line").each do |item_el|
+            items.borrowable
+            .find_by_inventory_code(item_el.find(".inventory_code").text).should_not be_nil
+          end
+        end
       when "Nicht ausleihbar"
-        section_tabs.find(:xpath, "a[contains(@href,'retired=true')]")
-        pending #test functionality
+        tab = section_tabs.find(:xpath, "a[contains(@href,'retired=true')]")
+        tab.click
+        all(".model.line").each do |model_el|
+          model_el.find(".toggle .text").click if model_el.all(".toggle.open").empty?
+          model_el.all(".item.line").each do |item_el|
+            items.unborrowable
+            .find_by_inventory_code(item_el.find(".inventory_code").text).should_not be_nil
+          end
+        end
     end
+    tab.reload[:class].split.include?("active").should be_true
   end
-end
-
-Dann /^die Auswahlmöglichkeiten können nicht kombiniert werden$/ do
-  pending #test functionality
 end
 
 ########################################################################

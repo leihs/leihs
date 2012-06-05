@@ -14,13 +14,12 @@ Funktionalität: Inventar
 
   @javascript
   Szenario: Auswahlmöglichkeiten
-    Dann hat man folgende Auswahlmöglichkeiten:
+    Dann hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind
     | auswahlmöglichkeit |
     | Alles              |
     | Ausgemustert       |
     | Ausleihbar         |
     | Nicht ausleihbar   |
-    Und die Auswahlmöglichkeiten können nicht kombiniert werden
 
   @javascript
   Szenario: Filtermöglichkeiten von Listen
