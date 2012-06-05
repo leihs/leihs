@@ -128,6 +128,8 @@ class Item < ActiveRecord::Base
   scope :in_stock, joins("LEFT JOIN contract_lines ON items.id=contract_lines.item_id AND returned_date IS NULL").where("contract_lines.id IS NULL AND parent_id IS NULL")
   scope :not_in_stock, joins("INNER JOIN contract_lines ON items.id=contract_lines.item_id AND returned_date IS NULL")
 
+  scope :by_owner_or_responsible, lambda {|ip| where(":id IN (owner_id, inventory_pool_id)", :id => ip.id) }
+
 ####################################################################
 
   def to_s

@@ -34,11 +34,20 @@ class Backend::ModelsController < Backend::BackendController
             borrower_user = params[:user_id].try{|x| current_inventory_pool.users.find(x)},
             borrowable = (params[:borrowable] ? !(params[:borrowable] == "false") : nil),
             retired = (params[:retired] == "true" ? true : nil),
+            filter = params[:filter],
             start_date = params[:start_date].try{|x| Date.parse(x)},
             end_date = params[:end_date].try{|x| Date.parse(x)})
     
-    item_ids = (retired ? Item.unscoped : Item ).select(:id).where(":ip_id IN (owner_id, inventory_pool_id)", :ip_id => current_inventory_pool.id)
+    item_ids = if retired
+      Item.unscoped.where(Item.arel_table[:retired].not_eq(nil))
+    else
+      Item # NOTE using default scope, that is {retired => nil}
+    end.select("items.id").by_owner_or_responsible(current_inventory_pool)
     item_ids = item_ids.send(borrowable ? :borrowable : :unborrowable) if not borrowable.nil? 
+
+    [:in_stock, :incomplete, :broken, :owned].each do |k|
+      item_ids = item_ids.send(k) if filter.include?(k.to_s)
+    end
 
     models = Model.joins(:items).where("items.id IN (#{item_ids.to_sql})")
               .select("DISTINCT models.*")
@@ -53,30 +62,31 @@ class Backend::ModelsController < Backend::BackendController
 
     @responsibles = InventoryPool.joins(:items).where("items.id IN (#{item_ids.to_sql})").select("DISTINCT inventory_pools.*")
 
-    #tmp# (models.paginate(:page => page, :per_page => $per_page) + options.paginate(:page => page, :per_page => $per_page))
+    # TODO migrate strip directly to the database, and strip on before_validation
     @models_and_options = (models + options)
                           .sort{|a,b| a.name.strip <=> b.name.strip}
                           .paginate(:page => page, :per_page => $per_page)
 
     respond_to do |format|
       format.html {
-        @list_json = view_context.json_for(@models_and_options, {:image_thumb => true,
-                                                   :inventory_code => true, # for options
-                                                   :price => true, # for options
-                                                   :is_package => true,
-                                                   :items => {:scoped_ids => item_ids,
-                                                              :query => query,
-                                                              :current_borrower => true,
-                                                              :current_return_date => true,
-                                                              :in_stock? => true,
-                                                              :is_broken => true,
-                                                              :is_incomplete => true,
-                                                              :location => true,
-                                                              :inventory_pool => true,
-                                                              :children => {:model => {}}
-                                                             },
-                                                   :availability => {:inventory_pool => current_inventory_pool},
-                                                   :categories => {}})
+        with = { :image_thumb => true,
+                 :inventory_code => true, # for options
+                 :price => true, # for options
+                 :is_package => true,
+                 :items => {:scoped_ids => item_ids,
+                            :query => query,
+                            :current_borrower => true,
+                            :current_return_date => true,
+                            :in_stock? => true,
+                            :is_broken => true,
+                            :is_incomplete => true,
+                            :location => true,
+                            :inventory_pool => true,
+                            :children => {:model => {}}
+                           },
+                 :availability => {:inventory_pool => current_inventory_pool},
+                 :categories => {}}
+        @list_json = view_context.json_for(@models_and_options, with)
       }
       format.json {
         render :json => view_context.json_for(@models_and_options)
