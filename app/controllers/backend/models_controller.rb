@@ -37,28 +37,21 @@ class Backend::ModelsController < Backend::BackendController
             start_date = params[:start_date].try{|x| Date.parse(x)},
             end_date = params[:end_date].try{|x| Date.parse(x)})
     
-    #models = Model.search2(query).
-    #          filter2(:inventory_pool_id => current_inventory_pool.id).
-    #          order("#{sort_attr} #{sort_dir}")
+    item_ids = (retired ? Item.unscoped : Item ).select(:id).where(":ip_id IN (owner_id, inventory_pool_id)", :ip_id => current_inventory_pool.id)
+    item_ids = item_ids.send(borrowable ? :borrowable : :unborrowable) if not borrowable.nil? 
 
-    models = if not borrowable.nil?
-      items_scope = (borrowable ? :borrowable_items : :unborrowable_items) 
-      current_inventory_pool.models.search2(query).joins(items_scope)
-    elsif not retired.nil?
-      Item.unscoped {
-        current_inventory_pool.models.search2(query).joins(:retired_items)
-      }
-    else
-      current_inventory_pool.models.search2(query)
-    end.order("#{sort_attr} #{sort_dir}")
-    
+    models = Model.joins(:items).where("items.id IN (#{item_ids.to_sql})")
+              .select("DISTINCT models.*")
+              .search2(query)
+              .order("#{sort_attr} #{sort_dir}")
+ 
     options = if borrowable != false and retired.nil?
-      current_inventory_pool.options.search2(query)
+      current_inventory_pool.options.search2(query).order("#{sort_attr} #{sort_dir}")
     else
       []
     end
-              
-    @responsibles = models.flat_map {|m| m.items.where(:owner_id => current_inventory_pool)}.map(&:inventory_pool).uniq
+
+    @responsibles = InventoryPool.joins(:items).where("items.id IN (#{item_ids.to_sql})").select("DISTINCT inventory_pools.*")
 
     @models_and_options = (models.paginate(:page => page, :per_page => $per_page) +
                            options.paginate(:page => page, :per_page => $per_page)
@@ -71,13 +64,12 @@ class Backend::ModelsController < Backend::BackendController
                                                    :inventory_code => true, # for options
                                                    :price => true, # for options
                                                    :is_package => true,
-                                                   :items => {:query => @query,
+                                                   :items => {:scoped_ids => item_ids,
+                                                              :query => query,
                                                               :current_borrower => true,
                                                               :current_return_date => true,
                                                               :in_stock? => true,
                                                               :is_broken => true,
-                                                              :borrowable => borrowable,
-                                                              :retired => retired,
                                                               :is_incomplete => true,
                                                               :location => true,
                                                               :inventory_pool => true,
@@ -85,7 +77,6 @@ class Backend::ModelsController < Backend::BackendController
                                                              },
                                                    :availability => {:inventory_pool => current_inventory_pool},
                                                    :categories => {}})
-        @query = query
       }
       format.json {
         render :json => view_context.json_for(@models_and_options)
