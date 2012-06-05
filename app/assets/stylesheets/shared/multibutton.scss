@@ -6,11 +6,6 @@
   position: relative;
   text-align: left;
   
-  .alternatives {
-    display: inline-block;
-    @include opacity(1.0);
-  }
-  
   &[disabled=disabled], &[disabled=disabled]:hover, &[disabled=disabled]:active {
     &>.button {
       cursor: default;
@@ -61,10 +56,9 @@
   }
   
   .alternatives {
-    display: block;
+    display: inline-block;
     position: absolute;
     top: 31px;
-    left: -1px;
     width: 100%;
     
     .trigger {
@@ -107,10 +101,8 @@
       border-top: none !important;
       display: none;
       text-align: left;
-      margin-left: 1px;
       position: relative;
       white-space: nowrap;
-      width: 94%;
       @include border-radius(0);
       @include box-shadow (0 2px 4px rgba(0,0,0,0.4));
       

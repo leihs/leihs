@@ -9,16 +9,16 @@
       .alternatives
         .trigger
           .arrow
-        %button.button.white
+        %a.button.white
           .additem.icon
           = _("Add Model") 
-        %button.button.white
+        %a.button.white
           .additem.icon
           = _("Add Package") 
-        %button.button.white
+        %a.button.white
           .valuelist.icon
           = _("CSV Export") 
-      %button.button.white
+      %a.button.white
         .additem.icon
         = _("Add Item") 
   
@@ -53,7 +53,8 @@
           %label
             %input{:type => :checkbox}
             %span= _("Owned")
-          %label
+          %label.select
+            %span= "Responsible:"
             %select{:title => _("Responsible Department")}
               - @responsibles.each do |ip|
                 %option
