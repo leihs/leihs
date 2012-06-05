@@ -36,7 +36,8 @@ class Backend::ModelsController < Backend::BackendController
             retired = (params[:retired] == "true" ? true : nil),
             filter = params[:filter],
             start_date = params[:start_date].try{|x| Date.parse(x)},
-            end_date = params[:end_date].try{|x| Date.parse(x)})
+            end_date = params[:end_date].try{|x| Date.parse(x)},
+            with = params[:with])
     
     item_ids = if retired
       Item.unscoped.where(Item.arel_table[:retired].not_eq(nil))
@@ -47,7 +48,7 @@ class Backend::ModelsController < Backend::BackendController
 
     [:in_stock, :incomplete, :broken, :owned].each do |k|
       item_ids = item_ids.send(k) if filter.include?(k.to_s)
-    end
+    end unless filter.nil? 
 
     models = Model.joins(:items).where("items.id IN (#{item_ids.to_sql})")
               .select("DISTINCT models.*")
@@ -89,7 +90,7 @@ class Backend::ModelsController < Backend::BackendController
         @list_json = view_context.json_for(@models_and_options, with)
       }
       format.json {
-        render :json => view_context.json_for(@models_and_options)
+        render :json => view_context.json_for(@models_and_options, with)
       } 
     end
   end

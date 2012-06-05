@@ -15,7 +15,15 @@ function ListPagination() {
   this.next_text = "Next";
   this.previous_text = "Previous";
   
-  this.setup = function() {
+  this.setup = function(options) {
+    if(options) {
+      this.current_page = options.current_page;
+      this.per_page = options.per_page;
+      this.total_entries = options.total_entries;
+      this.next_text = options.next_text;
+      this.previous_text = options.previous_text;
+    }
+    
     if (this.total_entries <= this.per_page) return true; 
     
     current_page = (ListPagination.current_page == 0) ? 0 : ListPagination.current_page-1;

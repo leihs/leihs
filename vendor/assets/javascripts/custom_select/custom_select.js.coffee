@@ -7,10 +7,12 @@ class CustomSelect
   @ref
   @text
   @container
+  @options
   
   constructor: (element, options)->
     @ref = $(element)
-    @setup(options)
+    @options = options
+    do @setup
     do @set_text 
     do @delegate_events
     this
@@ -18,7 +20,7 @@ class CustomSelect
   setup: (options)->
     @container = $("<div class='custom_select'></div>") 
     @text = $("<div class='select'><span></span></div>")
-    @text.append options.postfix if options.postfix?
+    @text.append @options.postfix if @options.postfix?
     @ref.after @container
     @container.prepend @ref
     @container.prepend @text
@@ -30,4 +32,7 @@ class CustomSelect
   change: => do @set_text
   
   set_text: =>
-    @text.html @ref.find('option:selected').html()
+    text = @ref.find('option:selected').html()
+    @ref.attr "title", text 
+    text = @options.text_handler(text) if @options.text_handler?
+    @text.html text 

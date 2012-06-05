@@ -53,12 +53,11 @@
           %label
             %input{:type => :checkbox}
             %span= _("Owned")
-          %label.select
-            %span= "Responsible:"
-            %select{:title => _("Responsible Department")}
+          %label.select{:for => "#responsibles"}
+            %span= _("Responsible")
+            %select#responsibles{:title => _("Responsible Department")}
               - @responsibles.each do |ip|
-                %option
-                  = ip.name
+                %option= ip.name
       - if @models_and_options.blank?
         %ul.line
           %li.name
@@ -70,25 +69,5 @@
   - unless @models_and_options.blank?
     .pagination_container
 
-:javascript
-  
-  $(document).ready(function(){
-    $('section .list').append($.tmpl("tmpl/line", #{@list_json}));
-    
-    // setup ListSearch
-    ListSearch.setup();
-    
-    // setup ListPagination
-    ListPagination.current_page = #{params[:page].blank? ? 0 : params[:page]};
-    ListPagination.per_page = #{$per_page};
-    ListPagination.total_entries = #{@models_and_options.total_entries};
-    ListPagination.next_text = "#{_('Next')}";
-    ListPagination.previous_text = "#{_('Previous')}";
-    ListPagination.setup();
-    
-    // setup line toggler
-    $(".toggle[data-toggle_target]").expandable_line()
-    
-    // setup custom select
-    $(".navigation select").custom_select({postfix: "<div class='icon arrow down'></div>"})
-  });
+:coffeescript
+  jQuery -> new App.InventoryController

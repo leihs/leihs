@@ -1,0 +1,50 @@
+@import "../shared/mixins"
+@import "../shared/variables"
+
+#inventory 
+  .list > .line:not(.navigation) 
+    background: $highlight-grey
+  
+  .items > .line 
+    background: white
+  
+  .items .children > .line 
+    background: $highlight-grey
+  
+  .line .modelname .package.icon 
+    @include opacity(0.5)
+  
+  .noimage 
+    color: $lightgrey
+  
+  .line:not(.navigation):hover 
+    background: $highlight-darkgrey !important
+  
+  .navigation
+  
+    .search
+      width: 290px
+  
+    .custom_select
+      background: white
+      border: 1px solid rgba(0,0,0,0.1)
+      border-bottom: 1px solid rgba(0,0,0,0.3)
+      position: relative
+      top: 1px
+      right: 1px
+      @include border-radius(4px)
+      @include vertical-gradient(rgb(230,230,230), rgb(255,255,255), 10%, 80%)
+      
+      select 
+        height: 24px
+        
+      .select 
+        .icon
+          top: 10px
+        
+    label.select
+      cursor: default
+      padding-left: 6px
+      
+      &>span
+        margin: 6px 0 0 0

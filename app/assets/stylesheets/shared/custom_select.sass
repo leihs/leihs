@@ -1,11 +1,15 @@
 @import "mixins"
 
 .custom_select
+  display: inline-block
+  position: relative
+  vertical-align: top
   
   select
     left: 0
     position: relative
     top: 0
+    max-width: 200px
     @include opacity(0.0)
     
   .select
@@ -15,6 +19,7 @@
     left: 0
     position: absolute
     width: 100%
+    white-space: nowrap
     
     span
       position: relative
