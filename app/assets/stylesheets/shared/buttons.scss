@@ -13,6 +13,7 @@
   padding: 0 3%;
   position: relative;
   vertical-align: middle;
+  white-space: nowrap;
   @include border-radius(6px);
   
   &>img.loading {
