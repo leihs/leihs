@@ -27,27 +27,28 @@ ${lines = Line.extend_with_consecutive_numbers(lines),""}
     %table
       %thead
         %tr
-          %td.consecutive_number= _("Consecutive Number")
+          %td.consecutive_number= _("No.")
           %td.inventory_code= _("Inventary Code")
           %td.model_name= _("Model")
           %td.start_date= _("Start Date")
           %td.end_date= _("End Date")
           %td.quantity= _("Quantity")
-          %td.item_price= _("Value in %s") % "CHF"
+          %td.item_price= _("Value")
       %tbody
         {{each(i,line) lines}}
         %tr
           %td.consecutive_number 
-            ${line.consecutive_numbers.from}
             {{if line.consecutive_numbers.to}}
-            \/ ${line.consecutive_numbers.to}
+            ${line.consecutive_numbers.from}/${line.consecutive_numbers.to}
+            {{else}}
+            ${line.consecutive_numbers.from}
             {{/if}}
           %td.inventory_code ${line.item.inventory_code}
           %td.model_name ${line.model.name}
           %td.start_date ${moment(line.start_date).format(i18n.date.L)}
           %td.end_date ${moment(line.end_date).format(i18n.date.L)}
           %td.quantity ${line.quantity}
-          %td.item_price {{html Number(line.item.price) * line.quantity}}
+          %td.item_price {{html accounting.formatMoney(parseFloat(Number(line.item.price) * line.quantity))}}
         {{/each}}
       %tfoot.total
         %tr
@@ -56,6 +57,6 @@ ${lines = Line.extend_with_consecutive_numbers(lines),""}
           %td.quantity
             {{html Underscore.reduce(lines, function(memo, line){ return memo + line.quantity; }, 0)}}
           %td.value
-            {{html Underscore.reduce(lines, function(memo, line){ return memo + (Number(line.item.price) * line.quantity); }, 0)}}
+            {{html accounting.formatMoney(parseFloat(Underscore.reduce(lines, function(memo, line){ return memo + (Number(line.item.price) * line.quantity); }, 0)))}}
   {{/if}}
       
