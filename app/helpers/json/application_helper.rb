@@ -13,6 +13,7 @@ module Json
             hash_for(t, with)
           end
         else
+          with = get_with_preset(with[:preset]).deep_merge(with) if not with.nil? and with[:preset]
           send("hash_for_#{klass.name.underscore}", target, with)
       end
     end
@@ -59,6 +60,30 @@ module Json
         hash_for result, with[type.to_sym]
       end.to_json
     end
-    
+
+    #################################################################
+
+    def get_with_preset(key)
+      case key
+        when "inventory"
+          {:image_thumb => true,
+           :inventory_code => true, # for options
+           :price => true, # for options
+           :is_package => true,
+           :items => {
+                      :current_borrower => true,
+                      :current_return_date => true,
+                      :in_stock? => true,
+                      :is_broken => true,
+                      :is_incomplete => true,
+                      :location => true,
+                      :inventory_pool => true,
+                      :children => {:model => {}}
+                     },
+           :availability => {:inventory_pool => current_inventory_pool},
+           :categories => {}}
+      end
+    end
+
   end
 end

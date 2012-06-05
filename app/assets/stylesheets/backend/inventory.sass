@@ -2,23 +2,27 @@
 @import "../shared/variables"
 
 #inventory 
-  .list > .line:not(.navigation) 
-    background: $highlight-grey
+
+  .list 
+    min-height: 140px
+    
+    & > .line:not(.navigation) 
+      background: $highlight-grey
   
-  .items > .line 
-    background: white
-  
-  .items .children > .line 
-    background: $highlight-grey
-  
-  .line .modelname .package.icon 
-    @include opacity(0.5)
-  
-  .noimage 
-    color: $lightgrey
-  
-  .line:not(.navigation):hover 
-    background: $highlight-darkgrey !important
+    .items > .line 
+      background: white
+    
+    .items .children > .line 
+      background: $highlight-grey
+    
+    .line .modelname .package.icon 
+      @include opacity(0.5)
+    
+    .noimage 
+      color: $lightgrey
+    
+    .line:not(.navigation):hover 
+      background: $highlight-darkgrey !important
   
   .navigation
   
@@ -41,10 +45,11 @@
       .select 
         .icon
           top: 10px
-        
+    
     label.select
       cursor: default
       padding-left: 6px
+      min-width: 80px      
       
       &>span
         margin: 6px 0 0 0

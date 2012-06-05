@@ -5,6 +5,17 @@
   display: block;
   margin-bottom: 26px;
   
+  &>.loading {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+      img {
+        display: block;
+        margin: 50px auto 0;
+        position: relative;
+      }
+  }
+  
   .navigation {
     &:hover {
       background: white !important;
@@ -26,6 +37,12 @@
       &>span {
         display: inline-block;
         margin: 6px 5px 0 0;
+      }
+      
+      &>.icon {
+        position: relative;
+        top: -1px;
+        margin: 0 4px; 
       }
       
       .custom_select {
@@ -102,7 +119,9 @@
     
     .filter {
       float: right;
-      padding: 6px 6px 0 0; 
+      position: relative;
+      right: 6px;
+      top: 3px;
     }
     
     .historical_search {

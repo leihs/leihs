@@ -9,22 +9,22 @@
       %ul
         %li.seperator
 
-        %li#search.item{:class => is_current_page?("search") ? "active" : nil}
+        %li.search.item{:class => is_current_page?("search") ? "active" : nil}
           = link_to _("Search"), url_for([:backend, current_inventory_pool, :search].compact), :class => "anchor"
         %li.seperator
 
         - if is_lending_manager?  
-          %li#lending.item{:class => is_current_page?("lending") ? "active" : nil}
+          %li.lending.item{:class => is_current_page?("lending") ? "active" : nil}
             = link_to _("Lending"), backend_inventory_pool_path(current_inventory_pool), :class => "anchor"
           %li.seperator
         
         - if is_inventory_manager?        
-          %li#inventory.item{:class => is_current_page?("inventory") ? "active" : nil}
+          %li.inventory.item{:class => is_current_page?("inventory") ? "active" : nil}
             = link_to _("Inventory"), backend_inventory_pool_models_path(current_inventory_pool), :class => "anchor"
           %li.seperator
 
         - if is_admin?
-          %li#admin.item{:class => is_current_page?("admin") ? "active" : nil}
+          %li.admin.item{:class => is_current_page?("admin") ? "active" : nil}
             = link_to _("Admin"), backend_path, :class => "anchor"
           %li.seperator
         

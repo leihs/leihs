@@ -34,63 +34,59 @@ class Backend::ModelsController < Backend::BackendController
             borrower_user = params[:user_id].try{|x| current_inventory_pool.users.find(x)},
             borrowable = (params[:borrowable] ? !(params[:borrowable] == "false") : nil),
             retired = (params[:retired] == "true" ? true : nil),
-            filter = params[:filter],
+            item_filter = params[:filter],
             start_date = params[:start_date].try{|x| Date.parse(x)},
             end_date = params[:end_date].try{|x| Date.parse(x)},
             with = params[:with])
     
-    item_ids = if retired
-      Item.unscoped.where(Item.arel_table[:retired].not_eq(nil))
-    else
-      Item # NOTE using default scope, that is {retired => nil}
-    end.select("items.id").by_owner_or_responsible(current_inventory_pool)
-    item_ids = item_ids.send(borrowable ? :borrowable : :unborrowable) if not borrowable.nil? 
-
-    [:in_stock, :incomplete, :broken, :owned].each do |k|
-      item_ids = item_ids.send(k) if filter.include?(k.to_s)
-    end unless filter.nil? 
-
-    models = Model.joins(:items).where("items.id IN (#{item_ids.to_sql})")
-              .select("DISTINCT models.*")
-              .search2(query)
-              .order("#{sort_attr} #{sort_dir}")
- 
-    options = if borrowable != false and retired.nil?
-      current_inventory_pool.options.search2(query).order("#{sort_attr} #{sort_dir}")
-    else
-      []
-    end
-
-    @responsibles = InventoryPool.joins(:items).where("items.id IN (#{item_ids.to_sql})").select("DISTINCT inventory_pools.*")
-
-    # TODO migrate strip directly to the database, and strip on before_validation
-    @models_and_options = (models + options)
-                          .sort{|a,b| a.name.strip <=> b.name.strip}
-                          .paginate(:page => page, :per_page => $per_page)
-
     respond_to do |format|
-      format.html {
-        with = { :image_thumb => true,
-                 :inventory_code => true, # for options
-                 :price => true, # for options
-                 :is_package => true,
-                 :items => {:scoped_ids => item_ids,
-                            :query => query,
-                            :current_borrower => true,
-                            :current_return_date => true,
-                            :in_stock? => true,
-                            :is_broken => true,
-                            :is_incomplete => true,
-                            :location => true,
-                            :inventory_pool => true,
-                            :children => {:model => {}}
-                           },
-                 :availability => {:inventory_pool => current_inventory_pool},
-                 :categories => {}}
-        @list_json = view_context.json_for(@models_and_options, with)
-      }
+      format.html
       format.json {
-        render :json => view_context.json_for(@models_and_options, with)
+        
+        item_ids = if retired
+          Item.unscoped.where(Item.arel_table[:retired].not_eq(nil))
+        else
+          Item # NOTE using default scope, that is {retired => nil}
+        end.select("items.id").by_owner_or_responsible(current_inventory_pool)
+        item_ids = item_ids.send(borrowable ? :borrowable : :unborrowable) if not borrowable.nil? 
+    
+        [:in_stock, :incomplete, :broken, :owned].each do |k|
+          item_ids = item_ids.send(k) if item_filter.include?(k.to_s)
+        end unless item_filter.nil? 
+    
+        models = Model.joins(:items).where("items.id IN (#{item_ids.to_sql})")
+                  .select("DISTINCT models.*")
+                  .search2(query)
+                  .order("#{sort_attr} #{sort_dir}")
+     
+        options = if borrowable != false and retired.nil? and item_filter.nil?
+          current_inventory_pool.options.search2(query).order("#{sort_attr} #{sort_dir}")
+        else
+          []
+        end
+    
+        responsibles = InventoryPool.joins(:items).where("items.id IN (#{item_ids.to_sql})").select("DISTINCT inventory_pools.*")
+
+        # TODO migrate strip directly to the database, and strip on before_validation
+        models_and_options = (models + options)
+                              .sort{|a,b| a.name.strip <=> b.name.strip}
+                              .paginate(:page => page, :per_page => $per_page)
+                              
+        with ||= {}
+        with.deep_merge!({:items => {:scoped_ids => item_ids,
+                                :query => query} })
+        
+        render :json => { inventory: {
+                            entries: view_context.hash_for(models_and_options, with),
+                            pagination: {
+                              current_page: models_and_options.current_page,
+                              per_page: models_and_options.per_page,
+                              total_pages: models_and_options.total_pages,
+                              total_entries: models_and_options.total_entries
+                            }
+                          },
+                          responsibles: view_context.hash_for(responsibles)
+                        }
       } 
     end
   end

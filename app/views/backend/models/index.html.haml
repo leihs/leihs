@@ -41,33 +41,25 @@
             = image_tag "loading.gif", :class => "loading"
           = image_tag "loading.gif", :class => "loading"
         %li.filter
+          %label.select.responsible
+            %span= _("Responsible")
+            = image_tag "loading.gif", :class => "loading icon"
           %label
-            %input{:type => :checkbox}
+            %input{:type => :checkbox, :"data-filter" => "owned"}
+            %span= _("Owned")
+          %label
+            %input{:type => :checkbox, :"data-filter" => "in_stock"}
             %span= _("In Stock")
           %label
-            %input{:type => :checkbox}
+            %input{:type => :checkbox, :"data-filter" => "incomplete"}
             %span= _("Incomplete")
           %label
-            %input{:type => :checkbox}
+            %input{:type => :checkbox, :"data-filter" => "broken"}
             %span= _("Broken")
-          %label
-            %input{:type => :checkbox}
-            %span= _("Owned")
-          %label.select{:for => "#responsibles"}
-            %span= _("Responsible")
-            %select#responsibles{:title => _("Responsible Department")}
-              - @responsibles.each do |ip|
-                %option= ip.name
-      - if @models_and_options.blank?
-        %ul.line
-          %li.name
-            %strong
-              = _("No entry found")
-              - unless params[:query].blank?
-                = _("for '%s'") % params[:query]
+      .loading
+        = image_tag "loading.gif"
   
-  - unless @models_and_options.blank?
-    .pagination_container
+  .pagination_container
 
 :coffeescript
   jQuery -> new App.InventoryController
