@@ -7,6 +7,7 @@
   text-align: left;
   
   .alternatives {
+    display: inline-block;
     @include opacity(1.0);
   }
   
@@ -52,7 +53,7 @@
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 6px;
     border-top-left-radius: 6px;
-    margin-right: 30px !important;
+    margin-right: 29px !important;
     
     .open_alternatives {
       border-bottom-left-radius: 0;
@@ -106,9 +107,10 @@
       border-top: none !important;
       display: none;
       text-align: left;
+      margin-left: 1px;
       position: relative;
       white-space: nowrap;
-      margin-left: 1px;
+      width: 94%;
       @include border-radius(0);
       @include box-shadow (0 2px 4px rgba(0,0,0,0.4));
       

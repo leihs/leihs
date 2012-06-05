@@ -10,9 +10,17 @@
         .trigger
           .arrow
         %button.button.white
+          .additem.icon
+          = _("Add Model") 
+        %button.button.white
+          .additem.icon
+          = _("Add Package") 
+        %button.button.white
+          .valuelist.icon
           = _("CSV Export") 
       %button.button.white
-        = _("CSV Export") 
+        .additem.icon
+        = _("Add Item") 
   
   %section
     .inlinetabs
@@ -79,4 +87,7 @@
     
     // setup line toggler
     $(".toggle[data-toggle_target]").expandable_line()
+    
+    // setup custom select
+    $(".navigation select").custom_select({postfix: "<div class='icon arrow down'></div>"})
   });

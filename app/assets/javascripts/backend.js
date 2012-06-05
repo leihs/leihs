@@ -31,3 +31,4 @@
 //= require inline_tabs/inline_tabs
 //= require expandable_line/expandable_line
 //= require item/item
+//= require custom_select/custom_select

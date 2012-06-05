@@ -1,4 +1,4 @@
-%ul.line{:class => "${type}"}
+%ul{:class => "line ${type}{{if children}} package{{/if}}"}
 
   .main
     
@@ -8,12 +8,11 @@
         ${children.length}
         .icon
     {{/if}}
-     
-     
-    {{if $package_item}}
-    {{if model}}
+    
+    {{if $item.package}}     
     %li.inventory_code{:title => _("Inventory Code")}
       ${inventory_code}
+    {{if model}}
     %li.modelname
       ${model.name}
     {{/if}}
@@ -65,5 +64,5 @@
           
 {{if children}}
 .children{:id => "item_${id}_children"}
-  {{tmpl(children, {package_item: true}) "tmpl/line/item"}}
+  {{tmpl(children, {package: true}) "tmpl/line/item"}}
 {{/if}}

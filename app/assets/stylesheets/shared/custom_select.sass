@@ -1,0 +1,21 @@
+@import "mixins"
+
+.custom_select
+  
+  select
+    left: 0
+    position: relative
+    top: 0
+    @include opacity(0.0)
+    
+  .select
+    display: block
+    height: 100%
+    top: 0
+    left: 0
+    position: absolute
+    width: 100%
+    
+    span
+      position: relative
+      text-align: right

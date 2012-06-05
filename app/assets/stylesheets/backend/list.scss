@@ -23,12 +23,33 @@
       z-index: 101;
       @include border-radius(4px);
       
-      span {
+      &>span {
         display: inline-block;
-        margin: 6px 3px 0 0;
+        margin: 6px 5px 0 0;
+      }
+      
+      .custom_select {
+        cursor: pointer;
+        
+        .icon {
+          position: absolute;
+          right: 7px;
+          top: 12px;
+          @include opacity(0.6);
+        }
+        
+        &:hover .icon {
+          @include opacity(1.0);
+        }
+         
+        span {
+          display: block;
+          padding: 6px 21px 0 0;
+        }
       }
       
       select {
+        cursor: pointer;
         height: 28px;
       }
     }
@@ -47,10 +68,10 @@
         height: 19px;
         margin-left: 6px;
         margin-right: 4px;
-        padding-top: 2px;
+        padding-top: 3px;
         padding-left: 7px;
         padding-right: 26px;
-        padding-bottom: 2px;
+        padding-bottom: 1px;
         position: relative;
         width: 100px;
         
