@@ -55,7 +55,7 @@ class Backend::ModelsController < Backend::BackendController
 
     #tmp# (models.paginate(:page => page, :per_page => $per_page) + options.paginate(:page => page, :per_page => $per_page))
     @models_and_options = (models + options)
-                          .sort{|a,b| a.name <=> b.name}
+                          .sort{|a,b| a.name.strip <=> b.name.strip}
                           .paginate(:page => page, :per_page => $per_page)
 
     respond_to do |format|
