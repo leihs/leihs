@@ -53,10 +53,10 @@ class Backend::ModelsController < Backend::BackendController
 
     @responsibles = InventoryPool.joins(:items).where("items.id IN (#{item_ids.to_sql})").select("DISTINCT inventory_pools.*")
 
-    @models_and_options = (models.paginate(:page => page, :per_page => $per_page) +
-                           options.paginate(:page => page, :per_page => $per_page)
-                          ).sort{|a,b| a.name <=> b.name}.paginate(:page => page, :per_page => $per_page)
-                          
+    #tmp# (models.paginate(:page => page, :per_page => $per_page) + options.paginate(:page => page, :per_page => $per_page))
+    @models_and_options = (models + options)
+                          .sort{|a,b| a.name <=> b.name}
+                          .paginate(:page => page, :per_page => $per_page)
 
     respond_to do |format|
       format.html {
