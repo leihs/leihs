@@ -4,14 +4,21 @@
 .list {
   display: block;
   margin-bottom: 26px;
+  overflow: hidden;
+  position: relative;
   
   &>.loading {
+    background: rgba(255,255,255,0.5);
     display: inline-block;
-    position: relative;
+    height: 100%;
+    position: absolute;
+    text-align: center;
+    top: 46px;
     width: 100%;
+    z-index: 1001;
+    
       img {
-        display: block;
-        margin: 50px auto 0;
+        top: 40%;
         position: relative;
       }
   }
