@@ -68,7 +68,7 @@
     $('.list').hide();
 
     $('.order .list').append($.tmpl("tmpl/line", #{json_for(@orders, {:user => {},
-                                                                      :purpose => true,
+                                                                      :purpose => {},
                                                                       :created_at => true,
                                                                       :quantity => true,
                                                                       :lines => {:model => true, :dates => true}})} ));

@@ -44,18 +44,15 @@
           %label.select.responsible
             %span= _("Responsible")
             = image_tag "loading.gif", :class => "loading icon"
-          %label
-            %input{:type => :checkbox, :"data-filter" => "owned"}
-            %span= _("Owned")
-          %label
-            %input{:type => :checkbox, :"data-filter" => "in_stock"}
-            %span= _("In Stock")
-          %label
-            %input{:type => :checkbox, :"data-filter" => "incomplete"}
-            %span= _("Incomplete")
-          %label
-            %input{:type => :checkbox, :"data-filter" => "broken"}
-            %span= _("Broken")
+
+          - [ ["owned", _("Owned")],
+              ["in_stock", _("In Stock")],
+              ["incomplete", _("Incomplete")],
+              ["broken", _("Broken")]].each do |x|
+            %label
+              %input{:type => :checkbox, :"data-filter" => x.first}
+              %span= x.last
+
       %span.loading
         = image_tag "loading.gif"
   
