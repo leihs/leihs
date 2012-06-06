@@ -68,16 +68,15 @@
         span {
           border-right: 1px solid rgba(0,0,0,0.1);
           display: block;
-          height: 100%;
-          line-height: 2.2em;
-          padding-left: 7px;
+          height: 19px;
+          padding: 4px 0 0 7px;
           margin-right: 21px;
         }
       }
       
       select {
         cursor: pointer;
-        height: 28px;
+        height: 100%;
       }
     }
     
