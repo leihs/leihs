@@ -33,23 +33,27 @@
       background: white
       border: 1px solid rgba(0,0,0,0.1)
       border-bottom: 1px solid rgba(0,0,0,0.3)
+      height: 100%
       position: relative
-      top: 1px
-      right: 1px
+      top: -1px
+      right: -1px
+      margin-left: -2px
       @include border-radius(4px)
       @include vertical-gradient(rgb(230,230,230), rgb(255,255,255), 10%, 80%)
       
-      select 
-        height: 24px
+      &:hover
+        @include vertical-gradient(rgb(230,230,230), rgb(235,235,235), 10%, 80%)
         
-      .select 
+        select
+          color: $darkergrey
+      
+      select 
+        max-width: 176px
+        
+      .select
         .icon
-          top: 10px
+          top: 12px
     
     label.select
-      cursor: default
-      padding-left: 6px
-      min-width: 80px      
-      
       &>span
-        margin: 6px 0 0 0
+        padding-left: 5px

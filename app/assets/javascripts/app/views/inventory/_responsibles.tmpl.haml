@@ -1,6 +1,7 @@
 %label.select.responsible
   %span= _("Responsible")
   %select
+    %option
     {{each(i, ip) responsibles}}
-    %option ${ip.name}
+    %option{:"data-responsible_id" => "${ip.id}"} ${ip.name}
     {{/each}}

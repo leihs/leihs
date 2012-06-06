@@ -24,20 +24,18 @@
   
   %section
     .inlinetabs
-      = link_to backend_inventory_pool_models_path(current_inventory_pool, :query => params[:query]), :class => "tab#{' active' if params[:borrowable].blank? and params[:retired].blank?}" do
-        %span.text= _("All")
-      = link_to backend_inventory_pool_models_path(current_inventory_pool, :borrowable => true, :query => params[:query]), :class => "tab#{' active' if params[:borrowable].to_s == 'true'}" do
-        %span.text= _("Borrowable")
-      = link_to backend_inventory_pool_models_path(current_inventory_pool, :borrowable => false, :query => params[:query]), :class => "tab#{' active' if params[:borrowable].to_s == 'false'}" do
-        %span.text= _("Not Borrowable")
-      = link_to backend_inventory_pool_models_path(current_inventory_pool, :retired => true, :query => params[:query]), :class => "tab#{' active' if params[:retired].to_s == 'true'}" do
-        %span.text= _("Retired")
+      - [ [nil, _("All")],
+          [{borrowable: true}, _("Borrowable")],
+          [{borrowable: false}, _("Not Borrowable")],
+          [{retired: true}, _("Retired")]].each do |x|
+        %a{:class => "tab#{' active' if x[0].nil?}", :"data-tab" => x[0]}
+          %span.text= x[1]
     
     .list
       %ul.navigation.line
         %li.search
           = form_tag("", :method => :get, :autocomplete => :off) do
-            %input{:type => "text", :name => "query", :value => "#{params[:query]}", :placeholder => _("Suchen..."), :class => "clearable"}
+            %input{:type => "text", :name => "query", :value => "#{params[:query]}", :placeholder => _("Suchen...")}
             = image_tag "loading.gif", :class => "loading"
           = image_tag "loading.gif", :class => "loading"
         %li.filter

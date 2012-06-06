@@ -37,6 +37,7 @@ class Backend::ModelsController < Backend::BackendController
             item_filter = params[:filter],
             start_date = params[:start_date].try{|x| Date.parse(x)},
             end_date = params[:end_date].try{|x| Date.parse(x)},
+            responsibles = (params[:responsibles] == "true" ? true : nil),
             with = params[:with] ? params[:with].deep_symbolize_keys : {} )
     
     respond_to do |format|
@@ -50,22 +51,25 @@ class Backend::ModelsController < Backend::BackendController
         end.select("items.id").by_owner_or_responsible(current_inventory_pool)
         item_ids = item_ids.send(borrowable ? :borrowable : :unborrowable) if not borrowable.nil? 
     
-        [:in_stock, :incomplete, :broken, :owned].each do |k|
-          item_ids = item_ids.send(k) if item_filter.include?(k.to_s)
-        end unless item_filter.nil? 
+        unless item_filter.nil?
+          [:in_stock, :incomplete, :broken].each do |k|
+            item_ids = item_ids.send(k) if item_filter.include?(k.to_s)
+          end
+          item_ids = item_ids.where(:owner_id => current_inventory_pool) if item_filter.include?(:owned.to_s)
+          item_ids = item_ids.where(:inventory_pool_id => h[:responsible_id.to_s]) if h = item_filter.detect {|x| x.is_a?(Hash) and x[:responsible_id.to_s]}
+        end 
     
         models = Model.joins(:items).where("items.id IN (#{item_ids.to_sql})")
                   .select("DISTINCT models.*")
-                  .search2(query)
+                  .search2(query, [:name])
                   .order("#{sort_attr} #{sort_dir}")
      
         options = if borrowable != false and retired.nil? and item_filter.nil?
-          current_inventory_pool.options.search2(query).order("#{sort_attr} #{sort_dir}")
+          current_inventory_pool.options.search2(query, [:name]).order("#{sort_attr} #{sort_dir}")
         else
           []
         end
     
-        responsibles = InventoryPool.joins(:items).where("items.id IN (#{item_ids.to_sql})").select("DISTINCT inventory_pools.*")
 
         # TODO migrate strip directly to the database, and strip on before_validation
         models_and_options = (models + options)
@@ -74,17 +78,23 @@ class Backend::ModelsController < Backend::BackendController
                               
         with.deep_merge!({ :items => {:scoped_ids => item_ids, :query => query} })
         
-        render :json => { inventory: {
-                            entries: view_context.hash_for(models_and_options, with),
-                            pagination: {
-                              current_page: models_and_options.current_page,
-                              per_page: models_and_options.per_page,
-                              total_pages: models_and_options.total_pages,
-                              total_entries: models_and_options.total_entries
-                            }
-                          },
-                          responsibles: view_context.hash_for(responsibles)
-                        }
+        hash = { inventory: {
+                    entries: view_context.hash_for(models_and_options, with),
+                    pagination: {
+                      current_page: models_and_options.current_page,
+                      per_page: models_and_options.per_page,
+                      total_pages: models_and_options.total_pages,
+                      total_entries: models_and_options.total_entries
+                    }
+                  },
+                } 
+        
+        if responsibles
+          responsibles_for_items = InventoryPool.joins(:items).where("items.id IN (#{item_ids.to_sql})").select("DISTINCT inventory_pools.*")
+          hash.merge!({responsibles: view_context.hash_for(responsibles_for_items)})
+        end
+        
+        render :json => hash
       } 
     end
   end

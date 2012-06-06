@@ -14,6 +14,7 @@
 //= require qtip/qtip.min
 //= require_tree ./loading-img
 //= require_tree ./notification
+//= require changed_after_input/changed_after_input
 
 // make Underscore available for jQuery templates
 window.Underscore = _;

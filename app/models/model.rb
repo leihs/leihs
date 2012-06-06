@@ -135,21 +135,29 @@ class Model < ActiveRecord::Base
                                                 {:with => {:inventory_pools_with_unpackaged_items => inventory_pool_id.to_s}} }
 =end
 
-  def self.search2(query)
+  def self.search2(query, fields = [])
     return scoped unless query
 
-    sql = select("DISTINCT models.*"). #old# joins(:categories, :properties, :items)
-      joins("LEFT JOIN `model_links` AS ml2 ON `ml2`.`model_id` = `models`.`id`").
-      joins("LEFT JOIN `model_groups` AS mg2 ON `mg2`.`id` = `ml2`.`model_group_id` AND `mg2`.`type` = 'Category'").
-      joins("LEFT JOIN `properties` AS p2 ON `p2`.`model_id` = `models`.`id`").
-      joins("LEFT JOIN `items` AS i2 ON `i2`.`model_id` = `models`.`id`") #old# AND `i2`.`retired` IS NULL
+    sql = select("DISTINCT models.*") #old# joins(:categories, :properties, :items)
+    if fields.empty?
+      sql = sql.
+        joins("LEFT JOIN `model_links` AS ml2 ON `ml2`.`model_id` = `models`.`id`").
+        joins("LEFT JOIN `model_groups` AS mg2 ON `mg2`.`id` = `ml2`.`model_group_id` AND `mg2`.`type` = 'Category'").
+        joins("LEFT JOIN `properties` AS p2 ON `p2`.`model_id` = `models`.`id`").
+        joins("LEFT JOIN `items` AS i2 ON `i2`.`model_id` = `models`.`id`") #old# AND `i2`.`retired` IS NULL
+    end
 
     w = query.split.map do |x|
       s = []
-      s << "CONCAT_WS(' ', models.name, models.manufacturer) LIKE '%#{x}%'"
-      s << "mg2.name LIKE '%#{x}%'"
-      s << "p2.value LIKE '%#{x}%'"
-      s << "CONCAT_WS(' ', i2.inventory_code, i2.serial_number, i2.invoice_number, i2.note, i2.name) LIKE '%#{x}%'"
+      s1 = ["' '"]
+      s1 << "models.name" if fields.empty? or fields.include?(:name)
+      s1 << "models.manufacturer" if fields.empty?
+      s << "CONCAT_WS(#{s1.join(', ')}) LIKE '%#{x}%'"
+      if fields.empty?
+        s << "mg2.name LIKE '%#{x}%'"
+        s << "p2.value LIKE '%#{x}%'"
+        s << "CONCAT_WS(' ', i2.inventory_code, i2.serial_number, i2.invoice_number, i2.note, i2.name) LIKE '%#{x}%'"
+      end
 
       "(%s)" % s.join(' OR ')
     end.join(' AND ')

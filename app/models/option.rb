@@ -22,7 +22,7 @@ class Option < ActiveRecord::Base
 
 ##########################################
 
-  def self.search2(query)
+  def self.search2(query, fields = [])
     return scoped unless query
 
     w = query.split.map do |x|
