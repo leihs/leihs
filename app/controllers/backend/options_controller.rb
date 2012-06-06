@@ -7,6 +7,7 @@ class Backend::OptionsController < Backend::BackendController
 
 ######################################################################
 
+=begin #old#
   def index
     @options = current_inventory_pool.options.search2(params[:query]).paginate(:page => params[:page], :per_page => $per_page)
 
@@ -19,6 +20,7 @@ class Backend::OptionsController < Backend::BackendController
       format.html
     end
   end
+=end
   
   def show
   end
@@ -40,13 +42,13 @@ class Backend::OptionsController < Backend::BackendController
 #      post(params[:source_path], :option_id => @option.id)
       redirect_to params[:source_path]
     else
-      redirect_to(backend_inventory_pool_options_path)
+      redirect_to backend_inventory_pool_models_path(current_inventory_pool)
     end
   end
 
   def destroy
     @option.destroy
-    redirect_to(backend_inventory_pool_options_path)
+    redirect_to backend_inventory_pool_models_path(current_inventory_pool)
   end
     
 end

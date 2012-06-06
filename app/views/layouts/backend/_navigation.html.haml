@@ -31,15 +31,15 @@
           .leftend
           = _("Inventory")
       %li.item
-        = link_to "", :class => "anchor" do
+        = link_to backend_inventory_pool_locations_path(current_inventory_pool), :class => "anchor" do
           .leftend
           = _("Locations")
       %li.item
-        = link_to "", :class => "anchor" do
+        = link_to backend_inventory_pool_categories_path(current_inventory_pool), :class => "anchor" do
           .leftend
           = _("Categories")
       %li.item
-        = link_to "", :class => "anchor" do
+        = link_to backend_inventory_pool_templates_path(current_inventory_pool), :class => "anchor" do
           .leftend
           = _("Templates")
 
