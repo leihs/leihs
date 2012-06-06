@@ -37,7 +37,7 @@ class Backend::ModelsController < Backend::BackendController
             item_filter = params[:filter],
             start_date = params[:start_date].try{|x| Date.parse(x)},
             end_date = params[:end_date].try{|x| Date.parse(x)},
-            with = params[:with])
+            with = params[:with] ? params[:with].deep_symbolize_keys : {} )
     
     respond_to do |format|
       format.html
@@ -72,9 +72,7 @@ class Backend::ModelsController < Backend::BackendController
                               .sort{|a,b| a.name.strip <=> b.name.strip}
                               .paginate(:page => page, :per_page => $per_page)
                               
-        with ||= {}
-        with.deep_merge!({:items => {:scoped_ids => item_ids,
-                                :query => query} })
+        with.deep_merge!({ :items => {:scoped_ids => item_ids, :query => query} })
         
         render :json => { inventory: {
                             entries: view_context.hash_for(models_and_options, with),
