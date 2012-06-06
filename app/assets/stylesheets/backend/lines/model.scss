@@ -12,6 +12,14 @@
       }
     }
   }
+  
+  &.package{
+    &+.items { 
+      .item_status {
+        width: 130px;
+      }
+    }
+  }
  
   li.toggle {
     width: 58px;

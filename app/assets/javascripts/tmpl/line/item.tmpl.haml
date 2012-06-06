@@ -25,14 +25,10 @@
       ${inventory_code}
     {{/if}}
   
-    %li.item_status{:title => "{{if current_borrower}} #{_("%s returns the item on %s") % ["${current_borrower.firstname} ${current_borrower.lastname}", '${moment(current_return_date).format(i18n.date.L)}'] } {{/if}}"}
-      
+    %li.item_location{:title => "{{if current_borrower}} #{_("%s returns the item on %s") % ["${current_borrower.firstname} ${current_borrower.lastname}", '${moment(current_return_date).format(i18n.date.L)}'] } {{/if}}"}
       ${Item.get_location($item.data)}
-      
-      {{if(is_broken || is_incomplete)}}
-      = ", "
-      {{/if}}
-      
+    
+    %li.item_status      
       {{if is_broken}}
       %span.red
         %b= _("Broken")

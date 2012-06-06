@@ -5,6 +5,7 @@ class InventoryController
   @fetcher
   @list
   @pagination
+  @search
   @current_page = 1
   
   constructor: ->
@@ -12,6 +13,8 @@ class InventoryController
     @list = @el.find(".list")
     @loading = @list.find(">.loading")
     @pagination = @el.find(".pagination_container")
+    @search = @el.find(".navigation .search .input")
+    @filter = @el.find(".filter input[data-filter]")
     do @delegateEvents
     do @fetch
     do @plugin
@@ -62,6 +65,6 @@ class InventoryController
         @render_responsibles data.responsibles
         
   delegateEvents: =>
-    @el.find(".filter input[data-filter]").on "change", @fetch
+    @filter.on "change", @fetch
 
 window.App.InventoryController = InventoryController
