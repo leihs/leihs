@@ -20,8 +20,8 @@ end
 ########################################################################
 
 Dann /^hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind$/ do |table|
-  section_tabs = find("section .inlinetabs")
   items = Item.by_owner_or_responsible(@current_inventory_pool)
+  section_tabs = find("section .inlinetabs")
   (section_tabs.all(".active").size == 1).should be_true
   table.hashes.each do |row|
     tab = nil
@@ -39,6 +39,7 @@ Dann /^hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind$/ do |
       when "Ausgemustert"
         tab = section_tabs.find(:xpath, "a[contains(@href,'borrowable=true')]")
         tab.click
+        wait_until(15) { all(".loading", :visible => true).empty? and not all(".model.line").empty? }
         all(".model.line").each do |model_el|
           model_el.find(".toggle .text").click if model_el.all(".toggle.open").empty?
           model_el.all(".item.line").each do |item_el|
@@ -49,6 +50,7 @@ Dann /^hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind$/ do |
       when "Ausleihbar"
         tab = section_tabs.find(:xpath, "a[contains(@href,'borrowable=false')]")
         tab.click
+        wait_until(15) { all(".loading", :visible => true).empty? and not all(".model.line").empty? }
         all(".model.line").each do |model_el|
           model_el.find(".toggle .text").click if model_el.all(".toggle.open").empty?
           model_el.all(".item.line").each do |item_el|
@@ -59,6 +61,7 @@ Dann /^hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind$/ do |
       when "Nicht ausleihbar"
         tab = section_tabs.find(:xpath, "a[contains(@href,'retired=true')]")
         tab.click
+        wait_until(15) { all(".loading", :visible => true).empty? and not all(".model.line").empty? }
         all(".model.line").each do |model_el|
           model_el.find(".toggle .text").click if model_el.all(".toggle.open").empty?
           model_el.all(".item.line").each do |item_el|
@@ -74,14 +77,75 @@ end
 ########################################################################
 
 Dann /^hat man folgende Filtermöglichkeiten$/ do |table|
-  section_tabs = find("section .inlinetabs")
+  items = Item.by_owner_or_responsible(@current_inventory_pool)
+  section_filter = find("section .filter")
+  (section_filter.all("input[type='checkbox']").select{|x| x.checked?}.empty?).should be_true
   table.hashes.each do |row|
-    section_tabs.find("span", :text => row["filtermöglichkeit"])
+    case row["filtermöglichkeit"]
+      when "An Lager"
+        cb = section_filter.find("input[type='checkbox'][data-filter='in_stock']")
+        cb.click
+        wait_until(15) { all(".loading", :visible => true).empty? }
+        all(".model.line").each do |model_el|
+          model_el.find(".toggle .text").click if model_el.all(".toggle.open").empty?
+          model_el.all(".item.line").each do |item_el|
+            items.in_stock
+            .find_by_inventory_code(item_el.find(".inventory_code").text).should_not be_nil
+          end
+        end
+      when "Besitzer bin ich"
+        cb = section_filter.find("input[type='checkbox'][data-filter='owned']")
+        cb.click
+        wait_until(15) { all(".loading", :visible => true).empty? }
+        all(".model.line").each do |model_el|
+          model_el.find(".toggle .text").click if model_el.all(".toggle.open").empty?
+          model_el.all(".item.line").each do |item_el|
+            items.where(:owner_id => @current_inventory_pool)
+            .find_by_inventory_code(item_el.find(".inventory_code").text).should_not be_nil
+          end
+        end
+      when "Defekt"
+        cb = section_filter.find("input[type='checkbox'][data-filter='broken']")
+        cb.click
+        wait_until(15) { all(".loading", :visible => true).empty? }
+        all(".model.line").each do |model_el|
+          model_el.find(".toggle .text").click if model_el.all(".toggle.open").empty?
+          model_el.all(".item.line").each do |item_el|
+            items.broken
+            .find_by_inventory_code(item_el.find(".inventory_code").text).should_not be_nil
+          end
+        end
+      when "Unvollständig"
+        cb = section_filter.find("input[type='checkbox'][data-filter='incomplete']")
+        cb.click
+        wait_until(15) { all(".loading", :visible => true).empty? }
+        all(".model.line").each do |model_el|
+          model_el.find(".toggle .text").click if model_el.all(".toggle.open").empty?
+          model_el.all(".item.line").each do |item_el|
+            items.incomplete
+            .find_by_inventory_code(item_el.find(".inventory_code").text).should_not be_nil
+          end
+        end
+      when "Verantwortliche Abteilung"
+        s = section_filter.find(".responsible select")
+        s.click
+        o = s.all("option").last
+        o.click
+        wait_until(15) { all(".loading", :visible => true).empty? }
+        all(".model.line").each do |model_el|
+          model_el.find(".toggle .text").click if model_el.all(".toggle.open").empty?
+          model_el.all(".item.line").each do |item_el|
+            items.where(:inventory_pool_id => o[:"data-responsible_id"])
+            .find_by_inventory_code(item_el.find(".inventory_code").text).should_not be_nil
+          end
+        end
+    end
   end
 end
 
 Dann /^die Filter können kombiniert werden$/ do
-  pending # express the regexp above with the code you wish you had
+  section_filter = find("section .filter")
+  (section_filter.all("input[type='checkbox']").select{|x| x.checked?}.size > 1).should be_true
 end
 
 ########################################################################

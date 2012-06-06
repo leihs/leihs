@@ -28,7 +28,8 @@ Funktionalität: Inventar
     | An Lager                  |
     | Besitzer bin ich          |
     | Verantwortliche Abteilung |
-    | Status                    |
+    | Defekt                    |
+    | Unvollständig             |
     Und die Filter können kombiniert werden
 
   Szenario: Grundeinstellung der Listenansicht
