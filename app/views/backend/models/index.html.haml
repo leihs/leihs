@@ -25,10 +25,10 @@
   %section
     .inlinetabs
       - [ [nil, _("All")],
-          [{borrowable: true}, _("Borrowable")],
-          [{borrowable: false}, _("Not Borrowable")],
-          [{retired: true}, _("Retired")]].each do |x|
-        %a{:class => "tab#{' active' if x[0].nil?}", :"data-tab" => x[0]}
+          [{:borrowable => true}, _("Borrowable")],
+          [{:borrowable => false}, _("Not Borrowable")],
+          [{:retired =>  true}, _("Retired")]].each do |x|
+        %a{:class => "tab#{' active' if x[0].nil?}", :"data-tab" => x[0].to_json}
           %span.text= x[1]
     
     .list

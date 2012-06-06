@@ -3,13 +3,13 @@
     = link_to "javascript: void(0)", :class => "anchor", :title => current_inventory_pool.name do
       .leftend
       = truncate(current_inventory_pool.name, :length => 26)
-      -if current_managed_inventory_pools.size > 1
+      -if current_managed_inventory_pools.size > 0
         .icon 
       
     .popup
       .inner
         - current_managed_inventory_pools.each do |ip|
-          = link_to truncate(ip.name, :length => 26), backend_inventory_pool_path(ip), :title => ip.name
+          = link_to truncate(ip.name, :length => 26), url_for(:inventory_pool_id => ip), :title => ip.name
         
 :javascript
 

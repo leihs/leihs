@@ -9,6 +9,7 @@ class InventoryController
   @filter
   @responsibles
   @tabs
+  @active_tab
   @current_page = 1
   
   constructor: ->
@@ -19,7 +20,7 @@ class InventoryController
     @search = @el.find(".navigation .search input[type=text]")
     @filter = @el.find(".filter input[data-filter]")
     @responsibles = @el.find(".responsible select")
-    @tabs = @el.find(".inlinetabs .tab")
+    @tabs = @el.find(".inlinetabs")
     do @delegateEvents
     do @fetch_responsibles
     do @fetch_inventory
@@ -76,19 +77,19 @@ class InventoryController
     responsible_id = @responsibles.find("option:selected").data "responsible_id"
     filter.responsible_id = responsible_id if responsible_id?
     query = if @search.val().length then @search.val() else undefined
-    tab = @tabs.find(".active").data "tab"
-    console.log @tabs
-    console.log @tabs.find(".active")
-    console.log tab
+    tab_data = @active_tab.data("tab") if @active_tab?
+    console.log tab_data
+    data = 
+      page: @current_page
+      filter: filter
+      query: query
+      with: 
+        preset: "inventory"
+    data = $.extend(data,tab_data) if tab_data?
     @fetcher = $.ajax
       url: "/backend/inventory_pools/#{current_inventory_pool}/models.json"
       type: 'GET'
-      data:
-        page: @current_page
-        filter: filter
-        query: query
-        with: 
-          preset: "inventory"
+      data: data
       success: (data) =>
         @render_inventory data.inventory.entries
         @setup_pagination data.inventory.pagination
@@ -100,7 +101,8 @@ class InventoryController
     @search.closest("form").on "submit", (e)=>
       do e.preventDefault
       do @fetch_inventory
-    @tabs.on "click", (e)=>
+    @tabs.on "click", ".tab", (e)=>
+      @active_tab = $(e.currentTarget)
       do e.preventDefault
       do @fetch_inventory
 

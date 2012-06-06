@@ -57,7 +57,7 @@ class Backend::ModelsController < Backend::BackendController
             end
             item_ids = item_ids.where(:owner_id => current_inventory_pool) if item_filter[:flags].include?(:owned.to_s)
           end
-          item_ids = item_ids.where(:inventory_pool_id => h[:responsible_id.to_s]) if h = item_filter.detect {|x| x.is_a?(Hash) and x[:responsible_id.to_s]}
+          item_ids = item_ids.where(:inventory_pool_id => item_filter[:responsible_id]) if item_filter[:responsible_id]
         end 
     
         models = Model.joins(:items).where("items.id IN (#{item_ids.to_sql})")
