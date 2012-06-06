@@ -69,11 +69,12 @@ class InventoryController
       success: (data) => @setup_responsibles data.responsibles
   
   fetch_inventory: =>
+    filter = {}
     @list.append @loading
     @fetcher.abort() if @fetcher?
-    filter = _.map @list.find(".filter input:checked"), (filter)-> $(filter).data("filter")
+    filter.flags = _.map @list.find(".filter input:checked"), (filter)-> $(filter).data("filter")
     responsible_id = @responsibles.find("option:selected").data "responsible_id"
-    filter.push({responsible_id: responsible_id}) if responsible_id?
+    filter.responsible_id = responsible_id if responsible_id?
     query = if @search.val().length then @search.val() else undefined
     tab = @tabs.find(".active").data "tab"
     console.log @tabs

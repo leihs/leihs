@@ -43,7 +43,6 @@ class Backend::ModelsController < Backend::BackendController
     respond_to do |format|
       format.html
       format.json {
-        
         item_ids = if retired
           Item.unscoped.where(Item.arel_table[:retired].not_eq(nil))
         else
@@ -52,10 +51,12 @@ class Backend::ModelsController < Backend::BackendController
         item_ids = item_ids.send(borrowable ? :borrowable : :unborrowable) if not borrowable.nil? 
     
         unless item_filter.nil?
-          [:in_stock, :incomplete, :broken].each do |k|
-            item_ids = item_ids.send(k) if item_filter.include?(k.to_s)
+          if item_filter[:flags]
+            [:in_stock, :incomplete, :broken].each do |k|
+              item_ids = item_ids.send(k) if item_filter[:flags].include?(k.to_s)
+            end
+            item_ids = item_ids.where(:owner_id => current_inventory_pool) if item_filter[:flags].include?(:owned.to_s)
           end
-          item_ids = item_ids.where(:owner_id => current_inventory_pool) if item_filter.include?(:owned.to_s)
           item_ids = item_ids.where(:inventory_pool_id => h[:responsible_id.to_s]) if h = item_filter.detect {|x| x.is_a?(Hash) and x[:responsible_id.to_s]}
         end 
     
