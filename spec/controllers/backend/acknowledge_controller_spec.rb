@@ -41,7 +41,7 @@ describe Backend::AcknowledgeController do
                                   :end_date => Date.tomorrow.to_s,
                                   :code => @item.inventory_code}, {user_id: @lending_manager.id }
       response.success?.should be_true
-
+      
       purposes = @unsubmitted_order.reload.lines.map(&:purpose)
       purposes.uniq.size.should == 1
       purposes.each {|p| p.description.blank?.should be_false }
