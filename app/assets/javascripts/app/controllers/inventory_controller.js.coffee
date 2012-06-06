@@ -61,7 +61,9 @@ class InventoryController
       @responsibles.find("option").each (i,el)=> 
         if parseInt(@filter.responsible_id) == parseInt($(el).data("responsible_id"))
           $(el).attr("selected",true).change()
-  
+    else
+      @responsibles.find("option:first").attr("selected",true).change()
+    
   no_items_found: => @list.append $.tmpl "app/views/inventory/_no_entries_found"
   
   paginate: (page)=>
@@ -116,7 +118,7 @@ class InventoryController
     if state.flags?
       @filters.each (i,el)=> $(el).attr "checked", _.include(state.flags, $(el).data("filter"))
     if state.query? then @search.val(state.query) else @search.val("")
-    @filter.responsible_id = state.responsible_id if state.responsible_id?
+    @filter.responsible_id = if state.responsible_id? then state.responsible_id else undefined
     do @select_responsible
   
   read_state: =>
