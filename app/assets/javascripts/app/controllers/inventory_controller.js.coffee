@@ -115,8 +115,14 @@ class InventoryController
         if JSON.stringify($(tab).data("tab")) == JSON.stringify(tab_state)
           $(tab).addClass("active")
           @active_tab = $(tab)
+    else
+      @tabs.find(".active").removeClass "active"
+      @active_tab = @tabs.find(".tab:first")
+      @active_tab.addClass("active")
     if state.flags?
       @filters.each (i,el)=> $(el).attr "checked", _.include(state.flags, $(el).data("filter"))
+    else
+      @filters.each (i,el)=> $(el).attr "checked", false
     if state.query? then @search.val(state.query) else @search.val("")
     @filter.responsible_id = if state.responsible_id? then state.responsible_id else undefined
     do @select_responsible
