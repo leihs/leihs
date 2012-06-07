@@ -103,6 +103,9 @@ class InventoryController
         @setup_pagination data.inventory.pagination
         do @no_items_found unless data.inventory.entries.length
     do @save_state
+
+##   
+# TODO outsource to a history state module (browser navigation)
   
   setup_state: =>
     state = do @read_state
@@ -134,7 +137,7 @@ class InventoryController
     $.each state_as_array, (i, el)-> if (i % 2) then state[last_state] = el else last_state = el
     state.flags = state.flags.split(",") if state.flags?
     return state
-   
+
   pop_state: =>
     return true if window.location.hash.replace(/^#/, "") == @stringify_state(@get_state())
     do @setup_state
@@ -154,7 +157,7 @@ class InventoryController
     state.responsible_id = @filter.responsible_id if @filter.responsible_id
     state.flags = @filter.flags.join(",") if @filter.flags.length
     return state
-  
+
   stringify_state: (state)=>
     stringified_state = ""
     $.each state, (k,v)->
@@ -164,6 +167,8 @@ class InventoryController
         stringified_state += "/#{k}/#{v}"
     return stringified_state
           
+##   
+  
   delegateEvents: =>
     $(window).on "popstate", @pop_state
     @filters.on "change", =>
