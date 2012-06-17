@@ -3,6 +3,7 @@
 Angenommen /^man öffnet die Liste des Inventars$/ do
   @current_inventory_pool = @user.managed_inventory_pools.first
   visit backend_inventory_pool_models_path(@current_inventory_pool)
+  wait_until(10){ find(".line:not(.navigation)") }
 end
 
 Dann /^sieht man Modelle$/ do
@@ -28,7 +29,7 @@ Dann /^hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind$/ do |
     case row["auswahlmöglichkeit"]
       when "Alles"
         tab = section_tabs.find("a")
-        tab[:href].match(/\?/).should be_nil
+        tab[:"data-tab"].should == "null"
         all(".model.line").each do |model_el|
           model_el.find(".toggle .text").click if model_el.all(".toggle.open").empty?
           model_el.all(".item.line").each do |item_el|
@@ -37,7 +38,7 @@ Dann /^hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind$/ do |
           end
         end
       when "Ausgemustert"
-        tab = section_tabs.find(:xpath, "a[contains(@href,'borrowable=true')]")
+        tab = section_tabs.find(:xpath, "a[contains(@data-tab,'{\"borrowable\":true}')]")
         tab.click
         wait_until(15) { all(".loading", :visible => true).empty? and not all(".model.line").empty? }
         all(".model.line").each do |model_el|
@@ -48,7 +49,7 @@ Dann /^hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind$/ do |
           end
         end
       when "Ausleihbar"
-        tab = section_tabs.find(:xpath, "a[contains(@href,'borrowable=false')]")
+        tab = section_tabs.find(:xpath, "a[contains(@data-tab,'{\"borrowable\":false}')]")
         tab.click
         wait_until(15) { all(".loading", :visible => true).empty? and not all(".model.line").empty? }
         all(".model.line").each do |model_el|
@@ -59,7 +60,7 @@ Dann /^hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind$/ do |
           end
         end
       when "Nicht ausleihbar"
-        tab = section_tabs.find(:xpath, "a[contains(@href,'retired=true')]")
+        tab = section_tabs.find(:xpath, "a[contains(@data-tab,'{\"retired\":true}')]")
         tab.click
         wait_until(15) { all(".loading", :visible => true).empty? and not all(".model.line").empty? }
         all(".model.line").each do |model_el|
@@ -150,10 +151,78 @@ end
 
 ########################################################################
 
-Dann /^ist erstmal die Auswahl "(.*?)" aktiviert$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+Dann /^ist die Auswahl "(.*?)" aktiviert$/ do |arg1|
+  case arg1
+    when "Alles"
+      find("section .inlinetabs").find(".tab.active").text.should == find("section .inlinetabs").find(:xpath, "a[contains(@data-tab,'null')]").text
+  end
 end
 
 Dann /^es sind keine Filtermöglichkeiten aktiviert$/ do
-  pending # express the regexp above with the code you wish you had
+  all(".filter input").each do |filter|
+    filter.checked?.should be_false
+  end
+end
+
+########################################################################
+
+Wenn /^man eine Modell\-Zeile sieht$/ do
+  @model_line = find(".model.line")
+  @model = Model.find_by_name(@model_line.find(".modelname").text)
+end
+
+Dann /^enthält die Modell\-Zeile folgende Informationen:$/ do |table|
+  table.hashes.each do |row|
+    case row["information"]
+    when "Bild"
+      @model_line.find ".image"
+    when "Name des Modells"
+      @model_line.find ".modelname"
+    when "Anzahl verfügbar (jetzt)"
+      av = @model_line.find ".availability"
+      av.text.should have_content "#{@model.borrowable_items.in_stock.count} /"
+    when "Anzahl verfügbar (Total)"
+      av = @model_line.find ".availability"
+      av.text.should have_content "/ #{@model.borrowable_items.count}"
+    end
+  end
+end
+
+########################################################################
+
+Wenn /^man eine Gegenstands\-Zeile sieht$/ do
+  all(".tab").detect{|x| x["data-tab"] == '{"borrowable":true}'}.click
+  wait_until { all(".loading", :visible => true).empty? }
+  find(".filter input[data-filter='in_stock']").click unless find(".filter input[data-filter='in_stock']").checked?
+  @model_line = find(".model.line")
+  @model_line.find(".toggle .text").click if @model_line.all(".toggle.open").empty?
+  @item_line = @model_line.find(:xpath, "..").find(".items ul.line")
+  @item = Item.find_by_inventory_code @item_line.find(".inventory_code").text
+end
+
+Dann /^enthält die Gegenstands\-Zeile folgende Informationen:$/ do |table|
+  table.hashes.each do |row|
+    case row["information"]
+      when "Inventarcode"
+        @item_line.should have_content @item.inventory_code
+      when "Ort des Gegenstands"
+        @item_line.should have_content @item.location.to_s
+      else
+        raise 'step not found'
+    end
+  end
+end
+
+Wenn /^der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist$/ do
+  find(".responsible option[data-responsible_id='#{@current_inventory_pool.id}']").select_option
+  wait_until { all(".loading", :visible => true).empty? }
+  binding.pry
+end
+
+Wenn /^der Gegenstand nicht an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist$/ do
+  binding.pry
+end
+
+Wenn /^der Gegenstand nicht an Lager ist und meine Abteilung Besitzer des Gegenstands ist$/ do
+  binding.pry
 end

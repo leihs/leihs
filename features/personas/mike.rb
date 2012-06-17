@@ -47,6 +47,8 @@ module Persona
       setup_options
       setup_templates
       setup_package
+      setup_not_borrowable
+      setup_retired
     end
     
     def setup_sharp_beamers
@@ -108,6 +110,26 @@ module Persona
     
     def setup_package
       @camera_package = FactoryGirl.create(:package_with_items, :inventory_pool => @inventory_pool) 
-    end 
+    end
+    
+    def setup_not_borrowable
+      @canon_d5 = FactoryGirl.create(:model, :name => "Kamera Canon D5",
+                                :manufacturer => "Canon", 
+                                :description => "Ganz teure Kamera", 
+                                :hand_over_note => "Kamera brauch Akkus!", 
+                                :maintenance_period => 0)
+      @canon_d5.model_links.create :model_group => @camera_category
+      @canon_d5_item = FactoryGirl.create(:item, :inventory_code => "cand5", :is_borrowable => false, :serial_number => "cand5", :model => @camera_model, :location => @location, :owner => @inventory_pool)
+    end
+    
+    def setup_retired
+      @iMac = FactoryGirl.create(:model, :name => "iMac",
+                                :manufacturer => "Apple", 
+                                :description => "Apples alter iMac", 
+                                :maintenance_period => 0)
+      @computer_category = FactoryGirl.create(:category, :name => "Computer")
+      @iMac.model_links.create :model_group => @computer_category
+      @iMac = FactoryGirl.create(:item, :inventory_code => "iMac1", :retired => Date.today, :is_borrowable => true, :serial_number => "iMac5", :model => @iMac, :location => @location, :owner => @inventory_pool)
+    end
   end  
 end

@@ -32,10 +32,12 @@ Funktionalität: Inventar
     | Unvollständig             |
     Und die Filter können kombiniert werden
 
+  @javascript
   Szenario: Grundeinstellung der Listenansicht
-    Dann ist erstmal die Auswahl "Alles" aktiviert
+    Dann ist die Auswahl "Alles" aktiviert
     Und es sind keine Filtermöglichkeiten aktiviert
-
+  
+  @javascript
   Szenario: Aussehen einer Modell-Zeile
     Wenn man eine Modell-Zeile sieht
     Dann enthält die Modell-Zeile folgende Informationen:
@@ -45,7 +47,9 @@ Funktionalität: Inventar
     | Anzahl verfügbar (jetzt) |
     | Anzahl verfügbar (Total) |
   
+  @javascript
   Szenario: Aussehen einer Gegenstands-Zeile
+    Wenn man eine Gegenstands-Zeile sieht
     Dann enthält die Gegenstands-Zeile folgende Informationen:
     | information         |
     | Inventarcode        |
@@ -57,27 +61,32 @@ Funktionalität: Inventar
     | Raum             |
     | Gestell          |
     Wenn der Gegenstand nicht an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist
+    Dann enthält die Gegenstands-Zeile folgende Informationen:
     | information            |
     | Aktueller Ausleihender |
     | Enddatum der Ausleihe  |
     Wenn der Gegenstand nicht an Lager ist und meine Abteilung Besitzer des Gegenstands ist
+    Dann enthält die Gegenstands-Zeile folgende Informationen:
     | information               |
     | Verantwortliche Abteilung |
     | Gebäudeabkürzung          |
     | Raum                      |
 
+  @javascript
   Szenario: Aussehen einer Options-Zeile
     Dann enthält die Options-Zeile folgende Informationen
     | information |
     | Barcode     |
     | Name        |
     | Preis       |
-
+  
+  @javascript
   Szenario: Modell aufklappen
     Dann kann man jedes Modell aufklappen
     Und man sieht die Gegenstände, die zum Modell gehören
     Und so eine Zeile sieht aus wie eine Gegenstands-Zeile
-
+  
+  @javascript
   Szenario: Paket-Modelle aufklappen
     Dann kann man jedes Paket-Modell aufklappen
     Und man sieht die Pakete dieses Paket-Modells
@@ -86,12 +95,7 @@ Funktionalität: Inventar
     Und man sieht die Bestandteile, die zum Paket gehören
     Und so eine Zeile zeigt nur noch Inventarcode und Modellname des Bestandteils
 
+  @javascript
   Szenario: Export der aktuellen Ansicht als CSV
     Dann kann man diese Daten als CSV-Datei exportieren
     Und die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden (inkl. Filter)
-
-  Szenario: Felder, die in der CSV-Datei exportiert werden
-    Und man eine CSV-Datei exportiert
-    Dann enthält sie die folgenden Spalten:
-    | spalte |
-    |        |
