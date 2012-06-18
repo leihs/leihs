@@ -19,11 +19,10 @@
         
     .clear
     
-    -if @date == Date.today
-      -if last_visitors
-        %p.subtitle
-          = _("Last Visitors:")
-          != last_visitors
+    -if @date == Date.today and (lv = last_visitors)
+      %p.subtitle
+        = _("Last Visitors:")
+        != lv
     -else
       %p.subtitle 
         - days_ahead = (@date - Date.today).to_i
