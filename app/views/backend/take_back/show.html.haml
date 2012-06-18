@@ -42,8 +42,9 @@
   visits_json = json_for(@visits, {:lines => {:item => {},
                                                :model => {},
                                                :contract => {:user => {}},
+                                               :availability => true,
                                                :purpose => true }})
-
+                                               
 :coffeescript
   jQuery ->
     $('#visits').html($.tmpl("tmpl/visit", #{visits_json} ))
