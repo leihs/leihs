@@ -20,18 +20,33 @@
         .icon.placeholder
         
     #selection_actions
+    
       .selection
         = _("Auswahl")
         %span.count= "(0)"
-      .actions{:"data-toggle_on_line_selection" => true}
-        = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@user.id}/take_back/close_contract", 
-        :class => "button green open_dialog",
-        :"data-rel" => "tmpl/dialog/take_back/summary",
-        :"data-dialog_class" => "take_back",
-        :"data-add_selected_line_ids" => "true",
-        :"data-on_success" => "TakeBack.open_documents(response)",
-        :id => "take_back_button" do
-          = _("Take Back")
+        
+      .actions
+        .multibutton{:"data-toggle_on_line_selection" => true}
+          .alternatives
+            .trigger.green
+              .arrow
+            = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@user.id}/hand_over/update_lines", 
+            :class => "button white open_dialog",
+            :"data-rel" => "tmpl/dialog/calendar/edit_multiple", 
+            :"data-dialog_class" => "calendar multiple",
+            :"data-on_success" => 'HandOver.update_visits(response);',
+            :id => "edit_selection" do
+              .icon.timerange
+              = _("Edit Selection")
+              
+          = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@user.id}/take_back/close_contract", 
+          :class => "button green open_dialog",
+          :"data-rel" => "tmpl/dialog/take_back/summary",
+          :"data-dialog_class" => "take_back",
+          :"data-add_selected_line_ids" => "true",
+          :"data-on_success" => "TakeBack.open_documents(response)",
+          :id => "take_back_button" do
+            = _("Take Back Items")
     .clear
     
   %hr
@@ -41,7 +56,7 @@
 :ruby
   visits_json = json_for(@visits, {:lines => {:item => {},
                                                :model => {},
-                                               :contract => {:user => {}},
+                                               :contract => {:user => {:groups => {}}},
                                                :availability => true,
                                                :purpose => true }})
                                                

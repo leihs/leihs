@@ -1,5 +1,6 @@
 ${$user = Line.get_user($item.data), ""}
 ${$name = Str.sliced_trunc($user.name, 20, "... "), ""}
+${$start_date_disabled = $item.data.contract.action == "take_back", ""}
 
 = form_tag '${$item.action}', :remote => true, :"data-submit_button" => true do
   %h1
@@ -13,11 +14,15 @@ ${$name = Str.sliced_trunc($user.name, 20, "... "), ""}
       = "-"
       {{html moment(end_date).format(i18n.date.L)}})
   .navigation
-    %a.button.red.close_dialog
-      = _("Cancel")
-      .icon.delete
-    %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}', :tabindex => "4"}
-      = _("Save Changes")
+    .multibutton
+      .alternatives
+        .trigger.green
+          .arrow
+        %a.button.red.close_dialog
+          .icon.delete
+          = _("Cancel")
+      %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}', :tabindex => "4"}
+        = _("Save Changes")
   
   .flash_message
   
@@ -57,7 +62,11 @@ ${$name = Str.sliced_trunc($user.name, 20, "... "), ""}
     
     .date.container
       .start_date
+        {{if $start_date_disabled}}
+        = text_field_tag :start_date, "${start_date}", :tabindex => "2", :autocomplete => "off", :disabled => true
+        {{else}}
         = text_field_tag :start_date, "${start_date}", :tabindex => "2", :autocomplete => "off"
+        {{/if}}
         %label{:for => "start_date"}
           = _("Start Date")
           .icon.jumpto.fc-goto-start{:title => _("jump to this date")}
