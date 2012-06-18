@@ -13,9 +13,9 @@ class Backend::HandOverController < Backend::BackendController
     add_visitor(@user)
   end
   
-  def delete_visit
-    lines = params[:lines].split(",")
-    lines.each {|l| @contract.remove_line(l, current_user.id) }
+  def delete_visit(visit = @user.visits.hand_over.find(params[:visit_id]) || raise("visit_id is required"))
+    # TODO make sure are effectively removed and respond accordingly 
+    visit.lines.each {|l| @contract.remove_line(l, current_user.id) }
     respond_to do |format|
       format.json { render :json => true, :status => 200  }
     end
