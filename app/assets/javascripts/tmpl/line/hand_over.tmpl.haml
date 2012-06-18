@@ -35,12 +35,11 @@
   
   .actions      
     %li.actions
-      {{if is_overdue}}
       .multibutton
         .alternatives
           .trigger
             .arrow
-          = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/hand_over/delete_visit?lines=${contract_line_ids}",
+          = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/hand_over/delete_visit?visit_id=${id}",
           :class => "button red",
           :method => 'delete',
           :remote => "true",
@@ -53,9 +52,4 @@
         = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/hand_over",  :class => "button white" do
           .icon.hand_over
           = _("Hand Over")
-      {{else}}
-      = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/hand_over", :class => "button white" do
-        .icon.hand_over
-        = _("Hand Over")
-      {{/if}}
     
