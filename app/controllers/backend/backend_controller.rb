@@ -139,45 +139,7 @@ class Backend::BackendController < ApplicationController
                   "#{document.class.to_s.underscore}_line_id" => params[:line_id]
     end
   end
-  
-  # change time frame for OrderLines or ContractLines 
-  def generic_time_lines(document, write_start = true, write_end = true)
-    @write_start = write_start
-    @write_end = write_end
 
-    line_ids = params[:lines].split(',')
-    if document.is_a?(User) # NOTE take_back process
-      @lines = document.contract_lines.find(line_ids)
-    else
-      @lines = document.lines.find(line_ids)
-    end
-
-    if request.post?
-      begin
-        start_date = if params['start_date']
-          Date.parse(params['start_date'])
-        elsif params[:line]['start_date(1i)']
-          Date.new(params[:line]['start_date(1i)'].to_i, params[:line]['start_date(2i)'].to_i, params[:line]['start_date(3i)'].to_i)  
-        end
-        
-        end_date = if params['end_date']
-          Date.parse(params['end_date'])
-        elsif params[:line]['end_date(1i)']
-          Date.new(params[:line]['end_date(1i)'].to_i, params[:line]['end_date(2i)'].to_i, params[:line]['end_date(3i)'].to_i)
-        end
-         
-        @lines.each {|l| l.document.update_time_line(l.id, start_date, end_date, current_user.id) }
-      rescue
-        respond_to do |format|
-          format.json { render :text => "Error", :status => 500 }
-        end
-      end 
-      respond_to do |format|
-        format.json { render :json => true, :status => 200 }
-      end
-    end   
-  end    
-  
   # remove OrderLines or ContractLines
   def generic_remove_lines(document)
     if request.delete?

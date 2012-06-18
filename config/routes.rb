@@ -238,8 +238,6 @@ Leihs::Application.routes.draw do
             post :update_lines
             get :swap_model_line
             post :swap_model_line
-            get :time_lines
-            post :time_lines
             #old leihs# get :sign_contract
             post :sign_contract
             get :add_option
@@ -258,8 +256,7 @@ Leihs::Application.routes.draw do
             get :inspection
             get :things_to_return
             post :inspection
-            get :time_lines
-            post :time_lines
+            post :update_lines
           end
         end
       end

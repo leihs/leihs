@@ -36,7 +36,7 @@ module Json
         end
 
         if with[:availability]
-          if line.contract.action == :hand_over
+          if [:hand_over, :take_back].include?(line.contract.action) 
             h[:availability_for_inventory_pool] = {}
           end
         end
@@ -63,7 +63,7 @@ module Json
         end
                   
         if with[:availability]
-          if line.contract.action == :hand_over or line.contract.action == :take_back
+          if [:hand_over, :take_back].include?(line.contract.action)
             borrowable_items = line.model.items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable
             h[:total_rentable] = borrowable_items.count
             h[:total_rentable_in_stock] = borrowable_items.in_stock.count
