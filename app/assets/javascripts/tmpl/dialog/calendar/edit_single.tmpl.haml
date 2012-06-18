@@ -38,20 +38,20 @@ ${$start_date_disabled = $item.data.contract.action == "take_back", ""}
           ${$users_availablility = new UserAvailability(availability_for_inventory_pool, $user.groups), ""}
           ${$user_groups = $users_availablility.user_group_ids.join(","), ""}
           %option{:value => "[${$user_groups}]", :"data-name" => _("Borrower"), :"data-total_rentable" => "${$users_availablility.total_rentable}"}
-            = _("Borrower (max. ${$users_availablility.total_rentable})")
+            = _("Borrower")
           {{each(i, partition) availability_for_inventory_pool.partitions}}
           {{if partition.group_id != null}}
           %option{:value => "[${partition.group_id}]", :"data-name" => "Group ${partition.group.name}", :"data-total_rentable" => "${partition.quantity}"}
-            = _("Group ${partition.group.name} (max. ${partition.quantity})")
+            = _("Group ${partition.group.name}")
           {{/if}}
           {{/each}}
           %option{:value => "", :"data-name" => _("In Total"), :"data-total_rentable" => "${total_rentable}"}
-            = _("In Total (max. ${total_rentable})")
+            = _("In Total")
       %label{:for => "partition"}
         = _("Show Availability")
     {{/if}}
       
-    .quantity.container
+    .quantity.container{:style => "display: {{if $start_date_disabled}}none{{/if}}"}
       = text_field_tag :quantity, "${quantity}", :min => 1, :max => "${total_rentable}", :tabindex => "1", :class => "focus", :autocomplete => "off"
       %label{:for => "quantity"}
         = _("Quantity")
