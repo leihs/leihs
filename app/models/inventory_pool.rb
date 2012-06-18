@@ -138,7 +138,7 @@ class InventoryPool < ActiveRecord::Base
       while not is_open_on?(x) do
         holiday = running_holiday_on(x)
         if holiday
-          x = holiday.end_date.tomorrow
+          x = holiday.start_date.yesterday
         else
           x -= 1.day
         end

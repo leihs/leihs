@@ -10,9 +10,11 @@
       = button_tag(:class => "datepicker button white", :title => _("open datepicker")) do
         .icon.datepicker
         = text_field_tag "datepicker", :id => "datepicker"
-      = link_to backend_inventory_pool_path(current_inventory_pool, :date => current_inventory_pool.last_open_date(@date - 1)), :class => "day back button white", :title => l(current_inventory_pool.last_open_date(@date - 1), :format => :day_long, :scope => 'leihs') do
+      - lod = current_inventory_pool.last_open_date(@date - 1.day)
+      - nod = current_inventory_pool.next_open_date(@date + 1.day)
+      = link_to backend_inventory_pool_path(current_inventory_pool, :date => lod), :class => "day back button white", :title => l(lod, :format => :day_long, :scope => 'leihs') do
         .icon.back
-      = link_to backend_inventory_pool_path(current_inventory_pool, :date => current_inventory_pool.next_open_date(@date + 1)), :class => "day forward button white", :title => l(current_inventory_pool.next_open_date(@date + 1), :format => :day_long, :scope => 'leihs') do
+      = link_to backend_inventory_pool_path(current_inventory_pool, :date => nod), :class => "day forward button white", :title => l(nod, :format => :day_long, :scope => 'leihs') do
         .icon.forward
         
     .clear
