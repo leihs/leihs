@@ -29,3 +29,4 @@
 //= require inventory_pool/inventory_pool
 //= require print/print
 //= require inline_tabs/inline_tabs
+//= require app/app
