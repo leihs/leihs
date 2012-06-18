@@ -86,6 +86,14 @@ class Backend::UsersController < Backend::BackendController
     end
   end
   
+  def set_start_screen(path = params[:path])
+    if current_user.start_screen(current_inventory_pool,path)
+      render :nothing => true, :status => :ok
+    else
+      render :nothing => true, :status => :bad_request 
+    end
+  end
+  
 #################################################################
 
   # OPTIMIZE

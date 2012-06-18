@@ -33,6 +33,16 @@ class User < ActiveRecord::Base
   def templates
     inventory_pools.flat_map(&:templates).sort
   end
+  
+  def start_screen(ip, path = nil)
+    access_right = self.access_rights.detect{|x| x.inventory_pool_id == ip.id}
+    if path 
+      access_right.start_screen = path
+      return access_right.save
+    else
+      access_right.start_screen
+    end
+  end
 
   has_many :notifications, :dependent => :delete_all
   

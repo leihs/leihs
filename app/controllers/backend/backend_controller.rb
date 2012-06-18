@@ -14,8 +14,10 @@ class Backend::BackendController < ApplicationController
 ###############################################################  
   
   def index
-    # if user is admin only, redirect to admin section (/inventory_pools)
-    if current_user.managed_inventory_pools.blank? and current_user.has_role? :admin
+    ip = InventoryPool.find(session[:current_inventory_pool_id]) if session[:current_inventory_pool_id]
+    if ip and current_user.start_screen(ip)
+      redirect_to current_user.start_screen(ip)  
+    elsif current_user.managed_inventory_pools.blank? and current_user.has_role? :admin
       redirect_to backend_inventory_pools_path
     elsif current_user.access_rights.managers.where(:access_level => 3).exists? # user has manager level 3 => inventory manager
       redirect_to backend_inventory_pool_models_path(current_user.managed_inventory_pools.first)
@@ -169,6 +171,8 @@ class Backend::BackendController < ApplicationController
       end
       return nil if current_user.nil? #fixes http://leihs.hoptoadapp.com/errors/756097 (when a user is not logged in but tries to go to a certain action in an inventory pool (for example when clicking a link in hoptoad)
       @current_inventory_pool ||= current_user.inventory_pools.find(params[:inventory_pool_id]) if params[:inventory_pool_id]
+      session[:current_inventory_pool_id] = @current_inventory_pool.id if @current_inventory_pool
+      return @current_inventory_pool
     end
 
     def current_managed_inventory_pools
