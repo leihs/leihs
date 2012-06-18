@@ -78,6 +78,10 @@
       position: relative;
       @include dark-grey-links;
       
+      .icon.arrow {
+        @include opacity(0.5)
+      }
+      
       .anchor {
         display: block;
         font-weight: bold;
@@ -145,6 +149,13 @@
             }
           }
           
+          li .icon {
+            margin-right: -6px;
+            position: relative;
+            left: -8px;
+          } 
+          
+          
           li:nth-child(1){
             a:hover {
               border-top: 1px solid white;
@@ -159,6 +170,10 @@
         background: url($slices-h) repeat-x 0 -46px;
         color: $darkgrey;
         text-shadow: 1px 1px 2px #FFF;
+      }
+      
+      .icon.arrow {
+        @include opacity(0.9)
       }
       
       .popup {
@@ -185,29 +200,6 @@
     .item:nth-last-child(1):hover {
       .anchor {
         background: url($image-sprite) no-repeat right -186px;
-      }
-    }
-    
-    .item.language {
-      .anchor {
-        padding-right: 33px;
-        
-        .speechbubble {
-          background: url($image-sprite) no-repeat -83px 0;
-          display: block;
-          height: 14px;
-          position: absolute;
-          top: 9px;
-          right: 12px;
-          width: 18px;
-          @include opacity(0.8);
-        }
-      }
-    }
-    
-    .item.language:hover {
-      .speechbubble {
-        @include opacity(1.0);
       }
     }
   }

@@ -52,9 +52,10 @@ class Backend::UsersController < Backend::BackendController
   end
 
   def show
-    @source_path = request.env['REQUEST_URI']
+    # OLD CODE
+    # @source_path = request.env['REQUEST_URI']
   end
-
+  
   def new
     @user = User.new
   end

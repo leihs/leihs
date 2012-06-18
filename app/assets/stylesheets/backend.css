@@ -24,6 +24,7 @@
  *= require shared/list_toggle
  *= require shared/show_more
  *= require shared/summary
+ *= require shared/icons
  * 
  *= require_tree ./backend
  *

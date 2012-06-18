@@ -18,6 +18,7 @@
  *= require shared/navigation
  *= require shared/master
  *= require shared/topbar
+ *= require shared/icons
  * 
  *= require_tree ./frontend
  * 
