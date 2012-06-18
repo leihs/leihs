@@ -84,4 +84,9 @@ class TakeBack
       # go to daily view
       window.location = "http://#{location.host}/backend/inventory_pools/#{current_inventory_pool}/"
   
+  @update_visits = (data)->
+    $('#visits').html($.tmpl("tmpl/visit", data))
+    SelectedLines.restore()
+    TakeBack.update_subtitle()
+  
 window.TakeBack = TakeBack
