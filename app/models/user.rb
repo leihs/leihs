@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
 
   serialize :extended_info
 
+  store :settings, accessors: [ :latest_inventory_pool_id_before_logout ]
+
   belongs_to :authentication_system
   belongs_to :language
   
@@ -40,7 +42,7 @@ class User < ActiveRecord::Base
       access_right.start_screen = path
       return access_right.save
     else
-      access_right.start_screen
+      access_right.start_screen if access_right
     end
   end
 

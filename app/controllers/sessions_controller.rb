@@ -57,8 +57,13 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    # store last inventory pool to the settings column
+    current_user.latest_inventory_pool_id_before_logout = session[:current_inventory_pool_id]
+    current_user.save
+    # delete cookie and reset session
     cookies.delete :auth_token
     reset_session
+    # redirect and flash
     flash[:notice] = _("You have been logged out.")
     redirect_back_or_default('/')
   end
