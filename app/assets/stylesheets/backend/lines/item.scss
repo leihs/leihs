@@ -24,6 +24,11 @@
     width: 205px;
   }
   
+  li.item_location .icon {
+    position: relative;
+    left: -5px;
+  }
+  
   li.inventory_code {
     width: 100px;
   }

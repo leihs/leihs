@@ -49,11 +49,6 @@ Funktionalität: Inventar
   
   @javascript
   Szenario: Aussehen einer Gegenstands-Zeile
-    Wenn man eine Gegenstands-Zeile sieht
-    Dann enthält die Gegenstands-Zeile folgende Informationen:
-    | information         |
-    | Inventarcode        |
-    | Ort des Gegenstands |
     Wenn der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist
     Dann enthält die Gegenstands-Zeile folgende Informationen:
     | information      |
@@ -65,7 +60,7 @@ Funktionalität: Inventar
     | information            |
     | Aktueller Ausleihender |
     | Enddatum der Ausleihe  |
-    Wenn der Gegenstand nicht an Lager ist und meine Abteilung Besitzer des Gegenstands ist
+    Wenn meine Abteilung Besitzer des Gegenstands ist die Verantwortung aber auf eine andere Abteilung abgetreten hat
     Dann enthält die Gegenstands-Zeile folgende Informationen:
     | information               |
     | Verantwortliche Abteilung |

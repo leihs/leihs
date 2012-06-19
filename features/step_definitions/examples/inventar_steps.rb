@@ -194,10 +194,6 @@ Wenn /^man eine Gegenstands\-Zeile sieht$/ do
   all(".tab").detect{|x| x["data-tab"] == '{"borrowable":true}'}.click
   wait_until { all(".loading", :visible => true).empty? }
   find(".filter input[data-filter='in_stock']").click unless find(".filter input[data-filter='in_stock']").checked?
-  @model_line = find(".model.line")
-  @model_line.find(".toggle .text").click if @model_line.all(".toggle.open").empty?
-  @item_line = @model_line.find(:xpath, "..").find(".items ul.line")
-  @item = Item.find_by_inventory_code @item_line.find(".inventory_code").text
 end
 
 Dann /^enthält die Gegenstands\-Zeile folgende Informationen:$/ do |table|
@@ -207,6 +203,20 @@ Dann /^enthält die Gegenstands\-Zeile folgende Informationen:$/ do |table|
         @item_line.should have_content @item.inventory_code
       when "Ort des Gegenstands"
         @item_line.should have_content @item.location.to_s
+      when "Gebäudeabkürzung"
+        @item_line.should have_content @item.location.building.code
+      when "Raum"
+        @item_line.should have_content @item.location.room
+      when "Gestell"
+        @item_line.should have_content @item.location.shelf
+      when "Aktueller Ausleihender"
+        @item_line.should have_content @item.current_borrower.to_s
+      when "Enddatum der Ausleihe"
+        @item_line.should have_content @item.current_return_date.year
+        @item_line.should have_content @item.current_return_date.month
+        @item_line.should have_content @item.current_return_date.day
+      when "Verantwortliche Abteilung"
+        @item_line.should have_content @item.inventory_pool.to_s        
       else
         raise 'step not found'
     end
@@ -215,14 +225,26 @@ end
 
 Wenn /^der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist$/ do
   find(".responsible option[data-responsible_id='#{@current_inventory_pool.id}']").select_option
+  find(".filter input[data-filter='in_stock']").click unless find(".filter input[data-filter='in_stock']").checked?
   wait_until { all(".loading", :visible => true).empty? }
-  binding.pry
+  all(".toggle .text").each {|toggle| toggle.click}
+  @item_line = find(".items .item.line")
+  @item = Item.find_by_inventory_code @item_line.find(".inventory_code").text
 end
 
 Wenn /^der Gegenstand nicht an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist$/ do
-  binding.pry
+  find(".responsible option[data-responsible_id='#{@current_inventory_pool.id}']").select_option
+  find(".filter input[data-filter='in_stock']").click if find(".filter input[data-filter='in_stock']").checked?
+  wait_until { all(".loading", :visible => true).empty? }
+  all(".toggle .text").each {|toggle| toggle.click}
+  @item_line = find(".items .item.line .item_location.borrower").find(:xpath, "..")
+  @item = Item.find_by_inventory_code @item_line.find(".inventory_code").text
 end
 
-Wenn /^der Gegenstand nicht an Lager ist und meine Abteilung Besitzer des Gegenstands ist$/ do
-  binding.pry
+Wenn /^meine Abteilung Besitzer des Gegenstands ist die Verantwortung aber auf eine andere Abteilung abgetreten hat$/ do
+  find(".responsible option[data-responsible_id!='#{@current_inventory_pool.id}']").select_option
+  wait_until { all(".loading", :visible => true).empty? }
+  all(".toggle .text").each {|toggle| toggle.click}
+  @item_line = find(".items .item.line")
+  @item = Item.find_by_inventory_code @item_line.find(".inventory_code").text
 end
