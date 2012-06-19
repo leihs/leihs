@@ -210,6 +210,19 @@ button .icon {
   background-position: -53px -37px;
   height: 6px;
   width: 7px;
+  
+  &.down.white {
+    background: url($image-sprite) no-repeat;
+    background-position: -117px -0;
+    height: 7px;
+    width: 8px;
+  }
+}
+
+.home.icon {
+  background: url($backend-image-sprite) no-repeat -132px -15px;
+  height: 16px;
+  width: 16px;
 }
 
 .clear.icon {

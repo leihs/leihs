@@ -95,7 +95,7 @@ Leihs::Application.routes.draw do
         post :update_badge_id
       end
     end
-   
+    
     resources :mails
 
     resources :inventory_pools do
@@ -225,7 +225,8 @@ Leihs::Application.routes.draw do
           get :groups
           put :add_group
           delete :remove_group
-          post :update_badge_id          
+          post :update_badge_id 
+          post :set_start_screen         
         end
         resource :hand_over, :controller => 'hand_over' do
           member do
