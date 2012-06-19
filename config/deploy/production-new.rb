@@ -9,7 +9,7 @@ set :application, "leihs-new"
 
 set :scm, :git
 set :repository,  "git://github.com/zhdk/leihs.git"
-set :branch, "Rails3.1"
+set :branch, "next"
 set :deploy_via, :remote_cache
 
 set :db_config, "/home/leihs/#{application}/database.yml"
