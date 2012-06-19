@@ -44,44 +44,6 @@ namespace :leihs do
   desc "Cron: Remind & Maintenance"
   task :cron => [:remind, :maintenance, :deadline_soon_reminder]
 
-  desc "Run cucumber tests. Run leihs:test[0] to only test failed scenarios"
-  task :test, :rerun do |t, args|
-    # force environment
-    Rails.env = 'test'
-    RAILS_ENV='test'
-    ENV['RAILS_ENV']='test'
-    task :environment
-    args.with_defaults(:rerun => 1)
-    
-    puts "Removing log/test.log..."
-    system "rm -f log/test.log"
-
-    if args.rerun.to_i > 0
-      puts "Removing rerun.txt..."
-      system "rm -f rerun.txt"
-    end
-
-    Rake::Task["leihs:reset"].invoke
-    #Rake::Task["db:reset"].invoke
-
-    system "bundle exec rspec --format d --format html --out tmp/html/rspec.html spec"
-    exit_code = $? >> 8 # magic brainfuck
-    raise "Tests failed with: #{exit_code}" if exit_code != 0
-
-    ENV['CUCUMBER_FORMAT'] = 'pretty' unless ENV['CUCUMBER_FORMAT']
-    # We skip the tests that broke due to the new UI. We need to re-implement them with the new UI.
-    system "bundle exec cucumber -p default"
-    exit_code = $? >> 8 # magic brainfuck
-    raise "Tests failed with: #{exit_code}" if exit_code != 0
-
-    system "bundle exec cucumber -p examples"
-    exit_code = $? >> 8 # magic brainfuck
-    raise "Tests failed with: #{exit_code}" if exit_code != 0
-
-    system "bundle exec cucumber -p current_examples"
-    exit_code = $? >> 8 # magic brainfuck
-    raise "Tests failed with: #{exit_code}" if exit_code != 0
-  end
 
   desc "Recreate DB and reindex" 
   task :reset => :environment  do

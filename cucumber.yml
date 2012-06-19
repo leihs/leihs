@@ -1,3 +1,6 @@
+all:  -r features --format pretty --format rerun --out tmp/rerun.txt --format junit --out tmp/junit --format html --out tmp/html/cucumber_all.html -e 'features/examples/upcoming'  features
 default:  -r features --format pretty --format junit --out tmp/junit --format html --out tmp/html/cucumber.html --tags=~@old-ui -e 'features/examples' features
 current_examples: -r features --tags=~@wip --format pretty --format junit --out tmp/junit --format html --out tmp/html/current_examples.html features/examples/current
 examples: -r features --format pretty --format junit --out tmp/junit --format html --out tmp/html/examples.html -e 'features/examples/(current|upcoming)' features/examples
+rerun: -r features @tmp/rerun.txt --format rerun --out tmp/rerun_again.txt
+rerun_again: -r features @tmp/rerun_again.txt
