@@ -2,7 +2,7 @@
 set :application, "leihs2demo"
 
 set :scm, :git
-set :repository,  "git://github.com/psy-q/leihs.git"
+set :repository,  "git://github.com/zhdk/leihs.git"
 set :branch, "master"
 set :deploy_via, :remote_cache
 
