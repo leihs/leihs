@@ -8,7 +8,7 @@ require "bundler/capistrano"
 set :application, "leihs-new"
 
 set :scm, :git
-set :repository,  "git://github.com/psy-q/leihs.git"
+set :repository,  "git://github.com/zhdk/leihs.git"
 set :branch, "Rails3.1"
 set :deploy_via, :remote_cache
 
