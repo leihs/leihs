@@ -10,7 +10,8 @@ import_file = "/tmp/120510_Umzugsgutliste ZHdK_schriftverkehr.csv"
 @failures = 0
 @successes = 0
 
-def create_item(model_name, inventory_code, serial_number, manufacturer, category, accessory_string, note)
+def create_item(model_name, inventory_code, serial_number, manufacturer, 
+                category, accessory_string, note, building_string, room_string)
   
 
   if model_name.blank?
@@ -23,7 +24,7 @@ def create_item(model_name, inventory_code, serial_number, manufacturer, categor
     end
     
     ip = InventoryPool.find_by_name("Testpool")
-    
+
     i = Item.new
     i.model = m
     i.inventory_code = inventory_code
@@ -33,6 +34,7 @@ def create_item(model_name, inventory_code, serial_number, manufacturer, categor
     i.is_borrowable = true
     i.is_inventory_relevant = true
     i.inventory_pool = ip
+    i.location = create_location(building_string, room_string)
     
     if i.save
       puts "Item imported correctly:"
@@ -70,6 +72,23 @@ def create_model(name, category, manufacturer, accessory_string)
   return m
 end
 
+
+def create_location(building_string, room_string)
+
+  b = Building.find(:first, :conditions => {:name => building_string})
+  unless b
+    b = Building.create(:name => building_string)
+  end
+
+  l = Location.find(:first, :conditions => {:building_id => b.id, :room => room_string})
+
+  unless l
+    l = Location.create(:building_id => b.id, :room => room_string)
+  end
+
+  return l
+end
+
 items_to_import = FasterCSV.open(import_file, :headers => true)
 
 # CSV fields:
@@ -89,7 +108,9 @@ items_to_import.each do |item|
               item["Hersteller / Wartung"],
               item["Bemerkung vor"],
               "",
-              "")
+              "",
+              item["Quell-Liegenschaft"],
+              item["Quell-Raum"])
 end
 
 
