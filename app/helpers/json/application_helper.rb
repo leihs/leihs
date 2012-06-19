@@ -13,6 +13,7 @@ module Json
             hash_for(t, with)
           end
         else
+          with = {} if with == true
           with = get_with_preset(with[:preset]).deep_merge(with) if not with.nil? and with[:preset]
           send("hash_for_#{klass.name.underscore}", target, with)
       end
