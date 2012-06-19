@@ -11,7 +11,10 @@ namespace :leihs do
   task :boot => :environment do
   end
  
-  
+  task :test do
+    Rake::Task["app:test"].invoke
+  end
+
   desc "Initialize"
   task :init => :environment do
     params = {:all => ENV['items']}
