@@ -79,10 +79,6 @@ class Backend::AcknowledgeController < Backend::BackendController
     @order_line, @change = @order.update_line(@order_line.id, required_quantity, current_user.id)
     @order.save
   end
-
-  def remove_lines
-    generic_remove_lines(@order)
-  end
 =end
 
 ###################################################################################
