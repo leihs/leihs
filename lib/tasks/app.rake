@@ -21,6 +21,9 @@ namespace :app do
       puts "Removing log/test.log..."
       system "rm -f log/test.log"
 
+      File.delete("tmp/rerun.txt") if File.exists?("tmp/rerun.txt")
+      File.delete("tmp/rerun_again.txt") if File.exists?("tmp/rerun_again.txt")
+
       Rake::Task["leihs:reset"].invoke
     end
 
