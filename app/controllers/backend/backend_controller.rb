@@ -14,15 +14,19 @@ class Backend::BackendController < ApplicationController
 ###############################################################  
   
   def index
-    ip = InventoryPool.find(session[:current_inventory_pool_id]) if session[:current_inventory_pool_id]
-    if ip and current_user.start_screen(ip)
+    ip_id = session[:current_inventory_pool_id] || current_user.latest_inventory_pool_id_before_logout
+    ip = current_user.managed_inventory_pools.detect{|x| x.id==ip_id} if ip_id
+    start_screen = current_user.start_screen(ip) if ip
+    if start_screen
       redirect_to current_user.start_screen(ip)  
     elsif current_user.managed_inventory_pools.blank? and current_user.has_role? :admin
       redirect_to backend_inventory_pools_path
     elsif current_user.access_rights.managers.where(:access_level => 3).exists? # user has manager level 3 => inventory manager
-      redirect_to backend_inventory_pool_models_path(current_user.managed_inventory_pools.first)
+      ip ||= current_user.managed_inventory_pools.first
+      redirect_to backend_inventory_pool_models_path(ip)
     elsif current_user.access_rights.managers.where(:access_level => 1..2).exists? # user has at least manager level 1 => lending manager
-      redirect_to backend_inventory_pool_path(current_user.managed_inventory_pools.first)
+      ip ||= current_user.managed_inventory_pools.first
+      redirect_to backend_inventory_pool_path(ip)
     else
       # no one should enter here (customers should already be redirectet by the before filter)     
       redirect_to root_path
