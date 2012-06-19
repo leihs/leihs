@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
 
   serialize :extended_info
 
+  store :settings, accessors: [ :latest_inventory_pool_id_before_logout ]
+
   belongs_to :authentication_system
   belongs_to :language
   
@@ -32,6 +34,16 @@ class User < ActiveRecord::Base
 #temp#  has_many :templates, :through => :inventory_pools
   def templates
     inventory_pools.flat_map(&:templates).sort
+  end
+  
+  def start_screen(ip, path = nil)
+    access_right = self.access_rights.detect{|x| x.inventory_pool_id == ip.id}
+    if path 
+      access_right.start_screen = path
+      return access_right.save
+    else
+      access_right.start_screen if access_right
+    end
   end
 
   has_many :notifications, :dependent => :delete_all

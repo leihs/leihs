@@ -16,6 +16,9 @@
     = javascript_tag "i18n = i18n.locals['#{current_user.language.locale_name.dasherize}']";
     = javascript_tag "var current_inventory_pool = #{current_inventory_pool.try(:id)}";
     = javascript_tag "var local_currency_string = '#{LOCAL_CURRENCY_STRING}'";
+    - start_screen = current_user.access_rights.detect{|x| x.inventory_pool_id == current_inventory_pool.id}.try(:start_screen)
+    - start_screen ||= "undefined"
+    = javascript_tag "var current_user = {id:#{current_user.try(:id)}, start_screen: \"#{ start_screen }\"}";
     = yield :head
 
   %body

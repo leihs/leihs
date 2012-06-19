@@ -5,7 +5,58 @@ namespace :app do
     `railroad -iv -o doc/diagrams/railroad/controllers.dot -C`
     `railroad -iv -o doc/diagrams/railroad/models.dot -M`
   end
-  
+
+  desc "Run cucumber tests. Run leihs:test[0] to only test failed scenarios"
+  task :test => 'test:run_all'
+
+  namespace :test do
+
+    task :setup do
+      # force environment
+      Rails.env = 'test'
+      RAILS_ENV='test'
+      ENV['RAILS_ENV']='test'
+      task :environment
+      
+      puts "Removing log/test.log..."
+      system "rm -f log/test.log"
+
+      File.delete("tmp/rerun.txt") if File.exists?("tmp/rerun.txt")
+      File.delete("tmp/rerun_again.txt") if File.exists?("tmp/rerun_again.txt")
+
+      Rake::Task["leihs:reset"].invoke
+    end
+
+    task :run_all do
+      Rake::Task["app:test:setup"].invoke
+      Rake::Task["app:test:rspec"].invoke
+      Rake::Task["app:test:cucumber:all"].invoke
+    end
+
+    task :rspec do
+      system "bundle exec rspec --format d --format html --out tmp/html/rspec.html spec"
+      exit_code = $? >> 8 # magic brainfuck
+      raise "Tests failed with: #{exit_code}" if exit_code != 0
+    end
+
+    namespace :cucumber do
+      task :all do
+        ENV['CUCUMBER_FORMAT'] = 'pretty' unless ENV['CUCUMBER_FORMAT']
+        # We skip the tests that broke due to the new UI. We need to re-implement them with the new UI.
+        system "bundle exec cucumber -p all"
+        exit_code_first_run = $? >> 8 # magic brainfuck
+
+        system "bundle exec cucumber -p rerun"
+        exit_code_rerun = $? >> 8
+
+        system "bundle exec cucumber -p rerun_again"
+        exit_code_rerun_again = $? >> 8
+        raise "Tests failed!" if exit_code_rerun_again != 0
+      end
+    end
+  end
+
+
   namespace :db do
 
     desc "Sync local application instance with test servers most recent database dump"

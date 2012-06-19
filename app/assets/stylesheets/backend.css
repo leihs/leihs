@@ -25,6 +25,7 @@
  *= require shared/show_more
  *= require shared/summary
  *= require shared/custom_select
+ *= require shared/icons
  * 
  *= require_tree ./backend
  *

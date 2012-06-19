@@ -52,9 +52,10 @@ class Backend::UsersController < Backend::BackendController
   end
 
   def show
-    @source_path = request.env['REQUEST_URI']
+    # OLD CODE
+    # @source_path = request.env['REQUEST_URI']
   end
-
+  
   def new
     @user = User.new
   end
@@ -82,6 +83,14 @@ class Backend::UsersController < Backend::BackendController
     else
       flash[:error] = _("The new user details could not be saved.")
       redirect_to [:edit, :backend, current_inventory_pool, @user].compact
+    end
+  end
+  
+  def set_start_screen(path = params[:path])
+    if current_user.start_screen(current_inventory_pool,path)
+      render :nothing => true, :status => :ok
+    else
+      render :nothing => true, :status => :bad_request 
     end
   end
   

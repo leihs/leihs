@@ -4,6 +4,7 @@ module Json
     def hash_for_visit(visit, with = nil)
       h = {
         type: "visit",
+        id: visit.id,
         action: visit.action,
         date: visit.date
       }

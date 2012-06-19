@@ -95,7 +95,7 @@ Leihs::Application.routes.draw do
         post :update_badge_id
       end
     end
-   
+    
     resources :mails
 
     resources :inventory_pools do
@@ -225,7 +225,8 @@ Leihs::Application.routes.draw do
           get :groups
           put :add_group
           delete :remove_group
-          post :update_badge_id          
+          post :update_badge_id 
+          post :set_start_screen         
         end
         resource :hand_over, :controller => 'hand_over' do
           member do
@@ -238,8 +239,6 @@ Leihs::Application.routes.draw do
             post :update_lines
             get :swap_model_line
             post :swap_model_line
-            get :time_lines
-            post :time_lines
             #old leihs# get :sign_contract
             post :sign_contract
             get :add_option
@@ -258,8 +257,7 @@ Leihs::Application.routes.draw do
             get :inspection
             get :things_to_return
             post :inspection
-            get :time_lines
-            post :time_lines
+            post :update_lines
           end
         end
       end

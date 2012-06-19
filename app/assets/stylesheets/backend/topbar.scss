@@ -43,7 +43,21 @@
     }
     
     .item {
-    
+      
+      &.user { 
+      
+        .popup li {
+          
+          .icon {
+            @include opacity(0.6);
+          }
+          
+          &:hover .icon, &.active .icon {
+            @include opacity(1.0);
+          }
+        }
+      }
+      
       a, a:link, a:visited {
         color: #dedbd9;
         text-shadow: -1px -1px 0 rgba(0,0,0,0.3), 1px 1px 0 rgba(0,0,0,0.1);

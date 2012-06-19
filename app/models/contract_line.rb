@@ -23,25 +23,18 @@ class ContractLine < DocumentLine
   
   # these are the things we need to_take_back, to_hand_over, ...
   # NOTE using table alias to prevent "Not unique table/alias" Mysql error
-  scope :to_hand_over,  lambda {
-                          joins("INNER JOIN contracts AS my_contract ON my_contract.id = contract_lines.contract_id").
-                          where(["my_contract.status_const = ?", Contract::UNSIGNED])
-                        }
-  scope :to_take_back,  lambda {
-                          joins("INNER JOIN contracts AS my_contract ON my_contract.id = contract_lines.contract_id").
-                          where(["my_contract.status_const = ? AND contract_lines.returned_date IS NULL", Contract::SIGNED])
-                        }
+  scope :to_hand_over, joins(:contract).where(:contracts => {:status_const => Contract::UNSIGNED}, :returned_date => nil).readonly(false)
+  scope :to_take_back, joins(:contract).where(:contracts => {:status_const => Contract::SIGNED}, :returned_date => nil).readonly(false)
   scope :handed_over_or_assigned_but_not_returned, lambda { |date|
                                                       where(["returned_date IS NULL AND NOT (end_date < ? AND item_id IS NULL)", date])
                                                    }
   
   # TODO 1209** refactor to InventoryPool has_many :contract_lines_by_user(user) ??
   # NOTE InventoryPool#contract_lines.by_user(user)
-  scope :by_user, lambda { |user| where(["contracts.user_id = ?", user]) }
+  scope :by_user, lambda { |user| where(:contracts => {:user_id => user}) }
   #temp# scope :by_user, lambda { |user| joins(:contract).where(["contracts.user_id = ?", user]) }
   scope :by_inventory_pool, lambda { |inventory_pool|
-                              joins(:contract).
-                              where(:contracts => {:inventory_pool_id => inventory_pool})
+                              joins(:contract).where(:contracts => {:inventory_pool_id => inventory_pool})
                             }
 
 ##################################################### 

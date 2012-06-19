@@ -5,7 +5,7 @@ module Backend::BackendHelper
     #TODO: move this inside of the inventory pools model ?
     return false if session[:last_visitors].blank?
     session[:last_visitors] = session[:last_visitors][0..3]
-    session[:last_visitors].map { |x| link_to x.second, user_path(x.first) }.join(", ")
+    session[:last_visitors].map { |x| link_to x.second, backend_inventory_pool_search_path(current_inventory_pool, :term => x.second) }.join(", ")
   end
   
   def is_current_page?(section)
@@ -40,16 +40,18 @@ module Backend::BackendHelper
         current_page?(:controller => "backend/visits") or
         is_current_page?("hand_over") or
         is_current_page?("take_back")
-        
       when "admin"
         is_current_page?("inventory_pools")
       when "inventory_pools"
         current_page?(:controller => "backend/inventory_pools", :action => :index)
-        
       when "inventory"
         is_current_page?("models")
       when "models"
         current_page?(:controller => "backend/models")
+      when "current_user"
+        current_page?(:controller => "backend/users", :action => :show) and @user == current_user
+      when "start_screen"
+        current_user.start_screen(current_inventory_pool) == request.fullpath
     end
     
     # We rescue everything because backend/hand_over and backend/take_back are failing sometimes

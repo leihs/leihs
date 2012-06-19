@@ -85,10 +85,6 @@ class Backend::AcknowledgeController < Backend::BackendController
   end
 =end
 
-  def time_lines
-    generic_time_lines(@order)
-  end    
-  
 ###################################################################################
 
   def add_line( quantity = (params[:quantity] || 1).to_i,

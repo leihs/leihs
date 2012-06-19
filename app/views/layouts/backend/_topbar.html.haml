@@ -32,8 +32,20 @@
           = link_to _("Frontend") , categories_path, :class=>"anchor"
         %li.seperator
         
-        %li.item
-          = link_to current_user, user_path, :class => "anchor"
+        %li.item.user{:class => is_current_page?("current_user") ? "active" : nil}
+          = link_to backend_inventory_pool_user_path(current_inventory_pool, current_user), :class => "anchor" do
+            = current_user
+            .icon.arrow.down.white
+          .popup
+            .inner
+              %ul
+                %li{:class => is_current_page?("start_screen") ? "active" : nil}
+                  %a.start_screen_setter{:href=>"#"}
+                    .home.icon
+                    -if is_current_page?("start_screen")
+                      = _("current page is setted as start page")
+                    -else
+                      = _("set current page as start page")
         %li.seperator
         
         /
@@ -44,7 +56,7 @@
         %li.item.language
           = link_to "javascript: void(0)", :class => "anchor" do
             = current_user.language.name
-            %span.speechbubble
+            .icon.arrow.down.white
           .popup
             .inner
               %ul
@@ -59,3 +71,7 @@
           = link_to _("Logout"), logout_path, :class => "anchor"
         
     .borderright
+    
+:coffeescript
+  
+  jQuery -> new App.TopBarController

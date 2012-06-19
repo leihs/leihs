@@ -80,6 +80,12 @@
       border-left: 1px dashed #e62b2c !important;
       border-top: 1px dashed #e62b2c !important;
       
+      &.history {
+        background: $highlight-grey !important;
+        border-left: 1px dashed $grey !important;
+        border-top: 1px dashed $grey !important;
+      }
+      
       .fc-day-content > div, .fc-day-content > .total_quantity {
         color: #3a3a3a !important;
       }
@@ -89,7 +95,7 @@
         @include opacity(1.0);
       }
       
-      &:hover, &.selected_for_target_selection {
+      &:not(.history):hover, &.selected_for_target_selection {
         background-color: #e52526 !important;
       }
     }

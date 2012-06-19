@@ -150,8 +150,44 @@ class Backend::TakeBackController < Backend::BackendController
     end
   end
 
-  def time_lines
-    generic_time_lines(@user, false, true)
-  end    
+  # TODO dry with hand_over ??
+  def update_lines(line_ids = params[:line_ids] || raise("line_ids is required"),
+                   end_date = params[:end_date])
+
+    ContractLine.transaction do
+      lines = @user.contract_lines.to_take_back.find(line_ids)
+
+      # TODO merge to Contract#update_line
+      lines.each do |line|
+        line.end_date = Date.parse(end_date) if end_date
+
+        # TODO remove log changes (use the new audits)
+        change = ""
+        change += line.changes.map do |c|
+          what = c.first
+          from = c.last.first
+          to = c.last.last
+          _("Changed %s from %s to %s") % [what, from, to]
+        end.join(', ')
+
+        line.contract.log_change(change, current_user.id) if line.save
+      end
+    end
+
+    respond_to do |format|
+      format.json {
+        # TODO: RETURN ONLY UPDATED LINES
+        with = { :lines => {:is_valid => true,
+                 :item => {},
+                 :model => {},
+                 :contract => {:user => {:groups => {}}},
+                 :purpose => true,
+                 :availability => true}}
+        visits = @user.visits.take_back.scoped_by_inventory_pool_id(current_inventory_pool)
+        render :json => view_context.json_for(visits, with)
+      }
+    end
+
+  end
     
 end

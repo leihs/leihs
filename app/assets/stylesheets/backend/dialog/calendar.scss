@@ -141,6 +141,14 @@
           padding-right: 6px;
           padding-left: 5px;
           width: 80px;
+          
+          &:disabled {
+            border: none !important;
+            background: none !important;
+            padding-left: 0;
+            padding-right: 0;
+            @include box-shadow(0 0 0 transparent);
+          }
         }
         
         &>div {
