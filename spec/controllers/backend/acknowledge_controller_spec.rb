@@ -14,6 +14,10 @@ describe Backend::AcknowledgeController do
     @item = FactoryGirl.create :item, :model => @model, :owner => @inventory_pool 
   end
   
+  let :session do
+    {user_id: @lending_manager.id}
+  end
+   
   describe "add a line to an order during acknowledge process" do
     it "adds a line to the order by providing a inventory_code" do
       post :add_line, {:format => :json,
@@ -22,7 +26,7 @@ describe Backend::AcknowledgeController do
                                   :quantity => 1,
                                   :start_date => Date.today.to_s,
                                   :end_date => Date.tomorrow.to_s,
-                                  :code => @item.inventory_code}, {user_id: @lending_manager.id}
+                                  :code => @item.inventory_code}, session
       response.success?.should be_true
     end
     
@@ -39,7 +43,7 @@ describe Backend::AcknowledgeController do
                                   :quantity => 1,
                                   :start_date => Date.today.to_s,
                                   :end_date => Date.tomorrow.to_s,
-                                  :code => @item.inventory_code}, {user_id: @lending_manager.id }
+                                  :code => @item.inventory_code}, session
       response.success?.should be_true
       
       purposes = @unsubmitted_order.reload.lines.map(&:purpose)

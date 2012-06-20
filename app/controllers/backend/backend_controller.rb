@@ -146,17 +146,6 @@ class Backend::BackendController < ApplicationController
     end
   end
 
-  # remove OrderLines or ContractLines
-  def generic_remove_lines(document)
-    if request.delete?
-      params[:lines].each {|l| document.remove_line(l, current_user.id) }
-      redirect_to :action => 'show', :id => document.id
-    else
-      @lines = document.lines.find(params[:lines].split(','))
-      params[:layout] = "modal"
-      render :template => 'backend/backend/remove_lines'
-    end   
-  end    
 ###############################################################  
 
   protected
