@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.5'
+gem 'rails', '3.2.6'
 
 gem 'mysql2', '~> 0.3.11'
 gem 'json', '~> 1.6'
@@ -52,18 +52,18 @@ end
 
 group :test, :development do
   gem "growl", "~> 1.0.3"
-  gem "guard", "~> 1.0.1"
-  gem "guard-cucumber", "~> 0.8"
-  gem "guard-rspec", "~> 0.7"
-  gem "guard-spork", "~> 0.7"
+  gem "guard", "~> 1.0"
+  gem "guard-cucumber", "~> 1.2"
+  gem "guard-rspec", "~> 1.1"
+  gem "guard-spork", "~> 1.0"
   gem "guard-jasmine-headless-webkit", "~> 0.3.2"
   gem "jasmine-headless-webkit", "~> 0.8.4" # needed for "headless" running of jasmine tests (needed for CI)
   gem "jasmine-rails", "~> 0.0.2" # javascript test environment
   gem "jasminerice", "~> 0.0.8" # needed for implement coffeescript, fixtures and asset pipeline serverd css into jasmine
   gem "rb-fsevent", "~> 0.9"
   gem "ruby_gntp", "~> 0.3.4"
-  gem 'factory_girl', "~> 3.0"
-  gem 'factory_girl_rails', "~> 3.0"
+  gem 'factory_girl', "~> 3.3"
+  gem 'factory_girl_rails', "~> 3.3"
   gem 'faker'
   gem 'pry', "~> 0.9"
   gem 'pry-rails', "~> 0.1"
