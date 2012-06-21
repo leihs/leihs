@@ -129,9 +129,7 @@ Dann /^hat man folgende Filtermöglichkeiten$/ do |table|
         end
       when "Verantwortliche Abteilung"
         s = section_filter.find(".responsible select")
-        s.click
-        o = s.all("option").last
-        o.click
+        s.all("option").last.select_option
         wait_until(15) { all(".loading", :visible => true).empty? }
         all(".model.line").each do |model_el|
           model_el.find(".toggle .text").click if model_el.all(".toggle.open").empty?
@@ -247,4 +245,38 @@ Wenn /^meine Abteilung Besitzer des Gegenstands ist die Verantwortung aber auf e
   all(".toggle .text").each {|toggle| toggle.click}
   @item_line = find(".items .item.line")
   @item = Item.find_by_inventory_code @item_line.find(".inventory_code").text
+end
+
+Dann /^enthält die Options\-Zeile folgende Informationen$/ do |table|
+  @option_line = find(".option.line")
+  @option = Option.find_by_inventory_code @option_line.find(".inventory_code").text
+  table.hashes.each do |row|
+    case row["information"]
+      when "Barcode"
+        @option_line.should have_content @option.inventory_code
+      when "Name"
+        @option_line.should have_content @option.name
+      when "Preis"
+        (@option.price * 100).to_i.to_s.should == @option_line.find(".price").text.gsub(/\D/, "")
+      else
+        raise 'step not found'
+    end
+  end
+end
+
+Dann /^kann man jedes Modell aufklappen$/ do
+  @model_line = find(".model.line")
+  @model = Model.find_by_name(@model_line.find(".modelname").text)
+  @model_line.find(".toggle .text").click
+end
+
+Dann /^man sieht die Gegenstände, die zum Modell gehören$/ do
+  @items_element = @model.find(:xpath, "following-sibling::div")
+  @model.items.each do |item|
+    @items_element.should have_content item.inventory_code
+  end
+end
+
+Dann /^so eine Zeile sieht aus wie eine Gegenstands\-Zeile$/ do
+  #binding.pry
 end
