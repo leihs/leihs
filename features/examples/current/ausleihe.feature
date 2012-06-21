@@ -6,14 +6,14 @@ Funktionalität: Ausleihe
     Angenommen man ist "Pius"
     
   @javascript
-  Szenario: Klick auf Letzten Besuche
-    Angenommen man öffnet die Tagesansicht
-    Wenn ich eine Bestellung von "Normin N." bearbeite
-    Dann man öffnet die Tagesansicht
+  Szenario: Klick auf Letzten Besucher
+    Angenommen ich öffne die Tagesansicht
+    Und ich öffnet eine Bestellung von "Normin N."
+    Dann ich kehre zur Tagesansicht zurück
     Dann sehe ich die letzten Besucher
-    Und sehe ich "Normin N." in die letzten Besucher
-    Wenn klicke ich auf "Normin N."
-    Dann soll ich zu einem Suchresultat nach "Normin N." führen
+    Und ich sehe "Normin N." als letzten Besucher
+    Wenn ich auf "Normin N." klicke
+    Dann wird mir ich ein Suchresultat nach "Normin N." angezeigt
 
   Szenario: Autocomplete bei der Rücknahme
     Wenn ich eine Rücknahme mache
