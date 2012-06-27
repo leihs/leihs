@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe Contract do
+  
+  before :all do
+    Persona.create :ramon
+  end
 
   describe "instance methods" do
   

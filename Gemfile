@@ -69,7 +69,7 @@ group :test, :development do
   gem 'pry-rails', "~> 0.1"
   gem 'spork'
   gem 'cucumber-rails', '~> 1.2', :require => false
-  gem 'database_cleaner', '~> 0.7', :require => false
+  gem 'database_cleaner'
   gem 'rspec', '~> 2.7', :require => false
   gem 'rspec-rails', '~> 2.7', :require => false
   gem 'nokogiri', '~> 1.5.0'

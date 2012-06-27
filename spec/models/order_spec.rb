@@ -3,7 +3,8 @@ require "#{Rails.root}/features/support/leihs_factory.rb"
 
 describe Order do
 
-  before(:all) do
+  before :all do
+    Persona.create :ramon
     @ip = FactoryGirl.create(:inventory_pool)
     u = LeihsFactory.create_user({:login => 'foo', :email => 'foo@example.com'}, {:password => 'barbarbar'})
     @borrowing_user = u

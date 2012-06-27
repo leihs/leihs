@@ -295,7 +295,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2)
   coffee-script (~> 2.2)
   cucumber-rails (~> 1.2)
-  database_cleaner (~> 0.7)
+  database_cleaner
   factory_girl (~> 3.3)
   factory_girl_rails (~> 3.3)
   faker
