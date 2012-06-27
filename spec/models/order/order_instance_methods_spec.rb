@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe Order do
 
+  before :all do
+    Persona.create :ramon
+  end
+
   describe "instance methods" do
 
     let :inventory_pool do

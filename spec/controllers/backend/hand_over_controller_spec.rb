@@ -3,11 +3,13 @@ require 'spec_helper'
 describe Backend::HandOverController do
   render_views
   
-  before(:each) do
+  before :all do
+    Persona.create :petra
+    Persona.create :normin
     @lending_manager = Persona.create :pius
     @inventory_pool = @lending_manager.inventory_pools.first
   end
- 
+
   let :session do
     {user_id: @lending_manager.id}
   end
