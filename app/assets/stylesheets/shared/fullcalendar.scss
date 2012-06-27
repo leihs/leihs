@@ -81,9 +81,9 @@
       border-top: 1px dashed #e62b2c !important;
       
       &.history {
-        background: $highlight-grey !important;
-        border-left: 1px dashed $grey !important;
-        border-top: 1px dashed $grey !important;
+        background: $highlight-darkgrey !important;
+        border-left: 1px dashed $lightgrey !important;
+        border-top: 1px dashed $lightgrey !important;
       }
       
       .fc-day-content > div, .fc-day-content > .total_quantity {

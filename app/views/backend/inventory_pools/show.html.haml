@@ -26,7 +26,10 @@
     -else
       %p.subtitle 
         - days_ahead = (@date - Date.today).to_i
-        = _("%d %s ahead of time") % [days_ahead, "days".pluralize(days_ahead)]
+        - if days_ahead == 0
+          = _("Today")
+        - else
+          = _("%d %s ahead of time") % [days_ahead, "days".pluralize(days_ahead)]
         
   -if @date == Date.today
     %section.order

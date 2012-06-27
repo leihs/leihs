@@ -67,7 +67,7 @@ module Persona
     def create_signed_contracts
       @signed_contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status_const => Contract::SIGNED)
       @signed_contract_purpose = FactoryGirl.create :purpose, :description => "Um meine Abschlussarbeit zu fotografieren."
-      @contract_line = FactoryGirl.create(:contract_line, :purpose => @signed_contract_purpose, :contract => @signed_contract, :item_id => @inventory_pool.items.select{|x| x.model ==  @camera_model}.first.id, :model => @camera_model, :start_date => Date.yesterday, :end_date => Date.today)
+      FactoryGirl.create(:contract_line, :purpose => @signed_contract_purpose, :contract => @signed_contract, :item_id => @inventory_pool.items.select{|x| x.model ==  @camera_model}.first.id, :model => @camera_model, :start_date => Date.yesterday, :end_date => Date.today)
     end
   end  
 end

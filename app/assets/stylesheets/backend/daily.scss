@@ -7,8 +7,14 @@
     width: 400px;
   }
   
+  
   .subtitle {
     @include dark-grey-links;
+    a {
+      font-size: 0.9em;
+      padding: 1px 4px;
+      margin-right: 6px;
+    }
   }
   
   .content_navigation {

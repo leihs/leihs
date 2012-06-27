@@ -22,6 +22,7 @@ module Persona
         create_user
         create_orders
         create_overdue_hand_overs
+        create_signed_contracts
       end
     end
     
@@ -55,6 +56,13 @@ module Persona
       @unsigned_contract_1 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool)
       @unsigned_contract_1_purpose = FactoryGirl.create :purpose, :description => "Ersatzstativ für die Ausstellung."
       FactoryGirl.create(:contract_line, :purpose => @unsigned_contract_1_purpose, :contract => @unsigned_contract_1, :model => @beamer_model, :start_date => Date.yesterday-1, :end_date => Date.today + 1)
+    end
+    
+    def create_signed_contracts
+      @signed_contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status_const => Contract::SIGNED)
+      @signed_contract_purpose = FactoryGirl.create :purpose, :description => "Um meine Abschlussarbeit zu fotografieren."
+      FactoryGirl.create(:contract_line, :purpose => @signed_contract_purpose, :contract => @signed_contract, :item_id => @inventory_pool.items.select{|x| x.model ==  @camera_model}.first.id, :model => @camera_model, :start_date => Date.yesterday, :end_date => Date.today)
+      FactoryGirl.create(:contract_line, :purpose => @signed_contract_purpose, :contract => @signed_contract, :item_id => @inventory_pool.items.select{|x| x.model ==  @camera_model}.first.id, :model => @camera_model, :start_date => Date.yesterday, :end_date => Date.today)
     end
   end  
 end

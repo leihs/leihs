@@ -1,0 +1,25 @@
+@import "mixins"
+@import "variables"
+
+.clickable
+  background: #F8F8F8
+  border: 1px solid #E0DFDE
+  color: $grey
+  cursor: pointer
+  display: inline-block
+  padding: 4px 0 4px 8px
+  position: relative
+  z-index: 101
+  @include border-radius(4px)
+  
+  &:hover 
+    background: #EEE
+    border: 1px solid #BBB  
+    color: $darkergrey
+    
+    .icon 
+      @include opacity(1.0)
+      
+    
+    
+  

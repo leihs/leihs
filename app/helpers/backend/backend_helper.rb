@@ -5,7 +5,7 @@ module Backend::BackendHelper
     #TODO: move this inside of the inventory pools model ?
     return false if session[:last_visitors].blank?
     session[:last_visitors] = session[:last_visitors][0..3]
-    session[:last_visitors].map { |x| link_to x.second, backend_inventory_pool_search_path(current_inventory_pool, :term => x.second) }.join(", ")
+    session[:last_visitors].map { |x| link_to x.second, backend_inventory_pool_search_path(current_inventory_pool, :term => x.second), :class => "clickable" }.join()
   end
   
   def is_current_page?(section)
