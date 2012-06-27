@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 
 Angenommen /^man öffnet die Liste des Inventars$/ do
   @current_inventory_pool = @user.managed_inventory_pools.first
@@ -198,27 +198,59 @@ Dann /^enthält die Gegenstands\-Zeile folgende Informationen:$/ do |table|
   table.hashes.each do |row|
     case row["information"]
       when "Inventarcode"
-        @item_line.should have_content @item.inventory_code
+        step 'enthält die Gegenstands-Zeile den Inventarcode'
       when "Ort des Gegenstands"
-        @item_line.should have_content @item.location.to_s
+        step 'enthält die Gegenstands-Zeile den Ort des Gegenstands'
       when "Gebäudeabkürzung"
-        @item_line.should have_content @item.location.building.code
+        step 'enthält die Gegenstands-Zeile die Gebäudeabkürzung'
       when "Raum"
-        @item_line.should have_content @item.location.room
+        step 'enthält die Gegenstands-Zeile den Raum'
       when "Gestell"
-        @item_line.should have_content @item.location.shelf
+        step 'enthält die Gegenstands-Zeile das Gestell'
       when "Aktueller Ausleihender"
-        @item_line.should have_content @item.current_borrower.to_s
+        step 'enthält die Gegenstands-Zeile den aktuell Ausleihenden'
       when "Enddatum der Ausleihe"
-        @item_line.should have_content @item.current_return_date.year
-        @item_line.should have_content @item.current_return_date.month
-        @item_line.should have_content @item.current_return_date.day
+        step 'enthält die Gegenstands-Zeile das Enddatum der Ausleihe'
       when "Verantwortliche Abteilung"
-        @item_line.should have_content @item.inventory_pool.to_s        
+        step 'enthält die Gegenstands-Zeile die Verantwortliche Abteilung'
       else
         raise 'step not found'
     end
   end
+end
+
+Dann /^enthält die Gegenstands\-Zeile den Inventarcode$/ do
+  @item_line.should have_content @item.inventory_code
+end
+
+Dann /^enthält die Gegenstands\-Zeile den Ort des Gegenstands$/ do
+  @item_line.should have_content @item.location.to_s
+end
+
+Dann /^enthält die Gegenstands\-Zeile die Gebäudeabkürzung$/ do
+  @item_line.should have_content @item.location.building.code
+end
+
+Dann /^enthält die Gegenstands\-Zeile den Raum$/ do
+  @item_line.should have_content @item.location.room
+end
+
+Dann /^enthält die Gegenstands\-Zeile das Gestell$/ do
+  @item_line.should have_content @item.location.shelf
+end
+
+Dann /^enthält die Gegenstands\-Zeile den aktuell Ausleihenden$/ do
+  @item_line.should have_content @item.current_borrower.to_s
+end
+
+Dann /^enthält die Gegenstands\-Zeile das Enddatum der Ausleihe$/ do
+  @item_line.should have_content @item.current_return_date.year
+  @item_line.should have_content @item.current_return_date.month
+  @item_line.should have_content @item.current_return_date.day
+end
+
+Dann /^enthält die Gegenstands\-Zeile die Verantwortliche Abteilung$/ do
+  @item_line.should have_content @item.inventory_pool.to_s      
 end
 
 Wenn /^der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist$/ do
@@ -271,12 +303,73 @@ Dann /^kann man jedes Modell aufklappen$/ do
 end
 
 Dann /^man sieht die Gegenstände, die zum Modell gehören$/ do
-  @items_element = @model.find(:xpath, "following-sibling::div")
+  @items_element = @model_line.find(:xpath, "following-sibling::div")
   @model.items.each do |item|
     @items_element.should have_content item.inventory_code
   end
 end
 
 Dann /^so eine Zeile sieht aus wie eine Gegenstands\-Zeile$/ do
-  #binding.pry
+  @item_line ||= @items_element.find(".line")
+  @item ||= Item.find_by_inventory_code @item_line.find(".inventory_code").text
+  
+  if @item.in_stock? && @item.inventory_pool == @current_inventory_pool
+    step 'enthält die Gegenstands-Zeile den Ort des Gegenstands'
+    step 'enthält die Gegenstands-Zeile den Raum'
+    step 'enthält die Gegenstands-Zeile das Gestell'
+  elsif not @item.in_stock? && @item.inventory_pool == @current_inventory_pool
+    step 'enthält die Gegenstands-Zeile den aktuell Ausleihenden'
+    step 'enthält die Gegenstands-Zeile das Enddatum der Ausleihe'
+  elsif @item.owner == @current_inventory_pool && @item.inventory_pool != @current_inventory_pool
+    step 'enthält die Gegenstands-Zeile die Verantwortliche Abteilung'
+    step 'enthält die Gegenstands-Zeile die Gebäudeabkürzung'
+    step 'enthält die Gegenstands-Zeile den Raum'
+  else
+    step 'enthält die Gegenstands-Zeile die Gebäudeabkürzung'
+    step 'enthält die Gegenstands-Zeile den Raum'
+    step 'enthält die Gegenstands-Zeile das Gestell'
+  end
+    
+end
+
+Dann /^kann man jedes Paket\-Modell aufklappen$/ do
+  @package_line = find(".package.model.line")
+  @package = Model.find_by_name(@package_line.find(".modelname").text)
+  @package_line.find(".toggle .text").click
+end
+
+Dann /^man sieht die Pakete dieses Paket\-Modells$/ do
+  @packages_element = @package_line.find(:xpath, "following-sibling::div")
+  @packages = @packages_element.all(".package.line")
+  @package.items.each do |package|
+    @packages_element.should have_content package.inventory_code  
+  end
+  @item_line = @packages.first
+  @item = Item.find_by_inventory_code @packages.first.find(".inventory_code").text
+end
+
+Dann /^man kann diese Paket\-Zeile aufklappen$/ do
+  @item_line.find(".toggle .text").click
+  @package_parts_element = @item_line.find(:xpath, "following-sibling::div")
+end
+
+Dann /^man sieht die Bestandteile, die zum Paket gehören$/ do
+  @item.children.each do |part|
+    @package_parts_element.should have_content part.inventory_code
+  end
+end
+
+Dann /^so eine Zeile zeigt nur noch Inventarcode und Modellname des Bestandteils$/ do
+  @item.children.each do |part|
+    @package_parts_element.should have_content part.inventory_code
+    @package_parts_element.should have_content part.name
+  end
+end
+
+Dann /^kann man diese Daten als CSV\-Datei exportieren$/ do
+  pending
+end
+
+Dann /^die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden \(inkl\. Filter\)$/ do
+  pending
 end
