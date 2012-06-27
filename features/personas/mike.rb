@@ -26,6 +26,7 @@ module Persona
     
     def setup_dependencies 
       Persona.create :ramon
+      Persona.create :matti
     end
     
     def create_inventory_manager_user
@@ -41,14 +42,20 @@ module Persona
     end
     
     def create_minimal_inventory
+      
       setup_sharp_beamers
       setup_cameras
+      
       setup_tripods
       setup_options
+      
       setup_templates
       setup_package
+      
       setup_not_borrowable
       setup_retired
+      
+      setup_inventory_moved_to_other_responsible
     end
     
     def setup_sharp_beamers
@@ -109,7 +116,7 @@ module Persona
     end   
     
     def setup_package
-      @camera_package = FactoryGirl.create(:package_with_items, :inventory_pool => @inventory_pool) 
+      @camera_package = FactoryGirl.create(:package_with_items, :inventory_pool => @inventory_pool, :name => "Kamera Set")
     end
     
     def setup_not_borrowable
@@ -130,6 +137,10 @@ module Persona
       @computer_category = FactoryGirl.create(:category, :name => "Computer")
       @iMac.model_links.create :model_group => @computer_category
       @iMac = FactoryGirl.create(:item, :inventory_code => "iMac1", :retired => Date.today, :is_borrowable => true, :serial_number => "iMac5", :model => @iMac, :location => @location, :owner => @inventory_pool)
+    end
+    
+    def setup_inventory_moved_to_other_responsible
+      @beamer_for_it = FactoryGirl.create(:item, :inventory_code => "beam897", :inventory_pool_id => InventoryPool.find_by_name("IT-Ausleihe").id, :serial_number => "xyz890", :model => @beamer_model, :location => @location, :owner => @inventory_pool)    
     end
   end  
 end

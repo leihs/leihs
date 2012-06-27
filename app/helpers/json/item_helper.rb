@@ -14,7 +14,7 @@ module Json
         end
       
         if with[:location]
-          h[:location] = item.location.to_s
+          h[:location] = (item.owner != item.inventory_pool) ? "#{item.inventory_pool.to_s}, #{item.location.to_s}" : item.location.to_s
         end
       
         if with[:model]

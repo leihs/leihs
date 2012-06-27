@@ -245,12 +245,13 @@ class Item < ActiveRecord::Base
     
   end
    
-  
-  def inventory_code
-    s = read_attribute('inventory_code')
-    s = "#{parent.inventory_code}/#{s}" if parent
-    s
-  end
+
+#old??#  
+ # def inventory_code
+ #   s = read_attribute('inventory_code')
+ #   s = "#{parent.inventory_code}/#{s}" if parent
+ #   s
+ # end
   
   def inv_code_with_location
     "#{inventory_code}<br/><div>#{location}</div>"
