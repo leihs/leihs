@@ -7,7 +7,8 @@ Funktionalität: Werteliste
   das mir das System für eine Auswahl eine Werteliste zur verfügung stellen kann
 
   Grundlage:
-    Angenommen man ist "Pius"
+    Angenommen Personas existieren
+    Und man ist "Pius"
     Und man öffnet eine Werteliste
 
   @javascript

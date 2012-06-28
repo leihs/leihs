@@ -7,7 +7,8 @@ Funktionalität: Vertrag
   das mir das System einen Vertrag bereitstellen kann
 
   Grundlage:
-    Angenommen man ist "Pius"
+    Angenommen Personas existieren
+    Und man ist "Pius"
     Und man öffnet einen Vertrag
   
   @javascript
