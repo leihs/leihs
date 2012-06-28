@@ -51,8 +51,11 @@ end
 
 DatabaseCleaner.clean_with :truncation
 
-Before do
+Before('@javascript') do
   Persona.create_all
+end
+
+Before do
   DatabaseCleaner.start
 end
 
