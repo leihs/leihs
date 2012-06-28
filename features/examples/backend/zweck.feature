@@ -7,7 +7,8 @@ Funktionalität: Zweck
   den vom Benutzer angegebenen Zweck sehen
   
   Grundlage:
-    Angenommen man ist "Pius"
+    Angenommen Personas existieren
+    Und man ist "Pius"
   
   Szenario: Unabhängigkeit
     Wenn ein Zweck gespeichert wird ist er unabhängig von einer Bestellung

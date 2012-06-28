@@ -3,7 +3,8 @@
 Funktionalität: Ausleihe
 
   Grundlage:
-    Angenommen man ist "Pius"
+    Angenommen Personas existieren
+    Und man ist "Pius"
     
   @javascript
   Szenario: Klick auf Letzten Besucher

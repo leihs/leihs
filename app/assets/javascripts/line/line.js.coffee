@@ -94,5 +94,7 @@ class Line
       last_total += line.quantity
       line.consecutive_numbers.to = last_total if last_total > line.consecutive_numbers.from
     lines
+    
+  @is_start_date_moveable: (line)-> if line.order? then true else line.contract.action != "take_back"
 
 window.Line = Line

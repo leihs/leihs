@@ -5,7 +5,8 @@ Feature: Availability of Models
 	In order to make sure that reservations can be met
 
 Background: As a Organisation we have some Inventory with things to lend out
-	Given inventory pool 'ABC'
+  Given personas existing
+    And inventory pool 'ABC'
     # this used the old UI -- we don't need to use any UI at all, so let's do the login more
     # directly as below
 	  #And a manager for inventory pool 'ABC' logs in as 'lending_manager'

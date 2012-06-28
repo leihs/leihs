@@ -3,7 +3,9 @@ Feature: Availability depending on Pools
        As an Inventory Manager 
        I want to be sure that a customer only gets to see models from inventory pools he has access to
        In order to prevent a customer from ordering things he cannot borrow
-       
+
+Background:
+       Given personas existing
        
 Scenario: Basic
        

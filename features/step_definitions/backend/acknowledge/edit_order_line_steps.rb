@@ -60,7 +60,7 @@ When /^I change (.*?) lines quantity$/ do |type|
   end
   @line_element = find(".line", :text => @line.model.name)
   step 'I open the booking calendar for this line'
-  @new_quantity = @line.model.items.size
+  @new_quantity = find(".dialog input#quantity")["max"]
   find(".dialog input#quantity").set @new_quantity
   step 'I save the booking calendar'
 end

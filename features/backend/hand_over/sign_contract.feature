@@ -4,9 +4,12 @@ Feature: Sign Contract
   As a lending manager
   I want to be able to hand selected things over and generate a contract
 
+  Background:
+    Given personas existing
+      And I am "Pius"
+
   @javascript
   Scenario: Hand over a selection of items
-    Given I am "Pius"
      When I open a hand over
       And I select an item line and assign an inventory code
       And I click hand over
@@ -16,7 +19,6 @@ Feature: Sign Contract
 
   @javascript
   Scenario: Hand over an not complete quantity of an option line
-    Given I am "Pius"
      When I open a hand over
       And I select an option line
       And I set the quantity for that option
@@ -28,7 +30,6 @@ Feature: Sign Contract
 
   @javascript
   Scenario: Try to hand over unsassigned items
-    Given I am "Pius"
      When I open a hand over
       And I select an item without assigning an inventory code
       And I click hand over
@@ -36,7 +37,6 @@ Feature: Sign Contract
 
   @javascript
   Scenario: Hand over lines which start in the future
-    Given I am "Pius"
      When I open a hand over
       And I select an item line and assign an inventory code
       And I change the contract lines time range to tomorrow
@@ -47,7 +47,6 @@ Feature: Sign Contract
      
   @javascript
   Scenario: Hand over lines which start in the history
-    Given I am "Pius"
      When I open a hand over with overdue lines
       And I select an overdue item line and assign an inventory code
       And I click hand over

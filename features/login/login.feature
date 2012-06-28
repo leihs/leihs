@@ -4,6 +4,9 @@ Feature: Login
   As a normal user
   I want to be able to login
 
+  Background:
+    Given personas existing
+
   @javascript
   Scenario: Redirection after i successful login
     When "Ramon" sign in successfully he is redirected to the "Admin" section

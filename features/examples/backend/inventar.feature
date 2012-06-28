@@ -3,7 +3,8 @@
 Funktionalität: Inventar
 
   Grundlage:
-    Angenommen man ist "Mike"
+    Angenommen Personas existieren
+    Und man ist "Mike"
     Und man öffnet die Liste des Inventars
 
   @javascript

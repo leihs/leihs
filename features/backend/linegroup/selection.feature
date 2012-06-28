@@ -4,9 +4,12 @@ Feature: Select lines or linegroups
   As a backend user
   I want to be able select multiple lines at once
 
+  Background:
+    Given personas existing
+      And I am "Pius"
+
   @javascript
   Scenario: Select multiple lines
-    Given I am "Pius"
      When I open a take back, hand over or I edit an order 
       And I select all lines of an linegroup
      Then the linegroup is selected
