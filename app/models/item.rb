@@ -1,3 +1,4 @@
+# encoding: utf-8
 # An Item is a borrowable thing (unless being flagged as
 # not being borrowable), is an instance of a #Model, has
 # its own barcode and thus its own identity. This is in
@@ -195,7 +196,7 @@ class Item < ActiveRecord::Base
     unless self.model.categories.nil? or self.model.categories.count == 0
       categories = []
       self.model.categories.each do |c|
-        categories << c.name + "|"
+        categories << c.name
       end
     end
     
@@ -218,7 +219,7 @@ class Item < ActiveRecord::Base
       "#{self.serial_number}",
       model_name,
       "#{self.is_borrowable}",
-      categories,
+      categories.join("; "),
       "#{self.invoice_number}",
       "#{self.invoice_date}",
       "#{self.last_check}",

@@ -4,20 +4,20 @@
   .top
     %h1= yield :title
     
-  .content_navigation
-    #approve.multibutton
-      .alternatives
-        .trigger
-          .arrow
-        %a.button.white
-          .additem.icon
-          = _("Add Model") 
-        %a.button.white
-          .additem.icon
-          = _("Add Package")
-      %a.button.white
-        .additem.icon
-        = _("Add Item") 
+  / .content_navigation
+  /   #approve.multibutton
+  /     .alternatives
+  /       .trigger
+  /         .arrow
+  /       %a.button.white
+  /         .additem.icon
+  /         = _("Add Model") 
+  /       %a.button.white
+  /         .additem.icon
+  /         = _("Add Package")
+  /     %a.button.white
+  /       .additem.icon
+  /       = _("Add Item") 
   
   %section
     .inlinetabs
@@ -47,9 +47,9 @@
             %label
               %input{:type => :checkbox, :"data-filter" => x.first}
               %span= x.last
-          = link_to backend_inventory_pool_items_path(current_inventory_pool, :format => "csv"), :class => "button white" do
+          = link_to backend_inventory_pool_models_path(current_inventory_pool, :format => "csv"), :class => "button white export_csv", :title => _("CSV export") do
             .valuelist.icon
-            = _("CSV Export") 
+            = _("CSV") 
 
       %span.loading
         = image_tag "loading.gif"

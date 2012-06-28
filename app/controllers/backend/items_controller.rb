@@ -26,17 +26,6 @@ class Backend::ItemsController < Backend::BackendController
     end
     respond_to do |format|
       format.json { render :json => view_context.json_for(items, with) }
-      format.csv {
-        require 'csv'
-        csv_string = CSV.generate({ :col_sep => ";", :quote_char => "\"", :force_quotes => true }) do |csv|
-          csv << Item.csv_header
-          @items.each do |i|
-            csv << i.to_csv_array unless i.nil? # How could an item ever be nil?
-          end
-        end
-       
-        send_data csv_string, :type => 'text/csv; charset=utf-8; header=present', :disposition => "attachment; filename=#{_("Items-leihs")}.csv"
-      }
     end
   end
 

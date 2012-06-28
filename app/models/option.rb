@@ -1,3 +1,4 @@
+# encoding: utf-8
 # Options are things that can be borrowed. The are listed
 # within #OptionLines which can be added to a #Contract.
 # Options don't have their own barcode and thus don't have
@@ -57,6 +58,42 @@ class Option < ActiveRecord::Base
   # OPTIMIZE we might want a real manufacturer attribute (stored in the db) later on
   def manufacturer
     nil
+  end
+
+  # Generates an array suitable for outputting a line of CSV using CSV
+  def to_csv_array    
+    # Using #{} notation to catch nils gracefully and silently 
+    return [ "#{self.inventory_code}",
+      "#{self.inventory_pool.name}",  
+      "",
+      "",
+      "#{self.name}",  
+      "",
+      "#{_("Option")}",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "#{self.price}",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+    ]
+    
   end
  
 end

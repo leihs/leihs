@@ -40,45 +40,46 @@ class Backend::ModelsController < Backend::BackendController
             responsibles = (params[:responsibles] == "true" ? true : nil),
             with = params[:with] ? params[:with].deep_symbolize_keys : {} )
     
-    respond_to do |format|
-      format.html
-      format.json {
-        item_ids = if retired
+    if request.format == :json or request.format == :csv
+
+        scoped_items = if retired
           Item.unscoped.where(Item.arel_table[:retired].not_eq(nil))
         else
           Item # NOTE using default scope, that is {retired => nil}
-        end.select("items.id").by_owner_or_responsible(current_inventory_pool)
-        item_ids = item_ids.send(borrowable ? :borrowable : :unborrowable) if not borrowable.nil? 
+        end.by_owner_or_responsible(current_inventory_pool)
+
+        scoped_items = scoped_items.send(borrowable ? :borrowable : :unborrowable) if not borrowable.nil? 
     
         unless item_filter.nil?
           if item_filter[:flags]
             [:in_stock, :incomplete, :broken].each do |k|
-              item_ids = item_ids.send(k) if item_filter[:flags].include?(k.to_s)
+              scoped_items = scoped_items.send(k) if item_filter[:flags].include?(k.to_s)
             end
-            item_ids = item_ids.where(:owner_id => current_inventory_pool) if item_filter[:flags].include?(:owned.to_s)
+            scoped_items = scoped_items.where(:owner_id => current_inventory_pool) if item_filter[:flags].include?(:owned.to_s)
           end
-          item_ids = item_ids.where(:inventory_pool_id => item_filter[:responsible_id]) if item_filter[:responsible_id]
+          scoped_items = scoped_items.where(:inventory_pool_id => item_filter[:responsible_id]) if item_filter[:responsible_id]
         end 
-    
-        models = Model.joins(:items).where("items.id IN (#{item_ids.to_sql})")
-                  .select("DISTINCT models.*")
-                  .search2(query, [:name])
-                  .order("#{sort_attr} #{sort_dir}")
-     
+         
         options = if borrowable != false and retired.nil? and item_filter.nil?
           current_inventory_pool.options.search2(query, [:name]).order("#{sort_attr} #{sort_dir}")
         else
           []
         end
-    
+    end
 
+    respond_to do |format|
+      format.html
+      format.json {
+        item_ids = scoped_items.select("items.id")
+        models = Model.joins(:items).where("items.id IN (#{item_ids.to_sql})")
+                  .select("DISTINCT models.*")
+                  .search2(query, [:name, :items])
+                  .order("#{sort_attr} #{sort_dir}")
         # TODO migrate strip directly to the database, and strip on before_validation
         models_and_options = (models + options)
-                              .sort{|a,b| a.name.strip <=> b.name.strip}
-                              .paginate(:page => page, :per_page => $per_page)
-                              
-        with.deep_merge!({ :items => {:scoped_ids => item_ids, :query => query} })
-        
+                             .sort{|a,b| a.name.strip <=> b.name.strip}
+                             .paginate(:page => page, :per_page => $per_page)
+        with.deep_merge!({ :items => {:scoped_ids => item_ids, :query => query} })  
         hash = { inventory: {
                     entries: view_context.hash_for(models_and_options, with),
                     pagination: {
@@ -97,6 +98,21 @@ class Backend::ModelsController < Backend::BackendController
         
         render :json => hash
       } 
+      format.csv {
+        require 'csv'
+        items = scoped_items.search2(query)
+        csv_string = CSV.generate({ :col_sep => ";", :quote_char => "\"", :force_quotes => true }) do |csv|
+          csv << Item.csv_header
+          items.each do |i|
+            csv << i.to_csv_array unless i.nil? # How could an item ever be nil?
+          end
+          options.each do |o|
+            csv << o.to_csv_array unless o.nil? # How could an item ever be nil?
+          end
+        end
+       
+        send_data csv_string, :type => 'text/csv; charset=utf-8; header=present', :disposition => "attachment; filename=#{_("Items-leihs")}.csv"
+      }
     end
   end
 

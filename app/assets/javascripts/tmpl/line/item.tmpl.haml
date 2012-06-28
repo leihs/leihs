@@ -5,8 +5,8 @@
     {{if children}}
     %li.toggle{:"data-toggle_target" => "#item_${id}_children"}
       .text{:title => _("show package parts")}
-        ${children.length}
         .icon
+        ${children.length}
     {{/if}}
     
     {{if $item.package}}     
@@ -34,7 +34,7 @@
         ${moment(current_return_date).format(i18n.date.L)}
     {{else}}
     %li.item_location
-      ${location}
+      ${$item.data.location}
     {{/if}}
     
     %li.item_status      

@@ -11,7 +11,9 @@ class InventoryController
   @responsibles
   @tabs
   @active_tab
+  @tab_data
   @current_page
+  @query
   
   constructor: ->
     @el = $(@el)
@@ -23,6 +25,7 @@ class InventoryController
     @filters = @el.find(".filter input[data-filter]")
     @responsibles = @el.find(".responsible select")
     @tabs = @el.find(".inlinetabs")
+    @csv_button = @el.find(".navigation .export_csv.button")
     do @setup_state
     do @delegateEvents
     do @fetch_responsibles
@@ -85,15 +88,15 @@ class InventoryController
     @filter.flags = _.map @list.find(".filter input:checked"), (filter)-> $(filter).data("filter")
     responsible_id = @responsibles.find("option:selected").data("responsible_id")
     @filter.responsible_id = responsible_id if responsible_id?
-    query = if @search.val().length then @search.val() else undefined
-    tab_data = @active_tab.data("tab") if @active_tab?
+    @query = if @search.val().length then @search.val() else undefined
+    @tab_data = @active_tab.data("tab") if @active_tab?
     data = 
       page: @current_page
       filter: @filter
-      query: query
+      query: @query
       with: 
         preset: "inventory"
-    data = $.extend(data,tab_data) if tab_data
+    data = $.extend(data,@tab_data) if @tab_data
     @fetcher = $.ajax
       url: "/backend/inventory_pools/#{current_inventory_pool}/models.json"
       type: 'GET'
@@ -103,6 +106,7 @@ class InventoryController
         @setup_pagination data.inventory.pagination
         do @no_items_found unless data.inventory.entries.length
     do @save_state
+    do @update_csv_link
 
 ##   
 # TODO outsource to a history state module (browser navigation)
@@ -127,7 +131,7 @@ class InventoryController
     else
       @filters.each (i,el)=> $(el).attr "checked", false
     if state.query? then @search.val(state.query) else @search.val("")
-    @filter.responsible_id = if state.responsible_id? then state.responsible_id else undefined
+    @filter.responsible_id =state.responsible_id if state.responsible_id?
     do @select_responsible
   
   read_state: =>
@@ -166,7 +170,15 @@ class InventoryController
       else if v?  
         stringified_state += "/#{k}/#{v}"
     return stringified_state
-          
+  
+  update_csv_link: =>
+    params = {}
+    params["filter"] = @filter if @filter?
+    params["query"] = @query if @query?
+    $.extend 
+    params = $.extend(params,@tab_data) if @tab_data
+    @csv_button.attr("href", "/backend/inventory_pools/#{current_inventory_pool}/models.csv?#{$.param(params)}")
+
 ##   
   
   delegateEvents: =>
