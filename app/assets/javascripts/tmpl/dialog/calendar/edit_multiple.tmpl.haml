@@ -3,7 +3,7 @@ ${$start_date = new MinDate(SelectedLines.lines_data), ""}
 ${$end_date = new MaxDate(SelectedLines.lines_data), ""}
 ${$user = Line.get_user(SelectedLines.lines_data[0]), ""}
 ${$name = Str.sliced_trunc($user.firstname+" "+$user.lastname, 20, "... "), ""}
-${$start_date_disabled = SelectedLines.lines_data[0].contract.action == "take_back", ""}
+${$start_date_disabled = !Line.is_start_date_moveable(SelectedLines.lines_data[0]), ""}
 
 = form_tag '${$item.action}', :remote => true, :"data-submit_button" => true do
   %h1
