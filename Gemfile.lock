@@ -299,7 +299,7 @@ DEPENDENCIES
   factory_girl (~> 3.3)
   factory_girl_rails (~> 3.3)
   faker
-  fastercsv (~> 1.5.4)
+  fastercsv (~> 1.5.5)
   geocoder (~> 1.1)
   gettext
   gettext_i18n_rails (~> 0.3)
