@@ -77,6 +77,7 @@ def create_model(name, category, manufacturer, accessory_string)
   return m
 end
 
+require 'csv'
 items_to_import = CSV.open(import_file, :headers => true)
 
 # CSV fields:

@@ -82,7 +82,7 @@ def save_to_file(path, data, header = nil)
     header = ["Nachname", "Vorname", "Vertraege", "Geliehene Geraete"]
   end
   
-  
+  require 'csv'
   CSV.open(path, "a", {:headers => true, :col_sep => ';', }) do |csv|
     csv << header
     data.each do |item|

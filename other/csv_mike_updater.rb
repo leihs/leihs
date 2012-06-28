@@ -6,6 +6,7 @@ require 'rubygems'
 
 unfound = []
 
+require 'csv'
 CSV.foreach("/tmp/mike_update.csv", :col_sep => ";", :headers => :first_row) do |row|
 
   owner = row[0]

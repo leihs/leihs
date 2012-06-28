@@ -3,6 +3,7 @@
 
 
 # e-mail addresses, one per line, in CSV
+require 'csv'
 emails = CSV.read("/tmp/emails.csv")
 
 emails.each do |email|

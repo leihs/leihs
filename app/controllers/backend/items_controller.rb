@@ -27,6 +27,7 @@ class Backend::ItemsController < Backend::BackendController
     respond_to do |format|
       format.json { render :json => view_context.json_for(items, with) }
       format.csv {
+        require 'csv'
         csv_string = CSV.generate({ :col_sep => ";", :quote_char => "\"", :force_quotes => true }) do |csv|
           csv << Item.csv_header
           @items.each do |i|

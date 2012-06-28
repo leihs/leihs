@@ -20,6 +20,7 @@ def create_model(name, category1, category2)
   return m
 end
 
+require 'csv'
 items_to_import = CSV.open(import_file, :headers => false)
 
 items_to_import.each do |item|

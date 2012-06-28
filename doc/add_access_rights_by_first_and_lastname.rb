@@ -2,7 +2,7 @@
 
 
 require 'iconv'
-
+require 'csv'
 
 # e-mail addresses, one per line, in CSV
 names_doz = CSV.read("/tmp/dmu_dozierende-utf8.csv", :col_sep => ';')
