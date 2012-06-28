@@ -50,9 +50,9 @@ rescue NameError
 end
 
 DatabaseCleaner.clean_with :truncation
-Persona.create_all
 
 Before do
+  Persona.create_all
   DatabaseCleaner.start
 end
 
