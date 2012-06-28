@@ -48,9 +48,9 @@ avz_res.each do |r|
 
 end
 
-require 'faster_csv'
 
-FasterCSV.open("/tmp/leihs1_reservationen.csv","w", { :col_sep => ";", :quote_char => "\"", :force_quotes => true } ) do |csv|
+
+CSV.open("/tmp/leihs1_reservationen.csv","w", { :col_sep => ";", :quote_char => "\"", :force_quotes => true } ) do |csv|
   csv_array.each do |i|
     csv << i
   end

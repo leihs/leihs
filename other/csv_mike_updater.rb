@@ -1,12 +1,12 @@
 
 
 require 'rubygems'
-require 'faster_csv'
+
 
 
 unfound = []
 
-FasterCSV.foreach("/tmp/mike_update.csv", :col_sep => ";", :headers => :first_row) do |row|
+CSV.foreach("/tmp/mike_update.csv", :col_sep => ";", :headers => :first_row) do |row|
 
   owner = row[0]
   number = row[1]

@@ -3,7 +3,7 @@
 # require 'doc/csv_import_of_items'
 
 
-require 'faster_csv'
+
 
 import_file = "/tmp/items.csv"
 
@@ -62,7 +62,7 @@ def create_model(name, category, manufacturer, accessory_string)
   return m
 end
 
-items_to_import = FasterCSV.open(import_file, :headers => true)
+items_to_import = CSV.open(import_file, :headers => true)
 
 # CSV fields:
 # 0: Bezeichnung

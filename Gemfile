@@ -25,7 +25,6 @@ gem "chunky_png", "~> 1.2.5"
 gem 'mini_magick', '~> 3.3'
 gem 'rgl', '~> 0.4.0', :require => 'rgl/adjacency'
 gem 'ruby-net-ldap', '~> 0.0.4', :require => 'net/ldap'
-gem 'fastercsv', '~> 1.5.5'
 
 gem 'nested_set', '~> 1.7'
 gem 'acts-as-dag', :git => "git://github.com/jrust/acts-as-dag.git" #tmp# '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'

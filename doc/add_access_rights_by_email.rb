@@ -1,9 +1,9 @@
 
 
-require 'faster_csv'
+
 
 # e-mail addresses, one per line, in CSV
-emails = FasterCSV.read("/tmp/emails.csv")
+emails = CSV.read("/tmp/emails.csv")
 
 emails.each do |email|
     

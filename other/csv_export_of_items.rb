@@ -92,9 +92,9 @@ end
 
 
 
-require 'faster_csv'
 
-FasterCSV.open("/tmp/alle_mit_avz_nummern.csv","w", { :col_sep => ";", :quote_char => "\"", :force_quotes => true } ) do |csv|
+
+CSV.open("/tmp/alle_mit_avz_nummern.csv","w", { :col_sep => ";", :quote_char => "\"", :force_quotes => true } ) do |csv|
   item_array.each do |i|
     csv << i
   end

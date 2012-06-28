@@ -17,62 +17,6 @@ class Backend::ItemsController < Backend::BackendController
   end
 
 ######################################################################
-
-=begin    
-    # OPTIMIZE 0501 
-    params[:sort] ||= 'model_name'
-    params[:sort_mode] ||= 'ASC'
-    params[:sort_mode] = params[:sort_mode].downcase.to_sym
-
-    with = {:retired => false}
-#    without = {}
-    
-    if params[:model_id]
-      sphinx_select = "*, inventory_pool_id = #{current_inventory_pool.id} OR owner_id = #{current_inventory_pool.id} AS a"
-      with.merge!(:model_id => @model.id, :a => true)
-    elsif params[:allocated_inventory_pool_id]
-      with.merge!(:inventory_pool_id => params[:allocated_inventory_pool_id])
-    elsif @location
-      with.merge!(:location_id => @location.id, :inventory_pool_id => current_inventory_pool.id)
-    end    
-
-    case params[:filter]
-      when "retired"
-        with.merge!(:owner_id => current_inventory_pool.id, :retired => true)
-      when "own_items", "own", "all"
-        with.merge!(:owner_id => current_inventory_pool.id)
-      when "inventory_relevant"
-        with.merge!(:owner_id => current_inventory_pool.id, :is_inventory_relevant => true)
-      when "not_inventory_relevant"
-        with.merge!(:owner_id => current_inventory_pool.id, :is_inventory_relevant => false)
-      when "unallocated"
-        with.merge!(:owner_id => current_inventory_pool.id, :inventory_pool_id => 0)
-#      when "responsible"
-###        items = (current_inventory_pool.items - current_inventory_pool.own_items)
-#        with.merge!(:inventory_pool_id => current_inventory_pool.id)
-#        without.merge!(:owner_id => current_inventory_pool.id)
-      when "in_stock"
-        with.merge!(:inventory_pool_id => current_inventory_pool.id, :not_in_stock => false)
-      when "broken"
-        with.merge!(:inventory_pool_id => current_inventory_pool.id, :is_broken => true)
-      when "incomplete"
-        with.merge!(:inventory_pool_id => current_inventory_pool.id, :is_incomplete => true)
-      when "unborrowable"
-        with.merge!(:inventory_pool_id => current_inventory_pool.id, :is_borrowable => false)
-      else
-        with.merge!(:inventory_pool_id => current_inventory_pool.id)
-    end
-
-    with.merge!(:parent_id => 0, :model_is_package => 0) if request.format == :auto_complete # OPTIMIZE use params[:filter] == "packageable"
-    
-    if params[:format] == 'csv'
-      page = nil
-      per_page = Item.count
-    else
-      page = params[:page]
-      per_page = $per_page
-    end
-=end
   
   def index(with = params[:with])
     items = if @model
@@ -82,6 +26,16 @@ class Backend::ItemsController < Backend::BackendController
     end
     respond_to do |format|
       format.json { render :json => view_context.json_for(items, with) }
+      format.csv {
+        csv_string = CSV.generate({ :col_sep => ";", :quote_char => "\"", :force_quotes => true }) do |csv|
+          csv << Item.csv_header
+          @items.each do |i|
+            csv << i.to_csv_array unless i.nil? # How could an item ever be nil?
+          end
+        end
+       
+        send_data csv_string, :type => 'text/csv; charset=utf-8; header=present', :disposition => "attachment; filename=#{_("Items-leihs")}.csv"
+      }
     end
   end
 
