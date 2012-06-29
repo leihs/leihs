@@ -30,8 +30,7 @@ end
 
 Then /^the contract is closed and all items are returned$/ do
   wait_until { find(".dialog .documents") }
-  sleep(1)
-  @contract.reload.status_const.should == Contract::CLOSED
+  wait_until { @contract.reload.status_const == Contract::CLOSED }
   @contract.items.each do |item|
     item.in_stock?.should be_true
   end
