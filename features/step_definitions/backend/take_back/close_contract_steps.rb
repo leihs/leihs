@@ -18,6 +18,7 @@ When /^I click take back$/ do
 end
 
 Then /^I see a summary of the things I selected for take back$/ do
+  wait_until{ find(".dialog") }
   @contract.items.each do |item|
     find(".dialog").should have_content(item.model.name)
   end
