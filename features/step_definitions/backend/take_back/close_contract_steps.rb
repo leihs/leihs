@@ -11,7 +11,7 @@ When /^I select all lines of an open contract$/ do
     @line = find("li.name",:text => item.model.name).find(:xpath, "./../..")
     @line.find("input[type=checkbox]").click unless @line.find("input[type=checkbox]").checked?
   end
-  all(".line").each do |line|
+  all(".line", :text => "Contract #{@contract.id}").each do |line|
     line.find(".select input").checked?.should be_true
   end
 end
