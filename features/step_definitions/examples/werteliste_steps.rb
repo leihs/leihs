@@ -55,7 +55,7 @@ Dann /^beinhaltet die Werte\-Liste folgende Spalten:$/ do |table|
         @contract.lines.each {|line| @list.find("tr", :text=> line.item.inventory_code).find(".quantity").should have_content line.quantity }
       when "Wert"
         @contract.lines.each {|line|
-          @list.find("tbody tr", :text=> line.item.inventory_code).find(".item_price").should have_content line.item.price.to_i 
+          @list.find("tbody tr", :text=> line.item.inventory_code).find(".item_price").text.gsub(/\D/, "").should == ("%.2f" % line.item.price).gsub(/\D/, "")
         }
     end
   end
@@ -72,7 +72,7 @@ Dann /^diese summierte die Spalten:$/ do |table|
       when "Anzahl"
         @total.find(".quantity").should have_content @contract.quantity 
       when "Wert"
-        @total.find(".value").should have_content @contract.items.map(&:price).inject{|sum,x| sum+x}.to_i
+        @total.find(".value").text.gsub(/\D/, "").should == ("%.2f" % @contract.items.map(&:price).inject{|sum,x| sum+x}).gsub(/\D/, "")
     end
   end
 end
