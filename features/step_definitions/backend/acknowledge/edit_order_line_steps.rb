@@ -39,7 +39,11 @@ When /^I change (.*?) lines time range$/ do |type|
   end
   @line_element = find(".line", :text => @line.model.name)
   step 'I open the booking calendar for this line'
-  @new_start_date = @line.start_date + 1.day
+  @new_start_date = if @line.start_date + 1.day < Date.today
+      Date.today
+    else
+      @line.start_date + 1.day
+  end
   wait_until { find(".fc-widget-content .fc-day-number") }
   @new_start_date_element = get_fullcalendar_day_element(@new_start_date, @line)
   @new_start_date_element.click

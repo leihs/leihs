@@ -6,7 +6,11 @@ When /^I change the time range for all contract lines, envolving option and item
   step 'I edit the timerange of the selection'
   @line = @hand_over.lines.first
   @old_start_date = @line.start_date
-  @new_start_date = @old_start_date + 1.day
+  @new_start_date = if @line.start_date + 1.day < Date.today
+      Date.today
+    else
+      @line.start_date + 1.day
+  end
   @new_start_date_element = get_fullcalendar_day_element(@new_start_date, @line)
   @new_start_date_element.click
   find("a", :text => "Start Date").click
