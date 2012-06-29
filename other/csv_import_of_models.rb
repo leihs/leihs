@@ -1,5 +1,5 @@
 
-require 'faster_csv'
+
 
 import_file = "/tmp/theater.csv"
 
@@ -20,7 +20,8 @@ def create_model(name, category1, category2)
   return m
 end
 
-items_to_import = FasterCSV.open(import_file, :headers => false)
+require 'csv'
+items_to_import = CSV.open(import_file, :headers => false)
 
 items_to_import.each do |item|
   create_model(item[0], item[1], item[2])

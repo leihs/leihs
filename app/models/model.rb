@@ -143,9 +143,9 @@ class Model < ActiveRecord::Base
       sql = sql.
         joins("LEFT JOIN `model_links` AS ml2 ON `ml2`.`model_id` = `models`.`id`").
         joins("LEFT JOIN `model_groups` AS mg2 ON `mg2`.`id` = `ml2`.`model_group_id` AND `mg2`.`type` = 'Category'").
-        joins("LEFT JOIN `properties` AS p2 ON `p2`.`model_id` = `models`.`id`").
-        joins("LEFT JOIN `items` AS i2 ON `i2`.`model_id` = `models`.`id`") #old# AND `i2`.`retired` IS NULL
+        joins("LEFT JOIN `properties` AS p2 ON `p2`.`model_id` = `models`.`id`")
     end
+    sql = sql.joins("LEFT JOIN `items` AS i2 ON `i2`.`model_id` = `models`.`id`") if fields.empty? or fields.include?(:items)
 
     w = query.split.map do |x|
       s = []
@@ -156,8 +156,8 @@ class Model < ActiveRecord::Base
       if fields.empty?
         s << "mg2.name LIKE '%#{x}%'"
         s << "p2.value LIKE '%#{x}%'"
-        s << "CONCAT_WS(' ', i2.inventory_code, i2.serial_number, i2.invoice_number, i2.note, i2.name) LIKE '%#{x}%'"
       end
+      s << "CONCAT_WS(' ', i2.inventory_code, i2.serial_number, i2.invoice_number, i2.note, i2.name) LIKE '%#{x}%'" if fields.empty? or fields.include?(:items)
 
       "(%s)" % s.join(' OR ')
     end.join(' AND ')

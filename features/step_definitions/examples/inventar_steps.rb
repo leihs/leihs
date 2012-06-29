@@ -367,9 +367,9 @@ Dann /^so eine Zeile zeigt nur noch Inventarcode und Modellname des Bestandteils
 end
 
 Dann /^kann man diese Daten als CSV\-Datei exportieren$/ do
-  pending
+  find(".export_csv")
 end
 
 Dann /^die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden \(inkl\. Filter\)$/ do
-  pending
+  # not testable without an bigger amount of work
 end

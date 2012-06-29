@@ -34,15 +34,16 @@
       color: $grey;
       cursor: pointer;
       display: inline-block;
-      height: 28px;
+      height: 29px;
       position: relative;
       vertical-align: top;
       z-index: 101;
       @include border-radius(4px);
       
       &>span {
+        font-size: 1.2em;
         display: inline-block;
-        margin: 6px 5px 0 0;
+        margin: 7px 5px 0 0;
       }
       
       &>.icon {
@@ -124,6 +125,7 @@
     
     .filter {
       float: right;
+      font-size: 1.0em;
       position: relative;
       right: 6px;
       top: 3px;

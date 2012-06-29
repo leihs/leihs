@@ -9,6 +9,14 @@
     .line {
       .main {
         padding-left: 83px;
+        width: 630px;
+      }
+    }
+
+    .children {
+
+      .line .main {
+        width: 550px;
       }
     }
   }

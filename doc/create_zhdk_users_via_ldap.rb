@@ -1,12 +1,13 @@
 #!/usr/bin/ruby
-require 'faster_csv'
+
 require 'iconv'
 
 
 # e-mail addresses, one per line, in CSV
-names_doz = FasterCSV.read("/tmp/dmu_dozierende-utf8.csv", :col_sep => ';')
-names_stud = FasterCSV.read("/tmp/dmu_studenten-utf8.csv", :col_sep => ';')
-names_pers = FasterCSV.read("/tmp/dmu_personal-utf8.csv", :col_sep => ';')
+require 'csv'
+names_doz = CSV.read("/tmp/dmu_dozierende-utf8.csv", :col_sep => ';')
+names_stud = CSV.read("/tmp/dmu_studenten-utf8.csv", :col_sep => ';')
+names_pers = CSV.read("/tmp/dmu_personal-utf8.csv", :col_sep => ';')
 
 name_groups = [names_doz, names_stud, names_pers]
 

@@ -4,8 +4,8 @@
     
     %li.toggle{:"data-toggle_target" => "#model_${id}_items"}
       .text{:title => "{{if is_package}}#{_("show packages")}{{else}}#{_("show items")}{{/if}}", :"data-open_title" => _("hide items")}
-        ${items.length}
         .icon
+        ${items.length}
     
     %li.image
       .container

@@ -43,8 +43,9 @@ end
 
 
 def save_to_file(path, data)
-  require 'faster_csv'
-  FasterCSV.open(path, "w", {:headers => true, :col_sep => ';', }) do |csv|
+  
+  require 'csv'
+  CSV.open(path, "w", {:headers => true, :col_sep => ';', }) do |csv|
     csv << ["Nachname", "Vorname", "Vertraege", "Geliehene Geraete"]
     data.each do |item|
       csv << item

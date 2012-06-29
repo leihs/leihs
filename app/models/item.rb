@@ -1,3 +1,4 @@
+# encoding: utf-8
 # An Item is a borrowable thing (unless being flagged as
 # not being borrowable), is an instance of a #Model, has
 # its own barcode and thus its own identity. This is in
@@ -137,7 +138,7 @@ class Item < ActiveRecord::Base
   end
  
   # Returns an array of field headers for CSV, useful for including as first line
-  # using e.g. FasterCSV. Matches what's returned by to_csv_array
+  # using e.g. CSV. Matches what's returned by to_csv_array
   def self.csv_header    
     ['inventory_code', 
       'inventory_pool',
@@ -170,7 +171,7 @@ class Item < ActiveRecord::Base
       'location']
   end
 
-  # Generates an array suitable for outputting a line of CSV using FasterCSV
+  # Generates an array suitable for outputting a line of CSV using CSV
   def to_csv_array    
     if self.inventory_pool.nil? or self.inventory_pool.name.blank?
       ip = "UNKNOWN"
@@ -195,7 +196,7 @@ class Item < ActiveRecord::Base
     unless self.model.categories.nil? or self.model.categories.count == 0
       categories = []
       self.model.categories.each do |c|
-        categories << c.name + "|"
+        categories << c.name
       end
     end
     
@@ -218,7 +219,7 @@ class Item < ActiveRecord::Base
       "#{self.serial_number}",
       model_name,
       "#{self.is_borrowable}",
-      categories,
+      categories.join("; "),
       "#{self.invoice_number}",
       "#{self.invoice_date}",
       "#{self.last_check}",

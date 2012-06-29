@@ -13,8 +13,8 @@ def set_price(option_id, price)
 end
 
 
-require 'faster_csv'
-options = FasterCSV.open("/tmp/option_prices.csv")
+require 'csv'
+options = CSV.open("/tmp/option_prices.csv")
 options.each do |o|
   set_price(o[0], o[1])
 end

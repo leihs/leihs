@@ -19,10 +19,12 @@ module Json
         end
 
         if with[:items] and model.respond_to? :items
-          items = model.items 
-          items = items.where("items.id IN (#{with[:items][:scoped_ids].to_sql})") unless with[:items][:scoped_ids].nil?
-          items = items.search2(with[:items][:query]) if with[:items][:query]
-          h[:items] = hash_for items, with[:items]
+          Item.unscoped do
+            items = model.items 
+            items = items.where("items.id IN (#{with[:items][:scoped_ids].to_sql})") unless with[:items][:scoped_ids].nil?
+            items = items.search2(with[:items][:query]) if with[:items][:query]
+            h[:items] = hash_for items, with[:items]
+          end
         end
       
         if with[:categories] and model.respond_to? :categories
