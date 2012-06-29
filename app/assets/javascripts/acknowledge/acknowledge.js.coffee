@@ -19,6 +19,21 @@ class Acknowledge
     $(document).live "after_remove_line", ->
       Acknowledge.update_subtitle()
   
+  # TODO: dry with hand over controller
+  @remove_lines: (line_elements)->
+    for line_element in line_elements
+      $(line_element).addClass("removed")
+      line_data = $(line_element).tmplItem().data
+      if line_data.availability_for_inventory_pool? and line_data.availability_for_inventory_pool.availability?
+        line_data.availability_for_inventory_pool.availability = Line.remove_line_from_availability line_data, line_data.availability_for_inventory_pool.availability
+      Line.remove
+        element: line_element
+        color: "red"
+        callback: ()->
+          SelectedLines.update_counter()
+          if line_data.availability_for_inventory_pool? 
+            HandOver.update_model_availability line_data 
+  
   @setup_add_line: ->
     $('#process_helper').bind "ajax:success", (xhr, lines)->
       for line in lines

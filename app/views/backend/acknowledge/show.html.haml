@@ -83,14 +83,13 @@
             = link_to "/backend/inventory_pools/${current_inventory_pool}/acknowledge/${id}/reject", :class => "button white", :remote => "true" do
               .icon.valuelist
               = _("Value List")
-            = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/acknowledge/#{@order.id}/update_lines",
+            = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/acknowledge/#{@order.id}/remove_lines",
             :class => "button white",
             :remote => "true",
-            :method => "post",
+            :method => "delete",
             :"data-rel" => "tmpl/dialog/order_line/delete_multiple",
-            :"data-dialog_class" => "order_line",
-            :"data-on_success" => '$.each($(_this).data("lines"), function(line){Line.remove({element: $(this), color: "red"});})' ,
-            :"data-ref_for_dialog" => "$(_this).data()",
+            :"data-on_success" => 'Acknowledge.remove_lines(SelectedLines.lines);' ,
+            :"data-add_selected_line_ids" => "true",
             :id => "delete_selection" do
               .icon.delete
               = _("Delete")

@@ -136,19 +136,34 @@ class Backend::AcknowledgeController < Backend::BackendController
   
 ###################################################################################
 
+  def remove_lines(line_ids = params[:line_ids] || raise("line_ids is required"))
+    respond_to do |format|
+      format.json {
+        begin
+          OrderLine.transaction do
+            unless line_ids.all? {|l| @order.remove_line(l, current_user.id)}
+              raise _("You cannot delete all lines of an order, you might want to reject?")
+            end
+          end
+          render :json => {}
+        rescue => e
+          render :json => view_context.error_json({:message => e.to_s}),
+                 :status => 500
+        end
+      }
+    end
+  end
+
+  ###################################################################################
+
   def update_lines(line_ids = params[:line_ids] || raise("line_ids is required"),
                    line_id_model_id = params[:line_id_model_id] || {},
                    quantity = params[:quantity],
                    start_date = params[:start_date],
-                   end_date = params[:end_date],
-                   delete_line_ids = params[:delete_line_ids] || [])
+                   end_date = params[:end_date])
     
     OrderLine.transaction do
-      unless delete_line_ids.blank?
-        delete_line_ids.each {|l| @order.remove_line(l, current_user.id)}
-      end
-
-      lines = @order.lines.find(line_ids - delete_line_ids)
+      lines = @order.lines.find(line_ids)
       # TODO merge to Order#update_line
       lines.each do |line|
         line.quantity = [quantity.to_i, 1].max if quantity

@@ -106,7 +106,8 @@ Leihs::Application.routes.draw do
           post :reject
           get :delete
           post :add_line
-          post :update_lines 
+          post :update_lines
+          delete :remove_lines
           get :swap_user
           post :swap_user
           post :change_purpose

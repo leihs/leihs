@@ -70,13 +70,17 @@ Then /^the quantity of that line is changed$/ do
   @line_element.find(".amount .selected").text.should == @new_quantity.to_s
 end
 
-When /^I change the time range for multiple lines$/ do
+When /^I select two lines$/ do
   @line1 = @order.lines.first
   @line1_element = find(".line", :text => @line1.model.name)
   @line1_element.find("input[type=checkbox]").click
   @line2 = @order.lines.second
   @line2_element = find(".line", :text => @line2.model.name)
   @line2_element.find("input[type=checkbox]").click
+end
+
+When /^I change the time range for multiple lines$/ do
+  step 'I select two lines'
   step 'I edit the timerange of the selection'
   @new_start_date = @line1.start_date + 2.days
   @new_start_date_element = get_fullcalendar_day_element(@new_start_date, @line1)
