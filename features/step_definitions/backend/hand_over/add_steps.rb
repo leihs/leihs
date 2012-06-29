@@ -17,9 +17,8 @@ When /^I add an option to the hand over by providing an inventory code and a dat
   @inventory_code = @user.managed_inventory_pools.first.options.first.inventory_code
   find("#code").set @inventory_code
   page.execute_script('$("#code").focus()')
-  line_amount_before = all(".line").size
   find("#process_helper .button").click
-  wait_until(25) { line_amount_before < all(".line").size }
+  wait_until(25){ page.evaluate_script("$.active") == 0}
 end
 
 Then /^the (.*?) is added to the hand over$/ do |type|
