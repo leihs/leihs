@@ -25,8 +25,9 @@ class SessionsController < ApplicationController
     redirect_to sys.login_form_path
   rescue
     logger.error($!)
-    render :text => "No default authentication system selected." unless AuthenticationSystem.default_system.first
-    render :text => 'Class not found or missing login_form_path method: ' + @selected_system.class_name
+    raise "No default authentication system selected." unless AuthenticationSystem.default_system.first
+    raise "No system selected." unless @selected_system
+    raise 'Class not found or missing login_form_path method: ' + @selected_system.class_name
   end
 
 #TODO 1009: Remove as soon as not needed anymore

@@ -352,6 +352,9 @@ module LeihsFactory
     model = LeihsFactory.create_model(:name => 'holey parachute')
     LeihsFactory.create_item(:model => model, :inventory_pool => inventory_pool)
     
+    # Create Authenication System if not already existing
+    FactoryGirl.create :authentication_system, :name => "DatabaseAuthentication" unless AuthenticationSystem.default_system.first
+
     [inventory_pool, user, customer, model]
   end
 
