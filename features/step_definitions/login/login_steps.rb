@@ -6,5 +6,5 @@ When /^"([^"]*)" sign in successfully he is redirected to the "([^"]*)" section$
   fill_in 'password', :with => 'password'
   find(".login .button").click
   page.has_css?("#main.wrapper", :visible => true)
-  find(".navigation .active##{section_name.downcase}")
+  find(".navigation .active.#{section_name.downcase}")
 end
