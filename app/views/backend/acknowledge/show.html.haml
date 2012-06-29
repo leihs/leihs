@@ -88,10 +88,8 @@
             :remote => "true",
             :method => "delete",
             :"data-rel" => "tmpl/dialog/order_line/delete_multiple",
-            :"data-dialog_class" => "order_line",
-            :"data-on_success" => '$.each($(_this).data("lines"), function(line){Line.remove({element: $(this), color: "red"});})' ,
+            :"data-on_success" => 'Acknowledge.remove_lines(SelectedLines.lines);' ,
             :"data-add_selected_line_ids" => "true",
-            :"data-ref_for_dialog" => "$(_this).data()",
             :id => "delete_selection" do
               .icon.delete
               = _("Delete")

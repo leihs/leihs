@@ -139,10 +139,17 @@ class Backend::AcknowledgeController < Backend::BackendController
   def remove_lines(line_ids = params[:line_ids] || raise("line_ids is required"))
     respond_to do |format|
       format.json {
-        OrderLine.transaction do
-          line_ids.each {|l| @order.remove_line(l, current_user.id)}
+        begin
+          OrderLine.transaction do
+            unless line_ids.all? {|l| @order.remove_line(l, current_user.id)}
+              raise _("You cannot delete all lines of an order, you might want to reject?")
+            end
+          end
+          render :json => {}
+        rescue => e
+          render :json => view_context.error_json({:message => e.to_s}),
+                 :status => 500
         end
-        render :json => {}
       }
     end
   end

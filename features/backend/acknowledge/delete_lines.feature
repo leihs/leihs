@@ -19,3 +19,10 @@ Feature: Delete lines of an open order
      When I open an order for acknowledgement with more then one line
       And I delete multiple lines of this order
      Then these orderlines are deleted
+
+  @javascript
+  Scenario: Delete all lines of an open order
+     When I open an order for acknowledgement with more then one line
+      And I delete all lines of this order
+     Then I got an error message that not all lines can be deleted
+      And none of the lines are deleted
