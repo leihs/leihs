@@ -95,9 +95,7 @@ Dann /^muss ich keinen Zweck angeben um die Aushändigung durchzuführen$/ do
   step 'kann ich die Aushändigung durchführen'
 end
 
-Wenn /^ich aber einen Zweck angebe$/ do
-  step 'ich eine Aushändigung mache'
-  step 'einige der ausgewählten Gegenstände hat keinen Zweck angegeben'
+Wenn /^ich einen Zweck angebe$/ do
   find("#hand_over_button").click
   wait_until{ find(".dialog .button") }
   find(".purpose .button").click

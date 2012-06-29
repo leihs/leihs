@@ -36,11 +36,16 @@ Funktionalität: Zweck
     Dann kann ich die Aushändigung durchführen
 
   @javascript  
-  Szenario: Aushändigung mit Gegenständen teilweise ohne Zweck
+  Szenario: Aushändigung mit Gegenständen teilweise ohne Zweck können durchgeführt werden
     Wenn ich eine Aushändigung mache
     Und einige der ausgewählten Gegenstände hat keinen Zweck angegeben
     Dann muss ich keinen Zweck angeben um die Aushändigung durchzuführen
-    Wenn ich aber einen Zweck angebe
+
+  @javascript  
+  Szenario: Aushändigung mit Gegenständen teilweise ohne Zweck übertragen einen angegebenen Zweck nur auf die Gegenstände ohne Zweck
+    Wenn ich eine Aushändigung mache
+     Und einige der ausgewählten Gegenstände hat keinen Zweck angegeben
+     Und ich einen Zweck angebe
     Dann wird nur den Gegenständen ohne Zweck der angegebene Zweck zugewiesen
     
   @javascript  
