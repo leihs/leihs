@@ -16,6 +16,6 @@ Feature: Delete lines of an open order
 
   @javascript
   Scenario: Delete multiple lines of an open order
-     When I open an order for acknowledgement with multiple lines
+     When I open an order for acknowledgement with more then one line
       And I delete multiple lines of this order
      Then these orderlines are deleted

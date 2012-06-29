@@ -160,6 +160,7 @@ class HandOver
         new_line_data.availability_for_inventory_pool = line_data.availability_for_inventory_pool
         HandOver.update_line(line, new_line_data)
   
+  # TODO: dry with acknowledge controller
   @remove_lines: (line_elements)->
     for line_element in line_elements
       $(line_element).addClass("removed")

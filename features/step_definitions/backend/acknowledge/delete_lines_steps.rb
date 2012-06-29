@@ -12,3 +12,13 @@ end
 Then /^this orderline is deleted$/ do
   @order.lines.include?(@line).should == false
 end
+
+When /^I delete multiple lines of this order$/ do
+  step 'I select two lines'
+  page.execute_script('$("#selection_actions .button").show()')
+  find(".button", :text => "Delete").click
+end
+
+Then /^these orderlines are deleted$/ do
+  pending # express the regexp above with the code you wish you had
+end
