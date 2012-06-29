@@ -57,6 +57,7 @@ When /^I change the contract lines time range to tomorrow$/ do
   wait_until { find(".fc-widget-content .fc-day-number") }
   @new_start_date_element = get_fullcalendar_day_element(@new_start_date, @line)
   @new_start_date_element.click
+  wait_until{ find("a", :text => "Start Date") }
   find("a", :text => "Start Date").click
   step 'I save the booking calendar'
 end
