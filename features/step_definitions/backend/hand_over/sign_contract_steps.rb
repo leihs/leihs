@@ -53,7 +53,11 @@ end
 
 When /^I change the contract lines time range to tomorrow$/ do
   step 'I open the booking calendar for this line'
-  @new_start_date = @line.start_date + 1.day
+  @new_start_date = if @line.start_date + 1.day < Date.today
+      Date.today
+    else
+      @line.start_date + 1.day
+  end
   wait_until { find(".fc-widget-content .fc-day-number") }
   @new_start_date_element = get_fullcalendar_day_element(@new_start_date, @line)
   puts "@new_start_date = #{@new_start_date}"
