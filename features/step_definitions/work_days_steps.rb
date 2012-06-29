@@ -41,6 +41,7 @@ Given /today is today again/ do
   @date = Date.today
   back_to_the_present
 end
+
 When "$who try to order an item for $date" do |who, date|
   inventory_pool, inv_manager, user, model = LeihsFactory.create_dataset_simple
 
