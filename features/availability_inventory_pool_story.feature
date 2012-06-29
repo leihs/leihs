@@ -1,3 +1,5 @@
+# TODO remove and test on spec/models/model/availability/model_spec.rb
+       
 Feature: Availability depending on Pools
 
        As an Inventory Manager 
