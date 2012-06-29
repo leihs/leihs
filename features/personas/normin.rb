@@ -29,7 +29,7 @@ module Persona
     def setup_dependencies 
       Persona.create :ramon
       Persona.create :mike
-      Persona.create :pius
+      @pius = Persona.create :pius
     end
 
     def select_inventory_pool 
@@ -65,9 +65,10 @@ module Persona
     end
     
     def create_signed_contracts
-      @signed_contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status_const => Contract::SIGNED)
-      @signed_contract_purpose = FactoryGirl.create :purpose, :description => "Um meine Abschlussarbeit zu fotografieren."
-      FactoryGirl.create(:contract_line, :purpose => @signed_contract_purpose, :contract => @signed_contract, :item_id => @inventory_pool.items.select{|x| x.model ==  @camera_model}.first.id, :model => @camera_model, :start_date => Date.yesterday, :end_date => Date.today)
+      @unsigned_contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool)
+      purpose = FactoryGirl.create :purpose, :description => "Um meine Abschlussarbeit zu fotografieren."
+      FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @unsigned_contract, :item_id => @inventory_pool.items.in_stock.where(:model_id => @camera_model).first.id, :model => @camera_model, :start_date => Date.yesterday, :end_date => Date.today)
+      @unsigned_contract.sign(nil, @pius)
     end
   end  
 end

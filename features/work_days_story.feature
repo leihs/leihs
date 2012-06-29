@@ -3,7 +3,7 @@ Feature: Handling of workdays
        As an Inventory Manager
        I want to be able to define which days I work
        in order to not having to worry about somebody wanting to pick up or bring back something on a day I plan to stay home.
-       
+
 Scenario: Default Workdays
 
        When I try to order an item for 2.10.2100

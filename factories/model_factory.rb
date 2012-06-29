@@ -1,7 +1,13 @@
 FactoryGirl.define do
 
   factory :model do
-    name { Faker::Name.name }
+    name do
+      name = Faker::Name.name
+      while(Model.find_by_name(name)) do 
+        name = Faker::Name.name
+      end
+      name
+    end
     manufacturer { Faker::Name.name }
     description { Faker::Lorem.sentence }
     internal_description { Faker::Lorem.sentence }

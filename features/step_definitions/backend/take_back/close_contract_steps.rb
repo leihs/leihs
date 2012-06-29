@@ -18,6 +18,7 @@ When /^I click take back$/ do
 end
 
 Then /^I see a summary of the things I selected for take back$/ do
+  wait_until{ find(".dialog") }
   @contract.items.each do |item|
     find(".dialog").should have_content(item.model.name)
   end
@@ -30,8 +31,7 @@ end
 
 Then /^the contract is closed and all items are returned$/ do
   wait_until { find(".dialog .documents") }
-  sleep(1)
-  @contract.reload.status_const.should == Contract::CLOSED
+  wait_until { @contract.reload.status_const == Contract::CLOSED }
   @contract.items.each do |item|
     item.in_stock?.should be_true
   end
