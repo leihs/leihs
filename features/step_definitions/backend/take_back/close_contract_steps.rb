@@ -7,12 +7,8 @@ When /^I open a take back$/ do
 end
 
 When /^I select all lines of an open contract$/ do
-  @contract.lines.each do |line|
-    @line = find("li.name",:text => line.item.model.name).find(:xpath, "./../..")
-    @line.find("input[type=checkbox]").click unless @line.find("input[type=checkbox]").checked?
-  end
   all(".line", :text => "Contract #{@contract.id}").each do |line|
-    line.find(".select input").checked?.should be_true
+    line.find("input[type=checkbox]").click unless line.find("input[type=checkbox]").checked?
   end
 end
 
