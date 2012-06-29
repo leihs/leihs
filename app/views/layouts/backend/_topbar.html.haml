@@ -33,7 +33,7 @@
         %li.seperator
         
         %li.item.user{:class => is_current_page?("current_user") ? "active" : nil}
-          = link_to backend_inventory_pool_user_path(current_inventory_pool, current_user), :class => "anchor" do
+          %a.anchor
             = current_user
             .icon.arrow.down.white
           .popup
