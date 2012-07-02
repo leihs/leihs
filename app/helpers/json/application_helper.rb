@@ -20,11 +20,21 @@ module Json
     end
     
     #################################################################
+    # TODO merge success and error json
 
     def error_json(h)
       {
         error:{
           title: h[:title] || _("Error"),
+          text: h[:message]
+       }
+      }
+    end
+
+    def success_json(h)
+      {
+        success:{
+          title: h[:title] || _("Success"),
           text: h[:message]
        }
       }
