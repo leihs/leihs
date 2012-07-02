@@ -24,7 +24,7 @@ module Json
     def error_json(h)
       {
         error:{
-          title: h[:title] || "Error",
+          title: h[:title] || _("Error"),
           text: h[:message]
        }
       }

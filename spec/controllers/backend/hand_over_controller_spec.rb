@@ -16,7 +16,25 @@ describe Backend::HandOverController do
 
   describe "assigning an inventory_code" do
     context "selecting an item_line directly" do
-      pending
+      it "picking an available inventory_code" do
+        pending
+      end
+      it "writing an unavailable inventory_code" do
+        model = Model.all.detect do |m|
+          m.contract_lines.where(returned_date: nil, item_id: nil).first and
+          m.contract_lines.where(returned_date: nil).where("item_id IS NOT NULL").first 
+        end
+        model.should_not be_nil
+        line = model.contract_lines.where(returned_date: nil, item_id: nil).first
+        item = model.contract_lines.where(returned_date: nil).where("item_id IS NOT NULL").first.item
+        line.item.should be_nil
+        post :assign_inventory_code, {:inventory_pool_id => @inventory_pool.id,
+                                      :user_id => line.contract.user_id,
+                                      :inventory_code => item.inventory_code,
+                                      :line_id => line.id}, session
+        response.success?.should be_false
+        line.reload.item.should be_nil
+      end
     end
     
     context "without selecting an item_line" do
