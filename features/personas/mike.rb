@@ -120,6 +120,7 @@ module Persona
     end
     
     def setup_not_borrowable
+      # canon
       @canon_d5 = FactoryGirl.create(:model, :name => "Kamera Canon D5",
                                 :manufacturer => "Canon", 
                                 :description => "Ganz teure Kamera", 
@@ -127,6 +128,9 @@ module Persona
                                 :maintenance_period => 0)
       @canon_d5.model_links.create :model_group => @camera_category
       @canon_d5_item = FactoryGirl.create(:item, :inventory_code => "cand5", :is_borrowable => false, :serial_number => "cand5", :model => @camera_model, :location => @location, :owner => @inventory_pool)
+
+      # beamer
+      @not_borrowable_beamer = FactoryGirl.create(:item, :inventory_code => "beam21231", :is_borrowable => false, :serial_number => "beamas12312", :model => @beamer_model, :location => @location, :owner => @inventory_pool)
     end
     
     def setup_retired
