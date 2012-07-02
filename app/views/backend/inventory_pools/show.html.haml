@@ -77,12 +77,12 @@
                                                                       :quantity => true,
                                                                       :lines => {:model => true, :dates => true}})} ));
     $('.hand_over .list').append($.tmpl("tmpl/line", #{json_for(@hand_overs, {:user => {},
-                                                                              :lines => {},
+                                                                              :lines => {:model => {}},
                                                                               :quantity => true,
                                                                               :is_overdue => true})} ));
                                                       
     $('.take_back .list').append($.tmpl("tmpl/line", #{json_for(@take_backs, {:user => {},
-                                                                              :lines => {},
+                                                                              :lines => {:model => {}},
                                                                               :quantity => true,
                                                                               :is_overdue => true})} ));
 
