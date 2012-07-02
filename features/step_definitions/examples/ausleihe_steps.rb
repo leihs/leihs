@@ -129,3 +129,43 @@ end
 Dann /^ich kann die Gegenstände nicht aushändigen$/ do
   all(".hand_over .summary").size.should == 0
 end
+
+Angenommen /^der Kunde ist in mehreren Gruppen$/ do
+  @ip = @user.managed_inventory_pools.first
+  @customer = @ip.users.detect{|u| u.groups.size > 0}
+  @customer.should_not be_nil
+end
+
+Wenn /^ich eine Aushändigung an diesen Kunden mache$/ do
+  visit backend_inventory_pool_user_hand_over_path(@ip, @customer)
+end
+
+Wenn /^eine Zeile mit Gruppen-Partitionen editiere$/ do
+  @inventory_code = @ip.models.detect {|m| m.partitions.size > 1}.items.in_stock.borrowable.first.inventory_code
+  @model = Item.find_by_inventory_code(@inventory_code).model
+  step 'I add an item to the hand over by providing an inventory code and a date range'
+  find(".line.assigned .button", :text => "Edit").click
+end
+
+Wenn /^die Gruppenauswahl aufklappe$/ do
+  wait_until {find(".partition.container")}
+end
+
+Dann /^erkenne ich, in welchen Gruppen der Kunde ist$/ do
+  @customer_group_ids = @customer.groups.map(&:id)
+  @model.partitions.each do |partition|
+    next if partition.group_id.nil?
+    if @customer_group_ids.include? partition.group_id
+      find(".partition.container optgroup.customer_groups").should have_content partition.group.name
+    end
+  end
+end
+
+Dann /^dann erkennen ich, in welchen Gruppen der Kunde nicht ist$/ do
+  @model.partitions.each do |partition|
+    next if partition.group_id.nil?
+    unless @customer_group_ids.include?(partition.group_id)
+      find(".partition.container optgroup.other_groups").should have_content partition.group.name
+    end
+  end
+end
