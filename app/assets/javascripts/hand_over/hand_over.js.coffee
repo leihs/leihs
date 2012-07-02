@@ -131,7 +131,7 @@ class HandOver
         $(this).closest("form").submit()
         $(this).focus()
     $(".item_line .inventory_code .clear").live "click", (event)->
-      $(this).closest(".inventory_code").find("input").val ""
+      $(this).closest(".inventory_code").find("input[type=text]").val ""
       $(this).closest("form").submit()
       
   @update_visits = (data)->
