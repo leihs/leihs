@@ -32,9 +32,7 @@ When /^I delete the seleted lines$/ do
 end
 
 Then /^these lines are deleted$/ do
-  @selected_lines.each do |line|
-    lambda {line.click}.should raise_error(Selenium::WebDriver::Error::StaleElementReferenceError) 
-  end
+  (@selected_lines & all(".line")).should be_empty
   lambda {@hand_over.reload}.should raise_error(ActiveRecord::RecordNotFound)
 end
 

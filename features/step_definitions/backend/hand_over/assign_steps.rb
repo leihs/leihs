@@ -59,12 +59,8 @@ end
 
 When /^I open a hand over which has multiple lines$/ do
   @ip = @user.managed_inventory_pools.first
-  @customer = @ip.users.all.detect do |user| 
-    user.contracts.unsigned.detect do |contract| 
-      contract.lines.size > 1
-    end
-  end
-  @hand_over = @customer.visits.hand_over.detect{|x| x.lines.size > 1}
+  @hand_over = @ip.visits.hand_over.detect{|x| x.lines.size > 1}
+  @customer = @hand_over.user
   visit backend_inventory_pool_user_hand_over_path(@ip, @customer)
   page.has_css?("#hand_over", :visible => true)
 end
