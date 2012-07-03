@@ -68,7 +68,7 @@ Wenn /^einem Gegenstand einen Inventarcode manuell zuweise$/ do
 end
 
 Dann /^wird der Gegenstand ausgewählt und der Haken gesetzt$/ do
-  @item_line_element.find(".select input").checked?.should be_true
+  wait_until { @item_line_element.find(".select input").checked? }
   @item_line_element["class"].split(" ").include?("assigned").should be_true
 end
 
