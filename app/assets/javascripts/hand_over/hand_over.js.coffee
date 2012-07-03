@@ -95,20 +95,23 @@ class HandOver
       $(this).append LoadingImage.get()
       $(this).find("input:focus").blur()
     $(".item_line .inventory_code form").live "ajax:success", (event, data)->
-      # select the line automaticly on human interaction
-      $(this).closest(".line").find(".select input").attr("checked", true)
-      HandOver.update_line $(this).closest(".line"), data
-      # notification
+      line = $(this).closest(".line")
+      line_checkbox = line.find(".select input[type=checkbox]")
       if $(this).find("input[type=text]").val() == ""
+        if line_checkbox.is(":checked")
+          line_checkbox.attr("checked", false).trigger("change")
         Notification.add_headline
           title: ""
           text: "The assignment for #{data.model.name} was removed"
           type: "success"
       else
+        unless line_checkbox.is(":checked")
+          line_checkbox.attr("checked", true).trigger("change")
         Notification.add_headline
           title: "#{data.item.inventory_code}"
           text: "assigned to #{data.model.name}"
           type: "success"
+      HandOver.update_line line, data
     $(".item_line .inventory_code form").live "ajax:error", ()->
       $(this).find("input[type=text]").val("")
     $(".item_line .inventory_code form").live "ajax:complete", ->
