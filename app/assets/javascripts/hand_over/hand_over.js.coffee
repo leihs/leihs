@@ -182,6 +182,8 @@ class HandOver
   # TODO: dry with acknowledge controller
   @remove_lines: (line_elements)->
     for line_element in line_elements
+      # remove selection
+      $(line_element).find(".select input").attr("checked",false).trigger("change")
       $(line_element).addClass("removed")
       line_data = $(line_element).tmplItem().data
       if line_data.availability_for_inventory_pool? and line_data.availability_for_inventory_pool.availability?
@@ -196,8 +198,8 @@ class HandOver
   
   @update_line: (line_element, line_data)->
     new_line = $.tmpl("tmpl/line", line_data)
-    $(new_line).find("input").attr("checked", true) if $(line_element).find(".select input").is(":checked")
     $(line_element).replaceWith new_line
+    $(new_line).find("input").attr("checked", true).trigger("change") if $(line_element).find(".select input").is(":checked")
     
   @open_documents: (contract)->
     dialog = Dialog.add

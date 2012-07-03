@@ -34,11 +34,16 @@ end
 Then /^these lines are deleted$/ do
   (@selected_lines & all(".line")).should be_empty
   lambda {@hand_over.reload}.should raise_error(ActiveRecord::RecordNotFound)
+  step 'the count matches the amount of selected lines'
 end
 
 When /^I delete all lines of a model thats availability is blocked by these lines$/ do
   step 'I add so many lines that I break the maximal quantity of an model'
-  all(".line", :text => @model.name).each do |line|
+
+  reference_line = find(".line.error")
+  line_group = find(".line.error").find(:xpath, "../..")
+
+  line_group.all(".line", :text => @model.name).each do |line|
     line[:class].match("error").should be_true
   end
   
