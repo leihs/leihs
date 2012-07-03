@@ -7,7 +7,19 @@ class DocumentLine < ActiveRecord::Base
   self.abstract_class = true
   acts_as_audited :associated_with => :model
 
+###############################################  
+
   belongs_to :purpose
+  
+  # TODO this is a fallback, to be removed right on running the migration 20120424080001_remove_purpose_columns.rb 
+  def purpose_with_fallback
+    r = purpose_without_fallback
+    r ||= (document_purpose = document.read_attribute(:purpose)) ? Purpose.new(:description => document_purpose) : nil 
+    r
+  end
+  alias_method_chain :purpose, :fallback
+
+###############################################  
   
   before_validation :set_defaults, :on => :create
   validate :date_sequence  
