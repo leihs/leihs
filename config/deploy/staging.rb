@@ -10,7 +10,7 @@ set :application, "leihs-test"
 
 set :scm, :git
 set :repository,  "git://github.com/zhdk/leihs.git"
-set :branch, "next"
+set :branch, "feature_lending_improvements_2"
 set :deploy_via, :remote_cache
 
 set :db_config, "/home/leihs/#{application}/database.yml"
@@ -97,10 +97,7 @@ task :bundle_install do
 end
 
 task :precompile_assets do
-  # working around a known bug in Rails: http://stackoverflow.com/questions/7252872/upgrade-to-rails-3-1-0-from-rc6-asset-precompile-fails
-  run "sed -i 's/config.assets.compile = false/config.assets.compile = true/' #{release_path}/config/environments/production.rb"
   run "cd #{release_path} && RAILS_ENV=production bundle exec rake assets:precompile"
-  run "sed -i 's/config.assets.compile = true/config.assets.compile = false/' #{release_path}/config/environments/production.rb"
 end
 
 namespace :deploy do
