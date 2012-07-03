@@ -23,7 +23,6 @@ class SelectedLines
   
   @setup_single_line_selection: ->
     $(".line .select input[type='checkbox']").live "change", (event)->
-      console.log "CHANGE"
       SelectedLines.handle_linegroup_selection $(this).closest(".line")
       SelectedLines.store()
   
