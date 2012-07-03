@@ -45,6 +45,7 @@ describe Model do
     
     context "scoped by inventory_pool" do
       it "items available" do
+        pending
         model = Model.find_by_name("Sharp Beamer")
         ip_a = InventoryPool.find_by_name "A-Ausleihe"
         model.total_borrowable_items_for_user(@normin, ip_a).should == 2
