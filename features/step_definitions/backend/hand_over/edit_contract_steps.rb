@@ -1,8 +1,13 @@
+When /^I select all lines$/ do
+  all(".line").each do |line|
+    cb = line.find(".select input")
+    cb.click unless cb.checked?
+  end
+end
+
 When /^I change the time range for all contract lines, envolving option and item lines$/ do
   step 'I add an option to the hand over by providing an inventory code and a date range'
-  all(".line").each do |line|
-    line.find(".select input").click
-  end
+  step 'I select all lines'
   step 'I edit the timerange of the selection'
   @line = @hand_over.lines.first
   @old_start_date = @line.start_date
