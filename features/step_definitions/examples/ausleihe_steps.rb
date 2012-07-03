@@ -143,7 +143,7 @@ end
 Wenn /^eine Zeile mit Gruppen-Partitionen editiere$/ do
   @inventory_code = @ip.models.detect {|m| m.partitions.size > 1}.items.in_stock.borrowable.first.inventory_code
   @model = Item.find_by_inventory_code(@inventory_code).model
-  step 'I add an item to the hand over by providing an inventory code and a date range'
+  step 'I assign an item to the hand over by providing an inventory code and a date range'
   find(".line.assigned .button", :text => "Edit").click
 end
 
