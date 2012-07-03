@@ -70,6 +70,7 @@ end
 Dann /^wird der Gegenstand ausgewählt und der Haken gesetzt$/ do
   wait_until { @item_line_element.find(".select input").checked? }
   @item_line_element["class"].split(" ").include?("assigned").should be_true
+  find("#selection_actions .selection").should have_content all(".line .select input").delete_if{|cb| not cb.checked?}.size
 end
 
 Wenn /^ich eine Rücknahme mache die Optionen beinhaltet$/ do
@@ -86,6 +87,7 @@ end
 
 Dann /^wird die Option ausgewählt und der Haken gesetzt$/ do
   @option_line.find(".select input").checked?.should be_true
+  find("#selection_actions .selection").should have_content all(".line .select input").delete_if{|cb| not cb.checked?}.size
 end
 
 Wenn /^ich eine Aushändigung mache die ein Model enthält dessen Gegenstände ein nicht ausleihbares enthält$/ do

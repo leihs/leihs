@@ -168,7 +168,7 @@ class HandOver
         type: "success"
     HandOver.update_subtitle()
     # select new line
-    $(".line[data-id=#{line_data.id}] .select input").attr("checked", true).change()
+    $(".line[data-id=#{line_data.id}] .select input").attr("checked", true).trigger("change")
   
   @update_model_availability: (line_data)->
     lines_with_the_same_model = Underscore.filter $("#visits .line"), (line)-> 

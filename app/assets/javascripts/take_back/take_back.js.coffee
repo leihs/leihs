@@ -36,7 +36,7 @@ class TakeBack
   @setup_option_lines: ->
     $(".option_line .quantity input").live "change keyup", ()->
       line = $(this).closest(".line")
-      line.find(".select input").attr("checked", true) # select on human input/interaction
+      line.find(".select input").attr("checked", true).trigger("change") # select on human input/interaction
       new_quantity = parseInt($(this).val())
       if new_quantity == $(this).closest(".line").tmplItem().data.quantity
         $(this).closest(".line").removeClass("error")
@@ -64,7 +64,7 @@ class TakeBack
         text: "could not be assigned for take back"
         type: "error"
       return false 
-    $(matched_line).find(".select input").attr("checked", true).change()
+    $(matched_line).find(".select input").attr("checked", true).trigger("change")
     switch $(matched_line).tmplItem().data.type
       when "item_line"
         $(matched_line).addClass "assigned valid"
