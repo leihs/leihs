@@ -111,11 +111,11 @@ end
 
 Wenn /^alle der ausgewählten Gegenstände haben einen Zweck angegeben$/ do
   @contract = @customer.contracts.unsigned.first
-  @contract.lines.each do |line|
+  @contract.lines.where(ContractLine.arel_table[:start_date].lteq(Date.today)).each do |line|
     @item_line = line
     step 'I select one of those'
   end
-  all(".line .select input").each do |select|
+  all(".line.assigned .select input").each do |select|
     select.click unless select.selected?
   end
   find("#hand_over_button").click
