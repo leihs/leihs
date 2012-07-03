@@ -95,16 +95,16 @@ class HandOver
       $(this).append LoadingImage.get()
       $(this).find("input:focus").blur()
     $(".item_line .inventory_code form").live "ajax:success", (event, data)->
-      if data.success
+      # select the line automaticly on human interaction
+      $(this).closest(".line").find(".select input").attr("checked", true)
+      HandOver.update_line $(this).closest(".line"), data
+      # notification
+      if $(this).find("input[type=text]").val() == ""
         Notification.add_headline
-          title: "#{data.success.title}"
-          text: "#{data.success.text}"
+          title: ""
+          text: "The assignment for #{data.model.name} was removed"
           type: "success"
       else
-        # select the line automaticly on human interaction
-        $(this).closest(".line").find(".select input").attr("checked", true)
-        HandOver.update_line $(this).closest(".line"), data
-        # notification
         Notification.add_headline
           title: "#{data.item.inventory_code}"
           text: "assigned to #{data.model.name}"
