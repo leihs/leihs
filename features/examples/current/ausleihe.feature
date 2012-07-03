@@ -16,6 +16,7 @@ Funktionalität: Ausleihe
     Wenn ich auf "Normin N." klicke
     Dann wird mir ich ein Suchresultat nach "Normin N." angezeigt
 
+  @javascript
   Szenario: Autocomplete bei der Rücknahme
     Wenn ich eine Rücknahme mache
     Und etwas in das Feld "Inventarcode/Name" schreibe
@@ -24,19 +25,22 @@ Funktionalität: Ausleihe
     Dann sehe ich eine Fehlermeldung
     Und die Fehlermeldung lautet "In dieser Rücknahme nicht gefunden"
 
+  @javascript
   Szenario: Selektion bei manueller Interaktion bei Aushändigung
     Wenn ich eine Aushändigung mache
     Und einem Gegenstand einen Inventarcode manuell zuweise
     Dann wird der Gegenstand ausgewählt und der Haken gesetzt
 
+  @javascript
   Szenario: Selektion bei manueller Interaktion bei Rücknahme
-    Wenn ich eine Rücknahme mache
+    Wenn ich eine Rücknahme mache die Optionen beinhaltet
     Und die Anzahl einer zurückzugebenden Option manuell ändere
     Dann wird die Option ausgewählt und der Haken gesetzt
 
+  @javascript
   Szenario: Aushändigen: In den Inventarcodelisten nicht verfügbare Gegenstände hervorheben
-    Wenn ich eine Aushändigung mache
-    Und einen Inventarcode zuweisen möchte
+    Wenn ich eine Aushändigung mache die ein Model enthält dessen Gegenstände ein nicht ausleihbares enthält
+    Und diesem Model ein Inventarcode zuweisen möchte
     Dann schlägt mir das System eine Liste von Gegenständen vor
     Und diejenigen Gegenstände sind gekennzeichnet, welche als nicht ausleihbar markiert sind
 
@@ -46,6 +50,7 @@ Funktionalität: Ausleihe
     Wenn es in keinem zukünftigen Vertrag existiert 
     Dann wird es für die ausgewählte Zeitspanne hinzugefügt
 
+  @javascript
   Szenario: Fehlermeldung beim Versuch, etwas aus der Zukunft auszuhändigen
     Wenn ich eine Aushändigung mache
      Und die ausgewählten Gegenstände auch solche beinhalten, die in einer zukünftige Aushändigung enthalten sind
@@ -55,10 +60,11 @@ Funktionalität: Ausleihe
      Und ich kann die Gegenstände nicht aushändigen
 
   # https://www.pivotaltracker.com/story/show/29455957
+  @javascript
   Szenario: Buchungskalender: Bei "Show Availability" anzeigen in welcher Grupper der Kunde ist
     Angenommen der Kunde ist in mehreren Gruppen
     Wenn ich eine Aushändigung an diesen Kunden mache
-    Und eine Zeile editiere
+    Und eine Zeile mit Gruppen-Partitionen editiere
     Und die Gruppenauswahl aufklappe
     Dann erkenne ich, in welchen Gruppen der Kunde ist
     Und dann erkennen ich, in welchen Gruppen der Kunde nicht ist

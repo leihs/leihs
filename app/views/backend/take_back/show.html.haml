@@ -9,7 +9,6 @@
     = form_tag "", :id => "process_helper" do 
       .container
         %input.autocomplete.barcode_target{:type => "text", :name => "code", :autocomplete => "off", :id => "code", 
-        :"data-url" => things_to_return_backend_inventory_pool_user_take_back_path(current_inventory_pool, @user),
         :"data-autocomplete_element_tmpl" => "tmpl/autocomplete/assign_item",
         :"data-autocomplete_class" => "assign_line",
         :"data-autocomplete_select_callback" => "TakeBack.assign_through_autocomplete"}

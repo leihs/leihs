@@ -24,7 +24,7 @@ module Json
     def error_json(h)
       {
         error:{
-          title: h[:title] || "Error",
+          title: h[:title] || _("Error"),
           text: h[:message]
        }
       }
@@ -34,19 +34,16 @@ module Json
     
     def results_json(results)
       with = {
-        :user => {:city => true, :phone => true, :badge_id => true},
+        :user => {:image_url => true, :email => true, :address => true, :zip => true, :city => true, :phone => true, :badge_id => true},
         :order => { :lines => {:model => {},
                                :dates => true},
-                    :user => {:image_url => true,
-                              :address => true,
-                              :phone => true,
-                              :email => true},
+                    :user => {:image_url => true, :email => true, :address => true, :zip => true, :city => true, :phone => true, :badge_id => true},
                     :quantity => true,
                     :created_at => true,
                     :updated_at => true,
                     :purpose => true},
         :contract => {:lines => {:model => {}},
-                      :user => {:image_url => true},
+                      :user => {:image_url => true, :email => true, :address => true, :zip => true, :city => true, :phone => true, :badge_id => true},
                       :quantity => true,
                       :created_at => true,
                       :updated_at => true},

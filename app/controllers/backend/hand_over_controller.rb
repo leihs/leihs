@@ -210,20 +210,27 @@ class Backend::HandOverController < Backend::BackendController
 
   # given an inventory_code, searches for a matching contract_line
   # and if not found, adds an option
-  def assign_inventory_code (inventory_code = params[:inventory_code] || raise("inventory_code is required"),
-                             line_id = params[:line_id])
+  def assign_inventory_code(inventory_code = params[:inventory_code] || raise("inventory_code is required"),
+                            line_id = params[:line_id])
 
     item = current_inventory_pool.items.where(:inventory_code => inventory_code).first
     line = @contract.lines.find(line_id)
 
     if item and line and line.model == item.model
       line.update_attributes(item: item)
+      @error = {:message => line.errors.full_messages.join(', ')} unless line.valid?
     else
-      @error = {:message => _("The inventory code %s is not valid for this model" % inventory_code)} if item and line and line.model != item.model
-      @error ||= {:message => _("The assignment for #{line.model.name} was removed" % inventory_code)} if line and inventory_code == ""
-      @error ||= {:message => _("The item with the inventory code %s was not found" % inventory_code)} if line
-      @error ||= {:message => _("The line was not found")} if item
-      @error ||= {:message => _("Assigning the inventory code fails")}
+      unless inventory_code.blank?
+        @error = if item and line and line.model != item.model
+          {:message => _("The inventory code %s is not valid for this model" % inventory_code)}
+        elsif line
+          {:message => _("The item with the inventory code %s was not found" % inventory_code)}
+        elsif item
+          {:message => _("The line was not found")}
+        else 
+          {:message => _("Assigning the inventory code fails")}
+        end
+      end
       line.update_attributes(item: nil)
     end
     

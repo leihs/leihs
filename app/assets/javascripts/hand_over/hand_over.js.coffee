@@ -31,6 +31,14 @@ class HandOver
           text: "you cannot hand out lines with unassigned inventory codes"
           type: "error"
         return false
+      else if _.any(selected_item_lines, (line)-> moment($(line).tmplItem().data.start_date).diff(moment(), "days") > 0)
+        do e.preventDefault
+        do e.stopImmediatePropagation
+        Notification.add_headline
+          title: "Error"
+          text: "you cannot hand out lines wich are starting in the future"
+          type: "error"
+        return false
     
   @setup_purpose: ->
     $(".dialog .purpose button").live "click", (e)->
@@ -87,12 +95,23 @@ class HandOver
       $(this).append LoadingImage.get()
       $(this).find("input:focus").blur()
     $(".item_line .inventory_code form").live "ajax:success", (event, data)->
-      HandOver.update_line $(this).closest(".line"), data
-      # notification
-      Notification.add_headline
-        title: "#{data.item.inventory_code}"
-        text: "assigned to #{data.model.name}"
-        type: "success"
+      line = $(this).closest(".line")
+      line_checkbox = line.find(".select input[type=checkbox]")
+      if $(this).find("input[type=text]").val() == ""
+        if line_checkbox.is(":checked")
+          line_checkbox.attr("checked", false).trigger("change")
+        Notification.add_headline
+          title: ""
+          text: "The assignment for #{data.model.name} was removed"
+          type: "success"
+      else
+        unless line_checkbox.is(":checked")
+          line_checkbox.attr("checked", true).trigger("change")
+        Notification.add_headline
+          title: "#{data.item.inventory_code}"
+          text: "assigned to #{data.model.name}"
+          type: "success"
+      HandOver.update_line line, data
     $(".item_line .inventory_code form").live "ajax:error", ()->
       $(this).find("input[type=text]").val("")
     $(".item_line .inventory_code form").live "ajax:complete", ->
@@ -115,7 +134,7 @@ class HandOver
         $(this).closest("form").submit()
         $(this).focus()
     $(".item_line .inventory_code .clear").live "click", (event)->
-      $(this).closest(".inventory_code").find("input").val ""
+      $(this).closest(".inventory_code").find("input[type=text]").val ""
       $(this).closest("form").submit()
       
   @update_visits = (data)->

@@ -50,7 +50,6 @@ end
 Dann /^kann ich einen Zweck hinzufügen$/ do
   step 'I click an inventory code input field of an item line'
   step 'I select one of those'
-  @item_line_element.find(".select input").click
   find("#hand_over_button").click
   wait_until { find(".dialog .purpose") }
   find(".purpose .button").click
@@ -84,7 +83,6 @@ end
 Wenn /^einige der ausgewählten Gegenstände hat keinen Zweck angegeben$/ do
   step 'I click an inventory code input field of an item line'
   step 'I select one of those'
-  @item_line_element.find(".select input").click
   step 'I add an item to the hand over by providing an inventory code and a date range'
   step 'I add an option to the hand over by providing an inventory code and a date range'
 end

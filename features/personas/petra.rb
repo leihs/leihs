@@ -61,8 +61,9 @@ module Persona
     def create_signed_contracts
       @unsigned_contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool)
       purpose = FactoryGirl.create :purpose, :description => "Um meine Abschlussarbeit zu fotografieren."
-      FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @unsigned_contract, :item_id => @inventory_pool.items.in_stock.where(:model_id => @camera_model).first.id, :model => @camera_model, :start_date => Date.yesterday, :end_date => Date.today)
-      FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @unsigned_contract, :item_id => @inventory_pool.items.in_stock.where(:model_id => @camera_model).first.id, :model => @camera_model, :start_date => Date.yesterday, :end_date => Date.today)
+      FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @unsigned_contract, :item_id => @inventory_pool.items.in_stock.where(:model_id => @beamer_model).first.id, :model => @beamer_model, :start_date => Date.yesterday, :end_date => Date.today)
+      @akku = Option.find_by_name("Akku AA")
+      FactoryGirl.create(:option_line, :purpose => purpose, :contract => @unsigned_contract, :option => @akku, :start_date => Date.yesterday, :end_date => Date.today)
       @unsigned_contract.sign(nil, @pius)
     end
   end  

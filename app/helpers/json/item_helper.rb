@@ -9,7 +9,7 @@ module Json
       }
       
       if with ||= nil
-        [:current_borrower, :current_return_date, :in_stock?, :is_broken, :is_incomplete, :price, :inventory_pool].each do |k|
+        [:is_borrowable, :current_borrower, :current_return_date, :in_stock?, :is_broken, :is_incomplete, :price, :inventory_pool].each do |k|
           h[k] = item.send(k) if with[k]
         end
       

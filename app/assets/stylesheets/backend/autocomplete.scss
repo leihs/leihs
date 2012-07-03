@@ -31,6 +31,19 @@
       &:hover, &#ui-active-menuitem {
         background: $highlight-darkgrey;
       }
+
+      .delete.icon {
+        position: relative;
+        top: -2px;
+      }
+
+      &.unborrowable {
+      color: $lightred;
+
+        &:hover {
+          color: $red;
+        }
+      }
     }
   }
   
