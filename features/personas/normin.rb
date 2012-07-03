@@ -63,6 +63,12 @@ module Persona
       @unsigned_contract_2_purpose = FactoryGirl.create :purpose, :description => "Für das zweite Austellungswochenende."
       FactoryGirl.create(:contract_line, :purpose => @unsigned_contract_2_purpose, :contract => @unsigned_contract_2, :model => @tripod_model)
       FactoryGirl.create(:contract_line, :purpose => @unsigned_contract_2_purpose, :contract => @unsigned_contract_2, :model => @camera_model)
+
+      # unsigned_contract_3
+      @unsigned_contract_3 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool)
+      @unsigned_contract_3_purpose = FactoryGirl.create :purpose, :description => "Für das dritte Austellungswochenende."
+      FactoryGirl.create(:contract_line, :purpose => @unsigned_contract_3_purpose, :contract => @unsigned_contract_3, :model => @tripod_model, :start_date => Date.today + 7.days, :end_date => Date.today + 8.days)
+      FactoryGirl.create(:contract_line, :purpose => @unsigned_contract_3_purpose, :contract => @unsigned_contract_3, :model => @camera_model, :start_date => Date.today + 7.days, :end_date => Date.today + 8.days)
     end
     
     def create_signed_contracts

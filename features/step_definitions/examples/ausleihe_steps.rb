@@ -200,5 +200,5 @@ Wenn /^es in keinem zukünftigen Vertrag existiert$/ do
 end
 
 Dann /^wird es für die ausgewählte Zeitspanne hinzugefügt$/ do
-  wait_until { @amount_lines_before.should < all(".line").size }
+  wait_until { @amount_lines_before < all(".line").size }
 end
