@@ -1,5 +1,6 @@
 When /^I add an item to the hand over by providing an inventory code and a date range$/ do
-  @inventory_code = @user.managed_inventory_pools.first.items.in_stock.first.inventory_code unless @inventory_code
+  existing_model_ids = @customer.contracts.unsigned.flat_map(&:models).map(&:id)
+  @inventory_code = @user.managed_inventory_pools.first.items.in_stock.detect{|i| not existing_model_ids.include?(i.model_id)}.inventory_code unless @inventory_code
   find("#code").set @inventory_code
   line_amount_before = all(".line").size
   find("#process_helper .button").click
