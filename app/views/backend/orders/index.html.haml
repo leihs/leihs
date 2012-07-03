@@ -50,16 +50,12 @@
 :javascript
 
   $(document).ready(function(){
-    $('section .list').append($.tmpl("tmpl/line", #{json_for(@orders, {:lines => {:model => {},
-                                                                                             :dates => true},
-                                                                                  :user => {:image_url => true,
-                                                                                            :address => true,
-                                                                                            :phone => true,
-                                                                                            :email => true},
-                                                                                  :quantity => true,
-                                                                                  :created_at => true,
-                                                                                  :updated_at => true,
-                                                                                  :purpose => true})} ));
+    $('section .list').append($.tmpl("tmpl/line", #{json_for(@orders, { :lines => {:model => {}, :dates => true},
+                                                                        :user => {:image_url => true, :email => true, :address => true, :zip => true, :city => true, :phone => true, :badge_id => true},
+                                                                        :quantity => true,
+                                                                        :created_at => true,
+                                                                        :updated_at => true,
+                                                                        :purpose => true})} ));
     
     // setup ListSearch
     ListSearch.setup();

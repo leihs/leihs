@@ -20,6 +20,7 @@ module Persona
       ActiveRecord::Base.transaction do
         select_inventory_pool 
         create_user
+        setup_groups
         create_orders
         create_unsigned_contracts
         create_signed_contracts
@@ -69,6 +70,12 @@ module Persona
       purpose = FactoryGirl.create :purpose, :description => "Um meine Abschlussarbeit zu fotografieren."
       FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @unsigned_contract, :item_id => @inventory_pool.items.in_stock.where(:model_id => @camera_model).first.id, :model => @camera_model, :start_date => Date.yesterday, :end_date => Date.today)
       @unsigned_contract.sign(nil, @pius)
+    end
+
+    def setup_groups
+      @group_cast = Group.find_by_name("Cast")
+      @group_cast.users << @user
+      @group_cast.save
     end
   end  
 end

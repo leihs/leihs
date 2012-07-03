@@ -83,13 +83,13 @@ function DailyNavigator() {
       prevText: '&lt;',
       nextText: '&gt;',
       currentText: i18n.today,
-      monthNames: i18n.months.full.L,
+      monthNames: i18n.months.full,
       monthNamesShort: i18n.months.trunc,
-      dayNames: i18n.days.full.L,
+      dayNames: i18n.days.full,
       dayNamesShort: i18n.days.trunc,
       dayNamesMin: i18n.days.trunc,
       weekHeader: 'Wo',
-      dateFormat: i18n.date.XS.replace(/M/g, "m"), //note jquery uses small m for months
+      dateFormat: i18n.date.XS.replace(/D/g, "d").replace(/M/g, "m").replace(/Y/g, "y"), //note jquery uses small m for months
       firstDay: i18n.days.first,
       isRTL: false,
       showMonthAfterYear: false,
@@ -101,7 +101,7 @@ function DailyNavigator() {
       defaultDate: DailyNavigator.current_date,
       onClose: function(dateText, inst) {
         if(typeof(dateText) == "string" && dateText.search(/{.*?}/) == -1 && dateText != ""){
-          date = $.datepicker.parseDate(i18n.date.L, dateText);
+          date = moment(dateText,i18n.date.L).toDate();
           DailyNavigator.gotoDate(date);
         }
       }

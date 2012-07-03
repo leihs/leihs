@@ -17,11 +17,19 @@ ${$name = Str.sliced_trunc(name, 30, "... "), ""}
           {{/if}}
     %h3= "${$name}"
     %table
-      {{if address}}
+      {{if badge_id}}
+      %tr
+        %td.value
+          %p
+            ${badge_id}
+      {{/if}}
+      {{if address && zip && city}}
       %tr
         %td.value
           %p
             ${address}
+          %p
+            ${zip} ${city}
       {{/if}}
       {{if phone}}
       %tr

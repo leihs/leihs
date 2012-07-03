@@ -12,12 +12,21 @@ class TakeBack
     @setup_assign()
     @setup_option_lines()
     @update_subtitle()
+    @setup_autocomplete()
+
+  @setup_autocomplete: ->
+    autocomplete_data = []
+    for line in $(".line")
+      line_data = $(line).tmplItem().data
+      line_data["label"] = "#{line_data.item.inventory_code}: #{line_data.model.name}"
+      autocomplete_data.push line_data
+    $("#process_helper input#code").data "autocomplete_data", autocomplete_data
   
   @setup_assign: ->
     $("#process_helper").bind "submit", (event)->
       event.preventDefault
       if $(this).find("#code").val().length > 0
-        TakeBack.assign $(this).find("#code").val()    
+        TakeBack.assign $(this).find("#code").val()
         $(this).find("#code").val("")
         $(this).find("input").autocomplete("close")
       return false
@@ -27,6 +36,7 @@ class TakeBack
   @setup_option_lines: ->
     $(".option_line .quantity input").live "change keyup", ()->
       line = $(this).closest(".line")
+      line.find(".select input").attr("checked", true) # select on human input/interaction
       new_quantity = parseInt($(this).val())
       if new_quantity == $(this).closest(".line").tmplItem().data.quantity
         $(this).closest(".line").removeClass("error")

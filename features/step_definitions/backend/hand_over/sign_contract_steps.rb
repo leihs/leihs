@@ -13,7 +13,6 @@ When /^I select an item line and assign an inventory code$/ do
   @line_element.find(".inventory_code input").set item.inventory_code
   @line_element.find(".inventory_code input").native.send_key(:enter)
   wait_until(15){ @line_element.has_xpath?(".[contains(@class, 'assigned')]") }
-  @line_element.find(".select input").click
 end
 
 Then /^I see a summary of the things I selected for hand over$/ do
@@ -87,11 +86,10 @@ end
 
 When /^I select an overdue item line and assign an inventory code$/ do
   @item_line = @line = @customer.visits.hand_over.detect{|v| v.date < Date.today}.lines.detect {|x| x.class.to_s == "ItemLine"}
-  item = @ip.items.detect {|x| x.model == @item_line.model}
+  item = @ip.items.in_stock.where(model_id: @item_line.model).first
   @selected_items = [item]
   @line_element = find(".line[data-id='#{@item_line.id}']")
   @line_element.find(".inventory_code input").set item.inventory_code
   @line_element.find(".inventory_code input").native.send_key(:enter)
   wait_until(15){ @line_element.has_xpath?(".[contains(@class, 'assigned')]") }
-  @line_element.find(".select input").click
 end

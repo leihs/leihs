@@ -193,8 +193,8 @@ class Item < ActiveRecord::Base
       owner = self.owner.name
     end
 
+    categories = []
     unless self.model.categories.nil? or self.model.categories.count == 0
-      categories = []
       self.model.categories.each do |c|
         categories << c.name
       end

@@ -18,10 +18,10 @@ class AutoComplete
   
   @current_ajax
   
-  @setup = (input_field, source)->
+  @setup: (input_field, source)->
     # initialize autocomplete
     options = {}
-    options.source = if source? then source else @source
+    options.source = if source? then source else if $(input_field).data("autocomplete_data")? then $(input_field).data("autocomplete_data") else if $(input_field).data("url") then @remote_source
     options.select = @select
     $(input_field).autocomplete options
     # add class name to autocomplete widget
@@ -39,8 +39,8 @@ class AutoComplete
     if $(input_field).data("autocomplete_element_tmpl")?
       $(input_field).data("autocomplete")._renderItem = (ul, item)->
         $( "<li></li>" ).data("item.autocomplete", item).append( $.tmpl($(input_field).data("autocomplete_element_tmpl"), item) ).appendTo(ul)
-      
-  @source = (request, response)->
+
+  @remote_source: (request, response)->
     trigger = $(this.element)
     $(trigger).autocomplete("widget").scrollTop 0
     AutoComplete.current_ajax.abort() if AutoComplete.current_ajax?
@@ -69,8 +69,8 @@ class AutoComplete
           $(trigger).bind "blur", ()-> AutoComplete.setup(trigger, AutoComplete.source)  
         # return entries
         response entries
-      
-  @select = (event, element)->
+
+  @select: (event, element)->
     $(this).val("")
     $(this).autocomplete("close")
     if $(this).data("autocomplete_select_callback")?

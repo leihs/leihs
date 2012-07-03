@@ -24,9 +24,7 @@ When /^I open a take back which has multiple lines$/ do
 end
 
 When /^I change the end date for all contract lines, envolving option and item lines$/ do
-  all(".line").each do |line|
-    line.find(".select input").click
-  end
+  step 'I select all lines'
   step 'I edit the timerange of the selection'
   @line = @contract.lines.first
   @old_end_date = @line.end_date

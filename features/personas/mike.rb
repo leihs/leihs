@@ -20,6 +20,7 @@ module Persona
       ActiveRecord::Base.transaction do 
         create_inventory_manager_user
         create_location_and_building
+        create_groups
         create_minimal_inventory
       end
     end
@@ -41,6 +42,11 @@ module Persona
       @location = FactoryGirl.create(:location, :room => "UG 13", :shelf => "Ausgabe", :building => @building)
     end
     
+    def create_groups
+      @group_cast = FactoryGirl.create(:group, :name => "Cast", :inventory_pool => @inventory_pool)
+      @group_iad = FactoryGirl.create(:group, :name => "IAD", :inventory_pool => @inventory_pool)
+    end
+
     def create_minimal_inventory
       
       setup_sharp_beamers
@@ -56,6 +62,7 @@ module Persona
       setup_retired
       
       setup_inventory_moved_to_other_responsible
+      setup_inventory_for_group_cast
     end
     
     def setup_sharp_beamers
@@ -81,6 +88,8 @@ module Persona
       @camera_item = FactoryGirl.create(:item, :inventory_code => "cam123", :serial_number => "abc234", :model => @camera_model, :location => @location, :owner => @inventory_pool)
       @camera_item2= FactoryGirl.create(:item, :inventory_code => "cam345", :serial_number => "ab567", :model => @camera_model, :location => @location, :owner => @inventory_pool)
       @camera_item3= FactoryGirl.create(:item, :inventory_code => "cam567", :serial_number => "ab789", :model => @camera_model, :location => @location, :owner => @inventory_pool)
+      @camera_item4= FactoryGirl.create(:item, :inventory_code => "cam53267", :serial_number => "ab782129", :model => @camera_model, :location => @location, :owner => @inventory_pool)
+      @camera_item4= FactoryGirl.create(:item, :inventory_code => "cam532asd67", :serial_number => "ab78as2129", :model => @camera_model, :location => @location, :owner => @inventory_pool)
     end
     
     def setup_tripods
@@ -120,6 +129,7 @@ module Persona
     end
     
     def setup_not_borrowable
+      # canon
       @canon_d5 = FactoryGirl.create(:model, :name => "Kamera Canon D5",
                                 :manufacturer => "Canon", 
                                 :description => "Ganz teure Kamera", 
@@ -127,6 +137,9 @@ module Persona
                                 :maintenance_period => 0)
       @canon_d5.model_links.create :model_group => @camera_category
       @canon_d5_item = FactoryGirl.create(:item, :inventory_code => "cand5", :is_borrowable => false, :serial_number => "cand5", :model => @camera_model, :location => @location, :owner => @inventory_pool)
+
+      # beamer
+      @not_borrowable_beamer = FactoryGirl.create(:item, :inventory_code => "beam21231", :is_borrowable => false, :serial_number => "beamas12312", :model => @beamer_model, :location => @location, :owner => @inventory_pool)
     end
     
     def setup_retired
@@ -141,6 +154,11 @@ module Persona
     
     def setup_inventory_moved_to_other_responsible
       @beamer_for_it = FactoryGirl.create(:item, :inventory_code => "beam897", :inventory_pool_id => InventoryPool.find_by_name("IT-Ausleihe").id, :serial_number => "xyz890", :model => @beamer_model, :location => @location, :owner => @inventory_pool)    
+    end
+
+    def setup_inventory_for_group_cast
+      Partition.create({:model => @camera_model, :inventory_pool => @inventory_pool, :group => @group_cast, :quantity => 1})
+      Partition.create({:model => @camera_model, :inventory_pool => @inventory_pool, :group => @group_iad, :quantity => 1})
     end
   end  
 end

@@ -71,18 +71,18 @@
   
     $('.list').hide();
 
-    $('.order .list').append($.tmpl("tmpl/line", #{json_for(@orders, {:user => {},
+    $('.order .list').append($.tmpl("tmpl/line", #{json_for(@orders, {:user => {:image_url => true, :email => true, :address => true, :zip => true, :city => true, :phone => true, :badge_id => true},
                                                                       :purpose => {},
                                                                       :created_at => true,
                                                                       :quantity => true,
                                                                       :lines => {:model => true, :dates => true}})} ));
-    $('.hand_over .list').append($.tmpl("tmpl/line", #{json_for(@hand_overs, {:user => {},
-                                                                              :lines => {},
+    $('.hand_over .list').append($.tmpl("tmpl/line", #{json_for(@hand_overs, {:user => {:image_url => true, :email => true, :address => true, :zip => true, :city => true, :phone => true, :badge_id => true},
+                                                                              :lines => {:model => {}},
                                                                               :quantity => true,
                                                                               :is_overdue => true})} ));
                                                       
-    $('.take_back .list').append($.tmpl("tmpl/line", #{json_for(@take_backs, {:user => {},
-                                                                              :lines => {},
+    $('.take_back .list').append($.tmpl("tmpl/line", #{json_for(@take_backs, {:user => {:image_url => true, :email => true, :address => true, :zip => true, :city => true, :phone => true, :badge_id => true},
+                                                                              :lines => {:model => {}},
                                                                               :quantity => true,
                                                                               :is_overdue => true})} ));
 
