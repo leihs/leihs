@@ -7,12 +7,7 @@ end
 
 When /^I select an item line and assign an inventory code$/ do
   @item_line = @line = @customer.visits.hand_over.first.lines.detect {|x| x.class.to_s == "ItemLine"}
-  item = @ip.items.detect {|x| x.model == @item_line.model}
-  @selected_items = [item]
-  @line_element = find(".line[data-id='#{@item_line.id}']")
-  @line_element.find(".inventory_code input").set item.inventory_code
-  @line_element.find(".inventory_code input").native.send_key(:enter)
-  wait_until(15){ @line_element.has_xpath?(".[contains(@class, 'assigned')]") }
+  step 'I assign an inventory code the item line'
 end
 
 Then /^I see a summary of the things I selected for hand over$/ do
@@ -86,10 +81,15 @@ end
 
 When /^I select an overdue item line and assign an inventory code$/ do
   @item_line = @line = @customer.visits.hand_over.detect{|v| v.date < Date.today}.lines.detect {|x| x.class.to_s == "ItemLine"}
+  step 'I assign an inventory code the item line'
+end
+
+When /^I assign an inventory code the item line$/ do
   item = @ip.items.in_stock.where(model_id: @item_line.model).first
   @selected_items = [item]
+  inventory_code_input = find(".line[data-id='#{@item_line.id}'] .inventory_code input")
+  inventory_code_input.set item.inventory_code
+  inventory_code_input.native.send_key(:enter)
   @line_element = find(".line[data-id='#{@item_line.id}']")
-  @line_element.find(".inventory_code input").set item.inventory_code
-  @line_element.find(".inventory_code input").native.send_key(:enter)
-  wait_until(15){ @line_element.has_xpath?(".[contains(@class, 'assigned')]") }
+  wait_until { @line_element.has_xpath?(".[contains(@class, 'assigned')]") and @line_element.find(".select input").checked? }
 end
