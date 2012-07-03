@@ -283,7 +283,7 @@ class Backend::HandOverController < Backend::BackendController
                 code = params[:code],
                 line_ids = params[:line_ids])
     
-    # find model or option   
+    # find model or option 
     model = if not code.blank?
       item = current_inventory_pool.items.where(:inventory_code => code).first 
       item.model if item
@@ -297,12 +297,17 @@ class Backend::HandOverController < Backend::BackendController
       option ||= current_inventory_pool.options.where(:inventory_code => code).first
     end
     
-    # create new line
+    # create new line or assign
     if model
-      # try to assign for line_ids first
+      # try to assign for (selected)line_ids first
       line = if line_ids and code
         @contract.lines.where(:id => line_ids, :model_id => item.model, :item_id => nil).first
       end
+      # try to assign to contract lines of the customer
+      line ||= begin
+        @contract.lines.where(:model_id => model.id).sort_by(&:start_date).first
+      end
+      # add new line
       line ||= begin
         model.add_to_document(@contract, @user, quantity, start_date, end_date, current_inventory_pool)
       end
