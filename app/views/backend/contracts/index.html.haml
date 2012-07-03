@@ -47,7 +47,7 @@
 
 :ruby
   contracts_json = json_for @contracts, {:lines => {:model => {}},
-                                         :user => {:image_url => true},
+                                         :user => {:image_url => true, :email => true, :address => true, :zip => true, :city => true, :phone => true, :badge_id => true},
                                          :quantity => true,
                                          :created_at => true,
                                          :updated_at => true}
