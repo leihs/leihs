@@ -307,25 +307,17 @@ class Backend::HandOverController < Backend::BackendController
     # create new line or assign
     if model
       # try to assign for (selected)line_ids first
-      line = if line_ids and code
-        @contract.lines.where(:id => line_ids, :model_id => item.model, :item_id => nil).first
-      end
+      line = @contract.lines.where(:id => line_ids, :model_id => item.model, :item_id => nil).first if line_ids and code
       # try to assign to contract lines of the customer
-      line ||= begin
-        @contract.lines.where(:model_id => model.id).sort_by(&:start_date).first
-      end
+      line ||= @contract.lines.where(:model_id => model.id, :item_id => nil).order(:start_date).first if code
       # add new line
-      line ||= begin
-        model.add_to_document(@contract, @user, quantity, start_date, end_date, current_inventory_pool)
-      end
-      if model_group_id.nil? and item and line and not line.update_attributes(item: item)
-        @error = {:message => line.errors.values.join}
-      end
+      line ||= model.add_to_document(@contract, @user, quantity, start_date, end_date, current_inventory_pool)
+      @error = {:message => line.errors.values.join} if model_group_id.nil? and item and line and not line.update_attributes(item: item)
     elsif option
       if line = @contract.lines.where(:option_id => option.id, :start_date => start_date, :end_date => end_date).first
         line.quantity += quantity
         line.save
-      elsif ! line = @contract.option_lines.create(:option => option, :quantity => quantity, :start_date => start_date, :end_date => end_date)
+      elsif not line = @contract.option_lines.create(:option => option, :quantity => quantity, :start_date => start_date, :end_date => end_date)
         @error = {:message => _("The option could not be added" % code)}
       end
     else
