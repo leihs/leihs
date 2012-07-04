@@ -173,7 +173,7 @@ class Backend::TakeBackController < Backend::BackendController
       format.json {
         # TODO: RETURN ONLY UPDATED LINES
         visits = @user.visits.take_back.scoped_by_inventory_pool_id(current_inventory_pool)
-        render :json => view_context.json_for(visits, {:preset => :visit})
+        render :json => view_context.json_for(visits, {:preset => :visit_with_availability})
       }
     end
 

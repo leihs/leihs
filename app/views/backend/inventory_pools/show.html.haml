@@ -64,10 +64,10 @@
     
 = render :partial => 'backend/inventory_pools/bar_chart'
 
-:coffeescript
-  
-  json_for_orders = "#{json_for(@orders, {:preset => :order})}"
-  json_for_hand_overs = "#{json_for(@hand_overs, {:preset => :visit})}"
-  json_for_take_backs = "#{json_for(@take_backs, {:preset => :visit})}"
+:javascript
+  var json_for_orders     = #{json_for(@orders, {:preset => :order_minimal})}
+  var json_for_hand_overs = #{json_for(@hand_overs, {:preset => :visit})}
+  var json_for_take_backs = #{json_for(@take_backs, {:preset => :visit})}
 
+:coffeescript
   jQuery -> new App.DailyViewController

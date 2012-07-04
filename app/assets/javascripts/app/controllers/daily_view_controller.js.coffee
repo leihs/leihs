@@ -1,6 +1,6 @@
 class DailyViewController
 
-  el: "#inventory"
+  el: "#daily"
   @lists
   
   constructor: ->
@@ -11,23 +11,22 @@ class DailyViewController
     do @plugin
 
   render: =>
-    @el.find(".list").hide()
     @el.find(".order .list").append $.tmpl("tmpl/line", json_for_orders)
     @el.find(".hand_over .list").append $.tmpl("tmpl/line", json_for_hand_overs)
     @el.find(".take_back .list").append $.tmpl("tmpl/line", json_for_take_backs)
 
   setupShowMore: =>
     for list in @lists
+        list = $(list)
         text = list.parent().find(".tab .text").first().text()
         list.showMore
           min: 4,
           offset:
             top: -36
-          more: $tmpl("app/views/daily_view/_more", {text: text}) 
-          less: $tmpl("app/views/daily_view/_less", {text: text})
+          more: $.tmpl("app/views/daily_view/_more", {text: text}).html()
+          less: $.tmpl("app/views/daily_view/_less", {text: text}).html()
 
   plugin: =>
     DailyNavigator.setup()
-
 
 window.App.DailyViewController = DailyViewController
