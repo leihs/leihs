@@ -62,7 +62,7 @@ module Json
     #################################################################
 
     def get_with_preset(key)
-      case key
+      case key.to_sym
         when :inventory
           {:image_thumb => true,
            :inventory_code => true, # for options
@@ -80,6 +80,14 @@ module Json
                      },
            :availability => {:inventory_pool => current_inventory_pool},
            :categories => {}}
+        when :order_minimal
+          {:user => {:preset => :user},
+           :purpose => {},
+           :created_at => true,
+           :quantity => true,
+           :lines => {:model => true, 
+                      :dates => true}
+          }
         when :order
           {:lines => {:preset => :order_line},
            :user => {:groups => true},
@@ -118,8 +126,15 @@ module Json
              :city => true,
              :phone => true,
              :badge_id => true}
-          when :visit
+          when :visit_with_availability
             {:lines => {:preset => :contract_line}}
+          when :visit
+            {:user => {:preset => :user},
+             :lines =>{:model => {}},
+             :quantity => true,
+             :is_overdue => true
+            }
+
       end
     end
 
