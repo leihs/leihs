@@ -9,9 +9,9 @@
       
     %p.subtitle
       - if current_user.inventory_pools.blank?
-        != _("You have %{no_access} to any Equipment Pools!") % {:no_access => content_tag(:strong, "no access")}
+        != _("You have %{no_access} to any inventory pools!") % {:no_access => content_tag(:strong, "no access")}
       - else 
-        = _("You have access to the following Equipment Pools:")
+        = _("You have access to the following inventory pools:")
         - @pools = []
         - current_user.inventory_pools.each do |ip|
           - @pools.push(link_to ip.name, inventory_pool_path(ip))
@@ -23,7 +23,7 @@
     - unless (lines = current_user.things_to_return).empty?
       - overdue_lines, not_overdue_lines =  lines.partition {|l| l.end_date < Date.today }
       .indent
-        %h3= _("Currently Rented Items")
+        %h3= _("Currently Borrowed Items")
         - unless overdue_lines.empty?
           %ul.linelist.overdue
             = render :partial => "documents/line_li", :collection => overdue_lines, :as => :line

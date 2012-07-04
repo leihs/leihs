@@ -142,7 +142,7 @@ class Backend::AcknowledgeController < Backend::BackendController
         begin
           OrderLine.transaction do
             unless line_ids.all? {|l| @order.remove_line(l, current_user.id)}
-              raise _("You cannot delete all lines of an order, you might want to reject?")
+              raise _("You cannot delete all lines of an order. Perhaps you want to reject it instead?")
             end
           end
           render :json => {}
