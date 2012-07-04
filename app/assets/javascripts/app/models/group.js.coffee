@@ -24,6 +24,6 @@ class Group
       return false
     else
       group_ids = _.map groups, (g)-> g.id
-      return _.filter partitions, (p)-> !_.include(group_ids, p.group_id)
+      return _.filter partitions, (p)-> !_.include(group_ids, p.group_id) and p.group_id != null
 
 window.App.Group = Group

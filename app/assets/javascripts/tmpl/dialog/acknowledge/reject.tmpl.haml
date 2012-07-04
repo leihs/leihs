@@ -16,7 +16,7 @@
   
   %section.purpose
     %label= _("Purpose")
-    %p= "${purpose}"  
+    %p= "${purpose.description}"  
     
   %section.lines.scalable
     ${$grouped_lines = new GroupedLines(lines), ""}
