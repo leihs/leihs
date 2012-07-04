@@ -81,19 +81,19 @@ describe "Merging multiple lines availability in total and for partitions", ->
           av_date_found = true if av_date[0] == merged_av_date[0]
         expect(av_date_found).toBeTruthy("Record not found") 
              
-  it "is merging one specific availability entry (in this case: 2012-01-01) to 0 (unavailable) if all lines have this entry as well setted as 0 (unavailable)", ->
+  it "is merging one specific availability entry (in this case: 2012-01-01) to 0 (unavailable) if all lines have this entry as well set as 0 (unavailable)", ->
     for av_date in @merged_lines_availabilities.availability
       expect(av_date[1] == 0).toBeTruthy("Summed total quantity for the 2012-01-01 is not correct") if av_date[0] == "2012-01-01"
 
-  it "is merging one specific availability entry (in this case: 2012-01-02) to 0 (unavailable) if all lines have this entry setted greater then 0 but one has 0 (unavailable)", ->
+  it "is merging one specific availability entry (in this case: 2012-01-02) to 0 (unavailable) if all lines have this entry set greater then 0 but one has 0 (unavailable)", ->
     for av_date in @merged_lines_availabilities.availability
       expect(av_date[1] == 0).toBeTruthy("Summed total quantity for the 2012-01-02 is not correct") if av_date[0] == "2012-01-02"
         
-  it "is merging one specific availability entry (in this case: 2012-01-12) to 1 (available) if all lines have this entry setted greater then 0 (available)", ->
+  it "is merging one specific availability entry (in this case: 2012-01-12) to 1 (available) if all lines have this entry set greater then 0 (available)", ->
     for av_date in @merged_lines_availabilities.availability
       expect(av_date[1] == 1).toBeTruthy("Summed total quantity for the 2012-01-12 is not correct") if av_date[0] == "2012-01-12"
         
-  it "is merging one specific availability entry (in this case: 2012-01-04) to 0 (unavailable) if only one line has a entry for this date explicitly setted to greater then 0 (available) but one other's line latest entry is 0 (unavailable)", ->
+  it "is merging one specific availability entry (in this case: 2012-01-04) to 0 (unavailable) if only one line has a entry for this date explicitly set to greater then 0 (available) but one other's line latest entry is 0 (unavailable)", ->
     for av_date in @merged_lines_availabilities.availability
       expect(av_date[1] == 0).toBeTruthy("Summed total quantity for the 2012-01-04 is not correct") if av_date[0] == "2012-01-04"
       
@@ -116,7 +116,7 @@ describe "Merging multiple lines availability in total and for partitions", ->
         matched_partitions = (existing_partition for existing_partition in @merged_lines_availabilities.partitions when partition.group_id is existing_partition.group_id)
         expect(matched_partitions.length == 1).toBeTruthy("Partition not merged correctly")
         
-  it "is merging a specific partition (in this case: group_id 1) on a specific availability entry (in this case: 2012-01-12) to 1 (available) if all lines have this entry and this partition setted greater then 0 (available)", ->
+  it "is merging a specific partition (in this case: group_id 1) on a specific availability entry (in this case: 2012-01-12) to 1 (available) if all lines have this entry and this partition set greater then 0 (available)", ->
     found_partition = false
     for av_date in @merged_lines_availabilities.availability
       if av_date[0] == "2012-01-12"
@@ -125,7 +125,7 @@ describe "Merging multiple lines availability in total and for partitions", ->
           expect(partition.in_quantity == 1).toBeTruthy("Summed nested partition with group_id 1 for the 2012-01-12 is not correct") if partition.group_id == 1 
     expect(found_partition).toBeTruthy("Partition not found")
          
-  it "is merging a specific partition (in this case: group_id 2) on a specific availability entry (in this case: 2012-01-15) to 0 (unavailable) if one line doesnt have this partiton but all other lines have this entry and this partition setted greater then 0 (available)", ->
+  it "is merging a specific partition (in this case: group_id 2) on a specific availability entry (in this case: 2012-01-15) to 0 (unavailable) if one line doesnt have this partiton but all other lines have this entry and this partition set greater then 0 (available)", ->
     found_partition = false
     for av_date in @merged_lines_availabilities.availability
       if av_date[0] == "2012-01-15"

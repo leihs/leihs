@@ -121,7 +121,7 @@ function DailyNavigator() {
       new_params = params.replace(/date=\d{4}-\d{1,2}-\d{1,2}/, "date="+date_param);        
     } else if (params == "") { // current params are empty
       new_params = "?date="+date_param;
-    } else { // there are current params but no date is setted
+    } else { // there are current params but no date is set
       new_params = params+"&date="+date_param;
     }
     
