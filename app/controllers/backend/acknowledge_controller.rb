@@ -116,16 +116,7 @@ class Backend::AcknowledgeController < Backend::BackendController
     respond_to do |format|
       format.json {
         if @error.blank?
-          with = {:model => {},
-                  :order => {},
-                  :user => {}, 
-                  :is_available => true, 
-                  :availability_for_inventory_pool => true, 
-                  :inventory_pool_id => true,
-                  :quantity => true,
-                  :dates => true,
-                  :quantity => true,
-                  :purpose => true}
+          with = {:preset => "order_line"}
           render :json => view_context.json_for(Array(line), with)
         else
           render :json => view_context.error_json(@error), status: 500
@@ -193,15 +184,7 @@ class Backend::AcknowledgeController < Backend::BackendController
     
     respond_to do |format|
       format.json {
-        with = { :lines => {:model => {},
-                            :order => {:user => {:groups => true}}, # FIXME remove this, we already have it as parent
-                            :availability_for_inventory_pool => true,
-                            :dates => true,
-                            :quantity => true,
-                            :is_available => true},
-                 :user => {:groups => true},
-                 :quantity => true,
-                 :purpose => true }
+        with = {:preset => "order"}
         render :json => view_context.json_for(@order, with)
       }
     end

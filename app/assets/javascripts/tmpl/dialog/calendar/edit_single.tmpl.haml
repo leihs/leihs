@@ -53,7 +53,7 @@ ${$start_date_disabled = ($item.data.contract!=undefined)&&($item.data.contract.
             {{/each}}
           {{/if}}
           {{if $diff_groups_partitions.length > 0}}
-          %optgroup.other_groups{:label => "{{if}}#{_("Other Groups")}{{else}}#{_("Groups")}{{/if}}"}
+          %optgroup.other_groups{:label => "{{if $intersection_groups_partitions.length < 0}}#{_("Other Groups")}{{else}}#{_("Groups")}{{/if}}"}
             {{each(i, partition) $diff_groups_partitions}}
             %option{:value => "[${partition.group_id}]", :"data-name" => "Group ${partition.group.name}", :"data-total_rentable" => "${partition.quantity}"}
               = _("Group ${partition.group.name}")
