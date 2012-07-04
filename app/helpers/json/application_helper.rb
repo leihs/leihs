@@ -80,6 +80,18 @@ module Json
                      },
            :availability => {:inventory_pool => current_inventory_pool},
            :categories => {}}
+        when "order"
+          {:lines => {:preset => "order_line"},
+           :user => {:groups => true},
+           :quantity => true,
+           :purpose => true }
+        when "order_line"
+          {:model => {},
+           :order => {:user => {:groups => true}}, # FIXME remove this, we already have it as parent
+           :availability_for_inventory_pool => true,
+           :dates => true,
+           :quantity => true,
+           :is_available => true}
       end
     end
 
