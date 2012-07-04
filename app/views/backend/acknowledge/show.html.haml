@@ -110,7 +110,7 @@
 :ruby
   inventory_pool_json = json_for current_inventory_pool, {:closed_days => true, :holidays => true}
   
-  order_json = json_for @order, {:preset => "order"}
+  order_json = json_for @order, {:preset => :order}
 
 :coffeescript
   jQuery ->

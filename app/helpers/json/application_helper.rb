@@ -34,16 +34,16 @@ module Json
     
     def results_json(results)
       with = {
-        :user => {:image_url => true, :email => true, :address => true, :zip => true, :city => true, :phone => true, :badge_id => true},
+        :user => {:preset => :user},
         :order => { :lines => {:model => {},
                                :dates => true},
-                    :user => {:image_url => true, :email => true, :address => true, :zip => true, :city => true, :phone => true, :badge_id => true},
+                    :user => {:preset => :user},
                     :quantity => true,
                     :created_at => true,
                     :updated_at => true,
                     :purpose => true},
         :contract => {:lines => {:model => {}},
-                      :user => {:image_url => true, :email => true, :address => true, :zip => true, :city => true, :phone => true, :badge_id => true},
+                      :user => {:preset => :user},
                       :quantity => true,
                       :created_at => true,
                       :updated_at => true},
@@ -63,7 +63,7 @@ module Json
 
     def get_with_preset(key)
       case key
-        when "inventory"
+        when :inventory
           {:image_thumb => true,
            :inventory_code => true, # for options
            :price => true, # for options
@@ -80,18 +80,46 @@ module Json
                      },
            :availability => {:inventory_pool => current_inventory_pool},
            :categories => {}}
-        when "order"
-          {:lines => {:preset => "order_line"},
+        when :order
+          {:lines => {:preset => :order_line},
            :user => {:groups => true},
            :quantity => true,
            :purpose => true }
-        when "order_line"
+        when :order_line
           {:model => {},
            :order => {:user => {:groups => true}}, # FIXME remove this, we already have it as parent
            :availability_for_inventory_pool => true,
            :dates => true,
            :quantity => true,
            :is_available => true}
+         when :contract
+           {:barcode => true,
+            :note => true,
+            :inventory_pool => {:address => {}},
+            :lines => {:item => {:price => true},
+                       :model => {},
+                       :purpose => {},
+                       :returned_date => true},
+            :user => {:address => true,
+                      :zip => true,
+                      :city => true} }
+          when :contract_line
+            {:is_valid => true,
+             :item => {},
+             :model => {},
+             :contract => {:user => {:groups => {}}},
+             :purpose => true,
+             :availability => true}
+          when :user
+            {:image_url => true,
+             :email => true,
+             :address => true,
+             :zip => true,
+             :city => true,
+             :phone => true,
+             :badge_id => true}
+          when :visit
+            {:lines => {:preset => :contract_line}}
       end
     end
 

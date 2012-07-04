@@ -66,12 +66,7 @@ class Backend::ContractsController < Backend::BackendController
       }
 =end
       format.json {
-        with = { barcode: true,
-                 note: true,
-                 inventory_pool: {address: {}},
-                 lines: {item: {price: true}, model: {}, purpose: {}, returned_date: true},
-                 user: {address: true, zip: true, city: true} }
-        render :json => view_context.json_for(@contract.reload, with)
+        render :json => view_context.json_for(@contract.reload, {:preset => :contract})
       }
 		end
   end

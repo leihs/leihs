@@ -45,12 +45,7 @@ class Backend::HandOverController < Backend::BackendController
     respond_to do |format|
       format.json {
         if @contract.sign(lines, current_user)
-          with = { barcode: true,
-                   note: true,
-                   inventory_pool: {address: {}},
-                   lines: {item: {price: true}, model: {}, purpose: {}, returned_date: true},
-                   user: {address: true, zip: true, city: true} }
-          render :json => view_context.json_for(@contract.reload, with)
+          render :json => view_context.json_for(@contract.reload, {:preset => :contract})
         else
           @error = {:message => @contract.errors.full_messages}
           render :json => view_context.error_json(@error), status: 500
@@ -183,14 +178,8 @@ class Backend::HandOverController < Backend::BackendController
     respond_to do |format|
       format.json {
         # TODO: RETURN ONLY UPDATED LINES
-        with = { :lines => {:is_valid => true,
-                 :item => {},
-                 :model => {},
-                 :contract => {:user => {:groups => {}}},
-                 :purpose => true,
-                 :availability => true}}
         visits = @user.visits.hand_over.scoped_by_inventory_pool_id(current_inventory_pool)
-        render :json => view_context.json_for(visits, with)
+        render :json => view_context.json_for(visits, {:preset => :visit})
       }
     end
   end
@@ -237,13 +226,7 @@ class Backend::HandOverController < Backend::BackendController
     respond_to do |format|
       format.json {
         if @error.blank? 
-           with = { :is_valid => true,
-                    :item => {},
-                    :model => {},
-                    :contract => {:user => {:groups => {}}},
-                    :purpose => true,
-                    :availability => true}
-          render :json => view_context.json_for(line, with)
+          render :json => view_context.json_for(line, {:preset => :contract_line})
         else
           render :json => view_context.error_json(@error), status: 500
         end
@@ -333,13 +316,7 @@ class Backend::HandOverController < Backend::BackendController
     respond_to do |format|
       format.json {
         if @error.blank?
-           with = { :is_valid => true,
-                    :item => {},
-                    :model => {},
-                    :contract => {:user => {:groups => {}}},
-                    :purpose => true,
-                    :availability => true}
-          render :json => view_context.json_for(Array(line), with)
+          render :json => view_context.json_for(Array(line), {:preset => :contract_line})
         else
           render :json => view_context.error_json(@error), status: 500
         end

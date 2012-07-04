@@ -86,13 +86,7 @@
 
 :ruby
   inventory_pool_json = json_for current_inventory_pool, {:closed_days => true, :holidays => true}
-  
-  visits_json = json_for @visits, {:lines => {:is_valid => true,
-                                              :item => {},
-                                              :model => {},
-                                              :contract => {:user => {:groups => {}}},
-                                              :purpose => true,
-                                              :availability => true}} 
+  visits_json = json_for @visits, {:preset => :visit} 
 
 :coffeescript    
   jQuery ->

@@ -48,7 +48,7 @@
 :javascript
   $(document).ready(function(){
     $('section .list').append($.tmpl("tmpl/line", #{json_for( @visits, {:lines => {},
-                                                                        :user => {:image_url => true, :email => true, :address => true, :zip => true, :city => true, :phone => true, :badge_id => true},
+                                                                        :user => {:preset => :user},
                                                                         :quantity => true,
                                                                         :is_overdue => true})} ));
 

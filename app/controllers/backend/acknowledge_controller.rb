@@ -116,8 +116,7 @@ class Backend::AcknowledgeController < Backend::BackendController
     respond_to do |format|
       format.json {
         if @error.blank?
-          with = {:preset => "order_line"}
-          render :json => view_context.json_for(Array(line), with)
+          render :json => view_context.json_for(Array(line), {:preset => :order_line})
         else
           render :json => view_context.error_json(@error), status: 500
         end
@@ -184,8 +183,7 @@ class Backend::AcknowledgeController < Backend::BackendController
     
     respond_to do |format|
       format.json {
-        with = {:preset => "order"}
-        render :json => view_context.json_for(@order, with)
+        render :json => view_context.json_for(@order, {:preset => :order})
       }
     end
   end

@@ -49,12 +49,7 @@ class Backend::TakeBackController < Backend::BackendController
     respond_to do |format|
       format.json {
         # NOTE: reload contracts ??
-        with = { barcode: true,
-                 note: true,
-                 inventory_pool: {address: {}},
-                 lines: {item: {price: true}, model: {}, purpose: {}, returned_date: true},
-                 user: {address: true, zip: true, city: true} }
-        render :json => view_context.json_for(contracts, with)}
+        render :json => view_context.json_for(contracts, {:preset => :contract})}
     end
 
 =begin
@@ -177,14 +172,8 @@ class Backend::TakeBackController < Backend::BackendController
     respond_to do |format|
       format.json {
         # TODO: RETURN ONLY UPDATED LINES
-        with = { :lines => {:is_valid => true,
-                 :item => {},
-                 :model => {},
-                 :contract => {:user => {:groups => {}}},
-                 :purpose => true,
-                 :availability => true}}
         visits = @user.visits.take_back.scoped_by_inventory_pool_id(current_inventory_pool)
-        render :json => view_context.json_for(visits, with)
+        render :json => view_context.json_for(visits, {:preset => :visit})
       }
     end
 
