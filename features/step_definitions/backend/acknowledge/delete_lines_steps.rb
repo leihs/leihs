@@ -41,7 +41,7 @@ end
 
 Then /^I got an error message that not all lines can be deleted$/ do
   wait_until {find(".notification")}
-  find(".notification").should have_content "You cannot delete all lines of an order, you might want to reject?"
+  find(".error.notification")
 end
 
 Then /^none of the lines are deleted$/ do
