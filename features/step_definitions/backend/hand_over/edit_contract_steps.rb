@@ -35,5 +35,6 @@ When /^I change the time range for that option$/ do
 end
 
 Then /^the time range for that option line is changed$/ do
+  wait_until { page.evaluate_script("$.active") == 0 }
   @option_line.reload.start_date.should == @new_start_date
 end
