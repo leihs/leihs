@@ -255,7 +255,6 @@ Leihs::Application.routes.draw do
             #old leihs# get :close_contract
             post :close_contract
             post :assign_inventory_code
-            get :inspection
             get :things_to_return
             post :inspection
             post :update_lines

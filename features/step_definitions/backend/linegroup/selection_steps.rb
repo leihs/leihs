@@ -4,15 +4,13 @@ When /^I open a take back, hand over or I edit an order$/ do
   type = possible_types.shuffle.first
   case type
     when "take_back"
-      @customer = @ip.users.all.select {|x| x.contracts.signed.size > 0}.first
-      @entity = @customer.contracts.signed.first
+      @customer = @ip.users.detect {|x| x.contracts.signed.size > 0}
       visit backend_inventory_pool_user_take_back_path(@ip, @customer)
     when "hand_over"
-      @customer = @ip.users.all.select {|x| x.contracts.unsigned.size > 0}.first
-      @entity = @customer.contracts.unsigned.first
+      @customer = @ip.users.detect {|x| x.contracts.unsigned.size > 0}
       visit backend_inventory_pool_user_hand_over_path(@ip, @customer)
     when "order"
-      @customer = @ip.users.all.select {|x| x.orders.submitted.size > 0}.first
+      @customer = @ip.users.detect {|x| x.orders.submitted.size > 0}
       @entity = @customer.orders.submitted.first
       visit backend_inventory_pool_acknowledge_path(@ip, @entity)
   end

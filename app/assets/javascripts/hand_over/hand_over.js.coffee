@@ -141,6 +141,9 @@ class HandOver
     $('#visits').html($.tmpl("tmpl/visit", data))
     SelectedLines.restore()
     HandOver.update_subtitle()
+    Notification.add_headline
+      title: "Saved"
+      type: "success"
   
   @setup_process_helper: ->
     $('#process_helper').bind "ajax:success", (xhr, lines)->

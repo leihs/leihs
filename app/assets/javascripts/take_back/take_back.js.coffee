@@ -98,5 +98,9 @@ class TakeBack
     $('#visits').html($.tmpl("tmpl/visit", data))
     SelectedLines.restore()
     TakeBack.update_subtitle()
-  
+    Notification.add_headline
+      title: "Saved"
+      type: "success"
+      
+      
 window.TakeBack = TakeBack

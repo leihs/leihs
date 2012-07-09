@@ -53,11 +53,7 @@
   #visits
 
 :ruby
-  visits_json = json_for(@visits, {:lines => {:item => {},
-                                               :model => {},
-                                               :contract => {:user => {:groups => {}}},
-                                               :availability => true,
-                                               :purpose => true }})
+  visits_json = json_for(@visits, {:preset => :visit_with_availability})
                                                
 :coffeescript
   jQuery ->

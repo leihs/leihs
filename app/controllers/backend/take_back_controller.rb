@@ -133,15 +133,17 @@ class Backend::TakeBackController < Backend::BackendController
     render :action => 'change_line'
   end
 
-  def inspection
-    @contract_line = @user.contract_lines.find(params[:line_id])
-    if request.post?
-      @contract_line.item.update_attributes(params[:item])
-      
-      @contract_line.item.log_history(params[:note], current_user.id)
-      render :nothing => true
-    else
-      params[:layout] = "modal"
+  def inspection(line_id = params[:line_id] || raise("line_id is required"),
+                 flags = params[:flags] || raise("flags are required") )
+    @contract_line = @user.contract_lines.find(line_id)
+    @contract_line.item.update_attributes(flags)
+    #old??# @contract_line.item.log_history(params[:note], current_user.id)
+    respond_to do |format|
+      format.json {
+        # TODO: RETURN ONLY UPDATED LINES
+        visits = @user.visits.take_back.scoped_by_inventory_pool_id(current_inventory_pool)
+        render :json => view_context.json_for(visits, {:preset => :visit_with_availability})
+      }
     end
   end
 

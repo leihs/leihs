@@ -204,3 +204,43 @@ end
 Dann /^wird es für die ausgewählte Zeitspanne hinzugefügt$/ do
   wait_until { @amount_lines_before < all(".line").size }
 end
+
+Angenommen /^ich mache eine Rücknahme$/ do
+  step 'I open a take back'
+end
+
+Dann /^habe ich für jeden Gegenstand die Möglichkeit, eine Inspektion auszulösen$/ do
+  page.execute_script '$(":hidden").show();'
+  all(".item_line").all? {|x| x.find(".actions .alternatives .button", :text => /Inspect/) }
+end
+
+Wenn /^ich bei einem Gegenstand eine Inspektion durchführen$/ do
+  find(".item_line .actions .alternatives .button", :text => /Inspect/).click
+  wait_until { find(".dialog") }
+end
+
+Dann /^die Inspektion erlaubt es, den Status von "(.*?)" auf "(.*?)" oder "(.*?)" zu setzen$/ do |arg1, arg2, arg3|
+  within("form#inspection span.select > span.name", :text => arg1) do
+    within(:xpath, './/../select') do
+      find("option", :text => arg2)
+      find("option", :text => arg3)
+    end
+  end
+end
+
+Wenn /^ich Werte der Inspektion ändere$/ do
+  @line_id = find("form#inspection input[name='line_id']")[:value]
+  all("form#inspection select").each do |s|
+    s.all("option").each do |o|
+      o.select_option unless o.selected?
+    end
+  end  
+end
+
+Dann /^wenn ich die Inspektion speichere$/ do
+  find("form#inspection .button.green").click
+end
+
+Dann /^wird der Gegenstand mit den aktuell gesetzten Status gespeichert$/ do
+  wait_until { find(".notification.success")}
+end

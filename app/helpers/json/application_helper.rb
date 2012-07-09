@@ -113,7 +113,7 @@ module Json
                       :city => true} }
           when :contract_line
             {:is_valid => true,
-             :item => {},
+             :item => {:is_borrowable => true, :is_broken => true, :is_incomplete => true},
              :model => {},
              :contract => {:user => {:groups => {}}},
              :purpose => true,
