@@ -6,7 +6,7 @@
   
   %section
     .inlinetabs
-      = link_to backend_inventory_pool_visits_path(current_inventory_pool, :filter => "", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' active' unless params[:filter] && params[:filter] == ""}" do
+      = link_to backend_inventory_pool_visits_path(current_inventory_pool, :filter => "", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' active' if params[:filter].blank? or params[:filter] == ""}" do
         %span.text
           = _("All")
       = link_to backend_inventory_pool_visits_path(current_inventory_pool, :filter => "hand_over", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' active' if params[:filter] == 'hand_over'}" do
