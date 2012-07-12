@@ -34,7 +34,7 @@
     {{if is_overdue}}
     %li.reminder
       %span{:class => "text{{if latest_remind}} visible{{else}} invisible{{/if}}"}
-        = _("Lates Reminder:")
+        = _("Latest Reminder:")
       %span{:class => "date{{if latest_remind}} visible{{else}} invisible{{/if}}"}
         {{if latest_remind}}
         ${$item.latest_remind = new Date(latest_remind.replace(/-/g, "/")), ""}

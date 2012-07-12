@@ -10,5 +10,5 @@
       = _("Print")
       .print.icon
       
-  %section.contract.document.active{:"data-print_title" => _("Leihvertrag Nr. %s") % ["${id}"]}
+  %section.contract.document.active{:"data-print_title" => _("Lending Contract No. %s") % ["${id}"]}
     {{tmpl($item.data) "tmpl/documents/contracts/default"}}

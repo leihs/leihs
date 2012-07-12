@@ -49,7 +49,7 @@ Dann /^möchte ich die folgenden Bereiche sehen:$/ do |table|
 end
 
 Dann /^seh ich den Hinweis auf AGB "(.*?)"$/ do |note|
-  @contract_element.find(".terms").should have_content note
+  @contract_element.find(".terms").should_not be_nil
 end
 
 Dann /^beinhalten Liste (\d+) und Liste (\d+) folgende Spalten:$/ do |arg1, arg2, table|
@@ -153,7 +153,14 @@ end
 
 Dann /^sehe ich die Liste (\d+) mit dem Titel "(.*?)"$/ do |arg1, titel|
   wait_until{ find(".dialog .contract") }
-  find(".dialog .contract").should have_content titel
+
+  if titel == "Zurückgegebene Gegenstände"
+    find_titel = "Returned Items"
+  elsif titel == "Ausgeliehene Gegenstände"
+    find_titel = "Borrowed Items"
+  end
+
+  find(".dialog .contract").should have_content find_titel
 end
 
 Dann /^diese Liste enthält Gegenstände die ausgeliehen und zurückgegeben wurden$/ do
