@@ -34,7 +34,7 @@ namespace :app do
 
     task :rspec do
       system "bundle exec rspec --format d --format html --out tmp/html/rspec.html spec"
-      exit_code = $? >> 8 # magic brainfuck
+      exit_code = $?.exitstatus
       raise "Tests failed with: #{exit_code}" if exit_code != 0
     end
 
@@ -43,11 +43,11 @@ namespace :app do
         ENV['CUCUMBER_FORMAT'] = 'pretty' unless ENV['CUCUMBER_FORMAT']
         # We skip the tests that broke due to the new UI. We need to re-implement them with the new UI.
         system "bundle exec cucumber -p all"
-        exit_code_first_run = $? >> 8 # magic brainfuck
+        exit_code_first_run = $?.exitstatus
 
         if exit_code_first_run != 0
           system "bundle exec cucumber -p rerun"
-          exit_code_rerun = $? >> 8
+          exit_code_rerun = $?.exitstatus
           raise "Tests failed!" if exit_code_rerun != 0
         end
       end
