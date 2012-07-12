@@ -100,34 +100,6 @@ class Backend::BackendController < ApplicationController
   end
 =end
 
-   # add a new line
-   def generic_add_line(document, start_date = params[:start_date], end_date = params[:end_date])
-    if request.post?
-      if params[:model_group_id]
-        model = ModelGroup.find(params[:model_group_id]) # TODO scope current_inventory_pool ?
-      else
-        model = current_inventory_pool.models.find(params[:model_id])
-      end
-      params[:user_id] = current_user.id
-      
-      model.add_to_document(document, params[:user_id], params[:quantity], start_date, end_date, current_inventory_pool)
-
-      flash[:notice] = document.errors.full_messages unless document.save
-      unless @prevent_redirect # TODO 29**
-        redirect_to :action => 'show',
-                    :id => document.id
-      end
-    else
-      redirect_to :controller => 'models', 
-                  :layout => 'modal',
-                  :source_path => request.env['REQUEST_URI'],
-                  :start_date => start_date,
-                  :end_date => end_date,
-                  :user_id => document.user_id
-    end
-  end
-
-
   # swap model for a given line
   def generic_swap_model_line(document)
     if request.post?

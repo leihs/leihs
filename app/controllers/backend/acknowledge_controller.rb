@@ -63,25 +63,6 @@ class Backend::AcknowledgeController < Backend::BackendController
   end
 
 ###################################################################################
-# old code #
-
-=begin
-  def swap_model_line
-    generic_swap_model_line(@order)
-  end
-  
-  # change quantity for a given line
-  def change_line_quantity
-    @order_line = current_inventory_pool.order_lines.find(params[:order_line_id])
-    @order = @order_line.order
-    required_quantity = params[:quantity].to_i
-
-    @order_line, @change = @order.update_line(@order_line.id, required_quantity, current_user.id)
-    @order.save
-  end
-=end
-
-###################################################################################
 
   def add_line( quantity = (params[:quantity] || 1).to_i,
                 start_date = params[:start_date].try{|x| Date.parse(x)} || Date.today,

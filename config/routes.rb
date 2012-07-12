@@ -235,12 +235,10 @@ Leihs::Application.routes.draw do
             post :add_line
             post :add_line_with_item # TODO 29**
             post :change_line_quantity
-            #old leihs# post :change_line
             delete :remove_lines
             post :update_lines
             get :swap_model_line
             post :swap_model_line
-            #old leihs# get :sign_contract
             post :sign_contract
             get :add_option
             post :add_option
@@ -252,7 +250,6 @@ Leihs::Application.routes.draw do
         end
         resource :take_back, :controller => 'take_back' do
           member do
-            #old leihs# get :close_contract
             post :close_contract
             post :assign_inventory_code
             get :things_to_return

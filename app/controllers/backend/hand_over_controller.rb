@@ -252,18 +252,6 @@ class Backend::HandOverController < Backend::BackendController
     end
   end
 
-=begin old
-  def add_line_with_item
-    @prevent_redirect = true
-    item = current_inventory_pool.items.find(params[:item_id])
-    params[:model_id] = item.model.id
-    add_line
-    params[:code] = item.inventory_code
-    assign_inventory_code
-    redirect_to :action => 'show'
-  end
-=end
-
   def add_line( quantity = (params[:quantity] || 1).to_i,
                 start_date = params[:start_date].try{|x| Date.parse(x)} || Date.today,
                 end_date = params[:end_date].try{|x| Date.parse(x)} || Date.tomorrow,

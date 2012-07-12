@@ -6,21 +6,6 @@ class Backend::OptionsController < Backend::BackendController
   end
 
 ######################################################################
-
-=begin #old#
-  def index
-    @options = current_inventory_pool.options.search2(params[:query]).paginate(:page => params[:page], :per_page => $per_page)
-
-    if params[:source_path] # we are in a greybox
-      @start_date = Date.parse(params[:start_date])
-      @end_date = Date.parse(params[:end_date])
-    end
-
-    respond_to do |format|
-      format.html
-    end
-  end
-=end
   
   def show
   end
