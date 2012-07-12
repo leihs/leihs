@@ -268,6 +268,6 @@ Dann /^man sieht auf jeder Zeile die Summe der Gegenstände des jeweiligen Model
   @lines.each_with_index do |line, i|
     page.execute_script("$($('.line .items')[#{i}]).trigger('mouseenter')")
     quantities = find(".tip").reload.all(".quantity")
-    quantities.map{|x| x.reload.text.to_i}.sum.should >= quantities.size
+    quantities.map{|x| x.text.to_i}.sum.should >= quantities.size
   end
 end
