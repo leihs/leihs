@@ -145,17 +145,17 @@ class ProcessHelper
       linegroup_end_date = moment($(linegroup).tmplItem().data.end_date).sod()
       if line_start_date.diff(linegroup_start_date, "days") < 0 or (line_start_date.diff(linegroup_start_date, "days") == 0 and line_end_date.diff(linegroup_end_date, "days") < 0)
         # set new linegroup before this one
-        $(linegroup).closest(".indent").before $.tmpl("tmpl/linegroup", new GroupedLines([line_data]))
+        $(linegroup).closest(".indent").before $.tmpl("tmpl/linegroup", GroupedLines.merge_date_ranges([line_data]))
         return true
       else if (linegroup_start_date.diff(line_start_date, "days") == 0) and (linegroup_end_date.diff(line_end_date, "days") == 0)
         $(linegroup).find(".lines").append $.tmpl("tmpl/line", line_data)
         return true
     if linegroups.length > 0
       # set new linegroup after the last linegroup
-      $(_.last linegroups).closest(".indent").after $.tmpl("tmpl/linegroup", new GroupedLines([line_data]))
+      $(_.last linegroups).closest(".indent").after $.tmpl("tmpl/linegroup", GroupedLines.merge_date_ranges([line_data]))
     else 
       # set new linegroup inside the order container
-      $("#order").append $.tmpl("tmpl/linegroup", new GroupedLines([line_data]))
+      $("#order").append $.tmpl("tmpl/linegroup", GroupedLines.merge_date_ranges([line_data]))
     return true
    
 window.ProcessHelper = ProcessHelper

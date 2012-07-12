@@ -1,5 +1,5 @@
 #order
   {{if lines.length>0}}
-  ${$grouped_lines = new GroupedLines(lines), ""}
+  ${$grouped_lines = GroupedLines.merge_date_ranges(lines), ""}
   {{tmpl($grouped_lines) "tmpl/linegroup"}}
   {{/if}}

@@ -19,7 +19,7 @@
     %p= "${purpose.description}"  
     
   %section.lines.scalable
-    ${$grouped_lines = new GroupedLines(lines), ""}
+    ${$grouped_lines = GroupedLines.merge_date_ranges(lines), ""}
     {{tmpl($grouped_lines) "tmpl/dialog/summary/linegroup"}}
   
   %section.comment

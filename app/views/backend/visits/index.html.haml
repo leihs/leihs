@@ -47,10 +47,7 @@
 
 :javascript
   $(document).ready(function(){
-    $('section .list').append($.tmpl("tmpl/line", #{json_for( @visits, {:lines => {},
-                                                                        :user => {:preset => :user},
-                                                                        :quantity => true,
-                                                                        :is_overdue => true})} ));
+    $('section .list').append($.tmpl("tmpl/line", #{json_for( @visits, {:preset => :visit})} ));
 
     // setup ListSearch
     ListSearch.setup();

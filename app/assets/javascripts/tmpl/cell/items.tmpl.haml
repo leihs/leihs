@@ -1,5 +1,5 @@
 {{if lines.length}}
-${$grouped_lines = new GroupedLines(lines), ""}
+${$grouped_lines = GroupedLines.merge_date_ranges(lines), ""}
 
 %li.items.hastip
   %span.number
@@ -20,7 +20,8 @@ ${$grouped_lines = new GroupedLines(lines), ""}
       = _("Days")
     .clear
     %table
-      {{each(i, line) linegroup.lines}}
+      ${$grouped_lines_by_model = GroupedLines.merge_models(linegroup.lines), ""}
+      {{each(i, line) $grouped_lines_by_model}}
       %tr
         %td.quantity
           ${line.quantity}

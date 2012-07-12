@@ -85,8 +85,9 @@ module Json
            :purpose => {},
            :created_at => true,
            :quantity => true,
-           :lines => {:model => true, 
-                      :dates => true}
+           :lines => {:model => {}, 
+                      :dates => true,
+                      :quantity => true}
           }
         when :order
           {:lines => {:preset => :order_line},
