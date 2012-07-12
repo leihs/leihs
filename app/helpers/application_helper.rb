@@ -105,27 +105,6 @@ module ApplicationHelper
     r
   end
 
-#no-sphinx#
-=begin
-  # let the user know when the search was too short inside a ruby "flash"
-  def flash_on_search_result(query, results = nil)
-    unless query.blank?
-      min_query_len = 0
-      if results.blank? or results.options[:classes].nil?
-        min_query_len = ThinkingSphinx::Configuration.instance.index_options[:min_infix_len]
-      else
-        results.options[:classes].each do |klass|
-          min_query_len = klass.sphinx_index_options[:min_infix_len] if klass.sphinx_index_options[:min_infix_len] > min_query_len
-        end
-      end
-
-      if query.length < min_query_len
-         flash[:notice] = _("Possibly not all matches are being displayed because your search text was shorter than the minumum %s characters") % min_query_len.to_s
-      end    
-    end
-  end
-=end
-  
   ######## Hash/Array to <ul> list #########
 
   def to_list(h)

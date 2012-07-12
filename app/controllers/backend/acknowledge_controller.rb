@@ -14,23 +14,18 @@ class Backend::AcknowledgeController < Backend::BackendController
 ######################################################################
  
   def show
-    # OLD ? @source_path = request.env['REQUEST_URI']
     add_visitor(@order.user)
   end
   
   def approve(force = (params.has_key? :force) ? true : false)
-    #old# if request.post?
     if @order.approve(params[:comment], true, current_user, force)
       # TODO test# @order.destroy # TODO remove old orders ?
       respond_to do |format|
-        #old# format.html { redirect_to :action => 'index' }
         format.json { render :json => true, :status => 200  }
       end
     else
       errors = @order.errors.full_messages.join("\n")
-      #old# flash[:error] = errors if @order.errors.size > 0
       respond_to do |format|
-        #old# format.html { params[:layout] = "modal" }
         format.json { render :text => errors, :status => 500 }
       end
     end
@@ -54,7 +49,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   end 
 
   def delete
-      params[:layout] = "modal"
+      params[:layout] = "modal" #old??#
   end
   
   def destroy

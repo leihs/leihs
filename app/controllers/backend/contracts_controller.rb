@@ -57,32 +57,10 @@ class Backend::ContractsController < Backend::BackendController
 
   def show
     respond_to do |format|
-=begin
-      format.pdf {
-        contract = render_to_string(:layout => false , :action => "../contracts/print/show")
-        kit = PDFKit.new(contract)
-        #kit.stylesheets << '/path/to/css/file'
-        send_data(kit.to_pdf, :type => 'application/pdf', :filename => "contract_#{@contract.id}.pdf") and return
-      }
-=end
       format.json {
         render :json => view_context.json_for(@contract.reload, {:preset => :contract})
       }
 		end
   end
-  
-=begin #OLD CODE ??#
-  def value_list
-    respond_to do |format|
-      format.pdf {
-        if @contract.status_const == Contract::SIGNED or @contract.status_const == Contract::CLOSED
-          send_data(render(:template => 'contracts/value_list', :layout => false), :type => 'application/pdf', :filename => "value_list#{@contract.id}.pdf") 
-        else       
-          send_data(render(:template => 'backend/contracts/value_list', :layout => false), :type => 'application/pdf', :filename => "value_list#{@contract.id}.pdf")
-        end
-      }
-		end
-  end
-=end  
 
 end

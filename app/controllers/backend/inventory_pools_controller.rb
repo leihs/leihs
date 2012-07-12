@@ -1,26 +1,6 @@
 class Backend::InventoryPoolsController < Backend::BackendController
     
   def index
-# EVERYTHING AFTER HERE IS OLD STUFF
-=begin
-    # OPTIMIZE 0501 
-    params[:sort] ||= 'name'
-    params[:sort_mode] ||= 'ASC'
-    params[:sort_mode] = params[:sort_mode].downcase.to_sym
-
-    with = {:user_id => current_user.id} unless is_admin?
-    
-    @inventory_pools = InventoryPool.search params[:query], { :star => true, :page => params[:page], :per_page => 9999, #$per_page,
-                                                              :order => params[:sort], :sort_mode => params[:sort_mode],
-                                                              :with => with }
-    if !is_admin? and @inventory_pools.total_entries == 1
-      redirect_to backend_inventory_pool_path(@inventory_pools.first)
-    else
-      respond_to do |format|
-        format.html
-      end
-    end
-=end
     respond_to do |format|
       format.html
     end

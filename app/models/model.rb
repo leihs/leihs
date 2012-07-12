@@ -118,23 +118,6 @@ class Model < ActiveRecord::Base
 
 #############################################
 
-=begin #no-sphinx#
-  define_index do
-    has compatibles(:id), :as => :compatible_id
-    has model_groups(:id), :as => :model_group_id
-    has unretired_items(:owner_id), :as => :owner_id
-
-    # item has at least one NULL parent_id and thus it has items that were not packaged
-    # we collect all the inventory pools for which this is the case
-    has "(SELECT GROUP_CONCAT(DISTINCT i.inventory_pool_id) FROM items i WHERE i.model_id = models.id AND i.parent_id IS NULL)",
-        :as => :inventory_pools_with_unpackaged_items, :type => :multi
-  end
-
-  sphinx_scope(:sphinx_packages) { {:with => {:is_package => true}} }
-  sphinx_scope(:sphinx_with_unpackaged_items) { |inventory_pool_id|
-                                                {:with => {:inventory_pools_with_unpackaged_items => inventory_pool_id.to_s}} }
-=end
-
   def self.search2(query, fields = [])
     return scoped unless query
 

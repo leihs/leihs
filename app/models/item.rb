@@ -43,24 +43,6 @@ class Item < ActiveRecord::Base
 
 ####################################################################
 
-=begin #no-sphinx#
-  # only used for sphinx not_in_stock attribute
-  has_one :out_item_line, :class_name => "ItemLine", :conditions => "returned_date IS NULL"
-
-  define_index do
-    # OPTIMIZE
-    # this will also exclude items that are reserved for future hand over
-    # - i.e. contract_lines that only start in the future and allready have an item assigned
-    has out_item_line(:id), :as => :not_in_stock, :type => :boolean
-    
-    # 0501
-    has "retired IS NOT NULL", :as => :retired, :type => :boolean
-    has model(:is_package), :as => :model_is_package, :type => :boolean
-  end
-  
-  sphinx_scope(:retired) { {:with => {:retired => true}} }
-=end
-
   def self.search2(query)
     return scoped unless query
 

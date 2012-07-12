@@ -91,12 +91,6 @@ class InventoryPool < ActiveRecord::Base
 
 #######################################################################
 
-=begin #no-sphinx#
-  define_index do
-    has access_rights(:user_id), :as => :user_id
-  end
-=end
-
   def self.search2(query)
     return scoped unless query
 

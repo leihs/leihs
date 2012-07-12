@@ -147,7 +147,7 @@ class Backend::ItemsController < Backend::BackendController
       end
     end
     
-    params[:layout] = "modal"
+    params[:layout] = "modal" #old??#
     render :action => 'retire'
   end
 
@@ -162,7 +162,7 @@ class Backend::ItemsController < Backend::BackendController
 
     get_histories
     
-    params[:layout] = "modal" 
+    params[:layout] = "modal" #old??#
   end
 
   def get_notes

@@ -82,12 +82,6 @@ class User < ActiveRecord::Base
 
 ################################################
 
-=begin #no-sphinx#
-  define_index do
-    has suspended_inventory_pools(:id), :as => :suspended_inventory_pool_id
-  end
-=end
-
   def self.search2(query)
     return scoped unless query
 

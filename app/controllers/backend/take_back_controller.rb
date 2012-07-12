@@ -51,52 +51,6 @@ class Backend::TakeBackController < Backend::BackendController
         # NOTE: reload contracts ??
         render :json => view_context.json_for(contracts, {:preset => :contract})}
     end
-
-=begin
-    params[:layout] = "modal"
-    if request.post?
-      # TODO 2702** merge duplications
-      @lines = current_inventory_pool.contract_lines.find(line_ids) if line_ids
-      @lines ||= []
-            
-      @contracts = @lines.collect(&:contract).uniq
-      
-      # set the return dates to the given contract_lines
-      @lines.each { |l|
-        l.update_attributes(:returned_date => Date.today) 
-        l.item.histories.create(:user => current_user, :text => _("Item taken back"), :type_const => History::ACTION) unless l.item.is_a? Option
-      }
-      
-      # trigger model availability recomputation
-      models = []
-      @lines.each do |line|
-        if line.is_a?(ItemLine) and not models.include?(line.model)
-          models << line.model
-          line.save
-        end
-      end
-
-      
-      @contracts.each do |c|
-        c.close if c.lines.all? { |l| !l.returned_date.nil? }
-      end
-
-      if current_inventory_pool.print_contracts
-        render :action => 'print_contract'
-      else
-        redirect_to :action => 'index'
-      end
-    else
-      # TODO 2702** merge duplications
-      @lines = current_inventory_pool.contract_lines.find(params[:lines].split(',')) if params[:lines]
-      if returned_quantity
-        returned_quantity.each_pair do |k,v|
-          line = @lines.detect {|l| l.id == k.to_i }
-          line.quantity = v.to_i if line and v.to_i < line.quantity
-        end
-      end
-    end    
-=end                    
   end
   
   def things_to_return(term = params[:term])

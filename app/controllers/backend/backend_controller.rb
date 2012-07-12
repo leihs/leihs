@@ -81,25 +81,6 @@ class Backend::BackendController < ApplicationController
 
 ###############################################################  
 
-#tmp#
-=begin
-  def database_backup
-    dir = "#{Rails.root}/db/backups"
-    timestamp = Time.now.to_formatted_s(:number)
-    src = "#{dir}/#{timestamp}.sql"
-    File.open(src, 'w') do |f|
-      f << ActiveRecord::Base.connection.structure_dump
-      f << ActiveRecord::Base.connection.data_dump
-    end
-    
-    flash[:notice] = _("Database backup successfully done.")
-    render :update do |page|
-      page.replace_html 'flash', flash_content
-      flash.discard
-    end
-  end
-=end
-
   # swap model for a given line
   def generic_swap_model_line(document)
     if request.post?
