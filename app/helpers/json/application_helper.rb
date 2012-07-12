@@ -84,6 +84,7 @@ module Json
           {:user => {:preset => :user},
            :purpose => {},
            :created_at => true,
+           :updated_at => true,
            :quantity => true,
            :lines => {:model => {}, 
                       :dates => true,
@@ -131,7 +132,9 @@ module Json
             {:lines => {:preset => :contract_line}}
           when :visit
             {:user => {:preset => :user},
-             :lines =>{:model => {}},
+             :lines => {:model => {}, 
+                        :dates => true,
+                        :quantity => true},
              :quantity => true,
              :is_overdue => true
             }
