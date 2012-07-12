@@ -43,7 +43,7 @@ ${$start_date_disabled = ($item.data.contract!=undefined)&&($item.data.contract.
           %option{:value => "", :"data-name" => _("In Total"), :"data-total_rentable" => "${total_rentable}"}
             = _("In Total")
           {{if $splitted_partitions.included.length > 0}}
-          %optgroup.customer_groups{:label => _("Gruppen des Kunden")}
+          %optgroup.customer_groups{:label => _("This customer's groups")}
             {{each(i, partition) $splitted_partitions.included}}
             %option{:value => "[${partition.group_id}]", :"data-name" => "Group ${partition.group.name}", :"data-total_rentable" => "${partition.quantity}"}
               = _("Group ${partition.group.name}")

@@ -23,7 +23,7 @@
   .inlinetabs
     .tab.active{:"data-section" => "contract"}= _("Contracts")
   
-  %section.contract.document.active{:"data-print_title" => _("Leihverträge Nr. %s") % ['${Print.map_contract_ids(contracts).join(", ")}']}
+  %section.contract.document.active{:"data-print_title" => _("Lending Contracts No. %s") % ['${Print.map_contract_ids(contracts).join(", ")}']}
     {{each(i, contract) contracts}}
     {{if template}}
     {{tmpl(contract) template}}    
