@@ -244,3 +244,30 @@ end
 Dann /^wird der Gegenstand mit den aktuell gesetzten Status gespeichert$/ do
   wait_until { find(".notification.success")}
 end
+
+Angenommen /^man fährt über die Anzahl von Gegenständen in einer Zeile$/ do
+  @lines = all(".line")
+end
+
+Dann /^werden alle diese Gegenstände aufgelistet$/ do
+  @lines.each_with_index do |line, i|
+    page.execute_script("$($('.line .items')[#{i}]).trigger('mouseenter')")
+    find(".tip")
+  end
+end
+
+Dann /^man sieht pro Modell eine Zeile$/ do
+  @lines.each_with_index do |line, i|
+    page.execute_script("$($('.line .items')[#{i}]).trigger('mouseenter')")
+    model_names = find(".tip").all(".model_name").map{|x| x.text}
+    model_names.size.should == model_names.uniq.size
+  end
+end
+
+Dann /^man sieht auf jeder Zeile die Summe der Gegenstände des jeweiligen Modells$/ do
+  @lines.each_with_index do |line, i|
+    page.execute_script("$($('.line .items')[#{i}]).trigger('mouseenter')")
+    quantities = find(".tip").reload.all(".quantity")
+    quantities.map{|x| x.reload.text.to_i}.sum.should >= quantities.size
+  end
+end
