@@ -45,10 +45,11 @@ namespace :app do
         system "bundle exec cucumber -p all"
         exit_code_first_run = $? >> 8 # magic brainfuck
 
-        system "bundle exec cucumber -p rerun"
-        exit_code_rerun = $? >> 8
-
-        raise "Tests failed!" if exit_code_rerun != 0
+        if exit_code_first_run != 0
+          system "bundle exec cucumber -p rerun"
+          exit_code_rerun = $? >> 8
+          raise "Tests failed!" if exit_code_rerun != 0
+        end
       end
     end
   end
