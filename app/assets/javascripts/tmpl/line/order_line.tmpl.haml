@@ -1,4 +1,4 @@
-{{html $problems = Line.get_problems($item.data), ""}}
+${$problems = Line.get_problems($item.data), ""}
 
 %ul{:class => "line ${type}{{if is_available}} available{{else}} unavailable{{/if}}"}
   
@@ -12,7 +12,7 @@
       %span.selected
         ${quantity}
       %span.grey
-        ="/ ${total_rentable} #{_('total rentable')}"
+        ="/ ${max_available} #{_('available')}"
         
     %li.name
       %strong

@@ -24,6 +24,7 @@ module Json
             :partitions => (line.model.partitions.in(current_inventory_pool).by_groups(current_inventory_pool.groups) + line.model.partitions.in(current_inventory_pool).by_groups(Group::GENERAL_GROUP_ID)).as_json(:include => :group),
             :availability => line.model.availability_changes_in(current_inventory_pool).changes.available_total_quantities
           }
+          h[:max_available] = line.quantity + line.model.availability_changes_in(current_inventory_pool).maximum_available_in_period_for_user(current_user, line.start_date, line.end_date)
         end
 
 =begin
