@@ -89,7 +89,7 @@ Funktionalität: Vertrag
   @javascript
   Szenario: Liste der zurückgebenen Gegenstände
     Wenn es Gegenstände gibt, die zurückgegeben wurden
-    Dann sehe ich die Liste 1 mit dem Titel "Zurückgebene Gegenstände"
+    Dann sehe ich die Liste 1 mit dem Titel "Zurückgegebene Gegenstände"
     Und diese Liste enthält Gegenstände die ausgeliehen und zurückgegeben wurden
   
   @javascript

@@ -22,7 +22,6 @@ namespace :app do
       system "rm -f log/test.log"
 
       File.delete("tmp/rerun.txt") if File.exists?("tmp/rerun.txt")
-      File.delete("tmp/rerun_again.txt") if File.exists?("tmp/rerun_again.txt")
 
       Rake::Task["leihs:reset"].invoke
     end
@@ -49,9 +48,7 @@ namespace :app do
         system "bundle exec cucumber -p rerun"
         exit_code_rerun = $? >> 8
 
-        system "bundle exec cucumber -p rerun_again"
-        exit_code_rerun_again = $? >> 8
-        raise "Tests failed!" if exit_code_rerun_again != 0
+        raise "Tests failed!" if exit_code_rerun != 0
       end
     end
   end
