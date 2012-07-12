@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2012-07-04 08:30+0200\n"
+"POT-Creation-Date: 2012-07-12 09:42+0200\n"
 "PO-Revision-Date: 2011-06-16 17:42+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,6 +95,9 @@ msgstr ""
 msgid "Added"
 msgstr ""
 
+msgid "Additional notes"
+msgstr ""
+
 msgid "Address"
 msgstr ""
 
@@ -105,9 +108,6 @@ msgid "All"
 msgstr ""
 
 msgid "An order for the following items listed below was received in an inventory pool you are responsible for."
-msgstr ""
-
-msgid "Anzahl"
 msgstr ""
 
 msgid "Approval Successful"
@@ -138,12 +138,6 @@ msgid "Attachment was successfully created."
 msgstr ""
 
 msgid "Attempt to add node to own graph collection"
-msgstr ""
-
-msgid "Ausgeliehene Gegenstände"
-msgstr ""
-
-msgid "Ausleihender"
 msgstr ""
 
 msgid "Auswahl"
@@ -305,12 +299,6 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-msgid "Di"
-msgstr ""
-
-msgid "Do"
-msgstr ""
-
 msgid "Documents"
 msgstr ""
 
@@ -356,7 +344,7 @@ msgstr ""
 msgid "End Date"
 msgstr ""
 
-msgid "End-Datum"
+msgid "End date"
 msgstr ""
 
 msgid "Equipment Booking and Inventory Management System"
@@ -386,9 +374,6 @@ msgstr ""
 msgid "Error updating inventory code"
 msgstr ""
 
-msgid "Es gelten die Ausleih- und Benutzungsreglemente des Verleihers."
-msgstr ""
-
 msgid "Expected to be returned."
 msgstr ""
 
@@ -398,7 +383,7 @@ msgstr ""
 msgid "Found %s"
 msgstr ""
 
-msgid "Fr"
+msgid "Fri"
 msgstr ""
 
 msgid "Frontend"
@@ -414,9 +399,6 @@ msgid "Group ${partition.group.name}"
 msgstr ""
 
 msgid "Groups"
-msgstr ""
-
-msgid "Gruppen des Kunden"
 msgstr ""
 
 msgid "Hand Over"
@@ -485,9 +467,6 @@ msgstr ""
 msgid "Invalid username/password"
 msgstr ""
 
-msgid "Inventarcode"
-msgstr ""
-
 msgid "Inventory"
 msgstr ""
 
@@ -504,6 +483,9 @@ msgid "Inventory Pool is missing"
 msgstr ""
 
 msgid "Inventory Pools"
+msgstr ""
+
+msgid "Inventory code"
 msgstr ""
 
 msgid "Inventory code updated"
@@ -554,22 +536,25 @@ msgstr ""
 msgid "Last Visitors:"
 msgstr ""
 
-msgid "Lates Reminder:"
+msgid "Latest Reminder:"
 msgstr ""
 
-msgid "Leihvertrag Nr. %d"
-msgstr ""
-
-msgid "Leihvertrag Nr. %s"
-msgstr ""
-
-msgid "Leihverträge Nr. %s"
+msgid "Lender"
 msgstr ""
 
 msgid "Lending"
 msgstr ""
 
 msgid "Lending / Daily View"
+msgstr ""
+
+msgid "Lending Contract No. %d"
+msgstr ""
+
+msgid "Lending Contract No. %s"
+msgstr ""
+
+msgid "Lending Contracts No. %s"
 msgstr ""
 
 msgid "List of Contracts"
@@ -620,12 +605,6 @@ msgstr ""
 msgid "Maximum number of items available at that time is %{max}"
 msgstr ""
 
-msgid "Mi"
-msgstr ""
-
-msgid "Mo"
-msgstr ""
-
 msgid "Mobile"
 msgstr ""
 
@@ -651,6 +630,9 @@ msgid "Model successfully added as compatible"
 msgstr ""
 
 msgid "Models"
+msgstr ""
+
+msgid "Mon"
 msgstr ""
 
 msgid "Multiple selected items"
@@ -833,6 +815,9 @@ msgstr ""
 msgid "Purpose changed '%{from}' for '%{to}'"
 msgstr ""
 
+msgid "Purpose these items are borrowed for"
+msgstr ""
+
 msgid "Qty."
 msgstr ""
 
@@ -890,10 +875,13 @@ msgstr ""
 msgid "Retirement:"
 msgstr ""
 
-msgid "Room"
+msgid "Return"
 msgstr ""
 
-msgid "Rückgabe"
+msgid "Returned items"
+msgstr ""
+
+msgid "Room"
 msgstr ""
 
 msgid "Save"
@@ -944,6 +932,9 @@ msgstr ""
 msgid "Show all ..."
 msgstr ""
 
+msgid "Signature"
+msgstr ""
+
 msgid "Signed"
 msgstr ""
 
@@ -968,7 +959,7 @@ msgstr ""
 msgid "Start Screen"
 msgstr ""
 
-msgid "Start-Datum"
+msgid "Start date"
 msgstr ""
 
 msgid "Status"
@@ -990,9 +981,6 @@ msgid "Successful Order"
 msgstr ""
 
 msgid "Successfully set."
-msgstr ""
-
-msgid "Suchen..."
 msgstr ""
 
 msgid "Supplier:"
@@ -1023,6 +1011,9 @@ msgid "Technical Details"
 msgstr ""
 
 msgid "Templates"
+msgstr ""
+
+msgid "Terms and conditions of the lender apply."
 msgstr ""
 
 msgid "That means that the user probably did not get the approval mail and you need to contact him/her in a different way."
@@ -1133,6 +1124,9 @@ msgstr ""
 msgid "This contract is not signable because some lines are not assigned."
 msgstr ""
 
+msgid "This customer's groups"
+msgstr ""
+
 msgid "This is a package containing the following items:"
 msgstr ""
 
@@ -1157,6 +1151,9 @@ msgstr ""
 msgid "This order is still pending. Please log in to your leihs system and either approve or reject it."
 msgstr ""
 
+msgid "Thu"
+msgstr ""
+
 msgid "Time window"
 msgstr ""
 
@@ -1167,6 +1164,9 @@ msgid "Too many users found"
 msgstr ""
 
 msgid "Total"
+msgstr ""
+
+msgid "Tue"
 msgstr ""
 
 msgid "Unborrowable"
@@ -1191,9 +1191,6 @@ msgid "Unsubmitted"
 msgstr ""
 
 msgid "Unsuccessful reminder of %{q} items for contracts %{c}"
-msgstr ""
-
-msgid "Unterschrift"
 msgstr ""
 
 msgid "Upload error."
@@ -1232,10 +1229,10 @@ msgstr ""
 msgid "Value List"
 msgstr ""
 
-msgid "Value list"
+msgid "Value List for Lending Contract No. %s"
 msgstr ""
 
-msgid "Verleiher"
+msgid "Value list"
 msgstr ""
 
 msgid "View"
@@ -1262,13 +1259,10 @@ msgstr ""
 msgid "We therefore ask you to be fair and punctual! Thank you!"
 msgstr ""
 
+msgid "Wed"
+msgstr ""
+
 msgid "Welcome %s"
-msgstr ""
-
-msgid "Werteliste für Leihvertrag Nr. %s"
-msgstr ""
-
-msgid "Werteverzeichniss zu Leihvertrag Nr. %s"
 msgstr ""
 
 msgid "Working order"
@@ -1347,15 +1341,6 @@ msgid "Your order was rejected for the following reason:"
 msgstr ""
 
 msgid "Your order was successfully transmitted to those responsible and is %s."
-msgstr ""
-
-msgid "Zurückgebene Gegenstände"
-msgstr ""
-
-msgid "Zusätzliche Notiz"
-msgstr ""
-
-msgid "Zweck dieser Ausleihe"
 msgstr ""
 
 msgid "[Model %s] "

@@ -6,19 +6,19 @@ ${$not_returned_lines = Line.get_not_returned(lines), ""}
   .barcode
     %img{:src => "${barcode}"}
   
-  %h1= _("Leihvertrag Nr. %s") % ["${id}"]
+  %h1= _("Lending Contract No. %s") % ["${id}"]
   .date
     ${$now = moment(),""}
     ${$now.format(i18n.date.L)}
     
   %section.parties
     .customer
-      %label= _("Ausleihender")
+      %label= _("Borrower")
       %span.name ${user.firstname} ${user.lastname} 
       %span.street ${user.address}
       %span.plz_city ${user.zip} ${user.city}
     .inventory_pool
-      %label= _("Verleiher")
+      %label= _("Lender")
       %span.name ${inventory_pool.name}
       {{if inventory_pool.address}}
       %span.street ${inventory_pool.address.street}
@@ -28,16 +28,16 @@ ${$not_returned_lines = Line.get_not_returned(lines), ""}
   
   {{if $returned_lines.length}}
   %section.list.returned_items
-    %h2= _("Zurückgebene Gegenstände")
+    %h2= _("Returned items")
     %table
       %thead
         %tr
-          %td.quantity= _("Anzahl")
-          %td.inventory_code= _("Inventarcode")
+          %td.quantity= _("Quantity")
+          %td.inventory_code= _("Inventory code")
           %td.model_name= _("Model")
-          %td.start_date= _("Start-Datum")
-          %td.end_date= _("End-Datum")
-          %td.returning_date= _("Rückgabe")
+          %td.start_date= _("Start date")
+          %td.end_date= _("End date")
+          %td.returning_date= _("Return")
       %tbody
         {{each(i,line) $returned_lines}}
         %tr  
@@ -52,16 +52,16 @@ ${$not_returned_lines = Line.get_not_returned(lines), ""}
   
   {{if $not_returned_lines.length}}
   %section.list.not_returned_items
-    %h2= _("Ausgeliehene Gegenstände")
+    %h2= _("Borrowed Items")
     %table
       %thead
         %tr
-          %td.quantity= _("Anzahl")
-          %td.inventory_code= _("Inventarcode")
+          %td.quantity= _("Quantity")
+          %td.inventory_code= _("Inventory code")
           %td.model_name= _("Model")
-          %td.start_date= _("Start-Datum")
-          %td.end_date= _("End-Datum")
-          %td.returning_date= _("Rückgabe")
+          %td.start_date= _("Start date")
+          %td.end_date= _("End date")
+          %td.returning_date= _("Return")
       %tbody
         {{each(i,line) $not_returned_lines}}
         %tr
@@ -76,15 +76,15 @@ ${$not_returned_lines = Line.get_not_returned(lines), ""}
   
   .dontbreak
     %section.purposes
-      %h2= _("Zweck dieser Ausleihe")
+      %h2= _("Purpose these items are borrowed for")
       %p ${Line.concatinate_purposes(lines)}
     %section.note
       {{if note}}
-      %h2= _("Zusätzliche Notiz")
+      %h2= _("Additional notes")
       %p ${note}
       {{/if}}
     %section.terms_and_signature
-      %p.terms= _("Es gelten die Ausleih- und Benutzungsreglemente des Verleihers.")
+      %p.terms= _("Terms and conditions of the lender apply.")
       %hr
-      %span= _("Unterschrift")
+      %span= _("Signature")
       

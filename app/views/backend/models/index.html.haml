@@ -32,7 +32,7 @@
       %ul.navigation.line
         %li.search
           = form_tag("", :method => :get, :autocomplete => :off) do
-            %input{:type => "text", :name => "query", :value => "#{params[:query]}", :placeholder => _("Suchen...")}
+            %input{:type => "text", :name => "query", :value => "#{params[:query]}", :placeholder => _("Search...")}
             = image_tag "loading.gif", :class => "loading"
           = image_tag "loading.gif", :class => "loading"
         %li.filter

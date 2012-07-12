@@ -24,14 +24,14 @@
     .tab.active{:"data-section" => "contract"}= _("Contract")
     .tab{:"data-section" => "value_list"}= _("Value List")
     
-  %section.contract.document.active{:"data-print_title" => _("Leihvertrag Nr. %s") % ["${contract.id}"]}
+  %section.contract.document.active{:"data-print_title" => _("Lending Contract No. %s") % ["${contract.id}"]}
     {{if template}}
     {{tmpl(contract) template}}    
     {{else}}
     {{tmpl(contract) "tmpl/documents/contracts/default"}}
     {{/if}}
     
-  %section.value_list.document{:"data-print_title" => _("Werteverzeichniss zu Leihvertrag Nr. %s") % ["${contract.id}"]}
+  %section.value_list.document{:"data-print_title" => _("Value List for Lending Contract No. %s") % ["${contract.id}"]}
     {{if template}}
     {{tmpl(contract) template}}    
     {{else}}

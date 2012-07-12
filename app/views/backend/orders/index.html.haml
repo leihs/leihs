@@ -22,7 +22,7 @@
       %ul.navigation.line
         %li.search
           = form_tag("", :method => :get, :autocomplete => :off) do
-            %input{:type => "text", :name => "query", :value => "#{params[:query]}", :placeholder => _("Suchen..."), :class => "clearable"}
+            %input{:type => "text", :name => "query", :value => "#{params[:query]}", :placeholder => _("Search..."), :class => "clearable"}
             %input{:type => "hidden", :name => "year", :value => params[:year]}
             %input{:type => "hidden", :name => "month", :value => params[:month]}
             %input{:type => "hidden", :name => "filter", :value => params[:filter]}
