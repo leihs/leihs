@@ -16,7 +16,7 @@ class TopBarController
       url: "/backend/inventory_pools/#{current_inventory_pool}/users/#{current_user.id}/set_start_screen"
       type: "POST"
       data: 
-        path: window.location.pathname 
+        path: window.location.pathname + window.location.search + window.location.hash
       success: =>
         @start_screen_button.closest("li").addClass("active")
         @start_screen_button.html $.tmpl("app/views/application/topbar/_active_start_screen")

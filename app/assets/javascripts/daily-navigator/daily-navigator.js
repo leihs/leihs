@@ -108,7 +108,11 @@ function DailyNavigator() {
     });
     
     $('#daily .content_navigation .datepicker').bind("click", function() {
-      $('#daily .content_navigation #datepicker').datepicker("show");
+      if($('#daily .content_navigation #datepicker').datepicker("widget").is(":visible")) {
+        $('#daily .content_navigation #datepicker').datepicker("hide");
+      } else {
+        $('#daily .content_navigation #datepicker').datepicker("show");
+      }
     });
   }
   
