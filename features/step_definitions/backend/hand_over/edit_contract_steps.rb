@@ -29,10 +29,11 @@ Then /^the time range for all contract lines is changed$/ do
 end
 
 When /^I change the time range for that option$/ do
-  @option_line = @customer.visits.collect(&:lines).flatten.detect{|x| x.is_a?(OptionLine)}
+  @option_line = @customer.visits.hand_over.collect(&:lines).flatten.detect{|x| x.is_a?(OptionLine)}
   find(".option_line", :text => @option_line.option.name).find(".button", :text => "Edit").click
   puts "????????????"
   puts @option_line
+  puts @option_line.id
   puts @option_line.option.name
   puts @customer
   puts @customer.visits.to_json
