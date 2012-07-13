@@ -259,7 +259,8 @@ end
 Dann /^man sieht pro Modell eine Zeile$/ do
   @lines.each_with_index do |line, i|
     page.execute_script("$($('.line .items')[#{i}]).trigger('mouseenter')")
-    model_names = find(".tip").all(".model_name").map{|x| x.text}
+    sleep(1)
+    model_names = find(".tip", :visible => true).all(".model_name").map{|x| x.text}
     model_names.size.should == model_names.uniq.size
   end
 end
@@ -267,7 +268,8 @@ end
 Dann /^man sieht auf jeder Zeile die Summe der Gegenstände des jeweiligen Modells$/ do
   @lines.each_with_index do |line, i|
     page.execute_script("$($('.line .items')[#{i}]).trigger('mouseenter')")
-    quantities = find(".tip").reload.all(".quantity")
-    quantities.map{|x| x.text.to_i}.sum.should >= quantities.size
+    sleep(1)
+    quantities = find(".tip", :visible => true).all(".quantity").map{|x| x.text.to_i}
+    quantities.sum.should >= quantities.size
   end
 end
