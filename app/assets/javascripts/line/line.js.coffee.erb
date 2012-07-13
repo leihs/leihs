@@ -25,7 +25,7 @@ class Line
       
   @get_problems = (data)->
     problems = []
-    problems.push "The model is not available" if data.is_available == false
+    problems.push "<%= _('Not available') %> (#{data.quantity} <%= _('are reserved')%>, #{data.max_available} <%= _('are available')%>: #{data.max_available-data.quantity})" if data.is_available == false
     return problems
   
   @highlight = (line_element, type)->
