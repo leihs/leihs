@@ -11,9 +11,9 @@ class DailyViewController
     do @plugin
 
   render: =>
-    @el.find(".order .list").append $.tmpl("tmpl/line", json_for_orders)
-    @el.find(".hand_over .list").append $.tmpl("tmpl/line", json_for_hand_overs)
-    @el.find(".take_back .list").append $.tmpl("tmpl/line", json_for_take_backs)
+    @el.find(".order .list").append($.tmpl("tmpl/line", json_for_orders)).closest("section").show() if json_for_orders.length
+    @el.find(".hand_over .list").append($.tmpl("tmpl/line", json_for_hand_overs)).closest("section").show() if json_for_hand_overs.length
+    @el.find(".take_back .list").append($.tmpl("tmpl/line", json_for_take_backs)).closest("section").show() if json_for_take_backs.length
 
   setupShowMore: =>
     for list in @lists

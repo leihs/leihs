@@ -7,6 +7,10 @@
     width: 400px;
   }
   
+  section {
+    display: block;
+    display: none;
+  }
   
   .subtitle {
     @include dark-grey-links;
