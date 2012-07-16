@@ -72,7 +72,7 @@
     border-bottom: 1px solid white;
     color: $darkergrey !important;
     height: 22px;
-    @include box-shadow(0 1px 4px rgba(0,0,0,0.2));
+    @include box-shadow(0 1px 4px rgba(0,0,0,0.1));
     
     .badge {
       background: $borderdarkergrey !important;

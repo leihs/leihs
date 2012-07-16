@@ -13,14 +13,12 @@
     .pagination_container
     
 :coffeescript
-  
   jQuery ->
-    # setup result entries
     results = #{results_json(@results)}
     if results?
       for result in results 
         $('.list').append $.tmpl("tmpl/line", result)
-    # setup ListPagination
+
     ListPagination.current_page = #{params[:page].blank? ? 0 : params[:page]}
     ListPagination.per_page = #{$per_page}
     ListPagination.total_entries = #{@hits.values.sum}

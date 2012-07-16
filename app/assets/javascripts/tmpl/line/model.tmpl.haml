@@ -1,11 +1,13 @@
 %ul{:class => "line ${type}{{if is_package}} package{{/if}}"}
     
   .main
-    
+
+    {{if items}}    
     %li.toggle{:"data-toggle_target" => "#model_${id}_items"}
       .text{:title => "{{if is_package}}#{_("show packages")}{{else}}#{_("show items")}{{/if}}", :"data-open_title" => _("hide items")}
         .icon
         ${items.length}
+    {{/if}}
     
     %li.image
       .container

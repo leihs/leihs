@@ -10,7 +10,7 @@
         %li.seperator
 
         %li.search.item{:class => is_current_page?("search") ? "active" : nil}
-          = link_to _("Search"), url_for([:backend, current_inventory_pool, :search].compact), :class => "anchor"
+          = render :partial => '/layouts/backend/search'
         %li.seperator
 
         - if is_lending_manager?  
