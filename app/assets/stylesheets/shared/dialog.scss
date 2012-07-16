@@ -11,6 +11,10 @@
   @include border-radius(6px);
   @include box-shadow (0 0 18px rgba(0,0,0,0.2));
   
+  &.full_width {
+    width: 760px !important;
+  }
+  
   &.error {
     border: 3px solid red;  
   }

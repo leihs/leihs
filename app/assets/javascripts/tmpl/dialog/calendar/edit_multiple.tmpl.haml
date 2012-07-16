@@ -6,22 +6,8 @@ ${$name = Str.sliced_trunc($user.firstname+" "+$user.lastname, 20, "... "), ""}
 ${$start_date_disabled = !Line.is_start_date_moveable(SelectedLines.lines_data[0]), ""}
 
 = form_tag '${$item.action}', :remote => true, :"data-submit_button" => true do
-  %h1
-    %strong= _("Multiple selected items")
-  %p.subtitle
-    = _("Edit multiple ordered items for")
-    %strong
-      ${$name}
-  .navigation
-    .multibutton
-      .alternatives
-        .trigger.green
-          .arrow
-        %a.button.red.close_dialog
-          .icon.delete
-          = _("Cancel")
-      %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}', :tabindex => "4"}
-        = _("Save Changes")
+  {{tmpl({title: "#{_("Edit multiple selected items")}", subtitle: $name}) "app/views/shared/dialog/title"}}
+  {{tmpl({buttons: ["save", "close"]}) "app/views/shared/dialog/navigation"}}
   
   .flash_message
   

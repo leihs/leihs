@@ -3,7 +3,7 @@
 
 .ui-dialog {
   
-  &.full_width, &.take_back, &.hand_over, &.acknowledge, &.calendar, &.order_line, &.add_item, &.documents {
+  &.take_back, &.hand_over, &.acknowledge, &.calendar, &.order_line, &.add_item, &.documents {
     width: 760px !important;
   }
   

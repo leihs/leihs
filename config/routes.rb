@@ -61,7 +61,6 @@ Leihs::Application.routes.draw do
   resources :models, :except => :index do
     member do
       get :chart
-      get :book
     end
   end
   

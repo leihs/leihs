@@ -167,8 +167,9 @@ class Backend::ModelsController < Backend::BackendController
   end
 
   def groups
-    @availability = @model.availability_changes_in(current_inventory_pool)
-    render :partial => "groups"
+    #old??#
+    #@availability = @model.availability_changes_in(current_inventory_pool)
+    #render :partial => "groups"
   end
 
   def set_group_partition

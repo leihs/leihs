@@ -8,7 +8,12 @@
       = @model.name
     %p.subtitle
       = @model.manufacturer
-    = link_to book_model_path(@model), :class => "button green" do
+    = link_to "#",
+    :class => "button green open_dialog", 
+    :"data-rel" => "app/views/frontend/models/booking", 
+    :"data-dialog_class" => "calendar full_width",
+    :"data-on_success" => '',
+    :"data-ref_for_dialog" => "#{json_for(@model)}" do
       = _("Book")
   
   - unless @model.images.empty?

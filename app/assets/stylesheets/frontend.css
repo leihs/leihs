@@ -7,6 +7,7 @@
  *= require shared/variables
  *= require shared/mixins
  *= require shared/buttons
+ *= require shared/multibutton
  *= require shared/content
  *= require shared/datepicker
  *= require shared/fullcalendar

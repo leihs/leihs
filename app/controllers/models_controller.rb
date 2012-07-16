@@ -51,17 +51,4 @@ class ModelsController < FrontendController
     render :layout => false
   end
 
-#################################################################
-
-  def book
-    @availability = @model.availability_periods_for_user(current_user, true).collect do |av|
-      option_name = "#{av[:inventory_pool][:name]}"
-      [option_name, av[:inventory_pool][:id], {:"data-total_borrowable"   => av[:total_borrowable],
-                                               :"data-closed_days"        => av[:inventory_pool][:closed_days],
-                                               :"data-name"               => av[:inventory_pool][:name],
-                                               :"data-address"            => av[:inventory_pool][:address],
-                                               :"data-availability_dates" => av[:availability].to_json}]
-    end
-  end
-
 end

@@ -1,7 +1,6 @@
 //= require shared
+
 //= require tips/tips
-//= require buttons/buttons
-//= require dialog/dialog
 //= require list/list
 //= require barcode/barcode
 //= require clearable-input/clearable-input
@@ -10,10 +9,7 @@
 //= require_tree ./availability
 //= require_tree ./process_helper
 //= require_tree ./tmpl
-//= require showMore/showMore
 //= require historical-search/historical-search
-//= require booking-calendar/booking-calendar
-//= require fullcalendar/fullcalendar
 //= require jqBarGraph/jqBarGraph.1.2.js
 //= require pagination/pagination
 //= require autocomplete/autocomplete
@@ -27,9 +23,6 @@
 //= require visit/visit
 //= require selected_lines/selected_lines
 //= require inventory_pool/inventory_pool
-//= require print/print
-//= require inline_tabs/inline_tabs
 //= require expandable_line/expandable_line
-//= require custom_select/custom_select
 
 //= require app/app

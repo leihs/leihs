@@ -1,29 +1,12 @@
 ${$user = Line.get_user($item.data), ""}
 ${$name = Str.sliced_trunc($user.name, 20, "... "), ""}
 ${$start_date_disabled = ($item.data.contract!=undefined)&&($item.data.contract.action == "take_back"), ""}
+${$subtitle = $name + " " + moment(start_date).format(i18n.date.L) + " - " + moment(end_date).format(i18n.date.L), ""}
 
 = form_tag '${$item.action}', :remote => true, :"data-submit_button" => true do
-  %h1
-    %strong{:title => "${model.name}"} ${Str.sliced_trunc(model.name, 40)} 
-  %p.subtitle{:title=>"${$name}"}
-    = _("Edit ordered item for")
-    %strong
-      ${$name}
-    %span.date
-      ({{html moment(start_date).format(i18n.date.L)}}
-      = "-"
-      {{html moment(end_date).format(i18n.date.L)}})
-  .navigation
-    .multibutton
-      .alternatives
-        .trigger.green
-          .arrow
-        %a.button.red.close_dialog
-          .icon.delete
-          = _("Cancel")
-      %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}', :tabindex => "4"}
-        = _("Save Changes")
-  
+  {{tmpl({title: model.name, subtitle: $subtitle}) "app/views/shared/dialog/title"}}
+  {{tmpl({buttons: ["save", "close"]}) "app/views/shared/dialog/navigation"}}
+
   .flash_message
   
   .calendar_input

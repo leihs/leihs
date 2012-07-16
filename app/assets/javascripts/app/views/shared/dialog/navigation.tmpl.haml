@@ -1,0 +1,13 @@
+.navigation
+  {{if buttons.length == 1}}
+  {{tmpl "app/views/shared/dialog/buttons/"+buttons[0]}}
+  {{else}}
+  .multibutton
+    .alternatives
+      .trigger.green
+        .arrow
+      {{each(i, button) buttons.slice(1)}}
+      {{tmpl "app/views/shared/dialog/buttons/"+button}}
+      {{/each}}
+    {{tmpl "app/views/shared/dialog/buttons/"+buttons[0]}}
+  {{/if}}
