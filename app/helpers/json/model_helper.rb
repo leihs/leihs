@@ -30,6 +30,10 @@ module Json
         if with[:categories] and model.respond_to? :categories
           h[:categories] = model.categories.as_json # TODO
         end
+
+        if with[:inventory_pools]
+          h[:inventory_pools] = hash_for model.inventory_pools, with[:inventory_pools]
+        end
       
         if with[:availability]
           customer_user = with[:availability][:user]

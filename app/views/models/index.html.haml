@@ -52,8 +52,6 @@
 = render :partial => '/layouts/frontend/content_box_foot'
 = render :partial => '/layouts/frontend/aside'
 
-= render :partial => 'model_template', :locals => {:link_prefix => "/models/"}
-
 :javascript
   
   $(document).ready(function(){
@@ -67,16 +65,14 @@
   function ModelList() {
       
       this.setup = function() {
-        this.setupTemplates();
+         $('#modellist').append($.tmpl("app/views/frontend/models/line", #{json_for(@models, {:image_thumb => true,
+                                                                                              :description => true,
+                                                                                              :properties => {},
+                                                                                              :inventory_pools => {},
+                                                                                              :availability => {:user => current_user}})} ));
+
         this.setupTips();
         AvSelector.updateAvDates();
-      }
-      
-      this.setupTemplates = function() {
-         $('#modellist').append($("#model_template").tmpl(#{json_for(@models, { :image_thumb => true,
-                                                                                :description => true,
-                                                                                :properties => {},
-                                                                                :availability => {:user => current_user}})} ));
       }
       
       this.setupTips = function() {
