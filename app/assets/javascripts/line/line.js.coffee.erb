@@ -12,6 +12,8 @@ class Line
     $(options.element).trigger('before_remove_line', [options])
     # animate and remove    
     $(options.element).css("background-color", options.color).fadeOut 400, ()->
+      list = $(this).closest(".list")
+      # remove line groups or visits completely if line was the element
       if $(this).closest(".linegroup").find(".lines .line").length == 1
         if $(this).closest(".visit").find(".line").length == 1
           $(this).closest(".visit").remove()
@@ -22,6 +24,7 @@ class Line
         $(this).remove()    
       options.callback() if options.callback? 
       $(document).trigger('after_remove_line', [options])
+      List.update list if list?
       
   @get_problems = (data)->
     problems = []

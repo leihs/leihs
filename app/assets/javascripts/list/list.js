@@ -19,9 +19,7 @@ function List() {
     });
   }
   
-  this.remove = function(line) {
-    var list = $(line).closest(".list")
-    $(line).remove();
+  this.update = function(list) {
     // subtract badge
     var badge = $(list).prev(".inlinetabs").find(".tab:first .badge");
     var badge_amount = parseInt($(badge).html());
@@ -30,9 +28,9 @@ function List() {
     if($(list).find(".toggle").length > 0) {
       var showmore = $(list).find(".toggle");
       var showmore_html =  $(showmore).html();
-      var showmore_val = showmore_html.replace(/<\/*.*?>/g, "");
-      var showmore_val_num = parseInt(showmore_val.match(/\d*/g));
-      var new_showmore_val = showmore_val.replace(showmore_val_num, showmore_val_num-1);
+      var showmore_val = showmore_html.replace(/\D/g, "");
+      var showmore_val_num = parseInt(showmore_val);
+      var new_showmore_val = showmore_val.replace(showmore_val_num, (showmore_val_num-1));
       var new_showmore_html = showmore_html.replace(showmore_val, new_showmore_val);
       $(showmore).html(new_showmore_html);
       // get new line from hidden container
@@ -43,6 +41,7 @@ function List() {
       // no more hidden lines to fetch
       if($(list).find(".hidden .line").length == 0){
         $(list).find(".toggle").remove();
+        $(list).removeClass("closed");
         return 0;
       };
     }

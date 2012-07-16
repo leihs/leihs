@@ -27,3 +27,7 @@ Then /^the order is rejected$/ do
   wait_until { all(".order .list .line", :text => /#{@order.purpose.description[0..25]}/).size == 0 }
   @order.reload.status_const.should == Order::REJECTED 
 end
+
+Then /^the counter of that list is updated/ do
+  @order_line.find(:xpath, "../..").find(".badge").text.to_i.should == @ip.orders.submitted.count
+end

@@ -16,3 +16,4 @@ Feature: Reject Order
      And I can write a reason why I reject that order
     When I reject the order
     Then the order is rejected
+     And the counter of that list is updated
