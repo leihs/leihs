@@ -1,10 +1,9 @@
-%label.search{:for => "search", :class => (is_current_page?("search") and not is_current_page?("focused_search")) ?"active" : nil}
+%label.search.anchor{:title => _("Search"),:for => "search", :class => (is_current_page?("search") and not is_current_page?("focused_search")) ?"active" : nil}
   .inner
     = form_tag(url_for([:backend, current_inventory_pool, :search].compact), :method => :get, :autocomplete => :off) do
-      %input#search{:type => "text", :name => "term", :value => params[:term], :class => "clearable barcode_target"}
+      %input#search{:type => "text", :name => "term", :value => params[:term], :class => "clearable barcode_target", :placeholder => _("Search")}
       = submit_tag "", :class => "search icon"
       = image_tag "loading.gif", :class => "loading"
-    .borderright
     
 :javascript
   $(document).ready(function(){
@@ -22,25 +21,25 @@
     }
     
     this.setupFocus = function() {
-      var search_input = $("#tabs .search input[type=text]");
+      var search_input = $("#topbar .search.item input[type=text]");
         
-      if(search_input.parents("#tabs .search").hasClass("active")){
+      if(search_input.parents("#topbar .search.item").hasClass("active")){
         search_input.focus().val(search_input.val() + " "); // NOTE: This puts the Cursor at the end on focus
         search_input.addClass("on_search_page");        
       }
       
       search_input.focus(function(){
         if (! $(this).hasClass("on_search_page"))
-          $(this).parents("#tabs .search").addClass("active");
+          $(this).parents("#topbar .search.item").addClass("active");
       }).blur(function() {
         if (! $(this).hasClass("on_search_page"))
-          $(this).parents("#tabs .search").removeClass("active");
+          $(this).parents("#topbar .search.item").removeClass("active");
       });
     }
     
     this.setupSubmittion = function() {
       
-      $("#tabs .search form").submit(function() {
+      $("#topbar .search.item form").submit(function() {
         $(this).find(".icon").remove();
         $(this).find(".clear_icon").remove();
         $(this).find(".loading").show();
@@ -53,10 +52,10 @@
     this.setupUnload = function() {
       
       $(window).unload(function(){
-        $("#tabs .search").find(".icon").show();
-        $("#tabs .search").find(".loading").hide();
-        $("#tabs .search input:text").val("");
-        $("#tabs .search input:text").blur();
+        $("#topbar .search.item").find(".icon").show();
+        $("#topbar .search.item").find(".loading").hide();
+        $("#topbar .search.item input:text").val("");
+        $("#topbar .search.item input:text").blur();
       });
     }
   }

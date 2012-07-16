@@ -1,44 +1,63 @@
 @import "../shared/mixins";
 @import "../shared/variables";
 
-#tabs > .search {
-  width: 210px;
+#topbar .search.item {
+  display: inline-block;
 
-  .inner {
-    padding-right: 1px;
-  
-    input[type=text] {
-      width: 102px; 
-    }
-      
-    .icon {
-      left: 123px;
-    }
+  .search {
+    display: inline-block;
+    padding: 7px 8px 6px 9px;
+
+    .inner {
+      padding-right: 1px;
+
+      .loading {
+        display: none;
+        height: 14px;
+        left: 124px;
+        position: absolute;
+        top: 14px;
+        width: 14px;
+      }
     
-    .loading {
-      left: 122px;
+      input[type=text] {
+        background: rgb(230,230,230);
+        font-size: 1.1em;
+        padding-left: 9px;
+        width: 102px;
+        @include transition(background 0.2s linear);
+        @include border-radius(12px);
+        @include box-shadows(inset 0 3px 2px rgba(0,0,0,0.1), 0 0 1px 0 $borderdarkergrey);
+      }
+
+      .icon {
+        background: transparent url($image-sprite) no-repeat -32px -30px;
+        border: none;
+        cursor: pointer;
+        height: 12px;
+        position: absolute;
+        left: 126px;
+        top: 14px;
+        width: 13px;
+        @include opacity(0.7);
+      }
+
+      .clear_icon {
+        top: 2px;
+      }
     }
-    
-    .borderright {
-      background: transparent url($image-sprite) no-repeat right -91px;
-      border: none;
-      height: 28px;
-      position: absolute;
-      right: -5px;
-      top: 0;
-      width: 5px;
+  } 
+
+  &.active input[type=text], &:hover input[type=text], input[type=text]:focus {
+    background: white !important;
+    @include box-shadow(0 0 1px 0 $borderdarkergrey);
+
+    &:focus {
+      @include box-shadows (0 0 1px 0 $borderdarkergrey, 0 0 6px rgba(80,80,255,1));
     }
-  }
-  
-  &:hover {
-    .borderright {
-      background: transparent url($image-sprite) no-repeat right -120px;
+
+    &~.icon, &~.clear_icon {
+      @include opacity(1.0);
     }
-  }
-  
-  &.active {
-    .borderright {
-      background: url($image-sprite) repeat-x right -149px;
-    }
-  }
+  }  
 }
