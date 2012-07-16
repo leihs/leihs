@@ -55,30 +55,25 @@
         .badge
           = @hits["order"]
     .list
+
+:coffeescript
+  jQuery ->
+    $('.list').hide()
+    results = #{results_json(@results)}
+    if results?
+      for result in results 
+        $('.'+result.type+' .list').append($.tmpl("tmpl/line", result)).parent().show()
     
-:javascript
-  
-  $(document).ready(function(){
-    $('.list').hide();
-  
-    var results = #{results_json(@results)};
-  
-    $.each(results, function(i, result){
-      $('.'+result.type+' .list').append($.tmpl("tmpl/line", result)).parent().show();
-    });
-    
-    $(".list").each(function(){
-      var text = $(this).parent().find(".tab .text").first().html();
-          text = text.replace(/<.*>.*<\/.*>/g, "");
-      $(this).showMore({
-        min: 3,
-        offset: {
+    $(".list").each ->
+      text = $(this).parent().find(".tab .text").first().html()
+      text = text.replace(/<.*>.*<\/.*>/g, "")
+      $(this).showMore
+        min: 3
+        offset:
           top: -36
-        },
-        more: "<li><span class='text'>#{_('more')} "+text+"<span class='icon'></span></span></li>",
+        more: "<li><span class='text'>#{_('more')} "+text+"<span class='icon'></span></span></li>"
         less: "<li><span class='text'>#{_('show less')}<span class='icon'></span></span></li>"
-      });
-    });
-    
-    $('.list').show();
-  });
+      if $(this).find(".hidden").length
+        $(this).find(".hidden").append $.tmpl("tmpl/line/show_all", {type: $(this).closest("section").attr("class"), text: text})
+      
+    $('.list').show()
