@@ -12,9 +12,10 @@ module Availability
     #end
 
     def total_borrowable_items_for_user(user, inventory_pool = nil)
-      inventory_pools.collect do |ip|
-        next if inventory_pool and ip != inventory_pool
-        partitions.in(ip).by_groups(user.groups).sum(:quantity).to_i + partitions.in(ip).by_group(Group::GENERAL_GROUP_ID, false)
+      ips = inventory_pool ? [inventory_pool] : inventory_pools
+      ips.collect do |ip|
+        partitions.in(ip).by_groups(user.groups).sum(:quantity).to_i + 
+        partitions.in(ip).by_group(Group::GENERAL_GROUP_ID, false)
       end.compact.sum
     end
 

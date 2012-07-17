@@ -346,25 +346,27 @@ Wenn /^ich alle Resultate wähle erhalte ich eine separate Liste aller Resultate
 end
 
 Angenommen /^ich sehe Probleme auf einer Zeile, die durch die Verfügbarkeit bedingt sind$/ do
-  pending
+  step 'I open a hand over'
+  step 'I add so many lines that I break the maximal quantity of an model'
+  @line_el = find(".line.error")
+  @line = ContractLine.find page.evaluate_script %Q{ $(".line.error:first-child").tmplItem().data.id; }
 end
 
 Angenommen /^ich fahre über das Problem$/ do
-  pending
+  page.execute_script %Q{ $(".line.error:first-child .problems").trigger("mouseenter"); }
+  wait_until { find(".tip") }
 end
 
-Dann /^sehe ich den Grund für das Problem in der folgenden Form: "(.*?)"$/ do |arg1|
-  pending
+Angenommen /^ich sehe die Anzahl der total ausleihbaren Modelle$/ do
+  @model = Model.find_by_name @line_el.find(".name").text
+  find(".tip").should have_content @model.total_borrowable_items_for_user(@customer, @ip)
 end
 
-Dann /^ich sehe die Anzahl der reservierten Modelle$/ do
-  pending
+Angenommen /^ich sehe die Anzahl der bereits reservierten Modelle$/ do
+  find(".tip").should have_content (@model.total_borrowable_items_for_user(@customer, @ip)-(1 + @model.availability_changes_in(@ip).maximum_available_in_period_for_user(@customer, @line.start_date, @line.end_date)))
 end
 
-Dann /^ich sehe die Anzahl der verfügbaren Modelle$/ do
-  pending
+Angenommen /^ich sehe die Anzahl der verfügbaren Modelle$/ do
+  find(".tip").should have_content (1 + @model.availability_changes_in(@ip).maximum_available_in_period_for_user(@customer, @line.start_date, @line.end_date))
 end
 
-Dann /^ich sehe die Summe der Anzahl der reservierten und verfügbaren Modelle$/ do
-  pending
-end

@@ -28,13 +28,17 @@ class Line
       
   @get_problems = (data)->
     problems = []
-    problems.push "<%= _('Not available') %> (#{data.quantity} <%= _('are reserved')%>, #{data.max_available} <%= _('are available')%>: #{data.max_available-data.quantity})" if data.is_available == false
+    problems.push 
+      key: "availability"
+      value: [{key: "total borrowable", value: data.total_borrowable},
+              {key: "already reserved", value: data.total_borrowable - data.availability_for_inventory_pool.max_available},
+              {key: "available", value: data.availability_for_inventory_pool.max_available}]
     return problems
   
   @highlight = (line_element, type)->
     $(line_element).addClass("highlight #{type}")
     setTimeout ()->
-      $(line_element).removeClass("highlight #{type}")  
+      $(line_element).removeClass("highlight #{type}")
     , 300
     
   @recompute_availability = (line_data)->

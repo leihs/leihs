@@ -75,6 +75,17 @@
   .tip {
     position: relative;
     
+    &.problems .availability table {
+      tr:last-child td {
+        border-top: 1px solid $lightgrey;
+      }
+
+      tr td:last-child {
+        padding-left: 12px;
+        text-align: center;
+      }
+    }
+
     &.lines {
       
       .date {

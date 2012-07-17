@@ -39,17 +39,7 @@ ${$problems = Line.get_problems($item.data), ""}
       {{/if}}
       {{/if}}
     
-    {{if $problems.length > 0}}
-    %li.problems.hastip
-      .tip.problems
-        %ul
-          {{each(i, problem) $problems}}
-          %li= "${problem}"
-          {{/each}}
-      %strong 
-        = _("Problems")
-        (${$problems.length})
-    {{/if}}
+    {{tmpl({problems: $problems}) "tmpl/line/problems"}}
   
   .actions    
     %li.actions
