@@ -273,3 +273,98 @@ Dann /^man sieht auf jeder Zeile die Summe der Gegenstände des jeweiligen Model
     quantities.sum.should >= quantities.size
   end
 end
+
+Angenommen /^ich suche$/ do
+  @search_term = "a"
+  find("#search").set(@search_term)
+  find("#topbar .search.item input[type=submit]").click
+end
+
+Dann /^erhalte ich Suchresultate in den Kategorien Benutzer, Modelle, Gegenstände, Verträge und Bestellungen$/ do
+  find(".user .list .line")
+  find(".model .list .line")
+  find(".item .list .line")
+  find(".contract .list .line")
+  find(".order .list .line")
+end
+
+Dann /^ich sehe aus jeder Kategorie maximal die (\d+) ersten Resultate$/ do |amount|
+  amount = (amount.to_i+2)
+  all(".user .list .line:not(.toggle)", :visible => true).size.should <= amount
+  all(".model .list .line:not(.toggle)", :visible => true).size.should <= amount
+  all(".item .list .line:not(.toggle)", :visible => true).size.should <= amount
+  all(".contract .list .line:not(.toggle)", :visible => true).size.should <= amount
+  all(".order .list .line:not(.toggle)", :visible => true).size.should <= amount 
+end
+
+Wenn /^eine Kategorie mehr als (\d+) Resultate bringt$/ do |amount|
+  @lists = []
+  all(".list").each do |list|
+    @lists.push(list) if list.find(".hidden .line")
+  end
+end
+
+Dann /^kann ich wählen, ob ich aus einer Kategorie mehr Resultate sehen will$/ do
+  @lists.each do |list|
+    list.find(".toggle")
+  end
+end
+
+Wenn /^ich mehr Resultate wähle$/ do
+  @lists.each do |list|
+    list.find(".toggle .text").click
+  end
+end
+
+Dann /^sehe ich die ersten (\d+) Resultate$/ do |amount|
+  amount = amount.to_i + 2
+  @lists.each do |list|
+    list.all(".line").size.should == amount
+  end
+end
+
+Wenn /^die Kategorie mehr als (\d+) Resultate bringt$/ do |amount|
+  amount = amount.to_i
+  @list_with_more_matches = []
+  all(".inlinetabs .badge").each do |badge|
+    @list_with_more_matches.push badge.find(:xpath, "../../..").find(".list") if badge.text.to_i > amount
+  end
+end
+
+Dann /^kann ich wählen, ob ich alle Resultate sehen will$/ do
+  @links_of_more_results = []
+  @list_with_more_matches.each do |list|
+    @links_of_more_results.push list.find(".line.show-all a")[:href]
+  end
+end
+
+Wenn /^ich alle Resultate wähle erhalte ich eine separate Liste aller Resultate dieser Kategorie$/ do
+  @links_of_more_results.each do |link|
+    visit link
+    wait_until { find("#search_results.focused") }
+  end
+end
+
+Angenommen /^ich sehe Probleme auf einer Zeile, die durch die Verfügbarkeit bedingt sind$/ do
+  pending
+end
+
+Angenommen /^ich fahre über das Problem$/ do
+  pending
+end
+
+Dann /^sehe ich den Grund für das Problem in der folgenden Form: "(.*?)"$/ do |arg1|
+  pending
+end
+
+Dann /^ich sehe die Anzahl der reservierten Modelle$/ do
+  pending
+end
+
+Dann /^ich sehe die Anzahl der verfügbaren Modelle$/ do
+  pending
+end
+
+Dann /^ich sehe die Summe der Anzahl der reservierten und verfügbaren Modelle$/ do
+  pending
+end

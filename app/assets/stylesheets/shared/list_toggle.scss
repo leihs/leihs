@@ -7,13 +7,13 @@
   border-top: 1px solid #CCC !important;
   overflow: hidden;
   position: relative;
-  margin-bottom: -32px;
+  margin-bottom: -40px;
   top: -23px;
   height: 32px;
   @include box-shadow(0 -12px 15px -6px rgba(0, 0, 0, 0.1));
   
   .text {
-    top: -4px;
+    top: -2px;
   }
   
   &>li {

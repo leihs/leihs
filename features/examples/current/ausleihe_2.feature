@@ -9,7 +9,7 @@ Funktionalität: Ausleihe II
     @javascript
     Szenario: Alle Suchresultate anzeigen
       Angenommen ich suche
-      Dann erhalte ich Suchresultate in den Kategorien Benutzer, Modelle, Gegenstände, Verträge
+      Dann erhalte ich Suchresultate in den Kategorien Benutzer, Modelle, Gegenstände, Verträge und Bestellungen
       Und ich sehe aus jeder Kategorie maximal die 3 ersten Resultate
       Wenn eine Kategorie mehr als 3 Resultate bringt
       Dann kann ich wählen, ob ich aus einer Kategorie mehr Resultate sehen will
@@ -17,8 +17,7 @@ Funktionalität: Ausleihe II
       Dann sehe ich die ersten 10 Resultate
       Wenn die Kategorie mehr als 10 Resultate bringt
       Dann kann ich wählen, ob ich alle Resultate sehen will
-      Wenn ich alle Resultate wähle
-      Dann erhalte ich eine separate Liste aller Resultate dieser Kategorie
+      Wenn ich alle Resultate wähle erhalte ich eine separate Liste aller Resultate dieser Kategorie
 
     @javascript
     Szenario: Zusammenziehen der Anzahlen im Item-Popup

@@ -58,11 +58,12 @@ class Backend::BackendController < ApplicationController
     
     results = []
     @hits = {}
+    per_page = (types and types.size == 1) ? $per_page : 10
     conditions[:klasses].each_pair do |klass, options|
       r = klass.search2(term).
             filter2(conditions[:filter].merge(options[:filter] || {})).
             order(options[:sort_by]).
-            paginate(:page => params[:page], :per_page => $per_page)
+            paginate(:page => params[:page], :per_page => per_page)
 
       results << r
       @hits[klass.to_s.underscore] = r.total_entries 
