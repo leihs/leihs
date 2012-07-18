@@ -27,6 +27,10 @@
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;    
     
+    &[disabled] {
+      cursor: default;
+    }
+
     .icon {
       margin-right: 2px;
       top: -2px;
@@ -56,7 +60,6 @@
       border: 1px solid $borderdarkgrey;
       border-bottom: none;
       color: $darkergrey;
-      cursor: pointer;
       height: 21px;
       
       .badge {

@@ -34,7 +34,7 @@
   -if @date == Date.today
     %section.order
       .inlinetabs
-        .tab.active
+        .tab.active{:disabled => true}
           .icon.orders
           %span.text
             = _("Open Orders")
@@ -44,7 +44,7 @@
   
   %section.hand_over
     .inlinetabs
-      .tab.active
+      .tab.active{:disabled => true}
         .icon.hand_over
         %span.text
           = _("Hand Overs")
@@ -54,7 +54,7 @@
      
   %section.take_back
     .inlinetabs
-      .tab.active
+      .tab.active{:disabled => true}
         .icon.take_back
         %span.text
           = _("Take Backs")
