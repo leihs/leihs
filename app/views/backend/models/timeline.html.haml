@@ -188,25 +188,25 @@
 = stylesheet_link_tag 'timeline'
 
 :javascript
-  Timeline_ajax_url="#{javascript_path('simile_timeline/timeline_ajax/simile-ajax-api.js')}";
-  Timeline_urlPrefix="/assets/simile_timeline/timeline_js/";
-  Timeline_parameters="bundle=true&forceLocale=#{current_user.language.locale_name.split('-').first}";
+  //tmp// var SimileAjax_urlPrefix = "/assets/simile_timeline/timeline_ajax/";
+  var Timeline_urlPrefix = "/assets/simile_timeline/timeline_js/";
+  var Timeline_parameters = "bundle=true&forceLocale=#{current_user.language.locale_name.split('-').first}";
 
-= javascript_include_tag "jquery.min"
+=#tmp# javascript_include_tag "simile_timeline/timeline_ajax/simile-ajax-api.js"
 = javascript_include_tag "simile_timeline/timeline_js/timeline-api.js"
 
 -# TODO automatic autowidth
 :javascript
-  SimileAjax.History.enabled = false;
-  //window.jQuery = SimileAjax.jQuery;
-  var eventSource = [];
-  var events = #{events.to_json};
-  for( var group_id in events) {
-    eventSource[group_id] = new Timeline.DefaultEventSource();
-    eventSource[group_id].loadJSON({events: events[group_id]}, document.location.href);
-  }
-  
   $(document).ready(function() {
+    SimileAjax.History.enabled = false;
+    //window.jQuery = SimileAjax.jQuery;
+    var eventSource = [];
+    var events = #{events.to_json};
+    for( var group_id in events) {
+      eventSource[group_id] = new Timeline.DefaultEventSource();
+      eventSource[group_id].loadJSON({events: events[group_id]}, document.location.href);
+    }
+    
     var theme = Timeline.ClassicTheme.create();
     theme.firstDayOfWeek = 1;
     theme.autoWidth = true;
@@ -248,22 +248,23 @@
     tl.layout();
   });
 
-#my_timeline{:style => "height: #{sum_w}px; border: 1px solid #aaa"}
-
-%table.timeline-legend
-  %tr
-    %td.title
-      = _("Legend") + ":"
-    %td.kinds
-      .tape-is-returned
-        = _("is returned")
-      .tape-without-conflict
-        = _("without conflict")
-      .tape-is-reserved
-        = _("reserved / item assigned in future")
-      .tape-no-assigned-item
-        = _("no item assigned")
-      .tape-unavailable
-        =_("unavailable / can't be guaranteed")
-      .tape-is-late
-        = _("overdue") + " / " + _("is late")
+%div 
+  #my_timeline{:style => "height: #{sum_w}px; border: 1px solid #aaa"}
+  
+  %table.timeline-legend
+    %tr
+      %td.title
+        = _("Legend") + ":"
+      %td.kinds
+        .tape-is-returned
+          = _("is returned")
+        .tape-without-conflict
+          = _("without conflict")
+        .tape-is-reserved
+          = _("reserved / item assigned in future")
+        .tape-no-assigned-item
+          = _("no item assigned")
+        .tape-unavailable
+          =_("unavailable / can't be guaranteed")
+        .tape-is-late
+          = _("overdue") + " / " + _("is late")

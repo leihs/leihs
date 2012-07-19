@@ -68,20 +68,30 @@ function Buttons() {
     var _trigger = $(_this).parent().hasClass("alternatives") ? $(_this).closest(".multibutton") : _this;
     
     var createDialog = function(data) {
-      var template = (_this.data("rel") != undefined) ? _this.data("rel") : "";
-      var action = (_this.attr("href") != undefined) ? _this.attr("href") : _this.attr("action");
+      var template = (_this.data("rel") != undefined) ? _this.data("rel") : undefined;
+      var content;
       
+      if(template != undefined) {
+        var action = (_this.attr("href") != undefined) ? _this.attr("href") : _this.attr("action");
+        content = $.tmpl(template, (data == undefined) ? {} : data, {action: action, on_success: _this.data("on_success")});
+      } else if(_this.data("url_for_iframe") != undefined){
+        iframe = $("<iframe src='"+_this.data("url_for_iframe")+"' width='100%' height='400px'></iframe>");
+        content = iframe;
+      } else {
+        content = data;
+      }
+     
       var dialog = Dialog.add({
         trigger: _trigger,
-        content: $.tmpl(template, (data == undefined) ? {} : data, {action: action, on_success: _this.data("on_success")}),
+        content: content,
         dialogClass: _this.data("dialog_class"),
         dialogId: (_this.data("dialog_id") != undefined) ? _this.data("dialog_id") : undefined
       });
-      
+
       // don't loose tmplItem().data
       $(".dialog").tmplItem().data = data;
     }
-    
+
     // create dialog either for data or for a async data (url)    
     if(_this.data("ref_for_dialog") != undefined) { // data
       createDialog(eval(_this.data("ref_for_dialog")));
