@@ -31,9 +31,11 @@ class Line
     if data.is_available == false
       problems.push 
         key: "availability"
-        value: [{key: "total borrowable", value: data.total_borrowable},
-                {key: "already reserved", value: data.total_borrowable - data.availability_for_inventory_pool.max_available},
-                {key: "available", value: data.availability_for_inventory_pool.max_available}]
+        value: [{key: "<%=_('total borrowable')%>", value: data.total_borrowable},
+                {key: "<%=_('already reserved')%>", value: data.total_borrowable - data.availability_for_inventory_pool.max_available},
+                {key: "<%=_('available')%>", value: data.availability_for_inventory_pool.max_available},
+                {key: "<%=_('requested')%>", value: data.quantity},
+                {key: "<%=_('result')%>", value: (data.availability_for_inventory_pool.max_available-data.quantity)}]
     return problems
   
   @highlight = (line_element, type)->

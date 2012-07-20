@@ -12,7 +12,7 @@ ${$problems = Line.get_problems($item.data), ""}
       %span.selected
         ${quantity}
       %span.grey
-        ="/ ${max_available} #{_('available')}"
+        ="/ ${availability_for_inventory_pool.max_available} #{_('available')}"
         
     %li.name
       %strong
