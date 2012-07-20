@@ -76,13 +76,13 @@
     position: relative;
     
     &.problems .availability table {
-      tr:last-child td {
+      tr:last-child td, tr:nth-child(3) td {
         border-top: 1px solid $lightgrey;
       }
 
       tr td:last-child {
         padding-left: 12px;
-        text-align: center;
+        text-align: right;
       }
     }
 
