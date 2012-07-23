@@ -10,7 +10,7 @@ module Json
       }
       
       if with ||= nil
-        [:image_thumb, :description, :is_package].each do |k|
+        [:image_thumb, :description, :is_package, :hand_over_note].each do |k|
           h[k] = model.send(k) if with[k]
         end
         
