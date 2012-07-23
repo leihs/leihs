@@ -6,6 +6,10 @@ Angenommen /^man öffnet die Liste des Inventars$/ do
   wait_until(10){ find(".line:not(.navigation)") }
 end
 
+Wenn /^man die Liste des Inventars öffnet$/ do
+  step 'man öffnet die Liste des Inventars'
+end
+
 Dann /^sieht man Modelle$/ do
   all(".model.line").empty?.should be_false
 end

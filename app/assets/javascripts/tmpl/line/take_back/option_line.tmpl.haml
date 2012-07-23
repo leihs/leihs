@@ -21,7 +21,7 @@
             .arrow
           = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${contract.user.id}/take_back/update_lines",
           :class => "button white open_dialog", 
-          :"data-rel" => "tmpl/dialog/calendar/edit_single", 
+          :"data-tmpl" => "tmpl/dialog/calendar/edit_single", 
           :"data-dialog_class" => "calendar",
           :"data-on_success" => 'HandOver.update_visits(response);',
           :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
@@ -29,7 +29,7 @@
             = _("Edit")
             
         = link_to "#", :class => "button white open_dialog",
-        :"data-rel" => "tmpl/dialog/documents/contract",
+        :"data-tmpl" => "tmpl/dialog/documents/contract",
         :"data-url_for_dialog" => "/backend/inventory_pools/${current_inventory_pool}/contracts/${contract.id}.json",
         :"data-dialog_id" => "print",
         :"data-dialog_class" => "documents value_list" do

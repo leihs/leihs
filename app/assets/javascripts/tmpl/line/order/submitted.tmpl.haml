@@ -35,7 +35,7 @@
           = link_to "/backend/inventory_pools/${current_inventory_pool}/acknowledge/${id}/approve", :remote => true,  
             :class => "button white",
             :method => :post,
-            :"data-rel" => "tmpl/dialog/acknowledge/approve", 
+            :"data-tmpl" => "tmpl/dialog/acknowledge/approve", 
             :"data-dialog_class" => "acknowledge",
             :"data-on_success" => 'window.location = "http://"+location.host+"/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/hand_over"',
             :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
@@ -44,7 +44,7 @@
             
           = link_to "/backend/inventory_pools/${current_inventory_pool}/acknowledge/${id}/reject", 
             :class => "button red open_dialog", 
-            :"data-rel" => "tmpl/dialog/acknowledge/reject", 
+            :"data-tmpl" => "tmpl/dialog/acknowledge/reject", 
             :"data-dialog_class" => "acknowledge with_comment",
             :"data-on_success" => 'Line.remove({"element": $(this).closest(".dialog").data("trigger").closest(".line"), "color": "red"})',
             :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
@@ -55,7 +55,7 @@
           :class => "button white",
           :remote => true,
           :method => :post,
-          :"data-rel" => "tmpl/dialog/acknowledge/approve", 
+          :"data-tmpl" => "tmpl/dialog/acknowledge/approve", 
           :"data-dialog_class" => "acknowledge with_comment",
           :"data-on_success" => 'Line.remove({"element": $(this).closest(".line"), "color": "green"})',
           :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do

@@ -35,14 +35,15 @@
         .alternatives
           .trigger
             .arrow
+          = link_to "/backend/inventory_pools/${current_inventory_pool}/models/${id}/timeline", :class => "button white open_dialog",
+          :"data-tmpl" => "tmpl/dialog/availability/timeline",
+          :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data",
+          :"data-dialog_class" => "full_width timeline" do
+            .icon.timeline
+            = _("Timeline")
           = link_to "/backend/inventory_pools/${current_inventory_pool}/models/${id}/edit",  :class => "button white" do
             .icon.edit
             = _("Edit")
-          = link_to "#", :class => "button white open_dialog",
-          :"data-url_for_iframe" => "/backend/inventory_pools/${current_inventory_pool}/models/${id}/timeline",
-          :"data-dialog_class" => "full_width" do
-            .icon.edit
-            = _("Timeline")
         = link_to "/backend/inventory_pools/${current_inventory_pool}/models/${id}", :class => "button white" do
           .icon.view_model
           = _("View Model")

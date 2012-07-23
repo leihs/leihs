@@ -68,15 +68,12 @@ function Buttons() {
     var _trigger = $(_this).parent().hasClass("alternatives") ? $(_this).closest(".multibutton") : _this;
     
     var createDialog = function(data) {
-      var template = (_this.data("rel") != undefined) ? _this.data("rel") : undefined;
+      var template = (_this.data("tmpl") != undefined) ? _this.data("tmpl") : undefined;
       var content;
       
       if(template != undefined) {
-        var action = (_this.attr("href") != undefined) ? _this.attr("href") : _this.attr("action");
-        content = $.tmpl(template, (data == undefined) ? {} : data, {action: action, on_success: _this.data("on_success")});
-      } else if(_this.data("url_for_iframe") != undefined){
-        iframe = $("<iframe src='"+_this.data("url_for_iframe")+"' width='100%' height='400px'></iframe>");
-        content = iframe;
+        var target_url = _this.attr("href");
+        content = $.tmpl(template, (data == undefined) ? {} : data, {target_url: target_url, on_success: _this.data("on_success")});
       } else {
         content = data;
       }
@@ -150,8 +147,8 @@ function Buttons() {
     Buttons.removeLoading(_this);
     var _trigger = $(_this).parent().hasClass("alternatives") ? $(_this).closest(".multibutton") : _this;
     var content;
-    if (_this.data("rel") != undefined && _this.data("ref_for_dialog") != undefined) {
-      content = $.tmpl(_this.data("rel"), eval(_this.data("ref_for_dialog")), {error: response.responseText, action: _this.attr("href"), on_success: _this.data("on_success")})      
+    if (_this.data("tmpl") != undefined && _this.data("ref_for_dialog") != undefined) {
+      content = $.tmpl(_this.data("tmpl"), eval(_this.data("ref_for_dialog")), {error: response.responseText, action: _this.attr("href"), on_success: _this.data("on_success")})      
       
       Dialog.add({
         trigger: _trigger,
