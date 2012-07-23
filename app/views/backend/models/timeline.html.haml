@@ -246,7 +246,15 @@
   
     var tl = Timeline.create(document.getElementById("my_timeline"), bandInfos);
     tl.layout();
+
+
+    // rescale dialog when timeline is wrapped inside a dialog
+    if($(window.parent.document).find(".dialog").length) {
+      $(window.parent.document).find(".dialog iframe").height($("#my_timeline").parent().outerHeight()+20);
+      window.parent.Dialog.rescale($(window.parent.document).find(".dialog"));
+    }
   });
+  
 
 %div 
   #my_timeline{:style => "height: #{sum_w}px; border: 1px solid #aaa"}
