@@ -1,6 +1,6 @@
 ${$purposes = Line.concatinate_purposes(SelectedLines.lines_data), ""}
 
-= form_tag '${$item.action}', :remote => true, :"data-submit_button" => true, :class => "summary" do
+= form_tag '${$item.target_url}', :remote => true, :"data-submit_button" => true, :class => "summary" do
 
   %h1
     = _("Hand Over to")

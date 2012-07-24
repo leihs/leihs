@@ -9,7 +9,7 @@
       = link_to _("Reject"), reject_backend_inventory_pool_acknowledge_path(current_inventory_pool, @order),
         :class => "button red open_dialog",
         :"data-dialog_class" => "acknowledge with_comment",
-        :"data-rel" => "tmpl/dialog/acknowledge/reject",
+        :"data-tmpl" => "tmpl/dialog/acknowledge/reject",
         :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading", {title: "'+_("Rejection Successful")+'", message: "'+_("please wait...")+'"}), dialogClass: "loading"}); window.location = document.referrer',
         :"data-ref_for_dialog" => "$('#order').tmplItem().data"
       
@@ -20,7 +20,7 @@
           = link_to approve_backend_inventory_pool_acknowledge_path(current_inventory_pool, @order),
             :class => "button white open_dialog", 
             :"data-dialog_class" => "acknowledge with_comment",
-            :"data-rel" => "tmpl/dialog/acknowledge/approve",
+            :"data-tmpl" => "tmpl/dialog/acknowledge/approve",
             :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading", {title: "'+_("Approval Successful")+'", message: "'+_("please wait...")+'"}), dialogClass: "loading"}); window.location = document.referrer',
             :"data-ref_for_dialog" => "$('#order').tmplItem().data" do
             .icon.edit
@@ -30,7 +30,7 @@
           :method => :post,
           :class => "button green", 
           :"data-dialog_class" => "acknowledge",
-          :"data-rel" => "tmpl/dialog/acknowledge/approve",
+          :"data-tmpl" => "tmpl/dialog/acknowledge/approve",
           :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading", {title: "'+_("Approval Successful")+'", message: "'+_("please wait...")+'"}), dialogClass: "loading"}); window.location = document.referrer',
           :"data-ref_for_dialog" => "$('#order').tmplItem().data"
   
@@ -41,7 +41,11 @@
         %p= "#{@order.purpose}"
       -else
         %p.none= _("no purpose specified")
-      %button.button.white.open_dialog{:action => change_purpose_backend_inventory_pool_acknowledge_path(current_inventory_pool, @order), :"data-dialog_class" => "acknowledge edit_purpose", :"data-rel" => "tmpl/dialog/acknowledge/edit_purpose", :"data-on_success" => "Acknowledge.update_purpose(response.purpose);", :"data-ref_for_dialog" => "$('#order').tmplItem().data"}
+      %button.button.white.open_dialog{:"href" => change_purpose_backend_inventory_pool_acknowledge_path(current_inventory_pool, @order),
+      :"data-dialog_class" => "acknowledge edit_purpose",
+      :"data-tmpl" => "tmpl/dialog/acknowledge/edit_purpose",
+      :"data-on_success" => "Acknowledge.update_purpose(response.purpose);",
+      :"data-ref_for_dialog" => "$('#order').tmplItem().data"}
         = _("Edit Purpose")
       
   .indent      
@@ -87,7 +91,7 @@
             :class => "button white",
             :remote => "true",
             :method => "delete",
-            :"data-rel" => "tmpl/dialog/order_line/delete_multiple",
+            :"data-tmpl" => "tmpl/dialog/order_line/delete_multiple",
             :"data-on_success" => 'Acknowledge.remove_lines(SelectedLines.lines);' ,
             :"data-add_selected_line_ids" => "true",
             :id => "delete_selection" do
@@ -95,7 +99,7 @@
               = _("Delete")
           = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/acknowledge/#{@order.id}/update_lines", 
           :class => "button white open_dialog",
-          :"data-rel" => "tmpl/dialog/calendar/edit_multiple", 
+          :"data-tmpl" => "tmpl/dialog/calendar/edit_multiple", 
           :"data-dialog_class" => "calendar multiple",
           :"data-on_success" => 'Acknowledge.update_order(response);',
           :"data-ref_for_dialog" => "$('#order').tmplItem().data",

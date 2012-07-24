@@ -31,7 +31,7 @@
               .arrow
             = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@user.id}/take_back/update_lines", 
             :class => "button white open_dialog",
-            :"data-rel" => "tmpl/dialog/calendar/edit_multiple", 
+            :"data-tmpl" => "tmpl/dialog/calendar/edit_multiple", 
             :"data-dialog_class" => "calendar multiple",
             :"data-on_success" => 'TakeBack.update_visits(response);',
             :id => "edit_selection" do
@@ -40,7 +40,7 @@
               
           = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@user.id}/take_back/close_contract", 
           :class => "button green open_dialog",
-          :"data-rel" => "tmpl/dialog/take_back/summary",
+          :"data-tmpl" => "tmpl/dialog/take_back/summary",
           :"data-dialog_class" => "take_back",
           :"data-add_selected_line_ids" => "true",
           :"data-on_success" => "TakeBack.open_documents(response)",
