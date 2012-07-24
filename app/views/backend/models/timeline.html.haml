@@ -51,8 +51,7 @@
       #track_num = events[group_id].empty? ? 0 : ( line.item ? events[group_id].collect {|e| e[:trackNum] }.compact.max.to_i.next : nil)
   
       # if line is late then it won't be available until the item is returned 
-      end_date = line.is_late? ? Availability::Change::ETERNITY :
-                                 (line.end_date.tomorrow.to_time - 1.second)
+      end_date = line.is_late? ? Availability::Change::ETERNITY : (line.end_date.tomorrow.to_time - 1.second)
   
       # if line is reserved in the future and assigned an item, then the item will be reserved until then and not available from now on 
       start_date = line.is_reserved? ? Date.today : line.start_date
@@ -79,19 +78,16 @@
   def event_description(line)
       link_string, link_path =
         if line.is_a?(OrderLine)
-          [ icon_tag("accept") + _("Acknowledge"),
-            backend_inventory_pool_acknowledge_path(current_inventory_pool, line.document) ]
+          [ _("Acknowledge"), backend_inventory_pool_acknowledge_path(current_inventory_pool, line.document) ]
         elsif line.document.status_const == Contract::UNSIGNED
-          [ icon_tag("arrow_turn_right") + _("Hand Over"),
-            backend_inventory_pool_user_hand_over_path(current_inventory_pool, line.document.user) ]
+          [ _("Hand Over"), backend_inventory_pool_user_hand_over_path(current_inventory_pool, line.document.user) ]
         else
-          [ icon_tag("arrow_undo") + _("Take Back"),
-            backend_inventory_pool_user_take_back_path(current_inventory_pool, line.document.user) ]
-          end
+          [ _("Take Back"), backend_inventory_pool_user_take_back_path(current_inventory_pool, line.document.user) ]
+        end
    
-        document_link = content_tag :div, :class => "buttons", :style => "margin: 1.5em;" do
-                        link_to link_string, link_path
-                      end
+      document_link = content_tag :div, :class => "buttons", :style => "margin: 1.5em;" do
+                      link_to link_string, link_path
+                    end
       comment = ""
       comment += ("<b>" + _("Item is overdue and therefore unavailable!") + "</b>") if line.is_late?
       comment += ("<b>" + _("Item is reserved in the future, therefore it's not available!") + "</b>") if line.is_reserved?
@@ -185,8 +181,6 @@
     end.compact
   end
 
-= stylesheet_link_tag 'timeline'
-
 :javascript
   //tmp// var SimileAjax_urlPrefix = "/assets/simile_timeline/timeline_ajax/";
   var Timeline_urlPrefix = "/assets/simile_timeline/timeline_js/";
@@ -255,6 +249,8 @@
     }
   });
   
+
+= stylesheet_link_tag 'timeline'
 
 %div 
   #my_timeline{:style => "height: #{sum_w}px; border: 1px solid #aaa"}
