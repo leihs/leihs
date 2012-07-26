@@ -21,6 +21,7 @@
           :"data-rel" => "tmpl/dialog/calendar/edit_single", 
           :"data-dialog_class" => "calendar",
           :"data-on_success" => 'TakeBack.update_visits(response);',
+          :"data-dialog_ready" => "new BookingCalendar()",
           :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
             .icon.timerange
             = _("Edit")
@@ -28,7 +29,7 @@
           = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${contract.user.id}/take_back/inspection",
           :class => "button white open_dialog", 
           :"data-rel" => "tmpl/dialog/take_back/inspect",
-          :"data-dialog_class" => "full_width", 
+          :"data-dialog_class" => "small", 
           :"data-on_success" => 'TakeBack.update_visits(response);',
           :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
             .icon.retire

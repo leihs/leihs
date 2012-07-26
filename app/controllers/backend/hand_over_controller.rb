@@ -106,11 +106,7 @@ class Backend::HandOverController < Backend::BackendController
       format.json {
         # TODO: RETURN ONLY UPDATED LINES
         visits = @user.visits.hand_over.scoped_by_inventory_pool_id(current_inventory_pool)
-        puts "???? CHANGED ????"
-        puts params
-        puts view_context.json_for(visits, {:preset => :visit_with_availability})
-        puts "???? CHANGED ????"
-        render :json => view_context.json_for(visits, {:preset => :visit_with_availability})
+        render :json => view_context.json_for(visits, {:preset => :hand_over_visit})
       }
     end
   end
@@ -157,7 +153,7 @@ class Backend::HandOverController < Backend::BackendController
     respond_to do |format|
       format.json {
         if @error.blank? 
-          render :json => view_context.json_for(line, {:preset => :contract_line})
+          render :json => view_context.json_for(line, {:preset => :hand_over_line})
         else
           render :json => view_context.error_json(@error), status: 500
         end
@@ -235,7 +231,7 @@ class Backend::HandOverController < Backend::BackendController
     respond_to do |format|
       format.json {
         if @error.blank?
-          render :json => view_context.json_for(Array(line), {:preset => :contract_line})
+          render :json => view_context.json_for(Array(line), {:preset => :hand_over_line})
         else
           render :json => view_context.error_json(@error), status: 500
         end

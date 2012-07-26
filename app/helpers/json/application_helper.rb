@@ -120,6 +120,13 @@ module Json
              :contract => {:user => {:groups => {}}},
              :purpose => true,
              :availability => true}
+          when :hand_over_line
+            {:is_valid => true,
+             :item => {:is_borrowable => true, :is_broken => true, :is_incomplete => true},
+             :model => {:hand_over_note => true},
+             :contract => {:user => {:groups => {}}},
+             :purpose => true,
+             :availability => true}
           when :user
             {:image_url => true,
              :email => true,
@@ -130,6 +137,8 @@ module Json
              :badge_id => true}
           when :visit_with_availability
             {:lines => {:preset => :contract_line}}
+          when :hand_over_visit
+            {:lines => {:preset => :hand_over_line}}
           when :visit
             {:user => {:preset => :user},
              :lines => {:model => {}, 

@@ -6,6 +6,7 @@ Funktionalität: Kalender-Ansicht im Backend
     Angenommen Personas existieren
     Und man ist "Pius"
 
-  Szenario: Verfügbare Anzahl anzeigen
+  @javascript
+  Szenario: Verfügbare Anzahl immer anzeigen
     Wenn man den Kalender sieht
     Dann sehe ich die Verfügbarkeit von Modellen auch an Feier- und Ferientagen sowie Wochenenden

@@ -33,6 +33,7 @@
           :"data-rel" => "tmpl/dialog/calendar/edit_single", 
           :"data-dialog_class" => "calendar",
           :"data-on_success" => 'HandOver.update_visits(response);',
+          :"data-dialog_ready" => "BookingCalendar.setup()",
           :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
           .icon.timerange
           = _("Edit")

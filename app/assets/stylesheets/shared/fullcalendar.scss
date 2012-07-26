@@ -41,6 +41,25 @@
       cursor: move;
     }
     
+    .fc-widget-content.holiday .fc-day-content > div {
+      position: absolute !important; 
+      font-size: 1.7em;
+      top: 61px;
+      right: 25%
+    }
+
+    &.total_quantity_only, &.multiple {
+      .fc-widget-content.holiday .fc-day-content {
+        & > div {
+          right: 6px;
+        }
+
+        .total_quantity {
+          display: none !important;
+        }
+      }
+    } 
+
     .fc-widget-content:hover, .fc-widget-content.selected_for_target_selection {
       background: $highlight-darkgrey; 
     }
@@ -56,11 +75,11 @@
       border-top: 1px dashed #73d769 !important;
       
       .fc-day-content > div, .fc-day-content > .total_quantity {
-        color: #595c58 !important;
+        color: #595c58;
       }
       
       .fc-day-number {
-        color: #595c58 !important;
+        color: #595c58;
         @include opacity(1.0);
       }
       
@@ -75,37 +94,37 @@
     .fc-widget-content.start-date {
     }
     
-    .fc-widget-content.unavailable.selected {
-      background-color: #ff4c4d !important;
-      border-left: 1px dashed #e62b2c !important;
-      border-top: 1px dashed #e62b2c !important;
-      
-      &.history {
-        background: $highlight-darkgrey !important;
-        border-left: 1px dashed $lightgrey !important;
-        border-top: 1px dashed $lightgrey !important;
-      }
-      
-      .fc-day-content > div, .fc-day-content > .total_quantity {
-        color: #3a3a3a !important;
-      }
-      
-      .fc-day-number {
-        color: #3a3a3a !important;
-        @include opacity(1.0);
-      }
-      
-      &:not(.history):hover, &.selected_for_target_selection {
-        background-color: #e52526 !important;
+    .fc-widget-content.unavailable, .fc-widget-content.closed {
+
+      &.selected {
+        background-color: #ff4c4d !important;
+        border-left: 1px dashed #e62b2c !important;
+        border-top: 1px dashed #e62b2c !important;
+        
+        &.history {
+          background: $highlight-darkgrey !important;
+          border-left: 1px dashed $lightgrey !important;
+          border-top: 1px dashed $lightgrey !important;
+        }
+        
+        .fc-day-content > div, .fc-day-content > .total_quantity {
+          color: #3a3a3a !important;
+        }
+        
+        .fc-day-number {
+          color: #3a3a3a !important;
+          @include opacity(1.0);
+        }
+        
+        &:not(.history):hover, &.selected_for_target_selection {
+          background-color: #e52526 !important;
+        }
       }
     }
-    
-   .fc-other-month .fc-day-content > div {
-      color: #D7D7D7 !important;
-   }
+   
    
    .fc-other-month .fc-day-content .total_quantity {
-     color: #B9B9B9 !important;
+     color: #B9B9B9;
    }
 
    div.fc-day-content {
@@ -118,7 +137,7 @@
       text-align: center;
       color: #a7a7a7;
     }
-    
+
    div.fc-day-content >.total_quantity {
      font-size: 1.3em;
      position: absolute;
@@ -127,11 +146,18 @@
      @include opacity(0.6); 
     }
     
-    div.fc-day-content >.holiday {
-     font-size: 1.1em;
-     position: relative;
-     top: 7px;
+    div.fc-day-content >.holidays {
+     font-size: 1.0em;
+     position: absolute;
+     top: 16px;
      left: 5px;
+    }
+
+    div.fc-day-content >.other_month {
+      font-size: 1.0em;
+      position: absolute;
+      top: 2px;
+      left: 2px;
     }
   
     .fc {
@@ -154,8 +180,6 @@
       padding: 0;
       vertical-align: top;
       }
-    
-    
     
     /* Header
     ------------------------------------------------------------------------*/
@@ -310,7 +334,7 @@
          }
        }
        
-       &.unavailable.selected {
+       &.unavailable.selected, &.closed.selected {
          background-color: #f13c3e !important;
        }
     }
@@ -633,16 +657,14 @@
       position: absolute;
       top: 2px;
       right: 2px;
+      background-color: rgba(220,220,220,0.35);
+      padding: 2px;
+      text-align: center;
+      width: 17px;
+      @include border-radius(6px);
     }
       
-    .fc-grid .fc-other-month .fc-day-number {
-      opacity: 0.3;
-      filter: alpha(opacity=30); /* for IE */
-      /* opacity with small font can sometimes look too faded
-         might want to set the 'color' property instead
-         making day-numbers bold also fixes the problem */
-      }
-      
+   
     .fc-grid .fc-day-content {
       clear: both;
       padding: 13px 2px 1px; /* distance between events and day edges */
@@ -807,4 +829,10 @@
     .fc-agenda .ui-resizable-resizing { /* TODO: better selector */
       _overflow: hidden;
       }
+
+    .fc-other-month > div {
+      &> .fc-day-content div, &> .fc-day-content span, &> .fc-day-number {
+        color: rgba(0,0,0,0.3) !important;  
+      }
+    }
   }
