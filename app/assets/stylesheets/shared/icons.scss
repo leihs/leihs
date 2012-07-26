@@ -248,3 +248,9 @@ button .icon {
   height: 16px;
   width: 16px;
 }
+
+.timeline.icon {
+  background: url($backend-image-sprite) no-repeat -172px -0px;
+  height: 14px;
+  width: 16px; 
+}

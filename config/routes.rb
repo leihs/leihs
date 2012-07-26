@@ -143,6 +143,8 @@ Leihs::Application.routes.draw do
           post :update_package
         end
         member do
+          get :timeline
+#leihs2#begin# check out what we need 
           get :details
           get :groups
           get :properties
@@ -169,7 +171,8 @@ Leihs::Application.routes.draw do
           get :attachments
           post :attachments
           delete :attachments
-          post :set_group_partition          
+          post :set_group_partition
+#leihs2#end# 
         end
             resources :compatibles, :controller => 'models'
             resources :items do

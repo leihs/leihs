@@ -41,11 +41,17 @@ ${Line.recompute_availability($item.data), ""}
         .alternatives
           .trigger
             .arrow
+          = link_to "/backend/inventory_pools/${current_inventory_pool}/models/${model.id}/timeline", :class => "button white open_dialog",
+          :"data-tmpl" => "tmpl/dialog/availability/timeline",
+          :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data",
+          :"data-dialog_class" => "full_width timeline" do
+            .icon.timeline
+            = _("Timeline")
           = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${contract.user.id}/hand_over/remove_lines?line_ids[]=${id}",
           :class => "button red",
           :method => "delete",
           :remote => "true",
-          :"data-rel" => "tmpl/dialog/hand_over/delete_line",
+          :"data-tmpl" => "tmpl/dialog/hand_over/delete_line",
           :"data-dialog_class" => "delete_line",
           :"data-on_success" => 'HandOver.remove_lines([$(this).parents(".line")])' ,
           :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
@@ -54,7 +60,7 @@ ${Line.recompute_availability($item.data), ""}
             
         = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${contract.user.id}/hand_over/update_lines",
           :class => "button white open_dialog", 
-          :"data-rel" => "tmpl/dialog/calendar/edit_single", 
+          :"data-tmpl" => "tmpl/dialog/calendar/edit_single", 
           :"data-dialog_class" => "calendar",
           :"data-on_success" => 'HandOver.update_visits(response);',
           :"data-dialog_ready" => "new BookingCalendar()",

@@ -357,4 +357,12 @@ class Backend::ModelsController < Backend::BackendController
     end
   end
 
+#################################################################
+
+  def timeline
+    respond_to do |format|
+      format.html { render :layout => false}
+    end
+  end
+
 end

@@ -52,7 +52,7 @@
                 .arrow
               = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@user.id}/hand_over/update_lines", 
               :class => "button white open_dialog",
-              :"data-rel" => "tmpl/dialog/calendar/edit_multiple", 
+              :"data-tmpl" => "tmpl/dialog/calendar/edit_multiple", 
               :"data-dialog_class" => "calendar multiple",
               :"data-on_success" => 'HandOver.update_visits(response);',
               :"data-dialog_ready" => "new BookingCalendar({quantityMode: 'boolean'})",
@@ -63,7 +63,7 @@
               :class => "button white",
               :remote => "true",
               :method => "delete",
-              :"data-rel" => "",
+              :"data-tmpl" => "",
               :"data-dialog_class" => "",
               :"data-add_selected_line_ids" => "true",
               :"data-on_success" => "HandOver.remove_lines(SelectedLines.lines);",
@@ -74,7 +74,7 @@
           
             = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@user.id}/hand_over/sign_contract", 
             :class => "button green open_dialog",
-            :"data-rel" => "tmpl/dialog/hand_over/summary",
+            :"data-tmpl" => "tmpl/dialog/hand_over/summary",
             :"data-dialog_class" => "hand_over",
             :"data-add_selected_line_ids" => "true",
             :"data-on_success" => "HandOver.open_documents(response)",
