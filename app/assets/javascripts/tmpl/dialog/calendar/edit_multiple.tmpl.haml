@@ -5,7 +5,7 @@ ${$user = Line.get_user(SelectedLines.lines_data[0]), ""}
 ${$name = Str.sliced_trunc($user.firstname+" "+$user.lastname, 20, "... "), ""}
 ${$start_date_disabled = !Line.is_start_date_moveable(SelectedLines.lines_data[0]), ""}
 
-= form_tag '${$item.target_url}', :remote => true, :"data-submit_button" => true do
+= form_tag '${$item.target_url}', :onsubmit => "$(this).find('.close_dialog').attr('disabled', true)", :remote => true, :"data-submit_button" => true do
   %h1
     %strong= _("Multiple selected items")
   %p.subtitle
@@ -13,15 +13,11 @@ ${$start_date_disabled = !Line.is_start_date_moveable(SelectedLines.lines_data[0
     %strong
       ${$name}
   .navigation
-    .multibutton
-      .alternatives
-        .trigger.green
-          .arrow
-        %a.button.red.close_dialog
-          .icon.delete
-          = _("Cancel")
-      %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}', :tabindex => "4"}
-        = _("Save Changes")
+    %a.button.red.close_dialog
+      .icon.delete
+      = _("Cancel")
+    %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}', :tabindex => "4"}
+      = _("Save Changes")
   
   .flash_message
   

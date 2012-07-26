@@ -2,7 +2,7 @@ ${$user = Line.get_user($item.data), ""}
 ${$name = Str.sliced_trunc($user.name, 20, "... "), ""}
 ${$start_date_disabled = ($item.data.contract!=undefined)&&($item.data.contract.action == "take_back"), ""}
 
-= form_tag '${$item.target_url}', :remote => true, :"data-submit_button" => true do
+= form_tag '${$item.target_url}', :remote => true,:onsubmit => "$(this).find('.close_dialog').attr('disabled', true)", :"data-submit_button" => true do
   %h1
     %strong{:title => "${model.name}"} ${Str.sliced_trunc(model.name, 40)} 
   %p.subtitle{:title=>"${$name}"}
