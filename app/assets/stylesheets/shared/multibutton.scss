@@ -5,6 +5,7 @@
   display: inline-block;
   position: relative;
   text-align: left;
+  @include unselectable();
   
   &[disabled=disabled], &[disabled=disabled]:hover, &[disabled=disabled]:active {
     &>.button {
