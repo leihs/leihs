@@ -57,6 +57,7 @@
   #visits
 
 :ruby
+  inventory_pool_json = json_for current_inventory_pool, {:closed_days => true, :holidays => true}
   visits_json = json_for(@visits, {:preset => :visit_with_availability})
                                                
 :coffeescript
@@ -64,3 +65,4 @@
     $('#visits').html($.tmpl("tmpl/visit", #{visits_json} ))
     TakeBack.setup()
     SelectedLines.setup()
+    window.InventoryPool = new InventoryPool(#{inventory_pool_json})
