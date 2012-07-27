@@ -41,6 +41,7 @@ class BookingCalendar
     @ipSelector_el = @el.find("select#inventory_pool_id")
     @partitionSelector_el = @el.find "select#partition"
     @availabilityMode = if options.availabilityMode is "eachDay" or options.availabilityMode is "openDays" then options.availabilityMode else "eachDays"
+    @computeAvailability = if options.computeAvailability? then options.computeAvailability else true
     @quantityMode = if options.quantityMode is "numbers" or options.quantityMode is "boolean" then options.quantityMode else "numbers"
     do @setupFromSessionStorage if BookingCalendar.sessionStorage
     do @formatDates
@@ -210,10 +211,10 @@ class BookingCalendar
 
         # get lastAvChange, nextAvChange, totalQuantity and availableQuantity
         # when lastAvChange and nextAvChange are not yet knwon and the 
-        # current date is not inbetween lastAvChange and nextAvChange        
-        if not (lastAvChange? and nextAvChange?) or
+        # current date is not inbetween lastAvChange and nextAvChange
+        if (not (lastAvChange? and nextAvChange?) or
            lastAvChange[0] isnt Infinity and not (moment(lastAvChange[0]).sod().toDate() < date) or
-           lastAvChange[0] isnt Infinity and not (moment(nextAvChange[0]).sod().toDate() > date)
+           lastAvChange[0] isnt Infinity and not (moment(nextAvChange[0]).sod().toDate() > date)) and @computeAvailability
           lastAvChange = undefined
           for avDate,i in avDates
             if moment(avDate[0]).sod().toDate() > date
@@ -228,7 +229,7 @@ class BookingCalendar
           availableQuantity = @calulateAvailableQuantity lastAvChange
 
         @setAvailability day_el, requiredQuantity, availableQuantity
-        @setQuantityText day_el, availableQuantity, totalQuantity
+        @setQuantityText day_el, availableQuantity, totalQuantity if @computeAvailability
         @setSelected day_el, date
         if holidaysInView.length > 0
           holidaysOnThatDay = @getHolidays(date, date, holidaysInView)
@@ -354,7 +355,7 @@ class BookingCalendar
 
   setAvailability: (day_el, requiredQuantity, availableQuantity)=>
     available = availableQuantity >= requiredQuantity
-    if available then day_el.removeClass("unavailable").addClass("available") else day_el.removeClass("available").addClass("unavailable")
+    if available or @computeAvailability is false then day_el.removeClass("unavailable").addClass("available") else day_el.removeClass("available").addClass("unavailable")
 
   calulateAvailableQuantity: (avChange)=>
     availableQuantity = 0
