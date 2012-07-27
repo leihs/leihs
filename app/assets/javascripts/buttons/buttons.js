@@ -77,7 +77,7 @@ function Buttons() {
       } else {
         content = data;
       }
-     
+
       var dialog = Dialog.add({
         trigger: _trigger,
         content: content,
