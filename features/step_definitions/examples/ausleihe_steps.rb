@@ -68,8 +68,7 @@ Wenn /^einem Gegenstand einen Inventarcode manuell zuweise$/ do
 end
 
 Dann /^wird der Gegenstand ausgewählt und der Haken gesetzt$/ do
-  wait_until { @item_line_element.find(".select input").checked? }
-  @item_line_element["class"].split(" ").include?("assigned").should be_true
+  wait_until { find(".line.assigned", :text => @item.model.name).find(".select input").checked? }
   step 'the count matches the amount of selected lines'
 end
 
