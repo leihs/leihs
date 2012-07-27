@@ -76,7 +76,7 @@ function Buttons() {
       } else {
         content = data;
       }
-     
+
       var dialog = Dialog.add({
 <<<<<<< HEAD
         trigger: _this,

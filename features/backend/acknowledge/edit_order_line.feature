@@ -25,3 +25,12 @@ Feature: Edit order line during acknowledge process
      When I open an order for acknowledgement with more then one line
       And I change the time range for multiple lines
      Then the time range for that lines is changed
+
+  @javascript
+  Scenario: Do multiple things while editing lines
+    When I open an order for acknowledgement with more then one line
+     And I select two lines
+     And I edit the timerange of the selection
+     And I close the booking calendar
+     And I edit one of the selected lines
+    Then I see the booking calendar
