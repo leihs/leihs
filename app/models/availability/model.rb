@@ -6,7 +6,7 @@ module Availability
       # FIXME test not passing with this 'simple-cache' (6 failures)
       #@av ||= {}
       #@av[inventory_pool.id] ||=
-      Availability::Main.new(:model_id => id, :inventory_pool_id => inventory_pool.id)
+      Availability::Main.new(:model => self, :inventory_pool => inventory_pool)
     end
 
     #def total_available_in_period_for_user(user, start_date = Date.today, end_date = Date.today)

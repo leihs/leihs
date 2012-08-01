@@ -197,8 +197,8 @@ class Model < ActiveRecord::Base
   end  
 
   def running_reservations(inventory_pool, current_time = Date.today)
-    return   self.contract_lines.by_inventory_pool(inventory_pool).handed_over_or_assigned_but_not_returned(current_time) \
-           + self.order_lines.scoped_by_inventory_pool_id(inventory_pool).submitted.running(current_time)    
+    return   self.contract_lines.by_inventory_pool(inventory_pool).handed_over_or_assigned_but_not_returned(current_time).includes(:contract => {:user => :groups}) \
+           + self.order_lines.scoped_by_inventory_pool_id(inventory_pool).submitted.running(current_time).includes(:order => {:user => :groups})
   end
                                                                                                       
 end

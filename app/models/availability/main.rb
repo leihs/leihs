@@ -85,22 +85,14 @@ module Availability
 #########################################################
 
   class Main
-    attr_reader :model_id, :inventory_pool_id, :document_lines, :partition, :changes # changes are always sorted by date
+    attr_reader :model, :inventory_pool, :document_lines, :partition, :changes # changes are always sorted by date
     
     def initialize(attr)
-      @model_id          = attr[:model_id]
-      @inventory_pool_id = attr[:inventory_pool_id]
-      @document_lines = model.running_reservations(inventory_pool)
-      @partition = model.partitions.in(inventory_pool).current_partition
+      @model          = attr[:model]
+      @inventory_pool = attr[:inventory_pool]
+      @document_lines = @model.running_reservations(@inventory_pool)
+      @partition      = @model.partitions.in(@inventory_pool).current_partition
       compute
-    end
-
-    def model
-      ::Model.find @model_id
-    end
-
-    def inventory_pool
-      ::InventoryPool.find @inventory_pool_id
     end
         
     def compute
@@ -117,7 +109,7 @@ module Availability
         end_change   = @changes.insert_or_fetch_change(document_line.available_again_after_today)
    
         # groups that this particular document_line can be possibly assigned to
-        groups = document_line.document.user.groups.scoped_by_inventory_pool_id(inventory_pool) # optimize!
+        groups = document_line.document.user.groups.scoped_by_inventory_pool_id(@inventory_pool) # optimize!
         # groups doesn't contain the general group! then we add it manually
         groups_with_general = groups + [Group::GENERAL_GROUP_ID]
         maximum = scoped_maximum_available_in_period_for_groups(groups_with_general, document_line.start_date, document_line.unavailable_until)
@@ -130,7 +122,7 @@ module Availability
         # we force to allocate to a group which the user is not even member
         group ||= begin
           # reset groups and maximum
-          groups = inventory_pool.groups
+          groups = @inventory_pool.groups
           maximum = scoped_maximum_available_in_period_for_groups(groups, document_line.start_date, document_line.unavailable_until)
           # if still no group has enough available quantity, we allocate to general as fallback
           groups.detect(proc {Group::GENERAL_GROUP_ID}) {|group| maximum[group] >= document_line.quantity }
@@ -150,7 +142,7 @@ module Availability
     end
     
     def maximum_available_in_period_for_user(user, start_date, end_date)
-      groups = user.groups.scoped_by_inventory_pool_id(inventory_pool)
+      groups = user.groups.scoped_by_inventory_pool_id(@inventory_pool)
       h = @changes.between(start_date, end_date).available_quantities_for_groups(groups)
       h.sort {|a,b| a[1]<=>b[1]}.first.try(:last).to_i
     end
