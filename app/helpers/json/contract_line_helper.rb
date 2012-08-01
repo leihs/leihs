@@ -101,17 +101,6 @@ module Json
             price: line.option.price
           }
         end
-      
-=begin # TODO ??
-        if with[:user]
-          {
-            id: line.contract.user_id,
-            firstname: line.contract.user.firstname,
-            lastname: line.contract.user.lastname,
-            groups: line.contract.user.groups
-          }
-        end
-=end            
       end
 
       h
