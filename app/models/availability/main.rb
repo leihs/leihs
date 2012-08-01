@@ -84,15 +84,14 @@ module Availability
 
 #########################################################
 
-  # TODO change name ??
   class Main
-    attr_reader :model_id
-    attr_reader :inventory_pool_id
-    attr_reader :changes # changes are allways sorted by date
+    attr_reader :model_id, :inventory_pool_id, :document_lines, :partition, :changes # changes are always sorted by date
     
     def initialize(attr)
       @model_id          = attr[:model_id]
       @inventory_pool_id = attr[:inventory_pool_id]
+      @document_lines = model.running_reservations(inventory_pool)
+      @partition = model.partitions.in(inventory_pool).current_partition
       compute
     end
 
@@ -106,21 +105,18 @@ module Availability
         
     def compute
       initial_change = Change.new(:date => Date.today)
-      current_partition = model.partitions.in(inventory_pool).current_partition
-      #1402 TODO write big model_ids partition hash ?? or keep it as instance variable ??
-      current_partition.each_pair do |group_id, quantity|
+      @partition.each_pair do |group_id, quantity|
         initial_change.quantities << Quantity.new(:group_id => group_id, :in_quantity => quantity)
       end
 
       @changes = Changes.new
       @changes << initial_change
 
-      reservations = model.running_reservations(inventory_pool)
-      reservations.each do |document_line|
+      @document_lines.each do |document_line|
         start_change = @changes.insert_or_fetch_change(document_line.unavailable_from) # we don't recalculate the past
         end_change   = @changes.insert_or_fetch_change(document_line.available_again_after_today)
    
-        # groups that this particular reservation can be possibly assigned to
+        # groups that this particular document_line can be possibly assigned to
         groups = document_line.document.user.groups.scoped_by_inventory_pool_id(inventory_pool) # optimize!
         # groups doesn't contain the general group! then we add it manually
         groups_with_general = groups + [Group::GENERAL_GROUP_ID]
@@ -131,7 +127,7 @@ module Availability
         group = groups_with_general.detect {|group| maximum[group] >= document_line.quantity }
         
         # if no user's group or general has enough available quantity,
-        # we force to allocate to a group which the user is not even member,
+        # we force to allocate to a group which the user is not even member
         group ||= begin
           # reset groups and maximum
           groups = inventory_pool.groups
@@ -139,6 +135,7 @@ module Availability
           # if still no group has enough available quantity, we allocate to general as fallback
           groups.detect(proc {Group::GENERAL_GROUP_ID}) {|group| maximum[group] >= document_line.quantity }
         end
+        document_line.allocated_group = group
   
         inner_changes = @changes.between(start_change.date, end_change.date.yesterday)
         inner_changes.each do |ic|

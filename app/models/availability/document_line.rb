@@ -1,6 +1,8 @@
 module Availability
   module DocumentLine
 
+    attr_accessor :allocated_group
+
     # manual association, reversing serialized references
     def availability_quantities(sd = Date.today)
       # we keep the changes in an instance variable to avoid re-hit the same memcached key during the same request 
@@ -42,10 +44,6 @@ module Availability
 #################################
     
     def available?
-      # TODO ??
-      #if is_late?
-      #  false
-
       #tmp#1 doesn't work for tests
       av = if end_date < Date.today # check if it was never handed over
         false
@@ -68,21 +66,6 @@ module Availability
       return av
     end
     alias :is_available :available? # NOTE remove if custom as_json is gone 
-
-    def allocated_group
-      availability_quantities.first.try(:group)
-    end
-
-    def unavailable_periods
-      changes = model.availability_changes_in(inventory_pool).changes
-      unavailable_changes = changes.select do |c|
-        ((start_date..end_date).include?(c.date) and c.quantities.any? {|q| q.in_quantity < 0 and q.group_id == allocated_group.try(:id)}) or
-          (!(start_date..end_date).include?(c.date) and c.quantities.any? {|q| q.in_quantity < quantity and q.group_id == allocated_group.try(:id)})
-      end
-      unavailable_changes.collect do |c|
-        OpenStruct.new(:start_date => c.start_date, :end_date => changes.end_date_of(c))
-      end
-    end
 
     def maximum_available_quantity
       model.availability_changes_in(inventory_pool).maximum_available_in_period_for_user(document.user, start_date, end_date)      
