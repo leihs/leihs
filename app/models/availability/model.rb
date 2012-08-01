@@ -9,12 +9,6 @@ module Availability
       Availability::Main.new(:model => self, :inventory_pool => inventory_pool)
     end
 
-    #def total_available_in_period_for_user(user, start_date = Date.today, end_date = Date.today)
-    #  inventory_pools.collect do |ip|
-    #    availability_changes_in(ip).maximum_available_in_period_for_user(user, start_date, end_date)
-    #  end.sum
-    #end
-
     def total_borrowable_items_for_user(user, inventory_pool = nil)
       ips = inventory_pool ? [inventory_pool] : inventory_pools
       ips.collect do |ip|

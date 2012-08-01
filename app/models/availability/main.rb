@@ -56,16 +56,12 @@ module Availability
 
     # Ensure that a change with the given "new_change_date" exists.
     #
-    # If there isn't a change on "new_change_date" then a new change
-    #   will be added with the given "new_change_date".
+    # If there isn't a change on "new_change_date" then a new change will be added with the given "new_change_date".
     #
-    #   The newly created change will have the same quantities
-    #   associated as the change preceding it.
-    #
+    #   The newly created change will have the same quantities associated as the change preceding it.
     #   The newly created change will be returned.
     #
-    # If a change with a "new_change_date" however allready exists,
-    #   then that change will be returned.
+    # If a change with a "new_change_date" however allready exists, then that change will be returned.
     #
     def insert_or_fetch_change(new_change_date)
       change = most_recent_before_or_equal(new_change_date)
@@ -106,13 +102,13 @@ module Availability
 
       @document_lines.each do |document_line|
         start_change = @changes.insert_or_fetch_change(document_line.unavailable_from) # we don't recalculate the past
-        end_change   = @changes.insert_or_fetch_change(document_line.available_again_after_today)
+        end_change   = @changes.insert_or_fetch_change(document_line.available_again_after_today(@model))
    
         # groups that this particular document_line can be possibly assigned to
         groups = document_line.document.user.groups.scoped_by_inventory_pool_id(@inventory_pool) # optimize!
         # groups doesn't contain the general group! then we add it manually
         groups_with_general = groups + [Group::GENERAL_GROUP_ID]
-        maximum = scoped_maximum_available_in_period_for_groups(groups_with_general, document_line.start_date, document_line.unavailable_until)
+        maximum = scoped_maximum_available_in_period_for_groups(groups_with_general, document_line.start_date, document_line.unavailable_until(@model))
   
         # TODO sort groups by quantity desc
         # currently the general is the last one!
@@ -123,7 +119,7 @@ module Availability
         group ||= begin
           # reset groups and maximum
           groups = @inventory_pool.groups
-          maximum = scoped_maximum_available_in_period_for_groups(groups, document_line.start_date, document_line.unavailable_until)
+          maximum = scoped_maximum_available_in_period_for_groups(groups, document_line.start_date, document_line.unavailable_until(@model))
           # if still no group has enough available quantity, we allocate to general as fallback
           groups.detect(proc {Group::GENERAL_GROUP_ID}) {|group| maximum[group] >= document_line.quantity }
         end
@@ -153,20 +149,18 @@ module Availability
     def scoped_maximum_available_in_period_for_groups(group_or_groups, start_date = Date.today, end_date = Availability::Change::ETERNITY)
       max_per_group = Hash.new
       Array(group_or_groups).each do |group|
-        max_per_group[group] = minimum_in_group_between(start_date, end_date, group)
+        max_per_group[group] = begin
+          minimum = nil
+          @changes.between(start_date, end_date).each do |change|
+            quantity = change.quantities.detect { |qty| qty.group_id == group.try(:id) }
+            unless quantity.nil?
+              minimum = (minimum.nil? ? quantity.in_quantity : [quantity.in_quantity, minimum].min)
+            end
+          end
+          minimum.to_i
+        end
       end   
       max_per_group
-    end
-
-    def minimum_in_group_between(start_date, end_date, group)
-      minimum = nil
-      @changes.between(start_date, end_date).each do |change|
-        quantity = change.quantities.detect { |qty| qty.group_id == group.try(:id) }
-        unless quantity.nil?
-          minimum = (minimum.nil? ? quantity.in_quantity : [quantity.in_quantity, minimum].min)
-        end
-      end
-      minimum.to_i
     end
 
   end

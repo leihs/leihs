@@ -21,10 +21,11 @@ module Json
           h[:total_rentable] = borrowable_items.count
           h[:total_rentable_in_stock] = borrowable_items.in_stock.count
           h[:total_borrowable] = line.model.total_borrowable_items_for_user(line.document.user, current_inventory_pool)
+          av = line.model.availability_changes_in(current_inventory_pool)
           h[:availability_for_inventory_pool] = {
             :partitions => (line.model.partitions.in(current_inventory_pool).by_groups(current_inventory_pool.groups) + line.model.partitions.in(current_inventory_pool).by_groups(Group::GENERAL_GROUP_ID)).as_json(:include => :group),
-            :availability => line.model.availability_changes_in(current_inventory_pool).changes.available_total_quantities,
-            :max_available => line.quantity + line.model.availability_changes_in(current_inventory_pool).maximum_available_in_period_for_user(line.document.user, line.start_date, line.end_date)
+            :availability => av.changes.available_total_quantities,
+            :max_available => line.quantity + av.maximum_available_in_period_for_user(line.document.user, line.start_date, line.end_date)
           }
         end
 

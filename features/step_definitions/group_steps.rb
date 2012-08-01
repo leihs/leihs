@@ -2,8 +2,7 @@
 # Models in Groups
 #
 Then "that model should not be available in any other group"  do
-  quantities = @model.in(@inventory_pool).\
-	       maximum_available_in_period_for_groups(@inventory_pool.groups.where(['id != ?',@group]))
+  quantities = @model.in(@inventory_pool).maximum_available_in_period_for_groups(@inventory_pool.groups.where(['id != ?',@group]))
   quantities.values.reduce(:+).to_i.should == 0
 end
 
@@ -35,9 +34,7 @@ Then /^no items of that model should be available in any group$/ do
 end
 
 Then "that model should not be available in any group"  do
-  @model.partitions.in(@inventory_pool).current_partition.\
-	 reject { |group_id, num| group_id == Group::GENERAL_GROUP_ID }.\
-    size.should == 0
+  @model.partitions.in(@inventory_pool).current_partition.reject { |group_id, num| group_id == Group::GENERAL_GROUP_ID }.size.should == 0
 end
 
 # TODO: currently unused
@@ -79,9 +76,7 @@ end
 Then /^(\w+) item(s?) of that model should be available to "([^"]*)"$/ \
 do |n, plural, user|
   @user = User.find_by_login user
-  @model.availability_changes_in(@inventory_pool).
-         maximum_available_in_period_for_user(@user, Date.today, Date.tomorrow ).\
-	 should == n.to_i
+  @model.availability_changes_in(@inventory_pool).maximum_available_in_period_for_user(@user, Date.today, Date.tomorrow ).should == n.to_i
 end
 
 #
