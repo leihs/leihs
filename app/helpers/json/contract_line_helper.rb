@@ -27,6 +27,14 @@ module Json
           h[k] = line.send(k) if with[k]
         end
 
+        if with[:is_valid]
+          h[:is_valid] = line.valid?
+        end
+
+        if with[:model]
+          h[:model] = hash_for(line.model, with[:model])
+        end
+
         if with[:contract]
           h[:contract] = hash_for(line.contract, with[:contract])
         end
@@ -50,18 +58,10 @@ module Json
       h = hash_for_contract_line line, with
       
       if with ||= nil
-        if with[:is_valid]
-          h[:is_valid] = line.valid?
-        end
-      
         if with[:item]
           h[:item] = line.item ? hash_for(line.item, with[:item]) : nil
         end
-        
-        if with[:model]
-          h[:model] = hash_for(line.model, with[:model])
-        end
-                  
+
         if with[:availability]
           if [:hand_over, :take_back].include?(line.contract.action)
             borrowable_items = line.model.items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable
@@ -93,23 +93,27 @@ module Json
     def hash_for_option_line(line, with = nil)
       h = hash_for_contract_line line, with
 
-      # FIXME optional with
-      h.merge!({
-        is_valid: line.valid?,
-        
-        model: hash_for(line.option), # this is an alias for option
-        item: {
-          inventory_code: line.option.inventory_code,
-          price: line.option.price
-        },
-        user: {
-          id: line.contract.user_id,
-          firstname: line.contract.user.firstname,
-          lastname: line.contract.user.lastname,
-          groups: line.contract.user.groups
-        }
-      })
-            
+      if with ||= nil
+        if with[:item]
+          #tmp# h[:item] = line.item ? hash_for(line.item, with[:item]) : nil
+          h[:item] = {
+            inventory_code: line.option.inventory_code,
+            price: line.option.price
+          }
+        end
+      
+=begin # TODO ??
+        if with[:user]
+          {
+            id: line.contract.user_id,
+            firstname: line.contract.user.firstname,
+            lastname: line.contract.user.lastname,
+            groups: line.contract.user.groups
+          }
+        end
+=end            
+      end
+
       h
     end
 
