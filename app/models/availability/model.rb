@@ -2,7 +2,9 @@ module Availability
   module Model
     
     def availability_changes_in(inventory_pool)
-      Availability::Main.new(:model_id => id, :inventory_pool_id => inventory_pool.id)
+      # we keep the result in an instance variable to avoid recompute during the same request 
+      @av ||= {}
+      @av[inventory_pool.id] ||= Availability::Main.new(:model_id => id, :inventory_pool_id => inventory_pool.id)
     end
 
     #def total_available_in_period_for_user(user, start_date = Date.today, end_date = Date.today)
