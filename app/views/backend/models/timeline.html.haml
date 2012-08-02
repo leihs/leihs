@@ -127,7 +127,7 @@
       end_date = [av.changes.end_date_of(start_date), start_date + 1.month].min
       d = []
       if g == "-1" # showing total
-        in_quantity = change.quantities.collect(&:in_quantity).sum
+        in_quantity = change.quantities.values.map(&:in_quantity).sum
       else
         in_quantity = change.in_quantity_in_group(g)
       end

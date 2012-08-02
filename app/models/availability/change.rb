@@ -10,30 +10,15 @@ module Availability
 
     def initialize(attr)
       @date = attr[:date]
-      @quantities = []
+      @quantities = {}
     end
   
-  #############################################
-
-    # compares two objects in order to sort them
-    def <=>(other)
-      self.date <=> other.date
-    end
-
     def start_date
       date
     end
   
-  #############################################
-  
-    def in_quantity_in_group(group)
-      q = quantities.detect {|q| q.group_id == group }
-      q.try(:in_quantity).to_i
-    end
-
-    def out_quantity_in_group(group)
-      q = quantities.detect {|q| q.group_id == group }
-      q.try(:out_quantity).to_i
+    def in_quantity_in_group(group_id)
+      quantities[group_id].try(:in_quantity).to_i
     end
 
   end

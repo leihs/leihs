@@ -14,15 +14,15 @@ module Availability
     
     # returns a Hash {group_id => sum_quantity}
     def available_quantities_for_groups(groups)
-      group_ids = [Group::GENERAL_GROUP_ID] + groups.collect(&:id)
-      map do |date, change|
-        #selected_quantities = change.quantities.select {|q| group_ids.include?(q.group_id) }
-        #[change, selected_quantities.collect(&:in_quantity).sum]
-        total = change.quantities.inject(0) do |sum,q|
-          group_ids.include?(q.group_id) ? sum + q.in_quantity : sum
-        end      
-        [date, total]
+      h = {}
+      group_ids = [Group::GENERAL_GROUP_ID] + groups.map(&:id)
+      group_ids.each do |group_id|
+        total = values.map(&:quantities).inject(0) do |sum,q|
+          sum + q[group_id].try(:in_quantity).to_i
+        end
+        h[group_id] = total
       end
+      h
     end
     
     # Ensure that a change with the given "new_change_date" exists.
@@ -36,9 +36,7 @@ module Availability
       else
         change = most_recent_before_or_equal(new_change_date)
         new_change = Change.new(:date => new_change_date)
-        change.quantities.each do |quantity|
-          new_change.quantities << quantity.deep_clone
-        end
+        new_change.quantities = Marshal.load( Marshal.dump(change.quantities) ) # NOTE this keeps references: change.quantities.dup
         return self[new_change.date] = new_change
       end
     end
@@ -60,7 +58,7 @@ module Availability
 #########################################################
 
   class Main
-    attr_reader :model, :inventory_pool, :document_lines, :partition, :changes # FIXME! changes are always sorted by date
+    attr_reader :model, :inventory_pool, :document_lines, :partition, :changes
     
     def initialize(attr)
       @model          = attr[:model]
@@ -73,7 +71,7 @@ module Availability
     def compute
       initial_change = Change.new(:date => Date.today)
       @partition.each_pair do |group_id, quantity|
-        initial_change.quantities << Quantity.new(:group_id => group_id, :in_quantity => quantity)
+        initial_change.quantities[group_id] = Quantity.new(:group_id => group_id, :in_quantity => quantity)
       end
 
       @changes = Changes[initial_change.date => initial_change]
@@ -105,27 +103,24 @@ module Availability
   
         inner_changes = @changes.between(start_change.date, end_change.date.yesterday)
         inner_changes.each_pair do |key, ic|
-          qty = ic.quantities.detect {|q| q.group == group}
+          qty = ic.quantities[group.try(:id)]
           qty.in_quantity  -= document_line.quantity
           qty.out_quantity += document_line.quantity
           qty.append_to_out_document_lines(document_line.class.to_s, document_line.id)
         end
       end
-      # ensure changes are sorted
-      # FIXME! @changes = Changes.new(@changes.sort_by(&:date)) # cast Array into Changes
     end
     
     def maximum_available_in_period_for_user(user, start_date, end_date)
       groups = user.groups.scoped_by_inventory_pool_id(@inventory_pool)
-      h = @changes.between(start_date, end_date).available_quantities_for_groups(groups)
-      h.sort {|a,b| a[1]<=>b[1]}.first.try(:last).to_i
+      @changes.between(start_date, end_date).available_quantities_for_groups(groups).values.max
     end
 
     def available_total_quantities
       @changes.map do |date, change|
-        total = change.quantities.sum(&:in_quantity)
-        groups = change.quantities.map do |q|
-          { :group_id => q.group_id.try(:to_i),
+        total = change.quantities.values.sum(&:in_quantity)
+        groups = change.quantities.map do |g, q|
+          { :group_id => g.try(:to_i),
             :name => q.group.try(:name),
             :in_quantity => q.in_quantity,
             :out_document_lines => q.out_document_lines }
@@ -143,8 +138,7 @@ module Availability
         max_per_group[group] = begin
           minimum = nil
           @changes.between(start_date, end_date).each_pair do |key, change|
-            quantity = change.quantities.detect { |qty| qty.group_id == group.try(:id) }
-            unless quantity.nil?
+            if quantity = change.quantities[group.try(:id)]
               minimum = (minimum.nil? ? quantity.in_quantity : [quantity.in_quantity, minimum].min)
             end
           end

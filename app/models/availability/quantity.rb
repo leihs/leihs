@@ -4,10 +4,7 @@ module Availability
     attr_accessor :group_id
     attr_accessor :in_quantity
     attr_accessor :out_quantity
-    attr_accessor :out_document_lines
-    # out_document_lines = { "ItemLine"        => [222, 432,  ...],
-    #                        "AnotherKindLine" => [987, 2232, ...],
-    #                      }
+    attr_accessor :out_document_lines # { "ItemLine" => [222, 432, ...], "AnotherKindLine" => [987, 2232, ...] }
 
     def group
       if @group_id
@@ -21,19 +18,9 @@ module Availability
       @group_id = attr[:group_id]
       @in_quantity = attr[:in_quantity] || 0
       @out_quantity = attr[:out_quantity] || 0
-      # use deep_clone instead to produce a copy of a quantity 
       @out_document_lines = {} 
     end
 
-    def deep_clone()
-      new_qty = self.clone
-      new_qty.out_document_lines = {}
-      self.out_document_lines.each_pair do |document_line_class, document_lines|
-        new_qty.out_document_lines[document_line_class] = document_lines.clone
-      end
-      new_qty
-    end
-      
     def append_to_out_document_lines(type, id)
       @out_document_lines[type] ||= []
       @out_document_lines[type] << id unless @out_document_lines[type].include?(id) 
