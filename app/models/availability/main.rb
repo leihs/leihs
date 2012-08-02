@@ -25,19 +25,6 @@ module Availability
       end
     end
     
-    def available_total_quantities
-      map do |date, change|
-        total = change.quantities.sum(&:in_quantity)
-        groups = change.quantities.map do |q|
-          { :group_id => q.group_id.try(:to_i),
-            :name => q.group.try(:name),
-            :in_quantity => q.in_quantity,
-            :out_document_lines => q.out_document_lines }
-        end
-        [date, total, groups]
-      end
-    end
-
     # Ensure that a change with the given "new_change_date" exists.
     # If there isn't a change on "new_change_date" then a new change will be added with the given "new_change_date".
     #   The newly created change will have the same quantities associated as the change preceding it.
@@ -81,7 +68,6 @@ module Availability
       @document_lines = @model.running_reservations(@inventory_pool).sort_by(&:start_date)
       @partition      = @model.partitions.in(@inventory_pool).current_partition
       compute
-      self
     end
         
     def compute
@@ -133,6 +119,19 @@ module Availability
       groups = user.groups.scoped_by_inventory_pool_id(@inventory_pool)
       h = @changes.between(start_date, end_date).available_quantities_for_groups(groups)
       h.sort {|a,b| a[1]<=>b[1]}.first.try(:last).to_i
+    end
+
+    def available_total_quantities
+      @changes.map do |date, change|
+        total = change.quantities.sum(&:in_quantity)
+        groups = change.quantities.map do |q|
+          { :group_id => q.group_id.try(:to_i),
+            :name => q.group.try(:name),
+            :in_quantity => q.in_quantity,
+            :out_document_lines => q.out_document_lines }
+        end
+        [date, total, groups]
+      end
     end
 
 ###########################################################
