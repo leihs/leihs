@@ -362,10 +362,10 @@ Angenommen /^ich sehe die Anzahl der total ausleihbaren Modelle$/ do
 end
 
 Angenommen /^ich sehe die Anzahl der bereits reservierten Modelle$/ do
-  find(".tip").should have_content (@model.total_borrowable_items_for_user(@customer, @ip)-(1 + @model.availability_changes_in(@ip).maximum_available_in_period_for_user(@customer, @line.start_date, @line.end_date)))
+  find(".tip").should have_content (@model.total_borrowable_items_for_user(@customer, @ip)-(1 + @model.availability_in(@ip).maximum_available_in_period_for_user(@customer, @line.start_date, @line.end_date)))
 end
 
 Angenommen /^ich sehe die Anzahl der verfügbaren Modelle$/ do
-  find(".tip").should have_content (1 + @model.availability_changes_in(@ip).maximum_available_in_period_for_user(@customer, @line.start_date, @line.end_date))
+  find(".tip").should have_content (1 + @model.availability_in(@ip).maximum_available_in_period_for_user(@customer, @line.start_date, @line.end_date))
 end
 

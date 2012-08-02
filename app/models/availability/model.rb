@@ -1,7 +1,7 @@
 module Availability
   module Model
     
-    def availability_changes_in(inventory_pool)
+    def availability_in(inventory_pool)
       # we keep the result in an instance variable to avoid recompute during the same request
       # FIXME test not passing with this 'simple-cache' (6 failures)
       #@av ||= {}
@@ -21,7 +21,7 @@ module Availability
       (inventory_pools & user.inventory_pools).collect do |inventory_pool|
         groups = user.groups.scoped_by_inventory_pool_id(inventory_pool)
         h = {:inventory_pool => inventory_pool.as_json, # FIXME extract this ?? this is used for the frontend only ??
-             :availability => availability_changes_in(inventory_pool).changes.available_quantities_for_groups(groups) }
+             :availability => availability_in(inventory_pool).changes.available_quantities_for_groups(groups) }
         if with_total_borrowable
           h[:total_borrowable] = partitions.in(inventory_pool).by_groups(groups.collect(&:id)).sum(:quantity).to_i +
                                  partitions.in(inventory_pool).by_group(Group::GENERAL_GROUP_ID)

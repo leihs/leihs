@@ -29,7 +29,7 @@ When /^its availability is recalculate$/ do
   require 'benchmark'
   @time = Benchmark.measure {
     @model.inventory_pools.each do |ip|
-      @model.availability_changes_in(ip)
+      @model.availability_in(ip)
     end
   }
 end

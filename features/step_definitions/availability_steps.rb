@@ -65,32 +65,32 @@ do |who, model, date|
 end
 
 Then "it should always be available" do
-  @model.availability_changes_in(@inventory_pool).maximum_available_in_period_for_user(@user, Date.today, Availability::Change::ETERNITY).should > 0
+  @model.availability_in(@inventory_pool).maximum_available_in_period_for_user(@user, Date.today, Availability::Change::ETERNITY).should > 0
 end
 
 Then "$quantity should be available from $from to $to" do |quantity, from, to|
   from = to_date( from )
   to   = to_date( to )
 
-  @model.availability_changes_in(@inventory_pool).maximum_available_in_period_for_user(@user, from, to).should == quantity.to_i
+  @model.availability_in(@inventory_pool).maximum_available_in_period_for_user(@user, from, to).should == quantity.to_i
 end
 
 Then "the maximum available quantity on $date is $quantity" do |date, quantity|
   date = to_date(date)
-  @model.availability_changes_in(@inventory_pool).maximum_available_in_period_for_user(@user, date, date).should == quantity.to_i      
+  @model.availability_in(@inventory_pool).maximum_available_in_period_for_user(@user, date, date).should == quantity.to_i      
 end
 
 Then "if I check the maximum available quantity for $date it is $quantity on $current_date" do |date, quantity, current_date|
   date = to_date(date)
   back_to_the_future( to_date(current_date) )
-  @model.availability_changes_in(@inventory_pool).maximum_available_in_period_for_user(@user, date, date).should == quantity.to_i
+  @model.availability_in(@inventory_pool).maximum_available_in_period_for_user(@user, date, date).should == quantity.to_i
   back_to_the_present
 end
 
 Then "the maximum available quantity from $start_date to $end_date is $quantity" do |start_date, end_date, quantity|
   start_date = to_date(start_date)
   end_date   = to_date(end_date)
-  @model.availability_changes_in(@inventory_pool).maximum_available_in_period_for_user(@user, start_date, end_date).should == quantity.to_i
+  @model.availability_in(@inventory_pool).maximum_available_in_period_for_user(@user, start_date, end_date).should == quantity.to_i
 end
 
 When "I check the availability changes for '$model'" do |model|

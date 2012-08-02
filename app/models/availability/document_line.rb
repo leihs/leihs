@@ -45,7 +45,7 @@ module Availability
         (maximum_available_quantity >= all_quantities)
       else
         # if an item is already assigned, but the start_date is in the future, we only consider the real start-end range dates
-        aq = model.availability_changes_in(inventory_pool).changes.between(start_date, end_date).values.flat_map(&:quantities)
+        aq = model.availability_in(inventory_pool).changes.between(start_date, end_date).values.flat_map(&:quantities)
         aq.select! {|x| x.out_document_lines and x.out_document_lines[self.class.to_s].try(:include?, id)}
         aq.all? {|x| x.in_quantity >= 0 }
       end
@@ -61,7 +61,7 @@ module Availability
     alias :is_available :available? # NOTE remove if custom as_json is gone 
 
     def maximum_available_quantity
-      model.availability_changes_in(inventory_pool).maximum_available_in_period_for_user(document.user, start_date, end_date)      
+      model.availability_in(inventory_pool).maximum_available_in_period_for_user(document.user, start_date, end_date)      
     end
 
   end

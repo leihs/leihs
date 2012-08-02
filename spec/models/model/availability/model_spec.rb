@@ -17,7 +17,7 @@ describe Model do
       pending
       #@models_without_reservations.all? do |model|
       #  InventoryPool.all.all? do |ip|
-      #    aq = model.availability_changes_in(ip).changes.select {|x| x.date >= Date.today and x.date <= Date.today }.flat_map(&:quantities)
+      #    aq = model.availability_in(ip).changes.select {|x| x.date >= Date.today and x.date <= Date.today }.flat_map(&:quantities)
       #  end
       #end.should be_true
     end

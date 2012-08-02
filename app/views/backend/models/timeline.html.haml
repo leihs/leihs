@@ -86,7 +86,7 @@
     events
   end
   
-  av = @model.availability_changes_in(current_inventory_pool)
+  av = @model.availability_in(current_inventory_pool)
 
   # events represent the horizontal bars in Timeline that display how long an item is lent out
   events = reservations_to_events(av)
