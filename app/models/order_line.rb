@@ -48,6 +48,7 @@ class OrderLine < DocumentLine
   def item
     nil
   end
+  alias :item_id :item 
   
   def type
     self.class.to_s.underscore
