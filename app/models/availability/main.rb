@@ -8,35 +8,33 @@ module Availability
       Changes[select {|k,v| (start_date..end_date).include?(k) }]
     end
 
-    def end_date_of(change)
-      first_after(change).try(:date).try(:yesterday) || Availability::Change::ETERNITY
+    def end_date_of(date)
+      first_after(date).try(:date).try(:yesterday) || Availability::Change::ETERNITY
     end
     
     # returns a Hash {group_id => sum_quantity}
     def available_quantities_for_groups(groups)
       group_ids = [Group::GENERAL_GROUP_ID] + groups.collect(&:id)
-      values.map do |change|
+      map do |date, change|
         #selected_quantities = change.quantities.select {|q| group_ids.include?(q.group_id) }
         #[change, selected_quantities.collect(&:in_quantity).sum]
         total = change.quantities.inject(0) do |sum,q|
           group_ids.include?(q.group_id) ? sum + q.in_quantity : sum
         end      
-        [change.date, total]
+        [date, total]
       end
     end
     
     def available_total_quantities
-      values.map do |change|
+      map do |date, change|
         total = change.quantities.sum(&:in_quantity)
         groups = change.quantities.map do |q|
-          h = if q.group_id
-            {:group_id => q.group_id, :name => q.group.name}
-          else
-            {:group_id => 0, :name => nil}
-          end
-          h.merge({:in_quantity => q.in_quantity, :out_document_lines => q.out_document_lines})
+          { :group_id => q.group_id.try(:to_i),
+            :name => q.group.try(:name),
+            :in_quantity => q.in_quantity,
+            :out_document_lines => q.out_document_lines }
         end
-        [change.date, total, groups]
+        [date, total, groups]
       end
     end
 
@@ -66,8 +64,8 @@ module Availability
     end
 
     # returns a change, the first after the date argument
-    def first_after(change)
-      self[keys.sort.detect {|x| x > change.date}]
+    def first_after(date)
+      self[keys.sort.detect {|x| x > date}]
     end
 
   end
