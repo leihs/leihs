@@ -3,14 +3,6 @@ module Availability
 
     attr_accessor :allocated_group
 
-    # manual association, reversing serialized references
-    def availability_quantities(sd = Date.today)
-      # we keep the changes in an instance variable to avoid re-hit the same memcached key during the same request 
-      @changes ||= model.availability_changes_in(inventory_pool).changes
-      aq = @changes.select {|x| x.date >= sd and x.date <= end_date }.flat_map(&:quantities)
-      aq.select {|x| x.out_document_lines and x.out_document_lines[self.class.to_s].try(:include?, id)}
-    end
-
     def unavailable_from
       if is_a?(ContractLine) and item_id
         # if an item is already assigned, we block the availability even if the start_date is in the future 
@@ -52,9 +44,10 @@ module Availability
         all_quantities = model.order_lines.scoped_by_inventory_pool_id(inventory_pool).unsubmitted.running(start_date).by_user(order.user).sum(:quantity)
         (maximum_available_quantity >= all_quantities)
       else
-        # if an item is already assigned, but the start_date is in the future,
-        # we only consider the real start-end range dates
-        availability_quantities(start_date).all? {|aq| aq.in_quantity >= 0 }
+        # if an item is already assigned, but the start_date is in the future, we only consider the real start-end range dates
+        aq = model.availability_changes_in(inventory_pool).changes.between(start_date, end_date).values.flat_map(&:quantities)
+        aq.select! {|x| x.out_document_lines and x.out_document_lines[self.class.to_s].try(:include?, id)}
+        aq.all? {|x| x.in_quantity >= 0 }
       end
 
       # OPTIMIZE

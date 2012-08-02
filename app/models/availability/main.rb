@@ -1,35 +1,21 @@
 module Availability
 
-  class Changes < Array # TODO sorted by date ?? linked list ??
+  class Changes < Hash
 
     def between(start_date, end_date)
       # start from most recent entry we have, which is the last before start_date
       start_date = most_recent_before_or_equal(start_date).try(:date) || start_date
-      r = select do |change|
-        (start_date..end_date).include?(change.date)
-      end
-      self.class.new(r)
+      Changes[select {|k,v| (start_date..end_date).include?(k) }]
     end
 
-    # returns a change, the first after the date argument
-    def first_after(date)
-      #sort.detect {|c| c.date > date }
-      select {|c| c.date > date}.sort.first
-    end
-    
     def end_date_of(change)
-      first_after(change.date).try(:date).try(:yesterday) || Availability::Change::ETERNITY
+      first_after(change).try(:date).try(:yesterday) || Availability::Change::ETERNITY
     end
     
-    # returns a change, the last before the date argument
-    def most_recent_before_or_equal(date) # rename to last_before_or_equal(date) 
-      select {|c| c.date <= date}.sort.last
-    end
-
     # returns a Hash {group_id => sum_quantity}
     def available_quantities_for_groups(groups)
       group_ids = [Group::GENERAL_GROUP_ID] + groups.collect(&:id)
-      map do |change|
+      values.map do |change|
         #selected_quantities = change.quantities.select {|q| group_ids.include?(q.group_id) }
         #[change, selected_quantities.collect(&:in_quantity).sum]
         total = change.quantities.inject(0) do |sum,q|
@@ -40,7 +26,7 @@ module Availability
     end
     
     def available_total_quantities
-      map do |change|
+      values.map do |change|
         total = change.quantities.sum(&:in_quantity)
         groups = change.quantities.map do |q|
           h = if q.group_id
@@ -55,40 +41,49 @@ module Availability
     end
 
     # Ensure that a change with the given "new_change_date" exists.
-    #
     # If there isn't a change on "new_change_date" then a new change will be added with the given "new_change_date".
-    #
     #   The newly created change will have the same quantities associated as the change preceding it.
     #   The newly created change will be returned.
-    #
     # If a change with a "new_change_date" however allready exists, then that change will be returned.
-    #
     def insert_or_fetch_change(new_change_date)
-      change = most_recent_before_or_equal(new_change_date)
-      if change.date < new_change_date
+      if change = self[new_change_date]
+        return change
+      else
+        change = most_recent_before_or_equal(new_change_date)
         new_change = Change.new(:date => new_change_date)
         change.quantities.each do |quantity|
           new_change.quantities << quantity.deep_clone
         end
-        self << new_change
-        return new_change
-      else #, when change.date == new_change_date
-        return change
+        return self[new_change.date] = new_change
       end
     end
+
+    private
+    
+    # returns a change, the last before the date argument
+    def most_recent_before_or_equal(date) # TODO ?? rename to last_before_or_equal(date)
+      self[keys.sort.reverse.detect {|x| x <= date}]
+    end
+
+    # returns a change, the first after the date argument
+    def first_after(change)
+      self[keys.sort.detect {|x| x > change.date}]
+    end
+
   end
 
 #########################################################
 
   class Main
-    attr_reader :model, :inventory_pool, :document_lines, :partition, :changes # changes are always sorted by date
+    attr_reader :model, :inventory_pool, :document_lines, :partition, :changes # FIXME! changes are always sorted by date
     
     def initialize(attr)
       @model          = attr[:model]
       @inventory_pool = attr[:inventory_pool]
-      @document_lines = @model.running_reservations(@inventory_pool)
+      @document_lines = @model.running_reservations(@inventory_pool).sort_by(&:start_date)
       @partition      = @model.partitions.in(@inventory_pool).current_partition
       compute
+      self
     end
         
     def compute
@@ -97,8 +92,7 @@ module Availability
         initial_change.quantities << Quantity.new(:group_id => group_id, :in_quantity => quantity)
       end
 
-      @changes = Changes.new
-      @changes << initial_change
+      @changes = Changes[initial_change.date => initial_change]
 
       @document_lines.each do |document_line|
         start_change = @changes.insert_or_fetch_change(document_line.unavailable_from) # we don't recalculate the past
@@ -126,7 +120,7 @@ module Availability
         document_line.allocated_group = group
   
         inner_changes = @changes.between(start_change.date, end_change.date.yesterday)
-        inner_changes.each do |ic|
+        inner_changes.each_pair do |key, ic|
           qty = ic.quantities.detect {|q| q.group == group}
           qty.in_quantity  -= document_line.quantity
           qty.out_quantity += document_line.quantity
@@ -134,7 +128,7 @@ module Availability
         end
       end
       # ensure changes are sorted
-      @changes = Changes.new(@changes.sort_by(&:date)) # cast Array into Changes
+      # FIXME! @changes = Changes.new(@changes.sort_by(&:date)) # cast Array into Changes
     end
     
     def maximum_available_in_period_for_user(user, start_date, end_date)
@@ -151,7 +145,7 @@ module Availability
       Array(group_or_groups).each do |group|
         max_per_group[group] = begin
           minimum = nil
-          @changes.between(start_date, end_date).each do |change|
+          @changes.between(start_date, end_date).each_pair do |key, change|
             quantity = change.quantities.detect { |qty| qty.group_id == group.try(:id) }
             unless quantity.nil?
               minimum = (minimum.nil? ? quantity.in_quantity : [quantity.in_quantity, minimum].min)
