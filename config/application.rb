@@ -54,7 +54,7 @@ module Leihs
                                     timeline.css
                                   )
     # Enable IdentityMap for Active Record, to disable set to false or remove the line below.  
-    # config.active_record.identity_map = true
+    config.active_record.identity_map = true
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
