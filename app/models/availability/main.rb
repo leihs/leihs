@@ -5,23 +5,13 @@ module Availability
     def between(start_date, end_date)
       # start from most recent entry we have, which is the last before start_date
       start_date = most_recent_before_or_equal(start_date).try(:date) || start_date
-      Changes[select {|k,v| (start_date..end_date).include?(k) }]
+      select {|k,v| (start_date..end_date).include?(k) }
     end
 
     def end_date_of(date)
       first_after(date).try(:date).try(:yesterday) || Availability::Change::ETERNITY
     end
-    
-    # returns a Hash {group_id => quantity}
-    def available_quantities_for_groups(groups)
-      h = {}
-      group_ids = [Group::GENERAL_GROUP_ID] + groups.map(&:id)
-      group_ids.each do |group_id|
-        h[group_id] = values.map{|c| c.quantities[group_id].try(:in_quantity).to_i }.min
-      end
-      h
-    end
-    
+        
     # Ensure that a change with the given "new_change_date" exists.
     # If there isn't a change on "new_change_date" then a new change will be added with the given "new_change_date".
     #   The newly created change will have the same quantities associated as the change preceding it.
@@ -110,7 +100,7 @@ module Availability
     
     def maximum_available_in_period_for_user(user, start_date, end_date)
       groups = user.groups.scoped_by_inventory_pool_id(@inventory_pool)
-      @changes.between(start_date, end_date).available_quantities_for_groups(groups).values.max
+      available_quantities_for_groups(groups, @changes.between(start_date, end_date)).values.max
     end
 
     def available_total_quantities
@@ -124,6 +114,17 @@ module Availability
         end
         [date, total, groups]
       end
+    end
+
+    # returns a Hash {group_id => quantity}
+    def available_quantities_for_groups(groups, c = nil)
+      c ||= @changes
+      h = {}
+      group_ids = [Group::GENERAL_GROUP_ID] + groups.map(&:id)
+      group_ids.each do |group_id|
+        h[group_id] = c.values.map{|c| c.quantities[group_id].try(:in_quantity).to_i }.min
+      end
+      h
     end
 
 ###########################################################
