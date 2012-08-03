@@ -1,6 +1,7 @@
 class OrderLine < DocumentLine
 
   belongs_to :order
+  alias :document :order
   belongs_to :inventory_pool
   belongs_to :model  
 
@@ -41,10 +42,6 @@ class OrderLine < DocumentLine
     false #TODO 27 Not necessary anymore
   end
 
-  def document
-    order
-  end
-  
   def item
     nil
   end

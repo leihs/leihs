@@ -10,6 +10,8 @@ class DocumentLine < ActiveRecord::Base
 ###############################################  
 
   belongs_to :purpose
+  has_one :user, :through => :document
+  has_many :groups, :through => :user
   
   # TODO this is a fallback, to be removed right on running the migration 20120424080001_remove_purpose_columns.rb 
   def purpose_with_fallback

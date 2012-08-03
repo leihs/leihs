@@ -29,7 +29,7 @@
   def reservations_to_events(av)
     events = {}
     av.document_lines.each do |line|
-      user = line.document.user
+      user = line.user
       group_id = line.allocated_group.try(:id).to_i
   
       # if line is late then it won't be available until the item is returned 

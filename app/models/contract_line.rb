@@ -10,6 +10,7 @@
 class ContractLine < DocumentLine
   
   belongs_to :contract
+  alias :document :contract
   belongs_to :location
   
   delegate :inventory_pool, :to => :contract
@@ -45,9 +46,6 @@ class ContractLine < DocumentLine
   
   def is_reserved?
     start_date > Date.today && item
-  end
-  def document
-    contract
   end
   
 end
