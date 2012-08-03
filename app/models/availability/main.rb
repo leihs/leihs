@@ -114,7 +114,7 @@ module Availability
       h = {}
       group_ids = groups.map{|g| g.try(:id)}
       group_ids.each do |group_id|
-        h[group_id] = c.values.map{|c| c.quantities[group_id].try(:in_quantity).to_i }.min
+        h[group_id] = c.values.map{|c| c.quantities[group_id].try(:in_quantity).to_i }.min.to_i
       end
       h
     end

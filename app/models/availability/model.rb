@@ -21,7 +21,7 @@ module Availability
         h = {:inventory_pool => inventory_pool.as_json, # FIXME extract this ?? this is used for the frontend only ??
              :availability => availability_in(inventory_pool).available_quantities_for_groups([Group::GENERAL_GROUP_ID] + groups) }
         if with_total_borrowable
-          h[:total_borrowable] = partitions.in(inventory_pool).by_groups(groups.collect(&:id)).sum(:quantity).to_i +
+          h[:total_borrowable] = partitions.in(inventory_pool).by_groups(groups).sum(:quantity).to_i +
                                  partitions.in(inventory_pool).by_group(Group::GENERAL_GROUP_ID)
         end
         h
