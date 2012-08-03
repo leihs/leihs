@@ -50,11 +50,14 @@ module Availability
     def initialize(attr)
       @model          = attr[:model]
       @inventory_pool = attr[:inventory_pool]
-      @document_lines = @model.running_reservations(@inventory_pool).sort_by(&:start_date)
+      @document_lines = begin
+        @model.contract_lines.by_inventory_pool(@inventory_pool).handed_over_or_assigned_but_not_returned +
+        @model.order_lines.scoped_by_inventory_pool_id(@inventory_pool).submitted.running(Date.today)
+      end.sort_by(&:start_date)
       @partition      = @model.partitions.in(@inventory_pool).current_partition
       compute
     end
-        
+
     def compute
       initial_change = Change.new(:date => Date.today)
       @partition.each_pair do |group_id, quantity|

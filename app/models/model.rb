@@ -195,11 +195,6 @@ class Model < ActiveRecord::Base
   def add_to_document(document, user_id, quantity = nil, start_date = nil, end_date = nil, inventory_pool = nil)
     document.add_line(quantity, self, user_id, start_date, end_date, inventory_pool)
   end  
-
-  def running_reservations(inventory_pool, current_time = Date.today)
-    return   self.contract_lines.by_inventory_pool(inventory_pool).handed_over_or_assigned_but_not_returned(current_time).includes(:contract => {:user => :groups}) \
-           + self.order_lines.scoped_by_inventory_pool_id(inventory_pool).submitted.running(current_time).includes(:order => {:user => :groups})
-  end
                                                                                                       
 end
 

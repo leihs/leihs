@@ -9,7 +9,7 @@ do |quantity, model, from, to|
   order.add_line(quantity.to_i, model, nil, to_date(from), to_date(to))
   order.submit.should be_true
   order.lines.size.should >= 1
-  model.running_reservations(order.inventory_pool).size.should >= 1
+  model.availability_in(order.inventory_pool).document_lines.size.should >= 1
 end
 
 Given "a contract exists for $quantity '$model' from $from to $to" \
@@ -26,7 +26,7 @@ do |quantity, model, from, to|
   @contract.reload
   @contract.lines.size.should >= 1
   @contract.lines.first.item.should_not be_nil
-  model.running_reservations(@contract.inventory_pool).size.should >= 1
+  model.availability_in(@contract.inventory_pool).document_lines.size.should >= 1
 end
 
 
