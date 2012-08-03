@@ -12,15 +12,12 @@ module Availability
       first_after(date).try(:date).try(:yesterday) || Availability::Change::ETERNITY
     end
     
-    # returns a Hash {group_id => sum_quantity}
+    # returns a Hash {group_id => quantity}
     def available_quantities_for_groups(groups)
       h = {}
       group_ids = [Group::GENERAL_GROUP_ID] + groups.map(&:id)
       group_ids.each do |group_id|
-        total = values.map(&:quantities).inject(0) do |sum,q|
-          sum + q[group_id].try(:in_quantity).to_i
-        end
-        h[group_id] = total
+        h[group_id] = values.map{|c| c.quantities[group_id].try(:in_quantity).to_i }.min
       end
       h
     end
