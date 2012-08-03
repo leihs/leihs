@@ -65,7 +65,7 @@ do |who, model, date|
 end
 
 def fresh_model_availability(model, inventory_pool, user, from, to)
-  Model.find(model.id).availability_in(inventory_pool).maximum_available_in_period_for_user(user, from, to)
+  Model.find(model.id).availability_in(inventory_pool).maximum_available_in_period_for_groups(user.groups, from, to)
 end
 
 Then "it should always be available" do

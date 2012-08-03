@@ -68,7 +68,7 @@ module Availability
         end_change   = @changes.insert_or_fetch_change(document_line.available_again_after_today(@model))
    
         # groups that this particular document_line can be possibly assigned to
-        groups = document_line.document.user.groups.scoped_by_inventory_pool_id(@inventory_pool) # optimize!
+        groups = document_line.groups & @inventory_pool.groups
         # groups doesn't contain the general group! then we add it manually
         groups_with_general = groups + [Group::GENERAL_GROUP_ID]
         maximum = scoped_maximum_available_in_period_for_groups(groups_with_general, document_line.start_date, document_line.unavailable_until(@model))
@@ -98,8 +98,8 @@ module Availability
       end
     end
     
-    def maximum_available_in_period_for_user(user, start_date, end_date)
-      groups = user.groups.scoped_by_inventory_pool_id(@inventory_pool)
+    def maximum_available_in_period_for_groups(groups, start_date, end_date)
+      groups &= @inventory_pool.groups
       available_quantities_for_groups(groups, @changes.between(start_date, end_date)).values.max
     end
 
