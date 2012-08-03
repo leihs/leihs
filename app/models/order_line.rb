@@ -3,7 +3,9 @@ class OrderLine < DocumentLine
   belongs_to :order
   alias :document :order
   belongs_to :inventory_pool
-  belongs_to :model  
+  belongs_to :model
+  has_one :user, :through => :order
+  has_many :groups, :through => :user
 
   validates_presence_of :order
   validate do
