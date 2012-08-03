@@ -3,10 +3,8 @@ module Availability
     
     def availability_in(inventory_pool)
       # we keep the result in an instance variable to avoid recompute during the same request
-      # FIXME test not passing with this 'simple-cache' (6 failures)
-      #@av ||= {}
-      #@av[inventory_pool.id] ||=
-      Availability::Main.new(:model => self, :inventory_pool => inventory_pool)
+      @av ||= {}
+      @av[inventory_pool.id] ||= Availability::Main.new(:model => self, :inventory_pool => inventory_pool)
     end
 
     def total_borrowable_items_for_user(user, inventory_pool = nil)
