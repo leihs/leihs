@@ -2,6 +2,7 @@
 # Models in Groups
 #
 Then "that model should not be available in any other group"  do
+  # FIXME how can be executed the next line ?? where is implemented the maximum method ??
   quantities = @model.in(@inventory_pool).maximum_available_in_period_for_groups(@inventory_pool.groups.where(['id != ?',@group]))
   quantities.values.reduce(:+).to_i.should == 0
 end
@@ -76,7 +77,7 @@ end
 Then /^(\w+) item(s?) of that model should be available to "([^"]*)"$/ \
 do |n, plural, user|
   @user = User.find_by_login user
-  @model.availability_in(@inventory_pool).maximum_available_in_period_for_user(@user, Date.today, Date.tomorrow ).should == n.to_i
+  fresh_model_availability(@model, @inventory_pool, @user, Date.today, Date.tomorrow).should == n.to_i
 end
 
 #
