@@ -36,33 +36,28 @@ class Partition < ActiveRecord::Base
   
     # returns a hash {nil => 10, 41 => 3, 42 => 6, ...}
     def current_partition
-      r = {Group::GENERAL_GROUP_ID => by_group(Group::GENERAL_GROUP_ID)} # this are available for general group
+      r = {Group::GENERAL_GROUP_ID => recompute_general_group} # this are available for general group
       @partitions.each {|p| r[p.group_id] = p.quantity } # these are the partitions defined by the inventory manager
       r
     end
           
-    def by_group(group, with_update = true)
-      if group.nil?
-        #tmp#1402 @inventory_pool.items.borrowable.scoped_by_model_id(@model).count - sum(:quantity)
-        quantity = @inventory_pool.items.borrowable.where(:model_id => @model).count - @partitions.sum(:quantity, :conditions => "group_id IS NOT NULL")
-        return quantity unless with_update
-        p = @partitions.where(:group_id => Group::GENERAL_GROUP_ID).first
-        if quantity > 0
-          if p
-            p.update_attributes(:quantity => quantity) if quantity != p.quantity
-          else
-            @partitions.create(:group_id => Group::GENERAL_GROUP_ID, :quantity => quantity)
-          end
-        elsif p
-          p.destroy
+    def recompute_general_group
+      quantity = @inventory_pool.items.borrowable.where(:model_id => @model).count - @partitions.sum(:quantity, :conditions => "group_id IS NOT NULL")
+      p = @partitions.where(:group_id => Group::GENERAL_GROUP_ID).first
+      if quantity > 0
+        if p
+          p.update_attributes(:quantity => quantity) if quantity != p.quantity
+        else
+          @partitions.create(:group_id => Group::GENERAL_GROUP_ID, :quantity => quantity)
         end
-        quantity # TODO return p ??
-      else
-        @partitions.scoped_by_group_id(group).first
+      elsif p
+        p.destroy
       end
+      quantity
     end
        
-    def by_groups(groups)
+    def by_groups(groups, with_general = true)
+      groups += [Group::GENERAL_GROUP_ID] if with_general 
       @partitions.where(:group_id => groups)
     end
     
