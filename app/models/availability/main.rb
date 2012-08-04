@@ -5,7 +5,10 @@ module Availability
     def between(start_date, end_date)
       # start from most recent entry we have, which is the last before start_date
       start_date = most_recent_before_or_equal(start_date).try(:date) || start_date
-      select {|k,v| (start_date..end_date).include?(k) }
+
+      keys_between = keys & (start_date..end_date).to_a
+      #tmp# select {|k,v| keys_between.include?(k) }
+      Hash[keys_between.map{|x| [x, self[x]]}]
     end
 
     def end_date_of(date)
@@ -32,12 +35,16 @@ module Availability
     
     # returns a change, the last before the date argument
     def most_recent_before_or_equal(date) # TODO ?? rename to last_before_or_equal(date)
-      self[keys.sort.reverse.detect {|x| x <= date}]
+      #tmp# k = keys.sort.reverse.detect {|x| x <= date}
+      k = keys.select {|x| x <= date}.max
+      self[k]
     end
 
     # returns a change, the first after the date argument
     def first_after(date)
-      self[keys.sort.detect {|x| x > date}]
+      #tmp# k = keys.sort.detect {|x| x > date}
+      k = keys.select {|x| x > date}.min
+      self[k]
     end
 
   end
@@ -67,9 +74,6 @@ module Availability
       inventory_pool_groups = @inventory_pool.groups
 
       @document_lines.each do |document_line|
-        start_change = @changes.insert_or_fetch_change(document_line.unavailable_from) # we don't recalculate the past
-        end_change   = @changes.insert_or_fetch_change(document_line.available_again_after_today(@model))
-
         # this is the order on the groups we check on:   
         # 1. groups that this particular document_line can be possibly assigned to, TODO sort groups by quantity desc ??
         # 2. general group
@@ -80,6 +84,8 @@ module Availability
         group = groups_to_check.detect(proc {Group::GENERAL_GROUP_ID}) {|group| maximum[group.try(:id)] >= document_line.quantity }
         document_line.allocated_group = group
   
+        start_change = @changes.insert_or_fetch_change(document_line.unavailable_from) # we don't recalculate the past
+        end_change   = @changes.insert_or_fetch_change(document_line.available_again_after_today(@model))
         inner_changes = @changes.between(start_change.date, end_change.date.yesterday)
         inner_changes.each_pair do |key, ic|
           qty = ic.quantities[group.try(:id)]
