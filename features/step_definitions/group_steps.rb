@@ -77,7 +77,7 @@ end
 Then /^(\w+) item(s?) of that model should be available to "([^"]*)"$/ \
 do |n, plural, user|
   @user = User.find_by_login user
-  fresh_model_availability(@model, @inventory_pool).maximum_available_in_period_for_groups(@user.groups, Date.today, Date.tomorrow).should == n.to_i
+  @model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(@user.groups, Date.today, Date.tomorrow).should == n.to_i
 end
 
 #
