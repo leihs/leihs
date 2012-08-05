@@ -10,10 +10,12 @@ module Availability
     end
 
     def total_borrowable_items_for_user(user, inventory_pool = nil)
-      ips = inventory_pool ? [inventory_pool] : inventory_pools
-      ips.collect do |ip|
-        partitions.in(ip).by_groups(user.groups).sum(:quantity).to_i
-      end.sum
+      groups = user.groups
+      if inventory_pool
+        partitions.in(inventory_pool).by_groups(groups).sum(:quantity)
+      else       
+        inventory_pools.sum {|ip| partitions.in(ip).by_groups(groups).sum(:quantity) }
+      end
     end
 
     def availability_periods_for_user(user, with_total_borrowable = false) #, start_date = Date.today, end_date = Availability::Change::ETERNITY)
