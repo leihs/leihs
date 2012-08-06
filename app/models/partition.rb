@@ -40,7 +40,7 @@ class Partition < ActiveRecord::Base
       general_partition = pp.first.first # the partition for general group, if persisted
       defined_partitions = pp.last # these are the partitions defined by the inventory manager
       
-      h = Hash[defined_partitions.each {|p| [p.group_id, p.quantity] }]
+      h = Hash[defined_partitions.map {|p| [p.group_id, p.quantity] }]
       
       # this are available for general group
       quantity = @inventory_pool.items.borrowable.where(:model_id => @model).count - h.values.sum
@@ -54,7 +54,7 @@ class Partition < ActiveRecord::Base
         general_partition.destroy
       end
       h[Group::GENERAL_GROUP_ID] = quantity
-      
+
       h
     end
        

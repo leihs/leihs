@@ -28,12 +28,6 @@ When /^I move (\w+) item(s?) of that model from group "([^"]*)" to group "([^"]*
   end
 end
 
-Then /^no items of that model should be available in any group$/ do
-  # will not find any group of that name, which is OK
-  # this is an artifact of the olde days when the 'General' group existed...
-  step "0 items of that model should be available in group 'NotExistent' only"
-end
-
 Then "that model should not be available in any group"  do
   @model.partitions.in(@inventory_pool).current_partition.reject { |group_id, num| group_id == Group::GENERAL_GROUP_ID }.size.should == 0
 end
