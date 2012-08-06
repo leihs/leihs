@@ -12,9 +12,9 @@ module Availability
     def total_borrowable_items_for_user(user, inventory_pool = nil)
       groups = user.groups
       if inventory_pool
-        partitions.in(inventory_pool).by_groups(groups).sum(:quantity)
+        partitions.in(inventory_pool).by_groups(groups).sum(&:quantity)
       else       
-        inventory_pools.sum {|ip| partitions.in(ip).by_groups(groups).sum(:quantity) }
+        inventory_pools.sum {|ip| partitions.in(ip).by_groups(groups).sum(&:quantity) }
       end
     end
 
@@ -24,7 +24,7 @@ module Availability
         h = {:inventory_pool => inventory_pool.as_json, # FIXME extract this ?? this is used for the frontend only ??
              :availability => availability_in(inventory_pool).available_quantities_for_groups(groups + [Group::GENERAL_GROUP_ID]) }
         if with_total_borrowable
-          h[:total_borrowable] = partitions.in(inventory_pool).by_groups(groups).sum(:quantity).to_i 
+          h[:total_borrowable] = partitions.in(inventory_pool).by_groups(groups).sum(&:quantity).to_i 
         end
         h
       end
