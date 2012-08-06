@@ -36,24 +36,26 @@ class Partition < ActiveRecord::Base
   
     # returns a hash {nil => 10, 41 => 3, 42 => 6, ...}
     def current_partition
-      r = {Group::GENERAL_GROUP_ID => recompute_general_group} # this are available for general group
-      @partitions.each {|p| r[p.group_id] = p.quantity } # these are the partitions defined by the inventory manager
-      r
-    end
-          
-    def recompute_general_group
-      quantity = @inventory_pool.items.borrowable.where(:model_id => @model).count - @partitions.sum(:quantity, :conditions => "group_id IS NOT NULL")
-      p = @partitions.where(:group_id => Group::GENERAL_GROUP_ID).first
+      pp = @partitions.partition {|x| x.group_id == Group::GENERAL_GROUP_ID } # separate general group from other groups
+      general_partition = pp.first.first # the partition for general group, if persisted
+      defined_partitions = pp.last # these are the partitions defined by the inventory manager
+      
+      h = Hash[defined_partitions.each {|p| [p.group_id, p.quantity] }]
+      
+      # this are available for general group
+      quantity = @inventory_pool.items.borrowable.where(:model_id => @model).count - h.values.sum
       if quantity > 0
-        if p
-          p.update_attributes(:quantity => quantity) if quantity != p.quantity
+        if general_partition
+          general_partition.update_attributes(:quantity => quantity) if quantity != general_partition.quantity
         else
           @partitions.create(:group_id => Group::GENERAL_GROUP_ID, :quantity => quantity)
         end
-      elsif p
-        p.destroy
+      elsif general_partition
+        general_partition.destroy
       end
-      quantity
+      h[Group::GENERAL_GROUP_ID] = quantity
+      
+      h
     end
        
     def by_groups(groups, with_general = true)
