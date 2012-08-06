@@ -12,7 +12,6 @@
       bandNames_js << _("Available in total: ")
    else
       group_id = group_id_as_string.to_i
-  
       bandInfos_js << <<-BAND2B
         Timeline.createBandInfo( { timeZone:       2,
                                    eventSource:    eventSource[#{group_id}],
@@ -21,34 +20,17 @@
                                    align:         'Top',
                                    theme:         theme } )
         BAND2B
-  
       group_name = group_id > 0 ? inventory_pool.groups.find(group_id).to_s : _("general")
       bandNames_js << (_("Available in group '") + group_name + "' :")
     end
   end
   
   # iterate through model reservations and prepare necessary parameters to construct events inside with Timeline
-  def reservations_to_events( running_reservations )
+  def reservations_to_events(av)
     events = {}
-    running_reservations.each do |line|
-      classname = if not line.item
-                    if line.available?
-                      'no-assigned-item'
-                    else
-                      'unavailable'
-                    end 
-                  elsif line.is_late?
-                    'is-late'
-                  elsif line.returned_date
-                    'is-returned'
-                  elsif line.is_reserved?
-                    'is-reserved'
-                  else
-                    'without-conflict'
-                  end
+    av.document_lines.each do |line|
+      user = line.user
       group_id = line.allocated_group.try(:id).to_i
-  
-      #track_num = events[group_id].empty? ? 0 : ( line.item ? events[group_id].collect {|e| e[:trackNum] }.compact.max.to_i.next : nil)
   
       # if line is late then it won't be available until the item is returned 
       end_date = line.is_late? ? Availability::Change::ETERNITY : (line.end_date.tomorrow.to_time - 1.second)
@@ -60,60 +42,60 @@
       events[group_id] << {:start         => start_date.to_time.to_s(:rfc822),
                            :end           => end_date.to_time.to_s(:rfc822),
                            :durationEvent => true,
-                           :title         => event_title(line),
-                           :description   => event_description(line),
-                           #:trackNum     => track_num
-                           :textColor     => 'black',
-                           :classname     => classname }
+                           :title         => "#{user} (#{line.item.try(:inventory_code) || _("Quantity: %d") % line.quantity})",
+                           :description   => begin
+                              # construct the popup that is being displayed when you click on an event
+                              link_string, link_path =
+                                if line.is_a?(OrderLine)
+                                  [ _("Acknowledge"), backend_inventory_pool_acknowledge_path(current_inventory_pool, line.document) ]
+                                elsif line.document.status_const == Contract::UNSIGNED
+                                  [ _("Hand Over"), backend_inventory_pool_user_hand_over_path(current_inventory_pool, user) ]
+                                else
+                                  [ _("Take Back"), backend_inventory_pool_user_take_back_path(current_inventory_pool, user) ]
+                                end
+                           
+                              document_link = content_tag :div, :class => "buttons", :style => "margin: 1.5em;" do
+                                              link_to link_string, link_path
+                                            end
+                              comment = ""
+                              comment += ("<b>" + _("Item is overdue and therefore unavailable!") + "</b>") if line.is_late?
+                              comment += ("<b>" + _("Item is reserved in the future, therefore it's not available!") + "</b>") if line.is_reserved?
+                        
+                              ("#{_("Phone")}: #{user.phone}<br/>" +
+                              "#{_("Reservation")}: #{line.start_date} " + _("until") + " #{line.end_date}<br/>" +
+                              comment + '<br/>' +  
+                              document_link)
+                           end,
+                           :classname     =>  if not line.item_id
+                                                if line.available?
+                                                  'no-assigned-item'
+                                                else
+                                                  'unavailable'
+                                                end 
+                                              elsif line.returned_date
+                                                'is-returned'
+                                              elsif line.is_late?
+                                                'is-late'
+                                              elsif line.is_reserved?
+                                                'is-reserved'
+                                              else
+                                                'without-conflict'
+                                              end,
+                           :textColor     => 'black' }
     end
     events
   end
   
-  def event_title(line)
-      extra_info = line.item.try(:inventory_code) || _("Quantity: %d") % line.quantity
-      return "#{line.document.user} (#{extra_info})"
-  end
-  
-  # construct the popup that is being displayed when you click on an event
-  def event_description(line)
-      link_string, link_path =
-        if line.is_a?(OrderLine)
-          [ _("Acknowledge"), backend_inventory_pool_acknowledge_path(current_inventory_pool, line.document) ]
-        elsif line.document.status_const == Contract::UNSIGNED
-          [ _("Hand Over"), backend_inventory_pool_user_hand_over_path(current_inventory_pool, line.document.user) ]
-        else
-          [ _("Take Back"), backend_inventory_pool_user_take_back_path(current_inventory_pool, line.document.user) ]
-        end
-   
-      document_link = content_tag :div, :class => "buttons", :style => "margin: 1.5em;" do
-                      link_to link_string, link_path
-                    end
-      comment = ""
-      comment += ("<b>" + _("Item is overdue and therefore unavailable!") + "</b>") if line.is_late?
-      comment += ("<b>" + _("Item is reserved in the future, therefore it's not available!") + "</b>") if line.is_reserved?
+  av = @model.availability_in(current_inventory_pool)
 
-      return ("#{_("Group")}: #{line.allocated_group}<br/>" +
-              "#{_("Phone")}: #{line.document.user.phone}<br/>" +
-              "#{_("Reservation")}: #{line.start_date} " + _("until") + " #{line.end_date}<br/>" +
-              comment + '<br/>' +  
-              document_link)
-  end
-  
-  partition = @model.partitions.in(current_inventory_pool).current_partition
-  changes = @model.availability_changes_in(current_inventory_pool).changes
-
-  # events represent the horizontal bars in Timeline
-  # that display how long an item is lent out
-  events = {}
-  events = reservations_to_events( @model.running_reservations(current_inventory_pool))
+  # events represent the horizontal bars in Timeline that display how long an item is lent out
+  events = reservations_to_events(av)
 
   # TODO dynamic timeZone, get rid of GMT in the bubble
   sum_w = 35
 
-  # bands represent the horizontal bands inside Timeline. The first band is
-  # the scrollable "top" "month" band, the next one is the "General Group"
-  # band and then follow other groups that exist within an inventory pool
-  # bandNames contains the names of the bands starting with the "month" band
+  # bands represent the horizontal bands inside Timeline. The first band is the scrollable "top" "month" band, the next one is the "General Group"
+  # band and then follow other groups that exist within an inventory pool bandNames contains the names of the bands starting with the "month" band
   bandNames_js = [""]
 
   # bandInfos contains JS initialisation code for Timeline bands
@@ -129,39 +111,30 @@
   ]
   # TODO total overview # bandInfos_js << "Timeline.createBandInfo({ timeZone: 2, overview: true, width: '#{sum_w}px', intervalUnit: Timeline.DateTime.DAY, intervalPixels: 32, align: 'Top', theme: theme })"
 
-  # decorators are specially marked days inside a bar, which in leihs will display
-  # the available items inside a group on a certain day. We only display available
-  # numbers of items on days where the numbers change 
+  # decorators are specially marked days inside a bar, which in leihs will display the available items
+  # inside a group on a certain day. We only display available numbers of items on days where the numbers change 
   decorators_js = [""]
   
-  # We color days according to whether the total in a particular group is above zero
-  # or no. In addition to each group we also do this for the overall total of available
-  # items in stock of a certain model.
-  #
-  # We use the "special" group id -1 for the total.
-  #
-  # the to_i comparison is needed to convert nil to 0 :
-  group_ids = (["-1"] + partition.keys).sort {|a,b| a.to_i <=> b.to_i }
+  # We color days according to whether the total in a particular group is above zero or no.
+  # In addition to each group we also do this for the overall total of available items in stock of a certain model.
+  # We use the "special" group id -1 for the total. The to_i comparison is needed to convert nil to 0 :
+  group_ids = (["-1"] + av.partition.keys).sort {|a,b| a.to_i <=> b.to_i }
   group_ids.each do |g|
-    # next unless events.keys.include?(g.to_i) # skip empty groups
-    # count = partition[g]
-    #w = [0, count].max * 40 + 40 # TODO get max out_quantity among all changes
-    #sum_w += w
     add_timeband(current_inventory_pool, bandNames_js, bandInfos_js, g)
     
     prev_in_quantity = nil
-    decorators_js << changes.collect do |change|
-      end_date = [changes.end_date_of(change), change.start_date + 1.month].min
+    decorators_js << av.changes.map do |start_date, change|
+      end_date = [av.changes.end_date_of(start_date), start_date + 1.month].min
       d = []
       if g == "-1" # showing total
-        in_quantity = change.quantities.collect(&:in_quantity).sum
+        in_quantity = change.quantities.values.map(&:in_quantity).sum
       else
         in_quantity = change.in_quantity_in_group(g)
       end
       if in_quantity < 0
         d << <<-BAND3
              new Timeline.SpanHighlightDecorator(
-                   { startDate: '#{change.start_date.to_time.to_s(:rfc822)}',
+                   { startDate: '#{start_date.to_time.to_s(:rfc822)}',
                      endDate:   '#{end_date.tomorrow.to_time.to_s(:rfc822)}',
                      color:     '#f00',
                      opacity:   50 } )
@@ -171,14 +144,14 @@
         #prev_in_quantity = in_quantity
         d << <<-BAND4
              new Timeline.SpanHighlightDecorator(
-                   { startDate: '#{(change.start_date.to_time - 1.hour).to_s(:rfc822)}',
-                     endDate:   '#{(change.start_date.to_time + 1.hour).to_s(:rfc822)}',
+                   { startDate: '#{(start_date.to_time - 1.hour).to_s(:rfc822)}',
+                     endDate:   '#{(start_date.to_time + 1.hour).to_s(:rfc822)}',
                      color:     '#000000',
                      opacity:   50,
                      endLabel:  '#{in_quantity}' } )
              BAND4
       #end
-      (change.start_date.tomorrow..end_date).each do |date|
+      (start_date.tomorrow..end_date).each do |date|
         d << <<-BAND4
              new Timeline.SpanHighlightDecorator(
                    { startDate: '#{(date.to_time - 1.hour).to_s(:rfc822)}',

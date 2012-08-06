@@ -2,8 +2,8 @@
 # Models in Groups
 #
 Then "that model should not be available in any other group"  do
-  quantities = @model.in(@inventory_pool).\
-	       maximum_available_in_period_for_groups(@inventory_pool.groups.where(['id != ?',@group]))
+  # FIXME how can be executed the next line ?? where is implemented the maximum method ??
+  quantities = @model.in(@inventory_pool).maximum_available_in_period_for_groups(@inventory_pool.groups.where(['id != ?',@group]))
   quantities.values.reduce(:+).to_i.should == 0
 end
 
@@ -28,16 +28,8 @@ When /^I move (\w+) item(s?) of that model from group "([^"]*)" to group "([^"]*
   end
 end
 
-Then /^no items of that model should be available in any group$/ do
-  # will not find any group of that name, which is OK
-  # this is an artifact of the olde days when the 'General' group existed...
-  step "0 items of that model should be available in group 'NotExistent' only"
-end
-
 Then "that model should not be available in any group"  do
-  @model.partitions.in(@inventory_pool).current_partition.\
-	 reject { |group_id, num| group_id == Group::GENERAL_GROUP_ID }.\
-    size.should == 0
+  @model.partitions.in(@inventory_pool).current_partition.reject { |group_id, num| group_id == Group::GENERAL_GROUP_ID }.size.should == 0
 end
 
 # TODO: currently unused
@@ -79,9 +71,7 @@ end
 Then /^(\w+) item(s?) of that model should be available to "([^"]*)"$/ \
 do |n, plural, user|
   @user = User.find_by_login user
-  @model.availability_changes_in(@inventory_pool).
-         maximum_available_in_period_for_user(@user, Date.today, Date.tomorrow ).\
-	 should == n.to_i
+  @model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(@user.groups, Date.today, Date.tomorrow).should == n.to_i
 end
 
 #

@@ -36,33 +36,30 @@ class Partition < ActiveRecord::Base
   
     # returns a hash {nil => 10, 41 => 3, 42 => 6, ...}
     def current_partition
-      r = {Group::GENERAL_GROUP_ID => by_group(Group::GENERAL_GROUP_ID)} # this are available for general group
-      @partitions.each {|p| r[p.group_id] = p.quantity } # these are the partitions defined by the inventory manager
-      r
-    end
-          
-    def by_group(group, with_update = true)
-      if group.nil?
-        #tmp#1402 @inventory_pool.items.borrowable.scoped_by_model_id(@model).count - sum(:quantity)
-        quantity = @inventory_pool.items.borrowable.where(:model_id => @model).count - @partitions.sum(:quantity, :conditions => "group_id IS NOT NULL")
-        return quantity unless with_update
-        p = @partitions.where(:group_id => Group::GENERAL_GROUP_ID).first
-        if quantity > 0
-          if p
-            p.update_attributes(:quantity => quantity) if quantity != p.quantity
-          else
-            @partitions.create(:group_id => Group::GENERAL_GROUP_ID, :quantity => quantity)
-          end
-        elsif p
-          p.destroy
+      pp = @partitions.partition {|x| x.group_id == Group::GENERAL_GROUP_ID } # separate general group from other groups
+      general_partition = pp.first.first # the partition for general group, if persisted
+      defined_partitions = pp.last # these are the partitions defined by the inventory manager
+      
+      h = Hash[defined_partitions.map {|p| [p.group_id, p.quantity] }]
+      
+      # this are available for general group
+      quantity = @inventory_pool.items.borrowable.where(:model_id => @model).count - h.values.sum
+      if quantity > 0
+        if general_partition
+          general_partition.update_attributes(:quantity => quantity) if quantity != general_partition.quantity
+        else
+          @partitions.create(:group_id => Group::GENERAL_GROUP_ID, :quantity => quantity)
         end
-        quantity # TODO return p ??
-      else
-        @partitions.scoped_by_group_id(group).first
+      elsif general_partition
+        general_partition.destroy
       end
+      h[Group::GENERAL_GROUP_ID] = quantity
+
+      h
     end
        
-    def by_groups(groups)
+    def by_groups(groups, with_general = true)
+      groups += [Group::GENERAL_GROUP_ID] if with_general 
       @partitions.where(:group_id => groups)
     end
     

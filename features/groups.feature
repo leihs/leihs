@@ -30,7 +30,7 @@ Feature: Implement new Group feature#
 
                 When I add a new group "Video"
                  And I assign 2 items to group "Video"
-                Then no items of that model should be available to "Tomáš"
+                Then 0 items of that model should be available to "Tomáš"
 
 
         Scenario: Lend from specific groups and return to the general pool
@@ -41,12 +41,12 @@ Feature: Implement new Group feature#
 
                 When I add 1 item of that model
                  And I assign one item to group "CAST"
-                Then no items of that model should be available to "Mongo Bill"
+                Then 0 items of that model should be available to "Mongo Bill"
 
                 When I add 1 item of that model
                  And I lend one item of that model to "Mongo Bill"
                  And I lend one item of that model to "Tomáš"
-                Then no items of that model should be available to "Mongo Bill"
+                Then 0 items of that model should be available to "Mongo Bill"
 
                 When "Tomáš" returns the item
                 Then one item of that model should be available to "Mongo Bill"

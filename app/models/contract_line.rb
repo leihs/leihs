@@ -10,8 +10,11 @@
 class ContractLine < DocumentLine
   
   belongs_to :contract
+  alias :document :contract
   belongs_to :location
-  
+  has_one :user, :through => :contract
+  has_many :groups, :through => :user
+
   delegate :inventory_pool, :to => :contract
   
   validates_presence_of :contract
@@ -25,9 +28,7 @@ class ContractLine < DocumentLine
   # NOTE using table alias to prevent "Not unique table/alias" Mysql error
   scope :to_hand_over, joins(:contract).where(:contracts => {:status_const => Contract::UNSIGNED}, :returned_date => nil).readonly(false)
   scope :to_take_back, joins(:contract).where(:contracts => {:status_const => Contract::SIGNED}, :returned_date => nil).readonly(false)
-  scope :handed_over_or_assigned_but_not_returned, lambda { |date|
-                                                      where(["returned_date IS NULL AND NOT (end_date < ? AND item_id IS NULL)", date])
-                                                   }
+  scope :handed_over_or_assigned_but_not_returned, where("returned_date IS NULL AND NOT (end_date < CURDATE() AND item_id IS NULL)")
   
   # TODO 1209** refactor to InventoryPool has_many :contract_lines_by_user(user) ??
   # NOTE InventoryPool#contract_lines.by_user(user)
@@ -45,9 +46,6 @@ class ContractLine < DocumentLine
   
   def is_reserved?
     start_date > Date.today && item
-  end
-  def document
-    contract
   end
   
 end

@@ -4,7 +4,7 @@ class Group < ActiveRecord::Base
 
   belongs_to :inventory_pool
   has_and_belongs_to_many :users
-  has_many :partitions # FIXME cascade delete ?? 
+  has_many :partitions, :dependent => :delete_all 
   has_many :models, :through => :partitions, :uniq => true
 
   validates_presence_of :inventory_pool_id #tmp#2

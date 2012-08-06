@@ -41,10 +41,7 @@ end
 
 Given "he has access level $level" do |level|
   # TODO: very ugly
-  ar = @user.access_rights.
-             find_by_role_id_and_inventory_pool_id \
-               @role.id,
-               @inventory_pool.id
+  ar = @user.access_rights.find_by_role_id_and_inventory_pool_id @role.id, @inventory_pool.id
   ar.access_level = level.to_i
   ar.save!
 end

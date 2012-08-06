@@ -91,25 +91,26 @@ end
 
 Wenn /^ich eine Aushändigung mache die ein Model enthält dessen Gegenstände ein nicht ausleihbares enthält$/ do
   @ip = @user.managed_inventory_pools.first
-  @contract = nil
-  @ip.items.unborrowable.each do |item|
-    @contract = @ip.contracts.unsigned.detect{|c| c.models.include?(item.model)}
+  @contract_line = nil
+  @contract = @ip.contracts.unsigned.detect do |c|
+    @contract_line = c.lines.detect do |l|
+      l.model.items.unborrowable.scoped_by_inventory_pool_id(@ip).first
+    end
   end
+  @model = @contract_line.model
   @customer = @contract.user
   visit backend_inventory_pool_user_hand_over_path(@ip, @customer)
-  page.has_css?("#take_back", :visible => true)
+  page.has_css?("#hand_over", :visible => true)
 end
 
 Wenn /^diesem Model ein Inventarcode zuweisen möchte$/ do
-  @model = @contract.models.detect{|m| m.items.unborrowable.count > 0}
-  @item_line_element = find(".item_line", :text => @model.name)
-  @contract_line = ContractLine.find @item_line_element["data-id"]
+  @item_line_element = find(:xpath, "//ul[@data-id='#{@contract_line.id}']")
   @item_line_element.find(".inventory_code input").click
-  page.execute_script('$(".line[data-id=#{@contract_line.id}] .inventory_code input").focus()')
+  page.execute_script('$(".line[data-id=\'#{@contract_line.id}\'] .inventory_code input").focus()')
 end
 
 Dann /^schlägt mir das System eine Liste von Gegenständen vor$/ do
-  wait_until { find(".ui-autocomplete") }
+  wait_until { find(".ui-autocomplete .ui-menu-item") }
 end
 
 Dann /^diejenigen Gegenstände sind gekennzeichnet, welche als nicht ausleihbar markiert sind$/ do
@@ -362,10 +363,10 @@ Angenommen /^ich sehe die Anzahl der total ausleihbaren Modelle$/ do
 end
 
 Angenommen /^ich sehe die Anzahl der bereits reservierten Modelle$/ do
-  find(".tip").should have_content (@model.total_borrowable_items_for_user(@customer, @ip)-(1 + @model.availability_changes_in(@ip).maximum_available_in_period_for_user(@customer, @line.start_date, @line.end_date)))
+  find(".tip").should have_content (@model.total_borrowable_items_for_user(@customer, @ip)-(1 + @model.availability_in(@ip).maximum_available_in_period_for_groups(@customer.groups, @line.start_date, @line.end_date)))
 end
 
 Angenommen /^ich sehe die Anzahl der verfügbaren Modelle$/ do
-  find(".tip").should have_content (1 + @model.availability_changes_in(@ip).maximum_available_in_period_for_user(@customer, @line.start_date, @line.end_date))
+  find(".tip").should have_content (1 + @model.availability_in(@ip).maximum_available_in_period_for_groups(@customer.groups, @line.start_date, @line.end_date))
 end
 
