@@ -51,7 +51,7 @@ module Backend::BackendHelper
       when "current_user"
         current_page?(:controller => "backend/users", :action => :show) and @user == current_user
       when "start_screen"
-        current_user.start_screen(current_inventory_pool) == request.fullpath
+        current_user.start_screen == request.fullpath
     end
     
     # We rescue everything because backend/hand_over and backend/take_back are failing sometimes

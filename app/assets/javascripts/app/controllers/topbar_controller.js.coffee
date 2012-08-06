@@ -13,7 +13,7 @@ class TopBarController
   set_start_screen: (e)=>
     do e.preventDefault
     $.ajax
-      url: "/backend/inventory_pools/#{current_inventory_pool}/users/#{current_user.id}/set_start_screen"
+      url: "/backend/users/#{current_user.id}/set_start_screen"
       type: "POST"
       data: 
         path: window.location.pathname + window.location.search + window.location.hash

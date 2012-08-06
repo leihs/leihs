@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
   serialize :extended_info
 
-  store :settings, accessors: [ :latest_inventory_pool_id_before_logout ]
+  store :settings, accessors: [ :latest_inventory_pool_id_before_logout, :start_screen ]
 
   belongs_to :authentication_system
   belongs_to :language
@@ -35,14 +35,14 @@ class User < ActiveRecord::Base
   def templates
     inventory_pools.flat_map(&:templates).sort
   end
-  
-  def start_screen(ip, path = nil)
-    access_right = self.access_rights.detect{|x| x.inventory_pool_id == ip.id}
+
+  def start_screen(path = nil)
     if path 
-      access_right.start_screen = path
-      return access_right.save
+      binding.pry
+      self.settings[:start_screen] = path
+      return self.save
     else
-      access_right.start_screen if access_right
+      self.settings[:start_screen]
     end
   end
 
