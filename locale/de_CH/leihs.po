@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
-"POT-Creation-Date: 2012-07-12 09:42+0200\n"
-"PO-Revision-Date: 2012-07-12 09:44+0100\n"
+"POT-Creation-Date: 2012-08-06 09:17+0200\n"
+"PO-Revision-Date: 2012-08-06 09:20+0100\n"
 "Last-Translator: Ramón Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "Language: \n"
@@ -73,6 +73,9 @@ msgstr "Zugriffsrecht aktualisiert."
 
 msgid "Access right reinstated"
 msgstr "Zugriffsrechte wiederhergestellt"
+
+msgid "Acknowledge"
+msgstr "Genehmigen"
 
 msgid "Add"
 msgstr "Hinzufügen"
@@ -143,8 +146,17 @@ msgstr "Versuch, einen Zweig seiner eigenen Graph-Kollektion hinzuzufügen"
 msgid "Auswahl"
 msgstr "Selection"
 
+msgid "Availability Timeline"
+msgstr "Verfügbarkeits-Zeitleiste"
+
 msgid "Available"
 msgstr "Verfügbar"
+
+msgid "Available in group '"
+msgstr "Verfügbar in Gruppe '"
+
+msgid "Available in total: "
+msgstr "Total verfügbar:"
 
 msgid "Back"
 msgstr "Zurück"
@@ -214,6 +226,9 @@ msgstr "Geschlossen"
 
 msgid "Compatible successfully removed"
 msgstr "Kompatibles Modell erfolgreich entfernt"
+
+msgid "Complete Search"
+msgstr "Gesamtsuche"
 
 msgid "Completeness"
 msgstr "Vollständigkeit"
@@ -449,6 +464,9 @@ msgstr "Anzahl von %i auf %i erhöht für %s"
 msgid "Initial Price:"
 msgstr "Anschaffungswert:"
 
+msgid "Inspect"
+msgstr "Inspektion"
+
 msgid "Insurance Number:"
 msgstr "Versicherungsnummer:"
 
@@ -509,8 +527,14 @@ msgstr "Gegenstand"
 msgid "Item handed over as part of contract %d."
 msgstr "Gegenstand übergeben als Teil von Vertrag %d."
 
+msgid "Item is overdue and therefore unavailable!"
+msgstr "Gegenstand ist überfällig und deshalb nicht verfügbar."
+
 msgid "Item is part of package"
 msgstr "Gegenstand ist Teil eines Pakets"
+
+msgid "Item is reserved in the future, therefore it's not available!"
+msgstr "Gegenstand ist in der Zukunft reserviert und deshalb nicht verfügbar."
 
 msgid "Item package successfully destroyed"
 msgstr "Paket gelöscht"
@@ -538,6 +562,9 @@ msgstr "Letzte Besucher:"
 
 msgid "Latest Reminder:"
 msgstr "Letzte Erinnerung:"
+
+msgid "Legend"
+msgstr "Erklärung"
 
 msgid "Lender"
 msgstr "Ausleiher"
@@ -824,6 +851,9 @@ msgstr "Anz."
 msgid "Quantity"
 msgstr "Anzahl"
 
+msgid "Quantity: %d"
+msgstr "Anzahl: %d"
+
 msgid "Ready"
 msgstr "Bereit"
 
@@ -857,6 +887,9 @@ msgstr "%{q} %{m} entfernt"
 msgid "Requested Items"
 msgstr "Bestellte Artikel"
 
+msgid "Reservation"
+msgstr "Reservation"
+
 msgid "Responsible"
 msgstr "Verantwortlich"
 
@@ -878,7 +911,7 @@ msgstr "Ausmusterung:"
 msgid "Return"
 msgstr "Rückgabe"
 
-msgid "Returned items"
+msgid "Returned Items"
 msgstr "Zurückgegebene Gegenstände"
 
 msgid "Room"
@@ -928,6 +961,9 @@ msgstr "Verfügbarkeit anzeigen"
 
 msgid "Show Full History"
 msgstr "Gesamte Geschichte anzeigen"
+
+msgid "Show all %s..."
+msgstr "Alle %s anzeigen..."
 
 msgid "Show all ..."
 msgstr "Alles anzeigen..."
@@ -1157,6 +1193,9 @@ msgstr "Do"
 msgid "Time window"
 msgstr "Zeitfenster"
 
+msgid "Timeline"
+msgstr "Zeitleiste"
+
 msgid "Today"
 msgstr "Heute"
 
@@ -1234,9 +1273,6 @@ msgstr "Werteverzeichnis zu Leihvertrag Nr. %s"
 
 msgid "Value list"
 msgstr "Werteverzeichnis"
-
-msgid "View"
-msgstr "Ansehen"
 
 msgid "View %s"
 msgstr "%s ansehen"
@@ -1370,6 +1406,12 @@ msgstr "[leihs] Einige Gegenstände sollten morgen zurückgebracht werden"
 msgid "already in Category"
 msgstr "bereits in Kategorie"
 
+msgid "already reserved"
+msgstr "bereits reserviert"
+
+msgid "available"
+msgstr "verfügbar"
+
 msgid "awaiting approval"
 msgstr "wartet auf Genehmigung"
 
@@ -1400,6 +1442,9 @@ msgstr "für max."
 msgid "found %i"
 msgstr "%i gefunden"
 
+msgid "general"
+msgstr "allgemein"
+
 msgid "go back"
 msgstr "zurück gehen"
 
@@ -1421,6 +1466,12 @@ msgstr "Der Gerätepark ist am gewünschten Rückgabetag geschlossen"
 msgid "inventory pool is closed on start_date. "
 msgstr "Der Gerätepark ist am gewünschten Starttag geschlossen"
 
+msgid "is late"
+msgstr "verspätet"
+
+msgid "is returned"
+msgstr "zurückgegeben"
+
 msgid "item not assigned. "
 msgstr "kein Gegenstand zugeordnet"
 
@@ -1435,6 +1486,9 @@ msgstr "mehr Eigenschaften"
 
 msgid "no image"
 msgstr "kein Bild"
+
+msgid "no item assigned"
+msgstr "Kein Gegenstand zugeordnet"
 
 msgid "no purpose specified"
 msgstr "Kein Zweck angegeben."
@@ -1466,6 +1520,15 @@ msgstr "bitte warten..."
 msgid "quantity not available. "
 msgstr "Anzahl nicht verfügbar."
 
+msgid "requested"
+msgstr "angefordert"
+
+msgid "reserved / item assigned in future"
+msgstr "reserviert / Gegenstand bereits Zugewiesen"
+
+msgid "result"
+msgstr "Resultat"
+
 msgid "set current page as start page"
 msgstr "Aktuelle Seite als Startseite setzen"
 
@@ -1493,8 +1556,14 @@ msgstr "abschicken"
 msgid "this is a package"
 msgstr "dies ist ein Paket"
 
+msgid "total borrowable"
+msgstr "gesamt ausleihbar"
+
 msgid "total rentable"
 msgstr "ausleihbar"
+
+msgid "unavailable / can't be guaranteed"
+msgstr "nicht verfügbar / nicht garantiert"
 
 msgid "until"
 msgstr "bis"
@@ -1516,6 +1585,9 @@ msgstr "während versucht wurde, ein Erinnerungsmail zu schicken an:"
 
 msgid "with comment"
 msgstr "mit Kommentar"
+
+msgid "without conflict"
+msgstr "ohne Konflikt"
 
 #~ msgid " <b>%d</b> results"
 #~ msgstr " <b>%d</b> Resultate "
@@ -1632,9 +1704,6 @@ msgstr "mit Kommentar"
 
 #~ msgid "Accessory|Quantity"
 #~ msgstr "Zubehör|Anzahl"
-
-#~ msgid "Acknowledge"
-#~ msgstr "Genehmigen"
 
 #~ msgid "Acknowledge immediately"
 #~ msgstr "Sofort genehmigen"
@@ -1806,10 +1875,6 @@ msgstr "mit Kommentar"
 #, fuzzy
 #~ msgid "Availability::Quantity|Out quantity"
 #~ msgstr "Verfügbar"
-
-#, fuzzy
-#~ msgid "Available in total: "
-#~ msgstr "Verfügbare Anzahl"
 
 #~ msgid "Available quantity"
 #~ msgstr "Verfügbare Anzahl"
@@ -2362,9 +2427,6 @@ msgstr "mit Kommentar"
 #~ msgid "In stock?"
 #~ msgstr "An Lager?"
 
-#~ msgid "Inspection"
-#~ msgstr "Inspektion"
-
 #~ msgid "Installation Location"
 #~ msgstr "Installationsort"
 
@@ -2636,9 +2698,6 @@ msgstr "mit Kommentar"
 #, fuzzy
 #~ msgid "Language|Name"
 #~ msgstr "Verwalter"
-
-#~ msgid "Legend"
-#~ msgstr "Erklärung"
 
 #~ msgid "Lending party:"
 #~ msgstr "Verleiher:"
@@ -3129,9 +3188,6 @@ msgstr "mit Kommentar"
 #~ msgid "Qty: %d"
 #~ msgstr "Anzahl: %d"
 
-#~ msgid "Quantity: %d"
-#~ msgstr "Anzahl: %d"
-
 #~ msgid "Quick Approve"
 #~ msgstr "Schnell-Genehmigung"
 
@@ -3197,9 +3253,6 @@ msgstr "mit Kommentar"
 
 #~ msgid "Restore to the original order?"
 #~ msgstr "Die ursprüngliche Bestellung wiederherstellen?"
-
-#~ msgid "Result(s)"
-#~ msgstr "Resultat(e)"
 
 #~ msgid "Returned options"
 #~ msgstr "Retournierte Optionen"
@@ -3577,6 +3630,9 @@ msgstr "mit Kommentar"
 #~ msgid "Value list no. %d"
 #~ msgstr "Werteverzeichnis Nr. %d"
 
+#~ msgid "View"
+#~ msgstr "Ansehen"
+
 #~ msgid "View (readonly)"
 #~ msgstr "Ansehen (nicht editierbar)"
 
@@ -3666,10 +3722,6 @@ msgstr "mit Kommentar"
 #~ msgstr "Authentifizierungssystem"
 
 #, fuzzy
-#~ msgid "availability change"
-#~ msgstr "Verfügbarkeit"
-
-#, fuzzy
 #~ msgid "availability quantity"
 #~ msgstr "Verfügbar"
 
@@ -3706,10 +3758,6 @@ msgstr "mit Kommentar"
 #~ msgid "for"
 #~ msgstr "für"
 
-#, fuzzy
-#~ msgid "general"
-#~ msgstr "Allgemein"
-
 #~ msgid "group"
 #~ msgstr "Gruppe"
 
@@ -3719,18 +3767,8 @@ msgstr "mit Kommentar"
 #~ msgid "inventory pool"
 #~ msgstr "Gerätepark"
 
-#~ msgid "is late"
-#~ msgstr "verspätet"
-
-#~ msgid "is returned"
-#~ msgstr "zurückgegeben"
-
 #~ msgid "item"
 #~ msgstr "Artikel"
-
-#, fuzzy
-#~ msgid "itemline"
-#~ msgstr "Zeitleiste"
 
 #~ msgid "key"
 #~ msgstr "Schlüssel"
@@ -3758,9 +3796,6 @@ msgstr "mit Kommentar"
 
 #~ msgid "no category"
 #~ msgstr "keine Kategorie"
-
-#~ msgid "no item assigned"
-#~ msgstr "Kein Gegenstand zugeordnet"
 
 #~ msgid "no more categories"
 #~ msgstr "keine weiteren Kategorien"

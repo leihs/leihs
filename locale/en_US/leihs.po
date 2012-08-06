@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2012-07-12 09:42+0200\n"
+"POT-Creation-Date: 2012-08-06 09:17+0200\n"
 "PO-Revision-Date: 2008-04-22 17:52+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -72,6 +72,9 @@ msgid "Access Right successfully updated"
 msgstr ""
 
 msgid "Access right reinstated"
+msgstr ""
+
+msgid "Acknowledge"
 msgstr ""
 
 msgid "Add"
@@ -143,7 +146,16 @@ msgstr ""
 msgid "Auswahl"
 msgstr ""
 
+msgid "Availability Timeline"
+msgstr ""
+
 msgid "Available"
+msgstr ""
+
+msgid "Available in group '"
+msgstr ""
+
+msgid "Available in total: "
 msgstr ""
 
 msgid "Back"
@@ -213,6 +225,9 @@ msgid "Closed"
 msgstr ""
 
 msgid "Compatible successfully removed"
+msgstr ""
+
+msgid "Complete Search"
 msgstr ""
 
 msgid "Completeness"
@@ -449,6 +464,9 @@ msgstr ""
 msgid "Initial Price:"
 msgstr ""
 
+msgid "Inspect"
+msgstr ""
+
 msgid "Insurance Number:"
 msgstr ""
 
@@ -509,7 +527,13 @@ msgstr ""
 msgid "Item handed over as part of contract %d."
 msgstr ""
 
+msgid "Item is overdue and therefore unavailable!"
+msgstr ""
+
 msgid "Item is part of package"
+msgstr ""
+
+msgid "Item is reserved in the future, therefore it's not available!"
 msgstr ""
 
 msgid "Item package successfully destroyed"
@@ -537,6 +561,9 @@ msgid "Last Visitors:"
 msgstr ""
 
 msgid "Latest Reminder:"
+msgstr ""
+
+msgid "Legend"
 msgstr ""
 
 msgid "Lender"
@@ -824,6 +851,9 @@ msgstr ""
 msgid "Quantity"
 msgstr ""
 
+msgid "Quantity: %d"
+msgstr ""
+
 msgid "Ready"
 msgstr ""
 
@@ -857,6 +887,9 @@ msgstr ""
 msgid "Requested Items"
 msgstr ""
 
+msgid "Reservation"
+msgstr ""
+
 msgid "Responsible"
 msgstr ""
 
@@ -878,7 +911,7 @@ msgstr ""
 msgid "Return"
 msgstr ""
 
-msgid "Returned items"
+msgid "Returned Items"
 msgstr ""
 
 msgid "Room"
@@ -927,6 +960,9 @@ msgid "Show Availability"
 msgstr ""
 
 msgid "Show Full History"
+msgstr ""
+
+msgid "Show all %s..."
 msgstr ""
 
 msgid "Show all ..."
@@ -1157,6 +1193,9 @@ msgstr ""
 msgid "Time window"
 msgstr ""
 
+msgid "Timeline"
+msgstr ""
+
 msgid "Today"
 msgstr ""
 
@@ -1233,9 +1272,6 @@ msgid "Value List for Lending Contract No. %s"
 msgstr ""
 
 msgid "Value list"
-msgstr ""
-
-msgid "View"
 msgstr ""
 
 msgid "View %s"
@@ -1370,6 +1406,12 @@ msgstr ""
 msgid "already in Category"
 msgstr ""
 
+msgid "already reserved"
+msgstr ""
+
+msgid "available"
+msgstr ""
+
 msgid "awaiting approval"
 msgstr ""
 
@@ -1400,6 +1442,9 @@ msgstr ""
 msgid "found %i"
 msgstr ""
 
+msgid "general"
+msgstr ""
+
 msgid "go back"
 msgstr ""
 
@@ -1421,6 +1466,12 @@ msgstr ""
 msgid "inventory pool is closed on start_date. "
 msgstr ""
 
+msgid "is late"
+msgstr ""
+
+msgid "is returned"
+msgstr ""
+
 msgid "item not assigned. "
 msgstr ""
 
@@ -1434,6 +1485,9 @@ msgid "more properties"
 msgstr ""
 
 msgid "no image"
+msgstr ""
+
+msgid "no item assigned"
 msgstr ""
 
 msgid "no purpose specified"
@@ -1466,6 +1520,15 @@ msgstr ""
 msgid "quantity not available. "
 msgstr ""
 
+msgid "requested"
+msgstr ""
+
+msgid "reserved / item assigned in future"
+msgstr ""
+
+msgid "result"
+msgstr ""
+
 msgid "set current page as start page"
 msgstr ""
 
@@ -1493,7 +1556,13 @@ msgstr ""
 msgid "this is a package"
 msgstr ""
 
+msgid "total borrowable"
+msgstr ""
+
 msgid "total rentable"
+msgstr ""
+
+msgid "unavailable / can't be guaranteed"
 msgstr ""
 
 msgid "until"
@@ -1515,4 +1584,7 @@ msgid "while try to send an e-mail reminder to:"
 msgstr ""
 
 msgid "with comment"
+msgstr ""
+
+msgid "without conflict"
 msgstr ""
