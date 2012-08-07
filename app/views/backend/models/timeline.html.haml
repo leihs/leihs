@@ -30,7 +30,7 @@
     events = {}
     av.document_lines.each do |line|
       user = line.user
-      group_id = line.allocated_group.try(:id).to_i
+      group_id = line.allocated_group_id.to_i
   
       # if line is late then it won't be available until the item is returned 
       end_date = line.is_late? ? Availability::Change::ETERNITY : (line.end_date.tomorrow.to_time - 1.second)

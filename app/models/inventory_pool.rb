@@ -101,6 +101,8 @@ class InventoryPool < ActiveRecord::Base
     end
   end
 
+  has_many :running_lines
+
 #######################################################################
 
   def used_root_categories

@@ -3,7 +3,7 @@
 #
 Then "that model should not be available in any other group"  do
   # FIXME how can be executed the next line ?? where is implemented the maximum method ??
-  quantities = @model.in(@inventory_pool).maximum_available_in_period_for_groups(@inventory_pool.groups.where(['id != ?',@group]))
+  quantities = @model.in(@inventory_pool).maximum_available_in_period_for_groups(@inventory_pool.groups.where(['id != ?',@group]).pluck(:id))
   quantities.values.reduce(:+).to_i.should == 0
 end
 

@@ -1,22 +1,11 @@
 module Availability
   module DocumentLine
 
-    attr_accessor :allocated_group
-
-    def unavailable_from
-      if is_a?(ContractLine) and item_id
-        # if an item is already assigned, we block the availability even if the start_date is in the future 
-        Date.today
-      else
-        [start_date, Date.today].max
-      end
-    end
+    attr_accessor :allocated_group_id
     
     # if overdue, extend end_date to today
     def unavailable_until(m = nil)
-      d = if is_a?(ContractLine) and returned_date
-            returned_date
-          elsif is_late?
+      d = if is_late
             Date.today + Availability::Change::REPLACEMENT_INTERVAL
           else
             end_date
@@ -60,7 +49,7 @@ module Availability
     alias :is_available :available? # NOTE remove if custom as_json is gone 
 
     def maximum_available_quantity
-      model.availability_in(inventory_pool).maximum_available_in_period_for_groups(groups, start_date, end_date)      
+      model.availability_in(inventory_pool).maximum_available_in_period_for_groups(group_ids, start_date, end_date)      
     end
 
   end

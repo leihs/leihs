@@ -25,7 +25,7 @@ module Json
           h[:availability_for_inventory_pool] = {
             :partitions => current_inventory_pool.partitions_with_generals.array_for_model_and_groups(line.model, current_inventory_pool.groups.with_general).as_json(:include => :group),
             :availability => av.available_total_quantities,
-            :max_available => line.quantity + av.maximum_available_in_period_for_groups(line.groups, line.start_date, line.end_date)
+            :max_available => line.quantity + av.maximum_available_in_period_for_groups(line.group_ids, line.start_date, line.end_date)
           }
         end
 
