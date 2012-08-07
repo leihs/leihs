@@ -15,7 +15,7 @@ CREATE TABLE `access_rights` (
   KEY `index_access_rights_on_inventory_pool_id` (`inventory_pool_id`),
   KEY `index_access_rights_on_role_id` (`role_id`),
   KEY `index_on_user_id_and_inventory_pool_id_and_deleted_at` (`user_id`,`inventory_pool_id`,`deleted_at`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `accessories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -43,7 +43,7 @@ CREATE TABLE `addresses` (
   `longitude` float DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_addresses_on_street_and_zip_code_and_city_and_country_code` (`street`,`zip_code`,`city`,`country_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `attachments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -78,7 +78,7 @@ CREATE TABLE `audits` (
   KEY `associated_index` (`associated_id`,`associated_type`),
   KEY `user_index` (`user_id`,`user_type`),
   KEY `index_audits_on_created_at` (`created_at`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `authentication_systems` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -191,7 +191,7 @@ CREATE TABLE `database_authentications` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -203,7 +203,7 @@ CREATE TABLE `groups` (
   PRIMARY KEY (`id`),
   KEY `index_groups_on_delta` (`delta`),
   KEY `index_groups_on_inventory_pool_id` (`inventory_pool_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `groups_users` (
   `user_id` int(11) DEFAULT NULL,
@@ -271,7 +271,7 @@ CREATE TABLE `inventory_pools` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_inventory_pools_on_name` (`name`),
   KEY `index_inventory_pools_on_delta` (`delta`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `inventory_pools_model_groups` (
   `inventory_pool_id` int(11) DEFAULT NULL,
@@ -321,7 +321,7 @@ CREATE TABLE `items` (
   KEY `index_items_on_owner_id` (`owner_id`),
   KEY `index_items_on_parent_id_and_retired` (`parent_id`,`retired`),
   KEY `index_items_on_model_id_and_retired_and_inventory_pool_id` (`model_id`,`retired`,`inventory_pool_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `languages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -332,7 +332,7 @@ CREATE TABLE `languages` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_languages_on_name` (`name`),
   KEY `index_languages_on_active_and_default` (`active`,`default`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `locations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -398,7 +398,7 @@ CREATE TABLE `models` (
   PRIMARY KEY (`id`),
   KEY `index_models_on_delta` (`delta`),
   KEY `index_models_on_is_package` (`is_package`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `models_compatibles` (
   `model_id` int(11) DEFAULT NULL,
@@ -479,7 +479,7 @@ CREATE TABLE `partitions` (
   `quantity` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_partitions_on_model_id_and_inventory_pool_id_and_group_id` (`model_id`,`inventory_pool_id`,`group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `properties` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -509,7 +509,7 @@ CREATE TABLE `roles` (
   KEY `index_roles_on_lft` (`lft`),
   KEY `index_roles_on_rgt` (`rgt`),
   KEY `index_roles_on_name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `schema_migrations` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -547,7 +547,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   KEY `index_users_on_delta` (`delta`),
   KEY `index_users_on_authentication_system_id` (`authentication_system_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `workdays` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -561,7 +561,7 @@ CREATE TABLE `workdays` (
   `sunday` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `index_workdays_on_inventory_pool_id` (`inventory_pool_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO schema_migrations (version) VALUES ('20101213125330');
 
@@ -602,3 +602,5 @@ INSERT INTO schema_migrations (version) VALUES ('20120523134739');
 INSERT INTO schema_migrations (version) VALUES ('20120618143839');
 
 INSERT INTO schema_migrations (version) VALUES ('20120619083752');
+
+INSERT INTO schema_migrations (version) VALUES ('20120806203246');

@@ -11,7 +11,7 @@ Then /^(\w+) item(s?) of that model should be available in group '([^"]*)'( only
   n = to_number(n)
   @group = @inventory_pool.groups.find_by_name(group_name)
   all_groups = [Group::GENERAL_GROUP_ID] + @inventory_pool.group_ids
-  quantities = @model.partitions.in(@inventory_pool).current_partition
+  quantities = @inventory_pool.partitions_with_generals.hash_for_model(@model)
   quantities[@group.id].to_i.should == to_number(n)
 
   all_groups.each do |group|
@@ -29,7 +29,7 @@ When /^I move (\w+) item(s?) of that model from group "([^"]*)" to group "([^"]*
 end
 
 Then "that model should not be available in any group"  do
-  @model.partitions.in(@inventory_pool).current_partition.reject { |group_id, num| group_id == Group::GENERAL_GROUP_ID }.size.should == 0
+  @inventory_pool.partitions_with_generals.hash_for_model(@model).reject { |group_id, num| group_id == Group::GENERAL_GROUP_ID }.size.should == 0
 end
 
 # TODO: currently unused
@@ -52,7 +52,7 @@ end
 When /^I assign (\w+) item(s?) to group "([^"]*)"$/ do |n, plural, to_group_name|
   n = to_number(n)
   to_group = @inventory_pool.groups.find_by_name to_group_name
-  partition = @model.partitions.in(@inventory_pool).current_partition
+  partition = @inventory_pool.partitions_with_generals.hash_for_model(@model)
   partition[to_group.id] ||= 0
   partition[to_group.id] += n
   @model.partitions.in(@inventory_pool).set(partition)
@@ -71,7 +71,7 @@ end
 Then /^(\w+) item(s?) of that model should be available to "([^"]*)"$/ \
 do |n, plural, user|
   @user = User.find_by_login user
-  @model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(@user.groups, Date.today, Date.tomorrow).should == n.to_i
+  @model.availability_in(@inventory_pool.reload).maximum_available_in_period_for_groups(@user.groups, Date.today, Date.tomorrow).should == n.to_i
 end
 
 #
@@ -119,6 +119,7 @@ end
 
 When /^I lend (\w+) item(s?) of that model to "([^"]*)"$/ do |n, plural, user|
   @user = User.find_by_login user
+  @inventory_pool.reload
   n = to_number(n)
   order = FactoryGirl.create :order, :user => @user, :inventory_pool => @inventory_pool
   order.add_line(n, @model, nil, Date.today, Date.tomorrow, @inventory_pool)

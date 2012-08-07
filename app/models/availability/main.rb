@@ -61,7 +61,7 @@ module Availability
         @model.contract_lines.by_inventory_pool(@inventory_pool).handed_over_or_assigned_but_not_returned.includes(:groups) +
         @model.order_lines.scoped_by_inventory_pool_id(@inventory_pool).submitted.running(Date.today).includes(:groups)
       end.sort_by(&:start_date)
-      @partition      = @model.partitions.in(@inventory_pool).current_partition
+      @partition      = @inventory_pool.partitions_with_generals.hash_for_model(@model)
       compute
     end
 
