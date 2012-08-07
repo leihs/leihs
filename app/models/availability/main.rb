@@ -57,10 +57,12 @@ module Availability
     def initialize(attr)
       @model          = attr[:model]
       @inventory_pool = attr[:inventory_pool]
-      @document_lines = begin
-        @model.contract_lines.by_inventory_pool(@inventory_pool).handed_over_or_assigned_but_not_returned.includes(:groups) +
-        @model.order_lines.scoped_by_inventory_pool_id(@inventory_pool).submitted.running(Date.today).includes(:groups)
-      end.sort_by(&:start_date)
+      @inventory_pool.running_lines ||= begin
+        @inventory_pool.contract_lines.handed_over_or_assigned_but_not_returned.includes(:groups) +
+        @inventory_pool.order_lines.submitted.running(Date.today).includes(:groups)
+      end
+      # we use array select instead of sql where condition to fetch once all document_lines during the same request, instead of hit the db multiple times
+      @document_lines = @inventory_pool.running_lines.select {|line| line.model_id == @model.id}
       @partition      = @inventory_pool.partitions_with_generals.hash_for_model(@model)
       compute
     end

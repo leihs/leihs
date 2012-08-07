@@ -1,6 +1,8 @@
 module Availability
   module InventoryPool
 
+    attr_accessor :running_lines
+
     def overbooking_availabilities
       models.collect do |model|
         a = model.availability_in(self)
