@@ -57,7 +57,7 @@ module Availability
     def initialize(attr)
       @model          = attr[:model]
       @inventory_pool = attr[:inventory_pool]
-      @inventory_pool.running_lines ||= begin
+      @inventory_pool.running_lines = begin
         @inventory_pool.contract_lines.handed_over_or_assigned_but_not_returned.includes(:groups) +
         @inventory_pool.order_lines.submitted.running(Date.today).includes(:groups)
       end
