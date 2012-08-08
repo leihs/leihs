@@ -73,19 +73,26 @@ module Availability
         document_line_group_ids = document_line.concat_group_ids.to_s.split(',').map(&:to_i) # read from the running_line
         document_line.is_late = document_line.is_late > 0 if document_line.is_late.is_a? Fixnum # read from the running_line 
 
+        # if overdue, extend end_date to today
+        # given a reservation is running until the 24th and maintenance period is 0 days:
+        # - if today is the 15th, thus the item is available again from the 25th
+        # - if today is the 27th, thus the item is available again from the 28th
+        # the replacement_interval is 1 month 
+        unavailable_until = [(document_line.is_late ? Date.today + 1.month : document_line.end_date), Date.today].max + @model.maintenance_period.day
+
         # this is the order on the groups we check on:   
         # 1. groups that this particular document_line can be possibly assigned to, TODO sort groups by quantity desc ??
         # 2. general group
         # 3. groups which the user is not even member
         groups_to_check = (document_line_group_ids & inventory_pool_group_ids) + [Group::GENERAL_GROUP_ID] + (inventory_pool_group_ids - document_line_group_ids)
                                                                             # FIXME! document_line.start_date
-        maximum = available_quantities_for_groups(groups_to_check, @changes.between(document_line.unavailable_from, document_line.unavailable_until(@model)))
+        maximum = available_quantities_for_groups(groups_to_check, @changes.between(document_line.unavailable_from, unavailable_until))
         # if still no group has enough available quantity, we allocate to general as fallback
         group_id = groups_to_check.detect(proc {Group::GENERAL_GROUP_ID}) {|group_id| maximum[group_id] >= document_line.quantity }
         document_line.allocated_group_id = group_id
   
         start_change = @changes.insert_or_fetch_change(document_line.unavailable_from) # we don't recalculate the past
-        end_change   = @changes.insert_or_fetch_change(document_line.available_again_after_today(@model))
+        end_change   = @changes.insert_or_fetch_change(unavailable_until.tomorrow)
         inner_changes = @changes.between(start_change.date, end_change.date.yesterday)
         inner_changes.each_pair do |key, ic|
           qty = ic.quantities[group_id]

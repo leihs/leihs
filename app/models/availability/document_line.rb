@@ -3,25 +3,6 @@ module Availability
 
     attr_accessor :allocated_group_id
     
-    # if overdue, extend end_date to today
-    def unavailable_until(m = nil)
-      d = if is_late
-            Date.today + Availability::Change::REPLACEMENT_INTERVAL
-          else
-            end_date
-          end
-      m ||= model
-      d + m.maintenance_period.day
-    end
-
-    # given a reservation is running until the 24th and maintenance period is 0 days:
-    # - if today is the 15th, thus the item is available again from the 25th
-    # - if today is the 27th, thus the item is available again from the 28th 
-    def available_again_after_today(m = nil)
-      # TODO: Add maintenance period to Date.today
-      [unavailable_until(m), Date.today].max.tomorrow
-    end
-
 #################################
     
     def available?
