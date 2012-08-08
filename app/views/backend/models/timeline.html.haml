@@ -56,7 +56,7 @@
                                 end
                            
                               document_link = content_tag :div, :class => "buttons", :style => "margin: 1.5em;" do
-                                              link_to link_string, link_path
+                                              link_to link_string, link_path, :target => '_top'
                                             end
                               comment = ""
                               comment += ("<b>" + _("Item is overdue and therefore unavailable!") + "</b>") if line.is_late?
