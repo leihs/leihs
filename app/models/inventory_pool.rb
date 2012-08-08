@@ -101,7 +101,7 @@ class InventoryPool < ActiveRecord::Base
     end
   end
 
-  has_many :running_lines
+  has_many :running_lines, :order => :start_date # the order is needed by the availability computation TODO sort directly on to the sql-view ??
 
 #######################################################################
 
