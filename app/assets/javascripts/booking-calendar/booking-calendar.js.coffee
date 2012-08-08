@@ -186,23 +186,13 @@ class BookingCalendar
   render: => @fullcalendar.fullCalendar "render"
 
   renderFunction: (view)=>
-    console.log "RENDER"
-    console.log 1
     avDates = @ipSelector_el.find("option:selected").data("availability_dates")
-    console.log 2
-    requiredQuantity = parseInt @quantity_el.val()
-    console.log 3
+    requiredQuantity = if @quantityMode is "boolean" then 1 else parseInt @quantity_el.val()
     lastAvChange = undefined
     nextAvChange = undefined
     totalQuantity = undefined
     availableQuantity = undefined
-    console.log 4
-    console.log @ipSelector_el
-    console.log @ipSelector_el.find("option")
-    console.log @ipSelector_el.find("option:selected")
-    console.log @ipSelector_el.find("option:selected").data("holidays")
     holidaysInView = @getHolidays view.visStart, view.visEnd, @ipSelector_el.find("option:selected").data("holidays")
-    console.log 5
     do @resetCalendarView
     do @setTails
     do @toggleGoBack
@@ -369,14 +359,17 @@ class BookingCalendar
 
   calulateAvailableQuantity: (avChange)=>
     availableQuantity = 0
-    partitions = @selectedPartitions()
-    partitions = [] unless partitions?
-    for avEntry in avChange[2]
-      # null or 0 is the group "general" (the everyone partition)
-      if partitions.indexOf(avEntry.group_id) > -1 ||
-      avEntry.group_id == null || 
-      avEntry.group_id == 0
-        availableQuantity += avEntry.in_quantity 
+    if @quantityMode == "boolean"
+      availableQuantity = avChange[1]
+    else
+      partitions = @selectedPartitions()
+      partitions = [] unless partitions?
+      for avEntry in avChange[2]
+        # null or 0 is the group "general" (the everyone partition)
+        if partitions.indexOf(avEntry.group_id) > -1 or
+        avEntry.group_id == null or
+        avEntry.group_id == 0
+          availableQuantity += avEntry.in_quantity 
     return availableQuantity
 
   getDateByElement: (el)=>

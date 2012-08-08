@@ -63,7 +63,7 @@ class Line
     for change in availability
       allocations = change[2]
       for allocation in allocations
-        if allocation.out_document_lines[line_type]? and (allocation.out_document_lines[line_type].indexOf(line_data.id) > -1)
+        if allocation.out_document_lines? allocation.out_document_lines[line_type]? and (allocation.out_document_lines[line_type].indexOf(line_data.id) > -1)
           allocation.out_document_lines[line_type] = _.filter allocation.out_document_lines[line_type], (line)-> line != line_data.id
           allocation.in_quantity += line_data.quantity
           change[1] += line_data.quantity

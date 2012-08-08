@@ -52,6 +52,11 @@ namespace :app do
         end
       end
     end
+
+    task :jasmine do
+      system "guard-jasmine"
+      raise "Jasmine Test failed!" if $?.exitstatus == 0
+    end
   end
 
 
