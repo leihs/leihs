@@ -6,50 +6,50 @@ Feature: Handling of workdays
 
 Scenario: Default Workdays
 
-       When I try to order an item for 2.10.2030
+       When I try to order an item for 5.10.2030
        Then the order should not be approvable because it's a saturday
        
-       When I try to order an item for 3.10.2030
-       Then the order should not be approvable because it's a sunday
-       
-       When I try to order an item for 4.10.2030
-       Then the order should be approvable
-       
-       When I try to order an item for 5.10.2030
-       Then the order should be approvable
-       
        When I try to order an item for 6.10.2030
-       Then the order should be approvable
+       Then the order should not be approvable because it's a sunday
        
        When I try to order an item for 7.10.2030
        Then the order should be approvable
        
        When I try to order an item for 8.10.2030
+       Then the order should be approvable
+       
+       When I try to order an item for 9.10.2030
+       Then the order should be approvable
+       
+       When I try to order an item for 10.10.2030
+       Then the order should be approvable
+       
+       When I try to order an item for 11.10.2030
        Then the order should be approvable
        
 Scenario: Only works Mondays and Wednesdays
 
        Given inventory_pool is open on Monday, Wednesday
 
-       When I try to order an item for 2.10.2030
+       When I try to order an item for 5.10.2030
        Then the order should not be approvable because it's a saturday
 
-       When I try to order an item for 3.10.2030
+       When I try to order an item for 6.10.2030
        Then the order should not be approvable because it's a sunday
 
-       When I try to order an item for 4.10.2030
+       When I try to order an item for 7.10.2030
        Then the order should be approvable (monday is open)
 
-       When I try to order an item for 5.10.2030
+       When I try to order an item for 8.10.2030
        Then the order should not be approvable because it's a Tuesday
 
-       When I try to order an item for 6.10.2030
+       When I try to order an item for 9.10.2030
        Then the order should be approvable (Wednesday is open)
 
-       When I try to order an item for 7.10.2030
+       When I try to order an item for 10.10.2030
        Then the order should not be approvable because it's a Thursday
 
-       When I try to order an item for 8.10.2030
+       When I try to order an item for 11.10.2030
        Then the order should not be approvable because it's a Friday
 
 Scenario: With Holidays
