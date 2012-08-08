@@ -19,15 +19,15 @@ Scenario: List approved orders, grouped by same customer and same start_date
          And 12 items of model 'BENQ 19' exist
        Given the list of approved orders contains 0 elements
        When 'Joe' places a new order
-               And he asks for 5 'NEC 245' from 31.3.2100 
-               And he asks for 2 'BENQ 19' from 31.3.2100 
+               And he asks for 5 'NEC 245' from 31.3.2030 
+               And he asks for 2 'BENQ 19' from 31.3.2030 
                And he submits the new order
                And lending_manager approves the order
                And lending_manager clicks on 'hand_over'
        Then he sees 1 line with a total quantity of 7 
        When 'Joe' places a new order
-               And he asks for 2 'NEC 245' from 31.3.2100 
-               And he asks for 1 'BENQ 19' from 31.3.2100 
+               And he asks for 2 'NEC 245' from 31.3.2030 
+               And he asks for 1 'BENQ 19' from 31.3.2030 
                And he submits the new order
                And lending_manager approves the order
                And lending_manager clicks on 'hand_over'
@@ -38,9 +38,9 @@ Scenario: List approved orders, grouped by different customers and different sta
          And 12 items of model 'BENQ 19' exist
        Given the list of approved orders contains 0 elements
        When 'Joe' places a new order
-               And he asks for 5 'NEC 245' from 31.3.2101 
-               And he asks for 2 'BENQ 19' from 31.3.2101 
-               And he asks for 4 'BENQ 19' from 12.12.2112
+               And he asks for 5 'NEC 245' from 31.3.2031 
+               And he asks for 2 'BENQ 19' from 31.3.2031 
+               And he asks for 4 'BENQ 19' from 12.12.2035
                And he submits the new order
                And lending_manager approves the order
                And lending_manager clicks on 'hand_over'
@@ -48,9 +48,9 @@ Scenario: List approved orders, grouped by different customers and different sta
                And line 1 has a quantity of 7 for customer 'Joe' 
                And line 2 has a quantity of 4 for customer 'Joe'
        When 'Jack' places a new order
-               And he asks for 2 'NEC 245' from 31.3.2100 
-               And he asks for 1 'BENQ 19' from 31.3.2111 
-               And he asks for 3 'NEC 245' from 31.3.2111 
+               And he asks for 2 'NEC 245' from 31.3.2030 
+               And he asks for 1 'BENQ 19' from 31.3.2033 
+               And he asks for 3 'NEC 245' from 31.3.2033
                And he submits the new order
                And lending_manager approves the order
                And lending_manager clicks on 'hand_over'
@@ -66,9 +66,9 @@ Scenario: Generation of contract lines based on the approved order lines of a gi
          And 12 items of model 'BENQ 19' exist
        Given the list of approved orders contains 0 elements
        When 'Joe' places a new order
-               And he asks for 2 'NEC 245' from 31.3.2101 
-               And he asks for 1 'BENQ 19' from 31.3.2101 
-               And he asks for 3 'BENQ 19' from 12.12.2112     
+               And he asks for 2 'NEC 245' from 31.3.2031 
+               And he asks for 1 'BENQ 19' from 31.3.2031 
+               And he asks for 3 'BENQ 19' from 12.12.2035     
                And he submits the new order
                And lending_manager approves the order
        Then a new contract is generated
@@ -83,8 +83,8 @@ Scenario: Select order lines to hand over
          And 12 items of model 'BENQ 19' exist
        Given the list of approved orders contains 0 elements
        When 'Joe' places a new order
-               And he asks for 2 'NEC 245' from 31.3.2101 
-               And he asks for 2 'BENQ 19' from 31.3.2101      
+               And he asks for 2 'NEC 245' from 31.3.2031 
+               And he asks for 2 'BENQ 19' from 31.3.2031      
                And he submits the new order
                And lending_manager approves the order
                And lending_manager clicks on 'hand_over'
@@ -102,7 +102,7 @@ Scenario: Don't generate a new contract if all Items are handed over
        Given item 'AV_NEC245_1' of model 'NEC 245' exists
        Given the list of approved orders contains 0 elements
        When 'Joe' places a new order
-               And he asks for 1 'NEC 245' from 31.3.2101 
+               And he asks for 1 'NEC 245' from 31.3.2031 
                And he submits the new order
                And lending_manager approves the order
                And lending_manager clicks on 'hand_over'
@@ -117,11 +117,11 @@ Scenario: Bugfix: Don't allow handing over the same item twice
        Given items 'AV_NEC245_1,AV_NEC245_2' of model 'NEC 245' exist
         Given there are no contracts
        Given there is only an order by 'Joe'
-               And it asks for 1 'NEC 245' from 31.3.2100 
+               And it asks for 1 'NEC 245' from 31.3.2030 
                And the order was submitted
                And lending_manager approves the order
        Given there is an order by 'Toshi'
-               And it asks for 1 'NEC 245' from 31.3.2100
+               And it asks for 1 'NEC 245' from 31.3.2030
                And the order was submitted
                And lending_manager approves the order
        When lending_manager clicks on 'hand_over'
@@ -137,7 +137,7 @@ Scenario: Pre-set the 'from' and 'to' date of a new line before adding it via 'a
   Given items 'GUN1,GUN2.5,GUN33.33' of model 'Naked Gun' exist
   Given there are no contracts
   Given there is only an order by 'Frank Drebbin'
-    And it asks for 1 'Naked Gun' from 31.3.2100
+    And it asks for 1 'Naked Gun' from 31.3.2030
     And the order was submitted
    When I log in as 'inv_man_0' with password 'pass'
     And I press "Backend"
@@ -161,7 +161,7 @@ Scenario: Only automatically check items and options for hand over that have a t
         Given there are no contracts
        Given there is only an order by 'Joe'
                And it asks for 1 'The Day I tried to live - Single' from today
-               And it asks for 1 'The Day I tried to live - Single' from 31.3.2100 
+               And it asks for 1 'The Day I tried to live - Single' from 31.3.2030 
                And the order was submitted
                And lending_manager approves the order
        Given I am on the home page

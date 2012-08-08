@@ -8,6 +8,9 @@ class Partition < ActiveRecord::Base
   validates_presence_of :model, :inventory_pool, :quantity
   validates_numericality_of :quantity, :only_integer => true, :greater_than => 0
   
+  # TODO when leihs2 is switched off: remove this default_condition and validates presence of :group
+  default_scope :conditions => "group_id IS NOT NULL"
+  
   # also see model.rb->def in(...).
   # Model extends the "partitions" relation at access time with further methods
 
@@ -33,36 +36,7 @@ class Partition < ActiveRecord::Base
       # if there's no more items of a model in a group accessible to the customer,
       # then he shouldn't be able to see the model in the frontend.
     end
-  
-    # returns a hash {nil => 10, 41 => 3, 42 => 6, ...}
-    def current_partition
-      pp = @partitions.partition {|x| x.group_id == Group::GENERAL_GROUP_ID } # separate general group from other groups
-      general_partition = pp.first.first # the partition for general group, if persisted
-      defined_partitions = pp.last # these are the partitions defined by the inventory manager
-      
-      h = Hash[defined_partitions.map {|p| [p.group_id, p.quantity] }]
-      
-      # this are available for general group
-      quantity = @inventory_pool.items.borrowable.where(:model_id => @model).count - h.values.sum
-      if quantity > 0
-        if general_partition
-          general_partition.update_attributes(:quantity => quantity) if quantity != general_partition.quantity
-        else
-          @partitions.create(:group_id => Group::GENERAL_GROUP_ID, :quantity => quantity)
-        end
-      elsif general_partition
-        general_partition.destroy
-      end
-      h[Group::GENERAL_GROUP_ID] = quantity
-
-      h
-    end
-       
-    def by_groups(groups, with_general = true)
-      groups += [Group::GENERAL_GROUP_ID] if with_general 
-      @partitions.where(:group_id => groups)
-    end
-    
+             
     def all
       @partitions
     end

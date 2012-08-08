@@ -71,7 +71,37 @@ class InventoryPool < ActiveRecord::Base
   has_many :contract_lines, :through => :contracts, :uniq => true #Rails3.1# TODO still needed?
   has_many :visits #, :include => {:user => [:reminders, :groups]} # MySQL View based on contract_lines
 
-  has_many :groups #tmp#2#, :finder_sql => 'SELECT * FROM `groups` WHERE (`groups`.inventory_pool_id = #{id} OR `groups`.inventory_pool_id IS NULL)'
+  has_many :groups do #tmp#2#, :finder_sql => 'SELECT * FROM `groups` WHERE (`groups`.inventory_pool_id = #{id} OR `groups`.inventory_pool_id IS NULL)'
+    def with_general
+      all + [Group::GENERAL_GROUP_ID]
+    end
+  end
+
+#######################################################################
+
+  # MySQL View based on partitions and items
+  has_many :partitions_with_generals do
+    # we use array select instead of sql where condition to fetch once all partitions during the same request, instead of hit the db multiple times
+    # returns a hash as {group_id => quantity} like {nil => 10, 41 => 3, 42 => 6, ...}
+    def hash_for_model_and_groups(model, groups = nil)
+      a = select{|p| p.model_id == model.id}
+      if groups
+        group_ids = groups.map{|x| x.try(:id) }
+        a = a.select{|p| group_ids.include? p.group_id}
+      end
+      h = Hash[a.map{|p| [p.group_id, p.quantity] }]
+      h = {Group::GENERAL_GROUP_ID => 0} if h.empty?
+      h
+    end
+    alias :hash_for_model :hash_for_model_and_groups
+
+    def array_for_model_and_groups(model, groups)
+      group_ids = groups.map{|x| x.try(:id) }
+      select{|p| p.model_id == model.id and group_ids.include? p.group_id}
+    end
+  end
+
+  has_many :running_lines
 
 #######################################################################
 
