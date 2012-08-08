@@ -61,7 +61,7 @@ module Availability
       @document_lines = @inventory_pool.running_lines.select {|line| line.model_id == @model.id}
       @partition      = @inventory_pool.partitions_with_generals.hash_for_model(@model)
 
-      inventory_pool_group_ids = @inventory_pool.group_ids
+      inventory_pool_group_ids = @inventory_pool.loaded_group_ids ||= @inventory_pool.group_ids
 
       initial_change = Change.new(:date => Date.today)
       @partition.each_pair do |group_id, quantity|
@@ -70,8 +70,8 @@ module Availability
       @changes = Changes[initial_change.date => initial_change]
 
       @document_lines.each do |document_line|
-        document_line_group_ids = document_line.concat_group_ids.to_s.split(',').map(&:to_i)
-        document_line.is_late = document_line.is_late > 0 if document_line.is_late.is_a? Fixnum 
+        document_line_group_ids = document_line.concat_group_ids.to_s.split(',').map(&:to_i) # read from the running_line
+        document_line.is_late = document_line.is_late > 0 if document_line.is_late.is_a? Fixnum # read from the running_line 
 
         # this is the order on the groups we check on:   
         # 1. groups that this particular document_line can be possibly assigned to, TODO sort groups by quantity desc ??

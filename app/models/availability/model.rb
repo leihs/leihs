@@ -2,11 +2,9 @@ module Availability
   module Model
     
     def availability_in(inventory_pool)
-      # we keep the result in an instance variable to avoid recompute during the same request
-      # NOTE this simple-cache doesn't seem to be influent, let's go normal
-      #@av ||= {}
-      #@av[inventory_pool.id] ||= 
       Availability::Main.new(:model => self, :inventory_pool => inventory_pool)
+      # TODO and drop this method
+      #inventory_pool.availability_for(self)
     end
 
     def total_borrowable_items_for_user(user, inventory_pool = nil)
