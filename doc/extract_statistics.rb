@@ -90,7 +90,7 @@ def contract_line_analysis_for_item(item, year = nil)
     end
   end
 
-  header_text = "\"#{item.inventory_code}\",\"#{item.inventory_pool}\",\"#{item.model.name.gsub('\"','')}\",,,#{item_handovers},#{item_total_days}\n"
+  header_text = "\"#{item.inventory_code}\",\"#{item.inventory_pool}\",\"#{item.model.name.gsub(34.chr,'')}\",,,#{item_handovers},#{item_total_days}\n"
   return header_text + lines_text
 end
 
