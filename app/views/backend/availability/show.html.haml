@@ -11,7 +11,7 @@
 
   - @overbooking_availabilities.each do |ob|
     - ob.changes.each do |k, c|
-      - quantities = c.select {|g, q| q.in_quantity < 0 }.values
+      - quantities = c.select {|g, q| q[:in_quantity] < 0 }.values
       - next if quantities.empty?
       %tr
         %td

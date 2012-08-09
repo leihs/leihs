@@ -16,7 +16,7 @@ module Availability
       else
         # if an item is already assigned, but the start_date is in the future, we only consider the real start-end range dates
         aq = model.availability_in(inventory_pool).changes.between(start_date, end_date).values.flat_map{|x| x.values}
-        aq.all? {|q| q.out_document_lines and q.out_document_lines[self.class.to_s].try(:include?, id) ? q.in_quantity >= 0 : true }
+        aq.all? {|q| q[:out_document_lines] and q[:out_document_lines][self.class.to_s].try(:include?, id) ? q[:in_quantity] >= 0 : true }
       end
 
       # OPTIMIZE

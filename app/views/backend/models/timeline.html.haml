@@ -130,7 +130,7 @@
       if g == "-1" # showing total
         in_quantity = change.values.map(&:in_quantity).sum
       else
-        in_quantity = change[g].try(:in_quantity).to_i
+        in_quantity = change[g].try(:fetch, :in_quantity).to_i
       end
       if in_quantity < 0
         d << <<-BAND3

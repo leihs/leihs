@@ -49,7 +49,7 @@ module Availability
 #########################################################
 
   class Main
-    attr_reader :model, :inventory_pool, :document_lines, :partition, :changes
+    attr_reader :document_lines, :partition, :changes
     
     def initialize(attr)
       @model          = attr[:model]
@@ -62,7 +62,7 @@ module Availability
 
       initial_change = {}
       @partition.each_pair do |group_id, quantity|
-        initial_change[group_id] = Quantity.new(:group_id => group_id, :in_quantity => quantity)
+        initial_change[group_id] = {:in_quantity => quantity, :out_document_lines => {}}
       end
       @changes = Changes[Date.today => initial_change]
 
@@ -93,9 +93,9 @@ module Availability
         inner_changes = @changes.between(start_change_date, end_change_date.yesterday)
         inner_changes.each_pair do |key, ic|
           qty = ic[group_id]
-          qty.in_quantity  -= document_line.quantity
-          qty.out_quantity += document_line.quantity
-          qty.append_to_out_document_lines(document_line.class.to_s, document_line.id)
+          qty[:in_quantity]  -= document_line.quantity
+          qty[:out_document_lines][document_line.class.to_s] ||= []
+          qty[:out_document_lines][document_line.class.to_s] << document_line.id unless qty[:out_document_lines][document_line.class.to_s].include?(document_line.id) 
         end
       end
     end
@@ -108,10 +108,7 @@ module Availability
       @changes.map do |date, change|
         total = change.values.sum(&:in_quantity)
         groups = change.map do |g, q|
-          { :group_id => g,
-            :name => q.group.try(:name),
-            :in_quantity => q.in_quantity,
-            :out_document_lines => q.out_document_lines }
+          q.merge({:group_id => g})
         end
         [date, total, groups]
       end
@@ -122,7 +119,7 @@ module Availability
       c ||= @changes
       h = {}
       group_ids.each do |group_id|
-        h[group_id] = c.values.map{|c| c[group_id].try(:in_quantity).to_i }.min.to_i
+        h[group_id] = c.values.map{|c| c[group_id].try(:fetch, :in_quantity).to_i }.min.to_i
       end
       h
     end
