@@ -43,14 +43,17 @@ When /^I delete all lines of a model thats availability is blocked by these line
   reference_line = find(".line.error")
   line_group = find(".line.error").find(:xpath, "../..")
 
-  line_group.all(".line", :text => @model.name).each do |line|
+  lines = line_group.all(".line", :text => @model.name)
+  lines.each do |line|
     line[:class].match("error").should be_true
   end
   
-  (all(".line", :text => @model.name).size-1).times do
+  (line_group.all(".line", :text => @model.name).size-1).times do
     @line_element = find(".line", :text => @model.name)
     step 'I delete this line element'
   end
+
+  @not_deleted_line = line_group.find(".line", :text => @model.name)
 end
 
 Then /^the availability of the keeped line is updated$/ do
