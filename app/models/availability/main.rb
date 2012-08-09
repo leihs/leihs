@@ -106,7 +106,7 @@ module Availability
 
     def available_total_quantities
       @changes.map do |date, change|
-        total = change.values.sum(&:in_quantity)
+        total = change.values.sum{|x| x[:in_quantity]}
         groups = change.map do |g, q|
           q.merge({:group_id => g})
         end

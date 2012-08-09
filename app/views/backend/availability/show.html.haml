@@ -19,4 +19,4 @@
         %td
           = dates_with_period(k, ob.changes.end_date_of(k))
         %td
-          = quantities.sum(&:in_quantity)
+          = quantities.sum{|x| x[:in_quantity]}
