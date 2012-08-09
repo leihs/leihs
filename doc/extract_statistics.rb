@@ -90,7 +90,7 @@ def contract_line_analysis_for_item(item, year = nil)
     end
   end
 
-  header_text = "'#{item.inventory_code}','#{item.inventory_pool}','#{item.model.name.gsub("'","")}',,,#{item_handovers},#{item_total_days}\n"
+  header_text = "\"#{item.inventory_code}\",\"#{item.inventory_pool}\",\"#{item.model.name.gsub('\"','')}\",,,#{item_handovers},#{item_total_days}\n"
   return header_text + lines_text
 end
 
@@ -99,7 +99,7 @@ def movements_by_day(inventory_pool, year)
   start_day = Date.parse("#{year}-01-01")
   end_day = Date.parse("#{year}-12-31")
 
-  header_text = "'#{inventory_pool}',day,incoming,outgoing\n"
+  header_text = "\"#{inventory_pool}\",day,incoming,outgoing\n"
   start_day.upto(end_day) do |day|
     incoming = ContractLine.find(:all, :conditions => {:start_date => day})
     outgoing = ContractLine.find(:all, :conditions => {:returned_date => day})
