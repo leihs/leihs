@@ -23,9 +23,9 @@ module Json
           h[:total_borrowable] = line.model.total_borrowable_items_for_user(line.user, current_inventory_pool)
           av = line.model.availability_in(current_inventory_pool)
           h[:availability_for_inventory_pool] = {
-            :partitions => line.model.partitions.in(current_inventory_pool).by_groups(current_inventory_pool.groups).as_json(:include => :group),
+            :partitions => current_inventory_pool.partitions_with_generals.array_for_model_and_groups(line.model, current_inventory_pool.groups.with_general).as_json(:include => :group),
             :availability => av.available_total_quantities,
-            :max_available => line.quantity + av.maximum_available_in_period_for_groups(line.groups, line.start_date, line.end_date)
+            :max_available => line.quantity + av.maximum_available_in_period_for_groups(line.group_ids, line.start_date, line.end_date)
           }
         end
 

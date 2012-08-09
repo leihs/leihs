@@ -41,7 +41,7 @@ class Order < Document
 
 #########################################################################
   
-  default_scope order('created_at ASC')
+  default_scope order('orders.created_at ASC')
   
   scope :unsubmitted, where(:status_const => Order::UNSUBMITTED)
   scope :submitted, where(:status_const => Order::SUBMITTED) # OPTIMIZE N+1 select problem
