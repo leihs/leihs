@@ -1,3 +1,5 @@
+-#old leihs#
+
 %h3
   = _("Overbooking")
 
@@ -9,7 +11,7 @@
 
   - @overbooking_availabilities.each do |ob|
     - ob.changes.each do |k, c|
-      - quantities = c.quantities.select {|g, q| q.in_quantity < 0 }.values
+      - quantities = c.select {|g, q| q[:in_quantity] < 0 }.values
       - next if quantities.empty?
       %tr
         %td
@@ -17,4 +19,4 @@
         %td
           = dates_with_period(k, ob.changes.end_date_of(k))
         %td
-          = quantities.sum(&:in_quantity)
+          = quantities.sum{|x| x[:in_quantity]}

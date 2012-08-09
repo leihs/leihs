@@ -1,10 +1,12 @@
 module Availability
 
+  ETERNITY = Date.parse("3000-01-01")
+
   class Changes < Hash
 
     def between(start_date, end_date)
       # start from most recent entry we have, which is the last before start_date
-      start_date = most_recent_before_or_equal(start_date).try(:date) || start_date
+      start_date = most_recent_before_or_equal(start_date) || start_date
 
       keys_between = keys & (start_date..end_date).to_a
       #tmp# select {|k,v| keys_between.include?(k) }
@@ -12,23 +14,20 @@ module Availability
     end
 
     def end_date_of(date)
-      first_after(date).try(:date).try(:yesterday) || Availability::Change::ETERNITY
+      first_after(date).try(:yesterday) || Availability::ETERNITY
     end
         
-    # Ensure that a change with the given "new_change_date" exists.
-    # If there isn't a change on "new_change_date" then a new change will be added with the given "new_change_date".
+    # Ensure that a change with the given "new_date" exists.
+    # If there isn't a change on "new_date" then a new change will be added with the given "new_date".
     #   The newly created change will have the same quantities associated as the change preceding it.
     #   The newly created change will be returned.
-    # If a change with a "new_change_date" however allready exists, then that change will be returned.
-    def insert_or_fetch_change(new_change_date)
-      if change = self[new_change_date]
-        return change
-      else
-        change = most_recent_before_or_equal(new_change_date)
-        new_change = Change.new(:date => new_change_date)
-        new_change.quantities = Marshal.load( Marshal.dump(change.quantities) ) # NOTE this keeps references: change.quantities.dup
-        return self[new_change.date] = new_change
+    # If a change with a "new_date" however allready exists, then that change will be returned.
+    def insert_or_fetch_change(new_date)
+      self[new_date] ||= begin
+        change = self[most_recent_before_or_equal(new_date)]
+        Marshal.load( Marshal.dump(change) ) # NOTE we copy values (we don't want references with .dup)
       end
+      new_date
     end
 
     private
@@ -36,15 +35,13 @@ module Availability
     # returns a change, the last before the date argument
     def most_recent_before_or_equal(date) # TODO ?? rename to last_before_or_equal(date)
       #tmp# k = keys.sort.reverse.detect {|x| x <= date}
-      k = keys.select {|x| x <= date}.max
-      self[k]
+      keys.select {|x| x <= date}.max
     end
 
     # returns a change, the first after the date argument
     def first_after(date)
       #tmp# k = keys.sort.detect {|x| x > date}
-      k = keys.select {|x| x > date}.min
-      self[k]
+      keys.select {|x| x > date}.min
     end
 
   end
@@ -52,7 +49,7 @@ module Availability
 #########################################################
 
   class Main
-    attr_reader :model, :inventory_pool, :document_lines, :partition, :changes
+    attr_reader :document_lines, :partition, :changes
     
     def initialize(attr)
       @model          = attr[:model]
@@ -63,11 +60,11 @@ module Availability
 
       inventory_pool_group_ids = @inventory_pool.loaded_group_ids ||= @inventory_pool.group_ids
 
-      initial_change = Change.new(:date => Date.today)
+      initial_change = {}
       @partition.each_pair do |group_id, quantity|
-        initial_change.quantities[group_id] = Quantity.new(:group_id => group_id, :in_quantity => quantity)
+        initial_change[group_id] = {:in_quantity => quantity, :out_document_lines => {}}
       end
-      @changes = Changes[initial_change.date => initial_change]
+      @changes = Changes[Date.today => initial_change]
 
       @document_lines.each do |document_line|
         document_line_group_ids = document_line.concat_group_ids.to_s.split(',').map(&:to_i) # read from the running_line
@@ -85,20 +82,20 @@ module Availability
         # 2. general group
         # 3. groups which the user is not even member
         groups_to_check = (document_line_group_ids & inventory_pool_group_ids) + [Group::GENERAL_GROUP_ID] + (inventory_pool_group_ids - document_line_group_ids)
-                                                                            # FIXME! document_line.start_date
+                                                                            # FIXME! document_line.start_date ??
         maximum = available_quantities_for_groups(groups_to_check, @changes.between(document_line.unavailable_from, unavailable_until))
         # if still no group has enough available quantity, we allocate to general as fallback
         group_id = groups_to_check.detect(proc {Group::GENERAL_GROUP_ID}) {|group_id| maximum[group_id] >= document_line.quantity }
         document_line.allocated_group_id = group_id
   
-        start_change = @changes.insert_or_fetch_change(document_line.unavailable_from) # we don't recalculate the past
-        end_change   = @changes.insert_or_fetch_change(unavailable_until.tomorrow)
-        inner_changes = @changes.between(start_change.date, end_change.date.yesterday)
+        start_change_date = @changes.insert_or_fetch_change(document_line.unavailable_from) # we don't recalculate the past
+        end_change_date   = @changes.insert_or_fetch_change(unavailable_until.tomorrow)
+        inner_changes = @changes.between(start_change_date, end_change_date.yesterday)
         inner_changes.each_pair do |key, ic|
-          qty = ic.quantities[group_id]
-          qty.in_quantity  -= document_line.quantity
-          qty.out_quantity += document_line.quantity
-          qty.append_to_out_document_lines(document_line.class.to_s, document_line.id)
+          qty = ic[group_id]
+          qty[:in_quantity]  -= document_line.quantity
+          qty[:out_document_lines][document_line.class.to_s] ||= []
+          qty[:out_document_lines][document_line.class.to_s] << document_line.id unless qty[:out_document_lines][document_line.class.to_s].include?(document_line.id) 
         end
       end
     end
@@ -109,12 +106,9 @@ module Availability
 
     def available_total_quantities
       @changes.map do |date, change|
-        total = change.quantities.values.sum(&:in_quantity)
-        groups = change.quantities.map do |g, q|
-          { :group_id => g,
-            :name => q.group.try(:name),
-            :in_quantity => q.in_quantity,
-            :out_document_lines => q.out_document_lines }
+        total = change.values.sum{|x| x[:in_quantity]}
+        groups = change.map do |g, q|
+          q.merge({:group_id => g})
         end
         [date, total, groups]
       end
@@ -125,7 +119,7 @@ module Availability
       c ||= @changes
       h = {}
       group_ids.each do |group_id|
-        h[group_id] = c.values.map{|c| c.quantities[group_id].try(:in_quantity).to_i }.min.to_i
+        h[group_id] = c.values.map{|c| c[group_id].try(:fetch, :in_quantity).to_i }.min.to_i
       end
       h
     end

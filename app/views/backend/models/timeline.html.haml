@@ -34,7 +34,7 @@
       group_id = line.allocated_group_id.to_i
   
       # if line is late then it won't be available until the item is returned 
-      end_date = line.is_late? ? Availability::Change::ETERNITY : (line.end_date.tomorrow.to_time - 1.second)
+      end_date = line.is_late? ? Availability::ETERNITY : (line.end_date.tomorrow.to_time - 1.second)
   
       # if line is reserved in the future and assigned an item, then the item will be reserved until then and not available from now on 
       start_date = line.is_reserved? ? Date.today : line.start_date
@@ -128,9 +128,9 @@
       end_date = [av.changes.end_date_of(start_date), start_date + 1.month].min
       d = []
       if g == "-1" # showing total
-        in_quantity = change.quantities.values.map(&:in_quantity).sum
+        in_quantity = change.values.sum{|x| x[:in_quantity]}
       else
-        in_quantity = change.in_quantity_in_group(g)
+        in_quantity = change[g].try(:fetch, :in_quantity).to_i
       end
       if in_quantity < 0
         d << <<-BAND3
