@@ -67,3 +67,73 @@ pools = InventoryPool.all(:order => :name)
     csv_print_statistics(stats,year)
   end
 end
+
+
+
+def contract_line_analysis_for_item(item, year = nil)
+  item_total_days = 0
+  item_handovers = 0
+  lines_text = ""
+
+  if year == nil
+    lines = item.contract_lines
+  else
+    lines = item.contract_lines.find(:all, :conditions => "start_date > '#{year}-01-01' AND start_date < '#{year}-12-31'")
+  end
+
+  lines.each do |cl|
+    unless cl.returned_date.nil?
+      days = (cl.returned_date - cl.start_date).to_i
+      item_handovers += 1
+      item_total_days += days 
+      lines_text += ",,,#{cl.start_date.to_s},#{cl.returned_date.to_s},1,#{days}\n"
+    end
+  end
+
+  header_text = "'#{item.inventory_code}','#{item.inventory_pool}','#{item.model.name.gsub("'","")}',,,#{item_handovers},#{item_total_days}\n"
+  return header_text + lines_text
+end
+
+def movements_by_day(inventory_pool, year)
+  lines_text = ""
+  start_day = Date.parse("#{year}-01-01")
+  end_day = Date.parse("#{year}-12-31")
+
+  header_text = "'#{inventory_pool}',day,incoming,outgoing\n"
+  start_day.upto(end_day) do |day|
+    incoming = ContractLine.find(:all, :conditions => {:start_date => day})
+    outgoing = ContractLine.find(:all, :conditions => {:returned_date => day})
+
+    incoming_count = 0
+    incoming.each do |i|
+      incoming_count += 1 if i.inventory_pool == inventory_pool
+    end
+
+    outgoing_count = 0
+    outgoing.each do |i|
+      outgoing_count += 1 if i.inventory_pool == inventory_pool
+    end
+
+    lines_text += ",#{day.to_s},#{incoming_count},#{outgoing_count}\n"
+  end
+  return header_text + lines_text
+end
+
+
+def analyze_hkb
+  
+  handovers = File.open("/tmp/handovers.csv","w")
+  Item.all.each do |item|
+    handovers.puts(contract_line_analysis_for_item(item, 2010))
+  end
+  handovers.close
+ 
+  ip = InventoryPool.find(4) 
+ 
+  movements = File.open("/tmp/movements.csv","w")
+  movements.puts(movements_by_day(ip, 2011))
+  movements.close
+
+end
+
+
