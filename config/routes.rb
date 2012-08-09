@@ -275,7 +275,7 @@ Leihs::Application.routes.draw do
           put :add_user
         end
       end
-      resource :availability, :controller => 'availability'
+      #old leihs# resource :availability, :controller => 'availability'
     end
   end
 

@@ -53,7 +53,7 @@ def to_date( date )
   elsif date == "now"
     return Date.today
   elsif date == "the_end_of_time"
-    return Availability::Change::ETERNITY
+    return Availability::ETERNITY
   else
     return LeihsFactory.parsedate( date )
   end

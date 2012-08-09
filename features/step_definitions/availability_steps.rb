@@ -65,7 +65,7 @@ do |who, model, date|
 end
 
 Then "it should always be available" do
-  @model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(@user.group_ids, Date.today, Availability::Change::ETERNITY).should > 0
+  @model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(@user.group_ids, Date.today, Availability::ETERNITY).should > 0
 end
 
 Then "$quantity should be available from $from to $to" do |quantity, from, to|
