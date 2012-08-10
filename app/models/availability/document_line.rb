@@ -13,10 +13,16 @@ module Availability
         # the user's unsubmitted order_lines should exclude each other
         all_quantities = model.order_lines.scoped_by_inventory_pool_id(inventory_pool).unsubmitted.running(start_date).by_user(order.user).sum(:quantity)
         (maximum_available_quantity >= all_quantities)
+      elsif is_a?(OptionLine)
+        true
+      elsif not inventory_pool.running_lines.detect {|x| x == self} # NOTE doesn't work with include?(self) because are running_lines
+        # we use array select instead of sql where condition to fetch once all document_lines during the same request, instead of hit the db multiple times
+        true
       else
         # if an item is already assigned, but the start_date is in the future, we only consider the real start-end range dates
-        aq = model.availability_in(inventory_pool).changes.between(start_date, end_date).values.flat_map{|x| x.values}
-        aq.all? {|q| q[:out_document_lines] and q[:out_document_lines][self.class.to_s].try(:include?, id) ? q[:in_quantity] >= 0 : true }
+        a = model.availability_in(inventory_pool)
+        group_id = a.document_lines.detect {|x| x == self}.allocated_group_id # NOTE doesn't work self.allocated_group_id because is not a running_line
+        a.changes.between(start_date, end_date).all? {|k,v| v[group_id][:in_quantity] >= 0}
       end
 
       # OPTIMIZE
