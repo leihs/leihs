@@ -16,9 +16,9 @@ class Backend::BackendController < ApplicationController
   def index
     ip_id = session[:current_inventory_pool_id] || current_user.latest_inventory_pool_id_before_logout
     ip = current_user.managed_inventory_pools.detect{|x| x.id==ip_id} if ip_id
-    start_screen = current_user.start_screen(ip) if ip
+    start_screen = current_user.start_screen
     if start_screen
-      redirect_to current_user.start_screen(ip)  
+      redirect_to current_user.start_screen
     elsif current_user.managed_inventory_pools.blank? and current_user.has_role? :admin
       redirect_to backend_inventory_pools_path
     elsif current_user.access_rights.managers.where(:access_level => 3).exists? # user has manager level 3 => inventory manager

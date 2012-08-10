@@ -93,6 +93,7 @@ Leihs::Application.routes.draw do
         delete :remove_access_right
         get :extended_info
         post :update_badge_id
+        post :set_start_screen
       end
     end
     
@@ -229,8 +230,7 @@ Leihs::Application.routes.draw do
           get :groups
           put :add_group
           delete :remove_group
-          post :update_badge_id 
-          post :set_start_screen         
+          post :update_badge_id    
         end
         resource :hand_over, :controller => 'hand_over' do
           member do

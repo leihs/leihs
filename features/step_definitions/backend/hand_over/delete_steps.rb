@@ -40,19 +40,20 @@ end
 When /^I delete all lines of a model thats availability is blocked by these lines$/ do
   step 'I add so many lines that I break the maximal quantity of an model'
 
-  reference_line = find(".line.error")
-  line_group = find(".line.error").find(:xpath, "../..")
+  target_linegroup = all(".line").detect{|line| line.find(".select input").checked?}.find(:xpath, "../../..")
+  reference_line = all(".line.error").detect{|line| not line.find(".select input").checked?}
+  @reference_id = reference_line["data-id"]
 
-  line_group.all(".line", :text => @model.name).each do |line|
-    line[:class].match("error").should be_true
-  end
-  
-  (all(".line", :text => @model.name).size-1).times do
-    @line_element = find(".line", :text => @model.name)
-    step 'I delete this line element'
+  line_ids = target_linegroup.all(".line.error", :text => @model.name).map{|line| line["data-id"]}
+  line_ids.each do |id|
+    if id != @reference_id
+      @line_element = all(".line").detect{|line| line["data-id"] == id}
+      step 'I delete this line element'
+    end
   end
 end
 
 Then /^the availability of the keeped line is updated$/ do
-  line = find(".line", :text => @model.name)[:class].match("error").should be_nil
+  reference_line = all(".line").detect{|line| line["data-id"] == @reference_id}
+  reference_line[:class].match("error").should be_nil
 end

@@ -12,7 +12,7 @@ class MultipleMergedLinesAvailabilities
   constructor: (selected_lines) ->
     # remove line from their own availability (non-selfblocking problem)
     for line in selected_lines
-      line.availability = Line.remove_line_from_availability line, line.availability
+      line.availability = Line.remove_line_from_availability line, line.availability_for_inventory_pool.availability
     
     # prepare the returning format:  availability, partitions and inventory_pool
     merged_lines_availabilities = {}
@@ -113,7 +113,7 @@ class MultipleMergedLinesAvailabilities
               
       # push new entry to the results
       merged_lines_availabilities.availability.push new_entry
-    
+
     return merged_lines_availabilities
             
 window.MultipleMergedLinesAvailabilities = MultipleMergedLinesAvailabilities
