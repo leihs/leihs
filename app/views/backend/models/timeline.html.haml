@@ -123,14 +123,13 @@
   group_ids.each do |g|
     add_timeband(current_inventory_pool, bandNames_js, bandInfos_js, g)
     
-    prev_in_quantity = nil
     decorators_js << av.changes.map do |start_date, change|
       end_date = [av.changes.end_date_of(start_date), start_date + 1.month].min
       d = []
-      if g == "-1" # showing total
-        in_quantity = change.values.sum{|x| x[:in_quantity]}
+      in_quantity = if g == "-1" # showing total
+        change.values.sum{|x| x[:in_quantity]}
       else
-        in_quantity = change[g].try(:fetch, :in_quantity).to_i
+        change[g].try(:fetch, :in_quantity).to_i
       end
       if in_quantity < 0
         d << <<-BAND3
@@ -141,17 +140,16 @@
                      opacity:   50 } )
              BAND3
       end
-      #if prev_in_quantity != in_quantity
-        #prev_in_quantity = in_quantity
-        d << <<-BAND4
-             new Timeline.SpanHighlightDecorator(
-                   { startDate: '#{(start_date.to_time - 1.hour).to_s(:rfc822)}',
-                     endDate:   '#{(start_date.to_time + 1.hour).to_s(:rfc822)}',
-                     color:     '#000000',
-                     opacity:   50,
-                     endLabel:  '#{in_quantity}' } )
-             BAND4
-      #end
+
+      d << <<-BAND4
+           new Timeline.SpanHighlightDecorator(
+                 { startDate: '#{(start_date.to_time - 1.hour).to_s(:rfc822)}',
+                   endDate:   '#{(start_date.to_time + 1.hour).to_s(:rfc822)}',
+                   color:     '#000000',
+                   opacity:   50,
+                   endLabel:  '#{in_quantity}' } )
+           BAND4
+
       (start_date.tomorrow..end_date).each do |date|
         d << <<-BAND4
              new Timeline.SpanHighlightDecorator(
