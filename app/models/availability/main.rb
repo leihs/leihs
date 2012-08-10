@@ -20,7 +20,7 @@ module Availability
     # If there isn't a change on "new_date" then a new change will be added with the given "new_date".
     #   The newly created change will have the same quantities associated as the change preceding it.
     def insert_changes_and_get_inner(start_date, end_date)
-      [start_date, end_date].each do |new_date|
+      [start_date, end_date.tomorrow].each do |new_date|
         self[new_date] ||= begin
           change = self[most_recent_before_or_equal(new_date)]
           Marshal.load( Marshal.dump(change) ) # NOTE we copy values (we don't want references with .dup)
