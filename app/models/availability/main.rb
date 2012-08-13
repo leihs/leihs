@@ -48,19 +48,19 @@ module Availability
 #########################################################
 
   class Main
-    attr_reader :document_lines, :partition, :changes
+    attr_reader :document_lines, :partitions, :changes
     
     def initialize(attr)
       @model          = attr[:model]
       @inventory_pool = attr[:inventory_pool]
       # we use array select instead of sql where condition to fetch once all document_lines during the same request, instead of hit the db multiple times
       @document_lines = @inventory_pool.running_lines.select {|line| line.model_id == @model.id}
-      @partition      = @inventory_pool.partitions_with_generals.hash_for_model(@model)
+      @partitions     = @inventory_pool.partitions_with_generals.hash_for_model(@model)
 
       inventory_pool_group_ids = @inventory_pool.loaded_group_ids ||= @inventory_pool.group_ids
 
       initial_change = {}
-      @partition.each_pair do |group_id, quantity|
+      @partitions.each_pair do |group_id, quantity|
         initial_change[group_id] = {:in_quantity => quantity, :out_document_lines => {}}
       end
       @changes = Changes[Date.today => initial_change]
