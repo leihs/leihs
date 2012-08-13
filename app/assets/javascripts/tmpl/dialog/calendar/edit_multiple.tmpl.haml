@@ -6,9 +6,9 @@ ${$user = Line.get_user(SelectedLines.lines_data[0]), ""}
 ${$name = Str.sliced_trunc($user.firstname+" "+$user.lastname, 20, "... "), ""}
 ${$start_date_disabled = !Line.is_start_date_moveable(SelectedLines.lines_data[0]), ""}
 
-= form_tag '${$item.action}', :remote => true, :onsubmit => "$(this).find('.close_dialog').attr('disabled', true)", :"data-submit_button" => true do
+= form_tag '${$item.target_url}', :remote => true, :onsubmit => "$(this).find('.close_dialog').attr('disabled', true)", :"data-submit_button" => true do
   {{tmpl({title: "#{_("Edit multiple selected items")}", subtitle: $name}) "app/views/shared/dialog/title"}}
-  {{tmpl({buttons: ["save", "close"]}) "app/views/shared/dialog/navigation"}}
+  {{tmpl({buttons: ["save"], close: true, on_success: $item.on_success}) "app/views/shared/dialog/navigation"}}
   
   .flash_message
   

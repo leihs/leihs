@@ -3,9 +3,9 @@ ${$name = Str.sliced_trunc($user.name, 20, "... "), ""}
 ${$start_date_disabled = ($item.data.contract!=undefined)&&($item.data.contract.action == "take_back"), ""}
 ${$subtitle = $name + " " + moment(start_date).format(i18n.date.L) + " - " + moment(end_date).format(i18n.date.L), ""}
 
-= form_tag '${$item.action}', :remote => true, :onsubmit => "$(this).find('.close_dialog').attr('disabled', true)", :"data-submit_button" => true do
+= form_tag '${$item.target_url}', :remote => true, :onsubmit => "$(this).find('.close_dialog').attr('disabled', true)", :"data-submit_button" => true do
   {{tmpl({title: model.name, subtitle: $subtitle}) "app/views/shared/dialog/title"}}
-  {{tmpl({buttons: ["save", "close"]}) "app/views/shared/dialog/navigation"}}
+  {{tmpl({buttons: ["save"], close: true, on_success: $item.on_success}) "app/views/shared/dialog/navigation"}}
 
   .flash_message
   
