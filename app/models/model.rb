@@ -41,11 +41,20 @@ class Model < ActiveRecord::Base
   has_many :inventory_pools, :through => :items, :uniq => true
 
   has_many :partitions, :dependent => :delete_all do
-    def in(inventory_pool)
-      # At this point partitions are model scoped, additionally
-      # we want to scope them for inventory pool too (double scope).
-      Partition::Scoped.new(inventory_pool, proxy_association.owner,
-                           self.scoped.where(:inventory_pool_id => inventory_pool))
+    def set_in(inventory_pool, new_partitions)
+      where(:inventory_pool_id => inventory_pool).scoping do
+        delete_all
+        new_partitions.delete(Group::GENERAL_GROUP_ID)
+        unless new_partitions.blank?
+          valid_group_ids = inventory_pool.group_ids
+          new_partitions.each_pair do |group_id, quantity|
+            group_id = group_id.to_i
+            quantity = quantity.to_i
+            create(:group_id => group_id, :quantity => quantity) if valid_group_ids.include?(group_id) and quantity > 0
+          end
+        end
+        # if there's no more items of a model in a group accessible to the customer, then he shouldn't be able to see the model in the frontend.
+      end
     end
   end
   

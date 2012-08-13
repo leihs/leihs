@@ -57,7 +57,7 @@ When /^I assign (\w+) item(s?) to group "([^"]*)"$/ do |n, plural, to_group_name
   partition = @inventory_pool.partitions_with_generals.hash_for_model(@model)
   partition[to_group.id] ||= 0
   partition[to_group.id] += n
-  @model.partitions.in(@inventory_pool).set(partition)
+  @model.partitions.set_in(@inventory_pool, partition)
 end
 
 Then "that model should not be available to anybody" do
