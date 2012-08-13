@@ -9,7 +9,7 @@ do |quantity, model, from, to|
   order.add_line(quantity.to_i, model, nil, to_date(from), to_date(to))
   order.submit.should be_true
   order.lines.size.should >= 1
-  model.running_reservations(order.inventory_pool).size.should >= 1
+  model.availability_in(order.inventory_pool.reload).document_lines.size.should >= 1
 end
 
 Given "a contract exists for $quantity '$model' from $from to $to" \
@@ -26,7 +26,7 @@ do |quantity, model, from, to|
   @contract.reload
   @contract.lines.size.should >= 1
   @contract.lines.first.item.should_not be_nil
-  model.running_reservations(@contract.inventory_pool).size.should >= 1
+  model.availability_in(@contract.inventory_pool).document_lines.size.should >= 1
 end
 
 
@@ -35,7 +35,7 @@ Given "the maintenance period for this model is $days days" do |days|
   @model.save
 end
 
-Given "$who marks $quantity '$model' as 'in-repair' on 18.3.2100" \
+Given "$who marks $quantity '$model' as 'in-repair' on 18.3.2030" \
 do |who, quantity, model|
   @model = Model.find_by_name(model)
   quantity.to_i.times do |i|
@@ -65,38 +65,33 @@ do |who, model, date|
 end
 
 Then "it should always be available" do
-  @model.availability_changes_in(@inventory_pool).
-	 maximum_available_in_period_for_user(@user, Date.today, Availability::Change::ETERNITY).
-         should > 0
+  @model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(@user.group_ids, Date.today, Availability::ETERNITY).should > 0
 end
 
 Then "$quantity should be available from $from to $to" do |quantity, from, to|
   from = to_date( from )
   to   = to_date( to )
-
-  @model.availability_changes_in(@inventory_pool).maximum_available_in_period_for_user(@user, from, to).should == quantity.to_i
+  @model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(@user.group_ids, from, to).should == quantity.to_i
 end
 
 Then "the maximum available quantity on $date is $quantity" do |date, quantity|
   date = to_date(date)
-  @model.availability_changes_in(@inventory_pool).
-	 maximum_available_in_period_for_user(@user, date, date).
-	 should == quantity.to_i      
+  @model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(@user.group_ids, date, date).should == quantity.to_i      
 end
 
 Then "if I check the maximum available quantity for $date it is $quantity on $current_date" do |date, quantity, current_date|
   date = to_date(date)
   back_to_the_future( to_date(current_date) )
-  @model.availability_changes_in(@inventory_pool).maximum_available_in_period_for_user(@user, date, date).should == quantity.to_i
+  @inventory_pool.reload
+  @model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(@user.group_ids, date, date).should == quantity.to_i
   back_to_the_present
+  @inventory_pool.reload
 end
 
 Then "the maximum available quantity from $start_date to $end_date is $quantity" do |start_date, end_date, quantity|
   start_date = to_date(start_date)
   end_date   = to_date(end_date)
-  @model.availability_changes_in(@inventory_pool).
-	 maximum_available_in_period_for_user(@user, start_date, end_date).
-	 should == quantity.to_i
+  @model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(@user.group_ids, start_date, end_date).should == quantity.to_i
 end
 
 When "I check the availability changes for '$model'" do |model|

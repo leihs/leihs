@@ -68,8 +68,7 @@ Wenn /^einem Gegenstand einen Inventarcode manuell zuweise$/ do
 end
 
 Dann /^wird der Gegenstand ausgewählt und der Haken gesetzt$/ do
-  wait_until { @item_line_element.find(".select input").checked? }
-  @item_line_element["class"].split(" ").include?("assigned").should be_true
+  wait_until { find(".line.assigned", :text => @item.model.name).find(".select input").checked? }
   step 'the count matches the amount of selected lines'
 end
 
@@ -92,25 +91,26 @@ end
 
 Wenn /^ich eine Aushändigung mache die ein Model enthält dessen Gegenstände ein nicht ausleihbares enthält$/ do
   @ip = @user.managed_inventory_pools.first
-  @contract = nil
-  @ip.items.unborrowable.each do |item|
-    @contract = @ip.contracts.unsigned.detect{|c| c.models.include?(item.model)}
+  @contract_line = nil
+  @contract = @ip.contracts.unsigned.detect do |c|
+    @contract_line = c.lines.detect do |l|
+      l.model.items.unborrowable.scoped_by_inventory_pool_id(@ip).first
+    end
   end
+  @model = @contract_line.model
   @customer = @contract.user
   visit backend_inventory_pool_user_hand_over_path(@ip, @customer)
-  page.has_css?("#take_back", :visible => true)
+  page.has_css?("#hand_over", :visible => true)
 end
 
 Wenn /^diesem Model ein Inventarcode zuweisen möchte$/ do
-  @model = @contract.models.detect{|m| m.items.unborrowable.count > 0}
-  @item_line_element = find(".item_line", :text => @model.name)
-  @contract_line = ContractLine.find @item_line_element["data-id"]
+  @item_line_element = find(:xpath, "//ul[@data-id='#{@contract_line.id}']")
   @item_line_element.find(".inventory_code input").click
-  page.execute_script('$(".line[data-id=#{@contract_line.id}] .inventory_code input").focus()')
+  page.execute_script('$(".line[data-id=\'#{@contract_line.id}\'] .inventory_code input").focus()')
 end
 
 Dann /^schlägt mir das System eine Liste von Gegenständen vor$/ do
-  wait_until { find(".ui-autocomplete") }
+  wait_until { find(".ui-autocomplete .ui-menu-item") }
 end
 
 Dann /^diejenigen Gegenstände sind gekennzeichnet, welche als nicht ausleihbar markiert sind$/ do
@@ -273,3 +273,100 @@ Dann /^man sieht auf jeder Zeile die Summe der Gegenstände des jeweiligen Model
     quantities.sum.should >= quantities.size
   end
 end
+
+Angenommen /^ich suche$/ do
+  @search_term = "a"
+  find("#search").set(@search_term)
+  find("#topbar .search.item input[type=submit]").click
+end
+
+Dann /^erhalte ich Suchresultate in den Kategorien Benutzer, Modelle, Gegenstände, Verträge und Bestellungen$/ do
+  find(".user .list .line")
+  find(".model .list .line")
+  find(".item .list .line")
+  find(".contract .list .line")
+  find(".order .list .line")
+end
+
+Dann /^ich sehe aus jeder Kategorie maximal die (\d+) ersten Resultate$/ do |amount|
+  amount = (amount.to_i+2)
+  all(".user .list .line:not(.toggle)", :visible => true).size.should <= amount
+  all(".model .list .line:not(.toggle)", :visible => true).size.should <= amount
+  all(".item .list .line:not(.toggle)", :visible => true).size.should <= amount
+  all(".contract .list .line:not(.toggle)", :visible => true).size.should <= amount
+  all(".order .list .line:not(.toggle)", :visible => true).size.should <= amount 
+end
+
+Wenn /^eine Kategorie mehr als (\d+) Resultate bringt$/ do |amount|
+  @lists = []
+  all(".list").each do |list|
+    @lists.push(list) if list.find(".hidden .line")
+  end
+end
+
+Dann /^kann ich wählen, ob ich aus einer Kategorie mehr Resultate sehen will$/ do
+  @lists.each do |list|
+    list.find(".toggle")
+  end
+end
+
+Wenn /^ich mehr Resultate wähle$/ do
+  @lists.each do |list|
+    list.find(".toggle .text").click
+  end
+end
+
+Dann /^sehe ich die ersten (\d+) Resultate$/ do |amount|
+  amount = amount.to_i + 2
+  @lists.each do |list|
+    list.all(".line").size.should == amount
+  end
+end
+
+Wenn /^die Kategorie mehr als (\d+) Resultate bringt$/ do |amount|
+  amount = amount.to_i
+  @list_with_more_matches = []
+  all(".inlinetabs .badge").each do |badge|
+    @list_with_more_matches.push badge.find(:xpath, "../../..").find(".list") if badge.text.to_i > amount
+  end
+end
+
+Dann /^kann ich wählen, ob ich alle Resultate sehen will$/ do
+  @links_of_more_results = []
+  @list_with_more_matches.each do |list|
+    @links_of_more_results.push list.find(".line.show-all a")[:href]
+  end
+end
+
+Wenn /^ich alle Resultate wähle erhalte ich eine separate Liste aller Resultate dieser Kategorie$/ do
+  @links_of_more_results.each do |link|
+    visit link
+    wait_until { find("#search_results.focused") }
+  end
+end
+
+Angenommen /^ich sehe Probleme auf einer Zeile, die durch die Verfügbarkeit bedingt sind$/ do
+  step 'I open a hand over'
+  step 'I add so many lines that I break the maximal quantity of an model'
+  @line_el = find(".line.error")
+  @line = ContractLine.find page.evaluate_script %Q{ $(".line.error:first-child").tmplItem().data.id; }
+end
+
+Angenommen /^ich fahre über das Problem$/ do
+  page.execute_script %Q{ $(".line.error:first-child .problems").trigger("mouseenter"); }
+  wait_until { find(".tip") }
+end
+
+Angenommen /^ich sehe die Anzahl der total ausleihbaren Modelle$/ do
+  @model = Model.find_by_name @line_el.find(".name").text
+  find(".tip").should have_content @model.total_borrowable_items_for_user(@customer, @ip)
+end
+
+Angenommen /^ich sehe die Anzahl der bereits reservierten Modelle$/ do
+  find(".tip").should have_content (@model.total_borrowable_items_for_user(@customer, @ip)-(1 + @model.availability_in(@ip).maximum_available_in_period_for_groups(@customer.group_ids, @line.start_date, @line.end_date)))
+end
+
+Angenommen /^ich sehe die Anzahl der verfügbaren Modelle$/ do
+  find(".tip").should have_content (1 + @model.availability_in(@ip).maximum_available_in_period_for_groups(@customer.group_ids, @line.start_date, @line.end_date))
+end
+

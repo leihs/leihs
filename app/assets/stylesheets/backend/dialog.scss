@@ -3,8 +3,21 @@
 
 .ui-dialog {
   
+  // deprecated (will be replaced through small, medium, large)
   &.take_back, &.hand_over, &.acknowledge, &.calendar, &.order_line, &.add_item, &.documents {
     width: 760px !important;
+  }
+
+  &.small {
+    width: 400px !important;
+  }
+
+  &.medium {
+   width: 760px !important; 
+  }
+
+  &.large, &.full_width {
+    width: 900px !important;
   }
   
   h1 {

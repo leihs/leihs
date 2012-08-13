@@ -15,6 +15,7 @@
 
 .qtip.target-selection {
   @include box-shadow (0 0 6px rgba(0,0,0,0.2));
+  @include unselectable();
   
   .ui-tooltip-content {
     background: white;
@@ -44,13 +45,13 @@
   max-width: 410px;
   
   .ui-tooltip-content {
-    border-color: $darkgrey;
-    border-width: 2px;
+    border: 1px solid white;
     background-color: white;
     color: $darkergrey;
     padding: 10px 14px;
     @include border-radius(6px);
-    @include box-shadow (0 0 10px #888);
+    @include box-shadows (0 0 1px 1px rgba(0,0,100,0.5),0 0 24px rgba(0,0,90,0.4));
+    @include text-shadow (-1px 1px 0 white);
   }
   
   .ui-tooltip-titlebar {
@@ -75,6 +76,17 @@
   .tip {
     position: relative;
     
+    &.problems .availability table {
+      tr:last-child td, tr:nth-child(3) td {
+        border-top: 1px solid $lightgrey;
+      }
+
+      tr td:last-child {
+        padding-left: 12px;
+        text-align: right;
+      }
+    }
+
     &.lines {
       
       .date {

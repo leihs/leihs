@@ -1,8 +1,6 @@
 class AccessRight < ActiveRecord::Base
   acts_as_audited :associated_with => :user
 
-  store :settings, accessors: [ :start_screen ]
-
   belongs_to :role
   belongs_to :user
   belongs_to :inventory_pool

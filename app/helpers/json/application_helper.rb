@@ -97,7 +97,7 @@ module Json
            :purpose => true }
         when :order_line
           {:model => {},
-           :order => {:user => {:groups => true}}, # FIXME remove this, we already have it as parent
+           :order => {:user => {:groups => true}}, # FIXME remove this, we already have it as parent (used in line.js.coffee.erb @get_user)
            :availability_for_inventory_pool => true,
            :dates => true,
            :quantity => true,
@@ -117,7 +117,14 @@ module Json
             {:is_valid => true,
              :item => {:is_borrowable => true, :is_broken => true, :is_incomplete => true},
              :model => {},
-             :contract => {:user => {:groups => {}}},
+             :contract => {:user => {:groups => {}}}, # FIXME remove this, get it through parent contract (used in line.js.coffee.erb @get_user)
+             :purpose => true,
+             :availability => true}
+          when :hand_over_line
+            {:is_valid => true,
+             :item => {:is_borrowable => true, :is_broken => true, :is_incomplete => true},
+             :model => {:hand_over_note => true},
+             :contract => {:user => {:groups => {}}}, # FIXME remove this, get it through parent contract (used in line.js.coffee.erb @get_user)
              :purpose => true,
              :availability => true}
           when :user
@@ -130,6 +137,8 @@ module Json
              :badge_id => true}
           when :visit_with_availability
             {:lines => {:preset => :contract_line}}
+          when :hand_over_visit
+            {:lines => {:preset => :hand_over_line}}
           when :visit
             {:user => {:preset => :user},
              :lines => {:model => {}, 

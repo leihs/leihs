@@ -28,13 +28,20 @@ class Line
       
   @get_problems = (data)->
     problems = []
-    problems.push "<%= _('Not available') %> (#{data.quantity} <%= _('are reserved')%>, #{data.max_available} <%= _('are available')%>: #{data.max_available-data.quantity})" if data.is_available == false
+    if data.is_available == false
+      problems.push 
+        key: "availability"
+        value: [{key: "<%=_('total borrowable')%>", value: data.total_borrowable},
+                {key: "<%=_('already reserved')%>", value: data.total_borrowable - data.availability_for_inventory_pool.max_available},
+                {key: "<%=_('available')%>", value: data.availability_for_inventory_pool.max_available},
+                {key: "<%=_('requested')%>", value: data.quantity},
+                {key: "<%=_('result')%>", value: (data.availability_for_inventory_pool.max_available-data.quantity)}]
     return problems
   
   @highlight = (line_element, type)->
     $(line_element).addClass("highlight #{type}")
     setTimeout ()->
-      $(line_element).removeClass("highlight #{type}")  
+      $(line_element).removeClass("highlight #{type}")
     , 300
     
   @recompute_availability = (line_data)->
@@ -51,12 +58,11 @@ class Line
 
   @remove_line_from_availability = (line_data, availability)->
     return undefined if not availability?
-    availability = line_data.availability_for_inventory_pool.availability
     line_type = Underscore.str.classify(line_data.type)
     for change in availability
       allocations = change[2]
       for allocation in allocations
-        if allocation.out_document_lines[line_type]? and (allocation.out_document_lines[line_type].indexOf(line_data.id) > -1)
+        if allocation.out_document_lines? and allocation.out_document_lines[line_type]? and (allocation.out_document_lines[line_type].indexOf(line_data.id) > -1)
           allocation.out_document_lines[line_type] = _.filter allocation.out_document_lines[line_type], (line)-> line != line_data.id
           allocation.in_quantity += line_data.quantity
           change[1] += line_data.quantity

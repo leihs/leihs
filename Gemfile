@@ -55,10 +55,12 @@ group :test, :development do
   gem "guard-cucumber", "~> 1.2"
   gem "guard-rspec", "~> 1.1"
   gem "guard-spork", "~> 1.0"
-  gem "guard-jasmine-headless-webkit", "~> 0.3.2"
-  gem "jasmine-headless-webkit", "~> 0.8.4" # needed for "headless" running of jasmine tests (needed for CI)
-  gem "jasmine-rails", "~> 0.0.2" # javascript test environment
-  gem "jasminerice", "~> 0.0.8" # needed for implement coffeescript, fixtures and asset pipeline serverd css into jasmine
+  gem "guard-jasmine", "~> 1.6.1"
+  gem "phantomjs", "~> 1.6.0.0" # headless webdriver (UI & JS tests)
+  #gem "guard-jasmine-headless-webkit", "~> 0.3.2"
+  #gem "jasmine-headless-webkit", "~> 0.8.4"
+  #gem "jasmine-rails", "~> 0.1.0" # javascript test environment
+  gem "jasminerice", "~> 0.0.9" # needed for implement coffeescript, fixtures and asset pipeline serverd css into jasmine
   gem "rb-fsevent", "~> 0.9"
   gem "ruby_gntp", "~> 0.3.4"
   gem 'factory_girl', "~> 3.3"

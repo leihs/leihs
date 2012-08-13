@@ -1,8 +1,11 @@
 class OrderLine < DocumentLine
 
   belongs_to :order
+  alias :document :order
   belongs_to :inventory_pool
-  belongs_to :model  
+  belongs_to :model
+  has_one :user, :through => :order
+  has_many :groups, :through => :user
 
   validates_presence_of :order
   validate do
@@ -41,13 +44,10 @@ class OrderLine < DocumentLine
     false #TODO 27 Not necessary anymore
   end
 
-  def document
-    order
-  end
-  
   def item
     nil
   end
+  alias :item_id :item 
   
   def type
     self.class.to_s.underscore

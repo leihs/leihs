@@ -1,183 +1,124 @@
 module Availability
 
-  class Changes < Array # TODO sorted by date ?? linked list ??
+  ETERNITY = Date.parse("3000-01-01")
+
+  class Changes < Hash
 
     def between(start_date, end_date)
       # start from most recent entry we have, which is the last before start_date
-      start_date = most_recent_before_or_equal(start_date).try(:date) || start_date
-      r = select do |change|
-        (start_date..end_date).include?(change.date)
+      start_date = most_recent_before_or_equal(start_date) || start_date
+
+      keys_between = keys & (start_date..end_date).to_a
+      #tmp# select {|k,v| keys_between.include?(k) }
+      Hash[keys_between.map{|x| [x, self[x]]}]
+    end
+
+    def end_date_of(date)
+      first_after(date).try(:yesterday) || Availability::ETERNITY
+    end
+        
+    # If there isn't a change on "new_date" then a new change will be added with the given "new_date".
+    #   The newly created change will have the same quantities associated as the change preceding it.
+    def insert_changes_and_get_inner(start_date, end_date)
+      [start_date, end_date.tomorrow].each do |new_date|
+        self[new_date] ||= begin
+          change = self[most_recent_before_or_equal(new_date)]
+          Marshal.load( Marshal.dump(change) ) # NOTE we copy values (we don't want references with .dup)
+        end
       end
-      self.class.new(r)
+      between(start_date, end_date)
+    end
+
+    private
+    
+    # returns a change, the last before the date argument
+    def most_recent_before_or_equal(date) # TODO ?? rename to last_before_or_equal(date)
+      #tmp# k = keys.sort.reverse.detect {|x| x <= date}
+      keys.select {|x| x <= date}.max
     end
 
     # returns a change, the first after the date argument
     def first_after(date)
-      #sort.detect {|c| c.date > date }
-      select {|c| c.date > date}.sort.first
-    end
-    
-    def end_date_of(change)
-      first_after(change.date).try(:date).try(:yesterday) || Availability::Change::ETERNITY
-    end
-    
-    # returns a change, the last before the date argument
-    def most_recent_before_or_equal(date) # rename to last_before_or_equal(date) 
-      select {|c| c.date <= date}.sort.last
+      #tmp# k = keys.sort.detect {|x| x > date}
+      keys.select {|x| x > date}.min
     end
 
-    # returns a Hash {group_id => sum_quantity}
-    def available_quantities_for_groups(groups)
-      group_ids = [Group::GENERAL_GROUP_ID] + groups.collect(&:id)
-      map do |change|
-        #selected_quantities = change.quantities.select {|q| group_ids.include?(q.group_id) }
-        #[change, selected_quantities.collect(&:in_quantity).sum]
-        total = change.quantities.inject(0) do |sum,q|
-          group_ids.include?(q.group_id) ? sum + q.in_quantity : sum
-        end      
-        [change.date, total]
-      end
-    end
-    
-    def available_total_quantities
-      map do |change|
-        total = change.quantities.sum(&:in_quantity)
-        groups = change.quantities.map do |q|
-          h = if q.group_id
-            {:group_id => q.group_id, :name => q.group.name}
-          else
-            {:group_id => 0, :name => nil}
-          end
-          h.merge({:in_quantity => q.in_quantity, :out_document_lines => q.out_document_lines})
-        end
-        [change.date, total, groups]
-      end
-    end
-
-    # Ensure that a change with the given "new_change_date" exists.
-    #
-    # If there isn't a change on "new_change_date" then a new change
-    #   will be added with the given "new_change_date".
-    #
-    #   The newly created change will have the same quantities
-    #   associated as the change preceding it.
-    #
-    #   The newly created change will be returned.
-    #
-    # If a change with a "new_change_date" however allready exists,
-    #   then that change will be returned.
-    #
-    def insert_or_fetch_change(new_change_date)
-      change = most_recent_before_or_equal(new_change_date)
-      if change.date < new_change_date
-        new_change = Change.new(:date => new_change_date)
-        change.quantities.each do |quantity|
-          new_change.quantities << quantity.deep_clone
-        end
-        self << new_change
-        return new_change
-      else #, when change.date == new_change_date
-        return change
-      end
-    end
   end
 
 #########################################################
 
-  # TODO change name ??
   class Main
-    attr_reader :model_id
-    attr_reader :inventory_pool_id
-    attr_reader :changes # changes are allways sorted by date
+    attr_reader :document_lines, :partition, :changes
     
     def initialize(attr)
-      @model_id          = attr[:model_id]
-      @inventory_pool_id = attr[:inventory_pool_id]
-      compute
-    end
+      @model          = attr[:model]
+      @inventory_pool = attr[:inventory_pool]
+      # we use array select instead of sql where condition to fetch once all document_lines during the same request, instead of hit the db multiple times
+      @document_lines = @inventory_pool.running_lines.select {|line| line.model_id == @model.id}
+      @partition      = @inventory_pool.partitions_with_generals.hash_for_model(@model)
 
-    def model
-      ::Model.find @model_id
-    end
+      inventory_pool_group_ids = @inventory_pool.loaded_group_ids ||= @inventory_pool.group_ids
 
-    def inventory_pool
-      ::InventoryPool.find @inventory_pool_id
-    end
-        
-    def compute
-      initial_change = Change.new(:date => Date.today)
-      current_partition = model.partitions.in(inventory_pool).current_partition
-      #1402 TODO write big model_ids partition hash ?? or keep it as instance variable ??
-      current_partition.each_pair do |group_id, quantity|
-        initial_change.quantities << Quantity.new(:group_id => group_id, :in_quantity => quantity)
+      initial_change = {}
+      @partition.each_pair do |group_id, quantity|
+        initial_change[group_id] = {:in_quantity => quantity, :out_document_lines => {}}
       end
+      @changes = Changes[Date.today => initial_change]
 
-      @changes = Changes.new
-      @changes << initial_change
+      @document_lines.each do |document_line|
+        document_line_group_ids = document_line.concat_group_ids.to_s.split(',').map(&:to_i) # read from the running_line
+        document_line.is_late = document_line.is_late > 0 if document_line.is_late.is_a? Fixnum # read from the running_line 
 
-      reservations = model.running_reservations(inventory_pool)
-      reservations.each do |document_line|
-        start_change = @changes.insert_or_fetch_change(document_line.unavailable_from) # we don't recalculate the past
-        end_change   = @changes.insert_or_fetch_change(document_line.available_again_after_today)
-   
-        # groups that this particular reservation can be possibly assigned to
-        groups = document_line.document.user.groups.scoped_by_inventory_pool_id(inventory_pool) # optimize!
-        # groups doesn't contain the general group! then we add it manually
-        groups_with_general = groups + [Group::GENERAL_GROUP_ID]
-        maximum = scoped_maximum_available_in_period_for_groups(groups_with_general, document_line.start_date, document_line.unavailable_until)
+        # if overdue, extend end_date to today
+        # given a reservation is running until the 24th and maintenance period is 0 days:
+        # - if today is the 15th, thus the item is available again from the 25th
+        # - if today is the 27th, thus the item is available again from the 28th
+        # the replacement_interval is 1 month 
+        unavailable_until = [(document_line.is_late ? Date.today + 1.month : document_line.end_date), Date.today].max + @model.maintenance_period.day
+
+        # we don't recalculate the past
+        inner_changes = @changes.insert_changes_and_get_inner(document_line.unavailable_from, unavailable_until)
+
+        # this is the order on the groups we check on:   
+        # 1. groups that this particular document_line can be possibly assigned to, TODO sort groups by quantity desc ??
+        # 2. general group
+        # 3. groups which the user is not even member
+        groups_to_check = (document_line_group_ids & inventory_pool_group_ids) + [Group::GENERAL_GROUP_ID] + (inventory_pool_group_ids - document_line_group_ids)
+        maximum = available_quantities_for_groups(groups_to_check, inner_changes)
+        # if still no group has enough available quantity, we allocate to general as fallback
+        document_line.allocated_group_id = groups_to_check.detect(proc {Group::GENERAL_GROUP_ID}) {|group_id| maximum[group_id] >= document_line.quantity }
   
-        # TODO sort groups by quantity desc
-        # currently the general is the last one!
-        group = groups_with_general.detect {|group| maximum[group] >= document_line.quantity }
-        
-        # if no user's group or general has enough available quantity,
-        # we force to allocate to a group which the user is not even member,
-        group ||= begin
-          # reset groups and maximum
-          groups = inventory_pool.groups
-          maximum = scoped_maximum_available_in_period_for_groups(groups, document_line.start_date, document_line.unavailable_until)
-          # if still no group has enough available quantity, we allocate to general as fallback
-          groups.detect(proc {Group::GENERAL_GROUP_ID}) {|group| maximum[group] >= document_line.quantity }
-        end
-  
-        inner_changes = @changes.between(start_change.date, end_change.date.yesterday)
-        inner_changes.each do |ic|
-          qty = ic.quantities.detect {|q| q.group == group}
-          qty.in_quantity  -= document_line.quantity
-          qty.out_quantity += document_line.quantity
-          qty.append_to_out_document_lines(document_line.class.to_s, document_line.id)
+        inner_changes.each_pair do |key, ic|
+          qty = ic[document_line.allocated_group_id]
+          qty[:in_quantity]  -= document_line.quantity
+          qty[:out_document_lines][document_line.class.to_s] ||= []
+          qty[:out_document_lines][document_line.class.to_s] << document_line.id 
         end
       end
-      # ensure changes are sorted
-      @changes = Changes.new(@changes.sort_by(&:date)) # cast Array into Changes
     end
     
-    def maximum_available_in_period_for_user(user, start_date, end_date)
-      groups = user.groups.scoped_by_inventory_pool_id(inventory_pool)
-      h = @changes.between(start_date, end_date).available_quantities_for_groups(groups)
-      h.sort {|a,b| a[1]<=>b[1]}.first.try(:last).to_i
+    def maximum_available_in_period_for_groups(group_ids, start_date, end_date)
+      available_quantities_for_groups([Group::GENERAL_GROUP_ID] + (group_ids & @inventory_pool.group_ids), @changes.between(start_date, end_date)).values.max
     end
 
-###########################################################
-    private
-
-    def scoped_maximum_available_in_period_for_groups(group_or_groups, start_date = Date.today, end_date = Availability::Change::ETERNITY)
-      max_per_group = Hash.new
-      Array(group_or_groups).each do |group|
-        max_per_group[group] = minimum_in_group_between(start_date, end_date, group)
-      end   
-      max_per_group
-    end
-
-    def minimum_in_group_between(start_date, end_date, group)
-      minimum = nil
-      @changes.between(start_date, end_date).each do |change|
-        quantity = change.quantities.detect { |qty| qty.group_id == group.try(:id) }
-        unless quantity.nil?
-          minimum = (minimum.nil? ? quantity.in_quantity : [quantity.in_quantity, minimum].min)
+    def available_total_quantities
+      @changes.map do |date, change|
+        total = change.values.sum{|x| x[:in_quantity]}
+        groups = change.map do |g, q|
+          q.merge({:group_id => g})
         end
+        [date, total, groups]
       end
-      minimum.to_i
+    end
+
+    # returns a Hash {group_id => quantity}
+    def available_quantities_for_groups(group_ids, c = nil)
+      c ||= @changes
+      h = {}
+      group_ids.each do |group_id|
+        h[group_id] = c.values.map{|c| c[group_id].try(:fetch, :in_quantity).to_i }.min.to_i
+      end
+      h
     end
 
   end

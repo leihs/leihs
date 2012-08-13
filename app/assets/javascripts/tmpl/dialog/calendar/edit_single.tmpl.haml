@@ -3,7 +3,7 @@ ${$name = Str.sliced_trunc($user.name, 20, "... "), ""}
 ${$start_date_disabled = ($item.data.contract!=undefined)&&($item.data.contract.action == "take_back"), ""}
 ${$subtitle = $name + " " + moment(start_date).format(i18n.date.L) + " - " + moment(end_date).format(i18n.date.L), ""}
 
-= form_tag '${$item.action}', :remote => true, :"data-submit_button" => true do
+= form_tag '${$item.action}', :remote => true, :onsubmit => "$(this).find('.close_dialog').attr('disabled', true)", :"data-submit_button" => true do
   {{tmpl({title: model.name, subtitle: $subtitle}) "app/views/shared/dialog/title"}}
   {{tmpl({buttons: ["save", "close"]}) "app/views/shared/dialog/navigation"}}
 
@@ -11,7 +11,7 @@ ${$subtitle = $name + " " + moment(start_date).format(i18n.date.L) + " - " + mom
   
   .calendar_input
   
-    {{if (availability_for_inventory_pool && availability_for_inventory_pool.partitions && total_rentable)}}
+    {{if (availability_for_inventory_pool && availability_for_inventory_pool.partitions)}}
     .partition.container
       %span.select
         %span.name
@@ -73,6 +73,7 @@ ${$subtitle = $name + " " + moment(start_date).format(i18n.date.L) + " - " + mom
     
     {{if availability_for_inventory_pool}}
     .inventorypool.container
+      %span.select
       %select{:id => "inventory_pool_id", :name => "inventory_pool_id"}
         %option{:value => "current",
                 :"data-total_borrowable" => "{{if total_rentable}}${JSON.stringify(total_rentable)}{{else}}undefined{{/if}}",

@@ -21,31 +21,35 @@
     #selection_actions
     
       .selection
-        = _("Auswahl")
-        %span.count= "(0)"
+
+        .text
+          = _("Auswahl")
+          %span.count= "(0)"
         
-      .actions
-        .multibutton{:"data-toggle_on_line_selection" => true}
-          .alternatives
-            .trigger.green
-              .arrow
-            = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@user.id}/take_back/update_lines", 
-            :class => "button white open_dialog",
-            :"data-rel" => "tmpl/dialog/calendar/edit_multiple", 
-            :"data-dialog_class" => "calendar multiple",
-            :"data-on_success" => 'TakeBack.update_visits(response);',
-            :id => "edit_selection" do
-              .icon.timerange
-              = _("Edit Selection")
-              
-          = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@user.id}/take_back/close_contract", 
-          :class => "button green open_dialog",
-          :"data-rel" => "tmpl/dialog/take_back/summary",
-          :"data-dialog_class" => "take_back",
-          :"data-add_selected_line_ids" => "true",
-          :"data-on_success" => "TakeBack.open_documents(response)",
-          :id => "take_back_button" do
-            = _("Take Back Items")
+        .actions
+          .multibutton{:"data-toggle_on_line_selection" => true}
+            .alternatives
+              .trigger.green
+                .arrow
+              = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@user.id}/take_back/update_lines", 
+              :class => "button white open_dialog",
+              :"data-tmpl" => "tmpl/dialog/calendar/edit_multiple", 
+              :"data-dialog_class" => "calendar multiple",
+              :"data-on_success" => 'TakeBack.update_visits(response);',
+              :"data-dialog_ready" => "new BookingCalendar({quantityMode: 'boolean'})",
+              :id => "edit_selection" do
+                .icon.timerange
+                = _("Edit Selection")
+                
+            = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@user.id}/take_back/close_contract", 
+            :class => "button green open_dialog",
+            :"data-tmpl" => "tmpl/dialog/take_back/summary",
+            :"data-dialog_class" => "take_back",
+            :"data-add_selected_line_ids" => "true",
+            :"data-on_success" => "TakeBack.open_documents(response)",
+            :id => "take_back_button" do
+              = _("Take Back Items")
+
     .clear
     
   %hr
@@ -53,6 +57,7 @@
   #visits
 
 :ruby
+  inventory_pool_json = json_for current_inventory_pool, {:closed_days => true, :holidays => true}
   visits_json = json_for(@visits, {:preset => :visit_with_availability})
                                                
 :coffeescript
@@ -60,3 +65,4 @@
     $('#visits').html($.tmpl("tmpl/visit", #{visits_json} ))
     TakeBack.setup()
     SelectedLines.setup()
+    window.InventoryPool = new InventoryPool(#{inventory_pool_json})

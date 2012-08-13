@@ -48,7 +48,7 @@ function Dialog() {
       $(_dialog).data("startLeft", ($(_params.trigger).offset().left + $(_params.trigger).width()/2));
       $(_dialog).data("startTop", ($(_params.trigger).offset().top + $(_params.trigger).height()/2));
       $(_dialog).data("callback", _params.callback);
-      $(_dialog).data("dialog_ready", _params.dialog_ready);
+      $(_dialog).data("dialog_ready", ($(_params.trigger).data("dialog_ready") != undefined) ? $(_params.trigger).data("dialog_ready") : _params.dialog_ready);
       $(_dialog).data("trigger", _params.trigger);
       $(_dialog).data("padding", Dialog.default_padding);
       Dialog.setup(_dialog);
@@ -159,11 +159,16 @@ function Dialog() {
           queue: false,
           complete: function() {
             Dialog.autofocus(this);
-            if($(".dialog #fullcalendar").length > 0) BookingCalendar.setup();
             // correct modal overlay height
             $(".ui-widget-overlay").height($(document).height());
             // dialog ready callback
-            if ($(_this).data("dialog_ready")) $(_this).data("dialog_ready").apply(this);
+            if ($(_this).data("dialog_ready")){
+              if(typeof($(_this).data("dialog_ready")) == "string") {
+                eval($(_this).data("dialog_ready"));
+              } else {
+                $(_this).data("dialog_ready")
+              }
+            } 
           }
         });
       });

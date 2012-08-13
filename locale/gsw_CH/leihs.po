@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2012-07-12 09:42+0200\n"
+"POT-Creation-Date: 2012-08-06 09:17+0200\n"
 "PO-Revision-Date: 2011-06-17 11:43+0100\n"
 "Last-Translator: Ramón Cahenzli <rca@psy-q.ch>\n"
 "Language-Team: Swiss-German (Zürich area) <ramon.cahenzli@zhdk.ch>\n"
@@ -73,6 +73,9 @@ msgstr "D Zuegriffsrächt sind erfolgriich aktualisiert"
 #, fuzzy
 msgid "Access right reinstated"
 msgstr "Zuegriffsrächt"
+
+msgid "Acknowledge"
+msgstr "Bestätige"
 
 msgid "Add"
 msgstr "Dezuetue"
@@ -154,8 +157,20 @@ msgid "Auswahl"
 msgstr ""
 
 #, fuzzy
+msgid "Availability Timeline"
+msgstr "Verfüegbari Aazahl"
+
+#, fuzzy
 msgid "Available"
 msgstr "nöd verfüegbar."
+
+#, fuzzy
+msgid "Available in group '"
+msgstr "Verfüegbari Aazahl"
+
+#, fuzzy
+msgid "Available in total: "
+msgstr "Verfüegbari Aazahl"
 
 #, fuzzy
 msgid "Back"
@@ -232,6 +247,10 @@ msgstr "Gschlosse"
 
 msgid "Compatible successfully removed"
 msgstr "Kompatibls Grät erfolgriich wäggnoh."
+
+#, fuzzy
+msgid "Complete Search"
+msgstr "Vollständigkeit"
 
 msgid "Completeness"
 msgstr "Vollständigkeit"
@@ -494,6 +513,10 @@ msgstr ""
 msgid "Initial Price:"
 msgstr "Aafangspriis:"
 
+#, fuzzy
+msgid "Inspect"
+msgstr "Inspektion"
+
 msgid "Insurance Number:"
 msgstr "Versicheruigsnummerä:"
 
@@ -558,7 +581,13 @@ msgstr "Sach"
 msgid "Item handed over as part of contract %d."
 msgstr "Sach als Teil vom Vertrag %d übergäh"
 
+msgid "Item is overdue and therefore unavailable!"
+msgstr ""
+
 msgid "Item is part of package"
+msgstr ""
+
+msgid "Item is reserved in the future, therefore it's not available!"
 msgstr ""
 
 msgid "Item package successfully destroyed"
@@ -589,6 +618,9 @@ msgstr "Letschti Bsuecher"
 #, fuzzy
 msgid "Latest Reminder:"
 msgstr "[leihs] Erinnerig"
+
+msgid "Legend"
+msgstr ""
 
 #, fuzzy
 msgid "Lender"
@@ -912,6 +944,10 @@ msgstr "Az."
 msgid "Quantity"
 msgstr "Aazahl"
 
+#, fuzzy
+msgid "Quantity: %d"
+msgstr "Aazahl"
+
 msgid "Ready"
 msgstr ""
 
@@ -949,6 +985,10 @@ msgid "Requested Items"
 msgstr "Sachä wo zruggäh sind"
 
 #, fuzzy
+msgid "Reservation"
+msgstr "Beschribig"
+
+#, fuzzy
 msgid "Responsible"
 msgstr "Verantwortlich für"
 
@@ -973,7 +1013,7 @@ msgid "Return"
 msgstr "Rückgabedatum"
 
 #, fuzzy
-msgid "Returned items"
+msgid "Returned Items"
 msgstr "Rückgabedatum"
 
 msgid "Room"
@@ -1027,6 +1067,9 @@ msgid "Show Availability"
 msgstr "Verfüegbari Aazahl"
 
 msgid "Show Full History"
+msgstr ""
+
+msgid "Show all %s..."
 msgstr ""
 
 msgid "Show all ..."
@@ -1279,6 +1322,10 @@ msgstr ""
 msgid "Time window"
 msgstr "Ziitfenschter"
 
+#, fuzzy
+msgid "Timeline"
+msgstr "Gägestandsziile"
+
 msgid "Today"
 msgstr "Hüt"
 
@@ -1360,9 +1407,6 @@ msgstr ""
 
 msgid "Value list"
 msgstr "Wertelischte"
-
-msgid "View"
-msgstr "Aaluege"
 
 #, fuzzy
 msgid "View %s"
@@ -1509,6 +1553,13 @@ msgstr "[leihs] Einige Sache sötted morn zruggäh werde"
 msgid "already in Category"
 msgstr "Scho inere Karegorie"
 
+msgid "already reserved"
+msgstr ""
+
+#, fuzzy
+msgid "available"
+msgstr "nöd verfüegbar."
+
 msgid "awaiting approval"
 msgstr ""
 
@@ -1540,6 +1591,9 @@ msgstr ""
 msgid "found %i"
 msgstr ""
 
+msgid "general"
+msgstr ""
+
 msgid "go back"
 msgstr ""
 
@@ -1564,6 +1618,13 @@ msgstr "Grätepark isch am end_date zue."
 msgid "inventory pool is closed on start_date. "
 msgstr "Grätepark isch am start_date zue."
 
+msgid "is late"
+msgstr ""
+
+#, fuzzy
+msgid "is returned"
+msgstr "Sache zum zruggäh"
+
 msgid "item not assigned. "
 msgstr "Sach nöd zuegwiesä"
 
@@ -1580,6 +1641,9 @@ msgstr "Eigäschaftä drzuetue"
 #, fuzzy
 msgid "no image"
 msgstr "Bild"
+
+msgid "no item assigned"
+msgstr "Kä sach zuegwiesä"
 
 #, fuzzy
 msgid "no purpose specified"
@@ -1612,6 +1676,16 @@ msgstr ""
 
 msgid "quantity not available. "
 msgstr "Azahl nöd ume."
+
+#, fuzzy
+msgid "requested"
+msgstr "Sachä wo zruggäh sind"
+
+msgid "reserved / item assigned in future"
+msgstr ""
+
+msgid "result"
+msgstr ""
 
 msgid "set current page as start page"
 msgstr ""
@@ -1646,8 +1720,15 @@ msgid "this is a package"
 msgstr ""
 
 #, fuzzy
+msgid "total borrowable"
+msgstr "Nöd uuslehnbar"
+
+#, fuzzy
 msgid "total rentable"
 msgstr "Eltere-Element"
+
+msgid "unavailable / can't be guaranteed"
+msgstr ""
 
 msgid "until"
 msgstr "bis"
@@ -1669,6 +1750,10 @@ msgstr ""
 
 #, fuzzy
 msgid "with comment"
+msgstr "Kommentar"
+
+#, fuzzy
+msgid "without conflict"
 msgstr "Kommentar"
 
 #~ msgid " <b>%d</b> results"
@@ -1781,9 +1866,6 @@ msgstr "Kommentar"
 #, fuzzy
 #~ msgid "Accessory|Quantity"
 #~ msgstr "Zuebehör"
-
-#~ msgid "Acknowledge"
-#~ msgstr "Bestätige"
 
 #, fuzzy
 #~ msgid "Acknowledge immediately"
@@ -1951,10 +2033,6 @@ msgstr "Kommentar"
 
 #, fuzzy
 #~ msgid "Availability::Quantity|Out quantity"
-#~ msgstr "Verfüegbari Aazahl"
-
-#, fuzzy
-#~ msgid "Available in total: "
 #~ msgstr "Verfüegbari Aazahl"
 
 #, fuzzy
@@ -2453,9 +2531,6 @@ msgstr "Kommentar"
 
 #~ msgid "In stock?"
 #~ msgstr "A Lager?"
-
-#~ msgid "Inspection"
-#~ msgstr "Inspektion"
 
 #~ msgid "Installation Location"
 #~ msgstr "Installationsort"
@@ -3191,10 +3266,6 @@ msgstr "Kommentar"
 #~ msgstr "Aazahl"
 
 #, fuzzy
-#~ msgid "Quantity: %d"
-#~ msgstr "Aazahl"
-
-#, fuzzy
 #~ msgid "Quick Approve"
 #~ msgstr "Genehmigt"
 
@@ -3572,6 +3643,9 @@ msgstr "Kommentar"
 #~ msgid "Value list no. %d"
 #~ msgstr "wertelischte No. %d"
 
+#~ msgid "View"
+#~ msgstr "Aaluege"
+
 #~ msgid "View + Acknowledge"
 #~ msgstr "Aaluege + bestätigä"
 
@@ -3648,10 +3722,6 @@ msgstr "Kommentar"
 #~ msgstr "Authentifizierigs-System"
 
 #, fuzzy
-#~ msgid "availability change"
-#~ msgstr "Verfüegbari Aazahl"
-
-#, fuzzy
 #~ msgid "availability quantity"
 #~ msgstr "Verfüegbari Aazahl"
 
@@ -3687,15 +3757,8 @@ msgstr "Kommentar"
 #~ msgid "inventory pool"
 #~ msgstr "Grätepark"
 
-#, fuzzy
-#~ msgid "is returned"
-#~ msgstr "Sache zum zruggäh"
-
 #~ msgid "item"
 #~ msgstr "Gägestand"
-
-#~ msgid "itemline"
-#~ msgstr "Gägestandsziile"
 
 #~ msgid "key"
 #~ msgstr "Schlüssel"
@@ -3725,9 +3788,6 @@ msgstr "Kommentar"
 #, fuzzy
 #~ msgid "no category"
 #~ msgstr "Kategorii"
-
-#~ msgid "no item assigned"
-#~ msgstr "Kä sach zuegwiesä"
 
 #, fuzzy
 #~ msgid "no more categories"

@@ -44,6 +44,10 @@
           = _("Locations")
 
     - if is_current_page?("search")
+      %li.item{:class => (!is_current_page?("focused_search")) ? "active" : nil}
+        = link_to backend_inventory_pool_search_path(current_inventory_pool, :term => params[:term], :types => nil), :class => "anchor" do
+          .leftend
+          = _("Complete Search")
       %li.item{:class => (is_current_page?("focused_search") and params[:types] == ["model"]) ? "active" : nil}
         = link_to backend_inventory_pool_search_path(current_inventory_pool, :term => params[:term], :types => ["model"]), :class => "anchor" do
           .leftend

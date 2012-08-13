@@ -41,43 +41,45 @@
     #selection_actions
     
       .selection
-        = _("Auswahl")
-        %span.count= "(0)"
+        .text
+          = _("Auswahl")
+          %span.count= "(0)"
         
-      .actions
-        .multibutton{:"data-toggle_on_line_selection" => true}
-          .alternatives
-            .trigger.green
-              .arrow
-            = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@user.id}/hand_over/update_lines", 
-            :class => "button white open_dialog",
-            :"data-rel" => "tmpl/dialog/calendar/edit_multiple", 
-            :"data-dialog_class" => "calendar multiple",
-            :"data-on_success" => 'HandOver.update_visits(response);',
-            :id => "edit_selection" do
-              .icon.timerange
-              = _("Edit Selection")
-            = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@contract.user.id}/hand_over/remove_lines",
-            :class => "button white",
-            :remote => "true",
-            :method => "delete",
-            :"data-rel" => "",
-            :"data-dialog_class" => "",
+        .actions
+          .multibutton{:"data-toggle_on_line_selection" => true}
+            .alternatives
+              .trigger.green
+                .arrow
+              = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@user.id}/hand_over/update_lines", 
+              :class => "button white open_dialog",
+              :"data-tmpl" => "tmpl/dialog/calendar/edit_multiple", 
+              :"data-dialog_class" => "calendar multiple",
+              :"data-on_success" => 'HandOver.update_visits(response);',
+              :"data-dialog_ready" => "new BookingCalendar({quantityMode: 'boolean'})",
+              :id => "edit_selection" do
+                .icon.timerange
+                = _("Edit Selection")
+              = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@contract.user.id}/hand_over/remove_lines",
+              :class => "button white",
+              :remote => "true",
+              :method => "delete",
+              :"data-tmpl" => "",
+              :"data-dialog_class" => "",
+              :"data-add_selected_line_ids" => "true",
+              :"data-on_success" => "HandOver.remove_lines(SelectedLines.lines);",
+              :"data-ref_for_dialog" => "",
+              :id => "delete_selection" do
+                .icon.delete
+                = _("Delete")
+          
+            = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@user.id}/hand_over/sign_contract", 
+            :class => "button green open_dialog",
+            :"data-tmpl" => "tmpl/dialog/hand_over/summary",
+            :"data-dialog_class" => "hand_over",
             :"data-add_selected_line_ids" => "true",
-            :"data-on_success" => "HandOver.remove_lines(SelectedLines.lines);",
-            :"data-ref_for_dialog" => "",
-            :id => "delete_selection" do
-              .icon.delete
-              = _("Delete")
-        
-          = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@user.id}/hand_over/sign_contract", 
-          :class => "button green open_dialog",
-          :"data-rel" => "tmpl/dialog/hand_over/summary",
-          :"data-dialog_class" => "hand_over",
-          :"data-add_selected_line_ids" => "true",
-          :"data-on_success" => "HandOver.open_documents(response)",
-          :id => "hand_over_button" do
-            = _("Hand Over Items")
+            :"data-on_success" => "HandOver.open_documents(response)",
+            :id => "hand_over_button" do
+              = _("Hand Over Items")
             
     .clear
   %hr
@@ -86,7 +88,7 @@
 
 :ruby
   inventory_pool_json = json_for current_inventory_pool, {:closed_days => true, :holidays => true}
-  visits_json = json_for @visits, {:preset => :visit_with_availability} 
+  visits_json = json_for @visits, {:preset => :hand_over_visit} 
 
 :coffeescript    
   jQuery ->

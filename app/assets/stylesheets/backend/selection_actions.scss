@@ -5,32 +5,35 @@
   display: inline-block;
   float: right;
   height: 50px;
-  margin-top: 25px;
+  margin-top: 18px;
   margin-bottom: -25px;
   position: relative;
   
-  &>.selection {
+  .selection {
     background: $highlight-grey;
     border: 1px solid $highlight-darkergrey; 
     bottom: 0;
     display: inline-block;
-    font-size: 1.3em;
-    padding: 4px 8px;
+    padding: 2px;
     position: relative;
     margin-right: 6px;
     @include border-radius(4px);
-  }
-  
-  &>.actions {
-    display: inline-block;
-    position: relative;
-    bottom: 6px;
-    top: -4px;
-    margin-right: -2px;
-    
-    .multibutton > .button {
-      padding-right: 6px;
+
+    .text {
+      font-size: 1.3em;
+      margin: 7px 10px 0 9px;
+      float: left;
+    }
+
+    .actions {
+      display: inline-block;
+      float: right;
       position: relative;
+      
+      .multibutton > .button {
+        padding-right: 6px;
+        position: relative;
+      }
     }
   }
 }

@@ -1,0 +1,7 @@
+class RunningLine < ActiveRecord::Base
+  # TODO do we really need this class ?? is actually instanciated as OrderLine or ItemLine
+
+  #belongs_to :model
+  #belongs_to :inventory_pool
+  
+end

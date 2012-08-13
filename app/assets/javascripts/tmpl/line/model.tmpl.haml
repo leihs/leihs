@@ -1,11 +1,13 @@
 %ul{:class => "line ${type}{{if is_package}} package{{/if}}"}
     
   .main
-    
+
+    {{if items}}    
     %li.toggle{:"data-toggle_target" => "#model_${id}_items"}
       .text{:title => "{{if is_package}}#{_("show packages")}{{else}}#{_("show items")}{{/if}}", :"data-open_title" => _("hide items")}
         .icon
         ${items.length}
+    {{/if}}
     
     %li.image
       .container
@@ -33,6 +35,12 @@
         .alternatives
           .trigger
             .arrow
+          = link_to "/backend/inventory_pools/${current_inventory_pool}/models/${id}/timeline", :class => "button white open_dialog",
+          :"data-tmpl" => "tmpl/dialog/availability/timeline",
+          :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data",
+          :"data-dialog_class" => "full_width timeline" do
+            .icon.timeline
+            = _("Timeline")
           = link_to "/backend/inventory_pools/${current_inventory_pool}/models/${id}/edit",  :class => "button white" do
             .icon.edit
             = _("Edit")

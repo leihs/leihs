@@ -97,3 +97,21 @@ Then /^the time range for that lines is changed$/ do
   @line1.reload.start_date.should == @line2.reload.start_date 
   @line1.reload.start_date.should == @new_start_date
 end
+
+When /^I close the booking calendar$/ do
+  find(".dialog .button.close_dialog").click
+end
+
+When /^I edit one of the selected lines$/ do
+  all(".line").each do |line|
+    if line.find("input").checked?
+      @line_element = line
+    end
+  end
+  step 'I open the booking calendar for this line'
+end
+
+Then /^I see the booking calendar$/ do
+  wait_until{ find("#fullcalendar .fc-day-content") }
+end
+

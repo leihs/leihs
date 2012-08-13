@@ -22,6 +22,7 @@ module Persona
         create_location_and_building
         create_groups
         create_minimal_inventory
+        create_holidays
       end
     end
     
@@ -159,6 +160,11 @@ module Persona
     def setup_inventory_for_group_cast
       Partition.create({:model => @camera_model, :inventory_pool => @inventory_pool, :group => @group_cast, :quantity => 1})
       Partition.create({:model => @camera_model, :inventory_pool => @inventory_pool, :group => @group_iad, :quantity => 1})
+    end
+
+    def create_holidays
+      next_christmas = (Date.today().month == 12 and Date.today().day > 23)? Date.new(Date.today().year+1.day, 12, 24) : Date.new(Date.today().year, 12, 24)
+      Holiday.create({:inventory_pool_id => @inventory_pool.id, :start_date => next_christmas, :end_date => next_christmas, :name => "Christmas"})
     end
   end  
 end

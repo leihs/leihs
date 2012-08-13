@@ -8,7 +8,6 @@ CREATE TABLE `access_rights` (
   `access_level` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `settings` varchar(1024) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_access_rights_on_suspended_until` (`suspended_until`),
   KEY `index_access_rights_on_deleted_at` (`deleted_at`),
@@ -602,3 +601,9 @@ INSERT INTO schema_migrations (version) VALUES ('20120523134739');
 INSERT INTO schema_migrations (version) VALUES ('20120618143839');
 
 INSERT INTO schema_migrations (version) VALUES ('20120619083752');
+
+INSERT INTO schema_migrations (version) VALUES ('20120806140527');
+
+INSERT INTO schema_migrations (version) VALUES ('20120806203246');
+
+INSERT INTO schema_migrations (version) VALUES ('20120807101549');

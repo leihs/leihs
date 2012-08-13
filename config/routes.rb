@@ -92,6 +92,7 @@ Leihs::Application.routes.draw do
         delete :remove_access_right
         get :extended_info
         post :update_badge_id
+        post :set_start_screen
       end
     end
     
@@ -142,8 +143,9 @@ Leihs::Application.routes.draw do
           post :update_package
         end
         member do
+          get :timeline
+#leihs2#begin# check out what we need 
           get :details
-          get :groups
           get :properties
           post :properties
           get :accessories
@@ -168,7 +170,8 @@ Leihs::Application.routes.draw do
           get :attachments
           post :attachments
           delete :attachments
-          post :set_group_partition          
+          post :set_group_partition
+#leihs2#end# 
         end
             resources :compatibles, :controller => 'models'
             resources :items do
@@ -225,8 +228,7 @@ Leihs::Application.routes.draw do
           get :groups
           put :add_group
           delete :remove_group
-          post :update_badge_id 
-          post :set_start_screen         
+          post :update_badge_id    
         end
         resource :hand_over, :controller => 'hand_over' do
           member do
@@ -271,7 +273,7 @@ Leihs::Application.routes.draw do
           put :add_user
         end
       end
-      resource :availability, :controller => 'availability'
+      #old leihs# resource :availability, :controller => 'availability'
     end
   end
 

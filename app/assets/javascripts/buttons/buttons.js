@@ -65,23 +65,29 @@ function Buttons() {
   
   this.openDialog = function(event) {
     var _this = $(event.currentTarget);
-    var _trigger = $(_this).parent().hasClass("alternatives") ? $(_this).closest(".multibutton") : _this;
     
     var createDialog = function(data) {
-      var template = (_this.data("rel") != undefined) ? _this.data("rel") : "";
-      var action = (_this.attr("href") != undefined) ? _this.attr("href") : _this.attr("action");
+      var template = (_this.data("tmpl") != undefined) ? _this.data("tmpl") : undefined;
+      var content;
       
+      if(template != undefined) {
+        var target_url = _this.attr("href");
+        content = $.tmpl(template, (data == undefined) ? {} : data, {target_url: target_url, on_success: _this.data("on_success")});
+      } else {
+        content = data;
+      }
+
       var dialog = Dialog.add({
-        trigger: _trigger,
-        content: $.tmpl(template, (data == undefined) ? {} : data, {action: action, on_success: _this.data("on_success")}),
+        trigger: _this,
+        content: content,
         dialogClass: _this.data("dialog_class"),
         dialogId: (_this.data("dialog_id") != undefined) ? _this.data("dialog_id") : undefined
       });
-      
+
       // don't loose tmplItem().data
       $(".dialog").tmplItem().data = data;
     }
-    
+
     // create dialog either for data or for a async data (url)    
     if(_this.data("ref_for_dialog") != undefined) { // data
       createDialog(eval(_this.data("ref_for_dialog")));
@@ -138,13 +144,12 @@ function Buttons() {
     var _this = $(event.currentTarget);
     Buttons.enable(_this);
     Buttons.removeLoading(_this);
-    var _trigger = $(_this).parent().hasClass("alternatives") ? $(_this).closest(".multibutton") : _this;
     var content;
-    if (_this.data("rel") != undefined && _this.data("ref_for_dialog") != undefined) {
-      content = $.tmpl(_this.data("rel"), eval(_this.data("ref_for_dialog")), {error: response.responseText, action: _this.attr("href"), on_success: _this.data("on_success")})      
+    if (_this.data("tmpl") != undefined && _this.data("ref_for_dialog") != undefined) {
+      content = $.tmpl(_this.data("tmpl"), eval(_this.data("ref_for_dialog")), {error: response.responseText, action: _this.attr("href"), on_success: _this.data("on_success")})      
       
       Dialog.add({
-        trigger: _trigger,
+        trigger: _this,
         content: content,
         dialogClass: _this.data("dialog_class")+" error"
       });
