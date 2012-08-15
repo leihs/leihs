@@ -11,7 +11,6 @@ class ContractLine < DocumentLine
   
   belongs_to :contract
   alias :document :contract
-  belongs_to :location
   has_one :user, :through => :contract
   has_many :groups, :through => :user
 
