@@ -11,8 +11,7 @@ end
 Then /^I see all availability changes and availability in between the changes in that calendar$/ do
   # reset calendar to today first and then walk through
   find(".fc-button-today").click
-  av = @model.reload.availability_in(@ip.reload)
-  changes = av.available_total_quantities
+  changes = @model.availability_in(@ip).available_total_quantities
   changes.each_with_index do |change, i|
     current_calendar_date = Date.parse page.evaluate_script %Q{ $("#fullcalendar").fullCalendar("getDate").toDateString() }
     current_change_date = change[0]
@@ -39,7 +38,7 @@ Then /^I see all availability changes and availability in between the changes in
         end
         change_date_el.find(".total_quantity").text.gsub(/\D/,"").to_i.should == total_quantity
         # check selected partition/borrower quantity
-        quantity_for_borrower = av.maximum_available_in_period_summed_for_groups @order.user.group_ids, next_date, next_date
+        quantity_for_borrower = @model.availability_in(@ip).maximum_available_in_period_summed_for_groups @order.user.group_ids, next_date, next_date
         quantity_for_borrower += evaluate_script %Q{ $(".dialog").tmplItem().data.quantity }  if change_date_el[:class].match("selected") != nil
 
         ##### debug informations for ci
