@@ -55,8 +55,8 @@ Then /^I see all availability changes and availability in between the changes in
           puts "CHANGE DATE EL:", change_date_el 
           puts "CHANGE DATE EL TEXT:", change_date_el.text
           puts "QUANTITY FOR BORROWER:", quantity_for_borrower
-          puts "JSON DATA (removed blocking line)", page.evaluate_script %Q{ $(".dialog").tmplItem().data }
-          puts "JSON PLAIN (unmodified)", page.evaluate_script %Q{ inspect_order_json }
+          puts "JSON DATA (removed blocking line)", page.evaluate_script(%Q{ $(".dialog").tmplItem().data })
+          puts "JSON PLAIN (unmodified)", page.evaluate_script(%Q{ inspect_order_json })
         end
         ##### debug informations for ci
 
