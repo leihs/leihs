@@ -11,7 +11,8 @@ end
 Then /^I see all availability changes and availability in between the changes in that calendar$/ do
   # reset calendar to today first and then walk through
   find(".fc-button-today").click
-  changes = @model.availability_in(@ip).available_total_quantities
+  av = @model.availability_in(@ip) 
+  changes = av.available_total_quantities
   changes.each_with_index do |change, i|
     current_calendar_date = Date.parse page.evaluate_script %Q{ $("#fullcalendar").fullCalendar("getDate").toDateString() }
     current_change_date = change[0]
@@ -44,25 +45,18 @@ Then /^I see all availability changes and availability in between the changes in
         ##### debug informations for ci
         if change_date_el.find(".fc-day-content div").text.to_i != quantity_for_borrower
           puts "DEBUGING INFORMATIONS FOR CI"
-          puts @order.user.to_json
-          puts "CHANGES"
-          puts changes
-          puts "CHANGE"
-          puts change
-          puts "NEXT CHANGE:"
-          puts next_change
-          puts "NEXT DATE:"
-          puts next_date 
-          puts "CHANGE DATE EL:"
-          puts change_date_el 
-          puts "CHANGE DATE EL TEXT:" 
-          puts change_date_el.text
-          puts "QUANTITY FOR BORROWER:"
-          puts quantity_for_borrower
-          puts "JSON DATA (removed blocking line)"
-          puts page.evaluate_script %Q{ $(".dialog").tmplItem().data }
-          puts "JSON PLAIN (unmodified)"
-          puts page.evaluate_script %Q{ inspect_order_json }
+          puts "availability", av
+          puts "reloaded availability", @model.reload.availability_in(@ip.reload)
+          puts "order", @order.user.to_json
+          puts "CHANGES", changes
+          puts "CHANGE", change
+          puts "NEXT CHANGE:", next_change
+          puts "NEXT DATE:", next_date 
+          puts "CHANGE DATE EL:", change_date_el 
+          puts "CHANGE DATE EL TEXT:", change_date_el.text
+          puts "QUANTITY FOR BORROWER:", quantity_for_borrower
+          puts "JSON DATA (removed blocking line)", page.evaluate_script %Q{ $(".dialog").tmplItem().data }
+          puts "JSON PLAIN (unmodified)", page.evaluate_script %Q{ inspect_order_json }
         end
         ##### debug informations for ci
 
