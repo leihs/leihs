@@ -83,7 +83,7 @@ Then /^each model of the template is added to the hand over for the provided dat
 end
 
 When /^I add so many lines that I break the maximal quantity of an model$/ do
-  @model = @customer.contracts.unsigned.last.lines.first.model
+  @model ||= @customer.contracts.unsigned.last.lines.first.model
   @target_name = @model.name
   (@model.items.size+1).times do
     type_into_autocomplete "#code", @target_name
@@ -95,6 +95,9 @@ end
 Then /^I see that all lines of that model have availability problems$/ do
   @lines = all(".item_line", :text => @target_name)
   @lines.each do |line|
-    line.should have_content "Problem"
+    wait_until {
+      puts line.text
+      line.find(".problem.icon")
+    } 
   end
 end

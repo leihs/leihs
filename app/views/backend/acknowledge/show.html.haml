@@ -119,10 +119,13 @@
 
 :ruby
   inventory_pool_json = json_for current_inventory_pool, {:closed_days => true, :holidays => true}
-  
   order_json = json_for @order, {:preset => :order}
 
 :coffeescript
+  
+  # this is for inspecting CI remove afterwards
+  window.inspect_order_json = #{order_json}
+
   jQuery ->
     $('#acknowledge #order').replaceWith($.tmpl("tmpl/order", #{order_json}))
     Acknowledge.setup()

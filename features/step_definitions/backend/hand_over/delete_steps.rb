@@ -38,10 +38,17 @@ Then /^these lines are deleted$/ do
 end
 
 When /^I delete all lines of a model thats availability is blocked by these lines$/ do
+  if not @customer.contracts.unsigned.last.lines.first.available?
+    step 'I add an item to the hand over by providing an inventory code and a date range'
+    @model = Item.find_by_inventory_code(@inventory_code).model
+    find(".line", :text => @model.name).find(".select input").click
+  end
+
   step 'I add so many lines that I break the maximal quantity of an model'
 
   target_linegroup = all(".line").detect{|line| line.find(".select input").checked?}.find(:xpath, "../../..")
-  reference_line = all(".line.error").detect{|line| not line.find(".select input").checked?}
+  wait_until { all(".line.error", :text => @model.name).detect{|line| not line.find(".select input").checked?} }
+  reference_line = all(".line.error", :text => @model.name).detect{|line| not line.find(".select input").checked?}
   @reference_id = reference_line["data-id"]
 
   line_ids = target_linegroup.all(".line.error", :text => @model.name).map{|line| line["data-id"]}

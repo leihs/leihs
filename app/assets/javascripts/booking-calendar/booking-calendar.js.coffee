@@ -202,31 +202,27 @@ class BookingCalendar
     _.each @fullcalendar.find(".fc-widget-content"), (day_el)=>      
       day_el = $(day_el)
       date = @getDateByElement day_el
-
       @resetDay day_el
       # history date or future/today
-      if date < moment().sod().toDate() 
+      if date < moment().sod().toDate()
         day_el.addClass "history"
       else # today or future day
-
         # get lastAvChange, nextAvChange, totalQuantity and availableQuantity
         # when lastAvChange and nextAvChange are not yet knwon and the 
         # current date is not inbetween lastAvChange and nextAvChange
-        if (not (lastAvChange? and nextAvChange?) or
-           lastAvChange[0] isnt Infinity and not (moment(lastAvChange[0]).sod().toDate() < date) or
-           lastAvChange[0] isnt Infinity and not (moment(nextAvChange[0]).sod().toDate() > date)) and @computeAvailability
-          lastAvChange = undefined
-          for avDate,i in avDates
-            if moment(avDate[0]).sod().toDate() > date
-              lastAvChange = avDates[i-1]
-              nextAvChange = avDate
-              break
-          if not lastAvChange? # sets the lastAvChange if the current date ist after the last avChange
-            lastAvChange = _.last avDates 
-            lastAvChange[0] = Infinity
-            nextAvChange = lastAvChange
-          totalQuantity = lastAvChange[1]
-          availableQuantity = @calulateAvailableQuantity lastAvChange
+        if @computeAvailability
+          if (!lastAvChange? and !nextAvChange?) or !(moment(lastAvChange[0]).sod().toDate() < date) or !(moment(nextAvChange[0]).sod().toDate() > date)
+            lastAvChange = undefined
+            for avDate,i in avDates
+              if moment(avDate[0]).sod().toDate() > date
+                lastAvChange = avDates[i-1]
+                nextAvChange = avDate
+                break
+            if not lastAvChange? # sets the lastAvChange if the current date ist after the last avChange
+              lastAvChange = _.last avDates 
+              nextAvChange = lastAvChange
+            totalQuantity = lastAvChange[1]
+            availableQuantity = @calulateAvailableQuantity lastAvChange
 
         @setAvailability day_el, requiredQuantity, availableQuantity
         @setQuantityText day_el, availableQuantity, totalQuantity if @computeAvailability
@@ -337,8 +333,7 @@ class BookingCalendar
       day_el.removeClass "selected"
 
   selectedPartitions: =>
-    if @partitionSelector_el? and @partitionSelector_el.find("option").length and
-    @partitionSelector_el.find("option:selected").val().length
+    if @partitionSelector_el? and @partitionSelector_el.find("option").length and @partitionSelector_el.find("option:selected").val().length
       JSON.parse @partitionSelector_el.find("option:selected").val()
     else
       null
@@ -346,12 +341,14 @@ class BookingCalendar
   setQuantityText: (day_el, availableQuantity, totalQuantity)=>
     if @quantityMode is "boolean"
       availableQuantity = if availableQuantity is 0 then "x" else "✓"
-    day_el.find(".fc-day-content > div").text availableQuantity
     if @selectedPartitions()?
+      day_el.find(".fc-day-content > div").text availableQuantity
       if day_el.find(".fc-day-content .total_quantity").length
          day_el.find(".fc-day-content .total_quantity").text "/#{totalQuantity}"
       else
         day_el.find(".fc-day-content").append "<span class='total_quantity'>/#{totalQuantity}</span>"
+    else
+      day_el.find(".fc-day-content > div").text totalQuantity
 
   setAvailability: (day_el, requiredQuantity, availableQuantity)=>
     available = availableQuantity >= requiredQuantity

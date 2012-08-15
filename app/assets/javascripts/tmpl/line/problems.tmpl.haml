@@ -18,12 +18,9 @@
       {{/if}}
 
       {{/each}}
-  %strong
-    ${problems.length}
-    {{if problems.length > 1}} 
-    = _("Problems")
-    {{else}}
-    = _("Problem")
-    {{/if}}
+  .container
+    %strong
+      ${problems.length}
+    .problem.icon
 {{/if}}
 

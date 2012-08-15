@@ -101,8 +101,17 @@ module Availability
       available_quantities_for_groups([Group::GENERAL_GROUP_ID] + (group_ids & @inventory_pool.group_ids), @changes.between(start_date, end_date)).values.max
     end
 
+    def maximum_available_in_period_summed_for_groups(group_ids, start_date, end_date)
+      max = 0
+      available_quantities_for_groups([Group::GENERAL_GROUP_ID] + (group_ids & @inventory_pool.group_ids), @changes.between(start_date, end_date)).each_pair do |k,v|
+        max += v
+      end
+      return max
+    end
+
     def available_total_quantities
-      @changes.map do |date, change|
+      # sort by date !!!
+      Hash[@changes.sort].map do |date, change|
         total = change.values.sum{|x| x[:in_quantity]}
         groups = change.map do |g, q|
           q.merge({:group_id => g})

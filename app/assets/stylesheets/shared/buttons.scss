@@ -16,6 +16,7 @@
   white-space: nowrap;
   @include border-radius(6px);
   @include unselectable();
+  @include box-shadow(0 1px 0 rgba(255,255,255,0.2));
   
   &>img.loading {
     display: inline-block;

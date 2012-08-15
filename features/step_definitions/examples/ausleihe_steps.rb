@@ -319,7 +319,9 @@ end
 Dann /^sehe ich die ersten (\d+) Resultate$/ do |amount|
   amount = amount.to_i + 2
   @lists.each do |list|
-    list.all(".line").size.should == amount
+    if list.all(".show-all").size > 0
+      list.all(".line").size.should == amount
+    end
   end
 end
 
@@ -349,6 +351,7 @@ Angenommen /^ich sehe Probleme auf einer Zeile, die durch die Verfügbarkeit bed
   step 'I open a hand over'
   step 'I add so many lines that I break the maximal quantity of an model'
   @line_el = find(".line.error")
+  wait_until {page.evaluate_script %Q{ $(".line.error:first-child").tmplItem().data.id; }}
   @line = ContractLine.find page.evaluate_script %Q{ $(".line.error:first-child").tmplItem().data.id; }
 end
 
