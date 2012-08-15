@@ -11,7 +11,7 @@ end
 Then /^I see all availability changes and availability in between the changes in that calendar$/ do
   # reset calendar to today first and then walk through
   find(".fc-button-today").click
-  av = @model.availability_in(@ip) 
+  av = @model.reload.availability_in(@ip.reload)
   changes = av.available_total_quantities
   changes.each_with_index do |change, i|
     current_calendar_date = Date.parse page.evaluate_script %Q{ $("#fullcalendar").fullCalendar("getDate").toDateString() }
@@ -39,24 +39,31 @@ Then /^I see all availability changes and availability in between the changes in
         end
         change_date_el.find(".total_quantity").text.gsub(/\D/,"").to_i.should == total_quantity
         # check selected partition/borrower quantity
-        quantity_for_borrower = @model.availability_in(@ip).maximum_available_in_period_summed_for_groups @order.user.group_ids, next_date, next_date
+        quantity_for_borrower = av.maximum_available_in_period_summed_for_groups @order.user.group_ids, next_date, next_date
         quantity_for_borrower += evaluate_script %Q{ $(".dialog").tmplItem().data.quantity }  if change_date_el[:class].match("selected") != nil
 
         ##### debug informations for ci
         if change_date_el.find(".fc-day-content div").text.to_i != quantity_for_borrower
           puts "DEBUGING INFORMATIONS FOR CI"
-          puts "availability", av
-          puts "reloaded availability", @model.reload.availability_in(@ip.reload)
-          puts "order", @order.user.to_json
-          puts "CHANGES", changes
-          puts "CHANGE", change
-          puts "NEXT CHANGE:", next_change
-          puts "NEXT DATE:", next_date 
-          puts "CHANGE DATE EL:", change_date_el 
-          puts "CHANGE DATE EL TEXT:", change_date_el.text
-          puts "QUANTITY FOR BORROWER:", quantity_for_borrower
-          puts "JSON DATA (removed blocking line)", page.evaluate_script(%Q{ $(".dialog").tmplItem().data })
-          puts "JSON PLAIN (unmodified)", page.evaluate_script(%Q{ inspect_order_json })
+          puts @order.user.to_json
+          puts "CHANGES"
+          puts changes
+          puts "CHANGE"
+          puts change
+          puts "NEXT CHANGE:"
+          puts next_change
+          puts "NEXT DATE:"
+          puts next_date 
+          puts "CHANGE DATE EL:"
+          puts change_date_el 
+          puts "CHANGE DATE EL TEXT:" 
+          puts change_date_el.text
+          puts "QUANTITY FOR BORROWER:"
+          puts quantity_for_borrower
+          puts "JSON DATA (removed blocking line)"
+          puts page.evaluate_script %Q{ $(".dialog").tmplItem().data }
+          puts "JSON PLAIN (unmodified)"
+          puts page.evaluate_script %Q{ inspect_order_json }
         end
         ##### debug informations for ci
 
