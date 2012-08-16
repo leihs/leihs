@@ -8,18 +8,20 @@ When /^I open a booking calendar to edit a singe line$/ do
   wait_until { find(".dialog") }
 end
 
-Then /^I see all availability changes and availability in between the changes in that calendar$/ do
+Then /^I see all availability changes and availabilities in between the changes in that calendar$/ do
   # reset calendar to today first and then walk through
   find(".fc-button-today").click
-  changes = @model.availability_in(@ip).available_total_quantities
+  av = @model.availability_in(@ip.reload)
+  changes = av.available_total_quantities
   changes.each_with_index do |change, i|
     current_calendar_date = Date.parse page.evaluate_script %Q{ $("#fullcalendar").fullCalendar("getDate").toDateString() }
     current_change_date = change[0]
     while current_calendar_date.month != current_change_date.month do
       find(".fc-button-next").click
+      current_calendar_date = Date.parse page.evaluate_script %Q{ $("#fullcalendar").fullCalendar("getDate").toDateString() }
     end
     
-    # itterate days between this change and the next one
+    # iterate days between this change and the next one
     next_change = changes[i+1]
     if next_change
       days_between_changes = (next_change[0]-change[0]).to_i
@@ -38,7 +40,7 @@ Then /^I see all availability changes and availability in between the changes in
         end
         change_date_el.find(".total_quantity").text.gsub(/\D/,"").to_i.should == total_quantity
         # check selected partition/borrower quantity
-        quantity_for_borrower = @model.availability_in(@ip).maximum_available_in_period_summed_for_groups @order.user.group_ids, next_date, next_date
+        quantity_for_borrower = av.maximum_available_in_period_summed_for_groups @order.user.group_ids, next_date, next_date
         quantity_for_borrower += evaluate_script %Q{ $(".dialog").tmplItem().data.quantity }  if change_date_el[:class].match("selected") != nil
 
         ##### debug informations for ci
