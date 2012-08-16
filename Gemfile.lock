@@ -201,6 +201,7 @@ GEM
     rb-fsevent (0.9.1)
     rb-inotify (0.8.8)
       ffi (>= 0.5.0)
+    rcapture (1.0.4)
     rdoc (3.12)
       json (~> 1.4)
     rgl (0.4.0)
@@ -219,6 +220,7 @@ GEM
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec (~> 2.11.0)
+    ruby-graphviz (1.0.8)
     ruby-net-ldap (0.0.4)
     ruby_gntp (0.3.4)
     ruby_parser (2.3.1)
@@ -311,9 +313,11 @@ DEPENDENCIES
   rails (= 3.2.6)
   rails_autolink (~> 1.0)
   rb-fsevent (~> 0.9)
+  rcapture
   rgl (~> 0.4.0)
   rspec (~> 2.7)
   rspec-rails (~> 2.7)
+  ruby-graphviz
   ruby-net-ldap (~> 0.0.4)
   ruby_gntp (~> 0.3.4)
   ruby_parser (~> 2.3)

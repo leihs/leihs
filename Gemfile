@@ -23,7 +23,7 @@ gem 'barby', '~> 0.5.0'
 gem "chunky_png", "~> 1.2.5"
 
 gem 'mini_magick', '~> 3.3'
-gem 'rgl', '~> 0.4.0', :require => 'rgl/adjacency'
+gem 'rgl', '~> 0.4.0', :require => 'rgl/adjacency' # use ruby-graphviz instead ?? (already in test group)
 gem 'ruby-net-ldap', '~> 0.0.4', :require => 'net/ldap'
 
 gem 'nested_set', '~> 1.7'
@@ -80,6 +80,11 @@ group :test, :development do
   gem "uuidtools", "~> 2.1.2" # needed for creating unique ids during tests (factories)
   gem "timecop", "~> 0.3.5"
   gem 'capybara-screenshot'
+end
+
+group :test do
+  gem 'rcapture'
+  gem 'ruby-graphviz'
 end
 
 #group :culerity do
