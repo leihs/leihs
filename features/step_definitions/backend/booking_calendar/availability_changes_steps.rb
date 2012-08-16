@@ -11,7 +11,7 @@ end
 Then /^I see all availability changes and availabilities in between the changes in that calendar$/ do
   # reset calendar to today first and then walk through
   find(".fc-button-today").click
-  av = @model.availability_in(@ip.reload)
+  av = @model.availability_in(@ip)
   changes = av.available_total_quantities
   changes.each_with_index do |change, i|
     current_calendar_date = Date.parse page.evaluate_script %Q{ $("#fullcalendar").fullCalendar("getDate").toDateString() }
@@ -47,8 +47,8 @@ Then /^I see all availability changes and availabilities in between the changes 
         if change_date_el.find(".fc-day-content div").text.to_i != quantity_for_borrower
           puts "DEBUGING INFORMATIONS FOR CI"
           puts @order.user.to_json
-          puts "CHANGES"
-          puts changes
+          puts "Availability"
+          puts av
           puts "CHANGE"
           puts change
           puts "NEXT CHANGE:"
