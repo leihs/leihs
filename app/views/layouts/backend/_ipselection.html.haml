@@ -9,7 +9,7 @@
     .popup
       .inner
         - current_managed_inventory_pools.each do |ip|
-          = link_to truncate(ip.name, :length => 26), url_for(:inventory_pool_id => ip), :title => ip.name
+          = link_to truncate(ip.name, :length => 26), backend_inventory_pool_path(ip), :title => ip.name
         
 :javascript
 
