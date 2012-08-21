@@ -38,7 +38,6 @@ class User < ActiveRecord::Base
 
   def start_screen(path = nil)
     if path 
-      binding.pry
       self.settings[:start_screen] = path
       return self.save
     else
