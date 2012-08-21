@@ -91,23 +91,6 @@ Funktionalität: Ausleihe
     Und man sieht pro Modell eine Zeile
     Und man sieht auf jeder Zeile die Summe der Gegenstände des jeweiligen Modells
 
-  #@javascript
-  #Szenario: Information über die Anzahl der verfügbaren/nicht verfügbaren Modelle
-    #Angenommen ich sehe Probleme auf einer Zeile, die durch die Verfügbarkeit bedingt sind
-    #Und ich fahre über das Problem
-    #Dann sehe ich den Grund für das Problem in der folgenden Form: "Dieses Modell ist nicht verfügbar (5 sind reserviert, 4 sind verfügbar: -1)"
-    #Und ich sehe die Anzahl der reservierten Modelle
-    #Und ich sehe die Anzahl der verfügbaren Modelle
-    #Und ich sehe die Summe der Anzahl der reservierten und verfügbaren Modelle
-
-  @javascript
-  Szenario: Information über die Anzahl der verfügbaren/nicht verfügbaren Modelle
-    Angenommen ich sehe Probleme auf einer Zeile, die durch die Verfügbarkeit bedingt sind
-    Und ich fahre über das Problem
-    Und ich sehe die Anzahl der total ausleihbaren Modelle
-    Und ich sehe die Anzahl der bereits reservierten Modelle
-    Und ich sehe die Anzahl der verfügbaren Modelle
-
   @javascript
   Szenario: Inspektion bei Rücknahme
     Angenommen ich mache eine Rücknahme

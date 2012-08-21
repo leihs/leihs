@@ -1,4 +1,9 @@
-%ul{:class => "line ${type} take_back"}
+${$availability = new App.Availability(Line.remove_line_from_availability($item.data, availability_for_inventory_pool.availability)),""}
+${$user = new App.User(Line.get_user($item.data)), ""}
+${$item.data.is_available = $availability.isAvailable(moment(start_date).toDate(), moment(end_date).toDate(), quantity, $user.groupIds()), ""}
+{{html $problems = Line.get_problems($item.data), ""}}
+
+%ul{:class => "line ${type} take_back{{if $problems.length}} error{{/if}}", :"data-id" => "${id}"}
   
   .main  
     %li.select
@@ -10,6 +15,8 @@
       %strong ${model.name}
     {{tmpl(purpose) "tmpl/cell/purpose"}}
     
+    {{tmpl({problems: $problems}) "tmpl/line/problems"}}
+
   .actions     
     %li.actions
       .multibutton
@@ -38,10 +45,10 @@
           = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${contract.user.id}/take_back/inspection",
           :class => "button white open_dialog", 
           :"data-tmpl" => "tmpl/dialog/take_back/inspect",
-          :"data-dialog_class" => "small", 
+          :"data-dialog_class" => "medium inspect", 
           :"data-on_success" => 'TakeBack.update_visits(response);',
           :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
-            .icon.retire
+            .icon.view_item
             = _("Inspect")
             
         = link_to "#", :class => "button white open_dialog",

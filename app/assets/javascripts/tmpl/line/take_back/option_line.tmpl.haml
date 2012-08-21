@@ -1,4 +1,6 @@
-%ul.line{:class => "${type} ${contract.action}"}
+{{html $problems = Line.get_problems($item.data), ""}}
+
+%ul{:class => "line ${type} ${contract.action}{{if $problems.length}} error{{/if}}"}
   
   .main
     %li.select
@@ -12,6 +14,8 @@
       ${item.inventory_code}
     %li.name
       %strong ${model.name}
+
+    {{tmpl({problems: $problems}) "tmpl/line/problems"}}
       
   .actions     
     %li.actions

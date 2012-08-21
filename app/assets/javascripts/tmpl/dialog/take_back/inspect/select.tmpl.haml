@@ -1,7 +1,5 @@
-%span.select
-  %span.name
-    ${label}
-  .arrow
+%label
+  .text ${label}
   %select{:name => "flags[${name}]"}
     {{each(i, option) options}}
     {{if ((selected == true && option.value == 1) || (selected == false && option.value == 0))}}

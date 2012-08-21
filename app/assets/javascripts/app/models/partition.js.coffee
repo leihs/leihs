@@ -1,8 +1,3 @@
-###
-
-  Partition
-  
-###
 
 class Partition
 

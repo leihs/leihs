@@ -28,14 +28,28 @@ class Line
       
   @get_problems = (data)->
     problems = []
-    if data.is_available == false
+    if moment(data.start_date).eod().diff(moment().eod(), "days") < 0 and moment(data.end_date).eod().diff(moment().eod(), "days") < 0
+      problems.push
+        type: "overdue"
+        days_overdue: Math.abs moment(data.end_date).diff(moment().eod(), "days")
+    else if data.is_available == false and data.availability_for_inventory_pool?
+      av = new App.Availability(data.availability_for_inventory_pool.availability)
+      groupIds = _.map Line.get_user(data).groups, (g)-> g.id
       problems.push 
-        key: "availability"
-        value: [{key: "<%=_('total borrowable')%>", value: data.total_borrowable},
-                {key: "<%=_('already reserved')%>", value: data.total_borrowable - data.availability_for_inventory_pool.max_available},
-                {key: "<%=_('available')%>", value: data.availability_for_inventory_pool.max_available},
-                {key: "<%=_('requested')%>", value: data.quantity},
-                {key: "<%=_('result')%>", value: (data.availability_for_inventory_pool.max_available-data.quantity)}]
+        type: "availability"
+        total_borrowable: data.total_borrowable
+        total_rentable: data.total_rentable
+        max_available_for_borrower: av.maxAvailableForGroups moment(data.start_date).toDate(), moment(data.end_date).toDate(), groupIds
+        max_available_in_total: av.maxAvailableInTotal moment(data.start_date).toDate(), moment(data.end_date).toDate()
+    if data.item? and data.item.is_borrowable? and data.item.is_borrowable == false
+      problems.push
+        type: "unborrowable"
+    if data.item? and data.item.is_broken? and data.item.is_broken == true
+      problems.push
+        type: "broken"
+    if data.item? and data.item.is_incomplete? and data.item.is_incomplete == true
+      problems.push
+        type: "incomplete"
     return problems
   
   @highlight = (line_element, type)->

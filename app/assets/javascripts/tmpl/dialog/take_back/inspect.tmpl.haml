@@ -2,24 +2,26 @@
   %input{type: "hidden", name: "line_id", value: "${id}"}
 
   %h1
-    %strong{:title => "${model.name}"}
-      ${Str.sliced_trunc(model.name, 40)}
-    ${item.inventory_code} 
+    %strong
+      = _("Inspect Item")
+    ${item.inventory_code}
+
+  %p.subtitle
+    ${model.name}
 
   .navigation
-    .multibutton
-      .alternatives
-        .trigger.green
-          .arrow
-        %a.button.red.close_dialog
-          .icon.delete
-          = _("Cancel")
-      %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}', :tabindex => "4"}
-        = _("Save Changes")
+    %a.button.red.close_dialog
+      .icon.delete
+      = _("Cancel")
+    %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}', :tabindex => "4"}
+      = _("Save Changes")
   
   .flash_message
 
-  -# TODO translate to english and use _() gettext
+  %br
+
   {{tmpl({selected: item.is_broken,     label: "Zustand",         name: "is_broken",     options: [{value: 0, label: "Funktionstüchtig"},{value: 1, label: "Defekt"}]})     "tmpl/dialog/take_back/inspect/select"}}
   {{tmpl({selected: item.is_incomplete, label: "Vollständigkeit", name: "is_incomplete", options: [{value: 0, label: "Vollständig"},{value: 1, label: "Unvollständig"}]})   "tmpl/dialog/take_back/inspect/select"}}
   {{tmpl({selected: item.is_borrowable, label: "Ausleihbar",      name: "is_borrowable", options: [{value: 1, label: "Ausleihbar"},{value: 0, label: "Nicht ausleihbar"}]}) "tmpl/dialog/take_back/inspect/select"}}
+
+  .clear
