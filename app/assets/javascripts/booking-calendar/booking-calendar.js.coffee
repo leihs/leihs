@@ -340,7 +340,8 @@ class BookingCalendar
 
   setQuantityText: (day_el, availableQuantity, totalQuantity)=>
     if @quantityMode is "boolean"
-      availableQuantity = if availableQuantity is 0 then "x" else "✓"
+      availableQuantity = if availableQuantity <= 0 then "x" else "✓"
+      totalQuantity = if totalQuantity <= 0 then "x" else "✓"
     if @selectedPartitions()?
       day_el.find(".fc-day-content > div").text availableQuantity
       if day_el.find(".fc-day-content .total_quantity").length
@@ -356,17 +357,14 @@ class BookingCalendar
 
   calulateAvailableQuantity: (avChange)=>
     availableQuantity = 0
-    if @quantityMode == "boolean"
-      availableQuantity = avChange[1]
-    else
-      partitions = @selectedPartitions()
-      partitions = [] unless partitions?
-      for avEntry in avChange[2]
-        # null or 0 is the group "general" (the everyone partition)
-        if partitions.indexOf(avEntry.group_id) > -1 or
-        avEntry.group_id == null or
-        avEntry.group_id == 0
-          availableQuantity += avEntry.in_quantity 
+    partitions = @selectedPartitions()
+    partitions = [] unless partitions?
+    for avEntry in avChange[2]
+      # null or 0 is the group "general" (the everyone partition)
+      if partitions.indexOf(avEntry.group_id) > -1 or
+      avEntry.group_id == null or
+      avEntry.group_id == 0
+        availableQuantity += avEntry.in_quantity 
     return availableQuantity
 
   getDateByElement: (el)=>

@@ -61,6 +61,8 @@ module Persona
       
       setup_not_borrowable
       setup_retired
+      setup_broken
+      setup_incomplete
       
       setup_inventory_moved_to_other_responsible
       setup_inventory_for_group_cast
@@ -90,7 +92,7 @@ module Persona
       @camera_item2= FactoryGirl.create(:item, :inventory_code => "cam345", :serial_number => "ab567", :model => @camera_model, :location => @location, :owner => @inventory_pool)
       @camera_item3= FactoryGirl.create(:item, :inventory_code => "cam567", :serial_number => "ab789", :model => @camera_model, :location => @location, :owner => @inventory_pool)
       @camera_item4= FactoryGirl.create(:item, :inventory_code => "cam53267", :serial_number => "ab782129", :model => @camera_model, :location => @location, :owner => @inventory_pool)
-      @camera_item4= FactoryGirl.create(:item, :inventory_code => "cam532asd67", :serial_number => "ab78as2129", :model => @camera_model, :location => @location, :owner => @inventory_pool)
+      @camera_item5= FactoryGirl.create(:item, :inventory_code => "cam532asd67", :serial_number => "ab78as2129", :model => @camera_model, :location => @location, :owner => @inventory_pool)
     end
     
     def setup_tripods
@@ -104,6 +106,7 @@ module Persona
       @tripod_item = FactoryGirl.create(:item, :inventory_code => "tri789", :serial_number => "fgh567", :model => @tripod_model, :location => @location, :owner => @inventory_pool)
       @tripod_item2 = FactoryGirl.create(:item, :inventory_code => "tri123", :serial_number => "fgh987", :model => @tripod_model, :location => @location, :owner => @inventory_pool)
       @tripod_item3 = FactoryGirl.create(:item, :inventory_code => "tri923", :serial_number => "asd213", :model => @tripod_model, :location => @location, :owner => @inventory_pool)
+      @tripod_item4 = FactoryGirl.create(:item, :inventory_code => "tri212", :serial_number => "tri212", :model => @tripod_model, :location => @location, :owner => @inventory_pool)
     end
     
     def setup_options
@@ -143,6 +146,27 @@ module Persona
       @not_borrowable_beamer = FactoryGirl.create(:item, :inventory_code => "beam21231", :is_borrowable => false, :serial_number => "beamas12312", :model => @beamer_model, :location => @location, :owner => @inventory_pool)
     end
     
+    def setup_broken
+      @windows_laptop_model = FactoryGirl.create(:model, :name => "Windows Laptop",
+                                :manufacturer => "Microsoft", 
+                                :description => "Ein Laptop der Marke Microsoft", 
+                                :hand_over_note => "Laptop mit Tasche ausgeben", 
+                                :maintenance_period => 0)
+      @notebook_category = FactoryGirl.create(:category, :name => "Notebooks")
+      @windows_laptop_model.model_links.create :model_group => @notebook_category
+      @windows_laptop_item = FactoryGirl.create(:item, :inventory_code => "wlaptop1", :is_broken => true, :serial_number => "wlaptop1", :model => @windows_laptop_model, :location => @location, :owner => @inventory_pool)
+    end
+
+    def setup_incomplete
+      @helicopter_model = FactoryGirl.create(:model, :name => "Walkera v120",
+                                :manufacturer => "Walkera", 
+                                :description => "3D Helikopter", 
+                                :maintenance_period => 0)
+      @helicopter_category = FactoryGirl.create(:category, :name => "RC Helikopter")
+      @helicopter_model.model_links.create :model_group => @helicopter_category
+      @helicopter_item = FactoryGirl.create(:item, :inventory_code => "v120d02", :is_incomplete => true, :serial_number => "v120d02", :model => @helicopter_model, :location => @location, :owner => @inventory_pool)
+    end
+
     def setup_retired
       @iMac = FactoryGirl.create(:model, :name => "iMac",
                                 :manufacturer => "Apple", 

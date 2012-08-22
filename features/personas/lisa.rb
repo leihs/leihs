@@ -22,6 +22,7 @@ module Persona
         create_user
         create_orders
         create_overbooking
+        create_overdued_take_back
       end
     end
     
@@ -60,5 +61,14 @@ module Persona
       @unsigned_contract_1_purpose = FactoryGirl.create :purpose, :description => "Ganz dringend benötigt für meine Abschlussarbeit."
       FactoryGirl.create(:contract_line, :purpose => @unsigned_contract_1_purpose, :contract => @unsigned_contract_1, :model => @model, :quantity => quantity)
     end
+
+    def create_overdued_take_back
+      @overdued_contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool)
+      purpose = FactoryGirl.create :purpose, :description => "Als Ersatz."
+      @tripod_model = Model.find_by_name "Kamera Stativ"
+      FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @overdued_contract, :item_id => @inventory_pool.items.in_stock.where(:model_id => @tripod_model.id).first.id, :model => @tripod_model, :start_date => Date.yesterday-4.days, :end_date => Date.yesterday)
+      @overdued_contract.sign(nil, @pius)
+    end
+
   end  
 end

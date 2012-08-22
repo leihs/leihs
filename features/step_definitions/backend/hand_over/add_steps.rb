@@ -96,8 +96,14 @@ Then /^I see that all lines of that model have availability problems$/ do
   @lines = all(".item_line", :text => @target_name)
   @lines.each do |line|
     wait_until {
-      puts line.text
       line.find(".problem.icon")
     } 
   end
+end
+
+When /^I add an item to the hand over$/ do
+  find("#code").set @item.inventory_code
+  page.execute_script('$("#code").focus()')
+  find("#process_helper .button").click
+  wait_until(25){ page.evaluate_script("$.active") == 0}
 end

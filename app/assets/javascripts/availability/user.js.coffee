@@ -17,6 +17,5 @@ class UserAvailability
         if @user_group_ids.indexOf(partition.group_id) > -1 or partition.group_id is null # push partition with id null because its the group "general"
           @total_rentable += parseInt partition.quantity
     return @ 
-            
     
 window.UserAvailability = UserAvailability

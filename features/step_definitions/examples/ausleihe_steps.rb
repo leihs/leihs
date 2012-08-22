@@ -205,10 +205,6 @@ Dann /^wird es für die ausgewählte Zeitspanne hinzugefügt$/ do
   wait_until { @amount_lines_before < all(".line").size }
 end
 
-Angenommen /^ich mache eine Rücknahme$/ do
-  step 'I open a take back'
-end
-
 Dann /^habe ich für jeden Gegenstand die Möglichkeit, eine Inspektion auszulösen$/ do
   page.execute_script '$(":hidden").show();'
   all(".item_line").all? {|x| x.find(".actions .alternatives .button", :text => /Inspect/) }
@@ -220,11 +216,9 @@ Wenn /^ich bei einem Gegenstand eine Inspektion durchführen$/ do
 end
 
 Dann /^die Inspektion erlaubt es, den Status von "(.*?)" auf "(.*?)" oder "(.*?)" zu setzen$/ do |arg1, arg2, arg3|
-  within("form#inspection span.select > span.name", :text => arg1) do
-    within(:xpath, './/../select') do
-      find("option", :text => arg2)
-      find("option", :text => arg3)
-    end
+  within("form#inspection label", :text => arg1) do
+    find("option", :text => arg2)
+    find("option", :text => arg3)
   end
 end
 
@@ -358,18 +352,5 @@ end
 Angenommen /^ich fahre über das Problem$/ do
   page.execute_script %Q{ $(".line.error:first-child .problems").trigger("mouseenter"); }
   wait_until { find(".tip") }
-end
-
-Angenommen /^ich sehe die Anzahl der total ausleihbaren Modelle$/ do
-  @model = Model.find_by_name @line_el.find(".name").text
-  find(".tip").should have_content @model.total_borrowable_items_for_user(@customer, @ip)
-end
-
-Angenommen /^ich sehe die Anzahl der bereits reservierten Modelle$/ do
-  find(".tip").should have_content (@model.total_borrowable_items_for_user(@customer, @ip)-(1 + @model.availability_in(@ip).maximum_available_in_period_for_groups(@customer.group_ids, @line.start_date, @line.end_date)))
-end
-
-Angenommen /^ich sehe die Anzahl der verfügbaren Modelle$/ do
-  find(".tip").should have_content (1 + @model.availability_in(@ip).maximum_available_in_period_for_groups(@customer.group_ids, @line.start_date, @line.end_date))
 end
 

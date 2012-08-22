@@ -12,6 +12,7 @@ class Backend::OrdersController < Backend::BackendController
             query = params[:query],
             year = params[:year].to_i,
             month = params[:month].to_i,
+            paginate = params[:paginate].try{|x| x == "false" ? false : true},
             page = params[:page])
 
     conditions = { :inventory_pool_id => current_inventory_pool.id }
@@ -32,16 +33,6 @@ class Backend::OrdersController < Backend::BackendController
     sql = Order.unscoped.send(scope).where(conditions)
     search_sql = sql.search2(query)
 
-    @available_months = unless year.zero?
-      []
-    else
-      # OPTIMIZE: DISTINCT instead of .uniq 
-      search_sql.select("MONTH(orders.created_at) AS month").where("YEAR(orders.created_at) = ?", year).map(&:month).uniq.sort
-    end
-
-    # OPTIMIZE: DISTINCT instead of .uniq 
-    @available_years = search_sql.select("YEAR(orders.created_at) AS year").map(&:year).uniq.sort
-
     time_range = if not year.zero? and month.zero?
       "YEAR(orders.created_at) = %d" % year
     elsif not year.zero?
@@ -50,11 +41,23 @@ class Backend::OrdersController < Backend::BackendController
       {}
     end
         
+    @orders = search_sql.where(time_range).order("orders.created_at DESC")
+    @orders = @orders.paginate(:page => page, :per_page => $per_page) if paginate != false
+    
     respond_to do |format|
-      format.html {
-        @total_entries = sql.where(time_range).count
-        @orders = search_sql.where(time_range).order("orders.created_at DESC").paginate(:page => page, :per_page => $per_page)
+      format.html { 
+        @total_entries = sql.where(time_range).count 
+        @available_months = unless year.zero?
+          []
+        else
+          # OPTIMIZE: DISTINCT instead of .uniq 
+          search_sql.select("MONTH(orders.created_at) AS month").where("YEAR(orders.created_at) = ?", year).map(&:month).uniq.sort
+        end
+
+        # OPTIMIZE: DISTINCT instead of .uniq 
+        @available_years = search_sql.select("YEAR(orders.created_at) AS year").map(&:year).uniq.sort
       }
+      format.json { render :json => view_context.json_for(@orders, {:preset => :order_minimal}) }
     end
   end
 

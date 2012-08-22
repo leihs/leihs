@@ -3,28 +3,80 @@ class DailyViewController
   el: "#daily"
   @lists
   
-  constructor: ->
+  constructor: (options)->
     @el = $(@el)
     @lists = @el.find(".list")
-    do @render
-    do @setupShowMore
+    @date = moment(options.date).toDate() if options.date?
+    do @setupOrders
+    do @setupHandOvers
+    do @setupTakeBacks
+    do @setupWorkload
     do @plugin
 
-  render: =>
-    @el.find(".order .list").append($.tmpl("tmpl/line", json_for_orders)).closest("section").show() if json_for_orders.length
-    @el.find(".hand_over .list").append($.tmpl("tmpl/line", json_for_hand_overs)).closest("section").show() if json_for_hand_overs.length
-    @el.find(".take_back .list").append($.tmpl("tmpl/line", json_for_take_backs)).closest("section").show() if json_for_take_backs.length
+  date_to_s: => moment(@date).format("YYYY-MM-DD")
 
-  setupShowMore: =>
-    for list in @lists
-        list = $(list)
-        text = list.parent().find(".tab .text").first().text()
-        list.showMore
-          min: 4,
-          offset:
-            top: -36
-          more: $.tmpl("app/views/daily_view/_more", {text: text}).html()
-          less: $.tmpl("app/views/daily_view/_less", {text: text}).html()
+  setupOrders: =>
+    $.ajax
+      url: "/backend/inventory_pools/#{current_inventory_pool}/orders.json"
+      type: "GET"
+      data:
+        filter: "pending"
+        paginate: false
+      success: (data)=>
+        @el.find(".order .badge").text data.length
+        @el.find(".order .list").append($.tmpl("tmpl/line", data)).closest("section").show() if data.length
+        @setupShowMore @el.find(".order .list")
+
+  setupHandOvers: =>
+    $.ajax
+      url: "/backend/inventory_pools/#{current_inventory_pool}/visits.json"
+      type: "GET"
+      data: 
+        filter: "hand_over"
+        date: @date_to_s()
+        paginate: false
+      success: (data)=>
+        @el.find(".hand_over .badge").text data.length
+        @el.find(".hand_over .list").append($.tmpl("tmpl/line", data)).closest("section").show() if data.length
+        @setupShowMore @el.find(".hand_over .list")
+
+  setupTakeBacks: =>
+    $.ajax
+      url: "/backend/inventory_pools/#{current_inventory_pool}/visits.json"
+      type: "GET"
+      data: 
+        filter: "take_back"
+        date: @date_to_s()
+        paginate: false
+      success: (data)=>
+        @el.find(".take_back .badge").text data.length
+        @el.find(".take_back .list").append($.tmpl("tmpl/line", data)).closest("section").show() if data.length
+        @setupShowMore @el.find(".take_back .list")
+    
+  setupShowMore: (list)=>
+    text = list.parent().find(".tab .text").first().text()
+    list.showMore
+      min: 4,
+      offset:
+        top: -36
+      more: $.tmpl("app/views/daily_view/_more", {text: text}).html()
+      less: $.tmpl("app/views/daily_view/_less", {text: text}).html()
+
+  setupWorkload: =>
+    $.ajax
+      url: "/backend/inventory_pools/#{current_inventory_pool}/workload.json"
+      type: "GET"
+      data: 
+        date: @date_to_s()
+      success: (data)=>
+        $("#chart .barchart").jqBarGraph
+          data: data,
+          colors: ['#999999','#cccccc'],
+          width: 960,
+          height: 300,
+          barSpace: 105,
+          animate: false,
+          interGrids: 0
 
   plugin: =>
     DailyNavigator.setup()

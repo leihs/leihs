@@ -1,6 +1,6 @@
 ${$problems = Line.get_problems($item.data), ""}
 
-%ul{:class => "line ${type}{{if is_available}} available{{else}} unavailable{{/if}}"}
+%ul{:class => "line ${type}{{if $problems.length}} error{{/if}}", :"data-id" => "${id}"}
   
   .main
   

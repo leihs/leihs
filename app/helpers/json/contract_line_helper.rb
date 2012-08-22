@@ -56,7 +56,7 @@ module Json
 
     def hash_for_item_line(line, with = nil)
       h = hash_for_contract_line line, with
-      
+
       if with ||= nil
         if with[:item]
           h[:item] = line.item ? hash_for(line.item, with[:item]) : nil

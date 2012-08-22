@@ -9,32 +9,6 @@ class Backend::InventoryPoolsController < Backend::BackendController
   def show(date = params[:date])
     @date = date ? Date.parse(date) : Date.today
     redirect_to backend_inventory_pool_path(current_inventory_pool) if @date < Date.today
-        
-    today_and_next_4_days = [@date] 
-    4.times { today_and_next_4_days << current_inventory_pool.next_open_date(today_and_next_4_days[-1] + 1.day) }
-    
-    grouped_visits = current_inventory_pool.visits.includes(:user => {}, :contract_lines => [:model, :contract]).where("date <= ?", today_and_next_4_days.last).group_by {|x| [x.action, x.date] }
-    
-    @chart_data = today_and_next_4_days.map do |day|
-      day_name = (day == Date.today) ? _("Today") : l(day, :format => "%a %d.%m")
-      take_back_visits_on_day = grouped_visits[["take_back", day]] || []
-      take_back_workload = take_back_visits_on_day.size * 4 + take_back_visits_on_day.sum(&:quantity)
-      hand_over_visits_on_day = grouped_visits[["hand_over", day]] || []
-      hand_over_workload = hand_over_visits_on_day.size * 4 + hand_over_visits_on_day.sum(&:quantity)
-      [[take_back_workload, hand_over_workload],
-        {:name => day_name,
-         :value => "#{take_back_visits_on_day.size+hand_over_visits_on_day.size} Visits<br/>#{take_back_visits_on_day.sum(&:quantity)+hand_over_visits_on_day.sum(&:quantity)} Items"}]
-    end
-
-    @orders = current_inventory_pool.orders.submitted.includes(:order_lines => :model, :user => {})
-    
-    if @date == Date.today
-      grouped_visits.keep_if {|k, v| k[1] <= @date }
-    else
-      grouped_visits.keep_if {|k, v| k[1] == @date }
-    end
-    @hand_overs = grouped_visits.select {|k, v| k[0] == "hand_over" and k[1] <= @date }.values.flatten
-    @take_backs = grouped_visits.select {|k, v| k[0] == "take_back" and k[1] <= @date }.values.flatten
   end
   
   def new
@@ -84,5 +58,25 @@ class Backend::InventoryPoolsController < Backend::BackendController
     end
   end
 
+  def workload(date = params[:date].try{|x| Date.parse(x)})
+    today_and_next_4_days = [date] 
+    4.times { today_and_next_4_days << current_inventory_pool.next_open_date(today_and_next_4_days[-1] + 1.day) }
+    
+    grouped_visits = current_inventory_pool.visits.includes(:user => {}, :contract_lines => [:model, :contract]).where("date <= ?", today_and_next_4_days.last).group_by {|x| [x.action, x.date] }
+    
+    chart_data = today_and_next_4_days.map do |day|
+      day_name = (day == Date.today) ? _("Today") : l(day, :format => "%a %d.%m")
+      take_back_visits_on_day = grouped_visits[["take_back", day]] || []
+      take_back_workload = take_back_visits_on_day.size * 4 + take_back_visits_on_day.sum(&:quantity)
+      hand_over_visits_on_day = grouped_visits[["hand_over", day]] || []
+      hand_over_workload = hand_over_visits_on_day.size * 4 + hand_over_visits_on_day.sum(&:quantity)
+      [[take_back_workload, hand_over_workload],
+        {:name => day_name,
+         :value => "#{take_back_visits_on_day.size+hand_over_visits_on_day.size} Visits<br/>#{take_back_visits_on_day.sum(&:quantity)+hand_over_visits_on_day.sum(&:quantity)} Items"}]
+    end
 
+    respond_to do |format|
+      format.json { render :json => chart_data }
+    end
+  end
 end

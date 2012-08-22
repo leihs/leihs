@@ -127,6 +127,13 @@ module Json
              :contract => {:user => {:groups => {}}}, # FIXME remove this, get it through parent contract (used in line.js.coffee.erb @get_user)
              :purpose => true,
              :availability => true}
+          when :take_back_line
+            {:is_valid => true,
+             :item => {:is_borrowable => true, :is_broken => true, :is_incomplete => true},
+             :model => {},
+             :contract => {:user => {:groups => {}}}, # FIXME remove this, get it through parent contract (used in line.js.coffee.erb @get_user)
+             :purpose => true,
+             :availability => true}
           when :user
             {:image_url => true,
              :email => true,
@@ -139,6 +146,8 @@ module Json
             {:lines => {:preset => :contract_line}}
           when :hand_over_visit
             {:lines => {:preset => :hand_over_line}}
+          when :take_back_visit
+            {:lines => {:preset => :take_back_line}}
           when :visit
             {:user => {:preset => :user},
              :lines => {:model => {}, 

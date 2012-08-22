@@ -3,20 +3,8 @@
   .tip.problems
     %ul
       {{each(i, problem) problems}}
-
-      {{if problem.value instanceof Object}}
-      %li{:class => "${problem.key}"}
-        %table
-          {{each(j, row) problem.value}}
-          %tr
-            %td= "${row.key}:"
-            %td= "${row.value}"
-          {{/each}}
-
-      {{else}}
-      %li{:class => "${problem.key}"}= "${problem.value}"
-      {{/if}}
-
+      %li
+        {{tmpl(problem) "tmpl/line/problems/"+problem.type}}
       {{/each}}
   .container
     %strong
