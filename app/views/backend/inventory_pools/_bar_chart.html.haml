@@ -12,35 +12,3 @@
       .color-box{:style => "background-color: #cccccc"}
       = _("Hand Overs")
   .barchart
-  
-:javascript
-  
-  $(document).ready(function(){
-    Chart.setup();
-  });
-
-  var Chart = new Chart();
-  
-  function Chart() {
-  
-    this.width = 960;
-    this.height = 300;
-    this.spacer = 105;
-    this.animate = false;
-  
-    this.setup = function() {
-      this.setupGraph();
-    }
-    
-    this.setupGraph = function() {
-      $("#chart .barchart").jqBarGraph({
-          data: #{@chart_data.to_json},
-          colors: ['#999999','#cccccc'],
-          width: Chart.width,
-          height: Chart.height,
-          barSpace: Chart.spacer,
-          animate: Chart.animate,
-          interGrids: 0
-      });
-    }
-  }

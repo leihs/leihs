@@ -39,7 +39,6 @@
           %span.text
             = _("Open Orders")
           .badge
-            = @orders.size
       .list
   
   %section.hand_over
@@ -49,7 +48,6 @@
         %span.text
           = _("Hand Overs")
         .badge
-          = @hand_overs.size
     .list
      
   %section.take_back
@@ -59,15 +57,9 @@
         %span.text
           = _("Take Backs")
         .badge
-          = @take_backs.size 
     .list
     
 = render :partial => 'backend/inventory_pools/bar_chart'
 
-:javascript
-  var json_for_orders     = #{json_for(@orders, {:preset => :order_minimal})}
-  var json_for_hand_overs = #{json_for(@hand_overs, {:preset => :visit})}
-  var json_for_take_backs = #{json_for(@take_backs, {:preset => :visit})}
-
 :coffeescript
-  jQuery -> new App.DailyViewController
+  jQuery -> new App.DailyViewController(date: #{@date.to_json})

@@ -99,6 +99,10 @@ Leihs::Application.routes.draw do
     resources :mails
 
     resources :inventory_pools do
+      member do
+        get :workload
+      end
+
       resources :acknowledge, :except => :index do
         member do
           post :approve
