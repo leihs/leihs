@@ -19,7 +19,7 @@ http://code.zhdk.ch/projects/leihs/wiki/Help
 == Project web pages ==
 
 Please find our project webpage at: 
-http://code.zhdk.ch/projects/leihs
+http://github.com/zhdk/leihs
 
 You can also find major releases of leihs as file packages at SourceForge: 
 http://sf.net/projects/leihs
@@ -27,12 +27,12 @@ http://sf.net/projects/leihs
 Source code:         http://github.com/zhdk/leihs
 Discussion group:    http://groups.google.com/group/leihs
 Downloads:           http://sourceforge.net/projects/leihs/
-
+Guides and wiki:     http://github.com/zhdk/leihs/wiki
 
 == Forks and pull requests ==
 
 Please fork as much as you like (via GitHub), then send a pull request to
-psy-q. Please run the existing tests (rake leihs:test) before sending the request.
+zhdk. Please run the existing tests (rake leihs:test) before sending the request.
 If you want our extra special thanks, also include tests for your own new code.
 
 --
