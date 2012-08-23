@@ -12,6 +12,7 @@
   @include box-shadow (0 2px 4px rgba(0,0,0,0.4));
   
   .ui-menu-item {
+    min-height: 15px;
     @include dark-grey-links();
     
     &:nth-child(even) a {
@@ -48,20 +49,44 @@
   }
   
   &.add_item {
-    width: 348px !important;
+    max-height: 250px !important;
+    width: 600px !important;
     
-    .label {
-      display: block;
-      width: 320px;
-    }
-    
-    .type {
-      color: $lightgrey;
-      display: inline-block;
-      font-weight: bold;
-      position: absolute;
-      right: 5px;
-      top: 9px;
+    .ui-menu-item a {
+
+      &.unavailable {
+        color: $lightred;
+
+        &:hover {
+          color: $red;
+        }
+      }
+
+      .label {
+        display: block;
+        width: 320px;
+      }
+      
+      .type {
+        display: inline-block;
+        font-weight: bold;
+        position: absolute;
+        right: 150px;
+        text-align: left;
+        top: 9px;
+        width: 80px;
+        @include opacity(0.7);
+      }
+
+      .availability {
+        display: inline-block;
+        font-weight: bold;
+        position: absolute;
+        right: 10px;
+        text-align: right;
+        top: 9px;
+        width: 80px; 
+      }
     }
   }
   

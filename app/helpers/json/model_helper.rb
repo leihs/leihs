@@ -36,16 +36,18 @@ module Json
         end
       
         if with[:availability]
-          customer_user = with[:availability][:user]
-          current_inventory_pool = with[:availability][:inventory_pool]  
+          customer_user = with[:availability][:user] || User.find_by_id(with[:availability][:user_id])
+          current_inventory_pool = with[:availability][:inventory_pool] || InventoryPool.find_by_id(with[:availability][:inventory_pool_id])
+          start_date = Date.parse with[:availability][:start_date] if with[:availability] and with[:availability][:start_date]
+          end_date = Date.parse with[:availability][:end_date] if with[:availability] and with[:availability][:end_date]
       
-          if customer_user and current_inventory_pool and (start_date = with[:availability][:start_date]) and (end_date = with[:availability][:end_date])
-            # NOTE we display total_rentable_in_stock/total_rentable
-            h[:max_available]  = model.availability_in(current_inventory_pool).maximum_available_in_period_for_groups(customer_user.group_ids, start_date, end_date)
+          if customer_user and current_inventory_pool and start_date and end_date
+            av = model.availability_in(current_inventory_pool)
+            h[:max_available] = av.maximum_available_in_period_for_groups(start_date, end_date, customer_user.group_ids)
+            h[:max_available_in_total] = av.maximum_available_in_period_summed_for_groups(start_date, end_date)
             h[:total_rentable] = model.total_borrowable_items_for_user(customer_user, current_inventory_pool)
           elsif current_inventory_pool
             borrowable_items = model.items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable
-            # NOTE we display total_rentable_in_stock/total_rentable 
             h[:total_rentable_in_stock] = borrowable_items.in_stock.count
             h[:total_rentable] = borrowable_items.count
           elsif customer_user and current_inventory_pool.nil?

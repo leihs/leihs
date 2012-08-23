@@ -126,8 +126,11 @@
   # this is for inspecting CI remove afterwards
   window.inspect_order_json = #{order_json}
 
+  order_json = #{order_json}
+
   jQuery ->
-    $('#acknowledge #order').replaceWith($.tmpl("tmpl/order", #{order_json}))
+    $('#acknowledge #order').replaceWith($.tmpl("tmpl/order", order_json))
+    window.current_customer = order_json.user.id
     Acknowledge.setup()
     ProcessHelper.setup()
     SelectedLines.setup()

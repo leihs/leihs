@@ -42,13 +42,13 @@ class AutoComplete
 
   @remote_source: (request, response)->
     trigger = $(this.element)
+    data = {format: "json", term: request.term}
+    data = $.extend(true, data, {with: trigger.data("autocomplete-with")}) if trigger.data("autocomplete-with")?
     $(trigger).autocomplete("widget").scrollTop 0
     AutoComplete.current_ajax.abort() if AutoComplete.current_ajax?
     AutoComplete.current_ajax = $.ajax 
       url: $(trigger).data("url")
-      data:
-        format: "json"
-        term: request.term
+      data: data
       dataType: "json"
       beforeSend: ->
         $(trigger).next(".loading").remove()

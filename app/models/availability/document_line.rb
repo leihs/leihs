@@ -36,7 +36,7 @@ module Availability
     alias :is_available :available? # NOTE remove if custom as_json is gone 
 
     def maximum_available_quantity
-      model.availability_in(inventory_pool).maximum_available_in_period_for_groups(group_ids, start_date, end_date)      
+      model.availability_in(inventory_pool).maximum_available_in_period_for_groups(start_date, end_date, group_ids)      
     end
 
   end

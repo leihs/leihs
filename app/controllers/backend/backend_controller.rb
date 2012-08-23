@@ -35,7 +35,7 @@ class Backend::BackendController < ApplicationController
   
 ###############################################################    
   
-  def search(term = params[:term], types = Array(params[:types]))
+  def search(term = params[:term], types = Array(params[:types]), with = params[:with])
     
     conditions = { :klasses => {}, :filter => { :inventory_pool_id => [current_inventory_pool.id] } }
     
@@ -74,9 +74,7 @@ class Backend::BackendController < ApplicationController
         @results = results.flatten
         render :template => "backend/backend/focused_search" if types and types.size == 1
       }
-      format.json {
-        render :json => view_context.results_json(results.flatten.sort_by(&:name).compact)
-      }
+      format.json { render :json => view_context.search_results_json(results.flatten.sort_by(&:name).compact, with) }
     end
   end
 

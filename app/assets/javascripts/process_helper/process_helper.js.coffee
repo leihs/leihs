@@ -10,9 +10,10 @@ class ProcessHelper
   
   @setup: ->
     @setup_datepicker_locals()
-    @setup_dates()
+    @setup_dates() if $("#process_helper .dates").length
     @setup_submit()
     @setup_timerange_update()
+    @update_autocomplete_add()
   
   @setup_datepicker_locals: ->
     $.datepicker.setDefaults
@@ -62,13 +63,14 @@ class ProcessHelper
     $('#process_helper').bind "ajax:beforeSend", (event, jqXHR, settings)-> $(this).find("#code").val("")
   
   @setup_timerange_update: ->
-    $(".line .select input, .linegroup .select_group").live "change", ->
+    $(".line .select input, .linegroup .select_group").live "change", (e)->
       setTimeout ->
         start_date = $(".line .select input:checked:first").tmplItem().data.start_date
         end_date = $(".line .select input:checked:last").tmplItem().data.end_date
-        start_date = moment().toDate() if start_date == undefined
-        end_date = moment().toDate() if end_date == undefined
+        start_date = $(".line:first .select input").tmplItem().data.start_date if start_date == undefined
+        end_date = $(".line:first .select input").tmplItem().data.end_date if end_date == undefined
         ProcessHelper.update_timerange moment(start_date).toDate(), moment(end_date).toDate()
+        ProcessHelper.update_autocomplete_add()
       , 100
       
   @open_dialog: (trigger)->
@@ -89,6 +91,15 @@ class ProcessHelper
   @update_timerange: (start_date, end_date)->
     $("#process_helper #add_start_date").val(moment(start_date).format(i18n.date.L)).change()
     $("#process_helper #add_end_date").val(moment(end_date).format(i18n.date.L)).change()
+
+  @update_autocomplete_add: ->
+    if $("#process_helper .autocomplete[data-url]").length
+      $("#process_helper .autocomplete[data-url]").data "autocomplete-with", 
+        availability:
+          user_id: current_customer
+          inventory_pool_id: current_inventory_pool
+          start_date: moment($("#process_helper #add_start_date").val(), i18n.date.L).format("YYYY-MM-DD")
+          end_date: moment($("#process_helper #add_end_date").val(), i18n.date.L).format("YYYY-MM-DD")
       
   @add_through_autocomplete = (element)->
     id = element.item.id

@@ -32,30 +32,11 @@ module Json
 
     #################################################################
     
-    def results_json(results)
-      with = {
-        :user => {:preset => :user},
-        :order => { :lines => {:model => {},
-                               :dates => true},
-                    :user => {:preset => :user},
-                    :quantity => true,
-                    :created_at => true,
-                    :updated_at => true,
-                    :purpose => true},
-        :contract => {:lines => {:model => {}},
-                      :user => {:preset => :user},
-                      :quantity => true,
-                      :created_at => true,
-                      :updated_at => true},
-        :model => {:categories => {}, :availability => {:inventory_pool => current_inventory_pool}},
-        :item => {:current_borrower => true, :current_return_date => true, :in_stock? => true, :is_broken => true, :is_incomplete => true, :model => {}},
-        :option => {},
-        :template => {}
-      }
-      
+    def search_results_json(results, with)
       results.map do |result|
         type = result.class.name.underscore
-        hash_for result, with[type.to_sym]
+        with = get_with_preset("#{type}_search").deep_merge(with) if with and with[:search_presets] and with[:search_presets].include?("#{type}_search".to_sym)
+        hash_for result, with
       end.to_json
     end
 
@@ -154,9 +135,32 @@ module Json
                         :dates => true,
                         :quantity => true},
              :quantity => true,
-             :is_overdue => true
-            }
+             :is_overdue => true}
 
+          when :user_search
+            {:preset => :user}
+          when :order_search
+            { :lines => {:model => {},
+                         :dates => true},
+              :user => {:preset => :user},
+              :quantity => true,
+              :created_at => true,
+              :updated_at => true,
+              :purpose => true}
+          when :contract_search
+            { :lines => {:model => {}},
+              :user => {:preset => :user},
+              :quantity => true,
+              :created_at => true,
+              :updated_at => true}
+          when :model_search
+            {:categories => {}, :availability => {:inventory_pool => current_inventory_pool}}
+          when :item_search
+            {:current_borrower => true, :current_return_date => true, :in_stock? => true, :is_broken => true, :is_incomplete => true, :model => {}}
+          when :option_search
+            {}
+          when :template_search
+            {}
       end
     end
 

@@ -97,16 +97,13 @@ module Availability
       end
     end
     
-    def maximum_available_in_period_for_groups(group_ids, start_date, end_date)
+    def maximum_available_in_period_for_groups(start_date, end_date, group_ids)
       available_quantities_for_groups([Group::GENERAL_GROUP_ID] + (group_ids & @inventory_pool.group_ids), @changes.between(start_date, end_date)).values.max
     end
 
-    def maximum_available_in_period_summed_for_groups(group_ids, start_date, end_date)
-      max = 0
-      available_quantities_for_groups([Group::GENERAL_GROUP_ID] + (group_ids & @inventory_pool.group_ids), @changes.between(start_date, end_date)).each_pair do |k,v|
-        max += v
-      end
-      return max
+    def maximum_available_in_period_summed_for_groups(start_date, end_date, group_ids = nil)
+      group_ids ||= @inventory_pool.group_ids
+      available_quantities_for_groups([Group::GENERAL_GROUP_ID] + (group_ids & @inventory_pool.group_ids), @changes.between(start_date, end_date)).values.sum
     end
 
     def available_total_quantities

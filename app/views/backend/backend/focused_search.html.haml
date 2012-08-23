@@ -14,7 +14,7 @@
     
 :coffeescript
   jQuery ->
-    results = #{results_json(@results)}
+    results = #{search_results_json(@results, {:search_presets => [:user_search, :order_search, :contract_search, :model_search, :item_search, :option_search, :template_search]})}
     if results?
       for result in results 
         $('.list').append $.tmpl("tmpl/line", result)

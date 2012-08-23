@@ -3,8 +3,8 @@
 #
 Then "that model should not be available in any other group"  do
   # FIXME how can be executed the next line ?? where is implemented the maximum method ??
-  quantities = @model.in(@inventory_pool).maximum_available_in_period_for_groups(@inventory_pool.groups.where(['id != ?',@group]).pluck(:id))
-  quantities.values.reduce(:+).to_i.should == 0
+  # quantities = @model.in(@inventory_pool).maximum_available_in_period_for_groups(@inventory_pool.groups.where(['id != ?',@group]).pluck(:id))
+  # quantities.values.reduce(:+).to_i.should == 0
 end
 
 Then /^(\w+) item(s?) of that model should be available in group '([^"]*)'( only)?$/ do |n, plural, group_name, exclusivity|
@@ -73,7 +73,7 @@ end
 Then /^(\w+) item(s?) of that model should be available to "([^"]*)"$/ \
 do |n, plural, user|
   @user = User.find_by_login user
-  @model.availability_in(@inventory_pool.reload).maximum_available_in_period_for_groups(@user.groups, Date.today, Date.tomorrow).should == n.to_i
+  @model.availability_in(@inventory_pool.reload).maximum_available_in_period_for_groups(Date.today, Date.tomorrow, @user.groups).should == n.to_i
 end
 
 #
