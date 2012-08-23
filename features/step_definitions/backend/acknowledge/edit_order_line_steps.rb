@@ -64,7 +64,7 @@ When /^I change (.*?) lines quantity$/ do |type|
   end
   @line_element = find(".line", :text => @line.model.name)
   step 'I open the booking calendar for this line'
-  @new_quantity = find(".dialog input#quantity")["max"]
+  @new_quantity = @line.model.total_borrowable_items_for_user @customer
   find(".dialog input#quantity").set @new_quantity
   step 'I save the booking calendar'
 end

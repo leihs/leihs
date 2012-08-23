@@ -43,6 +43,7 @@ class BookingCalendar
     @availabilityMode = if options.availabilityMode is "eachDay" or options.availabilityMode is "openDays" then options.availabilityMode else "eachDays"
     @computeAvailability = if options.computeAvailability? then options.computeAvailability else true
     @quantityMode = if options.quantityMode is "numbers" or options.quantityMode is "boolean" then options.quantityMode else "numbers"
+    @limitMaxQuantity = if options.limitMaxQuantity? then options.limitMaxQuantity else true
     do @setupFromSessionStorage if BookingCalendar.sessionStorage
     do @formatDates
     do @setupDates
@@ -125,6 +126,7 @@ class BookingCalendar
   setMaxQuantity: (quantity)=> @quantity_el.attr "max", quantity
 
   setupQuantity: =>
+    @quantity_el.removeAttr("max") unless @limitMaxQuantity
     @quantity_el.click (e)=> e.currentTarget.select()
     @quantity_el.bind "keyup", (e)=>
       do @increaseQuantity if e.keyCode is 38
@@ -140,16 +142,23 @@ class BookingCalendar
   decreaseQuantity: => @quantity_el.val(parseInt(@quantity_el.val())-1).change()
   
   validateQuantity: =>
-    if @quantity_el.attr("max") isnt "" and (isNaN(@quantity_el.val()) or parseInt(@quantity_el.val()) > @quantity_el.attr("max") or parseInt(@quantity_el.val()) < @quantity_el.attr("min"))
+    value = parseInt(@quantity_el.val())
+    max = @quantity_el.attr("max")
+    min = @quantity_el.attr("min")
+    if value == 0 or isNaN(value)
+      return false
+    else if max? and value > max or value < min
       return false
     else
       @quantity_el.data "last_value", @quantity_el.val()
       return true
 
   resetQuantity: =>
-    if @quantity_el.data("last_value")?
+    if parseInt(@quantity_el.val()) > @quantity_el.attr("max")
+      @quantity_el.val @quantity_el.attr("max")
+    else if @quantity_el.data("last_value")?
       @quantity_el.val @quantity_el.data "last_value"
-      @quantity_el.select()
+    @quantity_el.select()
 
   setupDateJumper: =>
     if @startDate_el.is(":disabled") then @el.find(".fc-goto-start").hide() else @el.find(".fc-goto-start").click => @goToDate moment(@startDate_el.val(), df)
