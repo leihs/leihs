@@ -65,10 +65,10 @@ class ProcessHelper
   @setup_timerange_update: ->
     $(".line .select input, .linegroup .select_group").live "change", (e)->
       setTimeout ->
-        start_date = $(".line .select input:checked:first").tmplItem().data.start_date
-        end_date = $(".line .select input:checked:last").tmplItem().data.end_date
-        start_date = $(".line:first .select input").tmplItem().data.start_date if start_date == undefined
-        end_date = $(".line:first .select input").tmplItem().data.end_date if end_date == undefined
+        start_date = $(".line .select input:checked:first").tmplItem().data.start_date if $(".line .select input:checked:first").length
+        end_date = $(".line .select input:checked:last").tmplItem().data.end_date if $(".line .select input:checked:last").length
+        start_date = moment().toDate() if start_date == undefined
+        end_date = moment().toDate() if end_date == undefined
         ProcessHelper.update_timerange moment(start_date).toDate(), moment(end_date).toDate()
         ProcessHelper.update_autocomplete_add()
       , 100

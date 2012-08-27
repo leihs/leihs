@@ -23,3 +23,4 @@ public/images/attachments
 coverage
 public/assets
 db/structure.sql
+doc/diagrams/generated/captures.dot

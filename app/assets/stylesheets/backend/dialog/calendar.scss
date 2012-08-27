@@ -182,7 +182,7 @@
   }
   
   .list {
-    margin-top: 1px;
+    margin-top: 0;
     margin-left: 3px;
     margin-right: 2px;
     
@@ -190,6 +190,11 @@
       border-bottom: 1px solid #E5E5E5;
       border-left: 1px solid #E5E5E5;
       border-right: 1px solid #E5E5E5;
+
+      &.unavailable {
+        background-color: $lightred !important;
+        border-bottom: 1px solid $red;
+      }
       
       &:hover {
         z-index: 99999;
@@ -201,7 +206,7 @@
       
       .name {
         padding-left: 10px;
-        width: 375px;
+        width: 355px;
       }
       
       .amount {
@@ -215,6 +220,13 @@
         .button, .multibutton {
           @include opacity(1.0);
         }
+      }
+
+      .unavailable_ranges {
+        font-size: 1.0em;
+        font-weight: bold;
+        letter-spacing: 0;
+        width: 200px;
       }
       
       &:nth-child(1) {

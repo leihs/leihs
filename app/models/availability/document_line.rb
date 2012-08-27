@@ -22,7 +22,11 @@ module Availability
         # if an item is already assigned, but the start_date is in the future, we only consider the real start-end range dates
         a = model.availability_in(inventory_pool)
         group_id = a.document_lines.detect {|x| x == self}.allocated_group_id # NOTE doesn't work self.allocated_group_id because is not a running_line
-        a.changes.between(start_date, end_date).all? {|k,v| v[group_id][:in_quantity] >= 0}
+        
+        # first we check if the user is member of the allocated group (if false, then it's a soft-overbooking)
+        (group_id.nil? or self.user.group_ids.include?(group_id)) and
+          # then we check if all changes related to the time range and allocated group are non-negative (then it's a real-overbooking)
+          a.changes.between(start_date, end_date).all? {|k,v| v[group_id][:in_quantity] >= 0}
       end
 
       # OPTIMIZE

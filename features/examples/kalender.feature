@@ -27,6 +27,7 @@ Funktionalität: Kalender-Ansicht im Backend
 
   @javascript
   Szenario: Nicht verfügbare Zeitspannen
-    Angenommen ich editieren mehrere Linien
-    Und ein Model ist nicht verfügbar
+    Angenommen ich mache eine Aushändigung
+     Und eine Model ist nichtmehr verfügbar
+     Und ich editiere alle Linien
     Dann wird in der Liste unter dem Kalender die entsprechende Linie als nicht verfügbar (rot) ausgezeichnet

@@ -1,3 +1,8 @@
+###
+  
+  A model can have partitions for specific groups
+
+###
 
 class Partition
 

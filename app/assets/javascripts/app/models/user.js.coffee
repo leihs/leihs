@@ -1,3 +1,8 @@
+###
+  
+  User can be customer(frontend) or manager/admin(backend)
+
+###
 
 class User
 
