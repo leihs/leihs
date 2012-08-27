@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2012-08-06 09:17+0200\n"
+"POT-Creation-Date: 2012-08-27 15:08+0200\n"
 "PO-Revision-Date: 2011-06-17 11:43+0100\n"
 "Last-Translator: Ramón Cahenzli <rca@psy-q.ch>\n"
 "Language-Team: Swiss-German (Zürich area) <ramon.cahenzli@zhdk.ch>\n"
@@ -90,10 +90,6 @@ msgstr "Notiz dezuetue"
 #, fuzzy
 msgid "Add Purpose"
 msgstr "Zwäck"
-
-#, fuzzy
-msgid "Add to Order"
-msgstr "Zur Kategorie dezuetue"
 
 msgid "Add/Assign"
 msgstr ""
@@ -191,10 +187,6 @@ msgstr "Barcode"
 
 #, fuzzy
 msgid "Book"
-msgstr "Bueche"
-
-#, fuzzy
-msgid "Book this"
 msgstr "Bueche"
 
 #, fuzzy
@@ -376,11 +368,9 @@ msgstr "Zwäck setze"
 msgid "Edit Selection"
 msgstr "Uuswahl löschä"
 
-msgid "Edit multiple ordered items for"
-msgstr ""
-
-msgid "Edit ordered item for"
-msgstr ""
+#, fuzzy
+msgid "Edit multiple selected items"
+msgstr "Agwählti Sachä furtnäh"
 
 msgid "Edit purpose for order from"
 msgstr ""
@@ -517,6 +507,10 @@ msgstr "Aafangspriis:"
 msgid "Inspect"
 msgstr "Inspektion"
 
+#, fuzzy
+msgid "Inspect Item"
+msgstr "Inspektion"
+
 msgid "Insurance Number:"
 msgstr "Versicheruigsnummerä:"
 
@@ -581,6 +575,14 @@ msgstr "Sach"
 msgid "Item handed over as part of contract %d."
 msgstr "Sach als Teil vom Vertrag %d übergäh"
 
+#, fuzzy
+msgid "Item is defective"
+msgstr "D Sach isch uusgmuschteret worde am"
+
+#, fuzzy
+msgid "Item is incomplete"
+msgstr "Nöd vollständig"
+
 msgid "Item is overdue and therefore unavailable!"
 msgstr ""
 
@@ -589,6 +591,10 @@ msgstr ""
 
 msgid "Item is reserved in the future, therefore it's not available!"
 msgstr ""
+
+#, fuzzy
+msgid "Item not borrowable"
+msgstr "Nöd uuslehnbar"
 
 msgid "Item package successfully destroyed"
 msgstr "Paket erfolgriich glöscht"
@@ -734,10 +740,6 @@ msgstr "Modäll"
 msgid "Mon"
 msgstr "Monet"
 
-#, fuzzy
-msgid "Multiple selected items"
-msgstr "Agwählti Sachä furtnäh"
-
 msgid "Name"
 msgstr "Name"
 
@@ -789,6 +791,10 @@ msgstr "kei"
 #, fuzzy
 msgid "Not Borrowable"
 msgstr "Uuslehnbar"
+
+#, fuzzy
+msgid "Not available:"
+msgstr "nöd verfüegbar."
 
 msgid "Note"
 msgstr "Notiz"
@@ -851,6 +857,18 @@ msgid "Other Groups"
 msgstr "Modällgruppe"
 
 #, fuzzy
+msgid "Overbooked Quantity"
+msgstr "Azahl"
+
+#, fuzzy
+msgid "Overbooking"
+msgstr "Bueche"
+
+#, fuzzy
+msgid "Overdue"
+msgstr "überfällig"
+
+#, fuzzy
 msgid "Overdue Returns"
 msgstr "Überfällig"
 
@@ -889,6 +907,9 @@ msgstr "Passwort g'änderet"
 msgid "Pending"
 msgstr "Nonig fertig"
 
+msgid "Period"
+msgstr "Ziitperiodä"
+
 msgid "Phone"
 msgstr "Telefon"
 
@@ -917,9 +938,6 @@ msgstr "Priis"
 #, fuzzy
 msgid "Print"
 msgstr "PDF druckä"
-
-msgid "Problem"
-msgstr ""
 
 msgid "Problems"
 msgstr ""
@@ -1553,9 +1571,6 @@ msgstr "[leihs] Einige Sache sötted morn zruggäh werde"
 msgid "already in Category"
 msgstr "Scho inere Karegorie"
 
-msgid "already reserved"
-msgstr ""
-
 #, fuzzy
 msgid "available"
 msgstr "nöd verfüegbar."
@@ -1568,6 +1583,10 @@ msgstr "aber ma hät es paar Änderige gmacht"
 
 msgid "current page is set as start page"
 msgstr ""
+
+#, fuzzy
+msgid "days"
+msgstr "Feriä"
 
 #, fuzzy
 msgid "delete"
@@ -1677,14 +1696,7 @@ msgstr ""
 msgid "quantity not available. "
 msgstr "Azahl nöd ume."
 
-#, fuzzy
-msgid "requested"
-msgstr "Sachä wo zruggäh sind"
-
 msgid "reserved / item assigned in future"
-msgstr ""
-
-msgid "result"
 msgstr ""
 
 msgid "set current page as start page"
@@ -1709,6 +1721,9 @@ msgstr "Eigeni Paket"
 msgid "show packages"
 msgstr "Eigeni Paket"
 
+msgid "since"
+msgstr ""
+
 msgid "since max."
 msgstr ""
 
@@ -1718,10 +1733,6 @@ msgstr "Anöd agschickt"
 
 msgid "this is a package"
 msgstr ""
-
-#, fuzzy
-msgid "total borrowable"
-msgstr "Nöd uuslehnbar"
 
 #, fuzzy
 msgid "total rentable"
@@ -1920,6 +1931,10 @@ msgstr "Kommentar"
 #~ msgstr "Meh Ort dezuetue"
 
 #, fuzzy
+#~ msgid "Add to Order"
+#~ msgstr "Zur Kategorie dezuetue"
+
+#, fuzzy
 #~ msgid "Add user"
 #~ msgstr "Benutzer"
 
@@ -2086,6 +2101,10 @@ msgstr "Kommentar"
 
 #~ msgid "Blacklist"
 #~ msgstr "Blacklist"
+
+#, fuzzy
+#~ msgid "Book this"
+#~ msgstr "Bueche"
 
 #~ msgid "Borrow Level"
 #~ msgstr "Uusleihstuufe"
@@ -2460,9 +2479,6 @@ msgstr "Kommentar"
 #~ msgid "History|User"
 #~ msgstr "Gschicht"
 
-#~ msgid "Holidays"
-#~ msgstr "Feriä"
-
 #, fuzzy
 #~ msgid "Holiday|End date"
 #~ msgstr "Enddatum"
@@ -2621,9 +2637,6 @@ msgstr "Kommentar"
 #~ msgid "Item needs permission!"
 #~ msgstr "Sach erforderet e Berächtigung!"
 
-#~ msgid "Item was retired on"
-#~ msgstr "D Sach isch uusgmuschteret worde am"
-
 #~ msgid "Item: %s"
 #~ msgstr "Sachä: %s"
 
@@ -2716,10 +2729,6 @@ msgstr "Kommentar"
 #, fuzzy
 #~ msgid "Item|Is broken"
 #~ msgstr "Nöd uslehnbar"
-
-#, fuzzy
-#~ msgid "Item|Is incomplete"
-#~ msgstr "Nöd vollständig"
 
 #, fuzzy
 #~ msgid "Item|Is inventory relevant"
@@ -3166,14 +3175,6 @@ msgstr "Kommentar"
 #~ msgstr "Wiiteri Dokument"
 
 #, fuzzy
-#~ msgid "Overbooked Quantity"
-#~ msgstr "Azahl"
-
-#, fuzzy
-#~ msgid "Overbooking"
-#~ msgstr "Bueche"
-
-#, fuzzy
 #~ msgid "Own"
 #~ msgstr "Bstellig: "
 
@@ -3220,9 +3221,6 @@ msgstr "Kommentar"
 
 #~ msgid "Pending orders"
 #~ msgstr "Offeni Bstellige"
-
-#~ msgid "Period"
-#~ msgstr "Ziitperiodä"
 
 #~ msgid "Prev"
 #~ msgstr "Zrugg"
@@ -3819,6 +3817,10 @@ msgstr "Kommentar"
 #~ msgid "property"
 #~ msgstr "Eigäschaft"
 
+#, fuzzy
+#~ msgid "requested"
+#~ msgstr "Sachä wo zruggäh sind"
+
 #~ msgid "role"
 #~ msgstr "Rolle"
 
@@ -3833,6 +3835,10 @@ msgstr "Kommentar"
 
 #~ msgid "template"
 #~ msgstr "Vorlag"
+
+#, fuzzy
+#~ msgid "total borrowable"
+#~ msgstr "Nöd uuslehnbar"
 
 #, fuzzy
 #~ msgid "unknown"

@@ -1,5 +1,5 @@
 = form_tag '${$item.target_url}', :remote => true, :"data-submit_button" => true, :id => "inspection" do
-  %input{type: "hidden", name: "line_id", value: "${id}"}
+  %input{:type => "hidden", :name => "line_id", :value => "${id}"}
 
   %h1
     %strong

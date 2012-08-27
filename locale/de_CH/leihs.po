@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
-"POT-Creation-Date: 2012-08-06 09:17+0200\n"
-"PO-Revision-Date: 2012-08-06 09:20+0100\n"
+"POT-Creation-Date: 2012-08-27 15:08+0200\n"
+"PO-Revision-Date: 2012-08-27 15:09+0100\n"
 "Last-Translator: Ramón Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "Language: \n"
@@ -88,9 +88,6 @@ msgstr "Notiz hinzufügen"
 
 msgid "Add Purpose"
 msgstr "Zweck hinzufügen"
-
-msgid "Add to Order"
-msgstr "Zu Bestellung hinzufügen"
 
 msgid "Add/Assign"
 msgstr "Hinzufügen/Zuweisen"
@@ -175,9 +172,6 @@ msgstr "Barcode"
 
 msgid "Book"
 msgstr "Reservieren"
-
-msgid "Book this"
-msgstr "Dies reservieren"
 
 msgid "Borrowable"
 msgstr "Ausleihbar"
@@ -341,11 +335,8 @@ msgstr "Zweck editieren"
 msgid "Edit Selection"
 msgstr "Auswahl editieren"
 
-msgid "Edit multiple ordered items for"
-msgstr "Mehrere bestellte Gegenstände bearbeiten für"
-
-msgid "Edit ordered item for"
-msgstr "Bestellten Gegenstand bearbeiten für"
+msgid "Edit multiple selected items"
+msgstr "Mehrere ausgewählte Gegenstände editieren"
 
 msgid "Edit purpose for order from"
 msgstr "Zweck für Bestellung bearbeiten von"
@@ -467,6 +458,9 @@ msgstr "Anschaffungswert:"
 msgid "Inspect"
 msgstr "Inspektion"
 
+msgid "Inspect Item"
+msgstr "Inspektion"
+
 msgid "Insurance Number:"
 msgstr "Versicherungsnummer:"
 
@@ -527,6 +521,12 @@ msgstr "Gegenstand"
 msgid "Item handed over as part of contract %d."
 msgstr "Gegenstand übergeben als Teil von Vertrag %d."
 
+msgid "Item is defective"
+msgstr "Gerät ist defekt"
+
+msgid "Item is incomplete"
+msgstr "Gegenstand ist unvollständig"
+
 msgid "Item is overdue and therefore unavailable!"
 msgstr "Gegenstand ist überfällig und deshalb nicht verfügbar."
 
@@ -535,6 +535,9 @@ msgstr "Gegenstand ist Teil eines Pakets"
 
 msgid "Item is reserved in the future, therefore it's not available!"
 msgstr "Gegenstand ist in der Zukunft reserviert und deshalb nicht verfügbar."
+
+msgid "Item not borrowable"
+msgstr "Gegenstand nicht ausleihbar"
 
 msgid "Item package successfully destroyed"
 msgstr "Paket gelöscht"
@@ -662,9 +665,6 @@ msgstr "Modelle"
 msgid "Mon"
 msgstr "Mo"
 
-msgid "Multiple selected items"
-msgstr "Mehrere Gegenstände ausgewählt"
-
 msgid "Name"
 msgstr "Name"
 
@@ -709,6 +709,9 @@ msgstr "Keine/r"
 
 msgid "Not Borrowable"
 msgstr "Nicht ausleihbar"
+
+msgid "Not available:"
+msgstr "Nicht verfügbar."
 
 msgid "Note"
 msgstr "Notiz"
@@ -764,6 +767,15 @@ msgstr "Bestellungen"
 msgid "Other Groups"
 msgstr "Andere Gruppen"
 
+msgid "Overbooked Quantity"
+msgstr "Überbuchte Anzahl"
+
+msgid "Overbooking"
+msgstr "Überbuchung"
+
+msgid "Overdue"
+msgstr "Überfällig"
+
 msgid "Overdue Returns"
 msgstr "Überfällige Rückgaben"
 
@@ -800,6 +812,9 @@ msgstr "Passwort geändert"
 msgid "Pending"
 msgstr "Offen"
 
+msgid "Period"
+msgstr "Zeitraum"
+
 msgid "Phone"
 msgstr "Telefon"
 
@@ -826,9 +841,6 @@ msgstr "Preis"
 
 msgid "Print"
 msgstr "Drucken"
-
-msgid "Problem"
-msgstr "Problem"
 
 msgid "Problems"
 msgstr "Probleme"
@@ -1406,9 +1418,6 @@ msgstr "[leihs] Einige Gegenstände sollten morgen zurückgebracht werden"
 msgid "already in Category"
 msgstr "bereits in Kategorie"
 
-msgid "already reserved"
-msgstr "bereits reserviert"
-
 msgid "available"
 msgstr "verfügbar"
 
@@ -1420,6 +1429,9 @@ msgstr "aber es wurden einige Dinge daran verändert"
 
 msgid "current page is set as start page"
 msgstr "Aktuelle Seite ist jetzt Startseite"
+
+msgid "days"
+msgstr "Tagen"
 
 msgid "delete"
 msgstr "löschen"
@@ -1520,14 +1532,8 @@ msgstr "bitte warten..."
 msgid "quantity not available. "
 msgstr "Anzahl nicht verfügbar."
 
-msgid "requested"
-msgstr "angefordert"
-
 msgid "reserved / item assigned in future"
 msgstr "reserviert / Gegenstand bereits Zugewiesen"
-
-msgid "result"
-msgstr "Resultat"
 
 msgid "set current page as start page"
 msgstr "Aktuelle Seite als Startseite setzen"
@@ -1547,6 +1553,9 @@ msgstr "Paket-Bestandteile zeigen"
 msgid "show packages"
 msgstr "Pakete zeigen"
 
+msgid "since"
+msgstr "seit"
+
 msgid "since max."
 msgstr "seit max."
 
@@ -1555,9 +1564,6 @@ msgstr "abschicken"
 
 msgid "this is a package"
 msgstr "dies ist ein Paket"
-
-msgid "total borrowable"
-msgstr "gesamt ausleihbar"
 
 msgid "total rentable"
 msgstr "ausleihbar"
@@ -1756,6 +1762,9 @@ msgstr "ohne Konflikt"
 #~ msgid "Add more locations"
 #~ msgstr "Mehr Orte hinzufügen"
 
+#~ msgid "Add to Order"
+#~ msgstr "Zu Bestellung hinzufügen"
+
 #~ msgid "Add user"
 #~ msgstr "Benutzer hinzufügen"
 
@@ -1925,6 +1934,9 @@ msgstr "ohne Konflikt"
 
 #~ msgid "Blacklist"
 #~ msgstr "Schwarze Liste"
+
+#~ msgid "Book this"
+#~ msgstr "Dies reservieren"
 
 #~ msgid "Borrow Level"
 #~ msgstr "Ausleihe-Stufe"
@@ -2233,6 +2245,12 @@ msgstr "ohne Konflikt"
 #~ msgid "Edit external user"
 #~ msgstr "Externen Benutzer bearbeiten"
 
+#~ msgid "Edit multiple ordered items for"
+#~ msgstr "Mehrere bestellte Gegenstände bearbeiten für"
+
+#~ msgid "Edit ordered item for"
+#~ msgstr "Bestellten Gegenstand bearbeiten für"
+
 #~ msgid "Email"
 #~ msgstr "E-Mail"
 
@@ -2351,9 +2369,6 @@ msgstr "ohne Konflikt"
 #, fuzzy
 #~ msgid "History|User"
 #~ msgstr "Geschichte"
-
-#~ msgid "Holidays"
-#~ msgstr "Ferientage"
 
 #, fuzzy
 #~ msgid "Holiday|End date"
@@ -2514,9 +2529,6 @@ msgstr "ohne Konflikt"
 #~ msgid "Item needs permission!"
 #~ msgstr "Gegenstand braucht Ausleih-Bewilligung!"
 
-#~ msgid "Item was retired on"
-#~ msgstr "Gerät wurde ausgemustert am"
-
 #~ msgid "Item: %s"
 #~ msgstr "Gegenstand: %s"
 
@@ -2607,9 +2619,6 @@ msgstr "ohne Konflikt"
 
 #, fuzzy
 #~ msgid "Item|Is broken"
-#~ msgstr "Gegenstand|Ist unvollständig"
-
-#~ msgid "Item|Is incomplete"
 #~ msgstr "Gegenstand|Ist unvollständig"
 
 #, fuzzy
@@ -3080,12 +3089,6 @@ msgstr "ohne Konflikt"
 #~ msgid "Other documents"
 #~ msgstr "Andere Dokumente"
 
-#~ msgid "Overbooked Quantity"
-#~ msgstr "Überbuchte Anzahl"
-
-#~ msgid "Overbooking"
-#~ msgstr "Überbuchung"
-
 #~ msgid "Own"
 #~ msgstr "Eigenes"
 
@@ -3134,9 +3137,6 @@ msgstr "ohne Konflikt"
 #~ msgid "Pending orders"
 #~ msgstr "Offene Bestellungen"
 
-#~ msgid "Period"
-#~ msgstr "Zeitraum"
-
 #~ msgid "Permission needed:"
 #~ msgstr "Bewilligung nötig:"
 
@@ -3160,6 +3160,9 @@ msgstr "ohne Konflikt"
 
 #~ msgid "Privileged"
 #~ msgstr "Speziell Berechtigte"
+
+#~ msgid "Problem"
+#~ msgstr "Problem"
 
 #~ msgid "Properties"
 #~ msgstr "Eigenschaften"
@@ -3715,6 +3718,9 @@ msgstr "ohne Konflikt"
 #~ msgid "accessory"
 #~ msgstr "Zubehör"
 
+#~ msgid "already reserved"
+#~ msgstr "bereits reserviert"
+
 #~ msgid "attachment"
 #~ msgstr "Attachment"
 
@@ -3831,6 +3837,12 @@ msgstr "ohne Konflikt"
 #~ msgid "property"
 #~ msgstr "Eigenschaft"
 
+#~ msgid "requested"
+#~ msgstr "angefordert"
+
+#~ msgid "result"
+#~ msgstr "Resultat"
+
 #~ msgid "role"
 #~ msgstr "Rolle"
 
@@ -3845,6 +3857,9 @@ msgstr "ohne Konflikt"
 
 #~ msgid "template"
 #~ msgstr "Vorlage"
+
+#~ msgid "total borrowable"
+#~ msgstr "gesamt ausleihbar"
 
 #~ msgid "unknown"
 #~ msgstr "unbekannt"

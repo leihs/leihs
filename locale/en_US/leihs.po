@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2012-08-06 09:17+0200\n"
+"POT-Creation-Date: 2012-08-27 15:08+0200\n"
 "PO-Revision-Date: 2008-04-22 17:52+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,9 +87,6 @@ msgid "Add Note"
 msgstr ""
 
 msgid "Add Purpose"
-msgstr ""
-
-msgid "Add to Order"
 msgstr ""
 
 msgid "Add/Assign"
@@ -174,9 +171,6 @@ msgid "Barcode"
 msgstr ""
 
 msgid "Book"
-msgstr ""
-
-msgid "Book this"
 msgstr ""
 
 msgid "Borrowable"
@@ -341,10 +335,7 @@ msgstr ""
 msgid "Edit Selection"
 msgstr ""
 
-msgid "Edit multiple ordered items for"
-msgstr ""
-
-msgid "Edit ordered item for"
+msgid "Edit multiple selected items"
 msgstr ""
 
 msgid "Edit purpose for order from"
@@ -467,6 +458,9 @@ msgstr ""
 msgid "Inspect"
 msgstr ""
 
+msgid "Inspect Item"
+msgstr ""
+
 msgid "Insurance Number:"
 msgstr ""
 
@@ -527,6 +521,12 @@ msgstr ""
 msgid "Item handed over as part of contract %d."
 msgstr ""
 
+msgid "Item is defective"
+msgstr ""
+
+msgid "Item is incomplete"
+msgstr ""
+
 msgid "Item is overdue and therefore unavailable!"
 msgstr ""
 
@@ -534,6 +534,9 @@ msgid "Item is part of package"
 msgstr ""
 
 msgid "Item is reserved in the future, therefore it's not available!"
+msgstr ""
+
+msgid "Item not borrowable"
 msgstr ""
 
 msgid "Item package successfully destroyed"
@@ -662,9 +665,6 @@ msgstr ""
 msgid "Mon"
 msgstr ""
 
-msgid "Multiple selected items"
-msgstr ""
-
 msgid "Name"
 msgstr ""
 
@@ -708,6 +708,9 @@ msgid "None"
 msgstr ""
 
 msgid "Not Borrowable"
+msgstr ""
+
+msgid "Not available:"
 msgstr ""
 
 msgid "Note"
@@ -764,6 +767,15 @@ msgstr ""
 msgid "Other Groups"
 msgstr ""
 
+msgid "Overbooked Quantity"
+msgstr ""
+
+msgid "Overbooking"
+msgstr ""
+
+msgid "Overdue"
+msgstr ""
+
 msgid "Overdue Returns"
 msgstr ""
 
@@ -800,6 +812,9 @@ msgstr ""
 msgid "Pending"
 msgstr ""
 
+msgid "Period"
+msgstr ""
+
 msgid "Phone"
 msgstr ""
 
@@ -825,9 +840,6 @@ msgid "Price"
 msgstr ""
 
 msgid "Print"
-msgstr ""
-
-msgid "Problem"
 msgstr ""
 
 msgid "Problems"
@@ -1406,9 +1418,6 @@ msgstr ""
 msgid "already in Category"
 msgstr ""
 
-msgid "already reserved"
-msgstr ""
-
 msgid "available"
 msgstr ""
 
@@ -1419,6 +1428,9 @@ msgid "but a few changes were made to it"
 msgstr ""
 
 msgid "current page is set as start page"
+msgstr ""
+
+msgid "days"
 msgstr ""
 
 msgid "delete"
@@ -1520,13 +1532,7 @@ msgstr ""
 msgid "quantity not available. "
 msgstr ""
 
-msgid "requested"
-msgstr ""
-
 msgid "reserved / item assigned in future"
-msgstr ""
-
-msgid "result"
 msgstr ""
 
 msgid "set current page as start page"
@@ -1547,6 +1553,9 @@ msgstr ""
 msgid "show packages"
 msgstr ""
 
+msgid "since"
+msgstr ""
+
 msgid "since max."
 msgstr ""
 
@@ -1554,9 +1563,6 @@ msgid "submit it"
 msgstr ""
 
 msgid "this is a package"
-msgstr ""
-
-msgid "total borrowable"
 msgstr ""
 
 msgid "total rentable"

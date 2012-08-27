@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2012-08-06 09:17+0200\n"
+"POT-Creation-Date: 2012-08-27 15:08+0200\n"
 "PO-Revision-Date: 2009-11-23 15:37+0000\n"
 "Last-Translator: Monkey <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -97,10 +97,6 @@ msgstr "Agregar elemento"
 #, fuzzy
 msgid "Add Purpose"
 msgstr "Propósito"
-
-#, fuzzy
-msgid "Add to Order"
-msgstr "Agregue a la categoría"
 
 msgid "Add/Assign"
 msgstr ""
@@ -200,10 +196,6 @@ msgstr "Código de barras"
 
 #, fuzzy
 msgid "Book"
-msgstr "Roto"
-
-#, fuzzy
-msgid "Book this"
 msgstr "Roto"
 
 #, fuzzy
@@ -388,11 +380,9 @@ msgstr "Propósito"
 msgid "Edit Selection"
 msgstr "Borrar selección"
 
-msgid "Edit multiple ordered items for"
-msgstr ""
-
-msgid "Edit ordered item for"
-msgstr ""
+#, fuzzy
+msgid "Edit multiple selected items"
+msgstr "Quitar los artículos seleccionados"
 
 msgid "Edit purpose for order from"
 msgstr ""
@@ -534,6 +524,10 @@ msgid "Inspect"
 msgstr "Inspección"
 
 #, fuzzy
+msgid "Inspect Item"
+msgstr "Inspección"
+
+#, fuzzy
 msgid "Insurance Number:"
 msgstr "Número de Factura:"
 
@@ -599,6 +593,14 @@ msgstr "Artículo"
 msgid "Item handed over as part of contract %d."
 msgstr "Artículo entregado como parte del contrato %d."
 
+#, fuzzy
+msgid "Item is defective"
+msgstr "Artículo retirado el"
+
+#, fuzzy
+msgid "Item is incomplete"
+msgstr "Artículo|Está incompleto"
+
 msgid "Item is overdue and therefore unavailable!"
 msgstr ""
 
@@ -607,6 +609,10 @@ msgstr ""
 
 msgid "Item is reserved in the future, therefore it's not available!"
 msgstr ""
+
+#, fuzzy
+msgid "Item not borrowable"
+msgstr "No-prestable"
 
 #, fuzzy
 msgid "Item package successfully destroyed"
@@ -752,10 +758,6 @@ msgstr "Modelos"
 msgid "Mon"
 msgstr ""
 
-#, fuzzy
-msgid "Multiple selected items"
-msgstr "Quitar los artículos seleccionados"
-
 msgid "Name"
 msgstr "Nombre"
 
@@ -806,6 +808,10 @@ msgstr "Ninguno"
 #, fuzzy
 msgid "Not Borrowable"
 msgstr "Prestable"
+
+#, fuzzy
+msgid "Not available:"
+msgstr "no disponible. "
 
 msgid "Note"
 msgstr "Nota"
@@ -869,6 +875,18 @@ msgid "Other Groups"
 msgstr "Grupo modelo"
 
 #, fuzzy
+msgid "Overbooked Quantity"
+msgstr "Evento|Cantidad"
+
+#, fuzzy
+msgid "Overbooking"
+msgstr "Roto"
+
+#, fuzzy
+msgid "Overdue"
+msgstr "Vencido"
+
+#, fuzzy
 msgid "Overdue Returns"
 msgstr "Vencido"
 
@@ -909,6 +927,10 @@ msgstr "Contraseña modificada"
 msgid "Pending"
 msgstr "Pendiente"
 
+#, fuzzy
+msgid "Period"
+msgstr "Plazo"
+
 msgid "Phone"
 msgstr "Teléfono"
 
@@ -938,9 +960,6 @@ msgstr "Artículo|Precio"
 #, fuzzy
 msgid "Print"
 msgstr "Imprimir PDF"
-
-msgid "Problem"
-msgstr ""
 
 msgid "Problems"
 msgstr ""
@@ -1584,9 +1603,6 @@ msgstr "[leihs] Algunos elementos deberían de ser devueltos mañana"
 msgid "already in Category"
 msgstr "ya se encuentra en la Categoría"
 
-msgid "already reserved"
-msgstr ""
-
 #, fuzzy
 msgid "available"
 msgstr "no disponible. "
@@ -1599,6 +1615,10 @@ msgstr "pero se efectuaron algunos cambios"
 
 msgid "current page is set as start page"
 msgstr ""
+
+#, fuzzy
+msgid "days"
+msgstr "Feriados"
 
 #, fuzzy
 msgid "delete"
@@ -1709,14 +1729,7 @@ msgstr ""
 msgid "quantity not available. "
 msgstr "cantidad no disponible. "
 
-#, fuzzy
-msgid "requested"
-msgstr "Artículos devueltos"
-
 msgid "reserved / item assigned in future"
-msgstr ""
-
-msgid "result"
 msgstr ""
 
 msgid "set current page as start page"
@@ -1741,6 +1754,9 @@ msgstr "Paquetes"
 msgid "show packages"
 msgstr "Paquetes"
 
+msgid "since"
+msgstr ""
+
 msgid "since max."
 msgstr ""
 
@@ -1750,10 +1766,6 @@ msgstr "Presentada"
 
 msgid "this is a package"
 msgstr ""
-
-#, fuzzy
-msgid "total borrowable"
-msgstr "No-prestable"
 
 msgid "total rentable"
 msgstr ""
@@ -1934,6 +1946,10 @@ msgstr "Comentarios"
 #~ msgstr "Agregar más ubicaciones"
 
 #, fuzzy
+#~ msgid "Add to Order"
+#~ msgstr "Agregue a la categoría"
+
+#, fuzzy
 #~ msgid "Add user"
 #~ msgstr "Usuario"
 
@@ -2081,6 +2097,10 @@ msgstr "Comentarios"
 
 #~ msgid "Blacklist"
 #~ msgstr "Lista Negra"
+
+#, fuzzy
+#~ msgid "Book this"
+#~ msgstr "Roto"
 
 #, fuzzy
 #~ msgid "Borrow Level"
@@ -2403,9 +2423,6 @@ msgstr "Comentarios"
 #~ msgid "History|User"
 #~ msgstr "Historial|Usuario"
 
-#~ msgid "Holidays"
-#~ msgstr "Feriados"
-
 #~ msgid "Holiday|End date"
 #~ msgstr "Feriado|Fecha de finalización"
 
@@ -2529,9 +2546,6 @@ msgstr "Comentarios"
 #~ msgid "Item needs permission!"
 #~ msgstr "Este artículo necesita permiso!"
 
-#~ msgid "Item was retired on"
-#~ msgstr "Artículo retirado el"
-
 #~ msgid "Item: %s"
 #~ msgstr "Artículo: %s"
 
@@ -2616,9 +2630,6 @@ msgstr "Comentarios"
 
 #~ msgid "Item|Is broken"
 #~ msgstr "Artículo|Está roto"
-
-#~ msgid "Item|Is incomplete"
-#~ msgstr "Artículo|Está incompleto"
 
 #~ msgid "Item|Is inventory relevant"
 #~ msgstr "Artículo|"
@@ -2951,14 +2962,6 @@ msgstr "Comentarios"
 #~ msgid "Other documents"
 #~ msgstr "Otros documentos"
 
-#, fuzzy
-#~ msgid "Overbooked Quantity"
-#~ msgstr "Evento|Cantidad"
-
-#, fuzzy
-#~ msgid "Overbooking"
-#~ msgstr "Roto"
-
 #~ msgid "Own"
 #~ msgstr "Propio"
 
@@ -3000,10 +3003,6 @@ msgstr "Comentarios"
 #, fuzzy
 #~ msgid "Paste"
 #~ msgstr "Fecha"
-
-#, fuzzy
-#~ msgid "Period"
-#~ msgstr "Plazo"
 
 #~ msgid "Print Contract %d"
 #~ msgstr "Imprimir Contrato %d"
@@ -3541,6 +3540,10 @@ msgstr "Comentarios"
 #~ msgid "property"
 #~ msgstr "propiedad"
 
+#, fuzzy
+#~ msgid "requested"
+#~ msgstr "Artículos devueltos"
+
 #~ msgid "role"
 #~ msgstr "rol"
 
@@ -3556,6 +3559,10 @@ msgstr "Comentarios"
 #, fuzzy
 #~ msgid "template"
 #~ msgstr "Plantilla"
+
+#, fuzzy
+#~ msgid "total borrowable"
+#~ msgstr "No-prestable"
 
 #~ msgid "unknown"
 #~ msgstr "desconocido"
