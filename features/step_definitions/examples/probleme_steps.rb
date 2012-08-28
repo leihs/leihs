@@ -48,15 +48,15 @@ end
 
 Dann /^das Problem wird wie folgt dargestellt: "(.*?)"$/ do |format|
   regexp = if (format == "Nicht verfügbar 2(3)/7")
-     /Nicht verfügbar: -*\d\(-*\d\)\/\d/
+     /(Nicht verfügbar|Not available): -*\d\(-*\d\)\/\d/
   elsif  format == "Gegenstand nicht ausleihbar"
-    /Gegenstand nicht ausleihbar/
+    /(Gegenstand nicht ausleihbar|Item not borrowable)/
   elsif  format == "Gegenstand ist defekt"
-    /Gegenstand ist defekt/
+    /(Gegenstand ist defekt|Item is defective)/
   elsif  format == "Gegenstand ist unvollständig"
-    /Gegenstand ist unvollständig/
+    /(Gegenstand ist unvollständig|Item is incomplete)/
   elsif (format == "Verspätet seit 6 Tagen")
-     /Verspätet seit \d+ Tagen/
+     /(Verspätet seit \d+ Tagen|Overdue since \d+ days)/
   end
 
   @problems.each do |problem|
