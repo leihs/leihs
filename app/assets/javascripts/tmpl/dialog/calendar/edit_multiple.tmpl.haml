@@ -27,9 +27,6 @@ ${$start_date_disabled = !Line.is_start_date_moveable(SelectedLines.lines_data[0
       %label{:for => "partition"}
         = _("Show Availability")
     
-    .quantity.container.hidden
-      = text_field_tag :quantity, "1", :autocomplete => "off"
-    
     .date.container
       .start_date
         {{if $start_date_disabled}}
@@ -53,7 +50,7 @@ ${$start_date_disabled = !Line.is_start_date_moveable(SelectedLines.lines_data[0
       %select{:id => "inventory_pool_id", :name => "inventory_pool_id"}
         %option{:value => "current",
                 :"data-closed_days" => "${JSON.stringify(InventoryPool.closed_days)}",
-                :"data-availability_dates" => "${JSON.stringify(merged_lines_availabilities.availability)}",
+                :"data-availability_dates" => "${JSON.stringify(merged_lines_availabilities.changes)}",
                 :"data-holidays" => "${JSON.stringify(InventoryPool.holidays)}"}
           ${InventoryPool.name}
   
@@ -62,4 +59,4 @@ ${$start_date_disabled = !Line.is_start_date_moveable(SelectedLines.lines_data[0
   #fullcalendar.multiple
     
   .list
-    {{tmpl(SelectedLines.lines_data) "tmpl/line/calendar/line"}}
+    {{tmpl(App.Line.mergeLines(SelectedLines.lines_data)) "tmpl/line/calendar/line"}}

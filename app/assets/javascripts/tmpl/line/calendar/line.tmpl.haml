@@ -1,4 +1,10 @@
+{{if sublines}}
+{{each sublines}}
+= hidden_field("line_ids", "", :value => "${$value.id}")
+{{/each}}
+{{else}}
 = hidden_field("line_ids", "", :value => "${id}")
+{{/if}}
 %ul.line
   .main
     %li.amount

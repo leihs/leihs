@@ -115,3 +115,12 @@ Then /^I see the booking calendar$/ do
   wait_until{ find("#fullcalendar .fc-day-content") }
 end
 
+When /^I change the time range for multiple lines that have quantity bigger then (\d+)$/ do |arg1|
+  step 'I change an order lines quantity'
+  @line_element.find(".selected").text.to_i.should == @new_quantity
+  step 'I change the time range for multiple lines'
+end
+
+Then /^the quantity is not changed after just moving the lines start and end date$/ do
+  @line_element.find(".selected").text.to_i.should == @new_quantity
+end

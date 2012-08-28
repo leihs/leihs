@@ -107,7 +107,7 @@
             :"data-dialog_class" => "calendar multiple",
             :"data-on_success" => 'Acknowledge.update_order(response);',
             :"data-ref_for_dialog" => "$('#order').tmplItem().data",
-            :"data-dialog_ready" => "new BookingCalendar({quantityMode: 'boolean'})",
+            :"data-dialog_ready" => "new BookingCalendar({quantityMode: 'boolean', showCulprit: true})",
             :id => "edit_selection" do
               .icon.timerange
               = _("Edit Selection")

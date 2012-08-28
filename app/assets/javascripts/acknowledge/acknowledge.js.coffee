@@ -24,8 +24,8 @@ class Acknowledge
     for line_element in line_elements
       $(line_element).addClass("removed")
       line_data = $(line_element).tmplItem().data
-      if line_data.availability_for_inventory_pool? and line_data.availability_for_inventory_pool.availability?
-        line_data.availability_for_inventory_pool.availability = Line.remove_line_from_availability line_data, line_data.availability_for_inventory_pool.availability
+      if line_data.availability_for_inventory_pool? and line_data.availability_for_inventory_pool.changes?
+        line_data.availability_for_inventory_pool.changes = new App.Availability(line_data.availability_for_inventory_pool).changes.withoutSpecificDocumentLines([line_data])
       Line.remove
         element: line_element
         color: "red"

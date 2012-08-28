@@ -69,7 +69,7 @@ ${$problems = Line.get_problems($item.data), ""}
           :"data-tmpl" => "tmpl/dialog/calendar/edit_single", 
           :"data-dialog_class" => "calendar",
           :"data-on_success" => 'Acknowledge.update_order(response);',
-          :"data-dialog_ready" => "new BookingCalendar({limitMaxQuantity: false})",
+          :"data-dialog_ready" => "new BookingCalendar({limitMaxQuantity: false, showCulprit: true})",
           :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
           .icon.timerange
           = _("Edit")

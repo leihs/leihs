@@ -48,18 +48,6 @@
       right: 25%
     }
 
-    &.total_quantity_only, &.multiple {
-      .fc-widget-content.holiday .fc-day-content {
-        & > div {
-          right: 6px;
-        }
-
-        .total_quantity {
-          display: none !important;
-        }
-      }
-    } 
-
     .fc-widget-content:hover, .fc-widget-content.selected_for_target_selection {
       background: $highlight-darkgrey; 
     }

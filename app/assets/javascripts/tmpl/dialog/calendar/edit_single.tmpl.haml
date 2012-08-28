@@ -33,7 +33,7 @@ ${$subtitle = $name + " " + moment(start_date).format(i18n.date.L) + " - " + mom
             {{/each}}
           {{/if}}
           {{if $splitted_partitions.not_included.length > 0 }}
-          %optgroup.other_groups{:label => "{{if $splitted_partitions.included.length > 0}}#{_("Other Groups")}{{else}}#{_("Groups")}{{/if}}"}
+          %optgroup.other_groups{:label => "#{_("Other Groups")}"}
             {{each(i, partition) $splitted_partitions.not_included}}
             %option{:value => "[${partition.group_id}]", :"data-name" => "Group ${partition.group.name}", :"data-total_rentable" => "${partition.quantity}"}
               = _("Group ${partition.group.name}")
@@ -78,7 +78,7 @@ ${$subtitle = $name + " " + moment(start_date).format(i18n.date.L) + " - " + mom
         %option{:value => "current",
                 :"data-total_borrowable" => "{{if total_rentable}}${JSON.stringify(total_rentable)}{{else}}undefined{{/if}}",
                 :"data-closed_days" => "${JSON.stringify(InventoryPool.closed_days)}",
-                :"data-availability_dates" => "${JSON.stringify(Line.remove_line_from_availability($item.data, availability_for_inventory_pool.availability))}",
+                :"data-availability_dates" => "${JSON.stringify(new App.AvailabilityChanges(availability_for_inventory_pool.changes).withoutSpecificDocumentLines([$item.data]))}",
                 :"data-holidays" => "${JSON.stringify(InventoryPool.holidays)}"}
           ${InventoryPool.name}
     {{/if}}
@@ -89,5 +89,5 @@ ${$subtitle = $name + " " + moment(start_date).format(i18n.date.L) + " - " + mom
   
   {{if availability_for_inventory_pool}}
   .list
-    {{tmpl($item.data) "tmpl/line/calendar/line"}}
+    {{tmpl(App.Line.mergeLines([$item.data])) "tmpl/line/calendar/line"}}
   {{/if}}

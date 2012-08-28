@@ -1,5 +1,0 @@
-digraph G {
-	node [label="\N"];
-	graph [bb="0,0,140,36"];
-	"Model#availability_in" [label="Model#availability_in", shape=box, pos="70,18", width="1.9474", height="0.5"];
-}

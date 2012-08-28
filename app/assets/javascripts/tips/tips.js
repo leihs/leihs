@@ -20,7 +20,7 @@ function Tips() {
     $.fn.qtip.defaults.position.my = 'bottom center';
     $.fn.qtip.defaults.position.at = 'top center';
     $.fn.qtip.defaults.position.viewport = $(window);
-    $.fn.qtip.defaults.show.delay = 400;
+    $.fn.qtip.defaults.show.delay = 200;
     $.fn.qtip.defaults.show.solo = true;
     $.fn.qtip.defaults.style.tip.width = 12;
     $.fn.qtip.defaults.style.tip.height = 8;

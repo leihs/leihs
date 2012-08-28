@@ -41,3 +41,12 @@ Dann /^die Aushändigung kann gespeichert werden$/ do
   step 'I save the booking calendar'
   @line.contract.lines.where(:model_id => @line.model).size.should >= @size
 end
+
+Angenommen /^ich editiere alle Linien$/ do
+  find("#selection_actions .actions .trigger").click
+  find("#selection_actions .actions .button", :text => "Edit Selection").click
+end
+
+Dann /^wird in der Liste unter dem Kalender die entsprechende Linie als nicht verfügbar \(rot\) ausgezeichnet$/ do
+  wait_until{ find(".dialog .list .line.unavailable", :text => @model.name) }
+end
