@@ -90,5 +90,6 @@ at_exit do
       g.add_edges( node[1], node[0] )
     end
   end
+  `mkdir -p doc/diagrams/generated`
   g.output( :dot => "doc/diagrams/generated/captures.dot" )
 end
