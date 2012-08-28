@@ -65,13 +65,13 @@ Dann /^das Problem wird wie folgt dargestellt: "(.*?)"$/ do |format|
 end
 
 Dann /^"(.*?)" sind verfügbar für den Kunden$/ do |arg1|
-  max = @av.maximum_available_in_period_summed_for_groups(@line.group_ids, @line.start_date, @line.end_date)
+  max = @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @line.group_ids)
   max += @line.quantity
   @reference_problem.match(/#{max}\(/).should_not be_nil
 end
 
 Dann /^"(.*?)" sind insgesamt verfügbar$/ do |arg1|
-  max = @av.maximum_available_in_period_summed_for_groups(@ip.group_ids, @line.start_date, @line.end_date)
+  max = @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @ip.group_ids)
   max += @line.quantity
   @reference_problem.match(/\(#{max}/).should_not be_nil
 end
