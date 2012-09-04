@@ -1,8 +1,8 @@
-<%= _("Dear leihs client,") %>
+<%= _("Dear client,") %>
 
 <%= _("** This is an automatically generated response **") %>
 
-<%= _("The following items are due to be returned tomorrow:") %>
+<%= _("The following items are due to be returned tomorrow or need to be inspected by their owners") %>:
 <% inventory_pools = [] %>
 <% @visits.each do | v | %>
   <%= v.quantity %> <%= _(" item(s)") %><%= _(" at the inventory pool ") %><%= v.inventory_pool.name %>
@@ -13,12 +13,19 @@
 	<% end %>
 <% end %>
 
+== <%= _("Are any of the above items your personal computer?") %>
+
+<%= _("We kindly ask you to contact us as soon as possible. Your computer might need an update.") %>
+
+== <%= _("Are any of the above borrowed items?") %>
+
 <%= _("We are just sending you this little reminder because someone else is already waiting for some of these items.") %>
 
 <%= _("In the interest of all our clients we ask you to observe the return dates.") %>
 
 <%= _("Kind regards,") %>
 
+<%= EMAIL_SIGNATURE %>
 --
 <% inventory_pools.each do |ip| %>
 <%= ip.name unless ip.name.blank? %>
