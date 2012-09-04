@@ -78,6 +78,7 @@ function DailyNavigator() {
   }
   
   this.setupDatepicker = function() {
+    debugger;
     $.datepicker.setDefaults({
       closeText: i18n.close,
       prevText: '&lt;',
