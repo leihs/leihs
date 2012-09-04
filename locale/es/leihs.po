@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2012-08-27 15:08+0200\n"
+"POT-Creation-Date: 2012-09-04 10:40+0200\n"
 "PO-Revision-Date: 2009-11-23 15:37+0000\n"
 "Last-Translator: Monkey <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -143,6 +143,12 @@ msgstr "Aprobado"
 #, fuzzy
 msgid "Approved Items"
 msgstr "Aprobado"
+
+msgid "Are any of the above borrowed items?"
+msgstr ""
+
+msgid "Are any of the above items your personal computer?"
+msgstr ""
 
 msgid "Assign"
 msgstr ""
@@ -332,6 +338,10 @@ msgstr "El plazo está por vencerse"
 msgid "Deadline soon reminder sent for %{q} items on contracts %{c}"
 msgstr "El plazo está por vencerse, se enviaron recordatorios por %{q} elementos en %{c} contratos"
 
+#, fuzzy
+msgid "Dear client,"
+msgstr "Estimado cliente de leihs,"
+
 msgid "Dear leihs client,"
 msgstr "Estimado cliente de leihs,"
 
@@ -457,10 +467,6 @@ msgstr "Retirar"
 
 msgid "Group ${partition.group.name}"
 msgstr ""
-
-#, fuzzy
-msgid "Groups"
-msgstr "Grupo modelo"
 
 msgid "Hand Over"
 msgstr "Entregar"
@@ -1238,11 +1244,13 @@ msgstr "El rol de administrador no puede estar asignado a un grupo de inventario
 msgid "The following error happened while sending a notification email to %{email}:\n"
 msgstr ""
 
-msgid "The following items are due to be returned tomorrow:"
+#, fuzzy
+msgid "The following items are due to be returned tomorrow or need to be inspected by their owners"
 msgstr "Los siguientes elementos deben ser devueltos mañana:"
 
-msgid "The following items are overdue:"
-msgstr "Los siguientes elementos pasaron el límite de devolución:"
+#, fuzzy
+msgid "The following items are overdue or need to be inspected by their owners"
+msgstr "Los siguientes elementos deben ser devueltos mañana:"
 
 #, fuzzy
 msgid "The group quantities were successfully saved."
@@ -1481,8 +1489,8 @@ msgstr "Visite a"
 msgid "We are just sending you this little reminder because someone else is already waiting for some of these items."
 msgstr "Solo le enviamos este pequeño recordatorio porque alguien mas encargó esos artículos."
 
-msgid "We therefore ask you to be fair and punctual! Thank you!"
-msgstr "Por lo tanto le pedimos que sea justo y puntual! Gracias!"
+msgid "We kindly ask you to contact us as soon as possible. Your computer might need an update."
+msgstr ""
 
 msgid "Wed"
 msgstr ""
@@ -1546,7 +1554,8 @@ msgstr " en el grupo de inventario "
 msgid "You have been logged out."
 msgstr "Su sesión ha sido cerrada."
 
-msgid "You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from leihs for up to 6 months."
+#, fuzzy
+msgid "You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from the reservation system for up to 6 months."
 msgstr "Podrá ser amonestado y se le cobrarán gastos adicionales, además se restringirán sus derechos de préstamo. En caso de que esto se torne recurrente podrá ser bloqueado de leihs por 6 meses."
 
 #, fuzzy
@@ -1670,10 +1679,6 @@ msgstr "El grupo de inventario está cerrado en start_date. "
 
 msgid "is late"
 msgstr ""
-
-#, fuzzy
-msgid "is returned"
-msgstr "Cosas a devolver"
 
 msgid "item not assigned. "
 msgstr "artículo no asignado. "
@@ -2383,6 +2388,10 @@ msgstr "Comentarios"
 
 #~ msgid "Generate barcode"
 #~ msgstr "Generar código de barras"
+
+#, fuzzy
+#~ msgid "Groups"
+#~ msgstr "Grupo modelo"
 
 #, fuzzy
 #~ msgid "Groups (%d)"
@@ -3222,6 +3231,9 @@ msgstr "Comentarios"
 #~ msgid "Template|Updated at"
 #~ msgstr "Artículo|Actualizado al"
 
+#~ msgid "The following items are overdue:"
+#~ msgstr "Los siguientes elementos pasaron el límite de devolución:"
+
 #~ msgid "The item %s will be retired and no longer be available for rentals."
 #~ msgstr "El artículo %s será retirado y no estará disponible para alquiler."
 
@@ -3387,6 +3399,9 @@ msgstr "Comentarios"
 #~ msgid "View + Acknowledge"
 #~ msgstr "Ver + Aceptar"
 
+#~ msgid "We therefore ask you to be fair and punctual! Thank you!"
+#~ msgstr "Por lo tanto le pedimos que sea justo y puntual! Gracias!"
+
 #~ msgid "Workday|Friday"
 #~ msgstr "Día Laboral|Viernes"
 
@@ -3480,6 +3495,10 @@ msgstr "Comentarios"
 
 #~ msgid "inventory pool"
 #~ msgstr "grupo de inventario"
+
+#, fuzzy
+#~ msgid "is returned"
+#~ msgstr "Cosas a devolver"
 
 #~ msgid "item"
 #~ msgstr "artículo"
