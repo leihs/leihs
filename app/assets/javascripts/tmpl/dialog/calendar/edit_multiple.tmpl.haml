@@ -4,6 +4,8 @@ ${$end_date = new MaxDate(SelectedLines.lines_data), ""}
 ${$user = Line.get_user(SelectedLines.lines_data[0]), ""}
 ${$name = Str.sliced_trunc($user.firstname+" "+$user.lastname, 20, "... "), ""}
 ${$start_date_disabled = !Line.is_start_date_moveable(SelectedLines.lines_data[0]), ""}
+${$formatted_start_date = moment($start_date).format('YYYY-MM-DD'), ""}
+${$formatted_end_date = moment($end_date).format('YYYY-MM-DD'), ""}
 
 = form_tag '${$item.target_url}', :remote => true, :onsubmit => "$(this).find('.close_dialog').attr('disabled', true)", :"data-submit_button" => true do
   {{tmpl({title: "#{_("Edit multiple selected items")}", subtitle: $name}) "app/views/shared/dialog/title"}}
@@ -30,9 +32,9 @@ ${$start_date_disabled = !Line.is_start_date_moveable(SelectedLines.lines_data[0
     .date.container
       .start_date
         {{if $start_date_disabled}}
-        = text_field_tag :start_date, "${moment($start_date).format('YYYY-MM-DD')}", :tabindex => "2", :autocomplete => "off", :disabled => true
+        = text_field_tag :start_date, "${$formatted_start_date}", :tabindex => "2", :autocomplete => "off", :disabled => true
         {{else}}
-        = text_field_tag :start_date, "${moment($start_date).format('YYYY-MM-DD')}", :tabindex => "2", :autocomplete => "off"
+        = text_field_tag :start_date, "${$formatted_start_date}", :tabindex => "2", :autocomplete => "off"
         {{/if}}
         %label{:for => "start_date"}
           = _("Start Date")
@@ -40,7 +42,7 @@ ${$start_date_disabled = !Line.is_start_date_moveable(SelectedLines.lines_data[0
       .dash
         = "-"
       .end_date
-        = text_field_tag :end_date, "${moment($end_date).format('YYYY-MM-DD')}", :tabindex => "3", :autocomplete => "off"
+        = text_field_tag :end_date, "${$formatted_end_date}", :tabindex => "3", :autocomplete => "off"
         %label{:for => "end_date"}
           = _("End Date")
           .icon.jumpto.fc-goto-end{:title => _("jump to this date")}
