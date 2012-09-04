@@ -157,7 +157,6 @@ class BookingCalendar
   validateQuantity: =>
     value = parseInt(@quantity_el.val())
     max = @quantity_el.attr("max")
-    console.log max
     min = @quantity_el.attr("min")
     if value == 0 or isNaN(value)
       return false

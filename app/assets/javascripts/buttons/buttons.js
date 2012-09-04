@@ -63,24 +63,31 @@ function Buttons() {
     return false;
   }
   
-  this.openDialog = function(event) {
+  this.openDialog = function(event, response) {
     var _this = $(event.currentTarget);
     
     var createDialog = function(data) {
       var template = (_this.data("tmpl") != undefined) ? _this.data("tmpl") : undefined;
-      var content;
-      
+      var content, class_name, error;
+
       if(template != undefined) {
         var target_url = _this.attr("href");
-        content = $.tmpl(template, (data == undefined) ? {} : data, {target_url: target_url, on_success: _this.data("on_success")});
+        var options = {target_url: target_url, on_success: _this.data("on_success")};
+        class_name = _this.data("dialog_class");
+        if (event.type == "ajax:error"){
+          additional_class = "error";
+          options.error = response.responseText;
+          class_name += " error";
+        }
+        content = $.tmpl(template, (data == undefined) ? {} : data, options);
       } else {
         content = data;
-      }
+      }   
 
       var dialog = Dialog.add({
         trigger: _this,
         content: content,
-        dialogClass: _this.data("dialog_class"),
+        dialogClass: class_name,
         dialogId: (_this.data("dialog_id") != undefined) ? _this.data("dialog_id") : undefined
       });
 
@@ -144,16 +151,7 @@ function Buttons() {
     var _this = $(event.currentTarget);
     Buttons.enable(_this);
     Buttons.removeLoading(_this);
-    var content;
-    if (_this.data("tmpl") != undefined && _this.data("ref_for_dialog") != undefined) {
-      content = $.tmpl(_this.data("tmpl"), eval(_this.data("ref_for_dialog")), {error: response.responseText, action: _this.attr("href"), on_success: _this.data("on_success")})      
-      
-      Dialog.add({
-        trigger: _this,
-        content: content,
-        dialogClass: _this.data("dialog_class")+" error"
-      });
-    }
+    Buttons.openDialog(event, response);
   }
   
   this.ajaxBeforeSendForm = function(event, request, settings) {
