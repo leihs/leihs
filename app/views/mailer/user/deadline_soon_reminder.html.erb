@@ -6,9 +6,9 @@
       <title>leihs - Deadline soon reminder</title>
    </head>
    <body>
-      <p><%= _("Dear leihs client,") %></p>
+      <p><%= _("Dear client,") %></p>
       <p><%= _("** This is an automatically generated response **") %></p>
-      <p><%= _("The following items are due to be returned tomorrow:") %></p>
+      <p><%= _("The following items are due to be returned tomorrow or need to be inspected by their owners") %>:</p>
 
       <% inventory_pools = [] %>
       <ul>
@@ -23,6 +23,11 @@
         </ul>
       <% end %>
       </ul>
+
+      <h2><%= _("Are any of the above items your personal computer?") %></h2>
+      <p><%= _("We kindly ask you to contact us as soon as possible. Your computer might need an update.") %></p>
+
+      <h2><%= _("Are any of the above borrowed items?") %></h2>
 
       <p><%= _("We are just sending you this little reminder because someone else is already waiting for some of these items.") %></p>
 
