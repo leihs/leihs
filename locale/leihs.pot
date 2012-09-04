@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2012-08-27 15:08+0200\n"
+"POT-Creation-Date: 2012-09-04 10:40+0200\n"
 "PO-Revision-Date: 2011-06-16 17:42+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -126,6 +126,12 @@ msgid "Approved"
 msgstr ""
 
 msgid "Approved Items"
+msgstr ""
+
+msgid "Are any of the above borrowed items?"
+msgstr ""
+
+msgid "Are any of the above items your personal computer?"
 msgstr ""
 
 msgid "Assign"
@@ -293,6 +299,9 @@ msgstr ""
 msgid "Deadline soon reminder sent for %{q} items on contracts %{c}"
 msgstr ""
 
+msgid "Dear client,"
+msgstr ""
+
 msgid "Dear leihs client,"
 msgstr ""
 
@@ -402,9 +411,6 @@ msgid "Go Back"
 msgstr ""
 
 msgid "Group ${partition.group.name}"
-msgstr ""
-
-msgid "Groups"
 msgstr ""
 
 msgid "Hand Over"
@@ -1088,10 +1094,10 @@ msgstr ""
 msgid "The following error happened while sending a notification email to %{email}:\n"
 msgstr ""
 
-msgid "The following items are due to be returned tomorrow:"
+msgid "The following items are due to be returned tomorrow or need to be inspected by their owners"
 msgstr ""
 
-msgid "The following items are overdue:"
+msgid "The following items are overdue or need to be inspected by their owners"
 msgstr ""
 
 msgid "The group quantities were successfully saved."
@@ -1304,7 +1310,7 @@ msgstr ""
 msgid "We are just sending you this little reminder because someone else is already waiting for some of these items."
 msgstr ""
 
-msgid "We therefore ask you to be fair and punctual! Thank you!"
+msgid "We kindly ask you to contact us as soon as possible. Your computer might need an update."
 msgstr ""
 
 msgid "Wed"
@@ -1364,7 +1370,7 @@ msgstr ""
 msgid "You have been logged out."
 msgstr ""
 
-msgid "You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from leihs for up to 6 months."
+msgid "You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from the reservation system for up to 6 months."
 msgstr ""
 
 msgid "You pick up the reserved items at the inventory pool"
@@ -1479,9 +1485,6 @@ msgid "inventory pool is closed on start_date. "
 msgstr ""
 
 msgid "is late"
-msgstr ""
-
-msgid "is returned"
 msgstr ""
 
 msgid "item not assigned. "

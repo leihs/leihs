@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
-"POT-Creation-Date: 2012-08-27 15:08+0200\n"
-"PO-Revision-Date: 2012-08-27 15:09+0100\n"
+"POT-Creation-Date: 2012-09-04 10:40+0200\n"
+"PO-Revision-Date: 2012-09-04 10:43+0100\n"
 "Last-Translator: Ramón Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "Language: \n"
@@ -127,6 +127,12 @@ msgstr "Genehmigt"
 
 msgid "Approved Items"
 msgstr "Genehmigte Gegenstände"
+
+msgid "Are any of the above borrowed items?"
+msgstr "Handelt es sich um ausgeliehens Material?"
+
+msgid "Are any of the above items your personal computer?"
+msgstr "Handelt es sich um ein Mitarbeitergerät?"
 
 msgid "Assign"
 msgstr "Zuweisen"
@@ -293,6 +299,9 @@ msgstr "Bald Deadline"
 msgid "Deadline soon reminder sent for %{q} items on contracts %{c}"
 msgstr "\"Deadline bald\" Erinnerung für %{q} Gegenstände gesendet aus den Verträgen %{c}"
 
+msgid "Dear client,"
+msgstr "Liebe/r Kunde/in"
+
 msgid "Dear leihs client,"
 msgstr "Liebe/r leihs-Kunde/in"
 
@@ -403,9 +412,6 @@ msgstr "Zurück"
 
 msgid "Group ${partition.group.name}"
 msgstr "Gruppe ${partition.group.name}"
-
-msgid "Groups"
-msgstr "Gruppen"
 
 msgid "Hand Over"
 msgstr "Aushändigen"
@@ -1088,11 +1094,11 @@ msgstr "Die admin-Rolle kann sich nicht auf einen Gerätepark beziehen"
 msgid "The following error happened while sending a notification email to %{email}:\n"
 msgstr "Die folgenden Fehler sind aufgetreten beim Versuchn, eine Nachricht an %{email} zu schicken:\n"
 
-msgid "The following items are due to be returned tomorrow:"
-msgstr "Die folgenden Gegenstände müssen morgen zurückgebracht werden:"
+msgid "The following items are due to be returned tomorrow or need to be inspected by their owners"
+msgstr "Die folgenden Gegenstände müssen morgen zurückgebracht werden oder erforden eine Kontrolle durch den Besitzer"
 
-msgid "The following items are overdue:"
-msgstr "Die folgenden Artikel sind überfällig:"
+msgid "The following items are overdue or need to be inspected by their owners"
+msgstr "Die folgenden Gegenstände sind überfällig oder erfordern eine Kontrolle durch den Besitzer"
 
 msgid "The group quantities were successfully saved."
 msgstr "Die Gruppen-Verteilungen wurden gespeichert."
@@ -1304,8 +1310,8 @@ msgstr "Besuche"
 msgid "We are just sending you this little reminder because someone else is already waiting for some of these items."
 msgstr "Wir senden Ihnen diese kleine Erinnerung, da für den/die genannten Artikel bereits eine neue Reservation besteht."
 
-msgid "We therefore ask you to be fair and punctual! Thank you!"
-msgstr "Also seien Sie bitte fair und pünktlich!  Vielen Dank!"
+msgid "We kindly ask you to contact us as soon as possible. Your computer might need an update."
+msgstr "Wir bitten Sie, in den nächsten Tagen mit uns Kontakt aufzunehmen, damit wir das Gerät auf allfällige nötige Aktualisierungen überprüfen können."
 
 msgid "Wed"
 msgstr "Do"
@@ -1364,8 +1370,8 @@ msgstr "Sie sind für die folgenden Geräteparks berechtigt"
 msgid "You have been logged out."
 msgstr "Sie sind nun ausgeloggt."
 
-msgid "You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from leihs for up to 6 months."
-msgstr "Dies kann eine Verwarnung nach sich ziehen und Sie können im Wiederholungsfall vom Verleiher bis zu 6 Monaten von der Ausleihe gesperrt werden!"
+msgid "You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from the reservation system for up to 6 months."
+msgstr "Dies kann eine Verwarnung nach sich ziehen und Sie können im Wiederholungsfall vom Verleiher bis zu 6 Monaten von der Ausleihe gesperrt werden."
 
 msgid "You pick up the reserved items at the inventory pool"
 msgstr "Sie holen die reservierten Gegenstände beim Gerätepark ab"
@@ -1480,9 +1486,6 @@ msgstr "Der Gerätepark ist am gewünschten Starttag geschlossen"
 
 msgid "is late"
 msgstr "verspätet"
-
-msgid "is returned"
-msgstr "zurückgegeben"
 
 msgid "item not assigned. "
 msgstr "kein Gegenstand zugeordnet"
@@ -2322,6 +2325,9 @@ msgstr "ohne Konflikt"
 
 #~ msgid "Group name"
 #~ msgstr "Gruppenname"
+
+#~ msgid "Groups"
+#~ msgstr "Gruppen"
 
 #~ msgid "Groups (%d)"
 #~ msgstr "Gruppen  (%d)"
@@ -3422,6 +3428,9 @@ msgstr "ohne Konflikt"
 #~ msgid "The following items are overdue. Please return them as soon as possible:"
 #~ msgstr "Die folgenden Gegenstände sind überfällig. Bitte bringen Sie sie so schnell wie möglich zurück:"
 
+#~ msgid "The following items are overdue:"
+#~ msgstr "Die folgenden Artikel sind überfällig:"
+
 #~ msgid "The inventory manager added the following comment about your order:"
 #~ msgstr "Vom Verleiher hinzugefügte Kommentare:"
 
@@ -3645,6 +3654,9 @@ msgstr "ohne Konflikt"
 #~ msgid "View and edit"
 #~ msgstr "Öffnen und editieren"
 
+#~ msgid "We therefore ask you to be fair and punctual! Thank you!"
+#~ msgstr "Also seien Sie bitte fair und pünktlich!  Vielen Dank!"
+
 #~ msgid "Whatever you enter here is prepended to all inventory numbers for this particular pool. e.g. ABC1, ABC2, ABC3 etc. If you leave this empty, no alphabetic characters are used in the inventory numbers."
 #~ msgstr "Was Sie hier eingeben, wird vorne an alle Inventarnummern dieses Geräteparks angehängt. z.B. ABC1, ABC2, ABC3 usw. Wenn Sie dies leer lassen, werden keine alphanumerischen Zeichen in den Inventarnummern verwendet."
 
@@ -3772,6 +3784,9 @@ msgstr "ohne Konflikt"
 
 #~ msgid "inventory pool"
 #~ msgstr "Gerätepark"
+
+#~ msgid "is returned"
+#~ msgstr "zurückgegeben"
 
 #~ msgid "item"
 #~ msgstr "Artikel"

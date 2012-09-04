@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2012-08-27 15:08+0200\n"
+"POT-Creation-Date: 2012-09-04 10:40+0200\n"
 "PO-Revision-Date: 2011-06-17 11:43+0100\n"
 "Last-Translator: Ramón Cahenzli <rca@psy-q.ch>\n"
 "Language-Team: Swiss-German (Zürich area) <ramon.cahenzli@zhdk.ch>\n"
@@ -135,6 +135,12 @@ msgstr "Genehmigt"
 #, fuzzy
 msgid "Approved Items"
 msgstr "Genehmigt"
+
+msgid "Are any of the above borrowed items?"
+msgstr ""
+
+msgid "Are any of the above items your personal computer?"
+msgstr ""
 
 msgid "Assign"
 msgstr ""
@@ -320,6 +326,10 @@ msgstr "Baldigi Deadline"
 msgid "Deadline soon reminder sent for %{q} items on contracts %{c}"
 msgstr "Reminder für baldigi Deadline für %{q} Sachä vom Vertrag %{c} gschickt"
 
+#, fuzzy
+msgid "Dear client,"
+msgstr "Liebe leihs-Benutzer,"
+
 msgid "Dear leihs client,"
 msgstr "Liebe leihs-Benutzer,"
 
@@ -441,10 +451,6 @@ msgstr "Zruggnäh"
 
 msgid "Group ${partition.group.name}"
 msgstr ""
-
-#, fuzzy
-msgid "Groups"
-msgstr "Modällgruppe"
 
 msgid "Hand Over"
 msgstr "Übergäh"
@@ -1213,11 +1219,13 @@ msgstr "D Admin-Rolle chan sich nöd uf en Grätepark beziehe"
 msgid "The following error happened while sending a notification email to %{email}:\n"
 msgstr ""
 
-msgid "The following items are due to be returned tomorrow:"
+#, fuzzy
+msgid "The following items are due to be returned tomorrow or need to be inspected by their owners"
 msgstr "Die Sache sind ab morn fällig:"
 
-msgid "The following items are overdue:"
-msgstr "Die folgende Sache sind überfällig:"
+#, fuzzy
+msgid "The following items are overdue or need to be inspected by their owners"
+msgstr "Die Sache sind ab morn fällig:"
 
 #, fuzzy
 msgid "The group quantities were successfully saved."
@@ -1449,8 +1457,8 @@ msgstr "Bsuech am"
 msgid "We are just sending you this little reminder because someone else is already waiting for some of these items."
 msgstr "Mir schicked die churz Erinnerig, wil öpper anders scho uf einigi vo dene Sache warted."
 
-msgid "We therefore ask you to be fair and punctual! Thank you!"
-msgstr "Drum bittemer Sie fair und pünktlich z'sii! Danke!"
+msgid "We kindly ask you to contact us as soon as possible. Your computer might need an update."
+msgstr ""
 
 msgid "Wed"
 msgstr ""
@@ -1514,7 +1522,8 @@ msgstr "Sie händ d'Rächt für de Zuegriff uf di folgende Grätepärk:"
 msgid "You have been logged out."
 msgstr "Sie sind etz usgloggt."
 
-msgid "You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from leihs for up to 6 months."
+#, fuzzy
+msgid "You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from the reservation system for up to 6 months."
 msgstr "Sie chömed allefalls en Ermahnig oder Strafgebühr über oder verlüüret d'Recht Sache uuszlehne. Im Wiederholigsfall chönd Sie bis zu 6 Mönet us em leihs uusgsperrt werdä."
 
 #, fuzzy
@@ -1639,10 +1648,6 @@ msgstr "Grätepark isch am start_date zue."
 
 msgid "is late"
 msgstr ""
-
-#, fuzzy
-msgid "is returned"
-msgstr "Sache zum zruggäh"
 
 msgid "item not assigned. "
 msgstr "Sach nöd zuegwiesä"
@@ -2430,6 +2435,10 @@ msgstr "Kommentar"
 #, fuzzy
 #~ msgid "Group name"
 #~ msgstr "Modellgruppe"
+
+#, fuzzy
+#~ msgid "Groups"
+#~ msgstr "Modällgruppe"
 
 #, fuzzy
 #~ msgid "Groups (%d)"
@@ -3462,6 +3471,9 @@ msgstr "Kommentar"
 #~ msgid "The following items are overdue. Please return them as soon as possible:"
 #~ msgstr "Die sache sind überfällig. Bitte bring sie so schnell wie möglich zrugg."
 
+#~ msgid "The following items are overdue:"
+#~ msgstr "Die folgende Sache sind überfällig:"
+
 #~ msgid "The item %s will be retired and no longer be available for rentals."
 #~ msgstr "D'Sach %s wird uusgmuschteret werde und nüme uusleibar si."
 
@@ -3647,6 +3659,9 @@ msgstr "Kommentar"
 #~ msgid "View + Acknowledge"
 #~ msgstr "Aaluege + bestätigä"
 
+#~ msgid "We therefore ask you to be fair and punctual! Thank you!"
+#~ msgstr "Drum bittemer Sie fair und pünktlich z'sii! Danke!"
+
 #, fuzzy
 #~ msgid "Workday|Friday"
 #~ msgstr "Arbetstäg"
@@ -3754,6 +3769,10 @@ msgstr "Kommentar"
 
 #~ msgid "inventory pool"
 #~ msgstr "Grätepark"
+
+#, fuzzy
+#~ msgid "is returned"
+#~ msgstr "Sache zum zruggäh"
 
 #~ msgid "item"
 #~ msgstr "Gägestand"
