@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2\n"
-"POT-Creation-Date: 2012-02-01 16:02+0100\n"
+"POT-Creation-Date: 2012-09-05 14:39+0200\n"
 "PO-Revision-Date: 2012-03-28 15:56+0200\n"
 "Last-Translator: admin <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: Swiss-German (Zürich area)\n"
@@ -14,289 +14,1737 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.1.6\n"
 
-#: app/helpers/backend/mails_helper.rb:15
-msgid "Write Email"
-msgstr "E-Mail schriibe"
+#: app/models/option.rb:-
+msgid "order line"
+msgstr "Bstelligsziile"
 
-#: app/helpers/backend/backend_helper.rb:38
-msgid " <b>%d</b> results"
-msgstr " <b>%d</b> Resultat"
+#: app/models/option.rb:-
+#, fuzzy
+msgid "OrderLine|Model"
+msgstr "Modellgruppe"
 
-#: app/helpers/backend/backend_helper.rb:39
-msgid " for <b>%s</b>"
-msgstr " für <b>%s</b>"
+#: app/models/option.rb:-
+msgid "OrderLine|Order"
+msgstr ""
 
-#: app/helpers/backend/backend_helper.rb:40
-msgid " filtering <b>%s</b>"
-msgstr "filtere <b>%s</b>"
+#: app/models/option.rb:-
+#, fuzzy
+msgid "OrderLine|Inventory pool"
+msgstr "Grätepark"
 
-#: app/helpers/backend/backend_helper.rb:41
-msgid "Previous"
-msgstr "Zrugg"
+#: app/models/option.rb:-
+#, fuzzy
+msgid "OrderLine|Quantity"
+msgstr "Azahl"
 
-#: app/helpers/backend/backend_helper.rb:41
-msgid "Next"
-msgstr "Wiiter"
+#: app/models/option.rb:-
+#, fuzzy
+msgid "OrderLine|Start date"
+msgstr "Startdatum"
 
-#: app/helpers/backend/backend_helper.rb:106
-#: app/views/backend/hand_over/show.html.erb:53
-#: app/views/backend/hand_over/_index.html.erb:3
-#: app/views/backend/contracts/_index.html.erb:1
-#: app/views/backend/orders/show.html.erb:19
-#: app/views/backend/orders/_index.html.erb:1
-#: app/views/backend/take_back/_index.html.erb:4
-msgid "Reserver"
-msgstr "Reservierer"
+#: app/models/option.rb:-
+#, fuzzy
+msgid "OrderLine|End date"
+msgstr "Rückgabedatum"
 
-#: app/helpers/backend/backend_helper.rb:109
-#: app/views/backend/hand_over/show.html.erb:10
-#: app/views/backend/hand_over/_index.html.erb:23
-#: app/views/backend/contracts/_index.html.erb:10
-#: app/views/backend/orders/show.html.erb:24
-#: app/views/backend/orders/_index.html.erb:11
-#: app/views/backend/take_back/show.html.erb:7
-#: app/views/backend/take_back/_index.html.erb:24
-#: app/views/backend/groups/users.html.erb:18
-#: app/views/widgets/_user_backend_tabnav.html.erb:18
-#: app/views/mailer/order/received.text.html.erb:14
-#: app/views/mailer/order/received.text.plain.erb:8
-#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:17
-msgid "User"
+#: app/models/option.rb:-
+#, fuzzy
+msgid "OrderLine|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "OrderLine|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "OrderLine|Purpose"
+msgstr "Zwäck"
+
+#: app/models/option.rb:-
+msgid "history"
+msgstr "Gschicht"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "History|Text"
+msgstr "Gschicht"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "History|Type const"
+msgstr "Gschicht"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "History|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "History|Target"
+msgstr "Gschicht"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "History|Target type"
+msgstr "Gschicht"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "History|User"
+msgstr "Gschicht"
+
+#: app/models/option.rb:-
+msgid "order"
+msgstr "Bstellig"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Order|User"
+msgstr "Bstellige"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Order|Inventory pool"
+msgstr "Grätepark"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Order|Status const"
+msgstr "Verträg"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Order|Purpose"
+msgstr "Zwäck"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Order|Delta"
+msgstr "Bstellig"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Order|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Order|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+msgid "option"
+msgstr "Option"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Option|Inventory pool"
+msgstr "Grätepark"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Option|Inventory code"
+msgstr "Grätepark"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Option|Name"
+msgstr "Optionä"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Option|Price"
+msgstr "Optionä"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Option|Delta"
+msgstr "Optionä"
+
+#: app/models/option.rb:-
+msgid "contract line"
+msgstr "Vertragsziile"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ContractLine|Contract"
+msgstr "Verträg"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ContractLine|Type"
+msgstr "Verträg"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ContractLine|Item"
+msgstr "Verträg"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ContractLine|Model"
+msgstr "Verträg"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ContractLine|Quantity"
+msgstr "Azahl"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ContractLine|Start date"
+msgstr "Verträg"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ContractLine|End date"
+msgstr "Vertragsbemerkig"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ContractLine|Returned date"
+msgstr "Rückgabedatum"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ContractLine|Option"
+msgstr "Verträg"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ContractLine|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ContractLine|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ContractLine|Purpose"
+msgstr "Verträg"
+
+#: app/models/option.rb:-
+msgid "contract"
+msgstr "vertrag"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Contract|User"
+msgstr "Verträg"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Contract|Inventory pool"
+msgstr "Grätepark"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Contract|Status const"
+msgstr "Verträg"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Contract|Purpose"
+msgstr "Verträg"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Contract|Note"
+msgstr "Verträg"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Contract|Delta"
+msgstr "Verträg"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Contract|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Contract|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+msgid "optionline"
+msgstr "Optionsziile"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "OptionLine|Contract"
+msgstr "Ziitliischte Verträg"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "OptionLine|Type"
+msgstr "Optionä"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "OptionLine|Item"
+msgstr "Optionä"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "OptionLine|Model"
+msgstr "Modellgruppe"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "OptionLine|Quantity"
+msgstr "Azahl"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "OptionLine|Start date"
+msgstr "Startdatum"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "OptionLine|End date"
+msgstr "Enddatum"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "OptionLine|Returned date"
+msgstr "Rückgabedatum"
+
+#: app/models/option.rb:-
+msgid "OptionLine|Option"
+msgstr ""
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "OptionLine|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "OptionLine|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "OptionLine|Purpose"
+msgstr "Optionä"
+
+#: app/models/option.rb:-
+msgid "inventory pool"
+msgstr "Grätepark"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "InventoryPool|Name"
+msgstr "Grätepark"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "InventoryPool|Description"
+msgstr "Gräteparks"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "InventoryPool|Contact details"
+msgstr "Gräteparks"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "InventoryPool|Contract description"
+msgstr "Grätepark fählt"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "InventoryPool|Contract url"
+msgstr "Grätepark"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "InventoryPool|Logo url"
+msgstr "Grätepark"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "InventoryPool|Default contract note"
+msgstr "Grätepark"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "InventoryPool|Shortname"
+msgstr "Grätepark"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "InventoryPool|Email"
+msgstr "Grätepark"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "InventoryPool|Color"
+msgstr "Grätepark"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "InventoryPool|Print contracts"
+msgstr "Grätepark"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "InventoryPool|Delta"
+msgstr "Grätepark"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "InventoryPool|Opening hours"
+msgstr "Grätepark"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "InventoryPool|Address"
+msgstr "Gräteparks"
+
+#: app/models/option.rb:-
+msgid "access right"
+msgstr "Zuegriffsrächt"
+
+#: app/models/option.rb:-
+msgid "AccessRight|Role"
+msgstr "Zuegriffsrächt/Rolle"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "AccessRight|User"
+msgstr "Zuegriffsrächt"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "AccessRight|Inventory pool"
+msgstr "Grätepark"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "AccessRight|Suspended until"
+msgstr "Zuegriffsrächt"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "AccessRight|Deleted at"
+msgstr "Zuegriffsrächt"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "AccessRight|Access level"
+msgstr "Zuegriffsrächt"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "AccessRight|Created at"
+msgstr "Zuegriffsrächt"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "AccessRight|Updated at"
+msgstr "Zuegriffsrächt"
+
+#: app/models/option.rb:-
+msgid "role"
+msgstr "Rolle"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Role|Parent"
+msgstr "Elterä-Element furtnäh"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Role|Lft"
+msgstr "Rolle"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Role|Rgt"
+msgstr "Rolle"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Role|Name"
+msgstr "Rolle"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Role|Delta"
+msgstr "Elterä-Element furtnäh"
+
+#: app/models/option.rb:-
+msgid "model link"
+msgstr "Modäll-Link"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ModelLink|Model group"
+msgstr "Modellgruppe"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ModelLink|Model"
+msgstr "Modellgruppe"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ModelLink|Quantity"
+msgstr "Azahl"
+
+#: app/models/option.rb:-
+msgid "building"
+msgstr "Gebäude"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Building|Name"
+msgstr "Gebäude"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Building|Code"
+msgstr "Gebäude"
+
+#: app/models/option.rb:-
+msgid "user"
 msgstr "Benutzer"
 
-#: app/helpers/backend/backend_helper.rb:125
-#: app/views/backend/hand_over/show.html.erb:71
-#: app/views/backend/templates/models.html.erb:21
-#: app/views/backend/items/_index.html.erb:1
-#: app/views/backend/items/_general_info.html.erb:5
-#: app/views/backend/models/package_roots.html.erb:53
-#: app/views/backend/models/_index.html.erb:1
-#: app/views/widgets/_model_backend_tabnav.html.erb:1
-#: app/views/contracts/_signed.html.erb:38
-#: app/views/contracts/_unsigned.html.erb:39
-#: app/views/orders/_pending.html.erb:35
-#: app/views/frontend/_basket.html.erb:16
-#: app/views/backend/contracts/value_list_for_models.pdf.prawn:67
-#: app/views/contracts/show.pdf.prawn:91
-#: app/views/orders/value_list_for_models.pdf.prawn:62
-msgid "Model"
+#: app/models/option.rb:-
+#, fuzzy
+msgid "User|Login"
+msgstr "Benützer-Login"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "User|Firstname"
+msgstr "Benützer-Login"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "User|Lastname"
+msgstr "Benützer-Login"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "User|Phone"
+msgstr "Telefon"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "User|Authentication system"
+msgstr "Authentifizierigs-System"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "User|Unique"
+msgstr "Telefon"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "User|Email"
+msgstr "E-Mail"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "User|Badge"
+msgstr "Benützer-Login"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "User|Address"
+msgstr "Drzuetue"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "User|City"
+msgstr "Benützer-Login"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "User|Zip"
+msgstr "Benützer-Login"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "User|Country"
+msgstr "Verträg"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "User|Language"
+msgstr "Benützer-Login"
+
+#: app/models/option.rb:-
+msgid "User|Extended info"
+msgstr ""
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "User|Delta"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "User|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "User|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "User|Settings"
+msgstr "Benützer-Login"
+
+#: app/models/option.rb:-
+msgid "accessory"
+msgstr "Zuebehör"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Accessory|Model"
+msgstr "Zuebehör"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Accessory|Name"
+msgstr "Zuebehör"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Accessory|Quantity"
+msgstr "Zuebehör"
+
+#: app/models/option.rb:-
+msgid "image"
+msgstr "Bild"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Image|Model"
+msgstr "Modell"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Image|Is main"
+msgstr "Eltere-Element"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Image|Content type"
+msgstr "Eltere-Element"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Image|Filename"
+msgstr "Eltere-Element"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Image|Size"
+msgstr "Modell"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Image|Height"
+msgstr "Eltere-Element"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Image|Width"
+msgstr "Modell"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Image|Parent"
+msgstr "Eltere-Element"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Image|Thumbnail"
+msgstr "Eltere-Element"
+
+#: app/models/option.rb:-
+msgid "model group"
+msgstr "Modällgruppe"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ModelGroup|Type"
+msgstr "Modellgruppe"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ModelGroup|Name"
+msgstr "Modellgruppe"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ModelGroup|Delta"
+msgstr "Modellgruppe"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ModelGroup|Created at"
+msgstr "Modellgruppe"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ModelGroup|Updated at"
+msgstr "Modellgruppe"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "model group link"
+msgstr "Modällgruppe"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ModelGroupLink|Ancestor"
+msgstr "Modellgruppe"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ModelGroupLink|Descendant"
+msgstr "Modellgruppe"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ModelGroupLink|Direct"
+msgstr "Modellgruppe"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ModelGroupLink|Count"
+msgstr "Azahl"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ModelGroupLink|Label"
+msgstr "Modellgruppe"
+
+#: app/models/option.rb:-
+msgid "category"
+msgstr "Kategorii"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Category|Type"
+msgstr "Kategorie"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Category|Name"
+msgstr "Kategorie"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Category|Delta"
+msgstr "Kategorie"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Category|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Category|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+msgid "location"
+msgstr "Ort"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Location|Room"
+msgstr "Ort"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Location|Shelf"
+msgstr "Ort"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Location|Building"
+msgstr "Ort"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Location|Delta"
+msgstr "Ort"
+
+#: app/models/option.rb:-
+msgid "template"
+msgstr "Vorlag"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Template|Type"
+msgstr "Vorlag"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Template|Name"
+msgstr "Name vo de Vorlag"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Template|Delta"
+msgstr "Vorlag"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Template|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Template|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+msgid "language"
+msgstr "Spraach"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Language|Name"
+msgstr "Verwalter"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Language|Locale name"
+msgstr "Verwalter"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Language|Default"
+msgstr "Verwalter"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Language|Active"
+msgstr "Verwalter"
+
+#: app/models/option.rb:-
+msgid "backup order"
+msgstr ""
+
+#: app/models/option.rb:-
+msgid "backup::order"
+msgstr ""
+
+#: app/models/option.rb:-
+msgid "Backup::Order|Order"
+msgstr ""
+
+#: app/models/option.rb:-
+msgid "Backup::Order|User"
+msgstr ""
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Backup::Order|Inventory pool"
+msgstr "Inventarcode"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Backup::Order|Status const"
+msgstr "Verträg"
+
+#: app/models/option.rb:-
+msgid "Backup::Order|Purpose"
+msgstr ""
+
+#: app/models/option.rb:-
+msgid "Backup::Order|Delta"
+msgstr ""
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Backup::Order|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Backup::Order|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+msgid "backup order line"
+msgstr ""
+
+#: app/models/option.rb:-
+msgid "backup::orderline"
+msgstr ""
+
+#: app/models/option.rb:-
+msgid "Backup::OrderLine|Model"
+msgstr ""
+
+#: app/models/option.rb:-
+msgid "Backup::OrderLine|Order"
+msgstr ""
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Backup::OrderLine|Inventory pool"
+msgstr "Grätepark"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Backup::OrderLine|Quantity"
+msgstr "Azahl"
+
+#: app/models/option.rb:-
+msgid "Backup::OrderLine|Start date"
+msgstr ""
+
+#: app/models/option.rb:-
+msgid "Backup::OrderLine|End date"
+msgstr ""
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Backup::OrderLine|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Backup::OrderLine|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+msgid "database authentication"
+msgstr "Datebank Authentifizierig"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "DatabaseAuthentication|Login"
+msgstr "Datebank-Authentifizierig"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "DatabaseAuthentication|Crypted password"
+msgstr "Datebank-Authentifizierig"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "DatabaseAuthentication|Salt"
+msgstr "Datebank-Authentifizierig"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "DatabaseAuthentication|User"
+msgstr "Datebank-Authentifizierig"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "DatabaseAuthentication|Created at"
+msgstr "Datebank-Authentifizierig"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "DatabaseAuthentication|Updated at"
+msgstr "Datebank-Authentifizierig"
+
+#: app/models/option.rb:-
+msgid "attachment"
+msgstr ""
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Attachment|Model"
+msgstr "Aagluegti Modäll"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Attachment|Is main"
+msgstr "Eltere-Element"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Attachment|Content type"
+msgstr "Eltere-Element"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Attachment|Filename"
+msgstr "Eltere-Element"
+
+#: app/models/option.rb:-
+msgid "Attachment|Size"
+msgstr ""
+
+#: app/models/option.rb:-
+msgid "supplier"
+msgstr "Liferant"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Supplier|Name"
+msgstr "Rolle"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Supplier|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Supplier|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+msgid "authentication system"
+msgstr "Authentifizierigs-System"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "AuthenticationSystem|Name"
+msgstr "Authentifizierigs-System"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "AuthenticationSystem|Class name"
+msgstr "Authentifizierigs-System"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "AuthenticationSystem|Is default"
+msgstr "Authentifizierigs-System"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "AuthenticationSystem|Is active"
+msgstr "Authentifizierigs-System"
+
+#: app/models/option.rb:-
+msgid "itemline"
+msgstr "Gägestandsziile"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ItemLine|Contract"
+msgstr "Ziitliischte Verträg"
+
+#: app/models/option.rb:-
+msgid "ItemLine|Type"
+msgstr ""
+
+#: app/models/option.rb:-
+msgid "ItemLine|Item"
+msgstr ""
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ItemLine|Model"
+msgstr "Modell"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ItemLine|Quantity"
+msgstr "Azahl"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ItemLine|Start date"
+msgstr "Startdatum"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ItemLine|End date"
+msgstr "Inventarcode"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ItemLine|Returned date"
+msgstr "Rückgabedatum"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ItemLine|Option"
+msgstr "Ort"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ItemLine|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ItemLine|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "ItemLine|Purpose"
+msgstr "Modell"
+
+#: app/models/option.rb:-
+msgid "notification"
+msgstr "Mäldig"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Notification|User"
+msgstr "Ört"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Notification|Title"
+msgstr "Ört"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Notification|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+msgid "model"
 msgstr "Modäll"
 
-#: app/helpers/backend/backend_helper.rb:171
-#: app/views/users/account.html.erb:29 app/views/frontend/_models.html.erb:249
-msgid "Loading"
-msgstr "Am lade"
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Model|Name"
+msgstr "Modell"
 
-#: app/helpers/backend/backend_helper.rb:221
-#: app/views/backend/hand_over/sign_contract.html.erb:18
-#: app/views/backend/take_back/close_contract.html.erb:8
-msgid "Confirm"
-msgstr "Bestätige"
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Model|Manufacturer"
+msgstr "Herschteller"
 
-#: app/helpers/backend/backend_helper.rb:227 app/models/document_line.rb:69
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Model|Description"
+msgstr "Beschribig"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Model|Internal description"
+msgstr "Gräteparks"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Model|Info url"
+msgstr "Herschteller"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Model|Rental price"
+msgstr "Herschteller"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Model|Maintenance period"
+msgstr "Herschteller"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Model|Is package"
+msgstr "Modell"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Model|Technical detail"
+msgstr "Gräteparks"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Model|Delta"
+msgstr "Modell"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Model|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Model|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+msgid "Model|Hand over note"
+msgstr ""
+
+#: app/models/option.rb:-
+msgid "property"
+msgstr "Eigäschaft"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Property|Model"
+msgstr "Eigäschaftä"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Property|Key"
+msgstr "Eigäschaftä"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Property|Value"
+msgstr "Eigäschaftä"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "group"
+msgstr "Modällgruppe"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Group|Name"
+msgstr "Modellgruppe"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Group|Inventory pool"
+msgstr "Grätepark"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Group|Delta"
+msgstr "Modellgruppe"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Group|Created at"
+msgstr "Modellgruppe"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Group|Updated at"
+msgstr "Modellgruppe"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "partition"
+msgstr "Option"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Partition|Model"
+msgstr "Modellgruppe"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Partition|Inventory pool"
+msgstr "Grätepark"
+
+#: app/models/option.rb:-
+msgid "Partition|Group"
+msgstr ""
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Partition|Quantity"
+msgstr "Azahl"
+
+#: app/models/option.rb:-
+msgid "workday"
+msgstr "Arbetstag"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Workday|Inventory pool"
+msgstr "Grätepark"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Workday|Monday"
+msgstr "Arbetstäg"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Workday|Tuesday"
+msgstr "Arbetstäg"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Workday|Wednesday"
+msgstr "Arbetstäg"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Workday|Thursday"
+msgstr "Arbetstäg"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Workday|Friday"
+msgstr "Arbetstäg"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Workday|Saturday"
+msgstr "Arbetstäg"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Workday|Sunday"
+msgstr "Arbetstäg"
+
+#: app/models/option.rb:-
+msgid "event"
+msgstr "Aalass"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Event|Date"
+msgstr "Aazahl"
+
+#: app/models/option.rb:-
+msgid "Event|Title"
+msgstr ""
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Event|Action"
+msgstr "Aktion"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Event|Quantity"
+msgstr "Aazahl"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Event|Contract line ids"
+msgstr "Vertragsziile"
+
+#: app/models/option.rb:-
+msgid "item"
+msgstr "Gägestand"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Inventory code"
+msgstr "Inventarcode"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Serial number"
+msgstr "Serienummer"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Model"
+msgstr "Modell"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Location"
+msgstr "Ort"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Supplier"
+msgstr "Liferant"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Owner"
+msgstr "Bstellig: "
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Parent"
+msgstr "Eltere-Element"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Invoice number"
+msgstr "Seriänummerä:"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Invoice date"
+msgstr "Inventarcode"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Last check"
+msgstr "z'letscht überprüeft:"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Retired"
+msgstr "Mindescht-level"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Retired reason"
+msgstr "Mindescht-level"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Price"
+msgstr "Eltere-Element"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Is broken"
+msgstr "Nöd uslehnbar"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Is incomplete"
+msgstr "Nöd vollständig"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Is borrowable"
+msgstr "Nöd uslehnbar"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Needs permission"
+msgstr "Sach erforderet e Berächtigung!"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Inventory pool"
+msgstr "Inventarcode"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Is inventory relevant"
+msgstr "Inventarcode"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Responsible"
+msgstr "Mindescht-level"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Insurance number"
+msgstr "Seriänummerä:"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Note"
+msgstr "Modell"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Name"
+msgstr "Eltere-Element"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Delta"
+msgstr "Modell"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Item|User name"
+msgstr "Eltere-Element"
+
+#: app/models/option.rb:-
+msgid "holiday"
+msgstr "Fiirtig"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Holiday|Inventory pool"
+msgstr "Grätepark"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Holiday|Start date"
+msgstr "Startdatum"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Holiday|End date"
+msgstr "Enddatum"
+
+#: app/models/option.rb:-
+#, fuzzy
+msgid "Holiday|Name"
+msgstr "Feriä"
+
+#: app/models/order.rb:63
+msgid "Unsubmitted"
+msgstr "Anöd agschickt"
+
+#: app/models/order.rb:63
+msgid "Submitted"
+msgstr "Abgschickt"
+
+#: app/models/order.rb:63
+#: app/views/layouts/backend/00-patterns/_menu_process.html.erb:12
+msgid "Approved"
+msgstr "Genehmigt"
+
+#: app/models/order.rb:63
+#: app/views/layouts/backend/00-patterns/_menu_process.html.erb:17
+msgid "Rejected"
+msgstr "Abglehnt"
+
+#: app/models/order.rb:133
+msgid ""
+"The following error happened while sending a notification email to "
+"%{email}:\n"
+msgstr ""
+
+#: app/models/order.rb:135
+msgid ""
+"That means that the user probably did not get the approval mail and you need "
+"to contact him/her in a different way."
+msgstr ""
+
+#: app/models/order.rb:173
+msgid "Changed quantity for %{model} from %{from} to %{to}"
+msgstr "Mängi für %{model} vo %{from} uf %{to} gwächslet"
+
+#: app/models/order.rb:175
+msgid "Maximum number of items available at that time is %{max}"
+msgstr "Es sind zu däre Ziit nume %{max} Sachä ume"
+
+#: app/models/order.rb:176
+msgid "(maximum available: %{max})"
+msgstr "(högschtens ume: %{max})"
+
+#: app/models/order.rb:183
+msgid "Purpose changed '%{from}' for '%{to}'"
+msgstr "Zwäck gwächslet vo '%{from}' uf '%{to}'"
+
+#: app/models/order.rb:193
+msgid "User swapped %{from} for %{to}"
+msgstr "Benutzer gwächslet vo %{from} zu %{to}"
+
+#: app/models/order.rb:272
+#, fuzzy
+msgid "Invalid order_lines"
+msgstr "Bstelligsziile"
+
+#: app/models/option_line.rb:60
+msgid ""
+"The option doesn't belong to the inventory pool related to this contract"
+msgstr "Die Option ghört nöd zum Grätepark wo zu dem Vertrag ghört"
+
+#: app/models/model_link.rb:20
+msgid "already in Category"
+msgstr "Scho inere Karegorie"
+
+#: app/models/user.rb:231
+msgid "Reminded %{q} items for contracts %{c}"
+msgstr "%{q} Sachä für Vertrag %{c} erinneret"
+
+#: app/models/user.rb:237
+msgid "Unsuccessful reminder of %{q} items for contracts %{c}"
+msgstr "Fehlgschlagne Reminder vo %{q} Sachä vom Vertrag %{c}"
+
+#: app/models/user.rb:261
+msgid "Deadline soon reminder sent for %{q} items on contracts %{c}"
+msgstr "Reminder für baldigi Deadline für %{q} Sachä vom Vertrag %{c} gschickt"
+
+#: app/models/mailer/order.rb:11
+msgid "[leihs] Reservation Confirmation"
+msgstr "[leihs] Reservationsbestätigung"
+
+#: app/models/mailer/order.rb:22
+msgid "[leihs] Reservation Submitted"
+msgstr "[leihs] Reservation abgschickt"
+
+#: app/models/mailer/order.rb:33
+#, fuzzy
+msgid "[leihs] Order received"
+msgstr "Bstellig abglehnt"
+
+#: app/models/mailer/order.rb:44
+msgid "[leihs] Reservation Rejected"
+msgstr "[leihs] Reservation abglehnt"
+
+#: app/models/mailer/order.rb:55
+msgid "[leihs] Reservation confirmed (with changes)"
+msgstr "[leihs] Reservation aagnoh (mit Änderige)"
+
+#: app/models/mailer/user.rb:11
+msgid "[leihs] Reminder"
+msgstr "[leihs] Erinnerig"
+
+#: app/models/mailer/user.rb:21
+msgid "[leihs] Some items should be returned tomorrow"
+msgstr "[leihs] Einige Sache sötted morn zruggäh werde"
+
+#: app/models/document.rb:59
+msgid "Added"
+msgstr "Dezuetue"
+
+#: app/models/document.rb:66
+msgid "Swapped %{from} for %{to}"
+msgstr "%{from} dür %{to} ustuuschet"
+
+#: app/models/document.rb:83
+msgid "Changed dates for %{model} from %{from} to %{to}"
+msgstr "Datum für %{model} vo %{from} uf %{to} gwächslet"
+
+#: app/models/document.rb:94
+msgid "Removed %{q} %{m}"
+msgstr "%{q} %{m} wäggnoh"
+
+#: app/models/document_line.rb:40
+msgid "not valid. "
+msgstr "nöd gültig."
+
+#: app/models/document_line.rb:41
+msgid "not available. "
+msgstr "nöd verfüegbar."
+
+#: app/models/document_line.rb:48
+msgid "quantity not available. "
+msgstr "Azahl nöd ume."
+
+#: app/models/document_line.rb:49
+msgid "inventory pool is closed on start_date. "
+msgstr "Grätepark isch am start_date zue."
+
+#: app/models/document_line.rb:50
+msgid "inventory pool is closed on end_date. "
+msgstr "Grätepark isch am end_date zue."
+
+#: app/models/document_line.rb:69 app/helpers/backend/backend_helper.rb:227
 #: app/views/frontend/_complete_order.html.erb:197
 #: app/views/frontend/_models.html.erb:408
 msgid "Start Date must be before End Date"
 msgstr "Startdatum muess vor em Enddatum si"
 
-#: app/helpers/backend/backend_helper.rb:230
-msgid "You can't have a Start Date before today"
-msgstr "Du chasch e kes startdatum ha, wo vor hüt ligt"
+#: app/models/item_line.rb:70
+msgid "item not assigned. "
+msgstr "Sach nöd zuegwiesä"
 
-#: app/helpers/backend/backend_helper.rb:368
-msgid "Month"
-msgstr "Monet"
+#: app/models/item_line.rb:99
+msgid "The item doesn't match with the reserved model"
+msgstr "Die Sach passt nöd zum reserviertä Modäll"
 
-#: app/helpers/backend/backend_helper.rb:438
-msgid "Permission needed:"
-msgstr ""
-
-#: app/helpers/backend/users_helper.rb:4
-#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:22
-msgid "Remind"
-msgstr "Erinnärä"
-
-#: app/helpers/backend/users_helper.rb:14
-msgid "%{i} reminders, last: %{d}"
-msgstr "%{i} Erinnerigä, zletscht: %{d}"
-
-#: app/helpers/backend/items_helper.rb:4
-#: app/views/backend/items/retire.html.erb:2
-msgid "Unretire"
-msgstr "nüme uusmuschtere"
-
-#: app/helpers/backend/items_helper.rb:4
-#: app/views/backend/items/retire.html.erb:5
-msgid "Retire"
-msgstr "Uusmuschtere"
-
-#: app/helpers/backend/acknowledge_helper.rb:9
-#: app/views/backend/inventory_pools/show.html.erb:34
-#: app/views/backend/inventory_pools/show.html.erb:43
-msgid "Today"
-msgstr "Hüt"
-
-#: app/helpers/backend/acknowledge_helper.rb:11
-msgid "Yesterday"
-msgstr "Geschter"
-
-#: app/helpers/backend/availability_helper.rb:18
-msgid "From date"
-msgstr "Startdatum"
-
-#: app/helpers/backend/availability_helper.rb:19
+#: app/models/item_line.rb:102
 #, fuzzy
-msgid "Available quantity"
-msgstr "Verfüegbari Aazahl"
-
-#: app/helpers/backend/models_helper.rb:167
-#, fuzzy
-msgid "Available in total: "
-msgstr "Verfüegbari Aazahl"
-
-#: app/helpers/backend/models_helper.rb:180
-msgid "general"
-msgstr "allgemein"
-
-#: app/helpers/backend/models_helper.rb:181
-msgid "Available in group '"
-msgstr ""
-
-#: app/helpers/backend/models_helper.rb:250
-msgid "Quantity: %d"
-msgstr "Aazahl: %d"
-
-#: app/helpers/backend/models_helper.rb:260
-#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:10
-msgid "Acknowledge"
-msgstr "Bestätige"
-
-#: app/helpers/backend/models_helper.rb:263
-#: app/views/backend/hand_over/index.html.erb:2
-#: app/views/backend/hand_over/_buttons.html.erb:3
-#: app/views/backend/hand_over/_buttons.html.erb:7
-#: app/views/backend/hand_over/_index.html.erb:32
-#: app/views/backend/backend/search/_contract.html.erb:14
-#: app/views/backend/orders/_index.html.erb:25
-#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:14
-msgid "Hand Over"
-msgstr "Übergäh"
-
-#: app/helpers/backend/models_helper.rb:266
-#: app/views/backend/backend/search/_contract.html.erb:11
-#: app/views/backend/contracts/_index.html.erb:22
-#: app/views/backend/take_back/index.html.erb:2
-#: app/views/backend/take_back/_buttons.html.erb:3
-#: app/views/backend/take_back/_buttons.html.erb:7
-#: app/views/backend/take_back/_index.html.erb:33
-#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:18
-msgid "Take Back"
-msgstr "Zruggnäh"
-
-#: app/helpers/backend/models_helper.rb:274
-msgid "Item is overdue and therefore unavailable!"
-msgstr "Die sach isch überfällig und weg dem nöd verfüegbar!"
-
-#: app/helpers/backend/models_helper.rb:275
-msgid "Item is reserved in the future, therefore it's not available!"
-msgstr "Die sach isch i de zuekunft reserviert und weg dem nöd verfüegbar!"
-
-#: app/helpers/backend/models_helper.rb:280
-msgid "until"
-msgstr "bis"
-
-#: app/helpers/backend/categories_helper.rb:11
-#: app/views/backend/hand_over/show.html.erb:39
-#: app/views/frontend/_categories.html.erb:4
-#: app/views/frontend/_models.html.erb:126
-msgid "All"
-msgstr "Ali"
-
-#: app/helpers/application_helper.rb:76
-msgid "Day"
-msgstr "Tag"
-
-#: app/helpers/application_helper.rb:76
-msgid "Days"
-msgstr "Täg"
-
-#: app/helpers/application_helper.rb:137
 msgid ""
-"Possibly not all matches are being displayed because your search text was "
-"shorter than the minumum %s characters"
-msgstr ""
-"Es werdend wohrschinli nöd alli resultat azeigt, will dini suech-afrog "
-"chürzer als %s zeichä gsi isch"
-
-#: app/controllers/backend/hand_over_controller.rb:60
-msgid ""
-"No items to hand over specified. Please assign inventory codes to the items "
-"you want to hand over."
-msgstr ""
-"Kei Sachä zum übergäh aagwählt. Bitte tuen doch Inventarcodes für d Sachä "
-"zuewiisä, wo Du wetsch ussegäh."
-
-#: app/controllers/backend/hand_over_controller.rb:69
-msgid "The start date has been changed for item %s"
-msgstr "S Startdatum isch veränderet worde für %s"
-
-#: app/controllers/backend/hand_over_controller.rb:88
-msgid "New lines have been generated"
-msgstr "Nuei Linie sind generiert worde"
-
-#: app/controllers/backend/hand_over_controller.rb:91
-msgid "The quantity has been changed"
-msgstr "D Mängi isch gänderet worde"
-
-#: app/controllers/backend/hand_over_controller.rb:125
-msgid "The item is already in the current contract."
+"The item is already handed over or assigned to a different contract line"
 msgstr "Dä Gägestand isch scho in dem Vertrag drin."
 
-#: app/controllers/backend/hand_over_controller.rb:127
-msgid "This item is part of package %s."
-msgstr "Diä sach isch teil vom paket %s."
+#: app/models/item_line.rb:105
+msgid "The item doesn't belong to the inventory pool related to this contract"
+msgstr "Die Sach ghört nöd zum Grätepark wo zu dem Vertrag ghört"
 
-#: app/controllers/backend/hand_over_controller.rb:132
-msgid "Inventory Code assigned"
-msgstr "Inventarcode zuegwisäh"
+#: app/models/item_line.rb:108
+msgid "The item belongs to a package"
+msgstr ""
 
-#: app/controllers/backend/hand_over_controller.rb:141
-msgid "New item added to contract."
-msgstr "Neui Sach zum Vertrag dezue tah."
+#: app/models/access_right.rb:40
+msgid "Access Level: %d"
+msgstr "Zuegriffsrächt: %d"
 
-#: app/controllers/backend/hand_over_controller.rb:159
-msgid "Option %s added."
-msgstr "Option %s dezuetue."
+#: app/models/access_right.rb:58
+msgid "The admin role cannot be scoped to an inventory pool"
+msgstr "D Admin-Rolle chan sich nöd uf en Grätepark beziehe"
 
-#: app/controllers/backend/hand_over_controller.rb:161
-#: app/controllers/backend/take_back_controller.rb:119
-msgid "The Inventory Code %s was not found."
-msgstr "Ich han de Inventarcode %s nöd gfunde"
+#: app/models/access_right.rb:60
+msgid "Inventory Pool is missing"
+msgstr "Grätepark fählt"
 
-#: app/controllers/backend/hand_over_controller.rb:218
-#: app/controllers/backend/acknowledge_controller.rb:106
-msgid "User must be selected"
-msgstr "Benutzer muess usgwählt sii"
+#: app/models/notification.rb:25
+msgid "Order submitted"
+msgstr "Bstellig abgschickt"
 
-#: app/controllers/backend/hand_over_controller.rb:228
-msgid "The selected lines have been moved"
-msgstr "Di uusgwählte Linie sind verschobe worde"
+#: app/models/notification.rb:34
+#, fuzzy
+msgid "Order received"
+msgstr "Bstellig abglehnt"
 
-#: app/controllers/backend/inventory_pools_controller.rb:74
-msgid "The Inventory Pool must be empty"
-msgstr "De Grätepark muess läär sii"
+#: app/models/notification.rb:46
+msgid "Order approved"
+msgstr "Bstellig genehmigt"
 
-#: app/controllers/backend/categories_controller.rb:121
-msgid "The Category must be empty"
-msgstr "D Kategorie muess läär sii"
+#: app/models/notification.rb:54
+msgid "Order rejected"
+msgstr "Bstellig abglehnt"
 
-#: app/controllers/backend/categories_controller.rb:135
-msgid "Attempt to add node to own graph collection"
-msgstr "Versuech, en Node zu de eigene Graph-Collection dezue z'tue"
+#: app/models/notification.rb:61
+msgid "Deadline soon"
+msgstr "Baldigi Deadline"
 
-#: app/controllers/backend/take_back_controller.rb:68
-msgid "Item taken back"
-msgstr "Dä Gägestand isch zrugg gno"
+#: app/models/notification.rb:69
+msgid "Reminder"
+msgstr "Erinnerig"
+
+#: app/models/contract.rb:57
+msgid "Unsigned"
+msgstr "nöd unterschribe"
+
+#: app/models/contract.rb:57
+#: app/views/layouts/backend/00-patterns/_menu_process.html.erb:28
+msgid "Signed"
+msgstr "Unterschribe"
+
+#: app/models/contract.rb:57
+#: app/views/layouts/backend/00-patterns/_menu_process.html.erb:33
+msgid "Closed"
+msgstr "Gschlosse"
+
+#: app/models/contract.rb:106
+msgid "Contract %d has been signed by %s"
+msgstr "Vertrag %d isch vo %s underschribe worde"
+
+#: app/models/order_line.rb:75
+#, fuzzy
+msgid "Inconsistent Inventory Pool"
+msgstr "Inventarcode"
+
+#: app/models/item.rb:429
+msgid "%s until %s"
+msgstr "Vom %s bis am %s "
+
+#: app/models/item.rb:458
+msgid "The parent item doesn't exist (parent_id: %d)"
+msgstr ""
+
+#: app/models/item.rb:460
+msgid "A package cannot be nested to another package"
+msgstr ""
+
+#: app/models/item.rb:462 app/models/item.rb:463 app/models/item.rb:464
+msgid "doesn‘t match parent's attribute"
+msgstr ""
+
+#: app/models/item.rb:467
+msgid "Package error"
+msgstr "Paketfähler"
+
+#: app/models/item.rb:472
+#, fuzzy
+msgid "The item cannot be retired because it's not returned yet."
+msgstr ""
+"S Modäll chan nod gänderet werde will d'Sach scho imene Vertrag enthalte "
+"isch."
 
 #: app/controllers/backend/items_controller.rb:114
 msgid "New item created."
@@ -373,26 +1821,6 @@ msgstr ""
 #, fuzzy
 msgid "The mail was sent"
 msgstr "Das Modäll hät no Gägeständ"
-
-#: app/controllers/backend/backend_controller.rb:21
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:7
-msgid "Booking"
-msgstr "Bueche"
-
-#: app/controllers/backend/backend_controller.rb:24
-#: app/views/backend/items/_inventory_info.html.erb:1
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:24
-msgid "Inventory"
-msgstr "Grätepark"
-
-#: app/controllers/backend/backend_controller.rb:53
-#, fuzzy
-msgid "Database backup successfully done."
-msgstr "Paket erfolgriich glöscht"
-
-#: app/controllers/backend/backend_controller.rb:92
-msgid "Model must be selected"
-msgstr "S'Modäll muess uusgwählt sii"
 
 #: app/controllers/backend/models_controller.rb:74
 msgid "Model successfully added as compatible"
@@ -494,31 +1922,108 @@ msgstr "Attachment erfolgriich erstellt."
 msgid "Upload error."
 msgstr "Upload-Fähler"
 
-#: app/controllers/sessions_controller.rb:50
-#: app/controllers/authenticator/database_authentication_controller.rb:19
-msgid "You don't have any rights to access this application."
-msgstr "Sii händ kei Zuegriffsrächt für die Aawändig"
+#: app/controllers/backend/inventory_pools_controller.rb:74
+msgid "The Inventory Pool must be empty"
+msgstr "De Grätepark muess läär sii"
 
-#: app/controllers/sessions_controller.rb:54
-msgid "Logged in successfully"
-msgstr "Erfolgriich iigloggt"
+#: app/controllers/backend/backend_controller.rb:21
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:7
+msgid "Booking"
+msgstr "Bueche"
 
-#: app/controllers/sessions_controller.rb:63
-msgid "You have been logged out."
-msgstr "Sie sind etz usgloggt."
+#: app/controllers/backend/backend_controller.rb:24
+#: app/views/backend/items/_inventory_info.html.erb:1
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:24
+msgid "Inventory"
+msgstr "Grätepark"
 
-#: app/controllers/authenticator/database_authentication_controller.rb:24
-#: app/controllers/authenticator/ldap_authentication_controller.rb:61
-msgid "Invalid username/password"
-msgstr "Ungültige Benutzername/Passwort"
+#: app/controllers/backend/backend_controller.rb:53
+#, fuzzy
+msgid "Database backup successfully done."
+msgstr "Paket erfolgriich glöscht"
 
-#: app/controllers/authenticator/database_authentication_controller.rb:38
-msgid "Password changed"
-msgstr "Passwort g'änderet"
+#: app/controllers/backend/backend_controller.rb:92
+msgid "Model must be selected"
+msgstr "S'Modäll muess uusgwählt sii"
+
+#: app/controllers/backend/hand_over_controller.rb:60
+msgid ""
+"No items to hand over specified. Please assign inventory codes to the items "
+"you want to hand over."
+msgstr ""
+"Kei Sachä zum übergäh aagwählt. Bitte tuen doch Inventarcodes für d Sachä "
+"zuewiisä, wo Du wetsch ussegäh."
+
+#: app/controllers/backend/hand_over_controller.rb:69
+msgid "The start date has been changed for item %s"
+msgstr "S Startdatum isch veränderet worde für %s"
+
+#: app/controllers/backend/hand_over_controller.rb:88
+msgid "New lines have been generated"
+msgstr "Nuei Linie sind generiert worde"
+
+#: app/controllers/backend/hand_over_controller.rb:91
+msgid "The quantity has been changed"
+msgstr "D Mängi isch gänderet worde"
+
+#: app/controllers/backend/hand_over_controller.rb:125
+msgid "The item is already in the current contract."
+msgstr "Dä Gägestand isch scho in dem Vertrag drin."
+
+#: app/controllers/backend/hand_over_controller.rb:127
+msgid "This item is part of package %s."
+msgstr "Diä sach isch teil vom paket %s."
+
+#: app/controllers/backend/hand_over_controller.rb:132
+msgid "Inventory Code assigned"
+msgstr "Inventarcode zuegwisäh"
+
+#: app/controllers/backend/hand_over_controller.rb:141
+msgid "New item added to contract."
+msgstr "Neui Sach zum Vertrag dezue tah."
+
+#: app/controllers/backend/hand_over_controller.rb:159
+msgid "Option %s added."
+msgstr "Option %s dezuetue."
+
+#: app/controllers/backend/hand_over_controller.rb:161
+#: app/controllers/backend/take_back_controller.rb:119
+msgid "The Inventory Code %s was not found."
+msgstr "Ich han de Inventarcode %s nöd gfunde"
+
+#: app/controllers/backend/hand_over_controller.rb:218
+#: app/controllers/backend/acknowledge_controller.rb:106
+msgid "User must be selected"
+msgstr "Benutzer muess usgwählt sii"
+
+#: app/controllers/backend/hand_over_controller.rb:228
+msgid "The selected lines have been moved"
+msgstr "Di uusgwählte Linie sind verschobe worde"
+
+#: app/controllers/backend/take_back_controller.rb:68
+msgid "Item taken back"
+msgstr "Dä Gägestand isch zrugg gno"
+
+#: app/controllers/backend/categories_controller.rb:122
+msgid "The Category must be empty"
+msgstr "D Kategorie muess läär sii"
+
+#: app/controllers/backend/categories_controller.rb:136
+msgid "Attempt to add node to own graph collection"
+msgstr "Versuech, en Node zu de eigene Graph-Collection dezue z'tue"
+
+#: app/controllers/orders_controller.rb:19
+msgid "Submission failed"
+msgstr "Abschicke hät nöd funktioniert"
 
 #: app/controllers/authenticator/ldap_authentication_controller.rb:18
 msgid "Empty Username and/or Password"
 msgstr "Leere Benutzername und/oder Passwort"
+
+#: app/controllers/authenticator/ldap_authentication_controller.rb:61
+#: app/controllers/authenticator/database_authentication_controller.rb:24
+msgid "Invalid username/password"
+msgstr "Ungültige Benutzername/Passwort"
 
 #: app/controllers/authenticator/ldap_authentication_controller.rb:64
 msgid "User unknown"
@@ -532,1852 +2037,867 @@ msgstr "Z'vil Benutzer gfunde"
 msgid "Invalid technical user - contact your leihs admin"
 msgstr ""
 
-#: app/controllers/orders_controller.rb:19
-msgid "Submission failed"
-msgstr "Abschicke hät nöd funktioniert"
-
-#: app/models/partition.rb:-
-msgid "order line"
-msgstr "Bstelligsziile"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "OrderLine|Model"
-msgstr "Modellgruppe"
-
-#: app/models/partition.rb:-
-msgid "OrderLine|Order"
-msgstr ""
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "OrderLine|Inventory pool"
-msgstr "Grätepark"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "OrderLine|Quantity"
-msgstr "Azahl"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "OrderLine|Start date"
-msgstr "Startdatum"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "OrderLine|End date"
-msgstr "Rückgabedatum"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "OrderLine|Created at"
-msgstr "Vertrag %d"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "OrderLine|Updated at"
-msgstr "Vertrag %d"
-
-#: app/models/partition.rb:-
-msgid "history"
-msgstr "Gschicht"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "History|Text"
-msgstr "Gschicht"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "History|Type const"
-msgstr "Gschicht"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "History|Created at"
-msgstr "Vertrag %d"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "History|Target"
-msgstr "Gschicht"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "History|Target type"
-msgstr "Gschicht"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "History|User"
-msgstr "Gschicht"
-
-#: app/models/partition.rb:-
-msgid "order"
-msgstr "Bstellig"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Order|User"
-msgstr "Bstellige"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Order|Inventory pool"
-msgstr "Grätepark"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Order|Status const"
-msgstr "Verträg"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Order|Purpose"
-msgstr "Zwäck"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Order|Delta"
-msgstr "Bstellig"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Order|Created at"
-msgstr "Vertrag %d"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Order|Updated at"
-msgstr "Vertrag %d"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "partition"
-msgstr "Option"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Partition|Model"
-msgstr "Modellgruppe"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Partition|Inventory pool"
-msgstr "Grätepark"
-
-#: app/models/partition.rb:-
-msgid "Partition|Group"
-msgstr ""
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Partition|Quantity"
-msgstr "Azahl"
-
-#: app/models/partition.rb:-
-msgid "workday"
-msgstr "Arbetstag"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Workday|Inventory pool"
-msgstr "Grätepark"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Workday|Monday"
-msgstr "Arbetstäg"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Workday|Tuesday"
-msgstr "Arbetstäg"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Workday|Wednesday"
-msgstr "Arbetstäg"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Workday|Thursday"
-msgstr "Arbetstäg"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Workday|Friday"
-msgstr "Arbetstäg"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Workday|Saturday"
-msgstr "Arbetstäg"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Workday|Sunday"
-msgstr "Arbetstäg"
-
-#: app/models/partition.rb:-
-msgid "event"
-msgstr "Aalass"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Event|Date"
-msgstr "Aazahl"
-
-#: app/models/partition.rb:-
-msgid "Event|Title"
-msgstr ""
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Event|Action"
-msgstr "Aktion"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Event|Quantity"
-msgstr "Aazahl"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Event|Contract line ids"
-msgstr "Vertragsziile"
-
-#: app/models/partition.rb:-
-msgid "contract line"
-msgstr "Vertragsziile"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ContractLine|Contract"
-msgstr "Verträg"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ContractLine|Type"
-msgstr "Verträg"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ContractLine|Item"
-msgstr "Verträg"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ContractLine|Model"
-msgstr "Verträg"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ContractLine|Quantity"
-msgstr "Azahl"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ContractLine|Start date"
-msgstr "Verträg"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ContractLine|End date"
-msgstr "Vertragsbemerkig"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ContractLine|Returned date"
-msgstr "Rückgabedatum"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ContractLine|Option"
-msgstr "Verträg"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ContractLine|Created at"
-msgstr "Vertrag %d"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ContractLine|Updated at"
-msgstr "Vertrag %d"
-
-#: app/models/partition.rb:-
-msgid "contract"
-msgstr "vertrag"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Contract|User"
-msgstr "Verträg"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Contract|Inventory pool"
-msgstr "Grätepark"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Contract|Status const"
-msgstr "Verträg"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Contract|Purpose"
-msgstr "Verträg"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Contract|Note"
-msgstr "Verträg"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Contract|Delta"
-msgstr "Verträg"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Contract|Created at"
-msgstr "Vertrag %d"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Contract|Updated at"
-msgstr "Vertrag %d"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "group"
-msgstr "Modällgruppe"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Group|Name"
-msgstr "Modellgruppe"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Group|Inventory pool"
-msgstr "Grätepark"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Group|Delta"
-msgstr "Modellgruppe"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Group|Created at"
-msgstr "Modellgruppe"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Group|Updated at"
-msgstr "Modellgruppe"
-
-#: app/models/partition.rb:-
-msgid "backup order"
-msgstr ""
-
-#: app/models/partition.rb:-
-msgid "backup::order"
-msgstr ""
-
-#: app/models/partition.rb:-
-msgid "Backup::Order|Order"
-msgstr ""
-
-#: app/models/partition.rb:-
-msgid "Backup::Order|User"
-msgstr ""
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Backup::Order|Inventory pool"
-msgstr "Inventarcode"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Backup::Order|Status const"
-msgstr "Verträg"
-
-#: app/models/partition.rb:-
-msgid "Backup::Order|Purpose"
-msgstr ""
-
-#: app/models/partition.rb:-
-msgid "Backup::Order|Delta"
-msgstr ""
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Backup::Order|Created at"
-msgstr "Vertrag %d"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Backup::Order|Updated at"
-msgstr "Vertrag %d"
-
-#: app/models/partition.rb:-
-msgid "backup order line"
-msgstr ""
-
-#: app/models/partition.rb:-
-msgid "backup::orderline"
-msgstr ""
-
-#: app/models/partition.rb:-
-msgid "Backup::OrderLine|Model"
-msgstr ""
-
-#: app/models/partition.rb:-
-msgid "Backup::OrderLine|Order"
-msgstr ""
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Backup::OrderLine|Inventory pool"
-msgstr "Grätepark"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Backup::OrderLine|Quantity"
-msgstr "Azahl"
-
-#: app/models/partition.rb:-
-msgid "Backup::OrderLine|Start date"
-msgstr ""
-
-#: app/models/partition.rb:-
-msgid "Backup::OrderLine|End date"
-msgstr ""
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Backup::OrderLine|Created at"
-msgstr "Vertrag %d"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Backup::OrderLine|Updated at"
-msgstr "Vertrag %d"
-
-#: app/models/partition.rb:-
-msgid "attachment"
-msgstr ""
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Attachment|Model"
-msgstr "Aagluegti Modäll"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Attachment|Is main"
-msgstr "Eltere-Element"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Attachment|Content type"
-msgstr "Eltere-Element"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Attachment|Filename"
-msgstr "Eltere-Element"
-
-#: app/models/partition.rb:-
-msgid "Attachment|Size"
-msgstr ""
-
-#: app/models/partition.rb:-
-msgid "user"
+#: app/controllers/authenticator/database_authentication_controller.rb:19
+#: app/controllers/sessions_controller.rb:50
+msgid "You don't have any rights to access this application."
+msgstr "Sii händ kei Zuegriffsrächt für die Aawändig"
+
+#: app/controllers/authenticator/database_authentication_controller.rb:38
+msgid "Password changed"
+msgstr "Passwort g'änderet"
+
+#: app/controllers/sessions_controller.rb:54
+msgid "Logged in successfully"
+msgstr "Erfolgriich iigloggt"
+
+#: app/controllers/sessions_controller.rb:63
+msgid "You have been logged out."
+msgstr "Sie sind etz usgloggt."
+
+#: app/helpers/backend/users_helper.rb:4
+#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:22
+msgid "Remind"
+msgstr "Erinnärä"
+
+#: app/helpers/backend/users_helper.rb:14
+msgid "%{i} reminders, last: %{d}"
+msgstr "%{i} Erinnerigä, zletscht: %{d}"
+
+#: app/helpers/backend/acknowledge_helper.rb:9
+#: app/views/backend/inventory_pools/show.html.erb:34
+#: app/views/backend/inventory_pools/show.html.erb:43
+msgid "Today"
+msgstr "Hüt"
+
+#: app/helpers/backend/acknowledge_helper.rb:11
+msgid "Yesterday"
+msgstr "Geschter"
+
+#: app/helpers/backend/backend_helper.rb:38
+msgid " <b>%d</b> results"
+msgstr " <b>%d</b> Resultat"
+
+#: app/helpers/backend/backend_helper.rb:39
+msgid " for <b>%s</b>"
+msgstr " für <b>%s</b>"
+
+#: app/helpers/backend/backend_helper.rb:40
+msgid " filtering <b>%s</b>"
+msgstr "filtere <b>%s</b>"
+
+#: app/helpers/backend/backend_helper.rb:41
+msgid "Previous"
+msgstr "Zrugg"
+
+#: app/helpers/backend/backend_helper.rb:41
+msgid "Next"
+msgstr "Wiiter"
+
+#: app/helpers/backend/backend_helper.rb:106
+#: app/views/backend/hand_over/show.html.erb:53
+#: app/views/backend/hand_over/_index.html.erb:3
+#: app/views/backend/orders/show.html.erb:19
+#: app/views/backend/orders/_index.html.erb:1
+#: app/views/backend/contracts/_index.html.erb:1
+#: app/views/backend/take_back/_index.html.erb:4
+msgid "Reserver"
+msgstr "Reservierer"
+
+#: app/helpers/backend/backend_helper.rb:109
+#: app/views/backend/hand_over/show.html.erb:10
+#: app/views/backend/hand_over/_index.html.erb:23
+#: app/views/backend/groups/users.html.erb:18
+#: app/views/backend/orders/show.html.erb:24
+#: app/views/backend/orders/_index.html.erb:11
+#: app/views/backend/contracts/_index.html.erb:10
+#: app/views/backend/take_back/show.html.erb:7
+#: app/views/backend/take_back/_index.html.erb:24
+#: app/views/mailer/order/received.text.plain.erb:8
+#: app/views/mailer/order/received.text.html.erb:14
+#: app/views/widgets/_user_backend_tabnav.html.erb:18
+#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:17
+msgid "User"
 msgstr "Benutzer"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "User|Login"
-msgstr "Benützer-Login"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "User|Firstname"
-msgstr "Benützer-Login"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "User|Lastname"
-msgstr "Benützer-Login"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "User|Phone"
-msgstr "Telefon"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "User|Authentication system"
-msgstr "Authentifizierigs-System"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "User|Unique"
-msgstr "Telefon"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "User|Email"
-msgstr "E-Mail"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "User|Badge"
-msgstr "Benützer-Login"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "User|Address"
-msgstr "Drzuetue"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "User|City"
-msgstr "Benützer-Login"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "User|Zip"
-msgstr "Benützer-Login"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "User|Country"
-msgstr "Verträg"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "User|Language"
-msgstr "Benützer-Login"
-
-#: app/models/partition.rb:-
-msgid "User|Extended info"
-msgstr ""
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "User|Delta"
-msgstr "Vertrag %d"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "User|Created at"
-msgstr "Vertrag %d"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "User|Updated at"
-msgstr "Vertrag %d"
-
-#: app/models/partition.rb:-
-msgid "property"
-msgstr "Eigäschaft"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Property|Model"
-msgstr "Eigäschaftä"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Property|Key"
-msgstr "Eigäschaftä"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Property|Value"
-msgstr "Eigäschaftä"
-
-#: app/models/partition.rb:-
-msgid "building"
-msgstr "Gebäude"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Building|Name"
-msgstr "Gebäude"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Building|Code"
-msgstr "Gebäude"
-
-#: app/models/partition.rb:-
-msgid "language"
-msgstr "Spraach"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Language|Name"
-msgstr "Verwalter"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Language|Locale name"
-msgstr "Verwalter"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Language|Default"
-msgstr "Verwalter"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Language|Active"
-msgstr "Verwalter"
-
-#: app/models/partition.rb:-
-msgid "holiday"
-msgstr "Fiirtig"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Holiday|Inventory pool"
-msgstr "Grätepark"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Holiday|Start date"
-msgstr "Startdatum"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Holiday|End date"
-msgstr "Enddatum"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Holiday|Name"
-msgstr "Feriä"
-
-#: app/models/partition.rb:-
-msgid "authentication system"
-msgstr "Authentifizierigs-System"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "AuthenticationSystem|Name"
-msgstr "Authentifizierigs-System"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "AuthenticationSystem|Class name"
-msgstr "Authentifizierigs-System"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "AuthenticationSystem|Is default"
-msgstr "Authentifizierigs-System"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "AuthenticationSystem|Is active"
-msgstr "Authentifizierigs-System"
-
-#: app/models/partition.rb:-
-msgid "image"
-msgstr "Bild"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Image|Model"
-msgstr "Modell"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Image|Is main"
-msgstr "Eltere-Element"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Image|Content type"
-msgstr "Eltere-Element"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Image|Filename"
-msgstr "Eltere-Element"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Image|Size"
-msgstr "Modell"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Image|Height"
-msgstr "Eltere-Element"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Image|Width"
-msgstr "Modell"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Image|Parent"
-msgstr "Eltere-Element"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Image|Thumbnail"
-msgstr "Eltere-Element"
-
-#: app/models/partition.rb:-
-msgid "itemline"
-msgstr "Gägestandsziile"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ItemLine|Contract"
-msgstr "Ziitliischte Verträg"
-
-#: app/models/partition.rb:-
-msgid "ItemLine|Type"
-msgstr ""
-
-#: app/models/partition.rb:-
-msgid "ItemLine|Item"
-msgstr ""
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ItemLine|Model"
-msgstr "Modell"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ItemLine|Quantity"
-msgstr "Azahl"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ItemLine|Start date"
-msgstr "Startdatum"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ItemLine|End date"
-msgstr "Inventarcode"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ItemLine|Returned date"
-msgstr "Rückgabedatum"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ItemLine|Option"
-msgstr "Ort"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ItemLine|Created at"
-msgstr "Vertrag %d"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ItemLine|Updated at"
-msgstr "Vertrag %d"
-
-#: app/models/partition.rb:-
-msgid "location"
-msgstr "Ort"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Location|Room"
-msgstr "Ort"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Location|Shelf"
-msgstr "Ort"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Location|Building"
-msgstr "Ort"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Location|Delta"
-msgstr "Ort"
-
-#: app/models/partition.rb:-
-msgid "item"
-msgstr "Gägestand"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Inventory code"
-msgstr "Inventarcode"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Serial number"
-msgstr "Serienummer"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Model"
-msgstr "Modell"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Location"
-msgstr "Ort"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Supplier"
-msgstr "Liferant"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Owner"
-msgstr "Bstellig: "
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Parent"
-msgstr "Eltere-Element"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Invoice number"
-msgstr "Seriänummerä:"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Invoice date"
-msgstr "Inventarcode"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Last check"
-msgstr "z'letscht überprüeft:"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Retired"
-msgstr "Mindescht-level"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Retired reason"
-msgstr "Mindescht-level"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Price"
-msgstr "Eltere-Element"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Is broken"
-msgstr "Nöd uslehnbar"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Is incomplete"
-msgstr "Nöd vollständig"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Is borrowable"
-msgstr "Nöd uslehnbar"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Needs permission"
-msgstr "Sach erforderet e Berächtigung!"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Inventory pool"
-msgstr "Inventarcode"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Is inventory relevant"
-msgstr "Inventarcode"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Responsible"
-msgstr "Mindescht-level"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Insurance number"
-msgstr "Seriänummerä:"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Note"
-msgstr "Modell"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Name"
-msgstr "Eltere-Element"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Delta"
-msgstr "Modell"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Created at"
-msgstr "Vertrag %d"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|Updated at"
-msgstr "Vertrag %d"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Item|User name"
-msgstr "Eltere-Element"
-
-#: app/models/partition.rb:-
-msgid "accessory"
-msgstr "Zuebehör"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Accessory|Model"
-msgstr "Zuebehör"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Accessory|Name"
-msgstr "Zuebehör"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Accessory|Quantity"
-msgstr "Zuebehör"
-
-#: app/models/partition.rb:-
-msgid "optionline"
-msgstr "Optionsziile"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "OptionLine|Contract"
-msgstr "Ziitliischte Verträg"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "OptionLine|Type"
-msgstr "Optionä"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "OptionLine|Item"
-msgstr "Optionä"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "OptionLine|Model"
-msgstr "Modellgruppe"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "OptionLine|Quantity"
-msgstr "Azahl"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "OptionLine|Start date"
-msgstr "Startdatum"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "OptionLine|End date"
-msgstr "Enddatum"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "OptionLine|Returned date"
-msgstr "Rückgabedatum"
-
-#: app/models/partition.rb:-
-msgid "OptionLine|Option"
-msgstr ""
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "OptionLine|Created at"
-msgstr "Vertrag %d"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "OptionLine|Updated at"
-msgstr "Vertrag %d"
-
-#: app/models/partition.rb:-
-msgid "option"
-msgstr "Option"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Option|Inventory pool"
-msgstr "Grätepark"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Option|Inventory code"
-msgstr "Grätepark"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Option|Name"
-msgstr "Optionä"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Option|Price"
-msgstr "Optionä"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Option|Delta"
-msgstr "Optionä"
-
-#: app/models/partition.rb:-
-msgid "access right"
-msgstr "Zuegriffsrächt"
-
-#: app/models/partition.rb:-
-msgid "AccessRight|Role"
-msgstr "Zuegriffsrächt/Rolle"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "AccessRight|User"
-msgstr "Zuegriffsrächt"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "AccessRight|Inventory pool"
-msgstr "Grätepark"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "AccessRight|Suspended until"
-msgstr "Zuegriffsrächt"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "AccessRight|Deleted at"
-msgstr "Zuegriffsrächt"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "AccessRight|Access level"
-msgstr "Zuegriffsrächt"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "AccessRight|Created at"
-msgstr "Zuegriffsrächt"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "AccessRight|Updated at"
-msgstr "Zuegriffsrächt"
-
-#: app/models/partition.rb:-
-msgid "inventory pool"
-msgstr "Grätepark"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "InventoryPool|Name"
-msgstr "Grätepark"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "InventoryPool|Description"
-msgstr "Gräteparks"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "InventoryPool|Contact details"
-msgstr "Gräteparks"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "InventoryPool|Contract description"
-msgstr "Grätepark fählt"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "InventoryPool|Contract url"
-msgstr "Grätepark"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "InventoryPool|Logo url"
-msgstr "Grätepark"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "InventoryPool|Default contract note"
-msgstr "Grätepark"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "InventoryPool|Shortname"
-msgstr "Grätepark"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "InventoryPool|Email"
-msgstr "Grätepark"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "InventoryPool|Color"
-msgstr "Grätepark"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "InventoryPool|Print contracts"
-msgstr "Grätepark"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "InventoryPool|Delta"
-msgstr "Grätepark"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "InventoryPool|Opening hours"
-msgstr "Grätepark"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "InventoryPool|Address"
-msgstr "Gräteparks"
-
-#: app/models/partition.rb:-
-msgid "role"
-msgstr "Rolle"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Role|Parent"
-msgstr "Elterä-Element furtnäh"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Role|Lft"
-msgstr "Rolle"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Role|Rgt"
-msgstr "Rolle"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Role|Name"
-msgstr "Rolle"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Role|Delta"
-msgstr "Elterä-Element furtnäh"
-
-#: app/models/partition.rb:-
-msgid "model"
+#: app/helpers/backend/backend_helper.rb:125
+#: app/views/frontend/_basket.html.erb:16
+#: app/views/backend/hand_over/show.html.erb:71
+#: app/views/backend/items/_general_info.html.erb:5
+#: app/views/backend/items/_index.html.erb:1
+#: app/views/backend/templates/models.html.erb:21
+#: app/views/backend/models/_index.html.erb:1
+#: app/views/backend/models/package_roots.html.erb:53
+#: app/views/orders/_pending.html.erb:35
+#: app/views/contracts/_signed.html.erb:38
+#: app/views/contracts/_unsigned.html.erb:39
+#: app/views/widgets/_model_backend_tabnav.html.erb:1
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:67
+#: app/views/orders/value_list_for_models.pdf.prawn:62
+#: app/views/contracts/show.pdf.prawn:91
+msgid "Model"
 msgstr "Modäll"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Model|Name"
-msgstr "Modell"
+#: app/helpers/backend/backend_helper.rb:171
+#: app/views/users/account.html.erb:29 app/views/frontend/_models.html.erb:249
+msgid "Loading"
+msgstr "Am lade"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Model|Manufacturer"
-msgstr "Herschteller"
+#: app/helpers/backend/backend_helper.rb:221
+#: app/views/backend/hand_over/sign_contract.html.erb:18
+#: app/views/backend/take_back/close_contract.html.erb:8
+msgid "Confirm"
+msgstr "Bestätige"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Model|Description"
-msgstr "Beschribig"
+#: app/helpers/backend/backend_helper.rb:230
+msgid "You can't have a Start Date before today"
+msgstr "Du chasch e kes startdatum ha, wo vor hüt ligt"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Model|Internal description"
-msgstr "Gräteparks"
+#: app/helpers/backend/backend_helper.rb:368
+msgid "Month"
+msgstr "Monet"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Model|Info url"
-msgstr "Herschteller"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Model|Rental price"
-msgstr "Herschteller"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Model|Maintenance period"
-msgstr "Herschteller"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Model|Is package"
-msgstr "Modell"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Model|Technical detail"
-msgstr "Gräteparks"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Model|Delta"
-msgstr "Modell"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Model|Created at"
-msgstr "Vertrag %d"
-
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Model|Updated at"
-msgstr "Vertrag %d"
-
-#: app/models/partition.rb:-
-msgid "Model|Hand over note"
+#: app/helpers/backend/backend_helper.rb:438
+msgid "Permission needed:"
 msgstr ""
 
-#: app/models/partition.rb:-
+#: app/helpers/backend/availability_helper.rb:18
+msgid "From date"
+msgstr "Startdatum"
+
+#: app/helpers/backend/availability_helper.rb:19
 #, fuzzy
-msgid "model group link"
-msgstr "Modällgruppe"
+msgid "Available quantity"
+msgstr "Verfüegbari Aazahl"
 
-#: app/models/partition.rb:-
+#: app/helpers/backend/items_helper.rb:4
+#: app/views/backend/items/retire.html.erb:2
+msgid "Unretire"
+msgstr "nüme uusmuschtere"
+
+#: app/helpers/backend/items_helper.rb:4
+#: app/views/backend/items/retire.html.erb:5
+msgid "Retire"
+msgstr "Uusmuschtere"
+
+#: app/helpers/backend/mails_helper.rb:15
+msgid "Write Email"
+msgstr "E-Mail schriibe"
+
+#: app/helpers/backend/models_helper.rb:167
 #, fuzzy
-msgid "ModelGroupLink|Ancestor"
-msgstr "Modellgruppe"
+msgid "Available in total: "
+msgstr "Verfüegbari Aazahl"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ModelGroupLink|Descendant"
-msgstr "Modellgruppe"
+#: app/helpers/backend/models_helper.rb:180
+msgid "general"
+msgstr "allgemein"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ModelGroupLink|Direct"
-msgstr "Modellgruppe"
+#: app/helpers/backend/models_helper.rb:181
+msgid "Available in group '"
+msgstr ""
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ModelGroupLink|Count"
-msgstr "Azahl"
+#: app/helpers/backend/models_helper.rb:250
+msgid "Quantity: %d"
+msgstr "Aazahl: %d"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ModelGroupLink|Label"
-msgstr "Modellgruppe"
+#: app/helpers/backend/models_helper.rb:260
+#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:10
+msgid "Acknowledge"
+msgstr "Bestätige"
 
-#: app/models/partition.rb:-
-msgid "model link"
-msgstr "Modäll-Link"
+#: app/helpers/backend/models_helper.rb:263
+#: app/views/backend/backend/search/_contract.html.erb:14
+#: app/views/backend/hand_over/_buttons.html.erb:3
+#: app/views/backend/hand_over/_buttons.html.erb:7
+#: app/views/backend/hand_over/index.html.erb:2
+#: app/views/backend/hand_over/_index.html.erb:32
+#: app/views/backend/orders/_index.html.erb:25
+#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:14
+msgid "Hand Over"
+msgstr "Übergäh"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ModelLink|Model group"
-msgstr "Modellgruppe"
+#: app/helpers/backend/models_helper.rb:266
+#: app/views/backend/backend/search/_contract.html.erb:11
+#: app/views/backend/contracts/_index.html.erb:22
+#: app/views/backend/take_back/_buttons.html.erb:3
+#: app/views/backend/take_back/_buttons.html.erb:7
+#: app/views/backend/take_back/index.html.erb:2
+#: app/views/backend/take_back/_index.html.erb:33
+#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:18
+msgid "Take Back"
+msgstr "Zruggnäh"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ModelLink|Model"
-msgstr "Modellgruppe"
+#: app/helpers/backend/models_helper.rb:274
+msgid "Item is overdue and therefore unavailable!"
+msgstr "Die sach isch überfällig und weg dem nöd verfüegbar!"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ModelLink|Quantity"
-msgstr "Azahl"
+#: app/helpers/backend/models_helper.rb:275
+msgid "Item is reserved in the future, therefore it's not available!"
+msgstr "Die sach isch i de zuekunft reserviert und weg dem nöd verfüegbar!"
 
-#: app/models/partition.rb:-
-msgid "model group"
-msgstr "Modällgruppe"
+#: app/helpers/backend/models_helper.rb:280
+msgid "until"
+msgstr "bis"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ModelGroup|Type"
-msgstr "Modellgruppe"
+#: app/helpers/backend/categories_helper.rb:11
+#: app/views/frontend/_categories.html.erb:4
+#: app/views/frontend/_models.html.erb:126
+#: app/views/backend/hand_over/show.html.erb:39
+msgid "All"
+msgstr "Ali"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ModelGroup|Name"
-msgstr "Modellgruppe"
+#: app/helpers/application_helper.rb:76
+msgid "Day"
+msgstr "Tag"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ModelGroup|Delta"
-msgstr "Modellgruppe"
+#: app/helpers/application_helper.rb:76
+msgid "Days"
+msgstr "Täg"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ModelGroup|Created at"
-msgstr "Modellgruppe"
+#: app/helpers/application_helper.rb:137
+msgid ""
+"Possibly not all matches are being displayed because your search text was "
+"shorter than the minumum %s characters"
+msgstr ""
+"Es werdend wohrschinli nöd alli resultat azeigt, will dini suech-afrog "
+"chürzer als %s zeichä gsi isch"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "ModelGroup|Updated at"
-msgstr "Modellgruppe"
+#: app/views/users/account.html.erb:15
+msgid "My Orders"
+msgstr "Mini Bstellige"
 
-#: app/models/partition.rb:-
-msgid "category"
-msgstr "Kategorii"
+#: app/views/users/_contracts.html.erb:7
+msgid "Contracts (%d)"
+msgstr "Verträg (%d)"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Category|Type"
-msgstr "Kategorie"
+#: app/views/users/_documents2.html.erb:4
+#: app/views/layouts/backend/00-patterns/_menu_process.html.erb:4
+msgid "Orders"
+msgstr "Bstellige"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Category|Name"
-msgstr "Kategorie"
+#: app/views/users/_documents2.html.erb:34
+#: app/views/layouts/backend/00-patterns/_menu_process.html.erb:25
+msgid "Contracts"
+msgstr "Verträg"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Category|Delta"
-msgstr "Kategorie"
+#: app/views/users/_incomplete.html.erb:6
+msgid "User details incomplete: %s is missing"
+msgstr ""
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Category|Created at"
-msgstr "Vertrag %d"
+#: app/views/users/_incomplete.html.erb:14
+msgid ""
+"Unfortunately, we do not have all your personal information and therefore "
+"cannot grant you access to this system. Please log in to the Personensuche "
+"system (see link below) and complete the form under 'Meine persönlichen "
+"Daten'. If you cannot use the Personensuche system, please contact Claudio "
+"Pavan (claudio.pavan@zhdk.ch or +41 43 446 21 48) and give him your full "
+"details. The information we need is: Full name, address, landline phone "
+"number, mobile phone number and alternative e-mail address. This information "
+"will never be visible to the public unless you explicitly choose to make it "
+"visible."
+msgstr ""
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Category|Updated at"
-msgstr "Vertrag %d"
+#: app/views/frontend/_basket.html.erb:19
+#: app/views/frontend/_models.html.erb:353
+#: app/views/frontend/_models.html.erb:357
+#: app/views/orders/_pending.html.erb:10
+#: app/views/contracts/_pending.html.erb:12
+#: app/views/contracts/_signed.html.erb:12
+#: app/views/contracts/_unsigned.html.erb:15
+#: app/views/layouts/backend/00-patterns/general.html.erb:59
+#: app/views/layouts/backend/00-patterns/_menu_admin.html.erb:23
+msgid "Inventory Pool"
+msgstr "Grätepark"
 
-#: app/models/partition.rb:-
-msgid "template"
+#: app/views/frontend/_basket.html.erb:30
+msgid "Basket"
+msgstr "Chörbli"
+
+#: app/views/frontend/_basket.html.erb:82
+msgid "Continue with Order"
+msgstr "Wiiter mit de Bstellig"
+
+#: app/views/frontend/_categories.html.erb:23
+#: app/views/backend/items/_general_info.html.erb:15
+#: app/views/backend/models/_index.html.erb:1
+#: app/views/layouts/backend/00-patterns/_menu_admin.html.erb:20
+msgid "Categories"
+msgstr "Kategoriä"
+
+#: app/views/frontend/_templates.html.erb:22
+#: app/views/layouts/backend/00-patterns/_menu_packages.html.erb:5
+msgid "Templates"
+msgstr "Vorlagä"
+
+#: app/views/frontend/_templates.html.erb:113
+#: app/views/widgets/_template_backend_tabnav.html.erb:20
+msgid "Template"
 msgstr "Vorlag"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Template|Type"
-msgstr "Vorlag"
+#: app/views/frontend/_templates.html.erb:134
+msgid "Add all"
+msgstr "Alli dezuetue"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Template|Name"
-msgstr "Name vo de Vorlag"
+#: app/views/frontend/_complete_order.html.erb:197
+msgid "Error"
+msgstr "Fähler"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Template|Delta"
-msgstr "Vorlag"
+#: app/views/frontend/_complete_order.html.erb:226
+#: app/views/frontend/_complete_order.html.erb:411
+msgid "Change Timeframe"
+msgstr "Ziitfenschter änderä"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Template|Created at"
-msgstr "Vertrag %d"
+#: app/views/frontend/_complete_order.html.erb:227
+msgid "Change the timeframe for the selected items"
+msgstr "Ziitfenschter für Uswahl änderä"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Template|Updated at"
-msgstr "Vertrag %d"
+#: app/views/frontend/_complete_order.html.erb:234
+#: app/views/frontend/_complete_order.html.erb:241
+#: app/views/backend/users/groups.html.erb:28
+#: app/views/backend/categories/_index.html.erb:29
+#: app/views/backend/groups/users.html.erb:27
+#: app/views/backend/templates/models.html.erb:39
+#: app/views/backend/templates/_index.html.erb:11
+#: app/views/backend/models/_index_row_plain.html.erb:30
+#: app/views/backend/models/accessories.html.erb:41
+#: app/views/backend/models/package_roots.html.erb:65
+msgid "Remove"
+msgstr "Wägneh"
 
-#: app/models/partition.rb:-
-msgid "supplier"
-msgstr "Liferant"
+#: app/views/frontend/_complete_order.html.erb:235
+msgid "Remove the selected items"
+msgstr "Agwählti Sachä furtnäh"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Supplier|Name"
-msgstr "Rolle"
+#: app/views/frontend/_complete_order.html.erb:242
+msgid "You are sure?"
+msgstr "Bisch sicher?"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Supplier|Created at"
-msgstr "Vertrag %d"
+#: app/views/frontend/_complete_order.html.erb:268
+msgid "Submit Order"
+msgstr "Bstellig abschickä"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Supplier|Updated at"
-msgstr "Vertrag %d"
+#: app/views/frontend/_complete_order.html.erb:275
+msgid "Do you want to submit this order?"
+msgstr "Wotsch diä Bstellig abschickä?"
 
-#: app/models/partition.rb:-
-msgid "notification"
-msgstr "Mäldig"
+#: app/views/frontend/_complete_order.html.erb:281
+#: app/views/backend/hand_over/show.html.erb:20
+#: app/views/backend/orders/show.html.erb:34
+#: app/views/orders/_pending.html.erb:13
+msgid "Purpose"
+msgstr "Zwäck"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Notification|User"
-msgstr "Ört"
+#: app/views/frontend/_complete_order.html.erb:287
+#: app/views/backend/options/show.html.erb:15
+#: app/views/backend/items/status.html.erb:39
+#: app/views/backend/items/notes.html.erb:5
+#: app/views/backend/models/package.html.erb:34
+#: app/views/backend/models/properties.html.erb:51
+#: app/views/backend/models/index.html.erb:20
+#: app/views/backend/models/details.html.erb:13
+#: app/views/backend/models/package_roots.html.erb:22
+msgid "Submit"
+msgstr "Abchickä"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Notification|Title"
-msgstr "Ört"
+#: app/views/frontend/_complete_order.html.erb:367
+#: app/views/frontend/_models.html.erb:375
+#: app/views/frontend/_models.html.erb:379
+#: app/views/contracts/show.pdf.prawn:91
+msgid "Start date"
+msgstr "Startdatum"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "Notification|Created at"
-msgstr "Vertrag %d"
+#: app/views/frontend/_complete_order.html.erb:378
+#: app/views/frontend/_models.html.erb:394
+#: app/views/frontend/_models.html.erb:398
+#: app/views/contracts/show.pdf.prawn:91
+msgid "End date"
+msgstr "Enddatum"
 
-#: app/models/partition.rb:-
-msgid "database authentication"
-msgstr "Datebank Authentifizierig"
+#: app/views/frontend/_complete_order.html.erb:387
+#: app/views/layouts/backend/00-patterns/general.html.erb:59
+msgid "Change"
+msgstr "Änderä"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "DatabaseAuthentication|Login"
-msgstr "Datebank-Authentifizierig"
+#: app/views/frontend/_complete_order.html.erb:432
+msgid "Order"
+msgstr "Bstellig"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "DatabaseAuthentication|Crypted password"
-msgstr "Datebank-Authentifizierig"
+#: app/views/frontend/_complete_order.html.erb:476
+msgid "The order is empty"
+msgstr "D Bstellig isch läär"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "DatabaseAuthentication|Salt"
-msgstr "Datebank-Authentifizierig"
+#: app/views/frontend/_complete_order.html.erb:478
+msgid "The order is not yet approvable"
+msgstr "Die Bstellig chasch no nöd genehmigä"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "DatabaseAuthentication|User"
-msgstr "Datebank-Authentifizierig"
+#: app/views/frontend/_help.html.erb:32 app/views/frontend/_topbar.html.erb:24
+msgid "Help"
+msgstr "Hilf"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "DatabaseAuthentication|Created at"
-msgstr "Datebank-Authentifizierig"
+#: app/views/frontend/_splash_page.html.erb:14
+msgid "Welcome"
+msgstr "Willkome"
 
-#: app/models/partition.rb:-
-#, fuzzy
-msgid "DatabaseAuthentication|Updated at"
-msgstr "Datebank-Authentifizierig"
+#: app/views/frontend/_topbar.html.erb:64
+#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:19
+msgid "Logout"
+msgstr "Uuslogge"
 
-#: app/models/contract.rb:57
-msgid "Unsigned"
-msgstr "nöd unterschribe"
+#: app/views/frontend/_inventory_pools.html.erb:37
+#: app/views/frontend/_inventory_pools.html.erb:60
+#: app/views/backend/models/package.html.erb:20
+msgid "Inventory Pools"
+msgstr "Grätepark"
 
-#: app/models/contract.rb:57
-#: app/views/layouts/backend/00-patterns/_menu_process.html.erb:28
-msgid "Signed"
-msgstr "Unterschribe"
+#: app/views/frontend/_inventory_pools.html.erb:78
+msgid "Refresh"
+msgstr "Neu lade"
 
-#: app/models/contract.rb:57
-#: app/views/layouts/backend/00-patterns/_menu_process.html.erb:33
-msgid "Closed"
-msgstr "Gschlosse"
+#: app/views/frontend/_models.html.erb:103
+#: app/views/backend/categories/_index.html.erb:1
+#: app/views/backend/groups/_index.html.erb:1
+#: app/views/backend/orders/show.html.erb:48
+#: app/views/backend/templates/_index.html.erb:1
+msgid "Models"
+msgstr "Modäll"
 
-#: app/models/contract.rb:106
-msgid "Contract %d has been signed by %s"
-msgstr "Vertrag %d isch vo %s underschribe worde"
+#: app/views/frontend/_models.html.erb:125
+#: app/views/widgets/_category_backend_tabnav.html.erb:1
+#: app/views/widgets/_category_backend_tabnav.html.erb:20
+msgid "Category"
+msgstr "Kategorie"
 
-#: app/models/user.rb:231
-msgid "Reminded %{q} items for contracts %{c}"
-msgstr "%{q} Sachä für Vertrag %{c} erinneret"
+#: app/views/frontend/_models.html.erb:129
+#: app/views/backend/items/inventory_codes.html.erb:9
+#: app/views/backend/items/supplier.html.erb:18
+msgid "Search"
+msgstr "Suechä"
 
-#: app/models/user.rb:237
-msgid "Unsuccessful reminder of %{q} items for contracts %{c}"
-msgstr "Fehlgschlagne Reminder vo %{q} Sachä vom Vertrag %{c}"
+#: app/views/frontend/_models.html.erb:137
+msgid "No models to display"
+msgstr "Kei Modäll zum aazeigä"
 
-#: app/models/user.rb:261
-msgid "Deadline soon reminder sent for %{q} items on contracts %{c}"
-msgstr "Reminder für baldigi Deadline für %{q} Sachä vom Vertrag %{c} gschickt"
+#: app/views/frontend/_models.html.erb:248
+#: app/views/widgets/_model_backend_tabnav.html.erb:27
+msgid "Details"
+msgstr "Details"
 
-#: app/models/order.rb:63
-msgid "Unsubmitted"
-msgstr "Anöd agschickt"
+#: app/views/frontend/_models.html.erb:256
+msgid "This model may need permission!"
+msgstr "Das Modäll bruucht vilich Berächtigung!"
 
-#: app/models/order.rb:63
-msgid "Submitted"
-msgstr "Abgschickt"
+#: app/views/frontend/_models.html.erb:271
+msgid "Properties"
+msgstr "Eigäschaftä"
 
-#: app/models/order.rb:63
-#: app/views/layouts/backend/00-patterns/_menu_process.html.erb:12
-msgid "Approved"
-msgstr "Genehmigt"
+#: app/views/frontend/_models.html.erb:278
+msgid "Accessories"
+msgstr "Zuebehör"
 
-#: app/models/order.rb:63
-#: app/views/layouts/backend/00-patterns/_menu_process.html.erb:17
-msgid "Rejected"
-msgstr "Abglehnt"
+#: app/views/frontend/_models.html.erb:295
+msgid "Compatibles"
+msgstr "Kompatibli Sache"
 
-#: app/models/order.rb:133
-msgid ""
-"The following error happened while sending a notification email to "
-"%{email}:\n"
-msgstr ""
+#: app/views/frontend/_models.html.erb:302
+#: app/views/backend/inventory_pools/edit.html.erb:3
+#: app/views/backend/inventory_pools/_info.html.erb:4
+#: app/views/backend/inventory_pools/_index.html.erb:1
+#: app/views/backend/options/show.html.erb:11
+#: app/views/backend/options/_index.html.erb:5
+#: app/views/backend/items/_general_info.html.erb:44
+#: app/views/backend/items/_index.html.erb:14
+#: app/views/backend/items/supplier.html.erb:24
+#: app/views/backend/categories/_index.html.erb:1
+#: app/views/backend/templates/_index.html.erb:1
+#: app/views/backend/models/details.html.erb:5
+#: app/views/backend/models/accessories.html.erb:23
+msgid "Name"
+msgstr "Name"
 
-#: app/models/order.rb:135
-msgid ""
-"That means that the user probably did not get the approval mail and you need "
-"to contact him/her in a different way."
-msgstr ""
+#: app/views/frontend/_models.html.erb:306
+#: app/views/backend/models/details.html.erb:6
+#: app/views/backend/models/_index.html.erb:1
+#: app/views/backend/models/package_roots.html.erb:53
+msgid "Manufacturer"
+msgstr "Herschteller"
 
-#: app/models/order.rb:173
-msgid "Changed quantity for %{model} from %{from} to %{to}"
-msgstr "Mängi für %{model} vo %{from} uf %{to} gwächslet"
+#: app/views/frontend/_models.html.erb:313
+#: app/views/widgets/_model_backend_tabnav.html.erb:21
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:11
+msgid "Availability"
+msgstr "Verfüegbari Aazahl"
 
-#: app/models/order.rb:175
-msgid "Maximum number of items available at that time is %{max}"
-msgstr "Es sind zu däre Ziit nume %{max} Sachä ume"
-
-#: app/models/order.rb:176
-msgid "(maximum available: %{max})"
-msgstr "(högschtens ume: %{max})"
-
-#: app/models/order.rb:183
-msgid "Purpose changed '%{from}' for '%{to}'"
-msgstr "Zwäck gwächslet vo '%{from}' uf '%{to}'"
-
-#: app/models/order.rb:193
-msgid "User swapped %{from} for %{to}"
-msgstr "Benutzer gwächslet vo %{from} zu %{to}"
-
-#: app/models/order.rb:272
-#, fuzzy
-msgid "Invalid order_lines"
-msgstr "Bstelligsziile"
-
-#: app/models/mailer/user.rb:10
-msgid "[leihs] Reminder"
-msgstr "[leihs] Erinnerig"
-
-#: app/models/mailer/user.rb:20
-msgid "[leihs] Some items should be returned tomorrow"
-msgstr "[leihs] Einige Sache sötted morn zruggäh werde"
-
-#: app/models/mailer/order.rb:11
-msgid "[leihs] Reservation Confirmation"
-msgstr "[leihs] Reservationsbestätigung"
-
-#: app/models/mailer/order.rb:22
-msgid "[leihs] Reservation Submitted"
-msgstr "[leihs] Reservation abgschickt"
-
-#: app/models/mailer/order.rb:33
-#, fuzzy
-msgid "[leihs] Order received"
-msgstr "Bstellig abglehnt"
-
-#: app/models/mailer/order.rb:44
-msgid "[leihs] Reservation Rejected"
-msgstr "[leihs] Reservation abglehnt"
-
-#: app/models/mailer/order.rb:55
-msgid "[leihs] Reservation confirmed (with changes)"
-msgstr "[leihs] Reservation aagnoh (mit Änderige)"
-
-#: app/models/item_line.rb:70
-msgid "item not assigned. "
-msgstr "Sach nöd zuegwiesä"
-
-#: app/models/item_line.rb:99
-msgid "The item doesn't match with the reserved model"
-msgstr "Die Sach passt nöd zum reserviertä Modäll"
-
-#: app/models/item_line.rb:102
-#, fuzzy
-msgid ""
-"The item is already handed over or assigned to a different contract line"
-msgstr "Dä Gägestand isch scho in dem Vertrag drin."
-
-#: app/models/item_line.rb:105
-msgid "The item doesn't belong to the inventory pool related to this contract"
-msgstr "Die Sach ghört nöd zum Grätepark wo zu dem Vertrag ghört"
-
-#: app/models/item_line.rb:108
-msgid "The item belongs to a package"
-msgstr ""
-
-#: app/models/item.rb:429
-msgid "%s until %s"
-msgstr "Vom %s bis am %s "
-
-#: app/models/item.rb:458
-msgid "The parent item doesn't exist (parent_id: %d)"
-msgstr ""
-
-#: app/models/item.rb:460
-msgid "A package cannot be nested to another package"
-msgstr ""
-
-#: app/models/item.rb:462 app/models/item.rb:463 app/models/item.rb:464
-msgid "doesn‘t match parent's attribute"
-msgstr ""
-
-#: app/models/item.rb:467
-msgid "Package error"
-msgstr "Paketfähler"
-
-#: app/models/item.rb:472
-#, fuzzy
-msgid "The item cannot be retired because it's not returned yet."
-msgstr ""
-"S Modäll chan nod gänderet werde will d'Sach scho imene Vertrag enthalte "
-"isch."
-
-#: app/models/option_line.rb:60
-msgid ""
-"The option doesn't belong to the inventory pool related to this contract"
-msgstr "Die Option ghört nöd zum Grätepark wo zu dem Vertrag ghört"
-
-#: app/models/access_right.rb:40
-msgid "Access Level: %d"
-msgstr "Zuegriffsrächt: %d"
-
-#: app/models/access_right.rb:58
-msgid "The admin role cannot be scoped to an inventory pool"
-msgstr "D Admin-Rolle chan sich nöd uf en Grätepark beziehe"
-
-#: app/models/access_right.rb:60
-msgid "Inventory Pool is missing"
-msgstr "Grätepark fählt"
-
-#: app/models/model_link.rb:20
-msgid "already in Category"
-msgstr "Scho inere Karegorie"
-
-#: app/models/document.rb:59
-msgid "Added"
+#: app/views/frontend/_models.html.erb:321
+#: app/views/frontend/_models.html.erb:419
+#: app/views/backend/workdays/index.html.erb:23
+#: app/views/backend/models/package_roots.html.erb:39
+msgid "Add"
 msgstr "Dezuetue"
 
-#: app/models/document.rb:66
-msgid "Swapped %{from} for %{to}"
-msgstr "%{from} dür %{to} ustuuschet"
+#: app/views/frontend/_models.html.erb:337
+#: app/views/frontend/_models.html.erb:341
+#: app/views/backend/orders/_lines.html.erb:4
+#: app/views/backend/templates/models.html.erb:12
+#: app/views/backend/templates/models.html.erb:21
+msgid "Quantity"
+msgstr "Aazahl"
 
-#: app/models/document.rb:83
-msgid "Changed dates for %{model} from %{from} to %{to}"
-msgstr "Datum für %{model} vo %{from} uf %{to} gwächslet"
+#: app/views/frontend/_models.html.erb:426
+msgid "Saving Data"
+msgstr "Speicherä Datä"
 
-#: app/models/document.rb:94
-msgid "Removed %{q} %{m}"
-msgstr "%{q} %{m} wäggnoh"
-
-#: app/models/order_line.rb:75
+#: app/views/backend/users/edit.html.erb:1
 #, fuzzy
-msgid "Inconsistent Inventory Pool"
-msgstr "Inventarcode"
+msgid "Edit external user"
+msgstr "Externe Benutzer erstelle"
 
-#: app/models/notification.rb:25
-msgid "Order submitted"
-msgstr "Bstellig abgschickt"
+#: app/views/backend/users/edit.html.erb:5
+#: app/views/backend/users/new.html.erb:5
+msgid "Firstname/Lastname"
+msgstr "Vorname/Nachname"
 
-#: app/models/notification.rb:34
+#: app/views/backend/users/edit.html.erb:6
+#: app/views/backend/users/new.html.erb:6
+#: app/views/backend/backend/search/_user.html.erb:2
+#: app/views/backend/inventory_pools/edit.html.erb:5
+#: app/views/backend/inventory_pools/_info.html.erb:6
+msgid "Email"
+msgstr "E-Mail"
+
+#: app/views/backend/users/edit.html.erb:7
+#: app/views/backend/users/new.html.erb:7
+msgid "Phone"
+msgstr "Telefon"
+
+#: app/views/backend/users/edit.html.erb:8
+#: app/views/backend/users/new.html.erb:8
+msgid "Address"
+msgstr "Adresse"
+
+#: app/views/backend/users/edit.html.erb:9
+#: app/views/backend/users/new.html.erb:9
+msgid "ZIP"
+msgstr "PLZ"
+
+#: app/views/backend/users/edit.html.erb:9
+#: app/views/backend/users/new.html.erb:9
+msgid "City"
+msgstr "Stadt"
+
+#: app/views/backend/users/edit.html.erb:10
+#: app/views/backend/users/new.html.erb:10
+msgid "Country"
+msgstr "Land"
+
+#: app/views/backend/users/new.html.erb:1
+msgid "Create external user"
+msgstr "Externe Benutzer erstelle"
+
+#: app/views/backend/users/_database_authentication.html.erb:7
+msgid "Database Authentication"
+msgstr "Datebank-Authentifizierig"
+
+#: app/views/backend/users/_database_authentication.html.erb:11
+msgid "New Password"
+msgstr "Nois Passwort"
+
+#: app/views/backend/users/_database_authentication.html.erb:11
+msgid "Set Password"
+msgstr "Passwort setze"
+
+#: app/views/backend/users/_badge_id_form.html.erb:5
+#: app/views/backend/items/status.html.erb:16
+#: app/views/backend/items/status.html.erb:17
+#: app/views/backend/items/status.html.erb:18
+#: app/views/backend/items/status.html.erb:25
+#: app/views/backend/items/status.html.erb:30
+#: app/views/backend/items/status.html.erb:35
+#: app/views/backend/items/_status.html.erb:5
+#: app/views/backend/items/_status.html.erb:12
+#: app/views/backend/items/_status.html.erb:18
+#: app/views/backend/take_back/inspection.html.erb:8
+#: app/views/backend/take_back/inspection.html.erb:11
+#: app/views/backend/take_back/inspection.html.erb:14
+msgid "OK"
+msgstr "OK"
+
+#: app/views/backend/users/groups.html.erb:7
 #, fuzzy
-msgid "Order received"
-msgstr "Bstellig abglehnt"
+msgid "Add group"
+msgstr "Modällgruppe"
 
-#: app/models/notification.rb:46
-msgid "Order approved"
-msgstr "Bstellig genehmigt"
+#: app/views/backend/users/groups.html.erb:19
+#: app/views/backend/groups/_index.html.erb:1
+#: app/views/widgets/_group_backend_tabnav.html.erb:19
+msgid "Group"
+msgstr ""
 
-#: app/models/notification.rb:54
-msgid "Order rejected"
-msgstr "Bstellig abglehnt"
+#: app/views/backend/users/groups.html.erb:19
+#: app/views/backend/users/_index.html.erb:1
+#: app/views/backend/inventory_pools/_index.html.erb:1
+#: app/views/backend/hand_over/show.html.erb:79
+#: app/views/backend/hand_over/_index.html.erb:3
+#: app/views/backend/options/_index.html.erb:5
+#: app/views/backend/items/_index.html.erb:1
+#: app/views/backend/categories/_index.html.erb:1
+#: app/views/backend/groups/users.html.erb:18
+#: app/views/backend/groups/_index.html.erb:1
+#: app/views/backend/orders/_index.html.erb:1
+#: app/views/backend/templates/models.html.erb:21
+#: app/views/backend/templates/_index.html.erb:1
+#: app/views/backend/models/_index.html.erb:1
+#: app/views/backend/models/package_roots.html.erb:53
+#: app/views/backend/locations/_index.html.erb:1
+#: app/views/backend/contracts/_index.html.erb:1
+#: app/views/backend/take_back/show.html.erb:53
+#: app/views/backend/take_back/_index.html.erb:4
+msgid "Action"
+msgstr "Aktion"
 
-#: app/models/notification.rb:61
-msgid "Deadline soon"
-msgstr "Baldigi Deadline"
+#: app/views/backend/users/groups.html.erb:27
+#: app/views/backend/users/_index.html.erb:37
+#: app/views/backend/options/_index.html.erb:22
+#: app/views/backend/items/_index.html.erb:53
+#: app/views/backend/categories/_index.html.erb:21
+#: app/views/backend/groups/users.html.erb:26
+#: app/views/backend/groups/_index.html.erb:9
+#: app/views/backend/templates/models.html.erb:38
+#: app/views/backend/templates/_index.html.erb:10
+#: app/views/backend/models/_index_row_plain.html.erb:27
+#: app/views/backend/models/package_roots.html.erb:5
+#: app/views/backend/models/package_roots.html.erb:61
+#: app/views/backend/locations/_index.html.erb:12
+msgid "Show"
+msgstr "Zeigä"
 
-#: app/models/notification.rb:69
-msgid "Reminder"
-msgstr "Erinnerig"
+#: app/views/backend/users/groups.html.erb:29
+#: app/views/backend/inventory_pools/_index.html.erb:20
+#: app/views/backend/hand_over/_index.html.erb:35
+#: app/views/backend/options/_index.html.erb:24
+#: app/views/backend/categories/_index.html.erb:24
+#: app/views/backend/categories/_index.html.erb:30
+#: app/views/backend/categories/_index.html.erb:35
+#: app/views/backend/groups/users.html.erb:28
+#: app/views/backend/groups/_index.html.erb:10
+#: app/views/backend/templates/models.html.erb:40
+#: app/views/backend/templates/_index.html.erb:12
+#: app/views/backend/models/_index_row_plain.html.erb:31
+#: app/views/backend/models/_index_row_plain.html.erb:36
+#: app/views/backend/models/images.html.erb:15
+#: app/views/backend/models/attachments.html.erb:21
+#: app/views/backend/models/accessories.html.erb:43
+#: app/views/backend/models/package_roots.html.erb:44
+#: app/views/backend/models/package_roots.html.erb:67
+#: app/views/orders/_pending.html.erb:28
+msgid "Are you sure?"
+msgstr "Sind Sie sicher?"
 
-#: app/models/document_line.rb:40
-msgid "not valid. "
-msgstr "nöd gültig."
+#: app/views/backend/users/_resume.html.erb:9
+msgid "%{i} orders"
+msgstr "%{i} Bstelligä"
 
-#: app/models/document_line.rb:41
-msgid "not available. "
-msgstr "nöd verfüegbar."
+#: app/views/backend/users/_resume.html.erb:12
+#: app/views/backend/users/_resume.html.erb:15
+#: app/views/backend/users/_resume.html.erb:18
+msgid "%{i} items"
+msgstr "%{i} Sachä"
 
-#: app/models/document_line.rb:48
-msgid "quantity not available. "
-msgstr "Azahl nöd ume."
+#: app/views/backend/users/things_to_return.html.erb:3
+msgid "Currently has the following things"
+msgstr "Hat im Moment diä Sachä da"
 
-#: app/models/document_line.rb:49
-msgid "inventory pool is closed on start_date. "
-msgstr "Grätepark isch am start_date zue."
+#: app/views/backend/users/_index.html.erb:1
+msgid "User Login"
+msgstr "Benutzer-Login"
 
-#: app/models/document_line.rb:50
-msgid "inventory pool is closed on end_date. "
-msgstr "Grätepark isch am end_date zue."
+#: app/views/backend/users/_index.html.erb:1
+msgid "Access Rights"
+msgstr "Zuegriffsrächt"
 
-#: app/views/backend/options/index.html.erb:2
+#: app/views/backend/users/_index.html.erb:1
+#: app/views/orders/_pending.html.erb:14
+#: app/views/contracts/_pending.html.erb:14
+#: app/views/contracts/_signed.html.erb:13
+#: app/views/contracts/_unsigned.html.erb:16
+msgid "Documents"
+msgstr "Dokument"
+
+#: app/views/backend/users/_index.html.erb:33
+msgid "Swap"
+msgstr "Tuusche"
+
+#: app/views/backend/users/_index.html.erb:40
+msgid "Edit"
+msgstr ""
+
+#: app/views/backend/users/_index.html.erb:44
+msgid "New Contract"
+msgstr "Neue Vertrag"
+
+#: app/views/backend/backend/remove_lines.html.erb:1
+msgid "Do you really want to delete the object?"
+msgstr "Wotsch das Objekt würkli löschä?"
+
+#: app/views/backend/backend/remove_lines.html.erb:9
+#: app/views/backend/inventory_pools/_index.html.erb:18
+#: app/views/backend/hand_over/_option_line.html.erb:30
+#: app/views/backend/hand_over/_index.html.erb:33
+#: app/views/backend/options/_index.html.erb:24
+#: app/views/backend/categories/_index.html.erb:22
+#: app/views/backend/groups/_index.html.erb:10
+#: app/views/backend/models/_index_row_plain.html.erb:35
+#: app/views/backend/models/package_roots.html.erb:46
+#: app/views/backend/locations/_index.html.erb:15
+#: app/views/orders/_pending.html.erb:15
+msgid "Delete"
+msgstr "Löschä"
+
+#: app/views/backend/backend/remove_lines.html.erb:14
+#: app/views/backend/hand_over/sign_contract.html.erb:20
+#: app/views/backend/items/retire.html.erb:25
+#: app/views/backend/items/retire.html.erb:37
+#: app/views/backend/take_back/close_contract.html.erb:16
+#: app/views/backend/take_back/inspection.html.erb:29
+msgid "Cancel"
+msgstr "Abbräche"
+
+#: app/views/backend/backend/search.html.erb:14
+msgid "Result(s)"
+msgstr ""
+
+#: app/views/backend/backend/search/_item.html.erb:3
+#: app/views/backend/items/status.html.erb:16
+#: app/views/backend/items/status.html.erb:26
+#: app/views/backend/items/_status.html.erb:6
+#: app/views/backend/items/_index.html.erb:34
+#: app/views/backend/take_back/inspection.html.erb:8
+#: app/views/layouts/backend/00-patterns/_menu_items.html.erb:16
+#: app/views/contracts/show.pdf.prawn:107
+msgid "Broken"
+msgstr "Kabutt"
+
+#: app/views/backend/backend/search/_item.html.erb:3
+#: app/views/backend/items/status.html.erb:17
+#: app/views/backend/items/status.html.erb:31
+#: app/views/backend/items/_status.html.erb:13
+#: app/views/backend/items/_index.html.erb:37
+#: app/views/backend/take_back/inspection.html.erb:11
+#: app/views/layouts/backend/00-patterns/_menu_items.html.erb:19
+msgid "Incomplete"
+msgstr "Nöd vollständig"
+
+#: app/views/backend/backend/search/_item.html.erb:3
+#: app/views/layouts/backend/00-patterns/_menu_items.html.erb:5
+msgid "In Stock"
+msgstr "A Lager"
+
+#: app/views/backend/backend/search/_contract.html.erb:1
+msgid "Contract from %s"
+msgstr "Vertrag vom %s"
+
+#: app/views/backend/backend/search/_contract.html.erb:5
+#: app/views/backend/contracts/_index.html.erb:16
+msgid "Print PDF"
+msgstr "PDF druckä"
+
+#: app/views/backend/backend/search/_contract.html.erb:8
+#: app/views/backend/hand_over/_buttons.html.erb:9
+#: app/views/backend/hand_over/print_contract.html.erb:25
+#: app/views/backend/contracts/_index.html.erb:19
+#: app/views/orders/_pending.html.erb:25
+#: app/views/contracts/_pending.html.erb:26
+#: app/views/contracts/_signed.html.erb:29
+#: app/views/contracts/_unsigned.html.erb:32
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:46
+#: app/views/orders/value_list_for_models.pdf.prawn:41
+#: app/views/contracts/value_list_for_items.pdf.prawn:46
+msgid "Value list"
+msgstr "Wertelischte"
+
+#: app/views/backend/backend/search/_user.html.erb:3
+msgid "Telephone"
+msgstr ""
+
+#: app/views/backend/backend/search/_user.html.erb:4
+msgid "Badge"
+msgstr "Badge"
+
+#: app/views/backend/backend/search/_user.html.erb:4
+#: app/views/backend/items/_inventory_info.html.erb:32
+msgid "None"
+msgstr "kei"
+
+#: app/views/backend/backend/search/_order.html.erb:1
+msgid "Order from %s"
+msgstr "Bstellig vom: %s"
+
+#: app/views/backend/inventory_pools/edit.html.erb:4
+#: app/views/backend/inventory_pools/_info.html.erb:5
+#: app/views/backend/inventory_pools/_index.html.erb:1
+msgid "Short Name"
+msgstr "Churzname"
+
+#: app/views/backend/inventory_pools/edit.html.erb:6
+#: app/views/backend/inventory_pools/_info.html.erb:7
+#: app/views/backend/models/details.html.erb:7
+msgid "Description"
+msgstr "Beschribig"
+
+#: app/views/backend/inventory_pools/edit.html.erb:7
+#: app/views/backend/inventory_pools/_info.html.erb:8
+msgid "Default contract note"
+msgstr "Standart Vertrags-Bemerkig"
+
 #: app/views/backend/inventory_pools/index.html.erb:2
+#: app/views/backend/options/index.html.erb:2
 #: app/views/backend/categories/index.html.erb:32
 #: app/views/backend/models/index.html.erb:45
 msgid "Create New"
 msgstr "Neu erstellä"
 
-#: app/views/backend/options/show.html.erb:5
-#: app/views/backend/options/show.html.erb:8
-#: app/views/backend/options/_index.html.erb:5
-#: app/views/backend/options/_index.html.erb:23
-#: app/views/backend/hand_over/show.html.erb:74
-#: app/views/backend/take_back/show.html.erb:49
-#: app/views/backend/items/_general_info.html.erb:38
-#: app/views/backend/models/package_roots.html.erb:8
-msgid "Barcode"
-msgstr "Barcode"
+#: app/views/backend/inventory_pools/_info.html.erb:5
+msgid ""
+"Whatever you enter here is prepended to all inventory numbers for this "
+"particular pool. e.g. ABC1, ABC2, ABC3 etc. If you leave this empty, no "
+"alphabetic characters are used in the inventory numbers."
+msgstr ""
 
-#: app/views/backend/options/show.html.erb:11
-#: app/views/backend/options/_index.html.erb:5
-#: app/views/backend/inventory_pools/edit.html.erb:3
-#: app/views/backend/inventory_pools/_index.html.erb:1
-#: app/views/backend/inventory_pools/_info.html.erb:4
-#: app/views/backend/templates/_index.html.erb:1
-#: app/views/backend/categories/_index.html.erb:1
-#: app/views/backend/items/supplier.html.erb:24
-#: app/views/backend/items/_index.html.erb:14
-#: app/views/backend/items/_general_info.html.erb:44
-#: app/views/backend/models/details.html.erb:5
-#: app/views/backend/models/accessories.html.erb:23
-#: app/views/frontend/_models.html.erb:302
-msgid "Name"
-msgstr "Name"
+#: app/views/backend/inventory_pools/_info.html.erb:6
+msgid ""
+"This e-mail address is used as sender when sending reminder or confirmation "
+"e-mails for this particular pool. If you enter nothing, the system default "
+"sender address is used."
+msgstr ""
 
-#: app/views/backend/options/show.html.erb:12
-#: app/views/backend/options/_index.html.erb:5
+#: app/views/backend/inventory_pools/_info.html.erb:8
+msgid ""
+"This note is added to any contract, but can be changed individually before "
+"actually printing and signing each contract."
+msgstr ""
+
+#: app/views/backend/inventory_pools/_info.html.erb:9
+msgid "Menu background color"
+msgstr ""
+
+#: app/views/backend/inventory_pools/_info.html.erb:10
 #, fuzzy
-msgid "Price"
-msgstr "Eltere-Element"
+msgid "Print contracts"
+msgstr "Vertrag uusdruckä"
 
-#: app/views/backend/options/show.html.erb:15
-#: app/views/backend/items/notes.html.erb:5
-#: app/views/backend/items/status.html.erb:39
-#: app/views/backend/models/package.html.erb:34
-#: app/views/backend/models/details.html.erb:13
-#: app/views/backend/models/index.html.erb:20
-#: app/views/backend/models/package_roots.html.erb:22
-#: app/views/backend/models/properties.html.erb:51
-#: app/views/frontend/_complete_order.html.erb:287
-msgid "Submit"
-msgstr "Abchickä"
+#: app/views/backend/inventory_pools/show.html.erb:6
+msgid "Last Visitors"
+msgstr "Letschti Bsuecher"
 
-#: app/views/backend/options/_index.html.erb:2
-#: app/views/backend/mails/new.html.erb:14
-#: app/views/backend/items/inventory_codes.html.erb:6
-#: app/views/backend/items/inventory_codes.html.erb:17
-#: app/views/backend/models/index.html.erb:50
-msgid "From"
-msgstr "Vo "
+#: app/views/backend/inventory_pools/show.html.erb:37
+#: app/views/backend/inventory_pools/show.html.erb:46
+msgid "Overdue"
+msgstr "Überfällig"
 
-#: app/views/backend/options/_index.html.erb:5
-#: app/views/backend/hand_over/show.html.erb:79
-#: app/views/backend/hand_over/_index.html.erb:3
-#: app/views/backend/inventory_pools/_index.html.erb:1
-#: app/views/backend/contracts/_index.html.erb:1
-#: app/views/backend/templates/_index.html.erb:1
-#: app/views/backend/templates/models.html.erb:21
-#: app/views/backend/users/groups.html.erb:19
-#: app/views/backend/users/_index.html.erb:1
-#: app/views/backend/orders/_index.html.erb:1
-#: app/views/backend/categories/_index.html.erb:1
-#: app/views/backend/take_back/show.html.erb:53
-#: app/views/backend/take_back/_index.html.erb:4
-#: app/views/backend/items/_index.html.erb:1
-#: app/views/backend/groups/_index.html.erb:1
-#: app/views/backend/groups/users.html.erb:18
-#: app/views/backend/locations/_index.html.erb:1
-#: app/views/backend/models/package_roots.html.erb:53
-#: app/views/backend/models/_index.html.erb:1
-msgid "Action"
-msgstr "Aktion"
-
-#: app/views/backend/options/_index.html.erb:18
-#: app/views/backend/categories/_index.html.erb:18
-#: app/views/backend/items/supplier.html.erb:31
-#: app/views/backend/models/_index_row_plain.html.erb:24
-#: app/views/backend/models/_index_row_greybox.html.erb:16
-msgid "Select"
-msgstr "Uuswähle"
-
-#: app/views/backend/options/_index.html.erb:22
-#: app/views/backend/templates/_index.html.erb:10
-#: app/views/backend/templates/models.html.erb:38
-#: app/views/backend/users/groups.html.erb:27
-#: app/views/backend/users/_index.html.erb:37
-#: app/views/backend/categories/_index.html.erb:21
-#: app/views/backend/items/_index.html.erb:53
-#: app/views/backend/groups/_index.html.erb:9
-#: app/views/backend/groups/users.html.erb:26
-#: app/views/backend/locations/_index.html.erb:12
-#: app/views/backend/models/package_roots.html.erb:5
-#: app/views/backend/models/package_roots.html.erb:61
-#: app/views/backend/models/_index_row_plain.html.erb:27
-msgid "Show"
-msgstr "Zeigä"
-
-#: app/views/backend/options/_index.html.erb:24
-#: app/views/backend/hand_over/_option_line.html.erb:30
-#: app/views/backend/hand_over/_index.html.erb:33
-#: app/views/backend/inventory_pools/_index.html.erb:18
-#: app/views/backend/backend/remove_lines.html.erb:9
-#: app/views/backend/categories/_index.html.erb:22
-#: app/views/backend/groups/_index.html.erb:10
-#: app/views/backend/locations/_index.html.erb:15
-#: app/views/backend/models/package_roots.html.erb:46
-#: app/views/backend/models/_index_row_plain.html.erb:35
-#: app/views/orders/_pending.html.erb:15
-msgid "Delete"
-msgstr "Löschä"
-
-#: app/views/backend/options/_index.html.erb:24
-#: app/views/backend/hand_over/_index.html.erb:35
-#: app/views/backend/inventory_pools/_index.html.erb:20
-#: app/views/backend/templates/_index.html.erb:12
-#: app/views/backend/templates/models.html.erb:40
-#: app/views/backend/users/groups.html.erb:29
-#: app/views/backend/categories/_index.html.erb:24
-#: app/views/backend/categories/_index.html.erb:30
-#: app/views/backend/categories/_index.html.erb:35
-#: app/views/backend/groups/_index.html.erb:10
-#: app/views/backend/groups/users.html.erb:28
-#: app/views/backend/models/accessories.html.erb:43
-#: app/views/backend/models/package_roots.html.erb:44
-#: app/views/backend/models/package_roots.html.erb:67
-#: app/views/backend/models/images.html.erb:15
-#: app/views/backend/models/_index_row_plain.html.erb:31
-#: app/views/backend/models/_index_row_plain.html.erb:36
-#: app/views/backend/models/attachments.html.erb:21
-#: app/views/orders/_pending.html.erb:28
-msgid "Are you sure?"
-msgstr "Sind Sie sicher?"
+#: app/views/backend/hand_over/_buttons.html.erb:12
+#: app/views/backend/take_back/_buttons.html.erb:9
+#, fuzzy
+msgid "Back to list"
+msgstr "Blacklist"
 
 #: app/views/backend/hand_over/_option_line.html.erb:22
 #: app/views/backend/hand_over/show.html.erb:47
@@ -2391,6 +2911,49 @@ msgstr "Ziitperiodä"
 msgid "Remove Model"
 msgstr "Modäll wegnäh"
 
+#: app/views/backend/hand_over/print_contract.html.erb:3
+#: app/views/backend/take_back/print_contract.html.erb:3
+msgid "Print contract"
+msgstr "Vertrag uusdruckä"
+
+#: app/views/backend/hand_over/print_contract.html.erb:9
+#: app/views/backend/take_back/print_contract.html.erb:9
+msgid "Print Contract %d"
+msgstr "Vertrag %d druckä"
+
+#: app/views/backend/hand_over/print_contract.html.erb:14
+#: app/views/backend/items/_notes.html.erb:27
+#: app/views/backend/take_back/print_contract.html.erb:15
+msgid "Close"
+msgstr "Schlüüssä"
+
+#: app/views/backend/hand_over/print_contract.html.erb:21
+msgid "Other documents"
+msgstr "Wiiteri Dokument"
+
+#: app/views/backend/hand_over/sign_contract.html.erb:1
+msgid "Items to hand over"
+msgstr "Sache zum gäh"
+
+#: app/views/backend/hand_over/sign_contract.html.erb:10
+msgid "Contract Note"
+msgstr "Vertragsbemerkig"
+
+#: app/views/backend/hand_over/_lines.html.erb:17
+#: app/views/backend/hand_over/_lines.html.erb:37
+#: app/views/backend/hand_over/_lines.html.erb:52
+#, fuzzy
+msgid "Add Model for"
+msgstr "Modäll dezuetue"
+
+#: app/views/backend/hand_over/_lines.html.erb:19
+#: app/views/backend/hand_over/_lines.html.erb:39
+#: app/views/backend/hand_over/_lines.html.erb:54
+#: app/views/backend/hand_over/show.html.erb:84
+#: app/views/backend/hand_over/show.html.erb:87
+msgid "Add Model"
+msgstr "Modäll dezuetue"
+
 #: app/views/backend/hand_over/show.html.erb:6
 #: app/views/contracts/_signed.html.erb:21
 #: app/views/contracts/_unsigned.html.erb:24
@@ -2401,13 +2964,6 @@ msgstr "Vertrag nr. "
 #: app/views/backend/take_back/show.html.erb:11
 msgid "Currently suspended at:"
 msgstr "Momentan suschpendiert bi:"
-
-#: app/views/backend/hand_over/show.html.erb:20
-#: app/views/backend/orders/show.html.erb:34
-#: app/views/orders/_pending.html.erb:13
-#: app/views/frontend/_complete_order.html.erb:281
-msgid "Purpose"
-msgstr "Zwäck"
 
 #: app/views/backend/hand_over/show.html.erb:24
 msgid "Set Purpose"
@@ -2442,13 +2998,16 @@ msgstr "Modäll fwegnäh"
 msgid "Timeframe"
 msgstr "Ziitfänschter"
 
-#: app/views/backend/hand_over/show.html.erb:84
-#: app/views/backend/hand_over/show.html.erb:87
-#: app/views/backend/hand_over/_lines.html.erb:19
-#: app/views/backend/hand_over/_lines.html.erb:39
-#: app/views/backend/hand_over/_lines.html.erb:54
-msgid "Add Model"
-msgstr "Modäll dezuetue"
+#: app/views/backend/hand_over/show.html.erb:74
+#: app/views/backend/options/show.html.erb:5
+#: app/views/backend/options/show.html.erb:8
+#: app/views/backend/options/_index.html.erb:5
+#: app/views/backend/options/_index.html.erb:23
+#: app/views/backend/items/_general_info.html.erb:38
+#: app/views/backend/models/package_roots.html.erb:8
+#: app/views/backend/take_back/show.html.erb:49
+msgid "Barcode"
+msgstr "Barcode"
 
 #: app/views/backend/hand_over/show.html.erb:88
 #: app/views/backend/hand_over/show.html.erb:91
@@ -2468,53 +3027,6 @@ msgstr "Sie Sach ghört nöd zum Grätepark wo zu dem Vertrag ghört"
 msgid "edit %s"
 msgstr "%s ändere"
 
-#: app/views/backend/hand_over/print_contract.html.erb:3
-#: app/views/backend/take_back/print_contract.html.erb:3
-msgid "Print contract"
-msgstr "Vertrag uusdruckä"
-
-#: app/views/backend/hand_over/print_contract.html.erb:9
-#: app/views/backend/take_back/print_contract.html.erb:9
-msgid "Print Contract %d"
-msgstr "Vertrag %d druckä"
-
-#: app/views/backend/hand_over/print_contract.html.erb:14
-#: app/views/backend/take_back/print_contract.html.erb:15
-#: app/views/backend/items/_notes.html.erb:27
-msgid "Close"
-msgstr "Schlüüssä"
-
-#: app/views/backend/hand_over/print_contract.html.erb:21
-msgid "Other documents"
-msgstr "Wiiteri Dokument"
-
-#: app/views/backend/hand_over/print_contract.html.erb:25
-#: app/views/backend/hand_over/_buttons.html.erb:9
-#: app/views/backend/backend/search/_contract.html.erb:8
-#: app/views/backend/contracts/_index.html.erb:19
-#: app/views/contracts/_signed.html.erb:29
-#: app/views/contracts/_pending.html.erb:26
-#: app/views/contracts/_unsigned.html.erb:32
-#: app/views/orders/_pending.html.erb:25
-#: app/views/backend/contracts/value_list_for_models.pdf.prawn:46
-#: app/views/contracts/value_list_for_items.pdf.prawn:46
-#: app/views/orders/value_list_for_models.pdf.prawn:41
-msgid "Value list"
-msgstr "Wertelischte"
-
-#: app/views/backend/hand_over/_buttons.html.erb:12
-#: app/views/backend/take_back/_buttons.html.erb:9
-#, fuzzy
-msgid "Back to list"
-msgstr "Blacklist"
-
-#: app/views/backend/hand_over/_lines.html.erb:17
-#: app/views/backend/hand_over/_lines.html.erb:37
-#: app/views/backend/hand_over/_lines.html.erb:52
-#, fuzzy
-msgid "Add Model for"
-msgstr "Modäll dezuetue"
-
 #: app/views/backend/hand_over/_index.html.erb:3
 #: app/views/backend/take_back/_index.html.erb:4
 msgid "Visit at"
@@ -2522,9 +3034,9 @@ msgstr "Bsuech am"
 
 #: app/views/backend/hand_over/_index.html.erb:3
 #: app/views/backend/templates/_index.html.erb:1
+#: app/views/backend/locations/_index.html.erb:1
 #: app/views/backend/take_back/show.html.erb:28
 #: app/views/backend/take_back/_index.html.erb:4
-#: app/views/backend/locations/_index.html.erb:1
 #: app/views/layouts/backend/00-patterns/_menu_items.html.erb:2
 #: app/views/layouts/backend/00-patterns/_menu_inventory_items.html.erb:1
 msgid "Items"
@@ -2534,521 +3046,48 @@ msgstr "Sachä"
 msgid "Hand Over visits"
 msgstr "Bsüech für d Übergab"
 
-#: app/views/backend/hand_over/sign_contract.html.erb:1
-msgid "Items to hand over"
-msgstr "Sache zum gäh"
-
-#: app/views/backend/hand_over/sign_contract.html.erb:10
-msgid "Contract Note"
-msgstr "Vertragsbemerkig"
-
-#: app/views/backend/hand_over/sign_contract.html.erb:20
-#: app/views/backend/backend/remove_lines.html.erb:14
-#: app/views/backend/take_back/inspection.html.erb:29
-#: app/views/backend/take_back/close_contract.html.erb:16
-#: app/views/backend/items/retire.html.erb:25
-#: app/views/backend/items/retire.html.erb:37
-msgid "Cancel"
-msgstr "Abbräche"
-
-#: app/views/backend/inventory_pools/edit.html.erb:4
-#: app/views/backend/inventory_pools/_index.html.erb:1
-#: app/views/backend/inventory_pools/_info.html.erb:5
-msgid "Short Name"
-msgstr "Churzname"
-
-#: app/views/backend/inventory_pools/edit.html.erb:5
-#: app/views/backend/inventory_pools/_info.html.erb:6
-#: app/views/backend/backend/search/_user.html.erb:2
-#: app/views/backend/users/edit.html.erb:6
-#: app/views/backend/users/new.html.erb:6
-msgid "Email"
-msgstr "E-Mail"
-
-#: app/views/backend/inventory_pools/edit.html.erb:6
-#: app/views/backend/inventory_pools/_info.html.erb:7
-#: app/views/backend/models/details.html.erb:7
-msgid "Description"
-msgstr "Beschribig"
-
-#: app/views/backend/inventory_pools/edit.html.erb:7
-#: app/views/backend/inventory_pools/_info.html.erb:8
-msgid "Default contract note"
-msgstr "Standart Vertrags-Bemerkig"
-
-#: app/views/backend/inventory_pools/show.html.erb:6
-msgid "Last Visitors"
-msgstr "Letschti Bsuecher"
-
-#: app/views/backend/inventory_pools/show.html.erb:37
-#: app/views/backend/inventory_pools/show.html.erb:46
-msgid "Overdue"
-msgstr "Überfällig"
-
-#: app/views/backend/inventory_pools/_info.html.erb:5
-msgid ""
-"Whatever you enter here is prepended to all inventory numbers for this "
-"particular pool. e.g. ABC1, ABC2, ABC3 etc. If you leave this empty, no "
-"alphabetic characters are used in the inventory numbers."
-msgstr ""
-
-#: app/views/backend/inventory_pools/_info.html.erb:6
-msgid ""
-"This e-mail address is used as sender when sending reminder or confirmation "
-"e-mails for this particular pool. If you enter nothing, the system default "
-"sender address is used."
-msgstr ""
-
-#: app/views/backend/inventory_pools/_info.html.erb:8
-msgid ""
-"This note is added to any contract, but can be changed individually before "
-"actually printing and signing each contract."
-msgstr ""
-
-#: app/views/backend/inventory_pools/_info.html.erb:9
-msgid "Menu background color"
-msgstr ""
-
-#: app/views/backend/inventory_pools/_info.html.erb:10
+#: app/views/backend/options/show.html.erb:12
+#: app/views/backend/options/_index.html.erb:5
 #, fuzzy
-msgid "Print contracts"
-msgstr "Vertrag uusdruckä"
-
-#: app/views/backend/backend/remove_lines.html.erb:1
-msgid "Do you really want to delete the object?"
-msgstr "Wotsch das Objekt würkli löschä?"
-
-#: app/views/backend/backend/search/_order.html.erb:1
-msgid "Order from %s"
-msgstr "Bstellig vom: %s"
-
-#: app/views/backend/backend/search/_item.html.erb:3
-#: app/views/backend/take_back/inspection.html.erb:8
-#: app/views/backend/items/_status.html.erb:6
-#: app/views/backend/items/status.html.erb:16
-#: app/views/backend/items/status.html.erb:26
-#: app/views/backend/items/_index.html.erb:34
-#: app/views/layouts/backend/00-patterns/_menu_items.html.erb:16
-#: app/views/contracts/show.pdf.prawn:107
-msgid "Broken"
-msgstr "Kabutt"
-
-#: app/views/backend/backend/search/_item.html.erb:3
-#: app/views/backend/take_back/inspection.html.erb:11
-#: app/views/backend/items/_status.html.erb:13
-#: app/views/backend/items/status.html.erb:17
-#: app/views/backend/items/status.html.erb:31
-#: app/views/backend/items/_index.html.erb:37
-#: app/views/layouts/backend/00-patterns/_menu_items.html.erb:19
-msgid "Incomplete"
-msgstr "Nöd vollständig"
-
-#: app/views/backend/backend/search/_item.html.erb:3
-#: app/views/layouts/backend/00-patterns/_menu_items.html.erb:5
-msgid "In Stock"
-msgstr "A Lager"
-
-#: app/views/backend/backend/search/_contract.html.erb:1
-msgid "Contract from %s"
-msgstr "Vertrag vom %s"
-
-#: app/views/backend/backend/search/_contract.html.erb:5
-#: app/views/backend/contracts/_index.html.erb:16
-msgid "Print PDF"
-msgstr "PDF druckä"
-
-#: app/views/backend/backend/search/_user.html.erb:3
-msgid "Telephone"
-msgstr ""
-
-#: app/views/backend/backend/search/_user.html.erb:4
-msgid "Badge"
-msgstr "Badge"
-
-#: app/views/backend/backend/search/_user.html.erb:4
-#: app/views/backend/items/_inventory_info.html.erb:32
-msgid "None"
-msgstr "kei"
-
-#: app/views/backend/backend/search.html.erb:14
-msgid "Result(s)"
-msgstr ""
-
-#: app/views/backend/contracts/_index.html.erb:1
-#: app/views/backend/orders/_index.html.erb:1
-msgid "Id"
-msgstr "Id"
-
-#: app/views/backend/contracts/_index.html.erb:1
-#: app/views/backend/orders/_index.html.erb:1
-msgid "Date"
-msgstr "Datum"
-
-#: app/views/backend/contracts/_index.html.erb:1
-#: app/views/backend/orders/_index.html.erb:1
-#: app/views/contracts/_pending.html.erb:13
-#: app/views/orders/_pending.html.erb:11
-msgid "Number of items"
-msgstr "Azahl Sache"
-
-#: app/views/backend/contracts/_index.html.erb:13
-#: app/views/backend/orders/_index.html.erb:14
-msgid "%{n} Items"
-msgstr "%{n} Sachä"
-
-#: app/views/backend/templates/index.html.erb:2
-msgid "New Template"
-msgstr "Noii Vorlag"
-
-#: app/views/backend/templates/show.html.erb:3
-msgid "Template name"
-msgstr "Name vo de Vorlag"
-
-#: app/views/backend/templates/_index.html.erb:1
-#: app/views/backend/orders/show.html.erb:48
-#: app/views/backend/categories/_index.html.erb:1
-#: app/views/backend/groups/_index.html.erb:1
-#: app/views/frontend/_models.html.erb:103
-msgid "Models"
-msgstr "Modäll"
-
-#: app/views/backend/templates/_index.html.erb:11
-#: app/views/backend/templates/models.html.erb:39
-#: app/views/backend/users/groups.html.erb:28
-#: app/views/backend/categories/_index.html.erb:29
-#: app/views/backend/groups/users.html.erb:27
-#: app/views/backend/models/accessories.html.erb:41
-#: app/views/backend/models/package_roots.html.erb:65
-#: app/views/backend/models/_index_row_plain.html.erb:30
-#: app/views/frontend/_complete_order.html.erb:234
-#: app/views/frontend/_complete_order.html.erb:241
-msgid "Remove"
-msgstr "Wägneh"
-
-#: app/views/backend/templates/models.html.erb:6
-msgid "Add model"
-msgstr "Modäll dezuetue"
-
-#: app/views/backend/templates/models.html.erb:12
-#: app/views/backend/templates/models.html.erb:21
-#: app/views/backend/orders/_lines.html.erb:4
-#: app/views/frontend/_models.html.erb:337
-#: app/views/frontend/_models.html.erb:341
-msgid "Quantity"
-msgstr "Aazahl"
-
-#: app/views/backend/templates/models.html.erb:33
-msgid "Only %d items are present."
-msgstr "Nur %d Sachä sind da."
-
-#: app/views/backend/users/edit.html.erb:1
-#, fuzzy
-msgid "Edit external user"
-msgstr "Externe Benutzer erstelle"
-
-#: app/views/backend/users/edit.html.erb:5
-#: app/views/backend/users/new.html.erb:5
-msgid "Firstname/Lastname"
-msgstr "Vorname/Nachname"
-
-#: app/views/backend/users/edit.html.erb:7
-#: app/views/backend/users/new.html.erb:7
-msgid "Phone"
-msgstr "Telefon"
-
-#: app/views/backend/users/edit.html.erb:8
-#: app/views/backend/users/new.html.erb:8
-msgid "Address"
-msgstr "Adresse"
-
-#: app/views/backend/users/edit.html.erb:9
-#: app/views/backend/users/new.html.erb:9
-msgid "ZIP"
-msgstr "PLZ"
-
-#: app/views/backend/users/edit.html.erb:9
-#: app/views/backend/users/new.html.erb:9
-msgid "City"
-msgstr "Stadt"
-
-#: app/views/backend/users/edit.html.erb:10
-#: app/views/backend/users/new.html.erb:10
-msgid "Country"
-msgstr "Land"
-
-#: app/views/backend/users/new.html.erb:1
-msgid "Create external user"
-msgstr "Externe Benutzer erstelle"
-
-#: app/views/backend/users/_resume.html.erb:9
-msgid "%{i} orders"
-msgstr "%{i} Bstelligä"
-
-#: app/views/backend/users/_resume.html.erb:12
-#: app/views/backend/users/_resume.html.erb:15
-#: app/views/backend/users/_resume.html.erb:18
-msgid "%{i} items"
-msgstr "%{i} Sachä"
-
-#: app/views/backend/users/groups.html.erb:7
-#, fuzzy
-msgid "Add group"
-msgstr "Modällgruppe"
-
-#: app/views/backend/users/groups.html.erb:19
-#: app/views/backend/groups/_index.html.erb:1
-#: app/views/widgets/_group_backend_tabnav.html.erb:19
-msgid "Group"
-msgstr ""
-
-#: app/views/backend/users/_index.html.erb:1
-msgid "User Login"
-msgstr "Benutzer-Login"
-
-#: app/views/backend/users/_index.html.erb:1
-msgid "Access Rights"
-msgstr "Zuegriffsrächt"
-
-#: app/views/backend/users/_index.html.erb:1
-#: app/views/contracts/_signed.html.erb:13
-#: app/views/contracts/_pending.html.erb:14
-#: app/views/contracts/_unsigned.html.erb:16
-#: app/views/orders/_pending.html.erb:14
-msgid "Documents"
-msgstr "Dokument"
-
-#: app/views/backend/users/_index.html.erb:33
-msgid "Swap"
-msgstr "Tuusche"
-
-#: app/views/backend/users/_index.html.erb:40
-msgid "Edit"
-msgstr ""
-
-#: app/views/backend/users/_index.html.erb:44
-msgid "New Contract"
-msgstr "Neue Vertrag"
-
-#: app/views/backend/users/_badge_id_form.html.erb:5
-#: app/views/backend/take_back/inspection.html.erb:8
-#: app/views/backend/take_back/inspection.html.erb:11
-#: app/views/backend/take_back/inspection.html.erb:14
-#: app/views/backend/items/_status.html.erb:5
-#: app/views/backend/items/_status.html.erb:12
-#: app/views/backend/items/_status.html.erb:18
-#: app/views/backend/items/status.html.erb:16
-#: app/views/backend/items/status.html.erb:17
-#: app/views/backend/items/status.html.erb:18
-#: app/views/backend/items/status.html.erb:25
-#: app/views/backend/items/status.html.erb:30
-#: app/views/backend/items/status.html.erb:35
-msgid "OK"
-msgstr "OK"
-
-#: app/views/backend/users/things_to_return.html.erb:3
-msgid "Currently has the following things"
-msgstr "Hat im Moment diä Sachä da"
-
-#: app/views/backend/users/_database_authentication.html.erb:7
-msgid "Database Authentication"
-msgstr "Datebank-Authentifizierig"
-
-#: app/views/backend/users/_database_authentication.html.erb:11
-msgid "New Password"
-msgstr "Nois Passwort"
-
-#: app/views/backend/users/_database_authentication.html.erb:11
-msgid "Set Password"
-msgstr "Passwort setze"
-
-#: app/views/backend/mails/new.html.erb:19
-#, fuzzy
-msgid "Recipient"
-msgstr "Empfange am"
-
-#: app/views/backend/mails/new.html.erb:24
-#, fuzzy
-msgid "Subject"
-msgstr "Abchickä"
-
-#: app/views/backend/mails/new.html.erb:42
-#, fuzzy
-msgid "Send"
-msgstr "Suschpendiere"
-
-#: app/views/backend/orders/show.html.erb:15
-msgid "Order No."
-msgstr "Bstellnummere"
-
-#: app/views/backend/orders/show.html.erb:29
-#: app/views/contracts/_signed.html.erb:14
-#: app/views/contracts/_signed.html.erb:39
-#: app/views/contracts/_pending.html.erb:15
-#: app/views/contracts/_unsigned.html.erb:17
-#: app/views/contracts/_unsigned.html.erb:40
-#: app/views/orders/_pending.html.erb:12 app/views/orders/_pending.html.erb:36
-msgid "Time window"
-msgstr "Ziitfenschter"
-
-#: app/views/backend/orders/_lines.html.erb:5
-#: app/views/backend/take_back/_item_line.html.erb:24
-#: app/views/backend/take_back/show.html.erb:46
-#: app/views/backend/items/show.html.erb:5
-#: app/views/backend/models/package_roots.html.erb:7
-#: app/views/backend/models/package_roots.html.erb:63
-#: app/views/contracts/value_list_for_items.pdf.prawn:67
-msgid "Item"
-msgstr "Sach"
-
-#: app/views/backend/orders/_lines.html.erb:6
-#: app/views/backend/take_back/show.html.erb:47
-msgid "Time frame"
-msgstr "Ziitfänschter"
-
-#: app/views/backend/orders/_index.html.erb:18
-msgid "View + Acknowledge"
-msgstr "Aaluege + bestätigä"
-
-#: app/views/backend/orders/_index.html.erb:21
-msgid "View (readonly)"
-msgstr ""
-
-#: app/views/backend/orders/_additional_infos.html.erb:5
-msgid "Changes"
-msgstr "Änderigä"
-
-#: app/views/backend/barcodes/new.html.erb:14
-msgid "Generate barcode"
-msgstr "Barcode generierä"
-
-#: app/views/backend/categories/index.html.erb:17
-msgid "Add as subcategory of"
-msgstr "Als Unterkategorie dezuetue vo "
-
-#: app/views/backend/categories/index.html.erb:22
-msgid "Label"
-msgstr "Beschriftig"
-
-#: app/views/backend/categories/_index.html.erb:1
-msgid "Type"
-msgstr "Art"
-
-#: app/views/backend/categories/_index.html.erb:1
-msgid "Models in %s"
-msgstr "Modäll in %s"
-
-#: app/views/backend/categories/_index.html.erb:1
-msgid "Children"
-msgstr "Chind-Element"
-
-#: app/views/backend/categories/_index.html.erb:1
-msgid "All Children"
-msgstr "Ali Chind-Element"
-
-#: app/views/backend/categories/_index.html.erb:1
-msgid "Parents"
-msgstr "Elterä-Element"
-
-#: app/views/backend/categories/_index.html.erb:34
-msgid "Remove Parent"
-msgstr "Elterä-Element wegnäh"
-
-#: app/views/backend/take_back/_item_line.html.erb:28
-#: app/views/backend/take_back/_option_line.html.erb:25
-msgid "Contract %d"
-msgstr "Vertrag %d"
-
-#: app/views/backend/take_back/_item_line.html.erb:29
-#: app/views/backend/take_back/_item_line.html.erb:31
-#: app/views/backend/take_back/inspection.html.erb:1
-msgid "Inspection"
-msgstr "Inspektion"
-
-#: app/views/backend/take_back/show.html.erb:16
-msgid "User has no access to your inventory pool anymore"
-msgstr "De Benutzer hät kein Zuegang meh zu Ihrem Grätepark"
-
-#: app/views/backend/take_back/show.html.erb:42
-msgid "Check all"
-msgstr "Ali aawählä"
-
-#: app/views/backend/take_back/show.html.erb:44
-msgid "Check today's"
-msgstr "Vo hüt aawählä"
-
-#: app/views/backend/take_back/inspection.html.erb:8
-#: app/views/backend/items/_status.html.erb:3
-#: app/views/backend/items/status.html.erb:16
-#: app/views/backend/items/status.html.erb:23
-msgid "Working order"
-msgstr "Zuestand"
-
-#: app/views/backend/take_back/inspection.html.erb:11
-#: app/views/backend/items/_status.html.erb:10
-#: app/views/backend/items/status.html.erb:17
-#: app/views/backend/items/status.html.erb:28
-msgid "Completeness"
-msgstr "Vollständigkeit"
-
-#: app/views/backend/take_back/inspection.html.erb:14
-#: app/views/backend/items/_status.html.erb:16
-#: app/views/backend/items/status.html.erb:18
-#: app/views/backend/items/status.html.erb:33
-msgid "Borrowable"
-msgstr "Uuslehnbar"
-
-#: app/views/backend/take_back/inspection.html.erb:14
-#: app/views/backend/items/_status.html.erb:19
-#: app/views/backend/items/status.html.erb:18
-#: app/views/backend/items/status.html.erb:36
-#: app/views/backend/items/_index.html.erb:40
-#: app/views/layouts/backend/00-patterns/_menu_items.html.erb:22
-msgid "Unborrowable"
-msgstr "Nöd uuslehnbar"
-
-#: app/views/backend/take_back/inspection.html.erb:19
-#: app/views/backend/items/notes.html.erb:2
-#: app/views/backend/items/_general_info.html.erb:49
-msgid "Note"
-msgstr "Notiz"
-
-#: app/views/backend/take_back/close_contract.html.erb:1
-msgid "Returned items"
-msgstr "Sachä wo zruggäh sind"
-
-#: app/views/backend/take_back/_index_mini.html.erb:3
-msgid "Take Back visits"
-msgstr "Bsüech zum zruggnäh"
-
-#: app/views/backend/items/inventory_codes.html.erb:2
-#, fuzzy
-msgid "Free inventory codes"
-msgstr "Inventarcode"
-
-#: app/views/backend/items/inventory_codes.html.erb:7
-#: app/views/backend/items/inventory_codes.html.erb:20
-msgid "To"
-msgstr ""
-
-#: app/views/backend/items/inventory_codes.html.erb:8
-msgid "Min Gap"
-msgstr ""
-
-#: app/views/backend/items/inventory_codes.html.erb:9
-#: app/views/backend/items/supplier.html.erb:18
-#: app/views/frontend/_models.html.erb:129
-msgid "Search"
-msgstr "Suechä"
-
-#: app/views/backend/items/inventory_codes.html.erb:23
-msgid "Gap"
-msgstr ""
-
-#: app/views/backend/items/index.html.erb:2
-#: app/views/backend/items/show.html.erb:5
-#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:32
-msgid "New Item"
-msgstr "Noii Sach"
+msgid "Price"
+msgstr "Eltere-Element"
+
+#: app/views/backend/options/_index.html.erb:2
+#: app/views/backend/items/inventory_codes.html.erb:6
+#: app/views/backend/items/inventory_codes.html.erb:17
+#: app/views/backend/mails/new.html.erb:14
+#: app/views/backend/models/index.html.erb:50
+msgid "From"
+msgstr "Vo "
+
+#: app/views/backend/options/_index.html.erb:18
+#: app/views/backend/items/supplier.html.erb:31
+#: app/views/backend/categories/_index.html.erb:18
+#: app/views/backend/models/_index_row_plain.html.erb:24
+#: app/views/backend/models/_index_row_greybox.html.erb:16
+msgid "Select"
+msgstr "Uuswähle"
+
+#: app/views/backend/items/_location.html.erb:1
+#: app/views/backend/items/_index.html.erb:1
+#: app/views/widgets/_location_backend_tabnav.html.erb:12
+msgid "Location"
+msgstr "Ort"
+
+#: app/views/backend/items/_location.html.erb:2
+#: app/views/backend/locations/_index.html.erb:1
+msgid "Building"
+msgstr "Gebäude"
+
+#: app/views/backend/items/_location.html.erb:3
+#: app/views/backend/locations/_index.html.erb:1
+msgid "Room"
+msgstr "Ruum"
+
+#: app/views/backend/items/_location.html.erb:4
+#: app/views/backend/locations/_index.html.erb:1
+msgid "Shelf"
+msgstr "Gstell"
 
 #: app/views/backend/items/_inventory_info.html.erb:2
 msgid "Relevant for inventory"
@@ -3088,67 +3127,59 @@ msgstr "Verantortlichi Person"
 msgid "User/Typical usage"
 msgstr ""
 
-#: app/views/backend/items/show.html.erb:5
-#: app/views/widgets/_model_backend_tabnav.html.erb:1
-msgid "Package"
-msgstr "Paket"
+#: app/views/backend/items/status.html.erb:14
+msgid "Item was retired on"
+msgstr "D Sach isch uusgmuschteret worde am"
 
-#: app/views/backend/items/show.html.erb:9
-msgid "This item was retired on %s because %s"
-msgstr "D Sach isch am %s wäge %s uusgmuschteret worde"
+#: app/views/backend/items/status.html.erb:14
+msgid "(%s)"
+msgstr "(%s)"
 
-#: app/views/backend/items/show.html.erb:29
-msgid "Save"
-msgstr "Speicherä"
+#: app/views/backend/items/status.html.erb:16
+#: app/views/backend/items/status.html.erb:23
+#: app/views/backend/items/_status.html.erb:3
+#: app/views/backend/take_back/inspection.html.erb:8
+msgid "Working order"
+msgstr "Zuestand"
 
-#: app/views/backend/items/show.html.erb:29
-msgid "Create"
-msgstr "Noi erstellä"
+#: app/views/backend/items/status.html.erb:17
+#: app/views/backend/items/status.html.erb:28
+#: app/views/backend/items/_status.html.erb:10
+#: app/views/backend/take_back/inspection.html.erb:11
+msgid "Completeness"
+msgstr "Vollständigkeit"
 
-#: app/views/backend/items/show.html.erb:30
-msgid "Save and create a Copy"
-msgstr "Speichere und Kopie erstellä"
+#: app/views/backend/items/status.html.erb:18
+#: app/views/backend/items/status.html.erb:33
+#: app/views/backend/items/_status.html.erb:16
+#: app/views/backend/take_back/inspection.html.erb:14
+msgid "Borrowable"
+msgstr "Uuslehnbar"
 
-#: app/views/backend/items/show.html.erb:30
-msgid "Create and make a Copy"
-msgstr "Erstellä und Kopie mache"
+#: app/views/backend/items/status.html.erb:18
+#: app/views/backend/items/status.html.erb:36
+#: app/views/backend/items/_status.html.erb:19
+#: app/views/backend/items/_index.html.erb:40
+#: app/views/backend/take_back/inspection.html.erb:14
+#: app/views/layouts/backend/00-patterns/_menu_items.html.erb:22
+msgid "Unborrowable"
+msgstr "Nöd uuslehnbar"
 
-#: app/views/backend/items/_notes.html.erb:9
-msgid "Add Note"
-msgstr "Notiz dezuetue"
+#: app/views/backend/items/retire.html.erb:3
+msgid "The item %s will be unretired and be available for rentals."
+msgstr "D'Sach wird nüme uusmuschtered si und für d'Uusleii verfüegbar si"
 
-#: app/views/backend/items/_location.html.erb:1
-#: app/views/backend/items/_index.html.erb:1
-#: app/views/widgets/_location_backend_tabnav.html.erb:12
-msgid "Location"
-msgstr "Ort"
+#: app/views/backend/items/retire.html.erb:6
+msgid "The item %s will be retired and no longer be available for rentals."
+msgstr "D'Sach %s wird uusgmuschteret werde und nüme uusleibar si."
 
-#: app/views/backend/items/_location.html.erb:2
-#: app/views/backend/locations/_index.html.erb:1
-msgid "Building"
-msgstr "Gebäude"
+#: app/views/backend/items/retire.html.erb:15
+msgid "Reason"
+msgstr "Grund"
 
-#: app/views/backend/items/_location.html.erb:3
-#: app/views/backend/locations/_index.html.erb:1
-msgid "Room"
-msgstr "Ruum"
-
-#: app/views/backend/items/_location.html.erb:4
-#: app/views/backend/locations/_index.html.erb:1
-msgid "Shelf"
-msgstr "Gstell"
-
-#: app/views/backend/items/_status.html.erb:1
-#: app/views/backend/items/_index.html.erb:1
-#: app/views/contracts/_signed.html.erb:10
-#: app/views/contracts/_pending.html.erb:10
-#: app/views/contracts/_unsigned.html.erb:13
-msgid "Status"
-msgstr "Status"
-
-#: app/views/backend/items/_status.html.erb:22
-msgid "Needs permission"
-msgstr "Berächtigung erforderlich"
+#: app/views/backend/items/retire.html.erb:32
+msgid "Operation not permitted: the item is not returned yet."
+msgstr ""
 
 #: app/views/backend/items/_invoice_info.html.erb:1
 msgid "Invoice Information"
@@ -3184,39 +3215,22 @@ msgstr "Modäll sueche"
 msgid "Retirement:"
 msgstr "Uusmuschtere"
 
-#: app/views/backend/items/status.html.erb:14
-msgid "Item was retired on"
-msgstr "D Sach isch uusgmuschteret worde am"
-
-#: app/views/backend/items/status.html.erb:14
-msgid "(%s)"
-msgstr "(%s)"
-
-#: app/views/backend/items/_index.html.erb:1
-#: app/views/backend/items/_general_info.html.erb:29
-#: app/views/backend/models/package_roots.html.erb:53
-#: app/views/contracts/show.pdf.prawn:91
-msgid "Inventory Code"
-msgstr "Inventarcode"
-
-#: app/views/backend/items/_index.html.erb:1
-msgid "In stock?"
-msgstr "A Lager?"
-
-#: app/views/backend/items/_index.html.erb:17
-msgid "Part of:"
-msgstr ""
+#: app/views/backend/items/index.html.erb:2
+#: app/views/backend/items/show.html.erb:5
+#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:32
+msgid "New Item"
+msgstr "Noii Sach"
 
 #: app/views/backend/items/_general_info.html.erb:2
 msgid "General Information"
 msgstr "Allgemeini Information"
 
-#: app/views/backend/items/_general_info.html.erb:15
-#: app/views/backend/models/_index.html.erb:1
-#: app/views/frontend/_categories.html.erb:23
-#: app/views/layouts/backend/00-patterns/_menu_admin.html.erb:20
-msgid "Categories"
-msgstr "Kategoriä"
+#: app/views/backend/items/_general_info.html.erb:29
+#: app/views/backend/items/_index.html.erb:1
+#: app/views/backend/models/package_roots.html.erb:53
+#: app/views/contracts/show.pdf.prawn:91
+msgid "Inventory Code"
+msgstr "Inventarcode"
 
 #: app/views/backend/items/_general_info.html.erb:30
 #, fuzzy
@@ -3227,6 +3241,81 @@ msgstr "Überfällig"
 msgid "Serial Number:"
 msgstr "Seriänummerä:"
 
+#: app/views/backend/items/_general_info.html.erb:49
+#: app/views/backend/items/notes.html.erb:2
+#: app/views/backend/take_back/inspection.html.erb:19
+msgid "Note"
+msgstr "Notiz"
+
+#: app/views/backend/items/inventory_codes.html.erb:2
+#, fuzzy
+msgid "Free inventory codes"
+msgstr "Inventarcode"
+
+#: app/views/backend/items/inventory_codes.html.erb:7
+#: app/views/backend/items/inventory_codes.html.erb:20
+msgid "To"
+msgstr ""
+
+#: app/views/backend/items/inventory_codes.html.erb:8
+msgid "Min Gap"
+msgstr ""
+
+#: app/views/backend/items/inventory_codes.html.erb:23
+msgid "Gap"
+msgstr ""
+
+#: app/views/backend/items/_notes.html.erb:9
+msgid "Add Note"
+msgstr "Notiz dezuetue"
+
+#: app/views/backend/items/show.html.erb:5
+#: app/views/widgets/_model_backend_tabnav.html.erb:1
+msgid "Package"
+msgstr "Paket"
+
+#: app/views/backend/items/show.html.erb:5
+#: app/views/backend/orders/_lines.html.erb:5
+#: app/views/backend/models/package_roots.html.erb:7
+#: app/views/backend/models/package_roots.html.erb:63
+#: app/views/backend/take_back/_item_line.html.erb:24
+#: app/views/backend/take_back/show.html.erb:46
+#: app/views/contracts/value_list_for_items.pdf.prawn:67
+msgid "Item"
+msgstr "Sach"
+
+#: app/views/backend/items/show.html.erb:9
+msgid "This item was retired on %s because %s"
+msgstr "D Sach isch am %s wäge %s uusgmuschteret worde"
+
+#: app/views/backend/items/show.html.erb:29
+msgid "Save"
+msgstr "Speicherä"
+
+#: app/views/backend/items/show.html.erb:29
+msgid "Create"
+msgstr "Noi erstellä"
+
+#: app/views/backend/items/show.html.erb:30
+msgid "Save and create a Copy"
+msgstr "Speichere und Kopie erstellä"
+
+#: app/views/backend/items/show.html.erb:30
+msgid "Create and make a Copy"
+msgstr "Erstellä und Kopie mache"
+
+#: app/views/backend/items/_status.html.erb:1
+#: app/views/backend/items/_index.html.erb:1
+#: app/views/contracts/_pending.html.erb:10
+#: app/views/contracts/_signed.html.erb:10
+#: app/views/contracts/_unsigned.html.erb:13
+msgid "Status"
+msgstr "Status"
+
+#: app/views/backend/items/_status.html.erb:22
+msgid "Needs permission"
+msgstr "Berächtigung erforderlich"
+
 #: app/views/backend/items/_package_info.html.erb:3
 msgid "Item is part of package"
 msgstr ""
@@ -3235,21 +3324,45 @@ msgstr ""
 msgid "This is a package containing the following items:"
 msgstr ""
 
-#: app/views/backend/items/retire.html.erb:3
-msgid "The item %s will be unretired and be available for rentals."
-msgstr "D'Sach wird nüme uusmuschtered si und für d'Uusleii verfüegbar si"
+#: app/views/backend/items/_index.html.erb:1
+msgid "In stock?"
+msgstr "A Lager?"
 
-#: app/views/backend/items/retire.html.erb:6
-msgid "The item %s will be retired and no longer be available for rentals."
-msgstr "D'Sach %s wird uusgmuschteret werde und nüme uusleibar si."
-
-#: app/views/backend/items/retire.html.erb:15
-msgid "Reason"
-msgstr "Grund"
-
-#: app/views/backend/items/retire.html.erb:32
-msgid "Operation not permitted: the item is not returned yet."
+#: app/views/backend/items/_index.html.erb:17
+msgid "Part of:"
 msgstr ""
+
+#: app/views/backend/categories/index.html.erb:17
+msgid "Add as subcategory of"
+msgstr "Als Unterkategorie dezuetue vo "
+
+#: app/views/backend/categories/index.html.erb:22
+msgid "Label"
+msgstr "Beschriftig"
+
+#: app/views/backend/categories/_index.html.erb:1
+msgid "Type"
+msgstr "Art"
+
+#: app/views/backend/categories/_index.html.erb:1
+msgid "Models in %s"
+msgstr "Modäll in %s"
+
+#: app/views/backend/categories/_index.html.erb:1
+msgid "Children"
+msgstr "Chind-Element"
+
+#: app/views/backend/categories/_index.html.erb:1
+msgid "All Children"
+msgstr "Ali Chind-Element"
+
+#: app/views/backend/categories/_index.html.erb:1
+msgid "Parents"
+msgstr "Elterä-Element"
+
+#: app/views/backend/categories/_index.html.erb:34
+msgid "Remove Parent"
+msgstr "Elterä-Element wegnäh"
 
 #: app/views/backend/workdays/index.html.erb:2
 #: app/views/layouts/backend/00-patterns/_sidebar.html.erb:18
@@ -3260,12 +3373,25 @@ msgstr "Arbetstäg"
 msgid "Holidays"
 msgstr "Feriä"
 
-#: app/views/backend/workdays/index.html.erb:23
-#: app/views/backend/models/package_roots.html.erb:39
-#: app/views/frontend/_models.html.erb:321
-#: app/views/frontend/_models.html.erb:419
-msgid "Add"
-msgstr "Dezuetue"
+#: app/views/backend/mails/new.html.erb:19
+#, fuzzy
+msgid "Recipient"
+msgstr "Empfange am"
+
+#: app/views/backend/mails/new.html.erb:24
+#, fuzzy
+msgid "Subject"
+msgstr "Abchickä"
+
+#: app/views/backend/mails/new.html.erb:42
+#, fuzzy
+msgid "Send"
+msgstr "Suschpendiere"
+
+#: app/views/backend/groups/users.html.erb:6
+#, fuzzy
+msgid "Add user"
+msgstr "Benutzer"
 
 #: app/views/backend/groups/index.html.erb:2
 #, fuzzy
@@ -3282,10 +3408,88 @@ msgstr "Modellgruppe"
 msgid "Users"
 msgstr "Benutzer"
 
-#: app/views/backend/groups/users.html.erb:6
+#: app/views/backend/orders/_lines.html.erb:6
+#: app/views/backend/take_back/show.html.erb:47
+msgid "Time frame"
+msgstr "Ziitfänschter"
+
+#: app/views/backend/orders/_additional_infos.html.erb:5
+msgid "Changes"
+msgstr "Änderigä"
+
+#: app/views/backend/orders/show.html.erb:15
+msgid "Order No."
+msgstr "Bstellnummere"
+
+#: app/views/backend/orders/show.html.erb:29
+#: app/views/orders/_pending.html.erb:12 app/views/orders/_pending.html.erb:36
+#: app/views/contracts/_pending.html.erb:15
+#: app/views/contracts/_signed.html.erb:14
+#: app/views/contracts/_signed.html.erb:39
+#: app/views/contracts/_unsigned.html.erb:17
+#: app/views/contracts/_unsigned.html.erb:40
+msgid "Time window"
+msgstr "Ziitfenschter"
+
+#: app/views/backend/orders/_index.html.erb:1
+#: app/views/backend/contracts/_index.html.erb:1
+msgid "Id"
+msgstr "Id"
+
+#: app/views/backend/orders/_index.html.erb:1
+#: app/views/backend/contracts/_index.html.erb:1
+msgid "Date"
+msgstr "Datum"
+
+#: app/views/backend/orders/_index.html.erb:1
+#: app/views/backend/contracts/_index.html.erb:1
+#: app/views/orders/_pending.html.erb:11
+#: app/views/contracts/_pending.html.erb:13
+msgid "Number of items"
+msgstr "Azahl Sache"
+
+#: app/views/backend/orders/_index.html.erb:14
+#: app/views/backend/contracts/_index.html.erb:13
+msgid "%{n} Items"
+msgstr "%{n} Sachä"
+
+#: app/views/backend/orders/_index.html.erb:18
+msgid "View + Acknowledge"
+msgstr "Aaluege + bestätigä"
+
+#: app/views/backend/orders/_index.html.erb:21
+msgid "View (readonly)"
+msgstr ""
+
+#: app/views/backend/templates/index.html.erb:2
+msgid "New Template"
+msgstr "Noii Vorlag"
+
+#: app/views/backend/templates/models.html.erb:6
+msgid "Add model"
+msgstr "Modäll dezuetue"
+
+#: app/views/backend/templates/models.html.erb:33
+msgid "Only %d items are present."
+msgstr "Nur %d Sachä sind da."
+
+#: app/views/backend/templates/show.html.erb:3
+msgid "Template name"
+msgstr "Name vo de Vorlag"
+
+#: app/views/backend/models/_index_row_plain.html.erb:15
+#: app/views/backend/models/_index_row_plain.html.erb:17
+msgid "of"
+msgstr ""
+
+#: app/views/backend/models/images.html.erb:2
+msgid "Upload image for model"
+msgstr "Bild ufelade für s Modäll"
+
+#: app/views/backend/models/images.html.erb:11
 #, fuzzy
-msgid "Add user"
-msgstr "Benutzer"
+msgid "Images"
+msgstr "Bild"
 
 #: app/views/backend/models/package.html.erb:11
 msgid "Package name"
@@ -3298,18 +3502,46 @@ msgid ""
 msgstr ""
 "S PAket chan nod gänderet werde will d'Sach scho i Grätepools enthalte isch."
 
-#: app/views/backend/models/package.html.erb:20
-#: app/views/frontend/_inventory_pools.html.erb:37
-#: app/views/frontend/_inventory_pools.html.erb:60
-msgid "Inventory Pools"
-msgstr "Grätepark"
+#: app/views/backend/models/attachments.html.erb:2
+#, fuzzy
+msgid "Upload attachment for model"
+msgstr "Bild ufelade für s Modäll"
 
-#: app/views/backend/models/details.html.erb:6
-#: app/views/backend/models/package_roots.html.erb:53
-#: app/views/backend/models/_index.html.erb:1
-#: app/views/frontend/_models.html.erb:306
-msgid "Manufacturer"
-msgstr "Herschteller"
+#: app/views/backend/models/attachments.html.erb:15
+#, fuzzy
+msgid "Attachments"
+msgstr "Dokument"
+
+#: app/views/backend/models/properties.html.erb:12
+msgid "key"
+msgstr "Schlüssel"
+
+#: app/views/backend/models/properties.html.erb:14
+msgid "Copy"
+msgstr ""
+
+#: app/views/backend/models/properties.html.erb:15
+#: app/views/backend/models/properties.html.erb:110
+#, fuzzy
+msgid "Paste"
+msgstr "Datum"
+
+#: app/views/backend/models/properties.html.erb:19
+msgid "value"
+msgstr "Wert"
+
+#: app/views/backend/models/index.html.erb:15
+msgid "Add compatible"
+msgstr "Kompatibls dezuetue"
+
+#: app/views/backend/models/index.html.erb:25
+msgid "New Package"
+msgstr "Nois Paket"
+
+#: app/views/backend/models/index.html.erb:56
+#, fuzzy
+msgid "Add Selected"
+msgstr "Uuswähle"
 
 #: app/views/backend/models/details.html.erb:8
 msgid "Technical Details"
@@ -3339,63 +3571,6 @@ msgstr "Aktiv für %s"
 #: app/views/backend/models/accessories.html.erb:26
 msgid "Actions"
 msgstr "Aktionä"
-
-#: app/views/backend/models/index.html.erb:15
-msgid "Add compatible"
-msgstr "Kompatibls dezuetue"
-
-#: app/views/backend/models/index.html.erb:25
-msgid "New Package"
-msgstr "Nois Paket"
-
-#: app/views/backend/models/index.html.erb:56
-#, fuzzy
-msgid "Add Selected"
-msgstr "Uuswähle"
-
-#: app/views/backend/models/package_roots.html.erb:12
-msgid "Responsible: %s"
-msgstr "Verantwortlich: %s"
-
-#: app/views/backend/models/package_roots.html.erb:21
-msgid "Inventory code"
-msgstr "Inventarcode"
-
-#: app/views/backend/models/package_roots.html.erb:32
-msgid "Add item"
-msgstr "Sach dezuetue"
-
-#: app/views/backend/models/package_roots.html.erb:44
-msgid ""
-"Are you sure?\n"
-"The %d items associated with this package will be freed up and available as "
-"single items again."
-msgstr ""
-"Sind Sie sicher?\n"
-"Di %d Sache, wo mit dem Package verchnüpft sind werdet losglöst und chönd "
-"dänn als einzelni Pöschte uusgleit werde."
-
-#: app/views/backend/models/package_roots.html.erb:45
-msgid "%d Items"
-msgstr "%d Sachä"
-
-#: app/views/backend/models/package_roots.html.erb:78
-msgid "New Item Package"
-msgstr "Nois Paket"
-
-#: app/views/backend/models/images.html.erb:2
-msgid "Upload image for model"
-msgstr "Bild ufelade für s Modäll"
-
-#: app/views/backend/models/images.html.erb:11
-#, fuzzy
-msgid "Images"
-msgstr "Bild"
-
-#: app/views/backend/models/_index_row_plain.html.erb:15
-#: app/views/backend/models/_index_row_plain.html.erb:17
-msgid "of"
-msgstr ""
 
 #: app/views/backend/models/show.html.erb:9
 msgid "Legend"
@@ -3436,305 +3611,142 @@ msgstr ""
 msgid "Current group quantities"
 msgstr ""
 
-#: app/views/backend/models/properties.html.erb:12
-msgid "key"
-msgstr "Schlüssel"
-
-#: app/views/backend/models/properties.html.erb:14
-msgid "Copy"
-msgstr ""
-
-#: app/views/backend/models/properties.html.erb:15
-#: app/views/backend/models/properties.html.erb:110
-#, fuzzy
-msgid "Paste"
-msgstr "Datum"
-
-#: app/views/backend/models/properties.html.erb:19
-msgid "value"
-msgstr "Wert"
-
-#: app/views/backend/models/attachments.html.erb:2
-#, fuzzy
-msgid "Upload attachment for model"
-msgstr "Bild ufelade für s Modäll"
-
-#: app/views/backend/models/attachments.html.erb:15
-#, fuzzy
-msgid "Attachments"
-msgstr "Dokument"
-
 #: app/views/backend/models/_index.html.erb:1
 msgid "Available Items"
 msgstr "Verfüegbar"
 
-#: app/views/widgets/_category_backend_tabnav.html.erb:1
-#: app/views/widgets/_category_backend_tabnav.html.erb:20
-#: app/views/frontend/_models.html.erb:125
-msgid "Category"
-msgstr "Kategorie"
+#: app/views/backend/models/package_roots.html.erb:12
+msgid "Responsible: %s"
+msgstr "Verantwortlich: %s"
 
-#: app/views/widgets/_category_backend_tabnav.html.erb:27
-#: app/views/widgets/_group_backend_tabnav.html.erb:31
-msgid "Models (%d)"
-msgstr "Modäll (%d)"
+#: app/views/backend/models/package_roots.html.erb:21
+msgid "Inventory code"
+msgstr "Inventarcode"
 
-#: app/views/widgets/_category_backend_tabnav.html.erb:33
-msgid "Children (%d)"
-msgstr "Chind-Element (%d)"
+#: app/views/backend/models/package_roots.html.erb:32
+msgid "Add item"
+msgstr "Sach dezuetue"
 
-#: app/views/widgets/_category_backend_tabnav.html.erb:39
-msgid "Parents (%d)"
-msgstr "Eltere-Element (%d)"
-
-#: app/views/widgets/_user_backend_tabnav.html.erb:26
-msgid "Access Rights (%d)"
-msgstr "Zuegriffsrächt (%d)"
-
-#: app/views/widgets/_user_backend_tabnav.html.erb:34
-#, fuzzy
-msgid "Groups (%d)"
-msgstr "Eigeschaftä (%d)"
-
-#: app/views/widgets/_user_backend_tabnav.html.erb:40
-msgid "Things to return"
-msgstr "Sache zum zruggäh"
-
-#: app/views/widgets/_user_backend_tabnav.html.erb:46
-msgid "Extended Info"
-msgstr ""
-
-#: app/views/widgets/_model_backend_tabnav.html.erb:21
-#: app/views/frontend/_models.html.erb:313
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:11
-msgid "Availability"
-msgstr "Verfüegbari Aazahl"
-
-#: app/views/widgets/_model_backend_tabnav.html.erb:27
-#: app/views/frontend/_models.html.erb:248
-msgid "Details"
-msgstr "Details"
-
-#: app/views/widgets/_model_backend_tabnav.html.erb:42
-msgid "Item Packages (%d)"
-msgstr "Paket (%d)"
-
-#: app/views/widgets/_model_backend_tabnav.html.erb:48
-#: app/views/widgets/_location_backend_tabnav.html.erb:18
-msgid "Items (%d)"
-msgstr "Sachä (%d)"
-
-#: app/views/widgets/_model_backend_tabnav.html.erb:56
-msgid "Categories (%d)"
-msgstr "Kategoriä (%d)"
-
-#: app/views/widgets/_model_backend_tabnav.html.erb:63
-msgid "Properties (%d)"
-msgstr "Eigeschaftä (%d)"
-
-#: app/views/widgets/_model_backend_tabnav.html.erb:70
-msgid "Accessories (%d)"
-msgstr "Zuebehör (%d)"
-
-#: app/views/widgets/_model_backend_tabnav.html.erb:77
-msgid "Images (%d)"
-msgstr "Bilder (%d)"
-
-#: app/views/widgets/_model_backend_tabnav.html.erb:84
-#, fuzzy
-msgid "Attachments (%d)"
-msgstr "Eltere-Element (%d)"
-
-#: app/views/widgets/_model_backend_tabnav.html.erb:91
-msgid "Compatibles (%d)"
-msgstr "Kompatibli Sachä (%d)"
-
-#: app/views/widgets/_group_backend_tabnav.html.erb:25
-#, fuzzy
-msgid "Users (%d)"
-msgstr "Sachä (%d)"
-
-#: app/views/widgets/_template_backend_tabnav.html.erb:20
-#: app/views/frontend/_templates.html.erb:113
-msgid "Template"
-msgstr "Vorlag"
-
-#: app/views/widgets/_template_backend_tabnav.html.erb:25
-msgid "Models (%{m}/%{i})"
-msgstr "Modäll (%{m}/%{i})"
-
-#: app/views/contracts/_signed.html.erb:4
-#, fuzzy
-msgid "Signed contracts"
-msgstr "Vertrag uusdruckä"
-
-#: app/views/contracts/_signed.html.erb:11
-#: app/views/contracts/_pending.html.erb:11
-#: app/views/contracts/_unsigned.html.erb:14
-msgid "Created at"
-msgstr "Erstellt bi"
-
-#: app/views/contracts/_signed.html.erb:12
-#: app/views/contracts/_pending.html.erb:12
-#: app/views/contracts/_unsigned.html.erb:15
-#: app/views/orders/_pending.html.erb:10
-#: app/views/frontend/_models.html.erb:353
-#: app/views/frontend/_models.html.erb:357
-#: app/views/frontend/_basket.html.erb:19
-#: app/views/layouts/backend/00-patterns/general.html.erb:59
-#: app/views/layouts/backend/00-patterns/_menu_admin.html.erb:23
-msgid "Inventory Pool"
-msgstr "Grätepark"
-
-#: app/views/contracts/_signed.html.erb:30
-msgid "Contract"
-msgstr "Vertrag"
-
-#: app/views/contracts/_signed.html.erb:37
-#: app/views/contracts/_unsigned.html.erb:38
-#: app/views/orders/_pending.html.erb:34
-#, fuzzy
-msgid "Qty."
-msgstr "Az."
-
-#: app/views/contracts/_pending.html.erb:5
-#: app/views/contracts/_unsigned.html.erb:6
-#, fuzzy
-msgid "Unsigned contracts"
-msgstr "Offeni Verträg"
-
-#: app/views/contracts/_unsigned.html.erb:8
+#: app/views/backend/models/package_roots.html.erb:44
 msgid ""
-"Please note that these contracts, while they do belong to approved orders, "
-"may be changed by the lending manager at any time. They represent only a "
-"current snapshot of the order and might not contain the same items as the "
-"final contract once you pick up your items."
+"Are you sure?\n"
+"The %d items associated with this package will be freed up and available as "
+"single items again."
 msgstr ""
+"Sind Sie sicher?\n"
+"Di %d Sache, wo mit dem Package verchnüpft sind werdet losglöst und chönd "
+"dänn als einzelni Pöschte uusgleit werde."
 
-#: app/views/users/_contracts.html.erb:7
-msgid "Contracts (%d)"
-msgstr "Verträg (%d)"
+#: app/views/backend/models/package_roots.html.erb:45
+msgid "%d Items"
+msgstr "%d Sachä"
 
-#: app/views/users/_documents2.html.erb:4
-#: app/views/layouts/backend/00-patterns/_menu_process.html.erb:4
-msgid "Orders"
-msgstr "Bstellige"
+#: app/views/backend/models/package_roots.html.erb:78
+msgid "New Item Package"
+msgstr "Nois Paket"
 
-#: app/views/users/_documents2.html.erb:34
-#: app/views/layouts/backend/00-patterns/_menu_process.html.erb:25
-msgid "Contracts"
-msgstr "Verträg"
+#: app/views/backend/take_back/_item_line.html.erb:28
+#: app/views/backend/take_back/_option_line.html.erb:25
+msgid "Contract %d"
+msgstr "Vertrag %d"
 
-#: app/views/users/account.html.erb:15
-msgid "My Orders"
-msgstr "Mini Bstellige"
+#: app/views/backend/take_back/_item_line.html.erb:29
+#: app/views/backend/take_back/_item_line.html.erb:31
+#: app/views/backend/take_back/inspection.html.erb:1
+msgid "Inspection"
+msgstr "Inspektion"
 
-#: app/views/users/_incomplete.html.erb:6
-msgid "User details incomplete: %s is missing"
-msgstr ""
+#: app/views/backend/take_back/show.html.erb:16
+msgid "User has no access to your inventory pool anymore"
+msgstr "De Benutzer hät kein Zuegang meh zu Ihrem Grätepark"
 
-#: app/views/users/_incomplete.html.erb:14
-msgid ""
-"Unfortunately, we do not have all your personal information and therefore "
-"cannot grant you access to this system. Please log in to the Personensuche "
-"system (see link below) and complete the form under 'Meine persönlichen "
-"Daten'. If you cannot use the Personensuche system, please contact Claudio "
-"Pavan (claudio.pavan@zhdk.ch or +41 43 446 21 48) and give him your full "
-"details. The information we need is: Full name, address, landline phone "
-"number, mobile phone number and alternative e-mail address. This information "
-"will never be visible to the public unless you explicitly choose to make it "
-"visible."
-msgstr ""
+#: app/views/backend/take_back/show.html.erb:42
+msgid "Check all"
+msgstr "Ali aawählä"
 
-#: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:1
-#: app/views/mailer/user/deadline_soon_reminder.text.html.erb:9
-#: app/views/mailer/user/remind.text.html.erb:9
+#: app/views/backend/take_back/show.html.erb:44
+msgid "Check today's"
+msgstr "Vo hüt aawählä"
+
+#: app/views/backend/take_back/close_contract.html.erb:1
+msgid "Returned items"
+msgstr "Sachä wo zruggäh sind"
+
+#: app/views/backend/take_back/_index_mini.html.erb:3
+msgid "Take Back visits"
+msgstr "Bsüech zum zruggnäh"
+
+#: app/views/backend/barcodes/new.html.erb:14
+msgid "Generate barcode"
+msgstr "Barcode generierä"
+
 #: app/views/mailer/user/remind.text.plain.erb:1
-#: app/views/mailer/order/changed.text.plain.erb:1
-#: app/views/mailer/order/approved.text.plain.erb:1
-#: app/views/mailer/order/submitted.text.plain.erb:1
-#: app/views/mailer/order/changed.text.html.erb:9
-#: app/views/mailer/order/rejected.text.html.erb:9
-#: app/views/mailer/order/approved.text.html.erb:9
-#: app/views/mailer/order/rejected.text.plain.erb:1
-#: app/views/mailer/order/submitted.text.html.erb:9
-msgid "Dear leihs client,"
+#: app/views/mailer/user/remind.text.html.erb:9
+#: app/views/mailer/user/deadline_soon_reminder.text.html.erb:9
+#: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:1
+#, fuzzy
+msgid "Dear client,"
 msgstr "Liebe leihs-Benutzer,"
 
-#: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:3
-#: app/views/mailer/user/deadline_soon_reminder.text.html.erb:10
-#: app/views/mailer/user/remind.text.html.erb:10
 #: app/views/mailer/user/remind.text.plain.erb:3
-#: app/views/mailer/order/changed.text.plain.erb:3
-#: app/views/mailer/order/received.text.html.erb:10
-#: app/views/mailer/order/approved.text.plain.erb:3
+#: app/views/mailer/user/remind.text.html.erb:10
+#: app/views/mailer/user/deadline_soon_reminder.text.html.erb:10
+#: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:3
 #: app/views/mailer/order/submitted.text.plain.erb:3
-#: app/views/mailer/order/changed.text.html.erb:10
-#: app/views/mailer/order/rejected.text.html.erb:10
-#: app/views/mailer/order/received.text.plain.erb:3
 #: app/views/mailer/order/approved.text.html.erb:10
-#: app/views/mailer/order/rejected.text.plain.erb:3
+#: app/views/mailer/order/rejected.text.html.erb:10
+#: app/views/mailer/order/approved.text.plain.erb:3
+#: app/views/mailer/order/received.text.plain.erb:3
 #: app/views/mailer/order/submitted.text.html.erb:10
+#: app/views/mailer/order/changed.text.plain.erb:3
+#: app/views/mailer/order/changed.text.html.erb:10
+#: app/views/mailer/order/rejected.text.plain.erb:3
+#: app/views/mailer/order/received.text.html.erb:10
 msgid "** This is an automatically generated response **"
 msgstr "** Das isch en automatisch generierti Antwort **"
 
-#: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:5
-#: app/views/mailer/user/deadline_soon_reminder.text.html.erb:11
-msgid "The following items are due to be returned tomorrow:"
+#: app/views/mailer/user/remind.text.plain.erb:5
+#: app/views/mailer/user/remind.text.html.erb:12
+#, fuzzy
+msgid "The following items are overdue or need to be inspected by their owners"
 msgstr "Die Sache sind ab morn fällig:"
 
-#: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:8
-#: app/views/mailer/user/deadline_soon_reminder.text.html.erb:16
-#: app/views/mailer/user/remind.text.html.erb:16
-msgid " item(s)"
-msgstr " Sach(e)"
-
-#: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:8
-#: app/views/mailer/user/deadline_soon_reminder.text.html.erb:16
-#: app/views/mailer/user/remind.text.html.erb:16
 #: app/views/mailer/user/remind.text.plain.erb:9
+msgid " item(s) due on "
+msgstr "Sachä fällig am"
+
+#: app/views/mailer/user/remind.text.plain.erb:9
+#: app/views/mailer/user/remind.text.html.erb:16
+#: app/views/mailer/user/deadline_soon_reminder.text.html.erb:16
+#: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:8
 msgid " at the inventory pool "
 msgstr " im Grätepark "
 
-#: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:16
-#: app/views/mailer/user/deadline_soon_reminder.text.html.erb:27
-msgid ""
-"We are just sending you this little reminder because someone else is already "
-"waiting for some of these items."
-msgstr ""
-"Mir schicked die churz Erinnerig, wil öpper anders scho uf einigi vo dene "
-"Sache warted."
-
-#: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:18
-#: app/views/mailer/user/deadline_soon_reminder.text.html.erb:29
-msgid ""
-"In the interest of all our clients we ask you to observe the return dates."
-msgstr "Im Interässe vo allne Chunde bittemer Sie, d'Rückgabedate z'beachte"
-
-#: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:20
-#: app/views/mailer/user/deadline_soon_reminder.text.html.erb:31
-#: app/views/mailer/user/remind.text.html.erb:33
-#: app/views/mailer/user/remind.text.plain.erb:23
-#: app/views/mailer/order/changed.text.plain.erb:24
-#: app/views/mailer/order/received.text.html.erb:26
-#: app/views/mailer/order/approved.text.plain.erb:21
-#: app/views/mailer/order/submitted.text.plain.erb:15
-#: app/views/mailer/order/changed.text.html.erb:32
-#: app/views/mailer/order/rejected.text.html.erb:17
-#: app/views/mailer/order/received.text.plain.erb:18
-#: app/views/mailer/order/approved.text.html.erb:24
-#: app/views/mailer/order/rejected.text.plain.erb:11
-#: app/views/mailer/order/submitted.text.html.erb:23
-msgid "Kind regards,"
-msgstr "Liebi Grüess,"
-
-#: app/views/mailer/user/remind.text.html.erb:12
-#: app/views/mailer/user/remind.text.plain.erb:5
-msgid "The following items are overdue:"
-msgstr "Die folgende Sache sind überfällig:"
-
-#: app/views/mailer/user/remind.text.html.erb:27
 #: app/views/mailer/user/remind.text.plain.erb:17
+#: app/views/mailer/user/remind.text.html.erb:28
+#: app/views/mailer/user/deadline_soon_reminder.text.html.erb:27
+#: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:16
+msgid "Are any of the above items your personal computer?"
+msgstr ""
+
+#: app/views/mailer/user/remind.text.plain.erb:19
+#: app/views/mailer/user/remind.text.html.erb:29
+#: app/views/mailer/user/deadline_soon_reminder.text.html.erb:28
+#: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:18
+msgid ""
+"We kindly ask you to contact us as soon as possible. Your computer might "
+"need an update."
+msgstr ""
+
+#: app/views/mailer/user/remind.text.plain.erb:21
+#: app/views/mailer/user/remind.text.html.erb:31
+#: app/views/mailer/user/deadline_soon_reminder.text.html.erb:30
+#: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:20
+msgid "Are any of the above borrowed items?"
+msgstr ""
+
+#: app/views/mailer/user/remind.text.plain.erb:23
+#: app/views/mailer/user/remind.text.html.erb:33
 msgid ""
 "Since we did not receive any request for renewal, we consequently demand the "
 "return of the items without further delay."
@@ -3742,8 +3754,8 @@ msgstr ""
 "Will mir kei Aafrag um Verlängerig übercho händ, forderemer di sofortig "
 "Rückgab vom Gägestand."
 
-#: app/views/mailer/user/remind.text.html.erb:29
-#: app/views/mailer/user/remind.text.plain.erb:19
+#: app/views/mailer/user/remind.text.plain.erb:25
+#: app/views/mailer/user/remind.text.html.erb:35
 msgid ""
 "By not returning these items, you are blocking other people's reservations. "
 "This is very unfair to the other clients and to the inventory manager, since "
@@ -3753,94 +3765,93 @@ msgstr ""
 "Reservatione. Das isch de andere Chunde und am Inventar-Manager gägenüber "
 "sehr unfair will Sie vil lästige Ärger verursachet."
 
-#: app/views/mailer/user/remind.text.html.erb:31
-#: app/views/mailer/user/remind.text.plain.erb:21
+#: app/views/mailer/user/remind.text.plain.erb:27
+#: app/views/mailer/user/remind.text.html.erb:37
+#, fuzzy
 msgid ""
 "You might receive an admonishment and be subject to late fees as well as the "
 "restriction of borrowing privileges. In case of recurrence you might be "
-"barred from leihs for up to 6 months."
+"barred from the reservation system for up to 6 months."
 msgstr ""
 "Sie chömed allefalls en Ermahnig oder Strafgebühr über oder verlüüret "
 "d'Recht Sache uuszlehne. Im Wiederholigsfall chönd Sie bis zu 6 Mönet us em "
 "leihs uusgsperrt werdä."
 
-#: app/views/mailer/user/remind.text.plain.erb:9
-msgid " item(s) due on "
-msgstr "Sachä fällig am"
+#: app/views/mailer/user/remind.text.plain.erb:29
+#: app/views/mailer/user/remind.text.html.erb:39
+#: app/views/mailer/user/deadline_soon_reminder.text.html.erb:36
+#: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:26
+#: app/views/mailer/order/submitted.text.plain.erb:15
+#: app/views/mailer/order/approved.text.html.erb:24
+#: app/views/mailer/order/rejected.text.html.erb:17
+#: app/views/mailer/order/approved.text.plain.erb:21
+#: app/views/mailer/order/received.text.plain.erb:18
+#: app/views/mailer/order/submitted.text.html.erb:23
+#: app/views/mailer/order/changed.text.plain.erb:24
+#: app/views/mailer/order/changed.text.html.erb:32
+#: app/views/mailer/order/rejected.text.plain.erb:11
+#: app/views/mailer/order/received.text.html.erb:26
+msgid "Kind regards,"
+msgstr "Liebi Grüess,"
 
-#: app/views/mailer/order/changed.text.plain.erb:5
-#: app/views/mailer/order/approved.text.plain.erb:5
-#: app/views/mailer/order/changed.text.html.erb:11
-#: app/views/mailer/order/approved.text.html.erb:11
-msgid ""
-"Your order for the following items has been confirmed by the inventory "
-"manager"
-msgstr ""
-"Ihri Bstellig vo de folgende Sache isch vom Inventar-Manager bestätigt worde."
+#: app/views/mailer/user/remind.text.html.erb:16
+#: app/views/mailer/user/deadline_soon_reminder.text.html.erb:16
+#: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:8
+msgid " item(s)"
+msgstr " Sach(e)"
 
-#: app/views/mailer/order/changed.text.plain.erb:5
-#: app/views/mailer/order/changed.text.html.erb:11
-msgid "but a few changes were made to it"
-msgstr "aber ma hät es paar Änderige gmacht"
-
-#: app/views/mailer/order/changed.text.plain.erb:7
-#: app/views/mailer/order/received.text.html.erb:13
-#: app/views/mailer/order/approved.text.plain.erb:7
-#: app/views/mailer/order/submitted.text.plain.erb:7
-#: app/views/mailer/order/changed.text.html.erb:13
-#: app/views/mailer/order/rejected.text.html.erb:13
-#: app/views/mailer/order/received.text.plain.erb:7
-#: app/views/mailer/order/approved.text.html.erb:12
-#: app/views/mailer/order/rejected.text.plain.erb:7
-#: app/views/mailer/order/submitted.text.html.erb:13
-msgid "Inventory pool"
-msgstr "Grätepark"
-
-#: app/views/mailer/order/changed.text.plain.erb:14
-#: app/views/mailer/order/changed.text.html.erb:20
-msgid "The order now looks like this:"
-msgstr "D'Bstellig gseht jetz so us:"
-
-#: app/views/mailer/order/changed.text.plain.erb:20
-#: app/views/mailer/order/approved.text.plain.erb:15
-#: app/views/mailer/order/changed.text.html.erb:28
-#: app/views/mailer/order/approved.text.html.erb:20
-msgid "These are the comments of the inventory manager:"
-msgstr "Das sind am Inventar-Manager sini Bemerkige:"
-
-#: app/views/mailer/order/received.text.html.erb:9
-#: app/views/mailer/order/received.text.plain.erb:1
+#: app/views/mailer/user/deadline_soon_reminder.text.html.erb:11
+#: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:5
 #, fuzzy
-msgid "Dear leihs manager,"
+msgid ""
+"The following items are due to be returned tomorrow or need to be inspected "
+"by their owners"
+msgstr "Die Sache sind ab morn fällig:"
+
+#: app/views/mailer/user/deadline_soon_reminder.text.html.erb:32
+#: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:22
+msgid ""
+"We are just sending you this little reminder because someone else is already "
+"waiting for some of these items."
+msgstr ""
+"Mir schicked die churz Erinnerig, wil öpper anders scho uf einigi vo dene "
+"Sache warted."
+
+#: app/views/mailer/user/deadline_soon_reminder.text.html.erb:34
+#: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:24
+msgid ""
+"In the interest of all our clients we ask you to observe the return dates."
+msgstr "Im Interässe vo allne Chunde bittemer Sie, d'Rückgabedate z'beachte"
+
+#: app/views/mailer/order/submitted.text.plain.erb:1
+#: app/views/mailer/order/approved.text.html.erb:9
+#: app/views/mailer/order/rejected.text.html.erb:9
+#: app/views/mailer/order/approved.text.plain.erb:1
+#: app/views/mailer/order/submitted.text.html.erb:9
+#: app/views/mailer/order/changed.text.plain.erb:1
+#: app/views/mailer/order/changed.text.html.erb:9
+#: app/views/mailer/order/rejected.text.plain.erb:1
+msgid "Dear leihs client,"
 msgstr "Liebe leihs-Benutzer,"
-
-#: app/views/mailer/order/received.text.html.erb:11
-#: app/views/mailer/order/received.text.plain.erb:5
-#, fuzzy
-msgid ""
-"An order for the following items listed below was received in an inventory "
-"pool you are responsible for."
-msgstr "Ihri Bstellig vo de folgende Sache isch verschickt worde."
-
-#: app/views/mailer/order/received.text.html.erb:22
-#: app/views/mailer/order/received.text.plain.erb:14
-msgid ""
-"This order is still pending. Please log in to your leihs system and either "
-"approve or reject it."
-msgstr ""
-
-#: app/views/mailer/order/received.text.html.erb:24
-#: app/views/mailer/order/received.text.plain.erb:16
-msgid ""
-"The user who placed this order has received a similar e-mail message "
-"informing them that the order first needs to be approved before it is valid."
-msgstr ""
 
 #: app/views/mailer/order/submitted.text.plain.erb:5
 #: app/views/mailer/order/submitted.text.html.erb:11
 msgid ""
 "Your order for the following items listed below was successfully submitted."
 msgstr "Ihri Bstellig vo de folgende Sache isch verschickt worde."
+
+#: app/views/mailer/order/submitted.text.plain.erb:7
+#: app/views/mailer/order/approved.text.html.erb:12
+#: app/views/mailer/order/rejected.text.html.erb:13
+#: app/views/mailer/order/approved.text.plain.erb:7
+#: app/views/mailer/order/received.text.plain.erb:7
+#: app/views/mailer/order/submitted.text.html.erb:13
+#: app/views/mailer/order/changed.text.plain.erb:7
+#: app/views/mailer/order/changed.text.html.erb:13
+#: app/views/mailer/order/rejected.text.plain.erb:7
+#: app/views/mailer/order/received.text.html.erb:13
+msgid "Inventory pool"
+msgstr "Grätepark"
 
 #: app/views/mailer/order/submitted.text.plain.erb:13
 #: app/views/mailer/order/submitted.text.html.erb:21
@@ -3853,10 +3864,65 @@ msgstr ""
 "imene separate E-Mail über. Sie chönd de Status vo ihrere Bstellig im leihs-"
 "Account gseh."
 
+#: app/views/mailer/order/approved.text.html.erb:11
+#: app/views/mailer/order/approved.text.plain.erb:5
+#: app/views/mailer/order/changed.text.plain.erb:5
+#: app/views/mailer/order/changed.text.html.erb:11
+msgid ""
+"Your order for the following items has been confirmed by the inventory "
+"manager"
+msgstr ""
+"Ihri Bstellig vo de folgende Sache isch vom Inventar-Manager bestätigt worde."
+
+#: app/views/mailer/order/approved.text.html.erb:20
+#: app/views/mailer/order/approved.text.plain.erb:15
+#: app/views/mailer/order/changed.text.plain.erb:20
+#: app/views/mailer/order/changed.text.html.erb:28
+msgid "These are the comments of the inventory manager:"
+msgstr "Das sind am Inventar-Manager sini Bemerkige:"
+
 #: app/views/mailer/order/rejected.text.html.erb:11
 #: app/views/mailer/order/rejected.text.plain.erb:5
 msgid "Your order was rejected for the following reason:"
 msgstr "Ihri Bstellig isch us em folgende Grund abglehnt worde:"
+
+#: app/views/mailer/order/received.text.plain.erb:1
+#: app/views/mailer/order/received.text.html.erb:9
+#, fuzzy
+msgid "Dear leihs manager,"
+msgstr "Liebe leihs-Benutzer,"
+
+#: app/views/mailer/order/received.text.plain.erb:5
+#: app/views/mailer/order/received.text.html.erb:11
+#, fuzzy
+msgid ""
+"An order for the following items listed below was received in an inventory "
+"pool you are responsible for."
+msgstr "Ihri Bstellig vo de folgende Sache isch verschickt worde."
+
+#: app/views/mailer/order/received.text.plain.erb:14
+#: app/views/mailer/order/received.text.html.erb:22
+msgid ""
+"This order is still pending. Please log in to your leihs system and either "
+"approve or reject it."
+msgstr ""
+
+#: app/views/mailer/order/received.text.plain.erb:16
+#: app/views/mailer/order/received.text.html.erb:24
+msgid ""
+"The user who placed this order has received a similar e-mail message "
+"informing them that the order first needs to be approved before it is valid."
+msgstr ""
+
+#: app/views/mailer/order/changed.text.plain.erb:5
+#: app/views/mailer/order/changed.text.html.erb:11
+msgid "but a few changes were made to it"
+msgstr "aber ma hät es paar Änderige gmacht"
+
+#: app/views/mailer/order/changed.text.plain.erb:14
+#: app/views/mailer/order/changed.text.html.erb:20
+msgid "The order now looks like this:"
+msgstr "D'Bstellig gseht jetz so us:"
 
 #: app/views/orders/_pending.html.erb:4
 msgid "Pending orders"
@@ -3865,6 +3931,13 @@ msgstr "Offeni Bstellige"
 #: app/views/orders/_pending.html.erb:9
 msgid "Received at"
 msgstr "Empfange am"
+
+#: app/views/orders/_pending.html.erb:34
+#: app/views/contracts/_signed.html.erb:37
+#: app/views/contracts/_unsigned.html.erb:38
+#, fuzzy
+msgid "Qty."
+msgstr "Az."
 
 #: app/views/orders/_submit.html.erb:3
 msgid "The order has been successfully submitted, but is NOT YET CONFIRMED."
@@ -3897,139 +3970,107 @@ msgstr "Details zu de betroffene Gräteparks"
 msgid "YOU ARE SUSPENDED FOR THIS INVENTORY_POOL"
 msgstr ""
 
-#: app/views/frontend/_templates.html.erb:22
-#: app/views/layouts/backend/00-patterns/_menu_packages.html.erb:5
-msgid "Templates"
-msgstr "Vorlagä"
+#: app/views/contracts/_pending.html.erb:5
+#: app/views/contracts/_unsigned.html.erb:6
+#, fuzzy
+msgid "Unsigned contracts"
+msgstr "Offeni Verträg"
 
-#: app/views/frontend/_templates.html.erb:134
-msgid "Add all"
-msgstr "Alli dezuetue"
+#: app/views/contracts/_pending.html.erb:11
+#: app/views/contracts/_signed.html.erb:11
+#: app/views/contracts/_unsigned.html.erb:14
+msgid "Created at"
+msgstr "Erstellt bi"
 
-#: app/views/frontend/_complete_order.html.erb:197
-msgid "Error"
-msgstr "Fähler"
+#: app/views/contracts/_signed.html.erb:4
+#, fuzzy
+msgid "Signed contracts"
+msgstr "Vertrag uusdruckä"
 
-#: app/views/frontend/_complete_order.html.erb:226
-#: app/views/frontend/_complete_order.html.erb:411
-msgid "Change Timeframe"
-msgstr "Ziitfenschter änderä"
+#: app/views/contracts/_signed.html.erb:30
+msgid "Contract"
+msgstr "Vertrag"
 
-#: app/views/frontend/_complete_order.html.erb:227
-msgid "Change the timeframe for the selected items"
-msgstr "Ziitfenschter für Uswahl änderä"
+#: app/views/contracts/_unsigned.html.erb:8
+msgid ""
+"Please note that these contracts, while they do belong to approved orders, "
+"may be changed by the lending manager at any time. They represent only a "
+"current snapshot of the order and might not contain the same items as the "
+"final contract once you pick up your items."
+msgstr ""
 
-#: app/views/frontend/_complete_order.html.erb:235
-msgid "Remove the selected items"
-msgstr "Agwählti Sachä furtnäh"
+#: app/views/widgets/_category_backend_tabnav.html.erb:27
+#: app/views/widgets/_group_backend_tabnav.html.erb:31
+msgid "Models (%d)"
+msgstr "Modäll (%d)"
 
-#: app/views/frontend/_complete_order.html.erb:242
-msgid "You are sure?"
-msgstr "Bisch sicher?"
+#: app/views/widgets/_category_backend_tabnav.html.erb:33
+msgid "Children (%d)"
+msgstr "Chind-Element (%d)"
 
-#: app/views/frontend/_complete_order.html.erb:268
-msgid "Submit Order"
-msgstr "Bstellig abschickä"
+#: app/views/widgets/_category_backend_tabnav.html.erb:39
+msgid "Parents (%d)"
+msgstr "Eltere-Element (%d)"
 
-#: app/views/frontend/_complete_order.html.erb:275
-msgid "Do you want to submit this order?"
-msgstr "Wotsch diä Bstellig abschickä?"
+#: app/views/widgets/_user_backend_tabnav.html.erb:26
+msgid "Access Rights (%d)"
+msgstr "Zuegriffsrächt (%d)"
 
-#: app/views/frontend/_complete_order.html.erb:367
-#: app/views/frontend/_models.html.erb:375
-#: app/views/frontend/_models.html.erb:379
-#: app/views/contracts/show.pdf.prawn:91
-msgid "Start date"
-msgstr "Startdatum"
+#: app/views/widgets/_user_backend_tabnav.html.erb:34
+#, fuzzy
+msgid "Groups (%d)"
+msgstr "Eigeschaftä (%d)"
 
-#: app/views/frontend/_complete_order.html.erb:378
-#: app/views/frontend/_models.html.erb:394
-#: app/views/frontend/_models.html.erb:398
-#: app/views/contracts/show.pdf.prawn:91
-msgid "End date"
-msgstr "Enddatum"
+#: app/views/widgets/_user_backend_tabnav.html.erb:40
+msgid "Things to return"
+msgstr "Sache zum zruggäh"
 
-#: app/views/frontend/_complete_order.html.erb:387
-#: app/views/layouts/backend/00-patterns/general.html.erb:59
-msgid "Change"
-msgstr "Änderä"
+#: app/views/widgets/_user_backend_tabnav.html.erb:46
+msgid "Extended Info"
+msgstr ""
 
-#: app/views/frontend/_complete_order.html.erb:432
-msgid "Order"
-msgstr "Bstellig"
+#: app/views/widgets/_group_backend_tabnav.html.erb:25
+#, fuzzy
+msgid "Users (%d)"
+msgstr "Sachä (%d)"
 
-#: app/views/frontend/_complete_order.html.erb:476
-msgid "The order is empty"
-msgstr "D Bstellig isch läär"
+#: app/views/widgets/_location_backend_tabnav.html.erb:18
+#: app/views/widgets/_model_backend_tabnav.html.erb:48
+msgid "Items (%d)"
+msgstr "Sachä (%d)"
 
-#: app/views/frontend/_complete_order.html.erb:478
-msgid "The order is not yet approvable"
-msgstr "Die Bstellig chasch no nöd genehmigä"
+#: app/views/widgets/_template_backend_tabnav.html.erb:25
+msgid "Models (%{m}/%{i})"
+msgstr "Modäll (%{m}/%{i})"
 
-#: app/views/frontend/_models.html.erb:137
-msgid "No models to display"
-msgstr "Kei Modäll zum aazeigä"
+#: app/views/widgets/_model_backend_tabnav.html.erb:42
+msgid "Item Packages (%d)"
+msgstr "Paket (%d)"
 
-#: app/views/frontend/_models.html.erb:256
-msgid "This model may need permission!"
-msgstr "Das Modäll bruucht vilich Berächtigung!"
+#: app/views/widgets/_model_backend_tabnav.html.erb:56
+msgid "Categories (%d)"
+msgstr "Kategoriä (%d)"
 
-#: app/views/frontend/_models.html.erb:271
-msgid "Properties"
-msgstr "Eigäschaftä"
+#: app/views/widgets/_model_backend_tabnav.html.erb:63
+msgid "Properties (%d)"
+msgstr "Eigeschaftä (%d)"
 
-#: app/views/frontend/_models.html.erb:278
-msgid "Accessories"
-msgstr "Zuebehör"
+#: app/views/widgets/_model_backend_tabnav.html.erb:70
+msgid "Accessories (%d)"
+msgstr "Zuebehör (%d)"
 
-#: app/views/frontend/_models.html.erb:295
-msgid "Compatibles"
-msgstr "Kompatibli Sache"
+#: app/views/widgets/_model_backend_tabnav.html.erb:77
+msgid "Images (%d)"
+msgstr "Bilder (%d)"
 
-#: app/views/frontend/_models.html.erb:426
-msgid "Saving Data"
-msgstr "Speicherä Datä"
+#: app/views/widgets/_model_backend_tabnav.html.erb:84
+#, fuzzy
+msgid "Attachments (%d)"
+msgstr "Eltere-Element (%d)"
 
-#: app/views/frontend/_help.html.erb:32 app/views/frontend/_topbar.html.erb:24
-msgid "Help"
-msgstr "Hilf"
-
-#: app/views/frontend/_topbar.html.erb:64
-#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:19
-msgid "Logout"
-msgstr "Uuslogge"
-
-#: app/views/frontend/_splash_page.html.erb:14
-msgid "Welcome"
-msgstr "Willkome"
-
-#: app/views/frontend/_inventory_pools.html.erb:78
-msgid "Refresh"
-msgstr "Neu lade"
-
-#: app/views/frontend/_basket.html.erb:30
-msgid "Basket"
-msgstr "Chörbli"
-
-#: app/views/frontend/_basket.html.erb:82
-msgid "Continue with Order"
-msgstr "Wiiter mit de Bstellig"
-
-#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:27
-msgid "New model"
-msgstr "Neus Modäll"
-
-#: app/views/layouts/backend/00-patterns/_menu_inventory_models.html.erb:2
-msgid "All Models"
-msgstr "Ali Modäll"
-
-#: app/views/layouts/backend/00-patterns/_menu_inventory_models.html.erb:5
-msgid "Own Models"
-msgstr "Eigeni Modäll"
-
-#: app/views/layouts/backend/00-patterns/_menu_inventory_models.html.erb:12
-msgid "Own Packages"
-msgstr "Eigeni Paket"
+#: app/views/widgets/_model_backend_tabnav.html.erb:91
+msgid "Compatibles (%d)"
+msgstr "Kompatibli Sachä (%d)"
 
 #: app/views/layouts/backend/00-patterns/_menu_items.html.erb:8
 msgid "Not In Stock"
@@ -4040,28 +4081,12 @@ msgstr "Nöd a Lager"
 msgid "Unallocated"
 msgstr "unbsetzt"
 
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:36
+msgid "Administration"
+msgstr "Administrattion"
+
 #: app/views/layouts/backend/00-patterns/_menu_models.html.erb:2
 msgid "Models in this pool"
-msgstr ""
-
-#: app/views/layouts/backend/00-patterns/_menu_process.html.erb:7
-msgid "Pending"
-msgstr "Nonig fertig"
-
-#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:23
-msgid "Login"
-msgstr "Login"
-
-#: app/views/layouts/backend/00-patterns/_menu_packages.html.erb:2
-msgid "Packages"
-msgstr "Paket"
-
-#: app/views/layouts/backend/00-patterns/_menu_packages.html.erb:9
-msgid "Options"
-msgstr "Optionä"
-
-#: app/views/layouts/backend/00-patterns/general.html.erb:93
-msgid "Database Backup"
 msgstr ""
 
 #: app/views/layouts/backend/00-patterns/_menu_inventory_items.html.erb:4
@@ -4080,9 +4105,41 @@ msgstr "Uusgmuschteret"
 msgid "Responsible for"
 msgstr "Verantwortlich für"
 
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:36
-msgid "Administration"
-msgstr "Administrattion"
+#: app/views/layouts/backend/00-patterns/general.html.erb:93
+msgid "Database Backup"
+msgstr ""
+
+#: app/views/layouts/backend/00-patterns/_menu_inventory_models.html.erb:2
+msgid "All Models"
+msgstr "Ali Modäll"
+
+#: app/views/layouts/backend/00-patterns/_menu_inventory_models.html.erb:5
+msgid "Own Models"
+msgstr "Eigeni Modäll"
+
+#: app/views/layouts/backend/00-patterns/_menu_inventory_models.html.erb:12
+msgid "Own Packages"
+msgstr "Eigeni Paket"
+
+#: app/views/layouts/backend/00-patterns/_menu_process.html.erb:7
+msgid "Pending"
+msgstr "Nonig fertig"
+
+#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:23
+msgid "Login"
+msgstr "Login"
+
+#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:27
+msgid "New model"
+msgstr "Neus Modäll"
+
+#: app/views/layouts/backend/00-patterns/_menu_packages.html.erb:2
+msgid "Packages"
+msgstr "Paket"
+
+#: app/views/layouts/backend/00-patterns/_menu_packages.html.erb:9
+msgid "Options"
+msgstr "Optionä"
 
 #: app/views/layouts/backend/00-patterns/_menu_admin.html.erb:7
 msgid "Managers"
@@ -4121,53 +4178,53 @@ msgid "Admins"
 msgstr "Administratorä"
 
 #: app/views/backend/contracts/value_list_for_models.pdf.prawn:49
+#: app/views/orders/value_list_for_models.pdf.prawn:44
 #: app/views/contracts/value_list_for_items.pdf.prawn:49
 #: app/views/contracts/show.pdf.prawn:72
-#: app/views/orders/value_list_for_models.pdf.prawn:44
 msgid "Borrowing party:"
 msgstr "Uusleihendi:"
 
 #: app/views/backend/contracts/value_list_for_models.pdf.prawn:50
+#: app/views/orders/value_list_for_models.pdf.prawn:45
 #: app/views/contracts/value_list_for_items.pdf.prawn:50
 #: app/views/contracts/show.pdf.prawn:73
-#: app/views/orders/value_list_for_models.pdf.prawn:45
 msgid "Lending party:"
 msgstr "Verleiher:"
 
 #: app/views/backend/contracts/value_list_for_models.pdf.prawn:67
+#: app/views/orders/value_list_for_models.pdf.prawn:62
 #: app/views/contracts/value_list_for_items.pdf.prawn:67
 #: app/views/contracts/show.pdf.prawn:91
-#: app/views/orders/value_list_for_models.pdf.prawn:62
 msgid "Qt"
 msgstr "Az"
 
 #: app/views/backend/contracts/value_list_for_models.pdf.prawn:67
-#: app/views/contracts/value_list_for_items.pdf.prawn:67
 #: app/views/orders/value_list_for_models.pdf.prawn:62
+#: app/views/contracts/value_list_for_items.pdf.prawn:67
 msgid "Value"
 msgstr "Wert"
 
 #: app/views/backend/contracts/value_list_for_models.pdf.prawn:67
-#: app/views/contracts/value_list_for_items.pdf.prawn:67
 #: app/views/orders/value_list_for_models.pdf.prawn:62
+#: app/views/contracts/value_list_for_items.pdf.prawn:67
 msgid "Total"
 msgstr "Total"
 
 #: app/views/backend/contracts/value_list_for_models.pdf.prawn:94
-#: app/views/contracts/value_list_for_items.pdf.prawn:98
 #: app/views/orders/value_list_for_models.pdf.prawn:89
+#: app/views/contracts/value_list_for_items.pdf.prawn:98
 msgid "Grand total"
 msgstr ""
 
 #: app/views/backend/contracts/value_list_for_models.pdf.prawn:107
-#: app/views/contracts/value_list_for_items.pdf.prawn:111
 #: app/views/orders/value_list_for_models.pdf.prawn:103
+#: app/views/contracts/value_list_for_items.pdf.prawn:111
 msgid "This value list covers an order lasting from %s to %s."
 msgstr ""
 
 #: app/views/backend/contracts/value_list_for_models.pdf.prawn:112
-#: app/views/contracts/value_list_for_items.pdf.prawn:116
 #: app/views/orders/value_list_for_models.pdf.prawn:107
+#: app/views/contracts/value_list_for_items.pdf.prawn:116
 msgid "All prices in %s."
 msgstr ""
 
@@ -4217,6 +4274,9 @@ msgstr "Sie händ kei Berächtigung für de Zuegang uf die Applikation"
 #: lib/role_requirement_system.rb:120
 msgid "Access Denied"
 msgstr "Zuegriff verweigeret"
+
+#~ msgid "The following items are overdue:"
+#~ msgstr "Die folgende Sache sind überfällig:"
 
 #~ msgid ""
 #~ "The model cannot be changed because the item is used in contracts already."
