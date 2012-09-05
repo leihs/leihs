@@ -1,28 +1,28 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.6'
+gem 'rails', '3.2.8'
 
 gem 'mysql2', '~> 0.3.11'
-gem 'json', '~> 1.6'
+gem 'json', '~> 1.7'
 
 gem 'haml', '~> 3.1'
-gem 'sass', '~> 3.1'
+gem 'sass', '~> 3.2'
 gem 'coffee-script', '~> 2.2'
 gem "coffee-filter", "~> 0.1.1"
-gem 'jquery-rails', '~> 2.0'
+gem 'jquery-rails', '~> 2.1'
 gem 'jquery-tmpl-rails', '~> 1.1'
-gem 'haml_assets'
+gem 'haml_assets', '~> 0.1'
 
 gem 'rails_autolink', '~> 1.0'
 gem 'will_paginate', :git => "https://github.com/halloffame/will_paginate.git" # fixing count distinct, alternatives: .count(:id, :distinct => true)
 #gem 'will_paginate', '~> 3.0' # alternatives: kaminari
-gem 'gettext_i18n_rails', '~> 0.3'
+gem 'gettext_i18n_rails', '~> 0.7'
 gem 'ruby_parser', '~> 2.3' # gettext dependency that Bundler seems unable to resolve
 
 gem 'barby', '~> 0.5.0'
 gem "chunky_png", "~> 1.2.5"
 
-gem 'mini_magick', '~> 3.3'
+gem 'mini_magick', '~> 3.4'
 gem 'rgl', '~> 0.4.0', :require => 'rgl/adjacency' # use ruby-graphviz instead ?? (already in test group)
 gem 'ruby-net-ldap', '~> 0.0.4', :require => 'net/ldap'
 
@@ -37,7 +37,7 @@ gem "acts_as_audited", :git => "git://github.com/sellittf/acts_as_audited.git" #
 group :assets do # Gems used only for assets and not required in production environments by default.
   gem 'sass-rails', '~> 3.2'
   gem 'coffee-rails', '~> 3.2'
-  gem 'uglifier', '~> 1.2'
+  gem 'uglifier', '~> 1.3'
 end
 
 group :development do
@@ -46,7 +46,7 @@ group :development do
 end
 
 group :profiling, :development do
-	gem 'newrelic_rpm', '~> 3.3'
+	gem 'newrelic_rpm', '~> 3.4'
 end
 
 group :test, :development do
@@ -55,7 +55,7 @@ group :test, :development do
   gem "guard-cucumber", "~> 1.2"
   gem "guard-rspec", "~> 1.1"
   gem "guard-spork", "~> 1.0"
-  gem "guard-jasmine", "~> 1.6.1"
+  gem "guard-jasmine", "~> 1.8"
   gem "phantomjs", "~> 1.6.0.0" # headless webdriver (UI & JS tests)
   #gem "guard-jasmine-headless-webkit", "~> 0.3.2"
   #gem "jasmine-headless-webkit", "~> 0.8.4"
@@ -63,8 +63,8 @@ group :test, :development do
   gem "jasminerice", "~> 0.0.9" # needed for implement coffeescript, fixtures and asset pipeline serverd css into jasmine
   gem "rb-fsevent", "~> 0.9"
   gem "ruby_gntp", "~> 0.3.4"
-  gem 'factory_girl', "~> 3.3"
-  gem 'factory_girl_rails', "~> 3.3"
+  gem 'factory_girl', "~> 4.0"
+  gem 'factory_girl_rails', "~> 4.0"
   gem 'faker'
   gem 'pry', "~> 0.9"
   gem 'pry-rails', "~> 0.1"
@@ -78,7 +78,7 @@ group :test, :development do
   gem 'simplecov'
   gem 'launchy', '~> 2.1'
   gem "uuidtools", "~> 2.1.2" # needed for creating unique ids during tests (factories)
-  gem "timecop", "~> 0.3.5"
+  gem "timecop", "~> 0.4"
   gem 'capybara-screenshot'
 end
 
