@@ -19,6 +19,7 @@ class DailyViewController
     $.ajax
       url: "/backend/inventory_pools/#{current_inventory_pool}/orders.json"
       type: "GET"
+      cache: false
       data:
         filter: "pending"
         paginate: false
@@ -31,6 +32,7 @@ class DailyViewController
     $.ajax
       url: "/backend/inventory_pools/#{current_inventory_pool}/visits.json"
       type: "GET"
+      cache: false
       data: 
         filter: "hand_over"
         date: @date_to_s()
@@ -44,6 +46,7 @@ class DailyViewController
     $.ajax
       url: "/backend/inventory_pools/#{current_inventory_pool}/visits.json"
       type: "GET"
+      cache: false
       data: 
         filter: "take_back"
         date: @date_to_s()
@@ -66,6 +69,7 @@ class DailyViewController
     $.ajax
       url: "/backend/inventory_pools/#{current_inventory_pool}/workload.json"
       type: "GET"
+      cache: false
       data: 
         date: @date_to_s()
       success: (data)=>
