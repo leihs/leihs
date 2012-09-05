@@ -166,7 +166,7 @@ function Dialog() {
               if(typeof($(_this).data("dialog_ready")) == "string") {
                 eval($(_this).data("dialog_ready"));
               } else {
-                $(_this).data("dialog_ready")
+                $(_this).data("dialog_ready")()
               }
             } 
           }

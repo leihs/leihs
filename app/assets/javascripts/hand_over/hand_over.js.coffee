@@ -210,7 +210,9 @@ class HandOver
       content: $.tmpl("tmpl/dialog/hand_over/documents", {contract: contract})
       dialogClass: "hand_over documents"
       dialogId: "print"
-      dialog_ready: -> Print.print()
+      dialog_ready: -> 
+        console.log "READY"
+        Print.print()
     # bind close dialog
     dialog.delegate ".close_dialog", "click", (e)->
       e.stopImmediatePropagation()
