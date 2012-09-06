@@ -97,3 +97,8 @@ Funktionalität: Vertrag
     Wenn es Gegenstände gibt, die noch nicht zurückgegeben wurden
     Dann sehe ich die Liste 2 mit dem Titel "Ausgeliehene Gegenstände"
     Und diese Liste enthält Gegenstände, die ausgeliehen und noch nicht zurückgegeben wurden
+
+  @javascript
+  Szenario: Automatischer Druck Dialog beim Aushändigen
+    Wenn ich eine Aushändigung mache
+    Dann wird automatisch der Druck-Dialog geöffnet

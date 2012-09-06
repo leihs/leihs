@@ -179,3 +179,14 @@ Dann /^diese Liste enthält Gegenstände, die ausgeliehen und noch nicht zurück
     @contract_element.find(".not_returned_items").should have_content line.item.inventory_code
   end
 end
+
+Dann /^wird automatisch der Druck\-Dialog geöffnet$/ do
+  step 'I select an item line and assign an inventory code'
+  step 'I click hand over'
+  page.execute_script ("window.print = function(){window.printed = 1;return true;}")
+  wait_until { find ".dialog .button" }
+  sleep(0.5)
+  find(".dialog .button", :text => "Hand Over").click
+  wait_until{ find(".dialog .documents") }
+  wait_until { page.evaluate_script("window.printed") == 1}
+end

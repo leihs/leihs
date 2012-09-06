@@ -59,9 +59,9 @@ function Dialog() {
     
     this.autofocus = function(dialog) {
       if($(dialog).find(".focus:visible:first").val() != "") {
-        $(dialog).find(".focus:visible::first").focus().select();        
+        $(dialog).find(".focus:visible:first").focus().select();        
       } else {
-        $(dialog).find(".focus:visible::first").focus();
+        $(dialog).find(".focus:visible:first").focus();
       }
     }
     
@@ -166,7 +166,7 @@ function Dialog() {
               if(typeof($(_this).data("dialog_ready")) == "string") {
                 eval($(_this).data("dialog_ready"));
               } else {
-                $(_this).data("dialog_ready")
+                $(_this).data("dialog_ready")()
               }
             } 
           }

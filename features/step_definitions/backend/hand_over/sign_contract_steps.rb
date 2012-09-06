@@ -21,7 +21,7 @@ When /^I click hand over$/ do
 end
 
 When /^I click hand over inside the dialog$/ do
-  page.execute_script ("window.print = function(){return true;}")
+  page.execute_script ("window.print = function(){window.printed = 1; return true;}")
   wait_until { find ".dialog .button" }
   sleep(0.5)
   find(".dialog .button", :text => "Hand Over").click

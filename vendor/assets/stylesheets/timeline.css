@@ -21,6 +21,7 @@
 #my_timeline .timeline-date-label {
 	color: #111111;
 	padding-left: 0.5em;
+	font-size: 12px;
 }
 #my_timeline .timeline-band-0 .timeline-ether-bg {
 	background-color: #e9ef6f;

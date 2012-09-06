@@ -5,7 +5,7 @@
         Timeline.createBandInfo( { timeZone:       2,
                                    eventSource:    null,
                                    intervalUnit:   Timeline.DateTime.DAY,
-                                   intervalPixels: 70,
+                                   intervalPixels: 50,
                                    align:         'Top',
                                    theme:         theme } )
         BAND2A
@@ -16,7 +16,7 @@
         Timeline.createBandInfo( { timeZone:       2,
                                    eventSource:    eventSource[#{group_id}],
                                    intervalUnit:   Timeline.DateTime.DAY,
-                                   intervalPixels: 70,
+                                   intervalPixels: 50,
                                    align:         'Top',
                                    theme:         theme } )
         BAND2B
@@ -143,8 +143,8 @@
 
       d << <<-BAND4
            new Timeline.SpanHighlightDecorator(
-                 { startDate: '#{(start_date.to_time - 1.hour).to_s(:rfc822)}',
-                   endDate:   '#{(start_date.to_time + 1.hour).to_s(:rfc822)}',
+                 { startDate: '#{(start_date.to_time).to_s(:rfc822)}',
+                   endDate:   '#{(start_date.to_time).to_s(:rfc822)}',
                    color:     '#000000',
                    opacity:   50,
                    endLabel:  '#{in_quantity}' } )
@@ -153,8 +153,8 @@
       (start_date.tomorrow..end_date).each do |date|
         d << <<-BAND4
              new Timeline.SpanHighlightDecorator(
-                   { startDate: '#{(date.to_time - 1.hour).to_s(:rfc822)}',
-                     endDate:   '#{(date.to_time + 1.hour).to_s(:rfc822)}',
+                   { startDate: '#{(date.to_time).to_s(:rfc822)}',
+                     endDate:   '#{(date.to_time).to_s(:rfc822)}',
                      color:     '#999999',
                      opacity:   50,
                      endLabel:  '#{in_quantity}' } )
@@ -206,8 +206,8 @@
       if(bandInfos.length > 1 && i != 1) bandInfos[i].syncWith = 1;
       bandInfos[i].decorators = [
           new Timeline.SpanHighlightDecorator({
-              startDate:  "#{(Date.today.to_time - 1.hour).to_s(:rfc822)}",
-              endDate:    "#{(Date.tomorrow.to_time - 1.hour).to_s(:rfc822)}",
+              startDate:  "#{(Date.today.to_time).to_s(:rfc822)}",
+              endDate:    "#{(Date.tomorrow.to_time).to_s(:rfc822)}",
               color:      "#1f71d7",
               opacity:    50,
               startLabel: bandNames[i]
@@ -223,8 +223,8 @@
       dec}
   
     var tl = Timeline.create(document.getElementById("my_timeline"), bandInfos);
+    tl.getBand(1).setMinVisibleDate(Timeline.DateTime.parseGregorianDateTime("#{Date.today - 1.week}"));
     tl.layout();
-
 
     // rescale dialog when timeline is wrapped inside a dialog
     if($(window.parent.document).find(".dialog").length) {
