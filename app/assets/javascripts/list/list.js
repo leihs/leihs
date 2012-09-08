@@ -14,7 +14,7 @@ function List() {
       $(this).siblings(".text").fadeIn(300);
     });
     $(element).find(".reminder .date").fadeOut(300, function(){
-      var _text = "Today " + new Date().getHours() + ":" + new Date().getMinutes();
+      var _text = _jed("Today") + " " + new Date().getHours() + ":" + new Date().getMinutes();
       $(this).html(_text).fadeIn(300);
     });
   }

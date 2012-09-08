@@ -18,7 +18,7 @@ When /^I change the time range for all contract lines, envolving option and item
   end
   @new_start_date_element = get_fullcalendar_day_element(@new_start_date, @line)
   @new_start_date_element.click
-  find("a", :text => "Start Date").click
+  find("a", :text => /(Start Date|Startdatum)/).click
   step 'I save the booking calendar'
 end
 

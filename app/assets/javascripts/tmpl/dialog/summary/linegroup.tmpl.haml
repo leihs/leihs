@@ -2,8 +2,9 @@
   .date
     ${moment(start_date).format(i18n.date.L)} - ${moment(end_date).format(i18n.date.L)}
   .range
-    ${moment(end_date).eod().diff(moment(start_date).sod(), "days")}
-    = _("Days")
+    ${$days = moment(end_date).eod().diff(moment(start_date).sod(), "days"), ""}
+    ${$days}
+    ${_jed($days, "Day", "Days")}
     
 .clear
 .list
@@ -24,8 +25,8 @@
         ${line.quantity}
       %li.model
         ${line.model.name}
-    {{if !line.is_available && line.type != "option_line"}}
+    {{if Line.get_problems(line).length}}
     %li.problems
-      = _("Problems")
+      ${_jed("Problems")}
     {{/if}}
   {{/each}}  

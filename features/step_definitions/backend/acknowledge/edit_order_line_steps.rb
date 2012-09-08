@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+
 When /^I open an order for acknowledgement$/ do
   @ip = @user.managed_inventory_pools.first
   @customer = @ip.users.all.detect {|x| x.orders.submitted.count > 0}
@@ -15,18 +17,18 @@ When /^I open an order for acknowledgement with more then one line$/ do
 end
 
 When /^I open the booking calendar for this line$/ do
-  @line_element.find(".button", :text => "Edit").click
+  @line_element.find(".button", :text => /(Edit|Editieren)/).click
   wait_until { find("#fullcalendar .fc-day-content") }
 end
 
 When /^I edit the timerange of the selection$/ do
   page.execute_script('$("#selection_actions .button").show()')
-  find(".button", :text => "Edit Selection").click
+  find(".button", :text => /(Edit Selection|Auswahl editieren)/).click
   wait_until { find("#fullcalendar .fc-day-content") }
 end
 
 When /^I save the booking calendar$/ do
-  find(".dialog .button", :text => "Save Changes").click
+  find(".dialog .button", :text => /(Save Changes|Änderungen speichern)/).click
   wait_until { all(".dialog").size == 0 }
 end
 
@@ -47,7 +49,7 @@ When /^I change (.*?) lines time range$/ do |type|
   wait_until { find(".fc-widget-content .fc-day-number") }
   @new_start_date_element = get_fullcalendar_day_element(@new_start_date, @line)
   @new_start_date_element.click
-  find("a", :text => "Start Date").click
+  find("a", :text => /(Start Date|Startdatum)/).click
   step 'I save the booking calendar'
 end
 
@@ -89,7 +91,7 @@ When /^I change the time range for multiple lines$/ do
   @new_start_date = @line1.start_date + 2.days
   @new_start_date_element = get_fullcalendar_day_element(@new_start_date, @line1)
   @new_start_date_element.click
-  find("a", :text => "Start Date").click
+  find("a", :text => /(Start Date|Startdatum)/).click
   step 'I save the booking calendar'
 end
 

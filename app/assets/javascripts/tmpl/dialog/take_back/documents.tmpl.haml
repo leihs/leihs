@@ -1,5 +1,4 @@
-%h1
-  = _("Documents for take back")
+%h1 ${_jed("Documents for take back")}
 
 .navigation
   .multibutton
@@ -8,22 +7,22 @@
         .arrow
       %a.button.white.close_dialog
         .return.icon
-        = _("Back")
+        ${_jed("Back to this take back")}
     %button.button.white.ready
       .take_back.icon
-      = _("Ready")
+      ${_jed("Finish this take back")}
  
 %section.documents
   
   .navigation
     %button.button.white.print
-      = _("Print")
+      ${_jed("Print")}
       .print.icon
       
   .inlinetabs
-    .tab.active{:"data-section" => "contract"}= _("Contracts")
+    .tab.active{:"data-section" => "contract"} ${_jed("Contracts")}
   
-  %section.contract.document.active{:"data-print_title" => _("Lending Contracts No. %s") % ['${Print.map_contract_ids(contracts).join(", ")}']}
+  %section.contract.document.active{:"data-print_title" => '${_jed("Lending Contracts No. %s", Print.map_contract_ids(contracts).join(", "))}'}
     {{each(i, contract) contracts}}
     {{if template}}
     {{tmpl(contract) template}}    

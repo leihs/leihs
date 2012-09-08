@@ -12,12 +12,12 @@
       {{if lines.length}}    
       %span.text
         %span.grey
-          = _("for max.")
+          ${_jed("for max.")}
       %span.number
-        ${$max_range = new MaxRange(lines), ""}
-        ${$max_range.value}
+        ${$max_range = new MaxRange(lines).value, ""}
+        ${$max_range}
       %span.text
-        = _("Days")
+        ${_jed($max_range, "Day", "Days")}
       {{/if}}
     
     {{tmpl(purpose) "tmpl/cell/purpose"}}
@@ -30,7 +30,7 @@
             .arrow
           = link_to "/backend/inventory_pools/${current_inventory_pool}/acknowledge/${id}", :class => "button white" do
             .icon.edit
-            = _("Edit")
+            ${_jed("Edit")}
           
           = link_to "/backend/inventory_pools/${current_inventory_pool}/acknowledge/${id}/approve", :remote => true,  
             :class => "button white",
@@ -40,7 +40,7 @@
             :"data-on_success" => 'window.location = "http://"+location.host+"/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/hand_over"',
             :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
             .icon.hand_over
-            = _("Hand Over")
+            ${_jed("Hand Over")}
             
           = link_to "/backend/inventory_pools/${current_inventory_pool}/acknowledge/${id}/reject", 
             :class => "button red open_dialog", 
@@ -49,7 +49,7 @@
             :"data-on_success" => 'Line.remove({"element": $(this).closest(".dialog").data("trigger").closest(".line"), "color": "red"})',
             :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
             .icon.delete
-            = _("Reject")
+            ${_jed("Reject")}
             
         = link_to "/backend/inventory_pools/${current_inventory_pool}/acknowledge/${id}/approve", 
           :class => "button white",
@@ -60,4 +60,4 @@
           :"data-on_success" => 'Line.remove({"element": $(this).closest(".line"), "color": "green"})',
           :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
           .icon.approve
-          = _("Approve")
+          ${_jed("Approve")}

@@ -3,79 +3,21 @@
 Internationalisation
 
 This script provides functionalities for internationalisation in JavaScript.
-The default is currently de-CH.
  
 ###
 
-window.i18n =
-  locals: {}
-  
-  to_s: "de-CH"
-  
-  # MOMENT.JS is our standard date parser
-  date:
-    L: "DD.MM.YYYY" 
-    XL: "dddd DD.MM.YYYY"
-    XXL: "DD.MM.YYYY LT"
-    XXXL: "dddd DD.MM.YYYY LT"  
-    XS: 'DD.MM.YY'
-    
-  # jQuery Datepicker has different convetions for formating dates
-  datepicker:
-    L: "dd.mm.yy"
-  
-  today: "Heute"
-  month: "Monat"
-  week: "Woche"
-  day: "Tag"
-  
-  months:
-    full: ["Januar", "Februar", 'März', 'April', 'Mai', 'Juni', 'Juli','August', 'September', 'Oktober', 'November', 'Dezember']
-    trunc: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez']
-    
-  days:
-    first: 1
-    full: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag']
-    trunc: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']
-  
-  time: "H:mm U\\hr"
-  
-  meridiem :
-    AM : 'AM'
-    am : 'am'
-    PM : 'PM'
-    pm : 'pm'
-    
-  calendar :
-    sameDay: "[Heute um] LT"
-    sameElse: "L"
-    nextDay: '[Morgen um] LT'
-    nextWeek: 'dddd [um] LT'
-    lastDay: '[Gestern um] LT'
-    lastWeek: '[letzten] dddd [um] LT'
-   
-  relative: 
-    future : "in %s",
-    past : "vor %s",
-    s : "ein paar Sekunden",
-    m : "einer Minute",
-    mm : "%d Minuten",
-    h : "einer Stunde",
-    hh : "%d Stunden",
-    d : "einem Tag",
-    dd : "%d Tagen",
-    M : "einem Monat",
-    MM : "%d Monaten",
-    y : "einem Jahr",
-    yy : "%d Jahren"
-  
-  close: 'schliessen'
-  regard_opening_hours: "Öffnungszeiten beachten!"
-  closed_at_this_day: "An diesem Tag ist die Ausleihe geschlossen."
-  
-  number:
-    decimal: "."
-    thousand: "'"
+window.i18n.jed = new Jed {"domain": "leihs", locale_data: i18n.locale_data}
+window._jed = (arg1,args...)-> 
+  if typeof arg1 == "number"
+    singular = args[0]
+    plural = args[1]
+    num = arg1
+    arg1 = if num == 1 then singular else plural
+    args = []
+    if typeof arg1 == "object"
+      args = if arg1.length == 1 then [] else arg1.slice(1, arg1.length)
+      arg1 = arg1[0]
+  i18n.jed.translate(arg1).fetch(args)
 
 jQuery ()->
   
@@ -93,7 +35,7 @@ jQuery ()->
       thousand: i18n.number.thousand
     
   # set lang for moment js
-  moment.lang i18n.to_s,
+  moment.lang "default",
     months : i18n.months.full
     monthsShort : i18n.months.trunc
     weekdays : i18n.days.full
@@ -130,5 +72,4 @@ jQuery ()->
       MM : i18n.relative.MM
       y : i18n.relative.y
       yy : i18n.relative.yy
-    ordinal : (number)->
-      return "."
+    ordinal : (number)-> "."

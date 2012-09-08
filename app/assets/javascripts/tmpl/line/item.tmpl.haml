@@ -4,13 +4,13 @@
     
     {{if children}}
     %li.toggle{:"data-toggle_target" => "#item_${id}_children"}
-      .text{:title => _("show package parts")}
+      .text{:title => "${_jed('show package parts')}"}
         .icon
         ${children.length}
     {{/if}}
     
     {{if $item.package}}     
-    %li.inventory_code{:title => _("Inventory Code")}
+    %li.inventory_code{:title => "${_jed('Inventory Code')}"}
       ${inventory_code}
     {{if model}}
     %li.modelname
@@ -21,7 +21,7 @@
     %li.modelname
       ${model.name}
     {{/if}}
-    %li.inventory_code{:title => _("Inventory Code")}
+    %li.inventory_code{:title => "${_jed('Inventory Code')}"}
       ${inventory_code}
     {{/if}}
   
@@ -29,8 +29,8 @@
     %li.item_location.borrower
       .hand_over.icon
       %span
-        ${current_borrower.firstname} ${current_borrower.lastname} 
-        = _("until")
+        ${current_borrower.firstname} ${current_borrower.lastname}
+        ${_jed("until")}
         ${moment(current_return_date).format(i18n.date.L)}
     {{else}}
     %li.item_location
@@ -40,7 +40,7 @@
     %li.item_status      
       {{if is_broken}}
       %span.red
-        %b= _("Broken")
+        %b ${_jed("Broken")}
       {{/if}}
       
       {{if is_incomplete}}
@@ -48,7 +48,7 @@
       = ", "
       {{/if}}
       %span.red
-        %b= _("Incomplete")
+        %b ${_jed("Incomplete")}
       {{/if}}
     
   .actions  
@@ -59,13 +59,13 @@
             .arrow
           = link_to "/backend/inventory_pools/${current_inventory_pool}/items/${id}/edit", :class => "button white" do
             .icon.edit
-            = _("Edit")
+            ${_jed("Edit")}
           = link_to "/backend/inventory_pools/${current_inventory_pool}/items/${id}/retire", :class => "button white" do
             .icon.retire
-            = _("Retire")
+            ${_jed("Retire")}
         = link_to "/backend/inventory_pools/${current_inventory_pool}/items/${id}", :class => "button white" do
           .icon.view_item
-          = _("View Item")
+          ${_jed("View Item")}
           
 {{if children}}
 .children{:id => "item_${id}_children"}

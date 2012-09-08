@@ -1,6 +1,6 @@
 Then /^I can navigate all navigation items and nested tabs$/ do
   texts = all("#navigation .item a").map{|x| x.text}
-  texts.delete_if{|x| x == "Daily View"}
+  texts.shift
   texts.each do |text|
     find_link(text).click
     wait_until {all("#navigation .item.active").size == 1}

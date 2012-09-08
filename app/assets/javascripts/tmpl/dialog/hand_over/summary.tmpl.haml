@@ -3,30 +3,31 @@ ${$purposes = Line.concatinate_purposes(SelectedLines.lines_data), ""}
 = form_tag '${$item.target_url}', :remote => true, :"data-submit_button" => true, :class => "summary" do
 
   %h1
-    = _("Hand Over to")
+    ${_jed("Hand Over to")}
     ${Line.get_user(SelectedLines.lines_data[0]).name}
   %p.subtitle
-    {{html Underscore.reduce(SelectedLines.lines_data, function(mem, ele){ return mem+ele.quantity;}, 0)}}
-    = "Items"
+    ${$amount = HandOver.reduce_quantity(SelectedLines.lines_data), ""}
+    ${$amount}
+    ${_jed($amount, "Item", "Items")}
   
   .navigation
     %button.button.white.close_dialog
       .icon.return
-      = _("Back")
+      ${_jed("Back")}
     %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}'}
-      = _("Hand Over")
+      ${_jed("Hand Over")}
   
   %section{:class => "purpose{{if $purposes.length==0}} none{{/if}}"}
-    %label= _("Purpose")
+    %label ${_jed("Purpose")}
     %p ${$purposes}
     {{if HandOver.any_missing_purpose(SelectedLines.lines_data)}}
     %button.button.white
-      = _("Add Purpose")
+      ${_jed("Add Purpose")}
     {{/if}}
     .clear
     %section.add_purpose
       %textarea#purpose.focus{:type => :text, :name => "purpose"}
-      %p.hint= _("Please provide a purpose...")
+      %p.hint ${_jed("Please provide a purpose...")}
  
   %hr
   %section.lines.scalable
@@ -36,5 +37,4 @@ ${$purposes = Line.concatinate_purposes(SelectedLines.lines_data), ""}
     
   %section.note
     %textarea#comment.focus{:name => "note"}
-    %p.hint= _("Write a note... (the note will be part of the contract)")
-  
+    %p.hint ${_jed("Write a note... (the note will be part of the contract)")}

@@ -37,7 +37,8 @@ module Persona
     end
     
     def create_admin_user
-      @user = FactoryGirl.create(:user, :firstname => @@name, :lastname => @@lastname, :login => @@name.downcase, :email => @@email)
+      @language = Language.find_by_locale_name "de-CH"
+      @user = FactoryGirl.create(:user, :language => @language, :firstname => @@name, :lastname => @@lastname, :login => @@name.downcase, :email => @@email)
       @user.access_rights.create(:role => Role.find_by_name("admin"))
       @database_authentication = FactoryGirl.create(:database_authentication, :user => @user, :password => @@password)
     end

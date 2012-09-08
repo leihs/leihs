@@ -14,23 +14,17 @@
           ${Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
       %span.text
         %strong
-          {{if Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1) > 1}}
-          = _("Days overdue")
-          {{else}}
-          = _("Day overdue")
-          {{/if}}
+          ${$days = Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1), ""}
+          ${_jed($days, "Day", "Days")}
+          ${_jed("overdue")}
       {{else}}
       %span.text.grey
-        = _("for max.")
+        ${_jed("for max.")}
       %span.number
         ${$max_range = new MaxRange(lines), ""}
         ${$max_range.value}
       %span.text
-      {{if $max_range.value > 1}}
-      = _("Days")
-      {{else}}
-      = _("Day")
-      {{/if}}
+        ${_jed($max_range.value, "Day", "Days")}
       {{/if}}
   
   .actions      
@@ -48,8 +42,7 @@
           :"data-on_success" => 'Line.remove({"element": $(this).parents(".line"), "color": "red"})' ,
           :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
             .icon.delete
-            = _("Delete")
+            ${_jed("Delete")}
         = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/hand_over",  :class => "button white" do
           .icon.hand_over
-          = _("Hand Over")
-    
+          ${_jed("Hand Over")}

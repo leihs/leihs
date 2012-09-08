@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+
 When /^I open a hand over$/ do
   @ip = @user.managed_inventory_pools.first
   @customer = @ip.users.all.detect {|x| x.contracts.unsigned.count > 0}
@@ -24,7 +26,7 @@ When /^I click hand over inside the dialog$/ do
   page.execute_script ("window.print = function(){window.printed = 1; return true;}")
   wait_until { find ".dialog .button" }
   sleep(0.5)
-  find(".dialog .button", :text => "Hand Over").click
+  find(".dialog .button", :text => /(Hand Over|Aushändigen)/).click
   wait_until(20){ find(".dialog .documents") }
 end
 
@@ -57,8 +59,8 @@ When /^I change the contract lines time range to tomorrow$/ do
   puts "@new_start_date = #{@new_start_date}"
   puts "@new_start_date_element = #{@new_start_date_element.text}"
   @new_start_date_element.click
-  wait_until{ find("a", :text => "Start Date") }
-  find("a", :text => "Start Date").click
+  wait_until{ find("a", :text => /(Start Date|Startdatum)/) }
+  find("a", :text => /(Start Date|Startdatum)/).click
   step 'I save the booking calendar'
 end
 

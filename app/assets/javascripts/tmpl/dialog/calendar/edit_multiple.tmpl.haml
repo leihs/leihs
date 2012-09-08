@@ -17,17 +17,17 @@ ${$formatted_end_date = moment($end_date).format('YYYY-MM-DD'), ""}
     .partition.container
       %span.select
         %span.name
-          = "Borrower"
+          ${_jed("Borrower")}
         .arrow
         %select{:id => "partition", :name => "partition"}
           ${$users_availablility = new UserAvailability(merged_lines_availabilities, $user.groups), ""}
           ${$user_groups = $users_availablility.user_group_ids.join(","), ""}
-          %option{:value => "[${$user_groups}]", :"data-name" => _("Borrower")}
-            = _("Borrower")
-          %option{:value => "", :"data-name" => _("In Total")}
-            = _("In Total")
+          %option{:value => "[${$user_groups}]", :"data-name" => '${_jed("Borrower")}'}
+            ${_jed("Borrower")}
+          %option{:value => "", :"data-name" => '${_jed("In Total")}'}
+            ${_jed("In Total")}
       %label{:for => "partition"}
-        = _("Show Availability")
+        ${_jed("Show Availability")}
     
     .date.container
       .start_date
@@ -37,15 +37,15 @@ ${$formatted_end_date = moment($end_date).format('YYYY-MM-DD'), ""}
         = text_field_tag :start_date, "${$formatted_start_date}", :tabindex => "2", :autocomplete => "off"
         {{/if}}
         %label{:for => "start_date"}
-          = _("Start Date")
-          .icon.jumpto.fc-goto-start{:title => _("jump to this date")}
+          ${_jed("Start Date")}
+          .icon.jumpto.fc-goto-start{:title => '${_jed("jump to this date")}'}
       .dash
         = "-"
       .end_date
         = text_field_tag :end_date, "${$formatted_end_date}", :tabindex => "3", :autocomplete => "off"
         %label{:for => "end_date"}
-          = _("End Date")
-          .icon.jumpto.fc-goto-end{:title => _("jump to this date")}
+          ${_jed("End Date")}
+          .icon.jumpto.fc-goto-end{:title => '${_jed("jump to this date")}'}
           
     .inventorypool.container
       %span.select

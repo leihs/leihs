@@ -91,3 +91,4 @@ end
 # # http://github.com/langalex/culerity - enable testing of JavaScript views
 # gem "culerity"
 #end
+

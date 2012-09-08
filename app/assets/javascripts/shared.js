@@ -7,8 +7,8 @@
 //= require_tree ../../../vendor/assets/javascripts/underscore
 
 //= require accounting/accounting
+//= require jed/jed
 //= require i18n/i18n
-//= require_tree ./i18n/lang
 //= require_tree ./str
 //= require_tree ./dialog
 //= require qtip/qtip.min

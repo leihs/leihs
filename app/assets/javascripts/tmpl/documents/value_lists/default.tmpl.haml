@@ -2,19 +2,21 @@ ${lines = Line.extend_with_consecutive_numbers(lines),""}
 
 .contract
 
-  %h1= _("Value List for Lending Contract No. %s") % ["${id}"]
+  %h1
+    ${_jed("Value List for Lending Contract No.")}
+    ${id}
   .date
     ${$now = moment(),""}
     ${$now.format(i18n.date.L)}
     
   %section.parties
     .customer
-      %label= _("Borrower")
+      %label ${_jed("Borrower")}
       %span.name ${user.firstname} ${user.lastname} 
       %span.street ${user.address}
       %span.plz_city ${user.zip} ${user.city}
     .inventory_pool
-      %label= _("Lender")
+      %label ${_jed("Lender")}
       %span.name ${inventory_pool.name}
       {{if inventory_pool.address}}
       %span.street ${inventory_pool.address.street}
@@ -27,13 +29,13 @@ ${lines = Line.extend_with_consecutive_numbers(lines),""}
     %table
       %thead
         %tr
-          %td.consecutive_number= _("No.")
-          %td.inventory_code= _("Inventory Code")
-          %td.model_name= _("Model")
-          %td.start_date= _("Start date")
-          %td.end_date= _("End date")
-          %td.quantity= _("Quantity")
-          %td.item_price= _("Value")
+          %td.consecutive_number ${_jed("No.")}
+          %td.inventory_code ${_jed("Inventory Code")}
+          %td.model_name ${_jed("Model")}
+          %td.start_date ${_jed("Start date")}
+          %td.end_date ${_jed("End date")}
+          %td.quantity ${_jed("Quantity")}
+          %td.item_price ${_jed("Value")}
       %tbody
         {{each(i,line) lines}}
         %tr
@@ -53,7 +55,7 @@ ${lines = Line.extend_with_consecutive_numbers(lines),""}
       %tfoot.total
         %tr
           %td{:colspan => 5}
-            = _("Total")
+            ${_jed("Total")}
           %td.quantity
             {{html Underscore.reduce(lines, function(memo, line){ return memo + line.quantity; }, 0)}}
           %td.value

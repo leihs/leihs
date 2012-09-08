@@ -2,13 +2,13 @@
   {{if title}}
   ${title}
   {{else}}
-  = _("Loading")
+  ${_jed("Loading")}
   {{/if}}
 %p.subtitle
   {{if message}}
   ${message}
   {{else}}
-  = _("please wait")
+  ${_jed("please wait")}
   {{/if}}
 
 %img{:src => "/assets/loading.gif", :class => "loading icon big"}

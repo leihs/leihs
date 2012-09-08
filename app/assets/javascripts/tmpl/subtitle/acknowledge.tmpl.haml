@@ -1,2 +1,7 @@
-${$max_quantity = new MaxQuantity(lines_data),""}
-= _("%s Items for max. %s days straight") % ["${$max_quantity.value}", "${new MaxRange(lines_data).value}"]
+${$max_quantity = new MaxQuantity(lines_data).value,""}
+${$max_range = new MaxRange(lines_data).value, ""}
+${$max_quantity}
+${_jed($max_quantity, "Item", "Items")}
+${_jed("for max.")}
+${$max_range}
+${_jed($max_range, "day", "days")}

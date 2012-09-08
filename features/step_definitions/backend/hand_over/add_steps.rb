@@ -93,7 +93,7 @@ When /^I add so many lines that I break the maximal quantity of an model$/ do
 end
 
 Then /^I see that all lines of that model have availability problems$/ do
-  @lines = all(".item_line", :text => @target_name)
+  @lines = find(".linegroup", :text => /(Today|Heute)/).all(".item_line", :text => @target_name)
   @lines.each do |line|
     wait_until {
       line.find(".problem.icon")

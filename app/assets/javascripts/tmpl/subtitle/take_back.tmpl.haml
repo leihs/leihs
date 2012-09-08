@@ -1,5 +1,5 @@
 {{if visits_data.length == 0}}
-= _("No take backs found")
+${_jed("No take backs found")}
 {{else}}
 
 ${$past_visits = Visit.get_past(visits_data), ""}
@@ -9,7 +9,7 @@ ${$future_visits = Visit.get_future(visits_data), ""}
 {{if $past_visits.length}}
 %strong
   ${$past_visits.length}
-  = "overdue"
+  ${_jed("overdue")}
 {{/if}}
 
 {{if ($past_visits.length && $today_visits.length)}}
@@ -18,7 +18,7 @@ ${$future_visits = Visit.get_future(visits_data), ""}
 
 {{if $today_visits.length}}
 ${$today_visits.length}
-= "today"
+${_jed("today")}
 {{/if}}
 
 {{if (($future_visits.length && $past_visits.length) || ($today_visits.length && $future_visits.length))}}
@@ -27,7 +27,7 @@ ${$today_visits.length}
 
 {{if $future_visits.length}}
 ${$future_visits.length}
-= "upcoming"
+${_jed("upcoming")}
 {{/if}}
 
 {{/if}}

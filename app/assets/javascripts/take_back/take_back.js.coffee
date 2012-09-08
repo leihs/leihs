@@ -61,7 +61,7 @@ class TakeBack
     if not matched_line?
       Notification.add_headline
         title: "#{code}"
-        text: "could not be assigned for take back"
+        text: _jed("could not be assigned for take back")
         type: "error"
       return false 
     $(matched_line).find(".select input").attr("checked", true).trigger("change")
@@ -76,7 +76,7 @@ class TakeBack
         $(matched_line).find(".quantity input").change()
     Notification.add_headline
       title: "#{code}"
-      text: "was assigned for take back"
+      text: _jed("was assigned for take back")
       type: "success"
       
   @open_documents: (contracts)->
@@ -99,7 +99,7 @@ class TakeBack
     SelectedLines.restore()
     TakeBack.update_subtitle()
     Notification.add_headline
-      title: "Saved"
+      title: _jed("Saved")
       type: "success"
       
       

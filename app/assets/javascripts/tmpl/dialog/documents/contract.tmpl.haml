@@ -1,14 +1,14 @@
 .navigation
   %button.button.white.close_dialog
     .return.icon
-    = _("Back")
+    ${_jed("Back")}
     
 %section.documents
   
   .navigation
     %button.button.white.print
-      = _("Print")
+      ${_jed("Print")}
       .print.icon
       
-  %section.contract.document.active{:"data-print_title" => _("Lending Contract No. %s") % ["${id}"]}
+  %section.contract.document.active{:"data-print_title" => "${_jed('Lending Contract No. %s', id)}"}
     {{tmpl($item.data) "tmpl/documents/contracts/default"}}

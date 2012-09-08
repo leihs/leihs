@@ -1,5 +1,4 @@
-%h1
-  = _("Documents for hand over")
+%h1 ${_jed("Documents for hand over")}
 
 .navigation
   .multibutton
@@ -17,14 +16,14 @@
   
   .navigation
     %button.button.white.print
-      = _("Print")
+      ${_jed("Print")}
       .print.icon
       
   .inlinetabs
-    .tab.active{:"data-section" => "contract"}= _("Contract")
-    .tab{:"data-section" => "value_list"}= _("Value List")
+    .tab.active{:"data-section" => "contract"} ${_jed("Contract")}
+    .tab{:"data-section" => "value_list"} ${_jed("Value List")}
     
-  %section.contract.document.active{:"data-print_title" => _("Lending Contract No. %s") % ["${contract.id}"]}
+  %section.contract.document.active{:"data-print_title" => '${_jed("Lending Contract No. %s", contract.id)}'}
     {{if template}}
     {{tmpl(contract) template}}    
     {{else}}

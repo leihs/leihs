@@ -528,7 +528,7 @@ msgid "Item handed over as part of contract %d."
 msgstr "Gegenstand übergeben als Teil von Vertrag %d."
 
 msgid "Item is defective"
-msgstr "Gerät ist defekt"
+msgstr "Gegenstand ist defekt"
 
 msgid "Item is incomplete"
 msgstr "Gegenstand ist unvollständig"
@@ -716,8 +716,8 @@ msgstr "Keine/r"
 msgid "Not Borrowable"
 msgstr "Nicht ausleihbar"
 
-msgid "Not available:"
-msgstr "Nicht verfügbar."
+msgid "Not available"
+msgstr "Nicht verfügbar"
 
 msgid "Note"
 msgstr "Notiz"
@@ -1017,7 +1017,7 @@ msgid "Start date"
 msgstr "Startdatum"
 
 msgid "Status"
-msgstr "Status"
+msgstr "Zustand"
 
 msgid "Submission failed"
 msgstr "Abschicken schlug fehl."
@@ -1597,6 +1597,15 @@ msgstr "mit Kommentar"
 
 msgid "without conflict"
 msgstr "ohne Konflikt"
+
+msgid "Fully Functional"
+msgstr "Funktionstüchtig"
+
+msgid "Defective"
+msgstr "Defekt"
+
+msgid "Complete"
+msgstr "Vollständig"
 
 #~ msgid " <b>%d</b> results"
 #~ msgstr " <b>%d</b> Resultate "

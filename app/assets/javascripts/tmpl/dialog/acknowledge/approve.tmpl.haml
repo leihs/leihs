@@ -1,14 +1,20 @@
 = form_tag '${$item.target_url}', :remote => true, :"data-submit_button" => true, :class => "summary" do
 
   %h1
-    = _("Order from")
+    ${_jed("Order from")}
     ${user.firstname} ${user.lastname}
-  %p.subtitle= "${quantity} Items for max. ${new MaxRange(lines).value} days straight"
+  %p.subtitle 
+    ${quantity}
+    ${_jed(quantity, "Item", "Items")}
+    ${_jed("for max.")}
+    ${$range = new MaxRange(lines).value, ""}
+    ${$range}
+    ${_jed($range,"day", "days straight")}
   
   .navigation
     %button.button.white.close_dialog
       .icon.return
-      = _("Back")
+      ${_jed("Back")}
     {{if $item.error}}
     .multibutton
       .alternatives
@@ -16,7 +22,7 @@
           .arrow
         %button.button.white{:type => "submit", :"data-on_success" => '${$item.on_success}', :name => "force", :value => true}
           .icon.approve
-          = _("Approve anyway")
+          ${_jed("Approve anyway")}
       
       ${$link_to = "/backend/inventory_pools/"+current_inventory_pool+"/acknowledge/"+id, ""}
       {{if location.href.match($link_to)}}
@@ -24,14 +30,14 @@
       {{/if}}
       = link_to "${$link_to}", :class => "button white{{if $link_class}} ${$link_class}{{/if}}" do
         .icon.edit
-        = _("Edit this Order")
+        ${_jed("Edit this Order")}
     {{else}}
     %button.button.green.hide_on_error{:type => "submit", :"data-on_success" => '${$item.on_success}'}
-      = _("Approve")
+      ${_jed("Approve")}
       
     %button.button.white.show_on_error{:type => "submit", :"data-on_success" => '${$item.on_success}', :name => "force", :value => true}
       .icon.approve
-      = _("Approve anyway")
+      ${_jed("Approve anyway")}
     {{/if}}
   
   {{if $item.error}}
@@ -42,8 +48,8 @@
   {{/if}}
   
   %section.purpose
-    %label= _("Purpose")
-    %p= "${purpose.description}"  
+    %label ${_jed("Purpose")}
+    %p ${purpose.description}
   
   %hr
   %section.lines.scalable
@@ -52,4 +58,4 @@
     
   %section.comment
     = text_area_tag "comment", "", :class => "focus"
-    %p.hint= _("Write a comment... (your comment will be part of the confirmation e-mail)")
+    %p.hint ${_jed("Write a comment... (your comment will be part of the confirmation e-mail)")}

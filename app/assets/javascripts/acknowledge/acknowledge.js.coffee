@@ -39,7 +39,7 @@ class Acknowledge
       for line in lines
         Acknowledge.add_line line
   
-  @update_subtitle: -> $(".top .subtitle").html $.tmpl "tmpl/subtitle/acknowledge", {lines_data: _.map($(".line"), (line)-> $(line).tmplItem().data)}
+  @update_subtitle: -> $(".top .subtitle").html $.tmpl "tmpl/subtitle/acknowledge", {lines_data: $("#order").tmplItem().data.lines}
         
   @add_line: (line_data)->
     # check if line was just increased
@@ -48,7 +48,7 @@ class Acknowledge
       Acknowledge.update_line(matching_line, line_data)
       Notification.add_headline
         title: "#{line_data.model.name}"
-        text: "quantity increased to #{line_data.quantity}"
+        text: _jed("quantity increased to %s", line_data.quantity)
         type: "success"
     else 
       # add line
@@ -91,6 +91,7 @@ class Acknowledge
     $("#acknowledge .subtitle").html(subtitle_text)
     #restore lines which were selected before re templating
     SelectedLines.restore()
+    Acknowledge.update_subtitle()
   
   @validate_approve_button: ->
     if $("#order").find(".lines").length == 0

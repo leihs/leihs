@@ -27,16 +27,16 @@ class HandOver
         do e.preventDefault
         do e.stopImmediatePropagation
         Notification.add_headline
-          title: "Error"
-          text: "you cannot hand out lines with unassigned inventory codes"
+          title: _jed("Error")
+          text: _jed("you cannot hand out lines with unassigned inventory codes")
           type: "error"
         return false
       else if _.any(selected_item_lines, (line)-> moment($(line).tmplItem().data.start_date).diff(moment(), "days") > 0)
         do e.preventDefault
         do e.stopImmediatePropagation
         Notification.add_headline
-          title: "Error"
-          text: "you cannot hand out lines wich are starting in the future"
+          title: _jed("Error")
+          text: _jed("you cannot hand out lines wich are starting in the future")
           type: "error"
         return false
     
@@ -102,14 +102,14 @@ class HandOver
           line_checkbox.attr("checked", false).trigger("change")
         Notification.add_headline
           title: ""
-          text: "The assignment for #{data.model.name} was removed"
+          text: _jed("The assignment for %s was removed", data.model.name)
           type: "success"
       else
         unless line_checkbox.is(":checked")
           line_checkbox.attr("checked", true).trigger("change")
         Notification.add_headline
           title: "#{data.item.inventory_code}"
-          text: "assigned to #{data.model.name}"
+          text: _jed("assigned to %s", data.model.name)
           type: "success"
       HandOver.update_line line, data
     $(".item_line .inventory_code form").live "ajax:error", ()->
@@ -142,7 +142,7 @@ class HandOver
     SelectedLines.restore()
     HandOver.update_subtitle()
     Notification.add_headline
-      title: "Saved"
+      title: _jed("Saved")
       type: "success"
   
   @setup_process_helper: ->
@@ -160,7 +160,7 @@ class HandOver
       title = if line_data.item? then line_data.item.inventory_code else line_data.model.inventory_code
       Notification.add_headline
         title: "#{title}"
-        text: "assigned to #{line_data.model.name}"
+        text: _jed("assigned to %s", line_data.model.name)
         type: "success"
     else 
       # add line
@@ -221,6 +221,8 @@ class HandOver
     dialog.delegate ".ready", "click", (e)->
       # go to daily view
       window.location = "http://#{location.host}/backend/inventory_pools/#{current_inventory_pool}/"
+
+  @reduce_quantity: (lines_data)-> _.reduce(lines_data, ((mem, ele) -> mem+ele.quantity), 0)
 
   @any_missing_purpose: (lines)->
     _.any lines, (line)->

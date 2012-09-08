@@ -22,7 +22,7 @@ Angenommen /^ich öffne den Kalender$/ do
   elsif @event == "hand_over"
     ContractLine.find_by_id @line_el["data-id"]
   end
-  @line_el.find(".actions .button", :text => "Edit").click
+  @line_el.find(".actions .button", :text => /(Edit|Editieren)/).click
   wait_until { find(".fc-day-content") }
 end
 
@@ -44,7 +44,7 @@ end
 
 Angenommen /^ich editiere alle Linien$/ do
   find("#selection_actions .actions .trigger").click
-  find("#selection_actions .actions .button", :text => "Edit Selection").click
+  find("#selection_actions .actions .button", :text => /(Edit Selection|Auswahl editieren)/).click
 end
 
 Dann /^wird in der Liste unter dem Kalender die entsprechende Linie als nicht verfügbar \(rot\) ausgezeichnet$/ do

@@ -1,5 +1,4 @@
-%strong
-  = _("Overdue")
-= _("since")
+%strong ${_jed("Overdue")}
+${_jed("since")}
 ${days_overdue}
-= _("days")
+${_jed(days_overdue, "day", "days")}

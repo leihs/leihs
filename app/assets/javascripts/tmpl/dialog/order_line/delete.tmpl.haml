@@ -1,9 +1,8 @@
 %h1
-  %strong
-    = _("Error")
+  %strong ${_jed("Error")}
 
 %p.subtitle
-  = _("while deleting order line for")
+  ${_jed("while deleting order line for")}
   %strong
     ${order.user.firstname}
     ${order.user.lastname}
@@ -11,7 +10,7 @@
 .navigation
   %a.button.white.close_dialog
     .icon.return
-    = _("Go Back")
+    ${_jed("Back")}
     
 %hr
 
@@ -33,8 +32,9 @@
       = "-"
       {{html moment(line.end_date).format(i18n.date.L)}}
     .range
-      ${moment(line.start_date).sod().diff(moment(line.end_date).eod(), "days")}
-      = _("Days")
+      ${$days = moment(line.start_date).sod().diff(moment(line.end_date).eod(), "days")}
+      ${$days}
+      ${_jed($days, "Day", "Days")}
   .clear
   .list
     {{each(i, line) lines}}

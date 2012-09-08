@@ -4,4 +4,4 @@
     {{each(i, ip) responsibles}}
     %option{:"data-responsible_id" => "${ip.id}"} ${ip.name}
     {{/each}}
-  %span= _("Responsible")
+  %span ${_jed("Responsible")}

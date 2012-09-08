@@ -8,6 +8,10 @@ module Json
         name: model.name,
         manufacturer: model.manufacturer
       }
+
+      if model.is_package
+        h[:package_models] = hash_for model.package_models
+      end
       
       if with ||= nil
         [:image_thumb, :description, :is_package, :hand_over_note].each do |k|

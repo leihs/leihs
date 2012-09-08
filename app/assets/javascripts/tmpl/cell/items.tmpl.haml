@@ -4,7 +4,7 @@ ${$grouped_lines = GroupedLines.merge_date_ranges(lines), ""}
 %li.items.hastip
   %span.number
     ${quantity}
-  = _("Items")
+  ${_jed(quantity, "Item", "Items")}
   .tip.lines
     {{each(i, linegroup) $grouped_lines}}
     {{if i != 0}}
@@ -12,12 +12,12 @@ ${$grouped_lines = GroupedLines.merge_date_ranges(lines), ""}
     {{/if}}
     .date
       {{html moment(start_date).format(i18n.date.L)}}
-      
       = "-"
       {{html moment(end_date).format(i18n.date.L)}}
     .range
-      ${Math.round((new Date(linegroup.end_date.replace(/-/g, "/")) - new Date(linegroup.start_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
-      = _("Days")
+      ${$days = Math.round((new Date(linegroup.end_date.replace(/-/g, "/")) - new Date(linegroup.start_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1), ""}
+      ${$days}
+      ${_jed($days, "Day", "Days")}
     .clear
     %table
       ${$grouped_lines_by_model = GroupedLines.merge_models(linegroup.lines), ""}
@@ -32,13 +32,12 @@ ${$grouped_lines = GroupedLines.merge_date_ranges(lines), ""}
           {{html "..."}}
           {{/if}}
           {{else}}
-          %i
-            = _("Model not present anymore")
+          %i ${_jed("Model not present anymore")}
           {{/if}}
       {{/each}}
     {{/each}}
 {{else}}
 %li.items
   %span.number= "0"
-  = _("Items")
+  ${_jed("Items")}
 {{/if}}

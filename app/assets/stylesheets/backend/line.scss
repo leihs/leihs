@@ -114,4 +114,9 @@
   span.digits {
     letter-spacing: -1px;
   }
+
+  .package.icon {
+    margin: 0 0 0 4px;
+    @include opacity(0.5);
+  }
 }

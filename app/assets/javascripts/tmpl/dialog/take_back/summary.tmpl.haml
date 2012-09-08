@@ -1,18 +1,18 @@
 = form_tag '${$item.target_url}', :remote => true, :"data-submit_button" => true, :class => "summary" do
 
   %h1
-    = _("Take Back from")
+    ${_jed("Take Back from")}
     ${Line.get_user(SelectedLines.lines_data[0]).name}
   %p.subtitle
     {{html Underscore.reduce(SelectedLines.lines_data, function(mem, ele){ return mem+ele.quantity;}, 0)}}
-    = "Items"
+    ${_jed("Items")}
   
   .navigation
     %button.button.white.close_dialog
       .icon.return
-      = _("Back")
+      ${_jed("Back")}
     %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}'}
-      = _("Take Back")
+      ${_jed("Take Back")}
    
   %hr
   %section.lines.scalable

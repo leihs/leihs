@@ -8,7 +8,8 @@ end
 
 Then /^I see a list of inventory codes of items that are in stock and matching the model$/ do
   find(".ui-autocomplete")
-  @item.model.items do |item|
+  puts @item.model.items.in_stock
+  @item.model.items.in_stock do |item|
     find(".ui-autocomplete").should have_content item.inventory_code
   end
 end

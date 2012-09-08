@@ -1,3 +1,3 @@
-%a{:class => "{{if is_borrowable == false}}unborrowable{{/if}}", :title => "{{if is_borrowable == false}}#{_("not borrowable")}{{/if}}"}
+%a{:class => "{{if is_borrowable == false}}unborrowable{{/if}}", :title => "{{if is_borrowable == false}}${_jed('not borrowable')}{{/if}}"}
   %span.label ${inventory_code} 
   %span.location{:title => "${location}"} ${Str.sliced_trunc(location, 32)}

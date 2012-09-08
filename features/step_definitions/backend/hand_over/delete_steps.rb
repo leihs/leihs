@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+
 When /^I delete a line$/ do
   @contract = @customer.contracts.unsigned.first
   @line = @contract.lines.first
@@ -7,7 +9,7 @@ end
 
 When /^I delete this line element$/ do
   @line_element.find(".multibutton .trigger").click
-  @line_element.find(".button", :text => "Delete").click
+  @line_element.find(".button", :text => /(Delete|Löschen)/).click
   wait_until(10){ all(".loading", :visible => true ).size == 0 }  
   sleep(0.6)
 end
@@ -26,7 +28,7 @@ end
 
 When /^I delete the seleted lines$/ do
   page.execute_script('$("#selection_actions .multibutton .button").show()')
-  find("#selection_actions .multibutton .button", :text => "Delete").click
+  find("#selection_actions .multibutton .button", :text => /(Delete|Löschen)/).click
   wait_until { all(".loading", :visible => true).size == 0 }
   sleep(0.5)
 end

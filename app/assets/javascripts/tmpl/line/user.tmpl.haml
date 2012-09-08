@@ -14,7 +14,7 @@
   
     %li.phone
       %span.text
-        = _("Phone:")
+        ${_jed("Phone%s", ":")}
       {{if phone}}
       %span.digits
         ${phone}
@@ -25,7 +25,7 @@
   
     {{if badge_id}}
     %li.badge
-      = _("Badge:")
+      ${_jed("Badge%s", ":")}
       ${badge_id}
     {{/if}}
   
@@ -35,7 +35,7 @@
         .alternatives
           .trigger
             .arrow
-          = mail_to "${email}", "<div class='icon send'></div>#{_('E-Mail')}".html_safe, :class => "button white"
+          = mail_to "${email}", "<div class='icon send'></div>${_jed('E-Mail')}".html_safe, :class => "button white"
         = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${id}/new_contract", :class => "button white" do
-          .icon.hand_over
-          = _("Hand Over")
+          .icon.hand_over 
+          ${_jed("Hand Over")}

@@ -15,39 +15,39 @@ ${$subtitle = $name + " " + moment(start_date).format(i18n.date.L) + " - " + mom
     .partition.container
       %span.select
         %span.name
-          = "Borrower"
+          ${_jed("Borrower")}
         .arrow
         %select{:id => "partition", :name => "partition"}
           ${$users_availablility = new UserAvailability(availability_for_inventory_pool, $user.groups), ""}
           ${$user_groups = $users_availablility.user_group_ids.join(","), ""}
           ${$splitted_partitions = App.Partition.split_partitions_over_groups(availability_for_inventory_pool.partitions, $user.groups)}
-          %option{:value => "[${$user_groups}]", :"data-name" => _("Borrower"), :"data-total_rentable" => "${$users_availablility.total_rentable}"}
-            = _("Borrower")
-          %option{:value => "", :"data-name" => _("In Total"), :"data-total_rentable" => "${total_rentable}"}
-            = _("In Total")
+          %option{:value => "[${$user_groups}]", :"data-name" => '${_jed("Borrower")}', :"data-total_rentable" => "${$users_availablility.total_rentable}"}
+            ${_jed("Borrower")}
+          %option{:value => "", :"data-name" => '${_jed("In Total")}', :"data-total_rentable" => "${total_rentable}"}
+            ${_jed("In Total")}
           {{if $splitted_partitions.included.length > 0}}
-          %optgroup.customer_groups{:label => _("This customer's groups")}
+          %optgroup.customer_groups{:label => '${_jed("This customers groups")}'}
             {{each(i, partition) $splitted_partitions.included}}
-            %option{:value => "[${partition.group_id}]", :"data-name" => "Group ${partition.group.name}", :"data-total_rentable" => "${partition.quantity}"}
-              = _("Group ${partition.group.name}")
+            %option{:value => "[${partition.group_id}]", :"data-name" => '${_jed("Group %s", partition.group.name)}', :"data-total_rentable" => "${partition.quantity}"}
+              ${_jed("Group %s", partition.group.name)}
             {{/each}}
           {{/if}}
           {{if $splitted_partitions.not_included.length > 0 }}
-          %optgroup.other_groups{:label => "#{_("Other Groups")}"}
+          %optgroup.other_groups{:label => '${_jed("Other Groups")}'}
             {{each(i, partition) $splitted_partitions.not_included}}
-            %option{:value => "[${partition.group_id}]", :"data-name" => "Group ${partition.group.name}", :"data-total_rentable" => "${partition.quantity}"}
-              = _("Group ${partition.group.name}")
+            %option{:value => "[${partition.group_id}]", :"data-name" => '${_jed("Group %s", partition.group.name)}', :"data-total_rentable" => "${partition.quantity}"}
+              ${_jed("Group %s", partition.group.name)}
             {{/each}}
           {{/if}}
           
       %label{:for => "partition"}
-        = _("Show Availability")
+        ${_jed("Show Availability")}
     {{/if}}
       
     .quantity.container{:style => "display: {{if $start_date_disabled}}none{{/if}}"}
       = text_field_tag :quantity, "${quantity}", :min => 1, :max => "${total_rentable}", :tabindex => "1", :class => "focus", :autocomplete => "off"
       %label{:for => "quantity"}
-        = _("Quantity")
+        ${_jed("Quantity")}
       .increase
         %span.icon
       .decrease
@@ -61,15 +61,15 @@ ${$subtitle = $name + " " + moment(start_date).format(i18n.date.L) + " - " + mom
         = text_field_tag :start_date, "${start_date}", :tabindex => "2", :autocomplete => "off"
         {{/if}}
         %label{:for => "start_date"}
-          = _("Start Date")
-          .icon.jumpto.fc-goto-start{:title => _("jump to this date")}
+          ${_jed("Start Date")}
+          .icon.jumpto.fc-goto-start{:title => '${_jed("jump to this date")}'}
       .dash
         = "-"
       .end_date
         = text_field_tag :end_date, "${end_date}", :tabindex => "3", :autocomplete => "off"
         %label{:for => "end_date"}
-          = _("End Date")
-          .icon.jumpto.fc-goto-end{:title => _("jump to this date")}
+          ${_jed("End Date")}
+          .icon.jumpto.fc-goto-end{:title => '${_jed("jump to this date")}'}
     
     {{if availability_for_inventory_pool}}
     .inventorypool.container

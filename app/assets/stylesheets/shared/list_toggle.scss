@@ -48,8 +48,8 @@
   @include unselectable();
   
   .text {
-    background: #F8F8F8;
-    border: 1px solid #E0DFDE;
+    background: white;
+    border: 1px solid #CCC;
     color: $grey;
     cursor: pointer;
     display: inline-block;

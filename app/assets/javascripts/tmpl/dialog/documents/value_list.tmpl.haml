@@ -1,14 +1,14 @@
 .navigation
   %button.button.white.close_dialog
     .return.icon
-    = _("Back")
+    ${_jed("Back")}
     
 %section.documents
   
   .navigation
     %button.button.white.print
-      = _("Print")
+      ${_jed("Print")}
       .print.icon
       
-  %section.value_list.document.active{:"data-print_title" => _("Value List for Lending Contract No. %s") % ["${id}"]}
+  %section.value_list.document.active{:"data-print_title" => '${_jed("Value List for Lending Contract No. %s", id)}'}
     {{tmpl($item.data) "tmpl/documents/value_lists/default"}}

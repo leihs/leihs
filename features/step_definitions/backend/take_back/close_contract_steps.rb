@@ -7,7 +7,7 @@ When /^I open a take back$/ do
 end
 
 When /^I select all lines of an open contract$/ do
-  all(".line", :text => "Contract #{@contract.id}").each do |line|
+  all(".line", :text => /(Contract #{@contract.id}|Vertrag #{@contract.id})/).each do |line|
     line.find("input[type=checkbox]").click unless line.find("input[type=checkbox]").checked?
   end
 end

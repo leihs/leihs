@@ -6,19 +6,21 @@ ${$not_returned_lines = Line.get_not_returned(lines), ""}
   .barcode
     %img{:src => "${barcode}"}
   
-  %h1= _("Lending Contract No. %s") % ["${id}"]
+  %h1
+    ${_jed("Lending Contract No.")}
+    ${id}
   .date
     ${$now = moment(),""}
     ${$now.format(i18n.date.L)}
     
   %section.parties
     .customer
-      %label= _("Borrower")
+      %label ${_jed("Borrower")}
       %span.name ${user.firstname} ${user.lastname} 
       %span.street ${user.address}
       %span.plz_city ${user.zip} ${user.city}
     .inventory_pool
-      %label= _("Lender")
+      %label ${_jed("Lender")}
       %span.name ${inventory_pool.name}
       {{if inventory_pool.address}}
       %span.street ${inventory_pool.address.street}
@@ -28,16 +30,16 @@ ${$not_returned_lines = Line.get_not_returned(lines), ""}
   
   {{if $returned_lines.length}}
   %section.list.returned_items
-    %h2= _("Returned Items")
+    %h2 ${_jed("Returned Items")}
     %table
       %thead
         %tr
-          %td.quantity= _("Quantity")
-          %td.inventory_code= _("Inventory code")
-          %td.model_name= _("Model")
-          %td.start_date= _("Start date")
-          %td.end_date= _("End date")
-          %td.returning_date= _("Return")
+          %td.quantity ${_jed("Quantity")}
+          %td.inventory_code ${_jed("Inventory code")}
+          %td.model_name ${_jed("Model")}
+          %td.start_date ${_jed("Start date")}
+          %td.end_date ${_jed("End date")}
+          %td.returning_date ${_jed("Return")}
       %tbody
         {{each(i,line) $returned_lines}}
         %tr  
@@ -56,12 +58,12 @@ ${$not_returned_lines = Line.get_not_returned(lines), ""}
     %table
       %thead
         %tr
-          %td.quantity= _("Quantity")
-          %td.inventory_code= _("Inventory code")
-          %td.model_name= _("Model")
-          %td.start_date= _("Start date")
-          %td.end_date= _("End date")
-          %td.returning_date= _("Return")
+          %td.quantity ${_jed("Quantity")}
+          %td.inventory_code ${_jed("Inventory code")}
+          %td.model_name ${_jed("Model")}
+          %td.start_date ${_jed("Start date")}
+          %td.end_date ${_jed("End date")}
+          %td.returning_date ${_jed("Return")}
       %tbody
         {{each(i,line) $not_returned_lines}}
         %tr
@@ -76,15 +78,14 @@ ${$not_returned_lines = Line.get_not_returned(lines), ""}
   
   .dontbreak
     %section.purposes
-      %h2= _("Purpose these items are borrowed for")
+      %h2 ${_jed("Purpose these items are borrowed for")}
       %p ${Line.concatinate_purposes(lines)}
     %section.note
       {{if note}}
-      %h2= _("Additional notes")
+      %h2 ${_jed("Additional notes")}
       %p ${note}
       {{/if}}
     %section.terms_and_signature
-      %p.terms= _("Terms and conditions of the lender apply.")
+      %p.terms ${_jed("Terms and conditions of the lender apply.")}
       %hr
-      %span= _("Signature")
-      
+      %span ${_jed("Signature")}      

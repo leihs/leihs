@@ -33,7 +33,7 @@ Dann /^sehe ich auf den beteiligten Linien die Auszeichnung von Problemen$/ do
 
   @lines.each do |line|
     page.execute_script(%Q{ $(".line[data-id=#{line["data-id"]}] .problems").trigger("mouseenter") })
-    wait_until { find(".tip").text.match(/\d/) }
+    sleep(0.5)
     @problems << find(".tip").text
   end
   @reference_line = @lines.first
@@ -48,7 +48,7 @@ end
 
 Dann /^das Problem wird wie folgt dargestellt: "(.*?)"$/ do |format|
   regexp = if (format == "Nicht verfügbar 2(3)/7")
-     /(Nicht verfügbar|Not available): -*\d\(-*\d\)\/\d/
+     /(Nicht verfügbar|Not available) -*\d\(-*\d\)\/\d/
   elsif  format == "Gegenstand nicht ausleihbar"
     /(Gegenstand nicht ausleihbar|Item not borrowable)/
   elsif  format == "Gegenstand ist defekt"
@@ -56,9 +56,8 @@ Dann /^das Problem wird wie folgt dargestellt: "(.*?)"$/ do |format|
   elsif  format == "Gegenstand ist unvollständig"
     /(Gegenstand ist unvollständig|Item is incomplete)/
   elsif (format == "Verspätet seit 6 Tagen")
-     /(Verspätet seit \d+ Tagen|Overdue since \d+ days)/
+     /(Überfällig seit \d+ Tagen|Overdue since \d+ days)/
   end
-
   @problems.each do |problem|
     problem.match(regexp).should_not be_nil
   end
@@ -101,7 +100,7 @@ end
 
 Dann /^markiere ich den Gegenstand als nicht ausleihbar$/ do
   @line.find(".actions .trigger").click
-  @line.find(".actions .button", :text => "Inspect").click
+  @line.find(".actions .button", :text => /(Inspect|Inspektion)/).click
   wait_until { find(".dialog") }
   find("select[name='flags[is_borrowable]']").select "Nicht ausleihbar"
   find(".dialog .navigation button[type='submit']").click
@@ -110,7 +109,7 @@ end
 
 Dann /^markiere ich den Gegenstand als defekt$/ do
   @line.find(".actions .trigger").click
-  @line.find(".actions .button", :text => "Inspect").click
+  @line.find(".actions .button", :text => /(Inspect|Inspektion)/).click
   wait_until { find(".dialog") }
   find("select[name='flags[is_broken]']").select "Defekt"
   find(".dialog .navigation button[type='submit']").click
@@ -119,7 +118,7 @@ end
 
 Dann /^markiere ich den Gegenstand als unvollständig$/ do
   @line.find(".actions .trigger").click
-  @line.find(".actions .button", :text => "Inspect").click
+  @line.find(".actions .button", :text => /(Inspect|Inspektion)/).click
   wait_until { find(".dialog") }
   find("select[name='flags[is_incomplete]']").select "Unvollständig"
   find(".dialog .navigation button[type='submit']").click

@@ -7,7 +7,7 @@
       .noimage
         %table
           %tr
-            %td= _("no image")
+            %td ${_jed("no image")}
       {{/if}}
     %td.name
       ${name}
@@ -32,7 +32,7 @@
               ${description}
             {{else}}
             %p.description.none
-              = _("No description available for this model.")
+              ${_jed("No description available for this model.")}
             {{/if}}
           %table.details
             {{each(i, property) properties}}

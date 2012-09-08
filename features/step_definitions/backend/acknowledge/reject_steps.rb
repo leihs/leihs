@@ -7,7 +7,7 @@ When /^I reject an order$/ do
   @order = @ip.orders.submitted.first
   @order_line = find(".order .list .line", :text => /#{@order.purpose.description[0..25]}/)
   @order_line.find(".actions .trigger").click
-  @order_line.find(".actions .button", :text => "Reject").click
+  @order_line.find(".actions .button", :text => /(Reject|Ablehnen)/).click
 end
 
 Then /^I see a summary of that order$/ do

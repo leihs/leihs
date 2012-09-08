@@ -12,15 +12,16 @@
       {{if is_overdue}}
       %span.number
         %strong
-          ${Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
+          ${$days = Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
       {{/if}}
       %span.text
         {{if is_overdue}}
-        %strong
-          = _("Days overdue")
+        %strong 
+          ${_jed($days, "Day", "Days")}
+          ${_jed("overdue")}
         {{else}}
         %span.grey
-          = _("since max.")
+          ${_jed("since max.")}
         {{/if}}      
       {{if !is_overdue}}
       %span.number
@@ -28,18 +29,18 @@
         ${$min_days = Math.round( (new Date()- $min_date) / ((1000 * 60 * 60 * 24)+1) ), ""}
         ${$min_days}
       %span.text
-        = _("Days")
+        ${_jed($min_days, "Day", "Days")}
       {{/if}}
         
     {{if is_overdue}}
     %li.reminder
       %span{:class => "text{{if latest_remind}} visible{{else}} invisible{{/if}}"}
-        = _("Latest Reminder:")
+        ${_jed("Latest Reminder")}:
       %span{:class => "date{{if latest_remind}} visible{{else}} invisible{{/if}}"}
         {{if latest_remind}}
         ${$item.latest_remind = new Date(latest_remind.replace(/-/g, "/")), ""}
         {{if ((new Date().setHours(0)) < ($item.latest_remind.getTime())) && (($item.latest_remind.getTime()) < (new Date().setHours(23)))}}
-        = _("Today")
+        ${_jed("Today")}
         = "{{if ($item.latest_remind.getHours()+'').length == 1}}0{{/if}}${$item.latest_remind.getHours()}:{{if ($item.latest_remind.getMinutes()+'').length == 1}}0{{/if}}${$item.latest_remind.getMinutes()}"
         {{else}}
         %strong
@@ -47,7 +48,7 @@
         {{/if}}
         {{/if}}
       %span{:class => "grey{{if latest_remind}} invisible{{else}} visible{{/if}}"}
-        = _("No reminder yet")
+        ${_jed("No reminder yet")}
     {{else}}
     
     %li.note
@@ -63,12 +64,12 @@
             .arrow
           = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/remind", :class => "button white", :remote => true, :"data-tmpl" => "tmpl/dialog/take_back/remind", :"data-dialog_class" => "take_back", :"data-on_success" => 'List.update_reminder($(this).parents(".line"))' , :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
             .icon.send
-            = _("Remind")
+            ${_jed("Remind")}
         = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/take_back", :class => "button white" do
           .icon.take_back
-          = _("Take Back")
+          ${_jed("Take Back")}
       {{else}}
       = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/take_back", :class => "button white" do
         .icon.take_back
-        = _("Take Back")
+        ${_jed("Take Back")}
       {{/if}}

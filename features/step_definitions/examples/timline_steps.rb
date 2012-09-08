@@ -24,7 +24,7 @@ Dann /^kann ich für jedes sichtbare Model die Timeline anzeigen lassen$/ do
   lines.each do |line|
     if not line.all(".trigger", :visible => true).empty?
       line.find(".trigger").click
-      line.find(".button", :text => "Timeline").click
+      line.find(".button", :text => /(Timeline|Zeitleiste)/).click
       wait_until { find(".dialog iframe") }
       wait_until { evaluate_script %Q{ $(".dialog iframe").contents().find("#my_timeline").length; } }
       find(".dialog .button.close_dialog").click

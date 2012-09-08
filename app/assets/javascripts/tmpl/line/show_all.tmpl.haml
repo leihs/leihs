@@ -4,4 +4,4 @@ ${$href = window.location.href + "&types[]=" + type,""}
     
   %a.main{:href => "${$href}" }
 
-    %li= _("Show all %s...") % ["${text}"]
+    %li ${_jed("Show all %s...", text)}

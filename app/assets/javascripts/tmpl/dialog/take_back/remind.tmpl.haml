@@ -1,9 +1,9 @@
 %h1
   %strong
-    = _("Error")
+    ${_jed("Error")}
 
 %p.subtitle
-  = _("while try to send an e-mail reminder to:")
+  ${_jed("while try to send an e-mail reminder to:")}
   %br
   %strong
     ${user.firstname}
@@ -25,7 +25,7 @@
 .navigation
   %button.button.white.close_dialog
     .icon.return
-    = _("Go Back")
+    ${_jed("Back")}
     
 {{if $item.error}}
 .flash_message.visible
@@ -47,8 +47,8 @@
       = "-"
       {{html moment(line.end_date).format(i18n.date.L)}}
     .range
-      ${moment(line.start_date).sod().diff(moment(line.end_date).eod(), "days")}
-      = _("Days")
+      ${$days = moment(line.start_date).sod().diff(moment(line.end_date).eod(), "days")}
+      ${_jed($days, "Day", "Days")}
   .clear
   .list
     {{each(i, line) lines}}

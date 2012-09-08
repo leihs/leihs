@@ -38,7 +38,7 @@ Dann /^sehe ich auf jeder Zeile den zugewisenen Zweck$/ do
 end
 
 Dann /^kann ich den Zweck editieren$/ do
-  find(".button", :text => "Edit Purpose").click
+  find(".button", :text => /(Edit Purpose|Zweck editieren)/).click
   @new_purpose_description = "Benötigt für die Sommer-Austellung"
   wait_until{ find(".dialog #purpose") }.set @new_purpose_description
   find(".dialog button[type=submit]").click
@@ -68,14 +68,14 @@ Dann /^werde ich beim Aushändigen darauf hingewiesen einen Zweck anzugeben$/ do
 end
 
 Dann /^erst wenn ich einen Zweck angebebe$/ do
-  find(".dialog .button[type=submit]", :text => "Hand Over").click
+  find(".dialog .button[type=submit]", :text => /(Hand Over|Aushändigen)/).click
   wait_until { find(".notification") }
   find(".dialog #purpose").set "The purpose for this hand over"
 end
 
 Dann /^kann ich die Aushändigung durchführen$/ do
   signed_contracts_size = @customer.contracts.signed.size
-  wait_until { find(".dialog .button[type=submit]", :text => "Hand Over") }
+  wait_until { find(".dialog .button[type=submit]", :text => /(Hand Over|Aushändigen)/) }
   step 'I click hand over inside the dialog'
   @customer.contracts.signed.size.should > signed_contracts_size
 end

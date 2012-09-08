@@ -2,7 +2,7 @@
 
 Angenommen /^man öffnet eine Werteliste$/ do
   step 'man öffnet einen Vertrag'
-  find(".tab", :text=>"Value List").click
+  find(".tab", :text=> /(Value List|Werteverzeichnis)/).click
   @value_list_element = find(".value_list")
 end
 

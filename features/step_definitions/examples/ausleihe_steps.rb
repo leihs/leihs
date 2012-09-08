@@ -17,7 +17,7 @@ Wenn /^ich öffnet eine Bestellung von "(.*?)"$/ do |arg1|
 end
 
 Dann /^sehe ich die letzten Besucher$/ do
-  find("#daily .subtitle", :text => "Last Visitors")
+  find("#daily .subtitle", :text => /(Last Visitors|Letzte Besucher)/)
 end
 
 Dann /^ich sehe "(.*?)" als letzten Besucher$/ do |arg1|
@@ -29,7 +29,7 @@ Wenn /^ich auf "(.*?)" klicke$/ do |arg1|
 end
 
 Dann /^wird mir ich ein Suchresultat nach "(.*?)" angezeigt/ do |arg1|
-  find("#search_results h1", :text => "Search Results for \"#{arg1}\"")
+  find("#search_results h1", :text => /(Search Results for "#{arg1}"|Suchresultate für "#{arg1}")/)
 end
 
 Wenn /^ich eine Rücknahme mache$/ do
@@ -146,7 +146,7 @@ Wenn /^eine Zeile mit Gruppen-Partitionen editiere$/ do
   @inventory_code = @ip.models.detect {|m| m.partitions.size > 1}.items.in_stock.borrowable.first.inventory_code
   @model = Item.find_by_inventory_code(@inventory_code).model
   step 'I assign an item to the hand over by providing an inventory code and a date range'
-  find(".line.assigned .button", :text => "Edit").click
+  find(".line.assigned .button", :text => /(Edit|Editieren)/).click
 end
 
 Wenn /^die Gruppenauswahl aufklappe$/ do
@@ -207,11 +207,11 @@ end
 
 Dann /^habe ich für jeden Gegenstand die Möglichkeit, eine Inspektion auszulösen$/ do
   page.execute_script '$(":hidden").show();'
-  all(".item_line").all? {|x| x.find(".actions .alternatives .button", :text => /Inspect/) }
+  all(".item_line").all? {|x| x.find(".actions .alternatives .button", :text => /Inspektion/) }
 end
 
 Wenn /^ich bei einem Gegenstand eine Inspektion durchführen$/ do
-  find(".item_line .actions .alternatives .button", :text => /Inspect/).click
+  find(".item_line .actions .alternatives .button", :text => /Inspektion/).click
   wait_until { find(".dialog") }
 end
 

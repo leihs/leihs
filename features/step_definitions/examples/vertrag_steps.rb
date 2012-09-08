@@ -148,19 +148,19 @@ Wenn /^es Gegenstände gibt, die zurückgegeben wurden$/ do
    When I click take back inside the dialog
   }
   visit backend_inventory_pool_contracts_path(@contract.inventory_pool)
-  find(".button", :text => "Contract").click
+  find(".button", :text => /(Contract|Vertrag)/).click
 end
 
 Dann /^sehe ich die Liste (\d+) mit dem Titel "(.*?)"$/ do |arg1, titel|
   wait_until{ find(".dialog .contract") }
 
   if titel == "Zurückgegebene Gegenstände"
-    find_titel = "Returned Items"
+    find_titel = /(Returned Items|Zurückgegebene Gegenstände)/
   elsif titel == "Ausgeliehene Gegenstände"
-    find_titel = "Borrowed Items"
+    find_titel = /(Borrowed Items|Geliehene Gegenstände)/
   end
 
-  find(".dialog .contract").should have_content find_titel
+  find(".dialog .contract", :text => find_titel)
 end
 
 Dann /^diese Liste enthält Gegenstände die ausgeliehen und zurückgegeben wurden$/ do
@@ -186,7 +186,7 @@ Dann /^wird automatisch der Druck\-Dialog geöffnet$/ do
   page.execute_script ("window.print = function(){window.printed = 1;return true;}")
   wait_until { find ".dialog .button" }
   sleep(0.5)
-  find(".dialog .button", :text => "Hand Over").click
+  find(".dialog .button", :text => /(Hand Over|Aushändigen)/).click
   wait_until{ find(".dialog .documents") }
   wait_until { page.evaluate_script("window.printed") == 1}
 end

@@ -1,9 +1,9 @@
 %h1
   %strong
-    = _("Error")
+    ${_jed("Error")}
 
 %p.subtitle
-  = _("while deleting hand over for")
+  ${_jed("while deleting hand over for")}
   %strong
     ${user.firstname}
     ${user.lastname}
@@ -11,7 +11,7 @@
 .navigation
   %button.button.white.close_dialog
     .icon.return
-    = _("Go Back")
+    ${_jed("Go Back")}
     
 %hr
 
@@ -33,8 +33,9 @@
       = "-"
       {{html moment(end_date).format(i18n.date.L)}}
     .range
-      ${moment(end_date).diff(start_date, "days")}
-      = _("Days")
+      ${$days = moment(end_date).diff(start_date, "days", "")}
+      ${$days}
+      ${_jed($days, "Day", "Days")}
   .clear
   .list
     {{each(i, line) lines}}

@@ -11,9 +11,9 @@
       ${quantity}
       {{if (type != "option_line")}} 
       = "/"     
-      %span.grey
-        ="${total_rentable}"
-        = _("total rentable")
+      %span.grey.available
+        %span.number ${availability_for_inventory_pool.max_available}
+        ${_jed("available")}
       {{/if}}
     %li.name
       %strong

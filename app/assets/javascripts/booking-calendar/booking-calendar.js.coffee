@@ -449,6 +449,7 @@ class BookingCalendar
           "#{moment(range[0]).format(df)} - #{moment(range[1]).format(df)}"
       line.append("<div class='actions'><li class='unavailable_ranges'></li></div>") unless line.find(".unavailable_ranges").length
       line.find(".unavailable_ranges").html(text.join(", ")).attr("title", "unavailable ranges: #{text.join(", ")}")
+      line.find(".available .number").html av.maxAvailableInTotal moment(@startDate_el.val(),df), moment(@endDate_el.val(),df)
       if unavailableRanges.length
         line.addClass("unavailable")
       else

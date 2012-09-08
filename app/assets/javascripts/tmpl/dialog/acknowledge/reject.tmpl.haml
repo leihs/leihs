@@ -1,21 +1,26 @@
 = form_tag '${$item.target_url}', :remote => true, :"data-submit_button" => true, :class => "summary" do
   
   %h1
-    = _("Order from")
+    ${_jed("Order from")}
     ${user.firstname} ${user.lastname}
-  %p.subtitle= "${quantity} Items for max. ${new MaxRange(lines).value} days straight"
+  %p.subtitle
+    ${_jed(quantity, "Item", "Items")}
+    ${_jed("for max.")}
+    ${$range = new MaxRange(lines).value, ""}
+    ${range}
+    ${$range, "day", "days straight"}
   
   .navigation
     %button.button.white.close_dialog
       .icon.return
-      = _("Back")
+      ${_jed("Back")}
     %button.button.red{:type => "submit", :"data-on_success" => '${$item.on_success}'}
-      = _("Reject")
+      ${_jed("Reject")}
       
   .flash_message
   
   %section.purpose
-    %label= _("Purpose")
+    %label ${_jed("Purpose")}
     %p= "${purpose.description}"  
     
   %section.lines.scalable
@@ -25,4 +30,4 @@
   %section.comment
     = text_area_tag "comment", "", :class => "focus"
     %p.hint
-      = _("Write a comment. The comment will be part of the rejection e-mail.")
+      ${_jed("Write a comment. The comment will be part of the rejection e-mail.")}

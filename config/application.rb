@@ -44,6 +44,7 @@ module Leihs
     # Enable the asset pipeline
     config.assets.enabled = true
     config.assets.precompile += %w( simile_timeline/*
+                                    i18n/locale/*
                                     splash.css
                                     shared.js
                                     backend.css

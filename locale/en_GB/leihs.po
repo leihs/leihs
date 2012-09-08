@@ -1,0 +1,1599 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: version 0.0.1\n"
+"POT-Creation-Date: 2012-09-04 10:40+0200\n"
+"PO-Revision-Date: 2008-04-22 17:52+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+msgid " at the inventory pool "
+msgstr ""
+
+msgid " item(s)"
+msgstr ""
+
+msgid " item(s) due on "
+msgstr ""
+
+msgid "%d %s ahead of time"
+msgstr ""
+
+msgid "%s (View in Order)"
+msgstr ""
+
+msgid "%s Items for max. %s days straight"
+msgstr ""
+
+msgid "%s Search Results for \"%s\""
+msgstr ""
+
+msgid "%s until %s"
+msgstr ""
+
+msgid "(%s Parts)"
+msgstr ""
+
+msgid "(maximum available: %{max})"
+msgstr ""
+
+msgid "** This is an automatically generated response **"
+msgstr ""
+
+msgid "A model for the Inventory Code / Serial Number '%s' was not found"
+msgstr ""
+
+msgid "A model with the ID '%s' was not found"
+msgstr ""
+
+msgid "A package cannot be nested to another package"
+msgstr ""
+
+msgid "A template with the ID '%s' was not found"
+msgstr ""
+
+msgid "Access Level: %d"
+msgstr ""
+
+msgid "Access Right successfully created"
+msgstr ""
+
+msgid "Access Right successfully updated"
+msgstr ""
+
+msgid "Access right reinstated"
+msgstr ""
+
+msgid "Acknowledge"
+msgstr ""
+
+msgid "Add"
+msgstr ""
+
+msgid "Add Item"
+msgstr ""
+
+msgid "Add Note"
+msgstr ""
+
+msgid "Add Purpose"
+msgstr ""
+
+msgid "Add/Assign"
+msgstr ""
+
+msgid "Added"
+msgstr ""
+
+msgid "Additional notes"
+msgstr ""
+
+msgid "Address"
+msgstr ""
+
+msgid "Admin"
+msgstr ""
+
+msgid "All"
+msgstr ""
+
+msgid "An order for the following items listed below was received in an inventory pool you are responsible for."
+msgstr ""
+
+msgid "Approval Successful"
+msgstr ""
+
+msgid "Approve"
+msgstr ""
+
+msgid "Approve Order"
+msgstr ""
+
+msgid "Approve anyway"
+msgstr ""
+
+msgid "Approved"
+msgstr ""
+
+msgid "Approved Items"
+msgstr ""
+
+msgid "Are any of the above borrowed items?"
+msgstr ""
+
+msgid "Are any of the above items your personal computer?"
+msgstr ""
+
+msgid "Assign"
+msgstr ""
+
+msgid "Assigning the inventory code fails"
+msgstr ""
+
+msgid "Attachment was successfully created."
+msgstr ""
+
+msgid "Attempt to add node to own graph collection"
+msgstr ""
+
+msgid "Auswahl"
+msgstr ""
+
+msgid "Availability Timeline"
+msgstr ""
+
+msgid "Available"
+msgstr ""
+
+msgid "Available in group '"
+msgstr ""
+
+msgid "Available in total: "
+msgstr ""
+
+msgid "Back"
+msgstr ""
+
+msgid "Backend"
+msgstr ""
+
+msgid "Badge ID was updated"
+msgstr ""
+
+msgid "Badge:"
+msgstr ""
+
+msgid "Barcode"
+msgstr ""
+
+msgid "Book"
+msgstr ""
+
+msgid "Borrowable"
+msgstr ""
+
+msgid "Borrowed Items"
+msgstr ""
+
+msgid "Borrower"
+msgstr ""
+
+msgid "Broken"
+msgstr ""
+
+msgid "Building"
+msgstr ""
+
+msgid "By not returning these items, you are blocking other people's reservations. This is very unfair to the other clients and to the inventory manager, since you are causing a significant amount of trouble and annoyance."
+msgstr ""
+
+msgid "CSV"
+msgstr ""
+
+msgid "CSV export"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Categories"
+msgstr ""
+
+msgid "Changed %s from %s to %s"
+msgstr ""
+
+msgid "Changed dates for %{model} from %{from} to %{to}"
+msgstr ""
+
+msgid "Changed quantity for %{model} from %{from} to %{to}"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Closed"
+msgstr ""
+
+msgid "Compatible successfully removed"
+msgstr ""
+
+msgid "Complete Search"
+msgstr ""
+
+msgid "Completeness"
+msgstr ""
+
+msgid "Contract"
+msgstr ""
+
+msgid "Contract %d has been signed by %s"
+msgstr ""
+
+msgid "Contract %s"
+msgstr ""
+
+msgid "Contract No."
+msgstr ""
+
+msgid "Contract Nr."
+msgstr ""
+
+msgid "Contracts"
+msgstr ""
+
+msgid "Couldn't connect to LDAP: :"
+msgstr ""
+
+msgid "Couldn't update "
+msgstr ""
+
+msgid "Create"
+msgstr ""
+
+msgid "Create and make a Copy"
+msgstr ""
+
+msgid "Created at"
+msgstr ""
+
+msgid "Current Order"
+msgstr ""
+
+msgid "Currently Borrowed Items"
+msgstr ""
+
+msgid "Currently has things to return"
+msgstr ""
+
+msgid "Currently you have no items in your order."
+msgstr ""
+
+msgid "Daily View"
+msgstr ""
+
+msgid "Day"
+msgstr ""
+
+msgid "Day overdue"
+msgstr ""
+
+msgid "Days"
+msgstr ""
+
+msgid "Days overdue"
+msgstr ""
+
+msgid "Deadline soon"
+msgstr ""
+
+msgid "Deadline soon reminder sent for %{q} items on contracts %{c}"
+msgstr ""
+
+msgid "Dear client,"
+msgstr ""
+
+msgid "Dear leihs client,"
+msgstr ""
+
+msgid "Dear leihs manager,"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Delete this line"
+msgstr ""
+
+msgid "Description"
+msgstr ""
+
+msgid "Documents"
+msgstr ""
+
+msgid "Documents for hand over"
+msgstr ""
+
+msgid "Documents for take back"
+msgstr ""
+
+msgid "E-Mail"
+msgstr ""
+
+msgid "ERROR"
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Edit Order"
+msgstr ""
+
+msgid "Edit Purpose"
+msgstr ""
+
+msgid "Edit Selection"
+msgstr ""
+
+msgid "Edit multiple selected items"
+msgstr ""
+
+msgid "Edit purpose for order from"
+msgstr ""
+
+msgid "Edit this Order"
+msgstr ""
+
+msgid "Empty Username and/or Password"
+msgstr ""
+
+msgid "End Date"
+msgstr ""
+
+msgid "End date"
+msgstr ""
+
+msgid "Equipment Booking and Inventory Management System"
+msgstr ""
+
+msgid "Error"
+msgstr ""
+
+msgid "Error creating the accessory."
+msgstr ""
+
+msgid "Error deleting the accessory."
+msgstr ""
+
+msgid "Error destroying the item package"
+msgstr ""
+
+msgid "Error destroying the package"
+msgstr ""
+
+msgid "Error saving the package"
+msgstr ""
+
+msgid "Error setting the location"
+msgstr ""
+
+msgid "Error updating inventory code"
+msgstr ""
+
+msgid "Expected to be returned."
+msgstr ""
+
+msgid "Found %d matches"
+msgstr ""
+
+msgid "Found %s"
+msgstr ""
+
+msgid "Fri"
+msgstr ""
+
+msgid "Frontend"
+msgstr ""
+
+msgid "General Information"
+msgstr ""
+
+msgid "Go Back"
+msgstr ""
+
+msgid "Group ${partition.group.name}"
+msgstr ""
+
+msgid "Hand Over"
+msgstr ""
+
+msgid "Hand Over Items"
+msgstr ""
+
+msgid "Hand Over to"
+msgstr ""
+
+msgid "Hand Over to %s"
+msgstr ""
+
+msgid "Hand Overs"
+msgstr ""
+
+msgid "Help"
+msgstr ""
+
+msgid "Highlight available items."
+msgstr ""
+
+msgid "History"
+msgstr ""
+
+msgid "Important notes for hand over"
+msgstr ""
+
+msgid "In Stock"
+msgstr ""
+
+msgid "In Total"
+msgstr ""
+
+msgid "In the interest of all our clients we ask you to observe the return dates."
+msgstr ""
+
+msgid "Incomplete"
+msgstr ""
+
+msgid "Inconsistent Inventory Pool"
+msgstr ""
+
+msgid "Incremented quantity from %i to %i for %s"
+msgstr ""
+
+msgid "Initial Price:"
+msgstr ""
+
+msgid "Inspect"
+msgstr ""
+
+msgid "Inspect Item"
+msgstr ""
+
+msgid "Insurance Number:"
+msgstr ""
+
+msgid "Internal Description"
+msgstr ""
+
+msgid "Introduction"
+msgstr ""
+
+msgid "Invalid order_lines"
+msgstr ""
+
+msgid "Invalid technical user - contact your leihs admin"
+msgstr ""
+
+msgid "Invalid username/password"
+msgstr ""
+
+msgid "Inventory"
+msgstr ""
+
+msgid "Inventory Code"
+msgstr ""
+
+msgid "Inventory Code / Name"
+msgstr ""
+
+msgid "Inventory Pool"
+msgstr ""
+
+msgid "Inventory Pool is missing"
+msgstr ""
+
+msgid "Inventory Pools"
+msgstr ""
+
+msgid "Inventory code"
+msgstr ""
+
+msgid "Inventory code updated"
+msgstr ""
+
+msgid "Inventory pool"
+msgstr ""
+
+msgid "Invoice Date:"
+msgstr ""
+
+msgid "Invoice Information"
+msgstr ""
+
+msgid "Invoice Number:"
+msgstr ""
+
+msgid "Item"
+msgstr ""
+
+msgid "Item handed over as part of contract %d."
+msgstr ""
+
+msgid "Item is defective"
+msgstr ""
+
+msgid "Item is incomplete"
+msgstr ""
+
+msgid "Item is overdue and therefore unavailable!"
+msgstr ""
+
+msgid "Item is part of package"
+msgstr ""
+
+msgid "Item is reserved in the future, therefore it's not available!"
+msgstr ""
+
+msgid "Item not borrowable"
+msgstr ""
+
+msgid "Item package successfully destroyed"
+msgstr ""
+
+msgid "Item retired (%s)"
+msgstr ""
+
+msgid "Item saved."
+msgstr ""
+
+msgid "Item taken back"
+msgstr ""
+
+msgid "Items"
+msgstr ""
+
+msgid "Kind regards,"
+msgstr ""
+
+msgid "Last Checked:"
+msgstr ""
+
+msgid "Last Visitors:"
+msgstr ""
+
+msgid "Latest Reminder:"
+msgstr ""
+
+msgid "Legend"
+msgstr ""
+
+msgid "Lender"
+msgstr ""
+
+msgid "Lending"
+msgstr ""
+
+msgid "Lending / Daily View"
+msgstr ""
+
+msgid "Lending Contract No. %d"
+msgstr ""
+
+msgid "Lending Contract No. %s"
+msgstr ""
+
+msgid "Lending Contracts No. %s"
+msgstr ""
+
+msgid "List of Contracts"
+msgstr ""
+
+msgid "List of Inventory"
+msgstr ""
+
+msgid "List of Orders"
+msgstr ""
+
+msgid "List of Visits"
+msgstr ""
+
+msgid "Loading"
+msgstr ""
+
+msgid "Location"
+msgstr ""
+
+msgid "Location successfully set"
+msgstr ""
+
+msgid "Locations"
+msgstr ""
+
+msgid "Logged in successfully"
+msgstr ""
+
+msgid "Login"
+msgstr ""
+
+msgid "Logout"
+msgstr ""
+
+msgid "Manufacturer"
+msgstr ""
+
+msgid "Manufacturer (A-Z)"
+msgstr ""
+
+msgid "Manufacturer (Z-A)"
+msgstr ""
+
+msgid "Matching Templates"
+msgstr ""
+
+msgid "Maximum number of items available at that time is %{max}"
+msgstr ""
+
+msgid "Mobile"
+msgstr ""
+
+msgid "Model"
+msgstr ""
+
+msgid "Model (A-Z)"
+msgstr ""
+
+msgid "Model (Z-A)"
+msgstr ""
+
+msgid "Model must be selected"
+msgstr ""
+
+msgid "Model not present any more"
+msgstr ""
+
+msgid "Model not present anymore"
+msgstr ""
+
+msgid "Model successfully added as compatible"
+msgstr ""
+
+msgid "Models"
+msgstr ""
+
+msgid "Mon"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Needs permission"
+msgstr ""
+
+msgid "New Item"
+msgstr ""
+
+msgid "New item created."
+msgstr ""
+
+msgid "Next"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "No description available for this model."
+msgstr ""
+
+msgid "No entries found"
+msgstr ""
+
+msgid "No entry found"
+msgstr ""
+
+msgid "No hand overs found"
+msgstr ""
+
+msgid "No reminder yet"
+msgstr ""
+
+msgid "No take backs found"
+msgstr ""
+
+msgid "No."
+msgstr ""
+
+msgid "None"
+msgstr ""
+
+msgid "Not Borrowable"
+msgstr ""
+
+msgid "Not available:"
+msgstr ""
+
+msgid "Note"
+msgstr ""
+
+msgid "Number of items"
+msgstr ""
+
+msgid "OK"
+msgstr ""
+
+msgid "One of the managers approves/denies or changes your reservation"
+msgstr ""
+
+msgid "Open"
+msgstr ""
+
+msgid "Open Datepicker"
+msgstr ""
+
+msgid "Open Orders"
+msgstr ""
+
+msgid "Opening Hours"
+msgstr ""
+
+msgid "Order"
+msgstr ""
+
+msgid "Order History"
+msgstr ""
+
+msgid "Order approved"
+msgstr ""
+
+msgid "Order from"
+msgstr ""
+
+msgid "Order from %s"
+msgstr ""
+
+msgid "Order received"
+msgstr ""
+
+msgid "Order rejected"
+msgstr ""
+
+msgid "Order submitted"
+msgstr ""
+
+msgid "Orders"
+msgstr ""
+
+msgid "Other Groups"
+msgstr ""
+
+msgid "Overbooked Quantity"
+msgstr ""
+
+msgid "Overbooking"
+msgstr ""
+
+msgid "Overdue"
+msgstr ""
+
+msgid "Overdue Returns"
+msgstr ""
+
+msgid "Overdue Visit"
+msgstr ""
+
+msgid "Overview"
+msgstr ""
+
+msgid "Owned"
+msgstr ""
+
+msgid "Owner"
+msgstr ""
+
+msgid "Package"
+msgstr ""
+
+msgid "Package error"
+msgstr ""
+
+msgid "Package successfully destroyed"
+msgstr ""
+
+msgid "Package successfully saved"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
+msgid "Password changed"
+msgstr ""
+
+msgid "Pending"
+msgstr ""
+
+msgid "Period"
+msgstr ""
+
+msgid "Phone"
+msgstr ""
+
+msgid "Phone:"
+msgstr ""
+
+msgid "Place reservations on items and then pick them up"
+msgstr ""
+
+msgid "Please note that these contracts, while they do belong to approved orders, may be changed by the lending manager at any time. They represent only a current snapshot of the order and might not contain the same items as the final contract once you pick up your items."
+msgstr ""
+
+msgid "Please provide a purpose..."
+msgstr ""
+
+msgid "Please specify the purpose of your order here..."
+msgstr ""
+
+msgid "Previous"
+msgstr ""
+
+msgid "Price"
+msgstr ""
+
+msgid "Print"
+msgstr ""
+
+msgid "Problems"
+msgstr ""
+
+msgid "Purpose"
+msgstr ""
+
+msgid "Purpose changed '%s' for '%s'"
+msgstr ""
+
+msgid "Purpose changed '%{from}' for '%{to}'"
+msgstr ""
+
+msgid "Purpose these items are borrowed for"
+msgstr ""
+
+msgid "Qty."
+msgstr ""
+
+msgid "Quantity"
+msgstr ""
+
+msgid "Quantity: %d"
+msgstr ""
+
+msgid "Ready"
+msgstr ""
+
+msgid "Recommended Accessories"
+msgstr ""
+
+msgid "Reject"
+msgstr ""
+
+msgid "Rejected"
+msgstr ""
+
+msgid "Rejection Successful"
+msgstr ""
+
+msgid "Relevant for inventory"
+msgstr ""
+
+msgid "Remind"
+msgstr ""
+
+msgid "Reminded %{q} items for contracts %{c}"
+msgstr ""
+
+msgid "Reminder"
+msgstr ""
+
+msgid "Removed %{q} %{m}"
+msgstr ""
+
+msgid "Requested Items"
+msgstr ""
+
+msgid "Reservation"
+msgstr ""
+
+msgid "Responsible"
+msgstr ""
+
+msgid "Responsible department"
+msgstr ""
+
+msgid "Responsible person"
+msgstr ""
+
+msgid "Retire"
+msgstr ""
+
+msgid "Retired"
+msgstr ""
+
+msgid "Retirement:"
+msgstr ""
+
+msgid "Return"
+msgstr ""
+
+msgid "Returned Items"
+msgstr ""
+
+msgid "Room"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Save Changes"
+msgstr ""
+
+msgid "Save and create a Copy"
+msgstr ""
+
+msgid "Search"
+msgstr ""
+
+msgid "Search Model"
+msgstr ""
+
+msgid "Search Results for \"%s\""
+msgstr ""
+
+msgid "Search..."
+msgstr ""
+
+msgid "Searching"
+msgstr ""
+
+msgid "Selected Pools (%s)"
+msgstr ""
+
+msgid "Serial Number:"
+msgstr ""
+
+msgid "Settings for %s"
+msgstr ""
+
+msgid "Shelf"
+msgstr ""
+
+msgid "Show"
+msgstr ""
+
+msgid "Show Availability"
+msgstr ""
+
+msgid "Show Full History"
+msgstr ""
+
+msgid "Show all %s..."
+msgstr ""
+
+msgid "Show all ..."
+msgstr ""
+
+msgid "Signature"
+msgstr ""
+
+msgid "Signed"
+msgstr ""
+
+msgid "Signed contracts"
+msgstr ""
+
+msgid "Since we did not receive any request for renewal, we consequently demand the return of the items without further delay."
+msgstr ""
+
+msgid "Something went wrong!"
+msgstr ""
+
+msgid "Start"
+msgstr ""
+
+msgid "Start Date"
+msgstr ""
+
+msgid "Start Date must be before End Date"
+msgstr ""
+
+msgid "Start Screen"
+msgstr ""
+
+msgid "Start date"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+msgid "Submission failed"
+msgstr ""
+
+msgid "Submit"
+msgstr ""
+
+msgid "Submit Order"
+msgstr ""
+
+msgid "Submitted"
+msgstr ""
+
+msgid "Successful Order"
+msgstr ""
+
+msgid "Successfully set."
+msgstr ""
+
+msgid "Supplier:"
+msgstr ""
+
+msgid "Swapped %{from} for %{to}"
+msgstr ""
+
+msgid "Swapped from %s "
+msgstr ""
+
+msgid "Take Back"
+msgstr ""
+
+msgid "Take Back Items"
+msgstr ""
+
+msgid "Take Back from"
+msgstr ""
+
+msgid "Take Back from %s"
+msgstr ""
+
+msgid "Take Backs"
+msgstr ""
+
+msgid "Technical Details"
+msgstr ""
+
+msgid "Templates"
+msgstr ""
+
+msgid "Terms and conditions of the lender apply."
+msgstr ""
+
+msgid "That means that the user probably did not get the approval mail and you need to contact him/her in a different way."
+msgstr ""
+
+msgid "The Category must be empty"
+msgstr ""
+
+msgid "The Inventory Code %s was not found."
+msgstr ""
+
+msgid "The Inventory Pool must be empty"
+msgstr ""
+
+msgid "The accessory was successfully created."
+msgstr ""
+
+msgid "The accessory was successfully deleted."
+msgstr ""
+
+msgid "The admin role cannot be scoped to an inventory pool"
+msgstr ""
+
+msgid "The following error happened while sending a notification email to %{email}:\n"
+msgstr ""
+
+msgid "The following items are due to be returned tomorrow or need to be inspected by their owners"
+msgstr ""
+
+msgid "The following items are overdue or need to be inspected by their owners"
+msgstr ""
+
+msgid "The group quantities were successfully saved."
+msgstr ""
+
+msgid "The inventory code %s is not valid for this model"
+msgstr ""
+
+msgid "The item belongs to a package"
+msgstr ""
+
+msgid "The item cannot be retired because it's not returned yet."
+msgstr ""
+
+msgid "The item doesn't belong to the inventory pool related to this contract"
+msgstr ""
+
+msgid "The item doesn't match with the reserved model"
+msgstr ""
+
+msgid "The item is already handed over or assigned to a different contract line"
+msgstr ""
+
+msgid "The item with the inventory code %s was not found"
+msgstr ""
+
+msgid "The line was not found"
+msgstr ""
+
+msgid "The mail was sent"
+msgstr ""
+
+msgid "The model cannot be changed because the item is used in contracts already."
+msgstr ""
+
+msgid "The model is already compatible"
+msgstr ""
+
+msgid "The new user details could not be saved."
+msgstr ""
+
+msgid "The option could not be added"
+msgstr ""
+
+msgid "The option doesn't belong to the inventory pool related to this contract"
+msgstr ""
+
+msgid "The order now looks like this:"
+msgstr ""
+
+msgid "The parent item doesn't exist (parent_id: %d)"
+msgstr ""
+
+msgid "The properties have been updated."
+msgstr ""
+
+msgid "The selected lines have been moved"
+msgstr ""
+
+msgid "The selected model is not a package"
+msgstr ""
+
+msgid "The user does not have an email address"
+msgstr ""
+
+msgid "The user who placed this order has received a similar e-mail message informing them that the order first needs to be approved before it is valid."
+msgstr ""
+
+msgid "These are the comments of the inventory manager:"
+msgstr ""
+
+msgid "This contract is not signable because it doesn't have any contract lines."
+msgstr ""
+
+msgid "This contract is not signable because none of the lines have a purpose."
+msgstr ""
+
+msgid "This contract is not signable because some lines are not assigned."
+msgstr ""
+
+msgid "This customer's groups"
+msgstr ""
+
+msgid "This is a package containing the following items:"
+msgstr ""
+
+msgid "This is the list of items you requested. To complete this order, please %s."
+msgstr ""
+
+msgid "This item was retired on %s because %s"
+msgstr ""
+
+msgid "This model is now in %d categories"
+msgstr ""
+
+msgid "This order has already been approved."
+msgstr ""
+
+msgid "This order is not approvable because doesn't have any models."
+msgstr ""
+
+msgid "This order is not approvable because some reserved models are not available."
+msgstr ""
+
+msgid "This order is still pending. Please log in to your leihs system and either approve or reject it."
+msgstr ""
+
+msgid "Thu"
+msgstr ""
+
+msgid "Time window"
+msgstr ""
+
+msgid "Timeline"
+msgstr ""
+
+msgid "Today"
+msgstr ""
+
+msgid "Too many users found"
+msgstr ""
+
+msgid "Total"
+msgstr ""
+
+msgid "Tue"
+msgstr ""
+
+msgid "Unborrowable"
+msgstr ""
+
+msgid "Unfortunately your order is still pending, but you will soon receive a confirmation of order by separate e-mail. You can view the status of your order through your leihs account."
+msgstr ""
+
+msgid "Unretire"
+msgstr ""
+
+msgid "Unsigned"
+msgstr ""
+
+msgid "Unsigned (Hand Over)"
+msgstr ""
+
+msgid "Unsigned contracts"
+msgstr ""
+
+msgid "Unsubmitted"
+msgstr ""
+
+msgid "Unsuccessful reminder of %{q} items for contracts %{c}"
+msgstr ""
+
+msgid "Upload error."
+msgstr ""
+
+msgid "User"
+msgstr ""
+
+msgid "User details were updated successfully."
+msgstr ""
+
+msgid "User must be selected"
+msgstr ""
+
+msgid "User or Order not found"
+msgstr ""
+
+msgid "User swapped %{from} for %{to}"
+msgstr ""
+
+msgid "User unknown"
+msgstr ""
+
+msgid "User/Typical usage"
+msgstr ""
+
+msgid "Username"
+msgstr ""
+
+msgid "Users"
+msgstr ""
+
+msgid "Value"
+msgstr ""
+
+msgid "Value List"
+msgstr ""
+
+msgid "Value List for Lending Contract No. %s"
+msgstr ""
+
+msgid "Value list"
+msgstr ""
+
+msgid "View %s"
+msgstr ""
+
+msgid "View Item"
+msgstr ""
+
+msgid "View Model"
+msgstr ""
+
+msgid "View Option"
+msgstr ""
+
+msgid "Visits"
+msgstr ""
+
+msgid "We are just sending you this little reminder because someone else is already waiting for some of these items."
+msgstr ""
+
+msgid "We kindly ask you to contact us as soon as possible. Your computer might need an update."
+msgstr ""
+
+msgid "Wed"
+msgstr ""
+
+msgid "Welcome %s"
+msgstr ""
+
+msgid "Working order"
+msgstr ""
+
+msgid "Workload"
+msgstr ""
+
+msgid "Write a comment. The comment will be part of the rejection e-mail."
+msgstr ""
+
+msgid "Write a comment... (your comment will be part of the confirmation e-mail)"
+msgstr ""
+
+msgid "Write a note... (the note will be part of the contract)"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "You bring back your items"
+msgstr ""
+
+msgid "You can edit your personal data"
+msgstr ""
+
+msgid "You can't add a package to a package."
+msgstr ""
+
+msgid "You cannot delete all lines of an order. Perhaps you want to reject it instead?"
+msgstr ""
+
+msgid "You do not have any items in your order. Please %s and choose items for your order."
+msgstr ""
+
+msgid "You don't have access to this item."
+msgstr ""
+
+msgid "You don't have any rights to access this application."
+msgstr ""
+
+msgid "You have %{no_access} to any inventory pools!"
+msgstr ""
+
+msgid "You have access to the following inventory pools"
+msgstr ""
+
+msgid "You have access to the following inventory pools:"
+msgstr ""
+
+msgid "You have been logged out."
+msgstr ""
+
+msgid "You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from the reservation system for up to 6 months."
+msgstr ""
+
+msgid "You pick up the reserved items at the inventory pool"
+msgstr ""
+
+msgid "You place a reservation for some items in this system"
+msgstr ""
+
+msgid "You should redo your action or reload the page!"
+msgstr ""
+
+msgid "You wait for confirmation from the inventory pools in question"
+msgstr ""
+
+msgid "Your order for the following items has been confirmed by the inventory manager"
+msgstr ""
+
+msgid "Your order for the following items listed below was successfully submitted."
+msgstr ""
+
+msgid "Your order was rejected for the following reason:"
+msgstr ""
+
+msgid "Your order was successfully transmitted to those responsible and is %s."
+msgstr ""
+
+msgid "[Model %s] "
+msgstr ""
+
+msgid "[leihs] Order received"
+msgstr ""
+
+msgid "[leihs] Reminder"
+msgstr ""
+
+msgid "[leihs] Reservation Confirmation"
+msgstr ""
+
+msgid "[leihs] Reservation Rejected"
+msgstr ""
+
+msgid "[leihs] Reservation Submitted"
+msgstr ""
+
+msgid "[leihs] Reservation confirmed (with changes)"
+msgstr ""
+
+msgid "[leihs] Some items should be returned tomorrow"
+msgstr ""
+
+msgid "already in Category"
+msgstr ""
+
+msgid "available"
+msgstr ""
+
+msgid "awaiting approval"
+msgstr ""
+
+msgid "but a few changes were made to it"
+msgstr ""
+
+msgid "current page is set as start page"
+msgstr ""
+
+msgid "days"
+msgstr ""
+
+msgid "delete"
+msgstr ""
+
+msgid "doesn't match parent's attribute"
+msgstr ""
+
+msgid "entries%s"
+msgstr ""
+
+msgid "extend"
+msgstr ""
+
+msgid "for '%s'"
+msgstr ""
+
+msgid "for max."
+msgstr ""
+
+msgid "found %i"
+msgstr ""
+
+msgid "general"
+msgstr ""
+
+msgid "go back"
+msgstr ""
+
+msgid "go to today"
+msgstr ""
+
+msgid "here"
+msgstr ""
+
+msgid "hide items"
+msgstr ""
+
+msgid "in"
+msgstr ""
+
+msgid "inventory pool is closed on end_date. "
+msgstr ""
+
+msgid "inventory pool is closed on start_date. "
+msgstr ""
+
+msgid "is late"
+msgstr ""
+
+msgid "item not assigned. "
+msgstr ""
+
+msgid "jump to this date"
+msgstr ""
+
+msgid "more"
+msgstr ""
+
+msgid "more properties"
+msgstr ""
+
+msgid "no image"
+msgstr ""
+
+msgid "no item assigned"
+msgstr ""
+
+msgid "no purpose specified"
+msgstr ""
+
+msgid "not available. "
+msgstr ""
+
+msgid "not borrowable"
+msgstr ""
+
+msgid "not valid. "
+msgstr ""
+
+msgid "on time!"
+msgstr ""
+
+msgid "open datepicker"
+msgstr ""
+
+msgid "overdue"
+msgstr ""
+
+msgid "please wait"
+msgstr ""
+
+msgid "please wait..."
+msgstr ""
+
+msgid "quantity not available. "
+msgstr ""
+
+msgid "reserved / item assigned in future"
+msgstr ""
+
+msgid "set current page as start page"
+msgstr ""
+
+msgid "show items"
+msgstr ""
+
+msgid "show less"
+msgstr ""
+
+msgid "show less properties"
+msgstr ""
+
+msgid "show package parts"
+msgstr ""
+
+msgid "show packages"
+msgstr ""
+
+msgid "since"
+msgstr ""
+
+msgid "since max."
+msgstr ""
+
+msgid "submit it"
+msgstr ""
+
+msgid "this is a package"
+msgstr ""
+
+msgid "total rentable"
+msgstr ""
+
+msgid "unavailable / can't be guaranteed"
+msgstr ""
+
+msgid "until"
+msgstr ""
+
+msgid "while deleting a hand over line"
+msgstr ""
+
+msgid "while deleting hand over for"
+msgstr ""
+
+msgid "while deleting multiple order lines"
+msgstr ""
+
+msgid "while deleting order line for"
+msgstr ""
+
+msgid "while try to send an e-mail reminder to:"
+msgstr ""
+
+msgid "with comment"
+msgstr ""
+
+msgid "without conflict"
+msgstr ""

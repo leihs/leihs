@@ -8,8 +8,12 @@ module Json
       }
       
       if with ||= nil
-        [:model, :is_available, :inventory_pool_id, :quantity].each do |k|
+        [:is_available, :inventory_pool_id, :quantity].each do |k|
           h[k] = line.send(k) if with[k]
+        end
+
+        if with[:model]
+            h[:model] = hash_for line.model, with[:model]
         end
       
         if with[:order]

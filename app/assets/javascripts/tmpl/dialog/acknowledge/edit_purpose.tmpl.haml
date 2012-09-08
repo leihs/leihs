@@ -1,16 +1,21 @@
 = form_tag '${$item.target_url}', :remote => true, :"data-submit_button" => true do
 
   %h1
-    = _("Edit purpose for order from")
+    ${_jed("Edit purpose for order from")}
     ${user.firstname} ${user.lastname}
-  %p.subtitle= "${quantity} Items for max. ${new MaxRange(lines).value} days straight"
+  %p.subtitle
+    ${_jed(quantity, "Item", "Items")}
+    ${_jed("for max.")}
+    ${$range = new MaxRange(lines).value, ""}
+    ${range}
+    ${$range, "day", "days straight"}
   
   .navigation
     %button.button.white.close_dialog
       .icon.return
-      = _("Back")
+      ${_jed("Back")}
     %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}'}
-      = _("Save")
+      ${_jed("Save")}
    
   %hr
   %section.lines.scalable
