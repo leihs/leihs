@@ -42,7 +42,7 @@ end
 
 group :development do
   gem 'thin' # web server (Webrick do not support keep-alive connections)
-  gem 'gettext'
+  gem 'gettext', :git => "git://github.com/ruby-gettext/gettext.git"
 end
 
 group :profiling, :development do
