@@ -238,7 +238,7 @@
 
 %div 
   #my_timeline{:style => "height: #{sum_w}px; border: 1px solid #aaa"}
-  
+
   %table.timeline-legend
     %tr
       %td.title
@@ -251,6 +251,6 @@
         .tape-no-assigned-item
           = _("no item assigned")
         .tape-unavailable
-          =_("unavailable / can't be guaranteed")
+          = _("unavailable / can't be guaranteed") # FIXME: Why does gettext not work here?
         .tape-is-late
           = _("overdue") + " / " + _("is late")
