@@ -70,9 +70,9 @@ window.i18n.locale_data = {
    "leihs": {
       "": {
          "Project-Id-Version": " version 0.0.1",
-         "Report-Msgid-Bugs-To": " Ramon Cahenzli <ramon.cahenzli@zhdk.ch>",
-         "POT-Creation-Date": " 2012-09-04 10:40+0200",
-         "PO-Revision-Date": " 2012-09-04 10:43+0100",
+         "Report-Msgid-Bugs-To": " ",
+         "POT-Creation-Date": " 2012-09-10 14:48+0200",
+         "PO-Revision-Date": " 2012-09-10 14:48+0100",
          "Last-Translator": " Ramón Cahenzli <ramon.cahenzli@zhdk.ch>",
          "Language-Team": " German (Switzerland) <ramon.cahenzli@zhdk.ch>",
          "Language": " ",
@@ -82,7 +82,8 @@ window.i18n.locale_data = {
          "X-Launchpad-Export-Date": " 2008-12-18 06:16+0000",
          "X-Generator": " Launchpad (build Unknown)",
          "X-Poedit-Language": " German",
-         "X-Poedit-Country": " Switzerland"
+         "X-Poedit-Country": " Switzerland",
+         "Plural-Forms": " nplurals=2; plural=(n != 1)"
       },
       " at the inventory pool ": [
          null,
@@ -96,17 +97,14 @@ window.i18n.locale_data = {
          null,
          "Gegenstände zurückzubringen am "
       ],
-      "%d %s ahead of time": [
-         null,
-         "%d %s zu früh"
+      "%d day in the future": [
+         "%d days in the future",
+         "%d Tag in der Zukunft",
+         "%d Tage in der Zukunft"
       ],
       "%s (View in Order)": [
          null,
          "%s (In Bestellung ansehen)"
-      ],
-      "%s Items for max. %s days straight": [
-         null,
-         "%s Gegenstände für max. %s aufeinanderfolgende Tage"
       ],
       "%s Search Results for \"%s\"": [
          null,
@@ -115,10 +113,6 @@ window.i18n.locale_data = {
       "%s until %s": [
          null,
          "%s bis %s"
-      ],
-      "(%s Parts)": [
-         null,
-         "(%s Teile)"
       ],
       "(maximum available: %{max})": [
          null,
@@ -168,17 +162,9 @@ window.i18n.locale_data = {
          null,
          "Hinzufügen"
       ],
-      "Add Item": [
-         null,
-         "Gegenstand hinzufügen"
-      ],
       "Add Note": [
          null,
          "Notiz hinzufügen"
-      ],
-      "Add Purpose": [
-         null,
-         "Zweck hinzufügen"
       ],
       "Add/Assign": [
          null,
@@ -187,10 +173,6 @@ window.i18n.locale_data = {
       "Added": [
          null,
          "Hinzugefügt"
-      ],
-      "Additional notes": [
-         null,
-         "Zusätzliche Notiz"
       ],
       "Address": [
          null,
@@ -212,17 +194,9 @@ window.i18n.locale_data = {
          null,
          "Genehmigung erfolgreich"
       ],
-      "Approve": [
-         null,
-         "Genehmigen"
-      ],
       "Approve Order": [
          null,
          "Bestellung genehmigen"
-      ],
-      "Approve anyway": [
-         null,
-         "Trotzdem genehmigen"
       ],
       "Approved": [
          null,
@@ -260,10 +234,6 @@ window.i18n.locale_data = {
          null,
          "Selection"
       ],
-      "Availability Timeline": [
-         null,
-         "Verfügbarkeits-Zeitleiste"
-      ],
       "Available": [
          null,
          "Verfügbar"
@@ -276,10 +246,6 @@ window.i18n.locale_data = {
          null,
          "Total verfügbar:"
       ],
-      "Back": [
-         null,
-         "Zurück"
-      ],
       "Backend": [
          null,
          "Backend"
@@ -287,10 +253,6 @@ window.i18n.locale_data = {
       "Badge ID was updated": [
          null,
          "Badge-Nummer wurde aktualisiert"
-      ],
-      "Badge:": [
-         null,
-         "Badge:"
       ],
       "Barcode": [
          null,
@@ -307,10 +269,6 @@ window.i18n.locale_data = {
       "Borrowed Items": [
          null,
          "Geliehene Gegenstände"
-      ],
-      "Borrower": [
-         null,
-         "Ausleihende/r"
       ],
       "Broken": [
          null,
@@ -331,10 +289,6 @@ window.i18n.locale_data = {
       "CSV export": [
          null,
          "CSV-Export"
-      ],
-      "Cancel": [
-         null,
-         "Abbrechen"
       ],
       "Categories": [
          null,
@@ -379,10 +333,6 @@ window.i18n.locale_data = {
       "Contract %d has been signed by %s": [
          null,
          "Vertrag %d wurde unterschrieben von %s"
-      ],
-      "Contract %s": [
-         null,
-         "Vertrag %d"
       ],
       "Contract No.": [
          null,
@@ -440,17 +390,9 @@ window.i18n.locale_data = {
          null,
          "Tag"
       ],
-      "Day overdue": [
-         null,
-         "Tag überfällig"
-      ],
       "Days": [
          null,
          "Tage"
-      ],
-      "Days overdue": [
-         null,
-         "Tage überfällig"
       ],
       "Deadline soon": [
          null,
@@ -488,14 +430,6 @@ window.i18n.locale_data = {
          null,
          "Dokumente"
       ],
-      "Documents for hand over": [
-         null,
-         "Dokumente für Herausgabe"
-      ],
-      "Documents for take back": [
-         null,
-         "Dokumente für Rücknahme"
-      ],
       "E-Mail": [
          null,
          "E-Mail"
@@ -524,23 +458,11 @@ window.i18n.locale_data = {
          null,
          "Mehrere ausgewählte Gegenstände editieren"
       ],
-      "Edit purpose for order from": [
-         null,
-         "Zweck für Bestellung bearbeiten von"
-      ],
-      "Edit this Order": [
-         null,
-         "Diese Bestellung bearbeiten"
-      ],
       "Empty Username and/or Password": [
          null,
          "Benutzername und/oder Passwort sind leer"
       ],
       "End Date": [
-         null,
-         "Enddatum"
-      ],
-      "End date": [
          null,
          "Enddatum"
       ],
@@ -584,6 +506,10 @@ window.i18n.locale_data = {
          null,
          "Zurückerwartet."
       ],
+      "Finish this hand over": [
+         null,
+         "Herausgabe abschliessen"
+      ],
       "Found %d matches": [
          null,
          "%s Treffer"
@@ -608,10 +534,6 @@ window.i18n.locale_data = {
          null,
          "Zurück"
       ],
-      "Group ${partition.group.name}": [
-         null,
-         "Gruppe ${partition.group.name}"
-      ],
       "Hand Over": [
          null,
          "Aushändigen"
@@ -619,10 +541,6 @@ window.i18n.locale_data = {
       "Hand Over Items": [
          null,
          "Gegenstände aushändigen"
-      ],
-      "Hand Over to": [
-         null,
-         "Aushändigen an"
       ],
       "Hand Over to %s": [
          null,
@@ -652,10 +570,6 @@ window.i18n.locale_data = {
          null,
          "An Lager"
       ],
-      "In Total": [
-         null,
-         "Insgesamt"
-      ],
       "In the interest of all our clients we ask you to observe the return dates.": [
          null,
          "Im Interesse aller unserer Kunden/innen bitten wir Sie, die Termine dringend einzuhalten."
@@ -675,14 +589,6 @@ window.i18n.locale_data = {
       "Initial Price:": [
          null,
          "Anschaffungswert:"
-      ],
-      "Inspect": [
-         null,
-         "Inspektion"
-      ],
-      "Inspect Item": [
-         null,
-         "Inspektion"
       ],
       "Insurance Number:": [
          null,
@@ -732,10 +638,6 @@ window.i18n.locale_data = {
          null,
          "Geräteparks"
       ],
-      "Inventory code": [
-         null,
-         "Inventarcode"
-      ],
       "Inventory code updated": [
          null,
          "Invetarcode aktualisiert"
@@ -764,14 +666,6 @@ window.i18n.locale_data = {
          null,
          "Gegenstand übergeben als Teil von Vertrag %d."
       ],
-      "Item is defective": [
-         null,
-         "Gegenstand ist defekt"
-      ],
-      "Item is incomplete": [
-         null,
-         "Gegenstand ist unvollständig"
-      ],
       "Item is overdue and therefore unavailable!": [
          null,
          "Gegenstand ist überfällig und deshalb nicht verfügbar."
@@ -783,10 +677,6 @@ window.i18n.locale_data = {
       "Item is reserved in the future, therefore it's not available!": [
          null,
          "Gegenstand ist in der Zukunft reserviert und deshalb nicht verfügbar."
-      ],
-      "Item not borrowable": [
-         null,
-         "Gegenstand nicht ausleihbar"
       ],
       "Item package successfully destroyed": [
          null,
@@ -820,17 +710,9 @@ window.i18n.locale_data = {
          null,
          "Letzte Besucher:"
       ],
-      "Latest Reminder:": [
-         null,
-         "Letzte Erinnerung:"
-      ],
       "Legend": [
          null,
          "Erklärung"
-      ],
-      "Lender": [
-         null,
-         "Ausleiher"
       ],
       "Lending": [
          null,
@@ -843,14 +725,6 @@ window.i18n.locale_data = {
       "Lending Contract No. %d": [
          null,
          "Leihvertrag Nr. %d"
-      ],
-      "Lending Contract No. %s": [
-         null,
-         "Leihvertrag Nr. %s"
-      ],
-      "Lending Contracts No. %s": [
-         null,
-         "Leihverträge Nr. %s"
       ],
       "List of Contracts": [
          null,
@@ -867,10 +741,6 @@ window.i18n.locale_data = {
       "List of Visits": [
          null,
          "Liste der Besuche"
-      ],
-      "Loading": [
-         null,
-         "Lade"
       ],
       "Location": [
          null,
@@ -936,14 +806,6 @@ window.i18n.locale_data = {
          null,
          "Modell muss ausgewählt sein"
       ],
-      "Model not present any more": [
-         null,
-         "Modell ist nicht mehr hier"
-      ],
-      "Model not present anymore": [
-         null,
-         "Modell ist nicht mehr hier"
-      ],
       "Model successfully added as compatible": [
          null,
          "Modell erfolgreich als kompatibel hinzugefügt"
@@ -980,33 +842,9 @@ window.i18n.locale_data = {
          null,
          "Nr."
       ],
-      "No description available for this model.": [
-         null,
-         "Dieses Modell hat keine Beschreibung."
-      ],
-      "No entries found": [
-         null,
-         "Kein Eintrag gefunden"
-      ],
       "No entry found": [
          null,
          "Kein Eintrag gefunden"
-      ],
-      "No hand overs found": [
-         null,
-         "Keine Aushändigungen gefunden"
-      ],
-      "No reminder yet": [
-         null,
-         "Noch keine Erinnerungen"
-      ],
-      "No take backs found": [
-         null,
-         "Keine Rücknahmen gefunden"
-      ],
-      "No.": [
-         null,
-         "Nr."
       ],
       "None": [
          null,
@@ -1015,10 +853,6 @@ window.i18n.locale_data = {
       "Not Borrowable": [
          null,
          "Nicht ausleihbar"
-      ],
-      "Not available": [
-         null,
-         "Nicht verfügbar"
       ],
       "Note": [
          null,
@@ -1064,10 +898,6 @@ window.i18n.locale_data = {
          null,
          "Bestellung genehmigt"
       ],
-      "Order from": [
-         null,
-         "Bestellung von"
-      ],
       "Order from %s": [
          null,
          "Bestellung von %s"
@@ -1088,10 +918,6 @@ window.i18n.locale_data = {
          null,
          "Bestellungen"
       ],
-      "Other Groups": [
-         null,
-         "Andere Gruppen"
-      ],
       "Overbooked Quantity": [
          null,
          "Überbuchte Anzahl"
@@ -1100,17 +926,9 @@ window.i18n.locale_data = {
          null,
          "Überbuchung"
       ],
-      "Overdue": [
-         null,
-         "Überfällig"
-      ],
       "Overdue Returns": [
          null,
          "Überfällige Rückgaben"
-      ],
-      "Overdue Visit": [
-         null,
-         "Überfällige Besuche"
       ],
       "Overview": [
          null,
@@ -1160,10 +978,6 @@ window.i18n.locale_data = {
          null,
          "Telefon"
       ],
-      "Phone:": [
-         null,
-         "Telefon:"
-      ],
       "Place reservations on items and then pick them up": [
          null,
          "Gegenstände reservieren und abholen"
@@ -1171,10 +985,6 @@ window.i18n.locale_data = {
       "Please note that these contracts, while they do belong to approved orders, may be changed by the lending manager at any time. They represent only a current snapshot of the order and might not contain the same items as the final contract once you pick up your items.": [
          null,
          "Bitte beachten Sie, dass diese Verträge zwar zu genehmigten Bestellungen gehören, die Bestellungen aber jederzeit von einem Inventarverwalter verändert werden können. Sie zeigen nur ein aktuelles Abbild der Bestellung. Diese kann bei Abholung durchaus andere Gegenstände enthalten."
-      ],
-      "Please provide a purpose...": [
-         null,
-         "Bitte füllen Sie den Zweck aus..."
       ],
       "Please specify the purpose of your order here...": [
          null,
@@ -1188,14 +998,6 @@ window.i18n.locale_data = {
          null,
          "Preis"
       ],
-      "Print": [
-         null,
-         "Drucken"
-      ],
-      "Problems": [
-         null,
-         "Probleme"
-      ],
       "Purpose": [
          null,
          "Zweck"
@@ -1208,25 +1010,13 @@ window.i18n.locale_data = {
          null,
          "Zweck geändert von '%{from}' zu '%{to}'"
       ],
-      "Purpose these items are borrowed for": [
-         null,
-         "Zweck dieser Ausleihe"
-      ],
       "Qty.": [
          null,
          "Anz."
       ],
-      "Quantity": [
-         null,
-         "Anzahl"
-      ],
       "Quantity: %d": [
          null,
          "Anzahl: %d"
-      ],
-      "Ready": [
-         null,
-         "Bereit"
       ],
       "Recommended Accessories": [
          null,
@@ -1247,10 +1037,6 @@ window.i18n.locale_data = {
       "Relevant for inventory": [
          null,
          "Inventarrelevant"
-      ],
-      "Remind": [
-         null,
-         "Erinnern"
       ],
       "Reminded %{q} items for contracts %{c}": [
          null,
@@ -1296,13 +1082,9 @@ window.i18n.locale_data = {
          null,
          "Ausmusterung:"
       ],
-      "Return": [
+      "Return to this hand over": [
          null,
-         "Rückgabe"
-      ],
-      "Returned Items": [
-         null,
-         "Zurückgegebene Gegenstände"
+         "Zurück zu dieser Herausgabe"
       ],
       "Room": [
          null,
@@ -1311,10 +1093,6 @@ window.i18n.locale_data = {
       "Save": [
          null,
          "Speichern"
-      ],
-      "Save Changes": [
-         null,
-         "Änderungen speichern"
       ],
       "Save and create a Copy": [
          null,
@@ -1360,25 +1138,13 @@ window.i18n.locale_data = {
          null,
          "Anzeigen"
       ],
-      "Show Availability": [
-         null,
-         "Verfügbarkeit anzeigen"
-      ],
       "Show Full History": [
          null,
          "Gesamte Geschichte anzeigen"
       ],
-      "Show all %s...": [
-         null,
-         "Alle %s anzeigen..."
-      ],
       "Show all ...": [
          null,
          "Alles anzeigen..."
-      ],
-      "Signature": [
-         null,
-         "Unterschrift"
       ],
       "Signed": [
          null,
@@ -1411,10 +1177,6 @@ window.i18n.locale_data = {
       "Start Screen": [
          null,
          "Startbildschirm"
-      ],
-      "Start date": [
-         null,
-         "Startdatum"
       ],
       "Status": [
          null,
@@ -1464,10 +1226,6 @@ window.i18n.locale_data = {
          null,
          "Rücknahmen"
       ],
-      "Take Back from": [
-         null,
-         "Rücknahme von"
-      ],
       "Take Back from %s": [
          null,
          "Rücknahme von %s"
@@ -1483,10 +1241,6 @@ window.i18n.locale_data = {
       "Templates": [
          null,
          "Vorlagen"
-      ],
-      "Terms and conditions of the lender apply.": [
-         null,
-         "Es gelten die Ausleihebedingungen des Verleihers."
       ],
       "That means that the user probably did not get the approval mail and you need to contact him/her in a different way.": [
          null,
@@ -1516,9 +1270,9 @@ window.i18n.locale_data = {
          null,
          "Die admin-Rolle kann sich nicht auf einen Gerätepark beziehen"
       ],
-      "The following error happened while sending a notification email to %{email}:\\n": [
+      "The following error happened while sending a notification email to %{email}:\\\\n": [
          null,
-         "Die folgenden Fehler sind aufgetreten beim Versuchn, eine Nachricht an %{email} zu schicken:\\n"
+         "Die folgenden Fehler sind aufgetreten beim Versuchn, eine Nachricht an %{email} zu schicken:\\\\n"
       ],
       "The following items are due to be returned tomorrow or need to be inspected by their owners": [
          null,
@@ -1632,10 +1386,6 @@ window.i18n.locale_data = {
          null,
          "Der Vertrag kann nicht unterschrieben werden, weil einige Zeilen noch nicht zugewiesen wurden."
       ],
-      "This customer's groups": [
-         null,
-         "Gruppen des Kunden"
-      ],
       "This is a package containing the following items:": [
          null,
          "Dies ist ein Paket, bestehend aus den folgenden Gegenständen:"
@@ -1676,10 +1426,6 @@ window.i18n.locale_data = {
          null,
          "Zeitfenster"
       ],
-      "Timeline": [
-         null,
-         "Zeitleiste"
-      ],
       "Today": [
          null,
          "Heute"
@@ -1687,10 +1433,6 @@ window.i18n.locale_data = {
       "Too many users found": [
          null,
          "Zu viele Benutzer gefunden"
-      ],
-      "Total": [
-         null,
-         "Insgesamt"
       ],
       "Tue": [
          null,
@@ -1711,10 +1453,6 @@ window.i18n.locale_data = {
       "Unsigned": [
          null,
          "Nicht unterschrieben"
-      ],
-      "Unsigned (Hand Over)": [
-         null,
-         "Nicht unterschrieben (Aushändigung)"
       ],
       "Unsigned contracts": [
          null,
@@ -1768,10 +1506,6 @@ window.i18n.locale_data = {
          null,
          "Benutzer"
       ],
-      "Value": [
-         null,
-         "Wert"
-      ],
       "Value List": [
          null,
          "Werteverzeichnis"
@@ -1787,18 +1521,6 @@ window.i18n.locale_data = {
       "View %s": [
          null,
          "%s ansehen"
-      ],
-      "View Item": [
-         null,
-         "Gegenstand ansehen"
-      ],
-      "View Model": [
-         null,
-         "Modell ansehen"
-      ],
-      "View Option": [
-         null,
-         "Option ansehen"
       ],
       "Visits": [
          null,
@@ -1827,18 +1549,6 @@ window.i18n.locale_data = {
       "Workload": [
          null,
          "Arbeitsbelastung"
-      ],
-      "Write a comment. The comment will be part of the rejection e-mail.": [
-         null,
-         "Schreiben Sie einen Kommentar, damit dieser Teil der Ablehnungs-E-Mail wird."
-      ],
-      "Write a comment... (your comment will be part of the confirmation e-mail)": [
-         null,
-         "Schreiben Sie einen Kommentar... (der Kommentar wird Teil der Bestätigungsmail)"
-      ],
-      "Write a note... (the note will be part of the contract)": [
-         null,
-         "Schreiben Sie einen Kommentar... (der Kommentar wird Teil des Vertrags)"
       ],
       "Yes": [
          null,
@@ -1960,10 +1670,6 @@ window.i18n.locale_data = {
          null,
          "bereits in Kategorie"
       ],
-      "available": [
-         null,
-         "verfügbar"
-      ],
       "awaiting approval": [
          null,
          "wartet auf Genehmigung"
@@ -1975,10 +1681,6 @@ window.i18n.locale_data = {
       "current page is set as start page": [
          null,
          "Aktuelle Seite ist jetzt Startseite"
-      ],
-      "days": [
-         null,
-         "Tagen"
       ],
       "delete": [
          null,
@@ -2000,10 +1702,6 @@ window.i18n.locale_data = {
          null,
          "für '%s'"
       ],
-      "for max.": [
-         null,
-         "für max."
-      ],
       "found %i": [
          null,
          "%i gefunden"
@@ -2023,10 +1721,6 @@ window.i18n.locale_data = {
       "here": [
          null,
          "hier"
-      ],
-      "hide items": [
-         null,
-         "Gegenstände verstecken"
       ],
       "in": [
          null,
@@ -2048,10 +1742,6 @@ window.i18n.locale_data = {
          null,
          "kein Gegenstand zugeordnet"
       ],
-      "jump to this date": [
-         null,
-         "zu diesem Datum springen"
-      ],
       "more": [
          null,
          "weitere"
@@ -2059,10 +1749,6 @@ window.i18n.locale_data = {
       "more properties": [
          null,
          "mehr Eigenschaften"
-      ],
-      "no image": [
-         null,
-         "kein Bild"
       ],
       "no item assigned": [
          null,
@@ -2075,10 +1761,6 @@ window.i18n.locale_data = {
       "not available. ": [
          null,
          "nicht verfügbar."
-      ],
-      "not borrowable": [
-         null,
-         "nicht ausleihbar"
       ],
       "not valid. ": [
          null,
@@ -2096,10 +1778,6 @@ window.i18n.locale_data = {
          null,
          "überfällig"
       ],
-      "please wait": [
-         null,
-         "bitte warten"
-      ],
       "please wait...": [
          null,
          "bitte warten..."
@@ -2116,10 +1794,6 @@ window.i18n.locale_data = {
          null,
          "Aktuelle Seite als Startseite setzen"
       ],
-      "show items": [
-         null,
-         "Gegenstände zeigen"
-      ],
       "show less": [
          null,
          "weniger zeigen"
@@ -2128,33 +1802,9 @@ window.i18n.locale_data = {
          null,
          "weniger Eigenschaften anzeigen"
       ],
-      "show package parts": [
-         null,
-         "Paket-Bestandteile zeigen"
-      ],
-      "show packages": [
-         null,
-         "Pakete zeigen"
-      ],
-      "since": [
-         null,
-         "seit"
-      ],
-      "since max.": [
-         null,
-         "seit max."
-      ],
       "submit it": [
          null,
          "abschicken"
-      ],
-      "this is a package": [
-         null,
-         "dies ist ein Paket"
-      ],
-      "total rentable": [
-         null,
-         "ausleihbar"
       ],
       "unavailable / can't be guaranteed": [
          null,
@@ -2164,25 +1814,9 @@ window.i18n.locale_data = {
          null,
          "bis"
       ],
-      "while deleting a hand over line": [
-         null,
-         "während des Löschens einer Übergabe-Zeile"
-      ],
-      "while deleting hand over for": [
-         null,
-         "während die Übergabe gelöscht wurde für"
-      ],
       "while deleting multiple order lines": [
          null,
          "während mehrere Bestellungs-Zeilen gelöscht wurden"
-      ],
-      "while deleting order line for": [
-         null,
-         "während eine Bestellungszeile gelöscht wurde für"
-      ],
-      "while try to send an e-mail reminder to:": [
-         null,
-         "während versucht wurde, ein Erinnerungsmail zu schicken an:"
       ],
       "with comment": [
          null,
@@ -2191,2730 +1825,6 @@ window.i18n.locale_data = {
       "without conflict": [
          null,
          "ohne Konflikt"
-      ],
-      "Fully Functional": [
-         null,
-         "Funktionstüchtig"
-      ],
-      "Defective": [
-         null,
-         "Defekt"
-      ],
-      "Complete": [
-         null,
-         "Vollständig"
-      ],
-      " <b>%d</b> results": [
-         null,
-         " <b>%d</b> Resultate "
-      ],
-      " filtering <b>%s</b>": [
-         null,
-         " filtere nach <b>%s</b>"
-      ],
-      " for <b>%s</b>": [
-         null,
-         " für Suche nach <b>%s</b>"
-      ],
-      "%s Items": [
-         null,
-         "%d Gegenstände"
-      ],
-      "%s returns the item on %s": [
-         null,
-         "%s bringt den Gegenstand am %s zurück"
-      ],
-      "%{a}/%{b}": [
-         null,
-         "%{a}/%{b}"
-      ],
-      "%{i} orders": [
-         null,
-         "%{i} Bestellungen"
-      ],
-      "%{i} reminders, last: %{d}": [
-         null,
-         "%{i} Erinnerungen, letzte: %{d}"
-      ],
-      "%{n} Items": [
-         null,
-         "%{n} Artikel"
-      ],
-      "(%s)": [
-         null,
-         "(%s)"
-      ],
-      "(Installed in: ": [
-         null,
-         "(Installiert in: "
-      ],
-      "<em>%{n} new orders</em> to acknowledge.": [
-         null,
-         "<em>%{n} Neue Bestellungen</em> zu genehmigen."
-      ],
-      "A model (not a package) already exists with this name.": [
-         null,
-         "Ein Modell (nicht ein Paket) mit diesem Namen existiert bereits."
-      ],
-      "A model already exists with this name.": [
-         null,
-         "Dieses Modell ist bereits dieser Kategorie zugewiesen"
-      ],
-      "Access Denied": [
-         null,
-         "Zugriff verweigert"
-      ],
-      "Access Level": [
-         null,
-         "Zugriffsstufe"
-      ],
-      "Access Right successfully removed": [
-         null,
-         "Zugriffsrecht erfolgreich entfernt"
-      ],
-      "Access Rights": [
-         null,
-         "Zugriffsrechte"
-      ],
-      "Access Rights (%d)": [
-         null,
-         "Zugriffsrechte (%d)"
-      ],
-      "Access levels": [
-         null,
-         "Zugriffsstufen"
-      ],
-      "Access levels and borrow levels": [
-         null,
-         "Zugriffsstufen und Ausleihe-Stufen"
-      ],
-      "Access levels, handled per inventory pool, are used to determine what system functionality a user is allowed to see and use.": [
-         null,
-         "Zugriffsstufen (pro Gerätepark) bestimmen, welche Funktionen ein Benutzer sieht/benutzen kann und welche nicht."
-      ],
-      "AccessRight|Access level": [
-         null,
-         "Zugriffsrechte"
-      ],
-      "AccessRight|Created at": [
-         null,
-         "Zugriffsrechte"
-      ],
-      "AccessRight|Deleted at": [
-         null,
-         "Zugriffsrechte"
-      ],
-      "AccessRight|Inventory pool": [
-         null,
-         "Gerätepark"
-      ],
-      "AccessRight|Level": [
-         null,
-         "Zugriffsrechte"
-      ],
-      "AccessRight|Role": [
-         null,
-         "Zugriffsrechte"
-      ],
-      "AccessRight|Suspended until": [
-         null,
-         "Zugriffsrechte"
-      ],
-      "AccessRight|Updated at": [
-         null,
-         "Zugriffsrechte"
-      ],
-      "AccessRight|User": [
-         null,
-         "Zugriffsrechte"
-      ],
-      "Accessories (%d)": [
-         null,
-         "Zubehör (%d)"
-      ],
-      "Accessory|Model": [
-         null,
-         "Zubehör"
-      ],
-      "Accessory|Name": [
-         null,
-         "Zubehör"
-      ],
-      "Accessory|Quantity": [
-         null,
-         "Zubehör|Anzahl"
-      ],
-      "Acknowledge immediately": [
-         null,
-         "Sofort genehmigen"
-      ],
-      "Action": [
-         null,
-         "Aktion"
-      ],
-      "Actions": [
-         null,
-         "Aktionen"
-      ],
-      "Active": [
-         null,
-         "Aktiv"
-      ],
-      "Add Line": [
-         null,
-         "Zeile hinzufügen"
-      ],
-      "Add Line for": [
-         null,
-         "Zeile hinzufügen für"
-      ],
-      "Add Model": [
-         null,
-         "Modell hinzufügen"
-      ],
-      "Add Model for": [
-         null,
-         "Modell hinzufügen für"
-      ],
-      "Add Selected": [
-         null,
-         "Ausgewählte hinzufügen"
-      ],
-      "Add all": [
-         null,
-         "Alle hinzfügen"
-      ],
-      "Add as manager": [
-         null,
-         "Als Verwalter hinzufügen"
-      ],
-      "Add as subcategory of": [
-         null,
-         "Unterkategorie von"
-      ],
-      "Add compatible": [
-         null,
-         "Kompatible/s hinzufügen"
-      ],
-      "Add group": [
-         null,
-         "Gruppe hinzufügen"
-      ],
-      "Add model": [
-         null,
-         "Modell hinzufügen"
-      ],
-      "Add more items": [
-         null,
-         "Mehr Gegenstände hinzufügen"
-      ],
-      "Add more locations": [
-         null,
-         "Mehr Orte hinzufügen"
-      ],
-      "Add to Order": [
-         null,
-         "Zu Bestellung hinzufügen"
-      ],
-      "Add user": [
-         null,
-         "Benutzer hinzufügen"
-      ],
-      "Administration": [
-         null,
-         "Administration"
-      ],
-      "Admins": [
-         null,
-         "Admins"
-      ],
-      "All Children": [
-         null,
-         "Alle Kind-Elemente"
-      ],
-      "All Models": [
-         null,
-         "Alle Modelle"
-      ],
-      "All Users": [
-         null,
-         "Alle Benutzer"
-      ],
-      "All prices in %s.": [
-         null,
-         "Alle Preise in %s."
-      ],
-      "Allow borrowing": [
-         null,
-         "Ausleihe erlaubt"
-      ],
-      "Are yo sure you want to reject the order?": [
-         null,
-         "Möchten Sie die Bestellung wirklich ablehnen?"
-      ],
-      "Are you sure?": [
-         null,
-         "Sind Sie sicher?"
-      ],
-      "#~ \"Are you sure?\\n\"#~ \"The %d items associated with this package will be freed up and available as single items again.\"": [
-         null,
-         "#~ \"Sind Sie sicher?\\n\"#~ \"Die %d mit diesem Paket verbundenen Gegenstände werden wieder freigegeben und stehen dann einzeln zur Ausleihe zur Verfügung.\""
-      ],
-      "Attachments": [
-         null,
-         "Attachments"
-      ],
-      "Attachments (%d)": [
-         null,
-         "Attachments (%d)"
-      ],
-      "Attachment|Content type": [
-         null,
-         "Parent"
-      ],
-      "Attachment|Filename": [
-         null,
-         "Bild|Ist haupt"
-      ],
-      "Attachment|Is main": [
-         null,
-         "Bild|Ist haupt"
-      ],
-      "Attachment|Model": [
-         null,
-         "Angesehene Modelle"
-      ],
-      "Ausleihender": [
-         null,
-         "[leihs] Erinnerung"
-      ],
-      "Authentication System": [
-         null,
-         "Authentifizierungssystem"
-      ],
-      "AuthenticationSystem|Class name": [
-         null,
-         "Authentifizierungssystem|ist aktiv"
-      ],
-      "AuthenticationSystem|Is active": [
-         null,
-         "Authentifizierungssystem|ist aktiv"
-      ],
-      "AuthenticationSystem|Is default": [
-         null,
-         "Authentifizierungssystem|Ist standard"
-      ],
-      "AuthenticationSystem|Name": [
-         null,
-         "Authentifizierungssystem|ist aktiv"
-      ],
-      "Availability::Change|Created at": [
-         null,
-         "Vertrag %d"
-      ],
-      "Availability::Change|Date": [
-         null,
-         "Verfügbarkeit"
-      ],
-      "Availability::Change|Inventory pool": [
-         null,
-         "Gerätepark"
-      ],
-      "Availability::Change|Model": [
-         null,
-         "Verfügbarkeit"
-      ],
-      "Availability::Change|Updated at": [
-         null,
-         "Vertrage %d"
-      ],
-      "Availability::OutDocumentLine|Quantity": [
-         null,
-         "Verfügbar"
-      ],
-      "Availability::Quantity|Change": [
-         null,
-         "Verfügbar"
-      ],
-      "Availability::Quantity|Group": [
-         null,
-         "Verfügbar"
-      ],
-      "Availability::Quantity|In quantity": [
-         null,
-         "Verfügbar"
-      ],
-      "Availability::Quantity|Out quantity": [
-         null,
-         "Verfügbar"
-      ],
-      "Available quantity": [
-         null,
-         "Verfügbare Anzahl"
-      ],
-      "Back to list": [
-         null,
-         "Zurück zur Liste"
-      ],
-      "Backup::OrderLine|Created at": [
-         null,
-         "Vertrag %d"
-      ],
-      "Backup::OrderLine|Inventory pool": [
-         null,
-         "OptionMap|Gerätepark"
-      ],
-      "Backup::OrderLine|Quantity": [
-         null,
-         "Anzahl"
-      ],
-      "Backup::OrderLine|Updated at": [
-         null,
-         "Vertrage %d"
-      ],
-      "Backup::Order|Created at": [
-         null,
-         "Vertrag %d"
-      ],
-      "Backup::Order|Inventory pool": [
-         null,
-         "Inventarcode"
-      ],
-      "Backup::Order|Status const": [
-         null,
-         "Verträge"
-      ],
-      "Backup::Order|Updated at": [
-         null,
-         "Vertrage %d"
-      ],
-      "Badge ID": [
-         null,
-         "Badge-Nummer:"
-      ],
-      "Badge ID:": [
-         null,
-         "Badge-Nummer:"
-      ],
-      "Basket": [
-         null,
-         "Warenkorb"
-      ],
-      "Blacklist": [
-         null,
-         "Schwarze Liste"
-      ],
-      "Book this": [
-         null,
-         "Dies reservieren"
-      ],
-      "Borrow Level": [
-         null,
-         "Ausleihe-Stufe"
-      ],
-      "Borrow Level: %d": [
-         null,
-         "Ausleihe-Stufe: %d"
-      ],
-      "Borrow levels are used to allow/disallow lending certain items to users that aren't of high enough level. For example: if an item has level 5, a user of borrow level 4 will never see it whereas a user of level 5 or higher will.": [
-         null,
-         "Ausleihe-Stufen werden verwendet, damit ein Benutzer nur bestimmte Gegenstände sieht, nämlich die, deren Ausleih-Stufe unter der des Benutzers liegt."
-      ],
-      "Borrowable (%d)": [
-         null,
-         "Ausleihbar (%d)"
-      ],
-      "Borrowing allowed": [
-         null,
-         "Ausleihe erlaubt"
-      ],
-      "Borrowing party:": [
-         null,
-         "Ausleihende/r: "
-      ],
-      "Both levels are handled per inventory pool, so if one inventory pool only wants to deal with levels 1-3 of their items while another needs all 9 levels, this can be done by assigning a maximum of level 3 to a user on the former inventory pool and a maximum level of 9 on the latter. The different levels won't get into each other's way, because one user's borrow level only applies to one single inventory pool, not to all pools.": [
-         null,
-         "Beide Stufen gelten pro Gerätepark. Wenn also ein Gerätepark nur Stufen 1 - 3 anbieten möchte, während ein anderer alle neun Stufen nutzt, kommen sich die beiden nicht in die Quere."
-      ],
-      "Building|Code": [
-         null,
-         "Gebäude"
-      ],
-      "Building|Name": [
-         null,
-         "Gebäude"
-      ],
-      "Categories (%d)": [
-         null,
-         "Kategorien (%d)"
-      ],
-      "Category": [
-         null,
-         "Kategorie"
-      ],
-      "Category successfully assigned": [
-         null,
-         "Kategorie erfolgreich zugewiesen"
-      ],
-      "Category successfully removed": [
-         null,
-         "Kategorie erfolgreich entfernt"
-      ],
-      "Category|Created at": [
-         null,
-         "Vertrag %d"
-      ],
-      "Category|Delta": [
-         null,
-         "Kategorie"
-      ],
-      "Category|Name": [
-         null,
-         "Kategorie"
-      ],
-      "Category|Type": [
-         null,
-         "Kategorie"
-      ],
-      "Category|Updated at": [
-         null,
-         "Vertrage %d"
-      ],
-      "Change": [
-         null,
-         "Ändern"
-      ],
-      "Change Installation Location": [
-         null,
-         "Installationsort verändern"
-      ],
-      "Change Timeframe": [
-         null,
-         "Zeitfenster ändern"
-      ],
-      "Change Timeframe for selection": [
-         null,
-         "Zeitfenster für Auswahl ändern"
-      ],
-      "Change the timeframe for the selected items": [
-         null,
-         "Zeitfenster für Auswahl ändern"
-      ],
-      "Chart": [
-         null,
-         "Chart"
-      ],
-      "Check + Acknowledge": [
-         null,
-         "Prüfen + genehmigen"
-      ],
-      "Check all": [
-         null,
-         "Alle anwählen"
-      ],
-      "Check today's": [
-         null,
-         "Alle von heute"
-      ],
-      "Children": [
-         null,
-         "Kind-Elemente"
-      ],
-      "Children (%d)": [
-         null,
-         "Kind-Elemente  (%d)"
-      ],
-      "City": [
-         null,
-         "Stadt"
-      ],
-      "Comments": [
-         null,
-         "Kommentare"
-      ],
-      "Compatibles": [
-         null,
-         "Kompatible"
-      ],
-      "Compatibles (%d)": [
-         null,
-         "Kompatible (%d)"
-      ],
-      "Confirm": [
-         null,
-         "Bestätigen"
-      ],
-      "Confirm Location": [
-         null,
-         "Ort bestätigen"
-      ],
-      "Continue with Order": [
-         null,
-         "Weiter in Bestellung"
-      ],
-      "Contract Note": [
-         null,
-         "Vertragsnotiz"
-      ],
-      "Contract PDF": [
-         null,
-         "Vertrag-PDF"
-      ],
-      "Contract from %s": [
-         null,
-         "Vertrag von %s"
-      ],
-      "Contract no. %d": [
-         null,
-         "Vertrag Nr. %d"
-      ],
-      "ContractLine|Cached available": [
-         null,
-         "Erinnerung"
-      ],
-      "ContractLine|Contract": [
-         null,
-         "Verträge"
-      ],
-      "ContractLine|Created at": [
-         null,
-         "Erinnerung"
-      ],
-      "ContractLine|End date": [
-         null,
-         "Vertragsnotiz"
-      ],
-      "ContractLine|Item": [
-         null,
-         "Verträge"
-      ],
-      "ContractLine|Location": [
-         null,
-         "Installationsort"
-      ],
-      "ContractLine|Model": [
-         null,
-         "Verträge"
-      ],
-      "ContractLine|Option": [
-         null,
-         "Verträge"
-      ],
-      "ContractLine|Quantity": [
-         null,
-         "Anzahl"
-      ],
-      "ContractLine|Returned date": [
-         null,
-         "Rückgabedatum"
-      ],
-      "ContractLine|Start date": [
-         null,
-         "Verträge"
-      ],
-      "ContractLine|Type": [
-         null,
-         "Verträge"
-      ],
-      "ContractLine|Updated at": [
-         null,
-         "Vertrage %d"
-      ],
-      "Contracts (%d)": [
-         null,
-         "Verträge (%d)"
-      ],
-      "Contract|Created at": [
-         null,
-         "Erinnerung"
-      ],
-      "Contract|Delta": [
-         null,
-         "Verträge"
-      ],
-      "Contract|Inventory pool": [
-         null,
-         "OptionMap|Gerätepark"
-      ],
-      "Contract|Note": [
-         null,
-         "Verträge"
-      ],
-      "Contract|Purpose": [
-         null,
-         "Verträge"
-      ],
-      "Contract|Status const": [
-         null,
-         "Verträge"
-      ],
-      "Contract|Updated at": [
-         null,
-         "Vertrage %d"
-      ],
-      "Contract|User": [
-         null,
-         "Verträge"
-      ],
-      "Copy": [
-         null,
-         "Kopieren"
-      ],
-      "Country": [
-         null,
-         "Land"
-      ],
-      "Create New": [
-         null,
-         "Erstellen"
-      ],
-      "Create external user": [
-         null,
-         "Externen Benutzer erstellen"
-      ],
-      "Current group quantities": [
-         null,
-         "Gruppen-Verteilung"
-      ],
-      "Customer": [
-         null,
-         "Kunde"
-      ],
-      "Customers": [
-         null,
-         "Kunden"
-      ],
-      "Database Authentication": [
-         null,
-         "Datenbankbasierte Authentifizierung"
-      ],
-      "Database Backup": [
-         null,
-         "Datenbank-Backup"
-      ],
-      "Database backup successfully done.": [
-         null,
-         "Datenbank-Backup erstellt"
-      ],
-      "DatabaseAuthentication|Created at": [
-         null,
-         "Erinnerung"
-      ],
-      "DatabaseAuthentication|Crypted password": [
-         null,
-         "Erinnerung"
-      ],
-      "DatabaseAuthentication|Login": [
-         null,
-         "Datenbankbasierte Authentifizierung"
-      ],
-      "DatabaseAuthentication|Salt": [
-         null,
-         "Authentifizierungssystem"
-      ],
-      "DatabaseAuthentication|Updated at": [
-         null,
-         "Authentifizierungssystem"
-      ],
-      "DatabaseAuthentication|User": [
-         null,
-         "Authentifizierungssystem"
-      ],
-      "Date": [
-         null,
-         "Datum"
-      ],
-      "Default contract note": [
-         null,
-         "Standard-Vertragsnotiz"
-      ],
-      "Delete Order": [
-         null,
-         "Bestellung löschen"
-      ],
-      "Details": [
-         null,
-         "Details"
-      ],
-      "Details about the involved inventory pools": [
-         null,
-         "Details zu den vorkommenden Geräteparks"
-      ],
-      "Die Benutzerin/der Benutzer ist bei unsachgemaesser Handhabung oder Verlust schadenersatzpflichtig. Sie/Er verpflichtet sich, das Material sorgfaeltig zu behandeln und gereinigt zu retournieren. Bei mangelbehafteter order verspaeteter Rueckgabe kann eine Ausleihsparre (bis zu 6 Monaten) verhaengt werden. Das geliehene Material bleibt jederzeit uneingeschraenktes Eigentum der Zuercher Hochscule der Kuenste und darf ausschliesslich fuer schulische Zwecke eingesetzt werden. Mit ihrer/seiner Unterschrift akzeptiert die Benutzerin/der Benutzer diese Bedingungen sowie die 'Richtlinie zur Ausleihe von Sachen der ZHdK und etwaige abteilungsspezifische Ausleih-Richtlinien.": [
-         null,
-         "Die Benutzerin/der Benutzer ist bei unsachgemässer Handhabung oder Verlust schadenersatzpflichtig. Sie/Er verpflichtet sich, das Material sorgfältig zu behandeln und gereinigt zu retournieren. Bei mangelbehafteter oder verspäteter Rückgabe kann eine Ausleihsperre (bis zu 6 Monaten) verhängt werden. Das geliehene Material bleibt jederzeit uneingeschränktes Eigentum der Zürcher Hochschule der Künste und darf ausschliesslich für schulische Zwecke eingesetzt werden. Mit ihrer/seiner Unterschrift akzeptiert die Benutzerin/der Benutzer diese Bedingungen sowie die 'Richtlinie zur Ausleihe von Sachen' der ZHdK und etwaige abteilungsspezifische Ausleih-Richtlinien."
-      ],
-      "Do you really want to delete the following options?": [
-         null,
-         "Möchten Sie die folgenden Optionen wirklich löschen?"
-      ],
-      "Do you really want to delete the object?": [
-         null,
-         "Möchten Sie das Objekt wirklich löschen?"
-      ],
-      "Do you want to approve this order?": [
-         null,
-         "Wollen Sie diese Bestellung genehmigen?"
-      ],
-      "Do you want to submit this order?": [
-         null,
-         "Wollen Sie diese Bestellung abschicken?"
-      ],
-      "DocumentLines": [
-         null,
-         "DocumentLines"
-      ],
-      "Earliest return date:": [
-         null,
-         "Frühestes Rückgabedatum:"
-      ],
-      "Edit external user": [
-         null,
-         "Externen Benutzer bearbeiten"
-      ],
-      "Edit multiple ordered items for": [
-         null,
-         "Mehrere bestellte Gegenstände bearbeiten für"
-      ],
-      "Edit ordered item for": [
-         null,
-         "Bestellten Gegenstand bearbeiten für"
-      ],
-      "Email": [
-         null,
-         "E-Mail"
-      ],
-      "Email: ": [
-         null,
-         "E-Mail:"
-      ],
-      "Employee": [
-         null,
-         "Mitarbeiter"
-      ],
-      "Equipment Pools": [
-         null,
-         "Geräteparks"
-      ],
-      "Even if you return the items now, the inventory manager may fine or otherwise penalize you.": [
-         null,
-         "Auch wenn Sie die Geräte jetzt zurückbringen, könnte der Inventarverwalter Sie trotzdem verwarnen oder büssen."
-      ],
-      "Event|Action": [
-         null,
-         "Aktion"
-      ],
-      "Event|Contract line ids": [
-         null,
-         "Vertrag"
-      ],
-      "Event|Date": [
-         null,
-         "Aktion"
-      ],
-      "Event|End": [
-         null,
-         "Aktion"
-      ],
-      "Event|Isduration": [
-         null,
-         "Aktion"
-      ],
-      "Event|Quantity": [
-         null,
-         "Anzahl"
-      ],
-      "Event|Title": [
-         null,
-         "Aktion"
-      ],
-      "Extended Info": [
-         null,
-         "Weitere Informationen"
-      ],
-      "Firstname/Lastname": [
-         null,
-         "Vorname/Nachname"
-      ],
-      "For Rental": [
-         null,
-         "Zur Ausleihe"
-      ],
-      "From date": [
-         null,
-         "Von Datum"
-      ],
-      "Gap": [
-         null,
-         "Lücke"
-      ],
-      "General": [
-         null,
-         "Allgemein"
-      ],
-      "Generate barcode": [
-         null,
-         "Strichcode erstellen"
-      ],
-      "Grand total": [
-         null,
-         "Gesamttotal"
-      ],
-      "Group": [
-         null,
-         "Gruppe"
-      ],
-      "Group name": [
-         null,
-         "Gruppenname"
-      ],
-      "Groups": [
-         null,
-         "Gruppen"
-      ],
-      "Groups (%d)": [
-         null,
-         "Gruppen  (%d)"
-      ],
-      "Group|Created at": [
-         null,
-         "Modellgruppe"
-      ],
-      "Group|Delta": [
-         null,
-         "Modellgruppe"
-      ],
-      "Group|Inventory pool": [
-         null,
-         "Gerätepark"
-      ],
-      "Group|Name": [
-         null,
-         "Modellgruppe"
-      ],
-      "Group|Updated at": [
-         null,
-         "Modellgruppe"
-      ],
-      "History|Created at": [
-         null,
-         "Vertrag %d"
-      ],
-      "History|Target": [
-         null,
-         "Geschichte"
-      ],
-      "History|Target type": [
-         null,
-         "Geschichte"
-      ],
-      "History|Text": [
-         null,
-         "Geschichte"
-      ],
-      "History|Type const": [
-         null,
-         "Geschichte"
-      ],
-      "History|User": [
-         null,
-         "Geschichte"
-      ],
-      "Holiday|End date": [
-         null,
-         "Enddatum"
-      ],
-      "Holiday|Inventory pool": [
-         null,
-         "Gerätepark"
-      ],
-      "Holiday|Name": [
-         null,
-         "Ferientage"
-      ],
-      "Holiday|Start date": [
-         null,
-         "Startdatum"
-      ],
-      "Id": [
-         null,
-         "Id"
-      ],
-      "If you select 'No', this item can never be set to 'borrowable' by a lending manager.": [
-         null,
-         "Wenn Sie 'Nein' wählen, dürfen Ausleihe-Verwalter diesen Gegenstand nicht auf 'ausleihbar' setzen."
-      ],
-      "Images": [
-         null,
-         "Bilder"
-      ],
-      "Images (%d)": [
-         null,
-         "Bilder (%d)"
-      ],
-      "Image|Content type": [
-         null,
-         "Parent"
-      ],
-      "Image|Filename": [
-         null,
-         "Bild|Ist haupt"
-      ],
-      "Image|Height": [
-         null,
-         "Parent"
-      ],
-      "Image|Is main": [
-         null,
-         "Bild|Ist haupt"
-      ],
-      "Image|Model": [
-         null,
-         "Modell"
-      ],
-      "Image|Parent": [
-         null,
-         "Parent"
-      ],
-      "Image|Size": [
-         null,
-         "Bild|Ist haupt"
-      ],
-      "Image|Thumbnail": [
-         null,
-         "Bild|Ist haupt"
-      ],
-      "Image|Width": [
-         null,
-         "Bild|Ist haupt"
-      ],
-      "In Repair": [
-         null,
-         "In Reparatur"
-      ],
-      "In Stock (%d)": [
-         null,
-         "An Lager (%d)"
-      ],
-      "In stock?": [
-         null,
-         "An Lager?"
-      ],
-      "Installation Location": [
-         null,
-         "Installationsort"
-      ],
-      "Installed in: %s": [
-         null,
-         "Installiert in: %s"
-      ],
-      "Inventarcode": [
-         null,
-         "Inventarcode"
-      ],
-      "Inventory Code assigned": [
-         null,
-         "Inventarcode zugewiesen"
-      ],
-      "Inventory Code identifies an item that is not in this order.": [
-         null,
-         "Der Inventarcode gehört zu einem Gerät, das in dieser Bestellung nicht auftaucht"
-      ],
-      "Inventory Code:": [
-         null,
-         "Inventarcode"
-      ],
-      "Inventory Pool(s)": [
-         null,
-         "Gerätepark(s)"
-      ],
-      "Inventory Relevant": [
-         null,
-         "Inventarrelevant"
-      ],
-      "InventoryPools": [
-         null,
-         "Geräteparks"
-      ],
-      "InventoryPool|Color": [
-         null,
-         "Gerätepark"
-      ],
-      "InventoryPool|Contact details": [
-         null,
-         "Gerätepark|Kontaktdetails"
-      ],
-      "InventoryPool|Contract description": [
-         null,
-         "Gerätepark|Kontaktdetails"
-      ],
-      "InventoryPool|Contract url": [
-         null,
-         "Gerätepark|Kontaktdetails"
-      ],
-      "InventoryPool|Default contract note": [
-         null,
-         "Gerätepark|Kontaktdetails"
-      ],
-      "InventoryPool|Delta": [
-         null,
-         "Gerätepark"
-      ],
-      "InventoryPool|Description": [
-         null,
-         "Geräteparks"
-      ],
-      "InventoryPool|Email": [
-         null,
-         "Gerätepark"
-      ],
-      "InventoryPool|Logo url": [
-         null,
-         "Gerätepark"
-      ],
-      "InventoryPool|Name": [
-         null,
-         "Gerätepark"
-      ],
-      "InventoryPool|Print contracts": [
-         null,
-         "Gerätepark|Kontaktdetails"
-      ],
-      "InventoryPool|Shortname": [
-         null,
-         "Gerätepark"
-      ],
-      "Inventorypool must be selected.": [
-         null,
-         "Gerätepark muss ausgewählt sein"
-      ],
-      "Item Packages (%d)": [
-         null,
-         "Pakete (%d)"
-      ],
-      "Item cannot be borrowable.": [
-         null,
-         "Dieser Gegenstand darf nicht ausleihbar sein."
-      ],
-      "Item needs permission!": [
-         null,
-         "Gegenstand braucht Ausleih-Bewilligung!"
-      ],
-      "Item: %s": [
-         null,
-         "Gegenstand: %s"
-      ],
-      "ItemLine|Cached available": [
-         null,
-         "Vertrag %d"
-      ],
-      "ItemLine|Contract": [
-         null,
-         "Zeitleiste Verträge"
-      ],
-      "ItemLine|Created at": [
-         null,
-         "Vertrag %d"
-      ],
-      "ItemLine|End date": [
-         null,
-         "Item|Invoice date"
-      ],
-      "ItemLine|Location": [
-         null,
-         "Ort"
-      ],
-      "ItemLine|Model": [
-         null,
-         "Modell"
-      ],
-      "ItemLine|Option": [
-         null,
-         "Ort"
-      ],
-      "ItemLine|Quantity": [
-         null,
-         "Anzahl"
-      ],
-      "ItemLine|Returned date": [
-         null,
-         "Rückgabedatum"
-      ],
-      "ItemLine|Start date": [
-         null,
-         "Startdatum"
-      ],
-      "ItemLine|Updated at": [
-         null,
-         "Vertrage %d"
-      ],
-      "Items (%d)": [
-         null,
-         "Gegenstände (%d)"
-      ],
-      "Items to hand over": [
-         null,
-         "Artikel zu übergeben"
-      ],
-      "Item|Created at": [
-         null,
-         "Vertrag %d"
-      ],
-      "Item|Delta": [
-         null,
-         "Modell"
-      ],
-      "Item|Insurance number": [
-         null,
-         "Item|Invoice date"
-      ],
-      "Item|Inventory code": [
-         null,
-         "Inventarcode"
-      ],
-      "Item|Inventory pool": [
-         null,
-         "Inventarcode"
-      ],
-      "Item|Invoice date": [
-         null,
-         "Item|Invoice date"
-      ],
-      "Item|Invoice number": [
-         null,
-         "Item|Invoice date"
-      ],
-      "Item|Is borrowable": [
-         null,
-         "Nicht ausleihbar"
-      ],
-      "Item|Is borrowable allowed": [
-         null,
-         "Nicht ausleihbar"
-      ],
-      "Item|Is broken": [
-         null,
-         "Gegenstand|Ist unvollständig"
-      ],
-      "Item|Is inventory relevant": [
-         null,
-         "Inventarcode"
-      ],
-      "Item|Last check": [
-         null,
-         "Geprüft:"
-      ],
-      "Item|Model": [
-         null,
-         "Modell"
-      ],
-      "Item|Name": [
-         null,
-         "Parent"
-      ],
-      "Item|Needs permission": [
-         null,
-         "Gegenstand braucht Ausleih-Bewilligung!"
-      ],
-      "Item|Note": [
-         null,
-         "Modell"
-      ],
-      "Item|Owner": [
-         null,
-         "Besitzer:"
-      ],
-      "Item|Parent": [
-         null,
-         "Parent"
-      ],
-      "Item|Price": [
-         null,
-         "Parent"
-      ],
-      "Item|Required level": [
-         null,
-         "Benötigte Stufe"
-      ],
-      "Item|Responsible": [
-         null,
-         "Verantwortlich"
-      ],
-      "Item|Retired": [
-         null,
-         "Benötigte Stufe"
-      ],
-      "Item|Retired reason": [
-         null,
-         "Gerät wurde ausgemustert am"
-      ],
-      "Item|Serial number": [
-         null,
-         "Seriennummer"
-      ],
-      "Item|Supplier": [
-         null,
-         "Lieferant"
-      ],
-      "Item|Updated at": [
-         null,
-         "Vertrage %d"
-      ],
-      "Item|User name": [
-         null,
-         "Parent"
-      ],
-      "Label": [
-         null,
-         "Bezeichnung"
-      ],
-      "Language|Active": [
-         null,
-         "Verwalter"
-      ],
-      "Language|Default": [
-         null,
-         "Verwalter"
-      ],
-      "Language|Locale name": [
-         null,
-         "Verwalter"
-      ],
-      "Language|Name": [
-         null,
-         "Verwalter"
-      ],
-      "Lending party:": [
-         null,
-         "Verleiher:"
-      ],
-      "Level": [
-         null,
-         "Stufe"
-      ],
-      "Locations (%d)": [
-         null,
-         "Orte (%d)"
-      ],
-      "Location|Building": [
-         null,
-         "Ort|Gebäude"
-      ],
-      "Location|Delta": [
-         null,
-         "Ort|Gestell"
-      ],
-      "Location|Is main": [
-         null,
-         "Orte"
-      ],
-      "Location|Room": [
-         null,
-         "Ort|Raum"
-      ],
-      "Location|Shelf": [
-         null,
-         "Ort|Gestell"
-      ],
-      "Logged in as %{u}.": [
-         null,
-         "Eingeloggt als %{u}."
-      ],
-      "Login: ": [
-         null,
-         "Login:"
-      ],
-      "Main?": [
-         null,
-         "Haupt?"
-      ],
-      "Managers": [
-         null,
-         "Verwalter"
-      ],
-      "Managers (%d)": [
-         null,
-         "Verwalter (%d)"
-      ],
-      "Mark": [
-         null,
-         "Markieren"
-      ],
-      "Menu background color": [
-         null,
-         "Menü-Hintergrundfarbe"
-      ],
-      "Mi": [
-         null,
-         "Wed"
-      ],
-      "Min Gap": [
-         null,
-         "Min. Lücke"
-      ],
-      "Model is not in category %s now": [
-         null,
-         "Modell ist jetzt nicht in Kategorie %s"
-      ],
-      "ModelGroup|Created at": [
-         null,
-         "Modellgruppe"
-      ],
-      "ModelGroup|Delta": [
-         null,
-         "Modellgruppe"
-      ],
-      "ModelGroup|Name": [
-         null,
-         "Modellgruppe"
-      ],
-      "ModelGroup|Type": [
-         null,
-         "Modellgruppe"
-      ],
-      "ModelGroup|Updated at": [
-         null,
-         "Modellgruppe"
-      ],
-      "ModelLink|Model": [
-         null,
-         "Modellgruppe"
-      ],
-      "ModelLink|Model group": [
-         null,
-         "Modellgruppe"
-      ],
-      "ModelLink|Quantity": [
-         null,
-         "Anzahl"
-      ],
-      "Models (%{m}/%{i})": [
-         null,
-         "Modelle (%{m}/%{i})"
-      ],
-      "Models in %s": [
-         null,
-         "Modelle in %s"
-      ],
-      "Models in this pool": [
-         null,
-         "Modelle in diesem Gerätepark"
-      ],
-      "Model|Created at": [
-         null,
-         "Vertrag %d"
-      ],
-      "Model|Delta": [
-         null,
-         "Modell"
-      ],
-      "Model|Description": [
-         null,
-         "Modell|Beschreibung"
-      ],
-      "Model|Info url": [
-         null,
-         "Hersteller"
-      ],
-      "Model|Internal description": [
-         null,
-         "Modell|Beschreibung"
-      ],
-      "Model|Is package": [
-         null,
-         "Modell"
-      ],
-      "Model|Maintenance period": [
-         null,
-         "Modell|Beschreibung"
-      ],
-      "Model|Manufacturer": [
-         null,
-         "Hersteller"
-      ],
-      "Model|Name": [
-         null,
-         "Modell"
-      ],
-      "Model|Rental price": [
-         null,
-         "Modell|Beschreibung"
-      ],
-      "Model|Tags": [
-         null,
-         "Modelle"
-      ],
-      "Model|Technical detail": [
-         null,
-         "Modell|Beschreibung"
-      ],
-      "Model|Updated at": [
-         null,
-         "Vertrage %d"
-      ],
-      "Month": [
-         null,
-         "Monat"
-      ],
-      "My Account": [
-         null,
-         "Mein Konto"
-      ],
-      "My Orders": [
-         null,
-         "Meine Bestellungen"
-      ],
-      "Name:": [
-         null,
-         "Name:"
-      ],
-      "Name: ": [
-         null,
-         "Name:"
-      ],
-      "Needs Permission?": [
-         null,
-         "Braucht Ausleihbewilligung?"
-      ],
-      "New": [
-         null,
-         "Neu"
-      ],
-      "New Contract": [
-         null,
-         "Neuer Vertrag"
-      ],
-      "New Group": [
-         null,
-         "Neue Gruppe"
-      ],
-      "New Item Package": [
-         null,
-         "Neues Paket"
-      ],
-      "New Package": [
-         null,
-         "Neues Paket"
-      ],
-      "New Password": [
-         null,
-         "Neues Passwort"
-      ],
-      "New Template": [
-         null,
-         "Neue Vorlage"
-      ],
-      "New item added to contract.": [
-         null,
-         "Neuer Gegenstand zu Vertrag hinzufgefügt."
-      ],
-      "New lines have been generated": [
-         null,
-         "Neue Zeilen wurden hinzugefügt"
-      ],
-      "No items to hand over specified. Please assign inventory codes to the items you want to hand over.": [
-         null,
-         "Es sind keine Gegenstände zur Übergabe markiert. Bitte weisen Sie den Gegenständen, die Sie übergeben wollen, Inventarcodes zu."
-      ],
-      "No models to display": [
-         null,
-         "Keine Modelle anzuzeigen"
-      ],
-      "Not In Stock": [
-         null,
-         "Nicht an Lager"
-      ],
-      "Not In Stock (%d)": [
-         null,
-         "Nicht an Lager (%d)"
-      ],
-      "Not Inventory Relevant": [
-         null,
-         "Nicht inventarrelevant"
-      ],
-      "Notes": [
-         null,
-         "Notizen"
-      ],
-      "Notes (%d)": [
-         null,
-         "Notizen (%d)"
-      ],
-      "Notification|Created at": [
-         null,
-         "Erinnerung"
-      ],
-      "Notification|Title": [
-         null,
-         "Erinnerung"
-      ],
-      "Notification|User": [
-         null,
-         "Erinnerung"
-      ],
-      "Numerator|Item": [
-         null,
-         "Anzahl Gegenstände"
-      ],
-      "Only %d items are present.": [
-         null,
-         "Nur %d Gegenstände sind verfügbar."
-      ],
-      "Operation not permitted: the item is not returned yet.": [
-         null,
-         "Diese Aktion ist nicht erlaubt: Der Gegenstand wurde noch nicht zurückgegeben."
-      ],
-      "Option %s added.": [
-         null,
-         "Option %s hinzugefügt."
-      ],
-      "OptionLine|Cached available": [
-         null,
-         "Vertrag %d"
-      ],
-      "OptionLine|Contract": [
-         null,
-         "Zeitleiste Verträge"
-      ],
-      "OptionLine|Created at": [
-         null,
-         "Vertrag %d"
-      ],
-      "OptionLine|End date": [
-         null,
-         "Enddatum"
-      ],
-      "OptionLine|Item": [
-         null,
-         "Optionen"
-      ],
-      "OptionLine|Location": [
-         null,
-         "Ort"
-      ],
-      "OptionLine|Model": [
-         null,
-         "Modellgruppe"
-      ],
-      "OptionLine|Quantity": [
-         null,
-         "Anzahl"
-      ],
-      "OptionLine|Returned date": [
-         null,
-         "Rückgabedatum"
-      ],
-      "OptionLine|Start date": [
-         null,
-         "Startdatum"
-      ],
-      "OptionLine|Type": [
-         null,
-         "Optionen"
-      ],
-      "OptionLine|Updated at": [
-         null,
-         "Vertrage %d"
-      ],
-      "Options": [
-         null,
-         "Optionen"
-      ],
-      "Options:": [
-         null,
-         "Optionen:"
-      ],
-      "Option|Delta": [
-         null,
-         "Optionen"
-      ],
-      "Option|Inventory code": [
-         null,
-         "OptionMap|Gerätepark"
-      ],
-      "Option|Inventory pool": [
-         null,
-         "OptionMap|Gerätepark"
-      ],
-      "Option|Name": [
-         null,
-         "Optionen"
-      ],
-      "Option|Price": [
-         null,
-         "Optionen"
-      ],
-      "Order:": [
-         null,
-         "Bestellung:"
-      ],
-      "OrderLine|Cached available": [
-         null,
-         "Vertrag %d"
-      ],
-      "OrderLine|Created at": [
-         null,
-         "Vertrag %d"
-      ],
-      "OrderLine|End date": [
-         null,
-         "Rückgabedatum"
-      ],
-      "OrderLine|Inventory pool": [
-         null,
-         "OptionMap|Gerätepark"
-      ],
-      "OrderLine|Model": [
-         null,
-         "Modellgruppe"
-      ],
-      "OrderLine|Quantity": [
-         null,
-         "Anzahl"
-      ],
-      "OrderLine|Start date": [
-         null,
-         "Startdatum"
-      ],
-      "OrderLine|Updated at": [
-         null,
-         "Vertrage %d"
-      ],
-      "Orders you are editing (please complete)": [
-         null,
-         "Bestellungen, die Sie bearbeiten (bitte vervollständigen)"
-      ],
-      "Order|Created at": [
-         null,
-         "Vertrag %d"
-      ],
-      "Order|Delta": [
-         null,
-         "Bestellung"
-      ],
-      "Order|Inventory pool": [
-         null,
-         "Gerätepark"
-      ],
-      "Order|Purpose": [
-         null,
-         "Zweck"
-      ],
-      "Order|Status const": [
-         null,
-         "Verträge"
-      ],
-      "Order|Updated at": [
-         null,
-         "Vertrage %d"
-      ],
-      "Order|User": [
-         null,
-         "Bestellungen"
-      ],
-      "Other documents": [
-         null,
-         "Andere Dokumente"
-      ],
-      "Own": [
-         null,
-         "Eigenes"
-      ],
-      "Own Inventory": [
-         null,
-         "Eigenes Inventar"
-      ],
-      "Own Models": [
-         null,
-         "Eigene Modelle"
-      ],
-      "Owner:": [
-         null,
-         "Besitzer:"
-      ],
-      "Package name": [
-         null,
-         "Paketname"
-      ],
-      "Packages": [
-         null,
-         "Pakete"
-      ],
-      "Parent": [
-         null,
-         "Parent"
-      ],
-      "Parents": [
-         null,
-         "Eltern"
-      ],
-      "Parents (%d)": [
-         null,
-         "Eltern-Elemente (%d)"
-      ],
-      "Part of:": [
-         null,
-         "Teil von:"
-      ],
-      "Partition|Inventory pool": [
-         null,
-         "OptionMap|Gerätepark"
-      ],
-      "Partition|Model": [
-         null,
-         "Modellgruppe"
-      ],
-      "Partition|Quantity": [
-         null,
-         "Anzahl"
-      ],
-      "Paste": [
-         null,
-         "Einfügen"
-      ],
-      "Pending orders": [
-         null,
-         "Offene Bestellungen"
-      ],
-      "Permission needed:": [
-         null,
-         "Bewilligung nötig:"
-      ],
-      "Please coordinate with the inventory managers in charge to find a date and time for the return.": [
-         null,
-         "Bitte vereinbaren Sie einen Rückgabetermin mit dem Inventarverwalter."
-      ],
-      "Possibly not all matches are being displayed because your search text was shorter than the minumum %s characters": [
-         null,
-         "Es werden evtl. nicht alle Resultate angezeigt, da Ihr Suchbegriff kürzer war als %s Zeichen"
-      ],
-      "Prev": [
-         null,
-         "Zurück"
-      ],
-      "Print Contract %d": [
-         null,
-         "Vertrag %d drucken"
-      ],
-      "Print contract": [
-         null,
-         "Vertrag drucken"
-      ],
-      "Print contracts": [
-         null,
-         "Verträge drucken"
-      ],
-      "Privileged": [
-         null,
-         "Speziell Berechtigte"
-      ],
-      "Problem": [
-         null,
-         "Problem"
-      ],
-      "Properties": [
-         null,
-         "Eigenschaften"
-      ],
-      "Properties (%d)": [
-         null,
-         "Eigenschaften  (%d)"
-      ],
-      "Property|Key": [
-         null,
-         "Eigenschaften"
-      ],
-      "Property|Model": [
-         null,
-         "Eigenschaften"
-      ],
-      "Property|Value": [
-         null,
-         "Eigenschaften"
-      ],
-      "Purpose:": [
-         null,
-         "Zweck:"
-      ],
-      "Qt": [
-         null,
-         "Anz."
-      ],
-      "Qty: %d": [
-         null,
-         "Anzahl: %d"
-      ],
-      "Quick Approve": [
-         null,
-         "Schnell-Genehmigung"
-      ],
-      "Reason": [
-         null,
-         "Begründung"
-      ],
-      "Reason for Retirement": [
-         null,
-         "Grund der Ausmusterung"
-      ],
-      "Received at": [
-         null,
-         "Empfangen "
-      ],
-      "Recipient": [
-         null,
-         "Empfänger"
-      ],
-      "Refresh": [
-         null,
-         "Aktualisieren"
-      ],
-      "Reinstate": [
-         null,
-         "Entsperren"
-      ],
-      "Remove": [
-         null,
-         "Entfernen"
-      ],
-      "Remove Location from the above models": [
-         null,
-         "Ort von den obgenannten Modellen entfernen"
-      ],
-      "Remove Model": [
-         null,
-         "Modell entfernen"
-      ],
-      "Remove Models": [
-         null,
-         "Modelle entfernen"
-      ],
-      "Remove Option": [
-         null,
-         "Zubehör entfernen"
-      ],
-      "Remove Options": [
-         null,
-         "Zubehör entfernen"
-      ],
-      "Remove Parent": [
-         null,
-         "Eltern-Objekt entfernen"
-      ],
-      "Removed Option: %{o}": [
-         null,
-         "Zubehör entfernt: %{o}"
-      ],
-      "Required Level": [
-         null,
-         "Benötigte Stufe"
-      ],
-      "Required Level:": [
-         null,
-         "Benötigte Stufe:"
-      ],
-      "Reserver": [
-         null,
-         "Reservierer"
-      ],
-      "Responsible: %s": [
-         null,
-         "Verantwortlich: %s"
-      ],
-      "Restore": [
-         null,
-         "Wiederherstellen"
-      ],
-      "Restore Original": [
-         null,
-         "Original wiederherstellen"
-      ],
-      "Restore to the original order?": [
-         null,
-         "Die ursprüngliche Bestellung wiederherstellen?"
-      ],
-      "Returned options": [
-         null,
-         "Retournierte Optionen"
-      ],
-      "Role": [
-         null,
-         "Rolle"
-      ],
-      "Roles": [
-         null,
-         "Rollen"
-      ],
-      "Role|Delta": [
-         null,
-         "Eltern-Objekt entfernen"
-      ],
-      "Role|Lft": [
-         null,
-         "Rolle"
-      ],
-      "Role|Name": [
-         null,
-         "Rolle"
-      ],
-      "Role|Parent": [
-         null,
-         "Eltern-Objekt entfernen"
-      ],
-      "Role|Rgt": [
-         null,
-         "Rolle"
-      ],
-      "Save + Approve": [
-         null,
-         "Speichern + Genehmigen"
-      ],
-      "Saving Data": [
-         null,
-         "Speichere Daten"
-      ],
-      "Select": [
-         null,
-         "Auswählen"
-      ],
-      "Select Location": [
-         null,
-         "Standort zuweisen"
-      ],
-      "Select model first": [
-         null,
-         "Zuerst Modell auswählen"
-      ],
-      "Send": [
-         null,
-         "Schicken"
-      ],
-      "Serial Number": [
-         null,
-         "Seriennummer"
-      ],
-      "Set": [
-         null,
-         "Zuweisen"
-      ],
-      "Set Password": [
-         null,
-         "Passwort setzen"
-      ],
-      "Set different inventory pool (default location)": [
-         null,
-         "Gerätepark ändern (Standard-Ort)"
-      ],
-      "Set different location": [
-         null,
-         "Anderen Ort setzen"
-      ],
-      "Set new model": [
-         null,
-         "Modell zuweisen"
-      ],
-      "Short Name": [
-         null,
-         "Kurzname"
-      ],
-      "Signature of borrower:": [
-         null,
-         "Unterschrift des/der Ausleihenden:"
-      ],
-      "Signature of person taking back the item:": [
-         null,
-         "Unterschrift der zurücknehmenden Person:"
-      ],
-      "Someone else might already be waiting for some of these items, so we are just sending you this little reminder to make sure you don't forget.": [
-         null,
-         "Jemand anderes wartet evtl. bereits auf einige dieser Gegenstände, also senden wir Ihnen diese kleine Erinnerung."
-      ],
-      "Special": [
-         null,
-         "Speziell"
-      ],
-      "Start-Datum": [
-         null,
-         "Startdatum"
-      ],
-      "Student": [
-         null,
-         "Student"
-      ],
-      "Students": [
-         null,
-         "Studenten"
-      ],
-      "Subject": [
-         null,
-         "Betreff"
-      ],
-      "Supplier": [
-         null,
-         "Lieferant"
-      ],
-      "Supplier|Created at": [
-         null,
-         "Vertrag %d"
-      ],
-      "Supplier|Name": [
-         null,
-         "Lieferant"
-      ],
-      "Supplier|Updated at": [
-         null,
-         "Vertrage %d"
-      ],
-      "Suspend": [
-         null,
-         "Sperren"
-      ],
-      "Suspended Until": [
-         null,
-         "Gesperrt bis"
-      ],
-      "Suspended until %s": [
-         null,
-         "Gesperrt bis %s"
-      ],
-      "Swap": [
-         null,
-         "Tauschen"
-      ],
-      "Swap Model": [
-         null,
-         "Modell tauschen"
-      ],
-      "Swap Reserver": [
-         null,
-         "Reservierenden ändern"
-      ],
-      "Take Back visits": [
-         null,
-         "Besuche zum Zurücknehmen"
-      ],
-      "Telephone": [
-         null,
-         "Telefon"
-      ],
-      "Template": [
-         null,
-         "Vorlage"
-      ],
-      "Template name": [
-         null,
-         "Vorlagen-Namen"
-      ],
-      "Template|Created at": [
-         null,
-         "Vertrag %d"
-      ],
-      "Template|Delta": [
-         null,
-         "Vorlage"
-      ],
-      "Template|Name": [
-         null,
-         "Vorlagen-Namen"
-      ],
-      "Template|Type": [
-         null,
-         "Vorlage"
-      ],
-      "Template|Updated at": [
-         null,
-         "Vertrage %d"
-      ],
-      "Test": [
-         null,
-         "Text"
-      ],
-      "The following items are overdue. Please return them as soon as possible:": [
-         null,
-         "Die folgenden Gegenstände sind überfällig. Bitte bringen Sie sie so schnell wie möglich zurück:"
-      ],
-      "The following items are overdue:": [
-         null,
-         "Die folgenden Artikel sind überfällig:"
-      ],
-      "The inventory manager added the following comment about your order:": [
-         null,
-         "Vom Verleiher hinzugefügte Kommentare:"
-      ],
-      "The inventory manager decided that this item cannot be borrowed": [
-         null,
-         "Der Inventarverwalter hat definiert, dass dieser Gegenstand nicht ausgeliehen werden kann"
-      ],
-      "The item %s will be retired and no longer be available for rentals.": [
-         null,
-         "Der Gegenstand %s wird ausgemustert und nicht mehr für die Ausleihe verfügbar sein."
-      ],
-      "The item %s will be unretired and be available for rentals.": [
-         null,
-         "Der Gegenstand %s wird nicht mehr ausgemustert und wieder für die Ausleihe verfügbar sein."
-      ],
-      "The item is already handed over": [
-         null,
-         "Dieser Artikel wurde bereits ausgehändigt"
-      ],
-      "The item is already in the current contract.": [
-         null,
-         "Dieser Artikel ist bereits Teil dieses Vertrags."
-      ],
-      "The leihs system": [
-         null,
-         "Das leihs-System"
-      ],
-      "The model is already assigned to this category": [
-         null,
-         "Dieses Modell ist bereits dieser Kategorie zugewiesen"
-      ],
-      "The order has been successfully submitted, but is NOT YET CONFIRMED.": [
-         null,
-         "Die Bestellung wurde erfolgreich eingereicht, ist aber NOCH NICHT GENEHMIGT."
-      ],
-      "The order is empty": [
-         null,
-         "Die Bestellung ist leer"
-      ],
-      "The order is not yet approvable": [
-         null,
-         "Diese Bestellung kann noch nicht genehmigt werden"
-      ],
-      "The package name cannot be changed because it's present in many inventory pools.": [
-         null,
-         "Der Paketname kann nicht verändert werden, weil er in mehreren Geräteparks vorkommt."
-      ],
-      "The quantity has been changed": [
-         null,
-         "Die Menge ist verändert worden"
-      ],
-      "The start date has been changed for item %s": [
-         null,
-         "Das Startdatum ist verändert worden für Gegenstand %s"
-      ],
-      "The user will not be able to place any orders": [
-         null,
-         "Dieser Benutzer wird keine Bestellungen mehr aufgeben können"
-      ],
-      "These are your current pending orders:": [
-         null,
-         "Hier sind die Reservationen, die noch von einem Inventarverwalter bestätigt werden müssen:"
-      ],
-      "Things to return": [
-         null,
-         "Dinge zurückzugeben"
-      ],
-      "This e-mail address is used as sender when sending reminder or confirmation e-mails for this particular pool. If you enter nothing, the system default sender address is used.": [
-         null,
-         "Diese Mailadresse wird als Absender beim Senden von Erinnerungs- und Bestätigungsmails aus diesem Gerätepark verwendet. Wenn Sie nichts eingeben, wird die Standardadresse des Systems verwendet."
-      ],
-      "This inventory pool is closed on the proposed end date": [
-         null,
-         "Der Gerätepark ist am gewünschten Rückgabetag geschlossen"
-      ],
-      "This is an automatic e-mail sent to you by the leihs system.": [
-         null,
-         "* Automatisch generierte E-Mail *"
-      ],
-      "This item is part of package %s.": [
-         null,
-         "Dieser Gegenstand ist Teil von Paket %s."
-      ],
-      "This item requires the user to be level %s": [
-         null,
-         "Dieses Gerät benötigt mindestens Benutzerstufe %s"
-      ],
-      "This lending contract covers borrowing the following items by the person (natural or legal) described as \"borrowing party\" above. Use of these items is only allowed for the purpose given below.": [
-         null,
-         "Dieser Leihvertrag deckt die Ausleihe der folgenden Gegenstände durch die natürliche oder rechtliche Person ab, die oben als \"Ausleihende/r\" bezeichnet ist. Die Verwendung der Gegenstände ist nur im Rahmen des unten angegebenen Zwecks gestattet."
-      ],
-      "This lending contract covers borrowing the following items by the person (natural or legal) described as 'borrowing party' below. Use of these items is only allowed for the purpose given below.": [
-         null,
-         "Dieser Leihvertrag deckt die Ausleihe der folgenden Gegenstände durch die natürliche oder rechtliche Person ab, die oben als 'Ausleihende/r' bezeichnet ist. Die Verwendung der Gegenstände ist nur im Rahmen des unten angegebenen Zwecks gestattet."
-      ],
-      "This model may need permission!": [
-         null,
-         "Um dieses Modell auszuleihen, benötigen Sie evtl. eine Ausleihbewilligung."
-      ],
-      "This note is added to any contract, but can be changed individually before actually printing and signing each contract.": [
-         null,
-         "Diese Notiz wird standardmässig jedem Vertrag hinzufgefügt, kann beim Druck eines einzelnen Vertrags aber noch geändert werden."
-      ],
-      "This user doesn't have access to your inventory pool or is on your Blacklist!": [
-         null,
-         "Dieser Benutzer hat keinen Zugriff auf Ihren Gerätepark oder er ist auf Ihrer schwarzen Liste!"
-      ],
-      "This value list covers an order lasting from %s to %s.": [
-         null,
-         "Dieses Werteverzeichnis bezieht sich auf eine Bestellung für den Zeitraum %s bis %s."
-      ],
-      "Time": [
-         null,
-         "Zeit"
-      ],
-      "Time Period": [
-         null,
-         "Zeitraum"
-      ],
-      "Time frame": [
-         null,
-         "Zeitfenster"
-      ],
-      "Timeframe": [
-         null,
-         "Zeitfenster"
-      ],
-      "Timeline Visits": [
-         null,
-         "Zeitleiste Besuche"
-      ],
-      "To": [
-         null,
-         "bis"
-      ],
-      "Type": [
-         null,
-         "Typ"
-      ],
-      "Unallocated": [
-         null,
-         "Nicht zugewiesen"
-      ],
-      "Unborrowable (%d)": [
-         null,
-         "Nicht ausleihbar (%d)"
-      ],
-      "Unfinished": [
-         null,
-         "Nicht abgeschlossen"
-      ],
-      "Unfortunately, we do not have all your personal information and therefore cannot grant you access to this system. Please log in to the Personensuche system (see link below) and complete the form under 'Meine persönlichen Daten'. If you cannot use the Personensuche system, please contact Claudio Pavan (claudio.pavan@zhdk.ch or +41 43 446 21 48) and give him your full details. The information we need is: Full name, address, landline phone number, mobile phone number and alternative e-mail address. This information will never be visible to the public unless you explicitly choose to make it visible.": [
-         null,
-         "Leider haben wir nicht genug Informationen zu Ihrer Person und müssen Ihnen deshalb den Zugang zu diesem System verweigern. Bitte loggen Sie in die Personensuche ein (siehe Link weiter unten) und vervollständigen Sie die Informationen unter 'Meine persönlichen Daten'. Falls Sie das Personensuche-System nicht benutzen können, wenden Sie sich bitte an Claudio Pavan (claudio.pavan@zhdk.ch or 043 446 21 48). Die Informationen, die wir benötigen, sind: Voller Name, Adresse, Telefon (privat), Telefon (mobil) und E-Mail (privat). Diese Informationen werden niemals öffentlich sichtbar gemacht, ausser Sie erlauben dies explizit."
-      ],
-      "Unique ID": [
-         null,
-         "Unique-ID"
-      ],
-      "Unknown": [
-         null,
-         "Unbekannt"
-      ],
-      "Upload attachment for model": [
-         null,
-         "Attachment hochladen für Modell"
-      ],
-      "Upload image for model": [
-         null,
-         "Bild für Modell hochladen"
-      ],
-      "User %s has been reminded ": [
-         null,
-         "Benutzer %s wurde erinnert"
-      ],
-      "User Login": [
-         null,
-         "Benutzer-Login"
-      ],
-      "User details incomplete: %s is missing": [
-         null,
-         "Benutzer-Informationen nicht komplett: %s fehlt"
-      ],
-      "User has no access to your inventory pool anymore": [
-         null,
-         "Benutzer hat keinen Zugriff mehr auf Ihren Gerätepark"
-      ],
-      "Users (%d)": [
-         null,
-         "Benutzer (%d)"
-      ],
-      "User|Address": [
-         null,
-         "Hinzugefügt"
-      ],
-      "User|Authentication system": [
-         null,
-         "Authentifizierungssystem"
-      ],
-      "User|Badge": [
-         null,
-         "Vorname/Nachname"
-      ],
-      "User|City": [
-         null,
-         "Benutzer-Login"
-      ],
-      "User|Country": [
-         null,
-         "Vertrag"
-      ],
-      "User|Created at": [
-         null,
-         "Vertrag %d"
-      ],
-      "User|Delta": [
-         null,
-         "Vertrag %d"
-      ],
-      "User|Email": [
-         null,
-         "E-Mail"
-      ],
-      "User|Extended info": [
-         null,
-         "Weitere Informationen"
-      ],
-      "User|Firstname": [
-         null,
-         "Vorname/Nachname"
-      ],
-      "User|Language": [
-         null,
-         "Vorname/Nachname"
-      ],
-      "User|Login": [
-         null,
-         "Benutzer-Login"
-      ],
-      "User|Phone": [
-         null,
-         "Telefon"
-      ],
-      "User|Unique": [
-         null,
-         "Telefon"
-      ],
-      "User|Updated at": [
-         null,
-         "Vertrage %d"
-      ],
-      "User|Zip": [
-         null,
-         "Benutzer-Login"
-      ],
-      "Value list no. %d": [
-         null,
-         "Werteverzeichnis Nr. %d"
-      ],
-      "View": [
-         null,
-         "Ansehen"
-      ],
-      "View (readonly)": [
-         null,
-         "Ansehen (nicht editierbar)"
-      ],
-      "View + Acknowledge": [
-         null,
-         "Ansehen + genehmigen"
-      ],
-      "View and edit": [
-         null,
-         "Öffnen und editieren"
-      ],
-      "We therefore ask you to be fair and punctual! Thank you!": [
-         null,
-         "Also seien Sie bitte fair und pünktlich!  Vielen Dank!"
-      ],
-      "Whatever you enter here is prepended to all inventory numbers for this particular pool. e.g. ABC1, ABC2, ABC3 etc. If you leave this empty, no alphabetic characters are used in the inventory numbers.": [
-         null,
-         "Was Sie hier eingeben, wird vorne an alle Inventarnummern dieses Geräteparks angehängt. z.B. ABC1, ABC2, ABC3 usw. Wenn Sie dies leer lassen, werden keine alphanumerischen Zeichen in den Inventarnummern verwendet."
-      ],
-      "Workday|Friday": [
-         null,
-         "Arbeitstag/Freitag"
-      ],
-      "Workday|Inventory pool": [
-         null,
-         "OptionMap|Gerätepark"
-      ],
-      "Workday|Monday": [
-         null,
-         "Arbeitstag|Montag"
-      ],
-      "Workday|Saturday": [
-         null,
-         "Arbeitstag/Samstag"
-      ],
-      "Workday|Sunday": [
-         null,
-         "Arbeitstag/Sonntag"
-      ],
-      "Workday|Thursday": [
-         null,
-         "Arbeitstag/Donnerstag"
-      ],
-      "Workday|Tuesday": [
-         null,
-         "Arbeitstag/Dienstag"
-      ],
-      "Workday|Wednesday": [
-         null,
-         "Arbeitstag/Mittwoch"
-      ],
-      "Write Email": [
-         null,
-         "E-Mail schreiben"
-      ],
-      "Wrong Username/Password": [
-         null,
-         "Benutzername/Passwort ungültig"
-      ],
-      "YOU ARE SUSPENDED FOR THIS INVENTORY_POOL": [
-         null,
-         "SIE SIND FÜR DIESEN GERÄTEPARK GESPERRT"
-      ],
-      "Yesterday": [
-         null,
-         "Gestern"
-      ],
-      "You are sure?": [
-         null,
-         "Sind Sie sicher?"
-      ],
-      "You can enter an additional comment below, which will be sent to the user by e-mail.": [
-         null,
-         "Sie können weitere Kommentare unten hinzufügen, die dem Benutzer per E-Mail zugeschickt werden."
-      ],
-      "You can't have a Start Date before today": [
-         null,
-         "Das Startdatum kann nicht vor dem heutigen Datum liegen"
-      ],
-      "You don't have any rights to access this application": [
-         null,
-         "Sie sind nicht berechtigt, diese Applikation zu benutzen"
-      ],
-      "You have access to the following Equipment Pools:": [
-         null,
-         "Sie sind für die folgenden Geräteparks berechtigt:"
-      ],
-      "You're changing the installation location for the following items:": [
-         null,
-         "Sie verändern den Installationsort der folgenden Gegenstände:"
-      ],
-      "Your order has now been submitted to an inventory manager for approval. The inventory manager will check your order and either approve it, reject it or make changes to it. Once this is done, you will be notified by e-mail. You can also see your order status on your personal page (click your name in the top right corner of this page).": [
-         null,
-         "Ihre Bestellung wurde zur Bearbeitung an einen Inventarverwalter geschickt. Dieser wird sie überprüfen und entweder genehmigen, ablehnen oder verändern. Sobald dies passiert, werden Sie per E-Mail benachrichtigt. Sie können Ihre offenen Reservationen auch auf Ihrer persönlichen Liste abrufen (klicken Sie auf Ihren Namen, oben rechts auf dieser Seite)."
-      ],
-      "Your search string must contain at least %s characters": [
-         null,
-         "Ihr Suchbegriff muss mindestens %s Zeichen enthalten"
-      ],
-      "ZIP": [
-         null,
-         "PLZ"
-      ],
-      "access right": [
-         null,
-         "Zugriffsrecht"
-      ],
-      "accessory": [
-         null,
-         "Zubehör"
-      ],
-      "already reserved": [
-         null,
-         "bereits reserviert"
-      ],
-      "attachment": [
-         null,
-         "Attachment"
-      ],
-      "authentication system": [
-         null,
-         "Authentifizierungssystem"
-      ],
-      "availability quantity": [
-         null,
-         "Verfügbar"
-      ],
-      "availability::change": [
-         null,
-         "Verfügbarkeit"
-      ],
-      "availability::quantity": [
-         null,
-         "Verfügbar"
-      ],
-      "backup order": [
-         null,
-         "Sicherungskopie der Bestellung anfertigen"
-      ],
-      "building": [
-         null,
-         "Gebäude"
-      ],
-      "contract": [
-         null,
-         "Vertrag"
-      ],
-      "contract line": [
-         null,
-         "Vertrag"
-      ],
-      "database authentication": [
-         null,
-         "Datenbankbasierte Authentifizierung"
-      ],
-      "edit %s": [
-         null,
-         "%s bearbeiten"
-      ],
-      "event": [
-         null,
-         "Ereignis"
-      ],
-      "for": [
-         null,
-         "für"
-      ],
-      "group": [
-         null,
-         "Gruppe"
-      ],
-      "holiday": [
-         null,
-         "Ferientag"
-      ],
-      "inventory pool": [
-         null,
-         "Gerätepark"
-      ],
-      "is returned": [
-         null,
-         "zurückgegeben"
-      ],
-      "item": [
-         null,
-         "Artikel"
-      ],
-      "key": [
-         null,
-         "Schlüssel"
-      ],
-      "language": [
-         null,
-         "Sprache"
-      ],
-      "location": [
-         null,
-         "Standort"
-      ],
-      "model": [
-         null,
-         "Modell"
-      ],
-      "model group": [
-         null,
-         "Modellgruppe"
-      ],
-      "model link": [
-         null,
-         "Modell-Link"
-      ],
-      "more categories": [
-         null,
-         "mehr Kategorien"
-      ],
-      "name": [
-         null,
-         "Name"
-      ],
-      "no category": [
-         null,
-         "keine Kategorie"
-      ],
-      "no more categories": [
-         null,
-         "keine weiteren Kategorien"
-      ],
-      "no serial number": [
-         null,
-         "keine Seriennummer"
-      ],
-      "notification": [
-         null,
-         "Erinnerung"
-      ],
-      "numerator": [
-         null,
-         "Numerator"
-      ],
-      "of": [
-         null,
-         "von"
-      ],
-      "option": [
-         null,
-         "Option"
-      ],
-      "optionline": [
-         null,
-         "Option"
-      ],
-      "order": [
-         null,
-         "Bestellung"
-      ],
-      "order line": [
-         null,
-         "Bestellungszeile"
-      ],
-      "partition": [
-         null,
-         "Partitionierung"
-      ],
-      "property": [
-         null,
-         "Eigenschaft"
-      ],
-      "requested": [
-         null,
-         "angefordert"
-      ],
-      "result": [
-         null,
-         "Resultat"
-      ],
-      "role": [
-         null,
-         "Rolle"
-      ],
-      "room": [
-         null,
-         "Raum"
-      ],
-      "shelf": [
-         null,
-         "Gestell"
-      ],
-      "supplier": [
-         null,
-         "Lieferant"
-      ],
-      "template": [
-         null,
-         "Vorlage"
-      ],
-      "total borrowable": [
-         null,
-         "gesamt ausleihbar"
-      ],
-      "unknown": [
-         null,
-         "unbekannt"
-      ],
-      "user": [
-         null,
-         "Benutzer"
-      ],
-      "value": [
-         null,
-         "Wert"
-      ],
-      "workday": [
-         null,
-         "Arbeitstag"
       ]
    }
 }
