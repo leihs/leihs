@@ -1953,7 +1953,7 @@
 
   msgid("entries%s");
 
-  msgstr("Einträge%s");
+  msgstr("Einträgen%s");
 
   msgid("extend");
 
