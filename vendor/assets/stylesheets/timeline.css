@@ -102,3 +102,13 @@ table.timeline-legend td {
 .timeline-highlight-label.timeline-highlight-label-start td {
 	text-align: right;
 }
+
+body {
+        font-family: sans-serif;
+        font-size: 0.8em;
+}
+
+table.timeline-legend {
+        font-size: 1.0em;
+}
+
