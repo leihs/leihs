@@ -57,13 +57,12 @@ class DailyViewController
         @setupShowMore @el.find(".take_back .list")
     
   setupShowMore: (list)=>
-    text = list.parent().find(".tab .text").first().text()
     list.showMore
       min: 4,
       offset:
         top: -36
-      more: $.tmpl("app/views/daily_view/_more", {text: text}).html()
-      less: $.tmpl("app/views/daily_view/_less", {text: text}).html()
+      more: $.tmpl("app/views/daily_view/_more").html()
+      less: $.tmpl("app/views/daily_view/_less").html()
 
   setupWorkload: =>
     $.ajax
