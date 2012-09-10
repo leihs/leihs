@@ -1990,7 +1990,7 @@ window.i18n.locale_data = {
       ],
       "entries%s": [
          null,
-         "Einträge%s"
+         "Einträgen%s"
       ],
       "extend": [
          null,
