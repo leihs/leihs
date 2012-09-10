@@ -43,9 +43,10 @@
                   %a.start_screen_setter{:href=>"#"}
                     .home.icon
                     -if is_current_page?("start_screen")
-                      = _("current page is set as start page")
+                      = _("current page is set as start page") # FIXME Why does gettext not work here?
                     -else
-                      = _("set current page as start page")
+                      = _("set current page as start page") # FIXME Why does gettext not work here?
+
         %li.seperator
         
         /
