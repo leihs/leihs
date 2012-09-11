@@ -6,6 +6,8 @@ namespace :app do
     task :js => :environment do
       puts "[START] Running jasmine-headless-webkit"
       
+      require 'open3'
+
       commands = ["jasmine-headless-webkit"]
       commands.each do |command|
         puts command

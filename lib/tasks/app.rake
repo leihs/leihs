@@ -66,6 +66,8 @@ namespace :app do
     task :sync do
       puts "Syncing database with testserver's..."
       
+      require 'open3'
+
       commands = []
       commands << "mkdir ./db/backups/"
       commands << "scp leihs@rails:/tmp/leihs-current.sql ./db/backups/"
