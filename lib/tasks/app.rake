@@ -30,6 +30,7 @@ namespace :app do
       Rake::Task["app:test:setup"].invoke
       Rake::Task["app:test:rspec"].invoke
       Rake::Task["app:test:cucumber:all"].invoke
+      Rake::Task["app:test:jasmine"].invoke
     end
 
     task :rspec do
@@ -55,7 +56,7 @@ namespace :app do
 
     task :jasmine do
       system "guard-jasmine"
-      raise "Jasmine Test failed!" if $?.exitstatus == 0
+      raise "Jasmine Test failed!" if $?.exitstatus != 0
     end
   end
 

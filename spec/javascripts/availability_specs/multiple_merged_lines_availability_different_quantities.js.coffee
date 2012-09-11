@@ -28,7 +28,7 @@ describe "Merging multiple lines availability for different quantites", ->
            ["2012-01-02", 2, [{group_id: null, in_quantity: 2}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
            ["2012-01-04", 1, [{group_id: null, in_quantity: 1}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
            ["2012-01-12", 2, [{group_id: null, in_quantity: 0}, {group_id: 1, in_quantity: 2}, {group_id: 2, in_quantity: 0}]],
-           ["2012-01-15", 4, [{group_id: null, in_quanti ty: 2}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 2}]]
+           ["2012-01-15", 4, [{group_id: null, in_quantity: 2}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 2}]]
           ]
     @lines[2] = 
       quantity: 1
