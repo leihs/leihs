@@ -15,9 +15,9 @@ class AvailabilityChanges
         Infinity
       else
         moment(changes[index+1][0]).subtract("days", 1).format("YYYY-MM-DD")
-    @changes = _.sortBy changes, (change)-> 
+    @changes = changes
+    for change in @changes
       change[3] = endDateOf change
-      moment(change[0]).toDate
 
   # remove a specific DocumentLine (type: orderLine/contractLine) from the availability changes to unblock/free things
   withoutSpecificDocumentLines: (lines) =>
@@ -27,11 +27,12 @@ class AvailabilityChanges
       for allocation in change[2]
         for line in lines
           type = _.str.classify line.type
-          outDocumentLines = allocation.out_document_lines[type] if allocation.out_document_lines? and allocation.out_document_lines[type]?
-          if outDocumentLines? and _.include(outDocumentLines, line.id)
-            allocation.out_document_lines[type] = _.filter outDocumentLines, (l)-> l != line.id
-            allocation.in_quantity += line.quantity
-            change[1] += line.quantity
+          if allocation.out_document_lines? and allocation.out_document_lines[type]?
+            outDocumentLines = allocation.out_document_lines[type]
+            if outDocumentLines? and _.include(outDocumentLines, line.id)
+              allocation.out_document_lines[type] = _.filter outDocumentLines, (l)-> l != line.id
+              allocation.in_quantity += line.quantity
+              change[1] += line.quantity
       return change
 
   between: (startDate, endDate) =>

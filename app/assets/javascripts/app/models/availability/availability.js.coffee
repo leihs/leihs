@@ -9,11 +9,11 @@ class Availability
   constructor: (availability, line)->
     availability = JSON.parse(JSON.stringify(availability))
     if line?
-      @changes = new App.AvailabilityChanges new App.AvailabilityChanges(availability.changes).withoutSpecificDocumentLines([line])
+      @changes = new App.AvailabilityChanges new App.AvailabilityChanges(availability.changes).withoutSpecificDocumentLines([line]) # FIXME ??
     else
       @changes = new App.AvailabilityChanges availability.changes
     @documentLines = availability.documentLines
-    @partitions = availability.partitions
+    @partitions = availability.partitions # FIXME where is this used ??
 
   isAvailable: (startDate, endDate, quantity, groupIds) ->
     if groupIds?
@@ -32,7 +32,11 @@ class Availability
     unavailableRanges = []
     changes = @changes.between(startDate, endDate)
     _.each changes, (change, i)=>
-      if @availabilityForGroups(change, groupIds) < quantity
+      quantity_to_check = if groupIds
+        @availabilityForGroups(change, groupIds)
+      else
+        change[1]
+      if quantity_to_check < quantity
         rangesStartDate = if moment(change[0]).diff(moment(startDate), "days") < 0 then startDate else change[0] 
         rangesEndDate = if moment(change[3]).diff(moment(endDate), "days") > 0 then endDate else change[3] 
         unavailableRange = [moment(rangesStartDate).format("YYYY-MM-DD"),moment(rangesEndDate).format("YYYY-MM-DD")]

@@ -10,7 +10,7 @@ class UserAvailability
   
   constructor: (availability_enries, user_groups) ->
     @total_rentable = 0
-    @user_group_ids = []
+    @user_group_ids = [0] # explicitly including the general group 
     @user_group_ids.push group.id for group in user_groups
     for partition in availability_enries.partitions
       do (partition) => 
