@@ -12,6 +12,7 @@ Then /^I see all availability changes and availabilities in between the changes 
   # reset calendar to today first and then walk through
   find(".fc-button-today").click
   av = @model.availability_in(@ip)
+  total_quantity_for_groups = evaluate_script %Q{ $("select#partition option:selected").data("total_rentable") }  
   changes = av.available_total_quantities
   changes.each_with_index do |change, i|
     current_calendar_date = Date.parse page.evaluate_script %Q{ $("#fullcalendar").fullCalendar("getDate").toDateString() }
@@ -33,12 +34,7 @@ Then /^I see all availability changes and availabilities in between the changes 
         end
         change_date_el = find(".fc-widget-content:not(.fc-other-month) .fc-day-number", :text => /#{next_date.day}/).find(:xpath, "../..")
         # check total
-        total_quantity = change[1]
-        # add quantity of edited line when date element is selected
-        if change_date_el[:class].match("selected") != nil
-          total_quantity += evaluate_script %Q{ $(".dialog").tmplItem().data.quantity }
-        end
-        change_date_el.find(".total_quantity").text.gsub(/\D/,"").to_i.should == total_quantity
+        change_date_el.find(".total_quantity").text.gsub(/\D/,"").to_i.should == total_quantity_for_groups
         # check selected partition/borrower quantity
         quantity_for_borrower = av.maximum_available_in_period_summed_for_groups next_date, next_date, @order.user.group_ids
         quantity_for_borrower += evaluate_script %Q{ $(".dialog").tmplItem().data.quantity }  if change_date_el[:class].match("selected") != nil
