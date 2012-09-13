@@ -74,7 +74,7 @@ end
 
 task :modify_config do
   # On staging/test, we don't want to deliver e-mail
-  run "sed -i 's/config.action_mailer.perform_deliveries = true/config.action_mailer.perform_deliveries = false/' #{release_path}/config/environments/production.rb"
+  #run "sed -i 's/config.action_mailer.perform_deliveries = true/config.action_mailer.perform_deliveries = false/' #{release_path}/config/environments/production.rb"
 end
 
 task :migrate_database do
