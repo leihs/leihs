@@ -29,7 +29,7 @@
         - if days_ahead == 0
           = _("Today")
         - else
-          = n_('%d day in the future', '%d days in the future', days_ahead) % days_ahead # This is correct - but it still doesn't work!
+          = n_('%d day in the future', '%d days in the future', days_ahead) % days_ahead 
         
   -if @date == Date.today
     %section.order
