@@ -50,12 +50,12 @@ task :link_config do
 end
 
 task :link_attachments do
-  run "rm -rf #{release_path}/public/images/attachments"
+  #run "rm -rf #{release_path}/public/images/attachments"
   run "mkdir -p #{release_path}/public/images"
-  run "ln -s #{deploy_to}/#{shared_dir}/attachments #{release_path}/public/images/attachments"
+  run "ln -sf #{deploy_to}/#{shared_dir}/attachments #{release_path}/public/images/attachments"
 
-  run "rm -rf #{release_path}/public/attachments"
-  run "ln -s #{deploy_to}/#{shared_dir}/attachments #{release_path}/public/attachments"
+  #run "rm -rf #{release_path}/public/attachments"
+  run "ln -sf #{deploy_to}/#{shared_dir}/attachments #{release_path}/public/attachments"
 end
 
 task :link_db_backups do
@@ -86,8 +86,7 @@ task :migrate_database do
   # because run catches the exit code of mysqldump
   run "mysqldump -h #{sql_host} --user=#{sql_username} --password=#{sql_password} -r #{dump_path} #{sql_database}"
   run "bzip2 #{dump_path}"
-  # DO NOT ENABLE UNTIL WE GO PRODUCTIVE!
-  #run "cd #{release_path} && RAILS_ENV='production' bundle exec rake db:migrate"
+  run "cd #{release_path} && RAILS_ENV='production' bundle exec rake db:migrate"
 end
 
 # The built-in capistrano/bundler integration seems broken: It does not cd to release_path but instead
