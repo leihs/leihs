@@ -71,2112 +71,2114 @@ window.i18n.locale_data = {
       "": {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
-         "POT-Creation-Date": " 2012-09-13 11:51+0200",
-         "PO-Revision-Date": " 2008-04-22 17:52+0200",
-         "Last-Translator": " FULL NAME <EMAIL@ADDRESS>",
+         "POT-Creation-Date": " 2012-09-13 13:34+0200",
+         "PO-Revision-Date": " 2012-09-13 13:28+0100",
+         "Last-Translator": " Ramón Cahenzli <ramon.cahenzli@zhdk.ch>",
          "Language-Team": " LANGUAGE <LL@li.org>",
          "Language": " ",
          "MIME-Version": " 1.0",
          "Content-Type": " text/plain; charset=UTF-8",
          "Content-Transfer-Encoding": " 8bit",
-         "Plural-Forms": " nplurals=INTEGER; plural=EXPRESSION;"
+         "Plural-Forms": " nplurals=2; plural=(n != 1)",
+         "X-Poedit-Language": " English",
+         "X-Poedit-Country": " UNITED KINGDOM"
       },
       " at the inventory pool ": [
          null,
-         ""
+         " at the inventory pool "
       ],
       " item(s)": [
          null,
-         ""
+         " item(s)"
       ],
       " item(s) due on ": [
          null,
-         ""
+         " item(s) due on "
       ],
       "%d day in the future": [
          "%d days in the future",
-         "",
-         ""
+         "%d day in the future",
+         "%d days in the future"
       ],
       "%s (View in Order)": [
          null,
-         ""
+         "%s (View in Order)"
       ],
       "%s Search Results for \"%s\"": [
          null,
-         ""
+         "%s Search Results for \"%s\""
       ],
       "%s until %s": [
          null,
-         ""
+         "%s until %s"
       ],
       "(maximum available: %{max})": [
          null,
-         ""
+         "(maximum available: %{max})"
       ],
       "** This is an automatically generated response **": [
          null,
-         ""
+         "** This is an automatically generated response **"
       ],
       "A model for the Inventory Code / Serial Number '%s' was not found": [
          null,
-         ""
+         "A model for the Inventory Code / Serial Number '%s' was not found"
       ],
       "A model with the ID '%s' was not found": [
          null,
-         ""
+         "A model with the ID '%s' was not found"
       ],
       "A package cannot be nested to another package": [
          null,
-         ""
+         "A package cannot be nested to another package"
       ],
       "A template with the ID '%s' was not found": [
          null,
-         ""
+         "A template with the ID '%s' was not found"
       ],
       "Access Level: %d": [
          null,
-         ""
+         "Access Level: %d"
       ],
       "Access Right successfully created": [
          null,
-         ""
+         "Access Right successfully created"
       ],
       "Access Right successfully updated": [
          null,
-         ""
+         "Access Right successfully updated"
       ],
       "Access right reinstated": [
          null,
-         ""
+         "Access right reinstated"
       ],
       "Acknowledge": [
          null,
-         ""
+         "Acknowledge"
       ],
       "Add": [
          null,
-         ""
+         "Add"
       ],
       "Add Note": [
          null,
-         ""
+         "Add Note"
       ],
       "Add Purpose": [
          null,
-         ""
+         "Add Purpose"
       ],
       "Add/Assign": [
          null,
-         ""
+         "Add/Assign"
       ],
       "Added": [
          null,
-         ""
+         "Added"
       ],
       "Additional notes": [
          null,
-         ""
+         "Additional notes"
       ],
       "Address": [
          null,
-         ""
+         "Address"
       ],
       "Admin": [
          null,
-         ""
+         "Admin"
       ],
       "All": [
          null,
-         ""
+         "All"
       ],
       "An order for the following items listed below was received in an inventory pool you are responsible for.": [
          null,
-         ""
+         "An order for the following items listed below was received in an inventory pool you are responsible for."
       ],
       "Approval Successful": [
          null,
-         ""
+         "Approval Successful"
       ],
       "Approve": [
          null,
-         ""
+         "Approve"
       ],
       "Approve Order": [
          null,
-         ""
+         "Approve Order"
       ],
       "Approve anyway": [
          null,
-         ""
+         "Approve anyway"
       ],
       "Approved": [
          null,
-         ""
+         "Approved"
       ],
       "Approved Items": [
          null,
-         ""
+         "Approved Items"
       ],
       "Are any of the above borrowed items?": [
          null,
-         ""
+         "Are any of the above borrowed items?"
       ],
       "Are any of the above items your personal computer?": [
          null,
-         ""
+         "Are any of the above items your personal computer?"
       ],
       "Assign": [
          null,
-         ""
+         "Assign"
       ],
       "Assigning the inventory code fails": [
          null,
-         ""
+         "Assigning the inventory code fails"
       ],
       "Attachment was successfully created.": [
          null,
-         ""
+         "Attachment was successfully created."
       ],
       "Attempt to add node to own graph collection": [
          null,
-         ""
+         "Attempt to add node to own graph collection"
       ],
       "Auswahl": [
          null,
-         ""
+         "Auswahl"
       ],
       "Availability Timeline": [
          null,
-         ""
+         "Availability Timeline"
       ],
       "Available": [
          null,
-         ""
+         "Available"
       ],
       "Available in group '": [
          null,
-         ""
+         "Available in group '"
       ],
       "Available in total: ": [
          null,
-         ""
+         "Available in total: "
       ],
       "Back": [
          null,
-         ""
+         "Back"
       ],
       "Back to this take back": [
          null,
-         ""
+         "Back to this take back"
       ],
       "Backend": [
          null,
-         ""
+         "Backend"
       ],
       "Badge ID was updated": [
          null,
-         ""
+         "Badge ID was updated"
       ],
       "Badge%s": [
          null,
-         ""
+         "Badge%s"
       ],
       "Barcode": [
          null,
-         ""
+         "Barcode"
       ],
       "Book": [
          null,
-         ""
+         "Book"
       ],
       "Borrowable": [
          null,
-         ""
+         "Borrowable"
       ],
       "Borrowed Items": [
          null,
-         ""
+         "Borrowed Items"
       ],
       "Borrower": [
          null,
-         ""
+         "Borrower"
       ],
       "Broken": [
          null,
-         ""
+         "Broken"
       ],
       "Building": [
          null,
-         ""
+         "Building"
       ],
       "By not returning these items, you are blocking other people's reservations. This is very unfair to the other clients and to the inventory manager, since you are causing a significant amount of trouble and annoyance.": [
          null,
-         ""
+         "By not returning these items, you are blocking other people's reservations. This is very unfair to the other clients and to the inventory manager, since you are causing a significant amount of trouble and annoyance."
       ],
       "CSV": [
          null,
-         ""
+         "CSV"
       ],
       "CSV export": [
          null,
-         ""
+         "CSV export"
       ],
       "Cancel": [
          null,
-         ""
+         "Cancel"
       ],
       "Categories": [
          null,
-         ""
+         "Categories"
       ],
       "Changed %s from %s to %s": [
          null,
-         ""
+         "Changed %s from %s to %s"
       ],
       "Changed dates for %{model} from %{from} to %{to}": [
          null,
-         ""
+         "Changed dates for %{model} from %{from} to %{to}"
       ],
       "Changed quantity for %{model} from %{from} to %{to}": [
          null,
-         ""
+         "Changed quantity for %{model} from %{from} to %{to}"
       ],
       "Close": [
          null,
-         ""
+         "Close"
       ],
       "Closed": [
          null,
-         ""
+         "Closed"
       ],
       "Compatible successfully removed": [
          null,
-         ""
+         "Compatible successfully removed"
       ],
       "Complete Search": [
          null,
-         ""
+         "Complete Search"
       ],
       "Completeness": [
          null,
-         ""
+         "Completeness"
       ],
       "Contract": [
          null,
-         ""
+         "Contract"
       ],
       "Contract %d has been signed by %s": [
          null,
-         ""
+         "Contract %d has been signed by %s"
       ],
       "Contract No.": [
          null,
-         ""
+         "Contract No."
       ],
       "Contract Nr.": [
          null,
-         ""
+         "Contract Nr."
       ],
       "Contracts": [
          null,
-         ""
+         "Contracts"
       ],
       "Couldn't connect to LDAP: :": [
          null,
-         ""
+         "Couldn't connect to LDAP: :"
       ],
       "Couldn't update ": [
          null,
-         ""
+         "Couldn't update "
       ],
       "Create": [
          null,
-         ""
+         "Create"
       ],
       "Create and make a Copy": [
          null,
-         ""
+         "Create and make a Copy"
       ],
       "Created at": [
          null,
-         ""
+         "Created at"
       ],
       "Current Order": [
          null,
-         ""
+         "Current Order"
       ],
       "Currently Borrowed Items": [
          null,
-         ""
+         "Currently Borrowed Items"
       ],
       "Currently has things to return": [
          null,
-         ""
+         "Currently has things to return"
       ],
       "Currently you have no items in your order.": [
          null,
-         ""
+         "Currently you have no items in your order."
       ],
       "Daily View": [
          null,
-         ""
+         "Daily View"
       ],
       "Day": [
          null,
-         ""
+         "Day"
       ],
       "Days": [
          null,
-         ""
+         "Days"
       ],
       "Deadline soon": [
          null,
-         ""
+         "Deadline soon"
       ],
       "Deadline soon reminder sent for %{q} items on contracts %{c}": [
          null,
-         ""
+         "Deadline soon reminder sent for %{q} items on contracts %{c}"
       ],
       "Dear client,": [
          null,
-         ""
+         "Dear client,"
       ],
       "Dear leihs client,": [
          null,
-         ""
+         "Dear leihs client,"
       ],
       "Dear leihs manager,": [
          null,
-         ""
+         "Dear leihs manager,"
       ],
       "Delete": [
          null,
-         ""
+         "Delete"
       ],
       "Delete this line": [
          null,
-         ""
+         "Delete this line"
       ],
       "Description": [
          null,
-         ""
+         "Description"
       ],
       "Documents": [
          null,
-         ""
+         "Documents"
       ],
       "Documents for hand over": [
          null,
-         ""
+         "Documents for hand over"
       ],
       "Documents for take back": [
          null,
-         ""
+         "Documents for take back"
       ],
       "E-Mail": [
          null,
-         ""
+         "E-Mail"
       ],
       "ERROR": [
          null,
-         ""
+         "ERROR"
       ],
       "Edit": [
          null,
-         ""
+         "Edit"
       ],
       "Edit Order": [
          null,
-         ""
+         "Edit Order"
       ],
       "Edit Purpose": [
          null,
-         ""
+         "Edit Purpose"
       ],
       "Edit Selection": [
          null,
-         ""
+         "Edit Selection"
       ],
       "Edit multiple selected items": [
          null,
-         ""
+         "Edit multiple selected items"
       ],
       "Edit purpose for order from": [
          null,
-         ""
+         "Edit purpose for order from"
       ],
       "Edit this Order": [
          null,
-         ""
+         "Edit this Order"
       ],
       "Empty Username and/or Password": [
          null,
-         ""
+         "Empty Username and/or Password"
       ],
       "End Date": [
          null,
-         ""
+         "End Date"
       ],
       "End date": [
          null,
-         ""
+         "End date"
       ],
       "Equipment Booking and Inventory Management System": [
          null,
-         ""
+         "Equipment Booking and Inventory Management System"
       ],
       "Error": [
          null,
-         ""
+         "Error"
       ],
       "Error creating the accessory.": [
          null,
-         ""
+         "Error creating the accessory."
       ],
       "Error deleting the accessory.": [
          null,
-         ""
+         "Error deleting the accessory."
       ],
       "Error destroying the item package": [
          null,
-         ""
+         "Error destroying the item package"
       ],
       "Error destroying the package": [
          null,
-         ""
+         "Error destroying the package"
       ],
       "Error saving the package": [
          null,
-         ""
+         "Error saving the package"
       ],
       "Error setting the location": [
          null,
-         ""
+         "Error setting the location"
       ],
       "Error updating inventory code": [
          null,
-         ""
+         "Error updating inventory code"
       ],
       "Expected to be returned.": [
          null,
-         ""
+         "Expected to be returned."
       ],
       "Finish this hand over": [
          null,
-         ""
+         "Finish this hand over"
       ],
       "Finish this take back": [
          null,
-         ""
+         "Finish this take back"
       ],
       "Found %d matches": [
          null,
-         ""
+         "Found %d matches"
       ],
       "Found %s": [
          null,
-         ""
+         "Found %s"
       ],
       "Fri": [
          null,
-         ""
+         "Fri"
       ],
       "Frontend": [
          null,
-         ""
+         "Frontend"
       ],
       "General Information": [
          null,
-         ""
+         "General Information"
       ],
       "Go Back": [
          null,
-         ""
+         "Go Back"
       ],
       "Hand Over": [
          null,
-         ""
+         "Hand Over"
       ],
       "Hand Over Items": [
          null,
-         ""
+         "Hand Over Items"
       ],
       "Hand Over to": [
          null,
-         ""
+         "Hand Over to"
       ],
       "Hand Over to %s": [
          null,
-         ""
+         "Hand Over to %s"
       ],
       "Hand Overs": [
          null,
-         ""
+         "Hand Overs"
       ],
       "Help": [
          null,
-         ""
+         "Help"
       ],
       "Highlight available items.": [
          null,
-         ""
+         "Highlight available items."
       ],
       "History": [
          null,
-         ""
+         "History"
       ],
       "Important notes for hand over": [
          null,
-         ""
+         "Important notes for hand over"
       ],
       "In Stock": [
          null,
-         ""
+         "In Stock"
       ],
       "In Total": [
          null,
-         ""
+         "In Total"
       ],
       "In the interest of all our clients we ask you to observe the return dates.": [
          null,
-         ""
+         "In the interest of all our clients we ask you to observe the return dates."
       ],
       "Incomplete": [
          null,
-         ""
+         "Incomplete"
       ],
       "Inconsistent Inventory Pool": [
          null,
-         ""
+         "Inconsistent Inventory Pool"
       ],
       "Incremented quantity from %i to %i for %s": [
          null,
-         ""
+         "Incremented quantity from %i to %i for %s"
       ],
       "Initial Price:": [
          null,
-         ""
+         "Initial Price:"
       ],
       "Inspect": [
          null,
-         ""
+         "Inspect"
       ],
       "Inspect Item": [
          null,
-         ""
+         "Inspect Item"
       ],
       "Insurance Number:": [
          null,
-         ""
+         "Insurance Number:"
       ],
       "Internal Description": [
          null,
-         ""
+         "Internal Description"
       ],
       "Introduction": [
          null,
-         ""
+         "Introduction"
       ],
       "Invalid order_lines": [
          null,
-         ""
+         "Invalid order_lines"
       ],
       "Invalid technical user - contact your leihs admin": [
          null,
-         ""
+         "Invalid technical user - contact your leihs admin"
       ],
       "Invalid username/password": [
          null,
-         ""
+         "Invalid username/password"
       ],
       "Inventory": [
          null,
-         ""
+         "Inventory"
       ],
       "Inventory Code": [
          null,
-         ""
+         "Inventory Code"
       ],
       "Inventory Code / Name": [
          null,
-         ""
+         "Inventory Code / Name"
       ],
       "Inventory Pool": [
          null,
-         ""
+         "Inventory Pool"
       ],
       "Inventory Pool is missing": [
          null,
-         ""
+         "Inventory Pool is missing"
       ],
       "Inventory Pools": [
          null,
-         ""
+         "Inventory Pools"
       ],
       "Inventory code": [
          null,
-         ""
+         "Inventory code"
       ],
       "Inventory code updated": [
          null,
-         ""
+         "Inventory code updated"
       ],
       "Inventory pool": [
          null,
-         ""
+         "Inventory pool"
       ],
       "Invoice Date:": [
          null,
-         ""
+         "Invoice Date:"
       ],
       "Invoice Information": [
          null,
-         ""
+         "Invoice Information"
       ],
       "Invoice Number:": [
          null,
-         ""
+         "Invoice Number:"
       ],
       "Item": [
          null,
-         ""
+         "Item"
       ],
       "Item handed over as part of contract %d.": [
          null,
-         ""
+         "Item handed over as part of contract %d."
       ],
       "Item is defective": [
          null,
-         ""
+         "Item is defective"
       ],
       "Item is incomplete": [
          null,
-         ""
+         "Item is incomplete"
       ],
       "Item is overdue and therefore unavailable!": [
          null,
-         ""
+         "Item is overdue and therefore unavailable!"
       ],
       "Item is part of package": [
          null,
-         ""
+         "Item is part of package"
       ],
       "Item is reserved in the future, therefore it's not available!": [
          null,
-         ""
+         "Item is reserved in the future, therefore it's not available!"
       ],
       "Item not borrowable": [
          null,
-         ""
+         "Item not borrowable"
       ],
       "Item package successfully destroyed": [
          null,
-         ""
+         "Item package successfully destroyed"
       ],
       "Item retired (%s)": [
          null,
-         ""
+         "Item retired (%s)"
       ],
       "Item saved.": [
          null,
-         ""
+         "Item saved."
       ],
       "Item taken back": [
          null,
-         ""
+         "Item taken back"
       ],
       "Items": [
          null,
-         ""
+         "Items"
       ],
       "Kind regards,": [
          null,
-         ""
+         "Kind regards,"
       ],
       "Last Checked:": [
          null,
-         ""
+         "Last Checked:"
       ],
       "Last Visitors:": [
          null,
-         ""
+         "Last Visitors:"
       ],
       "Latest Reminder": [
          null,
-         ""
+         "Latest Reminder"
       ],
       "Legend": [
          null,
-         ""
+         "Legend"
       ],
       "Lender": [
          null,
-         ""
+         "Lender"
       ],
       "Lending": [
          null,
-         ""
+         "Lending"
       ],
       "Lending / Daily View": [
          null,
-         ""
+         "Lending / Daily View"
       ],
       "Lending Contract No.": [
          null,
-         ""
+         "Lending Contract No."
       ],
       "Lending Contract No. %d": [
          null,
-         ""
+         "Lending Contract No. %d"
       ],
       "List of Contracts": [
          null,
-         ""
+         "List of Contracts"
       ],
       "List of Inventory": [
          null,
-         ""
+         "List of Inventory"
       ],
       "List of Orders": [
          null,
-         ""
+         "List of Orders"
       ],
       "List of Visits": [
          null,
-         ""
+         "List of Visits"
       ],
       "Loading": [
          null,
-         ""
+         "Loading"
       ],
       "Location": [
          null,
-         ""
+         "Location"
       ],
       "Location successfully set": [
          null,
-         ""
+         "Location successfully set"
       ],
       "Locations": [
          null,
-         ""
+         "Locations"
       ],
       "Logged in successfully": [
          null,
-         ""
+         "Logged in successfully"
       ],
       "Login": [
          null,
-         ""
+         "Login"
       ],
       "Logout": [
          null,
-         ""
+         "Logout"
       ],
       "Manufacturer": [
          null,
-         ""
+         "Manufacturer"
       ],
       "Manufacturer (A-Z)": [
          null,
-         ""
+         "Manufacturer (A-Z)"
       ],
       "Manufacturer (Z-A)": [
          null,
-         ""
+         "Manufacturer (Z-A)"
       ],
       "Matching Templates": [
          null,
-         ""
+         "Matching Templates"
       ],
       "Maximum number of items available at that time is %{max}": [
          null,
-         ""
+         "Maximum number of items available at that time is %{max}"
       ],
       "Mobile": [
          null,
-         ""
+         "Mobile"
       ],
       "Model": [
          null,
-         ""
+         "Model"
       ],
       "Model (A-Z)": [
          null,
-         ""
+         "Model (A-Z)"
       ],
       "Model (Z-A)": [
          null,
-         ""
+         "Model (Z-A)"
       ],
       "Model must be selected": [
          null,
-         ""
+         "Model must be selected"
       ],
       "Model not present anymore": [
          null,
-         ""
+         "Model not present anymore"
       ],
       "Model successfully added as compatible": [
          null,
-         ""
+         "Model successfully added as compatible"
       ],
       "Models": [
          null,
-         ""
+         "Models"
       ],
       "Mon": [
          null,
-         ""
+         "Mon"
       ],
       "Name": [
          null,
-         ""
+         "Name"
       ],
       "Needs permission": [
          null,
-         ""
+         "Needs permission"
       ],
       "New Item": [
          null,
-         ""
+         "New Item"
       ],
       "New item created.": [
          null,
-         ""
+         "New item created."
       ],
       "Next": [
          null,
-         ""
+         "Next"
       ],
       "No": [
          null,
-         ""
+         "No"
       ],
       "No description available for this model.": [
          null,
-         ""
+         "No description available for this model."
       ],
       "No entries found": [
          null,
-         ""
+         "No entries found"
       ],
       "No entry found": [
          null,
-         ""
+         "No entry found"
       ],
       "No hand overs found": [
          null,
-         ""
+         "No hand overs found"
       ],
       "No reminder yet": [
          null,
-         ""
+         "No reminder yet"
       ],
       "No take backs found": [
          null,
-         ""
+         "No take backs found"
       ],
       "No.": [
          null,
-         ""
+         "No."
       ],
       "None": [
          null,
-         ""
+         "None"
       ],
       "Not Borrowable": [
          null,
-         ""
+         "Not Borrowable"
       ],
       "Not available": [
          null,
-         ""
+         "Not available"
       ],
       "Note": [
          null,
-         ""
+         "Note"
       ],
       "Number of items": [
          null,
-         ""
+         "Number of items"
       ],
       "OK": [
          null,
-         ""
+         "OK"
       ],
       "One of the managers approves/denies or changes your reservation": [
          null,
-         ""
+         "One of the managers approves/denies or changes your reservation"
       ],
       "Open": [
          null,
-         ""
+         "Open"
       ],
       "Open Datepicker": [
          null,
-         ""
+         "Open Datepicker"
       ],
       "Open Orders": [
          null,
-         ""
+         "Open Orders"
       ],
       "Opening Hours": [
          null,
-         ""
+         "Opening Hours"
       ],
       "Order": [
          null,
-         ""
+         "Order"
       ],
       "Order History": [
          null,
-         ""
+         "Order History"
       ],
       "Order approved": [
          null,
-         ""
+         "Order approved"
       ],
       "Order from": [
          null,
-         ""
+         "Order from"
       ],
       "Order from %s": [
          null,
-         ""
+         "Order from %s"
       ],
       "Order received": [
          null,
-         ""
+         "Order received"
       ],
       "Order rejected": [
          null,
-         ""
+         "Order rejected"
       ],
       "Order submitted": [
          null,
-         ""
+         "Order submitted"
       ],
       "Orders": [
          null,
-         ""
+         "Orders"
       ],
       "Other Groups": [
          null,
-         ""
+         "Other Groups"
       ],
       "Overbooked Quantity": [
          null,
-         ""
+         "Overbooked Quantity"
       ],
       "Overbooking": [
          null,
-         ""
+         "Overbooking"
       ],
       "Overdue": [
          null,
-         ""
+         "Overdue"
       ],
       "Overdue Returns": [
          null,
-         ""
+         "Overdue Returns"
       ],
       "Overdue Visit": [
          null,
-         ""
+         "Overdue Visit"
       ],
       "Overview": [
          null,
-         ""
+         "Overview"
       ],
       "Owned": [
          null,
-         ""
+         "Owned"
       ],
       "Owner": [
          null,
-         ""
+         "Owner"
       ],
       "Package": [
          null,
-         ""
+         "Package"
       ],
       "Package error": [
          null,
-         ""
+         "Package error"
       ],
       "Package successfully destroyed": [
          null,
-         ""
+         "Package successfully destroyed"
       ],
       "Package successfully saved": [
          null,
-         ""
+         "Package successfully saved"
       ],
       "Password": [
          null,
-         ""
+         "Password"
       ],
       "Password changed": [
          null,
-         ""
+         "Password changed"
       ],
       "Pending": [
          null,
-         ""
+         "Pending"
       ],
       "Period": [
          null,
-         ""
+         "Period"
       ],
       "Phone": [
          null,
-         ""
+         "Phone"
       ],
       "Phone%s": [
          null,
-         ""
+         "Phone%s"
       ],
       "Place reservations on items and then pick them up": [
          null,
-         ""
+         "Place reservations on items and then pick them up"
       ],
       "Please note that these contracts, while they do belong to approved orders, may be changed by the lending manager at any time. They represent only a current snapshot of the order and might not contain the same items as the final contract once you pick up your items.": [
          null,
-         ""
+         "Please note that these contracts, while they do belong to approved orders, may be changed by the lending manager at any time. They represent only a current snapshot of the order and might not contain the same items as the final contract once you pick up your items."
       ],
       "Please provide a purpose...": [
          null,
-         ""
+         "Please provide a purpose..."
       ],
       "Please specify the purpose of your order here...": [
          null,
-         ""
+         "Please specify the purpose of your order here..."
       ],
       "Previous": [
          null,
-         ""
+         "Previous"
       ],
       "Price": [
          null,
-         ""
+         "Price"
       ],
       "Print": [
          null,
-         ""
+         "Print"
       ],
       "Problems": [
          null,
-         ""
+         "Problems"
       ],
       "Purpose": [
          null,
-         ""
+         "Purpose"
       ],
       "Purpose changed '%s' for '%s'": [
          null,
-         ""
+         "Purpose changed '%s' for '%s'"
       ],
       "Purpose changed '%{from}' for '%{to}'": [
          null,
-         ""
+         "Purpose changed '%{from}' for '%{to}'"
       ],
       "Purpose these items are borrowed for": [
          null,
-         ""
+         "Purpose these items are borrowed for"
       ],
       "Qty.": [
          null,
-         ""
+         "Qty."
       ],
       "Quantity": [
          null,
-         ""
+         "Quantity"
       ],
       "Quantity: %d": [
          null,
-         ""
+         "Quantity: %d"
       ],
       "Recommended Accessories": [
          null,
-         ""
+         "Recommended Accessories"
       ],
       "Reject": [
          null,
-         ""
+         "Reject"
       ],
       "Rejected": [
          null,
-         ""
+         "Rejected"
       ],
       "Rejection Successful": [
          null,
-         ""
+         "Rejection Successful"
       ],
       "Relevant for inventory": [
          null,
-         ""
+         "Relevant for inventory"
       ],
       "Remind": [
          null,
-         ""
+         "Remind"
       ],
       "Reminded %{q} items for contracts %{c}": [
          null,
-         ""
+         "Reminded %{q} items for contracts %{c}"
       ],
       "Reminder": [
          null,
-         ""
+         "Reminder"
       ],
       "Removed %{q} %{m}": [
          null,
-         ""
+         "Removed %{q} %{m}"
       ],
       "Requested Items": [
          null,
-         ""
+         "Requested Items"
       ],
       "Reservation": [
          null,
-         ""
+         "Reservation"
       ],
       "Responsible": [
          null,
-         ""
+         "Responsible"
       ],
       "Responsible department": [
          null,
-         ""
+         "Responsible department"
       ],
       "Responsible person": [
          null,
-         ""
+         "Responsible person"
       ],
       "Retire": [
          null,
-         ""
+         "Retire"
       ],
       "Retired": [
          null,
-         ""
+         "Retired"
       ],
       "Retirement:": [
          null,
-         ""
+         "Retirement:"
       ],
       "Return": [
          null,
-         ""
+         "Return"
       ],
       "Return to this hand over": [
          null,
-         ""
+         "Return to this hand over"
       ],
       "Returned Items": [
          null,
-         ""
+         "Returned Items"
       ],
       "Room": [
          null,
-         ""
+         "Room"
       ],
       "Save": [
          null,
-         ""
+         "Save"
       ],
       "Save Changes": [
          null,
-         ""
+         "Save Changes"
       ],
       "Save and create a Copy": [
          null,
-         ""
+         "Save and create a Copy"
       ],
       "Saved": [
          null,
-         ""
+         "Saved"
       ],
       "Search": [
          null,
-         ""
+         "Search"
       ],
       "Search Model": [
          null,
-         ""
+         "Search Model"
       ],
       "Search Results for \"%s\"": [
          null,
-         ""
+         "Search Results for \"%s\""
       ],
       "Search...": [
          null,
-         ""
+         "Search..."
       ],
       "Searching": [
          null,
-         ""
+         "Searching"
       ],
       "Selected Pools (%s)": [
          null,
-         ""
+         "Selected Pools (%s)"
       ],
       "Serial Number:": [
          null,
-         ""
+         "Serial Number:"
       ],
       "Settings for %s": [
          null,
-         ""
+         "Settings for %s"
       ],
       "Shelf": [
          null,
-         ""
+         "Shelf"
       ],
       "Show": [
          null,
-         ""
+         "Show"
       ],
       "Show Availability": [
          null,
-         ""
+         "Show Availability"
       ],
       "Show Full History": [
          null,
-         ""
+         "Show Full History"
       ],
       "Show all ...": [
          null,
-         ""
+         "Show all ..."
       ],
       "Signature": [
          null,
-         ""
+         "Signature"
       ],
       "Signed": [
          null,
-         ""
+         "Signed"
       ],
       "Signed contracts": [
          null,
-         ""
+         "Signed contracts"
       ],
       "Since we did not receive any request for renewal, we consequently demand the return of the items without further delay.": [
          null,
-         ""
+         "Since we did not receive any request for renewal, we consequently demand the return of the items without further delay."
       ],
       "Something went wrong!": [
          null,
-         ""
+         "Something went wrong!"
       ],
       "Start": [
          null,
-         ""
+         "Start"
       ],
       "Start Date": [
          null,
-         ""
+         "Start Date"
       ],
       "Start Date must be before End Date": [
          null,
-         ""
+         "Start Date must be before End Date"
       ],
       "Start Screen": [
          null,
-         ""
+         "Start Screen"
       ],
       "Start date": [
          null,
-         ""
+         "Start date"
       ],
       "Status": [
          null,
-         ""
+         "Status"
       ],
       "Submission failed": [
          null,
-         ""
+         "Submission failed"
       ],
       "Submit": [
          null,
-         ""
+         "Submit"
       ],
       "Submit Order": [
          null,
-         ""
+         "Submit Order"
       ],
       "Submitted": [
          null,
-         ""
+         "Submitted"
       ],
       "Successful Order": [
          null,
-         ""
+         "Successful Order"
       ],
       "Successfully set.": [
          null,
-         ""
+         "Successfully set."
       ],
       "Supplier:": [
          null,
-         ""
+         "Supplier:"
       ],
       "Swapped %{from} for %{to}": [
          null,
-         ""
+         "Swapped %{from} for %{to}"
       ],
       "Swapped from %s ": [
          null,
-         ""
+         "Swapped from %s "
       ],
       "Take Back": [
          null,
-         ""
+         "Take Back"
       ],
       "Take Back Items": [
          null,
-         ""
+         "Take Back Items"
       ],
       "Take Back from": [
          null,
-         ""
+         "Take Back from"
       ],
       "Take Back from %s": [
          null,
-         ""
+         "Take Back from %s"
       ],
       "Take Backs": [
          null,
-         ""
+         "Take Backs"
       ],
       "Technical Details": [
          null,
-         ""
+         "Technical Details"
       ],
       "Templates": [
          null,
-         ""
+         "Templates"
       ],
       "Terms and conditions of the lender apply.": [
          null,
-         ""
+         "Terms and conditions of the lender apply."
       ],
       "That means that the user probably did not get the approval mail and you need to contact him/her in a different way.": [
          null,
-         ""
+         "That means that the user probably did not get the approval mail and you need to contact him/her in a different way."
       ],
       "The Category must be empty": [
          null,
-         ""
+         "The Category must be empty"
       ],
       "The Inventory Code %s was not found.": [
          null,
-         ""
+         "The Inventory Code %s was not found."
       ],
       "The Inventory Pool must be empty": [
          null,
-         ""
+         "The Inventory Pool must be empty"
       ],
       "The accessory was successfully created.": [
          null,
-         ""
+         "The accessory was successfully created."
       ],
       "The accessory was successfully deleted.": [
          null,
-         ""
+         "The accessory was successfully deleted."
       ],
       "The admin role cannot be scoped to an inventory pool": [
          null,
-         ""
+         "The admin role cannot be scoped to an inventory pool"
       ],
       "The following error happened while sending a notification email to %{email}:\\\\n": [
          null,
-         ""
+         "The following error happened while sending a notification email to %{email}:\\\\n"
       ],
       "The following items are due to be returned tomorrow or need to be inspected by their owners": [
          null,
-         ""
+         "The following items are due to be returned tomorrow or need to be inspected by their owners"
       ],
       "The following items are overdue or need to be inspected by their owners": [
          null,
-         ""
+         "The following items are overdue or need to be inspected by their owners"
       ],
       "The group quantities were successfully saved.": [
          null,
-         ""
+         "The group quantities were successfully saved."
       ],
       "The inventory code %s is not valid for this model": [
          null,
-         ""
+         "The inventory code %s is not valid for this model"
       ],
       "The item belongs to a package": [
          null,
-         ""
+         "The item belongs to a package"
       ],
       "The item cannot be retired because it's not returned yet.": [
          null,
-         ""
+         "The item cannot be retired because it's not returned yet."
       ],
       "The item doesn't belong to the inventory pool related to this contract": [
          null,
-         ""
+         "The item doesn't belong to the inventory pool related to this contract"
       ],
       "The item doesn't match with the reserved model": [
          null,
-         ""
+         "The item doesn't match with the reserved model"
       ],
       "The item is already handed over or assigned to a different contract line": [
          null,
-         ""
+         "The item is already handed over or assigned to a different contract line"
       ],
       "The item with the inventory code %s was not found": [
          null,
-         ""
+         "The item with the inventory code %s was not found"
       ],
       "The line was not found": [
          null,
-         ""
+         "The line was not found"
       ],
       "The mail was sent": [
          null,
-         ""
+         "The mail was sent"
       ],
       "The model cannot be changed because the item is used in contracts already.": [
          null,
-         ""
+         "The model cannot be changed because the item is used in contracts already."
       ],
       "The model is already compatible": [
          null,
-         ""
+         "The model is already compatible"
       ],
       "The new user details could not be saved.": [
          null,
-         ""
+         "The new user details could not be saved."
       ],
       "The option could not be added": [
          null,
-         ""
+         "The option could not be added"
       ],
       "The option doesn't belong to the inventory pool related to this contract": [
          null,
-         ""
+         "The option doesn't belong to the inventory pool related to this contract"
       ],
       "The order now looks like this:": [
          null,
-         ""
+         "The order now looks like this:"
       ],
       "The parent item doesn't exist (parent_id: %d)": [
          null,
-         ""
+         "The parent item doesn't exist (parent_id: %d)"
       ],
       "The properties have been updated.": [
          null,
-         ""
+         "The properties have been updated."
       ],
       "The selected lines have been moved": [
          null,
-         ""
+         "The selected lines have been moved"
       ],
       "The selected model is not a package": [
          null,
-         ""
+         "The selected model is not a package"
       ],
       "The user does not have an email address": [
          null,
-         ""
+         "The user does not have an email address"
       ],
       "The user who placed this order has received a similar e-mail message informing them that the order first needs to be approved before it is valid.": [
          null,
-         ""
+         "The user who placed this order has received a similar e-mail message informing them that the order first needs to be approved before it is valid."
       ],
       "These are the comments of the inventory manager:": [
          null,
-         ""
+         "These are the comments of the inventory manager:"
       ],
       "This contract is not signable because it doesn't have any contract lines.": [
          null,
-         ""
+         "This contract is not signable because it doesn't have any contract lines."
       ],
       "This contract is not signable because none of the lines have a purpose.": [
          null,
-         ""
+         "This contract is not signable because none of the lines have a purpose."
       ],
       "This contract is not signable because some lines are not assigned.": [
          null,
-         ""
+         "This contract is not signable because some lines are not assigned."
       ],
       "This customer's groups": [
          null,
-         ""
+         "This customer's groups"
       ],
       "This is a package containing the following items:": [
          null,
-         ""
+         "This is a package containing the following items:"
       ],
       "This is the list of items you requested. To complete this order, please %s.": [
          null,
-         ""
+         "This is the list of items you requested. To complete this order, please %s."
       ],
       "This item was retired on %s because %s": [
          null,
-         ""
+         "This item was retired on %s because %s"
       ],
       "This model is now in %d categories": [
          null,
-         ""
+         "This model is now in %d categories"
       ],
       "This order has already been approved.": [
          null,
-         ""
+         "This order has already been approved."
       ],
       "This order is not approvable because doesn't have any models.": [
          null,
-         ""
+         "This order is not approvable because doesn't have any models."
       ],
       "This order is not approvable because some reserved models are not available.": [
          null,
-         ""
+         "This order is not approvable because some reserved models are not available."
       ],
       "This order is still pending. Please log in to your leihs system and either approve or reject it.": [
          null,
-         ""
+         "This order is still pending. Please log in to your leihs system and either approve or reject it."
       ],
       "Thu": [
          null,
-         ""
+         "Thu"
       ],
       "Time window": [
          null,
-         ""
+         "Time window"
       ],
       "Timeline": [
          null,
-         ""
+         "Timeline"
       ],
       "Today": [
          null,
-         ""
+         "Today"
       ],
       "Too many users found": [
          null,
-         ""
+         "Too many users found"
       ],
       "Total": [
          null,
-         ""
+         "Total"
       ],
       "Tue": [
          null,
-         ""
+         "Tue"
       ],
       "Unborrowable": [
          null,
-         ""
+         "Unborrowable"
       ],
       "Unfortunately your order is still pending, but you will soon receive a confirmation of order by separate e-mail. You can view the status of your order through your leihs account.": [
          null,
-         ""
+         "Unfortunately your order is still pending, but you will soon receive a confirmation of order by separate e-mail. You can view the status of your order through your leihs account."
       ],
       "Unretire": [
          null,
-         ""
+         "Unretire"
       ],
       "Unsigned": [
          null,
-         ""
+         "Unsigned"
       ],
       "Unsigned Hand Over": [
          null,
-         ""
+         "Unsigned Hand Over"
       ],
       "Unsigned contracts": [
          null,
-         ""
+         "Unsigned contracts"
       ],
       "Unsubmitted": [
          null,
-         ""
+         "Unsubmitted"
       ],
       "Unsuccessful reminder of %{q} items for contracts %{c}": [
          null,
-         ""
+         "Unsuccessful reminder of %{q} items for contracts %{c}"
       ],
       "Upload error.": [
          null,
-         ""
+         "Upload error."
       ],
       "User": [
          null,
-         ""
+         "User"
       ],
       "User details were updated successfully.": [
          null,
-         ""
+         "User details were updated successfully."
       ],
       "User must be selected": [
          null,
-         ""
+         "User must be selected"
       ],
       "User or Order not found": [
          null,
-         ""
+         "User or Order not found"
       ],
       "User swapped %{from} for %{to}": [
          null,
-         ""
+         "User swapped %{from} for %{to}"
       ],
       "User unknown": [
          null,
-         ""
+         "User unknown"
       ],
       "User/Typical usage": [
          null,
-         ""
+         "User/Typical usage"
       ],
       "Username": [
          null,
-         ""
+         "Username"
       ],
       "Users": [
          null,
-         ""
+         "Users"
       ],
       "Value": [
          null,
-         ""
+         "Value"
       ],
       "Value List": [
          null,
-         ""
+         "Value List"
       ],
       "Value List for Lending Contract No.": [
          null,
-         ""
+         "Value List for Lending Contract No."
       ],
       "Value List for Lending Contract No. %s": [
          null,
-         ""
+         "Value List for Lending Contract No. %s"
       ],
       "Value list": [
          null,
-         ""
+         "Value list"
       ],
       "View %s": [
          null,
-         ""
+         "View %s"
       ],
       "View Item": [
          null,
-         ""
+         "View Item"
       ],
       "View Model": [
          null,
-         ""
+         "View Model"
       ],
       "View Option": [
          null,
-         ""
+         "View Option"
       ],
       "Visits": [
          null,
-         ""
+         "Visits"
       ],
       "We are just sending you this little reminder because someone else is already waiting for some of these items.": [
          null,
-         ""
+         "We are just sending you this little reminder because someone else is already waiting for some of these items."
       ],
       "We kindly ask you to contact us as soon as possible. Your computer might need an update.": [
          null,
-         ""
+         "We kindly ask you to contact us as soon as possible. Your computer might need an update."
       ],
       "Wed": [
          null,
-         ""
+         "Wed"
       ],
       "Welcome %s": [
          null,
-         ""
+         "Welcome %s"
       ],
       "Working order": [
          null,
-         ""
+         "Working order"
       ],
       "Workload": [
          null,
-         ""
+         "Workload"
       ],
       "Write a comment. The comment will be part of the rejection e-mail.": [
          null,
-         ""
+         "Write a comment. The comment will be part of the rejection e-mail."
       ],
       "Write a comment... your comment will be part of the confirmation e-mail": [
          null,
-         ""
+         "Write a comment... your comment will be part of the confirmation e-mail"
       ],
       "Write a note... the note will be part of the contract": [
          null,
-         ""
+         "Write a note... the note will be part of the contract"
       ],
       "Yes": [
          null,
-         ""
+         "Yes"
       ],
       "You bring back your items": [
          null,
-         ""
+         "You bring back your items"
       ],
       "You can edit your personal data": [
          null,
-         ""
+         "You can edit your personal data"
       ],
       "You can't add a package to a package.": [
          null,
-         ""
+         "You can't add a package to a package."
       ],
       "You cannot delete all lines of an order. Perhaps you want to reject it instead?": [
          null,
-         ""
+         "You cannot delete all lines of an order. Perhaps you want to reject it instead?"
       ],
       "You do not have any items in your order. Please %s and choose items for your order.": [
          null,
-         ""
+         "You do not have any items in your order. Please %s and choose items for your order."
       ],
       "You don't have access to this item.": [
          null,
-         ""
+         "You don't have access to this item."
       ],
       "You don't have any rights to access this application.": [
          null,
-         ""
+         "You don't have any rights to access this application."
       ],
       "You have %{no_access} to any inventory pools!": [
          null,
-         ""
+         "You have %{no_access} to any inventory pools!"
       ],
       "You have access to the following inventory pools": [
          null,
-         ""
+         "You have access to the following inventory pools"
       ],
       "You have access to the following inventory pools:": [
          null,
-         ""
+         "You have access to the following inventory pools:"
       ],
       "You have been logged out.": [
          null,
-         ""
+         "You have been logged out."
       ],
       "You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from the reservation system for up to 6 months.": [
          null,
-         ""
+         "You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from the reservation system for up to 6 months."
       ],
       "You pick up the reserved items at the inventory pool": [
          null,
-         ""
+         "You pick up the reserved items at the inventory pool"
       ],
       "You place a reservation for some items in this system": [
          null,
-         ""
+         "You place a reservation for some items in this system"
       ],
       "You should redo your action or reload the page!": [
          null,
-         ""
+         "You should redo your action or reload the page!"
       ],
       "You wait for confirmation from the inventory pools in question": [
          null,
-         ""
+         "You wait for confirmation from the inventory pools in question"
       ],
       "Your order for the following items has been confirmed by the inventory manager": [
          null,
-         ""
+         "Your order for the following items has been confirmed by the inventory manager"
       ],
       "Your order for the following items listed below was successfully submitted.": [
          null,
-         ""
+         "Your order for the following items listed below was successfully submitted."
       ],
       "Your order was rejected for the following reason:": [
          null,
-         ""
+         "Your order was rejected for the following reason:"
       ],
       "Your order was successfully transmitted to those responsible and is %s.": [
          null,
-         ""
+         "Your order was successfully transmitted to those responsible and is %s."
       ],
       "[Model %s] ": [
          null,
-         ""
+         "[Model %s] "
       ],
       "[leihs] Order received": [
          null,
-         ""
+         "[leihs] Order received"
       ],
       "[leihs] Reminder": [
          null,
-         ""
+         "[leihs] Reminder"
       ],
       "[leihs] Reservation Confirmation": [
          null,
-         ""
+         "[leihs] Reservation Confirmation"
       ],
       "[leihs] Reservation Rejected": [
          null,
-         ""
+         "[leihs] Reservation Rejected"
       ],
       "[leihs] Reservation Submitted": [
          null,
-         ""
+         "[leihs] Reservation Submitted"
       ],
       "[leihs] Reservation confirmed (with changes)": [
          null,
-         ""
+         "[leihs] Reservation confirmed (with changes)"
       ],
       "[leihs] Some items should be returned tomorrow": [
          null,
-         ""
+         "[leihs] Some items should be returned tomorrow"
       ],
       "already in Category": [
          null,
-         ""
+         "already in Category"
       ],
       "available": [
          null,
-         ""
+         "available"
       ],
       "awaiting approval": [
          null,
-         ""
+         "awaiting approval"
       ],
       "but a few changes were made to it": [
          null,
-         ""
+         "but a few changes were made to it"
       ],
       "could not be assigned for take back": [
          null,
-         ""
+         "could not be assigned for take back"
       ],
       "current page is set as start page": [
          null,
-         ""
+         "current page is set as start page"
       ],
       "delete": [
          null,
-         ""
+         "delete"
       ],
       "doesn't match parent's attribute": [
          null,
-         ""
+         "doesn't match parent's attribute"
       ],
       "entries%s": [
          null,
-         ""
+         "entries%s"
       ],
       "extend": [
          null,
-         ""
+         "extend"
       ],
       "for '%s'": [
          null,
-         ""
+         "for '%s'"
       ],
       "for max.": [
          null,
-         ""
+         "for max."
       ],
       "found %i": [
          null,
-         ""
+         "found %i"
       ],
       "general": [
          null,
-         ""
+         "general"
       ],
       "go back": [
          null,
-         ""
+         "go back"
       ],
       "go to today": [
          null,
-         ""
+         "go to today"
       ],
       "here": [
          null,
-         ""
+         "here"
       ],
       "in": [
          null,
-         ""
+         "in"
       ],
       "inventory pool is closed on end_date. ": [
          null,
-         ""
+         "inventory pool is closed on end_date. "
       ],
       "inventory pool is closed on start_date. ": [
          null,
-         ""
+         "inventory pool is closed on start_date. "
       ],
       "is late": [
          null,
-         ""
+         "is late"
       ],
       "item not assigned. ": [
          null,
-         ""
+         "item not assigned. "
       ],
       "jump to this date": [
          null,
-         ""
+         "jump to this date"
       ],
       "more": [
          null,
-         ""
+         "more"
       ],
       "more properties": [
          null,
-         ""
+         "more properties"
       ],
       "no image": [
          null,
-         ""
+         "no image"
       ],
       "no item assigned": [
          null,
-         ""
+         "no item assigned"
       ],
       "no purpose specified": [
          null,
-         ""
+         "no purpose specified"
       ],
       "not available. ": [
          null,
-         ""
+         "not available. "
       ],
       "not borrowable": [
          null,
-         ""
+         "not borrowable"
       ],
       "not valid. ": [
          null,
-         ""
+         "not valid. "
       ],
       "on time!": [
          null,
-         ""
+         "on time!"
       ],
       "open datepicker": [
          null,
-         ""
+         "open datepicker"
       ],
       "overdue": [
          null,
-         ""
+         "overdue"
       ],
       "please wait": [
          null,
-         ""
+         "please wait"
       ],
       "please wait...": [
          null,
-         ""
+         "please wait..."
       ],
       "quantity not available. ": [
          null,
-         ""
+         "quantity not available. "
       ],
       "reserved / item assigned in future": [
          null,
-         ""
+         "reserved / item assigned in future"
       ],
       "set current page as start page": [
          null,
-         ""
+         "set current page as start page"
       ],
       "show less": [
          null,
-         ""
+         "show less"
       ],
       "show less properties": [
          null,
-         ""
+         "show less properties"
       ],
       "show package parts": [
          null,
-         ""
+         "show package parts"
       ],
       "since": [
          null,
-         ""
+         "since"
       ],
       "since max.": [
          null,
-         ""
+         "since max."
       ],
       "submit it": [
          null,
-         ""
+         "submit it"
       ],
       "this is a package": [
          null,
-         ""
+         "this is a package"
       ],
       "today": [
          null,
-         ""
+         "today"
       ],
       "unavailable / can't be guaranteed": [
          null,
-         ""
+         "unavailable / can't be guaranteed"
       ],
       "unknown Model": [
          null,
-         ""
+         "unknown Model"
       ],
       "until": [
          null,
-         ""
+         "until"
       ],
       "upcoming": [
          null,
-         ""
+         "upcoming"
       ],
       "was assigned for take back": [
          null,
-         ""
+         "was assigned for take back"
       ],
       "while deleting a hand over line": [
          null,
-         ""
+         "while deleting a hand over line"
       ],
       "while deleting hand over for": [
          null,
-         ""
+         "while deleting hand over for"
       ],
       "while deleting multiple order lines": [
          null,
-         ""
+         "while deleting multiple order lines"
       ],
       "while deleting order line for": [
          null,
-         ""
+         "while deleting order line for"
       ],
       "while try to send an e-mail reminder to:": [
          null,
-         ""
+         "while try to send an e-mail reminder to:"
       ],
       "with comment": [
          null,
-         ""
+         "with comment"
       ],
       "without conflict": [
          null,
-         ""
+         "without conflict"
       ],
       "you cannot hand out lines wich are starting in the future": [
          null,
-         ""
+         "you cannot hand out lines wich are starting in the future"
       ],
       "you cannot hand out lines with unassigned inventory codes": [
          null,
-         ""
+         "you cannot hand out lines with unassigned inventory codes"
       ]
    }
 }

@@ -71,7 +71,7 @@ window.i18n.locale_data = {
       "": {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
-         "POT-Creation-Date": " 2012-09-13 11:51+0200",
+         "POT-Creation-Date": " 2012-09-13 13:34+0200",
          "PO-Revision-Date": " 2009-11-23 15:37+0000",
          "Last-Translator": " Monkey <Unknown>",
          "Language-Team": " Spanish <es@li.org>",
