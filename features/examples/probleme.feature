@@ -82,4 +82,4 @@ Funktionalität: Anzeige von Problemen
   Szenario: Problemanzeige bei Rücknahme wenn verspätet
     Angenommen ich mache eine Rücknahme eines verspäteten Gegenstandes
      Dann sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen
-     Und das Problem wird wie folgt dargestellt: "Verspätet seit 6 Tagen"
+     Und das Problem wird wie folgt dargestellt: "Überfällig seit 6 Tagen"
