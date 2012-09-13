@@ -26,7 +26,7 @@ ${$subtitle = $name + " " + moment(start_date).format(i18n.date.L) + " - " + mom
           %option{:value => "", :"data-name" => '${_jed("In Total")}', :"data-total_rentable" => "${total_rentable}"}
             ${_jed("In Total")}
           {{if $splitted_partitions.included.length > 0}}
-          %optgroup.customer_groups{:label => '${_jed("This customers groups")}'}
+          %optgroup.customer_groups{:label => '${_jed("This customer\'s groups")}'}
             {{each(i, partition) $splitted_partitions.included}}
             %option{:value => "[${partition.group_id}]", :"data-name" => '${_jed("Group %s", partition.group.name)}', :"data-total_rentable" => "${partition.quantity}"}
               ${_jed("Group %s", partition.group.name)}
