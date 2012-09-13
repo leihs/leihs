@@ -34,7 +34,11 @@
       }
       
       &>.multibutton {
-        margin-right: 3px;
+       /* margin-right: 3px; */ /* DANGER: I had to remove this margin because I couldn't fit the button  */
+                                /* on the line when it was translated, e.g. "Editieren" instead of "Edit". */
+                                /* Long strings would wrap the button onto the following line, that might have */
+                                /* a higher z-index when it's e.g. a handover note. In such cases, the handover */
+                                /* note would make it impossible to click the edit button. */
       }
     }
   }
