@@ -72,7 +72,7 @@ window.i18n.locale_data = {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
          "POT-Creation-Date": " 2012-09-13 13:34+0200",
-         "PO-Revision-Date": " 2012-09-13 11:53+0100",
+         "PO-Revision-Date": " 2012-09-13 15:26+0100",
          "Last-Translator": " Ramón Cahenzli <ramon.cahenzli@zhdk.ch>",
          "Language-Team": " German (Switzerland) <ramon.cahenzli@zhdk.ch>",
          "Language": " ",
@@ -2140,7 +2140,7 @@ window.i18n.locale_data = {
       ],
       "upcoming": [
          null,
-         "kommend"
+         "bevorstehend"
       ],
       "was assigned for take back": [
          null,

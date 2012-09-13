@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-13 13:34+0200\n"
-"PO-Revision-Date: 2012-09-13 11:53+0100\n"
+"PO-Revision-Date: 2012-09-13 15:26+0100\n"
 "Last-Translator: Ramón Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "Language: \n"
@@ -1560,7 +1560,7 @@ msgid "until"
 msgstr "bis"
 
 msgid "upcoming"
-msgstr "kommend"
+msgstr "bevorstehend"
 
 msgid "was assigned for take back"
 msgstr "wurde für Rücknahme zugewiesen"
@@ -1591,3 +1591,4 @@ msgstr "Sie können keine Zeilen aushändigen, deren Startdatum in der Zukunft l
 
 msgid "you cannot hand out lines with unassigned inventory codes"
 msgstr "Sie können keine Zeilen aushändigen, die keine Inventarcodes zugewiesen haben"
+
