@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-13 13:34+0200\n"
+"POT-Creation-Date: 2012-09-13 16:37+0200\n"
 "PO-Revision-Date: 2011-06-17 11:43+0100\n"
 "Last-Translator: Ramón Cahenzli <rca@psy-q.ch>\n"
 "Language-Team: Swiss-German (Zürich area) <ramon.cahenzli@zhdk.ch>\n"
@@ -1587,6 +1587,12 @@ msgstr ""
 
 msgid "current page is set as start page"
 msgstr ""
+
+#, fuzzy
+msgid "day"
+msgid_plural "days"
+msgstr[0] "Feriä"
+msgstr[1] "Feriä"
 
 #, fuzzy
 msgid "delete"
@@ -3774,12 +3780,6 @@ msgstr ""
 
 #~ msgid "database authentication"
 #~ msgstr "Datebank Authentifizierig"
-
-#, fuzzy
-#~ msgid "day"
-#~ msgid_plural "days"
-#~ msgstr[0] "Feriä"
-#~ msgstr[1] "Feriä"
 
 #~ msgid "edit %s"
 #~ msgstr "%s ändere"

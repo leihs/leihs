@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-13 13:34+0200\n"
+"POT-Creation-Date: 2012-09-13 16:37+0200\n"
 "PO-Revision-Date: 2012-09-13 13:28+0100\n"
 "Last-Translator: Ramón Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1427,6 +1427,12 @@ msgstr "could not be assigned for take back"
 
 msgid "current page is set as start page"
 msgstr "current page is set as start page"
+
+#, fuzzy
+msgid "day"
+msgid_plural "days"
+msgstr[0] "Today"
+msgstr[1] "Today"
 
 msgid "delete"
 msgstr "delete"

@@ -71,7 +71,7 @@ window.i18n.locale_data = {
       "": {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
-         "POT-Creation-Date": " 2012-09-13 13:34+0200",
+         "POT-Creation-Date": " 2012-09-13 16:37+0200",
          "PO-Revision-Date": " 2012-09-13 13:28+0100",
          "Last-Translator": " Ramón Cahenzli <ramon.cahenzli@zhdk.ch>",
          "Language-Team": " LANGUAGE <LL@li.org>",
@@ -1959,6 +1959,11 @@ window.i18n.locale_data = {
       "current page is set as start page": [
          null,
          "current page is set as start page"
+      ],
+      "day": [
+         "days",
+         "Today",
+         "Today"
       ],
       "delete": [
          null,

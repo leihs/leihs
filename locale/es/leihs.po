@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-13 13:34+0200\n"
+"POT-Creation-Date: 2012-09-13 16:37+0200\n"
 "PO-Revision-Date: 2009-11-23 15:37+0000\n"
 "Last-Translator: Monkey <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -1618,6 +1618,12 @@ msgstr ""
 
 msgid "current page is set as start page"
 msgstr ""
+
+#, fuzzy
+msgid "day"
+msgid_plural "days"
+msgstr[0] "Feriados"
+msgstr[1] "Feriados"
 
 #, fuzzy
 msgid "delete"
@@ -3503,12 +3509,6 @@ msgstr ""
 
 #~ msgid "database authentication"
 #~ msgstr "Autenticación de Base de Datos"
-
-#, fuzzy
-#~ msgid "day"
-#~ msgid_plural "days"
-#~ msgstr[0] "Feriados"
-#~ msgstr[1] "Feriados"
 
 #~ msgid "event"
 #~ msgstr "evento"
