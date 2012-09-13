@@ -72,7 +72,7 @@ window.i18n.locale_data = {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
          "POT-Creation-Date": " 2012-09-13 13:34+0200",
-         "PO-Revision-Date": " 2012-09-13 13:29+0100",
+         "PO-Revision-Date": " 2012-09-13 13:28+0100",
          "Last-Translator": " Ramón Cahenzli <ramon.cahenzli@zhdk.ch>",
          "Language-Team": " LANGUAGE <LL@li.org>",
          "Language": " ",
@@ -81,7 +81,7 @@ window.i18n.locale_data = {
          "Content-Transfer-Encoding": " 8bit",
          "Plural-Forms": " nplurals=2; plural=(n != 1)",
          "X-Poedit-Language": " English",
-         "X-Poedit-Country": " UNITED STATES"
+         "X-Poedit-Country": " UNITED KINGDOM"
       },
       " at the inventory pool ": [
          null,
