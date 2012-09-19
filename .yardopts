@@ -1,0 +1,3 @@
+-o doc/yard
+--exclude /features
+--exclude /spec
