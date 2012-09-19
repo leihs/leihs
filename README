@@ -1,22 +1,21 @@
-    leihs - a borrowing/lending/resource management system 
-            written in Ruby on Rails  
+= leihs - a borrowing/lending/resource management system
 
-== General ==
+... written in Ruby on Rails.
+
+== General
 
 leihs is a web-based system to manage the circulation of items within an 
 organization or institution. In our case, we use it to keep track of who uses 
 our cameras, lighting equipment, speakers, microphones etc. 
 
 
-== Installation guide ==
+== Installation guide
 
-The install guide in asciidoc text and PDF format can be found in the doc 
-directory and on our wiki:
+The install guide can be found on GitHub:
 
-http://code.zhdk.ch/projects/leihs/wiki/Help
+https://github.com/zhdk/leihs/wiki
 
-
-== Project web pages ==
+== Project web pages
 
 Please find our project webpage at: 
 http://github.com/zhdk/leihs
@@ -29,7 +28,7 @@ Discussion group:    http://groups.google.com/group/leihs
 Downloads:           http://sourceforge.net/projects/leihs/
 Guides and wiki:     http://github.com/zhdk/leihs/wiki
 
-== Forks and pull requests ==
+== Forks and pull requests
 
 Please fork as much as you like (via GitHub), then send a pull request to
 zhdk. Please run the existing tests (rake leihs:test) before sending the request.
