@@ -77,13 +77,12 @@ class Backend::ItemsController < Backend::BackendController
     
 
     if @item.update_attributes(params[:item])
- 
       if params[:copy].blank?      
         redirect_to backend_inventory_pool_item_path(current_inventory_pool, @item)
       else 
         redirect_to :action => 'new', :original_id => @item.id  
       end
-      flash[:notice] = _("Item saved.") unless flash[:notice]
+      flash[:notice] = _("Item saved.") #tmp# unless flash[:notice]
     else
       flash[:error] = @item.errors.full_messages
       render :action => 'show'

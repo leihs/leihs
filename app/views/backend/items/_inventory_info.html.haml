@@ -1,0 +1,60 @@
+%tr
+  %td.subtitle{:colspan => 2}
+    %hr
+    = _("Inventory")
+
+%tr
+  %td
+    = _("Relevant for inventory")
+    \:
+  %td
+    - if is_super_user?
+      = f.select :is_inventory_relevant, { _("No") => false, _("Yes") => true}
+    - else
+      = f.hidden_field :is_inventory_relevant
+      = @item.is_inventory_relevant? ? _("Yes") : _("No")
+
+%tr
+  %td
+    = _("Owner")
+    \:
+  %td
+    - if is_super_user? or @item.new_record?
+      = f.select :owner_id, InventoryPool.all.map {|i| [i.name, i.id] }, {}, {:onchange => "alert('#{_("This item will be given to a different inventory pool and not show up in yours anymore!")}');"}
+    - else
+      = @item.owner.name
+
+%tr
+  %td
+    = _("Last Checked")
+    \:
+  %td= (is_privileged_user? or @item.new_record?) ? f.date_select(:last_check, :order => [:year]) : @item.last_check
+%tr
+  %td
+    = _("Responsible department")
+    \:
+  %td
+    - if is_super_user? or @item.new_record?
+      - selectable_inventories, html_options = if current_user.access_level_for(current_inventory_pool) == 2
+        - [[current_inventory_pool], {}]
+      - else
+        - [InventoryPool.all, {:include_blank => _("None")}]
+      = f.select :inventory_pool_id, selectable_inventories.map {|i| [i.name, i.id] }, html_options
+    - else
+      = f.hidden_field :inventory_pool_id
+      = @item.inventory_pool ? @item.inventory_pool.name : "-"
+%tr
+  %td
+    = _("Responsible person")
+    \:
+  %td
+    = (is_privileged_user? or @item.new_record?) ? f.text_field(:responsible) : @item.responsible
+%tr
+  %td
+    = _("User/Typical usage")
+    \:
+  %td
+    - if is_super_user? or @item.new_record?
+      = f.text_field :user_name
+    - else
+      = @item.user_name

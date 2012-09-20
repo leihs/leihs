@@ -1,0 +1,35 @@
+%tr
+  %td.subtitle{:colspan => 2}
+    %hr
+    = _("Status")
+%tr
+  %td
+    = _("Working order")
+    \:
+  %td
+    = f.radio_button(:is_broken, false) + _("OK")
+    = f.radio_button(:is_broken, true) + _("Broken")
+%tr
+  %td
+    = _("Completeness")
+    \:
+  %td
+    = f.radio_button(:is_incomplete, false) + _("OK")
+    = f.radio_button(:is_incomplete, true) + _("Incomplete")
+%tr
+  %td
+    = _("Borrowable")
+    \:
+  %td
+    = f.radio_button(:is_borrowable, true) + _("OK")
+    = f.radio_button(:is_borrowable, false) + _("Unborrowable")
+%tr
+  %td
+    = _("Needs permission")
+    \:
+  %td
+    - if is_privileged_user? or @item.new_record?
+      = f.radio_button(:needs_permission, true) + _("Yes")
+      = f.radio_button(:needs_permission, false) + _("No")
+    - else
+      = @item.needs_permission? ? _("Yes") : _("No")
