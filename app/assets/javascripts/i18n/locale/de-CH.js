@@ -72,7 +72,7 @@ window.i18n.locale_data = {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
          "POT-Creation-Date": " 2012-09-13 16:37+0200",
-         "PO-Revision-Date": " 2012-09-13 16:40+0100",
+         "PO-Revision-Date": " 2012-09-24 08:38+0100",
          "Last-Translator": " Ramón Cahenzli <ramon.cahenzli@zhdk.ch>",
          "Language-Team": " German (Switzerland) <ramon.cahenzli@zhdk.ch>",
          "Language": " ",
@@ -956,7 +956,7 @@ window.i18n.locale_data = {
       ],
       "No": [
          null,
-         "Nr."
+         "Nein"
       ],
       "No description available for this model.": [
          null,
