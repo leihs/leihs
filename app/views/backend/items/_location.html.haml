@@ -1,0 +1,21 @@
+%tr
+  %td.subtitle{:colspan => 2}
+    %hr
+    = _("Location")
+%tr
+  %td
+    = _("Building")
+    \:
+  %td
+    - options = options_from_collection_for_select(Building.all, :id, :to_s, (@item.location ? @item.location.building_id : nil))
+    = select_tag 'location[building_id]', "<option value=''>#{_("None")}</option>#{options}".html_safe
+%tr
+  %td
+    = _("Room")
+    \:
+  %td= text_field_tag 'location[room]', @item.location ? @item.location.room : ""
+%tr
+  %td
+    = _("Shelf")
+    \:
+  %td= text_field_tag 'location[shelf]', @item.location ? @item.location.shelf : ""
