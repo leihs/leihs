@@ -59,7 +59,7 @@ class Backend::ItemsController < Backend::BackendController
   def update
     get_histories
 
-    params[:item][:location] = Location.find_or_create(params[:location])
+    params[:item][:location] = Location.find_or_create(params[:location]) if params[:location]
 
 # TODO: Move to before_save, this never fires this way, but in before_save we are lacking
 # a current_user
@@ -74,15 +74,26 @@ class Backend::ItemsController < Backend::BackendController
 #                         [@item, InventoryPool.find(@item.owner_id_was), @item.owner],
 #                         current_user)
 #     end
-    
+
+    if to_retire = params[:item].delete(:to_retire)
+      unless @item.retired?
+        @item.retired = Date.today
+      else
+        # we keep the existing stored date
+      end
+    elsif @item.retired?
+      params[:item].delete(:retired_reason)
+      @item.retired_reason = nil
+      @item.retired = nil
+    end
 
     if @item.update_attributes(params[:item])
-      if params[:copy].blank?      
-        redirect_to backend_inventory_pool_item_path(current_inventory_pool, @item)
+      flash[:notice] = _("Item saved.") #tmp# unless flash[:notice]
+      if params[:copy].blank?
+        redirect_to :action => 'show'
       else 
         redirect_to :action => 'new', :original_id => @item.id  
       end
-      flash[:notice] = _("Item saved.") #tmp# unless flash[:notice]
     else
       flash[:error] = @item.errors.full_messages
       render :action => 'show'
@@ -101,6 +112,7 @@ class Backend::ItemsController < Backend::BackendController
 
 #################################################################
 
+=begin #old leihs??# FIXME problem with put request (it catches from the update method)
   def location
     if request.post? or request.put?
       if @item.update_attributes(:location => Location.find_or_create(params[:location]))
@@ -111,6 +123,7 @@ class Backend::ItemsController < Backend::BackendController
     end
     @item.location ||= Location.new
   end
+=end
 
 #################################################################
 
@@ -127,6 +140,7 @@ class Backend::ItemsController < Backend::BackendController
     redirect_to :action => 'show', :id => @item.id
   end
 
+=begin # TODO merge to update ??
   def retire
     if request.post?
       # NOTE since it's a switch form, the hidden param ensures the correct action
@@ -149,7 +163,7 @@ class Backend::ItemsController < Backend::BackendController
     params[:layout] = "modal" #old??#
     render :action => 'retire'
   end
-
+=end
   
 #################################################################
 

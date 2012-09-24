@@ -4,6 +4,28 @@
     = _("Invoice Information")
 %tr
   %td
+    = _("Bezug")
+    \:
+  %td
+    %label
+      %input{:type => "radio", :name => "item[properties][reference]", :value => "invoice"}
+      = _("laufende Rechnung")
+    %label
+      %input{:type => "radio", :name => "item[properties][reference]", :value => "investment"}
+      = _("Investition")
+    %label#project_number{:style => "margin-left: 3em"}
+      = _("Projektnummer:")
+      - v = @item.properties[:project_number]
+      %input{:type => "text", :name => "item[properties][project_number]", :value => v}
+    :coffeescript
+      $("input[name='item[properties][reference]']").change ()->
+        if $(this).val() == "invoice"
+          $("label#project_number").hide()
+        else
+          $("label#project_number").show()
+      $("input[name='item[properties][reference]'][value='#{@item.properties[:reference]}']").click()
+%tr
+  %td
     = _("Invoice Number")
     \:
   %td= (is_privileged_user? or @item.new_record?) ? f.text_field(:invoice_number) : @item.invoice_number
@@ -11,12 +33,22 @@
   %td
     = _("Invoice Date")
     \:
-  %td= (is_privileged_user? or @item.new_record?) ? f.date_select(:invoice_date, :order => [:day, :month, :year]) : short_date(@item.invoice_date)
+  %td 
+    - v = @item.invoice_date
+    - if is_privileged_user? or @item.new_record?
+      %input.datepicker{:type => "text", :name => "item[invoice_date]", :value => v}
+    - else
+      = short_date(v)
 %tr
   %td
     = _("Initial Price")
     \:
-  %td= (is_privileged_user? or @item.new_record?) ? f.text_field(:price) : (is_lending_manager? ? @item.price : "---")
+  %td
+    - v = "%.02f" % @item.price
+    - if is_privileged_user? or @item.new_record?
+      %input{:type => "text", :name => "item[price]", :value => v}
+    - else
+      = is_lending_manager? ? v : "---"
 %tr
   %td
     = _("Insurance Number")
@@ -27,16 +59,40 @@
     = _("Supplier")
     \:
   %td
-    #supplier_name= @item.supplier.name if @item.supplier
-    = f.hidden_field :supplier_id
-    = (is_privileged_user? or @item.new_record?) ? greybox_link(icon_tag('magnifier'), supplier_backend_inventory_pool_items_path(current_inventory_pool), :title => _("Search Model"), :width => "800") : ""
-
-- # !item.id.blank? ensures this is only shown for existing items, not unsaved items. Otherwise the form explodes
-- # when creating a new item
-- if !@item.id.blank? and is_privileged_user? and @item.owner_id == current_inventory_pool.id
-  %tr
-    %td
-      = _("Retirement")
-      \:
-    %td.buttons
-      = link_to (@item.retired ? _("Unretire") : _("Retire")), retire_backend_inventory_pool_model_item_path(current_inventory_pool, @item.model_id, @item)
+    - if is_privileged_user? or @item.new_record?
+      = f.select :supplier_id, Supplier.order(:name).map {|i| [i.name, i.id] }
+    - else
+      = @item.supplier.try(:name)
+%tr
+  %td
+    = _("Ablauf Garantie") # TODO javascript
+    \:
+  %td
+    - v = @item.properties[:guarantee_expiration]
+    - if is_privileged_user? or @item.new_record?
+      %input.datepicker{:type => "text", :name => "item[properties][guarantee_expiration]", :value => (v || (@item.invoice_date ? @item.invoice_date+1.year : nil))}
+    - else
+      = v
+%tr
+  %td
+    = _("Ablauf Vertrag")
+    \:
+  %td
+    - v = @item.properties[:contract_expiration]
+    - if is_privileged_user? or @item.new_record?
+      %input.datepicker{:type => "text", :name => "item[properties][contract_expiration]", :value => v}
+    - else
+      = v
+%tr
+  %td
+    = _("Plattform")
+    \:
+  %td
+    - v = @item.properties[:platform]
+    - if is_privileged_user? or @item.new_record?
+      %select{:name => "item[properties][platform]"}
+        - values = [nil, "Mac OS X", "Windows", "Linux", "andere"]
+        - values.each do |value|
+          %option{:value => value, :selected => (value == v ? "selected" : nil)}= value
+    - else
+      = v

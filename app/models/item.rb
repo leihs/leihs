@@ -27,16 +27,19 @@ class Item < ActiveRecord::Base
   has_many :contract_lines
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
 
+  store :properties
+  
 ####################################################################
-
+  
   validates_uniqueness_of :inventory_code
   validates_presence_of :inventory_code, :model
   validate :validates_package, :validates_model_change, :validates_retired
 
 ####################################################################
 
-  before_save do |record|
-    record.owner = record.inventory_pool if record.inventory_pool and !record.owner
+  before_save do
+    self.owner = inventory_pool if inventory_pool and !owner
+    self.properties = properties.to_hash.delete_if{|k,v| v.blank?}.deep_symbolize_keys # we want to store serialized plain Hash (not HashWithIndifferentAccess) and remove empty values
   end
 
   after_save :update_children_attributes
