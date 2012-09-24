@@ -44,7 +44,7 @@ When /^I select an item without assigning an inventory code$/ do
 end
 
 Then /^I got an error that i have to assign all selected item lines$/ do
-  find(".notification").should have_content("unassigned")
+  find(".notification").should have_content("keine Inventarcodes zugewiesen") # Pius has his system set to German
 end
 
 When /^I change the contract lines time range to tomorrow$/ do
