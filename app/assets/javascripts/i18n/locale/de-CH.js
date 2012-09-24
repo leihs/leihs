@@ -71,8 +71,8 @@ window.i18n.locale_data = {
       "": {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
-         "POT-Creation-Date": " 2012-09-24 08:40+0200",
-         "PO-Revision-Date": " 2012-09-24 08:41+0100",
+         "POT-Creation-Date": " 2012-09-24 13:24+0200",
+         "PO-Revision-Date": " 2012-09-24 13:25+0100",
          "Last-Translator": " Ramón Cahenzli <ramon.cahenzli@zhdk.ch>",
          "Language-Team": " German (Switzerland) <ramon.cahenzli@zhdk.ch>",
          "Language": " ",
@@ -358,6 +358,10 @@ window.i18n.locale_data = {
          null,
          "Kompatibles Modell erfolgreich entfernt"
       ],
+      "Complete": [
+         null,
+         "Vollständig"
+      ],
       "Complete Search": [
          null,
          "Gesamtsuche"
@@ -453,6 +457,10 @@ window.i18n.locale_data = {
       "Dear leihs manager,": [
          null,
          "Liebe/r leihs-Manager/in"
+      ],
+      "Defective": [
+         null,
+         "Defekt"
       ],
       "Delete": [
          null,
@@ -589,6 +597,10 @@ window.i18n.locale_data = {
       "Frontend": [
          null,
          "Frontend"
+      ],
+      "Functional": [
+         null,
+         "Funktionstüchtig"
       ],
       "General Information": [
          null,

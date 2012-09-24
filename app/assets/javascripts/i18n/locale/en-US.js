@@ -71,7 +71,7 @@ window.i18n.locale_data = {
       "": {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
-         "POT-Creation-Date": " 2012-09-24 08:40+0200",
+         "POT-Creation-Date": " 2012-09-24 13:24+0200",
          "PO-Revision-Date": " 2012-09-20 10:01+0100",
          "Last-Translator": " Ramón Cahenzli <ramon.cahenzli@zhdk.ch>",
          "Language-Team": " LANGUAGE <LL@li.org>",
@@ -354,6 +354,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Complete": [
+         null,
+         ""
+      ],
       "Complete Search": [
          null,
          ""
@@ -447,6 +451,10 @@ window.i18n.locale_data = {
          ""
       ],
       "Dear leihs manager,": [
+         null,
+         ""
+      ],
+      "Defective": [
          null,
          ""
       ],
@@ -583,6 +591,10 @@ window.i18n.locale_data = {
          ""
       ],
       "Frontend": [
+         null,
+         ""
+      ],
+      "Functional": [
          null,
          ""
       ],

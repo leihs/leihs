@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-24 08:40+0200\n"
+"POT-Creation-Date: 2012-09-24 13:24+0200\n"
 "PO-Revision-Date: 2012-09-17 14:41+0100\n"
 "Last-Translator: Ramón Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -252,6 +252,10 @@ msgid "Compatible successfully removed"
 msgstr "Compatibilidad quitada correctamente"
 
 #, fuzzy
+msgid "Complete"
+msgstr "Incompleto"
+
+#, fuzzy
 msgid "Complete Search"
 msgstr "Incompleto"
 
@@ -332,6 +336,10 @@ msgstr "Estimado cliente de leihs,"
 #, fuzzy
 msgid "Dear leihs manager,"
 msgstr "Estimado cliente de leihs,"
+
+#, fuzzy
+msgid "Defective"
+msgstr "Artículo retirado el"
 
 msgid "Delete"
 msgstr "Eliminar"
@@ -451,6 +459,10 @@ msgstr "De"
 
 msgid "Frontend"
 msgstr ""
+
+#, fuzzy
+msgid "Functional"
+msgstr "Acción"
 
 msgid "General Information"
 msgstr "Información General"
@@ -1909,9 +1921,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Acknowledge immediately"
 #~ msgstr "Reconocer"
-
-#~ msgid "Action"
-#~ msgstr "Acción"
 
 #~ msgid "Actions"
 #~ msgstr "Acciones"

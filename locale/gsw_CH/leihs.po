@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-24 08:40+0200\n"
+"POT-Creation-Date: 2012-09-24 13:24+0200\n"
 "PO-Revision-Date: 2011-06-17 11:43+0100\n"
 "Last-Translator: Ramón Cahenzli <rca@psy-q.ch>\n"
 "Language-Team: Swiss-German (Zürich area) <ramon.cahenzli@zhdk.ch>\n"
@@ -244,6 +244,10 @@ msgid "Compatible successfully removed"
 msgstr "Kompatibls Grät erfolgriich wäggnoh."
 
 #, fuzzy
+msgid "Complete"
+msgstr "Vollständigkeit"
+
+#, fuzzy
 msgid "Complete Search"
 msgstr "Vollständigkeit"
 
@@ -321,6 +325,10 @@ msgstr "Liebe leihs-Benutzer,"
 #, fuzzy
 msgid "Dear leihs manager,"
 msgstr "Liebe leihs-Benutzer,"
+
+#, fuzzy
+msgid "Defective"
+msgstr "Aktiv"
 
 msgid "Delete"
 msgstr "Löschä"
@@ -436,6 +444,10 @@ msgstr "Vo "
 
 msgid "Frontend"
 msgstr ""
+
+#, fuzzy
+msgid "Functional"
+msgstr "Aktion"
 
 msgid "General Information"
 msgstr "Allgemeini Information"
@@ -1895,14 +1907,8 @@ msgstr ""
 #~ msgid "Acknowledge immediately"
 #~ msgstr "Bestätige"
 
-#~ msgid "Action"
-#~ msgstr "Aktion"
-
 #~ msgid "Actions"
 #~ msgstr "Aktionä"
-
-#~ msgid "Active"
-#~ msgstr "Aktiv"
 
 #, fuzzy
 #~ msgid "Add Item"

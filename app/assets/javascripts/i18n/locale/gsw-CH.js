@@ -71,7 +71,7 @@ window.i18n.locale_data = {
       "": {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
-         "POT-Creation-Date": " 2012-09-24 08:40+0200",
+         "POT-Creation-Date": " 2012-09-24 13:24+0200",
          "PO-Revision-Date": " 2011-06-17 11:43+0100",
          "Last-Translator": " Ramón Cahenzli <rca@psy-q.ch>",
          "Language-Team": " Swiss-German (Zürich area) <ramon.cahenzli@zhdk.ch>",
@@ -356,6 +356,10 @@ window.i18n.locale_data = {
          null,
          "Kompatibls Grät erfolgriich wäggnoh."
       ],
+      "Complete": [
+         null,
+         "Vollständigkeit"
+      ],
       "Complete Search": [
          null,
          "Vollständigkeit"
@@ -451,6 +455,10 @@ window.i18n.locale_data = {
       "Dear leihs manager,": [
          null,
          "Liebe leihs-Benutzer,"
+      ],
+      "Defective": [
+         null,
+         "Aktiv"
       ],
       "Delete": [
          null,
@@ -587,6 +595,10 @@ window.i18n.locale_data = {
       "Frontend": [
          null,
          ""
+      ],
+      "Functional": [
+         null,
+         "Aktion"
       ],
       "General Information": [
          null,
@@ -2317,17 +2329,9 @@ window.i18n.locale_data = {
          null,
          "Bestätige"
       ],
-      "Action": [
-         null,
-         "Aktion"
-      ],
       "Actions": [
          null,
          "Aktionä"
-      ],
-      "Active": [
-         null,
-         "Aktiv"
       ],
       "Add Item": [
          null,

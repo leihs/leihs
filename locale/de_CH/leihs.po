@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-24 08:40+0200\n"
-"PO-Revision-Date: 2012-09-24 08:41+0100\n"
+"POT-Creation-Date: 2012-09-24 13:24+0200\n"
+"PO-Revision-Date: 2012-09-24 13:25+0100\n"
 "Last-Translator: Ramón Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "Language: \n"
@@ -224,6 +224,9 @@ msgstr "Geschlossen"
 msgid "Compatible successfully removed"
 msgstr "Kompatibles Modell erfolgreich entfernt"
 
+msgid "Complete"
+msgstr "Vollständig"
+
 msgid "Complete Search"
 msgstr "Gesamtsuche"
 
@@ -295,6 +298,9 @@ msgstr "Liebe/r leihs-Kunde/in"
 
 msgid "Dear leihs manager,"
 msgstr "Liebe/r leihs-Manager/in"
+
+msgid "Defective"
+msgstr "Defekt"
 
 msgid "Delete"
 msgstr "Löschen"
@@ -397,6 +403,9 @@ msgstr "Fr"
 
 msgid "Frontend"
 msgstr "Frontend"
+
+msgid "Functional"
+msgstr "Funktionstüchtig"
 
 msgid "General Information"
 msgstr "Allgemeine Informationen"

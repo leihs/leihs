@@ -71,7 +71,7 @@ window.i18n.locale_data = {
       "": {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
-         "POT-Creation-Date": " 2012-09-24 08:40+0200",
+         "POT-Creation-Date": " 2012-09-24 13:24+0200",
          "PO-Revision-Date": " 2012-09-17 14:41+0100",
          "Last-Translator": " Ramón Cahenzli <ramon.cahenzli@zhdk.ch>",
          "Language-Team": " Spanish <es@li.org>",
@@ -355,6 +355,10 @@ window.i18n.locale_data = {
          null,
          "Compatibilidad quitada correctamente"
       ],
+      "Complete": [
+         null,
+         "Incompleto"
+      ],
       "Complete Search": [
          null,
          "Incompleto"
@@ -450,6 +454,10 @@ window.i18n.locale_data = {
       "Dear leihs manager,": [
          null,
          "Estimado cliente de leihs,"
+      ],
+      "Defective": [
+         null,
+         "Artículo retirado el"
       ],
       "Delete": [
          null,
@@ -586,6 +594,10 @@ window.i18n.locale_data = {
       "Frontend": [
          null,
          ""
+      ],
+      "Functional": [
+         null,
+         "Acción"
       ],
       "General Information": [
          null,
@@ -2307,10 +2319,6 @@ window.i18n.locale_data = {
       "Acknowledge immediately": [
          null,
          "Reconocer"
-      ],
-      "Action": [
-         null,
-         "Acción"
       ],
       "Actions": [
          null,
