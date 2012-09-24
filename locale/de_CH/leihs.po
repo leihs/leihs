@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-13 16:37+0200\n"
-"PO-Revision-Date: 2012-09-24 08:38+0100\n"
+"POT-Creation-Date: 2012-09-24 08:40+0200\n"
+"PO-Revision-Date: 2012-09-24 08:41+0100\n"
 "Last-Translator: Ramón Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "Language: \n"
@@ -449,8 +449,8 @@ msgstr "Inkonsistenter Geräterpark"
 msgid "Incremented quantity from %i to %i for %s"
 msgstr "Anzahl von %i auf %i erhöht für %s"
 
-msgid "Initial Price:"
-msgstr "Anschaffungswert:"
+msgid "Initial Price"
+msgstr "Anschaffungswert"
 
 msgid "Inspect"
 msgstr "Inspektion"
@@ -458,8 +458,8 @@ msgstr "Inspektion"
 msgid "Inspect Item"
 msgstr "Inspektion"
 
-msgid "Insurance Number:"
-msgstr "Versicherungsnummer:"
+msgid "Insurance Number"
+msgstr "Versicherungsnummer"
 
 msgid "Internal Description"
 msgstr "Interne Beschreibung"
@@ -503,14 +503,14 @@ msgstr "Invetarcode aktualisiert"
 msgid "Inventory pool"
 msgstr "Gerätepark"
 
-msgid "Invoice Date:"
-msgstr "Rechnungsdatum:"
+msgid "Invoice Date"
+msgstr "Rechnungsdatum"
 
 msgid "Invoice Information"
 msgstr "Rechnungsinformationen"
 
-msgid "Invoice Number:"
-msgstr "Rechnungsnummer:"
+msgid "Invoice Number"
+msgstr "Rechnungsnummer"
 
 msgid "Item"
 msgstr "Gegenstand"
@@ -554,8 +554,8 @@ msgstr "Gegenstände"
 msgid "Kind regards,"
 msgstr "Schöne Grüsse"
 
-msgid "Last Checked:"
-msgstr "Geprüft:"
+msgid "Last Checked"
+msgstr "Geprüft"
 
 msgid "Last Visitors:"
 msgstr "Letzte Besucher:"
@@ -773,9 +773,6 @@ msgstr "Überfällige Rückgaben"
 msgid "Overdue Visit"
 msgstr "Überfälliger Besuch"
 
-msgid "Overview"
-msgstr "Übersicht"
-
 msgid "Owned"
 msgstr "Im Besitz"
 
@@ -905,8 +902,8 @@ msgstr "Ausmustern"
 msgid "Retired"
 msgstr "Ausgemustert"
 
-msgid "Retirement:"
-msgstr "Ausmusterung:"
+msgid "Retirement"
+msgstr "Ausmusterung"
 
 msgid "Return"
 msgstr "Zurück"
@@ -950,8 +947,8 @@ msgstr "Suche"
 msgid "Selected Pools (%s)"
 msgstr "Ausgewählte Parks (%s)"
 
-msgid "Serial Number:"
-msgstr "Seriennummer:"
+msgid "Serial Number"
+msgstr "Seriennummer"
 
 msgid "Settings for %s"
 msgstr "Einstellungen für %s"
@@ -1022,8 +1019,8 @@ msgstr "Bestellung erfolgreich"
 msgid "Successfully set."
 msgstr "Erfolgreich zugewiesen"
 
-msgid "Supplier:"
-msgstr "Lieferant:"
+msgid "Supplier"
+msgstr "Lieferant"
 
 msgid "Swapped %{from} for %{to}"
 msgstr "%{from} durch %{to} ersetzt"
@@ -1174,6 +1171,9 @@ msgstr "Dies ist eine Liste der gewünschten Gegenstände. Um die Bestellung zu 
 
 msgid "This item was retired on %s because %s"
 msgstr "Dieser Gegenstand würde am %s ausgemustert. Grund: %s"
+
+msgid "This item will be given to a different inventory pool and not show up in yours anymore!"
+msgstr "Dieser Gegenstand wird auf einen anderen übertragen und erscheint nicht mehr in diesem!"
 
 msgid "This model is now in %d categories"
 msgstr "Modell ist jetzt in Kategorie %s"
@@ -1597,3 +1597,5 @@ msgstr "Sie können keine Zeilen aushändigen, deren Startdatum in der Zukunft l
 msgid "you cannot hand out lines with unassigned inventory codes"
 msgstr "Sie können keine Zeilen aushändigen, die keine Inventarcodes zugewiesen haben"
 
+#~ msgid "Overview"
+#~ msgstr "Übersicht"

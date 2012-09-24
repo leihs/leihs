@@ -71,7 +71,7 @@ window.i18n.locale_data = {
       "": {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
-         "POT-Creation-Date": " 2012-09-13 16:37+0200",
+         "POT-Creation-Date": " 2012-09-24 08:40+0200",
          "PO-Revision-Date": " 2012-09-17 14:41+0100",
          "Last-Translator": " Ramón Cahenzli <ramon.cahenzli@zhdk.ch>",
          "Language-Team": " Spanish <es@li.org>",
@@ -655,7 +655,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Initial Price:": [
+      "Initial Price": [
          null,
          "Precio Inicial:"
       ],
@@ -667,7 +667,7 @@ window.i18n.locale_data = {
          null,
          "Inspección"
       ],
-      "Insurance Number:": [
+      "Insurance Number": [
          null,
          "Número de Factura:"
       ],
@@ -727,7 +727,7 @@ window.i18n.locale_data = {
          null,
          "grupo de inventario"
       ],
-      "Invoice Date:": [
+      "Invoice Date": [
          null,
          "Fecha de Factura:"
       ],
@@ -735,7 +735,7 @@ window.i18n.locale_data = {
          null,
          "Información de Factura"
       ],
-      "Invoice Number:": [
+      "Invoice Number": [
          null,
          "Número de Factura:"
       ],
@@ -795,7 +795,7 @@ window.i18n.locale_data = {
          null,
          "Saludos cordiales,"
       ],
-      "Last Checked:": [
+      "Last Checked": [
          null,
          "Última Revisión:"
       ],
@@ -1087,10 +1087,6 @@ window.i18n.locale_data = {
          null,
          "Vencido"
       ],
-      "Overview": [
-         null,
-         "Vencido"
-      ],
       "Owned": [
          null,
          "Propietario:"
@@ -1263,7 +1259,7 @@ window.i18n.locale_data = {
          null,
          "Retirado"
       ],
-      "Retirement:": [
+      "Retirement": [
          null,
          "Retirar"
       ],
@@ -1323,9 +1319,9 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Serial Number:": [
+      "Serial Number": [
          null,
-         "Número de Serie:"
+         "Número de Serie"
       ],
       "Settings for %s": [
          null,
@@ -1419,9 +1415,9 @@ window.i18n.locale_data = {
          null,
          "Ubicación asignada correctamente"
       ],
-      "Supplier:": [
+      "Supplier": [
          null,
-         "Proveedor:"
+         "Proveedor"
       ],
       "Swapped %{from} for %{to}": [
          null,
@@ -1622,6 +1618,10 @@ window.i18n.locale_data = {
       "This item was retired on %s because %s": [
          null,
          "Artículo retirado el"
+      ],
+      "This item will be given to a different inventory pool and not show up in yours anymore!": [
+         null,
+         ""
       ],
       "This model is now in %d categories": [
          null,
@@ -3564,6 +3564,10 @@ window.i18n.locale_data = {
          null,
          "Otros documentos"
       ],
+      "Overview": [
+         null,
+         "Vencido"
+      ],
       "Own": [
          null,
          "Propio"
@@ -3784,9 +3788,9 @@ window.i18n.locale_data = {
          null,
          "Suspender"
       ],
-      "Serial Number": [
+      "Serial Number:": [
          null,
-         "Número de Serie"
+         "Número de Serie:"
       ],
       "Set": [
          null,
@@ -3816,9 +3820,9 @@ window.i18n.locale_data = {
          null,
          "Enviar"
       ],
-      "Supplier": [
+      "Supplier:": [
          null,
-         "Proveedor"
+         "Proveedor:"
       ],
       "Supplier|Created at": [
          null,

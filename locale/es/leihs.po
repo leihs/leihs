@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-13 16:37+0200\n"
+"POT-Creation-Date: 2012-09-24 08:40+0200\n"
 "PO-Revision-Date: 2012-09-17 14:41+0100\n"
 "Last-Translator: Ramón Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -513,7 +513,8 @@ msgstr "Artículo|Grupo de inventario"
 msgid "Incremented quantity from %i to %i for %s"
 msgstr ""
 
-msgid "Initial Price:"
+#, fuzzy
+msgid "Initial Price"
 msgstr "Precio Inicial:"
 
 #, fuzzy
@@ -525,7 +526,7 @@ msgid "Inspect Item"
 msgstr "Inspección"
 
 #, fuzzy
-msgid "Insurance Number:"
+msgid "Insurance Number"
 msgstr "Número de Factura:"
 
 msgid "Internal Description"
@@ -575,13 +576,15 @@ msgstr "Código de inventario"
 msgid "Inventory pool"
 msgstr "grupo de inventario"
 
-msgid "Invoice Date:"
+#, fuzzy
+msgid "Invoice Date"
 msgstr "Fecha de Factura:"
 
 msgid "Invoice Information"
 msgstr "Información de Factura"
 
-msgid "Invoice Number:"
+#, fuzzy
+msgid "Invoice Number"
 msgstr "Número de Factura:"
 
 msgid "Item"
@@ -630,7 +633,8 @@ msgstr "Artículos"
 msgid "Kind regards,"
 msgstr "Saludos cordiales,"
 
-msgid "Last Checked:"
+#, fuzzy
+msgid "Last Checked"
 msgstr "Última Revisión:"
 
 #, fuzzy
@@ -886,10 +890,6 @@ msgid "Overdue Visit"
 msgstr "Vencido"
 
 #, fuzzy
-msgid "Overview"
-msgstr "Vencido"
-
-#, fuzzy
 msgid "Owned"
 msgstr "Propietario:"
 
@@ -1033,7 +1033,7 @@ msgid "Retired"
 msgstr "Retirado"
 
 #, fuzzy
-msgid "Retirement:"
+msgid "Retirement"
 msgstr "Retirar"
 
 #, fuzzy
@@ -1085,8 +1085,8 @@ msgstr "Buscar"
 msgid "Selected Pools (%s)"
 msgstr ""
 
-msgid "Serial Number:"
-msgstr "Número de Serie:"
+msgid "Serial Number"
+msgstr "Número de Serie"
 
 #, fuzzy
 msgid "Settings for %s"
@@ -1167,8 +1167,8 @@ msgstr "Ubicación asignada correctamente"
 msgid "Successfully set."
 msgstr "Ubicación asignada correctamente"
 
-msgid "Supplier:"
-msgstr "Proveedor:"
+msgid "Supplier"
+msgstr "Proveedor"
 
 msgid "Swapped %{from} for %{to}"
 msgstr "Intercambio %{from} por %{to}"
@@ -1337,6 +1337,9 @@ msgstr ""
 #, fuzzy
 msgid "This item was retired on %s because %s"
 msgstr "Artículo retirado el"
+
+msgid "This item will be given to a different inventory pool and not show up in yours anymore!"
+msgstr ""
 
 #, fuzzy
 msgid "This model is now in %d categories"
@@ -2990,6 +2993,10 @@ msgstr ""
 #~ msgid "Other documents"
 #~ msgstr "Otros documentos"
 
+#, fuzzy
+#~ msgid "Overview"
+#~ msgstr "Vencido"
+
 #~ msgid "Own"
 #~ msgstr "Propio"
 
@@ -3169,8 +3176,8 @@ msgstr ""
 #~ msgid "Send"
 #~ msgstr "Suspender"
 
-#~ msgid "Serial Number"
-#~ msgstr "Número de Serie"
+#~ msgid "Serial Number:"
+#~ msgstr "Número de Serie:"
 
 #~ msgid "Set"
 #~ msgstr "Establecer"
@@ -3195,8 +3202,8 @@ msgstr ""
 #~ msgid "Subject"
 #~ msgstr "Enviar"
 
-#~ msgid "Supplier"
-#~ msgstr "Proveedor"
+#~ msgid "Supplier:"
+#~ msgstr "Proveedor:"
 
 #~ msgid "Supplier|Created at"
 #~ msgstr "Proveedor|Creado el"

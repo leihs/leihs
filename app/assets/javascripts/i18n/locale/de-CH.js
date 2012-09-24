@@ -71,8 +71,8 @@ window.i18n.locale_data = {
       "": {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
-         "POT-Creation-Date": " 2012-09-13 16:37+0200",
-         "PO-Revision-Date": " 2012-09-24 08:38+0100",
+         "POT-Creation-Date": " 2012-09-24 08:40+0200",
+         "PO-Revision-Date": " 2012-09-24 08:41+0100",
          "Last-Translator": " Ramón Cahenzli <ramon.cahenzli@zhdk.ch>",
          "Language-Team": " German (Switzerland) <ramon.cahenzli@zhdk.ch>",
          "Language": " ",
@@ -658,9 +658,9 @@ window.i18n.locale_data = {
          null,
          "Anzahl von %i auf %i erhöht für %s"
       ],
-      "Initial Price:": [
+      "Initial Price": [
          null,
-         "Anschaffungswert:"
+         "Anschaffungswert"
       ],
       "Inspect": [
          null,
@@ -670,9 +670,9 @@ window.i18n.locale_data = {
          null,
          "Inspektion"
       ],
-      "Insurance Number:": [
+      "Insurance Number": [
          null,
-         "Versicherungsnummer:"
+         "Versicherungsnummer"
       ],
       "Internal Description": [
          null,
@@ -730,17 +730,17 @@ window.i18n.locale_data = {
          null,
          "Gerätepark"
       ],
-      "Invoice Date:": [
+      "Invoice Date": [
          null,
-         "Rechnungsdatum:"
+         "Rechnungsdatum"
       ],
       "Invoice Information": [
          null,
          "Rechnungsinformationen"
       ],
-      "Invoice Number:": [
+      "Invoice Number": [
          null,
-         "Rechnungsnummer:"
+         "Rechnungsnummer"
       ],
       "Item": [
          null,
@@ -798,9 +798,9 @@ window.i18n.locale_data = {
          null,
          "Schöne Grüsse"
       ],
-      "Last Checked:": [
+      "Last Checked": [
          null,
-         "Geprüft:"
+         "Geprüft"
       ],
       "Last Visitors:": [
          null,
@@ -1090,10 +1090,6 @@ window.i18n.locale_data = {
          null,
          "Überfälliger Besuch"
       ],
-      "Overview": [
-         null,
-         "Übersicht"
-      ],
       "Owned": [
          null,
          "Im Besitz"
@@ -1266,9 +1262,9 @@ window.i18n.locale_data = {
          null,
          "Ausgemustert"
       ],
-      "Retirement:": [
+      "Retirement": [
          null,
-         "Ausmusterung:"
+         "Ausmusterung"
       ],
       "Return": [
          null,
@@ -1326,9 +1322,9 @@ window.i18n.locale_data = {
          null,
          "Ausgewählte Parks (%s)"
       ],
-      "Serial Number:": [
+      "Serial Number": [
          null,
-         "Seriennummer:"
+         "Seriennummer"
       ],
       "Settings for %s": [
          null,
@@ -1422,9 +1418,9 @@ window.i18n.locale_data = {
          null,
          "Erfolgreich zugewiesen"
       ],
-      "Supplier:": [
+      "Supplier": [
          null,
-         "Lieferant:"
+         "Lieferant"
       ],
       "Swapped %{from} for %{to}": [
          null,
@@ -1625,6 +1621,10 @@ window.i18n.locale_data = {
       "This item was retired on %s because %s": [
          null,
          "Dieser Gegenstand würde am %s ausgemustert. Grund: %s"
+      ],
+      "This item will be given to a different inventory pool and not show up in yours anymore!": [
+         null,
+         "Dieser Gegenstand wird auf einen anderen übertragen und erscheint nicht mehr in diesem!"
       ],
       "This model is now in %d categories": [
          null,
@@ -2186,6 +2186,10 @@ window.i18n.locale_data = {
       "you cannot hand out lines with unassigned inventory codes": [
          null,
          "Sie können keine Zeilen aushändigen, die keine Inventarcodes zugewiesen haben"
+      ],
+      "Overview": [
+         null,
+         "Übersicht"
       ]
    }
 }

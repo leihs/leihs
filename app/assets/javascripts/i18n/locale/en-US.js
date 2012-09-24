@@ -71,7 +71,7 @@ window.i18n.locale_data = {
       "": {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
-         "POT-Creation-Date": " 2012-09-13 16:37+0200",
+         "POT-Creation-Date": " 2012-09-24 08:40+0200",
          "PO-Revision-Date": " 2012-09-20 10:01+0100",
          "Last-Translator": " Ramón Cahenzli <ramon.cahenzli@zhdk.ch>",
          "Language-Team": " LANGUAGE <LL@li.org>",
@@ -654,7 +654,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Initial Price:": [
+      "Initial Price": [
          null,
          ""
       ],
@@ -666,7 +666,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Insurance Number:": [
+      "Insurance Number": [
          null,
          ""
       ],
@@ -726,7 +726,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Invoice Date:": [
+      "Invoice Date": [
          null,
          ""
       ],
@@ -734,7 +734,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Invoice Number:": [
+      "Invoice Number": [
          null,
          ""
       ],
@@ -794,7 +794,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Last Checked:": [
+      "Last Checked": [
          null,
          ""
       ],
@@ -1086,10 +1086,6 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Overview": [
-         null,
-         ""
-      ],
       "Owned": [
          null,
          ""
@@ -1262,7 +1258,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Retirement:": [
+      "Retirement": [
          null,
          ""
       ],
@@ -1322,7 +1318,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Serial Number:": [
+      "Serial Number": [
          null,
          ""
       ],
@@ -1418,7 +1414,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Supplier:": [
+      "Supplier": [
          null,
          ""
       ],
@@ -1619,6 +1615,10 @@ window.i18n.locale_data = {
          ""
       ],
       "This item was retired on %s because %s": [
+         null,
+         ""
+      ],
+      "This item will be given to a different inventory pool and not show up in yours anymore!": [
          null,
          ""
       ],

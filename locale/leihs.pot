@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-13 16:37+0200\n"
+"POT-Creation-Date: 2012-09-24 08:40+0200\n"
 "PO-Revision-Date: 2011-06-16 17:42+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -449,7 +449,7 @@ msgstr ""
 msgid "Incremented quantity from %i to %i for %s"
 msgstr ""
 
-msgid "Initial Price:"
+msgid "Initial Price"
 msgstr ""
 
 msgid "Inspect"
@@ -458,7 +458,7 @@ msgstr ""
 msgid "Inspect Item"
 msgstr ""
 
-msgid "Insurance Number:"
+msgid "Insurance Number"
 msgstr ""
 
 msgid "Internal Description"
@@ -503,13 +503,13 @@ msgstr ""
 msgid "Inventory pool"
 msgstr ""
 
-msgid "Invoice Date:"
+msgid "Invoice Date"
 msgstr ""
 
 msgid "Invoice Information"
 msgstr ""
 
-msgid "Invoice Number:"
+msgid "Invoice Number"
 msgstr ""
 
 msgid "Item"
@@ -554,7 +554,7 @@ msgstr ""
 msgid "Kind regards,"
 msgstr ""
 
-msgid "Last Checked:"
+msgid "Last Checked"
 msgstr ""
 
 msgid "Last Visitors:"
@@ -773,9 +773,6 @@ msgstr ""
 msgid "Overdue Visit"
 msgstr ""
 
-msgid "Overview"
-msgstr ""
-
 msgid "Owned"
 msgstr ""
 
@@ -905,7 +902,7 @@ msgstr ""
 msgid "Retired"
 msgstr ""
 
-msgid "Retirement:"
+msgid "Retirement"
 msgstr ""
 
 msgid "Return"
@@ -950,7 +947,7 @@ msgstr ""
 msgid "Selected Pools (%s)"
 msgstr ""
 
-msgid "Serial Number:"
+msgid "Serial Number"
 msgstr ""
 
 msgid "Settings for %s"
@@ -1022,7 +1019,7 @@ msgstr ""
 msgid "Successfully set."
 msgstr ""
 
-msgid "Supplier:"
+msgid "Supplier"
 msgstr ""
 
 msgid "Swapped %{from} for %{to}"
@@ -1173,6 +1170,9 @@ msgid "This is the list of items you requested. To complete this order, please %
 msgstr ""
 
 msgid "This item was retired on %s because %s"
+msgstr ""
+
+msgid "This item will be given to a different inventory pool and not show up in yours anymore!"
 msgstr ""
 
 msgid "This model is now in %d categories"

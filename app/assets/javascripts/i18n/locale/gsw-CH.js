@@ -71,7 +71,7 @@ window.i18n.locale_data = {
       "": {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
-         "POT-Creation-Date": " 2012-09-13 16:37+0200",
+         "POT-Creation-Date": " 2012-09-24 08:40+0200",
          "PO-Revision-Date": " 2011-06-17 11:43+0100",
          "Last-Translator": " Ramón Cahenzli <rca@psy-q.ch>",
          "Language-Team": " Swiss-German (Zürich area) <ramon.cahenzli@zhdk.ch>",
@@ -656,7 +656,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Initial Price:": [
+      "Initial Price": [
          null,
          "Aafangspriis:"
       ],
@@ -668,7 +668,7 @@ window.i18n.locale_data = {
          null,
          "Inspektion"
       ],
-      "Insurance Number:": [
+      "Insurance Number": [
          null,
          "Versicheruigsnummerä:"
       ],
@@ -728,7 +728,7 @@ window.i18n.locale_data = {
          null,
          "Grätepark"
       ],
-      "Invoice Date:": [
+      "Invoice Date": [
          null,
          "Rächnigsdatum:"
       ],
@@ -736,7 +736,7 @@ window.i18n.locale_data = {
          null,
          "Rächnigs-Information"
       ],
-      "Invoice Number:": [
+      "Invoice Number": [
          null,
          "Rächnisgsnummerä:"
       ],
@@ -796,7 +796,7 @@ window.i18n.locale_data = {
          null,
          "Liebi Grüess,"
       ],
-      "Last Checked:": [
+      "Last Checked": [
          null,
          "z'letscht überprüeft:"
       ],
@@ -1088,10 +1088,6 @@ window.i18n.locale_data = {
          null,
          "Überfällig"
       ],
-      "Overview": [
-         null,
-         "Übersicht"
-      ],
       "Owned": [
          null,
          "Bsitzer"
@@ -1264,7 +1260,7 @@ window.i18n.locale_data = {
          null,
          "Uusgmuschteret"
       ],
-      "Retirement:": [
+      "Retirement": [
          null,
          "Uusmuschtere"
       ],
@@ -1324,9 +1320,9 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Serial Number:": [
+      "Serial Number": [
          null,
-         "Seriänummerä:"
+         "Serienummer"
       ],
       "Settings for %s": [
          null,
@@ -1420,7 +1416,7 @@ window.i18n.locale_data = {
          null,
          "erfolgriich gsetzt"
       ],
-      "Supplier:": [
+      "Supplier": [
          null,
          "Liferant:"
       ],
@@ -1623,6 +1619,10 @@ window.i18n.locale_data = {
       "This item was retired on %s because %s": [
          null,
          "D Sach isch am %s wäge %s uusgmuschteret worde"
+      ],
+      "This item will be given to a different inventory pool and not show up in yours anymore!": [
+         null,
+         ""
       ],
       "This model is now in %d categories": [
          null,
@@ -3749,6 +3749,10 @@ window.i18n.locale_data = {
          null,
          "Wiiteri Dokument"
       ],
+      "Overview": [
+         null,
+         "Übersicht"
+      ],
       "Own": [
          null,
          "Bstellig: "
@@ -3985,9 +3989,9 @@ window.i18n.locale_data = {
          null,
          "Suschpendiere"
       ],
-      "Serial Number": [
+      "Serial Number:": [
          null,
-         "Serienummer"
+         "Seriänummerä:"
       ],
       "Set": [
          null,

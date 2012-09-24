@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-13 16:37+0200\n"
+"POT-Creation-Date: 2012-09-24 08:40+0200\n"
 "PO-Revision-Date: 2011-06-17 11:43+0100\n"
 "Last-Translator: Ramón Cahenzli <rca@psy-q.ch>\n"
 "Language-Team: Swiss-German (Zürich area) <ramon.cahenzli@zhdk.ch>\n"
@@ -498,7 +498,8 @@ msgstr "Inventarcode"
 msgid "Incremented quantity from %i to %i for %s"
 msgstr ""
 
-msgid "Initial Price:"
+#, fuzzy
+msgid "Initial Price"
 msgstr "Aafangspriis:"
 
 #, fuzzy
@@ -509,7 +510,8 @@ msgstr "Inspektion"
 msgid "Inspect Item"
 msgstr "Inspektion"
 
-msgid "Insurance Number:"
+#, fuzzy
+msgid "Insurance Number"
 msgstr "Versicheruigsnummerä:"
 
 msgid "Internal Description"
@@ -558,13 +560,15 @@ msgstr "Inventarcode aktualisiert"
 msgid "Inventory pool"
 msgstr "Grätepark"
 
-msgid "Invoice Date:"
+#, fuzzy
+msgid "Invoice Date"
 msgstr "Rächnigsdatum:"
 
 msgid "Invoice Information"
 msgstr "Rächnigs-Information"
 
-msgid "Invoice Number:"
+#, fuzzy
+msgid "Invoice Number"
 msgstr "Rächnisgsnummerä:"
 
 msgid "Item"
@@ -612,7 +616,8 @@ msgstr "Sachä"
 msgid "Kind regards,"
 msgstr "Liebi Grüess,"
 
-msgid "Last Checked:"
+#, fuzzy
+msgid "Last Checked"
 msgstr "z'letscht überprüeft:"
 
 #, fuzzy
@@ -868,9 +873,6 @@ msgstr "Überfällig"
 msgid "Overdue Visit"
 msgstr "Überfällig"
 
-msgid "Overview"
-msgstr "Übersicht"
-
 #, fuzzy
 msgid "Owned"
 msgstr "Bsitzer"
@@ -1012,7 +1014,7 @@ msgid "Retired"
 msgstr "Uusgmuschteret"
 
 #, fuzzy
-msgid "Retirement:"
+msgid "Retirement"
 msgstr "Uusmuschtere"
 
 #, fuzzy
@@ -1064,8 +1066,8 @@ msgstr "Suechä"
 msgid "Selected Pools (%s)"
 msgstr ""
 
-msgid "Serial Number:"
-msgstr "Seriänummerä:"
+msgid "Serial Number"
+msgstr "Serienummer"
 
 #, fuzzy
 msgid "Settings for %s"
@@ -1145,7 +1147,8 @@ msgstr "erfolgriich gsetzt"
 msgid "Successfully set."
 msgstr "erfolgriich gsetzt"
 
-msgid "Supplier:"
+#, fuzzy
+msgid "Supplier"
 msgstr "Liferant:"
 
 msgid "Swapped %{from} for %{to}"
@@ -1311,6 +1314,9 @@ msgstr ""
 
 msgid "This item was retired on %s because %s"
 msgstr "D Sach isch am %s wäge %s uusgmuschteret worde"
+
+msgid "This item will be given to a different inventory pool and not show up in yours anymore!"
+msgstr ""
 
 #, fuzzy
 msgid "This model is now in %d categories"
@@ -3202,6 +3208,9 @@ msgstr ""
 #~ msgid "Other documents"
 #~ msgstr "Wiiteri Dokument"
 
+#~ msgid "Overview"
+#~ msgstr "Übersicht"
+
 #, fuzzy
 #~ msgid "Own"
 #~ msgstr "Bstellig: "
@@ -3398,8 +3407,8 @@ msgstr ""
 #~ msgid "Send"
 #~ msgstr "Suschpendiere"
 
-#~ msgid "Serial Number"
-#~ msgstr "Serienummer"
+#~ msgid "Serial Number:"
+#~ msgstr "Seriänummerä:"
 
 #~ msgid "Set"
 #~ msgstr "Setze"
