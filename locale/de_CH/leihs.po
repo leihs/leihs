@@ -32,6 +32,11 @@ msgid_plural "%d days in the future"
 msgstr[0] "%d Tag in der Zukunft"
 msgstr[1] "%d Tage in der Zukunft"
 
+msgid "since %d day"
+msgid_plural "since %d days"
+msgstr[0] "seit %d Tag"
+msgstr[1] "seit %d Tagen"
+
 msgid "%s (View in Order)"
 msgstr "%s (In Bestellung ansehen)"
 

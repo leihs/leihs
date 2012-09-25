@@ -102,6 +102,11 @@ window.i18n.locale_data = {
          "%d Tag in der Zukunft",
          "%d Tage in der Zukunft"
       ],
+      "since %d day": [
+         "since %d days",
+         "seit %d Tag",
+         "seit %d Tagen"
+      ],
       "%s (View in Order)": [
          null,
          "%s (In Bestellung ansehen)"
