@@ -180,9 +180,9 @@ Leihs::Application.routes.draw do
             resources :compatibles, :controller => 'models'
             resources :items do
               member do
-                get :location
-                post :location
-                put :location
+                #old leihs??# get :location
+                #old leihs??# post :location
+                #old leihs??# put :location
                 get :status
                 get :notes
                 post :notes
@@ -207,9 +207,9 @@ Leihs::Application.routes.draw do
           get :inventory_codes
         end
         member do
-          get :location
-          post :location
-          put :location
+          #old leihs??# get :location
+          #old leihs??# post :location
+          #old leihs??# put :location
           get :status
           get :notes
           post :notes

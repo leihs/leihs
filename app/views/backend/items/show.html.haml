@@ -1,10 +1,3 @@
-- if flash[:notice]
-  :coffeescript
-    jQuery ->
-      Notification.add_headline
-        text: "#{flash[:notice]}"
-        type: "success"
-
 .innercontent
   .indent
   
@@ -12,9 +5,7 @@
       =#TODO??# render :partial => 'notes', :object => @histories
     
     %h2
-      = @item.id.blank? ? _("New Item") : (@item.model.is_package? ? _("Package") : _("Item"))
-      \:
-      = @item.inventory_code
+      = @item.new_record? ? _("New Item") : (@item.model.is_package? ? _("Package") : _("Item"))
       
     = render :partial => 'package_info'
     
@@ -25,16 +16,28 @@
     = form_for [:backend, current_inventory_pool, @item] do |f|
       %table{:style => "font-size: 1.3em; width: 100%;"}
         = render :partial => 'general_info', :locals => {:f => f}
-        - if is_inventory_manager?
-          = render :partial => 'invoice_info', :locals => {:f => f}
-          = render :partial => 'inventory_info', :locals => {:f => f}
-          = render :partial => 'location'
-          = render :partial => 'status', :locals => {:f => f}
-        - else
-          = render :partial => 'status', :locals => {:f => f}
-          = render :partial => 'location'
-          = render :partial => 'inventory_info', :locals => {:f => f}
-          = render :partial => 'invoice_info', :locals => {:f => f} 
+        = render :partial => 'status', :locals => {:f => f}
+        = render :partial => 'location'
+        = render :partial => 'inventory_info', :locals => {:f => f}
+        = render :partial => 'invoice_info', :locals => {:f => f} 
+        = render :partial => 'properties', :locals => {:f => f} 
       %div{:style => "text-align: center; padding: 1em;"}
-        = f.submit( @item.id ? _("Save") : _("Create"), {:class => "button green"} ) unless @item.retired?
-        = f.submit( @item.id ? _("Save and create a Copy") : _("Create and make a Copy"), {:class => "button green", :name => 'copy'}) if is_privileged_user? and not @item.retired?
+        = f.submit( @item.id ? _("Save") : _("Create"), {:class => "button green"} ) #old??# unless @item.retired?
+        =#tmp# f.submit( @item.id ? _("Save and create a Copy") : _("Create and make a Copy"), {:class => "button green", :name => 'copy'}) if is_privileged_user? and not @item.retired?
+
+
+:coffeescript
+  jQuery ->
+    if #{!flash[:notice].blank?}
+      Notification.add_headline
+        text: "#{flash[:notice]}"
+        type: "success"
+
+    item_form = $("form.edit_item")
+    ProcessHelper.setup_datepicker_locals()
+    item_form.find(".datepicker").datepicker().each (i,el)->
+      $(el).val(moment($(el).val()).format(i18n.date.L)) if $(el).val()? and $(el).val().length   
+    item_form.submit ()->
+      $(this).find(".datepicker").each (i,el)->
+        $(el).val(moment($(el).val(), i18n.date.L).format("YYYY-MM-DD")) if $(el).val()? and $(el).val().length   
+

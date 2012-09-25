@@ -1,0 +1,36 @@
+:ruby
+  # type: default "text"
+  properties_tree = {"Umzug" => {
+                                 :umzug => { :type => "select", :label => _("Umzug"), :values => ["zügeln", "sofort entsorgen", "bei Umzug entsorgen", "bei Umzug verkaufen"]},
+                                 :zielraum => { :label => _("Zielraum")}
+                     },
+                     "Toni Ankunftskontrolle" => {
+                                 :ankunftsdatum => { :type => "date", :label => _("Ankunftsdatum")},
+                                 :ankunftszustand => { :type => "select", :label => _("Ankunftszustand"), :values => ["intakt", "transportschaden"]},
+                                 :ankunftsnotiz => { :type => "textarea", :label => _("Ankunftsnotiz")}
+                     } }
+                  
+
+- properties_tree.each_pair do |title, property_keys|
+  %tr
+    %td.subtitle{:colspan => 2}
+      %hr
+      = title
+
+    - property_keys.each_pair do |k,v|
+      %tr
+        %td
+          = v[:label]
+          \:
+        %td
+          - case v[:type]
+            - when "select"
+              %select{:name => "item[properties][#{k}]"}
+                - v[:values].each do |value|
+                  %option{:value => value, :selected => (value == @item.properties[k] ? "selected" : nil)}= value
+            - when "date"
+              %input.datepicker{:type => "text", :name => "item[properties][#{k}]", :value => @item.properties[k]}
+            - when "textarea"
+              %textarea{:name => "item[properties][#{k}]"}= @item.properties[k]
+            - else
+              %input{:type => "text", :name => "item[properties][#{k}]", :value => @item.properties[k]}

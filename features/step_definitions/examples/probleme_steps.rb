@@ -55,7 +55,7 @@ Dann /^das Problem wird wie folgt dargestellt: "(.*?)"$/ do |format|
     /(Gegenstand ist defekt|Item is defective)/
   elsif  format == "Gegenstand ist unvollständig"
     /(Gegenstand ist unvollständig|Item is incomplete)/
-  elsif (format == "Verspätet seit 6 Tagen") # It says "Verspätet seit 6 days" because Jed does not catch plurals properly?
+  elsif (format == "Überfällig seit 6 Tagen")
      /(Überfällig seit \d+ Tagen|Overdue since \d+ days)/
   end
   @problems.each do |problem|

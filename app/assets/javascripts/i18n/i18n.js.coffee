@@ -7,17 +7,12 @@ This script provides functionalities for internationalisation in JavaScript.
 ###
 
 window.i18n.jed = new Jed {"domain": "leihs", locale_data: i18n.locale_data}
-window._jed = (arg1,args...)-> 
-  if typeof arg1 == "number"
-    singular = args[0]
-    plural = args[1]
-    num = arg1
-    arg1 = if num == 1 then singular else plural
-    args = []
-    if typeof arg1 == "object"
-      args = if arg1.length == 1 then [] else arg1.slice(1, arg1.length)
-      arg1 = arg1[0]
-  i18n.jed.translate(arg1).fetch(args)
+
+window._jed = (args...)->
+  if typeof args[0] == "number"
+    i18n.jed.translate(args[1]).ifPlural(args[0], args[2]).fetch args[3]
+  else
+    i18n.jed.translate(args[0]).fetch args[1]
 
 jQuery ()->
   
