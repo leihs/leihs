@@ -11,4 +11,4 @@ Feature: Availability Changes in Booking Calendar
   @javascript
   Scenario: Seeing all availability changes in the booking calendar
     When I open a booking calendar to edit a singe line
-    Then I see all availability changes and availabilities in between the changes in that calendar
+    Then I see all availabilities in that calendar, where the small number is the total quantity of that specific date
