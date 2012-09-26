@@ -8,7 +8,7 @@
 
 class Line
   
-  @remove = (options)->
+  @remove: (options)->
     $(options.element).trigger('before_remove_line', [options])
     # animate and remove    
     $(options.element).css("background-color", options.color).fadeOut 400, ()->
@@ -26,7 +26,7 @@ class Line
       $(document).trigger('after_remove_line', [options])
       List.update list if list?
       
-  @get_problems = (data)->
+  @get_problems: (data)->
     problems = []
     if data.availability_for_inventory_pool? and data.model.type != "option"
       av = new App.Availability(data.availability_for_inventory_pool, data)
@@ -53,7 +53,7 @@ class Line
         type: "incomplete"
     return problems
   
-  @highlight = (line_element, type)->
+  @highlight: (line_element, type)->
     $(line_element).addClass("highlight #{type}")
     setTimeout ()->
       $(line_element).removeClass("highlight #{type}")
