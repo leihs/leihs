@@ -19,8 +19,7 @@ class AvailabilityChanges
     for change in @changes
       change[3] = endDateOf change
 
-  # remove a specific DocumentLine (type: orderLine/contractLine) from the availability changes to unblock/free things
-  withoutSpecificDocumentLines: (lines) =>
+  withoutLines: (lines) =>
     lines = JSON.parse(JSON.stringify(lines))
     _.map @changes, (change)=>
       change = JSON.parse JSON.stringify change
@@ -34,6 +33,8 @@ class AvailabilityChanges
               allocation.in_quantity += line.quantity
               change[1] += line.quantity
       return change
+
+  removeLines: (lines) => @changes = @withoutLines lines
 
   between: (startDate, endDate) =>
     startDate = @mostRecentOrEqualDate startDate

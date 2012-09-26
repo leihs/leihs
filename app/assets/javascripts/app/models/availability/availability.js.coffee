@@ -9,11 +9,11 @@ class Availability
   constructor: (availability, line)->
     availability = JSON.parse(JSON.stringify(availability))
     if line?
-      @changes = new App.AvailabilityChanges new App.AvailabilityChanges(availability.changes).withoutSpecificDocumentLines([line]) # FIXME ??
+      @changes = new App.AvailabilityChanges(availability.changes).removeLines [line]
     else
       @changes = new App.AvailabilityChanges availability.changes
     @documentLines = availability.documentLines
-    @partitions = availability.partitions # FIXME where is this used ??
+    @partitions = availability.partitions
 
   isAvailable: (startDate, endDate, quantity, groupIds) ->
     if groupIds?
