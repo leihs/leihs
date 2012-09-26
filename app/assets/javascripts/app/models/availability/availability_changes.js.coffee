@@ -17,7 +17,7 @@ class AvailabilityChanges
         moment(changes[index+1][0]).subtract("days", 1).format("YYYY-MM-DD")
     @changes = changes
     for change in @changes
-      change[3] = endDateOf change
+      change[3] = endDateOf change # extending the change including the end_date  
 
   withoutLines: (lines) =>
     lines = JSON.parse(JSON.stringify(lines))
@@ -28,7 +28,7 @@ class AvailabilityChanges
           type = _.str.classify line.type
           if allocation.out_document_lines? and allocation.out_document_lines[type]?
             outDocumentLines = allocation.out_document_lines[type]
-            if outDocumentLines? and _.include(outDocumentLines, line.id)
+            if _.include(outDocumentLines, line.id)
               allocation.out_document_lines[type] = _.filter outDocumentLines, (l)-> l != line.id
               allocation.in_quantity += line.quantity
               change[1] += line.quantity
