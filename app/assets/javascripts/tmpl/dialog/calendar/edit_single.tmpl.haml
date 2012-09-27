@@ -23,21 +23,23 @@ ${$subtitle = $name + " " + moment(start_date).format(i18n.date.L) + " - " + mom
           ${$splitted_partitions = App.Partition.split_partitions_over_groups(availability_for_inventory_pool.partitions, $user.groups)}
           %option{:value => "[${$user_groups}]", :"data-name" => '${_jed("Borrower")}', :"data-total_rentable" => "${$users_availablility.total_rentable}"}
             ${_jed("Borrower")}
-          %option{:value => "", :"data-name" => '${_jed("In Total")}', :"data-total_rentable" => "${total_rentable}"}
-            ${_jed("In Total")}
-          {{if $splitted_partitions.included.length > 0}}
+          {{if $splitted_partitions.included.length}}
           %optgroup.customer_groups{:label => '${_jed("This customer\'s groups")}'}
             {{each(i, partition) $splitted_partitions.included}}
             %option{:value => "[${partition.group_id}]", :"data-name" => '${_jed("Group %s", partition.group.name)}', :"data-total_rentable" => "${partition.quantity}"}
               ${_jed("Group %s", partition.group.name)}
             {{/each}}
           {{/if}}
-          {{if $splitted_partitions.not_included.length > 0 }}
+          {{if $splitted_partitions.not_included.length}}
           %optgroup.other_groups{:label => '${_jed("Other Groups")}'}
             {{each(i, partition) $splitted_partitions.not_included}}
             %option{:value => "[${partition.group_id}]", :"data-name" => '${_jed("Group %s", partition.group.name)}', :"data-total_rentable" => "${partition.quantity}"}
               ${_jed("Group %s", partition.group.name)}
             {{/each}}
+          {{/if}}
+          {{if $splitted_partitions.included.length || $splitted_partitions.not_included.length}}
+          %option{:value => "", :"data-name" => '${_jed("In Total")}', :"data-total_rentable" => "${total_rentable}"}
+            ${_jed("In Total")}
           {{/if}}
           
       %label{:for => "partition"}
@@ -78,7 +80,7 @@ ${$subtitle = $name + " " + moment(start_date).format(i18n.date.L) + " - " + mom
         %option{:value => "current",
                 :"data-total_borrowable" => "{{if total_rentable}}${JSON.stringify(total_rentable)}{{else}}undefined{{/if}}",
                 :"data-closed_days" => "${JSON.stringify(InventoryPool.closed_days)}",
-                :"data-availability_dates" => "${JSON.stringify(new App.AvailabilityChanges(availability_for_inventory_pool.changes).withoutSpecificDocumentLines([$item.data]))}",
+                :"data-availability_dates" => "${JSON.stringify(new App.AvailabilityChanges(availability_for_inventory_pool.changes).withoutLines([$item.data]))}",
                 :"data-holidays" => "${JSON.stringify(InventoryPool.holidays)}"}
           ${InventoryPool.name}
     {{/if}}

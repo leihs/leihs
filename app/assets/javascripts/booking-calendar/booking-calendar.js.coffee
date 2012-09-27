@@ -216,7 +216,7 @@ class BookingCalendar
     requiredQuantity = if @quantityMode is "boolean" then 1 else parseInt @quantity_el.val()
     lastAvChange = undefined
     nextAvChange = undefined
-    totalQuantity = @partitionSelector_el.find("option:selected").data("total_rentable")
+    totalQuantity = undefined
     availableQuantity = undefined
     holidaysInView = @getHolidays view.visStart, view.visEnd, @ipSelector_el.find("option:selected").data("holidays")
     do @resetCalendarView
@@ -233,7 +233,7 @@ class BookingCalendar
       if date < moment().sod().toDate()
         day_el.addClass "history"
       else # today or future day
-        # get lastAvChange, nextAvChange and availableQuantity
+        # get lastAvChange, nextAvChange, totalQuantity and availableQuantity
         # when lastAvChange and nextAvChange are not yet knwon and the 
         # current date is not inbetween lastAvChange and nextAvChange
         if @computeAvailability
@@ -247,6 +247,7 @@ class BookingCalendar
             if not lastAvChange? # sets the lastAvChange if the current date ist after the last avChange
               lastAvChange = _.last avDates 
               nextAvChange = lastAvChange
+            totalQuantity = lastAvChange[1]
             availableQuantity = @calulateAvailableQuantity lastAvChange
 
         @setAvailability day_el, requiredQuantity, availableQuantity
@@ -367,11 +368,14 @@ class BookingCalendar
     if @quantityMode is "boolean"
       availableQuantity = if availableQuantity <= 0 then "x" else "✓"
       totalQuantity = if totalQuantity <= 0 then "x" else "✓"
-    if day_el.find(".fc-day-content .total_quantity").length
-       day_el.find(".fc-day-content .total_quantity").text "/#{totalQuantity}"
-    else
-      day_el.find(".fc-day-content").append "<span class='total_quantity'>/#{totalQuantity}</span>"
-    day_el.find(".fc-day-content > div").text availableQuantity
+    if @selectedPartitions()?
+      day_el.find(".fc-day-content > div").text availableQuantity
+      if day_el.find(".fc-day-content .total_quantity").length
+         day_el.find(".fc-day-content .total_quantity").text "/#{totalQuantity}"
+      else
+        day_el.find(".fc-day-content").append "<span class='total_quantity'>/#{totalQuantity}</span>"
+     else
+      day_el.find(".fc-day-content > div").text totalQuantity
 
   setAvailability: (day_el, requiredQuantity, availableQuantity)=>
     available = availableQuantity >= requiredQuantity

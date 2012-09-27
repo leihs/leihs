@@ -8,11 +8,10 @@ When /^I open a booking calendar to edit a singe line$/ do
   wait_until { find(".dialog") }
 end
 
-Then /^I see all availability changes and availabilities in between the changes in that calendar$/ do
+Then /^I see all availabilities in that calendar, where the small number is the total quantity of that specific date$/ do
   # reset calendar to today first and then walk through
   find(".fc-button-today").click
   av = @model.availability_in(@ip)
-  total_quantity_for_groups = evaluate_script %Q{ $("select#partition option:selected").data("total_rentable") }  
   changes = av.available_total_quantities
   changes.each_with_index do |change, i|
     current_calendar_date = Date.parse page.evaluate_script %Q{ $("#fullcalendar").fullCalendar("getDate").toDateString() }
@@ -33,36 +32,16 @@ Then /^I see all availability changes and availabilities in between the changes 
           find(".fc-button-next").click   
         end
         change_date_el = find(".fc-widget-content:not(.fc-other-month) .fc-day-number", :text => /#{next_date.day}/).find(:xpath, "../..")
-        # check total
-        change_date_el.find(".total_quantity").text.gsub(/\D/,"").to_i.should == total_quantity_for_groups
+        # check total, where the small number is the total quantity of that specific date
+        total_quantity = change[1]
+        # add quantity of edited line when date element is selected
+        if change_date_el[:class].match("selected") != nil
+          total_quantity += evaluate_script %Q{ $(".dialog").tmplItem().data.quantity }
+        end
+        change_date_el.find(".total_quantity").text.gsub(/\D/,"").to_i.should == total_quantity
         # check selected partition/borrower quantity
         quantity_for_borrower = av.maximum_available_in_period_summed_for_groups next_date, next_date, @order.user.group_ids
         quantity_for_borrower += evaluate_script %Q{ $(".dialog").tmplItem().data.quantity }  if change_date_el[:class].match("selected") != nil
-
-        ##### debug informations for ci
-        if change_date_el.find(".fc-day-content div").text.to_i != quantity_for_borrower
-          puts "DEBUGING INFORMATIONS FOR CI"
-          puts @order.user.to_json
-          puts "Availability"
-          puts av
-          puts "CHANGE"
-          puts change
-          puts "NEXT CHANGE:"
-          puts next_change
-          puts "NEXT DATE:"
-          puts next_date 
-          puts "CHANGE DATE EL:"
-          puts change_date_el 
-          puts "CHANGE DATE EL TEXT:" 
-          puts change_date_el.text
-          puts "QUANTITY FOR BORROWER:"
-          puts quantity_for_borrower
-          puts "JSON DATA (removed blocking line)"
-          puts page.evaluate_script %Q{ $(".dialog").tmplItem().data }
-          puts "JSON PLAIN (unmodified)"
-          puts page.evaluate_script %Q{ inspect_order_json }
-        end
-        ##### debug informations for ci
 
         change_date_el.find(".fc-day-content div").text.to_i.should == quantity_for_borrower
         last_month = next_date.month

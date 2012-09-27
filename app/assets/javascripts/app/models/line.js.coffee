@@ -17,10 +17,10 @@ class Line
         lineWithSameModel.sublines = [lineWithSameModel] if not lineWithSameModel.sublines?
         lineWithSameModel.sublines.push line
         # merge the availability of the merged line while detaching the new subline
-        lineWithSameModel.availability_for_inventory_pool.changes = new App.AvailabilityChanges(lineWithSameModel.availability_for_inventory_pool.changes).withoutSpecificDocumentLines([line]) 
+        lineWithSameModel.availability_for_inventory_pool.changes = new App.AvailabilityChanges(lineWithSameModel.availability_for_inventory_pool.changes).withoutLines([line]) 
       else
         newLine = JSON.parse(JSON.stringify(line))
-        newLine.availability_for_inventory_pool.changes = new App.AvailabilityChanges(newLine.availability_for_inventory_pool.changes).withoutSpecificDocumentLines([newLine]) 
+        newLine.availability_for_inventory_pool.changes = new App.AvailabilityChanges(newLine.availability_for_inventory_pool.changes).withoutLines([newLine]) 
         @mergedLines.push newLine
     return @mergedLines
 

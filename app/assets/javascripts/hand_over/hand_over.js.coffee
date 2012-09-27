@@ -190,7 +190,7 @@ class HandOver
       $(line_element).addClass("removed")
       line_data = $(line_element).tmplItem().data
       if line_data.availability_for_inventory_pool? and line_data.availability_for_inventory_pool.changes?
-        line_data.availability_for_inventory_pool.changes = new App.Availability(line_data.availability_for_inventory_pool).changes.withoutSpecificDocumentLines([line_data])
+        line_data.availability_for_inventory_pool.changes = new App.Availability(line_data.availability_for_inventory_pool).changes.withoutLines([line_data])
       Line.remove
         element: line_element
         color: "red"
