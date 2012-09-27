@@ -99,10 +99,11 @@ def movements_by_day(inventory_pool, year)
   start_day = Date.parse("#{year}-01-01")
   end_day = Date.parse("#{year}-12-31")
 
-  header_text = "\"#{inventory_pool}\",day,incoming,outgoing\n"
+  header_text = "\"#{inventory_pool}\",day,incoming,outgoing,total_out\n"
   start_day.upto(end_day) do |day|
-    incoming = ContractLine.find(:all, :conditions => {:start_date => day})
-    outgoing = ContractLine.find(:all, :conditions => {:returned_date => day})
+    outgoing = ContractLine.find(:all, :conditions => {:start_date => day})
+    incoming = ContractLine.find(:all, :conditions => {:returned_date => day})
+    unreturned = ContractLine.find(:all, :conditions => "returned_date < #{day.to_s}")
 
     incoming_count = 0
     incoming.each do |i|
@@ -114,7 +115,12 @@ def movements_by_day(inventory_pool, year)
       outgoing_count += 1 if i.inventory_pool == inventory_pool
     end
 
-    lines_text += ",#{day.to_s},#{incoming_count},#{outgoing_count}\n"
+    total_out_items = 0
+    unreturned.each do |i|
+      total_out_items += 1 if i.inventory_pool == inventory_pool
+    end
+
+    lines_text += ",#{day.to_s},#{incoming_count},#{outgoing_count},#{total_out_items}\n"
   end
   return header_text + lines_text
 end
