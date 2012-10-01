@@ -34,7 +34,9 @@ class AvailabilityChanges
               change[1] += line.quantity
       return change
 
-  removeLines: (lines) => @changes = @withoutLines lines
+  removeLines: (lines) => 
+    @changes = @withoutLines lines
+    return @
 
   between: (startDate, endDate) =>
     startDate = @mostRecentOrEqualDate startDate

@@ -9,13 +9,14 @@ class Availability
   constructor: (availability, line)->
     availability = JSON.parse(JSON.stringify(availability))
     if line?
-      @changes = new App.AvailabilityChanges(availability.changes).removeLines [line]
+      @changes = new App.AvailabilityChanges(availability.changes)
+      @changes.removeLines [line]
     else
       @changes = new App.AvailabilityChanges availability.changes
     @documentLines = availability.documentLines
     @partitions = availability.partitions
 
-  isAvailable: (startDate, endDate, quantity, groupIds) ->
+  isAvailable: (startDate, endDate, quantity, groupIds) =>
     if groupIds?
       @maxAvailableForGroups(startDate, endDate, groupIds) >= quantity
     else
