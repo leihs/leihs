@@ -3,6 +3,7 @@ notifications:
   email: false
 rvm:
   - 1.9.3
+  - jruby
 env: DISPLAY=:99.0
 before_script:
   - mysql -e 'create database leihs2_test;'

@@ -1,4 +1,17 @@
-test:  
+<% jruby = defined?(JRUBY_VERSION)  %>
+
+<% if jruby == "constant" %>
+test:
+  adapter: jdbcmysql
+  host: localhost
+  database: leihs2_test
+  encoding: unicode
+  username: root
+  password:
+
+<% else %>
+
+test:
   adapter: mysql2
   encoding: utf8
   reconnect: false
@@ -7,3 +20,4 @@ test:
   password:
   socket: /var/run/mysqld/mysqld.sock
 
+<% end %>
