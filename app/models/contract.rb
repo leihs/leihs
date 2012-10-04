@@ -145,6 +145,38 @@ class Contract < Document
 
   ############################################
 
+  def update_lines(line_ids, line_id_model_id, start_date, end_date, current_user_id) # TODO remove current_user_id when not used anymore
+    ContractLine.transaction do
+      lines.find(line_ids).each do |line|        
+        line.start_date = Date.parse(start_date) if start_date
+        line.end_date = Date.parse(end_date) if end_date
+
+        # TODO remove log changes (use the new audits)
+        change = ""
+        # TODO the model swapping is not implemented on the client side
+        if (new_model_id = line_id_model_id[line.id.to_s]) 
+          line.model = line.contract.user.models.find(new_model_id) 
+          change = _("[Model %s] ") % line.model 
+        end
+        change += line.changes.map do |c|
+          what = c.first
+          if what == "model_id"
+            from = Model.find(from).to_s
+            _("Swapped from %s ") % [from]
+          else
+            from = c.last.first
+            to = c.last.last
+            _("Changed %s from %s to %s") % [what, from, to]
+          end
+        end.join(', ')
+
+        log_change(change, current_user_id) if line.save
+      end
+    end
+  end
+
+  ############################################
+
   # NOTE override the column attribute (until leihs 2 is switched off)
   def purpose
     nil

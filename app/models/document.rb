@@ -3,8 +3,6 @@
 #
 class Document < ActiveRecord::Base
   self.abstract_class = true
-  acts_as_audited :associated_with => :inventory_pool
-  has_associated_audits
   
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
   has_many :actions, :as => :target, :class_name => "History", :order => 'created_at ASC', :conditions => "type_const = #{History::ACTION}"
@@ -55,26 +53,31 @@ class Document < ActiveRecord::Base
   
 ################################################################
 
-  def add_line(quantity, model, user_id, start_date = nil, end_date = nil, inventory_pool = nil)
+  def add_lines(quantity, model, user_id, start_date = nil, end_date = nil, inventory_pool = nil)
       end_date = start_date if end_date and start_date and end_date < start_date
 
-      attr = { :quantity => quantity || 1,
-               :model => model,
-               :start_date => start_date || time_window_min,
-               :end_date => end_date || next_open_date(time_window_max) }
-
-      line = if self.is_a?(Order)
-        order_lines.create(attr) do |l|
-          l.inventory_pool = inventory_pool if inventory_pool
-          l.purpose = order_lines.first.purpose if !order_lines.empty? and order_lines.first.purpose
-        end
+      new_lines = if false # TODO model.is_a? Option
+        # TODO option_lines.create
       else
-        item_lines.create(attr)
+        attr = { :quantity => 1,
+                 :model => model,
+                 :start_date => start_date || time_window_min,
+                 :end_date => end_date || next_open_date(time_window_max) }
+        quantity.to_i.times.map do
+          line = if self.is_a?(Order)
+            order_lines.create(attr) do |l|
+              l.inventory_pool = inventory_pool if inventory_pool
+              l.purpose = order_lines.first.purpose if !order_lines.empty? and order_lines.first.purpose
+            end
+          else
+            item_lines.create(attr)
+          end
+          log_change(_("Added") + " #{attr[:quantity]} #{attr[:model].name} #{attr[:start_date]} #{attr[:end_date]}", user_id) unless line.new_record?
+          line
+        end
       end
 
-      log_change(_("Added") + " #{quantity} #{model.name} #{start_date} #{end_date}", user_id) unless line.new_record?
-      
-      line             
+      new_lines
   end
 
   def swap_line(line_id, model_id, user_id)

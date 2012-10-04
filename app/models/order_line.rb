@@ -13,6 +13,20 @@ class OrderLine < DocumentLine
     errors.add(:base, _("Inconsistent Inventory Pool")) if order.status_const != 1 and inventory_pool_id != order.inventory_pool_id
   end
 
+#########################################################################
+
+  # TODO validate quantity always 1, just for new order_lines ??
+  after_find do
+    if quantity > 1
+      lines_to_create = quantity - 1
+      update_attributes(:quantity => 1)
+      lines_to_create.times do
+        new_line = dup # NOTE use .dup instead of .clone (from Rails 3.1) 
+        new_line.save # TODO log_change (not needed anymore with the new audits)
+      end
+    end
+  end
+
   before_save do
     # OPTIMIZE suggest best possible inventory pool according to the other order_lines
     # TODO 08** in case of backend add_line, make sure is assigned to current_inventory_pool
@@ -26,6 +40,8 @@ class OrderLine < DocumentLine
       end
     end
   end
+
+#########################################################################
 
   scope :submitted,   joins(:order).where(["orders.status_const = ?", Order::SUBMITTED])
   scope :unsubmitted, joins(:order).where(["orders.status_const = ?", Order::UNSUBMITTED])

@@ -105,6 +105,7 @@ class Backend::TakeBackController < Backend::BackendController
   def update_lines(line_ids = params[:line_ids] || raise("line_ids is required"),
                    end_date = params[:end_date])
 
+    # TODO merge to Contract#update_lines               
     ContractLine.transaction do
       lines = @user.contract_lines.to_take_back.find(line_ids)
 

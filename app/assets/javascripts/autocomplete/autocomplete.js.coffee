@@ -11,7 +11,7 @@ jQuery ->
     if not $(this).hasClass("ui-autocomplete-input")
       AutoComplete.setup $(this)
     else if $(this).val() != ""
-      $(this).autocomplete("widget").show()
+      $(this).autocomplete("search", $(this).val())
   $("input.autocomplete").live "blur", (event)-> AutoComplete.current_ajax.abort() if AutoComplete.current_ajax?
 
 class AutoComplete

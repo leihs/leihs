@@ -5,8 +5,6 @@
 //= require barcode/barcode
 //= require clearable-input/clearable-input
 //= require daily-navigator/daily-navigator
-//= require_tree ./lines
-//= require_tree ./availability
 //= require_tree ./process_helper
 //= require_tree ./tmpl
 //= require historical-search/historical-search

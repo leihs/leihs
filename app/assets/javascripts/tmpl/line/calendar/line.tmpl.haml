@@ -5,6 +5,8 @@
 {{else}}
 = hidden_field("line_ids", "", :value => "${id}")
 {{/if}}
+
+${$max_available = new App.Availability(availability_for_inventory_pool).maxAvailableForGroups(moment(start_date).sod().toDate(), moment(end_date).eod().toDate(), new App.User(Line.get_user($item.data)).groupIds()), ""}
 %ul.line
   .main
     %li.amount
@@ -12,7 +14,7 @@
       {{if (type != "option_line")}} 
       = "/"     
       %span.grey.available
-        %span.number ${availability_for_inventory_pool.max_available}
+        %span.number ${$max_available}
         ${_jed("available")}
       {{/if}}
     %li.name

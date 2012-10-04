@@ -34,7 +34,7 @@
     .range
       ${$days = moment(line.start_date).sod().diff(moment(line.end_date).eod(), "days")}
       ${$days}
-      ${_jed($days, "Day", "Days")}
+      ${_jed($days, "day")}
   .clear
   .list
     {{each(i, line) lines}}

@@ -10,8 +10,6 @@
 #
 class Model < ActiveRecord::Base
   include Availability::Model
-  acts_as_audited
-  has_associated_audits
 
   before_destroy do
     errors.add(:base, "Model cannot be destroyed because related items are still present.") if Item.unscoped { items.count } > 0
@@ -201,8 +199,9 @@ class Model < ActiveRecord::Base
 
 #############################################  
 
+  # returns an array of document_lines
   def add_to_document(document, user_id, quantity = nil, start_date = nil, end_date = nil, inventory_pool = nil)
-    document.add_line(quantity, self, user_id, start_date, end_date, inventory_pool)
+    document.add_lines(quantity, self, user_id, start_date, end_date, inventory_pool)
   end  
                                                                                                       
 end

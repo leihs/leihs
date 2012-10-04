@@ -32,5 +32,7 @@ Feature: Add Item during acknowledge process
 
   @javascript
   Scenario: Increase the quantity of an order line by adding an model from the same type and date range to the order
-      And I add a model to the hand over which is already existing in the selected date range by providing an inventory code
-     Then the existing line quantity is increased
+     When I add a model to the acknowledge which is already existing in the selected date range by providing an inventory code
+     Then the existing line quantity is not increased
+      And an additional line has been created in the backend system
+      And the new line is getting visually merged with the existing line

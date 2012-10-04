@@ -33,18 +33,20 @@ class BookingCalendar
     options ?= {}
     @fullcalendar = $("#fullcalendar")
     @el = if options.el? then options.el else $("#fullcalendar").closest "form"
+    @lines = @el.find(".list .line")
+    @el.find(".quantity").remove() if options.withoutQuantity
     @quantity_el = @el.find(".quantity input")
     @quantity_increase_el = @el.find(".quantity .increase")
     @quantity_decrease_el = @el.find(".quantity .decrease")
     @startDate_el = @el.find("#start_date")
+    @startDate_el.attr "disabled", true if options.startDateDisabled
     @endDate_el = @el.find("#end_date")
     @ipSelector_el = @el.find("select#inventory_pool_id")
     @partitionSelector_el = @el.find "select#partition"
     @availabilityMode = if options.availabilityMode is "eachDay" or options.availabilityMode is "openDays" then options.availabilityMode else "eachDays"
     @computeAvailability = if options.computeAvailability? then options.computeAvailability else true
-    @quantityMode = if options.quantityMode is "numbers" or options.quantityMode is "boolean" then options.quantityMode else "numbers"
+    @quantityMode = if options.quantityMode? then options.quantityMode else if @lines.length == 1 and $(@lines[0]).tmplItem().data.type != "option_line" then "numbers" else "boolean"
     @limitMaxQuantity = if options.limitMaxQuantity? then options.limitMaxQuantity else true
-    @showCulprit = if options.showCulprit? then options.showCulprit else false
     do @setupFromSessionStorage if BookingCalendar.sessionStorage
     do @formatDates
     do @setupDates
@@ -55,7 +57,7 @@ class BookingCalendar
     do @setupFullcalendar
     do @setupFirstView
     do @setupDayCells
-    do @refreshCulprit if @showCulprit
+    do @refreshCulprit
 
   setupFromSessionStorage: =>
     if sessionStorage.start_date and sessionStorage.end_date
@@ -75,14 +77,14 @@ class BookingCalendar
           if @validateDate el
             @goToDate moment(el.val(), df)
             do @render
-            do @refreshCulprit if @showCulprit
+            do @refreshCulprit
           else 
             @resetDate el
         , 600
       el.bind "change", (e) => 
         if @validateDate el
           do @render
-          do @refreshCulprit if @showCulprit
+          do @refreshCulprit
         else 
           @resetDate el
 
@@ -119,6 +121,7 @@ class BookingCalendar
         @endDate_el.val(moment(startDate).format(df)).change()
 
   setupFullcalendar: =>
+    @fullcalendar.html ""
     @fullcalendar.fullCalendar
       viewDisplay: @renderFunction
       header:
@@ -144,7 +147,7 @@ class BookingCalendar
     @quantity_el.bind "change", (e)=> 
       if @validateQuantity() 
         do @render
-        do @refreshCulprit if @showCulprit
+        do @refreshCulprit
       else 
         do @resetQuantity
     @quantity_increase_el.bind "click", => do @increaseQuantity
@@ -189,9 +192,8 @@ class BookingCalendar
     @ipSelector_el.find("option:first").select()
     @ipSelector_el.bind "change", =>
       @setMaxQuantity @ipSelector_el.find("option:selected").data("total_borrowable")
-      @computeAvailability = false unless @ipSelector_el.find("option:selected").data("availability_dates").length
       do @render
-      do @refreshCulprit if @showCulprit  
+      do @refreshCulprit
     @ipSelector_el.change()
 
   setupPartitionSelector: =>
@@ -201,7 +203,7 @@ class BookingCalendar
       @partitionSelector_el.closest(".select").find(".name").text @partitionSelector_el.find("option:selected").text()
       if @selectedPartitions()? then @fullcalendar.removeClass("total_quantity_only") else @fullcalendar.addClass("total_quantity_only")
       do @render
-      do @refreshCulprit if @showCulprit
+      do @refreshCulprit
 
   setupFirstView: =>
     if @startDate_el.is ":disabled"
@@ -212,12 +214,6 @@ class BookingCalendar
   render: => @fullcalendar.fullCalendar "render"
 
   renderFunction: (view)=>
-    avDates = @ipSelector_el.find("option:selected").data("availability_dates")
-    requiredQuantity = if @quantityMode is "boolean" then 1 else parseInt @quantity_el.val()
-    lastAvChange = undefined
-    nextAvChange = undefined
-    totalQuantity = undefined
-    availableQuantity = undefined
     holidaysInView = @getHolidays view.visStart, view.visEnd, @ipSelector_el.find("option:selected").data("holidays")
     do @resetCalendarView
     do @setTails
@@ -225,7 +221,11 @@ class BookingCalendar
     do @setOtherMonth
     do @closedDayValidation
 
-    _.each @fullcalendar.find(".fc-widget-content"), (day_el)=>      
+    _.each @fullcalendar.find(".fc-widget-content"), (day_el)=> 
+      available = true
+      availableInTotal = true
+      availableQuantity = undefined
+      totalQuantity = undefined
       day_el = $(day_el)
       date = @getDateByElement day_el
       @resetDay day_el
@@ -233,25 +233,23 @@ class BookingCalendar
       if date < moment().sod().toDate()
         day_el.addClass "history"
       else # today or future day
-        # get lastAvChange, nextAvChange, totalQuantity and availableQuantity
-        # when lastAvChange and nextAvChange are not yet knwon and the 
-        # current date is not inbetween lastAvChange and nextAvChange
         if @computeAvailability
-          if (!lastAvChange? and !nextAvChange?) or !(moment(lastAvChange[0]).sod().toDate() < date) or !(moment(nextAvChange[0]).sod().toDate() > date)
-            lastAvChange = undefined
-            for avDate,i in avDates
-              if moment(avDate[0]).sod().toDate() > date
-                lastAvChange = avDates[i-1]
-                nextAvChange = avDate
-                break
-            if not lastAvChange? # sets the lastAvChange if the current date ist after the last avChange
-              lastAvChange = _.last avDates 
-              nextAvChange = lastAvChange
-            totalQuantity = lastAvChange[1]
-            availableQuantity = @calulateAvailableQuantity lastAvChange
+          _.each @lines, (line)=>
+            line = $(line).tmplItem().data
+            if line.type != "option_line"
+              av = new App.Availability(line.availability_for_inventory_pool, line)
+              requiredQuantity = if @quantityMode is "boolean" or isNaN(@quantity_el.val()) then line.quantity else parseInt @quantity_el.val()
+              totalQuantity = av.maxAvailableInTotal(date, date)
+              availableQuantity = av.maxAvailableForGroups date, date, @selectedPartitions()
+              available = availableQuantity >= requiredQuantity and available
+              availableInTotal = totalQuantity >= requiredQuantity and availableInTotal
 
-        @setAvailability day_el, requiredQuantity, availableQuantity
-        @setQuantityText day_el, availableQuantity, totalQuantity if @computeAvailability
+        if @lines.length is 1
+          @setQuantityText day_el, availableQuantity, totalQuantity
+        else
+          @setQuantityText day_el, (if available then 1 else 0), (if availableInTotal then 1 else 0)
+
+        @setAvailability day_el, available
         @setSelected day_el, date
         if holidaysInView.length > 0
           holidaysOnThatDay = @getHolidays(date, date, holidaysInView)
@@ -377,21 +375,8 @@ class BookingCalendar
      else
       day_el.find(".fc-day-content > div").text totalQuantity
 
-  setAvailability: (day_el, requiredQuantity, availableQuantity)=>
-    available = availableQuantity >= requiredQuantity
+  setAvailability: (day_el, available)=>
     if available or @computeAvailability is false then day_el.removeClass("unavailable").addClass("available") else day_el.removeClass("available").addClass("unavailable")
-
-  calulateAvailableQuantity: (avChange)=>
-    availableQuantity = 0
-    partitions = @selectedPartitions()
-    for avEntry in avChange[2]
-      if not partitions?
-        availableQuantity += avEntry.in_quantity 
-      else
-        # null or 0 is the group "general" (the everyone partition)
-        avEntry.group_id = 0 if avEntry.group_id == null 
-        availableQuantity += avEntry.in_quantity if partitions.indexOf(avEntry.group_id) > -1 
-    return availableQuantity
 
   getDateByElement: (el)=>
     return @fullcalendar.fullCalendar("getView").cellDate
@@ -437,7 +422,7 @@ class BookingCalendar
       return false
 
   refreshCulprit: =>
-    _.each @el.find(".list .line"), (line)=>
+    _.each @lines, (line)=>
       line = $(line)
       av = new App.Availability line.tmplItem().data.availability_for_inventory_pool
       quantity = if @quantity_el.val()? then parseInt(@quantity_el.val()) else line.tmplItem().data.quantity
@@ -449,7 +434,7 @@ class BookingCalendar
           "#{moment(range[0]).format(df)} - #{moment(range[1]).format(df)}"
       line.append("<div class='actions'><li class='unavailable_ranges'></li></div>") unless line.find(".unavailable_ranges").length
       line.find(".unavailable_ranges").html(text.join(", ")).attr("title", "unavailable ranges: #{text.join(", ")}")
-      line.find(".available .number").html av.maxAvailableInTotal moment(@startDate_el.val(),df), moment(@endDate_el.val(),df)
+      line.find(".available .number").html av.maxAvailableForGroups moment(@startDate_el.val(),df), moment(@endDate_el.val(),df), @selectedPartitions()
       if unavailableRanges.length
         line.addClass("unavailable")
       else

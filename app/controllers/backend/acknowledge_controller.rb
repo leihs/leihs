@@ -2,7 +2,8 @@ class Backend::AcknowledgeController < Backend::BackendController
 
   before_filter do
     begin
-      @order = current_inventory_pool.orders.submitted.find(params[:id]) if params[:id]
+      @order = current_inventory_pool.orders.submitted.find(params[:id]) if params[:id]      
+      @order.order_lines.reload.reload # take care about line duplicating when the quantity was increased in leihs 2
     rescue
       respond_to do |format|
         format.html { redirect_to :action => 'index' unless @order }
@@ -71,14 +72,14 @@ class Backend::AcknowledgeController < Backend::BackendController
       item = current_inventory_pool.items.where(:inventory_code => code).first 
       item.model if item
     elsif model_group_id
-      ModelGroup.find(model_group_id) # TODO scope current_inventory_pool ?
+      Template.find(model_group_id) # TODO scope current_inventory_pool ?
     elsif model_id
       current_inventory_pool.models.find(model_id)
     end
     
     # create new line
     if model
-      line = model.add_to_document(@order, @user, quantity, start_date, end_date, current_inventory_pool)
+      lines = model.add_to_document(@order, @user, quantity, start_date, end_date, current_inventory_pool)
     else
       @error = if code
         {:message => _("A model for the Inventory Code / Serial Number '%s' was not found" % code)}
@@ -92,7 +93,7 @@ class Backend::AcknowledgeController < Backend::BackendController
     respond_to do |format|
       format.json {
         if @error.blank?
-          render :json => view_context.json_for(Array(line), {:preset => :order_line})
+          render :json => view_context.json_for(lines, {:preset => :order_line})
         else
           render :json => view_context.error_json(@error), status: 500
         end
@@ -124,42 +125,32 @@ class Backend::AcknowledgeController < Backend::BackendController
 
   def update_lines(line_ids = params[:line_ids] || raise("line_ids is required"),
                    line_id_model_id = params[:line_id_model_id] || {},
-                   quantity = params[:quantity],
+                   quantity = (params[:quantity] ? [params[:quantity].to_i, 1].max : nil),
                    start_date = params[:start_date],
                    end_date = params[:end_date])
-    
-    OrderLine.transaction do
-      lines = @order.lines.find(line_ids)
-      # TODO merge to Order#update_line
-      lines.each do |line|
-        line.quantity = [quantity.to_i, 1].max if quantity
-        line.start_date = Date.parse(start_date) if start_date
-        line.end_date = Date.parse(end_date) if end_date
-        # log changes
-        change = ""
-        if (new_model_id = line_id_model_id[line.id.to_s]) 
-          line.model = line.order.user.models.find(new_model_id) 
-          change = _("[Model %s] ") % line.model 
-        end
-        change += line.changes.map do |c|
-          what = c.first
-          if what == "model_id"
-            from = Model.find(from).to_s
-            _("Swapped from %s ") % [from]
-          else
-            from = c.last.first
-            to = c.last.last
-            _("Changed %s from %s to %s") % [what, from, to]
-          end
-        end.join(', ')
 
-        @order.log_change(change, current_user.id) if line.save
+    if quantity
+      if quantity.to_i > line_ids.size # if quantity is higher then line ids then duplicate lines
+        (quantity.to_i-line_ids.size).times do
+          new_line = OrderLine.find(line_ids.first).dup # NOTE use .dup instead of .clone (from Rails 3.1) 
+          new_line.save # TODO log_change (not needed anymore with the new audits) 
+          line_ids.push new_line.id
+        end
+      elsif quantity.to_i < line_ids.size # if quantity is lower then line ids then remove some lines
+        (line_ids.size-quantity.to_i).times do
+          line_to_be_removed = OrderLine.find(line_ids.pop)
+          OrderLine.transaction do
+            @order.remove_line(line_to_be_removed, current_user.id)
+          end
+        end
       end
     end
     
+    @order.update_lines(line_ids, line_id_model_id, start_date, end_date, current_user.id)  
+
     respond_to do |format|
       format.json {
-        render :json => view_context.json_for(@order, {:preset => :order})
+        render :json => view_context.json_for(@order.reload, {:preset => :order})
       }
     end
   end

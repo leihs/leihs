@@ -17,7 +17,7 @@
       %span.text
         {{if is_overdue}}
         %strong 
-          ${_jed($days, "Day", "Days")}
+          ${_jed($days, "day")}
           ${_jed("overdue")}
         {{else}}
         %span.grey
@@ -25,11 +25,11 @@
         {{/if}}      
       {{if !is_overdue}}
       %span.number
-        ${$min_date = new MinDate(lines), ""}
-        ${$min_days = Math.round( (new Date()- $min_date) / ((1000 * 60 * 60 * 24)+1) ), ""}
+        ${$min_date = App.Line.getMinDate(lines), ""}
+        ${$min_days = moment().diff($min_date, "days"), ""}
         ${$min_days}
       %span.text
-        ${_jed($min_days, "Day", "Days")}
+        ${_jed($min_days, "day")}
       {{/if}}
         
     {{if is_overdue}}

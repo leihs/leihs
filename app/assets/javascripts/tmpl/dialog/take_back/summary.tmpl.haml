@@ -16,5 +16,5 @@
    
   %hr
   %section.lines.scalable
-    ${$grouped_lines = GroupedLines.merge_date_ranges(SelectedLines.lines_data), ""}
+    ${$grouped_lines = App.Line.groupByDateRanges(SelectedLines.lines_data), ""}
     {{tmpl($grouped_lines) "tmpl/dialog/summary/linegroup"}}

@@ -1,5 +1,4 @@
 class AccessRight < ActiveRecord::Base
-  acts_as_audited :associated_with => :user
 
   belongs_to :role
   belongs_to :user

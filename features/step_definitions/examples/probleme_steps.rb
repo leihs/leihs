@@ -65,13 +65,21 @@ end
 
 Dann /^"(.*?)" sind verfügbar für den Kunden$/ do |arg1|
   max = @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @line.group_ids)
-  max += @line.quantity
+  if @line.document.is_a? Order
+    max += @line.document.lines.where(:start_date => @line.start_date, :end_date => @line.end_date, :model_id => @line.model).size
+  else
+    max += @line.quantity
+  end
   @reference_problem.match(/#{max}\(/).should_not be_nil
 end
 
 Dann /^"(.*?)" sind insgesamt verfügbar$/ do |arg1|
   max = @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @ip.group_ids)
-  max += @line.quantity
+  if @line.document.is_a? Order
+    max += @line.document.lines.where(:start_date => @line.start_date, :end_date => @line.end_date, :model_id => @line.model).size
+  else
+    max += @line.quantity
+  end
   @reference_problem.match(/\(#{max}/).should_not be_nil
 end
 

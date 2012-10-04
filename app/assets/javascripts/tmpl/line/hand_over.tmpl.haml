@@ -15,16 +15,16 @@
       %span.text
         %strong
           ${$days = Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1), ""}
-          ${_jed($days, "Day", "Days")}
+          ${_jed($days, "day")}
           ${_jed("overdue")}
       {{else}}
       %span.text.grey
         ${_jed("for max.")}
       %span.number
-        ${$max_range = new MaxRange(lines), ""}
-        ${$max_range.value}
+        ${$max_range = App.Line.getMaxRange(lines), ""}
+        ${$max_range}
       %span.text
-        ${_jed($max_range.value, "Day", "Days")}
+        ${_jed($max_range, "day")}
       {{/if}}
   
   .actions      

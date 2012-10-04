@@ -124,7 +124,7 @@ When /^I lend (\w+) item(s?) of that model to "([^"]*)"$/ do |n, plural, user|
   @inventory_pool.reload
   n = to_number(n)
   order = FactoryGirl.create :order, :user => @user, :inventory_pool => @inventory_pool
-  order.add_line(n, @model, nil, Date.today, Date.tomorrow, @inventory_pool)
+  order.add_lines(n, @model, nil, Date.today, Date.tomorrow, @inventory_pool)
   order.submit.should be_true
   order.approve("foo'lish comment").should be_true
   c = Contract.find_by_user_id @user

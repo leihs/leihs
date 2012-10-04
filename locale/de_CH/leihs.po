@@ -40,6 +40,15 @@ msgstr[1] "seit %d Tagen"
 msgid "%s (View in Order)"
 msgstr "%s (In Bestellung ansehen)"
 
+msgid "Take Back Selection"
+msgstr "Auswahl zurücknehmen"
+
+msgid "Hand Over Selection"
+msgstr "Auswahl aushändigen"
+
+msgid "Delete Selection"
+msgstr "Auswahl löschen"
+
 msgid "%s Search Results for \"%s\""
 msgstr "%s Resultate bei Suche nach \"%s\""
 
@@ -124,6 +133,9 @@ msgstr "Trotzdem genehmigen"
 msgid "Approved"
 msgstr "Genehmigt"
 
+msgid "Approved on"
+msgstr "Genehmigt am"
+
 msgid "Approved Items"
 msgstr "Genehmigte Gegenstände"
 
@@ -145,8 +157,8 @@ msgstr "Attachment erfolgreich erstellt."
 msgid "Attempt to add node to own graph collection"
 msgstr "Versuch, einen Zweig seiner eigenen Graph-Kollektion hinzuzufügen"
 
-msgid "Auswahl"
-msgstr "Selection"
+msgid "Selection"
+msgstr "Auswahl"
 
 msgid "Availability Timeline"
 msgstr "Verfügbarkeitszeitleiste"
@@ -346,6 +358,9 @@ msgstr "Auswahl editieren"
 msgid "Edit multiple selected items"
 msgstr "Mehrere ausgewählte Gegenstände editieren"
 
+msgid "Edit multiple selected lines"
+msgstr "Mehrere ausgewählte Linien editieren"
+
 msgid "Edit purpose for order from"
 msgstr "Zweck für Bestellung ändern von"
 
@@ -527,7 +542,9 @@ msgid "Invoice Number"
 msgstr "Rechnungsnummer"
 
 msgid "Item"
-msgstr "Gegenstand"
+msgid_plural "Items"
+msgstr[0] "Gegenstand"
+msgstr[1] "Gegenstände"
 
 msgid "Item handed over as part of contract %d."
 msgstr "Gegenstand übergeben als Teil von Vertrag %d."
@@ -876,6 +893,9 @@ msgstr "Ablehnen"
 
 msgid "Rejected"
 msgstr "Abgelehnt"
+
+msgid "Rejected on"
+msgstr "Abgelehnt am"
 
 msgid "Rejection Successful"
 msgstr "Ablehnen erfolgreich"

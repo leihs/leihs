@@ -59,48 +59,34 @@ class Backend::HandOverController < Backend::BackendController
                    quantity = (params[:quantity] ? [params[:quantity].to_i, 1].max : nil),
                    start_date = params[:start_date],
                    end_date = params[:end_date])
-                   
-    ContractLine.transaction do
-      lines = @contract.lines.find(line_ids)
-      # TODO merge to Contract#update_line
-      lines.each do |line|        
-        line.start_date = Date.parse(start_date) if start_date
-        line.end_date = Date.parse(end_date) if end_date
 
-        # NOTE because cloning, this has to be the last change before saving
-        if quantity
-          if line.is_a?(ItemLine)
-            (quantity - line.quantity).times do
-              new_line = line.dup # NOTE use .dup instead of .clone (from Rails 3.1) 
-              new_line.item = nil
-              new_line.save # TODO log_change (not needed anymore with the new audits)
+    if quantity
+      if quantity.to_i > line_ids.size # if quantity is higher then line ids then duplicate lines
+        if ContractLine.find(line_ids.first).is_a?(ItemLine)
+          (quantity.to_i-line_ids.size).times do
+            new_line = ItemLine.find(line_ids.first).dup # NOTE use .dup instead of .clone (from Rails 3.1) 
+            new_line.item = nil
+            new_line.save # TODO log_change (not needed anymore with the new audits) 
+            line_ids.push new_line.id
+          end
+        else # Option
+          OptionLine.find(line_ids.first).update_attribute :quantity, quantity
+        end
+      elsif quantity.to_i < line_ids.size # if quantity is lower then line ids then remove some lines
+        if ContractLine.find(line_ids.first).is_a?(ItemLine)
+          (line_ids.size-quantity.to_i).times do
+            line_to_be_removed = ContractLine.find(line_ids.pop)
+            ContractLine.transaction do
+              @contract.remove_line(line_to_be_removed, current_user.id)
             end
-          else
-            line.quantity = quantity
           end
+        else # Option
+          OptionLine.find(line_ids.first).update_attribute :quantity, quantity
         end
-
-        # TODO remove log changes (use the new audits)
-        change = ""
-        if (new_model_id = line_id_model_id[line.id.to_s]) 
-          line.model = line.contract.user.models.find(new_model_id) 
-          change = _("[Model %s] ") % line.model 
-        end
-        change += line.changes.map do |c|
-          what = c.first
-          if what == "model_id"
-            from = Model.find(from).to_s
-            _("Swapped from %s ") % [from]
-          else
-            from = c.last.first
-            to = c.last.last
-            _("Changed %s from %s to %s") % [what, from, to]
-          end
-        end.join(', ')
-
-        @contract.log_change(change, current_user.id) if line.save
       end
     end
+
+    @contract.update_lines(line_ids, line_id_model_id, start_date, end_date, current_user.id)
 
     respond_to do |format|
       format.json {
@@ -165,6 +151,7 @@ class Backend::HandOverController < Backend::BackendController
     if request.post?
       option = current_inventory_pool.options.find(params[:option_id])
       
+      # FIXME go through @contract.add_lines ??
       option_line = @contract.option_lines.create(:option => option, :quantity => 1, :start_date => start_date, :end_date => end_date)
       if option_line.errors.size > 0
         flash[:error] = option_line
@@ -193,7 +180,7 @@ class Backend::HandOverController < Backend::BackendController
       item = current_inventory_pool.items.where(:inventory_code => code).first 
       item.model if item
     elsif model_group_id
-      ModelGroup.find(model_group_id) # TODO scope current_inventory_pool ?
+      Template.find(model_group_id) # TODO scope current_inventory_pool ?
     elsif model_id
       current_inventory_pool.models.find(model_id)
     end
@@ -209,12 +196,13 @@ class Backend::HandOverController < Backend::BackendController
       # try to assign to contract lines of the customer
       line ||= @contract.lines.where(:model_id => model.id, :item_id => nil).order(:start_date).first if code
       # add new line
-      line ||= model.add_to_document(@contract, @user, quantity, start_date, end_date, current_inventory_pool)
+      line ||= model.add_to_document(@contract, @user, quantity, start_date, end_date, current_inventory_pool).first
       @error = {:message => line.errors.values.join} if model_group_id.nil? and item and line and not line.update_attributes(item: item)
     elsif option
       if line = @contract.lines.where(:option_id => option.id, :start_date => start_date, :end_date => end_date).first
         line.quantity += quantity
         line.save
+      # FIXME go through @contract.add_lines ??
       elsif not line = @contract.option_lines.create(:option => option, :quantity => quantity, :start_date => start_date, :end_date => end_date)
         @error = {:message => _("The option could not be added" % code)}
       end

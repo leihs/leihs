@@ -6,7 +6,7 @@ Given "a reservation exists for $quantity '$model' from $from to $to" \
 do |quantity, model, from, to|
   model = Model.find_by_name(model)
   order = FactoryGirl.create :order, :inventory_pool => model.inventory_pools.first # OPTIMIZE
-  order.add_line(quantity.to_i, model, nil, to_date(from), to_date(to))
+  order.add_lines(quantity.to_i, model, nil, to_date(from), to_date(to))
   order.submit.should be_true
   order.lines.size.should >= 1
   model.availability_in(order.inventory_pool.reload).document_lines.size.should >= 1
@@ -19,7 +19,7 @@ do |quantity, model, from, to|
 
   model = Model.find_by_name(model)
   @contract = LeihsFactory.create_user.get_current_contract(model.items.first.inventory_pool)
-  @contract.add_line(quantity.to_i, model, nil, from, to)
+  @contract.add_lines(quantity.to_i, model, nil, from, to)
   @contract.save
   line = @contract.item_lines.first
   line.update_attributes(item: model.items.first, purpose: FactoryGirl.create(:purpose))

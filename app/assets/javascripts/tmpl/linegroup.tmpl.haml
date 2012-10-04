@@ -21,6 +21,6 @@ ${$item.days = $item.end_date.diff($item.start_date, "days"), ""}
       ${$item.end_date.format(i18n.date.L)}
     .days
       ${$item.days}
-      ${_jed($item.days, "Day", "Days")}
+      ${_jed($item.days, "day")}
     .lines.list
       {{tmpl(lines) "tmpl/line"}}

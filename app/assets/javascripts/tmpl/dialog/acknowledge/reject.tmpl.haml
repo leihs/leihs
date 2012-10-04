@@ -6,7 +6,7 @@
   %p.subtitle
     ${_jed(quantity, "Item", "Items")}
     ${_jed("for max.")}
-    ${$range = new MaxRange(lines).value, ""}
+    ${$range = App.Line.getMaxRange(lines), ""}
     ${range}
     ${$range, "day", "days in a row"}
   
@@ -24,7 +24,7 @@
     %p= "${purpose.description}"  
     
   %section.lines.scalable
-    ${$grouped_lines = GroupedLines.merge_date_ranges(lines), ""}
+    ${$grouped_lines = App.Line.groupByDateRanges(lines), ""}
     {{tmpl($grouped_lines) "tmpl/dialog/summary/linegroup"}}
   
   %section.comment

@@ -23,7 +23,7 @@ end
 When /^I delete the selection$/ do
   page.execute_script('$("#selection_actions .button").show()')
   line_amount_before = all(".line").size
-  find(".button", :text => /(Delete|Löschen)/).click
+  find(".button", :text => /.*(Delete|Löschen).*/i).click
   wait_until { all(".line").size < line_amount_before }
 end
 
@@ -38,7 +38,7 @@ When /^I delete all lines of this order$/ do
   end
   page.execute_script('$("#selection_actions .button").show()')
   line_amount_before = all(".line").size
-  find(".button", :text => /(Delete|Löschen)/).click
+  find(".button", :text => /.*(Delete|Löschen).*/i).click
 end
 
 Then /^I got an error message that not all lines can be deleted$/ do

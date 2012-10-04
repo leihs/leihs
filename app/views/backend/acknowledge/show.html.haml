@@ -88,9 +88,6 @@
             .alternatives
               .trigger
                 .arrow
-              = link_to "/backend/inventory_pools/${current_inventory_pool}/acknowledge/${id}/reject", :class => "button white", :remote => "true" do
-                .icon.valuelist
-                = _("Value List")
               = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/acknowledge/#{@order.id}/remove_lines",
               :class => "button white",
               :remote => "true",
@@ -100,14 +97,14 @@
               :"data-add_selected_line_ids" => "true",
               :id => "delete_selection" do
                 .icon.delete
-                = _("Delete")
+                = _("Delete Selection")
             = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/acknowledge/#{@order.id}/update_lines", 
             :class => "button white open_dialog",
-            :"data-tmpl" => "tmpl/dialog/calendar/edit_multiple", 
+            :"data-tmpl" => "tmpl/dialog/calendar", 
             :"data-dialog_class" => "calendar multiple",
             :"data-on_success" => 'Acknowledge.update_order(response);',
-            :"data-ref_for_dialog" => "$('#order').tmplItem().data",
-            :"data-dialog_ready" => "new BookingCalendar({quantityMode: 'boolean', showCulprit: true})",
+            :"data-ref_for_dialog" => "Line.data_for_edit_lines(SelectedLines.lines_data)",
+            :"data-dialog_ready" => "new BookingCalendar()",
             :id => "edit_selection" do
               .icon.timerange
               = _("Edit Selection")

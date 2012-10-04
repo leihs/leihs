@@ -1,5 +1,7 @@
 #order
   {{if lines.length>0}}
-  ${$grouped_lines = GroupedLines.merge_date_ranges(lines), ""}
-  {{tmpl($grouped_lines) "tmpl/linegroup"}}
+  {{each(i,grouped_lines) App.Line.groupByDateRanges(lines)}}
+  ${grouped_lines.lines = App.Line.mergeByModel(grouped_lines.lines), ""}
+  {{tmpl(grouped_lines) "tmpl/linegroup"}}
+  {{/each}}
   {{/if}}

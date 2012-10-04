@@ -5,7 +5,6 @@
 class DocumentLine < ActiveRecord::Base
   include Availability::DocumentLine
   self.abstract_class = true
-  acts_as_audited :associated_with => :model
 
 ###############################################  
 

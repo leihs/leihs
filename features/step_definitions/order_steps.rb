@@ -58,7 +58,7 @@ Given "there are no new orders" do
 end
 
 Given /it asks for ([0-9]+) item(s?) of model '(.*)'/ do |number, plural, model|
-  @order.add_line(number, Model.find_by_name(model), @user)
+  @order.add_lines(number, Model.find_by_name(model), @user)
   @order.log_history("user submits order", 1)
   @order.save
   @order.has_changes?.should == false

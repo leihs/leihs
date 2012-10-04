@@ -18,9 +18,7 @@ describe InventoryPool do
       LeihsFactory.create_user :login => "birke"       
       LeihsFactory.create_user :login => "venger"      
       LeihsFactory.create_user :login => "siegfried"   
-      @manager = \
-      LeihsFactory.create_user({:login => "hammer"},
-                          {:role  => "manager"} )
+      @manager = LeihsFactory.create_user({:login => "hammer"}, {:role  => "manager"} )
     end
     
 
@@ -35,22 +33,20 @@ describe InventoryPool do
 
 
       it "should return a list of hand_over events per user" do
-        open_contracts = User.all.map { |user|
+        open_contracts = User.all.map do |user|
           FactoryGirl.create :contract_with_lines, :user => user, :inventory_pool => @ip
-        }
+        end
         make_sure_no_start_date_is_identical_to_any_other! open_contracts
     
         hand_over_visits = @ip.visits.hand_over
 
         # We should have as many events as there are different start dates
-        hand_over_visits.count.should equal(
-          open_contracts.flat_map(&:contract_lines).map(&:start_date).uniq.count )
+        hand_over_visits.count.should equal(open_contracts.flat_map(&:contract_lines).map(&:start_date).uniq.count )
     
         # When we combine all the contract_lines of all the events,
         # then we should get the set of contract_lines that are
         # associated with the users' contracts
-        hand_over_visits.flat_map(&:contract_lines).count.
-          should equal( open_contracts.flat_map(&:contract_lines).count )
+        hand_over_visits.flat_map(&:contract_lines).count.should equal( open_contracts.flat_map(&:contract_lines).count )
       end
 
 
@@ -67,22 +63,24 @@ describe InventoryPool do
     
 
       it "should not mix Events of different users" do
-        open_contract  = LeihsFactory.create_contract( {:user => User.first},
-                                                  {:contract_lines => 1 } )
+        # TODO use FactoryGirl instead
+        open_contract  = LeihsFactory.create_contract( {:user => User.first}, {:contract_lines => 1 } )
+        open_contract2 = LeihsFactory.create_contract( {:user => User.last}, {:contract_lines => 1 } )
 
-        open_contract2 = LeihsFactory.create_contract( {:user => User.last},
-                                                  {:contract_lines => 1 } )
+        @ip.visits.hand_over.reload.count.should equal(2)
+
         open_contract2.instance_eval {
           contract_lines[0].start_date = open_contract.contract_lines[0].start_date
           contract_lines[0].end_date   = contract_lines[0].start_date + 2.days
           contract_lines[0].save
         }
-
-        hand_over_visits = @ip.visits.hand_over
-
-        # the first two contract_lines should now be grouped inside the
-        # first Event, which makes it two events in total
-        hand_over_visits.count.should equal(2)
+        
+        expected = if open_contract2.lines.size > 1 and open_contract2.lines[0].start_date != open_contract2.lines[1].start_date
+          3
+        else
+          2
+        end
+        @ip.visits.hand_over.reload.count.should equal(expected)
       end
 
       def start_first_contract_line_on_same_date_as_second!( contract )

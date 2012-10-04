@@ -88,18 +88,6 @@ class OrdersController < FrontendController
     render :nothing => true
   end  
 
-  # change quantity for a given line
-  def change_line_quantity(line_id = params[:order_line_id],
-                           required_quantity = params[:quantity].to_i)
-    @order_line = OrderLine.find(line_id)
-    @order = @order_line.order
-
-    @order_line, @change = @order.update_line(@order_line.id, required_quantity, current_user.id)
-    @order.save
-    
-    render :nothing => true
-  end
-
   # change time frame for OrderLines or ContractLines 
   def change_time_lines(lines = @order.lines.find(params[:lines].split(',')),
                         start_date = params[:start_date].split('.').map{|x| x.to_i},

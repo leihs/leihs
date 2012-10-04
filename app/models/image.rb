@@ -1,5 +1,4 @@
 class Image < ActiveRecord::Base
-  acts_as_audited :associated_with => :model
 
   PATH_PREFIX = "/images/attachments"
 

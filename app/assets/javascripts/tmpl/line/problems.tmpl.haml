@@ -1,5 +1,5 @@
-{{if problems.length != 0}}
 %li.problems.hastip
+  {{if problems.length != 0}}
   .tip.problems
     %ul
       {{each(i, problem) problems}}
@@ -10,5 +10,5 @@
     %strong
       ${problems.length}
     .problem.icon
-{{/if}}
+  {{/if}}
 

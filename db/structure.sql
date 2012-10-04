@@ -55,30 +55,6 @@ CREATE TABLE `attachments` (
   KEY `index_attachments_on_model_id` (`model_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE `audits` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `thread_id` bigint(20) DEFAULT NULL,
-  `auditable_id` int(11) DEFAULT NULL,
-  `auditable_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `associated_id` int(11) DEFAULT NULL,
-  `associated_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `user_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `username` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `action` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `audited_changes` text COLLATE utf8_unicode_ci,
-  `version` int(11) DEFAULT '0',
-  `comment` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `remote_address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `index_audits_on_thread_id` (`thread_id`),
-  KEY `auditable_index` (`auditable_id`,`auditable_type`),
-  KEY `associated_index` (`associated_id`,`associated_type`),
-  KEY `user_index` (`user_id`,`user_type`),
-  KEY `index_audits_on_created_at` (`created_at`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
 CREATE TABLE `authentication_systems` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -592,8 +568,6 @@ INSERT INTO schema_migrations (version) VALUES ('20111118141748');
 INSERT INTO schema_migrations (version) VALUES ('20111123154235');
 
 INSERT INTO schema_migrations (version) VALUES ('20120106214650');
-
-INSERT INTO schema_migrations (version) VALUES ('20120413154754');
 
 INSERT INTO schema_migrations (version) VALUES ('20120424080000');
 

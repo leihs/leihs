@@ -28,23 +28,23 @@
       text-align: right;
       padding-left: 0 !important;
       padding-top: 0;
+      position: absolute;
+      right: 0;
+      top: 6px;
       
       &>.button {
         margin-right: 4px;
       }
       
       &>.multibutton {
-       /* margin-right: 3px; */ /* DANGER: I had to remove this margin because I couldn't fit the button  */
-                                /* on the line when it was translated, e.g. "Editieren" instead of "Edit". */
-                                /* Long strings would wrap the button onto the following line, that might have */
-                                /* a higher z-index when it's e.g. a handover note. In such cases, the handover */
-                                /* note would make it impossible to click the edit button. */
+       margin-right: 3px;       
       }
     }
   }
   
   &>.main {
     display: inline-block;
+    width: 80%;
   }  
   
   &>.actions {
@@ -99,6 +99,7 @@
   }
   
   &:hover {
+    border-bottom: 1px solid $bordergrey;
     z-index: 999;
     @include highlight-item;
     

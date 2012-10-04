@@ -19,7 +19,7 @@ jQuery ()->
   # set number format with accounting
   accounting.settings =
     currency:
-      symbol: local_currency_string
+      symbol: if window.local_currency_string? then window.local_currency_string else "CHF"
       format: "%v %s"
       decimal: i18n.number.decimal
       thousand: i18n.number.thousand

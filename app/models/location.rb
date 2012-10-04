@@ -1,5 +1,4 @@
 class Location < ActiveRecord::Base
-  acts_as_audited :associated_with => :building
 
   has_many :items
   belongs_to :building

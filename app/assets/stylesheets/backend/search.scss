@@ -22,12 +22,13 @@
     
       input[type=text] {
         background: rgb(230,230,230);
+        border: 1px solid rgba(0,0,0,0.5);
         font-size: 1.1em;
         padding-left: 9px;
         width: 102px;
         @include transition(background 0.2s linear);
         @include border-radius(12px);
-        @include box-shadows(inset 0 3px 2px rgba(0,0,0,0.1), 0 0 1px 0 $borderdarkergrey);
+        @include box-shadows(inset 0 3px 2px rgba(0,0,0,0.1), 0 1px 0 rgba(255,255,255,0.2));
       }
 
       .icon {

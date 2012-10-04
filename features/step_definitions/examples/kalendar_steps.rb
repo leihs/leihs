@@ -34,7 +34,7 @@ end
 
 Dann /^die Bestellung kann gespeichert werden$/ do
   step 'I save the booking calendar'
-  @line.reload.quantity.should == @size
+  @line.order.lines.where(:start_date => @line.start_date, :end_date => @line.end_date, :model_id => @line.model).size == @size
 end
 
 Dann /^die Aushändigung kann gespeichert werden$/ do

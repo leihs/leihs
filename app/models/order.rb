@@ -109,6 +109,7 @@ class Order < Document
       contract = user.get_current_contract(self.inventory_pool)
       order_lines.each do |ol|
         ol.quantity.times do
+          # FIXME go through contract.add_lines ??
           contract.item_lines.create( :model => ol.model,
                                       :quantity => 1,
                                       :start_date => ol.start_date,
@@ -153,37 +154,34 @@ class Order < Document
     end
   end
 
-  def add_line(quantity, model, user_id, start_date = nil, end_date = nil, inventory_pool = nil)
-    quantity = quantity.to_i
-    line = lines.where(:model_id => model, :start_date => start_date, :end_date => end_date).first
-    if line
-      line.quantity += quantity
-      if line.save
-        log_change( _("Incremented quantity from %i to %i for %s") % [line.quantity-quantity, line.quantity, model.name], user_id )        
+  def update_lines(line_ids, line_id_model_id, start_date, end_date, current_user_id) # TODO remove current_user_id when not used anymore
+    OrderLine.transaction do
+      lines.find(line_ids).each do |line|
+        line.start_date = Date.parse(start_date) if start_date
+        line.end_date = Date.parse(end_date) if end_date
+
+        # TODO remove log changes (use the new audits)
+        change = ""
+        # TODO the model swapping is not implemented on the client side
+        if (new_model_id = line_id_model_id[line.id.to_s]) 
+          line.model = line.order.user.models.find(new_model_id) 
+          change = _("[Model %s] ") % line.model 
+        end
+        change += line.changes.map do |c|
+          what = c.first
+          if what == "model_id"
+            from = Model.find(from).to_s
+            _("Swapped from %s ") % [from]
+          else
+            from = c.last.first
+            to = c.last.last
+            _("Changed %s from %s to %s") % [what, from, to]
+          end
+        end.join(', ')
+
+        log_change(change, current_user_id) if line.save
       end
-    else
-      line = super
     end
-    line
-  end
-
-  # keep the user required quantity, force positive quantity 
-  def update_line(order_line_id, required_quantity, user_id)
-    order_line = order_lines.find(order_line_id)
-    original_quantity = order_line.quantity
-        
-    max_available = order_line.maximum_available_quantity
-
-    order_line.quantity = [required_quantity, 0].max
-    order_line.save
-
-    change = _("Changed quantity for %{model} from %{from} to %{to}") % { :model => order_line.model.name, :from => original_quantity, :to => order_line.quantity }
-    if required_quantity > max_available
-      @flash_notice = _("Maximum number of items available at that time is %{max}") % {:max => max_available}
-      change += " " + _("(maximum available: %{max})") % {:max => max_available}
-    end
-    log_change(change, user_id)
-    [order_line, change]
   end
   
   def remove_line(line_or_id, user_id)

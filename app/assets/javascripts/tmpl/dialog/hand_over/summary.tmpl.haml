@@ -32,7 +32,7 @@ ${$purposes = Line.concatinate_purposes(SelectedLines.lines_data), ""}
   %hr
   %section.lines.scalable
     
-    ${$grouped_lines = GroupedLines.merge_date_ranges(Line.prepare_for_handover(SelectedLines.lines_data)), ""}
+    ${$grouped_lines = App.Line.groupByDateRanges(Line.prepare_for_handover(SelectedLines.lines_data)), ""}
     {{tmpl($grouped_lines) "tmpl/dialog/summary/linegroup"}}
     
   %section.note

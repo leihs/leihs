@@ -40,7 +40,6 @@ Leihs::Application.routes.draw do
     member do
       post :submit
       post :add_line
-      post :change_line_quantity
       delete :remove_lines
       post :change_time_lines
     end
@@ -239,7 +238,6 @@ Leihs::Application.routes.draw do
             get :add_line
             post :add_line
             post :add_line_with_item # TODO 29**
-            post :change_line_quantity
             delete :remove_lines
             post :update_lines
             get :swap_model_line

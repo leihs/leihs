@@ -8,8 +8,20 @@
     %li.date
       {{html moment(created_at).format(i18n.date.L)}}
     
+    %li.range
+      {{if lines.length}}    
+      %span.text
+        %span.grey
+          ${_jed("for max.")}
+      %span.number
+        ${$max_range = App.Line.getMaxRange(lines), ""}
+        ${$max_range}
+      %span.text
+        ${_jed($max_range, "day")}
+      {{/if}}
+
     %li.status
-      ${_jed("Approved")}
-      %span.grey.digits
-        {{html moment(updated_at).format(i18n.date.L)}}
+      %strong
+        ${_jed("Approved on")}
+      {{html moment(updated_at).format(i18n.date.L)}}
   

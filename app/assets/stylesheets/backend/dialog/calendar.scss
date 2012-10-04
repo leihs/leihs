@@ -182,7 +182,7 @@
   }
   
   .list {
-    margin-top: 0;
+    margin-top: 1px;
     margin-left: 3px;
     margin-right: 2px;
     
@@ -215,7 +215,9 @@
       
       .actions {
         text-align: right;
-        width: 160px;
+        position: absolute;
+        right: 0;
+        width: 165px;
         
         .button, .multibutton {
           @include opacity(1.0);
@@ -257,6 +259,18 @@
   }
   
   #fullcalendar {
+
+    .loading {
+      left: 48%;
+      margin: 0 auto;
+      position: relative;
+      top: 190px;
+
+      img {
+        height: auto;
+        width: 36px;
+      }
+    }
     
     .fc-header-left {
       text-align: left;

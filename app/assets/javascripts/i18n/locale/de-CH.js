@@ -111,6 +111,18 @@ window.i18n.locale_data = {
          null,
          "%s (In Bestellung ansehen)"
       ],
+      "Take Back Selection": [
+         null,
+         "Auswahl zurücknehmen"
+      ],
+      "Hand Over Selection": [
+         null,
+         "Auswahl aushändigen"
+      ],
+      "Delete Selection": [
+         null,
+         "Auswahl löschen"
+      ],
       "%s Search Results for \"%s\"": [
          null,
          "%s Resultate bei Suche nach \"%s\""
@@ -223,6 +235,10 @@ window.i18n.locale_data = {
          null,
          "Genehmigt"
       ],
+      "Approved on": [
+         null,
+         "Genehmigt am"
+      ],
       "Approved Items": [
          null,
          "Genehmigte Gegenstände"
@@ -251,9 +267,9 @@ window.i18n.locale_data = {
          null,
          "Versuch, einen Zweig seiner eigenen Graph-Kollektion hinzuzufügen"
       ],
-      "Auswahl": [
+      "Selection": [
          null,
-         "Selection"
+         "Auswahl"
       ],
       "Availability Timeline": [
          null,
@@ -519,6 +535,10 @@ window.i18n.locale_data = {
          null,
          "Mehrere ausgewählte Gegenstände editieren"
       ],
+      "Edit multiple selected lines": [
+         null,
+         "Mehrere ausgewählte Linien editieren"
+      ],
       "Edit purpose for order from": [
          null,
          "Zweck für Bestellung ändern von"
@@ -760,8 +780,9 @@ window.i18n.locale_data = {
          "Rechnungsnummer"
       ],
       "Item": [
-         null,
-         "Gegenstand"
+         "Items",
+         "Gegenstand",
+         "Gegenstände"
       ],
       "Item handed over as part of contract %d.": [
          null,
@@ -1226,6 +1247,10 @@ window.i18n.locale_data = {
       "Rejected": [
          null,
          "Abgelehnt"
+      ],
+      "Rejected on": [
+         null,
+         "Abgelehnt am"
       ],
       "Rejection Successful": [
          null,

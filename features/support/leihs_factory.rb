@@ -150,7 +150,7 @@ module LeihsFactory
                                  :inventory_pool => o.inventory_pool )
         }
         d = [ self.random_future_date, self.random_future_date ]
-        o.add_line(quantity, model, o.user_id, d.min, d.max )
+        o.add_lines(quantity, model, o.user_id, d.min, d.max )
     end if options[:order_lines]
     o.save
     o
@@ -173,7 +173,7 @@ module LeihsFactory
                               :inventory_pool => c.inventory_pool)
         }
         d = [ self.random_future_date, self.random_future_date ]
-        c.add_line(quantity, model, c.user_id, d.min, d.max )
+        c.add_lines(quantity, model, c.user_id, d.min, d.max )
     } if options[:contract_lines]
     c.save
     c

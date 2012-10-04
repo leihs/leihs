@@ -52,6 +52,8 @@ class Line
       problems.push
         type: "incomplete"
     return problems
+
+  @get_subline_ids = (line)-> _.map line.sublines, (l)-> l.id
   
   @highlight: (line_element, type)->
     $(line_element).addClass("highlight #{type}")
@@ -96,5 +98,22 @@ class Line
     lines
     
   @is_start_date_moveable: (line)-> if line.order? then true else line.contract.action != "take_back"
+
+  @data_for_edit_lines: (lines)->
+    lines = Array(lines) unless lines instanceof Array
+    merged_lines = App.Line.mergeByModel lines
+    customer = Line.get_user $('.innercontent .line:first').tmplItem().data
+    data = 
+      lines: lines
+      customer: customer
+      title: if merged_lines.length == 1 then lines[0].model.name else _jed("Edit multiple selected lines")
+      start_date: App.Line.getMinDate(lines)
+      end_date: App.Line.getMaxDate(lines)
+      all_partition_ids: _.map(lines[0].availability_for_inventory_pool.partitions, (p)-> p.group_id)
+      user_group_ids: new App.User(customer).groupIds()
+    if merged_lines.length == 1
+      data.partitions = App.Partition.split_partitions_over_groups(lines[0].availability_for_inventory_pool.partitions, customer.groups)
+      data.quantity = merged_lines[0].quantity
+    return data
 
 window.Line = Line

@@ -1,5 +1,4 @@
 class Accessory < ActiveRecord::Base
-  acts_as_audited :associated_with => :model
   
   belongs_to :model
   has_and_belongs_to_many :inventory_pools

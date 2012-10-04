@@ -1,5 +1,4 @@
 class Workday < ActiveRecord::Base
-  acts_as_audited :associated_with => :inventory_pool
 
   belongs_to :inventory_pool
   

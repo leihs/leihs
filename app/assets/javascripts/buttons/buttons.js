@@ -65,7 +65,7 @@ function Buttons() {
   
   this.openDialog = function(event, response) {
     var _this = $(event.currentTarget);
-    
+
     var createDialog = function(data) {
       var template = (_this.data("tmpl") != undefined) ? _this.data("tmpl") : undefined;
       var content, class_name, error;

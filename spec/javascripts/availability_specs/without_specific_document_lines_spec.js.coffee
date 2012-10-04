@@ -15,12 +15,12 @@ describe "Availability without specific document lines", ->
 
   it "provides the availability changes without one or multiple specific document line ids", ->
     order_line_23 = {id: 23, type: "order_line", quantity: 1}
-    without_23 = _.any @availability.changes.withoutSpecificDocumentLines([order_line_23]), (change)-> 
+    without_23 = _.any @availability.changes.withoutLines([order_line_23]), (change)-> 
       _.any change[2], (allocation)->
         if allocation.out_document_lines? and allocation.out_document_lines.OrderLine?
           _.include allocation.out_document_lines.OrderLine, 23
     expect(without_23).toBeFalsy("Removing Order Line 23 from the changes fails")
-    freed_change = _.find @availability.changes.withoutSpecificDocumentLines([order_line_23]), (c)-> c[0]=="2012-01-03"
+    freed_change = _.find @availability.changes.withoutLines([order_line_23]), (c)-> c[0]=="2012-01-03"
     expect(freed_change[1] == 1).toBeTruthy("Freeing the total quantity was failing for order line 23")
     freed_allocation = _.find freed_change[2], (allocation)-> allocation.group_id == null
     expect(freed_allocation.in_quantity == 1).toBeTruthy("Freeing the in_quantity of group_id=null was failing for order line 23")

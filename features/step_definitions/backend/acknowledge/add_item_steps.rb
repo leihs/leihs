@@ -35,16 +35,27 @@ When /^I start to type the name of a model$/ do
   find("#process_helper").fill_in 'code', :with => @item.model.name[0..3] 
 end
 
-When /^I add a model to the hand over which is already existing in the selected date range by providing an inventory code$/ do
+When /^I add a model to the acknowledge which is already existing in the selected date range by providing an inventory code$/ do
   @line = @order.lines.first
+  @old_lines_count = @order.lines.count
   @model = @line.model
+  @line_el_count = all(".line").size
   find("#process_helper").fill_in 'code', :with => @line.model.items.first.inventory_code
   find("#process_helper button[type=submit]").click
   wait_until { all("#process_helper .loading").size == 0 }
 end
 
-Then /^the existing line quantity is increased$/ do
+Then /^the existing line quantity is not increased$/ do
   old_quantity = @line.quantity 
-  @line.reload.quantity.should == old_quantity+1
-  find(".line", :text => @model.name).find(".amount .selected").text.to_i.should == @line.reload.quantity
+  @new_quantity = @line.reload.quantity
+  @new_quantity.should == old_quantity
+end
+
+Then /^an additional line has been created in the backend system$/ do
+  @order.lines.reload.count.should == @old_lines_count + 1
+end
+
+Then /^the new line is getting visually merged with the existing line$/ do
+  all(".line").size.should == @line_el_count
+  find(".line", :text => @model.name).find(".amount .selected").text.to_i.should == @new_quantity + 1
 end

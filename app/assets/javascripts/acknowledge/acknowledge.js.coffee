@@ -41,28 +41,28 @@ class Acknowledge
   
   @update_subtitle: -> $(".top .subtitle").html $.tmpl "tmpl/subtitle/acknowledge", {lines_data: $("#order").tmplItem().data.lines}
         
-  @add_line: (line_data)->
-    # check if line was just increased
-    matching_line = Underscore.find $(".line"), (line)-> $(line).tmplItem().data.id == line_data.id
+  @add_line: (line)->
+    # check if line has just to be added to anothers line's sublines
+    matching_line = _.find $(".line"), (l)-> 
+      l = $(l).tmplItem().data
+      return l.start_date == line.start_date and l.end_date == line.end_date and l.model.id == line.model.id
     if matching_line?
-      Acknowledge.update_line(matching_line, line_data)
+      merged_line = App.Line.mergeByModel [$(matching_line).tmplItem().data, line]
+      new_line = $.tmpl "tmpl/line", merged_line
+      new_line.find(".select input[type=checkbox]").attr "checked", true
+      $(matching_line).replaceWith new_line
       Notification.add_headline
-        title: "#{line_data.model.name}"
-        text: _jed("quantity increased to %s", line_data.quantity)
+        title: "#{line.model.name}"
+        text: _jed("quantity increased by %s", line.quantity)
         type: "success"
     else 
       # add line
-      ProcessHelper.allocate_line(line_data)
+      ProcessHelper.allocate_line(line)
       Notification.add_headline
-        title: "+ #{Str.sliced_trunc(line_data.model.name, 36)}"
-        text: "#{moment(line_data.start_date).sod().format(i18n.date.XL)}-#{moment(line_data.end_date).format(i18n.date.L)}"
+        title: "+ #{Str.sliced_trunc(line.model.name, 36)}"
+        text: "#{moment(line.start_date).sod().format(i18n.date.XL)}-#{moment(line.end_date).format(i18n.date.L)}"
         type: "success"
     Acknowledge.update_subtitle()
-  
-  @update_line = (line_element, line_data)->
-    new_line = $.tmpl("tmpl/line", line_data)
-    $(new_line).find("input").attr("checked", true) if $(line_element).find(".select input").is(":checked")
-    $(line_element).replaceWith new_line
   
   @update_purpose: (new_purpose)->
     $("section.purpose p").html new_purpose
@@ -87,7 +87,7 @@ class Acknowledge
     #update the subtitle numbers
     subtitle_text = $("#acknowledge .subtitle").html()
     subtitle_text.replace(/^\d+/, order.quantity)
-    subtitle_text.replace(/\s\d+/, " "+new MaxRange(order.lines).value)
+    subtitle_text.replace(/\s\d+/, " "+App.Line.getMaxRange(order.lines))
     $("#acknowledge .subtitle").html(subtitle_text)
     #restore lines which were selected before re templating
     SelectedLines.restore()
@@ -98,5 +98,5 @@ class Acknowledge
       Buttons.disable $("#approve.multibutton")
     else
       Buttons.enable $("#approve.multibutton")
-      
+  
 window.Acknowledge = Acknowledge

@@ -29,12 +29,10 @@ class Template < ModelGroup
 
   ####################################################################################
   
-  
-  # TODO merge model_links with same models and sum quantities
-  
+  # returns an array of document_lines
   def add_to_document(document, user_id, quantity = nil, start_date = nil, end_date = nil, inventory_pool = nil)
-    model_links.map do |ml|
-      document.add_line(ml.quantity, ml.model, user_id, start_date, end_date, inventory_pool)
+    model_links.flat_map do |ml|
+      ml.model.add_to_document(document, user_id, ml.quantity, start_date, end_date, inventory_pool)
     end
   end  
   

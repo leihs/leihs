@@ -8,8 +8,6 @@
 # #Model as id the case for #Item s.
 #
 class Option < ActiveRecord::Base
-  acts_as_audited :associated_with => :inventory_pool
-  has_associated_audits
 
   belongs_to :inventory_pool
   has_many :option_lines

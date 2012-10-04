@@ -24,9 +24,13 @@
     width: 205px;
   }
   
-  li.item_location .icon {
-    position: relative;
-    left: -5px;
+  li.item_location {
+    width: 205px;
+
+    .icon {
+      position: relative;
+      left: -5px;
+    }
   }
   
   li.inventory_code {
@@ -39,6 +43,6 @@
   
   li.item_status {
     text-align: right;
-    width: 225px;
+    width: 120px;
   }
 }

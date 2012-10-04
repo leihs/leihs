@@ -43,7 +43,7 @@ class SelectedLines
   
   @store: ->
     @lines = _.map $(".innercontent .line input:checked"), (input)-> $(input).closest(".line")
-    @lines_data = _.map $(".innercontent .line input:checked"), (input)-> $(input).closest(".line").tmplItem().data
+    @lines_data = _.flatten _.map $(".innercontent .line input:checked"), (input)-> $(input).closest(".line").tmplItem().data
     @store_selected_line_ids()
     @toggle_on_selection()
     @update_counter()
@@ -54,9 +54,14 @@ class SelectedLines
       value = $(element).attr(attr)
       value = value.replace(/\?.*$/, "")
       value = "#{value}?" if value.match(/\?$/) == null
-      for line in SelectedLines.lines
-        value = "#{value}&" if value.match(/[\?&]$/) == null
-        value = "#{value}line_ids[]=#{$(line).tmplItem().data.id}"
+      for line in SelectedLines.lines_data
+        if line.sublines?
+          lines = line.sublines
+        else
+          lines = [line]
+        for l in lines
+          value = "#{value}&" if value.match(/[\?&]$/) == null
+          value = "#{value}line_ids[]=#{l.id}"
       $(element).attr attr, value
 
   @toggle_on_selection: ->

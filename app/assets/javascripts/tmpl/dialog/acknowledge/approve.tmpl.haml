@@ -3,11 +3,12 @@
   %h1
     ${_jed("Order from")}
     ${user.firstname} ${user.lastname}
+
   %p.subtitle 
     ${quantity}
     ${_jed(quantity, "Item", "Items")}
     ${_jed("for max.")}
-    ${$range = new MaxRange(lines).value, ""}
+    ${$range = App.Line.getMaxRange(lines), ""}
     ${$range}
     ${_jed($range,"day", "days in a row")}
   
@@ -53,7 +54,7 @@
   
   %hr
   %section.lines.scalable
-    ${$grouped_lines = GroupedLines.merge_date_ranges(lines), ""}
+    ${$grouped_lines = App.Line.groupByDateRanges(lines), ""}
     {{tmpl($grouped_lines) "tmpl/dialog/summary/linegroup"}}
     
   %section.comment

@@ -44,7 +44,13 @@
     padding: 0 !important;
     
     label {
-      padding: 8px 16px;
+      padding: 8px 27px;
+    }
+
+    input[type=checkbox] {
+      position: absolute;
+      top: 14px;
+      left: 14px;
     }
   }
   

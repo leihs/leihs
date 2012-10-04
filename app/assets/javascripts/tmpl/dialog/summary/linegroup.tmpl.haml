@@ -4,11 +4,11 @@
   .range
     ${$days = moment(end_date).eod().diff(moment(start_date).sod(), "days"), ""}
     ${$days}
-    ${_jed($days, "Day", "Days")}
+    ${_jed($days, "day")}
     
 .clear
 .list
-  {{each(i, line) lines}}
+  {{each(i, line) App.Line.mergeByModel(lines)}}
   %input{:type => :hidden, :name => "line_ids[]", :value => "${line.id}"}
   
   {{if line.returned_quantity}}

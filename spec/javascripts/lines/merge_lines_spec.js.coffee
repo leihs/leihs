@@ -67,8 +67,8 @@ describe "Merging multiple lines", ->
       end_date: "2012-01-12"
       type: "item_line"
 
-    @mergedLines1 = App.Line.mergeLines [@line1, @line2]
-    @mergedLines2 = App.Line.mergeLines [@line1, @line2, @line3, @line4]
+    @mergedLines1 = App.Line.mergeByModel [@line1, @line2]
+    @mergedLines2 = App.Line.mergeByModel [@line1, @line2, @line3, @line4]
     
 #######################
 
