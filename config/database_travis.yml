@@ -5,7 +5,7 @@ test:
   adapter: jdbcmysql
   host: localhost
   database: leihs2_test
-  encoding: unicode
+  encoding: utf8
   username: root
   password:
 
