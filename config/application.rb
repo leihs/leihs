@@ -110,7 +110,7 @@ CONTRACT_LENDING_PARTY_STRING = "Your\nAddress\nHere"
 EMAIL_SIGNATURE = "Das PZ-leihs Team"
 
 # The file we get our LDAP configuration from
-LDAP_CONFIG = YAML::load_file("#{Rails.root}/config/LDAP.yml")
+#LDAP_CONFIG = YAML::load_file("#{Rails.root}/config/LDAP.yml")
 
 # The email address that inventory pool related messages are sent to
 # if no inventory pool specific address has been set in the backend
