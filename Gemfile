@@ -2,7 +2,8 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.8'
 
-gem 'mysql2', '~> 0.3.11'
+gem 'mysql2', '~> 0.3.11', :platform => :mri_19
+gem 'activerecord-jdbcmysql-adapter', :platform => :jruby
 gem 'json', '~> 1.7'
 
 gem 'haml', '~> 3.1'
@@ -41,7 +42,8 @@ group :assets do # Gems used only for assets and not required in production envi
 end
 
 group :development do
-  gem 'thin' # web server (Webrick do not support keep-alive connections)
+  gem 'thin', :platform => :mri_19 # web server (Webrick do not support keep-alive connections)
+  gem 'trinidad', :platform => :jruby # web server (Webrick do not support keep-alive connections)
   gem 'gettext', :git => "git://github.com/ruby-gettext/gettext.git"
 end
 
@@ -54,7 +56,7 @@ group :test, :development do
   gem "guard", "~> 1.0"
   gem "guard-cucumber", "~> 1.2"
   gem "guard-rspec", "~> 1.1"
-  gem "guard-spork", "~> 1.0"
+  gem "guard-spork", "~> 1.0", :platform => :mri_19
   gem "guard-jasmine", "~> 1.8"
   gem "phantomjs", "~> 1.6.0.0" # headless webdriver (UI & JS tests)
   #gem "guard-jasmine-headless-webkit", "~> 0.3.2"
