@@ -215,17 +215,6 @@ class Order < Document
   end  
 
   ############################################
-
-  # OPTIMIZE scope new_user_id by current_inventory_pool
-  def swap_user(new_user_id, admin_user_id)
-    user = User.find(new_user_id)
-    if (user.id != self.user_id.to_i)
-      change = _("User swapped %{from} for %{to}") % { :from => self.user.login, :to => user.login}
-      self.user = user
-      log_change(change, admin_user_id)
-      save
-    end
-  end  
   
   def deletable_by_user?
     status_const == Order::SUBMITTED 

@@ -232,28 +232,22 @@ class Backend::HandOverController < Backend::BackendController
   end
 
   def swap_user
-    if request.post?
-      to_user = @user
-      if params[:swap_user_id].nil?
-        flash[:notice] = _("User must be selected")
-      else
-        new_user = current_inventory_pool.users.find(params[:swap_user_id])
-        lines_for_new_contract = @contract.contract_lines.find(params[:lines].split(',')) if params[:lines]
-
-        if new_user and lines_for_new_contract
-          new_contract = new_user.get_current_contract(current_inventory_pool)
-          lines_for_new_contract.each do |cl|
-            cl.update_attributes(:contract => new_contract)
-          end
-          flash[:notice] = _("The selected lines have been moved")
-          to_user = new_user
-        end
-      end  
-      redirect_to [:backend, current_inventory_pool, to_user, :hand_over]
+    if params[:swap_user_id].blank?
+      flash[:notice] = _("User must be selected")
     else
-      redirect_to backend_inventory_pool_users_path(current_inventory_pool,
-                                                    :layout => 'modal',
-                                                    :source_path => request.env['REQUEST_URI'])
+      new_user = current_inventory_pool.users.find(params[:swap_user_id])
+      lines_for_new_contract = @contract.contract_lines.find(params[:line_ids].split(',')) if params[:line_ids]
+      if new_user and lines_for_new_contract
+        new_contract = new_user.get_current_contract(current_inventory_pool)
+        lines_for_new_contract.each do |cl|
+          cl.update_attributes(:contract => new_contract)
+        end
+        flash[:notice] = _("The selected lines have been moved")
+      end
+    end  
+
+    respond_to do |format|
+     format.json { render :json => {new_user_id: new_user.id} }
     end
   end   
 

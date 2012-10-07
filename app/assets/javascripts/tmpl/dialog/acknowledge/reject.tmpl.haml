@@ -19,10 +19,12 @@
       
   .flash_message
   
-  %section.purpose
+  %section.purpose.highlighted
     %label ${_jed("Purpose")}
     %p= "${purpose.description}"  
-    
+  
+  %hr
+
   %section.lines.scalable
     ${$grouped_lines = App.Line.groupByDateRanges(lines), ""}
     {{tmpl($grouped_lines) "tmpl/dialog/summary/linegroup"}}
@@ -31,3 +33,5 @@
     = text_area_tag "comment", "", :class => "focus"
     %p.hint
       ${_jed("Write a comment. The comment will be part of the rejection e-mail.")}
+
+  %br

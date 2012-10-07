@@ -83,7 +83,7 @@ class TakeBack
     dialog = Dialog.add
       trigger: $("#take_back_button")
       content: $.tmpl("tmpl/dialog/take_back/documents", {contracts: contracts})
-      dialogClass: "take_back documents"
+      dialogClass: "medium documents"
       dialogId: "print"
     # bind close dialog
     dialog.delegate ".close_dialog", "click", (e)->

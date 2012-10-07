@@ -38,7 +38,7 @@
           :method => 'delete',
           :remote => "true",
           :"data-tmpl" => "tmpl/dialog/hand_over/delete",
-          :"data-dialog_class" => "hand_over",
+          :"data-dialog_class" => "medium",
           :"data-on_success" => 'Line.remove({"element": $(this).parents(".line"), "color": "red"})' ,
           :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
             .icon.delete

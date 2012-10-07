@@ -14,6 +14,8 @@
   position: relative;
   vertical-align: middle;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   @include border-radius(6px);
   @include unselectable();
   @include box-shadow(0 1px 0 rgba(255,255,255,0.2));

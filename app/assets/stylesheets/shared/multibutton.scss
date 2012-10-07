@@ -118,6 +118,10 @@
         border-bottom-left-radius: 6px;
       }
     }
+
+    button {
+      width: 100%;
+    }
     
     &:hover:not([disabled]) {
       z-index: 9998;

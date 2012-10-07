@@ -1,0 +1,14 @@
+.line.user
+  %input{:type => "hidden", :name => "swap_user_id", :value => "${id}"}
+  %strong
+    ${name}
+
+  {{if zip}}
+  , ${zip}
+  {{/if}}
+
+  {{if city}}
+  , ${city}
+  {{/if}}
+
+  .clear.icon{:title => "${_jed('reset user')}"}

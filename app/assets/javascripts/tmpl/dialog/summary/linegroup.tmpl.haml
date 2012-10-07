@@ -9,7 +9,13 @@
 .clear
 .list
   {{each(i, line) App.Line.mergeByModel(lines)}}
+  {{if line.sublines}}
+  {{each(j, subline) line.sublines}}
+  %input{:type => :hidden, :name => "line_ids[]", :value => "${subline.id}"}
+  {{/each}}
+  {{else}}
   %input{:type => :hidden, :name => "line_ids[]", :value => "${line.id}"}
+  {{/if}}
   
   {{if line.returned_quantity}}
   %input{:type => :hidden, :name => "returned_quantity[${line.id}]", :value => "${line.returned_quantity}"}

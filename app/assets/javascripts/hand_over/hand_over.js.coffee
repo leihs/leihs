@@ -208,11 +208,9 @@ class HandOver
     dialog = Dialog.add
       trigger: $("#hand_over_button")
       content: $.tmpl("tmpl/dialog/hand_over/documents", {contract: contract})
-      dialogClass: "hand_over documents"
+      dialogClass: "medium documents"
       dialogId: "print"
-      dialog_ready: -> 
-        console.log "READY"
-        Print.print()
+      dialog_ready: -> Print.print()
     # bind close dialog
     dialog.delegate ".close_dialog", "click", (e)->
       e.stopImmediatePropagation()
@@ -227,5 +225,9 @@ class HandOver
   @any_missing_purpose: (lines)->
     _.any lines, (line)->
       not line.purpose?
+
+  @data_for_user_swap: ->
+    lines: SelectedLines.lines_data
+    user: Line.get_user SelectedLines.lines_data[0]
 
 window.HandOver = HandOver

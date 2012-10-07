@@ -36,7 +36,7 @@ class Backend::BackendController < ApplicationController
 ###############################################################    
   
   def search(term = params[:term], types = Array(params[:types]), with = params[:with])
-    
+  
     conditions = { :klasses => {}, :filter => { :inventory_pool_id => [current_inventory_pool.id] } }
     
     # default if types are not provided

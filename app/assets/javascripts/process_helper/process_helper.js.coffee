@@ -101,9 +101,9 @@ class ProcessHelper
           start_date: moment($("#process_helper #add_start_date").val(), i18n.date.L).format("YYYY-MM-DD")
           end_date: moment($("#process_helper #add_end_date").val(), i18n.date.L).format("YYYY-MM-DD")
       
-  @add_through_autocomplete = (element)->
-    id = element.item.id
-    type = element.item.type
+  @add_through_autocomplete = (selected)->
+    id = selected.item.id
+    type = selected.item.type
     $("#code").val(id)
     switch type
       when "model"
@@ -116,7 +116,7 @@ class ProcessHelper
     $("#code").attr("name", "code")
     $("#code").val("")
     $("#code").autocomplete("widget").hide()
-   
+
   @allocate_line = (line_data)->
     if $("#visits").length
       @allocate_visit line_data, $(".visit")
@@ -168,7 +168,5 @@ class ProcessHelper
       # set new linegroup inside the order container
       $("#order").append $.tmpl("tmpl/linegroup", App.Line.groupByDateRanges([line_data]))
     return true
-   
-window.ProcessHelper = ProcessHelper
 
-window.Blah = 123
+window.ProcessHelper = ProcessHelper

@@ -17,7 +17,7 @@ ${$purposes = Line.concatinate_purposes(SelectedLines.lines_data), ""}
     %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}'}
       ${_jed("Hand Over")}
   
-  %section{:class => "purpose{{if $purposes.length==0}} none{{/if}}"}
+  %section{:class => "highlighted purpose{{if $purposes.length==0}} none{{/if}}"}
     %label ${_jed("Purpose")}
     %p ${$purposes}
     {{if HandOver.any_missing_purpose(SelectedLines.lines_data)}}

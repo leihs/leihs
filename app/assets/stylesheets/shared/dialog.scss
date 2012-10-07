@@ -77,6 +77,13 @@
        padding-left: 10px;
       }
     }
+
+    &:last-child {
+
+      .line:last-child, .line:last-child:hover {
+        border: none !important;
+      }
+    }
   }
   
   .ui-dialog-titlebar {

@@ -43,6 +43,12 @@ msgstr "%s (In Bestellung ansehen)"
 msgid "Take Back Selection"
 msgstr "Auswahl zurücknehmen"
 
+msgid "Change Borrower"
+msgstr "Reservierende/n wechseln"
+
+msgid "Change Orderer"
+msgstr "Bestellende/n wechseln"
+
 msgid "Hand Over Selection"
 msgstr "Auswahl aushändigen"
 

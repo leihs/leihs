@@ -38,7 +38,7 @@ class Acknowledge
     $('#process_helper').bind "ajax:success", (xhr, lines)->
       for line in lines
         Acknowledge.add_line line
-  
+
   @update_subtitle: -> $(".top .subtitle").html $.tmpl "tmpl/subtitle/acknowledge", {lines_data: $("#order").tmplItem().data.lines}
         
   @add_line: (line)->

@@ -22,5 +22,6 @@
 //= require selected_lines/selected_lines
 //= require inventory_pool/inventory_pool
 //= require expandable_line/expandable_line
+//= require swap_user/swap_user
 
 //= require app/app

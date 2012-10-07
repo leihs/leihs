@@ -9,7 +9,7 @@ Funktionalität: Ausleihe
   @javascript
   Szenario: Klick auf Letzten Besucher
     Angenommen ich öffne die Tagesansicht
-    Und ich öffnet eine Bestellung von "Normin N."
+    Und ich öffne eine Bestellung von "Normin N."
     Dann ich kehre zur Tagesansicht zurück
     Dann sehe ich die letzten Besucher
     Und ich sehe "Normin N." als letzten Besucher

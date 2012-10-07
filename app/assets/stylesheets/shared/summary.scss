@@ -7,6 +7,13 @@
     
     .line {
       
+      li.quantity {
+        text-align: center;
+        padding-right: 4px;
+        padding-left: 0; 
+        width: 50px;
+      }
+
       li.model {
         width: 500px;
       }
@@ -23,16 +30,5 @@
         li.problems { color: $red !important; }
       }
     }
-  }
-}
-
-.ui-dialog.take_back {
-  
-  .list .line li.problems {
-    display: none;
-  }
-  
-  .dialog .summary {
-    padding-bottom: 18px;
   }
 }

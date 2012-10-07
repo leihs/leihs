@@ -115,6 +115,14 @@ window.i18n.locale_data = {
          null,
          "Auswahl zurücknehmen"
       ],
+      "Change Borrower": [
+         null,
+         "Reservierende/n wechseln"
+      ],
+      "Change Orderer": [
+         null,
+         "Bestellende/n wechseln"
+      ],
       "Hand Over Selection": [
          null,
          "Auswahl aushändigen"

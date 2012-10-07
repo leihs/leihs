@@ -111,7 +111,6 @@ Leihs::Application.routes.draw do
           post :add_line
           post :update_lines
           delete :remove_lines
-          get :swap_user
           post :swap_user
           post :change_purpose
         end
@@ -247,7 +246,6 @@ Leihs::Application.routes.draw do
             post :add_option
             post :assign_inventory_code
             delete :delete_visit
-            get :swap_user 
             post :swap_user 
           end
         end

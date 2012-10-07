@@ -163,17 +163,21 @@ class Backend::AcknowledgeController < Backend::BackendController
   end
     
   def swap_user
-    if request.post?
-      if params[:swap_user_id].nil?
-        flash[:notice] = _("User must be selected")
-      else
-        @order.swap_user(params[:swap_user_id], current_user.id)
-      end  
-      redirect_to backend_inventory_pool_acknowledge_path(current_inventory_pool, @order)
+    if params[:swap_user_id].nil?
+      flash[:notice] = _("User must be selected")
     else
-      redirect_to backend_inventory_pool_users_path(current_inventory_pool,
-                                                    :layout => 'modal',
-                                                    :source_path => request.env['REQUEST_URI'])
+      new_user = User.find(params[:swap_user_id])
+      if (new_user.id != @order.user_id)
+        change = _("User swapped %{from} for %{to}") % { :from => @order.user.login, :to => new_user.login}
+        @order.user = new_user
+        @order.log_change(change, current_user.id)
+        @order.save
+      end
+    end  
+    respond_to do |format|
+      format.json {
+        render :json => view_context.json_for(@order, {:preset => :order})
+      }
     end
   end   
     

@@ -57,7 +57,7 @@ class Barcode
       success: (data)->
         Dialog.add
           content: $.tmpl "tmpl/dialog/documents/contract", data
-          dialogClass: "documents contract",
+          dialogClass: "medium documents contract",
           dialogId: "print"
       complete: ->
         loading_dialog.dialog "close"

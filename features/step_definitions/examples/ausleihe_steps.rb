@@ -10,10 +10,14 @@ Wenn /^ich kehre zur Tagesansicht zurück$/ do
   step 'ich öffne die Tagesansicht'
 end
 
-Wenn /^ich öffnet eine Bestellung von "(.*?)"$/ do |arg1|
+Wenn /^ich öffne eine Bestellung von "(.*?)"$/ do |arg1|
   el = find("#daily .order.line", :text => arg1)
   page.execute_script '$(":hidden").show();'
   el.find(".actions .alternatives .button .icon.edit").click
+end
+
+Wenn /^ich öffne eine Bestellung$/ do
+  step 'ich öffne eine Bestellung von ""'
 end
 
 Dann /^sehe ich die letzten Besucher$/ do
