@@ -229,5 +229,6 @@ class HandOver
   @data_for_user_swap: ->
     lines: SelectedLines.lines_data
     user: Line.get_user SelectedLines.lines_data[0]
+    type: "contract"
 
 window.HandOver = HandOver

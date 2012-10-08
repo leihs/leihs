@@ -1,20 +1,27 @@
 = form_tag '${$item.target_url}', :remote => true, :"data-submit_button" => true, :class => "summary" do
 
   %h1
+    {{if type == "order"}}
+    ${_jed("Change Orderer")}
+    {{else}}
     ${_jed("Change Borrower")}
-
+    {{/if}}
+    
   %p.subtitle 
     ${_jed("to substitute")}:
-    {{if user}}
     ${user.firstname} ${user.lastname}
-    {{/if}}
   
   .navigation
     %button.button.white.close_dialog
       .icon.return
       ${_jed("Back")}
     %button.button.green.hide_on_error{:type => "submit", :"data-on_success" => '${$item.on_success}'}
+      {{if type == "order"}}
+      ${_jed("Change Orderer")}
+      {{else}}
       ${_jed("Change Borrower")}
+      {{/if}}
+
   
   {{if $item.error}}
   .flash_message.visible
@@ -25,9 +32,14 @@
   
   %br
 
-  %section.new.borrower.highlighted
+  %section{:class => "new highlighted{{if type == 'order'}} orderer{{else}} borrower{{/if}}"}
     .input_container
-      %label.top{:for => "select_user"} ${_jed("New Borrower")}
+      %label.top{:for => "select_user"}
+        {{if type == "order"}}
+        ${_jed("New Orderer")}
+        {{else}}
+        ${_jed("New Borrower")}
+        {{/if}}
       %input.autocomplete.focus{:type => "text", :placeholder => '${_jed("Name / ID")}', :name => "select_user", :autocomplete => "off",
       :"data-url" => "/backend/inventory_pools/${current_inventory_pool}/search?types[]=user&with[zip]=1&with[city]=1",
       :"data-autocomplete_class" => "user", 
@@ -37,7 +49,5 @@
   %hr
 
   %section.lines.scalable
-    {{if lines}}
     ${$grouped_lines = App.Line.groupByDateRanges(lines), ""}
     {{tmpl($grouped_lines) "tmpl/dialog/summary/linegroup"}}
-    {{/if}}
