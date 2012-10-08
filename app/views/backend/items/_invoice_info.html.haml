@@ -44,7 +44,7 @@
     = _("Initial Price")
     \:
   %td
-    - v = "%.02f" % @item.price
+    - v = @item.price ? ("%.02f" % @item.price) : nil
     - if is_privileged_user? or @item.new_record?
       %input{:type => "text", :name => "item[price]", :value => v}
     - else
