@@ -8,7 +8,7 @@
     .content_navigation
       = link_to swap_user_backend_inventory_pool_acknowledge_path(current_inventory_pool, @order), 
         :class => "button white open_dialog",
-        :"data-tmpl" => "tmpl/dialog/acknowledge/change_orderer", 
+        :"data-tmpl" => "tmpl/dialog/swap_user/swap_user", 
         :"data-dialog_class" => "change_orderer swap_user medium",
         :"data-ref_for_dialog" => "$('#order').tmplItem().data",
         :"data-dialog_ready" => "SwapUser.setup();",
