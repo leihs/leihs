@@ -71,7 +71,7 @@ window.i18n.locale_data = {
       "": {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
-         "POT-Creation-Date": " 2012-09-24 13:24+0200",
+         "POT-Creation-Date": " 2012-10-09 09:45+0200",
          "PO-Revision-Date": " 2011-06-17 11:43+0100",
          "Last-Translator": " Ramón Cahenzli <rca@psy-q.ch>",
          "Language-Team": " Swiss-German (Zürich area) <ramon.cahenzli@zhdk.ch>",
@@ -95,6 +95,10 @@ window.i18n.locale_data = {
          null,
          "Sachä fällig am"
       ],
+      "\"Couldn't connect to LDAP: #{LDAP_CONFIG[:host]}:#{LDAP_CONFIG[:port]}\"": [
+         null,
+         ""
+      ],
       "%d day in the future": [
          "%d days in the future",
          "",
@@ -111,10 +115,6 @@ window.i18n.locale_data = {
       "%s until %s": [
          null,
          "Vom %s bis am %s "
-      ],
-      "(maximum available: %{max})": [
-         null,
-         "(högschtens ume: %{max})"
       ],
       "** This is an automatically generated response **": [
          null,
@@ -133,6 +133,14 @@ window.i18n.locale_data = {
          ""
       ],
       "A template with the ID '%s' was not found": [
+         null,
+         ""
+      ],
+      "Ablauf Garantie": [
+         null,
+         ""
+      ],
+      "Ablauf Vertrag": [
          null,
          ""
       ],
@@ -159,10 +167,6 @@ window.i18n.locale_data = {
       "Add": [
          null,
          "Dezuetue"
-      ],
-      "Add Note": [
-         null,
-         "Notiz dezuetue"
       ],
       "Add Purpose": [
          null,
@@ -196,6 +200,18 @@ window.i18n.locale_data = {
          null,
          "Ihri Bstellig vo de folgende Sache isch verschickt worde."
       ],
+      "Ankunftsdatum": [
+         null,
+         ""
+      ],
+      "Ankunftsnotiz": [
+         null,
+         ""
+      ],
+      "Ankunftszustand": [
+         null,
+         ""
+      ],
       "Approval Successful": [
          null,
          ""
@@ -217,6 +233,10 @@ window.i18n.locale_data = {
          "Genehmigt"
       ],
       "Approved Items": [
+         null,
+         "Genehmigt"
+      ],
+      "Approved on": [
          null,
          "Genehmigt"
       ],
@@ -288,6 +308,10 @@ window.i18n.locale_data = {
          null,
          "Barcode"
       ],
+      "Bezug": [
+         null,
+         ""
+      ],
       "Book": [
          null,
          "Bueche"
@@ -332,6 +356,22 @@ window.i18n.locale_data = {
          null,
          "Kategoriä"
       ],
+      "Change Borrower": [
+         null,
+         "Uuslehnbar"
+      ],
+      "Change Borrower Successful": [
+         null,
+         ""
+      ],
+      "Change Orderer": [
+         null,
+         "Ziitfenschter änderä"
+      ],
+      "Change Orderer Successful": [
+         null,
+         ""
+      ],
       "Changed %s from %s to %s": [
          null,
          ""
@@ -339,14 +379,6 @@ window.i18n.locale_data = {
       "Changed dates for %{model} from %{from} to %{to}": [
          null,
          "Datum für %{model} vo %{from} uf %{to} gwächslet"
-      ],
-      "Changed quantity for %{model} from %{from} to %{to}": [
-         null,
-         "Mängi für %{model} vo %{from} uf %{to} gwächslet"
-      ],
-      "Close": [
-         null,
-         "Schlüüssä"
       ],
       "Closed": [
          null,
@@ -388,10 +420,6 @@ window.i18n.locale_data = {
          null,
          "Verträg"
       ],
-      "Couldn't connect to LDAP: :": [
-         null,
-         ""
-      ],
       "Couldn't update ": [
          null,
          ""
@@ -399,10 +427,6 @@ window.i18n.locale_data = {
       "Create": [
          null,
          "Noi erstellä"
-      ],
-      "Create and make a Copy": [
-         null,
-         "Erstellä und Kopie mache"
       ],
       "Created at": [
          null,
@@ -464,6 +488,10 @@ window.i18n.locale_data = {
          null,
          "Löschä"
       ],
+      "Delete Selection": [
+         null,
+         "Uuswahl löschä"
+      ],
       "Delete this line": [
          null,
          "Uuswahl löschä"
@@ -508,7 +536,7 @@ window.i18n.locale_data = {
          null,
          "Uuswahl löschä"
       ],
-      "Edit multiple selected items": [
+      "Edit multiple selected lines": [
          null,
          "Agwählti Sachä furtnäh"
       ],
@@ -560,10 +588,6 @@ window.i18n.locale_data = {
          null,
          "Error bim speichere von Paket"
       ],
-      "Error setting the location": [
-         null,
-         "Error bim setze vom Ort"
-      ],
       "Error updating inventory code": [
          null,
          "Fehler bim aktualisiere vom Invenrarcode"
@@ -608,13 +632,21 @@ window.i18n.locale_data = {
          null,
          "Zruggnäh"
       ],
+      "Group %s": [
+         null,
+         "Modällgruppe"
+      ],
+      "Grund": [
+         null,
+         ""
+      ],
       "Hand Over": [
          null,
          "Übergäh"
       ],
-      "Hand Over Items": [
+      "Hand Over Selection": [
          null,
-         "Bsüech für d Übergab"
+         "Übergäh"
       ],
       "Hand Over to": [
          null,
@@ -640,6 +672,10 @@ window.i18n.locale_data = {
          null,
          "Gschicht"
       ],
+      "IMEI-Nummmer": [
+         null,
+         ""
+      ],
       "Important notes for hand over": [
          null,
          "Sache zum gäh"
@@ -663,10 +699,6 @@ window.i18n.locale_data = {
       "Inconsistent Inventory Pool": [
          null,
          "Inventarcode"
-      ],
-      "Incremented quantity from %i to %i for %s": [
-         null,
-         ""
       ],
       "Initial Price": [
          null,
@@ -740,6 +772,10 @@ window.i18n.locale_data = {
          null,
          "Grätepark"
       ],
+      "Investition": [
+         null,
+         "Beschribig"
+      ],
       "Invoice Date": [
          null,
          "Rächnigsdatum:"
@@ -753,7 +789,8 @@ window.i18n.locale_data = {
          "Rächnisgsnummerä:"
       ],
       "Item": [
-         null,
+         "Items",
+         "Sach",
          "Sach"
       ],
       "Item handed over as part of contract %d.": [
@@ -787,10 +824,6 @@ window.i18n.locale_data = {
       "Item package successfully destroyed": [
          null,
          "Paket erfolgriich glöscht"
-      ],
-      "Item retired (%s)": [
-         null,
-         "Sache uusgmuschteret (%s)"
       ],
       "Item saved.": [
          null,
@@ -844,6 +877,14 @@ window.i18n.locale_data = {
          null,
          "Vertrag nr. "
       ],
+      "Lending Contract No. %s": [
+         null,
+         "Vertrag nr. "
+      ],
+      "Lending Contracts No. %s": [
+         null,
+         "Vertrag nr. "
+      ],
       "List of Contracts": [
          null,
          "Verträg"
@@ -868,10 +909,6 @@ window.i18n.locale_data = {
          null,
          "Ort"
       ],
-      "Location successfully set": [
-         null,
-         "Ort erfolgriich gsetzt"
-      ],
       "Locations": [
          null,
          "Ört"
@@ -888,6 +925,10 @@ window.i18n.locale_data = {
          null,
          "Uuslogge"
       ],
+      "MAC-Addresse": [
+         null,
+         "Adresse"
+      ],
       "Manufacturer": [
          null,
          "Herschteller"
@@ -903,10 +944,6 @@ window.i18n.locale_data = {
       "Matching Templates": [
          null,
          "Vorlagä"
-      ],
-      "Maximum number of items available at that time is %{max}": [
-         null,
-         "Es sind zu däre Ziit nume %{max} Sachä ume"
       ],
       "Mobile": [
          null,
@@ -948,13 +985,21 @@ window.i18n.locale_data = {
          null,
          "Name"
       ],
-      "Needs permission": [
+      "Name / ID": [
          null,
-         "Berächtigung erforderlich"
+         "Name: "
+      ],
+      "New Borrower": [
+         null,
+         "Uuslehnbar"
       ],
       "New Item": [
          null,
          "Noii Sach"
+      ],
+      "New Orderer": [
+         null,
+         "Ziitfenschter änderä"
       ],
       "New item created.": [
          null,
@@ -1152,6 +1197,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Plattform": [
+         null,
+         ""
+      ],
       "Please note that these contracts, while they do belong to approved orders, may be changed by the lending manager at any time. They represent only a current snapshot of the order and might not contain the same items as the final contract once you pick up your items.": [
          null,
          ""
@@ -1177,6 +1226,10 @@ window.i18n.locale_data = {
          "PDF druckä"
       ],
       "Problems": [
+         null,
+         ""
+      ],
+      "Projektnummer:": [
          null,
          ""
       ],
@@ -1217,6 +1270,10 @@ window.i18n.locale_data = {
          "Ablehnä"
       ],
       "Rejected": [
+         null,
+         "Abglehnt"
+      ],
+      "Rejected on": [
          null,
          "Abglehnt"
       ],
@@ -1272,6 +1329,10 @@ window.i18n.locale_data = {
          null,
          "Uusgmuschteret"
       ],
+      "Retired on %s": [
+         null,
+         "Uusgmuschteret"
+      ],
       "Retirement": [
          null,
          "Uusmuschtere"
@@ -1300,10 +1361,6 @@ window.i18n.locale_data = {
          null,
          "Änderigä"
       ],
-      "Save and create a Copy": [
-         null,
-         "Speichere und Kopie erstellä"
-      ],
       "Saved": [
          null,
          "Speicherä"
@@ -1311,10 +1368,6 @@ window.i18n.locale_data = {
       "Search": [
          null,
          "Suechä"
-      ],
-      "Search Model": [
-         null,
-         "Modäll sueche"
       ],
       "Search Results for \"%s\"": [
          null,
@@ -1331,6 +1384,10 @@ window.i18n.locale_data = {
       "Selected Pools (%s)": [
          null,
          ""
+      ],
+      "Selection": [
+         null,
+         "Uuswähle"
       ],
       "Serial Number": [
          null,
@@ -1353,6 +1410,10 @@ window.i18n.locale_data = {
          "Verfüegbari Aazahl"
       ],
       "Show Full History": [
+         null,
+         ""
+      ],
+      "Show all %s...": [
          null,
          ""
       ],
@@ -1444,7 +1505,7 @@ window.i18n.locale_data = {
          null,
          "Zruggnäh"
       ],
-      "Take Back Items": [
+      "Take Back Selection": [
          null,
          "Zruggnäh"
       ],
@@ -1499,6 +1560,10 @@ window.i18n.locale_data = {
       "The admin role cannot be scoped to an inventory pool": [
          null,
          "D Admin-Rolle chan sich nöd uf en Grätepark beziehe"
+      ],
+      "The assignment for %s was removed": [
+         null,
+         ""
       ],
       "The following error happened while sending a notification email to %{email}:\\\\n": [
          null,
@@ -1684,6 +1749,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Umzug": [
+         null,
+         ""
+      ],
       "Unborrowable": [
          null,
          "Nöd uuslehnbar"
@@ -1691,10 +1760,6 @@ window.i18n.locale_data = {
       "Unfortunately your order is still pending, but you will soon receive a confirmation of order by separate e-mail. You can view the status of your order through your leihs account.": [
          null,
          "Leider isch Ihri Bstellig no offe, aber Sie chömed glii ä Bstellbestätigung imene separate E-Mail über. Sie chönd de Status vo ihrere Bstellig im leihs-Account gseh."
-      ],
-      "Unretire": [
-         null,
-         "nüme uusmuschtere"
       ],
       "Unsigned": [
          null,
@@ -1916,6 +1981,10 @@ window.i18n.locale_data = {
          null,
          "Dini bstellig isch folgendermasse igreicht worde:"
       ],
+      "Zielraum": [
+         null,
+         ""
+      ],
       "[Model %s] ": [
          null,
          "Modäll"
@@ -1951,6 +2020,10 @@ window.i18n.locale_data = {
       "already in Category": [
          null,
          "Scho inere Karegorie"
+      ],
+      "assigned to %s": [
+         null,
+         "Bsüech für d Übergab"
       ],
       "available": [
          null,
@@ -2045,6 +2118,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "laufende Rechnung": [
+         null,
+         ""
+      ],
       "more": [
          null,
          ""
@@ -2097,6 +2174,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "quantity increased by %s": [
+         null,
+         ""
+      ],
       "quantity not available. ": [
          null,
          "Azahl nöd ume."
@@ -2104,6 +2185,10 @@ window.i18n.locale_data = {
       "reserved / item assigned in future": [
          null,
          ""
+      ],
+      "reset user": [
+         null,
+         "Externe Benutzer erstelle"
       ],
       "set current page as start page": [
          null,
@@ -2136,6 +2221,10 @@ window.i18n.locale_data = {
       "this is a package": [
          null,
          "Eigeni Paket"
+      ],
+      "to substitute": [
+         null,
+         ""
       ],
       "today": [
          null,
@@ -2240,6 +2329,10 @@ window.i18n.locale_data = {
       "(Installed in: ": [
          null,
          "(Installiert in: "
+      ],
+      "(maximum available: %{max})": [
+         null,
+         "(högschtens ume: %{max})"
       ],
       "<em>%{n} new orders</em> to acknowledge.": [
          null,
@@ -2352,6 +2445,10 @@ window.i18n.locale_data = {
       "Add Model for": [
          null,
          "Modäll dezuetue"
+      ],
+      "Add Note": [
+         null,
+         "Notiz dezuetue"
       ],
       "Add Selected": [
          null,
@@ -2637,10 +2734,6 @@ window.i18n.locale_data = {
          null,
          "Installationsort veränderä"
       ],
-      "Change Timeframe": [
-         null,
-         "Ziitfenschter änderä"
-      ],
       "Change Timeframe for selection": [
          null,
          "Ziitfenschter für Uuswahl veränderä"
@@ -2648,6 +2741,10 @@ window.i18n.locale_data = {
       "Change the timeframe for the selected items": [
          null,
          "Ziitfenschter für Uswahl änderä"
+      ],
+      "Changed quantity for %{model} from %{from} to %{to}": [
+         null,
+         "Mängi für %{model} vo %{from} uf %{to} gwächslet"
       ],
       "Check all": [
          null,
@@ -2668,6 +2765,10 @@ window.i18n.locale_data = {
       "City": [
          null,
          "Stadt"
+      ],
+      "Close": [
+         null,
+         "Schlüüssä"
       ],
       "Compatibles": [
          null,
@@ -2805,9 +2906,9 @@ window.i18n.locale_data = {
          null,
          "Neu erstellä"
       ],
-      "Create external user": [
+      "Create and make a Copy": [
          null,
-         "Externe Benutzer erstelle"
+         "Erstellä und Kopie mache"
       ],
       "Customer": [
          null,
@@ -2917,6 +3018,10 @@ window.i18n.locale_data = {
          null,
          "Grätepark"
       ],
+      "Error setting the location": [
+         null,
+         "Error bim setze vom Ort"
+      ],
       "Event|Action": [
          null,
          "Aktion"
@@ -2949,10 +3054,6 @@ window.i18n.locale_data = {
          null,
          "Modellgruppe"
       ],
-      "Groups": [
-         null,
-         "Modällgruppe"
-      ],
       "Groups (%d)": [
          null,
          "Eigeschaftä (%d)"
@@ -2976,6 +3077,10 @@ window.i18n.locale_data = {
       "Group|Updated at": [
          null,
          "Modellgruppe"
+      ],
+      "Hand Over Items": [
+         null,
+         "Bsüech für d Übergab"
       ],
       "History|Created at": [
          null,
@@ -3173,6 +3278,10 @@ window.i18n.locale_data = {
          null,
          "Sach erforderet e Berächtigung!"
       ],
+      "Item retired (%s)": [
+         null,
+         "Sache uusgmuschteret (%s)"
+      ],
       "Item: %s": [
          null,
          "Sachä: %s"
@@ -3353,14 +3462,6 @@ window.i18n.locale_data = {
          null,
          "Verwalter"
       ],
-      "Lending Contract No. %s": [
-         null,
-         "Vertrag nr. "
-      ],
-      "Lending Contracts No. %s": [
-         null,
-         "Vertrag nr. "
-      ],
       "Lending party:": [
          null,
          "Verleiher:"
@@ -3368,6 +3469,10 @@ window.i18n.locale_data = {
       "Level": [
          null,
          "Stufä"
+      ],
+      "Location successfully set": [
+         null,
+         "Ort erfolgriich gsetzt"
       ],
       "Locations (%d)": [
          null,
@@ -3412,6 +3517,10 @@ window.i18n.locale_data = {
       "Mark": [
          null,
          "Markierä"
+      ],
+      "Maximum number of items available at that time is %{max}": [
+         null,
+         "Es sind zu däre Ziit nume %{max} Sachä ume"
       ],
       "Mi": [
          null,
@@ -3513,11 +3622,11 @@ window.i18n.locale_data = {
          null,
          "Mini Bstellige"
       ],
-      "Name: ": [
-         null,
-         "Name: "
-      ],
       "Needs Permission?": [
+         null,
+         "Berächtigung erforderlich"
+      ],
+      "Needs permission": [
          null,
          "Berächtigung erforderlich"
       ],
@@ -3973,13 +4082,17 @@ window.i18n.locale_data = {
          null,
          "Speicherä + gnehmigä"
       ],
+      "Save and create a Copy": [
+         null,
+         "Speichere und Kopie erstellä"
+      ],
       "Saving Data": [
          null,
          "Speicherä Datä"
       ],
-      "Select": [
+      "Search Model": [
          null,
-         "Uuswähle"
+         "Modäll sueche"
       ],
       "Select Location": [
          null,
@@ -4068,6 +4181,10 @@ window.i18n.locale_data = {
       "Swap Reserver": [
          null,
          "Reservierer tuusche"
+      ],
+      "Take Back Items": [
+         null,
+         "Zruggnäh"
       ],
       "Take Back visits": [
          null,
@@ -4236,6 +4353,10 @@ window.i18n.locale_data = {
       "Unknown": [
          null,
          "Unbekannt"
+      ],
+      "Unretire": [
+         null,
+         "nüme uusmuschtere"
       ],
       "Upload attachment for model": [
          null,
