@@ -71,7 +71,7 @@ window.i18n.locale_data = {
       "": {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
-         "POT-Creation-Date": " 2012-09-24 13:24+0200",
+         "POT-Creation-Date": " 2012-10-09 09:45+0200",
          "PO-Revision-Date": " 2012-09-17 14:41+0100",
          "Last-Translator": " Ramón Cahenzli <ramon.cahenzli@zhdk.ch>",
          "Language-Team": " Spanish <es@li.org>",
@@ -94,6 +94,10 @@ window.i18n.locale_data = {
          null,
          " elemento(s) vencidos el "
       ],
+      "\"Couldn't connect to LDAP: #{LDAP_CONFIG[:host]}:#{LDAP_CONFIG[:port]}\"": [
+         null,
+         ""
+      ],
       "%d day in the future": [
          "%d days in the future",
          "",
@@ -110,10 +114,6 @@ window.i18n.locale_data = {
       "%s until %s": [
          null,
          "Pedido por %s hasta %s"
-      ],
-      "(maximum available: %{max})": [
-         null,
-         "(máximo disponible: %{max})"
       ],
       "** This is an automatically generated response **": [
          null,
@@ -132,6 +132,14 @@ window.i18n.locale_data = {
          ""
       ],
       "A template with the ID '%s' was not found": [
+         null,
+         ""
+      ],
+      "Ablauf Garantie": [
+         null,
+         ""
+      ],
+      "Ablauf Vertrag": [
          null,
          ""
       ],
@@ -158,10 +166,6 @@ window.i18n.locale_data = {
       "Add": [
          null,
          "Añadir"
-      ],
-      "Add Note": [
-         null,
-         "Agregar elemento"
       ],
       "Add Purpose": [
          null,
@@ -195,6 +199,18 @@ window.i18n.locale_data = {
          null,
          "Su pedido se los siguientes elementos fue aceptada correctamente."
       ],
+      "Ankunftsdatum": [
+         null,
+         ""
+      ],
+      "Ankunftsnotiz": [
+         null,
+         ""
+      ],
+      "Ankunftszustand": [
+         null,
+         ""
+      ],
       "Approval Successful": [
          null,
          ""
@@ -216,6 +232,10 @@ window.i18n.locale_data = {
          "Aprobado"
       ],
       "Approved Items": [
+         null,
+         "Aprobado"
+      ],
+      "Approved on": [
          null,
          "Aprobado"
       ],
@@ -287,6 +307,10 @@ window.i18n.locale_data = {
          null,
          "Código de barras"
       ],
+      "Bezug": [
+         null,
+         ""
+      ],
       "Book": [
          null,
          "Roto"
@@ -331,6 +355,22 @@ window.i18n.locale_data = {
          null,
          "Categorías"
       ],
+      "Change Borrower": [
+         null,
+         "Prestable"
+      ],
+      "Change Borrower Successful": [
+         null,
+         ""
+      ],
+      "Change Orderer": [
+         null,
+         "Cambiar"
+      ],
+      "Change Orderer Successful": [
+         null,
+         ""
+      ],
       "Changed %s from %s to %s": [
          null,
          ""
@@ -338,14 +378,6 @@ window.i18n.locale_data = {
       "Changed dates for %{model} from %{from} to %{to}": [
          null,
          "Cambiar fechas para %{model} de %{from} a %{to}"
-      ],
-      "Changed quantity for %{model} from %{from} to %{to}": [
-         null,
-         "Cambiar la cantidad de %{model} de %{from} a %{to}"
-      ],
-      "Close": [
-         null,
-         "Cerrar"
       ],
       "Closed": [
          null,
@@ -387,10 +419,6 @@ window.i18n.locale_data = {
          null,
          "Contratos"
       ],
-      "Couldn't connect to LDAP: :": [
-         null,
-         ""
-      ],
       "Couldn't update ": [
          null,
          ""
@@ -398,10 +426,6 @@ window.i18n.locale_data = {
       "Create": [
          null,
          "Crear"
-      ],
-      "Create and make a Copy": [
-         null,
-         "Crear y hacer una Copia"
       ],
       "Created at": [
          null,
@@ -463,6 +487,10 @@ window.i18n.locale_data = {
          null,
          "Eliminar"
       ],
+      "Delete Selection": [
+         null,
+         "Borrar selección"
+      ],
       "Delete this line": [
          null,
          "Borrar selección"
@@ -507,7 +535,7 @@ window.i18n.locale_data = {
          null,
          "Borrar selección"
       ],
-      "Edit multiple selected items": [
+      "Edit multiple selected lines": [
          null,
          "Quitar los artículos seleccionados"
       ],
@@ -559,10 +587,6 @@ window.i18n.locale_data = {
          null,
          "Error al guardar el paquete"
       ],
-      "Error setting the location": [
-         null,
-         "Error al asignar la ubicación"
-      ],
       "Error updating inventory code": [
          null,
          "Opción|Código de inventario"
@@ -607,11 +631,19 @@ window.i18n.locale_data = {
          null,
          "Retirar"
       ],
+      "Group %s": [
+         null,
+         "Grupo modelo"
+      ],
+      "Grund": [
+         null,
+         ""
+      ],
       "Hand Over": [
          null,
          "Entregar"
       ],
-      "Hand Over Items": [
+      "Hand Over Selection": [
          null,
          "Entregar"
       ],
@@ -639,6 +671,10 @@ window.i18n.locale_data = {
          null,
          "historial"
       ],
+      "IMEI-Nummmer": [
+         null,
+         ""
+      ],
       "Important notes for hand over": [
          null,
          "Artículos a entregar"
@@ -662,10 +698,6 @@ window.i18n.locale_data = {
       "Inconsistent Inventory Pool": [
          null,
          "Artículo|Grupo de inventario"
-      ],
-      "Incremented quantity from %i to %i for %s": [
-         null,
-         ""
       ],
       "Initial Price": [
          null,
@@ -739,6 +771,10 @@ window.i18n.locale_data = {
          null,
          "grupo de inventario"
       ],
+      "Investition": [
+         null,
+         "Descripción"
+      ],
       "Invoice Date": [
          null,
          "Fecha de Factura:"
@@ -752,7 +788,8 @@ window.i18n.locale_data = {
          "Número de Factura:"
       ],
       "Item": [
-         null,
+         "Items",
+         "Artículo",
          "Artículo"
       ],
       "Item handed over as part of contract %d.": [
@@ -786,10 +823,6 @@ window.i18n.locale_data = {
       "Item package successfully destroyed": [
          null,
          "Paquete destruido correctamente"
-      ],
-      "Item retired (%s)": [
-         null,
-         "Elemento retirado (%s)"
       ],
       "Item saved.": [
          null,
@@ -843,6 +876,14 @@ window.i18n.locale_data = {
          null,
          "Contrato Nro."
       ],
+      "Lending Contract No. %s": [
+         null,
+         "Contrato Nro."
+      ],
+      "Lending Contracts No. %s": [
+         null,
+         "Contrato Nro."
+      ],
       "List of Contracts": [
          null,
          "Contratos"
@@ -867,10 +908,6 @@ window.i18n.locale_data = {
          null,
          "Ubicación"
       ],
-      "Location successfully set": [
-         null,
-         "Ubicación asignada correctamente"
-      ],
       "Locations": [
          null,
          "Ubicaciones"
@@ -887,6 +924,10 @@ window.i18n.locale_data = {
          null,
          "Cerrar Sesión"
       ],
+      "MAC-Addresse": [
+         null,
+         "Añadido"
+      ],
       "Manufacturer": [
          null,
          "Fabricante"
@@ -902,10 +943,6 @@ window.i18n.locale_data = {
       "Matching Templates": [
          null,
          "Plantillas"
-      ],
-      "Maximum number of items available at that time is %{max}": [
-         null,
-         "Número máximo de elementos disponibles para esa fecha es %{max}"
       ],
       "Mobile": [
          null,
@@ -947,13 +984,21 @@ window.i18n.locale_data = {
          null,
          "Nombre"
       ],
-      "Needs permission": [
+      "Name / ID": [
          null,
-         "¿Necesita Permiso?"
+         "Nombre: "
+      ],
+      "New Borrower": [
+         null,
+         "Prestable"
       ],
       "New Item": [
          null,
          "Nuevo Artículo"
+      ],
+      "New Orderer": [
+         null,
+         "Cambiar"
       ],
       "New item created.": [
          null,
@@ -1151,6 +1196,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Plattform": [
+         null,
+         ""
+      ],
       "Please note that these contracts, while they do belong to approved orders, may be changed by the lending manager at any time. They represent only a current snapshot of the order and might not contain the same items as the final contract once you pick up your items.": [
          null,
          ""
@@ -1176,6 +1225,10 @@ window.i18n.locale_data = {
          "Imprimir PDF"
       ],
       "Problems": [
+         null,
+         ""
+      ],
+      "Projektnummer:": [
          null,
          ""
       ],
@@ -1216,6 +1269,10 @@ window.i18n.locale_data = {
          "Rechazar"
       ],
       "Rejected": [
+         null,
+         "Rechazada"
+      ],
+      "Rejected on": [
          null,
          "Rechazada"
       ],
@@ -1271,6 +1328,10 @@ window.i18n.locale_data = {
          null,
          "Retirado"
       ],
+      "Retired on %s": [
+         null,
+         "Retirado"
+      ],
       "Retirement": [
          null,
          "Retirar"
@@ -1299,10 +1360,6 @@ window.i18n.locale_data = {
          null,
          "Cambios"
       ],
-      "Save and create a Copy": [
-         null,
-         "Guardar y crear una Copia"
-      ],
       "Saved": [
          null,
          "Guardar"
@@ -1310,10 +1367,6 @@ window.i18n.locale_data = {
       "Search": [
          null,
          "Buscar"
-      ],
-      "Search Model": [
-         null,
-         "Buscar Modelo"
       ],
       "Search Results for \"%s\"": [
          null,
@@ -1330,6 +1383,10 @@ window.i18n.locale_data = {
       "Selected Pools (%s)": [
          null,
          ""
+      ],
+      "Selection": [
+         null,
+         "Seleccionar"
       ],
       "Serial Number": [
          null,
@@ -1352,6 +1409,10 @@ window.i18n.locale_data = {
          "Disponibilidad"
       ],
       "Show Full History": [
+         null,
+         ""
+      ],
+      "Show all %s...": [
          null,
          ""
       ],
@@ -1443,7 +1504,7 @@ window.i18n.locale_data = {
          null,
          "Retirar"
       ],
-      "Take Back Items": [
+      "Take Back Selection": [
          null,
          "Retirar"
       ],
@@ -1498,6 +1559,10 @@ window.i18n.locale_data = {
       "The admin role cannot be scoped to an inventory pool": [
          null,
          "El rol de administrador no puede estar asignado a un grupo de inventario"
+      ],
+      "The assignment for %s was removed": [
+         null,
+         ""
       ],
       "The following error happened while sending a notification email to %{email}:\\\\n": [
          null,
@@ -1683,6 +1748,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Umzug": [
+         null,
+         ""
+      ],
       "Unborrowable": [
          null,
          "No-prestable"
@@ -1690,10 +1759,6 @@ window.i18n.locale_data = {
       "Unfortunately your order is still pending, but you will soon receive a confirmation of order by separate e-mail. You can view the status of your order through your leihs account.": [
          null,
          "Desafortunadamente su pedido aun esta pendiente, pero pronto recibirá una confirmación de su pedido. Puede ver el estado de su pedido a través de su cuenta de leihs."
-      ],
-      "Unretire": [
-         null,
-         "Devolver"
       ],
       "Unsigned": [
          null,
@@ -1915,6 +1980,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Zielraum": [
+         null,
+         ""
+      ],
       "[Model %s] ": [
          null,
          "Modelos"
@@ -1950,6 +2019,10 @@ window.i18n.locale_data = {
       "already in Category": [
          null,
          "ya se encuentra en la Categoría"
+      ],
+      "assigned to %s": [
+         null,
+         "Entregar"
       ],
       "available": [
          null,
@@ -2044,6 +2117,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "laufende Rechnung": [
+         null,
+         ""
+      ],
       "more": [
          null,
          ""
@@ -2096,11 +2173,19 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "quantity increased by %s": [
+         null,
+         ""
+      ],
       "quantity not available. ": [
          null,
          "cantidad no disponible. "
       ],
       "reserved / item assigned in future": [
+         null,
+         ""
+      ],
+      "reset user": [
          null,
          ""
       ],
@@ -2135,6 +2220,10 @@ window.i18n.locale_data = {
       "this is a package": [
          null,
          "Paquetes"
+      ],
+      "to substitute": [
+         null,
+         ""
       ],
       "today": [
          null,
@@ -2235,6 +2324,10 @@ window.i18n.locale_data = {
       "(%s)": [
          null,
          "(%s)"
+      ],
+      "(maximum available: %{max})": [
+         null,
+         "(máximo disponible: %{max})"
       ],
       "<em>%{n} new orders</em> to acknowledge.": [
          null,
@@ -2343,6 +2436,10 @@ window.i18n.locale_data = {
       "Add Model for": [
          null,
          "Agregar Modelo"
+      ],
+      "Add Note": [
+         null,
+         "Agregar elemento"
       ],
       "Add Selected": [
          null,
@@ -2592,10 +2689,6 @@ window.i18n.locale_data = {
          null,
          "Usuario|Actualizado al"
       ],
-      "Change": [
-         null,
-         "Cambiar"
-      ],
       "Change Installation Location": [
          null,
          "Cambiar la Ubicación de la Instalación"
@@ -2603,6 +2696,10 @@ window.i18n.locale_data = {
       "Change Timeframe for selection": [
          null,
          "Cambiar la ventana de tiempo para la selección"
+      ],
+      "Changed quantity for %{model} from %{from} to %{to}": [
+         null,
+         "Cambiar la cantidad de %{model} de %{from} a %{to}"
       ],
       "Check all": [
          null,
@@ -2619,6 +2716,10 @@ window.i18n.locale_data = {
       "Children (%d)": [
          null,
          "Hijos (%d)"
+      ],
+      "Close": [
+         null,
+         "Cerrar"
       ],
       "Compatibles": [
          null,
@@ -2748,6 +2849,10 @@ window.i18n.locale_data = {
          null,
          "Crear Nuevo"
       ],
+      "Create and make a Copy": [
+         null,
+         "Crear y hacer una Copia"
+      ],
       "Customer": [
          null,
          "Cliente"
@@ -2840,6 +2945,10 @@ window.i18n.locale_data = {
          null,
          "Grupo de Inventario"
       ],
+      "Error setting the location": [
+         null,
+         "Error al asignar la ubicación"
+      ],
       "Event|Action": [
          null,
          "Evento|Acción"
@@ -2880,10 +2989,6 @@ window.i18n.locale_data = {
          null,
          "Generar código de barras"
       ],
-      "Groups": [
-         null,
-         "Grupo modelo"
-      ],
       "Groups (%d)": [
          null,
          "Propiedades (%d)"
@@ -2907,6 +3012,10 @@ window.i18n.locale_data = {
       "Group|Updated at": [
          null,
          "Usuario|Actualizado al"
+      ],
+      "Hand Over Items": [
+         null,
+         "Entregar"
       ],
       "History|Created at": [
          null,
@@ -3080,6 +3189,10 @@ window.i18n.locale_data = {
          null,
          "Este artículo necesita permiso!"
       ],
+      "Item retired (%s)": [
+         null,
+         "Elemento retirado (%s)"
+      ],
       "Item: %s": [
          null,
          "Artículo: %s"
@@ -3240,17 +3353,13 @@ window.i18n.locale_data = {
          null,
          "Etiqueta"
       ],
-      "Lending Contract No. %s": [
-         null,
-         "Contrato Nro."
-      ],
-      "Lending Contracts No. %s": [
-         null,
-         "Contrato Nro."
-      ],
       "Level": [
          null,
          "Nivel"
+      ],
+      "Location successfully set": [
+         null,
+         "Ubicación asignada correctamente"
       ],
       "Location|Building": [
          null,
@@ -3283,6 +3392,10 @@ window.i18n.locale_data = {
       "Mark": [
          null,
          "Marcar"
+      ],
+      "Maximum number of items available at that time is %{max}": [
+         null,
+         "Número máximo de elementos disponibles para esa fecha es %{max}"
       ],
       "Models (%{m}/%{i})": [
          null,
@@ -3348,9 +3461,9 @@ window.i18n.locale_data = {
          null,
          "Mis Pedidos"
       ],
-      "Name: ": [
+      "Needs permission": [
          null,
-         "Nombre: "
+         "¿Necesita Permiso?"
       ],
       "New": [
          null,
@@ -3776,13 +3889,17 @@ window.i18n.locale_data = {
          null,
          "Guardar + Aprobar"
       ],
+      "Save and create a Copy": [
+         null,
+         "Guardar y crear una Copia"
+      ],
       "Saving Data": [
          null,
          "Guardando Datos"
       ],
-      "Select": [
+      "Search Model": [
          null,
-         "Seleccionar"
+         "Buscar Modelo"
       ],
       "Select Location": [
          null,
@@ -3867,6 +3984,10 @@ window.i18n.locale_data = {
       "Swap Reserver": [
          null,
          "Reservado"
+      ],
+      "Take Back Items": [
+         null,
+         "Retirar"
       ],
       "Template": [
          null,
@@ -4007,6 +4128,10 @@ window.i18n.locale_data = {
       "Unknown": [
          null,
          "Desconocido"
+      ],
+      "Unretire": [
+         null,
+         "Devolver"
       ],
       "Upload attachment for model": [
          null,
