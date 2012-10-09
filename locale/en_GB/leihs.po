@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-24 13:24+0200\n"
+"POT-Creation-Date: 2012-10-09 09:45+0200\n"
 "PO-Revision-Date: 2012-09-20 10:01+0100\n"
 "Last-Translator: Ramón Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,6 +26,9 @@ msgstr ""
 msgid " item(s) due on "
 msgstr ""
 
+msgid "\"Couldn't connect to LDAP: #{LDAP_CONFIG[:host]}:#{LDAP_CONFIG[:port]}\""
+msgstr ""
+
 msgid "%d day in the future"
 msgid_plural "%d days in the future"
 msgstr[0] ""
@@ -38,9 +41,6 @@ msgid "%s Search Results for \"%s\""
 msgstr ""
 
 msgid "%s until %s"
-msgstr ""
-
-msgid "(maximum available: %{max})"
 msgstr ""
 
 msgid "** This is an automatically generated response **"
@@ -56,6 +56,12 @@ msgid "A package cannot be nested to another package"
 msgstr ""
 
 msgid "A template with the ID '%s' was not found"
+msgstr ""
+
+msgid "Ablauf Garantie"
+msgstr ""
+
+msgid "Ablauf Vertrag"
 msgstr ""
 
 msgid "Access Level: %d"
@@ -74,9 +80,6 @@ msgid "Acknowledge"
 msgstr ""
 
 msgid "Add"
-msgstr ""
-
-msgid "Add Note"
 msgstr ""
 
 msgid "Add Purpose"
@@ -103,6 +106,15 @@ msgstr ""
 msgid "An order for the following items listed below was received in an inventory pool you are responsible for."
 msgstr ""
 
+msgid "Ankunftsdatum"
+msgstr ""
+
+msgid "Ankunftsnotiz"
+msgstr ""
+
+msgid "Ankunftszustand"
+msgstr ""
+
 msgid "Approval Successful"
 msgstr ""
 
@@ -119,6 +131,9 @@ msgid "Approved"
 msgstr ""
 
 msgid "Approved Items"
+msgstr ""
+
+msgid "Approved on"
 msgstr ""
 
 msgid "Are any of the above borrowed items?"
@@ -172,6 +187,9 @@ msgstr ""
 msgid "Barcode"
 msgstr ""
 
+msgid "Bezug"
+msgstr ""
+
 msgid "Book"
 msgstr ""
 
@@ -205,16 +223,22 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
+msgid "Change Borrower"
+msgstr ""
+
+msgid "Change Borrower Successful"
+msgstr ""
+
+msgid "Change Orderer"
+msgstr ""
+
+msgid "Change Orderer Successful"
+msgstr ""
+
 msgid "Changed %s from %s to %s"
 msgstr ""
 
 msgid "Changed dates for %{model} from %{from} to %{to}"
-msgstr ""
-
-msgid "Changed quantity for %{model} from %{from} to %{to}"
-msgstr ""
-
-msgid "Close"
 msgstr ""
 
 msgid "Closed"
@@ -247,16 +271,10 @@ msgstr ""
 msgid "Contracts"
 msgstr ""
 
-msgid "Couldn't connect to LDAP: :"
-msgstr ""
-
 msgid "Couldn't update "
 msgstr ""
 
 msgid "Create"
-msgstr ""
-
-msgid "Create and make a Copy"
 msgstr ""
 
 msgid "Created at"
@@ -304,6 +322,9 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+msgid "Delete Selection"
+msgstr ""
+
 msgid "Delete this line"
 msgstr ""
 
@@ -337,7 +358,7 @@ msgstr ""
 msgid "Edit Selection"
 msgstr ""
 
-msgid "Edit multiple selected items"
+msgid "Edit multiple selected lines"
 msgstr ""
 
 msgid "Edit purpose for order from"
@@ -376,9 +397,6 @@ msgstr ""
 msgid "Error saving the package"
 msgstr ""
 
-msgid "Error setting the location"
-msgstr ""
-
 msgid "Error updating inventory code"
 msgstr ""
 
@@ -412,10 +430,16 @@ msgstr ""
 msgid "Go Back"
 msgstr ""
 
+msgid "Group %s"
+msgstr ""
+
+msgid "Grund"
+msgstr ""
+
 msgid "Hand Over"
 msgstr ""
 
-msgid "Hand Over Items"
+msgid "Hand Over Selection"
 msgstr ""
 
 msgid "Hand Over to"
@@ -436,6 +460,9 @@ msgstr ""
 msgid "History"
 msgstr ""
 
+msgid "IMEI-Nummmer"
+msgstr ""
+
 msgid "Important notes for hand over"
 msgstr ""
 
@@ -452,9 +479,6 @@ msgid "Incomplete"
 msgstr ""
 
 msgid "Inconsistent Inventory Pool"
-msgstr ""
-
-msgid "Incremented quantity from %i to %i for %s"
 msgstr ""
 
 msgid "Initial Price"
@@ -511,6 +535,9 @@ msgstr ""
 msgid "Inventory pool"
 msgstr ""
 
+msgid "Investition"
+msgstr ""
+
 msgid "Invoice Date"
 msgstr ""
 
@@ -521,7 +548,9 @@ msgid "Invoice Number"
 msgstr ""
 
 msgid "Item"
-msgstr ""
+msgid_plural "Items"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Item handed over as part of contract %d."
 msgstr ""
@@ -545,9 +574,6 @@ msgid "Item not borrowable"
 msgstr ""
 
 msgid "Item package successfully destroyed"
-msgstr ""
-
-msgid "Item retired (%s)"
 msgstr ""
 
 msgid "Item saved."
@@ -589,6 +615,12 @@ msgstr ""
 msgid "Lending Contract No. %d"
 msgstr ""
 
+msgid "Lending Contract No. %s"
+msgstr ""
+
+msgid "Lending Contracts No. %s"
+msgstr ""
+
 msgid "List of Contracts"
 msgstr ""
 
@@ -607,9 +639,6 @@ msgstr ""
 msgid "Location"
 msgstr ""
 
-msgid "Location successfully set"
-msgstr ""
-
 msgid "Locations"
 msgstr ""
 
@@ -622,6 +651,9 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
+msgid "MAC-Addresse"
+msgstr ""
+
 msgid "Manufacturer"
 msgstr ""
 
@@ -632,9 +664,6 @@ msgid "Manufacturer (Z-A)"
 msgstr ""
 
 msgid "Matching Templates"
-msgstr ""
-
-msgid "Maximum number of items available at that time is %{max}"
 msgstr ""
 
 msgid "Mobile"
@@ -667,10 +696,16 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-msgid "Needs permission"
+msgid "Name / ID"
+msgstr ""
+
+msgid "New Borrower"
 msgstr ""
 
 msgid "New Item"
+msgstr ""
+
+msgid "New Orderer"
 msgstr ""
 
 msgid "New item created."
@@ -820,6 +855,9 @@ msgstr ""
 msgid "Place reservations on items and then pick them up"
 msgstr ""
 
+msgid "Plattform"
+msgstr ""
+
 msgid "Please note that these contracts, while they do belong to approved orders, may be changed by the lending manager at any time. They represent only a current snapshot of the order and might not contain the same items as the final contract once you pick up your items."
 msgstr ""
 
@@ -839,6 +877,9 @@ msgid "Print"
 msgstr ""
 
 msgid "Problems"
+msgstr ""
+
+msgid "Projektnummer:"
 msgstr ""
 
 msgid "Purpose"
@@ -869,6 +910,9 @@ msgid "Reject"
 msgstr ""
 
 msgid "Rejected"
+msgstr ""
+
+msgid "Rejected on"
 msgstr ""
 
 msgid "Rejection Successful"
@@ -910,6 +954,9 @@ msgstr ""
 msgid "Retired"
 msgstr ""
 
+msgid "Retired on %s"
+msgstr ""
+
 msgid "Retirement"
 msgstr ""
 
@@ -931,16 +978,10 @@ msgstr ""
 msgid "Save Changes"
 msgstr ""
 
-msgid "Save and create a Copy"
-msgstr ""
-
 msgid "Saved"
 msgstr ""
 
 msgid "Search"
-msgstr ""
-
-msgid "Search Model"
 msgstr ""
 
 msgid "Search Results for \"%s\""
@@ -953,6 +994,9 @@ msgid "Searching"
 msgstr ""
 
 msgid "Selected Pools (%s)"
+msgstr ""
+
+msgid "Selection"
 msgstr ""
 
 msgid "Serial Number"
@@ -971,6 +1015,9 @@ msgid "Show Availability"
 msgstr ""
 
 msgid "Show Full History"
+msgstr ""
+
+msgid "Show all %s..."
 msgstr ""
 
 msgid "Show all ..."
@@ -1039,7 +1086,7 @@ msgstr ""
 msgid "Take Back"
 msgstr ""
 
-msgid "Take Back Items"
+msgid "Take Back Selection"
 msgstr ""
 
 msgid "Take Back from"
@@ -1079,6 +1126,9 @@ msgid "The accessory was successfully deleted."
 msgstr ""
 
 msgid "The admin role cannot be scoped to an inventory pool"
+msgstr ""
+
+msgid "The assignment for %s was removed"
 msgstr ""
 
 msgid "The following error happened while sending a notification email to %{email}:\\n"
@@ -1219,13 +1269,13 @@ msgstr ""
 msgid "Tue"
 msgstr ""
 
+msgid "Umzug"
+msgstr ""
+
 msgid "Unborrowable"
 msgstr ""
 
 msgid "Unfortunately your order is still pending, but you will soon receive a confirmation of order by separate e-mail. You can view the status of your order through your leihs account."
-msgstr ""
-
-msgid "Unretire"
 msgstr ""
 
 msgid "Unsigned"
@@ -1393,6 +1443,9 @@ msgstr ""
 msgid "Your order was successfully transmitted to those responsible and is %s."
 msgstr ""
 
+msgid "Zielraum"
+msgstr ""
+
 msgid "[Model %s] "
 msgstr ""
 
@@ -1418,6 +1471,9 @@ msgid "[leihs] Some items should be returned tomorrow"
 msgstr ""
 
 msgid "already in Category"
+msgstr ""
+
+msgid "assigned to %s"
 msgstr ""
 
 msgid "available"
@@ -1491,6 +1547,9 @@ msgstr ""
 msgid "jump to this date"
 msgstr ""
 
+msgid "laufende Rechnung"
+msgstr ""
+
 msgid "more"
 msgstr ""
 
@@ -1530,10 +1589,16 @@ msgstr ""
 msgid "please wait..."
 msgstr ""
 
+msgid "quantity increased by %s"
+msgstr ""
+
 msgid "quantity not available. "
 msgstr ""
 
 msgid "reserved / item assigned in future"
+msgstr ""
+
+msgid "reset user"
 msgstr ""
 
 msgid "set current page as start page"
@@ -1558,6 +1623,9 @@ msgid "submit it"
 msgstr ""
 
 msgid "this is a package"
+msgstr ""
+
+msgid "to substitute"
 msgstr ""
 
 msgid "today"
