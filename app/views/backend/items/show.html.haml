@@ -1,4 +1,11 @@
-.innercontent
+-content_for :title, _("%s - %s") % [@item.inventory_code, @item.model.name]
+
+#item.innercontent
+
+  .top
+    %h1= yield :title
+    %p.subtitle
+
   .indent
   
     #history

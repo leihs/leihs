@@ -8,7 +8,7 @@ When /^I add an item to the hand over by providing an inventory code and a date 
 end
 
 Then /^the item is added to the hand over for the provided date range and the inventory code is already assigend$/ do
-  @customer.contracts.unsigned.last.items.include?(Item.find_by_inventory_code(@inventory_code)).should == true
+  @customer.get_current_contract(@ip).items.include?(Item.find_by_inventory_code(@inventory_code)).should == true
   assigned_inventory_codes = all(".line .inventory_code input[type=text]").map(&:value)
   assigned_inventory_codes.should include(@inventory_code)
 end
@@ -20,27 +20,33 @@ When /^I add an option to the hand over by providing an inventory code and a dat
   page.execute_script('$("#code").focus()')
   find("#process_helper .button").click
   wait_until(25){ page.evaluate_script("$.active") == 0}
+  step 'the option is added to the hand over'
 end
 
 Then /^the (.*?) is added to the hand over$/ do |type|
+  contract = @customer.get_current_contract(@ip)
   case type
-  when "option"
-    @customer.contracts.unsigned.last.options.include?(Option.find_by_inventory_code(@inventory_code)).should == true
+  when "option"  
+    option = Option.find_by_inventory_code(@inventory_code)
+    @option_line = contract.option_lines.where(:option_id => option).first
+    contract.options.include?(option).should == true
     find(".option_line .inventory_code", :text => @inventory_code)
   when "model"
-    @customer.contracts.unsigned.last.models.include?(@model).should == true
+    contract.models.include?(@model).should == true
     find(".item_line", :text => @model.name)
   end
 end
 
 When /^I add an option to the hand over which is already existing in the selected date range by providing an inventory code$/ do
-  step 'I add an option to the hand over by providing an inventory code and a date range'
-  step 'the option is added to the hand over'
-  step 'I add an option to the hand over by providing an inventory code and a date range'
+  2.times do
+    step 'I add an option to the hand over by providing an inventory code and a date range'
+  end
+  wait_until { @option_line.reload.quantity == 2 }
 end
 
 Then /^the existing option quantity is increased$/ do
-  matching_option_lines = @customer.contracts.unsigned.last.option_lines.select{|x| x.option.inventory_code == @inventory_code}
+  contract = @customer.get_current_contract(@ip)
+  matching_option_lines = contract.option_lines.select{|x| x.option.inventory_code == @inventory_code}
   matching_option_lines.size.should == 1
   all(".option_line.line", :text => @inventory_code).size.should == 1
   matching_option_lines.first.quantity == 2
@@ -83,7 +89,7 @@ Then /^each model of the template is added to the hand over for the provided dat
 end
 
 When /^I add so many lines that I break the maximal quantity of an model$/ do
-  @model ||= @customer.contracts.unsigned.last.lines.first.model
+  @model ||= @customer.get_current_contract(@ip).lines.first.model
   @target_name = @model.name
   (@model.items.size+1).times do
     type_into_autocomplete "#code", @target_name

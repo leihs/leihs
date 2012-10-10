@@ -57,8 +57,6 @@ class ProcessHelper
       if $(this).find("#code").val() == ""
         event.preventDefault
         return false
-      # abort autocomplete on submit
-      AutoComplete.current_ajax.abort() if AutoComplete.current_ajax?
     # clear input field
     $('#process_helper').bind "ajax:beforeSend", (event, jqXHR, settings)-> $(this).find("#code").val("")
   
@@ -94,7 +92,7 @@ class ProcessHelper
 
   @update_autocomplete_add: ->
     if $("#process_helper .autocomplete[data-url]").length
-      $("#process_helper .autocomplete[data-url]").data "autocomplete-with", 
+      $("#process_helper .autocomplete[data-url]").data "autocomplete_with", 
         availability:
           user_id: current_customer
           inventory_pool_id: current_inventory_pool

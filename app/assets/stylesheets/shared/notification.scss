@@ -45,5 +45,12 @@
       color: black;
       @include text-shadow(0 1px 1px rgba(26, 240, 11, 0.8));
     }
+
+    &.warning {
+      background: yellow;
+      border-bottom: 1px solid black;
+      color: black;
+      @include text-shadow(0 1px 1px rgba(0, 0, 0, 0.4));
+    }
   }
 }

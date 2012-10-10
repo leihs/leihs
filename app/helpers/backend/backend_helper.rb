@@ -38,16 +38,19 @@ module Backend::BackendHelper
         current_page?(:controller => "backend/contracts")
       when "visits"
         current_page?(:controller => "backend/visits") or
-        is_current_page?("hand_over") or
-        is_current_page?("take_back")
+          is_current_page?("hand_over") or
+            is_current_page?("take_back")
       when "admin"
         is_current_page?("inventory_pools")
       when "inventory_pools"
         current_page?(:controller => "backend/inventory_pools", :action => :index)
       when "inventory"
-        is_current_page?("models")
+        is_current_page?("models") or
+          is_current_page?("items")
       when "models"
         current_page?(:controller => "backend/models")
+      when "items"
+        current_page?(:controller => "backend/items", :action => :show)
       when "current_user"
         current_page?(:controller => "backend/users", :action => :show) and @user == current_user
       when "start_screen"

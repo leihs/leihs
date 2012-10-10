@@ -1,5 +1,5 @@
 When /^I add a model by typing in the inventory code of an item of that model to the quick add$/ do
-  @item = @ip.items.first
+  @item = @ip.items.detect {|x| not x.inventory_code.blank? }
   find("#process_helper #code").set @item.inventory_code
   find("#process_helper .button[type=submit]").click
   wait_until {all("#process_helper .loading").size == 0}
@@ -7,17 +7,18 @@ end
 
 When /^I start to type the inventory code of an item$/ do
   @item = @ip.items.first
+  puts @item.inspect
   find("#process_helper").fill_in 'code', :with => @item.inventory_code[0..2] 
 end
 
 When /^I wait until the autocompletion is loaded$/ do
   page.execute_script('$("#code").keyup().focus()')
-  wait_until(15){ all(".loading", :visible => true).size == 0 and find(".ui-autocomplete") }
+  wait_until { all(".loading", :visible => true).size == 0 and find(".ui-autocomplete") }
 end
 
 Then /^I already see possible matches of models$/ do
   page.execute_script('$("#code").keyup().focus()')
-  wait_until(10){ all(".loading", :visible => true).size == 0 and find(".ui-autocomplete", :text => @item.model.name) }
+  wait_until { all(".loading", :visible => true).size == 0 and find(".ui-autocomplete", :text => @item.model.name) }
 end
 
 When /^I select one of the matched models$/ do

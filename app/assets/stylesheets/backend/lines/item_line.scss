@@ -64,14 +64,6 @@
         width: 16px;
       }
       
-      .arrow {
-        position: absolute;
-        right: 8px;
-        top: 10px;
-        @include opacity(0.6);
-      }
-      &:hover .arrow { @include opacity(1.0); }
-      
       .clear {
         display: none !important;
         position: absolute;

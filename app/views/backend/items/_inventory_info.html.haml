@@ -20,7 +20,28 @@
     \:
   %td
     - if is_super_user? or @item.new_record?
-      = f.select :owner_id, InventoryPool.all.map {|i| [i.name, i.id] }, {}, {:onchange => "alert('#{_("This item will be given to a different inventory pool and not show up in yours anymore!")}');"}
+      - options = InventoryPool.all.map {|x| {:value => x.id, :label => x.name}}
+      %label.container
+        %input{:type => "hidden", :name => "item[owner_id]", :value => @item.owner_id }
+        %input.autocomplete{:type => "text",
+                            :placeholder => _("Owner"),
+                            :title => _("Owner"),
+                            :data => { :autocomplete_data => "#{options.to_json}",
+                                       :autocomplete_element_tmpl => "tmpl/autocomplete/generic",
+                                       :autocomplete_search_on_focus => 'true',
+                                       :autocomplete_value_target => "[name='item[owner_id]']",
+                                       :autocomplete_display_attribute => "label",
+                                       :autocomplete_blur_on_select => "true" },
+                            :value => @item.owner.try(:name) }
+        .arrow.icon
+        :coffeescript
+          jQuery ->
+            $("input[name='item[owner_id]']").bind "change", ->
+              if $(this).val() != "#{@item.owner_id}" 
+                Notification.add_headline
+                  title: "#{_("Warning")}"
+                  text: "#{_("This item will be given to a different inventory pool and not show up in yours anymore!")}"
+                  type: "warning"
     - else
       = @item.owner.name
 
@@ -35,11 +56,23 @@
     \:
   %td
     - if is_super_user? or @item.new_record?
-      - selectable_inventories, html_options = if current_user.access_level_for(current_inventory_pool) == 2
-        - [[current_inventory_pool], {}]
+      - options = if current_user.access_level_for(current_inventory_pool) == 2
+        - [current_inventory_pool].map {|x| {:value => x.id, :label => x.name}}
       - else
-        - [InventoryPool.all, {:include_blank => _("None")}]
-      = f.select :inventory_pool_id, selectable_inventories.map {|i| [i.name, i.id] }, html_options
+        - [{:value => nil, :label => _("None")}] + InventoryPool.all.map {|x| {:value => x.id, :label => x.name}}
+      %label.container
+        %input{:type => "hidden", :name => "item[inventory_pool_id]", :value => @item.supplier_id }
+        %input.autocomplete{:type => "text",
+                            :placeholder => _("Responsible department"),
+                            :title => _("Responsible department"),
+                            :data => { :autocomplete_data => "#{options.to_json}",
+                                       :autocomplete_element_tmpl => "tmpl/autocomplete/generic",
+                                       :autocomplete_search_on_focus => 'true',
+                                       :autocomplete_value_target => "[name='item[inventory_pool_id]']",
+                                       :autocomplete_display_attribute => "label",
+                                       :autocomplete_blur_on_select => "true" },
+                            :value => @item.inventory_pool.try(:name) }
+        .arrow.icon
     - else
       = f.hidden_field :inventory_pool_id
       = @item.inventory_pool ? @item.inventory_pool.name : "-"

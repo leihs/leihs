@@ -48,3 +48,12 @@
     }
   }
 }
+
+.autocomplete {
+  & + .arrow.icon  {
+    position: absolute;
+    right: 8px;
+    top: 10px;
+    @include opacity(0.6);
+  }
+}

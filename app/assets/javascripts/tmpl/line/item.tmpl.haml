@@ -57,15 +57,12 @@
         .alternatives
           .trigger
             .arrow
-          = link_to "/backend/inventory_pools/${current_inventory_pool}/items/${id}/edit", :class => "button white" do
-            .icon.edit
-            ${_jed("Edit")}
           = link_to "/backend/inventory_pools/${current_inventory_pool}/items/${id}/retire", :class => "button white" do
             .icon.retire
-            ${_jed("Retire")}
+            ${_jed("Retire Item")}
         = link_to "/backend/inventory_pools/${current_inventory_pool}/items/${id}", :class => "button white" do
-          .icon.view_item
-          ${_jed("View Item")}
+          .icon.item
+          ${_jed("Edit Item")}
           
 {{if children}}
 .children{:id => "item_${id}_children"}

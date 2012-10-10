@@ -147,7 +147,7 @@ class Model < ActiveRecord::Base
         s << "mg2.name LIKE '%#{x}%'"
         s << "p2.value LIKE '%#{x}%'"
       end
-      s << "CONCAT_WS(' ', i2.inventory_code, i2.serial_number, i2.invoice_number, i2.note, i2.name) LIKE '%#{x}%'" if fields.empty? or fields.include?(:items)
+      s << "CONCAT_WS(' ', i2.inventory_code, i2.serial_number, i2.invoice_number, i2.note, i2.name, i2.properties) LIKE '%#{x}%'" if fields.empty? or fields.include?(:items)
 
       "(%s)" % s.join(' OR ')
     end.join(' AND ')

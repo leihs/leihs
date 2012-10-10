@@ -115,6 +115,11 @@ label[for] {
   cursor: pointer;
 }
 
+label {
+  position: relative;
+  display: inline-block;
+}
+
 .floatright {
   float: right;
 }

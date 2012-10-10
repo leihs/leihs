@@ -60,7 +60,20 @@
     \:
   %td
     - if is_privileged_user? or @item.new_record?
-      = f.select :supplier_id, Supplier.order(:name).map {|i| [i.name, i.id] }
+      - options = Supplier.order(:name).map {|x| {:value => x.id, :label => x.name}}
+      %label.container
+        %input{:type => "hidden", :name => "item[supplier_id]", :value => @item.supplier_id }
+        %input.autocomplete{:type => "text",
+                            :placeholder => _("Supplier"),
+                            :title => _("Supplier"),
+                            :data => { :autocomplete_data => "#{options.to_json}",
+                                       :autocomplete_element_tmpl => "tmpl/autocomplete/generic",
+                                       :autocomplete_search_on_focus => 'true',
+                                       :autocomplete_value_target => "[name='item[supplier_id]']",
+                                       :autocomplete_display_attribute => "label",
+                                       :autocomplete_blur_on_select => "true" },
+                            :value => @item.supplier.try(:name) }
+        .arrow.icon
     - else
       = @item.supplier.try(:name)
 %tr
