@@ -96,16 +96,3 @@
       %input.datepicker{:type => "text", :name => "item[properties][contract_expiration]", :value => v}
     - else
       = v
-%tr
-  %td
-    = _("Plattform")
-    \:
-  %td
-    - v = @item.properties[:platform]
-    - if is_privileged_user? or @item.new_record?
-      %select{:name => "item[properties][platform]"}
-        - values = [nil, "Mac OS X", "Windows", "Linux", "andere"]
-        - values.each do |value|
-          %option{:value => value, :selected => (value == v ? "selected" : nil)}= value
-    - else
-      = v
