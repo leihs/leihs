@@ -8,7 +8,7 @@ module Json
         action: visit.action,
         date: visit.date
       }
-      
+
       if with ||= nil
         [:quantity, :is_overdue].each do |k|
           h[k] = visit.send(k) if with[k]
@@ -21,6 +21,11 @@ module Json
         
         if with[:user]
           h[:user] = hash_for visit.user, with[:user] 
+        end
+
+        if with[:latest_remind]
+          latest_remind = visit.user.reminders.last
+          h[:latest_remind] = latest_remind.created_at.to_s if latest_remind and latest_remind.created_at > visit.date
         end
       end
       

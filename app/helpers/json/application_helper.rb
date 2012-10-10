@@ -13,8 +13,9 @@ module Json
             hash_for(t, with)
           end
         else
-          with = {} if with == true
+          with = {} if with == true # FIXME is this still used ??
           with = get_with_preset(with[:preset]).deep_merge(with) if not with.nil? and with[:preset]
+          with = with.try(:deep_symbolize_keys)
           send("hash_for_#{klass.name.underscore}", target, with)
       end
     end

@@ -12,7 +12,8 @@
       {{if is_overdue}}
       %span.number
         %strong
-          ${$days = Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
+          ${$days = moment().sod().diff(moment(date).sod(), "days"), ""}
+          ${$days}
       {{/if}}
       %span.text
         {{if is_overdue}}
@@ -38,14 +39,8 @@
         ${_jed("Latest Reminder")}:
       %span{:class => "date{{if latest_remind}} visible{{else}} invisible{{/if}}"}
         {{if latest_remind}}
-        ${$item.latest_remind = new Date(latest_remind.replace(/-/g, "/")), ""}
-        {{if ((new Date().setHours(0)) < ($item.latest_remind.getTime())) && (($item.latest_remind.getTime()) < (new Date().setHours(23)))}}
-        ${_jed("Today")}
-        = "{{if ($item.latest_remind.getHours()+'').length == 1}}0{{/if}}${$item.latest_remind.getHours()}:{{if ($item.latest_remind.getMinutes()+'').length == 1}}0{{/if}}${$item.latest_remind.getMinutes()}"
-        {{else}}
         %strong
-          ${moment(latest_remind).format(i18n.date.L)}
-        {{/if}}
+          ${moment(latest_remind, "YYYY-MM-DD HH:mm:ss ZZ").from(moment())}
         {{/if}}
       %span{:class => "grey{{if latest_remind}} invisible{{else}} visible{{/if}}"}
         ${_jed("No reminder yet")}

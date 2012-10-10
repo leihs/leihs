@@ -2,6 +2,7 @@ class Backend::VisitsController < Backend::BackendController
     
   def index(filter = params[:filter],
             query = params[:query],
+            with = params[:with] || {},
             year = params[:year].to_i,
             month = params[:month].to_i,
             date = params[:date].try{|x| Date.parse(x)},
@@ -49,7 +50,7 @@ class Backend::VisitsController < Backend::BackendController
         # OPTIMIZE: DISTINCT instead of .uniq 
         @available_years = search_sql.select("YEAR(visits.date) AS year").map(&:year).uniq.sort
       }
-      format.json { render :json => view_context.json_for(@visits, {:preset => :visit}) }
+      format.json { render :json => view_context.json_for(@visits, with.merge({:preset => :visit})) }
     end
 
   end  

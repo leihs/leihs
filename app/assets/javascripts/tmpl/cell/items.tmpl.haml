@@ -15,7 +15,7 @@ ${$grouped_lines = App.Line.groupByDateRanges(lines), ""}
       = "-"
       {{html moment(end_date).format(i18n.date.L)}}
     .range
-      ${$days = Math.round((new Date(linegroup.end_date.replace(/-/g, "/")) - new Date(linegroup.start_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1), ""}
+      ${$days = moment(linegroup.end_date).eod().diff(moment(linegroup.start_date).sod(), "days"), ""}
       ${$days}
       ${_jed($days, "day")}
     .clear

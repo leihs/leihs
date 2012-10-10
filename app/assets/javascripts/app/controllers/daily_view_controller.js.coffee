@@ -51,6 +51,8 @@ class DailyViewController
         filter: "take_back"
         date: @date_to_s()
         paginate: false
+        with:
+          latest_remind: true
       success: (data)=>
         @el.find(".take_back .badge").text data.length
         @el.find(".take_back .list").append($.tmpl("tmpl/line", data)).closest("section").show() if data.length
