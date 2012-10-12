@@ -7,7 +7,7 @@ namespace :release do
 		if tag.nil?
 			puts "ERROR: A tag must be set, e.g. rake release:package tag=2.0b3"
 		else
-      `git clone git://github.com/psy-q/leihs.git leihs-#{tag}`
+      `git clone git://github.com/zhdk/leihs.git leihs-#{tag}`
       Dir.chdir("leihs-#{tag}")
       matching_tag = `git tag -l #{tag}`
       if matching_tag.blank?
