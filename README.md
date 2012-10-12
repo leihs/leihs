@@ -24,10 +24,10 @@ http://github.com/zhdk/leihs
 You can also find major releases of leihs as file packages at SourceForge: 
 http://sf.net/projects/leihs
 
-Source code:         http://github.com/zhdk/leihs
-Discussion group:    http://groups.google.com/group/leihs
-Downloads:           http://sourceforge.net/projects/leihs/
-Guides and wiki:     http://github.com/zhdk/leihs/wiki
+* Source code:         http://github.com/zhdk/leihs
+* Discussion group:    http://groups.google.com/group/leihs
+* Downloads:           http://sourceforge.net/projects/leihs/
+* Guides and wiki:     http://github.com/zhdk/leihs/wiki
 
 ## Forks and pull requests
 
