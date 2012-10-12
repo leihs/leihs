@@ -50,4 +50,4 @@ Some of our developers like to use Navicat to visualize and optimize our databas
 stuff. We thank PremiumSoft CyberTech Ltd. for granting us a free Navicat Premium
 license to support development of our Free/Open Source Software project:
 
-![alt text](https://github.com/zhdk/leihs/raw/master/doc/images/navicat_logo.png "Navicat Premium Logo")
+[![alt text](https://github.com/zhdk/leihs/raw/master/doc/images/zhdk_logo.png "ZHdK logo")](http://www.zhdk.ch) ![alt text](https://github.com/zhdk/leihs/raw/master/doc/images/navicat_logo.png "Navicat Premium Logo")
