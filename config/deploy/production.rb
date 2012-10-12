@@ -153,10 +153,10 @@ end
 before "deploy", "retrieve_db_config"
 before "deploy:cold", "retrieve_db_config"
 
-after "deploy:symlink", :link_config
-after "deploy:symlink", :link_attachments
-after "deploy:symlink", :link_db_backups
-after "deploy:symlink", :chmod_tmp
+after "deploy:create_symlink", :link_config
+after "deploy:create_symlink", :link_attachments
+after "deploy:create_symlink", :link_db_backups
+after "deploy:create_symlink", :chmod_tmp
 
 after "link_config", :migrate_database
 after "migrate_database", :configure_sphinx
