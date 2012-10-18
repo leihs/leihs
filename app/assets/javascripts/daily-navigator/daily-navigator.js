@@ -107,7 +107,7 @@ function DailyNavigator() {
       }
     });
     
-    $('#daily .content_navigation .datepicker').bind("click", function() {
+    $('#daily .content_navigation button.datepicker').bind("click", function() {
       if($('#daily .content_navigation #datepicker').datepicker("widget").is(":visible")) {
         $('#daily .content_navigation #datepicker').datepicker("hide");
       } else {
