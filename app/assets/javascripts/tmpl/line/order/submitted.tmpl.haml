@@ -1,4 +1,4 @@
-%ul.line{:class => "${type}"}
+%ul.line{:class => "${type}", :"data-id" => "${id}"}
   
   .main
   
@@ -28,21 +28,21 @@
         .alternatives
           .trigger
             .arrow
-          = link_to "/backend/inventory_pools/${current_inventory_pool}/acknowledge/${id}", :class => "button white" do
+          = link_to "/backend/inventory_pools/${currentInventoryPool.id}/acknowledge/${id}", :class => "button white" do
             .icon.edit
             ${_jed("Edit")}
           
-          = link_to "/backend/inventory_pools/${current_inventory_pool}/acknowledge/${id}/approve", :remote => true,  
+          = link_to "/backend/inventory_pools/${currentInventoryPool.id}/acknowledge/${id}/approve", :remote => true,  
             :class => "button white",
             :method => :post,
             :"data-tmpl" => "tmpl/dialog/acknowledge/approve", 
             :"data-dialog_class" => "medium",
-            :"data-on_success" => 'window.location = "http://"+location.host+"/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/hand_over"',
+            :"data-on_success" => 'window.location = "http://"+location.host+"/backend/inventory_pools/${currentInventoryPool.id}/users/${user.id}/hand_over"',
             :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
             .icon.hand_over
             ${_jed("Hand Over")}
             
-          = link_to "/backend/inventory_pools/${current_inventory_pool}/acknowledge/${id}/reject", 
+          = link_to "/backend/inventory_pools/${currentInventoryPool.id}/acknowledge/${id}/reject", 
             :class => "button red open_dialog", 
             :"data-tmpl" => "tmpl/dialog/acknowledge/reject", 
             :"data-dialog_class" => "medium with_comment",
@@ -51,13 +51,13 @@
             .icon.delete
             ${_jed("Reject")}
             
-        = link_to "/backend/inventory_pools/${current_inventory_pool}/acknowledge/${id}/approve", 
+        = link_to "/backend/inventory_pools/${currentInventoryPool.id}/acknowledge/${id}/approve", 
           :class => "button white",
           :remote => true,
           :method => :post,
           :"data-tmpl" => "tmpl/dialog/acknowledge/approve", 
           :"data-dialog_class" => "medium with_comment",
-          :"data-on_success" => 'Line.remove({"element": $(this).closest(".line"), "color": "green"})',
+          :"data-on_success" => 'Line.remove({"element": $(".order.line[data-id=\'${id}\']"), "color": "green"})',
           :"data-ref_for_dialog" => "$(_this).closest('.line').tmplItem().data" do
           .icon.approve
           ${_jed("Approve")}

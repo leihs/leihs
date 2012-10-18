@@ -93,7 +93,7 @@ class Order < Document
     elsif lines.all? {|l| l.available? }
       true
     else
-      errors.add(:base, _("This order is not approvable because some reserved models are not available."))
+      errors.add(:base, _("This order is not approvable because some reserved models are not available or the inventory pool is closed on either the start or enddate."))
       false
     end
   end

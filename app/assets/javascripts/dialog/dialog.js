@@ -38,8 +38,9 @@ function Dialog() {
     this.followViewPortDelayTimer;
     this.followViewPortDelay = 115;
     this.followViewPortAnimationTime = 400;
-    this.min_padding = 20;
+    this.minPadding = 20;
     this.checkOnScroll = true;
+    this.minScalableHeight = 100;
   
     this.add = function(_params) {
       if(_params.trigger == undefined) _params.trigger = $("body");
@@ -84,17 +85,17 @@ function Dialog() {
     }
     
     this.checkScale = function(dialog) {
-      if($(window).height() < parseInt($(dialog).data("total_height") + Dialog.min_padding*2)) {
+      if($(window).height() < parseInt($(dialog).data("total_height") + Dialog.minPadding*2)) {
         // dialog is bigger than viewport
-        $(dialog).data("padding", Dialog.min_padding);
+        $(dialog).data("padding", Dialog.minPadding);
         var _staticHeight = $(dialog).data("total_height") - $(dialog).data("total_scalable_height");
         var _newHeight = $(window).height() - $(dialog).data("padding")*2;
         var _scalableHeight = _newHeight - _staticHeight;
-        $(dialog).find(".scalable").css("overflow-y", "scroll").height(_scalableHeight);
+        $(dialog).find(".scalable").css("overflow-y", "scroll").height(_scalableHeight).addClass("scaled")
         $(dialog).parent().height(_newHeight);
-        
-        if($(window).height() < parseInt($(dialog).data("total_height") + Dialog.min_padding*2)) {
-          // dialog is still not fitting inside viewport
+
+        // dialog is still not fitting inside viewport
+        if($(dialog).find(".scalable").height() < Dialog.minScalableHeight) {
           $(dialog).data("padding", parseInt(($(window).height()-$(dialog).data("total_height"))/4));
           $(dialog).parent().height($(dialog).data("total_height"));
           $(dialog).find(".scalable").height("auto").css("overflow-y", "auto");
@@ -105,7 +106,7 @@ function Dialog() {
         // dialog fits viewport
         $(dialog).data("padding", parseInt(($(window).height()-$(dialog).data("total_height"))/4));
         $(dialog).parent().height($(dialog).data("total_height"));
-        $(dialog).find(".scalable").height("auto").css("overflow-y", "auto");
+        $(dialog).find(".scalable").height("auto").css("overflow-y", "auto").removeClass(".scaled");
         // reset scroll binding
         if(!Dialog.checkOnScroll) {
           $(window).bind("scroll", Dialog.checkPosition);
@@ -114,9 +115,13 @@ function Dialog() {
       }
     }
     
-    this.rescale = function(dialog) {
+    this.saveHeights = function(dialog) {
       $(dialog).data("total_height", $(dialog).outerHeight());
       $(dialog).data("total_scalable_height", $(dialog).find(".scalable").outerHeight());
+    }
+
+    this.rescale = function(dialog) {
+      Dialog.saveHeights(dialog);
       Dialog.checkScale(dialog);
       Dialog.checkPosition(dialog);
       $(dialog).parent().animate({
@@ -131,7 +136,7 @@ function Dialog() {
           $(this).dialog("option", "resizable", false);
           $(this).dialog("option", "closeOnEscape", false);
           $(this).parent().css({opacity: 0});
-          $(this).data("padding", Dialog.min_padding);
+          $(this).data("padding", Dialog.minPadding);
       });
       
       $(_dialog).bind("dialogopen", function(event, ui) {

@@ -33,7 +33,7 @@
         .alternatives
           .trigger
             .arrow
-          = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/hand_over/delete_visit?visit_id=${id}",
+          = link_to "/backend/inventory_pools/${currentInventoryPool.id}/users/${user.id}/hand_over/delete_visit?visit_id=${id}",
           :class => "button red",
           :method => 'delete',
           :remote => "true",
@@ -43,6 +43,6 @@
           :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
             .icon.delete
             ${_jed("Delete")}
-        = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/hand_over",  :class => "button white" do
+        = link_to "/backend/inventory_pools/${currentInventoryPool.id}/users/${user.id}/hand_over",  :class => "button white" do
           .icon.hand_over
           ${_jed("Hand Over")}

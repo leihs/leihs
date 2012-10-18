@@ -590,7 +590,7 @@ msgid "Kind regards,"
 msgstr "Schöne Grüsse"
 
 msgid "Last Checked"
-msgstr "Geprüft"
+msgstr "Letzte Inventur"
 
 msgid "Last Visitors:"
 msgstr "Letzte Besucher:"
@@ -1243,8 +1243,8 @@ msgstr "Diese Bestellung wurde bereits genemigt"
 msgid "This order is not approvable because doesn't have any models."
 msgstr "Diese Bestellung kann noch nicht genehmigt werden, weil sie noch keine Modelle hat."
 
-msgid "This order is not approvable because some reserved models are not available."
-msgstr "Die Bestellung kann nicht genehmigt werden, weil einige reservierte Modelle nicht verfügbar sind."
+msgid "This order is not approvable because some reserved models are not available or the inventory pool is closed on either the start or enddate."
+msgstr "Die Bestellung kann nicht genehmigt werden, weil einige reservierte Modelle nicht verfügbar sind oder der Gerätepark ist bei der Herausgabe/Rücknahme geschlossen."
 
 msgid "This order is still pending. Please log in to your leihs system and either approve or reject it."
 msgstr "Diese Bestellung ist noch hängig. Bitte loggen Sie sich in Ihr leihs-System ein, um sie zu genehmigen oder abzulehnen."
@@ -1539,6 +1539,9 @@ msgstr "Der Gerätepark ist am gewünschten Rückgabetag geschlossen"
 msgid "inventory pool is closed on start_date. "
 msgstr "Der Gerätepark ist am gewünschten Starttag geschlossen"
 
+msgid "non-working day"
+msgstr "arbeitsfreier Tag"
+
 msgid "is late"
 msgstr "verspätet"
 
@@ -1730,9 +1733,3 @@ msgstr "Sie können keine Zeilen aushändigen, die keine Inventarcodes zugewiese
 
 #~ msgid "Unretire"
 #~ msgstr "Ausmusterung zurücknehmen"
-
-#~ msgid "since %d day"
-
-#~ msgid_plural "since %d days"
-#~ msgstr[0] "seit %d Tag"
-#~ msgstr[1] "seit %d Tagen"

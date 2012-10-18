@@ -10,14 +10,14 @@
         %input{:type => "checkbox"}        
     %li.inventory_code
       %label.container{:for => "inventory_code_${id}"}
-        = form_tag "/backend/inventory_pools/${current_inventory_pool}/users/${contract.user.id}/hand_over/assign_inventory_code", :method => :post, :remote => true do
+        = form_tag "/backend/inventory_pools/${currentInventoryPool.id}/users/${contract.user.id}/hand_over/assign_inventory_code", :method => :post, :remote => true do
           = hidden_field_tag "line_id", "${id}"
           %input.autocomplete{:id => "inventory_code_${id}",
                               :type => "text",
                               :name => "inventory_code",
                               :placeholder => _("Inventory Code"),
                               :title => _("Inventory Code"),
-                              :"data-url" => "/backend/inventory_pools/${current_inventory_pool}/items?model_id=${model.id}&with[location]=true&with[is_borrowable]=true",
+                              :"data-url" => "/backend/inventory_pools/${currentInventoryPool.id}/items?model_id=${model.id}&with[location]=true&with[is_borrowable]=true",
                               :"data-autocomplete_class" => "assign_inventory_code", 
                               :"data-autocomplete_element_tmpl" => "tmpl/autocomplete/assign_inventory_code",
                               :"data-autocomplete_value_attribute" => "inventory_code",
@@ -39,13 +39,13 @@
         .alternatives
           .trigger
             .arrow
-          = link_to "/backend/inventory_pools/${current_inventory_pool}/models/${model.id}/timeline", :class => "button white open_dialog",
+          = link_to "/backend/inventory_pools/${currentInventoryPool.id}/models/${model.id}/timeline", :class => "button white open_dialog",
           :"data-tmpl" => "tmpl/dialog/availability/timeline",
           :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data",
           :"data-dialog_class" => "full_width timeline" do
             .icon.timeline
             ${_jed("Timeline")}
-          = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${contract.user.id}/hand_over/remove_lines?line_ids[]=${id}",
+          = link_to "/backend/inventory_pools/${currentInventoryPool.id}/users/${contract.user.id}/hand_over/remove_lines?line_ids[]=${id}",
           :class => "button red",
           :method => "delete",
           :remote => "true",
@@ -56,7 +56,7 @@
             .icon.delete
             ${_jed("Delete")}
             
-        = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${contract.user.id}/hand_over/update_lines",
+        = link_to "/backend/inventory_pools/${currentInventoryPool.id}/users/${contract.user.id}/hand_over/update_lines",
           :class => "button white open_dialog", 
           :"data-tmpl" => "tmpl/dialog/calendar", 
           :"data-dialog_class" => "calendar medium",

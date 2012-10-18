@@ -35,19 +35,19 @@
             .arrow
           = link_to "#", :class => "button white open_dialog",
             :"data-tmpl" => "tmpl/dialog/documents/contract",
-            :"data-url_for_dialog" => "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.json",
+            :"data-url_for_dialog" => "/backend/inventory_pools/${currentInventoryPool.id}/contracts/${id}.json",
             :"data-dialog_id" => "print",
             :"data-dialog_class" => "medium documents value_list" do
             .icon.contract
             ${_jed("Contract")}
           = link_to "#", :class => "button white open_dialog",
             :"data-tmpl" => "tmpl/dialog/documents/value_list",
-            :"data-url_for_dialog" => "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.json",
+            :"data-url_for_dialog" => "/backend/inventory_pools/${currentInventoryPool.id}/contracts/${id}.json",
             :"data-dialog_id" => "print",
             :"data-dialog_class" => "medium documents value_list" do
             .icon.valuelist  
             ${_jed("Value List")}
-        = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/take_back", :class => "button white" do
+        = link_to "/backend/inventory_pools/${currentInventoryPool.id}/users/${user.id}/take_back", :class => "button white" do
           .icon.take_back
           ${_jed("Take Back")}
       {{/if}}
@@ -59,14 +59,14 @@
             .arrow
           = link_to "#", :class => "button white open_dialog",
             :"data-tmpl" => "tmpl/dialog/documents/value_list",
-            :"data-url_for_dialog" => "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.json",
+            :"data-url_for_dialog" => "/backend/inventory_pools/${currentInventoryPool.id}/contracts/${id}.json",
             :"data-dialog_id" => "print",
             :"data-dialog_class" => "medium documents value_list" do
             .icon.valuelist  
             ${_jed("Value List")}
         = link_to "#", :class => "button white open_dialog",
           :"data-tmpl" => "tmpl/dialog/documents/contract",
-          :"data-url_for_dialog" => "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.json",
+          :"data-url_for_dialog" => "/backend/inventory_pools/${currentInventoryPool.id}/contracts/${id}.json",
           :"data-dialog_id" => "print",
           :"data-dialog_class" => "medium documents contract" do
           .icon.contract

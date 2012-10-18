@@ -38,7 +38,7 @@ Then /^I see all availabilities in that calendar, where the small number is the 
         if change_date_el[:class].match("selected") != nil
           total_quantity += evaluate_script %Q{ $(".dialog").tmplItem().data.quantity }
         end
-        change_date_el.find(".total_quantity").text.gsub(/\D/,"").to_i.should == total_quantity
+        change_date_el.find(".total_quantity").text[/-*\d+/].to_i.should == total_quantity
         # check selected partition/borrower quantity
         quantity_for_borrower = av.maximum_available_in_period_summed_for_groups next_date, next_date, @order.user.group_ids
         quantity_for_borrower += evaluate_script %Q{ $(".dialog").tmplItem().data.quantity }  if change_date_el[:class].match("selected") != nil

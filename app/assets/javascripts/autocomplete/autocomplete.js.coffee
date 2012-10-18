@@ -30,7 +30,8 @@ class AutoComplete
     @el.autocomplete
       source: if source? then source else if @data.autocomplete_data? then @data.autocomplete_data else if @data.url then @remote_source
       select: @select
-      focus: @focus 
+      focus: @focus
+      appendTo: @el.closest("div")
     # add class name to autocomplete widget
     @el.autocomplete("widget").addClass @data.autocomplete_class
     # show on focus
@@ -91,8 +92,6 @@ class AutoComplete
     @el.blur() if @data.autocomplete_blur_on_select == true
     return false
 
-  focus: (event, ui)=>
-    @el.val ui.item[@data.autocomplete_display_attribute]
-    return false
+  focus: (event, ui)=> false
     
 window.AutoComplete = AutoComplete

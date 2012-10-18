@@ -52,7 +52,7 @@ class Barcode
       content: $.tmpl "tmpl/dialog/loading"
       dialogClass: "loading"
     $.ajax
-      url: "/backend/inventory_pools/#{current_inventory_pool}/contracts/#{id}.json"
+      url: "/backend/inventory_pools/#{currentInventoryPool.id}/contracts/#{id}.json"
       type: "GET",
       success: (data)->
         Dialog.add

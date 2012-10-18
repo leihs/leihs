@@ -25,7 +25,7 @@
           .icon.approve
           ${_jed("Approve anyway")}
       
-      ${$link_to = "/backend/inventory_pools/"+current_inventory_pool+"/acknowledge/"+id, ""}
+      ${$link_to = "/backend/inventory_pools/"+currentInventoryPool.id+"/acknowledge/"+id, ""}
       {{if location.href.match($link_to)}}
       ${$link_class = "close_dialog", ""}
       {{/if}}

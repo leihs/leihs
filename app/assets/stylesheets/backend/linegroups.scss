@@ -25,6 +25,11 @@ section {
           cursor: pointer;
         }
       }
+
+      .non-working-day {
+        color: $red;
+        font-weight: bold;
+      }
     }
     
     .days {

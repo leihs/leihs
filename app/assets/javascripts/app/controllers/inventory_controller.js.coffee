@@ -76,7 +76,7 @@ class InventoryController
   
   fetch_responsibles: =>
     $.ajax
-      url: "/backend/inventory_pools/#{current_inventory_pool}/models.json"
+      url: "/backend/inventory_pools/#{currentInventoryPool.id}/models.json"
       type: 'GET'
       data:
         responsibles: true 
@@ -98,7 +98,7 @@ class InventoryController
         preset: "inventory"
     data = $.extend(data,@tab_data) if @tab_data
     @fetcher = $.ajax
-      url: "/backend/inventory_pools/#{current_inventory_pool}/models.json"
+      url: "/backend/inventory_pools/#{currentInventoryPool.id}/models.json"
       type: 'GET'
       data: data
       success: (data) =>
@@ -177,7 +177,7 @@ class InventoryController
     params["query"] = @query if @query?
     $.extend 
     params = $.extend(params,@tab_data) if @tab_data
-    @csv_button.attr("href", "/backend/inventory_pools/#{current_inventory_pool}/models.csv?#{$.param(params)}")
+    @csv_button.attr("href", "/backend/inventory_pools/#{currentInventoryPool.id}/models.csv?#{$.param(params)}")
 
 ##   
   

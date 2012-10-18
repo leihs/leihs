@@ -38,6 +38,6 @@
     {{tmpl(contract) "tmpl/documents/value_lists/default"}}
     {{/if}}
 
-= form_tag("/backend/inventory_pools/${current_inventory_pool}/search", :method => :get, :autocomplete => :off, :style => "display: none", :"onsubmit" => "Dialog.add({content: $.tmpl(\"tmpl/dialog/loading\", {title:\"#{_('Searching')}\", message:\"#{_('please wait...')}\"}),dialogClass: \"loading\"});") do
+= form_tag("/backend/inventory_pools/${currentInventoryPool.id}/search", :method => :get, :autocomplete => :off, :style => "display: none", :"onsubmit" => "Dialog.add({content: $.tmpl(\"tmpl/dialog/loading\", {title:\"#{_('Searching')}\", message:\"#{_('please wait...')}\"}),dialogClass: \"loading\"});") do
   %input#search{:type => "text", :name => "term", :class => "barcode_target"}
   

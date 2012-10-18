@@ -15,7 +15,7 @@
     %button.button.white.close_dialog
       .icon.return
       ${_jed("Back")}
-    %button.button.green.hide_on_error{:type => "submit", :"data-on_success" => '${$item.on_success}'}
+    %button.button.green.hide_on_error{:disabled => :disabled, :type => "submit", :"data-on_success" => '${$item.on_success}'}
       {{if type == "order"}}
       ${_jed("Change Orderer")}
       {{else}}
@@ -41,7 +41,7 @@
         ${_jed("New Borrower")}
         {{/if}}
       %input.autocomplete.focus{:type => "text", :placeholder => '${_jed("Name / ID")}', :name => "select_user", :autocomplete => "off",
-      :"data-url" => "/backend/inventory_pools/${current_inventory_pool}/search?types[]=user&with[zip]=1&with[city]=1",
+      :"data-url" => "/backend/inventory_pools/${currentInventoryPool.id}/search?types[]=user&with[zip]=1&with[city]=1",
       :"data-autocomplete_class" => "user", 
       :"data-autocomplete_element_tmpl" => "tmpl/autocomplete/user",
       :"data-autocomplete_select_callback" => "SwapUser.setNewUser"}

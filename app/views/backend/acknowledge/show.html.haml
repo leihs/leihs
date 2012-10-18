@@ -128,7 +128,6 @@
   %section#order
 
 :ruby
-  inventory_pool_json = json_for current_inventory_pool, {:closed_days => true, :holidays => true}
   order_json = json_for @order, {:preset => :order}
 
 :coffeescript
@@ -144,5 +143,3 @@
     Acknowledge.setup()
     ProcessHelper.setup()
     SelectedLines.setup()
-    window.InventoryPool = new InventoryPool(#{inventory_pool_json})
-    

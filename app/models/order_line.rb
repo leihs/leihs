@@ -8,6 +8,8 @@ class OrderLine < DocumentLine
   has_many :groups, :through => :user
 
   validates_presence_of :order
+  validates_numericality_of :quantity, :equal_to => 1
+
   validate do
     # TODO ?? model.inventory_pools.include?(order.inventory_pool)
     errors.add(:base, _("Inconsistent Inventory Pool")) if order.status_const != 1 and inventory_pool_id != order.inventory_pool_id
@@ -15,7 +17,6 @@ class OrderLine < DocumentLine
 
 #########################################################################
 
-  # TODO validate quantity always 1, just for new order_lines ??
   after_find do
     if quantity > 1
       lines_to_create = quantity - 1

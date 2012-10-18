@@ -39,6 +39,11 @@
   section.lines {
     .date_range {
       margin-top: 22px;
+
+      .non-working-day {
+        color: $red;
+        font-weight: bold;
+      }
       
       &:nth-child(1) {
         margin-top: 10px;

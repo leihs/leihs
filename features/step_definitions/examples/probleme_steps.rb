@@ -56,7 +56,7 @@ Dann /^das Problem wird wie folgt dargestellt: "(.*?)"$/ do |format|
   elsif  format == "Gegenstand ist unvollständig"
     /(Gegenstand ist unvollständig|Item is incomplete)/
   elsif (format == "Überfällig seit 6 Tagen")
-     /(Überfällig seit \d+ Tagen|Overdue since \d+ days)/
+     /(Überfällig seit \d+ (Tagen|Tag)|Overdue since \d+ (days|day))/
   end
   @problems.each do |problem|
     problem.match(regexp).should_not be_nil

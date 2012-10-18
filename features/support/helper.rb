@@ -121,6 +121,7 @@ def get_fullcalendar_day_element(date, line)
 end
 
 def type_into_autocomplete(selector, value)
+  raise "please provide a value" if value.size.zero?
   find(selector).set value
   page.execute_script("$('#{selector}').focus()")
   page.execute_script("$('#{selector}').autocomplete('search')")

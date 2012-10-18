@@ -68,7 +68,7 @@
               :"data-dialog_class" => "change_borrower swap_user medium",
               :"data-ref_for_dialog" => "HandOver.data_for_user_swap()",
               :"data-dialog_ready" => "SwapUser.setup();",
-              :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading", {title: "'+_("Change Borrower Successful")+'", message: "'+_("please wait...")+'"}), dialogClass: "loading"}); window.location = "/backend/inventory_pools/"+current_inventory_pool+"/users/"+response.new_user_id+"/hand_over"',
+              :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading", {title: "'+_("Change Borrower Successful")+'", message: "'+_("please wait...")+'"}), dialogClass: "loading"}); window.location = "/backend/inventory_pools/"+currentInventoryPool.id+"/users/"+response.new_user_id+"/hand_over"',
               :id => "change_borrower" do
                 .icon.swap
                 = _("Change Borrower")
@@ -101,7 +101,6 @@
   #visits
 
 :ruby
-  inventory_pool_json = json_for current_inventory_pool, {:closed_days => true, :holidays => true}
   visits_json = json_for @visits, {:preset => :hand_over_visit} 
 
 :coffeescript    
@@ -114,5 +113,4 @@
     HandOver.setup()
     ProcessHelper.setup()
     SelectedLines.setup()
-    window.InventoryPool = new InventoryPool(#{inventory_pool_json})
     

@@ -17,7 +17,7 @@ class DailyViewController
 
   setupOrders: =>
     $.ajax
-      url: "/backend/inventory_pools/#{current_inventory_pool}/orders.json"
+      url: "/backend/inventory_pools/#{currentInventoryPool.id}/orders.json"
       type: "GET"
       cache: false
       data:
@@ -30,7 +30,7 @@ class DailyViewController
 
   setupHandOvers: =>
     $.ajax
-      url: "/backend/inventory_pools/#{current_inventory_pool}/visits.json"
+      url: "/backend/inventory_pools/#{currentInventoryPool.id}/visits.json"
       type: "GET"
       cache: false
       data: 
@@ -44,7 +44,7 @@ class DailyViewController
 
   setupTakeBacks: =>
     $.ajax
-      url: "/backend/inventory_pools/#{current_inventory_pool}/visits.json"
+      url: "/backend/inventory_pools/#{currentInventoryPool.id}/visits.json"
       type: "GET"
       cache: false
       data: 
@@ -68,7 +68,7 @@ class DailyViewController
 
   setupWorkload: =>
     $.ajax
-      url: "/backend/inventory_pools/#{current_inventory_pool}/workload.json"
+      url: "/backend/inventory_pools/#{currentInventoryPool.id}/workload.json"
       type: "GET"
       cache: false
       data: 

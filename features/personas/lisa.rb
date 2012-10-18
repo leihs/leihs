@@ -21,6 +21,7 @@ module Persona
         select_inventory_pool 
         create_user
         create_orders
+        create_order_with_problems
         create_overbooking
         create_overdued_take_back
       end
@@ -49,8 +50,16 @@ module Persona
     def create_orders
       @camera_model = Model.find_by_name "Kamera Nikon X12"
       @order_for_camera = FactoryGirl.create(:order, :user => @user, :inventory_pool => @inventory_pool, :status_const => Order::SUBMITTED)
-      @order_for_camera_purpose = FactoryGirl.create :purpose, :description => "Fotoshooting (Kurs Fotografie)."
-      @order_line_camera = FactoryGirl.create(:order_line, :purpose => @order_for_camera_purpose, :inventory_pool => @inventory_pool, :model => @camera_model, :order => @order_for_camera, :start_date => (Date.today + 37.days), :end_date => (Date.today + 45.days))
+      purpose = FactoryGirl.create :purpose, :description => "Fotoshooting (Kurs Fotografie)."
+      FactoryGirl.create(:order_line, :purpose => purpose, :inventory_pool => @inventory_pool, :model => @camera_model, :order => @order_for_camera, :start_date => (Date.today + 37.days), :end_date => (Date.today + 45.days))
+    end
+
+    def create_order_with_problems
+      @order_with_problems = FactoryGirl.create(:order, :user => @user, :inventory_pool => @inventory_pool, :status_const => Order::SUBMITTED)
+      purpose = FactoryGirl.create :purpose, :description => "Brauche ich zwingend für meinen Kurs."
+      (@camera_model.borrowable_items.size + 1).times do 
+        FactoryGirl.create(:order_line, :purpose => purpose, :quantity => 1, :inventory_pool => @inventory_pool, :model => @camera_model, :order => @order_with_problems, :start_date => (Date.today + 52.days), :end_date => (Date.today + 55.days))
+      end
     end
 
     def create_overbooking

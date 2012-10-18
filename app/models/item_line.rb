@@ -15,7 +15,7 @@ class ItemLine < ContractLine
   belongs_to :item
   belongs_to :model
 
-  # TODO validate quantity always 1
+  validates_numericality_of :quantity, :equal_to => 1
   validate :validate_item
 
 # TODO 1301  default_scope includes(:model).order("models.name")

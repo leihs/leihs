@@ -845,7 +845,7 @@ window.i18n.locale_data = {
       ],
       "Last Checked": [
          null,
-         "Geprüft"
+         "Letzte Inventur"
       ],
       "Last Visitors:": [
          null,
@@ -1715,9 +1715,9 @@ window.i18n.locale_data = {
          null,
          "Diese Bestellung kann noch nicht genehmigt werden, weil sie noch keine Modelle hat."
       ],
-      "This order is not approvable because some reserved models are not available.": [
+      "This order is not approvable because some reserved models are not available or the inventory pool is closed on either the start or enddate.": [
          null,
-         "Die Bestellung kann nicht genehmigt werden, weil einige reservierte Modelle nicht verfügbar sind."
+         "Die Bestellung kann nicht genehmigt werden, weil einige reservierte Modelle nicht verfügbar sind oder der Gerätepark ist bei der Herausgabe/Rücknahme geschlossen."
       ],
       "This order is still pending. Please log in to your leihs system and either approve or reject it.": [
          null,
@@ -2107,6 +2107,10 @@ window.i18n.locale_data = {
       "inventory pool is closed on start_date. ": [
          null,
          "Der Gerätepark ist am gewünschten Starttag geschlossen"
+      ],
+      "non-working day": [
+         null,
+         "arbeitsfreier Tag"
       ],
       "is late": [
          null,

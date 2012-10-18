@@ -95,7 +95,7 @@ class ProcessHelper
       $("#process_helper .autocomplete[data-url]").data "autocomplete_with", 
         availability:
           user_id: current_customer
-          inventory_pool_id: current_inventory_pool
+          inventory_pool_id: currentInventoryPool.id
           start_date: moment($("#process_helper #add_start_date").val(), i18n.date.L).format("YYYY-MM-DD")
           end_date: moment($("#process_helper #add_end_date").val(), i18n.date.L).format("YYYY-MM-DD")
       

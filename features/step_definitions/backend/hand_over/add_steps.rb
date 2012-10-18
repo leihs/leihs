@@ -20,6 +20,7 @@ When /^I add an option to the hand over by providing an inventory code and a dat
   page.execute_script('$("#code").focus()')
   find("#process_helper .button").click
   wait_until(25){ page.evaluate_script("$.active") == 0}
+  find(".line .inventory_code", :text => @inventory_code)
   step 'the option is added to the hand over'
 end
 
@@ -75,8 +76,6 @@ Then /^I see a list of suggested (.*?) names$/ do |type|
 end
 
 When /^I select the (.*?) from the list$/ do |type|
-  page.execute_script('$("#code").focus()')
-  wait_until(15){ all(".loading", :visible => true).empty? }
   wait_until(15){ find(".ui-autocomplete a", :text => @target_name) }.click
   wait_until(15){ all(".loading", :visible => true).empty? }
 end

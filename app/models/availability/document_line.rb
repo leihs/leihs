@@ -7,7 +7,7 @@ module Availability
     
     def available?
       #tmp#1 doesn't work for tests
-      av = if end_date < Date.today # check if it was never handed over
+      b = if end_date < Date.today # check if it was never handed over
         false
       elsif is_a?(OrderLine) and order.status_const == Order::UNSUBMITTED
         # the user's unsubmitted order_lines should exclude each other
@@ -30,12 +30,12 @@ module Availability
       end
 
       # OPTIMIZE
-      if av and is_a?(OrderLine)
-        av = (av and inventory_pool.is_open_on?(start_date) and inventory_pool.is_open_on?(end_date)) 
-        av = (av and not order.user.access_right_for(inventory_pool).suspended?) if order.user # OPTIMIZE why checking for user ??
+      if b and is_a?(OrderLine)
+        b = (b and inventory_pool.is_open_on?(start_date) and inventory_pool.is_open_on?(end_date)) 
+        b = (b and not order.user.access_right_for(inventory_pool).suspended?) if order.user # OPTIMIZE why checking for user ??
       end
       
-      return av
+      return b
     end
     alias :is_available :available? # NOTE remove if custom as_json is gone 
 
