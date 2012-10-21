@@ -1,0 +1,110 @@
+@import "../../shared/mixins"
+@import "../../shared/variables"
+
+#item.edit 
+
+  .indent
+
+    #left, #right
+      display: block
+      float: left
+      width: 50%
+    
+    #left section
+      margin-right: 5px
+
+    #right section
+      margin-left: 5px
+
+    .notification
+      background: $highlight-yellow
+      border: 1px solid $highlight-darkergrey
+      display: block
+      margin-bottom: 8px
+      line-height: 1.5em
+      padding: 12px
+      font-size: 1.2em
+      @include border-radius(6px)
+
+      &:last-child
+        margin-bottom: 20px
+
+      strong
+        padding-right: 6px
+
+      &.error
+        background: $highlight-lightred
+        border: 1px solid $lightred
+        color: $black
+
+    section
+      margin: 0 0 10px 0
+
+      h2, h3, h4
+        padding: 2%
+        @include text-shadow(-1px 1px 0 white)      
+
+      h2 
+        color: $black
+        padding-top: 6px
+        padding-bottom: 4px
+
+      .inner
+        background: $highlight-grey
+        border: 1px solid $highlight-darkgrey
+        border-right: 1px solid $highlight-darkgrey
+        border-bottom: 1px solid $highlight-darkgrey
+        @include border-radius(6px)
+
+        .field
+          border-top: 1px solid white
+          border-bottom: 1px solid $highlight-darkgrey
+          display: block
+          overflow: hidden
+          padding: 6px 0
+          width: 100%
+
+          &:first-child
+            @include top-border-radius(6px)
+
+          &.invalid 
+            background: $highlight-lightred !important
+
+          &.dependency
+            display: none
+
+          &:last-child
+            border: none
+
+          .key
+            display: block
+            float: left
+            font-size: 1.2em
+            font-weight: bold
+            padding: 1% 2%
+            margin: 0 !important
+            width: 42%
+
+          .value
+            display: block
+            line-height: 1.5em
+            float: right
+            padding: 1%
+            width: 48%
+
+            &>label:not(.container), &>span
+              font-size: 1.2em
+
+            &>input[type=text], &>textarea
+              width: 90%
+
+            &>select
+              width: 96%
+
+            .autocomplete
+              padding-right: 22px
+              width: 95% !important
+
+              &+.arrow.icon
+                right: -12px
+

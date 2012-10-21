@@ -1,37 +1,45 @@
--content_for :title, _("%s - %s") % [@item.inventory_code, @item.model.name]
+:ruby
+  content_for :title do
+    title = []
+    title << if @item.model.is_package then _("Package") else _("Item") end
+    title << if @item.inventory_code.blank? then @item.inventory_code_was else @item.inventory_code end 
+    title << @item.model.name
+    title.join(' ')
+  end
 
-#item.innercontent
+#item.edit.innercontent
+  = form_for [:backend, current_inventory_pool, @item] do |f|
 
-  .top
-    %h1= yield :title
-    %p.subtitle
-
-  .indent
-  
-    #history
-      =#TODO??# render :partial => 'notes', :object => @histories
-    
-    %h2
-      = @item.new_record? ? _("New Item") : (@item.model.is_package? ? _("Package") : _("Item"))
+    .content_navigation
+      %a.button.red{:href => backend_inventory_pool_models_path(current_inventory_pool)}
+        = _("Cancel Edit")
+      %button.button.green{:type => :submit}
+        = _("Save %s") % if @item.model.is_package then _("Package") else _("Item") end
       
-    = render :partial => 'package_info'
+      =#tmp# f.submit( @item.id ? _("Save and create a Copy") : _("Create and make a Copy"), {:class => "button green", :name => 'copy'}) if is_privileged_user? and not @item.retired?
+
+    .top
+      %h1
+        =if @item.model.is_package then _("Package") else _("Item") end
+        = if @item.inventory_code.blank? then @item.inventory_code_was else @item.inventory_code end 
+      %p.subtitle= @item.model.name
+
+    .indent
     
-    - if @item.retired?
-      #retirement_info.error
-      %p= _("This item was retired on %s because %s") % [short_date(@item.retired), @item.retired_reason]
+      =#TODO??# render :partial => 'notes', :object => @histories
+      = render :partial => 'notifications'
     
-    = form_for [:backend, current_inventory_pool, @item] do |f|
-      %table{:style => "font-size: 1.3em; width: 100%;"}
+      #left
+        = render :partial => 'inventory_code', :locals => {:f => f}
         = render :partial => 'general_info', :locals => {:f => f}
         = render :partial => 'status', :locals => {:f => f}
         = render :partial => 'location'
+        = render :partial => 'properties', :locals => {:f => f} 
+      #right
         = render :partial => 'inventory_info', :locals => {:f => f}
         = render :partial => 'invoice_info', :locals => {:f => f} 
-        = render :partial => 'properties', :locals => {:f => f} 
-      %div{:style => "text-align: center; padding: 1em;"}
-        = f.submit( @item.id ? _("Save") : _("Create"), {:class => "button green"} ) #old??# unless @item.retired?
-        =#tmp# f.submit( @item.id ? _("Save and create a Copy") : _("Create and make a Copy"), {:class => "button green", :name => 'copy'}) if is_privileged_user? and not @item.retired?
 
+      .clear
 
 :coffeescript
   jQuery ->
@@ -40,11 +48,4 @@
         text: "#{flash[:notice]}"
         type: "success"
 
-    item_form = $("form.edit_item")
-    ProcessHelper.setup_datepicker_locals()
-    item_form.find(".datepicker").datepicker().each (i,el)->
-      $(el).val(moment($(el).val()).format(i18n.date.L)) if $(el).val()? and $(el).val().length   
-    item_form.submit ()->
-      $(this).find(".datepicker").each (i,el)->
-        $(el).val(moment($(el).val(), i18n.date.L).format("YYYY-MM-DD")) if $(el).val()? and $(el).val().length   
-
+    new App.EditItemController

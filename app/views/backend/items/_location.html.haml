@@ -1,33 +1,29 @@
-%tr
-  %td.subtitle{:colspan => 2}
-    %hr
-    = _("Location")
-%tr
-  %td
-    = _("Building")
-    \:
-  %td
-    - options = [{:value => nil, :label => _("None")}] + Building.all.map {|x| {:value => x.id, :label => x.to_s}}
-    %label.container
-      %input{:type => "hidden", :name => "location[building_id]", :value => @item.location.try(:building_id) }
-      %input.autocomplete{:type => "text",
-                          :placeholder => _("Building"),
-                          :title => _("Building"),
-                          :data => { :autocomplete_data => "#{options.to_json}",
-                                     :autocomplete_element_tmpl => "tmpl/autocomplete/generic",
-                                     :autocomplete_search_on_focus => 'true',
-                                     :autocomplete_value_target => "[name='location[building_id]']",
-                                     :autocomplete_display_attribute => "label",
-                                     :autocomplete_blur_on_select => "true" },
-                          :value => @item.location.try(:to_s) }
-      .arrow.icon
-%tr
-  %td
-    = _("Room")
-    \:
-  %td= text_field_tag 'location[room]', @item.location ? @item.location.room : ""
-%tr
-  %td
-    = _("Shelf")
-    \:
-  %td= text_field_tag 'location[shelf]', @item.location ? @item.location.shelf : ""
+%section
+  %h2= _("Location")
+
+  .inner
+    .field
+      %h3.key= _("Building")
+      .value
+        - options = [{:value => nil, :label => _("None")}] + Building.all.map {|x| {:value => x.id, :label => x.to_s}}
+        %label.container
+          %input{:type => "hidden", :name => "location[building_id]", :value => @item.location.try(:building_id) }
+          %input.autocomplete{:type => "text",
+                              :placeholder => _("Building"),
+                              :title => _("Building"),
+                              :data => { :autocomplete_data => "#{options.to_json}",
+                                         :autocomplete_element_tmpl => "tmpl/autocomplete/generic",
+                                         :autocomplete_search_on_focus => 'true',
+                                         :autocomplete_value_target => "[name='location[building_id]']",
+                                         :autocomplete_display_attribute => "label",
+                                         :autocomplete_blur_on_select => "true" },
+                              :value => @item.location.try(:to_s) }
+          .arrow.icon
+    
+    .field
+      %h3.key= _("Room")
+      .value= text_field_tag 'location[room]', @item.location ? @item.location.room : ""
+
+    .field
+      %h3.key= _("Shelf")
+      .value= text_field_tag 'location[shelf]', @item.location ? @item.location.shelf : ""

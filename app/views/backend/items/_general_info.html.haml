@@ -1,61 +1,45 @@
-%tr
-  %td
-    = _("Inventory Code")
-    \:
-    =#old leihs ??# link_to _("Overview"), inventory_codes_backend_inventory_pool_items_path(current_inventory_pool), :target => "_blank"
-  %td
-    - if is_super_user?
-      = f.text_field :inventory_code
-    - else
-      = @item.inventory_code
-      = f.hidden_field :inventory_code
-%tr
-  %td.subtitle{:colspan => 2}
-    %hr
-    = _("General Information")
-%tr
-  %td
-    = _("Model")
-    \:
-  %td
-    =#tmp# link_to(@item.model.name, backend_inventory_pool_model_path(current_inventory_pool, @item.model)) if @item.model
-    = @item.model.name
-    = f.hidden_field :model_id
-    =#tmp# greybox_link(icon_tag('magnifier'), backend_inventory_pool_models_path(current_inventory_pool, :layout => "modal", :filter => 'all'), :title => _("Search Model"), :width => "800") if (is_privileged_user? or @item.new_record?)
-%tr
-  %td
-    = _("Serial Number")
-    \:
-  %td
-    = (is_privileged_user? or @item.new_record?) ? f.text_field(:serial_number) : @item.serial_number
-%tr
-  %td
-    = _("MAC-Addresse")
-    \:
-  %td
-    - v = @item.properties[:mac_address]
-    - if is_privileged_user? or @item.new_record?
-      %input{:type => "text", :name => "item[properties][mac_address]", :value => v}
-    - else
-      = v
-%tr
-  %td
-    = _("IMEI-Nummmer")
-    \:
-  %td
-    - v = @item.properties[:imei_number]
-    - if is_privileged_user? or @item.new_record?
-      %input{:type => "text", :name => "item[properties][imei_number]", :value => v}
-    - else
-      = v
-%tr
-  %td
-    = _("Name")
-    \:
-  %td
-    = f.text_field(:name)
-%tr
-  %td
-    = _("Note")
-    \:
-  %td= f.text_area(:note, :rows => 2)
+%section
+  %h2= _("General Information")
+  
+  .inner
+    .field
+      %h3.key= _("Model")
+      .value
+        %span= @item.model.name
+        = f.hidden_field :model_id
+
+    .field
+      %h3.key= _("Serial Number")
+      .value
+        -if (is_privileged_user? or @item.new_record?)
+          = f.text_field(:serial_number)
+        -else
+          %span= @item.serial_number
+    
+    .field
+      %h3.key= _("MAC-Addresse")
+      .value
+        - v = @item.properties[:mac_address]
+        - if is_privileged_user? or @item.new_record?
+          %input{:type => "text", :name => "item[properties][mac_address]", :value => v}
+        - else
+          %span= v
+
+    .field
+      %h3.key= _("IMEI-Nummmer")
+      .value
+        - v = @item.properties[:imei_number]
+        - if is_privileged_user? or @item.new_record?
+          %input{:type => "text", :name => "item[properties][imei_number]", :value => v}
+        - else
+          %span= v
+
+    .field
+      %h3.key= _("Name")
+      .value
+        = f.text_field(:name)
+
+    .field
+      %h3.key= _("Note")
+      .value
+        = f.text_area(:note, :rows => 2)

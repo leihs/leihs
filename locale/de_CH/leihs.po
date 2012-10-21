@@ -221,6 +221,9 @@ msgstr "CSV-Export"
 msgid "Cancel"
 msgstr "Abbrechen"
 
+msgid "Cancel Edit"
+msgstr "Editieren abbrechen"
+
 msgid "Categories"
 msgstr "Kategorien"
 
@@ -961,6 +964,9 @@ msgstr "Ausgemustert am %s"
 msgid "Retirement"
 msgstr "Ausmusterung"
 
+msgid "Reason for Retirement"
+msgstr "Grund der Ausmusterung"
+
 msgid "Return"
 msgstr "Zurück"
 
@@ -975,6 +981,9 @@ msgstr "Raum"
 
 msgid "Save"
 msgstr "Speichern"
+
+msgid "Save %s"
+msgstr "%s speichern"
 
 msgid "Save Changes"
 msgstr "Änderungen speichern"
@@ -1586,6 +1595,9 @@ msgstr "Datumsauswahl öffnen"
 
 msgid "overdue"
 msgstr "überfällig"
+
+msgid "Please provide all required fields"
+msgstr "Bitte füllen Sie alle Pflichtfelder aus"
 
 msgid "please wait"
 msgstr "bitte warten"

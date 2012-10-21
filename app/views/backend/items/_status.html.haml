@@ -1,44 +1,37 @@
-%tr
-  %td.subtitle{:colspan => 2}
-    %hr
-    = _("Status")
-- if !@item.new_record? and is_privileged_user? and @item.owner_id == current_inventory_pool.id
-  %tr
-    %td
-      = _("Retirement")
-      \:
-    %td.buttons
-      %label
-        %input{:type => "checkbox", :name => "item[to_retire]"}= _("Retired")
-      %label#retired_reason{:style => "margin-left: 3em; display: none;"}
-        = _("Retired on %s") % short_date(@item.retired) if @item.retired?
-        = _("Grund")
-        %textarea{:name => "item[retired_reason]"}= @item.retired_reason
-    :coffeescript
-      $("input[name='item[to_retire]']").change ()->
-        if $(this).is(":checked")
-          $("label#retired_reason").show()
-        else
-          $("label#retired_reason").hide()
-      $("input[name='item[to_retire]']").click() if #{@item.retired?}
-%tr
-  %td
-    = _("Working order")
-    \:
-  %td
-    = f.radio_button(:is_broken, false) + _("OK")
-    = f.radio_button(:is_broken, true) + _("Broken")
-%tr
-  %td
-    = _("Completeness")
-    \:
-  %td
-    = f.radio_button(:is_incomplete, false) + _("OK")
-    = f.radio_button(:is_incomplete, true) + _("Incomplete")
-%tr
-  %td
-    = _("Borrowable")
-    \:
-  %td
-    = f.radio_button(:is_borrowable, true) + _("OK")
-    = f.radio_button(:is_borrowable, false) + _("Unborrowable")
+%section
+  %h2= _("Status")
+  
+  .inner
+
+    - if !@item.new_record? and is_privileged_user? and @item.owner_id == current_inventory_pool.id
+      .field
+        %h3.key= _("Retirement")
+        .value
+          %label
+            %input{:type => "checkbox",:name => "item[to_retire]", :checked => @item.retired ? true : false}
+            = _("Retired")
+
+      .field.required.dependency
+        %h3.key
+          = _("Reason for Retirement")
+          \*
+        .value
+          %textarea{:name => "item[retired_reason]"}= @item.retired_reason
+    
+    .field
+      %h3.key= _("Working order")
+      .value
+        %label= f.radio_button(:is_broken, false) + _("OK")
+        %label= f.radio_button(:is_broken, true) + _("Broken")
+
+    .field
+      %h3.key= _("Completeness")
+      .value
+        %label= f.radio_button(:is_incomplete, false) + _("OK")
+        %label= f.radio_button(:is_incomplete, true) + _("Incomplete")
+
+    .field
+      %h3.key= _("Borrowable")
+      .value
+        %label= f.radio_button(:is_borrowable, true) + _("OK")
+        %label= f.radio_button(:is_borrowable, false) + _("Unborrowable")

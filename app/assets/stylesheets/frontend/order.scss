@@ -111,7 +111,7 @@
     }
     
     .item.with_hover:hover {
-      @include highlight-item();
+      background: $highlight-darkgrey;
       
       td.actions {
         @include opacity(1);

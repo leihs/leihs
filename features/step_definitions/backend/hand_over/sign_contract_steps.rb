@@ -66,7 +66,7 @@ end
 
 Then /^I see that the time range in the summary starts today$/ do
   wait_until { find(".summary .date") }
-  find(".summary .date").should have_content("#{Date.today.strftime("%d.%m.%Y")} -")
+  find(".summary .date").should have_content("#{Date.today.strftime("%d.%m.%Y")}")
   sleep(0.5)
 end
 

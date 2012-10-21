@@ -1,0 +1,33 @@
+%section.notifications
+
+  - flash[:error].try :each do |error|
+    .notification.error 
+      %strong
+        = error
+        
+  - if not @item.parent.nil?
+    .notification
+      %strong= "#{_("Item is part of package")}:"
+      = link_to @item.parent.model.name + " " + @item.parent.inventory_code, :action => 'show', :id => @item.parent_id
+
+  - elsif @item.children.exists?
+    .notification
+      %strong= "#{_("This is a package containing the following items")}:"
+      - @item.children.each do |child|
+        = link_to "#{child.model.name} (#{child.inventory_code})", :action => 'show', :id => child
+        = ", " if child != @item.children.last
+
+  - if @item.retired?
+    .notification
+      %strong= "#{_("This item was retired")}:"
+      = short_date(@item.retired)
+      = @item.retired_reason if @item.retired_reason.size > 0
+
+  - if ! is_lending_manager?
+    .notification
+      %strong= "#{_("You doesnt have rights")}:"
+      = _("to edit this item")
+  - elsif ! is_owner?
+    .notification
+      %strong= "#{_("You are not the owner of this item")}:"
+      = _("so you are limited on the fields you can edit")

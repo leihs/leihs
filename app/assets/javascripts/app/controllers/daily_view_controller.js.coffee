@@ -1,7 +1,6 @@
 class DailyViewController
 
   el: "#daily"
-  @lists
   
   constructor: (options)->
     @el = $(@el)

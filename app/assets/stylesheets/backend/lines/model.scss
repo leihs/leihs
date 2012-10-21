@@ -8,15 +8,15 @@
     
     .line {
       .main {
-        padding-left: 83px;
-        width: 630px;
+        padding-left: 45px;
+        width: 680px;
       }
     }
 
     .children {
 
       .line .main {
-        width: 550px;
+        width: 650px;
       }
     }
   }
@@ -39,7 +39,7 @@
   
   li.modelname {
     font-weight: bold;
-    width: 480px;
+    width: 600px;
     
     .icon {
       margin: 0 4px;

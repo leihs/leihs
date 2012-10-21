@@ -66,18 +66,6 @@
       white-space: nowrap;
     }
 
-    .seperator {
-      background: $bordergrey;
-      border-right: 1px solid white;
-      display: inline-block;
-      height: 24px;
-      margin: 0 10px;
-      position: relative;
-      top: 10px;
-      width: 1px;
-      @include box-shadow(0 0 8px rgba(0,0,0,0.2));
-    }
-    
     .indent {
       padding-left: $inner-padding-left;
       padding-right: $inner-padding-right;

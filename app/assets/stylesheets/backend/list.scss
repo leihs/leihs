@@ -124,18 +124,21 @@
     }
     
     .filter {
-      float: right;
-      font-size: 1.0em;
-      position: relative;
-      right: 6px;
+      font-size: 1em;
+      padding-right: 7px;
+      position: absolute;
+      right: 0;
       text-align: right;
-      top: 3px;
-      width: 100%;
+      top: 0;
+      width: 82%;
     }
     
     .historical_search {
       padding: 0 3px 0 0 !important;
-      width: 440px;
+      position: absolute;
+      right: 0;
+      top: 8px;
+      width: 82%;
       
       .hs_container {
         display: inline-block;        

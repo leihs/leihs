@@ -9,29 +9,10 @@ This script provides functionalities to add/assign items to orders and visits
 class ProcessHelper
   
   @setup: ->
-    @setup_datepicker_locals()
     @setup_dates() if $("#process_helper .dates").length
     @setup_submit()
     @setup_timerange_update()
     @update_autocomplete_add()
-  
-  @setup_datepicker_locals: ->
-    $.datepicker.setDefaults
-      closeText: i18n.close
-      prevText: '&lt;'
-      nextText: '&gt;'
-      currentText: i18n.today
-      monthNames: i18n.months.full
-      monthNamesShort: i18n.months.trunc
-      dayNames: i18n.days.full
-      dayNamesShort: i18n.days.trunc
-      dayNamesMin: i18n.days.trunc
-      weekHeader: 'Wo'
-      dateFormat: i18n.datepicker.L
-      firstDay: i18n.days.first
-      isRTL: false
-      showMonthAfterYear: false
-      yearSuffix: ''
       
   @setup_dates: ->
     $('#process_helper .dates input').each ->

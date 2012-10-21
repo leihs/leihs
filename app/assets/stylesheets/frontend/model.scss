@@ -182,7 +182,8 @@
     }
     
     .switcher:hover {
-      @include highlight-item();
+      background: $highlight-darkgrey;
+      
       
       .icon {
         @include opacity(1.0);

@@ -119,6 +119,19 @@
   border-bottom-right-radius: $value;
 }
 
+@mixin top-border-radius($value) {
+  -moz-border-top-left-radius: $value;
+  -moz-border-top-right-radius: $value;
+  -webkit-border-top-left-radius: $value;
+  -webkit-border-top-right-radius: $value;
+  -o-border-top-left-radius: $value;
+  -o-border-top-right-radius: $value;
+  -ms-border-top-left-radius: $value;
+  -ms-border-top-right-radius: $value;
+  border-top-left-radius: $value;
+  border-top-right-radius: $value;
+}
+
 @mixin right-border-radius($value) {
   -moz-border-bottom-right-radius: $value;
   -moz-border-top-right-radius: $value;
@@ -157,11 +170,6 @@
   -moz-box-shadow: $value1, $value2;
   -webkit-box-shadow: $value1, $value2;
   box-shadow: $value1, $value2;
-}
-
-@mixin highlight-item () {
-  background: $highlight-darkgrey;
-  position: relative;
 }
 
 @mixin modelsGrid () {

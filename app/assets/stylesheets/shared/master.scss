@@ -44,7 +44,7 @@ strong {
 }
 
 h1 {
-  color: #2d2d2d;
+  color: $black;
   font-size: 1.8em;
   font-weight: normal;
   margin-bottom: 5px;
@@ -102,8 +102,13 @@ input::-webkit-input-placeholder { color: #888; }
 input:-moz-placeholder { color: #888; }
 input:-ms-input-placeholder { color: #888; }
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password], select {
   height: 23px;
+}
+
+textarea {
+  min-height: 23px;
+  padding: 6px;
 }
 
 label[disabled=disabled] {
@@ -111,11 +116,8 @@ label[disabled=disabled] {
   @include opacity(0.7);
 }
 
-label[for] {
-  cursor: pointer;
-}
-
 label {
+  cursor: pointer;
   position: relative;
   display: inline-block;
 }
@@ -144,5 +146,6 @@ header {
 
 span {
   &.grey {color: $grey;}
+  &.lightgrey {color: $lightgrey;}
   &.red {color: $red;}
 }

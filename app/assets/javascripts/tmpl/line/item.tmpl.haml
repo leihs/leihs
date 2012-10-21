@@ -9,7 +9,12 @@
         ${children.length}
     {{/if}}
     
-    {{if $item.package}}     
+    {{if $item.package}}  
+    {{if children}}   
+    {{else}}
+    %li.package_code{:title => "${_jed('Package Code')}"}
+      %span.lightgrey ${$item.package.inventory_code}
+    {{/if}}
     %li.inventory_code{:title => "${_jed('Inventory Code')}"}
       ${inventory_code}
     {{if model}}
@@ -66,5 +71,5 @@
           
 {{if children}}
 .children{:id => "item_${id}_children"}
-  {{tmpl(children, {package: true}) "tmpl/line/item"}}
+  {{tmpl(children, {package: $item.data}) "tmpl/line/item"}}
 {{/if}}

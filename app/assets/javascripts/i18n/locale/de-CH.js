@@ -354,6 +354,10 @@ window.i18n.locale_data = {
          null,
          "Abbrechen"
       ],
+      "Cancel Edit": [
+         null,
+         "Editieren abbrechen"
+      ],
       "Categories": [
          null,
          "Kategorien"
@@ -1339,6 +1343,10 @@ window.i18n.locale_data = {
          null,
          "Ausmusterung"
       ],
+      "Reason for Retirement": [
+         null,
+         "Grund der Ausmusterung"
+      ],
       "Return": [
          null,
          "Zurück"
@@ -1358,6 +1366,10 @@ window.i18n.locale_data = {
       "Save": [
          null,
          "Speichern"
+      ],
+      "Save %s": [
+         null,
+         "%s speichern"
       ],
       "Save Changes": [
          null,
@@ -2171,6 +2183,10 @@ window.i18n.locale_data = {
       "overdue": [
          null,
          "überfällig"
+      ],
+      "Please provide all required fields": [
+         null,
+         "Bitte füllen Sie alle Pflichtfelder aus"
       ],
       "please wait": [
          null,

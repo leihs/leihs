@@ -17,7 +17,7 @@ ${$item.end_data_is_closed_day = currentInventoryPool.closed_days.indexOf(moment
         ${i18n.days.full[$item.start_date.toDate().getDay()]}
         {{/if}} 
         ${$item.start_date.format(i18n.date.L)}
-        {{if $item.start_data_is_closed_day}}(${_jed("non-working day")}){{/if}}
+        {{if $item.start_data_is_closed_day}}(${_jed("closed")}){{/if}}
 
       = "-"
 
@@ -28,7 +28,7 @@ ${$item.end_data_is_closed_day = currentInventoryPool.closed_days.indexOf(moment
         ${i18n.days.full[$item.end_date.toDate().getDay()]}
         {{/if}}
         ${$item.end_date.format(i18n.date.L)}
-        {{if $item.end_data_is_closed_day}}(${_jed("non-working day")}){{/if}}
+        {{if $item.end_data_is_closed_day}}(${_jed("closed")}){{/if}}
 
     .days
       ${$item.days}

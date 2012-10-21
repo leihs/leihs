@@ -5,11 +5,11 @@ ${$item.end_data_is_closed_day = currentInventoryPool.closed_days.indexOf(moment
   .date
     %span{:class => "start_date{{if $item.start_data_is_closed_day}} non-working-day{{/if}}"}<
       ${moment(start_date).format(i18n.date.L)}
-      {{if $item.start_data_is_closed_day}}(${_jed("non-working day")}){{/if}}
+      {{if $item.start_data_is_closed_day}}(${_jed("closed")}){{/if}}
     = "-" 
     %span{:class => "end_date{{if $item.end_data_is_closed_day}} non-working-day{{/if}}"}<
       ${moment(end_date).format(i18n.date.L)}
-      {{if $item.end_data_is_closed_day}}(${_jed("non-working day")}){{/if}}
+      {{if $item.end_data_is_closed_day}}(${_jed("closed")}){{/if}}
   .range
     ${$days = moment(end_date).eod().diff(moment(start_date).sod(), "days"), ""}
     ${$days}

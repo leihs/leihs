@@ -5,6 +5,7 @@
   background: white !important;
   border-bottom: none !important;
   border-top: 1px solid #CCC !important;
+  font-size: 1.2em;
   overflow: hidden;
   position: relative;
   margin-bottom: -40px;
@@ -53,7 +54,7 @@
     color: $grey;
     cursor: pointer;
     display: inline-block;
-    padding: 4px 0 4px 8px;
+    padding: 7px 0 6px 8px;
     position: relative;
     z-index: 101;
     @include border-radius(4px);
@@ -90,7 +91,7 @@
     margin-right: 8px;
     margin-left: 6px;
     position: relative;
-    top: 0;
+    top: -1px;
     width: 7px;
     z-index: 102;
     @include opacity(0.8);

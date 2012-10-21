@@ -229,7 +229,7 @@
     }
     
     .item:hover {
-      @include highlight-item();
+      background: $highlight-darkgrey;
           
       .add {
         @include opacity(1);

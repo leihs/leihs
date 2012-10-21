@@ -20,29 +20,30 @@
           = _("Rejected")
     .list
       %ul.navigation.line
-        %li.search
-          = form_tag("", :method => :get, :autocomplete => :off) do
-            %input{:type => "text", :name => "query", :value => "#{params[:query]}", :placeholder => _("Search..."), :class => "clearable"}
-            %input{:type => "hidden", :name => "year", :value => params[:year]}
-            %input{:type => "hidden", :name => "month", :value => params[:month]}
-            %input{:type => "hidden", :name => "filter", :value => params[:filter]}
-            = image_tag "loading.gif", :class => "loading"
-            -unless params[:query].blank?
+        .container
+          %li.search
+            = form_tag("", :method => :get, :autocomplete => :off) do
+              %input{:type => "text", :name => "query", :value => "#{params[:query]}", :placeholder => _("Search..."), :class => "clearable"}
+              %input{:type => "hidden", :name => "year", :value => params[:year]}
+              %input{:type => "hidden", :name => "month", :value => params[:month]}
+              %input{:type => "hidden", :name => "filter", :value => params[:filter]}
+              = image_tag "loading.gif", :class => "loading"
+              -unless params[:query].blank?
+                %strong
+                  = _("found %i") % @orders.total_entries
+              = _("in")
               %strong
-                = _("found %i") % @orders.total_entries
-            = _("in")
-            %strong
-              = @total_entries
-            = _("entries%s") % "."
-          = image_tag "loading.gif", :class => "loading"
-        %li.historical_search
-      - if @orders.blank?
-        %ul.line
-          %li.name
-            %strong
-              = _("No entry found")
-              - unless params[:query].blank?
-                = _("for '%s'") % params[:query]
+                = @total_entries
+              = _("entries%s") % "."
+            = image_tag "loading.gif", :class => "loading"
+          %li.historical_search
+        - if @orders.blank?
+          %ul.line
+            %li.name
+              %strong
+                = _("No entry found")
+                - unless params[:query].blank?
+                  = _("for '%s'") % params[:query]
   
   - unless @orders.blank?
     .pagination_container

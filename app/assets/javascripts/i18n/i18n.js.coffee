@@ -15,8 +15,24 @@ window._jed = (args...)->
     i18n.jed.translate(args[0]).fetch args[1]
 
 jQuery ()->
+
+  $.datepicker.setDefaults
+    closeText: i18n.close
+    prevText: '&lt;'
+    nextText: '&gt;'
+    currentText: i18n.today
+    monthNames: i18n.months.full
+    monthNamesShort: i18n.months.trunc
+    dayNames: i18n.days.full
+    dayNamesShort: i18n.days.trunc
+    dayNamesMin: i18n.days.trunc
+    weekHeader: 'Wo'
+    dateFormat: i18n.datepicker.L
+    firstDay: i18n.days.first
+    isRTL: false
+    showMonthAfterYear: false
+    yearSuffix: ''
   
-  # set number format with accounting
   accounting.settings =
     currency:
       symbol: if window.local_currency_string? then window.local_currency_string else "CHF"
@@ -29,7 +45,6 @@ jQuery ()->
       decimal: i18n.number.decimal
       thousand: i18n.number.thousand
     
-  # set lang for moment js
   moment.lang "default",
     months : i18n.months.full
     monthsShort : i18n.months.trunc

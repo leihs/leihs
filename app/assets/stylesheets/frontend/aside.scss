@@ -183,7 +183,7 @@
       }
       
       li.item:hover {
-        @include highlight-item();
+        background: $highlight-darkgrey;
         
         span a {
           color: $darkgrey !important;

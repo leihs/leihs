@@ -2,19 +2,6 @@ class InventoryController
 
   el: "#inventory"
   
-  @fetcher
-  @list
-  @pagination
-  @search
-  @filters
-  @filter
-  @responsibles
-  @tabs
-  @active_tab
-  @tab_data
-  @current_page
-  @query
-  
   constructor: ->
     @el = $(@el)
     @filter = {}
@@ -178,8 +165,6 @@ class InventoryController
     $.extend 
     params = $.extend(params,@tab_data) if @tab_data
     @csv_button.attr("href", "/backend/inventory_pools/#{currentInventoryPool.id}/models.csv?#{$.param(params)}")
-
-##   
   
   delegateEvents: =>
     $(window).on "popstate", @pop_state
@@ -195,6 +180,8 @@ class InventoryController
       do @fetch_inventory
     @tabs.on "click", ".tab", (e)=>
       delete @current_page
+      debugger
+      @search.val("") if not $(e.currentTarget).data("tab")? and not @active_tab.data("tab")?
       @active_tab = $(e.currentTarget)
       do e.preventDefault
       do @fetch_inventory

@@ -1,98 +1,100 @@
-%tr
-  %td.subtitle{:colspan => 2}
-    %hr
-    = _("Invoice Information")
-%tr
-  %td
-    = _("Bezug")
-    \:
-  %td
-    %label
-      %input{:type => "radio", :name => "item[properties][reference]", :value => "invoice"}
-      = _("laufende Rechnung")
-    %label
-      %input{:type => "radio", :name => "item[properties][reference]", :value => "investment"}
-      = _("Investition")
-    %label#project_number{:style => "margin-left: 3em"}
-      = _("Projektnummer:")
-      - v = @item.properties[:project_number]
-      %input{:type => "text", :name => "item[properties][project_number]", :value => v}
-    :coffeescript
-      $("input[name='item[properties][reference]']").change ()->
-        if $(this).val() == "invoice"
-          $("label#project_number").hide()
-        else
-          $("label#project_number").show()
-      $("input[name='item[properties][reference]'][value='#{@item.properties[:reference]}']").click()
-%tr
-  %td
-    = _("Invoice Number")
-    \:
-  %td= (is_privileged_user? or @item.new_record?) ? f.text_field(:invoice_number) : @item.invoice_number
-%tr
-  %td
-    = _("Invoice Date")
-    \:
-  %td 
-    - v = @item.invoice_date
-    - if is_privileged_user? or @item.new_record?
-      %input.datepicker{:type => "text", :name => "item[invoice_date]", :value => v}
-    - else
-      = short_date(v)
-%tr
-  %td
-    = _("Initial Price")
-    \:
-  %td
-    - v = @item.price ? ("%.02f" % @item.price) : nil
-    - if is_privileged_user? or @item.new_record?
-      %input{:type => "text", :name => "item[price]", :value => v}
-    - else
-      = is_lending_manager? ? v : "---"
-%tr
-  %td
-    = _("Insurance Number")
-    \:
-  %td= (is_privileged_user? or @item.new_record?) ?  f.text_field(:insurance_number) : @item.insurance_number
-%tr
-  %td
-    = _("Supplier")
-    \:
-  %td
-    - if is_privileged_user? or @item.new_record?
-      - options = Supplier.order(:name).map {|x| {:value => x.id, :label => x.name}}
-      %label.container
-        %input{:type => "hidden", :name => "item[supplier_id]", :value => @item.supplier_id }
-        %input.autocomplete{:type => "text",
-                            :placeholder => _("Supplier"),
-                            :title => _("Supplier"),
-                            :data => { :autocomplete_data => "#{options.to_json}",
-                                       :autocomplete_element_tmpl => "tmpl/autocomplete/generic",
-                                       :autocomplete_search_on_focus => 'true',
-                                       :autocomplete_value_target => "[name='item[supplier_id]']",
-                                       :autocomplete_display_attribute => "label",
-                                       :autocomplete_blur_on_select => "true" },
-                            :value => @item.supplier.try(:name) }
-        .arrow.icon
-    - else
-      = @item.supplier.try(:name)
-%tr
-  %td
-    = _("Ablauf Garantie") # TODO javascript
-    \:
-  %td
-    - v = @item.properties[:guarantee_expiration]
-    - if is_privileged_user? or @item.new_record?
-      %input.datepicker{:type => "text", :name => "item[properties][guarantee_expiration]", :value => (v || (@item.invoice_date ? @item.invoice_date+1.year : nil))}
-    - else
-      = v
-%tr
-  %td
-    = _("Ablauf Vertrag")
-    \:
-  %td
-    - v = @item.properties[:contract_expiration]
-    - if is_privileged_user? or @item.new_record?
-      %input.datepicker{:type => "text", :name => "item[properties][contract_expiration]", :value => v}
-    - else
-      = v
+%section
+  %h2= _("Invoice Information")
+
+  .inner
+    .field.required
+      %h3.key
+        = _("Bezug")
+        *
+      .value
+        %label
+          %input{:type => "radio", :name => "item[properties][reference]", :value => "invoice", :checked => @item.properties[:reference] == "invoice"}
+          = _("laufende Rechnung")
+        %label
+          %input{:type => "radio", :name => "item[properties][reference]", :value => "investment", :checked => @item.properties[:reference] == "investment"}
+          = _("Investition")
+
+    .field.required.dependency
+      %h3.key
+        = _("Projektnummer")
+        *
+      .value
+        %label#project_number
+          - v = @item.properties[:project_number]
+          %input{:type => "text", :name => "item[properties][project_number]", :value => v}
+
+    .field
+      %h3.key= _("Invoice Number")
+      .value
+        -if (is_privileged_user? or @item.new_record?)
+          = f.text_field(:invoice_number)
+        -else 
+          %span= @item.invoice_number
+
+    .field
+      %h3.key= _("Invoice Date")
+      .value
+        - v = @item.invoice_date
+        - if is_privileged_user? or @item.new_record?
+          %input{:type => :hidden, :name => "item[invoice_date]", :value => v}
+          %input.datepicker{:type => "text"}
+        - else
+          %span= short_date(v)
+
+    .field
+      %h3.key= _("Initial Price")
+      .value
+        - v = @item.price ? ("%.02f" % @item.price) : nil
+        - if is_privileged_user? or @item.new_record?
+          %input{:type => "text", :name => "item[price]", :value => v}
+        - else
+          %span= is_lending_manager? ? v : "---"
+
+    .field
+      %h3.key= _("Insurance Number")
+      .value
+        -if (is_privileged_user? or @item.new_record?)
+          = f.text_field(:insurance_number)
+        -else 
+          %span= @item.insurance_number
+
+    .field
+      %h3.key= _("Supplier")
+      .value
+        - if is_privileged_user? or @item.new_record?
+          - options = Supplier.order(:name).map {|x| {:value => x.id, :label => x.name}}
+          %label.container
+            %input{:type => "hidden", :name => "item[supplier_id]", :value => @item.supplier_id }
+            %input.autocomplete{:type => "text",
+                                :placeholder => _("Supplier"),
+                                :title => _("Supplier"),
+                                :data => { :autocomplete_data => "#{options.to_json}",
+                                           :autocomplete_element_tmpl => "tmpl/autocomplete/generic",
+                                           :autocomplete_search_on_focus => 'true',
+                                           :autocomplete_value_target => "[name='item[supplier_id]']",
+                                           :autocomplete_display_attribute => "label",
+                                           :autocomplete_blur_on_select => "true" },
+                                :value => @item.supplier.try(:name) }
+            .arrow.icon
+        - else
+          %span= @item.supplier.try(:name)
+
+    .field
+      %h3.key= _("Ablauf Garantie") # TODO javascript
+      .value
+        - v = @item.properties[:guarantee_expiration]
+        - if is_privileged_user? or @item.new_record?
+          %input{:type => :hidden, :name => "item[properties][guarantee_expiration]", :value => (v || (@item.invoice_date ? @item.invoice_date+1.year : nil))}
+          %input.datepicker{:type => "text"}
+        - else
+          %span= v
+
+    .field
+      %h3.key= _("Ablauf Vertrag")
+      .value
+        - v = @item.properties[:contract_expiration]
+        - if is_privileged_user? or @item.new_record?
+          %input{:type => :hidden, :name => "item[properties][contract_expiration]", :value => v}          
+          %input.datepicker{:type => "text"}
+        - else
+          %span= v
