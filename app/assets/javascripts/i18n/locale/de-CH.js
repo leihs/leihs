@@ -1083,6 +1083,14 @@ window.i18n.locale_data = {
          null,
          "Datumsauswahl öffnen"
       ],
+      "Consider Opening Hours": [
+         null,
+         "Öffnungszeiten beachten"
+      ],
+      "This inventory pool is closed on that day.": [
+         null,
+         "Dieser Gerätepark ist an diesem Tag geschlossen."
+      ],
       "Open Orders": [
          null,
          "Offene Bestellungen"

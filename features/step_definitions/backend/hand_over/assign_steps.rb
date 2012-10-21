@@ -26,10 +26,9 @@ end
 When /^I select one of those$/ do
   wait_until { find(".line[data-id='#{@item_line.id}'] .inventory_code input") }.click
   page.execute_script("$(\".line[data-id='#{@item_line.id}'] .inventory_code input\").focus()")
-  first_element = nil
-  wait_until(25) { first_element = find(".ui-autocomplete a") }
-  @selected_inventory_code = first_element.find(".label").text
-  first_element.click
+  wait_until(25) { find(".ui-autocomplete a") }
+  @selected_inventory_code = find(".ui-autocomplete a").find(".label").text
+  find(".ui-autocomplete a").click
   wait_until { all(".loading", :visible => true).empty? }
 end
 

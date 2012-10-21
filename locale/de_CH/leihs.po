@@ -769,6 +769,12 @@ msgstr "Offen"
 msgid "Open Datepicker"
 msgstr "Datumsauswahl öffnen"
 
+msgid "Consider Opening Hours"
+msgstr "Öffnungszeiten beachten"
+
+msgid "This inventory pool is closed on that day."
+msgstr "Dieser Gerätepark ist an diesem Tag geschlossen."
+
 msgid "Open Orders"
 msgstr "Offene Bestellungen"
 

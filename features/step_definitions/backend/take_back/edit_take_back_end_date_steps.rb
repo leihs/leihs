@@ -5,7 +5,7 @@ When /^I change a contract lines end date$/ do
   find(".line", :text => @line.model.name).find(".button", :text => "Edit").click
   @old_end_date = @line.end_date
   @new_end_date = @old_end_date + 1.day
-  @new_end_date_element = get_fullcalendar_day_element(@new_end_date, @line)
+  @new_end_date_element = get_fullcalendar_day_element(@new_end_date)
   @new_end_date_element.click
   step 'I save the booking calendar'
 end
@@ -33,7 +33,7 @@ When /^I change the end date for all contract lines, envolving option and item l
     else
       @line.start_date + 1.day
   end
-  @new_end_date_element = get_fullcalendar_day_element(@new_end_date, @line)
+  @new_end_date_element = get_fullcalendar_day_element(@new_end_date)
   @new_end_date_element.click
   step 'I save the booking calendar'
 end

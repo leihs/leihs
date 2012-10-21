@@ -16,7 +16,7 @@ When /^I change the time range for all contract lines, envolving option and item
     else
       @line.start_date + 1.day
   end
-  @new_start_date_element = get_fullcalendar_day_element(@new_start_date, @line)
+  @new_start_date_element = get_fullcalendar_day_element(@new_start_date)
   @new_start_date_element.click
   find("a", :text => /(Start Date|Startdatum)/).click
   step 'I save the booking calendar'
@@ -31,21 +31,10 @@ end
 When /^I change the time range for that option$/ do
   @option_line = @customer.visits.hand_over.collect(&:lines).flatten.detect{|x| x.is_a?(OptionLine)}
   find(".option_line", :text => @option_line.option.name).find(".button", :text => "Edit").click
-  puts "????????????"
-  puts @option_line
-  puts @option_line.id
-  puts @option_line.option.name
-  puts @customer
-  puts @customer.visits.to_json
-  puts "????????????"
   @new_start_date = change_line_start_date(@option_line, 2)
 end
 
 Then /^the time range for that option line is changed$/ do
   wait_until { page.evaluate_script("$.active") == 0 }
-  puts "!!!!!!!!!"
-  puts @option_line.reload.start_date
-  puts @new_start_date
-  puts "!!!!!!!!!"
   @option_line.reload.start_date.should == @new_start_date
 end

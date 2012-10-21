@@ -47,7 +47,7 @@ When /^I change (.*?) lines time range$/ do |type|
       @line.start_date + 1.day
   end
   wait_until { find(".fc-widget-content .fc-day-number") }
-  @new_start_date_element = get_fullcalendar_day_element(@new_start_date, @line)
+  @new_start_date_element = get_fullcalendar_day_element(@new_start_date)
   @new_start_date_element.click
   find("a", :text => /(Start Date|Startdatum)/).click
   step 'I save the booking calendar'
@@ -89,7 +89,7 @@ When /^I change the time range for multiple lines$/ do
   step 'I select two lines'
   step 'I edit the timerange of the selection'
   @new_start_date = @line1.start_date + 2.days
-  @new_start_date_element = get_fullcalendar_day_element(@new_start_date, @line1)
+  @new_start_date_element = get_fullcalendar_day_element(@new_start_date)
   @new_start_date_element.click
   find("a", :text => /(Start Date|Startdatum)/).click
   step 'I save the booking calendar'

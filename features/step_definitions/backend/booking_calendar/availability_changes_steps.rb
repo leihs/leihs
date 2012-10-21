@@ -4,7 +4,8 @@ When /^I open a booking calendar to edit a singe line$/ do
   @model = @ip.models.max {|a,b| a.availability_in(@ip).changes.length <=> b.availability_in(@ip).changes.length}
   @order = OrderLine.where(:model_id => @model.id).first.order
   visit backend_inventory_pool_acknowledge_path(@ip, @order)
-  find(".line", :text => @model.name).find(".actions .button").click
+  @edited_line = find(".line", :text => @model.name)
+  @edited_line.find(".actions .button").click
   wait_until { find(".dialog") }
 end
 

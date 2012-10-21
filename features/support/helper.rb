@@ -109,10 +109,10 @@ end
 
 ##############################################################
 
-def get_fullcalendar_day_element(date, line)
+def get_fullcalendar_day_element(date)
   wait_until {
-    if (date.month > line.start_date.month or date.year > line.start_date.year) and
-       (Date.today.month == line.start_date.month)
+    if (date.month > Date.today.month or date.year > Date.today.year) and
+       (Date.today.month == Date.today.month)
       all(".fc-widget-content.fc-other-month .fc-day-number", :text => /^#{date.day}$/).last 
     else
       all(".fc-widget-content:not(.fc-other-month) .fc-day-number", :text => /^#{date.day}$/).last
@@ -130,7 +130,7 @@ end
 
 def change_line_start_date(line, days = 2)
   new_start_date = line.start_date + days.days
-  get_fullcalendar_day_element(new_start_date, line).click
+  get_fullcalendar_day_element(new_start_date).click
   find("a", :text => /(Start Date|Startdatum)/).click
   step 'I save the booking calendar'
   new_start_date

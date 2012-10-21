@@ -55,7 +55,7 @@ When /^I change the contract lines time range to tomorrow$/ do
       @line.start_date + 1.day
   end
   wait_until { find(".fc-widget-content .fc-day-number") }
-  @new_start_date_element = get_fullcalendar_day_element(@new_start_date, @line)
+  @new_start_date_element = get_fullcalendar_day_element(@new_start_date)
   puts "@new_start_date = #{@new_start_date}"
   puts "@new_start_date_element = #{@new_start_date_element.text}"
   @new_start_date_element.click

@@ -25,9 +25,6 @@ class BookingCalendar
     monthNamesShort: i18n.months.trunc
     dayNames: i18n.days.full
     dayNamesShort: i18n.days.trunc
-    closedDayAlert: 
-      title: i18n.regard_opening_hours
-      text: i18n.closed_at_this_day
 
   constructor: (options)->
     options ?= {}
@@ -256,16 +253,11 @@ class BookingCalendar
           @setHolidays day_el, holidaysOnThatDay if holidaysOnThatDay.length > 0
 
   closedDayValidation: =>
-    date = moment(@startDate_el.val(),df).toDate()
-    el = @getElementByDate date
-
-    if el # startDate element is inView
-      holidays = @getHolidays(date,date,@ipSelector_el.find("option:selected").data("holidays"))
-      @addClosedDayAlert el if @isClosedDay(date) or holidays.length > 0
-    else
-      date = moment(@endDate_el.val(),df).toDate()
+    for date_el in [@startDate_el, @endDate_el]
+      date = moment(date_el.val(),df).toDate()
       el = @getElementByDate date
-      if el # endDate element is inView
+      console.log date
+      if el # is in view
         holidays = @getHolidays(date,date,@ipSelector_el.find("option:selected").data("holidays"))
         @addClosedDayAlert el if @isClosedDay(date) or holidays.length > 0
 
@@ -275,9 +267,9 @@ class BookingCalendar
     el = $(el)
     el.addClass("closed").qtip
       content:
-        text: BookingCalendar.local.closedDayAlert.text
+        text: _jed("This inventory pool is closed on that day.")
         title:
-          text: BookingCalendar.local.closedDayAlert.title
+          text: _jed("Consider Opening Hours")
       position:
         my: "bottom center"
         at: "top center"
@@ -286,6 +278,7 @@ class BookingCalendar
         event: false
         ready: true
         delay: 0
+        solo: false
         effect: (offset)->
           $(this).show()
           _this = $(this)
