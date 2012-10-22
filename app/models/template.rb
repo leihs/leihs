@@ -7,15 +7,6 @@ class Template < ModelGroup
 
   ####################################################################################
 
-  def self.search2(query)
-    return scoped unless query
-
-    w = query.split.map do |x|
-      "model_groups.name LIKE '%#{x}%'"
-    end.join(' AND ')
-    where(w)
-  end
-
   def self.filter2(options)
     sql = select("DISTINCT model_groups.*")
     options.each_pair do |k,v|

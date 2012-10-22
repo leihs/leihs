@@ -33,18 +33,18 @@ class Location < ActiveRecord::Base
 
 #################################################################
 
-  def self.search2(query)
-    return scoped unless query
-
-    w = query.split.map do |x|
-      s = []
-      s << "CONCAT_WS(' ', room, shelf) LIKE '%#{x}%'"
-      s << "buildings.name LIKE '%#{x}%'"
-      "(%s)" % s.join(' OR ')
-    end.join(' AND ')
+  scope :search, lambda { |query|
+    sql = scoped
+    return sql if query.blank?
     
-    joins(:building).where(w)
-  end
+    query.split.each{|q|
+      q = "%#{q}%"
+      sql = sql.where(arel_table[:room].matches(q).
+                      or(arel_table[:shelf].matches(q)).
+                      or(Building.arel_table[:name].matches(q)))
+    }
+    sql.joins(:building)
+  }
 
   def self.filter2(options)
     sql = select("DISTINCT locations.*")

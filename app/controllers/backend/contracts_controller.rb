@@ -26,7 +26,7 @@ class Backend::ContractsController < Backend::BackendController
 
     # unscoped is for skip de default_scope
     sql = Contract.unscoped.send(scope).where(conditions)
-    search_sql = sql.search2(query)
+    search_sql = sql.search(query)
 
     @available_months = unless year.zero?
       []

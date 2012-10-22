@@ -31,7 +31,7 @@ class Backend::OrdersController < Backend::BackendController
     
     # unscoped is for skip de default_scope
     sql = Order.unscoped.send(scope).where(conditions)
-    search_sql = sql.search2(query)
+    search_sql = sql.search(query)
 
     time_range = if not year.zero? and month.zero?
       "YEAR(orders.created_at) = %d" % year

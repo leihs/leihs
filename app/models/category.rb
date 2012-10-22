@@ -6,18 +6,5 @@ class Category < ModelGroup
     all_models.flat_map(&:templates).uniq
   end
 
-  ######################################################
-
-  def self.search2(query)
-    return scoped unless query
-
-    w = query.split.map do |x|
-      "name LIKE '%#{x}%'"
-    end.join(' AND ')
-    where(w)
-  end
-
-  ######################################################
-
 end
 

@@ -60,7 +60,7 @@ class Backend::BackendController < ApplicationController
     @hits = {}
     per_page = (types and types.size == 1) ? $per_page : 10
     conditions[:klasses].each_pair do |klass, options|
-      r = klass.search2(term).
+      r = klass.search(term).
             filter2(conditions[:filter].merge(options[:filter] || {})).
             order(options[:sort_by]).
             paginate(:page => params[:page], :per_page => per_page)

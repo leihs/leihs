@@ -19,7 +19,7 @@ class Backend::VisitsController < Backend::BackendController
             end
             
     sql = current_inventory_pool.visits.send(scope)
-    search_sql = sql.search2(query)
+    search_sql = sql.search(query)
                             
     time_range = if date
       if date == Date.today

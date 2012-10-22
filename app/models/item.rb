@@ -45,22 +45,27 @@ class Item < ActiveRecord::Base
 
 ####################################################################
 
-  def self.search2(query)
-    return scoped unless query
+  scope :search, lambda { |query|
+    return scoped if query.blank?
 
     sql = select("DISTINCT items.*").
       joins("LEFT JOIN `models` ON `models`.`id` = `items`.`model_id`").
       joins("LEFT JOIN `inventory_pools` ON `inventory_pools`.`id` = `items`.`inventory_pool_id`")
 
-    w = query.split.map do |x|
-      s = []
-      s << "CONCAT_WS(' ', items.inventory_code, items.serial_number, items.invoice_number, items.note, items.name, items.properties) LIKE '%#{x}%'"
-      s << "CONCAT_WS(' ', models.name, models.manufacturer) LIKE '%#{x}%'"
-      s << "inventory_pools.name LIKE '%#{x}%'"
-      "(%s)" % s.join(' OR ')
-    end.join(' AND ')
-    sql.where(w)
-  end
+    query.split.each{|q|
+      q = "%#{q}%"
+      sql = sql.where(arel_table[:inventory_code].matches(q).
+                      or(arel_table[:serial_number].matches(q)).
+                      or(arel_table[:invoice_number].matches(q)).
+                      or(arel_table[:note].matches(q)).
+                      or(arel_table[:name].matches(q)).
+                      or(arel_table[:properties].matches(q)).
+                      or(Model.arel_table[:name].matches(q)).
+                      or(Model.arel_table[:manufacturer].matches(q)).
+                      or(InventoryPool.arel_table[:name].matches(q)))
+    }
+    sql
+  }
 
   def self.filter2(options)
     sql = scoped

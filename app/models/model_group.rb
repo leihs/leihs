@@ -35,6 +35,15 @@ class ModelGroup < ActiveRecord::Base
 
   scope :roots, joins("LEFT JOIN model_group_links AS mgl ON mgl.descendant_id = model_groups.id").where("mgl.descendant_id IS NULL")
 
+######################################################
+
+  scope :search, lambda { |query|
+    return scoped if query.blank?
+
+    q = query.split.map{|s| "%#{s}%"}
+    where(arel_table[:name].matches_all(q))
+  }
+
 ################################################
 # Edge Label
 

@@ -13,11 +13,11 @@ describe Item do
     context "search" do
       it "searches in properties field" do
         string = "ABC-123"
-        Item.search2(string).count.should == 0
+        Item.search(string).count.should == 0
         i = Item.first
         i.properties[:serial_number] = "ABC-123"
         i.save
-        Item.search2(string).count.should == 1
+        Item.search(string).count.should == 1
       end
     end
 
