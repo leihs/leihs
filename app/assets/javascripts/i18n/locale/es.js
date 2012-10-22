@@ -71,7 +71,7 @@ window.i18n.locale_data = {
       "": {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
-         "POT-Creation-Date": " 2012-10-09 09:45+0200",
+         "POT-Creation-Date": " 2012-10-22 12:39+0200",
          "PO-Revision-Date": " 2012-09-17 14:41+0100",
          "Last-Translator": " Ramón Cahenzli <ramon.cahenzli@zhdk.ch>",
          "Language-Team": " Spanish <es@li.org>",
@@ -351,6 +351,10 @@ window.i18n.locale_data = {
          null,
          "Cancelar"
       ],
+      "Cancel Edit": [
+         null,
+         "Cancelar"
+      ],
       "Categories": [
          null,
          "Categorías"
@@ -399,6 +403,10 @@ window.i18n.locale_data = {
          null,
          "Incompleto"
       ],
+      "Consider Opening Hours": [
+         null,
+         "Pedidos pendientes:"
+      ],
       "Contract": [
          null,
          "Contratos"
@@ -422,10 +430,6 @@ window.i18n.locale_data = {
       "Couldn't update ": [
          null,
          ""
-      ],
-      "Create": [
-         null,
-         "Crear"
       ],
       "Created at": [
          null,
@@ -522,6 +526,10 @@ window.i18n.locale_data = {
       "Edit": [
          null,
          ""
+      ],
+      "Edit Item": [
+         null,
+         "Agregar elemento"
       ],
       "Edit Order": [
          null,
@@ -634,10 +642,6 @@ window.i18n.locale_data = {
       "Group %s": [
          null,
          "Grupo modelo"
-      ],
-      "Grund": [
-         null,
-         ""
       ],
       "Hand Over": [
          null,
@@ -992,10 +996,6 @@ window.i18n.locale_data = {
          null,
          "Prestable"
       ],
-      "New Item": [
-         null,
-         "Nuevo Artículo"
-      ],
       "New Orderer": [
          null,
          "Cambiar"
@@ -1156,6 +1156,10 @@ window.i18n.locale_data = {
          null,
          "Paquete"
       ],
+      "Package Code": [
+         null,
+         "Nombre del paquete"
+      ],
       "Package error": [
          null,
          "Error de paquete"
@@ -1196,15 +1200,15 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Plattform": [
-         null,
-         ""
-      ],
       "Please note that these contracts, while they do belong to approved orders, may be changed by the lending manager at any time. They represent only a current snapshot of the order and might not contain the same items as the final contract once you pick up your items.": [
          null,
          ""
       ],
       "Please provide a purpose...": [
+         null,
+         ""
+      ],
+      "Please provide all required fields": [
          null,
          ""
       ],
@@ -1228,7 +1232,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Projektnummer:": [
+      "Projektnummer": [
          null,
          ""
       ],
@@ -1259,6 +1263,10 @@ window.i18n.locale_data = {
       "Quantity: %d": [
          null,
          "Cantidad"
+      ],
+      "Reason for Retirement": [
+         null,
+         "Retirar"
       ],
       "Recommended Accessories": [
          null,
@@ -1324,11 +1332,11 @@ window.i18n.locale_data = {
          null,
          "Retirar"
       ],
-      "Retired": [
+      "Retire Item": [
          null,
-         "Retirado"
+         "Artículos devueltos"
       ],
-      "Retired on %s": [
+      "Retired": [
          null,
          "Retirado"
       ],
@@ -1353,6 +1361,10 @@ window.i18n.locale_data = {
          "Habitación"
       ],
       "Save": [
+         null,
+         "Guardar"
+      ],
+      "Save %s": [
          null,
          "Guardar"
       ],
@@ -1684,7 +1696,11 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "This is a package containing the following items:": [
+      "This inventory pool is closed on that day.": [
+         null,
+         "El grupo de inventario está cerrado en start_date. "
+      ],
+      "This is a package containing the following items": [
          null,
          ""
       ],
@@ -1692,7 +1708,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "This item was retired on %s because %s": [
+      "This item was retired": [
          null,
          "Artículo retirado el"
       ],
@@ -1712,7 +1728,7 @@ window.i18n.locale_data = {
          null,
          "Esta orden no puede aprobarse aun"
       ],
-      "This order is not approvable because some reserved models are not available.": [
+      "This order is not approvable because some reserved models are not available or the inventory pool is closed on either the start or enddate.": [
          null,
          ""
       ],
@@ -1860,6 +1876,10 @@ window.i18n.locale_data = {
          null,
          "Visite a"
       ],
+      "Warning": [
+         null,
+         ""
+      ],
       "We are just sending you this little reminder because someone else is already waiting for some of these items.": [
          null,
          "Solo le enviamos este pequeño recordatorio porque alguien mas encargó esos artículos."
@@ -1900,6 +1920,10 @@ window.i18n.locale_data = {
          null,
          "Si"
       ],
+      "You are not the owner of this item": [
+         null,
+         "No tiene permisos para acceder a esta aplicación"
+      ],
       "You bring back your items": [
          null,
          ""
@@ -1925,6 +1949,10 @@ window.i18n.locale_data = {
          "No tiene permisos para acceder a esta aplicación"
       ],
       "You don't have any rights to access this application.": [
+         null,
+         "No tiene permisos para acceder a esta aplicación"
+      ],
+      "You don't have permission": [
          null,
          "No tiene permisos para acceder a esta aplicación"
       ],
@@ -2217,9 +2245,17 @@ window.i18n.locale_data = {
          null,
          "Presentada"
       ],
+      "therefore you may not be able to change some of these fields": [
+         null,
+         ""
+      ],
       "this is a package": [
          null,
          "Paquetes"
+      ],
+      "to edit this item": [
+         null,
+         "Enviar Pedido"
       ],
       "to substitute": [
          null,
@@ -2416,10 +2452,6 @@ window.i18n.locale_data = {
       "Actions": [
          null,
          "Acciones"
-      ],
-      "Add Item": [
-         null,
-         "Agregar elemento"
       ],
       "Add Line": [
          null,
@@ -2844,6 +2876,10 @@ window.i18n.locale_data = {
       "Country": [
          null,
          "Contratos"
+      ],
+      "Create": [
+         null,
+         "Crear"
       ],
       "Create New": [
          null,
@@ -3473,6 +3509,10 @@ window.i18n.locale_data = {
          null,
          "Nuevo Contrato"
       ],
+      "New Item": [
+         null,
+         "Nuevo Artículo"
+      ],
       "New Item Package": [
          null,
          "Nuevo Paquete"
@@ -3701,10 +3741,6 @@ window.i18n.locale_data = {
          null,
          "Modelos"
       ],
-      "Package name": [
-         null,
-         "Nombre del paquete"
-      ],
       "Packages": [
          null,
          "Paquetes"
@@ -3856,6 +3892,10 @@ window.i18n.locale_data = {
       "Restore to the original order?": [
          null,
          "¿Restaurar el pedido original?"
+      ],
+      "Retired on %s": [
+         null,
+         "Retirado"
       ],
       "Role": [
          null,
