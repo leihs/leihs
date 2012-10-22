@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-09 09:45+0200\n"
+"POT-Creation-Date: 2012-10-22 12:39+0200\n"
 "PO-Revision-Date: 2011-06-17 11:43+0100\n"
 "Last-Translator: Ramón Cahenzli <rca@psy-q.ch>\n"
 "Language-Team: Swiss-German (Zürich area) <ramon.cahenzli@zhdk.ch>\n"
@@ -241,6 +241,10 @@ msgstr ""
 msgid "Cancel"
 msgstr "Abbräche"
 
+#, fuzzy
+msgid "Cancel Edit"
+msgstr "Abbräche"
+
 msgid "Categories"
 msgstr "Kategoriä"
 
@@ -281,6 +285,10 @@ msgstr "Vollständigkeit"
 msgid "Completeness"
 msgstr "Vollständigkeit"
 
+#, fuzzy
+msgid "Consider Opening Hours"
+msgstr "Öffnigsziitä"
+
 msgid "Contract"
 msgstr "Vertrag"
 
@@ -299,9 +307,6 @@ msgstr "Verträg"
 
 msgid "Couldn't update "
 msgstr ""
-
-msgid "Create"
-msgstr "Noi erstellä"
 
 msgid "Created at"
 msgstr "Erstellt bi"
@@ -384,6 +389,10 @@ msgstr ""
 
 msgid "Edit"
 msgstr ""
+
+#, fuzzy
+msgid "Edit Item"
+msgstr "Sach dezuetue"
 
 #, fuzzy
 msgid "Edit Order"
@@ -481,9 +490,6 @@ msgstr "Zruggnäh"
 #, fuzzy
 msgid "Group %s"
 msgstr "Modällgruppe"
-
-msgid "Grund"
-msgstr ""
 
 msgid "Hand Over"
 msgstr "Übergäh"
@@ -799,10 +805,6 @@ msgid "New Borrower"
 msgstr "Uuslehnbar"
 
 #, fuzzy
-msgid "New Item"
-msgstr "Noii Sach"
-
-#, fuzzy
 msgid "New Orderer"
 msgstr "Ziitfenschter änderä"
 
@@ -943,6 +945,10 @@ msgstr "Bsitzer"
 msgid "Package"
 msgstr "Paket"
 
+#, fuzzy
+msgid "Package Code"
+msgstr "Paketname"
+
 msgid "Package error"
 msgstr "Paketfähler"
 
@@ -974,13 +980,13 @@ msgstr "Telefon"
 msgid "Place reservations on items and then pick them up"
 msgstr ""
 
-msgid "Plattform"
-msgstr ""
-
 msgid "Please note that these contracts, while they do belong to approved orders, may be changed by the lending manager at any time. They represent only a current snapshot of the order and might not contain the same items as the final contract once you pick up your items."
 msgstr ""
 
 msgid "Please provide a purpose..."
+msgstr ""
+
+msgid "Please provide all required fields"
 msgstr ""
 
 msgid "Please specify the purpose of your order here..."
@@ -999,7 +1005,7 @@ msgstr "PDF druckä"
 msgid "Problems"
 msgstr ""
 
-msgid "Projektnummer:"
+msgid "Projektnummer"
 msgstr ""
 
 msgid "Purpose"
@@ -1025,6 +1031,10 @@ msgstr "Aazahl"
 #, fuzzy
 msgid "Quantity: %d"
 msgstr "Aazahl"
+
+#, fuzzy
+msgid "Reason for Retirement"
+msgstr "Uusmuschtere"
 
 #, fuzzy
 msgid "Recommended Accessories"
@@ -1080,11 +1090,11 @@ msgstr "Verantortlichi Person"
 msgid "Retire"
 msgstr "Uusmuschtere"
 
-msgid "Retired"
-msgstr "Uusgmuschteret"
-
 #, fuzzy
-msgid "Retired on %s"
+msgid "Retire Item"
+msgstr "Rückgabedatum"
+
+msgid "Retired"
 msgstr "Uusgmuschteret"
 
 #, fuzzy
@@ -1106,7 +1116,12 @@ msgstr "Rückgabedatum"
 msgid "Room"
 msgstr "Ruum"
 
+#, fuzzy
 msgid "Save"
+msgstr "Speicherä"
+
+#, fuzzy
+msgid "Save %s"
 msgstr "Speicherä"
 
 #, fuzzy
@@ -1384,13 +1399,18 @@ msgstr ""
 msgid "This customer's groups"
 msgstr ""
 
-msgid "This is a package containing the following items:"
+#, fuzzy
+msgid "This inventory pool is closed on that day."
+msgstr "Grätepark isch am start_date zue."
+
+msgid "This is a package containing the following items"
 msgstr ""
 
 msgid "This is the list of items you requested. To complete this order, please %s."
 msgstr ""
 
-msgid "This item was retired on %s because %s"
+#, fuzzy
+msgid "This item was retired"
 msgstr "D Sach isch am %s wäge %s uusgmuschteret worde"
 
 msgid "This item will be given to a different inventory pool and not show up in yours anymore!"
@@ -1408,7 +1428,7 @@ msgstr "Diä Bstellig chasch nonig gnehmigä"
 msgid "This order is not approvable because doesn't have any models."
 msgstr "Diä Bstellig chasch nonig gnehmigä"
 
-msgid "This order is not approvable because some reserved models are not available."
+msgid "This order is not approvable because some reserved models are not available or the inventory pool is closed on either the start or enddate."
 msgstr ""
 
 msgid "This order is still pending. Please log in to your leihs system and either approve or reject it."
@@ -1530,6 +1550,9 @@ msgstr "Option dezuetue"
 msgid "Visits"
 msgstr "Bsuech am"
 
+msgid "Warning"
+msgstr ""
+
 msgid "We are just sending you this little reminder because someone else is already waiting for some of these items."
 msgstr "Mir schicked die churz Erinnerig, wil öpper anders scho uf einigi vo dene Sache warted."
 
@@ -1562,6 +1585,10 @@ msgstr ""
 msgid "Yes"
 msgstr "Ja"
 
+#, fuzzy
+msgid "You are not the owner of this item"
+msgstr "Sii händ kei Berechtigung für die Sach."
+
 msgid "You bring back your items"
 msgstr ""
 
@@ -1582,6 +1609,10 @@ msgstr "Sii händ kei Berechtigung für die Sach."
 
 msgid "You don't have any rights to access this application."
 msgstr "Sii händ kei Zuegriffsrächt für die Aawändig"
+
+#, fuzzy
+msgid "You don't have permission"
+msgstr "Sii händ kei Berechtigung für die Sach."
 
 #, fuzzy
 msgid "You have %{no_access} to any inventory pools!"
@@ -1822,9 +1853,16 @@ msgstr ""
 msgid "submit it"
 msgstr "Anöd agschickt"
 
+msgid "therefore you may not be able to change some of these fields"
+msgstr ""
+
 #, fuzzy
 msgid "this is a package"
 msgstr "Eigeni Paket"
+
+#, fuzzy
+msgid "to edit this item"
+msgstr "Bstellig abschickä"
 
 msgid "to substitute"
 msgstr ""
@@ -1998,10 +2036,6 @@ msgstr ""
 
 #~ msgid "Actions"
 #~ msgstr "Aktionä"
-
-#, fuzzy
-#~ msgid "Add Item"
-#~ msgstr "Sach dezuetue"
 
 #~ msgid "Add Line"
 #~ msgstr "Ziilä dezuetue"
@@ -2428,6 +2462,9 @@ msgstr ""
 
 #~ msgid "Country"
 #~ msgstr "Land"
+
+#~ msgid "Create"
+#~ msgstr "Noi erstellä"
 
 #~ msgid "Create New"
 #~ msgstr "Neu erstellä"
@@ -3109,6 +3146,10 @@ msgstr ""
 #~ msgid "New Contract"
 #~ msgstr "Neue Vertrag"
 
+#, fuzzy
+#~ msgid "New Item"
+#~ msgstr "Noii Sach"
+
 #~ msgid "New Item Package"
 #~ msgstr "Nois Paket"
 
@@ -3330,9 +3371,6 @@ msgstr ""
 #~ msgid "Owner:"
 #~ msgstr "Bsitzer: "
 
-#~ msgid "Package name"
-#~ msgstr "Paketname"
-
 #~ msgid "Packages"
 #~ msgstr "Paket"
 
@@ -3466,6 +3504,10 @@ msgstr ""
 
 #~ msgid "Restore to the original order?"
 #~ msgstr "Zrugg zur Originalbstellig?"
+
+#, fuzzy
+#~ msgid "Retired on %s"
+#~ msgstr "Uusgmuschteret"
 
 #~ msgid "Role"
 #~ msgstr "Rolle"
