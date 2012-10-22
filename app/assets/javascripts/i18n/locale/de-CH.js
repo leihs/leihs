@@ -71,8 +71,8 @@ window.i18n.locale_data = {
       "": {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
-         "POT-Creation-Date": " 2012-10-09 09:45+0200",
-         "PO-Revision-Date": " 2012-10-09 09:48+0100",
+         "POT-Creation-Date": " 2012-10-22 12:39+0200",
+         "PO-Revision-Date": " 2012-10-22 12:42+0100",
          "Last-Translator": " Ramón Cahenzli <ramon.cahenzli@zhdk.ch>",
          "Language-Team": " German (Switzerland) <ramon.cahenzli@zhdk.ch>",
          "Language": " ",
@@ -406,6 +406,10 @@ window.i18n.locale_data = {
          null,
          "Vollständigkeit"
       ],
+      "Consider Opening Hours": [
+         null,
+         "Öffnungszeiten beachten"
+      ],
       "Contract": [
          null,
          "Vertrag"
@@ -429,10 +433,6 @@ window.i18n.locale_data = {
       "Couldn't update ": [
          null,
          "Konnte nicht updaten"
-      ],
-      "Create": [
-         null,
-         "Erstellen"
       ],
       "Created at": [
          null,
@@ -529,6 +529,10 @@ window.i18n.locale_data = {
       "Edit": [
          null,
          "Editieren"
+      ],
+      "Edit Item": [
+         null,
+         "Gegenstand editieren"
       ],
       "Edit Order": [
          null,
@@ -641,10 +645,6 @@ window.i18n.locale_data = {
       "Group %s": [
          null,
          "Gruppe %s"
-      ],
-      "Grund": [
-         null,
-         "Grund"
       ],
       "Hand Over": [
          null,
@@ -999,10 +999,6 @@ window.i18n.locale_data = {
          null,
          "Ausleihende/r wechseln"
       ],
-      "New Item": [
-         null,
-         "Neuer Gegenstand"
-      ],
       "New Orderer": [
          null,
          "Bestellende/n wechseln"
@@ -1082,14 +1078,6 @@ window.i18n.locale_data = {
       "Open Datepicker": [
          null,
          "Datumsauswahl öffnen"
-      ],
-      "Consider Opening Hours": [
-         null,
-         "Öffnungszeiten beachten"
-      ],
-      "This inventory pool is closed on that day.": [
-         null,
-         "Dieser Gerätepark ist an diesem Tag geschlossen."
       ],
       "Open Orders": [
          null,
@@ -1171,6 +1159,10 @@ window.i18n.locale_data = {
          null,
          "Paket"
       ],
+      "Package Code": [
+         null,
+         "Paketcode"
+      ],
       "Package error": [
          null,
          "Paketfehler"
@@ -1211,10 +1203,6 @@ window.i18n.locale_data = {
          null,
          "Gegenstände reservieren und abholen"
       ],
-      "Plattform": [
-         null,
-         "Plattform"
-      ],
       "Please note that these contracts, while they do belong to approved orders, may be changed by the lending manager at any time. They represent only a current snapshot of the order and might not contain the same items as the final contract once you pick up your items.": [
          null,
          "Bitte beachten Sie, dass diese Verträge zwar zu genehmigten Bestellungen gehören, die Bestellungen aber jederzeit von einem Inventarverwalter verändert werden können. Sie zeigen nur ein aktuelles Abbild der Bestellung. Diese kann bei Abholung durchaus andere Gegenstände enthalten."
@@ -1222,6 +1210,10 @@ window.i18n.locale_data = {
       "Please provide a purpose...": [
          null,
          "BItte geben Sie einen Zweck an..."
+      ],
+      "Please provide all required fields": [
+         null,
+         "Bitte füllen Sie alle Pflichtfelder aus"
       ],
       "Please specify the purpose of your order here...": [
          null,
@@ -1243,9 +1235,9 @@ window.i18n.locale_data = {
          null,
          "Probleme"
       ],
-      "Projektnummer:": [
+      "Projektnummer": [
          null,
-         "Projektnummer:"
+         "Projektnummer"
       ],
       "Purpose": [
          null,
@@ -1274,6 +1266,10 @@ window.i18n.locale_data = {
       "Quantity: %d": [
          null,
          "Anzahl: %d"
+      ],
+      "Reason for Retirement": [
+         null,
+         "Grund der Ausmusterung"
       ],
       "Recommended Accessories": [
          null,
@@ -1339,21 +1335,17 @@ window.i18n.locale_data = {
          null,
          "Ausmustern"
       ],
+      "Retire Item": [
+         null,
+         "Gegenstand ausmustern"
+      ],
       "Retired": [
          null,
          "Ausgemustert"
       ],
-      "Retired on %s": [
-         null,
-         "Ausgemustert am %s"
-      ],
       "Retirement": [
          null,
          "Ausmusterung"
-      ],
-      "Reason for Retirement": [
-         null,
-         "Grund der Ausmusterung"
       ],
       "Return": [
          null,
@@ -1707,17 +1699,21 @@ window.i18n.locale_data = {
          null,
          "Gruppen dieses/r Kunden/in"
       ],
-      "This is a package containing the following items:": [
+      "This inventory pool is closed on that day.": [
          null,
-         "Dies ist ein Paket, bestehend aus den folgenden Gegenständen:"
+         "Dieser Gerätepark ist an diesem Tag geschlossen."
+      ],
+      "This is a package containing the following items": [
+         null,
+         "Dies ist ein Paket, bestehend aus den folgenden Gegenständen"
       ],
       "This is the list of items you requested. To complete this order, please %s.": [
          null,
          "Dies ist eine Liste der gewünschten Gegenstände. Um die Bestellung zu vervollständigen, %s bitte."
       ],
-      "This item was retired on %s because %s": [
+      "This item was retired": [
          null,
-         "Dieser Gegenstand würde am %s ausgemustert. Grund: %s"
+         "Dieser Gegenstand würde ausgemustert"
       ],
       "This item will be given to a different inventory pool and not show up in yours anymore!": [
          null,
@@ -1883,6 +1879,10 @@ window.i18n.locale_data = {
          null,
          "Besuche"
       ],
+      "Warning": [
+         null,
+         "Warnung"
+      ],
       "We are just sending you this little reminder because someone else is already waiting for some of these items.": [
          null,
          "Wir senden Ihnen diese kleine Erinnerung, da für den/die genannten Artikel bereits eine neue Reservation besteht."
@@ -1923,6 +1923,10 @@ window.i18n.locale_data = {
          null,
          "Ja"
       ],
+      "You are not the owner of this item": [
+         null,
+         "Sie sind nicht Besitzer dieses Gegenstands"
+      ],
       "You bring back your items": [
          null,
          "Sie bringen Ihre Gegenstände zurück"
@@ -1950,6 +1954,10 @@ window.i18n.locale_data = {
       "You don't have any rights to access this application.": [
          null,
          "Sie sind nicht berechtigt, diese Applikation zu verwenden"
+      ],
+      "You don't have permission": [
+         null,
+         "Sie haben keine Berechtigung"
       ],
       "You have %{no_access} to any inventory pools!": [
          null,
@@ -2128,10 +2136,6 @@ window.i18n.locale_data = {
          null,
          "Der Gerätepark ist am gewünschten Starttag geschlossen"
       ],
-      "non-working day": [
-         null,
-         "arbeitsfreier Tag"
-      ],
       "is late": [
          null,
          "verspätet"
@@ -2192,10 +2196,6 @@ window.i18n.locale_data = {
          null,
          "überfällig"
       ],
-      "Please provide all required fields": [
-         null,
-         "Bitte füllen Sie alle Pflichtfelder aus"
-      ],
       "please wait": [
          null,
          "bitte warten"
@@ -2248,9 +2248,17 @@ window.i18n.locale_data = {
          null,
          "abschicken"
       ],
+      "therefore you may not be able to change some of these fields": [
+         null,
+         "deshalb können Sie einige Felder nicht editieren"
+      ],
       "this is a package": [
          null,
          "dies ist ein Paket"
+      ],
+      "to edit this item": [
+         null,
+         "diesen Gegenstand zu editieren"
       ],
       "to substitute": [
          null,
@@ -2298,7 +2306,7 @@ window.i18n.locale_data = {
       ],
       "while try to send an e-mail reminder to:": [
          null,
-         ""
+         "während des Sendens einer Erinnerung an:"
       ],
       "with comment": [
          null,
@@ -2336,6 +2344,10 @@ window.i18n.locale_data = {
          null,
          "Konnte nicht mit LDAP-Server verbinden::"
       ],
+      "Create": [
+         null,
+         "Erstellen"
+      ],
       "Create and make a Copy": [
          null,
          "Erstellen und kopieren"
@@ -2347,6 +2359,10 @@ window.i18n.locale_data = {
       "Error setting the location": [
          null,
          "Fehler beim setzen des Ortes"
+      ],
+      "Grund": [
+         null,
+         "Grund"
       ],
       "Hand Over Items": [
          null,
@@ -2372,9 +2388,21 @@ window.i18n.locale_data = {
          null,
          "Braucht Ausleihbewilligung"
       ],
+      "New Item": [
+         null,
+         "Neuer Gegenstand"
+      ],
       "Overview": [
          null,
          "Übersicht"
+      ],
+      "Plattform": [
+         null,
+         "Plattform"
+      ],
+      "Retired on %s": [
+         null,
+         "Ausgemustert am %s"
       ],
       "Save and create a Copy": [
          null,
@@ -2391,6 +2419,10 @@ window.i18n.locale_data = {
       "Unretire": [
          null,
          "Ausmusterung zurücknehmen"
+      ],
+      "non-working day": [
+         null,
+         "arbeitsfreier Tag"
       ]
    }
 }
