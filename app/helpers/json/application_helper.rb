@@ -9,6 +9,9 @@ module Json
       klass = target.class
       case klass.name
         when "Array", "ActiveRecord::Relation", "WillPaginate::Collection"
+          if with and with[:preset] and i = get_eager_preset(with[:preset])
+            target = target.includes(i)
+          end
           target.map do |t|
             hash_for(t, with)
           end
@@ -42,6 +45,17 @@ module Json
     end
 
     #################################################################
+
+    def get_eager_preset(key)
+      case key.to_sym
+        when :order_minimal
+          {:user => nil,
+           :order_lines => :model}
+        when :visit
+          {:user => :reminders,
+           :contract_lines => :model}
+      end
+    end
 
     def get_with_preset(key)
       case key.to_sym
