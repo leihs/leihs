@@ -31,7 +31,7 @@ gem 'ruby-net-ldap', '~> 0.0.4', :require => 'net/ldap'
 gem 'nested_set', '~> 1.7'
 gem 'acts-as-dag', :git => "git://github.com/jrust/acts-as-dag.git" #tmp# '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
 gem 'geocoder', '~> 1.1'
-gem "underscore-rails", "~> 1.3.1"
+gem "underscore-rails", "~> 1.4"
 # gem "RubyInline", '3.8.2', :require => "inline"
 
 
@@ -53,9 +53,9 @@ end
 
 group :test, :development do
   gem "growl", "~> 1.0.3"
-  gem "guard", "~> 1.0"
+  gem "guard", "~> 1.5"
   gem "guard-cucumber", "~> 1.2"
-  gem "guard-rspec", "~> 1.1"
+  gem "guard-rspec", "~> 2.1"
   gem "guard-spork", "~> 1.0", :platform => :mri_19
   gem "guard-jasmine", "~> 1.8"
   gem "phantomjs", "~> 1.6.0.0" # headless webdriver (UI & JS tests)
