@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-09 09:45+0200\n"
-"PO-Revision-Date: 2012-10-09 09:48+0100\n"
+"POT-Creation-Date: 2012-10-22 12:39+0200\n"
+"PO-Revision-Date: 2012-10-22 12:42+0100\n"
 "Last-Translator: Ramón Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "Language: \n"
@@ -260,6 +260,9 @@ msgstr "Gesamtsuche"
 msgid "Completeness"
 msgstr "Vollständigkeit"
 
+msgid "Consider Opening Hours"
+msgstr "Öffnungszeiten beachten"
+
 msgid "Contract"
 msgstr "Vertrag"
 
@@ -277,9 +280,6 @@ msgstr "Verträge"
 
 msgid "Couldn't update "
 msgstr "Konnte nicht updaten"
-
-msgid "Create"
-msgstr "Erstellen"
 
 msgid "Created at"
 msgstr "Erstellt am"
@@ -352,6 +352,9 @@ msgstr "FEHLER"
 
 msgid "Edit"
 msgstr "Editieren"
+
+msgid "Edit Item"
+msgstr "Gegenstand editieren"
 
 msgid "Edit Order"
 msgstr "Bestellung editieren"
@@ -436,9 +439,6 @@ msgstr "Zurück"
 
 msgid "Group %s"
 msgstr "Gruppe %s"
-
-msgid "Grund"
-msgstr "Grund"
 
 msgid "Hand Over"
 msgstr "Aushändigen"
@@ -706,9 +706,6 @@ msgstr "Name / ID"
 msgid "New Borrower"
 msgstr "Ausleihende/r wechseln"
 
-msgid "New Item"
-msgstr "Neuer Gegenstand"
-
 msgid "New Orderer"
 msgstr "Bestellende/n wechseln"
 
@@ -768,12 +765,6 @@ msgstr "Offen"
 
 msgid "Open Datepicker"
 msgstr "Datumsauswahl öffnen"
-
-msgid "Consider Opening Hours"
-msgstr "Öffnungszeiten beachten"
-
-msgid "This inventory pool is closed on that day."
-msgstr "Dieser Gerätepark ist an diesem Tag geschlossen."
 
 msgid "Open Orders"
 msgstr "Offene Bestellungen"
@@ -835,6 +826,9 @@ msgstr "Besitzer"
 msgid "Package"
 msgstr "Paket"
 
+msgid "Package Code"
+msgstr "Paketcode"
+
 msgid "Package error"
 msgstr "Paketfehler"
 
@@ -865,14 +859,14 @@ msgstr "Telefon%s"
 msgid "Place reservations on items and then pick them up"
 msgstr "Gegenstände reservieren und abholen"
 
-msgid "Plattform"
-msgstr "Plattform"
-
 msgid "Please note that these contracts, while they do belong to approved orders, may be changed by the lending manager at any time. They represent only a current snapshot of the order and might not contain the same items as the final contract once you pick up your items."
 msgstr "Bitte beachten Sie, dass diese Verträge zwar zu genehmigten Bestellungen gehören, die Bestellungen aber jederzeit von einem Inventarverwalter verändert werden können. Sie zeigen nur ein aktuelles Abbild der Bestellung. Diese kann bei Abholung durchaus andere Gegenstände enthalten."
 
 msgid "Please provide a purpose..."
 msgstr "BItte geben Sie einen Zweck an..."
+
+msgid "Please provide all required fields"
+msgstr "Bitte füllen Sie alle Pflichtfelder aus"
 
 msgid "Please specify the purpose of your order here..."
 msgstr "Bitte geben Sie den Zweck Ihrer Bestellung hier an..."
@@ -889,8 +883,8 @@ msgstr "Drucken"
 msgid "Problems"
 msgstr "Probleme"
 
-msgid "Projektnummer:"
-msgstr "Projektnummer:"
+msgid "Projektnummer"
+msgstr "Projektnummer"
 
 msgid "Purpose"
 msgstr "Zweck"
@@ -912,6 +906,9 @@ msgstr "Anzahl"
 
 msgid "Quantity: %d"
 msgstr "Anzahl: %d"
+
+msgid "Reason for Retirement"
+msgstr "Grund der Ausmusterung"
 
 msgid "Recommended Accessories"
 msgstr "Empfohlenes Zubehör"
@@ -961,17 +958,14 @@ msgstr "Verantwortliche Person"
 msgid "Retire"
 msgstr "Ausmustern"
 
+msgid "Retire Item"
+msgstr "Gegenstand ausmustern"
+
 msgid "Retired"
 msgstr "Ausgemustert"
 
-msgid "Retired on %s"
-msgstr "Ausgemustert am %s"
-
 msgid "Retirement"
 msgstr "Ausmusterung"
-
-msgid "Reason for Retirement"
-msgstr "Grund der Ausmusterung"
 
 msgid "Return"
 msgstr "Zurück"
@@ -1237,14 +1231,17 @@ msgstr "Der Vertrag kann nicht unterschrieben werden, weil einige Zeilen noch ni
 msgid "This customer's groups"
 msgstr "Gruppen dieses/r Kunden/in"
 
-msgid "This is a package containing the following items:"
-msgstr "Dies ist ein Paket, bestehend aus den folgenden Gegenständen:"
+msgid "This inventory pool is closed on that day."
+msgstr "Dieser Gerätepark ist an diesem Tag geschlossen."
+
+msgid "This is a package containing the following items"
+msgstr "Dies ist ein Paket, bestehend aus den folgenden Gegenständen"
 
 msgid "This is the list of items you requested. To complete this order, please %s."
 msgstr "Dies ist eine Liste der gewünschten Gegenstände. Um die Bestellung zu vervollständigen, %s bitte."
 
-msgid "This item was retired on %s because %s"
-msgstr "Dieser Gegenstand würde am %s ausgemustert. Grund: %s"
+msgid "This item was retired"
+msgstr "Dieser Gegenstand würde ausgemustert"
 
 msgid "This item will be given to a different inventory pool and not show up in yours anymore!"
 msgstr "Dieser Gegenstand wird auf einen anderen übertragen und erscheint nicht mehr in diesem!"
@@ -1369,6 +1366,9 @@ msgstr "Option anzeigen"
 msgid "Visits"
 msgstr "Besuche"
 
+msgid "Warning"
+msgstr "Warnung"
+
 msgid "We are just sending you this little reminder because someone else is already waiting for some of these items."
 msgstr "Wir senden Ihnen diese kleine Erinnerung, da für den/die genannten Artikel bereits eine neue Reservation besteht."
 
@@ -1399,6 +1399,9 @@ msgstr "Schreiben Sie einen Hinweis... Dieser wird Teil des Vertrags"
 msgid "Yes"
 msgstr "Ja"
 
+msgid "You are not the owner of this item"
+msgstr "Sie sind nicht Besitzer dieses Gegenstands"
+
 msgid "You bring back your items"
 msgstr "Sie bringen Ihre Gegenstände zurück"
 
@@ -1419,6 +1422,9 @@ msgstr "Sie haben keinen Zugriff auf diesen Gegenstand."
 
 msgid "You don't have any rights to access this application."
 msgstr "Sie sind nicht berechtigt, diese Applikation zu verwenden"
+
+msgid "You don't have permission"
+msgstr "Sie haben keine Berechtigung"
 
 msgid "You have %{no_access} to any inventory pools!"
 msgstr "SIe haben %{no_access} auf diese Geräteparks"
@@ -1554,9 +1560,6 @@ msgstr "Der Gerätepark ist am gewünschten Rückgabetag geschlossen"
 msgid "inventory pool is closed on start_date. "
 msgstr "Der Gerätepark ist am gewünschten Starttag geschlossen"
 
-msgid "non-working day"
-msgstr "arbeitsfreier Tag"
-
 msgid "is late"
 msgstr "verspätet"
 
@@ -1602,9 +1605,6 @@ msgstr "Datumsauswahl öffnen"
 msgid "overdue"
 msgstr "überfällig"
 
-msgid "Please provide all required fields"
-msgstr "Bitte füllen Sie alle Pflichtfelder aus"
-
 msgid "please wait"
 msgstr "bitte warten"
 
@@ -1644,8 +1644,14 @@ msgstr "seit max."
 msgid "submit it"
 msgstr "abschicken"
 
+msgid "therefore you may not be able to change some of these fields"
+msgstr "deshalb können Sie einige Felder nicht editieren"
+
 msgid "this is a package"
 msgstr "dies ist ein Paket"
+
+msgid "to edit this item"
+msgstr "diesen Gegenstand zu editieren"
 
 msgid "to substitute"
 msgstr "zu ersetzen"
@@ -1681,7 +1687,7 @@ msgid "while deleting order line for"
 msgstr "während Bestellungs-Zeile gelöscht wurde für"
 
 msgid "while try to send an e-mail reminder to:"
-msgstr ""
+msgstr "während des Sendens einer Erinnerung an:"
 
 msgid "with comment"
 msgstr "mit Kommentar"
@@ -1710,6 +1716,9 @@ msgstr "Sie können keine Zeilen aushändigen, die keine Inventarcodes zugewiese
 #~ msgid "Couldn't connect to LDAP: :"
 #~ msgstr "Konnte nicht mit LDAP-Server verbinden::"
 
+#~ msgid "Create"
+#~ msgstr "Erstellen"
+
 #~ msgid "Create and make a Copy"
 #~ msgstr "Erstellen und kopieren"
 
@@ -1718,6 +1727,9 @@ msgstr "Sie können keine Zeilen aushändigen, die keine Inventarcodes zugewiese
 
 #~ msgid "Error setting the location"
 #~ msgstr "Fehler beim setzen des Ortes"
+
+#~ msgid "Grund"
+#~ msgstr "Grund"
 
 #~ msgid "Hand Over Items"
 #~ msgstr "Gegenstände aushändigen"
@@ -1737,8 +1749,17 @@ msgstr "Sie können keine Zeilen aushändigen, die keine Inventarcodes zugewiese
 #~ msgid "Needs permission"
 #~ msgstr "Braucht Ausleihbewilligung"
 
+#~ msgid "New Item"
+#~ msgstr "Neuer Gegenstand"
+
 #~ msgid "Overview"
 #~ msgstr "Übersicht"
+
+#~ msgid "Plattform"
+#~ msgstr "Plattform"
+
+#~ msgid "Retired on %s"
+#~ msgstr "Ausgemustert am %s"
 
 #~ msgid "Save and create a Copy"
 #~ msgstr "Speichern und kopieren"
@@ -1751,3 +1772,6 @@ msgstr "Sie können keine Zeilen aushändigen, die keine Inventarcodes zugewiese
 
 #~ msgid "Unretire"
 #~ msgstr "Ausmusterung zurücknehmen"
+
+#~ msgid "non-working day"
+#~ msgstr "arbeitsfreier Tag"

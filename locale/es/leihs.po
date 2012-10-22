@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-09 09:45+0200\n"
+"POT-Creation-Date: 2012-10-22 12:39+0200\n"
 "PO-Revision-Date: 2012-09-17 14:41+0100\n"
 "Last-Translator: Ramón Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -248,6 +248,10 @@ msgstr ""
 msgid "Cancel"
 msgstr "Cancelar"
 
+#, fuzzy
+msgid "Cancel Edit"
+msgstr "Cancelar"
+
 msgid "Categories"
 msgstr "Categorías"
 
@@ -290,6 +294,10 @@ msgid "Completeness"
 msgstr "Incompleto"
 
 #, fuzzy
+msgid "Consider Opening Hours"
+msgstr "Pedidos pendientes:"
+
+#, fuzzy
 msgid "Contract"
 msgstr "Contratos"
 
@@ -308,9 +316,6 @@ msgstr "Contratos"
 
 msgid "Couldn't update "
 msgstr ""
-
-msgid "Create"
-msgstr "Crear"
 
 #, fuzzy
 msgid "Created at"
@@ -394,6 +399,10 @@ msgstr ""
 
 msgid "Edit"
 msgstr ""
+
+#, fuzzy
+msgid "Edit Item"
+msgstr "Agregar elemento"
 
 #, fuzzy
 msgid "Edit Order"
@@ -495,9 +504,6 @@ msgstr "Retirar"
 #, fuzzy
 msgid "Group %s"
 msgstr "Grupo modelo"
-
-msgid "Grund"
-msgstr ""
 
 msgid "Hand Over"
 msgstr "Entregar"
@@ -814,10 +820,6 @@ msgid "New Borrower"
 msgstr "Prestable"
 
 #, fuzzy
-msgid "New Item"
-msgstr "Nuevo Artículo"
-
-#, fuzzy
 msgid "New Orderer"
 msgstr "Cambiar"
 
@@ -958,6 +960,10 @@ msgstr "Propietario:"
 msgid "Package"
 msgstr "Paquete"
 
+#, fuzzy
+msgid "Package Code"
+msgstr "Nombre del paquete"
+
 msgid "Package error"
 msgstr "Error de paquete"
 
@@ -990,13 +996,13 @@ msgstr "Teléfono"
 msgid "Place reservations on items and then pick them up"
 msgstr ""
 
-msgid "Plattform"
-msgstr ""
-
 msgid "Please note that these contracts, while they do belong to approved orders, may be changed by the lending manager at any time. They represent only a current snapshot of the order and might not contain the same items as the final contract once you pick up your items."
 msgstr ""
 
 msgid "Please provide a purpose..."
+msgstr ""
+
+msgid "Please provide all required fields"
 msgstr ""
 
 msgid "Please specify the purpose of your order here..."
@@ -1016,7 +1022,7 @@ msgstr "Imprimir PDF"
 msgid "Problems"
 msgstr ""
 
-msgid "Projektnummer:"
+msgid "Projektnummer"
 msgstr ""
 
 msgid "Purpose"
@@ -1042,6 +1048,10 @@ msgstr "Cantidad"
 #, fuzzy
 msgid "Quantity: %d"
 msgstr "Cantidad"
+
+#, fuzzy
+msgid "Reason for Retirement"
+msgstr "Retirar"
 
 #, fuzzy
 msgid "Recommended Accessories"
@@ -1097,11 +1107,11 @@ msgstr "Persona Responsable"
 msgid "Retire"
 msgstr "Retirar"
 
-msgid "Retired"
-msgstr "Retirado"
-
 #, fuzzy
-msgid "Retired on %s"
+msgid "Retire Item"
+msgstr "Artículos devueltos"
+
+msgid "Retired"
 msgstr "Retirado"
 
 #, fuzzy
@@ -1123,7 +1133,12 @@ msgstr "Artículos devueltos"
 msgid "Room"
 msgstr "Habitación"
 
+#, fuzzy
 msgid "Save"
+msgstr "Guardar"
+
+#, fuzzy
+msgid "Save %s"
 msgstr "Guardar"
 
 #, fuzzy
@@ -1404,14 +1419,18 @@ msgstr ""
 msgid "This customer's groups"
 msgstr ""
 
-msgid "This is a package containing the following items:"
+#, fuzzy
+msgid "This inventory pool is closed on that day."
+msgstr "El grupo de inventario está cerrado en start_date. "
+
+msgid "This is a package containing the following items"
 msgstr ""
 
 msgid "This is the list of items you requested. To complete this order, please %s."
 msgstr ""
 
 #, fuzzy
-msgid "This item was retired on %s because %s"
+msgid "This item was retired"
 msgstr "Artículo retirado el"
 
 msgid "This item will be given to a different inventory pool and not show up in yours anymore!"
@@ -1429,7 +1448,7 @@ msgstr "Esta orden no puede aprobarse aun"
 msgid "This order is not approvable because doesn't have any models."
 msgstr "Esta orden no puede aprobarse aun"
 
-msgid "This order is not approvable because some reserved models are not available."
+msgid "This order is not approvable because some reserved models are not available or the inventory pool is closed on either the start or enddate."
 msgstr ""
 
 msgid "This order is still pending. Please log in to your leihs system and either approve or reject it."
@@ -1556,6 +1575,9 @@ msgstr "Agregar Opción"
 msgid "Visits"
 msgstr "Visite a"
 
+msgid "Warning"
+msgstr ""
+
 msgid "We are just sending you this little reminder because someone else is already waiting for some of these items."
 msgstr "Solo le enviamos este pequeño recordatorio porque alguien mas encargó esos artículos."
 
@@ -1587,6 +1609,10 @@ msgstr ""
 msgid "Yes"
 msgstr "Si"
 
+#, fuzzy
+msgid "You are not the owner of this item"
+msgstr "No tiene permisos para acceder a esta aplicación"
+
 msgid "You bring back your items"
 msgstr ""
 
@@ -1607,6 +1633,10 @@ msgid "You don't have access to this item."
 msgstr "No tiene permisos para acceder a esta aplicación"
 
 msgid "You don't have any rights to access this application."
+msgstr "No tiene permisos para acceder a esta aplicación"
+
+#, fuzzy
+msgid "You don't have permission"
 msgstr "No tiene permisos para acceder a esta aplicación"
 
 #, fuzzy
@@ -1848,9 +1878,16 @@ msgstr ""
 msgid "submit it"
 msgstr "Presentada"
 
+msgid "therefore you may not be able to change some of these fields"
+msgstr ""
+
 #, fuzzy
 msgid "this is a package"
 msgstr "Paquetes"
+
+#, fuzzy
+msgid "to edit this item"
+msgstr "Enviar Pedido"
 
 msgid "to substitute"
 msgstr ""
@@ -2010,10 +2047,6 @@ msgstr ""
 
 #~ msgid "Actions"
 #~ msgstr "Acciones"
-
-#, fuzzy
-#~ msgid "Add Item"
-#~ msgstr "Agregar elemento"
 
 #~ msgid "Add Line"
 #~ msgstr "Agregar Fila"
@@ -2397,6 +2430,9 @@ msgstr ""
 #, fuzzy
 #~ msgid "Country"
 #~ msgstr "Contratos"
+
+#~ msgid "Create"
+#~ msgstr "Crear"
 
 #~ msgid "Create New"
 #~ msgstr "Crear Nuevo"
@@ -2915,6 +2951,10 @@ msgstr ""
 #~ msgstr "Nuevo Contrato"
 
 #, fuzzy
+#~ msgid "New Item"
+#~ msgstr "Nuevo Artículo"
+
+#, fuzzy
 #~ msgid "New Item Package"
 #~ msgstr "Nuevo Paquete"
 
@@ -3118,9 +3158,6 @@ msgstr ""
 #~ msgid "Own Models"
 #~ msgstr "Modelos"
 
-#~ msgid "Package name"
-#~ msgstr "Nombre del paquete"
-
 #~ msgid "Packages"
 #~ msgstr "Paquetes"
 
@@ -3244,6 +3281,10 @@ msgstr ""
 
 #~ msgid "Restore to the original order?"
 #~ msgstr "¿Restaurar el pedido original?"
+
+#, fuzzy
+#~ msgid "Retired on %s"
+#~ msgstr "Retirado"
 
 #~ msgid "Role"
 #~ msgstr "Rol"
