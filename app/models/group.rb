@@ -13,14 +13,12 @@ class Group < ActiveRecord::Base
 
 ##########################################
 
-  def self.search2(query)
-    return scoped unless query
+  scope :search, lambda { |query|
+    return scoped if query.blank?
 
-    w = query.split.map do |x|
-      "name LIKE '%#{x}%'"
-    end.join(' AND ')
-    where(w)
-  end
+    q = query.split.map{|s| "%#{s}%"}
+    where(arel_table[:name].matches_all(q))
+  }
 
 ##########################################
 

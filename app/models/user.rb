@@ -83,14 +83,19 @@ class User < ActiveRecord::Base
 
 ################################################
 
-  def self.search2(query)
-    return scoped unless query
+  scope :search, lambda { |query|
+    sql = scoped
+    return sql if query.blank?
 
-    w = query.split.map do |x|
-      "CONCAT_WS(' ', login, firstname, lastname, badge_id) LIKE '%#{x}%'"
-    end.join(' AND ')
-    where(w)
-  end
+    query.split.each{|q|
+      q = "%#{q}%"
+      sql = sql.where(arel_table[:login].matches(q).
+                      or(arel_table[:firstname].matches(q)).
+                      or(arel_table[:lastname].matches(q)).
+                      or(arel_table[:badge_id].matches(q)))
+    }
+    sql
+  }
 
   def self.filter2(options)
     sql = select("DISTINCT users.*")

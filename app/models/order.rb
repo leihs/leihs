@@ -52,19 +52,21 @@ class Order < Document
 
 #########################################################################
   
-  def self.search2(query)
-    return scoped unless query
+  scope :search, lambda { |query|
+    return scoped if query.blank?
 
     sql = select("DISTINCT orders.*").joins(:user, :models)
 
-    w = query.split.map do |x|
-      s = []
-      s << "CONCAT_WS(' ', users.login, users.firstname, users.lastname, users.badge_id) LIKE '%#{x}%'"
-      s << "models.name LIKE '%#{x}%'"
-      "(%s)" % s.join(' OR ')
-    end.join(' AND ')
-    sql.where(w)
-  end
+    query.split.each{|q|
+      q = "%#{q}%"
+      sql = sql.where(User.arel_table[:login].matches(q).
+                      or(User.arel_table[:firstname].matches(q)).
+                      or(User.arel_table[:lastname].matches(q)).
+                      or(User.arel_table[:badge_id].matches(q)).
+                      or(Model.arel_table[:name].matches(q)))
+    }
+    sql
+  }
 
   def self.filter2(options)
     sql = scoped

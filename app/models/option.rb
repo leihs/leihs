@@ -21,15 +21,18 @@ class Option < ActiveRecord::Base
 
 ##########################################
 
-  def self.search2(query, fields = [])
-    return scoped unless query
-
-    w = query.split.map do |x|
-      "CONCAT_WS(' ', name, inventory_code) LIKE '%#{x}%'"
-    end.join(' AND ')
-    where(w)
-  end
-  
+  scope :search, lambda { |query, fields = []|
+    sql = scoped
+    return sql if query.blank?
+    
+    query.split.each{|q|
+      q = "%#{q}%"
+      sql = sql.where(arel_table[:name].matches(q).
+                      or(arel_table[:inventory_code].matches(q)))
+    }
+    sql
+  }
+    
   def self.filter2(options)
     sql = scoped
     options.each_pair do |k,v|

@@ -49,19 +49,20 @@ class Visit < ActiveRecord::Base
 
   #######################################################
 
-  def self.search2(query)
-    return scoped unless query
+  scope :search, lambda { |query|
+    sql = scoped
+    return sql if query.blank?
 
     # TODO search on contract_lines' models and items
-    sql = joins(:user)
-
-    w = query.split.map do |x|
-      s = []
-      s << "CONCAT_WS(' ', users.login, users.firstname, users.lastname, users.badge_id) LIKE '%#{x}%'"
-      "(%s)" % s.join(' OR ')
-    end.join(' AND ')
-    sql.where(w)
-  end
+    query.split.each{|q|
+      q = "%#{q}%"
+      sql = sql.where(User.arel_table[:login].matches(q).
+                      or(User.arel_table[:firstname].matches(q)).
+                      or(User.arel_table[:lastname].matches(q)).
+                      or(User.arel_table[:badge_id].matches(q)))
+    }
+    sql.joins(:user)
+  }
 
   #######################################################
 

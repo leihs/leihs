@@ -13,7 +13,7 @@ class Backend::LocationsController < Backend::BackendController
     params[:sort_mode] ||= 'ASC'
     params[:sort_mode] = params[:sort_mode].downcase.to_sym
 
-    @locations = Location.search2(params[:query]).
+    @locations = Location.search(params[:query]).
                           filter2(:inventory_pool_id => current_inventory_pool.id).
                           paginate(:page => params[:page], :per_page => $per_page).
                           order("#{params[:sort]} #{params[:sort_mode]}")

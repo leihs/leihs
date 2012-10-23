@@ -61,7 +61,7 @@ class Backend::ModelsController < Backend::BackendController
         end 
          
         options = if borrowable != false and retired.nil? and item_filter.nil?
-          current_inventory_pool.options.search2(query, [:name]).order("#{sort_attr} #{sort_dir}")
+          current_inventory_pool.options.search(query, [:name]).order("#{sort_attr} #{sort_dir}")
         else
           []
         end
@@ -73,7 +73,7 @@ class Backend::ModelsController < Backend::BackendController
         item_ids = scoped_items.select("items.id")
         models = Model.joins(:items).where("items.id IN (#{item_ids.to_sql})")
                   .select("DISTINCT models.*")
-                  .search2(query, [:name, :items])
+                  .search(query, [:name, :items])
                   .order("#{sort_attr} #{sort_dir}")
         # TODO migrate strip directly to the database, and strip on before_validation
         models_and_options = (models + options)
@@ -100,7 +100,7 @@ class Backend::ModelsController < Backend::BackendController
       } 
       format.csv {
         require 'csv'
-        items = scoped_items.search2(query)
+        items = scoped_items.search(query)
         csv_string = CSV.generate({ :col_sep => ";", :quote_char => "\"", :force_quotes => true }) do |csv|
           csv << Item.csv_header
           items.each do |i|
