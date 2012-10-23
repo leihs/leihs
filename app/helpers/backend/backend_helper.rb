@@ -4,7 +4,7 @@ module Backend::BackendHelper
     #TODO: last visitors should be scoped through inventory_pool and later through selected day in daily view
     #TODO: move this inside of the inventory pools model ?
     return false if session[:last_visitors].blank?
-    session[:last_visitors].map { |x| link_to x.second, backend_inventory_pool_search_path(current_inventory_pool, :term => x.second), :class => "clickable" }.join()
+    session[:last_visitors].reverse.map { |x| link_to x.second, backend_inventory_pool_search_path(current_inventory_pool, :term => x.second), :class => "clickable" }.join()
   end
   
   def is_current_page?(section)
