@@ -119,14 +119,17 @@ class InventoryPool < ActiveRecord::Base
 
 #######################################################################
 
-  def self.search2(query)
-    return scoped unless query
-
-    w = query.split.map do |x|
-      "CONCAT_WS(' ', name, description) LIKE '%#{x}%'"
-    end.join(' AND ')
-    where(w)
-  end
+  scope :search, lambda { |query|
+    sql = scoped
+    return sql if query.blank?
+    
+    query.split.each{|q|
+      q = "%#{q}%"
+      sql = sql.where(arel_table[:name].matches(q).
+                      or(arel_table[:description].matches(q)))
+    }
+    sql
+  }
 
 #######################################################################
 

@@ -56,9 +56,9 @@ class Contract < Document
 
 #########################################################################
 
-  def self.search2(query)
-    return scoped unless query
-
+  scope :search, lambda { |query|
+    return scoped if query.blank?
+    
     sql = select("DISTINCT contracts.*").
       joins("LEFT JOIN `users` ON `users`.`id` = `contracts`.`user_id`").
       joins("LEFT JOIN `contract_lines` ON `contract_lines`.`contract_id` = `contracts`.`id`").
@@ -66,17 +66,20 @@ class Contract < Document
       joins("LEFT JOIN `models` ON `models`.`id` = `contract_lines`.`model_id`").
       joins("LEFT JOIN `items` ON `items`.`id` = `contract_lines`.`item_id`")
 
-    w = query.split.map do |x|
-      s = []
-      s << "CONCAT_WS(' ', contracts.id, contracts.note) LIKE '%#{x}%'"
-      s << "CONCAT_WS(' ', users.login, users.firstname, users.lastname, users.badge_id) LIKE '%#{x}%'"
-      s << "models.name LIKE '%#{x}%'"
-      s << "options.name LIKE '%#{x}%'"
-      s << "items.inventory_code LIKE '%#{x}%'"
-      "(%s)" % s.join(' OR ')
-    end.join(' AND ')
-    sql.where(w)
-  end
+    query.split.each{|q|
+      qq = "%#{q}%"
+      sql = sql.where(arel_table[:id].eq(q).
+                      or(arel_table[:note].matches(qq)).
+                      or(User.arel_table[:login].matches(qq)).
+                      or(User.arel_table[:firstname].matches(qq)).
+                      or(User.arel_table[:lastname].matches(qq)).
+                      or(User.arel_table[:badge_id].matches(qq)).
+                      or(Model.arel_table[:name].matches(qq)).
+                      or(Option.arel_table[:name].matches(qq)).
+                      or(Item.arel_table[:inventory_code].matches(qq)))
+    }
+    sql
+  }
 
   def self.filter2(options)
     sql = scoped

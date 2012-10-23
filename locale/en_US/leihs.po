@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-09 09:45+0200\n"
+"POT-Creation-Date: 2012-10-22 12:39+0200\n"
 "PO-Revision-Date: 2012-09-20 10:01+0100\n"
 "Last-Translator: Ramón Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -220,6 +220,9 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
+msgid "Cancel Edit"
+msgstr ""
+
 msgid "Categories"
 msgstr ""
 
@@ -256,6 +259,9 @@ msgstr ""
 msgid "Completeness"
 msgstr ""
 
+msgid "Consider Opening Hours"
+msgstr ""
+
 msgid "Contract"
 msgstr ""
 
@@ -272,9 +278,6 @@ msgid "Contracts"
 msgstr ""
 
 msgid "Couldn't update "
-msgstr ""
-
-msgid "Create"
 msgstr ""
 
 msgid "Created at"
@@ -347,6 +350,9 @@ msgid "ERROR"
 msgstr ""
 
 msgid "Edit"
+msgstr ""
+
+msgid "Edit Item"
 msgstr ""
 
 msgid "Edit Order"
@@ -431,9 +437,6 @@ msgid "Go Back"
 msgstr ""
 
 msgid "Group %s"
-msgstr ""
-
-msgid "Grund"
 msgstr ""
 
 msgid "Hand Over"
@@ -702,9 +705,6 @@ msgstr ""
 msgid "New Borrower"
 msgstr ""
 
-msgid "New Item"
-msgstr ""
-
 msgid "New Orderer"
 msgstr ""
 
@@ -825,6 +825,9 @@ msgstr ""
 msgid "Package"
 msgstr ""
 
+msgid "Package Code"
+msgstr ""
+
 msgid "Package error"
 msgstr ""
 
@@ -855,13 +858,13 @@ msgstr ""
 msgid "Place reservations on items and then pick them up"
 msgstr ""
 
-msgid "Plattform"
-msgstr ""
-
 msgid "Please note that these contracts, while they do belong to approved orders, may be changed by the lending manager at any time. They represent only a current snapshot of the order and might not contain the same items as the final contract once you pick up your items."
 msgstr ""
 
 msgid "Please provide a purpose..."
+msgstr ""
+
+msgid "Please provide all required fields"
 msgstr ""
 
 msgid "Please specify the purpose of your order here..."
@@ -879,7 +882,7 @@ msgstr ""
 msgid "Problems"
 msgstr ""
 
-msgid "Projektnummer:"
+msgid "Projektnummer"
 msgstr ""
 
 msgid "Purpose"
@@ -901,6 +904,9 @@ msgid "Quantity"
 msgstr ""
 
 msgid "Quantity: %d"
+msgstr ""
+
+msgid "Reason for Retirement"
 msgstr ""
 
 msgid "Recommended Accessories"
@@ -951,10 +957,10 @@ msgstr ""
 msgid "Retire"
 msgstr ""
 
-msgid "Retired"
+msgid "Retire Item"
 msgstr ""
 
-msgid "Retired on %s"
+msgid "Retired"
 msgstr ""
 
 msgid "Retirement"
@@ -973,6 +979,9 @@ msgid "Room"
 msgstr ""
 
 msgid "Save"
+msgstr ""
+
+msgid "Save %s"
 msgstr ""
 
 msgid "Save Changes"
@@ -1221,13 +1230,16 @@ msgstr ""
 msgid "This customer's groups"
 msgstr ""
 
-msgid "This is a package containing the following items:"
+msgid "This inventory pool is closed on that day."
+msgstr ""
+
+msgid "This is a package containing the following items"
 msgstr ""
 
 msgid "This is the list of items you requested. To complete this order, please %s."
 msgstr ""
 
-msgid "This item was retired on %s because %s"
+msgid "This item was retired"
 msgstr ""
 
 msgid "This item will be given to a different inventory pool and not show up in yours anymore!"
@@ -1242,7 +1254,7 @@ msgstr ""
 msgid "This order is not approvable because doesn't have any models."
 msgstr ""
 
-msgid "This order is not approvable because some reserved models are not available."
+msgid "This order is not approvable because some reserved models are not available or the inventory pool is closed on either the start or enddate."
 msgstr ""
 
 msgid "This order is still pending. Please log in to your leihs system and either approve or reject it."
@@ -1353,6 +1365,9 @@ msgstr ""
 msgid "Visits"
 msgstr ""
 
+msgid "Warning"
+msgstr ""
+
 msgid "We are just sending you this little reminder because someone else is already waiting for some of these items."
 msgstr ""
 
@@ -1383,6 +1398,9 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
+msgid "You are not the owner of this item"
+msgstr ""
+
 msgid "You bring back your items"
 msgstr ""
 
@@ -1402,6 +1420,9 @@ msgid "You don't have access to this item."
 msgstr ""
 
 msgid "You don't have any rights to access this application."
+msgstr ""
+
+msgid "You don't have permission"
 msgstr ""
 
 msgid "You have %{no_access} to any inventory pools!"
@@ -1622,7 +1643,13 @@ msgstr ""
 msgid "submit it"
 msgstr ""
 
+msgid "therefore you may not be able to change some of these fields"
+msgstr ""
+
 msgid "this is a package"
+msgstr ""
+
+msgid "to edit this item"
 msgstr ""
 
 msgid "to substitute"

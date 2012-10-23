@@ -23,7 +23,7 @@ class Backend::CategoriesController < Backend::BackendController
       else #if request.env['REQUEST_URI'].include?("children")
         @category.child_ids
       end
-      Category.search2(params[:query]).
+      Category.search(params[:query]).
                 paginate(:page => params[:page], :per_page => $per_page).
                 order("#{params[:sort]} #{params[:sort_mode]}").
                 where(:id => ids)
@@ -32,7 +32,7 @@ class Backend::CategoriesController < Backend::BackendController
       if request.format == :ext_json # TODO remove
         Category.roots
       else
-        Category.search2(params[:query]).
+        Category.search(params[:query]).
                   paginate(:page => params[:page], :per_page => $per_page).
                   order("#{params[:sort]} #{params[:sort_mode]}")
       end

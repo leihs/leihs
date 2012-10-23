@@ -71,7 +71,7 @@ window.i18n.locale_data = {
       "": {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
-         "POT-Creation-Date": " 2012-10-09 09:45+0200",
+         "POT-Creation-Date": " 2012-10-22 12:39+0200",
          "PO-Revision-Date": " 2012-09-20 10:01+0100",
          "Last-Translator": " Ramón Cahenzli <ramon.cahenzli@zhdk.ch>",
          "Language-Team": " LANGUAGE <LL@li.org>",
@@ -350,6 +350,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Cancel Edit": [
+         null,
+         ""
+      ],
       "Categories": [
          null,
          ""
@@ -398,6 +402,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Consider Opening Hours": [
+         null,
+         ""
+      ],
       "Contract": [
          null,
          ""
@@ -419,10 +427,6 @@ window.i18n.locale_data = {
          ""
       ],
       "Couldn't update ": [
-         null,
-         ""
-      ],
-      "Create": [
          null,
          ""
       ],
@@ -519,6 +523,10 @@ window.i18n.locale_data = {
          ""
       ],
       "Edit": [
+         null,
+         ""
+      ],
+      "Edit Item": [
          null,
          ""
       ],
@@ -631,10 +639,6 @@ window.i18n.locale_data = {
          ""
       ],
       "Group %s": [
-         null,
-         ""
-      ],
-      "Grund": [
          null,
          ""
       ],
@@ -991,10 +995,6 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "New Item": [
-         null,
-         ""
-      ],
       "New Orderer": [
          null,
          ""
@@ -1155,6 +1155,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Package Code": [
+         null,
+         ""
+      ],
       "Package error": [
          null,
          ""
@@ -1195,15 +1199,15 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Plattform": [
-         null,
-         ""
-      ],
       "Please note that these contracts, while they do belong to approved orders, may be changed by the lending manager at any time. They represent only a current snapshot of the order and might not contain the same items as the final contract once you pick up your items.": [
          null,
          ""
       ],
       "Please provide a purpose...": [
+         null,
+         ""
+      ],
+      "Please provide all required fields": [
          null,
          ""
       ],
@@ -1227,7 +1231,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Projektnummer:": [
+      "Projektnummer": [
          null,
          ""
       ],
@@ -1256,6 +1260,10 @@ window.i18n.locale_data = {
          ""
       ],
       "Quantity: %d": [
+         null,
+         ""
+      ],
+      "Reason for Retirement": [
          null,
          ""
       ],
@@ -1323,11 +1331,11 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Retired": [
+      "Retire Item": [
          null,
          ""
       ],
-      "Retired on %s": [
+      "Retired": [
          null,
          ""
       ],
@@ -1352,6 +1360,10 @@ window.i18n.locale_data = {
          ""
       ],
       "Save": [
+         null,
+         ""
+      ],
+      "Save %s": [
          null,
          ""
       ],
@@ -1683,7 +1695,11 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "This is a package containing the following items:": [
+      "This inventory pool is closed on that day.": [
+         null,
+         ""
+      ],
+      "This is a package containing the following items": [
          null,
          ""
       ],
@@ -1691,7 +1707,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "This item was retired on %s because %s": [
+      "This item was retired": [
          null,
          ""
       ],
@@ -1711,7 +1727,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "This order is not approvable because some reserved models are not available.": [
+      "This order is not approvable because some reserved models are not available or the inventory pool is closed on either the start or enddate.": [
          null,
          ""
       ],
@@ -1859,6 +1875,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Warning": [
+         null,
+         ""
+      ],
       "We are just sending you this little reminder because someone else is already waiting for some of these items.": [
          null,
          ""
@@ -1899,6 +1919,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "You are not the owner of this item": [
+         null,
+         ""
+      ],
       "You bring back your items": [
          null,
          ""
@@ -1924,6 +1948,10 @@ window.i18n.locale_data = {
          ""
       ],
       "You don't have any rights to access this application.": [
+         null,
+         ""
+      ],
+      "You don't have permission": [
          null,
          ""
       ],
@@ -2216,7 +2244,15 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "therefore you may not be able to change some of these fields": [
+         null,
+         ""
+      ],
       "this is a package": [
+         null,
+         ""
+      ],
+      "to edit this item": [
          null,
          ""
       ],

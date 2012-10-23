@@ -25,9 +25,9 @@
 
   - if ! is_lending_manager?
     .notification
-      %strong= "#{_("You doesnt have rights")}:"
+      %strong= "#{_("You don't have permission")}:"
       = _("to edit this item")
   - elsif ! is_owner?
     .notification
       %strong= "#{_("You are not the owner of this item")}:"
-      = _("so you are limited on the fields you can edit")
+      = _("therefore you may not be able to change some of these fields")

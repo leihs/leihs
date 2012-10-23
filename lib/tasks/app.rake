@@ -47,12 +47,33 @@ namespace :app do
         exit_code_first_run = $?.exitstatus
 
         if exit_code_first_run != 0
-          system "bundle exec cucumber -p rerun"
-          exit_code_rerun = $?.exitstatus
-          raise "Tests failed!" if exit_code_rerun != 0
+          puts "Non-zero exit necessiates a rerun. Go, go, go!"
+          Rake::Task["app:test:cucumber:rerun"].invoke
         end
       end
+
+      task :rerun do
+        rerun_count = 9
+        puts "Rerunning up to #{rerun_count + 1} times."
+        system "bundle exec cucumber -p rerun"
+        exit_code = $?.exitstatus
+        if exit_code != 0
+          while (rerun_count > 0 and exit_code != 0)
+            puts "Maximum #{rerun_count} reruns remaining. Trying to rerun until we're successful."
+            if File.exists?("tmp/rererun.txt") and File.stat("tmp/rererun.txt").size > 0 # The 'rererun.txt' file contains some failed examples
+              File.rename("tmp/rererun.txt","tmp/rerun.txt")
+              system "bundle exec cucumber -p rerun"
+              exit_code = $?.exitstatus
+              rerun_count -= 1
+            end
+          end
+        end
+        puts "Final rerun exited with #{exit_code}"
+        raise "Tests failed during rerun!" if exit_code != 0
+      end
+
     end
+
 
     task :jasmine do
       output = `guard-jasmine 2>&1` # Redirect STDERR to STDOUT so the `` construct captures it

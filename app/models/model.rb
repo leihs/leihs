@@ -125,8 +125,8 @@ class Model < ActiveRecord::Base
 
 #############################################
 
-  def self.search2(query, fields = [])
-    return scoped unless query
+  scope :search, lambda { |query, fields = []|
+    return scoped if query.blank?
 
     sql = select("DISTINCT models.*") #old# joins(:categories, :properties, :items)
     if fields.empty?
@@ -137,22 +137,23 @@ class Model < ActiveRecord::Base
     end
     sql = sql.joins("LEFT JOIN `items` AS i2 ON `i2`.`model_id` = `models`.`id`") if fields.empty? or fields.include?(:items)
 
-    w = query.split.map do |x|
+    # FIXME refactor to Arel
+    query.split.each do |x|
       s = []
       s1 = ["' '"]
       s1 << "models.name" if fields.empty? or fields.include?(:name)
       s1 << "models.manufacturer" if fields.empty?
-      s << "CONCAT_WS(#{s1.join(', ')}) LIKE '%#{x}%'"
+      s << "CONCAT_WS(#{s1.join(', ')}) LIKE :query"
       if fields.empty?
-        s << "mg2.name LIKE '%#{x}%'"
-        s << "p2.value LIKE '%#{x}%'"
+        s << "mg2.name LIKE :query"
+        s << "p2.value LIKE :query"
       end
-      s << "CONCAT_WS(' ', i2.inventory_code, i2.serial_number, i2.invoice_number, i2.note, i2.name, i2.properties) LIKE '%#{x}%'" if fields.empty? or fields.include?(:items)
-
-      "(%s)" % s.join(' OR ')
-    end.join(' AND ')
-    sql.where(w)
-  end
+      s << "CONCAT_WS(' ', i2.inventory_code, i2.serial_number, i2.invoice_number, i2.note, i2.name, i2.properties) LIKE :query" if fields.empty? or fields.include?(:items)
+      
+      sql = sql.where("%s" % s.join(' OR '), :query => "%#{x}%")
+    end
+    sql
+  }
   
   def self.filter2(options)
     sql = select("DISTINCT models.*")
