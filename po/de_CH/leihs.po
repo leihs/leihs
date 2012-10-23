@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: leihs 2\n"
 "Report-Msgid-Bugs-To: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "POT-Creation-Date: 2012-09-05 14:39+0200\n"
-"PO-Revision-Date: 2012-09-05 14:42+0100\n"
+"PO-Revision-Date: 2012-10-23 13:24+0100\n"
 "Last-Translator: Ramón Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "Language: \n"
@@ -3655,7 +3655,7 @@ msgstr "Wir bitten Sie, in den nächsten Tagen mit uns Kontakt aufzunehmen, dami
 #: app/views/mailer/user/deadline_soon_reminder.text.html.erb:30
 #: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:20
 msgid "Are any of the above borrowed items?"
-msgstr "Handelt es sich um ausgeliehens Material?"
+msgstr "Handelt es sich um ausgeliehenes Material?"
 
 #: app/views/mailer/user/remind.text.plain.erb:23
 #: app/views/mailer/user/remind.text.html.erb:33
