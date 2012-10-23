@@ -6,7 +6,7 @@ Angenommen /^man editiert einen Gegenstand$/ do
   find(".model.line .toggle .text").click
   item_line = find(".item.line")
   @item = Item.find_by_inventory_code(item_line.find(".inventory_code").text)
-  item_line.find(".actions .button", :text => /(Editieren|Edit)/).click
+  item_line.find(".actions .button", :text => /(Editieren|Edit)/i).click
 end
 
 Dann /^muss der "(.*?)" unter "(.*?)" ausgewählt werden$/ do |key, section|
