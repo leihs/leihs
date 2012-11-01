@@ -111,12 +111,11 @@ end
 
 def get_fullcalendar_day_element(date)
   wait_until {
-    today_element = find(".fc-widget-content .fc-day-number", :text => /^#{Date.today.day}$/).find(:xpath, "./../..")
-
+    today_element = find(".fc-today .fc-day-number", :text => /^#{Date.today.day}$/).find(:xpath, "./../..")
     if today_element[:class].match(/fc-other-month/).nil?
-      all(".fc-widget-content.fc-other-month .fc-day-number", :text => /^#{date.day}$/).last
-    else
       all(".fc-widget-content:not(.fc-other-month) .fc-day-number", :text => /^#{date.day}$/).last
+    else
+      all(".fc-widget-content.fc-other-month .fc-day-number", :text => /^#{date.day}$/).last
     end
   }
 end
