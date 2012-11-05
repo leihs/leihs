@@ -142,7 +142,7 @@ class BookingCalendar
       do @resetQuantity unless @validateQuantity()
       window.setTimeout (-> $(e.currentTarget).change() ), 150
     @quantity_el.bind "change", (e)=> 
-      if @validateQuantity() 
+      if @validateQuantity()
         do @render
         do @refreshCulprit
       else 
@@ -428,6 +428,7 @@ class BookingCalendar
       line.append("<div class='actions'><li class='unavailable_ranges'></li></div>") unless line.find(".unavailable_ranges").length
       line.find(".unavailable_ranges").html(text.join(", ")).attr("title", "unavailable ranges: #{text.join(", ")}")
       line.find(".available .number").html av.maxAvailableForGroups moment(@startDate_el.val(),df), moment(@endDate_el.val(),df), @selectedPartitions()
+      line.find(".requested .number").html quantity
       if unavailableRanges.length
         line.addClass("unavailable")
       else

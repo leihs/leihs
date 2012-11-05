@@ -72,7 +72,7 @@ window.i18n.locale_data = {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
          "POT-Creation-Date": " 2012-10-22 12:39+0200",
-         "PO-Revision-Date": " 2012-10-22 12:42+0100",
+         "PO-Revision-Date": " 2012-10-23 13:22+0100",
          "Last-Translator": " Ramón Cahenzli <ramon.cahenzli@zhdk.ch>",
          "Language-Team": " German (Switzerland) <ramon.cahenzli@zhdk.ch>",
          "Language": " ",
@@ -244,7 +244,7 @@ window.i18n.locale_data = {
       ],
       "Are any of the above borrowed items?": [
          null,
-         "Handelt es sich um ausgeliehens Material?"
+         "Handelt es sich um ausgeliehenes Material?"
       ],
       "Are any of the above items your personal computer?": [
          null,
@@ -2058,6 +2058,10 @@ window.i18n.locale_data = {
       "available": [
          null,
          "verfügbar"
+      ],
+      "requested": [
+         null,
+         "angefragt"
       ],
       "awaiting approval": [
          null,

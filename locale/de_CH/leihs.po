@@ -1501,6 +1501,9 @@ msgstr "Zugwiesen an %s"
 msgid "available"
 msgstr "verfügbar"
 
+msgid "requested"
+msgstr "angefragt"
+
 msgid "awaiting approval"
 msgstr "wartet auf Genehmigung"
 

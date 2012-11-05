@@ -10,9 +10,14 @@ ${$max_available = new App.Availability(availability_for_inventory_pool).maxAvai
 %ul.line
   .main
     %li.amount
-      ${quantity}
+      %span.requested
+        %span.number
+          ${quantity}
+        %span.label
+          ${_jed("requested")}
       {{if (type != "option_line")}} 
       = "/"     
+      %br
       %span.grey.available
         %span.number ${$max_available}
         ${_jed("available")}

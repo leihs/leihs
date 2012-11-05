@@ -3,7 +3,7 @@
 
 .option_line.line {
   
-  &.valid.assigned {
+  &.valid.assigned:not(.error) {
     background: $highlight-green !important;
     border-top: 1px solid $highlight-darkgreen !important;
     border-bottom: 1px solid $borderhighlightgreen !important;
