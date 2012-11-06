@@ -44,16 +44,22 @@
   
   &>.main {
     display: inline-block;
-    width: 80%;
+    width: 77%;
   }  
   
   &>.actions {
     display: inline-block;
     float: right;
     padding-top: 1px;
+    width: 23%;
     
     li.actions {
       padding-right: 4px;
+      float: right;
+
+      &>.multibutton > .button{
+        max-width: 165px;
+      }
     }
   }
   
