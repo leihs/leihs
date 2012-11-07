@@ -40,7 +40,7 @@ gem "underscore-rails", "~> 1.3.1"
 gem 'factory_girl', "~> 4.0"
 gem 'factory_girl_rails', "~> 4.0"
 gem 'faker'
-
+gem "uuidtools", "~> 2.1.2" # needed for creating unique ids during tests (factories)
 
 group :assets do # Gems used only for assets and not required in production environments by default.
   gem 'sass-rails', '~> 3.2'
@@ -83,7 +83,6 @@ group :test, :development do
   gem 'capybara', '~> 1.1'
   gem 'simplecov'
   gem 'launchy', '~> 2.1'
-  gem "uuidtools", "~> 2.1.2" # needed for creating unique ids during tests (factories)
   gem "timecop", "~> 0.4"
   gem 'capybara-screenshot'
   gem 'yard'
