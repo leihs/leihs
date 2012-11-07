@@ -35,6 +35,11 @@ gem "underscore-rails", "~> 1.3.1"
 # gem "RubyInline", '3.8.2', :require => "inline"
 
 
+# NOTE: Do not move this to the 'development' group, since we need these
+# factories also in production mode to seed our demo data on the demo server
+gem 'factory_girl', "~> 4.0"
+gem 'factory_girl_rails', "~> 4.0"
+
 group :assets do # Gems used only for assets and not required in production environments by default.
   gem 'sass-rails', '~> 3.2'
   gem 'coffee-rails', '~> 3.2'
@@ -65,8 +70,6 @@ group :test, :development do
   gem "jasminerice", "~> 0.0.9" # needed for implement coffeescript, fixtures and asset pipeline serverd css into jasmine
   gem "rb-fsevent", "~> 0.9"
   gem "ruby_gntp", "~> 0.3.4"
-  gem 'factory_girl', "~> 4.0"
-  gem 'factory_girl_rails', "~> 4.0"
   gem 'faker'
   gem 'pry', "~> 0.9"
   gem 'pry-rails', "~> 0.1"
