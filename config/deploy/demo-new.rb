@@ -48,6 +48,9 @@ task :reset_demo_data do
   run "mysql -h #{sql_host} --user=#{sql_username} --password=#{sql_password} -e 'create database #{sql_database}'"
   run "cd #{release_path} && RAILS_ENV=production bundle exec rake leihs:reset"
   run "cd #{release_path} && RAILS_ENV=production bundle exec rake app:seed:demo"
+  # Super-special shit: We need to tell the leihs 2.9 demo that its database has completely exploded and that it needs to expire everything it knows
+  # about models and availability.
+  run "/home/leihs/leihs-demo/refresh_data.sh"
 end
 
 namespace :deploy do
