@@ -50,7 +50,7 @@
           - else
             - [{:value => nil, :label => _("None")}] + InventoryPool.all.map {|x| {:value => x.id, :label => x.name}}
           %label.container
-            %input{:type => "hidden", :name => "item[inventory_pool_id]", :value => @item.supplier_id }
+            %input{:type => "hidden", :name => "item[inventory_pool_id]", :value => @item.inventory_pool.id }
             %input.autocomplete{:type => "text",
                                 :placeholder => _("Responsible department"),
                                 :title => _("Responsible department"),

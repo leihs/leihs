@@ -27,82 +27,28 @@ role :app, "leihs@rails.zhdk.ch"
 role :web, "leihs@rails.zhdk.ch"
 role :db,  "leihs@rails.zhdk.ch", :primary => true
 
-task :retrieve_db_config do
-  # DB credentials needed by mysqldump etc.
-  get(db_config, "/tmp/leihs_demo-new_db_config.yml")
-  dbconf = YAML::load_file("/tmp/leihs_demo-new_db_config.yml")["production"]
-  set :sql_database, dbconf['database']
-  set :sql_host, dbconf['host']
-  set :sql_username, dbconf['username']
-  set :sql_password, dbconf['password']
-end
+load 'config/deploy/recipes/retrieve_db_config'
+load 'config/deploy/recipes/link_config'
+load 'config/deploy/recipes/link_attachments'
+load 'config/deploy/recipes/link_db_backups'
+load 'config/deploy/recipes/make_tmp'
+load 'config/deploy/recipes/chmod_tmp'
+load 'config/deploy/recipes/migrate_database'
+load 'config/deploy/recipes/bundle_install'
+load 'config/deploy/recipes/precompile_assets'
 
-task :link_config do
-  run "rm -f #{release_path}/config/database.yml"
-  run "rm -f #{release_path}/config/application.rb"
-
-  run "ln -s #{db_config} #{release_path}/config/database.yml"
-  run "ln -s #{app_config} #{release_path}/config/application.rb"
-end
-
-task :link_attachments do
-  #run "rm -rf #{release_path}/public/images/attachments"
-  run "mkdir -p #{release_path}/public/images"
-  run "ln -sf #{deploy_to}/#{shared_dir}/attachments #{release_path}/public/images/attachments"
-
-  #run "rm -rf #{release_path}/public/attachments"
-  run "ln -sf #{deploy_to}/#{shared_dir}/attachments #{release_path}/public/attachments"
-end
-
-task :link_db_backups do
-  run "rm -rf #{release_path}/db/backups"
-  run "ln -s #{deploy_to}/#{shared_dir}/db_backups #{release_path}/db/backups"
-end
-
-task :make_tmp do
-	run "mkdir -p #{release_path}/tmp/sessions #{release_path}/tmp/cache"
-end
-
-task :chmod_tmp do
-  run "chmod g-w #{release_path}/tmp"
-end
 
 task :modify_config do
   # On staging/test, we don't want to deliver e-mail
   run "sed -i 's/config.action_mailer.perform_deliveries = true/config.action_mailer.perform_deliveries = false/' #{release_path}/config/environments/production.rb"
 end
 
-task :migrate_database do
-  # Produce a string like 2010-07-15T09-16-35+02-00
-  date_string = DateTime.now.to_s.gsub(":","-")
-  dump_dir = "#{deploy_to}/#{shared_dir}/db_backups"
-  dump_path =  "#{dump_dir}/#{sql_database}-#{date_string}.sql"
-  # If mysqldump fails for any reason, Capistrano will stop here
-  # because run catches the exit code of mysqldump
-  run "mysqldump -h #{sql_host} --user=#{sql_username} --password=#{sql_password} -r #{dump_path} #{sql_database}"
-  run "bzip2 #{dump_path}"
-  run "cd #{release_path} && RAILS_ENV='production' bundle exec rake db:migrate"
-end
-
-# The built-in capistrano/bundler integration seems broken: It does not cd to release_path but instead
-# to the previous release, which has the wrong Gemfile. This fixes that, but of course means we cannot use 
-# the built-in bundler support.
-task :bundle_install do
-  run "cd #{release_path} && bundle install --gemfile '#{release_path}/Gemfile' --path '#{deploy_to}/#{shared_dir}/bundle' --deployment --without development test"
-end
-
-task :precompile_assets do
-  # working around a known bug in Rails: http://stackoverflow.com/questions/7252872/upgrade-to-rails-3-1-0-from-rc6-asset-precompile-fails
-  run "sed -i 's/config.assets.compile = false/config.assets.compile = true/' #{release_path}/config/environments/production.rb"
-  run "cd #{release_path} && RAILS_ENV=production bundle exec rake assets:precompile"
-  run "sed -i 's/config.assets.compile = true/config.assets.compile = false/' #{release_path}/config/environments/production.rb"
-end
-
 task :reset_demo_data do
   run "mysql -h #{sql_host} --user=#{sql_username} --password=#{sql_password} #{sql_database} -e 'drop database #{sql_database}'"
   run "mysql -h #{sql_host} --user=#{sql_username} --password=#{sql_password} -e 'create database #{sql_database}'"
-  run "cd #{release_path} && bundle exec rake leihs:reset"
-  run "cd #{release_path} && bundle exec rake app:seed:demo"
+  # Super-special shit: We need to reset all data and then tell the leihs 2.9 demo that its database has completely 
+  # exploded and that it needs to expire everything it knows about models and availability.
+  run "/home/leihs/leihs-demo-new/reseed_demo_data.sh"
 end
 
 namespace :deploy do

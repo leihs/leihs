@@ -7,7 +7,7 @@ namespace :app do
       puts "[START] Seeding the demo data"
       require "factory_girl"
       require "faker"
-      require 'pry'
+#      require 'pry'
       #FactoryGirl.find_definitions
 
       customer_role = Role.where(:name => 'customer').first
@@ -28,21 +28,21 @@ namespace :app do
       end
 
       # A normal user that people can use to log in with
-      normal_user_1 = FactoryGirl.create(:user, :login => 'normal_user_1', :firstname => 'Normalio', :lastname => 'Normex')
-      normal_user_1.access_rights.build(:role => customer_role, :inventory_pool => ip1)
-      normal_user_1.access_rights.build(:role => customer_role, :inventory_pool => ip2)
-      normal_user_1.access_rights.build(:role => customer_role, :inventory_pool => ip3)
-      normal_user_1.save
-      FactoryGirl.create(:database_authentication, :user => normal_user_1, :password => 'pass')
+      normal_user = FactoryGirl.create(:user, :login => 'normal_user', :firstname => 'Normalio', :lastname => 'Normex')
+      normal_user.access_rights.build(:role => customer_role, :inventory_pool => ip1)
+      normal_user.access_rights.build(:role => customer_role, :inventory_pool => ip2)
+      normal_user.access_rights.build(:role => customer_role, :inventory_pool => ip3)
+      normal_user.save
+      FactoryGirl.create(:database_authentication, :user => normal_user, :password => 'pass')
       
 
       # An inventory manager
-      manager_user_1 = FactoryGirl.create(:user, :login => 'manager_user_1', :firstname => 'Inventory', :lastname => 'Manager')
-      manager_user_1.access_rights.build(:role => manager_role, :inventory_pool => ip1, :access_level => 3)
-      manager_user_1.access_rights.build(:role => manager_role, :inventory_pool => ip2, :access_level => 3)
-      manager_user_1.access_rights.build(:role => manager_role, :inventory_pool => ip3, :access_level => 3)   
-      manager_user_1.save
-      FactoryGirl.create(:database_authentication, :user => manager_user_1, :password => 'pass')
+      manager_user = FactoryGirl.create(:user, :login => 'manager_user', :firstname => 'Inventory', :lastname => 'Manager')
+      manager_user.access_rights.build(:role => manager_role, :inventory_pool => ip1, :access_level => 3)
+      manager_user.access_rights.build(:role => manager_role, :inventory_pool => ip2, :access_level => 3)
+      manager_user.access_rights.build(:role => manager_role, :inventory_pool => ip3, :access_level => 3)   
+      manager_user.save
+      FactoryGirl.create(:database_authentication, :user => manager_user, :password => 'pass')
 
       # Categories
       head = FactoryGirl.create(:category, :name => 'Headphones')
