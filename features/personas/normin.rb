@@ -76,7 +76,7 @@ module Persona
       @unsigned_contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool)
       purpose = FactoryGirl.create :purpose, :description => "Um meine Abschlussarbeit zu fotografieren."
       FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @unsigned_contract, :item_id => @inventory_pool.items.in_stock.where(:model_id => @camera_model).first.id, :model => @camera_model, :start_date => Date.yesterday, :end_date => Date.today)
-      @unsigned_contract.sign(nil, @pius)
+      @unsigned_contract.sign(@pius)
     end
 
     def setup_groups

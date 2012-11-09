@@ -108,7 +108,8 @@ module Json
                        :returned_date => true},
             :user => {:address => true,
                       :zip => true,
-                      :city => true} }
+                      :city => true},
+            :handed_over_by_user => {} }
           when :contract_line
             {:is_valid => true,
              :item => {:is_borrowable => true, :is_broken => true, :is_incomplete => true},

@@ -44,7 +44,7 @@ class Backend::HandOverController < Backend::BackendController
 
     respond_to do |format|
       format.json {
-        if @contract.sign(lines, current_user)
+        if @contract.sign(current_user, lines)
           render :json => view_context.json_for(@contract.reload, {:preset => :contract})
         else
           @error = {:message => @contract.errors.full_messages}

@@ -65,7 +65,7 @@ module Persona
       FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @unsigned_contract, :item_id => @inventory_pool.items.in_stock.where(:model_id => @beamer_model).first.id, :model => @beamer_model, :start_date => Date.yesterday, :end_date => Date.today)
       @akku = Option.find_by_name("Akku AA")
       FactoryGirl.create(:option_line, :purpose => purpose, :contract => @unsigned_contract, :option => @akku, :start_date => Date.yesterday, :end_date => Date.today)
-      @unsigned_contract.sign(nil, @pius)
+      @unsigned_contract.sign(@pius)
     end
   end  
 end
