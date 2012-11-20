@@ -14,15 +14,26 @@ Funktionalität: Statistiken von Ausleihe und Inventar
   @javascript
   Szenario: Zeitliche Eingrenzung der Statistik-Ansicht
     Angenommen ich bin in der Statistik-Ansicht
+    Dann sehe ich normalerweise die Statistik der letzten 30 Tage
     Wenn ich den Zeitraum eingrenze auf 1.1. - 31.12. des laufenden Jahres
-    Dann sehe ich nur statistische Daten die Relevant sind für den 1.1. - 31.12. des laufenden Jahres
+    Dann sehe ich nur statistische Daten die relevant sind für den 1.1. - 31.12. des laufenden Jahres
+    Wenn es sich beim Angezeigten um eine Ausleihe handelt
+    Dann sehe ich sie nur, wenn ihr Startdatum und ihr Rückgabedatum innerhalb der ausgewählten Zeit liegen
 
   @javascript
   Szenario: Statistik über die Anzahl der Ausleihvorgänge pro Modell
     Angenommen ich bin in der Statistik-Ansicht über Ausleihvorgänge
-    Wenn dort ein Modell erscheint
-    Dann sehe ich für das Modell die Anzahl Ausleihen
-    Dann sehe ich für das Modell die Anzahl Rücknahmen
+    Dann sehe ich dort alle Geräteparks, die Gegenstände besitzen
+    Wenn ich einen Gerätepark expandiere
+    Dann sehe ich alle Modelle, für die deren Gegenstände dieser Gerätepark verantwortlich ist
+    Und ich sehe für das Modell die Anzahl Ausleihen
+    Und ich sehe für das Modell die Anzahl Rücknahmen
+
+  @javascript
+  Szenario: Statistik über Benutzer und deren Ausleihvorgänge
+    Angenommen ich bin in der Statistik-Ansicht über Benutzer
+    Dann sehe ich für jeden Benutzer die Anzahl Aushändigungen
+    Dann sehe ich für jeden Benutzer die Anzahl Rücknahmen
 
   @javascript
   Szenario: Expandieren eines Modells
@@ -34,11 +45,11 @@ Funktionalität: Statistiken von Ausleihe und Inventar
   @javascript
   Szenario: Statistik über den Wert der Modelle und Gegenstände
     Angenommen ich bin in der Statistik-Ansicht über den Wert
-    Wenn dort ein Modell erscheint
-    Dann sehe ich für das Modell die Geräteparks, in denen Gegenstände dieses Modells existieren
-    Dann sehe ich für das Modell die Summe des Anschaffungswerts aller Gegenstände dieses Modells
+    Dann sehe ich dort alle Geräteparks, die Gegenstände besitzen
+    Wenn ich einen Gerätepark expandiere
+    Dann sehe ich alle Modelle, für die dieser Gerätepark Gegenstände besitzt
+    Und für jedes  Modell die Summe des Anschaffungswerts aller Gegenstände dieses Modells in diesem Gerätepark
+    Und für jedes  Modell die Anzahl aller Gegenstände dieses Modells in diesem Gerätepark
     Wenn ich ein solches Modell expandiere
     Dann sehe ich eine Liste aller Gegenstände dieses Modells
     Dann sehe ich für jeden Gegenstand seinen Anschaffungswert
-
-
