@@ -21,7 +21,7 @@
     .notification
       %strong= "#{_("This item was retired")}:"
       = short_date(@item.retired)
-      = @item.retired_reason if @item.retired_reason.size > 0
+      = @item.retired_reason unless @item.retired_reason.nil?
 
   - if ! is_lending_manager?
     .notification

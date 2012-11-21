@@ -1,7 +1,7 @@
 Given "this model has $number item$s in inventory pool $ip" do |number, s, ip|
   inventory_pool = InventoryPool.find_by_name(ip)
   number.to_i.times do | i |
-    LeihsFactory.create_item(:model => @model, :inventory_pool => inventory_pool)
+    FactoryGirl.create(:item, :owner => inventory_pool, :model => @model)
   end
   inventory_pool.items.where(:model_id => @model.id).count.should == number.to_i
 end

@@ -97,6 +97,38 @@ window.i18n.locale_data = {
          null,
          "Gegenstände zurückzubringen am "
       ],
+      "Process multiple fields for multiple items in a row": [
+         null,
+         "Ändern Sie in Folge mehrere Felder mehrer Gegenstände"
+      ],
+      "no fields selected": [
+         null,
+         "Keine Felder ausgewählt"
+      ],
+      "no item selected": [
+         null,
+         "Keinen Gegenstand ausgewählt"
+      ],
+      "Select Field": [
+         null,
+         "Feld auswählen"
+      ],
+      "Apply Fields on Item": [
+         null,
+         "Felder auf Gegenstand anwenden"
+      ],
+      "Fieldname": [
+         null,
+         "Name des Feldes"
+      ],
+      "Inventory Helper": [
+         null,
+         "Inventarhelfer"
+      ],
+      "Helper": [
+         null,
+         "Helfer"
+      ],
       "\"Couldn't connect to LDAP: #{LDAP_CONFIG[:host]}:#{LDAP_CONFIG[:port]}\"": [
          null,
          ""
@@ -794,6 +826,18 @@ window.i18n.locale_data = {
          null,
          "Rechnungsnummer"
       ],
+      "Reference": [
+         null,
+         "Bezug"
+      ],
+      "running account": [
+         null,
+         "laufende Rechnung"
+      ],
+      "investment": [
+         null,
+         "Investition"
+      ],
       "Item": [
          "Items",
          "Gegenstand",
@@ -1235,7 +1279,7 @@ window.i18n.locale_data = {
          null,
          "Probleme"
       ],
-      "Projektnummer": [
+      "Project Number": [
          null,
          "Projektnummer"
       ],
@@ -1619,9 +1663,9 @@ window.i18n.locale_data = {
          null,
          "Dieser Gegenstand ist bereits einem anderen Vertrag zugewiesen"
       ],
-      "The item with the inventory code %s was not found": [
+      "The item with the inventory code '%s' was not found": [
          null,
-         "Gegenstand mit Inventarcode %s nicht gefunden"
+         "Gegenstand mit Inventarcode '%s' nicht gefunden"
       ],
       "The line was not found": [
          null,
@@ -1713,11 +1757,11 @@ window.i18n.locale_data = {
       ],
       "This item was retired": [
          null,
-         "Dieser Gegenstand würde ausgemustert"
+         "Dieser Gegenstand wurde ausgemustert"
       ],
-      "This item will be given to a different inventory pool and not show up in yours anymore!": [
+      "If you transfer an item to a different inventory pool it's not visible for you anymore.": [
          null,
-         "Dieser Gegenstand wird auf einen anderen übertragen und erscheint nicht mehr in diesem!"
+         "Wenn Sie einen Gegenstand auf einen anderen Gerätepark übertragen ist dieser nichtmehr für Sie sichtbar."
       ],
       "This model is now in %d categories": [
          null,

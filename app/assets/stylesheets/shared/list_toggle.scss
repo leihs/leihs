@@ -11,6 +11,7 @@
   margin-bottom: -40px;
   top: -23px;
   height: 32px;
+  z-index: 9;
   @include box-shadow(0 -12px 15px -6px rgba(0, 0, 0, 0.1));
   
   .text {

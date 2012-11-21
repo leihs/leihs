@@ -9,12 +9,47 @@ module Json
       }
       
       if with ||= nil
-        [:is_borrowable, :current_borrower, :current_return_date, :in_stock?, :is_broken, :is_incomplete, :price, :inventory_pool].each do |k|
+        [:current_borrower,
+         :current_return_date,
+         :in_stock?,
+         :insurance_number,
+         :inventory_pool,
+         :invoice_date,
+         :invoice_number,
+         :is_borrowable,
+         :is_broken,
+         :is_incomplete,
+         :is_inventory_relevant,
+         :last_check,
+         :name,
+         :note,
+         :price,
+         :properties,
+         :responsible,
+         :retired_reason,
+         :serial_number,
+         :user_name].each do |k|
           h[k] = item.send(k) if with[k]
         end
       
-        if with[:location]
+        if with[:retired]
+          h[:retired] = ! item.retired.nil?
+        end
+
+        if with[:location_as_string]
           h[:location] = (item.owner != item.inventory_pool) ? "#{item.inventory_pool.to_s}, #{item.location.to_s}" : item.location.to_s
+        end
+
+        if with[:location]
+          h[:location] = hash_for item.location if item.location
+        end
+
+        if with[:owner]
+          h[:owner] = hash_for item.owner
+        end
+
+        if with[:supplier]
+          h[:supplier] = hash_for item.supplier if item.supplier
         end
       
         if with[:model]

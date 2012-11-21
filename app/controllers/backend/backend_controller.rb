@@ -74,7 +74,7 @@ class Backend::BackendController < ApplicationController
         @results = results.flatten
         render :template => "backend/backend/focused_search" if types and types.size == 1
       }
-      format.json { render :json => view_context.search_results_json(results.flatten.sort_by(&:name).compact, with) }
+      format.json { render :json => view_context.search_results_json(results.flatten.compact, with) } #old#?? .sort_by(&:name)
     end
   end
 

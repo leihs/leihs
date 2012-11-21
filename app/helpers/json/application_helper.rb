@@ -59,6 +59,32 @@ module Json
 
     def get_with_preset(key)
       case key.to_sym
+        when :item_edit
+         { :current_borrower => true,
+           :current_return_date => true,
+           :in_stock? => true,
+           :insurance_number => true,
+           :inventory_pool => true,
+           :invoice_date => true,
+           :invoice_number => true,
+           :is_borrowable => true,
+           :is_broken => true,
+           :is_incomplete => true,
+           :is_inventory_relevant => true,
+           :last_check => true,
+           :location => true,
+           :model => true,
+           :name => true,
+           :note => true,
+           :owner => true,
+           :price => true,
+           :properties => true,
+           :responsible => true,
+           :retired => true,
+           :retired_reason => true,
+           :serial_number => true,
+           :supplier => true,
+           :user_name => true}
         when :inventory
           {:image_thumb => true,
            :inventory_code => true, # for options
@@ -70,7 +96,7 @@ module Json
                       :in_stock? => true,
                       :is_broken => true,
                       :is_incomplete => true,
-                      :location => true,
+                      :location_as_string => true,
                       :inventory_pool => true,
                       :children => {:model => {}}
                      },

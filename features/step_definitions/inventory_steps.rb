@@ -96,7 +96,7 @@ end
 Given /(\d+) item(s?) of model '(.+)' exist(s?)/ do |number, plural1, model, plural2|
   @model = LeihsFactory.create_model(:name => model)
   number.to_i.times do | i |
-    LeihsFactory.create_item( :model_id => @model.id, :inventory_pool => @inventory_pool )
+    FactoryGirl.create(:item, :owner => @inventory_pool, :model => @model)
   end
 end
 
@@ -108,8 +108,7 @@ do |particle,plural, inventory_codes, model, plural2, only|
 
   inv_codes = inventory_codes.split /,/
   inv_codes.each do | inv_code |
-    LeihsFactory.create_item(:model_id => @model.id, :inventory_code => inv_code,
-		        :inventory_pool => @inventory_pool )
+    FactoryGirl.create(:item, :owner => @inventory_pool, :model => @model, :inventory_code => inv_code)
   end
 end
 
@@ -122,7 +121,7 @@ end
 
 Given "$number items of this model exist" do |number|
   number.to_i.times do | i |
-    LeihsFactory.create_item( :model_id => @model.id, :inventory_pool => @inventory_pool )
+    FactoryGirl.create(:item, :owner => @inventory_pool, :model => @model)
   end
   @model = Model.find(@model.id)
 end
@@ -135,7 +134,7 @@ end
 
 Given "we have items with the following inventory_codes:" do |inventory_codes_table|
   inventory_codes_table.hashes.each do |hash|
-    LeihsFactory.create_item( :model_id => @model.id, :inventory_pool => @inventory_pool, :inventory_code => hash[:inventory_code] )
+    FactoryGirl.create(:item, :owner => @inventory_pool, :model => @model, :inventory_code => hash[:inventory_code] )
   end
 end
 
@@ -173,7 +172,7 @@ Then "the generated_code should look like this '$result'" do |result|
 end
 
 When "we add an item '$inventory_code'" do |inventory_code|
-  i = LeihsFactory.create_item( :model_id => @model.id, :inventory_pool => @inventory_pool, :inventory_code => inventory_code )
+  FactoryGirl.create(:item, :owner => @inventory_pool, :model => @model, :inventory_code => inventory_code )
 end
 
 # this test is specifically for the 'New Item' page

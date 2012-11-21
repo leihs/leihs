@@ -8,37 +8,23 @@
   @include unselectable();
   
   &[disabled=disabled], &[disabled=disabled]:hover, &[disabled=disabled]:active {
-    &>.button {
-      cursor: default;
-      @include opacity(0.6);
-      &:hover:not([disabled]) {
-        background: url($slices-h) repeat-x 0 -252px;
-        color: #808080;
-        border-bottom-right-radius: 0;
-      }
-      &.green:hover:not([disabled]) {
-        color: #2e7929;
-        background: url($slices-h) repeat-x 0 -156px;  
-      }
-    }
     
-    .alternatives {
+    &>.alternatives {
       @include opacity(0.6);
-    }
-    
-    &>.alternatives:hover {
-      .trigger {
-        background: url($slices-h) repeat-x 0 -252px;
-        border-bottom-right-radius: 6px;
-        &.green {
-          background: url($slices-h) repeat-x 0 -156px;
+
+      &:hover {
+
+        .trigger {
+          border-bottom-right-radius: 6px;
         }
-      }
-      .button {
-        display: none;
-      }
-      &+.button {
-        border-bottom-left-radius: 6px;    
+
+        .arrow {
+          @include opacity(0.6);
+        }
+
+        .button {
+          display: none;
+        }
       }
     }
   }
@@ -64,7 +50,6 @@
     width: 100%;
     
     .trigger {
-      background: url($slices-h) repeat-x 0 -252px;
       border: 1px solid rgba(80,80,80,0.3);
       border-bottom: 1px solid rgba(80,80,80,0.4);
       border-left: none;
@@ -78,9 +63,10 @@
       right: 0;
       top: -31px;
       width: 28px;
+      @include vertical-gradient(rgb(230,230,230), white, 20%, 80%);
       
       &.green {
-        background: url($slices-h) repeat-x 0 -156px;
+        @include vertical-gradient(rgb(141,206,88), rgb(175,236,129), 20%, 80%);
         
         .arrow {
           @include opacity(1.0);  
@@ -127,11 +113,11 @@
       z-index: 9998;
       
       .trigger {
-        background: url($slices-h) repeat-x 0 -284px;
         border-bottom-right-radius: 0;
-        
+        @include vertical-gradient(rgb(235,235,235), rgb(226,226,226), 20%, 80%);
+      
         &.green {
-          background: url($slices-h) repeat-x 0 -188px;
+          @include vertical-gradient(rgb(157,219,106), rgb(148,209,98), 20%, 80%);
         }
         
         .arrow {
@@ -155,11 +141,11 @@
       z-index: 9998;
       
       .trigger {
-        background: url($slices-h) repeat-x 0 -284px;
         border-bottom-right-radius: 0;
-        
+        @include vertical-gradient(rgb(235,235,235), rgb(226,226,226), 20%, 80%);
+      
         &.green {
-          background: url($slices-h) repeat-x 0 -188px;
+          @include vertical-gradient(rgb(157,219,106), rgb(148,209,98), 20%, 80%);
         }
         
         .arrow {

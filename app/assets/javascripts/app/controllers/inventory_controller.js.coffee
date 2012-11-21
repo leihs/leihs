@@ -180,7 +180,6 @@ class InventoryController
       do @fetch_inventory
     @tabs.on "click", ".tab", (e)=>
       delete @current_page
-      debugger
       @search.val("") if not $(e.currentTarget).data("tab")? and not @active_tab.data("tab")?
       @active_tab = $(e.currentTarget)
       do e.preventDefault

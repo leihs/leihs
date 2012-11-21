@@ -31,7 +31,7 @@ class Item < ActiveRecord::Base
 ####################################################################
   
   validates_uniqueness_of :inventory_code
-  validates_presence_of :inventory_code, :model
+  validates_presence_of :inventory_code, :model, :owner
   validate :validates_package, :validates_model_change, :validates_retired
 
 ####################################################################
@@ -39,6 +39,7 @@ class Item < ActiveRecord::Base
   before_save do
     self.owner = inventory_pool if inventory_pool and !owner
     self.properties = properties.to_hash.delete_if{|k,v| v.blank?}.deep_symbolize_keys # we want to store serialized plain Hash (not HashWithIndifferentAccess) and remove empty values
+    self.retired_reason = nil unless retired?
   end
 
   after_save :update_children_attributes
@@ -396,6 +397,64 @@ class Item < ActiveRecord::Base
       update_child_attributes(child)
     end
   end
+
+####################################################################
+
+
+  # overriding attribute setter
+  def retired=(v)
+    if v.is_a? Date
+      write_attribute :retired, v
+    elsif v == "true" || v == true
+      if retired?
+        # we keep the existing stored date
+      else
+        self[:retired] = Date.today
+      end
+    else
+      self[:retired] = nil
+    end
+  end
+
+  # overriding association setter
+  def location_with_params=(v)
+    self.location_without_params = if v.is_a? Hash
+      Location.find_or_create(v) unless v.blank?
+    else
+      v
+    end
+  end
+  alias_method_chain :location=, :params
+
+  # overriding association setter
+  def supplier_with_params=(v)
+    self.supplier_without_params = if v.is_a? Hash
+      Supplier.find(v[:id]) unless v[:id].blank?
+    else
+      v
+    end
+  end
+  alias_method_chain :supplier=, :params
+
+  # overriding association setter
+  def owner_with_params=(v)
+    self.owner_without_params = if v.is_a? Hash
+      InventoryPool.find(v[:id]) unless v[:id].blank?
+    else
+      v
+    end
+  end
+  alias_method_chain :owner=, :params
+
+  # overriding association setter
+  def inventory_pool_with_params=(v)
+    self.inventory_pool_without_params = if v.is_a? Hash
+      InventoryPool.find(v[:id]) unless v[:id].blank?
+    else
+      v
+    end
+  end
+  alias_method_chain :inventory_pool=, :params
 
 ####################################################################
 

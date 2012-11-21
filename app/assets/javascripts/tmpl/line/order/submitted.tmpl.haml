@@ -48,6 +48,7 @@
             :"data-dialog_class" => "medium with_comment",
             :"data-on_success" => 'Line.remove({"element": $(this).closest(".dialog").data("trigger").closest(".line"), "color": "red"})',
             :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
+            .icon.delete
             ${_jed("Reject")}
             
         = link_to "/backend/inventory_pools/${currentInventoryPool.id}/acknowledge/${id}/approve", 

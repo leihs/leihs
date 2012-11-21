@@ -27,6 +27,30 @@ msgstr "Gegenstände"
 msgid " item(s) due on "
 msgstr "Gegenstände zurückzubringen am "
 
+msgid "Process multiple fields for multiple items in a row"
+msgstr "Ändern Sie in Folge mehrere Felder mehrer Gegenstände"
+
+msgid "no fields selected"
+msgstr "Keine Felder ausgewählt"
+
+msgid "no item selected"
+msgstr "Keinen Gegenstand ausgewählt"
+
+msgid "Select Field"
+msgstr "Feld auswählen"
+
+msgid "Apply Fields on Item"
+msgstr "Felder auf Gegenstand anwenden"
+
+msgid "Fieldname"
+msgstr "Name des Feldes"
+
+msgid "Inventory Helper"
+msgstr "Inventarhelfer"
+
+msgid "Helper"
+msgstr "Helfer"
+
 msgid "\"Couldn't connect to LDAP: #{LDAP_CONFIG[:host]}:#{LDAP_CONFIG[:port]}\""
 msgstr ""
 
@@ -551,6 +575,15 @@ msgstr "Rechnungsinformationen"
 msgid "Invoice Number"
 msgstr "Rechnungsnummer"
 
+msgid "Reference"
+msgstr "Bezug"
+
+msgid "running account"
+msgstr "laufende Rechnung"
+
+msgid "investment"
+msgstr "Investition"
+
 msgid "Item"
 msgid_plural "Items"
 msgstr[0] "Gegenstand"
@@ -883,7 +916,7 @@ msgstr "Drucken"
 msgid "Problems"
 msgstr "Probleme"
 
-msgid "Projektnummer"
+msgid "Project Number"
 msgstr "Projektnummer"
 
 msgid "Purpose"
@@ -1171,8 +1204,8 @@ msgstr "Dieser Artikel entspricht nicht dem reservierten Modell"
 msgid "The item is already handed over or assigned to a different contract line"
 msgstr "Dieser Gegenstand ist bereits einem anderen Vertrag zugewiesen"
 
-msgid "The item with the inventory code %s was not found"
-msgstr "Gegenstand mit Inventarcode %s nicht gefunden"
+msgid "The item with the inventory code '%s' was not found"
+msgstr "Gegenstand mit Inventarcode '%s' nicht gefunden"
 
 msgid "The line was not found"
 msgstr "Zeile nicht gefunden"
@@ -1241,10 +1274,10 @@ msgid "This is the list of items you requested. To complete this order, please %
 msgstr "Dies ist eine Liste der gewünschten Gegenstände. Um die Bestellung zu vervollständigen, %s bitte."
 
 msgid "This item was retired"
-msgstr "Dieser Gegenstand würde ausgemustert"
+msgstr "Dieser Gegenstand wurde ausgemustert"
 
-msgid "This item will be given to a different inventory pool and not show up in yours anymore!"
-msgstr "Dieser Gegenstand wird auf einen anderen übertragen und erscheint nicht mehr in diesem!"
+msgid "If you transfer an item to a different inventory pool it's not visible for you anymore."
+msgstr "Wenn Sie einen Gegenstand auf einen anderen Gerätepark übertragen ist dieser nichtmehr für Sie sichtbar."
 
 msgid "This model is now in %d categories"
 msgstr "Modell ist jetzt in Kategorie %s"
