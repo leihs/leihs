@@ -71,7 +71,7 @@ window.i18n.locale_data = {
       "": {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
-         "POT-Creation-Date": " 2012-10-22 12:39+0200",
+         "POT-Creation-Date": " 2012-11-22 15:37+0100",
          "PO-Revision-Date": " 2012-09-17 14:41+0100",
          "Last-Translator": " Ramón Cahenzli <ramon.cahenzli@zhdk.ch>",
          "Language-Team": " Spanish <es@li.org>",
@@ -95,19 +95,6 @@ window.i18n.locale_data = {
          " elemento(s) vencidos el "
       ],
       "\"Couldn't connect to LDAP: #{LDAP_CONFIG[:host]}:#{LDAP_CONFIG[:port]}\"": [
-         null,
-         ""
-      ],
-      "%d day in the future": [
-         "%d days in the future",
-         "",
-         ""
-      ],
-      "%s (View in Order)": [
-         null,
-         ""
-      ],
-      "%s Search Results for \"%s\"": [
          null,
          ""
       ],
@@ -135,14 +122,6 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Ablauf Garantie": [
-         null,
-         ""
-      ],
-      "Ablauf Vertrag": [
-         null,
-         ""
-      ],
       "Access Level: %d": [
          null,
          "Acceso Denegado"
@@ -159,21 +138,9 @@ window.i18n.locale_data = {
          null,
          "Derechos de Acceso|Creado en"
       ],
-      "Acknowledge": [
-         null,
-         "Reconocer"
-      ],
-      "Add": [
-         null,
-         "Añadir"
-      ],
       "Add Purpose": [
          null,
          "Propósito"
-      ],
-      "Add/Assign": [
-         null,
-         ""
       ],
       "Added": [
          null,
@@ -183,55 +150,19 @@ window.i18n.locale_data = {
          null,
          "Notas adicionales:"
       ],
-      "Address": [
-         null,
-         "Añadido"
-      ],
-      "Admin": [
-         null,
-         "Admins"
-      ],
-      "All": [
-         null,
-         "Todos"
-      ],
       "An order for the following items listed below was received in an inventory pool you are responsible for.": [
          null,
          "Su pedido se los siguientes elementos fue aceptada correctamente."
       ],
-      "Ankunftsdatum": [
-         null,
-         ""
-      ],
-      "Ankunftsnotiz": [
-         null,
-         ""
-      ],
-      "Ankunftszustand": [
-         null,
-         ""
-      ],
-      "Approval Successful": [
-         null,
-         ""
-      ],
       "Approve": [
          null,
          "Aprobado"
-      ],
-      "Approve Order": [
-         null,
-         "Aprobar Pedido"
       ],
       "Approve anyway": [
          null,
          "Aprobado"
       ],
       "Approved": [
-         null,
-         "Aprobado"
-      ],
-      "Approved Items": [
          null,
          "Aprobado"
       ],
@@ -247,10 +178,6 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Assign": [
-         null,
-         ""
-      ],
       "Assigning the inventory code fails": [
          null,
          "Código de inventario"
@@ -263,25 +190,9 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Auswahl": [
-         null,
-         ""
-      ],
       "Availability Timeline": [
          null,
          "Disponibilidad"
-      ],
-      "Available": [
-         null,
-         "no disponible. "
-      ],
-      "Available in group '": [
-         null,
-         "Cantidad Disponible"
-      ],
-      "Available in total: ": [
-         null,
-         "Cantidad Disponible"
       ],
       "Back": [
          null,
@@ -291,10 +202,6 @@ window.i18n.locale_data = {
          null,
          "Lista Negra"
       ],
-      "Backend": [
-         null,
-         ""
-      ],
       "Badge ID was updated": [
          null,
          "ID de Distintivo: "
@@ -303,77 +210,17 @@ window.i18n.locale_data = {
          null,
          "Usuario|Distintivo"
       ],
-      "Barcode": [
-         null,
-         "Código de barras"
-      ],
-      "Bezug": [
-         null,
-         ""
-      ],
-      "Book": [
-         null,
-         "Roto"
-      ],
-      "Borrowable": [
-         null,
-         "Prestable"
-      ],
-      "Borrowed Items": [
-         null,
-         "Artículos Propios"
-      ],
       "Borrower": [
          null,
          "Prestable"
-      ],
-      "Broken": [
-         null,
-         "Roto"
-      ],
-      "Building": [
-         null,
-         "Edificio"
       ],
       "By not returning these items, you are blocking other people's reservations. This is very unfair to the other clients and to the inventory manager, since you are causing a significant amount of trouble and annoyance.": [
          null,
          "Si no devuelve estos artículos, estará bloqueando las reservas de otras personas. Esto es muy injusto para los demás clientes y administradores de stock ya que estaría provocando un gran número de problemas y molestias."
       ],
-      "CSV": [
-         null,
-         ""
-      ],
-      "CSV export": [
-         null,
-         ""
-      ],
       "Cancel": [
          null,
          "Cancelar"
-      ],
-      "Cancel Edit": [
-         null,
-         "Cancelar"
-      ],
-      "Categories": [
-         null,
-         "Categorías"
-      ],
-      "Change Borrower": [
-         null,
-         "Prestable"
-      ],
-      "Change Borrower Successful": [
-         null,
-         ""
-      ],
-      "Change Orderer": [
-         null,
-         "Cambiar"
-      ],
-      "Change Orderer Successful": [
-         null,
-         ""
       ],
       "Changed %s from %s to %s": [
          null,
@@ -392,14 +239,6 @@ window.i18n.locale_data = {
          "Compatibilidad quitada correctamente"
       ],
       "Complete": [
-         null,
-         "Incompleto"
-      ],
-      "Complete Search": [
-         null,
-         "Incompleto"
-      ],
-      "Completeness": [
          null,
          "Incompleto"
       ],
@@ -423,10 +262,6 @@ window.i18n.locale_data = {
          null,
          "Contrato Nro."
       ],
-      "Contracts": [
-         null,
-         "Contratos"
-      ],
       "Couldn't update ": [
          null,
          ""
@@ -435,25 +270,9 @@ window.i18n.locale_data = {
          null,
          "Usuario|Creado en"
       ],
-      "Current Order": [
-         null,
-         "Rechazar Pedido"
-      ],
-      "Currently Borrowed Items": [
-         null,
-         "Artículos Propios"
-      ],
       "Currently has things to return": [
          null,
          "Actualmente contiene las siguientes cosas"
-      ],
-      "Currently you have no items in your order.": [
-         null,
-         ""
-      ],
-      "Daily View": [
-         null,
-         ""
       ],
       "Day": [
          null,
@@ -487,22 +306,6 @@ window.i18n.locale_data = {
          null,
          "Artículo retirado el"
       ],
-      "Delete": [
-         null,
-         "Eliminar"
-      ],
-      "Delete Selection": [
-         null,
-         "Borrar selección"
-      ],
-      "Delete this line": [
-         null,
-         "Borrar selección"
-      ],
-      "Description": [
-         null,
-         "Descripción"
-      ],
       "Documents": [
          null,
          "Documentos"
@@ -515,33 +318,9 @@ window.i18n.locale_data = {
          null,
          "Artículos a entregar"
       ],
-      "E-Mail": [
-         null,
-         ""
-      ],
-      "ERROR": [
-         null,
-         ""
-      ],
-      "Edit": [
-         null,
-         ""
-      ],
       "Edit Item": [
          null,
          "Agregar elemento"
-      ],
-      "Edit Order": [
-         null,
-         "Enviar Pedido"
-      ],
-      "Edit Purpose": [
-         null,
-         "Propósito"
-      ],
-      "Edit Selection": [
-         null,
-         "Borrar selección"
       ],
       "Edit multiple selected lines": [
          null,
@@ -559,17 +338,9 @@ window.i18n.locale_data = {
          null,
          "Nombre de Usuario ó Contraseña Vacios"
       ],
-      "End Date": [
-         null,
-         "Fecha final"
-      ],
       "End date": [
          null,
          "Fecha final"
-      ],
-      "Equipment Booking and Inventory Management System": [
-         null,
-         ""
       ],
       "Error": [
          null,
@@ -603,89 +374,21 @@ window.i18n.locale_data = {
          null,
          "Se espera su devolución."
       ],
-      "Finish this hand over": [
-         null,
-         "Artículos a entregar"
-      ],
       "Finish this take back": [
          null,
          "Artículos a entregar"
-      ],
-      "Found %d matches": [
-         null,
-         ""
-      ],
-      "Found %s": [
-         null,
-         ""
-      ],
-      "Fri": [
-         null,
-         "De"
-      ],
-      "Frontend": [
-         null,
-         ""
       ],
       "Functional": [
          null,
          "Acción"
       ],
-      "General Information": [
-         null,
-         "Información General"
-      ],
-      "Go Back": [
-         null,
-         "Retirar"
-      ],
       "Group %s": [
          null,
          "Grupo modelo"
       ],
-      "Hand Over": [
-         null,
-         "Entregar"
-      ],
-      "Hand Over Selection": [
-         null,
-         "Entregar"
-      ],
       "Hand Over to": [
          null,
          "Entregar"
-      ],
-      "Hand Over to %s": [
-         null,
-         "Entregar"
-      ],
-      "Hand Overs": [
-         null,
-         "Entregar"
-      ],
-      "Help": [
-         null,
-         "Ayuda"
-      ],
-      "Highlight available items.": [
-         null,
-         "Artículos disponibles"
-      ],
-      "History": [
-         null,
-         "historial"
-      ],
-      "IMEI-Nummmer": [
-         null,
-         ""
-      ],
-      "Important notes for hand over": [
-         null,
-         "Artículos a entregar"
-      ],
-      "In Stock": [
-         null,
-         "En Stock"
       ],
       "In Total": [
          null,
@@ -703,10 +406,6 @@ window.i18n.locale_data = {
          null,
          "Artículo|Grupo de inventario"
       ],
-      "Initial Price": [
-         null,
-         "Precio Inicial:"
-      ],
       "Inspect": [
          null,
          "Inspección"
@@ -714,18 +413,6 @@ window.i18n.locale_data = {
       "Inspect Item": [
          null,
          "Inspección"
-      ],
-      "Insurance Number": [
-         null,
-         "Número de Factura:"
-      ],
-      "Internal Description": [
-         null,
-         "Descripción Interna"
-      ],
-      "Introduction": [
-         null,
-         "Artículo|Ubicación"
       ],
       "Invalid order_lines": [
          null,
@@ -739,18 +426,6 @@ window.i18n.locale_data = {
          null,
          "Nombre de Usuario ó Contraseña Inválidos"
       ],
-      "Inventory": [
-         null,
-         "Inventario"
-      ],
-      "Inventory Code": [
-         null,
-         "Código de Inventario"
-      ],
-      "Inventory Code / Name": [
-         null,
-         "Código de Inventario"
-      ],
       "Inventory Pool": [
          null,
          "Grupo de Inventario"
@@ -758,10 +433,6 @@ window.i18n.locale_data = {
       "Inventory Pool is missing": [
          null,
          "Falta el Grupo de Inventario"
-      ],
-      "Inventory Pools": [
-         null,
-         "Grupo de Inventario"
       ],
       "Inventory code": [
          null,
@@ -774,22 +445,6 @@ window.i18n.locale_data = {
       "Inventory pool": [
          null,
          "grupo de inventario"
-      ],
-      "Investition": [
-         null,
-         "Descripción"
-      ],
-      "Invoice Date": [
-         null,
-         "Fecha de Factura:"
-      ],
-      "Invoice Information": [
-         null,
-         "Información de Factura"
-      ],
-      "Invoice Number": [
-         null,
-         "Número de Factura:"
       ],
       "Item": [
          "Items",
@@ -808,18 +463,6 @@ window.i18n.locale_data = {
          null,
          "Artículo|Está incompleto"
       ],
-      "Item is overdue and therefore unavailable!": [
-         null,
-         ""
-      ],
-      "Item is part of package": [
-         null,
-         ""
-      ],
-      "Item is reserved in the future, therefore it's not available!": [
-         null,
-         ""
-      ],
       "Item not borrowable": [
          null,
          "No-prestable"
@@ -828,55 +471,23 @@ window.i18n.locale_data = {
          null,
          "Paquete destruido correctamente"
       ],
-      "Item saved.": [
-         null,
-         "Elemento guardado"
-      ],
       "Item taken back": [
          null,
          "Artículo devuelto"
-      ],
-      "Items": [
-         null,
-         "Artículos"
       ],
       "Kind regards,": [
          null,
          "Saludos cordiales,"
       ],
-      "Last Checked": [
-         null,
-         "Última Revisión:"
-      ],
-      "Last Visitors:": [
-         null,
-         "Visitas"
-      ],
       "Latest Reminder": [
          null,
          "[leihs] Recordatorio"
-      ],
-      "Legend": [
-         null,
-         ""
       ],
       "Lender": [
          null,
          "Recordatorio"
       ],
-      "Lending": [
-         null,
-         "Pendiente"
-      ],
-      "Lending / Daily View": [
-         null,
-         ""
-      ],
       "Lending Contract No.": [
-         null,
-         "Contrato Nro."
-      ],
-      "Lending Contract No. %d": [
          null,
          "Contrato Nro."
       ],
@@ -888,81 +499,17 @@ window.i18n.locale_data = {
          null,
          "Contrato Nro."
       ],
-      "List of Contracts": [
-         null,
-         "Contratos"
-      ],
-      "List of Inventory": [
-         null,
-         "Inventario"
-      ],
-      "List of Orders": [
-         null,
-         "Restaurar Pedido"
-      ],
-      "List of Visits": [
-         null,
-         "Visitas"
-      ],
       "Loading": [
          null,
          "Cargando"
-      ],
-      "Location": [
-         null,
-         "Ubicación"
-      ],
-      "Locations": [
-         null,
-         "Ubicaciones"
       ],
       "Logged in successfully": [
          null,
          "Inicio de Sesión exitoso"
       ],
-      "Login": [
-         null,
-         "Usuario"
-      ],
-      "Logout": [
-         null,
-         "Cerrar Sesión"
-      ],
-      "MAC-Addresse": [
-         null,
-         "Añadido"
-      ],
-      "Manufacturer": [
-         null,
-         "Fabricante"
-      ],
-      "Manufacturer (A-Z)": [
-         null,
-         "Fabricante"
-      ],
-      "Manufacturer (Z-A)": [
-         null,
-         "Fabricante"
-      ],
-      "Matching Templates": [
-         null,
-         "Plantillas"
-      ],
-      "Mobile": [
-         null,
-         ""
-      ],
       "Model": [
          null,
          "Modelo"
-      ],
-      "Model (A-Z)": [
-         null,
-         "Modelos (%d)"
-      ],
-      "Model (Z-A)": [
-         null,
-         "Modelos (%d)"
       ],
       "Model must be selected": [
          null,
@@ -975,18 +522,6 @@ window.i18n.locale_data = {
       "Model successfully added as compatible": [
          null,
          "Modelo agregado correctamente como compatible"
-      ],
-      "Models": [
-         null,
-         "Modelos"
-      ],
-      "Mon": [
-         null,
-         ""
-      ],
-      "Name": [
-         null,
-         "Nombre"
       ],
       "Name / ID": [
          null,
@@ -1004,23 +539,11 @@ window.i18n.locale_data = {
          null,
          "Nuevo elemento creado"
       ],
-      "Next": [
-         null,
-         "Siguiente"
-      ],
-      "No": [
-         null,
-         "No"
-      ],
       "No description available for this model.": [
          null,
          ""
       ],
       "No entries found": [
-         null,
-         ""
-      ],
-      "No entry found": [
          null,
          ""
       ],
@@ -1044,63 +567,19 @@ window.i18n.locale_data = {
          null,
          "Ninguno"
       ],
-      "Not Borrowable": [
-         null,
-         "Prestable"
-      ],
       "Not available": [
          null,
          "no disponible. "
       ],
-      "Note": [
-         null,
-         "Nota"
-      ],
       "Number of items": [
          null,
          "Número de artículos"
-      ],
-      "OK": [
-         null,
-         "OK"
-      ],
-      "One of the managers approves/denies or changes your reservation": [
-         null,
-         ""
-      ],
-      "Open": [
-         null,
-         ""
-      ],
-      "Open Datepicker": [
-         null,
-         ""
-      ],
-      "Open Orders": [
-         null,
-         "Pedidos"
-      ],
-      "Opening Hours": [
-         null,
-         "Pedidos pendientes:"
-      ],
-      "Order": [
-         null,
-         "Pedido"
-      ],
-      "Order History": [
-         null,
-         "Orden Nro."
       ],
       "Order approved": [
          null,
          "Orden aprobada"
       ],
       "Order from": [
-         null,
-         "Orden Nro."
-      ],
-      "Order from %s": [
          null,
          "Orden Nro."
       ],
@@ -1116,45 +595,17 @@ window.i18n.locale_data = {
          null,
          "Orden presentada"
       ],
-      "Orders": [
-         null,
-         "Pedidos"
-      ],
       "Other Groups": [
          null,
          "Grupo modelo"
       ],
-      "Overbooked Quantity": [
-         null,
-         "Evento|Cantidad"
-      ],
-      "Overbooking": [
-         null,
-         "Roto"
-      ],
       "Overdue": [
-         null,
-         "Vencido"
-      ],
-      "Overdue Returns": [
          null,
          "Vencido"
       ],
       "Overdue Visit": [
          null,
          "Vencido"
-      ],
-      "Owned": [
-         null,
-         "Propietario:"
-      ],
-      "Owner": [
-         null,
-         "Propietario:"
-      ],
-      "Package": [
-         null,
-         "Paquete"
       ],
       "Package Code": [
          null,
@@ -1172,33 +623,13 @@ window.i18n.locale_data = {
          null,
          "Paquete guardado correctamente"
       ],
-      "Password": [
-         null,
-         "Contraseña"
-      ],
       "Password changed": [
          null,
          "Contraseña modificada"
       ],
-      "Pending": [
-         null,
-         "Pendiente"
-      ],
-      "Period": [
-         null,
-         "Plazo"
-      ],
-      "Phone": [
-         null,
-         "Teléfono"
-      ],
       "Phone%s": [
          null,
          "Teléfono"
-      ],
-      "Place reservations on items and then pick them up": [
-         null,
-         ""
       ],
       "Please note that these contracts, while they do belong to approved orders, may be changed by the lending manager at any time. They represent only a current snapshot of the order and might not contain the same items as the final contract once you pick up your items.": [
          null,
@@ -1212,18 +643,6 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Please specify the purpose of your order here...": [
-         null,
-         ""
-      ],
-      "Previous": [
-         null,
-         "Anterior"
-      ],
-      "Price": [
-         null,
-         "Artículo|Precio"
-      ],
       "Print": [
          null,
          "Imprimir PDF"
@@ -1231,14 +650,6 @@ window.i18n.locale_data = {
       "Problems": [
          null,
          ""
-      ],
-      "Projektnummer": [
-         null,
-         ""
-      ],
-      "Purpose": [
-         null,
-         "Propósito"
       ],
       "Purpose changed '%s' for '%s'": [
          null,
@@ -1260,22 +671,6 @@ window.i18n.locale_data = {
          null,
          "Cantidad"
       ],
-      "Quantity: %d": [
-         null,
-         "Cantidad"
-      ],
-      "Reason for Retirement": [
-         null,
-         "Retirar"
-      ],
-      "Recommended Accessories": [
-         null,
-         "Accesorios"
-      ],
-      "Reject": [
-         null,
-         "Rechazar"
-      ],
       "Rejected": [
          null,
          "Rechazada"
@@ -1283,14 +678,6 @@ window.i18n.locale_data = {
       "Rejected on": [
          null,
          "Rechazada"
-      ],
-      "Rejection Successful": [
-         null,
-         "Ubicación asignada correctamente"
-      ],
-      "Relevant for inventory": [
-         null,
-         "Relevante para el inventario"
       ],
       "Remind": [
          null,
@@ -1308,26 +695,6 @@ window.i18n.locale_data = {
          null,
          "Remover %{q} %{m}"
       ],
-      "Requested Items": [
-         null,
-         "Artículos devueltos"
-      ],
-      "Reservation": [
-         null,
-         "Descripción"
-      ],
-      "Responsible": [
-         null,
-         "Responsable"
-      ],
-      "Responsible department": [
-         null,
-         "Departamento Responsable"
-      ],
-      "Responsible person": [
-         null,
-         "Persona Responsable"
-      ],
       "Retire": [
          null,
          "Retirar"
@@ -1336,35 +703,15 @@ window.i18n.locale_data = {
          null,
          "Artículos devueltos"
       ],
-      "Retired": [
-         null,
-         "Retirado"
-      ],
-      "Retirement": [
-         null,
-         "Retirar"
-      ],
       "Return": [
          null,
          "Artículos devueltos"
-      ],
-      "Return to this hand over": [
-         null,
-         "Artículos a entregar"
       ],
       "Returned Items": [
          null,
          "Artículos devueltos"
       ],
-      "Room": [
-         null,
-         "Habitación"
-      ],
       "Save": [
-         null,
-         "Guardar"
-      ],
-      "Save %s": [
          null,
          "Guardar"
       ],
@@ -1376,59 +723,11 @@ window.i18n.locale_data = {
          null,
          "Guardar"
       ],
-      "Search": [
-         null,
-         "Buscar"
-      ],
-      "Search Results for \"%s\"": [
-         null,
-         ""
-      ],
-      "Search...": [
-         null,
-         "Buscar"
-      ],
-      "Searching": [
-         null,
-         "Buscar"
-      ],
-      "Selected Pools (%s)": [
-         null,
-         ""
-      ],
-      "Selection": [
-         null,
-         "Seleccionar"
-      ],
-      "Serial Number": [
-         null,
-         "Número de Serie"
-      ],
-      "Settings for %s": [
-         null,
-         "Activo"
-      ],
-      "Shelf": [
-         null,
-         "Estantería"
-      ],
-      "Show": [
-         null,
-         "Mostrar"
-      ],
       "Show Availability": [
          null,
          "Disponibilidad"
       ],
-      "Show Full History": [
-         null,
-         ""
-      ],
       "Show all %s...": [
-         null,
-         ""
-      ],
-      "Show all ...": [
          null,
          ""
       ],
@@ -1448,25 +747,9 @@ window.i18n.locale_data = {
          null,
          "Como no recibimos ningún pedido de renovación, le pedimos que devuelva los elementos ahora."
       ],
-      "Something went wrong!": [
-         null,
-         ""
-      ],
-      "Start": [
-         null,
-         "Fecha inicial"
-      ],
-      "Start Date": [
-         null,
-         "Fecha inicial"
-      ],
       "Start Date must be before End Date": [
          null,
          "La fecha de inicio debe ser anterior a la Fecha de finalización"
-      ],
-      "Start Screen": [
-         null,
-         "Fecha inicial"
       ],
       "Start date": [
          null,
@@ -1480,29 +763,13 @@ window.i18n.locale_data = {
          null,
          "Falló el pedido"
       ],
-      "Submit": [
-         null,
-         "Enviar"
-      ],
-      "Submit Order": [
-         null,
-         "Enviar Pedido"
-      ],
       "Submitted": [
          null,
          "Presentada"
       ],
-      "Successful Order": [
-         null,
-         "Ubicación asignada correctamente"
-      ],
       "Successfully set.": [
          null,
          "Ubicación asignada correctamente"
-      ],
-      "Supplier": [
-         null,
-         "Proveedor"
       ],
       "Swapped %{from} for %{to}": [
          null,
@@ -1512,33 +779,9 @@ window.i18n.locale_data = {
          null,
          "Intercambio %{from} por %{to}"
       ],
-      "Take Back": [
-         null,
-         "Retirar"
-      ],
-      "Take Back Selection": [
-         null,
-         "Retirar"
-      ],
       "Take Back from": [
          null,
          "Retirar"
-      ],
-      "Take Back from %s": [
-         null,
-         "Retirar"
-      ],
-      "Take Backs": [
-         null,
-         "Retirar"
-      ],
-      "Technical Details": [
-         null,
-         "Detalles Técnicos"
-      ],
-      "Templates": [
-         null,
-         "Plantillas"
       ],
       "Terms and conditions of the lender apply.": [
          null,
@@ -1616,7 +859,7 @@ window.i18n.locale_data = {
          null,
          "El artículo ya se encuentra en el contrato actual."
       ],
-      "The item with the inventory code %s was not found": [
+      "The item with the inventory code '%s' was not found": [
          null,
          "No se encontró el código de inventario %s."
       ],
@@ -1700,18 +943,6 @@ window.i18n.locale_data = {
          null,
          "El grupo de inventario está cerrado en start_date. "
       ],
-      "This is a package containing the following items": [
-         null,
-         ""
-      ],
-      "This is the list of items you requested. To complete this order, please %s.": [
-         null,
-         ""
-      ],
-      "This item was retired": [
-         null,
-         "Artículo retirado el"
-      ],
       "This item will be given to a different inventory pool and not show up in yours anymore!": [
          null,
          ""
@@ -1736,10 +967,6 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Thu": [
-         null,
-         ""
-      ],
       "Time window": [
          null,
          "Período de Tiempo"
@@ -1759,18 +986,6 @@ window.i18n.locale_data = {
       "Total": [
          null,
          "Total"
-      ],
-      "Tue": [
-         null,
-         ""
-      ],
-      "Umzug": [
-         null,
-         ""
-      ],
-      "Unborrowable": [
-         null,
-         "No-prestable"
       ],
       "Unfortunately your order is still pending, but you will soon receive a confirmation of order by separate e-mail. You can view the status of your order through your leihs account.": [
          null,
@@ -1824,25 +1039,9 @@ window.i18n.locale_data = {
          null,
          "Desconocido"
       ],
-      "User/Typical usage": [
-         null,
-         ""
-      ],
-      "Username": [
-         null,
-         "Usuario|Apellido"
-      ],
-      "Users": [
-         null,
-         "Usuarios"
-      ],
       "Value": [
          null,
          "Valor"
-      ],
-      "Value List": [
-         null,
-         "Lista de precios"
       ],
       "Value List for Lending Contract No.": [
          null,
@@ -1856,10 +1055,6 @@ window.i18n.locale_data = {
          null,
          "Lista de precios"
       ],
-      "View %s": [
-         null,
-         "Ver"
-      ],
       "View Item": [
          null,
          "Nuevo Artículo"
@@ -1871,10 +1066,6 @@ window.i18n.locale_data = {
       "View Option": [
          null,
          "Agregar Opción"
-      ],
-      "Visits": [
-         null,
-         "Visite a"
       ],
       "Warning": [
          null,
@@ -1888,22 +1079,6 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Wed": [
-         null,
-         ""
-      ],
-      "Welcome %s": [
-         null,
-         ""
-      ],
-      "Working order": [
-         null,
-         ""
-      ],
-      "Workload": [
-         null,
-         "Dias laborales"
-      ],
       "Write a comment. The comment will be part of the rejection e-mail.": [
          null,
          ""
@@ -1916,31 +1091,15 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Yes": [
-         null,
-         "Si"
-      ],
       "You are not the owner of this item": [
          null,
          "No tiene permisos para acceder a esta aplicación"
-      ],
-      "You bring back your items": [
-         null,
-         ""
-      ],
-      "You can edit your personal data": [
-         null,
-         ""
       ],
       "You can't add a package to a package.": [
          null,
          ""
       ],
       "You cannot delete all lines of an order. Perhaps you want to reject it instead?": [
-         null,
-         ""
-      ],
-      "You do not have any items in your order. Please %s and choose items for your order.": [
          null,
          ""
       ],
@@ -1952,22 +1111,6 @@ window.i18n.locale_data = {
          null,
          "No tiene permisos para acceder a esta aplicación"
       ],
-      "You don't have permission": [
-         null,
-         "No tiene permisos para acceder a esta aplicación"
-      ],
-      "You have %{no_access} to any inventory pools!": [
-         null,
-         " en el grupo de inventario "
-      ],
-      "You have access to the following inventory pools": [
-         null,
-         " en el grupo de inventario "
-      ],
-      "You have access to the following inventory pools:": [
-         null,
-         " en el grupo de inventario "
-      ],
       "You have been logged out.": [
          null,
          "Su sesión ha sido cerrada."
@@ -1975,22 +1118,6 @@ window.i18n.locale_data = {
       "You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from the reservation system for up to 6 months.": [
          null,
          "Podrá ser amonestado y se le cobrarán gastos adicionales, además se restringirán sus derechos de préstamo. En caso de que esto se torne recurrente podrá ser bloqueado de leihs por 6 meses."
-      ],
-      "You pick up the reserved items at the inventory pool": [
-         null,
-         " en el grupo de inventario "
-      ],
-      "You place a reservation for some items in this system": [
-         null,
-         ""
-      ],
-      "You should redo your action or reload the page!": [
-         null,
-         ""
-      ],
-      "You wait for confirmation from the inventory pools in question": [
-         null,
-         ""
       ],
       "Your order for the following items has been confirmed by the inventory manager": [
          null,
@@ -2003,14 +1130,6 @@ window.i18n.locale_data = {
       "Your order was rejected for the following reason:": [
          null,
          "Su pedido fue cancelado por los siguientes motivos:"
-      ],
-      "Your order was successfully transmitted to those responsible and is %s.": [
-         null,
-         ""
-      ],
-      "Zielraum": [
-         null,
-         ""
       ],
       "[Model %s] ": [
          null,
@@ -2056,10 +1175,6 @@ window.i18n.locale_data = {
          null,
          "no disponible. "
       ],
-      "awaiting approval": [
-         null,
-         ""
-      ],
       "but a few changes were made to it": [
          null,
          "pero se efectuaron algunos cambios"
@@ -2068,60 +1183,16 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "current page is set as start page": [
-         null,
-         ""
-      ],
       "day": [
          "days",
          "Feriados",
          "Feriados"
       ],
-      "delete": [
-         null,
-         "Eliminar"
-      ],
       "doesn't match parent's attribute": [
          null,
          ""
       ],
-      "entries%s": [
-         null,
-         ""
-      ],
-      "extend": [
-         null,
-         ""
-      ],
-      "for '%s'": [
-         null,
-         ""
-      ],
       "for max.": [
-         null,
-         ""
-      ],
-      "found %i": [
-         null,
-         ""
-      ],
-      "general": [
-         null,
-         ""
-      ],
-      "go back": [
-         null,
-         ""
-      ],
-      "go to today": [
-         null,
-         "Desde hoy"
-      ],
-      "here": [
-         null,
-         ""
-      ],
-      "in": [
          null,
          ""
       ],
@@ -2133,10 +1204,6 @@ window.i18n.locale_data = {
          null,
          "El grupo de inventario está cerrado en start_date. "
       ],
-      "is late": [
-         null,
-         ""
-      ],
       "item not assigned. ": [
          null,
          "artículo no asignado. "
@@ -2145,29 +1212,9 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "laufende Rechnung": [
-         null,
-         ""
-      ],
-      "more": [
-         null,
-         ""
-      ],
-      "more properties": [
-         null,
-         "Propiedades"
-      ],
       "no image": [
          null,
          "imagen"
-      ],
-      "no item assigned": [
-         null,
-         "artículo no asignado. "
-      ],
-      "no purpose specified": [
-         null,
-         "No se dieron motivos."
       ],
       "not available. ": [
          null,
@@ -2181,23 +1228,7 @@ window.i18n.locale_data = {
          null,
          "no válido. "
       ],
-      "on time!": [
-         null,
-         ""
-      ],
-      "open datepicker": [
-         null,
-         ""
-      ],
-      "overdue": [
-         null,
-         "Vencido"
-      ],
       "please wait": [
-         null,
-         ""
-      ],
-      "please wait...": [
          null,
          ""
       ],
@@ -2209,27 +1240,23 @@ window.i18n.locale_data = {
          null,
          "cantidad no disponible. "
       ],
-      "reserved / item assigned in future": [
+      "requested": [
          null,
-         ""
+         "Artículos devueltos"
       ],
       "reset user": [
          null,
          ""
       ],
-      "set current page as start page": [
+      "show items": [
          null,
-         ""
-      ],
-      "show less": [
-         null,
-         ""
-      ],
-      "show less properties": [
-         null,
-         "Propiedades"
+         " elemento(s)"
       ],
       "show package parts": [
+         null,
+         "Paquetes"
+      ],
+      "show packages": [
          null,
          "Paquetes"
       ],
@@ -2241,10 +1268,6 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "submit it": [
-         null,
-         "Presentada"
-      ],
       "therefore you may not be able to change some of these fields": [
          null,
          ""
@@ -2252,10 +1275,6 @@ window.i18n.locale_data = {
       "this is a package": [
          null,
          "Paquetes"
-      ],
-      "to edit this item": [
-         null,
-         "Enviar Pedido"
       ],
       "to substitute": [
          null,
@@ -2265,17 +1284,9 @@ window.i18n.locale_data = {
          null,
          "Hoy"
       ],
-      "unavailable / can't be guaranteed": [
-         null,
-         ""
-      ],
       "unknown Model": [
          null,
          "desconocido"
-      ],
-      "until": [
-         null,
-         "Pedido por %s hasta %s"
       ],
       "upcoming": [
          null,
@@ -2293,10 +1304,6 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "while deleting multiple order lines": [
-         null,
-         ""
-      ],
       "while deleting order line for": [
          null,
          ""
@@ -2304,14 +1311,6 @@ window.i18n.locale_data = {
       "while try to send an e-mail reminder to:": [
          null,
          ""
-      ],
-      "with comment": [
-         null,
-         "Comentarios"
-      ],
-      "without conflict": [
-         null,
-         "Comentarios"
       ],
       "you cannot hand out lines wich are starting in the future": [
          null,
@@ -2445,6 +1444,10 @@ window.i18n.locale_data = {
          null,
          "Accesorio|Cantidad"
       ],
+      "Acknowledge": [
+         null,
+         "Reconocer"
+      ],
       "Acknowledge immediately": [
          null,
          "Reconocer"
@@ -2452,6 +1455,10 @@ window.i18n.locale_data = {
       "Actions": [
          null,
          "Acciones"
+      ],
+      "Add": [
+         null,
+         "Añadir"
       ],
       "Add Line": [
          null,
@@ -2513,9 +1520,21 @@ window.i18n.locale_data = {
          null,
          "Usuario"
       ],
+      "Address": [
+         null,
+         "Añadido"
+      ],
+      "Admin": [
+         null,
+         "Admins"
+      ],
       "Administration": [
          null,
          "Admins"
+      ],
+      "All": [
+         null,
+         "Todos"
       ],
       "All Children": [
          null,
@@ -2528,6 +1547,14 @@ window.i18n.locale_data = {
       "All Users": [
          null,
          "Usuarios"
+      ],
+      "Approve Order": [
+         null,
+         "Aprobar Pedido"
+      ],
+      "Approved Items": [
+         null,
+         "Aprobado"
       ],
       "Are yo sure you want to reject the order?": [
          null,
@@ -2625,6 +1652,18 @@ window.i18n.locale_data = {
          null,
          "Cantidad Disponible"
       ],
+      "Available": [
+         null,
+         "no disponible. "
+      ],
+      "Available in group '": [
+         null,
+         "Cantidad Disponible"
+      ],
+      "Available in total: ": [
+         null,
+         "Cantidad Disponible"
+      ],
       "Available quantity": [
          null,
          "Cantidad Disponible"
@@ -2657,6 +1696,10 @@ window.i18n.locale_data = {
          null,
          "ID de Distintivo: "
       ],
+      "Barcode": [
+         null,
+         "Código de barras"
+      ],
       "Basket": [
          null,
          "Canasta"
@@ -2664,6 +1707,10 @@ window.i18n.locale_data = {
       "Blacklist": [
          null,
          "Lista Negra"
+      ],
+      "Book": [
+         null,
+         "Roto"
       ],
       "Book this": [
          null,
@@ -2673,9 +1720,25 @@ window.i18n.locale_data = {
          null,
          "Prestable"
       ],
+      "Borrowable": [
+         null,
+         "Prestable"
+      ],
       "Borrowable (%d)": [
          null,
          "Prestable"
+      ],
+      "Borrowed Items": [
+         null,
+         "Artículos Propios"
+      ],
+      "Broken": [
+         null,
+         "Roto"
+      ],
+      "Building": [
+         null,
+         "Edificio"
       ],
       "Building|Code": [
          null,
@@ -2684,6 +1747,14 @@ window.i18n.locale_data = {
       "Building|Name": [
          null,
          "Edificio|Nombre"
+      ],
+      "Cancel Edit": [
+         null,
+         "Cancelar"
+      ],
+      "Categories": [
+         null,
+         "Categorías"
       ],
       "Categories (%d)": [
          null,
@@ -2721,9 +1792,17 @@ window.i18n.locale_data = {
          null,
          "Usuario|Actualizado al"
       ],
+      "Change Borrower": [
+         null,
+         "Prestable"
+      ],
       "Change Installation Location": [
          null,
          "Cambiar la Ubicación de la Instalación"
+      ],
+      "Change Orderer": [
+         null,
+         "Cambiar"
       ],
       "Change Timeframe for selection": [
          null,
@@ -2760,6 +1839,14 @@ window.i18n.locale_data = {
       "Compatibles (%d)": [
          null,
          "Compatibles (%d)"
+      ],
+      "Complete Search": [
+         null,
+         "Incompleto"
+      ],
+      "Completeness": [
+         null,
+         "Incompleto"
       ],
       "Confirm": [
          null,
@@ -2837,6 +1924,10 @@ window.i18n.locale_data = {
          null,
          "Artículo|Actualizado al"
       ],
+      "Contracts": [
+         null,
+         "Contratos"
+      ],
       "Contracts (%d)": [
          null,
          "Contratos (%d)"
@@ -2888,6 +1979,14 @@ window.i18n.locale_data = {
       "Create and make a Copy": [
          null,
          "Crear y hacer una Copia"
+      ],
+      "Current Order": [
+         null,
+         "Rechazar Pedido"
+      ],
+      "Currently Borrowed Items": [
+         null,
+         "Artículos Propios"
       ],
       "Customer": [
          null,
@@ -2941,9 +2040,25 @@ window.i18n.locale_data = {
          null,
          "Nota predeterminada de contrato"
       ],
+      "Delete": [
+         null,
+         "Eliminar"
+      ],
       "Delete Order": [
          null,
          "Eliminar Pedido"
+      ],
+      "Delete Selection": [
+         null,
+         "Borrar selección"
+      ],
+      "Delete this line": [
+         null,
+         "Borrar selección"
+      ],
+      "Description": [
+         null,
+         "Descripción"
       ],
       "Details": [
          null,
@@ -2965,6 +2080,18 @@ window.i18n.locale_data = {
          null,
          "Documentos"
       ],
+      "Edit Order": [
+         null,
+         "Enviar Pedido"
+      ],
+      "Edit Purpose": [
+         null,
+         "Propósito"
+      ],
+      "Edit Selection": [
+         null,
+         "Borrar selección"
+      ],
       "Email": [
          null,
          "Email"
@@ -2976,6 +2103,10 @@ window.i18n.locale_data = {
       "Employee": [
          null,
          "Empleado"
+      ],
+      "End Date": [
+         null,
+         "Fecha final"
       ],
       "Equipment Pools": [
          null,
@@ -3013,17 +2144,33 @@ window.i18n.locale_data = {
          null,
          "Evento|Título"
       ],
+      "Finish this hand over": [
+         null,
+         "Artículos a entregar"
+      ],
       "Firstname/Lastname": [
          null,
          "Nombre/Apellido"
+      ],
+      "Fri": [
+         null,
+         "De"
       ],
       "From date": [
          null,
          "Desde hoy"
       ],
+      "General Information": [
+         null,
+         "Información General"
+      ],
       "Generate barcode": [
          null,
          "Generar código de barras"
+      ],
+      "Go Back": [
+         null,
+         "Retirar"
       ],
       "Groups (%d)": [
          null,
@@ -3049,9 +2196,37 @@ window.i18n.locale_data = {
          null,
          "Usuario|Actualizado al"
       ],
+      "Hand Over": [
+         null,
+         "Entregar"
+      ],
       "Hand Over Items": [
          null,
          "Entregar"
+      ],
+      "Hand Over Selection": [
+         null,
+         "Entregar"
+      ],
+      "Hand Over to %s": [
+         null,
+         "Entregar"
+      ],
+      "Hand Overs": [
+         null,
+         "Entregar"
+      ],
+      "Help": [
+         null,
+         "Ayuda"
+      ],
+      "Highlight available items.": [
+         null,
+         "Artículos disponibles"
+      ],
+      "History": [
+         null,
+         "historial"
       ],
       "History|Created at": [
          null,
@@ -3137,6 +2312,14 @@ window.i18n.locale_data = {
          null,
          "Imagen|Ancho"
       ],
+      "Important notes for hand over": [
+         null,
+         "Artículos a entregar"
+      ],
+      "In Stock": [
+         null,
+         "En Stock"
+      ],
       "In Stock (%d)": [
          null,
          "En Stock"
@@ -3144,6 +2327,10 @@ window.i18n.locale_data = {
       "In stock?": [
          null,
          "En stock?"
+      ],
+      "Initial Price": [
+         null,
+         "Precio Inicial:"
       ],
       "Installation Location": [
          null,
@@ -3153,9 +2340,33 @@ window.i18n.locale_data = {
          null,
          "Instalado en: %s"
       ],
+      "Insurance Number": [
+         null,
+         "Número de Factura:"
+      ],
+      "Internal Description": [
+         null,
+         "Descripción Interna"
+      ],
+      "Introduction": [
+         null,
+         "Artículo|Ubicación"
+      ],
       "Inventarcode": [
          null,
          "Código de inventario"
+      ],
+      "Inventory": [
+         null,
+         "Inventario"
+      ],
+      "Inventory Code": [
+         null,
+         "Código de Inventario"
+      ],
+      "Inventory Code / Name": [
+         null,
+         "Código de Inventario"
       ],
       "Inventory Code assigned": [
          null,
@@ -3166,6 +2377,10 @@ window.i18n.locale_data = {
          "Código de Inventario:"
       ],
       "Inventory Pool(s)": [
+         null,
+         "Grupo de Inventario"
+      ],
+      "Inventory Pools": [
          null,
          "Grupo de Inventario"
       ],
@@ -3217,6 +2432,22 @@ window.i18n.locale_data = {
          null,
          "Debe seleccionarse un grupo de inventario"
       ],
+      "Investition": [
+         null,
+         "Descripción"
+      ],
+      "Invoice Date": [
+         null,
+         "Fecha de Factura:"
+      ],
+      "Invoice Information": [
+         null,
+         "Información de Factura"
+      ],
+      "Invoice Number": [
+         null,
+         "Número de Factura:"
+      ],
       "Item Packages (%d)": [
          null,
          "Imágenes (%d)"
@@ -3228,6 +2459,10 @@ window.i18n.locale_data = {
       "Item retired (%s)": [
          null,
          "Elemento retirado (%s)"
+      ],
+      "Item saved.": [
+         null,
+         "Elemento guardado"
       ],
       "Item: %s": [
          null,
@@ -3276,6 +2511,10 @@ window.i18n.locale_data = {
       "ItemLine|Updated at": [
          null,
          "Artículo|Actualizado al"
+      ],
+      "Items": [
+         null,
+         "Artículos"
       ],
       "Items (%d)": [
          null,
@@ -3389,13 +2628,53 @@ window.i18n.locale_data = {
          null,
          "Etiqueta"
       ],
+      "Last Checked": [
+         null,
+         "Última Revisión:"
+      ],
+      "Last Visitors:": [
+         null,
+         "Visitas"
+      ],
+      "Lending": [
+         null,
+         "Pendiente"
+      ],
+      "Lending Contract No. %d": [
+         null,
+         "Contrato Nro."
+      ],
       "Level": [
          null,
          "Nivel"
       ],
+      "List of Contracts": [
+         null,
+         "Contratos"
+      ],
+      "List of Inventory": [
+         null,
+         "Inventario"
+      ],
+      "List of Orders": [
+         null,
+         "Restaurar Pedido"
+      ],
+      "List of Visits": [
+         null,
+         "Visitas"
+      ],
+      "Location": [
+         null,
+         "Ubicación"
+      ],
       "Location successfully set": [
          null,
          "Ubicación asignada correctamente"
+      ],
+      "Locations": [
+         null,
+         "Ubicaciones"
       ],
       "Location|Building": [
          null,
@@ -3413,9 +2692,21 @@ window.i18n.locale_data = {
          null,
          "Ubicación|Estantería"
       ],
+      "Login": [
+         null,
+         "Usuario"
+      ],
       "Login: ": [
          null,
          "Usuario: "
+      ],
+      "Logout": [
+         null,
+         "Cerrar Sesión"
+      ],
+      "MAC-Addresse": [
+         null,
+         "Añadido"
       ],
       "Managers": [
          null,
@@ -3425,13 +2716,41 @@ window.i18n.locale_data = {
          null,
          "Administradores (%d)"
       ],
+      "Manufacturer": [
+         null,
+         "Fabricante"
+      ],
+      "Manufacturer (A-Z)": [
+         null,
+         "Fabricante"
+      ],
+      "Manufacturer (Z-A)": [
+         null,
+         "Fabricante"
+      ],
       "Mark": [
          null,
          "Marcar"
       ],
+      "Matching Templates": [
+         null,
+         "Plantillas"
+      ],
       "Maximum number of items available at that time is %{max}": [
          null,
          "Número máximo de elementos disponibles para esa fecha es %{max}"
+      ],
+      "Model (A-Z)": [
+         null,
+         "Modelos (%d)"
+      ],
+      "Model (Z-A)": [
+         null,
+         "Modelos (%d)"
+      ],
+      "Models": [
+         null,
+         "Modelos"
       ],
       "Models (%{m}/%{i})": [
          null,
@@ -3497,6 +2816,10 @@ window.i18n.locale_data = {
          null,
          "Mis Pedidos"
       ],
+      "Name": [
+         null,
+         "Nombre"
+      ],
       "Needs permission": [
          null,
          "¿Necesita Permiso?"
@@ -3537,6 +2860,14 @@ window.i18n.locale_data = {
          null,
          "Se han generado nuevas filas"
       ],
+      "Next": [
+         null,
+         "Siguiente"
+      ],
+      "No": [
+         null,
+         "No"
+      ],
       "No items to hand over specified. Please assign inventory codes to the items you want to hand over.": [
          null,
          "No se especificaron artículos a entregar. Por favor asigne códigos de inventario a los artículos que desea entregar."
@@ -3545,6 +2876,10 @@ window.i18n.locale_data = {
          null,
          "No hay modelos para mostrar"
       ],
+      "Not Borrowable": [
+         null,
+         "Prestable"
+      ],
       "Not In Stock": [
          null,
          "No está en Stock"
@@ -3552,6 +2887,10 @@ window.i18n.locale_data = {
       "Not In Stock (%d)": [
          null,
          "No está en Stock"
+      ],
+      "Note": [
+         null,
+         "Nota"
       ],
       "Notes": [
          null,
@@ -3573,9 +2912,21 @@ window.i18n.locale_data = {
          null,
          "Notificación|Usuario"
       ],
+      "OK": [
+         null,
+         "OK"
+      ],
       "Only %d items are present.": [
          null,
          "Solo hay %d artículos."
+      ],
+      "Open Orders": [
+         null,
+         "Pedidos"
+      ],
+      "Opening Hours": [
+         null,
+         "Pedidos pendientes:"
       ],
       "Option %s added.": [
          null,
@@ -3657,6 +3008,18 @@ window.i18n.locale_data = {
          null,
          "Opción|Nombre"
       ],
+      "Order": [
+         null,
+         "Pedido"
+      ],
+      "Order History": [
+         null,
+         "Orden Nro."
+      ],
+      "Order from %s": [
+         null,
+         "Orden Nro."
+      ],
       "Order:": [
          null,
          "Pedido:"
@@ -3693,6 +3056,10 @@ window.i18n.locale_data = {
          null,
          "Usuario|Actualizado al"
       ],
+      "Orders": [
+         null,
+         "Pedidos"
+      ],
       "Orders you are editing (please complete)": [
          null,
          "Pedidos que está editando (por favor complete)"
@@ -3725,6 +3092,18 @@ window.i18n.locale_data = {
          null,
          "Otros documentos"
       ],
+      "Overbooked Quantity": [
+         null,
+         "Evento|Cantidad"
+      ],
+      "Overbooking": [
+         null,
+         "Roto"
+      ],
+      "Overdue Returns": [
+         null,
+         "Vencido"
+      ],
       "Overview": [
          null,
          "Vencido"
@@ -3740,6 +3119,18 @@ window.i18n.locale_data = {
       "Own Models": [
          null,
          "Modelos"
+      ],
+      "Owned": [
+         null,
+         "Propietario:"
+      ],
+      "Owner": [
+         null,
+         "Propietario:"
+      ],
+      "Package": [
+         null,
+         "Paquete"
       ],
       "Packages": [
          null,
@@ -3769,13 +3160,37 @@ window.i18n.locale_data = {
          null,
          "Evento|Cantidad"
       ],
+      "Password": [
+         null,
+         "Contraseña"
+      ],
       "Paste": [
          null,
          "Fecha"
       ],
+      "Pending": [
+         null,
+         "Pendiente"
+      ],
+      "Period": [
+         null,
+         "Plazo"
+      ],
+      "Phone": [
+         null,
+         "Teléfono"
+      ],
       "Phone:": [
          null,
          "Teléfono: "
+      ],
+      "Previous": [
+         null,
+         "Anterior"
+      ],
+      "Price": [
+         null,
+         "Artículo|Precio"
       ],
       "Print Contract %d": [
          null,
@@ -3805,6 +3220,10 @@ window.i18n.locale_data = {
          null,
          "Propiedad|Valor"
       ],
+      "Purpose": [
+         null,
+         "Propósito"
+      ],
       "Purpose:": [
          null,
          "Propósito:"
@@ -3817,6 +3236,10 @@ window.i18n.locale_data = {
          null,
          "Cantidad"
       ],
+      "Quantity: %d": [
+         null,
+         "Cantidad"
+      ],
       "Quick Approve": [
          null,
          "Aprobado"
@@ -3824,6 +3247,10 @@ window.i18n.locale_data = {
       "Reason": [
          null,
          "Motivo"
+      ],
+      "Reason for Retirement": [
+         null,
+         "Retirar"
       ],
       "Received at": [
          null,
@@ -3833,6 +3260,10 @@ window.i18n.locale_data = {
          null,
          "Recibido"
       ],
+      "Recommended Accessories": [
+         null,
+         "Accesorios"
+      ],
       "Refresh": [
          null,
          "Actualizar"
@@ -3840,6 +3271,18 @@ window.i18n.locale_data = {
       "Reinstate": [
          null,
          "Reestablecer"
+      ],
+      "Reject": [
+         null,
+         "Rechazar"
+      ],
+      "Rejection Successful": [
+         null,
+         "Ubicación asignada correctamente"
+      ],
+      "Relevant for inventory": [
+         null,
+         "Relevante para el inventario"
       ],
       "Remove": [
          null,
@@ -3861,6 +3304,10 @@ window.i18n.locale_data = {
          null,
          "Eliminar Padre"
       ],
+      "Requested Items": [
+         null,
+         "Artículos devueltos"
+      ],
       "Required Level": [
          null,
          "Nivel Requerido"
@@ -3869,13 +3316,29 @@ window.i18n.locale_data = {
          null,
          "Nivel Requerido:"
       ],
+      "Reservation": [
+         null,
+         "Descripción"
+      ],
       "Reserver": [
          null,
          "Reservado"
       ],
+      "Responsible": [
+         null,
+         "Responsable"
+      ],
       "Responsible Items": [
          null,
          "Elementos Responsables"
+      ],
+      "Responsible department": [
+         null,
+         "Departamento Responsable"
+      ],
+      "Responsible person": [
+         null,
+         "Persona Responsable"
       ],
       "Responsible: %s": [
          null,
@@ -3893,9 +3356,21 @@ window.i18n.locale_data = {
          null,
          "¿Restaurar el pedido original?"
       ],
+      "Retired": [
+         null,
+         "Retirado"
+      ],
       "Retired on %s": [
          null,
          "Retirado"
+      ],
+      "Retirement": [
+         null,
+         "Retirar"
+      ],
+      "Return to this hand over": [
+         null,
+         "Artículos a entregar"
       ],
       "Role": [
          null,
@@ -3925,6 +3400,14 @@ window.i18n.locale_data = {
          null,
          "Rol|Der"
       ],
+      "Room": [
+         null,
+         "Habitación"
+      ],
+      "Save %s": [
+         null,
+         "Guardar"
+      ],
       "Save + Approve": [
          null,
          "Guardar + Aprobar"
@@ -3937,9 +3420,21 @@ window.i18n.locale_data = {
          null,
          "Guardando Datos"
       ],
+      "Search": [
+         null,
+         "Buscar"
+      ],
       "Search Model": [
          null,
          "Buscar Modelo"
+      ],
+      "Search...": [
+         null,
+         "Buscar"
+      ],
+      "Searching": [
+         null,
+         "Buscar"
       ],
       "Select Location": [
          null,
@@ -3949,9 +3444,17 @@ window.i18n.locale_data = {
          null,
          "Primero seleccione el modelo"
       ],
+      "Selection": [
+         null,
+         "Seleccionar"
+      ],
       "Send": [
          null,
          "Suspender"
+      ],
+      "Serial Number": [
+         null,
+         "Número de Serie"
       ],
       "Serial Number:": [
          null,
@@ -3965,9 +3468,21 @@ window.i18n.locale_data = {
          null,
          "Establecer contraseña"
       ],
+      "Settings for %s": [
+         null,
+         "Activo"
+      ],
+      "Shelf": [
+         null,
+         "Estantería"
+      ],
       "Short Name": [
          null,
          "Nombre Corto"
+      ],
+      "Show": [
+         null,
+         "Mostrar"
       ],
       "Signature of borrower:": [
          null,
@@ -3977,6 +3492,18 @@ window.i18n.locale_data = {
          null,
          "Especial"
       ],
+      "Start": [
+         null,
+         "Fecha inicial"
+      ],
+      "Start Date": [
+         null,
+         "Fecha inicial"
+      ],
+      "Start Screen": [
+         null,
+         "Fecha inicial"
+      ],
       "Start-Datum": [
          null,
          "Fecha inicial"
@@ -3984,6 +3511,22 @@ window.i18n.locale_data = {
       "Subject": [
          null,
          "Enviar"
+      ],
+      "Submit": [
+         null,
+         "Enviar"
+      ],
+      "Submit Order": [
+         null,
+         "Enviar Pedido"
+      ],
+      "Successful Order": [
+         null,
+         "Ubicación asignada correctamente"
+      ],
+      "Supplier": [
+         null,
+         "Proveedor"
       ],
       "Supplier:": [
          null,
@@ -4025,9 +3568,29 @@ window.i18n.locale_data = {
          null,
          "Reservado"
       ],
+      "Take Back": [
+         null,
+         "Retirar"
+      ],
       "Take Back Items": [
          null,
          "Retirar"
+      ],
+      "Take Back Selection": [
+         null,
+         "Retirar"
+      ],
+      "Take Back from %s": [
+         null,
+         "Retirar"
+      ],
+      "Take Backs": [
+         null,
+         "Retirar"
+      ],
+      "Technical Details": [
+         null,
+         "Detalles Técnicos"
       ],
       "Template": [
          null,
@@ -4036,6 +3599,10 @@ window.i18n.locale_data = {
       "Template name": [
          null,
          "Nombre de la plantilla"
+      ],
+      "Templates": [
+         null,
+         "Plantillas"
       ],
       "Template|Created at": [
          null,
@@ -4121,6 +3688,10 @@ window.i18n.locale_data = {
          null,
          "Este elemento requiere que el usuario tenga nivel %s"
       ],
+      "This item was retired": [
+         null,
+         "Artículo retirado el"
+      ],
       "This model may need permission!": [
          null,
          "Este artículo puede necesitar permiso!"
@@ -4152,6 +3723,10 @@ window.i18n.locale_data = {
       "Unallocated": [
          null,
          "Inlocalizable"
+      ],
+      "Unborrowable": [
+         null,
+         "No-prestable"
       ],
       "Unborrowable (%d)": [
          null,
@@ -4192,6 +3767,14 @@ window.i18n.locale_data = {
       "User has no access to your inventory pool anymore": [
          null,
          "El usuario ya no tiene acceso a su grupo de inventario"
+      ],
+      "Username": [
+         null,
+         "Usuario|Apellido"
+      ],
+      "Users": [
+         null,
+         "Usuarios"
       ],
       "Users (%d)": [
          null,
@@ -4257,6 +3840,10 @@ window.i18n.locale_data = {
          null,
          "Usuario|Autenticación"
       ],
+      "Value List": [
+         null,
+         "Lista de precios"
+      ],
       "Value list no. %d": [
          null,
          "Lista de precios nro. %d"
@@ -4265,9 +3852,17 @@ window.i18n.locale_data = {
          null,
          "Ver"
       ],
+      "View %s": [
+         null,
+         "Ver"
+      ],
       "View + Acknowledge": [
          null,
          "Ver + Aceptar"
+      ],
+      "Visits": [
+         null,
+         "Visite a"
       ],
       "We therefore ask you to be fair and punctual! Thank you!": [
          null,
@@ -4305,6 +3900,10 @@ window.i18n.locale_data = {
          null,
          "Día Laboral|Miércoles"
       ],
+      "Workload": [
+         null,
+         "Dias laborales"
+      ],
       "Write Email": [
          null,
          "Email"
@@ -4312,6 +3911,10 @@ window.i18n.locale_data = {
       "Wrong Username/Password": [
          null,
          "Nombre de Usuario ó Contraseña Inválidos"
+      ],
+      "Yes": [
+         null,
+         "Si"
       ],
       "Yesterday": [
          null,
@@ -4328,6 +3931,26 @@ window.i18n.locale_data = {
       "You don't have any rights to access this application": [
          null,
          "Usted no tiene autorización para acceder a esta aplicación"
+      ],
+      "You don't have permission": [
+         null,
+         "No tiene permisos para acceder a esta aplicación"
+      ],
+      "You have %{no_access} to any inventory pools!": [
+         null,
+         " en el grupo de inventario "
+      ],
+      "You have access to the following inventory pools": [
+         null,
+         " en el grupo de inventario "
+      ],
+      "You have access to the following inventory pools:": [
+         null,
+         " en el grupo de inventario "
+      ],
+      "You pick up the reserved items at the inventory pool": [
+         null,
+         " en el grupo de inventario "
       ],
       "You're changing the installation location for the following items:": [
          null,
@@ -4377,9 +4000,17 @@ window.i18n.locale_data = {
          null,
          "Autenticación de Base de Datos"
       ],
+      "delete": [
+         null,
+         "Eliminar"
+      ],
       "event": [
          null,
          "evento"
+      ],
+      "go to today": [
+         null,
+         "Desde hoy"
       ],
       "hide items": [
          null,
@@ -4425,6 +4056,10 @@ window.i18n.locale_data = {
          null,
          "Categorías"
       ],
+      "more properties": [
+         null,
+         "Propiedades"
+      ],
       "name": [
          null,
          "nombre"
@@ -4433,9 +4068,17 @@ window.i18n.locale_data = {
          null,
          "Categoría"
       ],
+      "no item assigned": [
+         null,
+         "artículo no asignado. "
+      ],
       "no more categories": [
          null,
          "Agregar mas accesorios"
+      ],
+      "no purpose specified": [
+         null,
+         "No se dieron motivos."
       ],
       "no serial number": [
          null,
@@ -4457,6 +4100,10 @@ window.i18n.locale_data = {
          null,
          "Pedido"
       ],
+      "overdue": [
+         null,
+         "Vencido"
+      ],
       "partition": [
          null,
          "opción"
@@ -4464,10 +4111,6 @@ window.i18n.locale_data = {
       "property": [
          null,
          "propiedad"
-      ],
-      "requested": [
-         null,
-         "Artículos devueltos"
       ],
       "role": [
          null,
@@ -4481,9 +4124,13 @@ window.i18n.locale_data = {
          null,
          "estantería"
       ],
-      "show items": [
+      "show less properties": [
          null,
-         " elemento(s)"
+         "Propiedades"
+      ],
+      "submit it": [
+         null,
+         "Presentada"
       ],
       "supplier": [
          null,
@@ -4493,9 +4140,17 @@ window.i18n.locale_data = {
          null,
          "Plantilla"
       ],
+      "to edit this item": [
+         null,
+         "Enviar Pedido"
+      ],
       "total borrowable": [
          null,
          "No-prestable"
+      ],
+      "until": [
+         null,
+         "Pedido por %s hasta %s"
       ],
       "user": [
          null,
@@ -4504,6 +4159,14 @@ window.i18n.locale_data = {
       "value": [
          null,
          "valor"
+      ],
+      "with comment": [
+         null,
+         "Comentarios"
+      ],
+      "without conflict": [
+         null,
+         "Comentarios"
       ],
       "workday": [
          null,
