@@ -65,7 +65,7 @@ group :test, :development do
   gem "guard-cucumber", "~> 1.2"
   gem "guard-rspec", "~> 2.1"
   gem "guard-spork", "~> 1.2", :platform => :mri_19
-  gem "guard-jasmine", "~> 1.9"
+  gem "guard-jasmine", "~> 1.10"
   gem "phantomjs", "~> 1.6.0.0" # headless webdriver (UI & JS tests)
   #gem "guard-jasmine-headless-webkit", "~> 0.3.2"
   #gem "jasmine-headless-webkit", "~> 0.8.4"
