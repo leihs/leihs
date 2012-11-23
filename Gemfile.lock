@@ -226,6 +226,7 @@ GEM
     rcapture (1.0.4)
     rdoc (3.12)
       json (~> 1.4)
+    redcarpet (2.2.2)
     rgl (0.4.0)
       rake
       stream (>= 0.5)
@@ -349,6 +350,7 @@ DEPENDENCIES
   rails_autolink (~> 1.0)
   rb-fsevent (~> 0.9)
   rcapture
+  redcarpet
   rgl (~> 0.4.0)
   rspec (~> 2.12)
   rspec-rails (~> 2.12)

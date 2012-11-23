@@ -87,6 +87,7 @@ group :test, :development do
   gem "timecop", "~> 0.5"
   gem 'capybara-screenshot'
   gem 'yard'
+  gem 'redcarpet' # This isn't being pulled in by yard, but it's required
 end
 
 group :test do
