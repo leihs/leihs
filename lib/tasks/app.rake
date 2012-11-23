@@ -80,6 +80,7 @@ namespace :app do
       output.split("\n").each do |out|
         raise "Jasmine specs did not run -- this cannot be happening!" if out.chomp.match("^.*0 specs, 0 failures.*")
       end
+      binding.pry
       raise "Jasmine Test failed!" if $?.exitstatus != 0
     end
   end
