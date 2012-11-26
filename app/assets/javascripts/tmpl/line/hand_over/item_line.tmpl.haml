@@ -17,7 +17,7 @@
                               :name => "inventory_code",
                               :placeholder => _("Inventory Code"),
                               :title => _("Inventory Code"),
-                              :"data-url" => "/backend/inventory_pools/${currentInventoryPool.id}/items?model_id=${model.id}&with[location]=true&with[is_borrowable]=true",
+                              :"data-url" => "/backend/inventory_pools/${currentInventoryPool.id}/items?model_id=${model.id}&with[location_as_string]=true&with[is_borrowable]=true",
                               :"data-autocomplete_class" => "assign_inventory_code", 
                               :"data-autocomplete_element_tmpl" => "tmpl/autocomplete/assign_inventory_code",
                               :"data-autocomplete_value_attribute" => "inventory_code",

@@ -138,7 +138,7 @@ describe InventoryPool do
             cl.update_attributes(item: cl.model.items.borrowable.in_stock.first)
           end
           # sign the contract
-          c.sign(c.contract_lines, @manager)
+          c.sign(@manager, c.contract_lines)
         end
 
         take_back_visits = @ip.visits.take_back
@@ -164,7 +164,7 @@ describe InventoryPool do
           cl.update_attributes(item: cl.model.items.borrowable.in_stock.first)
         end
         # sign the contract
-        open_contract.sign(open_contract.contract_lines, @manager)
+        open_contract.sign(@manager, open_contract.contract_lines)
     
         take_back_visits = @ip.visits.take_back
 
@@ -188,7 +188,7 @@ describe InventoryPool do
             cl.update_attributes(item: cl.model.items.borrowable.in_stock.first)
           end
           # sign the contract
-          c.sign(c.contract_lines, @manager)
+          c.sign(@manager, c.contract_lines)
         end
 
         take_back_visits = @ip.visits.take_back

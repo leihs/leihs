@@ -14,12 +14,7 @@
     = javascript_include_tag "backend"
     = favicon_link_tag "backend/favicon.ico", :type => "image/x-icon"
     = csrf_meta_tag
-    = javascript_tag "window.currentInventoryPool = new InventoryPool(#{json_for current_inventory_pool, {:closed_days => true, :holidays => true}})" if current_inventory_pool
-    = javascript_tag "var local_currency_string = '#{LOCAL_CURRENCY_STRING}'";
-    -if current_inventory_pool
-      - start_screen = current_user[:start_screen]
-    - start_screen ||= "undefined"
-    = javascript_tag "var current_user = {id:#{current_user.try(:id)}, start_screen: \"#{ start_screen }\"}";
+    = render "layouts/backend/javascript"
     = yield :head
 
   %body

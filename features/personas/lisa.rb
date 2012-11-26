@@ -77,7 +77,7 @@ module Persona
       purpose = FactoryGirl.create :purpose, :description => "Als Ersatz."
       @tripod_model = Model.find_by_name "Kamera Stativ"
       FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @overdued_contract, :item_id => @inventory_pool.items.in_stock.where(:model_id => @tripod_model.id).first.id, :model => @tripod_model, :start_date => Date.yesterday-4.days, :end_date => Date.yesterday)
-      @overdued_contract.sign(nil, @pius)
+      @overdued_contract.sign(@pius)
     end
 
   end  

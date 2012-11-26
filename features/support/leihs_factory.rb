@@ -64,7 +64,7 @@ module LeihsFactory
     default_attributes = {
       :login => "jerome",
       :email  => "jerome@example.com",
-      :language_id => (Language.default_language ? Language.default_language.id : LanguageFactory.create)
+      :language_id => (Language.default_language ? Language.default_language : LanguageFactory.create).id
     }
     default_attributes[:email] = "#{attributes[:login].gsub(' ', '_')}@example.com" if attributes[:login]
     u = User.find_or_create_by_login default_attributes.merge(attributes)
@@ -146,8 +146,7 @@ module LeihsFactory
         model = LeihsFactory.create_model(:name => "model_#{i}" )
         quantity = rand(3) + 1
         quantity.times {
-            LeihsFactory.create_item( :model => model,
-                                 :inventory_pool => o.inventory_pool )
+          FactoryGirl.create(:item, :owner => o.inventory_pool, :model => model)
         }
         d = [ self.random_future_date, self.random_future_date ]
         o.add_lines(quantity, model, o.user_id, d.min, d.max )
@@ -169,8 +168,7 @@ module LeihsFactory
         model = LeihsFactory.create_model(:name => "model_#{i}" )
         quantity = rand(3) + 1
         quantity.times {
-          LeihsFactory.create_item(:model => model,
-                              :inventory_pool => c.inventory_pool)
+          FactoryGirl.create(:item, :owner => c.inventory_pool, :model => model)
         }
         d = [ self.random_future_date, self.random_future_date ]
         c.add_lines(quantity, model, c.user_id, d.min, d.max )
@@ -206,19 +204,7 @@ module LeihsFactory
     end while Item.exists?(:inventory_code => code)
     code
   end
-  
-  #
-  # Item
-  # 
-  def self.create_item(attributes = {})
-    default_attributes = {
-      :inventory_code => generate_new_unique_inventory_code,
-      :is_borrowable => true
-    }
-    i = Item.create default_attributes.merge(attributes)
-    i
-  end
-  
+    
   #
   # parsedate
   # 
@@ -350,7 +336,7 @@ module LeihsFactory
                                      :inventory_pool => inventory_pool})
     # Create Model and Item
     model = LeihsFactory.create_model(:name => 'holey parachute')
-    LeihsFactory.create_item(:model => model, :inventory_pool => inventory_pool)
+    FactoryGirl.create(:item, :owner => inventory_pool, :model => model)
     
     # Create Authenication System if not already existing
     FactoryGirl.create :authentication_system, :name => "DatabaseAuthentication" unless AuthenticationSystem.default_system.first

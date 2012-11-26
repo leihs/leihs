@@ -218,7 +218,7 @@ class User < ActiveRecord::Base
 ####################################################################
 
   def access_level_for(ip)
-    access_rights.scoped_by_inventory_pool_id(ip).not_suspended.not_admin.first.try(:access_level).to_i
+    access_rights.scoped_by_inventory_pool_id(ip).not_suspended.managers.first.try(:access_level).to_i
   end
 
   def access_right_for(ip)

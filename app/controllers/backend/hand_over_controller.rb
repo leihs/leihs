@@ -44,7 +44,7 @@ class Backend::HandOverController < Backend::BackendController
 
     respond_to do |format|
       format.json {
-        if @contract.sign(lines, current_user)
+        if @contract.sign(current_user, lines)
           render :json => view_context.json_for(@contract.reload, {:preset => :contract})
         else
           @error = {:message => @contract.errors.full_messages}
@@ -126,7 +126,7 @@ class Backend::HandOverController < Backend::BackendController
         @error = if item and line and line.model != item.model
           {:message => _("The inventory code %s is not valid for this model" % inventory_code)}
         elsif line
-          {:message => _("The item with the inventory code %s was not found" % inventory_code)}
+          {:message => _("The item with the inventory code '%s' was not found" % inventory_code)}
         elsif item
           {:message => _("The line was not found")}
         else 

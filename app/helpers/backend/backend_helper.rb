@@ -52,7 +52,10 @@ module Backend::BackendHelper
         path_parameters?(:controller => "backend/inventory_pools", :action => :index)
       when "inventory"
         is_current_page?("models") or
-          is_current_page?("items")
+          is_current_page?("items") or 
+          is_current_page?("inventory_helper")
+      when "inventory_helper"
+        path_parameters?(:controller => "backend/inventory_helper")
       when "models"
         path_parameters?(:controller => "backend/models")
       when "items"

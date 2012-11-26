@@ -2,6 +2,7 @@ Feature: Implement new Group feature#
 
         Background: Provide a minimal lending environment
                 Given inventory pool 'AVZ'
+                  And I am logged in as 'lending_manager' with password 'foobar'
 
         Scenario: Have multiple groups, lend and return an item
                 Given a customer "Mongo Bill"

@@ -84,12 +84,13 @@ class AutoComplete
     @el.val element.item[@data.autocomplete_display_attribute]
     @el.autocomplete("close")
     if @data.autocomplete_value_target?
-      $(@data.autocomplete_value_target).val(element.item.value).change()
+      $("input[name='#{@data.autocomplete_value_target}']").val(element.item.value).change()
     if @data.autocomplete_select_callback?
       callback = eval @data.autocomplete_select_callback
       if callback?
         callback(element, event)
     @el.blur() if @data.autocomplete_blur_on_select == true
+    @el.trigger("autocomplete:select",[element])
     return false
 
   focus: (event, ui)=> false

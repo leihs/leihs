@@ -55,16 +55,6 @@
   transition: $value;
 }
 
-@mixin vertical-gradient($color1, $color2, $start1, $start2) {
-  filter: progid:DXImageTransform.Microsoft.Gradient(StartColorStr='$color1', EndColorStr='$color2', GradientType=0); // IE > 5.5
-  background-image: -ms-linear-gradient(bottom, $color1 $start1, $color2 $start2); // IE10
-  background-image: -moz-linear-gradient(bottom, $color1 $start1, $color2 $start2); // Mozilla Firefox
-  background-image: -o-linear-gradient(bottom, $color1 $start1, $color2 $start2); // Opera
-  background-image: -webkit-gradient(linear, left bottom, left top, color-stop($start1, $color1), color-stop($start2, $color2)); // Webkit (Safari/Chrome 10)
-  background-image: -webkit-linear-gradient(bottom, $color1 $start1, $color2 $start2); // Webkit (Chrome 11+)
-  background-image: linear-gradient(bottom, $color1 $start1, $color2 $start2); // Proposed W3C Markup
-}
-
 @mixin dark-grey-links {
   h2 a, h2 a:link, h2 a:visited, h3 a, h3 a:link, h3 a:visited {
     color: $grey;

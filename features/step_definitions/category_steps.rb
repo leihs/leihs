@@ -6,7 +6,6 @@ When /^I check the category "([^"]*)"$/ do |category|
   list_items = all("ul.simple_tree li")
   list_items.each do |item|
       if item.text == category and item.find("input").native.attribute("checked").nil?
-        #debugger
         item.find("input").click
       end
   end

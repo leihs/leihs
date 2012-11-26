@@ -135,10 +135,12 @@ class Document < ActiveRecord::Base
   #######################
   #
   def log_change(text, user_id)
+    user_id = user_id.id if user_id.is_a? User
     histories.create(:text => text, :user_id => user_id, :type_const => History::CHANGE) unless (user and user_id == user.id)
   end
   
   def log_history(text, user_id)
+    user_id = user_id.id if user_id.is_a? User
     histories.create(:text => text, :user_id => user_id, :type_const => History::ACTION)
   end
   

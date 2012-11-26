@@ -97,6 +97,8 @@ Leihs::Application.routes.draw do
     
     resources :mails
 
+    resources :fields, :controller => "fields", :only => :index
+
     resources :inventory_pools do
       member do
         get :workload
@@ -122,10 +124,9 @@ Leihs::Application.routes.draw do
       resources :orders
       resources :contracts
       resources :visits, :only => :index
+      resource :inventory_helper, :controller => "inventory_helper", :only => :show
       
-      resources :locations do
-        resources :items
-      end
+      resources :locations
       resources :categories do
         member do
           #rails3# OPTIMIZE
@@ -178,9 +179,6 @@ Leihs::Application.routes.draw do
             resources :compatibles, :controller => 'models'
             resources :items do
               member do
-                #old leihs??# get :location
-                #old leihs??# post :location
-                #old leihs??# put :location
                 get :status
                 get :notes
                 post :notes
@@ -203,11 +201,10 @@ Leihs::Application.routes.draw do
           get :supplier
           post :supplier
           get :inventory_codes
+          put :update
+          get :find
         end
         member do
-          #old leihs??# get :location
-          #old leihs??# post :location
-          #old leihs??# put :location
           get :status
           get :notes
           post :notes

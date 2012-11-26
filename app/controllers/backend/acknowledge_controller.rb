@@ -6,7 +6,7 @@ class Backend::AcknowledgeController < Backend::BackendController
       @order.order_lines.reload.reload # take care about line duplicating when the quantity was increased in leihs 2
     rescue
       respond_to do |format|
-        format.html { redirect_to :action => 'index' unless @order }
+        format.html { redirect_to :action => 'index' unless @order } # FIXME
         format.json { render :text => _("User or Order not found"), :status => 500 }
       end
     end

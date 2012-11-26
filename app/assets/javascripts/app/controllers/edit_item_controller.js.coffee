@@ -1,60 +1,38 @@
 class EditItemController
 
-  el: "#item.edit"
+  el: "#item.item_edit"
   
-  constructor: (options)->
+  constructor: (fields, item)->
     @el = $(@el)
     @form = @el.find "form"
-    do @setupDatepicker
+    fields = _.map fields, (field)-> new App.Field field, item
+    @setupFields fields
+    _.each @form.find(".field"), (field)=> App.Field.toggleChildren field, @form
     do @delegateEvents
-    do @setupDependentFields
-    do @setupSoftValidation
 
-  setupDatepicker: =>
-    @el.find(".datepicker").datepicker().each (i,el)=> 
-      el = $(el)
-      value_el = el.prev("input[type=hidden]")
-      el.val moment(value_el.val()).format(i18n.date.L) if value_el.val().length
-      el.on "change", => value_el.val moment(el.val(), i18n.date.L).format("YYYY-MM-DD")
+  setupFields: (fields)->
+    groupedFields = App.Field.grouped fields
+    for group, fields of groupedFields
+      groupedFields_el = $.tmpl "app/views/inventory/edit/field_group", {name: group, fields: fields}
+      target = if @el.find(".left .field").length <= @el.find(".right .field").length
+        @el.find(".left")
+      else
+        @el.find(".right")
+      target.append groupedFields_el
     
-  delegateEvents: =>
-    @form.find("input[name='item[owner_id]']").bind "change", ->
-      if $(this).val() != $(this).data "initial_value"
-        Notification.add_headline
-          title: _jed('Warning')
-          text: _jed('This item will be given to a different inventory pool and not show up in yours anymore!')
-          type: "warning"
-
-  setupDependentFields: =>
-    do =>
-      target = @form.find("[name='item[to_retire]']")
-      field = @form.find("[name='item[retired_reason]']").closest(".field")
-      check= => if target.is(":checked") then field.show() else field.hide()
-      do check
-      target.on "change", check
-    do =>
-      targets = @form.find("[name='item[properties][reference]']")
-      target = @form.find("[name='item[properties][reference]'][value='investment']")
-      field = @form.find("[name='item[properties][project_number]']").closest(".field")
-      check= => if target.is(":checked") then field.show() else field.hide()
-      do check
-      targets.on "change", check
-
-  setupSoftValidation: =>
+  delegateEvents: ->
+    @form.on "change", "input[name='item[owner][id]']", @changeOwnerNotification
     @form.on "submit", @validate
+    @form.on "change", "input[name], textarea, select", (e)=> App.Field.toggleChildren $(e.currentTarget).closest(".field"), @form
+
+  changeOwnerNotification: ->
+    Notification.add_headline
+      title: _jed('Warning')
+      text: _jed("If you transfer an item to a different inventory pool it's not visible for you anymore.")
+      type: "warning"
 
   validate: (e)=>
-    valid = true
-    @form.find(".invalid").removeClass("invalid")
-    for mendatory_field in @form.find(".field.required:visible")
-      if ($(mendatory_field).find("input[type=text]").length and $(mendatory_field).find("input[type=text]").val().length == 0) or 
-      ($(mendatory_field).find("textarea").length and $(mendatory_field).find("textarea").val().length == 0) or 
-      ($(mendatory_field).find("input[type=checkbox]").length and $(mendatory_field).find("input[type=checkbox]:checked").length == 0) or
-      ($(mendatory_field).find("input[type=radio]").length and $(mendatory_field).find("input[type=radio]:checked").length == 0)
-        valid = false 
-        $(mendatory_field).addClass("invalid")
-
-    if not valid
+    unless App.Field.validate @form
       Notification.add_headline
         title: _jed('Error')
         text: _jed('Please provide all required fields')

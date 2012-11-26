@@ -2,12 +2,17 @@ class Backend::ItemsController < Backend::BackendController
   
   before_filter do
     params[:id] ||= params[:item_id] if params[:item_id]
-    if params[:id]
-      @item = current_inventory_pool.items.where(:id => params[:id]).first
-      @item ||= Item.unscoped { current_inventory_pool.own_items.where(:id => params[:id]).first }
+    
+    conditions = if params[:id]
+      {:id => params[:id]}
+    elsif params[:inventory_code]
+      {:inventory_code => params[:inventory_code]}
     end
 
-    @location = Location.find(params[:location_id]) if params[:location_id]
+    @item = if conditions
+      current_inventory_pool.items.where(conditions).first ||
+      Item.unscoped { current_inventory_pool.own_items.where(conditions).first }
+    end
     
     @model = if @item
                 @item.model
@@ -57,73 +62,82 @@ class Backend::ItemsController < Backend::BackendController
   # TODO: we do not check here who is allowed to do what - i.e. a level 1 manager can
   #       update items directly through the backend - even though the frontend wouldn't let him
   def update
-    get_histories
+    # get_histories currently not needed
 
-    params[:item][:location] = Location.find_or_create(params[:location]) if params[:location]
-
-# TODO: Move to before_save, this never fires this way, but in before_save we are lacking
-# a current_user
-#     if @item.inventory_pool_id_changed?
-#       @item.log_history(_("Item %s moved responsible department from %s to %s") % 
-#                         [@item, InventoryPool.find(@item.inventory_pool_id_was), @item.inventory_pool],
-#                         current_user)
-#     end
-#     
-#     if @item.owner_id_changed?
-#       @item.log_history(_("Item %s moved owner from %s to %s") % 
-#                         [@item, InventoryPool.find(@item.owner_id_was), @item.owner],
-#                         current_user)
-#     end
-
-    if to_retire = params[:item].delete(:to_retire)
-      unless @item.retired?
-        @item.retired = Date.today
-      else
-        # we keep the existing stored date
+    if @item
+      # check permissions by checking flexible field permissions
+      Field.all.each do |field|
+        next unless field.permissions
+        if field.get_value_from_params params[:item]
+          unless field.editable current_user, current_inventory_pool, @item
+            @item.errors.add(:base, _("You are not the owner of this item")+", "+_("therefore you may not be able to change some of these fields"))
+          end
+        end
       end
-    elsif @item.retired?
-      params[:item].delete(:retired_reason)
-      @item.retired_reason = nil
-      @item.retired = nil
+
+      unless @item.errors.any?
+        saved = @item.update_attributes(params[:item])
+      end
     end
 
-    if @item.update_attributes(params[:item])
-      flash[:notice] = _("Item saved.") #tmp# unless flash[:notice]
-      if params[:copy].blank?
-        redirect_to backend_inventory_pool_models_path(current_inventory_pool)
-      else 
-        redirect_to :action => 'new', :original_id => @item.id  
-      end
-    else
-      flash[:error] = @item.errors.full_messages
-      render :action => 'show'
+    respond_to do |format|
+      format.json { 
+        if saved
+          render(:status => :ok, json: view_context.json_for(@item, {preset: :item_edit}))
+        else
+          if @item
+            render :text => @item.errors.full_messages.join(", "), :status => :bad_request
+          else
+            render :json => {}, :status => :not_found
+          end
+        end
+      }
+      format.html { 
+        if saved
+          if params[:copy].blank?
+            redirect_to backend_inventory_pool_models_path(current_inventory_pool)
+          else 
+            redirect_to :action => 'new', :original_id => @item.id  
+          end
+        else
+          flash[:error] = @item.errors.full_messages
+          render :action => 'show'
+        end
+      }
     end
   end
 
+  def find
+    respond_to do |format|
+      format.json { 
+        if @item
+          render(:json => view_context.json_for(@item))
+        else
+          render(:status => :not_found)
+        end
+      }
+    end
+  end
   
-  def show
-    if @item.nil?
-      flash[:error] = _("You don't have access to this item.")
-      redirect_to backend_inventory_pool_items_path(current_inventory_pool)
-    else
-      get_histories
-    end
-  end
-
-#################################################################
-
-=begin #old leihs??# FIXME problem with put request (it catches from the update method)
-  def location
-    if request.post? or request.put?
-      if @item.update_attributes(:location => Location.find_or_create(params[:location]))
-        flash[:notice] = _("Location successfully set")
+  def show(with = params[:with])
+    respond_to do |format|
+      format.json { 
+        unless @item.nil?
+          render(:json => view_context.json_for(@item, with))
+        else
+          render(:status => :unauthorized, :nothing => true)
+        end
+      }
+      format.html { 
+      if @item.nil?
+        flash[:error] = _("You don't have access to this item.")
+        redirect_to backend_inventory_pool_items_path(current_inventory_pool)
       else
-        flash[:error] = _("Error setting the location")
+        get_histories
       end
+      }
     end
-    @item.location ||= Location.new
   end
-=end
 
 #################################################################
 

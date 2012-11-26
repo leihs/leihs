@@ -1,0 +1,27 @@
+%label.container
+  {{if value}}
+  ${console.log($item.data), ""}
+  %input{:type => "hidden", :name => "${formName}", :value => "${value}"}
+  %input.autocomplete{:type => "text",
+                      :placeholder => "${label}",
+                      :title => "${label}",
+                      :value => "${App.Field.getLabel(values, value)}",
+                      :data => { :autocomplete_data => "${JSON.stringify(values)}",
+                                 :autocomplete_element_tmpl => "tmpl/autocomplete/generic",
+                                 :autocomplete_search_on_focus => 'true',
+                                 :autocomplete_value_target => '${formName}',
+                                 :autocomplete_display_attribute => "label",
+                                 :autocomplete_blur_on_select => "true" }}
+  {{else}}
+  %input{:type => "hidden", :name => "${formName}"}
+  %input.autocomplete{:type => "text",
+                      :placeholder => "${label}",
+                      :title => "${label}",
+                      :data => { :autocomplete_data => "${JSON.stringify(values)}",
+                                 :autocomplete_element_tmpl => "tmpl/autocomplete/generic",
+                                 :autocomplete_search_on_focus => 'true',
+                                 :autocomplete_value_target => '${formName}',
+                                 :autocomplete_display_attribute => "label",
+                                 :autocomplete_blur_on_select => "true" }}
+  {{/if}}
+  .arrow.icon

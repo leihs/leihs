@@ -8,7 +8,7 @@ do | who, inventory_code |
   cl = contract.contract_lines.first
   cl.update_attribute(:item, item) # don't validate - allow creation of *invalid* records!
   contract.reload
-  contract.sign
+  contract.sign(@user)
   contract.save
 end
 

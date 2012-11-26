@@ -1,0 +1,18 @@
+%div{:"data-field_id" => "${id}", :class => "field ${type}{{if required}} required{{/if}}{{if editable}} editable{{/if}}"}
+  %h3.key 
+    ${label}
+    {{if required}}
+    *
+    {{/if}}
+
+  .value
+
+    {{if editable}}
+
+    {{tmpl "app/views/inventory/edit/input"}}
+    
+    {{/if}}
+
+    {{tmpl "app/views/inventory/edit/readonly"}}
+    
+  .clear

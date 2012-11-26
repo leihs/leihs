@@ -33,6 +33,12 @@ namespace :app do
       Rake::Task["app:test:jasmine"].invoke
     end
 
+    task :travis do
+      Rake::Task["app:test:setup"].invoke
+      Rake::Task["app:test:rspec"].invoke
+      Rake::Task["app:test:jasmine"].invoke
+    end
+
     task :rspec do
       system "bundle exec rspec --format d --format html --out tmp/html/rspec.html spec"
       exit_code = $?.exitstatus
@@ -76,7 +82,7 @@ namespace :app do
 
 
     task :jasmine do
-      output = `guard-jasmine 2>&1` # Redirect STDERR to STDOUT so the `` construct captures it
+      output = `guard-jasmine --server_timeout 120 2>&1` # Redirect STDERR to STDOUT so the `` construct captures it
       output.split("\n").each do |out|
         raise "Jasmine specs did not run -- this cannot be happening!" if out.chomp.match("^.*0 specs, 0 failures.*")
       end

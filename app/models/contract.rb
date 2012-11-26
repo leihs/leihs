@@ -17,6 +17,7 @@ class Contract < Document
   has_many :models, :through => :item_lines, :uniq => true, :order => 'contract_lines.start_date ASC, contract_lines.end_date ASC, models.name ASC'
   has_many :items, :through => :item_lines, :uniq => false
   has_many :options, :through => :option_lines, :uniq => true
+  belongs_to :handed_over_by_user, :class_name => "User"
 
   # TODO validates_uniqueness [user_id, inventory_pool_id, status_const] if status_consts == Contract::UNSIGNED
 
@@ -96,10 +97,7 @@ class Contract < Document
   
 #########################################################################
   
-  # TODO: we don't have a single place where we call sign without a current_user, except in a new test
-  #       -> eliminate the default value and the assignement current_user ||=
-  def sign(selected_lines = nil, current_user = nil)
-    current_user ||= self.user
+  def sign(current_user, selected_lines = nil)
     selected_lines ||= self.contract_lines
  
     if selected_lines.empty? # sign is only possible if there is at least one line
@@ -113,7 +111,7 @@ class Contract < Document
       false
     else
       transaction do
-        update_attributes({:status_const => Contract::SIGNED, :created_at => Time.now}) 
+        update_attributes({:status_const => Contract::SIGNED, :created_at => Time.now, :handed_over_by_user_id => current_user.id}) 
         log_history(_("Contract %d has been signed by %s") % [self.id, self.user.name], current_user.id)
     
         # Forces handover date to be today.

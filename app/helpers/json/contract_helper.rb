@@ -17,12 +17,19 @@ module Json
         if with[:lines]
           h[:lines] = hash_for contract.lines, with[:lines]
         end
+
         if with[:user]
           h[:user] = hash_for contract.user, with[:user] 
         end
+
+        if with[:handed_over_by_user] and contract.status_const != Contract::UNSIGNED
+          h[:handed_over_by_user] = contract.handed_over_by_user ? hash_for(contract.handed_over_by_user, with[:handed_over_by_user]) : nil
+        end
+
         if with[:inventory_pool]
           h[:inventory_pool] = hash_for contract.inventory_pool, with[:inventory_pool] 
         end
+
         if with[:barcode]
           require 'barby' 
           require 'barby/barcode/code_128' 

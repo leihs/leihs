@@ -7,7 +7,7 @@
     title.join(' ')
   end
 
-#item.edit.innercontent
+#item.item_edit.innercontent.edit
   = form_for [:backend, current_inventory_pool, @item] do |f|
 
     .content_navigation
@@ -29,16 +29,8 @@
       =#TODO??# render :partial => 'notes', :object => @histories
       = render :partial => 'notifications'
     
-      #left
-        = render :partial => 'inventory_code', :locals => {:f => f}
-        = render :partial => 'general_info', :locals => {:f => f}
-        = render :partial => 'status', :locals => {:f => f}
-        = render :partial => 'location'
-        = render :partial => 'properties', :locals => {:f => f} 
-      #right
-        = render :partial => 'inventory_info', :locals => {:f => f}
-        = render :partial => 'invoice_info', :locals => {:f => f} 
-
+      .left
+      .right
       .clear
 
 :coffeescript
@@ -48,4 +40,4 @@
         text: "#{flash[:notice]}"
         type: "success"
 
-    #new App.EditItemController
+    new App.EditItemController #{json_for Field.accessible_by(current_user, current_inventory_pool)}, #{json_for(@item, {:preset => :item_edit})}

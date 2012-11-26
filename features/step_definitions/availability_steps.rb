@@ -47,7 +47,7 @@ end
 
 # TODO: use $who
 Given "the $who signs the contract" do |who|
-  @contract.sign
+  @contract.sign(@user)
   @contract.status_const.should == Contract::SIGNED
 end
 
