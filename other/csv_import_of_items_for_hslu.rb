@@ -67,7 +67,7 @@ def create_model(name, category, manufacturer, accessory_string)
   end
   
   unless accessory_string.blank?  
-    accessory_string.split("|").each do |string|
+    accessory_string.split(",").each do |string|
       acc = Accessory.create(:name => string.strip)
       m.accessories << acc
     end
@@ -113,22 +113,24 @@ end
 # 9: note
 
 def run_import(path)
-  lines_to_import = File.open(path).readlines
+  #lines_to_import = File.open(path).readlines
+  lines_to_import = FasterCSV.open(path, :col_sep => "\t", :quote_char => "\"", :headers => true) 
   lines_to_import.each do |line|
 
-    split_line = line.split("\t")
-    item = {}
-    item["model_name"] = split_line[4]
-    item["inventory_code"] = split_line[0]
-    item["serial_number"] = split_line[3]
-    item["model_manufacturer"] = split_line[7]
-    item["category"] = split_line[5]
-    item["note"] = "" 
-    item["note"] = split_line[9] if split_line[9]
-    item["building_string"] = split_line[8]
-    item["room_string"] = ""
-    item["owner"] = split_line[2]
-    item["inventory_pool"] = split_line[1]
+  item = line
+  #  split_line = line.split("\t")
+  #  item = {}
+  #  item["model_name"] = split_line[4]
+  #  item["inventory_code"] = split_line[0]
+  #  item["serial_number"] = split_line[3]
+  #  item["model_manufacturer"] = split_line[7]
+  #  item["category"] = split_line[5]
+  #  item["note"] = "" 
+  #  item["note"] = split_line[9] if split_line[9]
+  #  item["building_string"] = split_line[8]
+  #  item["room_string"] = ""
+  #  item["owner"] = split_line[2]
+  #  item["inventory_pool"] = split_line[1]
 
     create_item(item["model_name"],
                 item["inventory_code"],
