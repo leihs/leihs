@@ -1,19 +1,13 @@
 # This is to be run from the Rails console using require:
 # ./script/console
-# require 'doc/csv_import_of_items'
-
-
-
-
+# require 'doc/csv_import_of_items_for_hslu'
+# run_import('/tmp/foo.csv')
+#
 # Example of some correct CSV lines for this (the separators are tabs):
 # inventory_code	inventory_pool	owner	serial_number	model_name	categories	supplier	model_manufacturer	location	note
-#5049	Videowerkstatt Sentimatt	Design & Kunst	FN 1209601	Thomson VTH 6050	Player / Recorder (Entsorgt)|	Bild+Ton	Thomson	125	FernbedienungN2QAKB0000003
-#5065	Videowerkstatt Sentimatt	Design & Kunst	2B1651986	Standard SR - 8900	Player DVD (entsorgt 05)|		Standard	125	- 1 Fernbedienung
-#5060	Videowerkstatt Sentimatt	Design & Kunst	JOHT00188	Panasonic NV- DV2000 4	Player / Recorder fehlt 04|		Panasonic	126	- 1 Fernbedienung
-#5069	Videowerkstatt Sentimatt	Design & Kunst	K2HT00005	Panasonic NV- DV2000, 5	Player / Recorder|		Panasonic	126	- 1 Fernbedienung
-#5084	Videowerkstatt Sentimatt	Design & Kunst	22026	SONY GV-HD700E	Player / Recorder HDV|		SONY	44b	- Stromadapter AC-L100|- 1 Akku NP-F570|- Fernbedinung|- Manual|- RGB Kabel|- USB Kabel|- Video Kabel
-#5085	Videowerkstatt Sentimatt	Design & Kunst	22276	SONY GV-HD700E	Player / Recorder HDV|		SONY	44b	- Stromadapter AC-L100|- 1 Akku NP-F570|- Fernbedinung|- Manual|- RGB Kabel|- USB Kabel|- Video Kabel
-
+#5049	Videowerkstatt XYZ	Design & Kunst	FN 1234	Thomson VTH 6050	Player / Recorder (Entsorgt)|	Bild+Ton	Thomson	125	FernbedienungN2QAKB0000003
+#5065	Videowerkstatt ABC	Design & Kunst	123XYZ	Standard SR - 8900	Player DVD (entsorgt 05)|		Standard	125	- 1 Fernbedienung
+#5085	Videowerkstatt XYZ	Design & Kunst	123455	SONY GV-HD700E	Player / Recorder HDV|		SONY	44b	- Stromadapter AC-L100|- 1 Akku NP-F570|- Fernbedinung|- Manual|- RGB Kabel|- USB Kabel|- Video Kabel
 
 require 'faster_csv'
 @failures = 0
@@ -70,14 +64,21 @@ def create_model(name, category, manufacturer, accessory_string)
         end
       end
     end
-    
+
     unless accessory_string.blank?  
       accessory_string.split("|").each do |string|
-        acc = Accessory.create(:name => string.strip)
-        m.accessories << acc
+        unless string.blank?
+          acc = Accessory.create(:name => string.strip)
+          m.accessories << acc
+        end
       end
     end
-    m.save
+
+
+    if m.save == false
+      binding.pry
+    end
+
   end
   return m
 end
@@ -117,26 +118,9 @@ end
 # 9: note
 
 def run_import(path)
-  #lines_to_import = File.open(path).readlines
   lines_to_import = FasterCSV.open(path, :col_sep => "\t", :quote_char => "\"", :headers => true) 
   lines_to_import.each do |line|
-
     item = line
-    #  split_line = line.split("\t")
-    #  item = {}
-    #  item["model_name"] = split_line[4]
-    #  item["inventory_code"] = split_line[0]
-    #  item["serial_number"] = split_line[3]
-    #  item["model_manufacturer"] = split_line[7]
-    #  item["category"] = split_line[5]
-    #  item["note"] = "" 
-    #  item["note"] = split_line[9] if split_line[9]
-    #  item["building_string"] = split_line[8]
-    #  item["room_string"] = ""
-    #  item["owner"] = split_line[2]
-    #  item["inventory_pool"] = split_line[1]
-
-
     create_item(item["model_name"],
                 item["inventory_code"],
                 item["serial_number"],
@@ -160,4 +144,47 @@ def run_import(path)
 end
 
 
+# If you get a broken CSV file (one that does not conform to RFC 4180
+# as described here: http://tools.ietf.org/html/rfc4180), you can try
+# to brute force your way ahead by using a primitive split on tab separators
+# instead of a proper CSV library.
+def run_import_with_broken_csv(path)
 
+  lines_to_import = File.open(path).readlines
+  lines_to_import.each do |line|
+
+    split_line = line.split("\t")
+    item = {}
+    item["model_name"] = split_line[4]
+    item["inventory_code"] = split_line[0]
+    item["serial_number"] = split_line[3]
+    item["model_manufacturer"] = split_line[7]
+    item["category"] = split_line[5]
+    item["note"] = "" 
+    item["note"] = split_line[9] if split_line[9]
+    item["building_string"] = split_line[8]
+    item["room_string"] = ""
+    item["owner"] = split_line[2]
+    item["inventory_pool"] = split_line[1]
+
+    create_item(item["model_name"],
+                item["inventory_code"],
+                item["serial_number"],
+                item["model_manufacturer"],
+                item["categories"],
+                item["note"],
+                item["note"],
+                item["building_string"],
+                item["room_string"],
+                item["owner"],
+                item["inventory_pool"])
+  end
+
+  puts "-----------------------------------------"
+  puts "DONE"
+  puts "#{@successes} successes, #{@failures} failures"
+  puts "-----------------------------------------"
+  puts "#{@report}"
+  puts "-----------------------------------------"
+
+end
