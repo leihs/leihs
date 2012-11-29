@@ -3,37 +3,11 @@
 
 .model.line {
   
-  &+.items {
-    display: none;
-    
-    .line {
-      .main {
-        padding-left: 45px;
-        width: 680px;
-      }
-    }
-
-    .children {
-
-      .line .main {
-        width: 650px;
-      }
-    }
-  }
-  
   &.package{
     &+.items { 
       .item_status {
         width: 130px;
       }
-    }
-  }
- 
-  li.toggle {
-    width: 58px;
-    
-    .text {
-      float: right;
     }
   }
   

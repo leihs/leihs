@@ -1,0 +1,24 @@
+${$item.unique_id = Underscore.uniqueId("statistic_children_"), ""}
+
+%ul{:class => "line toggler ${type}{{if children}} package{{/if}}"}
+  
+  .main
+
+    {{if children}}
+    %li.toggle{:"data-toggle_target" => "\#${$item.unique_id}"}
+      .text{:title => "${_jed('expand')}"}
+        .icon
+        ${children.length}
+    {{/if}}
+  
+    %li
+      ${accounting.formatNumber(quantity)} ${unit}
+    %li
+      ${object}
+    %li
+      ${label}
+  
+{{if children}}
+.children{:id => "${$item.unique_id}"}
+  {{tmpl(children) "tmpl/line/statistic"}}
+{{/if}}

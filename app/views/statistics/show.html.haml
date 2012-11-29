@@ -1,8 +1,53 @@
-%h4 Who borrowed the most things?
-= Statistics::Base.most_borrower
+#statistics.innercontent
 
-%h4 Which inventory pool is busiest?
-= Statistics::Base.busiest_inventory_pool
+  .top
+    %h1= _("Statistics")
 
-%h4 Who bought the most items?
-= Statistics::Base.most_items_inventory_pool
+  .indent#process_helper{:style => "float: none; text-align: right;"}
+    = form_tag statistics_path, :method => :get do
+      .dates
+        .container
+          %input{:type => "text", :name => "start_date", :id => "add_start_date", :title => _("Start Date"), :value => "#{params[:start_date]}"}
+          %label{:for => "add_start_date"}
+            = _("Start Date")
+          %label.datepicker.icon{:for => "add_start_date", :title => _("Open Datepicker")}
+        = "-"
+        .container
+          %input{:type => "text", :name => "end_date", :id => "add_end_date", :title => _("End Date"), :value => "#{params[:end_date]}"}
+          %label{:for => "add_end_date"}
+            = _("End Date")
+          %label.datepicker.icon{:for => "add_end_date", :title => _("Open Datepicker")} 
+      = submit_tag _("Filter"), :class => "button"
+  .clear
+ 
+  %section
+    .inlinetabs
+      .tab.active{:disabled => true}
+        %span.text
+          = _("Who borrowed the most things?")
+    .list.users
+  
+  %section
+    .inlinetabs
+      .tab.active{:disabled => true}
+        %span.text
+          = _("Which inventory pool is busiest?")
+    .list.inventory_pools
+  
+  %section
+    .inlinetabs
+      .tab.active{:disabled => true}
+        %span.text
+          = _("Who bought the most items?")
+    .list.item_values
+
+
+:coffeescript
+  jQuery ->
+    $('#statistics .users').append $.tmpl("tmpl/line", #{@list_1.to_json})
+    $('#statistics .inventory_pools').append $.tmpl("tmpl/line", #{@list_2.to_json})
+    $('#statistics .item_values').append $.tmpl("tmpl/line", #{@list_3.to_json})
+
+    $(".toggle[data-toggle_target]").expandable_line()
+    $(".dates input").datepicker()
+

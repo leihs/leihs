@@ -1,6 +1,9 @@
-class StatisticsController < ActionController::Base
+class StatisticsController < Backend::BackendController
 
   def show
+    @list_1 = Statistics::Base.hand_overs([User, Model], params.to_hash)
+    @list_2 = Statistics::Base.hand_overs([InventoryPool, Model], params.to_hash)
+    @list_3 = Statistics::Base.item_values([InventoryPool, Model], params.to_hash)
   end
 
   def activities(type = params[:type],
