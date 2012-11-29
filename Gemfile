@@ -6,14 +6,16 @@ gem 'mysql2', '~> 0.3.11', :platform => :mri_19
 gem 'activerecord-jdbcmysql-adapter', :platform => :jruby
 gem 'json', '~> 1.7'
 gem "active_hash", "~> 0.9"
-gem 'haml', '~> 3.1'
 
+gem 'haml', '~> 3.1'
+gem 'haml_assets', '~> 0.2'
 gem 'sass', '~> 3.2'
+
 gem 'coffee-script', '~> 2.2'
 gem "coffee-filter", "~> 0.1.1"
-gem 'jquery-rails', '~> 2.1'
+gem "underscore-rails", "~> 1.4"
+gem 'jquery-rails', '2.1.3' # '~> 2.1' FIXME the version 2.1.4 clashes with underscore-rails 1.4.2.1
 gem 'jquery-tmpl-rails', '~> 1.1'
-gem 'haml_assets', '~> 0.2'
 
 gem 'jruby-openssl', :platform => :jruby
 gem 'rails_autolink', '~> 1.0'
@@ -32,7 +34,6 @@ gem 'ruby-net-ldap', '~> 0.0.4', :require => 'net/ldap'
 gem 'nested_set', '~> 1.7'
 gem 'acts-as-dag', :git => "git://github.com/jrust/acts-as-dag.git" #tmp# '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
 gem 'geocoder', '~> 1.1'
-gem "underscore-rails", "~> 1.4"
 # gem "RubyInline", '3.8.2', :require => "inline"
 
 
