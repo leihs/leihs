@@ -73,7 +73,7 @@ class Item < ActiveRecord::Base
     options.each_pair do |k,v|
       case k
         when :inventory_pool_id
-          sql = sql.where(k => v)
+          sql = sql.where(arel_table[k].eq(v).or(arel_table[:owner_id].eq(v)))
       end
     end
     sql
