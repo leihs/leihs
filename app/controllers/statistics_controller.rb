@@ -1,5 +1,9 @@
 class StatisticsController < Backend::BackendController
 
+  before_filter do
+    authorized_admin_user? unless current_inventory_pool  
+  end
+  
   def show
     @list_1 = Statistics::Base.hand_overs([User, Model], params.to_hash)
     @list_2 = Statistics::Base.hand_overs([InventoryPool, Model], params.to_hash)
