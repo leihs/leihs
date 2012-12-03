@@ -187,7 +187,7 @@ class InventoryPool < ActiveRecord::Base
   end
   
   def is_blacklisted?(user)
-    suspended_users.where(:id => user.id).count > 0
+    suspended_users.where(:id => user.id).exists?
   end
 
 ###################################################################################

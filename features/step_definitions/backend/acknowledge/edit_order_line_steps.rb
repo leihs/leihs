@@ -2,7 +2,7 @@
 
 When /^I open an order for acknowledgement$/ do
   @ip = @user.managed_inventory_pools.first
-  @customer = @ip.users.all.detect {|x| x.orders.submitted.count > 0}
+  @customer = @ip.users.all.detect {|x| x.orders.submitted.exists? }
   @order = @customer.orders.submitted.first
   visit backend_inventory_pool_acknowledge_path(@ip, @order)
   page.has_css?("#acknowledge", :visible => true)
@@ -10,7 +10,7 @@ end
 
 When /^I open an order for acknowledgement with more then one line$/ do
   @ip = @user.managed_inventory_pools.first
-  @customer = @ip.users.all.detect {|x| x.orders.submitted.count > 0 and x.orders.submitted.first.lines.size > 1}
+  @customer = @ip.users.all.detect {|x| x.orders.submitted.exists? and x.orders.submitted.first.lines.size > 1}
   @order = @customer.orders.submitted.first
   visit backend_inventory_pool_acknowledge_path(@ip, @order)
   page.has_css?("#acknowledge", :visible => true)
