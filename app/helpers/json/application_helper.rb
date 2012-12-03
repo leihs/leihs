@@ -54,6 +54,8 @@ module Json
         when :visit
           {:user => :reminders,
            :contract_lines => :model}
+        when :hand_over_visit
+          {:contract_lines => [:item, :model]}
       end
     end
 

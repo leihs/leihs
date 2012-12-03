@@ -33,12 +33,14 @@ class Item < ActiveRecord::Base
   
   validates_uniqueness_of :inventory_code
   validates_presence_of :inventory_code, :model, :owner
-  validate :validates_package, :validates_changes, :validates_retired
+  
+  validate :validates_package
+  validate :validates_changes, :validates_retired, :on => :create
 
 ####################################################################
 
   before_save do
-    self.owner = inventory_pool if inventory_pool and !owner
+    self.owner = inventory_pool if !owner and inventory_pool 
     self.properties = properties.to_hash.delete_if{|k,v| v.blank?}.deep_symbolize_keys # we want to store serialized plain Hash (not HashWithIndifferentAccess) and remove empty values
     self.retired_reason = nil unless retired?
   end

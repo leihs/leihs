@@ -76,23 +76,23 @@ class ItemLine < ContractLine
     
   # validator
   def validate_item
-    if item and contract.status_const == Contract::UNSIGNED
+    if item_id and contract.status_const == Contract::UNSIGNED
       # model matching
-      errors.add(:base, _("The item doesn't match with the reserved model")) unless item.model == model
+      errors.add(:base, _("The item doesn't match with the reserved model")) unless item.model_id == model_id
   
       # check if available
       errors.add(:base, _("The item is already handed over or assigned to a different contract line")) if item_already_handed_over_or_assigned?
    
       # inventory_pool matching
-      errors.add(:base, _("The item doesn't belong to the inventory pool related to this contract")) unless item.inventory_pool == contract.inventory_pool 
+      errors.add(:base, _("The item doesn't belong to the inventory pool related to this contract")) unless item.inventory_pool_id == contract.inventory_pool_id 
 
       # package check 
-      errors.add(:base, _("The item belongs to a package")) if item.parent
+      errors.add(:base, _("The item belongs to a package")) if item.parent_id
     end
   end
   
   def item_already_handed_over_or_assigned?
-    item.contract_lines.handed_over_or_assigned_but_not_returned.where(["id != ?", id]).count > 0
+    item.contract_lines.handed_over_or_assigned_but_not_returned.where(["id != ?", id]).exists?
   end
   
 end
