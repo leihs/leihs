@@ -23,7 +23,8 @@ class Item < ActiveRecord::Base
   belongs_to :supplier
   belongs_to :inventory_pool
   
-  has_many :contract_lines
+  has_many :item_lines
+  alias :contract_lines :item_lines
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
 
   store :properties
