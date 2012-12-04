@@ -15,7 +15,7 @@ module Json
         end
       
         if with[:lines]
-          lines = visit.lines.sort_by(&:created_at)
+          lines = visit.lines.sort_by {|x| x.model.to_s }
           h[:lines] = hash_for lines, with[:lines]
         end
         
