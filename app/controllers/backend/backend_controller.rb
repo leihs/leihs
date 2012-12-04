@@ -41,8 +41,8 @@ class Backend::BackendController < ApplicationController
     
     # default if types are not provided
     conditions[:klasses][User]      = {:sort_by => "firstname ASC, lastname ASC"} if types.blank? or types.include?("user")
-    conditions[:klasses][Order]     = {:sort_by => "created_at DESC"} if types.blank? or types.include?("order")
-    conditions[:klasses][Contract]  = {:sort_by => "created_at DESC", :filter => {:status_const => Contract::SIGNED..Contract::CLOSED}} if types.blank? or types.include?("contract")
+    conditions[:klasses][Order]     = {:sort_by => "status_const ASC, created_at DESC"} if types.blank? or types.include?("order")
+    conditions[:klasses][Contract]  = {:sort_by => "status_const ASC, created_at DESC", :filter => {:status_const => Contract::SIGNED..Contract::CLOSED}} if types.blank? or types.include?("contract")
     conditions[:klasses][Model]     = {:sort_by => "name ASC"} if types.blank? or types.include?("model")
     conditions[:klasses][Item]      = {:sort_by => "inventory_code ASC"} if types.blank? or types.include?("item")
     # no default
@@ -62,7 +62,7 @@ class Backend::BackendController < ApplicationController
     conditions[:klasses].each_pair do |klass, options|
       r = klass.search(term).
             filter2(conditions[:filter].merge(options[:filter] || {})).
-            order(options[:sort_by]).
+            reorder(options[:sort_by]).
             paginate(:page => params[:page], :per_page => per_page)
 
       results << r
