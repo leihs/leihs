@@ -39,7 +39,7 @@ When /^I change (.*?) lines time range$/ do |type|
   when "a contract"
     @customer.visits.hand_over.first.lines.first
   end
-  @line_element = find(".line", :text => @line.model.name)
+  @line_element = find(".line[data-id='#{@line.id}']")
   step 'I open the booking calendar for this line'
   @new_start_date = if @line.start_date + 1.day < Date.today
       Date.today
