@@ -15,6 +15,7 @@ class Field
     @label = _jed(@label)
     if item?
       @value = @getValue item, @attribute
+      @value = @default if !@value? and @default?
       @editable = @getEditable item
     else
       @editable = true

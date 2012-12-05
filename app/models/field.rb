@@ -154,14 +154,17 @@ class Field < ActiveHash::Base
       id: 21,
       label: "Reference",
       attribute: ["properties", "reference"],
+      permissions: {level: 3, owner: true},
       required: true,
-      values: [{label: "running account",value: "invoice"}, {label: "investment", value: "investment"}],
+      values: [{label: "running account", value: "invoice"}, {label: "investment", value: "investment"}],
+      default: "invoice", 
       type: "radio",
       group: "Invoice Information"
     },{
       id: 22,
       label: "Project Number",
       attribute: ["properties", "project_number"],
+      permissions: {level: 3, owner: true},
       type: "text",
       required: true,
       visibility_dependency_field_id: 21,
