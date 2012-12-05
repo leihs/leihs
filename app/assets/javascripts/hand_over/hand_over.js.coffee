@@ -168,7 +168,7 @@ class HandOver
       Notification.add_headline
         title: "+ #{Str.sliced_trunc(line_data.model.name, 36)}"
         text: "#{moment(line_data.start_date).sod().format(i18n.date.XL)}-#{moment(line_data.end_date).format(i18n.date.L)}"
-        type: "success"
+        type: "warning"
     HandOver.update_subtitle()
     # select new line
     $(".line[data-id=#{line_data.id}] .select input").attr("checked", true).trigger("change")

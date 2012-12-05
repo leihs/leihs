@@ -47,10 +47,10 @@
     }
 
     &.warning {
-      background: opacify($highlight-yellow,1.0);
+      background: opacify($highlight-orange,1.0);
       border-bottom: 1px solid black;
       color: black;
-      @include text-shadow(0 1px 1px $highlight-yellow);
+      @include text-shadow(0 1px 1px $highlight-orange);
     }
   }
 }
