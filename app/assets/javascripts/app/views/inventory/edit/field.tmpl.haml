@@ -1,4 +1,9 @@
-%div{:"data-field_id" => "${id}", :class => "field ${type}{{if required}} required{{/if}}{{if editable}} editable{{/if}}"}
+%div{:"data-field_id" => "${id}", :class => "field ${type}{{if $item.removable}} has-removeable{{/if}}{{if required}} required{{/if}}{{if editable}} editable{{/if}}"}
+  
+  {{if $item.removable}}
+  %a.removable.icon.clear
+  {{/if}}
+  
   %h3.key 
     ${label}
     {{if required}}

@@ -94,6 +94,16 @@
       &:last-child
         border: none
 
+      .removable
+        cursor: pointer
+        float: left
+        position: relative
+        top: 6px
+        left: 6px
+        @include opacity(0.4)
+        &:hover
+          @include opacity(1.0)
+          
       .key
         display: block
         float: left
@@ -102,6 +112,10 @@
         padding: 1% 2%
         margin: 0 !important
         width: 42%
+        
+      &.has-removeable .key
+        padding-left: 3%
+        width: 40%
 
       .value
         display: block
