@@ -64,9 +64,9 @@ class Acknowledge
         type: "success"
     Acknowledge.update_subtitle()
   
-  @update_purpose: (new_purpose)->
-    $("section.purpose p").html new_purpose
-    $("#order").tmplItem().data.purpose = new_purpose
+  @update_purpose: (new_purpose_description)->
+    $("section.purpose p").html new_purpose_description
+    $("#order").tmplItem().data.purpose.description = new_purpose_description
     @setup_purpose()
   
   @setup_purpose: ->

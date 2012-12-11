@@ -1,12 +1,31 @@
--content_for :title, _(@user)
+- content_for :title, _(@user)
+  
 #user.innercontent
+
+  .content_navigation
+    %a.button.white{:href => edit_backend_inventory_pool_user_path(current_inventory_pool, @user)}
+      = _("Edit %s") % _("User")
+      
   
   .top
-    %h1= @user
-  
-  %section.settings.indent
-    %h3= _("Settings for %s") % [current_inventory_pool]
-    %label.start_screen
-      %span= _("Start Screen")
-      %select
-        %option{:value => ""}= _("Lending / Daily View") 
+    %h1= yield :title
+
+  .indent
+    %label
+      %span
+        = _("Badge ID")
+      = @user.badge_id
+
+  - # TODO down here goes the list of orders and contracts
+  %section{:style => "margin-top: 2em;"}
+    %a.button.white{:href => backend_inventory_pool_path(current_inventory_pool)}
+      = @user.orders.submitted.scoped_by_inventory_pool_id(current_inventory_pool).count
+      = _("Open Orders")
+
+    %a.button.white{:href => backend_inventory_pool_path(current_inventory_pool)}
+      = @user.visits.hand_over.scoped_by_inventory_pool_id(current_inventory_pool).count
+      = _("Hand Overs")
+
+    %a.button.white{:href => backend_inventory_pool_path(current_inventory_pool)}
+      = @user.visits.take_back.scoped_by_inventory_pool_id(current_inventory_pool).count
+      = _("Take Backs")

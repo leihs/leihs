@@ -1,4 +1,4 @@
-%ul{:class => "line ${type}{{if is_package}} package{{/if}}"}
+%ul{:class => "line toggler ${type}{{if is_package}} package{{/if}}"}
     
   .main
 
@@ -25,9 +25,9 @@
       {{/if}}
       
     %li.availability
-      ${total_rentable_in_stock}
+      ${total_rentable_in_stock} ${_jed('in stock')}
       = "/"
-      ${total_rentable}
+      ${total_rentable} ${_jed('rentable')}
   
   .actions    
     %li.actions
@@ -49,7 +49,7 @@
           ${_jed("View Model")}
 
 {{if items}}
-.items{:id => "model_${id}_items"}
+.items.children{:id => "model_${id}_items"}
   {{tmpl(items) "tmpl/line/item"}}
 {{/if}}
 

@@ -98,27 +98,3 @@
     @include opacity(0.8);
   }
 }
-
-.model.line li.toggle, .item.line li.toggle {
-  .text {
-    float: left;
-    width: 42px;
-  }
-
-  .icon {
-    background: url($image-sprite) no-repeat -102px -15px;
-    margin-left: 0;
-    margin-right: 0;
-    position: relative;
-    top: -1px;
-    left: -2px;
-    height: 14px;
-    width: 14px;
-  }
-
-  &.open .icon {
-    background: url($image-sprite) no-repeat -117px -8px;
-    height: 14px;
-    width: 14px;
-  }
-}

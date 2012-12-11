@@ -51,6 +51,7 @@ class InventoryHelperController
       @itemSelection.submit()
       @inventoryCode.blur()
       return false
+    @fieldSelection.on "click", ".field .removable", -> $(this).closest(".field").remove() 
 
   addField: (field)->
     return true if App.Field.isPresent field, @fieldSelection
@@ -59,7 +60,7 @@ class InventoryHelperController
       @fieldSelection.find(".left")
     else
       @fieldSelection.find(".right")
-    target.append $.tmpl "app/views/inventory/edit/field", field
+    target.append $.tmpl "app/views/inventory/edit/field", field, {removable: true}
     target.show()
 
   applyFields: (inventoryCode)->

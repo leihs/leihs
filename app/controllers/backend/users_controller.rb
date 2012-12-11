@@ -1,11 +1,11 @@
 class Backend::UsersController < Backend::BackendController
 
   before_filter do
+    authorized_admin_user? unless current_inventory_pool  
+
     params[:id] ||= params[:user_id] if params[:user_id]
 #    @user = current_inventory_pool.users.find(params[:id]) if params[:id]
     @user = User.find(params[:id]) if params[:id]
-
-    authorized_admin_user? unless current_inventory_pool  
   end
 
 ######################################################################

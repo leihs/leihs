@@ -23,7 +23,8 @@ class Item < ActiveRecord::Base
   belongs_to :supplier
   belongs_to :inventory_pool
   
-  has_many :contract_lines
+  has_many :item_lines
+  alias :contract_lines :item_lines
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
 
   store :properties
@@ -32,12 +33,14 @@ class Item < ActiveRecord::Base
   
   validates_uniqueness_of :inventory_code
   validates_presence_of :inventory_code, :model, :owner
-  validate :validates_package, :validates_model_change, :validates_retired
+  
+  validate :validates_package
+  validate :validates_changes, :validates_retired, :on => :create
 
 ####################################################################
 
   before_save do
-    self.owner = inventory_pool if inventory_pool and !owner
+    self.owner = inventory_pool if !owner and inventory_pool 
     self.properties = properties.to_hash.delete_if{|k,v| v.blank?}.deep_symbolize_keys # we want to store serialized plain Hash (not HashWithIndifferentAccess) and remove empty values
     self.retired_reason = nil unless retired?
   end
@@ -73,7 +76,7 @@ class Item < ActiveRecord::Base
     options.each_pair do |k,v|
       case k
         when :inventory_pool_id
-          sql = sql.where(k => v)
+          sql = sql.where(arel_table[k].eq(v).or(arel_table[:owner_id].eq(v)))
       end
     end
     sql
@@ -476,8 +479,9 @@ class Item < ActiveRecord::Base
     end
   end
   
-  def validates_model_change
-    errors.add(:base, _("The model cannot be changed because the item is used in contracts already.")) if model_id_changed? and not contract_lines.empty? 
+  def validates_changes
+    errors.add(:base, _("The model cannot be changed because the item is used in contracts already.")) if model_id_changed? and not contract_lines.empty?
+    errors.add(:base, _("The responsible inventory pool cannot be changed because the item is currently not in stock.")) if inventory_pool_id_changed? and not in_stock? 
   end
 
   def validates_retired

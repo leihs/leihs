@@ -181,11 +181,9 @@ Dann /^enthält die Modell\-Zeile folgende Informationen:$/ do |table|
     when "Name des Modells"
       @model_line.find ".modelname"
     when "Anzahl verfügbar (jetzt)"
-      av = @model_line.find ".availability"
-      av.text.should have_content "#{@model.borrowable_items.in_stock.count} /"
+      @model_line.find ".availability", :text => /#{@model.borrowable_items.in_stock.count}.*?\//
     when "Anzahl verfügbar (Total)"
-      av = @model_line.find ".availability"
-      av.text.should have_content "/ #{@model.borrowable_items.count}"
+      @model_line.find ".availability", :text => /\/.*?#{@model.borrowable_items.count}/ 
     end
   end
 end

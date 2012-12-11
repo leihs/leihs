@@ -201,13 +201,13 @@ class Order < Document
   # NOTE override the column attribute (until leihs 2 is switched off)
   # NOTE all lines should have the same purpose
   def purpose
-    lines.detect {|l| l.purpose }.try(:purpose)
+    lines.detect {|l| l.purpose_id and l.purpose }.try(:purpose) || Purpose.new(:order_lines => lines, :description => read_attribute(:purpose)) 
   end
   
   # NOTE override the column attribute (until leihs 2 is switched off)
   def purpose=(description)
-    p = self.purpose || Purpose.new(:order_lines => lines)
-    p.change_description(description, lines)
+    purpose.change_description(description, lines)
+    write_attribute :purpose, description
   end 
 
   def change_purpose(new_purpose, user_id)

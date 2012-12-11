@@ -1,6 +1,5 @@
 %label.container
   {{if value}}
-  ${console.log($item.data), ""}
   %input{:type => "hidden", :name => "${formName}", :value => "${value}"}
   %input.autocomplete{:type => "text",
                       :placeholder => "${label}",

@@ -2,7 +2,7 @@
 
 When /^I open a hand over$/ do
   @ip = @user.managed_inventory_pools.first
-  @customer = @ip.users.all.detect {|x| x.contracts.unsigned.count > 0}
+  @customer = @ip.users.all.detect {|x| x.contracts.unsigned.exists? }
   visit backend_inventory_pool_user_hand_over_path(@ip, @customer)
   page.has_css?("#hand_over", :visible => true)
 end
@@ -76,7 +76,7 @@ end
 
 When /^I open a hand over with overdue lines$/ do
   @ip = @user.managed_inventory_pools.first
-  @customer = @ip.users.all.detect {|u| u.contracts.unsigned.count > 0 and u.contracts.unsigned.any?{|c| c.lines.any?{|l| l.start_date < Date.today}}}
+  @customer = @ip.users.all.detect {|u| u.contracts.unsigned.exists? and u.contracts.unsigned.any?{|c| c.lines.any?{|l| l.start_date < Date.today}}}
   visit backend_inventory_pool_user_hand_over_path(@ip, @customer)
   page.has_css?("#hand_over", :visible => true)
 end

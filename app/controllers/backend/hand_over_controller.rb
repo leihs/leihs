@@ -118,12 +118,12 @@ class Backend::HandOverController < Backend::BackendController
     item = current_inventory_pool.items.where(:inventory_code => inventory_code).first
     line = @contract.lines.find(line_id)
 
-    if item and line and line.model == item.model
+    if item and line and line.model_id == item.model_id
       line.update_attributes(item: item)
       @error = {:message => line.errors.full_messages.join(', ')} unless line.valid?
     else
       unless inventory_code.blank?
-        @error = if item and line and line.model != item.model
+        @error = if item and line and line.model_id != item.model_id
           {:message => _("The inventory code %s is not valid for this model" % inventory_code)}
         elsif line
           {:message => _("The item with the inventory code '%s' was not found" % inventory_code)}
