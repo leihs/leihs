@@ -70,3 +70,7 @@ Funktionalität: Benutzer verwalten
     Dann muss man den Grund der Sperrung eingeben
     Und man muss das Enddatum der Sperrung bestimmen 
     Und sofern der Benutzer gesperrt ist, kann man die Sperrung aufheben
+
+  Szenario: Darstellung eines Benutzers in Listen
+    Angenommen ein Benutzer erscheint in einer Benutzerliste
+    Dann sieht man folgende Informationen in folgender Reihenfolge: Vorname, Name, Telefonnummer, Rolle, Sperr-Status
