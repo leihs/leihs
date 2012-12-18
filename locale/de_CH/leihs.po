@@ -1815,3 +1815,6 @@ msgstr "Sie können keine Zeilen aushändigen, die keine Inventarcodes zugewiese
 
 #~ msgid "without conflict"
 #~ msgstr "ohne Konflikt"
+
+msgid "You were served by %s"
+msgstr "Sie wurden bedient von %s"

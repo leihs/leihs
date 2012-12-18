@@ -2471,6 +2471,10 @@ window.i18n.locale_data = {
       "without conflict": [
          null,
          "ohne Konflikt"
+      ],
+      "You were served by %s": [
+         null,
+         "Sie wurden bedient von %s"
       ]
    }
 }
