@@ -32,16 +32,41 @@ Funktionalität: Benutzer verwalten
     Dann kann man neue Geräteparks erstellen
     Und man kann neue Benutzer erstellen und löschen
     Und man kann Benutzern jegliche Rollen zuweisen und wegnehmen  
- 
-  Szenario: Benutzerrolle prüfen
-    Angenommen man ist in der Benutzeradministration
-    Dann sehe ich im Bereich 'Rollen' die zugeteilte Rolle
-    Und verlasse den Bereich wieder indem ich einen anderen Bereich wähle oder auf Abbrechen klicke
-    Und wieder auf der Übersicht des Benutzers lande
- 
-  Szenario: Wählen oder Ändern
-    Angenommen man ist in der Benutzeradministration
-    Dann wähle ich im Bereich 'Rollen' eine der Rollen 'Kunde', 'Ausleih-Manager' oder 'Inventar-Manager'
-    Und speichere die Einstellung
-    Und lande wieder auf der Übersicht des Benutzers'
 
+  Szenario: Elemente der Benutzeradministration 
+    Angenommen man ist Inventar-Verwalter oder Ausleihe-Verwalter
+    Dann findet man die Benutzeradministration im Bereich "Administration" unter "Benutzer"
+    Dann sieht man eine Liste aller Benutzer
+    Und man kann filtern nach den folgenden Eigenschaften: gesperrt
+    Und man kann filtern nach den folgenden Rollen: Keine, Kunde, Ausleihe-Verwalter, Inventar-Verwalter, Administrator
+    Und man kann für jeden Benutzer die Editieransicht aufrufen 
+    Und man kann einen neuen Benutzer erstellen 
+
+  Szenario: Elemente der Editieransicht
+    Angenommen man editiert einen Benutzer
+    Dann sieht man als Titel den Vornamen und Namen des Benutzers, sofern bereits vorhanden
+    Dann sieht man die folgenden Daten des Benutzers in der folgenden Reihenfolge:
+    |Badge-Nummer|
+    |Rollen|
+    Dann sieht man die Sperrfunktion für diesen Benutzer
+    Und sofern dieser Benutzer gesperrt ist, sieht man Grund und Dauer der Sperrung
+    Dann sieht man die folgenden Daten des Benutzers in der folgenden Reihenfolge:
+    |Name|
+    |Vorname|
+    |Strasse|
+    |PLZ|
+    |Ort|
+    |Land|
+    |Telefonnummer|
+    |E-Mail-Adresse|
+    Und man kann die Informationen ändern, sofern es sich um einen externen Benutzer handelt
+    Und man kann die Informationen nicht verändern, sofern es sich um einen Benutzer handelt, der über ein externes Authentifizierungssystem eingerichtet wurde
+    Und man sieht die Rollen des Benutzers und kann diese entsprechend seiner Rolle verändern
+    Und man kann die vorgenommenen Änderungen abspeichern 
+
+  Szenario: Sperrfunktion
+    Angenommen man editiert einen Benutzer
+    Und man nutzt die Sperrfunktion
+    Dann muss man den Grund der Sperrung eingeben
+    Und man muss das Enddatum der Sperrung bestimmen 
+    Und sofern der Benutzer gesperrt ist, kann man die Sperrung aufheben
