@@ -48,13 +48,13 @@ Dann /^ich setze all ihre Initalisierungswerte$/ do
         end
       when "date"
         field.find(".datepicker").click
-        wait_until{!all(".ui-datepicker-calendar .ui-state-default", :visible => true).empty?}
+        wait_until{ not all(".ui-datepicker-calendar .ui-state-default", :visible => true).empty? }
         find(".ui-datepicker-calendar .ui-state-default").click
       when "autocomplete"
         target_name = field.find('.autocomplete')['data-autocomplete_value_target']
         page.execute_script %Q{ $(".autocomplete[data-autocomplete_value_target='#{target_name}']").focus() }
         page.execute_script %Q{ $(".autocomplete[data-autocomplete_value_target='#{target_name}']").focus() }
-        wait_until{!all(".ui-menu-item",:visible => true).empty?}
+        wait_until{ not all(".ui-menu-item",:visible => true).empty? }
         find(".ui-menu-item a").click
       when "checkbox"
         # currently we only have "ausgemustert"
@@ -125,10 +125,10 @@ end
 
 Dann /^wähle Ich die Felder über eine List oder per Namen aus$/ do
   find("#fieldname").click
-  wait_until {!all(".ui-menu-item a", :visible => true).empty?}
+  wait_until { not all(".ui-menu-item a", :visible => true).empty? }
   find(".ui-menu-item a", :text => /(Notiz|Note)/).click
   find("#fieldname").set Field.last.label
-  wait_until {!all(".ui-menu-item a", :visible => true).empty?}
+  sleep(1)
   find(".ui-menu-item a").click
 end
 

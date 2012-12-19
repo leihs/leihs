@@ -3,15 +3,15 @@ if (window.i18n == undefined) window.i18n = {};
 (function() {
 
   i18n.date = {
-    L: "DD.MM.YYYY",
-    XL: "dddd DD.MM.YYYY",
-    XXL: "DD.MM.YYYY LT",
-    XXXL: "dddd DD.MM.YYYY LT",
-    XS: 'DD.MM.YY'
+    L: "DD/MM/YYYY",
+    XL: "dddd DD/MM/YYYY",
+    XXL: "DD/MM/YYYY LT",
+    XXXL: "dddd DD/MM/YYYY LT",
+    XS: 'DD/MM/YY'
   };
 
   i18n.datepicker = {
-    L: "dd.mm.yy"
+    L: "dd/mm/yy"
   };
 
   i18n.months = {
@@ -25,7 +25,7 @@ if (window.i18n == undefined) window.i18n = {};
     trunc: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
   };
 
-  i18n.time = "H:mm U\\hr";
+  i18n.time = "H:mm";
 
   i18n.meridiem = {
     AM: 'AM',
@@ -61,7 +61,7 @@ if (window.i18n == undefined) window.i18n = {};
 
   i18n.number = {
     decimal: ".",
-    thousand: "'"
+    thousand: ","
   };
 
 }).call(this);
