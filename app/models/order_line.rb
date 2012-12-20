@@ -18,7 +18,8 @@ class OrderLine < DocumentLine
 #########################################################################
 
   after_find do
-    if quantity > 1
+    # NOTE if it responds to concat_group_ids, then it's actually a RunningLine
+    if quantity > 1 and not respond_to?(:concat_group_ids)
       lines_to_create = quantity - 1
       update_attributes(:quantity => 1)
       lines_to_create.times do
