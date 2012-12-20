@@ -18,7 +18,8 @@ module Json
         end
       
         if with[:lines]
-          h[:lines] = hash_for order.lines, with[:lines]
+          lines = order.lines.sort_by {|x| x.model.to_s }
+          h[:lines] = hash_for lines, with[:lines]
         end
           
         if with[:user]

@@ -21,9 +21,6 @@ ${$not_returned_lines = Line.get_not_returned(lines), ""}
       %span.plz_city ${user.zip} ${user.city}
     .inventory_pool
       %label ${_jed("Lender")}
-      {{if handed_over_by_user}}
-      %span.name ${handed_over_by_user.name}
-      {{/if}} 
       %span.name ${inventory_pool.name}
       {{if inventory_pool.address}}
       %span.street ${inventory_pool.address.street}
@@ -91,4 +88,9 @@ ${$not_returned_lines = Line.get_not_returned(lines), ""}
     %section.terms_and_signature
       %p.terms ${_jed("Terms and conditions of the lender apply.")}
       %hr
-      %span ${_jed("Signature")}      
+      %span ${_jed("Signature")}
+
+    {{if handed_over_by_user}}
+    %section
+      %p ${_jed("You were served by %s", handed_over_by_user.name)}
+    {{/if}}

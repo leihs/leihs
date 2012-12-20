@@ -138,7 +138,11 @@ class ProcessHelper
         $(linegroup).closest(".indent").before $.tmpl("tmpl/linegroup", App.Line.groupByDateRanges([line_data]))
         return true
       else if (linegroup_start_date.diff(line_start_date, "days") == 0) and (linegroup_end_date.diff(line_end_date, "days") == 0)
-        $(linegroup).find(".lines").append $.tmpl("tmpl/line", line_data)
+        first_after_line = _.find $(linegroup).find(".lines .line"), (line)-> $(line).tmplItem().data.model.name > line_data.model.name
+        if first_after_line?
+          $(first_after_line).before($.tmpl("tmpl/line", line_data))
+        else
+          $(linegroup).find(".lines").append $.tmpl("tmpl/line", line_data)
         return true
     if linegroups.length > 0
       # set new linegroup after the last linegroup

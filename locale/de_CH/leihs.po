@@ -1501,8 +1501,8 @@ msgstr "Sie können keine Zeilen aushändigen, die keine Inventarcodes zugewiese
 #~ msgid "Responsible person"
 #~ msgstr "Verantwortliche Person"
 
-#~ msgid "Retired"
-#~ msgstr "Ausgemustert"
+msgid "Retired"
+msgstr "Ausgemustert"
 
 #~ msgid "Retired on %s"
 #~ msgstr "Ausgemustert am %s"
@@ -1663,8 +1663,8 @@ msgstr "Sie können keine Zeilen aushändigen, die keine Inventarcodes zugewiese
 #~ msgid "Workload"
 #~ msgstr "Arbeitsbelastung"
 
-#~ msgid "Yes"
-#~ msgstr "Ja"
+msgid "Yes"
+msgstr "Ja"
 
 #~ msgid "You bring back your items"
 #~ msgstr "Sie bringen Ihre Gegenstände zurück"
@@ -1786,8 +1786,8 @@ msgstr "Sie können keine Zeilen aushändigen, die keine Inventarcodes zugewiese
 #~ msgid "reserved / item assigned in future"
 #~ msgstr "reserviert / Gegenstand bereits Zugewiesen"
 
-#~ msgid "running account"
-#~ msgstr "laufende Rechnung"
+msgid "running account"
+msgstr "laufende Rechnung"
 
 #~ msgid "set current page as start page"
 #~ msgstr "Aktuelle Seite als Startseite setzen"
@@ -1815,3 +1815,6 @@ msgstr "Sie können keine Zeilen aushändigen, die keine Inventarcodes zugewiese
 
 #~ msgid "without conflict"
 #~ msgstr "ohne Konflikt"
+
+msgid "You were served by %s"
+msgstr "Sie wurden bedient von %s"
