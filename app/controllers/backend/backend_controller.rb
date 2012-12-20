@@ -102,7 +102,7 @@ class Backend::BackendController < ApplicationController
 
   protected
 
-    helper_method :is_owner?, :is_privileged_user?, :is_super_user?, :is_inventory_manager?, :is_lending_manager?, :is_apprentice?, :is_admin?, :current_managed_inventory_pools
+    helper_method :is_owner?, :is_privileged_user?, :is_super_user?, :is_inventory_manager?, :is_lending_manager?, :is_admin?, :current_managed_inventory_pools
 
     # TODO: what's happening here? Explain the goal of this method
     def current_inventory_pool
@@ -173,13 +173,7 @@ class Backend::BackendController < ApplicationController
       #@is_lending_manager[inventory_pool] ||=
       current_user.has_at_least_access_level(2, inventory_pool)
     end
-    
-    def is_apprentice?(inventory_pool = current_inventory_pool)
-      #@is_apprentice ||= []
-      #@is_apprentice[inventory_pool] ||=
-      current_user.has_at_least_access_level(1, inventory_pool)
-    end
-  
+
     def is_owner?
       @item.nil? or (current_inventory_pool.id == @item.owner_id)
     end

@@ -218,7 +218,9 @@ class User < ActiveRecord::Base
 ####################################################################
 
   def access_level_for(ip)
-    access_rights.scoped_by_inventory_pool_id(ip).not_suspended.managers.first.try(:access_level).to_i
+    al = access_rights.scoped_by_inventory_pool_id(ip).not_suspended.managers.first.try(:access_level).to_i
+    al = 2 if al == 1 # in leihs 3.0 we drop level 1 and we treat it as 2
+    al
   end
 
   def access_right_for(ip)
