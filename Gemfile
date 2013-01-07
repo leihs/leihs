@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.9'
+gem 'rails', '3.2.10'
 
 gem 'mysql2', '~> 0.3.11', :platform => :mri_19
 gem 'activerecord-jdbcmysql-adapter', :platform => :jruby
@@ -22,7 +22,7 @@ gem 'rails_autolink', '~> 1.0'
 gem 'will_paginate', :git => "https://github.com/halloffame/will_paginate.git" # fixing count distinct, alternatives: .count(:id, :distinct => true)
 #gem 'will_paginate', '~> 3.0' # alternatives: kaminari
 gem 'gettext_i18n_rails', '~> 0.8'
-gem 'ruby_parser', '~> 3.0' # gettext dependency that Bundler seems unable to resolve
+gem 'ruby_parser', '~> 3.1' # gettext dependency that Bundler seems unable to resolve
 
 gem 'barby', '~> 0.5.0'
 gem "chunky_png", "~> 1.2"
@@ -57,16 +57,16 @@ group :development do
 end
 
 group :profiling, :development do
-	gem 'newrelic_rpm', '~> 3.5'
+  gem 'newrelic_rpm', '~> 3.5'
 end
 
 group :test, :development do
   gem "growl", "~> 1.0.3"
-  gem "guard", "~> 1.5"
-  gem "guard-cucumber", "~> 1.2"
-  gem "guard-rspec", "~> 2.1"
-  gem "guard-spork", "~> 1.2", :platform => :mri_19
-  gem "guard-jasmine", "~> 1.10"
+  gem "guard", "~> 1.6"
+  gem "guard-cucumber", "~> 1.3"
+  gem "guard-rspec", "~> 2.3"
+  gem "guard-spork", "~> 1.4", :platform => :mri_19
+  gem "guard-jasmine", "~> 1.11"
   gem "phantomjs", "~> 1.6.0.0" # headless webdriver (UI & JS tests)
   #gem "guard-jasmine-headless-webkit", "~> 0.3.2"
   #gem "jasmine-headless-webkit", "~> 0.8.4"
@@ -82,7 +82,7 @@ group :test, :development do
   gem 'rspec', '~> 2.12', :require => false
   gem 'rspec-rails', '~> 2.12', :require => false
   gem 'nokogiri', '~> 1.5'
-  gem 'capybara', '1.1.2'
+  gem 'capybara', '1.1.2' # TODO upgrade to '~> 2.0'
   gem 'simplecov'
   gem 'launchy', '~> 2.1'
   gem "timecop", "~> 0.5"
