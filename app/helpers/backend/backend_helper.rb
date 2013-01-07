@@ -47,7 +47,7 @@ module Backend::BackendHelper
           is_current_page?("hand_over") or
             is_current_page?("take_back")
       when "admin"
-        is_current_page?("inventory_pools")
+        is_current_page?("users")
       when "inventory_pools"
         path_parameters?(:controller => "backend/inventory_pools", :action => :index)
       when "inventory"
@@ -61,10 +61,14 @@ module Backend::BackendHelper
       when "items"
         path_parameters?(:controller => "backend/items", :action => :show) or
         path_parameters?(:controller => "backend/items", :action => :update)
+      when "users"
+        path_parameters?(:controller => "backend/users", :action => :index)
       when "current_user"
         path_parameters?(:controller => "backend/users", :action => :show) and @user == current_user
       when "start_screen"
         current_user.start_screen == request.fullpath
+      when "statistics"
+        path_parameters?(:controller => "statistics")
     end
     
     # We rescue everything because backend/hand_over and backend/take_back are failing sometimes

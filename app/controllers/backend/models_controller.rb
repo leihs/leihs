@@ -21,7 +21,9 @@ class Backend::ModelsController < Backend::BackendController
     @line = current_inventory_pool.order_lines.find(params[:order_line_id]) if params[:order_line_id]
     @categories ||= @line.model.categories if @line and !@line.model.categories.blank?
   end
-  before_filter :authorized_privileged_user?, :only => [:new, :update]
+  before_filter :only => [:new, :update] do
+    not_authorized! unless is_privileged_user?
+  end
 
 ######################################################################
 
@@ -136,7 +138,7 @@ class Backend::ModelsController < Backend::BackendController
       end
       redirect_to :action => 'index', :model_id => @model
     else
-      authorized_privileged_user? # TODO before_filter for :create
+      not_authorized! unless is_privileged_user? # TODO before_filter for :create
       @model = Model.new
       update
     end

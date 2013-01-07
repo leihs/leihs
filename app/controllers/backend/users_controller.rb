@@ -1,7 +1,11 @@
 class Backend::UsersController < Backend::BackendController
 
   before_filter do
-    authorized_admin_user? unless current_inventory_pool  
+    unless current_inventory_pool
+      not_authorized! unless is_admin?
+    else
+      not_authorized! unless is_lending_manager?
+    end
 
     params[:id] ||= params[:user_id] if params[:user_id]
 #    @user = current_inventory_pool.users.find(params[:id]) if params[:id]
@@ -11,6 +15,7 @@ class Backend::UsersController < Backend::BackendController
 ######################################################################
 
   def index
+    @users = current_inventory_pool.users
   end
 
   def show

@@ -126,15 +126,7 @@ class Backend::BackendController < ApplicationController
 
     ##################################################
     # ACL
-  
-    def authorized_admin_user?
-      not_authorized! unless is_admin?
-    end
 
-    def authorized_privileged_user?
-      not_authorized! unless is_privileged_user?
-    end
-    
     def not_authorized!
         msg = "You don't have appropriate permission to perform this operation."
         respond_to do |format|
