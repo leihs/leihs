@@ -50,7 +50,7 @@ class Backend::ContractsController < Backend::BackendController
     respond_to do |format|
       format.html {
         @total_entries = sql.where(time_range).count
-        @contracts = search_sql.where(time_range).order("contracts.created_at DESC").paginate(:page => page, :per_page => $per_page)
+        @contracts = search_sql.where(time_range).order("contracts.created_at DESC").paginate(:page => page, :per_page => PER_PAGE)
       }
     end
   end

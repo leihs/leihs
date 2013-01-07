@@ -29,7 +29,7 @@ class Backend::ModelsController < Backend::BackendController
             sort_attr = params[:sort_attr] || 'name',
             sort_dir = params[:sort_dir] || 'ASC',
             page = (params[:page] || 1).to_i,
-            per_page = (params[:page] || $per_page).to_i,
+            per_page = (params[:page] || PER_PAGE).to_i,
             category_id = params[:category_id].try(:to_i),
             borrower_user = params[:user_id].try{|x| current_inventory_pool.users.find(x)},
             borrowable = (params[:borrowable] ? !(params[:borrowable] == "false") : nil),
@@ -78,7 +78,7 @@ class Backend::ModelsController < Backend::BackendController
         # TODO migrate strip directly to the database, and strip on before_validation
         models_and_options = (models + options)
                              .sort{|a,b| a.name.strip <=> b.name.strip}
-                             .paginate(:page => page, :per_page => $per_page)
+                             .paginate(:page => page, :per_page => PER_PAGE)
         with.deep_merge!({ :items => {:scoped_ids => item_ids, :query => query} })  
         hash = { inventory: {
                     entries: view_context.hash_for(models_and_options, with),

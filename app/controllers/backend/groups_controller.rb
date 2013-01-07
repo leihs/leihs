@@ -8,7 +8,7 @@ class Backend::GroupsController < Backend::BackendController
 ######################################################################
 
   def index
-    @groups = current_inventory_pool.groups.search(params[:query]).paginate(:page => params[:page], :per_page => $per_page)
+    @groups = current_inventory_pool.groups.search(params[:query]).paginate(:page => params[:page], :per_page => PER_PAGE)
 
     respond_to do |format|
       format.html
