@@ -1,1 +1,7 @@
-= "%d users" % @users.count
+-content_for :title, _("List of Users")
+.innercontent
+
+  .top
+    %h1= yield :title
+
+  %section{"ng-view" => "ng-view"}

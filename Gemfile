@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.10'
+gem 'rails', '3.2.11'
 
 gem 'mysql2', '~> 0.3.11', :platform => :mri_19
 gem 'activerecord-jdbcmysql-adapter', :platform => :jruby
@@ -16,6 +16,9 @@ gem "coffee-filter", "~> 0.1.1"
 gem "underscore-rails", "~> 1.4"
 gem 'jquery-rails', '2.1.3' # '~> 2.1' FIXME the version 2.1.4 clashes with underscore-rails 1.4.2.1
 gem 'jquery-tmpl-rails', '~> 1.1'
+
+gem 'angularjs-rails'
+gem 'angular-ui-rails'
 
 gem 'jruby-openssl', :platform => :jruby
 gem 'rails_autolink', '~> 1.0'

@@ -127,13 +127,17 @@ class User < ActiveRecord::Base
                   joins("LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id").
                   where(['roles.name = ? AND deleted_at IS NULL', 'admin'])
 
-  scope :managers, select("DISTINCT users.*").
-                    joins("LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id").
-                    where(['roles.name = ? AND deleted_at IS NULL', 'manager'])
+  # NOTE working for InventoryPool.first.users.customers (through access_rights)
+  scope :customers, joins("INNER JOIN roles ON roles.id = access_rights.role_id").
+                    where(:roles => {:name => "customer"})
 
-  scope :customers, select("DISTINCT users.*").
-                    joins("LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id").
-                    where(['roles.name = ? AND deleted_at IS NULL', 'customer'])
+  scope :lending_managers, joins("INNER JOIN roles ON roles.id = access_rights.role_id").
+                           where(:roles => {:name => "manager"},
+                                 :access_rights => {:access_level => [1,2]})
+
+  scope :inventory_managers, joins("INNER JOIN roles ON roles.id = access_rights.role_id").
+                             where(:roles => {:name => "manager"},
+                                   :access_rights => {:access_level => 3})
 
 ################################################
 

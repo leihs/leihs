@@ -1,0 +1,17 @@
+root = global ? window
+angular = root.angular
+
+thisApp = angular.module("Leihs", ['users', 'filters', 'ui']).config(['$routeProvider', '$locationProvider' ,
+($routeProvider, $locationProvider) ->
+  #$locationProvider.hashPrefix('');
+  $locationProvider.html5Mode true
+  $routeProvider.when("/backend/inventory_pools/:inventory_pool_id/users",
+    controller: UsersIndexCtrl
+    templateUrl: '<%= asset_path("angularjs/templates/users/index.html") %>'
+  )
+]).run(['$location', '$rootElement', ($location, $rootElement) ->
+    # http://stackoverflow.com/a/11785196/1966785
+    $rootElement.off('click')
+])
+
+root.thisApp = thisApp

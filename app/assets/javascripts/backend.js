@@ -25,3 +25,9 @@
 //= require swap_user/swap_user
 
 //= require app/app
+
+//= require angular
+//= require angular-bootstrap
+//= require angular-resource
+//= require angular-ui
+//= require_tree ./angularjs

@@ -31,7 +31,7 @@ class Backend::ModelsController < Backend::BackendController
             sort_attr = params[:sort_attr] || 'name',
             sort_dir = params[:sort_dir] || 'ASC',
             page = (params[:page] || 1).to_i,
-            per_page = (params[:page] || PER_PAGE).to_i,
+            per_page = (params[:per_page] || PER_PAGE).to_i,
             category_id = params[:category_id].try(:to_i),
             borrower_user = params[:user_id].try{|x| current_inventory_pool.users.find(x)},
             borrowable = (params[:borrowable] ? !(params[:borrowable] == "false") : nil),

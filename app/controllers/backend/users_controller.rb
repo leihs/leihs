@@ -14,8 +14,34 @@ class Backend::UsersController < Backend::BackendController
 
 ######################################################################
 
-  def index
-    @users = current_inventory_pool.users
+  def index(page = (params[:page] || 1).to_i,
+            per_page = (params[:per_page] || PER_PAGE).to_i,
+            search = params[:search],
+            role = params[:role],
+            with = params[:with] ? params[:with].deep_symbolize_keys : {})
+    respond_to do |format|
+      format.html
+      format.json {
+        users = current_inventory_pool.users.search(search).paginate(:page => page, :per_page => per_page)
+
+        users = case role
+          when "customers", "lending_managers", "inventory_managers"
+            users.send(role)
+          else
+            users
+        end
+
+        render json: {
+            entries: view_context.hash_for(users, with.merge({:preset => :user})),
+            pagination: {
+                current_page: users.current_page,
+                per_page: users.per_page,
+                total_pages: users.total_pages,
+                total_entries: users.total_entries
+            }
+          }
+      }
+    end
   end
 
   def show
