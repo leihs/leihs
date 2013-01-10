@@ -29,7 +29,7 @@
           %li.seperator
 
         - if is_admin?
-          %li.admin.item{:class => is_current_page?("statistics") ? "active" : nil}
+          %li.statistics.item{:class => is_current_page?("statistics") ? "active" : nil}
             = link_to _("Statistics"), statistics_path, :class => "anchor"
           %li.seperator
         

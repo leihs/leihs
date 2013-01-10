@@ -20,7 +20,7 @@ class Backend::BackendController < ApplicationController
     if start_screen
       redirect_to current_user.start_screen
     elsif current_user.managed_inventory_pools.blank? and current_user.has_role? :admin
-      redirect_to backend_inventory_pools_path
+      redirect_to statistics_path
     elsif current_user.access_rights.managers.where(:access_level => 3).exists? # user has manager level 3 => inventory manager
       ip ||= current_user.managed_inventory_pools.first
       redirect_to backend_inventory_pool_models_path(ip)
