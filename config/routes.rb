@@ -220,14 +220,11 @@ Leihs::Application.routes.draw do
           get :access_rights
           post :add_access_right
           delete :remove_access_right
-          post :suspend_access_right
-          post :reinstate_access_right
           get :extended_info
           get :things_to_return
           get :groups
           put :add_group
           delete :remove_group
-          post :update_badge_id    
         end
         resource :hand_over, :controller => 'hand_over' do
           member do

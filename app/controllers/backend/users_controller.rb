@@ -66,9 +66,19 @@ class Backend::UsersController < Backend::BackendController
   end
 
   def edit
+    @access_right = @user.access_rights.where(:inventory_pool_id => current_inventory_pool.id).first
   end
   
   def update
+    if params[:access_right]
+      access_right = @user.access_rights.where(:inventory_pool_id => current_inventory_pool.id).first
+      if params[:access_right][:suspended_until].blank?
+        access_right.update_attributes(:suspended_until => nil, :suspended_reason => nil)
+      else
+        access_right.update_attributes(:suspended_until => params[:access_right][:suspended_until], :suspended_reason => params[:access_right][:suspended_reason])
+      end
+    end
+
     if @user.update_attributes(params[:user])
       flash[:notice] = _("User details were updated successfully.")
       redirect_to [:backend, current_inventory_pool, @user].compact
@@ -179,34 +189,6 @@ class Backend::UsersController < Backend::BackendController
       flash[:error] = _("Currently has things to return")
     end
     redirect_to url_for([:access_rights, :backend, current_inventory_pool, @user].compact)
-  end
-
-  def suspend_access_right
-    ar = @user.access_rights.find(params[:access_right_id])
-    ar.update_attributes(:suspended_until => Date.parse(params[:suspended_until]))
-    ar.histories.create(:text => params[:reason], :user_id => current_user, :type_const => History::CHANGE)
-    redirect_to url_for([:access_rights, :backend, current_inventory_pool, @user].compact)
-  end
-
-  def reinstate_access_right
-    ar = @user.access_rights.find(params[:access_right_id])
-    ar.update_attributes(:suspended_until => Date.yesterday)
-    ar.histories.create(:text => _("Access right reinstated"), :user_id => current_user, :type_const => History::CHANGE)
-    redirect_to url_for([:access_rights, :backend, current_inventory_pool, @user].compact)
-  end
-
-  def update_badge_id
-    @user.update_attributes(:badge_id => params[:badge_id])
-    
-    # OPTIMIZE rebuild index for related orders and contracts
-    @user.documents.each {|d| d.save }
-    flash[:notice] = _("Badge ID was updated")
-
-    render :update do |page|
-                    page.replace "badge_id_form", :partial => "badge_id_form", :locals => { :user => @user }
-                    page.replace_html 'flash', flash_content
-                    flash.discard
-                  end
   end
 
 end

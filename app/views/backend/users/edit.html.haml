@@ -18,3 +18,12 @@
       %label
         %span= _("Badge ID")
         = f.text_field :badge_id
+
+    = fields_for @access_right do |ff|
+      .indent
+        %label
+          %span= _("Suspended Until") + ":"
+          = ff.text_field :suspended_until, :class => "datepicker"
+        %label
+          %span= _("Suspended Reason") + ":"
+          = ff.text_area :suspended_reason, :rows => 3, :style => "vertical-align: middle;"
