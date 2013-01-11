@@ -1,3 +1,11 @@
+.inlinetabs
+  - [ [nil, _("All")],
+      ["customers", _("Kunde")],
+      ["lending_managers", _("Ausleihe-Verwalter")],
+      ["inventory_managers", _("Inventar-Verwalter")]].each do |x|
+    %a{:class => "tab#{' active' if x[0].nil?}", :"ng-model" => "role", :value => x[0], :"ng-click" => "setRole(\"#{x[0]}\")"}
+      %span.text= x[1]
+
 .list
   %ul.navigation.line
     .container
@@ -5,12 +13,9 @@
         %form{:autocomplete => :off, "ng-submit" => "fetch()"}
           %input{:type => "text", :name => "search", :"ng-model" => "search", :placeholder => '{{_jed("Search...")}}'}
       %li.filter
-        - [ [nil, _("All")],
-            ["customers", _("Kunde")],
-            ["lending_managers", _("Ausleihe-Verwalter")],
-            ["inventory_managers", _("Inventar-Verwalter")]].each do |x|
+        - [ ["suspended", _("Suspended")]].each do |x|
           %label
-            %input{:type => :radio, :name => "role", :"ng-model" => "role", :value => x.first}
+            %input{:type => :checkbox, :name => x.first, :"ng-model" => x.first, :value => "true"}
             %span= x.last
 
 .list
@@ -53,16 +58,16 @@
                 %p
                   {{user.email}}
 
-      %li.city{"ui-if" => "user.city"}
+      %li.city
         {{user.city}}
 
-      %li.phone{"ui-if" => "user.phone"}
+      %li.phone
         %span.text
           {{_jed("Phone%s", ":")}}
         %span.digits
           {{user.phone}}
 
-      %li.badge{"ui-if" => "user.badge_id"}
+      %li.badge
         {{_jed("Badge%s", ":")}}
         {{user.badge_id}}
 

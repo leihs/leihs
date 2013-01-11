@@ -18,11 +18,12 @@ class Backend::UsersController < Backend::BackendController
             per_page = (params[:per_page] || PER_PAGE).to_i,
             search = params[:search],
             role = params[:role],
+            suspended = (params[:suspended] == "true" ? true : nil),
             with = params[:with] ? params[:with].deep_symbolize_keys : {})
     respond_to do |format|
       format.html
       format.json {
-        users = current_inventory_pool.users.search(search).paginate(:page => page, :per_page => per_page)
+        users = current_inventory_pool.send(suspended ? :suspended_users : :users).search(search).paginate(:page => page, :per_page => per_page)
 
         users = case role
           when "customers", "lending_managers", "inventory_managers"
