@@ -1,7 +1,3 @@
--content_for :title, _("List of Users")
-.innercontent
+- content_for :title, _("List of Users")
 
-  .top
-    %h1= yield :title
-
-  %section{"ng-view" => "ng-view"}
+.innercontent{"ng-view" => "ng-view"}

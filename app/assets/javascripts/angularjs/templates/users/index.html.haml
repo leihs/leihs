@@ -1,86 +1,99 @@
-.inlinetabs
-  - [ [nil, _("All")],
-      ["customers", _("Kunde")],
-      ["lending_managers", _("Ausleihe-Verwalter")],
-      ["inventory_managers", _("Inventar-Verwalter")]].each do |x|
-    %a{:class => "tab#{' active' if x[0].nil?}", :"ng-model" => "role", :value => x[0], :"ng-click" => "setRole(\"#{x[0]}\")"}
-      %span.text= x[1]
+.top
+  %h1
+    {{_jed("List of %s Users", pagination.total_entries)}}
+    %img.loading.icon{:src => "/assets/loading.gif", "ng-show" => "isLoading"}
+  %span{"ng-show" => "search"}
+    {{_jed("Searching for %s", search)}}
 
-.list
-  %ul.navigation.line
-    .container
-      %li.search
-        %form{:autocomplete => :off, "ng-submit" => "fetch()"}
-          %input{:type => "text", :name => "search", :"ng-model" => "search", :placeholder => '{{_jed("Search...")}}'}
-      %li.filter
-        - [ ["suspended", _("Suspended")]].each do |x|
-          %label
-            %input{:type => :checkbox, :name => x.first, :"ng-model" => x.first, :value => "true"}
-            %span= x.last
+%section
 
-.list
-  %ul.line.user{"ng-repeat" => "user in users"}
+  .inlinetabs
+    - [ [nil, _("All")],
+        ["customers", _("Kunde")],
+        ["lending_managers", _("Ausleihe-Verwalter")],
+        ["inventory_managers", _("Inventar-Verwalter")]].each do |x|
+      %a{:class => "tab#{' active' if x[0].nil?}", :value => x[0], :"ng-click" => "setRole(\"#{x[0]}\")"}
+        %span.text= x[1]
 
-    .main
+  .list
+    %ul.navigation.line
+      .container
+        %li.search
+          %form{:autocomplete => :off, "ng-submit" => "fetch()"}
+            %input{:type => "text", :name => "search", :"ng-model" => "search", :placeholder => '{{_jed("Search...")}}', "ng-change" => "fetch()"}
+        %li.filter
+          - [ ["suspended", _("Suspended")]].each do |x|
+            %label
+              %input{:type => :checkbox, :"ng-model" => x.first, :value => "true"}
+              %span= x.last
 
-      %li.overdue_icon
-        .overdue.icon{:title => '{{_jed("Overdue Visit")}}'}
+  .list
+    %ul.line.user{"ng-repeat" => "user in users"}
 
-      %li.user_name.hastip
-        {{user.name | truncate:30}}
-        .tip.user
-          %table.image
-            %tr
-              %td
-                .noimagetext {{_jed("no image")}}
-                .noimage{"ui-if" => "!user.image_url"}
-                %span{"ui-if" => "user.image_url"}
-                  %img{"ng-src" => "{{user.image_url}}"}
-          %h3
-            {{user.name | truncate:30}}
-          %table
-            %tr{"ui-if" => "user.badge_id"}
-              %td.value
-                %p
-                  {{user.badge_id}}
-            %tr{"ui-if" => "user.address && user.zip && user.city"}
-              %td.value
-                %p
-                  {{user.address}}
-                %p
-                  {{user.zip}} {{user.city}}
-            %tr{"ui-if" => "user.phone"}
-              %td.value
-                %p
-                  {{user.phone}}
-            %tr{"ui-if" => "user.email"}
-              %td.value
-                %p
-                  {{user.email}}
+      .main
 
-      %li.city
-        {{user.city}}
+        %li.overdue_icon
+          .overdue.icon{:title => '{{_jed("Overdue Visit")}}'}
 
-      %li.phone
-        %span.text
-          {{_jed("Phone%s", ":")}}
-        %span.digits
-          {{user.phone}}
+        %li.user_name.hastip
+          {{user.name | truncate:30}}
+          .tip.user
+            %table.image
+              %tr
+                %td
+                  .noimagetext {{_jed("no image")}}
+                  .noimage{"ui-if" => "!user.image_url"}
+                  %span{"ui-if" => "user.image_url"}
+                    %img{"ng-src" => "{{user.image_url}}"}
+            %h3
+              {{user.name | truncate:30}}
+            %table
+              %tr{"ui-if" => "user.badge_id"}
+                %td.value
+                  %p
+                    {{user.badge_id}}
+              %tr{"ui-if" => "user.address && user.zip && user.city"}
+                %td.value
+                  %p
+                    {{user.address}}
+                  %p
+                    {{user.zip}} {{user.city}}
+              %tr{"ui-if" => "user.phone"}
+                %td.value
+                  %p
+                    {{user.phone}}
+              %tr{"ui-if" => "user.email"}
+                %td.value
+                  %p
+                    {{user.email}}
 
-      %li.badge
-        {{_jed("Badge%s", ":")}}
-        {{user.badge_id}}
+        %li.city
+          {{user.city}}
 
-    .actions
-      %li.actions
-        .multibutton
-          .alternatives
-            .trigger
-              .arrow
-            = mail_to "{{user.email}}", "<div class='icon send'></div>{{_jed('E-Mail')}}".html_safe, :class => "button white"
-            = link_to "/backend/inventory_pools/{{current_inventory_pool_id}}/users/{{user.id}}/edit", :class => "button white" do
-              .icon.user
-              {{_jed("Edit User")}}
-          = link_to "/backend/inventory_pools/{{current_inventory_pool_id}}/users/{{user.id}}/new_contract", :class => "button white" do
-            .icon.hand_over
-            {{_jed("Hand Over")}}
+        %li.phone
+          %span.text
+            {{_jed("Phone%s", ":")}}
+          %span.digits
+            {{user.phone}}
+
+        %li.badge
+          {{_jed("Badge%s", ":")}}
+          {{user.badge_id}}
+
+      .actions
+        %li.actions
+          .multibutton
+            .alternatives
+              .trigger
+                .arrow
+              = mail_to "{{user.email}}", "<div class='icon send'></div>{{_jed('E-Mail')}}".html_safe, :class => "button white"
+              = link_to "/backend/inventory_pools/{{current_inventory_pool_id}}/users/{{user.id}}/edit", :class => "button white" do
+                .icon.user
+                {{_jed("Edit User")}}
+            = link_to "/backend/inventory_pools/{{current_inventory_pool_id}}/users/{{user.id}}/new_contract", :class => "button white" do
+              .icon.hand_over
+              {{_jed("Hand Over")}}
+
+  .top
+    %h3{"ng-show" => "pagination.total_pages > pagination.current_page", "when-inview" => "fetch(pagination.current_page+1)"}
+      {{_jed("Next %s users", pagination.total_entries - pagination.current_page * pagination.per_page)}}

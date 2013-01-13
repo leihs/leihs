@@ -10,14 +10,21 @@ UsersIndexCtrl = ($scope, User, $routeParams) ->
     $(".inlinetabs .tab.active").removeClass "active"
     t = if r == "" then $(".inlinetabs .tab:first") else $(".inlinetabs .tab[value='"+r+"']")
     t.addClass("active")
-
-  $scope.$watch 'role', (newValue, oldValue)->
     $scope.fetch()
+
+  #$scope.$watch 'search', (newValue, oldValue)->
+  #  $scope.fetch()
+
+  #$scope.$watch 'role', (newValue, oldValue)->
+  #  $scope.fetch()
 
   $scope.$watch 'suspended', (newValue, oldValue)->
     $scope.fetch()
 
-  $scope.fetch = ()->
+  $scope.fetch = (nextPage)->
+    return if $scope.isLoading
+    return if nextPage and $scope.pagination.current_page >= $scope.pagination.total_pages
+    $scope.isLoading = true
     params =
       inventory_pool_id:
         $scope.current_inventory_pool_id
@@ -27,16 +34,20 @@ UsersIndexCtrl = ($scope, User, $routeParams) ->
         $scope.role
       suspended:
         $scope.suspended
-      #page:
-        #$scope.page
+      page:
+        if nextPage then nextPage else 1
     # TODO this should be done directly by angular
     for k of params
       delete params[k] if angular.isUndefined(params[k])
     User.get(
       params
       , (response) ->
-        $scope.users = response.entries
+        if nextPage
+          $scope.users = $scope.users.concat response.entries
+        else
+          $scope.users = response.entries
         $scope.pagination = response.pagination
+        $scope.isLoading = false
     )
 
   $scope.destroy = ->

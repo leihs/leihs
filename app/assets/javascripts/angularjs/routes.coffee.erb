@@ -1,7 +1,7 @@
 root = global ? window
 angular = root.angular
 
-thisApp = angular.module("Leihs", ['users', 'filters', 'ui']).config(['$routeProvider', '$locationProvider' ,
+thisApp = angular.module("Leihs", ['users', 'filters', 'directives', 'ui']).config(['$routeProvider', '$locationProvider' ,
 ($routeProvider, $locationProvider) ->
   #$locationProvider.hashPrefix('');
   $locationProvider.html5Mode true

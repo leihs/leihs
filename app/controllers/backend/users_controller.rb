@@ -35,7 +35,7 @@ class Backend::UsersController < Backend::BackendController
         render json: {
             entries: view_context.hash_for(users, with.merge({:preset => :user})),
             pagination: {
-                current_page: users.current_page,
+                current_page: [users.current_page, users.total_pages].min, # FIXME current_page cannot be greater than total_pages, is this a will_paginate bug ??
                 per_page: users.per_page,
                 total_pages: users.total_pages,
                 total_entries: users.total_entries
