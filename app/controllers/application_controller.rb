@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     else
       locale = Language.default_language.locale_name
       if logged_in?
-        current_user.language.locale_name unless current_user.language.nil?
+        locale = current_user.language.locale_name unless current_user.language.nil?
       end
       set_locale locale
       params[:lang] = locale # Bug? Gettext seems not to set the language properly unless this is set
