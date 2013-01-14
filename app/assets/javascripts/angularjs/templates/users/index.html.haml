@@ -5,26 +5,32 @@
   %span{"ng-show" => "search"}
     {{_jed("Searching for %s", search)}}
 
+  .content_navigation
+    %a.button.white{:href => "/backend/inventory_pools/{{current_inventory_pool_id}}/users/new"}
+      .icon.user
+      {{_jed("New User")}}
+
 %section
 
   .inlinetabs
     - [ [nil, _("All")],
         ["customers", _("Kunde")],
         ["lending_managers", _("Ausleihe-Verwalter")],
-        ["inventory_managers", _("Inventar-Verwalter")]].each do |x|
-      %a{:class => "tab#{' active' if x[0].nil?}", :value => x[0], :"ng-click" => "setRole(\"#{x[0]}\")"}
+        ["inventory_managers", _("Inventar-Verwalter")],
+        ["admins", _("Administrator")],
+        ["unknown", _("Unbekannt")]].each do |x|
+      %a{:class => "tab#{' active' if x[0].nil?}", :value => x[0], "ng-click" => "setRole(\"#{x[0]}\")"}
         %span.text= x[1]
 
   .list
     %ul.navigation.line
       .container
         %li.search
-          %form{:autocomplete => :off, "ng-submit" => "fetch()"}
-            %input{:type => "text", :name => "search", :"ng-model" => "search", :placeholder => '{{_jed("Search...")}}', "ng-change" => "fetch()"}
+          %input{:type => "text",:autocomplete => :off, :placeholder => '{{_jed("Search...")}}', "ng-model" => "search", "ng-change" => "fetch()"}
         %li.filter
           - [ ["suspended", _("Suspended")]].each do |x|
             %label
-              %input{:type => :checkbox, :"ng-model" => x.first, :value => "true"}
+              %input{:type => :checkbox, "ng-model" => x.first}
               %span= x.last
 
   .list
@@ -82,18 +88,24 @@
 
       .actions
         %li.actions
-          .multibutton
+          %a.button.white{:href => "mailto:{{user.email}}", "ui-if" => '(role == "admins" || role == "unknown")'}
+            .icon.send
+            {{_jed("E-Mail")}}
+          .multibutton{"ui-if" => '!(role == "admins" || role == "unknown")'}
             .alternatives
               .trigger
                 .arrow
-              = mail_to "{{user.email}}", "<div class='icon send'></div>{{_jed('E-Mail')}}".html_safe, :class => "button white"
-              = link_to "/backend/inventory_pools/{{current_inventory_pool_id}}/users/{{user.id}}/edit", :class => "button white" do
+              %a.button.white{:href => "mailto:{{user.email}}"}
+                .icon.send
+                {{_jed("E-Mail")}}
+              %a.button.white{:href => "/backend/inventory_pools/{{current_inventory_pool_id}}/users/{{user.id}}/edit"}
                 .icon.user
                 {{_jed("Edit User")}}
-            = link_to "/backend/inventory_pools/{{current_inventory_pool_id}}/users/{{user.id}}/new_contract", :class => "button white" do
+            %a.button.white{:href => "/backend/inventory_pools/{{current_inventory_pool_id}}/users/{{user.id}}/new_contract"}
               .icon.hand_over
               {{_jed("Hand Over")}}
 
   .top
     %h3{"ng-show" => "pagination.total_pages > pagination.current_page", "when-inview" => "fetch(pagination.current_page+1)"}
       {{_jed("Next %s users", pagination.total_entries - pagination.current_page * pagination.per_page)}}
+      %img.loading.icon{:src => "/assets/loading.gif", "ng-show" => "isLoading"}

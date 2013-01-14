@@ -1,29 +1,3 @@
-- content_for :title, _(@user)
+- content_for :title, @user
 
-#user.innercontent.edit
-  
-  = form_for [:backend, current_inventory_pool, @user] do |f|
-
-    .content_navigation
-      %a.button.red{:href => backend_inventory_pool_user_path(current_inventory_pool, @user)}
-        = _("Cancel Edit")
-      %button.button.green{:type => :submit}
-        = _("Save %s") % _("User")
-
-
-    .top
-      %h1= yield :title
-  
-    .indent
-      %label
-        %span= _("Badge ID")
-        = f.text_field :badge_id
-
-    = fields_for @access_right do |ff|
-      .indent
-        %label
-          %span= _("Suspended Until") + ":"
-          = ff.text_field :suspended_until, :class => "datepicker"
-        %label
-          %span= _("Suspended Reason") + ":"
-          = ff.text_area :suspended_reason, :rows => 3, :style => "vertical-align: middle;"
+#user.innercontent.form_edit.edit{"ng-view" => "ng-view"}
