@@ -50,6 +50,7 @@ UsersEditCtrl = ($scope, $location, $routeParams, User) ->
     id: $routeParams.id
   , (response) ->
     $scope.user = new User(response)
+    $scope.user.access_right.suspended_until = moment($scope.user.access_right.suspended_until).format(i18n.date.L) if $scope.user.access_right.suspended_until
 
   $scope.save = ->
     User.update
@@ -58,7 +59,7 @@ UsersEditCtrl = ($scope, $location, $routeParams, User) ->
       user:
         badge_id: $scope.user.badge_id
       access_right:
-        suspended_until: $scope.user.access_right.suspended_until
+        suspended_until: moment($scope.user.access_right.suspended_until).format("YYYY-MM-DD")
         suspended_reason: $scope.user.access_right.suspended_reason
     , (response) ->
       #$location.path "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/users/#{$scope.user.id}"
