@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-22 15:37+0100\n"
+"POT-Creation-Date: 2013-01-14 13:11+0100\n"
 "PO-Revision-Date: 2011-06-17 11:43+0100\n"
 "Last-Translator: Ramón Cahenzli <rca@psy-q.ch>\n"
 "Language-Team: Swiss-German (Zürich area) <ramon.cahenzli@zhdk.ch>\n"
@@ -55,10 +55,6 @@ msgstr "Zuegriffsrächt erfolgriich erstellt"
 
 msgid "Access Right successfully updated"
 msgstr "D Zuegriffsrächt sind erfolgriich aktualisiert"
-
-#, fuzzy
-msgid "Access right reinstated"
-msgstr "Zuegriffsrächt"
 
 #, fuzzy
 msgid "Add Purpose"
@@ -118,9 +114,6 @@ msgstr "Zruggnäh"
 msgid "Back to this take back"
 msgstr "Blacklist"
 
-msgid "Badge ID was updated"
-msgstr ""
-
 #, fuzzy
 msgid "Badge%s"
 msgstr "Badge"
@@ -131,6 +124,9 @@ msgstr "Uuslehnbar"
 
 msgid "By not returning these items, you are blocking other people's reservations. This is very unfair to the other clients and to the inventory manager, since you are causing a significant amount of trouble and annoyance."
 msgstr "Will Sie die Gägeständ nöd zurgg bringed blockiered Sie andere Lüüt ihri Reservatione. Das isch de andere Chunde und am Inventar-Manager gägenüber sehr unfair will Sie vil lästige Ärger verursachet."
+
+msgid "CHF"
+msgstr ""
 
 msgid "Cancel"
 msgstr "Abbräche"
@@ -720,6 +716,10 @@ msgstr ""
 msgid "The properties have been updated."
 msgstr "D'Eigeschafte sind aktualisiert worde."
 
+#, fuzzy
+msgid "The responsible inventory pool cannot be changed because the item is currently not in stock."
+msgstr "S Modäll chan nod gänderet werde will d'Sach scho imene Vertrag enthalte isch."
+
 msgid "The selected lines have been moved"
 msgstr "Di uusgwählte Linie sind verschobe worde"
 
@@ -895,6 +895,9 @@ msgstr "Sie sind etz usgloggt."
 msgid "You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from the reservation system for up to 6 months."
 msgstr "Sie chömed allefalls en Ermahnig oder Strafgebühr über oder verlüüret d'Recht Sache uuszlehne. Im Wiederholigsfall chönd Sie bis zu 6 Mönet us em leihs uusgsperrt werdä."
 
+msgid "You were served by %s"
+msgstr ""
+
 msgid "Your order for the following items has been confirmed by the inventory manager"
 msgstr "Ihri Bstellig vo de folgende Sache isch vom Inventar-Manager bestätigt worde."
 
@@ -968,6 +971,9 @@ msgid "item not assigned. "
 msgstr "Sach nöd zuegwiesä"
 
 msgid "jump to this date"
+msgstr ""
+
+msgid "lends"
 msgstr ""
 
 #, fuzzy
@@ -1123,6 +1129,10 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Access levels"
+#~ msgstr "Zuegriffsrächt"
+
+#, fuzzy
+#~ msgid "Access right reinstated"
 #~ msgstr "Zuegriffsrächt"
 
 #, fuzzy
