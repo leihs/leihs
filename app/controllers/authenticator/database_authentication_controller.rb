@@ -29,7 +29,7 @@ class Authenticator::DatabaseAuthenticationController < Authenticator::Authentic
       d.update_attributes(params[:dbauth])
       d.password_confirmation = d.password
       unless d.save
-        flash[:error] = d.errors.full_messages
+        flash[:error] = d.errors.full_messages.uniq
       else
         flash[:notice] = _("Password changed")
       end

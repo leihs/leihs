@@ -86,7 +86,7 @@ class Backend::ItemsController < Backend::BackendController
           render(:status => :ok, json: view_context.json_for(@item, {preset: :item_edit}))
         else
           if @item
-            render :text => @item.errors.full_messages.join(", "), :status => :bad_request
+            render :text => @item.errors.full_messages.uniq.join(", "), :status => :bad_request
           else
             render :json => {}, :status => :not_found
           end
@@ -100,7 +100,7 @@ class Backend::ItemsController < Backend::BackendController
             redirect_to :action => 'new', :original_id => @item.id  
           end
         else
-          flash[:error] = @item.errors.full_messages
+          flash[:error] = @item.errors.full_messages.uniq
           render :action => 'show'
         end
       }
@@ -170,7 +170,7 @@ class Backend::ItemsController < Backend::BackendController
         flash[:notice] = msg
         redirect_to params[:source_path] and return
       else
-        flash[:error] = @item.errors.full_messages
+        flash[:error] = @item.errors.full_messages.uniq
       end
     end
     

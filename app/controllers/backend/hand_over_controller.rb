@@ -47,7 +47,7 @@ class Backend::HandOverController < Backend::BackendController
         if @contract.sign(current_user, lines)
           render :json => view_context.json_for(@contract.reload, {:preset => :contract})
         else
-          @error = {:message => @contract.errors.full_messages}
+          @error = {:message => @contract.errors.full_messages.uniq}
           render :json => view_context.error_json(@error), status: 500
         end
       }
@@ -120,7 +120,7 @@ class Backend::HandOverController < Backend::BackendController
 
     if item and line and line.model_id == item.model_id
       line.update_attributes(item: item)
-      @error = {:message => line.errors.full_messages.join(', ')} unless line.valid?
+      @error = {:message => line.errors.full_messages.uniq.join(', ')} unless line.valid?
     else
       unless inventory_code.blank?
         @error = if item and line and line.model_id != item.model_id
