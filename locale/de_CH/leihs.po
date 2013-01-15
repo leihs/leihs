@@ -1818,77 +1818,86 @@ msgid "you cannot hand out lines with unassigned inventory codes"
 msgstr ""
 "Sie können keine Zeilen aushändigen, die keine Inventarcodes zugewiesen haben"
 
-msgid "(maximum available: %{max})"
-msgstr "(maximal verfügbar: %{max})"
+msgid "Helper"
+msgstr "Helfer"
 
-msgid "Add Note"
-msgstr "Notiz hinzufügen"
+msgid "Suspended"
+msgstr ""
 
-msgid "Changed quantity for %{model} from %{from} to %{to}"
-msgstr "Anzahl für %{model} von %{from} auf %{to} geändert"
+msgid "Edit User"
+msgstr "Benutzer editieren"
 
-msgid "Close"
-msgstr "Schliessen"
+#~ msgid "(maximum available: %{max})"
+#~ msgstr "(maximal verfügbar: %{max})"
 
-msgid "Couldn't connect to LDAP: :"
-msgstr "Konnte nicht mit LDAP-Server verbinden::"
+#~ msgid "Add Note"
+#~ msgstr "Notiz hinzufügen"
 
-msgid "Create"
-msgstr "Erstellen"
+#~ msgid "Changed quantity for %{model} from %{from} to %{to}"
+#~ msgstr "Anzahl für %{model} von %{from} auf %{to} geändert"
 
-msgid "Create and make a Copy"
-msgstr "Erstellen und kopieren"
+#~ msgid "Close"
+#~ msgstr "Schliessen"
 
-msgid "Edit multiple selected items"
-msgstr "Mehrere ausgewählte Gegenstände editieren"
+#~ msgid "Couldn't connect to LDAP: :"
+#~ msgstr "Konnte nicht mit LDAP-Server verbinden::"
 
-msgid "Error setting the location"
-msgstr "Fehler beim setzen des Ortes"
+#~ msgid "Create"
+#~ msgstr "Erstellen"
 
-msgid "Grund"
-msgstr "Grund"
+#~ msgid "Create and make a Copy"
+#~ msgstr "Erstellen und kopieren"
 
-msgid "Hand Over Items"
-msgstr "Gegenstände aushändigen"
+#~ msgid "Edit multiple selected items"
+#~ msgstr "Mehrere ausgewählte Gegenstände editieren"
 
-msgid "Incremented quantity from %i to %i for %s"
-msgstr "Anzahl von %i auf %i erhöht für %s"
+#~ msgid "Error setting the location"
+#~ msgstr "Fehler beim setzen des Ortes"
 
-msgid "Item retired (%s)"
-msgstr "Gerät ausgemustert (%s)"
+#~ msgid "Grund"
+#~ msgstr "Grund"
 
-msgid "Location successfully set"
-msgstr "Ort erfolgreich zugewiesen"
+#~ msgid "Hand Over Items"
+#~ msgstr "Gegenstände aushändigen"
 
-msgid "Maximum number of items available at that time is %{max}"
-msgstr "Die maximale Anzahl verfügbarer Artikel für diese Zeit ist %{max}"
+#~ msgid "Incremented quantity from %i to %i for %s"
+#~ msgstr "Anzahl von %i auf %i erhöht für %s"
 
-msgid "Needs permission"
-msgstr "Braucht Ausleihbewilligung"
+#~ msgid "Item retired (%s)"
+#~ msgstr "Gerät ausgemustert (%s)"
 
-msgid "New Item"
-msgstr "Neuer Gegenstand"
+#~ msgid "Location successfully set"
+#~ msgstr "Ort erfolgreich zugewiesen"
 
-msgid "Overview"
-msgstr "Übersicht"
+#~ msgid "Maximum number of items available at that time is %{max}"
+#~ msgstr "Die maximale Anzahl verfügbarer Artikel für diese Zeit ist %{max}"
 
-msgid "Plattform"
-msgstr "Plattform"
+#~ msgid "Needs permission"
+#~ msgstr "Braucht Ausleihbewilligung"
 
-msgid "Retired on %s"
-msgstr "Ausgemustert am %s"
+#~ msgid "New Item"
+#~ msgstr "Neuer Gegenstand"
 
-msgid "Save and create a Copy"
-msgstr "Speichern und kopieren"
+#~ msgid "Overview"
+#~ msgstr "Übersicht"
 
-msgid "Search Model"
-msgstr "Modell suchen"
+#~ msgid "Plattform"
+#~ msgstr "Plattform"
 
-msgid "Take Back Items"
-msgstr "Rücknahmen"
+#~ msgid "Retired on %s"
+#~ msgstr "Ausgemustert am %s"
 
-msgid "Unretire"
-msgstr "Ausmusterung zurücknehmen"
+#~ msgid "Save and create a Copy"
+#~ msgstr "Speichern und kopieren"
 
-msgid "non-working day"
-msgstr "arbeitsfreier Tag"
+#~ msgid "Search Model"
+#~ msgstr "Modell suchen"
+
+#~ msgid "Take Back Items"
+#~ msgstr "Rücknahmen"
+
+#~ msgid "Unretire"
+#~ msgstr "Ausmusterung zurücknehmen"
+
+#~ msgid "non-working day"
+#~ msgstr "arbeitsfreier Tag"
