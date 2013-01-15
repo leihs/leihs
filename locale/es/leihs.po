@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-22 15:37+0100\n"
+"POT-Creation-Date: 2013-01-14 13:11+0100\n"
 "PO-Revision-Date: 2012-09-17 14:41+0100\n"
 "Last-Translator: Ramón Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -60,10 +60,6 @@ msgstr "Derechos de Acceso creados correctamente"
 #, fuzzy
 msgid "Access Right successfully updated"
 msgstr "Derechos de Acceso actualizados correctamente"
-
-#, fuzzy
-msgid "Access right reinstated"
-msgstr "Derechos de Acceso|Creado en"
 
 #, fuzzy
 msgid "Add Purpose"
@@ -124,10 +120,6 @@ msgid "Back to this take back"
 msgstr "Lista Negra"
 
 #, fuzzy
-msgid "Badge ID was updated"
-msgstr "ID de Distintivo: "
-
-#, fuzzy
 msgid "Badge%s"
 msgstr "Usuario|Distintivo"
 
@@ -137,6 +129,9 @@ msgstr "Prestable"
 
 msgid "By not returning these items, you are blocking other people's reservations. This is very unfair to the other clients and to the inventory manager, since you are causing a significant amount of trouble and annoyance."
 msgstr "Si no devuelve estos artículos, estará bloqueando las reservas de otras personas. Esto es muy injusto para los demás clientes y administradores de stock ya que estaría provocando un gran número de problemas y molestias."
+
+msgid "CHF"
+msgstr ""
 
 msgid "Cancel"
 msgstr "Cancelar"
@@ -736,6 +731,10 @@ msgid "The properties have been updated."
 msgstr "Las propiedades fueron actualizadas."
 
 #, fuzzy
+msgid "The responsible inventory pool cannot be changed because the item is currently not in stock."
+msgstr "El rol de administrador no puede estar asignado a un grupo de inventario"
+
+#, fuzzy
 msgid "The selected lines have been moved"
 msgstr "Las propiedades fueron actualizadas."
 
@@ -917,6 +916,9 @@ msgstr "Su sesión ha sido cerrada."
 msgid "You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from the reservation system for up to 6 months."
 msgstr "Podrá ser amonestado y se le cobrarán gastos adicionales, además se restringirán sus derechos de préstamo. En caso de que esto se torne recurrente podrá ser bloqueado de leihs por 6 meses."
 
+msgid "You were served by %s"
+msgstr ""
+
 msgid "Your order for the following items has been confirmed by the inventory manager"
 msgstr "Su pedido de los siguientes artículos fue confirmado por el administrador del inventario"
 
@@ -991,6 +993,9 @@ msgid "item not assigned. "
 msgstr "artículo no asignado. "
 
 msgid "jump to this date"
+msgstr ""
+
+msgid "lends"
 msgstr ""
 
 #, fuzzy
@@ -1140,6 +1145,10 @@ msgstr ""
 #, fuzzy
 #~ msgid "Access levels"
 #~ msgstr "Derechos de Acceso|Nivel"
+
+#, fuzzy
+#~ msgid "Access right reinstated"
+#~ msgstr "Derechos de Acceso|Creado en"
 
 #, fuzzy
 #~ msgid "AccessRight|Access level"
@@ -1409,6 +1418,10 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Badge ID"
+#~ msgstr "ID de Distintivo: "
+
+#, fuzzy
+#~ msgid "Badge ID was updated"
 #~ msgstr "ID de Distintivo: "
 
 #~ msgid "Barcode"
@@ -3096,10 +3109,6 @@ msgstr ""
 
 #~ msgid "The order is not yet approvable"
 #~ msgstr "Esta orden aun no es aprobable"
-
-#, fuzzy
-#~ msgid "The package name cannot be changed because it's present in many inventory pools."
-#~ msgstr "El rol de administrador no puede estar asignado a un grupo de inventario"
 
 #~ msgid "The quantity has been changed"
 #~ msgstr "La cantidad fue cambiada"
