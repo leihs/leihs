@@ -22,7 +22,7 @@ class OptionLine < ContractLine
   end
 
   def tooltip
-    self.errors.full_messages
+    self.errors.full_messages.uniq
   end
 
 

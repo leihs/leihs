@@ -38,7 +38,7 @@ class DocumentLine < ActiveRecord::Base
     r += "<br/>"
     r += self.complete_tooltip
     # TODO 03** include errors?
-    # r += self.errors.full_messages
+    # r += self.errors.full_messages.uniq
     return r
   end
 
@@ -50,7 +50,7 @@ class DocumentLine < ActiveRecord::Base
   # TODO 04** merge in complete? 
   def complete_tooltip
     r = ""
-    r += _("not valid. ") unless self.valid? # TODO 04** self.errors.full_messages
+    r += _("not valid. ") unless self.valid? # TODO 04** self.errors.full_messages.uniq
     r += _("not available. ") unless self.available?
     return r
   end

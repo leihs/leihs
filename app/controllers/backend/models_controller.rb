@@ -247,7 +247,7 @@ class Backend::ModelsController < Backend::BackendController
                            :inventory_pool => current_inventory_pool,
                            :is_borrowable => true)
 
-    flash[:error] = m.errors.full_messages unless m.save
+    flash[:error] = m.errors.full_messages.uniq unless m.save
   end
 
   def package_item

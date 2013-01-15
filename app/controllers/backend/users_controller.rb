@@ -75,7 +75,7 @@ class Backend::UsersController < Backend::BackendController
                                  :role => Role.where(:name => "customer").first) if current_inventory_pool
       redirect_to [:backend, current_inventory_pool, @user].compact
     else
-      flash[:error] = @user.errors.full_messages
+      flash[:error] = @user.errors.full_messages.uniq
       render :action => :new
     end
   end
@@ -203,7 +203,7 @@ class Backend::UsersController < Backend::BackendController
 
     unless ar.valid?
       flash[:notice] = nil
-      flash[:error] = ar.errors.full_messages
+      flash[:error] = ar.errors.full_messages.uniq
     end
     redirect_to url_for([:access_rights, :backend, current_inventory_pool, @user].compact)
   end
