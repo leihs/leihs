@@ -17,11 +17,18 @@ Funktionalität: Benutzer verwalten
     Dann findet man die Benutzeradministration im Bereich "Administration" unter "Benutzer"
     Dann sieht man eine Liste aller Benutzer
     Und man kann filtern nach den folgenden Eigenschaften: gesperrt
-    Und man kann filtern nach den folgenden Rollen: Keine, Kunde, Ausleihe-Verwalter, Inventar-Verwalter, Administrator
-    Und man kann für jeden Benutzer die Editieransicht aufrufen 
+    Und man kann filtern nach den folgenden Rollen:
+      | tab                | role               |
+      | Kunde              | customers          |
+      | Ausleihe-Verwalter | lending_managers   |
+      | Inventar-Verwalter | inventory_managers |
+      | Administrator      | admins             |
+      | Unbekannt          | unknown            |
+    Und man kann für jeden Benutzer die Editieransicht aufrufen
     Und man kann einen neuen Benutzer erstellen 
 
   # pts: 3
+  @javascript
   Szenario: Sperrfunktion
     Angenommen man editiert einen Benutzer
     Und man nutzt die Sperrfunktion

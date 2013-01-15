@@ -12,7 +12,9 @@ Dann /^gilt er in leihs 3.0 als Level 2 für diesen Gerätepark$/ do
 end
 
 Angenommen /^man ist Inventar\-Verwalter oder Ausleihe\-Verwalter$/ do
-  step "I am logged in as '%s' with password 'password'" % "mike"
+  ar = @user.access_rights.where(:access_level => [2, 3]).first
+  ar.should_not be_nil
+  @inventory_pool = ar.inventory_pool
 end
 
 Dann /^findet man die Benutzeradministration im Bereich "Administration" unter "Benutzer"$/ do
@@ -21,21 +23,81 @@ Dann /^findet man die Benutzeradministration im Bereich "Administration" unter "
 end
 
 Dann /^sieht man eine Liste aller Benutzer$/ do
-  pending # express the regexp above with the code you wish you had
+  c = @inventory_pool.users.count
+  page.should have_content("List of %d Users" % c)
 end
 
 Dann /^man kann filtern nach den folgenden Eigenschaften: gesperrt$/ do
-  pending # express the regexp above with the code you wish you had
+  find("[ng-model='suspended']").click
+  c = @inventory_pool.suspended_users.count
+  page.should have_content("List of %d Users" % c)
+
+  find("[ng-model='suspended']").click
+  c = @inventory_pool.users.count
+  page.should have_content("List of %d Users" % c)
 end
 
-Dann /^man kann filtern nach den folgenden Rollen: Keine, Kunde, Ausleihe\-Verwalter, Inventar\-Verwalter, Administrator$/ do
-  pending # express the regexp above with the code you wish you had
+Dann /^man kann filtern nach den folgenden Rollen:$/ do |table|
+  table.hashes.each do |row|
+    step 'I follow "%s"' % row["tab"]
+    role = row["role"]
+    c = case role
+          when "admins"
+            User.admins
+          when "unknown"
+            User.where("users.id NOT IN (#{@inventory_pool.users.select("users.id").to_sql})")
+          else
+            users = @inventory_pool.users
+            case role
+              when "customers", "lending_managers", "inventory_managers"
+                users.send(role)
+              else
+                users
+            end
+        end.count
+    page.should have_content("List of %d Users" % c)
+  end
 end
 
 Dann /^man kann für jeden Benutzer die Editieransicht aufrufen$/ do
-  pending # express the regexp above with the code you wish you had
+  step 'I follow "%s"' % "All"
+  el = find(".list ul.user")
+  page.execute_script '$(":hidden").show();'
+  el.find(".actions .alternatives .button .icon.user")
 end
 
 Dann /^man kann einen neuen Benutzer erstellen$/ do
+  find(".top .content_navigation .button .icon.user")
+end
+
+####################################################################
+
+Angenommen /^man editiert einen Benutzer$/ do
+  #step 'man ist Inventar-Verwalter oder Ausleihe-Verwalter'
+  #step 'findet man die Benutzeradministration im Bereich "Administration" unter "Benutzer"'
+  #step 'I follow "%s"' % "Kunde"
+  #el = find(".list ul.user")
+  #page.execute_script '$(":hidden").show();'
+  #el.find(".actions .alternatives .button .icon.user").click
+
+  #visit edit_backend_inventory_pool_user_path(@inventory_pool, @inventory_pool.users.first)
+
+  pending
+end
+
+Angenommen /^man nutzt die Sperrfunktion$/ do
   pending # express the regexp above with the code you wish you had
 end
+
+Dann /^muss man den Grund der Sperrung eingeben$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+Dann /^man muss das Enddatum der Sperrung bestimmen$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+Dann /^sofern der Benutzer gesperrt ist, kann man die Sperrung aufheben$/ do
+  pending # express the regexp above with the code you wish you had
+end
+

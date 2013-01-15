@@ -18,19 +18,27 @@ class Backend::UsersController < Backend::BackendController
             per_page = (params[:per_page] || PER_PAGE).to_i,
             search = params[:search],
             role = params[:role],
-            suspended = (params[:suspended] == "true" ? true : nil),
+            suspended = (params[:suspended] == "true"),
             with = params[:with] ? params[:with].deep_symbolize_keys : {})
     respond_to do |format|
       format.html
       format.json {
-        users = current_inventory_pool.send(suspended ? :suspended_users : :users).search(search).paginate(:page => page, :per_page => per_page)
-
         users = case role
-          when "customers", "lending_managers", "inventory_managers"
-            users.send(role)
-          else
-            users
-        end
+                  when "admins"
+                    User.admins
+                  when "unknown"
+                    User.where("users.id NOT IN (#{current_inventory_pool.users.select("users.id").to_sql})")
+                  else
+                    users = current_inventory_pool.send(suspended ? :suspended_users : :users)
+                    case role
+                      when "customers", "lending_managers", "inventory_managers"
+                        users.send(role)
+                      else
+                        users
+                    end
+                end
+
+        users = users.search(search).paginate(:page => page, :per_page => per_page)
 
         render json: {
             entries: view_context.hash_for(users, with.merge({:preset => :user})),
@@ -46,12 +54,19 @@ class Backend::UsersController < Backend::BackendController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.json {
+        with = {:access_right => true}
+        render json: view_context.hash_for(@user, with.merge({:preset => :user}))
+      }
+    end
   end
-  
+
   def new
     @user = User.new
   end
-  
+
   def create
     @user = User.new(params[:user])
     @user.login = @user.email
@@ -66,9 +81,8 @@ class Backend::UsersController < Backend::BackendController
   end
 
   def edit
-    @access_right = @user.access_rights.where(:inventory_pool_id => current_inventory_pool.id).first
   end
-  
+
   def update
     if params[:access_right]
       access_right = @user.access_rights.where(:inventory_pool_id => current_inventory_pool.id).first
@@ -80,22 +94,35 @@ class Backend::UsersController < Backend::BackendController
     end
 
     if @user.update_attributes(params[:user])
-      flash[:notice] = _("User details were updated successfully.")
-      redirect_to [:backend, current_inventory_pool, @user].compact
+      respond_to do |format|
+        format.html {
+          flash[:notice] = _("User details were updated successfully.")
+          redirect_to [:backend, current_inventory_pool, @user].compact
+        }
+        format.json {
+          with = {:access_right => true}
+          render json: view_context.hash_for(@user, with.merge({:preset => :user}))
+        }
+      end
     else
-      flash[:error] = _("The new user details could not be saved.")
-      redirect_to [:edit, :backend, current_inventory_pool, @user].compact
+      respond_to do |format|
+        format.html {
+          flash[:error] = _("The new user details could not be saved.")
+          redirect_to [:edit, :backend, current_inventory_pool, @user].compact
+        }
+        format.json { render :text => @user.errors, :status => 500 }
+      end
     end
   end
-  
+
   def set_start_screen(path = params[:path])
     if current_user.start_screen(path)
       render :nothing => true, :status => :ok
     else
-      render :nothing => true, :status => :bad_request 
+      render :nothing => true, :status => :bad_request
     end
   end
-  
+
 #################################################################
 
   # OPTIMIZE
@@ -108,7 +135,7 @@ class Backend::UsersController < Backend::BackendController
 
   def groups
   end
-  
+
   def add_group(group = params[:group])
     @group = current_inventory_pool.groups.find(group[:group_id])
     unless @user.groups.include? @group
@@ -138,7 +165,7 @@ class Backend::UsersController < Backend::BackendController
       end
     end
   end
-  
+
   def new_contract
     redirect_to [:backend, current_inventory_pool, @user, :hand_over]
   end
@@ -152,19 +179,19 @@ class Backend::UsersController < Backend::BackendController
                         @user.access_rights.includes(:inventory_pool).order("inventory_pools.name")
                       end
   end
-  
+
   def add_access_right
     inventory_pool_id = if current_inventory_pool
                           current_inventory_pool.id
                         else
                           params[:access_right][:inventory_pool_id]
                         end
-    
+
     r = Role.find(params[:access_right][:role_id]) if params[:access_right]
     r ||= Role.find_by_name("customer") # OPTIMIZE
-  
+
     ar = @user.all_access_rights.where(:inventory_pool_id => inventory_pool_id).first
-   
+
     if ar
       ar.update_attributes(:role => r, :access_level => params[:access_level])
       ar.update_attributes(:deleted_at => nil) if ar.deleted_at

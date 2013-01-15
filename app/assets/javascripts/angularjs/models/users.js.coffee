@@ -1,6 +1,6 @@
 root = global ? window
 
-angular.module("users", ["ngResource"])
+angular.module("users", ["ngResource", "ng-rails-csrf"])
   .factory "User", ['$resource', ($resource) ->
     User = $resource("/backend/inventory_pools/:inventory_pool_id/users/:id",
       id: "@id",
