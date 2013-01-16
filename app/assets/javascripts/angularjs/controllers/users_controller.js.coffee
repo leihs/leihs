@@ -13,6 +13,9 @@ UsersIndexCtrl = ($scope, User, $routeParams) ->
   $scope.$watch 'suspended', (newValue, oldValue)->
     $scope.fetch()
 
+  $scope.$watch 'search', (newValue, oldValue)->
+    $scope.fetch()
+
   $scope.fetch = (nextPage)->
     return if $scope.isLoading
     return if nextPage and $scope.pagination.current_page >= $scope.pagination.total_pages

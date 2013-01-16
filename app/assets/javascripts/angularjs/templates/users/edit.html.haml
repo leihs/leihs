@@ -27,8 +27,6 @@
           .value
             .input
               %input{:type => "text", "ng-model" => "user.access_right.suspended_until", "ui-date" => ""}
-              / .datepicker
-              / , "ui-date" => "{dateFormat: i18n.date.L}"
         .field.text.editable{"ng-show" => "user.access_right.suspended_until"}
           %h3.key
             {{_jed("Suspended Reason")}}:

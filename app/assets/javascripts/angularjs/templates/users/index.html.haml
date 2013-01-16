@@ -26,9 +26,9 @@
     %ul.navigation.line
       .container
         %li.search
-          %input{:type => "text",:autocomplete => :off, :placeholder => '{{_jed("Search...")}}', "ng-model" => "search", "ng-change" => "fetch()"}
+          %input{:type => "text",:autocomplete => :off, :placeholder => '{{_jed("Search...")}}', "ng-model" => "search"}
         %li.filter
-          %label{"ng-show" => '(role == "customers" || role == "lending_managers" || role == "inventory_managers  ")'}
+          %label{"ng-show" => '(role == "customers" || role == "lending_managers" || role == "inventory_managers")'}
             %input{:type => :checkbox, "ng-model" => "suspended"}
             %span {{_jed("Suspended")}}
 
