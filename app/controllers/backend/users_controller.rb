@@ -41,7 +41,7 @@ class Backend::UsersController < Backend::BackendController
         users = users.search(search).paginate(:page => page, :per_page => per_page)
 
         render json: {
-            entries: view_context.hash_for(users, with.merge({:preset => :user})),
+            entries: view_context.hash_for(users, with.merge({:access_right => true, :preset => :user})),
             pagination: {
                 current_page: [users.current_page, users.total_pages].min, # FIXME current_page cannot be greater than total_pages, is this a will_paginate bug ??
                 per_page: users.per_page,
@@ -57,8 +57,7 @@ class Backend::UsersController < Backend::BackendController
     respond_to do |format|
       format.html
       format.json {
-        with = {:access_right => true}
-        render json: view_context.hash_for(@user, with.merge({:preset => :user}))
+        render json: view_context.hash_for(@user, {:access_right => true, :preset => :user})
       }
     end
   end

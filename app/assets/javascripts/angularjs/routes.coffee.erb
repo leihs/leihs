@@ -14,10 +14,9 @@ app = angular.module("Leihs", ['users', 'filters', 'directives', 'ui']).config([
 ]).run(['$location', '$rootElement', ($location, $rootElement) ->
     # http://stackoverflow.com/a/11785196/1966785
     $rootElement.off('click')
-])
-
-app.run ($rootScope)->
+]).run(['$rootScope', ($rootScope)->
     $rootScope._jed = (args...)->
         _jed.apply(this, args)
+])
 
 root.app = app

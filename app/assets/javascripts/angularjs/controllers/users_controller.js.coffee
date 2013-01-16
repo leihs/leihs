@@ -39,8 +39,6 @@ UsersIndexCtrl = ($scope, User, $routeParams) ->
 
 UsersIndexCtrl.$inject = ['$scope', 'User', '$routeParams'];
 
-#############################################
-
 UsersEditCtrl = ($scope, $location, $routeParams, User) ->
   $scope.current_inventory_pool_id = $routeParams.inventory_pool_id
 
@@ -67,7 +65,6 @@ UsersEditCtrl = ($scope, $location, $routeParams, User) ->
 
 UsersEditCtrl.$inject = ['$scope', '$location', '$routeParams', 'User'];
 
-#############################################
 # exports
 root = global ? window
 root.UsersIndexCtrl  = UsersIndexCtrl
