@@ -8,7 +8,7 @@
 
 source 'http://rubygems.org'
 
-gem 'rails', '2.3.15'
+gem 'rails', '2.3.5'
 gem 'rake', '0.8.7'
 
 gem 'mysql', '2.8.1'
