@@ -28,17 +28,13 @@ class Backend::UsersController < Backend::BackendController
                     User.admins
                   when "unknown"
                     User.where("users.id NOT IN (#{current_inventory_pool.users.select("users.id").to_sql})")
+                  when "customers", "lending_managers", "inventory_managers"
+                    current_inventory_pool.send(suspended ? :suspended_users : :users).send(role)
                   else
-                    users = current_inventory_pool.send(suspended ? :suspended_users : :users)
-                    case role
-                      when "customers", "lending_managers", "inventory_managers"
-                        users.send(role)
-                      else
-                        users
-                    end
+                    User
                 end
 
-        users = users.search(search).paginate(:page => page, :per_page => per_page)
+        users = users.search(search).order("users.updated_at DESC").paginate(:page => page, :per_page => per_page)
 
         render json: {
             entries: view_context.hash_for(users, with.merge({:access_right => true, :preset => :user})),

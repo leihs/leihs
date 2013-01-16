@@ -88,10 +88,10 @@
 
       .actions
         %li.actions
-          %a.button.white{:href => "mailto:{{user.email}}", "ui-if" => '(role == "admins" || role == "unknown")'}
+          %a.button.white{:href => "mailto:{{user.email}}", "ui-if" => '!user.access_right'}
             .icon.send
             {{_jed("E-Mail")}}
-          .multibutton{"ui-if" => '!(role == "admins" || role == "unknown")'}
+          .multibutton{"ui-if" => 'user.access_right'}
             .alternatives
               .trigger
                 .arrow
