@@ -28,10 +28,10 @@
         %li.search
           %input{:type => "text",:autocomplete => :off, :placeholder => '{{_jed("Search...")}}', "ng-model" => "search", "ng-change" => "fetch()"}
         %li.filter
-          - [ ["suspended", _("Suspended")]].each do |x|
-            %label
-              %input{:type => :checkbox, "ng-model" => x.first}
-              %span= x.last
+          %label{"ng-show" => '(role == "customers" || role == "lending_managers" || role == "inventory_managers  ")'}
+            %input{:type => :checkbox, "ng-model" => "suspended"}
+            %span {{_jed("Suspended")}}
+
 
   .list
     %ul.line.user{"ng-repeat" => "user in users"}
