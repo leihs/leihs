@@ -15,6 +15,7 @@ end
 # Ignores password at the moment, since we always seem to ignore that (?)
 Given "I am logged in as '$username' with password '$password'" do |username, password|
   current_user = User.where(:login => username).first
+  I18n.locale = current_user.language.locale_name.to_sym
   @user = current_user
 end
 

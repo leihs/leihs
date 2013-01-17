@@ -17,6 +17,7 @@ app = angular.module("Leihs", ['users', 'filters', 'directives', 'ui']).config([
 ]).run(['$rootScope', ($rootScope)->
     $rootScope._jed = (args...)->
         _jed.apply(this, args)
+    $rootScope.i18n = i18n
 ])
 
 root.app = app

@@ -19,7 +19,7 @@ end
 
 Dann /^findet man die Benutzeradministration im Bereich "Administration" unter "Benutzer"$/ do
   step 'I follow "Admin"'
-  step 'I follow "Users"'
+  step 'I follow "%s"' % _("Users")
 end
 
 Dann /^sieht man eine Liste aller Benutzer$/ do
@@ -73,15 +73,7 @@ end
 ####################################################################
 
 Angenommen /^man editiert einen Benutzer$/ do
-  #step 'man ist Inventar-Verwalter oder Ausleihe-Verwalter'
-  #step 'findet man die Benutzeradministration im Bereich "Administration" unter "Benutzer"'
-  #step 'I follow "%s"' % "Kunde"
-  #el = find(".list ul.user")
-  #page.execute_script '$(":hidden").show();'
-  #el.find(".actions .alternatives .button .icon.user").click
-
   #visit edit_backend_inventory_pool_user_path(@inventory_pool, @inventory_pool.users.first)
-
   pending
 end
 
@@ -101,3 +93,16 @@ Dann /^sofern der Benutzer gesperrt ist, kann man die Sperrung aufheben$/ do
   pending # express the regexp above with the code you wish you had
 end
 
+####################################################################
+
+Angenommen /^ein Benutzer erscheint in einer Benutzerliste$/ do
+  step 'man ist Inventar-Verwalter oder Ausleihe-Verwalter'
+  step 'findet man die Benutzeradministration im Bereich "Administration" unter "Benutzer"'
+  step 'I follow "%s"' % _("Customer")
+  find(".list ul.user .user_name")
+end
+
+Dann /^sieht man folgende Informationen in folgender Reihenfolge: Vorname, Name, Telefonnummer, Rolle, Sperr\-Status$/ do
+  el = find(".list ul.user")
+  el.find(".user_name + .phone + .role + .suspended_status")
+end

@@ -14,11 +14,11 @@
 
   .inlinetabs
     - [ [nil, _("All")],
-        ["customers", _("Kunde")],
-        ["lending_managers", _("Ausleihe-Verwalter")],
-        ["inventory_managers", _("Inventar-Verwalter")],
+        ["customers", _("Customer")],
+        ["lending_managers", _("Lending manager")],
+        ["inventory_managers", _("Inventory manager")],
         ["admins", _("Administrator")],
-        ["unknown", _("Unbekannt")]].each do |x|
+        ["unknown", _("Unknown")]].each do |x|
       %a{:class => "tab#{' active' if x[0].nil?}", :value => x[0], "ng-click" => "setRole(\"#{x[0]}\")"}
         %span.text= x[1]
 
@@ -73,18 +73,17 @@
                   %p
                     {{user.email}}
 
-        %li.city
-          {{user.city}}
-
         %li.phone
-          %span.text
-            {{_jed("Phone%s", ":")}}
-          %span.digits
-            {{user.phone}}
+          {{user.phone}}
 
-        %li.badge
-          {{_jed("Badge%s", ":")}}
-          {{user.badge_id}}
+        %li.role
+          {{user.access_right.role_name}}
+
+        %li.suspended_status
+          %span.red{"ng-show" => "user.access_right.suspended_until"}
+            {{_jed("Suspended")}} {{_jed("until")}}
+            %br
+            {{user.access_right.suspended_until | dateformat:i18n.date.XL}}
 
       .actions
         %li.actions

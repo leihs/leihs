@@ -6,7 +6,7 @@ module Json
           id: access_right.id
       }
 
-      [:access_level, :role_id, :suspended_until, :suspended_reason].each do |k|
+      [:access_level, :role_name, :suspended_until, :suspended_reason].each do |k|
         h[k] = access_right.send(k)
       end
 

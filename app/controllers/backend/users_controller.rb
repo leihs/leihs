@@ -31,10 +31,8 @@ class Backend::UsersController < Backend::BackendController
                   when "customers", "lending_managers", "inventory_managers"
                     current_inventory_pool.send(suspended ? :suspended_users : :users).send(role)
                   else
-                    User
-                end
-
-        users = users.search(search).order("users.updated_at DESC").paginate(:page => page, :per_page => per_page)
+                    User.scoped
+                end.search(search).order("users.updated_at DESC").paginate(:page => page, :per_page => per_page)
 
         render json: {
             entries: view_context.hash_for(users, with.merge({:access_right => true, :preset => :user})),
