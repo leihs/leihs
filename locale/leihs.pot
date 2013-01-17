@@ -191,7 +191,7 @@ msgstr ""
 msgid "Barcode"
 msgstr ""
 
-msgid "Bezug"
+msgid "Reference"
 msgstr ""
 
 msgid "Book"
@@ -894,7 +894,7 @@ msgstr ""
 msgid "Problems"
 msgstr ""
 
-msgid "Projektnummer"
+msgid "Project Number"
 msgstr ""
 
 msgid "Purpose"
