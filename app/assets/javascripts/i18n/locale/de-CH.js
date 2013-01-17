@@ -74,7 +74,7 @@ window.i18n.locale_data = {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
          "POT-Creation-Date": " 2012-10-22 12:39+0200",
-         "PO-Revision-Date": " 2012-10-22 12:42+0100",
+         "PO-Revision-Date": " 2013-01-17 10:22+0100",
          "Last-Translator": " Ramón Cahenzli <ramon.cahenzli@zhdk.ch>",
          "Language-Team": " German (Switzerland) <ramon.cahenzli@zhdk.ch>",
          "Language": " ",
@@ -1909,11 +1909,15 @@ window.i18n.locale_data = {
          null,
          "Arbeitsbelastung"
       ],
+      "Write a note... (the note will be part of the contract)": [
+         null,
+         "Schreiben Sie einen Hinweis... Dieser wird Teil des Vertrags"
+      ],
       "Write a comment. The comment will be part of the rejection e-mail.": [
          null,
          "Schreiben Sie einen Kommentar. Der Kommentar wird Teil des Ablehnungs-E-Mails"
       ],
-      "Write a comment... your comment will be part of the confirmation e-mail": [
+      "Write a comment... (your comment will be part of the confirmation e-mail)": [
          null,
          "Schreiben Sie einen Kommentar... Der Kommentar wird Teil des Bestätigungsmails"
       ],
@@ -2332,7 +2336,7 @@ window.i18n.locale_data = {
       ],
       "Suspended": [
          null,
-         ""
+         "Gesperrt"
       ],
       "Edit User": [
          null,

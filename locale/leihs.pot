@@ -1426,10 +1426,13 @@ msgstr ""
 msgid "Workload"
 msgstr ""
 
+msgid "Write a note... (the note will be part of the contract)"
+msgstr ""
+
 msgid "Write a comment. The comment will be part of the rejection e-mail."
 msgstr ""
 
-msgid "Write a comment... your comment will be part of the confirmation e-mail"
+msgid "Write a comment... (your comment will be part of the confirmation e-mail)"
 msgstr ""
 
 msgid "Write a note... the note will be part of the contract"
