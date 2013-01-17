@@ -56,7 +56,10 @@ end
 group :development do
   gem 'thin', :platform => :mri_19 # web server (Webrick do not support keep-alive connections)
   gem 'trinidad', :platform => :jruby # web server (Webrick do not support keep-alive connections)
-  gem 'gettext', :git => "git://github.com/ruby-gettext/gettext.git"
+
+  # This gem only provides the 'gettext:find' task, which is buggy with HTML, and the 'gettext:pack' task,
+  # which we no longer need.
+#  gem 'gettext', :git => "git://github.com/ruby-gettext/gettext.git"
 end
 
 group :profiling, :development do

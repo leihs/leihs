@@ -5,14 +5,6 @@ GIT
     acts-as-dag (2.5.7)
 
 GIT
-  remote: git://github.com/ruby-gettext/gettext.git
-  revision: db89e124f644b7f233f8567df0fc18d69926ed25
-  specs:
-    gettext (2.3.7)
-      levenshtein
-      locale
-
-GIT
   remote: https://github.com/halloffame/will_paginate.git
   revision: c16fc5229623c7e8514e9c953a7296168cc02cf6
   specs:
@@ -165,12 +157,10 @@ GEM
       addressable (~> 2.3)
       ffi (~> 1.1.1)
       spoon (~> 0.0.1)
-    levenshtein (0.2.2)
     libwebsocket (0.1.7.1)
       addressable
       websocket
     listen (0.7.2)
-    locale (2.0.8)
     lumberjack (1.0.2)
     mail (2.4.4)
       i18n (>= 0.4.0)
@@ -328,7 +318,6 @@ DEPENDENCIES
   factory_girl_rails (~> 4.1)
   faker
   geocoder (~> 1.1)
-  gettext!
   gettext_i18n_rails (~> 0.8)
   growl (~> 1.0.3)
   guard (~> 1.6)
