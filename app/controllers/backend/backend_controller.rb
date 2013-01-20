@@ -20,7 +20,7 @@ class Backend::BackendController < ApplicationController
     if start_screen
       redirect_to current_user.start_screen
     elsif current_user.managed_inventory_pools.blank? and current_user.has_role? :admin
-      redirect_to backend_inventory_pools_path
+      redirect_to statistics_path
     elsif current_user.access_rights.managers.where(:access_level => 3).exists? # user has manager level 3 => inventory manager
       ip ||= current_user.managed_inventory_pools.first
       redirect_to backend_inventory_pool_models_path(ip)
@@ -58,7 +58,7 @@ class Backend::BackendController < ApplicationController
     
     results = []
     @hits = {}
-    per_page = (types and types.size == 1) ? $per_page : 10
+    per_page = (types and types.size == 1) ? PER_PAGE : 10
     conditions[:klasses].each_pair do |klass, options|
       r = klass.search(term).
             filter2(conditions[:filter].merge(options[:filter] || {})).
@@ -126,15 +126,7 @@ class Backend::BackendController < ApplicationController
 
     ##################################################
     # ACL
-  
-    def authorized_admin_user?
-      not_authorized! unless is_admin?
-    end
 
-    def authorized_privileged_user?
-      not_authorized! unless is_privileged_user?
-    end
-    
     def not_authorized!
         msg = "You don't have appropriate permission to perform this operation."
         respond_to do |format|

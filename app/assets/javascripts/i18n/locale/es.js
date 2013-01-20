@@ -71,7 +71,7 @@ window.i18n.locale_data = {
       "": {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
-         "POT-Creation-Date": " 2012-11-22 15:37+0100",
+         "POT-Creation-Date": " 2013-01-14 13:11+0100",
          "PO-Revision-Date": " 2012-09-17 14:41+0100",
          "Last-Translator": " Ramón Cahenzli <ramon.cahenzli@zhdk.ch>",
          "Language-Team": " Spanish <es@li.org>",
@@ -133,10 +133,6 @@ window.i18n.locale_data = {
       "Access Right successfully updated": [
          null,
          "Derechos de Acceso actualizados correctamente"
-      ],
-      "Access right reinstated": [
-         null,
-         "Derechos de Acceso|Creado en"
       ],
       "Add Purpose": [
          null,
@@ -202,10 +198,6 @@ window.i18n.locale_data = {
          null,
          "Lista Negra"
       ],
-      "Badge ID was updated": [
-         null,
-         "ID de Distintivo: "
-      ],
       "Badge%s": [
          null,
          "Usuario|Distintivo"
@@ -217,6 +209,10 @@ window.i18n.locale_data = {
       "By not returning these items, you are blocking other people's reservations. This is very unfair to the other clients and to the inventory manager, since you are causing a significant amount of trouble and annoyance.": [
          null,
          "Si no devuelve estos artículos, estará bloqueando las reservas de otras personas. Esto es muy injusto para los demás clientes y administradores de stock ya que estaría provocando un gran número de problemas y molestias."
+      ],
+      "CHF": [
+         null,
+         ""
       ],
       "Cancel": [
          null,
@@ -903,6 +899,10 @@ window.i18n.locale_data = {
          null,
          "Las propiedades fueron actualizadas."
       ],
+      "The responsible inventory pool cannot be changed because the item is currently not in stock.": [
+         null,
+         "El rol de administrador no puede estar asignado a un grupo de inventario"
+      ],
       "The selected lines have been moved": [
          null,
          "Las propiedades fueron actualizadas."
@@ -1119,6 +1119,10 @@ window.i18n.locale_data = {
          null,
          "Podrá ser amonestado y se le cobrarán gastos adicionales, además se restringirán sus derechos de préstamo. En caso de que esto se torne recurrente podrá ser bloqueado de leihs por 6 meses."
       ],
+      "You were served by %s": [
+         null,
+         ""
+      ],
       "Your order for the following items has been confirmed by the inventory manager": [
          null,
          "Su pedido de los siguientes artículos fue confirmado por el administrador del inventario"
@@ -1209,6 +1213,10 @@ window.i18n.locale_data = {
          "artículo no asignado. "
       ],
       "jump to this date": [
+         null,
+         ""
+      ],
+      "lends": [
          null,
          ""
       ],
@@ -1391,6 +1399,10 @@ window.i18n.locale_data = {
       "Access levels": [
          null,
          "Derechos de Acceso|Nivel"
+      ],
+      "Access right reinstated": [
+         null,
+         "Derechos de Acceso|Creado en"
       ],
       "AccessRight|Access level": [
          null,
@@ -1693,6 +1705,10 @@ window.i18n.locale_data = {
          "Proveedor|Actualizado al"
       ],
       "Badge ID": [
+         null,
+         "ID de Distintivo: "
+      ],
+      "Badge ID was updated": [
          null,
          "ID de Distintivo: "
       ],
@@ -3655,10 +3671,6 @@ window.i18n.locale_data = {
       "The order is not yet approvable": [
          null,
          "Esta orden aun no es aprobable"
-      ],
-      "The package name cannot be changed because it's present in many inventory pools.": [
-         null,
-         "El rol de administrador no puede estar asignado a un grupo de inventario"
       ],
       "The quantity has been changed": [
          null,

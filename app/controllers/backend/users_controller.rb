@@ -1,7 +1,11 @@
 class Backend::UsersController < Backend::BackendController
 
   before_filter do
-    authorized_admin_user? unless current_inventory_pool  
+    unless current_inventory_pool
+      not_authorized! unless is_admin?
+    else
+      not_authorized! unless is_lending_manager?
+    end
 
     params[:id] ||= params[:user_id] if params[:user_id]
 #    @user = current_inventory_pool.users.find(params[:id]) if params[:id]
@@ -10,16 +14,52 @@ class Backend::UsersController < Backend::BackendController
 
 ######################################################################
 
-  def index
+  def index(page = (params[:page] || 1).to_i,
+            per_page = (params[:per_page] || PER_PAGE).to_i,
+            search = params[:search],
+            role = params[:role],
+            suspended = (params[:suspended] == "true"),
+            with = params[:with] ? params[:with].deep_symbolize_keys : {})
+    respond_to do |format|
+      format.html
+      format.json {
+        users = case role
+                  when "admins"
+                    User.admins
+                  when "unknown"
+                    User.where("users.id NOT IN (#{current_inventory_pool.users.select("users.id").to_sql})")
+                  when "customers", "lending_managers", "inventory_managers"
+                    current_inventory_pool.send(suspended ? :suspended_users : :users).send(role)
+                  else
+                    User.scoped
+                end.search(search).order("users.updated_at DESC").paginate(:page => page, :per_page => per_page)
+
+        render json: {
+            entries: view_context.hash_for(users, with.merge({:access_right => true, :preset => :user})),
+            pagination: {
+                current_page: [users.current_page, users.total_pages].min, # FIXME current_page cannot be greater than total_pages, is this a will_paginate bug ??
+                per_page: users.per_page,
+                total_pages: users.total_pages,
+                total_entries: users.total_entries
+            }
+          }
+      }
+    end
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.json {
+        render json: view_context.hash_for(@user, {:access_right => true, :preset => :user})
+      }
+    end
   end
-  
+
   def new
     @user = User.new
   end
-  
+
   def create
     @user = User.new(params[:user])
     @user.login = @user.email
@@ -28,32 +68,54 @@ class Backend::UsersController < Backend::BackendController
                                  :role => Role.where(:name => "customer").first) if current_inventory_pool
       redirect_to [:backend, current_inventory_pool, @user].compact
     else
-      flash[:error] = @user.errors.full_messages
+      flash[:error] = @user.errors.full_messages.uniq
       render :action => :new
     end
   end
 
   def edit
   end
-  
+
   def update
+    if params[:access_right]
+      access_right = @user.access_rights.where(:inventory_pool_id => current_inventory_pool.id).first
+      if params[:access_right][:suspended_until].blank?
+        access_right.update_attributes(:suspended_until => nil, :suspended_reason => nil)
+      else
+        access_right.update_attributes(:suspended_until => params[:access_right][:suspended_until], :suspended_reason => params[:access_right][:suspended_reason])
+      end
+    end
+
     if @user.update_attributes(params[:user])
-      flash[:notice] = _("User details were updated successfully.")
-      redirect_to [:backend, current_inventory_pool, @user].compact
+      respond_to do |format|
+        format.html {
+          flash[:notice] = _("User details were updated successfully.")
+          redirect_to [:backend, current_inventory_pool, @user].compact
+        }
+        format.json {
+          with = {:access_right => true}
+          render json: view_context.hash_for(@user, with.merge({:preset => :user}))
+        }
+      end
     else
-      flash[:error] = _("The new user details could not be saved.")
-      redirect_to [:edit, :backend, current_inventory_pool, @user].compact
+      respond_to do |format|
+        format.html {
+          flash[:error] = _("The new user details could not be saved.")
+          redirect_to [:edit, :backend, current_inventory_pool, @user].compact
+        }
+        format.json { render :text => @user.errors, :status => 500 }
+      end
     end
   end
-  
+
   def set_start_screen(path = params[:path])
     if current_user.start_screen(path)
       render :nothing => true, :status => :ok
     else
-      render :nothing => true, :status => :bad_request 
+      render :nothing => true, :status => :bad_request
     end
   end
-  
+
 #################################################################
 
   # OPTIMIZE
@@ -66,7 +128,7 @@ class Backend::UsersController < Backend::BackendController
 
   def groups
   end
-  
+
   def add_group(group = params[:group])
     @group = current_inventory_pool.groups.find(group[:group_id])
     unless @user.groups.include? @group
@@ -96,7 +158,7 @@ class Backend::UsersController < Backend::BackendController
       end
     end
   end
-  
+
   def new_contract
     redirect_to [:backend, current_inventory_pool, @user, :hand_over]
   end
@@ -110,19 +172,19 @@ class Backend::UsersController < Backend::BackendController
                         @user.access_rights.includes(:inventory_pool).order("inventory_pools.name")
                       end
   end
-  
+
   def add_access_right
     inventory_pool_id = if current_inventory_pool
                           current_inventory_pool.id
                         else
                           params[:access_right][:inventory_pool_id]
                         end
-    
+
     r = Role.find(params[:access_right][:role_id]) if params[:access_right]
     r ||= Role.find_by_name("customer") # OPTIMIZE
-  
+
     ar = @user.all_access_rights.where(:inventory_pool_id => inventory_pool_id).first
-   
+
     if ar
       ar.update_attributes(:role => r, :access_level => params[:access_level])
       ar.update_attributes(:deleted_at => nil) if ar.deleted_at
@@ -134,7 +196,7 @@ class Backend::UsersController < Backend::BackendController
 
     unless ar.valid?
       flash[:notice] = nil
-      flash[:error] = ar.errors.full_messages
+      flash[:error] = ar.errors.full_messages.uniq
     end
     redirect_to url_for([:access_rights, :backend, current_inventory_pool, @user].compact)
   end
@@ -147,34 +209,6 @@ class Backend::UsersController < Backend::BackendController
       flash[:error] = _("Currently has things to return")
     end
     redirect_to url_for([:access_rights, :backend, current_inventory_pool, @user].compact)
-  end
-
-  def suspend_access_right
-    ar = @user.access_rights.find(params[:access_right_id])
-    ar.update_attributes(:suspended_until => Date.parse(params[:suspended_until]))
-    ar.histories.create(:text => params[:reason], :user_id => current_user, :type_const => History::CHANGE)
-    redirect_to url_for([:access_rights, :backend, current_inventory_pool, @user].compact)
-  end
-
-  def reinstate_access_right
-    ar = @user.access_rights.find(params[:access_right_id])
-    ar.update_attributes(:suspended_until => Date.yesterday)
-    ar.histories.create(:text => _("Access right reinstated"), :user_id => current_user, :type_const => History::CHANGE)
-    redirect_to url_for([:access_rights, :backend, current_inventory_pool, @user].compact)
-  end
-
-  def update_badge_id
-    @user.update_attributes(:badge_id => params[:badge_id])
-    
-    # OPTIMIZE rebuild index for related orders and contracts
-    @user.documents.each {|d| d.save }
-    flash[:notice] = _("Badge ID was updated")
-
-    render :update do |page|
-                    page.replace "badge_id_form", :partial => "badge_id_form", :locals => { :user => @user }
-                    page.replace_html 'flash', flash_content
-                    flash.discard
-                  end
   end
 
 end

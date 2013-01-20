@@ -42,7 +42,7 @@ class Backend::OrdersController < Backend::BackendController
     end
         
     @orders = search_sql.where(time_range).order("orders.created_at DESC")
-    @orders = @orders.paginate(:page => page, :per_page => $per_page) if paginate != false
+    @orders = @orders.paginate(:page => page, :per_page => PER_PAGE) if paginate != false
     
     respond_to do |format|
       format.html { 

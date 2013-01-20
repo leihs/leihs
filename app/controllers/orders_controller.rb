@@ -77,7 +77,7 @@ class OrdersController < FrontendController
     
     model.add_to_document(@order, user_id, quantity, start_date, end_date, inventory_pool)
 
-    flash[:notice] = @order.errors.full_messages unless @order.save
+    flash[:notice] = @order.errors.full_messages.uniq unless @order.save
     redirect_to model
   end
 
@@ -98,7 +98,7 @@ class OrdersController < FrontendController
         order = current_user.get_current_order
         lines.each {|l| order.update_time_line(l, sd, ed, current_user.id) }
         
-        render :text => order.errors.full_messages.to_s, :status => (order.errors.empty? ? 200 : 400)
+        render :text => order.errors.full_messages.uniq.to_s, :status => (order.errors.empty? ? 200 : 400)
     end   
   end      
 

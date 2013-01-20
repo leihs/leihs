@@ -32,7 +32,7 @@ class Backend::InventoryPoolsController < Backend::BackendController
     if @inventory_pool.update_attributes(params[:inventory_pool])
       redirect_to backend_inventory_pool_path(@inventory_pool)
     else
-      flash[:error] = @inventory_pool.errors.full_messages
+      flash[:error] = @inventory_pool.errors.full_messages.uniq
       # TODO: set @current_inventory_pool here? See Backend::BackendController#current_inventory_pool
       if action_name == "create"
         render :action => 'edit'

@@ -1,7 +1,9 @@
 class StatisticsController < Backend::BackendController
 
   before_filter do
-    authorized_admin_user? unless current_inventory_pool  
+    unless current_inventory_pool
+      not_authorized! unless is_admin?
+    end
   end
   
   def show

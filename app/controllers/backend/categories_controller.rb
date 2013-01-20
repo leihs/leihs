@@ -24,7 +24,7 @@ class Backend::CategoriesController < Backend::BackendController
         @category.child_ids
       end
       Category.search(params[:query]).
-                paginate(:page => params[:page], :per_page => $per_page).
+                paginate(:page => params[:page], :per_page => PER_PAGE).
                 order("#{params[:sort]} #{params[:sort_mode]}").
                 where(:id => ids)
     else
@@ -33,7 +33,7 @@ class Backend::CategoriesController < Backend::BackendController
         Category.roots
       else
         Category.search(params[:query]).
-                  paginate(:page => params[:page], :per_page => $per_page).
+                  paginate(:page => params[:page], :per_page => PER_PAGE).
                   order("#{params[:sort]} #{params[:sort_mode]}")
       end
     end    

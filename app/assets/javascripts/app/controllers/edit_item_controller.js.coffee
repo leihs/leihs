@@ -1,6 +1,6 @@
 class EditItemController
 
-  el: "#item.item_edit"
+  el: "#item.form_edit"
   
   constructor: (fields, item)->
     @el = $(@el)

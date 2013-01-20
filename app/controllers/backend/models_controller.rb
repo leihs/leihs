@@ -21,7 +21,9 @@ class Backend::ModelsController < Backend::BackendController
     @line = current_inventory_pool.order_lines.find(params[:order_line_id]) if params[:order_line_id]
     @categories ||= @line.model.categories if @line and !@line.model.categories.blank?
   end
-  before_filter :authorized_privileged_user?, :only => [:new, :update]
+  before_filter :only => [:new, :update] do
+    not_authorized! unless is_privileged_user?
+  end
 
 ######################################################################
 
@@ -29,7 +31,7 @@ class Backend::ModelsController < Backend::BackendController
             sort_attr = params[:sort_attr] || 'name',
             sort_dir = params[:sort_dir] || 'ASC',
             page = (params[:page] || 1).to_i,
-            per_page = (params[:page] || $per_page).to_i,
+            per_page = (params[:per_page] || PER_PAGE).to_i,
             category_id = params[:category_id].try(:to_i),
             borrower_user = params[:user_id].try{|x| current_inventory_pool.users.find(x)},
             borrowable = (params[:borrowable] ? !(params[:borrowable] == "false") : nil),
@@ -78,7 +80,7 @@ class Backend::ModelsController < Backend::BackendController
         # TODO migrate strip directly to the database, and strip on before_validation
         models_and_options = (models + options)
                              .sort{|a,b| a.name.strip <=> b.name.strip}
-                             .paginate(:page => page, :per_page => $per_page)
+                             .paginate(:page => page, :per_page => PER_PAGE)
         with.deep_merge!({ :items => {:scoped_ids => item_ids, :query => query} })  
         hash = { inventory: {
                     entries: view_context.hash_for(models_and_options, with),
@@ -136,7 +138,7 @@ class Backend::ModelsController < Backend::BackendController
       end
       redirect_to :action => 'index', :model_id => @model
     else
-      authorized_privileged_user? # TODO before_filter for :create
+      not_authorized! unless is_privileged_user? # TODO before_filter for :create
       @model = Model.new
       update
     end
@@ -245,7 +247,7 @@ class Backend::ModelsController < Backend::BackendController
                            :inventory_pool => current_inventory_pool,
                            :is_borrowable => true)
 
-    flash[:error] = m.errors.full_messages unless m.save
+    flash[:error] = m.errors.full_messages.uniq unless m.save
   end
 
   def package_item

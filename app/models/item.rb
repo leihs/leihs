@@ -63,6 +63,7 @@ class Item < ActiveRecord::Base
                       or(arel_table[:invoice_number].matches(q)).
                       or(arel_table[:note].matches(q)).
                       or(arel_table[:name].matches(q)).
+                      or(arel_table[:user_name].matches(q)).
                       or(arel_table[:properties].matches(q)).
                       or(Model.arel_table[:name].matches(q)).
                       or(Model.arel_table[:manufacturer].matches(q)).

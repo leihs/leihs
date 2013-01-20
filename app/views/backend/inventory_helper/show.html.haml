@@ -1,6 +1,6 @@
 -content_for :title, _("Inventory Helper")
 
-#inventory_helper.item_edit.innercontent
+#inventory_helper.innercontent
 
   .top
     %h1= yield :title
@@ -15,7 +15,7 @@
       %label{:for => "fieldname"}
         = _("Select Field")
 
-    %form.selection_group.item_edit.edit
+    %form.selection_group.form_edit.edit
       %section.left
       %section.right
       %h2= _("no fields selected")
@@ -49,7 +49,7 @@
 
     %br
 
-    #item.item_edit
+    #item.form_edit
       .content_navigation
         %button.button.white.edit
           = _("Edit Item")

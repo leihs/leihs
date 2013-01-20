@@ -45,6 +45,22 @@ class AccessRight < ActiveRecord::Base
     s
   end
 
+  def role_name
+    case role.name
+      when "admin"
+        _("Admin")
+      when "customer"
+        _("Customer")
+      when "manager"
+        case access_level
+          when 1, 2
+            _("Lending manager")
+          when 3
+            _("Inventory manager")
+        end
+    end
+  end
+
   def suspended?
     !suspended_until.nil? and suspended_until >= Date.today
   end

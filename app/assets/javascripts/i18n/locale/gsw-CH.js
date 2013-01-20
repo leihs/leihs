@@ -71,7 +71,7 @@ window.i18n.locale_data = {
       "": {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
-         "POT-Creation-Date": " 2012-11-22 15:37+0100",
+         "POT-Creation-Date": " 2013-01-14 13:11+0100",
          "PO-Revision-Date": " 2011-06-17 11:43+0100",
          "Last-Translator": " Ramón Cahenzli <rca@psy-q.ch>",
          "Language-Team": " Swiss-German (Zürich area) <ramon.cahenzli@zhdk.ch>",
@@ -134,10 +134,6 @@ window.i18n.locale_data = {
       "Access Right successfully updated": [
          null,
          "D Zuegriffsrächt sind erfolgriich aktualisiert"
-      ],
-      "Access right reinstated": [
-         null,
-         "Zuegriffsrächt"
       ],
       "Add Purpose": [
          null,
@@ -203,10 +199,6 @@ window.i18n.locale_data = {
          null,
          "Blacklist"
       ],
-      "Badge ID was updated": [
-         null,
-         ""
-      ],
       "Badge%s": [
          null,
          "Badge"
@@ -218,6 +210,10 @@ window.i18n.locale_data = {
       "By not returning these items, you are blocking other people's reservations. This is very unfair to the other clients and to the inventory manager, since you are causing a significant amount of trouble and annoyance.": [
          null,
          "Will Sie die Gägeständ nöd zurgg bringed blockiered Sie andere Lüüt ihri Reservatione. Das isch de andere Chunde und am Inventar-Manager gägenüber sehr unfair will Sie vil lästige Ärger verursachet."
+      ],
+      "CHF": [
+         null,
+         ""
       ],
       "Cancel": [
          null,
@@ -904,6 +900,10 @@ window.i18n.locale_data = {
          null,
          "D'Eigeschafte sind aktualisiert worde."
       ],
+      "The responsible inventory pool cannot be changed because the item is currently not in stock.": [
+         null,
+         "S Modäll chan nod gänderet werde will d'Sach scho imene Vertrag enthalte isch."
+      ],
       "The selected lines have been moved": [
          null,
          "Di uusgwählte Linie sind verschobe worde"
@@ -1120,6 +1120,10 @@ window.i18n.locale_data = {
          null,
          "Sie chömed allefalls en Ermahnig oder Strafgebühr über oder verlüüret d'Recht Sache uuszlehne. Im Wiederholigsfall chönd Sie bis zu 6 Mönet us em leihs uusgsperrt werdä."
       ],
+      "You were served by %s": [
+         null,
+         ""
+      ],
       "Your order for the following items has been confirmed by the inventory manager": [
          null,
          "Ihri Bstellig vo de folgende Sache isch vom Inventar-Manager bestätigt worde."
@@ -1210,6 +1214,10 @@ window.i18n.locale_data = {
          "Sach nöd zuegwiesä"
       ],
       "jump to this date": [
+         null,
+         ""
+      ],
+      "lends": [
          null,
          ""
       ],
@@ -1398,6 +1406,10 @@ window.i18n.locale_data = {
          "Zuegriffsrächt (%d)"
       ],
       "Access levels": [
+         null,
+         "Zuegriffsrächt"
+      ],
+      "Access right reinstated": [
          null,
          "Zuegriffsrächt"
       ],

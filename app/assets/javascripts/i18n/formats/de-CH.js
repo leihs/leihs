@@ -63,4 +63,6 @@
     thousand: "'"
   };
 
+  i18n.today = "heute";
+
 }).call(this);

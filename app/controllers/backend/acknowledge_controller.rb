@@ -25,7 +25,7 @@ class Backend::AcknowledgeController < Backend::BackendController
         format.json { render :json => true, :status => 200  }
       end
     else
-      errors = @order.errors.full_messages.join("\n")
+      errors = @order.errors.full_messages.uniq.join("\n")
       respond_to do |format|
         format.json { render :text => errors, :status => 500 }
       end
@@ -42,7 +42,7 @@ class Backend::AcknowledgeController < Backend::BackendController
         format.json { render :json => true, :status => 200 }
       end
     else
-      errors = @order.errors.full_messages.join("\n")
+      errors = @order.errors.full_messages.uniq.join("\n")
       respond_to do |format|
         format.json { render :text => errors, :status => 500 }
       end

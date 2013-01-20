@@ -75,7 +75,7 @@ module Json
         end
         
         if with[:errors]
-          h[:errors] = line.errors.full_messages
+          h[:errors] = line.errors.full_messages.uniq
         end
       end
       

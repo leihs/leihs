@@ -18,6 +18,11 @@ module Json
         if with[:groups]
           h[:groups] = user.groups.as_json # TODO
         end
+
+        if with[:access_right] and current_inventory_pool and access_right = user.access_rights.where(:inventory_pool_id => current_inventory_pool.id).first
+          h[:access_right] = hash_for(access_right, with[:access_right])
+        end
+
       end
       
       h

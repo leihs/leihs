@@ -1,0 +1,39 @@
+%form.indent.css-form{:name => "form", :novalidate => ""}
+
+  .content_navigation
+    %a.button.red{:href => "/backend/inventory_pools/{{current_inventory_pool_id}}/users/{{user.id}}"}
+      {{_jed("Cancel Edit")}}
+    %button.button.green{"ng-click" => "save()", "ng-disabled" => "form.$invalid"}
+      {{_jed("Save %s", "User")}}
+
+  .top
+    %h1
+      {{user.name | truncate:30}}
+
+
+  .left
+    %section
+      .inner
+        .field.text.editable
+          %h3.key {{_jed("Badge ID")}}:
+          .value
+            .input
+              %input{:type => "text", "ng-model" => "user.badge_id"}
+  .right
+    %section
+      .inner
+        .field.text.editable
+          %h3.key {{_jed("Suspended Until")}}:
+          .value
+            .input
+              %input{:type => "text", "ng-model" => "user.access_right.suspended_until", "ui-date" => ""}
+        .field.text.editable{"ng-show" => "user.access_right.suspended_until"}
+          %h3.key
+            {{_jed("Suspended Reason")}}:
+            %span.red{"ng-show" => "form.suspended_reason.$error.required", }
+              {{_jed("required")}}
+          .value
+            .input
+              %textarea{:name => "suspended_reason", "ng-model" => "user.access_right.suspended_reason", :style => "height: 3em; vertical-align: top;", "ng-required" => "user.access_right.suspended_until"}
+  .clear
+

@@ -123,4 +123,6 @@ DELIVER_ORDER_NOTIFICATIONS = false
 
 USER_IMAGE_URL = "http://www.zhdk.ch/?person/foto&width=100&compressionlevel=0&id={:id}"
 
+PER_PAGE = 20
+
 ######################################################

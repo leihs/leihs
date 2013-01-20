@@ -10,9 +10,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_gettext_locale
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
-  
-  $per_page = 20 # OPTIMIZE keep per_page in user session?
-  
+
 ####################################################  
   
   def index

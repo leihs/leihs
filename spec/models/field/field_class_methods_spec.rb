@@ -17,6 +17,7 @@ describe Field do
           accessible_fields = Field.accessible_by user, @inventory_pool
           accessible_fields.size.should >= @minimum_field_size
           unless accessible_fields.empty?
+            level = 2 if level == 1 # in leihs 3.0 we drop level 1 and we treat it as 2
             accessible_fields.each {|field| field[:permissions][:level].should <= level if field[:permissions] and field[:permissions][:level]}
           end
           accessible_fields
@@ -26,7 +27,7 @@ describe Field do
         accessible_fields_level_2 = check_user_level 2
         accessible_fields_level_3 = check_user_level 3
 
-        accessible_fields_level_1.size.should < accessible_fields_level_2.size
+        accessible_fields_level_1.size.should == accessible_fields_level_2.size # in leihs 3.0 we drop level 1 and we treat it as 2
         accessible_fields_level_2.size.should < accessible_fields_level_3.size
       end
     end
