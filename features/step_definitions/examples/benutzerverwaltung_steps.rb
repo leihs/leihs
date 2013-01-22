@@ -145,34 +145,53 @@ end
 
 Dann /^man kann die Informationen ändern, sofern es sich um einen externen Benutzer handelt$/ do
   if @customer.authentication_system.class_name == "DatabaseAuthentication"
-    find(".editable input[ng-model='user.lastname']")
-    find(".editable input[ng-model='user.firstname']")
-    find(".editable input[ng-model='user.address']")
-    find(".editable input[ng-model='user.zip']")
-    find(".editable input[ng-model='user.city']")
-    find(".editable input[ng-model='user.country']")
-    find(".editable input[ng-model='user.phone']")
-    find(".editable input[ng-model='user.email']")
+    find("input[ng-model='user.lastname']")
+    find("input[ng-model='user.firstname']")
+    find("input[ng-model='user.address']")
+    find("input[ng-model='user.zip']")
+    find("input[ng-model='user.city']")
+    find("input[ng-model='user.country']")
+    find("input[ng-model='user.phone']")
+    find("input[ng-model='user.email']")
   end
 end
 
 Dann /^man kann die Informationen nicht verändern, sofern es sich um einen Benutzer handelt, der über ein externes Authentifizierungssystem eingerichtet wurde$/ do
   if @customer.authentication_system.class_name != "DatabaseAuthentication"
-    find("div:not(.editable) [ng-model='user.lastname']")
-    find("div:not(.editable) [ng-model='user.firstname']")
-    find("div:not(.editable) [ng-model='user.address']")
-    find("div:not(.editable) [ng-model='user.zip']")
-    find("div:not(.editable) [ng-model='user.city']")
-    find("div:not(.editable) [ng-model='user.country']")
-    find("div:not(.editable) [ng-model='user.phone']")
-    find("div:not(.editable) [ng-model='user.email']")
+    all(".readonly span.ng-binding").size.should == 8
   end
 end
 
 Dann /^man sieht die Rollen des Benutzers und kann diese entsprechend seiner Rolle verändern$/ do
-  find(".editable select[ng-model='user.access_right.role_name']")
+  find("select[ng-model='user.access_right.role_name']")
 end
 
 Dann /^man kann die vorgenommenen Änderungen abspeichern$/ do
   find(".content_navigation > button.green").click
+end
+
+####################################################################
+
+Angenommen /^man ist Ausleihe\-Verwalter$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+Dann /^kann man neue Gegenstände erstellen, die ausschliesslich nicht inventarrelevant sind$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+Dann /^man kann Optionen erstellen$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+Dann /^man kann neue Benutzer erstellen und für die Ausleihe sperren$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+Dann /^man kann Benutzern die Rollen "(.*?)" zuweisen und wegnehmen, wobei diese immer auf den Gerätepark bezogen ist, für den auch der Verwalter berechtigt ist$/ do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+Dann /^man kann nicht inventarrelevante Gegenstände ausmustern, sofern man deren Besitzer ist$/ do
+  pending # express the regexp above with the code you wish you had
 end
