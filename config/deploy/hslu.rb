@@ -164,13 +164,13 @@ namespace :deploy do
 
 end
 
-after "deploy:symlink", :link_config
-after "deploy:symlink", :link_attachments
-after "deploy:symlink", :link_db_backups
-after "deploy:symlink", :modify_config
-after "deploy:symlink", :chmod_tmp
+before "deploy:symlink", :link_config
+before "deploy:symlink", :link_attachments
+before "deploy:symlink", :link_db_backups
+before "deploy:symlink", :modify_config
+before "deploy:symlink", :chmod_tmp
 before "migrate_database", :install_gems
-after "deploy:symlink", :migrate_database
+before "deploy:symlink", :migrate_database
 before "migrate_database", :configure_sphinx
 before "deploy:restart", :remove_htaccess
 before "deploy:restart", :make_tmp
