@@ -6,15 +6,25 @@ angular.module("users", ["ngResource", "ng-rails-csrf"])
       id: "@id",
       inventory_pool_id: "@inventory_pool_id"
     ,
+      query:
+        method: "GET"
+        isArray: false
       update:
         method: "PUT"
       destroy:
         method: "DELETE"
     )
-    User::destroy = (cb) ->
-      User.remove
-        id: @id
-      , cb
+
+    User::role_text = ()->
+      if @access_right?
+        switch @access_right.role_name
+          when "admin" then _jed("Administrator")
+          when "customer" then _jed("Customer")
+          when "lending_manager" then _jed("Lending manager")
+          when "inventory_manager" then _jed("Inventory manager")
+          else _jed("Unknown")
+      else
+        _jed("Unknown")
 
     User
   ]

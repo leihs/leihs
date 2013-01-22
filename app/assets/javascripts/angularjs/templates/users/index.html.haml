@@ -77,13 +77,13 @@
           {{user.phone}}
 
         %li.role
-          {{user.access_right.role_name}}
+          {{user.role_text()}}
 
         %li.suspended_status
           %span.red{"ng-show" => "user.access_right.suspended_until"}
             {{_jed("Suspended")}} {{_jed("until")}}
             %br
-            {{user.access_right.suspended_until | dateformat:i18n.date.XL}}
+            {{user.access_right.suspended_until | date: 'dd.MM.yyyy'}}
 
       .actions
         %li.actions

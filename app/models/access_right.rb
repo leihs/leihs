@@ -47,17 +47,28 @@ class AccessRight < ActiveRecord::Base
 
   def role_name
     case role.name
-      when "admin"
-        _("Admin")
-      when "customer"
-        _("Customer")
+      when "admin", "customer"
+        role.name
       when "manager"
         case access_level
           when 1, 2
-            _("Lending manager")
+            "lending_manager"
           when 3
-            _("Inventory manager")
+            "inventory_manager"
         end
+    end
+  end
+
+  def role_name=(v)
+    case v
+      when "customer"
+        self.role = Role.find_by_name("customer")
+      when "lending_manager"
+        self.role = Role.find_by_name("manager")
+        self.access_level = 2
+      when "inventory_manager"
+        self.role = Role.find_by_name("manager")
+        self.access_level = 3
     end
   end
 

@@ -1831,6 +1831,18 @@ msgstr "Gesperrt"
 msgid "Edit User"
 msgstr "Benutzer editieren"
 
+msgid "Customer"
+msgstr "Kunde"
+
+msgid "Lending manager"
+msgstr "Ausleihe-Verwalter"
+
+msgid "Inventory manager"
+msgstr "Inventar-Verwalter"
+
+msgid "Unknown"
+msgstr "Unbekannt"
+
 #~ msgid "(maximum available: %{max})"
 #~ msgstr "(maximal verfügbar: %{max})"
 

@@ -15,13 +15,60 @@
     %section
       .inner
         .field.text.editable
+          %h3.key {{_jed("Last name")}}:
+          .value
+            .input
+              %input{:type => "text", "ng-model" => "user.lastname"}
+        .field.text.editable
+          %h3.key {{_jed("First name")}}:
+          .value
+            .input
+              %input{:type => "text", "ng-model" => "user.firstname"}
+        .field.text.editable
+          %h3.key {{_jed("Address")}}:
+          .value
+            .input
+              %input{:type => "text", "ng-model" => "user.address"}
+        .field.text.editable
+          %h3.key {{_jed("Zip")}}:
+          .value
+            .input
+              %input{:type => "text", "ng-model" => "user.zip"}
+        .field.text.editable
+          %h3.key {{_jed("City")}}:
+          .value
+            .input
+              %input{:type => "text", "ng-model" => "user.city"}
+        .field.text.editable
+          %h3.key {{_jed("Country")}}:
+          .value
+            .input
+              %input{:type => "text", "ng-model" => "user.country"}
+        .field.text.editable
+          %h3.key {{_jed("Phone")}}:
+          .value
+            .input
+              %input{:type => "text", "ng-model" => "user.phone"}
+        .field.text.editable
+          %h3.key {{_jed("E-Mail")}}:
+          .value
+            .input
+              %input{:type => "text", "ng-model" => "user.email"}
+
+
+  .right
+    %section
+      .inner
+        .field.text.editable
           %h3.key {{_jed("Badge ID")}}:
           .value
             .input
               %input{:type => "text", "ng-model" => "user.badge_id"}
-  .right
-    %section
-      .inner
+        .field.text.editable
+          %h3.key {{_jed("Role")}}:
+          .value
+            %select{"ng-model" => "user.access_right.role_name", "ng-options" => "role.name as role.text for role in possible_roles"}
+
         .field.text.editable
           %h3.key {{_jed("Suspended Until")}}:
           .value

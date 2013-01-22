@@ -15,11 +15,11 @@ class Backend::UsersController < Backend::BackendController
 ######################################################################
 
   def index(page = (params[:page] || 1).to_i,
-            per_page = (params[:per_page] || PER_PAGE).to_i,
-            search = params[:search],
-            role = params[:role],
-            suspended = (params[:suspended] == "true"),
-            with = params[:with] ? params[:with].deep_symbolize_keys : {})
+      per_page = (params[:per_page] || PER_PAGE).to_i,
+      search = params[:search],
+      role = params[:role],
+      suspended = (params[:suspended] == "true"),
+      with = params[:with] ? params[:with].deep_symbolize_keys : {})
     respond_to do |format|
       format.html
       format.json {
@@ -42,7 +42,7 @@ class Backend::UsersController < Backend::BackendController
                 total_pages: users.total_pages,
                 total_entries: users.total_entries
             }
-          }
+        }
       }
     end
   end
@@ -79,11 +79,15 @@ class Backend::UsersController < Backend::BackendController
   def update
     if params[:access_right]
       access_right = @user.access_rights.where(:inventory_pool_id => current_inventory_pool.id).first
-      if params[:access_right][:suspended_until].blank?
-        access_right.update_attributes(:suspended_until => nil, :suspended_reason => nil)
-      else
-        access_right.update_attributes(:suspended_until => params[:access_right][:suspended_until], :suspended_reason => params[:access_right][:suspended_reason])
+      new_attributes = if params[:access_right][:suspended_until].blank?
+                         {:suspended_until => nil, :suspended_reason => nil}
+                       else
+                         {:suspended_until => params[:access_right][:suspended_until], :suspended_reason => params[:access_right][:suspended_reason]}
+                       end
+      unless params[:access_right][:role_name].blank?
+        new_attributes[:role_name] = params[:access_right][:role_name]
       end
+      access_right.update_attributes(new_attributes)
     end
 
     if @user.update_attributes(params[:user])
@@ -118,7 +122,7 @@ class Backend::UsersController < Backend::BackendController
 
 #################################################################
 
-  # OPTIMIZE
+# OPTIMIZE
   def things_to_return
     @user_things_to_return = @user.things_to_return
   end
@@ -167,10 +171,10 @@ class Backend::UsersController < Backend::BackendController
 
   def access_rights
     @access_rights = if current_inventory_pool
-                        @user.access_rights.scoped_by_inventory_pool_id(current_inventory_pool)
-                      else
-                        @user.access_rights.includes(:inventory_pool).order("inventory_pools.name")
-                      end
+                       @user.access_rights.scoped_by_inventory_pool_id(current_inventory_pool)
+                     else
+                       @user.access_rights.includes(:inventory_pool).order("inventory_pools.name")
+                     end
   end
 
   def add_access_right

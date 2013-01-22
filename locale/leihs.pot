@@ -1761,3 +1761,16 @@ msgstr ""
 
 msgid "Edit User"
 msgstr ""
+
+msgid "Customer"
+msgstr ""
+
+msgid "Lending manager"
+msgstr ""
+
+msgid "Inventory manager"
+msgstr ""
+
+msgid "Unknown"
+msgstr ""
+

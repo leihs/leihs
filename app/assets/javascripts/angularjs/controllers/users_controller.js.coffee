@@ -29,13 +29,11 @@ UsersIndexCtrl = ($scope, User, $routeParams) ->
     # TODO this should be done directly by angular
     for k of params
       delete params[k] if angular.isUndefined(params[k])
-    User.get(
+    User.query(
       params
       , (response) ->
-        if nextPage
-          $scope.users = $scope.users.concat response.entries
-        else
-          $scope.users = response.entries
+        new_users = (new User(entry) for entry in response.entries)
+        $scope.users = if nextPage then $scope.users.concat new_users else new_users
         $scope.pagination = response.pagination
         $scope.isLoading = false
     )
@@ -44,14 +42,17 @@ UsersIndexCtrl.$inject = ['$scope', 'User', '$routeParams'];
 
 UsersEditCtrl = ($scope, $location, $routeParams, User) ->
   $scope.current_inventory_pool_id = $routeParams.inventory_pool_id
+  $scope.possible_roles = [ {"name": "customer", "text": _jed("Customer")},
+                            {"name": "lending_manager", "text": _jed("Lending manager")},
+                            {"name": "inventory_manager", "text": _jed("Inventory manager")}]
 
   self = this
   User.get
     inventory_pool_id: $scope.current_inventory_pool_id
     id: $routeParams.id
   , (response) ->
+    response.access_right.suspended_until = new Date(Date.parse(response.access_right.suspended_until)) if response.access_right.suspended_until?
     $scope.user = new User(response)
-    $scope.user.access_right.suspended_until = moment($scope.user.access_right.suspended_until).format(i18n.date.L) if $scope.user.access_right.suspended_until
 
   $scope.save = ->
     User.update
@@ -60,7 +61,8 @@ UsersEditCtrl = ($scope, $location, $routeParams, User) ->
       user:
         badge_id: $scope.user.badge_id
       access_right:
-        suspended_until: moment($scope.user.access_right.suspended_until).format("YYYY-MM-DD")
+        role_name: $scope.user.access_right.role_name
+        suspended_until: if $scope.user.access_right.suspended_until? then moment($scope.user.access_right.suspended_until).format("YYYY-MM-DD") else undefined
         suspended_reason: $scope.user.access_right.suspended_reason
     , (response) ->
       #$location.path "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/users/#{$scope.user.id}"
