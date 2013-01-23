@@ -55,8 +55,6 @@ Funktionalität: Inventarhelfer
     Dann sind die Änderungen widerrufen
     Und man sieht alle ursprünglichen Werte des Gegenstandes in der Übersicht
 
-ooooooo
-
 
   # NOTE: not yet needed
   #
@@ -72,6 +70,15 @@ ooooooo
   #   Wenn man "Widerrufen" klickt
   #   Dann werden die Änderungen widerrufen
   #   Und man sieht alle ursprünglichen Werte des Gegenstandes in der Übersicht
+
+  @javascript
+  Szenario: Werte gemäss Berechtigung speichern
+    Angenommen man editiert ein Gerät über den Helferschirm
+    Dann selektiere ich mehrere Felder
+    Und ich habe nicht die Berechtigung, alle selektierten Felder zu ändern
+    Dann werden nur die Felder geändert, für welche ich berechtigt bin
+    Und ich erhalte eine Fehlermeldung für die Felder, für die ich nicht berechtigt bin
+
 
 
 
