@@ -55,6 +55,14 @@ Funktionalität: Inventarhelfer
     Dann sind die Änderungen widerrufen
     Und man sieht alle ursprünglichen Werte des Gegenstandes in der Übersicht
 
+@javascript
+  Szenario: Werte gemäss Berechtigung speichern
+    Angenommen man editiert ein Gerät über den Helferschirm
+    Und man selektiert mehrere Felder
+    Und man hat die Berechtigung nicht, alle Felder zu ändern
+    Dann werden nur die Felder geändert, für welche der Benutzer berechtigt ist
+    Und man erhält eine Fehlermeldung
+
   # NOTE: not yet needed
   #
   # @javascript
