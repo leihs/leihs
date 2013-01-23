@@ -55,6 +55,9 @@ Funktionalität: Inventarhelfer
     Dann sind die Änderungen widerrufen
     Und man sieht alle ursprünglichen Werte des Gegenstandes in der Übersicht
 
+ooooooo
+
+
   # NOTE: not yet needed
   #
   # @javascript
