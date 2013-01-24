@@ -66,9 +66,19 @@ Funktionalität: Benutzer verwalten
 
   # pts: 2
   @javascript
-  Szenario: Darstellung eines Benutzers in Listen
+  Szenario: Darstellung eines Benutzers in Listen mit zugeteilter Rolle
     Angenommen ein Benutzer erscheint in einer Benutzerliste
-    Dann sieht man folgende Informationen in folgender Reihenfolge: Vorname, Name, Telefonnummer, Rolle, Sperr-Status
+    Dann sieht man folgende Informationen in folgender Reihenfolge: Vorname, Name, Telefonnummer, Rolle
+
+  @javascript
+  Szenario: Darstellung eines Benutzers in Listen ohne zugeteilte Rolle
+    Angenommen ein Benutzer erscheint in einer Benutzerliste
+    Dann sieht man folgende Informationen in folgender Reihenfolge: Vorname, Name, Telefonnummer
+
+  @javascript
+  Szenario: Darstellung eines Benutzers in Listen mit zugeteilter Rolle und Status gesperrt
+    Angenommen ein Benutzer erscheint in einer Benutzerliste
+    Dann sieht man folgende Informationen in folgender Reihenfolge: Vorname, Name, Telefonnummer, Rolle, Sperr-Status 'gesperrt'
 
   # pts: (13 total with the two below)
   # English: lending manager 

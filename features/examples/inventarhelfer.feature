@@ -76,8 +76,8 @@ Funktionalität: Inventarhelfer
     Angenommen man editiert ein Gerät über den Helferschirm
     Dann selektiere ich mehrere Felder
     Und ich habe nicht die Berechtigung, alle selektierten Felder zu ändern
-    Dann werden nur die Felder geändert, für welche ich berechtigt bin
-    Und ich erhalte eine Fehlermeldung für die Felder, für die ich nicht berechtigt bin
+    Dann werden nur die Felder geändert, für welche ich berechtigt bin und die Felder werden grün
+    Und ich erhalte eine Fehlermeldung für die Felder, für die ich nicht berechtigt bin und diese werden rot
 
 
 
