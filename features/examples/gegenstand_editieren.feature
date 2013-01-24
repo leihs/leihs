@@ -20,7 +20,7 @@ Funktionalität: Gegenstand bearbeiten
   @javascript
   Szenario: Reihenfolge der Felder
     Angenommen man editiert einen Gegenstand
-    Dann sehe ich die Felder in der folgenden Reihenfolge:
+    Dann sehe ich die Felder in folgender Reihenfolge:
     | Inventarcode |
     Allgemeine Informationen
     | Seriennummer |
@@ -59,3 +59,6 @@ Funktionalität: Gegenstand bearbeiten
     | Umzug |
     | Zielraum |
     Toni Ankunftskontrolle
+    | Ankunftsdatum |
+    | Ankunftszustand |
+    | Ankunftsnotiz |
