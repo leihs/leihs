@@ -39,8 +39,12 @@ class Item < ActiveRecord::Base
 
 ####################################################################
 
+  before_validation do
+    self.owner ||= inventory_pool
+    self.inventory_code ||= Item.proposed_inventory_code(owner)
+  end
+
   before_save do
-    self.owner = inventory_pool if !owner and inventory_pool 
     self.properties = properties.to_hash.delete_if{|k,v| v.blank?}.deep_symbolize_keys # we want to store serialized plain Hash (not HashWithIndifferentAccess) and remove empty values
     self.retired_reason = nil unless retired?
   end

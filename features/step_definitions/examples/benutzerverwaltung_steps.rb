@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 Angenommen /^ein Benutzer hat aus der leihs 2.0-Datenbank den Level 1 auf einem Gerätepark$/ do
-  step "I am logged in as '%s' with password 'password'" % "assist"
+  step 'man ist "%s"' % "Assist"
   ar = @user.access_rights.where(:access_level => 1).first
   ar.should_not be_nil
   @inventory_pool = ar.inventory_pool
@@ -11,11 +11,34 @@ Dann /^gilt er in leihs 3.0 als Level 2 für diesen Gerätepark$/ do
   @user.has_at_least_access_level(2, @inventory_pool).should be_true
 end
 
+####################################################################
+
 Angenommen /^man ist Inventar\-Verwalter oder Ausleihe\-Verwalter$/ do
+  step 'man ist "%s"' % ["Mike", "Pius"].shuffle.first
   ar = @user.access_rights.where(:access_level => [2, 3]).first
   ar.should_not be_nil
   @inventory_pool = ar.inventory_pool
 end
+
+Angenommen /^man ist Ausleihe\-Verwalter$/ do
+  step 'man ist "%s"' % "Pius"
+  ar = @user.access_rights.where(:access_level => [1, 2]).first
+  ar.should_not be_nil
+  @inventory_pool = ar.inventory_pool
+end
+
+Angenommen /^man ist Inventar\-Verwalter$/ do
+  step 'man ist "%s"' % "Mike"
+  ar = @user.access_rights.where(:access_level => 3).first
+  ar.should_not be_nil
+  @inventory_pool = ar.inventory_pool
+end
+
+Angenommen /^man ist Administrator$/ do
+  step 'man ist "%s"' % "Ramon"
+end
+
+####################################################################
 
 Dann /^findet man die Benutzeradministration im Bereich "Administration" unter "Benutzer"$/ do
   step 'I follow "Admin"'
@@ -90,6 +113,7 @@ end
 Dann /^man muss das Enddatum der Sperrung bestimmen$/ do
   find(".content_navigation > button.green").click
   wait_until { find(".button.white", :text => _("Edit %s") % _("User")) }
+  sleep(0.5)
   current_path.should == backend_inventory_pool_user_path(@inventory_pool, @customer)
   @inventory_pool.suspended_users.find_by_id(@customer.id).should_not be_nil
   @customer.access_right_for(@inventory_pool).suspended?.should be_true
@@ -109,7 +133,6 @@ end
 ####################################################################
 
 Angenommen /^ein Benutzer erscheint in einer Benutzerliste$/ do
-  step 'man ist Inventar-Verwalter oder Ausleihe-Verwalter'
   step 'findet man die Benutzeradministration im Bereich "Administration" unter "Benutzer"'
   step 'I follow "%s"' % _("Customer")
   find(".list ul.user .user_name")
@@ -172,24 +195,69 @@ end
 
 ####################################################################
 
-Angenommen /^man ist Ausleihe\-Verwalter$/ do
-  pending # express the regexp above with the code you wish you had
-end
-
 Dann /^kann man neue Gegenstände erstellen, die ausschliesslich nicht inventarrelevant sind$/ do
-  pending # express the regexp above with the code you wish you had
+  c = Item.count
+  attributes = {
+    model_id: @inventory_pool.models.first.id
+  }
+  response = post backend_inventory_pool_items_path(@inventory_pool, format: :json), item: attributes
+  response.should be_successful
+  json = JSON.parse response.body
+  json["id"].should_not be_blank
+  Item.count.should == c+1
 end
 
 Dann /^man kann Optionen erstellen$/ do
-  pending # express the regexp above with the code you wish you had
+  c = Option.count
+  factory_attributes = FactoryGirl.attributes_for(:option)
+  attributes = {
+    inventory_code: factory_attributes[:inventory_code],
+    name: factory_attributes[:name],
+    price: factory_attributes[:price]
+  }
+  response = post backend_inventory_pool_options_path(@inventory_pool), option: attributes
+  response.should be_redirect
+  URI.parse(response.location).path.should == backend_inventory_pool_models_path(@inventory_pool)
+  Option.count.should == c+1
 end
 
 Dann /^man kann neue Benutzer erstellen und für die Ausleihe sperren$/ do
-  pending # express the regexp above with the code you wish you had
+  c = User.count
+  ids = User.pluck(:id)
+  factory_attributes = FactoryGirl.attributes_for(:user)
+  attributes = {}
+  [:login, :firstname, :lastname, :phone, :email, :badge_id, :address, :city, :country, :zip].each do |a|
+    attributes[a] = factory_attributes[a]
+  end
+  response = post backend_inventory_pool_users_path(@inventory_pool), user: attributes
+  response.should be_redirect
+  User.count.should == c+1
+  id = (User.pluck(:id) - ids).first
+  URI.parse(response.location).path.should == backend_inventory_pool_user_path(@inventory_pool, id)
 end
 
-Dann /^man kann Benutzern die Rollen "(.*?)" zuweisen und wegnehmen, wobei diese immer auf den Gerätepark bezogen ist, für den auch der Verwalter berechtigt ist$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+Dann /^man kann Benutzern die Rollen "(.*?)" zuweisen und wegnehmen, wobei diese immer auf den Gerätepark bezogen ist, für den auch der Verwalter berechtigt ist$/ do |role_text|
+  role_name = case role_text
+                when _("Customer")
+                  "customer"
+                #when _("Lending manager")
+                #  "lending_manager"
+                #when _("Inventory manager")
+                #  "inventory_manager"
+                #when _("Unknown")
+                #  "unknown"
+              end
+
+  unknown_user = User.unknown_for(@inventory_pool).order("RAND()").first
+  unknown_user.has_role?(role_name, @inventory_pool).should be_false
+
+  response = put backend_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), access_right: {role_name: role_name}
+  response.should be_successful
+  unknown_user.has_role?(role_name, @inventory_pool).should be_true
+
+  response = put backend_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), access_right: {role_name: "unknown"}
+  response.should be_successful
+  unknown_user.has_role?(role_name, @inventory_pool).should be_false
 end
 
 Dann /^man kann nicht inventarrelevante Gegenstände ausmustern, sofern man deren Besitzer ist$/ do

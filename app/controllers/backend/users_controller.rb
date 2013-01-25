@@ -27,7 +27,7 @@ class Backend::UsersController < Backend::BackendController
                   when "admins"
                     User.admins
                   when "unknown"
-                    User.where("users.id NOT IN (#{current_inventory_pool.users.select("users.id").to_sql})")
+                    User.unknown_for(current_inventory_pool)
                   when "customers", "lending_managers", "inventory_managers"
                     current_inventory_pool.send(suspended ? :suspended_users : :users).send(role)
                   else
@@ -78,7 +78,7 @@ class Backend::UsersController < Backend::BackendController
 
   def update
     if params[:access_right]
-      access_right = @user.access_rights.where(:inventory_pool_id => current_inventory_pool.id).first
+      access_right = @user.access_rights.find_or_initialize_by_inventory_pool_id(current_inventory_pool.id)
       new_attributes = if params[:access_right][:suspended_until].blank?
                          {:suspended_until => nil, :suspended_reason => nil}
                        else
@@ -169,6 +169,8 @@ class Backend::UsersController < Backend::BackendController
 
 #################################################################
 
+=begin
+  #old leihs#
   def access_rights
     @access_rights = if current_inventory_pool
                        @user.access_rights.scoped_by_inventory_pool_id(current_inventory_pool)
@@ -177,6 +179,7 @@ class Backend::UsersController < Backend::BackendController
                      end
   end
 
+  #old leihs#
   def add_access_right
     inventory_pool_id = if current_inventory_pool
                           current_inventory_pool.id
@@ -205,6 +208,7 @@ class Backend::UsersController < Backend::BackendController
     redirect_to url_for([:access_rights, :backend, current_inventory_pool, @user].compact)
   end
 
+  #old leihs#
   def remove_access_right
     ar = @user.access_rights.find(params[:access_right_id])
     if ar.inventory_pool_id.nil? or ar.inventory_pool.contract_lines.by_user(@user).to_take_back.empty?
@@ -214,5 +218,6 @@ class Backend::UsersController < Backend::BackendController
     end
     redirect_to url_for([:access_rights, :backend, current_inventory_pool, @user].compact)
   end
+=end
 
 end
