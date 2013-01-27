@@ -2,34 +2,34 @@
 
 Angenommen /^ein Benutzer hat aus der leihs 2.0-Datenbank den Level 1 auf einem Gerätepark$/ do
   step 'man ist "%s"' % "Assist"
-  ar = @user.access_rights.where(:access_level => 1).first
+  ar = @current_user.access_rights.where(:access_level => 1).first
   ar.should_not be_nil
   @inventory_pool = ar.inventory_pool
 end
 
 Dann /^gilt er in leihs 3.0 als Level 2 für diesen Gerätepark$/ do
-  @user.has_at_least_access_level(2, @inventory_pool).should be_true
+  @current_user.has_at_least_access_level(2, @inventory_pool).should be_true
 end
 
 ####################################################################
 
 Angenommen /^man ist Inventar\-Verwalter oder Ausleihe\-Verwalter$/ do
   step 'man ist "%s"' % ["Mike", "Pius"].shuffle.first
-  ar = @user.access_rights.where(:access_level => [2, 3]).first
+  ar = @current_user.access_rights.where(:access_level => [2, 3]).first
   ar.should_not be_nil
   @inventory_pool = ar.inventory_pool
 end
 
 Angenommen /^man ist Ausleihe\-Verwalter$/ do
   step 'man ist "%s"' % "Pius"
-  ar = @user.access_rights.where(:access_level => [1, 2]).first
+  ar = @current_user.access_rights.where(:access_level => [1, 2]).first
   ar.should_not be_nil
   @inventory_pool = ar.inventory_pool
 end
 
 Angenommen /^man ist Inventar\-Verwalter$/ do
   step 'man ist "%s"' % "Mike"
-  ar = @user.access_rights.where(:access_level => 3).first
+  ar = @current_user.access_rights.where(:access_level => 3).first
   ar.should_not be_nil
   @inventory_pool = ar.inventory_pool
 end
@@ -261,5 +261,25 @@ Dann /^man kann Benutzern die Rollen "(.*?)" zuweisen und wegnehmen, wobei diese
 end
 
 Dann /^man kann nicht inventarrelevante Gegenstände ausmustern, sofern man deren Besitzer ist$/ do
-  pending # express the regexp above with the code you wish you had
+  item = @inventory_pool.own_items.where(:is_inventory_relevant => false).first
+  item.retired?.should be_false
+  attributes = {
+      retired: true
+  }
+  response = put backend_inventory_pool_item_path(@inventory_pool, item, format: :json), item: attributes
+  response.should be_successful
+  item.reload.retired?.should be_true
+  item.retired.should == Date.today
+end
+
+####################################################################
+
+Dann /^kann man neue Modelle erstellen$/ do
+  c = Model.count
+  attributes = FactoryGirl.attributes_for :model
+  response = post backend_inventory_pool_models_path(@inventory_pool, format: :json), model: attributes
+  response.should be_successful
+  json = JSON.parse response.body
+  json["id"].should_not be_blank
+  Model.count.should == c+1
 end

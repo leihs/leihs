@@ -45,15 +45,14 @@ do |who, quantity, model|
   end
 end
 
-# TODO: use $who
 Given "the $who signs the contract" do |who|
-  @contract.sign(@user)
+  @contract.sign(User.find_by_login(who))
   @contract.status_const.should == Contract::SIGNED
 end
 
 # TODO merge with next step
 When "$who checks availability for '$what'" do |who, model|
-  @user = User.find_by_login(who)
+  @current_user = User.find_by_login(who)
   @model = Model.find_by_name model
 end
 
@@ -61,7 +60,7 @@ end
 When "$who checks availability for '$what' on $date" \
 do |who, model, date|
   date = to_date(date)
-  @user = User.find_by_login(who)
+  @current_user = User.find_by_login(who)
 end
 
 Then "it should always be available" do
