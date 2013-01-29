@@ -17,7 +17,7 @@ Funktionalität: Inventarhelfer
     Dann wähle Ich all die Felder über eine List oder per Namen aus
     Und ich setze all ihre Initalisierungswerte
     Dann scanne oder gebe ich den Inventarcode ein
-    Dann sehe ich alle Werte des Gegenstandes in der Übersicht, die geänderten Werte sind bereits gespeichert
+    Dann sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert
     Und die geänderten Werte sind hervorgehoben
 
   @javascript
@@ -35,7 +35,7 @@ Funktionalität: Inventarhelfer
     Und ich setze ihre Initalisierungswerte
     Dann gebe ich den Anfang des Inventarcodes eines Gegenstand ein
     Und wähle den Gegenstand über die mir vorgeschlagenen Suchtreffer
-    Dann sehe ich alle Werte des Gegenstandes in der Übersicht, die geänderten Werte sind bereits gespeichert
+    Dann sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert
     Und die geänderten Werte sind hervorgehoben
 
   @javascript
