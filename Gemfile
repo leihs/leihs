@@ -10,6 +10,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '2.3.5'
 gem 'rake', '0.8.7'
+gem 'json'
 
 gem 'mysql', '2.8.1'
 #gem 'memcache-client' #gem 'dalli' #gem 'redis-store'
