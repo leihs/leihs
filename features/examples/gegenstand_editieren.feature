@@ -22,13 +22,13 @@ Funktionalität: Gegenstand bearbeiten
     Angenommen man editiert einen Gegenstand
     Dann sehe ich die Felder in folgender Reihenfolge:
     | Inventarcode |
-    Allgemeine Informationen
+    #Allgemeine Informationen
     | Seriennummer |
     | MAC-Adresse |
     | IMEI-Nummer |
     | Name |
     | Notizen |
-    Rechnungsinformationen
+    #Rechnungsinformationen
     | Bezug |
     | Projektnummer |
     | Rechnungsnummer |
@@ -38,27 +38,27 @@ Funktionalität: Gegenstand bearbeiten
     | Lieferant |
     | Gültigkeit Garantie |
     | Gültigkeit Supportvertrag |
-    Inventar
+    #Inventar
     | Inventarrelevant |
     | Besitzer |
     | Letzte Inventur |
     | Verantwortliche Abteilung |
     | Verantwortliche Person |
     | Benutzer/Verwendung |
-    Ort
+    #Ort
     | Gebäude |
     | Raum |
     | Gestell |
-    Zustand
+    #Zustand
     | Ausmusterung |
     | Grund der Ausmusterung |
     | Zustand |
     | Vollständigkeit |
     | Ausleihbar |
-    Umzug
+    #Umzug
     | Umzug |
     | Zielraum |
-    Toni Ankunftskontrolle
+    #Toni Ankunftskontrolle
     | Ankunftsdatum |
     | Ankunftszustand |
     | Ankunftsnotiz |
