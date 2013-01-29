@@ -1,6 +1,6 @@
 When /^I add an item to the hand over by providing an inventory code and a date range$/ do
   existing_model_ids = @customer.contracts.unsigned.flat_map(&:models).map(&:id)
-  @inventory_code = @user.managed_inventory_pools.first.items.in_stock.detect{|i| not existing_model_ids.include?(i.model_id)}.inventory_code unless @inventory_code
+  @inventory_code = @current_user.managed_inventory_pools.first.items.in_stock.detect{|i| not existing_model_ids.include?(i.model_id)}.inventory_code unless @inventory_code
   find("#code").set @inventory_code
   line_amount_before = all(".line").size
   find("#process_helper .button").click
@@ -15,7 +15,7 @@ end
 
 When /^I add an option to the hand over by providing an inventory code and a date range$/ do
   wait_until(15){ all(".loading", :visible => true).empty? }
-  @inventory_code = @user.managed_inventory_pools.first.options.first.inventory_code
+  @inventory_code = @current_user.managed_inventory_pools.first.options.first.inventory_code
   find("#code").set @inventory_code
   page.execute_script('$("#code").focus()')
   find("#process_helper .button").click
@@ -57,14 +57,14 @@ end
 When /^I type the beginning of (.*?) name to the add\/assign input field$/ do |type| 
   @target_name = case type
     when "an option"
-      @option = @user.managed_inventory_pools.first.options.first
+      @option = @current_user.managed_inventory_pools.first.options.first
       @inventory_code = @option.inventory_code
       @option.name
     when "a model"
-      @model = @user.managed_inventory_pools.first.items.in_stock.first.model
+      @model = @current_user.managed_inventory_pools.first.items.in_stock.first.model
       @model.name
     when "a template"
-      @template = @user.managed_inventory_pools.first.templates.first
+      @template = @current_user.managed_inventory_pools.first.templates.first
       @template.name
   end
   type_into_autocomplete "#code", @target_name[0..(@target_name.size/2)]

@@ -15,7 +15,7 @@ Then /^I see a list of inventory codes of items that are in stock and matching t
 end
 
 When /^I assign an item to the hand over by providing an inventory code and a date range$/ do
-  @inventory_code = @user.managed_inventory_pools.first.items.in_stock.first.inventory_code unless @inventory_code
+  @inventory_code = @current_user.managed_inventory_pools.first.items.in_stock.first.inventory_code unless @inventory_code
   find("#code").set @inventory_code
   line_amount_before = all(".line").size
   assigned_amount_before = all(".line.assigned").size
@@ -58,7 +58,7 @@ Then /^no new line is added to the hand over$/ do
 end
 
 When /^I open a hand over which has multiple lines$/ do
-  @ip = @user.managed_inventory_pools.first
+  @ip = @current_user.managed_inventory_pools.first
   @hand_over = @ip.visits.hand_over.detect{|x| x.lines.size > 1}
   @customer = @hand_over.user
   visit backend_inventory_pool_user_hand_over_path(@ip, @customer)

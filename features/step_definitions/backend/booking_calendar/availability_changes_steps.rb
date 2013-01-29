@@ -1,5 +1,5 @@
 When /^I open a booking calendar to edit a singe line$/ do
-  @ip = @user.managed_inventory_pools.first
+  @ip = @current_user.managed_inventory_pools.first
   # high frequently booked model
   @model = @ip.models.max {|a,b| a.availability_in(@ip).changes.length <=> b.availability_in(@ip).changes.length}
   @order = OrderLine.where(:model_id => @model.id).first.order

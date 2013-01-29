@@ -1,5 +1,5 @@
 When /^I open a take back$/ do
-  @ip = @user.managed_inventory_pools.first
+  @ip = @current_user.managed_inventory_pools.first
   @customer = @ip.users.detect {|x| x.contracts.signed.size > 0}
   @contract = @customer.contracts.signed.first
   visit backend_inventory_pool_user_take_back_path(@ip, @customer)

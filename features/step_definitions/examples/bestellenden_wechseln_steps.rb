@@ -5,7 +5,7 @@ Dann /^kann ich die bestellende Person wechseln$/ do
   wait_until { find(".dialog .focus") }
   @order = Order.find page.evaluate_script('$("#order").tmplItem().data.id')
   @old_user = @order.user
-  @new_user = @user.managed_inventory_pools.first.users.detect {|u| u.id != @old_user.id and u.visits.size > 0}
+  @new_user = @current_user.managed_inventory_pools.first.users.detect {|u| u.id != @old_user.id and u.visits.size > 0}
   find(".new.orderer input").set @new_user.name
   find(".ui-menu-item a").click
   find(".dialog .button[type='submit']").click

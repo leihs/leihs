@@ -24,7 +24,7 @@ Given "the order was submitted" do
 end
 
 When "he submits the new order" do
-  @order = @user.get_current_order
+  @order = @current_user.get_current_order
   @order.status_const.should == Order::UNSUBMITTED
   post submit_order_path
   @order = @order.reload
