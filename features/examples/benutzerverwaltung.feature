@@ -21,7 +21,6 @@ Funktionalität: Benutzer verwalten
       | Kunde              | customers          |
       | Ausleihe-Verwalter | lending_managers   |
       | Inventar-Verwalter | inventory_managers |
-      | Administrator      | admins             |
     Und man kann für jeden Benutzer die Editieransicht aufrufen
     Und man kann einen neuen Benutzer erstellen 
 
