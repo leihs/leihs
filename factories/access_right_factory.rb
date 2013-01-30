@@ -1,7 +1,13 @@
 FactoryGirl.define do
 
   factory :access_right do
-    role_id {rand(Role.all.count-1)}
+    role_id {
+      if Role.all.count.zero?
+        FactoryGirl.create(:role).id
+      else
+        rand(Role.all.count-1)
+      end
+    }
     user
     inventory_pool
     access_level {
