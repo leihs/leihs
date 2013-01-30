@@ -146,7 +146,7 @@ When "'$who' orders $quantity '$model' from inventory pool $ip" do |who, quantit
   model_id = Model.find_by_name(model).id
   inv_pool = InventoryPool.find_by_name(ip)
   post add_line_order_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => inv_pool.id)
-  @order = @user.get_current_order
+  @order = @current_user.get_current_order
 end
 
 When "'$who' searches for '$model' on frontend" do |who, model|
