@@ -8,7 +8,7 @@ class AccessRight < ActiveRecord::Base
   validates_presence_of :user, :role
   validates_uniqueness_of :inventory_pool_id, :scope => :user_id
   validate do
-    if role.name == 'admin'
+    if role and role.name == 'admin'
       errors.add(:base, _("The admin role cannot be scoped to an inventory pool")) unless inventory_pool.nil?
     else
       errors.add(:base, _("Inventory Pool is missing")) if inventory_pool.nil?
@@ -16,7 +16,7 @@ class AccessRight < ActiveRecord::Base
   end
 
   before_validation(:on => :create) do
-    self.inventory_pool = nil if role.name == 'admin'
+    self.inventory_pool = nil if role and role.name == 'admin'
     unless user.access_rights.empty?
       old_ar = user.access_rights.where( :inventory_pool_id => inventory_pool.id ).first if inventory_pool
       user.access_rights.delete(old_ar) if old_ar
