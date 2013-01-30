@@ -11,7 +11,7 @@ module Json
       }
       
       if with ||= nil
-        [:image_url, :email, :address, :zip, :city, :phone, :badge_id].each do |k|
+        [:image_url, :email, :address, :zip, :city, :country, :phone, :badge_id].each do |k|
           h[k] = user.send(k) if with[k]
         end
         
