@@ -59,11 +59,7 @@ class Backend::ItemsController < Backend::BackendController
     update
   end
 
-  # TODO: we do not check here who is allowed to do what - i.e. a level 1 manager can
-  #       update items directly through the backend - even though the frontend wouldn't let him
   def update
-    # get_histories currently not needed
-
     if @item
       # check permissions by checking flexible field permissions
       Field.all.each do |field|
@@ -154,31 +150,6 @@ class Backend::ItemsController < Backend::BackendController
     redirect_to :action => 'show', :id => @item.id
   end
 
-=begin # TODO merge to update ??
-  def retire
-    if request.post?
-      # NOTE since it's a switch form, the hidden param ensures the correct action
-      if @item.retired and !params[:retired].blank?
-        @item.retired = nil
-      else
-        @item.retired = Date.today
-      end
-      @item.retired_reason = params[:reason]
-      if @item.save
-        msg = _("Item retired (%s)") % @item.retired_reason
-        @item.log_history(msg, current_user)
-        flash[:notice] = msg
-        redirect_to params[:source_path] and return
-      else
-        flash[:error] = @item.errors.full_messages.uniq
-      end
-    end
-    
-    params[:layout] = "modal" #old??#
-    render :action => 'retire'
-  end
-=end
-  
 #################################################################
 
   def notes

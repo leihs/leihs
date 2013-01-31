@@ -2342,6 +2342,22 @@ window.i18n.locale_data = {
          null,
          "Benutzer editieren"
       ],
+      "Customer": [
+         null,
+         "Kunde"
+      ],
+      "Lending manager": [
+         null,
+         "Ausleihe-Verwalter"
+      ],
+      "Inventory manager": [
+         null,
+         "Inventar-Verwalter"
+      ],
+      "Unknown": [
+         null,
+         "Unbekannt"
+      ],
       "(maximum available: %{max})": [
          null,
          "(maximal verfügbar: %{max})"

@@ -1,21 +1,44 @@
 # -*- encoding : utf-8 -*-
 
 Angenommen /^ein Benutzer hat aus der leihs 2.0-Datenbank den Level 1 auf einem Gerätepark$/ do
-  step "I am logged in as '%s' with password 'password'" % "assist"
-  ar = @user.access_rights.where(:access_level => 1).first
+  step 'man ist "%s"' % "Assist"
+  ar = @current_user.access_rights.where(:access_level => 1).first
   ar.should_not be_nil
   @inventory_pool = ar.inventory_pool
 end
 
 Dann /^gilt er in leihs 3.0 als Level 2 für diesen Gerätepark$/ do
-  @user.has_at_least_access_level(2, @inventory_pool).should be_true
+  @current_user.has_at_least_access_level(2, @inventory_pool).should be_true
 end
 
+####################################################################
+
 Angenommen /^man ist Inventar\-Verwalter oder Ausleihe\-Verwalter$/ do
-  ar = @user.access_rights.where(:access_level => [2, 3]).first
+  step 'man ist "%s"' % ["Mike", "Pius"].shuffle.first
+  ar = @current_user.access_rights.where(:access_level => [2, 3]).first
   ar.should_not be_nil
   @inventory_pool = ar.inventory_pool
 end
+
+Angenommen /^man ist Ausleihe\-Verwalter$/ do
+  step 'man ist "%s"' % "Pius"
+  ar = @current_user.access_rights.where(:access_level => [1, 2]).first
+  ar.should_not be_nil
+  @inventory_pool = ar.inventory_pool
+end
+
+Angenommen /^man ist Inventar\-Verwalter$/ do
+  step 'man ist "%s"' % "Mike"
+  ar = @current_user.access_rights.where(:access_level => 3).first
+  ar.should_not be_nil
+  @inventory_pool = ar.inventory_pool
+end
+
+Angenommen /^man ist Administrator$/ do
+  step 'man ist "%s"' % "Ramon"
+end
+
+####################################################################
 
 Dann /^findet man die Benutzeradministration im Bereich "Administration" unter "Benutzer"$/ do
   step 'I follow "Admin"'
@@ -23,17 +46,22 @@ Dann /^findet man die Benutzeradministration im Bereich "Administration" unter "
 end
 
 Dann /^sieht man eine Liste aller Benutzer$/ do
-  c = @inventory_pool.users.count
+  c = User.count
   page.should have_content("List of %d Users" % c)
 end
 
 Dann /^man kann filtern nach den folgenden Eigenschaften: gesperrt$/ do
+  step 'I follow "%s"' % _("Customer")
+  wait_until { all(".loading", :visible => true).empty? }
+
   find("[ng-model='suspended']").click
-  c = @inventory_pool.suspended_users.count
+  wait_until { all(".loading", :visible => true).empty? }
+  c = @inventory_pool.suspended_users.customers.count
   page.should have_content("List of %d Users" % c)
 
   find("[ng-model='suspended']").click
-  c = @inventory_pool.users.count
+  wait_until { all(".loading", :visible => true).empty? }
+  c = @inventory_pool.users.customers.count
   page.should have_content("List of %d Users" % c)
 end
 
@@ -46,15 +74,12 @@ Dann /^man kann filtern nach den folgenden Rollen:$/ do |table|
             User.admins
           when "unknown"
             User.where("users.id NOT IN (#{@inventory_pool.users.select("users.id").to_sql})")
+          when "customers", "lending_managers", "inventory_managers"
+            @inventory_pool.users.send(role)
           else
-            users = @inventory_pool.users
-            case role
-              when "customers", "lending_managers", "inventory_managers"
-                users.send(role)
-              else
-                users
-            end
+            User.scoped
         end.count
+    wait_until { all(".loading", :visible => true).empty? }
     page.should have_content("List of %d Users" % c)
   end
 end
@@ -73,30 +98,41 @@ end
 ####################################################################
 
 Angenommen /^man editiert einen Benutzer$/ do
-  #visit edit_backend_inventory_pool_user_path(@inventory_pool, @inventory_pool.users.first)
-  pending
+  @customer = @inventory_pool.users.customers.first
+  visit edit_backend_inventory_pool_user_path(@inventory_pool, @customer)
 end
 
 Angenommen /^man nutzt die Sperrfunktion$/ do
-  pending # express the regexp above with the code you wish you had
+  find("[ng-model='user.access_right.suspended_until']").set((Date.today+1.month).strftime("%d.%m.%Y"))
 end
 
 Dann /^muss man den Grund der Sperrung eingeben$/ do
-  pending # express the regexp above with the code you wish you had
+  find("[ng-model='user.access_right.suspended_reason']").set("this is the reason")
 end
 
 Dann /^man muss das Enddatum der Sperrung bestimmen$/ do
-  pending # express the regexp above with the code you wish you had
+  find(".content_navigation > button.green").click
+  wait_until { find(".button.white", :text => _("Edit %s") % _("User")) }
+  sleep(0.5)
+  current_path.should == backend_inventory_pool_user_path(@inventory_pool, @customer)
+  @inventory_pool.suspended_users.find_by_id(@customer.id).should_not be_nil
+  @customer.access_right_for(@inventory_pool).suspended?.should be_true
 end
 
 Dann /^sofern der Benutzer gesperrt ist, kann man die Sperrung aufheben$/ do
-  pending # express the regexp above with the code you wish you had
+  visit edit_backend_inventory_pool_user_path(@inventory_pool, @customer)
+  find("[ng-model='user.access_right.suspended_until']").set("")
+  find(".content_navigation > button.green").click
+  wait_until { find(".button.white", :text => _("Edit %s") % _("User")) }
+  current_path.should == backend_inventory_pool_user_path(@inventory_pool, @customer)
+  @inventory_pool.suspended_users.find_by_id(@customer.id).should be_nil
+  @inventory_pool.users.find_by_id(@customer.id).should_not be_nil
+  @customer.access_right_for(@inventory_pool).suspended?.should be_false
 end
 
 ####################################################################
 
 Angenommen /^ein Benutzer erscheint in einer Benutzerliste$/ do
-  step 'man ist Inventar-Verwalter oder Ausleihe-Verwalter'
   step 'findet man die Benutzeradministration im Bereich "Administration" unter "Benutzer"'
   step 'I follow "%s"' % _("Customer")
   find(".list ul.user .user_name")
@@ -105,4 +141,145 @@ end
 Dann /^sieht man folgende Informationen in folgender Reihenfolge: Vorname, Name, Telefonnummer, Rolle, Sperr\-Status$/ do
   el = find(".list ul.user")
   el.find(".user_name + .phone + .role + .suspended_status")
+end
+
+####################################################################
+
+Dann /^sieht man als Titel den Vornamen und Namen des Benutzers, sofern bereits vorhanden$/ do
+  find(".top h1", :text => @customer.to_s)
+end
+
+Dann /^sieht man die folgenden Daten des Benutzers in der folgenden Reihenfolge:$/ do |table|
+  values = table.hashes.map do |x|
+    _(x[:en])
+  end
+  (page.text =~ Regexp.new(values.join('.*'), Regexp::MULTILINE)).should_not be_nil
+end
+
+Dann /^sieht man die Sperrfunktion für diesen Benutzer$/ do
+  find("[ng-model='user.access_right.suspended_until']")
+end
+
+Dann /^sofern dieser Benutzer gesperrt ist, sieht man Grund und Dauer der Sperrung$/ do
+  if @customer.access_right_for(@inventory_pool).suspended?
+    find("[ng-model='user.access_right.suspended_reason']")
+  end
+end
+
+Dann /^man kann die Informationen ändern, sofern es sich um einen externen Benutzer handelt$/ do
+  if @customer.authentication_system.class_name == "DatabaseAuthentication"
+    find("input[ng-model='user.lastname']")
+    find("input[ng-model='user.firstname']")
+    find("input[ng-model='user.address']")
+    find("input[ng-model='user.zip']")
+    find("input[ng-model='user.city']")
+    find("input[ng-model='user.country']")
+    find("input[ng-model='user.phone']")
+    find("input[ng-model='user.email']")
+  end
+end
+
+Dann /^man kann die Informationen nicht verändern, sofern es sich um einen Benutzer handelt, der über ein externes Authentifizierungssystem eingerichtet wurde$/ do
+  if @customer.authentication_system.class_name != "DatabaseAuthentication"
+    all(".readonly span.ng-binding").size.should == 8
+  end
+end
+
+Dann /^man sieht die Rollen des Benutzers und kann diese entsprechend seiner Rolle verändern$/ do
+  find("select[ng-model='user.access_right.role_name']")
+end
+
+Dann /^man kann die vorgenommenen Änderungen abspeichern$/ do
+  find(".content_navigation > button.green").click
+end
+
+####################################################################
+
+Dann /^kann man neue Gegenstände erstellen, die ausschliesslich nicht inventarrelevant sind$/ do
+  c = Item.count
+  attributes = {
+    model_id: @inventory_pool.models.first.id
+  }
+  response = post backend_inventory_pool_items_path(@inventory_pool, format: :json), item: attributes
+  response.should be_successful
+  json = JSON.parse response.body
+  json["id"].should_not be_blank
+  Item.count.should == c+1
+end
+
+Dann /^man kann Optionen erstellen$/ do
+  c = Option.count
+  factory_attributes = FactoryGirl.attributes_for(:option)
+  attributes = {
+    inventory_code: factory_attributes[:inventory_code],
+    name: factory_attributes[:name],
+    price: factory_attributes[:price]
+  }
+  response = post backend_inventory_pool_options_path(@inventory_pool), option: attributes
+  response.should be_redirect
+  URI.parse(response.location).path.should == backend_inventory_pool_models_path(@inventory_pool)
+  Option.count.should == c+1
+end
+
+Dann /^man kann neue Benutzer erstellen und für die Ausleihe sperren$/ do
+  c = User.count
+  ids = User.pluck(:id)
+  factory_attributes = FactoryGirl.attributes_for(:user)
+  attributes = {}
+  [:login, :firstname, :lastname, :phone, :email, :badge_id, :address, :city, :country, :zip].each do |a|
+    attributes[a] = factory_attributes[a]
+  end
+  response = post backend_inventory_pool_users_path(@inventory_pool), user: attributes
+  response.should be_redirect
+  User.count.should == c+1
+  id = (User.pluck(:id) - ids).first
+  URI.parse(response.location).path.should == backend_inventory_pool_user_path(@inventory_pool, id)
+end
+
+Dann /^man kann Benutzern die Rollen "(.*?)" zuweisen und wegnehmen, wobei diese immer auf den Gerätepark bezogen ist, für den auch der Verwalter berechtigt ist$/ do |role_text|
+  role_name = case role_text
+                when _("Customer")
+                  "customer"
+                #when _("Lending manager")
+                #  "lending_manager"
+                #when _("Inventory manager")
+                #  "inventory_manager"
+                #when _("Unknown")
+                #  "unknown"
+              end
+
+  unknown_user = User.unknown_for(@inventory_pool).order("RAND()").first
+  unknown_user.has_role?(role_name, @inventory_pool).should be_false
+
+  response = put backend_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), access_right: {role_name: role_name}
+  response.should be_successful
+  unknown_user.has_role?(role_name, @inventory_pool).should be_true
+
+  response = put backend_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), access_right: {role_name: "unknown"}
+  response.should be_successful
+  unknown_user.has_role?(role_name, @inventory_pool).should be_false
+end
+
+Dann /^man kann nicht inventarrelevante Gegenstände ausmustern, sofern man deren Besitzer ist$/ do
+  item = @inventory_pool.own_items.where(:is_inventory_relevant => false).first
+  item.retired?.should be_false
+  attributes = {
+      retired: true
+  }
+  response = put backend_inventory_pool_item_path(@inventory_pool, item, format: :json), item: attributes
+  response.should be_successful
+  item.reload.retired?.should be_true
+  item.retired.should == Date.today
+end
+
+####################################################################
+
+Dann /^kann man neue Modelle erstellen$/ do
+  c = Model.count
+  attributes = FactoryGirl.attributes_for :model
+  response = post backend_inventory_pool_models_path(@inventory_pool, format: :json), model: attributes
+  response.should be_successful
+  json = JSON.parse response.body
+  json["id"].should_not be_blank
+  Model.count.should == c+1
 end

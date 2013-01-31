@@ -1,5 +1,5 @@
 # FIXME how to include all filter modules at once? # http://www.itaware.eu/2012/10/19/angularjs-modules-and-services/
-angular.module("filters", ['filters.dateformat', 'filters.truncate'])
+angular.module("filters", ['filters.truncate'])
 
 angular.module("filters.truncate", []).filter "truncate", ->
   (text, length, end) ->

@@ -21,6 +21,7 @@ module Json
 
         if with[:access_right] and current_inventory_pool and access_right = user.access_rights.where(:inventory_pool_id => current_inventory_pool.id).first
           h[:access_right] = hash_for(access_right, with[:access_right])
+          h[:is_editable] = (user.authentication_system.class_name == "DatabaseAuthentication")
         end
 
       end

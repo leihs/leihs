@@ -12,11 +12,19 @@ Given "a $role for inventory pool '$ip_name' is logged in as '$who'" do | role, 
   @last_manager_login_name = who
 end
 
-# Ignores password at the moment, since we always seem to ignore that (?)
 Given "I am logged in as '$username' with password '$password'" do |username, password|
-  current_user = User.where(:login => username).first
-  I18n.locale = current_user.language.locale_name.to_sym
-  @user = current_user
+  @current_user = User.where(:login => username).first
+  I18n.locale = @current_user.language.locale_name.to_sym
+  case Capybara.current_driver
+    when :selenium
+      visit "/"
+      find("#login").click
+      fill_in 'username', :with => username
+      fill_in 'password', :with => password
+      find(".login .button").click
+    when :rack_test
+      step "I log in as '%s' with password '%s'" % [username, password]
+  end
 end
 
 
@@ -34,8 +42,7 @@ When /^I log in as '([^']*)' with password '([^']*)'$/ do |username, password|
 end
 
 Given /(his|her) password is '([^']*)'$/ do |foo,password|
-  LeihsFactory.create_db_auth( :login => @user.login,
-			  :password => password)
+  LeihsFactory.create_db_auth( :login => @user.login, :password => password)
 end
 
 When 'I log in as the admin' do
@@ -51,4 +58,15 @@ end
 # state, which confuses tests that rely on "When I log in as the admin".
 When 'I make sure I am logged out' do
   visit "/logout"
+end
+
+When /^"([^"]*)" sign in successfully he is redirected to the "([^"]*)" section$/ do |login, section_name|
+  visit "/logout"
+  visit "/"
+  find("#login").click
+  fill_in 'username', :with => login.downcase
+  fill_in 'password', :with => 'password'
+  find(".login .button").click
+  page.has_css?("#main.wrapper", :visible => true)
+  find(".navigation .active.#{section_name.downcase}")
 end
