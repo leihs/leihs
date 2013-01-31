@@ -7,7 +7,7 @@ Dann /^kann ich die reservierende Person für eine Auswahl an Linien wechseln$/ 
   wait_until { find(".dialog .focus") }
   @line_ids = @linegroup.all(".line").map {|l| l[:'data-id'].to_i }
   @old_user = User.find page.evaluate_script('$(".line").tmplItem().data.contract.user.id')
-  @new_user = @user.managed_inventory_pools.first.users.detect {|u| u.id != @old_user.id and u.visits.size > 0}
+  @new_user = @current_user.managed_inventory_pools.first.users.detect {|u| u.id != @old_user.id and u.visits.size > 0}
   find(".new input").set @new_user.name
   find(".ui-menu-item a").click
   find(".dialog .button[type='submit']").click

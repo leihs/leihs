@@ -257,6 +257,13 @@ class Field < ActiveHash::Base
       type: "textarea",
       permissions: {level: 3, owner: true},
       group: "Toni Ankunftskontrolle"
+    },{
+      id: 35,
+      label: "Model",
+      attribute: ["model", "name"],
+      type: "text",
+      readonly: true,
+      group: nil
     }
   ]
 
@@ -299,6 +306,7 @@ class Field < ActiveHash::Base
   def editable(user, inventory_pool, item)
     return true unless self.permissions
 
+    return false if self[:readonly]
     return false if self[:permissions][:level] and not user.has_at_least_access_level self[:permissions][:level], inventory_pool
     return false if self[:permissions][:owner] and item.owner != inventory_pool
 

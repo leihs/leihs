@@ -132,15 +132,39 @@ end
 
 ####################################################################
 
-Angenommen /^ein Benutzer erscheint in einer Benutzerliste$/ do
+Angenommen /^ein (.*?)Benutzer (mit zugeteilter|ohne zugeteilte) Rolle erscheint in einer Benutzerliste$/ do |arg1, arg2|
+  user = Persona.get("Normin")
   step 'findet man die Benutzeradministration im Bereich "Administration" unter "Benutzer"'
-  step 'I follow "%s"' % _("Customer")
-  find(".list ul.user .user_name")
+  case arg1
+    when "gesperrter "
+      user.access_rights.first.update_attributes(suspended_until: Date.today + 1.year, suspended_reason: "suspended reason")
+  end
+  case arg2
+    when "mit zugeteilter"
+      user.access_rights.should_not be_empty
+    when "ohne zugeteilte"
+      user.access_rights.delete_all
+      user.access_rights.should be_empty
+  end
+  @el = find(".list ul.user", text: user.to_s)
 end
 
-Dann /^sieht man folgende Informationen in folgender Reihenfolge: Vorname, Name, Telefonnummer, Rolle, Sperr\-Status$/ do
-  el = find(".list ul.user")
-  el.find(".user_name + .phone + .role + .suspended_status")
+Dann /^sieht man folgende Informationen in folgender Reihenfolge:$/ do |table|
+  classes = table.hashes.map do |x|
+    case x[:attr]
+      when "Vorname Name"
+        ".user_name"
+      when "Telefonnummer"
+        ".phone"
+      when "Rolle"
+        ".role"
+      when "Sperr-Status 'Gesperrt bis dd.mm.yyyy'"
+        @el.find(".suspended_status", text: "Gesperrt bis\n%s" % (Date.today + 1.year).strftime("%d.%m.%Y"))
+        ".suspended_status"
+    end
+  end
+
+  @el.find(classes.join(' + '))
 end
 
 ####################################################################
@@ -168,14 +192,13 @@ end
 
 Dann /^man kann die Informationen ändern, sofern es sich um einen externen Benutzer handelt$/ do
   if @customer.authentication_system.class_name == "DatabaseAuthentication"
-    find("input[ng-model='user.lastname']")
-    find("input[ng-model='user.firstname']")
-    find("input[ng-model='user.address']")
-    find("input[ng-model='user.zip']")
-    find("input[ng-model='user.city']")
-    find("input[ng-model='user.country']")
-    find("input[ng-model='user.phone']")
-    find("input[ng-model='user.email']")
+    @attrs = [:lastname, :firstname, :address, :zip, :city, :country, :phone, :email]
+    @attrs.each do |attr|
+      orig_value = @customer.send(attr)
+      f = find("input[ng-model='user.#{attr}']")
+      f.value.should == orig_value
+      f.set("#{attr}#{orig_value}")
+    end
   end
 end
 
@@ -191,6 +214,13 @@ end
 
 Dann /^man kann die vorgenommenen Änderungen abspeichern$/ do
   find(".content_navigation > button.green").click
+  if @customer.authentication_system.class_name == "DatabaseAuthentication"
+    sleep(0.5)
+    @customer.reload
+    @attrs.each do |attr|
+      (@customer.send(attr) =~ /^#{attr}/).should_not be_nil
+    end
+  end
 end
 
 ####################################################################

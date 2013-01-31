@@ -70,8 +70,7 @@ Then "$n items of that model should be available to everybody" do |n|
   end
 end
 
-Then /^(\w+) item(s?) of that model should be available to "([^"]*)"$/ \
-do |n, plural, user|
+Then /^(\w+) item(s?) of that model should be available to "([^"]*)"$/ do |n, plural, user|
   @user = User.find_by_login user
   @model.availability_in(@inventory_pool.reload).maximum_available_in_period_for_groups(Date.today, Date.tomorrow, @user.groups).should == n.to_i
 end

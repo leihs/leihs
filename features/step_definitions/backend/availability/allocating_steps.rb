@@ -19,7 +19,7 @@ Then /^the quantity should be available for that order$/ do
 end
 
 Given /^a list of changes\/availabilities$/ do
-  @ip = @user.managed_inventory_pools.first
+  @ip = @current_user.managed_inventory_pools.first
   @model = @ip.models.max {|a,b| a.availability_in(@ip).changes.length <=> b.availability_in(@ip).changes.length}
   @reference = @model.availability_in(@ip).available_total_quantities
 end

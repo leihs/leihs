@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 Angenommen /^man editiert einen Gegenstand$/ do
-  @ip = @user.managed_inventory_pools
+  @ip = @current_user.managed_inventory_pools
   visit backend_inventory_pool_models_path(@ip)
   find(".model.line .toggle .text").click
   item_line = find(".item.line")

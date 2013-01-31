@@ -1,5 +1,5 @@
 When /^I open a take back, hand over or I edit an order$/ do
-  @ip = @user.managed_inventory_pools.first
+  @ip = @current_user.managed_inventory_pools.first
   possible_types = ["take_back", "hand_over", "order"]
   type = possible_types.shuffle.first
   case type

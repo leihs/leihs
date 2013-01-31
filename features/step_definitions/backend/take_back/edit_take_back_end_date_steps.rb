@@ -16,7 +16,7 @@ Then /^the end date of that line is changed$/ do
 end
 
 When /^I open a take back which has multiple lines$/ do
-  @ip = @user.managed_inventory_pools.first
+  @ip = @current_user.managed_inventory_pools.first
   @customer = @ip.users.all.select {|x| x.contracts.signed.size > 0 && !x.contracts.signed.detect{|c| c.lines.size > 1}.nil? }.first
   @contract = @customer.contracts.signed.detect{|c| c.lines.size > 1}
   visit backend_inventory_pool_user_take_back_path(@ip, @customer)

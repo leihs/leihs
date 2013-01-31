@@ -9,7 +9,7 @@ Dann /^kann man über die Tabnavigation zum Helferschirm wechseln$/ do
 end
 
 Angenommen /^man ist auf dem Helferschirm$/ do
-  @current_inventory_pool = @user.managed_inventory_pools.first
+  @current_inventory_pool = @current_user.managed_inventory_pools.first
   visit backend_inventory_pool_inventory_helper_path @current_inventory_pool
 end
 
@@ -74,8 +74,8 @@ Dann /^scanne oder gebe ich den Inventarcode ein$/ do
   find("#item_selection button[type=submit]").click
 end
 
-Dann /^sehe ich alle Werte des Gegenstandes in der Übersicht, die geänderten Werte sind bereits gespeichert$/ do
-  FastGettext.locale = @user.language.locale_name.gsub(/-/, "_")
+Dann /^sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert$/ do
+  FastGettext.locale = @current_user.language.locale_name.gsub(/-/, "_")
   wait_until {!all("#item.selected").empty?}
   Field.all.each do |field|
     value = field.get_value_from_params @item.reload

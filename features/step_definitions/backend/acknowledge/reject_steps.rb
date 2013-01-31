@@ -1,5 +1,5 @@
 When /^I open the daily view$/ do
-  @ip = @user.managed_inventory_pools.first
+  @ip = @current_user.managed_inventory_pools.first
   visit backend_inventory_pool_path @ip
 end
 

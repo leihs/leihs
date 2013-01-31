@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 When /^I open an order for acknowledgement$/ do
-  @ip = @user.managed_inventory_pools.first
+  @ip = @current_user.managed_inventory_pools.first
   @customer = @ip.users.all.detect {|x| x.orders.submitted.exists? }
   @order = @customer.orders.submitted.first
   visit backend_inventory_pool_acknowledge_path(@ip, @order)
@@ -9,7 +9,7 @@ When /^I open an order for acknowledgement$/ do
 end
 
 When /^I open an order for acknowledgement with more then one line$/ do
-  @ip = @user.managed_inventory_pools.first
+  @ip = @current_user.managed_inventory_pools.first
   @customer = @ip.users.all.detect {|x| x.orders.submitted.exists? and x.orders.submitted.first.lines.size > 1}
   @order = @customer.orders.submitted.first
   visit backend_inventory_pool_acknowledge_path(@ip, @order)

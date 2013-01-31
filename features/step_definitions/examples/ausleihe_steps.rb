@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 Angenommen /^ich öffne die Tagesansicht$/ do
-  @current_inventory_pool = @user.managed_inventory_pools.first
+  @current_inventory_pool = @current_user.managed_inventory_pools.first
   visit backend_inventory_pool_path(@current_inventory_pool)
   wait_until(10){ find("#daily") }
 end
@@ -77,7 +77,7 @@ Dann /^wird der Gegenstand ausgewählt und der Haken gesetzt$/ do
 end
 
 Wenn /^ich eine Rücknahme mache die Optionen beinhaltet$/ do
-  @ip = @user.managed_inventory_pools.first
+  @ip = @current_user.managed_inventory_pools.first
   @customer = @ip.users.all.select {|x| x.contracts.signed.size > 0 && !x.contracts.signed.detect{|c| c.options.size > 0}.nil? }.first
   visit backend_inventory_pool_user_take_back_path(@ip, @customer)
   page.has_css?("#take_back", :visible => true)
@@ -94,7 +94,7 @@ Dann /^wird die Option ausgewählt und der Haken gesetzt$/ do
 end
 
 Wenn /^ich eine Aushändigung mache die ein Model enthält dessen Gegenstände ein nicht ausleihbares enthält$/ do
-  @ip = @user.managed_inventory_pools.first
+  @ip = @current_user.managed_inventory_pools.first
   @contract_line = nil
   @contract = @ip.contracts.unsigned.detect do |c|
     @contract_line = c.lines.detect do |l|
@@ -137,7 +137,7 @@ Dann /^ich kann die Gegenstände nicht aushändigen$/ do
 end
 
 Angenommen /^der Kunde ist in mehreren Gruppen$/ do
-  @ip = @user.managed_inventory_pools.first
+  @ip = @current_user.managed_inventory_pools.first
   @customer = @ip.users.detect{|u| u.groups.size > 0}
   @customer.should_not be_nil
 end
@@ -177,7 +177,7 @@ Dann /^dann erkennen ich, in welchen Gruppen der Kunde nicht ist$/ do
 end
 
 Wenn /^ich eine Aushändigung mache mit einem Kunden der sowohl am heutigen Tag sowie in der Zukunft Abholungen hat$/ do
-  @ip = @user.managed_inventory_pools.first
+  @ip = @current_user.managed_inventory_pools.first
   @customer = @ip.users.detect{|u| u.visits.hand_over.size > 1}
   visit backend_inventory_pool_user_hand_over_path(@ip, @customer)
   page.has_css?("#take_back", :visible => true)
