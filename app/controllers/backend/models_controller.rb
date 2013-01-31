@@ -123,34 +123,48 @@ class Backend::ModelsController < Backend::BackendController
   end
 
   def new
-    @model = Model.new
-    render :action => 'details'
+    #old leihs#
+    #@model = Model.new
+    #render :action => 'details'
   end
   
   def create
-    if @model and params[:compatible][:model_id]
-      @compatible_model = current_inventory_pool.models.find(params[:compatible][:model_id])
-      unless @model.compatibles.include?(@compatible_model)
-        @model.compatibles << @compatible_model
-        flash[:notice] = _("Model successfully added as compatible")
-      else
-        flash[:error] = _("The model is already compatible")
-      end
-      redirect_to :action => 'index', :model_id => @model
-    else
-      not_authorized! unless is_privileged_user? # TODO before_filter for :create
-      @model = Model.new
-      update
+    #old leihs#
+    #if @model and params[:compatible][:model_id]
+    #  @compatible_model = current_inventory_pool.models.find(params[:compatible][:model_id])
+    #  unless @model.compatibles.include?(@compatible_model)
+    #    @model.compatibles << @compatible_model
+    #    flash[:notice] = _("Model successfully added as compatible")
+    #  else
+    #    flash[:error] = _("The model is already compatible")
+    #  end
+    #  redirect_to :action => 'index', :model_id => @model
+    #else
+    #  not_authorized! unless is_privileged_user? # TODO before_filter for :create
+    #  @model = Model.new
+    #  update
+    #end
+
+    not_authorized! unless is_privileged_user? # TODO before_filter for :create
+    respond_to do |format|
+      format.json {
+        if model = Model.create(params[:model])
+          render json: view_context.json_for(model)
+        else
+          render :text => model.errors.full_messages.uniq.join(", "), :status => :bad_request
+        end
+      }
     end
   end
 
   def update
-    if @model.update_attributes(params[:model])
-      redirect_to details_backend_inventory_pool_model_path(current_inventory_pool, @model)
-    else
-      flash[:error] = _("Couldn't update ")
-      render :action => 'details' # TODO 24** redirect to the correct tabbed form
-    end
+    #old leihs#
+    #if @model.update_attributes(params[:model])
+    #  redirect_to details_backend_inventory_pool_model_path(current_inventory_pool, @model)
+    #else
+    #  flash[:error] = _("Couldn't update ")
+    #  render :action => 'details' # TODO 24** redirect to the correct tabbed form
+    #end
   end
 
   # only for destroying compatibles (the "compatible" route maps to this models controller)

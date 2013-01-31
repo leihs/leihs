@@ -24,6 +24,7 @@ class Field
 
   getEditable: (item)->
     editable = true
+    editable = false if @readonly? and @readonly
     if @permissions?
       editable = false if @permissions.level? and current_user.access_level < @permissions.level
       editable = false if @permissions.owner? and @permissions.owner and currentInventoryPool.id != item.owner.id

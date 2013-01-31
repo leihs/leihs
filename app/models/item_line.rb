@@ -62,14 +62,6 @@ class ItemLine < ContractLine
     contract.status_const == Contract::SIGNED and super
   end
 
-# TODO 1602**
-#  def max_end_date
-#    a = model.available_periods_for_document_line(self)
-#    d = a.detect {|x| x.start_date >= end_date and x.quantity < 1 }
-#    # TODO 1202** make sure we can use end_date of last available period
-#    (d ? d.start_date - (1 + model.maintenance_period).days : nil)
-#  end
-
 ##################################################
 
   private

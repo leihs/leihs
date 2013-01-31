@@ -56,7 +56,7 @@ When "$who try to order an item for $date" do |who, date|
                             :start_date => date,
                             :end_date => date)
                            
-  @order = @user.get_current_order
+  @order = @current_user.get_current_order
   @line = @order.order_lines.last
 end
 

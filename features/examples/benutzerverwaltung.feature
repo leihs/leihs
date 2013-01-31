@@ -3,7 +3,6 @@ Funktionalität: Benutzer verwalten
 
   Grundlage:
     Angenommen Personas existieren
-    Und man ist "Mike"
 
   # pts: 2
   Szenario: Benutzerlevels aus leihs 2
@@ -12,7 +11,7 @@ Funktionalität: Benutzer verwalten
 
   # pts: 8 
   @javascript
-  Szenario: Elemente der Benutzeradministration 
+  Szenario: Elemente der Benutzeradministration
     Angenommen man ist Inventar-Verwalter oder Ausleihe-Verwalter
     Dann findet man die Benutzeradministration im Bereich "Administration" unter "Benutzer"
     Dann sieht man eine Liste aller Benutzer
@@ -22,8 +21,6 @@ Funktionalität: Benutzer verwalten
       | Kunde              | customers          |
       | Ausleihe-Verwalter | lending_managers   |
       | Inventar-Verwalter | inventory_managers |
-      | Administrator      | admins             |
-      | Unbekannt          | unknown            |
     Und man kann für jeden Benutzer die Editieransicht aufrufen
     Und man kann einen neuen Benutzer erstellen 
 
@@ -67,21 +64,37 @@ Funktionalität: Benutzer verwalten
   # pts: 2
   @javascript
   Szenario: Darstellung eines Benutzers in Listen mit zugeteilter Rolle
-    Angenommen ein Benutzer erscheint in einer Benutzerliste
-    Dann sieht man folgende Informationen in folgender Reihenfolge: Vorname, Name, Telefonnummer, Rolle
+    Angenommen man ist Inventar-Verwalter oder Ausleihe-Verwalter
+    Angenommen ein Benutzer mit zugeteilter Rolle erscheint in einer Benutzerliste
+    Dann sieht man folgende Informationen in folgender Reihenfolge:
+    |attr |
+    |Vorname Name|
+    |Telefonnummer|
+    |Rolle|
 
   @javascript
   Szenario: Darstellung eines Benutzers in Listen ohne zugeteilte Rolle
-    Angenommen ein Benutzer erscheint in einer Benutzerliste
-    Dann sieht man folgende Informationen in folgender Reihenfolge: Vorname, Name, Telefonnummer
+    Angenommen man ist Inventar-Verwalter oder Ausleihe-Verwalter
+    Angenommen ein Benutzer ohne zugeteilte Rolle erscheint in einer Benutzerliste
+    Dann sieht man folgende Informationen in folgender Reihenfolge:
+    |attr |
+    |Vorname Name|
+    |Telefonnummer|
+    |Rolle|
 
   @javascript
   Szenario: Darstellung eines Benutzers in Listen mit zugeteilter Rolle und Status gesperrt
-    Angenommen ein Benutzer erscheint in einer Benutzerliste
-    Dann sieht man folgende Informationen in folgender Reihenfolge: Vorname, Name, Telefonnummer, Rolle, Sperr-Status 'gesperrt'
+    Angenommen man ist Inventar-Verwalter oder Ausleihe-Verwalter
+    Angenommen ein gesperrter Benutzer mit zugeteilter Rolle erscheint in einer Benutzerliste
+    Dann sieht man folgende Informationen in folgender Reihenfolge:
+    |attr |
+    |Vorname Name|
+    |Telefonnummer|
+    |Rolle|
+    |Sperr-Status 'Gesperrt bis dd.mm.yyyy'|
 
   # pts: (13 total with the two below)
-  # English: lending manager 
+  # English: lending manager
   Szenario: Benutzerolle "Ausleihe-Verwalter"
     Angenommen man ist Ausleihe-Verwalter
     Dann kann man neue Gegenstände erstellen, die ausschliesslich nicht inventarrelevant sind

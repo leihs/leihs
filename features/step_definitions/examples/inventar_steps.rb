@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 Angenommen /^man öffnet die Liste des Inventars$/ do
-  @current_inventory_pool = @user.managed_inventory_pools.first
+  @current_inventory_pool = @current_user.managed_inventory_pools.first
   visit backend_inventory_pool_models_path(@current_inventory_pool)
   wait_until(10){ find(".line:not(.navigation)") }
 end

@@ -165,6 +165,7 @@ module Json
              :address => true,
              :zip => true,
              :city => true,
+             :country => true,
              :phone => true,
              :badge_id => true}
           when :visit_with_availability

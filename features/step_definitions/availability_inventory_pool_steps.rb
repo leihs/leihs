@@ -34,7 +34,7 @@ Then "he sees the '$model' model" do |model|
 end
 
 Then "all order lines should be available" do
-  @order = @user.get_current_order
+  @order = @current_user.get_current_order
   @order.order_lines.all?{|l| l.available? }.should be_true
 end
 

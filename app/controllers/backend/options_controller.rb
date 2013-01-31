@@ -23,8 +23,6 @@ class Backend::OptionsController < Backend::BackendController
   def update
     @option.update_attributes(params[:option])
     if params[:source_path]
-# TODO 1602**      
-#      post(params[:source_path], :option_id => @option.id)
       redirect_to params[:source_path]
     else
       redirect_to backend_inventory_pool_models_path(current_inventory_pool)

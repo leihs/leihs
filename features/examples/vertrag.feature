@@ -47,6 +47,7 @@ Funktionalität: Vertrag
   @javascript
   Szenario: Zwecke
     Dann sehe ich eine Liste Zwecken, getrennt durch Kommas
+     Und jeder identische Zweck ist maximal einmal aufgelistet
 
   @javascript    
   Szenario: Datum

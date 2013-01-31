@@ -100,7 +100,7 @@ end
 
 Angenommen /^ich mache eine Rücknahme eines verspäteten Gegenstandes$/ do
   @event = "take_back"
-  @ip = @user.managed_inventory_pools.first
+  @ip = @current_user.managed_inventory_pools.first
   overdued_take_back = @ip.visits.take_back.detect{|x| x.date < Date.today}
   visit backend_inventory_pool_user_take_back_path(@ip, overdued_take_back.user)
   @line = find(".line[data-id='#{overdued_take_back.lines.first.id}']") 

@@ -16,9 +16,7 @@
     - [ [nil, _("All")],
         ["customers", _("Customer")],
         ["lending_managers", _("Lending manager")],
-        ["inventory_managers", _("Inventory manager")],
-        ["admins", _("Administrator")],
-        ["unknown", _("Unknown")]].each do |x|
+        ["inventory_managers", _("Inventory manager")]].each do |x|
       %a{:class => "tab#{' active' if x[0].nil?}", :value => x[0], "ng-click" => "setRole(\"#{x[0]}\")"}
         %span.text= x[1]
 

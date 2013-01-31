@@ -59,6 +59,14 @@ UsersEditCtrl = ($scope, $location, $routeParams, User) ->
       inventory_pool_id: $scope.current_inventory_pool_id
       id: $scope.user.id
       user:
+        firstname: $scope.user.firstname
+        lastname: $scope.user.lastname
+        address: $scope.user.address
+        zip: $scope.user.zip
+        city: $scope.user.city
+        country: $scope.user.country
+        phone: $scope.user.phone
+        email: $scope.user.email
         badge_id: $scope.user.badge_id
       access_right:
         role_name: $scope.user.access_right.role_name
