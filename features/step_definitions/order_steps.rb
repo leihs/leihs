@@ -171,23 +171,11 @@ Then "the order was placed by a customer named '$name'" do | name |
   page.find(".table-overview .fresh").should have_content(name)
 end
 
-Given /^there is an inventory pool$/ do
-  @inventory_pool = FactoryGirl.create :inventory_pool
-end
-
-Given /^there is an order with a single line$/ do
-  step "there is an inventory pool"
-  @order = FactoryGirl.create :order, :status_const => Order::SUBMITTED, :inventory_pool => @inventory_pool
-  @order.lines << FactoryGirl.create(:order_line, :inventory_pool => @inventory_pool)
-  @order.lines.size.should == 1
-end
-
 Then /^removal of this line should not be possible$/ do
   @order.remove_line(@order.lines.first, FactoryGirl.create(:user).id).should be_false
 end
 
-Given /^there is a "(.*?)" order with at least (\d+) lines$/ do |order_type, no_of_lines|
-  step "there is an inventory pool"
+Given /^there is a "(.*?)" order with (\d+) lines?$/ do |order_type, no_of_lines|
   @order = FactoryGirl.create :order, :status_const => Order.const_get(order_type.to_sym), :inventory_pool => @inventory_pool
   @no_of_lines_at_start = no_of_lines.to_i
   @no_of_lines_at_start.times {@order.lines << FactoryGirl.create(:order_line, :inventory_pool => @inventory_pool)}
@@ -207,4 +195,12 @@ end
 
 Then /^the amount of lines remains unchanged$/ do
   @order.lines.size.should eq @no_of_lines_at_start
+end
+
+Given /^((?!personas).*) existing$/ do |factory_type|
+  # This is some metaprogramming stuff.
+  # It creates an instance variable with a factory of an according type from string given in step.
+  # e.g. "model with items" becomes @model_with_items = FactoryGirl.create :model_with_items
+  factory_type = factory_type.gsub(' ', '_')
+  instance_variable_set ("@" + factory_type).to_sym, FactoryGirl.create(factory_type.to_sym)
 end
