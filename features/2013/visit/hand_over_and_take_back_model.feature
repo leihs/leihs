@@ -1,4 +1,6 @@
-Feature: Hand overs and take backs (class methods)
+Feature: Hand overs and take backs
+
+  Model test (class methods)
 
   Background:
     Given personas existing

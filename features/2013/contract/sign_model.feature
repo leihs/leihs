@@ -1,5 +1,7 @@
 Feature: Contract sign
 
+  Model test
+
   Background:
     Given personas existing
 

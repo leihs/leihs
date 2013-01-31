@@ -1,5 +1,7 @@
 Feature: Item search
 
+  Model test
+
   Scenario: Search in properties' fields
     Given there are some items
      When I search for a text not present anywhere
