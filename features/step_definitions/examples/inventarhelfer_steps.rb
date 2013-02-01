@@ -14,10 +14,6 @@ Angenommen /^man ist auf dem Helferschirm$/ do
 end
 
 Dann /^wähle Ich all die Felder über eine List oder per Namen aus$/ do
-  find("#fieldname").set Field.last.label
-  wait_until {!all(".ui-menu-item a", :visible => true).empty?}
-  find(".ui-menu-item a").click
-
   find("#fieldname").click
   wait_until {!all(".ui-menu-item a", :visible => true).empty?}
   number_of_items_left = all(".ui-menu-item a", :visible => true).size
@@ -30,7 +26,8 @@ Dann /^wähle Ich all die Felder über eine List oder per Namen aus$/ do
 end
 
 Dann /^ich setze all ihre Initalisierungswerte$/ do
-  all("#field_selection .field", :visible => true).each do |field|
+  @all_editable_fields = all("#field_selection .field", :visible => true)
+  @all_editable_fields.each do |field|
     field_type = field[:class][/\s\w+\s/].strip
     case field_type
 
@@ -77,7 +74,8 @@ end
 Dann /^sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert$/ do
   FastGettext.locale = @current_user.language.locale_name.gsub(/-/, "_")
   wait_until {!all("#item.selected").empty?}
-  Field.all.each do |field|
+  @all_editable_fields.each do |field|
+    field = Field.find field["data-field_id"]
     value = field.get_value_from_params @item.reload
     within("#item") do
       field_el = all(".field[data-field_id='#{field.id}']").first

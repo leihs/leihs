@@ -67,4 +67,6 @@
 
 :coffeescript
 
-  jQuery -> new App.InventoryHelperController #{json_for Field.accessible_by(current_user, current_inventory_pool)}
+  jQuery -> 
+    console.log #{json_for Field.accessible_by(current_user, current_inventory_pool)}
+    new App.InventoryHelperController #{json_for Field.accessible_by(current_user, current_inventory_pool)}
