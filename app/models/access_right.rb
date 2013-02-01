@@ -48,6 +48,8 @@ class AccessRight < ActiveRecord::Base
           when 3
             "inventory_manager"
         end
+      when "unknown"
+        destroy if user.deletable?
     end
   end
 

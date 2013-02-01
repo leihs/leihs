@@ -225,16 +225,33 @@ end
 
 ####################################################################
 
-Dann /^kann man neue Gegenstände erstellen, die ausschliesslich nicht inventarrelevant sind$/ do
+Dann /^kann man neue Gegenstände erstellen$/ do
   c = Item.count
   attributes = {
     model_id: @inventory_pool.models.first.id
   }
   response = post backend_inventory_pool_items_path(@inventory_pool, format: :json), item: attributes
   response.should be_successful
-  json = JSON.parse response.body
-  json["id"].should_not be_blank
+  @json = JSON.parse response.body
+  @json["id"].should_not be_blank
   Item.count.should == c+1
+end
+
+Dann /^diese Gegenstände ausschliesslich nicht inventarrelevant sind$/ do
+  @json["is_inventory_relevant"].should be_false
+  response = put backend_inventory_pool_item_path(@inventory_pool, @json["id"], format: :json), item: {is_inventory_relevant: true}
+  response.should_not be_successful
+  Item.find(@json["id"]).is_inventory_relevant.should be_false
+end
+
+Dann /^diese Gegenstände können inventarrelevant sein$/ do
+  @json["is_inventory_relevant"].should be_false
+  response = put backend_inventory_pool_item_path(@inventory_pool, @json["id"], format: :json), item: {is_inventory_relevant: true}
+  json = JSON.parse response.body
+  response.should be_successful
+  json["is_inventory_relevant"].should be_true
+  @item = Item.find(@json["id"])
+  @item.is_inventory_relevant.should be_true
 end
 
 Dann /^man kann Optionen erstellen$/ do
@@ -251,7 +268,7 @@ Dann /^man kann Optionen erstellen$/ do
   Option.count.should == c+1
 end
 
-Dann /^man kann neue Benutzer erstellen und für die Ausleihe sperren$/ do
+Dann /^man kann neue Benutzer erstellen (.*?) inventory_pool$/ do |arg1|
   c = User.count
   ids = User.pluck(:id)
   factory_attributes = FactoryGirl.attributes_for(:user)
@@ -259,35 +276,81 @@ Dann /^man kann neue Benutzer erstellen und für die Ausleihe sperren$/ do
   [:login, :firstname, :lastname, :phone, :email, :badge_id, :address, :city, :country, :zip].each do |a|
     attributes[a] = factory_attributes[a]
   end
-  response = post backend_inventory_pool_users_path(@inventory_pool), user: attributes
+  response = case arg1
+               when "für"
+                 post backend_inventory_pool_users_path(@inventory_pool), user: attributes
+               when "ohne"
+                 post backend_users_path, user: attributes
+             end
   response.should be_redirect
   User.count.should == c+1
   id = (User.pluck(:id) - ids).first
-  URI.parse(response.location).path.should == backend_inventory_pool_user_path(@inventory_pool, id)
+  case arg1
+    when "für"
+      URI.parse(response.location).path.should == backend_inventory_pool_user_path(@inventory_pool, id)
+    when "ohne"
+      URI.parse(response.location).path.should == backend_user_path(id)
+  end
+  @user = User.find(id)
 end
 
-Dann /^man kann Benutzern die Rollen "(.*?)" zuweisen und wegnehmen, wobei diese immer auf den Gerätepark bezogen ist, für den auch der Verwalter berechtigt ist$/ do |role_text|
-  role_name = case role_text
-                when _("Customer")
-                  "customer"
-                #when _("Lending manager")
-                #  "lending_manager"
-                #when _("Inventory manager")
-                #  "inventory_manager"
-                #when _("Unknown")
-                #  "unknown"
-              end
-
-  unknown_user = User.unknown_for(@inventory_pool).order("RAND()").first
-  unknown_user.has_role?(role_name, @inventory_pool).should be_false
-
-  response = put backend_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), access_right: {role_name: role_name}
+Dann /^man kann neue Benutzer erstellen und für die Ausleihe sperren$/ do
+  step 'man kann neue Benutzer erstellen für inventory_pool'
+  @user.access_right_for(@inventory_pool).suspended?.should be_false
+  response = put backend_inventory_pool_user_path(@inventory_pool, @user, format: :json), access_right: {suspended_until: Date.today + 1.year, suspended_reason: "suspended reason"}
   response.should be_successful
-  unknown_user.has_role?(role_name, @inventory_pool).should be_true
+  @user.reload.access_right_for(@inventory_pool).suspended?.should be_true
+end
 
-  response = put backend_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), access_right: {role_name: "unknown"}
-  response.should be_successful
-  unknown_user.has_role?(role_name, @inventory_pool).should be_false
+Dann /^man kann Benutzern die folgende Rollen zuweisen und wegnehmen, wobei diese immer auf den Gerätepark bezogen ist, für den auch der Verwalter berechtigt ist$/ do |table|
+  table.hashes.map do |x|
+    role_name = case x[:role]
+                  when _("Customer")
+                    "customer"
+                  when _("Lending manager")
+                    "lending_manager"
+                  when _("Inventory manager")
+                    "inventory_manager"
+                  #when _("Unknown")
+                  #  "unknown"
+                end
+
+    unknown_user = User.unknown_for(@inventory_pool).order("RAND()").first
+
+    case role_name
+      when "customer"
+        unknown_user.has_role?("customer", @inventory_pool).should be_false
+      when "lending_manager"
+        unknown_user.has_role?("manager", @inventory_pool).should be_false
+      when "inventory_manager"
+        unknown_user.has_role?("manager", @inventory_pool).should be_false
+    end
+
+    response = put backend_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), access_right: {role_name: role_name, suspended_until: nil}
+    response.should be_successful
+    case role_name
+      when "customer"
+        unknown_user.has_role?("customer", @inventory_pool).should be_true
+      when "lending_manager"
+        unknown_user.has_role?("manager", @inventory_pool).should be_true
+        unknown_user.has_at_least_access_level(2, @inventory_pool).should be_true
+        unknown_user.has_at_least_access_level(3, @inventory_pool).should be_false
+      when "inventory_manager"
+        unknown_user.has_role?("manager", @inventory_pool).should be_true
+        unknown_user.has_at_least_access_level(3, @inventory_pool).should be_true
+    end
+
+    response = put backend_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), access_right: {role_name: "unknown"}
+    response.should be_successful
+    case role_name
+      when "customer"
+        unknown_user.has_role?("customer", @inventory_pool).should be_false
+      when "lending_manager"
+        unknown_user.has_role?("manager", @inventory_pool).should be_false
+      when "inventory_manager"
+        unknown_user.has_role?("manager", @inventory_pool).should be_false
+    end
+  end
 end
 
 Dann /^man kann nicht inventarrelevante Gegenstände ausmustern, sofern man deren Besitzer ist$/ do
@@ -312,4 +375,117 @@ Dann /^kann man neue Modelle erstellen$/ do
   json = JSON.parse response.body
   json["id"].should_not be_blank
   Model.count.should == c+1
+end
+
+Dann /^man kann sie einem anderen Gerätepark als Besitzer zuweisen$/ do
+  attributes = {
+    owner_id: (InventoryPool.pluck(:id) - [@inventory_pool.id]).shuffle.first
+  }
+  @item.owner_id.should_not == attributes[:owner_id]
+  response = put backend_inventory_pool_item_path(@inventory_pool, @item, format: :json), item: attributes
+  response.should be_successful
+  @item.reload.owner_id.should == attributes[:owner_id]
+end
+
+Dann /^man kann die verantwortliche Abteilung eines Gegenstands frei wählen$/ do
+  item = @inventory_pool.own_items.first
+  attributes = {
+      inventory_pool_id: (InventoryPool.pluck(:id) - [@inventory_pool.id]).shuffle.first
+  }
+  item.inventory_pool_id.should_not == attributes[:inventory_pool_id]
+  response = put backend_inventory_pool_item_path(@inventory_pool, item, format: :json), item: attributes
+  response.should be_successful
+  item.reload.inventory_pool_id.should == attributes[:inventory_pool_id]
+
+  attributes = {
+      inventory_pool_id: nil
+  }
+  item.inventory_pool_id.should_not == attributes[:inventory_pool_id]
+  response = put backend_inventory_pool_item_path(@inventory_pool, item, format: :json), item: attributes
+  response.should be_successful
+  item.reload.inventory_pool_id.should == attributes[:inventory_pool_id]
+end
+
+Dann /^man kann Gegenstände ausmustern, sofern man deren Besitzer ist$/ do
+  item = @inventory_pool.own_items.first
+  attributes = {
+      retired: true,
+      retired_reason: "retired reason"
+  }
+  item.retired.should be_nil
+  item.retired_reason.should be_nil
+  response = put backend_inventory_pool_item_path(@inventory_pool, item, format: :json), item: attributes
+  response.should be_successful
+  item.reload.retired.should == Date.today
+  item.retired_reason.should == attributes[:retired_reason]
+end
+
+Dann /^man kann Ausmusterungen wieder zurücknehmen, sofern man Besitzer der jeweiligen Gegenstände ist$/ do
+  item = Item.unscoped { @inventory_pool.own_items.where("retired IS NOT NULL").first }
+  attributes = {
+      retired: nil
+  }
+  item.retired.should_not be_nil
+  item.retired_reason.should_not be_nil
+  response = put backend_inventory_pool_item_path(@inventory_pool, item, format: :json), item: attributes
+  response.should be_successful
+  item.reload.retired.should be_nil
+  item.retired_reason.should be_nil
+end
+
+Dann /^man kann die Arbeitstage und Ferientage seines Geräteparks anpassen$/ do
+  %w(saturday sunday).each do |day|
+    @inventory_pool.workday.send(day).should be_false
+    get open_backend_inventory_pool_workdays_path(@inventory_pool, :day => day)
+    @inventory_pool.workday.reload.send(day).should be_true
+  end
+
+  %w(monday tuesday).each do |day|
+    @inventory_pool.workday.send(day).should be_true
+    get close_backend_inventory_pool_workdays_path(@inventory_pool, :day => day)
+    @inventory_pool.workday.reload.send(day).should be_false
+  end
+end
+
+Dann /^man kann alles, was ein Ausleihe\-Verwalter kann$/ do
+  @current_user.has_at_least_access_level(2, @inventory_pool).should be_true
+  @current_user.has_at_least_access_level(3, @inventory_pool).should be_true
+end
+
+####################################################################
+
+Dann /^kann man neue Geräteparks erstellen$/ do
+  c = InventoryPool.count
+  ids = InventoryPool.pluck(:id)
+  attributes = FactoryGirl.attributes_for :inventory_pool
+  response = post backend_inventory_pools_path, inventory_pool: attributes
+  response.should be_redirect
+  InventoryPool.count.should == c+1
+  id = (InventoryPool.pluck(:id) - ids).first
+  URI.parse(response.location).path.should == backend_inventory_pool_path(id)
+end
+
+Dann /^man kann neue Benutzer erstellen und löschen$/ do
+  step 'man kann neue Benutzer erstellen ohne inventory_pool'
+  response = delete backend_user_path(@user, format: :json)
+  response.should be_successful
+  assert_raises(ActiveRecord::RecordNotFound) do
+    @user.reload
+  end
+end
+
+Dann /^man kann Benutzern jegliche Rollen zuweisen und wegnehmen$/ do
+  user = Persona.get "Normin"
+  inventory_pool = InventoryPool.find_by_name "IT-Ausleihe"
+  user.has_at_least_access_level(3, inventory_pool).should be_false
+
+  response = put backend_user_path(user, format: :json), access_right: {inventory_pool_id: inventory_pool.id, role_name: "inventory_manager"}
+  response.should be_successful
+  user.has_at_least_access_level(3, inventory_pool).should be_true
+  user.access_right_for(inventory_pool).deleted_at.should be_nil
+
+  response = put backend_user_path(user, format: :json), access_right: {inventory_pool_id: inventory_pool.id, role_name: "unknown"}
+  response.should be_successful
+  user.has_at_least_access_level(3, inventory_pool).should be_false
+  user.deleted_access_rights.scoped_by_inventory_pool_id(inventory_pool).first.deleted_at.should_not be_nil
 end

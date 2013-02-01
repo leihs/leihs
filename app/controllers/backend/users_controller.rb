@@ -78,7 +78,11 @@ class Backend::UsersController < Backend::BackendController
 
   def update
     if params[:access_right]
-      access_right = @user.access_rights.find_or_initialize_by_inventory_pool_id(current_inventory_pool.id)
+      access_right = if params[:access_right][:inventory_pool_id] and is_admin?
+                       @user.all_access_rights.find_or_initialize_by_inventory_pool_id(params[:access_right][:inventory_pool_id])
+                     else
+                       @user.all_access_rights.find_or_initialize_by_inventory_pool_id(current_inventory_pool.id)
+                     end
       new_attributes = if params[:access_right][:suspended_until].blank?
                          {:suspended_until => nil, :suspended_reason => nil}
                        else
@@ -87,6 +91,7 @@ class Backend::UsersController < Backend::BackendController
       unless params[:access_right][:role_name].blank?
         new_attributes[:role_name] = params[:access_right][:role_name]
       end
+      access_right.deleted_at = nil if access_right.deleted_at
       access_right.update_attributes(new_attributes)
     end
 
@@ -111,6 +116,22 @@ class Backend::UsersController < Backend::BackendController
       end
     end
   end
+
+  def destroy
+    not_authorized! unless is_admin?
+    respond_to do |format|
+      format.json {
+        @user.destroy if @user.deletable?
+        if @user.persisted?
+          render json: {}, status: :bad_request
+        else
+          render json: {}, status: :ok
+        end
+      }
+    end
+  end
+
+#################################################################
 
   def set_start_screen(path = params[:path])
     if current_user.start_screen(path)
@@ -167,57 +188,5 @@ class Backend::UsersController < Backend::BackendController
     redirect_to [:backend, current_inventory_pool, @user, :hand_over]
   end
 
-#################################################################
-
-=begin
-  #old leihs#
-  def access_rights
-    @access_rights = if current_inventory_pool
-                       @user.access_rights.scoped_by_inventory_pool_id(current_inventory_pool)
-                     else
-                       @user.access_rights.includes(:inventory_pool).order("inventory_pools.name")
-                     end
-  end
-
-  #old leihs#
-  def add_access_right
-    inventory_pool_id = if current_inventory_pool
-                          current_inventory_pool.id
-                        else
-                          params[:access_right][:inventory_pool_id]
-                        end
-
-    r = Role.find(params[:access_right][:role_id]) if params[:access_right]
-    r ||= Role.find_by_name("customer") # OPTIMIZE
-
-    ar = @user.all_access_rights.where(:inventory_pool_id => inventory_pool_id).first
-
-    if ar
-      ar.update_attributes(:role => r, :access_level => params[:access_level])
-      ar.update_attributes(:deleted_at => nil) if ar.deleted_at
-      flash[:notice] = _("Access Right successfully updated")
-    else
-      ar = @user.access_rights.create(:role => r, :inventory_pool_id => inventory_pool_id, :access_level => params[:access_level])
-      flash[:notice] = _("Access Right successfully created")
-    end
-
-    unless ar.valid?
-      flash[:notice] = nil
-      flash[:error] = ar.errors.full_messages.uniq
-    end
-    redirect_to url_for([:access_rights, :backend, current_inventory_pool, @user].compact)
-  end
-
-  #old leihs#
-  def remove_access_right
-    ar = @user.access_rights.find(params[:access_right_id])
-    if ar.inventory_pool_id.nil? or ar.inventory_pool.contract_lines.by_user(@user).to_take_back.empty?
-      ar.deactivate
-    else
-      flash[:error] = _("Currently has things to return")
-    end
-    redirect_to url_for([:access_rights, :backend, current_inventory_pool, @user].compact)
-  end
-=end
 
 end

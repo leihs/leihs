@@ -324,6 +324,10 @@ class User < ActiveRecord::Base
   
 #################### End role_requirement
 
+  def deletable?
+    orders.empty? and contracts.empty?
+  end
+
  private
 
   def to_remind
