@@ -8,7 +8,7 @@ When /^I open a hand over$/ do
 end
 
 When /^I select an item line and assign an inventory code$/ do
-  @item_line = @line = @customer.visits.hand_over.first.lines.detect {|x| x.class.to_s == "ItemLine"}
+  @item_line = @line = @customer.visits.hand_over.first.lines.detect {|x| x.class.to_s == "ItemLine" and x.item_id.nil? }
   step 'I assign an inventory code the item line'
 end
 

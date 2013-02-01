@@ -102,4 +102,9 @@ Funktionalität: Ausleihe
     Wenn ich Werte der Inspektion ändere
     Und wenn ich die Inspektion speichere
     Dann wird der Gegenstand mit den aktuell gesetzten Status gespeichert
-    
+
+  @javascript
+    Szenario: Automatischer Druck Dialog beim Aushändigen
+    Wenn ich eine Aushändigung mache
+    Dann wird automatisch der Druck-Dialog geöffnet
+
