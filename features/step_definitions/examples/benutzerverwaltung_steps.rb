@@ -103,17 +103,21 @@ Angenommen /^man editiert einen Benutzer$/ do
 end
 
 Angenommen /^man nutzt die Sperrfunktion$/ do
-  find("[ng-model='user.access_right.suspended_until']").set((Date.today+1.month).strftime("%d.%m.%Y"))
+  el = find("[ng-model='user.access_right.suspended_until']")
+  el.click
+  date_s = (Date.today+1.month).strftime("%d.%m.%Y")
+  el.set(date_s)
 end
 
 Dann /^muss man den Grund der Sperrung eingeben$/ do
-  find("[ng-model='user.access_right.suspended_reason']").set("this is the reason")
+  el = find("[ng-model='user.access_right.suspended_reason']")
+  el.click
+  el.set("this is the reason")
 end
 
 Dann /^man muss das Enddatum der Sperrung bestimmen$/ do
   find(".content_navigation > button.green").click
   wait_until { find(".button.white", :text => _("Edit %s") % _("User")) }
-  sleep(0.5)
   current_path.should == backend_inventory_pool_user_path(@inventory_pool, @customer)
   @inventory_pool.suspended_users.find_by_id(@customer.id).should_not be_nil
   @customer.access_right_for(@inventory_pool).suspended?.should be_true
