@@ -278,12 +278,23 @@ Angenommen /^ich suche$/ do
   find("#topbar .search.item input[type=submit]").click
 end
 
-Dann /^erhalte ich Suchresultate in den Kategorien Benutzer, Modelle, Gegenstände, Verträge und Bestellungen$/ do
-  find(".user .list .line")
-  find(".model .list .line")
-  find(".item .list .line")
-  find(".contract .list .line")
-  find(".order .list .line")
+Dann /^erhalte ich Suchresultate in den Kategorien:$/ do |table|
+  table.hashes.each do |t|
+    case t[:category]
+      when "Benutzer"
+        find(".user .list .line")
+      when "Modelle"
+        find(".model .list .line")
+      when "Gegenstände"
+        find(".item .list .line")
+      when "Verträge"
+        find(".contract .list .line")
+      when "Bestellungen"
+        find(".order .list .line")
+      when "Optionen"
+        find(".option .list .line")
+    end
+  end
 end
 
 Dann /^ich sehe aus jeder Kategorie maximal die (\d+) ersten Resultate$/ do |amount|

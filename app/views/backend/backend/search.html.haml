@@ -56,6 +56,16 @@
           = @hits["order"]
     .list
 
+  %section.option
+    .inlinetabs
+      .tab.active
+        .icon.model
+        %span.text
+          = _("Options")
+        .badge
+          = @hits["option"]
+    .list
+
 :coffeescript
   jQuery ->
     $('.list').hide()
