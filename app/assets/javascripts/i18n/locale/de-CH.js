@@ -780,7 +780,7 @@ window.i18n.locale_data = {
          null,
          "Gerätepark"
       ],
-      "Investition": [
+      "Investment": [
          null,
          "Investition"
       ],
@@ -2154,7 +2154,7 @@ window.i18n.locale_data = {
          null,
          "zu diesem Datum springen"
       ],
-      "laufende Rechnung": [
+      "Running Account": [
          null,
          "laufende Rechnung"
       ],
@@ -2357,106 +2357,6 @@ window.i18n.locale_data = {
       "Unknown": [
          null,
          "Unbekannt"
-      ],
-      "(maximum available: %{max})": [
-         null,
-         "(maximal verfügbar: %{max})"
-      ],
-      "Add Note": [
-         null,
-         "Notiz hinzufügen"
-      ],
-      "Changed quantity for %{model} from %{from} to %{to}": [
-         null,
-         "Anzahl für %{model} von %{from} auf %{to} geändert"
-      ],
-      "Close": [
-         null,
-         "Schliessen"
-      ],
-      "Couldn't connect to LDAP: :": [
-         null,
-         "Konnte nicht mit LDAP-Server verbinden::"
-      ],
-      "Create": [
-         null,
-         "Erstellen"
-      ],
-      "Create and make a Copy": [
-         null,
-         "Erstellen und kopieren"
-      ],
-      "Edit multiple selected items": [
-         null,
-         "Mehrere ausgewählte Gegenstände editieren"
-      ],
-      "Error setting the location": [
-         null,
-         "Fehler beim setzen des Ortes"
-      ],
-      "Grund": [
-         null,
-         "Grund"
-      ],
-      "Hand Over Items": [
-         null,
-         "Gegenstände aushändigen"
-      ],
-      "Incremented quantity from %i to %i for %s": [
-         null,
-         "Anzahl von %i auf %i erhöht für %s"
-      ],
-      "Item retired (%s)": [
-         null,
-         "Gerät ausgemustert (%s)"
-      ],
-      "Location successfully set": [
-         null,
-         "Ort erfolgreich zugewiesen"
-      ],
-      "Maximum number of items available at that time is %{max}": [
-         null,
-         "Die maximale Anzahl verfügbarer Artikel für diese Zeit ist %{max}"
-      ],
-      "Needs permission": [
-         null,
-         "Braucht Ausleihbewilligung"
-      ],
-      "New Item": [
-         null,
-         "Neuer Gegenstand"
-      ],
-      "Overview": [
-         null,
-         "Übersicht"
-      ],
-      "Plattform": [
-         null,
-         "Plattform"
-      ],
-      "Retired on %s": [
-         null,
-         "Ausgemustert am %s"
-      ],
-      "Save and create a Copy": [
-         null,
-         "Speichern und kopieren"
-      ],
-      "Search Model": [
-         null,
-         "Modell suchen"
-      ],
-      "Take Back Items": [
-         null,
-         "Rücknahmen"
-      ],
-      "Unretire": [
-         null,
-         "Ausmusterung zurücknehmen"
-      ],
-      "non-working day": [
-         null,
-         "arbeitsfreier Tag"
       ]
    }
 }
