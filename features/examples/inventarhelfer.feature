@@ -55,22 +55,6 @@ Funktionalität: Inventarhelfer
     Dann sind die Änderungen widerrufen
     Und man sieht alle ursprünglichen Werte des Gegenstandes in der Übersicht
 
-
-  # NOTE: not yet needed
-  #
-  # @javascript
-  # Szenario: Falsches Gerät gescanned / UNDO  
-  #  Angenommen man ist auf dem Helferschirm
-  #   Dann wähle Ich die Felder über eine List oder per Namen aus
-  #   Und ich setze ihre Initalisierungswerte
-  #   Dann scanne oder gebe ich den Inventarcode ein
-  #   Dann sehe ich alle Werte des Gegenstandes in der Übersicht
-  #   Und die geänderten Werte sind hervorgehoben
-  #   Und diese Werte sind so gespeichert
-  #   Wenn man "Widerrufen" klickt
-  #   Dann werden die Änderungen widerrufen
-  #   Und man sieht alle ursprünglichen Werte des Gegenstandes in der Übersicht
-
   @javascript
   Szenario: Werte gemäss Berechtigung speichern
     Angenommen man editiert ein Gerät über den Helferschirm

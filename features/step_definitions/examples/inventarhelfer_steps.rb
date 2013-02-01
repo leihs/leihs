@@ -113,6 +113,8 @@ Dann /^sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, di
       end
     end
   end
+
+  find(".field[data-field_id='#{Field.find_by_label("Model").id}']").should have_content @item.reload.model.name
 end
 
 Dann /^die geänderten Werte sind hervorgehoben$/ do
@@ -125,9 +127,10 @@ Dann /^wähle Ich die Felder über eine List oder per Namen aus$/ do
   find("#fieldname").click
   wait_until { not all(".ui-menu-item a", :visible => true).empty? }
   find(".ui-menu-item a", :text => /(Notiz|Note)/).click
-  find("#fieldname").set Field.last.label
+  find("#fieldname").set Field.where(:readonly => nil).last.label
   sleep(1)
   find(".ui-menu-item a").click
+  @all_editable_fields = all("#field_selection .field", :visible => true)
 end
 
 Dann /^ich setze ihre Initalisierungswerte$/ do
@@ -160,7 +163,7 @@ Angenommen /^man editiert ein Gerät über den Helferschirm mittels Inventarcode
   step %Q{wähle Ich die Felder über eine List oder per Namen aus}
   step %Q{ich setze ihre Initalisierungswerte}
   step %Q{scanne oder gebe ich den Inventarcode ein}
-  step %Q{sehe ich alle Werte des Gegenstandes in der Übersicht, die geänderten Werte sind bereits gespeichert}
+  step %Q{sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert}
   step %Q{die geänderten Werte sind hervorgehoben}
 end
 
@@ -170,8 +173,9 @@ end
 
 Dann /^kann man an Ort und Stelle alle Werte des Gegenstandes editieren$/ do
   find("#item input[type='text']")
-  all("#item input[type='text']", :visible => true).each do |input|
-    input.set "New text for this input"
+  @all_edited_fields = all("#item .field.text", :visible => true)
+  @all_edited_fields.each do |field|
+    field.find("input[type='text']").set "New text for this input"
   end
 end
 
@@ -181,7 +185,8 @@ end
 
 Dann /^sind sie gespeichert$/ do
   wait_until{!all("#item .field", :visible => true).empty?}
-  Field.where(:type => "text").each do |field|
+  @all_edited_fields.each do |f|
+    field = Field.find f.reload["data-field_id"]
     value = field.get_value_from_params @item.reload
     if not field[:visibility_dependency_field_id] and value.is_a? String
       value.should == "New text for this input"
@@ -198,5 +203,5 @@ Dann /^sind die Änderungen widerrufen$/ do
 end
 
 Dann /^man sieht alle ursprünglichen Werte des Gegenstandes in der Übersicht$/ do
-  step %Q{sehe ich alle Werte des Gegenstandes in der Übersicht, die geänderten Werte sind bereits gespeichert}
+  step %Q{sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert}
 end
