@@ -78,21 +78,19 @@ class Backend::UsersController < Backend::BackendController
 
   def update
     if params[:access_right]
-      access_right = if params[:access_right][:inventory_pool_id] and is_admin?
-                       @user.all_access_rights.find_or_initialize_by_inventory_pool_id(params[:access_right][:inventory_pool_id])
-                     else
-                       @user.all_access_rights.find_or_initialize_by_inventory_pool_id(current_inventory_pool.id)
-                     end
-      new_attributes = if params[:access_right][:suspended_until].blank?
-                         {:suspended_until => nil, :suspended_reason => nil}
-                       else
-                         {:suspended_until => params[:access_right][:suspended_until], :suspended_reason => params[:access_right][:suspended_reason]}
-                       end
-      unless params[:access_right][:role_name].blank?
-        new_attributes[:role_name] = params[:access_right][:role_name]
+      ip_id = if params[:access_right][:inventory_pool_id] and is_admin?
+                params[:access_right][:inventory_pool_id]
+              else
+                current_inventory_pool.id
+              end
+      access_right = @user.all_access_rights.find_or_initialize_by_inventory_pool_id(ip_id)
+      access_right.suspended_until, access_right.suspended_reason = if params[:access_right][:suspended_until].blank?
+        [nil, nil]
+      else
+        [params[:access_right][:suspended_until], params[:access_right][:suspended_reason]]
       end
-      access_right.deleted_at = nil if access_right.deleted_at
-      access_right.update_attributes(new_attributes)
+      access_right.role_name = params[:access_right][:role_name] unless params[:access_right][:role_name].blank?
+      access_right.save # TODO what if not saved ??
     end
 
     if @user.update_attributes(params[:user])

@@ -48,8 +48,6 @@ class AccessRight < ActiveRecord::Base
           when 3
             "inventory_manager"
         end
-      when "unknown"
-        destroy if user.deletable?
     end
   end
 
@@ -57,22 +55,25 @@ class AccessRight < ActiveRecord::Base
     case v
       when "admin"
         self.access_level = nil
-        # TODO ?? self.deleted_at = nil
       when "customer"
         self.role = Role.find_by_name("customer")
         self.access_level = nil
-        # TODO ?? self.deleted_at = nil
       when "lending_manager"
         self.role = Role.find_by_name("manager")
         self.access_level = 2
-        # TODO ?? self.deleted_at = nil
       when "inventory_manager"
         self.role = Role.find_by_name("manager")
         self.access_level = 3
-        # TODO ?? self.deleted_at = nil
       when "unknown"
-        self.access_level = nil
-        self.deleted_at = Date.today
+        self.deleted_at = Date.today # keep the existing role, just flag as deleted
+    end
+
+    # assigning a new role, reactivate (ensure is not deleted)
+    if role_id_changed? or access_level_changed?
+      case v
+        when "admin", "customer", "lending_manager", "inventory_manager"
+          self.deleted_at = nil
+      end
     end
   end
 
