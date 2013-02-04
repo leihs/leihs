@@ -557,7 +557,7 @@ msgstr "Invetarcode aktualisiert"
 msgid "Inventory pool"
 msgstr "Gerätepark"
 
-msgid "Investition"
+msgid "Investment"
 msgstr "Investition"
 
 msgid "Invoice Date"
@@ -1688,7 +1688,7 @@ msgstr "kein Gegenstand zugeordnet"
 msgid "jump to this date"
 msgstr "zu diesem Datum springen"
 
-msgid "laufende Rechnung"
+msgid "Running Account"
 msgstr "laufende Rechnung"
 
 msgid "more"
@@ -1842,3 +1842,9 @@ msgstr "Inventar-Verwalter"
 
 msgid "Unknown"
 msgstr "Unbekannt"
+
+msgid "New User"
+msgstr "Neuer Benutzer"
+
+msgid "List of %s Users"
+msgstr "Liste von %s Benutzern"

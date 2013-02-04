@@ -45,8 +45,8 @@ class Backend::BackendController < ApplicationController
     conditions[:klasses][Contract]  = {:sort_by => "status_const ASC, created_at DESC", :filter => {:status_const => Contract::SIGNED..Contract::CLOSED}} if types.blank? or types.include?("contract")
     conditions[:klasses][Model]     = {:sort_by => "name ASC"} if types.blank? or types.include?("model")
     conditions[:klasses][Item]      = {:sort_by => "inventory_code ASC"} if types.blank? or types.include?("item")
+    conditions[:klasses][Option]    = {:sort_by => "options.name ASC"}
     # no default
-    conditions[:klasses][Option]    = {:sort_by => "options.name ASC"} if types.include?("option")
     conditions[:klasses][Template]  = {:sort_by => "model_groups.name ASC"} if types.include?("template")
     
     #TODO conditions << { :filter => { :owner_id => [current_inventory_pool.id]} } if  # INVENTORY MANAGER

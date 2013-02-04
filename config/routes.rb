@@ -86,9 +86,6 @@ Leihs::Application.routes.draw do
 
     resources :users do
       member do
-        get :access_rights
-        post :add_access_right
-        delete :remove_access_right
         get :extended_info
         post :update_badge_id
         post :set_start_screen
@@ -217,9 +214,6 @@ Leihs::Application.routes.draw do
         member do
           get :new_contract
           get :remind
-          get :access_rights
-          post :add_access_right
-          delete :remove_access_right
           get :extended_info
           get :things_to_return
           get :groups

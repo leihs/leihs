@@ -100,11 +100,6 @@ Funktionalität: Vertrag
     Und diese Liste enthält Gegenstände, die ausgeliehen und noch nicht zurückgegeben wurden
 
   @javascript
-  Szenario: Automatischer Druck Dialog beim Aushändigen
-    Wenn ich eine Aushändigung mache
-    Dann wird automatisch der Druck-Dialog geöffnet
-
-  @javascript
   Szenario: Adresse des Verleihers aufführen
     Dann wird die folgende Adresse bei 'Verleiher' aufgeführt:
     |Zürcher Hochschule der Künste|

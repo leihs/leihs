@@ -74,7 +74,14 @@ Funktionalität: Ausleihe
   @javascript
   Szenario: Alle Suchresultate anzeigen
     Angenommen ich suche
-    Dann erhalte ich Suchresultate in den Kategorien Benutzer, Modelle, Gegenstände, Verträge und Bestellungen
+    Dann erhalte ich Suchresultate in den Kategorien:
+    | category     |
+    | Benutzer     |
+    | Modelle      |
+    | Gegenstände  |
+    | Verträge     |
+    | Bestellungen |
+    | Optionen     |
     Und ich sehe aus jeder Kategorie maximal die 3 ersten Resultate
     Wenn eine Kategorie mehr als 3 Resultate bringt
     Dann kann ich wählen, ob ich aus einer Kategorie mehr Resultate sehen will
@@ -102,4 +109,9 @@ Funktionalität: Ausleihe
     Wenn ich Werte der Inspektion ändere
     Und wenn ich die Inspektion speichere
     Dann wird der Gegenstand mit den aktuell gesetzten Status gespeichert
-    
+
+  @javascript
+    Szenario: Automatischer Druck Dialog beim Aushändigen
+    Wenn ich eine Aushändigung mache
+    Dann wird automatisch der Druck-Dialog geöffnet
+

@@ -24,7 +24,8 @@ class InventoryHelperController
         fields = _.filter @fields, (field)=> 
           field.label.match(new RegExp(request.term,"i"))? and
           not App.Field.isPresent(field, @fieldSelection) and
-          not field.visibility_dependency_field_id?
+          not field.visibility_dependency_field_id? and
+          not field.readonly
         response _.map (_.sortBy fields, (field)-> field.label), (field)-> {label: field.label, value: field.value, field: field}
       select: (event, ui)=>
         @addField ui.item.field

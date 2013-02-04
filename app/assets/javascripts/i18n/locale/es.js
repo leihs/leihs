@@ -100,7 +100,7 @@ window.i18n.locale_data = {
       ],
       "%s until %s": [
          null,
-         "Pedido por %s hasta %s"
+         "%s hasta %s"
       ],
       "** This is an automatically generated response **": [
          null,
@@ -108,7 +108,7 @@ window.i18n.locale_data = {
       ],
       "A model for the Inventory Code / Serial Number '%s' was not found": [
          null,
-         "No se encontró el código de inventario %s."
+         "No se encontró el modelo por el código de inventario %s."
       ],
       "A model with the ID '%s' was not found": [
          null,
@@ -124,7 +124,7 @@ window.i18n.locale_data = {
       ],
       "Access Level: %d": [
          null,
-         "Acceso Denegado"
+         "Derecho de Acceso: %d"
       ],
       "Access Right successfully created": [
          null,
@@ -134,35 +134,11 @@ window.i18n.locale_data = {
          null,
          "Derechos de Acceso actualizados correctamente"
       ],
-      "Add Purpose": [
-         null,
-         "Propósito"
-      ],
       "Added": [
          null,
          "Añadido"
       ],
-      "Additional notes": [
-         null,
-         "Notas adicionales:"
-      ],
-      "An order for the following items listed below was received in an inventory pool you are responsible for.": [
-         null,
-         "Su pedido se los siguientes elementos fue aceptada correctamente."
-      ],
-      "Approve": [
-         null,
-         "Aprobado"
-      ],
-      "Approve anyway": [
-         null,
-         "Aprobado"
-      ],
       "Approved": [
-         null,
-         "Aprobado"
-      ],
-      "Approved on": [
          null,
          "Aprobado"
       ],
@@ -174,10 +150,6 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Assigning the inventory code fails": [
-         null,
-         "Código de inventario"
-      ],
       "Attachment was successfully created.": [
          null,
          "El adjunto se creo correctamente."
@@ -185,26 +157,6 @@ window.i18n.locale_data = {
       "Attempt to add node to own graph collection": [
          null,
          ""
-      ],
-      "Availability Timeline": [
-         null,
-         "Disponibilidad"
-      ],
-      "Back": [
-         null,
-         "Retirar"
-      ],
-      "Back to this take back": [
-         null,
-         "Lista Negra"
-      ],
-      "Badge%s": [
-         null,
-         "Usuario|Distintivo"
-      ],
-      "Borrower": [
-         null,
-         "Prestable"
       ],
       "By not returning these items, you are blocking other people's reservations. This is very unfair to the other clients and to the inventory manager, since you are causing a significant amount of trouble and annoyance.": [
          null,
@@ -234,25 +186,9 @@ window.i18n.locale_data = {
          null,
          "Compatibilidad quitada correctamente"
       ],
-      "Complete": [
-         null,
-         "Incompleto"
-      ],
-      "Consider Opening Hours": [
-         null,
-         "Pedidos pendientes:"
-      ],
-      "Contract": [
-         null,
-         "Contratos"
-      ],
       "Contract %d has been signed by %s": [
          null,
          "El contrato %d fue firmado por %s"
-      ],
-      "Contract No.": [
-         null,
-         "Contrato Nro."
       ],
       "Contract Nr.": [
          null,
@@ -261,14 +197,6 @@ window.i18n.locale_data = {
       "Couldn't update ": [
          null,
          ""
-      ],
-      "Created at": [
-         null,
-         "Usuario|Creado en"
-      ],
-      "Currently has things to return": [
-         null,
-         "Actualmente contiene las siguientes cosas"
       ],
       "Day": [
          null,
@@ -286,73 +214,25 @@ window.i18n.locale_data = {
          null,
          "El plazo está por vencerse, se enviaron recordatorios por %{q} elementos en %{c} contratos"
       ],
-      "Dear client,": [
-         null,
-         "Estimado cliente de leihs,"
-      ],
       "Dear leihs client,": [
          null,
          "Estimado cliente de leihs,"
-      ],
-      "Dear leihs manager,": [
-         null,
-         "Estimado cliente de leihs,"
-      ],
-      "Defective": [
-         null,
-         "Artículo retirado el"
       ],
       "Documents": [
          null,
          "Documentos"
       ],
-      "Documents for hand over": [
-         null,
-         "Artículos a entregar"
-      ],
-      "Documents for take back": [
-         null,
-         "Artículos a entregar"
-      ],
-      "Edit Item": [
-         null,
-         "Agregar elemento"
-      ],
-      "Edit multiple selected lines": [
-         null,
-         "Quitar los artículos seleccionados"
-      ],
       "Edit purpose for order from": [
          null,
          ""
-      ],
-      "Edit this Order": [
-         null,
-         "Enviar Pedido"
       ],
       "Empty Username and/or Password": [
          null,
          "Nombre de Usuario ó Contraseña Vacios"
       ],
-      "End date": [
-         null,
-         "Fecha final"
-      ],
       "Error": [
          null,
          "Error"
-      ],
-      "Error creating the accessory.": [
-         null,
-         "Error al guardar el paquete"
-      ],
-      "Error deleting the accessory.": [
-         null,
-         "Error al destruir el paquete"
-      ],
-      "Error destroying the item package": [
-         null,
-         "Error al destruir el paquete"
       ],
       "Error destroying the package": [
          null,
@@ -362,33 +242,9 @@ window.i18n.locale_data = {
          null,
          "Error al guardar el paquete"
       ],
-      "Error updating inventory code": [
-         null,
-         "Opción|Código de inventario"
-      ],
       "Expected to be returned.": [
          null,
          "Se espera su devolución."
-      ],
-      "Finish this take back": [
-         null,
-         "Artículos a entregar"
-      ],
-      "Functional": [
-         null,
-         "Acción"
-      ],
-      "Group %s": [
-         null,
-         "Grupo modelo"
-      ],
-      "Hand Over to": [
-         null,
-         "Entregar"
-      ],
-      "In Total": [
-         null,
-         "Total"
       ],
       "In the interest of all our clients we ask you to observe the return dates.": [
          null,
@@ -397,18 +253,6 @@ window.i18n.locale_data = {
       "Incomplete": [
          null,
          "Incompleto"
-      ],
-      "Inconsistent Inventory Pool": [
-         null,
-         "Artículo|Grupo de inventario"
-      ],
-      "Inspect": [
-         null,
-         "Inspección"
-      ],
-      "Inspect Item": [
-         null,
-         "Inspección"
       ],
       "Invalid order_lines": [
          null,
@@ -430,42 +274,9 @@ window.i18n.locale_data = {
          null,
          "Falta el Grupo de Inventario"
       ],
-      "Inventory code": [
-         null,
-         "Código de Inventario"
-      ],
-      "Inventory code updated": [
-         null,
-         "Código de inventario"
-      ],
-      "Inventory pool": [
-         null,
-         "grupo de inventario"
-      ],
-      "Item": [
-         "Items",
-         "Artículo",
-         "Artículo"
-      ],
       "Item handed over as part of contract %d.": [
          null,
          "Artículo entregado como parte del contrato %d."
-      ],
-      "Item is defective": [
-         null,
-         "Artículo retirado el"
-      ],
-      "Item is incomplete": [
-         null,
-         "Artículo|Está incompleto"
-      ],
-      "Item not borrowable": [
-         null,
-         "No-prestable"
-      ],
-      "Item package successfully destroyed": [
-         null,
-         "Paquete destruido correctamente"
       ],
       "Item taken back": [
          null,
@@ -474,26 +285,6 @@ window.i18n.locale_data = {
       "Kind regards,": [
          null,
          "Saludos cordiales,"
-      ],
-      "Latest Reminder": [
-         null,
-         "[leihs] Recordatorio"
-      ],
-      "Lender": [
-         null,
-         "Recordatorio"
-      ],
-      "Lending Contract No.": [
-         null,
-         "Contrato Nro."
-      ],
-      "Lending Contract No. %s": [
-         null,
-         "Contrato Nro."
-      ],
-      "Lending Contracts No. %s": [
-         null,
-         "Contrato Nro."
       ],
       "Loading": [
          null,
@@ -519,18 +310,6 @@ window.i18n.locale_data = {
          null,
          "Modelo agregado correctamente como compatible"
       ],
-      "Name / ID": [
-         null,
-         "Nombre: "
-      ],
-      "New Borrower": [
-         null,
-         "Prestable"
-      ],
-      "New Orderer": [
-         null,
-         "Cambiar"
-      ],
       "New item created.": [
          null,
          "Nuevo elemento creado"
@@ -547,25 +326,9 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "No reminder yet": [
-         null,
-         "Recordatorio"
-      ],
-      "No take backs found": [
-         null,
-         "Retirar"
-      ],
-      "No.": [
-         null,
-         "No"
-      ],
       "None": [
          null,
          "Ninguno"
-      ],
-      "Not available": [
-         null,
-         "no disponible. "
       ],
       "Number of items": [
          null,
@@ -575,14 +338,6 @@ window.i18n.locale_data = {
          null,
          "Orden aprobada"
       ],
-      "Order from": [
-         null,
-         "Orden Nro."
-      ],
-      "Order received": [
-         null,
-         "Orden rechazada"
-      ],
       "Order rejected": [
          null,
          "Orden rechazada"
@@ -590,22 +345,6 @@ window.i18n.locale_data = {
       "Order submitted": [
          null,
          "Orden presentada"
-      ],
-      "Other Groups": [
-         null,
-         "Grupo modelo"
-      ],
-      "Overdue": [
-         null,
-         "Vencido"
-      ],
-      "Overdue Visit": [
-         null,
-         "Vencido"
-      ],
-      "Package Code": [
-         null,
-         "Nombre del paquete"
       ],
       "Package error": [
          null,
@@ -623,10 +362,6 @@ window.i18n.locale_data = {
          null,
          "Contraseña modificada"
       ],
-      "Phone%s": [
-         null,
-         "Teléfono"
-      ],
       "Please note that these contracts, while they do belong to approved orders, may be changed by the lending manager at any time. They represent only a current snapshot of the order and might not contain the same items as the final contract once you pick up your items.": [
          null,
          ""
@@ -639,17 +374,9 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Print": [
-         null,
-         "Imprimir PDF"
-      ],
       "Problems": [
          null,
          ""
-      ],
-      "Purpose changed '%s' for '%s'": [
-         null,
-         "Cambio sugerido '%{from}' a '%{to}'"
       ],
       "Purpose changed '%{from}' for '%{to}'": [
          null,
@@ -659,19 +386,11 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Qty.": [
-         null,
-         "Qt."
-      ],
       "Quantity": [
          null,
          "Cantidad"
       ],
       "Rejected": [
-         null,
-         "Rechazada"
-      ],
-      "Rejected on": [
          null,
          "Rechazada"
       ],
@@ -695,49 +414,13 @@ window.i18n.locale_data = {
          null,
          "Retirar"
       ],
-      "Retire Item": [
-         null,
-         "Artículos devueltos"
-      ],
-      "Return": [
-         null,
-         "Artículos devueltos"
-      ],
-      "Returned Items": [
-         null,
-         "Artículos devueltos"
-      ],
-      "Save": [
-         null,
-         "Guardar"
-      ],
-      "Save Changes": [
-         null,
-         "Cambios"
-      ],
-      "Saved": [
-         null,
-         "Guardar"
-      ],
-      "Show Availability": [
-         null,
-         "Disponibilidad"
-      ],
       "Show all %s...": [
          null,
          ""
       ],
-      "Signature": [
-         null,
-         "Firmado"
-      ],
       "Signed": [
          null,
          "Firmado"
-      ],
-      "Signed contracts": [
-         null,
-         "Imprimir Contrato"
       ],
       "Since we did not receive any request for renewal, we consequently demand the return of the items without further delay.": [
          null,
@@ -746,10 +429,6 @@ window.i18n.locale_data = {
       "Start Date must be before End Date": [
          null,
          "La fecha de inicio debe ser anterior a la Fecha de finalización"
-      ],
-      "Start date": [
-         null,
-         "Fecha inicial"
       ],
       "Status": [
          null,
@@ -763,21 +442,9 @@ window.i18n.locale_data = {
          null,
          "Presentada"
       ],
-      "Successfully set.": [
-         null,
-         "Ubicación asignada correctamente"
-      ],
       "Swapped %{from} for %{to}": [
          null,
          "Intercambio %{from} por %{to}"
-      ],
-      "Swapped from %s ": [
-         null,
-         "Intercambio %{from} por %{to}"
-      ],
-      "Take Back from": [
-         null,
-         "Retirar"
       ],
       "Terms and conditions of the lender apply.": [
          null,
@@ -803,10 +470,6 @@ window.i18n.locale_data = {
          null,
          "El adjunto se creo correctamente."
       ],
-      "The accessory was successfully deleted.": [
-         null,
-         "El adjunto se creo correctamente."
-      ],
       "The admin role cannot be scoped to an inventory pool": [
          null,
          "El rol de administrador no puede estar asignado a un grupo de inventario"
@@ -819,29 +482,9 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "The following items are due to be returned tomorrow or need to be inspected by their owners": [
-         null,
-         "Los siguientes elementos deben ser devueltos mañana:"
-      ],
-      "The following items are overdue or need to be inspected by their owners": [
-         null,
-         "Los siguientes elementos deben ser devueltos mañana:"
-      ],
-      "The group quantities were successfully saved.": [
-         null,
-         "El adjunto se creo correctamente."
-      ],
-      "The inventory code %s is not valid for this model": [
-         null,
-         "No se encontró el código de inventario %s."
-      ],
       "The item belongs to a package": [
          null,
          ""
-      ],
-      "The item cannot be retired because it's not returned yet.": [
-         null,
-         "El rol de administrador no puede estar asignado a un grupo de inventario"
       ],
       "The item doesn't belong to the inventory pool related to this contract": [
          null,
@@ -850,22 +493,6 @@ window.i18n.locale_data = {
       "The item doesn't match with the reserved model": [
          null,
          "El artículo no coincide con el modelo reservado"
-      ],
-      "The item is already handed over or assigned to a different contract line": [
-         null,
-         "El artículo ya se encuentra en el contrato actual."
-      ],
-      "The item with the inventory code '%s' was not found": [
-         null,
-         "No se encontró el código de inventario %s."
-      ],
-      "The line was not found": [
-         null,
-         "No se encontró el código de inventario %s."
-      ],
-      "The mail was sent": [
-         null,
-         "El modelo tiene elementos"
       ],
       "The model cannot be changed because the item is used in contracts already.": [
          null,
@@ -896,14 +523,6 @@ window.i18n.locale_data = {
          ""
       ],
       "The properties have been updated.": [
-         null,
-         "Las propiedades fueron actualizadas."
-      ],
-      "The responsible inventory pool cannot be changed because the item is currently not in stock.": [
-         null,
-         "El rol de administrador no puede estar asignado a un grupo de inventario"
-      ],
-      "The selected lines have been moved": [
          null,
          "Las propiedades fueron actualizadas."
       ],
@@ -939,21 +558,9 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "This inventory pool is closed on that day.": [
-         null,
-         "El grupo de inventario está cerrado en start_date. "
-      ],
       "This item will be given to a different inventory pool and not show up in yours anymore!": [
          null,
          ""
-      ],
-      "This model is now in %d categories": [
-         null,
-         "Modelos (%d)"
-      ],
-      "This order has already been approved.": [
-         null,
-         "Esta orden no puede aprobarse aun"
       ],
       "This order is not approvable because doesn't have any models.": [
          null,
@@ -971,10 +578,6 @@ window.i18n.locale_data = {
          null,
          "Período de Tiempo"
       ],
-      "Timeline": [
-         null,
-         "artículo"
-      ],
       "Today": [
          null,
          "Hoy"
@@ -983,33 +586,9 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Total": [
-         null,
-         "Total"
-      ],
       "Unfortunately your order is still pending, but you will soon receive a confirmation of order by separate e-mail. You can view the status of your order through your leihs account.": [
          null,
          "Desafortunadamente su pedido aun esta pendiente, pero pronto recibirá una confirmación de su pedido. Puede ver el estado de su pedido a través de su cuenta de leihs."
-      ],
-      "Unsigned": [
-         null,
-         "Firmado"
-      ],
-      "Unsigned Hand Over": [
-         null,
-         "Entregar"
-      ],
-      "Unsigned contracts": [
-         null,
-         "Imprimir Contrato"
-      ],
-      "Unsubmitted": [
-         null,
-         "Presentada"
-      ],
-      "Unsuccessful reminder of %{q} items for contracts %{c}": [
-         null,
-         "Recordado %{q} veces para el contrato %{c}"
       ],
       "Upload error.": [
          null,
@@ -1035,17 +614,9 @@ window.i18n.locale_data = {
          null,
          "El Usuario intercambio %{from} por %{to}"
       ],
-      "User unknown": [
-         null,
-         "Desconocido"
-      ],
       "Value": [
          null,
          "Valor"
-      ],
-      "Value List for Lending Contract No.": [
-         null,
-         "Contrato Nro."
       ],
       "Value List for Lending Contract No. %s": [
          null,
@@ -1054,18 +625,6 @@ window.i18n.locale_data = {
       "Value list": [
          null,
          "Lista de precios"
-      ],
-      "View Item": [
-         null,
-         "Nuevo Artículo"
-      ],
-      "View Model": [
-         null,
-         "Asignar nuevo Modelo"
-      ],
-      "View Option": [
-         null,
-         "Agregar Opción"
       ],
       "Warning": [
          null,
@@ -1091,10 +650,6 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "You are not the owner of this item": [
-         null,
-         "No tiene permisos para acceder a esta aplicación"
-      ],
       "You can't add a package to a package.": [
          null,
          ""
@@ -1103,10 +658,6 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "You don't have access to this item.": [
-         null,
-         "No tiene permisos para acceder a esta aplicación"
-      ],
       "You don't have any rights to access this application.": [
          null,
          "No tiene permisos para acceder a esta aplicación"
@@ -1114,10 +665,6 @@ window.i18n.locale_data = {
       "You have been logged out.": [
          null,
          "Su sesión ha sido cerrada."
-      ],
-      "You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from the reservation system for up to 6 months.": [
-         null,
-         "Podrá ser amonestado y se le cobrarán gastos adicionales, además se restringirán sus derechos de préstamo. En caso de que esto se torne recurrente podrá ser bloqueado de leihs por 6 meses."
       ],
       "You were served by %s": [
          null,
@@ -1137,11 +684,11 @@ window.i18n.locale_data = {
       ],
       "[Model %s] ": [
          null,
-         "Modelos"
+         "[Modelo %s] "
       ],
       "[leihs] Order received": [
          null,
-         "Orden rechazada"
+         "[leihs] Orden rechazada"
       ],
       "[leihs] Reminder": [
          null,
@@ -1171,14 +718,6 @@ window.i18n.locale_data = {
          null,
          "ya se encuentra en la Categoría"
       ],
-      "assigned to %s": [
-         null,
-         "Entregar"
-      ],
-      "available": [
-         null,
-         "no disponible. "
-      ],
       "but a few changes were made to it": [
          null,
          "pero se efectuaron algunos cambios"
@@ -1186,11 +725,6 @@ window.i18n.locale_data = {
       "could not be assigned for take back": [
          null,
          ""
-      ],
-      "day": [
-         "days",
-         "Feriados",
-         "Feriados"
       ],
       "doesn't match parent's attribute": [
          null,
@@ -1220,17 +754,9 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "no image": [
-         null,
-         "imagen"
-      ],
       "not available. ": [
          null,
          "no disponible. "
-      ],
-      "not borrowable": [
-         null,
-         "No-prestable"
       ],
       "not valid. ": [
          null,
@@ -1248,25 +774,9 @@ window.i18n.locale_data = {
          null,
          "cantidad no disponible. "
       ],
-      "requested": [
-         null,
-         "Artículos devueltos"
-      ],
       "reset user": [
          null,
          ""
-      ],
-      "show items": [
-         null,
-         " elemento(s)"
-      ],
-      "show package parts": [
-         null,
-         "Paquetes"
-      ],
-      "show packages": [
-         null,
-         "Paquetes"
       ],
       "since": [
          null,
@@ -1280,10 +790,6 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "this is a package": [
-         null,
-         "Paquetes"
-      ],
       "to substitute": [
          null,
          ""
@@ -1294,7 +800,7 @@ window.i18n.locale_data = {
       ],
       "unknown Model": [
          null,
-         "desconocido"
+         "modelo desconocido"
       ],
       "upcoming": [
          null,
@@ -1327,2862 +833,6 @@ window.i18n.locale_data = {
       "you cannot hand out lines with unassigned inventory codes": [
          null,
          ""
-      ],
-      " <b>%d</b> results": [
-         null,
-         " <b>%d</b> resultados"
-      ],
-      " filtering <b>%s</b>": [
-         null,
-         " filtrando <b>%s</b>"
-      ],
-      " for <b>%s</b>": [
-         null,
-         " para <b>%s</b>"
-      ],
-      "%s Items": [
-         null,
-         "%{n} artículos"
-      ],
-      "%s bearbeiten": [
-         null,
-         "Editar %s"
-      ],
-      "%s returns the item on %s": [
-         null,
-         "Artículos devueltos"
-      ],
-      "%{i} orders": [
-         null,
-         "%{i} pedidos"
-      ],
-      "%{i} reminders, last: %{d}": [
-         null,
-         "%{i} recordatorios, último: %{d}"
-      ],
-      "%{n} Items": [
-         null,
-         "%{n} artículos"
-      ],
-      "(%s)": [
-         null,
-         "(%s)"
-      ],
-      "(maximum available: %{max})": [
-         null,
-         "(máximo disponible: %{max})"
-      ],
-      "<em>%{n} new orders</em> to acknowledge.": [
-         null,
-         "<em>%{n} nuevos pedidos</em> pendientes de aprobación."
-      ],
-      "Access Denied": [
-         null,
-         "Acceso Denegado"
-      ],
-      "Access Level": [
-         null,
-         "Derechos de Acceso|Nivel"
-      ],
-      "Access Right successfully removed": [
-         null,
-         "Derechos de Acceso quitados correctamente"
-      ],
-      "Access Rights": [
-         null,
-         "Permisos de acceso"
-      ],
-      "Access Rights (%d)": [
-         null,
-         "Derechos de Acceso (%d)"
-      ],
-      "Access levels": [
-         null,
-         "Derechos de Acceso|Nivel"
-      ],
-      "Access right reinstated": [
-         null,
-         "Derechos de Acceso|Creado en"
-      ],
-      "AccessRight|Access level": [
-         null,
-         "Derechos de Acceso|Nivel"
-      ],
-      "AccessRight|Created at": [
-         null,
-         "Derechos de Acceso|Creado en"
-      ],
-      "AccessRight|Deleted at": [
-         null,
-         "Derechos de Acceso|Eliminada en"
-      ],
-      "AccessRight|Inventory pool": [
-         null,
-         "Derechos de Acceso|Grupo de Inventario"
-      ],
-      "AccessRight|Level": [
-         null,
-         "Derechos de Acceso|Nivel"
-      ],
-      "AccessRight|Role": [
-         null,
-         "Derechos de Acceso|Rol"
-      ],
-      "AccessRight|Suspended until": [
-         null,
-         "Derechos de Acceso|Suspendida en"
-      ],
-      "AccessRight|Updated at": [
-         null,
-         "Derechos de Acceso|Actualizado al"
-      ],
-      "AccessRight|User": [
-         null,
-         "Derechos de Acceso|Usuario"
-      ],
-      "Accessories (%d)": [
-         null,
-         "Accesorios (%d)"
-      ],
-      "Accessory|Model": [
-         null,
-         "Accesorio|Modelo"
-      ],
-      "Accessory|Name": [
-         null,
-         "Accesorio|Nombre"
-      ],
-      "Accessory|Quantity": [
-         null,
-         "Accesorio|Cantidad"
-      ],
-      "Acknowledge": [
-         null,
-         "Reconocer"
-      ],
-      "Acknowledge immediately": [
-         null,
-         "Reconocer"
-      ],
-      "Actions": [
-         null,
-         "Acciones"
-      ],
-      "Add": [
-         null,
-         "Añadir"
-      ],
-      "Add Line": [
-         null,
-         "Agregar Fila"
-      ],
-      "Add Line for": [
-         null,
-         "Agregar Fila para"
-      ],
-      "Add Model": [
-         null,
-         "Agregar Modelo"
-      ],
-      "Add Model for": [
-         null,
-         "Agregar Modelo"
-      ],
-      "Add Note": [
-         null,
-         "Agregar elemento"
-      ],
-      "Add Selected": [
-         null,
-         "Seleccionar"
-      ],
-      "Add all": [
-         null,
-         "Agregar todo"
-      ],
-      "Add as manager": [
-         null,
-         "Agregar como administrador"
-      ],
-      "Add as subcategory of": [
-         null,
-         "Agregar como subcategoría de"
-      ],
-      "Add compatible": [
-         null,
-         "Añadir compatible"
-      ],
-      "Add group": [
-         null,
-         "Grupo modelo"
-      ],
-      "Add model": [
-         null,
-         "Agregar modelo"
-      ],
-      "Add more locations": [
-         null,
-         "Agregar más ubicaciones"
-      ],
-      "Add to Order": [
-         null,
-         "Agregue a la categoría"
-      ],
-      "Add user": [
-         null,
-         "Usuario"
-      ],
-      "Address": [
-         null,
-         "Añadido"
-      ],
-      "Admin": [
-         null,
-         "Admins"
-      ],
-      "Administration": [
-         null,
-         "Admins"
-      ],
-      "All": [
-         null,
-         "Todos"
-      ],
-      "All Children": [
-         null,
-         "Todos los Hijos"
-      ],
-      "All Models": [
-         null,
-         "Todos los Modelos"
-      ],
-      "All Users": [
-         null,
-         "Usuarios"
-      ],
-      "Approve Order": [
-         null,
-         "Aprobar Pedido"
-      ],
-      "Approved Items": [
-         null,
-         "Aprobado"
-      ],
-      "Are yo sure you want to reject the order?": [
-         null,
-         "¿Está seguro que desea rechazar este pedido?"
-      ],
-      "Are you sure?": [
-         null,
-         "¿Está seguro?"
-      ],
-      "Attachments": [
-         null,
-         "Documentos"
-      ],
-      "Attachments (%d)": [
-         null,
-         "Padres (%d)"
-      ],
-      "Attachment|Content type": [
-         null,
-         "Imagen|Tipo de contenido"
-      ],
-      "Attachment|Filename": [
-         null,
-         "Imagen|Nombre de Archivo"
-      ],
-      "Attachment|Is main": [
-         null,
-         "Imagen|Es principal"
-      ],
-      "Attachment|Model": [
-         null,
-         "Modelos Recientes"
-      ],
-      "Ausleihender": [
-         null,
-         "[leihs] Recordatorio"
-      ],
-      "Authentication System": [
-         null,
-         "Sistema de Autenticación"
-      ],
-      "AuthenticationSystem|Class name": [
-         null,
-         "SistemadeAutenticación|Nombre de clase"
-      ],
-      "AuthenticationSystem|Is active": [
-         null,
-         "SistemadeAutenticación|Activo"
-      ],
-      "AuthenticationSystem|Is default": [
-         null,
-         "SistemadeAutenticación|Es predeterminado"
-      ],
-      "AuthenticationSystem|Name": [
-         null,
-         "SistemadeAutenticación|Nombre"
-      ],
-      "Availability::Change|Created at": [
-         null,
-         "Artículo|Creado en"
-      ],
-      "Availability::Change|Date": [
-         null,
-         "Disponibilidad"
-      ],
-      "Availability::Change|Inventory pool": [
-         null,
-         "Feriado|Grupo de inventario"
-      ],
-      "Availability::Change|Model": [
-         null,
-         "Disponibilidad"
-      ],
-      "Availability::Change|Updated at": [
-         null,
-         "Artículo|Actualizado al"
-      ],
-      "Availability::OutDocumentLine|Quantity": [
-         null,
-         "Cantidad Disponible"
-      ],
-      "Availability::Quantity|Change": [
-         null,
-         "Cantidad Disponible"
-      ],
-      "Availability::Quantity|Group": [
-         null,
-         "Cantidad Disponible"
-      ],
-      "Availability::Quantity|In quantity": [
-         null,
-         "Cantidad Disponible"
-      ],
-      "Availability::Quantity|Out quantity": [
-         null,
-         "Cantidad Disponible"
-      ],
-      "Available": [
-         null,
-         "no disponible. "
-      ],
-      "Available in group '": [
-         null,
-         "Cantidad Disponible"
-      ],
-      "Available in total: ": [
-         null,
-         "Cantidad Disponible"
-      ],
-      "Available quantity": [
-         null,
-         "Cantidad Disponible"
-      ],
-      "Backup::OrderLine|Created at": [
-         null,
-         "Proveedor|Creado el"
-      ],
-      "Backup::OrderLine|Inventory pool": [
-         null,
-         "Opción|Grupo de Inventario"
-      ],
-      "Backup::OrderLine|Updated at": [
-         null,
-         "Proveedor|Actualizado al"
-      ],
-      "Backup::Order|Created at": [
-         null,
-         "Proveedor|Creado el"
-      ],
-      "Backup::Order|Inventory pool": [
-         null,
-         "Artículo|Grupo de inventario"
-      ],
-      "Backup::Order|Updated at": [
-         null,
-         "Proveedor|Actualizado al"
-      ],
-      "Badge ID": [
-         null,
-         "ID de Distintivo: "
-      ],
-      "Badge ID was updated": [
-         null,
-         "ID de Distintivo: "
-      ],
-      "Barcode": [
-         null,
-         "Código de barras"
-      ],
-      "Basket": [
-         null,
-         "Canasta"
-      ],
-      "Blacklist": [
-         null,
-         "Lista Negra"
-      ],
-      "Book": [
-         null,
-         "Roto"
-      ],
-      "Book this": [
-         null,
-         "Roto"
-      ],
-      "Borrow Level": [
-         null,
-         "Prestable"
-      ],
-      "Borrowable": [
-         null,
-         "Prestable"
-      ],
-      "Borrowable (%d)": [
-         null,
-         "Prestable"
-      ],
-      "Borrowed Items": [
-         null,
-         "Artículos Propios"
-      ],
-      "Broken": [
-         null,
-         "Roto"
-      ],
-      "Building": [
-         null,
-         "Edificio"
-      ],
-      "Building|Code": [
-         null,
-         "Edificio|Código"
-      ],
-      "Building|Name": [
-         null,
-         "Edificio|Nombre"
-      ],
-      "Cancel Edit": [
-         null,
-         "Cancelar"
-      ],
-      "Categories": [
-         null,
-         "Categorías"
-      ],
-      "Categories (%d)": [
-         null,
-         "Categorias (%d)"
-      ],
-      "Category": [
-         null,
-         "Categoría"
-      ],
-      "Category successfully assigned": [
-         null,
-         "Categoría asignada correctamente"
-      ],
-      "Category successfully removed": [
-         null,
-         "Categoría eliminada correctamente"
-      ],
-      "Category|Created at": [
-         null,
-         "Historial|Creado en"
-      ],
-      "Category|Delta": [
-         null,
-         "Categoría"
-      ],
-      "Category|Name": [
-         null,
-         "Categoría"
-      ],
-      "Category|Type": [
-         null,
-         "Categoría"
-      ],
-      "Category|Updated at": [
-         null,
-         "Usuario|Actualizado al"
-      ],
-      "Change Borrower": [
-         null,
-         "Prestable"
-      ],
-      "Change Installation Location": [
-         null,
-         "Cambiar la Ubicación de la Instalación"
-      ],
-      "Change Orderer": [
-         null,
-         "Cambiar"
-      ],
-      "Change Timeframe for selection": [
-         null,
-         "Cambiar la ventana de tiempo para la selección"
-      ],
-      "Changed quantity for %{model} from %{from} to %{to}": [
-         null,
-         "Cambiar la cantidad de %{model} de %{from} a %{to}"
-      ],
-      "Check all": [
-         null,
-         "Marcar todo"
-      ],
-      "Check today's": [
-         null,
-         "Comprobar al día de hoy"
-      ],
-      "Children": [
-         null,
-         "Hijos"
-      ],
-      "Children (%d)": [
-         null,
-         "Hijos (%d)"
-      ],
-      "Close": [
-         null,
-         "Cerrar"
-      ],
-      "Compatibles": [
-         null,
-         "Compatibles"
-      ],
-      "Compatibles (%d)": [
-         null,
-         "Compatibles (%d)"
-      ],
-      "Complete Search": [
-         null,
-         "Incompleto"
-      ],
-      "Completeness": [
-         null,
-         "Incompleto"
-      ],
-      "Confirm": [
-         null,
-         "Confirmar"
-      ],
-      "Confirm Location": [
-         null,
-         "Confirmar Ubicación"
-      ],
-      "Continue with Order": [
-         null,
-         "Continuar con el Pedido"
-      ],
-      "Contract %s": [
-         null,
-         "Contrato %d"
-      ],
-      "Contract Note": [
-         null,
-         "Nota de Contrato"
-      ],
-      "Contract PDF": [
-         null,
-         "Contratos"
-      ],
-      "Contract from %s": [
-         null,
-         "Contrato nro. %d"
-      ],
-      "Contract no. %d": [
-         null,
-         "Contrato %d"
-      ],
-      "ContractLine|Cached available": [
-         null,
-         "Notificación|Creado en"
-      ],
-      "ContractLine|Created at": [
-         null,
-         "Notificación|Creado en"
-      ],
-      "ContractLine|End date": [
-         null,
-         "Nota de Contrato"
-      ],
-      "ContractLine|Item": [
-         null,
-         "Nota de Contrato"
-      ],
-      "ContractLine|Location": [
-         null,
-         "Lugar de Instalación"
-      ],
-      "ContractLine|Model": [
-         null,
-         "Contrato nro. %d"
-      ],
-      "ContractLine|Quantity": [
-         null,
-         "Evento|Cantidad"
-      ],
-      "ContractLine|Returned date": [
-         null,
-         "Fecha de devolución"
-      ],
-      "ContractLine|Start date": [
-         null,
-         "Feriado|Fecha de inicio"
-      ],
-      "ContractLine|Type": [
-         null,
-         "Contratos"
-      ],
-      "ContractLine|Updated at": [
-         null,
-         "Artículo|Actualizado al"
-      ],
-      "Contracts": [
-         null,
-         "Contratos"
-      ],
-      "Contracts (%d)": [
-         null,
-         "Contratos (%d)"
-      ],
-      "Contract|Created at": [
-         null,
-         "Notificación|Creado en"
-      ],
-      "Contract|Delta": [
-         null,
-         "Contratos"
-      ],
-      "Contract|Inventory pool": [
-         null,
-         "Día Laboral|Grupo de Inventario"
-      ],
-      "Contract|Note": [
-         null,
-         "Nota de Contrato"
-      ],
-      "Contract|Purpose": [
-         null,
-         "Contratos"
-      ],
-      "Contract|Status const": [
-         null,
-         "Nota de Contrato"
-      ],
-      "Contract|Updated at": [
-         null,
-         "Usuario|Actualizado al"
-      ],
-      "Contract|User": [
-         null,
-         "Contratos"
-      ],
-      "Country": [
-         null,
-         "Contratos"
-      ],
-      "Create": [
-         null,
-         "Crear"
-      ],
-      "Create New": [
-         null,
-         "Crear Nuevo"
-      ],
-      "Create and make a Copy": [
-         null,
-         "Crear y hacer una Copia"
-      ],
-      "Current Order": [
-         null,
-         "Rechazar Pedido"
-      ],
-      "Currently Borrowed Items": [
-         null,
-         "Artículos Propios"
-      ],
-      "Customer": [
-         null,
-         "Cliente"
-      ],
-      "Customers": [
-         null,
-         "Clientes"
-      ],
-      "Database Authentication": [
-         null,
-         "Autenticación de la Base de datos"
-      ],
-      "Database backup successfully done.": [
-         null,
-         "Paquete destruido correctamente"
-      ],
-      "DatabaseAuthentication|Created at": [
-         null,
-         "Autenticación de Base de Datos|Creado en"
-      ],
-      "DatabaseAuthentication|Crypted password": [
-         null,
-         "Autenticación de Base de Datos|Contraseña Encriptada"
-      ],
-      "DatabaseAuthentication|Login": [
-         null,
-         "Autenticación de Base de Datos|Nombre de Usuario"
-      ],
-      "DatabaseAuthentication|Updated at": [
-         null,
-         "Autenticación de Base de Datos|Actualizado al"
-      ],
-      "DatabaseAuthentication|User": [
-         null,
-         "Autenticación de Base de Datos|Usuario"
-      ],
-      "Date": [
-         null,
-         "Fecha"
-      ],
-      "Day overdue": [
-         null,
-         "Vencido"
-      ],
-      "Days overdue": [
-         null,
-         "Vencido"
-      ],
-      "Default contract note": [
-         null,
-         "Nota predeterminada de contrato"
-      ],
-      "Delete": [
-         null,
-         "Eliminar"
-      ],
-      "Delete Order": [
-         null,
-         "Eliminar Pedido"
-      ],
-      "Delete Selection": [
-         null,
-         "Borrar selección"
-      ],
-      "Delete this line": [
-         null,
-         "Borrar selección"
-      ],
-      "Description": [
-         null,
-         "Descripción"
-      ],
-      "Details": [
-         null,
-         "Detalles"
-      ],
-      "Do you really want to delete the object?": [
-         null,
-         "¿Realmente desea quitar este objeto?"
-      ],
-      "Do you want to approve this order?": [
-         null,
-         "¿Desea aprobar este pedido?"
-      ],
-      "Do you want to submit this order?": [
-         null,
-         "¿Desea enviar este pedido?"
-      ],
-      "DocumentLines": [
-         null,
-         "Documentos"
-      ],
-      "Edit Order": [
-         null,
-         "Enviar Pedido"
-      ],
-      "Edit Purpose": [
-         null,
-         "Propósito"
-      ],
-      "Edit Selection": [
-         null,
-         "Borrar selección"
-      ],
-      "Email": [
-         null,
-         "Email"
-      ],
-      "Email: ": [
-         null,
-         "Email: "
-      ],
-      "Employee": [
-         null,
-         "Empleado"
-      ],
-      "End Date": [
-         null,
-         "Fecha final"
-      ],
-      "Equipment Pools": [
-         null,
-         "Grupo de Inventario"
-      ],
-      "Error setting the location": [
-         null,
-         "Error al asignar la ubicación"
-      ],
-      "Event|Action": [
-         null,
-         "Evento|Acción"
-      ],
-      "Event|Contract line ids": [
-         null,
-         "Nota de Contrato"
-      ],
-      "Event|Date": [
-         null,
-         "Evento|Inicio"
-      ],
-      "Event|End": [
-         null,
-         "Evento|Final"
-      ],
-      "Event|Isduration": [
-         null,
-         "Evento|Duración"
-      ],
-      "Event|Quantity": [
-         null,
-         "Evento|Cantidad"
-      ],
-      "Event|Title": [
-         null,
-         "Evento|Título"
-      ],
-      "Finish this hand over": [
-         null,
-         "Artículos a entregar"
-      ],
-      "Firstname/Lastname": [
-         null,
-         "Nombre/Apellido"
-      ],
-      "Fri": [
-         null,
-         "De"
-      ],
-      "From date": [
-         null,
-         "Desde hoy"
-      ],
-      "General Information": [
-         null,
-         "Información General"
-      ],
-      "Generate barcode": [
-         null,
-         "Generar código de barras"
-      ],
-      "Go Back": [
-         null,
-         "Retirar"
-      ],
-      "Groups (%d)": [
-         null,
-         "Propiedades (%d)"
-      ],
-      "Group|Created at": [
-         null,
-         "Usuario|Creado en"
-      ],
-      "Group|Delta": [
-         null,
-         "Rol|Padre"
-      ],
-      "Group|Inventory pool": [
-         null,
-         "grupo de inventario"
-      ],
-      "Group|Name": [
-         null,
-         "Rol|Nombre"
-      ],
-      "Group|Updated at": [
-         null,
-         "Usuario|Actualizado al"
-      ],
-      "Hand Over": [
-         null,
-         "Entregar"
-      ],
-      "Hand Over Items": [
-         null,
-         "Entregar"
-      ],
-      "Hand Over Selection": [
-         null,
-         "Entregar"
-      ],
-      "Hand Over to %s": [
-         null,
-         "Entregar"
-      ],
-      "Hand Overs": [
-         null,
-         "Entregar"
-      ],
-      "Help": [
-         null,
-         "Ayuda"
-      ],
-      "Highlight available items.": [
-         null,
-         "Artículos disponibles"
-      ],
-      "History": [
-         null,
-         "historial"
-      ],
-      "History|Created at": [
-         null,
-         "Historial|Creado en"
-      ],
-      "History|Target": [
-         null,
-         "Historial|Objetivo"
-      ],
-      "History|Target type": [
-         null,
-         "Historial|Tipo de Objetivo"
-      ],
-      "History|Text": [
-         null,
-         "Historial|Texto"
-      ],
-      "History|User": [
-         null,
-         "Historial|Usuario"
-      ],
-      "Holiday|End date": [
-         null,
-         "Feriado|Fecha de finalización"
-      ],
-      "Holiday|Inventory pool": [
-         null,
-         "Feriado|Grupo de inventario"
-      ],
-      "Holiday|Name": [
-         null,
-         "Feriado|Nombre"
-      ],
-      "Holiday|Start date": [
-         null,
-         "Feriado|Fecha de inicio"
-      ],
-      "Id": [
-         null,
-         "Id"
-      ],
-      "Images": [
-         null,
-         "imagen"
-      ],
-      "Images (%d)": [
-         null,
-         "Imágenes (%d)"
-      ],
-      "Image|Content type": [
-         null,
-         "Imagen|Tipo de contenido"
-      ],
-      "Image|Filename": [
-         null,
-         "Imagen|Nombre de Archivo"
-      ],
-      "Image|Height": [
-         null,
-         "Imagen|Altura"
-      ],
-      "Image|Is main": [
-         null,
-         "Imagen|Es principal"
-      ],
-      "Image|Model": [
-         null,
-         "Imagen|Modelo"
-      ],
-      "Image|Parent": [
-         null,
-         "Imagen|Padre"
-      ],
-      "Image|Size": [
-         null,
-         "Imagen|Tamaño"
-      ],
-      "Image|Thumbnail": [
-         null,
-         "Imagen|Miniatura"
-      ],
-      "Image|Width": [
-         null,
-         "Imagen|Ancho"
-      ],
-      "Important notes for hand over": [
-         null,
-         "Artículos a entregar"
-      ],
-      "In Stock": [
-         null,
-         "En Stock"
-      ],
-      "In Stock (%d)": [
-         null,
-         "En Stock"
-      ],
-      "In stock?": [
-         null,
-         "En stock?"
-      ],
-      "Initial Price": [
-         null,
-         "Precio Inicial:"
-      ],
-      "Installation Location": [
-         null,
-         "Lugar de Instalación"
-      ],
-      "Installed in: %s": [
-         null,
-         "Instalado en: %s"
-      ],
-      "Insurance Number": [
-         null,
-         "Número de Factura:"
-      ],
-      "Internal Description": [
-         null,
-         "Descripción Interna"
-      ],
-      "Introduction": [
-         null,
-         "Artículo|Ubicación"
-      ],
-      "Inventarcode": [
-         null,
-         "Código de inventario"
-      ],
-      "Inventory": [
-         null,
-         "Inventario"
-      ],
-      "Inventory Code": [
-         null,
-         "Código de Inventario"
-      ],
-      "Inventory Code / Name": [
-         null,
-         "Código de Inventario"
-      ],
-      "Inventory Code assigned": [
-         null,
-         "Código de Inventario asignado"
-      ],
-      "Inventory Code:": [
-         null,
-         "Código de Inventario:"
-      ],
-      "Inventory Pool(s)": [
-         null,
-         "Grupo de Inventario"
-      ],
-      "Inventory Pools": [
-         null,
-         "Grupo de Inventario"
-      ],
-      "InventoryPools": [
-         null,
-         "Grupos de Inventario"
-      ],
-      "InventoryPool|Color": [
-         null,
-         "Grupo de Inventario"
-      ],
-      "InventoryPool|Contact details": [
-         null,
-         "Grupo de Inventario|Detalles de contacto"
-      ],
-      "InventoryPool|Contract description": [
-         null,
-         "Grupo de Inventario|Descripción del contrato"
-      ],
-      "InventoryPool|Default contract note": [
-         null,
-         "Grupo de Inventario|Nota predeterminada de contrato"
-      ],
-      "InventoryPool|Delta": [
-         null,
-         "Grupo de Inventario"
-      ],
-      "InventoryPool|Description": [
-         null,
-         "Grupo de Inventario|Descripción"
-      ],
-      "InventoryPool|Email": [
-         null,
-         "Grupo de Inventario"
-      ],
-      "InventoryPool|Name": [
-         null,
-         "Grupo de Inventario|Nombre"
-      ],
-      "InventoryPool|Print contracts": [
-         null,
-         "Grupo de Inventario|Nota predeterminada de contrato"
-      ],
-      "InventoryPool|Shortname": [
-         null,
-         "Grupo de Inventario|Nombre corto"
-      ],
-      "Inventorypool must be selected.": [
-         null,
-         "Debe seleccionarse un grupo de inventario"
-      ],
-      "Investition": [
-         null,
-         "Descripción"
-      ],
-      "Invoice Date": [
-         null,
-         "Fecha de Factura:"
-      ],
-      "Invoice Information": [
-         null,
-         "Información de Factura"
-      ],
-      "Invoice Number": [
-         null,
-         "Número de Factura:"
-      ],
-      "Item Packages (%d)": [
-         null,
-         "Imágenes (%d)"
-      ],
-      "Item needs permission!": [
-         null,
-         "Este artículo necesita permiso!"
-      ],
-      "Item retired (%s)": [
-         null,
-         "Elemento retirado (%s)"
-      ],
-      "Item saved.": [
-         null,
-         "Elemento guardado"
-      ],
-      "Item: %s": [
-         null,
-         "Artículo: %s"
-      ],
-      "ItemLine|Cached available": [
-         null,
-         "Artículo|Creado en"
-      ],
-      "ItemLine|Contract": [
-         null,
-         "Línea de Tiempo de Contratos"
-      ],
-      "ItemLine|Created at": [
-         null,
-         "Artículo|Creado en"
-      ],
-      "ItemLine|End date": [
-         null,
-         "Artículo|Fecha de factura"
-      ],
-      "ItemLine|Location": [
-         null,
-         "Artículo|Ubicación"
-      ],
-      "ItemLine|Model": [
-         null,
-         "Artículo|Modelo"
-      ],
-      "ItemLine|Option": [
-         null,
-         "Artículo|Ubicación"
-      ],
-      "ItemLine|Quantity": [
-         null,
-         "Evento|Cantidad"
-      ],
-      "ItemLine|Returned date": [
-         null,
-         "Fecha de devolución"
-      ],
-      "ItemLine|Start date": [
-         null,
-         "Fecha inicial"
-      ],
-      "ItemLine|Updated at": [
-         null,
-         "Artículo|Actualizado al"
-      ],
-      "Items": [
-         null,
-         "Artículos"
-      ],
-      "Items (%d)": [
-         null,
-         "Artículos (%d)"
-      ],
-      "Item|Created at": [
-         null,
-         "Artículo|Creado en"
-      ],
-      "Item|Delta": [
-         null,
-         "Artículo|Modelo"
-      ],
-      "Item|Insurance number": [
-         null,
-         "Artículo|Número de factura"
-      ],
-      "Item|Inventory code": [
-         null,
-         "Artículo|Código de Inventario"
-      ],
-      "Item|Inventory pool": [
-         null,
-         "Artículo|Grupo de inventario"
-      ],
-      "Item|Invoice date": [
-         null,
-         "Artículo|Fecha de factura"
-      ],
-      "Item|Invoice number": [
-         null,
-         "Artículo|Número de factura"
-      ],
-      "Item|Is borrowable": [
-         null,
-         "Artículo|Es prestable"
-      ],
-      "Item|Is borrowable allowed": [
-         null,
-         "Artículo|Se permite prestamo"
-      ],
-      "Item|Is broken": [
-         null,
-         "Artículo|Está roto"
-      ],
-      "Item|Is inventory relevant": [
-         null,
-         "Artículo|"
-      ],
-      "Item|Last check": [
-         null,
-         "Artículo|Última revisión"
-      ],
-      "Item|Model": [
-         null,
-         "Artículo|Modelo"
-      ],
-      "Item|Name": [
-         null,
-         "Artículo|Padre"
-      ],
-      "Item|Needs permission": [
-         null,
-         "Artículo|Necesita permiso"
-      ],
-      "Item|Note": [
-         null,
-         "Artículo|Modelo"
-      ],
-      "Item|Owner": [
-         null,
-         "Artículo|Dueño"
-      ],
-      "Item|Parent": [
-         null,
-         "Artículo|Padre"
-      ],
-      "Item|Price": [
-         null,
-         "Artículo|Precio"
-      ],
-      "Item|Required level": [
-         null,
-         "Artículo|Nivel necesario"
-      ],
-      "Item|Responsible": [
-         null,
-         "Artículo|Responsable"
-      ],
-      "Item|Retired": [
-         null,
-         "Artículo|Retirado"
-      ],
-      "Item|Serial number": [
-         null,
-         "Artículo|Número de Serie"
-      ],
-      "Item|Supplier": [
-         null,
-         "Artículo|Proveedor"
-      ],
-      "Item|Updated at": [
-         null,
-         "Artículo|Actualizado al"
-      ],
-      "Item|User name": [
-         null,
-         "Artículo|Padre"
-      ],
-      "Label": [
-         null,
-         "Etiqueta"
-      ],
-      "Last Checked": [
-         null,
-         "Última Revisión:"
-      ],
-      "Last Visitors:": [
-         null,
-         "Visitas"
-      ],
-      "Lending": [
-         null,
-         "Pendiente"
-      ],
-      "Lending Contract No. %d": [
-         null,
-         "Contrato Nro."
-      ],
-      "Level": [
-         null,
-         "Nivel"
-      ],
-      "List of Contracts": [
-         null,
-         "Contratos"
-      ],
-      "List of Inventory": [
-         null,
-         "Inventario"
-      ],
-      "List of Orders": [
-         null,
-         "Restaurar Pedido"
-      ],
-      "List of Visits": [
-         null,
-         "Visitas"
-      ],
-      "Location": [
-         null,
-         "Ubicación"
-      ],
-      "Location successfully set": [
-         null,
-         "Ubicación asignada correctamente"
-      ],
-      "Locations": [
-         null,
-         "Ubicaciones"
-      ],
-      "Location|Building": [
-         null,
-         "Ubicación|Edificio"
-      ],
-      "Location|Delta": [
-         null,
-         "Ubicación|Estantería"
-      ],
-      "Location|Room": [
-         null,
-         "Ubicación|Cuarto"
-      ],
-      "Location|Shelf": [
-         null,
-         "Ubicación|Estantería"
-      ],
-      "Login": [
-         null,
-         "Usuario"
-      ],
-      "Login: ": [
-         null,
-         "Usuario: "
-      ],
-      "Logout": [
-         null,
-         "Cerrar Sesión"
-      ],
-      "MAC-Addresse": [
-         null,
-         "Añadido"
-      ],
-      "Managers": [
-         null,
-         "Administradores"
-      ],
-      "Managers (%d)": [
-         null,
-         "Administradores (%d)"
-      ],
-      "Manufacturer": [
-         null,
-         "Fabricante"
-      ],
-      "Manufacturer (A-Z)": [
-         null,
-         "Fabricante"
-      ],
-      "Manufacturer (Z-A)": [
-         null,
-         "Fabricante"
-      ],
-      "Mark": [
-         null,
-         "Marcar"
-      ],
-      "Matching Templates": [
-         null,
-         "Plantillas"
-      ],
-      "Maximum number of items available at that time is %{max}": [
-         null,
-         "Número máximo de elementos disponibles para esa fecha es %{max}"
-      ],
-      "Model (A-Z)": [
-         null,
-         "Modelos (%d)"
-      ],
-      "Model (Z-A)": [
-         null,
-         "Modelos (%d)"
-      ],
-      "Models": [
-         null,
-         "Modelos"
-      ],
-      "Models (%{m}/%{i})": [
-         null,
-         "Modelos (%{m}/%{i})"
-      ],
-      "Models in %s": [
-         null,
-         "Modelos (%d)"
-      ],
-      "Model|Created at": [
-         null,
-         "Modelo|Creado el"
-      ],
-      "Model|Delta": [
-         null,
-         "Modelo|Nombre"
-      ],
-      "Model|Description": [
-         null,
-         "Modelo|Descripción"
-      ],
-      "Model|Info url": [
-         null,
-         "Modelo|Info url"
-      ],
-      "Model|Internal description": [
-         null,
-         "Modelo|Descripción Interna"
-      ],
-      "Model|Is package": [
-         null,
-         "Modelo|Es paquete"
-      ],
-      "Model|Maintenance period": [
-         null,
-         "Modelo|Período de mantenimiento"
-      ],
-      "Model|Manufacturer": [
-         null,
-         "Modelo|Fabricante"
-      ],
-      "Model|Name": [
-         null,
-         "Modelo|Nombre"
-      ],
-      "Model|Rental price": [
-         null,
-         "Modelo|Precio de alquiler"
-      ],
-      "Model|Tags": [
-         null,
-         "Modelos"
-      ],
-      "Model|Technical detail": [
-         null,
-         "Modelo|Detalles Técnicos"
-      ],
-      "Model|Updated at": [
-         null,
-         "Modelo|Actualizado al"
-      ],
-      "My Orders": [
-         null,
-         "Mis Pedidos"
-      ],
-      "Name": [
-         null,
-         "Nombre"
-      ],
-      "Needs permission": [
-         null,
-         "¿Necesita Permiso?"
-      ],
-      "New": [
-         null,
-         "Nuevo"
-      ],
-      "New Contract": [
-         null,
-         "Nuevo Contrato"
-      ],
-      "New Item": [
-         null,
-         "Nuevo Artículo"
-      ],
-      "New Item Package": [
-         null,
-         "Nuevo Paquete"
-      ],
-      "New Package": [
-         null,
-         "Nuevo Paquete"
-      ],
-      "New Password": [
-         null,
-         "Nueva Contraseña"
-      ],
-      "New Template": [
-         null,
-         "Nueva Plantilla"
-      ],
-      "New item added to contract.": [
-         null,
-         "Nuevo elemento añadido al contrato."
-      ],
-      "New lines have been generated": [
-         null,
-         "Se han generado nuevas filas"
-      ],
-      "Next": [
-         null,
-         "Siguiente"
-      ],
-      "No": [
-         null,
-         "No"
-      ],
-      "No items to hand over specified. Please assign inventory codes to the items you want to hand over.": [
-         null,
-         "No se especificaron artículos a entregar. Por favor asigne códigos de inventario a los artículos que desea entregar."
-      ],
-      "No models to display": [
-         null,
-         "No hay modelos para mostrar"
-      ],
-      "Not Borrowable": [
-         null,
-         "Prestable"
-      ],
-      "Not In Stock": [
-         null,
-         "No está en Stock"
-      ],
-      "Not In Stock (%d)": [
-         null,
-         "No está en Stock"
-      ],
-      "Note": [
-         null,
-         "Nota"
-      ],
-      "Notes": [
-         null,
-         "Notas"
-      ],
-      "Notes (%d)": [
-         null,
-         "Notas (%d)"
-      ],
-      "Notification|Created at": [
-         null,
-         "Notificación|Creado en"
-      ],
-      "Notification|Title": [
-         null,
-         "Notificación|Título"
-      ],
-      "Notification|User": [
-         null,
-         "Notificación|Usuario"
-      ],
-      "OK": [
-         null,
-         "OK"
-      ],
-      "Only %d items are present.": [
-         null,
-         "Solo hay %d artículos."
-      ],
-      "Open Orders": [
-         null,
-         "Pedidos"
-      ],
-      "Opening Hours": [
-         null,
-         "Pedidos pendientes:"
-      ],
-      "Option %s added.": [
-         null,
-         "Se agregó la opción %s."
-      ],
-      "OptionLine|Cached available": [
-         null,
-         "Artículo|Creado en"
-      ],
-      "OptionLine|Contract": [
-         null,
-         "Línea de Tiempo de Contratos"
-      ],
-      "OptionLine|Created at": [
-         null,
-         "Artículo|Creado en"
-      ],
-      "OptionLine|End date": [
-         null,
-         "Feriado|Fecha de finalización"
-      ],
-      "OptionLine|Item": [
-         null,
-         "Opción|Nombre"
-      ],
-      "OptionLine|Location": [
-         null,
-         "Artículo|Ubicación"
-      ],
-      "OptionLine|Model": [
-         null,
-         "Artículo|Modelo"
-      ],
-      "OptionLine|Quantity": [
-         null,
-         "Evento|Cantidad"
-      ],
-      "OptionLine|Returned date": [
-         null,
-         "Fecha de devolución"
-      ],
-      "OptionLine|Start date": [
-         null,
-         "Feriado|Fecha de inicio"
-      ],
-      "OptionLine|Type": [
-         null,
-         "Opción|Nombre"
-      ],
-      "OptionLine|Updated at": [
-         null,
-         "Artículo|Actualizado al"
-      ],
-      "Options": [
-         null,
-         "Opciones"
-      ],
-      "Options:": [
-         null,
-         "Opciones:"
-      ],
-      "Option|Delta": [
-         null,
-         "Opción|Nombre"
-      ],
-      "Option|Inventory code": [
-         null,
-         "Opción|Código de inventario"
-      ],
-      "Option|Inventory pool": [
-         null,
-         "Opción|Grupo de Inventario"
-      ],
-      "Option|Name": [
-         null,
-         "Opción|Nombre"
-      ],
-      "Option|Price": [
-         null,
-         "Opción|Nombre"
-      ],
-      "Order": [
-         null,
-         "Pedido"
-      ],
-      "Order History": [
-         null,
-         "Orden Nro."
-      ],
-      "Order from %s": [
-         null,
-         "Orden Nro."
-      ],
-      "Order:": [
-         null,
-         "Pedido:"
-      ],
-      "OrderLine|Cached available": [
-         null,
-         "Usuario|Creado en"
-      ],
-      "OrderLine|Created at": [
-         null,
-         "Usuario|Creado en"
-      ],
-      "OrderLine|End date": [
-         null,
-         "Fecha de devolución"
-      ],
-      "OrderLine|Inventory pool": [
-         null,
-         "Opción|Grupo de Inventario"
-      ],
-      "OrderLine|Model": [
-         null,
-         "Propiedad|Modelo"
-      ],
-      "OrderLine|Quantity": [
-         null,
-         "Evento|Cantidad"
-      ],
-      "OrderLine|Start date": [
-         null,
-         "Fecha inicial"
-      ],
-      "OrderLine|Updated at": [
-         null,
-         "Usuario|Actualizado al"
-      ],
-      "Orders": [
-         null,
-         "Pedidos"
-      ],
-      "Orders you are editing (please complete)": [
-         null,
-         "Pedidos que está editando (por favor complete)"
-      ],
-      "Order|Created at": [
-         null,
-         "Usuario|Creado en"
-      ],
-      "Order|Delta": [
-         null,
-         "Pedido"
-      ],
-      "Order|Inventory pool": [
-         null,
-         "Artículo|Grupo de inventario"
-      ],
-      "Order|Purpose": [
-         null,
-         "Propósito"
-      ],
-      "Order|Updated at": [
-         null,
-         "Usuario|Actualizado al"
-      ],
-      "Order|User": [
-         null,
-         "Pedidos"
-      ],
-      "Other documents": [
-         null,
-         "Otros documentos"
-      ],
-      "Overbooked Quantity": [
-         null,
-         "Evento|Cantidad"
-      ],
-      "Overbooking": [
-         null,
-         "Roto"
-      ],
-      "Overdue Returns": [
-         null,
-         "Vencido"
-      ],
-      "Overview": [
-         null,
-         "Vencido"
-      ],
-      "Own": [
-         null,
-         "Propio"
-      ],
-      "Own Inventory": [
-         null,
-         "Inventario"
-      ],
-      "Own Models": [
-         null,
-         "Modelos"
-      ],
-      "Owned": [
-         null,
-         "Propietario:"
-      ],
-      "Owner": [
-         null,
-         "Propietario:"
-      ],
-      "Package": [
-         null,
-         "Paquete"
-      ],
-      "Packages": [
-         null,
-         "Paquetes"
-      ],
-      "Parent": [
-         null,
-         "Padre"
-      ],
-      "Parents": [
-         null,
-         "Padres"
-      ],
-      "Parents (%d)": [
-         null,
-         "Padres (%d)"
-      ],
-      "Partition|Inventory pool": [
-         null,
-         "Opción|Grupo de Inventario"
-      ],
-      "Partition|Model": [
-         null,
-         "Artículo|Modelo"
-      ],
-      "Partition|Quantity": [
-         null,
-         "Evento|Cantidad"
-      ],
-      "Password": [
-         null,
-         "Contraseña"
-      ],
-      "Paste": [
-         null,
-         "Fecha"
-      ],
-      "Pending": [
-         null,
-         "Pendiente"
-      ],
-      "Period": [
-         null,
-         "Plazo"
-      ],
-      "Phone": [
-         null,
-         "Teléfono"
-      ],
-      "Phone:": [
-         null,
-         "Teléfono: "
-      ],
-      "Previous": [
-         null,
-         "Anterior"
-      ],
-      "Price": [
-         null,
-         "Artículo|Precio"
-      ],
-      "Print Contract %d": [
-         null,
-         "Imprimir Contrato %d"
-      ],
-      "Print contract": [
-         null,
-         "Imprimir Contrato"
-      ],
-      "Print contracts": [
-         null,
-         "Imprimir Contrato"
-      ],
-      "Properties (%d)": [
-         null,
-         "Propiedades (%d)"
-      ],
-      "Property|Key": [
-         null,
-         "Propiedad|Llave"
-      ],
-      "Property|Model": [
-         null,
-         "Propiedad|Modelo"
-      ],
-      "Property|Value": [
-         null,
-         "Propiedad|Valor"
-      ],
-      "Purpose": [
-         null,
-         "Propósito"
-      ],
-      "Purpose:": [
-         null,
-         "Propósito:"
-      ],
-      "Qt": [
-         null,
-         "Qt"
-      ],
-      "Qty: %d": [
-         null,
-         "Cantidad"
-      ],
-      "Quantity: %d": [
-         null,
-         "Cantidad"
-      ],
-      "Quick Approve": [
-         null,
-         "Aprobado"
-      ],
-      "Reason": [
-         null,
-         "Motivo"
-      ],
-      "Reason for Retirement": [
-         null,
-         "Retirar"
-      ],
-      "Received at": [
-         null,
-         "Recibido"
-      ],
-      "Recipient": [
-         null,
-         "Recibido"
-      ],
-      "Recommended Accessories": [
-         null,
-         "Accesorios"
-      ],
-      "Refresh": [
-         null,
-         "Actualizar"
-      ],
-      "Reinstate": [
-         null,
-         "Reestablecer"
-      ],
-      "Reject": [
-         null,
-         "Rechazar"
-      ],
-      "Rejection Successful": [
-         null,
-         "Ubicación asignada correctamente"
-      ],
-      "Relevant for inventory": [
-         null,
-         "Relevante para el inventario"
-      ],
-      "Remove": [
-         null,
-         "Quitar"
-      ],
-      "Remove Location from the above models": [
-         null,
-         "Eliminar Ubicación de los artículos mostrados arriba"
-      ],
-      "Remove Model": [
-         null,
-         "Quitar Modelo"
-      ],
-      "Remove Models": [
-         null,
-         "Quitar Modelos"
-      ],
-      "Remove Parent": [
-         null,
-         "Eliminar Padre"
-      ],
-      "Requested Items": [
-         null,
-         "Artículos devueltos"
-      ],
-      "Required Level": [
-         null,
-         "Nivel Requerido"
-      ],
-      "Required Level:": [
-         null,
-         "Nivel Requerido:"
-      ],
-      "Reservation": [
-         null,
-         "Descripción"
-      ],
-      "Reserver": [
-         null,
-         "Reservado"
-      ],
-      "Responsible": [
-         null,
-         "Responsable"
-      ],
-      "Responsible Items": [
-         null,
-         "Elementos Responsables"
-      ],
-      "Responsible department": [
-         null,
-         "Departamento Responsable"
-      ],
-      "Responsible person": [
-         null,
-         "Persona Responsable"
-      ],
-      "Responsible: %s": [
-         null,
-         "Responsable"
-      ],
-      "Restore": [
-         null,
-         "Restaurar"
-      ],
-      "Restore Original": [
-         null,
-         "Restaurar Original"
-      ],
-      "Restore to the original order?": [
-         null,
-         "¿Restaurar el pedido original?"
-      ],
-      "Retired": [
-         null,
-         "Retirado"
-      ],
-      "Retired on %s": [
-         null,
-         "Retirado"
-      ],
-      "Retirement": [
-         null,
-         "Retirar"
-      ],
-      "Return to this hand over": [
-         null,
-         "Artículos a entregar"
-      ],
-      "Role": [
-         null,
-         "Rol"
-      ],
-      "Roles": [
-         null,
-         "Funciones"
-      ],
-      "Role|Delta": [
-         null,
-         "Rol|Padre"
-      ],
-      "Role|Lft": [
-         null,
-         "Rol|Izq"
-      ],
-      "Role|Name": [
-         null,
-         "Rol|Nombre"
-      ],
-      "Role|Parent": [
-         null,
-         "Rol|Padre"
-      ],
-      "Role|Rgt": [
-         null,
-         "Rol|Der"
-      ],
-      "Room": [
-         null,
-         "Habitación"
-      ],
-      "Save %s": [
-         null,
-         "Guardar"
-      ],
-      "Save + Approve": [
-         null,
-         "Guardar + Aprobar"
-      ],
-      "Save and create a Copy": [
-         null,
-         "Guardar y crear una Copia"
-      ],
-      "Saving Data": [
-         null,
-         "Guardando Datos"
-      ],
-      "Search": [
-         null,
-         "Buscar"
-      ],
-      "Search Model": [
-         null,
-         "Buscar Modelo"
-      ],
-      "Search...": [
-         null,
-         "Buscar"
-      ],
-      "Searching": [
-         null,
-         "Buscar"
-      ],
-      "Select Location": [
-         null,
-         "Seleccionar Ubicación"
-      ],
-      "Select model first": [
-         null,
-         "Primero seleccione el modelo"
-      ],
-      "Selection": [
-         null,
-         "Seleccionar"
-      ],
-      "Send": [
-         null,
-         "Suspender"
-      ],
-      "Serial Number": [
-         null,
-         "Número de Serie"
-      ],
-      "Serial Number:": [
-         null,
-         "Número de Serie:"
-      ],
-      "Set": [
-         null,
-         "Establecer"
-      ],
-      "Set Password": [
-         null,
-         "Establecer contraseña"
-      ],
-      "Settings for %s": [
-         null,
-         "Activo"
-      ],
-      "Shelf": [
-         null,
-         "Estantería"
-      ],
-      "Short Name": [
-         null,
-         "Nombre Corto"
-      ],
-      "Show": [
-         null,
-         "Mostrar"
-      ],
-      "Signature of borrower:": [
-         null,
-         "Firma del interesado:"
-      ],
-      "Special": [
-         null,
-         "Especial"
-      ],
-      "Start": [
-         null,
-         "Fecha inicial"
-      ],
-      "Start Date": [
-         null,
-         "Fecha inicial"
-      ],
-      "Start Screen": [
-         null,
-         "Fecha inicial"
-      ],
-      "Start-Datum": [
-         null,
-         "Fecha inicial"
-      ],
-      "Subject": [
-         null,
-         "Enviar"
-      ],
-      "Submit": [
-         null,
-         "Enviar"
-      ],
-      "Submit Order": [
-         null,
-         "Enviar Pedido"
-      ],
-      "Successful Order": [
-         null,
-         "Ubicación asignada correctamente"
-      ],
-      "Supplier": [
-         null,
-         "Proveedor"
-      ],
-      "Supplier:": [
-         null,
-         "Proveedor:"
-      ],
-      "Supplier|Created at": [
-         null,
-         "Proveedor|Creado el"
-      ],
-      "Supplier|Name": [
-         null,
-         "Proveedor|Nombre"
-      ],
-      "Supplier|Updated at": [
-         null,
-         "Proveedor|Actualizado al"
-      ],
-      "Suspend": [
-         null,
-         "Suspender"
-      ],
-      "Suspended Until": [
-         null,
-         "Suspender"
-      ],
-      "Suspended until %s": [
-         null,
-         "Pedido por %s hasta %s"
-      ],
-      "Swap": [
-         null,
-         "Intercambiar"
-      ],
-      "Swap Model": [
-         null,
-         "Intercambiar Modelo"
-      ],
-      "Swap Reserver": [
-         null,
-         "Reservado"
-      ],
-      "Take Back": [
-         null,
-         "Retirar"
-      ],
-      "Take Back Items": [
-         null,
-         "Retirar"
-      ],
-      "Take Back Selection": [
-         null,
-         "Retirar"
-      ],
-      "Take Back from %s": [
-         null,
-         "Retirar"
-      ],
-      "Take Backs": [
-         null,
-         "Retirar"
-      ],
-      "Technical Details": [
-         null,
-         "Detalles Técnicos"
-      ],
-      "Template": [
-         null,
-         "Plantilla"
-      ],
-      "Template name": [
-         null,
-         "Nombre de la plantilla"
-      ],
-      "Templates": [
-         null,
-         "Plantillas"
-      ],
-      "Template|Created at": [
-         null,
-         "Artículo|Creado en"
-      ],
-      "Template|Delta": [
-         null,
-         "Plantilla"
-      ],
-      "Template|Name": [
-         null,
-         "Nombre de la plantilla"
-      ],
-      "Template|Type": [
-         null,
-         "Plantilla"
-      ],
-      "Template|Updated at": [
-         null,
-         "Artículo|Actualizado al"
-      ],
-      "The following items are overdue:": [
-         null,
-         "Los siguientes elementos pasaron el límite de devolución:"
-      ],
-      "The item %s will be retired and no longer be available for rentals.": [
-         null,
-         "El artículo %s será retirado y no estará disponible para alquiler."
-      ],
-      "The item is already handed over": [
-         null,
-         "El artículo ya fue entregado"
-      ],
-      "The item is already in the current contract.": [
-         null,
-         "El artículo ya se encuentra en el contrato actual."
-      ],
-      "The model is already assigned to this category": [
-         null,
-         "El modelo ya está asignado a esta categoría"
-      ],
-      "The order has been successfully submitted, but is NOT YET CONFIRMED.": [
-         null,
-         "El pedido fue presentado correctamente, pero AUN NO FUE CONFIRMADO."
-      ],
-      "The order is empty": [
-         null,
-         "El pedido está vacío"
-      ],
-      "The order is not yet approvable": [
-         null,
-         "Esta orden aun no es aprobable"
-      ],
-      "The quantity has been changed": [
-         null,
-         "La cantidad fue cambiada"
-      ],
-      "The start date has been changed for item %s": [
-         null,
-         "La fecha de inicio fue cambiada"
-      ],
-      "The user will not be able to place any orders": [
-         null,
-         "Este usuario ya no podrá hacer ningún pedido."
-      ],
-      "These are your current pending orders:": [
-         null,
-         "Estos son sus pedidos pendientes:"
-      ],
-      "Things to return": [
-         null,
-         "Cosas a devolver"
-      ],
-      "This inventory pool is closed on the proposed end date": [
-         null,
-         "Este grupo de inventario esta cerrado en la fecha propuesta"
-      ],
-      "This item requires the user to be level %s": [
-         null,
-         "Este elemento requiere que el usuario tenga nivel %s"
-      ],
-      "This item was retired": [
-         null,
-         "Artículo retirado el"
-      ],
-      "This model may need permission!": [
-         null,
-         "Este artículo puede necesitar permiso!"
-      ],
-      "This user doesn't have access to your inventory pool or is on your Blacklist!": [
-         null,
-         "Este usuario no tiene acceso a su grupo de inventario, o esta en su Lista Negra!"
-      ],
-      "Time": [
-         null,
-         "Hora"
-      ],
-      "Time Period": [
-         null,
-         "Plazo"
-      ],
-      "Time frame": [
-         null,
-         "Ventana de tiempo"
-      ],
-      "Timeframe": [
-         null,
-         "Umbral de tiempo"
-      ],
-      "Type": [
-         null,
-         "Tipo"
-      ],
-      "Unallocated": [
-         null,
-         "Inlocalizable"
-      ],
-      "Unborrowable": [
-         null,
-         "No-prestable"
-      ],
-      "Unborrowable (%d)": [
-         null,
-         "No-prestable"
-      ],
-      "Unfinished": [
-         null,
-         "Sin Terminar"
-      ],
-      "Unique ID": [
-         null,
-         "ID Única"
-      ],
-      "Unknown": [
-         null,
-         "Desconocido"
-      ],
-      "Unretire": [
-         null,
-         "Devolver"
-      ],
-      "Upload attachment for model": [
-         null,
-         "Subir una imagen del modelo"
-      ],
-      "Upload image for model": [
-         null,
-         "Subir una imagen del modelo"
-      ],
-      "User %s has been reminded ": [
-         null,
-         "Se ha enviado un recordatorio al usuario %s "
-      ],
-      "User Login": [
-         null,
-         "Nombre de usuario"
-      ],
-      "User has no access to your inventory pool anymore": [
-         null,
-         "El usuario ya no tiene acceso a su grupo de inventario"
-      ],
-      "Username": [
-         null,
-         "Usuario|Apellido"
-      ],
-      "Users": [
-         null,
-         "Usuarios"
-      ],
-      "Users (%d)": [
-         null,
-         "Artículos (%d)"
-      ],
-      "User|Address": [
-         null,
-         "Usuario|Distintivo"
-      ],
-      "User|Authentication system": [
-         null,
-         "Usuario|Sistema de autenticación"
-      ],
-      "User|Badge": [
-         null,
-         "Usuario|Distintivo"
-      ],
-      "User|City": [
-         null,
-         "Usuario|Autenticación"
-      ],
-      "User|Country": [
-         null,
-         "Usuario|Autenticación"
-      ],
-      "User|Created at": [
-         null,
-         "Usuario|Creado en"
-      ],
-      "User|Delta": [
-         null,
-         "Usuario|Creado en"
-      ],
-      "User|Email": [
-         null,
-         "Usuario|Email"
-      ],
-      "User|Firstname": [
-         null,
-         "Usuario|Nombre"
-      ],
-      "User|Language": [
-         null,
-         "Usuario|Apellido"
-      ],
-      "User|Login": [
-         null,
-         "Usuario|Autenticación"
-      ],
-      "User|Phone": [
-         null,
-         "Usuario|Teléfono"
-      ],
-      "User|Unique": [
-         null,
-         "Usuario|Único"
-      ],
-      "User|Updated at": [
-         null,
-         "Usuario|Actualizado al"
-      ],
-      "User|Zip": [
-         null,
-         "Usuario|Autenticación"
-      ],
-      "Value List": [
-         null,
-         "Lista de precios"
-      ],
-      "Value list no. %d": [
-         null,
-         "Lista de precios nro. %d"
-      ],
-      "View": [
-         null,
-         "Ver"
-      ],
-      "View %s": [
-         null,
-         "Ver"
-      ],
-      "View + Acknowledge": [
-         null,
-         "Ver + Aceptar"
-      ],
-      "Visits": [
-         null,
-         "Visite a"
-      ],
-      "We therefore ask you to be fair and punctual! Thank you!": [
-         null,
-         "Por lo tanto le pedimos que sea justo y puntual! Gracias!"
-      ],
-      "Workday|Friday": [
-         null,
-         "Día Laboral|Viernes"
-      ],
-      "Workday|Inventory pool": [
-         null,
-         "Día Laboral|Grupo de Inventario"
-      ],
-      "Workday|Monday": [
-         null,
-         "Día Laboral|Lunes"
-      ],
-      "Workday|Saturday": [
-         null,
-         "Día Laboral|Sábado"
-      ],
-      "Workday|Sunday": [
-         null,
-         "Día Laboral|Domingo"
-      ],
-      "Workday|Thursday": [
-         null,
-         "Día Laboral|Jueves"
-      ],
-      "Workday|Tuesday": [
-         null,
-         "Día Laboral|Martes"
-      ],
-      "Workday|Wednesday": [
-         null,
-         "Día Laboral|Miércoles"
-      ],
-      "Workload": [
-         null,
-         "Dias laborales"
-      ],
-      "Write Email": [
-         null,
-         "Email"
-      ],
-      "Wrong Username/Password": [
-         null,
-         "Nombre de Usuario ó Contraseña Inválidos"
-      ],
-      "Yes": [
-         null,
-         "Si"
-      ],
-      "Yesterday": [
-         null,
-         "Ayer"
-      ],
-      "You are sure?": [
-         null,
-         "¿Está seguro?"
-      ],
-      "You can enter an additional comment below, which will be sent to the user by e-mail.": [
-         null,
-         "Puede ingresar un comentario adicional, el cual será enviado al usuario por emal."
-      ],
-      "You don't have any rights to access this application": [
-         null,
-         "Usted no tiene autorización para acceder a esta aplicación"
-      ],
-      "You don't have permission": [
-         null,
-         "No tiene permisos para acceder a esta aplicación"
-      ],
-      "You have %{no_access} to any inventory pools!": [
-         null,
-         " en el grupo de inventario "
-      ],
-      "You have access to the following inventory pools": [
-         null,
-         " en el grupo de inventario "
-      ],
-      "You have access to the following inventory pools:": [
-         null,
-         " en el grupo de inventario "
-      ],
-      "You pick up the reserved items at the inventory pool": [
-         null,
-         " en el grupo de inventario "
-      ],
-      "You're changing the installation location for the following items:": [
-         null,
-         "Esta cambiando el lugar de instalación de los siguientes artículos:"
-      ],
-      "Your order has now been submitted to an inventory manager for approval. The inventory manager will check your order and either approve it, reject it or make changes to it. Once this is done, you will be notified by e-mail. You can also see your order status on your personal page (click your name in the top right corner of this page).": [
-         null,
-         "Su pedido ha sido enviado a un administrador de inventario para su aprobación. El administrador de inventario revisara su pedido, y podrá aprobarlo, rechazarlo, o bien hacer cambios en el. Una vez que esto ocurra, usted será notificado por email. También puede revisar el estado de su pedido en su página personal (haga click en su nombre en la esquina superior derecha de esta página)"
-      ],
-      "access right": [
-         null,
-         "derecho de acceso"
-      ],
-      "accessory": [
-         null,
-         "accesorio"
-      ],
-      "authentication system": [
-         null,
-         "sistema de autenticación"
-      ],
-      "availability quantity": [
-         null,
-         "Cantidad Disponible"
-      ],
-      "availability::change": [
-         null,
-         "Disponibilidad"
-      ],
-      "availability::quantity": [
-         null,
-         "Cantidad Disponible"
-      ],
-      "building": [
-         null,
-         "edificio"
-      ],
-      "contract": [
-         null,
-         "Contratos"
-      ],
-      "contract line": [
-         null,
-         "Nota de Contrato"
-      ],
-      "database authentication": [
-         null,
-         "Autenticación de Base de Datos"
-      ],
-      "delete": [
-         null,
-         "Eliminar"
-      ],
-      "event": [
-         null,
-         "evento"
-      ],
-      "go to today": [
-         null,
-         "Desde hoy"
-      ],
-      "hide items": [
-         null,
-         "%{i} artículos"
-      ],
-      "holiday": [
-         null,
-         "feriado"
-      ],
-      "inventory pool": [
-         null,
-         "grupo de inventario"
-      ],
-      "is returned": [
-         null,
-         "Cosas a devolver"
-      ],
-      "item": [
-         null,
-         "artículo"
-      ],
-      "key": [
-         null,
-         "clave"
-      ],
-      "language": [
-         null,
-         "Administradores"
-      ],
-      "location": [
-         null,
-         "ubicación"
-      ],
-      "model": [
-         null,
-         "modelo"
-      ],
-      "model group": [
-         null,
-         "Grupo modelo"
-      ],
-      "more categories": [
-         null,
-         "Categorías"
-      ],
-      "more properties": [
-         null,
-         "Propiedades"
-      ],
-      "name": [
-         null,
-         "nombre"
-      ],
-      "no category": [
-         null,
-         "Categoría"
-      ],
-      "no item assigned": [
-         null,
-         "artículo no asignado. "
-      ],
-      "no more categories": [
-         null,
-         "Agregar mas accesorios"
-      ],
-      "no purpose specified": [
-         null,
-         "No se dieron motivos."
-      ],
-      "no serial number": [
-         null,
-         "Número de Serie"
-      ],
-      "notification": [
-         null,
-         "notificación"
-      ],
-      "option": [
-         null,
-         "opción"
-      ],
-      "optionline": [
-         null,
-         "opción"
-      ],
-      "order": [
-         null,
-         "Pedido"
-      ],
-      "overdue": [
-         null,
-         "Vencido"
-      ],
-      "partition": [
-         null,
-         "opción"
-      ],
-      "property": [
-         null,
-         "propiedad"
-      ],
-      "role": [
-         null,
-         "rol"
-      ],
-      "room": [
-         null,
-         "habitación"
-      ],
-      "shelf": [
-         null,
-         "estantería"
-      ],
-      "show less properties": [
-         null,
-         "Propiedades"
-      ],
-      "submit it": [
-         null,
-         "Presentada"
-      ],
-      "supplier": [
-         null,
-         "proveedor"
-      ],
-      "template": [
-         null,
-         "Plantilla"
-      ],
-      "to edit this item": [
-         null,
-         "Enviar Pedido"
-      ],
-      "total borrowable": [
-         null,
-         "No-prestable"
-      ],
-      "until": [
-         null,
-         "Pedido por %s hasta %s"
-      ],
-      "user": [
-         null,
-         "Usuario"
-      ],
-      "value": [
-         null,
-         "valor"
-      ],
-      "with comment": [
-         null,
-         "Comentarios"
-      ],
-      "without conflict": [
-         null,
-         "Comentarios"
-      ],
-      "workday": [
-         null,
-         "día laboral"
       ]
    }
 }
