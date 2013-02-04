@@ -2361,6 +2361,10 @@ window.i18n.locale_data = {
       "New User": [
          null,
          "Neuer Benutzer"
+      ],
+      "List of %s Users": [
+         null,
+         "Liste von %s Benutzern"
       ]
    }
 }

@@ -1845,3 +1845,6 @@ msgstr "Unbekannt"
 
 msgid "New User"
 msgstr "Neuer Benutzer"
+
+msgid "List of %s Users"
+msgstr "Liste von %s Benutzern"
