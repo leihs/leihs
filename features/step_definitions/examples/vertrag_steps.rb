@@ -4,6 +4,8 @@ Angenommen /^man öffnet einen Vertrag$/ do
   steps %Q{
      When I open a hand over
       And I select an item line and assign an inventory code
+      And I select an item line and assign an inventory code
+      And I select an item line and assign an inventory code
       And I click hand over
      Then I see a summary of the things I selected for hand over
      When I click hand over inside the dialog
@@ -91,7 +93,12 @@ Dann /^beinhalten Liste (\d+) und Liste (\d+) folgende Spalten:$/ do |arg1, arg2
 end
 
 Dann /^sehe ich eine Liste Zwecken, getrennt durch Kommas$/ do
-  @contract.lines.each {|line| @contract_element.find(".purposes").should have_content line.purpose.to_s } 
+  @contract.lines.each {|line| @contract_element.find(".purposes").should have_content line.purpose.to_s }
+end
+
+Dann /^jeder identische Zweck ist maximal einmal aufgelistet$/ do
+  purposes = @contract.lines.map{|l| l.purpose.to_s }.uniq.join('; ')
+  @contract_element.find(".purposes > p").text.should == purposes
 end
 
 Dann /^sehe ich das heutige Datum oben rechts$/ do
@@ -178,15 +185,4 @@ Dann /^diese Liste enthält Gegenstände, die ausgeliehen und noch nicht zurück
     @contract_element.find(".not_returned_items").should have_content line.model.name
     @contract_element.find(".not_returned_items").should have_content line.item.inventory_code
   end
-end
-
-Dann /^wird automatisch der Druck\-Dialog geöffnet$/ do
-  step 'I select an item line and assign an inventory code'
-  step 'I click hand over'
-  page.execute_script ("window.print = function(){window.printed = 1;return true;}")
-  wait_until { find ".dialog .button" }
-  sleep(0.5)
-  find(".dialog .button", :text => /(Hand Over|Aushändigen)/).click
-  wait_until{ find(".dialog .documents") }
-  wait_until { page.evaluate_script("window.printed") == 1}
 end

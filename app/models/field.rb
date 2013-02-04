@@ -156,7 +156,7 @@ class Field < ActiveHash::Base
       attribute: ["properties", "reference"],
       permissions: {level: 3, owner: true},
       required: true,
-      values: [{label: "running account", value: "invoice"}, {label: "investment", value: "investment"}],
+      values: [{label: "Running Account", value: "invoice"}, {label: "Investment", value: "investment"}],
       default: "invoice", 
       type: "radio",
       group: "Invoice Information"

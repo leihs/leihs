@@ -97,10 +97,13 @@ Funktionalität: Benutzer verwalten
   # English: lending manager
   Szenario: Benutzerolle "Ausleihe-Verwalter"
     Angenommen man ist Ausleihe-Verwalter
-    Dann kann man neue Gegenstände erstellen, die ausschliesslich nicht inventarrelevant sind
+    Dann kann man neue Gegenstände erstellen
+    Und diese Gegenstände ausschliesslich nicht inventarrelevant sind
     Und man kann Optionen erstellen
     Und man kann neue Benutzer erstellen und für die Ausleihe sperren
-    Und man kann Benutzern die Rollen "Kunde" zuweisen und wegnehmen, wobei diese immer auf den Gerätepark bezogen ist, für den auch der Verwalter berechtigt ist
+    Und man kann Benutzern die folgende Rollen zuweisen und wegnehmen, wobei diese immer auf den Gerätepark bezogen ist, für den auch der Verwalter berechtigt ist
+    | role           |
+    | Kunde          |
     Und man kann nicht inventarrelevante Gegenstände ausmustern, sofern man deren Besitzer ist
 
   # pts: (13 total with the one above and below) 
@@ -108,14 +111,18 @@ Funktionalität: Benutzer verwalten
   Szenario: Benutzerolle "Inventar-Verwalter"
     Angenommen man ist Inventar-Verwalter
     Dann kann man neue Modelle erstellen
-    Und man kann neue Gegenstände erstellen
+    Und kann man neue Gegenstände erstellen
     Und diese Gegenstände können inventarrelevant sein
     Und man kann sie einem anderen Gerätepark als Besitzer zuweisen
     Und man kann die verantwortliche Abteilung eines Gegenstands frei wählen
     Und man kann Gegenstände ausmustern, sofern man deren Besitzer ist
     Und man kann Ausmusterungen wieder zurücknehmen, sofern man Besitzer der jeweiligen Gegenstände ist
     Und man kann die Arbeitstage und Ferientage seines Geräteparks anpassen
-    Und man kann Benutzern die Rollen "Kunde", "Ausleihe-Verwalter" und "Inventar-Verwalter" zuweisen und wegnehmen, wobei diese immer auf den Gerätepark bezogen ist, für den auch der Verwalter berechtigt ist
+    Und man kann Benutzern die folgende Rollen zuweisen und wegnehmen, wobei diese immer auf den Gerätepark bezogen ist, für den auch der Verwalter berechtigt ist
+    | role                |
+    | Kunde               |
+    | Ausleihe-Verwalter  |
+    | Inventar-Verwalter  |
     Und man kann alles, was ein Ausleihe-Verwalter kann
 
   # pts: (13 total with the 2 above)

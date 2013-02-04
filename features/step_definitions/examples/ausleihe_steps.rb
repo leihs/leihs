@@ -110,7 +110,7 @@ end
 Wenn /^diesem Model ein Inventarcode zuweisen möchte$/ do
   @item_line_element = find(:xpath, "//ul[@data-id='#{@contract_line.id}']")
   @item_line_element.find(".inventory_code input").click
-  page.execute_script('$(".line[data-id=\'#{@contract_line.id}\'] .inventory_code input").focus()')
+  #page.execute_script('$(".line[data-id=\'#{@contract_line.id}\'] .inventory_code input").focus()')
 end
 
 Dann /^schlägt mir das System eine Liste von Gegenständen vor$/ do
@@ -278,12 +278,23 @@ Angenommen /^ich suche$/ do
   find("#topbar .search.item input[type=submit]").click
 end
 
-Dann /^erhalte ich Suchresultate in den Kategorien Benutzer, Modelle, Gegenstände, Verträge und Bestellungen$/ do
-  find(".user .list .line")
-  find(".model .list .line")
-  find(".item .list .line")
-  find(".contract .list .line")
-  find(".order .list .line")
+Dann /^erhalte ich Suchresultate in den Kategorien:$/ do |table|
+  table.hashes.each do |t|
+    case t[:category]
+      when "Benutzer"
+        find(".user .list .line")
+      when "Modelle"
+        find(".model .list .line")
+      when "Gegenstände"
+        find(".item .list .line")
+      when "Verträge"
+        find(".contract .list .line")
+      when "Bestellungen"
+        find(".order .list .line")
+      when "Optionen"
+        find(".option .list .line")
+    end
+  end
 end
 
 Dann /^ich sehe aus jeder Kategorie maximal die (\d+) ersten Resultate$/ do |amount|
@@ -358,3 +369,13 @@ Angenommen /^ich fahre über das Problem$/ do
   wait_until { find(".tip") }
 end
 
+Dann /^wird automatisch der Druck\-Dialog geöffnet$/ do
+  step 'I select an item line and assign an inventory code'
+  step 'I click hand over'
+  page.execute_script ("window.print = function(){window.printed = 1;return true;}")
+  wait_until { find ".dialog .button" }
+  sleep(0.5)
+  find(".dialog .button", :text => /(Hand Over|Aushändigen)/).click
+  wait_until{ find(".dialog .documents") }
+  wait_until { page.evaluate_script("window.printed") == 1}
+end
