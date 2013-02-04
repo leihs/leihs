@@ -197,10 +197,7 @@ Then /^the amount of lines remains unchanged$/ do
   @order.lines.size.should eq @no_of_lines_at_start
 end
 
-Given /^((?!personas).*) existing$/ do |factory_type|
-  # This is some metaprogramming stuff.
-  # It creates an instance variable with a factory of an according type from string given in step.
-  # e.g. "model with items" becomes @model_with_items = FactoryGirl.create :model_with_items
-  factory_type = factory_type.gsub(' ', '_')
-  instance_variable_set ("@" + factory_type).to_sym, FactoryGirl.create(factory_type.to_sym)
+Given /^required test data for remove line test existing$/ do
+  @inventory_pool = FactoryGirl.create :inventory_pool
+  @model_with_items = FactoryGirl.create :model_with_items
 end
