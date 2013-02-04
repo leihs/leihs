@@ -2357,6 +2357,10 @@ window.i18n.locale_data = {
       "Unknown": [
          null,
          "Unbekannt"
+      ],
+      "New User": [
+         null,
+         "Neuer Benutzer"
       ]
    }
 }

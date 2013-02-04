@@ -1842,3 +1842,6 @@ msgstr "Inventar-Verwalter"
 
 msgid "Unknown"
 msgstr "Unbekannt"
+
+msgid "New User"
+msgstr "Neuer Benutzer"

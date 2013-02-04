@@ -1774,3 +1774,5 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
+msgid "New User"
+msgstr ""
