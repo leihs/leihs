@@ -208,8 +208,8 @@ class Field < ActiveHash::Base
       group: "Invoice Information"
     },{
       id: 28,
-      label: "Guarantee expiration",
-      attribute: ["properties", "guarantee_expiration"],
+      label: "Warranty expiration",
+      attribute: ["properties", "warranty_expiration"],
       permissions: {level: 2, owner: true},
       type: "date",
       group: "Invoice Information"

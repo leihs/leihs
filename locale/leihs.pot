@@ -470,7 +470,7 @@ msgstr ""
 msgid "History"
 msgstr ""
 
-msgid "IMEI-Nummmer"
+msgid "IMEI-Number"
 msgstr ""
 
 msgid "Important notes for hand over"
@@ -662,7 +662,7 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-msgid "MAC-Addresse"
+msgid "MAC-Address"
 msgstr ""
 
 msgid "Manufacturer"
@@ -1778,4 +1778,10 @@ msgid "New User"
 msgstr ""
 
 msgid "List of %s Users"
+msgstr ""
+
+msgid "Contract expiration"
+msgstr ""
+
+msgid "Warranty expiration"
 msgstr ""
