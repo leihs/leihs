@@ -680,7 +680,7 @@ window.i18n.locale_data = {
          null,
          "Geschichte"
       ],
-      "IMEI-Nummmer": [
+      "IMEI-Number": [
          null,
          "IMEI-Nummmer"
       ],
@@ -933,7 +933,7 @@ window.i18n.locale_data = {
          null,
          "Logout"
       ],
-      "MAC-Addresse": [
+      "MAC-Address": [
          null,
          "MAC-Adresse"
       ],
@@ -2365,6 +2365,14 @@ window.i18n.locale_data = {
       "List of %s Users": [
          null,
          "Liste von %s Benutzern"
+      ],
+      "Contract expiration": [
+         null,
+         "Vertragsablaufdatum"
+      ],
+      "Warranty expiration": [
+         null,
+         "Garantieablaufdatum"
       ]
    }
 }
