@@ -2,12 +2,14 @@
 UsersIndexCtrl = ($scope, User, $routeParams) ->
   $scope.current_inventory_pool_id = $routeParams.inventory_pool_id
 
+  $scope.tabs =  [ [null, _jed("All")],
+                   ["customers", _jed("Customer")],
+                   ["lending_managers", _jed("Lending manager")],
+                   ["inventory_managers", _jed("Inventory manager")] ]
+
   # TODO reimplement with angular tabs
   $scope.setRole = (r)->
     $scope.role = r
-    $(".inlinetabs .tab.active").removeClass "active"
-    t = if r == "" then $(".inlinetabs .tab:first") else $(".inlinetabs .tab[value='"+r+"']")
-    t.addClass("active")
     $scope.fetch()
 
   $scope.$watch 'suspended', (newValue, oldValue)->
@@ -35,6 +37,7 @@ UsersIndexCtrl = ($scope, User, $routeParams) ->
         new_users = (new User(entry) for entry in response.entries)
         $scope.users = if nextPage then $scope.users.concat new_users else new_users
         $scope.pagination = response.pagination
+        $(".inlinetabs .tab:first").addClass("active") unless $scope.role?
         $scope.isLoading = false
     )
 
