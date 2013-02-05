@@ -3,7 +3,7 @@ Feature: Remove line
   Model test
 
   Background:
-    Given required test data for remove line test existing
+    Given required test data for order tests existing
 
   Scenario: Removal of a line for UNSUBMITTED order should be possible
     Given there is a "UNSUBMITTED" order with 2 lines
