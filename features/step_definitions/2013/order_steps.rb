@@ -197,7 +197,24 @@ Then /^the amount of lines remains unchanged$/ do
   @order.lines.size.should eq @no_of_lines_at_start
 end
 
-Given /^required test data for remove line test existing$/ do
+Given /^required test data for order tests existing$/ do
   @inventory_pool = FactoryGirl.create :inventory_pool
   @model_with_items = FactoryGirl.create :model_with_items
 end
+
+Given /^an empty order of (.*) existing$/ do |allowed_type|
+  allowed_type = Order.const_get(allowed_type.to_sym)
+  @order = FactoryGirl.create :order, :status_const => allowed_type, :inventory_pool => @inventory_pool
+end
+
+When /^I add some lines for this order$/ do
+  @quantity = 3
+  @order.lines.size.should == 0
+  @order.add_lines(@quantity, @model_with_items, @user, Date.tomorrow, Date.tomorrow + 1.week, @inventory_pool)
+end
+
+Then /^the size of the order should increase exactly by the amount of lines added$/ do
+  @order.reload.lines.size.should == @quantity
+  @order.valid?.should be_true
+end
+
