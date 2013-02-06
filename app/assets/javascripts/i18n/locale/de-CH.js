@@ -682,7 +682,7 @@ window.i18n.locale_data = {
       ],
       "IMEI-Number": [
          null,
-         "IMEI-Nummmer"
+         "IMEI-Nummer"
       ],
       "Important notes for hand over": [
          null,

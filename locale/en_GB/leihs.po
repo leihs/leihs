@@ -470,7 +470,7 @@ msgstr ""
 msgid "History"
 msgstr ""
 
-msgid "IMEI-Nummmer"
+msgid "IMEI-Nummer"
 msgstr ""
 
 msgid "Important notes for hand over"

@@ -478,7 +478,7 @@ msgid "History"
 msgstr "Geschichte"
 
 msgid "IMEI-Number"
-msgstr "IMEI-Nummmer"
+msgstr "IMEI-Nummer"
 
 msgid "Important notes for hand over"
 msgstr "Wichtige Notizen zur Aushändigung"
