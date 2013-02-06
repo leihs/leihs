@@ -218,3 +218,25 @@ Then /^the size of the order should increase exactly by the amount of lines adde
   @order.valid?.should be_true
 end
 
+Given /^an order with lines existing$/ do
+  @order = FactoryGirl.create :order_with_lines, :inventory_pool => @inventory_pool
+end
+
+Given /^a borrowing user existing$/ do
+  @borrowing_user = LeihsFactory.create_user({:login => 'foo', :email => 'foo@example.com'}, {:password => 'barbarbar'})
+end
+
+When /^I approve the order of the borrowing user$/ do
+  @order.approve("That will be fine.", Persona::get("Ramon"))
+  @order.is_approved?.should be_true
+end
+
+Then /^the borrowing user gets one confirmation email$/ do
+  @emails = ActionMailer::Base.deliveries
+  @emails.count.should == 1
+end
+
+Then /^the subject of the email is "(.*?)"$/ do |arg1|
+  @emails[0].subject.should == "[leihs] Reservation Confirmation"
+end
+
