@@ -2362,9 +2362,9 @@ window.i18n.locale_data = {
          null,
          "Neuer Benutzer"
       ],
-      "List of %s Users": [
+      "List of %d Users": [
          null,
-         "Liste von %s Benutzern"
+         "Liste von %d Benutzern"
       ],
       "Contract expiration": [
          null,
