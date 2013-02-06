@@ -477,7 +477,7 @@ msgstr "Verfügbare hervorheben."
 msgid "History"
 msgstr "Geschichte"
 
-msgid "IMEI-Nummmer"
+msgid "IMEI-Number"
 msgstr "IMEI-Nummmer"
 
 msgid "Important notes for hand over"
@@ -673,7 +673,7 @@ msgstr "Login"
 msgid "Logout"
 msgstr "Logout"
 
-msgid "MAC-Addresse"
+msgid "MAC-Address"
 msgstr "MAC-Adresse"
 
 msgid "Manufacturer"
@@ -1842,3 +1842,15 @@ msgstr "Inventar-Verwalter"
 
 msgid "Unknown"
 msgstr "Unbekannt"
+
+msgid "New User"
+msgstr "Neuer Benutzer"
+
+msgid "List of %s Users"
+msgstr "Liste von %s Benutzern"
+
+msgid "Contract expiration"
+msgstr "Vertragsablaufdatum"
+
+msgid "Warranty expiration"
+msgstr "Garantieablaufdatum"

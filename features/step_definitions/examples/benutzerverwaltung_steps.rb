@@ -47,7 +47,7 @@ end
 
 Dann /^sieht man eine Liste aller Benutzer$/ do
   c = User.count
-  page.should have_content("List of %d Users" % c)
+  page.should have_content("Liste von %d Benutzern" % c)
 end
 
 Dann /^man kann filtern nach den folgenden Eigenschaften: gesperrt$/ do
