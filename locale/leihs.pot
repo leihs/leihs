@@ -1777,7 +1777,7 @@ msgstr ""
 msgid "New User"
 msgstr ""
 
-msgid "List of %s Users"
+msgid "List of %d Users"
 msgstr ""
 
 msgid "Contract expiration"

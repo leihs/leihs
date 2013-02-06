@@ -53,9 +53,21 @@ class Item < ActiveRecord::Base
 
 ####################################################################
 
+  SEARCHABLE_FIELDS = %w(inventory_code serial_number invoice_number note name user_name properties)
+
   scope :search, lambda { |query|
     return scoped if query.blank?
 
+    q = query.split.map{|s| "%#{s}%"}
+    model_fields = Model::SEARCHABLE_FIELDS.map{|f| "m.#{f}" }.join(', ')
+    item_fields = Item::SEARCHABLE_FIELDS.map{|f| "i.#{f}" }.join(', ')
+    joins(%Q(INNER JOIN (SELECT i.id, CONCAT_WS(' ', #{model_fields}, #{item_fields}) AS text
+                        FROM items AS i
+                          INNER JOIN models AS m ON i.model_id = m.id
+                        GROUP BY id) AS full_text ON items.id = full_text.id)).
+        where(Arel::Table.new(:full_text)[:text].matches_all(q))
+
+=begin
     sql = select("DISTINCT items.*").
       joins("LEFT JOIN `models` ON `models`.`id` = `items`.`model_id`").
       joins("LEFT JOIN `inventory_pools` ON `inventory_pools`.`id` = `items`.`inventory_pool_id`")
@@ -74,6 +86,7 @@ class Item < ActiveRecord::Base
                       or(InventoryPool.arel_table[:name].matches(q)))
     }
     sql
+=end
   }
 
   def self.filter2(options)

@@ -83,9 +83,19 @@ class User < ActiveRecord::Base
 
 ################################################
 
+  SEARCHABLE_FIELDS = %w(login firstname lastname badge_id)
+
   scope :search, lambda { |query|
     sql = scoped
     return sql if query.blank?
+
+=begin
+    q = query.split.map{|s| "%#{s}%"}
+    user_fields = User::SEARCHABLE_FIELDS.map{|f| "u.#{f}" }.join(', ')
+    joins(%Q(INNER JOIN (SELECT u.id, CONCAT_WS(' ', #{user_fields}) as text
+                        FROM users AS u) AS full_text ON users.id = full_text.id)).
+        where(Arel::Table.new(:full_text)[:text].matches_all(q))
+=end
 
     query.split.each{|q|
       q = "%#{q}%"

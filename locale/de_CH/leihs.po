@@ -478,7 +478,7 @@ msgid "History"
 msgstr "Geschichte"
 
 msgid "IMEI-Number"
-msgstr "IMEI-Nummmer"
+msgstr "IMEI-Nummer"
 
 msgid "Important notes for hand over"
 msgstr "Wichtige Notizen zur Aushändigung"
@@ -1846,8 +1846,8 @@ msgstr "Unbekannt"
 msgid "New User"
 msgstr "Neuer Benutzer"
 
-msgid "List of %s Users"
-msgstr "Liste von %s Benutzern"
+msgid "List of %d Users"
+msgstr "Liste von %d Benutzern"
 
 msgid "Contract expiration"
 msgstr "Vertragsablaufdatum"

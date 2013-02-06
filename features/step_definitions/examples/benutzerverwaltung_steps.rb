@@ -47,27 +47,31 @@ end
 
 Dann /^sieht man eine Liste aller Benutzer$/ do
   c = User.count
-  page.should have_content("Liste von %d Benutzern" % c)
+  page.should have_content(_("List of %d Users") % c)
+end
+
+Dann /^man kann filtern nach "(.*?)" Rolle$/ do |role|
+  find(".inlinetabs > .tab", :text => role).click
 end
 
 Dann /^man kann filtern nach den folgenden Eigenschaften: gesperrt$/ do
-  step 'I follow "%s"' % _("Customer")
+  step 'man kann filtern nach "%s" Rolle' % _("Customer")
   wait_until { all(".loading", :visible => true).empty? }
 
   find("[ng-model='suspended']").click
   wait_until { all(".loading", :visible => true).empty? }
   c = @inventory_pool.suspended_users.customers.count
-  page.should have_content("List of %d Users" % c)
+  page.should have_content(_("List of %d Users") % c)
 
   find("[ng-model='suspended']").click
   wait_until { all(".loading", :visible => true).empty? }
   c = @inventory_pool.users.customers.count
-  page.should have_content("List of %d Users" % c)
+  page.should have_content(_("List of %d Users") % c)
 end
 
 Dann /^man kann filtern nach den folgenden Rollen:$/ do |table|
   table.hashes.each do |row|
-    step 'I follow "%s"' % row["tab"]
+    step 'man kann filtern nach "%s" Rolle' % row["tab"]
     role = row["role"]
     c = case role
           when "admins"
@@ -80,12 +84,12 @@ Dann /^man kann filtern nach den folgenden Rollen:$/ do |table|
             User.scoped
         end.count
     wait_until { all(".loading", :visible => true).empty? }
-    page.should have_content("List of %d Users" % c)
+    page.should have_content(_("List of %d Users") % c)
   end
 end
 
 Dann /^man kann für jeden Benutzer die Editieransicht aufrufen$/ do
-  step 'I follow "%s"' % "All"
+  step 'man kann filtern nach "%s" Rolle' % "All"
   el = find(".list ul.user")
   page.execute_script '$(":hidden").show();'
   el.find(".actions .alternatives .button .icon.user")

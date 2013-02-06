@@ -55,6 +55,18 @@ class Order < Document
   scope :search, lambda { |query|
     return scoped if query.blank?
 
+    q = query.split.map{|s| "%#{s}%"}
+    model_fields = Model::SEARCHABLE_FIELDS.map{|f| "m.#{f}" }.join(', ')
+    user_fields = User::SEARCHABLE_FIELDS.map{|f| "u.#{f}" }.join(', ')
+    joins(%Q(INNER JOIN (SELECT o.id, CONCAT_WS(' ', #{model_fields}, #{user_fields}) as text
+                        FROM orders AS o
+                          INNER JOIN users AS u ON u.id = o.user_id
+                          INNER JOIN (order_lines AS ol
+                            LEFT JOIN (models AS m) ON (m.id = ol.model_id)) ON ol.order_id = o.id
+                        GROUP BY id) AS full_text ON orders.id = full_text.id)).
+        where(Arel::Table.new(:full_text)[:text].matches_all(q))
+
+=begin
     sql = select("DISTINCT orders.*").joins(:user, :models)
 
     query.split.each{|q|
@@ -66,6 +78,7 @@ class Order < Document
                       or(Model.arel_table[:name].matches(q)))
     }
     sql
+=end
   }
 
   def self.filter2(options)
