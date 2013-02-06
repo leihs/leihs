@@ -45,7 +45,7 @@ class Backend::BackendController < ApplicationController
     conditions[:klasses][Contract]  = {:sort_by => "status_const ASC, created_at DESC", :filter => {:status_const => Contract::SIGNED..Contract::CLOSED}} if types.blank? or types.include?("contract")
     conditions[:klasses][Model]     = {:sort_by => "name ASC"} if types.blank? or types.include?("model")
     conditions[:klasses][Item]      = {:sort_by => "inventory_code ASC"} if types.blank? or types.include?("item")
-    conditions[:klasses][Option]    = {:sort_by => "options.name ASC"}
+    conditions[:klasses][Option]    = {:sort_by => "options.name ASC"} if types.blank? or types.include?("option")
     # no default
     conditions[:klasses][Template]  = {:sort_by => "model_groups.name ASC"} if types.include?("template")
     
@@ -58,7 +58,7 @@ class Backend::BackendController < ApplicationController
     
     results = []
     @hits = {}
-    per_page = (types and types.size == 1) ? PER_PAGE : 10
+    per_page = (types and types.size == 1) ? PER_PAGE : 5
     conditions[:klasses].each_pair do |klass, options|
       r = klass.search(term).
             filter2(conditions[:filter].merge(options[:filter] || {})).
@@ -71,10 +71,12 @@ class Backend::BackendController < ApplicationController
     
     respond_to do |format|
       format.html {
-        @results = results.flatten
+        @json = view_context.search_results_json(results.flatten, {:search_presets => [:user_search, :order_search, :contract_search, :model_search, :item_search, :option_search, :template_search]})
         render :template => "backend/backend/focused_search" if types and types.size == 1
       }
-      format.json { render :json => view_context.search_results_json(results.flatten.compact, with) } #old#?? .sort_by(&:name)
+      format.json {
+        render :json => view_context.search_results_json(results.flatten.compact, with)
+      }
     end
   end
 
