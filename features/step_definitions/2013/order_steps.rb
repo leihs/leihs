@@ -202,6 +202,10 @@ Given /^required test data for order tests existing$/ do
   @model_with_items = FactoryGirl.create :model_with_items
 end
 
+Given /^an inventory pool existing$/ do
+  @inventory_pool = FactoryGirl.create :inventory_pool
+end
+
 Given /^an empty order of (.*) existing$/ do |allowed_type|
   allowed_type = Order.const_get(allowed_type.to_sym)
   @order = FactoryGirl.create :order, :status_const => allowed_type, :inventory_pool => @inventory_pool
@@ -240,3 +244,13 @@ Then /^the subject of the email is "(.*?)"$/ do |arg1|
   @emails[0].subject.should == "[leihs] Reservation Confirmation"
 end
 
+When /^the order is submitted with the purpose description "(.*?)"$/ do |purpose|
+  @purpose = purpose
+  @order.submit(purpose)
+end
+
+Then /^each line associated with the order must have the same purpose description$/ do
+  @order.lines.each do |l|
+    l.purpose.description.should == @purpose
+  end
+end
