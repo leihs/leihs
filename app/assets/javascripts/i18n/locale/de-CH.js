@@ -77,10 +77,10 @@ window.i18n.locale_data = {
          "PO-Revision-Date": " 2013-01-17 10:22+0100",
          "Last-Translator": " Ramón Cahenzli <ramon.cahenzli@zhdk.ch>",
          "Language-Team": " German (Switzerland) <ramon.cahenzli@zhdk.ch>",
+         "Language": " ",
          "MIME-Version": " 1.0",
          "Content-Type": " text/plain; charset=UTF-8",
          "Content-Transfer-Encoding": " 8bit",
-         "Language": " ",
          "X-Launchpad-Export-Date": " 2008-12-18 06:16+0000",
          "X-Generator": " Launchpad (build Unknown)",
          "X-Poedit-Language": " German",
@@ -780,7 +780,7 @@ window.i18n.locale_data = {
          null,
          "Gerätepark"
       ],
-      "Investment": [
+      "Investition": [
          null,
          "Investition"
       ],
@@ -2154,9 +2154,9 @@ window.i18n.locale_data = {
          null,
          "zu diesem Datum springen"
       ],
-      "Running Account": [
+      "laufende Rechnung": [
          null,
-         "laufende Rechnung"
+         ""
       ],
       "more": [
          null,
@@ -2373,6 +2373,30 @@ window.i18n.locale_data = {
       "Warranty expiration": [
          null,
          "Garantieablaufdatum"
+      ],
+      "Process multiple fields for multiple items in a row": [
+         null,
+         ""
+      ],
+      "Select Field": [
+         null,
+         "Feld auswählen"
+      ],
+      "no fields selected": [
+         null,
+         "Keine Felder ausgewählt"
+      ],
+      "Apply Fields on Item": [
+         null,
+         "Felder auf Gegenstand anwenden"
+      ],
+      "no item selected": [
+         null,
+         "Kein Gegenstand ausgewählt"
+      ],
+      "Running Account": [
+         null,
+         "laufende Rechnung"
       ]
    }
 }
