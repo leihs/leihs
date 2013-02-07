@@ -1785,3 +1785,18 @@ msgstr ""
 
 msgid "Warranty expiration"
 msgstr ""
+
+msgid "Process multiple fields for multiple items in a row"
+msgstr ""
+
+msgid "Select Field"
+msgstr ""
+
+msgid "no fields selected"
+msgstr ""
+
+msgid "Apply Fields on Item"
+msgstr ""
+
+msgid "no item selected"
+msgstr ""
