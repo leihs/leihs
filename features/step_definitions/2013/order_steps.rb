@@ -246,7 +246,7 @@ end
 
 When /^the order is submitted with the purpose description "(.*?)"$/ do |purpose|
   @purpose = purpose
-  @order.submit(purpose)
+  @order.submit(@purpose)
 end
 
 Then /^each line associated with the order must have the same purpose description$/ do
