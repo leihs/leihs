@@ -557,8 +557,7 @@ msgstr "Invetarcode aktualisiert"
 msgid "Inventory pool"
 msgstr "Gerätepark"
 
-#, fuzzy
-msgid "Investition"
+msgid "Investment"
 msgstr "Investition"
 
 msgid "Invoice Date"
@@ -1689,8 +1688,8 @@ msgstr "kein Gegenstand zugeordnet"
 msgid "jump to this date"
 msgstr "zu diesem Datum springen"
 
-msgid "laufende Rechnung"
-msgstr ""
+msgid "Running Account"
+msgstr "laufende Rechnung"
 
 msgid "more"
 msgstr "weitere"
@@ -1870,6 +1869,3 @@ msgstr "Felder auf Gegenstand anwenden"
 
 msgid "no item selected"
 msgstr "Kein Gegenstand ausgewählt"
-
-msgid "Running Account"
-msgstr "laufende Rechnung"

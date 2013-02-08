@@ -546,7 +546,7 @@ msgstr ""
 msgid "Inventory pool"
 msgstr ""
 
-msgid "Investition"
+msgid "Investment"
 msgstr ""
 
 msgid "Invoice Date"
@@ -1621,7 +1621,7 @@ msgstr ""
 msgid "jump to this date"
 msgstr ""
 
-msgid "laufende Rechnung"
+msgid "Running Account"
 msgstr ""
 
 msgid "more"

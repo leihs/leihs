@@ -780,7 +780,7 @@ window.i18n.locale_data = {
          null,
          "Gerätepark"
       ],
-      "Investition": [
+      "Investment": [
          null,
          "Investition"
       ],
@@ -2154,9 +2154,9 @@ window.i18n.locale_data = {
          null,
          "zu diesem Datum springen"
       ],
-      "laufende Rechnung": [
+      "Running Account": [
          null,
-         ""
+         "laufende Rechnung"
       ],
       "more": [
          null,
