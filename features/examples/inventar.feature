@@ -98,7 +98,7 @@ Funktionalität: Inventar
 
   @javascript
   Szenario: Modell erstellen
-    Dann habe ich in der Übersicht die Möglichkeit ein neues Modell zu erfassen
+    Dann habe ich in der Übersicht die Möglichkeit ein neues Modell zu erstellen
 
   @javascript
   Szenario: Details erfassen
