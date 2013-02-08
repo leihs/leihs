@@ -95,3 +95,49 @@ Funktionalität: Inventar
   Szenario: Export der aktuellen Ansicht als CSV
     Dann kann man diese Daten als CSV-Datei exportieren
     Und die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden (inkl. Filter)
+
+  @javascript
+  Szenario: Modell erstellen
+    Dann habe ich in der Übersicht die Möglichkeit, ein neues Modell zu erfassen
+
+  @javascript
+  Szenario: Details erfassen
+    Und ich erstelle ein neues Modell oder ich ändere ein bestehendes Modell
+    Dann erfasse oder ändere ich die folgenden Details
+    | Modellbezeichnung                 |
+    | Hersteller                        |
+    | Beschreibung                      |
+    | Technische Details                |
+    | Interne Beschreibung              |
+    | Wichtige Notizen zur Aushändigung |
+
+  @javascript
+  Szenario: Zubehör erfassen
+    Und ich erstelle ein neues Modell oder ich ändere ein bestehendes Modell
+    Dann erfasse oder lösche ich eines oder mehrere Zubehöre
+    Und beim Erfassen definiere ich dessen Anzahl
+
+  @javascript
+  Szenario: Attachments erfassen
+    Und ich erstelle ein neues Modell oder ich ändere ein bestehendes Modell
+    Dann füge ich eine Datei hinzu
+    Und wähle ob diese Datei auch im Frontend oder nur im Backend sichtbar ist
+    Und ich kann einen Alternativnamen für die Datei bestimmen
+    Und kann Dateien auch wieder entfernen
+    Und kann bereits bestehende Dateien herunterladen oder öffnen
+    Und kann die Reihenfolge der Dateien bestimmen
+
+  @javascript
+  Szenario: Bilder hinzufügen
+    Und ich erstelle ein neues Modell oder ich ändere ein bestehendes Modell
+    Dann füge ich ein Bild hinzu
+    Und wähle ob dieses auch im Frontend oder nur im Backend sichtbar ist
+    Und kann Bilder auch wieder entfernen
+    Und kann bereits bestehende Bilder herunterladen oder ansehen
+    Und kann die Reihenfolge der Dateien bestimmen
+    Und es wird verhindert, ein zu kleines Bild hochzuladen
+    Und zu grosse Bilder werden den erlaubten Grössen entsprechend verkleinert
+
+
+
+
