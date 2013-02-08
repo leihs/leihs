@@ -111,3 +111,9 @@ Funktionalität: Inventar
     | Interne Beschreibung               |
     | Wichtige Notizen zur Aushändigung  |
     Und ich speichere die Information
+
+ @javascript
+  Szenario: Zubehör erfassen
+    Und ich erstelle ein neues Modell oder ich ändere ein bestehendes Modell
+    Dann erfasse oder lösche ich eines oder mehrere Zubehöre
+    Und beim Erfassen definiere ich dessen Anzahl
