@@ -127,3 +127,14 @@ Funktionalität: Inventar
     Und kann Dateien auch wieder entfernen
     Und kann bereits bestehende Dateien herunterladen oder öffnen
     Und kann die Reihenfolge der Dateien bestimmen
+
+  @javascript
+  Szenario: Bilder
+    Und ich erstelle ein neues Modell oder ich ändere ein bestehendes Modell
+    Dann füge ich ein Bild hinzu
+    Und wähle ob dieses auch im Frontend oder nur im Backend sichtbar ist
+    Und kann Bilder auch wieder entfernen
+    Und kann bereits bestehende Bilder herunterladen oder ansehen
+    Und kann die Reihenfolge der Dateien bestimmen
+    Und es wird verhindert, ein zu kleines Bild hochzuladen
+    Und zu grosse Bilder werden den erlaubten Grössen entsprechend verkleinert
