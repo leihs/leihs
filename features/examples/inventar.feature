@@ -110,5 +110,4 @@ Funktionalität: Inventar
     | Technische Details                 |
     | Interne Beschreibung               |
     | Wichtige Notizen zur Aushändigung  |
-
- 
+    Und ich speichere die Information
