@@ -117,3 +117,13 @@ Funktionalität: Inventar
     Und ich erstelle ein neues Modell oder ich ändere ein bestehendes Modell
     Dann erfasse oder lösche ich eines oder mehrere Zubehöre
     Und beim Erfassen definiere ich dessen Anzahl
+
+  @javascript
+  Szenario: Attachments
+    Und ich erstelle ein neues Modell oder ich ändere ein bestehendes Modell
+    Dann füge ich eine Datei hinzu
+    Und wähle ob diese Datei auch im Frontend oder nur im Backend sichtbar ist
+    Und ich kann einen Alternativnamen für die Datei bestimmen
+    Und kann Dateien auch wieder entfernen
+    Und kann bereits bestehende Dateien herunterladen oder öffnen
+    Und kann die Reihenfolge der Dateien bestimmen
