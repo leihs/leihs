@@ -833,6 +833,14 @@ window.i18n.locale_data = {
       "you cannot hand out lines with unassigned inventory codes": [
          null,
          ""
+      ],
+      "Option": [
+        null,
+        ""
+      ],
+      "Options": [
+        null,
+        ""
       ]
    }
 }

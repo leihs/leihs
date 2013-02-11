@@ -1875,3 +1875,9 @@ msgstr "Kein Gegenstand ausgewählt"
 
 msgid "requested"
 msgstr "angefragt"
+
+msgid "Option"
+msgstr "Option"
+
+msgid "Options"
+msgstr "Optionen"

@@ -2401,6 +2401,14 @@ window.i18n.locale_data = {
       "requested": [
          null,
          "angefragt"
+      ],
+      "Option": [
+        null,
+        "Option"
+      ],
+      "Options": [
+        null,
+        "Optionen"
       ]
    }
 }
