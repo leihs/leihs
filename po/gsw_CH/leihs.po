@@ -1572,28 +1572,27 @@ msgstr "[leihs] Reservationsbestätigung"
 
 #: app/models/mailer/order.rb:22
 msgid "[leihs] Reservation Submitted"
-msgstr "[leihs] Reservation abgschickt"
+msgstr "[leihs] Reservation abgeschickt"
 
 #: app/models/mailer/order.rb:33
-#, fuzzy
 msgid "[leihs] Order received"
-msgstr "Bstellig abglehnt"
+msgstr "[leihs] Bestellung eingetroffen"
 
 #: app/models/mailer/order.rb:44
 msgid "[leihs] Reservation Rejected"
-msgstr "[leihs] Reservation abglehnt"
+msgstr "[leihs] Reservation abgelehnt"
 
 #: app/models/mailer/order.rb:55
 msgid "[leihs] Reservation confirmed (with changes)"
-msgstr "[leihs] Reservation aagnoh (mit Änderige)"
+msgstr "[leihs] Reservation genehmigt (mit Änderungen)"
 
 #: app/models/mailer/user.rb:11
 msgid "[leihs] Reminder"
-msgstr "[leihs] Erinnerig"
+msgstr "[leihs] Erinnerung"
 
 #: app/models/mailer/user.rb:21
 msgid "[leihs] Some items should be returned tomorrow"
-msgstr "[leihs] Einige Sache sötted morn zruggäh werde"
+msgstr "[leihs] Einige Gegenstände sollten morgen zurückgebracht werden"
 
 #: app/models/document.rb:59
 msgid "Added"
@@ -3684,9 +3683,8 @@ msgstr "Barcode generierä"
 #: app/views/mailer/user/remind.text.html.erb:9
 #: app/views/mailer/user/deadline_soon_reminder.text.html.erb:9
 #: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:1
-#, fuzzy
 msgid "Dear client,"
-msgstr "Liebe leihs-Benutzer,"
+msgstr "Liebe/r Kunde/in"
 
 #: app/views/mailer/user/remind.text.plain.erb:3
 #: app/views/mailer/user/remind.text.html.erb:10
@@ -3703,31 +3701,30 @@ msgstr "Liebe leihs-Benutzer,"
 #: app/views/mailer/order/rejected.text.plain.erb:3
 #: app/views/mailer/order/received.text.html.erb:10
 msgid "** This is an automatically generated response **"
-msgstr "** Das isch en automatisch generierti Antwort **"
+msgstr "** Automatisch generierte E-Mail **"
 
 #: app/views/mailer/user/remind.text.plain.erb:5
 #: app/views/mailer/user/remind.text.html.erb:12
-#, fuzzy
 msgid "The following items are overdue or need to be inspected by their owners"
-msgstr "Die Sache sind ab morn fällig:"
+msgstr "Die folgenden Gegenstände sind überfällig oder erfordern eine Kontrolle durch den Besitzer"
 
 #: app/views/mailer/user/remind.text.plain.erb:9
 msgid " item(s) due on "
-msgstr "Sachä fällig am"
+msgstr "Gegenstände zurückzubringen am "
 
 #: app/views/mailer/user/remind.text.plain.erb:9
 #: app/views/mailer/user/remind.text.html.erb:16
 #: app/views/mailer/user/deadline_soon_reminder.text.html.erb:16
 #: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:8
 msgid " at the inventory pool "
-msgstr " im Grätepark "
+msgstr " im Gerätepark "
 
 #: app/views/mailer/user/remind.text.plain.erb:17
 #: app/views/mailer/user/remind.text.html.erb:28
 #: app/views/mailer/user/deadline_soon_reminder.text.html.erb:27
 #: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:16
 msgid "Are any of the above items your personal computer?"
-msgstr ""
+msgstr "Handelt es sich um ein Mitarbeitergerät?"
 
 #: app/views/mailer/user/remind.text.plain.erb:19
 #: app/views/mailer/user/remind.text.html.erb:29
@@ -3736,23 +3733,21 @@ msgstr ""
 msgid ""
 "We kindly ask you to contact us as soon as possible. Your computer might "
 "need an update."
-msgstr ""
+msgstr "Wir bitten Sie, in den nächsten Tagen mit uns Kontakt aufzunehmen, damit wir das Gerät auf allfällige nötige Aktualisierungen überprüfen können."
 
 #: app/views/mailer/user/remind.text.plain.erb:21
 #: app/views/mailer/user/remind.text.html.erb:31
 #: app/views/mailer/user/deadline_soon_reminder.text.html.erb:30
 #: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:20
 msgid "Are any of the above borrowed items?"
-msgstr ""
+msgstr "Handelt es sich um ausgeliehenes Material?"
 
 #: app/views/mailer/user/remind.text.plain.erb:23
 #: app/views/mailer/user/remind.text.html.erb:33
 msgid ""
 "Since we did not receive any request for renewal, we consequently demand the "
 "return of the items without further delay."
-msgstr ""
-"Will mir kei Aafrag um Verlängerig übercho händ, forderemer di sofortig "
-"Rückgab vom Gägestand."
+msgstr "Da Sie keine Verlängerung beantragt haben, bitten wir Sie, die Artikel sofort zurückzubringen."
 
 #: app/views/mailer/user/remind.text.plain.erb:25
 #: app/views/mailer/user/remind.text.html.erb:35
@@ -3760,22 +3755,15 @@ msgid ""
 "By not returning these items, you are blocking other people's reservations. "
 "This is very unfair to the other clients and to the inventory manager, since "
 "you are causing a significant amount of trouble and annoyance."
-msgstr ""
-"Will Sie die Gägeständ nöd zurgg bringed blockiered Sie andere Lüüt ihri "
-"Reservatione. Das isch de andere Chunde und am Inventar-Manager gägenüber "
-"sehr unfair will Sie vil lästige Ärger verursachet."
+msgstr "Das verspätete Retournieren der Artikel blockiert neue Reservationen und verursacht massiven Ärger und Umtriebe für unsere anderen Kunden/innen sowie den Verleiher!"
 
 #: app/views/mailer/user/remind.text.plain.erb:27
 #: app/views/mailer/user/remind.text.html.erb:37
-#, fuzzy
 msgid ""
 "You might receive an admonishment and be subject to late fees as well as the "
 "restriction of borrowing privileges. In case of recurrence you might be "
 "barred from the reservation system for up to 6 months."
-msgstr ""
-"Sie chömed allefalls en Ermahnig oder Strafgebühr über oder verlüüret "
-"d'Recht Sache uuszlehne. Im Wiederholigsfall chönd Sie bis zu 6 Mönet us em "
-"leihs uusgsperrt werdä."
+msgstr "Dies kann eine Verwarnung nach sich ziehen und Sie können im Wiederholungsfall vom Verleiher bis zu 6 Monaten von der Ausleihe gesperrt werden."
 
 #: app/views/mailer/user/remind.text.plain.erb:29
 #: app/views/mailer/user/remind.text.html.erb:39
@@ -3792,36 +3780,32 @@ msgstr ""
 #: app/views/mailer/order/rejected.text.plain.erb:11
 #: app/views/mailer/order/received.text.html.erb:26
 msgid "Kind regards,"
-msgstr "Liebi Grüess,"
+msgstr "Schöne Grüsse"
 
 #: app/views/mailer/user/remind.text.html.erb:16
 #: app/views/mailer/user/deadline_soon_reminder.text.html.erb:16
 #: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:8
 msgid " item(s)"
-msgstr " Sach(e)"
+msgstr "Gegenstände"
 
 #: app/views/mailer/user/deadline_soon_reminder.text.html.erb:11
 #: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:5
-#, fuzzy
 msgid ""
 "The following items are due to be returned tomorrow or need to be inspected "
 "by their owners"
-msgstr "Die Sache sind ab morn fällig:"
+msgstr "Die folgenden Gegenstände müssen morgen zurückgebracht werden oder erforden eine Kontrolle durch den Besitzer"
 
 #: app/views/mailer/user/deadline_soon_reminder.text.html.erb:32
 #: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:22
 msgid ""
 "We are just sending you this little reminder because someone else is already "
 "waiting for some of these items."
-msgstr ""
-"Mir schicked die churz Erinnerig, wil öpper anders scho uf einigi vo dene "
-"Sache warted."
+msgstr "Wir senden Ihnen diese kleine Erinnerung, da für den/die genannten Artikel bereits eine neue Reservation besteht."
 
 #: app/views/mailer/user/deadline_soon_reminder.text.html.erb:34
 #: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:24
-msgid ""
-"In the interest of all our clients we ask you to observe the return dates."
-msgstr "Im Interässe vo allne Chunde bittemer Sie, d'Rückgabedate z'beachte"
+msgid "In the interest of all our clients we ask you to observe the return dates."
+msgstr "Im Interesse aller unserer Kunden/innen bitten wir Sie, die Termine dringend einzuhalten."
 
 #: app/views/mailer/order/submitted.text.plain.erb:1
 #: app/views/mailer/order/approved.text.html.erb:9
@@ -3836,9 +3820,8 @@ msgstr "Liebe leihs-Benutzer,"
 
 #: app/views/mailer/order/submitted.text.plain.erb:5
 #: app/views/mailer/order/submitted.text.html.erb:11
-msgid ""
-"Your order for the following items listed below was successfully submitted."
-msgstr "Ihri Bstellig vo de folgende Sache isch verschickt worde."
+msgid "Your order for the following items listed below was successfully submitted."
+msgstr "Ihre folgende Bestellung ist bei uns eingetroffen:"
 
 #: app/views/mailer/order/submitted.text.plain.erb:7
 #: app/views/mailer/order/approved.text.html.erb:12
@@ -3851,7 +3834,7 @@ msgstr "Ihri Bstellig vo de folgende Sache isch verschickt worde."
 #: app/views/mailer/order/rejected.text.plain.erb:7
 #: app/views/mailer/order/received.text.html.erb:13
 msgid "Inventory pool"
-msgstr "Grätepark"
+msgstr "Gerätepark"
 
 #: app/views/mailer/order/submitted.text.plain.erb:13
 #: app/views/mailer/order/submitted.text.html.erb:21
@@ -3859,10 +3842,7 @@ msgid ""
 "Unfortunately your order is still pending, but you will soon receive a "
 "confirmation of order by separate e-mail. You can view the status of your "
 "order through your leihs account."
-msgstr ""
-"Leider isch Ihri Bstellig no offe, aber Sie chömed glii ä Bstellbestätigung "
-"imene separate E-Mail über. Sie chönd de Status vo ihrere Bstellig im leihs-"
-"Account gseh."
+msgstr "Leider konnte diese noch nicht bearbeitet werden. Sie werden zur Bestätigung eine weitere Nachricht erhalten. Es besteht die Möglichkeit, den Status Ihrer Bestellung im persönlichen leihs-Konto einzusehen."
 
 #: app/views/mailer/order/approved.text.html.erb:11
 #: app/views/mailer/order/approved.text.plain.erb:5
@@ -3871,66 +3851,63 @@ msgstr ""
 msgid ""
 "Your order for the following items has been confirmed by the inventory "
 "manager"
-msgstr ""
-"Ihri Bstellig vo de folgende Sache isch vom Inventar-Manager bestätigt worde."
+msgstr "Ihre Bestellung der folgenden Artikel wurde vom Verleiher genehmigt:"
 
 #: app/views/mailer/order/approved.text.html.erb:20
 #: app/views/mailer/order/approved.text.plain.erb:15
 #: app/views/mailer/order/changed.text.plain.erb:20
 #: app/views/mailer/order/changed.text.html.erb:28
 msgid "These are the comments of the inventory manager:"
-msgstr "Das sind am Inventar-Manager sini Bemerkige:"
+msgstr "Vom Verleiher hinzugefügte Kommentare:"
 
 #: app/views/mailer/order/rejected.text.html.erb:11
 #: app/views/mailer/order/rejected.text.plain.erb:5
 msgid "Your order was rejected for the following reason:"
-msgstr "Ihri Bstellig isch us em folgende Grund abglehnt worde:"
+msgstr "Ihre Bestellung wurde aus folgenden Gründen abgelehnt:"
 
 #: app/views/mailer/order/received.text.plain.erb:1
 #: app/views/mailer/order/received.text.html.erb:9
-#, fuzzy
 msgid "Dear leihs manager,"
-msgstr "Liebe leihs-Benutzer,"
+msgstr "Liebe/r leihs-Manager/in"
 
 #: app/views/mailer/order/received.text.plain.erb:5
 #: app/views/mailer/order/received.text.html.erb:11
-#, fuzzy
 msgid ""
 "An order for the following items listed below was received in an inventory "
 "pool you are responsible for."
-msgstr "Ihri Bstellig vo de folgende Sache isch verschickt worde."
+msgstr "Eine Bestellung für die folgenden Gegenstände ist in einem Inventarpool eingegangen, für den Sie verantwortlich sind."
 
 #: app/views/mailer/order/received.text.plain.erb:14
 #: app/views/mailer/order/received.text.html.erb:22
 msgid ""
 "This order is still pending. Please log in to your leihs system and either "
 "approve or reject it."
-msgstr ""
+msgstr "Ihre Bestellung wurde aus folgenden Gründen abgelehnt:"
 
 #: app/views/mailer/order/received.text.plain.erb:16
 #: app/views/mailer/order/received.text.html.erb:24
 msgid ""
 "The user who placed this order has received a similar e-mail message "
 "informing them that the order first needs to be approved before it is valid."
-msgstr ""
+msgstr "Die Person, die diese Bestellung durchgeführt hat, erhielt ein ähnliches E-Mail und würde darüber informiert, dass die Bestellung erst gültig ist, wenn sie genehmigt wird."
 
 #: app/views/mailer/order/changed.text.plain.erb:5
 #: app/views/mailer/order/changed.text.html.erb:11
 msgid "but a few changes were made to it"
-msgstr "aber ma hät es paar Änderige gmacht"
+msgstr "aber es wurden einige Dinge daran verändert"
 
 #: app/views/mailer/order/changed.text.plain.erb:14
 #: app/views/mailer/order/changed.text.html.erb:20
 msgid "The order now looks like this:"
-msgstr "D'Bstellig gseht jetz so us:"
+msgstr "Ihre Bestellung sieht jetzt so aus:"
 
 #: app/views/orders/_pending.html.erb:4
 msgid "Pending orders"
-msgstr "Offeni Bstellige"
+msgstr "Offene Bestellungen"
 
 #: app/views/orders/_pending.html.erb:9
 msgid "Received at"
-msgstr "Empfange am"
+msgstr "Empfangen "
 
 #: app/views/orders/_pending.html.erb:34
 #: app/views/contracts/_signed.html.erb:37
@@ -3951,20 +3928,15 @@ msgid ""
 "make changes to it. Once this is done, you will be notified by e-mail. You "
 "can also see your order status on your personal page (click your name in the "
 "top right corner of this page)."
-msgstr ""
-"Ihri Bstellig isch an Inventar-Manager gschickt worde. De Inventar-Manager "
-"prüeft Ihri Bstellig und stimmt zue, lehnt ab oder änderet sie. Nachher "
-"werdet Sie via E-Mail informiert. Sie chönd de Status vo de Bstellig au uf "
-"Ihrere persönliche Siite gseh (klicked Sie obe rächts uf dere Siite uf Ihre "
-"Name)."
+msgstr "Ihre Bestellung wurde zur Bearbeitung an einen Inventarverwalter geschickt. Dieser wird sie überprüfen und entweder genehmigen, ablehnen oder verändern. Sobald dies passiert, werden Sie per E-Mail benachrichtigt. Sie können Ihre offenen Reservationen auch auf Ihrer persönlichen Liste abrufen (klicken Sie auf Ihren Namen, oben rechts auf dieser Seite)."
 
 #: app/views/orders/_submit.html.erb:11
 msgid "These are your current pending orders:"
-msgstr "Das sind Ihri offene Bstellige:"
+msgstr "Hier sind die Reservationen, die noch von einem Inventarverwalter bestätigt werden müssen:"
 
 #: app/views/orders/_submit.html.erb:20
 msgid "Details about the involved inventory pools"
-msgstr "Details zu de betroffene Gräteparks"
+msgstr "Details zu den vorkommenden Geräteparks"
 
 #: app/views/orders/_inventory_pool_details.html.erb:6
 msgid "YOU ARE SUSPENDED FOR THIS INVENTORY_POOL"
@@ -4220,13 +4192,13 @@ msgstr ""
 #: app/views/orders/value_list_for_models.pdf.prawn:103
 #: app/views/contracts/value_list_for_items.pdf.prawn:111
 msgid "This value list covers an order lasting from %s to %s."
-msgstr ""
+msgstr "Dieses Werteverzeichnis bezieht sich auf eine Bestellung für den Zeitraum %s bis %s."
 
 #: app/views/backend/contracts/value_list_for_models.pdf.prawn:112
 #: app/views/orders/value_list_for_models.pdf.prawn:107
 #: app/views/contracts/value_list_for_items.pdf.prawn:116
 msgid "All prices in %s."
-msgstr ""
+msgstr "Alle Preise in %s."
 
 #: app/views/contracts/show.pdf.prawn:43
 msgid "No purpose given."
@@ -4241,11 +4213,7 @@ msgid ""
 "This lending contract covers borrowing the following items by the person "
 "(natural or legal) described as 'borrowing party' below. Use of these items "
 "is only allowed for the purpose given below."
-msgstr ""
-"De Leihvertrag deckt d' Uusleihi vo de folgende Gegenständ dur di natürlich "
-"oder rächtlich Person ab, wo obe als 'Uusleihendi/e' bezeichnet isch. "
-"D'Verwändig vo de Gegenstände isch nur im Rahme vom une aangähne Zwäck "
-"gestattet."
+msgstr "Dieser Leihvertrag deckt die Ausleihe der folgenden Gegenstände durch die natürliche oder rechtliche Person ab, die oben als 'Ausleihende/r' bezeichnet ist. Die Verwendung der Gegenstände ist nur im Rahmen des unten angegebenen Zwecks gestattet."
 
 #: app/views/contracts/show.pdf.prawn:91
 msgid "Returned date"
@@ -4253,15 +4221,15 @@ msgstr "Rückgabedatum"
 
 #: app/views/contracts/show.pdf.prawn:140
 msgid "Purpose:"
-msgstr "Zwäck:"
+msgstr "Zweck:"
 
 #: app/views/contracts/show.pdf.prawn:144
 msgid "Additional notes:"
-msgstr "Wiiteri Bemerkige:"
+msgstr "Zusätzliche Notiz:"
 
 #: app/views/contracts/show.pdf.prawn:157
 msgid "Signature of borrower:"
-msgstr "Unterschrift vom/vode Uusleihende/i:"
+msgstr "Unterschrift des/der Ausleihenden:"
 
 #: app/views/contracts/show.pdf.prawn:167
 msgid "Signature of person taking back the item:"
