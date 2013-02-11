@@ -179,6 +179,9 @@ msgstr ""
 msgid "Back to this take back"
 msgstr ""
 
+msgid "Back to this hand over"
+msgstr ""
+
 msgid "Backend"
 msgstr ""
 

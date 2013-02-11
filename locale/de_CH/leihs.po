@@ -181,6 +181,9 @@ msgstr "Zurück"
 msgid "Back to this take back"
 msgstr "Zurück zu dieser Rücknahme"
 
+msgid "Back to this hand over"
+msgstr "Zurück zu dieser Aushändigung"
+
 msgid "Backend"
 msgstr "Backend"
 
