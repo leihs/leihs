@@ -526,6 +526,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Edit Model": [
+         null,
+         ""
+      ],
       "Edit Item": [
          null,
          ""

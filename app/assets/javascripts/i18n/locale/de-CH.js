@@ -536,6 +536,10 @@ window.i18n.locale_data = {
          null,
          "Editieren"
       ],
+      "Edit Model": [
+         null,
+         "Modell editieren"
+      ],
       "Edit Item": [
          null,
          "Gegenstand editieren"

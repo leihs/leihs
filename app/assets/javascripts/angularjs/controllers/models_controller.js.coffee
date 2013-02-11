@@ -20,7 +20,7 @@ ModelsEditCtrl = ($scope, $location, $routeParams, Model) ->
         internal_description: $scope.model.internal_description
         hand_over_note: $scope.model.hand_over_note
     , (response) ->
-      window.location = "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/models/#{$scope.model.id}"
+      window.location = "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/models"
 
 ModelsEditCtrl.$inject = ['$scope', '$location', '$routeParams', 'Model'];
 

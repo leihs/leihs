@@ -369,6 +369,9 @@ msgstr "FEHLER"
 msgid "Edit"
 msgstr "Editieren"
 
+msgid "Edit Model"
+msgstr "Modell editieren"
+
 msgid "Edit Item"
 msgstr "Gegenstand editieren"
 
