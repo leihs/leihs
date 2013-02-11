@@ -296,6 +296,10 @@ window.i18n.locale_data = {
          null,
          "Zurück zu dieser Rücknahme"
       ],
+      "Back to this hand over": [
+         null,
+         "Zurück zu dieser Aushändigung"
+      ],
       "Backend": [
          null,
          "Backend"
@@ -2393,10 +2397,6 @@ window.i18n.locale_data = {
       "no item selected": [
          null,
          "Kein Gegenstand ausgewählt"
-      ],
-      "Running Account": [
-         null,
-         "laufende Rechnung"
       ]
    }
 }
