@@ -2397,6 +2397,10 @@ window.i18n.locale_data = {
       "no item selected": [
          null,
          "Kein Gegenstand ausgewählt"
+      ],
+      "requested": [
+         null,
+         "angefragt"
       ]
    }
 }

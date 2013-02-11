@@ -1872,3 +1872,6 @@ msgstr "Felder auf Gegenstand anwenden"
 
 msgid "no item selected"
 msgstr "Kein Gegenstand ausgewählt"
+
+msgid "requested"
+msgstr "angefragt"
