@@ -20,15 +20,42 @@ Funktionalität: Gegenstand bearbeiten
   @javascript
   Szenario: Reihenfolge der Felder
     Angenommen man editiert einen Gegenstand
+    Wenn I check "Ausgemustert"
+    Wenn I choose "Investition"
     Dann sehe ich die Felder in folgender Reihenfolge:
     | Inventarcode |
-    #Allgemeine Informationen
+    | Modell |
+    | - Zustand - |
+    | Ausmusterung |
+    | Grund der Ausmusterung |
+    | Zustand |
+    | Vollständigkeit |
+    | Ausleihbar |
+    | - Inventar - |
+    | Inventarrelevant |
+    | Besitzer |
+    | Letzte Inventur |
+    | Verantwortliche Abteilung |
+    | Verantwortliche Person |
+    | Benutzer/Verwendung |
+    | - Umzug - |
+    | Umzug |
+    | Zielraum |
+    | - Toni Ankunftskontrolle - |
+    | Ankunftsdatum |
+    | Ankunftszustand |
+    | Ankunftsnotiz |
+    | - Allgemeine Informationen - |
     | Seriennummer |
     | MAC-Adresse |
     | IMEI-Nummer |
     | Name |
-    | Notizen |
-    #Rechnungsinformationen
+    | Notiz |
+    | - Ort - |
+    | Gebäude |
+    | Raum |
+    | Gestell |
+    | - Rechnungsinformationen - |
     | Bezug |
     | Projektnummer |
     | Rechnungsnummer |
@@ -36,29 +63,5 @@ Funktionalität: Gegenstand bearbeiten
     | Anschaffungswert |
     | Versicherungsnummer |
     | Lieferant |
-    | Gültigkeit Garantie |
-    | Gültigkeit Supportvertrag |
-    #Inventar
-    | Inventarrelevant |
-    | Besitzer |
-    | Letzte Inventur |
-    | Verantwortliche Abteilung |
-    | Verantwortliche Person |
-    | Benutzer/Verwendung |
-    #Ort
-    | Gebäude |
-    | Raum |
-    | Gestell |
-    #Zustand
-    | Ausmusterung |
-    | Grund der Ausmusterung |
-    | Zustand |
-    | Vollständigkeit |
-    | Ausleihbar |
-    #Umzug
-    | Umzug |
-    | Zielraum |
-    #Toni Ankunftskontrolle
-    | Ankunftsdatum |
-    | Ankunftszustand |
-    | Ankunftsnotiz |
+    | Garantieablaufdatum |
+    | Vertragsablaufdatum |

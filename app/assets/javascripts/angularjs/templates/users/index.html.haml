@@ -1,6 +1,6 @@
 .top
   %h1
-    {{_jed("List of %s Users", pagination.total_entries)}}
+    {{_jed("List of %d Users", pagination.total_entries)}}
     %img.loading.icon{:src => "/assets/loading.gif", "ng-show" => "isLoading"}
   %span{"ng-show" => "search"}
     {{_jed("Searching for %s", search)}}

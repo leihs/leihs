@@ -86,8 +86,8 @@ Funktionalität: Ausleihe
     Wenn eine Kategorie mehr als 3 Resultate bringt
     Dann kann ich wählen, ob ich aus einer Kategorie mehr Resultate sehen will
     Wenn ich mehr Resultate wähle
-    Dann sehe ich die ersten 10 Resultate
-    Wenn die Kategorie mehr als 10 Resultate bringt
+    Dann sehe ich die ersten 5 Resultate
+    Wenn die Kategorie mehr als 5 Resultate bringt
     Dann kann ich wählen, ob ich alle Resultate sehen will
     Wenn ich alle Resultate wähle erhalte ich eine separate Liste aller Resultate dieser Kategorie
 

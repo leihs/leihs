@@ -48,3 +48,10 @@ Wenn /^die nicht ausgefüllten\/ausgewählten Pflichtfelder sind rot markiert$/ 
     end
   end
 end
+
+Dann /^sehe ich die Felder in folgender Reihenfolge:$/ do |table|
+  values = table.raw.map do |x|
+    x.first.gsub(/^\-\ |\ \-$/, '')
+  end
+  (page.text =~ Regexp.new(values.join('.*'), Regexp::MULTILINE)).should_not be_nil
+end

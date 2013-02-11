@@ -8,10 +8,10 @@ msgstr ""
 "PO-Revision-Date: 2013-01-17 10:22+0100\n"
 "Last-Translator: Ramón Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "X-Launchpad-Export-Date: 2008-12-18 06:16+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 "X-Poedit-Language: German\n"
@@ -180,6 +180,9 @@ msgstr "Zurück"
 
 msgid "Back to this take back"
 msgstr "Zurück zu dieser Rücknahme"
+
+msgid "Back to this hand over"
+msgstr "Zurück zu dieser Aushändigung"
 
 msgid "Backend"
 msgstr "Backend"
@@ -478,7 +481,7 @@ msgid "History"
 msgstr "Geschichte"
 
 msgid "IMEI-Number"
-msgstr "IMEI-Nummmer"
+msgstr "IMEI-Nummer"
 
 msgid "Important notes for hand over"
 msgstr "Wichtige Notizen zur Aushändigung"
@@ -1179,8 +1182,8 @@ msgid ""
 "The following error happened while sending a notification email to %{email}:"
 "\\n"
 msgstr ""
-"Die folgenden Fehler sind aufgetreten beim Versuchn, eine Nachricht an %"
-"{email} zu schicken:\\n"
+"Die folgenden Fehler sind aufgetreten beim Versuchn, eine Nachricht an "
+"%{email} zu schicken:\\n"
 
 msgid ""
 "The following items are due to be returned tomorrow or need to be inspected "
@@ -1846,11 +1849,29 @@ msgstr "Unbekannt"
 msgid "New User"
 msgstr "Neuer Benutzer"
 
-msgid "List of %s Users"
-msgstr "Liste von %s Benutzern"
+msgid "List of %d Users"
+msgstr "Liste von %d Benutzern"
 
 msgid "Contract expiration"
 msgstr "Vertragsablaufdatum"
 
 msgid "Warranty expiration"
 msgstr "Garantieablaufdatum"
+
+msgid "Process multiple fields for multiple items in a row"
+msgstr ""
+
+msgid "Select Field"
+msgstr "Feld auswählen"
+
+msgid "no fields selected"
+msgstr "Keine Felder ausgewählt"
+
+msgid "Apply Fields on Item"
+msgstr "Felder auf Gegenstand anwenden"
+
+msgid "no item selected"
+msgstr "Kein Gegenstand ausgewählt"
+
+msgid "requested"
+msgstr "angefragt"

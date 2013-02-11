@@ -9,12 +9,12 @@
   %section.focused
     .list
     
-  - unless @results.blank?
+  - unless @json.blank?
     .pagination_container
     
 :coffeescript
   jQuery ->
-    results = #{search_results_json(@results, {:search_presets => [:user_search, :order_search, :contract_search, :model_search, :item_search, :option_search, :template_search]})}
+    results = #{@json}
     if results?
       for result in results 
         $('.list').append $.tmpl("tmpl/line", result)

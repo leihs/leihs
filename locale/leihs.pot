@@ -179,6 +179,9 @@ msgstr ""
 msgid "Back to this take back"
 msgstr ""
 
+msgid "Back to this hand over"
+msgstr ""
+
 msgid "Backend"
 msgstr ""
 
@@ -546,7 +549,7 @@ msgstr ""
 msgid "Inventory pool"
 msgstr ""
 
-msgid "Investition"
+msgid "Investment"
 msgstr ""
 
 msgid "Invoice Date"
@@ -1621,7 +1624,7 @@ msgstr ""
 msgid "jump to this date"
 msgstr ""
 
-msgid "laufende Rechnung"
+msgid "Running Account"
 msgstr ""
 
 msgid "more"
@@ -1777,11 +1780,29 @@ msgstr ""
 msgid "New User"
 msgstr ""
 
-msgid "List of %s Users"
+msgid "List of %d Users"
 msgstr ""
 
 msgid "Contract expiration"
 msgstr ""
 
 msgid "Warranty expiration"
+msgstr ""
+
+msgid "Process multiple fields for multiple items in a row"
+msgstr ""
+
+msgid "Select Field"
+msgstr ""
+
+msgid "no fields selected"
+msgstr ""
+
+msgid "Apply Fields on Item"
+msgstr ""
+
+msgid "no item selected"
+msgstr ""
+
+msgid "requested"
 msgstr ""

@@ -674,7 +674,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "IMEI-Nummmer": [
+      "IMEI-Nummer": [
          null,
          ""
       ],
@@ -2144,7 +2144,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "laufende Rechnung": [
+      "Running Account": [
          null,
          ""
       ],

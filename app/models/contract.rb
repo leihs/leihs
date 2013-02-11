@@ -59,7 +59,18 @@ class Contract < Document
 
   scope :search, lambda { |query|
     return scoped if query.blank?
-    
+
+    q = query.split.map{|s| "%#{s}%"}
+    model_fields = Model::SEARCHABLE_FIELDS.map{|f| "m.#{f}" }.join(', ')
+    user_fields = User::SEARCHABLE_FIELDS.map{|f| "u.#{f}" }.join(', ')
+    joins(%Q(INNER JOIN (SELECT c.id, CONCAT_WS(' ', c.id, c.note, #{model_fields}, #{user_fields}, o.name, i.inventory_code) as text
+                        FROM contracts AS c
+                          INNER JOIN users AS u ON u.id = c.user_id
+                          INNER JOIN (contract_lines AS cl
+                            LEFT JOIN (options AS o, models AS m, items AS i) ON (o.id = cl.option_id AND m.id = cl.model_id AND i.id = cl.item_id)) ON cl.contract_id = c.id
+                        GROUP BY id) AS full_text ON contracts.id = full_text.id)).
+        where(Arel::Table.new(:full_text)[:text].matches_all(q))
+=begin
     sql = select("DISTINCT contracts.*").
       joins("LEFT JOIN `users` ON `users`.`id` = `contracts`.`user_id`").
       joins("LEFT JOIN `contract_lines` ON `contract_lines`.`contract_id` = `contracts`.`id`").
@@ -80,6 +91,7 @@ class Contract < Document
                       or(Item.arel_table[:inventory_code].matches(qq)))
     }
     sql
+=end
   }
 
   def self.filter2(options)

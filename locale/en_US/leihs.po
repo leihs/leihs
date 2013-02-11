@@ -470,7 +470,7 @@ msgstr ""
 msgid "History"
 msgstr ""
 
-msgid "IMEI-Nummmer"
+msgid "IMEI-Nummer"
 msgstr ""
 
 msgid "Important notes for hand over"
@@ -1618,7 +1618,7 @@ msgstr ""
 msgid "jump to this date"
 msgstr ""
 
-msgid "laufende Rechnung"
+msgid "Running Account"
 msgstr ""
 
 msgid "more"
