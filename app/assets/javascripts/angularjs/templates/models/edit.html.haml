@@ -1,0 +1,65 @@
+%form.indent.css-form{:name => "form", :novalidate => ""}
+
+  .content_navigation
+    %a.button.red{:href => "/backend/inventory_pools/{{current_inventory_pool_id}}/models/{{model.id}}"}
+      {{_jed("Cancel Edit")}}
+    %button.button.green{"ng-click" => "save()", "ng-disabled" => "form.$invalid"}
+      {{_jed("Save %s", "Model")}}
+
+  .top
+    %h1
+      {{model.name}}
+
+
+  .left
+    %section
+      .inner
+        .field.text
+          %h3.key {{_jed("Name")}}:
+          .value{"ng-switch" => "model.is_editable"}
+            .input{"ng-switch-when" => "true"}
+              %input{:type => "text", "ng-model" => "model.name"}
+            .readonly{"ng-switch-when" => "false"}
+              %span {{model.name}}
+        .field.text
+          %h3.key {{_jed("Manufacturer")}}:
+          .value{"ng-switch" => "model.is_editable"}
+            .input{"ng-switch-when" => "true"}
+              %input{:type => "text", "ng-model" => "model.manufacturer"}
+            .readonly{"ng-switch-when" => "false"}
+              %span {{model.manufacturer}}
+        .field.text
+          %h3.key {{_jed("Description")}}:
+          .value{"ng-switch" => "model.is_editable"}
+            .input{"ng-switch-when" => "true"}
+              %textarea{"ng-model" => "model.description"}
+            .readonly{"ng-switch-when" => "false"}
+              %span {{model.description}}
+        .field.text
+          %h3.key {{_jed("Technical Details")}}:
+          .value{"ng-switch" => "model.is_editable"}
+            .input{"ng-switch-when" => "true"}
+              %textarea{"ng-model" => "model.technical_detail"}
+            .readonly{"ng-switch-when" => "false"}
+              %span {{model.technical_detail}}
+        .field.text
+          %h3.key {{_jed("Internal Description")}}:
+          .value{"ng-switch" => "model.is_editable"}
+            .input{"ng-switch-when" => "true"}
+              %textarea{"ng-model" => "model.internal_description"}
+            .readonly{"ng-switch-when" => "false"}
+              %span {{model.internal_description}}
+        .field.text
+          %h3.key {{_jed("Important notes for hand over")}}:
+          .value{"ng-switch" => "model.is_editable"}
+            .input{"ng-switch-when" => "true"}
+              %textarea{"ng-model" => "model.hand_over_note"}
+            .readonly{"ng-switch-when" => "false"}
+              %span {{model.hand_over_note}}
+
+
+  .right
+    %section
+      .inner
+  .clear
+
