@@ -8,6 +8,12 @@ class Backend::OptionsController < Backend::BackendController
 ######################################################################
   
   def show
+    respond_to do |format|
+      format.json {
+        render json: view_context.hash_for(@option, {:inventory_code => true,
+                                                     :price => true})
+      }
+    end
   end
   
   def new
@@ -21,11 +27,14 @@ class Backend::OptionsController < Backend::BackendController
   end
 
   def update
-    @option.update_attributes(params[:option])
-    if params[:source_path]
-      redirect_to params[:source_path]
-    else
-      redirect_to backend_inventory_pool_models_path(current_inventory_pool)
+    respond_to do |format|
+      format.json {
+        if @option.update_attributes(params[:option])
+          show
+        else
+          render :text => @option.errors.full_messages.uniq.join(", "), :status => :bad_request
+        end
+      }
     end
   end
 

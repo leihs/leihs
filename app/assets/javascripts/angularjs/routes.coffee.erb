@@ -1,7 +1,7 @@
 root = global ? window
 angular = root.angular
 
-app = angular.module("Leihs", ['users', 'models', 'filters', 'directives', 'ui']).config(['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) ->
+app = angular.module("Leihs", ['users', 'models', 'options', 'filters', 'directives', 'ui']).config(['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) ->
   #$locationProvider.hashPrefix('');
   $locationProvider.html5Mode true
   $routeProvider.when("/backend/inventory_pools/:inventory_pool_id/users",
@@ -13,6 +13,9 @@ app = angular.module("Leihs", ['users', 'models', 'filters', 'directives', 'ui']
   ).when("/backend/inventory_pools/:inventory_pool_id/models/:id/edit",
       controller: ModelsEditCtrl
       templateUrl: '<%= asset_path("angularjs/templates/models/edit.html") %>'
+  ).when("/backend/inventory_pools/:inventory_pool_id/options/:id/edit",
+      controller: OptionsEditCtrl
+      templateUrl: '<%= asset_path("angularjs/templates/options/edit.html") %>'
   )
 ]).run(['$location', '$rootElement', ($location, $rootElement) ->
     # http://stackoverflow.com/a/11785196/1966785

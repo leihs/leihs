@@ -375,6 +375,9 @@ msgstr "Modell editieren"
 msgid "Edit Item"
 msgstr "Gegenstand editieren"
 
+msgid "Edit Option"
+msgstr "Option editieren"
+
 msgid "Edit Order"
 msgstr "Bestellung editieren"
 

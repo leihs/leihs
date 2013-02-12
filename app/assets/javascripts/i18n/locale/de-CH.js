@@ -544,6 +544,10 @@ window.i18n.locale_data = {
          null,
          "Gegenstand editieren"
       ],
+      "Edit Option": [
+        null,
+        "Option editieren"
+      ],
       "Edit Order": [
          null,
          "Bestellung editieren"
