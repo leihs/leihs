@@ -55,11 +55,11 @@ Funktionalität: Inventarhelfer
     Dann sind die Änderungen widerrufen
     Und man sieht alle ursprünglichen Werte des Gegenstandes in der Übersicht
 
-  @javascript
-  Szenario: Bei Fehler Linien farblich kennzeichnen
-    Angenommen man editiert ein Gerät über den Helferschirm
-    Und möchte Felder ändern, für die man keine Berechtigung hat
-    Dann werden die ausgewählten Felder die geändert werden dürfen und diejenigen die nicht geändert werden dürfen farblich gekennzeichnet
+#  @javascript
+#  Szenario: Bei Fehler Linien farblich kennzeichnen
+#    Angenommen man editiert ein Gerät über den Helferschirm
+#    Und möchte Felder ändern, für die man keine Berechtigung hat
+#    Dann werden die ausgewählten Felder die geändert werden dürfen und diejenigen die nicht geändert werden dürfen farblich gekennzeichnet
 
 
 
