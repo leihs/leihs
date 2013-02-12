@@ -169,3 +169,13 @@ Funktionalität: Inventar
     Und kann Bilder auch wieder entfernen
     Und zu grosse Bilder werden den erlaubten Grössen entsprechend verkleinert
     Und ich speichere das Modell
+
+  @javascript
+  Szenario: Optionen bearbeiten
+    Dann bearbeite ich eine Option
+    Und ich ändere die folgenden Details
+    | Name              |
+    | Preis             |
+    | Barcode           |
+    Und ich speichere die Option
+    Und die Option ist gespeichert
