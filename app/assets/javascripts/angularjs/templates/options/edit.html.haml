@@ -1,0 +1,43 @@
+%form.indent.css-form{:name => "form", :novalidate => ""}
+
+  .content_navigation
+    %a.button.red{:href => "/backend/inventory_pools/{{current_inventory_pool_id}}/models"}
+      {{_jed("Cancel Edit")}}
+    %button.button.green{"ng-click" => "save()", "ng-disabled" => "form.$invalid"}
+      {{_jed("Save %s", "Option")}}
+
+  .top
+    %h1
+      {{option.name}}
+
+  .left
+    %section
+      .inner
+        .field
+          %h3.key {{_jed("Name")}}:
+          .value{"ng-switch" => "option.is_editable"}
+            .input{"ng-switch-when" => "true"}
+              %input{:type => "text", "ng-model" => "option.name"}
+            .readonly{"ng-switch-when" => "false"}
+              %span {{option.name}}
+        .field
+          %h3.key {{_jed("Price")}}:
+          .value{"ng-switch" => "option.is_editable"}
+            .input{"ng-switch-when" => "true"}
+              %input{:type => "text", "ng-model" => "option.price"}
+            .readonly{"ng-switch-when" => "false"}
+              %span {{option.price}}
+
+  .right
+    %section
+      .inner
+        .field
+          %h3.key {{_jed("Barcode")}}:
+          .value{"ng-switch" => "option.is_editable"}
+            .input{"ng-switch-when" => "true"}
+              %textarea{"ng-model" => "option.inventory_code"}
+            .readonly{"ng-switch-when" => "false"}
+              %span {{option.inventory_code}}
+
+  .clear
+

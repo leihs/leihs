@@ -534,6 +534,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Edit Option": [
+         null,
+         ""
+      ],
       "Edit Order": [
          null,
          ""
