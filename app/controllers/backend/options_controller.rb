@@ -17,8 +17,7 @@ class Backend::OptionsController < Backend::BackendController
   end
   
   def new
-    @option = Option.new
-    render :action => 'show'
+    render :action => 'edit'
   end
   
   def create
