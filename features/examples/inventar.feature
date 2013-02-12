@@ -135,15 +135,24 @@ Funktionalität: Inventar
   @javascript
   Szenario: Modellzubehör bearbeiten
     Dann bearbeite ich ein Modell
-    Dann erfasse ich eines oder mehrere Zubehöre
-    | Zubehörname                  |
+    Und ich sehe alle Zubehöre für dieses Modell
+    Und sehe, welche Zubehöre für meinen Pool aktiviert sind 
+    Und ich erfasse eines oder mehrere Zubehöre
+    | Zubehörname    |
     Und schreibt falls notwendig die Anzahl ins Textfeld
+    Und das neu hinzugefügte Zubehör ist aktiv für aktuellen Pool
     Und ich speichere das Modell
   
 @javascript
   Szenario: Modellzubehör löschen
     Dann bearbeite ich ein Modell
-    Dann kann ich einzelne Zubehöre löschen
+    Dann kann ich ein einzelnes Zubehör löschen, wenn es für keinen Pool aktiviert ist
+    Und ich speichere das Modell
+
+@javascript
+  Szenario: Modellzubehör deaktivieren
+    Dann bearbeite ich ein Modell
+    Dann kann ich ein einzelnes Zubehör für meinen Pool deaktivieren
     Und ich speichere das Modell
 
   @javascript
