@@ -14,7 +14,7 @@ module Json
       end
       
       if with ||= nil
-        [:image_thumb, :description, :is_package, :hand_over_note].each do |k|
+        [:image_thumb, :description, :technical_detail, :internal_description, :is_package, :hand_over_note].each do |k|
           h[k] = model.send(k) if with[k]
         end
         
@@ -60,6 +60,11 @@ module Json
             h[:availability_for_user] = model.availability_periods_for_user(customer_user)
           end
           
+        end
+
+        #tmp# TODO remove this when using permissions
+        if with[:is_editable]
+          h[:is_editable] = is_privileged_user?
         end
       end
       

@@ -660,3 +660,9 @@ msgstr ""
 
 msgid "you cannot hand out lines with unassigned inventory codes"
 msgstr ""
+
+msgid "Option"
+msgstr ""
+
+msgid "Options"
+msgstr ""

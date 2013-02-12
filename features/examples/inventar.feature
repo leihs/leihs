@@ -95,3 +95,87 @@ Funktionalität: Inventar
   Szenario: Export der aktuellen Ansicht als CSV
     Dann kann man diese Daten als CSV-Datei exportieren
     Und die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden (inkl. Filter)
+
+  @javascript
+  Szenario: Übersicht neues Modell erstellen
+  Und ich erstelle ein neues Modell
+  Dann habe ich die Möglichkeit, Details, Zubehör, Attachment und Bilder zu erfassen
+
+  @javascript
+  Szenario: Modelldetails abfüllen
+    Dann erstelle ich ein neues Modell
+    Und erfasse die folgenden Details
+    | Modellbezeichnung                  |
+    | Hersteller                         |
+    | Beschreibung                       |
+    | Technische Details                 |
+    | Interne Beschreibung               |
+    | Wichtige Notizen zur Aushändigung  |
+    Und ich speichere die Information
+    Und ein neues Modell ist erstellt
+
+  @javascript
+  Szenario: Modell erstellen nur mit Name
+  Und ich speichere ein Modell
+  Dann wird das Modell nur gespeichert, wenn es einen eindeutigen Namen hat
+
+  @javascript
+  Szenario: Modelldetails bearbeiten
+    Dann bearbeite ich ein Modell
+    Und ich ändere die folgenden Details
+    | Modellbezeichnung                  |
+    | Hersteller                         |
+    | Beschreibung                       |
+    | Technische Details                 |
+    | Interne Beschreibung               |
+    | Wichtige Notizen zur Aushändigung  |
+    Und ich speichere die Information
+    Und die Informationen sind gespeichert
+
+  @javascript
+  Szenario: Modellzubehör bearbeiten
+    Dann bearbeite ich ein Modell
+    Und ich sehe alle Zubehöre für dieses Modell
+    Und sehe, welche Zubehöre für meinen Pool aktiviert sind 
+    Und ich erfasse eines oder mehrere Zubehöre
+    | Zubehörname    |
+    Und schreibt falls notwendig die Anzahl ins Textfeld
+    Und das neu hinzugefügte Zubehör ist aktiv für aktuellen Pool
+    Und ich speichere das Modell
+  
+@javascript
+  Szenario: Modellzubehör löschen
+    Dann bearbeite ich ein Modell
+    Dann kann ich ein einzelnes Zubehör löschen, wenn es für keinen Pool aktiviert ist
+    Und ich speichere das Modell
+
+@javascript
+  Szenario: Modellzubehör deaktivieren
+    Dann bearbeite ich ein Modell
+    Dann kann ich ein einzelnes Zubehör für meinen Pool deaktivieren
+    Und ich speichere das Modell
+
+  @javascript
+  Szenario: Attachments erstellen
+    Und ich erstelle ein neues Modell oder ich ändere ein bestehendes Modell
+    Dann füge ich eine oder mehrere Datein hinzu
+    Und kann Dateien auch wieder entfernen
+    Und ich speichere das Modell
+
+  @javascript
+  Szenario: Bilder
+    Und ich erstelle ein neues Modell oder ich ändere ein bestehendes Modell
+    Dann füge ich ein Bild hinzu
+    Und kann Bilder auch wieder entfernen
+    Und zu grosse Bilder werden den erlaubten Grössen entsprechend verkleinert
+    Und ich speichere das Modell
+
+  @javascript
+  Szenario: Optionen bearbeiten
+    Dann bearbeite ich eine Option
+    Und ich ändere die folgenden Details
+    | Name              |
+    | Preis             |
+    | Barcode           |
+    Und ich speichere die Option
+    Und die Option ist gespeichert

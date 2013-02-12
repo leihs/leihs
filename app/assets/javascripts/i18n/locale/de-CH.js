@@ -296,6 +296,10 @@ window.i18n.locale_data = {
          null,
          "Zurück zu dieser Rücknahme"
       ],
+      "Back to this hand over": [
+         null,
+         "Zurück zu dieser Aushändigung"
+      ],
       "Backend": [
          null,
          "Backend"
@@ -531,6 +535,10 @@ window.i18n.locale_data = {
       "Edit": [
          null,
          "Editieren"
+      ],
+      "Edit Model": [
+         null,
+         "Modell editieren"
       ],
       "Edit Item": [
          null,
@@ -780,7 +788,7 @@ window.i18n.locale_data = {
          null,
          "Gerätepark"
       ],
-      "Investition": [
+      "Investment": [
          null,
          "Investition"
       ],
@@ -2154,9 +2162,9 @@ window.i18n.locale_data = {
          null,
          "zu diesem Datum springen"
       ],
-      "laufende Rechnung": [
+      "Running Account": [
          null,
-         ""
+         "laufende Rechnung"
       ],
       "more": [
          null,
@@ -2376,7 +2384,7 @@ window.i18n.locale_data = {
       ],
       "Process multiple fields for multiple items in a row": [
          null,
-         ""
+         "Mehrere Felder für mehrere Geräte nacheinander bearbeiten"
       ],
       "Select Field": [
          null,
@@ -2394,9 +2402,21 @@ window.i18n.locale_data = {
          null,
          "Kein Gegenstand ausgewählt"
       ],
-      "Running Account": [
+      "requested": [
          null,
-         "laufende Rechnung"
+         "angefragt"
+      ],
+      "Option": [
+         null,
+         "Option"
+      ],
+      "Options": [
+         null,
+         "Optionen"
+      ],
+      "Inventory Helper": [
+         null,
+         "Inventarhelfer"
       ]
    }
 }

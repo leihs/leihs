@@ -526,6 +526,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Edit Model": [
+         null,
+         ""
+      ],
       "Edit Item": [
          null,
          ""
@@ -2144,7 +2148,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "laufende Rechnung": [
+      "Running Account": [
          null,
          ""
       ],
@@ -2317,6 +2321,14 @@ window.i18n.locale_data = {
          ""
       ],
       "you cannot hand out lines with unassigned inventory codes": [
+         null,
+         ""
+      ],
+      "Option": [
+         null,
+         ""
+      ],
+      "Options": [
          null,
          ""
       ]

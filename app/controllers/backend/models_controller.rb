@@ -119,7 +119,18 @@ class Backend::ModelsController < Backend::BackendController
   end
 
   def show
-   # redirect_to :action => 'package', :layout => params[:layout] if @model.is_package?
+    respond_to do |format|
+      format.html {
+        #old leihs# redirect_to :action => 'package', :layout => params[:layout] if @model.is_package?
+      }
+      format.json {
+        render json: view_context.hash_for(@model, {:is_editable => true,
+                                                    :description => true,
+                                                    :technical_detail => true,
+                                                    :internal_description => true,
+                                                    :hand_over_note => true})
+      }
+    end
   end
 
   def new
@@ -158,13 +169,15 @@ class Backend::ModelsController < Backend::BackendController
   end
 
   def update
-    #old leihs#
-    #if @model.update_attributes(params[:model])
-    #  redirect_to details_backend_inventory_pool_model_path(current_inventory_pool, @model)
-    #else
-    #  flash[:error] = _("Couldn't update ")
-    #  render :action => 'details' # TODO 24** redirect to the correct tabbed form
-    #end
+    respond_to do |format|
+      format.json {
+        if @model.update_attributes(params[:model])
+          show
+        else
+          render :text => @model.errors.full_messages.uniq.join(", "), :status => :bad_request
+        end
+      }
+    end
   end
 
   # only for destroying compatibles (the "compatible" route maps to this models controller)

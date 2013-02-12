@@ -179,6 +179,9 @@ msgstr ""
 msgid "Back to this take back"
 msgstr ""
 
+msgid "Back to this hand over"
+msgstr ""
+
 msgid "Backend"
 msgstr ""
 
@@ -357,6 +360,9 @@ msgid "ERROR"
 msgstr ""
 
 msgid "Edit"
+msgstr ""
+
+msgid "Edit Model"
 msgstr ""
 
 msgid "Edit Item"
@@ -546,7 +552,7 @@ msgstr ""
 msgid "Inventory pool"
 msgstr ""
 
-msgid "Investition"
+msgid "Investment"
 msgstr ""
 
 msgid "Invoice Date"
@@ -1621,7 +1627,7 @@ msgstr ""
 msgid "jump to this date"
 msgstr ""
 
-msgid "laufende Rechnung"
+msgid "Running Account"
 msgstr ""
 
 msgid "more"
@@ -1799,4 +1805,16 @@ msgid "Apply Fields on Item"
 msgstr ""
 
 msgid "no item selected"
+msgstr ""
+
+msgid "requested"
+msgstr ""
+
+msgid "Option"
+msgstr ""
+
+msgid "Options"
+msgstr ""
+
+msgid "Inventory Helper"
 msgstr ""

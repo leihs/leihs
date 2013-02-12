@@ -181,6 +181,9 @@ msgstr "Zurück"
 msgid "Back to this take back"
 msgstr "Zurück zu dieser Rücknahme"
 
+msgid "Back to this hand over"
+msgstr "Zurück zu dieser Aushändigung"
+
 msgid "Backend"
 msgstr "Backend"
 
@@ -365,6 +368,9 @@ msgstr "FEHLER"
 
 msgid "Edit"
 msgstr "Editieren"
+
+msgid "Edit Model"
+msgstr "Modell editieren"
 
 msgid "Edit Item"
 msgstr "Gegenstand editieren"
@@ -557,8 +563,7 @@ msgstr "Invetarcode aktualisiert"
 msgid "Inventory pool"
 msgstr "Gerätepark"
 
-#, fuzzy
-msgid "Investition"
+msgid "Investment"
 msgstr "Investition"
 
 msgid "Invoice Date"
@@ -1689,8 +1694,8 @@ msgstr "kein Gegenstand zugeordnet"
 msgid "jump to this date"
 msgstr "zu diesem Datum springen"
 
-msgid "laufende Rechnung"
-msgstr ""
+msgid "Running Account"
+msgstr "laufende Rechnung"
 
 msgid "more"
 msgstr "weitere"
@@ -1857,7 +1862,7 @@ msgid "Warranty expiration"
 msgstr "Garantieablaufdatum"
 
 msgid "Process multiple fields for multiple items in a row"
-msgstr ""
+msgstr "Mehrere Felder für mehrere Geräte nacheinander bearbeiten"
 
 msgid "Select Field"
 msgstr "Feld auswählen"
@@ -1871,5 +1876,14 @@ msgstr "Felder auf Gegenstand anwenden"
 msgid "no item selected"
 msgstr "Kein Gegenstand ausgewählt"
 
-msgid "Running Account"
-msgstr "laufende Rechnung"
+msgid "requested"
+msgstr "angefragt"
+
+msgid "Option"
+msgstr "Option"
+
+msgid "Options"
+msgstr "Optionen"
+
+msgid "Inventory Helper"
+msgstr "Inventarhelfer"
