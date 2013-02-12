@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.12'
 
 gem 'mysql2', '~> 0.3.11', :platform => :mri_19
 gem 'activerecord-jdbcmysql-adapter', :platform => :jruby
@@ -56,6 +56,9 @@ end
 group :development do
   gem 'thin', :platform => :mri_19 # web server (Webrick do not support keep-alive connections)
   gem 'trinidad', :platform => :jruby # web server (Webrick do not support keep-alive connections)
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'meta_request'
 
   # This gem only provides the 'gettext:find' task, which is buggy with HTML, and the 'gettext:pack' task,
   # which we no longer need.
