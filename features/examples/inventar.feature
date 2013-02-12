@@ -97,8 +97,13 @@ Funktionalität: Inventar
     Und die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden (inkl. Filter)
 
   @javascript
-  Szenario: Modell erstellen
-    Dann habe ich in der Übersicht die Möglichkeit ein neues Modell zu erstellen
+  Szenario: Übersicht neues Modell erstellen
+  Und ich erstelle ein neues Modell
+  Dann habe ich die Möglichkeit, Details, Zubehör, Attachment und Bilder zu erfassen
+
+  @javascript
+  Szenario: Modelldetails abfüllen
+    Dann erstelle ich ein neues Modell
     Und erfasse die folgenden Details
     | Modellbezeichnung                  |
     | Hersteller                         |
@@ -110,8 +115,13 @@ Funktionalität: Inventar
     Und ein neues Modell ist erstellt
 
   @javascript
-  Szenario: Modell bearbeiten
-    Dann habe ich in der Übersicht die Möglichkeit ein existierendes Modell zu ändern
+  Szenario: Modell erstellen nur mit Name
+  Und ich speichere ein Modell
+  Dann wird das Modell nur gespeichert, wenn es einen eindeutigen Namen hat
+
+  @javascript
+  Szenario: Modelldetails bearbeiten
+    Dann bearbeite ich ein Modell
     Und ich ändere die folgenden Details
     | Modellbezeichnung                  |
     | Hersteller                         |
@@ -122,29 +132,31 @@ Funktionalität: Inventar
     Und ich speichere die Information
     Und die Informationen sind gespeichert
 
- @javascript
-  Szenario: Zubehör erfassen
-    Und ich erstelle ein neues Modell oder ich ändere ein bestehendes Modell
-    Dann erfasse oder lösche ich eines oder mehrere Zubehöre
-    Und beim Erfassen definiere ich dessen Anzahl
+  @javascript
+  Szenario: Modellzubehör bearbeiten
+    Dann bearbeite ich ein Modell
+    Dann erfasse ich eines oder mehrere Zubehöre
+    | Zubehörname                  |
+    Und schreibt falls notwendig die Anzahl ins Textfeld
+    Und ich speichere das Modell
+  
+@javascript
+  Szenario: Modellzubehör löschen
+    Dann bearbeite ich ein Modell
+    Dann kann ich einzelne Zubehöre löschen
+    Und ich speichere das Modell
 
   @javascript
-  Szenario: Attachments
+  Szenario: Attachments erstellen
     Und ich erstelle ein neues Modell oder ich ändere ein bestehendes Modell
-    Dann füge ich eine Datei hinzu
-    Und wähle ob diese Datei auch im Frontend oder nur im Backend sichtbar ist
-    Und ich kann einen Alternativnamen für die Datei bestimmen
+    Dann füge ich eine oder mehrere Datein hinzu
     Und kann Dateien auch wieder entfernen
-    Und kann bereits bestehende Dateien herunterladen oder öffnen
-    Und kann die Reihenfolge der Dateien bestimmen
+    Und ich speichere das Modell
 
   @javascript
   Szenario: Bilder
     Und ich erstelle ein neues Modell oder ich ändere ein bestehendes Modell
     Dann füge ich ein Bild hinzu
-    Und wähle ob dieses auch im Frontend oder nur im Backend sichtbar ist
     Und kann Bilder auch wieder entfernen
-    Und kann bereits bestehende Bilder herunterladen oder ansehen
-    Und kann die Reihenfolge der Dateien bestimmen
-    Und es wird verhindert, ein zu kleines Bild hochzuladen
     Und zu grosse Bilder werden den erlaubten Grössen entsprechend verkleinert
+    Und ich speichere das Modell
