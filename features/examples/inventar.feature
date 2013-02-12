@@ -99,11 +99,7 @@ Funktionalität: Inventar
   @javascript
   Szenario: Modell erstellen
     Dann habe ich in der Übersicht die Möglichkeit ein neues Modell zu erstellen
-
-  @javascript
-  Szenario: Details erfassen
-    Und ich erstelle ein neues Modell oder ich ändere ein bestehendes Modell
-    Dann erfasse oder ändere ich die folgenden Details
+    Und erfasse die folgenden Details
     | Modellbezeichnung                  |
     | Hersteller                         |
     | Beschreibung                       |
@@ -111,6 +107,20 @@ Funktionalität: Inventar
     | Interne Beschreibung               |
     | Wichtige Notizen zur Aushändigung  |
     Und ich speichere die Information
+    Und ein neues Modell ist erstellt
+
+  @javascript
+  Szenario: Modell bearbeiten
+    Dann habe ich in der Übersicht die Möglichkeit ein existierendes Modell zu ändern
+    Und ich ändere die folgenden Details
+    | Modellbezeichnung                  |
+    | Hersteller                         |
+    | Beschreibung                       |
+    | Technische Details                 |
+    | Interne Beschreibung               |
+    | Wichtige Notizen zur Aushändigung  |
+    Und ich speichere die Information
+    Und die Informationen sind gespeichert
 
  @javascript
   Szenario: Zubehör erfassen
