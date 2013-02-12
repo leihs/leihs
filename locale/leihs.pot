@@ -1815,3 +1815,6 @@ msgstr ""
 
 msgid "Options"
 msgstr ""
+
+msgid "Inventory Helper"
+msgstr ""

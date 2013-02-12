@@ -527,8 +527,8 @@ window.i18n.locale_data = {
          ""
       ],
       "Edit Model": [
-          null,
-          ""
+         null,
+         ""
       ],
       "Edit Item": [
          null,

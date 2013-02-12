@@ -2324,10 +2324,6 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Option": [
-         null,
-         ""
-      ],
       "Options": [
          null,
          ""

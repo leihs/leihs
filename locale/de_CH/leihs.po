@@ -1862,7 +1862,7 @@ msgid "Warranty expiration"
 msgstr "Garantieablaufdatum"
 
 msgid "Process multiple fields for multiple items in a row"
-msgstr ""
+msgstr "Mehrere Felder für mehrere Geräte nacheinander bearbeiten"
 
 msgid "Select Field"
 msgstr "Feld auswählen"
@@ -1884,3 +1884,6 @@ msgstr "Option"
 
 msgid "Options"
 msgstr "Optionen"
+
+msgid "Inventory Helper"
+msgstr "Inventarhelfer"

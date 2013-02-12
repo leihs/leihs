@@ -2384,7 +2384,7 @@ window.i18n.locale_data = {
       ],
       "Process multiple fields for multiple items in a row": [
          null,
-         ""
+         "Mehrere Felder für mehrere Geräte nacheinander bearbeiten"
       ],
       "Select Field": [
          null,
@@ -2407,12 +2407,16 @@ window.i18n.locale_data = {
          "angefragt"
       ],
       "Option": [
-        null,
-        "Option"
+         null,
+         "Option"
       ],
       "Options": [
-        null,
-        "Optionen"
+         null,
+         "Optionen"
+      ],
+      "Inventory Helper": [
+         null,
+         "Inventarhelfer"
       ]
    }
 }
