@@ -35,7 +35,7 @@
           %h3.key {{_jed("Barcode")}}:
           .value{"ng-switch" => "option.is_editable"}
             .input{"ng-switch-when" => "true"}
-              %textarea{"ng-model" => "option.inventory_code"}
+              %input{:type => "text", "ng-model" => "option.inventory_code"}
             .readonly{"ng-switch-when" => "false"}
               %span {{option.inventory_code}}
 
