@@ -84,6 +84,12 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
+msgid "Add Model"
+msgstr ""
+
+msgid "Add Option"
+msgstr ""
+
 msgid "Add Purpose"
 msgstr ""
 

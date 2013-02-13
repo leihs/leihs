@@ -84,6 +84,12 @@ msgstr "Genehmigen"
 msgid "Add"
 msgstr "Hinzufügen"
 
+msgid "Add Model"
+msgstr "Modell hinzufügen"
+
+msgid "Add Option"
+msgstr "Option hinzufügen"
+
 msgid "Add Purpose"
 msgstr "Zweck hinzufügen"
 
