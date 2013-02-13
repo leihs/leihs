@@ -270,9 +270,10 @@ Dann /^man kann Optionen erstellen$/ do
     name: factory_attributes[:name],
     price: factory_attributes[:price]
   }
-  response = post backend_inventory_pool_options_path(@inventory_pool), option: attributes
-  response.should be_redirect
-  URI.parse(response.location).path.should == backend_inventory_pool_models_path(@inventory_pool)
+  response = post backend_inventory_pool_options_path(@inventory_pool, format: :json), option: attributes
+  response.should be_successful
+  json = JSON.parse response.body
+  Option.exists?(json["id"]).should be_true
   Option.count.should == c+1
 end
 
