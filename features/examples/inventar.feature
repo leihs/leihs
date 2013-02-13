@@ -171,11 +171,23 @@ Funktionalität: Inventar
     Und ich speichere das Modell
 
   @javascript
-  Szenario: Optionen bearbeiten
-    Dann bearbeite ich eine Option
+  Szenario: Option hinzufügen
+    Wenn ich eine Option bearbeite
+    Und ich ändere die folgenden Details
+    | Feld        | Wert         |
+    | Name        | Test Modell  |
+    | Preis       | 50           |
+    | Barcode     | Test Barcode |
+    Und ich speichere die Option
+    Dann die Option ist gespeichert
+
+  @javascript
+  Szenario: Option bearbeiten
+    Wenn ich eine Option bearbeite
     Und ich ändere die folgenden Details
     | Name              |
     | Preis             |
     | Barcode           |
     Und ich speichere die Option
-    Und die Option ist gespeichert
+    Dann die Option ist gespeichert
+    Und die Daten wurden entsprechend aktualisiert

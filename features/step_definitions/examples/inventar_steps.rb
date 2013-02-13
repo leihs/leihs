@@ -375,3 +375,27 @@ end
 Dann /^die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden \(inkl\. Filter\)$/ do
   # not testable without an bigger amount of work
 end
+
+Wenn /^ich eine Option bearbeite$/ do
+  page.execute_script("$('.content_navigation .arrow').trigger('mouseover');")
+  click_link "Option hinzufügen"
+end
+
+Und /^ich ändere die folgenden Details$/ do |table|
+  # table is a Cucumber::Ast::Table
+  @table_hashes = table.hashes
+  @table_hashes.each do |row|
+    f = find(".key", text: row["Feld"] + ":")
+    f.find(:xpath, "./..//input").set row["Wert"]
+  end
+end
+
+Und /^ich speichere die Option$/ do
+  step 'I press "Option speichern"'
+end
+
+Dann /^die Option ist gespeichert$/ do
+  search_string = @table_hashes.detect {|h| h["Feld"] == "Name"}["Wert"]
+  find_field('query').set search_string
+  step 'I should see "%s"' % search_string
+end
