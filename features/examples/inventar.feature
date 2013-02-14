@@ -172,10 +172,10 @@ Funktionalität: Inventar
 
   @javascript
   Szenario: Option hinzufügen
-    Wenn ich eine Option bearbeite
+    Wenn ich eine Option hinzufüge
     Und ich ändere die folgenden Details
     | Feld        | Wert         |
-    | Name        | Test Modell  |
+    | Name        | Test Option  |
     | Preis       | 50           |
     | Barcode     | Test Barcode |
     Und ich speichere die Option
@@ -183,11 +183,12 @@ Funktionalität: Inventar
 
   @javascript
   Szenario: Option bearbeiten
-    Wenn ich eine Option bearbeite
+    Wenn ich eine bestehende Option bearbeite
     Und ich ändere die folgenden Details
-    | Name              |
-    | Preis             |
-    | Barcode           |
+    | Feld        | Wert           |
+    | Name        | Test Option x  |
+    | Preis       | 51             |
+    | Barcode     | Test Barcode x |
     Und ich speichere die Option
     Dann die Option ist gespeichert
     Und die Daten wurden entsprechend aktualisiert

@@ -376,7 +376,7 @@ Dann /^die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden \(ink
   # not testable without an bigger amount of work
 end
 
-Wenn /^ich eine Option bearbeite$/ do
+Wenn /^ich eine Option hinzufüge$/ do
   page.execute_script("$('.content_navigation .arrow').trigger('mouseover');")
   click_link "Option hinzufügen"
 end
@@ -396,6 +396,42 @@ end
 
 Dann /^die Option ist gespeichert$/ do
   search_string = @table_hashes.detect {|h| h["Feld"] == "Name"}["Wert"]
-  find_field('query').set search_string
+  step 'ich nach der Option "%s" suche' % search_string
   step 'I should see "%s"' % search_string
+end
+
+Dann /^die Daten wurden entsprechend aktualisiert$/ do
+  search_string = @table_hashes.detect {|h| h["Feld"] == "Name"}["Wert"]
+
+  step 'ich nach der Option "%s" suche' % search_string
+  sleep(5)
+  step 'I should see "%s"' % search_string
+  click_link("%s" % _("Edit Option"))
+
+  @table_hashes.each do |row|
+    field_name = row["Feld"]
+    field_value = row["Wert"]
+
+    f = find(".key", text: field_name + ":")
+    value_in_field = f.find(:xpath, "./..//input").value
+
+    if field_name == "Preis"
+      field_value = field_value.to_i
+      value_in_field = value_in_field.to_i
+    end
+
+    field_value.should eq value_in_field
+  end
+
+  click_link("%s" % _("Cancel Edit")).should eq "ok"
+end
+
+Wenn /^ich nach der Option "(.*)" suche$/ do |option_name|
+  find_field('query').set option_name
+end
+
+Wenn /^ich eine bestehende Option bearbeite$/ do
+  option_name = Option.all.first.name
+  step 'ich nach der Option "%s" suche' % option_name
+  click_link("%s" % _("Edit Option"))
 end
