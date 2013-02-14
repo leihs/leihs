@@ -10,46 +10,45 @@
     %h1
       {{model.name}}
 
-
   .left
     %section
       .inner
-        .field.text
+        .field
           %h3.key {{_jed("Name")}}:
           .value{"ng-switch" => "model.is_editable"}
             .input{"ng-switch-when" => "true"}
               %input{:type => "text", "ng-model" => "model.name"}
             .readonly{"ng-switch-when" => "false"}
               %span {{model.name}}
-        .field.text
+        .field
           %h3.key {{_jed("Manufacturer")}}:
           .value{"ng-switch" => "model.is_editable"}
             .input{"ng-switch-when" => "true"}
               %input{:type => "text", "ng-model" => "model.manufacturer"}
             .readonly{"ng-switch-when" => "false"}
               %span {{model.manufacturer}}
-        .field.text
+        .field
           %h3.key {{_jed("Description")}}:
           .value{"ng-switch" => "model.is_editable"}
             .input{"ng-switch-when" => "true"}
               %textarea{"ng-model" => "model.description"}
             .readonly{"ng-switch-when" => "false"}
               %span {{model.description}}
-        .field.text
+        .field
           %h3.key {{_jed("Technical Details")}}:
           .value{"ng-switch" => "model.is_editable"}
             .input{"ng-switch-when" => "true"}
               %textarea{"ng-model" => "model.technical_detail"}
             .readonly{"ng-switch-when" => "false"}
               %span {{model.technical_detail}}
-        .field.text
+        .field
           %h3.key {{_jed("Internal Description")}}:
           .value{"ng-switch" => "model.is_editable"}
             .input{"ng-switch-when" => "true"}
               %textarea{"ng-model" => "model.internal_description"}
             .readonly{"ng-switch-when" => "false"}
               %span {{model.internal_description}}
-        .field.text
+        .field
           %h3.key {{_jed("Important notes for hand over")}}:
           .value{"ng-switch" => "model.is_editable"}
             .input{"ng-switch-when" => "true"}

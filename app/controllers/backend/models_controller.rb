@@ -73,7 +73,7 @@ class Backend::ModelsController < Backend::BackendController
       format.html
       format.json {
         item_ids = scoped_items.select("items.id")
-        models = Model.joins(:items).where("items.id IN (#{item_ids.to_sql})")
+        models = Model #tmp# show all models ?? # .joins(:items).where("items.id IN (#{item_ids.to_sql})")
                   .select("DISTINCT models.*")
                   .search(query, [:name, :items])
                   .order("#{sort_attr} #{sort_dir}")
@@ -120,9 +120,6 @@ class Backend::ModelsController < Backend::BackendController
 
   def show
     respond_to do |format|
-      format.html {
-        #old leihs# redirect_to :action => 'package', :layout => params[:layout] if @model.is_package?
-      }
       format.json {
         render json: view_context.hash_for(@model, {:is_editable => true,
                                                     :description => true,
@@ -134,9 +131,7 @@ class Backend::ModelsController < Backend::BackendController
   end
 
   def new
-    #old leihs#
-    #@model = Model.new
-    #render :action => 'details'
+    render :action => 'edit'
   end
   
   def create
@@ -159,8 +154,8 @@ class Backend::ModelsController < Backend::BackendController
     not_authorized! unless is_privileged_user? # TODO before_filter for :create
     respond_to do |format|
       format.json {
-        if model = Model.create(params[:model])
-          render json: view_context.json_for(model)
+        if @model = Model.create(params[:model])
+          show
         else
           render :text => model.errors.full_messages.uniq.join(", "), :status => :bad_request
         end

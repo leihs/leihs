@@ -1,3 +1,29 @@
+ModelsCreateCtrl = ($scope, $location, $routeParams, Model) ->
+  $scope.current_inventory_pool_id = $routeParams.inventory_pool_id
+
+  $scope.model = new Model()
+  $scope.model.is_editable = true #tmp# TODO remove this when using permissions
+
+  $scope.save = ->
+    Model.save
+      inventory_pool_id: $scope.current_inventory_pool_id
+      model:
+        name: $scope.model.name
+        manufacturer: $scope.model.manufacturer
+        description: $scope.model.description
+        technical_detail: $scope.model.technical_detail
+        internal_description: $scope.model.internal_description
+        hand_over_note: $scope.model.hand_over_note
+    , (response) ->
+      window.location = "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/models"
+
+  # TODO dry
+  $scope.setFile = (element) ->
+    $scope.$apply ($scope) ->
+      $scope.model.attachments = element.files
+
+
+
 
 ModelsEditCtrl = ($scope, $location, $routeParams, Model) ->
   $scope.current_inventory_pool_id = $routeParams.inventory_pool_id
@@ -22,8 +48,17 @@ ModelsEditCtrl = ($scope, $location, $routeParams, Model) ->
     , (response) ->
       window.location = "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/models"
 
+  # TODO dry
+  $scope.setFile = (element) ->
+    $scope.$apply ($scope) ->
+      $scope.model.attachments = element.files
+
+
+
+ModelsCreateCtrl.$inject = ['$scope', '$location', '$routeParams', 'Model'];
 ModelsEditCtrl.$inject = ['$scope', '$location', '$routeParams', 'Model'];
 
 # exports
 root = global ? window
+root.ModelsCreateCtrl   = ModelsCreateCtrl
 root.ModelsEditCtrl   = ModelsEditCtrl
