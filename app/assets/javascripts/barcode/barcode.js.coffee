@@ -43,9 +43,11 @@ class Barcode
     if target.is(":not(:focus)") and @known_prefix[prefix]? and (typeof(@[@known_prefix[prefix]]) == "function")
       @[@known_prefix[prefix]].call @, code
       return true
-    # execute code input and submit
+    # execute code input
     $(target).val("").val code
-    $(target).closest("form").submit()
+    # submit only if not prevented
+    unless target.closest(".prevent-scanner-submit").length
+      $(target).closest("form").submit()
   
   @open_contract: (id)->
     loading_dialog = Dialog.add

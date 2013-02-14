@@ -57,7 +57,7 @@ UsersEditCtrl = ($scope, $location, $routeParams, User) ->
     response.access_right.suspended_until = new Date(Date.parse(response.access_right.suspended_until)) if response.access_right.suspended_until?
     $scope.user = new User(response)
 
-  $scope.save = ->
+  $scope.submit = ->
     User.update
       inventory_pool_id: $scope.current_inventory_pool_id
       id: $scope.user.id
