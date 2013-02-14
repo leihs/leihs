@@ -10,6 +10,9 @@ app = angular.module("Leihs", ['users', 'models', 'options', 'filters', 'directi
   ).when("/backend/inventory_pools/:inventory_pool_id/users/:id/edit",
       controller: UsersEditCtrl
       templateUrl: '<%= asset_path("angularjs/templates/users/edit.html") %>'
+  ).when("/backend/inventory_pools/:inventory_pool_id/models/new",
+      controller: ModelsCreateCtrl
+      templateUrl: '<%= asset_path("angularjs/templates/models/edit.html") %>'
   ).when("/backend/inventory_pools/:inventory_pool_id/models/:id/edit",
       controller: ModelsEditCtrl
       templateUrl: '<%= asset_path("angularjs/templates/models/edit.html") %>'
