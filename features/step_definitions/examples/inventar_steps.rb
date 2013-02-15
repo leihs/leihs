@@ -376,35 +376,45 @@ Dann /^die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden \(ink
   # not testable without an bigger amount of work
 end
 
-Wenn /^ich eine Option hinzufüge$/ do
-  page.execute_script("$('.content_navigation .arrow').trigger('mouseover');")
-  click_link "Option hinzufügen"
+Wenn /^ich eine? neue[sr]? (.+) hinzufüge$/ do |entity|
+  page.execute_script("$('.content_navigation .arrow').trigger('mouseover');") if entity == "Option"
+  click_link "#{entity} hinzufügen"
 end
 
-Und /^ich ändere die folgenden Details$/ do |table|
+Und /^ich (?:erfasse|ändere) die folgenden Details$/ do |table|
   # table is a Cucumber::Ast::Table
   @table_hashes = table.hashes
   @table_hashes.each do |row|
     f = find(".key", text: row["Feld"] + ":")
-    f.find(:xpath, "./..//input").set row["Wert"]
+    f.find(:xpath, "./..//input | ./..//textarea") .set row["Wert"]
   end
 end
 
-Und /^ich speichere die Option$/ do
-  step 'I press "Option speichern"'
+Und /^ich speichere die Informationen/ do
+  path_array_reversed = current_path.split("/").reverse
+  model_name = case path_array_reversed.first
+               when "new"
+                 path_array_reversed[1].chomp("s")
+               when "edit"
+                 path_array_reversed[2].chomp("s")
+               else
+                 raise UnspecifiedAction
+               end
+  step 'I press "%s"' % (_("Save %s") % model_name.capitalize)
 end
 
-Dann /^die Option ist gespeichert$/ do
+Dann /^die Informationen sind gespeichert$/ do
   search_string = @table_hashes.detect {|h| h["Feld"] == "Name"}["Wert"]
-  step 'ich nach der Option "%s" suche' % search_string
+  step 'ich nach "%s" suche' % search_string
+  wait_until { all(".loading", :visible => true).empty? }
   step 'I should see "%s"' % search_string
 end
 
 Dann /^die Daten wurden entsprechend aktualisiert$/ do
   search_string = @table_hashes.detect {|h| h["Feld"] == "Name"}["Wert"]
 
-  step 'ich nach der Option "%s" suche' % search_string
-  sleep(5)
+  step 'ich nach "%s" suche' % search_string
+  wait_until { all(".loading", :visible => true).empty? }
   step 'I should see "%s"' % search_string
   click_link("%s" % _("Edit Option"))
 
@@ -426,12 +436,16 @@ Dann /^die Daten wurden entsprechend aktualisiert$/ do
   click_link("%s" % _("Cancel Edit")).should eq "ok"
 end
 
-Wenn /^ich nach der Option "(.*)" suche$/ do |option_name|
+Wenn /^ich nach "(.+)" suche$/ do |option_name|
   find_field('query').set option_name
 end
 
 Wenn /^ich eine bestehende Option bearbeite$/ do
   option_name = Option.all.first.name
-  step 'ich nach der Option "%s" suche' % option_name
+  step 'ich nach "%s" suche' % option_name
   click_link("%s" % _("Edit Option"))
+end
+
+Dann /^(?:die|das|der) neue[sr]? (?:.+) ist erstellt$/ do
+  step "die Informationen sind gespeichert"
 end
