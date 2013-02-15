@@ -97,22 +97,23 @@ Funktionalität: Inventar
     Und die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden (inkl. Filter)
 
   @javascript
-  Szenario: Übersicht neues Modell erstellen
-  Und ich erstelle ein neues Modell
+  Szenario: Übersicht neues Modell hinzufügen
+  Wenn ich ein neues Modell hinzufüge
   Dann habe ich die Möglichkeit, Details, Zubehör, Attachment und Bilder zu erfassen
 
   @javascript
   Szenario: Modelldetails abfüllen
-    Dann erstelle ich ein neues Modell
-    Und erfasse die folgenden Details
-    | Modellbezeichnung                  |
-    | Hersteller                         |
-    | Beschreibung                       |
-    | Technische Details                 |
-    | Interne Beschreibung               |
-    | Wichtige Notizen zur Aushändigung  |
-    Und ich speichere die Information
-    Und ein neues Modell ist erstellt
+    Wenn ich ein neues Modell hinzufüge
+    Und ich erfasse die folgenden Details
+    | Feld                               | Wert                       |
+    | Name                               | Test Modell                |
+    | Hersteller                         | Test Hersteller            |
+    | Beschreibung                       | Test Beschreibung          |
+    | Technische Details                 | Test Technische Details    |
+    | Interne Beschreibung               | Test Interne Beschreibung  |
+    | Wichtige Notizen zur Aushändigung  | Test Notizen               |
+    Und ich speichere die Informationen
+    Dann das neue Modell ist erstellt
 
   @javascript
   Szenario: Modell erstellen nur mit Name
@@ -123,12 +124,13 @@ Funktionalität: Inventar
   Szenario: Modelldetails bearbeiten
     Dann bearbeite ich ein Modell
     Und ich ändere die folgenden Details
-    | Modellbezeichnung                  |
-    | Hersteller                         |
-    | Beschreibung                       |
-    | Technische Details                 |
-    | Interne Beschreibung               |
-    | Wichtige Notizen zur Aushändigung  |
+    | Feld                               | Wert                         |
+    | Name                               | Test Modell x                |
+    | Hersteller                         | Test Hersteller x            |
+    | Beschreibung                       | Test Beschreibung x          |
+    | Technische Details                 | Test Technische Details x    |
+    | Interne Beschreibung               | Test Interne Beschreibung x  |
+    | Wichtige Notizen zur Aushändigung  | Test Notizen x               |
     Und ich speichere die Information
     Und die Informationen sind gespeichert
 
@@ -172,23 +174,23 @@ Funktionalität: Inventar
 
   @javascript
   Szenario: Option hinzufügen
-    Wenn ich eine Option hinzufüge
+    Wenn ich eine neue Option hinzufüge
     Und ich ändere die folgenden Details
     | Feld        | Wert         |
     | Name        | Test Option  |
     | Preis       | 50           |
     | Barcode     | Test Barcode |
-    Und ich speichere die Option
-    Dann die Option ist gespeichert
+    Und ich speichere die Informationen
+    Dann die neue Option ist erstellt
 
   @javascript
   Szenario: Option bearbeiten
     Wenn ich eine bestehende Option bearbeite
-    Und ich ändere die folgenden Details
+    Und ich erfasse die folgenden Details
     | Feld        | Wert           |
     | Name        | Test Option x  |
     | Preis       | 51             |
     | Barcode     | Test Barcode x |
-    Und ich speichere die Option
-    Dann die Option ist gespeichert
+    Und ich speichere die Informationen
+    Dann die Informationen sind gespeichert
     Und die Daten wurden entsprechend aktualisiert
