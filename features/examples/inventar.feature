@@ -117,8 +117,11 @@ Funktionalität: Inventar
 
   @javascript
   Szenario: Modell erstellen nur mit Name
-  Und ich speichere ein Modell
-  Dann wird das Modell nur gespeichert, wenn es einen eindeutigen Namen hat
+    Wenn ich ein neues Modell hinzufüge
+    Und ich einen Namen eines existierenden Modelles eingebe
+    Und ich speichere die Informationen
+    Dann wird das Modell nicht gespeichert, da es keinen eindeutigen Namen hat
+    Und sehe ich eine Fehlermeldung
 
   @javascript
   Szenario: Modelldetails bearbeiten
