@@ -392,15 +392,20 @@ end
 
 Und /^ich speichere die Informationen/ do
   path_array_reversed = current_path.split("/").reverse
-  model_name = case path_array_reversed.first
-               when "new"
-                 path_array_reversed[1].chomp("s")
-               when "edit"
-                 path_array_reversed[2].chomp("s")
-               else
-                 raise UnspecifiedAction
-               end
-  step 'I press "%s"' % (_("Save %s") % model_name.capitalize)
+  @model_name_from_url = case path_array_reversed.first
+                         when "new"
+                           path_array_reversed[1].chomp("s")
+                         when "edit"
+                           path_array_reversed[2].chomp("s")
+                         else
+                           raise UnspecifiedAction
+                         end
+  step 'I press "%s"' % (_("Save %s") % @model_name_from_url.capitalize)
+  step "ensure there are no active requests"
+end
+
+Dann /^ensure there are no active requests$/ do
+  wait_until {page.evaluate_script(%Q{jQuery.active}) == 0}
 end
 
 Dann /^die Informationen sind gespeichert$/ do
@@ -449,3 +454,15 @@ end
 Dann /^(?:die|das|der) neue[sr]? (?:.+) ist erstellt$/ do
   step "die Informationen sind gespeichert"
 end
+
+Wenn /^ich einen Namen eines existierenden Modelles eingebe$/ do
+  existing_model_name = Model.all.first.name
+  step %{ich ändere die folgenden Details}, table(%{
+    | Feld    | Wert                   |
+    | Name    | #{existing_model_name} | })
+end
+
+Dann /^wird das Modell nicht gespeichert, da es keinen eindeutigen Namen hat$/ do
+  step 'I should see "%s"' % (_("Save %s") % @model_name_from_url.capitalize)
+end
+
