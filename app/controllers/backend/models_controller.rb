@@ -154,10 +154,11 @@ class Backend::ModelsController < Backend::BackendController
     not_authorized! unless is_privileged_user? # TODO before_filter for :create
     respond_to do |format|
       format.json {
-        if @model = Model.create(params[:model])
+        @model = Model.new(params[:model])
+        if @model.save
           show
         else
-          render :text => model.errors.full_messages.uniq.join(", "), :status => :bad_request
+          render :text => @model.errors.full_messages.uniq.join(", "), :status => :bad_request
         end
       }
     end

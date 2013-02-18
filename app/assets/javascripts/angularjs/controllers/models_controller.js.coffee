@@ -16,6 +16,11 @@ ModelsCreateCtrl = ($scope, $location, $routeParams, Model) ->
         hand_over_note: $scope.model.hand_over_note
     , (response) ->
       window.location = "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/models"
+    , (response) ->
+      Notification.add_headline
+        title: _jed('Error')
+        text: response.data
+        type: 'error'
 
   # TODO dry
   $scope.setFile = (element) ->
