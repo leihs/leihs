@@ -118,10 +118,18 @@ Funktionalität: Inventar
   @javascript
   Szenario: Modell erstellen nur mit Name
     Wenn ich ein neues Modell hinzufüge
-    Und ich einen Namen eines existierenden Modelles eingebe
+    Und ich speichere die Informationen
+    Dann wird das Modell nicht gespeichert, da es keinen Namen hat
+    Und sehe ich eine Fehlermeldung
+    Wenn ich einen Namen eines existierenden Modelles eingebe
     Und ich speichere die Informationen
     Dann wird das Modell nicht gespeichert, da es keinen eindeutigen Namen hat
-    Und sehe ich eine Fehlermeldung
+    Und ich sehe eine Fehlermeldung
+    Wenn ich die folgenden Details ändere
+    | Feld                               | Wert                         |
+    | Name                               | Test Modell y                |
+    Und ich speichere die Informationen
+    Dann das neue Modell ist erstellt
 
   @javascript
   Szenario: Modelldetails bearbeiten
