@@ -381,7 +381,7 @@ Wenn /^ich eine? neue[sr]? (.+) hinzufüge$/ do |entity|
   click_link "#{entity} hinzufügen"
 end
 
-Und /^ich (?:erfasse|ändere) die folgenden Details$/ do |table|
+Und /^ich (?:erfasse|ändere)? ?die folgenden Details ?(?:erfasse|ändere)?$/ do |table|
   # table is a Cucumber::Ast::Table
   @table_hashes = table.hashes
   @table_hashes.each do |row|
@@ -453,6 +453,17 @@ end
 
 Dann /^(?:die|das|der) neue[sr]? (?:.+) ist erstellt$/ do
   step "die Informationen sind gespeichert"
+end
+
+Wenn /^ich einen Namen eines existierenden Modelles eingebe$/ do
+  existing_model_name = Model.all.first.name
+  step %{ich ändere die folgenden Details}, table(%{
+    | Feld    | Wert                   |
+    | Name    | #{existing_model_name} | })
+end
+
+Dann /^wird das Modell nicht gespeichert, da es keinen (?:eindeutigen\s)?Namen hat$/ do
+  step 'I should see "%s"' % (_("Save %s") % @model_name_from_url.capitalize)
 end
 
 Wenn /^ich einen Namen eines existierenden Modelles eingebe$/ do
