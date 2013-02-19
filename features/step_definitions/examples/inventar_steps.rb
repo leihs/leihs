@@ -465,15 +465,3 @@ end
 Dann /^wird das Modell nicht gespeichert, da es keinen (?:eindeutigen\s)?Namen hat$/ do
   step 'I should see "%s"' % (_("Save %s") % @model_name_from_url.capitalize)
 end
-
-Wenn /^ich einen Namen eines existierenden Modelles eingebe$/ do
-  existing_model_name = Model.all.first.name
-  step %{ich ändere die folgenden Details}, table(%{
-    | Feld    | Wert                   |
-    | Name    | #{existing_model_name} | })
-end
-
-Dann /^wird das Modell nicht gespeichert, da es keinen eindeutigen Namen hat$/ do
-  step 'I should see "%s"' % (_("Save %s") % @model_name_from_url.capitalize)
-end
-
