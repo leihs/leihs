@@ -1195,6 +1195,10 @@
 
   msgstr("Empfohlenes Zubehör");
 
+  msgid("Accessories");
+
+  msgstr("Zubehör");
+
   msgid("Reject");
 
   msgstr("Ablehnen");

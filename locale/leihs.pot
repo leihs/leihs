@@ -939,6 +939,9 @@ msgstr ""
 msgid "Recommended Accessories"
 msgstr ""
 
+msgid "Accessories"
+msgstr ""
+
 msgid "Reject"
 msgstr ""
 
@@ -1826,4 +1829,19 @@ msgid "Options"
 msgstr ""
 
 msgid "Inventory Helper"
+msgstr ""
+
+msgid "Select Image"
+msgstr ""
+
+msgid "Select File"
+msgstr ""
+
+msgid "Images"
+msgstr ""
+
+msgid "Attachments"
+msgstr ""
+
+msgid "undo"
 msgstr ""

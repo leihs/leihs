@@ -16,4 +16,14 @@ class Accessory < ActiveRecord::Base
 
   validates_presence_of :name
 
+  def inventory_pool_ids_add=(id)
+    self.inventory_pool_ids += [id]
+  end
+
+  def inventory_pool_ids_remove=(id)
+    self.inventory_pool_ids -= [id]
+  end
+
+  attr_writer :is_deletable
+
 end

@@ -150,3 +150,21 @@ span {
   &.lightgrey {color: $lightgrey;}
   &.red {color: $red;}
 }
+
+.hidden {
+  display: none;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
+.stroke {
+  text-decoration: line-through !important;
+}
+
+.opacity-hidden {
+  height: 100%;
+  position: absolute;
+  @include opacity(0);
+}

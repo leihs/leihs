@@ -99,7 +99,11 @@ Funktionalität: Inventar
   @javascript
   Szenario: Übersicht neues Modell hinzufügen
   Wenn ich ein neues Modell hinzufüge
-  Dann habe ich die Möglichkeit, Details, Zubehör, Attachment und Bilder zu erfassen
+  Dann habe ich die Möglichkeit, folgende Informationen zu erfassen:
+    | Details      |
+    | Zubehör      |
+    | Attachment   |
+    | Bilder       |
 
   @javascript
   Szenario: Modelldetails abfüllen
@@ -133,7 +137,7 @@ Funktionalität: Inventar
 
   @javascript
   Szenario: Modelldetails bearbeiten
-    Dann bearbeite ich ein Modell
+    Wenn ich ein bestehendes Modell bearbeite
     Und ich ändere die folgenden Details
     | Feld                               | Wert                         |
     | Name                               | Test Modell x                |
@@ -142,46 +146,45 @@ Funktionalität: Inventar
     | Technische Details                 | Test Technische Details x    |
     | Interne Beschreibung               | Test Interne Beschreibung x  |
     | Wichtige Notizen zur Aushändigung  | Test Notizen x               |
-    Und ich speichere die Information
+    Und ich speichere die Informationen
     Und die Informationen sind gespeichert
+    Und die Daten wurden entsprechend aktualisiert
 
   @javascript
   Szenario: Modellzubehör bearbeiten
-    Dann bearbeite ich ein Modell
-    Und ich sehe alle Zubehöre für dieses Modell
-    Und sehe, welche Zubehöre für meinen Pool aktiviert sind 
-    Und ich erfasse eines oder mehrere Zubehöre
-    | Zubehörname    |
-    Und schreibt falls notwendig die Anzahl ins Textfeld
-    Und das neu hinzugefügte Zubehör ist aktiv für aktuellen Pool
-    Und ich speichere das Modell
+    Wenn ich ein bestehendes Modell bearbeite welches bereits Zubehör hat
+    Dann ich sehe das gesamte Zubehöre für dieses Modell
+    Und ich sehe, welches Zubehör für meinen Pool aktiviert ist
+    Wenn ich Zubehör hinzufüge und falls notwendig die Anzahl des Zubehör ins Textfeld schreibe
+    Und ich speichere die Informationen
+    Dann ist das Zubehör dem Modell hinzugefügt worden
   
-@javascript
+  @javascript
   Szenario: Modellzubehör löschen
-    Dann bearbeite ich ein Modell
-    Dann kann ich ein einzelnes Zubehör löschen, wenn es für keinen Pool aktiviert ist
-    Und ich speichere das Modell
+    Wenn ich ein bestehendes Modell bearbeite welches bereits Zubehör hat
+    Dann kann ich ein einzelnes Zubehör löschen, wenn es für keinen anderen Pool aktiviert ist
 
-@javascript
+  @javascript
   Szenario: Modellzubehör deaktivieren
-    Dann bearbeite ich ein Modell
+    Wenn ich ein bestehendes Modell bearbeite welches bereits Zubehör hat
     Dann kann ich ein einzelnes Zubehör für meinen Pool deaktivieren
-    Und ich speichere das Modell
 
   @javascript
   Szenario: Attachments erstellen
     Und ich erstelle ein neues Modell oder ich ändere ein bestehendes Modell
-    Dann füge ich eine oder mehrere Datein hinzu
-    Und kann Dateien auch wieder entfernen
-    Und ich speichere das Modell
+    Dann füge ich eine oder mehrere Datein den Attachments hinzu
+    Und kann Attachments auch wieder entfernen
+    Und ich speichere die Informationen
+    Dann sind die Attachments gespeichert
 
   @javascript
   Szenario: Bilder
-    Und ich erstelle ein neues Modell oder ich ändere ein bestehendes Modell
-    Dann füge ich ein Bild hinzu
-    Und kann Bilder auch wieder entfernen
+    Wenn ich ein bestehendes Modell bearbeite
+    Dann kann ich mehrere Bilder hinzufügen
+    Und ich kann Bilder auch wieder entfernen
+    Und ich speichere das Modell mit Bilder
+    Dann wurden die ausgewählten Bilder für dieses Modell gespeichert
     Und zu grosse Bilder werden den erlaubten Grössen entsprechend verkleinert
-    Und ich speichere das Modell
 
   @javascript
   Szenario: Option hinzufügen

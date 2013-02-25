@@ -167,9 +167,6 @@ Leihs::Application.routes.draw do
           get :images
           post :images
           delete :images
-          get :attachments
-          post :attachments
-          delete :attachments
           post :set_group_partition
 #leihs2#end# 
         end

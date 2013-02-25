@@ -125,7 +125,10 @@ class Backend::ModelsController < Backend::BackendController
                                                     :description => true,
                                                     :technical_detail => true,
                                                     :internal_description => true,
-                                                    :hand_over_note => true})
+                                                    :hand_over_note => true,
+                                                    :images => {},
+                                                    :attachments => {},
+                                                    :accessories => {}})
       }
     end
   end
@@ -135,25 +138,15 @@ class Backend::ModelsController < Backend::BackendController
   end
   
   def create
-    #old leihs#
-    #if @model and params[:compatible][:model_id]
-    #  @compatible_model = current_inventory_pool.models.find(params[:compatible][:model_id])
-    #  unless @model.compatibles.include?(@compatible_model)
-    #    @model.compatibles << @compatible_model
-    #    flash[:notice] = _("Model successfully added as compatible")
-    #  else
-    #    flash[:error] = _("The model is already compatible")
-    #  end
-    #  redirect_to :action => 'index', :model_id => @model
-    #else
-    #  not_authorized! unless is_privileged_user? # TODO before_filter for :create
-    #  @model = Model.new
-    #  update
-    #end
-
     not_authorized! unless is_privileged_user? # TODO before_filter for :create
     respond_to do |format|
       format.json {
+        # TODO DRY
+        params[:model][:accessories_attributes].each_pair do |k, v|
+          m = v.delete(:active) ? :inventory_pool_ids_add : :inventory_pool_ids_remove
+          v[m] = current_inventory_pool.id
+        end if params[:model][:accessories_attributes]
+
         @model = Model.new(params[:model])
         if @model.save
           show
@@ -167,6 +160,12 @@ class Backend::ModelsController < Backend::BackendController
   def update
     respond_to do |format|
       format.json {
+        # TODO DRY
+        params[:model][:accessories_attributes].each_pair do |k, v|
+          m = v.delete(:active) ? :inventory_pool_ids_add : :inventory_pool_ids_remove
+          v[m] = current_inventory_pool.id
+        end if params[:model][:accessories_attributes]
+
         if @model.update_attributes(params[:model])
           show
         else
@@ -360,20 +359,6 @@ class Backend::ModelsController < Backend::BackendController
       end
     elsif request.delete?
       @model.images.destroy(params[:image_id])
-    end
-  end
-
-  def attachments
-    if request.post?
-      @attachment = Attachment.new(params[:attachment])
-      @attachment.model = @model
-      if @attachment.save
-        flash[:notice] = _("Attachment was successfully created.")
-      else
-        flash[:error] = _("Upload error.")
-      end
-    elsif request.delete?
-      @model.attachments.destroy(params[:attachment_id])
     end
   end
 

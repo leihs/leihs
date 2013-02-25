@@ -954,6 +954,9 @@ msgstr "Grund der Ausmusterung"
 msgid "Recommended Accessories"
 msgstr "Empfohlenes Zubehör"
 
+msgid "Accessories"
+msgstr "Zubehör"
+
 msgid "Reject"
 msgstr "Ablehnen"
 
@@ -1896,3 +1899,18 @@ msgstr "Optionen"
 
 msgid "Inventory Helper"
 msgstr "Inventarhelfer"
+
+msgid "Select Image"
+msgstr "Bild auswählen"
+
+msgid "Select File"
+msgstr "Datei auswählen"
+
+msgid "Images"
+msgstr "Bilder"
+
+msgid "Attachments"
+msgstr "Anhänge"
+
+msgid "undo"
+msgstr "rückgängig"

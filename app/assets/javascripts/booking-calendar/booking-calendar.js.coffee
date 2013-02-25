@@ -226,6 +226,7 @@ class BookingCalendar
       day_el = $(day_el)
       date = @getDateByElement day_el
       @resetDay day_el
+      day_el.attr "data-date", moment(date).format("YYYY-MM-DD")
       # history date or future/today
       if date < moment().sod().toDate()
         day_el.addClass "history"
