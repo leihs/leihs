@@ -59,9 +59,15 @@ class Model < ActiveRecord::Base
   has_many :order_lines
   has_many :contract_lines
   has_many :properties, :dependent => :destroy
+
   has_many :accessories, :dependent => :destroy
+  accepts_nested_attributes_for :accessories, :allow_destroy => true
+
   has_many :images, :dependent => :destroy
+  accepts_nested_attributes_for :images, :allow_destroy => true
+
   has_many :attachments, :dependent => :destroy
+  accepts_nested_attributes_for :attachments, :allow_destroy => true
 
   # ModelGroups
   has_many :model_links, :dependent => :destroy

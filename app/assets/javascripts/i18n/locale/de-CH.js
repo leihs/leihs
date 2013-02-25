@@ -553,8 +553,8 @@ window.i18n.locale_data = {
          "Gegenstand editieren"
       ],
       "Edit Option": [
-        null,
-        "Option editieren"
+         null,
+         "Option editieren"
       ],
       "Edit Order": [
          null,
@@ -1296,6 +1296,10 @@ window.i18n.locale_data = {
       "Recommended Accessories": [
          null,
          "Empfohlenes Zubehör"
+      ],
+      "Accessories": [
+         null,
+         "Zubehör"
       ],
       "Reject": [
          null,
@@ -2429,6 +2433,26 @@ window.i18n.locale_data = {
       "Inventory Helper": [
          null,
          "Inventarhelfer"
+      ],
+      "Select Image": [
+         null,
+         "Bild auswählen"
+      ],
+      "Select File": [
+         null,
+         "Datei auswählen"
+      ],
+      "Images": [
+         null,
+         "Bilder"
+      ],
+      "Attachments": [
+         null,
+         "Anhänge"
+      ],
+      "undo": [
+         null,
+         "rückgängig"
       ]
    }
 }

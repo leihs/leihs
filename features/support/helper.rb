@@ -110,14 +110,7 @@ end
 ##############################################################
 
 def get_fullcalendar_day_element(date)
-  wait_until {
-    today_element = find(".fc-today .fc-day-number", :text => /^#{Date.today.day}$/).find(:xpath, "./../..")
-    if today_element[:class].match(/fc-other-month/).nil?
-      all(".fc-widget-content:not(.history) .fc-day-number", :text => /^#{date.day}$/).first
-    else
-      all(".fc-widget-content.fc-other-month:not(.history) .fc-day-number", :text => /^#{date.day}$/).last
-    end
-  }
+  wait_until { all("[data-date='#{date}']").first }
 end
 
 def type_into_autocomplete(selector, value)

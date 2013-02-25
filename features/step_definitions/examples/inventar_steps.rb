@@ -391,17 +391,11 @@ Und /^ich (?:erfasse|ändere)? ?die folgenden Details ?(?:erfasse|ändere)?$/ do
 end
 
 Und /^ich speichere die Informationen/ do
-  path_array_reversed = current_path.split("/").reverse
-  @model_name_from_url = case path_array_reversed.first
-                         when "new"
-                           path_array_reversed[1].chomp("s")
-                         when "edit"
-                           path_array_reversed[2].chomp("s")
-                         else
-                           raise UnspecifiedAction
-                         end
+  @model_name_from_url = get_rails_model_name_from_url
+  @model_id = (Rails.application.routes.recognize_path current_path)[:id].to_i
   step 'I press "%s"' % (_("Save %s") % @model_name_from_url.capitalize)
   step "ensure there are no active requests"
+  #wait_until { all(".loading", :visible => true).empty? }
 end
 
 Dann /^ensure there are no active requests$/ do
@@ -417,18 +411,17 @@ end
 
 Dann /^die Daten wurden entsprechend aktualisiert$/ do
   search_string = @table_hashes.detect {|h| h["Feld"] == "Name"}["Wert"]
+  find("a", :text => Regexp.new(_("Edit"),"i")).click
 
-  step 'ich nach "%s" suche' % search_string
-  wait_until { all(".loading", :visible => true).empty? }
-  step 'I should see "%s"' % search_string
-  click_link("%s" % _("Edit Option"))
+  # check that the same model was modified
+  (Rails.application.routes.recognize_path current_path)[:id].to_i.should eq @model_id
 
   @table_hashes.each do |row|
     field_name = row["Feld"]
     field_value = row["Wert"]
 
     f = find(".key", text: field_name + ":")
-    value_in_field = f.find(:xpath, "./..//input").value
+    value_in_field = f.find(:xpath, "./..//input | ./..//textarea").value
 
     if field_name == "Preis"
       field_value = field_value.to_i
@@ -438,17 +431,32 @@ Dann /^die Daten wurden entsprechend aktualisiert$/ do
     field_value.should eq value_in_field
   end
 
-  click_link("%s" % _("Cancel Edit")).should eq "ok"
+  click_link("%s" % _("Cancel Edit"))
+  current_path.should eq @page_to_return
 end
 
 Wenn /^ich nach "(.+)" suche$/ do |option_name|
   find_field('query').set option_name
 end
 
-Wenn /^ich eine bestehende Option bearbeite$/ do
-  option_name = Option.all.first.name
-  step 'ich nach "%s" suche' % option_name
-  click_link("%s" % _("Edit Option"))
+Wenn /^ich eine?n? bestehende[s|n]? (.+) bearbeite$/ do |entity|
+  @page_to_return = current_path
+  object_name = case entity
+                when "Modell"
+                  @model = Model.all.first
+                  @model.name
+                when "Option"
+                  @option = Option.all.first
+                  @option.name
+                end
+  step 'ich nach "%s" suche' % object_name
+  wait_until { find(".line", :text => object_name).find(".button", :text => "#{entity} editieren") }.click
+  #click_link("#{entity} editieren")
+end
+
+Wenn /^ich ein bestehendes Modell bearbeite welches bereits Zubehör hat$/ do
+  @model = Model.all.detect {|m| m.accessories.count > 0}
+  visit edit_backend_inventory_pool_model_path(@current_inventory_pool, @model)
 end
 
 Dann /^(?:die|das|der) neue[sr]? (?:.+) ist erstellt$/ do
@@ -465,3 +473,116 @@ end
 Dann /^wird das Modell nicht gespeichert, da es keinen (?:eindeutigen\s)?Namen hat$/ do
   step 'I should see "%s"' % (_("Save %s") % @model_name_from_url.capitalize)
 end
+
+Dann /^habe ich die Möglichkeit, folgende Informationen zu erfassen:$/ do |table|
+  table.raw.flatten.all? do |field_name|
+    page.has_xpath? "//div[@class='field' and (descendant::input | descendant::textarea) and .//*[contains(text(), '#{field_name}')]]"
+  end.should be_true
+end
+
+Dann /^ich sehe das gesamte Zubehöre für dieses Modell$/ do
+  within(".field", :text => _("Accessories")) do
+    @model.accessories.each do |accessory|
+      find(".field-inline-entry", :text => accessory.name)
+    end
+  end
+end
+
+Dann /^ich sehe, welches Zubehör für meinen Pool aktiviert ist$/ do
+  within(".field", :text => _("Accessories")) do
+    @model.accessories.each do |accessory|
+      input = find(".field-inline-entry", :text => accessory.name).find("input")
+      if @current_inventory_pool.accessories.where(:id => accessory.id).first
+        input.checked?.should be_true
+      else
+        input.checked?.should be_false
+      end
+    end
+  end
+end
+
+Wenn /^ich Zubehör hinzufüge und falls notwendig die Anzahl des Zubehör ins Textfeld schreibe$/ do
+  within(".field", :text => _("Accessories")) do
+    @new_accessory_name = "2x #{Faker::Name.name}"
+    find(".add-input").set @new_accessory_name
+    find(".add-button").click
+  end
+end
+
+Wenn /^ich das Modell speichere$/ do
+  pending
+end
+
+Dann /^ist das Zubehör dem Modell hinzugefügt worden$/ do
+  @model.accessories.reload.where(:name => @new_accessory_name).should_not be_nil
+end
+
+Dann /^kann ich ein einzelnes Zubehör löschen, wenn es für keinen anderen Pool aktiviert ist$/ do
+  accessory_to_delete = @model.accessories.detect{|x| x.inventory_pools.count <= 1}
+  find(".field", :text => _("Accessories")).find(".field-inline-entry", :text => accessory_to_delete.name).find("label", :text => _("delete")).click
+  step 'ich speichere die Informationen'
+  wait_until{all(".loading", :visible => true).size == 0}
+  lambda{accessory_to_delete.reload}.should raise_error(ActiveRecord::RecordNotFound)
+end
+
+Dann /^kann ich ein einzelnes Zubehör für meinen Pool deaktivieren$/ do
+  accessory_to_deactivate = @model.accessories.detect{|x| x.inventory_pools.where(id: @current_inventory_pool.id).first}
+  find(".field", :text => _("Accessories")).find(".field-inline-entry", :text => accessory_to_deactivate.name).find("input").click
+  step 'ich speichere die Informationen'
+  wait_until{all(".loading", :visible => true).size == 0}
+  lambda {@current_inventory_pool.accessories.reload.find(accessory_to_deactivate)}.should raise_error(ActiveRecord::RecordNotFound)
+end
+
+Dann /^kann ich mehrere Bilder hinzufügen$/ do
+  step "wait 1 seconds"
+  page.execute_script("$('input:file').attr('class', 'visible');")
+  image_field_id = find ".visible"
+  ["image1.jpg", "image2.jpg", "image3.png"].each do |image|
+    image_field_id.set Rails.root.join("features", "data", "images", image)
+  end
+end
+
+Dann /^ich kann Bilder auch wieder entfernen$/ do
+  find(".field", :text => _('Images')).find(".field-inline-entry .clickable").click
+  @images_to_save = ["image2.jpg", "image3.png"]
+end
+
+Dann /^zu grosse Bilder werden den erlaubten Grössen entsprechend verkleinert$/ do
+  step 'ich nach "%s" suche' % @model.name
+  wait_until { find(".line", :text => @model.name).find(".button", :text => "Modell editieren") }.click
+  @images_to_save.each do |image_name|
+    find("a[href*='#{image_name}']").find("img[src*='#{image_name.split(".").first}_thumb.#{image_name.split(".").last}']")
+  end
+end
+
+Dann /^wurden die ausgewählten Bilder für dieses Modell gespeichert$/ do
+  @model.images.map {|i| i.filename}.should eql @images_to_save
+end
+
+Und /^ich speichere das Modell mit Bilder$/ do
+  @model_name_from_url = get_rails_model_name_from_url
+  step 'I press "%s"' % (_("Save %s") % @model_name_from_url.capitalize)
+  wait_until { all(".loading", :visible => true).empty? }
+end
+
+Angenommen /^ich erstelle ein neues Modell oder ich ändere ein bestehendes Modell$/ do
+  @model = Model.all.first
+  visit edit_backend_inventory_pool_model_path @current_inventory_pool, @model
+end
+
+Dann /^füge ich eine oder mehrere Datein den Attachments hinzu$/ do
+  @attachment_filename = "image1.jpg"
+  2.times do
+    find("#attachments_filepicker").set Rails.root.join("features","data","images", @attachment_filename)
+  end
+end
+
+Dann /^kann Attachments auch wieder entfernen$/ do
+  find(".field", :text => _('Attachments')).find(".field-inline-entry .clickable").click
+end
+
+Dann /^sind die Attachments gespeichert$/ do
+  wait_until {all(".loading", :visible => true).empty?}
+  @model.attachments.where(:filename => @attachment_filename).empty?.should be_false
+end
+

@@ -2,6 +2,23 @@
 @import "../../shared/variables"
 
 .form_edit
+  
+  span.loading
+    background: rgba(255,255,255,0.5)
+    display: inline-block
+    height: 100%
+    position: absolute
+    text-align: center
+    top: 0
+    width: 98%
+    z-index: 1001
+    @include box-sizing(border-box)
+    
+    img
+      height: 32px
+      top: 40%
+      position: relative
+      width: 32px
 
   .field .value > .input
     display: none
@@ -94,6 +111,13 @@
       &:last-child
         border: none
 
+      .add-button
+        float: right
+
+      .add-input
+        width: 77% !important
+        float: left
+
       .removable
         cursor: pointer
         float: left
@@ -122,6 +146,7 @@
         line-height: 1.5em
         float: right
         padding: 1%
+        position: relative
         width: 48%
 
         label:not(.container), span

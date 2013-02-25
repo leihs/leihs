@@ -35,6 +35,24 @@ module Json
           h[:categories] = model.categories.as_json # TODO
         end
 
+        if with[:images] and model.respond_to? :images
+          h[:images] = model.images.as_json(:methods => [:public_filename, :public_filename_thumb]) # TODO
+        end
+
+        if with[:attachments] and model.respond_to? :attachments
+          h[:attachments] = model.attachments.as_json(:methods => :public_filename) # TODO
+        end
+
+        if with[:accessories] and model.respond_to? :accessories
+          h[:accessories] = model.accessories.map do |accessory|
+            {id: accessory.id,
+             name: accessory.name,
+             active: accessory.inventory_pool_ids.include?(current_inventory_pool.id),
+             is_deletable: (accessory.inventory_pool_ids.empty? or accessory.inventory_pool_ids == [current_inventory_pool.id])
+            }
+          end
+        end
+
         if with[:inventory_pools]
           h[:inventory_pools] = hash_for model.inventory_pools, with[:inventory_pools]
         end

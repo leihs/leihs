@@ -1,14 +1,15 @@
-%form.indent.css-form{:name => "form", :novalidate => ""}
+%form.indent{:name => "form", "ng-submit" => "submit()"}
 
   .content_navigation
     %a.button.red{:href => "/backend/inventory_pools/{{current_inventory_pool_id}}/models"}
       {{_jed("Cancel Edit")}}
-    %button.button.green{"ng-click" => "save()", "ng-disabled" => "form.$invalid"}
+    %button.button.green{"ng-disabled" => "form.$invalid"}
       {{_jed("Save %s", "Model")}}
 
   .top
     %h1
       {{model.name}}
+
 
   .left
     %section
@@ -56,9 +57,92 @@
             .readonly{"ng-switch-when" => "false"}
               %span {{model.hand_over_note}}
 
-
   .right
     %section
       .inner
+        .field
+          %div
+            %h3.key {{_jed("Images")}}:
+            .value{"ng-switch" => "model.is_editable"}
+              .input{"ng-switch-when" => "true"}
+                %input.hidden{:type => "file", :multiple => true, :onchange => "angular.element(this).scope().setFile(this, 1)"}
+                %a.button.white.floatright{:onclick => '$(this).prev("input[type=file]").click()'}
+                  {{_jed("Select Image")}}
+              .readonly{"ng-switch-when" => "false"}
+            .clear
+          %div.field-inline-entry{"ng-repeat" => "file in model.images"}
+            %span{"ng-switch" => "!!file.id"}
+              %span{"ng-switch-when" => "true"}
+                %a{"ng-class" => "{tobedeleted: file._destroy}", href: "{{file.public_filename}}", target: '_blank'} 
+                  %img{src: "{{file.public_filename_thumb}}", style: "max-height: 26px; max-width: 26px"}
+                  {{file.filename}}
+                %label.clickable.floatright
+                  %input.hidden{type: "checkbox", "ng-model" => "file._destroy"} 
+                    %span{"ng-switch" => "file._destroy"}
+                      %span{"ng-switch-when" => "true"} {{_jed("undo")}}
+                      %span{"ng-switch-default" => ""} {{_jed("delete")}}
+                .clear
+              %span{"ng-switch-when" => "false"}
+                {{file.filename}}
+                %a.clickable.floatright{"ng-click" => "removeImage(this)"} {{_jed("delete")}}
+      %br
+      .inner
+        .field
+          %div
+            %h3.key {{_jed("Attachments")}}:
+            .value{"ng-switch" => "model.is_editable"}
+              .input{"ng-switch-when" => "true"}
+                %input.opacity-hidden{:id => "attachments_filepicker", :name => "attachments_filepicker", :type => "file", :multiple => true, :onchange => "angular.element(this).scope().setFile(this, 2)"}
+                %a.button.white.floatright{:onclick => '$(this).prev("input[type=file]").click()'}
+                  {{_jed("Select File")}}
+              .readonly{"ng-switch-when" => "false"}
+            .clear
+          %div.field-inline-entry{"ng-repeat" => "file in model.attachments"}
+            %span{"ng-switch" => "!!file.id"}
+              %span{"ng-switch-when" => "true"}
+                %a{"ng-class" => "{tobedeleted: file._destroy}", href: "{{file.public_filename}}", target: '_blank'} {{file.filename}}
+                %label.clickable.floatright
+                  %input.hidden{type: "checkbox", "ng-model" => "file._destroy"}
+                    %span{"ng-switch" => "file._destroy"}
+                      %span{"ng-switch-when" => "true"} {{_jed("undo")}}
+                      %span{"ng-switch-default" => ""} {{_jed("delete")}}
+                .clear
+              %span{"ng-switch-when" => "false"}
+                {{file.filename}}
+                %a.clickable.floatright{"ng-click" => "removeAttachment(this)"} {{_jed("delete")}}
+      %br
+      .inner
+        .field
+          %div
+            %h3.key {{_jed("Accessories")}}:
+            .value{"ng-switch" => "model.is_editable"}
+              .input{"ng-switch-when" => "true"}
+                %input.add-input{:form => "no-form", :type => "text", :onchange => "angular.element(this).scope().addAccessory(this)"}
+                %a.button.white.small.add-button= "+"
+                .clear
+              .readonly{"ng-switch-when" => "false"}
+            .clear
+          %div.field-inline-entry{"ng-repeat" => "accessory in model.accessories"}
+            %span{"ng-switch" => "!!accessory.id"}
+              %span{"ng-switch-when" => "true"}
+                %label{"ng-class" => "{tobedeleted: accessory._destroy}"}
+                  %input{type: "checkbox", "ng-model" => "accessory.active", "ng-class" => "{hidden: accessory._destroy}"}
+                  {{accessory.name}}
+                %span{"ng-show" => "accessory.is_deletable"}
+                  %label.clickable.floatright
+                    %input.hidden{type: "checkbox", "ng-model" => "accessory._destroy"}
+                    %span{"ng-switch" => "accessory._destroy"}
+                      %span{"ng-switch-when" => "true"} {{_jed("undo")}}
+                      %span{"ng-switch-default" => ""} {{_jed("delete")}}
+              %span{"ng-switch-when" => "false"}
+                %label
+                  %input{type: "checkbox", "ng-model" => "accessory.active"}
+                  {{accessory.name}}
+                %a.clickable.floatright{"ng-click" => "removeAccessory(this)"} {{_jed("delete")}}
+
+
   .clear
+  %span.loading{"ng-show" => "isLoading"}
+    %img.loading.icon{:src => "/assets/loading.gif"}
+
 

@@ -18,7 +18,7 @@ gem 'jquery-rails', '2.1.3' # '~> 2.1' FIXME the version 2.1.4 clashes with unde
 gem 'jquery-tmpl-rails', '~> 1.1'
 
 gem 'angularjs-rails', '~> 1.0'
-gem 'angular-ui-rails', '~> 0.3'
+gem 'angular-ui-rails', '0.3.2' # '~> 0.3' # FIXME '0.4.0' not working
 
 gem 'jruby-openssl', :platform => :jruby
 gem 'rails_autolink', '~> 1.0'
@@ -39,6 +39,7 @@ gem 'acts-as-dag', :git => "git://github.com/jrust/acts-as-dag.git" #tmp# '~> 2.
 gem 'geocoder', '~> 1.1'
 # gem "RubyInline", '3.8.2', :require => "inline"
 
+gem 'paperclip'
 
 # NOTE: Do not move this to the 'development' group, since we need these
 # factories also in production mode to seed our demo data on the demo server

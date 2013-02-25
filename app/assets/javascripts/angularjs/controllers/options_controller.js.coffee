@@ -27,8 +27,9 @@ OptionsEditCtrl = ($scope, $location, $routeParams, Option) ->
     $scope.option.is_editable = true #tmp# TODO remove this when using permissions
 
   $scope.save = ->
-    Option.save
+    Option.update
       inventory_pool_id: $scope.current_inventory_pool_id
+      id: $scope.option.id
       option:
         name: $scope.option.name
         price: $scope.option.price

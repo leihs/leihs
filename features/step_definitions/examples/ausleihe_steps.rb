@@ -58,7 +58,7 @@ Wenn /^ich etwas zuweise, das nicht in den Rücknahmen vorkommt$/ do
   page.execute_script('$("#process_helper").submit()')
 end
 
-Dann /^sehe ich eine Fehlermeldung$/ do
+Dann /^(?:sehe ich|ich sehe) eine Fehlermeldung$/ do
   wait_until{ @notification = find(".notification") }
 end
 

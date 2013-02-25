@@ -1,0 +1,22 @@
+@import "../shared/variables"
+@import "../shared/mixins"
+
+.field-inline-entry
+  font-size: 1.1em
+  background: rgba(100,100,100,0.1)
+  border-top: 1px solid rgba(255,255,255,0.8)
+  display: block
+  height: 40px
+  line-height: 1.4em
+  padding: 8px 6px 8px 12px
+  width: 100%
+  @include box-sizing(border-box) 
+
+  span, a 
+    vertical-align: middle
+
+  .tobedeleted
+    text-decoration: line-through !important
+
+    &, &:hover
+      color: black

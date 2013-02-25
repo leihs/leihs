@@ -166,6 +166,14 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Add Model": [
+         null,
+         ""
+      ],
+      "Add Option": [
+         null,
+         ""
+      ],
       "Add Purpose": [
          null,
          ""
