@@ -6,6 +6,10 @@ angular.module("models", ["ngResource", "ng-rails-csrf"])
       id: "@id",
       inventory_pool_id: "@inventory_pool_id"
     ,
+      get:
+        method: "GET"
+        params:
+          preset: "model" # FIXME request nested parameters {with: {preset: "model"}}
       query:
         method: "GET"
         isArray: false

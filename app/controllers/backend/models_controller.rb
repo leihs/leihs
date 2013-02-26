@@ -73,7 +73,7 @@ class Backend::ModelsController < Backend::BackendController
       format.html
       format.json {
         item_ids = scoped_items.select("items.id")
-        models = Model #tmp# show all models ?? # .joins(:items).where("items.id IN (#{item_ids.to_sql})")
+        models = Model
                   .select("DISTINCT models.*")
                   .search(query, [:name, :items])
                   .order("#{sort_attr} #{sort_dir}")
@@ -118,17 +118,11 @@ class Backend::ModelsController < Backend::BackendController
     end
   end
 
-  def show
+  def show(with = params[:with])
     respond_to do |format|
       format.json {
-        render json: view_context.hash_for(@model, {:is_editable => true,
-                                                    :description => true,
-                                                    :technical_detail => true,
-                                                    :internal_description => true,
-                                                    :hand_over_note => true,
-                                                    :images => {},
-                                                    :attachments => {},
-                                                    :accessories => {}})
+        with ||= {preset: params[:preset]} if params[:preset] # FIXME request nested parameters in angular
+        render json: view_context.hash_for(@model, with)
       }
     end
   end
@@ -149,7 +143,7 @@ class Backend::ModelsController < Backend::BackendController
 
         @model = Model.new(params[:model])
         if @model.save
-          show
+          show({:preset => :model})
         else
           render :text => @model.errors.full_messages.uniq.join(", "), :status => :bad_request
         end
@@ -167,7 +161,7 @@ class Backend::ModelsController < Backend::BackendController
         end if params[:model][:accessories_attributes]
 
         if @model.update_attributes(params[:model])
-          show
+          show({:preset => :model})
         else
           render :text => @model.errors.full_messages.uniq.join(", "), :status => :bad_request
         end
