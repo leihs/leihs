@@ -300,14 +300,17 @@ class Backend::ModelsController < Backend::BackendController
 
   def categories
     if request.post?
-      @model.categories.delete_all
-      @model.categories << @categories if @categories
-      flash[:notice] = _("This model is now in %d categories") % @model.categories.count
-      render :update do |page|
-        page.replace_html 'flash', flash_content
+      respond_to do |format|
+        format.json {
+          @model.categories.delete_all
+          @model.categories << @categories if @categories
+          render json: {text: _("This model is now in %d categories") % @model.categories.count}
+        }
       end
     else
-      @categories = @model.categories
+      respond_to do |format|
+        format.html { @categories = @model.categories }
+      end
     end
   end
 

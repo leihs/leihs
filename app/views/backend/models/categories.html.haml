@@ -1,0 +1,55 @@
+:css
+  .simple_tree ul {
+    margin-left: 2em;
+  }
+
+:coffeescript
+  jQuery ->
+    $(".simple_tree input[type='checkbox']").click ()->
+      category_ids = $(".simple_tree input[type='checkbox']:checked").map(()-> return this.value ).toArray()
+      $.ajax
+        url: "#{url_for({})}"
+        type: "POST"
+        data:
+          category_ids: category_ids
+        success: (data)=>
+          Notification.add_headline
+            text: data.text
+            type: "success"
+
+:ruby
+  def category_node(category, parent_id)
+    {:data => {:title => category.text(parent_id)},
+     :attr => {:id => category.id},
+     :children => category.children.map{|c| category_node(c, category.id) } }
+  end
+
+  def category_root
+    {:data => {:title => _("All")},
+     :attr => {:id => 0},
+     :state => "open",
+     :children => Category.roots.map{|c| category_node(c, 0) } }
+  end
+
+  def simple_category_tree_root(nodes, selected_categories)
+    capture_haml do
+      haml_tag :ul, :class => "simple_tree" do
+        nodes.collect do |node|
+          haml_tag :li do
+            haml_concat check_box_tag "category_ids[]", node[:attr][:id], selected_categories.include?(node[:attr][:id])
+            haml_concat " #{node[:data][:title]}"
+            haml_concat simple_category_tree_root(node[:children], selected_categories) unless node[:children].empty?
+          end
+        end
+      end
+    end
+  end
+
+  def simple_category_tree(selected_categories = [])
+    simple_category_tree_root(category_root[:children], selected_categories.collect(&:id))
+  end
+
+.innercontent
+  .top
+    %h1= @model.name
+  = simple_category_tree(@categories)

@@ -36,11 +36,14 @@
           .trigger
             .arrow
           = link_to "/backend/inventory_pools/${currentInventoryPool.id}/models/${id}/timeline", :class => "button white open_dialog",
-          :"data-tmpl" => "tmpl/dialog/availability/timeline",
-          :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data",
-          :"data-dialog_class" => "full_width timeline" do
+            :"data-tmpl" => "tmpl/dialog/availability/timeline",
+            :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data",
+            :"data-dialog_class" => "full_width timeline" do
             .icon.timeline
             ${_jed("Timeline")}
+          = link_to "/backend/inventory_pools/${currentInventoryPool.id}/models/${id}/categories", :class => "button white" do
+            .icon.edit
+            ${_jed("Categories")}
         = link_to "/backend/inventory_pools/${currentInventoryPool.id}/models/${id}/edit", :class => "button white" do
           .icon.edit
           ${_jed("Edit Model")}
