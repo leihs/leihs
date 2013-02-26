@@ -1,3 +1,7 @@
+# language: de
+
+Funktionalität: Modell
+
   Szenario: sich ergänzende Modelle hinzufügen (kompatibel)
     Wenn ich das Modell öffne
     Und ich ein ergänzendes Modell mittel Autocomplete Feld hinzufüge
