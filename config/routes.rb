@@ -148,10 +148,6 @@ Leihs::Application.routes.draw do
           get :details
           get :properties
           post :properties
-          get :accessories
-          post :accessories
-          put :accessories
-          delete :accessories
           get :package
           delete :destroy_package
           put :update_package
@@ -164,9 +160,6 @@ Leihs::Application.routes.draw do
           delete :package_item
           get :categories
           post :categories
-          get :images
-          post :images
-          delete :images
           post :set_group_partition
 #leihs2#end# 
         end

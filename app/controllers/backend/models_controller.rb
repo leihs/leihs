@@ -317,51 +317,6 @@ class Backend::ModelsController < Backend::BackendController
     end
   end
 
-
-#################################################################
-
-  def accessories
-    if request.put?
-      current_inventory_pool.accessories -= @model.accessories
-      current_inventory_pool.accessories << @model.accessories.find(params[:accessory_ids]) if params[:accessory_ids]
-      flash[:notice] = _("Successfully set.")
-      redirect_to
-    elsif request.post?
-      accessory = @model.accessories.build(:name => params[:name])
-      if accessory.save
-        flash[:notice] = _("The accessory was successfully created.")
-      else
-        flash[:error] = _("Error creating the accessory.")
-      end
-      redirect_to
-    elsif request.delete?
-      if @model.accessories.delete(@model.accessories.find(params[:accessory_id]))
-        flash[:notice] = _("The accessory was successfully deleted.")
-      else
-        flash[:error] = _("Error deleting the accessory.")
-      end
-      redirect_to
-    end
-  end
-  
-  
-  
-#################################################################
-
-  def images
-    if request.post?
-      @image = Image.new(params[:image])
-      @image.model = @model
-      if @image.save
-        flash[:notice] = _("Attachment was successfully created.")
-      else
-        flash[:error] = _("Upload error.")
-      end
-    elsif request.delete?
-      @model.images.destroy(params[:image_id])
-    end
-  end
-
 #################################################################
 
   def timeline
