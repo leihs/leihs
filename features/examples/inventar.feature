@@ -101,9 +101,9 @@ Funktionalität: Inventar
   Wenn ich ein neues Modell hinzufüge
   Dann habe ich die Möglichkeit, folgende Informationen zu erfassen:
     | Details      |
-    | Zubehör      |
-    | Attachment   |
     | Bilder       |
+    | Anhänge      |
+    | Zubehör      |
 
   @javascript
   Szenario: Modelldetails abfüllen

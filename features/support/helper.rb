@@ -110,7 +110,7 @@ end
 ##############################################################
 
 def get_fullcalendar_day_element(date)
-  wait_until { all("[data-date='#{date}']").first }
+  wait_until { all("td[data-date='#{date}']").first }
 end
 
 def type_into_autocomplete(selector, value)
