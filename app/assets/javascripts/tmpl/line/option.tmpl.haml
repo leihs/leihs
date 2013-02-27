@@ -15,13 +15,6 @@
   
   .actions    
     %li.actions
-      .multibutton
-        .alternatives
-          .trigger
-            .arrow
-          = link_to "/backend/inventory_pools/${currentInventoryPool.id}/options/${id}/edit",  :class => "button white" do
-            .icon.edit
-            ${_jed("Edit")}
-        = link_to "/backend/inventory_pools/${currentInventoryPool.id}/options/${id}", :class => "button white" do
-          .icon.view_model
-          ${_jed("View Option")}
+      = link_to "/backend/inventory_pools/${currentInventoryPool.id}/options/${id}/edit", :class => "button white" do
+        .icon.edit
+        ${_jed("Edit Option")}

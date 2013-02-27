@@ -171,3 +171,86 @@ Then "the order was placed by a customer named '$name'" do | name |
   page.find(".table-overview .fresh").should have_content(name)
 end
 
+Then /^removal of this line should not be possible$/ do
+  @order.remove_line(@order.lines.first, FactoryGirl.create(:user).id).should be_false
+end
+
+Given /^there is a "(.*?)" order with (\d+) lines?$/ do |order_type, no_of_lines|
+  @order = FactoryGirl.create :order, :status_const => Order.const_get(order_type.to_sym), :inventory_pool => @inventory_pool
+  @no_of_lines_at_start = no_of_lines.to_i
+  @no_of_lines_at_start.times {@order.lines << FactoryGirl.create(:order_line, :inventory_pool => @inventory_pool)}
+end
+
+When /^one tries to delete a line$/ do
+  @result_of_line_removal = @order.remove_line(@order.lines.last, FactoryGirl.create(:user).id)
+end
+
+Then /^the amount of lines decreases by one$/ do
+  @order.lines.size.should eq(@no_of_lines_at_start - 1)
+end
+
+Then /^then the line is (.*)(?:\s?)deleted$/ do |not_specifier|
+  @result_of_line_removal.should (not_specifier.blank? ? be_true : be_false)
+end
+
+Then /^the amount of lines remains unchanged$/ do
+  @order.lines.size.should eq @no_of_lines_at_start
+end
+
+Given /^required test data for order tests existing$/ do
+  @inventory_pool = FactoryGirl.create :inventory_pool
+  @model_with_items = FactoryGirl.create :model_with_items
+end
+
+Given /^an inventory pool existing$/ do
+  @inventory_pool = FactoryGirl.create :inventory_pool
+end
+
+Given /^an empty order of (.*) existing$/ do |allowed_type|
+  allowed_type = Order.const_get(allowed_type.to_sym)
+  @order = FactoryGirl.create :order, :status_const => allowed_type, :inventory_pool => @inventory_pool
+end
+
+When /^I add some lines for this order$/ do
+  @quantity = 3
+  @order.lines.size.should == 0
+  @order.add_lines(@quantity, @model_with_items, @user, Date.tomorrow, Date.tomorrow + 1.week, @inventory_pool)
+end
+
+Then /^the size of the order should increase exactly by the amount of lines added$/ do
+  @order.reload.lines.size.should == @quantity
+  @order.valid?.should be_true
+end
+
+Given /^an order with lines existing$/ do
+  @order = FactoryGirl.create :order_with_lines, :inventory_pool => @inventory_pool
+end
+
+Given /^a borrowing user existing$/ do
+  @borrowing_user = LeihsFactory.create_user({:login => 'foo', :email => 'foo@example.com'}, {:password => 'barbarbar'})
+end
+
+When /^I approve the order of the borrowing user$/ do
+  @order.approve("That will be fine.", Persona::get("Ramon"))
+  @order.is_approved?.should be_true
+end
+
+Then /^the borrowing user gets one confirmation email$/ do
+  @emails = ActionMailer::Base.deliveries
+  @emails.count.should == 1
+end
+
+Then /^the subject of the email is "(.*?)"$/ do |arg1|
+  @emails[0].subject.should == "[leihs] Reservation Confirmation"
+end
+
+When /^the order is submitted with the purpose description "(.*?)"$/ do |purpose|
+  @purpose = purpose
+  @order.submit(@purpose)
+end
+
+Then /^each line associated with the order must have the same purpose description$/ do
+  @order.lines.each do |l|
+    l.purpose.description.should == @purpose
+  end
+end

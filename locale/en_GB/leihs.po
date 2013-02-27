@@ -84,6 +84,12 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
+msgid "Add Model"
+msgstr ""
+
+msgid "Add Option"
+msgstr ""
+
 msgid "Add Purpose"
 msgstr ""
 
@@ -359,7 +365,13 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
+msgid "Edit Model"
+msgstr ""
+
 msgid "Edit Item"
+msgstr ""
+
+msgid "Edit Option"
 msgstr ""
 
 msgid "Edit Order"
@@ -1748,4 +1760,10 @@ msgid "you cannot hand out lines wich are starting in the future"
 msgstr ""
 
 msgid "you cannot hand out lines with unassigned inventory codes"
+msgstr ""
+
+msgid "Option"
+msgstr ""
+
+msgid "Options"
 msgstr ""

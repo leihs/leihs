@@ -13,6 +13,6 @@ When /^I pick a closed day for beeing the "(.*?)"$/ do |date_target|
 end
 
 Then /^this date becomes red and I see a closed day warning$/ do
-  @date_el.find(:xpath, "./../..")[:class][/closed/].should_not be_nil
+  @date_el[:class][/closed/].should_not be_nil
   find(".ui-tooltip.closed-day-alert")
 end

@@ -104,6 +104,15 @@ module Json
                      },
            :availability => {:inventory_pool => current_inventory_pool},
            :categories => {}}
+        when :model
+          {:is_editable => true,
+           :description => true,
+           :technical_detail => true,
+           :internal_description => true,
+           :hand_over_note => true,
+           :images => {},
+           :attachments => {},
+           :accessories => {}}
         when :order_minimal
           {:user => {:preset => :user},
            :purpose => {},

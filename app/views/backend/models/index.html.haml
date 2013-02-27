@@ -4,21 +4,21 @@
   .top
     %h1= yield :title
     
-  / .content_navigation
-  /   #approve.multibutton
-  /     .alternatives
-  /       .trigger
-  /         .arrow
-  /       %a.button.white
-  /         .additem.icon
-  /         = _("Add Model") 
-  /       %a.button.white
-  /         .additem.icon
-  /         = _("Add Package")
-  /     %a.button.white
-  /       .additem.icon
-  /       = _("Add Item") 
-  
+    .content_navigation
+      #approve.multibutton
+        .alternatives
+          .trigger
+            .arrow
+          %a.button.white{:href => new_backend_inventory_pool_option_path(current_inventory_pool)}
+            .additem.icon
+            = _("Add Option")
+          /%a.button.white
+          /  .additem.icon
+          /  = _("Add Package")
+        %a.button.white{:href => new_backend_inventory_pool_model_path(current_inventory_pool)}
+          .additem.icon
+          = _("Add Model")
+
   %section
     .inlinetabs
       - [ [nil, _("All")],

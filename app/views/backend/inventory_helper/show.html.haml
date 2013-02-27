@@ -11,7 +11,7 @@
 
     .container
       %input{:type => "text", :name => "fieldname", :autocomplete => "off", :id => "fieldname"}
-      .icon.arrow.down
+      %label.icon.arrow.down{:for => "fieldname"}
       %label{:for => "fieldname"}
         = _("Select Field")
 

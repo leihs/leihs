@@ -12,6 +12,7 @@ config/development.sphinx.conf
 config/cucumber.sphinx.conf
 config/culerity.sphinx.conf
 config/database.yml
+config/database_local.yml
 db/sphinx/
 db/backups/
 .DS_Store
@@ -25,3 +26,5 @@ public/assets
 db/structure.sql
 doc/diagrams/generated/captures.dot
 .idea/
+chrome*
+public/attachments/*

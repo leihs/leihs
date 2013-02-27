@@ -172,6 +172,14 @@ window.i18n.locale_data = {
          null,
          "Hinzufügen"
       ],
+      "Add Model": [
+         null,
+         "Modell hinzufügen"
+      ],
+      "Add Option": [
+         null,
+         "Option hinzufügen"
+      ],
       "Add Purpose": [
          null,
          "Zweck hinzufügen"
@@ -536,9 +544,17 @@ window.i18n.locale_data = {
          null,
          "Editieren"
       ],
+      "Edit Model": [
+         null,
+         "Modell editieren"
+      ],
       "Edit Item": [
          null,
          "Gegenstand editieren"
+      ],
+      "Edit Option": [
+         null,
+         "Option editieren"
       ],
       "Edit Order": [
          null,
@@ -1280,6 +1296,10 @@ window.i18n.locale_data = {
       "Recommended Accessories": [
          null,
          "Empfohlenes Zubehör"
+      ],
+      "Accessories": [
+         null,
+         "Zubehör"
       ],
       "Reject": [
          null,
@@ -2380,7 +2400,7 @@ window.i18n.locale_data = {
       ],
       "Process multiple fields for multiple items in a row": [
          null,
-         ""
+         "Mehrere Felder für mehrere Geräte nacheinander bearbeiten"
       ],
       "Select Field": [
          null,
@@ -2401,6 +2421,38 @@ window.i18n.locale_data = {
       "requested": [
          null,
          "angefragt"
+      ],
+      "Option": [
+         null,
+         "Option"
+      ],
+      "Options": [
+         null,
+         "Optionen"
+      ],
+      "Inventory Helper": [
+         null,
+         "Inventarhelfer"
+      ],
+      "Select Image": [
+         null,
+         "Bild auswählen"
+      ],
+      "Select File": [
+         null,
+         "Datei auswählen"
+      ],
+      "Images": [
+         null,
+         "Bilder"
+      ],
+      "Attachments": [
+         null,
+         "Anhänge"
+      ],
+      "undo": [
+         null,
+         "rückgängig"
       ]
    }
 }

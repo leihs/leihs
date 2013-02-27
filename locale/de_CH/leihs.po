@@ -84,6 +84,12 @@ msgstr "Genehmigen"
 msgid "Add"
 msgstr "Hinzufügen"
 
+msgid "Add Model"
+msgstr "Modell hinzufügen"
+
+msgid "Add Option"
+msgstr "Option hinzufügen"
+
 msgid "Add Purpose"
 msgstr "Zweck hinzufügen"
 
@@ -369,8 +375,14 @@ msgstr "FEHLER"
 msgid "Edit"
 msgstr "Editieren"
 
+msgid "Edit Model"
+msgstr "Modell editieren"
+
 msgid "Edit Item"
 msgstr "Gegenstand editieren"
+
+msgid "Edit Option"
+msgstr "Option editieren"
 
 msgid "Edit Order"
 msgstr "Bestellung editieren"
@@ -941,6 +953,9 @@ msgstr "Grund der Ausmusterung"
 
 msgid "Recommended Accessories"
 msgstr "Empfohlenes Zubehör"
+
+msgid "Accessories"
+msgstr "Zubehör"
 
 msgid "Reject"
 msgstr "Ablehnen"
@@ -1859,7 +1874,7 @@ msgid "Warranty expiration"
 msgstr "Garantieablaufdatum"
 
 msgid "Process multiple fields for multiple items in a row"
-msgstr ""
+msgstr "Mehrere Felder für mehrere Geräte nacheinander bearbeiten"
 
 msgid "Select Field"
 msgstr "Feld auswählen"
@@ -1875,3 +1890,27 @@ msgstr "Kein Gegenstand ausgewählt"
 
 msgid "requested"
 msgstr "angefragt"
+
+msgid "Option"
+msgstr "Option"
+
+msgid "Options"
+msgstr "Optionen"
+
+msgid "Inventory Helper"
+msgstr "Inventarhelfer"
+
+msgid "Select Image"
+msgstr "Bild auswählen"
+
+msgid "Select File"
+msgstr "Datei auswählen"
+
+msgid "Images"
+msgstr "Bilder"
+
+msgid "Attachments"
+msgstr "Anhänge"
+
+msgid "undo"
+msgstr "rückgängig"

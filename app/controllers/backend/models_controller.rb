@@ -73,7 +73,7 @@ class Backend::ModelsController < Backend::BackendController
       format.html
       format.json {
         item_ids = scoped_items.select("items.id")
-        models = Model.joins(:items).where("items.id IN (#{item_ids.to_sql})")
+        models = Model
                   .select("DISTINCT models.*")
                   .search(query, [:name, :items])
                   .order("#{sort_attr} #{sort_dir}")
@@ -118,53 +118,55 @@ class Backend::ModelsController < Backend::BackendController
     end
   end
 
-  def show
-   # redirect_to :action => 'package', :layout => params[:layout] if @model.is_package?
+  def show(with = params[:with])
+    respond_to do |format|
+      format.json {
+        with ||= {preset: params[:preset]} if params[:preset] # FIXME request nested parameters in angular
+        render json: view_context.hash_for(@model, with)
+      }
+    end
   end
 
   def new
-    #old leihs#
-    #@model = Model.new
-    #render :action => 'details'
+    render :action => 'edit'
   end
   
   def create
-    #old leihs#
-    #if @model and params[:compatible][:model_id]
-    #  @compatible_model = current_inventory_pool.models.find(params[:compatible][:model_id])
-    #  unless @model.compatibles.include?(@compatible_model)
-    #    @model.compatibles << @compatible_model
-    #    flash[:notice] = _("Model successfully added as compatible")
-    #  else
-    #    flash[:error] = _("The model is already compatible")
-    #  end
-    #  redirect_to :action => 'index', :model_id => @model
-    #else
-    #  not_authorized! unless is_privileged_user? # TODO before_filter for :create
-    #  @model = Model.new
-    #  update
-    #end
-
     not_authorized! unless is_privileged_user? # TODO before_filter for :create
     respond_to do |format|
       format.json {
-        if model = Model.create(params[:model])
-          render json: view_context.json_for(model)
+        # TODO DRY
+        params[:model][:accessories_attributes].each_pair do |k, v|
+          m = v.delete(:active) ? :inventory_pool_ids_add : :inventory_pool_ids_remove
+          v[m] = current_inventory_pool.id
+        end if params[:model][:accessories_attributes]
+
+        @model = Model.new(params[:model])
+        if @model.save
+          show({:preset => :model})
         else
-          render :text => model.errors.full_messages.uniq.join(", "), :status => :bad_request
+          render :text => @model.errors.full_messages.uniq.join(", "), :status => :bad_request
         end
       }
     end
   end
 
   def update
-    #old leihs#
-    #if @model.update_attributes(params[:model])
-    #  redirect_to details_backend_inventory_pool_model_path(current_inventory_pool, @model)
-    #else
-    #  flash[:error] = _("Couldn't update ")
-    #  render :action => 'details' # TODO 24** redirect to the correct tabbed form
-    #end
+    respond_to do |format|
+      format.json {
+        # TODO DRY
+        params[:model][:accessories_attributes].each_pair do |k, v|
+          m = v.delete(:active) ? :inventory_pool_ids_add : :inventory_pool_ids_remove
+          v[m] = current_inventory_pool.id
+        end if params[:model][:accessories_attributes]
+
+        if @model.update_attributes(params[:model])
+          show({:preset => :model})
+        else
+          render :text => @model.errors.full_messages.uniq.join(", "), :status => :bad_request
+        end
+      }
+    end
   end
 
   # only for destroying compatibles (the "compatible" route maps to this models controller)
@@ -298,73 +300,17 @@ class Backend::ModelsController < Backend::BackendController
 
   def categories
     if request.post?
-      @model.categories.delete_all
-      @model.categories << @categories if @categories
-      flash[:notice] = _("This model is now in %d categories") % @model.categories.count
-      render :update do |page|
-        page.replace_html 'flash', flash_content
+      respond_to do |format|
+        format.json {
+          @model.categories.delete_all
+          @model.categories << @categories if @categories
+          render json: {text: _("This model is now in %d categories") % @model.categories.count}
+        }
       end
     else
-      @categories = @model.categories
-    end
-  end
-
-
-#################################################################
-
-  def accessories
-    if request.put?
-      current_inventory_pool.accessories -= @model.accessories
-      current_inventory_pool.accessories << @model.accessories.find(params[:accessory_ids]) if params[:accessory_ids]
-      flash[:notice] = _("Successfully set.")
-      redirect_to
-    elsif request.post?
-      accessory = @model.accessories.build(:name => params[:name])
-      if accessory.save
-        flash[:notice] = _("The accessory was successfully created.")
-      else
-        flash[:error] = _("Error creating the accessory.")
+      respond_to do |format|
+        format.html { @categories = @model.categories }
       end
-      redirect_to
-    elsif request.delete?
-      if @model.accessories.delete(@model.accessories.find(params[:accessory_id]))
-        flash[:notice] = _("The accessory was successfully deleted.")
-      else
-        flash[:error] = _("Error deleting the accessory.")
-      end
-      redirect_to
-    end
-  end
-  
-  
-  
-#################################################################
-
-  def images
-    if request.post?
-      @image = Image.new(params[:image])
-      @image.model = @model
-      if @image.save
-        flash[:notice] = _("Attachment was successfully created.")
-      else
-        flash[:error] = _("Upload error.")
-      end
-    elsif request.delete?
-      @model.images.destroy(params[:image_id])
-    end
-  end
-
-  def attachments
-    if request.post?
-      @attachment = Attachment.new(params[:attachment])
-      @attachment.model = @model
-      if @attachment.save
-        flash[:notice] = _("Attachment was successfully created.")
-      else
-        flash[:error] = _("Upload error.")
-      end
-    elsif request.delete?
-      @model.attachments.destroy(params[:attachment_id])
     end
   end
 

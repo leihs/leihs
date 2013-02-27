@@ -48,6 +48,7 @@ h1 {
   font-size: 1.8em;
   font-weight: normal;
   margin-bottom: 5px;
+  min-height: 1.8em;
 }
 
 h2 {
@@ -148,4 +149,22 @@ span {
   &.grey {color: $grey;}
   &.lightgrey {color: $lightgrey;}
   &.red {color: $red;}
+}
+
+.hidden {
+  display: none;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
+.stroke {
+  text-decoration: line-through !important;
+}
+
+.opacity-hidden {
+  height: 100%;
+  position: absolute;
+  @include opacity(0);
 }

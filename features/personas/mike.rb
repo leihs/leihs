@@ -22,6 +22,7 @@ module Persona
         create_location_and_building
         create_groups
         create_minimal_inventory
+        create_accessories
         create_holidays
       end
     end
@@ -69,6 +70,15 @@ module Persona
       setup_inventory_for_group_cast
     end
     
+    def create_accessories
+      Model.all.each do |model|
+        rand(1..5).times do
+          accessory = FactoryGirl.create :accessory, :model => model
+          @inventory_pool.accessories << accessory if rand() > 0.5
+        end
+      end
+    end
+
     def setup_sharp_beamers
       @beamer_category = FactoryGirl.create(:category, :name => "Beamer")
       @beamer_model = FactoryGirl.create(:model, :name => "Sharp Beamer",

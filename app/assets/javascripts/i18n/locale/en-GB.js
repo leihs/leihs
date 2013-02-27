@@ -166,6 +166,14 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Add Model": [
+         null,
+         ""
+      ],
+      "Add Option": [
+         null,
+         ""
+      ],
       "Add Purpose": [
          null,
          ""
@@ -526,7 +534,15 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Edit Model": [
+         null,
+         ""
+      ],
       "Edit Item": [
+         null,
+         ""
+      ],
+      "Edit Option": [
          null,
          ""
       ],
@@ -2317,6 +2333,14 @@ window.i18n.locale_data = {
          ""
       ],
       "you cannot hand out lines with unassigned inventory codes": [
+         null,
+         ""
+      ],
+      "Option": [
+         null,
+         ""
+      ],
+      "Options": [
          null,
          ""
       ]

@@ -14,7 +14,7 @@ module Json
       end
       
       if with ||= nil
-        [:image_thumb, :description, :is_package, :hand_over_note].each do |k|
+        [:image_thumb, :description, :technical_detail, :internal_description, :is_package, :hand_over_note].each do |k|
           h[k] = model.send(k) if with[k]
         end
         
@@ -33,6 +33,24 @@ module Json
       
         if with[:categories] and model.respond_to? :categories
           h[:categories] = model.categories.as_json # TODO
+        end
+
+        if with[:images] and model.respond_to? :images
+          h[:images] = model.images.as_json(:methods => [:public_filename, :public_filename_thumb]) # TODO
+        end
+
+        if with[:attachments] and model.respond_to? :attachments
+          h[:attachments] = model.attachments.as_json(:methods => :public_filename) # TODO
+        end
+
+        if with[:accessories] and model.respond_to? :accessories
+          h[:accessories] = model.accessories.map do |accessory|
+            {id: accessory.id,
+             name: accessory.name,
+             active: accessory.inventory_pool_ids.include?(current_inventory_pool.id),
+             is_deletable: (accessory.inventory_pool_ids.empty? or accessory.inventory_pool_ids == [current_inventory_pool.id])
+            }
+          end
         end
 
         if with[:inventory_pools]
@@ -60,6 +78,11 @@ module Json
             h[:availability_for_user] = model.availability_periods_for_user(customer_user)
           end
           
+        end
+
+        #tmp# TODO remove this when using permissions
+        if with[:is_editable]
+          h[:is_editable] = is_privileged_user?
         end
       end
       

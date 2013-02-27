@@ -84,6 +84,12 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
+msgid "Add Model"
+msgstr ""
+
+msgid "Add Option"
+msgstr ""
+
 msgid "Add Purpose"
 msgstr ""
 
@@ -362,7 +368,13 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
+msgid "Edit Model"
+msgstr ""
+
 msgid "Edit Item"
+msgstr ""
+
+msgid "Edit Option"
 msgstr ""
 
 msgid "Edit Order"
@@ -925,6 +937,9 @@ msgid "Reason for Retirement"
 msgstr ""
 
 msgid "Recommended Accessories"
+msgstr ""
+
+msgid "Accessories"
 msgstr ""
 
 msgid "Reject"
@@ -1805,4 +1820,28 @@ msgid "no item selected"
 msgstr ""
 
 msgid "requested"
+msgstr ""
+
+msgid "Option"
+msgstr ""
+
+msgid "Options"
+msgstr ""
+
+msgid "Inventory Helper"
+msgstr ""
+
+msgid "Select Image"
+msgstr ""
+
+msgid "Select File"
+msgstr ""
+
+msgid "Images"
+msgstr ""
+
+msgid "Attachments"
+msgstr ""
+
+msgid "undo"
 msgstr ""
