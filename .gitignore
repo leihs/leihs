@@ -12,6 +12,7 @@ config/development.sphinx.conf
 config/cucumber.sphinx.conf
 config/culerity.sphinx.conf
 config/database.yml
+config/database_local.yml
 db/sphinx/
 db/backups/
 .DS_Store
