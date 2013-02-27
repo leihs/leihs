@@ -41,9 +41,6 @@
             :"data-dialog_class" => "full_width timeline" do
             .icon.timeline
             ${_jed("Timeline")}
-          = link_to "/backend/inventory_pools/${currentInventoryPool.id}/models/${id}/categories", :class => "button white" do
-            .icon.edit
-            ${_jed("Categories")}
         = link_to "/backend/inventory_pools/${currentInventoryPool.id}/models/${id}/edit", :class => "button white" do
           .icon.edit
           ${_jed("Edit Model")}
