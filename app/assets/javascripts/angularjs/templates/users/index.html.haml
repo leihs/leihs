@@ -5,10 +5,11 @@
   %span{"ng-show" => "search"}
     {{_jed("Searching for %s", search)}}
 
-  .content_navigation
-    %a.button.white{:href => "/backend/inventory_pools/{{current_inventory_pool_id}}/users/new"}
-      .icon.user
-      {{_jed("New User")}}
+  /
+    .content_navigation
+      %a.button.white{:href => "/backend/inventory_pools/{{current_inventory_pool_id}}/users/new"}
+        .icon.user
+        {{_jed("New User")}}
 
 %section
 
