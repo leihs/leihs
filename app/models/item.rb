@@ -61,7 +61,7 @@ class Item < ActiveRecord::Base
     q = query.split.map{|s| "%#{s}%"}
     model_fields = Model::SEARCHABLE_FIELDS.map{|f| "m.#{f}" }.join(', ')
     item_fields = Item::SEARCHABLE_FIELDS.map{|f| "i.#{f}" }.join(', ')
-    joins(%Q(INNER JOIN (SELECT i.id, CONCAT_WS(' ', #{model_fields}, #{item_fields}) AS text
+    joins(%Q(INNER JOIN (SELECT i.id, CAST(CONCAT_WS(' ', #{model_fields}, #{item_fields}) AS CHAR) AS text
                         FROM items AS i
                           INNER JOIN models AS m ON i.model_id = m.id
                         GROUP BY id) AS full_text ON items.id = full_text.id)).

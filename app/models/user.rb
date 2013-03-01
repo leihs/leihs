@@ -92,7 +92,7 @@ class User < ActiveRecord::Base
 =begin
     q = query.split.map{|s| "%#{s}%"}
     user_fields = User::SEARCHABLE_FIELDS.map{|f| "u.#{f}" }.join(', ')
-    joins(%Q(INNER JOIN (SELECT u.id, CONCAT_WS(' ', #{user_fields}) as text
+    joins(%Q(INNER JOIN (SELECT u.id, CAST(CONCAT_WS(' ', #{user_fields}) AS CHAR) AS text
                         FROM users AS u) AS full_text ON users.id = full_text.id)).
         where(Arel::Table.new(:full_text)[:text].matches_all(q))
 =end
