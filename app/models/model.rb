@@ -139,7 +139,7 @@ class Model < ActiveRecord::Base
     q = query.split.map{|s| "%#{s}%"}
     model_fields = Model::SEARCHABLE_FIELDS.map{|f| "m.#{f}" }.join(', ')
     item_fields = Item::SEARCHABLE_FIELDS.map{|f| "i.#{f}" }.join(', ')
-    joins(%Q(INNER JOIN (SELECT m.id, CONCAT_WS(' ', #{model_fields}, #{item_fields}, mg.name, p.value) AS text
+    joins(%Q(INNER JOIN (SELECT m.id, CAST(CONCAT_WS(' ', #{model_fields}, #{item_fields}, mg.name, p.value) AS CHAR) AS text
                           FROM models AS m
                             LEFT JOIN items AS i ON i.model_id = m.id
                             LEFT JOIN properties AS p ON p.model_id = m.id

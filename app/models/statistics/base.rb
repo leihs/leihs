@@ -52,7 +52,7 @@ module Statistics
           when "User"
             query.joins(:contract_lines).
               group("contracts.#{klass.name.foreign_key}").
-              select("CONCAT_WS(' ', users.firstname, users.lastname) AS label")
+              select("CAST(CONCAT_WS(' ', users.firstname, users.lastname) AS CHAR) AS label")
           when "InventoryPool"
             query.joins(:contract_lines).
               group("contracts.#{klass.name.foreign_key}").
@@ -108,7 +108,7 @@ module Statistics
           #when "User"
           #  query.joins(:contract_lines).
           #    group("contracts.#{klass.name.foreign_key}").
-          #    select("CONCAT_WS(' ', users.firstname, users.lastname) AS label")
+          #    select("CAST(CONCAT_WS(' ', users.firstname, users.lastname) AS CHAR) AS label")
           when "InventoryPool"
             query.joins(:own_items).
               group("items.owner_id").

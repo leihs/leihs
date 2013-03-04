@@ -40,7 +40,7 @@
         {{else}}
         ${_jed("New Borrower")}
         {{/if}}
-      %input.autocomplete.focus{:type => "text", :placeholder => '${_jed("Name / ID")}', :name => "select_user", :autocomplete => "off",
+      %input.autocomplete.focus.prevent-scanner-submit{:type => "text", :placeholder => '${_jed("Name / ID")}', :name => "select_user", :autocomplete => "off",
       :"data-url" => "/backend/inventory_pools/${currentInventoryPool.id}/search?types[]=user&with[zip]=1&with[city]=1",
       :"data-autocomplete_class" => "user", 
       :"data-autocomplete_element_tmpl" => "tmpl/autocomplete/user",

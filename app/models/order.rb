@@ -58,7 +58,7 @@ class Order < Document
     q = query.split.map{|s| "%#{s}%"}
     model_fields = Model::SEARCHABLE_FIELDS.map{|f| "m.#{f}" }.join(', ')
     user_fields = User::SEARCHABLE_FIELDS.map{|f| "u.#{f}" }.join(', ')
-    joins(%Q(INNER JOIN (SELECT o.id, CONCAT_WS(' ', #{model_fields}, #{user_fields}) as text
+    joins(%Q(INNER JOIN (SELECT o.id, CAST(CONCAT_WS(' ', #{model_fields}, #{user_fields}) AS CHAR) AS text
                         FROM orders AS o
                           INNER JOIN users AS u ON u.id = o.user_id
                           INNER JOIN (order_lines AS ol

@@ -63,7 +63,7 @@ class Contract < Document
     q = query.split.map{|s| "%#{s}%"}
     model_fields = Model::SEARCHABLE_FIELDS.map{|f| "m.#{f}" }.join(', ')
     user_fields = User::SEARCHABLE_FIELDS.map{|f| "u.#{f}" }.join(', ')
-    joins(%Q(INNER JOIN (SELECT c.id, CONCAT_WS(' ', c.id, c.note, #{model_fields}, #{user_fields}, o.name, i.inventory_code) as text
+    joins(%Q(INNER JOIN (SELECT c.id, CAST(CONCAT_WS(' ', c.id, c.note, #{model_fields}, #{user_fields}, o.name, i.inventory_code) AS CHAR) AS text
                         FROM contracts AS c
                           INNER JOIN users AS u ON u.id = c.user_id
                           INNER JOIN (contract_lines AS cl
