@@ -7,7 +7,7 @@ class LdapHelper
     @search_field = LDAP_CONFIG[Rails.env]["search_field"]
     @host = LDAP_CONFIG[Rails.env]["host"]
     @port = LDAP_CONFIG[Rails.env]["port"].to_i || 636
-    @encryption = :LDAP_CONFIG[Rails.env]["encryption"].to_sym || :simple_tls
+    @encryption = LDAP_CONFIG[Rails.env]["encryption"].to_sym || :simple_tls
     @method = :simple
     @master_bind_dn = LDAP_CONFIG[Rails.env]["master_bind_dn"]
     @master_bind_pw = LDAP_CONFIG[Rails.env]["master_bind_pw"]
@@ -36,10 +36,12 @@ end
 
 class Authenticator::HsluAuthenticationController < Authenticator::AuthenticatorController
 
-  layout 'layouts/backend/general'
+  $general_layout_path = 'layouts/backend/' + $theme + '/general'
+     
+  layout $general_layout_path
         
   def login_form_path
-    "/authenticator/ldap/login"
+    "/authenticator/hslu/login"
   end
   
   def login
@@ -49,17 +51,19 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
       if user == "" || password == ""
         flash[:notice] = _("Empty Username and/or Password")
       else
-        ldap = LdapHelper.new
+        ldaphelper = LdapHelper.new
         begin
-          if ldap.bind
+          ldap = ldaphelper.bind
+
+          if ldap 
             users = ldap.search(:base => LDAP_CONFIG[Rails.env]["base"], :filter => Net::LDAP::Filter.eq(LDAP_CONFIG[Rails.env]["search_field"], "#{user}"))
 
             if users.size == 1
               email = users.first.mail if users.first.mail
               email ||= "#{user}@hslu.ch"
               bind_dn = users.first.dn
-              userldap = LdapHelper.new 
-              if userldap.bind(bind_dn, password)
+              ldaphelper = LdapHelper.new
+              if ldaphelper.bind(bind_dn, password)
                 u = User.find_by_login(user)
                 if not u
                   u = User.create(:login => user, :email => "#{email}")

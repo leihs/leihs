@@ -178,6 +178,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'authenticator/zhdk/:action/:id', :controller => 'authenticator/zhdk'
   map.connect 'authenticator/db/:action/:id', :controller => 'authenticator/database_authentication'
   map.connect 'authenticator/ldap/:action/:id', :controller => 'authenticator/ldap_authentication'
+  map.connect 'authenticator/hslu/:action/:id', :controller => 'authenticator/hslu_authentication'
   map.connect 'authenticator/shibboleth/:action/:id', :controller => 'authenticator/shibboleth_authentication'
 
 #  map.connect ':controller/:action/:id', :defaults => { :controller => 'frontend' }
