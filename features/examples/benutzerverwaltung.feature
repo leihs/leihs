@@ -22,7 +22,7 @@ Funktionalität: Benutzer verwalten
       | Ausleihe-Verwalter | lending_managers   |
       | Inventar-Verwalter | inventory_managers |
     Und man kann für jeden Benutzer die Editieransicht aufrufen
-    Und man kann einen neuen Benutzer erstellen 
+    #Und man kann einen neuen Benutzer erstellen 
 
   # pts: 3
   @javascript
