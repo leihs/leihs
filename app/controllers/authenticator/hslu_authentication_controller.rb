@@ -27,7 +27,8 @@ class LdapHelper
     if ldap.bind
       return ldap
     else
-      raise "Can't bind to LDAP server #{@host}. Wrong bind credentials or encryption parameters?"
+      logger = Rails.logger
+      logger.error "Can't bind to LDAP server #{@host} as user '#{username}'. Wrong bind credentials or encryption parameters?"
       return false
     end
   end
