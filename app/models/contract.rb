@@ -67,31 +67,12 @@ class Contract < Document
                         FROM contracts AS c
                           INNER JOIN users AS u ON u.id = c.user_id
                           INNER JOIN (contract_lines AS cl
-                            LEFT JOIN (options AS o, models AS m, items AS i) ON (o.id = cl.option_id AND m.id = cl.model_id AND i.id = cl.item_id)) ON cl.contract_id = c.id
+                            LEFT JOIN items AS i ON i.id = cl.item_id
+                            LEFT JOIN options AS o ON o.id = cl.option_id
+                            LEFT JOIN models AS m ON m.id = cl.model_id
+                          ) ON cl.contract_id = c.id
                         GROUP BY id) AS full_text ON contracts.id = full_text.id)).
         where(Arel::Table.new(:full_text)[:text].matches_all(q))
-=begin
-    sql = select("DISTINCT contracts.*").
-      joins("LEFT JOIN `users` ON `users`.`id` = `contracts`.`user_id`").
-      joins("LEFT JOIN `contract_lines` ON `contract_lines`.`contract_id` = `contracts`.`id`").
-      joins("LEFT JOIN `options` ON `options`.`id` = `contract_lines`.`option_id`").
-      joins("LEFT JOIN `models` ON `models`.`id` = `contract_lines`.`model_id`").
-      joins("LEFT JOIN `items` ON `items`.`id` = `contract_lines`.`item_id`")
-
-    query.split.each{|q|
-      qq = "%#{q}%"
-      sql = sql.where(arel_table[:id].eq(q).
-                      or(arel_table[:note].matches(qq)).
-                      or(User.arel_table[:login].matches(qq)).
-                      or(User.arel_table[:firstname].matches(qq)).
-                      or(User.arel_table[:lastname].matches(qq)).
-                      or(User.arel_table[:badge_id].matches(qq)).
-                      or(Model.arel_table[:name].matches(qq)).
-                      or(Option.arel_table[:name].matches(qq)).
-                      or(Item.arel_table[:inventory_code].matches(qq)))
-    }
-    sql
-=end
   }
 
   def self.filter2(options)
