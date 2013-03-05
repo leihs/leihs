@@ -393,7 +393,7 @@ end
 Und /^ich speichere die Informationen/ do
   @model_name_from_url = get_rails_model_name_from_url
   @model_id = (Rails.application.routes.recognize_path current_path)[:id].to_i
-  step 'I press "%s"' % (_("Save %s") % @model_name_from_url.capitalize)
+  step 'I press "%s"' % (_("Save %s") % _("#{@model_name_from_url.capitalize}"))
   step "ensure there are no active requests"
   #wait_until { all(".loading", :visible => true).empty? }
 end
@@ -471,7 +471,7 @@ Wenn /^ich einen Namen eines existierenden Modelles eingebe$/ do
 end
 
 Dann /^wird das Modell nicht gespeichert, da es keinen (?:eindeutigen\s)?Namen hat$/ do
-  step 'I should see "%s"' % (_("Save %s") % @model_name_from_url.capitalize)
+  step 'I should see "%s"' % (_("Save %s") % _("#{@model_name_from_url.capitalize}"))
 end
 
 Dann /^habe ich die Möglichkeit, folgende Informationen zu erfassen:$/ do |table|
@@ -556,12 +556,12 @@ Dann /^zu grosse Bilder werden den erlaubten Grössen entsprechend verkleinert$/
 end
 
 Dann /^wurden die ausgewählten Bilder für dieses Modell gespeichert$/ do
-  @model.images.map {|i| i.filename}.should eql @images_to_save
+  @model.images.map(&:filename).sort.should eql @images_to_save.sort
 end
 
 Und /^ich speichere das Modell mit Bilder$/ do
   @model_name_from_url = get_rails_model_name_from_url
-  step 'I press "%s"' % (_("Save %s") % @model_name_from_url.capitalize)
+  step 'I press "%s"' % (_("Save %s") % _("#{@model_name_from_url.capitalize}"))
   wait_until { all(".loading", :visible => true).empty? }
 end
 
