@@ -34,7 +34,7 @@ class LdapHelper
 end
 
 
-class Authenticator::LdapAuthenticationController < Authenticator::AuthenticatorController
+class Authenticator::HsluAuthenticationController < Authenticator::AuthenticatorController
 
   layout 'layouts/backend/general'
         
