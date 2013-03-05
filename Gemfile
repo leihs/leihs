@@ -60,6 +60,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
+  gem 'faraday'
 
   # This gem only provides the 'gettext:find' task, which is buggy with HTML, and the 'gettext:pack' task,
   # which we no longer need.
