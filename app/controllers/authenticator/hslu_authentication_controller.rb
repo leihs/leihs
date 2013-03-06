@@ -45,9 +45,9 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
 
   # @param login [String] The login of the user you want to create
   # @param email [String] The email address of the user you want to create
-  def create_new_user(login, email)
-    user = User.create(:login => login, :email => "#{email}")
-    if user
+  def create_user(login, email)
+    user = User.new(:login => login, :email => "#{email}")
+    if user.save
       # Assign any default roles you want
       role = Role.find_by_name("customer")
       InventoryPool.all.each do |ip|
@@ -55,11 +55,11 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
       end
       return user
     else
-      flash[:notice] = _("Could not create user: #{user.errors.full_messages}")
-      redirect_to :action => 'login'
+      logger = Rails.logger
+      logger.error "Could not create user with login #{login}: #{user.errors.full_messages}"
+      return false
     end
   end
-
 
   # @param user [User] The (local, database) user whose data you want to update
   # @param user_data [Net::LDAP::Entry] The LDAP entry (it could also just be a hash of hashes and arrays that looks like a Net::LDAP::Entry) of that user
@@ -95,11 +95,12 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
     # {:id} will be interpolated with user.unique_id there.
     user.unique_id = user_data["pager"].to_s
 
-    # TODO: Create admin roles if the user is memberOf "Applikationssupport"
-    admin_dn = "CN=SER_SUP_ITZ.personal,OU=_Distributionlists,OU=_ZHdK,DC=vera,DC=hgka,DC=ch"
-    if user_data["memberof"].include?(admin_dn)
-      admin_role = Role.find_by_name("admin")
-      user.access_rights.create(:role => admin_role) unless user.access_rights.include?(admin_role)
+    admin_dn = LDAP_CONFIG[Rails.env]["admin_dn"]
+    unless admin_dn.blank?
+      if user_data["memberof"].include?(admin_dn)
+        admin_role = Role.find_by_name("admin")
+        user.access_rights.create(:role => admin_role) unless user.access_rights.include?(admin_role)
+      end
     end
   end
   
@@ -114,7 +115,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
         begin
           ldap = ldaphelper.bind
 
-          if ldap 
+          if ldap
             users = ldap.search(:base => LDAP_CONFIG[Rails.env]["base"], :filter => Net::LDAP::Filter.eq(LDAP_CONFIG[Rails.env]["search_field"], "#{user}"))
 
             if users.size == 1
@@ -125,16 +126,17 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
               if ldaphelper.bind(bind_dn, password)
                 u = User.find_by_login(user)
                 if not u
-                  u = create_user(login, email)
+                  u = create_user(user, email)
                 end
-                update_user(u, users.first)
-                if u.save
+
+                if not u == false
+                  update_user(u, users.first)
+                  u.save
                   self.current_user = u
                   redirect_back_or_default("/")
                   return true
                 else
-                  flash[:notice] = _("User record could not be updated with LDAP information")
-                  return false
+                  flash[:notice] = _("Could not create new user for '#{user}' from LDAP source. Contact your leihs system administrator.")
                 end
               else
                 flash[:notice] = _("Invalid username/password")
