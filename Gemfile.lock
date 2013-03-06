@@ -106,8 +106,6 @@ GEM
       railties (>= 3.0.0)
     faker (1.1.2)
       i18n (~> 0.5)
-    faraday (0.8.4)
-      multipart-post (~> 1.1)
     fast_gettext (0.7.0)
     ffi (1.4.0)
     ffi (1.4.0-java)
@@ -180,7 +178,6 @@ GEM
     mini_magick (3.5.0)
       subexec (~> 0.2.1)
     multi_json (1.6.1)
-    multipart-post (1.1.5)
     mysql2 (0.3.11)
     nested_set (1.7.1)
       activerecord (>= 3.0.0)
@@ -338,7 +335,6 @@ DEPENDENCIES
   factory_girl (~> 4.1)
   factory_girl_rails (~> 4.1)
   faker
-  faraday
   geocoder (~> 1.1)
   gettext_i18n_rails (~> 0.8)
   growl (~> 1.0.3)
