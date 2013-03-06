@@ -38,11 +38,69 @@ end
 class Authenticator::HsluAuthenticationController < Authenticator::AuthenticatorController
 
   $general_layout_path = 'layouts/backend/' + $theme + '/general'
-     
   layout $general_layout_path
-        
   def login_form_path
     "/authenticator/hslu/login"
+  end
+
+  # @param login [String] The login of the user you want to create
+  # @param email [String] The email address of the user you want to create
+  def create_new_user(login, email)
+    user = User.create(:login => login, :email => "#{email}")
+    if user
+      # Assign any default roles you want
+      role = Role.find_by_name("customer")
+      InventoryPool.all.each do |ip|
+        user.access_rights.create(:inventory_pool_id => ip, :role => role)
+      end
+      return user
+    else
+      flash[:notice] = _("Could not create user: #{user.errors.full_messages}")
+      redirect_to :action => 'login'
+    end
+  end
+
+
+  # @param user [User] The (local, database) user whose data you want to update
+  # @param user_data [Net::LDAP::Entry] The LDAP entry (it could also just be a hash of hashes and arrays that looks like a Net::LDAP::Entry) of that user
+  def update_user(user, user_data)
+    user.firstname = user_data["givenname"].to_s 
+    user.lastname = user_data["sn"].to_s
+    user.phone = user_data["telephonenumber"].to_s unless user_data["telephonenumber"].blank?
+    user.badge_id = "I" + user_data["extensionattribute6"].to_s unless user_data["extensionattribute6"].blank?
+    user.address = user_data["streetaddress"].to_s
+
+    preferred_language = user_data["msexchuserculture"].to_s
+    if preferred_language == 1 or !(preferred_language =~ /^de/).nil? 
+      language = Language.find(:first, :conditions => ["locale_name LIKE 'de%' AND active = ?", true])
+    elsif preferred_language == 2 or !(preferred_language =~ /^en/).nil? 
+      language = Language.find(:first, :conditions => ["locale_name LIKE 'en%' AND active = ?", true])
+    else
+      language = Language.default_language
+    end
+    user.language = language if language
+
+    # This does not conform to the specification from "Login und Benutzerdaten leihs", where only
+    # "streetAddress" was specified. A standard AD server schema will split the address up nicely, 
+    # as shown below. I think this is better than randomly trying to split the address from a single
+    # string.
+    user.address = user_data["streetaddress"].to_s
+    user.city = user_data["l"].to_s
+    user.country = user_data["c"].to_s
+    user.zip = user_data["postalcode"].to_s
+
+    # Make sure to set USER_IMAGE_URL in application.rb in leihs 3.0 for user images to appear, based
+    # on the unique ID. Example for the format in application.rb:
+    # http://www.hslu.ch/portrait/{:id}.jpg
+    # {:id} will be interpolated with user.unique_id there.
+    user.unique_id = user_data["pager"].to_s
+
+    # TODO: Create admin roles if the user is memberOf "Applikationssupport"
+    admin_dn = "CN=SER_SUP_ITZ.personal,OU=_Distributionlists,OU=_ZHdK,DC=vera,DC=hgka,DC=ch"
+    if user_data["memberof"].include?(admin_dn)
+      admin_role = Role.find_by_name("admin")
+      user.access_rights.create(:role => admin_role) unless user.access_rights.include?(admin_role)
+    end
   end
   
   def login
@@ -67,20 +125,17 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
               if ldaphelper.bind(bind_dn, password)
                 u = User.find_by_login(user)
                 if not u
-                  u = User.create(:login => user, :email => "#{email}")
-                  role = Role.find_by_name("customer")
-                  InventoryPool.all.each do |ip|
-                    u.access_rights.create(:inventory_pool_id => ip, :role => role)
-                  end
+                  u = create_user(login, email)
                 end
-                u.firstname = users.first["givenname"].to_s 
-                u.lastname = users.first["sn"].to_s
-                u.phone = users.first["telephonenumber"].to_s unless users.first["telephonenumber"].blank?
-
-                u.save
-                self.current_user = u
-                redirect_back_or_default("/")
-                return true
+                update_user(u, users.first)
+                if u.save
+                  self.current_user = u
+                  redirect_back_or_default("/")
+                  return true
+                else
+                  flash[:notice] = _("User record could not be updated with LDAP information")
+                  return false
+                end
               else
                 flash[:notice] = _("Invalid username/password")
               end
