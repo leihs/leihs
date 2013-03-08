@@ -534,7 +534,7 @@ Dann /^kann ich ein einzelnes Zubehör für meinen Pool deaktivieren$/ do
 end
 
 Dann /^kann ich mehrere Bilder hinzufügen$/ do
-  step "wait 1 seconds"
+  wait_until{find("input[type='file']")}
   page.execute_script("$('input:file').attr('class', 'visible');")
   image_field_id = find ".visible"
   ["image1.jpg", "image2.jpg", "image3.png"].each do |image|
