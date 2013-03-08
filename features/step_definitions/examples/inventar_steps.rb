@@ -451,7 +451,6 @@ Wenn /^ich eine?n? bestehende[s|n]? (.+) bearbeite$/ do |entity|
                 end
   step 'ich nach "%s" suche' % object_name
   wait_until { find(".line", :text => object_name).find(".button", :text => "#{entity} editieren") }.click
-  #click_link("#{entity} editieren")
 end
 
 Wenn /^ich ein bestehendes Modell bearbeite welches bereits Zubehör hat$/ do
@@ -507,10 +506,6 @@ Wenn /^ich Zubehör hinzufüge und falls notwendig die Anzahl des Zubehör ins T
     find(".add-input").set @new_accessory_name
     find(".add-button").click
   end
-end
-
-Wenn /^ich das Modell speichere$/ do
-  pending
 end
 
 Dann /^ist das Zubehör dem Modell hinzugefügt worden$/ do

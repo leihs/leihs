@@ -141,14 +141,20 @@ class Backend::ModelsController < Backend::BackendController
           v[m] = current_inventory_pool.id
         end if params[:model][:accessories_attributes]
 
-        @model = Model.new(params[:model])
-        if @model.save
+        category_ids = params[:model].delete(:category_ids)
+        @model = Model.create(params[:model])
+        @model.update_attributes(:category_ids => category_ids) if category_ids
+
+        if @model.valid?
           show({:preset => :model})
         else
           render :text => @model.errors.full_messages.uniq.join(", "), :status => :bad_request
         end
       }
     end
+  end
+
+  def edit
   end
 
   def update
@@ -294,24 +300,6 @@ class Backend::ModelsController < Backend::BackendController
     end
     # TODO 0408** scope @model.categories
     @properties_set = Model.with_properties.collect{|m| m.properties.collect(&:key)}.uniq
-  end
-
-#############################################################
-
-  def categories
-    if request.post?
-      respond_to do |format|
-        format.json {
-          @model.categories.delete_all
-          @model.categories << @categories if @categories
-          render json: {text: _("This model is now in %d categories") % @model.categories.count}
-        }
-      end
-    else
-      respond_to do |format|
-        format.html { @categories = @model.categories }
-      end
-    end
   end
 
 #################################################################

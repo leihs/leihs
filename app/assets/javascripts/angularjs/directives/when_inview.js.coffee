@@ -4,7 +4,6 @@ angular.module("directives", []).directive "whenInview", ->
     $(window).bind "scroll", ->
       scope.$apply attr.whenInview  if isScrolledIntoView(elm)
 
-
 isScrolledIntoView = (elem) ->
   docViewTop = $(window).scrollTop()
   docViewBottom = docViewTop + $(window).height()
