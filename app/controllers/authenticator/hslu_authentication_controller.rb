@@ -1,5 +1,4 @@
 #require 'net/ldap'
-require 'net/ldap'
 
 class LdapHelper
   def initialize
@@ -37,7 +36,7 @@ end
 
 class Authenticator::HsluAuthenticationController < Authenticator::AuthenticatorController
 
-  $general_layout_path = 'layouts/backend/' + $theme + '/general'
+  $general_layout_path = ['layouts/backend/', $theme, '/general'].join
   layout $general_layout_path
   def login_form_path
     "/authenticator/hslu/login"
