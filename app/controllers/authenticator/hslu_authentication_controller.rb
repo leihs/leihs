@@ -36,8 +36,8 @@ end
 
 class Authenticator::HsluAuthenticationController < Authenticator::AuthenticatorController
 
-  $general_layout_path = ['layouts/backend/', $theme, '/general'].join
-  layout $general_layout_path
+  layout 'layouts/backend/general'
+
   def login_form_path
     "/authenticator/hslu/login"
   end
