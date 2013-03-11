@@ -141,6 +141,7 @@ namespace :deploy do
 	task :start do
 	# we do absolutely nothing here, as we currently aren't
 	# using a spinner script or anything of that sort.
+          run "cd #{release_path} && passenger start -p 3005 -e production -d"
 	end
 
    task :restart, :roles => :app, :except => { :no_release => true } do

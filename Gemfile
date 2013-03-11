@@ -43,6 +43,9 @@ gem 'acts-as-dag', '1.1.4' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
 
 gem "haml", '3.1.3'
 
+gem "passenger" # To use Passenger Standalone when gems are installed in --deployment mode
+                # Necessary for Ruby 1.8 + Ruby 1.9 combined hosting with Apache reverse
+                # proxies.
 
 group :profiling do
 	gem "newrelic_rpm", '2.10.5'
