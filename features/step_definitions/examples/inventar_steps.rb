@@ -451,7 +451,6 @@ Wenn /^ich eine?n? bestehende[s|n]? (.+) bearbeite$/ do |entity|
                 end
   step 'ich nach "%s" suche' % object_name
   wait_until { find(".line", :text => object_name).find(".button", :text => "#{entity} editieren") }.click
-  #click_link("#{entity} editieren")
 end
 
 Wenn /^ich ein bestehendes Modell bearbeite welches bereits Zubehör hat$/ do
@@ -509,10 +508,6 @@ Wenn /^ich Zubehör hinzufüge und falls notwendig die Anzahl des Zubehör ins T
   end
 end
 
-Wenn /^ich das Modell speichere$/ do
-  pending
-end
-
 Dann /^ist das Zubehör dem Modell hinzugefügt worden$/ do
   @model.accessories.reload.where(:name => @new_accessory_name).should_not be_nil
 end
@@ -534,7 +529,7 @@ Dann /^kann ich ein einzelnes Zubehör für meinen Pool deaktivieren$/ do
 end
 
 Dann /^kann ich mehrere Bilder hinzufügen$/ do
-  step "wait 1 seconds"
+  wait_until{find("input[type='file']")}
   page.execute_script("$('input:file').attr('class', 'visible');")
   image_field_id = find ".visible"
   ["image1.jpg", "image2.jpg", "image3.png"].each do |image|

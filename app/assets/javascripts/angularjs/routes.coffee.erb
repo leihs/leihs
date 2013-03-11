@@ -1,7 +1,7 @@
 root = global ? window
 angular = root.angular
 
-app = angular.module("Leihs", ['users', 'models', 'options', 'filters', 'directives', 'ui']).config(['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) ->
+app = angular.module("Leihs", ['users', 'models', 'options', 'categories', 'filters', 'directives', 'ui']).config(['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) ->
   #$locationProvider.hashPrefix('');
   $locationProvider.html5Mode true
   $routeProvider.when("/backend/inventory_pools/:inventory_pool_id/users",
@@ -22,6 +22,15 @@ app = angular.module("Leihs", ['users', 'models', 'options', 'filters', 'directi
   ).when("/backend/inventory_pools/:inventory_pool_id/options/:id/edit",
       controller: OptionsEditCtrl
       templateUrl: '<%= asset_path("angularjs/templates/options/edit.html") %>'
+  ).when("/backend/inventory_pools/:inventory_pool_id/categories",
+      controller: CategoriesIndexCtrl
+      templateUrl: '<%= asset_path("angularjs/templates/categories/index.html") %>'
+  ).when("/backend/inventory_pools/:inventory_pool_id/categories/new",
+      controller: CategoriesCreateCtrl
+      templateUrl: '<%= asset_path("angularjs/templates/categories/create.html") %>'
+  ).when("/backend/inventory_pools/:inventory_pool_id/categories/:id/edit",
+      controller: CategoriesEditCtrl
+      templateUrl: '<%= asset_path("angularjs/templates/categories/edit.html") %>'
   )
 ]).run(['$location', '$rootElement', ($location, $rootElement) ->
     # http://stackoverflow.com/a/11785196/1966785

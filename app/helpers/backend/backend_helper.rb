@@ -54,7 +54,8 @@ module Backend::BackendHelper
         is_current_page?("models") or
           is_current_page?("items") or 
           is_current_page?("inventory_helper") or
-          is_current_page?("options")
+          is_current_page?("options") or
+          is_current_page?("categories")
       when "inventory_helper"
         path_parameters?(:controller => "backend/inventory_helper")
       when "models"
@@ -72,6 +73,8 @@ module Backend::BackendHelper
         path_parameters?(:controller => "statistics")
       when "options"
         path_parameters?(:controller => "backend/options")
+      when "categories"
+        path_parameters?(:controller => "backend/categories")
     end
     
     # We rescue everything because backend/hand_over and backend/take_back are failing sometimes

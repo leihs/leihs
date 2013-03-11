@@ -376,6 +376,10 @@ window.i18n.locale_data = {
          null,
          "Kategorien"
       ],
+      "Category": [
+         null,
+         "Kategorie"
+      ],
       "Change Borrower": [
          null,
          "Reservierende/n wechseln"
@@ -508,6 +512,10 @@ window.i18n.locale_data = {
          null,
          "Löschen"
       ],
+      "Delete %s": [
+         null,
+         "%s löschen"
+      ],
       "Delete Selection": [
          null,
          "Auswahl löschen"
@@ -543,6 +551,10 @@ window.i18n.locale_data = {
       "Edit": [
          null,
          "Editieren"
+      ],
+      "Edit %s": [
+         null,
+         "%s bearbeiten"
       ],
       "Edit Model": [
          null,
@@ -2453,6 +2465,34 @@ window.i18n.locale_data = {
       "undo": [
          null,
          "rückgängig"
+      ],
+      "Do you realy want to delete the '%s' category?": [
+         null,
+         "Möchten Sie wirklich die Kategorie '%s' löschen?"
+      ],
+      "Create %s": [
+         null,
+         "%s erstellen"
+      ],
+      "Create new category": [
+         null,
+         "Neue Kategorie erstellen"
+      ],
+      "Category name": [
+         null,
+         "Name der Kategorie"
+      ],
+      "List of Categories": [
+         null,
+         "Liste der Kategorien"
+      ],
+      "Label": [
+         null,
+         "Bezeichnung"
+      ],
+      "not used": [
+         null,
+         "nicht genutzt"
       ]
    }
 }

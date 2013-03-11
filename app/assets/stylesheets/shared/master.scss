@@ -168,3 +168,42 @@ span {
   position: absolute;
   @include opacity(0);
 }
+
+
+.ui-show {
+  display: block;
+}
+.ui-hide {
+  display: none;
+}
+
+// CHILDREN LEVEL 2
+.ui-children .line {
+  background: #F8F8F8 !important;
+  .main {
+    padding-left: 2em;
+    width: 70% !important;
+  }
+}
+
+// CHILDREN LEVEL 3
+.ui-children .ui-children .line {
+  background: white !important;
+  .main {
+    padding-left: 4em;
+    width: 65% !important;
+  }
+}
+
+// CHILDREN LEVEL 4
+.ui-children .ui-children .ui-children .line {
+  background: #F8F8F8 !important;
+  .main {
+    padding-left: 6em;
+    width: 60% !important;
+  }
+}
+
+.min-height {
+  min-height: 500px;
+}

@@ -1,0 +1,56 @@
+:css
+  .simple_tree ul {
+    margin-left: 2em;
+  }
+
+:ruby
+  def category_node(category, parent_id)
+    {:data => {:title => category.text(parent_id)},
+     :attr => {:id => category.id},
+     :children => category.children.order("name asc").map{|c| category_node(c, category.id) } }
+  end
+
+  def category_root
+    {:data => {:title => _("All")},
+     :attr => {:id => 0},
+     :state => "open",
+     :children => Category.roots.order("name asc").map{|c| category_node(c, 0) } }
+  end
+
+  def simple_category_tree_root(nodes, links, ancestor_id)
+    capture_haml do
+      haml_tag :ul, :class => "simple_tree" do
+        nodes.collect do |node|
+          if link_to_parent = links.detect {|l| l.descendant_id == node[:attr][:id] and l.ancestor_id == ancestor_id }
+            haml_tag :li, :class => "current_category model_group_link", :"data-parent_id" => link_to_parent.ancestor_id do
+              haml_tag :b do
+                haml_concat check_box_tag "", nil, false, :disabled => "disabled", :autocomplete => :off
+                haml_tag :span, :class => "name" do 
+                  haml_concat " #{node[:data][:title]}"
+                end
+              end
+              haml_tag :input, :name => :label, :type => "text", :value => link_to_parent.label, :placeholder => _("Label")
+            end
+          else
+            haml_tag :li do
+              haml_tag :label do
+                haml_concat check_box_tag "category_ids[]", node[:attr][:id], links.map(&:ancestor_id).include?(node[:attr][:id]), :autocomplete => :off
+                haml_concat " #{node[:data][:title]}"
+              end
+              haml_concat simple_category_tree_root(node[:children], links, node[:attr][:id]) unless node[:children].empty?
+            end
+          end
+        end
+      end
+    end
+  end
+
+%section{style: "margin-left: 1em;"}
+  .inner
+    .field
+      %h3.key= _("Categories")
+      = simple_category_tree_root category_root[:children], (@category.try(:links_as_child) || []), 0
+
+:coffeescript
+  jQuery -> new App.EditCategoryController
+    currentCategoryId: #{(@category.try(&:id)).to_json}

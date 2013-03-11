@@ -158,8 +158,6 @@ Leihs::Application.routes.draw do
           get :package_item
           put :package_item
           delete :package_item
-          get :categories
-          post :categories
           post :set_group_partition
 #leihs2#end# 
         end
