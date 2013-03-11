@@ -182,6 +182,7 @@ GEM
     nested_set (1.7.1)
       activerecord (>= 3.0.0)
       railties (>= 3.0.0)
+    net-ldap (0.2.2)
     newrelic_rpm (3.5.7.59)
     nokogiri (1.5.6)
     nokogiri (1.5.6-java)
@@ -255,7 +256,6 @@ GEM
       rspec-expectations (~> 2.12.0)
       rspec-mocks (~> 2.12.0)
     ruby-graphviz (1.0.8)
-    ruby-net-ldap (0.0.4)
     ruby_gntp (0.3.4)
     ruby_parser (3.1.1)
       sexp_processor (~> 4.1)
@@ -355,6 +355,7 @@ DEPENDENCIES
   mini_magick (~> 3.4)
   mysql2 (~> 0.3.11)
   nested_set (~> 1.7)
+  net-ldap (= 0.2.2)
   newrelic_rpm (~> 3.5)
   nokogiri (~> 1.5)
   paperclip
@@ -370,7 +371,6 @@ DEPENDENCIES
   rspec (~> 2.12)
   rspec-rails (~> 2.12)
   ruby-graphviz
-  ruby-net-ldap (~> 0.0.4)
   ruby_gntp (~> 0.3.4)
   ruby_parser (~> 3.1)
   sass (~> 3.2)

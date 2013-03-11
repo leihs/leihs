@@ -36,16 +36,16 @@ end
 
 class Authenticator::HsluAuthenticationController < Authenticator::AuthenticatorController
 
-  layout 'layouts/backend/general'
-
   def login_form_path
     "/authenticator/hslu/login"
   end
+
 
   # @param login [String] The login of the user you want to create
   # @param email [String] The email address of the user you want to create
   def create_user(login, email)
     user = User.new(:login => login, :email => "#{email}")
+    user.authentication_system = AuthenticationSystem.where(:class_name => 'HsluAuthentication').first
     if user.save
       # Assign any default roles you want
       role = Role.find_by_name("customer")
@@ -63,13 +63,12 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
   # @param user [User] The (local, database) user whose data you want to update
   # @param user_data [Net::LDAP::Entry] The LDAP entry (it could also just be a hash of hashes and arrays that looks like a Net::LDAP::Entry) of that user
   def update_user(user, user_data)
-    user.firstname = user_data["givenname"].to_s 
-    user.lastname = user_data["sn"].to_s
-    user.phone = user_data["telephonenumber"].to_s unless user_data["telephonenumber"].blank?
-    user.badge_id = "I" + user_data["extensionattribute6"].to_s unless user_data["extensionattribute6"].blank?
-    user.address = user_data["streetaddress"].to_s
+    user.firstname = user_data["givenname"].first.to_s 
+    user.lastname = user_data["sn"].first.to_s
+    user.phone = user_data["telephonenumber"].first.to_s unless user_data["telephonenumber"].blank?
+    user.badge_id = "I" + user_data["extensionattribute6"].first.to_s unless user_data["extensionattribute6"].blank?
 
-    preferred_language = user_data["msexchuserculture"].to_s
+    preferred_language = user_data["msexchuserculture"].first.to_s
     if preferred_language == 1 or !(preferred_language =~ /^de/).nil? 
       language = Language.find(:first, :conditions => ["locale_name LIKE 'de%' AND active = ?", true])
     elsif preferred_language == 2 or !(preferred_language =~ /^en/).nil? 
@@ -83,16 +82,16 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
     # "streetAddress" was specified. A standard AD server schema will split the address up nicely, 
     # as shown below. I think this is better than randomly trying to split the address from a single
     # string.
-    user.address = user_data["streetaddress"].to_s
-    user.city = user_data["l"].to_s
-    user.country = user_data["c"].to_s
-    user.zip = user_data["postalcode"].to_s
+    user.address = user_data["streetaddress"].first.to_s
+    user.city = user_data["l"].first.to_s
+    user.country = user_data["c"].first.to_s
+    user.zip = user_data["postalcode"].first.to_s
 
     # Make sure to set USER_IMAGE_URL in application.rb in leihs 3.0 for user images to appear, based
     # on the unique ID. Example for the format in application.rb:
     # http://www.hslu.ch/portrait/{:id}.jpg
     # {:id} will be interpolated with user.unique_id there.
-    user.unique_id = user_data["pager"].to_s
+    user.unique_id = user_data["pager"].first.to_s
 
     admin_dn = LDAP_CONFIG[Rails.env]["admin_dn"]
     unless admin_dn.blank?
@@ -104,8 +103,10 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
   end
   
   def login
+    @preferred_language = Language.preferred(request.env["HTTP_ACCEPT_LANGUAGE"])
+
     if request.post?
-      user = params[:login][:user]
+      user = params[:login][:username]
       password = params[:login][:password]
       if user == "" || password == ""
         flash[:notice] = _("Empty Username and/or Password")
@@ -118,7 +119,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
             users = ldap.search(:base => LDAP_CONFIG[Rails.env]["base"], :filter => Net::LDAP::Filter.eq(LDAP_CONFIG[Rails.env]["search_field"], "#{user}"))
 
             if users.size == 1
-              email = users.first.mail if users.first.mail
+              email = users.first.mail.first.to_s if users.first.mail
               email ||= "#{user}@hslu.ch"
               bind_dn = users.first.dn
               ldaphelper = LdapHelper.new
@@ -133,7 +134,6 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
                   u.save
                   self.current_user = u
                   redirect_back_or_default("/")
-                  return true
                 else
                   flash[:notice] = _("Could not create new user for '#{user}' from LDAP source. Contact your leihs system administrator.")
                 end
@@ -146,12 +146,11 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
             end
           else
             flash[:notice] = _("Invalid technical user - contact your leihs admin")
-            redirect_to :action => 'login'
           end
         rescue Net::LDAP::LdapError
           flash[:notice] = _("Couldn't connect to LDAP: #{LDAP_CONFIG[:host]}:#{LDAP_CONFIG[:port]}")
         end
       end
     end
-  end  
+  end
 end
