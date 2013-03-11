@@ -47,6 +47,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
   # @param email [String] The email address of the user you want to create
   def create_user(login, email)
     user = User.new(:login => login, :email => "#{email}")
+    user.authentication_system = AuthenticationSystem.find(:first, :conditions => {:class_name => 'HsluAuthentication'})
     if user.save
       # Assign any default roles you want
       role = Role.find_by_name("customer")
