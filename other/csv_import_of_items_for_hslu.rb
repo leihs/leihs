@@ -128,8 +128,8 @@ def run_import(path)
                 item["categories"],
                 item["note"],
                 item["note"],
-                item["building_string"],
-                item["room_string"],
+                item["location"],
+                "",
                 item["owner"],
                 item["inventory_pool"])
   end
@@ -174,8 +174,8 @@ def run_import_with_broken_csv(path)
                 item["categories"],
                 item["note"],
                 item["note"],
-                item["building_string"],
-                item["room_string"],
+                item["location"],
+                "",
                 item["owner"],
                 item["inventory_pool"])
   end
