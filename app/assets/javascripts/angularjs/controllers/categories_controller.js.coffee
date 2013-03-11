@@ -11,13 +11,11 @@ CategoriesIndexCtrl = ($scope, Category, $routeParams) ->
     )
   $scope.fetch(0)
   $scope.delete_category = -> 
+    this.category.is_deleted = true
     category = new Category(this.category)
-    if confirm _jed("Do you realy want to delete the '%s' category?", category.name)
-      this.$parent.$parent.$parent.category.children = _.reject this.$parent.$parent.$parent.category.children, (c) => c.id is category.id
-      $scope.categories = _.reject $scope.categories, (c) => c.id is category.id
-      category.$delete
-        id: category.id
-        inventory_pool_id: $scope.current_inventory_pool_id
+    category.$delete
+      id: category.id
+      inventory_pool_id: $scope.current_inventory_pool_id
 CategoriesIndexCtrl.$inject = ['$scope', 'Category', '$routeParams'];
 
 CategoriesCreateCtrl = ($scope, Category, $routeParams, $location) ->

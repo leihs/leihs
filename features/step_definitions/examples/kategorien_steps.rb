@@ -157,14 +157,13 @@ Wenn /^man die Kategorie löscht$/ do
   wait_until { find(".line.category[data-id='#{@unused_category.id}']") }
   all(".toggle .text").each do |toggle| toggle.click end
   find(".line.category[data-id='#{@unused_category.id}'] .actions .trigger").click
-  find(".line.category[data-id='#{@unused_category.id}'] .actions .button", :text => _("Delete Category")).click
-  page.driver.browser.switch_to.alert.accept
+  find(".line.category[data-id='#{@unused_category.id}'] .actions .button", :text => _("Delete %s") % _("Category")).click
 end
 
 Dann /^ist die Kategorie gelöscht$/ do
-  all(".line.category[data-id='#{@unused_category.id}']").empty?.should be_true
   wait_until {page.evaluate_script("jQuery.active") == 0}
   sleep(1)
+  all(".line.category[data-id='#{@unused_category.id}']", :visible => true).empty?.should be_true
   lambda{@unused_category.reload}.should raise_error
 end
 
