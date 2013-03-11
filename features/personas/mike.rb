@@ -21,6 +21,7 @@ module Persona
         create_inventory_manager_user
         create_location_and_building
         create_groups
+        create_categories
         create_minimal_inventory
         create_accessories
         create_holidays
@@ -48,6 +49,27 @@ module Persona
     def create_groups
       @group_cast = FactoryGirl.create(:group, :name => "Cast", :inventory_pool => @inventory_pool)
       @group_iad = FactoryGirl.create(:group, :name => "IAD", :inventory_pool => @inventory_pool)
+    end
+
+    def create_categories
+      @beamer_category = FactoryGirl.create(:category, :name => "Beamer")
+      @camera_category = FactoryGirl.create(:category, :name => "Kameras")
+      @tripod_category = FactoryGirl.create(:category, :name => "Stative")
+      @notebook_category = FactoryGirl.create(:category, :name => "Notebooks")
+      @helicopter_category = FactoryGirl.create(:category, :name => "RC Helikopter")
+      @computer_category = FactoryGirl.create(:category, :name => "Computer")
+
+      @short_distance_subcategory = FactoryGirl.create :category, name: "Kurzdistanz"
+      @portable_subcategory = FactoryGirl.create :category, name: "Portabel"
+      @standard_subcategory = FactoryGirl.create :category, name: "Standard"
+      @micro_subcategory = FactoryGirl.create :category, name: "Micro"
+
+      @camera_category.children << @standard_subcategory
+      @camera_category.children << @short_distance_subcategory
+      @notebook_category.children << @standard_subcategory
+      @notebook_category.children << @portable_subcategory
+      @beamer_category.children << @portable_subcategory
+      @portable_subcategory.children << @micro_subcategory
     end
 
     def create_minimal_inventory
@@ -80,19 +102,18 @@ module Persona
     end
 
     def setup_sharp_beamers
-      @beamer_category = FactoryGirl.create(:category, :name => "Beamer")
       @beamer_model = FactoryGirl.create(:model, :name => "Sharp Beamer",
                                 :manufacturer => "Sharp", 
                                 :description => "Beamer, geeignet für alle Verwendungszwecke.", 
                                 :hand_over_note => "Beamer brauch ein VGA Kabel!", 
                                 :maintenance_period => 0)
       @beamer_model.model_links.create :model_group => @beamer_category
+      @beamer_model.model_links.create :model_group => @portable_subcategory
       @beamer_item = FactoryGirl.create(:item, :inventory_code => "beam123", :serial_number => "xyz456", :model => @beamer_model, :location => @location, :owner => @inventory_pool)
       @beamer_item2 = FactoryGirl.create(:item, :inventory_code => "beam345", :serial_number => "xyz890", :model => @beamer_model, :location => @location, :owner => @inventory_pool)
     end
     
     def setup_cameras
-      @camera_category = FactoryGirl.create(:category, :name => "Kameras")
       @camera_model = FactoryGirl.create(:model, :name => "Kamera Nikon X12",
                                 :manufacturer => "Nikon", 
                                 :description => "Super Kamera.", 
@@ -107,7 +128,6 @@ module Persona
     end
     
     def setup_tripods
-      @tripod_category = FactoryGirl.create(:category, :name => "Stative")
       @tripod_model = FactoryGirl.create(:model, :name => "Kamera Stativ",
                                 :manufacturer => "Feli", 
                                 :description => "Stabiles Kamera Stativ", 
@@ -163,7 +183,6 @@ module Persona
                                 :description => "Ein Laptop der Marke Microsoft", 
                                 :hand_over_note => "Laptop mit Tasche ausgeben", 
                                 :maintenance_period => 0)
-      @notebook_category = FactoryGirl.create(:category, :name => "Notebooks")
       @windows_laptop_model.model_links.create :model_group => @notebook_category
       @windows_laptop_item = FactoryGirl.create(:item, :inventory_code => "wlaptop1", :is_broken => true, :serial_number => "wlaptop1", :model => @windows_laptop_model, :location => @location, :owner => @inventory_pool)
     end
@@ -173,7 +192,6 @@ module Persona
                                 :manufacturer => "Walkera", 
                                 :description => "3D Helikopter", 
                                 :maintenance_period => 0)
-      @helicopter_category = FactoryGirl.create(:category, :name => "RC Helikopter")
       @helicopter_model.model_links.create :model_group => @helicopter_category
       @helicopter_item = FactoryGirl.create(:item, :inventory_code => "v120d02", :is_incomplete => true, :serial_number => "v120d02", :model => @helicopter_model, :location => @location, :owner => @inventory_pool)
     end
@@ -183,7 +201,6 @@ module Persona
                                 :manufacturer => "Apple", 
                                 :description => "Apples alter iMac", 
                                 :maintenance_period => 0)
-      @computer_category = FactoryGirl.create(:category, :name => "Computer")
       @iMac.model_links.create :model_group => @computer_category
       @iMac = FactoryGirl.create(:item, :inventory_code => "iMac1", :retired => Date.today, :is_borrowable => true, :serial_number => "iMac5", :model => @iMac, :location => @location, :owner => @inventory_pool)
     end

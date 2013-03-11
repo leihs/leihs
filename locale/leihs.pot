@@ -242,6 +242,9 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
+msgid "Category"
+msgstr ""
+
 msgid "Change Borrower"
 msgstr ""
 
@@ -341,6 +344,9 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+msgid "Delete %s"
+msgstr ""
+
 msgid "Delete Selection"
 msgstr ""
 
@@ -366,6 +372,9 @@ msgid "ERROR"
 msgstr ""
 
 msgid "Edit"
+msgstr ""
+
+msgid "Edit %s"
 msgstr ""
 
 msgid "Edit Model"
@@ -1844,4 +1853,25 @@ msgid "Attachments"
 msgstr ""
 
 msgid "undo"
+msgstr ""
+
+msgid "Do you realy want to delete the '%s' category?"
+msgstr ""
+
+msgid "Create %s"
+msgstr ""
+
+msgid "Create new category"
+msgstr ""
+
+msgid "Category name"
+msgstr ""
+
+msgid "List of Categories"
+msgstr ""
+
+msgid "Label"
+msgstr ""
+
+msgid "not used"
 msgstr ""

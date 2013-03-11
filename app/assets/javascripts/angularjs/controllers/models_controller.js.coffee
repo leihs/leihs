@@ -69,6 +69,7 @@ ModelsCreateCtrl = ($scope, $location, $routeParams, Model) ->
         images_attributes: $.extend({}, $scope.model.images)
         attachments_attributes: $.extend({}, $scope.model.attachments)
         accessories_attributes: $.extend({}, $scope.model.accessories)
+        category_ids: $.unique($(".simple_tree input[type='checkbox']:checked").map(()-> return this.value ).toArray())
     , (response) ->
       window.location = "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/models"
     , (response) ->
@@ -178,6 +179,7 @@ ModelsEditCtrl = ($scope, $location, $routeParams, Model) ->
         images_attributes: $.extend({}, $scope.model.images)
         attachments_attributes: $.extend({}, $scope.model.attachments)
         accessories_attributes: $.extend({}, $scope.model.accessories)
+        category_ids: $.unique($(".simple_tree input[type='checkbox']:checked").map(()-> return this.value ).toArray())
     , (response) ->
       window.location = "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/models"
     , (response) ->

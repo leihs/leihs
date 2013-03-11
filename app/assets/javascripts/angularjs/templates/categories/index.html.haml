@@ -1,0 +1,58 @@
+%script{:type => "text/ng-template", :id => "category_line.html"}
+  %ul.line.category.toggler{:"data-id" => "{{category.id}}", :"ng-hide" => "category.is_deleted"}
+    .main{:"ng-switch" => "", :on => "category.is_used"}
+      %li.toggle{:"ng-switch" => "", :on => "category.children.length > 0", "ng-click" => "category.children_open =! category.children_open", "ng-class" => "{open: category.children_open}"}
+        .text{"ng-switch-when" => "true"}
+          .icon
+          {{category.children.length}}
+      %li.category_name
+        {{category.name}}
+      %li{:"ng-switch-when" => "false"} 
+        %span.red 
+          %strong {{_jed("not used")}}
+    .actions
+      %li.actions
+        %ng-switch{:on => "category.is_used"}
+          .multibutton{:"ng-switch-when" => "false"}
+            .alternatives
+              .trigger
+                .arrow
+              %a.button.red{"ng-click" => "delete_category(this)"}
+                .icon.delete
+                {{_jed("Delete %s", _jed("Category"))}}
+
+            %a.button.white{:href => "/backend/inventory_pools/{{current_inventory_pool_id}}/categories/{{category.id}}/edit"}
+              .icon.edit
+              {{_jed("Edit %s", _jed("Category"))}}
+          
+          %a.button.white{:"ng-switch-when" => "true", :href => "/backend/inventory_pools/{{current_inventory_pool_id}}/categories/{{category.id}}/edit"}
+            .icon.edit
+            {{_jed("Edit %s", _jed("Category"))}}
+
+  .ui-children{"ui-toggle" => "category.children_open"}
+    / %div{"ng-repeat" => "category in category.children", "ng-include" => "'category_line.html'"}
+    :plain
+      <div ng-repeat="category in category.children" ng-include="'category_line.html'"></div>
+
+.top
+  %h1
+    {{_jed("List of Categories")}}
+
+  .content_navigation
+    %a.button.white{:href => "/backend/inventory_pools/{{current_inventory_pool_id}}/categories/new"}
+      {{_jed("Create %s", _jed("Category"))}}
+
+%section
+  
+  .inlinetabs
+    %a.tab.active {{_jed("All")}} {{_jed("Categories")}}
+
+  .list
+    / %div{"ng-repeat" => "category in categories", "ng-include" => "'category_line.html'"}
+    :plain
+      <div ng-repeat="category in categories" ng-include="'category_line.html'"></div>
+
+    .clear
+    .min-height{"ng-show" => "isLoading"}
+      %span.loading
+        %img.loading.icon{:src => "/assets/loading.gif"}

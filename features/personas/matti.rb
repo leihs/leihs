@@ -46,7 +46,6 @@ module Persona
     end
     
     def setup_notebooks
-      @notebook_category = FactoryGirl.create(:category, :name => "Notebooks")
       @notebook_model = FactoryGirl.create(:model, :name => "MacBookPro",
                                 :manufacturer => "Apple", 
                                 :description => "Laptop für Studis und Angestellte.", 

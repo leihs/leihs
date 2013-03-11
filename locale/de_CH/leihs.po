@@ -247,6 +247,9 @@ msgstr "Editieren abbrechen"
 msgid "Categories"
 msgstr "Kategorien"
 
+msgid "Category"
+msgstr "Kategorie"
+
 msgid "Change Borrower"
 msgstr "Reservierende/n wechseln"
 
@@ -348,6 +351,9 @@ msgstr "Defekt"
 msgid "Delete"
 msgstr "Löschen"
 
+msgid "Delete %s"
+msgstr "%s löschen"
+
 msgid "Delete Selection"
 msgstr "Auswahl löschen"
 
@@ -374,6 +380,9 @@ msgstr "FEHLER"
 
 msgid "Edit"
 msgstr "Editieren"
+
+msgid "Edit %s"
+msgstr "%s bearbeiten"
 
 msgid "Edit Model"
 msgstr "Modell editieren"
@@ -1914,3 +1923,24 @@ msgstr "Anhänge"
 
 msgid "undo"
 msgstr "rückgängig"
+
+msgid "Do you realy want to delete the '%s' category?"
+msgstr "Möchten Sie wirklich die Kategorie '%s' löschen?"
+
+msgid "Create %s"
+msgstr "%s erstellen"
+
+msgid "Create new category"
+msgstr "Neue Kategorie erstellen"
+
+msgid "Category name"
+msgstr "Name der Kategorie"
+
+msgid "List of Categories"
+msgstr "Liste der Kategorien"
+
+msgid "Label"
+msgstr "Bezeichnung"
+
+msgid "not used"
+msgstr "nicht genutzt"

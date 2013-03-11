@@ -32,7 +32,9 @@ gem "chunky_png", "~> 1.2"
 
 gem 'mini_magick', '~> 3.4'
 gem 'rgl', '~> 0.4.0', :require => 'rgl/adjacency' # use ruby-graphviz instead ?? (already in test group)
-gem 'ruby-net-ldap', '~> 0.0.4', :require => 'net/ldap'
+# Never upgrade beyond 0.2.2, ruby-net-ldap has broken in many unpredictable ways. Wait for 1.0.0 before upgrading, at least 0.2.2 works.
+#gem 'ruby-net-ldap', '~> 0.0.4', :require => 'net/ldap'
+gem 'net-ldap', '0.2.2', :require => 'net/ldap'
 
 gem 'nested_set', '~> 1.7'
 gem 'acts-as-dag', :git => "git://github.com/jrust/acts-as-dag.git" #tmp# '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'

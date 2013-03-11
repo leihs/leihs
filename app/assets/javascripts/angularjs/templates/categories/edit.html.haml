@@ -1,0 +1,22 @@
+%form.indent.prevent-scanner-submit{:name => "form", "ng-submit" => "submit()"}
+
+  .content_navigation
+    %a.button.red{:href => "/backend/inventory_pools/{{current_inventory_pool_id}}/categories"}
+      {{_jed("Cancel Edit")}}
+    %button.button.green{"ng-disabled" => "form.$invalid"}
+      {{_jed("Save %s", _jed("Category"))}}
+
+  .top
+    %h1 {{_jed("Edit %s", _jed("Category"))}}
+    %p.subtitle {{category.name}}
+
+  .left
+    %section
+      .inner
+        .field.text
+          %h3.key {{_jed("Category name")}}:
+          .value
+            .input
+              %input{:type => "text", "ng-model" => "category.name"}
+  .clear
+

@@ -10,84 +10,33 @@ class Backend::CategoriesController < Backend::BackendController
 
 ######################################################################
 
-  def index
-    # OPTIMIZE 0501 
-    params[:sort] ||= 'name'
-    params[:sort_mode] ||= 'ASC'
-    params[:sort_mode] = params[:sort_mode].downcase.to_sym
-
-    @categories = if @category
-      # TODO 12** optimize filter
-      ids = if request.env['REQUEST_URI'].include?("parents")
-        @category.parent_ids
-      else #if request.env['REQUEST_URI'].include?("children")
-        @category.child_ids
-      end
-      Category.search(params[:query]).
-                paginate(:page => params[:page], :per_page => PER_PAGE).
-                order("#{params[:sort]} #{params[:sort_mode]}").
-                where(:id => ids)
+  def index(with = params[:with] || {},
+            sort = params[:sort] || 'name',
+            sort_mode = (params[:sort_mode] || 'asc').downcase)
+    categories = if @category
+      @category.children
     else
-      @show_categories_tree = params[:source_path].blank?
-      if request.format == :ext_json # TODO remove
-        Category.roots
-      else
-        Category.search(params[:query]).
-                  paginate(:page => params[:page], :per_page => PER_PAGE).
-                  order("#{params[:sort]} #{params[:sort_mode]}")
-      end
-    end    
-
-# TODO vertical tree
-#    ############ start graph
-#    # NOTE config.gem "rgl", :lib => "rgl/adjacency"
-#      unless @category
-#          edges = []
-#          Category.all.each do |p|
-#            p.children.each do |c|
-#              edges << [p, c] #[p.id, c.id]
-#            end
-#          end
-#         
-#          # http://rgl.rubyforge.org/
-#          # http://www.graphviz.org/Download_macos.php
-#          require 'rgl/adjacency'
-#          require 'rgl/dot'
-#          dg=RGL::DirectedAdjacencyGraph.new
-#          edges.each {|e| dg.add_edge(e[0], e[1]) }
-#          @graph = dg.write_to_graphic_file('png', 'public/images/graphs/categories').gsub('public', '') 
-#      end
-#    ############ stop graph
+      Category.roots
+    end.order("#{sort} #{sort_mode}")
 
     respond_to do |format|
       format.html
+      format.json {
+        render json: view_context.hash_for(categories, with.merge({:name => true, :children => true, :is_used => true}))
+      }
     end
   end
     
   def show
-    ############ start graph
-    # NOTE config.gem "rgl", :lib => "rgl/adjacency"
-      edges = []
-      @category.children.each do |c|
-        edges << [@category, c] #[@category.id, c.id]
-      end
-      @category.parents.each do |p|
-        edges << [p, @category] #[p.id, @category.id]
-      end
-     
-      # http://rgl.rubyforge.org/
-      # http://www.graphviz.org/Download_macos.php
-      require 'rgl/adjacency'
-      require 'rgl/dot'
-      dg=RGL::DirectedAdjacencyGraph.new
-      edges.each {|e| dg.add_edge(e[0], e[1]) }
-      @graph = dg.write_to_graphic_file('png', "public/images/graphs/categories_#{@category.id}").gsub('public', '') 
-    ############ stop graph
+    respond_to do |format|
+      format.json {
+        render json: view_context.hash_for(@category, {:name => true})
+      }
+    end
   end
 
   def new
-    @category = Category.new
-    render :action => 'show'
+    render :action => 'edit'
   end
 
   def create
@@ -95,11 +44,23 @@ class Backend::CategoriesController < Backend::BackendController
     update
   end
 
+  def edit
+  end
+
   def update
-    if @category.update_attributes(params[:category])
-      redirect_to backend_inventory_pool_category_path(current_inventory_pool, @category)
-    else
-      render :action => 'show' # TODO 24** redirect to the correct tabbed form
+    respond_to do |format|
+      format.json {
+        model_group_links = params[:category].delete(:model_group_links)
+        if @category.update_attributes(params[:category])
+          @category.links_as_child.each(&:delete)
+          model_group_links.each do |link|
+            @category.set_parent_with_label(Category.find(link[:parent_id]), link[:label])
+          end
+          show
+        else
+          render :text => @category.errors.full_messages.uniq.join(", "), :status => :bad_request
+        end
+      }
     end
   end
   
@@ -112,6 +73,7 @@ class Backend::CategoriesController < Backend::BackendController
       if @category.models.empty?
         @category.destroy
         respond_to do |format|
+          format.json { render :nothing => true, :status => :ok }
           format.html { redirect_to backend_inventory_pool_categories_path(current_inventory_pool) }
         end
       else
