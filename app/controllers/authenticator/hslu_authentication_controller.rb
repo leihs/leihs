@@ -68,18 +68,22 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
     user.firstname = user_data["givenname"].to_s 
     user.lastname = user_data["sn"].to_s
     user.phone = user_data["telephonenumber"].to_s unless user_data["telephonenumber"].blank?
-    user.badge_id = "I" + user_data["extensionattribute6"].to_s unless user_data["extensionattribute6"].blank?
+    user.badge_id = "L" + user_data["extensionattribute6"].to_s unless user_data["extensionattribute6"].blank?
     user.address = user_data["streetaddress"].to_s
 
-    preferred_language = user_data["msexchuserculture"].to_s
-    if preferred_language == 1 or !(preferred_language =~ /^de/).nil? 
-      language = Language.find(:first, :conditions => ["locale_name LIKE 'de%' AND active = ?", true])
-    elsif preferred_language == 2 or !(preferred_language =~ /^en/).nil? 
-      language = Language.find(:first, :conditions => ["locale_name LIKE 'en%' AND active = ?", true])
-    else
-      language = Language.default_language
-    end
-    user.language = language if language
+
+   
+    # This feature was removed by the customer via email request on March 11. Let's keep
+    # the code in case it needs to be enabled again
+    #preferred_language = user_data["msexchuserculture"].to_s
+    #if preferred_language == 1 or !(preferred_language =~ /^de/).nil? 
+    #  language = Language.find(:first, :conditions => ["locale_name LIKE 'de%' AND active = ?", true])
+    #elsif preferred_language == 2 or !(preferred_language =~ /^en/).nil? 
+    #  language = Language.find(:first, :conditions => ["locale_name LIKE 'en%' AND active = ?", true])
+    #else
+    #  language = Language.default_language
+    #end
+    user.language = Language.default_language if user.language.blank?
 
     # This does not conform to the specification from "Login und Benutzerdaten leihs", where only
     # "streetAddress" was specified. A standard AD server schema will split the address up nicely, 
