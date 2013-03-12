@@ -68,6 +68,7 @@ Funktionalität: Gegenstand erstellen
     Wenn ich weniger als die Informationen der gekennzeichneten Pflichtfelder eingebe
     | Modellname   |
     | Inventarcode |
+    | Bezug        |
     Dann kann das Modell nicht erstellt werden
     Und ich sehe eine Fehlermeldung
 
