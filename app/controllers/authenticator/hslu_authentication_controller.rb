@@ -1,6 +1,10 @@
 #require 'net/ldap'
 
 class LdapHelper
+
+  # Needed later on in the auth controller
+  attr_reader :unique_id_field
+
   def initialize
     @base_dn = LDAP_CONFIG[Rails.env]["base_dn"]
     @search_field = LDAP_CONFIG[Rails.env]["search_field"]
@@ -119,7 +123,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
               bind_dn = users.first.dn
               ldaphelper = LdapHelper.new
               if ldaphelper.bind(bind_dn, password)
-                u = User.find_by_unique_id(ldap_user["pager"])
+                u = User.find_by_unique_id(ldap_user[ldaphelper.unique_id_field.to_s])
                 if not u
                   u = create_user(user, email)
                 end
