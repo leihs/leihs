@@ -1,0 +1,27 @@
+%section#tabs
+  = render :partial => '/layouts/splash/navigation'
+
+= render :partial => '/layouts/frontend/content_box_head_fullwidth'
+
+#splash.innercontent
+
+  = render :partial => '/layouts/splash/header'
+      
+  .login
+    = form_for :login do |f|
+      %table{ :style => "width:30%" }
+        %tr
+          %td= _("Username")
+          %td= f.text_field :username, :id => "username", :autofocus => true
+        %tr
+          %td= _("Password")
+          %td= f.password_field :password, :id => "password"
+      = f.submit(_("Login"), :class=>"button green")
+  
+  = image_tag "splash.jpg", :class => "splash"
+  
+  = render :partial => '/layouts/splash/content'
+  
+  .clear
+
+= render :partial => '/layouts/frontend/content_box_foot'
