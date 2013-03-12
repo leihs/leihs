@@ -52,7 +52,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
       # Assign any default roles you want
       role = Role.find_by_name("customer")
       InventoryPool.all.each do |ip|
-        user.access_rights.create(:inventory_pool_id => ip, :role => role)
+        user.access_rights.create(:inventory_pool => ip, :role => role)
       end
       return user
     else
@@ -85,7 +85,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
     # on the unique ID. Example for the format in application.rb:
     # http://www.hslu.ch/portrait/{:id}.jpg
     # {:id} will be interpolated with user.unique_id there.
-    user.unique_id = user_data[ldaphelper.unique_id_field.to_s].first.to_s
+    user.unique_id = user_data["pager"].first.to_s
 
     admin_dn = LDAP_CONFIG[Rails.env]["admin_dn"]
     unless admin_dn.blank?
@@ -119,7 +119,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
               bind_dn = users.first.dn
               ldaphelper = LdapHelper.new
               if ldaphelper.bind(bind_dn, password)
-                u = User.find_by_unique_id(user[ldaphelper.unique_id_field.to_s])
+                u = User.find_by_unique_id(ldap_user["pager"])
                 if not u
                   u = create_user(user, email)
                 end
