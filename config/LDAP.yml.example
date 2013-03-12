@@ -10,6 +10,7 @@ production:
   log_file: log/ldap_server.log
   log_level: warn
   search_field: samaccountname
+  unique_id_field: pager
   master_bind_dn: CN=ldapsearch,OU=Service Accounts,OU=Accounts,OU=_ZHdK manuell,DC=vera,DC=hgka,DC=ch
   master_bind_pw: ------------------
 
@@ -22,6 +23,7 @@ test:
   log_file: log/ldap_server.log
   log_level: warn
   search_field: samaccountname
+  unique_id_field: pager
   master_bind_dn: CN=ldapsearch,OU=Service Accounts,OU=Accounts,OU=_ZHdK manuell,DC=vera,DC=hgka,DC=ch
   master_bind_pw: ------------------
  
@@ -35,5 +37,6 @@ development:
   log_file: log/ldap_server.log
   log_level: warn
   search_field: samaccountname
+  unique_id_field: pager
   master_bind_dn: CN=ldapsearch,OU=Service Accounts,OU=Accounts,OU=_ZHdK manuell,DC=vera,DC=hgka,DC=ch
   master_bind_pw: ------------------

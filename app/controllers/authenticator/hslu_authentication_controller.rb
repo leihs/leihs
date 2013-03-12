@@ -10,7 +10,9 @@ class LdapHelper
     @method = :simple
     @master_bind_dn = LDAP_CONFIG[Rails.env]["master_bind_dn"]
     @master_bind_pw = LDAP_CONFIG[Rails.env]["master_bind_pw"]
+    @unique_id_field = LDAP_CONFIG[Rails.env]["unique_id_field"]
     raise "'master_bind_dn' and 'master_bind_pw' must be set in LDAP configuration file" if (@master_bind_dn.blank? or @master_bind_pw.blank?)
+    raise "'unique_id_field' in LDAP configuration file must point to an LDAP field that allows unique identification of a user" if @unique_id_field.blank?
   end
 
   def bind(username = @master_bind_dn, password = @master_bind_pw)
@@ -63,21 +65,11 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
   # @param user [User] The (local, database) user whose data you want to update
   # @param user_data [Net::LDAP::Entry] The LDAP entry (it could also just be a hash of hashes and arrays that looks like a Net::LDAP::Entry) of that user
   def update_user(user, user_data)
+    ldaphelper = LdapHelper.new
     user.firstname = user_data["givenname"].first.to_s 
     user.lastname = user_data["sn"].first.to_s
     user.phone = user_data["telephonenumber"].first.to_s unless user_data["telephonenumber"].blank?
     user.badge_id = "L" + user_data["extensionattribute6"].first.to_s unless user_data["extensionattribute6"].blank?
-
-    # This feature was removed by the customer via email request on March 11. Let's keep
-    # the code in case it needs to be enabled again
-    #preferred_language = user_data["msexchuserculture"].to_s
-    #if preferred_language == 1 or !(preferred_language =~ /^de/).nil? 
-    #  language = Language.find(:first, :conditions => ["locale_name LIKE 'de%' AND active = ?", true])
-    #elsif preferred_language == 2 or !(preferred_language =~ /^en/).nil? 
-    #  language = Language.find(:first, :conditions => ["locale_name LIKE 'en%' AND active = ?", true])
-    #else
-    #  language = Language.default_language
-    #end
     user.language = Language.default_language if user.language.blank?
 
     # This does not conform to the specification from "Login und Benutzerdaten leihs", where only
@@ -93,7 +85,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
     # on the unique ID. Example for the format in application.rb:
     # http://www.hslu.ch/portrait/{:id}.jpg
     # {:id} will be interpolated with user.unique_id there.
-    user.unique_id = user_data["pager"].first.to_s
+    user.unique_id = user_data[ldaphelper.unique_id_field.to_s].first.to_s
 
     admin_dn = LDAP_CONFIG[Rails.env]["admin_dn"]
     unless admin_dn.blank?
@@ -121,12 +113,13 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
             users = ldap.search(:base => LDAP_CONFIG[Rails.env]["base"], :filter => Net::LDAP::Filter.eq(LDAP_CONFIG[Rails.env]["search_field"], "#{user}"))
 
             if users.size == 1
-              email = users.first.mail.first.to_s if users.first.mail
+              ldap_user = users.first
+              email = ldap_user.mail.first.to_s if ldap_user.mail
               email ||= "#{user}@hslu.ch"
               bind_dn = users.first.dn
               ldaphelper = LdapHelper.new
               if ldaphelper.bind(bind_dn, password)
-                u = User.find_by_login(user)
+                u = User.find_by_unique_id(user[ldaphelper.unique_id_field.to_s])
                 if not u
                   u = create_user(user, email)
                 end
