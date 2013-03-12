@@ -1,6 +1,10 @@
 #require 'net/ldap'
 
 class LdapHelper
+
+  # Needed later on in the auth controller
+  attr_reader :unique_id_field
+
   def initialize
     @base_dn = LDAP_CONFIG[Rails.env]["base_dn"]
     @search_field = LDAP_CONFIG[Rails.env]["search_field"]
@@ -85,7 +89,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
     # on the unique ID. Example for the format in application.rb:
     # http://www.hslu.ch/portrait/{:id}.jpg
     # {:id} will be interpolated with user.unique_id there.
-    user.unique_id = user_data["pager"].first.to_s
+    user.unique_id = user_data[ldaphelper.unique_id_field.to_s].first.to_s
 
     admin_dn = LDAP_CONFIG[Rails.env]["admin_dn"]
     unless admin_dn.blank?
@@ -119,7 +123,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
               bind_dn = users.first.dn
               ldaphelper = LdapHelper.new
               if ldaphelper.bind(bind_dn, password)
-                u = User.find_by_unique_id(ldap_user["pager"])
+                u = User.find_by_unique_id(ldap_user[ldaphelper.unique_id_field.to_s])
                 if not u
                   u = create_user(user, email)
                 end
