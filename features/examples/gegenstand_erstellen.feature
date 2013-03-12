@@ -13,48 +13,48 @@ Funktionalität: Gegenstand erstellen
   Szenario: Felder beim Erstellen eines Gegenstandes
     Angenommen man navigiert zur Gegenstandserstellungsseite
     Dann sehe ich die Felder in folgender Reihenfolge:
-    | Inventarcode |
-    | Modell |
-    | - Zustand - |
-    | Ausmusterung |
-    | Grund der Ausmusterung |
-    | Zustand |
-    | Vollständigkeit |
-    | Ausleihbar |
-    | - Inventar - |
-    | Inventarrelevant |
-    | Besitzer |
-    | Letzte Inventur |
-    | Verantwortliche Abteilung |
-    | Verantwortliche Person |
-    | Benutzer/Verwendung |
-    | - Umzug - |
-    | Umzug |
-    | Zielraum |
-    | - Toni Ankunftskontrolle - |
-    | Ankunftsdatum |
-    | Ankunftszustand |
-    | Ankunftsnotiz |
+    | Inventarcode                 |
+    | Modell                       |
+    | - Zustand -                  |
+    | Ausmusterung                 |
+    | Grund der Ausmusterung       |
+    | Zustand                      |
+    | Vollständigkeit              |
+    | Ausleihbar                   |
+    | - Inventar -                 |
+    | Inventarrelevant             |
+    | Besitzer                     |
+    | Letzte Inventur              |
+    | Verantwortliche Abteilung    |
+    | Verantwortliche Person       |
+    | Benutzer/Verwendung          |
+    | - Umzug -                    |
+    | Umzug                        |
+    | Zielraum                     |
+    | - Toni Ankunftskontrolle -   |
+    | Ankunftsdatum                |
+    | Ankunftszustand              |
+    | Ankunftsnotiz                |
     | - Allgemeine Informationen - |
-    | Seriennummer |
-    | MAC-Adresse |
-    | IMEI-Nummer |
-    | Name |
-    | Notiz |
-    | - Ort - |
-    | Gebäude |
-    | Raum |
-    | Gestell |
-    | - Rechnungsinformationen - |
-    | Bezug |
-    | Projektnummer |
-    | Rechnungsnummer |
-    | Rechnungsdatum |
-    | Anschaffungswert |
-    | Versicherungsnummer |
-    | Lieferant |
-    | Garantieablaufdatum |
-    | Vertragsablaufdatum |
+    | Seriennummer                 |
+    | MAC-Adresse                  |
+    | IMEI-Nummer                  |
+    | Name                         |
+    | Notiz                        |
+    | - Ort -                      |
+    | Gebäude                      |
+    | Raum                         |
+    | Gestell                      |
+    | - Rechnungsinformationen -   |
+    | Bezug                        |
+    | Projektnummer                |
+    | Rechnungsnummer              |
+    | Rechnungsdatum               |
+    | Anschaffungswert             |
+    | Versicherungsnummer          |
+    | Lieferant                    |
+    | Garantieablaufdatum          |
+    | Vertragsablaufdatum          |
 
   Szenario: Einen Gegenstand mit allen Informationen erstellen
     Angenommen man navigiert zur Gegenstandserstellungsseite
@@ -66,11 +66,18 @@ Funktionalität: Gegenstand erstellen
   Szenario: Einen Gegenstand mit Mindestinformationen erstellen
     Angenommen man navigiert zur Gegenstandserstellungsseite
     Wenn ich weniger als die Informationen der gekennzeichneten Pflichtfelder eingebe
-    |Modellname|    
-    |Inventarcode|
+    | Modellname   |
+    | Inventarcode |
     Dann kann das Modell nicht erstellt werden
     Und ich sehe eine Fehlermeldung
 
-  Szenario: Barcode bereits abgefuellt
+  Szenario: Felder die bereits vorausgefüllt sind
     Angenommen man navigiert zur Gegenstandserstellungsseite
     Dann ist der Barcode bereits gesetzt
+    Und folgende Felder haben folgende Standardwerte
+    | Feld             | Standardwert     |
+    | Ausleihbar       | nicht ausleihbar |
+    | Zuletzt geprüft  | aktuellem Datum  |
+    | Inventarrelevant | Ja               |
+    | Zustand          | OK               |
+    | Vollständigkeit  | OK               |
