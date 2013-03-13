@@ -35,6 +35,23 @@ def create_item(i)
     item.last_check = Date.parse(i["inventory_date"])
     item.invoice_date = Date.parse(i["invoice_date"])
 
+    if i["group"] == "Video"
+      group = Group.find_or_create_by_name("Video")
+      group.inventory_pool = ip
+      group.save
+      p = Partition.new
+      p.model = item.model
+      p.group = group
+      p.inventory_pool = group.inventory_pool
+      if p.quantity == nil
+        p.quantity = 0
+      end
+      p.quantity += 1
+      unless p.save
+        binding.pry
+      end
+    end
+
     if item.save
       return true
     else

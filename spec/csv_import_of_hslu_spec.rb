@@ -53,6 +53,11 @@ describe "CSV import for HSLU" do
     # Check how a typical non-borrowable item was imported
     nonborrowable_item = Item.find(:first, :conditions => {:inventory_code => "20037"})
     nonborrowable_item.is_borrowable?.should == false
+
+    # Check that the model partitions are correct for an item with partitions
+    partitioned_item = Item.find(:first, :conditions => {:inventory_code => "1096"})
+    partitions = partitioned_item.model.partitions.find(:first, :conditions => {:inventory_pool_id => partitioned_item.inventory_pool})
+    partitions.quantity.should == 1
   end
 
 end
