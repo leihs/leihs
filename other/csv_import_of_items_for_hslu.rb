@@ -1,57 +1,49 @@
 # This is to be run from the Rails console using require:
 # ./script/console
-# require 'doc/csv_import_of_items_for_hslu'
-# run_import('/tmp/foo.csv')
-#
-# Example of some correct CSV lines for this (the separators are tabs):
-# inventory_code	inventory_pool	owner	serial_number	model_name	categories	supplier	model_manufacturer	location	note
-#5049	Videowerkstatt XYZ	Design & Kunst	FN 1234	Thomson VTH 6050	Player / Recorder (Entsorgt)|	Bild+Ton	Thomson	125	FernbedienungN2QAKB0000003
-#5065	Videowerkstatt ABC	Design & Kunst	123XYZ	Standard SR - 8900	Player DVD (entsorgt 05)|		Standard	125	- 1 Fernbedienung
-#5085	Videowerkstatt XYZ	Design & Kunst	123455	SONY GV-HD700E	Player / Recorder HDV|		SONY	44b	- Stromadapter AC-L100|- 1 Akku NP-F570|- Fernbedinung|- Manual|- RGB Kabel|- USB Kabel|- Video Kabel
+# require 'other/csv_import_of_items_for_hslu'
+# run_import_with_broken_csv('/tmp/foo.csv')
 
-require 'faster_csv'
-@failures = 0
-@successes = 0
-@report = ""
-
-def create_item(model_name, inventory_code, serial_number, manufacturer, 
-                category, accessory_string, note, building_string, room_string, owner, inventory_pool)
-  
-
-  if model_name.blank?
+def create_item(i)
+  if i["model_name"].blank?
     puts "Can't create item with a blank model name."
   else
 
-    if owner
-      owner_ip = InventoryPool.find_or_create_by_name(owner)
+    if i["owner"]
+      owner_ip = InventoryPool.find_or_create_by_name(i["owner"])
     end
-    if inventory_pool
-      ip = InventoryPool.find_or_create_by_name(inventory_pool)
+    if i["inventory_pool"]
+      ip = InventoryPool.find_or_create_by_name(i["inventory_pool"])
+    end
+    if i["supplier"]
+      supplier = Supplier.find_or_create_by_name(i["supplier"])
     end
 
-    i = Item.new
-    i.model = create_model(model_name, category, manufacturer, accessory_string)
-    i.inventory_code = inventory_code
-    i.serial_number = serial_number
-    i.note = note
-    i.is_borrowable = true
-    i.is_inventory_relevant = true
-    i.owner = owner_ip if owner_ip
-    i.inventory_pool = ip if ip
-    i.location = create_location(building_string, room_string)
-    
-    if i.save
-      puts "Item imported correctly:"
-      @successes += 1
-      puts i.inspect
+    item = Item.new
+    item.model = create_model(i["model_name"], i["category"], i["model_manufacturer"], i["accessory_string"], i["model_description"])
+    item.inventory_code = i["inventory_code"]
+    item.serial_number = i["serial_number"]
+    item.note = i["note"]
+    item.is_borrowable = false
+    #item.is_borrowable = true if i["inventory_pool"] == i["owner"]
+    item.is_borrowable = true if i["is_borrowable"] == "True"
+    item.is_inventory_relevant = true
+    item.owner = owner_ip if owner_ip
+    item.inventory_pool = ip if ip
+    item.location = create_location(i["building_string"], i["room_string"], i["shelf_string"])
+    item.price = i["price"].to_f
+    item.supplier = supplier
+    item.last_check = Date.parse(i["inventory_date"])
+    item.invoice_date = Date.parse(i["invoice_date"])
+
+    if item.save
+      return true
     else
-      @failures += 1
-      @report += "Could not import item #{inventory_code}\n"
+      return false
     end
-  end  
+  end
 end
 
-def create_model(name, category, manufacturer, accessory_string)
+def create_model(name, category, manufacturer, accessory_string, description)
   m = Model.find_by_name(name)
   if m.nil?
     m = Model.create(:name => name, :manufacturer => manufacturer)
@@ -68,12 +60,17 @@ def create_model(name, category, manufacturer, accessory_string)
     unless accessory_string.blank?  
       accessory_string.split("|").each do |string|
         unless string.blank?
+          string.gsub!(/^\-\ /,"")
+          string.gsub!(/^\-/,"")
           acc = Accessory.create(:name => string.strip)
           m.accessories << acc
         end
       end
     end
 
+    unless description.blank?
+      m.description = description
+    end
 
     if m.save == false
       binding.pry
@@ -84,107 +81,88 @@ def create_model(name, category, manufacturer, accessory_string)
 end
 
 
-def create_location(building_string, room_string)
-
+def create_location(building_string, room_string = "", shelf_string = "")
   b = Building.find(:first, :conditions => {:name => building_string})
   unless b
     b = Building.create(:name => building_string)
   end
 
-  l = Location.find(:first, :conditions => {:building_id => b.id, :room => room_string})
-
+  l = Location.find(:first, :conditions => {:building_id => b.id, :room => room_string, :shelf => shelf_string})
   unless l
-    l = Location.create(:building_id => b.id, :room => room_string)
+    l = Location.create(:building_id => b.id, :room => room_string, :shelf => shelf_string)
   end
 
   return l
 end
 
-
-#inventory_code;inventory_pool;owner;serial_number;model_name;categories;supplier;model_manufacturer;location;note
-
-#def create_item(model_name, inventory_code, serial_number, manufacturer, 
-#                category, accessory_string, note, building_string, room_string)
-# CSV fields:
-# 0: inventory_code
-# 1: inventory_pool
-# 2: owner.
-# 3: serial_number
-# 4: model_name
-# 5: categories
-# 6: supplier
-# 7: model_manufacturer
-# 8: location
-# 9: note
-
-def run_import(path)
-  lines_to_import = FasterCSV.open(path, :col_sep => "\t", :quote_char => "\"", :headers => true) 
-  lines_to_import.each do |line|
-    item = line
-    create_item(item["model_name"],
-                item["inventory_code"],
-                item["serial_number"],
-                item["model_manufacturer"],
-                item["categories"],
-                item["note"],
-                item["note"],
-                item["location"],
-                "",
-                item["owner"],
-                item["inventory_pool"])
-  end
-
-  puts "-----------------------------------------"
-  puts "DONE"
-  puts "#{@successes} successes, #{@failures} failures"
-  puts "-----------------------------------------"
-  puts "#{@report}"
-  puts "-----------------------------------------"
-
-end
-
-
 # If you get a broken CSV file (one that does not conform to RFC 4180
 # as described here: http://tools.ietf.org/html/rfc4180), you can try
 # to brute force your way ahead by using a primitive split on tab separators
 # instead of a proper CSV library.
+#
+# The expected format for the CSV file is (as exported using LibreOffice):
+# Field separator: {Tab}
+# Text quote character:
+#                      ^ nothing, empty, no text separator
+#
+# You have to prepare the "accessories" field so it does not contain any newlines.
+# Separate the accessories with pipes: |
+
+# The header of the example file:
+#0	1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18
+#inventory_code	inventory_pool	owner	serial_number	model_name	categories	supplier	model_manufacturer	note	model_description	accessories	invoice_date	price	group	is_borrowable	building	room	shelf	inventory_date
+
 def run_import_with_broken_csv(path)
+  report = ""
+  successes = 0
+  failures = 0
 
   lines_to_import = File.open(path).readlines
   lines_to_import.each do |line|
 
     split_line = line.split("\t")
     item = {}
-    item["model_name"] = split_line[4]
     item["inventory_code"] = split_line[0]
-    item["serial_number"] = split_line[3]
-    item["model_manufacturer"] = split_line[7]
-    item["category"] = split_line[5]
-    item["note"] = "" 
-    item["note"] = split_line[9] if split_line[9]
-    item["building_string"] = split_line[8]
-    item["room_string"] = ""
-    item["owner"] = split_line[2]
     item["inventory_pool"] = split_line[1]
+    item["owner"] = split_line[2]
+    item["serial_number"] = split_line[3]
+    item["model_name"] = split_line[4]
+    item["category"] = split_line[5]
+    item["supplier"] = split_line[6]
+    item["model_manufacturer"] = split_line[7]
+    item["note"] = split_line[8]
+    item["model_description"] = split_line[9]
+    item["accessory_string"] = split_line[10]
+    item["invoice_date"] = split_line[11]
+    item["price"] = split_line[12]
+    item["group"] = split_line[13]
+    item["is_borrowable"] = split_line[14]
+    item["building_string"] = split_line[15]
+    item["room_string"] = split_line[16]
+    item["shelf_string"] = split_line[17]
+    item["inventory_date"] = split_line[18].strip # Need to strip the \n from the last element on a line
 
-    create_item(item["model_name"],
-                item["inventory_code"],
-                item["serial_number"],
-                item["model_manufacturer"],
-                item["categories"],
-                item["note"],
-                item["note"],
-                item["location"],
-                "",
-                item["owner"],
-                item["inventory_pool"])
+    puts "Trying to create item: #{pretty_print_item_hash(item)}"
+
+    if create_item(item)
+      report += "Item imported correctly: #{pretty_print_item_hash(item)}\n"
+      successes += 1
+      puts item.inspect
+    else
+      failures += 1
+      report += "Could not import item #{pretty_print_item_hash(item)}\n"
+    end
   end
 
   puts "-----------------------------------------"
   puts "DONE"
-  puts "#{@successes} successes, #{@failures} failures"
+  puts "#{successes} successes, #{failures} failures"
   puts "-----------------------------------------"
-  puts "#{@report}"
+  puts "#{report}"
   puts "-----------------------------------------"
 
+end
+
+def pretty_print_item_hash(item_hash)
+  return "#{item_hash["inventory_code"]}: #{item_hash["model_name"]}"
 end
