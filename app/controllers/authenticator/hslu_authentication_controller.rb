@@ -70,10 +70,22 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
   # @param user_data [Net::LDAP::Entry] The LDAP entry (it could also just be a hash of hashes and arrays that looks like a Net::LDAP::Entry) of that user
   def update_user(user, user_data)
     ldaphelper = LdapHelper.new
+    # Make sure to set USER_IMAGE_URL in application.rb in leihs 3.0 for user images to appear, based
+    # on the unique ID. Example for the format in application.rb:
+    # http://www.hslu.ch/portrait/{:id}.jpg
+    # {:id} will be interpolated with user.unique_id there.
+    user.unique_id = user_data[ldaphelper.unique_id_field.to_s].first.to_s
     user.firstname = user_data["givenname"].first.to_s 
     user.lastname = user_data["sn"].first.to_s
     user.phone = user_data["telephonenumber"].first.to_s unless user_data["telephonenumber"].blank?
-    user.badge_id = "L" + user_data["extensionattribute6"].first.to_s unless user_data["extensionattribute6"].blank?
+    #user.badge_id = "L" + user_data["extensionattribute6"].to_s unless user_data["extensionattribute6"].blank?
+    # If the user's unique_id is numeric, add an "L" to the front and copy it to the badge_id
+    # If it's not numeric, just copy it straight to the badge_id
+    if user.unique_id =~ /^(\d+)$/
+      user.badge_id = "L" + user.unique_id
+    else
+      user.badge_id = user.unique_id
+    end
     user.language = Language.default_language if user.language.blank?
 
     # This does not conform to the specification from "Login und Benutzerdaten leihs", where only
@@ -84,12 +96,6 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
     user.city = user_data["l"].first.to_s
     user.country = user_data["c"].first.to_s
     user.zip = user_data["postalcode"].first.to_s
-
-    # Make sure to set USER_IMAGE_URL in application.rb in leihs 3.0 for user images to appear, based
-    # on the unique ID. Example for the format in application.rb:
-    # http://www.hslu.ch/portrait/{:id}.jpg
-    # {:id} will be interpolated with user.unique_id there.
-    user.unique_id = user_data[ldaphelper.unique_id_field.to_s].first.to_s
 
     admin_dn = LDAP_CONFIG[Rails.env]["admin_dn"]
     unless admin_dn.blank?
