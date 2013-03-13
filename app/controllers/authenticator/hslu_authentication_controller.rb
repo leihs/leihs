@@ -81,7 +81,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
     #user.badge_id = "L" + user_data["extensionattribute6"].to_s unless user_data["extensionattribute6"].blank?
     # If the user's unique_id is numeric, add an "L" to the front and copy it to the badge_id
     # If it's not numeric, just copy it straight to the badge_id
-    if user.unique_id =~ /^(\d+)$/
+    if (user.unique_id =~ /^(\d+)$/).nil?
       user.badge_id = "L" + user.unique_id
     else
       user.badge_id = user.unique_id
