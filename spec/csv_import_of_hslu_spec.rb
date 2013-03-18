@@ -12,12 +12,15 @@ describe "CSV import for HSLU" do
     require 'other/csv_import_of_items_for_hslu'
     run_import_with_broken_csv(RAILS_ROOT + "/spec/data/hslu_item_examples.csv")
 
-    # Verify model and item counts
-    Model.count.should == 8
-    Model.all.collect(&:name).sort.should == ["A - 109", "DSR - PD 570 WSP", "HDR - FX1E",
-                                              "HDR - Z1E", "HDR-HC9E", "PMW-EX3", "Video 10",
-                                              "iMac  20“/2"]
-    Item.count.should == 10
+    models = Model.all.collect(&:name).sort
+    models.include?("A - 109").should == true
+    models.include?("DSR - PD 570 WSP").should == true
+    models.include?("HDR - FX1E").should == true
+    models.include?("HDR - Z1E").should == true
+    models.include?("HDR-HC9E").should == true
+    models.include?("PMW-EX3").should == true
+    models.include?("Video 10").should == true
+    models.include?("iMac  20“/2").should == true
 
     # Check that the inventory pools mentioned in the CSV file are actually created
     # The following pools should (at the very least) have been created now
