@@ -51,8 +51,8 @@ namespace :leihs do
   desc "Run cucumber tests. Run leihs:test[0] to only test failed scenarios"
   task :test, :rerun do |t, args|
     # force environment
-    RAILS_ENV='cucumber'
-    ENV['RAILS_ENV']='cucumber'
+    RAILS_ENV='test'
+    ENV['RAILS_ENV']='test'
     task :environment
     args.with_defaults(:rerun => 1)
     

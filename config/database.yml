@@ -7,16 +7,16 @@
 #   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
 development: &DEVEL
   adapter: mysql
-  database: leihs2_dev
+  database: leihs2_legacy_dev
   encoding: utf8
   username: root
   password: 
 
   # for Debian and Ubuntu
-  #socket: /var/run/mysqld/mysqld.sock
+  socket: /var/run/mysqld/mysqld.sock
   
   # for Mac OS X
-  socket: /tmp/mysql.sock 
+  #socket: /tmp/mysql.sock 
 
   # Connect on a TCP socket.  If omitted, the adapter will connect on the
   # domain socket given by socket instead.
@@ -28,23 +28,17 @@ development: &DEVEL
 # Do not set this db to the same as development or production.
 test: &TEST
   adapter: mysql
-  database: leihs2_test
+  database: leihs2_legacy_test
   encoding: utf8
   username: root
   password: 
   
 production:
   adapter: mysql
-  database: leihs2_dev
+  database: leihs2_legacy_dev
   encoding: utf8
   username: rubylocal
   password: 163ruby9
 
-cucumber: &CUCUMBER
-  <<: *TEST
-
 profiling:
   <<: *DEVEL
-
-culerity:
-  <<: *CUCUMBER
