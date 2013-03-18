@@ -125,7 +125,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
 
             if users.size == 1
               ldap_user = users.first
-              email = ldapuser.mail if ldapuser.mail
+              email = ldap_user.mail.first.to_s if ldap_user.mail
               email ||= "#{user}@hslu.ch"
               bind_dn = users.first.dn
               ldaphelper = LdapHelper.new
