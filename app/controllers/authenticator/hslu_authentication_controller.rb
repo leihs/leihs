@@ -88,10 +88,6 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
     end
     user.language = Language.default_language if user.language.blank?
 
-    # This does not conform to the specification from "Login und Benutzerdaten leihs", where only
-    # "streetAddress" was specified. A standard AD server schema will split the address up nicely, 
-    # as shown below. I think this is better than randomly trying to split the address from a single
-    # string.
     user.address = user_data["streetaddress"].first.to_s
     user.city = user_data["l"].first.to_s
     user.country = user_data["c"].first.to_s
@@ -102,6 +98,15 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
       if user_data["memberof"].include?(admin_dn)
         admin_role = Role.find_by_name("admin")
         user.access_rights.create(:role => admin_role) unless user.access_rights.include?(admin_role)
+      end
+    end
+
+    # If the displayName contains DK.BA_VID, add this user to the "Video" group
+    # so that they can book video equipment.
+    unless (user_data["displayName"] =~ /DK\.BA_VID/).nil?
+      video_group = Group.where(:name => 'Video').first
+      unless video_group.nil?
+        user.groups << video_group unless user.groups.include?(video_group)
       end
     end
   end
