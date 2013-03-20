@@ -3,7 +3,11 @@ class Backend::BackendController < ApplicationController
   before_filter do
     unless logged_in?
       store_location
-      redirect_to new_session_path and return
+      respond_to do |format|
+        format.html { redirect_to new_session_path and return }
+        format.json { flash[:error] = _("You are not logged in.") ; render :nothing => true, :status => :unauthorized }
+        format.js { flash[:error] = _("You are not logged in.") ; render :nothing => true, :status => :unauthorized }
+      end
     else
       require_role "manager", current_inventory_pool
     end

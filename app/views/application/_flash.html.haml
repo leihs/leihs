@@ -1,0 +1,7 @@
+- if flash
+  - if flash[:notice]
+    .notification.headline
+      = flash[:notice]
+  - elsif flash[:error]
+    .notification.headline.error
+      = flash[:error]
