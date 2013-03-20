@@ -126,7 +126,7 @@ Wenn /^ich das Modell speichere$/ do
 end
 
 Dann /^sind die Kategorien zugeteilt$/ do
-  wait_until {current_path == (backend_inventory_pool_models_path @current_inventory_pool)}
+  wait_until {all(".loading", :visible => true).size == 0}
   @model.model_groups.where(id: @category_id).count.should eq 1
 end
 
@@ -144,7 +144,7 @@ Wenn /^ich eine oder mehrere Kategorien entferne$/ do
 end
 
 Dann /^sind die Kategorien entfernt und das Modell gespeichert$/ do
-  wait_until {current_path == (backend_inventory_pool_models_path @current_inventory_pool)}
+  wait_until {all(".loading", :visible => true).size == 0}
   @model.model_groups.should be_empty
 end
 

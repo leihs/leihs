@@ -59,7 +59,7 @@ When "$who chooses 'swap' on order line '$model'" do |who, model|
 end
 
 When "$who searches for '$model'" do |who, model|
-  get backend_inventory_pool_models_path(@inventory_pool, :query => model, :user_id => @order.user_id,
+  get backend_inventory_pool_inventory_path(@inventory_pool, :query => model, :user_id => @order.user_id,
                                         :source_path => swap_model_line_backend_inventory_pool_acknowledge_path(@inventory_pool, @order, :line_id => @order_line_id),
                                         :order_line_id => @order_line_id )
   @models = assigns(:models)

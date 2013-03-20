@@ -1,6 +1,6 @@
-class InventoryController
+class ModelsController
 
-  el: "#inventory"
+  el: "#models"
   
   constructor: ->
     @el = $(@el)
@@ -63,7 +63,7 @@ class InventoryController
   
   fetch_responsibles: =>
     $.ajax
-      url: "/backend/inventory_pools/#{currentInventoryPool.id}/inventory.json"
+      url: "/backend/inventory_pools/#{currentInventoryPool.id}/models.json"
       type: 'GET'
       data:
         responsibles: true 
@@ -82,10 +82,10 @@ class InventoryController
       filter: @filter
       query: @query
       with: 
-        preset: "inventory"
+        preset: "modellist"
     data = $.extend(data,@tab_data) if @tab_data
     @fetcher = $.ajax
-      url: "/backend/inventory_pools/#{currentInventoryPool.id}/inventory.json"
+      url: "/backend/inventory_pools/#{currentInventoryPool.id}/models.json"
       type: 'GET'
       data: data
       success: (data) =>
@@ -185,4 +185,4 @@ class InventoryController
       do e.preventDefault
       do @fetch_inventory
 
-window.App.InventoryController = InventoryController
+window.App.ModelsController = ModelsController

@@ -39,7 +39,7 @@ class Backend::OptionsController < Backend::BackendController
 
   def destroy
     @option.destroy
-    redirect_to backend_inventory_pool_models_path(current_inventory_pool)
+    redirect_to backend_inventory_pool_inventory_path(current_inventory_pool)
   end
     
 end

@@ -2,8 +2,8 @@ Leihs::Application.routes.draw do
 
   root :to => "application#index"
 
-#rails3#
-  # Install the default routes as the lowest priority.
+  # Authenticator
+
   match '/authenticator/zhdk/login', :to => 'authenticator/zhdk#login'
   match '/authenticator/zhdk/login_successful/:id', :to => 'authenticator/zhdk#login_successful'
   match '/authenticator/db/:action', :to => 'authenticator/database_authentication'
@@ -18,10 +18,16 @@ Leihs::Application.routes.draw do
   match '/logout', :to => 'sessions#destroy'
   match '/switch_to_ldap', :to => 'sessions#switch_to_ldap' #TODO 1009: Remove when not used anymore
   
+  # Backend
+
   match '/backend', :to => "backend/backend#index"
-  # match '/inventory', :to => 'inventory/inventory_pools#index' # NOTE seems not to be used any longer
+  get '/backend/inventory_pools/:inventory_pool_id/inventory', :to => "backend/inventory#index", :as => "backend_inventory_pool_inventory"
 
 ############################################################################
+##### Following things are old and have to be checked if still used
+#####
+############################################################################
+
 # Frontend
 
   match '/search', :to => 'frontend#search'

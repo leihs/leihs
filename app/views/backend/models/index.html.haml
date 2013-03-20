@@ -1,34 +1,22 @@
--content_for :title, _("List of Inventory")
-#inventory.innercontent
+-content_for :title, _("List of Models")
+#models.innercontent
 
   .top
     %h1= yield :title
     
     .content_navigation
-      #approve.multibutton
-        .alternatives
-          .trigger
-            .arrow
-          %a.button.white{:href => new_backend_inventory_pool_option_path(current_inventory_pool)}
-            .additem.icon
-            = _("Add Option")
-          /%a.button.white
-          /  .additem.icon
-          /  = _("Add Package")
-        %a.button.white{:href => new_backend_inventory_pool_model_path(current_inventory_pool)}
-          .additem.icon
-          = _("Add Model")
+      %a.button.white{:href => new_backend_inventory_pool_model_path(current_inventory_pool)}
+        .additem.icon
+        = _("Add Model")
 
   %section
+
     .inlinetabs
-      - [ [nil, _("All")],
-          [{:borrowable => true}, _("Borrowable")],
-          [{:borrowable => false}, _("Not Borrowable")],
-          [{:retired =>  true}, _("Retired")]].each do |x|
+      - [ [nil, _("All")]].each do |x|
         %a{:class => "tab#{' active' if x[0].nil?}", :"data-tab" => x[0].to_json}
           %span.text= x[1]
     
-    .list
+    .list.min-height
       %ul.navigation.line
         .container
           %li.search
@@ -36,26 +24,13 @@
               %input{:type => "text", :name => "query", :value => "#{params[:query]}", :placeholder => _("Search...")}
               = image_tag "loading.gif", :class => "loading"
             = image_tag "loading.gif", :class => "loading"
-          %li.filter
-            %label.select.responsible
-              = image_tag "loading.gif", :class => "loading icon"
-              %span= _("Responsible")
-
-            - [ ["owned", _("Owned")],
-                ["in_stock", _("In Stock")],
-                ["incomplete", _("Incomplete")],
-                ["broken", _("Broken")]].each do |x|
-              %label
-                %input{:type => :checkbox, :"data-filter" => x.first}
-                %span= x.last
-            = link_to backend_inventory_pool_models_path(current_inventory_pool, :format => "csv"), :class => "button white export_csv", :title => _("CSV export") do
-              .valuelist.icon
-              = _("CSV") 
 
       %span.loading
         = image_tag "loading.gif"
   
+    .clear
+
   .pagination_container
 
 :coffeescript
-  jQuery -> new App.InventoryController
+  jQuery -> new App.ModelsController

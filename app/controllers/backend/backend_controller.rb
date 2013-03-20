@@ -27,7 +27,7 @@ class Backend::BackendController < ApplicationController
       redirect_to statistics_path
     elsif current_user.access_rights.managers.where(:access_level => 3).exists? # user has manager level 3 => inventory manager
       ip ||= current_user.managed_inventory_pools.first
-      redirect_to backend_inventory_pool_models_path(ip)
+      redirect_to backend_inventory_pool_inventory_path(ip)
     elsif current_user.access_rights.managers.where(:access_level => 1..2).exists? # user has at least manager level 1 => lending manager
       ip ||= current_user.managed_inventory_pools.first
       redirect_to backend_inventory_pool_path(ip)

@@ -2,7 +2,7 @@
 
 Angenommen /^man öffnet die Liste des Inventars$/ do
   @current_inventory_pool = @current_user.managed_inventory_pools.first
-  visit backend_inventory_pool_models_path(@current_inventory_pool)
+  visit backend_inventory_pool_inventory_path(@current_inventory_pool)
   wait_until(10){ find(".line:not(.navigation)") }
 end
 
@@ -411,7 +411,9 @@ end
 
 Dann /^die Daten wurden entsprechend aktualisiert$/ do
   search_string = @table_hashes.detect {|h| h["Feld"] == "Name"}["Wert"]
-  find("a", :text => Regexp.new(_("Edit"),"i")).click
+  step 'ich nach "%s" suche' % search_string
+  wait_until { all(".loading", :visible => true).empty? }
+  find(".line", :text => search_string).find("a", :text => Regexp.new(_("Edit"),"i")).click
 
   # check that the same model was modified
   (Rails.application.routes.recognize_path current_path)[:id].to_i.should eq @model_id
@@ -581,3 +583,6 @@ Dann /^sind die Attachments gespeichert$/ do
   @model.attachments.where(:filename => @attachment_filename).empty?.should be_false
 end
 
+Dann /^sieht man keine Modelle, denen keine Gegenstänge zugewiesen sind$/ do
+  all(".model.line .toggle .text", :text => "0").size.should == 0
+end

@@ -61,6 +61,8 @@ module Json
 
     def get_with_preset(key)
       case key.to_sym
+        when :modellist
+          {}
         when :item_edit
          { :current_borrower => true,
            :current_return_date => true,

@@ -12,7 +12,7 @@ OptionsCreateCtrl = ($scope, $location, $routeParams, Option) ->
         price: $scope.option.price
         inventory_code: $scope.option.inventory_code
     , (response) ->
-      window.location = "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/models"
+      window.location = "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/inventory"
 
 
 
@@ -35,7 +35,7 @@ OptionsEditCtrl = ($scope, $location, $routeParams, Option) ->
         price: $scope.option.price
         inventory_code: $scope.option.inventory_code
     , (response) ->
-      window.location = "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/models"
+      window.location = "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/inventory"
 
 
 

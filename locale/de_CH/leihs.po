@@ -679,6 +679,9 @@ msgstr "Liste der Bestellungen"
 msgid "List of Visits"
 msgstr "Liste der Besuche"
 
+msgid "List of Models"
+msgstr "Liste der Modelle"
+
 msgid "Loading"
 msgstr "Lade"
 
