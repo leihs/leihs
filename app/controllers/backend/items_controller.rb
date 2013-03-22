@@ -34,29 +34,51 @@ class Backend::ItemsController < Backend::BackendController
     end
   end
 
-  def new(id = params[:original_id])
-    if id.blank?
-      @item = Item.new
-      @item.model = @model if @model
-      @item.invoice_date = Date.yesterday
-    else 
-      @item = Item.find(id).dup # NOTE use .dup instead of .clone (from Rails 3.1)
-      @item.serial_number = nil
-      @item.name = nil
-    end
+  def new
+    @item = Item.new(:owner => current_inventory_pool)
     @item.inventory_code = Item.proposed_inventory_code(current_inventory_pool)
-    @item.owner = current_inventory_pool
     if @current_user.access_level_for(current_inventory_pool) < 2
       @item.inventory_pool = current_inventory_pool
     end
     @item.is_inventory_relevant = (is_super_user? ? true : false)
-    render :action => 'show'
   end
-
+ 
   def create
     @item = Item.new(:owner => current_inventory_pool)
-    flash[:notice] = _("New item created.")
-    update
+
+    Field.all.each do |field|
+      next unless field.permissions
+      if field.get_value_from_params params[:item]
+        unless field.editable current_user, current_inventory_pool, @item
+          @item.errors.add(:base, _("You are not the owner of this item")+", "+_("therefore you may not be able to change some of these fields"))
+        end
+      end
+    end
+    unless @item.errors.any?
+      saved = @item.update_attributes(params[:item])
+    end
+
+    respond_to do |format|
+      format.json { 
+        if saved
+          render(:status => :ok, json: view_context.json_for(@item, {preset: :item_edit}))
+        else
+          if @item
+            render :text => @item.errors.full_messages.uniq.join(", "), :status => :bad_request
+          else
+            render :json => {}, :status => :not_found
+          end
+        end
+      }
+      format.html { 
+        if saved
+          redirect_to backend_inventory_pool_models_path(current_inventory_pool)
+        else
+          flash[:error] = @item.errors.full_messages.uniq
+          redirect_to new_backend_inventory_pool_item_path(current_inventory_pool)
+        end
+      }
+    end
   end
 
   def update
@@ -70,7 +92,6 @@ class Backend::ItemsController < Backend::BackendController
           end
         end
       end
-
       unless @item.errors.any?
         saved = @item.update_attributes(params[:item])
       end
@@ -91,7 +112,7 @@ class Backend::ItemsController < Backend::BackendController
       format.html { 
         if saved
           if params[:copy].blank?
-            redirect_to backend_inventory_pool_models_path(current_inventory_pool)
+            redirect_to backend_inventory_pool_inventory_path(current_inventory_pool)
           else 
             redirect_to :action => 'new', :original_id => @item.id  
           end

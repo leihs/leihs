@@ -65,7 +65,8 @@ module Backend::BackendHelper
         path_parameters?(:controller => "backend/inventory")
       when "items"
         path_parameters?(:controller => "backend/items", :action => :show) or
-        path_parameters?(:controller => "backend/items", :action => :update)
+        path_parameters?(:controller => "backend/items", :action => :update) or
+        path_parameters?(:controller => "backend/items", :action => :new)
       when "users"
         path_parameters?(:controller => "backend/users", :action => :index)
       when "current_user"

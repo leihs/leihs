@@ -11,7 +11,7 @@
   = form_for [:backend, current_inventory_pool, @item] do |f|
 
     .content_navigation
-      %a.button.red{:href => backend_inventory_pool_models_path(current_inventory_pool)}
+      %a.button.red{:href => backend_inventory_pool_inventory_path(current_inventory_pool)}
         = _("Cancel Edit")
       %button.button.green{:type => :submit}
         = _("Save %s") % if @item.model.is_package then _("Package") else _("Item") end

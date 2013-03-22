@@ -11,12 +11,13 @@ class Field
   constructor: (data, item)->
     for k,v of data
       @[k] = v
-    @formName = @createFormName @attribute
+    @formName = @getFormName @attribute, @form_name
     @label = _jed(@label)
     if item?
       @value = @getValue item, @attribute
       @value = @default if !@value? and @default?
       @editable = @getEditable item
+      @item = item
     else
       @editable = true
     Field.fields[@id] = @
@@ -41,8 +42,21 @@ class Field
     else
       item[attribute]
 
-  createFormName: (attribute)->
-    if attribute instanceof Array
+  getValueLabel: (value_label, item)=>
+    if value_label instanceof Array
+      _.reduce value_label, (hash, attr) -> 
+        if hash? and hash[attr]?
+          hash[attr]
+        else 
+          null
+      , item
+    else
+      item[value_label]
+
+  getFormName: (attribute, formName)->
+    if formName?
+      "item[#{formName}]"
+    else if attribute instanceof Array
       _.reduce attribute, (name, attr) -> 
         "#{name}[#{attr}]"
       , "item"
@@ -73,6 +87,8 @@ class Field
     else if field_el.is ".date"
       $(field_el).find("input[type=hidden]").val()
     else if field_el.is ".autocomplete"
+      $(field_el).find("input[type=hidden]").val()
+    else if field_el.is ".autocomplete-search"
       $(field_el).find("input[type=hidden]").val()
     else if field_el.is ".text"
       $(field_el).find("input[type=text]").val()

@@ -11,13 +11,16 @@
             .arrow
           %a.button.white{:href => new_backend_inventory_pool_option_path(current_inventory_pool)}
             .additem.icon
-            = _("Add Option")
+            = _("Create %s") % _("Option")
+          %a.button.white{:href => new_backend_inventory_pool_item_path(current_inventory_pool)}
+            .additem.icon
+            = _("Create %s") % _("Item")
           /%a.button.white
           /  .additem.icon
           /  = _("Add Package")
         %a.button.white{:href => new_backend_inventory_pool_model_path(current_inventory_pool)}
           .additem.icon
-          = _("Add Model")
+          = _("Create %s") % _("Model")
 
   %section
     .inlinetabs

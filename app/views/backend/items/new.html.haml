@@ -1,0 +1,32 @@
+#item.form_edit.innercontent.edit
+  %form.indent{action: backend_inventory_pool_items_path(current_inventory_pool), method: :post}
+    = token_tag nil
+    .content_navigation
+      %a.button.red{:href => backend_inventory_pool_models_path(current_inventory_pool)}
+        = _("Cancel Edit")
+      %button.button.green{:type => :submit}
+        = _("Create %s") % _("Item")
+
+    .top
+      %h1= _("Create %s") % _("Item")
+
+    .left
+    .right
+    .clear
+
+:coffeescript
+  notice = #{flash[:notice].to_json}
+  error = #{flash[:error].to_json}
+
+  jQuery ->
+    if notice
+      Notification.add_headline
+        text: notice
+        type: "success"
+
+    if error
+      Notification.add_headline
+        text: error
+        type: "error"
+
+    new App.EditItemController #{json_for Field.accessible_by(current_user, current_inventory_pool)}, #{json_for @item, {inventory_code: true, owner: true}}

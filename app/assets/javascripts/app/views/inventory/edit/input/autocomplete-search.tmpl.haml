@@ -1,0 +1,28 @@
+%label.container
+  {{if value}}
+  %input{:type => "hidden", :name => "${formName}", :value => "${value}"}
+  %input.autocomplete{:type => "text",
+                      :placeholder => "${label}",
+                      :title => "${label}",
+                      :value => "${$item.data.getValueLabel($item.data.value_label, $item.data.item)}",
+                      :data => { :url => "${search_path}",
+                                 :autocomplete_search_attr => "${search_attr}",
+                                 :autocomplete_element_tmpl => "tmpl/autocomplete/generic",
+                                 :autocomplete_value_target => '${formName}',
+                                 :autocomplete_display_attribute => "${display_attr}",
+                                 :autocomplete_value_attribute => "${value_attr}",
+                                 :autocomplete_blur_on_select => "true"}}
+  {{else}}
+  %input{:type => "hidden", :name => "${formName}"}
+  %input.autocomplete{:type => "text",
+                      :placeholder => "${label}",
+                      :title => "${label}",
+                      :data => { :url => "${search_path}",
+                                 :autocomplete_search_attr => "${search_attr}",
+                                 :autocomplete_element_tmpl => "tmpl/autocomplete/generic",
+                                 :autocomplete_value_target => '${formName}',
+                                 :autocomplete_display_attribute => "${display_attr}",
+                                 :autocomplete_value_attribute => "${value_attr}",
+                                 :autocomplete_blur_on_select => "true" }}
+  {{/if}}
+  .arrow.icon

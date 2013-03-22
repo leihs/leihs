@@ -17,7 +17,7 @@ describe Backend::FieldsController do
   describe "index" do
 
     it "provides accessible fields" do
-      get :index, {format: "json"}, session
+      get :index, {format: "json", inventory_pool_id: @inventory_pool.id}, session
       json = JSON.parse response.body
       accessible_fields = Field.accessible_by @lending_manager, @inventory_pool
       accessible_fields_ids = accessible_fields.map(&:id)

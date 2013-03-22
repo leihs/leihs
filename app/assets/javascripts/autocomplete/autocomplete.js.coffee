@@ -22,6 +22,7 @@ class AutoComplete
   delegateEvents: =>
     @el.bind "blur", (event)=>
       @current_ajax.abort() if @current_ajax?
+      do @deselect unless @el.val().length
   
   setup: (input_field, source)=>
     @el = $(input_field)
@@ -52,7 +53,8 @@ class AutoComplete
         $( "<li></li>" ).data("item.autocomplete", item).append( $.tmpl(@data.autocomplete_element_tmpl, item) ).appendTo(ul)
 
   remote_source: (request, response)=>
-    data = {format: "json", term: request.term}
+    data = {format: "json"}
+    data[@data.autocomplete_search_attr ? "term"] = request.term
     data = $.extend(true, data, {with: @data.autocomplete_with}) if @data.autocomplete_with?
     @el.autocomplete("widget").scrollTop 0
     @current_ajax.abort() if @current_ajax?
@@ -71,6 +73,7 @@ class AutoComplete
       success: (data)=>
         # compute entries
         entries = $.map data, (element)=> 
+          element.label = if @data.autocomplete_display_attribute? then element[@data.autocomplete_display_attribute] else element.label
           element.value = element[@data.autocomplete_value_attribute] if @data.autocomplete_value_attribute?
           element
         # setup autocomplete search only once & only search on focus
@@ -83,8 +86,9 @@ class AutoComplete
   select: (event, element)=>
     @el.val element.item[@data.autocomplete_display_attribute]
     @el.autocomplete("close")
+    value = if @data.autocomplete_value_attribute? then element.item[@data.autocomplete_value_attribute] else element.item.value
     if @data.autocomplete_value_target?
-      $("input[name='#{@data.autocomplete_value_target}']").val(element.item.value).change()
+      $("input[name='#{@data.autocomplete_value_target}']").val(value).change()
     if @data.autocomplete_select_callback?
       callback = eval @data.autocomplete_select_callback
       if callback?
@@ -92,6 +96,9 @@ class AutoComplete
     @el.blur() if @data.autocomplete_blur_on_select == true
     @el.trigger("autocomplete:select",[element])
     return false
+
+  deselect: =>
+    $("input[name='#{@data.autocomplete_value_target}']").removeAttr("value").change()
 
   focus: (event, ui)=> false
     

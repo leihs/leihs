@@ -378,7 +378,7 @@ end
 
 Wenn /^ich eine? neue[sr]? (.+) hinzufüge$/ do |entity|
   page.execute_script("$('.content_navigation .arrow').trigger('mouseover');") if entity == "Option"
-  click_link "#{entity} hinzufügen"
+  click_link "#{entity} erstellen"
 end
 
 Und /^ich (?:erfasse|ändere)? ?die folgenden Details ?(?:erfasse|ändere)?$/ do |table|

@@ -133,22 +133,9 @@ class Model < ActiveRecord::Base
 
   SEARCHABLE_FIELDS = %w(name manufacturer)
 
-  scope :search, lambda { |query, fields = []|
+  scope :search, lambda { |query , fields = []|
     return scoped if query.blank?
 
-    q = query.split.map{|s| "%#{s}%"}
-    model_fields = Model::SEARCHABLE_FIELDS.map{|f| "m.#{f}" }.join(', ')
-    item_fields = Item::SEARCHABLE_FIELDS.map{|f| "i.#{f}" }.join(', ')
-    joins(%Q(INNER JOIN (SELECT m.id, CAST(CONCAT_WS(' ', #{model_fields}, #{item_fields}, mg.name, p.value) AS CHAR) AS text
-                          FROM models AS m
-                            LEFT JOIN items AS i ON i.model_id = m.id
-                            LEFT JOIN properties AS p ON p.model_id = m.id
-                            LEFT JOIN (model_links AS ml
-                              LEFT JOIN (model_groups AS mg) ON (mg.id = ml.model_group_id AND mg.type = 'Category')) ON ml.model_id = m.id
-                          GROUP BY id) AS full_text ON models.id = full_text.id)).
-        where(Arel::Table.new(:full_text)[:text].matches_all(q))
-
-=begin
     sql = select("DISTINCT models.*") #old# joins(:categories, :properties, :items)
     if fields.empty?
       sql = sql.
@@ -174,7 +161,6 @@ class Model < ActiveRecord::Base
       sql = sql.where("%s" % s.join(' OR '), :query => "%#{x}%")
     end
     sql
-=end
   }
   
   def self.filter2(options)
