@@ -433,7 +433,7 @@ Dann /^die Daten wurden entsprechend aktualisiert$/ do
     field_value.should eq value_in_field
   end
 
-  click_link("%s" % _("Cancel Edit"))
+  click_link("%s" % _("Cancel"))
   current_path.should eq @page_to_return
 end
 
