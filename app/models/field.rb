@@ -88,7 +88,7 @@ class Field < ActiveHash::Base
       attribute: "is_borrowable",
       type: "radio",
       values: [{label: "OK", value: true}, {label: "Unborrowable", value: false}],
-      default: true,
+      default: false,
       group: "Status"
     },{
       id: 12,

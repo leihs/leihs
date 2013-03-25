@@ -145,7 +145,7 @@ Funktionalität: Gegenstand erstellen
     Und Letzte Inventur ist das heutige Datum
     Und folgende Felder haben folgende Standardwerte
     | Feldname         | Type             | Wert             |
-    | Ausleihbar       | radio            | nicht ausleihbar |
+    | Ausleihbar       | radio            | Nicht ausleihbar |
     | Inventarrelevant | select           | Ja               |
     | Zustand          | radio            | OK               |
     | Vollständigkeit  | radio            | OK               |

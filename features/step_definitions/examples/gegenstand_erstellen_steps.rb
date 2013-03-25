@@ -21,7 +21,9 @@ def check_fields_and_their_values table
         all("option").detect(&:selected?).text.should == field_value
       when "radio must"
         find("input[checked][type='radio']").value.should == field_value
-      when ""
+      when "radio"
+        find("label", text: field_value).find("input").checked?.should be_true
+      else
         find("input,textarea").value.should == field_value
       end
     end
