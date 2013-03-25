@@ -12,7 +12,7 @@
 
     .content_navigation
       %a.button.red{:href => backend_inventory_pool_inventory_path(current_inventory_pool)}
-        = _("Cancel Edit")
+        = _("Cancel")
       %button.button.green{:type => :submit}
         = _("Save %s") % if @item.model.is_package then _("Package") else _("Item") end
       

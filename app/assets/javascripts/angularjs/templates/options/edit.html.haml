@@ -2,7 +2,7 @@
 
   .content_navigation
     %a.button.red{:href => "/backend/inventory_pools/{{current_inventory_pool_id}}/inventory"}
-      {{_jed("Cancel Edit")}}
+      {{_jed("Cancel")}}
     %button.button.green{"ng-click" => "save()", "ng-disabled" => "form.$invalid"}
       {{_jed("Save %s", "Option")}}
 
