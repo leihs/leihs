@@ -198,13 +198,6 @@ class Field < ActiveHash::Base
       type: "text",
       group: "Invoice Information"
     },{
-      id: 26,
-      label: "Insurance Number",
-      attribute: "insurance_number",
-      permissions: {level: 2, owner: true},
-      type: "text",
-      group: "Invoice Information"
-    },{
       id: 27,
       label: "Supplier",
       attribute: ["supplier", "id"],

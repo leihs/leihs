@@ -56,7 +56,6 @@ Funktionalität: Gegenstand erstellen
     | Rechnungsnummer              |
     | Rechnungsdatum               |
     | Anschaffungswert             |
-    | Versicherungsnummer          |
     | Lieferant                    |
     | Garantieablaufdatum          |
     | Vertragsablaufdatum          |
@@ -103,7 +102,6 @@ Funktionalität: Gegenstand erstellen
     | Rechnungsnummer              |              | Test Nummer                   |
     | Rechnungsdatum               |              | 01.01.2013                    |
     | Anschaffungswert             |              | 50.0                          |
-    | Versicherungsnummer          |              | Test Nummer                   |
     | Lieferant                    | autocomplete | Keine/r                       |
     | Garantieablaufdatum          |              | 01.01.2013                    |
     | Vertragsablaufdatum          |              | 01.01.2013                    |

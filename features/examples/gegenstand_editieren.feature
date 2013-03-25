@@ -61,7 +61,6 @@ Funktionalität: Gegenstand bearbeiten
     | Rechnungsnummer |
     | Rechnungsdatum |
     | Anschaffungswert |
-    | Versicherungsnummer |
     | Lieferant |
     | Garantieablaufdatum |
     | Vertragsablaufdatum |

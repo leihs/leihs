@@ -67,7 +67,6 @@ module Json
          { :current_borrower => true,
            :current_return_date => true,
            :in_stock? => true,
-           :insurance_number => true,
            :inventory_pool => true,
            :invoice_date => true,
            :invoice_number => true,

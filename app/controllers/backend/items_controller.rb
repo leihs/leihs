@@ -72,7 +72,7 @@ class Backend::ItemsController < Backend::BackendController
       }
       format.html { 
         if saved
-          redirect_to backend_inventory_pool_models_path(current_inventory_pool)
+          redirect_to backend_inventory_pool_inventory_path(current_inventory_pool)
         else
           flash[:error] = @item.errors.full_messages.uniq
           redirect_to new_backend_inventory_pool_item_path(current_inventory_pool)
