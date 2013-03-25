@@ -35,7 +35,7 @@ Angenommen /^man merkt sich das aktuelle Inventarpool für weitere Schritte$/ do
 end
 
 Angenommen /^man befindet sich auf der Liste des Inventars$/ do
-  visit backend_inventory_pool_models_path(@current_inventory_pool)
+  visit backend_inventory_pool_inventory_path(@current_inventory_pool)
 end
 
 Dann /^kann man einen Gegenstand erstellen$/ do
@@ -75,7 +75,7 @@ Wenn /^ich alle Informationen erfasse, fuer die ich berechtigt bin$/ do |table|
 end
 
 Wenn /^ich erstellen druecke$/ do
-  find("button", text: _("Create %s") % _("Item")).click
+  find("button", text: _("Save %s") % _("Item")).click
   step "ensure there are no active requests"
 end
 
@@ -107,7 +107,7 @@ Dann /^ist der Gegenstand mit all den angegebenen Informationen erstellt$/ do
 end
 
 Dann /^man wird zur Liste des Inventars zurueckgefuehrt$/ do
-  wait_until {current_path.should eql backend_inventory_pool_models_path(@current_inventory_pool)}
+  wait_until {current_path.should eql backend_inventory_pool_inventory_path(@current_inventory_pool)}
 end
 
 Wenn /^jedes Pflichtfeld ist gesetzt$/ do |table|
