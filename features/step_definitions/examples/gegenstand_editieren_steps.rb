@@ -43,7 +43,7 @@ Wenn /^die nicht ausgefüllten\/ausgewählten Pflichtfelder sind rot markiert$/ 
   all(".required.field", :visible => true).each do |field|
     if field.all("input[type=text]").any?{|input| input.value == 0} or 
       field.all("textarea").any?{|textarea| textarea.value == 0} or
-      field.all("input[type=radio]").all?{|input| not input.checked?}
+      (ips = field.all("input[type=radio]"); ips.all?{|input| not input.checked?} if not ips.empty?)
         field[:class][/invalid/].should_not be_nil
     end
   end
