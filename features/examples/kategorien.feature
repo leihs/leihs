@@ -60,3 +60,15 @@ Funktionalität: Kategorien
     Und ich eine oder mehrere Kategorien entferne
     Und ich das Modell speichere
     Dann sind die Kategorien entfernt und das Modell gespeichert
+
+  Szenario: Kategorie suchen
+   Wenn man nach einer Kategorie anhand des Namens sucht
+   Dann sieht man nur die Kategorien, die den Suchbegriff im Namen enthalten
+   Und man kann diese Kategorien editieren
+
+ Szenario: nicht genutzte Kategorie suchen und löschen 
+   Wenn man nach einer ungenutzten Kategorie anhand des Namens sucht
+   Dann sieht man nur die Kategorien, die den Suchbegriff im Namen enthalten
+   Und man kann diese Kategorien löschen
+
+
