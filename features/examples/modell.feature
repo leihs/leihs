@@ -5,7 +5,7 @@ Funktionalität: Modell
   Grundlage:
     Angenommen Personas existieren
     Und man ist "Mike"
-    Und man öffnet die Liste der Modelle
+    Und man öffnet die Liste des Inventars
 
   @javascript
   Szenario: Übersicht neues Modell hinzufügen
@@ -48,6 +48,7 @@ Funktionalität: Modell
 
   @javascript
   Szenario: Modelldetails bearbeiten
+    Angenommen man öffnet die Liste der Modelle
     Wenn ich ein bestehendes Modell bearbeite
     Und ich ändere die folgenden Details
     | Feld                               | Wert                         |
@@ -90,6 +91,7 @@ Funktionalität: Modell
 
   @javascript
   Szenario: Bilder
+    Angenommen man öffnet die Liste der Modelle
     Wenn ich ein bestehendes Modell bearbeite
     Dann kann ich mehrere Bilder hinzufügen
     Und ich kann Bilder auch wieder entfernen
@@ -97,13 +99,17 @@ Funktionalität: Modell
     Dann wurden die ausgewählten Bilder für dieses Modell gespeichert
     Und zu grosse Bilder werden den erlaubten Grössen entsprechend verkleinert
     
+  @javascript
   Szenario: sich ergänzende Modelle hinzufügen (kompatibel)
+    Angenommen man öffnet die Liste der Modelle
     Wenn ich das Modell öffne
     Und ich ein ergänzendes Modell mittel Autocomplete Feld hinzufüge
     Und ich speichere
     Dann ist dem Modell das ergänzende Modell hinzugefügt worden
 
+  @javascript
   Szenario: sich ergänzende Modelle entfernen (kompatibel)
+    Angenommen man öffnet die Liste der Modelle
     Wenn ich ein Modell öffne, das bereits ergänzende Modelle hat
     Und ich ein ergänzendes Modell entferne
     Und ich speichere
