@@ -28,7 +28,7 @@ end
 Dann /^ich setze all ihre Initalisierungswerte$/ do
   @all_editable_fields = all("#field_selection .field", :visible => true)
   @all_editable_fields.each do |field|
-    field_type = field[:class][/\s\w+\s/].strip
+    field_type = field[:class][/\s(\w(-\w)?)+\s/].strip
     case field_type
 
       when "radio"
@@ -53,6 +53,11 @@ Dann /^ich setze all ihre Initalisierungswerte$/ do
         page.execute_script %Q{ $(".autocomplete[data-autocomplete_value_target='#{target_name}']").focus() }
         wait_until{ not all(".ui-menu-item",:visible => true).empty? }
         find(".ui-menu-item a").click
+      when "autocomplete-search"
+        field.find("input").set "Sharp Beamer"
+        field.find("input").click
+        wait_until {not all("a", text: "Sharp Beamer").empty?}
+        field.find("a", text: "Sharp Beamer").click
       when "checkbox"
         # currently we only have "ausgemustert"
         field.find("input[type='checkbox']").click
@@ -80,7 +85,7 @@ Dann /^sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, di
     within("#item") do
       field_el = all(".field[data-field_id='#{field.id}']").first
       if field_el
-        field_type = field_el[:class][/\s\w+\s/].strip
+        field_type = field_el[:class][/\s(\w(-\w)?)+\s/].strip
         if field_type == "date"
           unless value.blank?
             value = Date.parse(value) if value.is_a?(String)
@@ -107,6 +112,13 @@ Dann /^sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, di
             value = field[:values].detect{|v| v["value"] == value}["label"]
             field_el.should have_content _(value)
           end
+        elsif field_type == "autocomplete-search"
+          if value
+            if field[:label] == "Model"
+              value = Model.find(value).name
+              field_el.should have_content value
+            end
+          end
         else
           field_el.should have_content _(value)
         end
@@ -127,7 +139,7 @@ Dann /^wähle Ich die Felder über eine List oder per Namen aus$/ do
   find("#fieldname").click
   wait_until { not all(".ui-menu-item a", :visible => true).empty? }
   find(".ui-menu-item a", :text => /(Notiz|Note)/).click
-  find("#fieldname").set Field.where(:readonly => nil).last.label
+  find("#fieldname").set Field.all.select{|f| f[:readonly] == nil and f[:type] != "autocomplete-search"}.last.label
   sleep(1)
   find(".ui-menu-item a").click
   @all_editable_fields = all("#field_selection .field", :visible => true)
