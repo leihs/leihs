@@ -2,8 +2,7 @@ Leihs::Application.routes.draw do
 
   root :to => "application#index"
 
-#rails3#
-  # Install the default routes as the lowest priority.
+  # Authenticator
   match '/authenticator/zhdk/login', :to => 'authenticator/zhdk#login'
   match '/authenticator/zhdk/login_successful/:id', :to => 'authenticator/zhdk#login_successful'
   match '/authenticator/db/:action', :to => 'authenticator/database_authentication'
@@ -18,11 +17,14 @@ Leihs::Application.routes.draw do
   match '/logout', :to => 'sessions#destroy'
   match '/switch_to_ldap', :to => 'sessions#switch_to_ldap' #TODO 1009: Remove when not used anymore
   
+  # Backend
   match '/backend', :to => "backend/backend#index"
-  # match '/inventory', :to => 'inventory/inventory_pools#index' # NOTE seems not to be used any longer
+  get '/backend/inventory_pools/:inventory_pool_id/inventory', :to => "backend/inventory#index", :as => "backend_inventory_pool_inventory"
 
 ############################################################################
-# Frontend
+##### Following things are old and have to be checked if still used
+#####
+############################################################################
 
   match '/search', :to => 'frontend#search'
 
@@ -63,23 +65,23 @@ Leihs::Application.routes.draw do
       get :chart
     end
   end
-  
+
   resources :categories do 
     resources :models
   end
-  
+
   resources :templates do 
     resources :models
   end
-  
+
   resources :inventory_pools
 
-############################################################################
-# Backend
+  ############################################################################
+  # Backend
 
   namespace :backend do
     #tmp# match 'database_backup', :to => 'backend#database_backup'
-    
+
     root :to => "backend#index"
     match 'search', :to => 'backend#search'
 
@@ -92,7 +94,7 @@ Leihs::Application.routes.draw do
         post :set_start_screen
       end
     end
-    
+
     resources :mails
 
     resources :fields, :controller => "fields", :only => :index
@@ -101,6 +103,8 @@ Leihs::Application.routes.draw do
       member do
         get :workload
       end
+
+      # http://localhost:3000/backend/inventory_pools/1/items/new
 
       resources :acknowledge, :except => :index do
         member do
@@ -116,14 +120,14 @@ Leihs::Application.routes.draw do
         end
       end
       match 'search', :to => 'backend#search'
-  
+
       resources :mails
 
       resources :orders
       resources :contracts
       resources :visits, :only => :index
       resource :inventory_helper, :controller => "inventory_helper", :only => :show
-      
+
       resources :locations
       resources :categories do
         member do
@@ -145,9 +149,9 @@ Leihs::Application.routes.draw do
         end
         member do
           get :timeline
-#leihs2#begin# check out what we need 
-          get :details
-          get :properties
+            #leihs2#begin# check out what we need 
+            get :details
+            get :properties
           post :properties
           get :package
           delete :destroy_package
@@ -160,21 +164,21 @@ Leihs::Application.routes.draw do
           put :package_item
           delete :package_item
           post :set_group_partition
-#leihs2#end# 
+          #leihs2#end# 
         end
-            resources :compatibles, :controller => 'models'
-            resources :items do
-              member do
-                get :status
-                get :notes
-                post :notes
-                get :show 
-                post :toggle_permission
-                get :retire
-                post :retire
-                post :get_notes
-               end
-           end
+        resources :compatibles, :controller => 'models'
+        resources :items do
+          member do
+            get :status
+            get :notes
+            post :notes
+            get :show 
+            post :toggle_permission
+            get :retire
+            post :retire
+            post :get_notes
+          end
+        end
       end
       resources :templates do
         member do
@@ -194,7 +198,6 @@ Leihs::Application.routes.draw do
           get :status
           get :notes
           post :notes
-          get :show 
           post :toggle_permission
           post :get_notes
         end
@@ -254,8 +257,8 @@ Leihs::Application.routes.draw do
     end
   end
 
-############################################################################
-# Statistics
+  ############################################################################
+  # Statistics
 
 =begin
   namespace :statistics do
@@ -272,9 +275,9 @@ Leihs::Application.routes.draw do
     member do
       get :activities  
     end
-    
+
     match ':type/:id/activities', :to => 'statistics#activities'
     #match ':type/:id', :to => 'statistics#show'
   end
-  
+
 end

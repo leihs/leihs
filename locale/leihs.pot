@@ -668,6 +668,9 @@ msgstr ""
 msgid "List of Visits"
 msgstr ""
 
+msgid "List of Models"
+msgstr ""
+
 msgid "Loading"
 msgstr ""
 
@@ -1509,6 +1512,9 @@ msgid "You have access to the following inventory pools:"
 msgstr ""
 
 msgid "You have been logged out."
+msgstr ""
+
+msgid "You are not logged in."
 msgstr ""
 
 msgid ""

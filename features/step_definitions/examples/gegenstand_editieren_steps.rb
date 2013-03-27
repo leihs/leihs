@@ -2,7 +2,7 @@
 
 Angenommen /^man editiert einen Gegenstand$/ do
   @ip = @current_user.managed_inventory_pools
-  visit backend_inventory_pool_models_path(@ip)
+  visit backend_inventory_pool_inventory_path(@ip)
   find(".model.line .toggle .text", :text => /(1|2|3|4|5|6)/).click
   item_line = find(".item.line")
   @item = Item.find_by_inventory_code(item_line.find(".inventory_code").text)
@@ -43,7 +43,7 @@ Wenn /^die nicht ausgefüllten\/ausgewählten Pflichtfelder sind rot markiert$/ 
   all(".required.field", :visible => true).each do |field|
     if field.all("input[type=text]").any?{|input| input.value == 0} or 
       field.all("textarea").any?{|textarea| textarea.value == 0} or
-      field.all("input[type=radio]").all?{|input| not input.checked?}
+      (ips = field.all("input[type=radio]"); ips.all?{|input| not input.checked?} if not ips.empty?)
         field[:class][/invalid/].should_not be_nil
     end
   end

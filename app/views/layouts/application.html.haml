@@ -10,6 +10,9 @@
     = csrf_meta_tag
     
   %body
+  
+    = render :partial => 'application/flash', :locals => {:flash => flash}
+
     %header.wrapper
       = render :partial => "layouts/splash/topbar"
     

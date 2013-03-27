@@ -4,10 +4,10 @@ require 'rubygems'
 require 'spork'
 
 # Code coverage tool that supports Ruby 1.9 and Rails 3
-require 'simplecov'
-SimpleCov.start 'rails' do
-  merge_timeout 3600
-end
+# require 'simplecov'
+# SimpleCov.start 'rails' do
+#   merge_timeout 3600
+# end
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'

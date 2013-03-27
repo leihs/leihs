@@ -55,7 +55,7 @@
           = _("Edit Item")
           .edit.icon
         %button.button.red.cancel
-          = _("Cancel Edit")
+          = _("Cancel")
         %button.button.green.save
           = _("Save %s") % [_("Item")]
       .notifications
@@ -68,5 +68,4 @@
 :coffeescript
 
   jQuery -> 
-    console.log #{json_for Field.accessible_by(current_user, current_inventory_pool)}
     new App.InventoryHelperController #{json_for Field.accessible_by(current_user, current_inventory_pool)}

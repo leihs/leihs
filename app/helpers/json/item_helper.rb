@@ -12,7 +12,6 @@ module Json
         [:current_borrower,
          :current_return_date,
          :in_stock?,
-         :insurance_number,
          :inventory_pool,
          :invoice_date,
          :invoice_number,

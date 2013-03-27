@@ -61,11 +61,12 @@ module Json
 
     def get_with_preset(key)
       case key.to_sym
+        when :modellist
+          {}
         when :item_edit
          { :current_borrower => true,
            :current_return_date => true,
            :in_stock? => true,
-           :insurance_number => true,
            :inventory_pool => true,
            :invoice_date => true,
            :invoice_number => true,

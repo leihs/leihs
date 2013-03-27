@@ -3,7 +3,11 @@ class Backend::BackendController < ApplicationController
   before_filter do
     unless logged_in?
       store_location
-      redirect_to new_session_path and return
+      respond_to do |format|
+        format.html { redirect_to new_session_path and return }
+        format.json { flash[:error] = _("You are not logged in.") ; render :nothing => true, :status => :unauthorized }
+        format.js { flash[:error] = _("You are not logged in.") ; render :nothing => true, :status => :unauthorized }
+      end
     else
       require_role "manager", current_inventory_pool
     end
@@ -23,7 +27,7 @@ class Backend::BackendController < ApplicationController
       redirect_to statistics_path
     elsif current_user.access_rights.managers.where(:access_level => 3).exists? # user has manager level 3 => inventory manager
       ip ||= current_user.managed_inventory_pools.first
-      redirect_to backend_inventory_pool_models_path(ip)
+      redirect_to backend_inventory_pool_inventory_path(ip)
     elsif current_user.access_rights.managers.where(:access_level => 1..2).exists? # user has at least manager level 1 => lending manager
       ip ||= current_user.managed_inventory_pools.first
       redirect_to backend_inventory_pool_path(ip)

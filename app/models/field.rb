@@ -11,6 +11,7 @@ class Field < ActiveHash::Base
       id: 1,
       label: "Inventory Code",
       attribute: "inventory_code",
+      required: true,
       permissions: {level: 3, owner: true},
       type: "text",
       group: nil
@@ -71,6 +72,7 @@ class Field < ActiveHash::Base
       attribute: "is_broken",
       type: "radio",
       values: [{label: "OK", value: false}, {label: "Broken", value: true}],
+      default: false,
       group: "Status"
     },{
       id: 10,
@@ -78,6 +80,7 @@ class Field < ActiveHash::Base
       attribute: "is_incomplete",
       type: "radio",
       values: [{label: "OK", value: false}, {label: "Incomplete", value: true}],
+      default: false,
       group: "Status"
     },{
       id: 11,
@@ -85,6 +88,7 @@ class Field < ActiveHash::Base
       attribute: "is_borrowable",
       type: "radio",
       values: [{label: "OK", value: true}, {label: "Unborrowable", value: false}],
+      default: false,
       group: "Status"
     },{
       id: 12,
@@ -112,6 +116,7 @@ class Field < ActiveHash::Base
       type: "select",
       permissions: {level: 3, owner: true},
       values: [{label: "No", value: false}, {label: "Yes", value: true}],
+      default: true,
       group: "Inventory"
     },{
       id: 16,
@@ -126,6 +131,7 @@ class Field < ActiveHash::Base
       label: "Last Checked",
       attribute: "last_check",
       permissions: {level: 2, owner: true},
+      default: lambda{Date.today.as_json},
       type: "date",
       group: "Inventory"
     },{
@@ -192,13 +198,6 @@ class Field < ActiveHash::Base
       type: "text",
       group: "Invoice Information"
     },{
-      id: 26,
-      label: "Insurance Number",
-      attribute: "insurance_number",
-      permissions: {level: 2, owner: true},
-      type: "text",
-      group: "Invoice Information"
-    },{
       id: 27,
       label: "Supplier",
       attribute: ["supplier", "id"],
@@ -260,9 +259,15 @@ class Field < ActiveHash::Base
     },{
       id: 35,
       label: "Model",
-      attribute: ["model", "name"],
-      type: "text",
-      readonly: true,
+      attribute: ["model", "id"],
+      value_label: ["model", "name"],
+      form_name: "model_id",
+      required: true,
+      type: "autocomplete-search",
+      search_path: lambda{|current_inventory_pool| Rails.application.routes.url_helpers.backend_inventory_pool_search_path(current_inventory_pool, :types => [:model])},
+      search_attr: "term",
+      value_attr: "id",
+      display_attr: "name",
       group: nil
     }
   ]
@@ -280,8 +285,26 @@ class Field < ActiveHash::Base
     end
   end
 
+  def default
+    if self[:default].is_a? Proc
+      self[:default].call
+    else
+      self[:default]
+    end
+  end
+
+  def search_path (current_inventory_pool)
+    if self[:search_path].is_a? Proc
+      self[:search_path].call current_inventory_pool
+    else
+      self[:search_path]
+    end
+  end
+
   def as_json(options = {})
     self[:values] = values
+    self[:default] = default
+    self[:search_path] = search_path options[:current_inventory_pool]
     self.attributes.as_json options
   end
 

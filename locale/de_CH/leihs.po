@@ -679,6 +679,9 @@ msgstr "Liste der Bestellungen"
 msgid "List of Visits"
 msgstr "Liste der Besuche"
 
+msgid "List of Models"
+msgstr "Liste der Modelle"
+
 msgid "Loading"
 msgstr "Lade"
 
@@ -1573,6 +1576,9 @@ msgstr "Sie sind für die folgenden Geräteparks berechtigt"
 
 msgid "You have been logged out."
 msgstr "Sie sind nun ausgeloggt."
+
+msgid "You are not logged in."
+msgstr "Sie sind nicht eingeloggt."
 
 msgid ""
 "You might receive an admonishment and be subject to late fees as well as the "

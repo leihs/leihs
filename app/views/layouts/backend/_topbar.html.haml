@@ -20,7 +20,7 @@
         
         - if is_inventory_manager?        
           %li.inventory.item{:class => is_current_page?("inventory") ? "active" : nil}
-            = link_to _("Inventory"), backend_inventory_pool_models_path(current_inventory_pool), :class => "anchor"
+            = link_to _("Inventory"), backend_inventory_pool_inventory_path(current_inventory_pool), :class => "anchor"
           %li.seperator
 
         - if is_lending_manager?

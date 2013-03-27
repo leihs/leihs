@@ -26,26 +26,22 @@
           = _("Users")
 
     - if is_current_page?("inventory")
-      %li.item{:class => (is_current_page?("models") or is_current_page?("items") or is_current_page?("options")) ? "active" : nil}
-        = link_to backend_inventory_pool_models_path(current_inventory_pool), :class => "anchor" do
+      %li.item{:class => (is_current_page?("inventory_list") or is_current_page?("items") or is_current_page?("options")) ? "active" : nil}
+        = link_to backend_inventory_pool_inventory_path(current_inventory_pool), :class => "anchor" do
           .leftend
           = _("Inventory")
       %li.item{:class => (is_current_page?("inventory_helper")) ? "active" : nil}
         = link_to backend_inventory_pool_inventory_helper_path(current_inventory_pool), :class => "anchor" do
           .leftend
           = _("Helper")
-      %li.item
-        = link_to backend_inventory_pool_templates_path(current_inventory_pool), :class => "anchor" do
+      %li.item{:class => (is_current_page?("models")) ? "active" : nil}
+        = link_to backend_inventory_pool_models_path(current_inventory_pool), :class => "anchor" do
           .leftend
-          = _("Templates")
+          = _("Models")
       %li.item{:class => (is_current_page?("categories")) ? "active" : nil}
         = link_to backend_inventory_pool_categories_path(current_inventory_pool), :class => "anchor" do
           .leftend
           = _("Categories")
-      %li.item
-        = link_to backend_inventory_pool_locations_path(current_inventory_pool), :class => "anchor" do
-          .leftend
-          = _("Locations")
 
     - if is_current_page?("search")
       %li.item{:class => (!is_current_page?("focused_search")) ? "active" : nil}

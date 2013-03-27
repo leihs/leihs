@@ -271,10 +271,6 @@ GEM
       rubyzip
       websocket (~> 1.0.4)
     sexp_processor (4.1.5)
-    simplecov (0.7.1)
-      multi_json (~> 1.0)
-      simplecov-html (~> 0.7.1)
-    simplecov-html (0.7.1)
     slop (3.4.3)
     spoon (0.0.1)
     spork (0.9.2)
@@ -375,7 +371,6 @@ DEPENDENCIES
   ruby_parser (~> 3.1)
   sass (~> 3.2)
   sass-rails (~> 3.2)
-  simplecov
   spork
   thin
   timecop (~> 0.5)
