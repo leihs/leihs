@@ -106,7 +106,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
     # If the displayName contains DK.BA_VID, add this user to the "Video" group
     # so that they can book video equipment.
     unless (user_data["displayName"] =~ /DK\.BA_VID/).nil?
-      video_group = Group.find(:first, :name => 'Video')
+      video_group = Group.find(:first, :conditions => {:name => 'Video'})
       unless video_group.nil?
         user.groups << video_group unless user.groups.include?(video_group)
       end
