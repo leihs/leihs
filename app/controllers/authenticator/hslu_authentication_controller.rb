@@ -4,6 +4,8 @@ class LdapHelper
 
   # Needed later on in the auth controller
   attr_reader :unique_id_field
+  # Based on what string in the field displayName should the user be assigned to the group "Video"?
+  attr_reader :video_displayname
 
   def initialize
     @base_dn = LDAP_CONFIG[Rails.env]["base_dn"]
@@ -15,8 +17,10 @@ class LdapHelper
     @master_bind_dn = LDAP_CONFIG[Rails.env]["master_bind_dn"]
     @master_bind_pw = LDAP_CONFIG[Rails.env]["master_bind_pw"]
     @unique_id_field = LDAP_CONFIG[Rails.env]["unique_id_field"]
+    @video_displayname = LDAP_CONFIG[Rails.env]["video_displayname"]
     raise "'master_bind_dn' and 'master_bind_pw' must be set in LDAP configuration file" if (@master_bind_dn.blank? or @master_bind_pw.blank?)
     raise "'unique_id_field' in LDAP configuration file must point to an LDAP field that allows unique identification of a user" if @unique_id_field.blank?
+    raise "'video_displayname' in LDAP configuration file must be present and must be a string" if @video_displayname.blank?
   end
 
   def bind(username = @master_bind_dn, password = @master_bind_pw)
@@ -101,10 +105,10 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
       end
     end
 
-    # If the displayName contains DK.BA_VID, add this user to the "Video" group
-    # so that they can book video equipment.
-    unless (user_data["displayName"] =~ /DK\.BA_VID/).nil?
-      video_group = Group.where(:name => 'Video').first
+    # If the displayName contains whatever string is configured in video_displayname in LDAP.yml,
+    # the user is assigned to the group "Video"
+    unless user_data["displayName"].scan(ldaphelper.video_displayname.to_s).empty?
+      video_group = Group.find(:first, :conditions => {:name => 'Video'})
       unless video_group.nil?
         user.groups << video_group unless user.groups.include?(video_group)
       end
@@ -147,8 +151,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
                 else
                   flash[:notice] = _("Could not create new user for '#{user}' from LDAP source. Contact your leihs system administrator.")
                 end
-              else
-                flash[:notice] = _("Invalid username/password")
+              else flash[:notice] = _("Invalid username/password")
               end
             else
               flash[:notice] = _("User unknown") if users.size == 0
