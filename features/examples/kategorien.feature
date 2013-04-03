@@ -12,6 +12,14 @@ Funktionalität: Kategorien
     Dann man sieht das Register Kategorien
 
   @javascript
+  Szenario: Top-Level-Kategorien erstellen
+    Wenn man das Register Kategorien wählt
+    Und man eine neue Kategorie erstellt
+    Und man gibt man den Namen der Kategorie ein
+    Und man speichert die neue Kategorie
+    Dann ist die Kategorie mit dem angegegebenen Namen erstellt
+
+  @javascript
   Szenario: Kategorien erstellen
     Wenn man das Register Kategorien wählt
     Und man eine neue Kategorie erstellt
@@ -61,14 +69,14 @@ Funktionalität: Kategorien
     Und ich das Modell speichere
     Dann sind die Kategorien entfernt und das Modell gespeichert
 
+  @javascript
   Szenario: Kategorie suchen
-   Wenn man nach einer Kategorie anhand des Namens sucht
-   Dann sieht man nur die Kategorien, die den Suchbegriff im Namen enthalten
-   Und man kann diese Kategorien editieren
+    Wenn man nach einer Kategorie anhand des Namens sucht
+    Dann sieht man nur die Kategorien, die den Suchbegriff im Namen enthalten
+    Und man kann diese Kategorien editieren
 
- Szenario: nicht genutzte Kategorie suchen und löschen 
-   Wenn man nach einer ungenutzten Kategorie anhand des Namens sucht
-   Dann sieht man nur die Kategorien, die den Suchbegriff im Namen enthalten
-   Und man kann diese Kategorien löschen
-
-
+  @javascript
+  Szenario: nicht genutzte Kategorie suchen und löschen 
+    Wenn man nach einer ungenutzten Kategorie anhand des Namens sucht
+    Dann sieht man nur die Kategorien, die den Suchbegriff im Namen enthalten
+    Und man kann diese Kategorien löschen

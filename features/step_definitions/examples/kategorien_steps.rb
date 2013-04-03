@@ -25,6 +25,11 @@ Und /^man gibt die Elternelemente und die dazugehörigen Bezeichnungen ein$/ do
   find("li", text: "#{@parent_category.name}").find("input[type='text']").set @label_1
 end
 
+Dann /^ist die Kategorie mit dem angegegebenen Namen erstellt$/ do
+  wait_until {current_path == (backend_inventory_pool_categories_path @current_inventory_pool)}
+  ModelGroup.where(name: "#{@new_category_name}").count.should eql 1
+end
+
 Dann /^ist die Kategorie mit dem angegegebenen Namen und den zugewiesenen Elternelementen erstellt$/ do
   wait_until {current_path == (backend_inventory_pool_categories_path @current_inventory_pool)}
   ModelGroup.where(name: "#{@new_category_name}").count.should eql 1

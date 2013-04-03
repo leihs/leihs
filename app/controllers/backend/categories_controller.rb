@@ -53,9 +53,7 @@ class Backend::CategoriesController < Backend::BackendController
         model_group_links = params[:category].delete(:model_group_links)
         if @category.update_attributes(params[:category])
           @category.links_as_child.each(&:delete)
-          model_group_links.each do |link|
-            @category.set_parent_with_label(Category.find(link[:parent_id]), link[:label])
-          end
+          model_group_links.each { |link| @category.set_parent_with_label(Category.find(link[:parent_id]), link[:label]) } if model_group_links
           show
         else
           render :text => @category.errors.full_messages.uniq.join(", "), :status => :bad_request
