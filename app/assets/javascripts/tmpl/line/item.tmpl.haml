@@ -58,17 +58,28 @@
     
   .actions  
     %li.actions
+      {{if current_borrower}}
+      = link_to "/backend/inventory_pools/${currentInventoryPool.id}/items/${id}", :class => "button white" do
+        .icon.item
+        ${_jed("Edit Item")}
+      {{else}}
       .multibutton
         .alternatives
           .trigger
             .arrow
-          = link_to "/backend/inventory_pools/${currentInventoryPool.id}/items/${id}/retire", :class => "button white" do
+          = link_to "/backend/inventory_pools/${currentInventoryPool.id}/items/${id}/retire",
+            :class => "button red open_dialog",
+            :"data-tmpl" => "tmpl/dialog/item_line/retire", 
+            :"data-dialog_class" => "medium",
+            :"data-on_success" => 'Line.remove({"element": $(this).closest(".dialog").data("trigger").closest(".line"), "color": "red"})',
+            :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
             .icon.retire
             ${_jed("Retire Item")}
         = link_to "/backend/inventory_pools/${currentInventoryPool.id}/items/${id}", :class => "button white" do
           .icon.item
           ${_jed("Edit Item")}
-          
+      {{/if}}
+ 
 {{if children}}
 .children{:id => "item_${id}_children"}
   {{tmpl(children, {package: $item.data}) "tmpl/line/item"}}

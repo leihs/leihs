@@ -941,6 +941,10 @@ window.i18n.locale_data = {
          null,
          "Liste der Besuche"
       ],
+      "List of Models": [
+         null,
+         "Liste der Modelle"
+      ],
       "Loading": [
          null,
          "Lade"
@@ -1661,6 +1665,10 @@ window.i18n.locale_data = {
          null,
          "Gegenstand mit Inventarcode %s nicht gefunden"
       ],
+      "The item %s will be retired and no longer available for rentals.": [
+         null,
+         "Der Gegenstand %s wird ausgemustert und nicht mehr für die Ausleihe verfügbar sein."
+      ],
       "The line was not found": [
          null,
          "Zeile nicht gefunden"
@@ -2016,6 +2024,10 @@ window.i18n.locale_data = {
       "You have been logged out.": [
          null,
          "Sie sind nun ausgeloggt."
+      ],
+      "You are not logged in.": [
+         null,
+         "Sie sind nicht eingeloggt."
       ],
       "You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from the reservation system for up to 6 months.": [
          null,

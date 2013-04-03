@@ -30,10 +30,6 @@ def check_fields_and_their_values table
   end
 end
 
-Angenommen /^man merkt sich das aktuelle Inventarpool für weitere Schritte$/ do
-  @current_inventory_pool = @current_user.managed_inventory_pools
-end
-
 Angenommen /^man befindet sich auf der Liste des Inventars$/ do
   visit backend_inventory_pool_inventory_path(@current_inventory_pool)
 end

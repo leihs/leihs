@@ -1,0 +1,25 @@
+= form_tag '${$item.target_url}', :remote => true, :"data-submit_button" => true, :class => "summary" do
+
+  %h1
+    ${_jed("Retire")}
+
+  %p.subtitle
+    ${_jed("The item %s will be retired and no longer available for rentals.", inventory_code)}
+
+  .navigation
+    %button.button.white.close_dialog
+      .icon.return
+      ${_jed("Back")}
+    %button.button.red{:type => "submit", :"data-on_success" => '${$item.on_success}'}
+      ${_jed("Retire")}
+
+  .flash_message
+
+  %br
+
+  %h4
+    ${_jed("Reason for Retirement")}:
+
+  %section.comment
+    %textarea.focus{name: "retired_reason"}
+  %br

@@ -1527,6 +1527,10 @@
 
   msgstr("Gegenstand mit Inventarcode %s nicht gefunden");
 
+  msgid "The item %s will be retired and no longer available for rentals."
+
+  msgstr "Der Gegenstand %s wird ausgemustert und nicht mehr für die Ausleihe verfügbar sein."
+
   msgid("The line was not found");
 
   msgstr("Zeile nicht gefunden");

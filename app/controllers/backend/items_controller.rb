@@ -156,6 +156,26 @@ class Backend::ItemsController < Backend::BackendController
     end
   end
 
+  def retire
+    @item.retired = Date.today
+    @item.retired_reason = params[:retired_reason]
+
+    if @item.save
+      msg = _("Item retired (%s)") % @item.retired_reason
+      @item.log_history(msg, current_user.id)
+
+      respond_to do |format|
+        format.json { render :json => true, :status => 200 }
+      end
+    else
+      errors = @item.errors.full_messages
+
+      respond_to do |format|
+        format.json { render :text => errors, :status => 500 }
+      end
+    end
+  end
+
 #################################################################
 
   def status

@@ -1224,6 +1224,9 @@ msgstr ""
 msgid "The item with the inventory code %s was not found"
 msgstr ""
 
+msgid "The item %s will be retired and no longer available for rentals."
+msgstr ""
+
 msgid "The line was not found"
 msgstr ""
 

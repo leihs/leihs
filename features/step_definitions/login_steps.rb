@@ -25,6 +25,7 @@ Given "I am logged in as '$username' with password '$password'" do |username, pa
     when :rack_test
       step "I log in as '%s' with password '%s'" % [username, password]
   end
+  @current_inventory_pool = @current_user.managed_inventory_pools.first
 end
 
 

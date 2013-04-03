@@ -5,7 +5,6 @@ Funktionalität: Gegenstand erstellen
   Grundlage:
     Angenommen Personas existieren
     Und man ist "Matti"
-    Und man merkt sich das aktuelle Inventarpool für weitere Schritte
 
   @javascript
   Szenario: Wo man einen Gegenstand erstellen kann

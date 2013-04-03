@@ -1251,6 +1251,9 @@ msgstr "Dieser Gegenstand ist bereits einem anderen Vertrag zugewiesen"
 msgid "The item with the inventory code %s was not found"
 msgstr "Gegenstand mit Inventarcode %s nicht gefunden"
 
+msgid "The item %s will be retired and no longer available for rentals."
+msgstr "Der Gegenstand %s wird ausgemustert und nicht mehr für die Ausleihe verfügbar sein."
+
 msgid "The line was not found"
 msgstr "Zeile nicht gefunden"
 
