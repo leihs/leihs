@@ -96,6 +96,8 @@ class User < ActiveRecord::Base
     indexes :login, :sortable => true
     indexes [:firstname,:lastname], :as => :name, :sortable => true
     indexes :badge_id
+    indexes :unique_id
+
     
     has access_rights(:inventory_pool_id), :as => :inventory_pool_id
     # has active_inventory_pools(:id), :as => :active_inventory_pool_id
