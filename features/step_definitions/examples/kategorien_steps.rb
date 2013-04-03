@@ -165,7 +165,7 @@ Wenn /^man die Kategorie löscht$/ do
   find(".line.category[data-id='#{@unused_category.id}'] .actions .button", :text => _("Delete %s") % _("Category")).click
 end
 
-Dann /^ist die Kategorie gelöscht$/ do
+Dann /^ist die Kategorie gelöscht(?: und alle Duplikate sind aus dem Baum entfernt)$/ do
   wait_until {page.evaluate_script("jQuery.active") == 0}
   sleep(1)
   all(".line.category[data-id='#{@unused_category.id}']", :visible => true).empty?.should be_true
@@ -184,4 +184,13 @@ Dann /^ist es nicht möglich die Kategorie zu löschen$/ do
   visit backend_inventory_pool_categories_path @current_inventory_pool
   wait_until { find(".line.category[data-id='#{@used_category.id}']") }
   all(".line.category[data-id='#{@used_category.id}'] .actions .button", :text => _("Delete Category")).size.should == 0
+end
+
+Wenn /^ich eine ungenutzte Kategorie lösche die im Baum mehrmals vorhanden ist$/ do
+  @unused_category = Category.all.detect{|x| x.models.count == 0 and x.children.count == 0 and x.parents.count > 1}
+  step 'man die Kategorie löscht'
+end
+
+Dann /^alle Duplikate sind aus dem Baum entfernt$/ do
+  binding.pry
 end

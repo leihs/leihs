@@ -1,5 +1,5 @@
 %script{:type => "text/ng-template", :id => "category_line.html"}
-  %ul.line.category.toggler{:"data-id" => "{{category.id}}", :"ng-hide" => "category.is_deleted"}
+  %ul.line.category.toggler{:"data-id" => "{{category.id}}"}
     .main{:"ng-switch" => "", :on => "category.is_used"}
       %li.toggle{:"ng-switch" => "", :on => "category.children.length > 0", "ng-click" => "category.children_open =! category.children_open", "ng-class" => "{open: category.children_open}"}
         .text{"ng-switch-when" => "true"}

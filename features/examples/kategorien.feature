@@ -51,6 +51,11 @@ Funktionalität: Kategorien
     Und man bleibt in der Liste der Kategorien
 
   @javascript
+  Szenario: Kategorie löschen löscht auch alle Duplikate im Baum
+    Wenn ich eine ungenutzte Kategorie lösche die im Baum mehrmals vorhanden ist
+    Dann ist die Kategorie gelöscht und alle Duplikate sind aus dem Baum entfernt
+
+  @javascript
   Szenario: Kategorien nicht löschbar wenn genutzt
     Wenn eine Kategorie genutzt ist
     Dann ist es nicht möglich die Kategorie zu löschen

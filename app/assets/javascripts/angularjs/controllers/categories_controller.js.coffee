@@ -11,10 +11,17 @@ CategoriesIndexCtrl = ($scope, Category, $routeParams) ->
     )
   $scope.fetch(0)
   $scope.delete_category = -> 
-    this.category.is_deleted = true
-    category = new Category(this.category)
-    category.$delete
-      id: category.id
+    idToDelete = this.category.id
+    deleteCatgoryRecursively = (categories)->
+      for category in categories
+        do (category)->
+          if category.children.length?
+            deleteCatgoryRecursively category.children
+          if category.id == idToDelete
+            catgories = categories.splice categories.indexOf(category), 1
+    deleteCatgoryRecursively $scope.categories
+    new Category(this.category).$delete
+      id: idToDelete
       inventory_pool_id: $scope.current_inventory_pool_id
 CategoriesIndexCtrl.$inject = ['$scope', 'Category', '$routeParams'];
 
