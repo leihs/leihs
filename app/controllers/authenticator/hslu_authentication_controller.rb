@@ -107,7 +107,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
 
     # If the displayName contains whatever string is configured in video_displayname in LDAP.yml,
     # the user is assigned to the group "Video"
-    unless user_data["displayName"].scan(ldaphelper.video_displayname.to_s).empty?
+    unless user_data["displayName"].first.scan(ldaphelper.video_displayname.to_s).empty?
       video_group = Group.find(:first, :conditions => {:name => 'Video'})
       unless video_group.nil?
         user.groups << video_group unless user.groups.include?(video_group)
