@@ -102,7 +102,8 @@ class User < ActiveRecord::Base
       sql = sql.where(arel_table[:login].matches(q).
                       or(arel_table[:firstname].matches(q)).
                       or(arel_table[:lastname].matches(q)).
-                      or(arel_table[:badge_id].matches(q)))
+                      or(arel_table[:badge_id].matches(q)).
+                      or(arel_table[:unique_id].matches(q)))
     }
     sql
   }
