@@ -40,14 +40,21 @@ def create_item(i)
       group = Group.find_or_create_by_name("Video")
       group.inventory_pool = ip
       group.save
-      p = Partition.new
-      p.model = item.model
-      p.group = group
-      p.inventory_pool = group.inventory_pool
+
+      p = Partition.find(:first, :conditions => {:model => item.model, :inventory_pool => group.inventory_pool})
+      if p
+        p.quantity += 1
+      else
+        p = Partition.new
+        p.model = item.model
+        p.group = group
+        p.inventory_pool = group.inventory_pool
+      end
+
       if p.quantity == nil
         p.quantity = 0
       end
-      p.quantity += 1
+
       unless p.save
         binding.pry
       end
