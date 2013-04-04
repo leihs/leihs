@@ -57,7 +57,8 @@ def create_item(i)
       end
 
       unless p.save
-        binding.pry
+        puts "Can't save #{p.inspect} due to #{p.errors.full_messages}"
+        #binding.pry
       end
     end
 
@@ -101,7 +102,8 @@ def create_model(name, category, manufacturer, accessory_string, description)
     end
 
     if m.save == false
-      binding.pry
+      puts "Can't save #{m.inspect} due to #{m.errors.full_messages}"
+      #binding.pry
     end
 
   end
