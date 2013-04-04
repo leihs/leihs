@@ -48,6 +48,11 @@
     %a.tab.active {{_jed("All")}} {{_jed("Categories")}}
 
   .list
+    %ul.navigation.line
+      .container
+        %li.search
+          %input{:name => "query", :placeholder => "Suche...", :type => "text", :value => "", :"ng-model" => "searchTerm", :onchange => "angular.element(this).scope().search()"}/
+
     / %div{"ng-repeat" => "category in categories", "ng-include" => "'category_line.html'"}
     :plain
       <div ng-repeat="category in categories" ng-include="'category_line.html'"></div>

@@ -11,12 +11,12 @@ Feature: Add Item during acknowledge process
 
   @javascript
   Scenario: Adding a model quickly to an order by just typing in the inventory_number
-      And I add a model by typing in the inventory code of an item of that model to the quick add
+     When I add a model by typing in the inventory code of an item of that model to the quick add
      Then the model is added to the order 
     
   @javascript
   Scenario: Autocompletion of the quick add input by inventory code
-      And I start to type the inventory code of an item
+     When I start to type the inventory code of an item
       And I wait until the autocompletion is loaded
      Then I already see possible matches of models
      When I select one of the matched models
@@ -24,7 +24,7 @@ Feature: Add Item during acknowledge process
     
   @javascript
   Scenario: Autocompletion of the quick add input by model name
-      And I start to type the name of a model
+     When I start to type the name of a model
       And I wait until the autocompletion is loaded
      Then I already see possible matches of models
      When I select one of the matched models
@@ -36,3 +36,12 @@ Feature: Add Item during acknowledge process
      Then the existing line quantity is not increased
       And an additional line has been created in the backend system
       And the new line is getting visually merged with the existing line
+
+  @javascript
+  Scenario: Search results should conform to the actual start and end date
+    Given I search for a model with default dates and note the current availability
+    When I change the start date
+    And I change the end date
+    And I search again for the same model
+    And I wait until the autocompletion is loaded
+    Then the model's availability has changed

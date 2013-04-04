@@ -191,6 +191,33 @@ Wenn /^ich eine ungenutzte Kategorie lösche die im Baum mehrmals vorhanden ist$
   step 'man die Kategorie löscht'
 end
 
-Dann /^alle Duplikate sind aus dem Baum entfernt$/ do
-  binding.pry
+Wenn /^man nach einer Kategorie anhand des Namens sucht$/ do
+  visit backend_inventory_pool_categories_path @current_inventory_pool
+  @searchTerm ||= Category.first.name[0..3]
+  countBefore = all(".line").size
+  find("input[name='query']").set @searchTerm
+  wait_until {countBefore != all(".line").size}
+  sleep(1)
+end
+
+Dann /^sieht man nur die Kategorien, die den Suchbegriff im Namen enthalten$/ do
+  all(".line.category", :visible => true).each do |line|
+    expect(line.text).to match(Regexp.new(@searchTerm))
+  end
+end
+
+Dann /^man kann diese Kategorien editieren$/ do
+  all(".line.category", :visible => true).each do |line|
+    line.find("a[href*='categories'][href*='edit']")
+  end
+end
+
+Wenn /^man nach einer ungenutzten Kategorie anhand des Namens sucht$/ do
+  @unused_category = Category.all.detect{|c| c.children.empty? and c.models.empty?}
+  @searchTerm = @unused_category.name
+  step 'man nach einer Kategorie anhand des Namens sucht'
+end
+
+Dann /^man kann diese Kategorien löschen$/ do
+  find(".line[data-id='#{@unused_category.id}']").find("[ng-click='delete_category(this)']")
 end

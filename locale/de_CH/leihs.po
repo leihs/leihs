@@ -1953,3 +1953,9 @@ msgstr "Bezeichnung"
 
 msgid "not used"
 msgstr "nicht genutzt"
+
+msgid "Model|Images|File file size"
+msgstr "Dateigrösse"
+
+msgid "Model|Images|File content type"
+msgstr "Dateityp"

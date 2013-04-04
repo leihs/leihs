@@ -2505,6 +2505,14 @@ window.i18n.locale_data = {
       "not used": [
          null,
          "nicht genutzt"
+      ],
+      "Model|Images|File file size": [
+         null,
+         "Dateigrösse"
+      ],
+      "Model|Images|File content type": [
+         null,
+         "Dateityp"
       ]
    }
 }

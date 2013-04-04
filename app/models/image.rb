@@ -4,19 +4,18 @@ class Image < ActiveRecord::Base
 
   belongs_to :model
 
-  # TODO MiniMagick upload, resize, etc...
-  # TODO store thumbnails in Base64 directly to the database ??
-
-  # paperclip gem
   has_attached_file :file,
                     :url => ":public_filename",
                     :path => ':rails_root/public:url',
                     :styles => { :original => "640x480>", :thumb => '100x100>' }
-  validates_attachment_size :file, :greater_than => 4.kilobytes, :less_than => 8.megabytes
-  validates_attachment_content_type :file, :content_type => /^image\/(png|gif|jpeg)/
+                    
   attr_accessor :file_file_name
   attr_accessor :file_file_size
   attr_accessor :file_content_type
+
+  validates_attachment_size :file, :greater_than => 4.kilobytes, :less_than => 8.megabytes
+
+  validates_attachment_content_type :file, :content_type => /^image\/(png|gif|jpeg)/
 
   def base64_string=(v)
     data = StringIO.new(Base64.decode64(v))

@@ -6,7 +6,7 @@ CategoriesIndexCtrl = ($scope, Category, $routeParams) ->
       inventory_pool_id: $scope.current_inventory_pool_id
       category_id: category_id
       , (response) ->
-        $scope.categories = (new Category(entry) for entry in response)
+        $scope.categories = $scope.fetchedCategories = (new Category(entry) for entry in response)
         $scope.isLoading = false
     )
   $scope.fetch(0)
@@ -23,6 +23,19 @@ CategoriesIndexCtrl = ($scope, Category, $routeParams) ->
     new Category(this.category).$delete
       id: idToDelete
       inventory_pool_id: $scope.current_inventory_pool_id
+  $scope.search = -> 
+    if @searchTerm.length
+      results = {}
+      searchRecursively = (categories)=>
+        for category in categories
+          do (category) =>
+            searchRecursively(category.children) if category.children.length
+            results[category.id] = category if category.name.match(new RegExp(@searchTerm, "i"))?
+      searchRecursively $scope.fetchedCategories
+      $scope.$apply => $scope.categories = _.values results
+    else
+      $scope.$apply => $scope.categories = $scope.fetchedCategories
+  $(".list [name='query']").changed_after_input().on "changed_after_input", -> $(this).trigger "change"
 CategoriesIndexCtrl.$inject = ['$scope', 'Category', '$routeParams'];
 
 CategoriesCreateCtrl = ($scope, Category, $routeParams, $location) ->

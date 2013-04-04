@@ -60,3 +60,27 @@ Then /^the new line is getting visually merged with the existing line$/ do
   all(".line").size.should == @line_el_count
   find(".line", :text => @model.name).find(".amount .selected").text.to_i.should == @new_quantity + 1
 end
+
+Given /^I search for a model with default dates and note the current availability$/ do
+  @model_name = "Kamera Nikon X12"
+  @model = Model.find_by_name @model_name
+  fill_in "code", with: @model_name
+  wait_until {@init_aval = find("a.ui-corner-all", text: @model_name).find(".availability").text}
+end
+
+When /^I change the start date$/ do
+  fill_in "start_date", with: Date.today.strftime("%d.%m.%Y")
+end
+
+And /^I change the end date$/ do
+  fill_in "end_date", with: (Date.today + 1).strftime("%d.%m.%Y")
+end
+
+And /^I search again for the same model$/ do
+  fill_in "code", with: @model_name
+end
+
+Then /^the model's availability has changed$/ do
+  wait_until {@changed_aval = find("a.ui-corner-all", text: @model_name).find(".availability").text}
+  @changed_aval.slice(0).should_not == @init_aval.slice(0)
+end
