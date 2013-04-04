@@ -32,8 +32,9 @@ def create_item(i)
     item.location = create_location(i["building_string"], i["room_string"], i["shelf_string"])
     item.price = i["price"].to_f
     item.supplier = supplier
-    item.last_check = Date.parse(i["inventory_date"])
-    item.invoice_date = Date.parse(i["invoice_date"])
+    item.last_check = Date.parse(i["inventory_date"]) unless (i["inventory_date"].blank? or i["inventory_date"] == "0")
+    item.invoice_date = Date.parse(i["invoice_date"]) unless (i["invoice_date"].blank? or i["invoice_date"] == "0")
+
 
     if i["group"] == "Video"
       group = Group.find_or_create_by_name("Video")
