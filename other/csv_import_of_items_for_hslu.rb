@@ -83,13 +83,15 @@ def create_model(name, category, manufacturer, accessory_string, description)
       end
     end
 
-    unless accessory_string.blank?  
+    unless accessory_string.blank?
       accessory_string.split("|").each do |string|
         unless string.blank?
           string.gsub!(/^\-\ /,"")
           string.gsub!(/^\-/,"")
-          acc = Accessory.create(:name => string.strip)
-          m.accessories << acc
+          unless.string.strip.blank?
+            acc = Accessory.create(:name => string.strip)
+            m.accessories << acc
+          end
         end
       end
     end
