@@ -42,12 +42,8 @@ def create_item(i)
       group.save
 
       p = Partition.find(:first, :conditions => {:group_id => group, :model_id => item.model, :inventory_pool_id => group.inventory_pool})
-      if p
-        if p.quantity == nil
-          p.quantity = 0
-        end
-        p.quantity += 1
-      else
+
+      if not p
         p = Partition.new
         p.model = item.model
         p.group = group
@@ -55,7 +51,9 @@ def create_item(i)
       end
 
       if p.quantity == nil
-        p.quantity = 0
+        p.quantity = 1
+      else
+        p.quantity += 1
       end
 
       unless p.save
