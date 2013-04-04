@@ -67,7 +67,7 @@ namespace :leihs do
     Rake::Task["db:reset"].invoke
 
     # rspec < 2.x is called spec
-    system "bundle exec spec spec"
+    system "bundle exec spec -f html:tmp/html/rspec.html -f n spec"
 
     exit_code = $? >> 8 # magic brainfuck
     raise "Tests failed with: #{exit_code}" if exit_code != 0
