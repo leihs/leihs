@@ -46,12 +46,12 @@ gem "passenger" # To use Passenger Standalone when gems are installed in --deplo
                 # Necessary for Ruby 1.8 + Ruby 1.9 combined hosting with Apache reverse
                 # proxies.
 
-gem "pry"
 group :profiling do
 	gem "newrelic_rpm", '2.10.5'
 end
 
 group :cucumber, :development do
+        gem 'pry'
 	gem 'ruby-debug', '0.10.4', :require => false
 end
 
