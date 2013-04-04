@@ -6,6 +6,7 @@ class LdapHelper
   attr_reader :unique_id_field
   # Based on what string in the field displayName should the user be assigned to the group "Video"?
   attr_reader :video_displayname
+  attr_reader :base_dn
 
   def initialize
     @base_dn = LDAP_CONFIG[Rails.env]["base_dn"]
@@ -87,9 +88,9 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
     # If the user's unique_id is numeric, add an "L" to the front and copy it to the badge_id
     # If it's not numeric, just copy it straight to the badge_id
     if (user.unique_id =~ /^(\d+)$/).nil?
-      user.badge_id = "L" + user.unique_id
-    else
       user.badge_id = user.unique_id
+    else
+      user.badge_id = "L" + user.unique_id
     end
     user.address = user_data["streetaddress"].to_s
     user.language = Language.default_language if user.language.blank?
@@ -129,7 +130,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
           ldap = ldaphelper.bind
 
           if ldap
-            users = ldap.search(:base => LDAP_CONFIG[Rails.env]["base"], :filter => Net::LDAP::Filter.eq(LDAP_CONFIG[Rails.env]["search_field"], "#{user}"))
+            users = ldap.search(:base => ldaphelper.base_dn, :filter => Net::LDAP::Filter.eq(LDAP_CONFIG[Rails.env]["search_field"], "#{user}"))
 
             if users.size == 1
               ldap_user = users.first
