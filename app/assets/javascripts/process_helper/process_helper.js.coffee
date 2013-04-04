@@ -32,6 +32,7 @@ class ProcessHelper
           if moment(end_date_element.val(), i18n.date.L).sod().toDate() < min_date 
             end_date_element.val moment(min_date).sod().add("days",1).format(i18n.date.L)
           end_date_element.datepicker "option", "minDate", min_date
+      $(this).change -> ProcessHelper.update_autocomplete_add()
   
   @setup_submit: ->
     $('#process_helper').bind "submit", (event)->
