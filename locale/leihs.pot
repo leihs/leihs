@@ -1884,3 +1884,9 @@ msgstr ""
 
 msgid "not used"
 msgstr ""
+
+msgid "Model|Images|File file size"
+msgstr ""
+
+msgid "Model|Images|File content type"
+msgstr ""
