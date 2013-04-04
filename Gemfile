@@ -1,7 +1,6 @@
 # === PLEASE NOTE ===
 # RubyGems and the various gems listed here have MANY incompatibilities
-# with each other. Therefore, you must use a specific version of RubyGems
-# to install them (sorry, not our fault!)
+# with each other. Therefore, you must use a specific version of RubyGems # to install them (sorry, not our fault!)
 #
 # Please use only RubyGems version 1.5.2 to install these gems.
 # === PLEASE NOTE ===
@@ -47,6 +46,7 @@ gem "passenger" # To use Passenger Standalone when gems are installed in --deplo
                 # Necessary for Ruby 1.8 + Ruby 1.9 combined hosting with Apache reverse
                 # proxies.
 
+gem "pry"
 group :profiling do
 	gem "newrelic_rpm", '2.10.5'
 end
