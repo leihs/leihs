@@ -58,7 +58,6 @@ def create_item(i)
 
       unless p.save
         puts "Can't save #{p.inspect} due to #{p.errors.full_messages}"
-        #binding.pry
       end
     end
 
@@ -89,7 +88,7 @@ def create_model(name, category, manufacturer, accessory_string, description)
         unless string.blank?
           string.gsub!(/^\-\ /,"")
           string.gsub!(/^\-/,"")
-          unless.string.strip.blank?
+          unless string.strip.blank?
             acc = Accessory.create(:name => string.strip)
             m.accessories << acc
           end
@@ -103,7 +102,6 @@ def create_model(name, category, manufacturer, accessory_string, description)
 
     if m.save == false
       puts "Can't save #{m.inspect} due to #{m.errors.full_messages}"
-      #binding.pry
     end
 
   end
