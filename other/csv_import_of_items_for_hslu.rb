@@ -41,8 +41,11 @@ def create_item(i)
       group.inventory_pool = ip
       group.save
 
-      p = Partition.find(:first, :conditions => {:model_id => item.model, :inventory_pool_id => group.inventory_pool})
+      p = Partition.find(:first, :conditions => {:group_id => group, :model_id => item.model, :inventory_pool_id => group.inventory_pool})
       if p
+        if p.quantity == nil
+          p.quantity = 0
+        end
         p.quantity += 1
       else
         p = Partition.new
