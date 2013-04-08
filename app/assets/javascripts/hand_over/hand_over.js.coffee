@@ -218,7 +218,7 @@ class HandOver
     # bind ready action
     dialog.delegate ".ready", "click", (e)->
       # go to daily view
-      window.location = "http://#{location.host}/backend/inventory_pools/#{currentInventoryPool.id}/"
+      window.location = "//#{location.host}/backend/inventory_pools/#{currentInventoryPool.id}/"
 
   @reduce_quantity: (lines_data)-> _.reduce(lines_data, ((mem, ele) -> mem+ele.quantity), 0)
 
