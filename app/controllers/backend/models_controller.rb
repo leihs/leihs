@@ -45,15 +45,13 @@ class Backend::ModelsController < Backend::BackendController
         models = (models)
                    .sort{|a,b| a.name.strip <=> b.name.strip}
                    .paginate(:page => page, :per_page => PER_PAGE)
-        hash = { inventory: {
-                    entries: view_context.hash_for(models, with),
-                    pagination: {
-                      current_page: models.current_page,
-                      per_page: models.per_page,
-                      total_pages: models.total_pages,
-                      total_entries: models.total_entries
-                    }
-                  },
+        hash = { entries: view_context.hash_for(models, with),
+                 pagination: {
+                    current_page: models.current_page,
+                    per_page: models.per_page,
+                    total_pages: models.total_pages,
+                    total_entries: models.total_entries
+                  }
                 } 
         
         render :json => hash
