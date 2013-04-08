@@ -264,8 +264,8 @@ class Field < ActiveHash::Base
       form_name: "model_id",
       required: true,
       type: "autocomplete-search",
-      search_path: lambda{|current_inventory_pool| Rails.application.routes.url_helpers.backend_inventory_pool_search_path(current_inventory_pool, :types => [:model])},
-      search_attr: "term",
+      search_path: lambda{|current_inventory_pool| Rails.application.routes.url_helpers.backend_inventory_pool_models_path(current_inventory_pool)},
+      search_attr: "query",
       value_attr: "id",
       display_attr: "name",
       group: nil
