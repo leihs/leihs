@@ -17,3 +17,9 @@ Funktionalität: Gegenstand ausmustern
     Angenommen man ist "Mike"
     Und man sucht nach einem ausgeliehenen Gegenstand
     Dann hat man keine Möglichkeit übers Interface solchen Gegenstand auszumustern
+
+  @javascript
+  Szenario: Verhinderung von Ausmusterung eines Gegenstandes bei dem ich nicht als Besitzer eingetragen bin
+    Angenommen man ist "Matti"
+    Und man sucht nach einem Gegenstand bei dem ich nicht als Besitzer eingetragen bin
+    Dann hat man keine Möglichkeit übers Interface solchen Gegenstand auszumustern

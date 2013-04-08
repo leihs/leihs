@@ -50,9 +50,7 @@ class Backend::InventoryController < Backend::BackendController
                   .select("DISTINCT models.*")
                   .search(query, [:name, :items])
                   .order("#{sort_attr} #{sort_dir}")
-        if not borrowable.blank? or retired.blank?
-          models = models.joins(:items).where("items.id IN (#{item_ids.to_sql})") 
-        end
+        models = models.joins(:items).where("items.id IN (#{item_ids.to_sql})") 
         # TODO migrate strip directly to the database, and strip on before_validation
         models_and_options = (models + options)
                              .sort{|a,b| a.name.strip <=> b.name.strip}

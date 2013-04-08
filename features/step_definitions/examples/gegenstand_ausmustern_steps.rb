@@ -29,7 +29,16 @@ Angenommen /^man sucht nach einem ausgeliehenen Gegenstand$/ do
 end
 
 Dann /^hat man keine Möglichkeit übers Interface solchen Gegenstand auszumustern$/ do
-  find(".toggle .icon").click
+  item = @borrowed_item || @unborrowed_item_not_the_owner
+  all(".toggle .icon").each do |toggler|
+    toggler.click
+  end
   page.execute_script("$('.items.children .arrow').trigger('mouseover');")
-  find(".line.toggler.item", text: @borrowed_item.inventory_code).should_not have_content _("Retire Item")
+  find(".line.toggler.item", text: item.inventory_code).should_not have_content _("Retire Item")
+end
+
+Angenommen /^man sucht nach einem Gegenstand bei dem ich nicht als Besitzer eingetragen bin$/ do
+  @unborrowed_item_not_the_owner = Item.where(inventory_pool_id: @current_inventory_pool.id).detect {|i| i.in_stock? and i.owner_id != @current_inventory_pool.id}
+  find_field('query').set @unborrowed_item_not_the_owner.model.name
+  wait_until { find(".line.model", text: @unborrowed_item_not_the_owner.model.name).find ".arrow" }
 end

@@ -95,6 +95,7 @@ group :test, :development do
   gem 'rspec-rails', '~> 2.12', :require => false
   gem 'nokogiri', '~> 1.5'
   gem 'capybara', '1.1.2' # TODO upgrade to '~> 2.0'
+  gem "selenium-webdriver"
   # gem 'simplecov'
   gem 'launchy', '~> 2.1'
   gem "timecop", "~> 0.5"

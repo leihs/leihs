@@ -202,7 +202,7 @@ module Persona
                                 :description => "Apples alter iMac", 
                                 :maintenance_period => 0)
       @iMac.model_links.create :model_group => @computer_category
-      @iMac = FactoryGirl.create(:item, :inventory_code => "iMac1", :retired => Date.today, :is_borrowable => true, :serial_number => "iMac5", :model => @iMac, :location => @location, :owner => @inventory_pool)
+      @iMac = FactoryGirl.create(:item, :inventory_code => "iMac1", :retired => Date.today, :retired_reason => "This Item is gone", :is_borrowable => true, :serial_number => "iMac5", :model => @iMac, :location => @location, :owner => @inventory_pool)
     end
     
     def setup_inventory_moved_to_other_responsible
