@@ -1890,3 +1890,6 @@ msgstr ""
 
 msgid "Model|Images|File content type"
 msgstr ""
+
+msgid "Item|Retired reason"
+msgstr ""

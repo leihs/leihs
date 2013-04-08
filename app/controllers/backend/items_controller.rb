@@ -168,7 +168,7 @@ class Backend::ItemsController < Backend::BackendController
         format.json { render :json => true, :status => 200 }
       end
     else
-      errors = @item.errors.full_messages
+      errors = @item.errors.full_messages.join ", "
 
       respond_to do |format|
         format.json { render :text => errors, :status => 500 }

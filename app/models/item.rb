@@ -36,6 +36,7 @@ class Item < ActiveRecord::Base
   
   validate :validates_package
   validate :validates_changes, :validates_retired, :on => :create
+  validates :retired_reason, presence: true, if: :retired?
 
 ####################################################################
 
