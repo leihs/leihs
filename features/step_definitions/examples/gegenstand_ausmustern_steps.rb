@@ -42,3 +42,17 @@ Angenommen /^man sucht nach einem Gegenstand bei dem ich nicht als Besitzer eing
   find_field('query').set @unborrowed_item_not_the_owner.model.name
   wait_until { find(".line.model", text: @unborrowed_item_not_the_owner.model.name).find ".arrow" }
 end
+
+Angenommen /^man gibt bei der Ausmusterung keinen Grund an$/ do
+  click_button _("Retire")
+  step "ensure there are no active requests"
+  @unretired_item.reload
+end
+
+Dann /^sieht man eine Fehlermeldung$/ do
+  find(".flash_message", :text => /\w+/)
+end
+
+Dann /^der Gegenstand ist noch nicht Ausgemustert$/ do
+  @unretired_item.retired.should be_nil
+end
