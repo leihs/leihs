@@ -98,4 +98,4 @@ Funktionalität: Inventar
     
   @javascript
   Szenario: Keine Leeren Modelle auf der Liste des Inventars
-    Dann sieht man keine Modelle, denen keine Gegenstänge zugewiesen sind
+    Dann sieht man keine Modelle, denen keine Gegenstänge zugewiesen unter keinem der vorhandenen Reiter

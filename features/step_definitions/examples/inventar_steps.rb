@@ -583,6 +583,10 @@ Dann /^sind die Attachments gespeichert$/ do
   @model.attachments.where(:filename => @attachment_filename).empty?.should be_false
 end
 
-Dann /^sieht man keine Modelle, denen keine Gegenstänge zugewiesen sind$/ do
-  all(".model.line .toggle .text", :text => "0").size.should == 0
+Dann /^sieht man keine Modelle, denen keine Gegenstänge zugewiesen unter keinem der vorhandenen Reiter$/ do
+  all(".inlinetabs .tab").each do |tab|
+    tab.click
+    wait_until {page.evaluate_script(%Q{jQuery.active}) == 0}
+    all(".model.line .toggle .text", :text => "0").size.should == 0
+  end
 end
