@@ -168,7 +168,7 @@ end
 Dann /^ist die Kategorie gelöscht(?: und alle Duplikate sind aus dem Baum entfernt)$/ do
   wait_until {page.evaluate_script("jQuery.active") == 0}
   sleep(1)
-  all(".line.category[data-id='#{@unused_category.id}']", :visible => true).empty?.should be_true
+  all(".line.category[data-id='#{@unused_category.id}']").empty?.should be_true
   lambda{@unused_category.reload}.should raise_error
 end
 

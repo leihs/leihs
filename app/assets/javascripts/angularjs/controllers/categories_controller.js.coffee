@@ -14,11 +14,12 @@ CategoriesIndexCtrl = ($scope, Category, $routeParams) ->
     idToDelete = this.category.id
     deleteCatgoryRecursively = (categories)->
       for category in categories
-        do (category)->
-          if category.children.length?
-            deleteCatgoryRecursively category.children
-          if category.id == idToDelete
-            catgories = categories.splice categories.indexOf(category), 1
+        if category?
+          do (category)->
+            if category.children.length?
+              deleteCatgoryRecursively category.children
+            if category.id == idToDelete
+              categories = categories.splice categories.indexOf(category), 1
     deleteCatgoryRecursively $scope.categories
     new Category(this.category).$delete
       id: idToDelete
