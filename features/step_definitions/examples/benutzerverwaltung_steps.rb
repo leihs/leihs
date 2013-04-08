@@ -366,7 +366,8 @@ Dann /^man kann nicht inventarrelevante Gegenstände ausmustern, sofern man dere
   item = @inventory_pool.own_items.where(:is_inventory_relevant => false).first
   item.retired?.should be_false
   attributes = {
-      retired: true
+      retired: true,
+      retired_reason: "Item is gone"
   }
   response = put backend_inventory_pool_item_path(@inventory_pool, item, format: :json), item: attributes
   response.should be_successful
