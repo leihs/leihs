@@ -58,11 +58,7 @@
     
   .actions  
     %li.actions
-      {{if current_borrower}}
-      = link_to "/backend/inventory_pools/${currentInventoryPool.id}/items/${id}", :class => "button white" do
-        .icon.item
-        ${_jed("Edit Item")}
-      {{else}}
+      {{if App.Item.is_retirable($item.data)}}
       .multibutton
         .alternatives
           .trigger
@@ -78,6 +74,10 @@
         = link_to "/backend/inventory_pools/${currentInventoryPool.id}/items/${id}", :class => "button white" do
           .icon.item
           ${_jed("Edit Item")}
+      {{else}}
+      = link_to "/backend/inventory_pools/${currentInventoryPool.id}/items/${id}", :class => "button white" do
+        .icon.item
+        ${_jed("Edit Item")}
       {{/if}}
  
 {{if children}}

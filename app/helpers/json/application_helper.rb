@@ -101,6 +101,7 @@ module Json
                       :is_incomplete => true,
                       :location_as_string => true,
                       :inventory_pool => true,
+                      :owner => true,
                       :children => {:model => {}}
                      },
            :availability => {:inventory_pool => current_inventory_pool},
