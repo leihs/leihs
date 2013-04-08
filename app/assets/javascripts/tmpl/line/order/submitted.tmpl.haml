@@ -37,7 +37,7 @@
             :method => :post,
             :"data-tmpl" => "tmpl/dialog/acknowledge/approve", 
             :"data-dialog_class" => "medium",
-            :"data-on_success" => 'window.location = "http://"+location.host+"/backend/inventory_pools/${currentInventoryPool.id}/users/${user.id}/hand_over"',
+            :"data-on_success" => 'window.location = "//"+location.host+"/backend/inventory_pools/${currentInventoryPool.id}/users/${user.id}/hand_over"',
             :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
             .icon.hand_over
             ${_jed("Hand Over")}

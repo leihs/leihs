@@ -92,7 +92,7 @@ class TakeBack
     # bind ready action
     dialog.delegate ".ready", "click", (e)->
       # go to daily view
-      window.location = "http://#{location.host}/backend/inventory_pools/#{currentInventoryPool.id}/"
+      window.location = "//#{location.host}/backend/inventory_pools/#{currentInventoryPool.id}/"
   
   @update_visits = (data)->
     $('#visits').html($.tmpl("tmpl/visit", data))

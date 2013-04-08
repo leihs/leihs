@@ -116,6 +116,6 @@ function DailyNavigator() {
       dialogClass: ".loading"
     });
     
-    window.location = "http://"+location.host+location.pathname+new_params;
+    window.location = "//"+location.host+location.pathname+new_params;
   }
 }
