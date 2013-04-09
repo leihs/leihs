@@ -59,7 +59,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
     user.authentication_system = AuthenticationSystem.where(:class_name => 'HsluAuthentication').first
     if user.save
       # Assign any default roles you want
-      role = Role.find_by_name("customer")
+      role = Role.where(:name => "customer").first
       InventoryPool.all.each do |ip|
         user.access_rights.create(:inventory_pool => ip, :role => role)
       end
@@ -74,6 +74,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
   # @param user [User] The (local, database) user whose data you want to update
   # @param user_data [Net::LDAP::Entry] The LDAP entry (it could also just be a hash of hashes and arrays that looks like a Net::LDAP::Entry) of that user
   def update_user(user, user_data)
+    logger = Rails.logger
     ldaphelper = LdapHelper.new
     # Make sure to set USER_IMAGE_URL in application.rb in leihs 3.0 for user images to appear, based
     # on the unique ID. Example for the format in application.rb:
@@ -83,7 +84,6 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
     user.firstname = user_data["givenname"].first.to_s 
     user.lastname = user_data["sn"].first.to_s
     user.phone = user_data["telephonenumber"].first.to_s unless user_data["telephonenumber"].blank?
-    #user.badge_id = "L" + user_data["extensionattribute6"].to_s unless user_data["extensionattribute6"].blank?
     # If the user's unique_id is numeric, add an "L" to the front and copy it to the badge_id
     # If it's not numeric, just copy it straight to the badge_id
     if (user.unique_id =~ /^(\d+)$/).nil?
@@ -101,7 +101,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
     admin_dn = LDAP_CONFIG[Rails.env]["admin_dn"]
     unless admin_dn.blank?
       if user_data["memberof"].include?(admin_dn)
-        admin_role = Role.find_by_name("admin")
+        admin_role = Role.where(:name => "admin").first
         user.access_rights.create(:role => admin_role) unless user.access_rights.include?(admin_role)
       end
     end
@@ -109,7 +109,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
     # If the displayName contains whatever string is configured in video_displayname in LDAP.yml,
     # the user is assigned to the group "Video"
     unless user_data["displayName"].first.scan(ldaphelper.video_displayname.to_s).empty?
-      video_group = Group.find(:first, :conditions => {:name => 'Video'})
+      video_group = Group.where(:name => 'Video').first
       unless video_group.nil?
         user.groups << video_group unless user.groups.include?(video_group)
       end
@@ -146,9 +146,13 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
 
                 if not u == false
                   update_user(u, users.first)
-                  u.save
-                  self.current_user = u
-                  redirect_back_or_default("/")
+                  if u.save
+                    self.current_user = u
+                    redirect_back_or_default("/")
+                  else
+                    logger.error(u.errors.full_messages.to_s)
+                    flash[:notice] = _("Could not update user '#{user}' with new LDAP information. Contact your leihs system administrator.")
+                  end
                 else
                   flash[:notice] = _("Could not create new user for '#{user}' from LDAP source. Contact your leihs system administrator.")
                 end
