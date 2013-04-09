@@ -120,7 +120,7 @@ end
 
 ###############################################
 
-require 'spec/mocks'
+require 'rspec/mocks'
 
 Given "email delivery is broken" do
   Notification.stub!(:order_approved).and_throw(:mail_is_borken)
