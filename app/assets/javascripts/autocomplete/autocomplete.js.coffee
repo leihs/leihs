@@ -72,6 +72,7 @@ class AutoComplete
         @el.next(".icon").show()
       success: (data)=>
         # compute entries
+        data = data.entries if data.entries?
         entries = $.map data, (element)=> 
           element.label = if @data.autocomplete_display_attribute? then element[@data.autocomplete_display_attribute] else element.label
           element.value = element[@data.autocomplete_value_attribute] if @data.autocomplete_value_attribute?

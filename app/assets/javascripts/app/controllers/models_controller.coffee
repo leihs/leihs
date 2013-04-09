@@ -16,7 +16,7 @@ class ModelsController
     do @setup_state
     do @delegateEvents
     do @fetch_responsibles
-    do @fetch_inventory
+    do @fetch_models
     do @plugin
     
   plugin: ->
@@ -27,7 +27,7 @@ class ModelsController
     @pagination.html ""
     ListPagination.setup $.extend(data,{callback: @paginate})
   
-  render_inventory: (data)=>
+  render_models: (data)=>
     @loading.detach()
     @list.find(">*:not(.navigation)").remove()
     @list.append $.tmpl "tmpl/line", data
@@ -44,7 +44,7 @@ class ModelsController
       text_handler: (text)-> Str.sliced_trunc(text, 22)
     @responsibles = @el.find(".responsible select")
     do @select_responsible
-    @responsibles.on "change", @fetch_inventory
+    @responsibles.on "change", @fetch_models
   
   select_responsible: =>
     if @filter.responsible_id?
@@ -58,7 +58,7 @@ class ModelsController
   
   paginate: (page)=>
     @current_page = page+1
-    do @fetch_inventory
+    do @fetch_models
     return false
   
   fetch_responsibles: =>
@@ -69,7 +69,7 @@ class ModelsController
         responsibles: true 
       success: (data) => @setup_responsibles data.responsibles
   
-  fetch_inventory: =>
+  fetch_models: =>
     @list.append @loading
     @fetcher.abort() if @fetcher?
     @filter.flags = _.map @list.find(".filter input:checked"), (filter)-> $(filter).data("filter")
@@ -89,9 +89,9 @@ class ModelsController
       type: 'GET'
       data: data
       success: (data) =>
-        @render_inventory data.inventory.entries
-        @setup_pagination data.inventory.pagination
-        do @no_items_found unless data.inventory.entries.length
+        @render_models data.entries
+        @setup_pagination data.pagination
+        do @no_items_found unless data.entries.length
     do @save_state
     do @update_csv_link
 
@@ -132,7 +132,7 @@ class ModelsController
   pop_state: =>
     return true if window.location.hash.replace(/^#/, "") == @stringify_state(@get_state())
     do @setup_state
-    do @fetch_inventory
+    do @fetch_models
     
   save_state: =>
     state = do @get_state
@@ -170,19 +170,19 @@ class ModelsController
     $(window).on "popstate", @pop_state
     @filters.on "change", =>
       delete @current_page
-      do @fetch_inventory
+      do @fetch_models
     @search.on "changed_after_input", (e)=>
       delete @current_page
-      do @fetch_inventory
+      do @fetch_models
     @search.closest("form").on "submit", (e)=>
       delete @current_page 
       do e.preventDefault
-      do @fetch_inventory
+      do @fetch_models
     @tabs.on "click", ".tab", (e)=>
       delete @current_page
       @search.val("") if not $(e.currentTarget).data("tab")? and not @active_tab.data("tab")?
       @active_tab = $(e.currentTarget)
       do e.preventDefault
-      do @fetch_inventory
+      do @fetch_models
 
 window.App.ModelsController = ModelsController
