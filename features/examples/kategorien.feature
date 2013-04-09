@@ -78,6 +78,7 @@ Funktionalität: Kategorien
   Szenario: Kategorie suchen
     Wenn man nach einer Kategorie anhand des Namens sucht
     Dann sieht man nur die Kategorien, die den Suchbegriff im Namen enthalten
+    Und sieht die Ergebnisse in alphabetischer Reihenfolge
     Und man kann diese Kategorien editieren
 
   @javascript
