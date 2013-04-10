@@ -33,6 +33,7 @@ CategoriesIndexCtrl = ($scope, Category, $routeParams) ->
             searchRecursively(category.children) if category.children.length
             results[category.id] = category if category.name.match(new RegExp(@searchTerm, "i"))?
       searchRecursively $scope.fetchedCategories
+      results = _.sortBy results, (r)->r.name
       $scope.$apply => $scope.categories = _.values results
     else
       $scope.$apply => $scope.categories = $scope.fetchedCategories

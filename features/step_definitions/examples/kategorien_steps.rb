@@ -193,7 +193,7 @@ end
 
 Wenn /^man nach einer Kategorie anhand des Namens sucht$/ do
   visit backend_inventory_pool_categories_path @current_inventory_pool
-  @searchTerm ||= Category.first.name[0..3]
+  @searchTerm ||= Category.first.name[0]
   countBefore = all(".line").size
   find("input[name='query']").set @searchTerm
   wait_until {countBefore != all(".line").size}
@@ -202,8 +202,13 @@ end
 
 Dann /^sieht man nur die Kategorien, die den Suchbegriff im Namen enthalten$/ do
   all(".line.category", :visible => true).each do |line|
-    expect(line.text).to match(Regexp.new(@searchTerm))
+    expect(line.text).to match(Regexp.new(@searchTerm, "i"))
   end
+end
+
+Dann /^sieht die Ergebnisse in alphabetischer Reihenfolge$/ do
+  names = all(".category_name", :visible => true).map{|name| name.text}
+  expect(names.sort == names).to be_true
 end
 
 Dann /^man kann diese Kategorien editieren$/ do
