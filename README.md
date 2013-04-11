@@ -9,11 +9,8 @@ our cameras, lighting equipment, speakers, microphones etc.
 
 ## Installation guide
 
-The install guide in asciidoc text and PDF format can be found in the doc 
-directory and on our wiki:
-The install guide can be found on GitHub:
+The install guide can be found on our GitHub wiki:
 
-http://code.zhdk.ch/projects/leihs/wiki/Help
 https://github.com/zhdk/leihs/wiki
 
 ## Project web pages
