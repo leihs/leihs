@@ -104,7 +104,9 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
     unless admin_dn.blank?
       if user_data["memberof"].include?(admin_dn)
         admin_role = Role.find_by_name("admin")
-        user.access_rights.create(:role => admin_role) unless user.access_rights.include?(admin_role)
+        if user.access_rights.empty? or !user.access_rights.collect(&:role).include?(admin_role)
+          user.access_rights.create(:role => admin_role)
+        end
       end
     end
 
