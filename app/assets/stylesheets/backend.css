@@ -27,6 +27,7 @@
  *= require shared/custom_select
  *= require shared/icons
  *= require shared/clickable
+ *= require shared/text
  *
  *= require angular-ui
  *

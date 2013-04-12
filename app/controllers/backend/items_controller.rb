@@ -59,7 +59,7 @@ class Backend::ItemsController < Backend::BackendController
     end
 
     respond_to do |format|
-      format.json { 
+      format.json {
         if saved
           render(:status => :ok, json: view_context.json_for(@item, {preset: :item_edit}))
         else
@@ -70,9 +70,13 @@ class Backend::ItemsController < Backend::BackendController
           end
         end
       }
-      format.html { 
+      format.html {
         if saved
-          redirect_to backend_inventory_pool_inventory_path(current_inventory_pool)
+          if params[:copy]
+            redirect_to copy_backend_inventory_pool_item_path(current_inventory_pool, @item.id), notice: _("New item created.")
+          else
+            redirect_to backend_inventory_pool_inventory_path(current_inventory_pool)
+          end
         else
           flash[:error] = @item.errors.full_messages.uniq
           redirect_to new_backend_inventory_pool_item_path(current_inventory_pool)
@@ -109,11 +113,11 @@ class Backend::ItemsController < Backend::BackendController
           end
         end
       }
-      format.html { 
+      format.html {
         if saved
-          if params[:copy].blank?
-            redirect_to backend_inventory_pool_inventory_path(current_inventory_pool)
-          else 
+          if params[:copy]
+            redirect_to copy_backend_inventory_pool_item_path(current_inventory_pool, @item.id), notice: _("Item saved.")
+          else
             redirect_to :action => 'new', :original_id => @item.id  
           end
         else
@@ -122,6 +126,11 @@ class Backend::ItemsController < Backend::BackendController
         end
       }
     end
+  end
+
+  def copy
+    @item = @item.dup
+    @item.inventory_code = Item.proposed_inventory_code(current_inventory_pool)
   end
 
   def find

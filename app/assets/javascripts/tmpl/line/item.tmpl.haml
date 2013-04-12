@@ -58,11 +58,15 @@
     
   .actions  
     %li.actions
-      {{if App.Item.is_retirable($item.data)}}
       .multibutton
         .alternatives
           .trigger
             .arrow
+          = link_to "/backend/inventory_pools/${currentInventoryPool.id}/items/${id}/copy", :class => "button white" do
+            .icon.additem
+            ${_jed("Copy Item")}
+
+          {{if App.Item.is_retirable($item.data)}}
           = link_to "/backend/inventory_pools/${currentInventoryPool.id}/items/${id}/retire",
             :class => "button red open_dialog",
             :"data-tmpl" => "tmpl/dialog/item_line/retire", 
@@ -71,15 +75,12 @@
             :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
             .icon.retire
             ${_jed("Retire Item")}
+          {{/if}}
+
         = link_to "/backend/inventory_pools/${currentInventoryPool.id}/items/${id}", :class => "button white" do
           .icon.item
           ${_jed("Edit Item")}
-      {{else}}
-      = link_to "/backend/inventory_pools/${currentInventoryPool.id}/items/${id}", :class => "button white" do
-        .icon.item
-        ${_jed("Edit Item")}
-      {{/if}}
- 
+
 {{if children}}
 .children{:id => "item_${id}_children"}
   {{tmpl(children, {package: $item.data}) "tmpl/line/item"}}

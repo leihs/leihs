@@ -199,6 +199,7 @@ Leihs::Application.routes.draw do
           post :toggle_permission
           post :get_notes
           post :retire
+          get :copy
         end
       end
       resources :users do

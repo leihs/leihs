@@ -1047,6 +1047,18 @@ msgstr "Speichern"
 msgid "Save %s"
 msgstr "%s speichern"
 
+msgid "Save and copy"
+msgstr "Speichern und kopieren"
+
+msgid "Save and copy %s"
+msgstr "%s speichern und kopieren"
+
+msgid "Copy Item"
+msgstr "Gegenstand kopieren"
+
+msgid "Create copied item"
+msgstr "Kopierten Gegenstand erstellen"
+
 msgid "Save Changes"
 msgstr "Änderungen speichern"
 

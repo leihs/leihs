@@ -14,7 +14,7 @@
             = _("Save %s") % _("Item")
 
       .top
-        %h1= _("Create %s") % _("Item")
+        %h1= _("Create copied item")
 
       .left
       .right
@@ -35,4 +35,4 @@
         text: error
         type: "error"
 
-    new App.EditItemController #{json_for Field.accessible_by(current_user, current_inventory_pool)}, #{json_for @item, {inventory_code: true, owner: true}}
+    new App.EditItemController #{json_for Field.accessible_by(current_user, current_inventory_pool)}, #{json_for(@item, {:preset => :item_edit, name: false, serial_number: false})}

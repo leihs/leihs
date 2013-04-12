@@ -9,44 +9,44 @@ Funktionalität: Gegenstand kopieren
   @javascript
   Szenario: Gegenstand erstellen und kopieren
     Angenommen man erstellt einen Gegenstand
+    | Feldname                     | Type         | Wert                          |
+    | Modell                       | autocomplete | Sharp Beamer                  |
+    | Ausmusterung                 | checkbox     | unchecked                     |
+    | Zustand                      | radio        | OK                            |
+    | Vollständigkeit              | radio        | OK                            |
+    | Ausleihbar                   | radio        | OK                            |
+    | Inventarrelevant             | select       | Ja                            |
+    | Letzte Inventur              |              | 01.01.2013                    |
+    | Verantwortliche Abteilung    | autocomplete | A-Ausleihe                    |
+    | Verantwortliche Person       |              | Matus Kmit                    |
+    | Benutzer/Verwendung          |              | Test Verwendung               |
+    | Umzug                        | select       | sofort entsorgen              |
+    | Zielraum                     |              | Test Raum                     |
+    | Ankunftsdatum                |              | 01.01.2013                    |
+    | Ankunftszustand              | select       | transportschaden              |
+    | Ankunftsnotiz                |              | Test Notiz                    |
+    | Seriennummer                 |              | Test Seriennummer             |
+    | MAC-Adresse                  |              | Test MAC-Adresse              |
+    | IMEI-Nummer                  |              | Test IMEI-Nummer              |
+    | Name                         |              | Test Name                     |
+    | Notiz                        |              | Test Notiz                    |
+    | Gebäude                      | autocomplete | Keine/r                       |
+    | Raum                         |              | Test Raum                     |
+    | Gestell                      |              | Test Gestell                  |
+    | Bezug                        | radio must   | investment                    |
+    | Projektnummer                |              | Test Nummer                   |
+    | Rechnungsnummer              |              | Test Nummer                   |
+    | Rechnungsdatum               |              | 01.01.2013                    |
+    | Anschaffungswert             |              | 50.0                          |
+    | Lieferant                    | autocomplete | Keine/r                       |
+    | Garantieablaufdatum          |              | 01.01.2013                    |
+    | Vertragsablaufdatum          |              | 01.01.2013                    |
     Wenn man speichert und kopiert
-    Dann wird der Gegenstand gespeichert 
+    Dann wird der Gegenstand gespeichert
     Und eine neue Gegenstandserstellungsansicht wird geöffnet
     Und man sieht den Seitentitel 'Kopierten Gegenstand erstellen'
     Und man sieht den Abbrechen-Knopf
-    Und die folgenden Felder wurden kopiert
-    | Modell                       |
-    | Ausmusterung                 |
-    | Grund der Ausmusterung       |
-    | Zustand                      |
-    | Vollständigkeit              |
-    | Ausleihbar                   |
-    | Inventarrelevant             |
-    | Besitzer                     |
-    | Letzte Inventur              |
-    | Verantwortliche Abteilung    |
-    | Verantwortliche Person       |
-    | Benutzer/Verwendung          |
-    | Umzug                        |
-    | Zielraum                     |
-    | Ankunftsdatum                |
-    | Ankunftszustand              |
-    | Ankunftsnotiz                |
-    | MAC-Adresse                  |
-    | IMEI-Nummer                  |
-    | Notiz                        |
-    | Gebäude                      |
-    | Raum                         |
-    | Gestell                      |
-    | Bezug                        |
-    | Projektnummer                |
-    | Rechnungsnummer              |
-    | Rechnungsdatum               |
-    | Anschaffungswert             |
-    | Lieferant                    |
-    | Garantieablaufdatum          |
-    | Vertragsablaufdatum          |
-    Und die folgenden Felder wurden nicht kopiert
+    Und alle Felder bis auf die folgenden wurden kopiert:
     | Inventarcode                 |
     | Name                         |
     | Seriennummer                 |
@@ -55,15 +55,16 @@ Funktionalität: Gegenstand kopieren
     Dann wird der kopierte Gegenstand gespeichert
     Und man wird zur Liste des Inventars zurückgeführt
 
-Szenario: Bestehenden Gegenstand aus Liste kopieren
-    Angenommen man befindet sich in der Liste des Inventars
+  @javascript
+  Szenario: Bestehenden Gegenstand aus Liste kopieren
+    Angenommen man befindet sich auf der Liste des Inventars
     Wenn man einen Gegenstand kopiert
-    Dann wird eine neue Gegenstandserstellungsansicht geöffnet 
+    Dann wird eine neue Gegenstandskopieransicht geöffnet
     Und alle Felder bis auf Inventarcode, Seriennummer und Name wurden kopiert
 
-Szenario: Bestehenden Gegenstand aus Editieransicht kopieren
-    Angenommen man befindet sich in der Gegenstandserstellungsansicht
-    Wenn man einen Gegenstand speichert und kopiert
-    Dann wird eine neue Gegenstandserstellungsansicht geöffnet 
+  @javascript
+  Szenario: Bestehenden Gegenstand aus Editieransicht kopieren
+    Angenommen man befindet sich auf der Gegenstandserstellungsansicht
+    Wenn man speichert und kopiert
+    Dann wird eine neue Gegenstandskopieransicht geöffnet
     Und alle Felder bis auf Inventarcode, Seriennummer und Name wurden kopiert
-

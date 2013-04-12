@@ -13,11 +13,16 @@
     .content_navigation
       %a.button.red{:href => backend_inventory_pool_inventory_path(current_inventory_pool)}
         = _("Cancel")
-      %button.button.green{:type => :submit}
-        = _("Save %s") % if @item.model.is_package then _("Package") else _("Item") end
+      #approve.multibutton
+        .alternatives
+          .trigger.green
+            .arrow
+          %button.button.green{:type => :submit, name: :copy}
+            %span.text-ellipsis
+              = _("Save and copy")
+        %button.button.green{:type => :submit}
+          = _("Save %s") % if @item.model.is_package then _("Package") else _("Item") end
       
-      =#tmp# f.submit( @item.id ? _("Save and create a Copy") : _("Create and make a Copy"), {:class => "button green", :name => 'copy'}) if is_privileged_user? and not @item.retired?
-
     .top
       %h1
         =if @item.model.is_package then _("Package") else _("Item") end

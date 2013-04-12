@@ -1381,6 +1381,10 @@ window.i18n.locale_data = {
          null,
          "Verantwortliche Person"
       ],
+      "Copy Item": [
+         null,
+         "Gegenstand kopieren"
+      ],
       "Retire": [
          null,
          "Ausmustern"

@@ -1032,6 +1032,18 @@ msgstr ""
 msgid "Save %s"
 msgstr ""
 
+msgid "Save and copy"
+msgstr ""
+
+msgid "Save and copy %s"
+msgstr ""
+
+msgid "Copy Item"
+msgstr ""
+
+msgid "Create copied item"
+msgstr ""
+
 msgid "Save Changes"
 msgstr ""
 

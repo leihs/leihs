@@ -109,7 +109,7 @@ module Persona
                                 :maintenance_period => 0)
       @beamer_model.model_links.create :model_group => @beamer_category
       @beamer_model.model_links.create :model_group => @portable_subcategory
-      @beamer_item = FactoryGirl.create(:item, :inventory_code => "beam123", :serial_number => "xyz456", :model => @beamer_model, :location => @location, :owner => @inventory_pool)
+      @beamer_item = FactoryGirl.create(:item, :inventory_code => "beam123", :serial_number => "xyz456", name: "name123", :model => @beamer_model, :location => @location, :owner => @inventory_pool)
       @beamer_item2 = FactoryGirl.create(:item, :inventory_code => "beam345", :serial_number => "xyz890", :model => @beamer_model, :location => @location, :owner => @inventory_pool)
     end
     
