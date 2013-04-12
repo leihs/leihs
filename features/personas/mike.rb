@@ -194,6 +194,9 @@ module Persona
                                 :maintenance_period => 0)
       @helicopter_model.model_links.create :model_group => @helicopter_category
       @helicopter_item = FactoryGirl.create(:item, :inventory_code => "v120d02", :is_incomplete => true, :serial_number => "v120d02", :model => @helicopter_model, :location => @location, :owner => @inventory_pool)
+      @helicopter_model.properties << Property.create(:key => "Rotorduchmesser", :value => "120")
+      @helicopter_model.properties << Property.create(:key => "Akkus", :value => "2")
+      @helicopter_model.properties << Property.create(:key => "Farbe", :value => "Rot")
     end
 
     def setup_retired

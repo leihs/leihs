@@ -1,7 +1,7 @@
 root = global ? window
 angular = root.angular
 
-app = angular.module("Leihs", ['users', 'models', 'options', 'categories', 'filters', 'directives', 'ui']).config(['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) ->
+app = angular.module("Leihs", ['users', 'models', 'options', 'categories', 'filters', 'ui']).config(['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) ->
   #$locationProvider.hashPrefix('');
   $locationProvider.html5Mode true
   $routeProvider.when("/backend/inventory_pools/:inventory_pool_id/users",

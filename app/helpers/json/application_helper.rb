@@ -114,6 +114,7 @@ module Json
            :hand_over_note => true,
            :images => {},
            :attachments => {},
+           :properties => {},
            :accessories => {}}
         when :order_minimal
           {:user => {:preset => :user},

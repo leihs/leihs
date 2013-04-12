@@ -84,6 +84,9 @@ msgstr "Genehmigen"
 msgid "Add"
 msgstr "Hinzufügen"
 
+msgid "Add %s"
+msgstr "%s hinzufügen"
+
 msgid "Add Model"
 msgstr "Modell hinzufügen"
 
@@ -630,6 +633,9 @@ msgstr "Gegenstand zurückgenommen"
 
 msgid "Items"
 msgstr "Gegenstände"
+
+msgid "Key"
+msgstr "Schlüssel"
 
 msgid "Kind regards,"
 msgstr "Schöne Grüsse"
@@ -1732,6 +1738,12 @@ msgstr "weitere"
 
 msgid "more properties"
 msgstr "mehr Eigenschaften"
+
+msgid "Property"
+msgstr "Eigenschaft"
+
+msgid "Properties"
+msgstr "Eigenschaften"
 
 msgid "no image"
 msgstr "Kein Bild"

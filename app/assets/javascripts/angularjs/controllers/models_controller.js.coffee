@@ -1,10 +1,13 @@
 ModelsCreateCtrl = ($scope, $location, $routeParams, Model) ->
   $scope.current_inventory_pool_id = $routeParams.inventory_pool_id
 
+  $(".left").append($("#model-categories"))
+
   $scope.model = new Model
     accessories: []
     attachments: []
     images: []
+    properties: []
   $scope.model.is_editable = true #tmp# TODO remove this when using permissions
 
   # TODO dry
@@ -70,6 +73,7 @@ ModelsCreateCtrl = ($scope, $location, $routeParams, Model) ->
         attachments_attributes: $.extend({}, $scope.model.attachments)
         accessories_attributes: $.extend({}, $scope.model.accessories)
         category_ids: $.unique($(".simple_tree input[type='checkbox']:checked").map(()-> return this.value ).toArray())
+        properties_attributes: $.extend({}, _.map $scope.model.properties, (p)->{key: p.key, value: p.value})
     , (response) ->
       window.location = "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/models"
     , (response) ->
@@ -106,9 +110,20 @@ ModelsCreateCtrl = ($scope, $location, $routeParams, Model) ->
   $scope.removeAccessory = (element)->
     $scope.model.accessories = _.reject $scope.model.accessories, (accessory)-> accessory is element.accessory
 
+  # TODO dry
+  $scope.addProperty = ()->
+    $scope.model.properties.unshift({key: "", value: ""})
+    setTimeout (-> $("input[name='key']:first").focus()), 100
+
+  # # TODO dry
+  # $scope.removeProperty = (property)->
+  #   $scope.model.properties = _.reject $scope.model.properties, (p)-> p is el.property
+    
 
 ModelsEditCtrl = ($scope, $location, $routeParams, Model) ->
   $scope.current_inventory_pool_id = $routeParams.inventory_pool_id
+
+  $(".left").append($("#model-categories"))
 
   Model.get
     inventory_pool_id: $scope.current_inventory_pool_id
@@ -180,6 +195,7 @@ ModelsEditCtrl = ($scope, $location, $routeParams, Model) ->
         attachments_attributes: $.extend({}, $scope.model.attachments)
         accessories_attributes: $.extend({}, $scope.model.accessories)
         category_ids: $.unique($(".simple_tree input[type='checkbox']:checked").map(()-> return this.value ).toArray())
+        properties_attributes: $.extend({}, _.map $scope.model.properties, (p)->{key: p.key, value: p.value})
     , (response) ->
       window.location = "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/models"
     , (response) ->
@@ -198,8 +214,6 @@ ModelsEditCtrl = ($scope, $location, $routeParams, Model) ->
           when 1 then $scope.model.images.push file
           when 2 then $scope.model.attachments.push file
 
-
-
   # TODO dry
   $scope.addAccessory = (element) ->
     $scope.$apply ($scope) ->
@@ -217,6 +231,15 @@ ModelsEditCtrl = ($scope, $location, $routeParams, Model) ->
   # TODO dry
   $scope.removeAccessory = (element)->
     $scope.model.accessories = _.reject $scope.model.accessories, (accessory)-> accessory is element.accessory
+
+  # TODO dry
+  $scope.addProperty = ()->
+    $scope.model.properties.unshift({key: "", value: ""})
+    setTimeout (-> $("input[name='key']:first").focus()), 100
+
+  # TODO dry
+  $scope.removeProperty = (el)->
+    $scope.model.properties = _.reject $scope.model.properties, (p)-> p is el.property
 
 ModelsCreateCtrl.$inject = ['$scope', '$location', '$routeParams', 'Model'];
 ModelsEditCtrl.$inject = ['$scope', '$location', '$routeParams', 'Model'];

@@ -84,6 +84,9 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
+msgid "Add %s"
+msgstr ""
+
 msgid "Add Model"
 msgstr ""
 
@@ -618,6 +621,9 @@ msgid "Item taken back"
 msgstr ""
 
 msgid "Items"
+msgstr ""
+
+msgid "Key"
 msgstr ""
 
 msgid "Kind regards,"
@@ -1664,6 +1670,12 @@ msgid "more"
 msgstr ""
 
 msgid "more properties"
+msgstr ""
+
+msgid "Property"
+msgstr ""
+
+msgid "Properties"
 msgstr ""
 
 msgid "no image"

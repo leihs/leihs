@@ -172,6 +172,10 @@ window.i18n.locale_data = {
          null,
          "Hinzufügen"
       ],
+      "Add %s": [
+         null,
+         "%s hinzufügen"
+      ],
       "Add Model": [
          null,
          "Modell hinzufügen"
@@ -876,6 +880,10 @@ window.i18n.locale_data = {
       "Items": [
          null,
          "Gegenstände"
+      ],
+      "Key": [
+         null,
+         "Schlüssel"
       ],
       "Kind regards,": [
          null,
@@ -2214,6 +2222,10 @@ window.i18n.locale_data = {
          null,
          "mehr Eigenschaften"
       ],
+      "Property": [
+         null,
+         "Eigenschaft"
+      ],
       "no image": [
          null,
          "Kein Bild"
@@ -2513,6 +2525,10 @@ window.i18n.locale_data = {
       "Model|Images|File content type": [
          null,
          "Dateityp"
+      ],
+      "Item|Retired reason": [
+         null,
+         "Grund der Ausmusterung"
       ]
    }
 }

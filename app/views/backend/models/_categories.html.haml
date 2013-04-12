@@ -38,8 +38,11 @@
     end
   end
 
-%section{style: "margin-left: 1em;"}
+
+%section#model-categories
   .inner
     .field
-      %h3.key= _("Categories")
-      = simple_category_tree_root category_root[:children], (@model.try(:categories) || []).collect(&:id)
+      %h3.key= "#{_("Categories")}:"
+      .clear
+      %br
+      .indent= simple_category_tree_root category_root[:children], (@model.try(:categories) || []).collect(&:id)

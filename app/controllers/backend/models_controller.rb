@@ -106,7 +106,9 @@ class Backend::ModelsController < Backend::BackendController
           m = v.delete(:active) ? :inventory_pool_ids_add : :inventory_pool_ids_remove
           v[m] = current_inventory_pool.id
         end if params[:model][:accessories_attributes]
-
+        if params[:model][:properties_attributes]
+          @model.properties.destroy_all
+        end
         if @model.update_attributes(params[:model])
           show({:preset => :model})
         else

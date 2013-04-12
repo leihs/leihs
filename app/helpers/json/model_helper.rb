@@ -19,7 +19,7 @@ module Json
         end
         
         if with[:properties]
-          with[:properties] = model.properties.as_json # TODO
+          h[:properties] = model.properties.as_json # TODO
         end
 
         if with[:items] and model.respond_to? :items

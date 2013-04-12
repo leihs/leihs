@@ -56,7 +56,7 @@
               %textarea{"ng-model" => "model.hand_over_note"}
             .readonly{"ng-switch-when" => "false"}
               %span {{model.hand_over_note}}
-
+      
   .right
     %section
       .inner
@@ -139,10 +139,31 @@
                   %input{type: "checkbox", "ng-model" => "accessory.active"}
                   {{accessory.name}}
                 %a.clickable.floatright{"ng-click" => "removeAccessory(this)"} {{_jed("delete")}}
-
+      %br
+        .inner.properties
+          .field
+            %div
+              %h3.key {{_jed("Properties")}}:
+              .value{"ng-switch" => "model.is_editable"}
+                .input{"ng-switch-when" => "true"}
+                  %a#add-property.button.white.small.add-button{:"ng-click" => "addProperty()"} {{_jed("Add %s", _jed("Property"))}}
+                  .clear
+                .readonly{"ng-switch-when" => "false"}
+              .clear
+            %ul{:"ui-sortable" => "", :"ng-model" => "model.properties"}
+              %li.field-inline-entry{"ng-repeat" => "property in model.properties", "ng-class" => "{tobedeleted: property._destroy}"}
+                .movetoggle &#8597;
+                %span{"ng-switch" => "!!property.id"}
+                  %span{"ng-switch-when" => "true"}
+                    %input{:type => :text, :"ng-model" => "property.key", "ng-class" => "{tobedeleted: property._destroy}", :"ng-disabled" => "property._destroy"}
+                    %input{:type => :text, :"ng-model" => "property.value", "ng-class" => "{tobedeleted: property._destroy}", :"ng-disabled" => "property._destroy"}
+                    %a.clickable.floatright{"ng-click" => "removeProperty(this)"} x
+                    .clear
+                  %span{"ng-switch-when" => "false"}
+                    %input{:name => "key", :type => :text, :"ng-model" => "property.key", :placeholder => '{{_jed("Key")}}'}
+                    %input{:type => :text, :"ng-model" => "property.value", :placeholder => '{{_jed("Value")}}'}
+                    %a.clickable.floatright{"ng-click" => "removeProperty(this)"} x
 
   .clear
   %span.loading{"ng-show" => "isLoading"}
     %img.loading.icon{:src => "/assets/loading.gif"}
-
-
