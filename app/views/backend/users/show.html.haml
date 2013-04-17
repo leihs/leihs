@@ -28,6 +28,10 @@
     %td= @user.phone
   
   %tr
+    %th= _("Unique ID") + ":"
+    %td= @user.unique_id
+
+  %tr
     %th= _("Badge ID") + ":"
     %td
       = render :partial => "badge_id_form", :locals => { :user => @user }
