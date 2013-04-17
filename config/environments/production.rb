@@ -63,13 +63,5 @@ end
 ###################################################
 #rails3#
 
-# Configuration for ActionMailer
-ActionMailer::Base.smtp_settings = {
-  :address => "smtp.zhdk.ch",
-  :port => 25,
-  :domain => "ausleihe.zhdk.ch"
-}
-ActionMailer::Base.default :charset => 'utf-8'
-
 # For some reason, this setting does not propagate from environment.rb
 ENV['INLINEDIR'] = "#{Rails.root}/tmp/"
