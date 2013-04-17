@@ -8,6 +8,7 @@ ModelsCreateCtrl = ($scope, $location, $routeParams, Model) ->
     attachments: []
     images: []
     properties: []
+    compatibles: []
   $scope.model.is_editable = true #tmp# TODO remove this when using permissions
 
   # TODO dry
@@ -74,6 +75,7 @@ ModelsCreateCtrl = ($scope, $location, $routeParams, Model) ->
         accessories_attributes: $.extend({}, $scope.model.accessories)
         category_ids: $.unique($(".simple_tree input[type='checkbox']:checked").map(()-> return this.value ).toArray())
         properties_attributes: $.extend({}, _.map $scope.model.properties, (p)->{key: p.key, value: p.value})
+        compatibles_attributes: $.extend([], _.map $scope.model.compatibles, (p)->{id: p.id})
     , (response) ->
       window.location = "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/models"
     , (response) ->
@@ -114,6 +116,13 @@ ModelsCreateCtrl = ($scope, $location, $routeParams, Model) ->
   $scope.addProperty = ()->
     $scope.model.properties.unshift({key: "", value: ""})
     setTimeout (-> $("input[name='key']:first").focus()), 100
+
+  $scope.addCompatible = (element) ->
+    $scope.$apply ($scope) ->
+      $scope.model.compatibles.push element.item
+
+  $scope.removeCompatible = (element)->
+    $scope.model.compatibles = _.reject $scope.model.compatibles, (compatible)-> compatible is element.compatible
 
   # # TODO dry
   # $scope.removeProperty = (property)->
@@ -196,6 +205,7 @@ ModelsEditCtrl = ($scope, $location, $routeParams, Model) ->
         accessories_attributes: $.extend({}, $scope.model.accessories)
         category_ids: $.unique($(".simple_tree input[type='checkbox']:checked").map(()-> return this.value ).toArray())
         properties_attributes: $.extend({}, _.map $scope.model.properties, (p)->{key: p.key, value: p.value})
+        compatibles_attributes: $.extend([], _.map $scope.model.compatibles, (p)->{id: p.id})
     , (response) ->
       window.location = "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/models"
     , (response) ->
@@ -241,8 +251,15 @@ ModelsEditCtrl = ($scope, $location, $routeParams, Model) ->
   $scope.removeProperty = (el)->
     $scope.model.properties = _.reject $scope.model.properties, (p)-> p is el.property
 
-ModelsCreateCtrl.$inject = ['$scope', '$location', '$routeParams', 'Model'];
-ModelsEditCtrl.$inject = ['$scope', '$location', '$routeParams', 'Model'];
+  $scope.addCompatible = (element) ->
+    $scope.$apply ($scope) ->
+      $scope.model.compatibles.push element.item
+
+  $scope.removeCompatible = (element)->
+    $scope.model.compatibles = _.reject $scope.model.compatibles, (compatible)-> compatible is element.compatible
+
+ModelsCreateCtrl.$inject = ['$scope', '$location', '$routeParams', 'Model']
+ModelsEditCtrl.$inject = ['$scope', '$location', '$routeParams', 'Model']
 
 # exports
 root = global ? window

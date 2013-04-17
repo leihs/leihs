@@ -197,6 +197,7 @@ module Persona
       @helicopter_model.properties << Property.create(:key => "Rotorduchmesser", :value => "120")
       @helicopter_model.properties << Property.create(:key => "Akkus", :value => "2")
       @helicopter_model.properties << Property.create(:key => "Farbe", :value => "Rot")
+      @helicopter_model.compatibles << @windows_laptop_model
     end
 
     def setup_retired

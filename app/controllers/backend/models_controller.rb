@@ -83,7 +83,10 @@ class Backend::ModelsController < Backend::BackendController
         end if params[:model][:accessories_attributes]
 
         category_ids = params[:model].delete(:category_ids)
+        @compatibles = params[:model].delete(:compatibles_attributes) if params[:model].has_key? :compatibles_attributes
+
         @model = Model.create(params[:model])
+        handle_compatibles
         @model.update_attributes(:category_ids => category_ids) if category_ids
 
         if @model.valid?
@@ -106,9 +109,14 @@ class Backend::ModelsController < Backend::BackendController
           m = v.delete(:active) ? :inventory_pool_ids_add : :inventory_pool_ids_remove
           v[m] = current_inventory_pool.id
         end if params[:model][:accessories_attributes]
+
         if params[:model][:properties_attributes]
           @model.properties.destroy_all
         end
+
+        @compatibles = params[:model].delete(:compatibles_attributes) if params[:model].has_key? :compatibles_attributes
+        handle_compatibles
+
         if @model.update_attributes(params[:model])
           show({:preset => :model})
         else
@@ -127,7 +135,18 @@ class Backend::ModelsController < Backend::BackendController
         redirect_to :action => 'index', :model_id => @model
     end
   end
-  
+
+#################################################################
+
+  def handle_compatibles
+    @model.compatibles.destroy_all
+    if @compatibles
+      @compatibles.each do |compatible|
+        @model.compatibles << Model.find_by_id(compatible[:id])
+      end
+    end
+  end
+
 #################################################################
 
   def details

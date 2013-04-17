@@ -163,6 +163,28 @@
                     %input{:name => "key", :type => :text, :"ng-model" => "property.key", :placeholder => '{{_jed("Key")}}'}
                     %input{:type => :text, :"ng-model" => "property.value", :placeholder => '{{_jed("Value")}}'}
                     %a.clickable.floatright{"ng-click" => "removeProperty(this)"} x
+      %br
+      .inner
+        .field
+          %div
+            %h3.key {{_jed("Compatibles")}}:
+            .value
+              .input
+                %label.container
+                  %input.autocomplete{:type => "text",
+                                      :placeholder => "Modell",
+                                      :title => "Modell",
+                                      :data => { :autocomplete_element_tmpl => "tmpl/autocomplete/generic",
+                                                 :autocomplete_search_attr => 'query',
+                                                 :url => "/backend/inventory_pools/{{currentInventoryPool.id}}/models",
+                                                 :autocomplete_display_attribute => "name",
+                                                 :autocomplete_select_callback => "angular.element(el).scope().addCompatible",
+                                                 :autocomplete_clear_input_value_on_select => "true",
+                                                 :autocomplete_blur_on_select => "true" }}
+            .clear
+          %div.field-inline-entry{"ng-repeat" => "compatible in model.compatibles"}
+            {{compatible.name}}
+            %label.clickable.floatright{"ng-click" => "removeCompatible(this)"} {{_jed("delete")}}
 
   .clear
   %span.loading{"ng-show" => "isLoading"}

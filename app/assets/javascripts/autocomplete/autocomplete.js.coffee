@@ -85,12 +85,16 @@ class AutoComplete
         response entries
 
   select: (event, element)=>
-    @el.val element.item[@data.autocomplete_display_attribute]
+    if @data.autocomplete_clear_input_value_on_select is true
+      @el.val ""
+    else
+      @el.val element.item[@data.autocomplete_display_attribute]
     @el.autocomplete("close")
     value = if @data.autocomplete_value_attribute? then element.item[@data.autocomplete_value_attribute] else element.item.value
     if @data.autocomplete_value_target?
       $("input[name='#{@data.autocomplete_value_target}']").val(value).change()
     if @data.autocomplete_select_callback?
+      el = $(event.currentTarget)
       callback = eval @data.autocomplete_select_callback
       if callback?
         callback(element, event)

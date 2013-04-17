@@ -37,7 +37,8 @@ app = angular.module("Leihs", ['users', 'models', 'options', 'categories', 'filt
     $rootElement.off('click')
 ]).run(['$rootScope', ($rootScope)->
     $rootScope._jed = (args...)->
-        _jed.apply(this, args)
+      _jed.apply(this, args)
+    $rootScope.currentInventoryPool = currentInventoryPool
     $rootScope.i18n = i18n
 ])
 

@@ -102,9 +102,9 @@ Funktionalität: Modell
   @javascript
   Szenario: sich ergänzende Modelle hinzufügen (kompatibel)
     Angenommen man öffnet die Liste der Modelle
-    Wenn ich das Modell öffne
+    Wenn ich ein bestehendes Modell bearbeite
     Und ich ein ergänzendes Modell mittel Autocomplete Feld hinzufüge
-    Und ich speichere
+    Und ich speichere die Informationen
     Dann ist dem Modell das ergänzende Modell hinzugefügt worden
 
   @javascript
@@ -112,7 +112,5 @@ Funktionalität: Modell
     Angenommen man öffnet die Liste der Modelle
     Wenn ich ein Modell öffne, das bereits ergänzende Modelle hat
     Und ich ein ergänzendes Modell entferne
-    Und ich speichere
+    Und ich speichere die Informationen
     Dann ist das Modell ohne das gelöschte ergänzende Modell gespeichert
-
-

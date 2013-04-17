@@ -35,6 +35,10 @@ module Json
           h[:categories] = model.categories.as_json # TODO
         end
 
+        if with[:compatibles]
+          h[:compatibles] = hash_for model.compatibles
+        end
+
         if with[:images] and model.respond_to? :images
           h[:images] = model.images.as_json(:methods => [:public_filename, :public_filename_thumb]) # TODO
         end

@@ -92,19 +92,8 @@ class Model < ActiveRecord::Base
                           :class_name => "Model",
                           :join_table => "models_compatibles",
                           :foreign_key => "model_id",
-                          :association_foreign_key => "compatible_id",
-                     #TODO :insert_sql => "INSERT INTO models_compatibles (model_id, compatible_id)
-                     #                 VALUES (#{id}, #{record.id}), (#{record.id}, #{id})" 
-                          :after_add => [:add_bidirectional_compatibility],
-                          :after_remove => [:remove_bidirectional_compatibility]
-  def add_bidirectional_compatibility(compatible)
-    compatible.compatibles << self unless compatible.compatibles.include?(self)
-  end
-  
-  def remove_bidirectional_compatibility(compatible)
-    compatible.compatibles.delete(self) if compatible.compatibles.include?(self)
-  end
-  
+                          :association_foreign_key => "compatible_id"
+
 #############################################  
 
   validates_presence_of :name

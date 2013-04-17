@@ -110,6 +110,7 @@ module Json
           {:is_editable => true,
            :description => true,
            :technical_detail => true,
+           :compatibles => {},
            :internal_description => true,
            :hand_over_note => true,
            :images => {},
