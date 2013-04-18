@@ -28,3 +28,4 @@ doc/diagrams/generated/captures.dot
 .idea/
 chrome*
 public/attachments/*
+Gemfile.local*
