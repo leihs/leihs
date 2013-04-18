@@ -33,6 +33,17 @@ zhdk. Please run the existing tests (rake leihs:test) before sending the request
 If you want our extra special thanks, also include tests for your own new code.
 
 
+## Contributors
+
+The following people have contributed code to this project:
+
+* Sebastian Pape
+* Franco Sellitto
+* Tomáš Pospíšek
+* Ramón Cahenzli
+* Jerome Müller
+* Matus Kmit
+
 
 ## Copyright and license
 
