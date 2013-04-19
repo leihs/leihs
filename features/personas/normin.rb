@@ -24,6 +24,7 @@ module Persona
         create_orders
         create_unsigned_contracts
         create_signed_contracts
+        lend_package
       end
     end
     
@@ -83,6 +84,14 @@ module Persona
       @group_cast = Group.find_by_name("Cast")
       @group_cast.users << @user
       @group_cast.save
+    end
+
+    def lend_package
+      contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool)
+      purpose = FactoryGirl.create :purpose, :description => "Paketausgabe"
+      package_item =  @inventory_pool.items.detect{|i| i.children.size > 0}
+      FactoryGirl.create(:contract_line, :purpose => purpose, :contract => contract, :item_id => package_item.id, :model => package_item.model, :start_date => Date.yesterday, :end_date => Date.tomorrow)
+      contract.sign(@pius)
     end
   end  
 end

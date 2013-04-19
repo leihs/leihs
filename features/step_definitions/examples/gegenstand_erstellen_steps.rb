@@ -44,7 +44,7 @@ Angenommen /^man navigiert zur Gegenstandserstellungsseite$/ do
   visit new_backend_inventory_pool_item_path(@current_inventory_pool)
 end
 
-Wenn /^ich alle Informationen erfasse, fuer die ich berechtigt bin$/ do |table|
+Wenn /^ich die folgenden Informationen erfasse$/ do |table|
   @table_hashes = table.hashes
 
   @table_hashes.each do |hash_row|
@@ -54,18 +54,18 @@ Wenn /^ich alle Informationen erfasse, fuer die ich berechtigt bin$/ do |table|
 
     case field_type
     when "radio must"
-      find(".field", text: field_name).find("input[value='#{field_value}']").set true
+      all("form").last.find(".field", text: field_name).find("input[value='#{field_value}']").set true
     when "checkbox"
-      find(".field", text: field_name).find("input").set true if field_value == "checked"
+      all("form").last.find(".field", text: field_name).find("input").set true if field_value == "checked"
     when "select"
-      find(".field", text: field_name).select field_value
+      all("form").last.find(".field", text: field_name).select field_value
     when "autocomplete"
-      find(".field", text: field_name).find("input").set field_value
-      find(".field", text: field_name).find("input").click
+      all("form").last.find(".field", text: field_name).find("input").set field_value
+      all("form").last.find(".field", text: field_name).find("input").click
       wait_until {not all("a", text: field_value).empty?}
-      find(".field", text: field_name).find("a", text: field_value).click
+      all("form").last.find(".field", text: field_name).find("a", text: field_value).click
     else
-      find(".field", text: field_name).find("input,textarea").set field_value
+      all("form").last.find(".field", text: field_name).find("input,textarea").set field_value
     end
   end
 end
@@ -82,22 +82,24 @@ Dann /^ist der Gegenstand mit all den angegebenen Informationen erstellt$/ do
   find(".toggle .icon").click
   find(".button", text: 'Gegenstand editieren').click
 
+  step 'hat der Gegenstand alle zuvor eingetragenen Werte'
+end
+
+Dann /^hat der Gegenstand alle zuvor eingetragenen Werte$/ do
   @table_hashes.each do |hash_row|
     field_name = hash_row["Feldname"]
     field_value = hash_row["Wert"]
     field_type = hash_row["Type"]
 
-    within find(".field", text: field_name) do
-      case field_type
-      when "autocomplete"
-        find("input,textarea").value.should == (field_value != "Keine/r" ? field_value : "")
-      when "select"
-        all("option").detect(&:selected?).text.should == field_value
-      when "radio must"
-        find("input[checked][type='radio']").value.should == field_value
-      when ""
-        find("input,textarea").value.should == field_value
-      end
+    case field_type
+    when "autocomplete"
+      all("form").last.find(".field", text: field_name).find("input,textarea").value.should == (field_value != "Keine/r" ? field_value : "")
+    when "select"
+      all("form").last.find(".field", text: field_name).all("option").detect(&:selected?).text.should == field_value
+    when "radio must"
+      all("form").last.find(".field", text: field_name).find("input[checked][type='radio']").value.should == field_value
+    when ""
+      all("form").last.find(".field", text: field_name).find("input,textarea").value.should == field_value
     end
   end
 end

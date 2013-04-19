@@ -9,8 +9,8 @@ module Json
         manufacturer: model.manufacturer
       }
 
-      if model.is_package
-        h[:package_models] = hash_for model.package_models
+      if with and with[:is_package]
+        h[:is_package] = model.is_package?
       end
       
       if with ||= nil

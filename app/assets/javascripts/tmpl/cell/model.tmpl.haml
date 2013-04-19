@@ -1,20 +1,6 @@
-{{if model.package_models}}
-%li.name.hastip
-  %strong{:title => "${model.name}"} ${Str.sliced_trunc(model.name, 62)}
-  .package.icon
-  .tip.lines
-    %table
-      {{each(i, model) model.package_models}}
-      %tr
-        %td.model_name
-          {{if model}}
-          ${model.name}
-          {{else}}
-          %i ${_jed("unknown Model")}
-          {{/if}}
-      {{/each}}  
-{{else}}
 %li.name
   %strong{:title => "${model.name}"} ${Str.sliced_trunc(model.name, 62)}
-{{/if}}
+  {{if model.is_package}}
+  .package.icon
+  {{/if}}
   

@@ -23,11 +23,13 @@
       {{if is_package}}
       .package.icon{:title => "${_jed('this is a package')}"}
       {{/if}}
-      
+    
+    {{if $item.data.total_rentable_in_stock != undefined}}
     %li.availability
       ${total_rentable_in_stock} ${_jed('in stock')}
       = "/"
       ${total_rentable} ${_jed('rentable')}
+    {{/if}}
   
   .actions    
     %li.actions

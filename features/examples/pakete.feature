@@ -2,56 +2,93 @@
 
 Funktionalität: Modell mit Paketen erstellen
 
+  Grundlage:
+    Angenommen Personas existieren
+    Und man ist "Mike"
+    Und man öffnet die Liste des Inventars
+
+  @javascript
   Szenario: Modell mit Paketzuteilung erstellen
-    Wenn Ich ein Modell erstelle 
+    Wenn ich ein neues Modell hinzufüge
     Und ich mindestens die Pflichtfelder ausfülle
-    Und Ich eines oder mehrere Pakete hinzufüge
+    Und ich eines oder mehrere Pakete hinzufüge
     Und ich diesem Paket eines oder mehrere Gegenstände hinzufügen
-    Und ich das Modell speichere
+    Und ich das Paket und das Modell speichere
     Dann ist das Modell erstellt und die Pakete und dessen zugeteilten Gegenstände gespeichert
     Und den Paketen wird ein Inventarcode zugewiesen
 
+  @javascript
   Szenario: Modell mit bereits vorhandenen Gegenständen kann kein Paket zugewiesen werden
-    Wenn Ich ein Modell editiere, welches bereits Gegenstände hat
+    Wenn ich ein Modell editiere, welches bereits Pakete hat
     Dann kann ich diesem Modell keine Pakete mehr zuweisen
 
-  Szenario: Paketeigenschaften abfüllen
-    Wenn ich dem Modell ein Paket hinzufüge
-    Dann werden die folgenden Felder angezeigt
-    | Zustand | 
-    | Vollständigkeit | 
-    | Ausleihbar | 
-    | Braucht Ausleihbewilligung | 
-    | Inventarrelevant | 
-    | Besitzer | 
-    | Verantwortliche Abteilung | 
-    | Verantwortliche Person | 
-    | Benutzer/Verwendung | 
-    | Umzug | 
-    | Zielraum | 
-    | Ankunftsdatum | 
-    | Ankunftsdatum | 
-    | Ankunftsdatum | 
-    | Name | 
-    | Notiz | 
-    | Gebäude | 
-    | Raum |  
-    | Gestell | 
-    | Anschaffungswert |
+  @javascript
+  Szenario: Paketeigenschaften abfüllen bei neu erstelltem Modell
+    Wenn ich einem Modell ein Paket hinzufüge
+    Und ich diesem Paket eines oder mehrere Gegenstände hinzufügen
+    Und ich die folgenden Informationen erfasse
+    | Feldname                     | Type         | Wert                          |
 
+    | Ausmusterung                 | checkbox     | unchecked                     |
+    | Zustand                      | radio        | OK                            |
+    | Vollständigkeit              | radio        | OK                            |
+    | Ausleihbar                   | radio        | OK                            |
+    | Inventarrelevant             | select       | Ja                            |
+    | Letzte Inventur              |              | 01.01.2013                    |
+    | Verantwortliche Abteilung    | autocomplete | A-Ausleihe                    |
+    | Verantwortliche Person       |              | Matus Kmit                    |
+    | Benutzer/Verwendung          |              | Test Verwendung               |
+    | Name                         |              | Test Name                     |
+    | Notiz                        |              | Test Notiz                    |
+    | Gebäude                      | autocomplete | Keine/r                       |
+    | Raum                         |              | Test Raum                     |
+    | Gestell                      |              | Test Gestell                  |
+    | Anschaffungswert             |              | 50.0                          |
+    Und ich das Paket und das Modell speichere
+    Dann besitzt das Paket alle angegebenen Informationen
+
+  @javascript
+  Szenario: Paketeigenschaften abfüllen bei existierendem Modell
+    Wenn ich ein Modell editiere, welches bereits Pakete hat
+    Und ich ein bestehendes Paket editiere
+    Und ich die folgenden Informationen erfasse
+    | Feldname                     | Type         | Wert                          |
+
+    | Ausmusterung                 | checkbox     | unchecked                     |
+    | Zustand                      | radio        | OK                            |
+    | Vollständigkeit              | radio        | OK                            |
+    | Ausleihbar                   | radio        | OK                            |
+    | Inventarrelevant             | select       | Ja                            |
+    | Letzte Inventur              |              | 01.01.2013                    |
+    | Verantwortliche Abteilung    | autocomplete | A-Ausleihe                    |
+    | Verantwortliche Person       |              | Matus Kmit                    |
+    | Benutzer/Verwendung          |              | Test Verwendung               |
+    | Name                         |              | Test Name                     |
+    | Notiz                        |              | Test Notiz                    |
+    | Gebäude                      | autocomplete | Keine/r                       |
+    | Raum                         |              | Test Raum                     |
+    | Gestell                      |              | Test Gestell                  |
+    | Anschaffungswert             |              | 50.0                          |
+    Und ich das Paket und das Modell speichere
+    Dann besitzt das Paket alle angegebenen Informationen
+
+  @javascript
   Szenario: Paket löschen
     Wenn das Paket zurzeit nicht ausgeliehen ist 
     Dann kann ich das Paket löschen und die Gegenstände sind nicht mehr dem Paket zugeteilt
 
+  @javascript
+  Szenario: Paket löschen schlägt fehl wenn das Paket gerade ausgeliehen ist
+    Wenn das Paket zurzeit ausgeliehen ist 
+    Dann kann ich das Paket nicht löschen
+
+  @javascript
   Szenario: Pakete nicht ohne Gegenstände erstellen
     Wenn ich einem Modell ein Paket hinzufüge
     Dann kann ich dieses Paket nur speichern, wenn dem Paket auch Gegenstände zugeteilt sind
 
-  Szenario: Einzelner Gegenstand aus Paket entfernen
+  @javascript
+  Szenario: Einzelnen Gegenstand aus Paket entfernen
     Wenn ich ein Paket editiere
     Dann kann ich einen Gegenstand aus dem Paket entfernen
     Und dieser Gegenstand ist nicht mehr dem Paket zugeteilt
-
-
-
-

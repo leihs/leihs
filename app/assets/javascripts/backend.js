@@ -23,6 +23,7 @@
 //= require inventory_pool/inventory_pool
 //= require expandable_line/expandable_line
 //= require swap_user/swap_user
+//= require serializeObject/serializeObject
 
 //= require app/app
 

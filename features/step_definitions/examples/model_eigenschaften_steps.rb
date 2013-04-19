@@ -24,7 +24,7 @@ end
 
 Wenn /^ich die Eigenschaften sortiere$/ do
   find(".properties .ui-sortable") # real sorting is not possible with capybara/selenium
-  @properties = all(".properties li").map{|li| {:key => li.find("input").value, :value => li.all("input").last.value}}
+  @properties = all(".properties li").map{|li| {:key => li.find("input[ng-model='property.key']").value, :value => li.find("input[ng-model='property.value']").value}}
 end
 
 Dann /^sind die Eigenschaften gemäss Sortierreihenfolge für dieses Modell gespeichert$/ do
@@ -65,5 +65,5 @@ end
 
 Wenn /^ich eine oder mehrere bestehende Eigenschaften lösche$/ do
   find(".properties .clickable").click
-  @properties = all(".properties li:not(.tobedeleted)").map{|li| {:key => li.find("input").value, :value => li.all("input").last.value}}
+  @properties = all(".properties li:not(.tobedeleted)").map{|li| {:key => li.find("input[ng-model='property.key']").value, :value => li.find("input[ng-model='property.value']").value}}
 end

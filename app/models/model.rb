@@ -29,6 +29,8 @@ class Model < ActiveRecord::Base
   end
 
   has_many :items # NOTE these are only the active items (unretired), because Item has a default_scope
+  accepts_nested_attributes_for :items, :allow_destroy => true
+
   has_many :unretired_items, :class_name => "Item", :conditions => {:retired => nil} # TODO this is used by the filter
   #TODO  do we need a :all_items ??
   has_many :borrowable_items, :class_name => "Item", :conditions => {:retired => nil, :is_borrowable => true, :parent_id => nil}
@@ -75,16 +77,6 @@ class Model < ActiveRecord::Base
   has_many :model_groups, :through => :model_links, :uniq => true
   has_many :categories, :through => :model_links, :source => :model_group, :conditions => {:type => 'Category'}
   has_many :templates, :through => :model_links, :source => :model_group, :conditions => {:type => 'Template'}
-  
-  # Packages
-  has_many :package_items, :through => :items, :source => :children
-  def package_models
-    # NOTE assuming all roots have the same children structure
-    items.each do |item|
-      return item.children.collect(&:model) unless item.children.empty?
-    end if is_package?
-    return []
-  end
 
 ########
   # says which other Model one Model works with

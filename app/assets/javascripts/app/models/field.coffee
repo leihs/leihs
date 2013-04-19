@@ -20,6 +20,7 @@ class Field
       @item = item
     else
       @editable = true
+      @value = @default if !@value? and @default?
     Field.fields[@id] = @
     @
 
@@ -99,7 +100,7 @@ class Field
 
   @getLabel: (values, value)-> 
     value = null if value == undefined
-    value = _.find(values, (v) -> v.value == value)
+    value = _.find(values, (v) -> String(v.value) == value or v.value == value)
     if value
       value.label
     else

@@ -73,28 +73,43 @@ class Backend::ModelsController < Backend::BackendController
   end
   
   def create
-    not_authorized! unless is_privileged_user? # TODO before_filter for :create
-    respond_to do |format|
-      format.json {
-        # TODO DRY
-        params[:model][:accessories_attributes].each_pair do |k, v|
-          m = v.delete(:active) ? :inventory_pool_ids_add : :inventory_pool_ids_remove
-          v[m] = current_inventory_pool.id
-        end if params[:model][:accessories_attributes]
+    ActiveRecord::Base.transaction do
+      not_authorized! unless is_privileged_user? # TODO before_filter for :create
+      respond_to do |format|
+        format.json {
 
-        category_ids = params[:model].delete(:category_ids)
-        @compatibles = params[:model].delete(:compatibles_attributes) if params[:model].has_key? :compatibles_attributes
+          @model = Model.create(name: params[:model][:name])
 
-        @model = Model.create(params[:model])
-        handle_compatibles
-        @model.update_attributes(:category_ids => category_ids) if category_ids
+          # accessories
+          params[:model][:accessories_attributes].each_pair do |k, v|
+            m = v.delete(:active) ? :inventory_pool_ids_add : :inventory_pool_ids_remove
+            v[m] = current_inventory_pool.id
+          end if params[:model][:accessories_attributes]
+          # items
+          items = params[:model].delete(:items)
+          if items
+            @model.is_package = true
+            update_package_items items
+          end
+          # compatibles
+          if params[:model].has_key? :compatibles_attributes
+            @compatibles = params[:model].delete(:compatibles_attributes)
+            handle_compatibles
+          end
+          # categories
+          if params[:model].has_key? :category_ids
+            category_ids = params[:model].delete(:category_ids)    
+            @model.update_attributes(:category_ids => category_ids) if category_ids
+          end
 
-        if @model.valid?
-          show({:preset => :model})
-        else
-          render :text => @model.errors.full_messages.uniq.join(", "), :status => :bad_request
-        end
-      }
+          # model
+          if @model.update_attributes(params[:model])
+            show({:preset => :model})
+          else
+            render :text => @model.errors.full_messages.uniq.join(", "), :status => :bad_request
+          end
+        }
+      end
     end
   end
 
@@ -102,27 +117,36 @@ class Backend::ModelsController < Backend::BackendController
   end
 
   def update
-    respond_to do |format|
-      format.json {
-        # TODO DRY
-        params[:model][:accessories_attributes].each_pair do |k, v|
-          m = v.delete(:active) ? :inventory_pool_ids_add : :inventory_pool_ids_remove
-          v[m] = current_inventory_pool.id
-        end if params[:model][:accessories_attributes]
-
-        if params[:model][:properties_attributes]
-          @model.properties.destroy_all
-        end
-
-        @compatibles = params[:model].delete(:compatibles_attributes) if params[:model].has_key? :compatibles_attributes
-        handle_compatibles
-
-        if @model.update_attributes(params[:model])
-          show({:preset => :model})
-        else
-          render :text => @model.errors.full_messages.uniq.join(", "), :status => :bad_request
-        end
-      }
+    ActiveRecord::Base.transaction do
+      respond_to do |format|
+        format.json {
+          # accessories
+          params[:model][:accessories_attributes].each_pair do |k, v|
+            m = v.delete(:active) ? :inventory_pool_ids_add : :inventory_pool_ids_remove
+            v[m] = current_inventory_pool.id
+          end if params[:model][:accessories_attributes]
+          # properties
+          if params[:model].has_key?(:properties_attributes)
+            @model.properties.destroy_all
+          end
+          # items
+          items = params[:model].delete(:items)
+          if items and @model.is_package?
+            update_package_items items
+          end
+          # compatibles
+          if params[:model].has_key? :compatibles_attributes
+            @compatibles = params[:model].delete(:compatibles_attributes)
+            handle_compatibles
+          end
+          # model
+          if @model.update_attributes(params[:model])
+            show({:preset => :model})
+          else
+            render :text => @model.errors.full_messages.uniq.join(", "), :status => :bad_request
+          end
+        }
+      end
     end
   end
 
@@ -269,6 +293,42 @@ class Backend::ModelsController < Backend::BackendController
   def timeline
     respond_to do |format|
       format.html { render :layout => false}
+    end
+  end
+
+  private #######
+
+  def update_package_items(items)
+    items.each do |item|
+
+      item.delete :inventory_code
+      children = item.delete :children
+
+      if item["id"].blank?
+        package = Item.create(:inventory_code => "P-#{Item.proposed_inventory_code(current_inventory_pool)}",
+                              :owner_id => current_inventory_pool.id,
+                              :model => @model)
+        children.each do |child|
+          package.children << Item.find_by_id(child["id"])
+        end
+      else
+        package = Item.find_by_id(item["id"])
+        item.delete :id
+        if item["_destroy"]
+          package.destroy()
+          next
+        elsif package
+          package.children = []
+          if children
+            children.each do |child|
+              package.children << Item.find_by_id(child["id"])
+            end
+          end
+        end
+      end
+
+      package.update_attributes item
+      package.save!
     end
   end
 

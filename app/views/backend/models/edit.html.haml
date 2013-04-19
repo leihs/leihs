@@ -2,3 +2,6 @@
 
 .innercontent
   = render partial: "categories"
+
+:coffeescript
+  window.Fields = #{json_for Field.accessible_by(current_user, current_inventory_pool)}

@@ -60,6 +60,7 @@
     display: block
     float: left
     width: 50%
+    @include box-sizing(border-box)
   
   .left section
     margin-right: 5px
@@ -92,6 +93,7 @@
       display: inline-block
       padding: 6px 0
       width: 100%
+      @include box-sizing(border-box)
 
       &:first-child
         @include top-border-radius(6px)
@@ -154,6 +156,7 @@
 
         input[type=text], textarea
           width: 90%
+          @include box-sizing(border-box)
 
         select
           width: 96%
@@ -163,7 +166,7 @@
           width: 95% !important
 
           &+.arrow.icon
-            right: -12px
+            right: 17px
 
   &.error
   

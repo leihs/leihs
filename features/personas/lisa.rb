@@ -69,7 +69,9 @@ module Persona
       quantity = 1 + availabilities.changes.first.second[nil][:in_quantity]
       @unsigned_contract_1 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool)
       @unsigned_contract_1_purpose = FactoryGirl.create :purpose, :description => "Ganz dringend benötigt für meine Abschlussarbeit."
-      FactoryGirl.create(:contract_line, :purpose => @unsigned_contract_1_purpose, :contract => @unsigned_contract_1, :model => @model, :quantity => quantity)
+      quantity.times do 
+        FactoryGirl.create(:contract_line, :purpose => @unsigned_contract_1_purpose, :contract => @unsigned_contract_1, :model => @model)
+      end
     end
 
     def create_overdued_take_back

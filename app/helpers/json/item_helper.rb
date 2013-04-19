@@ -30,7 +30,11 @@ module Json
          :user_name].each do |k|
           h[k] = item.send(k) if with[k]
         end
-      
+        
+        if with[:in_stock]
+          h[:in_stock] = item.in_stock?
+        end
+
         if with[:retired]
           h[:retired] = ! item.retired.nil?
         end

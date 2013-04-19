@@ -81,7 +81,7 @@ module Persona
       setup_options
       
       setup_templates
-      setup_package
+      setup_packages
       
       setup_not_borrowable
       setup_retired
@@ -111,6 +111,11 @@ module Persona
       @beamer_model.model_links.create :model_group => @portable_subcategory
       @beamer_item = FactoryGirl.create(:item, :inventory_code => "beam123", :serial_number => "xyz456", name: "name123", :model => @beamer_model, :location => @location, :owner => @inventory_pool)
       @beamer_item2 = FactoryGirl.create(:item, :inventory_code => "beam345", :serial_number => "xyz890", :model => @beamer_model, :location => @location, :owner => @inventory_pool)
+
+      @beamer_model2 = FactoryGirl.create(:model, :name => "Sharp Beamer 2D",
+                                          :manufacturer => "Sharp", 
+                                          :description => "Beamer, geeignet für alle Verwendungszwecke.", 
+                                          :maintenance_period => 0)
     end
     
     def setup_cameras
@@ -159,8 +164,9 @@ module Persona
       FactoryGirl.create(:model_link, :model_group => @camera_tripod_template, :model => @tripod_model, :quantity => 1)      
     end   
     
-    def setup_package
+    def setup_packages
       @camera_package = FactoryGirl.create(:package_with_items, :inventory_pool => @inventory_pool, :name => "Kamera Set")
+      @camera_package2 = FactoryGirl.create(:package_with_items, :inventory_pool => @inventory_pool, :name => "Kamera Set2")
     end
     
     def setup_not_borrowable

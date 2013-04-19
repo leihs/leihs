@@ -10,12 +10,10 @@ class ModelsController
     @pagination = @el.find(".pagination_container")
     @search = @el.find(".navigation .search input[type=text]")
     @filters = @el.find(".filter input[data-filter]")
-    @responsibles = @el.find(".responsible select")
     @tabs = @el.find(".inlinetabs")
     @csv_button = @el.find(".navigation .export_csv.button")
     do @setup_state
     do @delegateEvents
-    do @fetch_responsibles
     do @fetch_models
     do @plugin
     
@@ -33,27 +31,6 @@ class ModelsController
     @list.append $.tmpl "tmpl/line", data
     @list.find(".toggle[data-toggle_target]").expandable_line()
     
-  setup_responsibles: (data)=>
-    tmpl = $.tmpl "app/views/inventory/_responsibles", {responsibles: data}
-    if @list.find(".select.responsible").length
-      @list.find(".select.responsible").replaceWith tmpl
-    else
-      @list.find(".navigation .filter").prepend tmpl
-    @list.find(".navigation select").custom_select
-      postfix: "<div class='icon arrow down'></div>"
-      text_handler: (text)-> Str.sliced_trunc(text, 22)
-    @responsibles = @el.find(".responsible select")
-    do @select_responsible
-    @responsibles.on "change", @fetch_models
-  
-  select_responsible: =>
-    if @filter.responsible_id?
-      @responsibles.find("option").each (i,el)=> 
-        if parseInt(@filter.responsible_id) == parseInt($(el).data("responsible_id"))
-          $(el).attr("selected",true).change()
-    else
-      @responsibles.find("option:first").attr("selected",true).change()
-    
   no_items_found: => @list.append $.tmpl "app/views/inventory/_no_entries_found"
   
   paginate: (page)=>
@@ -61,20 +38,10 @@ class ModelsController
     do @fetch_models
     return false
   
-  fetch_responsibles: =>
-    $.ajax
-      url: "/backend/inventory_pools/#{currentInventoryPool.id}/models.json"
-      type: 'GET'
-      data:
-        responsibles: true 
-      success: (data) => @setup_responsibles data.responsibles
-  
   fetch_models: =>
     @list.append @loading
     @fetcher.abort() if @fetcher?
     @filter.flags = _.map @list.find(".filter input:checked"), (filter)-> $(filter).data("filter")
-    responsible_id = @responsibles.find("option:selected").data("responsible_id")
-    @filter.responsible_id = responsible_id if responsible_id?
     @query = if @search.val().length then @search.val() else undefined
     @tab_data = @active_tab.data("tab") if @active_tab?
     data = 
@@ -118,8 +85,6 @@ class ModelsController
     else
       @filters.each (i,el)=> $(el).attr "checked", false
     if state.query? then @search.val(state.query) else @search.val("")
-    @filter.responsible_id =state.responsible_id if state.responsible_id?
-    do @select_responsible
   
   read_state: =>
     state_as_array = window.location.hash.replace(/^#\//, "").split("/")
@@ -145,7 +110,6 @@ class ModelsController
     state.page = @current_page
     state.query = @search.val() if @search.val().length
     state.tab = @active_tab.data("tab") if @active_tab?
-    state.responsible_id = @filter.responsible_id if @filter.responsible_id
     state.flags = @filter.flags.join(",") if @filter.flags.length
     return state
 

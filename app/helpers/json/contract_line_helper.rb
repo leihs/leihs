@@ -2,17 +2,6 @@ module Json
   module ContractLineHelper
 
     def hash_for_contract_line(line, with = nil)
-=begin
-      h = line.as_json
-      h[:model] = line.model.as_json(:methods => :package_models) # FIXME move package_models down to item_line ??
-      
-      if with ||= nil
-        if with[:contract]
-          h[:contract] = line.contract.as_json(:include => {:user => {:only => [:firstname, :lastname]}})
-          h[:type] = (line.contract.status_const == 1) ? "hand_over_line" : "take_back_line"
-        end
-      end
-=end
 
       h = {
             type: line.type.underscore,

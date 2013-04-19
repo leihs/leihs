@@ -62,7 +62,7 @@ Funktionalität: Gegenstand erstellen
   @javascript
   Szenario: Einen Gegenstand mit allen Informationen erstellen
     Angenommen man navigiert zur Gegenstandserstellungsseite
-    Wenn ich alle Informationen erfasse, fuer die ich berechtigt bin
+    Wenn ich die folgenden Informationen erfasse
     | Feldname                     | Type         | Wert                          |
 
     | Inventarcode                 |              | Test Inventory Code           |

@@ -412,9 +412,9 @@ window.i18n.locale_data = {
          null,
          "Geschlossen"
       ],
-      "Compatible successfully removed": [
+      "Compatibles": [
          null,
-         "Kompatibles Modell erfolgreich entfernt"
+         "Ergänzende Modelle"
       ],
       "Complete": [
          null,
@@ -727,6 +727,10 @@ window.i18n.locale_data = {
       "In Stock": [
          null,
          "An Lager"
+      ],
+      "not in stock": [
+         null,
+         "Nicht an Lager"
       ],
       "In Total": [
          null,
@@ -1049,6 +1053,10 @@ window.i18n.locale_data = {
          null,
          "Bestellende/n wechseln"
       ],
+      "New Package": [
+         null,
+         "Neues Paket"
+      ],
       "New item created.": [
          null,
          "Neuer Gegenstand erstellt."
@@ -1204,6 +1212,10 @@ window.i18n.locale_data = {
       "Package": [
          null,
          "Paket"
+      ],
+      "Packages": [
+         null,
+         "Pakete"
       ],
       "Package Code": [
          null,
@@ -1381,10 +1393,6 @@ window.i18n.locale_data = {
          null,
          "Verantwortliche Person"
       ],
-      "Copy Item": [
-         null,
-         "Gegenstand kopieren"
-      ],
       "Retire": [
          null,
          "Ausmustern"
@@ -1424,6 +1432,22 @@ window.i18n.locale_data = {
       "Save %s": [
          null,
          "%s speichern"
+      ],
+      "Save and copy": [
+         null,
+         "Speichern und kopieren"
+      ],
+      "Save and copy %s": [
+         null,
+         "%s speichern und kopieren"
+      ],
+      "Copy Item": [
+         null,
+         "Gegenstand kopieren"
+      ],
+      "Create copied item": [
+         null,
+         "Kopierten Gegenstand erstellen"
       ],
       "Save Changes": [
          null,
@@ -2230,6 +2254,10 @@ window.i18n.locale_data = {
          null,
          "Eigenschaft"
       ],
+      "Properties": [
+         null,
+         "Eigenschaften"
+      ],
       "no image": [
          null,
          "Kein Bild"
@@ -2533,6 +2561,10 @@ window.i18n.locale_data = {
       "Item|Retired reason": [
          null,
          "Grund der Ausmusterung"
+      ],
+      "You can not create a package without any item": [
+         null,
+         "Sie können kein Paket ohne Gegenstände erstellen"
       ]
    }
 }

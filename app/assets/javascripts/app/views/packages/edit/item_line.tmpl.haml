@@ -1,0 +1,13 @@
+%ul.line.item
+
+  .main
+
+    %li.inventory_code ${inventory_code}
+    %li.modelname ${model.name}
+
+  .actions  
+    %li.actions
+
+      %a{:class => "button red removeItem"}
+        .icon.delete
+        ${_jed("Remove")}

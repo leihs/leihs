@@ -274,8 +274,8 @@ msgstr "Datum für %{model} von %{from} auf %{to} gesetzt"
 msgid "Closed"
 msgstr "Geschlossen"
 
-msgid "Compatible successfully removed"
-msgstr "Kompatibles Modell erfolgreich entfernt"
+msgid "Compatibles"
+msgstr "Ergänzende Modelle"
 
 msgid "Complete"
 msgstr "Vollständig"
@@ -512,6 +512,9 @@ msgstr "Wichtige Notizen zur Aushändigung"
 
 msgid "In Stock"
 msgstr "An Lager"
+
+msgid "not in stock"
+msgstr "Nicht an Lager"
 
 msgid "In Total"
 msgstr "Insgesamt"
@@ -760,6 +763,9 @@ msgstr "Ausleihende/r wechseln"
 msgid "New Orderer"
 msgstr "Bestellende/n wechseln"
 
+msgid "New Package"
+msgstr "Neues Paket"
+
 msgid "New item created."
 msgstr "Neuer Gegenstand erstellt."
 
@@ -876,6 +882,9 @@ msgstr "Besitzer"
 
 msgid "Package"
 msgstr "Paket"
+
+msgid "Packages"
+msgstr "Pakete"
 
 msgid "Package Code"
 msgstr "Paketcode"
@@ -1986,3 +1995,6 @@ msgstr "Dateityp"
 
 msgid "Item|Retired reason"
 msgstr "Grund der Ausmusterung"
+
+msgid "You can not create a package without any item"
+msgstr "Sie können kein Paket ohne Gegenstände erstellen"

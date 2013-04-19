@@ -14,7 +14,6 @@ $(document).ready(function(){
   // hide hint on comment input and click
   $(".dialog textarea, .dialog input").live("keydown click mouseup", function() {
     $(this).next(".hint").fadeOut();
-    $(this).focus();
   });
   
   // focus input/textarea on click on hint

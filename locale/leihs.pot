@@ -272,6 +272,9 @@ msgstr ""
 msgid "Compatible successfully removed"
 msgstr ""
 
+msgid "Compatibles"
+msgstr ""
+
 msgid "Complete"
 msgstr ""
 
@@ -504,6 +507,9 @@ msgid "Important notes for hand over"
 msgstr ""
 
 msgid "In Stock"
+msgstr ""
+
+msgid "not in stock"
 msgstr ""
 
 msgid "In Total"
@@ -749,6 +755,9 @@ msgstr ""
 msgid "New Orderer"
 msgstr ""
 
+msgid "New Package"
+msgstr ""
+
 msgid "New item created."
 msgstr ""
 
@@ -864,6 +873,9 @@ msgid "Owner"
 msgstr ""
 
 msgid "Package"
+msgstr ""
+
+msgid "Packages"
 msgstr ""
 
 msgid "Package Code"
@@ -1916,4 +1928,7 @@ msgid "Model|Images|File content type"
 msgstr ""
 
 msgid "Item|Retired reason"
+msgstr ""
+
+msgid "You can not create a package without any item"
 msgstr ""

@@ -395,7 +395,7 @@ Und /^ich speichere die Informationen/ do
   @model_id = (Rails.application.routes.recognize_path current_path)[:id].to_i
   step 'I press "%s"' % (_("Save %s") % _("#{@model_name_from_url.capitalize}"))
   step "ensure there are no active requests"
-  #wait_until { all(".loading", :visible => true).empty? }
+  wait_until { all(".loading", :visible => true).empty? }
 end
 
 Dann /^ensure there are no active requests$/ do
@@ -516,7 +516,7 @@ end
 
 Dann /^kann ich ein einzelnes Zubehör löschen, wenn es für keinen anderen Pool aktiviert ist$/ do
   accessory_to_delete = @model.accessories.detect{|x| x.inventory_pools.count <= 1}
-  find(".field", :text => _("Accessories")).find(".field-inline-entry", :text => accessory_to_delete.name).find("label", :text => _("delete")).click
+  find(".field", :text => _("Accessories")).find(".field-inline-entry", :text => accessory_to_delete.name).find("label", :text => _("Delete")).click
   step 'ich speichere die Informationen'
   wait_until{all(".loading", :visible => true).size == 0}
   lambda{accessory_to_delete.reload}.should raise_error(ActiveRecord::RecordNotFound)

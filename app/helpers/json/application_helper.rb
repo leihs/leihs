@@ -62,7 +62,9 @@ module Json
     def get_with_preset(key)
       case key.to_sym
         when :modellist
-          {}
+          {
+            image_thumb: true
+          }
         when :item_edit
          { :current_borrower => true,
            :current_return_date => true,
@@ -108,12 +110,15 @@ module Json
            :categories => {}}
         when :model
           {:is_editable => true,
+           :is_package => true,
            :description => true,
            :technical_detail => true,
            :compatibles => {},
            :internal_description => true,
            :hand_over_note => true,
            :images => {},
+           :items => {:in_stock => true, :children => {:model => true}, :preset => :item_edit},
+           :is_package => {},
            :attachments => {},
            :properties => {},
            :accessories => {}}

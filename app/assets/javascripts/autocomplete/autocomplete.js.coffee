@@ -10,8 +10,13 @@ jQuery ->
   $("input.autocomplete").live "focus", (event)->
     if not $(this).hasClass("ui-autocomplete-input")
       new AutoComplete $(this)
-    else if $(this).val() != ""
-      $(this).autocomplete("search", $(this).val())
+  $("input.autocomplete").live "focus", (event)->
+    el = $(this)
+    do (el)->
+      search = -> 
+        if el.val().length
+          el.autocomplete("search")
+      setTimeout search, 150
 
 class AutoComplete
   

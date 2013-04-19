@@ -80,11 +80,11 @@
                   %input.hidden{type: "checkbox", "ng-model" => "file._destroy"} 
                     %span{"ng-switch" => "file._destroy"}
                       %span{"ng-switch-when" => "true"} {{_jed("undo")}}
-                      %span{"ng-switch-default" => ""} {{_jed("delete")}}
+                      %span{"ng-switch-default" => ""} {{_jed("Delete")}}
                 .clear
               %span{"ng-switch-when" => "false"}
                 {{file.filename}}
-                %a.clickable.floatright{"ng-click" => "removeImage(this)"} {{_jed("delete")}}
+                %a.clickable.floatright{"ng-click" => "removeImage(this)"} {{_jed("Delete")}}
       %br
       .inner
         .field
@@ -105,11 +105,11 @@
                   %input.hidden{type: "checkbox", "ng-model" => "file._destroy"}
                     %span{"ng-switch" => "file._destroy"}
                       %span{"ng-switch-when" => "true"} {{_jed("undo")}}
-                      %span{"ng-switch-default" => ""} {{_jed("delete")}}
+                      %span{"ng-switch-default" => ""} {{_jed("Delete")}}
                 .clear
               %span{"ng-switch-when" => "false"}
                 {{file.filename}}
-                %a.clickable.floatright{"ng-click" => "removeAttachment(this)"} {{_jed("delete")}}
+                %a.clickable.floatright{"ng-click" => "removeAttachment(this)"} {{_jed("Delete")}}
       %br
       .inner
         .field
@@ -133,58 +133,97 @@
                     %input.hidden{type: "checkbox", "ng-model" => "accessory._destroy"}
                     %span{"ng-switch" => "accessory._destroy"}
                       %span{"ng-switch-when" => "true"} {{_jed("undo")}}
-                      %span{"ng-switch-default" => ""} {{_jed("delete")}}
+                      %span{"ng-switch-default" => ""} {{_jed("Delete")}}
               %span{"ng-switch-when" => "false"}
                 %label
                   %input{type: "checkbox", "ng-model" => "accessory.active"}
                   {{accessory.name}}
-                %a.clickable.floatright{"ng-click" => "removeAccessory(this)"} {{_jed("delete")}}
-      %br
-        .inner.properties
-          .field
-            %div
-              %h3.key {{_jed("Properties")}}:
-              .value{"ng-switch" => "model.is_editable"}
-                .input{"ng-switch-when" => "true"}
-                  %a#add-property.button.white.small.add-button{:"ng-click" => "addProperty()"} {{_jed("Add %s", _jed("Property"))}}
-                  .clear
-                .readonly{"ng-switch-when" => "false"}
-              .clear
-            %ul{:"ui-sortable" => "", :"ng-model" => "model.properties"}
-              %li.field-inline-entry{"ng-repeat" => "property in model.properties", "ng-class" => "{tobedeleted: property._destroy}"}
-                .movetoggle &#8597;
-                %span{"ng-switch" => "!!property.id"}
-                  %span{"ng-switch-when" => "true"}
-                    %input{:type => :text, :"ng-model" => "property.key", "ng-class" => "{tobedeleted: property._destroy}", :"ng-disabled" => "property._destroy"}
-                    %input{:type => :text, :"ng-model" => "property.value", "ng-class" => "{tobedeleted: property._destroy}", :"ng-disabled" => "property._destroy"}
-                    %a.clickable.floatright{"ng-click" => "removeProperty(this)"} x
-                    .clear
-                  %span{"ng-switch-when" => "false"}
-                    %input{:name => "key", :type => :text, :"ng-model" => "property.key", :placeholder => '{{_jed("Key")}}'}
-                    %input{:type => :text, :"ng-model" => "property.value", :placeholder => '{{_jed("Value")}}'}
-                    %a.clickable.floatright{"ng-click" => "removeProperty(this)"} x
+                %a.clickable.floatright{"ng-click" => "removeAccessory(this)"} {{_jed("Delete")}}
+
+      %div{"ng-switch" => "model.is_package"}
+        %div{"ng-switch-when" => "true"}
+          %br
+          .inner
+            .field
+              %div
+                %h3.key {{_jed("Packages")}}:
+                .value
+                  %a.button.white.add-button{:"ng-click" => "openPackageDialog()"} {{_jed("Add %s", _jed("Package"))}}
+                .clear
+              %div.field-inline-entry{"ng-repeat" => "item in model.items"}
+
+                %span{"ng-class" => "{tobedeleted: item._destroy}", :width => "100"} {{item.inventory_code}}
+                .floatright
+                  %span{"ng-switch" => "item.in_stock"}
+                    %span{"ng-switch-when" => "false"}
+                      .line
+                        .problems
+                          .container
+                            {{_jed("not in stock")}}
+                            .problem.icon
+                    %span{"ng-switch-default" => ""}
+                      %a.clickable{:"ng-click" => "openPackageDialog(this)"} {{_jed("Edit")}}
+                      %span{"ng-switch" => "!!item.id"}
+                        %span{"ng-switch-when" => "true"}
+                          %label.clickable.floatright
+                            %input.hidden{type: "checkbox", "ng-model" => "item._destroy"}
+                            %span{"ng-switch" => "item._destroy"}
+                              %span{"ng-switch-when" => "true"} {{_jed("undo")}}
+                              %span{"ng-switch-default" => ""} {{_jed("Delete")}}
+                        %span{"ng-switch-when" => "false"}
+                          %a.clickable{:"ng-click" => "deletePackage(this)"} {{_jed("Delete")}}
+
       %br
       .inner
         .field
           %div
-            %h3.key {{_jed("Compatibles")}}:
+            %h3.key {{_jed("Compatibles")}}
             .value
               .input
                 %label.container
                   %input.autocomplete{:type => "text",
-                                      :placeholder => "Modell",
-                                      :title => "Modell",
-                                      :data => { :autocomplete_element_tmpl => "tmpl/autocomplete/generic",
-                                                 :autocomplete_search_attr => 'query',
-                                                 :url => "/backend/inventory_pools/{{currentInventoryPool.id}}/models",
-                                                 :autocomplete_display_attribute => "name",
-                                                 :autocomplete_select_callback => "angular.element(el).scope().addCompatible",
-                                                 :autocomplete_clear_input_value_on_select => "true",
-                                                 :autocomplete_blur_on_select => "true" }}
+                                        :placeholder => "Modell",
+                                        :title => "Modell",
+                                        :data => { :autocomplete_element_tmpl => "tmpl/autocomplete/generic",
+                                                   :autocomplete_search_attr => 'query',
+                                                   :url => "/backend/inventory_pools/{{currentInventoryPool.id}}/models",
+                                                   :autocomplete_display_attribute => "name",
+                                                   :autocomplete_select_callback => "angular.element(el).scope().addCompatible",
+                                                   :autocomplete_clear_input_value_on_select => "true",
+                                                   :autocomplete_blur_on_select => "true" }}
             .clear
           %div.field-inline-entry{"ng-repeat" => "compatible in model.compatibles"}
             {{compatible.name}}
             %label.clickable.floatright{"ng-click" => "removeCompatible(this)"} {{_jed("delete")}}
+
+
+      %br
+      .inner.properties
+        .field
+          %div
+            %h3.key {{_jed("Properties")}}:
+            .value{"ng-switch" => "model.is_editable"}
+              .input{"ng-switch-when" => "true"}
+                %a#add-property.button.white.add-button{:"ng-click" => "addProperty()"} {{_jed("Add %s", _jed("Property"))}}
+                .clear
+              .readonly{"ng-switch-when" => "false"}
+            .clear
+          %ul{:"ui-sortable" => "", :"ng-model" => "model.properties"}
+            %li.field-inline-entry{"ng-repeat" => "property in model.properties", "ng-class" => "{tobedeleted: property._destroy}"}
+              .movetoggle &#8597;
+              %span{"ng-switch" => "!!property.id"}
+                %span{"ng-switch-when" => "true"}
+                  %input{:type => :text, :"ng-model" => "property.key", "ng-class" => "{tobedeleted: property._destroy}", :"ng-disabled" => "property._destroy"}
+                  %input{:type => :text, :"ng-model" => "property.value", "ng-class" => "{tobedeleted: property._destroy}", :"ng-disabled" => "property._destroy"}
+                  %label.clickable.floatright
+                    %input.hidden{type: "checkbox", "ng-model" => "property._destroy"}
+                    x
+                  .clear
+                %span{"ng-switch-when" => "false"}
+                  %input{:name => "key", :type => :text, :"ng-model" => "property.key", :placeholder => '{{_jed("Key")}}'}
+                  %input{:type => :text, :"ng-model" => "property.value", :placeholder => '{{_jed("Value")}}'}
+                  %a.clickable.floatright{"ng-click" => "removeProperty(this)"} x
+
 
   .clear
   %span.loading{"ng-show" => "isLoading"}

@@ -1,0 +1,44 @@
+{{if item}}
+%h1 
+  ${_jed("Edit Package")}
+  ${item.inventory_code}
+{{else}}
+%h1 ${_jed("New Package")}
+{{/if}}
+
+.navigation
+  %button.button.white.close_dialog
+    .icon.return
+    ${_jed("Cancel")}
+  %button.button.green.save
+    ${_jed("Save")}
+
+%section
+  .input_container
+    %form#add-item
+      %label.top{:for => "item"} ${_jed("Add %s", _jed("Item"))}
+      %input.autocomplete.focus.barcode_target{:type => "text", :placeholder => '${_jed("Inventorycode")}', :autocomplete => "off",
+      :"data-url" => "/backend/inventory_pools/${currentInventoryPool.id}/search?types[]=item&with[model][name]=true",
+      :"data-autocomplete_class" => "user", 
+      :"data-autocomplete_element_tmpl" => "tmpl/autocomplete/item"}
+
+%hr
+
+.scalable
+  
+  .flash_message
+
+  .list#package-items
+    {{if item}}
+    {{tmpl(item.children) "app/views/packages/edit/item_line"}}
+    {{/if}}
+
+  #item.form_edit.innercontent.edit.prevent-scanner-submit
+
+    %form#form
+      
+      .left
+      .right
+      .clear
+
+.clear
