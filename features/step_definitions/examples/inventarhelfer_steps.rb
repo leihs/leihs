@@ -51,7 +51,7 @@ Dann /^ich setze all ihre Initalisierungswerte$/ do
         target_name = field.find('.autocomplete')['data-autocomplete_value_target']
         page.execute_script %Q{ $(".autocomplete[data-autocomplete_value_target='#{target_name}']").focus() }
         page.execute_script %Q{ $(".autocomplete[data-autocomplete_value_target='#{target_name}']").focus() }
-        wait_until{ not all(".ui-menu-item",:visible => true).empty? }
+        wait_until{ not all(".ui-menu-item a",:visible => true).empty? }
         find(".ui-menu-item a").click
       when "autocomplete-search"
         field.find("input").set "Sharp Beamer"

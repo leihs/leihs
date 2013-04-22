@@ -14,7 +14,7 @@ jQuery ->
     el = $(this)
     do (el)->
       search = -> 
-        if el.val().length
+        if el.val().length and el.is(":focus")
           el.autocomplete("search")
       setTimeout search, 150
 
