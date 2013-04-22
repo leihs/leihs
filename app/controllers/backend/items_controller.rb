@@ -130,6 +130,7 @@ class Backend::ItemsController < Backend::BackendController
 
   def copy
     @item = @item.dup
+    @item.owner = @current_inventory_pool
     @item.inventory_code = Item.proposed_inventory_code(current_inventory_pool)
   end
 
