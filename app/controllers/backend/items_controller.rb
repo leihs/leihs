@@ -118,7 +118,7 @@ class Backend::ItemsController < Backend::BackendController
           if params[:copy]
             redirect_to copy_backend_inventory_pool_item_path(current_inventory_pool, @item.id), notice: _("Item saved.")
           else
-            redirect_to :action => 'new', :original_id => @item.id  
+            redirect_to backend_inventory_pool_inventory_path(current_inventory_pool)
           end
         else
           flash[:error] = @item.errors.full_messages.uniq
