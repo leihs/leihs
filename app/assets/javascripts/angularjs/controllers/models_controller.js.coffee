@@ -9,7 +9,7 @@ ModelsCreateCtrl = ($scope, $location, $routeParams, Model) ->
     images: []
     properties: []
     compatibles: []
-    items: []
+    packages: []
 
   $scope.model.is_package = true
   $scope.model.is_editable = true #tmp# TODO remove this when using permissions
@@ -40,7 +40,7 @@ ModelsEditCtrl = ($scope, $location, $routeParams, Model) ->
     id: $routeParams.id
   , (response) ->
     $scope.model = new Model(response)
-    $scope.model.items = $scope.model.items.reverse()
+    $scope.model.packages = $scope.model.packages.reverse()
 
   $scope.submit = -> submit($scope)
   $scope.process_images = -> process_images($scope)
@@ -124,7 +124,7 @@ real_submit = ($scope, type, Model)->
       category_ids: $.unique($(".simple_tree input[type='checkbox']:checked").map(()-> return this.value ).toArray())
       properties_attributes: $.extend({}, _.map(_.reject($scope.model.properties,(p)-> p._destroy), (p)->{key: p.key, value: p.value}))
       compatibles_attributes: $.extend([], _.map $scope.model.compatibles, (p)->{id: p.id})
-      items: _.map($scope.model.items, (i)-> 
+      packages: _.map($scope.model.packages, (i)-> 
           id: i.id
           _destroy: i._destroy
           children: i.children
@@ -142,9 +142,12 @@ real_submit = ($scope, type, Model)->
           responsible: i.responsible
           user_name: i.user_name
         )
-      is_package: _.find($scope.model.items, ((i)->i.children? and i.children.length))?
+      is_package: _.find($scope.model.packages, ((i)->i.children? and i.children.length))?
   success = (response) ->
-    window.location = "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/models"
+    if _.find($scope.model.packages, (p)-> not p.id?)?
+      window.location = "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/models/#{response.id}/edit"
+    else
+      window.location = "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/models"
   error = (response) ->
     $scope.isLoading = false
     Notification.add_headline
@@ -183,33 +186,32 @@ removeProperty = ($scope, element)->
   $scope.model.properties = _.reject $scope.model.properties, (p)-> p is element.property
 
 openPackageDialog = ($scope, element)-> 
-  item = if element? then element.item
+  aPackage = if element? then element.package
   new App.EditPackageController
-    item: item
+    package: aPackage
     saveCallback: (children, packageData)=> 
-      if item?
-        $scope.$apply saveModifiedPackage($scope, item, children, packageData)
+      if aPackage?
+        $scope.$apply saveModifiedPackage($scope, aPackage, children, packageData)
       else
         $scope.$apply addPackage($scope, children, packageData)
 
-saveModifiedPackage = ($scope, item, children, packageData)->
-  $.extend item, packageData
-  item.children = children
+saveModifiedPackage = ($scope, aPackage, children, packageData)->
+  $.extend aPackage, packageData
+  aPackage.children = children
 
-addPackage = ($scope, children, packageData)->
-  item = packageData
-  $.extend item, {
+addPackage = ($scope, children, aPackage)->
+  $.extend aPackage, {
     inventory_code: "(#{_.map(children, (child)->child.inventory_code).join(", ")})"
     children: children
   }
-  $scope.model.items.unshift item
+  $scope.model.packages.unshift aPackage
 
 deletePackage = ($scope, element)->
-  element.model.items = _.reject element.model.items, (item)-> element.item == item
+  element.model.packages = _.reject element.model.packages, (p)-> element.package == p
 
 addCompatible = ($scope, element) ->
   $scope.$apply ($scope) ->
-    $scope.model.compatibles.push element.item
+    $scope.model.compatibles.push element.package
 
 removeCompatible = ($scope, element)->
   $scope.model.compatibles = _.reject $scope.model.compatibles, (compatible)-> compatible is element.compatible

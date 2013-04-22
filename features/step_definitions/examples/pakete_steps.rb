@@ -20,7 +20,6 @@ Wenn /^ich diesem Paket eines oder mehrere Gegenstände hinzufügen$/ do
 end
 
 Dann /^ist das Modell erstellt und die Pakete und dessen zugeteilten Gegenstände gespeichert$/ do
-  wait_until { page.has_content? _("List of Models") }
   @model = Model.find_by_name @model_name
   @model.should_not be_nil
   @model.should be_is_package
@@ -123,12 +122,13 @@ Wenn /^ich das Paket und das Modell speichere$/ do
 end
 
 Dann /^besitzt das Paket alle angegebenen Informationen$/ do
+  wait_until{ page.evaluate_script("$.active") == 0}
   model = Model.find_by_name @model_name
   visit edit_backend_inventory_pool_model_path(@current_inventory_pool, model)
-  find("[ng-switch='model.is_package']").find(".field-inline-entry").find("a", :text => _("Editieren")).click
+  find("[ng-repeat='package in model.packages']").find("a", :text => _("Editieren")).click
   step 'hat der Gegenstand alle zuvor eingetragenen Werte'
 end
 
 Wenn /^ich ein bestehendes Paket editiere$/ do
-  find("[ng-switch='model.is_package']").find(".field-inline-entry").find("a", :text => _("Editieren")).click
+  find("[ng-repeat='package in model.packages']").find("a", :text => _("Editieren")).click
 end

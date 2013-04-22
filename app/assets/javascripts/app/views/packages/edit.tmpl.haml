@@ -1,7 +1,7 @@
-{{if item}}
+{{if package}}
 %h1 
   ${_jed("Edit Package")}
-  ${item.inventory_code}
+  ${package.inventory_code}
 {{else}}
 %h1 ${_jed("New Package")}
 {{/if}}
@@ -29,8 +29,8 @@
   .flash_message
 
   .list#package-items
-    {{if item}}
-    {{tmpl(item.children) "app/views/packages/edit/item_line"}}
+    {{if package}}
+    {{tmpl(package.children) "app/views/packages/edit/item_line"}}
     {{/if}}
 
   #item.form_edit.innercontent.edit.prevent-scanner-submit

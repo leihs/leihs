@@ -85,11 +85,11 @@ class Backend::ModelsController < Backend::BackendController
             m = v.delete(:active) ? :inventory_pool_ids_add : :inventory_pool_ids_remove
             v[m] = current_inventory_pool.id
           end if params[:model][:accessories_attributes]
-          # items
-          items = params[:model].delete(:items)
-          if items
+          # packages
+          packages = params[:model].delete(:packages)
+          if packages
             @model.is_package = true
-            update_package_items items
+            update_packages packages
           end
           # compatibles
           if params[:model].has_key? :compatibles_attributes
@@ -129,10 +129,11 @@ class Backend::ModelsController < Backend::BackendController
           if params[:model].has_key?(:properties_attributes)
             @model.properties.destroy_all
           end
-          # items
-          items = params[:model].delete(:items)
-          if items and @model.is_package?
-            update_package_items items
+          # packages
+          packages = params[:model].delete(:packages)
+          if packages
+            @model.is_package = true
+            update_packages packages
           end
           # compatibles
           if params[:model].has_key? :compatibles_attributes
@@ -298,37 +299,37 @@ class Backend::ModelsController < Backend::BackendController
 
   private #######
 
-  def update_package_items(items)
-    items.each do |item|
+  def update_packages(packages)
+    packages.each do |package|
 
-      item.delete :inventory_code
-      children = item.delete :children
+      package.delete :inventory_code
+      children = package.delete :children
 
-      if item["id"].blank?
-        package = Item.create(:inventory_code => "P-#{Item.proposed_inventory_code(current_inventory_pool)}",
+      if package["id"].blank?
+        item = Item.create(:inventory_code => "P-#{Item.proposed_inventory_code(current_inventory_pool)}",
                               :owner_id => current_inventory_pool.id,
                               :model => @model)
         children.each do |child|
-          package.children << Item.find_by_id(child["id"])
+          item.children << Item.find_by_id(child["id"])
         end
       else
-        package = Item.find_by_id(item["id"])
-        item.delete :id
-        if item["_destroy"]
-          package.destroy()
+        item = Item.find_by_id(package["id"])
+        package.delete :id
+        if package["_destroy"]
+          item.destroy()
           next
-        elsif package
-          package.children = []
+        elsif item
+          item.children = []
           if children
             children.each do |child|
-              package.children << Item.find_by_id(child["id"])
+              item.children << Item.find_by_id(child["id"])
             end
           end
         end
       end
 
-      package.update_attributes item
-      package.save!
+      item.update_attributes package
+      item.save!
     end
   end
 

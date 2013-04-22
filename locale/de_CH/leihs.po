@@ -1998,3 +1998,6 @@ msgstr "Grund der Ausmusterung"
 
 msgid "You can not create a package without any item"
 msgstr "Sie können kein Paket ohne Gegenstände erstellen"
+
+msgid "Packages created"
+msgstr "Pakete wurden angelegt"

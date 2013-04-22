@@ -30,6 +30,13 @@ module Json
             h[:items] = hash_for items, with[:items]
           end
         end
+
+        if with[:packages]
+          Item.unscoped do
+            packages = model.items.joins("JOIN items as i ON i.parent_id = items.id").uniq
+            h[:packages] = hash_for packages, with[:packages]
+          end
+        end
       
         if with[:categories] and model.respond_to? :categories
           h[:categories] = model.categories.as_json # TODO

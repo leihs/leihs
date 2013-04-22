@@ -117,7 +117,7 @@ module Json
            :internal_description => true,
            :hand_over_note => true,
            :images => {},
-           :items => {:in_stock => true, :children => {:model => true}, :preset => :item_edit},
+           :packages => {:in_stock => true, :children => {:model => true}, :preset => :item_edit},
            :is_package => {},
            :attachments => {},
            :properties => {},

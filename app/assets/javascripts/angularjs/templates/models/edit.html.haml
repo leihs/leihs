@@ -148,11 +148,11 @@
             .value
               %a.button.white.add-button{:"ng-click" => "openPackageDialog()"} {{_jed("Add %s", _jed("Package"))}}
             .clear
-          %div.field-inline-entry{"ng-repeat" => "item in model.items"}
+          %div.field-inline-entry{"ng-repeat" => "package in model.packages"}
 
-            %span{"ng-class" => "{tobedeleted: item._destroy}", :width => "100"} {{item.inventory_code}}
+            %span{"ng-class" => "{tobedeleted: package._destroy}", :width => "100"} {{package.inventory_code}}
             .floatright
-              %span{"ng-switch" => "item.in_stock"}
+              %span{"ng-switch" => "package.in_stock"}
                 %span{"ng-switch-when" => "false"}
                   .line
                     .problems
@@ -161,11 +161,11 @@
                         .problem.icon
                 %span{"ng-switch-default" => ""}
                   %a.clickable{:"ng-click" => "openPackageDialog(this)"} {{_jed("Edit")}}
-                  %span{"ng-switch" => "!!item.id"}
+                  %span{"ng-switch" => "!!package.id"}
                     %span{"ng-switch-when" => "true"}
                       %label.clickable.floatright
-                        %input.hidden{type: "checkbox", "ng-model" => "item._destroy"}
-                        %span{"ng-switch" => "item._destroy"}
+                        %input.hidden{type: "checkbox", "ng-model" => "package._destroy"}
+                        %span{"ng-switch" => "package._destroy"}
                           %span{"ng-switch-when" => "true"} {{_jed("undo")}}
                           %span{"ng-switch-default" => ""} {{_jed("Delete")}}
                     %span{"ng-switch-when" => "false"}

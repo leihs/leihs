@@ -1,11 +1,11 @@
 class EditPackageController
 
   constructor: (options)->
-    @item = options.item
+    @package = options.package
     @saveCallback = options.saveCallback
-    @items = if @item? then @item.children else []
+    @packages = if @package? then @package.children else []
     @dialog = Dialog.add
-      content: $.tmpl("app/views/packages/edit", {item: @item})
+      content: $.tmpl("app/views/packages/edit", {package: @package})
       dialogClass: "medium package-dialog"
     @packageItemsEl = @dialog.find("#package-items")
     @listOfItems = @dialog.find(".list")
@@ -17,7 +17,7 @@ class EditPackageController
     do @delegateEvents
     packageFields = _.reject Fields, (f)->
       not _.include [9,10,11,15,17,18,19,20,5,6,12,13,14,25], f.id
-    new App.EditItemController packageFields, @item
+    new App.EditItemController packageFields, @package
     Dialog.rescale(@dialog)
 
   delegateEvents: =>
@@ -29,15 +29,15 @@ class EditPackageController
   addItem: (item)=>
     @flashMessage.hide()
     @autocomplete.val ""
-    @items.push item
+    @packages.push item unless _.find(@packages, (i)-> i.inventory_code is item.inventory_code)
     do @renderItems
 
   removeItem: (item)=>
-    @items = _.reject @items, (i)-> i is item
+    @packages = _.reject @packages, (i)-> i is item
     do @renderItems
 
   renderItems: ->
-    @packageItemsEl.html $.tmpl "app/views/packages/edit/item_line", @items
+    @packageItemsEl.html $.tmpl "app/views/packages/edit/item_line", @packages
     Dialog.rescale(@dialog)
 
   submitAddItemForm: (event)=>
@@ -50,9 +50,9 @@ class EditPackageController
       .always(=> @autocomplete.next(".loading").remove())
 
   savePackage: =>
-    if @items.length
+    if @packages.length
       @package = @packageForm.serializeObject().item
-      @saveCallback(@items, @package)
+      @saveCallback(@packages, @package)
       @dialog.dialog "close"
     else
       @flashMessage.html(_jed("You can not create a package without any item")).show()

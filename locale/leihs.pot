@@ -1932,3 +1932,6 @@ msgstr ""
 
 msgid "You can not create a package without any item"
 msgstr ""
+
+msgid "Packages created"
+msgstr ""
