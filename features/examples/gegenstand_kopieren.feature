@@ -68,3 +68,12 @@ Funktionalität: Gegenstand kopieren
     Wenn man speichert und kopiert
     Dann wird eine neue Gegenstandskopieransicht geöffnet
     Und alle Felder bis auf Inventarcode, Seriennummer und Name wurden kopiert
+
+  @javascript
+  Szenario: Gegenstand aus einem anderem Gerätepark kopieren
+    Angenommen I go to logout
+    Und man ist "Matti"
+    Und man editiert ein Gegenstand eines anderen Besitzers
+    Wenn man speichert und kopiert
+    Dann wird eine neue Gegenstandskopieransicht geöffnet
+    Und alle Felder sind editierbar, da man jetzt Besitzer von diesem Gegenstand ist

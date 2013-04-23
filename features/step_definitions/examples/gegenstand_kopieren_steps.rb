@@ -91,7 +91,7 @@ Wenn /^man einen Gegenstand kopiert$/ do
 end
 
 Dann /^wird eine neue Gegenstandskopieransicht geöffnet$/ do
-  current_path.should == copy_backend_inventory_pool_item_path(@current_inventory_pool, @item.id)
+  current_path.should == copy_backend_inventory_pool_item_path(@current_inventory_pool, @item)
 end
 
 Dann /^alle Felder bis auf Inventarcode, Seriennummer und Name wurden kopiert$/ do
@@ -109,4 +109,16 @@ Angenommen /^man befindet sich auf der Gegenstandserstellungsansicht$/ do
   wait_until { all("li.modelname").first.text == @item.model.name }
   find(".toggle .icon").click
   wait_until {find(".line.toggler.item", text: @item.inventory_code).find(".button", text: _("Edit Item"))}.click
+end
+
+Angenommen /^man editiert ein Gegenstand eines anderen Besitzers$/ do
+  @item = Item.find {|i| i.inventory_pool_id == @current_inventory_pool.id and @current_inventory_pool.id != i.owner_id}
+  visit backend_inventory_pool_item_path(@current_inventory_pool, @item)
+  wait_until {@fields = all(".field:not(.editable)")}
+  @fields.size.should > 0
+end
+
+Dann /^alle Felder sind editierbar, da man jetzt Besitzer von diesem Gegenstand ist$/ do
+  wait_until {@fields = all(".field:not(.editable)")}
+  @fields.size.should == 0
 end
