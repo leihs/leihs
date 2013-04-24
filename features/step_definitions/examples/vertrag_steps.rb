@@ -1,16 +1,14 @@
 # -*- encoding : utf-8 -*-
 
 Angenommen /^man öffnet einen Vertrag$/ do
-  steps %Q{
-     When I open a hand over
-      And I select an item line and assign an inventory code
-      And I select an item line and assign an inventory code
-      And I select an item line and assign an inventory code
-      And I click hand over
-     Then I see a summary of the things I selected for hand over
-     When I click hand over inside the dialog
-     Then the contract is signed for the selected items
-  }
+  step %Q{I open a hand over}
+  step %Q{I select an item line and assign an inventory code}
+  step %Q{I select an item line and assign an inventory code}
+  step %Q{I select an item line and assign an inventory code}
+  step %Q{I click hand over}
+  step %Q{I see a summary of the things I selected for hand over}
+  step %Q{I click hand over inside the dialog}
+  step %Q{the contract is signed for the selected items}
   @contract_element = find("#print section.contract")
   @contract = @customer.contracts.signed.sort_by(&:updated_at).last
 end
