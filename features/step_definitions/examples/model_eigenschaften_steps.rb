@@ -2,11 +2,10 @@
 
 Angenommen /^ich erstelle ein Modell und gebe die Pflichtfelder an$/ do
   step 'ich ein neues Modell hinzufüge'
-  steps %Q{
-     When ich erfasse die folgenden Details
-     | Feld                               | Wert                       |
-     | Name                               | Test Modell                |
-  }
+  step 'ich erfasse die folgenden Details', table(%{
+    | Feld                               | Wert                       |
+    | Name                               | Test Modell                |
+  })
 end
 
 Wenn /^ich Eigenschaften hinzufügen und die Felder mit den Platzhaltern Schlüssel und Wert angebe$/ do
