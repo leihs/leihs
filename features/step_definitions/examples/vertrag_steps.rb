@@ -146,12 +146,10 @@ end
 
 Wenn /^es Gegenstände gibt, die zurückgegeben wurden$/ do
   visit backend_inventory_pool_user_take_back_path(@contract.inventory_pool, @customer)
-  steps %Q{
-    And I select all lines of an open contract
-    And I click take back
-   Then I see a summary of the things I selected for take back
-   When I click take back inside the dialog
-  }
+  step %Q{I select all lines of an open contract}
+  step %Q{I click take back}
+  step %Q{I see a summary of the things I selected for take back}
+  step %Q{I click take back inside the dialog}
   visit backend_inventory_pool_contracts_path(@contract.inventory_pool)
   find(".button", :text => /(Contract|Vertrag)/).click
 end

@@ -2,18 +2,18 @@
 
 Funktionalität: Gegenstand erstellen
 
-  Grundlage:
-    Angenommen Personas existieren
-    Und man ist "Matti"
-
   @javascript
   Szenario: Wo man einen Gegenstand erstellen kann
-    Angenommen man befindet sich auf der Liste des Inventars
+    Angenommen Personas existieren
+    Und man ist "Matti"
+    Und man befindet sich auf der Liste des Inventars
     Dann kann man einen Gegenstand erstellen
 
   @javascript
   Szenario: Felder beim Erstellen eines Gegenstandes
-    Angenommen man navigiert zur Gegenstandserstellungsseite
+    Angenommen Personas existieren
+    Und man ist "Matti"
+    Und man navigiert zur Gegenstandserstellungsseite
     Und I check "Ausgemustert"
     Und I choose "Investition"
     Dann sehe ich die Felder in folgender Reihenfolge:
@@ -61,7 +61,9 @@ Funktionalität: Gegenstand erstellen
 
   @javascript
   Szenario: Einen Gegenstand mit allen Informationen erstellen
-    Angenommen man navigiert zur Gegenstandserstellungsseite
+    Angenommen Personas existieren
+    Und man ist "Matti"
+    Und man navigiert zur Gegenstandserstellungsseite
     Wenn ich die folgenden Informationen erfasse
     | Feldname                     | Type         | Wert                          |
 
@@ -111,7 +113,9 @@ Funktionalität: Gegenstand erstellen
 
   @javascript
   Szenariogrundriss: Einen Gegenstand mit einer fehlenden Pflichtangabe erstellen
-    Angenommen man navigiert zur Gegenstandserstellungsseite
+    Angenommen Personas existieren
+    Und man ist "Matti"
+    Und man navigiert zur Gegenstandserstellungsseite
     Und jedes Pflichtfeld ist gesetzt
     | Modell        |
     | Inventarcode  |
@@ -129,7 +133,9 @@ Funktionalität: Gegenstand erstellen
 
   @javascript
   Szenario: Einen Gegenstand mit allen fehlenden Pflichtangaben erstellen
-    Angenommen man navigiert zur Gegenstandserstellungsseite
+    Angenommen Personas existieren
+    Und man ist "Matti"
+    Und man navigiert zur Gegenstandserstellungsseite
     Und kein Pflichtfeld ist gesetzt
     | Modell        |
     | Inventarcode  |
@@ -139,7 +145,9 @@ Funktionalität: Gegenstand erstellen
 
   @javascript
   Szenario: Felder die bereits vorausgefüllt sind
-    Angenommen man navigiert zur Gegenstandserstellungsseite
+    Angenommen Personas existieren
+    Und man ist "Matti"
+    Und man navigiert zur Gegenstandserstellungsseite
     Dann ist der Barcode bereits gesetzt
     Und Letzte Inventur ist das heutige Datum
     Und folgende Felder haben folgende Standardwerte
