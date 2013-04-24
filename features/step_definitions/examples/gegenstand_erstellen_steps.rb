@@ -82,6 +82,7 @@ Dann /^ist der Gegenstand mit all den angegebenen Informationen erstellt$/ do
   find(".toggle .icon").click
   find(".button", text: 'Gegenstand editieren').click
 
+  wait_until { all("form").count == 2 }
   step 'hat der Gegenstand alle zuvor eingetragenen Werte'
 end
 
