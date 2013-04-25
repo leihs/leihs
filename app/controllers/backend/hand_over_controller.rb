@@ -59,30 +59,25 @@ class Backend::HandOverController < Backend::BackendController
                    quantity = (params[:quantity] ? [params[:quantity].to_i, 1].max : nil),
                    start_date = params[:start_date],
                    end_date = params[:end_date])
-
     if quantity
-      if quantity.to_i > line_ids.size # if quantity is higher then line ids then duplicate lines
-        if ContractLine.find(line_ids.first).is_a?(ItemLine)
+      if ContractLine.find(line_ids.first).is_a?(ItemLine)
+        if quantity.to_i > line_ids.size # if quantity is higher then line ids then duplicate lines
           (quantity.to_i-line_ids.size).times do
             new_line = ItemLine.find(line_ids.first).dup # NOTE use .dup instead of .clone (from Rails 3.1) 
             new_line.item = nil
             new_line.save # TODO log_change (not needed anymore with the new audits) 
             line_ids.push new_line.id
           end
-        else # Option
-          OptionLine.find(line_ids.first).update_attribute :quantity, quantity
-        end
-      elsif quantity.to_i < line_ids.size # if quantity is lower then line ids then remove some lines
-        if ContractLine.find(line_ids.first).is_a?(ItemLine)
+        elsif quantity.to_i < line_ids.size # if quantity is lower then line ids then remove some lines
           (line_ids.size-quantity.to_i).times do
             line_to_be_removed = ContractLine.find(line_ids.pop)
             ContractLine.transaction do
               @contract.remove_line(line_to_be_removed, current_user.id)
             end
           end
-        else # Option
-          OptionLine.find(line_ids.first).update_attribute :quantity, quantity
         end
+      else # Option
+        OptionLine.find(line_ids.first).update_attribute :quantity, quantity
       end
     end
 
