@@ -34,3 +34,12 @@ Funktionalität: Gerätepark-Grundinformationen
    Und ich die Änderungen speichere
    Dann sind die Arbeitstage gespeichert
 
+  Szenario: Tage der Ausleihschliessung verwalten
+   Angenommen ich bin Mike
+   Und ich verwalte die Gerätepark Grundinformationen
+   Wenn ich eine oder mehrere Zeitspannen und einen Namen für die Ausleihsschliessung angebe
+   Und ich speichere
+   Dann werden die Ausleihschliessungszeiten gespeichert
+   Und ich kann die Ausleihschliessungszeiten wieder löschen  
+
+
