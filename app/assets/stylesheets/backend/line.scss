@@ -21,6 +21,10 @@
     padding-right: 20px;
     padding-top: 4px;
     vertical-align: middle;
+
+    &.red {
+      color: $red !important;
+    }
     
     &.actions {
       font-size: 1.0em;
@@ -108,7 +112,7 @@
     z-index: 999;
     @include box-shadow(inset 0 1px 4px rgba(0,0,0,0.2));
 
-    li {
+    li:not(.red) {
       color: $darkergrey !important;
     }
   }

@@ -2,8 +2,11 @@ ${$name = Str.sliced_trunc(name, 30, "... "), ""}
 %li.overdue_icon
   .overdue.icon{:title => '${_jed("Overdue Visit")}'}
 
-%li.user_name.hastip
+%li{:class => "user_name hastip{{if suspended}} red{{/if}}"}
   ${$name} 
+  {{if suspended}}
+  (${_jed("Suspended")})
+  {{/if}}
   .tip.user
     %table.image
       %tr

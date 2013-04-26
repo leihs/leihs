@@ -5,6 +5,14 @@
     %h1= yield :title
     %p.subtitle
 
+  - if @contract.user.suspended_inventory_pools.include? current_inventory_pool
+    .indent
+      .notifications      
+        .notification
+          %strong= "#{_("Attention")}:"
+          =_("This user is suspended")
+
+
   .indent
     = form_tag add_line_backend_inventory_pool_user_hand_over_path(current_inventory_pool, @contract.user), 
     :id => "process_helper", 

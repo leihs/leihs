@@ -1935,3 +1935,9 @@ msgstr ""
 
 msgid "Packages created"
 msgstr ""
+
+msgid "Attention"
+msgstr ""
+
+msgid "This user is suspended"
+msgstr ""

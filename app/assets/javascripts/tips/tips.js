@@ -22,6 +22,8 @@ function Tips() {
     $.fn.qtip.defaults.position.viewport = $(window);
     $.fn.qtip.defaults.show.delay = 200;
     $.fn.qtip.defaults.show.solo = true;
+    $.fn.qtip.defaults.hide.fixed = true;
+    $.fn.qtip.defaults.hide.delay = 200;
     $.fn.qtip.defaults.style.tip.width = 12;
     $.fn.qtip.defaults.style.tip.height = 8;
     $.fn.qtip.defaults.style.classes = "list_tip";

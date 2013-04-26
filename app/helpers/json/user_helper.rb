@@ -7,7 +7,8 @@ module Json
          id: user.id,
          name: user.to_s,
          firstname: user.firstname,
-         lastname: user.lastname
+         lastname: user.lastname,
+         suspended: user.suspended_inventory_pools.include?(current_inventory_pool)
       }
       
       if with ||= nil
