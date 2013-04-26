@@ -27,5 +27,10 @@ Funktionalität: Gerätepark-Grundinformationen
     Und ich die Felder Name, Kurzname nicht befüllt habe
     Dann kann ich die Grundinformationen nicht speichern
 
-
+  Szenario: Arbeitstage verwalten
+   Angenommen ich bin Mike
+   Und ich verwalte die Gerätepark Grundinformationen
+   Wenn ich die Arbeitstage Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag, Sonntag ändere
+   Und ich die Änderungen speichere
+   Dann sind die Arbeitstage gespeichert
 
