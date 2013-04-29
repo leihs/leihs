@@ -264,7 +264,7 @@ Wenn /^der Gegenstand an Lager ist und meine Abteilung für den Gegenstand veran
   @item = Item.find_by_inventory_code @item_line.find(".inventory_code").text
 end
 
-Wenn /^der Gegenstand nicht an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist$/ do
+Wenn /^der Gegenstand nicht an Lager ist und meine oder andere Abteilung für den Gegenstand verantwortlich ist$/ do
   find(".responsible option[data-responsible_id='#{@current_inventory_pool.id}']").select_option
   find(".filter input[data-filter='in_stock']").click if find(".filter input[data-filter='in_stock']").checked?
   wait_until { all(".loading", :visible => true).empty? }

@@ -219,7 +219,7 @@ module Json
           when :model_search
             {:categories => {}, :availability => {:inventory_pool => current_inventory_pool}}
           when :item_search
-            {:current_borrower => true, :current_return_date => true, :in_stock? => true, :is_broken => true, :is_incomplete => true, :model => {}}
+            {:inventory_pool => true, :location_as_string => true, :current_borrower => true, :current_return_date => true, :in_stock? => true, :is_broken => true, :is_incomplete => true, :model => {}}
           when :option_search
             {}
           when :template_search

@@ -165,7 +165,7 @@ Wenn /^man die Kategorie löscht$/ do
   find(".line.category[data-id='#{@unused_category.id}'] .actions .button", :text => _("Delete %s") % _("Category")).click
 end
 
-Dann /^ist die Kategorie gelöscht(?: und alle Duplikate sind aus dem Baum entfernt)$/ do
+Dann /^ist die Kategorie gelöscht und alle Duplikate sind aus dem Baum entfernt$/ do
   wait_until {page.evaluate_script("jQuery.active") == 0}
   sleep(1)
   all(".line.category[data-id='#{@unused_category.id}']").empty?.should be_true

@@ -56,9 +56,10 @@ Funktionalität: Inventar
     | Gebäudeabkürzung |
     | Raum             |
     | Gestell          |
-    Wenn der Gegenstand nicht an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist
+    Wenn der Gegenstand nicht an Lager ist und meine oder andere Abteilung für den Gegenstand verantwortlich ist
     Dann enthält die Gegenstands-Zeile folgende Informationen:
     | information            |
+    | Verantwortliche Abteilung |
     | Aktueller Ausleihender |
     | Enddatum der Ausleihe  |
     Wenn meine Abteilung Besitzer des Gegenstands ist die Verantwortung aber auf eine andere Abteilung abgetreten hat

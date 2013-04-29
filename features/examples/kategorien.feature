@@ -47,7 +47,7 @@ Funktionalität: Kategorien
   Szenario: Kategorien löschen
     Wenn eine Kategorie nicht genutzt ist
     Und man die Kategorie löscht
-    Dann ist die Kategorie gelöscht
+    Dann ist die Kategorie gelöscht und alle Duplikate sind aus dem Baum entfernt
     Und man bleibt in der Liste der Kategorien
 
   @javascript

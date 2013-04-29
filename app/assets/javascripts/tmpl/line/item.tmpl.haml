@@ -34,6 +34,9 @@
     %li.item_location.borrower
       .hand_over.icon
       %span
+        {{if $item.data.inventory_pool.name}}
+        ${$item.data.inventory_pool.name},
+        {{/if}}
         ${current_borrower.firstname} ${current_borrower.lastname}
         ${_jed("until")}
         ${moment(current_return_date).format(i18n.date.L)}
