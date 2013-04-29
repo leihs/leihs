@@ -38,3 +38,24 @@ Then /^the time range for that option line is changed$/ do
   wait_until { page.evaluate_script("$.active") == 0 }
   @option_line.reload.start_date.should == @new_start_date
 end
+
+When(/^I add an option$/) do
+  @option = Option.find_by_inventory_pool_id @current_inventory_pool.id
+  field_value = @option.name
+  input_field = find("input.autocomplete")
+  input_field.set field_value
+  input_field.click
+  wait_until {not all("a", text: field_value).empty?}
+  find("a", text: field_value).click
+end
+
+When(/^I change the quantity right on the line$/) do
+  quantity_input_field = find(".option_line", text: @option.name).find("input")
+  quantity_input_field.set = "5"
+  step "ensure there are no active requests"
+  quantity_input_field.value.should == "5"
+end
+
+Then(/^the quantity for that option line is changed$/) do
+  pending # express the regexp above with the code you wish you had
+end
