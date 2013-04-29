@@ -49,6 +49,8 @@ gem 'factory_girl', "~> 4.1"
 gem 'factory_girl_rails', "~> 4.1"
 gem 'faker'
 gem "uuidtools", "~> 2.1" # needed for creating unique ids during tests (factories)
+gem 'therubyracer', :platform => :mri
+gem 'therubyrhino', :platform => :jruby
 
 group :assets do # Gems used only for assets and not required in production environments by default.
   gem 'sass-rails', '~> 3.2'
@@ -71,6 +73,7 @@ end
 group :profiling, :development do
   gem 'newrelic_rpm', '~> 3.5'
 end
+
 
 group :test, :development do
   gem "growl", "~> 1.0.3"
