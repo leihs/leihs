@@ -57,5 +57,19 @@ When(/^I change the quantity right on the line$/) do
 end
 
 Then(/^the quantity for that option line is changed$/) do
-  pending # express the regexp above with the code you wish you had
+  @quantity ||= 5
+  within find(".option_line", text: @option.name) do
+    fill_in 'quantity', :with => @quantity.to_s
+  end
+  step "ensure there are no active requests"
+  find(".option_line", text: @option.name).find("input[name=quantity]").value.should == @quantity.to_s
+end
+
+When(/^I decrease the quantity again$/) do
+  @quantity = 1
+  step 'I change the quantity right on the line'
+end
+
+Then(/^the quantity for that option line is changed$/) do
+  OptionLine.last.quantity.should == @quantity
 end

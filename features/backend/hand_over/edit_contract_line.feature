@@ -46,3 +46,5 @@ Feature: Edit contract line during hand over process
       And I add an option
       And I change the quantity right on the line
      Then the quantity for that option line is changed
+     When I decrease the quantity again
+     Then the quantity for that option line is changed

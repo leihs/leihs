@@ -5,7 +5,7 @@
         = check_box_tag "selected"
     %li.quantity
       .container
-        %input{:type => "text", :value => "${quantity}", :"data-url" => "/backend/inventory_pools/${currentInventoryPool.id}/users/${contract.user.id}/hand_over/update_lines"}
+        %input{:name => "quantity", :type => "text", :value => "${quantity}", :"data-url" => "/backend/inventory_pools/${currentInventoryPool.id}/users/${contract.user.id}/hand_over/update_lines"}
     %li.inventory_code
       ${item.inventory_code}    
     %li.name
