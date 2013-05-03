@@ -58,7 +58,7 @@ a.button {
     color: $hover_color;
   }
   
-  &:active:not([disabled]) {
+  &:active:not([disabled]), &.active {
     @include vertical-gradient($grad_color_1_active, $grad_color_2_active, 20%, 80%);
     @include box-shadow(inset 0 -2px 3px rgba(0,0,0,0.1));
   }

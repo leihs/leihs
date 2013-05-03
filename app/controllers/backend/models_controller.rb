@@ -42,9 +42,12 @@ class Backend::ModelsController < Backend::BackendController
                   .select("DISTINCT models.*")
                   .search(query, [:name])
                   .order("#{sort_attr} #{sort_dir}")
+        if category_id
+          models = models.joins(:categories).where(:"model_groups.id" => [Category.find(category_id)] + Category.find(category_id).descendants)
+        end
         models = (models)
                    .sort{|a,b| a.name.strip <=> b.name.strip}
-                   .paginate(:page => page, :per_page => PER_PAGE)
+                   .paginate(:page => page, :per_page => per_page)
         hash = { entries: view_context.hash_for(models, with),
                  pagination: {
                     current_page: models.current_page,

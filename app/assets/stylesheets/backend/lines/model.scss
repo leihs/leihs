@@ -50,6 +50,10 @@
   
   li.availability {
     text-align: center;
-    width: 80px;
+    width: 87px;
+  }
+
+  li.availability.wide {
+    width: 120px;
   }
 }

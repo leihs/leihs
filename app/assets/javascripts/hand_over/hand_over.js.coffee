@@ -18,6 +18,7 @@ class HandOver
     @setup_option_quantity_changes()
     @setup_purpose()
     @setup_hand_over_button()
+    @setup_explorative_search()
     
   @setup_hand_over_button: ->
     $("#hand_over_button").click (e)->
@@ -230,5 +231,15 @@ class HandOver
     lines: SelectedLines.lines_data
     user: Line.get_user SelectedLines.lines_data[0]
     type: "contract"
+
+  @setup_explorative_search: ->
+    $("#process_helper button[type='submit']").on "click", (e)=> 
+      if ($("#process_helper #code").val().length == 0)
+        new App.ExplorativeSearchDialogController
+          modelSelectCallback: ProcessHelper.addModel
+          customerId: $(".visit").tmplItem().data.lines[0].contract.user.id
+          inventoryPoolId: currentInventoryPool.id
+          startDate: moment($("#add_start_date").datepicker("getDate")).format("YYYY-MM-DD")
+          endDate: moment($("#add_end_date").datepicker("getDate")).format("YYYY-MM-DD")
 
 window.HandOver = HandOver

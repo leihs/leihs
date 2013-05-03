@@ -14,6 +14,7 @@ class Acknowledge
     @setup_add_line()
     @setup_remove_line()
     @update_subtitle()
+    @setup_explorative_search()
   
   @setup_remove_line: ->
     $(document).live "after_remove_line", ->
@@ -98,5 +99,15 @@ class Acknowledge
       Buttons.disable $("#approve.multibutton")
     else
       Buttons.enable $("#approve.multibutton")
+
+  @setup_explorative_search: ->
+    $("#process_helper button[type='submit']").on "click", (e)=> 
+      if ($("#process_helper #code").val().length == 0)
+        new App.ExplorativeSearchDialogController
+          modelSelectCallback: ProcessHelper.addModel
+          customerId: $("#order").tmplItem().data.user.id
+          inventoryPoolId: currentInventoryPool.id
+          startDate: moment($("#add_start_date").datepicker("getDate")).format("YYYY-MM-DD")
+          endDate: moment($("#add_end_date").datepicker("getDate")).format("YYYY-MM-DD")
   
 window.Acknowledge = Acknowledge

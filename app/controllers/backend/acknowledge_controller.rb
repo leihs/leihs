@@ -67,7 +67,7 @@ class Backend::AcknowledgeController < Backend::BackendController
                 model_group_id = params[:model_group_id],
                 code = params[:code])
                 
-     # find model 
+    # find model 
     model = if not code.blank?
       item = current_inventory_pool.items.where(:inventory_code => code).first 
       item.model if item

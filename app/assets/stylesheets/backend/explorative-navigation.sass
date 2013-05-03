@@ -1,0 +1,70 @@
+@import "../shared/mixins"
+@import "../shared/clickable"
+@import "../shared/variables"
+
+.explorative-navigation
+  border-right: 1px solid $borderlightgrey
+  display: none
+  padding-top: 10px
+  vertical-align: top
+  width: 20%
+  min-width: 190px
+  @include unselectable
+
+  &.open
+    display: table-cell
+
+.explorative-search
+  @include box-sizing(border-box)
+  width: 100%
+
+  &.hidden
+    display: none
+
+.explorative-container
+
+  ul
+    width: 100%
+
+  .loading img
+    display: block
+    margin: 40px auto 0 auto
+    width: 20px
+
+.explorative-header
+  @include box-sizing(border-box)
+  padding: 0 14px 6px 14px
+  width: 100%
+
+.explorative-entry
+  cursor: pointer
+  border-top: 1px solid white
+  border-bottom: 1px solid white
+  display: block
+  font-size: 1.2em
+  padding: 4px 4px 4px 18px
+
+  &:hover
+    background: #F8F8F8
+    border-top: 1px solid #E0DFDE
+    border-bottom: 1px solid #E0DFDE
+
+  &:active
+    background: #F0F0F0
+    color: #3A3A3A
+
+.explorative-top
+  @extend .explorative-entry
+  background: #F8F8F8
+  font-weight: bold
+  padding-left: 10px
+
+.explorative-current
+  @extend .explorative-entry
+  background: #F8F8F8
+  padding-left: 14px
+
+  .icon.arrow
+    position: relative
+    top: -2px
+    @include opacity(0.6)

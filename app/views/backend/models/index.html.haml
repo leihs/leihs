@@ -16,21 +16,47 @@
         %a{:class => "tab#{' active' if x[0].nil?}", :"data-tab" => x[0].to_json}
           %span.text= x[1]
     
-    .list.min-height
+    .list
       %ul.navigation.line
         .container
+          %li.categories
+            %button{:class => params[:navigation].blank? ? "button white explorative-search-toggle" : "button white explorative-search-toggle active", :title => _("Toggle %s") % _("Categories")}
+              .categories.icon
           %li.search
             = form_tag("", :method => :get, :autocomplete => :off) do
-              %input{:type => "text", :name => "query", :value => "#{params[:query]}", :placeholder => _("Search...")}
+              %input{:type => "text", :name => "query", :value => "#{params[:query]}", :placeholder => _("Search %s") % _("Model")}
               = image_tag "loading.gif", :class => "loading"
             = image_tag "loading.gif", :class => "loading"
 
-      %span.loading
-        = image_tag "loading.gif"
+    .table
+      = render :partial => "backend/explorative_search/container"
+      #modellist.list.min-height
+        %span.loading
+          = image_tag "loading.gif"
   
     .clear
 
   .pagination_container
 
+:ruby
+
+  begin
+    way = params[:way].map do |w| 
+      begin Integer(w) rescue w end
+    end
+  rescue
+  end
+
+  begin 
+    current_category_id = Integer(way.last)
+  rescue
+  end
+
+
 :coffeescript
   jQuery -> new App.ModelsController
+    currentCategoryId: #{current_category_id.to_json}
+    navigation: new App.ExplorativeSearchNavigationController
+      button: $(".explorative-search-toggle")
+      el: $(".explorative-navigation")
+      way: #{way.to_json}

@@ -3,10 +3,13 @@
 
 #inventory 
 
-  .list 
+  .list:not(#inventory-list)
+    margin-bottom: 0
+
+  .list#inventory-list
     min-height: 200px
     
-    & > .line:not(.navigation) 
+    .line
       background: $highlight-grey
   
     .items > .line 
@@ -26,8 +29,20 @@
   
   .navigation
   
-    .search
-      width: 270px
+    li.search, li.filter
+      float: right
+      padding-top: 6px !important
+      width: auto
+
+    li.search
+      padding-top: 10px !important
+      
+      input
+        width: 160px
+
+    li.categories
+      float: left
+      padding-top: 6px !important
   
     .custom_select
       background: white

@@ -1971,3 +1971,15 @@ msgstr ""
 
 msgid "Workdays"
 msgstr ""
+
+msgid "Toggle %s"
+msgstr ""
+
+msgid "Search %s"
+msgstr ""
+
+msgid "By browsing categories"
+msgstr ""
+
+msgid "Select"
+msgstr ""

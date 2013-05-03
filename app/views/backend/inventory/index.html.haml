@@ -29,16 +29,15 @@
           [{:borrowable => false}, _("Not Borrowable")],
           [{:retired =>  true}, _("Retired")]].each do |x|
         %a{:class => "tab#{' active' if x[0].nil?}", :"data-tab" => x[0].to_json}
-          %span.text= x[1]
-    
+          %span.text= x[1]    
+
     .list
+
       %ul.navigation.line
         .container
-          %li.search
-            = form_tag("", :method => :get, :autocomplete => :off) do
-              %input{:type => "text", :name => "query", :value => "#{params[:query]}", :placeholder => _("Search...")}
-              = image_tag "loading.gif", :class => "loading"
-            = image_tag "loading.gif", :class => "loading"
+          %li.categories
+            %button{:class => params[:navigation].blank? ? "button white explorative-search-toggle" : "button white explorative-search-toggle active", :title => _("Toggle %s") % _("Categories")}
+              .categories.icon
           %li.filter
             %label.select.responsible
               = image_tag "loading.gif", :class => "loading icon"
@@ -54,11 +53,39 @@
             = link_to backend_inventory_pool_models_path(current_inventory_pool, :format => "csv"), :class => "button white export_csv", :title => _("CSV export") do
               .valuelist.icon
               = _("CSV") 
+          %li.search
+            = form_tag("", :method => :get, :autocomplete => :off) do
+              %input{:type => "text", :name => "query", :value => "#{params[:query]}", :placeholder => "#{_("Search %s") % _("Inventory")}"}
+              = image_tag "loading.gif", :class => "loading"
+            = image_tag "loading.gif", :class => "loading"
 
-      %span.loading
-        = image_tag "loading.gif"
+    .table
+      = render :partial => "backend/explorative_search/container"
+      .list#inventory-list
+        %span.loading
+          = image_tag "loading.gif"
   
   .pagination_container
 
+:ruby
+
+  begin
+    way = params[:way].map do |w| 
+      begin Integer(w) rescue w end
+    end
+  rescue
+  end
+
+  begin 
+    current_category_id = Integer(way.last)
+  rescue
+  end
+
 :coffeescript
-  jQuery -> new App.InventoryController
+  jQuery -> 
+    new App.InventoryController
+      currentCategoryId: #{current_category_id.to_json}
+      navigation: new App.ExplorativeSearchNavigationController
+        button: $(".explorative-search-toggle")
+        el: $(".explorative-navigation")
+        way: #{way.to_json}

@@ -2037,3 +2037,15 @@ msgstr "Grundinformationen"
 
 msgid "Workdays"
 msgstr "Arbeitstage"
+
+msgid "Toggle %s"
+msgstr "%s auf/zuklappen"
+
+msgid "Search %s"
+msgstr "%s suchen"
+
+msgid "By browsing categories"
+msgstr "über Kategorien"
+
+msgid "Select"
+msgstr "Auswählen"

@@ -53,21 +53,6 @@ class ProcessHelper
         ProcessHelper.update_autocomplete_add()
       , 100
       
-  @open_dialog: (trigger)->
-    data = eval trigger.data("ref_for_dialog")
-    start_date = $("#add_start_date").datepicker("getDate")
-    start_date = start_date.getFullYear()+"-"+(start_date.getMonth()+1)+"-"+start_date.getDate()
-    end_date = $("#add_end_date").datepicker("getDate")
-    end_date = end_date.getFullYear()+"-"+(end_date.getMonth()+1)+"-"+end_date.getDate()
-    ProcessHelper.load_model_data
-      url: trigger.attr("href")
-      data:
-        user_id: data.user.id
-        start_date: start_date
-        end_date: end_date
-        with:
-          availability: 1
-    
   @update_timerange: (start_date, end_date)->
     $("#process_helper #add_start_date").val(moment(start_date).format(i18n.date.L)).change()
     $("#process_helper #add_end_date").val(moment(end_date).format(i18n.date.L)).change()
@@ -96,6 +81,13 @@ class ProcessHelper
     $("#code").attr("name", "code")
     $("#code").val("")
     $("#code").autocomplete("widget").hide()
+
+  @addModel = (modelId)->
+    $("#code").val modelId
+    $("#code").attr("name", "model_id")
+    $("#code").closest("form").submit()
+    $("#code").attr("name", "code")
+    $("#code").val("")
 
   @allocate_line = (line_data)->
     if $("#visits").length

@@ -3,7 +3,6 @@
 
 .list {
   display: block;
-  margin-bottom: 26px;
   position: relative;
   
   &>.loading {
@@ -12,12 +11,15 @@
     height: 100%;
     position: absolute;
     text-align: center;
-    top: 46px;
+    top: 0;
     width: 100%;
     z-index: 1001;
     
       img {
         top: 40%;
+        display: block;
+        width: 30px;
+        left: 45%;
         position: relative;
       }
   }
@@ -28,6 +30,10 @@
       border-bottom: 1px solid $borderlightergrey !important;
     }
     
+    li {
+      padding-top: 0 !important;
+    }
+
     label {
       background: #F8F8F8;
       border: 1px solid #E0DFDE;
@@ -85,6 +91,17 @@
       font-size: 1.1em;
     }
     
+    li.categories {
+      font-size: 1em;
+      padding: 0 0 0 4px !important;
+
+      .icon {
+        position: relative;
+        top: 1px;
+        left: 1px;
+      }
+    }
+
     .search {
       padding: 0 0 0 4px !important;
       width: 335px;
@@ -126,10 +143,7 @@
     .filter {
       font-size: 1em;
       padding-right: 7px;
-      position: absolute;
-      right: 0;
       text-align: right;
-      top: 0;
       width: 82%;
     }
     

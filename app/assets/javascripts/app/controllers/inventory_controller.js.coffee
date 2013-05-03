@@ -2,17 +2,19 @@ class InventoryController
 
   el: "#inventory"
   
-  constructor: ->
+  constructor: (options)->
     @el = $(@el)
     @filter = {}
-    @list = @el.find(".list")
-    @loading = @list.find(">.loading")
+    @inventory_list = @el.find(".list#inventory-list")
+    @loading = @inventory_list.find(">.loading")
     @pagination = @el.find(".pagination_container")
     @search = @el.find(".navigation .search input[type=text]")
     @filters = @el.find(".filter input[data-filter]")
     @responsibles = @el.find(".responsible select")
     @tabs = @el.find(".inlinetabs")
     @csv_button = @el.find(".navigation .export_csv.button")
+    @navigation = options.navigation if options.navigation?
+    @currentCategoryId = if options.currentCategoryId? then options.currentCategoryId else undefined
     do @setup_state
     do @delegateEvents
     do @fetch_responsibles
@@ -29,17 +31,17 @@ class InventoryController
   
   render_inventory: (data)=>
     @loading.detach()
-    @list.find(">*:not(.navigation)").remove()
-    @list.append $.tmpl "tmpl/line", data
-    @list.find(".toggle[data-toggle_target]").expandable_line()
+    @inventory_list.find(">*:not(.navigation)").remove()
+    @inventory_list.append $.tmpl "tmpl/line", data
+    @inventory_list.find(".toggle[data-toggle_target]").expandable_line()
     
   setup_responsibles: (data)=>
     tmpl = $.tmpl "app/views/inventory/_responsibles", {responsibles: data}
-    if @list.find(".select.responsible").length
-      @list.find(".select.responsible").replaceWith tmpl
+    if @el.find(".select.responsible").length
+      @el.find(".select.responsible").replaceWith tmpl
     else
-      @list.find(".navigation .filter").prepend tmpl
-    @list.find(".navigation select").custom_select
+      @el.find(".navigation .filter").prepend tmpl
+    @el.find(".navigation select").custom_select
       postfix: "<div class='icon arrow down'></div>"
       text_handler: (text)-> Str.sliced_trunc(text, 22)
     @responsibles = @el.find(".responsible select")
@@ -54,7 +56,7 @@ class InventoryController
     else
       @responsibles.find("option:first").attr("selected",true).change()
     
-  no_items_found: => @list.append $.tmpl "app/views/inventory/_no_entries_found"
+  no_items_found: => @inventory_list.append $.tmpl "app/views/inventory/_no_entries_found"
   
   paginate: (page)=>
     @current_page = page+1
@@ -70,17 +72,18 @@ class InventoryController
       success: (data) => @setup_responsibles data.responsibles
   
   fetch_inventory: =>
-    @list.append @loading
+    @inventory_list.append @loading
     @fetcher.abort() if @fetcher?
-    @filter.flags = _.map @list.find(".filter input:checked"), (filter)-> $(filter).data("filter")
+    @filter.flags = _.map @inventory_list.find(".filter input:checked"), (filter)-> $(filter).data("filter")
     responsible_id = @responsibles.find("option:selected").data("responsible_id")
-    @filter.responsible_id = responsible_id if responsible_id?
+    @filter.responsible_id = responsible_id
     @query = if @search.val().length then @search.val() else undefined
     @tab_data = @active_tab.data("tab") if @active_tab?
     data = 
       page: @current_page
       filter: @filter
       query: @query
+      category_id: @currentCategoryId
       with: 
         preset: "inventory"
     data = $.extend(data,@tab_data) if @tab_data
@@ -183,6 +186,9 @@ class InventoryController
       @search.val("") if not $(e.currentTarget).data("tab")? and not @active_tab.data("tab")?
       @active_tab = $(e.currentTarget)
       do e.preventDefault
+      do @fetch_inventory
+    $(@navigation).on "navigation-changed", (e, currentCategoryId)=>
+      @currentCategoryId = currentCategoryId
       do @fetch_inventory
 
 window.App.InventoryController = InventoryController

@@ -23,7 +23,13 @@ class Backend::InventoryController < Backend::BackendController
           Item # NOTE using default scope, that is {retired => nil}
         end.by_owner_or_responsible(current_inventory_pool)
 
+        # borrowable / unborrowable
         scoped_items = scoped_items.send(borrowable ? :borrowable : :unborrowable) if not borrowable.nil? 
+
+        # categories
+        if category_id
+          scoped_items = scoped_items.where(:model_id => Model.joins(:categories).where(:"model_groups.id" => [Category.find(category_id)] + Category.find(category_id).descendants))
+        end
     
         unless item_filter.nil?
           if item_filter[:flags]
@@ -35,7 +41,7 @@ class Backend::InventoryController < Backend::BackendController
           scoped_items = scoped_items.where(:inventory_pool_id => item_filter[:responsible_id]) if item_filter[:responsible_id]
         end 
          
-        options = if borrowable != false and retired.nil? and item_filter.nil?
+        options = if borrowable != false and retired.nil? and item_filter.nil? and category_id.nil?
           current_inventory_pool.options.search(query, [:name]).order("#{sort_attr} #{sort_dir}")
         else
           []

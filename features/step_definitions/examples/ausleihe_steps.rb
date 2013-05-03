@@ -12,6 +12,7 @@ end
 
 Wenn /^ich öffne eine Bestellung von "(.*?)"$/ do |arg1|
   el = find("#daily .order.line", :text => arg1)
+  @order = Order.find el["data-id"]
   page.execute_script '$(":hidden").show();'
   el.find(".actions .alternatives .button .icon.edit").click
 end

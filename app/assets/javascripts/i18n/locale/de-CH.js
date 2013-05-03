@@ -2565,6 +2565,26 @@ window.i18n.locale_data = {
       "You can not create a package without any item": [
          null,
          "Sie können kein Paket ohne Gegenstände erstellen"
+      ],
+      "Packages created": [
+         null,
+         "Pakete wurden angelegt"
+      ],
+      "Toggle %s": [
+         null,
+         "%s auf/zuklappen"
+      ],
+      "Search %s": [
+         null,
+         "%s suchen"
+      ],
+      "By browsing categories": [
+         null,
+         "über Kategorien"
+      ],
+      "Select": [
+         null,
+         "Auswählen"
       ]
    }
 }

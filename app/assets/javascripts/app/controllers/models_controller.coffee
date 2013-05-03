@@ -2,16 +2,17 @@ class ModelsController
 
   el: "#models"
   
-  constructor: ->
+  constructor: (options)->
     @el = $(@el)
     @filter = {}
-    @list = @el.find(".list")
+    @list = @el.find("#modellist")
     @loading = @list.find(">.loading")
     @pagination = @el.find(".pagination_container")
     @search = @el.find(".navigation .search input[type=text]")
     @filters = @el.find(".filter input[data-filter]")
     @tabs = @el.find(".inlinetabs")
-    @csv_button = @el.find(".navigation .export_csv.button")
+    @navigation = options.navigation if options.navigation?
+    @currentCategoryId = if options.currentCategoryId? then options.currentCategoryId else undefined
     do @setup_state
     do @delegateEvents
     do @fetch_models
@@ -48,6 +49,7 @@ class ModelsController
       page: @current_page
       filter: @filter
       query: @query
+      category_id: @currentCategoryId
       with: 
         preset: "modellist"
     data = $.extend(data,@tab_data) if @tab_data
@@ -60,7 +62,6 @@ class ModelsController
         @setup_pagination data.pagination
         do @no_items_found unless data.entries.length
     do @save_state
-    do @update_csv_link
 
 ##   
 # TODO outsource to a history state module (browser navigation)
@@ -122,14 +123,6 @@ class ModelsController
         stringified_state += "/#{k}/#{v}"
     return stringified_state
   
-  update_csv_link: =>
-    params = {}
-    params["filter"] = @filter if @filter?
-    params["query"] = @query if @query?
-    $.extend 
-    params = $.extend(params,@tab_data) if @tab_data
-    @csv_button.attr("href", "/backend/inventory_pools/#{currentInventoryPool.id}/models.csv?#{$.param(params)}")
-  
   delegateEvents: =>
     $(window).on "popstate", @pop_state
     @filters.on "change", =>
@@ -147,6 +140,9 @@ class ModelsController
       @search.val("") if not $(e.currentTarget).data("tab")? and not @active_tab.data("tab")?
       @active_tab = $(e.currentTarget)
       do e.preventDefault
+      do @fetch_models
+    $(@navigation).on "navigation-changed", (e, currentCategoryId)=>
+      @currentCategoryId = currentCategoryId
       do @fetch_models
 
 window.App.ModelsController = ModelsController
