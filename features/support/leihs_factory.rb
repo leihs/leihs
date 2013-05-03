@@ -269,7 +269,9 @@ module LeihsFactory
   # 
   def self.create_inventory_pool(attributes = {}, address_attributes = {})
     default_attributes = {
-      :name => "ABC"
+      :name => "ABC",
+      :shortname => "ABC",
+      :email => "abc@abc.de"
     }
     default_address_attributes = {
       :street => "My Street and Number",
