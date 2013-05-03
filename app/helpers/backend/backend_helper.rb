@@ -47,9 +47,11 @@ module Backend::BackendHelper
           is_current_page?("hand_over") or
             is_current_page?("take_back")
       when "admin"
-        is_current_page?("users")
+        is_current_page?("users") or
+        is_current_page?("inventory_pools")
       when "inventory_pools"
         path_parameters?(:controller => "backend/inventory_pools", :action => :index)
+        path_parameters?(:controller => "backend/inventory_pools", :action => :edit)
       when "inventory"
         is_current_page?("models") or
           is_current_page?("inventory_list") or
@@ -68,7 +70,8 @@ module Backend::BackendHelper
         path_parameters?(:controller => "backend/items", :action => :update) or
         path_parameters?(:controller => "backend/items", :action => :new)
       when "users"
-        path_parameters?(:controller => "backend/users", :action => :index)
+        path_parameters?(:controller => "backend/users", :action => :index) or
+        path_parameters?(:controller => "backend/users", :action => :edit)
       when "current_user"
         path_parameters?(:controller => "backend/users", :action => :show) and @user == current_user
       when "start_screen"

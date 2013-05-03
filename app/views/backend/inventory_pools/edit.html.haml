@@ -1,0 +1,91 @@
+- content_for :title, @inventory_pool
+
+.innercontent.form_edit.edit
+
+  = form_for [:backend, @inventory_pool], html: {class: "indent", name: "form"} do |f|
+
+    .content_navigation
+      %a.button.red{:href => "/backend/inventory_pools/#{@inventory_pool_id}"}
+        = _("Cancel")
+      %button.button.green{:type => :submit}
+        = _("Save %s") % _("Inventory Pool")
+
+    .top
+      %h1= @inventory_pool.name
+
+    %section
+      %h2= _("Basic Information")
+      .inner
+        .field.text
+          .key
+            %h3= "#{_("Name")}:"
+          .value
+            .input
+              %input{type: "text", name: "inventory_pool[name]", value: @inventory_pool.name}
+        .field.text
+          .key
+            %h3= "#{_("Short Name")}:"
+            %p.description
+              = _("Whatever you enter here is prepended to all inventory numbers for this particular pool. e.g. ABC1, ABC2, ABC3 etc. If you leave this empty, no alphabetic characters are used in the inventory numbers.")
+          .value
+            .input
+              %input{type: "text", name: "inventory_pool[shortname]", value: @inventory_pool.shortname}
+        .field.text
+          .key
+            %h3= "#{_("Email")}:"
+            %p.description
+              = _("This e-mail address is used as sender when sending reminder or confirmation e-mails for this particular pool. If you enter nothing, the system default sender address is used.")
+          .value
+            .input
+              %input{type: "text", name: "inventory_pool[email]", value: @inventory_pool.email}
+        .field.text
+          .key
+            %h3= "#{_("Description")}:"
+          .value
+            .input
+              %textarea{type: "text", name: "inventory_pool[description]", rows: 6}= @inventory_pool.description
+        .field.text
+          .key
+            %h3= "#{_("Default Contract Note")}:"
+            %p.description
+              = _("This note is added to any contract, but can be changed individually before actually printing and signing each contract.")
+          .value
+            .input
+              %textarea{type: "text", name: "inventory_pool[default_contract_note]", rows: 6}= @inventory_pool.default_contract_note
+        .field.text
+          .key
+            %h3= "#{_("Print Contracts")}:"
+          .value
+            .input
+              %input{type: "checkbox", name: "inventory_pool[print_contracts]", checked: @inventory_pool.print_contracts}
+    .clear
+
+    %hr 
+    %section#workdays
+      %h2= _("Workdays")
+      .inner
+        - [1,2,3,4,5,6,0].each do |i|
+          .field.text
+            .key
+              %h3= "#{I18n.t('date.day_names')[i]}:"
+            .value
+              .input
+                %select{:name => "workday[#{i}]"}
+                  %option{:label => _("Open"), :value => "open"}= _("Open")
+                  %option{:label => _("Closed"), :value => "closed", :selected => current_inventory_pool.workday.closed_days.include?(i) ? true : nil}= _("Closed")
+
+
+:coffeescript
+  notice = #{flash[:notice].to_json}
+  error = #{flash[:error].to_json}
+
+  jQuery ->
+    if notice
+      Notification.add_headline
+        text: notice
+        type: "success"
+
+    if error
+      Notification.add_headline
+        text: error
+        type: "error"

@@ -39,5 +39,43 @@ class Workday < ActiveRecord::Base
     days << 6 unless saturday
     days
   end
+
+  def open!(day_number)
+    case day_number
+    when 1
+      self.monday = true
+    when 2
+      self.tuesday = true
+    when 3
+      self.wednesday = true
+    when 4
+      self.thursday = true
+    when 5
+      self.friday = true
+    when 6
+      self.saturday = true
+    when 0
+      self.sunday = true
+    end
+  end
+
+  def closed!(day_number)
+    case day_number
+    when 1
+      self.monday = false
+    when 2
+      self.tuesday = false
+    when 3
+      self.wednesday = false
+    when 4
+      self.thursday = false
+    when 5
+      self.friday = false
+    when 6
+      self.saturday = false
+    when 0
+      self.sunday = false
+    end
+  end
 end
 

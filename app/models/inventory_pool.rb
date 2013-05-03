@@ -78,11 +78,11 @@ class InventoryPool < ActiveRecord::Base
 
   before_create :create_workday
 
-  validates_presence_of :name
+  validates_presence_of :name, :shortname
 
   default_scope order("name")
 
-  validates :email, :email => true
+  validates :email, :format => /@/
 
 #######################################################################
 

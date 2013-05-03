@@ -16,9 +16,23 @@ class Backend::InventoryPoolsController < Backend::BackendController
     render :action => 'edit'
   end
 
+  def edit
+    @inventory_pool = InventoryPool.find params[:id]
+  end
+
   def create
     @inventory_pool = InventoryPool.new
-    update
+
+    params[:inventory_pool][:print_contracts] ||= "false" # unchecked checkboxes are *not* being sent
+    params[:inventory_pool][:email] = nil if params[:inventory_pool][:email].blank?
+    if @inventory_pool.update_attributes(params[:inventory_pool])
+      flash[:notice] = _("Inventory pool successfully created")
+      redirect_to edit_backend_inventory_pool_path(@inventory_pool)
+    else
+      flash[:error] = @inventory_pool.errors.full_messages.uniq # TODO: set @current_inventory_pool here? See Backend::BackendController#current_inventory_pool
+      redirect_to new_backend_inventory_pool_path(@inventory_pool)
+    end
+
     current_user.access_rights.create(:role => Role.where(:name => 'manager').first,
                                       :inventory_pool => @inventory_pool,
                                       :access_level => 3) unless @inventory_pool.new_record?
@@ -26,20 +40,23 @@ class Backend::InventoryPoolsController < Backend::BackendController
 
   # TODO: this mess needs to be untangled and split up into functions called by new/create/update
   def update
-    @inventory_pool ||= @inventory_pool = InventoryPool.find(params[:id]) 
+    @inventory_pool ||= InventoryPool.find(params[:id]) 
     params[:inventory_pool][:print_contracts] ||= "false" # unchecked checkboxes are *not* being sent
     params[:inventory_pool][:email] = nil if params[:inventory_pool][:email].blank?
-    if @inventory_pool.update_attributes(params[:inventory_pool])
-      redirect_to backend_inventory_pool_path(@inventory_pool)
-    else
-      flash[:error] = @inventory_pool.errors.full_messages.uniq
-      # TODO: set @current_inventory_pool here? See Backend::BackendController#current_inventory_pool
-      if action_name == "create"
-        render :action => 'edit'
-      else
-        render :action => 'show' # TODO 24** redirect to the correct tabbed form
+    # workday
+    params[:workday].each_pair do |workday, status|
+      if status == "open"
+        current_inventory_pool.workday.open! workday.to_i
+      elsif status == "closed"
+        current_inventory_pool.workday.closed! workday.to_i
       end
     end
+    if @inventory_pool.update_attributes(params[:inventory_pool]) and current_inventory_pool.workday.save!
+      flash[:notice] = _("Inventory pool successfully updated")
+    else
+      flash[:error] = @inventory_pool.errors.full_messages.uniq # TODO: set @current_inventory_pool here? See Backend::BackendController#current_inventory_pool
+    end
+    redirect_to edit_backend_inventory_pool_path(@inventory_pool)
   end
 
   def destroy

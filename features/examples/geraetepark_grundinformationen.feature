@@ -6,27 +6,53 @@ Funktionalität: Gerätepark-Grundinformationen
   möchte ich als Zuständiger
   die Informationen/Einstellungen für einen Gerätepark bearbeiten können
 
+  Grundlage:
+    Angenommen Personas existieren
+
+  @javascript
   Szenario: Grundinformationen erfassen
     Angenommen ich bin Mike
     Wenn ich den Admin-Bereich betrete
     Dann kann ich die Gerätepark-Grundinformationen eingeben
     | Name |
     | Kurzname |
-    | E-Mail |
+    | Email |
     | Beschreibung |
     | Standard-Vertragsnotiz |
     | Verträge drucken | 
     Und ich kann die angegebenen Grundinformationen speichern
-    Dann sind die Informatoinen aktualisiert
+    Dann sind die Informationen aktualisiert
     Und ich bleibe auf derselben Ansicht 
     Und sehe eine Bestätigung
 
-  Szenario: Pflichtfelder der Grundinformationen prüfen
+  @javascript
+  Szenariogrundriss: Pflichtfelder der Grundinformationen einzeln prüfen
     Angenommen ich bin Mike
     Wenn ich die Grundinformationen des Geräteparks abfüllen möchte
-    Und ich die Felder Name, Kurzname nicht befüllt habe
-    Dann kann ich die Grundinformationen nicht speichern
+    Und jedes Pflichtfeld ist gesetzt
+    | Name        |
+    | Kurzname    |
+    Wenn ich das gekennzeichnete <Pflichtfeld> leer lasse
+    Dann kann das Gerätepark nicht gespeichert werden
+    Und ich sehe eine Fehlermeldung
+    Und die anderen Angaben wurde nicht gelöscht
 
+    Beispiele:
+      | Pflichtfeld |
+      | Name        |
+      | Kurzname    |
+
+  @javascript
+  Szenario: Pflichtfelder der Grundinformationen zusammen prüfen
+    Angenommen ich bin Mike
+    Und ich die Grundinformationen des Geräteparks abfüllen möchte
+    Und ich die folgenden Felder nicht befüllt habe
+      | Name     |
+      | Kurzname |
+    Dann kann das Gerätepark nicht gespeichert werden
+    Und ich sehe eine Fehlermeldung
+
+  @javascript
   Szenario: Arbeitstage verwalten
    Angenommen ich bin Mike
    Und ich verwalte die Gerätepark Grundinformationen
@@ -34,6 +60,7 @@ Funktionalität: Gerätepark-Grundinformationen
    Und ich die Änderungen speichere
    Dann sind die Arbeitstage gespeichert
 
+  @javascript
   Szenario: Tage der Ausleihschliessung verwalten
    Angenommen ich bin Mike
    Und ich verwalte die Gerätepark Grundinformationen
@@ -41,5 +68,3 @@ Funktionalität: Gerätepark-Grundinformationen
    Und ich speichere
    Dann werden die Ausleihschliessungszeiten gespeichert
    Und ich kann die Ausleihschliessungszeiten wieder löschen  
-
-

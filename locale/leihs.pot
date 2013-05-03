@@ -18,6 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
+msgid "Whatever you enter here is prepended to all inventory numbers for this particular pool. e.g. ABC1, ABC2, ABC3 etc. If you leave this empty, no alphabetic characters are used in the inventory numbers."
+msgstr ""
+
+msgid "This e-mail address is used as sender when sending reminder or confirmation e-mails for this particular pool. If you enter nothing, the system default sender address is used."
+msgstr ""
+
+msgid "This note is added to any contract, but can be changed individually before actually printing and signing each contract."
+msgstr ""
+
 msgid " at the inventory pool "
 msgstr ""
 
@@ -288,6 +297,9 @@ msgid "Consider Opening Hours"
 msgstr ""
 
 msgid "Contract"
+msgstr ""
+
+msgid "Default Contract Note"
 msgstr ""
 
 msgid "Contract %d has been signed by %s"
@@ -934,6 +946,9 @@ msgid "Price"
 msgstr ""
 
 msgid "Print"
+msgstr ""
+
+msgid "Print Contracts"
 msgstr ""
 
 msgid "Problems"
@@ -1940,4 +1955,19 @@ msgid "Attention"
 msgstr ""
 
 msgid "This user is suspended"
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
+msgid "Short Name"
+msgstr ""
+
+msgid "Inventory pool successfully updated"
+msgstr ""
+
+msgid "Basic Information"
+msgstr ""
+
+msgid "Workdays"
 msgstr ""
