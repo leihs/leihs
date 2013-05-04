@@ -7,7 +7,7 @@
       %label
         = check_box_tag "selected"
     %li.quantity
-      %input{:type => "text", :value => "", :autocomplete => "off"}
+      %input{:name => "quantity", :type => "text", :value => "", :autocomplete => "off"}
     %li.max_quantity
       = "/${quantity}"
     %li.inventory_code

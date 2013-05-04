@@ -50,19 +50,11 @@ When(/^I add an option$/) do
 end
 
 When(/^I change the quantity right on the line$/) do
-  quantity_input_field = find(".option_line", text: @option.name).find("input")
-  quantity_input_field.set = "5"
+  quantity_input_field = find(".option_line", text: @option.name)
+  @quantity = 5
+  quantity_input_field.fill_in "quantity", :with => @quantity
   step "ensure there are no active requests"
-  quantity_input_field.value.should == "5"
-end
-
-Then(/^the quantity for that option line is changed$/) do
-  @quantity ||= 5
-  within find(".option_line", text: @option.name) do
-    fill_in 'quantity', :with => @quantity.to_s
-  end
-  step "ensure there are no active requests"
-  find(".option_line", text: @option.name).find("input[name=quantity]").value.should == @quantity.to_s
+  quantity_input_field.find("input[name='quantity']").value.should == @quantity.to_s
 end
 
 When(/^I decrease the quantity again$/) do
