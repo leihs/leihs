@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-Angenommen(/^ich bin in der Liste des Inventars$/) do
+Angenommen(/^ich befinde mich in der Liste des Inventars$/) do
   step 'man öffnet die Liste des Inventars'
 end
 
@@ -102,7 +102,7 @@ Dann(/^kann ich in die übergeordnete Kategorie navigieren$/) do
   find(".explorative-current").click
 end
 
-Angenommen(/^ich bin in der Liste der Modelle$/) do
+Angenommen(/^ich befinde mich in der Liste der Modelle$/) do
   step 'man öffnet die Liste der Modelle'
 end
 
@@ -113,7 +113,7 @@ Dann(/^die Modelle wurden nach dieser Kategorie gefiltert$/) do
   end
 end
 
-Angenommen(/^ich bin in einer Bestellung$/) do
+Angenommen(/^ich befinde mich in einer Bestellung$/) do
   step 'ich öffne eine Bestellung'
 end
 

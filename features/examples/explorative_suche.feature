@@ -12,7 +12,7 @@ Funktionalität: Explorative Suche
   
   @javascript  
   Szenario: Explorative Suche in der Liste des Inventars
-    Angenommen ich bin in der Liste des Inventars
+    Angenommen ich befinde mich in der Liste des Inventars
     Und ich die Navigation der Kategorien aufklappe
     Wenn ich eine Kategorie anwähle
     Dann sehe ich die darunterliegenden Kategorien
@@ -26,7 +26,7 @@ Funktionalität: Explorative Suche
 
   @javascript
   Szenario: Kategorie in der explorativen Suche suchen
-    Angenommen ich bin in der Liste des Inventars
+    Angenommen ich befinde mich in der Liste des Inventars
     Und die Navigation der Kategorien ist aufgeklappt
     Wenn ich nach dem Namen einer Kategorie suche
     Dann werden alle Kategorien angezeigt, welche den Namen beinhalten
@@ -43,7 +43,7 @@ Funktionalität: Explorative Suche
 
   @javascript
   Szenario: Explorative Suche in der Liste der Modelle
-    Angenommen ich bin in der Liste der Modelle
+    Angenommen ich befinde mich in der Liste der Modelle
     Und ich die Navigation der Kategorien aufklappe
     Wenn ich eine Kategorie anwähle
     Dann sehe ich die darunterliegenden Kategorien
@@ -53,7 +53,7 @@ Funktionalität: Explorative Suche
   
   @javascript
   Szenario: Explorative Suche in der Bestellung
-    Angenommen ich bin in einer Bestellung
+    Angenommen ich befinde mich in einer Bestellung
     Dann kann ich ein Modell anhand der explorativen Suche wählen
 
   @javascript
