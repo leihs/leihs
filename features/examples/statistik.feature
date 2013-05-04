@@ -13,7 +13,7 @@ Funktionalität: Statistiken von Ausleihe und Inventar
 
   @javascript
   Szenario: Zeitliche Eingrenzung der Statistik-Ansicht
-    Angenommen ich bin in der Statistik-Ansicht
+    Angenommen ich befinde mich in der Statistik-Ansicht
     Dann sehe ich normalerweise die Statistik der letzten 30 Tage
     Wenn ich den Zeitraum eingrenze auf 1.1. - 31.12. des laufenden Jahres
     Dann sehe ich nur statistische Daten die relevant sind für den 1.1. - 31.12. des laufenden Jahres
@@ -22,7 +22,7 @@ Funktionalität: Statistiken von Ausleihe und Inventar
 
   @javascript
   Szenario: Statistik über die Anzahl der Ausleihvorgänge pro Modell
-    Angenommen ich bin in der Statistik-Ansicht über Ausleihvorgänge
+    Angenommen ich befinde mich in der Statistik-Ansicht über Ausleihvorgänge
     Dann sehe ich dort alle Geräteparks, die Gegenstände besitzen
     Wenn ich einen Gerätepark expandiere
     Dann sehe ich alle Modelle, für die deren Gegenstände dieser Gerätepark verantwortlich ist
@@ -31,20 +31,20 @@ Funktionalität: Statistiken von Ausleihe und Inventar
 
   @javascript
   Szenario: Statistik über Benutzer und deren Ausleihvorgänge
-    Angenommen ich bin in der Statistik-Ansicht über Benutzer
+    Angenommen ich befinde mich in der Statistik-Ansicht über Benutzer
     Dann sehe ich für jeden Benutzer die Anzahl Aushändigungen
     Dann sehe ich für jeden Benutzer die Anzahl Rücknahmen
 
   @javascript
   Szenario: Expandieren eines Modells
-    Angenommen ich bin in der Statistik-Ansicht
+    Angenommen ich befinde mich in der Statistik-Ansicht
     Wenn ich dort ein Modell sehe
     Dann kann ich das Modell expandieren
     Und sehe dann die Gegenstände, die zu diesem Modell gehören
 
   @javascript
   Szenario: Statistik über den Wert der Modelle und Gegenstände
-    Angenommen ich bin in der Statistik-Ansicht über den Wert
+    Angenommen ich befinde mich in der Statistik-Ansicht über den Wert
     Dann sehe ich dort alle Geräteparks, die Gegenstände besitzen
     Wenn ich einen Gerätepark expandiere
     Dann sehe ich alle Modelle, für die dieser Gerätepark Gegenstände besitzt
