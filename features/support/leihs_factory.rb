@@ -295,10 +295,13 @@ module LeihsFactory
   # 
   def self.create_inventory_pool_default_workdays(attributes = {})
     default_attributes = {
-      :name => "ABC" 
+      :name => "ABC",
+      :shortname => "ABC",
+      :email => "ABC@abc.de"
     }
     ip = InventoryPool.find_or_create_by_name(
              default_attributes.merge(attributes)[:name] )
+    ip.update_attributes default_attributes.merge(attributes)
     ip
   end
 
