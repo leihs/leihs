@@ -12,7 +12,7 @@ end
 Dann(/^kann ich die Gerätepark\-Grundinformationen eingeben$/) do |table|
   # table is a Cucumber::Ast::Table
   @table_raw = table.raw
-  wait_until {all(".inner .field").count == @table_raw.count}
+  wait_until {not all(".inner .field").empty?}
   @table_raw.flatten.each do |field_name|
     if field_name == "Verträge drucken"
       find(".inner .field", text: field_name).find("input").set false
@@ -28,7 +28,7 @@ Dann(/^ich kann die angegebenen Grundinformationen speichern$/) do
 end
 
 Dann(/^sind die Informationen aktualisiert$/) do
-  wait_until {all(".inner .field").count == @table_raw.count}
+  wait_until {not all(".inner .field").empty?}
   page.should_not have_selector ".error"
   @table_raw.flatten.each do |field_name|
     if field_name == "Verträge drucken"
