@@ -114,3 +114,11 @@ Funktionalität: Modell
     Und ich ein ergänzendes Modell entferne
     Und ich speichere die Informationen
     Dann ist das Modell ohne das gelöschte ergänzende Modell gespeichert
+
+  @javascript
+  Szenario: Gruppenverteilung editieren
+    Angenommen man öffnet die Liste der Modelle
+    Wenn ich ein bestehendes Modell bearbeite
+    Und die Gruppenkapazität ändere
+    Und ich speichere die Informationen
+    Dann sind die geänderten Gruppenzuteilungen gespiechert
