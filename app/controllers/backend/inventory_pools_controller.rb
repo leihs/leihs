@@ -18,6 +18,7 @@ class Backend::InventoryPoolsController < Backend::BackendController
 
   def edit
     @inventory_pool = InventoryPool.find params[:id]
+    @inventory_pool.attributes = params[:inventory_pool] if params[:inventory_pool]
   end
 
   def create
@@ -53,10 +54,11 @@ class Backend::InventoryPoolsController < Backend::BackendController
     end
     if @inventory_pool.update_attributes(params[:inventory_pool]) and current_inventory_pool.workday.save!
       flash[:notice] = _("Inventory pool successfully updated")
+      redirect_to edit_backend_inventory_pool_path(@inventory_pool)
     else
-      flash[:error] = @inventory_pool.errors.full_messages.uniq # TODO: set @current_inventory_pool here? See Backend::BackendController#current_inventory_pool
+      redirected_params = {name: params[:inventory_pool][:name], shortname: params[:inventory_pool][:shortname]}
+      redirect_to edit_backend_inventory_pool_path(@current_inventory_pool, inventory_pool: redirected_params), flash: {error: @inventory_pool.errors.full_messages.uniq}
     end
-    redirect_to edit_backend_inventory_pool_path(@inventory_pool)
   end
 
   def destroy
