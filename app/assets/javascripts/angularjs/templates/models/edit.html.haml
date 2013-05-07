@@ -8,8 +8,9 @@
 
   .top
     %h1
-      {{model.name}}
-
+      %span{"ng-switch" => "action"}
+        %span{"ng-switch-when" => "create"} {{_jed("Create %s", _jed("Model"))}}
+        %span{"ng-switch-when" => "edit"} {{_jed("Edit %s", _jed("Model"))}}
 
   .left
     %section

@@ -1,5 +1,6 @@
 ModelsCreateCtrl = ($scope, $location, $routeParams, Model) ->
   $scope.current_inventory_pool_id = $routeParams.inventory_pool_id
+  $scope.action = "create"
 
   $(".left").append($("#model-categories"))
 
@@ -32,6 +33,7 @@ ModelsCreateCtrl = ($scope, $location, $routeParams, Model) ->
 
 ModelsEditCtrl = ($scope, $location, $routeParams, Model) ->
   $scope.current_inventory_pool_id = $routeParams.inventory_pool_id
+  $scope.action = "edit"
 
   $(".left").append($("#model-categories"))
 
