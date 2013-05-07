@@ -55,8 +55,10 @@ Funktionalität: Explorative Suche
   Szenario: Explorative Suche in der Bestellung
     Angenommen ich befinde mich in einer Bestellung
     Dann kann ich ein Modell anhand der explorativen Suche wählen
+    Und die explorative Suche zeigt nur Modelle aus meinem Park an
 
   @javascript
   Szenario: Explorative Suche in der Aushändigung
     Wenn ich eine Aushändigung mache
     Dann kann ich ein Modell anhand der explorativen Suche wählen
+    Und die explorative Suche zeigt nur Modelle aus meinem Park an

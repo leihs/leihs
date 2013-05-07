@@ -43,6 +43,7 @@ class ExplorativeSearchDialogController
       page: @current_page
       per_page: 10
       category_id: @currentCategoryId
+      inventory_pool_id: currentInventoryPool.id
       with: 
         availability:
           user_id: @customerId

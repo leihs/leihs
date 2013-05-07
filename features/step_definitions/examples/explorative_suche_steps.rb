@@ -132,3 +132,12 @@ Dann(/^kann ich ein Modell anhand der explorativen Suche wählen$/) do
     expect(@customer.contracts.map(&:models).flatten.include? model).to be_true
   end
 end
+
+Dann(/^die explorative Suche zeigt nur Modelle aus meinem Park an$/) do
+  find("#process_helper *[type='submit']").click
+  wait_until{not all(".dialog .line").empty?}  
+  all(".dialog .model.line").each do |line|
+    model = Model.find line["data-id"]
+    expect(@current_inventory_pool.models.include? model).to be_true
+  end
+end
