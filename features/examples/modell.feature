@@ -132,6 +132,7 @@ Funktionalität: Modell
     Und ich speichere die Informationen
     Dann sind die geänderten Gruppenzuteilungen gespiechert
 
+  @upcoming
   Szenario: Modell löschen
     Angenommen man öffnet die Liste der Modelle
     Und es existiert ein Modell
@@ -142,6 +143,7 @@ Funktionalität: Modell
     Dann ist das Modell gelöscht
     Und ich erhalte eine Bestätigung
 
+  @upcoming
   Szenariogrundriss: Fehlermeldung beim Modelllöschversuch
     Angenommen man öffnet die Liste der Modelle
     Und das Modell hat <Zuweisung> zugewiesen
@@ -153,6 +155,7 @@ Funktionalität: Modell
       | Bestellung |
       | Gegenstand |
 
+  @upcoming
   Szenario: Modelanhängsel löschen
     Angenommen man öffnet die Liste der Modelle
     Und es existiert ein Modell

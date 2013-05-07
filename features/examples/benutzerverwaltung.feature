@@ -124,6 +124,7 @@ Funktionalität: Benutzer verwalten
     Und man kann neue Benutzer erstellen und löschen
     Und man kann Benutzern jegliche Rollen zuweisen und wegnehmen  
 
+  @upcoming
   Szenario: Gruppenzuteilung in Benutzeransicht hinzufügen/entfernen
     Angenommen man editiert einen Benutzer
     Dann kann man Gruppen über eine Autocomplete-Liste hinzufügen
