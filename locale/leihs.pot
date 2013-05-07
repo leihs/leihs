@@ -1337,6 +1337,9 @@ msgstr ""
 msgid "This inventory pool is closed on that day."
 msgstr ""
 
+msgid "Inventory pool successfully updated."
+msgstr ""
+
 msgid "This is a package containing the following items"
 msgstr ""
 
@@ -1972,6 +1975,9 @@ msgstr ""
 msgid "Workdays"
 msgstr ""
 
+msgid "Closed Days"
+msgstr ""
+
 msgid "Toggle %s"
 msgstr ""
 
@@ -1982,4 +1988,7 @@ msgid "By browsing categories"
 msgstr ""
 
 msgid "Select"
+msgstr ""
+
+msgid "Closed Day"
 msgstr ""

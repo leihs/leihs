@@ -17,6 +17,7 @@ class Backend::InventoryPoolsController < Backend::BackendController
   end
 
   def edit
+    @holidays = current_inventory_pool.holidays.reject{|h| h.end_date < Date.today}.sort_by(&:start_date)
     @inventory_pool = InventoryPool.find params[:id]
     @inventory_pool.attributes = params[:inventory_pool] if params[:inventory_pool]
   end
@@ -44,15 +45,8 @@ class Backend::InventoryPoolsController < Backend::BackendController
     @inventory_pool ||= InventoryPool.find(params[:id]) 
     params[:inventory_pool][:print_contracts] ||= "false" # unchecked checkboxes are *not* being sent
     params[:inventory_pool][:email] = nil if params[:inventory_pool][:email].blank?
-    # workday
-    params[:workday].each_pair do |workday, status|
-      if status == "open"
-        current_inventory_pool.workday.open! workday.to_i
-      elsif status == "closed"
-        current_inventory_pool.workday.closed! workday.to_i
-      end
-    end
-    if @inventory_pool.update_attributes(params[:inventory_pool]) and current_inventory_pool.workday.save!
+    params[:inventory_pool][:workday_attributes].delete ""
+    if @inventory_pool.update_attributes(params[:inventory_pool])
       flash[:notice] = _("Inventory pool successfully updated")
       redirect_to edit_backend_inventory_pool_path(@inventory_pool)
     else

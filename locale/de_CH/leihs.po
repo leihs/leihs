@@ -1365,6 +1365,9 @@ msgstr "Gruppen dieses/r Kunden/in"
 msgid "This inventory pool is closed on that day."
 msgstr "Dieser Gerätepark ist an diesem Tag geschlossen."
 
+msgid "Inventory pool successfully updated"
+msgstr "Gerätepark erfolgreich aktualisiert"
+
 msgid "This is a package containing the following items"
 msgstr "Dies ist ein Paket, bestehend aus den folgenden Gegenständen"
 
@@ -2038,6 +2041,9 @@ msgstr "Grundinformationen"
 msgid "Workdays"
 msgstr "Arbeitstage"
 
+msgid "Closed Days"
+msgstr "Schliessungszeiten"
+
 msgid "Toggle %s"
 msgstr "%s auf/zuklappen"
 
@@ -2049,3 +2055,6 @@ msgstr "über Kategorien"
 
 msgid "Select"
 msgstr "Auswählen"
+
+msgid "Closed Day"
+msgstr "Schliessungstag"

@@ -1,0 +1,12 @@
+.field-inline-entry{:"data-index" => "${i}"}
+  %input{:type => :hidden, :name => "inventory_pool[holidays_attributes][${i}][name]", :value => "${name}"}
+  %input{:type => :hidden, :name => "inventory_pool[holidays_attributes][${i}][start_date]", :value => "${start_date}"}
+  %input{:type => :hidden, :name => "inventory_pool[holidays_attributes][${i}][end_date]", :value => "${end_date}"}
+  %strong
+    %span ${name}
+  %span ${moment(start_date).format(i18n.date.L)}
+  %span= "-"
+  %span ${moment(end_date).format(i18n.date.L)}
+  .floatright
+    %span.clickable.delete-holiday{:title => "${_jed('Delete %s', _jed('Closed Day'))}"}
+      ${_jed("Delete")}
