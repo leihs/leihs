@@ -108,6 +108,15 @@ Funktionalität: Modell
     Dann ist dem Modell das ergänzende Modell hinzugefügt worden
 
   @javascript
+  Szenario: 2 Mal gleiches ergänzende Modelle hinzufügen (kompatibel)
+    Angenommen man öffnet die Liste der Modelle
+    Wenn ich ein Modell öffne, das bereits ergänzende Modelle hat
+    Und ich ein bereits bestehendes ergänzende Modell mittel Autocomplete Feld hinzufüge
+    Dann wurde das redundante Modell nicht hizugefügt
+    Und ich speichere die Informationen
+    Dann wurde das redundante ergänzende Modell nicht gespeichert
+
+  @javascript
   Szenario: sich ergänzende Modelle entfernen (kompatibel)
     Angenommen man öffnet die Liste der Modelle
     Wenn ich ein Modell öffne, das bereits ergänzende Modelle hat

@@ -84,7 +84,8 @@ class Model < ActiveRecord::Base
                           :class_name => "Model",
                           :join_table => "models_compatibles",
                           :foreign_key => "model_id",
-                          :association_foreign_key => "compatible_id"
+                          :association_foreign_key => "compatible_id",
+                          :uniq => true
 
 #############################################  
 

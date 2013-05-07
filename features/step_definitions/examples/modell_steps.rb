@@ -35,3 +35,19 @@ Dann(/^ist das Modell ohne das gelöschte ergänzende Modell gespeichert$/) do
   wait_until { page.has_content? _("List of Models") }
   @model.reload.compatibles.should be_empty
 end
+
+Wenn(/^ich ein bereits bestehendes ergänzende Modell mittel Autocomplete Feld hinzufüge$/) do
+  @comp = @model.compatibles.first
+  fill_in_autocomplete_field _("Compatibles"), @comp.name
+end
+
+Dann(/^wurde das redundante Modell nicht hizugefügt$/) do
+  wait_until {find ".field", text: _("Compatibles")}
+  find(".field", text: _("Compatibles")).all(".field-inline-entry", text: @comp.name).count.should == 1
+end
+
+Dann(/^wurde das redundante ergänzende Modell nicht gespeichert$/) do
+  wait_until {page.has_content? _("List of Models")}
+  comp_before = @model.compatibles
+  comp_before.count.should == @model.reload.compatibles.count
+end

@@ -211,7 +211,7 @@ deletePackage = ($scope, element)->
 
 addCompatible = ($scope, element) ->
   $scope.$apply ($scope) ->
-    $scope.model.compatibles.push element.item
+    $scope.model.compatibles.push element.item unless _.find $scope.model.compatibles, (el_item)-> el_item.id == element.item.id
 
 removeCompatible = ($scope, element)->
   $scope.model.compatibles = _.reject $scope.model.compatibles, (compatible)-> compatible is element.compatible
