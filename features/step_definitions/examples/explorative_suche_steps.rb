@@ -10,6 +10,7 @@ Angenommen(/^ich die Navigation der Kategorien aufklappe$/) do
 end
 
 Wenn(/^ich eine Kategorie anwähle$/) do
+  find("body").click
   @category_el = find(".explorative-entry")
   @category = Category.find @category_el[:"data-id"]
   @category_el.click
