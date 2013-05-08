@@ -33,7 +33,7 @@ class Backend::ModelsController < Backend::BackendController
             page = (params[:page] || 1).to_i,
             per_page = (params[:per_page] || PER_PAGE).to_i,
             category_id = params[:category_id].try(:to_i),
-            inventory_pool_id = params[:inventory_pool_id],
+            for_current_inventory_pool = params[:for_current_inventory_pool],
             with = params[:with] ? params[:with].deep_symbolize_keys : {} )
 
     respond_to do |format|
@@ -43,7 +43,7 @@ class Backend::ModelsController < Backend::BackendController
                   .select("DISTINCT models.*")
                   .search(query, [:name])
                   .order("#{sort_attr} #{sort_dir}")
-        if inventory_pool_id
+        if for_current_inventory_pool
           models = models.where(:id => current_inventory_pool.models)
         end
         if category_id
