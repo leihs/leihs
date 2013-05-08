@@ -5,7 +5,10 @@ class ExplorativeSearchNavigationController
     @el = $(options.el)
     @container = @el.find(".explorative-container")
     @searchInput = @el.find(".explorative-search")
+    @navigationHeader = @el.find(".explorative-header")
+    @clearIcon = @navigationHeader.find(".clear.icon")
     @way = if options.way? then options.way else []
+    do @setupSearch
     do @searchInput.changed_after_input
     do @delegateEvents
     do @fetch
@@ -16,6 +19,7 @@ class ExplorativeSearchNavigationController
     @el.on "click", ".explorative-current", @goBack
     @el.on "click", ".explorative-top", @goTop
     @searchInput.on "change changed_after_input", (e)=> @search($(e.currentTarget).val())
+    @clearIcon.on "click", @clearSearch
 
   current: -> _.last(@way)
 
@@ -33,12 +37,12 @@ class ExplorativeSearchNavigationController
     return found
 
   currentChildren: =>
-    if @searchResults?
-      @searchResults
-    else if typeof @current() == "string"
-      @categoriesForTerm @current()
-    else if @current()?
+    if @current()? and typeof @current() != "string"
       @current().children
+    else if @searchResults?
+      @searchResults
+    else if @searchInput.val().length
+      @categoriesForTerm @current()
     else
       @categories
 
@@ -53,9 +57,13 @@ class ExplorativeSearchNavigationController
     @searchResults = _.sortBy results, (r)->r.name
     return @searchResults
 
+  setupSearch: =>
+    if @way.length and typeof @way[0] == "string"
+      @searchInput.val(@way[0]) 
+      @clearIcon.removeClass "hidden"
+
   search: (term)->
-    return true if term == @term
-    @term = term
+    @clearIcon.removeClass "hidden"
     if term.length
       @way = [term]
       @searchResults = @categoriesForTerm term
@@ -64,6 +72,13 @@ class ExplorativeSearchNavigationController
       @searchResults = undefined
     do @wayToURL
     do @render
+
+  clearSearch: =>
+    @searchInput.val ""
+    @searchResults = undefined
+    @clearIcon.addClass "hidden"
+    @way = []
+    do @navigationChanged
       
   toggleEl: =>
     uri = URI window.location.href
@@ -87,7 +102,7 @@ class ExplorativeSearchNavigationController
   fetch: =>
     App.Category.fetch (categories)=>
       @categories = categories
-      @searchInput.removeClass "hidden"
+      @navigationHeader.removeClass "hidden"
       do @reconstructWay if not _.isEmpty(@way) and _.any(@way, (w)->typeof w == "number")
       do @render
       $(@).trigger "navigation-fetched"
@@ -110,13 +125,12 @@ class ExplorativeSearchNavigationController
     target = $(e.currentTarget)
     node = target.tmplItem().data
     @way.push node
-    @searchInput.val ""
-    @searchResults = undefined
     do @navigationChanged
     
   goBack: =>
+    return false if typeof @current() == "string"
     do @way.pop
-    @searchResults = undefined if _.isEmpty @way
+    @searchResults = undefined if _.isEmpty(@way) and @searchInput.val().length == 0
     do @navigationChanged
 
   goTop: =>

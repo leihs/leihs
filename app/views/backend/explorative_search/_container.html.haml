@@ -1,8 +1,9 @@
 %div{:class => params[:navigation].blank? ? "explorative-navigation" : "explorative-navigation open"}
   
-  %div.explorative-header
+  %div.explorative-header.hidden
 
-    %input.explorative-search.hidden{:type => :text, :placeholder => _("Search %s") % _("Category"), :tabindex => -1, :autocomplete => :off}
+    %input.explorative-search.clearable{:type => :text, :placeholder => _("Search %s") % _("Category"), :tabindex => -1, :autocomplete => :off}
+    .clear.icon.hidden
 
   .explorative-container
 

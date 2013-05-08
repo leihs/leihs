@@ -12,9 +12,16 @@
 
 {{if current}}
 %h3.explorative-current 
+  {{if top == current}}
   {{if typeof current == "string"}}
   .icon.search
-  ${current}
+  %strong 
+    ${current}
+  {{else}}
+  .icon.arrow.left
+  %strong 
+    ${current.name}
+  {{/if}}
   {{else}}
   .icon.arrow.left
   ${current.name}

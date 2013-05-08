@@ -12,6 +12,20 @@
   word-wrap: 1 break-word;
   width: 100%;
 
+  &:hover {
+    background: $highlight-darkergrey;
+  }
+
+  &.error {
+    background: $highlight-red !important;  
+    border-top: 1px solid $highlight-darkred !important;
+    border-bottom: 1px solid $borderhighlightred !important;
+
+    &:hover {
+      background: $highlight-darkred !important;  
+    }
+  }
+
   &>div>li {
     color: $darkergrey;
     display: table-cell;

@@ -6,10 +6,10 @@
   border-right: 1px solid $borderlightgrey
   display: none
   padding-top: 10px
+  position: relative
   vertical-align: top
   width: 20%
   min-width: 190px
-  @include unselectable
 
   &.open
     display: table-cell
@@ -22,6 +22,7 @@
     display: none
 
 .explorative-container
+  @include unselectable
 
   ul
     width: 100%
@@ -34,7 +35,20 @@
 .explorative-header
   @include box-sizing(border-box)
   padding: 0 14px 6px 14px
+  position: relative
   width: 100%
+
+  .clear.icon
+    cursor: pointer
+    position: absolute
+    top: 5px
+    right: 18px
+
+    &:not(:hover)
+      @include opacity(0.5)
+
+    &.hidden
+      display: none
 
 .explorative-entry
   cursor: pointer

@@ -1,4 +1,4 @@
-%ul{:class => "line toggler ${type}{{if is_package}} package{{/if}}", :"data-id" => "${id}"}
+%ul{:class => "line toggler ${type}{{if is_package}} package{{/if}}{{if max_available <= 0}} error{{/if}}", :"data-id" => "${id}"}
     
   .main
     

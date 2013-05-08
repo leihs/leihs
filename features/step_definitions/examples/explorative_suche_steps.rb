@@ -14,7 +14,6 @@ Wenn(/^ich eine Kategorie anwähle$/) do
   @category = Category.find @category_el[:"data-id"]
   @category_el.click
   wait_until {all(".loading", :visible => true).empty?}
-  wait_until {find(".explorative-current", :text => @category.name)}
 end
 
 Dann(/^sehe ich die darunterliegenden Kategorien$/) do
@@ -139,5 +138,12 @@ Dann(/^die explorative Suche zeigt nur Modelle aus meinem Park an$/) do
   all(".dialog .model.line").each do |line|
     model = Model.find line["data-id"]
     expect(@current_inventory_pool.models.include? model).to be_true
+  end
+end
+
+Dann(/^die nicht verfügbaren Modelle sind rot markiert$/) do
+  all(".model.line .availability", :text => /0 \(\d+\) \/ \d+/).each do |cell|
+    line = cell.find(:xpath, "./../..")
+    (line[:class] =~ /error/).should_not be_nil
   end
 end
