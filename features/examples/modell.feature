@@ -124,7 +124,7 @@ Funktionalität: Modell
     Und ich speichere die Informationen
     Dann ist das Modell ohne das gelöschte ergänzende Modell gespeichert
 
-  @javascript
+  @wip
   Szenario: Gruppenverteilung editieren
     Angenommen man öffnet die Liste der Modelle
     Wenn ich ein bestehendes Modell bearbeite
