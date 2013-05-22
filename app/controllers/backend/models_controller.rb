@@ -319,6 +319,7 @@ class Backend::ModelsController < Backend::BackendController
         children.each do |child|
           item.children << Item.find_by_id(child["id"])
         end
+        flash[:notice] = "#{_("Model saved")} / #{_("Packages created")}"
       else
         item = Item.find_by_id(package["id"])
         package.delete :id

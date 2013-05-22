@@ -1992,3 +1992,21 @@ msgstr ""
 
 msgid "Closed Day"
 msgstr ""
+
+msgid "not yet saved"
+msgstr ""
+
+msgid "Prepackaged"
+msgstr ""
+
+msgid "Model saved"
+msgstr ""
+
+msgid "Packages created"
+msgstr ""
+
+msgid "The package is not in stock"
+msgstr ""
+
+msgid "The items of the package can not be edited"
+msgstr ""

@@ -40,7 +40,14 @@ module Json
         end
 
         if with[:location_as_string]
-          h[:location] = (item.owner != item.inventory_pool) ? "#{item.inventory_pool.to_s}, #{item.location.to_s}" : item.location.to_s
+          h[:location] = if item.owner != item.inventory_pool 
+            location = []
+            location.push item.inventory_pool.to_s if item.inventory_pool
+            location.push item.location.to_s if item.location
+            location.join ", "
+          else 
+            item.location.to_s
+          end
         end
 
         if with[:location]

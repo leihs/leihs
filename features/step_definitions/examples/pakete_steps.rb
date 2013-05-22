@@ -7,14 +7,14 @@ end
 
 Wenn /^ich mindestens die Pflichtfelder ausfülle$/ do
   @model_name = "Test Modell-Paket"
-  find(".field").find("input").set @model_name
+  find(".field", :text => _("Name")).fill_in 'name', :with => @model_name
 end
 
 Wenn /^ich eines oder mehrere Pakete hinzufüge$/ do
   find("a", text: _("Add %s") % _("Package")).click
 end
 
-Wenn /^ich diesem Paket eines oder mehrere Gegenstände hinzufügen$/ do
+Wenn /^ich(?: kann | )diesem Paket eines oder mehrere Gegenstände hinzufügen$/ do
   add_item_via_autocomplete "beam123", find(".dialog #add-item .autocomplete")
   add_item_via_autocomplete "beam345", find(".dialog #add-item .autocomplete")
 end
@@ -86,11 +86,11 @@ Wenn /^ich ein Paket editiere$/ do
   @model = Model.find_by_name "Kamera Set"
   visit edit_backend_inventory_pool_model_path(@current_inventory_pool, @model)
   @package_to_edit = @model.items.detect &:in_stock?
-  find(".field-inline-entry", text: @package_to_edit.inventory_code).find("a", text: _("Edit")).click
+  find(".field-inline-entry", text: @package_to_edit.inventory_code).find(".clickable", text: _("Edit")).click
 end
 
 Dann /^kann ich einen Gegenstand aus dem Paket entfernen$/ do
-  items = all(".inventory_code")
+  items = all(".dialog .inventory_code")
   @number_of_items_before = items.size
   @item_to_remove = items.first.text
   find(".removeItem").click
@@ -121,14 +121,55 @@ Wenn /^ich das Paket und das Modell speichere$/ do
   step 'ich speichere die Informationen'
 end
 
-Dann /^besitzt das Paket alle angegebenen Informationen$/ do
+Dann /^(?:besitzt das Paket alle angegebenen Informationen|das Paket besitzt alle angegebenen Informationen)$/ do
   wait_until{ page.evaluate_script("$.active") == 0}
   model = Model.find_by_name @model_name
   visit edit_backend_inventory_pool_model_path(@current_inventory_pool, model)
-  find("[ng-repeat='package in model.packages']").find("a", :text => _("Editieren")).click
+  find("[ng-repeat='package in model.packages']").find(".clickable", :text => _("Edit")).click
   step 'hat der Gegenstand alle zuvor eingetragenen Werte'
 end
 
 Wenn /^ich ein bestehendes Paket editiere$/ do
-  find("[ng-repeat='package in model.packages']").find("a", :text => _("Editieren")).click
+  find("[ng-repeat='package in model.packages']").find(".clickable", :text => _("Edit")).click
+end
+
+Wenn(/^ich eine Paket hinzufüge$/) do
+  find("a", text: _("Add %s") % _("Package")).click
+end
+
+Wenn(/^ich die Paketeigenschaften eintrage$/) do
+  steps %Q{Und ich die folgenden Informationen erfasse
+    | Feldname                     | Type         | Wert                          |
+    | Ausmusterung                 | checkbox     | unchecked                     |
+    | Zustand                      | radio        | OK                            |
+    | Vollständigkeit              | radio        | OK                            |
+    | Ausleihbar                   | radio        | OK                            |
+    | Inventarrelevant             | select       | Ja                            |
+    | Letzte Inventur              |              | 01.01.2013                    |
+    | Verantwortliche Abteilung    | autocomplete | A-Ausleihe                    |
+    | Verantwortliche Person       |              | Matus Kmit                    |
+    | Benutzer/Verwendung          |              | Test Verwendung               |
+    | Name                         |              | Test Name                     |
+    | Notiz                        |              | Test Notiz                    |
+    | Gebäude                      | autocomplete | Keine/r                       |
+    | Raum                         |              | Test Raum                     |
+    | Gestell                      |              | Test Gestell                  |
+    | Anschaffungswert             |              | 50.0                          |}
+end
+
+Wenn(/^ich dieses Paket speichere$/) do
+  find(".dialog .button.save").click
+  wait_until{ all(".dialog").empty? }
+end
+
+Wenn(/^ich dieses Paket wieder editiere$/) do
+  find(".field-inline-entry .clickable", text: _("Edit")).click
+end
+
+Dann(/^kann ich die Paketeigenschaften erneut bearbeiten$/) do
+  step 'ich die Paketeigenschaften eintrage'
+end
+
+Dann(/^sehe ich die Meldung "(.*?)"$/) do |text|
+  wait_until{ find(".notification.headline", :text => text) }
 end

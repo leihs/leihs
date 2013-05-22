@@ -12,14 +12,18 @@
   width: 100%
   @include box-sizing(border-box) 
 
-  span, a 
-    vertical-align: middle
+  span
+    display: inline
 
   .tobedeleted
     text-decoration: line-through !important
 
     &, &:hover
       color: black
+
+  .inventory_code
+    display: inline-block !important
+    width: 60% !important
 
   .movetoggle
     cursor: move

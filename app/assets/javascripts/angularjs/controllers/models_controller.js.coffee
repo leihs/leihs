@@ -203,7 +203,7 @@ saveModifiedPackage = ($scope, aPackage, children, packageData)->
 
 addPackage = ($scope, children, aPackage)->
   $.extend aPackage, {
-    inventory_code: "(#{_.map(children, (child)->child.inventory_code).join(", ")})"
+    inventory_code: "#{_jed("Prepackaged")} (#{_jed("not yet saved")})"
     children: children
   }
   $scope.model.packages.unshift aPackage

@@ -5,3 +5,17 @@
 
 :coffeescript
   window.Fields = #{json_for Field.accessible_by(current_user, current_inventory_pool)}
+
+  notice = #{flash[:notice].to_json}
+  error = #{flash[:error].to_json}
+
+  jQuery ->
+    if notice
+      Notification.add_headline
+        text: notice
+        type: "success"
+
+    if error
+      Notification.add_headline
+        text: error
+        type: "error"

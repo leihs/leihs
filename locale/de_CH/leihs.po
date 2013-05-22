@@ -2058,3 +2058,21 @@ msgstr "Auswählen"
 
 msgid "Closed Day"
 msgstr "Schliessungstag"
+
+msgid "not yet saved"
+msgstr "noch nicht gespeichert"
+
+msgid "Prepackaged"
+msgstr "Vorbereitetes Paket"
+
+msgid "Model saved"
+msgstr "Modell gespeichert"
+
+msgid "Packages created"
+msgstr "Pakete erstellt"
+
+msgid "The package is not in stock"
+msgstr "Das Paket ist nicht am Lager"
+
+msgid "The items of the package can not be edited"
+msgstr "Die Gegenstände dieses Pakets können nicht ausgeliehen werden"

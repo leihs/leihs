@@ -87,6 +87,18 @@ window.i18n.locale_data = {
          "X-Poedit-Country": " Switzerland",
          "Plural-Forms": " nplurals=2; plural=(n != 1)"
       },
+      "Whatever you enter here is prepended to all inventory numbers for this particular pool. e.g. ABC1, ABC2, ABC3 etc. If you leave this empty, no alphabetic characters are used in the inventory numbers.": [
+         null,
+         "Was Sie hier eingeben, wird vorne an alle Inventarnummern dieses Geräteparks angehängt. z.B. ABC1, ABC2, ABC3 usw. Wenn Sie dies leer lassen, werden keine alphanumerischen Zeichen in den Inventarnummern verwendet."
+      ],
+      "This e-mail address is used as sender when sending reminder or confirmation e-mails for this particular pool. If you enter nothing, the system default sender address is used.": [
+         null,
+         "Diese Mailadresse wird als Absender beim Senden von Erinnerungs- und Bestätigungsmails aus diesem Gerätepark verwendet. Wenn Sie nichts eingeben, wird die Standardadresse des Systems verwendet."
+      ],
+      "This note is added to any contract, but can be changed individually before actually printing and signing each contract.": [
+         null,
+         "Diese Notiz wird standardmässig jedem Vertrag hinzufgefügt, kann beim Druck eines einzelnen Vertrags aber noch geändert werden."
+      ],
       " at the inventory pool ": [
          null,
          " aus dem Gerätepark "
@@ -1785,6 +1797,10 @@ window.i18n.locale_data = {
          null,
          "Dieser Gerätepark ist an diesem Tag geschlossen."
       ],
+      "Inventory pool successfully updated": [
+         null,
+         "Gerätepark erfolgreich gespeichert"
+      ],
       "This is a package containing the following items": [
          null,
          "Dies ist ein Paket, bestehend aus den folgenden Gegenständen"
@@ -2568,7 +2584,43 @@ window.i18n.locale_data = {
       ],
       "Packages created": [
          null,
-         "Pakete wurden angelegt"
+         "Pakete erstellt"
+      ],
+      "Attention": [
+         null,
+         "Achtung"
+      ],
+      "This user is suspended": [
+         null,
+         "Dieser Benutzer ist gesperrt"
+      ],
+      "Email": [
+         null,
+         ""
+      ],
+      "Short Name": [
+         null,
+         "Kurzname"
+      ],
+      "Default Contract Note": [
+         null,
+         "Standard-Vertragsnotiz"
+      ],
+      "Print Contracts": [
+         null,
+         "Verträge drucken"
+      ],
+      "Basic Information": [
+         null,
+         "Grundinformationen"
+      ],
+      "Workdays": [
+         null,
+         "Arbeitstage"
+      ],
+      "Closed Days": [
+         null,
+         "Schliessungszeiten"
       ],
       "Toggle %s": [
          null,
@@ -2585,6 +2637,30 @@ window.i18n.locale_data = {
       "Select": [
          null,
          "Auswählen"
+      ],
+      "Closed Day": [
+         null,
+         "Schliessungstag"
+      ],
+      "not yet saved": [
+         null,
+         "noch nicht gespeichert"
+      ],
+      "Prepackaged": [
+         null,
+         "Vorbereitetes Paket"
+      ],
+      "Model saved": [
+         null,
+         "Modell gespeichert"
+      ],
+      "The package is not in stock": [
+         null,
+         "Das Paket ist nicht am Lager"
+      ],
+      "The items of the package can not be edited": [
+         null,
+         "Die Gegenstände dieses Pakets können nicht ausgeliehen werden"
       ]
    }
 }

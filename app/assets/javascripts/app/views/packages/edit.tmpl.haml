@@ -13,6 +13,7 @@
   %button.button.green.save
     ${_jed("Save")}
 
+{{if package == undefined || package.id == undefined || (package != undefined && package.in_stock)}}
 %section
   .input_container
     %form#add-item
@@ -21,17 +22,28 @@
       :"data-url" => "/backend/inventory_pools/${currentInventoryPool.id}/search?types[]=item&with[model][name]=true",
       :"data-autocomplete_class" => "user", 
       :"data-autocomplete_element_tmpl" => "tmpl/autocomplete/item"}
-
 %hr
+{{else}}
+%br
+%br
+{{/if}}
 
 .scalable
   
   .flash_message
 
+  {{if package == undefined || package.id == undefined || (package != undefined && package.in_stock)}}
   .list#package-items
     {{if package}}
     {{tmpl(package.children) "app/views/packages/edit/item_line"}}
     {{/if}}
+  {{else}}
+  %section.notifications
+    .notification
+      %strong ${_jed("The package is not in stock")}.
+      ${_jed("The items of the package can not be edited")}.
+  {{/if}}
+
 
   #item.form_edit.innercontent.edit.prevent-scanner-submit
 

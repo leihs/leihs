@@ -41,8 +41,7 @@
         ${_jed("until")}
         ${moment(current_return_date).format(i18n.date.L)}
     {{else}}
-    %li.item_location
-      ${$item.data.location}
+    %li.item_location ${$item.data.location}
     {{/if}}
     
     %li.item_status      
