@@ -749,6 +749,9 @@ msgstr ""
 msgid "Model successfully added as compatible"
 msgstr ""
 
+msgid "Model successfully removed"
+msgstr ""
+
 msgid "Models"
 msgstr ""
 

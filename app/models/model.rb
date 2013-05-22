@@ -12,23 +12,12 @@ class Model < ActiveRecord::Base
   include Availability::Model
 
   before_destroy do
-    errors.add(:base, "Model cannot be destroyed because related items are still present.") if Item.unscoped { items.count } > 0
     if is_package? and order_lines.empty? and contract_lines.empty?
       items.destroy_all
-    else
-      return false
     end
-
-# TODO allow to delete a model that doesn't have items
-#    if is_package? and order_lines.empty? and contract_lines.empty?
-#      items.destroy_all
-#    elsif Item.unscoped { items.count } > 0
-#      errors.add(:base, "Model cannot be destroyed because related items are still present.")
-#      return false
-#    end
   end
 
-  has_many :items # NOTE these are only the active items (unretired), because Item has a default_scope
+  has_many :items, dependent: :restrict # NOTE these are only the active items (unretired), because Item has a default_scope
   accepts_nested_attributes_for :items, :allow_destroy => true
 
   has_many :unretired_items, :class_name => "Item", :conditions => {:retired => nil} # TODO this is used by the filter
@@ -58,8 +47,8 @@ class Model < ActiveRecord::Base
     end
   end
   
-  has_many :order_lines
-  has_many :contract_lines
+  has_many :order_lines, dependent: :restrict
+  has_many :contract_lines, dependent: :restrict
   has_many :properties, :dependent => :destroy
   accepts_nested_attributes_for :properties, :allow_destroy => true
 

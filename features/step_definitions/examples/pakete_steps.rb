@@ -64,6 +64,14 @@ Wenn /^ich ein Modell editiere, welches bereits Pakete hat$/ do
   wait_until { find(".line", :text => @model.name).find(".button", :text => _("Edit Model")) }.click
 end
 
+Wenn /^ich ein Modell editiere, welches bereits Gegenstände hat$/ do
+  visit backend_inventory_pool_models_path(@current_inventory_pool)
+  @model = @current_inventory_pool.models.detect {|m| not (m.items.empty? and m.is_package?)}
+  @model_name = @model.name
+  step 'ich nach "%s" suche' % @model.name
+  wait_until { find(".line", :text => @model.name).find(".button", :text => _("Edit Model")) }.click
+end
+
 Dann /^kann ich diesem Modell keine Pakete mehr zuweisen$/ do
   page.should_not have_selector("a", text: _("Add %s") % _("Package"))
 end

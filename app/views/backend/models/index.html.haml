@@ -54,9 +54,23 @@
 
 
 :coffeescript
-  jQuery -> new App.ModelsController
-    currentCategoryId: #{current_category_id.to_json}
-    navigation: new App.ExplorativeSearchNavigationController
-      button: $(".explorative-search-toggle")
-      el: $(".explorative-navigation")
-      way: #{way.to_json}
+  notice = #{flash[:notice].to_json}
+  error = #{flash[:error].to_json}
+
+  jQuery ->
+    if notice
+      Notification.add_headline
+        text: notice
+        type: "success"
+
+    if error
+      Notification.add_headline
+        text: error
+        type: "error"
+
+    new App.ModelsController
+      currentCategoryId: #{current_category_id.to_json}
+      navigation: new App.ExplorativeSearchNavigationController
+        button: $(".explorative-search-toggle")
+        el: $(".explorative-navigation")
+        way: #{way.to_json}

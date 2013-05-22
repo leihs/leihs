@@ -63,7 +63,8 @@ module Json
       case key.to_sym
         when :modellist
           {
-            image_thumb: true
+            image_thumb: true,
+            is_destroyable: true
           }
         when :item_edit
          { :current_borrower => true,
@@ -110,6 +111,7 @@ module Json
            :categories => {}}
         when :model
           {:is_editable => true,
+           :is_destroyable => true,
            :is_package => true,
            :description => true,
            :technical_detail => true,

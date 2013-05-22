@@ -51,3 +51,100 @@ Dann(/^wurde das redundante ergänzende Modell nicht gespeichert$/) do
   comp_before = @model.compatibles
   comp_before.count.should == @model.reload.compatibles.count
 end
+
+Angenommen(/^es existiert ein Modell mit folgenden Eigenschaften$/) do |table|
+  conditions = table.raw.flatten.map do |condition|
+    case condition
+    when "in keinem Vertrag aufgeführt"
+      lambda {|m| m.contract_lines.empty?}
+    when "keiner Bestellung zugewiesen"
+      lambda {|m| m.order_lines.empty?}
+    when "keine Gegenstände zugefügt"
+      lambda {|m| m.items.empty?}
+    when "hat Gruppenkapazitäten zugeteilt"
+      lambda {|m| Partition.find_by_model_id(m.id)}
+    when "hat Eigenschaften"
+      lambda {|m| not m.properties.empty?}
+    when "hat Zubehör"
+      lambda {|m| not m.accessories.empty?}
+    when "hat Bilder"
+      lambda {|m| not m.images.empty?}
+    when "hat Anhänge"
+      lambda {|m| not m.attachments.empty?}
+    when "hat Kategoriezuweisungen"
+      lambda {|m| not m.categories.empty?}
+    when "hat sich ergänzende Modelle"
+      lambda {|m| not m.compatibles.empty?}
+    else
+      false
+    end
+  end
+
+  @model = Model.find {|m| conditions.map{|c| c.class == Proc ? c.call(m) : c}.all?}
+end
+
+Wenn(/^ich dieses Modell lösche$/) do
+  visit edit_backend_inventory_pool_model_path(@current_inventory_pool, @model)
+
+  wait_until { page.has_selector? '.content_navigation .arrow' }
+  page.execute_script("$('.content_navigation .arrow').trigger('mouseover');")
+  click_link _("Delete %s") % _("Model")
+  step "ensure there are no active requests"
+end
+
+Dann(/^das Modell ist gelöscht$/) do
+  Model.find_by_id(@model.id).should be_nil
+end
+
+Dann(/^erhalte ich eine Bestätigung$/) do
+  wait_until {current_path == backend_inventory_pool_models_path(@current_inventory_pool)}
+  wait_until {page.has_selector? ".success"}
+end
+
+Und /^das Modell hat (.+) zugewiesen$/ do |assoc|
+  @model = Model.find do |m|
+    case assoc
+    when "Vertrag"
+      not m.contract_lines.empty?
+    when "Bestellung"
+      not m.order_lines.empty?
+    when "Gegenstand"
+      not m.items.empty?
+    end
+  end
+end
+
+Dann(/^kann ich das Modell nicht löschen$/) do
+  visit edit_backend_inventory_pool_model_path(@current_inventory_pool, @model)
+
+  wait_until { page.has_selector? '.content_navigation .arrow' }
+  page.execute_script("$('.content_navigation .arrow').trigger('mouseover');")
+  all(".button", text: (_("Delete %s") % _("Model"))).should be_empty
+end
+
+Und /^ich sehe eine Dialog-Fehlermeldung$/ do
+  find(".flash_message").text.should_not be_empty
+end
+
+Dann(/^es wurden auch alle Anhängsel gelöscht$/) do
+  Partition.find_by_model_id(@model.id).should be_nil
+  Property.where(model_id: @model.id).should be_empty
+  Accessory.where(model_id: @model.id).should be_empty
+  Image.where(model_id: @model.id).should be_empty
+  Attachment.where(model_id: @model.id).should be_empty
+  ModelLink.where(model_id: @model.id).should be_empty
+  Model.all {|m| m.compatibles.include? Model.find_by_name("Windows Laptop")}.include?(@model).should be_false
+end
+
+Wenn(/^ich dieses Modell aus der Liste lösche$/) do
+  visit backend_inventory_pool_models_path(@current_inventory_pool)
+
+  find_field('query').set @model.name
+  wait_until { all("li.modelname").first.text == @model.name }
+  page.execute_script("$('.trigger .arrow').trigger('mouseover');")
+  wait_until {find(".line.toggler.model", text: @model.name).find(".button", text: _("Delete %s") % _("Modell"))}.click
+end
+
+Dann(/^das Modell wurde aus der Liste gelöscht$/) do
+  page.should_not have_content @model.name
+end

@@ -158,14 +158,24 @@ class Backend::ModelsController < Backend::BackendController
     end
   end
 
-  # only for destroying compatibles (the "compatible" route maps to this models controller)
-  # at this moment models are *never* allowed to being destroyed from the GUI
-  def destroy 
-    if @model and params[:id]
-        @model.compatibles.delete(@model.compatibles.find(params[:id]))
-        flash[:notice] = _("Compatible successfully removed")
-        redirect_to :action => 'index', :model_id => @model
+  def destroy
+    respond_to do |format|
+      format.json do
+        begin @model.destroy
+          flash[:notice] = _("Model successfully deleted")
+          render :json => true, status: :ok
+        rescue ActiveRecord::DeleteRestrictionError => e
+          @model.errors.add(:base, e)
+          render :text => @model.errors.full_messages.uniq.join(", "), :status => :forbidden
+        end
+      end
     end
+
+    #if @model and params[:id]
+      #@model.compatibles.delete(@model.compatibles.find(params[:id]))
+      #flash[:notice] = _("Compatible successfully removed")
+      #redirect_to :action => 'index', :model_id => @model
+    #end
   end
 
 #################################################################

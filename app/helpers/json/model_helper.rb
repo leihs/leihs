@@ -95,6 +95,10 @@ module Json
         if with[:is_editable]
           h[:is_editable] = is_privileged_user?
         end
+
+        if with[:is_destroyable]
+          h[:is_destroyable] = model.can_destroy?
+        end
       end
       
       h

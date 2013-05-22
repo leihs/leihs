@@ -19,7 +19,7 @@ Funktionalität: Modell mit Paketen erstellen
 
   @javascript
   Szenario: Modell mit bereits vorhandenen Gegenständen kann kein Paket zugewiesen werden
-    Wenn ich ein Modell editiere, welches bereits Pakete hat
+    Wenn ich ein Modell editiere, welches bereits Gegenstände hat
     Dann kann ich diesem Modell keine Pakete mehr zuweisen
 
   @javascript

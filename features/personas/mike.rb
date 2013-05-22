@@ -87,6 +87,7 @@ module Persona
       setup_retired
       setup_broken
       setup_incomplete
+      setup_deletable_model
       
       setup_inventory_moved_to_other_responsible
       setup_inventory_for_group_cast
@@ -116,6 +117,7 @@ module Persona
                                           :manufacturer => "Sharp", 
                                           :description => "Beamer, geeignet für alle Verwendungszwecke.", 
                                           :maintenance_period => 0)
+      @beamer_model
     end
     
     def setup_cameras
@@ -204,6 +206,24 @@ module Persona
       @helicopter_model.properties << Property.create(:key => "Akkus", :value => "2")
       @helicopter_model.properties << Property.create(:key => "Farbe", :value => "Rot")
       @helicopter_model.compatibles << @windows_laptop_model
+    end
+
+    def setup_deletable_model
+      @helicopter_model2 = FactoryGirl.create(:model, :name => "Walkera v120 2G",
+                                :manufacturer => "Walkera", 
+                                :description => "3D Helikopter", 
+                                :maintenance_period => 0)
+      @helicopter_model2.partitions << Partition.create(model_id: @helicopter_model.id, 
+                                                      inventory_pool_id: @inventory_pool.id, 
+                                                      group_id: Group.create(name: "Group A", inventory_pool_id: @inventory_pool.id).id,
+                                                      quantity: 5)
+      @helicopter_model2.attachments << FactoryGirl.create(:attachment)
+      @helicopter_model2.images << FactoryGirl.create(:image)
+      @helicopter_model2.model_links.create :model_group => @helicopter_category
+      @helicopter_model2.properties << Property.create(:key => "Rotorduchmesser", :value => "120")
+      @helicopter_model2.properties << Property.create(:key => "Akkus", :value => "2")
+      @helicopter_model2.properties << Property.create(:key => "Farbe", :value => "Rot")
+      @helicopter_model2.compatibles << @windows_laptop_model
     end
 
     def setup_retired

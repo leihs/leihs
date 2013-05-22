@@ -754,6 +754,9 @@ msgstr "Modell existiert nicht mehr"
 msgid "Model successfully added as compatible"
 msgstr "Modell erfolgreich als kompatibel hinzugefügt"
 
+msgid "Model successfully deleted"
+msgstr "Model erfolgreich gelöscht"
+
 msgid "Models"
 msgstr "Modelle"
 
