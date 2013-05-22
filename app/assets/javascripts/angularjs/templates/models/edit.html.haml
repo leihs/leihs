@@ -3,15 +3,7 @@
   .content_navigation
     %a.button.red{:href => "/backend/inventory_pools/{{current_inventory_pool_id}}/models"}
       {{_jed("Cancel")}}
-    #approve.multibutton{"ng-show" => "model.is_destroyable"}
-      .alternatives
-        .trigger.green
-          .arrow
-        %a{:href => "/backend/inventory_pools/{{current_inventory_pool_id}}/models/{{model.id}}", :class => "button red", :"data-remote" => "true", :"data-on_success" => 'window.location = "/backend/inventory_pools/{{current_inventory_pool_id}}/models"', :"data-method" => "delete"}
-          {{_jed("Delete %s", _jed("Model"))}}
-      %button.button.green{"ng-disabled" => "form.$invalid"}
-        {{_jed("Save %s", _jed("Model"))}}
-    %button.button.green{"ng-disabled" => "form.$invalid", "ng-hide" => "model.is_destroyable"}
+    %button.button.green{"ng-disabled" => "form.$invalid"}
       {{_jed("Save %s", _jed("Model"))}}
 
   .top
