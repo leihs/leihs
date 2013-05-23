@@ -133,17 +133,7 @@ Funktionalität: Modell
     Dann sind die geänderten Gruppenzuteilungen gespiechert
 
   @javascript
-  Szenario: Modell löschen (Editieransicht)
-    Angenommen es existiert ein Modell mit folgenden Eigenschaften
-      | in keinem Vertrag aufgeführt |
-      | keiner Bestellung zugewiesen |
-      | keine Gegenstände zugefügt |
-    Wenn ich dieses Modell lösche
-    Dann erhalte ich eine Bestätigung
-    Und das Modell ist gelöscht
-
-  @javascript
-  Szenario: Modell löschen (Listenansicht)
+  Szenario: Modell löschen
     Angenommen es existiert ein Modell mit folgenden Eigenschaften
       | in keinem Vertrag aufgeführt |
       | keiner Bestellung zugewiesen |
@@ -155,7 +145,7 @@ Funktionalität: Modell
   @javascript
   Szenariogrundriss: Modelllöschversuch verhindern
     Angenommen das Modell hat <Zuweisung> zugewiesen
-    Dann kann ich das Modell nicht löschen
+    Dann kann ich das Modell aus der Liste nicht löschen
 
   Beispiele:
     | Zuweisung   |
@@ -176,7 +166,6 @@ Funktionalität: Modell
       | hat Anhänge |
       | hat Kategoriezuweisungen |
       | hat sich ergänzende Modelle |
-    Wenn ich dieses Modell lösche
-    Dann erhalte ich eine Bestätigung
+    Wenn ich dieses Modell aus der Liste lösche
     Und das Modell ist gelöscht
     Und es wurden auch alle Anhängsel gelöscht

@@ -83,22 +83,9 @@ Angenommen(/^es existiert ein Modell mit folgenden Eigenschaften$/) do |table|
   @model = Model.find {|m| conditions.map{|c| c.class == Proc ? c.call(m) : c}.all?}
 end
 
-Wenn(/^ich dieses Modell lösche$/) do
-  visit edit_backend_inventory_pool_model_path(@current_inventory_pool, @model)
-
-  wait_until { page.has_selector? '.content_navigation .arrow' }
-  page.execute_script("$('.content_navigation .arrow').trigger('mouseover');")
-  click_link _("Delete %s") % _("Model")
-  step "ensure there are no active requests"
-end
-
 Dann(/^das Modell ist gelöscht$/) do
+  step "ensure there are no active requests"
   Model.find_by_id(@model.id).should be_nil
-end
-
-Dann(/^erhalte ich eine Bestätigung$/) do
-  wait_until {current_path == backend_inventory_pool_models_path(@current_inventory_pool)}
-  wait_until {page.has_selector? ".success"}
 end
 
 Und /^das Modell hat (.+) zugewiesen$/ do |assoc|
@@ -114,12 +101,13 @@ Und /^das Modell hat (.+) zugewiesen$/ do |assoc|
   end
 end
 
-Dann(/^kann ich das Modell nicht löschen$/) do
-  visit edit_backend_inventory_pool_model_path(@current_inventory_pool, @model)
+Dann(/^kann ich das Modell aus der Liste nicht löschen$/) do
+  visit backend_inventory_pool_models_path(@current_inventory_pool)
 
-  wait_until { page.has_selector? '.content_navigation .arrow' }
-  page.execute_script("$('.content_navigation .arrow').trigger('mouseover');")
-  all(".button", text: (_("Delete %s") % _("Model"))).should be_empty
+  find_field('query').set @model.name
+  wait_until { all("li.modelname").first.text == @model.name }
+  page.execute_script("$('.trigger .arrow').trigger('mouseover');")
+  find(".line.toggler.model", text: @model.name).should_not have_content(_("Delete %s") % _("Modell"))
 end
 
 Und /^ich sehe eine Dialog-Fehlermeldung$/ do
