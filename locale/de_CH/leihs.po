@@ -581,6 +581,9 @@ msgstr "Inventarcode/Name"
 msgid "Inventory Pool"
 msgstr "Gerätepark"
 
+msgid "Inventory pool successfully created"
+msgstr "Gerätepark erfolgreich erstellt"
+
 msgid "Inventory Pool is missing"
 msgstr "Gerätepark fehlt"
 
@@ -690,6 +693,9 @@ msgstr "Liste der Verträge"
 
 msgid "List of Inventory"
 msgstr "Inventarliste"
+
+msgid "List of Inventory Pools"
+msgstr "Liste der Geräteparks"
 
 msgid "List of Orders"
 msgstr "Liste der Bestellungen"
@@ -1237,6 +1243,9 @@ msgstr "Zubehör erstellt."
 
 msgid "The accessory was successfully deleted."
 msgstr "Zubehör gelöscht."
+
+msgid "%s successfully deleted"
+msgstr "%s erfolgreich gelöscht"
 
 msgid "The admin role cannot be scoped to an inventory pool"
 msgstr "Die admin-Rolle kann sich nicht auf einen Gerätepark beziehen"

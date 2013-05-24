@@ -1,15 +1,14 @@
--if current_inventory_pool
-  #ipselection
-    = link_to "javascript: void(0)", :class => "anchor", :title => current_inventory_pool.name do
-      .leftend
-      = truncate(current_inventory_pool.name, :length => 26)
-      -if current_managed_inventory_pools.size > 0
-        .icon 
-      
-    .popup
-      .inner
-        - current_managed_inventory_pools.each do |ip|
-          = link_to truncate(ip.name, :length => 26), backend_inventory_pool_path(ip), :title => ip.name
+#ipselection
+  = link_to "javascript: void(0)", :class => "anchor", :title => (current_inventory_pool.name if current_inventory_pool) do
+    .leftend
+    = truncate(current_inventory_pool.name, :length => 26) if current_inventory_pool
+    - if current_managed_inventory_pools.size > 0
+      .icon 
+    
+  .popup
+    .inner
+      - current_managed_inventory_pools.each do |ip|
+        = link_to truncate(ip.name, :length => 26), is_admin? ? edit_backend_inventory_pool_path(ip) : backend_inventory_pool_path(ip), :title => ip.name
         
 :javascript
 

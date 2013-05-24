@@ -16,7 +16,7 @@ class InventoryPool < ActiveRecord::Base
   has_many :locations, :through => :items, :uniq => true
   has_many :items, :dependent => :nullify # OPTIMIZE prevent self.destroy unless self.items.empty? 
                                           # NOTE these are only the active items (unretired), because Item has a default_scope
-  has_many :own_items, :class_name => "Item", :foreign_key => "owner_id"
+  has_many :own_items, :class_name => "Item", :foreign_key => "owner_id", :dependent => :restrict
   #TODO  do we need a :all_items ??
   has_many :models, :through => :items, :uniq => true
   has_many :models_active, :through => :items, :source => :model, :uniq => true, :conditions => "items.retired IS NULL" # OPTIMIZE models.active 
@@ -33,10 +33,10 @@ class InventoryPool < ActiveRecord::Base
 
   has_and_belongs_to_many :accessories
 
-  has_many :orders
+  has_many :orders, :dependent => :delete_all
   has_many :order_lines #old#, :through => :orders
 
-  has_many :contracts
+  has_many :contracts, :dependent => :restrict
   has_many :contract_lines, :through => :contracts, :uniq => true #Rails3.1# TODO still needed?
   has_many :visits #, :include => {:user => [:reminders, :groups]} # MySQL View based on contract_lines
 
@@ -45,6 +45,8 @@ class InventoryPool < ActiveRecord::Base
       all + [Group::GENERAL_GROUP_ID]
     end
   end
+
+  before_create :create_workday
 
 #######################################################################
 
@@ -80,9 +82,9 @@ class InventoryPool < ActiveRecord::Base
   
 #######################################################################
 
-  before_create :create_workday
-
   validates_presence_of :name, :shortname
+
+  validates_uniqueness_of :name
 
   default_scope order("name")
 
@@ -171,4 +173,8 @@ class InventoryPool < ActiveRecord::Base
     end
   end
 
+  def create_workday
+    self.workday = Workday.new
+  end 
+  
 end

@@ -124,7 +124,11 @@ class User < ActiveRecord::Base
   # TODO has_many :managed_inventory_pools OR scope ??
   # get the inventory pools managed by the current user
   def managed_inventory_pools
-    access_rights.managers.where("access_level >= 1").includes(:inventory_pool).collect(&:inventory_pool)
+    if has_role? "admin"
+      InventoryPool.all
+    else
+      access_rights.managers.where("access_level >= 1").includes(:inventory_pool).collect(&:inventory_pool)
+    end
   end
 
   def has_at_least_access_level(level, inventory_pool)

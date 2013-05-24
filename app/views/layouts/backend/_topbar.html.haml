@@ -26,6 +26,9 @@
         - if is_lending_manager?
           %li.admin.item{:class => is_current_page?("admin") ? "active" : nil}
             = link_to _("Admin"), backend_inventory_pool_users_path(current_inventory_pool), :class => "anchor"
+        - elsif is_admin?
+          %li.admin.item{:class => is_current_page?("admin") ? "active" : nil}
+            = link_to _("Admin"), backend_inventory_pools_path(), :class => "anchor"
           %li.seperator
 
         - if is_admin?

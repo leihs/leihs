@@ -1,1 +1,31 @@
-= "INDEX BACKEND INVENTORY POOLS"
+- content_for :title, _("List of Inventory Pools")
+
+.innercontent
+  .top
+    %h1= yield :title
+
+    .content_navigation
+      = link_to new_backend_inventory_pool_path, class: "button white" do
+        .additem.icon
+        = _("Create %s") % _("Inventory Pool")
+
+  %section
+    %hr
+    .table
+      .list.min-height
+        = render @inventory_pools
+
+:coffeescript
+  notice = #{flash[:notice].to_json}
+  error = #{flash[:error].to_json}
+
+  jQuery ->
+    if notice
+      Notification.add_headline
+        text: notice
+        type: "success"
+
+    if error
+      Notification.add_headline
+        text: error
+        type: "error"

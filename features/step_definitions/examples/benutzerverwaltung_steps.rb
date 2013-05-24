@@ -472,7 +472,7 @@ Dann /^kann man neue Geräteparks erstellen$/ do
   response.should be_redirect
   InventoryPool.count.should == c+1
   id = (InventoryPool.pluck(:id) - ids).first
-  URI.parse(response.location).path.should == edit_backend_inventory_pool_path(id)
+  URI.parse(response.location).path.should == backend_inventory_pools_path
 end
 
 Dann /^man kann neue Benutzer erstellen und löschen$/ do

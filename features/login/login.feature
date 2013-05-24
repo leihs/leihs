@@ -9,6 +9,6 @@ Feature: Login
 
   @javascript
   Scenario: Redirection after i successful login
-    When "Ramon" sign in successfully he is redirected to the "Statistics" section
+    When "Ramon" sign in successfully he is redirected to the "Admin" section
     When "Mike" sign in successfully he is redirected to the "Inventory" section
     When "Pius" sign in successfully he is redirected to the "Lending" section

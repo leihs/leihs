@@ -576,6 +576,9 @@ msgstr ""
 msgid "Inventory Pool"
 msgstr ""
 
+msgid "Inventory pool successfully created"
+msgstr ""
+
 msgid "Inventory Pool is missing"
 msgstr ""
 
@@ -684,6 +687,9 @@ msgid "List of Contracts"
 msgstr ""
 
 msgid "List of Inventory"
+msgstr ""
+
+msgid "List of Inventory Pools"
 msgstr ""
 
 msgid "List of Orders"
@@ -1226,6 +1232,9 @@ msgid "The accessory was successfully created."
 msgstr ""
 
 msgid "The accessory was successfully deleted."
+msgstr ""
+
+msgid "%s successfully deleted"
 msgstr ""
 
 msgid "The admin role cannot be scoped to an inventory pool"

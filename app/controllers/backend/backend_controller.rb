@@ -9,7 +9,7 @@ class Backend::BackendController < ApplicationController
         format.js { flash[:error] = _("You are not logged in.") ; render :nothing => true, :status => :unauthorized }
       end
     else
-      require_role "manager", current_inventory_pool
+      require_role "manager", current_inventory_pool unless is_admin?
     end
   end
   
@@ -22,18 +22,17 @@ class Backend::BackendController < ApplicationController
     ip = current_user.managed_inventory_pools.detect{|x| x.id==ip_id} if ip_id
     start_screen = current_user.start_screen
     if start_screen
-      redirect_to current_user.start_screen
-    elsif current_user.managed_inventory_pools.blank? and current_user.has_role? :admin
-      redirect_to statistics_path
+      redirect_to current_user.start_screen, flash: flash
+    elsif current_user.has_role? :admin
+      redirect_to backend_inventory_pools_path, flash: flash
     elsif current_user.access_rights.managers.where(:access_level => 3).exists? # user has manager level 3 => inventory manager
       ip ||= current_user.managed_inventory_pools.first
-      redirect_to backend_inventory_pool_inventory_path(ip)
+      redirect_to backend_inventory_pool_inventory_path(ip), flash: flash
     elsif current_user.access_rights.managers.where(:access_level => 1..2).exists? # user has at least manager level 1 => lending manager
       ip ||= current_user.managed_inventory_pools.first
-      redirect_to backend_inventory_pool_path(ip)
+      redirect_to backend_inventory_pool_path(ip), flash: flash
     else
-      # no one should enter here (customers should already be redirectet by the before filter)     
-      redirect_to root_path
+      render :nothing => true, :status => :bad_request
     end 
   end
   
@@ -120,7 +119,7 @@ class Backend::BackendController < ApplicationController
         request.parameters[:inventory_pool_id] = params[:id]
       end
       return nil if current_user.nil? #fixes http://leihs.hoptoadapp.com/errors/756097 (when a user is not logged in but tries to go to a certain action in an inventory pool (for example when clicking a link in hoptoad)
-      @current_inventory_pool ||= current_user.inventory_pools.find(params[:inventory_pool_id]) if params[:inventory_pool_id]
+      @current_inventory_pool ||= InventoryPool.find(params[:inventory_pool_id]) if params[:inventory_pool_id]
       session[:current_inventory_pool_id] = @current_inventory_pool.id if @current_inventory_pool
       return @current_inventory_pool
     end
@@ -132,22 +131,25 @@ class Backend::BackendController < ApplicationController
     ##################################################
     # ACL
 
-    def not_authorized!
-        msg = "You don't have appropriate permission to perform this operation."
-        respond_to do |format|
-          format.html { flash[:error] = msg
-                        redirect_to backend_inventory_pools_path
-                      } 
-          format.json { render :text => msg }
+    def not_authorized!(options = {redirect_path: nil})
+      options[:redirect_path] ||= backend_inventory_pools_path
+      msg = "You don't have appropriate permission to perform this operation."
+
+      respond_to do |format|
+        format.html do
+          flash[:error] = msg
+          redirect_to options[:redirect_path]
         end
+        format.json { render :text => msg }
+      end
     end
   
     ####### Helper Methods #######
 
-	  def is_admin?
-    	#@is_admin ||=
+    def is_admin?
+      #@is_admin ||=
       current_user.has_role?('admin')
-  	end
+    end
 
     # Allow operations on items. 'user' is *not* a customer!
     def is_privileged_user?

@@ -18,10 +18,10 @@ class ApplicationController < ActionController::Base
     
     #check if user is logged in then depending on rights (manager or only customer) redirect to frontend or backend otherwise go on showing splash screen
     if logged_in?
-      if current_user.has_role?('manager', nil, false)
-        redirect_to backend_path
+      if current_user.has_role?('manager', nil, false) or current_user.has_role?('admin')
+        redirect_to backend_path, flash: flash
       else
-        redirect_to categories_path
+        redirect_to categories_path, flash: flash
       end
     end
   end

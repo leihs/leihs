@@ -1,6 +1,11 @@
 class Backend::InventoryPoolsController < Backend::BackendController
-    
+  
+  before_filter :only => [:index, :new, :create] do
+    not_authorized!(redirect_path: root_path) and return unless is_admin?
+  end
+
   def index
+    @inventory_pools = InventoryPool.all
     respond_to do |format|
       format.html
     end
@@ -10,10 +15,10 @@ class Backend::InventoryPoolsController < Backend::BackendController
     @date = date ? Date.parse(date) : Date.today
     redirect_to backend_inventory_pool_path(current_inventory_pool) if @date < Date.today
   end
-  
+
   def new
     @inventory_pool = InventoryPool.new
-    render :action => 'edit'
+    @inventory_pool.workday = Workday.new
   end
 
   def edit
@@ -24,15 +29,14 @@ class Backend::InventoryPoolsController < Backend::BackendController
 
   def create
     @inventory_pool = InventoryPool.new
+    process_params params[:inventory_pool]
 
-    params[:inventory_pool][:print_contracts] ||= "false" # unchecked checkboxes are *not* being sent
-    params[:inventory_pool][:email] = nil if params[:inventory_pool][:email].blank?
     if @inventory_pool.update_attributes(params[:inventory_pool])
       flash[:notice] = _("Inventory pool successfully created")
-      redirect_to edit_backend_inventory_pool_path(@inventory_pool)
+      redirect_to backend_inventory_pools_path
     else
-      flash[:error] = @inventory_pool.errors.full_messages.uniq # TODO: set @current_inventory_pool here? See Backend::BackendController#current_inventory_pool
-      redirect_to new_backend_inventory_pool_path(@inventory_pool)
+      redirected_params = {name: params[:inventory_pool][:name], shortname: params[:inventory_pool][:shortname]}
+      redirect_to new_backend_inventory_pool_path(inventory_pool: redirected_params), flash: {error: @inventory_pool.errors.full_messages.uniq}
     end
 
     current_user.access_rights.create(:role => Role.where(:name => 'manager').first,
@@ -42,10 +46,9 @@ class Backend::InventoryPoolsController < Backend::BackendController
 
   # TODO: this mess needs to be untangled and split up into functions called by new/create/update
   def update
-    @inventory_pool ||= InventoryPool.find(params[:id]) 
-    params[:inventory_pool][:print_contracts] ||= "false" # unchecked checkboxes are *not* being sent
-    params[:inventory_pool][:email] = nil if params[:inventory_pool][:email].blank?
-    params[:inventory_pool][:workday_attributes].delete ""
+    @inventory_pool ||= InventoryPool.find(params[:id])
+    process_params params[:inventory_pool]
+
     if @inventory_pool.update_attributes(params[:inventory_pool])
       flash[:notice] = _("Inventory pool successfully updated")
       redirect_to edit_backend_inventory_pool_path(@inventory_pool)
@@ -56,18 +59,18 @@ class Backend::InventoryPoolsController < Backend::BackendController
   end
 
   def destroy
-    @inventory_pool = InventoryPool.find(params[:id]) 
+    @inventory_pool ||= InventoryPool.find(params[:id])
 
-    if @inventory_pool.items.empty?
-      
-      @inventory_pool.destroy
-      respond_to do |format|
-        format.html { redirect_to backend_inventory_pools_path }
+    respond_to do |format|
+      format.json do
+        begin @inventory_pool.destroy
+          flash[:notice] = _("%s successfully deleted") % _("Inventory Pool")
+          render :json => true, status: :ok
+        rescue ActiveRecord::DeleteRestrictionError => e
+          @inventory_pool.errors.add(:base, e)
+          render :text => @inventory_pool.errors.full_messages.uniq.join(", "), :status => :forbidden
+        end
       end
-    else
-      # TODO 0607 ajax delete
-      @inventory_pool.errors.add(:base, _("The Inventory Pool must be empty"))
-      render :action => 'show' # TODO 24** redirect to the correct tabbed form
     end
   end
 
@@ -91,5 +94,11 @@ class Backend::InventoryPoolsController < Backend::BackendController
     respond_to do |format|
       format.json { render :json => chart_data }
     end
+  end
+
+  def process_params ip
+    ip[:print_contracts] ||= "false" # unchecked checkboxes are *not* being sent
+    ip[:email] = nil if params[:inventory_pool][:email].blank?
+    ip[:workday_attributes][:workdays].delete "" if ip[:workday_attributes]
   end
 end
