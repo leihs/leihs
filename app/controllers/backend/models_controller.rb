@@ -162,7 +162,6 @@ class Backend::ModelsController < Backend::BackendController
     respond_to do |format|
       format.json do
         begin @model.destroy
-          flash[:notice] = _("Model successfully deleted")
           render :json => true, status: :ok
         rescue ActiveRecord::DeleteRestrictionError => e
           @model.errors.add(:base, e)

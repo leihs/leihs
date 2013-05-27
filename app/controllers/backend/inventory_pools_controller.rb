@@ -64,7 +64,6 @@ class Backend::InventoryPoolsController < Backend::BackendController
     respond_to do |format|
       format.json do
         begin @inventory_pool.destroy
-          flash[:notice] = _("%s successfully deleted") % _("Inventory Pool")
           render :json => true, status: :ok
         rescue ActiveRecord::DeleteRestrictionError => e
           @inventory_pool.errors.add(:base, e)
