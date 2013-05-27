@@ -10,7 +10,12 @@
         = _("Create %s") % _("Inventory Pool")
 
   %section
-    %hr
+
+    .inlinetabs
+      .tab.active
+        %span.text
+          = _("All")
+
     .table
       .list.min-height
         = render @inventory_pools

@@ -13,6 +13,7 @@
             -#= link_to "", :class => "button red open_dialog" do
               -#= _("Delete %s") % _("Inventory Pool")
             %a{:href => backend_inventory_pool_path(inventory_pool), :class => "button red", :"data-remote" => "true", :"data-on_success" => 'Line.remove({"element": $(this).closest(".line"), "color": "red"})', :"data-method" => "delete"}
+              .delete.icon
               = _("Delete %s") % _("Inventory Pool")
           = link_to edit_backend_inventory_pool_path(inventory_pool), :class => "button white" do
             .icon.edit
