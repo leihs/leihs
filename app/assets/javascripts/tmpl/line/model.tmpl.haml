@@ -45,6 +45,7 @@
             ${_jed("Timeline")}
           {{if is_destroyable}}
           %a{:href => "/backend/inventory_pools/${currentInventoryPool.id}/models/${id}", :class => "button red", "data-remote" => "true", "data-method" => "delete", "data-on_success" => 'Line.remove({"element": $(this).closest(".line"), "color": "red"})'}
+            .delete.icon
             ${_jed("Delete %s", _jed("Model"))}
           {{/if}}
         = link_to "/backend/inventory_pools/${currentInventoryPool.id}/models/${id}/edit", :class => "button white" do
