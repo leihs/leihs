@@ -74,7 +74,7 @@ class InventoryController
   fetch_inventory: =>
     @inventory_list.append @loading
     @fetcher.abort() if @fetcher?
-    @filter.flags = _.map @inventory_list.find(".filter input:checked"), (filter)-> $(filter).data("filter")
+    @filter.flags = _.map @el.find(".filter input:checked"), (filter)-> $(filter).data("filter")
     responsible_id = @responsibles.find("option:selected").data("responsible_id")
     @filter.responsible_id = responsible_id
     @query = if @search.val().length then @search.val() else undefined
