@@ -2,9 +2,12 @@ class Group < ActiveRecord::Base
   include Availability::Group
 
   belongs_to :inventory_pool
+
   has_and_belongs_to_many :users
-  has_many :partitions, :dependent => :delete_all 
-  has_many :models, :through => :partitions, :uniq => true
+  
+  has_many :partitions, :dependent => :restrict
+  accepts_nested_attributes_for :partitions, :allow_destroy => true
+  has_many :models, :through => :partitions, :uniq => true, :dependent => :restrict
 
   validates_presence_of :inventory_pool_id #tmp#2
   validates_presence_of :name
@@ -25,6 +28,4 @@ class Group < ActiveRecord::Base
   def to_s
     name
   end
-
 end
-

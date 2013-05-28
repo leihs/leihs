@@ -136,3 +136,28 @@ end
 Dann(/^das Modell wurde aus der Liste gelöscht$/) do
   page.should_not have_content @model.name
 end
+
+Angenommen(/^ich editieren ein bestehndes Modell mit bereits zugeteilten Kapazitäten$/) do
+  @model = @current_inventory_pool.models.find{|m| m.partitions.count > 0}
+  visit edit_backend_inventory_pool_model_path @current_inventory_pool, @model
+end
+
+Wenn(/^ich bestehende Zuteilungen entfernen$/) do
+  all(".field-inline-entry.partition").each do |line|
+    line.find(".clickable", :text => _("Remove")).click
+  end
+end
+
+Wenn(/^neue Zuteilungen hinzufügen$/) do
+  @groups = @current_inventory_pool.groups - @model.partitions.map(&:group)
+
+  @groups.each do |group|
+    fill_in_autocomplete_field _("Allocations"), group.name
+  end
+end
+
+Dann(/^sind die geänderten Gruppenzuteilungen gespeichert$/) do
+  wait_until { page.has_content? _("List of Models") }
+  model_group_ids = @model.reload.partitions.map(&:group_id)
+  model_group_ids.sort.should == @groups.map(&:id)
+end

@@ -51,7 +51,7 @@ class Backend::UsersController < Backend::BackendController
     respond_to do |format|
       format.html
       format.json {
-        render json: view_context.hash_for(@user, {:access_right => true, :preset => :user})
+        render json: view_context.hash_for(@user, {:access_right => true, :preset => :user, :groups => true})
       }
     end
   end
@@ -91,6 +91,11 @@ class Backend::UsersController < Backend::BackendController
       end
       access_right.role_name = params[:access_right][:role_name] unless params[:access_right][:role_name].blank?
       access_right.save # TODO what if not saved ??
+    end
+
+    if params[:user] and params[:user].has_key?(:groups) and (groups = params[:user].delete(:groups))
+      @user.groups = groups.map {|g| Group.find g["id"]}
+      @user.save
     end
 
     if @user.update_attributes(params[:user])

@@ -30,6 +30,8 @@ ModelsCreateCtrl = ($scope, $location, $routeParams, Model) ->
   $scope.deletePackage = (element)-> deletePackage($scope, element)
   $scope.addCompatible = (element) -> addCompatible($scope, element)  
   $scope.removeCompatible = (element)-> removeCompatible($scope, element)
+  $scope.addPartition = (element) -> addPartition($scope, element)  
+  $scope.removePartition = (element) -> removePartition($scope, element)  
 
 ModelsEditCtrl = ($scope, $location, $routeParams, Model) ->
   $scope.current_inventory_pool_id = $routeParams.inventory_pool_id
@@ -59,6 +61,8 @@ ModelsEditCtrl = ($scope, $location, $routeParams, Model) ->
   $scope.deletePackage = (element)-> deletePackage($scope, element)
   $scope.addCompatible = (element) -> addCompatible($scope, element)  
   $scope.removeCompatible = (element)-> removeCompatible($scope, element)
+  $scope.addPartition = (element) -> addPartition($scope, element)  
+  $scope.removePartition = (element) -> removePartition($scope, element)  
 
 ModelsCreateCtrl.$inject = ['$scope', '$location', '$routeParams', 'Model']
 ModelsEditCtrl.$inject = ['$scope', '$location', '$routeParams', 'Model']
@@ -145,6 +149,12 @@ real_submit = ($scope, type, Model)->
           user_name: i.user_name
         )
       is_package: _.find($scope.model.packages, ((i)->i.children? and i.children.length))?
+      partitions_attributes: _.map $scope.model.partitions, (p)->
+        id: p.id
+        quantity: p.quantity
+        group_id: p.group.id
+        inventory_pool_id: $scope.current_inventory_pool_id
+        _destroy: p._destroy
   success = (response) ->
     if _.find($scope.model.packages, (p)-> not p.id?)?
       window.location = "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/models/#{response.id}/edit"
@@ -217,6 +227,16 @@ addCompatible = ($scope, element) ->
 
 removeCompatible = ($scope, element)->
   $scope.model.compatibles = _.reject $scope.model.compatibles, (compatible)-> compatible is element.compatible
+
+addPartition = ($scope, element)->
+  $scope.$apply ($scope) ->
+    partition = 
+      group: element.item
+      quantity: 1
+    $scope.model.partitions.push partition unless _.find $scope.model.partitions, (p)-> p.group.id == element.item.id
+
+removePartition = ($scope, element)->
+  $scope.model.partitions = _.reject $scope.model.partitions, (p)-> p.group.id == element.partition.group.id
 
 # exports
 root = global ? window

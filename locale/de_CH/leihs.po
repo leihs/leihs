@@ -2088,3 +2088,36 @@ msgstr "Das Paket ist nicht am Lager"
 
 msgid "The items of the package can not be edited"
 msgstr "Die Gegenstände dieses Pakets können nicht ausgeliehen werden"
+
+msgid "Access"
+msgstr "Zugriff"
+
+msgid "Group"
+msgstr "Gruppe"
+
+msgid "Groups"
+msgstr "Gruppen"
+
+msgid "Remove"
+msgstr "Entfernen"
+
+msgid "List of Groups"
+msgstr "Liste der Gruppen"
+
+msgid "Allocations"
+msgstr "Zuteilungen"
+
+msgid "%s created"
+msgstr "%s erstellt"
+
+msgid "Name of the user"
+msgstr "Name des Benutzers"
+
+msgid "Name of the model"
+msgstr "Name des Modells"
+
+msgid "Name of the group"
+msgstr "Name der Gruppe"
+
+msgid "%s saved"
+msgstr "%s gespeichert"

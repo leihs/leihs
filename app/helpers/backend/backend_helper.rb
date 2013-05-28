@@ -48,8 +48,9 @@ module Backend::BackendHelper
             is_current_page?("take_back")
       when "admin"
         is_current_page?("users") or
-        is_current_page?("inventory_pools") or
         is_current_page?("edit_inventory_pool")
+        is_current_page?("groups") or
+        is_current_page?("inventory_pools")
       when "inventory_pools"
         is_current_page?("new_inventory_pool") or
         path_parameters?(:controller => "backend/inventory_pools", :action => :index)
@@ -87,6 +88,8 @@ module Backend::BackendHelper
         path_parameters?(:controller => "backend/options")
       when "categories"
         path_parameters?(:controller => "backend/categories")
+      when "groups"
+        path_parameters?(:controller => "backend/groups")
     end
     
     # We rescue everything because backend/hand_over and backend/take_back are failing sometimes

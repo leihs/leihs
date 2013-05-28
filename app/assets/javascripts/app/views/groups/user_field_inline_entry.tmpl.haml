@@ -1,0 +1,7 @@
+%div.field-inline-entry
+  %input{:type => :hidden, :name => "group[users][][id]", :value => "${id}"}
+  %input{:type => :hidden, :name => "group[users][][_destroy]", :value => nil}
+  %span.text-ellipsis{:width => "100"} ${name}
+  .floatright
+    %div{:style => "display: inline-block;"}
+      %a.clickable.remove ${_jed("Remove")}

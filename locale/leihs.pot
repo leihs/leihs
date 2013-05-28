@@ -2022,3 +2022,36 @@ msgstr ""
 
 msgid "The items of the package can not be edited"
 msgstr ""
+
+msgid "Access"
+msgstr ""
+
+msgid "Group"
+msgstr ""
+
+msgid "Groups"
+msgstr ""
+
+msgid "Remove"
+msgstr ""
+
+msgid "List of Groups"
+msgstr ""
+
+msgid "Allocations"
+msgstr ""
+
+msgid "%s created"
+msgstr ""
+
+msgid "Name of the user"
+msgstr ""
+
+msgid "Name of the model"
+msgstr ""
+
+msgid "Name of the group"
+msgstr ""
+
+msgid "%s saved"
+msgstr ""

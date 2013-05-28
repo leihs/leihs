@@ -102,6 +102,7 @@ end
 ####################################################################
 
 Angenommen /^man editiert einen Benutzer$/ do
+  @inventory_pool ||= @current_user.managed_inventory_pools.first
   @customer = @inventory_pool.users.customers.first
   visit edit_backend_inventory_pool_user_path(@inventory_pool, @customer)
 end
@@ -498,4 +499,29 @@ Dann /^man kann Benutzern jegliche Rollen zuweisen und wegnehmen$/ do
   response.should be_successful
   user.has_at_least_access_level(3, inventory_pool).should be_false
   user.deleted_access_rights.scoped_by_inventory_pool_id(inventory_pool).first.deleted_at.should_not be_nil
+end
+
+Dann(/^kann man Gruppen über eine Autocomplete\-Liste hinzufügen$/) do
+  @groups_added = (@inventory_pool.groups - @customer.groups)
+  @groups_added.each do |group|
+    find(".field", :text => _("Groups")).find(".autocomplete").click
+    find(".ui-autocomplete .ui-menu-item a", :text => group.name).click
+  end
+end
+
+Dann(/^kann Gruppen entfernen$/) do
+  @groups_removed = @customer.groups
+  @groups_removed.each do |group|
+    find(".field", :text => _("Groups")).find(".field-inline-entry", :text => group.name).find(".clickable", :text => _("Remove")).click
+  end
+end
+
+Dann(/^speichert den Benutzer$/) do
+  find(".button", :text => _("Save %s") % _("User")).click
+end
+
+Dann(/^ist die Gruppenzugehörigkeit gespeichert$/) do
+  sleep(1)
+  @groups_removed.each {|group| @customer.reload.groups.include?(group).should be_false}
+  @groups_added.each {|group| @customer.reload.groups.include?(group).should be_true}
 end

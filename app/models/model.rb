@@ -46,6 +46,7 @@ class Model < ActiveRecord::Base
       end
     end
   end
+  accepts_nested_attributes_for :partitions, :allow_destroy => true
   
   has_many :order_lines, dependent: :restrict
   has_many :contract_lines, dependent: :restrict

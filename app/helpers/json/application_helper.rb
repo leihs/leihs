@@ -121,8 +121,10 @@ module Json
            :images => {},
            :packages => {:in_stock => true, :children => {:model => true}, :preset => :item_edit},
            :is_package => {},
+           :max_partition_capacity => current_inventory_pool.id,
            :attachments => {},
            :properties => {},
+           :partitions => {:group => true},
            :accessories => {}}
         when :order_minimal
           {:user => {:preset => :user},

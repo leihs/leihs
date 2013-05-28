@@ -57,4 +57,10 @@
     top: 10px;
     @include opacity(0.6);
   }
+
+  & ~ .loading.icon  {
+    position: absolute;
+    right: 15px;
+    top: 4px;
+  }
 }

@@ -4,7 +4,7 @@
     %a.button.red{:href => "/backend/inventory_pools/{{current_inventory_pool_id}}/users/{{user.id}}"}
       {{_jed("Cancel")}}
     %button.button.green{"ng-disabled" => "form.$invalid"}
-      {{_jed("Save %s", "User")}}
+      {{_jed("Save %s", _jed("User"))}}
 
   .top
     %h1
@@ -13,6 +13,7 @@
 
   .left
     %section
+      %h2 {{_jed("General Information")}}
       .inner
         .field.text
           %h3.key {{_jed("Last name")}}:
@@ -74,6 +75,7 @@
 
   .right
     %section
+      %h2 {{_jed("Access")}}
       .inner
         .field.text
           %h3.key {{_jed("Badge ID")}}:
@@ -98,5 +100,29 @@
           .value
             .input
               %textarea{:name => "suspended_reason", "ng-model" => "user.access_right.suspended_reason", :style => "height: 3em; vertical-align: top;", "ng-required" => "user.access_right.suspended_until"}
+        
+        .field.text
+          %div
+            %h3.key {{_jed("Groups")}}:
+            .value
+              %label.container
+                %input.autocomplete{:type => "text",
+                                    :placeholder => '{{_jed("Group")}}',
+                                    :data => { :autocomplete_element_tmpl => "tmpl/autocomplete/generic",
+                                               :autocomplete_search_attr => 'query',
+                                               :url => "/backend/inventory_pools/{{currentInventoryPool.id}}/groups",
+                                               :autocomplete_display_attribute => "name",
+                                               :autocomplete_select_callback => "angular.element(el).scope().addGroup",
+                                               :autocomplete_clear_input_value_on_select => "true",
+                                               :autocomplete_blur_on_select => "true",
+                                               :autocomplete_search_on_focus => "true"}}
+                .arrow.icon
+            .clear
+          %div.field-inline-entry{"ng-repeat" => "group in user.groups"}
+            %span.text-ellipsis{:width => "100"} {{group.name}}
+            .floatright
+              %div{:style => "display: inline-block;"}
+                %a.clickable{:"ng-click" => "removeGroup(this)"} {{_jed("Remove")}}
+
   .clear
 

@@ -70,6 +70,7 @@ UsersEditCtrl = ($scope, $location, $routeParams, User) ->
         country: $scope.user.country
         phone: $scope.user.phone
         email: $scope.user.email
+        groups: $scope.user.groups
         badge_id: $scope.user.badge_id
       access_right:
         role_name: $scope.user.access_right.role_name
@@ -78,6 +79,16 @@ UsersEditCtrl = ($scope, $location, $routeParams, User) ->
     , (response) ->
       #$location.path "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/users/#{$scope.user.id}"
       window.location = "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/users/#{$scope.user.id}"
+
+  $scope.addGroup = (element)-> 
+    return true if _.find $scope.user.groups, (g)-> g.id == element.item.id
+    $scope.$apply ($scope) ->
+      $scope.user.groups.push element.item
+
+  $scope.removeGroup = (element)-> 
+    console.log element
+    console.log $scope.user.groups
+    $scope.user.groups = _.reject $scope.user.groups, (g)-> g.id == element.group.id
 
 UsersEditCtrl.$inject = ['$scope', '$location', '$routeParams', 'User'];
 

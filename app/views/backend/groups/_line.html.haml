@@ -1,0 +1,32 @@
+%ul.line.group
+  .main
+    %li.name
+      %strong
+        = group.name
+    %li.quantity.text-align-right
+      = group.users.size
+      = _("Users")
+    %li.quantity.text-align-right
+      = group.models.size
+      = _("Models")
+    %li.quantity.text-align-right
+      = group.partitions.sum(&:quantity)
+      = _("Allocations")
+
+  .actions    
+    %li.actions
+      - if group.can_destroy?
+        .multibutton
+          .alternatives
+            .trigger
+              .arrow
+            %a.button.red{:href => backend_inventory_pool_group_path(current_inventory_pool, group), :class => "button red", :"data-remote" => "true", :"data-on_success" => 'Line.remove({"element": $(this).closest(".line"), "color": "red"})', :"data-method" => "delete"}
+              .delete.icon
+              = _("Delete %s") % _("Group")
+          %a.button.white{:href => edit_backend_inventory_pool_group_path(current_inventory_pool, group)}
+            .edit.icon
+            = _("Edit %s") % _("Group")
+      - else
+        %a.button.white{:href => edit_backend_inventory_pool_group_path(current_inventory_pool, group)}
+          .edit.icon
+          = _("Edit %s") % _("Group")

@@ -124,13 +124,13 @@ Funktionalität: Modell
     Und ich speichere die Informationen
     Dann ist das Modell ohne das gelöschte ergänzende Modell gespeichert
 
-  @upcoming
+  @javascript
   Szenario: Gruppenverteilung editieren
-    Angenommen man öffnet die Liste der Modelle
-    Wenn ich ein bestehendes Modell bearbeite
-    Und die Gruppenkapazität ändere
+    Angenommen ich editieren ein bestehndes Modell mit bereits zugeteilten Kapazitäten
+    Wenn ich bestehende Zuteilungen entfernen
+    Und neue Zuteilungen hinzufügen
     Und ich speichere die Informationen
-    Dann sind die geänderten Gruppenzuteilungen gespiechert
+    Dann sind die geänderten Gruppenzuteilungen gespeichert
 
   @javascript
   Szenario: Modell löschen

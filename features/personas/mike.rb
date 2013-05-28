@@ -49,6 +49,7 @@ module Persona
     def create_groups
       @group_cast = FactoryGirl.create(:group, :name => "Cast", :inventory_pool => @inventory_pool)
       @group_iad = FactoryGirl.create(:group, :name => "IAD", :inventory_pool => @inventory_pool)
+      @group_wu = FactoryGirl.create(:group, :name => "Wu", :inventory_pool => @inventory_pool)
     end
 
     def create_categories

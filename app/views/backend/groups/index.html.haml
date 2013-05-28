@@ -1,0 +1,33 @@
+-content_for :title, _("List of Groups")
+
+.innercontent
+
+  .top
+    %h1= yield :title
+    .content_navigation
+      %a.button.white{:href => new_backend_inventory_pool_group_path}
+        = _("Create %s") % _("Group")
+
+  %section
+
+    .inlinetabs
+      .tab.active
+        %span.text
+          = _("All")
+
+    .list= render :partial => "backend/groups/line", :collection => @groups, :as => :group
+
+:coffeescript
+  notice = #{flash[:notice].to_json}
+  error = #{flash[:error].to_json}
+
+  jQuery ->
+    if notice
+      Notification.add_headline
+        text: notice
+        type: "success"
+
+    if error
+      Notification.add_headline
+        text: error
+        type: "error"

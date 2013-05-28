@@ -25,6 +25,10 @@
           = link_to backend_inventory_pool_users_path(current_inventory_pool), :class => "anchor" do
             .leftend
             = _("Users")
+      %li.item{:class => is_current_page?("groups") ?"active" : nil}
+        = link_to backend_inventory_pool_groups_path(current_inventory_pool), :class => "anchor" do
+          .leftend
+          = _("Groups")
       - if is_admin?
         %li.item{:class => is_current_page?("inventory_pools") ? "active" : nil}
           = link_to backend_inventory_pools_path(), :class => "anchor" do

@@ -1,0 +1,74 @@
+-content_for :title, _("Create %s") % _("Group")
+
+= form_tag backend_inventory_pool_groups_path, :method => :post, :id => "new_group" do
+
+  .innercontent
+
+    .top
+      %h1= yield :title
+      .content_navigation
+        %a.button.red{:href => backend_inventory_pool_groups_path}
+          = _("Cancel")
+        %button.button.green{:type => :submit}
+          = _("Save %s") % _("Group")
+
+    %section.form_edit.indent.edit
+
+      .left
+        %section
+          .inner
+            .field.text
+              .key
+                %h3= "#{_("Name")}:"
+              .value
+                .input
+                  %input{type: "text", name: "group[name]", :autofocus => :autofocus, :autocomplete => :off, :placeholder => _("Name of the group")}
+        %section
+          .inner
+            .field.text
+              .key
+                %h3= "#{_("Models")} / #{_("Allocations")}:"
+              .value
+                .input
+                  %label.container
+                    %input.autocomplete#add-model{:type => "text",
+                                        :autocomplete => :off,
+                                        :placeholder => _("Name of the model"),
+                                        :data => { :autocomplete_element_tmpl => "tmpl/autocomplete/generic",
+                                                   :autocomplete_search_attr => 'query',
+                                                   :url => backend_inventory_pool_models_path(current_inventory_pool, 
+                                                                                              :for_current_inventory_pool => true, 
+                                                                                              :with => {:max_partition_capacity => current_inventory_pool.id}),
+                                                   :autocomplete_display_attribute => "name",
+                                                   :autocomplete_clear_input_value_on_select => "true",
+                                                   :autocomplete_blur_on_select => "true"}}
+                    .arrow.icon
+              .clear
+      .right
+        %section
+          .inner
+            .field.text
+              .key
+                %h3= "#{_("User")}:"
+              .value
+                .input
+                  %label.container
+                    %input.autocomplete#add-user{:type => "text",
+                                        :autocomplete => :off,
+                                        :placeholder => _("Name of the user"),
+                                        :data => { :autocomplete_element_tmpl => "tmpl/autocomplete/generic",
+                                                   :autocomplete_search_attr => 'search',
+                                                   :url => backend_inventory_pool_users_path,
+                                                   :autocomplete_display_attribute => "name",
+                                                   :autocomplete_clear_input_value_on_select => "true",
+                                                   :autocomplete_blur_on_select => "true"}}
+                    .arrow.icon
+              .clear
+
+      .clear
+
+:coffeescript
+
+  jQuery -> 
+    new App.GroupsNewController
+      el: $("#new_group")

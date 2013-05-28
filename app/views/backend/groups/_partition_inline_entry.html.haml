@@ -1,0 +1,13 @@
+%div.field-inline-entry
+  %input{:type => :hidden, :name => "group[partitions_attributes][][id]", :value => partition.id}
+  %input{:type => :hidden, :name => "group[partitions_attributes][][model_id]", :value => partition.model_id}
+  %input{:type => :hidden, :name => "group[partitions_attributes][][inventory_pool_id]", :value => partition.inventory_pool_id}
+  %input{:type => :hidden, :name => "group[partitions_attributes][][_destroy]", :value => nil}
+  %span.text-ellipsis{:style => "display: block; float: left; max-width: 200px; line-height: 1em"}= partition.model.name
+  .floatright
+    .capacity{:style => "display: inline-block; padding-right: 16px"}
+      %input{:type => :text, :name => "group[partitions_attributes][][quantity]", :value => partition.quantity, :min => 1, :style => "width: 30px; text-align: center"}
+      = "/"
+      = partition.model.items.scoped_by_inventory_pool_id(partition.inventory_pool_id).size
+    %div{:style => "display: inline-block;"}
+      %a.clickable.remove= _("Remove")

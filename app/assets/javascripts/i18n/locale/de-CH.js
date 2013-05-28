@@ -2661,6 +2661,50 @@ window.i18n.locale_data = {
       "The items of the package can not be edited": [
          null,
          "Die Gegenstände dieses Pakets können nicht ausgeliehen werden"
+      ],
+      "Access": [
+         null,
+         "Zugriff"
+      ],
+      "Group": [
+         null,
+         "Gruppe"
+      ],
+      "Groups": [
+         null,
+         "Gruppen"
+      ],
+      "Remove": [
+         null,
+         "Entfernen"
+      ],
+      "List of Groups": [
+         null,
+         "Liste der Gruppen"
+      ],
+      "Allocations": [
+         null,
+         "Zuteilungen"
+      ],
+      "%s created": [
+         null,
+         "%s erstellt"
+      ],
+      "Name of the user": [
+         null,
+         "Name des Benutzers"
+      ],
+      "Name of the model": [
+         null,
+         "Name des Modells"
+      ],
+      "Name of the group": [
+         null,
+         "Name der Gruppe"
+      ],
+      "%s saved": [
+         null,
+         "%s gespeichert"
       ]
    }
 }
