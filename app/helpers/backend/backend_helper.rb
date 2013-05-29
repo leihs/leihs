@@ -48,9 +48,10 @@ module Backend::BackendHelper
             is_current_page?("take_back")
       when "admin"
         is_current_page?("users") or
-        is_current_page?("edit_inventory_pool")
+        is_current_page?("edit_inventory_pool") or
         is_current_page?("groups") or
-        is_current_page?("inventory_pools")
+        is_current_page?("inventory_pools") or
+        is_current_page?("inventory_pool")
       when "inventory_pools"
         is_current_page?("new_inventory_pool") or
         path_parameters?(:controller => "backend/inventory_pools", :action => :index)

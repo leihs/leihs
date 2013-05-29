@@ -4,7 +4,7 @@ class Backend::UsersController < Backend::BackendController
     unless current_inventory_pool
       not_authorized! unless is_admin?
     else
-      not_authorized! unless is_lending_manager?
+      not_authorized! unless is_lending_manager? or is_admin?
     end
 
     params[:id] ||= params[:user_id] if params[:user_id]
