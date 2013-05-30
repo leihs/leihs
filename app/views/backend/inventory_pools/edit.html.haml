@@ -5,8 +5,9 @@
   = form_for [:backend, @inventory_pool], html: {class: "indent", name: "form"} do |f|
 
     .content_navigation
-      %a.button.red{:href => root_path}
-        = _("Cancel")
+      - if is_admin?
+        %a.button.red{:href => root_path}
+          = _("Cancel")
       %button.button.green{:type => :submit}
         = _("Save %s") % _("Inventory Pool")
 
@@ -19,35 +20,37 @@
         .inner
           .field.text
             .key
-              %h3= "#{_("Name")}:"
+              %h3= "#{_("Name")} *"
             .value
               .input
                 %input{type: "text", name: "inventory_pool[name]", value: @inventory_pool.name}
           .field.text
             .key
-              %h3= "#{_("Short Name")}:"
+              %h3= "#{_("Short Name")} *"
               %p.description
-                = _("Whatever you enter here is prepended to all inventory numbers for this particular pool. e.g. ABC1, ABC2, ABC3 etc. If you leave this empty, no alphabetic characters are used in the inventory numbers.")
+                = _("Additional label in inventory codes")
             .value
               .input
                 %input{type: "text", name: "inventory_pool[shortname]", value: @inventory_pool.shortname}
           .field.text
             .key
-              %h3= "#{_("Email")}:"
+              %h3= "#{_("E-Mail")} *"
               %p.description
-                = _("This e-mail address is used as sender when sending reminder or confirmation e-mails for this particular pool. If you enter nothing, the system default sender address is used.")
+                = _("Used for sending e-mails from leihs")
             .value
               .input
                 %input{type: "text", name: "inventory_pool[email]", value: @inventory_pool.email}
           .field.text
             .key
-              %h3= "#{_("Description")}:"
+              %h3= "#{_("Description")}"
+              %p.description
+                = _("Visible for borrowers in frontend")
             .value
               .input
                 %textarea{type: "text", name: "inventory_pool[description]", rows: 6}= @inventory_pool.description
           .field.text
             .key
-              %h3= "#{_("Default Contract Note")}:"
+              %h3= "#{_("Default Contract Note")}"
               %p.description
                 = _("This note is added to any contract, but can be changed individually before actually printing and signing each contract.")
             .value
@@ -55,7 +58,9 @@
                 %textarea{type: "text", name: "inventory_pool[default_contract_note]", rows: 6}= @inventory_pool.default_contract_note
           .field.text
             .key
-              %h3= "#{_("Print Contracts")}:"
+              %h3= "#{_("Print Contracts")}"
+              %p.description
+                = _("Print dialog will open aut.")
             .value
               .input
                 %input{type: "checkbox", name: "inventory_pool[print_contracts]", checked: @inventory_pool.print_contracts}
@@ -68,12 +73,12 @@
           - [1,2,3,4,5,6,0].each do |i|
             .field.text
               .key
-                %h3= "#{I18n.t('date.day_names')[i]}:"
+                %h3= "#{I18n.t('date.day_names')[i]}"
               .value
                 .input
                   %select{:name => "inventory_pool[workday_attributes][workdays][]"}
                     %option{:label => _("Open"), :value => Workday::WORKDAYS[i]}= _("Open")
-                    %option{:label => _("Closed"), :value => "", :selected => current_inventory_pool.workday.closed_days.include?(i) ? true : nil}= _("Closed")
+                    %option{:label => _("Closed"), :value => "", :selected => @inventory_pool.workday.closed_days.include?(i) ? true : nil}= _("Closed")
 
       %section#holiday
         %h2= _("Closed Days")
@@ -99,15 +104,18 @@
               %a.button.white.add-holiday= _("Add")
           - @holidays.each_with_index do |holiday, i|
             .field-inline-entry{:"data-index" => i}
-              %input{:type => :hidden, :name => "inventory_pool[holidays_attributes][#{i}][id]", :value => holiday.id}
+              - if holiday._destroy
+                %input{:type => :hidden, :name => "inventory_pool[holidays_attributes][#{i}][_destroy]", :value => 1}
+              - if holiday.id
+                %input{:type => :hidden, :name => "inventory_pool[holidays_attributes][#{i}][id]", :value => holiday.id}
               %input{:type => :hidden, :name => "inventory_pool[holidays_attributes][#{i}][name]", :value => holiday.name}
               %input{:type => :hidden, :name => "inventory_pool[holidays_attributes][#{i}][start_date]", :value => holiday.start_date}
               %input{:type => :hidden, :name => "inventory_pool[holidays_attributes][#{i}][end_date]", :value => holiday.end_date}
               %strong
-                %span= holiday.name
-              %span= l holiday.start_date
-              %span= "-"
-              %span= l holiday.end_date
+                %span{class: holiday._destroy && "tobedeleted"}= holiday.name
+              %span{class: holiday._destroy && "tobedeleted"}= l holiday.start_date
+              %span{class: holiday._destroy && "tobedeleted"}= "-"
+              %span{class: holiday._destroy && "tobedeleted"}= l holiday.end_date
               .floatright
                 %span.clickable.delete-holiday{:title => _("Delete %s") % _("Closed Day")}
                   = _("Delete")

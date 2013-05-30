@@ -17,7 +17,7 @@ Funktionalität: Gerätepark-Grundinformationen
     Dann kann ich die Gerätepark-Grundinformationen eingeben
     | Name |
     | Kurzname |
-    | Email |
+    | E-Mail |
     | Beschreibung |
     | Standard-Vertragsnotiz |
     | Verträge drucken | 
@@ -34,6 +34,7 @@ Funktionalität: Gerätepark-Grundinformationen
     Und jedes Pflichtfeld ist gesetzt
     | Name        |
     | Kurzname    |
+    | E-Mail      |
     Wenn ich das gekennzeichnete <Pflichtfeld> leer lasse
     Dann kann das Gerätepark nicht gespeichert werden
     Und ich sehe eine Fehlermeldung
@@ -43,6 +44,7 @@ Funktionalität: Gerätepark-Grundinformationen
       | Pflichtfeld |
       | Name        |
       | Kurzname    |
+      | E-Mail      |
 
   @javascript
   Szenario: Pflichtfelder der Grundinformationen zusammen prüfen
@@ -52,6 +54,7 @@ Funktionalität: Gerätepark-Grundinformationen
     Und ich die folgenden Felder nicht befüllt habe
       | Name     |
       | Kurzname |
+      | E-Mail   |
     Dann kann das Gerätepark nicht gespeichert werden
     Und ich sehe eine Fehlermeldung
 

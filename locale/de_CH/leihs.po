@@ -18,11 +18,17 @@ msgstr ""
 "X-Poedit-Country: Switzerland\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-msgid "Whatever you enter here is prepended to all inventory numbers for this particular pool. e.g. ABC1, ABC2, ABC3 etc. If you leave this empty, no alphabetic characters are used in the inventory numbers."
-msgstr "Was Sie hier eingeben, wird vorne an alle Inventarnummern dieses Geräteparks angehängt. z.B. ABC1, ABC2, ABC3 usw. Wenn Sie dies leer lassen, werden keine alphanumerischen Zeichen in den Inventarnummern verwendet."
+msgid "Additional label in inventory codes"
+msgstr "Zusatzbezeichnung in Inventarnummern"
 
-msgid "This e-mail address is used as sender when sending reminder or confirmation e-mails for this particular pool. If you enter nothing, the system default sender address is used."
-msgstr "Diese Mailadresse wird als Absender beim Senden von Erinnerungs- und Bestätigungsmails aus diesem Gerätepark verwendet. Wenn Sie nichts eingeben, wird die Standardadresse des Systems verwendet."
+msgid "Visible for borrowers in frontend"
+msgstr "In Frontend für Ausleihende sichtbar"
+
+msgid "Print dialog will open aut."
+msgstr "Druckdialog wird aut. geöffnet"
+
+msgid "Used for sending e-mails from leihs"
+msgstr "Wird für den Mailversand aus leihs verwendet"
 
 msgid "This note is added to any contract, but can be changed individually before actually printing and signing each contract."
 msgstr "Diese Notiz wird standardmässig jedem Vertrag hinzufgefügt, kann beim Druck eines einzelnen Vertrags aber noch geändert werden."
@@ -598,6 +604,12 @@ msgstr "Invetarcode aktualisiert"
 
 msgid "Inventory pool"
 msgstr "Gerätepark"
+
+msgid "InventoryPool|Email"
+msgstr "E-Mail"
+
+msgid "InventoryPool|Shortname"
+msgstr "Kurzname"
 
 msgid "Investment"
 msgstr "Investition"

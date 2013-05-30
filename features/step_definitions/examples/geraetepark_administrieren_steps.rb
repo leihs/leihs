@@ -12,7 +12,7 @@ end
 Wenn(/^ich Name und Kurzname und Email eingebe$/) do
   find(".field", text: _("Name")).find("input").set "test"
   find(".field", text: _("Short Name")).find("input").set "test"
-  find(".field", text: _("Email")).find("input").set "test@test.ch"
+  find(".field", text: _("E-Mail")).find("input").set "test@test.ch"
 end
 
 Wenn(/^ich speichere$/) do
@@ -41,7 +41,7 @@ Dann(/^wird mir eine Fehlermeldung angezeigt$/) do
 end
 
 Dann(/^der Gerätepark wird nicht erstellt$/) do
-  current_path.should_not eq backend_inventory_pools_path
+  page.should_not have_content _("List of Inventory Pools")
   page.should_not have_selector ".success"
 end
 
@@ -54,7 +54,7 @@ end
 Wenn(/^ich Name und Kurzname und Email ändere$/) do
   find(".field", text: _("Name")).find("input").set "test"
   find(".field", text: _("Short Name")).find("input").set "test"
-  find(".field", text: _("Email")).find("input").set "test@test.ch"
+  find(".field", text: _("E-Mail")).find("input").set "test@test.ch"
 end
 
 Dann(/^ist der Gerätepark und die eingegebenen Informationen gespeichert$/) do

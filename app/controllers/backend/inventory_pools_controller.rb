@@ -22,21 +22,21 @@ class Backend::InventoryPoolsController < Backend::BackendController
   end
 
   def edit
-    @holidays = current_inventory_pool.holidays.reject{|h| h.end_date < Date.today}.sort_by(&:start_date)
     @inventory_pool = InventoryPool.find params[:id]
-    @inventory_pool.attributes = params[:inventory_pool] if params[:inventory_pool]
+    @holidays = @inventory_pool.holidays.reject{|h| h.end_date < Date.today}.sort_by(&:start_date)
   end
 
   def create
     @inventory_pool = InventoryPool.new
     process_params params[:inventory_pool]
 
-    if @inventory_pool.update_attributes(params[:inventory_pool])
+    if @inventory_pool.update_attributes(params[:inventory_pool]) and @inventory_pool.workday.save
       flash[:notice] = _("Inventory pool successfully created")
       redirect_to backend_inventory_pools_path
     else
-      redirected_params = {name: params[:inventory_pool][:name], shortname: params[:inventory_pool][:shortname]}
-      redirect_to new_backend_inventory_pool_path(inventory_pool: redirected_params), flash: {error: @inventory_pool.errors.full_messages.uniq}
+      setup_holidays_for_render params[:inventory_pool][:holidays_attributes]
+      flash.now[:error] = @inventory_pool.errors.full_messages.uniq
+      render :edit
     end
 
     current_user.access_rights.create(:role => Role.where(:name => 'manager').first,
@@ -53,8 +53,9 @@ class Backend::InventoryPoolsController < Backend::BackendController
       flash[:notice] = _("Inventory pool successfully updated")
       redirect_to edit_backend_inventory_pool_path(@inventory_pool)
     else
-      redirected_params = {name: params[:inventory_pool][:name], shortname: params[:inventory_pool][:shortname]}
-      redirect_to edit_backend_inventory_pool_path(@current_inventory_pool, inventory_pool: redirected_params), flash: {error: @inventory_pool.errors.full_messages.uniq}
+      setup_holidays_for_render params[:inventory_pool][:holidays_attributes]
+      flash.now[:error] = @inventory_pool.errors.full_messages.uniq
+      render :edit
     end
   end
 
@@ -99,5 +100,15 @@ class Backend::InventoryPoolsController < Backend::BackendController
     ip[:print_contracts] ||= "false" # unchecked checkboxes are *not* being sent
     ip[:email] = nil if params[:inventory_pool][:email].blank?
     ip[:workday_attributes][:workdays].delete "" if ip[:workday_attributes]
+  end
+
+  def setup_holidays_for_render holidays_attributes
+    if holidays_attributes
+      params_holidays = holidays_attributes.values
+      @holidays = @inventory_pool.holidays.reload + params_holidays.reject{|h| h[:id]}.map{|h| Holiday.new h}
+      @holidays.select(&:id).each do |holiday|
+        holiday._destroy = 1 if params_holidays.detect{|h| h[:id].to_i == holiday.id}.has_key? "_destroy"
+      end
+    else @holidays = [] end
   end
 end

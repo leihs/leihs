@@ -31,7 +31,7 @@ Funktionalität: Geräteparks administrieren
       | Pflichtfeld |
       | Name        |
       | Kurzname    |
-      | Email       |
+      | E-Mail      |
 
   @javascript
   Szenario: Gerätepark ändern

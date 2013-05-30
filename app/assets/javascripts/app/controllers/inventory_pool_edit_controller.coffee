@@ -25,7 +25,8 @@ class InventoryPoolEditController
     start_date = moment(container.find("#start_date").val(), i18n.date.L).format("YYYY-MM-DD")
     end_date = moment(container.find("#end_date").val(), i18n.date.L).format("YYYY-MM-DD")
     name = container.find("#name").val()
-    i = _.last(_.sortBy(_.map(@el.find(".field-inline-entry"), (e)->$(e).data("index")), (e)->Number(e)))+1
+    last_holiday_index = _.last(_.sortBy(_.map(@el.find(".field-inline-entry"), (e)->$(e).data("index")), (e)->Number(e)))
+    i = if last_holiday_index? then last_holiday_index + 1 else 0
     if start_date? and end_date? and name.length
       container.after $.tmpl "app/views/inventory_pools/edit/holiday_entry", {name: name, start_date: start_date, end_date: end_date, i: i}
 

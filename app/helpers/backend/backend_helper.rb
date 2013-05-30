@@ -56,9 +56,11 @@ module Backend::BackendHelper
         is_current_page?("new_inventory_pool") or
         path_parameters?(:controller => "backend/inventory_pools", :action => :index)
       when "new_inventory_pool"
-        path_parameters?(:controller => "backend/inventory_pools", :action => :new)
+        path_parameters?(:controller => "backend/inventory_pools", :action => :new) or
+        path_parameters?(:controller => "backend/inventory_pools", :action => :create)
       when "edit_inventory_pool"
-        path_parameters?(:controller => "backend/inventory_pools", :action => :edit)
+        path_parameters?(:controller => "backend/inventory_pools", :action => :edit) or
+        path_parameters?(:controller => "backend/inventory_pools", :action => :update)
       when "inventory"
         is_current_page?("models") or
           is_current_page?("inventory_list") or

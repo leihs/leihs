@@ -17,7 +17,7 @@ Dann(/^kann ich die Gerätepark\-Grundinformationen eingeben$/) do |table|
     if field_name == "Verträge drucken"
       find(".inner .field", text: field_name).find("input").set false
     else
-      find(".inner .field", text: field_name).find("input,textarea").set (field_name == "Email" ? "test@test.ch" : "test")
+      find(".inner .field", text: field_name).find("input,textarea").set (field_name == "E-Mail" ? "test@test.ch" : "test")
     end
   end
 end
@@ -29,12 +29,11 @@ end
 
 Dann(/^sind die Informationen aktualisiert$/) do
   wait_until {not all(".inner .field").empty?}
-  page.should_not have_selector ".error"
   @table_raw.flatten.each do |field_name|
     if field_name == "Verträge drucken"
       find(".inner .field", text: field_name).find("input").selected?.should be_false
     else
-      find(".inner .field", text: field_name).find("input,textarea").value.should == (field_name == "Email" ? "test@test.ch" : "test")
+      find(".inner .field", text: field_name).find("input,textarea").value.should == (field_name == "E-Mail" ? "test@test.ch" : "test")
     end
   end
 end
@@ -44,7 +43,7 @@ Dann(/^ich bleibe auf derselben Ansicht$/) do
 end
 
 Dann(/^sehe eine Bestätigung$/) do
-  page.should_not have_selector ".success"
+  page.should have_selector ".success"
 end
 
 Wenn(/^ich die Grundinformationen des Geräteparks abfüllen möchte$/) do

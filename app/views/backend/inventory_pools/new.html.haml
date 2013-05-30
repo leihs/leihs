@@ -19,35 +19,37 @@
         .inner
           .field.text
             .key
-              %h3= "#{_("Name")}:"
+              %h3= "#{_("Name")} *"
             .value
               .input
                 %input{type: "text", name: "inventory_pool[name]"}
           .field.text
             .key
-              %h3= "#{_("Short Name")}:"
+              %h3= "#{_("Short Name")} *"
               %p.description
-                = _("Whatever you enter here is prepended to all inventory numbers for this particular pool. e.g. ABC1, ABC2, ABC3 etc. If you leave this empty, no alphabetic characters are used in the inventory numbers.")
+                = _("Additional label in inventory codes")
             .value
               .input
                 %input{type: "text", name: "inventory_pool[shortname]"}
           .field.text
             .key
-              %h3= "#{_("Email")}:"
+              %h3= "#{_("E-Mail")} *"
               %p.description
-                = _("This e-mail address is used as sender when sending reminder or confirmation e-mails for this particular pool. If you enter nothing, the system default sender address is used.")
+                = _("Used for sending e-mails from leihs")
             .value
               .input
                 %input{type: "text", name: "inventory_pool[email]"}
           .field.text
             .key
-              %h3= "#{_("Description")}:"
+              %h3= "#{_("Description")}"
+              %p.description
+                = _("Visible for borrowers in frontend")
             .value
               .input
                 %textarea{type: "text", name: "inventory_pool[description]", rows: 6}
           .field.text
             .key
-              %h3= "#{_("Default Contract Note")}:"
+              %h3= "#{_("Default Contract Note")}"
               %p.description
                 = _("This note is added to any contract, but can be changed individually before actually printing and signing each contract.")
             .value
@@ -55,7 +57,9 @@
                 %textarea{type: "text", name: "inventory_pool[default_contract_note]", rows: 6}
           .field.text
             .key
-              %h3= "#{_("Print Contracts")}:"
+              %h3= "#{_("Print Contracts")}"
+              %p.description
+                = _("Print dialog will open aut.")
             .value
               .input
                 %input{type: "checkbox", name: "inventory_pool[print_contracts]"}
@@ -66,7 +70,7 @@
           - [1,2,3,4,5,6,0].each do |i|
             .field.text
               .key
-                %h3= "#{I18n.t('date.day_names')[i]}:"
+                %h3= "#{I18n.t('date.day_names')[i]}"
               .value
                 .input
                   %select{:name => "inventory_pool[workday_attributes][workdays][]"}

@@ -82,13 +82,13 @@ class InventoryPool < ActiveRecord::Base
   
 #######################################################################
 
-  validates_presence_of :name, :shortname
+  validates_presence_of :name, :shortname, :email
 
   validates_uniqueness_of :name
 
   default_scope order("name")
 
-  validates :email, :format => /@/
+  validates :email, format: /@/, allow_blank: true
 
 #######################################################################
 
@@ -174,7 +174,7 @@ class InventoryPool < ActiveRecord::Base
   end
 
   def create_workday
-    self.workday = Workday.new
+    self.workday ||= Workday.new
   end 
   
 end

@@ -18,10 +18,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-msgid "Whatever you enter here is prepended to all inventory numbers for this particular pool. e.g. ABC1, ABC2, ABC3 etc. If you leave this empty, no alphabetic characters are used in the inventory numbers."
+msgid "Additional label in inventory codes"
 msgstr ""
 
-msgid "This e-mail address is used as sender when sending reminder or confirmation e-mails for this particular pool. If you enter nothing, the system default sender address is used."
+msgid "Visible for borrowers in frontend"
+msgstr ""
+
+msgid "Print dialog will open aut."
+msgstr ""
+
+msgid "Used for sending e-mails from leihs"
 msgstr ""
 
 msgid "This note is added to any contract, but can be changed individually before actually printing and signing each contract."
@@ -592,6 +598,12 @@ msgid "Inventory code updated"
 msgstr ""
 
 msgid "Inventory pool"
+msgstr ""
+
+msgid "InventoryPool|Email"
+msgstr ""
+
+msgid "InventoryPool|Shortname"
 msgstr ""
 
 msgid "Investment"
