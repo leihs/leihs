@@ -18,7 +18,7 @@
   .input_container
     %form#add-item
       %label.top{:for => "item"} ${_jed("Add %s", _jed("Item"))}
-      %input.autocomplete.focus.barcode_target{:type => "text", :placeholder => '${_jed("Inventorycode")}', :autocomplete => "off",
+      %input.autocomplete.focus.barcode_target{:type => "text", :placeholder => '${_jed("Inventory Code")}', :autocomplete => "off",
       :"data-url" => "/backend/inventory_pools/${currentInventoryPool.id}/search?types[]=item&with[model][name]=true",
       :"data-autocomplete_class" => "user", 
       :"data-autocomplete_element_tmpl" => "tmpl/autocomplete/item"}
