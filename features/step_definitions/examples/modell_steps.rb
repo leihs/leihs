@@ -143,6 +143,7 @@ Angenommen(/^ich editieren ein bestehndes Modell mit bereits zugeteilten Kapazit
 end
 
 Wenn(/^ich bestehende Zuteilungen entfernen$/) do
+  wait_until{find(".field-inline-entry")}
   all(".field-inline-entry.partition").each do |line|
     line.find(".clickable", :text => _("Remove")).click
   end

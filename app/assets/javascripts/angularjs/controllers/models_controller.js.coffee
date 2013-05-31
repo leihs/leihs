@@ -11,6 +11,7 @@ ModelsCreateCtrl = ($scope, $location, $routeParams, Model) ->
     properties: []
     compatibles: []
     packages: []
+    partitions: []
 
   $scope.model.is_package = true
   $scope.model.is_editable = true #tmp# TODO remove this when using permissions
@@ -149,7 +150,7 @@ real_submit = ($scope, type, Model)->
           user_name: i.user_name
         )
       is_package: _.find($scope.model.packages, ((i)->i.children? and i.children.length))?
-      partitions_attributes: _.map $scope.model.partitions, (p)->
+      partitions_attributes: $.extend {}, _.map $scope.model.partitions, (p)->
         id: p.id
         quantity: p.quantity
         group_id: p.group.id
