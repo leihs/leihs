@@ -59,9 +59,12 @@
 
 :ruby
   visits_json = json_for(@visits, {:preset => :take_back_visit})
+
+:javascript
+  visits = #{visits_json}
                                                
 :coffeescript
   jQuery ->
-    $('#visits').html($.tmpl("tmpl/visit", #{visits_json} ))
+    $('#visits').html($.tmpl("tmpl/visit", visits))
     TakeBack.setup()
     SelectedLines.setup()
