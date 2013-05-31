@@ -58,7 +58,7 @@ Wenn(/^die Modelle und deren Kapazität hinzufüge$/) do
   end
 end
 
-Wenn(/^ich speichere$/) do
+Wenn(/^ich speichere die Gruppe$/) do
   find(".button", :text => _("Save %s") % _("Group")).click
 end
 

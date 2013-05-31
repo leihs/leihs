@@ -30,7 +30,7 @@ Funktionalität: Gruppen
     Und den Namen der Gruppe angebe
     Und die Benutzer hinzufüge
     Und die Modelle und deren Kapazität hinzufüge
-    Und ich speichere
+    Und ich speichere die Gruppe
     Dann ist die Gruppe gespeichert
     Und die Benutzer und Modelle mit deren Kapazitäten sind zugeteilt
     Und ich sehe die Gruppenliste alphabetisch sortiert
@@ -43,7 +43,7 @@ Funktionalität: Gruppen
     Und ich den Namen der Gruppe ändere
     Und die Benutzer hinzufüge und entferne
     Und die Modelle und deren Kapazität hinzufüge und entferne
-    Und ich speichere
+    Und ich speichere die Gruppe
     Dann ist die Gruppe gespeichert
     Und die Benutzer und Modelle mit deren Kapazitäten sind zugeteilt
     Und ich sehe die Gruppenliste
