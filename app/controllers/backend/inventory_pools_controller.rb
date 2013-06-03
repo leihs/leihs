@@ -48,6 +48,7 @@ class Backend::InventoryPoolsController < Backend::BackendController
   def update
     @inventory_pool ||= InventoryPool.find(params[:id])
     process_params params[:inventory_pool]
+    @holidays_initial = @inventory_pool.holidays.reject{|h| h.end_date < Date.today}.sort_by(&:start_date)
 
     if @inventory_pool.update_attributes(params[:inventory_pool])
       flash[:notice] = _("Inventory pool successfully updated")
@@ -105,11 +106,14 @@ class Backend::InventoryPoolsController < Backend::BackendController
   def setup_holidays_for_render holidays_attributes
     if holidays_attributes
       params_holidays = holidays_attributes.values
-      @holidays = @inventory_pool.holidays.reload + params_holidays.reject{|h| h[:id]}.map{|h| Holiday.new h}
+      @holidays = @holidays_initial + params_holidays.reject{|h| h[:id]}.map{|h| Holiday.new h}
       @holidays.select(&:id).each do |holiday|
-        current_param_holiday = params_holidays.detect{|h| h[:id].to_i == holiday.id}
-        holiday._destroy = 1 if current_param_holiday and current_param_holiday.has_key? "_destroy"
+        if added_holiday = params_holidays.detect{|h| h[:id].to_i == holiday.id}
+          holiday._destroy = 1 if added_holiday.has_key? "_destroy"
+        end
       end
-    else @holidays = [] end
+    else
+      @holidays = []
+    end
   end
 end
