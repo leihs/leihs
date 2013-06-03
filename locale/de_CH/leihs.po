@@ -2099,7 +2099,7 @@ msgid "The package is not in stock"
 msgstr "Das Paket ist nicht am Lager"
 
 msgid "The items of the package can not be edited"
-msgstr "Die Gegenstände dieses Pakets können nicht ausgeliehen werden"
+msgstr "Die Gegenstände dieses Pakets können nicht editiert werden"
 
 msgid "Access"
 msgstr "Zugriff"
