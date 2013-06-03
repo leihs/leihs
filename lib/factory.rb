@@ -353,7 +353,7 @@ module Factory
      ['English US', 'en-US', false],
      ['Deutsch', 'de-CH', false],
      ['Castellano','es', false],
-     ['Schwizertüütsch','gsw-CH', false]].each do |lang|
+     ['Züritüütsch','gsw-CH', false]].each do |lang|
       Factory.create_language!(:name => lang[0], :locale_name => lang[1], :default => lang[2])
     end
   end
