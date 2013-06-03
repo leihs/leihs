@@ -357,7 +357,7 @@ module LeihsFactory
      ['English US', 'en-US', false],
      ['Deutsch', 'de-CH', false],
      ['Castellano','es', false],
-     ['Schwizertüütsch','gsw-CH', false]].each do |lang|
+     ['Züritüütsch','gsw-CH', false]].each do |lang|
         next if Language.exists?(:locale_name => lang[1])
         LeihsFactory.create_language!(:name => lang[0],
                                       :locale_name => lang[1],
