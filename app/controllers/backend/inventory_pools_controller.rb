@@ -107,7 +107,8 @@ class Backend::InventoryPoolsController < Backend::BackendController
       params_holidays = holidays_attributes.values
       @holidays = @inventory_pool.holidays.reload + params_holidays.reject{|h| h[:id]}.map{|h| Holiday.new h}
       @holidays.select(&:id).each do |holiday|
-        holiday._destroy = 1 if params_holidays.detect{|h| h[:id].to_i == holiday.id}.has_key? "_destroy"
+        current_param_holiday = params_holidays.detect{|h| h[:id].to_i == holiday.id}
+        holiday._destroy = 1 if current_param_holiday and current_param_holiday.has_key? "_destroy"
       end
     else @holidays = [] end
   end

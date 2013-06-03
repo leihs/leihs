@@ -1,4 +1,5 @@
 %div.field-inline-entry
+  %input{:type => :hidden, :name => "group[partitions_attributes][][id]"}
   %input{:type => :hidden, :name => "group[partitions_attributes][][model_id]", :value => "${id}"}
   %input{:type => :hidden, :name => "group[partitions_attributes][][inventory_pool_id]", :value => "${currentInventoryPool.id}"}
   %input{:type => :hidden, :name => "group[partitions_attributes][][_destroy]", :value => nil}
