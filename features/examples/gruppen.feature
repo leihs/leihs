@@ -88,3 +88,17 @@ Funktionalität: Gruppen
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
     Und ich eine Gruppe editiere
     Dann sind die bereits hinzugefügten Modelle alphabetisch sortiert
+    
+  @javascript
+  Szenario: bereits bestehende Modelle hinzufügen
+    Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
+    Und ich eine Gruppe editiere
+    Wenn ich ein bereits hinzugefügtes Modell hinzufüge
+    Dann wird das Modell nicht hinzugefügt
+    
+  @javascript
+  Szenario: bereits bestehende Benutzer hinzufügen
+    Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
+    Und ich eine Gruppe editiere
+    Wenn ich einen bereits hinzugefügten Benutzer hinzufüge
+    Dann wird der Benutzer nicht hinzugefügt
