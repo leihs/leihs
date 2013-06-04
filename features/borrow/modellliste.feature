@@ -33,3 +33,15 @@ Funktionalität: Modellliste
     Wenn man bis zum Ende der Liste fährt
     Dann werden die weiteren Modelle geladen und angezeigt
     Und am ender der Liste wurden alle Modelle der ausgewählten Kategorie geladen und angezeigt
+
+  Szenario: Modellliste sortieren
+    Angenommen man ist "Normin"
+    Und man sich auf der Modellliste befindet
+    Wenn man die Liste nach Modellname (alphabetisch aufsteigend) sortiert
+    Dann ist die Liste nach Modellname (alphabetisch aufsteigend) sortiert
+    Wenn man die Liste nach Modellname (alphabetisch absteigend) sortiert
+    Dann ist die Liste nach Modellname (alphabetisch absteigend) sortiert
+    Wenn man die Liste nach Herstellername (alphabetisch aufsteigend) sortiert
+    Dann ist die Liste nach Herstellername (alphabetisch aufsteigend) sortiert
+    Wenn man die Liste nach Herstellername (alphabetisch absteigend) sortiert
+    Dann ist die Liste nach Herstellername (alphabetisch absteigend) sortiert
