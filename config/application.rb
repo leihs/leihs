@@ -53,6 +53,9 @@ module Leihs
                                     frontend.js
                                     print.css
                                     timeline.css
+                                    application.js
+                                    borrow.js
+                                    application.css
                                   )
     # Enable IdentityMap for Active Record, to disable set to false or remove the line below.  
     # config.active_record.identity_map = true
