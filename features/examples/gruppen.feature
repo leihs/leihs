@@ -62,3 +62,29 @@ Funktionalität: Gruppen
     Wenn ich eine Gruppe lösche
     Und die Gruppe wurde aus der Liste gelöscht
     Und die Gruppe wurde aus der Datenbank gelöscht
+    
+  @javascript
+  Szenario: Benutzer hinzufügen
+    Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
+    Und ich eine Gruppe editiere
+    Wenn ich einen Benutzer hinzufüge
+    Dann wird der Benutzer zuoberst in der Liste hinzugefügt
+    
+  @javascript
+  Szenario: Benutzer sortieren
+    Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
+    Und ich eine Gruppe editiere
+    Dann sind die bereits hinzugefügten Benutzer alphabetisch sortiert
+  
+  @javascript
+  Szenario: Modelle hinzufügen
+    Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
+    Und ich eine Gruppe editiere
+    Wenn ich ein Modell hinzufüge
+    Dann wird das Modell zuoberst in der Liste hinzugefügt
+    
+  @javascript
+  Szenario: Modelle sortieren
+    Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
+    Und ich eine Gruppe editiere
+    Dann sind die bereits hinzugefügten Modelle alphabetisch sortiert
