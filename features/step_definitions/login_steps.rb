@@ -13,21 +13,20 @@ Given "a $role for inventory pool '$ip_name' is logged in as '$who'" do | role, 
 end
 
 Given "I am logged in as '$username' with password '$password'" do |username, password|
-  @current_user = User.where(:login => username).first
-  I18n.locale = @current_user.language.locale_name.to_sym
+  @current_user = User.where(:login => username.downcase).first
+  I18n.locale = if @current_user.language then @current_user.language.locale_name.to_sym else Language.default_language end
+  @current_inventory_pool = @current_user.managed_inventory_pools.first
   case Capybara.current_driver
     when :selenium
       visit "/"
-      find("#login").click
+      find("[href='#{login_path}']").click
       fill_in 'username', :with => username
       fill_in 'password', :with => password
-      find(".login .button").click
+      find("[type='submit']").click
     when :rack_test
       step "I log in as '%s' with password '%s'" % [username, password]
   end
-  @current_inventory_pool = @current_user.managed_inventory_pools.first
 end
-
 
 Given "I log in as a $role for inventory pool '$ip_name'$with_access_level" do |role, ip_name,with_access_level|
   # use default user name
@@ -54,7 +53,6 @@ When 'I log in as the admin' do
   step 'I press "Login"'
 end
 
-
 # It's possible that previous steps leave the running browser instance in a logged-in
 # state, which confuses tests that rely on "When I log in as the admin".
 When 'I make sure I am logged out' do
@@ -63,11 +61,16 @@ end
 
 When /^"([^"]*)" sign in successfully he is redirected to the "([^"]*)" section$/ do |login, section_name|
   visit "/logout"
-  visit "/"
-  find("#login").click
-  fill_in 'username', :with => login.downcase
-  fill_in 'password', :with => 'password'
-  find(".login .button").click
-  page.has_css?("#main.wrapper", :visible => true)
+  step "I am logged in as '#{login}' with password 'password'"
   find(".navigation .active.#{section_name.downcase}")
+end
+
+Angenommen(/^man ist eingeloggt als "(.*?)"$/) do |persona|
+  @current_user = User.where(:login => persona.downcase).first
+  I18n.locale = if @current_user.language then @current_user.language.locale_name.to_sym else Language.default_language end
+  visit root_path
+  find("a[href='#{login_path}']").click
+  fill_in 'username', :with => persona.downcase
+  fill_in 'password', :with => 'password'
+  find("[type='submit']").click
 end

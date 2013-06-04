@@ -15,6 +15,7 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
   end
   
   def login
+    super
     redirect_to target
   end
   

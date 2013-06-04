@@ -78,7 +78,7 @@ class OrdersController < FrontendController
     model.add_to_document(@order, user_id, quantity, start_date, end_date, inventory_pool)
 
     flash[:notice] = @order.errors.full_messages.uniq unless @order.save
-    redirect_to model
+    redirect_to backend_inventory_pool_model_path inventory_pool_id, model
   end
 
   def remove_lines

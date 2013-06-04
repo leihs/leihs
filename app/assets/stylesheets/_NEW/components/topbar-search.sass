@@ -1,0 +1,19 @@
+.topbar-search
+  vertical-align: middle
+  width: 110px
+  @include transition(width 0.3s)
+
+  input[type='text']
+    font-size: $font-size-xs
+    height: $space-l
+
+  &.active
+    width: 180px
+
+  label
+    padding: 6px
+
+  i
+    position: relative
+    bottom: 2px
+    vertical-align: middle

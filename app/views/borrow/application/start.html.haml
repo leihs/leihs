@@ -1,0 +1,36 @@
+- content_for :title, _("Borrow")
+
+.wrapper#start-view.wrapper.margin-top-m
+
+  .col4of5
+    = render :partial => 'borrow/tabs', :locals => {:navigation => "lending", :current_page => "daily"}
+
+    .row.content-wrapper.straight-top-left.padding-inset-s
+      .row.emboss
+        - @categories.each_with_index do |category, i|
+          .col1of3.padding-inset-m.text-align-center
+            .row.emboss.white.focus-hover.unselectable{:"data-category_id" => category.id}
+              %a{:href => borrow_models_path(:category_id => category.id)}
+                .padding-inset-s
+                  .min-height-s
+                    %img.max-width.max-height-s{:src => category_image_path(category.id)}
+                  .row.padding-top-m{:title => category}
+                    %h2.headline-m.text-align-center.text-ellipsis.max-width-full= category
+              - if category.children.any?
+                .row.emboss.straight-top.separated-top.dropdown-holder.min-width
+                  %span.arrow.down
+                  .dropdown.straight-top.full-width
+                    .padding-inset-xs
+                      %img.max-width-xxs.max-height-xxs{:src => image_path("loading.gif")}
+                    
+  .col1of5= render :partial => "borrow/order"
+
+:coffeescript
+  
+  jQuery -> 
+
+    for category in #{@categories.to_json}
+      App.Category.records[category.id] = new App.Category category
+
+    new App.Borrow.StartController
+      el: $("#start-view")

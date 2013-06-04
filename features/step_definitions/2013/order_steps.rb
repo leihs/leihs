@@ -127,21 +127,21 @@ end
 
 When "'$who' orders $quantity '$model'" do |who, quantity, model|
   post "/session", :login => who #, :password => "pass"
-  step "I am \"%s\"" % who
+  step "I am logged in as '#{who}' with password '#{nil}'"
   get '/order'
   model_id = Model.find_by_name(model).id
-  post add_line_order_path(:model_id => model_id, :quantity => quantity)
+  post add_line_order_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => @inventory_pool.id)
 end
 
 When "'$user' orders another $quantity '$model' for the same time" do |user, quantity, model|
   model_id = Model.find_by_name(model).id
-  post add_line_order_path(:model_id => model_id, :quantity => quantity)
+  post add_line_order_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => @inventory_pool.id)
   #old??# @order = assigns(:order)
 end
 
 When "'$who' orders $quantity '$model' from inventory pool $ip" do |who, quantity, model, ip|
   post "/session", :login => who #, :password => "pass"
-  step "I am \"%s\"" % who
+  step "I am logged in as '#{who}' with password '#{nil}'"
   get '/order'
   model_id = Model.find_by_name(model).id
   inv_pool = InventoryPool.find_by_name(ip)

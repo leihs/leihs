@@ -1,0 +1,17 @@
+.multibutton
+  display: inline-block
+  position: relative
+
+  &>.button:not(.dropdown-toggle):not([disabled])
+    @include border-right-radius(0)
+
+  &[disabled] .dropdown-toggle
+    display: none
+
+  .button.dropdown-toggle
+    margin-left: -6px
+    @include border-left-radius(0)
+
+    .arrow
+      top: -1px
+      position: relative

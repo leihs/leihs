@@ -1,0 +1,7 @@
+.row
+  %nav
+    %ul
+      %li
+        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => borrow_start_path,
+        :class => current_page == "daily" ? "active" : nil}
+          = _("Overview")

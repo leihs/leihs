@@ -1,0 +1,23 @@
+!!! 5
+%html{:lang => I18n.locale}
+
+  %head
+    %meta{:charset => 'utf-8'}
+    %title= "#{yield(:title)}#{(yield :title).blank? ? "":" | "}leihs"
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "i18n/locale/#{I18n.locale}"
+    = javascript_include_tag "application"
+    = javascript_include_tag "borrow"
+    = favicon_link_tag "borrow/favicon.ico", :type => "image/x-icon"
+    = csrf_meta_tag
+    = yield :head
+
+  %body
+
+    = render :partial => "flash", :locals => {:flash => flash} if flash
+  
+    %header.wrapper.padding-top-m= render :partial => "borrow/topbar"
+
+    .row= yield
+
+    .padding-top-l= render :partial => "footer"

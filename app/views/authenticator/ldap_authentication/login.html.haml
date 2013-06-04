@@ -1,12 +1,23 @@
-= flash_helper(false)
-= form_for :login do |f|
-  %table{ :style => "width:30%" }
-    %tr
-      %td= _("Login")
-      %td= f.text_field :user
-    %tr
-      %td= _("Password")
-      %td= f.password_field :password
-    %tr
-      %td
-      %td= f.submit(_("Login"))
+.wrapper.login-view
+
+  .content-wrapper.margin-top-l.row
+
+    .row.margin-top-s
+    
+      .padding-inset-l
+
+        %h1.separated-bottom.margin-bottom-l.padding-bottom-m.headline-xxl.text-shadow-white= _("Login")
+
+        = form_for :login do |f|
+
+          %label.row.margin-bottom-m
+            .col1of2
+              %p.paragraph-m.margin-bottom-xs= _("Username")
+              = f.text_field :user, :id => "username", :autofocus => true
+          %label.row.margin-bottom-m
+            .col1of2
+              %p.paragraph-m.margin-bottom-xs= _("Password")
+              = f.password_field :password, :id => "password"
+
+          .row.padding-top-m
+            %button.button.green.large{:type => :submit}= _("Login")

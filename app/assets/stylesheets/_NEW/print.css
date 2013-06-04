@@ -1,0 +1,7 @@
+/*
+ * This is used for layout the application for print purposes.
+ *
+ *= require print/normalize
+ *= require_tree ./print
+ * 
+*/

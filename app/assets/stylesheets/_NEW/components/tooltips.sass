@@ -1,0 +1,18 @@
+.tooltipster-default
+  border: 1px solid $almostwhite
+  width: 500px
+  @include background(linear-gradient(white 20%, $lightestgrey 80%))
+  @include border-radius($border-radius-m)
+  @include box-sizing(border-box)
+  @include box-shadow($default-box-shadow)
+
+.tooltipster-default .tooltipster-content
+  color: $darkergrey
+  padding: $space-m $space-s
+  @include text-shadow (1px 1px 0 white)
+
+.tooltipster-arrow-border
+  border-color: darken($lightergrey, 10) !important
+
+  &+span:last-child
+    border-color: $lightestgrey transparent !important

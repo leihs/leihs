@@ -1,3 +1,4 @@
+
 Feature: Handling of workdays
 
        As an Inventory Manager

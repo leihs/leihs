@@ -130,7 +130,6 @@ class Model < ActiveRecord::Base
         s << "p2.value LIKE :query"
       end
       s << "CONCAT_WS(' ', i2.inventory_code, i2.serial_number, i2.invoice_number, i2.note, i2.name, i2.user_name, i2.properties) LIKE :query" if fields.empty? or fields.include?(:items)
-      #binding.pry
       
       sql = sql.where("%s" % s.join(' OR '), :query => "%#{x}%")
     end

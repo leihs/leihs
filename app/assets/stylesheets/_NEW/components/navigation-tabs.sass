@@ -1,0 +1,12 @@
+.navigation-tab-item, a.navigation-tab-item
+  @extend .button
+  @extend .button.white
+  @include border-top-radius($border-radius-s)
+  @include border-bottom-radius(0)
+  border-bottom: none
+  padding-top: 1px
+  position: relative
+  margin-bottom: -1px
+
+  &.active
+    z-index: 1001

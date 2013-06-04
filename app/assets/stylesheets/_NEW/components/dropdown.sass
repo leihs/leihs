@@ -1,0 +1,86 @@
+.dropdown-holder
+  position: relative
+
+.dropdown-holder:not([disabled]):hover .dropdown, 
+.dropdown-toggle:not([disabled]):hover + .dropdown,
+.dropdown:hover,
+.dropdown.open,
+  display: block
+
+.dropdown
+  background: $lightestgrey
+  border: 1px solid $almostwhite
+  display: none
+  font-size: $font-size-xs
+  font-weight: normal
+  line-height: 1.5em
+  position: absolute
+  left: -1px
+  top: 100%
+  z-index: 999
+  @include border-radius($border-radius-m)
+  @include box-shadow($default-box-shadow)
+
+  &:not(.full-width)
+    max-width: 350px
+    min-width: 160px
+
+  &.full-width
+    width: 100%
+
+  &.right
+    left: auto
+    right: 1px
+
+  &:not(.straight-top)
+    li:first-child .dropdown-item
+      @include border-top-radius($border-radius-m)
+  li
+    &:last-child .dropdown-item
+      @include border-bottom-radius($border-radius-m)
+
+.dropdown-item, a.dropdown-item
+  color: $darkgrey
+  display: block
+  font-weight: bold
+  padding: 6px $space-xs
+  text-align: left
+  white-space: nowrap
+  @include text-shadow (1px 1px 0 white)
+  @include user-select(none)
+
+  &:hover
+    background: rgba(255,255,255,0.5)
+    color: $darkergrey
+
+  &:active
+    background: white
+    color: $darkgrey
+    @include text-shadow(none)
+
+  &.red
+    color: transparentize($red, 0.2)
+
+    &:hover
+      color: $red
+
+.dark .dropdown, .dropdown.dark
+  border: 1px solid $darkgrey
+  background: $grey
+  @include box-shadow ($default-box-shadow-plain)
+
+  .dropdown-item
+    color: rgba(255,255,255,0.65)
+    @include text-shadow (1px 1px 0 rgba(0,0,0,0.3))
+
+    &:hover
+      background: rgba(255,255,255,0.3)
+      color: white
+
+    &:active
+      background: rgba(255,255,255,0.8)
+      color: $darkgrey
+      @include text-shadow(none)
+
+  .arrow
+    @include change-all-arrow-colors(rgba(255,255,255,0.8))

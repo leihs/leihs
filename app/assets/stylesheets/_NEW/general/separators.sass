@@ -1,0 +1,22 @@
+$seperator-white: rgba(255,255,255,0.2)
+$seperator-black: rgba(0,0,0,0.2)
+
+.separated-right
+  border-right: 1px solid $seperator-black
+  @include box-shadow(inset -1px 0 0 $seperator-white)
+
+.separated-left
+  border-left: 1px solid $seperator-black
+  @include box-shadow(inset 1px 0 0 $seperator-white)
+
+.separated-bottom
+  border-bottom: 1px solid $seperator-black
+  @include box-shadow(inset 0 -1px 0 $seperator-white)
+
+  &.exclude-last-child:last-child
+    border: none
+    @include box-shadow(none)
+
+.separated-top
+  border-top: 1px solid $seperator-black
+  @include box-shadow(inset 0 1px 0 $seperator-white)

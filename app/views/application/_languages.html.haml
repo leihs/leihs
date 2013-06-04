@@ -1,0 +1,12 @@
+:ruby  
+  active_language = Language.find_by_locale_name(I18n.locale)
+  align_right ||= nil
+
+%ul.row.text-align-center
+  - Language.active_languages.each do |language|
+    %li.inline
+      - if language == active_language
+        %a.grey.padding-inset-xs{:href => ""}
+          %strong= language.name
+      - else
+        %a.grey.padding-inset-xs{:href => "?locale=#{language.locale_name}"}= language.name

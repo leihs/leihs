@@ -47,7 +47,7 @@ When "$who try to order an item for $date" do |who, date|
 
   # Login                            
   post "/session", :login => user.login
-  step "I am \"%s\"" % user.login
+  step "I am logged in as '#{user.login}' with password '#{nil}'"
   @order.destroy if @order
   get '/order'
   post add_line_order_path( :model_id => model.id,

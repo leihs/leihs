@@ -4,6 +4,7 @@ class ModelGroup < ActiveRecord::Base
 
   has_many :model_links
   has_many :models, :through => :model_links, :uniq => true
+  has_many :items, :through => :models, :uniq => true
   
   #has_many :all_model_links, :class_name => "ModelLink", :finder_sql => proc { ModelLink.where(["model_group_id IN (?)", descendant_ids]).to_sql }
   #has_many :all_models, :class_name => "Model", :through => :all_model_links, :source => :model, :uniq => true
@@ -34,6 +35,9 @@ class ModelGroup < ActiveRecord::Base
   end
 
   scope :roots, joins("LEFT JOIN model_group_links AS mgl ON mgl.descendant_id = model_groups.id").where("mgl.descendant_id IS NULL")
+
+  # scope :accessible_roots, lambda do |user_id|     
+  # end
 
 ######################################################
 

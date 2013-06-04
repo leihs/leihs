@@ -59,8 +59,10 @@ class SessionsController < ApplicationController
 
   def destroy
     # store last inventory pool to the settings column
-    current_user.latest_inventory_pool_id_before_logout = session[:current_inventory_pool_id]
-    current_user.save
+    if current_user
+      current_user.latest_inventory_pool_id_before_logout = session[:current_inventory_pool_id]
+      current_user.save
+    end
     # delete cookie and reset session
     cookies.delete :auth_token
     reset_session

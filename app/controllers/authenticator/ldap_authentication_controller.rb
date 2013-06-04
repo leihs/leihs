@@ -9,6 +9,7 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
   end
   
   def login
+    super
     if request.post?
       user = params[:login][:user]
       password = params[:login][:password]

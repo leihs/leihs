@@ -1,9 +1,20 @@
-class CategoriesController < FrontendController
+class CategoriesController < ApplicationController
 
   def index
-    @current_categories = (current_user.all_categories & Category.roots).sort
-    @missing_fields = current_user.authentication_system.missing_required_fields(current_user)
-    render :template => "users/show", :layout => "frontend_2010" unless @missing_fields.empty?
+    @categories = if params[:children]
+      if params[:category_id]
+        Category.find(params[:category_id]).children
+      elsif params[:category_ids]
+        Category.find(params[:category_ids]).map(&:children)
+      end
+    else
+      Category.all
+    end
+  end
+
+  def image
+    category = Category.find params[:id]
+    redirect_to category.image, :status => :moved_permanently
   end
 
 end

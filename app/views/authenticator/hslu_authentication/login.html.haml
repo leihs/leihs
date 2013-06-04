@@ -1,27 +1,23 @@
-%section#tabs
-  = render :partial => '/layouts/splash/navigation'
+.wrapper.login-view
 
-= render :partial => '/layouts/frontend/content_box_head_fullwidth'
+  .content-wrapper.margin-top-l.row
 
-#splash.innercontent
+    .row.margin-top-s
+    
+      .padding-inset-l
 
-  = render :partial => '/layouts/splash/header'
-      
-  .login
-    = form_for :login do |f|
-      %table{ :style => "width:30%" }
-        %tr
-          %td= _("Username")
-          %td= f.text_field :username, :id => "username", :autofocus => true
-        %tr
-          %td= _("Password")
-          %td= f.password_field :password, :id => "password"
-      = f.submit(_("Login"), :class=>"button green")
-  
-  = image_tag "splash.jpg", :class => "splash"
-  
-  = render :partial => '/layouts/splash/content'
-  
-  .clear
+        %h1.separated-bottom.margin-bottom-l.padding-bottom-m.headline-xxl.text-shadow-white= _("Login")
 
-= render :partial => '/layouts/frontend/content_box_foot'
+        = form_for :login do |f|
+
+          %label.row.margin-bottom-m
+            .col1of2
+              %p.paragraph-m.margin-bottom-xs= _("Username")
+              = f.text_field :username, :id => "username", :autofocus => true
+          %label.row.margin-bottom-m
+            .col1of2
+              %p.paragraph-m.margin-bottom-xs= _("Password")
+              = f.password_field :password, :id => "password"
+
+          .row.padding-top-m
+            %button.button.green.large{:type => :submit}= _("Login")

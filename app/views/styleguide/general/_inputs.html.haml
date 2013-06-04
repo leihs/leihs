@@ -1,0 +1,24 @@
+.row.padding-inset-l
+  .row.margin-bottom-m
+    %input.vertical-align-middle.min-width-full{:type => :text, :placeholder => "type something here"}
+  .row.margin-bottom-m
+    %input.vertical-align-middle.min-width-full{:type => :password, :value => "Lorem ipsum dolor sit "}
+  .row.margin-bottom-m
+    %textarea.vertical-align-middle.min-width-full Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean arcu est, faucibus eu cursus a, gravida in purus.
+  .row.margin-bottom-m
+    %select.vertical-align-middle.min-width-full
+      %option Lorem
+      %option ipsum
+
+%h3.headline-m.light.padding-vertical-m.margin-bottom-m= "disabled"
+.row.padding-inset-l.padding-top-s
+  .row.margin-bottom-m
+    %input.vertical-align-middle.min-width-full{:type => :text, :placeholder => "type something here", :disabled => :disabled}
+  .row.margin-bottom-m
+    %input.vertical-align-middle.min-width-full{:type => :password, :value => "Lorem ipsum dolor sit ", :disabled => :disabled}
+  .row.margin-bottom-m
+    %textarea.vertical-align-middle.min-width-full{:disabled => :disabled} Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean arcu est, faucibus eu cursus a, gravida in purus.
+  .row.margin-bottom-m
+    %select.vertical-align-middle.min-width-full{:disabled => :disabled}
+      %option Lorem
+      %option ipsum

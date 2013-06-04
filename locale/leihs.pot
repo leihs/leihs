@@ -941,7 +941,7 @@ msgstr ""
 msgid "Phone%s"
 msgstr ""
 
-msgid "Place reservations on items and then pick them up"
+msgid "Manage inventory, place reservations on items and pick them up"
 msgstr ""
 
 msgid ""
@@ -2017,6 +2017,28 @@ msgstr ""
 msgid "Closed Day"
 msgstr ""
 
+msgid "Borrow"
+msgstr ""
+
+msgid "Overview"
+msgstr ""
+
+msgid "Manage"
+msgstr ""
+
+msgid "Nothing selected"
+msgstr ""
+
+msgid "Collection"
+msgid_plural "Collections"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Return"
+msgid_plural "Returns"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "not yet saved"
 msgstr ""
 
@@ -2066,4 +2088,10 @@ msgid "Name of the group"
 msgstr ""
 
 msgid "%s saved"
+msgstr ""
+
+msgid "Order Overview"
+msgstr ""
+
+msgid "To pick up"
 msgstr ""

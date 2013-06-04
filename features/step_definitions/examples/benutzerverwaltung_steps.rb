@@ -239,28 +239,23 @@ Dann /^kann man neue Gegenstände erstellen$/ do
   attributes = {
     model_id: @inventory_pool.models.first.id
   }
-  response = post backend_inventory_pool_items_path(@inventory_pool, format: :json), item: attributes
-  response.should be_successful
-  @json = JSON.parse response.body
-  @json["id"].should_not be_blank
+  page.driver.browser.process(:post, backend_inventory_pool_items_path(@inventory_pool, format: :json), {:item => attributes})
+  expect(page.status_code == 200).to be_true
   Item.count.should == c+1
+  @item = Item.last
 end
 
 Dann /^diese Gegenstände ausschliesslich nicht inventarrelevant sind$/ do
-  @json["is_inventory_relevant"].should be_false
-  response = put backend_inventory_pool_item_path(@inventory_pool, @json["id"], format: :json), item: {is_inventory_relevant: true}
-  response.should_not be_successful
-  Item.find(@json["id"]).is_inventory_relevant.should be_false
+  page.driver.browser.process(:put, backend_inventory_pool_item_path(@inventory_pool, @item.id, format: :json), {:item => {is_inventory_relevant: true}})
+  expect(page.status_code == 200).to be_false
 end
 
 Dann /^diese Gegenstände können inventarrelevant sein$/ do
-  @json["is_inventory_relevant"].should be_false
-  response = put backend_inventory_pool_item_path(@inventory_pool, @json["id"], format: :json), item: {is_inventory_relevant: true}
-  json = JSON.parse response.body
-  response.should be_successful
-  json["is_inventory_relevant"].should be_true
-  @item = Item.find(@json["id"])
-  @item.is_inventory_relevant.should be_true
+  
+  page.driver.browser.process(:put, backend_inventory_pool_item_path(@inventory_pool, @item.id, format: :json), item: {is_inventory_relevant: true})
+  expect(page.status_code == 200).to be_true
+  
+  @item.reload.is_inventory_relevant.should be_true
 end
 
 Dann /^man kann Optionen erstellen$/ do
@@ -271,10 +266,8 @@ Dann /^man kann Optionen erstellen$/ do
     name: factory_attributes[:name],
     price: factory_attributes[:price]
   }
-  response = post backend_inventory_pool_options_path(@inventory_pool, format: :json), option: attributes
-  response.should be_successful
-  json = JSON.parse response.body
-  Option.exists?(json["id"]).should be_true
+  page.driver.browser.process(:post, backend_inventory_pool_options_path(@inventory_pool, format: :json), option: attributes)
+  expect(page.status_code == 200).to be_true
   Option.count.should == c+1
 end
 
@@ -287,28 +280,21 @@ Dann /^man kann neue Benutzer erstellen (.*?) inventory_pool$/ do |arg1|
     attributes[a] = factory_attributes[a]
   end
   response = case arg1
-               when "für"
-                 post backend_inventory_pool_users_path(@inventory_pool), user: attributes
+                when "für"
+                  page.driver.browser.process(:post, backend_inventory_pool_users_path(@inventory_pool), user: attributes)
                when "ohne"
-                 post backend_users_path, user: attributes
+                  page.driver.browser.process(:post, backend_users_path, user: attributes)
              end
-  response.should be_redirect
   User.count.should == c+1
   id = (User.pluck(:id) - ids).first
-  case arg1
-    when "für"
-      URI.parse(response.location).path.should == backend_inventory_pool_user_path(@inventory_pool, id)
-    when "ohne"
-      URI.parse(response.location).path.should == backend_user_path(id)
-  end
   @user = User.find(id)
 end
 
 Dann /^man kann neue Benutzer erstellen und für die Ausleihe sperren$/ do
   step 'man kann neue Benutzer erstellen für inventory_pool'
   @user.access_right_for(@inventory_pool).suspended?.should be_false
-  response = put backend_inventory_pool_user_path(@inventory_pool, @user, format: :json), access_right: {suspended_until: Date.today + 1.year, suspended_reason: "suspended reason"}
-  response.should be_successful
+  page.driver.browser.process(:put, backend_inventory_pool_user_path(@inventory_pool, @user, format: :json), access_right: {suspended_until: Date.today + 1.year, suspended_reason: "suspended reason"})
+  expect(page.status_code == 200).to be_true
   @user.reload.access_right_for(@inventory_pool).suspended?.should be_true
 end
 
@@ -336,8 +322,9 @@ Dann /^man kann Benutzern die folgende Rollen zuweisen und wegnehmen, wobei dies
         unknown_user.has_role?("manager", @inventory_pool).should be_false
     end
 
-    response = put backend_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), access_right: {role_name: role_name, suspended_until: nil}
-    response.should be_successful
+    page.driver.browser.process(:put, backend_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), access_right: {role_name: role_name, suspended_until: nil})
+    expect(page.status_code == 200).to be_true
+    
     case role_name
       when "customer"
         unknown_user.has_role?("customer", @inventory_pool).should be_true
@@ -350,8 +337,9 @@ Dann /^man kann Benutzern die folgende Rollen zuweisen und wegnehmen, wobei dies
         unknown_user.has_at_least_access_level(3, @inventory_pool).should be_true
     end
 
-    response = put backend_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), access_right: {role_name: "unknown"}
-    response.should be_successful
+    page.driver.browser.process(:put, backend_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), access_right: {role_name: "unknown"})
+    expect(page.status_code == 200).to be_true
+
     case role_name
       when "customer"
         unknown_user.has_role?("customer", @inventory_pool).should be_false
@@ -370,8 +358,10 @@ Dann /^man kann nicht inventarrelevante Gegenstände ausmustern, sofern man dere
       retired: true,
       retired_reason: "Item is gone"
   }
-  response = put backend_inventory_pool_item_path(@inventory_pool, item, format: :json), item: attributes
-  response.should be_successful
+
+  page.driver.browser.process(:put, backend_inventory_pool_item_path(@inventory_pool, item, format: :json), item: attributes)
+  expect(page.status_code == 200).to be_true
+
   item.reload.retired?.should be_true
   item.retired.should == Date.today
 end
@@ -381,10 +371,10 @@ end
 Dann /^kann man neue Modelle erstellen$/ do
   c = Model.count
   attributes = FactoryGirl.attributes_for :model
-  response = post backend_inventory_pool_models_path(@inventory_pool, format: :json), model: attributes
-  response.should be_successful
-  json = JSON.parse response.body
-  json["id"].should_not be_blank
+
+  page.driver.browser.process(:post, backend_inventory_pool_models_path(@inventory_pool, format: :json), model: attributes)
+  expect(page.status_code == 200).to be_true
+
   Model.count.should == c+1
 end
 
@@ -393,8 +383,10 @@ Dann /^man kann sie einem anderen Gerätepark als Besitzer zuweisen$/ do
     owner_id: (InventoryPool.pluck(:id) - [@inventory_pool.id]).shuffle.first
   }
   @item.owner_id.should_not == attributes[:owner_id]
-  response = put backend_inventory_pool_item_path(@inventory_pool, @item, format: :json), item: attributes
-  response.should be_successful
+
+  page.driver.browser.process(:put, backend_inventory_pool_item_path(@inventory_pool, @item, format: :json), item: attributes)
+  expect(page.status_code == 200).to be_true
+
   @item.reload.owner_id.should == attributes[:owner_id]
 end
 
@@ -404,16 +396,20 @@ Dann /^man kann die verantwortliche Abteilung eines Gegenstands frei wählen$/ d
       inventory_pool_id: (InventoryPool.pluck(:id) - [@inventory_pool.id]).shuffle.first
   }
   item.inventory_pool_id.should_not == attributes[:inventory_pool_id]
-  response = put backend_inventory_pool_item_path(@inventory_pool, item, format: :json), item: attributes
-  response.should be_successful
+
+  page.driver.browser.process(:put, backend_inventory_pool_item_path(@inventory_pool, item, format: :json), item: attributes)
+  expect(page.status_code == 200).to be_true
+
   item.reload.inventory_pool_id.should == attributes[:inventory_pool_id]
 
   attributes = {
       inventory_pool_id: nil
   }
   item.inventory_pool_id.should_not == attributes[:inventory_pool_id]
-  response = put backend_inventory_pool_item_path(@inventory_pool, item, format: :json), item: attributes
-  response.should be_successful
+
+  page.driver.browser.process(:put, backend_inventory_pool_item_path(@inventory_pool, item, format: :json), item: attributes)
+  expect(page.status_code == 200).to be_true
+
   item.reload.inventory_pool_id.should == attributes[:inventory_pool_id]
 end
 
@@ -425,8 +421,10 @@ Dann /^man kann Gegenstände ausmustern, sofern man deren Besitzer ist$/ do
   }
   item.retired.should be_nil
   item.retired_reason.should be_nil
-  response = put backend_inventory_pool_item_path(@inventory_pool, item, format: :json), item: attributes
-  response.should be_successful
+
+  page.driver.browser.process(:put, backend_inventory_pool_item_path(@inventory_pool, item, format: :json), item: attributes)
+  expect(page.status_code == 200).to be_true
+
   item.reload.retired.should == Date.today
   item.retired_reason.should == attributes[:retired_reason]
 end
@@ -438,8 +436,10 @@ Dann /^man kann Ausmusterungen wieder zurücknehmen, sofern man Besitzer der jew
   }
   item.retired.should_not be_nil
   item.retired_reason.should_not be_nil
-  response = put backend_inventory_pool_item_path(@inventory_pool, item, format: :json), item: attributes
-  response.should be_successful
+
+  page.driver.browser.process(:put, backend_inventory_pool_item_path(@inventory_pool, item, format: :json), item: attributes)
+  expect(page.status_code == 200).to be_true
+
   item.reload.retired.should be_nil
   item.retired_reason.should be_nil
 end
@@ -478,8 +478,15 @@ end
 
 Dann /^man kann neue Benutzer erstellen und löschen$/ do
   step 'man kann neue Benutzer erstellen ohne inventory_pool'
+
+
   response = delete backend_user_path(@user, format: :json)
   response.should be_successful
+
+  page.driver.browser.process(:delete, backend_inventory_pool_item_path(@inventory_pool, item, format: :json), item: attributes)
+  expect(page.status_code == 200).to be_true
+
+
   assert_raises(ActiveRecord::RecordNotFound) do
     @user.reload
   end

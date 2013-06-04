@@ -1,0 +1,49 @@
+.bar-chart
+  display: block
+  margin-top: 20px
+  
+  .grid 
+    
+    .barchart-line
+      border-top: 1px solid $lightergrey
+      
+      .barchart-text 
+        font-size: 1.1em
+        position: absolute
+        top: -7px !important
+      
+      hr 
+        margin: 0 0 0 0
+  
+  .graphField 
+    
+    .graphBar 
+      overflow: visible !important       
+      
+      .subBars 
+        
+        .text 
+          color: white
+          display: inline-block
+          font-size: 0.9em
+          padding: 1px 4px
+          margin-top: 1px
+        
+        &:nth-child(1) 
+          .text 
+            padding-top: 0 !important
+            color: $darkgrey !important             
+  
+  .graphLabel 
+    color: $darkgrey
+    font-size: 1.2em
+    padding-top: 8px
+    
+    strong 
+      display: block
+      letter-spacing: 0
+      text-align: center
+  
+  .graphValue 
+    font-size: 1.2em
+    padding-bottom: 2px

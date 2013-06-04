@@ -22,6 +22,7 @@ class Authenticator::ShibbolethAuthenticationController < Authenticator::Authent
   end
   
   def login
+    super
     # This point should only be reached after a successful login from Shibboleth.
     # Shibboleth handles all error management, so we don't need to worry about any
     # of that.

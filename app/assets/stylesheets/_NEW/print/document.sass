@@ -1,0 +1,68 @@
+#print section.document  
+  min-height: none !important
+  width: 100%
+  
+  .page_break
+    page-break-before: always
+  
+  .barcode
+    display: block
+    height: 1cm
+    width: 100%
+
+  h1
+    font-size: 13pt
+    display: block
+    padding-bottom: 1cm
+  
+  table
+    &>.start_date, &>.end_date, &>.returning_date
+      letter-spacing: -1pt
+  
+  .date
+    display: inline-block
+    position: absolute
+    top: 1.6cm
+    right: 0
+  
+  .parties
+    margin-bottom: 1.5cm
+  
+    .customer
+      display: block
+      float: left
+      width: 30%
+  
+    .inventory_pool
+      display: block
+      float: left
+
+    .customer, .inventory_pool
+      &>span
+        display: block
+      &>label
+        font-weight: bold
+
+  .purposes
+    margin-top: 1.5cm
+    
+    h2
+      display: block
+      page-break-after: avoid
+    p
+      display: block
+      page-break-before: avoid
+
+  .terms_and_signature
+    display: block
+    margin-top: 1cm
+    width: 100%
+    
+    .terms
+      width: 65%
+
+    span
+      font-weight: bold
+      display: inline-block
+      position: absolute
+      right: 0.2cm

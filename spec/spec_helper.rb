@@ -1,7 +1,6 @@
 # DOC: http://rubydoc.info/gems/rspec-rails/frames
 
 require 'rubygems'
-require 'spork'
 
 # Code coverage tool that supports Ruby 1.9 and Rails 3
 # require 'simplecov'

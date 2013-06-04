@@ -1,0 +1,13 @@
+a, a:link, a:visited, a:hover, a:active
+  text-decoration: none
+  cursor: pointer
+
+a
+  @include link-colors($blue, $darkblue, $blue, $blue, $blue)
+
+  &.grey
+    @include link-colors($lightgrey, $darkgrey, $lightgrey, $lightgrey, $lightgrey)
+
+a[name]
+  color: black !important
+  cursor: default

@@ -1,0 +1,19 @@
+.margin-left-xxs
+  .row
+    %nav
+      %ul
+        %li
+          %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left.active{:href => borrow_unsubmitted_order_path}
+            %i.icon-shopping-cart
+            %span.margin-top-s
+              = _("Order")
+
+  .row.content-wrapper.straight-top-left.min-height-s
+
+    .padding-inset-s
+      .emboss.padding-inset-xs
+        %p.paragraph-s
+          %strong= _("Nothing selected")
+
+    .row.position-absolute-bottom.padding-inset-s
+      %a.button.green.min-width-full= _("order")

@@ -1,0 +1,13 @@
+.focus
+  border: 1px solid $blue
+  color: $darkergrey !important
+  @include box-shadow (inset 0 2px 2px rgba(0,0,0,0.1), 0 0 4px $blue)
+
+.focus-active
+  @include box-shadow (inset 0 2px 4px $blue, 0 0 4px $blue)
+
+.focus-hover
+  &:hover
+    @extend .focus
+  &:active
+    @extend .focus-active

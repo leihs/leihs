@@ -1,0 +1,22 @@
+.input-addon
+  @extend .button
+  @extend .button.white
+  height: 100%
+  position: absolute
+  right: -2px
+  top: 0
+  @include box-sizing(border-box)
+  @include border-left-radius(0)
+
+  &.transparent, &.transparent:hover, &.transparent:active
+    background: none
+    border: none
+    @include box-shadow(none)
+
+input
+  &.has-addon
+    height: 100%
+    padding-right: 35px
+
+  &.round-borders + .input-addon
+    @include border-right-radius(22px)

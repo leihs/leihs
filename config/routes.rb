@@ -3,23 +3,43 @@ Leihs::Application.routes.draw do
   root :to => "application#index"
 
   # Authenticator
-  match '/authenticator/zhdk/login', :to => 'authenticator/zhdk#login'
-  match '/authenticator/zhdk/login_successful/:id', :to => 'authenticator/zhdk#login_successful'
-  match '/authenticator/db/:action', :to => 'authenticator/database_authentication'
-  match '/authenticator/ldap/:action', :to => 'authenticator/ldap_authentication'
-  match '/authenticator/hslu/:action', :to => 'authenticator/hslu_authentication'
-  match '/authenticator/shibboleth/:action/:id', :to => 'authenticator/shibboleth_authentication'
+  match 'authenticator/zhdk/login', :to => 'authenticator/zhdk#login'
+  match 'authenticator/zhdk/login_successful/:id', :to => 'authenticator/zhdk#login_successful'
+  match 'authenticator/db/:action', :to => 'authenticator/database_authentication'
+  match 'authenticator/ldap/:action', :to => 'authenticator/ldap_authentication'
+  match 'authenticator/hslu/:action', :to => 'authenticator/hslu_authentication'
+  match 'authenticator/shibboleth/:action/:id', :to => 'authenticator/shibboleth_authentication'
 
   # For RESTful_Authentication
-  match '/activate/:activation_code', :to => 'users#activate', :activation_code => nil
-  match '/signup', :to => 'users#new'
-  match '/login', :to => 'sessions#new'
-  match '/logout', :to => 'sessions#destroy'
-  match '/switch_to_ldap', :to => 'sessions#switch_to_ldap' #TODO 1009: Remove when not used anymore
+  match 'activate/:activation_code', :to => 'users#activate', :activation_code => nil
+  match 'signup', :to => 'users#new'
+  match 'login', :to => 'sessions#new'
+  match 'logout', :to => 'sessions#destroy'
+  match 'switch_to_ldap', :to => 'sessions#switch_to_ldap' #TODO 1009: Remove when not used anymore
   
   # Backend
-  match '/backend', :to => "backend/backend#index"
-  get '/backend/inventory_pools/:inventory_pool_id/inventory', :to => "backend/inventory#index", :as => "backend_inventory_pool_inventory"
+  match 'backend', :to => "backend/backend#index"
+  get 'backend/inventory_pools/:inventory_pool_id/inventory', :to => "backend/inventory#index", :as => "backend_inventory_pool_inventory"
+
+  # Borrow Section
+  namespace :borrow do
+    get "/", :to => "application#start", :as => "start"
+    get "to_pick_up", :to => "to_pick_up#index", :as => "to_pick_up"
+    get "inventory_pools", :to => "inventory_pools#index", :as => "inventory_pools"
+    get "models", :to => "models#index", :as => "models"
+    get "order", :to => "orders#unsubmitted_order", :as => "unsubmitted_order"
+    get "orders", :to => "orders#index", :as => "orders"
+    get "returns", :to => "returns#index", :as => "returns"
+    get "user", :to => "users#current", :as => "current_user"
+  end
+
+  # Categories
+  get "categories/:id/image", :to => "categories#image", :as => "category_image"
+  get "category_links", :to => "category_links#index", :as => "category_links"
+
+  # Styleguide
+  get "styleguide", :to => "styleguide#show"
+  get "styleguide/:section", :to => "styleguide#show"
 
 ############################################################################
 ##### Following things are old and have to be checked if still used
@@ -58,12 +78,6 @@ Leihs::Application.routes.draw do
 
   resource :authenticator do
     match 'login', :to => "authenticator/database_authentication#login"
-  end
-
-  resources :models, :except => :index do
-    member do
-      get :chart
-    end
   end
 
   resources :categories do 

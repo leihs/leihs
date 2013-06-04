@@ -54,6 +54,7 @@ class Backend::ItemsController < Backend::BackendController
         end
       end
     end
+
     unless @item.errors.any?
       saved = @item.update_attributes(params[:item])
     end

@@ -1,0 +1,7 @@
+- @sections[@current_section].each do |section|
+  %a.button{:href => "##{section}"}= section.camelize
+
+%h3.headline-m.light.padding-vertical-m.margin-bottom-m.margin-top-m .grey
+
+- @sections[@current_section].each do |section|
+  %a.grey.button{:href => "##{section}"}= section.camelize

@@ -1,0 +1,45 @@
+%nav.topbar
+  
+  %a.topbar-logo.padding-horizontal-s{:href => borrow_start_path} leihs
+
+  %ul.topbar-navigation
+
+    %li#topbar-search.topbar-item.topbar-search.separated-left
+      = render :partial => 'topbar_search'
+
+    %li.topbar-item.separated-left{:class => current_page?(:controller => :to_pick_up) ? "active" : nil}
+      %a.topbar-item-inner{:href => borrow_to_pick_up_path}
+        %span.badge 1
+        = _("To pick up")
+
+    %li.topbar-item.separated-left{:class => current_page?(:controller => :returns) ? "active" : nil}
+      %a.topbar-item-inner{:href => borrow_returns_path}
+        %span.badge 5
+        = _("Returns")
+
+    %li.topbar-item.separated-left{:class => current_page?(:controller => :orders) ? "active" : nil}
+      %a.topbar-item-inner{:href => borrow_orders_path}
+        %span.badge 2
+        = _("Orders")
+
+    %li.topbar-item.separated-left{:class => current_page?(:controller => :inventory_pools) ? "active" : nil}
+      %a.topbar-item-inner{:href => borrow_inventory_pools_path}= _("Inventory Pools")
+
+    %li.topbar-item.separated-left
+      %a.topbar-item-inner{:href => backend_path}= _("Manage")
+
+    %li.topbar-item.separated-left.dropdown-holder{:class => current_page?(borrow_current_user_path) ? "active" : nil}
+      %a.topbar-item-inner.max-width-s-alt.text-ellipsis{:href => borrow_current_user_path}
+        = current_user
+        %i.arrow.down
+
+      %ul.dropdown.right.straight-top
+        %li
+          %a.dropdown-item{:href => logout_path}
+            .icon-signout
+            = _("Logout")
+
+:coffeescript
+  
+  jQuery -> new App.TopBarSearchItem
+    el: $("#topbar-search")

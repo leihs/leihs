@@ -37,36 +37,37 @@ Scenario: Items available in different pools
        Then 1 order exists for inventory pool 1
                And it asks for 3 items
                And 0 orders exist for inventory pool 2
+
+#                
+# Scenario: Splitting order and notifying customer
        
-Scenario: Splitting order and notifying customer
+#        Given 2 inventory pools
+#                And a model 'Coffee Mug' exists
+#                And this model has 3 items in inventory pool 2
+#                And a model 'Coffee Machine' exists
+#                And this model has 1 items in inventory pool 1
+#                And customer 'jack' has access to inventory pool 1 and 2
+#        When 'jack' orders 3 'Coffee Mug'
+#                And 'jack' orders 1 'Coffee Machine'
+#                And he submits the new order
+#        Then 1 order exists for inventory pool 1
+#                And it asks for 1 item
+#                And 1 order exists for inventory pool 2
+#                And it asks for 3 items
+#                And customer 'jack' gets notified that his order has been submitted
        
-       Given 2 inventory pools
-               And a model 'Coffee Mug' exists
-               And this model has 3 items in inventory pool 2
-               And a model 'Coffee Machine' exists
-               And this model has 1 items in inventory pool 1
-               And customer 'jack' has access to inventory pool 1 and 2
-       When 'jack' orders 3 'Coffee Mug'
-               And 'jack' orders 1 'Coffee Machine'
-               And he submits the new order
-       Then 1 order exists for inventory pool 1
-               And it asks for 1 item
-               And 1 order exists for inventory pool 2
-               And it asks for 3 items
-               And customer 'jack' gets notified that his order has been submitted
+# Scenario: Customer can't order things that he can't see
        
-Scenario: Customer can't order things that he can't see
-       
-       Given 2 inventory pools
-               And a model 'Coffee Mug' exists
-               And this model has 3 items in inventory pool 2
-               And a model 'Coffee Machine' exists
-               And this model has 1 items in inventory pool 1
-               And customer 'jack' has access to inventory pool 1
-       When 'jack' searches for 'Coffee Mug' on frontend
-       Then he gets an empty result set
-       When 'jack' searches for 'Coffee' on frontend
-       Then he sees the 'Coffee Machine' model
+#        Given 2 inventory pools
+#                And a model 'Coffee Mug' exists
+#                And this model has 3 items in inventory pool 2
+#                And a model 'Coffee Machine' exists
+#                And this model has 1 items in inventory pool 1
+#                And customer 'jack' has access to inventory pool 1
+#        When 'jack' searches for 'Coffee Mug' on frontend
+#        Then he gets an empty result set
+#        When 'jack' searches for 'Coffee' on frontend
+#        Then he sees the 'Coffee Machine' model
        
 Scenario: Customer orders the same item multiple times, thus exceeding maximum quantity
 

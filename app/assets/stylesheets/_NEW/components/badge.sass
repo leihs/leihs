@@ -1,0 +1,19 @@
+.badge
+  background: $lightgrey
+  color: white
+  font-size: $font-size-xxxs
+  vertical-align: top
+  @include border-radius($border-radius-xs)
+  @include text-shadow (none !important)
+
+  &:not([class*='padding-'])
+    padding: 1px 4px
+
+  &.red
+    background: $red
+
+  &.medium
+    font-size: $font-size-xs
+
+  &.dark
+    background: $grey

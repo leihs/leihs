@@ -946,8 +946,8 @@ msgstr "Telefon"
 msgid "Phone%s"
 msgstr "Telefon%s"
 
-msgid "Place reservations on items and then pick them up"
-msgstr "Gegenstände reservieren und abholen"
+msgid "Manage inventory, place reservations on items and pick them up"
+msgstr "Inventar verwalten, Gegenstände reservieren und abholen"
 
 msgid ""
 "Please note that these contracts, while they do belong to approved orders, "
@@ -2083,6 +2083,28 @@ msgstr "Auswählen"
 msgid "Closed Day"
 msgstr "Schliessungstag"
 
+msgid "Borrow"
+msgstr "Ausleihen"
+
+msgid "Overview"
+msgstr "Übersicht"
+
+msgid "Manage"
+msgstr "Verwalten"
+
+msgid "Nothing selected"
+msgstr "Nichts ausgewählt"
+
+msgid "Collection"
+msgid_plural "Collections"
+msgstr[0] "Abholung"
+msgstr[1] "Abholungen"
+
+msgid "Return"
+msgid_plural "Returns"
+msgstr[0] "Rückgabe"
+msgstr[1] "Rückgaben"
+
 msgid "not yet saved"
 msgstr "noch nicht gespeichert"
 
@@ -2133,3 +2155,12 @@ msgstr "Name der Gruppe"
 
 msgid "%s saved"
 msgstr "%s gespeichert"
+
+msgid "order"
+msgstr "bestellen"
+
+msgid "Order Overview"
+msgstr "Bestellübersicht"
+
+msgid "To pick up"
+msgstr "Abzuholen"

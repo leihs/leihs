@@ -1,0 +1,19 @@
+!!! 5
+%html{:lang => I18n.locale}
+
+  %head
+    %meta{:charset => 'utf-8'}
+    %title= "leihs | #{_("Equipment Booking and Inventory Management System")}"
+    = stylesheet_link_tag "application"
+    = favicon_link_tag "frontend/favicon.ico", :type => "image/x-icon"
+    = csrf_meta_tag
+    
+  %body
+
+    = render :partial => "flash", :locals => {:flash => flash} if flash
+
+    %header.wrapper.padding-top-m= render :partial => "splash/topbar"
+    
+    = yield
+
+    .padding-inset-m= render :partial => "footer"

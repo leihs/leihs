@@ -119,6 +119,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
   end
   
   def login
+    super
     @preferred_language = Language.preferred(request.env["HTTP_ACCEPT_LANGUAGE"])
 
     if request.post?

@@ -1,0 +1,35 @@
+.emboss
+  background: rgba(150,150,150,0.1)
+  border: 1px solid rgba(0,0,0,0)
+  @include text-shadow(1px 1px 0 rgba(255,255,255,0.3))
+  @include border-radius(4px)
+
+  &.white
+    background: white
+    border: 1px solid $lightergrey
+    @include box-shadow(white 1px 1px 0)
+
+  &.red, &.error
+    background: $red
+    color: white
+    @include text-shadow(1px 1px 0 rgba(0,0,0,0.2))
+    @include box-shadow(white 1px 1px 0)
+
+  &.deep
+    border-top: 1px solid $lightgrey
+    border-left: 1px solid lighten($lightgrey, 10%)
+    border-right: 1px solid lighten($lightgrey, 10%)
+    border-bottom: 1px solid lighten($lightgrey, 15%)
+    @include box-shadow(inset lighten($lightgrey, 15%) 0 2px 3px)
+
+  &.blue, &.notice
+    color: white
+    background: $lightblue
+    @include text-shadow(1px 1px 0 rgba(0,0,0,0.2))
+    @include box-shadow(white 1px 1px 0)
+
+  &.green, &.success
+    background: $green
+    color: black
+    @include text-shadow(1px 1px 0 rgba(255,255,255,0.5))
+    @include box-shadow(white 1px 1px 0)

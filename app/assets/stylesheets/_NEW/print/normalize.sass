@@ -1,0 +1,75 @@
+body > * // hide screen elements
+  display: none !important
+
+$border-width: 0.5pt
+$border-color: rgb(100,100,100)
+
+#print > .dialog
+  display: block !important
+  
+  &>*
+    display: none !important
+    
+  &>.documents
+    display: block !important
+    
+    &>*
+      display: none !important
+      
+    &>section.active
+      display: block !important
+
+#print
+  display: block !important
+  display: block !important
+  left: 0 !important
+  top: 0 !important
+  min-height: auto !important
+  width: 100% !important
+  height: auto !important
+  
+  & > *
+    display: none
+
+*
+  color: black
+  font-size: 8pt
+  font-family: "Lucida Grande","Lucida Sans Unicode",sans-serif
+  position: relative
+
+h2, h3, h4, h5
+  display: block
+  margin-top: 14pt
+  page-break-after: avoid
+
+.clear
+  clear: both
+
+table
+  border-collapse: collapse
+  cellspacing: 0
+  cellpadding: 0
+  empty-cells: show
+  width: 100%
+
+  tr td
+    border: $border-width solid $border-color
+    padding: 2pt 4pt
+  
+  thead tr td
+    font-size: 7pt
+    font-weight: bold
+    
+  thead
+    display: table-header-group
+    
+table.hr
+  border-bottom: $border-width solid $border-color
+
+section
+  page-break-before: auto
+  page-break-after: auto
+
+.dontbreak
+  page-break-before: auto
+  page-break-inside: avoid

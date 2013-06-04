@@ -1,33 +1,26 @@
-# Filters added to this controller apply to all controllers in the application.
-# Likewise, all the methods added will be available for all controllers.
-
 class ApplicationController < ActionController::Base
 
-  #rails3# TODO upgrade restful-authentication or use devise authentication system instead ??
   require File.join(Rails.root, 'lib', 'authenticated_system.rb')
   include AuthenticatedSystem
 
   before_filter :set_gettext_locale
 
-  protect_from_forgery # See ActionController::RequestForgeryProtection for details
+  layout "splash"
 
-####################################################  
-  
+  protect_from_forgery
+
   def index
-    @preferred_language = Language.preferred(request.env["HTTP_ACCEPT_LANGUAGE"])
-    
-    #check if user is logged in then depending on rights (manager or only customer) redirect to frontend or backend otherwise go on showing splash screen
     if logged_in?
       if current_user.has_role?('manager', nil, false) or current_user.has_role?('admin')
         redirect_to backend_path, flash: flash
       else
-        redirect_to categories_path, flash: flash
+        redirect_to borrow_start_path, flash: flash
       end
+    else
+      render "splash/show"
     end
   end
  
-####################################################  
-
   protected
 
   helper_method :current_inventory_pool
@@ -45,25 +38,17 @@ class ApplicationController < ActionController::Base
   end
 
   def set_gettext_locale
-    if current_user
-      if current_user.language.nil?
-        current_user.language = Language.default_language
-        current_user.save
-      end
-      
-      if params[:locale]
-        language = Language.where(:locale_name => params[:locale]).first
-        language ||= Language.default_language
-        current_user.language = language # language is a protected attribute, it can't be mass-asigned via update_attributes
-        current_user.save
-        current_user.reload
-      end
-      locale_symbol = current_user.language.locale_name.to_sym
-    else
-      locale_symbol = Language.default_language.locale_name.to_sym
+    language = if params[:locale]
+      Language.where(:locale_name => params[:locale]).first
+    elsif session[:locale]
+      Language.where(:locale_name => session[:locale]).first
+    elsif current_user
+      current_user.language
     end
-    
-    I18n.locale = locale_symbol
+    language ||= Language.default_language
+    current_user.update_attributes(:language_id => language.id) if current_user and session[:locale] != language.locale_name
+    session[:locale] = language.locale_name
+    I18n.locale = language.locale_name.to_sym
   end
 
 end

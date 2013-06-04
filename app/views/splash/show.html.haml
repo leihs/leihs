@@ -1,0 +1,19 @@
+.wrapper.splashscreen-view
+
+  .content-wrapper.margin-top-l.row.margin-bottom-l
+
+    .row.margin-top-s
+
+      .col3of5
+      
+        .padding-inset-l
+
+          %h1.headline-xxl.text-shadow-white= _("Equipment Booking and Inventory Management System")
+          %p.headline-m.padding-top-m.light.text-shadow-white= _("Manage inventory, place reservations on items and pick them up")
+
+      .col2of5
+
+        .padding-inset-l.text-align-right
+          %a.button.large.green{:href => login_path}= _("Login")
+          
+    %img.splashscreen-image.margin-right-l.margin-bottom-m{:src => image_path("leihs.png"), :style => "height: 397px; position: relative; float: right; width: 814px;"}

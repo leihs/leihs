@@ -1,0 +1,80 @@
+.button 
+  border: 0
+  cursor: pointer
+  display: inline-block
+  font-size: $font-size-xs
+  font-weight: bold
+  line-height: 2.4em
+  position: relative
+  vertical-align: middle
+  white-space: nowrap
+  text-align: center
+  @include border-radius(6px)
+  @include user-select(none)
+  @include box-shadow(0 1px 0 rgba(255,255,255,0.2))
+  @include box-sizing(border-box)
+
+  i.arrow
+    vertical-align: middle    
+
+  &:first-letter
+    text-transform: uppercase
+
+  &:not([class*='padding'])
+    padding: 0 10px
+
+@mixin button($color, $grad_color_2, $grad_color_1, $grad_color_1_active, $grad_color_2_active) 
+  color: $color
+  border: 1px solid rgba(80,80,80,0.3)
+  border-bottom: 1px solid rgba(80,80,80,0.4)
+  @include background(linear-gradient($grad_color_1 20%, $grad_color_2 80%))
+  
+  &:hover:not([disabled]) 
+    @include background(linear-gradient(lighten($grad_color_1, 10%) 20%, lighten($grad_color_2, 10%) 80%))
+    color: darken($color, 5%)
+
+    .arrow
+      @include change-all-arrow-colors(darken($color, 5%))
+  
+  &:active:not([disabled]) 
+    @include background(linear-gradient($grad_color_1_active 20%, $grad_color_2_active 80%))
+    @include box-shadow(inset 0 -2px 3px rgba(0,0,0,0.1))
+
+  &.disabled, &.disabled:hover, &.disabled:active, &[disabled=disabled], &[disabled=disabled]:hover, &[disabled=disabled]:active 
+    cursor: default
+    color: $color !important
+    @include background(linear-gradient($grad_color_1 20%, $grad_color_2 80%))
+    @include opacity(0.6)
+
+  &.active
+    background: $grad_color_1 !important
+    color: darken($color, 5%) !important
+
+  .arrow
+    @include change-all-arrow-colors(lighten($color, 5%))
+
+.button.green 
+  @include button(#184815, rgb(141,206,88), rgb(175,236,129), rgb(148,209,98), rgb(131,201,74))
+
+.button.white
+  @include button(#313131, rgb(230,230,230), white, rgb(226,226,226), rgb(232,232,232))
+
+.button.red
+  @include button(#f60000, rgb(230,230,230), white, rgb(226,226,226), rgb(232,232,232))
+
+// SMALL BUTTONS
+
+.button.small 
+  font-size: $font-size-xxs
+  font-weight: bold
+  padding: 0 8px
+  vertical-align: bottom
+
+// LARGE BUTTONS
+
+.button.large 
+  font-size: $font-size-m
+  font-weight: bold
+  line-height: 2em
+  padding: 0 $space-l
+  vertical-align: bottom

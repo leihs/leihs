@@ -1,0 +1,62 @@
+.line
+  border-bottom: 1px solid $lightergrey
+  border-top: 1px solid white
+  display: table
+  height: $space-xxl
+  width: 100%
+
+  &:first-child
+    border-top: 1px solid $lightergrey
+
+  &:nth-child(even)
+    background: $almostwhite
+
+  &:hover
+    background: $lightestgrey
+    @include box-shadow(inset 0 1px 4px rgba(0,0,0,0.2))
+
+  &.light:not(:hover)
+    background: $almostwhite
+
+.line-actions
+  
+  .button
+    max-width: 160px
+
+.line-col
+  float: none
+  display: table-cell
+  height: $space-xxl
+  line-height: $line-height-s
+  padding: 0 0 0 $space-m
+  vertical-align: middle
+  @include box-sizing(border-box)
+
+  &:not([class*='text-align'])
+    text-align: right
+
+  &:not(.line-actions)
+    font-size: $font-size-xs
+
+  &:first-child
+    text-align: left
+
+  &:last-child
+    padding-right: $space-s
+
+.line-info
+  height: 100%
+  left: 0
+  position: absolute
+  margin: 1px 0 0 1px
+  padding: 1px 0 0 1px
+  top: 0
+  width: 6px
+  @include opacity(0.5)
+  @include box-sizing(border-box)
+
+  &.red
+    background: $red
+
+  &+.line-col
+    text-align: left

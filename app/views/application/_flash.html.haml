@@ -1,7 +1,3 @@
-- if flash
-  - if flash[:notice]
-    .notification.headline
-      = flash[:notice]
-  - elsif flash[:error]
-    .notification.headline.error
-      = flash[:error]
+- flash.each do |k,v|
+  %p.paragraph-m.row.emboss.straight.text-align-center.padding-inset-m{:class => k}
+    %strong= v

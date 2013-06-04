@@ -1,5 +1,4 @@
 require 'rubygems'
-require 'spork'
 require 'pry'
 
 # require 'simplecov'
