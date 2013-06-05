@@ -10,7 +10,7 @@ set :application, "leihs-new"
 
 set :scm, :git
 set :repository,  "git://github.com/zhdk/leihs.git"
-set :branch, "3.0.0-alpha.3"
+set :branch, "3.0.0-alpha.4.1"
 set :deploy_via, :remote_cache
 
 set :db_config, "/home/leihs/#{application}/database.yml"
