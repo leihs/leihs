@@ -11,5 +11,5 @@ Dann /^werden ich auf die Startseite weitergeleitet$/ do
 end
 
 Dann /^sehe einen Hinweis, dass ich nicht angemeldet bin$/ do
-  find(".notification.error", :text => /(You are not logged in|Sie sind nicht eingeloggt)/)
+  page.should have_content("You are not logged in")
 end
