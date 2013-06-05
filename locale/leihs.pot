@@ -2095,3 +2095,15 @@ msgstr ""
 
 msgid "To pick up"
 msgstr ""
+
+msgid "deployed %s ago"
+msgstr ""
+
+msgid "is %s ago"
+msgstr ""
+
+msgid "this is the branch '%s'"
+msgstr ""
+
+msgid "last change by '%s'"
+msgstr ""

@@ -2164,3 +2164,15 @@ msgstr "Bestellübersicht"
 
 msgid "To pick up"
 msgstr "Abzuholen"
+
+msgid "deployed %s ago"
+msgstr "deploy ist %s her"
+
+msgid "is %s ago"
+msgstr "ist %s her"
+
+msgid "this is the branch '%s'"
+msgstr "dies ist der '%s'-Branch"
+
+msgid "last change by '%s'"
+msgstr "letzte Änderung durch %s"
