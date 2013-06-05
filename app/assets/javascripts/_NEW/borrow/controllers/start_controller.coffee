@@ -34,5 +34,6 @@ class window.App.Borrow.StartController extends Spine.Controller
 
   render: (parent) =>
     parent_el = $ _.find @rootCategoryElements, (el) -> parseInt(el.getAttribute("data-category_id")) == parent.id
-    data = _(_.map(parent.children(), (c)->{text: c.name, link: "/borrow/models?category_id=#{c.id}"})).sortBy("text")
-    parent_el.find(".dropdown").html App.Render "dropdown/dropdown-item", data
+    unless _(parent.children()).findWhere(false)
+      data = _(_.map(parent.children(), (c)->{text: c.name, link: "/borrow/models?category_id=#{c.id}"})).sortBy("text")
+      parent_el.find(".dropdown").html App.Render "dropdown/dropdown-item", data

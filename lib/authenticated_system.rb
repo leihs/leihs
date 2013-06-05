@@ -118,7 +118,7 @@ module AuthenticatedSystem
 #sellittf# Extending authentication with role check
 
   def require_role(role, inventory_pool = nil)
-    if current_user.has_role?(role, inventory_pool)
+    if current_user and current_user.has_role?(role, inventory_pool)
       true
     else
       access_denied
