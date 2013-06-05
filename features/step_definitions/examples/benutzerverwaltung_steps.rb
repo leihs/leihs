@@ -447,13 +447,13 @@ end
 Dann /^man kann die Arbeitstage und Ferientage seines Geräteparks anpassen$/ do
   %w(saturday sunday).each do |day|
     @inventory_pool.workday.send(day).should be_false
-    get open_backend_inventory_pool_workdays_path(@inventory_pool, :day => day)
+    visit open_backend_inventory_pool_workdays_path(@inventory_pool, :day => day)
     @inventory_pool.workday.reload.send(day).should be_true
   end
 
   %w(monday tuesday).each do |day|
     @inventory_pool.workday.send(day).should be_true
-    get close_backend_inventory_pool_workdays_path(@inventory_pool, :day => day)
+    visit close_backend_inventory_pool_workdays_path(@inventory_pool, :day => day)
     @inventory_pool.workday.reload.send(day).should be_false
   end
 end
@@ -469,23 +469,21 @@ Dann /^kann man neue Geräteparks erstellen$/ do
   c = InventoryPool.count
   ids = InventoryPool.pluck(:id)
   attributes = FactoryGirl.attributes_for :inventory_pool
-  response = post backend_inventory_pools_path, inventory_pool: attributes
-  response.should be_redirect
+
+  page.driver.browser.process(:post, backend_inventory_pools_path, inventory_pool: attributes)
+  expect(page.status_code == 302).to be_true
+
   InventoryPool.count.should == c+1
   id = (InventoryPool.pluck(:id) - ids).first
-  URI.parse(response.location).path.should == backend_inventory_pools_path
+  
+  URI.parse(current_path).path.should == backend_inventory_pools_path
 end
 
 Dann /^man kann neue Benutzer erstellen und löschen$/ do
   step 'man kann neue Benutzer erstellen ohne inventory_pool'
 
-
-  response = delete backend_user_path(@user, format: :json)
-  response.should be_successful
-
-  page.driver.browser.process(:delete, backend_inventory_pool_item_path(@inventory_pool, item, format: :json), item: attributes)
+  page.driver.browser.process(:delete, backend_user_path(@user, format: :json))
   expect(page.status_code == 200).to be_true
-
 
   assert_raises(ActiveRecord::RecordNotFound) do
     @user.reload
@@ -497,13 +495,15 @@ Dann /^man kann Benutzern jegliche Rollen zuweisen und wegnehmen$/ do
   inventory_pool = InventoryPool.find_by_name "IT-Ausleihe"
   user.has_at_least_access_level(3, inventory_pool).should be_false
 
-  response = put backend_user_path(user, format: :json), access_right: {inventory_pool_id: inventory_pool.id, role_name: "inventory_manager"}
-  response.should be_successful
+  page.driver.browser.process(:put, backend_user_path(user, format: :json), access_right: {inventory_pool_id: inventory_pool.id, role_name: "inventory_manager"})
+  expect(page.status_code == 200).to be_true
+
   user.has_at_least_access_level(3, inventory_pool).should be_true
   user.access_right_for(inventory_pool).deleted_at.should be_nil
 
-  response = put backend_user_path(user, format: :json), access_right: {inventory_pool_id: inventory_pool.id, role_name: "unknown"}
-  response.should be_successful
+  page.driver.browser.process(:put, backend_user_path(user, format: :json), access_right: {inventory_pool_id: inventory_pool.id, role_name: "unknown"})
+  expect(page.status_code == 200).to be_true
+
   user.has_at_least_access_level(3, inventory_pool).should be_false
   user.deleted_access_rights.scoped_by_inventory_pool_id(inventory_pool).first.deleted_at.should_not be_nil
 end
