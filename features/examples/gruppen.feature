@@ -66,39 +66,37 @@ Funktionalität: Gruppen
   @javascript
   Szenario: Benutzer hinzufügen
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
-    Und ich eine Gruppe editiere
+    Und ich eine bestehende Gruppe editiere
     Wenn ich einen Benutzer hinzufüge
     Dann wird der Benutzer zuoberst in der Liste hinzugefügt
     
-  @javascript
   Szenario: Benutzer sortieren
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
-    Und ich eine Gruppe editiere
+    Und ich eine bestehende Gruppe editiere
     Dann sind die bereits hinzugefügten Benutzer alphabetisch sortiert
   
   @javascript
   Szenario: Modelle hinzufügen
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
-    Und ich eine Gruppe editiere
+    Und ich eine bestehende Gruppe editiere
     Wenn ich ein Modell hinzufüge
     Dann wird das Modell zuoberst in der Liste hinzugefügt
     
-  @javascript
   Szenario: Modelle sortieren
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
-    Und ich eine Gruppe editiere
+    Und ich eine bestehende Gruppe editiere
     Dann sind die bereits hinzugefügten Modelle alphabetisch sortiert
     
   @javascript
   Szenario: bereits bestehende Modelle hinzufügen
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
-    Und ich eine Gruppe editiere
+    Und ich eine bestehende Gruppe editiere
     Wenn ich ein bereits hinzugefügtes Modell hinzufüge
     Dann wird das Modell nicht hinzugefügt
     
   @javascript
   Szenario: bereits bestehende Benutzer hinzufügen
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
-    Und ich eine Gruppe editiere
+    Und ich eine bestehende Gruppe editiere
     Wenn ich einen bereits hinzugefügten Benutzer hinzufüge
     Dann wird der Benutzer nicht hinzugefügt

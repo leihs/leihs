@@ -24,6 +24,7 @@ module Persona
         create_order_with_problems
         create_overbooking
         create_overdued_take_back
+        setup_groups
       end
     end
     
@@ -82,5 +83,10 @@ module Persona
       @overdued_contract.sign(@pius)
     end
 
+    def setup_groups
+      @group_cast = Group.find_by_name("Cast")
+      @group_cast.users << @user
+      @group_cast.save
+    end
   end  
 end

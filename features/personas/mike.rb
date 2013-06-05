@@ -241,6 +241,7 @@ module Persona
     end
 
     def setup_inventory_for_group_cast
+      Partition.create({:model => @helicopter_model, :inventory_pool => @inventory_pool, :group => @group_cast, :quantity => 1})
       Partition.create({:model => @camera_model, :inventory_pool => @inventory_pool, :group => @group_cast, :quantity => 1})
       Partition.create({:model => @camera_model, :inventory_pool => @inventory_pool, :group => @group_iad, :quantity => 1})
     end

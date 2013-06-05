@@ -5,7 +5,7 @@ Angenommen(/^ich befinde mich im Admin\-Bereich im Reiter Gruppen$/) do
 end
 
 Dann(/^sehe ich die Liste der Gruppen$/) do
-  @current_inventory_pool.groups.each do |group|
+  @current_inventory_pool.groups.reload.each do |group|
     find(".line .name", :text => group.name)
   end
 end
@@ -68,7 +68,7 @@ end
 
 Dann(/^die Benutzer und Modelle mit deren Kapazitäten sind zugeteilt$/) do
   @group.users.reload.map(&:id).sort.should == @users.map(&:id).sort
-  @group.partitions.map{|p| {:model_id => p.model_id, :quantity => p.quantity}}.should == @partitions
+  Set.new(@group.partitions.map{|p| {:model_id => p.model_id, :quantity => p.quantity}}).should == Set.new(@partitions)
 end
 
 Dann(/^ich sehe die Gruppenliste alphabetisch sortiert$/) do
@@ -81,7 +81,7 @@ Dann(/^ich sehe eine Bestätigung$/) do
 end
 
 Wenn(/^ich eine bestehende Gruppe editiere$/) do
-  @group = @current_inventory_pool.groups.first
+  @group = @current_inventory_pool.groups.find {|g| g.models.length >= 2 and g.users.length >= 2}
   visit edit_backend_inventory_pool_group_path @group.inventory_pool_id, @group
 end
 
@@ -139,4 +139,50 @@ end
 
 Wenn(/^die Gruppe wurde aus der Datenbank gelöscht$/) do
   Group.find_by_name(@group.name).should be_nil
+end
+
+Wenn(/^ich einen Benutzer hinzufüge$/) do
+  fill_in_autocomplete_field _("Users"), @user_name = User.first.name
+end
+
+Dann(/^wird der Benutzer zuoberst in der Liste hinzugefügt$/) do
+  find(".inner", text: _("Users")).find(".field-inline-entry > .text-ellipsis").text.should eq @user_name
+end
+
+Wenn(/^ich ein Modell hinzufüge$/) do
+  fill_in_autocomplete_field _("Models"), @model_name = @current_inventory_pool.models.first.name
+end
+
+Dann(/^wird das Modell zuoberst in der Liste hinzugefügt$/) do
+  find(".inner", text: _("Models")).find(".field-inline-entry > .text-ellipsis").text.should eq @model_name
+end
+
+Dann(/^sind die bereits hinzugefügten Benutzer alphabetisch sortiert$/) do
+  entries = find(".inner", text: _("Users")).all(".field-inline-entry > .text-ellipsis")
+  entries.first.text.should be < entries.last.text
+end
+
+Dann(/^sind die bereits hinzugefügten Modelle alphabetisch sortiert$/) do
+  entries = find(".inner", text: _("Models")).all(".field-inline-entry > .text-ellipsis")
+  entries.first.text.should be < entries.last.text
+end
+
+Wenn(/^ich ein bereits hinzugefügtes Modell hinzufüge$/) do
+  @model = @group.models.first
+  fill_in_autocomplete_field _("Models"), @model.name
+end
+
+Dann(/^wird das Modell nicht hinzugefügt$/) do
+  wait_until {find ".field", text: _("Models")}
+  find(".inner", text: _("Models")).all(".field-inline-entry", text: @model.name).count.should == 1
+end
+
+Wenn(/^ich einen bereits hinzugefügten Benutzer hinzufüge$/) do
+  @user = @group.users.first
+  fill_in_autocomplete_field _("Users"), @user.name
+end
+
+Dann(/^wird der Benutzer nicht hinzugefügt$/) do
+  #wait_until {find ".field", text: _("Users")}
+  find(".inner", text: _("Users")).all(".field-inline-entry", text: @user.name).count.should == 1
 end

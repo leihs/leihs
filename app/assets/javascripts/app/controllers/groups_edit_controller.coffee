@@ -1,19 +1,8 @@
-class GroupsEditController
-  
-  constructor: (options)->
-    @el = $(options.el)
-    @addUserInput = @el.find("#add-user")
-    @addModelInput = @el.find("#add-model")
-    do @delegateEvents
+class GroupsEditController extends App.GroupsController
 
   delegateEvents: =>
-    @el.find()
-    @addUserInput.on "autocompleteselect", (e, ui)=> @addUser ui.item
-    @addModelInput.on "autocompleteselect", (e, ui)=> @addModel ui.item
+    super
     @el.on "click", ".field-inline-entry .remove", (e) => @toggleRemove($(e.currentTarget).closest(".field-inline-entry"))
-
-  addUser: (user)=> @addUserInput.closest(".field").append $.tmpl("app/views/groups/user_field_inline_entry", user)
-  addModel: (model)=> @addModelInput.closest(".field").append $.tmpl("app/views/groups/partition_field_inline_entry", model)
 
   toggleRemove: (line)=>
     if line.hasClass "tobedeleted"
