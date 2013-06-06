@@ -11,7 +11,7 @@ set :application, "leihs-demo-new"
 
 set :scm, :git
 set :repository,  "git://github.com/zhdk/leihs.git"
-set :branch, "next"
+load 'config/deploy/stable_version'
 set :deploy_via, :remote_cache
 
 set :db_config, "/home/leihs/#{application}/database.yml"
