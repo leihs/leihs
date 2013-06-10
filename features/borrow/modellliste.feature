@@ -138,5 +138,9 @@ Funktionalität: Modellliste
     Dann werden die folgenden Parameter durchsucht Modellname, Hersteller
     Und diejenigen Modelle werden angezeigt, welche diesen Suchkritieren entsprechen
   
-
+  Szenario: Hovern über Modellen
+    Angenommen man ist "Normin"
+    Und man befindet sich auf der Modellliste 
+    Wenn man über ein Modell drüber fährt
+    Dann werden folgende zusätzliche Informationen angezeigt Bilder, Beschreibung, Liste der Eigenschaften
     
