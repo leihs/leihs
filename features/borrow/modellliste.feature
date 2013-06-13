@@ -130,3 +130,17 @@ Funktionalität: Modellliste
     Und der Ausleihezeitraum ist leer
     Und die Sortierung ist nach Modellnamen (aufsteigend)
     Und die Schaltfläche "Alles zurücksetzen" ist deaktiviert
+    
+  Szenario: Modell suchen
+    Angenommen man ist "Normin"
+    Und man befindet sich auf der Modellliste 
+    Wenn man ein Suchwort eingibt
+    Dann werden die folgenden Parameter durchsucht Modellname, Hersteller
+    Und diejenigen Modelle werden angezeigt, welche diesen Suchkritieren entsprechen
+  
+  Szenario: Hovern über Modellen
+    Angenommen man ist "Normin"
+    Und man befindet sich auf der Modellliste 
+    Wenn man über ein Modell drüber fährt
+    Dann werden folgende zusätzliche Informationen angezeigt Bilder, Beschreibung, Liste der Eigenschaften
+    
