@@ -20,6 +20,7 @@ end
 
 Angenommen(/^man befindet sich auf der Modellliste$/) do
   step "man sich auf der Modellliste befindet"
+  binding.pry
 end
 
 Wenn(/^man ein bestimmten Gerätepark in der Geräteparkauswahl auswählt$/) do
