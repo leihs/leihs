@@ -1,4 +1,4 @@
-.input-addon
+input + .addon
   @extend .button
   @extend .button.white
   height: 100%
@@ -18,5 +18,8 @@ input
     height: 100%
     padding-right: 35px
 
-  &.round-borders + .input-addon
+    &.small
+      padding-right: 16px
+
+  &.round-borders + .addon
     @include border-right-radius(22px)

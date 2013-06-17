@@ -12,7 +12,7 @@ module Persona
     @@lastname = "H."
     @@password = "password"
     @@email = "mike@zhdk.ch"
-    @@inventory_pool_name = "A-Ausleihe"
+    @@inventory_pool_names = ["A-Ausleihe", "IT-Ausleihe"]
     
     def initialize
       setup_dependencies
@@ -36,7 +36,7 @@ module Persona
     def create_inventory_manager_user
       @language = Language.find_by_locale_name "de-CH"
       @user = FactoryGirl.create(:user, :language => @language, :firstname => @@name, :lastname => @@lastname, :login => @@name.downcase, :email => @@email)
-      @inventory_pool = InventoryPool.find_by_name(@@inventory_pool_name)
+      @inventory_pool = InventoryPool.find_by_name(@@inventory_pool_names.first)
       @user.access_rights.create(:role => Role.find_by_name("manager"), :inventory_pool => @inventory_pool, :access_level => 3)
       @database_authentication = FactoryGirl.create(:database_authentication, :user => @user, :password => @@password)
     end
@@ -76,6 +76,8 @@ module Persona
     def create_minimal_inventory
       
       setup_sharp_beamers
+      setup_ultra_compact_beamers
+      setup_more_beamers
       setup_cameras
       
       setup_tripods
@@ -111,14 +113,52 @@ module Persona
                                 :maintenance_period => 0)
       @beamer_model.model_links.create :model_group => @beamer_category
       @beamer_model.model_links.create :model_group => @portable_subcategory
-      @beamer_item = FactoryGirl.create(:item, :inventory_code => "beam123", :serial_number => "xyz456", name: "name123", :model => @beamer_model, :location => @location, :owner => @inventory_pool)
-      @beamer_item2 = FactoryGirl.create(:item, :inventory_code => "beam345", :serial_number => "xyz890", :model => @beamer_model, :location => @location, :owner => @inventory_pool)
 
       @beamer_model2 = FactoryGirl.create(:model, :name => "Sharp Beamer 2D",
                                           :manufacturer => "Sharp", 
                                           :description => "Beamer, geeignet für alle Verwendungszwecke.", 
                                           :maintenance_period => 0)
-      @beamer_model
+      @beamer_model2.model_links.create :model_group => @beamer_category
+
+      @beamer_model3 = FactoryGirl.create(:model, :name => "Mini Beamer",
+                                          :manufacturer => "Panasonic", 
+                                          :description => "Beamer, geeignet für alle Verwendungszwecke.", 
+                                          :maintenance_period => 0)
+      @beamer_model3.model_links.create :model_group => @beamer_category
+
+      @beamer_item = FactoryGirl.create(:item, :inventory_code => "beam123", :serial_number => "xyz456", name: "name123", :model => @beamer_model, :location => @location, :owner => @inventory_pool)
+      @beamer_item2 = FactoryGirl.create(:item, :inventory_code => "beam345", :serial_number => "xyz890", :model => @beamer_model, :location => @location, :owner => @inventory_pool)
+      @beamer_item3 = FactoryGirl.create(:item, :inventory_code => "beam678", :serial_number => "xyz678", :model => @beamer_model2, :location => @location, :owner => @inventory_pool)
+    end
+
+    def setup_more_beamers
+      (1..20).to_a.each do |i|
+        model = FactoryGirl.create(:model, :name => "Beamer #{i}",
+                           :manufacturer => "Sony", 
+                           :hand_over_note => "Beamer brauch ein VGA Kabel!", 
+                           :maintenance_period => 0)
+        model.model_links.create :model_group => @beamer_category
+        FactoryGirl.create(:item, :inventory_code => "mbeam#{i}", :serial_number => "mbeam#{i}", name: "mbeam#{i}", :model => model, :location => @location, :owner => @inventory_pool)
+      end
+
+      FactoryGirl.create(:order_line,
+                         model: Model.find_by_name("Beamer 1"),
+                         start_date: Date.today,
+                         end_date: Date.today + 1,
+                         inventory_pool: @inventory_pool,
+                         order: FactoryGirl.create(:order, inventory_pool: @inventory_pool, status_const: 2))
+    end
+
+    def setup_ultra_compact_beamers
+      @ultra_compact_beamer = FactoryGirl.create(:model, :name => "Ultra Compact Beamer",
+                                :manufacturer => "Sony", 
+                                :description => "Besonders kleiner Beamer.", 
+                                :hand_over_note => "Beamer brauch ein VGA Kabel!", 
+                                :maintenance_period => 0)
+      @ultra_compact_beamer.model_links.create :model_group => @beamer_category
+      @ultra_compact_beamer.model_links.create :model_group => @portable_subcategory
+
+      @ultra_compact_beamer_item = FactoryGirl.create(:item, :inventory_code => "ucbeam1", :serial_number => "minbeam1", name: "ucbeam1", :model => @ultra_compact_beamer, :location => @location, :owner => @inventory_pool)
     end
     
     def setup_cameras
@@ -214,6 +254,7 @@ module Persona
                                 :manufacturer => "Walkera", 
                                 :description => "3D Helikopter", 
                                 :maintenance_period => 0)
+      @helicopter_item2 = FactoryGirl.create(:item, :inventory_code => "v120d022g", :serial_number => "v120d022g", :model => @helicopter_model2, :location => @location, :owner => @inventory_pool)
       @helicopter_model2.partitions << Partition.create(model_id: @helicopter_model.id, 
                                                       inventory_pool_id: @inventory_pool.id, 
                                                       group_id: Group.create(name: "Group A", inventory_pool_id: @inventory_pool.id).id,
@@ -238,6 +279,8 @@ module Persona
     
     def setup_inventory_moved_to_other_responsible
       @beamer_for_it = FactoryGirl.create(:item, :inventory_code => "beam897", :inventory_pool_id => InventoryPool.find_by_name("IT-Ausleihe").id, :serial_number => "xyz890", :model => @beamer_model, :location => @location, :owner => @inventory_pool)    
+      @beamer_for_it2 = FactoryGirl.create(:item, :inventory_code => "minibeam12", :inventory_pool_id => InventoryPool.find_by_name("IT-Ausleihe").id, :serial_number => "xyz890", :model => @beamer_model3, :location => @location, :owner => @inventory_pool)    
+      @beamer_for_av = FactoryGirl.create(:item, :inventory_code => "minibeam34", :inventory_pool_id => InventoryPool.find_by_name("AV-Technik").id, :serial_number => "xyz890", :model => @beamer_model3, :location => @location, :owner => @inventory_pool)    
     end
 
     def setup_inventory_for_group_cast

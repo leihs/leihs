@@ -93,6 +93,7 @@ Funktionalität: Gruppen
     Und ich eine bestehende Gruppe editiere
     Wenn ich ein bereits hinzugefügtes Modell hinzufüge
     Dann wird das Modell nicht hinzugefügt
+    Und das vorhandene Modell ist nach oben gerutscht
     
   @javascript
   Szenario: bereits bestehende Benutzer hinzufügen
@@ -100,3 +101,4 @@ Funktionalität: Gruppen
     Und ich eine bestehende Gruppe editiere
     Wenn ich einen bereits hinzugefügten Benutzer hinzufüge
     Dann wird der Benutzer nicht hinzugefügt
+    Und der vorhandene Benutzer ist nach oben gerutscht

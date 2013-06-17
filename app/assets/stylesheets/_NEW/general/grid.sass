@@ -6,13 +6,7 @@
   @include micro-clearfix
   @include box-sizing(border-box)
 
-.col1of2,
-.col1of3, .col2of3,
-.col1of4, .col2of4, .col3of4,
-.col1of5, .col2of5, .col3of5, .col4of5,
-.col1of6, .col2of6, .col3of6, .col4of6, .col5of6,
-.col1of8, .col2of8, .col3of8, .col4of8, .col5of8, .col6of8, .col7of8,
-.col1of10, .col2of10, .col3of10, .col4of10, .col5of10, .col6of10, .col7of10, .col8of10, .col9of10,
+[class^="col"]
   float: left
   @include box-sizing(border-box)
 
@@ -21,7 +15,7 @@
   width: 100%
   @include box-sizing(border-box)
 
-.col1of2 
+.col1of2, .col2of4
   width: 50%
 
 .col1of3 
@@ -63,6 +57,24 @@
 .col5of6 
   width: 83.333%
 
+.col1of7
+  width: 14.285%
+
+.col2of7
+  width: 28.57%
+
+.col3of7
+  width: 42.855%
+
+.col4of7
+  width: 57.14%
+
+.col5of7
+  width: 71.425%
+
+.col6of7
+  width: 85.71%
+
 .col1of8 
   width: 12.5%
 
@@ -83,6 +95,30 @@
 
 .col7of8 
   width: 87.5%
+
+.col1of9
+  width: 11.1%
+
+.col2of9
+  width: 22.2%
+  
+.col3of9
+  width: 33.3%
+  
+.col4of9
+  width: 44.4%
+  
+.col5of9
+  width: 55.5%
+  
+.col6of9
+  width: 66.6%
+  
+.col7of9
+  width: 77.7%
+  
+.col8of9
+  width: 88.8%
 
 .col1of10
   width: 10%

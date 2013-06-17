@@ -52,7 +52,8 @@ Wenn(/^die Modelle und deren Kapazität hinzufüge$/) do
     fill_in "add-model", :with => model.name
     wait_until{find(".ui-menu-item a", :text => model.name)}
     find(".ui-menu-item a", :text => model.name).click
-    partition = {:model_id => model.id, :quantity => rand(model.items.where(:inventory_pool_id => @current_inventory_pool.id).borrowable.size-1)+1}
+    borrowable_items = model.items.where(:inventory_pool_id => @current_inventory_pool.id).borrowable.size - 1
+    partition = {:model_id => model.id, :quantity => (borrowable_items.zero? ? 0 : rand(borrowable_items)) + 1}
     @partitions.push partition
     find(".field-inline-entry", :text => model.name).fill_in "group[partitions_attributes][][quantity]", :with => partition[:quantity]
   end
@@ -121,7 +122,7 @@ end
 Dann(/^sehe ich die noch nicht zugeteilten Kapazitäten$/) do
   @partitions.each do |partition|
     model = Model.find partition[:model_id]
-    find(".field-inline-entry", :text => model.name).should have_content("/ #{model.items.scoped_by_inventory_pool_id(@current_inventory_pool.id).borrowable.size}")
+    find("input[value='#{model.id}']").parent.should have_content("/ #{model.items.scoped_by_inventory_pool_id(@current_inventory_pool.id).borrowable.size}")
   end
 end
 
@@ -183,6 +184,13 @@ Wenn(/^ich einen bereits hinzugefügten Benutzer hinzufüge$/) do
 end
 
 Dann(/^wird der Benutzer nicht hinzugefügt$/) do
-  #wait_until {find ".field", text: _("Users")}
   find(".inner", text: _("Users")).all(".field-inline-entry", text: @user.name).count.should == 1
+end
+
+Dann(/^das vorhandene Modell ist nach oben gerutscht$/) do
+  find(".inner", text: _("Models")).all(".field-inline-entry", text: @model.name).first.text.should match @model.name
+end
+
+Dann(/^der vorhandene Benutzer ist nach oben gerutscht$/) do
+  find(".inner", text: _("Users")).all(".field-inline-entry", text: @user.name).first.text.should match @user.name
 end

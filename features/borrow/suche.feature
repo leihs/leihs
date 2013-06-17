@@ -35,13 +35,3 @@ Funktionalität: Suche
     Und man sieht die Geräteparkeinschränkung
     Und man sieht die Ausleihzeitraumwahl
     Und die Vorschlagswerte sind verschwinden
-    
-    
-    
-    
-    
-    
-    
-  
-    
-    

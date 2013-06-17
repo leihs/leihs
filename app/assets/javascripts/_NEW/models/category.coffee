@@ -14,7 +14,7 @@ class window.App.Category extends Spine.Model
   @hasMany "descendants", "App.CategoryLink", "ancestor_id"
   @hasMany "ascendants", "App.CategoryLink", "descendant_id"
 
-  @url: => "categories"
+  @url: => "/categories"
 
   children: => _.map @descendants().findAllByAttribute("direct", true), (l)->l.descendant()
 

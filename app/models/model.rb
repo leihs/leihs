@@ -99,8 +99,23 @@ class Model < ActiveRecord::Base
   scope :by_inventory_pool, lambda { |inventory_pool| select("DISTINCT models.*").joins(:items).
                                                       where(["items.inventory_pool_id = ?", inventory_pool]) }
 
+  scope :all_from_inventory_pools, lambda { |inventory_pool_ids| joins(:items).where("items.inventory_pool_id IN (?)", inventory_pool_ids) }
+
   scope :by_categories, lambda { |categories| joins("INNER JOIN model_links AS ml"). # OPTIMIZE no ON ??
                                               where(["ml.model_group_id IN (?)", categories]) }
+
+  scope :from_category_and_all_its_descendants, lambda { |category_id|
+    joins(:categories).where(:"model_groups.id" => [Category.find(category_id)] + Category.find(category_id).descendants) }
+
+  scope :order_by_attribute_and_direction, (lambda do |attr, direction|
+    if ["name", "manufacturer"].include? attr and ["asc", "desc"].include? direction
+      order "#{attr} #{direction.upcase}"
+    else
+      default_order
+    end
+  end)
+
+  scope :default_order, order_by_attribute_and_direction("name", "asc")
 
 #############################################
 
@@ -123,7 +138,7 @@ class Model < ActiveRecord::Base
       s = []
       s1 = ["' '"]
       s1 << "models.name" if fields.empty? or fields.include?(:name)
-      s1 << "models.manufacturer" if fields.empty?
+      s1 << "models.manufacturer" if fields.empty? or fields.include?(:manufacturer)
       s << "CONCAT_WS(#{s1.join(', ')}) LIKE :query"
       if fields.empty?
         s << "mg2.name LIKE :query"
@@ -160,12 +175,12 @@ class Model < ActiveRecord::Base
   end
 
   # TODO 06** define main image
-  def image_thumb
-    images.first.try(:public_filename, :thumb)
+  def image_thumb(offset = 0)
+    image(offset, :thumb)
   end
   
-  def image
-    images.first.try(:public_filename)
+  def image(offset = 0, size = nil)
+    images.limit(1).offset(offset).first.try(:public_filename, size)
   end
 
   def lines

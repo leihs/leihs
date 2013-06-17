@@ -44,12 +44,16 @@ module Persona
     end
     
     def create_orders
+      @purpose = FactoryGirl.create :purpose, :description => "Für meinen aktuellen Kurs."
       @camera_model = Model.find_by_name "Kamera Nikon X12"
       @tripod_model = Model.find_by_name "Kamera Stativ"
+      @ultra_compact_model_model = Model.find_by_name "Ultra Compact Beamer"
       @order_for_camera = FactoryGirl.create(:order, :user => @user, :inventory_pool => @inventory_pool, :status_const => 2)
-      @order_for_camera_purpose = FactoryGirl.create :purpose, :description => "Für Aufnahmen im Fotokurs."
-      @order_line_camera = FactoryGirl.create(:order_line, :purpose => @order_for_camera_purpose, :inventory_pool => @inventory_pool, :model => @camera_model, :order => @order_for_camera, :start_date => (Date.today + 7.days), :end_date => (Date.today + 10.days))
-      @order_line_tripod = FactoryGirl.create(:order_line, :purpose => @order_for_camera_purpose, :inventory_pool => @inventory_pool, :model => @tripod_model, :order => @order_for_camera, :start_date => (Date.today + 7.days), :end_date => (Date.today + 10.days))
+      @order_line_camera = FactoryGirl.create(:order_line, :purpose => @purpose, :inventory_pool => @inventory_pool, :model => @camera_model, :order => @order_for_camera, :start_date => (Date.today + 7.days), :end_date => (Date.today + 10.days))
+      @order_line_tripod = FactoryGirl.create(:order_line, :purpose => @purpose, :inventory_pool => @inventory_pool, :model => @tripod_model, :order => @order_for_camera, :start_date => (Date.today + 7.days), :end_date => (Date.today + 10.days))
+
+      @order_for_ultra_compact_model = FactoryGirl.create(:order, :user => @user, :inventory_pool => @inventory_pool, :status_const => 2)
+      @order_line_ultra_compact_model = FactoryGirl.create(:order_line, :purpose => @purpose, :inventory_pool => @inventory_pool, :model => @ultra_compact_model_model, :order => @order_for_ultra_compact_model, :start_date => (Date.today), :end_date => (Date.today + 1.days))
     end
     
     def create_overdue_hand_overs

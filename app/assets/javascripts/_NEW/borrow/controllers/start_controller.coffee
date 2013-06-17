@@ -6,7 +6,7 @@ class window.App.Borrow.StartController extends Spine.Controller
   events:
     "mouseenter [data-category_id]:not(.fetched)": "fetchChildren"
 
-  delegateEvents: ->
+  constructor: ->
     super
     App.Category.bind "refresh", @renderCategories
     App.CategoryLink.bind "refresh", @renderCategoryLinks
@@ -36,4 +36,4 @@ class window.App.Borrow.StartController extends Spine.Controller
     parent_el = $ _.find @rootCategoryElements, (el) -> parseInt(el.getAttribute("data-category_id")) == parent.id
     unless _(parent.children()).findWhere(false)
       data = _(_.map(parent.children(), (c)->{text: c.name, link: "/borrow/models?category_id=#{c.id}"})).sortBy("text")
-      parent_el.find(".dropdown").html App.Render "dropdown/dropdown-item", data
+      parent_el.find(".dropdown").html App.Render "views/dropdown/dropdown-item", data

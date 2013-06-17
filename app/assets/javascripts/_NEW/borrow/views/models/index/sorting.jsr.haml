@@ -1,0 +1,11 @@
+{{if sort == "manufacturer"}}
+{{jed "Manufacturer"/}}
+{{else sort == "name"}}
+{{jed "Model"/}}
+{{/if}}
+
+{{if order == "asc"}}
+%i.icon-circle-arrow-up.icon-size-xs
+{{else order == "desc"}}
+%i.icon-circle-arrow-down.icon-size-xs
+{{/if}}

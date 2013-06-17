@@ -1,11 +1,11 @@
 - content_for :title, _("Borrow")
 
-.wrapper#start-view.wrapper.margin-top-m
+.wrapper#start-view.margin-top-m
 
   .col4of5
     = render :partial => 'borrow/tabs', :locals => {:navigation => "lending", :current_page => "daily"}
 
-    .row.content-wrapper.straight-top-left.padding-inset-s
+    .content-wrapper.straight-top-left.padding-inset-s
       .row.emboss
         - @categories.each_with_index do |category, i|
           .col1of3.padding-inset-m.text-align-center

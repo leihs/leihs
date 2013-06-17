@@ -5,7 +5,9 @@
 #
 #= require_self
 #
+#= require_tree ./_NEW/borrow/models
 #= require_tree ./_NEW/borrow/controllers
+#= require_tree ./_NEW/borrow/views
 #
 #####
 

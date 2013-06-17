@@ -8,6 +8,15 @@ a
   &.grey
     @include link-colors($lightgrey, $darkgrey, $lightgrey, $lightgrey, $lightgrey)
 
+  &.dark-grey
+    @include link-colors($darkgrey, $darkergrey, $darkgrey, $darkgrey, $darkgrey)
+
+  &.straight-grey
+    @include link-colors($grey, $grey, $grey, $grey, $grey)
+
+  &.straight-dark-grey
+    @include link-colors($darkgrey, $darkgrey, $darkgrey, $darkgrey, $darkgrey)
+
 a[name]
   color: black !important
   cursor: default

@@ -13,4 +13,4 @@ class window.App.CategoryLink extends Spine.Model
   @belongsTo "ascendant", "App.Category", "ancestor_id"
   @belongsTo "descendant", "App.Category", "descendant_id"
 
-  @url: => "category_links"
+  @url: => "/category_links"

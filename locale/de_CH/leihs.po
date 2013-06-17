@@ -2176,3 +2176,27 @@ msgstr "dies ist der '%s'-Branch"
 
 msgid "last change by '%s'"
 msgstr "letzte Änderung durch %s"
+
+msgid "Add to order"
+msgstr "Zur Bestellung hinzufügen"
+
+msgid "Reset"
+msgstr "Zurücksetzen"
+
+msgid "Reset all filter"
+msgstr "Alle Filter zurücksetzen"
+
+msgid "All %s"
+msgstr "Alle %s"
+
+msgid "ascending"
+msgstr "aufsteigend"
+
+msgid "descending"
+msgstr "absteigend"
+
+msgid "All inventory pools"
+msgstr "Alle Geräteparks"
+
+msgid "Inventory pools"
+msgstr "Geräteparks"

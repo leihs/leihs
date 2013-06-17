@@ -86,8 +86,6 @@ class InventoryPool < ActiveRecord::Base
 
   validates_uniqueness_of :name
 
-  default_scope order("name")
-
   validates :email, format: /@/, allow_blank: true
 
 #######################################################################

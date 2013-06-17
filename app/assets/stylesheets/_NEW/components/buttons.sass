@@ -8,13 +8,12 @@
   position: relative
   vertical-align: middle
   white-space: nowrap
-  text-align: center
   @include border-radius(6px)
   @include user-select(none)
   @include box-shadow(0 1px 0 rgba(255,255,255,0.2))
   @include box-sizing(border-box)
 
-  i.arrow
+  .arrow, [class^='icon']
     vertical-align: middle    
 
   &:first-letter
@@ -22,6 +21,8 @@
 
   &:not([class*='padding'])
     padding: 0 10px
+  &:not([class*='text-align'])
+    text-align: center
 
 @mixin button($color, $grad_color_2, $grad_color_1, $grad_color_1_active, $grad_color_2_active) 
   color: $color
@@ -30,7 +31,7 @@
   @include background(linear-gradient($grad_color_1 20%, $grad_color_2 80%))
   
   &:hover:not([disabled]) 
-    @include background(linear-gradient(lighten($grad_color_1, 10%) 20%, lighten($grad_color_2, 10%) 80%))
+    @include background(linear-gradient(lighten(opacify($grad_color_1,1.0), 10%) 20%, lighten(opacify($grad_color_2,1.0), 10%) 80%))
     color: darken($color, 5%)
 
     .arrow
@@ -57,18 +58,27 @@
   @include button(#184815, rgb(141,206,88), rgb(175,236,129), rgb(148,209,98), rgb(131,201,74))
 
 .button.white
-  @include button(#313131, rgb(230,230,230), white, rgb(226,226,226), rgb(232,232,232))
+  @include button($darkergrey, rgb(230,230,230), white, rgb(226,226,226), rgb(232,232,232))
 
 .button.red
   @include button(#f60000, rgb(230,230,230), white, rgb(226,226,226), rgb(232,232,232))
+
+.button.inset
+  @include button($darkergrey, rgba(230,230,230,0.2), rgba(255,255,255,0.2), rgb(226,226,226), rgb(232,232,232))
+  @include box-shadow(1px 1px 0 white)
 
 // SMALL BUTTONS
 
 .button.small 
   font-size: $font-size-xxs
   font-weight: bold
-  padding: 0 8px
   vertical-align: bottom
+
+  &:not([class*='padding'])
+    padding: 0 8px
+
+  [class^='icon']
+    vertical-align: text-bottom
 
 // LARGE BUTTONS
 
@@ -76,5 +86,7 @@
   font-size: $font-size-m
   font-weight: bold
   line-height: 2em
-  padding: 0 $space-l
   vertical-align: bottom
+
+  &:not([class*='padding'])
+    padding: 0 $space-l

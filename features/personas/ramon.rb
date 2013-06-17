@@ -22,6 +22,7 @@ module Persona
         create_admin_user
         create_inventory_pool_a_ausleihe
         create_inventory_pool_it_ausleihe
+        create_inventory_pool_av_technik
       end
     end
     
@@ -54,5 +55,11 @@ module Persona
       contact_details = "IT Verleih  /  ZHdK\nav@zh-dk.ch\n+41 00 00 00 00"
       FactoryGirl.create(:inventory_pool, :name => "IT-Ausleihe", :description => description, :contact_details => contact_details, :contract_description => "Gerät erhalten", :email => "it@zhdk.ch", :shortname => "IT")
     end
-  end  
+
+    def create_inventory_pool_av_technik
+      description = "Bringt die Geräte bitte rechtzeitig zurück"
+      contact_details = "AV Verleih  /  ZHdK\nav@zh-dk.ch\n+41 00 00 00 00"
+      FactoryGirl.create(:inventory_pool, :name => "AV-Technik", :description => description, :contact_details => contact_details, :contract_description => "Gerät erhalten", :email => "it@zhdk.ch", :shortname => "AV")
+    end
+  end
 end

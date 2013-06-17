@@ -2107,3 +2107,27 @@ msgstr ""
 
 msgid "last change by '%s'"
 msgstr ""
+
+msgid "Add to order"
+msgstr ""
+
+msgid "Reset"
+msgstr ""
+
+msgid "Reset all filter"
+msgstr ""
+
+msgid "All %s"
+msgstr ""
+
+msgid "ascending"
+msgstr ""
+
+msgid "descending"
+msgstr ""
+
+msgid "All inventory pools"
+msgstr ""
+
+msgid "Inventory pools"
+msgstr ""

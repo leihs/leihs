@@ -6,6 +6,9 @@ Funktionalität: Modellliste
   möchte ich als Kunde
   die Möglichkeit haben Modelle zu finden
 
+  Grundlage:
+    Angenommen persona "Normin" existing
+
   Szenario: Modelllistenübersicht
     Angenommen man ist "Normin"
     Wenn man sich auf der Modellliste befindet
@@ -24,39 +27,42 @@ Funktionalität: Modellliste
     | Herstellname         |
     | Auswahl-Schaltfläche |
 
+  @javascript
   Szenario: Modellliste scrollen
     Angenommen man ist "Normin"
     Und man sieht eine Modellliste die gescroll werden muss
     Wenn bis ans ende der bereits geladenen Modelle fährt
     Dann wird der nächste Block an Modellen geladen und angezeigt
     Wenn man bis zum Ende der Liste fährt
-    Dann werden die weiteren Modelle geladen und angezeigt
-    Und am ender der Liste wurden alle Modelle der ausgewählten Kategorie geladen und angezeigt
+    Dann wurden alle Modelle der ausgewählten Kategorie geladen und angezeigt
 
+  @javascript
   Szenario: Modellliste sortieren
     Angenommen man ist "Normin"
     Und man sich auf der Modellliste befindet
-    Wenn man die Liste nach Modellname (alphabetisch aufsteigend) sortiert
-    Dann ist die Liste nach Modellname (alphabetisch aufsteigend) sortiert
-    Wenn man die Liste nach Modellname (alphabetisch absteigend) sortiert
-    Dann ist die Liste nach Modellname (alphabetisch absteigend) sortiert
-    Wenn man die Liste nach Herstellername (alphabetisch aufsteigend) sortiert
-    Dann ist die Liste nach Herstellername (alphabetisch aufsteigend) sortiert
-    Wenn man die Liste nach Herstellername (alphabetisch absteigend) sortiert
-    Dann ist die Liste nach Herstellername (alphabetisch absteigend) sortiert
+    Wenn man die Liste nach "Modellname (alphabetisch aufsteigend)" sortiert
+    Dann ist die Liste nach "Modellname" "(alphabetisch aufsteigend)" sortiert
+    Wenn man die Liste nach "Modellname (alphabetisch absteigend)" sortiert
+    Dann ist die Liste nach "Modellname" "(alphabetisch absteigend)" sortiert
+    Wenn man die Liste nach "Herstellername (alphabetisch aufsteigend)" sortiert
+    Dann ist die Liste nach "Herstellername" "(alphabetisch aufsteigend)" sortiert
+    Wenn man die Liste nach "Herstellername (alphabetisch absteigend)" sortiert
+    Dann ist die Liste nach "Herstellername" "(alphabetisch absteigend)" sortiert
 
   Szenario: Ausleihezeitraum Standarteinstellung
     Angenommen man ist "Normin"
     Wenn man sich auf der Modellliste befindet
     Dann ist kein Ausleihzeitraum ausgewählt
 
+  @javascript
   Szenario: Ausleihezeitraum Startdatum wählen
-    Angenommen man ist "Normin"
+    Angenommen man ist "Petra"
     Wenn man sich auf der Modellliste befindet
     Und man ein Startdatum auswählt
     Dann wird automatisch das Enddatum auf den folgenden Tag gesetzt
     Und die Liste wird gefiltert nach Modellen die in diesem Zeitraum verfügbar sind
 
+  @javascript
   Szenario: Ausleihezeitraum Enddatum wählen
     Angenommen man ist "Normin"
     Wenn man sich auf der Modellliste befindet
@@ -64,52 +70,56 @@ Funktionalität: Modellliste
     Dann wird automatisch das Startdatum auf den vorhergehenden Tag gesetzt
     Und die Liste wird gefiltert nach Modellen die in diesem Zeitraum verfügbar sind
 
+  @javascript
   Szenario: Ausleihzeitraum löschen
     Angenommen man ist "Normin"
     Und man sich auf der Modellliste befindet
     Und das Startdatum und Enddatum des Ausleihzeitraums sind ausgewählt
     Wenn man das Startdatum und Enddatum leert
-    Dann wird die Lists nichtmehr nach Ausleihzeitraum gefilter
+    Dann wird die Liste nichtmehr nach Ausleihzeitraum gefiltert
 
+  @javascript
   Szenario: Ausleihzeitraum Datepicker
     Angenommen man ist "Normin"
     Und man sich auf der Modellliste befindet
-    Wenn man in das Startdatum oder Enddatum klickt
-    Dann kann man einen Datepicker benutzen
+    Dann kann man für das Startdatum und für das Enddatum den Datepick benutzen
 
   Szenario: Geräteparkauswahl Standartwert
     Angenommen man ist "Normin"
     Wenn man sich auf der Modellliste befindet
-    Dann ist die Geräteparkauswahl nicht eingeschränkt
-    Und es sind alle Geräteparks ausgewählt
+    Dann sind alle Geräteparks ausgewählt
     Und die Modellliste zeigt Modelle aller Geräteparks an
     Und im Filter steht "Alle Geräteparks"
 
+  @javascript
   Szenario: Geräteparkauswahl Einzelauswählen
     Angenommen man ist "Normin"
-    Und man beindet sich auf der Modellliste
+    Und man befindet sich auf der Modellliste
     Wenn man ein bestimmten Gerätepark in der Geräteparkauswahl auswählt
     Dann sind alle anderen Geräteparks abgewählt
     Und die Modellliste zeigt nur Modelle dieses Geräteparks an
     Und die Auswahl klappt zu
     Und im Filter steht der Name des ausgewählten Geräteparks
 
+  @javascript
   Szenario: Geräteparkauswahl Einzelabwahl
     Angenommen man ist "Normin"
-    Und man beindet sich auf der Modellliste
+    Und man befindet sich auf der Modellliste
     Wenn man einige Geräteparks abwählt
     Dann wird die Modellliste nach den übrig gebliebenen Geräteparks gefiltert
     Und die Auswahl klappt nocht nicht zu
-    Und im Filter steht "Geräteparks eingegrenzt"
+    Und im Filter steht die Zahl der ausgewählten Geräteparks
 
+  @javascript
   Szenario: Geräteparkauswahl Einzelabwahl bis auf einen Gerätepark
     Angenommen man ist "Normin"
-    Und man beindet sich auf der Modellliste
+    Und man befindet sich auf der Modellliste
     Wenn man alle Geräteparks bis auf einen abwählt
     Dann wird die Modellliste nach dem übrig gebliebenen Gerätepark gefiltert
     Und die Auswahl klappt nocht nicht zu
     Und im Filter steht der Name des übriggebliebenen Geräteparks
 
+  @javascript
   Szenario: Geräteparkauswahl kann nicht leer sein
     Angenommen man ist "Normin"
     Wenn man sich auf der Modellliste befindet
@@ -130,17 +140,18 @@ Funktionalität: Modellliste
     Und der Ausleihezeitraum ist leer
     Und die Sortierung ist nach Modellnamen (aufsteigend)
     Und die Schaltfläche "Alles zurücksetzen" ist deaktiviert
-    
+
+  @javascript
   Szenario: Modell suchen
     Angenommen man ist "Normin"
     Und man befindet sich auf der Modellliste 
     Wenn man ein Suchwort eingibt
-    Dann werden die folgenden Parameter durchsucht Modellname, Hersteller
-    Und diejenigen Modelle werden angezeigt, welche diesen Suchkritieren entsprechen
-  
+    Dann werden diejenigen Modelle angezeigt, deren Name oder Hersteller dem Suchwort entsprechen
+
+  @javascript
   Szenario: Hovern über Modellen
     Angenommen man ist "Normin"
-    Und man befindet sich auf der Modellliste 
-    Wenn man über ein Modell drüber fährt
+    Und es gibt ein Modell mit Bilder, Beschreibung und Eigenschaften
+    Und man befindet sich auf der Modellliste mit diesem Modell
+    Wenn man über ein Modell hovered
     Dann werden folgende zusätzliche Informationen angezeigt Bilder, Beschreibung, Liste der Eigenschaften
-    

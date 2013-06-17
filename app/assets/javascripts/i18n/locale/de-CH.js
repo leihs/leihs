@@ -87,13 +87,21 @@ window.i18n.locale_data = {
          "X-Poedit-Country": " Switzerland",
          "Plural-Forms": " nplurals=2; plural=(n != 1)"
       },
-      "Whatever you enter here is prepended to all inventory numbers for this particular pool. e.g. ABC1, ABC2, ABC3 etc. If you leave this empty, no alphabetic characters are used in the inventory numbers.": [
+      "Additional label in inventory codes": [
          null,
-         "Was Sie hier eingeben, wird vorne an alle Inventarnummern dieses Geräteparks angehängt. z.B. ABC1, ABC2, ABC3 usw. Wenn Sie dies leer lassen, werden keine alphanumerischen Zeichen in den Inventarnummern verwendet."
+         "Zusatzbezeichnung in Inventarnummern"
       ],
-      "This e-mail address is used as sender when sending reminder or confirmation e-mails for this particular pool. If you enter nothing, the system default sender address is used.": [
+      "Visible for borrowers in frontend": [
          null,
-         "Diese Mailadresse wird als Absender beim Senden von Erinnerungs- und Bestätigungsmails aus diesem Gerätepark verwendet. Wenn Sie nichts eingeben, wird die Standardadresse des Systems verwendet."
+         "In Frontend für Ausleihende sichtbar"
+      ],
+      "Print dialog will open aut.": [
+         null,
+         "Druckdialog wird aut. geöffnet"
+      ],
+      "Used for sending e-mails from leihs": [
+         null,
+         "Wird für den Mailversand aus leihs verwendet"
       ],
       "This note is added to any contract, but can be changed individually before actually printing and signing each contract.": [
          null,
@@ -812,6 +820,10 @@ window.i18n.locale_data = {
          null,
          "Gerätepark"
       ],
+      "Inventory pool successfully created": [
+         null,
+         "Gerätepark erfolgreich erstellt"
+      ],
       "Inventory Pool is missing": [
          null,
          "Gerätepark fehlt"
@@ -831,6 +843,14 @@ window.i18n.locale_data = {
       "Inventory pool": [
          null,
          "Gerätepark"
+      ],
+      "InventoryPool|Email": [
+         null,
+         "E-Mail"
+      ],
+      "InventoryPool|Shortname": [
+         null,
+         "Kurzname"
       ],
       "Investment": [
          null,
@@ -957,6 +977,10 @@ window.i18n.locale_data = {
          null,
          "Inventarliste"
       ],
+      "List of Inventory Pools": [
+         null,
+         "Liste der Geräteparks"
+      ],
       "List of Orders": [
          null,
          "Liste der Bestellungen"
@@ -1040,6 +1064,10 @@ window.i18n.locale_data = {
       "Model successfully added as compatible": [
          null,
          "Modell erfolgreich als kompatibel hinzugefügt"
+      ],
+      "Model successfully deleted": [
+         null,
+         "Model erfolgreich gelöscht"
       ],
       "Models": [
          null,
@@ -1269,9 +1297,9 @@ window.i18n.locale_data = {
          null,
          "Telefon%s"
       ],
-      "Place reservations on items and then pick them up": [
+      "Manage inventory, place reservations on items and pick them up": [
          null,
-         "Gegenstände reservieren und abholen"
+         "Inventar verwalten, Gegenstände reservieren und abholen"
       ],
       "Please note that these contracts, while they do belong to approved orders, may be changed by the lending manager at any time. They represent only a current snapshot of the order and might not contain the same items as the final contract once you pick up your items.": [
          null,
@@ -1422,8 +1450,9 @@ window.i18n.locale_data = {
          "Ausmusterung"
       ],
       "Return": [
-         null,
-         "Zurück"
+         "Returns",
+         "Rückgabe",
+         "Rückgaben"
       ],
       "Return to this hand over": [
          null,
@@ -1660,6 +1689,10 @@ window.i18n.locale_data = {
       "The accessory was successfully deleted.": [
          null,
          "Zubehör gelöscht."
+      ],
+      "%s successfully deleted": [
+         null,
+         "%s erfolgreich gelöscht"
       ],
       "The admin role cannot be scoped to an inventory pool": [
          null,
@@ -2642,6 +2675,27 @@ window.i18n.locale_data = {
          null,
          "Schliessungstag"
       ],
+      "Borrow": [
+         null,
+         "Ausleihen"
+      ],
+      "Overview": [
+         null,
+         "Übersicht"
+      ],
+      "Manage": [
+         null,
+         "Verwalten"
+      ],
+      "Nothing selected": [
+         null,
+         "Nichts ausgewählt"
+      ],
+      "Collection": [
+         "Collections",
+         "Abholung",
+         "Abholungen"
+      ],
       "not yet saved": [
          null,
          "noch nicht gespeichert"
@@ -2660,7 +2714,7 @@ window.i18n.locale_data = {
       ],
       "The items of the package can not be edited": [
          null,
-         "Die Gegenstände dieses Pakets können nicht ausgeliehen werden"
+         "Die Gegenstände dieses Pakets können nicht editiert werden"
       ],
       "Access": [
          null,
@@ -2705,6 +2759,66 @@ window.i18n.locale_data = {
       "%s saved": [
          null,
          "%s gespeichert"
+      ],
+      "order": [
+         null,
+         "bestellen"
+      ],
+      "Order Overview": [
+         null,
+         "Bestellübersicht"
+      ],
+      "To pick up": [
+         null,
+         "Abzuholen"
+      ],
+      "deployed %s ago": [
+         null,
+         "deploy ist %s her"
+      ],
+      "is %s ago": [
+         null,
+         "ist %s her"
+      ],
+      "this is the branch '%s'": [
+         null,
+         "dies ist der '%s'-Branch"
+      ],
+      "last change by '%s'": [
+         null,
+         "letzte Änderung durch %s"
+      ],
+      "Add to order": [
+         null,
+         "Zur Bestellung hinzufügen"
+      ],
+      "Reset": [
+         null,
+         "Zurücksetzen"
+      ],
+      "Reset all filter": [
+         null,
+         "Alle Filter zurücksetzen"
+      ],
+      "All %s": [
+         null,
+         "Alle %s"
+      ],
+      "ascending": [
+         null,
+         "aufsteigend"
+      ],
+      "descending": [
+         null,
+         "absteigend"
+      ],
+      "All inventory pools": [
+         null,
+         "Alle Geräteparks"
+      ],
+      "Inventory pools": [
+         null,
+         "Geräteparks"
       ]
    }
 }

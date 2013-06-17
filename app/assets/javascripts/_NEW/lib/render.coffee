@@ -11,7 +11,7 @@ e.g. in the case of changing the render engine.
 
 class window.App.Render
 
-  @defaultPath: "_NEW/views/"
+  @defaultPath: "_NEW/"
 
   constructor: (template, data, options)-> return $.views.render["#{App.Render.defaultPath}#{template}"](data, options)
 

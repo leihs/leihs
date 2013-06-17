@@ -27,6 +27,8 @@ Leihs::Application.routes.draw do
     get "to_pick_up", :to => "to_pick_up#index", :as => "to_pick_up"
     get "inventory_pools", :to => "inventory_pools#index", :as => "inventory_pools"
     get "models", :to => "models#index", :as => "models"
+    #get "model/:id", :to => "models#show", :as => "model"
+    get "models/availability", :to => "models#availability", :as => "models_availability"
     get "order", :to => "orders#unsubmitted_order", :as => "unsubmitted_order"
     get "orders", :to => "orders#index", :as => "orders"
     get "returns", :to => "returns#index", :as => "returns"
@@ -40,6 +42,13 @@ Leihs::Application.routes.draw do
   # Styleguide
   get "styleguide", :to => "styleguide#show"
   get "styleguide/:section", :to => "styleguide#show"
+
+  # Models
+  get "models/:id/image", :to => "models#image", :as => "model_image"
+  get "models/:id/image_thumb", :to => "models#image_thumb", :as => "model_image_thumb"
+
+  # Properties
+  get "properties", to: "properties#index", as: "properties"
 
 ############################################################################
 ##### Following things are old and have to be checked if still used

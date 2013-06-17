@@ -66,7 +66,7 @@
                                                    :autocomplete_blur_on_select => "true"}}
                     .arrow.icon
               .clear
-              = render :partial => "backend/groups/user_inline_entry", :collection => @group.users.sort{|u1, u2| u1.name <=> u2.name}, :as => :user
+            = render :partial => "backend/groups/user_inline_entry", :collection => @group.users.sort{|u1, u2| u1.name <=> u2.name}, :as => :user
 
       .clear
 

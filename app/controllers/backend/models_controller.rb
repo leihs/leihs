@@ -47,7 +47,7 @@ class Backend::ModelsController < Backend::BackendController
           models = models.where(:id => current_inventory_pool.models)
         end
         if category_id
-          models = models.joins(:categories).where(:"model_groups.id" => [Category.find(category_id)] + Category.find(category_id).descendants)
+          models = models.from_category_and_all_its_descendants category_id
         end
         models = (models)
                    .sort{|a,b| a.name.strip <=> b.name.strip}

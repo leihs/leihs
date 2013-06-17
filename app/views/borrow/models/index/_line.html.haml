@@ -1,0 +1,10 @@
+.row.line.height-xs{:"data-id" => model.id}
+  .line-col.col1of6.no-padding
+    .padding-inset-xxs.text-align-center
+      %img.max-height-xxs-alt.max-width-xs{src: model_image_thumb_path(model.id)}
+  .line-col.col3of6.text-align-left= model.name
+  .line-col.col1of6= model.manufacturer
+  .line-col.col1of6
+    %button.button.small.inset{:title => _("Add to order")}
+      .padding-horizontal-xxs
+        %i.icon-plus.icon-size-xxs

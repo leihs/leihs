@@ -12,7 +12,7 @@ module Persona
     @@lastname = "N."
     @@password = "password"
     @@email = "normin@zhdk.ch"
-    @@inventory_pool_name = "A-Ausleihe"
+    @@inventory_pool_names = ["A-Ausleihe", "IT-Ausleihe", "AV-Technik"]
     
     def initialize
       setup_dependencies
@@ -35,13 +35,13 @@ module Persona
     end
 
     def select_inventory_pool 
-      @inventory_pool = InventoryPool.find_by_name(@@inventory_pool_name)
+      @inventory_pool = InventoryPool.find_by_name(@@inventory_pool_names.first)
     end
     
     def create_user
       @language = Language.find_by_locale_name "de-CH"
       @user = FactoryGirl.create(:user, :language => @language, :firstname => @@name, :lastname => @@lastname, :login => @@name.downcase, :email => @@email)
-      @user.access_rights.create(:role => Role.find_by_name("customer"), :inventory_pool => @inventory_pool)
+      @@inventory_pool_names.each { |ip_name| @user.access_rights.create(:role => Role.find_by_name("customer"), :inventory_pool => InventoryPool.find_by_name(ip_name)) }
       @database_authentication = FactoryGirl.create(:database_authentication, :user => @user, :password => @@password)
     end
     
