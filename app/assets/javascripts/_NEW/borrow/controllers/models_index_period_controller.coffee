@@ -16,6 +16,14 @@ class window.App.Borrow.ModelsIndexPeriodController extends Spine.Controller
     super
     do @setupStartDate
     do @setupEndDate
+    @startDate.delayedChange()
+    @endDate.delayedChange()
+    do @delegateEvents
+
+  delegateEvents: =>
+    console.log @startDate
+    @startDate.on "delayedChange", @validate
+    @endDate.on "delayedChange", @validate
 
   setupStartDate: ->
     @startDate.datepicker

@@ -20,7 +20,6 @@ end
 
 Angenommen(/^man befindet sich auf der Modellliste$/) do
   step "man sich auf der Modellliste befindet"
-  binding.pry
 end
 
 Wenn(/^man ein bestimmten Gerätepark in der Geräteparkauswahl auswählt$/) do
@@ -212,13 +211,11 @@ Dann(/^wird automatisch das Startdatum auf den vorhergehenden Tag gesetzt$/) do
 end
 
 Angenommen(/^das Startdatum und Enddatum des Ausleihzeitraums sind ausgewählt$/) do
-  binding.pry
   step 'man ein Startdatum auswählt'
   step 'man ein Enddatum auswählt'
 end
 
 Wenn(/^man das Startdatum und Enddatum leert$/) do
-  binding.pry
   find("#start-date").set ""
   find("#end-date").set ""
 end
