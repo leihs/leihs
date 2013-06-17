@@ -212,11 +212,13 @@ Dann(/^wird automatisch das Startdatum auf den vorhergehenden Tag gesetzt$/) do
 end
 
 Angenommen(/^das Startdatum und Enddatum des Ausleihzeitraums sind ausgewählt$/) do
+  binding.pry
   step 'man ein Startdatum auswählt'
   step 'man ein Enddatum auswählt'
 end
 
 Wenn(/^man das Startdatum und Enddatum leert$/) do
+  binding.pry
   find("#start-date").set ""
   find("#end-date").set ""
 end
