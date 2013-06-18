@@ -156,3 +156,23 @@ Funktionalität: Benutzer verwalten
     Und man speichert
     Dann ist der Benutzer mit all den Informationen gespeichert
  
+  Szenario: Neuen Benutzer hinzufügen - Pflichtfelder
+    Angenommen man ist "Pius"
+    Wenn man in der Benutzeransicht ist
+    Und man einen Benutzer hinzufügt
+    Dann müssen mindestens die folgenden Felder gefüllt sein
+    |Name   |
+    |E-Mail   |
+    Und man speichert
+    Dann ist der Benutzer mit diesen beiden Informationen gespeichert
+    
+  Szenario: Neuen Benutzer hinzufügen - ohne Eingabe der Pflichtfelder
+    Angenommen man ist "Pius"
+    Wenn man in der Benutzeransicht ist
+    Und man einen Benutzer hinzufügt
+    Und man nicht alle Pflichtfelder eingegeben hat
+    Und man speichert
+    Dann sehe ich eine Fehlermeldung
+    
+    
+    
