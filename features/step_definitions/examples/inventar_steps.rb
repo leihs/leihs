@@ -256,7 +256,8 @@ Dann /^enthält die Gegenstands\-Zeile das Enddatum der Ausleihe$/ do
 end
 
 Dann /^enthält die Gegenstands\-Zeile die Verantwortliche Abteilung$/ do
-  @item_line.should have_content @item.inventory_pool.to_s      
+  @item_line.should have_content @item.inventory_pool.to_s
+  step 'ich nach "%s" suche' % " "
 end
 
 Wenn /^der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist$/ do
@@ -271,7 +272,9 @@ end
 Wenn /^der Gegenstand nicht an Lager ist und meine oder andere Abteilung für den Gegenstand verantwortlich ist$/ do
   find(".responsible option[data-responsible_id='#{@current_inventory_pool.id}']").select_option
   find(".filter input[data-filter='in_stock']").click if find(".filter input[data-filter='in_stock']").checked?
+  step 'ich nach "%s" suche' % @current_inventory_pool.items.detect{|i| not i.inventory_pool_id.nil? and not i.in_stock?}.inventory_code
   wait_until { all(".loading", :visible => true).empty? }
+  wait_until {not all(".items .item.line .item_location.borrower").empty?}
   all(".toggle .text").each {|toggle| toggle.click}
   @item_line = find(".items .item.line .item_location.borrower").find(:xpath, "..")
   @item = Item.find_by_inventory_code @item_line.find(".inventory_code").text
