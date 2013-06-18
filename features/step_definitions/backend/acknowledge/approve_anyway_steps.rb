@@ -1,7 +1,7 @@
 Given /^I try to approve an order that has problems$/ do
   @unapprovable_order =  @ip.orders.detect{|o| not o.approvable?}
-  @order_line_el = find(".order.line[data-id='#{@unapprovable_order.id}']")
-  @order_line_el.find(".actions .button", :text => /(Genehmigen|Approve)/).click
+  find(".toggle .text").click
+  find(".order.line[data-id='#{@unapprovable_order.id}'] .actions .button", :text => _("Approve")).click
   wait_until{ find(".dialog") }
 end
 

@@ -80,7 +80,7 @@ And /^I search again for the same model$/ do
   fill_in "code", with: @model_name
 end
 
-Then /^the model's availability has changed$/ do
+Then (/^the model's availability has changed$/) do
   wait_until {@changed_aval = find("a.ui-corner-all", text: @model_name).find(".availability").text}
   @changed_aval.slice(0).should_not == @init_aval.slice(0)
 end
