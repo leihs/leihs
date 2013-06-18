@@ -88,7 +88,11 @@ Then /^each model of the template is added to the hand over for the provided dat
 end
 
 When /^I add so many lines that I break the maximal quantity of an model$/ do
-  @model ||= @customer.get_current_contract(@ip).lines.first.model
+  @model ||= if @order
+    @order.lines.first.model
+  else
+    @customer.get_current_contract(@ip).lines.first.model
+  end
   @target_name = @model.name
   (@model.items.size+1).times do
     type_into_autocomplete "#code", @target_name

@@ -79,7 +79,6 @@ Angenommen(/^es existiert ein Modell mit folgenden Eigenschaften$/) do |table|
       false
     end
   end
-
   @model = Model.find {|m| conditions.map{|c| c.class == Proc ? c.call(m) : c}.all?}
 end
 
@@ -126,7 +125,6 @@ end
 
 Wenn(/^ich dieses Modell aus der Liste lösche$/) do
   visit backend_inventory_pool_models_path(@current_inventory_pool)
-
   find_field('query').set @model.name
   wait_until { all("li.modelname").first.text == @model.name }
   page.execute_script("$('.trigger .arrow').trigger('mouseover');")
