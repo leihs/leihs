@@ -10,7 +10,7 @@ Feature: Delete lines of an open order
 
   @javascript
   Scenario: Delete a single line of an open order
-     When I open an order for acknowledgement
+     When I open an order for acknowledgement that has more then one line
       And I delete a line of this order
      Then this orderline is deleted
 

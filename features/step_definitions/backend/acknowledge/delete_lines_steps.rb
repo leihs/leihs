@@ -1,17 +1,25 @@
 # -*- encoding : utf-8 -*-
 
+
+When(/^I open an order for acknowledgement that has more then one line$/) do
+  @ip = @current_user.managed_inventory_pools.first
+  @order = @ip.orders.detect {|o| o.lines.length > 1}
+  @customer = @order.user
+  visit backend_inventory_pool_acknowledge_path(@ip, @order)
+  page.has_css?("#acknowledge", :visible => true)
+end
+
 When /^I delete a line of this order$/ do
   @line = @order.lines.first
-  puts "??? @line.model.name = #{@line.model.name}"
   @line_element = find(".line", :text => @line.model.name)
   @line_element.find(".multibutton .trigger").click
-  wait_until {@line_element.find(".button", :text => /(Delete|Löschen)/)}
-  @line_element.find(".button", :text => /(Delete|Löschen)/).click
+  wait_until {@line_element.find(".button", :text => _("Delete"))}
+  @line_element.find(".button", :text => _("Delete")).click
   wait_until { page.evaluate_script("$.active") == 0 }
 end
 
 Then /^this orderline is deleted$/ do
-  @order.lines.include?(@line).should == false
+  @order.lines.reload.include?(@line).should == false
 end
 
 When /^I delete multiple lines of this order$/ do
