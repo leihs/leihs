@@ -268,6 +268,22 @@ module Persona
       @helicopter_model2.properties << Property.create(:key => "Akkus", :value => "2")
       @helicopter_model2.properties << Property.create(:key => "Farbe", :value => "Rot")
       @helicopter_model2.compatibles << @windows_laptop_model
+
+      @helicopter_model3 = FactoryGirl.create(:model, :name => "Walkera v120 3G",
+                                :manufacturer => "Walkera", 
+                                :description => "3D Helikopter", 
+                                :maintenance_period => 0)
+      @helicopter_model3.partitions << Partition.create(model_id: @helicopter_model.id, 
+                                                      inventory_pool_id: @inventory_pool.id, 
+                                                      group_id: Group.create(name: "Group A", inventory_pool_id: @inventory_pool.id).id,
+                                                      quantity: 5)
+      @helicopter_model3.attachments << FactoryGirl.create(:attachment)
+      @helicopter_model3.images << FactoryGirl.create(:image)
+      @helicopter_model3.model_links.create :model_group => @helicopter_category
+      @helicopter_model3.properties << Property.create(:key => "Rotorduchmesser", :value => "120")
+      @helicopter_model3.properties << Property.create(:key => "Akkus", :value => "2")
+      @helicopter_model3.properties << Property.create(:key => "Farbe", :value => "Rot")
+      @helicopter_model3.compatibles << @windows_laptop_model
     end
 
     def setup_retired
