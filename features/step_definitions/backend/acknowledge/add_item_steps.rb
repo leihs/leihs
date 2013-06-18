@@ -8,7 +8,7 @@ end
 When /^I start to type the inventory code of an item$/ do
   @item = @ip.items.first
   puts @item.inspect
-  find("#process_helper").fill_in 'code', :with => @item.inventory_code[0..2] 
+  find("#process_helper").fill_in 'code', :with => @item.inventory_code
 end
 
 When /^I wait until the autocompletion is loaded$/ do
