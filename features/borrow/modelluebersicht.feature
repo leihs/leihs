@@ -31,6 +31,16 @@ die Möglichkeit haben ausführliche Informationen über ein Modell zu sehen
     Wenn ich ein Bild anklicke
     Dann wird das Bild zum Hauptbild auch wenn ich das hovern beende
     
+   Szenario: Eigenschaften anzeigen
+    Angenommen man ist "Normin"
+    Und man befindet sich in einer Modellübersicht mit Eigenschaften
+    Dann werden die ersten fünf Eigenschaften mit Schlüssel und Wert angezeigt
+    Und wenn man 'Alle anzeigen' wählt
+    Dann werden alle weiteren Eigenschaften angezeigt
+    Und man kann an derselben Stelle die Eigenschaften wieder zuklappen
+    
+    
+    
     
     
     
