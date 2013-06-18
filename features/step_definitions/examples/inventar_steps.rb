@@ -19,7 +19,11 @@ Dann /^man sieht Optionen$/ do
 end
 
 Dann /^man sieht Pakete$/ do
-  all(".model.package.line").empty?.should be_false
+  step 'ich nach "%s" suche' % @current_inventory_pool.items.packages.last.inventory_code
+  wait_until { all(".loading", :visible => true).empty? }
+  wait_until {not all(".model.package.line").empty?}
+  step 'ich nach "%s" suche' % " "
+  wait_until { all(".loading", :visible => true).empty? }
 end
 
 ########################################################################
