@@ -118,11 +118,12 @@ Funktionalität: Benutzer verwalten
     | Inventar-Verwalter  |
     Und man kann alles, was ein Ausleihe-Verwalter kann
 
-  Szenario: Benutzerolle "Administrator"
-    Angenommen man ist Administrator
-    Dann kann man neue Geräteparks erstellen
-    Und man kann neue Benutzer erstellen und löschen
-    Und man kann Benutzern jegliche Rollen zuweisen und wegnehmen  
+  @javascript
+  Szenario: Benutzerolle "Administrator" 
+    Angenommen man ist Administrator 
+    Dann kann man neue Geräteparks erstellen 
+    Und man kann neue Benutzer erstellen und löschen 
+    Und man kann Benutzern jegliche Rollen zuweisen und wegnehmen   
 
   @javascript
   Szenario: Gruppenzuteilung in Benutzeransicht hinzufügen/entfernen
