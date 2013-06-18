@@ -98,7 +98,7 @@ Funktionalität: Modellliste
     Wenn man ein bestimmten Gerätepark in der Geräteparkauswahl auswählt
     Dann sind alle anderen Geräteparks abgewählt
     Und die Modellliste zeigt nur Modelle dieses Geräteparks an
-    Und die Auswahl klappt zu
+    Und die Auswahl klappt noch nicht zu
     Und im Filter steht der Name des ausgewählten Geräteparks
 
   @javascript
@@ -129,6 +129,15 @@ Funktionalität: Modellliste
     Angenommen man ist "Normin"
     Wenn man sich auf der Modellliste befindet
     Dann ist die Geräteparkauswahl alphabetisch sortiert
+
+  Szenario: Geräteparkauswahl "alle auswählen"
+    Angenommen man ist "Normin"
+    Wenn man sich auf der Modellliste befindet
+    Und man wählt alle Geräteparks bis auf einen ab
+    Und man wählt "alle auswählen"
+    Dann sind alle Geräteparks wieder ausgewählt
+    Und die Auswahl klappt nocht nicht zu
+    Und die Liste zeigt Modelle aller Geräteparks
 
   Szenario: Alles zurücksetzen
     Angenommen man ist "Normin"
