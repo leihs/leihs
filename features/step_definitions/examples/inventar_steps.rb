@@ -342,8 +342,9 @@ Dann /^so eine Zeile sieht aus wie eine Gegenstands\-Zeile$/ do
 end
 
 Dann /^kann man jedes Paket\-Modell aufklappen$/ do
+  @package = @current_inventory_pool.items.packages.last.model
+  step 'ich nach "%s" suche' % @package.name
   @package_line = find(".package.model.line")
-  @package = Model.find_by_name(@package_line.find(".modelname").text)
   @package_line.find(".toggle .text").click
 end
 
