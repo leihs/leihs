@@ -23,7 +23,9 @@ Wenn /^ich eine Bestellung genehmige$/ do
 end
 
 Dann /^sehe ich den Zweck$/ do
-  page.should have_content @order.lines.first.purpose.description
+  if @order.lines.first.purpose
+    page.should have_content @order.lines.first.purpose.description
+  end
 end
 
 Wenn /^ich eine Aushändigung mache$/ do
