@@ -37,10 +37,7 @@ Funktionalität: Benutzer verwalten
     Und man editiert einen Benutzer
     Dann sieht man als Titel den Vornamen und Namen des Benutzers, sofern bereits vorhanden
     Dann sieht man die folgenden Daten des Benutzers in der folgenden Reihenfolge:
-    |en       |de           |
-    |Badge ID |Badge-Nummer |
-    |Role     |Rollen       |
-    Dann sieht man die Sperrfunktion für diesen Benutzer
+  A Dann sieht man die Sperrfunktion für diesen Benutzer
     Und sofern dieser Benutzer gesperrt ist, sieht man Grund und Dauer der Sperrung
     Dann sieht man die folgenden Daten des Benutzers in der folgenden Reihenfolge:
     |en         |de           |
@@ -133,3 +130,29 @@ Funktionalität: Benutzer verwalten
     Und kann Gruppen entfernen
     Und speichert den Benutzer
     Dann ist die Gruppenzugehörigkeit gespeichert 
+ 
+  Szenario: Neuen Benutzer hinzufügen
+    Angenommen man ist "Pius"
+    Wenn man in der Benutzeransicht ist
+    Und man einen Benutzer hinzufügt
+    Und die folgenden Informationen eingibt
+    |en         |de           |
+    |Last name  |Name         |
+    |First name |Vorname      |
+    |Address    |Strasse      |
+    |Zip        |PLZ          |
+    |City       |Ort          |
+    |Country    |Land         |
+    |Phone      |Telefonnummer|
+    |E-Mail     |E-Mail-Adresse|
+    Und man gibt eine Badge-Id ein
+    Und eine der folgenden Rollen auswählt
+    | tab                | role               |
+    | Kunde              | customers          |
+    | Ausleihe-Verwalter | lending_managers   |
+    | Inventar-Verwalter | inventory_managers |
+    Und man wählt ein Sperrdatum und ein Sperrgrund
+    Und man teilt mehrere Gruppen zu
+    Und man speichert
+    Dann ist der Benutzer mit all den Informationen gespeichert
+ 
