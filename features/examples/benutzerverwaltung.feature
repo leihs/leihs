@@ -93,7 +93,7 @@ Funktionalität: Benutzer verwalten
     Und man kann Optionen erstellen
     Und man kann neue Benutzer erstellen und für die Ausleihe sperren
     Und man kann Benutzern die folgende Rollen zuweisen und wegnehmen, wobei diese immer auf den Gerätepark bezogen ist, für den auch der Verwalter berechtigt ist
-    | role           |
+    | Kein Zugriff   |    
     | Kunde          |
     Und man kann nicht inventarrelevante Gegenstände ausmustern, sofern man deren Besitzer ist
 
@@ -109,7 +109,7 @@ Funktionalität: Benutzer verwalten
     Und man kann Ausmusterungen wieder zurücknehmen, sofern man Besitzer der jeweiligen Gegenstände ist
     Und man kann die Arbeitstage und Ferientage seines Geräteparks anpassen
     Und man kann Benutzern die folgende Rollen zuweisen und wegnehmen, wobei diese immer auf den Gerätepark bezogen ist, für den auch der Verwalter berechtigt ist
-    | role                |
+    | Kein Zugriff        |
     | Kunde               |
     | Ausleihe-Verwalter  |
     | Inventar-Verwalter  |
@@ -120,7 +120,13 @@ Funktionalität: Benutzer verwalten
     Angenommen man ist Administrator 
     Dann kann man neue Geräteparks erstellen 
     Und man kann neue Benutzer erstellen und löschen 
-    Und man kann Benutzern jegliche Rollen zuweisen und wegnehmen   
+    Und man kann Benutzern die folgende Rollen zuweisen und wegnehmen, wobei diese immer auf den Gerätepark bezogen ist, für den auch der Verwalter berechtigt ist
+    | Kein Zugriff        |
+    | Kunde               |
+    | Ausleihe-Verwalter  |
+    | Inventar-Verwalter  |
+    | Administrator       |    
+    
 
   @javascript
   Szenario: Gruppenzuteilung in Benutzeransicht hinzufügen/entfernen
