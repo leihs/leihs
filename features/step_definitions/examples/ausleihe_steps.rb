@@ -11,6 +11,7 @@ Wenn /^ich kehre zur Tagesansicht zurück$/ do
 end
 
 Wenn /^ich öffne eine Bestellung von "(.*?)"$/ do |arg1|
+  find(".toggle .text").click
   el = find("#daily .order.line", :text => arg1)
   @order = Order.find el["data-id"]
   page.execute_script '$(":hidden").show();'
