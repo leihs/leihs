@@ -27,6 +27,7 @@ Angenommen /^eine Model ist nichtmehr verfügbar$/ do
   else
     @model = @contract.models.first
     visit backend_inventory_pool_user_hand_over_path(@ip, @customer)
+    @max_before = @contract.lines.first.model.availability_in(@contract.inventory_pool).maximum_available_in_period_summed_for_groups(@contract.lines.first.start_date, @contract.lines.first.end_date, @contract.lines.first.group_ids)
     step 'I add so many lines that I break the maximal quantity of an model'
     visit backend_inventory_pool_user_take_back_path(@ip, @customer)
   end
@@ -70,13 +71,13 @@ Dann /^das Problem wird wie folgt dargestellt: "(.*?)"$/ do |format|
 end
 
 Dann /^"(.*?)" sind verfügbar für den Kunden$/ do |arg1|
-  # max = @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @line.group_ids)
-  # if @line.document.is_a? Order
-  #   max += @line.document.lines.where(:start_date => @line.start_date, :end_date => @line.end_date, :model_id => @line.model).size
-  # else
-  #   max += @line.quantity
-  # end
-  max = @max_before + @quantity_added
+  max = if @line.document.is_a?(Order)
+    @max_before + @quantity_added
+  elsif @line.document.is_a?(Contract)
+    @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @line.group_ids) + @line.document.lines.where(:start_date => @line.start_date, :end_date => @line.end_date, :model_id => @line.model).size
+  else
+    @max_before - @quantity_added
+  end
   @reference_problem.match(/#{max}\(/).should_not be_nil
 end
 
