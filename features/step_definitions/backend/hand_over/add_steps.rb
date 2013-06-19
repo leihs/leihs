@@ -76,7 +76,9 @@ Then /^I see a list of suggested (.*?) names$/ do |type|
 end
 
 When /^I select the (.*?) from the list$/ do |type|
-  wait_until(15){ find(".ui-autocomplete a", :text => @target_name) }.click
+  wait_until(15){ find(".ui-autocomplete a", :text => @target_name) }
+  sleep(1)
+  find(".ui-autocomplete a", :text => @target_name).click
   wait_until(15){ all(".loading", :visible => true).empty? }
 end
 
@@ -94,7 +96,12 @@ When /^I add so many lines that I break the maximal quantity of an model$/ do
     @customer.get_current_contract(@ip).lines.first.model
   end
   @target_name = @model.name
-  (@model.items.size+1).times do
+  @quantity_added = if @order
+    @model.availability_in(@ip).maximum_available_in_period_summed_for_groups @order.lines.first.start_date, @order.lines.first.end_date, @order.user.groups.map(&:id)
+  else
+    @model.items.size
+  end
+  (@quantity_added+1).times do
     type_into_autocomplete "#code", @target_name
     step 'I see a list of suggested model names'
     step 'I select the model from the list'

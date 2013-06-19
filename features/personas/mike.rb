@@ -140,15 +140,6 @@ module Persona
         model.model_links.create :model_group => @beamer_category
         FactoryGirl.create(:item, :inventory_code => "mbeam#{i}", :serial_number => "mbeam#{i}", name: "mbeam#{i}", :model => model, :location => @location, :owner => @inventory_pool)
       end
-
-      order = FactoryGirl.create(:order, inventory_pool: @inventory_pool)
-      FactoryGirl.create(:order_line,
-                         model: Model.find_by_name("Beamer 1"),
-                         start_date: Date.today,
-                         end_date: Date.today + 1,
-                         inventory_pool: @inventory_pool,
-                         order: order)
-      order.approve nil, true, User.find_by_login("mike"), false
     end
 
     def setup_ultra_compact_beamers
