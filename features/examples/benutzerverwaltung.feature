@@ -31,7 +31,7 @@ Funktionalität: Benutzer verwalten
     Und man muss das Enddatum der Sperrung bestimmen 
     Und sofern der Benutzer gesperrt ist, kann man die Sperrung aufheben
 
-  @javascript
+  @javascript @upcoming
   Szenario: Elemente der Editieransicht
     Angenommen man ist Inventar-Verwalter oder Ausleihe-Verwalter
     Und man editiert einen Benutzer
@@ -86,6 +86,7 @@ Funktionalität: Benutzer verwalten
     |Sperr-Status 'Gesperrt bis dd.mm.yyyy'|
 
   # English: lending manager
+  @upcoming
   Szenario: Benutzerolle "Ausleihe-Verwalter"
     Angenommen man ist Ausleihe-Verwalter
     Dann kann man neue Gegenstände erstellen
@@ -98,6 +99,7 @@ Funktionalität: Benutzer verwalten
     Und man kann nicht inventarrelevante Gegenstände ausmustern, sofern man deren Besitzer ist
 
   # English: inventory manager 
+  @upcoming
   Szenario: Benutzerolle "Inventar-Verwalter"
     Angenommen man ist Inventar-Verwalter
     Dann kann man neue Modelle erstellen
@@ -115,7 +117,7 @@ Funktionalität: Benutzer verwalten
     | Inventar-Verwalter  |
     Und man kann alles, was ein Ausleihe-Verwalter kann
 
-  @javascript
+  @javascript @upcoming
   Szenario: Benutzerolle "Administrator" 
     Angenommen man ist Administrator 
     Dann kann man neue Geräteparks erstellen 
@@ -128,7 +130,7 @@ Funktionalität: Benutzer verwalten
     | Administrator       |    
     
 
-  @javascript
+  @javascript @upcoming
   Szenario: Gruppenzuteilung in Benutzeransicht hinzufügen/entfernen
     Angenommen man ist "Pius"
     Und man editiert einen Benutzer
