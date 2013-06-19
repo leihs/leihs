@@ -37,7 +37,7 @@ Funktionalität: Benutzer verwalten
     Und man editiert einen Benutzer
     Dann sieht man als Titel den Vornamen und Namen des Benutzers, sofern bereits vorhanden
     Dann sieht man die folgenden Daten des Benutzers in der folgenden Reihenfolge:
-  A Dann sieht man die Sperrfunktion für diesen Benutzer
+    Dann sieht man die Sperrfunktion für diesen Benutzer
     Und sofern dieser Benutzer gesperrt ist, sieht man Grund und Dauer der Sperrung
     Dann sieht man die folgenden Daten des Benutzers in der folgenden Reihenfolge:
     |en         |de           |

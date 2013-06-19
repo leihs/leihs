@@ -72,7 +72,7 @@ Dann(/^wird die Modellliste nach den übrig gebliebenen Geräteparks gefiltert$/
                                                   .map(&:name)
 end
 
-Dann(/^die Auswahl klappt nocht nicht zu$/) do
+Dann(/^die Auswahl klappt noch nicht zu$/) do
   page.execute_script %Q($("#ip-selector .dropdown").addClass("show"))
   find("#ip-selector .dropdown").should be_visible
   page.execute_script %Q($("#ip-selector .dropdown").removeClass("show"))
@@ -308,9 +308,9 @@ Dann(/^werden folgende zusätzliche Informationen angezeigt Bilder, Beschreibung
   page.should have_content @model.description
   @model.properties.take(5).map(&:key).each {|key| page.should have_content key}
   @model.properties.take(5).map(&:value).each {|value| page.should have_content value}
-  page.should have_selector(:css, "img[src*='/models/#{@model.id}/image_thumb?offset=0']")
-  page.should have_selector(:css, "img[src*='/models/#{@model.id}/image_thumb?offset=1']")
-  page.should have_selector(:css, "img[src*='/models/#{@model.id}/image_thumb?offset=2']")
+  (0..@model.images.count-1).each do |i|
+    page.should have_selector(:css, "img[src*='/models/#{@model.id}/image_thumb?offset=#{i}']")
+  end
 end
 
 Angenommen(/^es gibt ein Modell mit Bilder, Beschreibung und Eigenschaften$/) do
