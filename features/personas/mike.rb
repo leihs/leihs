@@ -275,7 +275,7 @@ module Persona
                                 :maintenance_period => 0)
       @helicopter_model3.partitions << Partition.create(model_id: @helicopter_model.id, 
                                                       inventory_pool_id: @inventory_pool.id, 
-                                                      group_id: Group.create(name: "Group A", inventory_pool_id: @inventory_pool.id).id,
+                                                      group_id: Group.create(name: "Group B", inventory_pool_id: @inventory_pool.id).id,
                                                       quantity: 5)
       @helicopter_model3.attachments << FactoryGirl.create(:attachment)
       @helicopter_model3.images << FactoryGirl.create(:image)
