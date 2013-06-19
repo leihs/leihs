@@ -19,7 +19,7 @@ class window.App.Borrow.ModelsIndexTooltipController extends Spine.Controller
             @preloadImages content, model, =>
               tooltip.update App.Render "borrow/views/models/index/tooltip", model
               do tooltip.enable
-              do tooltip.show if @currentTooltip == tooltip
+              do tooltip.show if @currentTooltip == tooltip and @mouseOverTooltip
 
   createTooltip: (line) =>
     new App.Tooltip
