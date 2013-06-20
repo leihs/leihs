@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 
 Wenn(/^man sich auf der Modellliste befindet$/) do
   @category = Category.first
@@ -39,7 +39,7 @@ end
 
 Dann(/^die Modellliste zeigt nur Modelle dieses Geräteparks an$/) do
   wait_until {all(".loading").empty?}
-  all(".text-align-left").map(&:text).reject{|t| t.empty?}.should eq @current_user.models
+  all(".text-align-left").map(&:text).reject{|t| t.empty?}[0..20].should eq @current_user.models
                                                   .from_category_and_all_its_descendants(@category.id)
                                                   .by_inventory_pool(@ip.id)
                                                   .default_order.paginate(page: 1, per_page: 20)
@@ -296,6 +296,8 @@ end
 Wenn(/^man bis zum Ende der Liste fährt$/) do
   wait_until {not all(".page").empty?}
   page.execute_script %Q{$(window).scrollTop($(document).height())}
+  all(".page").last.click
+  page.execute_script %Q{$(window).trigger('scroll')}
   wait_until {all(".page").empty?}
 end
 

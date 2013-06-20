@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 
 Dann(/^sehe ich die explorative Suche$/) do
   find "#explorative-search"

@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 
 Dann(/^seh ich die Navigation$/) do
   find("nav")

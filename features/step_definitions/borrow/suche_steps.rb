@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 
 Dann(/^sieht man die Suche$/) do
   visit borrow_start_path

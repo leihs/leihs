@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 
 Dann(/^sehe ich die Brotkrumennavigation$/) do
   page.should have_selector "nav .navigation-tab-item", text: _("Overview")
