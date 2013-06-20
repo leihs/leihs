@@ -38,6 +38,7 @@ Dann(/^sind alle anderen Geräteparks abgewählt$/) do
 end
 
 Dann(/^die Modellliste zeigt nur Modelle dieses Geräteparks an$/) do
+  wait_until {all(".loading").empty?}
   all(".text-align-left").map(&:text).reject{|t| t.empty?}.should eq @current_user.models
                                                   .from_category_and_all_its_descendants(@category.id)
                                                   .by_inventory_pool(@ip.id)
@@ -284,6 +285,7 @@ Angenommen(/^man sieht eine Modellliste die gescroll werden muss$/) do
 end
 
 Wenn(/^bis ans ende der bereits geladenen Modelle fährt$/) do
+  wait_until {not all(".page").empty?}
   find(".page").click
 end
 
@@ -292,8 +294,9 @@ Dann(/^wird der nächste Block an Modellen geladen und angezeigt$/) do
 end
 
 Wenn(/^man bis zum Ende der Liste fährt$/) do
+  wait_until {not all(".page").empty?}
   page.execute_script %Q{$(window).scrollTop($(document).height())}
-  wait_until {all("img[src*='loading']").size == 0}
+  wait_until {all(".page").empty?}
 end
 
 Dann(/^wurden alle Modelle der ausgewählten Kategorie geladen und angezeigt$/) do
