@@ -294,11 +294,13 @@ Dann(/^wird der nächste Block an Modellen geladen und angezeigt$/) do
 end
 
 Wenn(/^man bis zum Ende der Liste fährt$/) do
-  wait_until {not all(".page").empty?}
-  page.execute_script %Q{$(window).scrollTop($(document).height())}
-  all(".page").last.click
-  page.execute_script %Q{$(window).trigger('scroll')}
-  wait_until {all(".page").empty?}
+  unless wait_until { all(".page").empty? }
+    wait_until {not all(".page").empty?}
+    page.execute_script %Q{$(window).scrollTop($(document).height())}
+    all(".page").last.click
+    page.execute_script %Q{$(window).trigger('scroll')}
+    wait_until {all(".page").empty?}
+  end
 end
 
 Dann(/^wurden alle Modelle der ausgewählten Kategorie geladen und angezeigt$/) do
