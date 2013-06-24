@@ -59,18 +59,25 @@ namespace :app do
       end
 
       task :rerun do
-        rerun_count = 9
+        rerun_count = 2
         puts "Rerunning up to #{rerun_count + 1} times."
         system "bundle exec cucumber -p rerun"
         exit_code = $?.exitstatus
         if exit_code != 0
           while (rerun_count > 0 and exit_code != 0)
-            puts "Maximum #{rerun_count} reruns remaining. Trying to rerun until we're successful."
-            if File.exists?("tmp/rererun.txt") and File.stat("tmp/rererun.txt").size > 0 # The 'rererun.txt' file contains some failed examples
-              File.rename("tmp/rererun.txt","tmp/rerun.txt")
-              system "bundle exec cucumber -p rerun"
-              exit_code = $?.exitstatus
-              rerun_count -= 1
+            if File.exists("tmp/rerun.txt")
+              puts "Previous run left a tmp/rerun.txt file. Continuing."
+              puts "Maximum #{rerun_count} reruns remaining. Trying to rerun until we're successful."
+              if File.exists?("tmp/rererun.txt") and File.stat("tmp/rererun.txt").size > 0 # The 'rererun.txt' file contains some failed examples
+                File.rename("tmp/rererun.txt","tmp/rerun.txt")
+                system "bundle exec cucumber -p rerun"
+                exit_code = $?.exitstatus
+                rerun_count -= 1
+              end
+            else
+              puts "Supposed to do a rerun, but no tmp/rerun.txt exists! Doing nothing."
+              exit_code = 0 
+              rerun_count = 0
             end
           end
         end
