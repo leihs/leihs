@@ -1,6 +1,9 @@
 require 'rubygems'
 require 'pry'
+
+# screenshot
 require 'capybara-screenshot/cucumber'
+Capybara::Screenshot.autosave_on_failure = true
 
 # require 'simplecov'
 # SimpleCov.start 'rails' do
