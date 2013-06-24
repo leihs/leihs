@@ -76,7 +76,7 @@ namespace :app do
               end
             else
               puts "Supposed to do a rerun, but no tmp/rerun.txt exists! Doing nothing."
-              exit_code = 0 
+              exit_code = 1 
               rerun_count = 0
             end
           end
