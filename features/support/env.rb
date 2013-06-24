@@ -1,10 +1,6 @@
 require 'rubygems'
 require 'pry'
 
-# screenshot
-require 'capybara-screenshot/cucumber'
-Capybara::Screenshot.autosave_on_failure = true
-
 # require 'simplecov'
 # SimpleCov.start 'rails' do
 #   merge_timeout 3600
@@ -23,6 +19,10 @@ require 'cucumber/rails'
 # prefer to use XPath just remove this line and adjust any selectors in your
 # steps to use the XPath syntax.
 Capybara.default_selector = :css
+
+# screenshot
+require 'capybara-screenshot/cucumber'
+Capybara::Screenshot.autosave_on_failure = true
 
 # By default, any exception happening in your Rails application will bubble up
 # to Cucumber so that your scenario will fail. This is a different from how 
