@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'pry'
+require 'capybara-screenshot/cucumber'
 
 # require 'simplecov'
 # SimpleCov.start 'rails' do
