@@ -65,7 +65,7 @@ namespace :app do
         exit_code = $?.exitstatus
         if exit_code != 0
           while (rerun_count > 0 and exit_code != 0)
-            if File.exists("tmp/rerun.txt")
+            if File.exists?("tmp/rerun.txt")
               puts "Previous run left a tmp/rerun.txt file. Continuing."
               puts "Maximum #{rerun_count} reruns remaining. Trying to rerun until we're successful."
               if File.exists?("tmp/rererun.txt") and File.stat("tmp/rererun.txt").size > 0 # The 'rererun.txt' file contains some failed examples
