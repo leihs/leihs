@@ -19,9 +19,9 @@
               - if category.children.any?
                 .row.emboss.straight-top.separated-top.dropdown-holder.min-width
                   %span.arrow.down
-                  .dropdown.straight-top.full-width
+                  .dropdown.straight-top.full-width.has-focus-hover
                     .padding-inset-xs
-                      %img.max-width-xxs.max-height-xxs{:src => image_path("loading.gif")}
+                      %img.max-width-micro.max-height-micro{:src => image_path("loading.gif")}
                     
   .col1of5= render :partial => "borrow/order"
 

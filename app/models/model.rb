@@ -10,6 +10,7 @@
 #
 class Model < ActiveRecord::Base
   include Availability::Model
+  include ModelModules::Filter
 
   before_destroy do
     if is_package? and order_lines.empty? and contract_lines.empty?

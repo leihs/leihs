@@ -6,10 +6,40 @@
   border-bottom: none
   padding-top: 1px
   position: relative
-  margin-bottom: -1px
+  background: $lightestgrey
+  bottom: -1px
 
   &.active
+    bottom: -1px
+    padding-bottom: 1px
     z-index: 1001
 
   [class^='icon']
     vertical-align: text-top
+
+  &.straight-right
+    @include border-right-radius(0)
+
+  &.straight-left
+    @include border-left-radius(0)
+
+.navigation-tab-arrow
+  @include arrow(15px, right, $lightestgrey)
+  position: absolute
+  right: -14px
+  top: 0
+
+.navigation-tab-item:hover .navigation-tab-arrow
+  border-color: transparent transparent transparent white
+
+.navigation-tab-item:active .navigation-tab-arrow
+  border-color: transparent transparent transparent rgb(226,226,226)
+
+.navigation-tab-arrow-border
+  @include arrow(15px, right, $lightergrey)
+  position: absolute
+  right: -15px
+  top: 0
+
+.navigation-tab-item:active .navigation-tab-arrow-border
+  border-color: transparent transparent transparent $grey

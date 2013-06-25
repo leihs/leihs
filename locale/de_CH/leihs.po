@@ -2200,3 +2200,6 @@ msgstr "Alle Geräteparks"
 
 msgid "Inventory pools"
 msgstr "Geräteparks"
+
+msgid "Show all search results"
+msgstr "Alle Suchresultate anzeigen"

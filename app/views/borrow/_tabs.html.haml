@@ -1,7 +1,20 @@
 .row
   %nav
     %ul
-      %li
+
+      %li{:style => "z-index: 800; position: relative"}
         %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => borrow_start_path,
-        :class => current_page == "daily" ? "active" : nil}
+        :class => (current_page == "daily" and @bread_crumbs.get.blank?) ? "active" : "straight-right"}
           = _("Overview")
+          - unless @bread_crumbs.get.blank?
+            .navigation-tab-arrow-border
+            .navigation-tab-arrow
+
+      - unless @bread_crumbs.get.blank?
+        - @bread_crumbs.get.each_with_index do |crumb, i|
+          %li{:style => "z-index: #{799-i}; position: relative"}
+            %a.negative-margin-left-xxs-alt.straight-left.navigation-tab-item.margin-right-xxs.padding-horizontal-m.padding-left-l.float-left{:href => crumb[:link],
+            :class => request.path == crumb[:link] ? "active" : nil}
+              = CGI::unescape crumb[:label]
+              - if crumb[:search]
+                %i.icon-search.icon-size-xxs

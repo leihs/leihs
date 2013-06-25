@@ -1,5 +1,7 @@
 .line
   border-bottom: 1px solid $lightergrey
+  border-left: 1px solid transparent
+  border-right: 1px solid transparent
   border-top: 1px solid white
   display: table
   width: 100%
@@ -11,8 +13,8 @@
     background: $almostwhite
 
   &:hover
-    background: $lightestgrey
-    @include box-shadow(inset 0 1px 4px rgba(0,0,0,0.2))
+    @extend .focus-hover-thin
+    @include border-radius($border-radius-m)
 
   &.light:not(:hover)
     background: $almostwhite

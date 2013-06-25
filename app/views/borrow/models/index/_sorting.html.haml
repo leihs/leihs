@@ -1,25 +1,26 @@
-#model-sorting.dropdown-holder
-  .button.small
-    - case params[:sort]
-    - when "manufacturer"
-      = _("Manufacturer")
-    - when "model"
-      = _("Model")
-    - else
-      = _("Model")
-    - case params[:order]
-    - when "asc"
-      %i.icon-circle-arrow-up.icon-size-xs
-    - when "desc"
-      %i.icon-circle-arrow-down.icon-size-xs
-    - else 
-      %i.icon-circle-arrow-up.icon-size-xs
-  .dropdown
-    %a.font-size-xs.dropdown-item{"data-sort" => "name", :"data-order" => "asc"}
-      = "#{_("Modell")} (#{_("ascending")})"
-    %a.font-size-xs.dropdown-item{"data-sort" => "name", :"data-order" => "desc"}
-      = "#{_("Modell")} (#{_("descending")})"
-    %a.font-size-xs.dropdown-item{"data-sort" => "manufacturer", :"data-order" => "asc"}
-      = "#{_("Manufacturer")} (#{_("ascending")})"
-    %a.font-size-xs.dropdown-item{"data-sort" => "manufacturer", :"data-order" => "desc"}
-      = "#{_("Manufacturer")} (#{_("descending")})"
+.padding-horizontal-xs
+  #model-sorting.dropdown-holder.emboss
+    .button.small.width-full.no-padding
+      - case params[:sort]
+      - when "manufacturer"
+        = _("Manufacturer")
+      - when "model"
+        = _("Model")
+      - else
+        = _("Model")
+      - case params[:order]
+      - when "asc"
+        %i.icon-circle-arrow-up.icon-size-xs
+      - when "desc"
+        %i.icon-circle-arrow-down.icon-size-xs
+      - else 
+        %i.icon-circle-arrow-up.icon-size-xs
+    .dropdown
+      %a.font-size-xs.dropdown-item{"data-sort" => "name", :"data-order" => "asc"}
+        = "#{_("Modell")} (#{_("ascending")})"
+      %a.font-size-xs.dropdown-item{"data-sort" => "name", :"data-order" => "desc"}
+        = "#{_("Modell")} (#{_("descending")})"
+      %a.font-size-xs.dropdown-item{"data-sort" => "manufacturer", :"data-order" => "asc"}
+        = "#{_("Manufacturer")} (#{_("ascending")})"
+      %a.font-size-xs.dropdown-item{"data-sort" => "manufacturer", :"data-order" => "desc"}
+        = "#{_("Manufacturer")} (#{_("descending")})"

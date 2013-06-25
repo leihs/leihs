@@ -24,14 +24,16 @@ Leihs::Application.routes.draw do
   # Borrow Section
   namespace :borrow do
     get "/", :to => "application#start", :as => "start"
-    get "to_pick_up", :to => "to_pick_up#index", :as => "to_pick_up"
     get "inventory_pools", :to => "inventory_pools#index", :as => "inventory_pools"
     get "models", :to => "models#index", :as => "models"
-    #get "model/:id", :to => "models#show", :as => "model"
     get "models/availability", :to => "models#availability", :as => "models_availability"
+    get "models/:id", :to => "models#show", :as => "model"
     get "order", :to => "orders#unsubmitted_order", :as => "unsubmitted_order"
     get "orders", :to => "orders#index", :as => "orders"
     get "returns", :to => "returns#index", :as => "returns"
+    post 'search', :to => 'search#search', :as => "search"
+    get 'search/:search_term', :to => 'search#results', :as => "search_results"
+    get "to_pick_up", :to => "to_pick_up#index", :as => "to_pick_up"
     get "user", :to => "users#current", :as => "current_user"
   end
 
@@ -54,8 +56,6 @@ Leihs::Application.routes.draw do
 ##### Following things are old and have to be checked if still used
 #####
 ############################################################################
-
-  match '/search', :to => 'frontend#search'
 
   # used for the current_user
   resource :user do

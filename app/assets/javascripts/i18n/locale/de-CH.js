@@ -2819,6 +2819,10 @@ window.i18n.locale_data = {
       "Inventory pools": [
          null,
          "Geräteparks"
+      ],
+      "Show all search results": [
+         null,
+         "Alle Suchresultate anzeigen"
       ]
    }
 }

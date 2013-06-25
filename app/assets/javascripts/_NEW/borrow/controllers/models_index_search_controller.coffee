@@ -12,9 +12,9 @@ class window.App.Borrow.ModelsIndexSearchController extends Spine.Controller
 
   getInputText: ->
     if @inputField.val().length
-      {searchTerm: @inputField.val()}
+      {search_term: @inputField.val()}
     else
-      {searchTerm: null}
+      {search_term: null}
 
   reset: =>
     @inputField.val ""

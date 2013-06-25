@@ -16,10 +16,12 @@ input + .addon
 input
   &.has-addon
     height: 100%
-    padding-right: 35px
 
-    &.small
-      padding-right: 16px
+    &:not([class*='padding'])
+      padding-right: 35px
+
+      &.small
+        padding-right: 16px
 
   &.round-borders + .addon
     @include border-right-radius(22px)

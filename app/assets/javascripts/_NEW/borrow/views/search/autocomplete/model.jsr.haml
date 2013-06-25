@@ -1,0 +1,8 @@
+%li.separated-bottom.exclude-last-child
+  %a.row{:title => "{{>name}}", :href => "/borrow/models/{{>id}}"}
+    .col8of10
+      .row.text-ellipsis 
+        %strong {{>name}}
+      .row.text-ellipsis {{>manufacturer}}
+    .col2of10.text-align-center.padding-left-s
+      %img.max-height-xxs.max-width-xxs.min-height-xxs.min-width-xxs{src: "/models/{{>id}}/image_thumb"}

@@ -8,7 +8,7 @@
   display: block
 
 .dropdown
-  background: $lightestgrey
+  background: white
   border: 1px solid $almostwhite
   display: none
   font-size: $font-size-xs
@@ -40,50 +40,20 @@
       @include border-bottom-radius($border-radius-m)
 
 .dropdown-item, a.dropdown-item
-  color: $darkgrey
+  color: black
   display: block
   font-weight: bold
   padding: 6px $space-xs
   cursor: pointer
-  text-align: left
   white-space: nowrap
   width: 100%
   @include box-sizing(border-box)
-  @include text-shadow (1px 1px 0 white)
   @include user-select(none)
+  @include border-radius($border-radius-xs)
+  @extend .focus-hover-thin
 
-  &:hover
-    background: rgba(255,255,255,0.5)
-    color: $darkergrey
+  &:not([class*='text-align'])
+    text-align: left
 
-  &:active
-    background: white
-    color: $darkgrey
-    @include text-shadow(none)
-
-  &.red
-    color: transparentize($red, 0.2)
-
-    &:hover
-      color: $red
-
-.dark .dropdown, .dropdown.dark
-  border: 1px solid $darkgrey
-  background: $grey
-  @include box-shadow ($default-box-shadow-plain)
-
-  .dropdown-item
-    color: rgba(255,255,255,0.65)
-    @include text-shadow (1px 1px 0 rgba(0,0,0,0.3))
-
-    &:hover
-      background: rgba(255,255,255,0.3)
-      color: white
-
-    &:active
-      background: rgba(255,255,255,0.8)
-      color: $darkgrey
-      @include text-shadow(none)
-
-  .arrow
-    @include change-all-arrow-colors(rgba(255,255,255,0.8))
+  &.red, &.red:hover
+    color: $red !important

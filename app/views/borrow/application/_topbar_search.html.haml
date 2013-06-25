@@ -1,5 +1,14 @@
-%label.min-height-full.width-full{:title => _("Search"), :for => "term"}
-  %form.min-height-full.row.width-full{:action => "", :method => :get, :autocomplete => :off}
-    %input#term.round-borders.has-addon.width-full{:type => "text", :name => "term", :placeholder => _("Search")}
-    .addon.transparent.padding-right-xs
-      %i.icon-search.icon-size-xxs
+#search
+  %label.min-height-full.width-full{:title => _("Search"), :for => "search_term"}
+    %form.min-height-full.row.width-full{:action => borrow_search_path, :method => :post, :autocomplete => :off}
+      = token_tag nil
+      %input.text-ellipsis.round-borders.has-addon.width-full.padding-right-m.padding-left-s{:type => "text", :id => "search_term", :name => "search_term", :placeholder => _("Search")}
+      .addon.transparent.padding-right-xs
+        %i.icon-search.icon-size-xxs
+  #search-autocomplete
+
+:coffeescript
+  
+  jQuery ->
+    new App.Borrow.SearchTopbarController
+      el: $("#search")

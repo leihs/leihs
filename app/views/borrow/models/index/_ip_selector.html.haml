@@ -1,9 +1,10 @@
-#ip-selector.dropdown-holder
-  .button.small
-    = "Alle Geräteparks"
-    .arrow.down
-  .dropdown
-    - @inventory_pools.each do |ip|
-      %a.font-size-xs.dropdown-item{:"data-id" => ip.id, :"data-name" => ip.name}<
-        %input.margin-right-s{:type => :checkbox, :checked => true, :autocomplete => :off}
-        = ip.name
+.padding-left-xs
+  #ip-selector.dropdown-holder.emboss
+    .button.small.width-full.no-padding
+      = "Alle Geräteparks"
+      .arrow.down
+    .dropdown
+      - @inventory_pools.each do |ip|
+        %a.font-size-xs.dropdown-item{:"data-id" => ip.id, :"data-name" => ip.name}<
+          %input.margin-right-s{:type => :checkbox, :checked => true, :autocomplete => :off}
+          = ip.name

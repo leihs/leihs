@@ -5,6 +5,7 @@ class window.App.Borrow.ModelsIndexController extends Spine.Controller
 
   constructor: ->
     super
+    @searchTerm = @params.search_term
     @reset = new App.Borrow.ModelsIndexResetController {el: @el.find("#reset-all-filter"), reset: @resetAllFilter, isResetable: @isResetable}
     @ipSelector = new App.Borrow.ModelsIndexIpSelectorController {el: @el.find("#ip-selector"), onChange: => do @resetAndFetchModels}
     @sorting = new App.Borrow.ModelsIndexSortingController {el: @el.find("#model-sorting"), onChange: => do @resetAndFetchModels}
@@ -17,9 +18,6 @@ class window.App.Borrow.ModelsIndexController extends Spine.Controller
   delegateEvents: =>
     super
     App.Availability.on "refresh", @render
-    App.Model.on "refresh", (models)=>
-      @models = @models.concat(models)
-      if @period.getPeriod()? then do @fetchAvailability else do @render
     App.Model.on "ajaxSuccess", (e,status,xhr)=> @pagination.setData JSON.parse(xhr.getResponseHeader("X-Pagination"))
 
   periodChange: =>
@@ -53,12 +51,15 @@ class window.App.Borrow.ModelsIndexController extends Spine.Controller
   fetchModels: (page)=>
     $.extend @params, {inventory_pool_ids: @ipSelector.activeInventoryPoolIds()}
     $.extend @params, @sorting.getCurrentSorting()
-    $.extend @params, @search.getInputText()
+    do @extendParamsWithSearchTerm
     params = _.clone @params
     if page?
       params.page = page
-    App.Model.fetch
+    App.Model.ajaxFetch
       data: $.param params
+    .done (models)=>
+      @models = @models.concat(models)
+      if @period.getPeriod()? then do @fetchAvailability else do @render
 
   fetchAvailability: =>
     model_ids = if @currentStartDate == @period.getPeriod().start_date and @currentEndDate == @period.getPeriod().end_date
@@ -80,3 +81,12 @@ class window.App.Borrow.ModelsIndexController extends Spine.Controller
 
   loading: =>
     @list.html App.Render "borrow/views/models/index/loading"
+
+  extendParamsWithSearchTerm: =>
+    if @searchTerm? 
+      if @search.getInputText().search_term?
+        @params.search_term = "#{@searchTerm} #{@search.getInputText().search_term}"
+      else
+        @params.search_term = @searchTerm
+    else 
+      $.extend @params, @search.getInputText()
