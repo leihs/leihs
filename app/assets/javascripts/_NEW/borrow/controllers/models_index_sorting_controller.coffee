@@ -20,3 +20,11 @@ class window.App.Borrow.ModelsIndexSortingController extends Spine.Controller
     @button.html App.Render "borrow/views/models/index/sorting", {sort: @sort, order: @order}
 
   getCurrentSorting: => {sort: @sort, order: @order}
+
+  reset: =>
+    @sort = "name"
+    @order = "asc"
+    @render()
+
+  is_resetable: => 
+    (@getCurrentSorting().sort? and @getCurrentSorting().sort != "name") or (@getCurrentSorting().order? and @getCurrentSorting().order != "asc")

@@ -41,3 +41,9 @@ class window.App.Borrow.ModelsIndexIpSelectorController extends Spine.Controller
       else
         "#{length} #{_jed(length, _jed("Inventory pool"), _jed("Inventory pools"))}"
     @button.html App.Render "borrow/views/models/index/ip_selector", {text: text}
+
+  reset: =>
+    @el.find("input[type='checkbox']").attr("checked", true)
+    @render()
+
+  is_resetable: => @activeInventoryPoolIds().length != @el.find("[data-id]").length

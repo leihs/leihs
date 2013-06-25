@@ -47,3 +47,10 @@ class window.App.Borrow.ModelsIndexPeriodController extends Spine.Controller
   validate: => 
     if @startDate.val().length == 0 or @endDate.val().length == 0
       do @onChange
+
+  reset: =>
+    @startDate.val null
+    @endDate.val null
+    App.Availability.records = {}
+
+  is_resetable: => @getPeriod()?

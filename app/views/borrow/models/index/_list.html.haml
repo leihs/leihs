@@ -1,8 +1,9 @@
 .row.padding-vertical-xs.separated-bottom
   .col3of5
-    .row
+    #reset-container.row
       .col1of3.padding-left-xs= render :partial => "borrow/models/index/search"
       .col2of3.padding-left-xs= render :partial => "borrow/models/index/period"
+      = render :partial => "borrow/models/index/reset"
   .col2of5
     .row
       .col1of2.text-align-center= render :partial => "borrow/models/index/ip_selector"

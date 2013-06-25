@@ -2,39 +2,53 @@ class window.App.Borrow.ModelsIndexController extends Spine.Controller
 
   elements:
     "#model-list": "list"
-    "#exporative-search": "explorativeSearch"
 
   constructor: ->
     super
-    @ipSelector = new App.Borrow.ModelsIndexIpSelectorController {el: @el.find("#ip-selector"), onChange: @resetAndFetchModels}
-    @sorting = new App.Borrow.ModelsIndexSortingController {el: @el.find("#model-sorting"), onChange: @resetAndFetchModels}
-    @search = new App.Borrow.ModelsIndexSearchController {el: @el.find("#model-list-search"), onChange: @resetAndFetchModels}
-    @period = new App.Borrow.ModelsIndexPeriodController 
-      el: @el.find("#period"), 
-      onChange: => 
-        if @period.getPeriod()?
-          do @loading and do @fetchAvailability
-        else
-          App.Availability.records = {}
-          do @render
+    @reset = new App.Borrow.ModelsIndexResetController {el: @el.find("#reset-all-filter"), reset: @resetAllFilter, isResetable: @isResetable}
+    @ipSelector = new App.Borrow.ModelsIndexIpSelectorController {el: @el.find("#ip-selector"), onChange: => do @resetAndFetchModels}
+    @sorting = new App.Borrow.ModelsIndexSortingController {el: @el.find("#model-sorting"), onChange: => do @resetAndFetchModels}
+    @search = new App.Borrow.ModelsIndexSearchController {el: @el.find("#model-list-search"), onChange: => do @resetAndFetchModels}
+    @period = new App.Borrow.ModelsIndexPeriodController {el: @el.find("#period"), onChange: => do @periodChange}
     @pagination = new App.Borrow.ModelsIndexPaginationController {el: @list, onChange: (page)=> @fetchModels(page)}
     @tooltips = new App.Borrow.ModelsIndexTooltipController {el: @list}
     do @delegateEvents
 
   delegateEvents: =>
+    super
     App.Availability.on "refresh", @render
     App.Model.on "refresh", (models)=>
       @models = @models.concat(models)
       if @period.getPeriod()? then do @fetchAvailability else do @render
     App.Model.on "ajaxSuccess", (e,status,xhr)=> @pagination.setData JSON.parse(xhr.getResponseHeader("X-Pagination"))
 
+  periodChange: =>
+    do @reset.validate
+    if @period.getPeriod()?
+      do @loading
+      do @fetchAvailability
+    else
+      App.Availability.records = {}
+      do @render
+
   resetAndFetchModels: =>
+    do @reset.validate
     do @loading
     App.Model.records = {}
     @models = []
     @pagination.page = 1
     @tooltips.tooltips = {}
     do @fetchModels
+
+  isResetable: =>
+    @search.is_resetable() or @sorting.is_resetable() or @period.is_resetable() or @ipSelector.is_resetable()
+
+  resetAllFilter: =>
+    @ipSelector.reset()
+    @sorting.reset()
+    @search.reset()
+    @period.reset()
+    @resetAndFetchModels()
 
   fetchModels: (page)=>
     $.extend @params, {inventory_pool_ids: @ipSelector.activeInventoryPoolIds()}

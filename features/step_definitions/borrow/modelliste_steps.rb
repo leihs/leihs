@@ -322,3 +322,52 @@ end
 Angenommen(/^man befindet sich auf der Modellliste mit diesem Modell$/) do
   visit borrow_models_path(category_id: @model.categories.first)
 end
+
+Angenommen(/^Filter sind ausgewählt$/) do
+  page.execute_script %Q($("#ip-selector .dropdown").addClass("show"))
+  page.execute_script %Q($("#model-sorting .dropdown").addClass("show"))
+
+  find("#model-list-search input").set "a"
+  find("input#start-date").set Date.today.strftime("%d.%m.%Y")
+  find("input#end-date").set (Date.today + 1).strftime("%d.%m.%Y")
+  find("#ip-selector input[type='checkbox']").set false
+  find("#model-sorting a:last").click
+end
+
+Angenommen(/^die Schaltfläche "(.*?)" ist aktivert$/) do |arg1|
+  find("#reset-all-filter").visible?
+end
+
+Wenn(/^man "(?:.+)" wählt$/) do
+  find("#reset-all-filter").click
+end
+
+Dann(/^sind alle Geräteparks in der Geräteparkauswahl wieder ausgewählt$/) do
+  all("#ip-selector input[type='checkbox']").each &:checked?
+end
+
+Dann(/^der Ausleihezeitraum ist leer$/) do
+  find("input#start-date").value.should be_empty
+  find("input#end-date").value.should be_empty
+end
+
+Dann(/^die Sortierung ist nach Modellnamen \(aufsteigend\)$/) do
+  find(".button", text: _("Model")).find(".icon-circle-arrow-up")
+end
+
+Dann(/^die Schaltfläche "(?:.+)" ist deaktiviert$/) do
+  find("#reset-all-filter").visible?
+end
+
+Dann(/^das Suchfeld ist leer$/) do
+  find("#model-list-search input").value.should be_empty
+end
+
+Dann(/^man sieht wieder die ungefilterte Liste der Modelle$/) do
+  all(".text-align-left").map(&:text).reject{|t| t.empty?}.should eq @current_user
+    .models
+    .from_category_and_all_its_descendants(@category.id)
+    .default_order
+    .paginate(page: 1, per_page: 20)
+    .map(&:name)
+end

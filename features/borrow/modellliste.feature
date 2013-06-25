@@ -139,6 +139,7 @@ Funktionalität: Modellliste
     Und die Auswahl klappt nocht nicht zu
     Und die Liste zeigt Modelle aller Geräteparks
 
+  @javascript
   Szenario: Alles zurücksetzen
     Angenommen man ist "Normin"
     Und man befindet sich auf der Modellliste
@@ -148,6 +149,8 @@ Funktionalität: Modellliste
     Dann sind alle Geräteparks in der Geräteparkauswahl wieder ausgewählt
     Und der Ausleihezeitraum ist leer
     Und die Sortierung ist nach Modellnamen (aufsteigend)
+    Und das Suchfeld ist leer
+    Und man sieht wieder die ungefilterte Liste der Modelle
     Und die Schaltfläche "Alles zurücksetzen" ist deaktiviert
 
   @javascript

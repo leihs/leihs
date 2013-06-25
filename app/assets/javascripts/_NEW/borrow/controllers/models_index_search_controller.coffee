@@ -15,3 +15,8 @@ class window.App.Borrow.ModelsIndexSearchController extends Spine.Controller
       {searchTerm: @inputField.val()}
     else
       {searchTerm: null}
+
+  reset: =>
+    @inputField.val ""
+
+  is_resetable: => @getInputText().searchTerm? and @getInputText().searchTerm.length > 0
