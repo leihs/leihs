@@ -91,7 +91,7 @@ Wenn(/^man alle Geräteparks bis auf einen abwählt$/) do
 end
 
 Dann(/^wird die Modellliste nach dem übrig gebliebenen Gerätepark gefiltert$/) do
-  all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}.should eq @current_user.models
+  all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}[0..20].should eq @current_user.models
                                                   .from_category_and_all_its_descendants(@category.id)
                                                   .all_from_inventory_pools(@current_user.inventory_pool_ids - @ips_for_unselect.map(&:id))
                                                   .default_order
@@ -285,8 +285,7 @@ Angenommen(/^man sieht eine Modellliste die gescroll werden muss$/) do
 end
 
 Wenn(/^bis ans ende der bereits geladenen Modelle fährt$/) do
-  wait_until {not all(".page").empty?}
-  find(".page").click
+  page.execute_script %Q{ $($('.page')[1]).trigger('inview'); }
 end
 
 Dann(/^wird der nächste Block an Modellen geladen und angezeigt$/) do
@@ -294,11 +293,9 @@ Dann(/^wird der nächste Block an Modellen geladen und angezeigt$/) do
 end
 
 Wenn(/^man bis zum Ende der Liste fährt$/) do
-  unless wait_until { all(".page").empty? }
-    wait_until {not all(".page").empty?}
-    page.execute_script %Q{$('.page').trigger("inview"))}
-    wait_until {all(".page").empty?}
-  end
+  wait_until {not all(".page").empty?}
+  page.execute_script %Q{ $('.page').trigger('inview'); }
+  wait_until {all(".page").empty?}
 end
 
 Dann(/^wurden alle Modelle der ausgewählten Kategorie geladen und angezeigt$/) do
