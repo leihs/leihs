@@ -11,7 +11,7 @@ end
 
 Dann(/^die Modellliste zeigt Modelle aller Geräteparks an$/) do
   @current_user.models.from_category_and_all_its_descendants(@category.id).default_order.paginate(page: 1, per_page: 20).map(&:name)
-    .should eq all(".text-align-left").map(&:text)
+    .should eq all("#model-list .text-align-left").map(&:text)
 end
 
 Dann(/^im Filter steht "(.*?)"$/) do |button_label_de|
@@ -39,7 +39,7 @@ end
 
 Dann(/^die Modellliste zeigt nur Modelle dieses Geräteparks an$/) do
   wait_until {all(".loading").empty?}
-  all(".text-align-left").map(&:text).reject{|t| t.empty?}[0..20].should eq @current_user.models
+  all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}.should eq @current_user.models
                                                   .from_category_and_all_its_descendants(@category.id)
                                                   .by_inventory_pool(@ip.id)
                                                   .default_order.paginate(page: 1, per_page: 20)
@@ -150,7 +150,7 @@ Dann(/^ist die Liste nach "(.*?)" "(.*?)" sortiert$/) do |sort, order|
               when "(alphabetisch absteigend)"
                 "desc"
               end
-  all(".text-align-left").map(&:text).reject{|t| t.empty?}.should eq @current_user.models
+  all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}.should eq @current_user.models
                                                   .from_category_and_all_its_descendants(@category.id)
                                                   .order_by_attribute_and_direction(attribute, direction)
                                                   .paginate(page: 1, per_page: 20)
@@ -296,9 +296,7 @@ end
 Wenn(/^man bis zum Ende der Liste fährt$/) do
   unless wait_until { all(".page").empty? }
     wait_until {not all(".page").empty?}
-    page.execute_script %Q{$(window).scrollTop($(document).height())}
-    all(".page").last.click
-    page.execute_script %Q{$(window).trigger('scroll')}
+    page.execute_script %Q{$('.page').trigger("inview"))}
     wait_until {all(".page").empty?}
   end
 end
