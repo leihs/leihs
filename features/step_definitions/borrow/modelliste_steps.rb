@@ -23,10 +23,11 @@ Angenommen(/^man befindet sich auf der Modellliste$/) do
 end
 
 Wenn(/^man ein bestimmten Gerätepark in der Geräteparkauswahl auswählt$/) do
-  page.execute_script %Q($("#ip-selector .dropdown").addClass("show"))
+  page.execute_script %Q($("#ip-selector").trigger("mouseenter"))
+  wait_until{find("#ip-selector .dropdown .dropdown-item", :visible => true)}
   @ip = @current_user.inventory_pools.first
+  wait_until{find("#ip-selector .dropdown .dropdown-item", text: @ip.name)}
   find("#ip-selector .dropdown .dropdown-item", text: @ip.name).click
-  page.execute_script %Q($("#ip-selector .dropdown").removeClass("show"))
 end
 
 Dann(/^sind alle anderen Geräteparks abgewählt$/) do
@@ -74,9 +75,7 @@ Dann(/^wird die Modellliste nach den übrig gebliebenen Geräteparks gefiltert$/
 end
 
 Dann(/^die Auswahl klappt noch nicht zu$/) do
-  page.execute_script %Q($("#ip-selector .dropdown").addClass("show"))
   find("#ip-selector .dropdown").should be_visible
-  page.execute_script %Q($("#ip-selector .dropdown").removeClass("show"))
 end
 
 Wenn(/^man alle Geräteparks bis auf einen abwählt$/) do
@@ -111,7 +110,7 @@ Dann(/^kann man nicht alle Geräteparks in der Geräteparkauswahl abwählen$/) d
 end
 
 Dann(/^ist die Geräteparkauswahl alphabetisch sortiert$/) do
-  all("#ip-selector .dropdown-item").map(&:text).should eq @current_user.inventory_pools.order("inventory_pools.name").map(&:name)
+  all("#ip-selector .dropdown-item[data-id]").map(&:text).should eq @current_user.inventory_pools.order("inventory_pools.name").map(&:name)
 end
 
 Dann(/^im Filter steht die Zahl der ausgewählten Geräteparks$/) do
@@ -294,6 +293,7 @@ end
 
 Wenn(/^man bis zum Ende der Liste fährt$/) do
   wait_until {not all(".page").empty?}
+  sleep(1)
   page.execute_script %Q{ $('.page').trigger('inview'); }
   wait_until {all(".page").empty?}
 end
@@ -321,6 +321,28 @@ end
 
 Angenommen(/^man befindet sich auf der Modellliste mit diesem Modell$/) do
   visit borrow_models_path(category_id: @model.categories.first)
+end
+
+Wenn(/^man wählt alle Geräteparks bis auf einen ab$/) do
+  step 'man ein bestimmten Gerätepark in der Geräteparkauswahl auswählt'
+end
+
+Wenn(/^man wählt "Alle Geräteparks"$/) do
+  find("#ip-selector .dropdown-item", :text => _("All inventory pools")).click
+end
+
+Dann(/^sind alle Geräteparks wieder ausgewählt$/) do
+  all("#ip-selector .dropdown-item input[type='checkbox']").each do |checkbox|
+    checkbox.checked?.should be_true
+  end
+end
+
+Dann(/^die Liste zeigt Modelle aller Geräteparks$/) do
+  step 'man bis zum Ende der Liste fährt'
+  models = @current_user.models.from_category_and_all_its_descendants(@category.id)
+    .all_from_inventory_pools(all("#ip-selector .dropdown-item[data-id]").map{|ip| ip["data-id"]})
+    .order_by_attribute_and_direction "model", "name"
+  all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}.should eq models.map(&:name)
 end
 
 Angenommen(/^Filter sind ausgewählt$/) do

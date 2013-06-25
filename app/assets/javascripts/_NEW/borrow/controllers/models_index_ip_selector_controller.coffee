@@ -9,12 +9,12 @@ class window.App.Borrow.ModelsIndexIpSelectorController extends Spine.Controller
 
   selectInventoryPool: (e)=>
     target = $(e.target)
-    if target.hasClass "dropdown-item"
+    if target.data("all")?
+      @el.find("input[type='checkbox']").attr("checked", true)
+      do @changeInventoryPools
+    else if target.hasClass "dropdown-item"
       @el.find("input[type='checkbox']").attr("checked", false)
       target.find("input[type='checkbox']").attr("checked", true).change()
-      dropdown = target.closest(".dropdown")
-      dropdown.addClass("hidden")
-      _.delay (=> dropdown.removeClass("hidden")), 200
 
   changeInventoryPools: (e)=>
     unless @el.find("input[type='checkbox']:checked").length

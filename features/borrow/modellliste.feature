@@ -130,13 +130,14 @@ Funktionalität: Modellliste
     Wenn man sich auf der Modellliste befindet
     Dann ist die Geräteparkauswahl alphabetisch sortiert
 
+  @javascript
   Szenario: Geräteparkauswahl "alle auswählen"
     Angenommen man ist "Normin"
     Wenn man sich auf der Modellliste befindet
     Und man wählt alle Geräteparks bis auf einen ab
-    Und man wählt "alle auswählen"
+    Und man wählt "Alle Geräteparks"
     Dann sind alle Geräteparks wieder ausgewählt
-    Und die Auswahl klappt nocht nicht zu
+    Und die Auswahl klappt noch nicht zu
     Und die Liste zeigt Modelle aller Geräteparks
 
   @javascript

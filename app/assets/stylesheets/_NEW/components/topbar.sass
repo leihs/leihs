@@ -50,7 +50,7 @@ a.topbar-logo, a.topbar-logo:hover
   padding: 0 16px
   @include text-shadow (0 0 1px rgba(255,255,255,0.4))
 
-.topbar-item.active, .topbar-item:hover 
+.topbar-item.active, .topbar-item:hover
   background: none
   @include box-shadow(none)
 
@@ -59,6 +59,10 @@ a.topbar-logo, a.topbar-logo:hover
 
   .arrow
     @include change-all-arrow-colors($darkergrey)
+
+.topbar-item:active
+  background: rgba(190,190,190,0.2)
+  @include box-shadow(inset 1px 0 4px rgba(0,0,0,0.3))
 
 .topbar.dark
   background: $grey
