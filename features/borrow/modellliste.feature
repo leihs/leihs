@@ -6,9 +6,6 @@ Funktionalität: Modellliste
   möchte ich als Kunde
   die Möglichkeit haben Modelle zu finden
 
-  Grundlage:
-    Angenommen persona "Normin" existing
-
   Szenario: Modelllistenübersicht
     Angenommen man ist "Normin"
     Wenn man sich auf der Modellliste befindet
@@ -57,23 +54,23 @@ Funktionalität: Modellliste
   @javascript
   Szenario: Ausleihezeitraum Startdatum wählen
     Angenommen man ist "Petra"
-    Wenn man sich auf der Modellliste befindet
+    Wenn man sich auf der Modellliste befindet die nicht verfügbare Modelle beinhaltet
     Und man ein Startdatum auswählt
     Dann wird automatisch das Enddatum auf den folgenden Tag gesetzt
     Und die Liste wird gefiltert nach Modellen die in diesem Zeitraum verfügbar sind
 
   @javascript
   Szenario: Ausleihezeitraum Enddatum wählen
-    Angenommen man ist "Normin"
-    Wenn man sich auf der Modellliste befindet
+    Angenommen man ist "Petra"
+    Wenn man sich auf der Modellliste befindet die nicht verfügbare Modelle beinhaltet
     Und man ein Enddatum auswählt
     Dann wird automatisch das Startdatum auf den vorhergehenden Tag gesetzt
     Und die Liste wird gefiltert nach Modellen die in diesem Zeitraum verfügbar sind
 
   @javascript
   Szenario: Ausleihzeitraum löschen
-    Angenommen man ist "Normin"
-    Und man sich auf der Modellliste befindet
+    Angenommen man ist "Petra"
+    Wenn man sich auf der Modellliste befindet die nicht verfügbare Modelle beinhaltet
     Und das Startdatum und Enddatum des Ausleihzeitraums sind ausgewählt
     Wenn man das Startdatum und Enddatum leert
     Dann wird die Liste nichtmehr nach Ausleihzeitraum gefiltert

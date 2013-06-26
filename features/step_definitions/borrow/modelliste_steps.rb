@@ -5,6 +5,21 @@ Wenn(/^man sich auf der Modellliste befindet$/) do
   visit borrow_models_path(category_id: @category.id)
 end
 
+Wenn(/^man sich auf der Modellliste befindet die nicht verfügbare Modelle beinhaltet$/) do
+  @start_date ||= Date.today
+  @end_date ||= Date.today+1.day
+  model = @current_user.models.detect do |m|
+    quantity = @current_user.inventory_pools.sum do |ip|
+      m.availability_in(ip).maximum_available_in_period_summed_for_groups(@start_date, @end_date, @current_user.groups.map(&:id))
+    end
+    quantity <= 0
+  end
+  @category = model.categories.first
+  visit borrow_models_path(category_id: @category.id)
+  page.execute_script %Q{$('#model-list-search input').focus()}
+  find("#model-list-search input").set model.name  
+end
+
 Dann(/^sind alle Geräteparks ausgewählt$/) do
   all("#ip-selector .dropdown-item input").all? &:checked?
 end
@@ -31,11 +46,10 @@ Wenn(/^man ein bestimmten Gerätepark in der Geräteparkauswahl auswählt$/) do
 end
 
 Dann(/^sind alle anderen Geräteparks abgewählt$/) do
-  page.execute_script %Q($("#ip-selector .dropdown").addClass("show"))
+  page.execute_script %Q($("#ip-selector").trigger("mouseenter"))
   (@current_user.inventory_pools - [@ip]).each do |ip|
     find("#ip-selector .dropdown-item", text: ip.name).find("input").should_not be_checked
   end
-  page.execute_script %Q($("#ip-selector .dropdown").removeClass("show"))
 end
 
 Dann(/^die Modellliste zeigt nur Modelle dieses Geräteparks an$/) do
@@ -48,7 +62,6 @@ Dann(/^die Modellliste zeigt nur Modelle dieses Geräteparks an$/) do
 end
 
 Dann(/^die Auswahl klappt zu$/) do
-  page.execute_script %Q($("#ip-selector .dropdown").removeClass("show"))
   find("#ip-selector .dropdown").should_not be_visible
 end
 
@@ -57,12 +70,11 @@ Dann(/^im Filter steht der Name des ausgewählten Geräteparks$/) do
 end
 
 Wenn(/^man einige Geräteparks abwählt$/) do
-  page.execute_script %Q($("#ip-selector .dropdown").addClass("show"))
+  page.execute_script %Q($("#ip-selector").trigger("mouseenter"))
   @ip = @current_user.inventory_pools.first
   @dropdown_element = find("#ip-selector .dropdown")
   @dropdown_element.find(".dropdown-item", text: @ip.name).find("input").click
   wait_until { page.evaluate_script("$.active") == 0}
-  page.execute_script %Q($("#ip-selector .dropdown").removeClass("show"))
 end
 
 Dann(/^wird die Modellliste nach den übrig gebliebenen Geräteparks gefiltert$/) do
@@ -79,14 +91,13 @@ Dann(/^die Auswahl klappt noch nicht zu$/) do
 end
 
 Wenn(/^man alle Geräteparks bis auf einen abwählt$/) do
-  page.execute_script %Q($("#ip-selector .dropdown").addClass("show"))
+  page.execute_script %Q($("#ip-selector").trigger("mouseenter"))
   @ip = @current_user.inventory_pools.first
   @ips_for_unselect = @current_user.inventory_pools.where("inventory_pools.id != ?", @ip.id)
   @ips_for_unselect.each do |ip|
     find("#ip-selector .dropdown-item", text: ip.name).find("input").click
   end
   wait_until { page.evaluate_script("$.active") == 0}
-  page.execute_script %Q($("#ip-selector .dropdown").removeClass("show"))
 end
 
 Dann(/^wird die Modellliste nach dem übrig gebliebenen Gerätepark gefiltert$/) do
@@ -103,10 +114,9 @@ Dann(/^im Filter steht der Name des übriggebliebenen Geräteparks$/) do
 end
 
 Dann(/^kann man nicht alle Geräteparks in der Geräteparkauswahl abwählen$/) do
-  page.execute_script %Q($("#ip-selector .dropdown").addClass("show"))
+  page.execute_script %Q($("#ip-selector").trigger("mouseenter"))
   all("#ip-selector .dropdown-item input").each &:click
   find("#ip-selector .dropdown-item input", checked: true)
-  page.execute_script %Q($("#ip-selector .dropdown").removeClass("show"))
 end
 
 Dann(/^ist die Geräteparkauswahl alphabetisch sortiert$/) do
@@ -119,7 +129,7 @@ Dann(/^im Filter steht die Zahl der ausgewählten Geräteparks$/) do
 end
 
 Wenn(/^man die Liste nach "(.*?)" sortiert$/) do |sort_order|
-  page.execute_script %Q($("#model-sorting .dropdown").addClass('show'))
+  page.execute_script %Q($("#model-sorting").trigger("mouseenter"))
   text = case sort_order
     when "Modellname (alphabetisch aufsteigend)"
       "#{_("Model")} (#{_("ascending")})"
@@ -131,7 +141,6 @@ Wenn(/^man die Liste nach "(.*?)" sortiert$/) do |sort_order|
       "#{_("Manufacturer")} (#{_("descending")})"
   end
   find("#model-sorting a", :text => text).click
-  page.execute_script %Q($("#model-sorting .dropdown").removeClass("show"))
   step "ensure there are no active requests"
   wait_until {all("#model-list .line").count > 0}
 end
@@ -173,13 +182,13 @@ Dann(/^ist kein Ausleihzeitraum ausgewählt$/) do
 end
 
 Wenn(/^man ein Startdatum auswählt$/) do
-  @start_date = Date.today
+  @start_date ||= Date.today
   find("#start-date").set I18n.l @start_date
   find(".ui-datepicker-current-day").click
 end
 
 Dann(/^wird automatisch das Enddatum auf den folgenden Tag gesetzt$/) do
-  @end_date = Date.today+1.day
+  @end_date ||= Date.today+1.day
   find("#end-date").value.should == I18n.l(@end_date)
 end
 
@@ -192,11 +201,13 @@ Dann(/^die Liste wird gefiltert nach Modellen die in diesem Zeitraum verfügbar 
       model.availability_in(ip).maximum_available_in_period_summed_for_groups(@start_date, @end_date, @current_user.groups.map(&:id))
     end
     if quantity == 0
+      @unavailable_model_found = true
       model_el[:class]["grayed-out"].should be
     else
       model_el[:class]["grayed-out"].should_not be
     end
   end
+  raise "no unavailable model tested" if @unavailable_model_found.nil?
 end
 
 Wenn(/^man ein Enddatum auswählt$/) do
@@ -346,14 +357,19 @@ Dann(/^die Liste zeigt Modelle aller Geräteparks$/) do
 end
 
 Angenommen(/^Filter sind ausgewählt$/) do
-  page.execute_script %Q($("#ip-selector .dropdown").addClass("show"))
-  page.execute_script %Q($("#model-sorting .dropdown").addClass("show"))
-
   find("#model-list-search input").set "a"
   find("input#start-date").set Date.today.strftime("%d.%m.%Y")
   find("input#end-date").set (Date.today + 1).strftime("%d.%m.%Y")
-  find("#ip-selector input[type='checkbox']").set false
-  find("#model-sorting a:last").click
+  find("body").click
+  wait_until{all(".ui-datepicker-calendar", :visible => true).empty?}
+  page.execute_script %Q($("#ip-selector").trigger("mouseenter"))
+  wait_until{ !all("#ip-selector .dropdown-item", :visible => true).empty? }
+  all("#ip-selector .dropdown-item").last.click
+  page.execute_script %Q($("#ip-selector").trigger("mouseleave"))
+  page.execute_script %Q($("#model-sorting").trigger("mouseenter"))
+  wait_until{ !all("#model-sorting a", :visible => true).empty? }
+  all("#model-sorting a").last.click
+  page.execute_script %Q($("#model-sorting").trigger("mouseleave"))
 end
 
 Angenommen(/^die Schaltfläche "(.*?)" ist aktivert$/) do |arg1|
@@ -386,7 +402,7 @@ Dann(/^das Suchfeld ist leer$/) do
 end
 
 Dann(/^man sieht wieder die ungefilterte Liste der Modelle$/) do
-  all(".text-align-left").map(&:text).reject{|t| t.empty?}.should eq @current_user
+  all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}.should eq @current_user
     .models
     .from_category_and_all_its_descendants(@category.id)
     .default_order

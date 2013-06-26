@@ -5,6 +5,7 @@ class window.App.Borrow.ModelsIndexController extends Spine.Controller
 
   constructor: ->
     super
+    @models = _.map @models, (m)=> new App.Model m
     @searchTerm = @params.search_term
     @reset = new App.Borrow.ModelsIndexResetController {el: @el.find("#reset-all-filter"), reset: @resetAllFilter, isResetable: @isResetable}
     @ipSelector = new App.Borrow.ModelsIndexIpSelectorController {el: @el.find("#ip-selector"), onChange: => do @resetAndFetchModels}
@@ -22,6 +23,7 @@ class window.App.Borrow.ModelsIndexController extends Spine.Controller
 
   periodChange: =>
     do @reset.validate
+    @tooltips.tooltips = {}
     if @period.getPeriod()?
       do @loading
       do @fetchAvailability
@@ -58,7 +60,7 @@ class window.App.Borrow.ModelsIndexController extends Spine.Controller
     App.Model.ajaxFetch
       data: $.param params
     .done (models)=>
-      @models = @models.concat(models)
+      @models = @models.concat _.map models, (m)=> new App.Model m
       if @period.getPeriod()? then do @fetchAvailability else do @render
 
   fetchAvailability: =>
