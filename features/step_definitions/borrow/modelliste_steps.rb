@@ -115,8 +115,13 @@ end
 
 Dann(/^kann man nicht alle Geräteparks in der Geräteparkauswahl abwählen$/) do
   page.execute_script %Q($("#ip-selector").trigger("mouseenter"))
-  all("#ip-selector .dropdown-item input").each &:click
-  find("#ip-selector .dropdown-item input", checked: true)
+  inventory_pool_ids = all("#ip-selector .dropdown-item[data-id]").map{|item| item["data-id"]}
+  inventory_pool_ids.each do |ip_id|
+    wait_until{ find("#ip-selector .dropdown-item[data-id='#{ip_id}']") }
+    find("#ip-selector .dropdown-item[data-id='#{ip_id}']").click
+  end
+  wait_until{find("#ip-selector .dropdown-item input", checked: true)}
+  page.execute_script %Q($("#ip-selector").trigger("mouseleave"))
 end
 
 Dann(/^ist die Geräteparkauswahl alphabetisch sortiert$/) do
