@@ -1,0 +1,7 @@
+.row
+
+  - @model.attachments.each do |attachment|
+    %a.line.start-even.blue{:href => attachment.public_filename, :target => "_blank"}
+      .line-col
+        %i.icon-file-text.margin-right-s
+        = attachment.thumbnail_name_for

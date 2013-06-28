@@ -1,0 +1,9 @@
+#properties.padding-top-l
+
+  - @model.properties.each do |property|
+
+    .property.row.padding-bottom-m
+      .col1of3.text-align-right.padding-right-m
+        %strong.paragraph-s= property.key
+      .col2of3
+        %p.paragraph-s= property.value

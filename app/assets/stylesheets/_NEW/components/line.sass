@@ -6,10 +6,16 @@
   display: table
   width: 100%
 
+  &
+    @include link-colors($darkergrey, $darkergrey, $darkergrey, $darkergrey, $darkergrey)
+
   &:not([class*='height'])
     height: $space-xxl
 
-  &:nth-child(even)
+  &:not(.start-even):nth-child(even)
+    background: $almostwhite
+
+  &.start-even:nth-child(odd)
     background: $almostwhite
 
   &:hover
@@ -39,7 +45,6 @@
   height: $space-xxl
   line-height: $line-height-s
   vertical-align: middle
-  @include box-sizing(border-box)
 
   &:not([class*='padding'])
     padding: 0 0 0 $space-m
@@ -65,7 +70,6 @@
   top: 0
   width: 6px
   @include opacity(0.5)
-  @include box-sizing(border-box)
 
   &.red
     background: $red

@@ -5,11 +5,12 @@
 
     #models-index.row.content-wrapper.min-height-l.min-width-full.straight-top-left
 
-      .row
-        #explorative-search.col1of4.margin-top-xxs= render partial: "borrow/models/index/explorative_search"
-        %div{:class => @child_categories.blank? ? "col1of1" : "col3of4"}
-          %div{:class => @child_categories.blank? ? "" : "separated-left"}
-            = render partial: "borrow/models/index/list"
+      .row.min-height-l
+        .table
+          .table-row
+            = render partial: "borrow/models/index/explorative_search"
+            .table-cell{:class => @child_categories.blank? ? "col1of1" : "col3of4"}
+              .min-height-l= render partial: "borrow/models/index/list"
 
   .col1of5= render :partial => "borrow/order"
 

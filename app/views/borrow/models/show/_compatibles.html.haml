@@ -1,0 +1,19 @@
+.row.padding-vertical-m.margin-top-s
+  
+  %h3.headline-s.light.padding-bottom-m= _("Recommended Accessories")
+
+  - @model.compatibles.each_slice(4) do |models|
+
+    .row
+
+      - models.each do |model|
+
+        %a.dark-grey.col1of4.padding-inset-s.border-radius-s.focus-hover-thin.full-text-hover{:href => borrow_model_path(model)}
+          
+          .row.height-xs
+            .table
+              .table-row
+                .table-cell.text-align-center.vertical-align-middle
+                  %img.max-height-xs{:src => model_image_thumb_path(model)}
+          .height-xs.width-full.padding-top-s
+            %strong.row.paragraph-s.text-align-center.text-ellipsis.max-height-xxs= model.name

@@ -1,1 +1,4 @@
-= render :partial => "borrow/models/index/explorative_search/child_category", :collection => @child_categories, :as => :category
+- unless @child_categories.blank?
+  .table-cell.col1of4.separated-right
+    #explorative-search.margin-top-xxs
+      = render :partial => "borrow/models/index/explorative_search/child_category", :collection => @child_categories, :as => :category

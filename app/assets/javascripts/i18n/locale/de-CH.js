@@ -2823,6 +2823,14 @@ window.i18n.locale_data = {
       "Show all search results": [
          null,
          "Alle Suchresultate anzeigen"
+      ],
+      "Show all properties": [
+         null,
+         "Alle Eigenschaften anzeigen"
+      ],
+      "Show less properties": [
+         null,
+         "Weniger Eigenschaften anzeigen"
       ]
    }
 }

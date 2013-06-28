@@ -5,7 +5,6 @@ input + .addon
   position: absolute
   right: -2px
   top: 0
-  @include box-sizing(border-box)
   @include border-left-radius(0)
 
   &.transparent, &.transparent:hover, &.transparent:active
@@ -14,6 +13,7 @@ input + .addon
     @include box-shadow(none)
 
 input
+
   &.has-addon
     height: 100%
 

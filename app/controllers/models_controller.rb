@@ -52,7 +52,7 @@ class ModelsController < FrontendController
   end
 
   def image
-    redirect_to Model.find(params[:id]).image, :status => :moved_permanently
+    redirect_to Model.find(params[:id]).image(params[:offset]), :status => :moved_permanently
   end
 
   def image_thumb

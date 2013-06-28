@@ -22,7 +22,7 @@ gem 'database_cleaner', :group => [:test, :development]
 gem 'factory_girl', '~> 4.1' # factories also in production mode to seed our demo data on the demo server
 gem 'factory_girl_rails', '~> 4.1'
 gem 'faker'
-gem "font-awesome-sass-rails",  "~> 3.0.2.2",   :group => :assets
+gem "font-awesome-rails", "~> 3.2.1.1"
 gem 'geocoder', '~> 1.1'
 gem 'gettext_i18n_rails', '~> 0.8'
 gem 'guard-jasmine', '~> 1.11', :group => [:test, :development]

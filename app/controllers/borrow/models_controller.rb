@@ -36,7 +36,7 @@ class Borrow::ModelsController < Borrow::ApplicationController
   end
 
   def show
-    @model = Model.find(params[:id])
+    @model = current_user.models.find(params[:id])
     respond_to do |format|
       format.json
       format.html

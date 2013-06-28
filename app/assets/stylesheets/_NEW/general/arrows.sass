@@ -22,14 +22,19 @@
     border-bottom-width: 0px
 
 @mixin change-all-arrow-colors($color)
-  &.down
+  &.down, &.down.medium
     border-color: $color transparent transparent transparent 
-  &.up
+  &.up, &.up.medium
     border-color: transparent transparent $color transparent 
-  &.left
+  &.left, &.left.medium
     border-color: transparent $color transparent transparent 
-  &.right
+  &.right, &.right.medium
     border-color: transparent transparent transparent $color
+
+// COLORS
+
+.arrow.white
+  @include change-all-arrow-colors(white)
 
 // DOWN
 

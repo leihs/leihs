@@ -1,1 +1,41 @@
-= "Show Model"
+- content_for :title, @model.name
+
+.wrapper.margin-top-m
+
+  .col4of5
+    = render :partial => 'borrow/tabs', :locals => {:current_page => "daily"}
+
+    #model-show.content-wrapper.straight-top-left.padding-inset-l
+
+      .row
+        .col2of3
+          %h1.headline-xl= @model.name  
+          %h2.headline-m.light= @model.manufacturer
+        .col1of3.text-align-right
+          %span
+            %button.button.white
+              Zur Bestellung hinzufügen
+              %span.separated-left.padding-left-xs.margin-left-xxs
+                %i.icon-plus.margin-left-xxs
+
+      = render "borrow/models/show/image" if @model.images.length > 0
+
+      - unless @model.description.blank?
+        = render "borrow/models/show/description"
+
+      - if !@model.attachments.blank? or !@model.properties.blank? or !@model.compatibles.blank?
+        .separated-bottom
+
+      = render "borrow/models/show/attachments" unless @model.attachments.blank?
+
+      = render "borrow/models/show/properties" unless @model.properties.blank?
+
+      = render "borrow/models/show/compatibles" unless @model.compatibles.blank?
+
+  .col1of5= render :partial => "borrow/order"
+
+:coffeescript
+
+  jQuery ->
+    new App.Borrow.ModelsShowController
+      el: $("#model-show")

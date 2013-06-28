@@ -2,8 +2,13 @@ class Borrow::SearchController < Borrow::ApplicationController
   
   def search
     search_term = CGI::escape params[:search_term]
-    @bread_crumbs.add "#{params[:search_term]}", borrow_search_results_path(:search_term => search_term), :search => true
-    redirect_to borrow_search_results_path({:search_term => search_term}.merge(@bread_crumbs.to_params))
+    respond_to do |format|
+      format.json 
+      format.html do 
+        @bread_crumbs.add "#{params[:search_term]}", borrow_search_results_path(:search_term => search_term), :search => true
+        redirect_to borrow_search_results_path({:search_term => search_term}.merge(@bread_crumbs.to_params))
+      end
+    end
   end
 
   def results

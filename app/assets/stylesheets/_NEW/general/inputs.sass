@@ -8,13 +8,12 @@ input[type=text], input[type=password], textarea, select
   position: relative
   max-width: 100%
   @include border-radius(4px)
-  @include box-sizing(border-box)
   @include box-shadow (inset 0 2px 2px rgba(0,0,0,0.1))
 
   &.round-borders
     @include border-radius(22px)
     
-    &:not([class*='padding']):not([class*='has-addon'])    
+    &:not([class*='padding'])
       padding: 6px 8px  
   
   &:not([type=submit]):focus 
@@ -23,7 +22,7 @@ input[type=text], input[type=password], textarea, select
   &:focus+label, &:hover+label 
     color: $darkergrey !important
 
-  &:not([class*='padding']):not([class*='has-addon']):not(.small)
+  &:not([class*='padding']):not(.small)
     padding: 6px
 
 input::-webkit-input-placeholder  

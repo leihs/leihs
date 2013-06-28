@@ -11,16 +11,13 @@
   @include border-radius(6px)
   @include user-select(none)
   @include box-shadow(0 1px 0 rgba(255,255,255,0.2))
-  @include box-sizing(border-box)
-
-  .arrow, [class^='icon']
-    vertical-align: middle    
 
   &:first-letter
     text-transform: uppercase
 
   &:not([class*='padding'])
     padding: 0 10px
+    
   &:not([class*='text-align'])
     text-align: center
 
@@ -54,16 +51,16 @@
   .arrow
     @include change-all-arrow-colors(lighten($color, 5%))
 
-.button.green 
+.button.green, .button-green
   @include button(#184815, rgb(141,206,88), rgb(175,236,129), rgb(148,209,98), rgb(131,201,74))
 
-.button.white
+.button.white, .button-white
   @include button($darkergrey, rgb(230,230,230), white, rgb(226,226,226), rgb(232,232,232))
 
-.button.red
+.button.red, .button-red
   @include button(#f60000, rgb(230,230,230), white, rgb(226,226,226), rgb(232,232,232))
 
-.button.inset
+.button.inset, .button-inset
   @include button($darkergrey, rgba(230,230,230,0.2), rgba(255,255,255,0.2), rgb(226,226,226), rgb(232,232,232))
   @include box-shadow(1px 1px 0 white)
 

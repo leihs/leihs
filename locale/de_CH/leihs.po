@@ -2203,3 +2203,11 @@ msgstr "Geräteparks"
 
 msgid "Show all search results"
 msgstr "Alle Suchresultate anzeigen"
+
+
+msgid "Show all properties"
+msgstr "Alle Eigenschaften anzeigen"
+
+
+msgid "Show less properties"
+msgstr "Weniger Eigenschaften anzeigen"

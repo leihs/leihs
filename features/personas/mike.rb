@@ -254,10 +254,14 @@ module Persona
                                                       quantity: 5)
       @helicopter_model2.attachments << FactoryGirl.create(:attachment)
       @helicopter_model2.images << FactoryGirl.create(:image)
+      @helicopter_model2.images << FactoryGirl.create(:image, :another)
       @helicopter_model2.model_links.create :model_group => @helicopter_category
       @helicopter_model2.properties << Property.create(:key => "Rotorduchmesser", :value => "120")
       @helicopter_model2.properties << Property.create(:key => "Akkus", :value => "2")
       @helicopter_model2.properties << Property.create(:key => "Farbe", :value => "Rot")
+      @helicopter_model2.properties << Property.create(:key => "max. Speed", :value => "80 kmh")
+      @helicopter_model2.properties << Property.create(:key => "Gyro", :value => "Ja")
+      @helicopter_model2.properties << Property.create(:key => "Achsen", :value => "3-Achsen")
       @helicopter_model2.compatibles << @windows_laptop_model
 
       @helicopter_model3 = FactoryGirl.create(:model, :name => "Walkera v120 3G",

@@ -1,0 +1,16 @@
+#images.padding-bottom-m
+
+  .row.margin-top-m.height-xl
+    .table
+      .table-row
+        .table-cell.text-align-center.vertical-align-middle
+          %img#main-image.max-height-xl.max-width-full{:src => model_image_path(@model), :"data-image-url" => model_image_path(@model)}
+
+  - if @model.images.length > 1
+    .row.text-align-center.margin-top-m
+      - @model.images[0..@model.images.length].each_with_index do |image, i|
+        .height-s.border-radius-m.min-width-xs.padding-inset-s.focus-hover-thin{:"data-image-url" => model_image_path(@model, :offset => i)}
+          .table
+            .table-row
+              .table-cell.text-align-center.vertical-align-middle
+                %img.max-height-xs.max-width-s{:src => model_image_thumb_path(@model, :offset => i)}
