@@ -746,16 +746,23 @@ Dann(/^wird der Delete Button für diese Benutzer nicht angezeigt$/) do
   end
 end
 
+Angenommen(/^man editiert einen Benutzer der Zugriff auf ein Inventarpool hat$/) do
+  access_right = AccessRight.find{|ar| ar.role_name == "customer"}
+  @user = access_right.user
+  @current_inventory_pool = access_right.inventory_pool
+  visit edit_backend_inventory_pool_user_path(@current_inventory_pool, @user)
+end
+
 Angenommen(/^man editiert einen Benutzer der Zugriff auf das aktuelle Inventarpool hat$/) do
   @user = @current_inventory_pool.access_rights.find{|ar| ar.role_name == "customer"}.user
   visit edit_backend_inventory_pool_user_path(@current_inventory_pool, @user)
 end
 
 Wenn(/^man den Zugriff entfernt$/) do
-  binding.pry
-  find(".field", text: "Access as").find("select").select _("No access")
+  find(".field", text: _("Access as")).find("select").select _("No access")
 end
 
 Dann(/^hat der Benutzer keinen Zugriff auf das Inventarpool$/) do
-  @user.access_right_for(@current_inventory_pool).should be_nil
+  wait_until { find_link _("New User") }
+  @user.reload.access_right_for(@current_inventory_pool).should be_nil
 end

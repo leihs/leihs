@@ -269,6 +269,22 @@ Funktionalität: Benutzer verwalten
     Und man speichert den Benutzer
     Dann hat der Benutzer keinen Zugriff auf das Inventarpool
 
+  @javascript
+  Szenario: Zugriff entfernen als Inventar-Verwalter
+    Angenommen man ist "Mike"
+    Und man editiert einen Benutzer der Zugriff auf das aktuelle Inventarpool hat
+    Wenn man den Zugriff entfernt
+    Und man speichert den Benutzer
+    Dann hat der Benutzer keinen Zugriff auf das Inventarpool
+
+  @javascript
+  Szenario: Zugriff entfernen als Administrator
+    Angenommen man ist "Gino"
+    Und man editiert einen Benutzer der Zugriff auf ein Inventarpool hat
+    Wenn man den Zugriff entfernt
+    Und man speichert den Benutzer
+    Dann hat der Benutzer keinen Zugriff auf das Inventarpool
+
   Szenario: Benutzer als Administrator löschen
     Angenommen man ist "Gino"
     Und man befindet sich auf der Benutzerliste ausserhalb der Inventarpools
