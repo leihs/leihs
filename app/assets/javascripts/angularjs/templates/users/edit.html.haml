@@ -83,12 +83,12 @@
             .input
               %input{:type => "text", "ng-model" => "user.badge_id"}
         .field.text
-          %h3.key {{_jed("Role")}}:
+          %h3.key {{_jed("Access as")}}:
           .value
             %select{"ng-model" => "user.access_right.role_name", "ng-options" => "role.name as role.text for role in possible_roles"}
 
         .field.text
-          %h3.key {{_jed("Suspended Until")}}:
+          %h3.key {{_jed("Suspended until")}}:
           .value
             .input
               %input{:type => "text", "ng-model" => "user.access_right.suspended_until", "ui-date" => ""}

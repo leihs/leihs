@@ -174,5 +174,5 @@ class InventoryPool < ActiveRecord::Base
   def create_workday
     self.workday ||= Workday.new
   end 
-  
+
 end

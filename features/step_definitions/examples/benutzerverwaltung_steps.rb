@@ -532,3 +532,230 @@ Dann(/^ist die Gruppenzugehörigkeit gespeichert$/) do
   @groups_removed.each {|group| @customer.reload.groups.include?(group).should be_false}
   @groups_added.each {|group| @customer.reload.groups.include?(group).should be_true}
 end
+
+Wenn(/^man in der Benutzeransicht ist$/) do
+  visit backend_inventory_pool_users_path(@current_inventory_pool)
+end
+
+Wenn(/^man einen Benutzer hinzufügt$/) do
+  link = wait_until { find "a", text: _("New User")}
+  link.click
+end
+
+Wenn(/^die folgenden Informationen eingibt$/) do |table|
+  table.raw.flatten.each do |field_name|
+    find(".field", text: field_name).find("input,textarea").set (field_name == "E-Mail" ? "test@test.ch" : "test")
+  end
+end
+
+Wenn(/^man gibt eine Badge\-Id ein$/) do
+  find(".field", text: _("Badge ID")).find("input,textarea").set 123456
+end
+
+Wenn(/^eine der folgenden Rollen auswählt$/) do |table|
+  @role_hash = table.hashes[rand table.hashes.length]
+  page.select @role_hash[:tab], from: "access_right_role_name"
+end
+
+Wenn(/^man wählt ein Sperrdatum und ein Sperrgrund$/) do
+  find(".field", text: _("Suspended until")).find("input").set (Date.today + 1).strftime("%d.%m.%Y")
+  find(".ui-datepicker-current-day").click
+  suspended_reason = wait_until { find(".field", text: _("Suspended reason")).find("textarea") }
+  suspended_reason.set "test"
+end
+
+Wenn(/^man teilt mehrere Gruppen zu$/) do
+  @current_inventory_pool.groups.each do |group|
+    find(".field", :text => _("Groups")).find(".autocomplete").click
+    find(".ui-autocomplete .ui-menu-item a", :text => group.name).click
+  end
+end
+
+Wenn(/^man speichert$/) do
+  find(".button", :text => _("Create %s") % _("User")).click
+end
+
+Dann(/^ist der Benutzer mit all den Informationen gespeichert$/) do
+  wait_until { find_link _("New User") }
+  user = User.find_by_lastname "test"
+  user.should_not be_nil
+  user.access_right_for(@current_inventory_pool).role_name.should eq @role_hash[:role]
+  user.groups.should == @current_inventory_pool.groups
+end
+
+Wenn(/^alle Pflichtfelder sind sichtbar und abgefüllt$/) do
+  find(".field", text: _("Last name")).find("input,textarea").set "test"
+  find(".field", text: _("First name")).find("input,textarea").set "test"
+  find(".field", text: _("E-Mail")).find("input,textarea").set "test@test.ch"
+end
+
+Wenn(/^man ein Nachname nicht eingegeben hat$/) do
+  find(".field", text: _("Last name")).find("input,textarea").set ""
+end
+
+Wenn(/^man ein Vorname nicht eingegeben hat$/) do
+  find(".field", text: _("First name")).find("input,textarea").set ""
+end
+
+Wenn(/^man ein E\-Mail nicht eingegeben hat$/) do
+  find(".field", text: _("E-Mail")).find("input,textarea").set ""
+end
+
+Wenn(/^man ein Sperrgrund nicht eingegeben hat$/) do
+  find(".field", text: _("Suspended reason")).find("input,textarea").set ""
+end
+
+Angenommen(/^man befindet sich auf der Benutzerliste ausserhalb der Inventarpools$/) do
+  visit backend_users_path
+end
+
+Wenn(/^man von hier auf die Benutzererstellungsseite geht$/) do
+  click_link _("New User")
+end
+
+Wenn(/^den Nachnamen eingibt$/) do
+  find(".field", text: _("Last name")).find("input").set "admin"
+end
+
+Wenn(/^den Vornahmen eingibt$/) do
+  find(".field", text: _("First name")).find("input").set "test"
+end
+
+Wenn(/^die Email\-Addresse eingibt$/) do
+  find(".field", text: _("E-Mail")).find("input").set "test@test.ch"
+end
+
+Dann(/^wird man auf die Benutzerliste ausserhalb der Inventarpools umgeleitet$/) do
+  current_path.should == backend_users_path
+end
+
+Dann(/^der neue Benutzer wurde erstellt$/) do
+  @user = User.find_by_firstname_and_lastname "test", "admin"
+end
+
+Dann(/^er hat keine Zugriffe auf Inventarpools und ist kein Administrator$/) do
+  @user.access_rights.should be_empty
+end
+
+Dann(/^man sieht eine Bestätigungsmeldung$/) do
+  wait_until { find ".pagination_container" }
+  page.should have_selector ".success"
+end
+
+Angenommen(/^man befindet sich auf der Editierseite eines Benutzers, der kein Administrator ist$/) do
+  @user = User.find {|u| not u.has_role? "admin"}
+  visit edit_backend_user_path(@user)
+end
+
+Wenn(/^man diesen Benutzer die Rolle Administrator zuweist$/) do
+  select _("Yes"), from: "user_admin"
+end
+
+Dann(/^hat dieser Benutzer die Rolle Administrator$/) do
+  @user.reload.has_role?("admin").should be_true
+end
+
+Wenn(/^man speichert den Benutzer$/) do
+  find(".button", text: _("Save %s") % _("User")).click
+end
+
+Angenommen(/^man befindet sich auf der Editierseite eines Benutzers, der ein Administrator ist$/) do
+  @user = User.find {|u| u.has_role? "admin"}
+  visit edit_backend_user_path(@user)
+end
+
+Wenn(/^man diesem Benutzer die Rolle Administrator wegnimmt$/) do
+  select _("No"), from: "user_admin"
+end
+
+Dann(/^hat dieser Benutzer die Rolle Administrator nicht mehr$/) do
+  @user.reload.has_role?("admin").should be_false
+end
+
+Wenn(/^man versucht auf die Administrator Benutzererstellenansicht zu gehen$/) do
+  @path = edit_backend_user_path(User.first)
+  visit @path
+end
+
+Dann(/^gelangt man auf diese Seite nicht$/) do
+  current_path.should_not == @path
+end
+
+Wenn(/^man versucht auf die Administrator Benutzereditieransicht zu gehen$/) do
+  @path = new_backend_user_path
+  visit @path
+end
+
+Wenn(/^man hat nur die folgenden Rollen zur Auswahl$/) do |table|
+  find(".field", text: _("Access as")).all("option").length.should == table.raw.length
+  table.raw.flatten.each do |role|
+    find(".field", text: _("Access as")).find("option", text: _(role))
+  end
+end
+
+Angenommen(/^man editiert einen Benutzer der noch kein Kunde ist$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Wenn(/^man den Zugriff auf "(.*?)" ändert$/) do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+Dann(/^hat der Benutzer als Kunde Zugriff auf Modelle des Inventarpools$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Angenommen(/^man sucht sich einen Benutzer ohne Zugriffsrechte, Bestellungen und Verträge aus$/) do
+  @user = User.find {|u| u.access_rights.empty? and u.orders.empty? and u.contracts.empty?}
+end
+
+Wenn(/^ich diesen Benutzer aus der Liste lösche$/) do
+  #find_field('query').set @model.name
+  #wait_until { all("li.modelname").first.text == @model.name }
+  wait_until { find(".line.user") }
+  page.execute_script("$('.trigger .arrow').trigger('mouseover');")
+  wait_until {find(".line.user", text: @user.name).find(".button", text: _("Delete %s") % _("User"))}.click
+end
+
+Dann(/^wurde der Benutzer aus der Liste gelöscht$/) do
+  page.should_not have_content @user.name
+end
+
+Dann(/^der Benutzer ist gelöscht$/) do
+  step "ensure there are no active requests"
+  User.find_by_id(@user.id).should be_nil
+end
+
+Angenommen(/^man befindet sich auf der Benutzerliste im beliebigen Inventarpool$/) do
+  visit backend_inventory_pool_users_path(InventoryPool.first)
+end
+
+Angenommen(/^man sucht sich je einen Benutzer mit Zugriffsrechten, Bestellungen und Verträgen aus$/) do
+  @users = []
+  @users << User.find {|u| not u.access_rights.empty? and u.orders.empty? and u.contracts.empty?}
+  @users << User.find {|u| u.orders.empty? and not u.contracts.empty?}
+  @users << User.find {|u| not u.orders.empty? and u.contracts.empty?}
+end
+
+Dann(/^wird der Delete Button für diese Benutzer nicht angezeigt$/) do
+  @users.each do |user|
+    find('.innercontent .search input').set user.name
+    wait_until { find(".line.user", text: user.name) }
+    page.execute_script("$('.trigger .arrow').trigger('mouseover');")
+    find(".line.user", text: user.name).should_not have_content(_("Delete %s") % _("User"))
+  end
+end
+
+Angenommen(/^man editiert einen Benutzer der Zugriff auf das aktuelle Inventarpool hat$/) do
+  @user = @current_inventory_pool.access_rights.find{|ar| ar.role_name == "customer"}.user
+  visit edit_backend_inventory_pool_user_path(@current_inventory_pool, @user)
+end
+
+Wenn(/^man den Zugriff entfernt$/) do
+  binding.pry
+  find(".field", text: "Access as").find("select").select _("No access")
+end
+
+Dann(/^hat der Benutzer keinen Zugriff auf das Inventarpool$/) do
+  @user.access_right_for(@current_inventory_pool).should be_nil
+end

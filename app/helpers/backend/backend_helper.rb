@@ -79,8 +79,7 @@ module Backend::BackendHelper
         path_parameters?(:controller => "backend/items", :action => :update) or
         path_parameters?(:controller => "backend/items", :action => :new)
       when "users"
-        path_parameters?(:controller => "backend/users", :action => :index) or
-        path_parameters?(:controller => "backend/users", :action => :edit)
+        path_parameters?(:controller => "backend/users")
       when "current_user"
         path_parameters?(:controller => "backend/users", :action => :show) and @user == current_user
       when "start_screen"

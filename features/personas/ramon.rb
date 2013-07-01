@@ -23,6 +23,10 @@ module Persona
         create_inventory_pool_a_ausleihe
         create_inventory_pool_it_ausleihe
         create_inventory_pool_av_technik
+        create_naked_users
+        create_users_with_access_rights
+        create_users_with_orders
+        create_users_with_contracts
       end
     end
     
@@ -59,7 +63,23 @@ module Persona
     def create_inventory_pool_av_technik
       description = "Bringt die Geräte bitte rechtzeitig zurück"
       contact_details = "AV Verleih  /  ZHdK\nav@zh-dk.ch\n+41 00 00 00 00"
-      FactoryGirl.create(:inventory_pool, :name => "AV-Technik", :description => description, :contact_details => contact_details, :contract_description => "Gerät erhalten", :email => "it@zhdk.ch", :shortname => "AV")
+      @av_technik = FactoryGirl.create(:inventory_pool, :name => "AV-Technik", :description => description, :contact_details => contact_details, :contract_description => "Gerät erhalten", :email => "it@zhdk.ch", :shortname => "AV")
+    end
+
+    def create_naked_users
+      FactoryGirl.create :user
+    end
+
+    def create_users_with_access_rights
+      FactoryGirl.create :access_right, inventory_pool: @av_technik, user: FactoryGirl.create(:user), role_id: 3
+    end
+
+    def create_users_with_orders
+      FactoryGirl.create :order_with_lines
+    end
+
+    def create_users_with_contracts
+      FactoryGirl.create :contract_with_lines
     end
   end
 end

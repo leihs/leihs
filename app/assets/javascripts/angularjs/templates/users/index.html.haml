@@ -5,11 +5,11 @@
   %span{"ng-show" => "search"}
     {{_jed("Searching for %s", search)}}
 
-  /
-    .content_navigation
-      %a.button.white{:href => "/backend/inventory_pools/{{current_inventory_pool_id}}/users/new"}
-        .icon.user
-        {{_jed("New User")}}
+
+  .content_navigation
+    %a.button.white{:href => "/backend/inventory_pools/{{current_inventory_pool_id}}/users/new"}
+      .icon.user
+      {{_jed("New User")}}
 
 %section
 
@@ -82,9 +82,23 @@
 
       .actions
         %li.actions
-          %a.button.white{:href => "mailto:{{user.email}}", "ui-if" => '!user.access_right'}
-            .icon.send
-            {{_jed("E-Mail")}}
+          .multibutton{"ui-if" => '!user.access_right'}
+            .alternatives
+              .trigger
+                .arrow
+
+              %a.button.white{:href => "mailto:{{user.email}}"}
+                .icon.send
+                {{_jed("E-Mail")}}
+
+              %a{:href => "/backend/users/{{user.id}}", :class => "button red", "ng-show" => "user.is_destroyable", "data-remote" => "true", "data-method" => "delete", "data-on_success" => 'Line.remove({"element": $(this).closest(".line"), "color": "red"})'}
+                .delete.icon
+                {{_jed("Delete %s", _jed("User"))}}
+
+            %a.button.white{:href => "/backend/inventory_pools/{{current_inventory_pool_id}}/users/{{user.id}}/edit"}
+              .icon.user
+              {{_jed("Edit User")}}
+
           .multibutton{"ui-if" => 'user.access_right'}
             .alternatives
               .trigger

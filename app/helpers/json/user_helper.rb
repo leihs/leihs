@@ -25,6 +25,9 @@ module Json
           h[:is_editable] = (user.authentication_system.class_name == "DatabaseAuthentication")
         end
 
+        if with[:is_destroyable]
+          h[:is_destroyable] = user.can_destroy?
+        end
       end
       
       h

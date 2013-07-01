@@ -1,18 +1,18 @@
-- content_for :title, @user
+- content_for :title, _("Create %s") % _("User")
 
 .innercontent.form_edit.edit
 
-  = form_for @user, url: backend_user_path(@user), html: {class: "indent"} do |user_form|
+  = form_for @user, url: backend_users_path, html: {class: "indent"} do |user_form|
 
     .content_navigation
       %a.button.red{:href => backend_users_path}
         = _("Cancel")
       %button.button.green{type: :submit}
-        = _("Save %s") % _("User")
+        = _("Create %s") % _("User")
 
     .top
       %h1
-        = "#{@user.firstname} #{@user.lastname}"
+        = _("Create %s") % _("User")
 
     .left
       = render partial: "backend/users/personal_details", locals: { user_form: user_form }
@@ -24,7 +24,7 @@
           .field.text
             %h3.key= _("Administrator")
             .value
-              = select_tag "user[admin]", options_for_select([[_("No"), false], [_("Yes"), true]], @is_admin)
+              = select_tag "user[admin]", options_for_select([[_("No"), "false"], [_("Yes"), "true"]], @is_admin)
 
     .clear
 

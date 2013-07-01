@@ -1,0 +1,6 @@
+%div.field-inline-entry
+  %input{:type => :hidden, :name => "user[groups][][id]", :value => group.id}
+  %span.text-ellipsis{:width => "100"}= group.name
+  .floatright
+    %div{:style => "display: inline-block;"}
+      %a.clickable.remove= _("Remove")

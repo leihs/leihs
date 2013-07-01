@@ -24,7 +24,7 @@ angular.module("users", ["ngResource", "ng-rails-csrf"])
           when "inventory_manager" then _jed("Inventory manager")
           else _jed("Unknown")
       else
-        _jed("Unknown")
+        _jed("No access")
 
     User
   ]

@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   belongs_to :authentication_system
   belongs_to :language
   
-  has_many :access_rights, :include => :role, :conditions => "access_rights.deleted_at IS NULL" #{:deleted_at => nil}
+  has_many :access_rights, :include => :role, :conditions => "access_rights.deleted_at IS NULL", :dependent => :restrict
   has_many :deleted_access_rights, :class_name => "AccessRight", :include => :role, :conditions => 'deleted_at IS NOT NULL'
   has_many :all_access_rights, :class_name => "AccessRight", :dependent => :delete_all, :include => :role
   
@@ -45,19 +45,19 @@ class User < ActiveRecord::Base
 
   has_many :notifications, :dependent => :delete_all
   
-  has_many :orders, :dependent => :delete_all
+  has_many :orders, :dependent => :restrict
   has_one  :current_order, :class_name => "Order", :conditions => { :status_const => Contract::UNSIGNED }
 
-  has_many :contracts
+  has_many :contracts, dependent: :restrict
   has_many :contract_lines, :through => :contracts, :uniq => true
   has_many :current_contracts, :class_name => "Contract", :conditions => { :status_const => Contract::UNSIGNED }
   has_many :visits #, :include => :inventory_pool # MySQL View based on contract_lines
 
-  validates_presence_of     :login, :email
-  validates_length_of       :login,    :within => 3..40
+  validates_presence_of     :lastname, :firstname, :email, :login
+  validates_length_of       :login, :within => 3..40
   validates_uniqueness_of   :email
-  validates :email, :email => true
-    
+  validates :email, format: /.+@.+\..+/, allow_blank: true
+
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
   has_many :reminders, :as => :target, :class_name => "History", :dependent => :destroy, :conditions => {:type_const => History::REMIND}, :order => 'created_at ASC'
 
@@ -340,7 +340,7 @@ class User < ActiveRecord::Base
 #################### End role_requirement
 
   def deletable?
-    orders.empty? and contracts.empty?
+    orders.empty? and contracts.empty? and access_rights.empty?
   end
 
  private

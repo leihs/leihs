@@ -52,6 +52,15 @@ Leihs::Application.routes.draw do
   # Properties
   get "properties", to: "properties#index", as: "properties"
 
+  # Users scoped by inventory pool
+  get "backend/inventory_pools/:inventory_pool_id/users/new", to: "backend/users#new_in_inventory_pool", as: "new_backend_inventory_pool_user"
+  post "backend/inventory_pools/:inventory_pool_id/users", to: "backend/users#create_in_inventory_pool", as: "create_backend_inventory_pool_user"
+  get "backend/inventory_pools/:inventory_pool_id/users/:id/edit", to: "backend/users#edit_in_inventory_pool", as: "edit_backend_inventory_pool_user"
+  put "backend/inventory_pools/:inventory_pool_id/users/:id", to: "backend/users#update_in_inventory_pool", as: "update_backend_inventory_pool_user"
+
+  # Users
+  delete "backend/users/:id", to: "backend/users#destroy", as: "delete_backend_user"
+
 ############################################################################
 ##### Following things are old and have to be checked if still used
 #####

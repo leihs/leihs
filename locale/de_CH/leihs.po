@@ -1497,6 +1497,9 @@ msgstr "Benutzer"
 msgid "User details were updated successfully."
 msgstr "Die neuen Benutzerinformationen wurden gespeichert."
 
+msgid "User created successfully"
+msgstr "Benutzer erfolgreich erstellt"
+
 msgid "User must be selected"
 msgstr "Benutzer muss ausgewählt sein"
 
@@ -2211,3 +2214,48 @@ msgstr "Alle Eigenschaften anzeigen"
 
 msgid "Show less properties"
 msgstr "Weniger Eigenschaften anzeigen"
+
+msgid "Last name"
+msgstr "Nachname"
+
+msgid "First name"
+msgstr "Vorname"
+
+msgid "City"
+msgstr "Ort"
+
+msgid "Country"
+msgstr "Land"
+
+msgid "ZIP"
+msgstr "PLZ"
+
+msgid "Suspended until"
+msgstr "Gesperrt bis"
+
+msgid "Suspended reason"
+msgstr "Sperrgrund"
+
+msgid "Role"
+msgstr "Rolle"
+
+msgid "Access as"
+msgstr "Zugriff als"
+
+msgid "No access"
+msgstr "Kein Zugriff"
+
+msgid "User|Email"
+msgstr "E-Mail"
+
+msgid "User|Lastname"
+msgstr "Nachname"
+
+msgid "User|Firstname"
+msgstr "Vorname"
+
+msgid "User|AccessRight|Suspended reason"
+msgstr "Sperrgrund"
+
+msgid "Show all search results"
+msgstr "Alle Suchresultate anzeigen"

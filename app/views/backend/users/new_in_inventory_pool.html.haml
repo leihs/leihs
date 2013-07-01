@@ -1,0 +1,74 @@
+- content_for :title, _("Create %s") % _("User")
+
+.innercontent.form_edit.edit
+
+  = form_for @user, url: backend_inventory_pool_users_path(current_inventory_pool), html: {class: "indent"} do |user_form|
+
+    .content_navigation
+      %a.button.red{:href => backend_inventory_pool_users_path(@current_inventory_pool)}
+        = _("Cancel")
+      %button.button.green{type: :submit}
+        = _("Create %s") % _("User")
+
+    .top
+      %h1
+        = _("Create %s") % _("User")
+
+    .left
+      = render partial: "backend/users/personal_details", locals: { user_form: user_form }
+
+    .right
+      %section
+        %h2= _("Access")
+        .inner
+          .field.text
+            %h3.key= _("Badge ID")
+            .value
+              .input
+                = user_form.text_field :badge_id
+
+          = fields_for @access_right do |access_right_fields|
+
+            .field.text
+              %h3.key= _("Access as")
+              .value
+                = access_right_fields.select :role_name, @accessible_roles
+
+          .field.text
+            %div
+              %h3.key= _("Groups")
+              .value
+                %label.container
+                  %input.autocomplete#add-group{:type => "text",
+                                                :placeholder => _("Group"),
+                                                :data => { :autocomplete_element_tmpl => "tmpl/autocomplete/generic",
+                                                           :autocomplete_search_attr => 'query',
+                                                           :url => backend_inventory_pool_groups_path(@current_inventory_pool),
+                                                           :autocomplete_display_attribute => "name",
+                                                           :autocomplete_clear_input_value_on_select => "true",
+                                                           :autocomplete_blur_on_select => "true",
+                                                           :autocomplete_search_on_focus => "true"}}
+                  .arrow.icon
+            .clear
+            = render partial: "backend/users/group_inline_entry", collection: @user.groups, as: :group
+    .clear
+
+:coffeescript
+
+  notice = #{flash[:notice].to_json}
+  error = #{flash[:error].to_json}
+
+  jQuery ->
+    if notice
+      Notification.add_headline
+        text: notice
+        type: "success"
+
+    if error
+      Notification.add_headline
+        text: error
+        type: "error"
+
+  jQuery ->
+    new App.CreateUserController
+      el: "#content"

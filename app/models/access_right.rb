@@ -6,6 +6,7 @@ class AccessRight < ActiveRecord::Base
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
 
   validates_presence_of :user, :role
+  validates_presence_of :suspended_reason, if: :suspended_until?
   validates_uniqueness_of :inventory_pool_id, :scope => :user_id
   validate do
     if role and role.name == 'admin'
@@ -18,9 +19,11 @@ class AccessRight < ActiveRecord::Base
 
   before_validation(:on => :create) do
     self.inventory_pool = nil if role and role.name == 'admin'
-    unless user.access_rights.empty?
-      old_ar = user.access_rights.where( :inventory_pool_id => inventory_pool.id ).first if inventory_pool
-      user.access_rights.delete(old_ar) if old_ar
+    if user
+      unless user.access_rights.empty?
+        old_ar = user.access_rights.where( :inventory_pool_id => inventory_pool.id ).first if inventory_pool
+        user.access_rights.delete(old_ar) if old_ar
+      end
     end
   end
 
@@ -54,6 +57,7 @@ class AccessRight < ActiveRecord::Base
   def role_name=(v)
     case v
       when "admin"
+        self.role = Role.find_by_name("admin")
         self.access_level = nil
       when "customer"
         self.role = Role.find_by_name("customer")

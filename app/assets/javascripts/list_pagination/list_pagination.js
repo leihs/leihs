@@ -14,6 +14,7 @@ function ListPagination() {
   this.total_entries;
   this.next_text = "Next";
   this.previous_text = "Previous";
+  this.show_loading_dialog = true;
   
   this.setup = function(options) {
     if(options) {
@@ -22,8 +23,9 @@ function ListPagination() {
       this.total_entries = options.total_entries;
       this.next_text = options.next_text;
       this.previous_text = options.previous_text;
+      this.show_loading_dialog = options.show_loading_dialog;
     }
-    
+
     if (this.total_entries <= this.per_page) return true; 
     
     current_page = (ListPagination.current_page == 0) ? 0 : ListPagination.current_page-1;
@@ -45,10 +47,12 @@ function ListPagination() {
     var params = window.location.search;
     var page_param = "page="+parseInt(new_page_index+1);
     
-    Dialog.add({
-      content: $.tmpl("tmpl/dialog/loading"),
-      dialogClass: ".loading"
-    });
+    if(this.show_loading_dialog) {
+      Dialog.add({
+        content: $.tmpl("tmpl/dialog/loading"),
+        dialogClass: ".loading"
+      });
+    }
     
     if(params.match(/page\=\d+/)) {
       params = params.replace(/page\=\d+/, page_param);

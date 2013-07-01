@@ -10,6 +10,7 @@ module Persona
     @@lastname = "F."
     @@password = "password"
     @@email = "gino@zhdk.ch"
+    @@inventory_pool = FactoryGirl.create :inventory_pool
 
     def initialize
       ActiveRecord::Base.transaction do

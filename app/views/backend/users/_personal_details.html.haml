@@ -1,0 +1,51 @@
+%section
+  %h2= _("General Information")
+  .inner
+    .field.text
+      .key
+        %h3= "#{_("Last name")} *"
+      .value
+        .input
+          = user_form.text_field :lastname
+    .field.text
+      .key
+        %h3= "#{_("First name")} *"
+      .value
+        .input
+          = user_form.text_field :firstname
+    .field.text
+      .key
+        %h3= _("Address")
+      .value
+        .input
+          = user_form.text_field :address
+    .field.text
+      .key
+        %h3= _("ZIP")
+      .value
+        .input
+          = user_form.text_field :zip
+    .field.text
+      .key
+        %h3= _("City")
+      .value
+        .input
+          = user_form.text_field :city
+    .field.text
+      .key
+        %h3= _("Country")
+      .value
+        .input
+          = user_form.text_field :country
+    .field.text
+      .key
+        %h3= _("Phone")
+      .value
+        .input
+          = user_form.text_field :phone
+    .field.text
+      .key
+        %h3= "#{_("E-Mail")} *"
+      .value
+        .input
+          = user_form.text_field :email

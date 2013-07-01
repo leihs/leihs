@@ -189,7 +189,8 @@ module Json
              :city => true,
              :country => true,
              :phone => true,
-             :badge_id => true}
+             :badge_id => true,
+             :is_destroyable => true}
           when :visit_with_availability
             {:lines => {:preset => :contract_line}}
           when :hand_over_visit

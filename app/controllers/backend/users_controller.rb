@@ -7,32 +7,48 @@ class Backend::UsersController < Backend::BackendController
       not_authorized! unless is_lending_manager? or is_admin?
     end
 
+    if params[:access_right]
+      @ip_id = if params[:access_right][:inventory_pool_id] and is_admin?
+                 params[:access_right][:inventory_pool_id]
+               else
+                 current_inventory_pool.id
+               end
+    end
+
     params[:id] ||= params[:user_id] if params[:user_id]
-#    @user = current_inventory_pool.users.find(params[:id]) if params[:id]
+    #@user = current_inventory_pool.users.find(params[:id]) if params[:id]
     @user = User.find(params[:id]) if params[:id]
   end
 
 ######################################################################
 
-  def index(page = (params[:page] || 1).to_i,
-      per_page = (params[:per_page] || PER_PAGE).to_i,
-      search = params[:search],
-      role = params[:role],
-      suspended = (params[:suspended] == "true"),
-      with = params[:with] ? params[:with].deep_symbolize_keys : {})
+  def index
+
+    @page = (params[:page] || 1).to_i
+    @per_page = (params[:per_page] || PER_PAGE).to_i
+    search = params[:search]
+    @role = params[:role]
+    suspended = (params[:suspended] == "true")
+    with = params[:with] ? params[:with].deep_symbolize_keys : {}
+
     respond_to do |format|
-      format.html
+
+      format.html do
+        @users = (@role == "admins" ? User.admins : User.scoped).search(search).order("users.updated_at DESC").paginate(:page => @page, :per_page => @per_page)
+        render template: "backend/users/index_in_inventory_pool" if current_inventory_pool
+      end
+
       format.json {
-        users = case role
+        users = case @role
                   when "admins"
                     User.admins
                   when "unknown"
                     User.unknown_for(current_inventory_pool)
                   when "customers", "lending_managers", "inventory_managers"
-                    current_inventory_pool.send(suspended ? :suspended_users : :users).send(role)
+                    current_inventory_pool.send(suspended ? :suspended_users : :users).send(@role)
                   else
                     User.scoped
-                end.search(search).order("users.updated_at DESC").paginate(:page => page, :per_page => per_page)
+                end.search(search).order("users.updated_at DESC").paginate(:page => @page, :per_page => @per_page)
 
         render json: {
             entries: view_context.hash_for(users, with.merge({:access_right => true, :preset => :user})),
@@ -58,47 +74,130 @@ class Backend::UsersController < Backend::BackendController
 
   def new
     @user = User.new
+    @is_admin = false
+  end
+
+  def new_in_inventory_pool
+    @user = User.new
+    @accessible_roles = get_accessible_roles_for_current_user
+    @access_right = @user.access_rights.new inventory_pool_id: current_inventory_pool.id, role: Role.find_by_name("customer")
   end
 
   def create
+
+    should_be_admin = params[:user].delete(:admin)
     @user = User.new(params[:user])
-    @user.login = @user.email
-    if @user.save
-      @user.access_rights.create(:inventory_pool => current_inventory_pool,
-                                 :role => Role.where(:name => "customer").first) if current_inventory_pool
-      redirect_to [:backend, current_inventory_pool, @user].compact
+    @user.login = @user.email if @user.email
+
+    if @user.valid?
+      @user.save
+      @user.all_access_rights.create(role_name: "admin") if should_be_admin == "true"
+
+      flash[:notice] = _("User created successfully")
+      redirect_to backend_users_path
     else
-      flash[:error] = @user.errors.full_messages.uniq
-      render :action => :new
+      @user.errors.delete(:login) if @user.errors.has_key? :email
+      flash.now[:error] = @user.errors.full_messages.uniq
+      @is_admin = should_be_admin
+      render action: :new
     end
+  end
+
+  def create_in_inventory_pool
+
+    role_name = params[:access_right][:role_name]
+    groups = params[:user].delete(:groups) if params[:user].has_key?(:groups)
+    @user = User.new(params[:user])
+    @user.login = @user.email if @user.email
+    @user.groups = groups.map {|g| Group.find g["id"]} if groups
+
+    @access_right = AccessRight.new inventory_pool: @current_inventory_pool, role_name: role_name unless role_name == "no access"
+
+    if @user.valid?
+
+      User.transaction do
+        @user.save
+        unless role_name == "no access"
+          @access_right.user = @user
+          @access_right.save
+        end
+      end
+
+      flash[:notice] = _("User created successfully")
+      redirect_to backend_inventory_pool_users_path(@current_inventory_pool)
+
+    else
+      @user.errors.delete(:login) if @user.errors.has_key? :email
+      flash.now[:error] = @user.errors.full_messages.uniq
+      @accessible_roles = get_accessible_roles_for_current_user
+      render action: :new_in_inventory_pool
+    end
+
+  end
+
+  def initialize_access_right
+    @access_right = @user.all_access_rights.find_or_initialize_by_inventory_pool_id(@ip_id)
+    @access_right.suspended_until, @access_right.suspended_reason = if params[:access_right][:suspended_until].blank?
+                                                                      [nil, nil]
+                                                                    else
+                                                                      [params[:access_right][:suspended_until], params[:access_right][:suspended_reason]]
+                                                                    end
+
+    @access_right.role_name = params[:access_right][:role_name] unless params[:access_right][:role_name].blank?
   end
 
   def edit
+    @is_admin = @user.has_role? "admin"
+  end
+
+  def edit_in_inventory_pool
   end
 
   def update
-    if params[:access_right]
-      ip_id = if params[:access_right][:inventory_pool_id] and is_admin?
-                params[:access_right][:inventory_pool_id]
-              else
-                current_inventory_pool.id
-              end
-      access_right = @user.all_access_rights.find_or_initialize_by_inventory_pool_id(ip_id)
-      access_right.suspended_until, access_right.suspended_reason = if params[:access_right][:suspended_until].blank?
-        [nil, nil]
-      else
-        [params[:access_right][:suspended_until], params[:access_right][:suspended_reason]]
+
+    should_be_admin = params[:user].delete(:admin)
+    @user.attributes = params[:user]
+
+    if @user.valid?
+
+      @user.save
+      @user.all_access_rights.delete_all {|ar| ar.role_name == "admin"}
+      @user.all_access_rights.create(role_name: "admin") if should_be_admin == "true"
+
+      respond_to do |format|
+        format.html {
+          flash[:notice] = _("User details were updated successfully.")
+          redirect_to backend_users_path
+        }
       end
-      access_right.role_name = params[:access_right][:role_name] unless params[:access_right][:role_name].blank?
-      access_right.save # TODO what if not saved ??
+
+    else
+      respond_to do |format|
+        format.html {
+          @user.errors.delete(:login) if @user.errors.has_key? :email
+          flash.now[:error] = @user.errors.full_messages.uniq
+          @is_admin = should_be_admin
+          render action: :edit
+        }
+      end
     end
+
+  end
+
+  def update_in_inventory_pool
 
     if params[:user] and params[:user].has_key?(:groups) and (groups = params[:user].delete(:groups))
       @user.groups = groups.map {|g| Group.find g["id"]}
-      @user.save
     end
 
-    if @user.update_attributes(params[:user])
+    @user.attributes = params[:user]
+    update_or_initialize_access_right
+
+    if @user.valid? and @access_right.valid?
+
+      @user.save
+      @access_right.save
+
       respond_to do |format|
         format.html {
           flash[:notice] = _("User details were updated successfully.")
@@ -109,13 +208,16 @@ class Backend::UsersController < Backend::BackendController
           render json: view_context.hash_for(@user, with.merge({:preset => :user}))
         }
       end
+
     else
       respond_to do |format|
         format.html {
-          flash[:error] = _("The new user details could not be saved.")
-          redirect_to [:edit, :backend, current_inventory_pool, @user].compact
+          @user.errors.delete(:login) if @user.errors.has_key? :email
+          flash.now[:error] = @user.errors.full_messages.uniq
+          render action: :edit_in_inventory_pool
         }
-        format.json { render :text => @user.errors, :status => 500 }
+
+        format.json { render :text => @user.errors.full_messages.uniq, :status => 500 }
       end
     end
   end
@@ -191,5 +293,28 @@ class Backend::UsersController < Backend::BackendController
     redirect_to [:backend, current_inventory_pool, @user, :hand_over]
   end
 
+  def update_or_initialize_access_right
 
+    @access_right = @user.all_access_rights.find_or_initialize_by_inventory_pool_id(@ip_id)
+    @access_right.suspended_until, @access_right.suspended_reason = if params[:access_right][:suspended_until].blank?
+                                                                      [nil, nil]
+                                                                    else
+                                                                      [params[:access_right][:suspended_until], params[:access_right][:suspended_reason]]
+                                                                    end
+
+    @access_right.role_name = params[:access_right][:role_name] unless params[:access_right][:role_name].blank?
+
+  end
+
+  def get_accessible_roles_for_current_user
+
+    accessible_roles = [[_("No access"), "no_access"], [_("Customer"), "customer"]]
+    accessible_roles +
+      if @current_user.has_role? "admin"
+        [[_("Lending manager"), "lending_manager"], [_("Inventory manager"), "inventory_manager"]]
+      elsif @current_user.has_at_least_access_level 3, @current_inventory_pool
+        [[_("Lending manager"), "lending_manager"]]
+      else [] end
+
+  end
 end

@@ -1455,6 +1455,9 @@ msgstr ""
 msgid "User details were updated successfully."
 msgstr ""
 
+msgid "User created successfully"
+msgstr ""
+
 msgid "User must be selected"
 msgstr ""
 
@@ -2139,4 +2142,49 @@ msgid "Show all properties"
 msgstr ""
 
 msgid "Show less properties"
+msgstr ""
+
+msgid "Last name"
+msgstr ""
+
+msgid "First name"
+msgstr ""
+
+msgid "City"
+msgstr ""
+
+msgid "Country"
+msgstr ""
+
+msgid "Zip"
+msgstr ""
+
+msgid "Suspended until"
+msgstr ""
+
+msgid "Suspended reason"
+msgstr ""
+
+msgid "Role"
+msgstr ""
+
+msgid "Access as"
+msgstr ""
+
+msgid "No access"
+msgstr ""
+
+msgid "User|Email"
+msgstr ""
+
+msgid "User|Lastname"
+msgstr ""
+
+msgid "User|Firstname"
+msgstr ""
+
+msgid "User|AccessRight|Suspended reason"
+msgstr ""
+
+msgid "Show all search results"
 msgstr ""

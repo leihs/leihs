@@ -1,4 +1,5 @@
 # language: de
+
 Funktionalität: Benutzer verwalten 
 
   Grundlage:
@@ -117,18 +118,45 @@ Funktionalität: Benutzer verwalten
     | Inventar-Verwalter  |
     Und man kann alles, was ein Ausleihe-Verwalter kann
 
-  @javascript @upcoming
-  Szenario: Benutzerolle "Administrator" 
-    Angenommen man ist Administrator 
-    Dann kann man neue Geräteparks erstellen 
-    Und man kann neue Benutzer erstellen und löschen 
-    Und man kann Benutzern die folgende Rollen zuweisen und wegnehmen, wobei diese immer auf den Gerätepark bezogen ist, für den auch der Verwalter berechtigt ist
-    | Kein Zugriff        |
-    | Kunde               |
-    | Ausleihe-Verwalter  |
-    | Inventar-Verwalter  |
-    | Administrator       |    
-    
+  @javascript
+  Szenario: Als Administrator neuen Benutzer erstellen
+    Angenommen man ist "Gino"
+    Und man befindet sich auf der Benutzerliste ausserhalb der Inventarpools
+    Wenn man von hier auf die Benutzererstellungsseite geht
+    Und den Nachnamen eingibt
+    Und den Vornahmen eingibt
+    Und die Email-Addresse eingibt
+    Und man speichert den neuen Benutzer
+    Dann wird man auf die Benutzerliste ausserhalb der Inventarpools umgeleitet
+    Und man sieht eine Bestätigungsmeldung
+    Und der neue Benutzer wurde erstellt
+    Und er hat keine Zugriffe auf Inventarpools und ist kein Administrator
+
+  Szenario: Als Administrator einen anderen Benutzer Administrator machen
+    Angenommen man ist "Gino"
+    Und man befindet sich auf der Editierseite eines Benutzers, der kein Administrator ist
+    Wenn man diesen Benutzer die Rolle Administrator zuweist
+    Und man speichert den Benutzer
+    Dann hat dieser Benutzer die Rolle Administrator
+
+  Szenario: Als Administrator einem anderen Benutzer die Rolle Administrator wegnehmen
+    Angenommen man ist "Gino"
+    Und man befindet sich auf der Editierseite eines Benutzers, der ein Administrator ist
+    Wenn man diesem Benutzer die Rolle Administrator wegnimmt
+    Und man speichert den Benutzer
+    Dann hat dieser Benutzer die Rolle Administrator nicht mehr
+
+  Szenariogrundriss: Als Ausleihe- oder Inventar-Verwalter hat man kein Zugriff auf die Administrator-User-Pfade
+    Angenommen man ist "<Person>"
+    Wenn man versucht auf die Administrator Benutzererstellenansicht zu gehen
+    Dann gelangt man auf diese Seite nicht
+    Wenn man versucht auf die Administrator Benutzereditieransicht zu gehen
+    Dann gelangt man auf diese Seite nicht
+
+    Beispiele:
+      | Person |
+      | Pius   |
+      | Mike   |
 
   @javascript @upcoming
   Szenario: Gruppenzuteilung in Benutzeransicht hinzufügen/entfernen
@@ -138,49 +166,136 @@ Funktionalität: Benutzer verwalten
     Und kann Gruppen entfernen
     Und speichert den Benutzer
     Dann ist die Gruppenzugehörigkeit gespeichert 
- 
-  Szenario: Neuen Benutzer hinzufügen
+
+  @javascript
+  Szenario: Neuen Benutzer im Geräterpark als Inventar-Verwalter hinzufügen
+    Angenommen man ist "Mike"
+    Wenn man in der Benutzeransicht ist
+    Und man einen Benutzer hinzufügt
+    Und die folgenden Informationen eingibt
+      | Nachname       |
+      | Vorname        |
+      | Adresse        |
+      | PLZ            |
+      | Ort            |
+      | Land           |
+      | Telefon        |
+      | E-Mail         |
+    Und man gibt eine Badge-Id ein
+    Und man hat nur die folgenden Rollen zur Auswahl
+      | No access        |
+      | Customer         |
+      | Lending manager  |
+    Und eine der folgenden Rollen auswählt
+    | tab                | role              |
+    | Kunde              | customer          |
+    | Ausleihe-Verwalter | lending_manager   |
+    Und man teilt mehrere Gruppen zu
+    Und man speichert
+    Dann ist der Benutzer mit all den Informationen gespeichert
+
+  @javascript
+  Szenario: Neuen Benutzer im Geräterpark als Ausleihe-Verwalter hinzufügen
     Angenommen man ist "Pius"
     Wenn man in der Benutzeransicht ist
     Und man einen Benutzer hinzufügt
     Und die folgenden Informationen eingibt
-    |en         |de           |
-    |Last name  |Name         |
-    |First name |Vorname      |
-    |Address    |Strasse      |
-    |Zip        |PLZ          |
-    |City       |Ort          |
-    |Country    |Land         |
-    |Phone      |Telefonnummer|
-    |E-Mail     |E-Mail-Adresse|
+      | Nachname       |
+      | Vorname        |
+      | E-Mail         |
     Und man gibt eine Badge-Id ein
+    Und man hat nur die folgenden Rollen zur Auswahl
+      | No access |
+      | Customer  |
     Und eine der folgenden Rollen auswählt
-    | tab                | role               |
-    | Kunde              | customers          |
-    | Ausleihe-Verwalter | lending_managers   |
-    | Inventar-Verwalter | inventory_managers |
-    Und man wählt ein Sperrdatum und ein Sperrgrund
+      | tab                | role              |
+      | Kunde              | customer          |
     Und man teilt mehrere Gruppen zu
     Und man speichert
     Dann ist der Benutzer mit all den Informationen gespeichert
- 
-  Szenario: Neuen Benutzer hinzufügen - Pflichtfelder
-    Angenommen man ist "Pius"
+
+  @javascript
+  Szenario: Neuen Benutzer im Geräterpark als Administrator hinzufügen
+    Angenommen man ist "Gino"
     Wenn man in der Benutzeransicht ist
     Und man einen Benutzer hinzufügt
-    Dann müssen mindestens die folgenden Felder gefüllt sein
-    |Name   |
-    |E-Mail   |
+    Und die folgenden Informationen eingibt
+      | Nachname       |
+      | Vorname        |
+      | E-Mail         |
+    Und man gibt eine Badge-Id ein
+    Und man hat nur die folgenden Rollen zur Auswahl
+      | No access          |
+      | Customer           |
+      | Lending manager    |
+      | Inventory manager  |
+    Und eine der folgenden Rollen auswählt
+      | tab                | role                |
+      | Kunde              | customer            |
+      | Ausleihe-Verwalter | lending_manager     |
+      | Inventar-Verwalter | inventory_manager   |
+    Und man teilt mehrere Gruppen zu
     Und man speichert
-    Dann ist der Benutzer mit diesen beiden Informationen gespeichert
-    
-  Szenario: Neuen Benutzer hinzufügen - ohne Eingabe der Pflichtfelder
+    Dann ist der Benutzer mit all den Informationen gespeichert
+
+  @javascript
+  Szenariogrundriss: Neuen Benutzer hinzufügen - ohne Eingabe der Pflichtfelder
     Angenommen man ist "Pius"
     Wenn man in der Benutzeransicht ist
     Und man einen Benutzer hinzufügt
-    Und man nicht alle Pflichtfelder eingegeben hat
+    Und alle Pflichtfelder sind sichtbar und abgefüllt
+    Wenn man ein <Pflichtfeld> nicht eingegeben hat
     Und man speichert
     Dann sehe ich eine Fehlermeldung
-    
-    
-    
+
+    Beispiele:
+      | Pflichtfeld |
+      | Nachname    |
+      | Vorname     |
+      | E-Mail      |
+
+  @javascript
+  Szenario: Zugriff ändern als Ausleihe-Verwalter
+    Angenommen man ist "Pius"
+    Und man editiert einen Benutzer der noch kein Kunde ist
+    Wenn man den Zugriff auf "Kunde" ändert
+    Dann hat der Benutzer als Kunde Zugriff auf Modelle des Inventarpools
+
+  @javascript
+  Szenario: Zugriff entfernen als Ausleihe-Verwalter
+    Angenommen man ist "Pius"
+    Und man editiert einen Benutzer der Zugriff auf das aktuelle Inventarpool hat
+    Wenn man den Zugriff entfernt
+    Und man speichert den Benutzer
+    Dann hat der Benutzer keinen Zugriff auf das Inventarpool
+
+  Szenario: Benutzer als Administrator löschen
+    Angenommen man ist "Gino"
+    Und man befindet sich auf der Benutzerliste ausserhalb der Inventarpools
+    Und man sucht sich einen Benutzer ohne Zugriffsrechte, Bestellungen und Verträge aus
+    Wenn ich diesen Benutzer aus der Liste lösche
+    Dann wurde der Benutzer aus der Liste gelöscht
+    Und der Benutzer ist gelöscht
+
+  @javascript
+  Szenario: Benutzer im Geräterpark als Administrator löschen
+    Angenommen man ist "Gino"
+    Und man sucht sich einen Benutzer ohne Zugriffsrechte, Bestellungen und Verträge aus
+    Und man befindet sich auf der Benutzerliste im beliebigen Inventarpool
+    Wenn ich diesen Benutzer aus der Liste lösche
+    Dann wurde der Benutzer aus der Liste gelöscht
+    Und der Benutzer ist gelöscht
+
+  @javascript
+  Szenario: Voraussetzungen fürs Löschen eines Benutzers
+    Angenommen man ist "Ramon"
+    Und man befindet sich auf der Benutzerliste ausserhalb der Inventarpools
+    Und man sucht sich je einen Benutzer mit Zugriffsrechten, Bestellungen und Verträgen aus
+    Dann wird der Delete Button für diese Benutzer nicht angezeigt
+
+  @javascript
+  Szenario: Voraussetzungen fürs Löschen eines Benutzers im Gerätepark
+    Angenommen man ist "Ramon"
+    Und man sucht sich je einen Benutzer mit Zugriffsrechten, Bestellungen und Verträgen aus
+    Und man befindet sich auf der Benutzerliste im beliebigen Inventarpool
+    Dann wird der Delete Button für diese Benutzer nicht angezeigt

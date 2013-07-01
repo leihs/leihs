@@ -1,3 +1,128 @@
 - content_for :title, _("List of Users")
 
-.innercontent{"ng-app" => "Leihs", "ng-view" => "ng-view"}
+.innercontent
+
+  .top
+    %h1
+      = _("List of %d Users") % @users.total_entries
+
+    .content_navigation
+      %a.button.white{:href => "/backend/users/new"}
+        .icon.user
+        = _("New User")
+
+  %section
+
+    .inlinetabs
+      = link_to backend_users_path do
+        .tab{class: ("active" if @role != "admins")}
+          %span.text= _("All")
+      = link_to backend_users_path(params: {role: "admins"}) do
+        .tab{class: ("active" if @role == "admins")}
+          %span.text= _("Administrator")
+
+    .list
+      %ul.navigation.line
+        .container
+          %li.search
+            %input#user-search{:type => "text",:autocomplete => :off, :placeholder => _("Search...")}
+
+    #user-list.list
+
+      - @users.each do |user|
+
+        %ul.line.user
+
+          .main
+
+            %li.user_name.hastip
+              = user.name
+
+              .tip.user
+
+                %table.image
+                  %tr
+                    %td
+                      .noimagetext= _("no image")
+                      - if !user.image_url
+                        .noimage
+
+                      - if user.image_url
+                        %span
+                          %img{src: user.image_url}
+
+                %h3= user.name
+
+                %table
+
+                  - if user.badge_id
+                    %tr
+                      %td.value
+                        %p= user.badge_id
+
+                  - if user.address && user.zip && user.city
+                    %tr
+                      %td.value
+                        %p= user.address
+                        %p= "#{user.zip} #{user.city}"
+
+                  - if user.phone
+                    %tr
+                      %td.value
+                        %p= user.phone
+
+                  - if user.email
+                    %tr
+                      %td.value
+                        %p= user.email
+
+            %li.phone= user.phone
+
+            %li.role= _("Administrator") if user.has_role? "admin"
+
+          .actions
+            %li.actions
+              .multibutton
+                .alternatives
+                  .trigger
+                    .arrow
+
+                  %a.button.white{:href => "mailto:#{user.email}"}
+                    .icon.send
+                    = _("E-Mail")
+
+                  - if user.can_destroy?
+                    %a{:href => backend_user_path(user), :class => "button red", "data-remote" => "true", "data-method" => "delete", "data-on_success" => 'Line.remove({"element": $(this).closest(".line"), "color": "red"})'}
+                      .delete.icon
+                      = _("Delete %s") % _("User")
+
+                %a.button.white{:href => edit_backend_user_path(user)}
+                  .icon.user
+                  = _("Edit User")
+
+  .pagination_container
+
+:coffeescript
+
+  notice = #{flash[:notice].to_json}
+  error = #{flash[:error].to_json}
+
+  jQuery ->
+    if notice
+      Notification.add_headline
+        text: notice
+        type: "success"
+
+    if error
+      Notification.add_headline
+        text: error
+        type: "error"
+
+  jQuery ->
+    new App.UsersController
+      el: "#user-list"
+      searchInput: $("#user-search")
+      pagination:
+        current_page: #{@users.current_page}
+        per_page: #{@users.per_page}
+        total_entries: #{@users.total_entries}

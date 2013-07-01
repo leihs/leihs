@@ -1942,6 +1942,10 @@ window.i18n.locale_data = {
          null,
          "Die neuen Benutzerinformationen wurden gespeichert."
       ],
+      "User created successfully": [
+         null,
+         "Benutzer erfolgreich erstellt"
+      ],
       "User must be selected": [
          null,
          "Benutzer muss ausgewählt sein"
@@ -2831,6 +2835,62 @@ window.i18n.locale_data = {
       "Show less properties": [
          null,
          "Weniger Eigenschaften anzeigen"
+      ],
+      "Last name": [
+         null,
+         "Nachname"
+      ],
+      "First name": [
+         null,
+         "Vorname"
+      ],
+      "City": [
+         null,
+         "Ort"
+      ],
+      "Country": [
+         null,
+         "Land"
+      ],
+      "ZIP": [
+         null,
+         "PLZ"
+      ],
+      "Suspended until": [
+         null,
+         "Gesperrt bis"
+      ],
+      "Suspended reason": [
+         null,
+         "Sperrgrund"
+      ],
+      "Role": [
+         null,
+         "Rolle"
+      ],
+      "Access as": [
+         null,
+         "Zugriff als"
+      ],
+      "No access": [
+         null,
+         "Kein Zugriff"
+      ],
+      "User|Email": [
+         null,
+         "E-Mail"
+      ],
+      "User|Lastname": [
+         null,
+         "Nachname"
+      ],
+      "User|Firstname": [
+         null,
+         "Vorname"
+      ],
+      "User|AccessRight|Suspended reason": [
+         null,
+         "Sperrgrund"
       ]
    }
 }

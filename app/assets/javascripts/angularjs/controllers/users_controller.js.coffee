@@ -45,7 +45,8 @@ UsersIndexCtrl.$inject = ['$scope', 'User', '$routeParams'];
 
 UsersEditCtrl = ($scope, $location, $routeParams, User) ->
   $scope.current_inventory_pool_id = $routeParams.inventory_pool_id
-  $scope.possible_roles = [ {"name": "customer", "text": _jed("Customer")},
+  $scope.possible_roles = [ {"name": "no_access", "text": _jed("No access")},
+                            {"name": "customer", "text": _jed("Customer")},
                             {"name": "lending_manager", "text": _jed("Lending manager")},
                             {"name": "inventory_manager", "text": _jed("Inventory manager")}]
 
@@ -54,8 +55,11 @@ UsersEditCtrl = ($scope, $location, $routeParams, User) ->
     inventory_pool_id: $scope.current_inventory_pool_id
     id: $routeParams.id
   , (response) ->
-    response.access_right.suspended_until = new Date(Date.parse(response.access_right.suspended_until)) if response.access_right.suspended_until?
+    response.access_right.suspended_until = new Date(Date.parse(response.access_right.suspended_until)) if response.access_right?.suspended_until?
     $scope.user = new User(response)
+    $scope.user.is_editable = true
+    unless $scope.user.access_right?
+      $scope.user.access_right = {role_name: "no_access"}
 
   $scope.submit = ->
     User.update

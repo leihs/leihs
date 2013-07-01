@@ -29,6 +29,8 @@
       ${badge_id}
     {{/if}}
   
+  {{if currentInventoryPool}}
+
   .actions
     %li.actions
       .multibutton
@@ -42,3 +44,18 @@
         = link_to "/backend/inventory_pools/${currentInventoryPool.id}/users/${id}/new_contract", :class => "button white" do
           .icon.hand_over 
           ${_jed("Hand Over")}
+
+  {{else}}
+
+  .actions
+    %li.actions
+      .multibutton
+        .alternatives
+          .trigger
+            .arrow
+          = mail_to "${email}", "<div class='icon send'></div>${_jed('E-Mail')}".html_safe, :class => "button white"
+        = link_to "/backend/users/${id}/edit", :class => "button white" do
+          .icon.user
+          ${_jed("Edit User")}
+
+  {{/if}}
