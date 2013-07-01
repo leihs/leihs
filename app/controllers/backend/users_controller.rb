@@ -111,13 +111,13 @@ class Backend::UsersController < Backend::BackendController
     @user.login = @user.email if @user.email
     @user.groups = groups.map {|g| Group.find g["id"]} if groups
 
-    @access_right = AccessRight.new inventory_pool: @current_inventory_pool, role_name: role_name unless role_name == "no access"
+    @access_right = AccessRight.new inventory_pool: @current_inventory_pool, role_name: role_name unless role_name == "no_access"
 
     if @user.valid?
 
       User.transaction do
         @user.save
-        unless role_name == "no access"
+        unless role_name == "no_access"
           @access_right.user = @user
           @access_right.save
         end
@@ -186,17 +186,26 @@ class Backend::UsersController < Backend::BackendController
 
   def update_in_inventory_pool
 
+    role_name = params[:access_right][:role_name]
+
     if params[:user] and params[:user].has_key?(:groups) and (groups = params[:user].delete(:groups))
       @user.groups = groups.map {|g| Group.find g["id"]}
     end
 
     @user.attributes = params[:user]
-    update_or_initialize_access_right
 
-    if @user.valid? and @access_right.valid?
+    unless role_name == "no_access"
+      update_or_initialize_access_right
+    else
+      @user.access_right_for(@current_inventory_pool).destroy
+    end
 
-      @user.save
-      @access_right.save
+    if @user.valid?
+
+      User.transaction do
+        @user.save
+        @access_right.save unless role_name == "no_access"
+      end
 
       respond_to do |format|
         format.html {

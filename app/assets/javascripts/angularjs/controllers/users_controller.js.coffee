@@ -82,7 +82,7 @@ UsersEditCtrl = ($scope, $location, $routeParams, User) ->
         suspended_reason: $scope.user.access_right.suspended_reason
     , (response) ->
       #$location.path "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/users/#{$scope.user.id}"
-      window.location = "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/users/#{$scope.user.id}"
+      window.location = "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/users"
 
   $scope.addGroup = (element)-> 
     return true if _.find $scope.user.groups, (g)-> g.id == element.item.id
