@@ -258,7 +258,38 @@ Funktionalität: Benutzer verwalten
   Szenario: Zugriff ändern als Ausleihe-Verwalter
     Angenommen man ist "Pius"
     Und man editiert einen Benutzer der noch kein Kunde ist
+    Dann man hat nur die folgenden Rollen zur Auswahl
+      | No access          |
+      | Customer           |
+      | Lending manager    |
     Wenn man den Zugriff auf "Kunde" ändert
+    Und man speichert den Benutzer
+    Dann hat der Benutzer als Kunde Zugriff auf Modelle des Inventarpools
+
+  @javascript
+  Szenario: Zugriff ändern als Inventar-Verwalter
+    Angenommen man ist "Mike"
+    Und man editiert einen Benutzer der noch kein Kunde ist
+    Dann man hat nur die folgenden Rollen zur Auswahl
+      | No access          |
+      | Customer           |
+      | Lending manager    |
+      | Inventory manager  |
+    Wenn man den Zugriff auf "Kunde" ändert
+    Und man speichert den Benutzer
+    Dann hat der Benutzer als Kunde Zugriff auf Modelle des Inventarpools
+
+  @javascript
+  Szenario: Zugriff ändern als Inventar-Verwalter
+    Angenommen man ist "Mike"
+    Und man editiert einen Benutzer der noch kein Kunde ist
+    Dann man hat nur die folgenden Rollen zur Auswahl
+      | No access          |
+      | Customer           |
+      | Lending manager    |
+      | Inventory manager  |
+    Wenn man den Zugriff auf "Kunde" ändert
+    Und man speichert den Benutzer
     Dann hat der Benutzer als Kunde Zugriff auf Modelle des Inventarpools
 
   @javascript

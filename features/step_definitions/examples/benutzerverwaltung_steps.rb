@@ -694,15 +694,23 @@ Wenn(/^man hat nur die folgenden Rollen zur Auswahl$/) do |table|
 end
 
 Angenommen(/^man editiert einen Benutzer der noch kein Kunde ist$/) do
-  pending # express the regexp above with the code you wish you had
+  access_right = AccessRight.find{|ar| ar.role_name == "customer"}
+  @user = access_right.user
+  visit edit_backend_inventory_pool_user_path(access_right.inventory_pool, @user)
 end
 
 Wenn(/^man den Zugriff auf "(.*?)" ändert$/) do |arg1|
+  find(".field", text: _("Access as")).find("select").select _("Customer")
+end
+
+Wenn(/^man den Zugriff auf "(.*?)" innerhalb eines Inventarpools ändert$/) do |arg1|
   pending # express the regexp above with the code you wish you had
 end
 
 Dann(/^hat der Benutzer als Kunde Zugriff auf Modelle des Inventarpools$/) do
-  pending # express the regexp above with the code you wish you had
+  wait_until { find_link _("New User") }
+  @user.reload.access_right_for(@current_inventory_pool).role_name.should == "customer"
+  @user.models.should_not be_nil
 end
 
 Angenommen(/^man sucht sich einen Benutzer ohne Zugriffsrechte, Bestellungen und Verträge aus$/) do
