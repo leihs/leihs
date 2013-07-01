@@ -6,7 +6,11 @@ class window.App.Borrow.ModelsShowImagesController extends Spine.Controller
   events:
     "mouseenter [data-image-url]:not(#main-image)": "enterImage"
     "mouseleave [data-image-url]:not(#main-image)": "leaveImage"
-    "click [data-image-url]:not(#main-image)": "lockImage"
+    "click [data-image-url]:not(#main-image)": "clickImage"
+
+  constructor: ->
+    super
+    @lockImage @el.find("[data-image-url]:not(#main-image):first")
 
   enterImage: (e)=>
     @mouseover = true
@@ -23,9 +27,10 @@ class window.App.Borrow.ModelsShowImagesController extends Spine.Controller
           @mainImage.attr "src", @mainImage.data "image-url"
     , 100
 
-  lockImage: (e)=>
+  clickImage: (e)=> @lockImage $(e.currentTarget)
+
+  lockImage: (target)=>
     do @releaseCurrentImage
-    target = $(e.currentTarget)
     target.addClass "focus-thin"
     @currentImage = target
 
