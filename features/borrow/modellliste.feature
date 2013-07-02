@@ -164,4 +164,4 @@ Funktionalität: Modellliste
     Und es gibt ein Modell mit Bilder, Beschreibung und Eigenschaften
     Und man befindet sich auf der Modellliste mit diesem Modell
     Wenn man über ein Modell hovered
-    Dann werden folgende zusätzliche Informationen angezeigt Bilder, Beschreibung, Liste der Eigenschaften
+    Dann werden folgende zusätzliche Informationen angezeigt Modellname, Bilder, Beschreibung, Liste der Eigenschaften

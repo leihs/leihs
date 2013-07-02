@@ -322,7 +322,8 @@ Wenn(/^man über ein Modell hovered$/) do
   page.execute_script %Q($(".line").mouseenter())
 end
 
-Dann(/^werden folgende zusätzliche Informationen angezeigt Bilder, Beschreibung, Liste der Eigenschaften$/) do
+Dann(/^werden folgende zusätzliche Informationen angezeigt Modellname, Bilder, Beschreibung, Liste der Eigenschaften$/) do
+  find(".tooltipster-default").should have_content @model.name
   page.should have_content @model.description
   @model.properties.take(5).map(&:key).each {|key| page.should have_content key}
   @model.properties.take(5).map(&:value).each {|value| page.should have_content value}
@@ -332,7 +333,7 @@ Dann(/^werden folgende zusätzliche Informationen angezeigt Bilder, Beschreibung
 end
 
 Angenommen(/^es gibt ein Modell mit Bilder, Beschreibung und Eigenschaften$/) do
-  @model = Model.find {|m| !m.images.blank? and !m.description.blank? and !m.properties.blank? and m.inventory_pool_ids.include? 1}
+  @model = @current_user.models.find {|m| !m.images.blank? and !m.description.blank? and !m.properties.blank?}
 end
 
 Angenommen(/^man befindet sich auf der Modellliste mit diesem Modell$/) do
@@ -414,3 +415,4 @@ Dann(/^man sieht wieder die ungefilterte Liste der Modelle$/) do
     .paginate(page: 1, per_page: 20)
     .map(&:name)
 end
+
