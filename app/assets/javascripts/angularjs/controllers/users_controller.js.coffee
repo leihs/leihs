@@ -47,9 +47,9 @@ UsersEditCtrl = ($scope, $location, $routeParams, User) ->
   $scope.current_inventory_pool_id = $routeParams.inventory_pool_id
   $scope.possible_roles = [ {"name": "no_access", "text": _jed("No access")},
                             {"name": "customer", "text": _jed("Customer")} ]
-  if current_user.access_level >= 2
+  if current_user.access_level >= 2 or current_user.admin
     $scope.possible_roles.push {"name": "lending_manager", "text": _jed("Lending manager")}
-  if current_user.access_level >= 3
+  if current_user.access_level >= 3 or current_user.admin
     $scope.possible_roles.push {"name": "inventory_manager", "text": _jed("Inventory manager")}
   self = this
   User.get
