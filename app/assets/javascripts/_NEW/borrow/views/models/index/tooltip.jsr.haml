@@ -22,7 +22,7 @@
         {{for propertiesToDisplay}}
         .row.margin-top-xs
           .col1of3.text-align-right
-            %strong {{>key}}
+            %strong {{forceSpaces key/}}
           .col2of3.padding-left-s {{>value}}
         {{/for}}
       {{/if}}
