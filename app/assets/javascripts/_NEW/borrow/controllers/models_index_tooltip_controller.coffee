@@ -26,6 +26,7 @@ class window.App.Borrow.ModelsIndexTooltipController extends Spine.Controller
         do tooltip.show if @currentTooltip == tooltip and @mouseOverTooltip
 
   enterLine: (e) =>
+    $("*:focus").blur().autocomplete("close").datepicker("hide")
     target = $(e.currentTarget)
     model_id = target.data('id')
     if App.Model.exists model_id
