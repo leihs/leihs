@@ -46,10 +46,11 @@ UsersIndexCtrl.$inject = ['$scope', 'User', '$routeParams'];
 UsersEditCtrl = ($scope, $location, $routeParams, User) ->
   $scope.current_inventory_pool_id = $routeParams.inventory_pool_id
   $scope.possible_roles = [ {"name": "no_access", "text": _jed("No access")},
-                            {"name": "customer", "text": _jed("Customer")},
-                            {"name": "lending_manager", "text": _jed("Lending manager")},
-                            {"name": "inventory_manager", "text": _jed("Inventory manager")}]
-
+                            {"name": "customer", "text": _jed("Customer")} ]
+  if current_user.access_level >= 2
+    $scope.possible_roles.push {"name": "lending_manager", "text": _jed("Lending manager")}
+  if current_user.access_level >= 3
+    $scope.possible_roles.push {"name": "inventory_manager", "text": _jed("Inventory manager")}
   self = this
   User.get
     inventory_pool_id: $scope.current_inventory_pool_id
