@@ -170,10 +170,12 @@ end
 
 Wenn(/^ich ein bereits hinzugefügtes Modell hinzufüge$/) do
   @model = @group.models.first
+  @quantity = 2
+  find(".inner", text: _("Models")).find(".field-inline-entry", text: @model.name).fill_in "group[partitions_attributes][][quantity]", :with => @quantity
   fill_in_autocomplete_field _("Models"), @model.name
 end
 
-Dann(/^wird das Modell nicht hinzugefügt$/) do
+Dann(/^wird das Modell nicht erneut hinzugefügt$/) do
   wait_until {find ".field", text: _("Models")}
   find(".inner", text: _("Models")).all(".field-inline-entry", text: @model.name).count.should == 1
 end
@@ -193,4 +195,8 @@ end
 
 Dann(/^der vorhandene Benutzer ist nach oben gerutscht$/) do
   find(".inner", text: _("Users")).all(".field-inline-entry", text: @user.name).first.text.should match @user.name
+end
+
+Dann(/^das vorhandene Modell behält die eingestellte Anzahl$/) do
+  find(".inner", text: _("Models")).find(".field-inline-entry", text: @model.name).find("input[name='group[partitions_attributes][][quantity]']").value.to_i.should == @quantity
 end

@@ -92,8 +92,9 @@ Funktionalität: Gruppen
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
     Und ich eine bestehende Gruppe editiere
     Wenn ich ein bereits hinzugefügtes Modell hinzufüge
-    Dann wird das Modell nicht hinzugefügt
+    Dann wird das Modell nicht erneut hinzugefügt
     Und das vorhandene Modell ist nach oben gerutscht
+    Und das vorhandene Modell behält die eingestellte Anzahl
     
   @javascript
   Szenario: bereits bestehende Benutzer hinzufügen

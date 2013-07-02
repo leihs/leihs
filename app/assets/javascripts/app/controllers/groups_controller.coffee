@@ -11,17 +11,21 @@ class GroupsController
     @addUserInput.on "autocompleteselect", (e, ui)=> @addUser ui.item
     @addModelInput.on "autocompleteselect", (e, ui)=> @addModel ui.item
 
-  add: (inputField, tmpl, data) =>
-    inputField.closest(".inner").find(".field-inline-entry:contains(#{data.name})").remove()
+  add: (inputField, tmpl, data) =>    
+    line = inputField.closest(".inner").find(".field-inline-entry:contains(#{data.name})").detach()
 
     field = inputField.closest(".field.text")
     target_element = field.children(".field-inline-entry:first")
-    template = $.tmpl(tmpl, data)
+
+    new_line = if line.length
+      line
+    else
+      $.tmpl(tmpl, data)
 
     if target_element.length
-      target_element.before template
+      target_element.before new_line
     else
-      field.append template
+      field.append new_line
 
   addUser: (user) =>
     @add @addUserInput, "app/views/groups/user_field_inline_entry", user
