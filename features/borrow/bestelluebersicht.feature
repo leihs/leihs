@@ -51,4 +51,12 @@ Szenario: Bestellübersicht Zweck nicht eingegeben
   Dann hat der Benutzer keine Möglichkeit die Bestellung abzuschicken
   
   
-  
+Szenario: Bestellübersicht Aktion 'ändern'
+  Angenommen ich habe Gegenstände der Bestellung hinzugefügt
+  Wenn ich die Bestellübersicht öffne
+  Und ich den Eintrag ändere
+  Dann öffnet der Kalender
+  Und ich ändere die aktuellen Einstellung
+  Und speichere die Einstellungen
+  Dann wird der Eintrag gemäss aktuellen Einstellungen geändert
+  Und der Eintrag wird in der Liste anhand der des aktuellen Startdatums und des Geräteparks gruppiert
