@@ -67,8 +67,11 @@ module LeihsFactory
       :language_id => (Language.default_language ? Language.default_language : LanguageFactory.create).id
     }
     default_attributes[:email] = "#{attributes[:login].gsub(' ', '_')}@example.com" if attributes[:login]
-    u = User.find_or_create_by_login default_attributes.merge(attributes)
-    
+    attributes = default_attributes.merge(attributes)
+
+    u = User.find_by_login attributes[:login]
+    u ||= FactoryGirl.create :user, attributes
+
     options[:role] ||= "customer"
     options[:access_level] ||= 0
     options[:inventory_pool] ||= InventoryPool.first
@@ -97,7 +100,7 @@ module LeihsFactory
     
     password = merged_attributes[:password]
     u = User.find_by_login merged_attributes[:login]
-    
+
     d = DatabaseAuthentication.find_by_login u.login
     if d
       d.password = password
