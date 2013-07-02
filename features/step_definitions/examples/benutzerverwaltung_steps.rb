@@ -693,24 +693,35 @@ Wenn(/^man hat nur die folgenden Rollen zur Auswahl$/) do |table|
   end
 end
 
-Angenommen(/^man editiert einen Benutzer der noch kein Kunde ist$/) do
+Angenommen(/^man editiert einen Benutzer der Kunde ist$/) do
+  access_right = AccessRight.find{|ar| ar.role_name == "customer" and ar.inventory_pool == @current_inventory_pool}
+  @user = access_right.user
+  visit edit_backend_inventory_pool_user_path(@current_inventory_pool, @user)
+end
+
+Angenommen(/^man editiert in irgendeinem Inventarpool einen Benutzer der Kunde ist$/) do
   access_right = AccessRight.find{|ar| ar.role_name == "customer"}
   @user = access_right.user
+  @current_inventory_pool = access_right.inventory_pool
   visit edit_backend_inventory_pool_user_path(access_right.inventory_pool, @user)
 end
 
-Wenn(/^man den Zugriff auf "(.*?)" ändert$/) do |arg1|
-  find(".field", text: _("Access as")).find("select").select _("Customer")
+Wenn(/^man den Zugriff auf "Ausleihe-Verwalter" ändert$/) do
+  find(".field", text: _("Access as")).find("select").select _("Lending manager")
 end
 
-Wenn(/^man den Zugriff auf "(.*?)" innerhalb eines Inventarpools ändert$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+Wenn(/^man den Zugriff auf "Inventar-Verwalter" ändert$/) do
+  find(".field", text: _("Access as")).find("select").select _("Inventory manager")
 end
 
-Dann(/^hat der Benutzer als Kunde Zugriff auf Modelle des Inventarpools$/) do
+Dann(/^hat der Benutzer die Rolle Ausleihe-Verwalter$/) do
   wait_until { find_link _("New User") }
-  @user.reload.access_right_for(@current_inventory_pool).role_name.should == "customer"
-  @user.models.should_not be_nil
+  @user.reload.access_right_for(@current_inventory_pool).role_name.should == "lending_manager"
+end
+
+Dann(/^hat der Benutzer die Rolle Inventar-Verwalter$/) do
+  wait_until { find_link _("New User") }
+  @user.reload.access_right_for(@current_inventory_pool).role_name.should == "inventory_manager"
 end
 
 Angenommen(/^man sucht sich einen Benutzer ohne Zugriffsrechte, Bestellungen und Verträge aus$/) do

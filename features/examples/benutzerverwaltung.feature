@@ -257,40 +257,40 @@ Funktionalität: Benutzer verwalten
   @javascript
   Szenario: Zugriff ändern als Ausleihe-Verwalter
     Angenommen man ist "Pius"
-    Und man editiert einen Benutzer der noch kein Kunde ist
+    Und man editiert einen Benutzer der Kunde ist
     Dann man hat nur die folgenden Rollen zur Auswahl
       | No access          |
       | Customer           |
       | Lending manager    |
-    Wenn man den Zugriff auf "Kunde" ändert
+    Wenn man den Zugriff auf "Ausleihe-Verwalter" ändert
     Und man speichert den Benutzer
-    Dann hat der Benutzer als Kunde Zugriff auf Modelle des Inventarpools
+    Dann hat der Benutzer die Rolle Ausleihe-Verwalter
 
   @javascript
   Szenario: Zugriff ändern als Inventar-Verwalter
     Angenommen man ist "Mike"
-    Und man editiert einen Benutzer der noch kein Kunde ist
+    Und man editiert einen Benutzer der Kunde ist
     Dann man hat nur die folgenden Rollen zur Auswahl
       | No access          |
       | Customer           |
       | Lending manager    |
       | Inventory manager  |
-    Wenn man den Zugriff auf "Kunde" ändert
+    Wenn man den Zugriff auf "Inventar-Verwalter" ändert
     Und man speichert den Benutzer
-    Dann hat der Benutzer als Kunde Zugriff auf Modelle des Inventarpools
+    Dann hat der Benutzer die Rolle Inventar-Verwalter
 
   @javascript
-  Szenario: Zugriff ändern als Inventar-Verwalter
-    Angenommen man ist "Mike"
-    Und man editiert einen Benutzer der noch kein Kunde ist
+  Szenario: Zugriff ändern als Administrator
+    Angenommen man ist "Gino"
+    Und man editiert in irgendeinem Inventarpool einen Benutzer der Kunde ist
     Dann man hat nur die folgenden Rollen zur Auswahl
       | No access          |
       | Customer           |
       | Lending manager    |
       | Inventory manager  |
-    Wenn man den Zugriff auf "Kunde" ändert
+    Wenn man den Zugriff auf "Inventar-Verwalter" ändert
     Und man speichert den Benutzer
-    Dann hat der Benutzer als Kunde Zugriff auf Modelle des Inventarpools
+    Dann hat der Benutzer die Rolle Inventar-Verwalter
 
   @javascript
   Szenario: Zugriff entfernen als Ausleihe-Verwalter
