@@ -71,7 +71,7 @@ module Persona
     end
 
     def create_users_with_access_rights
-      FactoryGirl.create :access_right, inventory_pool: @av_technik, user: FactoryGirl.create(:user), role_id: 3
+      FactoryGirl.create :access_right, inventory_pool: @av_technik, user: FactoryGirl.create(:user), role: Role.find_by_name("customer")
     end
 
     def create_users_with_orders

@@ -29,7 +29,6 @@ Funktionalität: Benutzer verwalten
     Und man editiert einen Benutzer
     Und man nutzt die Sperrfunktion
     Dann muss man den Grund der Sperrung eingeben
-    Und man muss das Enddatum der Sperrung bestimmen 
     Und sofern der Benutzer gesperrt ist, kann man die Sperrung aufheben
 
   @javascript @upcoming
@@ -284,10 +283,10 @@ Funktionalität: Benutzer verwalten
     Angenommen man ist "Gino"
     Und man editiert in irgendeinem Inventarpool einen Benutzer der Kunde ist
     Dann man hat nur die folgenden Rollen zur Auswahl
-      | No access          |
-      | Customer           |
-      | Lending manager    |
-      | Inventory manager  |
+      | no access          |
+      | customer           |
+      | lending manager    |
+      | inventory manager  |
     Wenn man den Zugriff auf "Inventar-Verwalter" ändert
     Und man speichert den Benutzer
     Dann hat der Benutzer die Rolle Inventar-Verwalter
@@ -316,6 +315,7 @@ Funktionalität: Benutzer verwalten
     Und man speichert den Benutzer
     Dann hat der Benutzer keinen Zugriff auf das Inventarpool
 
+  @javascript
   Szenario: Benutzer als Administrator löschen
     Angenommen man ist "Gino"
     Und man befindet sich auf der Benutzerliste ausserhalb der Inventarpools

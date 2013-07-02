@@ -120,20 +120,12 @@ Dann /^muss man den Grund der Sperrung eingeben$/ do
   el.set("this is the reason")
 end
 
-Dann /^man muss das Enddatum der Sperrung bestimmen$/ do
-  find(".content_navigation > button.green").click
-  wait_until { find(".button.white", :text => _("Edit %s") % _("User")) }
-  current_path.should == backend_inventory_pool_user_path(@inventory_pool, @customer)
-  @inventory_pool.suspended_users.find_by_id(@customer.id).should_not be_nil
-  @customer.access_right_for(@inventory_pool).suspended?.should be_true
-end
-
 Dann /^sofern der Benutzer gesperrt ist, kann man die Sperrung aufheben$/ do
   visit edit_backend_inventory_pool_user_path(@inventory_pool, @customer)
   find("[ng-model='user.access_right.suspended_until']").set("")
   find(".content_navigation > button.green").click
-  wait_until { find(".button.white", :text => _("Edit %s") % _("User")) }
-  current_path.should == backend_inventory_pool_user_path(@inventory_pool, @customer)
+  wait_until { find(".button.white", :text => _("New User")) }
+  current_path.should == backend_inventory_pool_users_path(@inventory_pool)
   @inventory_pool.suspended_users.find_by_id(@customer.id).should be_nil
   @inventory_pool.users.find_by_id(@customer.id).should_not be_nil
   @customer.access_right_for(@inventory_pool).suspended?.should be_false
@@ -659,6 +651,10 @@ Wenn(/^man speichert den Benutzer$/) do
   find(".button", text: _("Save %s") % _("User")).click
 end
 
+Wenn(/^man speichert den neuen Benutzer$/) do
+  find(".button", text: _("Create %s") % _("User")).click
+end
+
 Angenommen(/^man befindet sich auf der Editierseite eines Benutzers, der ein Administrator ist$/) do
   @user = User.find {|u| u.has_role? "admin"}
   visit edit_backend_user_path(@user)
@@ -761,7 +757,7 @@ Dann(/^wird der Delete Button für diese Benutzer nicht angezeigt$/) do
     find('.innercontent .search input').set user.name
     wait_until { find(".line.user", text: user.name) }
     page.execute_script("$('.trigger .arrow').trigger('mouseover');")
-    find(".line.user", text: user.name).should_not have_content(_("Delete %s") % _("User"))
+    find(".line.user", text: user.name).text.should_not match /#{_("Delete %s") % _("User")}/
   end
 end
 
