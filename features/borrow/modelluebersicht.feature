@@ -2,9 +2,9 @@
 
 Funktionalität: Modellübersicht
 
-Um ausführliche Informationen über ein Modell zu erhalten
-möchte ich als Ausleihender
-die Möglichkeit haben ausführliche Informationen über ein Modell zu sehen
+  Um ausführliche Informationen über ein Modell zu erhalten
+  möchte ich als Ausleihender
+  die Möglichkeit haben ausführliche Informationen über ein Modell zu sehen
 
   Szenario: Modellübersicht
     Angenommen man ist "Normin"
