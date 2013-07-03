@@ -683,7 +683,7 @@ msgid "Lender"
 msgstr "Verleiher/in"
 
 msgid "Lending"
-msgstr "Ausleihe"
+msgstr "Verleih"
 
 msgid "Lending / Daily View"
 msgstr "Ausleihe / Tagesansicht"
