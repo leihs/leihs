@@ -2,13 +2,14 @@ class window.App.UsersController
 
   constructor: (options) ->
     @el = $(options.el)
-    @pagination = @el.find(".pagination_container")
+    @pagination = $(".pagination_container")
     @setupPagination(options.pagination)
     @searchInput = options.searchInput.changed_after_input()
     do @delegateEvents
 
   setupPagination: (data) =>
-    @pagination.html ""
+    @pagination.replaceWith "<div class='pagination_container'></div>"
+    @pagination = $(".pagination_container")
     ListPagination.setup data
 
   delegateEvents: =>

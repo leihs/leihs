@@ -26,12 +26,11 @@ function ListPagination() {
       this.show_loading_dialog = options.show_loading_dialog;
     }
 
-    if (this.total_entries <= this.per_page) return true; 
+    if (this.total_entries <= this.per_page) return false; 
     
     current_page = (ListPagination.current_page == 0) ? 0 : ListPagination.current_page-1;
     
     callback = (options != undefined && options.callback != undefined) ? options.callback : ListPagination.on_click
-    
     $(".pagination_container").pagination(ListPagination.total_entries, {
       items_per_page: ListPagination.per_page,
       callback: callback,
@@ -41,6 +40,8 @@ function ListPagination() {
       next_text: ListPagination.next_text,
       prev_text: ListPagination.previous_text
     });
+    
+    return true;
   }
   
   this.on_click = function (new_page_index, pagination_container) {
