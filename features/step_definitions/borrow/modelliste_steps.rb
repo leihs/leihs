@@ -416,3 +416,22 @@ Dann(/^man sieht wieder die ungefilterte Liste der Modelle$/) do
     .map(&:name)
 end
 
+Wenn(/^ich alle Filter manuell zurücksetze$/) do
+  find("#model-list-search input").set ""
+  find("input#start-date").set ""
+  find("input#end-date").set ""
+  find("body").click
+  wait_until{all(".ui-datepicker-calendar", :visible => true).empty?}
+  page.execute_script %Q($("#ip-selector").trigger("mouseenter"))
+  wait_until{ !all("#ip-selector .dropdown-item", :visible => true).empty? }
+  all("#ip-selector .dropdown-item").first.click
+  page.execute_script %Q($("#ip-selector").trigger("mouseleave"))
+  page.execute_script %Q($("#model-sorting").trigger("mouseenter"))
+  wait_until{ !all("#model-sorting a", :visible => true).empty? }
+  all("#model-sorting a").first.click
+  page.execute_script %Q($("#model-sorting").trigger("mouseleave"))
+end
+
+Dann(/^verschwindet auch die "Alles zurücksetzen" Schaltfläche$/) do
+  expect(find("#reset-all-filter").visible?).to be_false
+end

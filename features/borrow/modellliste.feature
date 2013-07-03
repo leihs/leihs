@@ -152,6 +152,15 @@ Funktionalität: Modellliste
     Und die Schaltfläche "Alles zurücksetzen" ist deaktiviert
 
   @javascript
+  Szenario: Alles zurücksetzen verschwindet automatisch, wenn die Filter wieder auf die Starteinstellungen gesetzt werden
+    Angenommen man ist "Normin"
+    Und man befindet sich auf der Modellliste
+    Und Filter sind ausgewählt
+    Und die Schaltfläche "Alles zurücksetzen" ist aktivert
+    Wenn ich alle Filter manuell zurücksetze
+    Dann verschwindet auch die "Alles zurücksetzen" Schaltfläche
+
+  @javascript
   Szenario: Modell suchen
     Angenommen man ist "Normin"
     Und man befindet sich auf der Modellliste 
