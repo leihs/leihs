@@ -10,7 +10,6 @@ Funktionalität: Startseite
     Angenommen man ist "Normin"
     Und man befindet sich auf der Seite der Hauptkategorien
     Dann sieht man genau die für den User bestimmte Haupt-Kategorien mit Bild und Namen
-    Und man sieht die Überschrift "Hauptkategorien"
     Wenn man eine Hauptkategorie auswählt
     Dann lande ich in der Modellliste für diese Kategorie
 
