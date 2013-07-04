@@ -5,7 +5,7 @@ require "#{Rails.root}/features/support/leihs_factory.rb"
 describe Authenticator::HsluAuthenticationController do
 
   before(:all) do
-    pending # hslu ldap controller conflicts with required pre and last name
+#    pending # hslu ldap controller conflicts with required pre and last name
     
     @ip = FactoryGirl.create(:inventory_pool)
     LeihsFactory.create_default_languages

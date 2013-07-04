@@ -54,8 +54,8 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
 
   # @param login [String] The login of the user you want to create
   # @param email [String] The email address of the user you want to create
-  def create_user(login, email)
-    user = User.new(:login => login, :email => "#{email}")
+  def create_user(login, email, firstname, lastname)
+    user = User.new(:login => login, :email => "#{email}", :firstname => "#{firstname}", :lastname => "#{lastname}")
     user.authentication_system = AuthenticationSystem.where(:class_name => 'HsluAuthentication').first
     if user.save
       # Assign any default roles you want
@@ -139,12 +139,14 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
               ldap_user = users.first
               email = ldap_user.mail.first.to_s if ldap_user.mail
               email ||= "#{user}@hslu.ch"
-              bind_dn = users.first.dn
+              bind_dn = ldap_user.dn
+              firstname = ldap_user.givenname
+              lastname = ldap_user.sn
               ldaphelper = LdapHelper.new
               if ldaphelper.bind(bind_dn, password)
                 u = User.find_by_unique_id(ldap_user[ldaphelper.unique_id_field.to_s])
                 if not u
-                  u = create_user(user, email)
+                  u = create_user(user, email, firstname, lastname)
                 end
 
                 if not u == false
