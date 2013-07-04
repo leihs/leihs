@@ -32,6 +32,8 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
               email = users.first.mail if users.first.mail
               email ||= "#{user}@hkb.bfh.ch"
               bind_dn = users.first.dn
+              firstname = users.first.givenname
+              lastname = users.first.sn
               ldap = Net::LDAP.new :host => LDAP_CONFIG[Rails.env]["host"],
                           :port => LDAP_CONFIG[Rails.env]["port"].to_i,
                           :encryption => LDAP_CONFIG[Rails.env]["encryption"].to_sym,
@@ -42,7 +44,7 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
                 u = User.find_by_login(user)
                
                 if not u
-                  u = User.create(:login => user, :email => "#{email}")
+                  u = User.create(:login => user, :email => "#{email}", :firstname => "#{firstname}", :lastname => "#{lastname}")
                   role = Role.find_by_name("customer")
                   InventoryPool.all.each do |ip|
                     u.access_rights.create(:inventory_pool_id => ip, :role => role)
