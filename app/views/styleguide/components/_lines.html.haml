@@ -24,3 +24,23 @@
     .line-col.col1of4 .line-col
     .line-col.col1of4 .line-col
     .line-col.col1of4 .line-col
+
+  %h3.headline-m.light.margin-top-m.padding-vertical-m.margin-bottom-m.margin-top-m= "Lines in an emboss container"
+
+  .emboss.deep.padding-bottom-s
+
+    .row.padding-inset-s
+      .col1of2
+        %strong= "12.01.2013 - 14.01.2013"
+      .col1of2.text-align-right
+        %strong= "2 Tage"
+
+    .row
+
+      - [1,2,3].each do |line|
+
+        .row.line
+          .line-col.col1of4 .line-col
+          .line-col.col1of4 .line-col
+          .line-col.col1of4 .line-col
+          .line-col.col1of4 .line-col
