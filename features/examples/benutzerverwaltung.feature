@@ -283,10 +283,10 @@ Funktionalität: Benutzer verwalten
     Angenommen man ist "Gino"
     Und man editiert in irgendeinem Inventarpool einen Benutzer der Kunde ist
     Dann man hat nur die folgenden Rollen zur Auswahl
-      | no access          |
-      | customer           |
-      | lending manager    |
-      | inventory manager  |
+      | No access          |
+      | Customer           |
+      | Lending manager    |
+      | Inventory manager  |
     Wenn man den Zugriff auf "Inventar-Verwalter" ändert
     Und man speichert den Benutzer
     Dann hat der Benutzer die Rolle Inventar-Verwalter
