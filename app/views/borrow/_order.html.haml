@@ -8,22 +8,23 @@
             %span.margin-top-s
               = _("Order")
 
-  .row.content-wrapper.straight-top-left.min-height-s
+  .row.content-wrapper.straight-top-left
 
-    .padding-inset-xxs
-      .emboss.padding-inset-xxs
-        %p.paragraph-s
-          - if @order.lines.empty?
+    - if @order.lines.empty?
+      .padding-inset-s
+        .emboss.padding-inset-xs
+          %p.paragraph-s
             %strong= _("Nothing selected")
-          - else
-            - Hash[@order.lines.group_by{|l| l.model }.sort].each_pair do |model, lines|
-              .row.line
-                .line-col.col1of1
-                  = lines.sum &:quantity
-                  x
-                  = model
+    - else
+      - Hash[@order.lines.group_by{|l| l.model }.sort].each_pair do |model, lines|
+        .row.line
+          .line-col.col1of1
+            = lines.sum &:quantity
+            x
+            = model
 
-    - order_button = true if order_button.nil?
-    - if order_button
-      .row.padding-inset-s
-        %a.button.green.min-width-full{href: borrow_unsubmitted_order_path }= _("order")
+      - order_button = true if order_button.nil?
+      - if order_button
+        .padding-inset-xxs
+          .row.padding-inset-s
+            %a.button.green.min-width-full{href: borrow_unsubmitted_order_path }= _("Order overview")
