@@ -9,17 +9,17 @@
 
     %li.topbar-item.separated-left{:class => current_page?(:controller => :to_pick_up) ? "active" : nil}
       %a.topbar-item-inner{:href => borrow_to_pick_up_path}
-        %span.badge 1
+        %span.badge= current_user.contract_lines.to_hand_over.sum &:quantity
         = _("To pick up")
 
     %li.topbar-item.separated-left{:class => current_page?(:controller => :returns) ? "active" : nil}
       %a.topbar-item-inner{:href => borrow_returns_path}
-        %span.badge 5
+        %span.badge= current_user.contract_lines.to_take_back.sum &:quantity
         = _("Returns")
 
     %li.topbar-item.separated-left{:class => current_page?(:controller => :orders) ? "active" : nil}
       %a.topbar-item-inner{:href => borrow_orders_path}
-        %span.badge 2
+        %span.badge= current_user.orders.submitted.count
         = _("Orders")
 
     %li.topbar-item.separated-left{:class => current_page?(:controller => :inventory_pools) ? "active" : nil}

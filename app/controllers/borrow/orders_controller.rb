@@ -1,6 +1,7 @@
 class Borrow::OrdersController < Borrow::ApplicationController
 
   def index
+    @orders = current_user.orders.submitted
   end
 
 ######################################################################
