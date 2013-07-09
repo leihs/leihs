@@ -118,6 +118,7 @@ Dann(/^kann man nicht alle Geräteparks in der Geräteparkauswahl abwählen$/) d
   inventory_pool_ids = all("#ip-selector .dropdown-item[data-id]").map{|item| item["data-id"]}
   inventory_pool_ids.each do |ip_id|
     wait_until{ find("#ip-selector .dropdown-item[data-id='#{ip_id}']") }
+    sleep(1)
     find("#ip-selector .dropdown-item[data-id='#{ip_id}']").click
   end
   wait_until{find("#ip-selector .dropdown-item input", checked: true)}
