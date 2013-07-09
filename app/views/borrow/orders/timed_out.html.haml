@@ -9,7 +9,9 @@
     = render partial: "borrow/order", locals: {order_button: false}
 
     .row.margin-top-m
-      .col1of6.float-right
+      .col5of6
+        &nbsp;
+      .col1of6
         = link_to borrow_order_remove_path, method: :delete, class: "button white min-width-full" do
           %i.icon-ok
           = _("Agree")
