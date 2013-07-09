@@ -10,9 +10,9 @@ module Availability
       b = if end_date < Date.today # check if it was never handed over
         false
       elsif is_a?(OrderLine) and order.status_const == Order::UNSUBMITTED
-        # the user's unsubmitted order_lines should exclude each other
-        all_quantities = model.order_lines.scoped_by_inventory_pool_id(inventory_pool).unsubmitted.running(start_date).by_user(order.user).sum(:quantity)
-        (maximum_available_quantity >= all_quantities)
+        # the unsubmitted order_lines are also considered as running_lines for the availability, then we sum up again the current order_line quantity (preventing self-blocking problem)
+        maximum_available_quantity = model.availability_in(inventory_pool).maximum_available_in_period_for_groups(start_date, end_date, group_ids) + quantity
+        (maximum_available_quantity >= quantity)
       elsif is_a?(OptionLine)
         true
       elsif not inventory_pool.running_lines.detect {|x| x == self} # NOTE doesn't work with include?(self) because are running_lines
@@ -38,10 +38,6 @@ module Availability
       return b
     end
     alias :is_available :available? # NOTE remove if custom as_json is gone 
-
-    def maximum_available_quantity
-      model.availability_in(inventory_pool).maximum_available_in_period_for_groups(start_date, end_date, group_ids)      
-    end
 
   end
 end

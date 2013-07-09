@@ -10,10 +10,20 @@
 
   .row.content-wrapper.straight-top-left.min-height-s
 
-    .padding-inset-s
-      .emboss.padding-inset-xs
+    .padding-inset-xxs
+      .emboss.padding-inset-xxs
         %p.paragraph-s
-          %strong= _("Nothing selected")
+          - if @order.lines.empty?
+            %strong= _("Nothing selected")
+          - else
+            - Hash[@order.lines.group_by{|l| l.model }.sort].each_pair do |model, lines|
+              .row.line
+                .line-col.col1of1
+                  = lines.sum &:quantity
+                  x
+                  = model
 
-    .row.position-absolute-bottom.padding-inset-s
-      %a.button.green.min-width-full= _("order")
+    - order_button = true if order_button.nil?
+    - if order_button
+      .row.padding-inset-s
+        %a.button.green.min-width-full{href: borrow_unsubmitted_order_path }= _("order")

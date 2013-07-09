@@ -6,57 +6,52 @@ Funktionalität: Bestellübersicht
   möchte ich als Ausleiher
   die Möglichkeit haben meine bestellten Gegenstände in der Übersicht zu sehen
 
-  Szenario: Bestellübersicht Auflistung der Gegenstände
-    Angenommen ich habe Gegenstände der Bestellung hinzugefügt
+  Grundlage:
+    Angenommen man ist "Normin"
+    Und ich habe Gegenstände der Bestellung hinzugefügt
     Wenn ich die Bestellübersicht öffne
+
+  Szenario: Bestellübersicht Auflistung der Gegenstände
     Dann sehe ich die Einträge gruppiert nach Startdatum und Gerätepark
     Und die Modelle sind alphabetisch sortiert
     Und für jeden Eintrag sehe ich die folgenden Informationen
-    |Picture|
+    |Bild|
     |Anzahl|
     |Modellname|
     |Hersteller|
     |Anzahl der Tage|
     |Enddatum|
     |die versch. Aktionen|
-    
+
+  @javascript
   Szenario: Bestellübersicht Aktion 'löschen'
-    Angenommen ich habe Gegenstände der Bestellung hinzugefügt
-    Wenn ich die Bestellübersicht öffne
-    Und ich einen Eintrag lösche
-    Dann sind die Gegenstände wieder zur Ausleihe verfügbar
-    Dann wird der Eintrag aus der Bestellung entfernt
-    
+    Wenn ich einen Eintrag lösche
+    Dann die Gegenstände sind wieder zur Ausleihe verfügbar
+     Und wird der Eintrag aus der Bestellung entfernt
+
+  @javascript
   Szenario: Bestellübersicht Bestellung löschen
-    Angenommen ich habe Gegenstände der Bestellung hinzugefügt
-    Wenn ich die Bestellübersicht öffne
-    Und ich die Bestellung lösche
+    Wenn ich die Bestellung lösche
     Dann werde ich gefragt ob ich die Bestellung wirklich löschen möchte
     Und alle Einträge werden aus der Bestellung gelöscht
     Und die Gegenstände sind wieder zur Ausleihe verfügbar
     Und ich befinde mich wieder auf der Startseite
-    
+
   Szenario: Bestellübersicht Bestellen
-    Angenommen ich habe Gegenstände der Bestellung hinzugefügt
-    Wenn ich die Bestellübersicht öffne
-    Und ich einen Zweck eingebe
+    Wenn ich einen Zweck eingebe
     Und ich die Bestellung abschliesse
     Dann ändert sich der Status der Bestellung auf Abgeschickt
-    Und der Ausleiher erhält eine Bestellbestätigung 
+    Und ich erhalte eine Bestellbestätigung
     Und in der Bestellbestätigung wird mitgeteilt, dass die Bestellung in Kürze bearbeitet wird
-    Und der Ausleiher wird auf die Startseite geführt
-    
+    Und ich befinde mich wieder auf der Startseite
+
   Szenario: Bestellübersicht Zweck nicht eingegeben
-    Angenommen ich habe Gegenstände der Bestellung hinzugefügt
-    Wenn ich die Bestellübersicht öffne
-    Und der Zweck nicht abgefüllt wird
+    Wenn der Zweck nicht abgefüllt wird
     Dann hat der Benutzer keine Möglichkeit die Bestellung abzuschicken
-    
-    
+
+
   Szenario: Bestellübersicht Aktion 'ändern'
-    Angenommen ich habe Gegenstände der Bestellung hinzugefügt
-    Wenn ich die Bestellübersicht öffne
-    Und ich den Eintrag ändere
+    Wenn ich den Eintrag ändere
     Dann öffnet der Kalender
     Und ich ändere die aktuellen Einstellung
     Und speichere die Einstellungen

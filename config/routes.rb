@@ -29,6 +29,12 @@ Leihs::Application.routes.draw do
     get "models/availability", :to => "models#availability", :as => "models_availability"
     get "models/:id", :to => "models#show", :as => "model"
     get "order", :to => "orders#unsubmitted_order", :as => "unsubmitted_order"
+    post "order", :to => "orders#submit"
+    delete "order/remove", :to => "orders#remove"
+    post "order/add_line", :to => "orders#add_line"
+    delete "order/remove_lines", :to => "orders#remove_lines"
+    get "order/timed_out", :to => "orders#timed_out"
+    put "order/refresh", :to => "orders#refresh"
     get "orders", :to => "orders#index", :as => "orders"
     get "returns", :to => "returns#index", :as => "returns"
     post 'search', :to => 'search#search', :as => "search"
@@ -76,6 +82,7 @@ Leihs::Application.routes.draw do
     resources :contracts
   end
 
+=begin
   # used for the current_order
   resource :order do
     member do
@@ -85,6 +92,7 @@ Leihs::Application.routes.draw do
       post :change_time_lines
     end
   end
+=end
 
   resource :session do
     member do

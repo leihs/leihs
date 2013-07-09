@@ -1,5 +1,6 @@
 class OrdersController < FrontendController
 
+=begin
   before_filter do
     @order = (params[:id] ? current_user.orders.find(params[:id]) : current_user.get_current_order)
   end
@@ -110,5 +111,6 @@ class OrdersController < FrontendController
       format.json { render :partial => "/orders/pending" }
     end
   end
+=end
 
 end

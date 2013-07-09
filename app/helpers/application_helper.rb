@@ -61,8 +61,12 @@ module ApplicationHelper
     date.strftime(tiny ? "%d.%m.%y" : "%d.%m.%Y") if date
   end
 
+  def interval(start_date, end_date)
+    interval = (end_date - start_date).to_i.abs + 1
+    pluralize(interval, _("Day"), _("Days"))
+  end
+
   def dates_with_period(start_date, end_date)
-    interval = (end_date - start_date).abs + 1
     content_tag :span do
       c = "valid_#{current_inventory_pool.is_open_on?(start_date)}" if current_inventory_pool
       r = content_tag :span, :class => c do
@@ -75,7 +79,7 @@ module ApplicationHelper
       end
       r += content_tag :br
       r += content_tag :span, :style => "font-size: smaller;" do
-        pluralize(interval, _("Day"), _("Days"))
+        interval(start_date, end_date)
       end
       r
     end

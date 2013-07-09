@@ -26,7 +26,7 @@ end
 When "he submits the new order" do
   @order = @current_user.get_current_order
   @order.status_const.should == Order::UNSUBMITTED
-  post submit_order_path
+  post borrow_order_path(purpose: "this is the required purpose")
   @order = @order.reload
   @order.status_const.should == Order::SUBMITTED
 end
@@ -94,7 +94,7 @@ When "$who asks for $quantity '$what' from $from" do | who, quantity, what, from
   @order.order_lines << LeihsFactory.create_order_line(:model_name => what,
                                                   :quantity => quantity,
                                                   :start_date => from,
-						  :inventory_pool => @inventory_pool)
+                                                  :inventory_pool => @inventory_pool)
   @order.save                                                
 end
 
@@ -128,24 +128,24 @@ end
 When "'$who' orders $quantity '$model'" do |who, quantity, model|
   post "/session", :login => who #, :password => "pass"
   step "I am logged in as '#{who}' with password '#{nil}'"
-  get '/order'
+  get borrow_start_path
   model_id = Model.find_by_name(model).id
-  post add_line_order_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => @inventory_pool.id)
+  post borrow_order_add_line_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => @inventory_pool.id)
 end
 
 When "'$user' orders another $quantity '$model' for the same time" do |user, quantity, model|
   model_id = Model.find_by_name(model).id
-  post add_line_order_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => @inventory_pool.id)
+  post borrow_order_add_line_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => @inventory_pool.id)
   #old??# @order = assigns(:order)
 end
 
 When "'$who' orders $quantity '$model' from inventory pool $ip" do |who, quantity, model, ip|
   post "/session", :login => who #, :password => "pass"
   step "I am logged in as '#{who}' with password '#{nil}'"
-  get '/order'
+  get borrow_start_path
   model_id = Model.find_by_name(model).id
   inv_pool = InventoryPool.find_by_name(ip)
-  post add_line_order_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => inv_pool.id)
+  post borrow_order_add_line_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => inv_pool.id)
   @order = @current_user.get_current_order
 end
 

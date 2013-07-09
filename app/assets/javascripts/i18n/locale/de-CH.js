@@ -1307,7 +1307,7 @@ window.i18n.locale_data = {
       ],
       "Please provide a purpose...": [
          null,
-         "BItte geben Sie einen Zweck an..."
+         "Bitte geben Sie einen Zweck an..."
       ],
       "Please provide all required fields": [
          null,

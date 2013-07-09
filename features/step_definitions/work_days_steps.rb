@@ -49,14 +49,15 @@ When "$who try to order an item for $date" do |who, date|
   post "/session", :login => user.login
   step "I am logged in as '#{user.login}' with password '#{nil}'"
   @order.destroy if @order
-  get '/order'
-  post add_line_order_path( :model_id => model.id,
-                            :quantity => 1,
-                            :inventory_pool_id => inventory_pool.id,
-                            :start_date => date,
-                            :end_date => date)
+  get borrow_start_path
+  post borrow_order_add_line_path(:model_id => model.id,
+                                  :quantity => 1,
+                                  :inventory_pool_id => inventory_pool.id,
+                                  :start_date => date,
+                                  :end_date => date)
                            
   @order = @current_user.get_current_order
+  @order.purpose = "this is the required purpose"
   @line = @order.order_lines.last
 end
 

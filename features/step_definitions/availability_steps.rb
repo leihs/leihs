@@ -7,7 +7,7 @@ do |quantity, model, from, to|
   model = Model.find_by_name(model)
   order = FactoryGirl.create :order, :inventory_pool => model.inventory_pools.first # OPTIMIZE
   order.add_lines(quantity.to_i, model, nil, to_date(from), to_date(to))
-  order.submit.should be_true
+  order.submit("this is the required purpose").should be_true
   order.lines.size.should >= 1
   model.availability_in(order.inventory_pool.reload).document_lines.size.should >= 1
 end

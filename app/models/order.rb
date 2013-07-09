@@ -105,6 +105,9 @@ class Order < Document
     elsif lines.empty?
       errors.add(:base, _("This order is not approvable because doesn't have any models."))
       false
+    elsif purpose.to_s.blank?
+      errors.add(:base, _("Please provide a purpose..."))
+      false
     elsif lines.all? {|l| l.available? }
       true
     else

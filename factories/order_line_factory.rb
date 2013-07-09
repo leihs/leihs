@@ -4,7 +4,9 @@ FactoryGirl.define do
     inventory_pool { FactoryGirl.create(:inventory_pool) }
     model {
       m = FactoryGirl.create(:model)
-      m.items << FactoryGirl.create(:item, :model => m, :inventory_pool => inventory_pool)
+      rand(1..5).times do
+        m.items << FactoryGirl.create(:item, :model => m, :inventory_pool => inventory_pool)
+      end
       m
     }
     order { FactoryGirl.create(:order, :inventory_pool => inventory_pool) }

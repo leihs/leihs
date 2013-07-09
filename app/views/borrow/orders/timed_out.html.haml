@@ -1,0 +1,19 @@
+.wrapper.margin-top-m
+
+  .row.content-wrapper.straight-top-left.padding-inset-l
+    %h1.padding-inset-l.text-align-center
+      = _("Your order is older than 24 hours, then it has timed out!")
+
+    = render partial: "borrow/order", locals: {order_button: false}
+
+    .row.margin-top-m
+      .col1of6
+        = link_to borrow_order_remove_path, method: :delete, data: { confirm: _("Are you sure?") }, class: "button red min-width-full" do
+          %i.icon-trash
+          = _("Delete the order")
+      .col4of6
+        &nbsp;
+      .col1of6
+        = link_to borrow_order_refresh_path, method: :put, class: "button green min-width-full" do
+          %i.icon-refresh
+          = _("Refresh the order")

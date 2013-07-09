@@ -41,6 +41,9 @@ class OrderLine < DocumentLine
          end
       end
     end
+
+    # keep the unsubmitted order computed for the availability
+    order.touch if order.status_const == Order::UNSUBMITTED
   end
 
 #########################################################################

@@ -961,7 +961,7 @@ msgstr ""
 "Diese kann bei Abholung durchaus andere Gegenstände enthalten."
 
 msgid "Please provide a purpose..."
-msgstr "BItte geben Sie einen Zweck an..."
+msgstr "Bitte geben Sie einen Zweck an..."
 
 msgid "Please provide all required fields"
 msgstr "Bitte füllen Sie alle Pflichtfelder aus"
