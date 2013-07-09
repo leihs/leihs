@@ -34,7 +34,6 @@ Leihs::Application.routes.draw do
     post "order/add_line", :to => "orders#add_line"
     delete "order/remove_lines", :to => "orders#remove_lines"
     get "order/timed_out", :to => "orders#timed_out"
-    put "order/refresh", :to => "orders#refresh"
     get "orders", :to => "orders#index", :as => "orders"
     get "returns", :to => "returns#index", :as => "returns"
     post 'search', :to => 'search#search', :as => "search"

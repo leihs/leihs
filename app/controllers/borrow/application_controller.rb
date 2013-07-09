@@ -17,7 +17,7 @@ class Borrow::ApplicationController < ApplicationController
   end
 
   def redirect_if_order_timed_out
-    return if [borrow_order_timed_out_path, borrow_order_refresh_path, borrow_order_remove_path].include? request.path
+    return if [borrow_order_timed_out_path, borrow_order_remove_path].include? request.path
     redirect_to borrow_order_timed_out_path if @order.lines.count > 0 and (Time.now - @order.updated_at) > 24.hours
   end
 

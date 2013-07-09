@@ -68,9 +68,4 @@ class Borrow::OrdersController < Borrow::ApplicationController
   def timed_out
   end
 
-  def refresh
-    @order.touch
-    redirect_to borrow_start_path
-  end
-
 end
