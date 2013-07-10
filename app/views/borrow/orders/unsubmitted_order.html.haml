@@ -51,7 +51,6 @@
     = form_tag borrow_order_path do
       .row
         .col1of2
-          &nbsp;
         .col1of2
           %textarea.min-width-full{name: "purpose", placeholder: _("Please provide a purpose...")}
             = @order.purpose
@@ -62,7 +61,6 @@
             %i.icon-trash
             = _("Delete")
         .col4of6
-          &nbsp;
         .col1of6
           %button.button.green.min-width-full
             %i.icon-ok
