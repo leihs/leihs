@@ -67,18 +67,6 @@ class ModelGroup < ActiveRecord::Base
     l.update_attributes(:label => label) if l
   end
   
-##################################################
-# aliases for Ext.Tree # TODO remove ??
-
-  def text(parent_id = 0)
-    parent_id = if parent_id.to_i.zero? and current_parent_id.to_i > 0
-      current_parent_id.to_i
-    else
-      nil
-    end
-    label(parent_id)
-  end
-  
 ################################################
 
   def to_s

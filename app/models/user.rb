@@ -23,9 +23,17 @@ class User < ActiveRecord::Base
     #end
 
   has_many :categories, :through => :models, :uniq => true # (nested)
-  # OPTIMIZE 0907
+  # OPTIMIZE still
   def all_categories
-    ancestors = categories.collect(&:ancestors)
+    # this is too slow, 1+n queries
+    #ancestors = categories.collect(&:ancestors)
+    # then let's query all ancestors with 1+1 queries
+    #ancestors = Category.joins("INNER JOIN `model_group_links` ON `model_groups`.`id` = `model_group_links`.`ancestor_id`").where(:model_group_links => {:descendant_id => category_ids})
+    # with 1 query using subquery
+    #ancestors = Category.joins("INNER JOIN `model_group_links` ON `model_groups`.`id` = `model_group_links`.`ancestor_id`").where("`model_group_links`.`descendant_id` IN (#{categories.select("model_groups.id").to_sql})")
+    # but finally reuse already executed categories query
+    ancestors = Category.joins("INNER JOIN `model_group_links` ON `model_groups`.`id` = `model_group_links`.`ancestor_id`").where(:model_group_links => {:descendant_id => categories.map(&:id)})
+
     [categories, ancestors].flatten.uniq
   end
 

@@ -25,9 +25,13 @@ Leihs::Application.routes.draw do
   namespace :borrow do
     get "/", :to => "application#start", :as => "start"
     get "inventory_pools", :to => "inventory_pools#index", :as => "inventory_pools"
+
+    get "categories", :to => "categories#index"
+
     get "models", :to => "models#index", :as => "models"
     get "models/availability", :to => "models#availability", :as => "models_availability"
     get "models/:id", :to => "models#show", :as => "model"
+
     get "order", :to => "orders#unsubmitted_order", :as => "unsubmitted_order"
     post "order", :to => "orders#submit"
     delete "order/remove", :to => "orders#remove"
@@ -35,6 +39,7 @@ Leihs::Application.routes.draw do
     delete "order/remove_lines", :to => "orders#remove_lines"
     get "order/timed_out", :to => "orders#timed_out"
     get "orders", :to => "orders#index", :as => "orders"
+
     get "returns", :to => "returns#index", :as => "returns"
     post 'search', :to => 'search#search', :as => "search"
     get 'search/:search_term', :to => 'search#results', :as => "search_results"
