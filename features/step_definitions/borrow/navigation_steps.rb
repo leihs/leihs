@@ -7,11 +7,11 @@ end
 Dann(/^die Navigation beinhaltet "(.*?)"$/) do |section|
   case section
     when "Abzuholen"
-      find("nav a[href='#{borrow_to_pick_up_path}']", :text => _("To pick up"))
+      find("nav a[href='#{borrow_to_pick_up_path}']", :text => _("To pick up")) if @current_user.contract_lines.to_hand_over.sum(&:quantity) > 0
     when "Rückgaben"
-      find("nav a[href='#{borrow_returns_path}']", :text => _("Returns"))
+      find("nav a[href='#{borrow_returns_path}']", :text => _("Returns")) if @current_user.contract_lines.to_take_back.sum(&:quantity) > 0
     when "Bestellungen"
-      find("nav a[href='#{borrow_orders_path}']", :text => _("Orders"))
+      find("nav a[href='#{borrow_orders_path}']", :text => _("Orders")) if @current_user.orders.submitted.count > 0
     when "Geräteparks"
       find("nav a[href='#{borrow_inventory_pools_path}']", :text => _("Inventory Pools"))
     when "Benutzer"
