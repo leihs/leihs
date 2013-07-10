@@ -1,0 +1,17 @@
+.wrapper.margin-top-m
+
+  .content-wrapper.straight-top-left.padding-inset-l
+
+    %h1= _("You have permission to access the following inventory pool(s):")
+
+    - current_user.access_rights.collect(&:inventory_pool).compact.each do |inventory_pool|
+      .row.margin-top-m
+        %h2= inventory_pool.name
+        %p.paragraph-m
+          - ar = current_user.access_right_for(inventory_pool)
+          - if ar.suspended?
+            %br
+            %span{style: "font-size: 150%; color: red;"}
+              = _("YOU ARE SUSPENDED FOR THIS INVENTORY_POOL")
+        .padding-left-m
+          = simple_format(inventory_pool.description)
