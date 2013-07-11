@@ -10,7 +10,7 @@
 
 :ruby
   def category_node(category, parent_id)
-    {:data => {:title => category.text(parent_id)},
+    {:data => {:title => category.label(parent_id)},
      :attr => {:id => category.id},
      :children => category.children.order("name asc").map{|c| category_node(c, category.id) } }
   end
