@@ -44,11 +44,11 @@ describe Backend::HandOverController do
 
   describe "a visit" do
     it "that is overdue, should be deleted and respond with success" do
-      @visit = Visit.hand_over.where("date < ?", Date.today).first
+      @visit = @inventory_pool.visits.hand_over.where("date < ?", Date.today).first
     end
 
     it "that is on the future, should be deleted and respond with success" do
-      @visit = Visit.hand_over.where("date >= ?", Date.today).first
+      @visit = @inventory_pool.visits.hand_over.where("date >= ?", Date.today).first
     end
 
     after :each do

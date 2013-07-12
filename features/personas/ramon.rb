@@ -79,7 +79,7 @@ module Persona
     end
 
     def create_users_with_contracts
-      FactoryGirl.create :contract_with_lines, inventory_pool: @a_ausleihe
+      FactoryGirl.create :contract_with_lines
     end
   end
 end
