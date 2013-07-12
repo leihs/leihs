@@ -47,12 +47,10 @@ gem 'pry', '~> 0.9', :group => [:test, :development]
 gem 'pry-rails', '~> 0.2', :group => [:test, :development]
 gem "pry-debugger", "~> 0.2.2", :group => :development
 gem 'rails_autolink', '~> 1.0'
-gem 'rcapture', :group => :test
 gem 'redcarpet', :group => [:test, :development] # This isn't being pulled in by yard, but it's required
 gem 'rgl', '~> 0.4.0', :require => 'rgl/adjacency' # use ruby-graphviz instead ?? (already in test group)
 gem 'rspec', '~> 2.12', :group => [:test, :development], :require => false
-gem 'rspec-rails', '~> 2.12', :group => [:test, :development], :require => false
-gem 'ruby-graphviz', :group => :test
+gem 'rspec-rails', '~> 2.12', :group => [:test, :development], :require => false#gem 'ruby-graphviz', :group => :test
 gem 'ruby_parser', '~> 3.1' # gettext dependency that Bundler seems unable to resolve
 gem 'sass', '~> 3.2', :group => :assets
 gem 'sass-rails', '~> 3.2', :group => :assets

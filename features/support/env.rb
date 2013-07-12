@@ -61,38 +61,3 @@ end
 After do |scenario|
   DatabaseCleaner.clean
 end
-
-###############################
-# TODO capture only on demand (test profile?)
-TRACE_DIR = File.join(Rails.root, "app")
-@@captures = []
-class Model
-  include RCapture::Interceptable
-  capture :methods => [:availability_in] do |c|
-    #@@captures << [["#{c.sender.class}##{c.method}"] + caller.select {|x| x.include? TRACE_DIR}, c] 
-    @@captures << ["#{c.sender.class}##{c.method}"] + caller.select {|x| x.include? TRACE_DIR} 
-  end
-end
-at_exit do
-  g = GraphViz.new( :G, :type => :digraph )
-  #@@captures.map(&:first).uniq.each do |trace|
-  @@captures.uniq.each do |trace|
-    nodes = trace.map do |t|
-      g.add_nodes( t.gsub(TRACE_DIR, ''), :shape => "box" )
-=begin
-      tt = t.gsub(TRACE_DIR, '').split(':', 2)
-      if tt.size > 1
-        sg = g.add_graph(tt.first, :label => tt.first)
-        sg.add_nodes( tt.last, :shape => "box" )
-      else
-        g.add_nodes( tt.last, :shape => "box" )
-      end
-=end
-    end
-    nodes.each_cons(2) do |node|
-      g.add_edges( node[1], node[0] )
-    end
-  end
-  `mkdir -p doc/diagrams/generated`
-  g.output( :dot => "doc/diagrams/generated/captures.dot" )
-end
