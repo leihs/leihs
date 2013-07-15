@@ -12,7 +12,7 @@ end
 
 Wenn(/^ich die Bestellübersicht öffne$/) do
   visit borrow_unsubmitted_order_path
-  find("h1", text: _("Order Overview"))
+  page.should have_content _("Order Overview")
   @order = @current_user.get_current_order
   all(".line").count.should == @order.lines.count
 end
@@ -20,7 +20,9 @@ end
 #############################################################################
 
 Dann(/^sehe ich die Einträge gruppiert nach Startdatum und Gerätepark$/) do
-  all(".emboss.deep").count.should == @order.lines.group_by{|l| [l.start_date, l.inventory_pool] }.keys.count
+  @order.lines.group_by{|l| [l.start_date, l.inventory_pool]}.each do |k,v|
+    find("*", text: I18n.l(k[0])).should have_content k[1].name
+  end
 end
 
 Dann(/^die Modelle sind alphabetisch sortiert$/) do
@@ -31,25 +33,27 @@ Dann(/^die Modelle sind alphabetisch sortiert$/) do
 end
 
 Dann(/^für jeden Eintrag sehe ich die folgenden Informationen$/) do |table|
-  line = find(".line")
-  table.raw.map{|e| e.first}.each do |row|
-    case row
-      when "Bild"
-        line.find(".image img") #.find("img[src*='#{model.id}']")
-      when "Anzahl"
-        line.find(".amount")
-      when "Modellname"
-        line.find(".name")
-      when "Hersteller"
-        line.find(".manufacturer")
-      when "Anzahl der Tage"
-        line.find(".end_date")
-      when "Enddatum"
-        line.find(".end_date")
-      when "die versch. Aktionen"
-        line.find(".line-actions")
-      else
-        raise "Unbekannt"
+  all(".line").each do |line|
+    order_line = OrderLine.find line["data-id"]
+    table.raw.map{|e| e.first}.each do |row|
+      case row
+        when "Bild"
+          line.find("img")[:src][order_line.model.id.to_s].should be
+        when "Anzahl"
+           line.should have_content order_line.quantity
+        when "Modellname"
+          line.should have_content order_line.model.name
+        when "Hersteller"
+          line.should have_content order_line.model.manufacturer
+        when "Anzahl der Tage"
+          line.should have_content ((order_line.end_date - order_line.start_date).to_i+1).to_s
+        when "Enddatum"
+          line.should have_content I18n.l order_line.end_date
+        when "die versch. Aktionen"
+          line.find(".line-actions")
+        else
+          raise "Unbekannt"
+      end
     end
   end
 end

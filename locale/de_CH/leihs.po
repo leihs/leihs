@@ -2265,3 +2265,9 @@ msgstr "Der ausgewählte Gerätepark ist an diesem Tag geschlossen"
 
 msgid "Item is not available in that time range"
 msgstr "Der Gegenstand ist im ausgewählten Zeitraum nicht ausreichend verfügbar"
+
+msgid "Purpose of the order"
+msgstr "Zweck der Bestellung"
+
+msgid "Specification of the purpose is required"
+msgstr "Die Angabe eines Zwecks ist verpflichtend"

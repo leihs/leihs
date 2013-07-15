@@ -7,61 +7,43 @@
       %ul
         %li
           %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left.active
-            %i.icon-shopping-cart
-            = _("Order")
+            = _("Order Overview")
 
-  .row.content-wrapper.straight-top-left.padding-inset-l
-
-    %h1.headline-xl.padding-bottom-s= _("Order Overview")
+  .row.content-wrapper.straight-top-left
 
     - @grouped_lines.each_pair do |date_ip, lines|
-      .emboss.deep.padding-bottom-s.margin-bottom-m
-        .row.padding-inset-s
-          .col1of6.headline-m
-            = short_date(date_ip[0])
-          .col5of6.headline-m
-            = date_ip[1]
 
-        %div
-          - lines.sort_by {|x| x.model.to_s }.each do |line|
-            .row.line
-              - unless line.available?
-                .line-info.red
-              .line-col.col1of9.image
-                %img.max-height-xxs-alt.max-width-xs{src: model_image_thumb_path(line.model.id)}
-              .line-col.col1of9.amount
-                = line.quantity
-              .line-col.col2of9.text-align-left.name
-                %strong{:title => "#{line.model.name}"}= line.model.name.truncate(62)
-                - if line.model.is_package
-                  .package.icon
-              .line-col.col2of9.text-align-left.manufacturer
-                %strong{:title => "#{line.model.manufacturer}"}= line.model.manufacturer.truncate(62)
-              .line-col.col2of9.end_date
-                = interval(line.start_date, line.end_date)
-                = _("until")
-                %span{class: line.inventory_pool.is_open_on?(line.end_date) ? nil : "emboss red"}
-                  = short_date(line.end_date)
+      .row.padding-inset-l
+        .col1of7
+          %h3.headline-m= short_date(date_ip[0])
+        .col5of7
+          %h2.headline-m= date_ip[1]
 
-              .line-col.line-actions.col1of9
-                = link_to borrow_order_remove_lines_path(line_ids: [line.id]), method: :delete, data: { confirm: _("Are you sure?") }, class: "button red" do
-                  .icon.delete
-                  = _("Delete")
+      .separated-top.padding-bottom-l
 
-    = form_tag borrow_order_path do
-      .row
-        .col1of2
-        .col1of2
-          %textarea.min-width-full{name: "purpose", placeholder: _("Please provide a purpose...")}
+        = render :partial => "borrow/orders/line", :collection => lines.sort_by {|x| x.model.to_s}, :as => :line
+
+    .padding-inset-l
+
+      = form_tag borrow_order_path do
+
+        .row
+
+          %h3.headline-m.padding-bottom-m
+            = _("Purpose of the order")
+            *
+
+          %textarea.width-full{name: "purpose", placeholder: _("Specification of the purpose is required")}
             = current_order.purpose
 
-      .row
-        .col1of6
-          = link_to borrow_order_remove_path, method: :delete, data: { confirm: _("Are you sure?") }, class: "button red min-width-full" do
-            %i.icon-trash
-            = _("Delete")
-        .col4of6
-        .col1of6
-          %button.button.green.min-width-full
-            %i.icon-ok
-            = _("Order")
+        .row.padding-top-l
+
+          .col1of2
+            = link_to borrow_order_remove_path, method: :delete, data: { confirm: _("Are you sure?") }, class: "button red" do
+              %i.icon-trash
+              = _("Delete %s") % _("Order")
+
+          .col1of2.text-align-right
+            %button.button.green
+              %i.icon-ok
+              = _("Submit Order")

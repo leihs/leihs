@@ -2194,3 +2194,9 @@ msgstr ""
 
 msgid "Item is not available in that time range"
 msgstr ""
+
+msgid "Purpose of the order"
+msgstr ""
+
+msgid "Specification of the purpose is required"
+msgstr ""
