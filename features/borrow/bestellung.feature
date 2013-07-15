@@ -15,3 +15,15 @@ Funktionalität: Bestellung
     Angenommen man ist "Normin"
     Und man befindet sich auf der Bestellübersicht
     Dann sehe ich kein Bestellfensterchen
+
+  Szenario: Bestellfensterchen Inhalt
+    Angenommen man ist "Normin"
+    Wenn ich ein Modell der Bestellung hinzufüge
+    Dann erscheint es im Bestellfensterchen
+    Und die Modelle sind alphabetisch sortiert
+    Und gleiche Modelle werden zusammengefasst
+    Wenn das gleiche Modell nochmals hinzugefügt wird
+    Dann wird die Anzahl dieses Modells erhöht 
+    Und ich kann zur detaillierten Bestellübersicht gelangen
+    
+    
