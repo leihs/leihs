@@ -34,7 +34,7 @@ class Backend::UsersController < Backend::BackendController
     respond_to do |format|
 
       format.html do
-        @users = (@role == "admins" ? User.admins : User.scoped).search(search).order("users.updated_at DESC").paginate(:page => @page, :per_page => @per_page)
+        @users = (@role == "admins" ? User.admins : User.scoped).search(search).order("users.firstname ASC").paginate(:page => @page, :per_page => @per_page)
         render template: "backend/users/index_in_inventory_pool" if current_inventory_pool
       end
 
@@ -48,7 +48,7 @@ class Backend::UsersController < Backend::BackendController
                     current_inventory_pool.send(suspended ? :suspended_users : :users).send(@role)
                   else
                     User.scoped
-                end.search(search).order("users.updated_at DESC").paginate(:page => @page, :per_page => @per_page)
+                end.search(search).order("users.firstname ASC").paginate(:page => @page, :per_page => @per_page)
 
         render json: {
             entries: view_context.hash_for(users, with.merge({:access_right => true, :preset => :user})),

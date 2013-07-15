@@ -781,3 +781,11 @@ Dann(/^hat der Benutzer keinen Zugriff auf das Inventarpool$/) do
   wait_until { find_link _("New User") }
   @user.reload.access_right_for(@current_inventory_pool).should be_nil
 end
+
+Dann(/^sind die Benutzer nach ihrem Vornamen alphabetisch sortiert$/) do
+  if @current_inventory_pool
+    all("li.user_name").map(&:text)
+  else
+    all("li.user_name").map(&:text).map{|t| t.split("\n").second}
+  end.should == User.scoped.order(:firstname).paginate(page:1, per_page: 20).map(&:name)
+end

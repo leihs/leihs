@@ -49,7 +49,6 @@ Funktionalität: Bestellübersicht
     Wenn der Zweck nicht abgefüllt wird
     Dann hat der Benutzer keine Möglichkeit die Bestellung abzuschicken
 
-
   Szenario: Bestellübersicht Aktion 'ändern'
     Wenn ich den Eintrag ändere
     Dann öffnet der Kalender

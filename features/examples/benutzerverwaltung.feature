@@ -21,7 +21,6 @@ Funktionalität: Benutzer verwalten
       | Ausleihe-Verwalter | lending_managers   |
       | Inventar-Verwalter | inventory_managers |
     Und man kann für jeden Benutzer die Editieransicht aufrufen
-    #Und man kann einen neuen Benutzer erstellen 
 
   @javascript
   Szenario: Sperrfunktion
@@ -346,3 +345,14 @@ Funktionalität: Benutzer verwalten
     Und man sucht sich je einen Benutzer mit Zugriffsrechten, Bestellungen und Verträgen aus
     Und man befindet sich auf der Benutzerliste im beliebigen Inventarpool
     Dann wird der Delete Button für diese Benutzer nicht angezeigt
+
+  Szenario: Alphabetische Sortierung der Benutzer ausserhalb vom Inventarpool
+    Angenommen man ist "Ramon"
+    Und man befindet sich auf der Benutzerliste ausserhalb der Inventarpools
+    Dann sind die Benutzer nach ihrem Vornamen alphabetisch sortiert
+
+  @javascript
+  Szenario: Alphabetische Sortierung der Benutzer innerhalb vom Inventarpool
+    Angenommen man ist "Ramon"
+    Und man befindet sich auf der Benutzerliste im beliebigen Inventarpool
+    Dann sind die Benutzer nach ihrem Vornamen alphabetisch sortiert
