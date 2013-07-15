@@ -25,7 +25,7 @@
         - Hash[current_order.lines.group_by{|l| l.model }.sort].each_pair do |model, lines|
           .row.line.small{:title => model}
             .line-col.col1of1
-              %span.text-ellipsis.width-s-alt= "#{lines.sum(&:quantity)}x #{model}"
+              %span.text-ellipsis.width-s-alt.block= "#{lines.sum(&:quantity)}x #{model}"
 
     #order-overview-button.padding-inset-xxs{:class => order_button ? "" : "hidden"}
       .row.padding-inset-s
