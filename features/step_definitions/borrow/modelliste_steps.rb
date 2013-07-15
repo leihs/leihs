@@ -383,8 +383,10 @@ Angenommen(/^die Schaltfläche "(.*?)" ist aktivert$/) do |arg1|
   find("#reset-all-filter").visible?
 end
 
-Wenn(/^man "(?:.+)" wählt$/) do
+Wenn(/^man "Alles zurücksetzen" wählt$/) do
   find("#reset-all-filter").click
+  step "ensure there are no active requests"
+  wait_until {all("#model-list .line").count > 0}
 end
 
 Dann(/^sind alle Geräteparks in der Geräteparkauswahl wieder ausgewählt$/) do
@@ -435,4 +437,8 @@ end
 
 Dann(/^verschwindet auch die "Alles zurücksetzen" Schaltfläche$/) do
   expect(find("#reset-all-filter").visible?).to be_false
+end
+
+Dann(/^die Auswahl klappt nocht nicht zu$/) do
+  find("#ip-selector .dropdown").should be_visible
 end

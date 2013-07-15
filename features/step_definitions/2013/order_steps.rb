@@ -130,12 +130,13 @@ When "'$who' orders $quantity '$model'" do |who, quantity, model|
   step "I am logged in as '#{who}' with password '#{nil}'"
   get borrow_start_path
   model_id = Model.find_by_name(model).id
-  post borrow_order_add_line_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => @inventory_pool.id)
+  post borrow_order_lines_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => @inventory_pool.id)
+  @order_lines = @current_user.orders.first.lines
 end
 
 When "'$user' orders another $quantity '$model' for the same time" do |user, quantity, model|
   model_id = Model.find_by_name(model).id
-  post borrow_order_add_line_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => @inventory_pool.id)
+  post borrow_order_lines_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => @inventory_pool.id)
   #old??# @order = assigns(:order)
 end
 
@@ -145,8 +146,13 @@ When "'$who' orders $quantity '$model' from inventory pool $ip" do |who, quantit
   get borrow_start_path
   model_id = Model.find_by_name(model).id
   inv_pool = InventoryPool.find_by_name(ip)
-  post borrow_order_add_line_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => inv_pool.id)
+  post borrow_order_lines_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => inv_pool.id)
   @order = @current_user.get_current_order
+
+  @total_quantity ||= 0
+  available_items_in_ip = inv_pool.own_items.length
+  quantity_i = quantity.to_i
+  @total_quantity += quantity_i if quantity_i <= available_items_in_ip
 end
 
 When "'$who' searches for '$model' on frontend" do |who, model|

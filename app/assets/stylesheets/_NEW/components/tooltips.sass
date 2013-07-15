@@ -1,9 +1,13 @@
 .tooltipster-default
+  display: inline-block
   border: 1px solid $almostwhite
-  width: 500px
   @include background(linear-gradient(white 20%, $lightestgrey 80%))
   @include border-radius($border-radius-m)
   @include box-shadow($default-box-shadow)
+
+  &.red-tooltip
+    border: 1px solid $red !important
+    @include box-shadow(inset 0 0 1px white, 0 0 1px $red, 0 3px 6px -1px $red)
 
 .tooltipster-default .tooltipster-content
   color: $darkergrey

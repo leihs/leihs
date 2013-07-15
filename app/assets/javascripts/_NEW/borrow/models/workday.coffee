@@ -1,0 +1,1 @@
+window.App.Workday.url = => "/borrow/workdays"

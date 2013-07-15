@@ -257,7 +257,6 @@ class BookingCalendar
     for date_el in [@startDate_el, @endDate_el]
       date = moment(date_el.val(),df).toDate()
       el = @getElementByDate date
-      console.log date
       if el # is in view
         holidays = @getHolidays(date,date,@ipSelector_el.find("option:selected").data("holidays"))
         @addClosedDayAlert el if @isClosedDay(date) or holidays.length > 0

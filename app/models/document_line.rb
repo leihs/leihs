@@ -42,6 +42,10 @@ class DocumentLine < ActiveRecord::Base
     return r
   end
 
+  def visits_on_open_date?
+    inventory_pool.is_open_on(start_date) and inventory_pool.is_open_on(end_date)
+  end
+
   # custom valid? method
   def complete?
     self.valid? and self.available?

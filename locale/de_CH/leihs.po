@@ -301,7 +301,7 @@ msgstr "Gesamtsuche"
 msgid "Completeness"
 msgstr "Vollständigkeit"
 
-msgid "Consider Opening Hours"
+msgid "Consider opening hours"
 msgstr "Öffnungszeiten beachten"
 
 msgid "Contract"
@@ -1775,10 +1775,10 @@ msgstr "hier"
 msgid "in"
 msgstr "in"
 
-msgid "inventory pool is closed on end_date. "
+msgid "Inventory pool is closed on end date"
 msgstr "Der Gerätepark ist am gewünschten Rückgabetag geschlossen"
 
-msgid "inventory pool is closed on start_date. "
+msgid "Inventory pool is closed on start date"
 msgstr "Der Gerätepark ist am gewünschten Starttag geschlossen"
 
 msgid "is late"
@@ -2259,3 +2259,9 @@ msgstr "Sperrgrund"
 
 msgid "Show all search results"
 msgstr "Alle Suchresultate anzeigen"
+
+msgid "The selected inventory pool is closed on that day"
+msgstr "Der ausgewählte Gerätepark ist an diesem Tag geschlossen"
+
+msgid "Item is not available in that time range"
+msgstr "Der Gegenstand ist im ausgewählten Zeitraum nicht ausreichend verfügbar"

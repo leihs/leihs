@@ -1,1 +1,1 @@
-window.App.Availability.url = => "/borrow/models/availability"
+window.App.Availability.url = => "/borrow/availability"

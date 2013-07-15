@@ -12,18 +12,20 @@
   &:not([class*='height'])
     height: $space-xxl
 
+  &.small:not([class*='height'])
+    height: $space-l
+
   &:not(.start-even):nth-child(even)
-    background: $almostwhite
+    background: rgba(200,200,200,0.1)
 
   &.start-even:nth-child(odd)
-    background: $almostwhite
+    background: rgba(200,200,200,0.1)
 
-  &:hover
-    @extend .focus-hover-thin
+  &.focus-hover-thin:hover
     @include border-radius($border-radius-m)
 
   &.light:not(:hover)
-    background: $almostwhite
+    background: rgba(200,200,200,0.1)
 
   &.grayed-out
     color: $lightgrey
@@ -42,7 +44,7 @@
 .line-col
   float: none
   display: table-cell
-  height: $space-xxl
+  height: 100%
   line-height: $line-height-s
   vertical-align: middle
 

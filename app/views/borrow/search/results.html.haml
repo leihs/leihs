@@ -15,13 +15,13 @@
 
 :coffeescript
   
+  for model in #{@models.to_json}
+    App.Model.records[model.id] = new App.Model model
+
+  for inventory_pool in #{@inventory_pools.to_json}
+    App.InventoryPool.records[inventory_pool.id] = new App.InventoryPool inventory_pool
+
   jQuery ->
-
-    for model in #{@models.to_json}
-      App.Model.records[model.id] = new App.Model model
-
-    for inventory_pool in #{@inventory_pools.to_json}
-      App.InventoryPool.records[inventory_pool.id] = new App.InventoryPool inventory_pool
 
     new App.Borrow.ModelsIndexController
       el: $("#models-index")

@@ -78,7 +78,7 @@ Scenario: Customer orders the same item multiple times, thus exceeding maximum q
        When 'samantha' orders 3 'Pink Hairbrush'
        Then all order lines should be available
        When 'samantha' orders another 2 'Pink Hairbrush' for the same time
-       Then some order lines should not be available
+       Then these additional order lines were not created
   
 Scenario: Customer can decide from which pool he orders
 
@@ -91,5 +91,5 @@ Scenario: Customer can decide from which pool he orders
        When 'jack' orders 2 'Coffee Mug' from inventory pool 1
        Then all order lines should be available
        When 'jack' orders 2 'Coffee Mug' from inventory pool 2
-       Then some order lines should not be available
+       Then some order lines were not created
   

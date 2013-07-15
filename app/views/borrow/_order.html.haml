@@ -1,4 +1,9 @@
-.margin-left-xxs
+:ruby
+
+  order_button = true if order_button.nil?
+  order_button = false if current_order.lines.empty?
+
+#current-order.margin-left-xxs
   .row
     %nav
       %ul
@@ -8,23 +13,35 @@
             %span.margin-top-s
               = _("Order")
 
-  .row.content-wrapper.straight-top-left
+  .row.content-wrapper.straight-top-left.padding-top-xs
 
-    - if @order.lines.empty?
-      .padding-inset-s
-        .emboss.padding-inset-xs
-          %p.paragraph-s
-            %strong= _("Nothing selected")
-    - else
-      - Hash[@order.lines.group_by{|l| l.model }.sort].each_pair do |model, lines|
-        .row.line
-          .line-col.col1of1
-            = lines.sum &:quantity
-            x
-            = model
+    #current-order-lines
+      - if current_order.lines.empty?
+        .padding-horizontal-s.padding-bottom-s.padding-top-xxs.margin-top-xxs
+          .emboss.padding-inset-xs
+            %p.paragraph-s
+              %strong= _("Nothing selected")
+      - else
+        - Hash[current_order.lines.group_by{|l| l.model }.sort].each_pair do |model, lines|
+          .row.line.small{:title => model}
+            .line-col.col1of1
+              %span.text-ellipsis.width-s-alt= "#{lines.sum(&:quantity)}x #{model}"
 
-      - order_button = true if order_button.nil?
-      - if order_button
-        .padding-inset-xxs
-          .row.padding-inset-s
-            %a.button.green.min-width-full{href: borrow_unsubmitted_order_path }= _("Order overview")
+    #order-overview-button.padding-inset-xxs{:class => order_button ? "" : "hidden"}
+      .row.padding-inset-s
+        %a.button.green.min-width-full{href: borrow_unsubmitted_order_path }= _("Order overview")
+
+:coffeescript
+
+  App.Order.records[#{current_order.id}] = new App.Order #{current_order.to_json}
+  App.Order.current = App.Order.find(#{current_order.id})
+
+  for order_line in #{current_order.lines.to_json}
+    App.OrderLine.records[order_line.id] = new App.OrderLine order_line
+
+  for model in #{current_order.lines.map(&:model).to_json}
+    App.Model.records[model.id] = new App.Model model
+
+  jQuery =>
+    new App.Borrow.OrderCurrentController
+      el: $("#current-order")

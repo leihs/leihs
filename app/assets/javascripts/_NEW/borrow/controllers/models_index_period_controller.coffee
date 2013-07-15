@@ -51,6 +51,6 @@ class window.App.Borrow.ModelsIndexPeriodController extends Spine.Controller
   reset: =>
     @startDate.val null
     @endDate.val null
-    App.Availability.records = {}
+    App.PlainAvailability.records = {}
 
   is_resetable: => @getPeriod()?

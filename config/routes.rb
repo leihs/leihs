@@ -24,9 +24,12 @@ Leihs::Application.routes.draw do
   # Borrow Section
   namespace :borrow do
     get "/", :to => "application#start", :as => "start"
+    get "availability", :to => "availability#show", :as => "availability"
+    get "holidays", :to => "holidays#index", :as => "holidays"
     get "inventory_pools", :to => "inventory_pools#index", :as => "inventory_pools"
 
     get "categories", :to => "categories#index"
+    get "groups", :to => "groups#index"
 
     get "models", :to => "models#index", :as => "models"
     get "models/availability", :to => "models#availability", :as => "models_availability"
@@ -35,7 +38,7 @@ Leihs::Application.routes.draw do
     get "order", :to => "orders#unsubmitted_order", :as => "unsubmitted_order"
     post "order", :to => "orders#submit"
     delete "order/remove", :to => "orders#remove"
-    post "order/add_line", :to => "orders#add_line"
+    post "order_lines", :to => "order_lines#create"
     delete "order/remove_lines", :to => "orders#remove_lines"
     get "order/timed_out", :to => "orders#timed_out"
     get "orders", :to => "orders#index", :as => "orders"
@@ -44,6 +47,7 @@ Leihs::Application.routes.draw do
     post 'search', :to => 'search#search', :as => "search"
     get 'search/:search_term', :to => 'search#results', :as => "search_results"
     get "to_pick_up", :to => "to_pick_up#index", :as => "to_pick_up"
+    get "workdays", :to => "workdays#index", :as => "workdays"
     get "user", :to => "users#current", :as => "current_user"
   end
 

@@ -11,15 +11,17 @@ or create an Tooltip with new App.Tooltio(options).
 
 class App.Tooltip
 
+  @origins = []
+
   constructor: (options)->
     @target = $(options.el).tooltipster
       animation: 'fade',
       arrow: true,
       content: options.content,
-      delay: 150,
+      delay: if options.delay? then options.delay else 150,
       fixedWidth: 0,
       maxWidth: 0,
-      interactive: false,
+      interactive: if options.interactive? then options.interactive else false,
       interactiveTolerance: 350,
       offsetX: 0,
       offsetY: 0,
@@ -28,9 +30,14 @@ class App.Tooltip
       speed: 150,
       timer: 0,
       touchDevices: true,
-      trigger: 'hover',
+      trigger: if options.trigger? then options.trigger else 'hover',
       updateAnimation: true
-      functionReady: (origin, tooltip)=> @delegateEvents tooltip
+      functionBefore: (origin, continueTooltip)=>
+        continueTooltip()
+        tooltip = origin.data("tooltipster")
+        tooltip.addClass options.className if options.className?
+        @delegateEvents tooltip
+        options.callback(origin, tooltip) if options.callback?
     if options.content?        
       @content = options.content
       @target.tooltipster("show")
@@ -50,6 +57,14 @@ class App.Tooltip
   reposition: => @target.tooltipster "reposition"
 
   show: => @target.tooltipster "show"
+
+  @destroyAll: =>
+    for tooltip in $(".tooltipster-base:not(.tooltipster-dying)")
+      tooltip = $(tooltip)
+      if tooltip.data("origin")?
+        tooltip.data("origin").tooltipster("destroy")
+      else
+        tooltip.remove()
 
 window.App.Tooltip = App.Tooltip
 

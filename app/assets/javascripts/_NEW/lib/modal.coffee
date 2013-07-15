@@ -19,13 +19,14 @@ class window.App.Modal
     do @delegateEvents
     App.Modal.all.push @
     @el.modal 
-      backdrop: 'static'
+      backdrop: true
 
   delegateEvents: ->
     @el.on "hidden", => @destroy
     @el.on "shown", @shown
     $(window).on "resize", @setModalBodyMaxHeight
     @el.on "click", ".modal-close", => @destroy(true)
+    @el.on "hide", (e)=> false if @undestroyable
     
   setModalBodyMaxHeight: =>
     height = $(window).height() - @el.outerHeight() - ($(window).height()/100*20) + @el.find(".modal-body").height()
@@ -33,9 +34,10 @@ class window.App.Modal
     @el.find(".modal-body").css "max-height", height
 
   destroy: (removeBackdrop)=>
-    @el.remove()
-    $(window).off "resize", @setModalBodyMaxHeight
-    $(".modal-backdrop").remove() if removeBackdrop? and removeBackdrop
+    unless @undestroyable
+      @el.remove()
+      $(window).off "resize", @setModalBodyMaxHeight
+      $(".modal-backdrop").remove() if removeBackdrop? and removeBackdrop
 
   shown: =>
     @el.addClass "ui-shown"

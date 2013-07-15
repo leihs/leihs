@@ -12,11 +12,10 @@
           %h1.headline-xl= @model.name  
           %h2.headline-m.light= @model.manufacturer
         .col1of3.text-align-right
-          %span
-            %button.button.white
-              Zur Bestellung hinzufügen
-              %span.separated-left.padding-left-xs.margin-left-xxs
-                %i.icon-plus.margin-left-xxs
+          %button.button.white{:"data-add-to-order" => @model.id}
+            Zur Bestellung hinzufügen
+            %span.separated-left.padding-left-xs.margin-left-xxs
+              %i.icon-plus.margin-left-xxs
 
       = render "borrow/models/show/image" if @model.images.length > 0
 
@@ -36,6 +35,9 @@
 
 :coffeescript
 
+  App.Model.records[#{@model.id}] = new App.Model #{@model.to_json}
+
   jQuery ->
+
     new App.Borrow.ModelsShowController
       el: $("#model-show")

@@ -8,7 +8,7 @@ class window.App.Model extends Spine.Model
 
   @configure "Model", "id", "name"
   
-  @hasMany "availabilities", "App.Availability", "model_id"
+  @hasMany "plainAvailabilities", "App.PlainAvailability", "model_id"
   @hasMany "properties", "App.Property"
 
   @extend Spine.Model.Ajax

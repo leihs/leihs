@@ -17,10 +17,6 @@ class window.App.Borrow.SearchTopbarController extends Spine.Controller
     super
     @input.delayedChange()
 
-  delegateEvents: ->
-    super
-    $(document).on "keydown", @keydown
-
   search: =>
     return false unless @input.val().length
     do @loading
@@ -43,7 +39,10 @@ class window.App.Borrow.SearchTopbarController extends Spine.Controller
     _.delay (=> @autocompleteContainer.hide()), 200
 
   keydown: (e)=>
-    if $("*:focus").length == 0 and String.fromCharCode(e.which).length and not _.include([224, 16, 17, 18, 32, 13, 37, 38, 39, 40, 8, 9, 20, 91, 93], e.which)
+    if $("*:focus").length == 0 and 
+    String.fromCharCode(e.which).length and 
+    not _.include([224, 16, 17, 18, 32, 13, 37, 38, 39, 40, 8, 9, 20, 91, 93, 27], e.which) and
+    e.metaKey == false
       @input.val("") and @input.focus() 
 
   fetchModels: =>

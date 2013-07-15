@@ -27,10 +27,10 @@
 
 :coffeescript
   
-  jQuery -> 
+  for category in #{@categories.to_json}
+    App.Category.records[category.id] = new App.Category category
 
-    for category in #{@categories.to_json}
-      App.Category.records[category.id] = new App.Category category
+  jQuery -> 
 
     new App.Borrow.StartController
       el: $("#start-view")

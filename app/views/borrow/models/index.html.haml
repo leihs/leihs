@@ -1,3 +1,5 @@
+- content_for :title, raw(@category.name)
+
 .wrapper.margin-top-m
 
   .col4of5
@@ -10,19 +12,19 @@
           .table-row
             = render partial: "borrow/models/index/explorative_search"
             .table-cell{:class => @child_categories.blank? ? "col1of1" : "col3of4"}
-              .min-height-l= render partial: "borrow/models/index/list"
+              = render partial: "borrow/models/index/list"
 
   .col1of5= render :partial => "borrow/order"
 
 :coffeescript
+    
+  for model in #{@models.to_json}
+    App.Model.records[model.id] = new App.Model model
+
+  for inventory_pool in #{@inventory_pools.to_json}
+    App.InventoryPool.records[inventory_pool.id] = new App.InventoryPool inventory_pool
   
   jQuery ->
-
-    for model in #{@models.to_json}
-      App.Model.records[model.id] = new App.Model model
-
-    for inventory_pool in #{@inventory_pools.to_json}
-      App.InventoryPool.records[inventory_pool.id] = new App.InventoryPool inventory_pool
 
     new App.Borrow.ModelsIndexController
       el: $("#models-index")

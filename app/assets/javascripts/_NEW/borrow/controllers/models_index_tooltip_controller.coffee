@@ -15,6 +15,7 @@ class window.App.Borrow.ModelsIndexTooltipController extends Spine.Controller
       data: $.param
         model_ids: [model_id]
     .done =>
+      return false unless App.Model.exists model_id
       tooltip = @tooltips[model_id]
       model = App.Model.find(model_id)
       model.propertiesToDisplay = _.first model.properties().all(), 5
@@ -25,12 +26,17 @@ class window.App.Borrow.ModelsIndexTooltipController extends Spine.Controller
         do tooltip.enable
         do tooltip.show if @currentTooltip == tooltip and @mouseOverTooltip
 
-  enterLine: (e) =>
+  enterLine: (e)=> 
+    @mouseOverTooltip = true
+    @currentTargetId = $(e.currentTarget).data("id")
+    _.delay (=> @stayOnLine e), 200
+
+  stayOnLine: (e)=>
+    return false if @currentTargetId != $(e.currentTarget).data("id") or !@mouseOverTooltip
     $("*:focus").blur().autocomplete("close").datepicker("hide")
     target = $(e.currentTarget)
     model_id = target.data('id')
     if App.Model.exists model_id
-      @mouseOverTooltip = true
       unless @tooltips[model_id]?
         tooltip = @createTooltip target
         do tooltip.disable
@@ -40,7 +46,8 @@ class window.App.Borrow.ModelsIndexTooltipController extends Spine.Controller
       else
         @currentTooltip = @tooltips[model_id]
 
-  leaveLine: (e) => @mouseOverTooltip = false
+  leaveLine: (e)=> 
+    @mouseOverTooltip = false
 
   preloadImages: (content, model, update)=>
     errors = 0

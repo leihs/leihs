@@ -18,17 +18,24 @@ class window.App.Borrow.ModelsIndexController extends Spine.Controller
 
   delegateEvents: =>
     super
-    App.Availability.on "refresh", @render
+    App.PlainAvailability.on "refresh", @render
     App.Model.on "ajaxSuccess", (e,status,xhr)=> @pagination.setData JSON.parse(xhr.getResponseHeader("X-Pagination"))
+    @el.on "click", "[data-add-to-order]", (e)=> 
+      do e.preventDefault
+      new App.Borrow.OrderLinesCreateController 
+        modelId: $(e.currentTarget).data("add-to-order")
+      return false
 
   periodChange: =>
     do @reset.validate
     @tooltips.tooltips = {}
     if @period.getPeriod()?
+      sessionStorage.startDate = @period.getPeriod().start_date
+      sessionStorage.endDate = @period.getPeriod().end_date
       do @loading
       do @fetchAvailability
     else
-      App.Availability.records = {}
+      App.PlainAvailability.records = {}
       do @render
 
   resetAndFetchModels: =>
@@ -64,13 +71,10 @@ class window.App.Borrow.ModelsIndexController extends Spine.Controller
       if @period.getPeriod()? then do @fetchAvailability else do @render
 
   fetchAvailability: =>
-    model_ids = if @currentStartDate == @period.getPeriod().start_date and @currentEndDate == @period.getPeriod().end_date
-      _.map(_.reject(App.Model.all(), (m)->m.availabilities().all().length), (m)-> m.id)
-    else
-      _.keys App.Model.records
+    model_ids = _.map @models, (m)=> m.id
     @currentStartDate = @period.getPeriod().start_date
     @currentEndDate = @period.getPeriod().end_date
-    App.Availability.fetch
+    App.PlainAvailability.fetch
       data: $.param
         start_date: @period.getPeriod().start_date
         end_date: @period.getPeriod().end_date

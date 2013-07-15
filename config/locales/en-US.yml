@@ -16,6 +16,7 @@
       default: "%Y-%m-%d"
       short: "%b %d"
       long: "%B %d, %Y"
+      month_year: "%B %Y"
 
     day_names:
       - Sunday

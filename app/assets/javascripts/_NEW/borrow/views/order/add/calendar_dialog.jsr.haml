@@ -1,0 +1,48 @@
+.modal.fade.ui-modal.medium{:role => "dialog", :tabindex => "-1"}
+
+  .modal-header.row
+    .col2of3
+      %h2.headline-l.padding-bottom-xs {{jed "Add to order"/}}
+      %h3.headline-m.light.padding-bottom-xs {{>model.name}}
+    .col1of3.text-align-right
+      .modal-close {{jed "Cancel"/}}
+      %button#add-to-order.button.green{:disabled => :disabled} {{jed "Add"/}}
+
+  #add-to-order-errors
+
+  .modal-body
+
+    %form
+
+      #booking-calendar-controls.hidden
+        .col5of8.float-right
+          .row.grey.padding-bottom-xxs
+            .col1of2
+              .col1of2.padding-right-xs.text-align-left 
+                .row
+                  %span {{jed "Startdate"/}}
+                  %a.grey#jump-to-start-date.icon-search.position-absolute-right.padding-right-xxs
+              .col1of2.padding-right-xs.text-align-left 
+                .row
+                  %span {{jed "Enddate"/}}
+                  %a.grey#jump-to-end-date.icon-search.position-absolute-right.padding-right-xxs
+            .col1of2
+              .col2of8.text-align-left {{jed "Quantity"/}}
+              .col6of8.padding-left-xs.text-align-left {{jed "Inventory pool"/}}
+          .row
+            .col1of2
+              .col1of2.padding-right-xs
+                %input#order-start-date{:type => :text, :autocomplete => :off}
+              .col1of2.padding-right-xs
+                %input#order-end-date{:type => :text, :autocomplete => :off}
+            .col1of2
+              .col2of8
+                %input#order-quantity.text-align-center{:type => :text, :autocomplete => :off, :value => 1}
+              .col6of8.padding-left-xs
+                %select#order-inventory-pool.min-width-full.text-ellipsis{:autocomplete => :off}
+
+      #booking-calendar.booking-calendar.padding-top-xs
+
+      %img.loading.margin-horziontal-auto.margin-vertical-xl{:src => image_path("loading.gif")}
+
+  .modal-footer

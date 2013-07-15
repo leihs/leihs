@@ -38,9 +38,14 @@
   background-clip: padding-box
   outline: none
 
+  &.medium
+    margin-left: -375px
+    width: 750px
+
   &.large
     margin-left: -465px
     width: 900px
+
 
 .modal.fade 
   -webkit-transition: opacity .3s linear, top .3s ease-out
@@ -53,23 +58,23 @@
   top: 10%
 
 .modal-header 
-  padding: 9px 15px
-  border-bottom: 1px solid #eee
+  padding: 22px 22px 12px 22px
 
 .modal-close
   @extend .button
+  padding: 0
+  margin: 12px 0
 
   &:not(:hover)
     color: $grey !important
 
 .modal-header h3 
   margin: 0
-  line-height: 30px
 
 .modal-body 
   overflow-y: auto
   max-height: 400px
-  padding: 15px
+  padding: 0 15px 15px 15px
 
 .modal-form 
   margin-bottom: 0

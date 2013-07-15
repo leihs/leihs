@@ -16,6 +16,7 @@ de-CH:
       short: "%e. %b"
       long: "%e. %B %Y"
       only_day: "%e"
+      month_year: "%B %Y"
 
     day_names:
       - Sonntag

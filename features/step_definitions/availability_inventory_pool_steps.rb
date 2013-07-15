@@ -38,6 +38,10 @@ Then "all order lines should be available" do
   @order.order_lines.reload.all?{|l| l.available? }.should be_true
 end
 
-Then "some order lines should not be available" do
-  @order.order_lines.reload.any?{|l| not l.available? }.should be_true
+Then(/^these additional order lines were not created$/) do
+  @current_user.orders.first.lines.reload.should == @order_lines
+end
+
+Then(/^some order lines were not created$/) do
+  @current_user.orders.first.lines.length.should == @total_quantity
 end

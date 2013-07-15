@@ -1,6 +1,6 @@
 %a{:"data-id" => "{{>id}}", 
    :href => "/borrow/models/{{>id}}",
-   :class => "row line height-xs{{if availableQuantityForInventoryPools}}{{if availableQuantityForInventoryPools(~inventory_pool_ids) == 0}} grayed-out{{/if}}{{/if}}"}
+   :class => "row line height-xs focus-hover-thin{{if availableQuantityForInventoryPools}}{{if availableQuantityForInventoryPools(~inventory_pool_ids) <= 0}} grayed-out{{/if}}{{/if}}"}
 
   .line-col.col1of6.no-padding
     .padding-inset-xxs.text-align-center
@@ -24,7 +24,7 @@
 
   .line-col.col1of6
     {{if id}}
-    %button.button.small.focus-hover.inset{:title => "Add to order"}
+    %button.button.small.focus-hover.inset{:title => "Add to order", :"data-add-to-order" => "{{>id}}"}
       .padding-horizontal-xxs
         %i.icon-plus.icon-size-xxs
     {{/if}}

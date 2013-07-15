@@ -299,7 +299,7 @@ msgstr ""
 msgid "Completeness"
 msgstr ""
 
-msgid "Consider Opening Hours"
+msgid "Consider opening hours"
 msgstr ""
 
 msgid "Contract"
@@ -1717,10 +1717,10 @@ msgstr ""
 msgid "in"
 msgstr ""
 
-msgid "inventory pool is closed on end_date. "
+msgid "Inventory pool is closed on end date"
 msgstr ""
 
-msgid "inventory pool is closed on start_date. "
+msgid "Inventory pool is closed on start date"
 msgstr ""
 
 msgid "is late"
@@ -2187,4 +2187,10 @@ msgid "User|AccessRight|Suspended reason"
 msgstr ""
 
 msgid "Show all search results"
+msgstr ""
+
+msgid "The selected inventory pool is closed on that day"
+msgstr ""
+
+msgid "Item is not available in that time range"
 msgstr ""

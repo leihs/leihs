@@ -1,0 +1,1 @@
+window.App.Order.url = => "/borrow/order"

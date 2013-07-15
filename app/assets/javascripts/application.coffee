@@ -18,6 +18,7 @@
 #= require jed/jed
 #= require accounting/accounting
 #= require moment/moment
+#= require fullcalendar/fullcalendar
 #=
 ##### SPINE
 #
