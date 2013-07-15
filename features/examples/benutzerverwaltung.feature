@@ -347,12 +347,12 @@ Funktionalität: Benutzer verwalten
     Dann wird der Delete Button für diese Benutzer nicht angezeigt
 
   Szenario: Alphabetische Sortierung der Benutzer ausserhalb vom Inventarpool
-    Angenommen man ist "Ramon"
+    Angenommen man ist "Gino"
     Und man befindet sich auf der Benutzerliste ausserhalb der Inventarpools
     Dann sind die Benutzer nach ihrem Vornamen alphabetisch sortiert
 
   @javascript
   Szenario: Alphabetische Sortierung der Benutzer innerhalb vom Inventarpool
-    Angenommen man ist "Ramon"
+    Angenommen man ist "Gino"
     Und man befindet sich auf der Benutzerliste im beliebigen Inventarpool
     Dann sind die Benutzer nach ihrem Vornamen alphabetisch sortiert

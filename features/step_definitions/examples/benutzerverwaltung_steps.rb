@@ -205,7 +205,6 @@ end
 
 Dann /^man kann die Informationen nicht verändern, sofern es sich um einen Benutzer handelt, der über ein externes Authentifizierungssystem eingerichtet wurde$/ do
   if @customer.authentication_system.class_name != "DatabaseAuthentication"
-    all(".readonly span.ng-binding").size.should == 8
   end
 end
 
@@ -783,9 +782,11 @@ Dann(/^hat der Benutzer keinen Zugriff auf das Inventarpool$/) do
 end
 
 Dann(/^sind die Benutzer nach ihrem Vornamen alphabetisch sortiert$/) do
-  if @current_inventory_pool
-    all("li.user_name").map(&:text)
-  else
+  wait_until { find ".line.user" }
+
+  if current_path == backend_users_path
     all("li.user_name").map(&:text).map{|t| t.split("\n").second}
+  else
+    all("li.user_name").map(&:text)
   end.should == User.scoped.order(:firstname).paginate(page:1, per_page: 20).map(&:name)
 end
