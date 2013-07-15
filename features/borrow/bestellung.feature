@@ -25,5 +25,10 @@ Funktionalität: Bestellung
     Wenn das gleiche Modell nochmals hinzugefügt wird
     Dann wird die Anzahl dieses Modells erhöht 
     Und ich kann zur detaillierten Bestellübersicht gelangen
-    
+
+  Szenario: Bestellfensterchen aus Kalender updaten
+    Angenommen man ist "Normin"
+    Wenn ich mit dem Kalender ein Modell der Bestellung hinzufüge
+    Dann wird das Bestellfensterchen aktualisiert
+ 
     
