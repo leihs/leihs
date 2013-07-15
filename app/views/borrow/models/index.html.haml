@@ -5,13 +5,13 @@
   .col4of5
     = render :partial => 'borrow/tabs', :locals => {:navigation => "lending", :current_page => "daily"}  
 
-    #models-index.row.content-wrapper.min-height-l.min-width-full.straight-top-left
+    #models-index.row.content-wrapper.min-width-full.straight-top-left
 
-      .row.min-height-l
-        .table
+      .row
+        .table.min-height-l
           .table-row
             = render partial: "borrow/models/index/explorative_search"
-            .table-cell{:class => @child_categories.blank? ? "col1of1" : "col3of4"}
+            .table-cell.separated-left{:class => @child_categories.blank? ? "col1of1" : "col3of4"}
               = render partial: "borrow/models/index/list"
 
   .col1of5= render :partial => "borrow/order"
