@@ -9,7 +9,7 @@
   - if @model.images.length > 1
     .row.text-align-center.margin-top-m
       - @model.images[0..@model.images.length].each_with_index do |image, i|
-        .height-s.border-radius-m.min-width-xs.padding-inset-s.focus-hover-thin{:"data-image-url" => model_image_path(@model, :offset => i)}
+        %a.height-s.border-radius-m.min-width-xs.padding-inset-s.focus-hover-thin.inline-block{:"data-image-url" => model_image_path(@model, :offset => i)}
           .table
             .table-row
               .table-cell.text-align-center.vertical-align-middle

@@ -7,9 +7,9 @@
 
     #model-show.content-wrapper.straight-top-left.padding-inset-l
 
-      .row
+      .row.padding-bottom-m
         .col2of3
-          %h1.headline-xl= @model.name  
+          %h1.headline-xl.padding-bottom-s= @model.name  
           %h2.headline-m.light= @model.manufacturer
         .col1of3.text-align-right
           %button.button.white{:"data-add-to-order" => @model.id}
