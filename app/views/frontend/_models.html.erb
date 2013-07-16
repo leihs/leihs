@@ -278,7 +278,7 @@ function add_model_details(model_id, open_add_tab){
 				title: '<%= _("Accessories") %>',
 				disabled: true,
 				itemSelector: 'div.model_accessory',
-                tpl: new Ext.XTemplate('<tpl for=".">', '<ul class="accessories">', '<tpl for="accessories">', '<li class="model_accessory">{name}</li>',  '</tpl>', '</ul>', '</tpl>')
+                tpl: new Ext.XTemplate('<tpl for=".">', '<div class="model_description">', '<ul class="accessories">', '<tpl for="accessories">', '<li class="model_accessory">{name}</li>',  '</tpl>', '</ul>', '</div>', '</tpl>')
 			},{
 				id: 'compatibles_tab_' + model_id,
 				xtype: 'grid',
