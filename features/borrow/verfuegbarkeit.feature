@@ -1,3 +1,7 @@
+# language: de
+
+Funktionalität: Verfügbarkeit
+
   Szenario: Überbuchung durch Ausleih-Manager
     Angenommen man ist "Normin"
     Wenn ich ein Modell der Bestellung hinzufüge
@@ -28,7 +32,7 @@
     Und alle Modelle verfügbar sind
     Dann kann man sein Prozess fortsetzen
     Und die Modelle werden blockiert
-    
+
   Szenario: Modelle nach langer Inaktivität nicht mehr verfügbar
     Angenommen man ist "Normin"
     Und man ist inaktiv

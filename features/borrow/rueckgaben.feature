@@ -1,9 +1,11 @@
+# language: de
 
+Funktionalität: Rückgaben
 
   Szenario: Anzahl
     Angenommen man ist "Normin"
     Dann sehe ich die Anzahl meiner Rückgabe-Besuche auf jeder Seite
-    
+
   Szenario: Rückgabe-Übersichtsseite
     Angenommen man ist "Normin"
     Wenn ich auf den Rückgabelink drücke
