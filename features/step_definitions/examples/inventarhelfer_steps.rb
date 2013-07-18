@@ -217,3 +217,14 @@ end
 Dann /^man sieht alle ursprünglichen Werte des Gegenstandes in der Übersicht$/ do
   step %Q{sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert}
 end
+
+Dann(/^wähle ich das Feld "(.*?)" aus der Liste aus$/) do |field|
+  find("#fieldname").click
+  wait_until { not all(".ui-menu-item a", :visible => true).empty? }
+  find(".ui-menu-item a", :text => field).click
+  @all_editable_fields = all("#field_selection .field", :visible => true)
+end
+
+Dann(/^ich setze den Wert für das Feld "(.*?)"$/) do |field|
+  find(".field", text: field).find("input").set "Test123"
+end

@@ -439,12 +439,13 @@ class Item < ActiveRecord::Base
   end
 
   # overriding association setter
-  def location_with_params=(v)
-    self.location_without_params = if v.is_a? Hash
-      Location.find_or_create(v) unless v.blank?
-    else
-      v
-    end
+  def location_with_params=(location_attrs)
+    self.location_without_params = if location_attrs.is_a? Hash
+                                     location_attrs = self.location.attributes.merge location_attrs
+                                     Location.find_or_create(location_attrs) unless location_attrs.blank?
+                                   else
+                                     location_attrs
+                                   end
   end
   alias_method_chain :location=, :params
 

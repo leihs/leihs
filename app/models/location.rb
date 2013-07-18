@@ -15,9 +15,9 @@ class Location < ActiveRecord::Base
   def self.find_or_create(attributes = {})
     attributes.delete(:id)
     attributes.delete("id")
-    attributes[:building_id] = nil if attributes[:building_id].blank?
-    attributes[:room] = nil if attributes[:room].blank?
-    attributes[:shelf] = nil if attributes[:shelf].blank?
+    attributes["building_id"] = nil if attributes["building_id"].blank?
+    attributes["room"] = nil if attributes["room"].blank?
+    attributes["shelf"] = nil if attributes["shelf"].blank?
     
     record = where(attributes).first
     record ||= create(attributes)

@@ -55,22 +55,18 @@ Funktionalität: Inventarhelfer
     Dann sind die Änderungen widerrufen
     Und man sieht alle ursprünglichen Werte des Gegenstandes in der Übersicht
 
+  @javascript
+  Szenario: Gestell bei vorhandenem Ort ändern
+    Angenommen man ist auf dem Helferschirm
+    Dann wähle ich das Feld "Gestell" aus der Liste aus
+    Und ich setze den Wert für das Feld "Gestell"
+    Dann gebe ich den Anfang des Inventarcodes eines Gegenstand ein
+    Und wähle den Gegenstand über die mir vorgeschlagenen Suchtreffer
+    Dann sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert
+    Und die geänderten Werte sind hervorgehoben
+
 #  @javascript
 #  Szenario: Bei Fehler Linien farblich kennzeichnen
 #    Angenommen man editiert ein Gerät über den Helferschirm
 #    Und möchte Felder ändern, für die man keine Berechtigung hat
 #    Dann werden die ausgewählten Felder die geändert werden dürfen und diejenigen die nicht geändert werden dürfen farblich gekennzeichnet
-
-
-
-
-
-
-  
-
-
-
-
-
-
-    
