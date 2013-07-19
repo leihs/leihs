@@ -228,3 +228,17 @@ end
 Dann(/^ich setze den Wert für das Feld "(.*?)"$/) do |field|
   find(".field", text: field).find("input").set "Test123"
 end
+
+Angenommen(/^es existiert ein Gegenstand, welches sich denselben Ort mit einem anderen Gegenstand teilt$/) do
+  location = Location.find {|l| l.items.count >= 2}
+  @item, @item_2 = location.items.first, location.items.second
+  @item_2_location = @item_2.location
+end
+
+Dann(/^gebe ich den Anfang des Inventarcodes des spezifischen Gegenstandes ein$/) do
+  find("#item_selection .barcode_target").set @item.inventory_code[0..1]
+end
+
+Dann(/^der Ort des anderen Gegenstandes ist dergleiche geblieben$/) do
+  @item_2.reload.location.should == @item_2_location
+end

@@ -58,12 +58,14 @@ Funktionalität: Inventarhelfer
   @javascript
   Szenario: Gestell bei vorhandenem Ort ändern
     Angenommen man ist auf dem Helferschirm
+    Und es existiert ein Gegenstand, welches sich denselben Ort mit einem anderen Gegenstand teilt
     Dann wähle ich das Feld "Gestell" aus der Liste aus
     Und ich setze den Wert für das Feld "Gestell"
-    Dann gebe ich den Anfang des Inventarcodes eines Gegenstand ein
+    Dann gebe ich den Anfang des Inventarcodes des spezifischen Gegenstandes ein
     Und wähle den Gegenstand über die mir vorgeschlagenen Suchtreffer
     Dann sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert
     Und die geänderten Werte sind hervorgehoben
+    Und der Ort des anderen Gegenstandes ist dergleiche geblieben
 
 #  @javascript
 #  Szenario: Bei Fehler Linien farblich kennzeichnen
