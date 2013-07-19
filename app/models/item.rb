@@ -441,7 +441,7 @@ class Item < ActiveRecord::Base
   # overriding association setter
   def location_with_params=(location_attrs)
     self.location_without_params = if location_attrs.is_a? Hash
-                                     location_attrs = self.location.attributes.merge location_attrs
+                                     location_attrs = self.location.attributes.merge location_attrs if self.location
                                      Location.find_or_create(location_attrs) unless location_attrs.blank?
                                    else
                                      location_attrs
