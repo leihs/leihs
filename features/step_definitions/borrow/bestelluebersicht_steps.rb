@@ -160,7 +160,7 @@ Dann(/^öffnet der Kalender$/) do
 end
 
 Dann(/^ich ändere die aktuellen Einstellung$/) do
-  @changed_lines.first.start_date = Date.today
+  @new_date = @changed_lines.first.start_date = Date.today
   while not @changed_lines.first.available?
     @new_date = @changed_lines.first.end_date = @changed_lines.first.start_date += 1.day
   end
