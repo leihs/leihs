@@ -2219,3 +2219,10 @@ msgstr ""
 msgid "Please solve the conflicts for all highlighted lines in order to continue"
 msgstr ""
 
+msgid "You have permission to access the following inventory pool"
+msgid_plural "You have permission to access the following inventory pools"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "No description"
+msgstr ""

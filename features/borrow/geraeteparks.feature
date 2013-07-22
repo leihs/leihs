@@ -8,8 +8,3 @@ Funktionalität: Geräteparks
     Dann sehe ich die Geräteparks für die ich berechtigt bin 
     Und sehe die Beschreibung für jeden Gerätepark
     Und die Geräteparks sind alphabetisch sortiert
-    
-    
-
-    
-    

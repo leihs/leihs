@@ -1,17 +1,36 @@
-.wrapper.margin-top-m
+.wrapper
 
-  .content-wrapper.straight-top-left.padding-inset-l
+  .row.margin-top-m
+    %nav
+      %ul
+        %li{:style => "z-index: 800; position: relative"}
+          %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left.straight-right{:href => borrow_root_path}
+            = _("Overview")
+            .navigation-tab-arrow-border
+            .navigation-tab-arrow.straight-right
+        %li{:style => "z-index: 799; position: relative"}
+          %a.negative-margin-left-xxs-alt.straight-left.navigation-tab-item.margin-right-xxs.padding-horizontal-m.padding-left-l.float-left.active
+            = _("Inventory pools")
 
-    %h1= _("You have permission to access the following inventory pool(s):")
+  .content-wrapper.straight-top-left
 
-    - current_user.access_rights.collect(&:inventory_pool).compact.each do |inventory_pool|
-      .row.margin-top-m
-        %h2= inventory_pool.name
-        %p.paragraph-m
-          - ar = current_user.access_right_for(inventory_pool)
-          - if ar.suspended?
-            %br
-            %span{style: "font-size: 150%; color: red;"}
-              = _("YOU ARE SUSPENDED FOR THIS INVENTORY_POOL")
-        .padding-left-m
-          = simple_format(inventory_pool.description)
+    .padding-horizontal-l.padding-top-l
+      .emboss.padding-inset-m.text-align-center
+        %strong.font-size-m= n_("You have permission to access the following inventory pool", "You have permission to access the following inventory pools", @inventory_pools.length)
+
+    - @inventory_pools.each do |inventory_pool|
+      .row.separated-bottom
+        .padding-inset-l
+
+          .row
+            %h2.padding-bottom-s= inventory_pool.name
+                
+          .row
+            - if inventory_pool.description and inventory_pool.description.length > 0
+              %p.pre<= inventory_pool.description
+            - else 
+              %p.grey-text= _("No description")
+
+          - if @suspended_inventory_pools.include? inventory_pool
+            .emboss.red.padding-inset-xxs.padding-horizontal-s.paragraph-s.text-align-center.margin-top-m
+              %strong= _("You are suspended for this inventory pool")

@@ -2289,3 +2289,11 @@ msgstr "Diese Bestellung fortsetzen"
 
 msgid "Please solve the conflicts for all highlighted lines in order to continue"
 msgstr "Um fortzufahren, beheben Sie bitte die Konflikte der hervorgehobenen Einträge"
+
+msgid "You have permission to access the following inventory pool"
+msgid_plural "You have permission to access the following inventory pools"
+msgstr[0] "Sie haben Zugriff auf den folgenden Gerätepark"
+msgstr[1] "Sie haben Zugriff auf die folgenden Geräteparks"
+
+msgid "No description"
+msgstr "Keine Beschreibung"

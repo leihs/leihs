@@ -31,13 +31,14 @@ class App.Dropdown.Hover
 
 jQuery -> 
   $(document).on "mouseenter", ".dropdown-holder", (e)-> 
-    if App.Dropdown.Hover.current? 
+    if App.Dropdown.Hover.current?
       if App.Dropdown.Hover.current.holder[0] != $(e.currentTarget)[0]
         App.Dropdown.Hover.current.dropdown.hide() 
       else
         clearTimeout App.Dropdown.Hover.hideTimer
     new App.Dropdown.Hover e
   $(document).on "mouseleave", ".dropdown-holder", (e)-> 
+    App.Dropdown.Hover.current = undefined
     App.Dropdown.Hover.hideTimer = setTimeout (=> 
       $(e.currentTarget).find(".dropdown").hide()
       App.Dropdown.Hover.current = undefined
