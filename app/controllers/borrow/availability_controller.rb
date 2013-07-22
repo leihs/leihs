@@ -1,7 +1,7 @@
 class Borrow::AvailabilityController < Borrow::ApplicationController
 
     def show
-      model = current_user.models.find params[:model_id]
+      model = current_user.models.borrowable.find params[:model_id]
       inventory_pool = current_user.inventory_pools.find params[:inventory_pool_id]
       av = model.availability_in(inventory_pool)
       @availability = 

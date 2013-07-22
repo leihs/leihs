@@ -1,6 +1,6 @@
 class Borrow::OrderLinesController < Borrow::ApplicationController
 
-  def create(model = current_user.models.find(params[:model_id]),
+  def create(model = current_user.models.borrowable.find(params[:model_id]),
              quantity = (params[:quantity] || 1).to_i,
              start_date = params[:start_date].try{|x| Date.parse(x)} || Date.today,
              end_date = params[:end_date].try{|x| Date.parse(x)} || Date.tomorrow,

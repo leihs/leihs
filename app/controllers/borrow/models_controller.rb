@@ -1,7 +1,7 @@
 class Borrow::ModelsController < Borrow::ApplicationController
 
   def availability
-    models = current_user.models.where(:id => params[:model_ids])
+    models = current_user.models.borrowable.where(:id => params[:model_ids])
     start_date = Date.parse(params[:start_date])
     end_date = Date.parse(params[:end_date])
     inventory_pools = current_user.inventory_pools.where(:id => params[:inventory_pool_ids])
@@ -36,7 +36,7 @@ class Borrow::ModelsController < Borrow::ApplicationController
   end
 
   def show
-    @model = current_user.models.find(params[:id])
+    @model = current_user.models.borrowable.find(params[:id])
     respond_to do |format|
       format.json
       format.html

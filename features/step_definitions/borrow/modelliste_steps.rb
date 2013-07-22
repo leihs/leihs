@@ -8,7 +8,7 @@ end
 Wenn(/^man sich auf der Modellliste befindet die nicht verfügbare Modelle beinhaltet$/) do
   @start_date ||= Date.today
   @end_date ||= Date.today+1.day
-  model = @current_user.models.detect do |m|
+  model = @current_user.models.borrowable.detect do |m|
     quantity = @current_user.inventory_pools.sum do |ip|
       m.availability_in(ip).maximum_available_in_period_summed_for_groups(@start_date, @end_date, @current_user.groups.map(&:id))
     end
@@ -25,7 +25,7 @@ Dann(/^sind alle Geräteparks ausgewählt$/) do
 end
 
 Dann(/^die Modellliste zeigt Modelle aller Geräteparks an$/) do
-  @current_user.models.from_category_and_all_its_descendants(@category.id).default_order.paginate(page: 1, per_page: 20).map(&:name)
+  @current_user.models.borrowable.from_category_and_all_its_descendants(@category.id).default_order.paginate(page: 1, per_page: 20).map(&:name)
     .should eq all("#model-list .text-align-left").map(&:text)
 end
 
@@ -54,7 +54,7 @@ end
 
 Dann(/^die Modellliste zeigt nur Modelle dieses Geräteparks an$/) do
   wait_until {all(".loading").empty?}
-  all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}.should eq @current_user.models
+  all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}.should eq @current_user.models.borrowable
                                                   .from_category_and_all_its_descendants(@category.id)
                                                   .by_inventory_pool(@ip.id)
                                                   .default_order.paginate(page: 1, per_page: 20)
@@ -78,7 +78,7 @@ Wenn(/^man einige Geräteparks abwählt$/) do
 end
 
 Dann(/^wird die Modellliste nach den übrig gebliebenen Geräteparks gefiltert$/) do
-  all("#model-list .text-align-left").map(&:text).should eq @current_user.models
+  all("#model-list .text-align-left").map(&:text).should eq @current_user.models.borrowable
                                                   .from_category_and_all_its_descendants(@category.id)
                                                   .all_from_inventory_pools(@current_user.inventory_pool_ids - [@ip.id])
                                                   .default_order
@@ -101,7 +101,7 @@ Wenn(/^man alle Geräteparks bis auf einen abwählt$/) do
 end
 
 Dann(/^wird die Modellliste nach dem übrig gebliebenen Gerätepark gefiltert$/) do
-  all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}[0..20].should eq @current_user.models
+  all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}[0..20].should eq @current_user.models.borrowable
                                                   .from_category_and_all_its_descendants(@category.id)
                                                   .all_from_inventory_pools(@current_user.inventory_pool_ids - @ips_for_unselect.map(&:id))
                                                   .default_order
@@ -164,7 +164,7 @@ Dann(/^ist die Liste nach "(.*?)" "(.*?)" sortiert$/) do |sort, order|
               when "(alphabetisch absteigend)"
                 "desc"
               end
-  all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}.should eq @current_user.models
+  all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}.should eq @current_user.models.borrowable
                                                   .from_category_and_all_its_descendants(@category.id)
                                                   .order_by_attribute_and_direction(attribute, direction)
                                                   .paginate(page: 1, per_page: 20)
@@ -334,7 +334,7 @@ Dann(/^werden folgende zusätzliche Informationen angezeigt Modellname, Bilder, 
 end
 
 Angenommen(/^es gibt ein Modell mit Bilder, Beschreibung und Eigenschaften$/) do
-  @model = @current_user.models.find {|m| !m.images.blank? and !m.description.blank? and !m.properties.blank?}
+  @model = @current_user.models.borrowable.find {|m| !m.images.blank? and !m.description.blank? and !m.properties.blank?}
 end
 
 Angenommen(/^man befindet sich auf der Modellliste mit diesem Modell$/) do
@@ -357,7 +357,7 @@ end
 
 Dann(/^die Liste zeigt Modelle aller Geräteparks$/) do
   step 'man bis zum Ende der Liste fährt'
-  models = @current_user.models.from_category_and_all_its_descendants(@category.id)
+  models = @current_user.models.borrowable.from_category_and_all_its_descendants(@category.id)
     .all_from_inventory_pools(all("#ip-selector .dropdown-item[data-id]").map{|ip| ip["data-id"]})
     .order_by_attribute_and_direction "model", "name"
   all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}.should eq models.map(&:name)

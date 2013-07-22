@@ -248,10 +248,11 @@ module Persona
                                 :description => "3D Helikopter", 
                                 :maintenance_period => 0)
       @helicopter_item2 = FactoryGirl.create(:item, :inventory_code => "v120d022g", :serial_number => "v120d022g", :model => @helicopter_model2, :location => @location, :owner => @inventory_pool)
+      @helicopter_item2_2 = FactoryGirl.create(:item, :inventory_code => "v120d022g2", :serial_number => "v120d022g2", :model => @helicopter_model2, :location => @location, :owner => @inventory_pool)
       @helicopter_model2.partitions << Partition.create(model_id: @helicopter_model.id, 
                                                       inventory_pool_id: @inventory_pool.id, 
                                                       group_id: Group.create(name: "Group A", inventory_pool_id: @inventory_pool.id).id,
-                                                      quantity: 5)
+                                                      quantity: 1)
       @helicopter_model2.attachments << FactoryGirl.create(:attachment)
       @helicopter_model2.images << FactoryGirl.create(:image)
       @helicopter_model2.images << FactoryGirl.create(:image, :another)

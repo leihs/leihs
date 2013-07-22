@@ -18,6 +18,12 @@ Funktionalität: Suche
     Wenn man einen Suchbegriff eingibt
     Dann sieht man das Foto, den Namen und den Hersteller der ersten 6 Modelle gemäss aktuellem Suchbegriff
     Und sieht den Link 'Alle Suchresultate anzeigen'
+
+  @javascript
+  Szenario: Man findet nur Modelle die man auch ausleihen kann
+    Angenommen man ist "Normin"
+    Wenn ich nach einem Modell suche, welches in nicht ausleihen kann
+    Dann wird dieses Modell auch nicht in den Suchergebnissen angezeigt
  
   @javascript
   Szenario: Vorschlag wählen

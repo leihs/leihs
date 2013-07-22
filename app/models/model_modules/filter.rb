@@ -10,10 +10,9 @@ module ModelModules
     module ClassMethods
 
       def filter (params, category, user, borrowable = false)
-        models = user.models
+        models = if category then user.models.from_category_and_all_its_descendants(category.id).borrowable else user.models.borrowable end
         models = models.joins(:items).where(:items => {:parent_id => nil})
         models = models.joins(:items).where(:items => {:is_borrowable => true}) if borrowable
-        models = if category then models.from_category_and_all_its_descendants(category.id) else Model.scoped end
         models = models.all_from_inventory_pools(user.inventory_pools.where(id: params[:inventory_pool_ids]).map(&:id)) unless params[:inventory_pool_ids].blank?
         models = models.search(params[:search_term], [:name, :manufacturer]) unless params[:search_term].blank?
         models = models.order_by_attribute_and_direction params[:sort], params[:order]

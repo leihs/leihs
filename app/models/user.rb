@@ -15,12 +15,20 @@ class User < ActiveRecord::Base
   has_many :active_inventory_pools, :through => :access_rights, :uniq => true, :source => :inventory_pool, :conditions => "(access_rights.suspended_until IS NULL OR access_rights.suspended_until < CURDATE())"
   has_many :suspended_inventory_pools, :through => :access_rights, :uniq => true, :source => :inventory_pool, :conditions => "access_rights.suspended_until IS NOT NULL AND access_rights.suspended_until >= CURDATE()"
   
-  has_many :items, :through => :inventory_pools, :uniq => true # (nested)
-  has_many :models, :through => :inventory_pools, :uniq => true # do # (nested)
-    #  def inventory_pools(ips = nil)
-    #    find :all, :conditions => ["inventory_pools.id IN (?)", ips] if ips
-    #  end
+  has_many :items, :through => :inventory_pools, :uniq => true
+  has_many :models, :through => :inventory_pools, :uniq => true do
+    #def inventory_pools(ips = nil)
+    #  find :all, :conditions => ["inventory_pools.id IN (?)", ips] if ips
     #end
+    def borrowable
+      joins("INNER JOIN `partitions_with_generals` ON `models`.`id` = `partitions_with_generals`.`model_id`
+                                                  AND `inventory_pools`.`id` = `partitions_with_generals`.`inventory_pool_id`
+                                                  AND `partitions_with_generals`.`quantity` > 0
+                                                  AND (`partitions_with_generals`.`group_id` IN (SELECT `group_id` FROM `groups_users` WHERE `user_id` = #{proxy_association.owner.id}) OR `partitions_with_generals`.`group_id` IS NULL)")
+    end
+  end
+
+
 
   has_many :categories, :through => :models, :uniq => true # (nested)
   # OPTIMIZE still

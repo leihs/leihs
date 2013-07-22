@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 Angenommen(/^man befindet sich auf der Liste der Modelle$/) do
-  @model = @current_user.models.detect do |m|
+  @model = @current_user.models.borrowable.detect do |m|
     m.images.size > 1 and
     not m.description.blank? and
     not m.attachments.blank? and
@@ -51,7 +51,7 @@ Dann(/^ich sehe die folgenden Informationen$/) do |table|
 end
 
 Angenommen(/^man befindet sich in einer Modellübersicht mit Bildern$/) do
-  @model = @current_user.models.detect {|m| m.images.size > 1}
+  @model = @current_user.models.borrowable.detect {|m| m.images.size > 1}
   visit borrow_model_path @model
 end
 
@@ -81,7 +81,7 @@ Dann(/^wird das Bild zum Hauptbild auch wenn ich das hovern beende$/) do
 end
 
 Angenommen(/^man befindet sich in einer Modellübersicht mit Eigenschaften$/) do
-  @model = @current_user.models.detect {|m| m.properties.length > 5}
+  @model = @current_user.models.borrowable.detect {|m| m.properties.length > 5}
   visit borrow_model_path @model
 end
 
