@@ -43,7 +43,7 @@ class OrderLine < DocumentLine
     end
 
     # keep the unsubmitted order computed for the availability
-    order.touch if order.status_const == Order::UNSUBMITTED
+    order.touch if order.status_const == Order::UNSUBMITTED and not order.timeout?
   end
 
 #########################################################################

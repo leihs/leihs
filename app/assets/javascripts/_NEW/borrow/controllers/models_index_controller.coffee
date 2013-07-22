@@ -3,6 +3,9 @@ class window.App.Borrow.ModelsIndexController extends Spine.Controller
   elements:
     "#model-list": "list"
 
+  events:
+    "click [data-create-order-line]": "createOrderLine"
+
   constructor: ->
     super
     @models = _.map @models, (m)=> new App.Model m
@@ -20,11 +23,14 @@ class window.App.Borrow.ModelsIndexController extends Spine.Controller
     super
     App.PlainAvailability.on "refresh", @render
     App.Model.on "ajaxSuccess", (e,status,xhr)=> @pagination.setData JSON.parse(xhr.getResponseHeader("X-Pagination"))
-    @el.on "click", "[data-add-to-order]", (e)=> 
-      do e.preventDefault
-      new App.Borrow.OrderLinesCreateController 
-        modelId: $(e.currentTarget).data("add-to-order")
-      return false
+    
+  createOrderLine: (e)=> 
+    do e.preventDefault
+    new App.Borrow.OrderLinesCreateController 
+      modelId: $(e.currentTarget).data("model-id")
+      titel: _jed("Add to order")
+      buttonText: _jed("Add")
+    return false
 
   periodChange: =>
     do @reset.validate

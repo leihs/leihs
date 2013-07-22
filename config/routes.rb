@@ -23,7 +23,7 @@ Leihs::Application.routes.draw do
 
   # Borrow Section
   namespace :borrow do
-    get "/", :to => "application#start", :as => "start"
+    root :to => "application#start"
     get "availability", :to => "availability#show", :as => "availability"
     get "holidays", :to => "holidays#index", :as => "holidays"
     get "inventory_pools", :to => "inventory_pools#index", :as => "inventory_pools"
@@ -35,10 +35,12 @@ Leihs::Application.routes.draw do
     get "models/availability", :to => "models#availability", :as => "models_availability"
     get "models/:id", :to => "models#show", :as => "model"
 
-    get "order", :to => "orders#unsubmitted_order", :as => "unsubmitted_order"
+    get "order", :to => "orders#current", :as => "current_order"
     post "order", :to => "orders#submit"
     delete "order/remove", :to => "orders#remove"
     post "order_lines", :to => "order_lines#create"
+    post "order_lines/change_time_range", :to => "order_lines#change_time_range"
+    delete "order_lines/:line_id", :to => "order_lines#destroy"
     delete "order/remove_lines", :to => "orders#remove_lines"
     get "order/timed_out", :to => "orders#timed_out"
     get "orders", :to => "orders#index", :as => "orders"

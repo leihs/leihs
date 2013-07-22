@@ -49,7 +49,7 @@ When "$who try to order an item for $date" do |who, date|
   post "/session", :login => user.login
   step "I am logged in as '#{user.login}' with password '#{nil}'"
   @order.destroy if @order
-  get borrow_start_path
+  get borrow_root_path
   post borrow_order_lines_path(:model_id => model.id,
                                :quantity => 1,
                                :inventory_pool_id => inventory_pool.id,

@@ -46,3 +46,18 @@ class window.App.Availability extends Spine.Model
     else
       min = date
     return min
+
+  withoutLines: (lines) =>
+    lines = _.clone lines
+    changes = _.map @changes, (change)=>
+      change = _.clone change
+      for allocation in change[2]
+        for line in lines
+          if allocation.out_document_lines? and allocation.out_document_lines[line.constructor.className]?
+            outDocumentLines = allocation.out_document_lines[line.constructor.className]
+            if _.include(outDocumentLines, line.id)
+              allocation.out_document_lines[line.constructor.className] = _.filter outDocumentLines, (l)-> l != line.id
+              allocation.in_quantity += line.quantity
+              change[1] += line.quantity
+      return change
+    return _.extend _.clone(@), {changes: changes}

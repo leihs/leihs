@@ -1092,7 +1092,7 @@ msgstr ""
 msgid "Create copied item"
 msgstr ""
 
-msgid "Save Changes"
+msgid "Save changes"
 msgstr ""
 
 msgid "Saved"
@@ -2093,7 +2093,7 @@ msgstr ""
 msgid "%s saved"
 msgstr ""
 
-msgid "Order Overview"
+msgid "Order overview"
 msgstr ""
 
 msgid "To pick up"
@@ -2200,3 +2200,22 @@ msgstr ""
 
 msgid "Specification of the purpose is required"
 msgstr ""
+
+msgid "Change"
+msgstr ""
+
+msgid "Change %s"
+msgstr ""
+
+msgid "Change entry"
+msgstr ""
+
+msgid "Save change"
+msgstr ""
+
+msgid "Continue this order"
+msgstr ""
+
+msgid "Please solve the conflicts for all highlighted lines in order to continue"
+msgstr ""
+

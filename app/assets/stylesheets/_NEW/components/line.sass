@@ -60,18 +60,15 @@
   &:first-child
     text-align: left
 
-  &:last-child
+  &:last-child:not([class*='padding'])
     padding-right: $space-s
 
 .line-info
-  height: 100%
+  height: 97%
   left: 0
   position: absolute
-  margin: 1px 0 0 1px
-  padding: 1px 0 0 1px
   top: 0
   width: 6px
-  @include opacity(0.5)
 
   &.red
     background: $red

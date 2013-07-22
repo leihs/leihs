@@ -1,4 +1,4 @@
-class window.App.Borrow.OrderCurrentController extends Spine.Controller
+class window.App.Borrow.CurrentOrderBasketController extends Spine.Controller
 
   elements:
     "#current-order-lines": "linesContainer"
@@ -18,7 +18,7 @@ class window.App.Borrow.OrderCurrentController extends Spine.Controller
         model: App.Model.find model_id
         quantity: _.reduce lines, ((mem, line)=> mem+line.quantity), 0
     data = _.sortBy data, (entry)-> entry.model.name
-    @linesContainer.html App.Render "borrow/views/order/current/line", data
+    @linesContainer.html App.Render "borrow/views/order/basket/line", data
     if _.size(data) > 0
       @orderOverviewButton.removeClass "hidden"
     else

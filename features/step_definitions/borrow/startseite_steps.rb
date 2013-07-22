@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 Angenommen(/^man befindet sich auf der Seite der Hauptkategorien$/) do
-  visit borrow_start_path
+  visit borrow_root_path
 end
 
 Dann(/^sieht man genau die für den User bestimmte Haupt\-Kategorien mit Bild und Namen$/) do
@@ -50,36 +50,4 @@ end
 
 Dann(/^lande ich in der Modellliste für diese Kategorie$/) do
   expect(current_url =~ Regexp.new(Regexp.escape borrow_models_path(category_id: @second_level_category.id))).not_to be_nil
-end
-
-#####################################################################################
-
-Angenommen(/^die letzte Aktivität auf meiner Bestellung ist mehr als (\d+) Stunden her$/) do |arg1|
-  @order = @current_user.get_current_order
-  @order.update_attributes(updated_at: Time.now - 3.days)
-end
-
-Wenn(/^ich die Seite der Hauptkategorien besuche$/) do
-  step "man befindet sich auf der Seite der Hauptkategorien"
-end
-
-Dann(/^lande ich auf der Bestellung\-Abgelaufen\-Seite$/) do
-  current_path.should == borrow_order_timed_out_path
-end
-
-Dann(/^ich sehe eine Information, dass die Geräte nicht mehr reserviert sind$/) do
-  find("h1", text: _("Your order is older than 24 hours, then it has timed out!"))
-  find("h2", text: _("The following items are not reserved any more:"))
-end
-
-Wenn(/^ich dies akzeptiere$/) do
-  find("a", text: _("Agree")).click
-end
-
-Dann(/^wird die Bestellung gelöscht$/) do
-  expect { @order.reload }.to raise_error(ActiveRecord::RecordNotFound)
-end
-
-Dann(/^ich lande auf der Seite der Hauptkategorien$/) do
-  current_path.should == borrow_start_path
 end

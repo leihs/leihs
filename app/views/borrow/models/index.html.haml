@@ -14,7 +14,7 @@
             .table-cell.separated-left{:class => @child_categories.blank? ? "col1of1" : "col3of4"}
               = render partial: "borrow/models/index/list"
 
-  .col1of5= render :partial => "borrow/order"
+  .col1of5= render :partial => "borrow/current_order_basket"
 
 :coffeescript
     

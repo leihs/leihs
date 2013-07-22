@@ -12,7 +12,7 @@
           %h1.headline-xl.padding-bottom-s= @model.name  
           %h2.headline-m.light= @model.manufacturer
         .col1of3.text-align-right
-          %button.button.white{:"data-add-to-order" => @model.id}
+          %button.button.white{:"data-create-order-line" => true, :"data-model-id" => @model.id}
             Zur Bestellung hinzufügen
             %span.separated-left.padding-left-xs.margin-left-xxs
               %i.icon-plus.margin-left-xxs
@@ -31,7 +31,7 @@
 
       = render "borrow/models/show/compatibles" unless @model.compatibles.blank?
 
-  .col1of5= render :partial => "borrow/order"
+  .col1of5= render :partial => "borrow/current_order_basket"
 
 :coffeescript
 

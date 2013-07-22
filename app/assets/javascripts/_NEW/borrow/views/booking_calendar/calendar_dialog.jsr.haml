@@ -1,14 +1,14 @@
 .modal.fade.ui-modal.medium{:role => "dialog", :tabindex => "-1"}
 
   .modal-header.row
-    .col2of3
-      %h2.headline-l.padding-bottom-xs {{jed "Add to order"/}}
+    .col3of5
+      %h2.headline-l.padding-bottom-xs {{>titel}}
       %h3.headline-m.light.padding-bottom-xs {{>model.name}}
-    .col1of3.text-align-right
+    .col2of5.text-align-right
       .modal-close {{jed "Cancel"/}}
-      %button#add-to-order.button.green{:disabled => :disabled} {{jed "Add"/}}
+      %button#submit-booking-calendar.button.green{:disabled => :disabled} {{>buttonText}}
 
-  #add-to-order-errors
+  #booking-calendar-errors
 
   .modal-body
 

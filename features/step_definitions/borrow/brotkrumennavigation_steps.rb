@@ -15,5 +15,5 @@ end
 
 Dann(/^dieser führt mich immer zur Seite der Hauptkategorien$/) do
   @home_button.click
-  current_path.should eq borrow_start_path
+  current_path.should eq borrow_root_path
 end

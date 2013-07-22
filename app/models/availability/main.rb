@@ -48,7 +48,7 @@ module Availability
 #########################################################
 
   class Main
-    attr_reader :document_lines, :partitions, :changes
+    attr_reader :document_lines, :partitions, :changes, :inventory_pool_and_model_group_ids
     
     def initialize(attr)
       @model          = attr[:model]
@@ -56,8 +56,7 @@ module Availability
       # we use array select instead of sql where condition to fetch once all document_lines during the same request, instead of hit the db multiple times
       @document_lines = @inventory_pool.running_lines.select {|line| line.model_id == @model.id}
       @partitions     = @inventory_pool.partitions_with_generals.hash_for_model(@model)
-
-      inventory_pool_group_ids = @inventory_pool.loaded_group_ids ||= @inventory_pool.group_ids
+      @inventory_pool_and_model_group_ids = (@inventory_pool.loaded_group_ids ||= @inventory_pool.group_ids) & @partitions.keys
 
       initial_change = {}
       @partitions.each_pair do |group_id, quantity|
@@ -83,7 +82,7 @@ module Availability
         # 1. groups that this particular document_line can be possibly assigned to, TODO sort groups by quantity desc ??
         # 2. general group
         # 3. groups which the user is not even member
-        groups_to_check = (document_line_group_ids & inventory_pool_group_ids) + [Group::GENERAL_GROUP_ID] + (inventory_pool_group_ids - document_line_group_ids)
+        groups_to_check = (document_line_group_ids & @inventory_pool_and_model_group_ids) + [Group::GENERAL_GROUP_ID] + (@inventory_pool_and_model_group_ids - document_line_group_ids)
         maximum = available_quantities_for_groups(groups_to_check, inner_changes)
         # if still no group has enough available quantity, we allocate to general as fallback
         document_line.allocated_group_id = groups_to_check.detect(proc {Group::GENERAL_GROUP_ID}) {|group_id| maximum[group_id] >= document_line.quantity }
@@ -98,12 +97,12 @@ module Availability
     end
     
     def maximum_available_in_period_for_groups(start_date, end_date, group_ids)
-      available_quantities_for_groups([Group::GENERAL_GROUP_ID] + (group_ids & @inventory_pool.group_ids), @changes.between(start_date, end_date)).values.max
+      available_quantities_for_groups([Group::GENERAL_GROUP_ID] + (group_ids & @inventory_pool_and_model_group_ids), @changes.between(start_date, end_date)).values.max
     end
 
     def maximum_available_in_period_summed_for_groups(start_date, end_date, group_ids = nil)
-      group_ids ||= @inventory_pool.group_ids
-      available_quantities_for_groups([Group::GENERAL_GROUP_ID] + (group_ids & @inventory_pool.group_ids), @changes.between(start_date, end_date)).values.sum
+      group_ids ||= @inventory_pool_and_model_group_ids
+      available_quantities_for_groups([Group::GENERAL_GROUP_ID] + (group_ids & @inventory_pool_and_model_group_ids), @changes.between(start_date, end_date)).values.sum
     end
 
     def available_total_quantities
@@ -118,11 +117,11 @@ module Availability
     end
 
     # returns a Hash {group_id => quantity}
-    def available_quantities_for_groups(group_ids, c = nil)
-      c ||= @changes
+    def available_quantities_for_groups(group_ids, inner_changes = nil)
+      inner_changes ||= @changes
       h = {}
       group_ids.each do |group_id|
-        h[group_id] = c.values.map{|c| c[group_id].try(:fetch, :in_quantity).to_i }.min.to_i
+        h[group_id] = inner_changes.values.map{|c| c[group_id].try(:fetch, :in_quantity).to_i }.min.to_i
       end
       h
     end

@@ -3,7 +3,7 @@
 Wenn(/^man auf einem Model "Zur Bestellung hinzufügen" wählt$/) do
   line = find("#model-list .line:first")
   @model = Model.find line["data-id"]
-  line.find("button[data-add-to-order]").click
+  line.find("button[data-create-order-line]").click
 end
 
 Dann(/^öffnet sich der Kalender$/) do
@@ -23,14 +23,15 @@ Wenn(/^man versucht ein Modell zur Bestellung hinzufügen, welches nicht verfüg
   @end_date = Date.today + 14
   @inventory_pool = @current_user.inventory_pools.first
   @quantity = 3
-  @model = @current_user.models.detect do |m| 
+  @model = @current_user.models.borrowable.detect do |m| 
     m.availability_in(@inventory_pool).maximum_available_in_period_summed_for_groups(@start_date, @end_date, @current_user.group_ids) < @quantity and 
     m.total_borrowable_items_for_user(@current_user, @inventory_pool) >= @quantity
   end
   visit borrow_models_path(:category_id => @model.categories.first.id)
-  find("#model-list .line *[data-add-to-order='#{@model.id}']").click
-  step 'ich setze die Anzahl im Kalendar auf #{@quantity}'
-  find("#add-to-order").click
+  find("#model-list .line *[data-create-order-line][data-model-id='#{@model.id}']").click
+  step "ich setze die Anzahl im Kalendar auf #{@quantity}"
+  sleep 1
+  find("#submit-booking-calendar").click
 end
 
 Wenn(/^ich setze die Anzahl im Kalendar auf (\d+)$/) do |quantity|
@@ -54,7 +55,7 @@ Dann(/^schlägt der Versuch es hinzufügen fehl$/) do
 end
 
 Dann(/^ich sehe die Fehlermeldung, dass das ausgewählte Modell im ausgewählten Zeitraum nicht verfügbar ist$/) do
-  find("#add-to-order-errors").should have_content "Der Gegenstand ist im ausgewählten Zeitraum nicht ausreichend verfügbar"
+  find("#booking-calendar-errors").should have_content "Der Gegenstand ist im ausgewählten Zeitraum nicht ausreichend verfügbar"
 end
 
 Wenn(/^man einen Gegenstand aus der Modellliste hinzufügt$/) do
@@ -72,7 +73,7 @@ Dann(/^der Kalender beinhaltet die folgenden Komponenten$/) do |table|
   find "#order-start-date"
   find "#order-end-date"
   find "#order-quantity"
-  find "#add-to-order"
+  find "#submit-booking-calendar"
   find ".modal-close", text: _("Cancel")
 end
 
@@ -83,7 +84,7 @@ Wenn(/^alle Angaben die ich im Kalender mache gültig sind$/) do
   @start_date = @end_date = @inventory_pool.next_open_date
   step "ich setze das Startdatum im Kalendar auf '#{I18n::l(@start_date)}'"
   step "ich setze das Enddatum im Kalendar auf '#{I18n::l(@end_date)}'"
-  find("#add-to-order").click
+  find("#submit-booking-calendar").click
   wait_until {all("#booking-calendar").empty?}
 end
 

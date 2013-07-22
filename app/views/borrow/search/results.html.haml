@@ -11,8 +11,8 @@
           %div{:class => @child_categories.blank? ? "" : "separated-left"}
             = render partial: "borrow/models/index/list"
 
-  .col1of5= render :partial => "borrow/order"
-
+  .col1of5= render :partial => "borrow/current_order_basket"
+  
 :coffeescript
   
   for model in #{@models.to_json}

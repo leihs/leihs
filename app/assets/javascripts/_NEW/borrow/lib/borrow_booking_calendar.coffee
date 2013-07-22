@@ -152,17 +152,17 @@ class BorrowBookingCalendar
         do @resetQuantity
     @quantity_increase_el.bind "click", => do @increaseQuantity
     @quantity_decrease_el.bind "click", => do @decreaseQuantity
-    @quantity_el.focus()
 
   increaseQuantity: => @quantity_el.val(parseInt(@quantity_el.val())+1).change()
 
   decreaseQuantity: => @quantity_el.val(parseInt(@quantity_el.val())-1).change()
   
   validateQuantity: =>
+    return false if @quantity_el.val().match(/\D/)
     value = parseInt(@quantity_el.val())
     max = @quantity_el.attr("max")
     min = @quantity_el.attr("min")
-    if value == 0 or isNaN(value)
+    if value <= 0 or isNaN(value)
       return false
     else if max? and value > max or value < min
       return false

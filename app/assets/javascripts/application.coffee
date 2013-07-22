@@ -12,6 +12,7 @@
 #= require jquery_ujs
 #= require jsrender
 #= require underscore
+#= require underscore/underscore.string
 #= require bootstrap/bootstrap-modal
 #= require tooltipster/tooltipster
 #= require jquery.inview/jquery.inview

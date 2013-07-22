@@ -1,0 +1,10 @@
+.row.padding-inset-l
+
+  .col1of7
+    %h3.headline-m {{localize start_date/}}
+  .col5of7
+    %h2.headline-m {{>inventory_pool.name}}
+
+.separated-top.padding-bottom-l
+
+  {{partial "borrow/views/order/merged_lines" lines/}}

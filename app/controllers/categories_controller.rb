@@ -14,7 +14,11 @@ class CategoriesController < ApplicationController
 
   def image
     category = Category.find params[:id]
-    redirect_to category.image, :status => :moved_permanently
+    if category.image.nil?
+      render :status => :not_found, :nothing => true
+    else
+      redirect_to category.image, :status => :moved_permanently
+    end
   end
 
 end

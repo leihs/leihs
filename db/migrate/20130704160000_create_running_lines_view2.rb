@@ -16,7 +16,7 @@ class CreateRunningLinesView2 < ActiveRecord::Migration
               "FROM order_lines " \
               "INNER JOIN orders ON orders.id = order_lines.order_id " \
               "LEFT JOIN groups_users ON groups_users.user_id = orders.user_id " \
-              "WHERE (orders.status_const = #{Order::SUBMITTED} OR (orders.status_const = #{Order::UNSUBMITTED} AND orders.updated_at > DATE_SUB(NOW(), INTERVAL 24 HOUR))) " \
+              "WHERE (orders.status_const = #{Order::SUBMITTED} OR (orders.status_const = #{Order::UNSUBMITTED} AND orders.updated_at > DATE_SUB(UTC_TIMESTAMP(), INTERVAL #{Order::TIMEOUT_MINUTES} MINUTE))) " \
                 "AND (end_date >= CURDATE()) " \
               "GROUP BY order_lines.id " \
             "UNION " \

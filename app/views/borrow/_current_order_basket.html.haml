@@ -1,14 +1,9 @@
-:ruby
-
-  order_button = true if order_button.nil?
-  order_button = false if current_order.lines.empty?
-
-#current-order.margin-left-xxs
+#current-order-basket.margin-left-xxs
   .row
     %nav
       %ul
         %li
-          %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left.active{:href => borrow_unsubmitted_order_path}
+          %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left.active{:href => borrow_current_order_path}
             %i.icon-shopping-cart
             %span.margin-top-s
               = _("Order")
@@ -27,9 +22,9 @@
             .line-col.col1of1
               %span.text-ellipsis.width-s-alt.block= "#{lines.sum(&:quantity)}x #{model}"
 
-    #order-overview-button.padding-inset-xxs{:class => order_button ? "" : "hidden"}
+    #order-overview-button.padding-inset-xxs{:class => current_order.lines.empty? ? "hidden" : ""}
       .row.padding-inset-s
-        %a.button.green.min-width-full{href: borrow_unsubmitted_order_path }= _("Order overview")
+        %a.button.green.min-width-full{href: borrow_current_order_path }= _("Order overview")
 
 :coffeescript
 
@@ -43,5 +38,5 @@
     App.Model.records[model.id] = new App.Model model
 
   jQuery =>
-    new App.Borrow.OrderCurrentController
-      el: $("#current-order")
+    new App.Borrow.CurrentOrderBasketController
+      el: $("#current-order-basket")

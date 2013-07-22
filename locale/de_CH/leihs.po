@@ -1098,7 +1098,7 @@ msgstr "Gegenstand kopieren"
 msgid "Create copied item"
 msgstr "Kopierten Gegenstand erstellen"
 
-msgid "Save Changes"
+msgid "Save changes"
 msgstr "Änderungen speichern"
 
 msgid "Saved"
@@ -2162,7 +2162,7 @@ msgstr "%s gespeichert"
 msgid "order"
 msgstr "bestellen"
 
-msgid "Order Overview"
+msgid "Order overview"
 msgstr "Bestellübersicht"
 
 msgid "To pick up"
@@ -2271,3 +2271,21 @@ msgstr "Zweck der Bestellung"
 
 msgid "Specification of the purpose is required"
 msgstr "Die Angabe eines Zwecks ist verpflichtend"
+
+msgid "Change"
+msgstr "Ändern"
+
+msgid "Change %s"
+msgstr "%s ändern"
+
+msgid "Change entry"
+msgstr "Eintrag ändern"
+
+msgid "Save change"
+msgstr "Änderung speichern"
+
+msgid "Continue this order"
+msgstr "Diese Bestellung fortsetzen"
+
+msgid "Please solve the conflicts for all highlighted lines in order to continue"
+msgstr "Um fortzufahren, beheben Sie bitte die Konflikte der hervorgehobenen Einträge"

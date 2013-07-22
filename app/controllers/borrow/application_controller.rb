@@ -18,8 +18,16 @@ class Borrow::ApplicationController < ApplicationController
   def require_customer; require_role "customer"; end
 
   def redirect_if_order_timed_out
-    return if [borrow_order_timed_out_path, borrow_order_remove_path].include? request.path
-    redirect_to borrow_order_timed_out_path if current_order.lines.count > 0 and (Time.now - current_order.updated_at) > 24.hours
+    return if request.format == :json or
+              [borrow_order_timed_out_path,
+               borrow_order_remove_path,
+               borrow_order_remove_lines_path,
+               borrow_order_lines_change_time_range_path].include? request.path
+    if current_order.lines.count > 0 and current_order.timeout? and current_order.lines.any? {|l| not l.available? }
+      redirect_to borrow_order_timed_out_path
+    else
+      current_order.touch
+    end
   end
 
   def init_breadcrumbs 

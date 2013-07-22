@@ -42,11 +42,12 @@
   white-space: nowrap
   width: 100%
   @include user-select(none)
-  @include border-radius($border-radius-xs)
+  @include border-radius($border-radius-m)
   @extend .focus-hover-thin
 
   &:not([class*='text-align'])
     text-align: left
 
   &.red, &.red:hover
-    color: $red !important
+    background: $red !important
+    color: white !important

@@ -26,13 +26,13 @@ Dann(/^die Navigation beinhaltet "(.*?)"$/) do |section|
 end
 
 Dann(/^seh ich in der Navigation den Home\-Button$/) do
-  find("nav a[href='#{borrow_start_path}']")
+  find("nav a[href='#{borrow_root_path}']")
 end
 
 Wenn(/^ich den Home\-Button bediene$/) do
-  find("nav a[href='#{borrow_start_path}']").click
+  find("nav a[href='#{borrow_root_path}']").click
 end
 
 Dann(/^lande ich auf der Seite der Hauptkategorien$/) do
-  current_path.should == borrow_start_path
+  current_path.should == borrow_root_path
 end

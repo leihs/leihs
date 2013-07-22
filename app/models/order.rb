@@ -22,6 +22,8 @@ class Order < Document
 
   validate :validates_order_lines
 
+  TIMEOUT_MINUTES = 30
+
   UNSUBMITTED = 1
   SUBMITTED = 2
   APPROVED = 3
@@ -263,9 +265,16 @@ class Order < Document
       nil
     end
   end
-  
+
   ############################################
-  
+
+
+  def timeout?
+    status_const == UNSUBMITTED and (Time.now - updated_at) > TIMEOUT_MINUTES.minutes
+  end
+
+  ############################################
+
   private
   
   # TODO assign based on the order_lines' inventory_pools

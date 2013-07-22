@@ -55,7 +55,8 @@
   @include button($darkergrey, rgb(230,230,230), white, rgb(226,226,226), rgb(232,232,232))
 
 .button.red, .button-red
-  @include button(#f60000, rgb(230,230,230), white, rgb(226,226,226), rgb(232,232,232))
+  @include button(white, $darkred, $red, $red, $red)
+  @include text-shadow(1px 1px 0 rgba(0,0,0,0.1))
 
 .button.inset, .button-inset
   @include button($darkergrey, rgba(230,230,230,0.2), rgba(255,255,255,0.2), rgb(226,226,226), rgb(232,232,232))

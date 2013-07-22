@@ -2,6 +2,8 @@
 # A Document consists of #DocumentLine s.
 #
 class Document < ActiveRecord::Base
+  include LineModules::GroupedAndMergedLines
+
   self.abstract_class = true
   
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'

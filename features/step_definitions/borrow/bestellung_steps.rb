@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 Angenommen(/^man befindet sich auf der Bestellübersicht$/) do
-  visit borrow_unsubmitted_order_path
+  visit borrow_current_order_path
 end
 
 Dann(/^sehe ich kein Bestellfensterchen$/) do

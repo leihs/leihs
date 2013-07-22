@@ -448,7 +448,7 @@ window.i18n.locale_data = {
          null,
          "Vollständigkeit"
       ],
-      "Consider Opening Hours": [
+      "Consider opening hours": [
          null,
          "Öffnungszeiten beachten"
       ],
@@ -947,7 +947,7 @@ window.i18n.locale_data = {
       ],
       "Lending": [
          null,
-         "Ausleihe"
+         "Verleih"
       ],
       "Lending / Daily View": [
          null,
@@ -1490,7 +1490,7 @@ window.i18n.locale_data = {
          null,
          "Kopierten Gegenstand erstellen"
       ],
-      "Save Changes": [
+      "Save changes": [
          null,
          "Änderungen speichern"
       ],
@@ -2271,11 +2271,11 @@ window.i18n.locale_data = {
          null,
          "in"
       ],
-      "inventory pool is closed on end_date. ": [
+      "Inventory pool is closed on end date": [
          null,
          "Der Gerätepark ist am gewünschten Rückgabetag geschlossen"
       ],
-      "inventory pool is closed on start_date. ": [
+      "Inventory pool is closed on start date": [
          null,
          "Der Gerätepark ist am gewünschten Starttag geschlossen"
       ],
@@ -2891,6 +2891,38 @@ window.i18n.locale_data = {
       "User|AccessRight|Suspended reason": [
          null,
          "Sperrgrund"
+      ],
+      "The selected inventory pool is closed on that day": [
+         null,
+         "Der ausgewählte Gerätepark ist an diesem Tag geschlossen"
+      ],
+      "Item is not available in that time range": [
+         null,
+         "Der Gegenstand ist im ausgewählten Zeitraum nicht ausreichend verfügbar"
+      ],
+      "Purpose of the order": [
+         null,
+         "Zweck der Bestellung"
+      ],
+      "Specification of the purpose is required": [
+         null,
+         "Die Angabe eines Zwecks ist verpflichtend"
+      ],
+      "Change": [
+         null,
+         "Ändern"
+      ],
+      "Change %s": [
+         null,
+         "%s ändern"
+      ],
+      "Change entry": [
+         null,
+         "Eintrag ändern"
+      ],
+      "Save change": [
+         null,
+         "Änderung speichern"
       ]
    }
 }

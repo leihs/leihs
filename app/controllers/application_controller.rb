@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
       if current_user.has_role?('manager', nil, false) or current_user.has_role?('admin')
         redirect_to backend_path, flash: flash
       else
-        redirect_to borrow_start_path, flash: flash
+        redirect_to borrow_root_path, flash: flash
       end
     else
       render "splash/show"

@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.11' # FIXME cannot upgrade to 3.2.12 because migrations are not running
+gem 'rails', '3.2.13'
 
 gem 'active_hash', '~> 0.9'
 gem 'activerecord-jdbcmysql-adapter', :platform => :jruby
@@ -50,7 +50,7 @@ gem 'rails_autolink', '~> 1.0'
 gem 'redcarpet', :group => [:test, :development] # This isn't being pulled in by yard, but it's required
 gem 'rgl', '~> 0.4.0', :require => 'rgl/adjacency' # use ruby-graphviz instead ?? (already in test group)
 gem 'rspec', '~> 2.12', :group => [:test, :development], :require => false
-gem 'rspec-rails', '~> 2.12', :group => [:test, :development], :require => false#gem 'ruby-graphviz', :group => :test
+gem 'rspec-rails', '~> 2.12', :group => [:test, :development], :require => false
 gem 'ruby_parser', '~> 3.1' # gettext dependency that Bundler seems unable to resolve
 gem 'sass', '~> 3.2', :group => :assets
 gem 'sass-rails', '~> 3.2', :group => :assets

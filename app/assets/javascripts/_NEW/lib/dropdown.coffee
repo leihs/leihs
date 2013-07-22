@@ -5,6 +5,7 @@ App.Dropdown
 This script provides functionalities for dropdowns.
 
 It prevents that a dropdown is immediatly shown when hovered (containing delay)
+It prevents that a dropdown is immediatly destroy when mouse
 
 ###
 
@@ -12,7 +13,8 @@ App.Dropdown ?= {}
 
 class App.Dropdown.Hover
 
-  @delay = 80
+  @showDelay = 80
+  @hideDelay = 200
   @current = undefined
 
   constructor: (e)->
@@ -21,14 +23,22 @@ class App.Dropdown.Hover
     App.Dropdown.Hover.current = @
     setTimeout =>
       do @validate
-    , App.Dropdown.Hover.delay
+    , App.Dropdown.Hover.showDelay
 
   validate: =>
     if App.Dropdown.Hover.current == @
       @dropdown.show()
 
 jQuery -> 
-  $(document).on "mouseenter", ".dropdown-holder", (e)-> new App.Dropdown.Hover e
+  $(document).on "mouseenter", ".dropdown-holder", (e)-> 
+    if App.Dropdown.Hover.current? 
+      if App.Dropdown.Hover.current.holder[0] != $(e.currentTarget)[0]
+        App.Dropdown.Hover.current.dropdown.hide() 
+      else
+        clearTimeout App.Dropdown.Hover.hideTimer
+    new App.Dropdown.Hover e
   $(document).on "mouseleave", ".dropdown-holder", (e)-> 
-    $(e.currentTarget).find(".dropdown").hide()
-    App.Dropdown.Hover.current = undefined
+    App.Dropdown.Hover.hideTimer = setTimeout (=> 
+      $(e.currentTarget).find(".dropdown").hide()
+      App.Dropdown.Hover.current = undefined
+    ), App.Dropdown.Hover.hideDelay

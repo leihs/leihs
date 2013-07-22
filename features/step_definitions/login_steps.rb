@@ -66,6 +66,7 @@ When /^"([^"]*)" sign in successfully he is redirected to the "([^"]*)" section$
 end
 
 Angenommen(/^man ist eingeloggt als "(.*?)"$/) do |persona|
+  visit "/logout"
   @current_user = User.where(:login => persona.downcase).first
   I18n.locale = if @current_user.language then @current_user.language.locale_name.to_sym else Language.default_language end
   visit root_path

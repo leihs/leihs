@@ -1,26 +1,20 @@
 # -*- encoding : utf-8 -*-
 
 Angenommen(/^ich habe Gegenstände der Bestellung hinzugefügt$/) do
-  order = @current_user.get_current_order
-  order.purpose = FactoryGirl.create :purpose
-  rand(3..10).times do
-    order.order_lines << FactoryGirl.create(:order_line,
-                                            :order => order,
-                                            :inventory_pool => @current_user.inventory_pools.sample)
-  end
+  step "ich habe eine offene Bestellung mit Modellen"
+  @current_user.get_current_order.purpose = FactoryGirl.create :purpose
 end
 
 Wenn(/^ich die Bestellübersicht öffne$/) do
-  visit borrow_unsubmitted_order_path
+  visit borrow_current_order_path
   page.should have_content _("Order Overview")
-  @order = @current_user.get_current_order
-  all(".line").count.should == @order.lines.count
+  all(".line").count.should == @current_user.get_current_order.lines.count
 end
 
 #############################################################################
 
 Dann(/^sehe ich die Einträge gruppiert nach Startdatum und Gerätepark$/) do
-  @order.lines.group_by{|l| [l.start_date, l.inventory_pool]}.each do |k,v|
+  @current_user.get_current_order.lines.group_by{|l| [l.start_date, l.inventory_pool]}.each do |k,v|
     find("*", text: I18n.l(k[0])).should have_content k[1].name
   end
 end
@@ -34,21 +28,21 @@ end
 
 Dann(/^für jeden Eintrag sehe ich die folgenden Informationen$/) do |table|
   all(".line").each do |line|
-    order_line = OrderLine.find line["data-id"]
+    order_lines = OrderLine.find JSON.parse line["data-line-ids"]
     table.raw.map{|e| e.first}.each do |row|
       case row
         when "Bild"
-          line.find("img")[:src][order_line.model.id.to_s].should be
+          line.find("img")[:src][order_lines.first.model.id.to_s].should be
         when "Anzahl"
-           line.should have_content order_line.quantity
+           line.should have_content order_lines.sum(&:quantity)
         when "Modellname"
-          line.should have_content order_line.model.name
+          line.should have_content order_lines.first.model.name
         when "Hersteller"
-          line.should have_content order_line.model.manufacturer
+          line.should have_content order_lines.first.model.manufacturer
         when "Anzahl der Tage"
-          line.should have_content ((order_line.end_date - order_line.start_date).to_i+1).to_s
+          line.should have_content ((order_lines.first.end_date - order_lines.first.start_date).to_i+1).to_s
         when "Enddatum"
-          line.should have_content I18n.l order_line.end_date
+          line.should have_content I18n.l order_lines.first.end_date
         when "die versch. Aktionen"
           line.find(".line-actions")
         else
@@ -71,24 +65,23 @@ end
 Wenn(/^ich einen Eintrag lösche$/) do
   lines = all(".line")
   line = lines.sample
-  a = line.find(".line-actions a[data-method='delete']")
-
-  @before_max_available = before_max_available(@order)
-
+  line.find(".dropdown-holder").click
+  a = line.find("a[data-method='delete']")
+  @before_max_available = before_max_available(@current_user.get_current_order)
   a.click
   step "werde ich gefragt ob ich die Bestellung wirklich löschen möchte"
 end
 
 Dann(/^wird der Eintrag aus der Bestellung entfernt$/) do
-  all(".line").count.should == @order.lines.count
+  all(".line").count.should == @current_user.get_current_order.lines.count
 end
 
 #############################################################################
 
 Wenn(/^ich die Bestellung lösche$/) do
-  @order_line_ids = @order.order_line_ids
+  @order_line_ids = @current_user.get_current_order.order_line_ids
 
-  @before_max_available = before_max_available(@order)
+  @before_max_available = before_max_available(@current_user.get_current_order)
 
   a = find("a[data-method='delete'][href='/borrow/order/remove']")
   a.click
@@ -102,11 +95,11 @@ end
 
 Dann(/^alle Einträge werden aus der Bestellung gelöscht$/) do
   OrderLine.where(id: @order_line_ids).count.should == 0
-  Order.where(id: @order.id).count.should == 0
+  Order.where(id: @current_user.get_current_order.id).count.should == 0
 end
 
 Dann(/^die Gegenstände sind wieder zur Ausleihe verfügbar$/) do
-  @order.order_lines.each do |order_line|
+  @current_user.get_current_order.order_lines.each do |order_line|
     order_line.inventory_pool.reload # reloading the running_lines
     after_max_available = order_line.model.availability_in(order_line.inventory_pool).maximum_available_in_period_summed_for_groups(order_line.start_date, order_line.end_date)
     after_max_available.should == if OrderLine.find_by_id(order_line.id).nil?
@@ -118,7 +111,7 @@ Dann(/^die Gegenstände sind wieder zur Ausleihe verfügbar$/) do
 end
 
 Dann(/^ich befinde mich wieder auf der Startseite$/) do
-  current_path.should == borrow_start_path
+  current_path.should == borrow_root_path
 end
 
 #############################################################################
@@ -132,7 +125,7 @@ Wenn(/^ich die Bestellung abschliesse$/) do
 end
 
 Dann(/^ändert sich der Status der Bestellung auf Abgeschickt$/) do
-  @order.reload.status_const.should == Order::SUBMITTED
+  @current_user.get_current_order.reload.status_const.should == Order::SUBMITTED
 end
 
 Dann(/^ich erhalte eine Bestellbestätigung$/) do
@@ -151,7 +144,42 @@ end
 
 Dann(/^hat der Benutzer keine Möglichkeit die Bestellung abzuschicken$/) do
   step "ich die Bestellung abschliesse"
-  current_path.should == borrow_unsubmitted_order_path
-  find(".error", text: _("Please provide a purpose..."))
-  @order.reload.status_const.should == Order::UNSUBMITTED
+  step "wird die Bestellung nicht abgeschlossen"
+  step "ich erhalte eine Fehlermeldung"
+end
+
+#############################################################################
+
+Wenn(/^ich den Eintrag ändere$/) do
+  @changed_lines = OrderLine.find JSON.parse find("[data-change-order-lines]")["data-line-ids"]
+  find("[data-change-order-lines]").click
+end
+
+Dann(/^öffnet der Kalender$/) do
+  wait_until{find("#booking-calendar .fc-widget-content")}
+end
+
+Dann(/^ich ändere die aktuellen Einstellung$/) do
+  @changed_lines.first.start_date = Date.today
+  while not @changed_lines.first.available?
+    @new_date = @changed_lines.first.end_date = @changed_lines.first.start_date += 1.day
+  end
+  step "ich setze das Startdatum im Kalendar auf '#{I18n.l(@new_date)}'"
+  step "ich setze das Enddatum im Kalendar auf '#{I18n.l(@new_date)}'"
+end
+
+Dann(/^speichere die Einstellungen$/) do
+  find("#submit-booking-calendar").click
+end
+
+Dann(/^wird der Eintrag gemäss aktuellen Einstellungen geändert$/) do
+  step "ensure there are no active requests"
+  wait_until{all(".loading").empty?}
+  wait_until{@changed_lines.first.reload.start_date == @new_date}
+  wait_until{find("*", :text => I18n.l(@new_date))}
+end
+
+Dann(/^der Eintrag wird in der Liste anhand der des aktuellen Startdatums und des Geräteparks gruppiert$/) do
+  @current_user.get_current_order.reload
+  step 'sehe ich die Einträge gruppiert nach Startdatum und Gerätepark'
 end

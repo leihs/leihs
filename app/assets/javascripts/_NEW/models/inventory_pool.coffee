@@ -16,3 +16,7 @@ class window.App.InventoryPool extends Spine.Model
   @extend Spine.Model.Ajax
 
   @url: => "/inventory_pools"
+
+  isClosedOn: (date)=>
+    _.include(@workday().closedDays(), date.day()) or 
+    _.any(@holidays().all(), (h)-> date.isAfter(h.start_date) and date.isBefore(h.end_date))

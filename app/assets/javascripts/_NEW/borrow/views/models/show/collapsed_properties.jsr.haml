@@ -1,13 +1,12 @@
 %div
-  .row
-    .pearls
-      .pearl#properties-toggle
-        %span#show-all-properties-text 
-          %i.icon-expand-alt
-          {{jed "Show all properties"/}}
-        %span#show-less-properties-text.hidden 
-          %i.icon-collapse-alt
-          {{jed "Show less properties"/}}
+  .row.height-xs.margin-bottom-s
+    .pearl#properties-toggle
+      %span#show-all-properties-text 
+        %i.icon-expand-alt
+        {{jed "Show all properties"/}}
+      %span#show-less-properties-text.hidden 
+        %i.icon-collapse-alt
+        {{jed "Show less properties"/}}
   #collapsed-properties.collapsed
     .row.collapsed-inner
     .row.collapsed-shadow

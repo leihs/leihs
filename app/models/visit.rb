@@ -8,6 +8,7 @@
 #
 # Reading a MySQL View
 class Visit < ActiveRecord::Base
+  include LineModules::GroupedAndMergedLines
   self.primary_key = :id
 
   #######################################################
