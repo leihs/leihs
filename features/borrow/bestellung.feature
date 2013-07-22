@@ -6,28 +6,30 @@ Funktionalität: Bestellung
   möchte ich als Ausleiher
   die möglichkeit haben Modelle zu bestellen
 
-  Szenario: Bestellfensterchen
+  Grundlage:
     Angenommen man ist "Normin"
-    Und man befindet sich auf der Seite der Hauptkategorien
+
+  Szenario: Bestellfensterchen
+    Angenommen man befindet sich auf der Seite der Hauptkategorien
     Dann sehe ich das Bestellfensterchen
 
   Szenario: Kein Bestellfensterchen
-    Angenommen man ist "Normin"
-    Und man befindet sich auf der Bestellübersicht
+    Angenommen man befindet sich auf der Bestellübersicht
     Dann sehe ich kein Bestellfensterchen
 
   Szenario: Bestellfensterchen Inhalt
-    Angenommen man ist "Normin"
-    Wenn ich ein Modell der Bestellung hinzufüge
+    Angenommen ich ein Modell der Bestellung hinzufüge
     Dann erscheint es im Bestellfensterchen
-    Und die Modelle sind alphabetisch sortiert
+    Und die Modelle im Bestellfensterchen sind alphabetisch sortiert
     Und gleiche Modelle werden zusammengefasst
     Wenn das gleiche Modell nochmals hinzugefügt wird
-    Dann wird die Anzahl dieses Modells erhöht 
+    Dann wird die Anzahl dieses Modells erhöht
+    Und die Modelle im Bestellfensterchen sind alphabetisch sortiert
+    Und gleiche Modelle werden zusammengefasst
     Und ich kann zur detaillierten Bestellübersicht gelangen
 
+  @javascript
   Szenario: Bestellfensterchen aus Kalender updaten
-    Angenommen man ist "Normin"
     Wenn ich mit dem Kalender ein Modell der Bestellung hinzufüge
     Dann wird das Bestellfensterchen aktualisiert
  
