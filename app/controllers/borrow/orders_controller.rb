@@ -6,6 +6,7 @@ class Borrow::OrdersController < Borrow::ApplicationController
 
   def index
     @orders = current_user.orders.submitted
+    flash[:notice] = _("These orders have been successfully submitted, but are NOT YET CONFIRMED.")
   end
 
   def current
