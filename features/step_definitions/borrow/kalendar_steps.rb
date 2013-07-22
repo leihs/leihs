@@ -247,7 +247,7 @@ Dann(/^wird die Verfügbarkeit des Gegenstandes aktualisiert$/) do
   @ip = InventoryPool.find_by_name find("#order-inventory-pool option").value.split(" ").first
 
   (@start..@end).each do |date|
-    date_el = find("td.fc-widget-content .fc-day-number", text: date.day.to_s).find(:xpath, "../..")
+    date_el = get_fullcalendar_day_element date
     date_el.native.attribute("class").should include "available"
     date_el.native.attribute("class").should include "selected"
   end
