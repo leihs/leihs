@@ -22,6 +22,8 @@
                   .dropdown.straight-top.full-width.has-focus-hover
                     .padding-inset-xs
                       %img.max-width-micro.max-height-micro{:src => image_path("loading.gif")}
+            - unless category.children.any?
+              .row.padding-inset-xs
                     
   .col1of5= render :partial => "borrow/current_order_basket"
 
