@@ -1,12 +1,13 @@
 # encoding: utf-8
 
 Angenommen /^man sucht nach einem nicht ausgeliehenen Gegenstand$/ do
-  @unretired_item = Item.where(inventory_pool_id: @current_inventory_pool.id).detect {|i| not i.retired? and i.is_borrowable?}
+  @unretired_item = Item.where(inventory_pool_id: @current_inventory_pool.id).detect {|i| not i.retired? and i.is_borrowable? and i.in_stock?}
   find_field('query').set @unretired_item.model.name
-  wait_until { all("li.modelname").first.text == @unretired_item.model.name }
+  wait_until{ not all("li.modelname").empty? }
+  wait_until{ all("li.modelname").first.text == @unretired_item.model.name }
   find(".toggle .icon").click
   page.execute_script("$('.items.children .arrow').trigger('mouseover');")
-  wait_until {find(".line.toggler.item", text: @unretired_item.name).find(".button", text: _("Retire Item"))}.click
+  wait_until {find(".line.toggler.item", text: @unretired_item.inventory_code).find(".button", text: _("Retire Item"))}.click
 end
 
 Dann /^kann man diesen Gegenstand mit Angabe des Grundes erfolgreich ausmustern$/ do

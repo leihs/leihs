@@ -36,6 +36,7 @@ module Persona
 
     def select_inventory_pool 
       @inventory_pool = InventoryPool.find_by_name(@@inventory_pool_names.first)
+      @inventory_pool_2 = InventoryPool.find_by_name(@@inventory_pool_names.second)
     end
     
     def create_user
@@ -78,6 +79,14 @@ module Persona
       purpose = FactoryGirl.create :purpose, :description => "Um meine Abschlussarbeit zu fotografieren."
       FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @unsigned_contract, :item_id => @inventory_pool.items.in_stock.where(:model_id => @camera_model).first.id, :model => @camera_model, :start_date => Date.yesterday, :end_date => Date.today)
       @unsigned_contract.sign(@pius)
+
+      @unsigned_contract_2 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool_2)
+      purpose = FactoryGirl.create :purpose, :description => "Um meine Abschlussarbeit zu fotografieren."
+      @arbitrary_model_1 = @inventory_pool_2.items.in_stock.first.model
+      @arbitrary_model_2 = @inventory_pool_2.items.in_stock.last.model
+      FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @unsigned_contract_2, :item_id => @inventory_pool_2.items.in_stock.where(:model_id => @arbitrary_model_1).first.id, :model => @arbitrary_model_1, :start_date => Date.yesterday, :end_date => Date.today)
+      FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @unsigned_contract_2, :item_id => @inventory_pool_2.items.in_stock.where(:model_id => @arbitrary_model_2).first.id, :model => @arbitrary_model_2, :start_date => Date.yesterday, :end_date => Date.today)
+      @unsigned_contract_2.sign(@pius)
     end
 
     def setup_groups

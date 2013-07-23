@@ -5,8 +5,7 @@ class Borrow::OrdersController < Borrow::ApplicationController
   end
 
   def index
-    @orders = current_user.orders.submitted
-    flash[:notice] = _("These orders have been successfully submitted, but are NOT YET CONFIRMED.")
+    @grouped_and_merged_lines = Order.grouped_and_merged_lines_for_collection :start_date, current_user.orders.submitted
   end
 
   def current

@@ -32,7 +32,7 @@
 
         .separated-top.padding-bottom-l
 
-          = render :partial => "borrow/orders/merged_lines", :collection => v, :as => :line
+          = render :partial => "borrow/orders/unsubmitted/merged_lines", :collection => v, :as => :line
 
     .emboss.padding-inset-l.separated-top
       - if current_order.timeout?

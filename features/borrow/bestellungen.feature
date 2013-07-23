@@ -14,6 +14,4 @@ Funktionalität: Bestellungen
     Und ich sehe die Information, dass die Bestellung noch nicht genehmigt wurde
     Und die Bestellungen sind nach Datum und Gerätepark sortiert
     Und jede Bestellung zeigt die zu genehmigenden Geräte
-    Und die Geräte sind alphabetisch sortiert nach Modellname
-    
-    
+    Und die Geräte der Bestellung sind alphabetisch sortiert nach Modellname

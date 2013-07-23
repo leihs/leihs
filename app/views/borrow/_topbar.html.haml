@@ -7,13 +7,13 @@
     %li#topbar-search.topbar-item.topbar-search.separated-left
       = render :partial => 'topbar_search'
 
-    - if (q1 = current_user.contract_lines.to_hand_over.sum &:quantity) > 0
+    - if (q1 = current_user.visits.hand_over.count) > 0
       %li.topbar-item.separated-left{:class => current_page?(:controller => :to_pick_up) ? "active" : nil}
         %a.topbar-item-inner{:href => borrow_to_pick_up_path}
           %span.badge= q1
           = _("To pick up")
 
-    - if (q2 = current_user.contract_lines.to_take_back.sum &:quantity) > 0
+    - if (q2 = current_user.visits.take_back.count) > 0
       %li.topbar-item.separated-left{:class => current_page?(:controller => :returns) ? "active" : nil}
         %a.topbar-item-inner{:href => borrow_returns_path}
           %span.badge= q2

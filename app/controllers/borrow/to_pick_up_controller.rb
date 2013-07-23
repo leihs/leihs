@@ -1,7 +1,7 @@
 class Borrow::ToPickUpController < Borrow::ApplicationController
 
   def index
-    @grouped_lines = current_user.contract_lines.to_hand_over.group_by{|l| [l.start_date, l.inventory_pool] }
+    @grouped_and_merged_lines = Visit.grouped_and_merged_lines_for_collection :start_date, current_user.visits.hand_over
   end
 
 end

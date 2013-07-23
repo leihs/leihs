@@ -1,0 +1,22 @@
+.row.line{:"data-line-id" => line.id}
+
+  - if line.has_attribute?(:available?) and not line.available?
+    .line-info.red{title: _("Not available")}
+
+  .line-col.col1of9.padding-left-l.text-align-center
+
+    %img.max-height-xxs-alt.max-width-xs{src: model_image_thumb_path(line.model.id)}
+
+  .line-col.col6of9.text-align-left
+
+    .col2of10.text-ellipsis{:title => "#{line.item.inventory_code}"}= line.item.inventory_code
+
+    %strong.col6of10.text-ellipsis{:title => "#{line.model.name}"}= line.model.name
+
+    %strong.col2of10.text-ellipsis.padding-left-m{:title => "#{line.model.manufacturer}"}= line.model.manufacturer
+
+  .line-col.col2of9.text-align-left
+    = _("for")
+    = interval(line.start_date, line.end_date)
+    = _("since")
+    = short_date(line.start_date)

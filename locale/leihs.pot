@@ -2226,3 +2226,13 @@ msgstr[1] ""
 
 msgid "No description"
 msgstr ""
+
+msgid "for"
+msgstr ""
+
+msgid "Open orders"
+msgstr ""
+
+msgid "These orders have been successfully submitted, but are NOT YET CONFIRMED."
+msgstr ""
+

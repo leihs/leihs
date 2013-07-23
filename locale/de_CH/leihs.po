@@ -2297,3 +2297,13 @@ msgstr[1] "Sie haben Zugriff auf die folgenden Geräteparks"
 
 msgid "No description"
 msgstr "Keine Beschreibung"
+
+msgid "for"
+msgstr "für"
+
+msgid "Open orders"
+msgstr "Offene Bestellungen"
+
+
+msgid "These orders have been successfully submitted, but are NOT YET CONFIRMED."
+msgstr "Diese Bestellungen wurden abgeschickt. Sie sind alerdings NOCH NICHT GENEHMIGT."

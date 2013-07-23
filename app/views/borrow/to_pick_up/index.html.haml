@@ -6,40 +6,25 @@
   .row.margin-top-m
     %nav
       %ul
-        %li
-          %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left.active
-            %i.icon-shopping-cart
-            = title
+        %li{:style => "z-index: 800; position: relative"}
+          %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left.straight-right{:href => borrow_root_path}
+            = _("Overview")
+            .navigation-tab-arrow-border
+            .navigation-tab-arrow.straight-right
+        %li{:style => "z-index: 799; position: relative"}
+          %a.negative-margin-left-xxs-alt.straight-left.navigation-tab-item.margin-right-xxs.padding-horizontal-m.padding-left-l.float-left.active
+            = _("To pick up")
 
-  .row.content-wrapper.straight-top-left.padding-inset-l
+  .row.content-wrapper.straight-top-left
 
-    %h1.headline-xl.padding-bottom-s= title
+    - @grouped_and_merged_lines.each_pair do |k, v|
 
-    - @grouped_lines.each_pair do |date_ip, lines|
-      .emboss.deep.padding-bottom-s.margin-bottom-m
-        .row.padding-inset-s
-          .col1of6.headline-m
-            = short_date(date_ip[0])
-          .col5of6.headline-m
-            = date_ip[1]
+      .row.padding-inset-l
+        .col1of7
+          %h3.headline-m= short_date(k[:start_date])
+        .col5of7
+          %h2.headline-m= k[:inventory_pool]
 
-        %div
-          - lines.sort_by {|x| x.model.to_s }.each do |line|
-            .row.line
-              - unless line.available?
-                .line-info.red
-              .line-col.col1of9.image
-                %img.max-height-xxs-alt.max-width-xs{src: model_image_thumb_path(line.model.id)}
-              .line-col.col1of9.amount
-                = line.quantity
-              .line-col.col2of9.text-align-left.name
-                %strong{:title => "#{line.model.name}"}= line.model.name.truncate(62)
-                - if line.model.is_package
-                  .package.icon
-              .line-col.col2of9.text-align-left.manufacturer
-                %strong{:title => "#{line.model.manufacturer}"}= line.model.manufacturer.truncate(62)
-              .line-col.col3of9.end_date
-                = interval(line.start_date, line.end_date)
-                = _("until")
-                %span{class: line.inventory_pool.is_open_on?(line.end_date) ? nil : "emboss red"}
-                  = short_date(line.end_date)
+      .separated-top.padding-bottom-l
+
+        = render :partial => "borrow/to_pick_up/merged_lines", :collection => v, :as => :line

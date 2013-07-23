@@ -18,12 +18,12 @@ end
 
 Dann(/^sehe ich meine abgeschickten, noch nicht genehmigten Bestellungen$/) do
   @current_user.orders.submitted.each do |order|
-    find(".emboss.deep", text: order.inventory_pool.name)
+    page.should have_content order.inventory_pool.name
   end
 end
 
 Dann(/^ich sehe die Information, dass die Bestellung noch nicht genehmigt wurde$/) do
-  find(".emboss.notice", text: _("These orders have been successfully submitted, but are NOT YET CONFIRMED."))
+  page.should have_content _("These orders have been successfully submitted, but are NOT YET CONFIRMED.")
 end
 
 Dann(/^die Bestellungen sind nach Datum und Gerätepark sortiert$/) do
@@ -33,17 +33,15 @@ end
 
 Dann(/^jede Bestellung zeigt die zu genehmigenden Geräte$/) do
   @current_user.orders.submitted.each do |order|
-    x = find(".emboss.deep", text: order.inventory_pool.name)
     order.lines.each do |line|
-      x.find(:xpath, "./../..").find(".line .name", text: line.model.name)
+      find(".line", text: line.model.name)
     end
   end
 end
 
-Dann(/^die Geräte sind alphabetisch sortiert nach Modellname$/) do
-  @current_user.orders.submitted.each do |order|
-    x = find(".emboss.deep", text: order.inventory_pool.name)
-    names = x.find(:xpath, "./../..").all(".line .name").map {|x| x.text}
+Dann(/^die Geräte der Bestellung sind alphabetisch sortiert nach Modellname$/) do
+  all(".separated-top").each do |block|
+    names = block.all(".line").map {|x| x.text.split("\n")[1]}
     expect(names.sort == names).to be_true
   end
 end
