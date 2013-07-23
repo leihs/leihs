@@ -271,7 +271,7 @@ end
 Dann(/^wird die maximal ausleihbare Anzahl des ausgewählten Modells angezeigt$/) do
   all("#order-inventory-pool option").each do |option|
     inventory_pool = InventoryPool.find(option["data-id"])
-    option.text[/\(#{@model.total_borrowable_items_for_user(@current_user, inventory_pool)}\)/].should be
+    option.text[/#{@model.total_borrowable_items_for_user(@current_user, inventory_pool)}/].should be
   end
 end
 
