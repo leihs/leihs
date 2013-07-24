@@ -284,8 +284,13 @@ Wenn /^meine Abteilung Besitzer des Gegenstands ist die Verantwortung aber auf e
   find(".responsible option[data-responsible_id!='#{@current_inventory_pool.id}']").select_option
   wait_until { all(".loading", :visible => true).empty? }
   all(".toggle .text").each {|toggle| toggle.click}
-  @item_line = find(".items .item.line")
-  @item = Item.find_by_inventory_code @item_line.find(".inventory_code").text
+  index = 0
+  while not @item or not @item.in_stock?
+    @item_line = all(".items .item.line")[index]
+    @item = Item.find_by_inventory_code @item_line.find(".inventory_code").text
+    index = index+1
+    raise("no item found") if index > 20
+  end
 end
 
 Dann /^enthält die Options\-Zeile folgende Informationen$/ do |table|
