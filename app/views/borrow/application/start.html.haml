@@ -6,7 +6,7 @@
     = render :partial => 'borrow/tabs', :locals => {:navigation => "lending", :current_page => "daily"}
 
     .content-wrapper.straight-top-left.padding-inset-s
-      .emboss.emboss
+      .emboss.row
         - @categories.each_with_index do |category, i|
           .col1of3.padding-inset-m.text-align-center
             .row.emboss.white.focus-hover.unselectable{:"data-category_id" => category.id}
