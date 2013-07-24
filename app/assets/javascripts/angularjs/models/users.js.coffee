@@ -22,7 +22,7 @@ angular.module("users", ["ngResource", "ng-rails-csrf"])
           when "customer" then _jed("Customer")
           when "lending_manager" then _jed("Lending manager")
           when "inventory_manager" then _jed("Inventory manager")
-          else _jed("Unknown")
+          else _jed("No access")
       else
         _jed("No access")
 

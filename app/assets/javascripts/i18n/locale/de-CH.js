@@ -2503,10 +2503,6 @@ window.i18n.locale_data = {
          null,
          "Inventar-Verwalter"
       ],
-      "Unknown": [
-         null,
-         "Unbekannt"
-      ],
       "New User": [
          null,
          "Neuer Benutzer"

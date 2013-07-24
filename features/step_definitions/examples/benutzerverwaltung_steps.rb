@@ -76,7 +76,7 @@ Dann /^man kann filtern nach den folgenden Rollen:$/ do |table|
     c = case role
           when "admins"
             User.admins
-          when "unknown"
+          when "no_access"
             User.where("users.id NOT IN (#{@inventory_pool.users.select("users.id").to_sql})")
           when "customers", "lending_managers", "inventory_managers"
             @inventory_pool.users.send(role)
@@ -298,11 +298,11 @@ Dann /^man kann Benutzern die folgende Rollen zuweisen und wegnehmen, wobei dies
                     "lending_manager"
                   when _("Inventory manager")
                     "inventory_manager"
-                  #when _("Unknown")
-                  #  "unknown"
+                  #when _("No access")
+                  #  "no_access"
                 end
 
-    unknown_user = User.unknown_for(@inventory_pool).order("RAND()").first
+    unknown_user = User.no_access_for(@inventory_pool).order("RAND()").first
 
     case role_name
       when "customer"
@@ -328,7 +328,7 @@ Dann /^man kann Benutzern die folgende Rollen zuweisen und wegnehmen, wobei dies
         unknown_user.has_at_least_access_level(3, @inventory_pool).should be_true
     end
 
-    page.driver.browser.process(:put, backend_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), access_right: {role_name: "unknown"})
+    page.driver.browser.process(:put, backend_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), access_right: {role_name: "no_access"})
     expect(page.status_code == 200).to be_true
 
     case role_name
@@ -492,7 +492,7 @@ Dann /^man kann Benutzern jegliche Rollen zuweisen und wegnehmen$/ do
   user.has_at_least_access_level(3, inventory_pool).should be_true
   user.access_right_for(inventory_pool).deleted_at.should be_nil
 
-  page.driver.browser.process(:put, backend_user_path(user, format: :json), access_right: {inventory_pool_id: inventory_pool.id, role_name: "unknown"})
+  page.driver.browser.process(:put, backend_user_path(user, format: :json), access_right: {inventory_pool_id: inventory_pool.id, role_name: "no_access"})
   expect(page.status_code == 200).to be_true
 
   user.has_at_least_access_level(3, inventory_pool).should be_false

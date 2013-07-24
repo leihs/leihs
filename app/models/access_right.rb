@@ -68,7 +68,7 @@ class AccessRight < ActiveRecord::Base
       when "inventory_manager"
         self.role = Role.find_by_name("manager")
         self.access_level = 3
-      when "unknown", "no_access"
+      when "no_access"
         self.deleted_at = Date.today # keep the existing role, just flag as deleted
     end
 

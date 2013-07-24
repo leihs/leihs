@@ -1888,9 +1888,6 @@ msgstr ""
 msgid "Inventory manager"
 msgstr ""
 
-msgid "Unknown"
-msgstr ""
-
 msgid "New User"
 msgstr ""
 

@@ -42,8 +42,8 @@ class Backend::UsersController < Backend::BackendController
         users = case @role
                   when "admins"
                     User.admins
-                  when "unknown"
-                    User.unknown_for(current_inventory_pool)
+                  when "no_access"
+                    User.no_access_for(current_inventory_pool)
                   when "customers", "lending_managers", "inventory_managers"
                     current_inventory_pool.send(suspended ? :suspended_users : :users).send(@role)
                   else

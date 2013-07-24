@@ -152,7 +152,7 @@ class User < ActiveRecord::Base
                   joins("LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id").
                   where(['roles.name = ? AND deleted_at IS NULL', 'admin'])
 
-  scope :unknown_for, lambda { |inventory_pool|
+  scope :no_access_for, lambda { |inventory_pool|
     where("users.id NOT IN (#{inventory_pool.users.select("users.id").to_sql})")
   }
 

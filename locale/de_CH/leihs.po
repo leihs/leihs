@@ -1948,9 +1948,6 @@ msgstr "Ausleihe-Verwalter"
 msgid "Inventory manager"
 msgstr "Inventar-Verwalter"
 
-msgid "Unknown"
-msgstr "Unbekannt"
-
 msgid "New User"
 msgstr "Neuer Benutzer"
 
