@@ -62,5 +62,3 @@ module LineModules
     end
   end
 end
-
-  

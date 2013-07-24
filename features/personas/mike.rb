@@ -56,6 +56,7 @@ module Persona
       @beamer_category = FactoryGirl.create(:category, :name => "Beamer")
       @camera_category = FactoryGirl.create(:category, :name => "Kameras")
       @tripod_category = FactoryGirl.create(:category, :name => "Stative")
+      @hifi_category = FactoryGirl.create(:category, :name => "Hifi-Anlagen")
       @notebook_category = FactoryGirl.create(:category, :name => "Notebooks")
       @helicopter_category = FactoryGirl.create(:category, :name => "RC Helikopter")
       @computer_category = FactoryGirl.create(:category, :name => "Computer")
@@ -80,6 +81,7 @@ module Persona
       setup_more_beamers
       setup_cameras
       
+      setup_hifis
       setup_tripods
       setup_options
       
@@ -181,6 +183,16 @@ module Persona
       @tripod_item4 = FactoryGirl.create(:item, :inventory_code => "tri212", :serial_number => "tri212", :model => @tripod_model, :location => @location, :owner => @inventory_pool)
     end
     
+    def setup_hifis
+      @hifi_model = FactoryGirl.create(:model, :name => "Hifi Standard", :manufacturer => "Sony")
+      @hifi_model.model_links.create :model_group => @hifi_category
+      @hifi_item = FactoryGirl.create(:item, :inventory_code => "hifi123", :serial_number => "hifi123", :model => @hifi_model, :location => @location, :owner => @inventory_pool)
+      @hifi_model.partitions << Partition.create(model_id: @hifi_model.id,
+                                                 inventory_pool_id: @inventory_pool.id,
+                                                 group_id: Group.create(name: "Group Hifi", inventory_pool_id: @inventory_pool.id).id,
+                                                 quantity: 1)
+    end
+
     def setup_options
       @akku_aa = FactoryGirl.create(:option, :name => "Akku AA",
                                              :inventory_pool => @inventory_pool,
@@ -217,6 +229,8 @@ module Persona
 
       # beamer
       @not_borrowable_beamer = FactoryGirl.create(:item, :inventory_code => "beam21231", :is_borrowable => false, :serial_number => "beamas12312", :model => @beamer_model, :location => @location, :owner => @inventory_pool)
+
+      @not_borrowable_hifi = FactoryGirl.create(:item, :inventory_code => "hifi345", :is_borrowable => false, :serial_number => "hifi345", :model => @hifi_model, :location => @location, :owner => @inventory_pool)
     end
     
     def setup_broken

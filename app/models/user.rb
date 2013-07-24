@@ -28,24 +28,18 @@ class User < ActiveRecord::Base
     end
   end
 
-
-
   has_many :categories, :through => :models, :uniq => true # (nested)
-  # OPTIMIZE still
-  def all_categories
-    # this is too slow, 1+n queries
-    #ancestors = categories.collect(&:ancestors)
-    # then let's query all ancestors with 1+1 queries
-    #ancestors = Category.joins("INNER JOIN `model_group_links` ON `model_groups`.`id` = `model_group_links`.`ancestor_id`").where(:model_group_links => {:descendant_id => category_ids})
-    # with 1 query using subquery
-    #ancestors = Category.joins("INNER JOIN `model_group_links` ON `model_groups`.`id` = `model_group_links`.`ancestor_id`").where("`model_group_links`.`descendant_id` IN (#{categories.select("model_groups.id").to_sql})")
-    # but finally reuse already executed categories query
-    ancestors = Category.joins("INNER JOIN `model_group_links` ON `model_groups`.`id` = `model_group_links`.`ancestor_id`").where(:model_group_links => {:descendant_id => categories.map(&:id)})
 
-    [categories, ancestors].flatten.uniq
+  def all_categories
+    borrowable_categories = Category.with_borrowable_models_for_user(self)
+
+    ancestors = Category.joins("INNER JOIN `model_group_links` ON `model_groups`.`id` = `model_group_links`.`ancestor_id`").
+                  where(:model_group_links => {:descendant_id => borrowable_categories}).uniq
+
+    [borrowable_categories, ancestors].flatten.uniq
   end
 
-#temp#  has_many :templates, :through => :inventory_pools
+  #temp#  has_many :templates, :through => :inventory_pools
   def templates
     inventory_pools.flat_map(&:templates).sort
   end
