@@ -10,6 +10,9 @@
     %h1
       {{user.name | truncate:30}}
 
+    %h3
+      %span.red{"ng-repeat" => "error in errors"}
+        {{error}}
 
   .left
     %section

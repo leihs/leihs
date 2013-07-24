@@ -89,8 +89,7 @@ class Backend::UsersController < Backend::BackendController
     @user = User.new(params[:user])
     @user.login = @user.email if @user.email
 
-    if @user.valid?
-      @user.save
+    if @user.save
       @user.all_access_rights.create(role_name: "admin") if should_be_admin == "true"
 
       flash[:notice] = _("User created successfully")
@@ -104,24 +103,13 @@ class Backend::UsersController < Backend::BackendController
   end
 
   def create_in_inventory_pool
-
-    role_name = params[:access_right][:role_name]
     groups = params[:user].delete(:groups) if params[:user].has_key?(:groups)
     @user = User.new(params[:user])
     @user.login = @user.email if @user.email
     @user.groups = groups.map {|g| Group.find g["id"]} if groups
 
-    @access_right = AccessRight.new inventory_pool: @current_inventory_pool, role_name: role_name unless role_name == "no_access"
-
-    if @user.valid?
-
-      User.transaction do
-        @user.save
-        unless role_name == "no_access"
-          @access_right.user = @user
-          @access_right.save
-        end
-      end
+    if @user.save
+      @user.access_rights.create inventory_pool: @current_inventory_pool, role_name: params[:access_right][:role_name] unless params[:access_right][:role_name] == "no_access"
 
       flash[:notice] = _("User created successfully")
       redirect_to backend_inventory_pool_users_path(@current_inventory_pool)
@@ -135,17 +123,6 @@ class Backend::UsersController < Backend::BackendController
 
   end
 
-  def initialize_access_right
-    @access_right = @user.all_access_rights.find_or_initialize_by_inventory_pool_id(@ip_id)
-    @access_right.suspended_until, @access_right.suspended_reason = if params[:access_right][:suspended_until].blank?
-                                                                      [nil, nil]
-                                                                    else
-                                                                      [params[:access_right][:suspended_until], params[:access_right][:suspended_reason]]
-                                                                    end
-
-    @access_right.role_name = params[:access_right][:role_name] unless params[:access_right][:role_name].blank?
-  end
-
   def edit
     @is_admin = @user.has_role? "admin"
   end
@@ -156,11 +133,9 @@ class Backend::UsersController < Backend::BackendController
   def update
 
     should_be_admin = params[:user].delete(:admin)
-    @user.attributes = params[:user]
 
-    if @user.valid?
+    if @user.update_attributes(params[:user])
 
-      @user.save
       @user.all_access_rights.delete_all {|ar| ar.role_name == "admin"}
       @user.all_access_rights.create(role_name: "admin") if should_be_admin == "true"
 
@@ -186,26 +161,19 @@ class Backend::UsersController < Backend::BackendController
 
   def update_in_inventory_pool
 
-    role_name = params[:access_right][:role_name]
-
     if params[:user] and params[:user].has_key?(:groups) and (groups = params[:user].delete(:groups))
       @user.groups = groups.map {|g| Group.find g["id"]}
     end
 
-    @user.attributes = params[:user]
+    @access_right = @user.all_access_rights.find_or_initialize_by_inventory_pool_id(@ip_id)
+    @access_right.suspended_until, @access_right.suspended_reason = if params[:access_right][:suspended_until].blank?
+                                                                      [nil, nil]
+                                                                    else
+                                                                      [params[:access_right][:suspended_until], params[:access_right][:suspended_reason]]
+                                                                    end
+    @access_right.role_name = params[:access_right][:role_name] unless params[:access_right][:role_name].blank?
 
-    unless role_name == "no_access"
-      update_or_initialize_access_right
-    else
-      @user.access_right_for(@current_inventory_pool).destroy
-    end
-
-    if @user.valid?
-
-      User.transaction do
-        @user.save
-        @access_right.save unless role_name == "no_access"
-      end
+    if @access_right.save and @user.update_attributes(params[:user])
 
       respond_to do |format|
         format.html {
@@ -219,14 +187,14 @@ class Backend::UsersController < Backend::BackendController
       end
 
     else
+      @user.errors.delete(:login) if @user.errors.has_key? :email
+      errors = @access_right.errors.full_messages.uniq + @user.errors.full_messages.uniq
       respond_to do |format|
         format.html {
-          @user.errors.delete(:login) if @user.errors.has_key? :email
-          flash.now[:error] = @user.errors.full_messages.uniq
+          flash.now[:error] = errors
           render action: :edit_in_inventory_pool
         }
-
-        format.json { render :text => @user.errors.full_messages.uniq, :status => 500 }
+        format.json { render :text => errors, :status => 500 }
       end
     end
   end
@@ -300,19 +268,6 @@ class Backend::UsersController < Backend::BackendController
 
   def new_contract
     redirect_to [:backend, current_inventory_pool, @user, :hand_over]
-  end
-
-  def update_or_initialize_access_right
-
-    @access_right = @user.all_access_rights.find_or_initialize_by_inventory_pool_id(@ip_id)
-    @access_right.suspended_until, @access_right.suspended_reason = if params[:access_right][:suspended_until].blank?
-                                                                      [nil, nil]
-                                                                    else
-                                                                      [params[:access_right][:suspended_until], params[:access_right][:suspended_reason]]
-                                                                    end
-
-    @access_right.role_name = params[:access_right][:role_name] unless params[:access_right][:role_name].blank?
-
   end
 
   def get_accessible_roles_for_current_user
