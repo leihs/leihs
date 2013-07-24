@@ -118,6 +118,7 @@ class Model < ActiveRecord::Base
 
   scope :default_order, order_by_attribute_and_direction("name", "asc")
 
+
 #############################################
 
   SEARCHABLE_FIELDS = %w(name manufacturer)

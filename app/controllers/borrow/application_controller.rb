@@ -5,7 +5,9 @@ class Borrow::ApplicationController < ApplicationController
   before_filter :require_customer, :redirect_if_order_timed_out, :init_breadcrumbs
 
   def start
-    @categories = (current_user.all_categories & Category.roots).sort
+    current_user_categories = current_user.all_categories
+    @categories = (current_user_categories & Category.roots).sort
+    @child_categories = @categories.map {|c| (current_user_categories & c.children).sort}
   end
 
   def current_order

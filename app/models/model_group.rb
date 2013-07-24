@@ -36,6 +36,10 @@ class ModelGroup < ActiveRecord::Base
 
   scope :have_borrowable_items, joins(:items).where(Item.arel_table[:retired].not_eq(nil)).where(:items => {:is_borrowable => true}).uniq
 
+  scope :with_borrowable_models_for_user, lambda { |user|
+    joins(:models).where(:models => {:id => user.models.borrowable}).uniq
+  }
+
   scope :roots, joins("LEFT JOIN model_group_links AS mgl ON mgl.descendant_id = model_groups.id").where("mgl.descendant_id IS NULL")
 
   # scope :accessible_roots, lambda do |user_id|     

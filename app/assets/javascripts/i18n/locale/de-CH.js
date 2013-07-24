@@ -2114,6 +2114,10 @@ window.i18n.locale_data = {
          null,
          "Sie sind nun ausgeloggt."
       ],
+      "You were served by %s": [
+         null,
+         "Es bediente Sie %s"
+      ],
       "You are not logged in.": [
          null,
          "Sie sind nicht eingeloggt."

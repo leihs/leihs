@@ -54,7 +54,7 @@ ${$not_returned_lines = Line.get_not_returned(lines), ""}
   
   {{if $not_returned_lines.length}}
   %section.list.not_returned_items
-    %h2= _("Borrowed Items")
+    %h2 ${_jed("Borrowed Items")}
     %table
       %thead
         %tr
