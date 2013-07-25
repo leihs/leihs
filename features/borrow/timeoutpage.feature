@@ -6,6 +6,14 @@ Funktionalität: Timeout Page
     Angenommen man ist "Normin"
     Und ich zur Timeout Page weitergeleitet werde
 
+  Szenario: Bestellung abgelaufen
+    Angenommen man ist "Normin"
+    Und ich habe Gegenstände der Bestellung hinzugefügt
+    Und die letzte Aktivität auf meiner Bestellung ist mehr als 30 minuten her
+    Wenn ich die Seite der Hauptkategorien besuche
+    Dann lande ich auf der Bestellung-Abgelaufen-Seite
+    Und ich sehe eine Information, dass die Geräte nicht mehr reserviert sind
+
   Szenario: Ansicht
     Dann sehe ich meine Bestellung
     Und die nicht mehr verfügbaren Modelle sind hervorgehoben
@@ -32,10 +40,6 @@ Funktionalität: Timeout Page
   Szenario: Bestellung löschen
     Wenn ich die Bestellung lösche
     Dann werden die Modelle meiner Bestellung freigegeben
-    Und wird die Bestellung gelöscht
+    Und wird die Bestellung des Benutzers gelöscht
     Und ich lande auf der Seite der Hauptkategorien
 
-
-
-  
-  

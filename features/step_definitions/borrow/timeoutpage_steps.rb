@@ -45,7 +45,7 @@ end
 
 #########################################################################
 
-Dann(/^wird die Bestellung gelöscht$/) do
+Dann(/^wird die Bestellung des Benutzers gelöscht$/) do
   expect { @current_user.get_current_order.reload }.to raise_error(ActiveRecord::RecordNotFound)
 end
 
@@ -97,4 +97,19 @@ end
 
 Dann(/^ich erhalte ich einen Fehler$/) do
   page.should have_content _("Please solve the conflicts for all highlighted lines in order to continue")
+end
+
+#########################################################################
+
+Angenommen(/^die letzte Aktivität auf meiner Bestellung ist mehr als (\d+) minuten her$/) do |minutes|
+  @order = @current_user.get_current_order
+  @order.update_attributes(updated_at: Time.now - (minutes.to_i+1).minutes)
+end
+
+Wenn(/^ich die Seite der Hauptkategorien besuche$/) do
+  step "man befindet sich auf der Seite der Hauptkategorien"
+end
+
+Dann(/^lande ich auf der Bestellung\-Abgelaufen\-Seite$/) do
+  current_path.should == borrow_order_timed_out_path
 end
