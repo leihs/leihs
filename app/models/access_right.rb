@@ -27,6 +27,10 @@ class AccessRight < ActiveRecord::Base
     end
   end
 
+  before_destroy do 
+    raise _("Currently has things to return") unless inventory_pool.contract_lines.by_user(user).to_take_back.empty?
+  end
+
   scope :not_suspended, where("suspended_until IS NULL OR suspended_until < CURDATE()")
   scope :managers, joins(:role).where(:roles => {:name => "manager"}, :deleted_at => nil)
   
