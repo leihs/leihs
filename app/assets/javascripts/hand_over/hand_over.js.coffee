@@ -237,7 +237,7 @@ class HandOver
       if ($("#process_helper #code").val().length == 0)
         new App.ExplorativeSearchDialogController
           modelSelectCallback: ProcessHelper.addModel
-          customerId: $(".visit").tmplItem().data.lines[0].contract.user.id
+          customerId: current_customer
           inventoryPoolId: currentInventoryPool.id
           startDate: moment($("#add_start_date").datepicker("getDate")).format("YYYY-MM-DD")
           endDate: moment($("#add_end_date").datepicker("getDate")).format("YYYY-MM-DD")
