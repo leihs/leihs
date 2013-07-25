@@ -85,7 +85,10 @@ UsersEditCtrl = ($scope, $location, $routeParams, User) ->
       #$location.path "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/users/#{$scope.user.id}"
       window.location = "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/users"
     , (response) ->
-      $scope.errors = response.data
+      Notification.add_headline
+        title: _jed("Error")
+        text: response.data
+        type: "error"
 
   $scope.addGroup = (element)-> 
     return true if _.find $scope.user.groups, (g)-> g.id == element.item.id

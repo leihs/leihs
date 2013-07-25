@@ -194,7 +194,7 @@ class Backend::UsersController < Backend::BackendController
           flash.now[:error] = errors
           render action: :edit_in_inventory_pool
         }
-        format.json { render :text => errors, :status => 500 }
+        format.json { render :text => errors.join(", "), :status => 500 }
       end
     end
   end
