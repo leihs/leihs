@@ -108,19 +108,18 @@ class Backend::UsersController < Backend::BackendController
     @user.login = @user.email if @user.email
     @user.groups = groups.map {|g| Group.find g["id"]} if groups
 
-    if @user.save
-      @user.access_rights.create inventory_pool: @current_inventory_pool, role_name: params[:access_right][:role_name] unless params[:access_right][:role_name] == "no_access"
+    @access_right = AccessRight.new inventory_pool: @current_inventory_pool, role_name: params[:access_right][:role_name] unless params[:access_right][:role_name] == "no_access"
 
+    if @user.save and @access_right.user = @user and @access_right.save
       flash[:notice] = _("User created successfully")
       redirect_to backend_inventory_pool_users_path(@current_inventory_pool)
-
     else
       @user.errors.delete(:login) if @user.errors.has_key? :email
-      flash.now[:error] = @user.errors.full_messages.uniq
+      errors = @access_right.errors.full_messages.uniq + @user.errors.full_messages.uniq
+      flash.now[:error] = errors
       @accessible_roles = get_accessible_roles_for_current_user
       render action: :new_in_inventory_pool
     end
-
   end
 
   def edit
