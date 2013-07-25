@@ -301,7 +301,7 @@ Funktionalität: Benutzer verwalten
   @javascript
   Szenario: Zugriff entfernen als Inventar-Verwalter
     Angenommen man ist "Mike"
-    Und man editiert einen Benutzer der Zugriff auf das aktuelle Inventarpool hat
+    Und man editiert einen Benutzer der Zugriff auf das aktuelle Inventarpool hat und keine Gegenstände mehr zurückzugeben hat
     Wenn man den Zugriff entfernt
     Und man speichert den Benutzer
     Dann hat der Benutzer keinen Zugriff auf das Inventarpool

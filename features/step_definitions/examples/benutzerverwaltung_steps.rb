@@ -772,6 +772,11 @@ Angenommen(/^man editiert einen Benutzer der Zugriff auf das aktuelle Inventarpo
   visit edit_backend_inventory_pool_user_path(@current_inventory_pool, @user)
 end
 
+Angenommen(/^man editiert einen Benutzer der Zugriff auf das aktuelle Inventarpool hat und keine Gegenstände mehr zurückzugeben hat$/) do
+  @user = @current_inventory_pool.access_rights.select{|ar| ar.role_name == "customer"}.detect{|ar| @current_inventory_pool.contract_lines.by_user(ar.user).to_take_back.empty?}.user
+  visit edit_backend_inventory_pool_user_path(@current_inventory_pool, @user)
+end
+
 Wenn(/^man den Zugriff entfernt$/) do
   find(".field", text: _("Access as")).find("select").select _("No access")
 end

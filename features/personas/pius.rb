@@ -19,6 +19,7 @@ module Persona
       
       ActiveRecord::Base.transaction do
         create_lending_manager_user
+        create_external_user
       end
     end
     
@@ -33,6 +34,11 @@ module Persona
       @inventory_pool = InventoryPool.find_by_name(@@inventory_pool_name)
       @user.access_rights.create(:role => Role.find_by_name("manager"), :inventory_pool => @inventory_pool, :access_level => 2)
       @database_authentication = FactoryGirl.create(:database_authentication, :user => @user, :password => @@password)
+    end
+
+    def create_external_user
+      @external_user = FactoryGirl.create(:user, :language => @language, :firstname => "Peter", :lastname => "Silie", :login => "peter", :email => "peter@silie.com")
+      @external_user.access_rights.create(:role => Role.find_by_name("customer"), :inventory_pool => @inventory_pool)
     end
   end  
 end
