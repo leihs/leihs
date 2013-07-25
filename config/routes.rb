@@ -82,28 +82,6 @@ Leihs::Application.routes.draw do
 #####
 ############################################################################
 
-  # used for the current_user
-  resource :user do
-    resources :orders do #TODO#, :only => [:show, :destroy]
-      member do
-        get :submitted
-      end
-    end
-    resources :contracts
-  end
-
-=begin
-  # used for the current_order
-  resource :order do
-    member do
-      post :submit
-      post :add_line
-      delete :remove_lines
-      post :change_time_lines
-    end
-  end
-=end
-
   resource :session do
     member do
       get :authenticate # TODO 2012 both needed? 
@@ -115,16 +93,6 @@ Leihs::Application.routes.draw do
   resource :authenticator do
     match 'login', :to => "authenticator/database_authentication#login"
   end
-
-  resources :categories do 
-    resources :models
-  end
-
-  resources :templates do 
-    resources :models
-  end
-
-  resources :inventory_pools
 
   ############################################################################
   # Backend
