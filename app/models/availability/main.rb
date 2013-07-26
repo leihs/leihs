@@ -55,7 +55,7 @@ module Availability
       @inventory_pool = attr[:inventory_pool]
       # we use array select instead of sql where condition to fetch once all document_lines during the same request, instead of hit the db multiple times
       @document_lines = @inventory_pool.running_lines.select {|line| line.model_id == @model.id}
-      @partitions     = @inventory_pool.partitions_with_generals.hash_for_model(@model)
+      @partitions     = @inventory_pool.partitions_with_generals.hash_for_model_and_groups(@model)
       @inventory_pool_and_model_group_ids = (@inventory_pool.loaded_group_ids ||= @inventory_pool.group_ids) & @partitions.keys
 
       initial_change = {}

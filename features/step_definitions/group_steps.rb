@@ -11,7 +11,7 @@ Then /^(\w+) item(s?) of that model should be available in group '([^"]*)'( only
   n = to_number(n)
   @group = @inventory_pool.groups.find_by_name(group_name)
   all_groups = [Group::GENERAL_GROUP_ID] + @inventory_pool.group_ids
-  quantities = @inventory_pool.partitions_with_generals.hash_for_model(@model)
+  quantities = @inventory_pool.partitions_with_generals.hash_for_model_and_groups(@model)
   quantities[@group.id].to_i.should == to_number(n)
 
   all_groups.each do |group|
@@ -31,7 +31,7 @@ end
 =end
 
 Then "that model should not be available in any group"  do
-  @inventory_pool.partitions_with_generals.hash_for_model(@model).reject { |group_id, num| group_id == Group::GENERAL_GROUP_ID }.size.should == 0
+  @inventory_pool.partitions_with_generals.hash_for_model_and_groups(@model).reject { |group_id, num| group_id == Group::GENERAL_GROUP_ID }.size.should == 0
 end
 
 # TODO: currently unused
@@ -54,7 +54,7 @@ end
 When /^I assign (\w+) item(s?) to group "([^"]*)"$/ do |n, plural, to_group_name|
   n = to_number(n)
   to_group = @inventory_pool.groups.find_by_name to_group_name
-  partition = @inventory_pool.partitions_with_generals.hash_for_model(@model)
+  partition = @inventory_pool.partitions_with_generals.hash_for_model_and_groups(@model)
   partition[to_group.id] ||= 0
   partition[to_group.id] += n
   @model.partitions.set_in(@inventory_pool, partition)

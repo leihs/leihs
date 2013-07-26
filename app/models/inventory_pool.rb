@@ -64,7 +64,6 @@ class InventoryPool < ActiveRecord::Base
       h = {Group::GENERAL_GROUP_ID => 0} if h.empty?
       h
     end
-    alias :hash_for_model :hash_for_model_and_groups
 
     def array_for_model_and_groups(model, groups)
       group_ids = groups.map{|x| x.try(:id) }
