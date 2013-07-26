@@ -136,6 +136,7 @@ Dann /^die geänderten Werte sind hervorgehoben$/ do
 end
 
 Dann /^wähle Ich die Felder über eine List oder per Namen aus$/ do
+  page.driver.browser.manage.window.maximize # to prevent Selenium::WebDriver::Error::MoveTargetOutOfBoundsError: Element cannot be scrolled into view
   find("#fieldname").click
   wait_until { not all(".ui-menu-item a", :visible => true).empty? }
   find(".ui-menu-item a", :text => /(Notiz|Note)/).click
