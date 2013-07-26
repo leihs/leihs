@@ -48,7 +48,9 @@ class Model < ActiveRecord::Base
     end
   end
   accepts_nested_attributes_for :partitions, :allow_destroy => true
-  
+  # MySQL View based on partitions and items
+  has_many :partitions_with_generals
+
   has_many :order_lines, dependent: :restrict
   has_many :contract_lines, dependent: :restrict
   has_many :properties, :dependent => :destroy
@@ -160,6 +162,11 @@ class Model < ActiveRecord::Base
         when :inventory_pool_id
           # NOTE joins(:items) doesn't consider the Item#default_scope
           sql = sql.joins(:unretired_items).where(:items => {k => v})
+        when :availability
+          user = User.find v["user_id"]
+          sql = sql.joins(:partitions_with_generals).
+                    where(partitions_with_generals: {inventory_pool_id: v["inventory_pool_id"], group_id: user.groups.with_general}).
+                    where("partitions_with_generals.quantity > 0")
       end
     end
     sql
