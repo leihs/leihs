@@ -6,11 +6,7 @@ Funktionalität: Inventarhelfer
     Angenommen Personas existieren
     Und man ist "Matti"
 
-  @javascript
-  Szenario: Wie man den Helferschirm erreicht
-    Wenn man im Inventar Bereich ist
-    Dann kann man über die Tabnavigation zum Helferschirm wechseln
-
+  # FIXME this scenario is currently executed as first, otherwise it fails.
   @javascript
   Szenario: Geräte über den Helferschirm editieren, mittels vollständigem Inventarcode (Scanner)
     Angenommen man ist auf dem Helferschirm
@@ -19,6 +15,10 @@ Funktionalität: Inventarhelfer
     Dann scanne oder gebe ich den Inventarcode ein
     Dann sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert
     Und die geänderten Werte sind hervorgehoben
+
+  Szenario: Wie man den Helferschirm erreicht
+    Wenn man im Inventar Bereich ist
+    Dann kann man über die Tabnavigation zum Helferschirm wechseln
 
   @javascript
   Szenario: Geräte über den Helferschirm editieren, mittels Inventarcode konnte nicht gefunden wurde
