@@ -316,7 +316,7 @@ Wenn(/^man bis zum Ende der Liste fährt$/) do
 end
 
 Dann(/^wurden alle Modelle der ausgewählten Kategorie geladen und angezeigt$/) do
-  all("#model-list .line").size.should == @category.models.length
+  all("#model-list .line").size.should == @current_user.models.borrowable.from_category_and_all_its_descendants(@category).length
 end
 
 Wenn(/^man über ein Modell hovered$/) do

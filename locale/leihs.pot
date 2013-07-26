@@ -2232,3 +2232,6 @@ msgstr ""
 
 msgid "These orders have been successfully submitted, but are NOT YET CONFIRMED."
 msgstr ""
+
+msgid "Search for '%s'"
+msgstr ""

@@ -123,8 +123,10 @@ end
 
 Angenommen(/^man hat eine Zeitspanne ausgewählt$/) do
   find("#start-date").set I18n.l(Date.today + 1)
+  find("#start-date").click
   find(".ui-datepicker-current-day").click
   find("#end-date").set I18n.l(Date.today + 2)
+  find("#end-date").click
   find(".ui-datepicker-current-day").click
 end
 

@@ -9,6 +9,7 @@ class window.App.Borrow.OrderLinesCreateController extends window.App.Borrow.Ord
   # @override
   setupDates: =>
     if sessionStorage.startDate?
+      debugger
       @startDateEl.val sessionStorage.startDate
     else
       @startDateEl.val moment().format("YYYY-MM-DD")

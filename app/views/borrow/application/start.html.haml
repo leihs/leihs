@@ -3,14 +3,14 @@
 .wrapper#start-view.margin-top-m
 
   .col4of5
-    = render :partial => 'borrow/tabs', :locals => {:navigation => "lending", :current_page => "daily"}
+    = render :partial => 'borrow/tabs'
 
     .content-wrapper.straight-top-left.padding-inset-s
       .emboss.row
         - @categories.each_with_index do |category, i|
           .col1of3.padding-inset-m.text-align-center
             .row.emboss.white.focus-hover.unselectable{:"data-category_id" => category.id}
-              %a{:href => borrow_models_path(:category_id => category.id)}
+              %a{:href => @bread_crumbs.path_for(borrow_models_path(:category_id => category.id), category.name)}
                 .padding-inset-s
                   .min-height-s
                     %img.max-width.max-height-s{:src => category_image_path(category.id)}
@@ -20,17 +20,8 @@
                 .row.emboss.straight-top.separated-top.dropdown-holder.min-width
                   %span.arrow.down
                   .dropdown.straight-top.full-width.has-focus-hover
-                    .padding-inset-xs
-                      %img.max-width-micro.max-height-micro{:src => image_path("loading.gif")}
+                    - @child_categories[i].each do |child|
+                      %a.dropdown-item.text-ellipsis{:href => @bread_crumbs.path_for(borrow_models_path(:category_id => child.id), child.name)}
+                        = child.name
                     
   .col1of5= render :partial => "borrow/current_order_basket"
-
-:coffeescript
-  
-  for category in #{@categories.to_json}
-    App.Category.records[category.id] = new App.Category category
-
-  jQuery -> 
-
-    new App.Borrow.StartController
-      el: $("#start-view")

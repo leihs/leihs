@@ -19,16 +19,16 @@ Dann(/^diejenigen Kategorien, die oder deren Nachfolger keine ausleihbare Gegens
 end
 
 Wenn(/^ich eine Kategorie wähle$/) do
-  @child_category = @category.children.reject {|c| Model.from_category_and_all_its_descendants(@category).active.blank?}.first
-  find("#explorative-search").find("a").click
+  @category = @category.children.reject {|c| Model.from_category_and_all_its_descendants(@category).active.blank?}.first
+  find("#explorative-search").find("a", text: @category.name).click
 end
 
 Dann(/^werden die Modelle der aktuell angewählten Kategorie angezeigt$/) do
   wait_until do
-    expect(current_url =~ Regexp.new(Regexp.escape borrow_models_path(category_id: @child_category.id))).not_to be_nil
+    (Rack::Utils.parse_nested_query URI.parse(current_url).query)["category_id"].to_i.should == @category.id
     find("#model-list")
   end
-  models = Model.from_category_and_all_its_descendants(@child_category.id).active
+  models = Model.from_category_and_all_its_descendants(@category.id).active
   within "#model-list" do
     models.each do |model|
       find(".line", text: model.name)

@@ -5,17 +5,19 @@
 
       %li{:style => "z-index: 800; position: relative"}
         %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => borrow_root_path,
-        :class => (current_page == "daily" and @bread_crumbs.get.blank?) ? "active" : "straight-right"}
-          = _("Overview")
-          - unless @bread_crumbs.get.blank?
+        :class => tabs.blank? ? "active" : "straight-right"}
+          %i.icon-home
+          = _("Start")
+          - unless tabs.blank?
             .navigation-tab-arrow-border
             .navigation-tab-arrow
 
-      - unless @bread_crumbs.get.blank?
-        - @bread_crumbs.get.each_with_index do |crumb, i|
+      - if tabs
+        - tabs.each_with_index do |tab, i|
           %li{:style => "z-index: #{799-i}; position: relative"}
-            %a.negative-margin-left-xxs-alt.straight-left.navigation-tab-item.margin-right-xxs.padding-horizontal-m.padding-left-l.float-left{:href => crumb[:link],
-            :class => request.path == crumb[:link] ? "active" : nil}
-              = CGI::unescape crumb[:label]
-              - if crumb[:search]
-                %i.icon-search.icon-size-xxs
+            %a.negative-margin-left-xxs-alt.straight-left.navigation-tab-item.margin-right-xxs.padding-horizontal-m.padding-left-l.float-left{:href => i == tabs.length-1 ? request.fullpath : tab[0],
+            :class => i == tabs.length-1 ? "active" : "straight-right"}
+              = CGI::unescape tab[1]
+              - if i != tabs.length-1
+                .navigation-tab-arrow-border
+                .navigation-tab-arrow

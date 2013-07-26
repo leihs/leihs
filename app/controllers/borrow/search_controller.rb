@@ -5,8 +5,7 @@ class Borrow::SearchController < Borrow::ApplicationController
     respond_to do |format|
       format.json 
       format.html do 
-        @bread_crumbs.add "#{params[:search_term]}", borrow_search_results_path(:search_term => search_term), :search => true
-        redirect_to borrow_search_results_path({:search_term => search_term}.merge(@bread_crumbs.to_params))
+        redirect_to borrow_search_results_path({:search_term => search_term})
       end
     end
   end

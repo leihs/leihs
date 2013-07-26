@@ -20,7 +20,7 @@ Wenn(/^man eine Hauptkategorie auswählt$/) do
 end
 
 Und(/^man sieht die Überschrift "(.*?)"$/) do |arg1|
-  find ".row a", text: _("Overview")
+  find ".row a", text: _("Start")
 end
 
 Wenn(/^ich über eine Hauptkategorie mit Kindern fahre$/) do
@@ -54,11 +54,11 @@ Wenn(/^ich eines dieser Kinder anwähle$/) do
 end
 
 Dann(/^lande ich in der Modellliste für diese Hauptkategorie$/) do
-  expect(current_url =~ Regexp.new(Regexp.escape borrow_models_path(category_id: @main_category.id))).not_to be_nil
+  (Rack::Utils.parse_nested_query URI.parse(current_url).query)["category_id"].to_i.should == @main_category.id
 end
 
 Dann(/^lande ich in der Modellliste für diese Kategorie$/) do
-  expect(current_url =~ Regexp.new(Regexp.escape borrow_models_path(category_id: @second_level_category.id))).not_to be_nil
+  (Rack::Utils.parse_nested_query URI.parse(current_url).query)["category_id"].to_i.should == @second_level_category.id
 end
 
 Angenommen(/^es gibt eine Hauptkategorie, derer Kinderkategorien keine dem User zur Verfügung stehende Gegenstände enthalten$/) do

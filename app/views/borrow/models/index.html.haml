@@ -3,7 +3,7 @@
 .wrapper.margin-top-m
 
   .col4of5
-    = render :partial => 'borrow/tabs', :locals => {:navigation => "lending", :current_page => "daily"}  
+    = render :partial => 'borrow/tabs', :locals => {:tabs => @bread_crumbs.get}
 
     #models-index.row.content-wrapper.min-width-full.straight-top-left
 

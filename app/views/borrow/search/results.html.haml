@@ -1,7 +1,8 @@
 .wrapper.margin-top-m
 
   .col4of5
-    = render :partial => 'borrow/tabs', :locals => {:navigation => "lending", :current_page => "daily"}  
+
+    = render :partial => 'borrow/tabs', :locals => {:tabs => [[request.fullpath , _("Search for '%s'") % @search_term]]}
 
     #models-index.row.content-wrapper.min-height-l.min-width-full.straight-top-left
 

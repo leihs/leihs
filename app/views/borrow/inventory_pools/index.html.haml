@@ -1,16 +1,6 @@
-.wrapper
+.wrapper.margin-top-m
 
-  .row.margin-top-m
-    %nav
-      %ul
-        %li{:style => "z-index: 800; position: relative"}
-          %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left.straight-right{:href => borrow_root_path}
-            = _("Overview")
-            .navigation-tab-arrow-border
-            .navigation-tab-arrow.straight-right
-        %li{:style => "z-index: 799; position: relative"}
-          %a.negative-margin-left-xxs-alt.straight-left.navigation-tab-item.margin-right-xxs.padding-horizontal-m.padding-left-l.float-left.active
-            = _("Inventory pools")
+  = render :partial => 'borrow/tabs', :locals => {:tabs => [[request.fullpath ,_("Inventory pools")]]}
 
   .content-wrapper.straight-top-left
 

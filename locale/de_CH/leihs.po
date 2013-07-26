@@ -2303,3 +2303,6 @@ msgstr "Offene Bestellungen"
 
 msgid "These orders have been successfully submitted, but are NOT YET CONFIRMED."
 msgstr "Diese Bestellungen wurden abgeschickt. Sie sind alerdings NOCH NICHT GENEHMIGT."
+
+msgid "Search for '%s'"
+msgstr "Suche nach '%s'"

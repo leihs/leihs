@@ -78,6 +78,7 @@ module Persona
       
       setup_sharp_beamers
       setup_ultra_compact_beamers
+      setup_micro_beamers
       setup_more_beamers
       setup_cameras
       
@@ -152,8 +153,17 @@ module Persona
                                 :maintenance_period => 0)
       @ultra_compact_beamer.model_links.create :model_group => @beamer_category
       @ultra_compact_beamer.model_links.create :model_group => @portable_subcategory
-
       @ultra_compact_beamer_item = FactoryGirl.create(:item, :inventory_code => "ucbeam1", :serial_number => "minbeam1", name: "ucbeam1", :model => @ultra_compact_beamer, :location => @location, :owner => @inventory_pool)
+    end
+
+    def setup_micro_beamers
+      @micro_beamer = FactoryGirl.create(:model, :name => "Micro Beamer",
+                                :manufacturer => "Micro", 
+                                :description => "Besonders mikro kleiner Beamer.", 
+                                :hand_over_note => "Beamer brauch ein VGA Kabel!", 
+                                :maintenance_period => 0)
+      @micro_beamer.model_links.create :model_group => @micro_subcategory
+      @micro_beamer_item = FactoryGirl.create(:item, :inventory_code => "microbeam1", :serial_number => "microbeam1", name: "microbeam1", :model => @micro_beamer, :location => @location, :owner => @inventory_pool)
     end
     
     def setup_cameras

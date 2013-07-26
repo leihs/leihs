@@ -37,7 +37,7 @@ end
 Dann(/^das Inventar wurde nach dieser Kategorie gefiltert$/) do
   all(".line.model").each do |model_line|
     model = Model.find_by_name model_line.find(".modelname").text
-    expect(model.categories.include? @child_category).to be_true
+    (model.categories.include?(@child_category) or @child_category.descendants.any? {|c| model.categories.include? c}).should be_true
   end
 end
 
@@ -107,10 +107,7 @@ Angenommen(/^ich befinde mich in der Liste der Modelle$/) do
 end
 
 Dann(/^die Modelle wurden nach dieser Kategorie gefiltert$/) do
-  all(".line.model").each do |model_line|
-    model = Model.find_by_name model_line.find(".modelname").text
-    expect(model.categories.include? @category).to be_true
-  end
+  step "das Inventar wurde nach dieser Kategorie gefiltert"
 end
 
 Angenommen(/^ich befinde mich in einer Bestellung$/) do

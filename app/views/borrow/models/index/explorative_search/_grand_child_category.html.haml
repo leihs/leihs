@@ -1,2 +1,2 @@
 %h3.font-size-s
-  %a.straight-dark-grey.padding-left-m.padding-vertical-xs.padding-right-xs.width-full.emboss.transparent.focus-hover-thin.text-ellipsis.block{href: borrow_models_path(category_id: category.id), title: category.name}= category.name
+  %a.straight-dark-grey.padding-left-m.padding-vertical-xs.padding-right-xs.width-full.emboss.transparent.focus-hover-thin.text-ellipsis.block{href: @bread_crumbs.path_for(borrow_models_path(:category_id => category.id), category.name), title: category.name}= category.name
