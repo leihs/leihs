@@ -63,5 +63,5 @@ gem 'trinidad', :group => :development, :platform => :jruby # web server (Webric
 gem 'uglifier', '~> 1.3', :group => :assets
 gem 'underscore-rails', '~> 1.4'
 gem 'uuidtools', '~> 2.1' # needed for creating unique ids during tests (factories)
-gem 'will_paginate', :git => 'https://github.com/halloffame/will_paginate.git' # fixing count distinct, alternatives: .count(:id, :distinct => true)
+gem 'will_paginate', '~> 3.0'
 gem 'yard', :group => [:test, :development]
