@@ -2230,8 +2230,11 @@ msgstr ""
 msgid "Open orders"
 msgstr ""
 
-msgid "These orders have been successfully submitted, but are NOT YET CONFIRMED."
+msgid "These orders have been successfully submitted, but are NOT YET APPROVED"
 msgstr ""
 
 msgid "Search for '%s'"
+msgstr ""
+
+msgid "Your order has been successfully submitted, but is NOT YET APPROVED"
 msgstr ""

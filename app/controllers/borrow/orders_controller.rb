@@ -17,7 +17,7 @@ class Borrow::OrdersController < Borrow::ApplicationController
       flash[:error] = current_order.errors.full_messages.uniq.join("\n")
       redirect_to borrow_current_order_path
     else
-      flash[:notice] = _("The order has been successfully submitted, but is NOT YET CONFIRMED.")
+      flash[:notice] = _("Your order has been successfully submitted, but is NOT YET APPROVED.")
       redirect_to borrow_root_path
     end
   end

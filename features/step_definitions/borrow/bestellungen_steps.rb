@@ -23,7 +23,7 @@ Dann(/^sehe ich meine abgeschickten, noch nicht genehmigten Bestellungen$/) do
 end
 
 Dann(/^ich sehe die Information, dass die Bestellung noch nicht genehmigt wurde$/) do
-  page.should have_content _("These orders have been successfully submitted, but are NOT YET CONFIRMED.")
+  page.should have_content _("These orders have been successfully submitted, but are NOT YET APPROVED.")
 end
 
 Dann(/^die Bestellungen sind nach Datum und Gerätepark sortiert$/) do

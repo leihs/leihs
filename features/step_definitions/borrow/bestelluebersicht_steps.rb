@@ -133,7 +133,7 @@ Dann(/^ich erhalte eine Bestellbestätigung$/) do
 end
 
 Dann(/^in der Bestellbestätigung wird mitgeteilt, dass die Bestellung in Kürze bearbeitet wird$/) do
-  find(".notice", text: _("The order has been successfully submitted, but is NOT YET CONFIRMED."))
+  find(".notice", text: _("Your order has been successfully submitted, but is NOT YET APPROVED."))
 end
 
 #############################################################################
