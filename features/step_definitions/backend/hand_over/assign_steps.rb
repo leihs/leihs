@@ -29,7 +29,7 @@ When /^I select one of those$/ do
   wait_until(25) { find(".ui-autocomplete a") }
   @selected_inventory_code = find(".ui-autocomplete a").find(".label").text
   find(".ui-autocomplete a").click
-  wait_until { all(".loading", :visible => true).empty? }
+  step "ensure there are no active requests"
 end
 
 Then /^the item line is assigned to the selected inventory code$/ do

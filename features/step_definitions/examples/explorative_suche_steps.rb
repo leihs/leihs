@@ -35,8 +35,9 @@ Dann(/^ich sehe die Hauptkategorie sowie die aktuell ausgewählte und die darunt
 end
 
 Dann(/^das Inventar wurde nach dieser Kategorie gefiltert$/) do
-  all(".line.model").each do |model_line|
-    model = Model.find_by_name model_line.find(".modelname").text
+  all(".line.model").each_with_index do |model_line, i|
+    next if all(".line.model")[i].nil?
+    model = Model.find_by_name(all(".line.model")[i].find(".modelname").text)
     (model.categories.include?(@child_category) or @child_category.descendants.any? {|c| model.categories.include? c}).should be_true
   end
 end

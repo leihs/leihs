@@ -10,7 +10,6 @@ end
 When /^I delete this line element$/ do
   @line_element.find(".multibutton .trigger").click
   @line_element.find(".button", :text => /(Delete|Löschen)/).click
-  wait_until(10){ all(".loading", :visible => true ).size == 0 }  
   sleep(0.6)
 end
 

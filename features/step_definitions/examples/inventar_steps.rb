@@ -408,7 +408,7 @@ Und /^ich speichere die Informationen/ do
   @model_id = (Rails.application.routes.recognize_path current_path)[:id].to_i
   step 'I press "%s"' % (_("Save %s") % _("#{@model_name_from_url.capitalize}"))
   step "ensure there are no active requests"
-  wait_until { all(".loading", :visible => true).empty? }
+  page.has_content? _("List of Models")
 end
 
 Dann /^ensure there are no active requests$/ do
@@ -572,7 +572,7 @@ end
 Und /^ich speichere das Modell mit Bilder$/ do
   @model_name_from_url = get_rails_model_name_from_url
   step 'I press "%s"' % (_("Save %s") % _("#{@model_name_from_url.capitalize}"))
-  wait_until { all(".loading", :visible => true).empty? }
+  page.has_content? _("List of Models")
 end
 
 Angenommen /^ich erstelle ein neues Modell oder ich ändere ein bestehendes Modell$/ do

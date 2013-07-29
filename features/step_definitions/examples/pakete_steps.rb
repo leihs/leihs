@@ -1,7 +1,7 @@
 # encoding: utf-8
 def add_item_via_autocomplete input_value, element
   element.set input_value
-  wait_until {not all("a", text: input_value) .empty?}
+  page.has_selector? "a", text: input_value
   find("a", text: input_value).click
 end
 
