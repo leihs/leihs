@@ -163,10 +163,12 @@ class Model < ActiveRecord::Base
           # NOTE joins(:items) doesn't consider the Item#default_scope
           sql = sql.joins(:unretired_items).where(:items => {k => v})
         when :availability
-          user = User.find v["user_id"]
-          sql = sql.joins(:partitions_with_generals).
-                    where(partitions_with_generals: {inventory_pool_id: v["inventory_pool_id"], group_id: user.groups.with_general}).
-                    where("partitions_with_generals.quantity > 0")
+          if v and v.has_key? "user_id"
+            user = User.find v["user_id"]
+            sql = sql.joins(:partitions_with_generals).
+                      where(partitions_with_generals: {inventory_pool_id: v["inventory_pool_id"], group_id: user.groups.with_general}).
+                      where("partitions_with_generals.quantity > 0")
+          end
       end
     end
     sql
