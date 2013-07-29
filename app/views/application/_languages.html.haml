@@ -9,4 +9,4 @@
         %a.grey.padding-inset-xs{:href => ""}
           %strong= language.name
       - else
-        %a.grey.padding-inset-xs{:href => @bread_crumbs.path_for(url_for(params.merge(:locale => language.locale_name)))}= language.name
+        %a.grey.padding-inset-xs{:href => @bread_crumbs ? @bread_crumbs.path_for(url_for(params.merge(:locale => language.locale_name))) : url_for(params.merge(:locale => language.locale_name))}= language.name
