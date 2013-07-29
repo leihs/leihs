@@ -33,7 +33,7 @@ class Borrow::ApplicationController < ApplicationController
   end
 
   def init_breadcrumbs 
-    @bread_crumbs = BreadCrumbs.new params
+    @bread_crumbs = BreadCrumbs.new params.delete("_bc")
   end
 
   def set_pagination_header(paginated_active_record)

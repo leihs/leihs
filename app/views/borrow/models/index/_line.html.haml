@@ -1,4 +1,4 @@
-%a.row.line.height-xs.focus-hover-thin{:"data-id" => model.id, :href => borrow_model_path(model)}
+%a.row.line.height-xs.focus-hover-thin{:"data-id" => model.id, :href => @bread_crumbs.path_for(borrow_model_path(model))}
   .line-col.col1of6.no-padding
     .padding-inset-xxs.text-align-center
       %img.max-height-xxs-alt.max-width-xs{src: model_image_thumb_path(model.id)}

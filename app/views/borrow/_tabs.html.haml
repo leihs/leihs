@@ -15,9 +15,10 @@
       - if tabs
         - tabs.each_with_index do |tab, i|
           %li{:style => "z-index: #{799-i}; position: relative"}
-            %a.negative-margin-left-xxs-alt.straight-left.navigation-tab-item.margin-right-xxs.padding-horizontal-m.padding-left-l.float-left{:href => i == tabs.length-1 ? request.fullpath : tab[0],
-            :class => i == tabs.length-1 ? "active" : "straight-right"}
-              = CGI::unescape tab[1]
+            %a.negative-margin-left-xxs-alt.straight-left.navigation-tab-item.margin-right-xxs.padding-horizontal-m.padding-left-l.float-left{:href => tab[0],
+            :class => "#{(URI(tab[0]).path == request.path and i == tabs.length-1) ? "active" : ""} #{i != tabs.length-1 ? "straight-right" : ""}"}
+              %span.max-width-s-alt.block.text.text-ellipsis{:title => CGI::unescape(tab[1])}
+                = CGI::unescape tab[1]
               - if i != tabs.length-1
                 .navigation-tab-arrow-border
                 .navigation-tab-arrow

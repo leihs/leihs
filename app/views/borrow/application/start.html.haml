@@ -10,7 +10,7 @@
         - @categories.each_with_index do |category, i|
           .col1of3.padding-inset-m.text-align-center
             .row.emboss.white.focus-hover.unselectable{:"data-category_id" => category.id}
-              %a{:href => @bread_crumbs.path_for(borrow_models_path(:category_id => category.id), category.name)}
+              %a{:href => @bread_crumbs.path_for(borrow_models_path(:category_id => category.id), category.id)}
                 .padding-inset-s
                   .min-height-s
                     %img.max-width.max-height-s{:src => category_image_path(category.id)}
@@ -21,7 +21,7 @@
                   %span.arrow.down
                   .dropdown.straight-top.full-width.has-focus-hover
                     - @child_categories[i].each do |child|
-                      %a.dropdown-item.text-ellipsis{:href => @bread_crumbs.path_for(borrow_models_path(:category_id => child.id), child.name)}
+                      %a.dropdown-item.text-ellipsis{:href => @bread_crumbs.path_for(borrow_models_path(:category_id => child.id), child.id)}
                         = child.name
                     
   .col1of5= render :partial => "borrow/current_order_basket"

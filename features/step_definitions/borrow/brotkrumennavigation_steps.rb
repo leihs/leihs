@@ -53,3 +53,15 @@ Dann(/^die Kategorie ist das zweite und letzte Element der Brotkrumennavigation$
   all("nav .navigation-tab-item")[1].text[@category.name].should be
   all("nav .navigation-tab-item").length.should == 2
 end
+
+Wenn(/^ich ein Modell öffne$/) do
+  find(".line[data-id]").click
+end
+
+Dann(/^sehe ich den ganzen Weg den ich zum Modell beschritten habe$/) do
+  step 'die Kategorie ist das zweite und letzte Element der Brotkrumennavigation'
+end
+
+Dann(/^kein Element der Brotkrumennavigation ist aktiv$/) do
+  all("nav .navigation-tab-item.active").length.should == 0
+end
