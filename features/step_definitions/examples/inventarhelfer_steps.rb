@@ -136,7 +136,6 @@ Dann /^die geänderten Werte sind hervorgehoben$/ do
 end
 
 Dann /^wähle Ich die Felder über eine List oder per Namen aus$/ do
-  page.driver.browser.manage.window.maximize # to prevent Selenium::WebDriver::Error::MoveTargetOutOfBoundsError: Element cannot be scrolled into view
   find("#fieldname").click
   wait_until { not all(".ui-menu-item a", :visible => true).empty? }
   find(".ui-menu-item a", :text => /(Notiz|Note)/).click
@@ -198,8 +197,8 @@ end
 
 Dann /^sind sie gespeichert$/ do
   wait_until{!all("#item .field", :visible => true).empty?}
-  @all_edited_fields.each do |f|
-    field = Field.find f.reload["data-field_id"]
+  all("#item .field.text", :visible => true).each_with_index do |f, i|
+    field = Field.find all("#item .field.text", :visible => true)[i]["data-field_id"]
     value = field.get_value_from_params @item.reload
     if not field[:visibility_dependency_field_id] and value.is_a? String
       value.should == "New text for this input"

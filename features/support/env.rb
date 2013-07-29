@@ -56,6 +56,7 @@ DatabaseCleaner.clean_with :truncation
 
 Before do
   DatabaseCleaner.start
+  page.driver.browser.manage.window.maximize # to prevent Selenium::WebDriver::Error::MoveTargetOutOfBoundsError: Element cannot be scrolled into view
 end
 
 After do |scenario|
