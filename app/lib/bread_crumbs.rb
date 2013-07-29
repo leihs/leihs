@@ -17,15 +17,17 @@ class BreadCrumbs
     @crumbs
   end
 
-  def path_for(path, name)
+  def path_for(path, name = nil)
     uri = URI(path)                                                                                    
-    query_hash = Rack::Utils.parse_query(uri.query)                                                   
-    query_hash.merge!(to_params([path, CGI::escape(name)]))
+    query_hash = Rack::Utils.parse_query(uri.query)
+    addition = [path, CGI::escape(name)] if name
+    query_hash.merge!(to_params(addition))
     uri.query = query_hash.to_param
 
     path_including_breadcrumb = URI(uri.to_s)
-    query_hash = Rack::Utils.parse_query(uri.query)                                                   
-    query_hash.merge!(to_params([path_including_breadcrumb, CGI::escape(name)]))
+    query_hash = Rack::Utils.parse_query(uri.query)                             
+    addition = [path_including_breadcrumb, CGI::escape(name)] if name
+    query_hash.merge!(to_params(addition))
     uri.query = query_hash.to_param
 
     uri.to_s
