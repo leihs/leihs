@@ -92,6 +92,9 @@ When /^I assign an inventory code the item line$/ do
   inventory_code_input = find(".line[data-id='#{@item_line.id}'] .inventory_code input")
   inventory_code_input.set item.inventory_code
   inventory_code_input.native.send_key(:enter)
-  @line_element = find(".line[data-id='#{@item_line.id}']")
-  wait_until { @line_element.has_xpath?(".[contains(@class, 'assigned')]") and @line_element.find(".select input").checked? }
+  wait_until { find(".line[data-id='#{@item_line.id}']").reload.has_xpath?(".[contains(@class, 'assigned')]") and find(".line[data-id='#{@item_line.id}']").find(".select input").checked? }
+end
+
+Then /^wird die Adresse des Verleihers aufgeführt$/ do
+  find(".parties .inventory_pool .name")
 end

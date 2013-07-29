@@ -95,7 +95,4 @@ Funktionalität: Vertrag
 
   @javascript
   Szenario: Adresse des Verleihers aufführen
-    Dann wird die folgende Adresse bei 'Verleiher' aufgeführt:
-    |Zürcher Hochschule der Künste|
-    |Ausstellungsstrasse 60|
-    |8005 Zürich|
+    Dann wird die Adresse des Verleihers aufgeführt
