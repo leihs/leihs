@@ -407,8 +407,6 @@ Und /^ich speichere die Informationen/ do
   @model_name_from_url = get_rails_model_name_from_url
   @model_id = (Rails.application.routes.recognize_path current_path)[:id].to_i
   step 'I press "%s"' % (_("Save %s") % _("#{@model_name_from_url.capitalize}"))
-  step "ensure there are no active requests"
-  page.has_content? _("List of Models")
 end
 
 Dann /^ensure there are no active requests$/ do
