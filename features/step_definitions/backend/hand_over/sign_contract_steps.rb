@@ -89,10 +89,9 @@ end
 When /^I assign an inventory code the item line$/ do
   item = @ip.items.in_stock.where(model_id: @item_line.model).first
   @selected_items = [item]
-  inventory_code_input = find(".line[data-id='#{@item_line.id}'] .inventory_code input")
-  inventory_code_input.set item.inventory_code
-  inventory_code_input.native.send_key(:enter)
-  wait_until { find(".line[data-id='#{@item_line.id}']").reload.has_xpath?(".[contains(@class, 'assigned')]") and find(".line[data-id='#{@item_line.id}']").find(".select input").checked? }
+  find(".line[data-id='#{@item_line.id}'] .inventory_code input").set item.inventory_code
+  find(".line[data-id='#{@item_line.id}'] .inventory_code input").native.send_key(:enter)
+  wait_until { find(".line[data-id='#{@item_line.id}']").has_xpath?(".[contains(@class, 'assigned')]") and find(".line[data-id='#{@item_line.id}'] .select input").checked? }
 end
 
 Then /^wird die Adresse des Verleihers aufgeführt$/ do
