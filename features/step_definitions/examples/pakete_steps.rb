@@ -121,12 +121,12 @@ Dann /^werden die folgenden Felder angezeigt$/ do |table|
 end
 
 Wenn /^ich das Paket speichere$/ do
-  click_button _("Save")
+  find(".dialog .save").click
 end
 
 Wenn /^ich das Paket und das Modell speichere$/ do
   step 'ich das Paket speichere'
-  step 'ich speichere die Informationen'
+  find(".content_navigation .button.green").click
 end
 
 Dann /^(?:besitzt das Paket alle angegebenen Informationen|das Paket besitzt alle angegebenen Informationen)$/ do
@@ -167,7 +167,6 @@ end
 
 Wenn(/^ich dieses Paket speichere$/) do
   find(".dialog .button.save").click
-  wait_until{ all(".dialog").empty? }
 end
 
 Wenn(/^ich dieses Paket wieder editiere$/) do
@@ -179,5 +178,5 @@ Dann(/^kann ich die Paketeigenschaften erneut bearbeiten$/) do
 end
 
 Dann(/^sehe ich die Meldung "(.*?)"$/) do |text|
-  wait_until{ find(".notification.headline", :text => text) }
+  find(".notification.headline", :text => text)
 end
