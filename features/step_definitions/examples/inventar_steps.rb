@@ -70,9 +70,9 @@ Dann /^hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind$/ do |
       when "Nicht ausleihbar"
         tab = section_tabs.find(:xpath, "a[contains(@data-tab,'{\"retired\":true}')]")
         tab.click
-        wait_until(15) { all(".loading", :visible => true).empty? and not all(".model.line").empty? }
+        step "ensure there are no active requests"
+        page.execute_script %Q{ $(".model.line .toggle:not(.open) .text").click() }
         all(".model.line").each do |model_el|
-          model_el.find(".toggle .text").click if model_el.all(".toggle.open").empty?
           model_el.all(".item.line").each do |item_el|
             items.unborrowable
             .find_by_inventory_code(item_el.find(".inventory_code").text).should_not be_nil
@@ -94,21 +94,21 @@ Dann /^hat man folgende Filtermöglichkeiten$/ do |table|
       when "An Lager"
         cb = section_filter.find("input[type='checkbox'][data-filter='in_stock']")
         cb.click
-        wait_until(15) { all(".loading", :visible => true).empty? }
-        all(".model.line").each do |model_el|
-          model_el.find(".toggle .text").click if model_el.all(".toggle.open").empty?
-          model_el.all(".item.line").each do |item_el|
+        step "ensure there are no active requests"
+        page.execute_script %Q{ $(".model.line .toggle:not(.open) .text").click() }
+        all(".model.line").each_with_index do |model_el, i|
+          all(".model.line")[i].all(".item.line").each_with_index do |item_el, j|
             items.in_stock
-            .find_by_inventory_code(item_el.find(".inventory_code").text).should_not be_nil
+            .find_by_inventory_code(all(".model.line")[i].all(".item.line")[j].find(".inventory_code").text).should_not be_nil
           end
         end
       when "Besitzer bin ich"
         cb = section_filter.find("input[type='checkbox'][data-filter='owned']")
         cb.click
-        wait_until(15) { all(".loading", :visible => true).empty? }
-        all(".model.line").each do |model_el|
-          model_el.find(".toggle .text").click if model_el.all(".toggle.open").empty?
-          model_el.all(".item.line").each do |item_el|
+        step "ensure there are no active requests"
+        page.execute_script %Q{ $(".model.line .toggle:not(.open) .text").click() }
+        all(".model.line").each_with_index do |model_el, i|
+          all(".model.line")[i].all(".item.line").each do |item_el|
             items.where(:owner_id => @current_inventory_pool)
             .find_by_inventory_code(item_el.find(".inventory_code").text).should_not be_nil
           end
@@ -116,9 +116,9 @@ Dann /^hat man folgende Filtermöglichkeiten$/ do |table|
       when "Defekt"
         cb = section_filter.find("input[type='checkbox'][data-filter='broken']")
         cb.click
-        wait_until(15) { all(".loading", :visible => true).empty? }
+        step "ensure there are no active requests"
+        page.execute_script %Q{ $(".model.line .toggle:not(.open) .text").click() }
         all(".model.line").each do |model_el|
-          model_el.find(".toggle .text").click if model_el.all(".toggle.open").empty?
           model_el.all(".item.line").each do |item_el|
             items.broken
             .find_by_inventory_code(item_el.find(".inventory_code").text).should_not be_nil
@@ -127,7 +127,7 @@ Dann /^hat man folgende Filtermöglichkeiten$/ do |table|
       when "Unvollständig"
         cb = section_filter.find("input[type='checkbox'][data-filter='incomplete']")
         cb.click
-        wait_until(15) { all(".loading", :visible => true).empty? }
+        step "ensure there are no active requests"
         all(".model.line").each do |model_el|
           model_el.find(".toggle .text").click if model_el.all(".toggle.open").empty?
           model_el.all(".item.line").each do |item_el|
@@ -138,12 +138,14 @@ Dann /^hat man folgende Filtermöglichkeiten$/ do |table|
       when "Verantwortliche Abteilung"
         s = section_filter.find(".responsible select")
         s.all("option").last.select_option
-        wait_until(15) { all(".loading", :visible => true).empty? }
-        all(".model.line").each do |model_el|
-          model_el.find(".toggle .text").click if model_el.all(".toggle.open").empty?
-          model_el.all(".item.line").each do |item_el|
-            items.where(:inventory_pool_id => o[:"data-responsible_id"])
-            .find_by_inventory_code(item_el.find(".inventory_code").text).should_not be_nil
+        step "ensure there are no active requests"
+        page.execute_script %Q{ $(".model.line .toggle:not(.open) .text").click() }
+        unless all(".model.line").empty?
+          all(".model.line").each_with_index do |model_el, i|
+            all(".model.line")[i].all(".item.line").each_with_index do |item_el, j|
+              items.where(:inventory_pool_id => o[:"data-responsible_id"])
+              .find_by_inventory_code(all(".model.line")[i].all(".item.line")[j].find(".inventory_code").text).should_not be_nil
+            end
           end
         end
     end
@@ -263,8 +265,8 @@ end
 Wenn /^der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist$/ do
   find(".responsible option[data-responsible_id='#{@current_inventory_pool.id}']").select_option
   find(".filter input[data-filter='in_stock']").click unless find(".filter input[data-filter='in_stock']").checked?
-  wait_until { all(".loading", :visible => true).empty? }
-  all(".toggle .text").each {|toggle| toggle.click}
+  step "ensure there are no active requests"
+  page.execute_script %Q{ $(".toggle:not(.open) .text").click() }
   @item_line = find(".items .item.line")
   @item = Item.find_by_inventory_code @item_line.find(".inventory_code").text
 end
