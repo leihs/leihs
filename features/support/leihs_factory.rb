@@ -357,7 +357,6 @@ module LeihsFactory
   #
   def self.create_default_languages
     [['English', 'en-GB', true],
-     ['English US', 'en-US', false],
      ['Deutsch', 'de-CH', false],
      ['Castellano','es', false],
      ['Züritüütsch','gsw-CH', false]].each do |lang|
