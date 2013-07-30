@@ -61,7 +61,7 @@ Scenario: Tell the user if we can't create a new Package
          And we need to fix the algorithm again so subsequent tests won't fail
 
 
-Scenario Outline: How we want new generated inventory codes to look like
+Scenario Outline: What we want new generated inventory codes to look like
        Given item '<inventory_code>' of model 'Trumpet' exists
         When leihs generates a new inventory code
         Then the generated_code should look like this '<result>'
