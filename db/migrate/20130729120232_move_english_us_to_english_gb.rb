@@ -10,9 +10,9 @@ class MoveEnglishUsToEnglishGb < ActiveRecord::Migration
         user.language = english_gb
         user.save
       end
+      english_us.active = false
+      english_us.save
     end
-    english_us.active = false
-    english_us.save
   end
 
   def down
