@@ -2,14 +2,9 @@ Feature: Inventory
 
        Describing Inventory Pools, Items, Models and Categories
        
-       
-Background: As a Organisation we have some Inventory with things to lend out
+  Scenario: Categories structure
        Given inventory pool 'ABC'
-         And inventory pool short name 'ABC'
-
-
-Scenario: Categories structure
-       
+       And inventory pool short name 'ABC'
        Given a category 'Cameras' exists
        And a category 'Video Equipment' exists
        And a category 'Film' exists
@@ -34,8 +29,9 @@ Scenario: Categories structure
        Then there are 0 direct children and 0 total children           
 
        
-Scenario: Models organized in categories
-       
+  Scenario: Models organized in categories
+       Given inventory pool 'ABC'
+       And inventory pool short name 'ABC'
        Given a category 'Cameras' exists
        And a category 'Video' exists
        And a model 'Sony 333' exists
@@ -49,8 +45,10 @@ Scenario: Models organized in categories
        When the category 'Video' is selected   
        Then there are 1 models belonging to that category
 
-@old-ui
-Scenario: Tell the user if we can't create a new Package
+  @old-ui
+  Scenario: Tell the user if we can't create a new Package
+       Given inventory pool 'ABC'
+       And inventory pool short name 'ABC'
        Given item 'P-ABC124' of model 'Book' exists
        Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
         # monkeypatch Item.proposed_inventory_code
@@ -61,58 +59,64 @@ Scenario: Tell the user if we can't create a new Package
          And we need to fix the algorithm again so subsequent tests won't fail
 
 
-Scenario Outline: What we want new generated inventory codes to look like
-       Given item '<inventory_code>' of model 'Trumpet' exists
-        When leihs generates a new inventory code
-        Then the generated_code should look like this '<result>'
+  Scenario Outline: What we want new generated inventory codes to look like
+      Given inventory pool 'ABC'
+      And inventory pool short name 'ABC'
+      Given item '<inventory_code>' of model 'Trumpet' exists
+      When leihs generates a new inventory code
+      Then the generated_code should look like this '<result>'
 
-       Examples:
-         | inventory_code | result     |
-         | 123            | ABC124     |
-         | ABC127         | ABC128     |
-         | 123ABC999      | ABC1000    |
-         |                | ABC1       |
-         | ABC2008012     | ABC2008013 |
-         | ABC            | ABC1       |
+      Examples:
+       | inventory_code | result     |
+       | 123            | ABC124     |
+       | ABC127         | ABC128     |
+       | 123ABC999      | ABC1000    |
+       |                | ABC1       |
+       | ABC2008012     | ABC2008013 |
+       | ABC            | ABC1       |
 
-Scenario: Fill in holes in existing inventory code ranges when proposing new codes
-       Given a model 'Trumpet' exists
-         And we have items with the following inventory_codes:
-             | inventory_code |
-             |          ABC02 |
-             |          ABC03 |
-             |          ABC06 |
-             |          ABC07 |
-             |          ABC10 |
-             |          ABC11 |
-         # we sleep one second, since mysql's datetime is only precise to a second
-         # and thus subsequently created items wouldn't get sorted right
-        When we wait 1 second
-         And we add an item 'ABC08'
-         And leihs generates a new inventory code
-        # first free inventory code after 'ABC08' is 'ABC9'
-        Then the generated_code should look like this 'ABC9'
-        When we wait 1 second
-         And we add an item 'ABC01'
-         And leihs generates a new inventory code
-        # first free inventory code after 'ABC01' is 'ABC4'
-        Then the generated_code should look like this 'ABC4'
+  Scenario: Fill in holes in existing inventory code ranges when proposing new codes
+      Given inventory pool 'ABC'
+      And inventory pool short name 'ABC'
+      Given a model 'Trumpet' exists
+       And we have items with the following inventory_codes:
+           | inventory_code |
+           |          ABC02 |
+           |          ABC03 |
+           |          ABC06 |
+           |          ABC07 |
+           |          ABC10 |
+           |          ABC11 |
+       # we sleep one second, since mysql's datetime is only precise to a second
+       # and thus subsequently created items wouldn't get sorted right
+      When we wait 1 second
+       And we add an item 'ABC08'
+       And leihs generates a new inventory code
+      # first free inventory code after 'ABC08' is 'ABC9'
+      Then the generated_code should look like this 'ABC9'
+      When we wait 1 second
+       And we add an item 'ABC01'
+       And leihs generates a new inventory code
+      # first free inventory code after 'ABC01' is 'ABC4'
+      Then the generated_code should look like this 'ABC4'
 
-@javascript
-Scenario: Level 2 managers should only be able and allowed
-          to assign items to their own pool
-       Given a model 'Trumpet' exists
-         And a manager 'George' with access level 2
-         And his password is 'pass'
-        When I log in as 'George' with password 'pass'
-         And I press "Backend"
-         And I follow "Items (0)"
-         And I follow "New Item"
-         Then the item should only be assignable to the 'ABC' departement
+  @old-ui @javascript
+  Scenario: Level 2 managers should only be able and allowed to assign items to their own pool
+      Given inventory pool 'ABC'
+      And inventory pool short name 'ABC'
+      Given a model 'Trumpet' exists
+       And a manager 'George' with access level 2
+       And his password is 'pass'
+      When I log in as 'George' with password 'pass'
+       And I press "Backend"
+       And I follow "Items (0)"
+       And I follow "New Item"
+       Then the item should only be assignable to the 'ABC' departement
 
-@javascript
-Scenario: Level 3 managers should be able and allowed
-          to assign items to whatever pool
+  @old-ui @javascript
+  Scenario: Level 3 managers should be able and allowed to assign items to whatever pool
+      Given inventory pool 'ABC'
+      And inventory pool short name 'ABC'
        Given a model 'Trumpet' exists
          And a manager 'George' with access level 3
          And his password is 'pass'
