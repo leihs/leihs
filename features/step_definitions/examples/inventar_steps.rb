@@ -48,7 +48,7 @@ Dann /^hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind$/ do |
       when "Ausgemustert"
         tab = section_tabs.find(:xpath, "a[contains(@data-tab,'{\"borrowable\":true}')]")
         tab.click
-        wait_until(15) { all(".loading", :visible => true).empty? and not all(".model.line").empty? }
+        step "ensure there are no active requests"
         all(".model.line").each do |model_el|
           model_el.find(".toggle .text").click if model_el.all(".toggle.open").empty?
           model_el.all(".item.line").each do |item_el|
