@@ -44,11 +44,9 @@ When /^I delete all lines of a model thats availability is blocked by these line
     @model = Item.find_by_inventory_code(@inventory_code).model
     find(".line", :text => @model.name).find(".select input").click
   end
-
   step 'I add so many lines that I break the maximal quantity of an model'
-
-  target_linegroup = all(".line").detect{|line| line.find(".select input").checked?}.find(:xpath, "../../..")
-  wait_until { all(".line.error", :text => @model.name).detect{|line| not line.find(".select input").checked?} }
+  target_linegroup = find(".linegroup", :text => _("Today"))
+  step "ensure there are no active requests"
   reference_line = all(".line.error", :text => @model.name).detect{|line| not line.find(".select input").checked?}
   @reference_id = reference_line["data-id"]
 
