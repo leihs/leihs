@@ -1894,6 +1894,9 @@ msgstr ""
 msgid "List of %d Users"
 msgstr ""
 
+msgid "List of Users"
+msgstr ""
+
 msgid "Contract expiration"
 msgstr ""
 

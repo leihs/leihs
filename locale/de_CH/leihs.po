@@ -1954,6 +1954,9 @@ msgstr "Neuer Benutzer"
 msgid "List of %d Users"
 msgstr "Liste von %d Benutzern"
 
+msgid "List of Users"
+msgstr "Liste von Benutzern"
+
 msgid "Contract expiration"
 msgstr "Vertragsablaufdatum"
 

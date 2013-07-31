@@ -1,10 +1,6 @@
 .top
   %h1
-    {{_jed("List of %d Users", pagination.total_entries)}}
-    %img.loading.icon{:src => "/assets/loading.gif", "ng-show" => "isLoading"}
-  %span{"ng-show" => "search"}
-    {{_jed("Searching for %s", search)}}
-
+    {{_jed("List of Users")}}
 
   .content_navigation
     %a.button.white{:href => "/backend/inventory_pools/{{current_inventory_pool_id}}/users/new"}

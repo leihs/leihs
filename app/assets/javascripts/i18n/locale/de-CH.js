@@ -2114,10 +2114,6 @@ window.i18n.locale_data = {
          null,
          "Sie sind nun ausgeloggt."
       ],
-      "You were served by %s": [
-         null,
-         "Es bediente Sie %s"
-      ],
       "You are not logged in.": [
          null,
          "Sie sind nicht eingeloggt."
@@ -2511,6 +2507,10 @@ window.i18n.locale_data = {
          null,
          "Liste von %d Benutzern"
       ],
+      "List of Users": [
+         null,
+         "Liste von Benutzern"
+      ],
       "Contract expiration": [
          null,
          "Vertragsablaufdatum"
@@ -2768,7 +2768,7 @@ window.i18n.locale_data = {
          null,
          "bestellen"
       ],
-      "Order Overview": [
+      "Order overview": [
          null,
          "Bestellübersicht"
       ],
@@ -2923,6 +2923,43 @@ window.i18n.locale_data = {
       "Save change": [
          null,
          "Änderung speichern"
+      ],
+      "Continue this order": [
+         null,
+         "Diese Bestellung fortsetzen"
+      ],
+      "Please solve the conflicts for all highlighted lines in order to continue": [
+         null,
+         "Um fortzufahren, beheben Sie bitte die Konflikte der hervorgehobenen Einträge"
+      ],
+      "You have permission to access the following inventory pool": [
+         "You have permission to access the following inventory pools",
+         "Sie haben Zugriff auf den folgenden Gerätepark",
+         "Sie haben Zugriff auf die folgenden Geräteparks"
+      ],
+      "No description": [
+         null,
+         "Keine Beschreibung"
+      ],
+      "for": [
+         null,
+         "für"
+      ],
+      "Open orders": [
+         null,
+         "Offene Bestellungen"
+      ],
+      "These orders have been successfully submitted, but are NOT YET APPROVED.": [
+         null,
+         "Diese Bestellungen wurden abgeschickt. Sie sind allerdings NOCH NICHT GENEHMIGT."
+      ],
+      "Search for '%s'": [
+         null,
+         "Suche nach '%s'"
+      ],
+      "Your order has been successfully submitted, but is NOT YET APPROVED.": [
+         null,
+         "Ihre Bestellungen wurden abgeschickt. Sie ist allerdings NOCH NICHT GENEHMIGT."
       ]
    }
 }
