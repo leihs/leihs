@@ -180,32 +180,33 @@
                   {{accessory.name}}
                 %a.clickable.floatright{"ng-click" => "removeAccessory(this)"} {{_jed("Delete")}}
 
-      %br
-      .inner
-        .field
-          %div
-            %h3.key {{_jed("Packages")}}:
-            .value
-              %a.button.white.add-button{:"ng-click" => "openPackageDialog()"} {{_jed("Add %s", _jed("Package"))}}
-            .clear
-          %div.field-inline-entry{"ng-repeat" => "package in model.packages"}
-
-            %div.inventory_code.text-ellipsis{"ng-class" => "{tobedeleted: package._destroy}", :width => "100"} {{package.inventory_code}}
-            .floatright
-              %div{:style => "display: inline-block;"}
-                %span.clickable{:"ng-click" => "openPackageDialog(this)"} {{_jed("Edit")}}
-              %div{:style => "display: inline-block;"}
-                %span{"ng-switch" => "!!package.id"}
-                  %span{"ng-switch-when" => "true"}
-                    %span{"ng-switch" => "package.in_stock"}
+      %span{"ng-switch" => "model.is_package"}
+        %span{"ng-switch-when" => "true"}
+          %br
+          .inner
+            .field
+              %div
+                %h3.key {{_jed("Packages")}}:
+                .value
+                  %a.button.white.add-button{:"ng-click" => "openPackageDialog()"} {{_jed("Add %s", _jed("Package"))}}
+                .clear
+              %div.field-inline-entry{"ng-repeat" => "package in model.packages"}
+                %div.inventory_code.text-ellipsis{"ng-class" => "{tobedeleted: package._destroy}", :width => "100"} {{package.inventory_code}}
+                .floatright
+                  %div{:style => "display: inline-block;"}
+                    %span.clickable{:"ng-click" => "openPackageDialog(this)"} {{_jed("Edit")}}
+                  %div{:style => "display: inline-block;"}
+                    %span{"ng-switch" => "!!package.id"}
                       %span{"ng-switch-when" => "true"}
-                        %label.clickable
-                          %input.hidden{type: "checkbox", "ng-model" => "package._destroy"}
-                          %span{"ng-switch" => "package._destroy"}
-                            %span{"ng-switch-when" => "true"} {{_jed("undo")}}
-                            %span{"ng-switch-default" => ""} {{_jed("Delete")}}
-                  %span{"ng-switch-when" => "false"}
-                    %a.clickable{:"ng-click" => "deletePackage(this)"} {{_jed("Delete")}}
+                        %span{"ng-switch" => "package.in_stock"}
+                          %span{"ng-switch-when" => "true"}
+                            %label.clickable
+                              %input.hidden{type: "checkbox", "ng-model" => "package._destroy"}
+                              %span{"ng-switch" => "package._destroy"}
+                                %span{"ng-switch-when" => "true"} {{_jed("undo")}}
+                                %span{"ng-switch-default" => ""} {{_jed("Delete")}}
+                      %span{"ng-switch-when" => "false"}
+                        %a.clickable{:"ng-click" => "deletePackage(this)"} {{_jed("Delete")}}
 
       %br
       .inner

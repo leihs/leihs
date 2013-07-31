@@ -44,6 +44,7 @@ Dann /^kann ich das Paket löschen und die Gegenstände sind nicht mehr dem Pake
   @package_item_ids = @package.children.map(&:id)
   find(".field-inline-entry", :text => @package.inventory_code).find(".clickable", :text => _("Delete")).click
   step 'ich speichere die Informationen'
+  wait_until {Item.find_by_id(@package.id).nil?}
   lambda {@package.reload}.should raise_error(ActiveRecord::RecordNotFound)
   @package_item_ids.size.should > 0
   @package_item_ids.each{|id| Item.find(id).parent_id.should be_nil}
