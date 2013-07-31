@@ -31,6 +31,7 @@ Angenommen /^eine Model ist nichtmehr verfügbar$/ do
     step 'I add so many lines that I break the maximal quantity of an model'
     visit backend_inventory_pool_user_take_back_path(@ip, @customer)
   end
+  page.has_selector? ".line.error", text: @model.name
   @lines = all(".line.error", :text => @model.name)
   @lines.size.should > 0
 end

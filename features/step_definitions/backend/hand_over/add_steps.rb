@@ -72,12 +72,12 @@ end
 
 Then /^I see a list of suggested (.*?) names$/ do |type|
   page.execute_script('$("#code").focus()')
-  wait_until(10){ find(".ui-autocomplete") and all(".ui-autocomplete a").size > 0 }
+  find(".ui-autocomplete a")
 end
 
 When /^I select the (.*?) from the list$/ do |type|
-  find(".ui-autocomplete a", :text => @target_name).click
   sleep(1)
+  find(".ui-autocomplete a", :text => @target_name).click
 end
 
 Then /^each model of the template is added to the hand over for the provided date range$/ do
