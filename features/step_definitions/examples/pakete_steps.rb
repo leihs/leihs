@@ -20,6 +20,8 @@ Wenn /^ich(?: kann | )diesem Paket eines oder mehrere Gegenstände hinzufügen$/
 end
 
 Dann /^ist das Modell erstellt und die Pakete und dessen zugeteilten Gegenstände gespeichert$/ do
+  wait_until{ page.evaluate_script("$.active") == 0 }
+  wait_until{ Model.find_by_name(@model_name) }
   @model = Model.find_by_name @model_name
   @model.should_not be_nil
   @model.should be_is_package
