@@ -1,32 +1,38 @@
 # language: de
 
 Funktionalität: Vorlagen
-
+  
+  @upcoming
   Szenario: Liste der Vorlagen finden
     Angenommen ich bin auf der Startseite
     Dann sehe ich unterhalb der Kategorien einen Link zur Liste der Vorlagen
 
+  @upcoming
   Szenario: Liste der Vorlagen
     Angenommen ich schaue mir die Liste der Vorlagen an
     Dann sehe ich die Vorlagen
     Und ich kann eine der Vorlagen detailliert betrachten
 
+  @upcoming
   Szenario: Betrachten einer Vorlage
     Angenommen ich sehe mir eine Vorlage an
     Dann sehe ich alle Modelle, die diese Vorlage beinhaltet
     Und ich sehe für jedes Modell die Anzahl Gegenstände dieses Modells, welche die Vorlage vorgibt
     Und ich kann die Anzahl jedes Modells verändern, bevor ich den Prozess fortsetze
 
+  @upcoming
   Szenario: Warnung bei nicht erfüllbaren Vorlagen
     Angenommen ich sehe mir eine Vorlage an
     Und in dieser Vorlage hat es Modelle, die nicht genügeng Gegenstände haben, um die in der Vorlage gewünschte Anzahl zu erfüllen
     Dann sehe ich eine auffällige Warnung sowohl auf der Seite wie bei den betroffenen Modellen
 
+  @upcoming
   Szenario: Datumseingabe bei Auswahl der Vorlage
     Angenommen ich sehe mir eine Vorlage an
     Dann kann ich Start- und Enddatum einer potenziellen Bestellung angeben
     Und ich kann im Prozess weiterfahren zur Verfügbarkeitsanzeige der Vorlage
     
+  @upcoming
   Szenario: Verfügbarkeitsansicht der Vorlage
     Angenommen ich sehe die Verfügbarkeit einer Vorlage
     Dann sehe ich, welche Modelle zu diesem Zeitpunkt in der angegebenen Anzahl verfügbar sind
@@ -37,6 +43,7 @@ Funktionalität: Vorlagen
     Wenn ich sämtliche Verfügbarkeitsprobleme gelöst habe
     Dann kann ich im Prozess weiterfahren und alle Modelle gesamthaft zu einer Bestellung hinzufügen
 
+  @upcoming
   Szenario: Nur verfügbarben Modelle aus Vorlage in Bestellung übernehmen
     Angenommen ich sehe die Verfügbarkeit einer Vorlage
     Und einige Modelle sind nicht verfügbar
