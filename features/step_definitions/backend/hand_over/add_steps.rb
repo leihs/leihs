@@ -76,9 +76,8 @@ Then /^I see a list of suggested (.*?) names$/ do |type|
 end
 
 When /^I select the (.*?) from the list$/ do |type|
-  wait_until(15){ find(".ui-autocomplete a", :text => @target_name) }
-  sleep(1)
   find(".ui-autocomplete a", :text => @target_name).click
+  sleep(1)
 end
 
 Then /^each model of the template is added to the hand over for the provided date range$/ do
