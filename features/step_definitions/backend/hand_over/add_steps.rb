@@ -29,8 +29,9 @@ Then /^the (.*?) is added to the hand over$/ do |type|
   case type
   when "option"  
     option = Option.find_by_inventory_code(@inventory_code)
-    @option_line = contract.option_lines.where(:option_id => option).first
-    contract.options.include?(option).should == true
+    wait_until(25){ page.evaluate_script("$.active") == 0}
+    @option_line = contract.reload.option_lines.where(:option_id => option).first
+    contract.reload.options.include?(option).should == true
     find(".option_line .inventory_code", :text => @inventory_code)
   when "model"
     contract.models.include?(@model).should == true
