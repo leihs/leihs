@@ -527,6 +527,12 @@ msgstr ""
 msgid "In Stock"
 msgstr ""
 
+msgid "in stock"
+msgstr ""
+
+msgid "rentable"
+msgstr ""
+
 msgid "not in stock"
 msgstr ""
 

@@ -528,6 +528,12 @@ msgstr "Wichtige Notizen zur Aushändigung"
 msgid "In Stock"
 msgstr "An Lager"
 
+msgid "in stock"
+msgstr "auf Lager"
+
+msgid "rentable"
+msgstr "verleihbar"
+
 msgid "not in stock"
 msgstr "Nicht an Lager"
 

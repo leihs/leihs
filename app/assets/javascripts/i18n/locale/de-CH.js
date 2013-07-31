@@ -748,6 +748,14 @@ window.i18n.locale_data = {
          null,
          "An Lager"
       ],
+      "in stock": [
+         null,
+         "auf Lager"
+      ],
+      "rentable": [
+         null,
+         "verleihbar"
+      ],
       "not in stock": [
          null,
          "Nicht an Lager"
