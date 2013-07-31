@@ -311,7 +311,7 @@ end
 Wenn /^eine Kategorie mehr als (\d+) Resultate bringt$/ do |amount|
   @lists = []
   all(".list").each do |list|
-    @lists.push(list) if list.find(".hidden .line")
+    @lists.push(list) unless list.all(".hidden .line:not(.show-all)").empty?
   end
 end
 
