@@ -34,7 +34,8 @@ Then /^the (.*?) is added to the hand over$/ do |type|
     contract.reload.options.include?(option).should == true
     find(".option_line .inventory_code", :text => @inventory_code)
   when "model"
-    contract.models.include?(@model).should == true
+    wait_until(25){ page.evaluate_script("$.active") == 0}
+    contract.reload.models.include?(@model).should == true
     find(".item_line", :text => @model.name)
   end
 end
