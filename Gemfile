@@ -19,10 +19,11 @@ gem 'coffee-script', '~> 2.2'
 gem 'compass-rails', '~> 1.0.3', :group => :assets
 gem 'cucumber-rails', '~> 1.3', :group => [:test, :development], :require => false
 gem 'database_cleaner', :group => [:test, :development]
+gem 'execjs'
 gem 'factory_girl', '~> 4.1' # factories also in production mode to seed our demo data on the demo server
 gem 'factory_girl_rails', '~> 4.1'
 gem 'faker'
-gem "font-awesome-rails", "~> 3.2.1.1"
+gem 'font-awesome-rails', '~> 3.2.1.1'
 gem 'geocoder', '~> 1.1'
 gem 'gettext_i18n_rails', '~> 0.8'
 gem 'guard-jasmine', '~> 1.11', :group => [:test, :development]
@@ -33,7 +34,7 @@ gem 'jquery-rails', '2.1.3' # '~> 2.1' FIXME the version 2.1.4 clashes with unde
 gem 'jquery-tmpl-rails', '~> 1.1'
 gem 'jruby-openssl', :platform => :jruby
 gem 'json', '~> 1.7'
-gem "jsrender-rails", "~> 1.2", :git => 'https://github.com/spape/jsrender-rails.git', :branch => "own_template_prefix"
+gem 'jsrender-rails', '~> 1.2', :git => 'https://github.com/spape/jsrender-rails.git', :branch => 'own_template_prefix'
 gem 'launchy', '~> 2.1', :group => [:test, :development]
 gem 'meta_request', :group => :development
 gem 'mini_magick', '~> 3.4'
@@ -44,8 +45,8 @@ gem 'newrelic_rpm', '~> 3.5', :group => [:profiling, :development]
 gem 'paperclip'
 gem 'phantomjs', '~> 1.6.0.0', :group => [:test, :development] # headless webdriver (UI & JS tests)
 gem 'pry', '~> 0.9', :group => [:test, :development]
+gem 'pry-debugger', '~> 0.2.2', :group => :development
 gem 'pry-rails', '~> 0.2', :group => [:test, :development]
-gem "pry-debugger", "~> 0.2.2", :group => :development
 gem 'rails_autolink', '~> 1.0'
 gem 'redcarpet', :group => [:test, :development] # This isn't being pulled in by yard, but it's required
 gem 'rgl', '~> 0.4.0', :require => 'rgl/adjacency' # use ruby-graphviz instead ?? (already in test group)

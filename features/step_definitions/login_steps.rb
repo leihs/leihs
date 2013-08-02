@@ -38,6 +38,8 @@ end
 
 # This one 'really' goes through the auth process
 When /^I log in as '([^']*)' with password '([^']*)'$/ do |username, password|
+  @current_user = User.where(:login => username.downcase).first
+  @current_inventory_pool = @current_user.managed_inventory_pools.first
   post "/authenticator/db/login", {:login => {:username => username, :password => password}}
 end
 

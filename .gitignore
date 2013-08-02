@@ -20,6 +20,7 @@ doc/todo.html
 public/images/graphs/*
 rerun.txt
 public/images/attachments
+public/attachments
 .jhw-cache
 coverage
 public/assets

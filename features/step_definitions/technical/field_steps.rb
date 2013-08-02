@@ -47,3 +47,21 @@ Then /^the amount of the accessible fields (.*) (\d+) can be different$/ do |com
   @accessible_fields.size.should == @higher_accessible_fields.size if compare_op == "equals"
   @accessible_fields.size.should < @higher_accessible_fields.size if compare_op == "less than or equal to"
 end
+
+Given /^an item is existing$/ do
+  @item = FactoryGirl.create :item
+end
+
+Then /^each field provides the value of the item's attribute$/ do
+  Field.all.each do |field|
+    field.value(@item).should == Array(field.attribute).inject(@item){|i,m| i.is_a?(Hash) ? OpenStruct.new(i).send(m) : i.send(m) }
+  end
+end
+
+Then /^each field is capable of providing values even if its values attribute is a lambda\/proc$/ do
+  Field.all.each do |field|
+    if field.values
+      field.values.should_not be_nil
+    end
+  end
+end

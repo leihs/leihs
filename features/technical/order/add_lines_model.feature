@@ -8,7 +8,7 @@ Feature: Add lines
 
   Scenario Outline: Adding lines is successful
     Given an empty order of <allowed type> existing
-    And I am "Ramon"
+    And I log in as 'ramon' with password 'password'
     When I add some lines for this order
     Then the size of the order should increase exactly by the amount of lines added
 

@@ -9,7 +9,7 @@ Feature: Send email upon confirmation
   Scenario: A confirmation email should be sent when an order is confirmed
     Given an order with lines existing
     And a borrowing user existing
-    And I am "Ramon"
+    And I log in as 'ramon' with password 'password'
     When I approve the order of the borrowing user
     Then the borrowing user gets one confirmation email
     And the subject of the email is "[leihs] Reservation Confirmation"
