@@ -46,8 +46,10 @@ Dann /^findet man die Benutzeradministration im Bereich "Administration" unter "
 end
 
 Dann /^sieht man eine Liste aller Benutzer$/ do
-  c = User.count
-  page.should have_content(_("List of %d Users") % c)
+  User.scoped.paginate(page: 1, per_page: 20).each do |user|
+    page.should have_content(user.name)
+  end
+  page.should have_content _("List of Users")
 end
 
 Dann /^man kann filtern nach "(.*?)" Rolle$/ do |role|
@@ -60,31 +62,38 @@ Dann /^man kann filtern nach den folgenden Eigenschaften: gesperrt$/ do
 
   find("[ng-model='suspended']").click
   wait_until { all(".loading", :visible => true).empty? }
-  c = @inventory_pool.suspended_users.customers.count
-  page.should have_content(_("List of %d Users") % c)
+  @inventory_pool.suspended_users.customers.paginate(page: 1, per_page: 20).each do |user|
+    page.should have_content(user.name)
+  end
+  page.should have_content _("List of Users")
 
   find("[ng-model='suspended']").click
   wait_until { all(".loading", :visible => true).empty? }
-  c = @inventory_pool.users.customers.count
-  page.should have_content(_("List of %d Users") % c)
+  @inventory_pool.users.customers.paginate(page: 1, per_page: 20).each do |user|
+    page.should have_content(user.name)
+  end
+  page.should have_content _("List of Users")
 end
 
 Dann /^man kann filtern nach den folgenden Rollen:$/ do |table|
   table.hashes.each do |row|
     step 'man kann filtern nach "%s" Rolle' % row["tab"]
     role = row["role"]
-    c = case role
-          when "admins"
-            User.admins
-          when "no_access"
-            User.where("users.id NOT IN (#{@inventory_pool.users.select("users.id").to_sql})")
-          when "customers", "lending_managers", "inventory_managers"
-            @inventory_pool.users.send(role)
-          else
-            User.scoped
-        end.count
+    users = case role
+            when "admins"
+              User.admins
+            when "no_access"
+              User.where("users.id NOT IN (#{@inventory_pool.users.select("users.id").to_sql})")
+            when "customers", "lending_managers", "inventory_managers"
+              @inventory_pool.users.send(role)
+            else
+              User.scoped
+            end.paginate(page:1, per_page: 20)
     wait_until { all(".loading", :visible => true).empty? }
-    page.should have_content(_("List of %d Users") % c)
+    users.each do |user|
+      page.should have_content(user.name)
+    end
+    page.should have_content _("List of Users")
   end
 end
 

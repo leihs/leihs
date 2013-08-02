@@ -104,7 +104,7 @@ Dann(/^kann ich das Modell aus der Liste nicht löschen$/) do
   visit backend_inventory_pool_models_path(@current_inventory_pool)
 
   find_field('query').set @model.name
-  wait_until { all("li.modelname").first.text == @model.name }
+  page.has_selector? "li.modelname", text: @model.name
   page.execute_script("$('.trigger .arrow').trigger('mouseover');")
   find(".line.toggler.model", text: @model.name).should_not have_content(_("Delete %s") % _("Modell"))
 end

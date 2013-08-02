@@ -539,7 +539,7 @@ Dann /^kann ich ein einzelnes Zubehör für meinen Pool deaktivieren$/ do
   accessory_to_deactivate = @model.accessories.detect{|x| x.inventory_pools.where(id: @current_inventory_pool.id).first}
   find(".field", :text => _("Accessories")).find(".field-inline-entry", :text => accessory_to_deactivate.name).find("input").click
   step 'ich speichere die Informationen'
-  wait_until{all(".loading", :visible => true).size == 0}
+  page.has_content? _("List of Models")
   lambda {@current_inventory_pool.accessories.reload.find(accessory_to_deactivate)}.should raise_error(ActiveRecord::RecordNotFound)
 end
 

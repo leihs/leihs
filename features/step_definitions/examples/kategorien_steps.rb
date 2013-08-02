@@ -128,10 +128,11 @@ end
 
 Wenn /^ich das Modell speichere$/ do
   find("button", text: _("Save %s") % _("Model")).click
+  page.has_content? _("List of Models")
 end
 
 Dann /^sind die Kategorien zugeteilt$/ do
-  wait_until {all(".loading", :visible => true).size == 0}
+  step "ensure there are no active requests"
   @model.model_groups.where(id: @category_id).count.should eq 1
 end
 
