@@ -31,8 +31,8 @@ end
 
 Dann /^hat man keine Möglichkeit übers Interface solchen Gegenstand auszumustern$/ do
   item = @borrowed_item || @unborrowed_item_not_the_owner
-  all(".toggle .icon").each do |toggler|
-    toggler.click
+  all(".toggle .icon").each_with_index do |toggler, i|
+    all(".toggle .icon")[i].click
   end
   page.execute_script("$('.items.children .arrow').trigger('mouseover');")
   find(".line.toggler.item", text: item.inventory_code).should_not have_content _("Retire Item")
