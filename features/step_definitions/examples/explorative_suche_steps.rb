@@ -119,7 +119,7 @@ Dann(/^kann ich ein Modell anhand der explorativen Suche wählen$/) do
   find("#process_helper *[type='submit']").click
   wait_until{not all(".dialog .line").empty?}
   find(".explorative-entry").click
-  wait_until{all(".loading", :visible => true).empty?}
+  wait_until { page.evaluate_script("$.active") == 0}
   model = Model.find find(".dialog .line")["data-id"]
   find(".line button.select-model").click
   wait_until{all(".loading", :visible => true).empty?}
