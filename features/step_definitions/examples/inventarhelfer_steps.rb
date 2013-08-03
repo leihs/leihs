@@ -136,12 +136,10 @@ Dann /^die geänderten Werte sind hervorgehoben$/ do
 end
 
 Dann /^wähle Ich die Felder über eine List oder per Namen aus$/ do
+  field = Field.all.select{|f| f[:readonly] == nil and f[:type] != "autocomplete-search"}.last
   find("#fieldname").click
-  wait_until { not all(".ui-menu-item a", :visible => true).empty? }
-  find(".ui-menu-item a", :text => /(Notiz|Note)/).click
-  find("#fieldname").set Field.all.select{|f| f[:readonly] == nil and f[:type] != "autocomplete-search"}.last.label
-  sleep(1)
-  find(".ui-menu-item a").click
+  find("#fieldname").set field.label
+  find("#fieldname").native.send_keys([:down, :return])
   @all_editable_fields = all("#field_selection .field", :visible => true)
 end
 
@@ -220,8 +218,9 @@ end
 
 Dann(/^wähle ich das Feld "(.*?)" aus der Liste aus$/) do |field|
   find("#fieldname").click
-  wait_until { not all(".ui-menu-item a", :visible => true).empty? }
-  find(".ui-menu-item a", :text => field).click
+  find("#fieldname").set field
+  wait_until {all(".ui-menu-item a")[0].text == field}
+  find("#fieldname").native.send_keys([:down, :return])
   @all_editable_fields = all("#field_selection .field", :visible => true)
 end
 
