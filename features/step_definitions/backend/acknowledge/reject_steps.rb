@@ -6,9 +6,9 @@ end
 When /^I reject an order$/ do
   @order = @ip.orders.submitted.first
   find(".toggle .text").click
-  @order_line = find(".order .list .line[data-id='#{@order.id}']")
-  @order_line.find(".actions .trigger").click
-  @order_line.find(".actions .button", :text => /(Reject|Ablehnen)/).click
+  find(".order .list .line[data-id='#{@order.id}']")
+  find(".order .list .line[data-id='#{@order.id}'] .actions .trigger").click
+  find(".order .list .line[data-id='#{@order.id}'] .actions .button", :text => _("Reject")).click
 end
 
 Then /^I see a summary of that order$/ do
