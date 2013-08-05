@@ -101,7 +101,7 @@ Dann /^man kann für jeden Benutzer die Editieransicht aufrufen$/ do
   step 'man kann filtern nach "%s" Rolle' % "All"
   el = find(".list ul.user")
   page.execute_script '$(":hidden").show();'
-  el.find(".actions .alternatives .button .icon.user")
+  el.find(".actions .button .icon.user")
 end
 
 Dann /^man kann einen neuen Benutzer erstellen$/ do
