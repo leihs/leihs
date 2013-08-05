@@ -418,7 +418,7 @@ end
 Dann /^die Informationen sind gespeichert$/ do
   search_string = @table_hashes.detect {|h| h["Feld"] == "Name"}["Wert"]
   step 'ich nach "%s" suche' % search_string
-  wait_until { all(".loading", :visible => true).empty? }
+  wait_until {page.evaluate_script(%Q{jQuery.active}) == 0}
   step 'I should see "%s"' % search_string
 end
 
