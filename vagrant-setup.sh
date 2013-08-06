@@ -44,7 +44,7 @@ VHOST=$(cat <<ENDVHOST
 ENDVHOST
 )
 
-        echo "$VHOST" >> /etc/apache2/sites-available/leihs
+        sudo echo "$VHOST" >> /etc/apache2/sites-available/leihs
         sudo a2ensite leihs
         sudo service apache2 restart
 fi
