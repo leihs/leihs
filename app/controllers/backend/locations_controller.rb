@@ -15,7 +15,7 @@ class Backend::LocationsController < Backend::BackendController
 
     @locations = Location.search(params[:query]).
                           filter2(:inventory_pool_id => current_inventory_pool.id).
-                          paginate(:page => params[:page], :per_page => PER_PAGE).
+                          paginate(:page => params[:page], :per_page => Setting::PER_PAGE).
                           order("#{params[:sort]} #{params[:sort_mode]}")
 
     respond_to do |format|

@@ -24,7 +24,7 @@
       <p><%= _("The user who placed this order has received a similar e-mail message informing them that the order first needs to be approved before it is valid.") %> </p>
 
       <p><%= _("Kind regards,") %></p>
-      <p><%= EMAIL_SIGNATURE %></p>
+      <p><%= Setting::EMAIL_SIGNATURE %></p>
       <hr />
       <p><%= @order.inventory_pool.description.gsub(/\n/, '<br>') unless (@order.inventory_pool.nil? or @order.inventory_pool.description.blank?) %></p>
    </body>

@@ -1,5 +1,5 @@
 :coffeescript
-  window.local_currency_string = "#{LOCAL_CURRENCY_STRING}"
+  window.local_currency_string = "#{Setting::LOCAL_CURRENCY_STRING}"
   window.current_user = #{ {id: current_user.try(:id), start_screen: current_user.start_screen.as_json, admin: current_user.has_role?("admin")}.to_json}
 
 - if current_inventory_pool

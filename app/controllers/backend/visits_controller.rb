@@ -36,7 +36,7 @@ class Backend::VisitsController < Backend::BackendController
     end
 
     @visits = search_sql.where(time_range).order("visits.date ASC")
-    @visits = @visits.paginate(:page => page, :per_page => PER_PAGE) if paginate != false
+    @visits = @visits.paginate(:page => page, :per_page => Setting::PER_PAGE) if paginate != false
 
     respond_to do |format|
       format.html {

@@ -20,10 +20,10 @@ class Backend::MailsController < Backend::BackendController
       @from = if current_inventory_pool
                 to_full_email_address( current_inventory_pool.name,
                                        (current_inventory_pool.email.blank? ?
-                                          DEFAULT_EMAIL :
+                                          Setting::DEFAULT_EMAIL :
                                           current_inventory_pool.email))
               else
-                DEFAULT_EMAIL
+                Setting::DEFAULT_EMAIL
               end
       @source_path = params[:source_path]                               
     end

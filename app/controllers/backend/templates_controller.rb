@@ -9,7 +9,7 @@ class Backend::TemplatesController < Backend::BackendController
 ######################################################################
 
   def index
-    @templates = current_inventory_pool.templates.search(params[:query]).paginate(:page => params[:page], :per_page => PER_PAGE)
+    @templates = current_inventory_pool.templates.search(params[:query]).paginate(:page => params[:page], :per_page => Setting::PER_PAGE)
 
     respond_to do |format|
       format.html

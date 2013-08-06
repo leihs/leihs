@@ -12,7 +12,7 @@ class Mailer::Order < ActionMailer::Base
     @order = order
     @comment = comment
     mail( :to => order.user.email,
-          :from => (order.inventory_pool.email || DEFAULT_EMAIL),
+          :from => (order.inventory_pool.email || Setting::DEFAULT_EMAIL),
           :subject => _('[leihs] Reservation Confirmation'),
           :date => sent_at )
   end
@@ -22,7 +22,7 @@ class Mailer::Order < ActionMailer::Base
     @order = order
     @purpose = purpose
     mail( :to => order.user.email,
-          :from => (order.inventory_pool.email || DEFAULT_EMAIL),
+          :from => (order.inventory_pool.email || Setting::DEFAULT_EMAIL),
           :subject => _('[leihs] Reservation Submitted'),
           :date => sent_at )
   end
@@ -31,8 +31,8 @@ class Mailer::Order < ActionMailer::Base
     choose_language_for(order.user)
     @order = order
     @purpose = purpose
-    mail( :to => (order.inventory_pool.email || DEFAULT_EMAIL),
-          :from => (order.inventory_pool.email || DEFAULT_EMAIL),
+    mail( :to => (order.inventory_pool.email || Setting::DEFAULT_EMAIL),
+          :from => (order.inventory_pool.email || Setting::DEFAULT_EMAIL),
           :subject => _('[leihs] Order received'),
           :date => sent_at )
   end
@@ -42,7 +42,7 @@ class Mailer::Order < ActionMailer::Base
     @order = order
     @comment = comment
     mail( :to => order.user.email,
-          :from => (order.inventory_pool.email || DEFAULT_EMAIL),
+          :from => (order.inventory_pool.email || Setting::DEFAULT_EMAIL),
           :subject => _('[leihs] Reservation Rejected'),
           :date => sent_at )
   end
@@ -52,7 +52,7 @@ class Mailer::Order < ActionMailer::Base
     @order = order
     @comment = comment
     mail( :to => order.user.email,
-          :from => (order.inventory_pool.email || DEFAULT_EMAIL),
+          :from => (order.inventory_pool.email || Setting::DEFAULT_EMAIL),
           :subject => _('[leihs] Reservation confirmed (with changes)'),
           :date => sent_at )
   end

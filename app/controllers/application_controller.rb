@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   require File.join(Rails.root, 'lib', 'authenticated_system.rb')
   include AuthenticatedSystem
 
-  before_filter :set_gettext_locale
+  before_filter :set_gettext_locale, :load_settings
 
   layout "splash"
 
@@ -49,6 +49,16 @@ class ApplicationController < ActionController::Base
     current_user.update_attributes(:language_id => language.id) if current_user and session[:locale] != language.locale_name
     session[:locale] = language.locale_name
     I18n.locale = language.locale_name.to_sym
+  end
+
+  def load_settings
+    if not Setting.const_defined?("SMTP_ADDRESS") and logged_in? and not [backend_settings_path, logout_path].include? request.path
+      if current_user.has_role?('admin')
+        redirect_to backend_settings_path
+      else
+        raise "Application settings are missing!"
+      end
+    end
   end
 
 end

@@ -55,7 +55,7 @@
     
     // setup ListPagination
     ListPagination.current_page = #{params[:page].blank? ? 0 : params[:page]};
-    ListPagination.per_page = #{PER_PAGE};
+    ListPagination.per_page = #{Setting::PER_PAGE};
     ListPagination.total_entries = #{@visits.total_entries};
     ListPagination.next_text = "#{_('Next')}";
     ListPagination.previous_text = "#{_('Previous')}";

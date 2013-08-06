@@ -273,6 +273,9 @@ Leihs::Application.routes.draw do
       end
       #old leihs# resource :availability, :controller => 'availability'
     end
+
+    get 'settings', :to => 'settings#edit'
+    put 'settings', :to => 'settings#update'
   end
 
   ############################################################################

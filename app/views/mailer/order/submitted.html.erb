@@ -21,7 +21,7 @@
       <p><%= _("Unfortunately your order is still pending, but you will soon receive a confirmation of order by separate e-mail. You can view the status of your order through your leihs account.") %> </p>
 
       <p><%= _("Kind regards,") %></p>
-      <p><%= EMAIL_SIGNATURE %></p>
+      <p><%= Setting::EMAIL_SIGNATURE %></p>
       <hr />
       <p><%= @order.inventory_pool.description.gsub(/\n/, '<br>') unless (@order.inventory_pool.nil? or @order.inventory_pool.description.blank?) %></p>
    </body>

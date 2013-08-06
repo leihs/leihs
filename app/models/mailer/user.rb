@@ -10,7 +10,7 @@ class Mailer::User < ActionMailer::Base
     choose_language_for(user)
     @visits = visits
     mail( :to => user.emails,
-          :from => (visits.first.inventory_pool.email || DEFAULT_EMAIL),
+          :from => (visits.first.inventory_pool.email || Setting::DEFAULT_EMAIL),
           :subject => _('[leihs] Reminder'),
           :date => sent_at )
   end
@@ -19,7 +19,7 @@ class Mailer::User < ActionMailer::Base
     choose_language_for(user)
     @visits = visits
     mail( :to => user.emails,
-          :from => (visits.first.inventory_pool.email || DEFAULT_EMAIL),
+          :from => (visits.first.inventory_pool.email || Setting::DEFAULT_EMAIL),
           :subject => _('[leihs] Some items should be returned tomorrow'),
           :date => sent_at )
   end

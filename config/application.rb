@@ -96,8 +96,6 @@ ActionMailer::Base.default :charset => 'utf-8'
 ######################################################
 # Settings
 
-FRONTEND_SPLASH_PAGE = false
-
 # This currency string is used on value lists. leihs itself has no capability
 # to deal with currencies, any numbers used as values for items are just "n pieces of currency"
 LOCAL_CURRENCY_STRING = "CHF"

@@ -10,7 +10,7 @@
     = favicon_link_tag "frontend/favicon.ico", :type => "image/x-icon"
     = csrf_meta_tag
     = javascript_tag "i18n = i18n.locals['#{current_user.language.locale_name.dasherize}']";
-    = javascript_tag "var local_currency_string = '#{LOCAL_CURRENCY_STRING}'";
+    = javascript_tag "var local_currency_string = '#{Setting::LOCAL_CURRENCY_STRING}'";
     = yield :head
 
   %body

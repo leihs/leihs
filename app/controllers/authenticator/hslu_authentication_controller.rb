@@ -76,8 +76,8 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
   def update_user(user, user_data)
     logger = Rails.logger
     ldaphelper = LdapHelper.new
-    # Make sure to set USER_IMAGE_URL in application.rb in leihs 3.0 for user images to appear, based
-    # on the unique ID. Example for the format in application.rb:
+    # Make sure to set "user_image_url" in "/backend/settings" in leihs 3.0 for user images to appear, based
+    # on the unique ID. Example for the format:
     # http://www.hslu.ch/portrait/{:id}.jpg
     # {:id} will be interpolated with user.unique_id there.
     user.unique_id = user_data[ldaphelper.unique_id_field.to_s].first.to_s

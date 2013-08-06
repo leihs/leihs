@@ -61,7 +61,7 @@ class Backend::BackendController < ApplicationController
     
     results = []
     @hits = {}
-    per_page = (types and types.size == 1) ? PER_PAGE : 5
+    per_page = (types and types.size == 1) ? Setting::PER_PAGE : 5
     conditions[:klasses].each_pair do |klass, options|
       r = klass.search(term).
             filter2(conditions[:filter].merge(options[:filter] || {})).

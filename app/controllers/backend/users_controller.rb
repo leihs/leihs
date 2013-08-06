@@ -25,7 +25,7 @@ class Backend::UsersController < Backend::BackendController
   def index
 
     @page = (params[:page] || 1).to_i
-    @per_page = (params[:per_page] || PER_PAGE).to_i
+    @per_page = (params[:per_page] || Setting::PER_PAGE).to_i
     search = params[:search]
     @role = params[:role]
     suspended = (params[:suspended] == "true")
