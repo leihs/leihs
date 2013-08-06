@@ -151,8 +151,24 @@ end
 #############################################################################
 
 Wenn(/^ich den Eintrag ändere$/) do
-  @changed_lines = OrderLine.find JSON.parse find("[data-change-order-lines]")["data-line-ids"]
-  find("[data-change-order-lines]").click
+  if @just_changed_line
+    @just_changed_line.click
+  else
+    # try to get order_lines where quantity is still increasable
+    line_to_edit = all("[data-change-order-lines]").detect do |line|
+      order_lines = OrderLine.find JSON.parse line["data-line-ids"]
+      if order_lines.first.maximum_available_quantity > 0
+        @changed_lines = order_lines
+      end
+    end
+
+    if line_to_edit
+      line_to_edit.click
+    else
+      @changed_lines = OrderLine.find JSON.parse find("[data-change-order-lines]")["data-line-ids"]
+      find("[data-change-order-lines]").click
+    end
+  end
 end
 
 Dann(/^öffnet der Kalender$/) do
@@ -176,8 +192,17 @@ end
 Dann(/^wird der Eintrag gemäss aktuellen Einstellungen geändert$/) do
   step "ensure there are no active requests"
   wait_until{all(".loading").empty?}
-  wait_until{@changed_lines.first.reload.start_date == @new_date}
-  wait_until{find("*", :text => I18n.l(@new_date))}
+  if @new_date
+    wait_until{@changed_lines.first.reload.start_date == @new_date}
+    wait_until{find("*", :text => I18n.l(@new_date))}
+  end
+  if @new_quantity
+    @changed_lines.first.order.lines.where(model_id: @changed_lines.first.model_id,
+                                           start_date: @changed_lines.first.start_date,
+                                           end_date: @changed_lines.first.end_date,
+                                           inventory_pool_id: @changed_lines.first.inventory_pool_id).sum(:quantity).should == @new_quantity
+    @just_changed_line = find("[data-quantity='#{@new_quantity}'][data-model-id='#{@changed_lines.first.model_id}'][data-start-date='#{@changed_lines.first.start_date}'][data-end-date='#{@changed_lines.first.end_date}']")
+  end
 end
 
 Dann(/^der Eintrag wird in der Liste anhand der des aktuellen Startdatums und des Geräteparks gruppiert$/) do

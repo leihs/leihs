@@ -76,6 +76,22 @@ Angenommen(/^ich einen Eintrag ändere$/) do
   step "speichere die Einstellungen"
 end
 
+When(/^ich die Menge eines Eintrags heraufsetze$/) do
+  step "ich den Eintrag ändere"
+  step "öffnet der Kalender"
+  @new_quantity = find("#order-quantity")[:max].to_i
+  find("#order-quantity").set(@new_quantity)
+  step "speichere die Einstellungen"
+end
+
+When(/^ich die Menge eines Eintrags heruntersetze$/) do
+  step "ich den Eintrag ändere"
+  step "öffnet der Kalender"
+  @new_quantity = 1
+  find("#order-quantity").set(@new_quantity)
+  step "speichere die Einstellungen"
+end
+
 Dann(/^werden die Änderungen gespeichert$/) do
   step "wird der Eintrag gemäss aktuellen Einstellungen geändert"
   step "der Eintrag wird in der Liste anhand der des aktuellen Startdatums und des Geräteparks gruppiert"
@@ -91,7 +107,7 @@ Wenn(/^ein Modell nicht verfügbar ist$/) do
   @current_user.get_current_order.lines.any?{|l| not l.available?}.should be_true
 end
 
-Wenn(/^ich auf 'Weiter' drücke$/) do
+Wenn(/^ich auf 'Diese Bestellung fortsetzen' drücke$/) do
   find(".button", :text => _("Continue this order")).click
 end
 

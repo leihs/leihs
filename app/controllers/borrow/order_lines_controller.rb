@@ -26,7 +26,7 @@ class Borrow::OrderLinesController < Borrow::ApplicationController
       current_order.lines.find(params[:line_id]).destroy
     rescue
     ensure
-      render :status => :ok, :nothing => true
+      render :status => :ok, :json => {id: params[:line_id]}
     end
   end
 

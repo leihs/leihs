@@ -31,9 +31,17 @@ Funktionalität: Timeout Page
     Dann werden die Änderungen gespeichert
     Und lande ich wieder auf der Timeout Page
 
+  @javascript
+  Szenario: Die Menge eines Eintrags heruntersetzen
+    Wenn ich die Menge eines Eintrags heraufsetze
+    Dann werden die Änderungen gespeichert
+    Wenn ich die Menge eines Eintrags heruntersetze
+    Dann werden die Änderungen gespeichert
+    Und lande ich wieder auf der Timeout Page
+
   Szenario: In Bestellung übernehmen nicht möglich
     Wenn ein Modell nicht verfügbar ist
-    Und ich auf 'Weiter' drücke
+    Und ich auf 'Diese Bestellung fortsetzen' drücke
     Dann lande ich wieder auf der Timeout Page
     Und ich erhalte ich einen Fehler
 
@@ -42,4 +50,3 @@ Funktionalität: Timeout Page
     Dann werden die Modelle meiner Bestellung freigegeben
     Und wird die Bestellung des Benutzers gelöscht
     Und ich lande auf der Seite der Hauptkategorien
-

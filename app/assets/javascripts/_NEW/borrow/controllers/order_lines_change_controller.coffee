@@ -132,8 +132,10 @@ class window.App.Borrow.OrderLinesChangeController extends Spine.Controller
       linesToBeDestroyed = @lines[0..(Math.abs(difference)-1)]
       deletionDone = _.after linesToBeDestroyed.length, @changeRange
       for line in linesToBeDestroyed
-        App.OrderLine.ajaxChange(line, "destroy", {}).done =>
-          do deletionDone
+        do (line)->
+          App.OrderLine.ajaxChange(line, "destroy", {}).done =>
+            delete App.OrderLine.records[line.id]
+            do deletionDone
       @lines = _.reject @lines, (l)-> _.include(linesToBeDestroyed, l)
     else if difference > 0 # create new lines in the amount of the quantity difference
       ajax = @createOrderLine(difference)
