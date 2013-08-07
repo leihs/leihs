@@ -15,36 +15,16 @@ rvmsudo gem install bundler
 if [ ! -f /etc/apache2/mods-available/passenger.load ]; then
         rvmsudo gem install passenger -v $PASSENGER_VERSION
         sudo -i passenger-install-apache2-module
-
-PASSENGER=$(cat <<ENDPASSENGER
-   LoadModule passenger_module /usr/local/rvm/gems/$RUBY_VERSION/gems/passenger-$PASSENGER_VERSION/ext/apache2/mod_passenger.so
-   PassengerRoot /usr/local/rvm/gems/$RUBY_VERSION/gems/passenger-$PASSENGER_VERSION
-   PassengerDefaultRuby /usr/local/rvm/wrappers/$RUBY_VERSION/ruby
-ENDPASSENGER
-)
-        echo "$PASSENGER" >> /etc/apache2/mods-available/passenger.load | sudo bash
+        sudo cp /vagrant/doc/vagrant/passenger.load /etc/apache2/mods-available/passenger.load
+        sudo sed -i s/RUBY_VERSION/$RUBY_VERSION/g /etc/apache2/mods-available/passenger.load
+        sudo sed -i s/PASSENGER_VERSION/$PASSENGER_VERSION/g /etc/apache2/mods-available/passenger.load
         sudo a2enmod passenger
         sudo service apache2 restart
 fi
 
-
 # Enable the leihs virtual host
 if [ ! -f /etc/apache2/sites-available/leihs ]; then
-VHOST=$(cat <<ENDVHOST
-<VirtualHost *:80>
-   ServerName leihs.local
-   DocumentRoot /vagrant/public/
-
-   <Directory /vagrant/public>
-      AllowOverride all
-      Options -MultiViews
-   </Directory>
-
-</VirtualHost>
-ENDVHOST
-)
-
-        echo "$VHOST" >> /etc/apache2/sites-available/leihs | sudo bash
+        sudo cp /vagrant/doc/vagrant/leihs /etc/apache2/sites-available/leihs
         sudo a2ensite leihs
-        sudo service apache2 restart
+        sudo service apache2 reload
 fi
