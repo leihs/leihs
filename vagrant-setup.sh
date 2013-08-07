@@ -2,7 +2,7 @@
 
 # The Ruby version you want to install and use for this Vagrant box
 RUBY_VERSION=ruby-1.9.3-p448
-PASSENGER_VERSION=3.0.9
+PASSENGER_VERSION=4.0.10
 
 sudo -i rvm install $RUBY_VERSION
 
@@ -14,15 +14,15 @@ rvmsudo gem install bundler
 # Install Phusion Passenger
 if [ ! -f /etc/apache2/mods-available/passenger.load ]; then
         rvmsudo gem install passenger -v $PASSENGER_VERSION
-        rvmsudo passenger-install-apache2-module
+        sudo -i passenger-install-apache2-module
 
 PASSENGER=$(cat <<ENDPASSENGER
    LoadModule passenger_module /usr/local/rvm/gems/$RUBY_VERSION/gems/passenger-$PASSENGER_VERSION/ext/apache2/mod_passenger.so
    PassengerRoot /usr/local/rvm/gems/$RUBY_VERSION/gems/passenger-$PASSENGER_VERSION
-   PassengerRuby /usr/local/rvm/wrappers/$RUBY_VERSION/ruby
+   PassengerDefaultRuby /usr/local/rvm/wrappers/$RUBY_VERSION/ruby
 ENDPASSENGER
 )
-        sudo echo "$PASSENGER" >> /etc/apache2/mods-available/passenger.load
+        echo "$PASSENGER" >> /etc/apache2/mods-available/passenger.load | sudo bash
         sudo a2enmod passenger
         sudo service apache2 restart
 fi
@@ -44,7 +44,7 @@ VHOST=$(cat <<ENDVHOST
 ENDVHOST
 )
 
-        sudo echo "$VHOST" >> /etc/apache2/sites-available/leihs
+        echo "$VHOST" >> /etc/apache2/sites-available/leihs | sudo bash
         sudo a2ensite leihs
         sudo service apache2 restart
 fi
