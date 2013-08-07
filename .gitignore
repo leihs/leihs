@@ -30,3 +30,4 @@ doc/diagrams/generated/captures.dot
 chrome*
 public/attachments/*
 Gemfile.local*
+.vagrant/*
