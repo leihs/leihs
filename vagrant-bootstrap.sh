@@ -3,55 +3,58 @@
 
 ##########  Packages and base requirements
 
-# Always take this information from the official wiki: https://github.com/zhdk/leihs/wiki
-# NOTE: Do not install mysql-server here, as that would ask for a password using a dialog, and we can't do that
-# on the Vagrant shell.
-sudo apt-get install --assume-yes build-essential make libxslt-dev libcairo2-dev libmysqlclient-dev libxml2-dev curl make build-essential git libxslt-dev libcairo2-dev libmysqlclient-dev libxml2-dev libreadline6-dev libssl-dev libyaml-dev autoconf libgdbm-dev libncurses5-dev automake libtool bison libffi-dev imagemagick libcurl4-openssl-dev apache2-prefork-dev apache2 mysql-client libmagickwand-dev
+if [ ! -f /home/vagrant/.vagrant-bootstrap-complete ]; then
+        # Always take this information from the official wiki: https://github.com/zhdk/leihs/wiki
+        # NOTE: Do not install mysql-server here, as that would ask for a password using a dialog, and we can't do that
+        # on the Vagrant shell.
+        sudo apt-get install --assume-yes build-essential make libxslt-dev libcairo2-dev libmysqlclient-dev libxml2-dev curl make build-essential git libxslt-dev libcairo2-dev libmysqlclient-dev libxml2-dev libreadline6-dev libssl-dev libyaml-dev autoconf libgdbm-dev libncurses5-dev automake libtool bison libffi-dev imagemagick libcurl4-openssl-dev apache2-prefork-dev apache2 mysql-client libmagickwand-dev
 
 
-# So we can use 'ifdata' to show the IP address of this host later on.
-sudo apt-get install --assume-yes moreutils
+        # So we can use 'ifdata' to show the IP address of this host later on.
+        sudo apt-get install --assume-yes moreutils
 
-# Latest versions of iceweasel come from backports
-sudo cp /vagrant/doc/vagrant/iceweasel.list /etc/apt/sources.list.d/iceweasel.list
-sudo apt-get update
-sudo apt-get install pkg-mozilla-archive-keyring
-sudo gpg --check-sigs --fingerprint --keyring /etc/apt/trusted.gpg.d/pkg-mozilla-archive-keyring.gpg --keyring /usr/share/keyrings/debian-keyring.gpg pkg-mozilla-maintainers
-sudo apt-get update
+        # Latest versions of iceweasel come from backports
+        sudo cp /vagrant/doc/vagrant/iceweasel.list /etc/apt/sources.list.d/iceweasel.list
+        sudo apt-get update
+        sudo apt-get install pkg-mozilla-archive-keyring
+        sudo gpg --check-sigs --fingerprint --keyring /etc/apt/trusted.gpg.d/pkg-mozilla-archive-keyring.gpg --keyring /usr/share/keyrings/debian-keyring.gpg pkg-mozilla-maintainers
+        sudo apt-get update
 
-# Prerequisites for running our tests
-sudo apt-get install --assume-yes xvfb
-sudo apt-get install -t wheezy-backports --assume-yes iceweasel
+        # Prerequisites for running our tests
+        sudo apt-get install --assume-yes xvfb
+        sudo apt-get install -t wheezy-backports --assume-yes iceweasel
 
-# Without this, installing MySQL will prompt for a MySQL root password, but we can't
-# enter one in this noninteractive shell. With the noninteractive option set, the
-# package will simply use a blank root password.
-sudo DEBIAN_FRONTEND=noninteractive apt-get install --assume-yes mysql-server
+        # Without this, installing MySQL will prompt for a MySQL root password, but we can't
+        # enter one in this noninteractive shell. With the noninteractive option set, the
+        # package will simply use a blank root password.
+        sudo DEBIAN_FRONTEND=noninteractive apt-get install --assume-yes mysql-server
 
-########## RVM, Ruby and bundler
+        ########## RVM, Ruby and bundler
 
-# Only RVM is supported by Passenger. Cannot use rbenv.
-# Also, only RVM has a good system-wide install.
-if [ ! -f /usr/local/bin/rvm ]; then
-        sudo curl -L https://get.rvm.io | bash -s stable
-        sudo usermod -a -G rvm vagrant
+        # Only RVM is supported by Passenger. Cannot use rbenv.
+        # Also, only RVM has a good system-wide install.
+        if [ ! -f /usr/local/bin/rvm ]; then
+                sudo curl -L https://get.rvm.io | bash -s stable
+                sudo usermod -a -G rvm vagrant
+        fi
+
+
+        if [ ! -f /home/vagrant/.vagrant-setup-complete ]; then
+                echo "#################### WARNING ########################"
+                echo "############ YOU ARE NOT DONE YET ###################"
+                echo ""
+                echo "If this is the *first time* you use this Vagrant box,"
+                echo "you have to log in as user 'vagrant' and run this:"
+                echo ""
+                echo "      bash /vagrant/vagrant-setup.sh "
+                echo ""
+                echo "#################### WARNING ########################"
+                echo "############ YOU ARE NOT DONE YET ###################"
+                echo ""
+        fi
+
+        touch /home/vagrant/.vagrant-bootstrap-complete
 fi
-
-
-if [ ! -f /home/vagrant/.vagrant-setup-complete ]; then
-        echo "#################### WARNING ########################"
-        echo "############ YOU ARE NOT DONE YET ###################"
-        echo ""
-        echo "If this is the *first time* you use this Vagrant box,"
-        echo "you have to log in as user 'vagrant' and run this:"
-        echo ""
-        echo "      bash /vagrant/vagrant-setup.sh "
-        echo ""
-        echo "#################### WARNING ########################"
-        echo "############ YOU ARE NOT DONE YET ###################"
-        echo ""
-fi
-
 
 LOCAL_IP=`ifdata -pa eth1`
 echo "############## Network information ###############"
