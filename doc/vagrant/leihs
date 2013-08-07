@@ -1,5 +1,5 @@
 <VirtualHost *:80>
-   ServerName leihs.local
+   ServerName leihs.vagrant
    DocumentRoot /vagrant/public/
 
    <Directory /vagrant/public>
