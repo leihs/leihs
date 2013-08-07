@@ -12,11 +12,21 @@ sudo apt-get install --assume-yes build-essential make libxslt-dev libcairo2-dev
 # So we can use 'ifdata' to show the IP address of this host later on.
 sudo apt-get install --assume-yes moreutils
 
+# Latest versions of iceweasel come from backports
+sudo cp /vagrant/doc/vagrant/iceweasel.list /etc/apt/sources.list.d/iceweasel.list
+sudo apt-get update
+sudo apt-get install pkg-mozilla-archive-keyring
+sudo gpg --check-sigs --fingerprint --keyring /etc/apt/trusted.gpg.d/pkg-mozilla-archive-keyring.gpg --keyring /usr/share/keyrings/debian-keyring.gpg pkg-mozilla-maintainers
+sudo apt-get update
+
+# Prerequisites for running our tests
+sudo apt-get install --assume-yes xvfb
+sudo apt-get install -t wheezy-backports --assume-yes iceweasel
+
 # Without this, installing MySQL will prompt for a MySQL root password, but we can't
 # enter one in this noninteractive shell. With the noninteractive option set, the
 # package will simply use a blank root password.
 sudo DEBIAN_FRONTEND=noninteractive apt-get install --assume-yes mysql-server
-
 
 ########## RVM, Ruby and bundler
 
@@ -28,23 +38,25 @@ if [ ! -f /usr/local/bin/rvm ]; then
 fi
 
 
+if [ ! -f /home/vagrant/.vagrant-setup-complete ]; then
+        echo "#################### WARNING ########################"
+        echo "############ YOU ARE NOT DONE YET ###################"
+        echo ""
+        echo "If this is the *first time* you use this Vagrant box,"
+        echo "you have to log in as user 'vagrant' and run this:"
+        echo ""
+        echo "      bash /vagrant/vagrant-setup.sh "
+        echo ""
+        echo "#################### WARNING ########################"
+        echo "############ YOU ARE NOT DONE YET ###################"
+        echo ""
+fi
+
+
 LOCAL_IP=`ifdata -pa eth1`
-
-echo "################## WARNING #######################"
-echo ""
-echo "If this is the *first time* you use this Vagrant box,"
-echo "you have to log in as user 'vagrant' and run this:"
-echo ""
-echo "      bash /vagrant/vagrant-setup.sh "
-echo ""
-echo "################## WARNING #######################"
-echo ""
-
-
 echo "############## Network information ###############"
 if [[ -z "$LOCAL_IP" ]]; then
-
-        echo "It appears your guest machine's eth1 interface is"
+        echo "It appears that your guest machine's eth1 interface is"
         echo "not configured. Are you sure bridged networking"
         echo "is working correctly? If not, you will not be able"
         echo "to use this VM properly. You must have a DHCP server"
@@ -61,7 +73,7 @@ else
         echo ""
         echo "For example:"
         echo ""
-        echo "$LOCAL_IP    leihs.local"
+        echo "$LOCAL_IP    leihs.vagrant"
         echo ""
         echo "The local port 8080 on your host is *additionally*"
         echo "forwarded to port 80 on the guest. So you can connect"
@@ -73,9 +85,3 @@ else
         echo "bridged networking, you must configure that yourself"
         echo ""
 fi
-
-
-echo "############## Connecting via SSH ###############"
-echo "If you just want to connect to this VM via ssh,"
-echo "there is *no need* to use any IP addresses."
-echo "Just do this: vagrant ssh"
