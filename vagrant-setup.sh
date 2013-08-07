@@ -30,3 +30,10 @@ if [ ! -f /etc/apache2/sites-available/leihs ]; then
 fi
 
 touch /home/vagrant/.vagrant-setup-complete
+
+
+echo "############ SUPERFUNKY ###############"
+echo "Your setup is complete. Don't forget to"
+echo "run Xvfb if you need to run browser-"
+echo "based tests."
+echo "############ SUPERFUNKY ###############"
