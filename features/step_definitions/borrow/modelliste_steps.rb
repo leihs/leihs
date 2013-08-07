@@ -118,7 +118,6 @@ Dann(/^kann man nicht alle Geräteparks in der Geräteparkauswahl abwählen$/) d
   inventory_pool_ids = all("#ip-selector .dropdown-item[data-id]").map{|item| item["data-id"]}
   inventory_pool_ids.each do |ip_id|
     wait_until{ find("#ip-selector .dropdown-item[data-id='#{ip_id}']") }
-    sleep(1)
     find("#ip-selector .dropdown-item[data-id='#{ip_id}']").click
   end
   wait_until{find("#ip-selector .dropdown-item input", checked: true)}
@@ -310,7 +309,6 @@ end
 
 Wenn(/^man bis zum Ende der Liste fährt$/) do
   wait_until {not all(".page").empty?}
-  sleep(1)
   page.execute_script %Q{ $('.page').trigger('inview'); }
   wait_until {all(".page").empty?}
 end
@@ -342,11 +340,15 @@ Angenommen(/^man befindet sich auf der Modellliste mit diesem Modell$/) do
 end
 
 Wenn(/^man wählt alle Geräteparks bis auf einen ab$/) do
+  step "ensure there are no active requests"
   step 'man ein bestimmten Gerätepark in der Geräteparkauswahl auswählt'
+  step "ensure there are no active requests"
 end
 
 Wenn(/^man wählt "Alle Geräteparks"$/) do
+  step "ensure there are no active requests"
   find("#ip-selector .dropdown-item", :text => _("All inventory pools")).click
+  step "ensure there are no active requests"
 end
 
 Dann(/^sind alle Geräteparks wieder ausgewählt$/) do
@@ -360,7 +362,7 @@ Dann(/^die Liste zeigt Modelle aller Geräteparks$/) do
   models = @current_user.models.borrowable.from_category_and_all_its_descendants(@category.id)
     .all_from_inventory_pools(all("#ip-selector .dropdown-item[data-id]").map{|ip| ip["data-id"]})
     .order_by_attribute_and_direction "model", "name"
-  all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}.should eq models.map(&:name)
+  wait_until {all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?} == models.map(&:name)}
 end
 
 Angenommen(/^Filter sind ausgewählt$/) do
