@@ -1,7 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-Vagrant::Config.run do |config|
+#Vagrant::Config.run do |config|
+Vagrant.configure("2") do |config|
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
@@ -27,11 +28,16 @@ Vagrant::Config.run do |config|
   # Assign this VM to a bridged network, allowing you to connect directly to a
   # network using the host's network device. This makes the VM appear as another
   # physical device on your network.
-  # config.vm.network :bridged
+  config.vm.network :public_network
 
   # Forward a port from the guest to the host, which allows for outside
   # computers to access the VM, whereas host only networking does not.
-  #config.vm.forward_port 80, 8080
+  config.vm.network :forwarded_port, :guest => 80, :host => 8080
+
+  # Let's give this thing 1 GB of memory
+  config.vm.provider "virtualbox" do |vb|
+     vb.customize ["modifyvm", :id, "--memory", "1024"]
+  end
 
   # Share an additional folder to the guest VM. The first argument is
   # an identifier, the second is the path on the guest to mount the
