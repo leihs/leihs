@@ -28,3 +28,5 @@ if [ ! -f /etc/apache2/sites-available/leihs ]; then
         sudo a2ensite leihs
         sudo service apache2 reload
 fi
+
+touch /home/vagrant/.vagrant-setup-complete
