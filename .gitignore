@@ -31,3 +31,4 @@ chrome*
 public/attachments/*
 Gemfile.local*
 .vagrant/*
+.vagrant*
