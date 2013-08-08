@@ -57,11 +57,11 @@ The following ports are forwarded:
   -----       ------------
   80          8080
   22          2222
-  3000        30000
-  5901        55901
+  3000        3000
+  5901        5901
 
 So if you want to connect to e.g. a development Rails server on the
-guest, connect to port 30000 of localhost on your host.
+guest, connect to port 3000 of localhost on your host.
 
 
 ### Initial setup of leihs
