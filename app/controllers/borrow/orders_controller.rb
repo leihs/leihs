@@ -38,4 +38,9 @@ class Borrow::OrdersController < Borrow::ApplicationController
     render :current
   end
 
+  def delete_unavailables
+    current_order.lines.each {|l| l.delete unless l.available? }
+    redirect_to borrow_current_order_path, flash: {notice: _("Your order has been modified. All reservations are now available.")}
+  end
+
 end

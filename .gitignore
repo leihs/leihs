@@ -3,6 +3,7 @@
 *~
 .loadpath
 .project
+.ruby-version
 .sass-cache
 jhw.*
 log/*

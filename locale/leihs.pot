@@ -2247,3 +2247,9 @@ msgstr ""
 
 msgid "Your order has been successfully submitted, but is NOT YET APPROVED"
 msgstr ""
+
+msgid "Continue with available models only"
+msgstr ""
+
+msgid "Your order has been modified. All reservations are now available."
+msgstr ""

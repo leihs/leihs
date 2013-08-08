@@ -22,6 +22,7 @@ class Borrow::ApplicationController < ApplicationController
   def redirect_if_order_timed_out
     return if request.format == :json or
               [borrow_order_timed_out_path,
+               borrow_order_delete_unavailables_path,
                borrow_order_remove_path,
                borrow_order_remove_lines_path,
                borrow_order_lines_change_time_range_path].include? request.path

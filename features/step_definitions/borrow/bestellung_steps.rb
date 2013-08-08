@@ -4,6 +4,10 @@ Angenommen(/^man befindet sich auf der Bestellübersicht$/) do
   visit borrow_current_order_path
 end
 
+Dann(/^ich lande auf der Seite der Bestellübersicht$/) do
+  current_path.should == borrow_current_order_path
+end
+
 Dann(/^sehe ich kein Bestellfensterchen$/) do
   page.should_not have_selector(".col1of5 .navigation-tab-item", text: _("Order"))
 end

@@ -29,9 +29,7 @@ end
 
 Then /^the count matches the amount of selected lines$/ do
   count = find("#selection_actions .count").text.gsub(/[()]/, "").to_i
-  all_lines = all(".line")
-  lines_selected = all_lines.delete_if {|x| not x.find(".select input").checked?}
-  lines_selected.size.should == count
+  page.evaluate_script(%Q{ $(".line input:checked").length }).should == count
 end
 
 When /^I select the linegroup$/ do

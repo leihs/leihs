@@ -28,17 +28,16 @@ Then /^the contract line has no item$/ do
 end
 
 Given /^visit that is overdue$/ do
-  @visit = Visit.hand_over.where("date < ?", Date.today).first
+  @visit = @inventory_pool.visits.hand_over.where("date < ?", Date.today).first
 end
 
 Given /^visit that is in future$/ do
-  @visit = Visit.hand_over.where("date >= ?", Date.today).first
+  @visit = @inventory_pool.visits.hand_over.where("date >= ?", Date.today).first
 end
 
 When /^the visit is deleted$/ do
   @visit_count = Visit.count
-  @response = delete delete_visit_backend_inventory_pool_user_hand_over_path(@inventory_pool, @visit.user), {:format => :json,
-                                                                                                 :visit_id => @visit.id}
+  @response = delete delete_visit_backend_inventory_pool_user_hand_over_path(@inventory_pool, @visit.user), {:format => :json, :visit_id => @visit.id}
 end
 
 Then /^the visit does not exist anymore$/ do
