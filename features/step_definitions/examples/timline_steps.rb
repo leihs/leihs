@@ -6,26 +6,26 @@ end
 Dann /^kann ich für jedes sichtbare Model die Timeline anzeigen lassen$/ do
 
   lines = if not all("#acknowledge").empty?
-    all(".order_line", :visible => true)
+    ".order_line"
   elsif not all("#hand_over").empty?
-    all(".item_line", :visible => true)
+    ".item_line"
   elsif not all("#take_back").empty?
-    all(".item_line", :visible => true)
+    ".item_line"
   elsif not all("#search_results").empty?
-    all(".line.model", :visible => true)
+    ".line.model"
   elsif not all("#inventory").empty?
-    all(".line.model", :visible => true)
+    ".line.model"
   else
     raise "unknown page"
   end
 
   raise "no lines found for this page" if lines.size.zero?
 
-  lines.each do |line|
-    if not line.all(".trigger", :visible => true).empty?
-      line.find(".trigger").click
-      line.find(".button", :text => /(Timeline|Zeitleiste)/).click
-      wait_until { find(".dialog iframe") }
+  all(lines, visible: true)[0..5].each_with_index do |line, i|
+    if not all(lines, visible: true)[i].all(".trigger", :visible => true).empty?
+      all(lines, visible: true)[i].find(".trigger").click
+      all(lines, visible: true)[i].find(".button", :text => /(Timeline|Zeitleiste)/).click
+      find(".dialog iframe")
       wait_until { evaluate_script %Q{ $(".dialog iframe").contents().find("#my_timeline").length; } }
       find(".dialog .button.close_dialog").click
       wait_until{ all(".dialog", :visible=>true).size == 0 }
