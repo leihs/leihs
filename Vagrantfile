@@ -12,7 +12,9 @@ Vagrant.configure("2") do |config|
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "http://www.psy-q.ch/stuff/wheezy32-1.0.0.box"
+  # Use this base box if you want to rebuild the leihs box:
+  #config.vm.box_url = "http://www.psy-q.ch/stuff/wheezy32-1.0.0.box"
+  config.vm.box_url = "http://www.psy-q.ch/stuff/leihs-1.0.0.box"
 
   config.vm.provision :shell, :path => "vagrant-bootstrap.sh"
 
