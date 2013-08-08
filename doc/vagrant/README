@@ -1,0 +1,108 @@
+## The leihs Vagrant virtual machine
+
+
+### What you can do with this
+
+You can use this virtual machine to *develop* leihs. This is not meant as
+a production environment. It merely wants to *mirror* the production
+environment that we recommend for leihs, so that developers can catch
+errors more easily thanks to a development environment that is similar
+to the production one.
+
+You need VirtualBox to use this machine:
+
+https://www.virtualbox.org/
+
+
+### Starting the Vagrant machine
+
+In the leihs source directory:
+
+  vagrant up
+
+Then SSH into the Vagrant machine:
+
+  vagrant ssh
+
+And if it's the first time you set up this machine, you also need to do:
+
+  bash /vagrant/vagrant-setup.sh
+
+Inside the guest machine, as user 'vagrant'.
+
+
+### Networking
+
+This guest machine expects to find a DHCP server on the same network as
+one of your host machine's network interfaces is connected to.
+
+If you have no DHCP server, you can still use the guest machine, but
+only through port forwarding.
+
+If you do have a DHCP server, the IP address assigned to that interface
+will be shown to you after you start the virtual machine. You then
+have the choice to connect either directly to the virtual machine's
+DHCP-assigned IP address or through port forwarding.
+
+The following ports are forwarded:
+
+  Guest       Your machine
+  -----       ------------
+  80          8080
+  22          2222
+  3000        30000
+  5901        55901
+
+So if you want to connect to e.g. a development Rails server on the
+guest, connect to port 30000 of localhost on your host.
+
+
+### Initial setup of leihs
+
+Once you have the guest machine running, you need to have databases:
+
+  cd /vagrant
+  bundle
+  bundle exec rake db:create db:migrate db:seed
+
+
+### Setting up a hostname on your host machine
+
+You will need to edit your hosts file (or whatever mechanism your
+operating system uses for hostname lookups) so that you can access
+the virtual host on the guest in which leihs runs. For example:
+
+  192.168.1.110    leihs.vagrant
+
+The domain name is important! leihs is *only* listening on the virtual
+host 'leihs.vagrant'. Anything else won't work.
+
+
+### Running graphical tests
+
+To run any browser-based tests that use Firefox, you need to first
+start some sort of X server on the guest. We recommend and include
+tightvncserver:
+
+  tightvncserver
+
+The first time you run this, it will ask you to specify a password.
+You use this password to connect from your host machine to the guest
+using a VNC client.
+
+Once tightvncserver is running, you need to tell your logged-in session
+which display to use. By default, you need to export :1 as display
+address:
+
+  export DISPLAY=:1
+
+From now on, you can run any graphical tests on that console session
+and see the display result (e.g. a browser window) in your VNC client.
+
+
+### Production mode
+
+Don't forget that the leihs application at http://leihs.vagrant is running
+in production mode! You will have to precompile assets and make sure
+that the 'production' database exists and is migrated and seeded, otherwise
+none of this will work properly.

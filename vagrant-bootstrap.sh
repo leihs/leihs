@@ -21,7 +21,10 @@ if [ ! -f /home/vagrant/.vagrant-bootstrap-complete ]; then
         sudo apt-get update
 
         # Prerequisites for running our tests
-        sudo apt-get install --assume-yes xvfb
+        #sudo apt-get install --assume-yes xvfb
+
+        # Probably better, since some people want to actually watch the browser while it tests
+        sudo apt-get install --assume-yes tightvncserver xbase-clients fluxbox
         sudo apt-get install -t wheezy-backports --assume-yes iceweasel
 
         # Without this, installing MySQL will prompt for a MySQL root password, but we can't
@@ -48,8 +51,8 @@ if [ ! -f /home/vagrant/.vagrant-bootstrap-complete ]; then
                 echo ""
                 echo "      bash /vagrant/vagrant-setup.sh "
                 echo ""
-                echo "#################### WARNING ########################"
                 echo "############ YOU ARE NOT DONE YET ###################"
+                echo "#################### WARNING ########################"
                 echo ""
         fi
 
@@ -78,13 +81,25 @@ else
         echo ""
         echo "$LOCAL_IP    leihs.vagrant"
         echo ""
+        echo "Then access leihs *in production mode* at:"
+        echo ""
+        echo "      http://leihs.vagrant"
+        echo ""
+        echo "Or run 'rails s' and go through port forwarding:"
+        echo ""
+        echo "      http://localhost:30000"
+        echo ""
         echo "The local port 8080 on your host is *additionally*"
         echo "forwarded to port 80 on the guest. So you can connect"
-        echo "to your Vagrant box's Apache like so:"
+        echo "to your Vagrant box's Apache in production like so:"
         echo ""
         echo "      http://localhost:8080"
         echo ""
+        echo "Also, the VNC port 5901 on the guest is forwarded to"
+        echo "55901 on your host. So connect to localhost::55901 if"
+        echo "you're running a VNC server in the guest ('tightvncserver')."
+        echo ""
         echo "If you want fancier networking, e.g. host-only or"
-        echo "bridged networking, you must configure that yourself"
+        echo "bridged networking, you must configure that yourself."
         echo ""
 fi

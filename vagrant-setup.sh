@@ -31,9 +31,17 @@ fi
 
 touch /home/vagrant/.vagrant-setup-complete
 
-
-echo "############ SUPERFUNKY ###############"
-echo "Your setup is complete. Don't forget to"
-echo "run Xvfb if you need to run browser-"
-echo "based tests."
-echo "############ SUPERFUNKY ###############"
+echo "############################ SUPERFUNKY ###########################"
+echo ""
+echo "Your setup is complete." 
+echo ""
+echo "The leihs source code is waiting for you at /vagrant in the guest."
+echo ""
+echo "Please read doc/vagrant/README before complaining about something"
+echo "not working."
+echo ""
+echo "Run 'bash -l' now if you want to use rvm-installed Rubies on this"
+echo "console immediately. Otherwise, ssh in on another console, where"
+echo "RVM will already be initialized."
+echo ""
+echo "############################ SUPERFUNKY ###########################"
