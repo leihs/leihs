@@ -3,13 +3,12 @@
 When /^I delete a line$/ do
   @contract = @customer.contracts.unsigned.first
   @line = @contract.lines.first
-  @line_element = find(".line[data-id='#{@line.id}']")
   step 'I delete this line element'
 end
 
 When /^I delete this line element$/ do
-  @line_element.find(".multibutton .trigger").click
-  @line_element.find(".button", :text => /(Delete|Löschen)/).click
+  find(".line[data-id='#{@line.id}']").find(".multibutton .trigger").click
+  find(".line[data-id='#{@line.id}']").find(".button", :text => /(Delete|Löschen)/).click
   sleep(0.6)
 end
 
@@ -52,8 +51,9 @@ When /^I delete all lines of a model thats availability is blocked by these line
   line_ids = target_linegroup.all(".line.error", :text => @model.name).map{|line| line["data-id"]}
   line_ids.each do |id|
     if id != @reference_id
-      @line_element = all(".line").detect{|line| line["data-id"] == id}
-      step 'I delete this line element'
+      all(".line").detect{|line| line["data-id"] == id}.find(".multibutton .trigger").click
+      all(".line").detect{|line| line["data-id"] == id}.find(".button", :text => /(Delete|Löschen)/).click
+      sleep(0.6)
     end
   end
 end
