@@ -43,6 +43,7 @@ Leihs::Application.routes.draw do
     delete "order_lines/:line_id", :to => "order_lines#destroy"
     delete "order/remove_lines", :to => "orders#remove_lines"
     get "order/timed_out", :to => "orders#timed_out"
+    post "order/delete_unavailables", :to => "orders#delete_unavailables"
     get "orders", :to => "orders#index", :as => "orders"
 
     get "returns", :to => "returns#index", :as => "returns"

@@ -28,8 +28,7 @@ end
 When /^I delete the seleted lines$/ do
   page.execute_script('$("#selection_actions .multibutton .button").show()')
   find("#selection_actions .multibutton .button", :text => /(Delete|Löschen)/i).click
-  wait_until { all(".loading", :visible => true).size == 0 }
-  sleep(0.5)
+  step "ensure there are no active requests"
 end
 
 Then /^these lines are deleted$/ do

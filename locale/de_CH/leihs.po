@@ -2318,3 +2318,9 @@ msgstr "Suche nach '%s'"
 
 msgid "Your order has been successfully submitted, but is NOT YET APPROVED."
 msgstr "Ihre Bestellungen wurden abgeschickt. Sie ist allerdings NOCH NICHT GENEHMIGT."
+
+msgid "Continue with available models only"
+msgstr "Mit den verfügbaren Modellen weiterfahren"
+
+msgid "Your order has been modified. All reservations are now available."
+msgstr "Ihre Bestellung wurde angepasst. Alle Reservationen sind nun verfügbar."

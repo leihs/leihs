@@ -13,6 +13,10 @@ Dann(/^ich sehe eine Information, dass die Geräte nicht mehr reserviert sind$/)
   page.should have_content _("Your order is older than %d minutes, the items are not reserved any more!") % Order::TIMEOUT_MINUTES
 end
 
+Dann(/^ich sehe eine Information, dass alle Geräte wieder verfügbar sind$/) do
+  page.should have_content _("Your order has been modified. All reservations are now available.")
+end
+
 #########################################################################
 
 Dann(/^sehe ich meine Bestellung$/) do
@@ -107,8 +111,13 @@ Wenn(/^ein Modell nicht verfügbar ist$/) do
   @current_user.get_current_order.lines.any?{|l| not l.available?}.should be_true
 end
 
-Wenn(/^ich auf 'Diese Bestellung fortsetzen' drücke$/) do
-  find(".button", :text => _("Continue this order")).click
+Wenn(/^ich auf "(.*?)" drücke$/) do |arg1|
+  case arg1
+    when "Diese Bestellung fortsetzen"
+      find(".button", :text => _("Continue this order")).click
+    when "Mit den verfügbaren Modellen weiterfahren"
+      find(".dropdown-item", :text => _("Continue with available models only")).click
+  end
 end
 
 Dann(/^ich erhalte ich einen Fehler$/) do
@@ -118,8 +127,7 @@ end
 #########################################################################
 
 Angenommen(/^die letzte Aktivität auf meiner Bestellung ist mehr als (\d+) minuten her$/) do |minutes|
-  @order = @current_user.get_current_order
-  @order.update_attributes(updated_at: Time.now - (minutes.to_i+1).minutes)
+  @current_user.get_current_order.update_attributes(updated_at: Time.now - (minutes.to_i+1).minutes)
 end
 
 Wenn(/^ich die Seite der Hauptkategorien besuche$/) do
@@ -128,4 +136,8 @@ end
 
 Dann(/^lande ich auf der Bestellung\-Abgelaufen\-Seite$/) do
   current_path.should == borrow_order_timed_out_path
+end
+
+When(/^werden die nicht verfügbaren Modelle aus der Bestellung gelöscht$/) do
+  @current_user.get_current_order.reload.lines.all? {|l| l.available? }.should be_true
 end

@@ -41,7 +41,7 @@ Funktionalität: Timeout Page
 
   Szenario: In Bestellung übernehmen nicht möglich
     Wenn ein Modell nicht verfügbar ist
-    Und ich auf 'Diese Bestellung fortsetzen' drücke
+    Und ich auf "Diese Bestellung fortsetzen" drücke
     Dann lande ich wieder auf der Timeout Page
     Und ich erhalte ich einen Fehler
 
@@ -50,3 +50,10 @@ Funktionalität: Timeout Page
     Dann werden die Modelle meiner Bestellung freigegeben
     Und wird die Bestellung des Benutzers gelöscht
     Und ich lande auf der Seite der Hauptkategorien
+
+  Szenario: Nur verfügbare Modelle aus Bestellung übernehmen
+    Wenn ein Modell nicht verfügbar ist
+    Und ich auf "Mit den verfügbaren Modellen weiterfahren" drücke
+    Dann werden die nicht verfügbaren Modelle aus der Bestellung gelöscht
+    Und ich lande auf der Seite der Bestellübersicht
+    Und ich sehe eine Information, dass alle Geräte wieder verfügbar sind

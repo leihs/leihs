@@ -16,6 +16,7 @@ Funktionalität: Verfügbarkeit
     Wenn ich die Bestellübersicht öffne
     Und ich die Bestellung abschliesse
     Dann wird die Bestellung nicht abgeschlossen
+    Und ich lande auf der Seite der Bestellübersicht
     Und ich erhalte eine Fehlermeldung
 
   Szenario: Blockieren der Modelle

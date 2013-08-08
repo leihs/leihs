@@ -44,7 +44,7 @@ Funktionalität: Vorlagen
     Dann kann ich im Prozess weiterfahren und alle Modelle gesamthaft zu einer Bestellung hinzufügen
 
   @upcoming
-  Szenario: Nur verfügbarben Modelle aus Vorlage in Bestellung übernehmen
+  Szenario: Nur verfügbare Modelle aus Vorlage in Bestellung übernehmen
     Angenommen ich sehe die Verfügbarkeit einer Vorlage
     Und einige Modelle sind nicht verfügbar
     Dann kann ich diejenigen Modelle, die verfügbar sind, gesamthaft einer Bestellung hinzufügen
