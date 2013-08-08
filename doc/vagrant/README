@@ -14,6 +14,13 @@ You need VirtualBox to use this machine:
 https://www.virtualbox.org/
 
 
+You also need to install Vagrant from here:
+
+http://vagrantup.com
+
+DO NOT USE RUBY GEM OF VAGRANT! It is outdated.
+
+
 ### Starting the Vagrant machine
 
 In the leihs source directory:
