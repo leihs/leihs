@@ -54,17 +54,17 @@
   &:not([class*='text-align'])
     text-align: right
 
-  &:not(.line-actions)
+  &:not(.line-actions):not([class*='font-size'])
     font-size: $font-size-xs
 
-  &:first-child
+  &:first-child:not([class*='text-align'])
     text-align: left
 
   &:last-child:not([class*='padding'])
     padding-right: $space-s
 
 .line-info
-  height: 97%
+  height: 98%
   left: 0
   position: absolute
   top: 0
@@ -73,5 +73,5 @@
   &.red
     background: $red
 
-  &+.line-col
+  &+.line-col:not([class*='text-align'])
     text-align: left

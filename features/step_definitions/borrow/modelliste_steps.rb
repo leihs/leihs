@@ -117,7 +117,7 @@ Dann(/^kann man nicht alle Geräteparks in der Geräteparkauswahl abwählen$/) d
   page.execute_script %Q($("#ip-selector").trigger("mouseenter"))
   inventory_pool_ids = all("#ip-selector .dropdown-item[data-id]").map{|item| item["data-id"]}
   inventory_pool_ids.each do |ip_id|
-    wait_until{ find("#ip-selector .dropdown-item[data-id='#{ip_id}']") }
+    wait_until { find("#ip-selector .dropdown .dropdown-item", :visible => true) }
     find("#ip-selector .dropdown-item[data-id='#{ip_id}']").click
   end
   wait_until{find("#ip-selector .dropdown-item input", checked: true)}

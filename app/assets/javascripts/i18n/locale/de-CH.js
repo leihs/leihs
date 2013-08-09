@@ -2936,9 +2936,9 @@ window.i18n.locale_data = {
          null,
          "Diese Bestellung fortsetzen"
       ],
-      "Please solve the conflicts for all highlighted lines in order to continue": [
+      "Please solve the conflicts for all highlighted lines in order to continue.": [
          null,
-         "Um fortzufahren, beheben Sie bitte die Konflikte der hervorgehobenen Einträge"
+         "Um fortzufahren, beheben Sie bitte die Konflikte der hervorgehobenen Einträge."
       ],
       "You have permission to access the following inventory pool": [
          "You have permission to access the following inventory pools",
@@ -2968,6 +2968,46 @@ window.i18n.locale_data = {
       "Your order has been successfully submitted, but is NOT YET APPROVED.": [
          null,
          "Ihre Bestellungen wurden abgeschickt. Sie ist allerdings NOCH NICHT GENEHMIGT."
+      ],
+      "Borrow template": [
+         null,
+         "Vorlage bestellen"
+      ],
+      "Please select a template.": [
+         null,
+         "Bitte wählen Sie eine Vorlage."
+      ],
+      "Please adapt the specific quantities to fit your needs.": [
+         null,
+         "Bitte passen Sie die jeweils benötigte Anzahl der folgenden Einträge an."
+      ],
+      "Insert 0 for the entries you dont need.": [
+         null,
+         "Setzen Sie die Anzahl auf 0, für die Einträge die Sie nicht benötigen."
+      ],
+      "The highlighted entries are not accomplishable for the intended quantity.": [
+         null,
+         "Die markierten Einträge sind nicht erfüllbar für die vorgesehene Anzahl."
+      ],
+      "Please contact the concerned inventory pool.": [
+         null,
+         "Bitte kontaktieren Sie den betroffenen Gerätepark."
+      ],
+      "Continue": [
+         null,
+         "Fortfahren"
+      ],
+      "Availability": [
+         null,
+         "Verfügbarkeit"
+      ],
+      "Delete entry": [
+         null,
+         "Eintrag löschen"
+      ],
+      "%s will be removed from the template and not been added to your order.": [
+         null,
+         "%s wird aus der Vorlage entfernt und nicht zu Ihrer Bestellung hinzugefügt."
       ]
    }
 }

@@ -1,0 +1,64 @@
+:ruby
+
+  model = @models.detect{|m| m.id == line[:model_id]}
+
+.row.line{:"data-model_link_id" => line[:model_link_id]}
+
+  %input{:type => :hidden, :name => "lines[][model_id]", :value => line[:model_id]}
+  %input{:type => :hidden, :name => "lines[][quantity]", :value => line[:quantity]}
+  %input{:type => :hidden, :name => "lines[][start_date]", :value => line[:start_date]}
+  %input{:type => :hidden, :name => "lines[][end_date]", :value => line[:end_date]}
+  %input{:type => :hidden, :name => "lines[][inventory_pool_id]", :value => line[:inventory_pool_id]}
+
+  - if line.has_key?(:available) and not line[:available]
+    .line-info.red{title: _("Not available")}
+
+  .line-col.col1of9.padding-left-s.text-align-center
+
+    %img.max-height-xxs-alt.max-width-xs{src: model_image_thumb_path(model)}
+
+  .line-col.col5of9.text-align-left
+
+    .col1of10.text-align-right.padding-right-s
+      = line[:quantity]
+      x
+
+    %strong.col6of10.text-ellipsis{:title => "#{model.name}"}= model.name
+
+    %strong.col2of10.text-ellipsis.padding-left-m{:title => "#{model.manufacturer}"}= model.manufacturer
+
+  .line-col.col1of9.text-align-left
+    = interval(line[:start_date], line[:end_date])
+    = _("until")
+    = short_date(line[:end_date])
+
+  .line-col.line-actions.col2of9
+
+    - if line[:unborrowable]
+
+      %button.button.red{:"data-destroy-template-line" => true}
+        %i.icon-trash
+        = _("Delete")
+
+    - else
+
+      .multibutton
+
+        %button.button.white{:"data-change-template-line" => true,
+                             :"data-model-id" => line[:model_id],
+                             :"data-quantity" => line[:quantity],
+                             :"data-start-date" => line[:start_date],
+                             :"data-end-date" => line[:end_date]}
+          %i.icon-calendar
+          = _("Change")
+
+        .dropdown-holder.inline-block
+
+          .button.white.dropdown-toggle
+            %span.arrow.down
+
+          .dropdown.right
+
+            %a.dropdown-item.red{:"data-destroy-template-line" => true}
+              %i.icon-trash
+              = _("Delete")

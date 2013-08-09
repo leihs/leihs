@@ -2222,7 +2222,7 @@ msgstr ""
 msgid "Continue this order"
 msgstr ""
 
-msgid "Please solve the conflicts for all highlighted lines in order to continue"
+msgid "Please solve the conflicts for all highlighted lines in order to continue."
 msgstr ""
 
 msgid "You have permission to access the following inventory pool"
@@ -2252,4 +2252,46 @@ msgid "Continue with available models only"
 msgstr ""
 
 msgid "Your order has been modified. All reservations are now available."
+msgstr ""
+
+msgid "Borrow template"
+msgstr ""
+
+msgid "Please select a template."
+msgstr ""
+
+msgid "Please adapt the specific quantities to fit your needs."
+msgstr ""
+
+msgid "Insert 0 for the entries you dont need."
+msgstr ""
+
+msgid "The highlighted entries are not accomplishable for the intended quantity."
+msgstr ""
+
+msgid "Please contact the concerned inventory pool."
+msgstr ""
+
+msgid "Continue"
+msgstr ""
+
+msgid "Availability"
+msgstr ""
+
+msgid "Entry"
+msgstr ""
+
+msgid "Delete entry"
+msgstr ""
+
+msgid "%s will be removed from the template and not been added to your order."
+msgstr ""
+
+msgid "The order will be discarded."
+msgstr ""
+
+msgid "This entry will be removed from the order."
+msgstr ""
+
+msgid "The template has been added to your order."
 msgstr ""

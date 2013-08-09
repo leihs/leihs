@@ -1,0 +1,63 @@
+- content_for :title, @template.label
+
+#template-availability.wrapper.margin-top-m
+
+  %form{:action => borrow_template_add_to_order_path, :method => :post, :autocomplete => :off}
+    = token_tag nil
+  
+    .col4of5
+      = render :partial => 'borrow/tabs', :locals => {:tabs => [[borrow_templates_path , _("Templates")], 
+                                                                [borrow_template_path(@template), @template.label],
+                                                                [request.fullpath, _("Availability")]]}
+
+      .row.content-wrapper.straight-top-left
+
+        - if @grouped_and_merged_lines.values.flatten.any?{|x| not x[:available]}
+          .padding-top-l.padding-left-l.padding-right-l
+            .emboss.red.padding-inset-m.text-align-center
+              %strong.font-size-m
+                = _("Please solve the conflicts for all highlighted lines in order to continue.")
+
+        #template-lines
+          - @grouped_and_merged_lines.each_pair do |k, v|
+
+            .row.padding-inset-l
+              .col1of7
+                %h3.headline-m= short_date(k[:start_date])
+              .col5of7
+                %h2.headline-m= k[:inventory_pool_name]
+
+            .separated-top.padding-bottom-l
+              = render :partial => "borrow/templates/availability/line", :collection => v, as: :line
+
+        .row.emboss.padding-inset-l.separated-top
+          
+          .col1of2
+          .col1of2.text-align-right
+            .multibutton
+              %button.button.green{:type => :submit}
+                = _("Add to order")
+              .dropdown-holder.inline-block
+                .button.green.dropdown-toggle
+                  %span.arrow.down
+                .dropdown.right.width-m-alt
+                  %button.dropdown-item.text-ellipsis{:type => :submit, :name => "force_continue", :value => "true"}
+                    = _("Continue with available models only")
+
+    .col1of5= render :partial => "borrow/current_order_basket"
+
+:coffeescript
+
+  for model in #{@models.to_json}
+    App.Model.records[model.id] = new App.Model model
+
+  for ip in #{current_user.inventory_pools.to_json}
+    App.InventoryPool.records[ip.id] = new App.InventoryPool ip
+
+  App.Template.records[#{@template.id}] = new App.Template #{@template.to_json}
+
+  App.TemplateLine.create line for line in #{@lines.to_json}
+
+  jQuery ->
+    new App.Borrow.TemplateAvailabilityController
+      el: $("#template-availability")

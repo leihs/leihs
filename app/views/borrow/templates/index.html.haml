@@ -1,0 +1,17 @@
+- content_for :title, _("Templates")
+
+.wrapper.margin-top-m
+
+  .col4of5
+    = render :partial => 'borrow/tabs', :locals => {:tabs => [[request.fullpath , _("Templates")]]}
+
+    .row.content-wrapper.straight-top-left
+
+      .padding-inset-l
+        .emboss.padding-inset-m.text-align-center
+          %strong.font-size-m= _("Please select a template.")
+
+      .separated-top
+        = render :partial => "borrow/templates/index/line", :collection => @templates, :as => :template
+
+  .col1of5= render :partial => "borrow/current_order_basket"

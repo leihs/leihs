@@ -1,0 +1,24 @@
+%a.row.line.height-xs.focus-hover-thin{:href => borrow_template_path(template.id)}
+
+  .line-col.col2of7.text-align-left
+    %strong.col1of1.text-ellipsis{:title => template.name}= template.name
+
+  .line-col.col5of7
+
+    .row
+
+      .col1of5.text-align-center
+        - if template.models[0]
+          %img.max-height-xxs-alt.max-width-xs.margin-right-xs{src: model_image_thumb_path(template.models[0].id)}
+      .col1of5.text-align-center
+        - if template.models[1]
+          %img.max-height-xxs-alt.max-width-xs.margin-right-xs{src: model_image_thumb_path(template.models[1].id)}
+      .col1of5.text-align-center
+        - if template.models[2]
+          %img.max-height-xxs-alt.max-width-xs{src: model_image_thumb_path(template.models[2].id)}
+      .col1of5.text-align-center
+        - if template.models[3]
+          %img.max-height-xxs-alt.max-width-xs{src: model_image_thumb_path(template.models[3].id)}
+      .col1of5.text-align-center
+        - if template.models[4]
+          %img.max-height-xxs-alt.max-width-xs{src: model_image_thumb_path(template.models[4].id)}

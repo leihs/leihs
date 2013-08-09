@@ -1,0 +1,27 @@
+.row.line.height-xs
+
+  %input{:type => :hidden, :name => "lines[][model_id]", :value => line.model.id}
+
+  - if @unaccomplishable_models.include?(line.model)
+    .line-info.red{title: _("Not available")}
+
+  .line-col.col1of6.padding-left-l.font-size-s
+
+    .row
+      .col3of5
+        %input.width-full.text-align-center{:type => :number, :max => line.model.total_borrowable_items_for_user(current_user), :min => 0, :value => line.quantity, :name => "lines[][quantity]"}
+
+      .col2of5.font-size-m.padding-top-s.text-align-left.padding-left-xs
+        = "/"
+        = line.model.total_borrowable_items_for_user(current_user)
+
+  .line-col.col1of6.text-align-left.text-align-center
+
+    %img.max-height-xxs-alt.max-width-xs{src: model_image_thumb_path(line.model.id)}
+
+  .line-col.col4of6.text-align-left
+
+    %strong.col6of10.text-ellipsis{:title => "#{line.model.name}"}= line.model.name
+
+    %strong.col4of10.text-ellipsis.padding-left-m{:title => "#{line.model.manufacturer}"}= line.model.manufacturer
+

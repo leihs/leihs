@@ -1,0 +1,69 @@
+- content_for :title, @template.label
+
+#template-show.wrapper.margin-top-m
+
+  %form{:action => borrow_template_availability_path, :method => :post, :autocomplete => :off}
+    = token_tag nil
+  
+    .col4of5
+      = render :partial => 'borrow/tabs', :locals => {:tabs => [[borrow_templates_path , _("Templates")], [request.fullpath, @template.label]]}
+
+      .row.content-wrapper.straight-top-left
+
+        .padding-inset-l
+          .emboss.padding-inset-m.text-align-center
+            %strong.font-size-m
+              = _("Please adapt the specific quantities to fit your needs.")
+              %br
+              = _("Insert 0 for the entries you dont need.")
+
+        - unless @unaccomplishable_models.empty?
+
+          .padding-left-l.padding-right-l.padding-bottom-l
+            .emboss.red.padding-inset-m.text-align-center
+              %strong.font-size-m
+                = _("The highlighted entries are not accomplishable for the intended quantity.")
+                %br
+                = _("Please contact the concerned inventory pool.")
+
+        .separated-top
+          = render :partial => "borrow/templates/show/line", :collection => @model_links, as: :line
+
+        .emboss.padding-inset-l.separated-top.margin-top-l
+
+          .row
+            .col4of9
+              %h3.headline-s.padding-bottom-s
+                = _("Start date")
+            .col1of9
+            .col4of9
+              %h3.headline-s.padding-bottom-s
+                = _("End date")
+
+          .row
+            .col4of9
+              %label.row{:for => :start_date}
+                %input{:type => :hidden, :name => :start_date, :value => Date.today}
+                %input.width-full.has-addon{:type => :text, :id => "start_date"}
+                %span.addon
+                  %i.icon-calendar
+            .col1of9
+            .col4of9
+              %label.row{:for => :end_date}
+                %input{:type => :hidden, :name => :end_date, :value => Date.tomorrow}
+                %input.width-full.has-addon{:type => :text, :id => "end_date"}
+                %span.addon
+                  %i.icon-calendar
+          .row.padding-top-l
+            .col1of2
+            .col1of2.text-align-right
+              %button.button.green{:type => :submit}
+                = _("Continue")
+
+    .col1of5= render :partial => "borrow/current_order_basket"
+
+:coffeescript
+  
+  jQuery ->
+    new App.Borrow.TemplatesShowController
+      el: $("#template-show")

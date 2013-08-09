@@ -1,0 +1,11 @@
+.row.padding-inset-l
+  .col1of7
+    %h3.headline-m {{localize start_date/}}
+  .col5of7
+    {{if inventory_pool}}
+    %h2.headline-m {{>inventory_pool.name}}
+    {{/if}}
+
+.separated-top.padding-bottom-l
+  
+  {{partial "borrow/views/templates/availability/line" lines/}}

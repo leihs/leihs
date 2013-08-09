@@ -30,6 +30,13 @@ class Template < ModelGroup
   def total_quantity
     model_links.sum(:quantity)
   end
+
+  def unaccomplishable_models(user, quantity = nil)
+    models.keep_if do |model|
+      quantity ||= model_links.detect{|l| l.model_id == model.id}.quantity
+      not inventory_pools.any? {|ip| model.total_borrowable_items_for_user(user, ip) >= quantity}
+    end
+  end
   
   
 end

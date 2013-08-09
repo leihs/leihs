@@ -47,8 +47,15 @@ Leihs::Application.routes.draw do
     get "orders", :to => "orders#index", :as => "orders"
 
     get "returns", :to => "returns#index", :as => "returns"
+
     post 'search', :to => 'search#search', :as => "search"
     get 'search/:search_term', :to => 'search#results', :as => "search_results"
+
+    get 'templates', :to => 'templates#index', :as => "templates"
+    get 'templates/:id', :to => 'templates#show', :as => "template"
+    post 'templates/:id/availability', :to => 'templates#availability', :as => "template_availability"
+    post 'templates/:id/add_to_order', :to => 'templates#add_to_order', :as => "template_add_to_order"
+
     get "to_pick_up", :to => "to_pick_up#index", :as => "to_pick_up"
     get "workdays", :to => "workdays#index", :as => "workdays"
     get "user", :to => "users#current", :as => "current_user"

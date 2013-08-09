@@ -43,7 +43,7 @@
         .dropdown.right
 
           %a.dropdown-item.red{:href => borrow_order_remove_lines_path(:line_ids => line[:line_ids]),
-             :"data-confirm" => _("Are you sure?"),
+             :"data-confirm" => _("This entry will be removed from the order."),
              :"data-method" => :delete}
             %i.icon-trash
             = _("Delete")

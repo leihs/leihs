@@ -9,7 +9,7 @@
       .padding-inset-m
         .emboss.padding-inset-m.text-align-center
           %strong.font-size-m
-            = "#{_("Please solve the conflicts for all highlighted lines in order to continue")}."
+            = _("Please solve the conflicts for all highlighted lines in order to continue.")
 
     #current-order-lines
       - @grouped_and_merged_lines.each_pair do |k, v|
@@ -28,33 +28,25 @@
       - if current_order.timeout?
         .row
           .col1of2
-            = link_to borrow_order_remove_path, method: :delete, data: { confirm: _("Are you sure?") }, class: "button red" do
+            = link_to borrow_order_remove_path, method: :delete, data: { confirm: _("The order will be discarded.") }, class: "button red" do
               %i.icon-trash
               = _("Delete %s") % _("Order")
 
           .col1of2.text-align-right
-            .multibutton
-              = link_to borrow_root_path, class: "button white" do
-                = _("Continue this order")
-              .dropdown-holder.inline-block
-                .button.white.dropdown-toggle
-                  %span.arrow.down
-                .dropdown.right
-                  = link_to borrow_order_delete_unavailables_path, class: "dropdown-item", method: :post do
-                    = _("Continue with available models only")
-
+            = link_to borrow_root_path, class: "button white" do
+              = _("Continue this order")
 
       - else
         = form_tag borrow_order_path do
           .row
-            %h3.headline-m.padding-bottom-m
+            %h3.headline-s.padding-bottom-m
               = _("Purpose of the order")
               *
             %textarea.padding-inset-s.width-full{name: "purpose", placeholder: _("Specification of the purpose is required")}
               = current_order.purpose
           .row.padding-top-l
             .col1of2
-              = link_to borrow_order_remove_path, method: :delete, data: { confirm: _("Are you sure?") }, class: "button red" do
+              = link_to borrow_order_remove_path, method: :delete, data: { confirm: _("The order will be discarded.") }, class: "button red" do
                 %i.icon-trash
                 = _("Delete %s") % _("Order")
             .col1of2.text-align-right

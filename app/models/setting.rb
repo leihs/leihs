@@ -18,18 +18,20 @@ class Setting < ActiveRecord::Base
   def self.initialize_constants
     singleton = first # fetch the singleton from the database
     return unless singleton
-    [:smtp_address,
-     :smtp_port,
-     :smtp_domain,
-     :local_currency_string,
-     :contract_terms,
-     :contract_lending_party_string,
-     :email_signature,
-     :default_email,
-     :deliver_order_notifications,
-     :user_image_url,
-     :per_page].each do |k|
-      Setting.const_set k.to_s.upcase, singleton.send(k)
+    silence_warnings do
+      [:smtp_address,
+       :smtp_port,
+       :smtp_domain,
+       :local_currency_string,
+       :contract_terms,
+       :contract_lending_party_string,
+       :email_signature,
+       :default_email,
+       :deliver_order_notifications,
+       :user_image_url,
+       :per_page].each do |k|
+        Setting.const_set k.to_s.upcase, singleton.send(k)
+      end
     end
   end
 

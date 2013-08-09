@@ -279,21 +279,7 @@ class BorrowBookingCalendar
   addClosedDayAlert: (el)=>
     el = $(el)
     el.addClass "closed"
-    if @firstRenderDone
-      content = App.Render "views/booking_calendar/closed_day_alert"
-      new App.Tooltip
-        el: el
-        content: content
-        delay: 0
-        trigger: false
-        onlyOne: true
-      el.tooltipster "enable"
-      el.tooltipster "show"
-      el.tooltipster "disable"
-      _.delay => 
-        if el.data("tooltipster")? and el.data("tooltipster").length and el.data("plugin_tooltipster").options.content == content and not el.data("tooltipster").hasClass("tooltipster-dying")
-          el.tooltipster("enable").tooltipster "destroy"
-      , 5000
+    @el.trigger "closed-day-alert", el
 
   setOtherMonth: =>
     for day_el in @fullcalendar.find(".fc-other-month")

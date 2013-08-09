@@ -121,7 +121,7 @@ Wenn(/^ich auf "(.*?)" drücke$/) do |arg1|
 end
 
 Dann(/^ich erhalte ich einen Fehler$/) do
-  page.should have_content _("Please solve the conflicts for all highlighted lines in order to continue")
+  page.should have_content _("Please solve the conflicts for all highlighted lines in order to continue.")
 end
 
 #########################################################################

@@ -66,9 +66,9 @@ Wenn(/^ich einen Eintrag lösche$/) do
   lines = all(".line")
   line = lines.sample
   line.find(".dropdown-holder").click
-  a = line.find("a[data-method='delete']")
+  wait_until{line.find("a[data-method='delete']")}
   @before_max_available = before_max_available(@current_user.get_current_order)
-  a.click
+  line.find("a[data-method='delete']").click
   step "werde ich gefragt ob ich die Bestellung wirklich löschen möchte"
 end
 

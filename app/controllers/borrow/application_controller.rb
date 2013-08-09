@@ -8,6 +8,7 @@ class Borrow::ApplicationController < ApplicationController
     current_user_categories = current_user.all_categories
     @categories = (current_user_categories & Category.roots).sort
     @child_categories = @categories.map {|c| (current_user_categories & c.children).sort}
+    @any_template = current_user.templates.any?
   end
 
   def current_order

@@ -19,7 +19,7 @@ class window.App.Borrow.OrderLinesCreateController extends window.App.Borrow.Ord
       @endDateEl.val moment().add("days", 1).format("YYYY-MM-DD")
 
   # @override
-  synchronize: => 
+  store: => 
     ajax = @createOrderLine parseInt(@quantityEl.val())
     ajax.done @done
     ajax.fail @fail
