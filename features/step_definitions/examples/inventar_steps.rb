@@ -59,10 +59,9 @@ Dann /^hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind$/ do |
       when "Ausleihbar"
         tab = section_tabs.find(:xpath, "a[contains(@data-tab,'{\"borrowable\":false}')]")
         tab.click
-        wait_until(15) { all(".loading", :visible => true).empty? and not all(".model.line").empty? }
-        all(".model.line").each do |model_el|
-          model_el.find(".toggle .text").click if model_el.all(".toggle.open").empty?
-          model_el.all(".item.line").each do |item_el|
+        all(".model.line").each_with_index do |model_el, i|
+          all(".model.line")[i].find(".toggle .text").click if model_el.all(".toggle.open").empty?
+          all(".model.line")[i].all(".item.line").each do |item_el|
             items.borrowable
             .find_by_inventory_code(item_el.find(".inventory_code").text).should_not be_nil
           end
@@ -531,7 +530,8 @@ Dann /^kann ich ein einzelnes Zubehör löschen, wenn es für keinen anderen Poo
   accessory_to_delete = @model.accessories.detect{|x| x.inventory_pools.count <= 1}
   find(".field", :text => _("Accessories")).find(".field-inline-entry", :text => accessory_to_delete.name).find("label", :text => _("Delete")).click
   step 'ich speichere die Informationen'
-  wait_until{all(".loading", :visible => true).size == 0}
+  step 'ensure there are no active requests'
+  page.has_content? _("List of Models")
   lambda{accessory_to_delete.reload}.should raise_error(ActiveRecord::RecordNotFound)
 end
 
