@@ -85,10 +85,11 @@ Wenn(/^alle Angaben die ich im Kalender mache gültig sind$/) do
   step "ich setze das Startdatum im Kalendar auf '#{I18n::l(@start_date)}'"
   step "ich setze das Enddatum im Kalendar auf '#{I18n::l(@end_date)}'"
   find("#submit-booking-calendar").click
-  wait_until {all("#booking-calendar").empty?}
+  page.has_no_selector? "#booking-calendar"
 end
 
 Dann(/^ist das Modell mit Start- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügt worden$/) do
+  page.has_selector? "#current-order-lines .line"
   find("#current-order-lines").find(".line", :text => "#{@quantity}x #{@model.name}")
   @current_user.get_current_order.lines.detect{|line| line.model == @model}.should be
 end
