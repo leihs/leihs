@@ -90,7 +90,7 @@ end
 
 Dann(/^ist das Modell mit Start- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügt worden$/) do
   page.has_selector? "#current-order-lines .line"
-  find("#current-order-lines").find(".line", :text => "#{@quantity}x #{@model.name}")
+  find("#current-order-lines .line", :text => "#{@quantity}x #{@model.name}")
   @current_user.get_current_order.lines.detect{|line| line.model == @model}.should be
 end
 
