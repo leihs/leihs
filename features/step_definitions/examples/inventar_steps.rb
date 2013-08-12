@@ -592,8 +592,8 @@ Dann /^kann Attachments auch wieder entfernen$/ do
 end
 
 Dann /^sind die Attachments gespeichert$/ do
-  wait_until {all(".loading", :visible => true).empty?}
-  @model.attachments.where(:filename => @attachment_filename).empty?.should be_false
+  step "ensure there are no active requests"
+  wait_until {@model.attachments.where(:filename => @attachment_filename).empty? == false}
 end
 
 Dann /^sieht man keine Modelle, denen keine Gegenstänge zugewiesen unter keinem der vorhandenen Reiter$/ do
