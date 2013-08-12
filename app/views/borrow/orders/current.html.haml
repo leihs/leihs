@@ -7,7 +7,7 @@
   .row.content-wrapper.straight-top-left
     - if current_order.timeout? and @grouped_and_merged_lines.values.flatten.any?{|x| not x[:available?]}
       .padding-inset-m
-        .emboss.padding-inset-m.text-align-center
+        .emboss.red.padding-inset-m.text-align-center
           %strong.font-size-m
             = _("Please solve the conflicts for all highlighted lines in order to continue.")
 
