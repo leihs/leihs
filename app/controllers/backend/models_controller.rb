@@ -31,7 +31,7 @@ class Backend::ModelsController < Backend::BackendController
             sort_attr = params[:sort_attr] || 'name',
             sort_dir = params[:sort_dir] || 'ASC',
             page = (params[:page] || 1).to_i,
-            per_page = (params[:per_page] || Setting::PER_PAGE).to_i,
+            per_page = (params[:per_page] || PER_PAGE).to_i,
             category_id = params[:category_id].try(:to_i),
             for_current_inventory_pool = params[:for_current_inventory_pool],
             with = params[:with] ? params[:with].deep_symbolize_keys : {} )

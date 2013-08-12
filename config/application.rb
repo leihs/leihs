@@ -95,6 +95,7 @@ ActionMailer::Base.default :charset => 'utf-8'
 
 ######################################################
 # Settings
+# TODO remove these settings
 
 # This currency string is used on value lists. leihs itself has no capability
 # to deal with currencies, any numbers used as values for items are just "n pieces of currency"
@@ -123,6 +124,9 @@ DEFAULT_EMAIL = 'sender@example.com'
 DELIVER_ORDER_NOTIFICATIONS = false
 
 USER_IMAGE_URL = "http://www.zhdk.ch/?person/foto&width=100&compressionlevel=0&id={:id}"
+
+######################################################
+# NOTE do not remove this setting
 
 PER_PAGE = 20
 

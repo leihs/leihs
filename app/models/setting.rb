@@ -8,10 +8,9 @@ class Setting < ActiveRecord::Base
                         :contract_lending_party_string,
                         :email_signature,
                         :default_email,
-                        :user_image_url,
-                        :per_page
+                        :user_image_url
 
-  validates_numericality_of :smtp_port, :per_page, :greater_than => 0
+  validates_numericality_of :smtp_port, :greater_than => 0
 
   validates_format_of :default_email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
 
@@ -28,8 +27,7 @@ class Setting < ActiveRecord::Base
        :email_signature,
        :default_email,
        :deliver_order_notifications,
-       :user_image_url,
-       :per_page].each do |k|
+       :user_image_url].each do |k|
         Setting.const_set k.to_s.upcase, singleton.send(k)
       end
     end

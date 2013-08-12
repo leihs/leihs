@@ -24,16 +24,12 @@
               .input
                 - case Setting.columns_hash[k].type
                   - when :string
-                    -# %input{type: "text", name: "setting[#{k}]", value: v}
                     = f.text_field k
                   - when :text
-                    -# %textarea{name: "setting[#{k}]", rows: 8}= v
                     = f.text_area k, rows: 8
                   - when :integer
-                    -# %input{type: "number", name: "setting[#{k}]", value: v, min: 0}
                     = f.number_field k
                   - when :boolean
-                    -# %input{type: "checkbox", name: "setting[#{k}]", value: v}
                     = f.check_box k
 
     .clear

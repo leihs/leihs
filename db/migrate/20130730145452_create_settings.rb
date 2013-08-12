@@ -13,7 +13,6 @@ class CreateSettings < ActiveRecord::Migration
       t.string  :default_email
       t.boolean :deliver_order_notifications
       t.string  :user_image_url
-      t.integer :per_page
     end
 
     Setting.create(
@@ -26,8 +25,7 @@ class CreateSettings < ActiveRecord::Migration
       :email_signature => EMAIL_SIGNATURE,
       :default_email => DEFAULT_EMAIL,
       :deliver_order_notifications => DELIVER_ORDER_NOTIFICATIONS,
-      :user_image_url => USER_IMAGE_URL,
-      :per_page => PER_PAGE
+      :user_image_url => USER_IMAGE_URL
     )
 
   end
