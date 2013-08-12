@@ -33,8 +33,8 @@ class Template < ModelGroup
 
   def unaccomplishable_models(user, quantity = nil)
     models.keep_if do |model|
-      quantity ||= model_links.detect{|l| l.model_id == model.id}.quantity
-      not inventory_pools.any? {|ip| model.total_borrowable_items_for_user(user, ip) >= quantity}
+      q = quantity || model_links.detect{|l| l.model_id == model.id}.quantity
+      not inventory_pools.any? {|ip| model.total_borrowable_items_for_user(user, ip) >= q}
     end
   end
   
