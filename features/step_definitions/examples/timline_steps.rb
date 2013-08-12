@@ -21,15 +21,13 @@ Dann /^kann ich für jedes sichtbare Model die Timeline anzeigen lassen$/ do
 
   raise "no lines found for this page" if lines.size.zero?
 
-  all(lines, visible: true)[0..5].each_with_index do |line, i|
-    if not all(lines, visible: true)[i].all(".trigger", :visible => true).empty?
-      all(lines, visible: true)[i].find(".trigger").click
-      all(lines, visible: true)[i].find(".button", :text => _("Timeline")).click
-      find(".dialog iframe")
-      wait_until { evaluate_script %Q{ $(".dialog iframe").contents().find("#my_timeline").length; } }
-      find(".dialog .button.close_dialog").click
-      wait_until{ all(".dialog", :visible=>true).size == 0 }
-    end
+  all(lines, visible: true)[0..5].each do |line|
+    line.find(".trigger").click
+    line.find(".button", :text => _("Timeline")).click
+    find(".dialog iframe")
+    wait_until { evaluate_script %Q{ $(".dialog iframe").contents().find("#my_timeline").length; } }
+    find(".dialog .button.close_dialog").click
+    wait_until{ all(".dialog", visible: true).size == 0 }
   end
 end
 
