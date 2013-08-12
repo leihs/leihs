@@ -2057,9 +2057,6 @@ msgstr ""
 msgid "Model saved"
 msgstr ""
 
-msgid "Packages created"
-msgstr ""
-
 msgid "The package is not in stock"
 msgstr ""
 
@@ -2192,9 +2189,6 @@ msgstr ""
 msgid "User|AccessRight|Suspended reason"
 msgstr ""
 
-msgid "Show all search results"
-msgstr ""
-
 msgid "The selected inventory pool is closed on that day"
 msgstr ""
 
@@ -2294,4 +2288,7 @@ msgid "This entry will be removed from the order."
 msgstr ""
 
 msgid "The template has been added to your order."
+msgstr ""
+
+msgid "Settings"
 msgstr ""

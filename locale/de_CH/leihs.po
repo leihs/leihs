@@ -2044,9 +2044,6 @@ msgstr "Grund der Ausmusterung"
 msgid "You can not create a package without any item"
 msgstr "Sie können kein Paket ohne Gegenstände erstellen"
 
-msgid "Packages created"
-msgstr "Pakete wurden angelegt"
-
 msgid "Attention"
 msgstr "Achtung"
 
@@ -2064,9 +2061,6 @@ msgstr "Standard-Vertragsnotiz"
 
 msgid "Print Contracts"
 msgstr "Verträge drucken"
-
-msgid "Inventory pool successfully updated"
-msgstr "Gerätepark erfolgreich gespeichert"
 
 msgid "Basic Information"
 msgstr "Grundinformationen"
@@ -2213,10 +2207,8 @@ msgstr "Geräteparks"
 msgid "Show all search results"
 msgstr "Alle Suchresultate anzeigen"
 
-
 msgid "Show all properties"
 msgstr "Alle Eigenschaften anzeigen"
-
 
 msgid "Show less properties"
 msgstr "Weniger Eigenschaften anzeigen"
@@ -2262,9 +2254,6 @@ msgstr "Vorname"
 
 msgid "User|AccessRight|Suspended reason"
 msgstr "Sperrgrund"
-
-msgid "Show all search results"
-msgstr "Alle Suchresultate anzeigen"
 
 msgid "The selected inventory pool is closed on that day"
 msgstr "Der ausgewählte Gerätepark ist an diesem Tag geschlossen"
@@ -2366,3 +2355,6 @@ msgstr "Der Eintrag wird aus der Bestellung entfernt."
 
 msgid "The template has been added to your order."
 msgstr "Die Vorlage wurde Ihrer Bestellung hinzugefügt."
+
+msgid "Settings"
+msgstr "Einstellungen"
