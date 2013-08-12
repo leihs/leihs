@@ -1840,7 +1840,7 @@ window.i18n.locale_data = {
       ],
       "Inventory pool successfully updated": [
          null,
-         "Gerätepark erfolgreich gespeichert"
+         "Gerätepark erfolgreich aktualisiert"
       ],
       "This is a package containing the following items": [
          null,
@@ -2627,10 +2627,6 @@ window.i18n.locale_data = {
          null,
          "Sie können kein Paket ohne Gegenstände erstellen"
       ],
-      "Packages created": [
-         null,
-         "Pakete erstellt"
-      ],
       "Attention": [
          null,
          "Achtung"
@@ -2719,6 +2715,10 @@ window.i18n.locale_data = {
       "Model saved": [
          null,
          "Modell gespeichert"
+      ],
+      "Packages created": [
+         null,
+         "Pakete erstellt"
       ],
       "The package is not in stock": [
          null,
@@ -2938,7 +2938,7 @@ window.i18n.locale_data = {
       ],
       "Please solve the conflicts for all highlighted lines in order to continue.": [
          null,
-         "Um fortzufahren, beheben Sie bitte die Konflikte der hervorgehobenen Einträge."
+         "Um fortzufahren, beheben Sie bitte die Konflikte der hervorgehobenen Einträge"
       ],
       "You have permission to access the following inventory pool": [
          "You have permission to access the following inventory pools",
@@ -2968,6 +2968,14 @@ window.i18n.locale_data = {
       "Your order has been successfully submitted, but is NOT YET APPROVED.": [
          null,
          "Ihre Bestellungen wurden abgeschickt. Sie ist allerdings NOCH NICHT GENEHMIGT."
+      ],
+      "Continue with available models only": [
+         null,
+         "Mit den verfügbaren Modellen weiterfahren"
+      ],
+      "Your order has been modified. All reservations are now available.": [
+         null,
+         "Ihre Bestellung wurde angepasst. Alle Reservationen sind nun verfügbar."
       ],
       "Borrow template": [
          null,
@@ -3001,6 +3009,10 @@ window.i18n.locale_data = {
          null,
          "Verfügbarkeit"
       ],
+      "Entry": [
+         null,
+         "Eintrag"
+      ],
       "Delete entry": [
          null,
          "Eintrag löschen"
@@ -3008,6 +3020,22 @@ window.i18n.locale_data = {
       "%s will be removed from the template and not been added to your order.": [
          null,
          "%s wird aus der Vorlage entfernt und nicht zu Ihrer Bestellung hinzugefügt."
+      ],
+      "The order will be discarded.": [
+         null,
+         "Die Bestellung wird vollständig verworfen."
+      ],
+      "This entry will be removed from the order.": [
+         null,
+         "Der Eintrag wird aus der Bestellung entfernt."
+      ],
+      "The template has been added to your order.": [
+         null,
+         "Die Vorlage wurde Ihrer Bestellung hinzugefügt."
+      ],
+      "Settings": [
+         null,
+         "Einstellungen"
       ]
    }
 }
