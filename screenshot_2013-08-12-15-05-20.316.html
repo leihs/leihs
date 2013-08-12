@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de-CH"><head>
+<meta charset="utf-8" />
+<title>Kamera &amp;amp; Stativ | leihs</title>
+<link type="text/css" rel="stylesheet" media="screen" href="/assets/application.css" />
+<script type="text/javascript" src="/assets/i18n/locale/de-CH.js"></script>
+<script type="text/javascript" src="/assets/application.js"></script>
+<script type="text/javascript" src="/assets/borrow.js"></script>
+<link type="image/x-icon" rel="shortcut icon" href="/assets/borrow/favicon.ico" />
+
+
+</head>
+<body>
+
+<header class="wrapper padding-top-m"><nav class="topbar">
+<a href="/borrow" class="topbar-logo padding-horizontal-s">leihs</a>
+<ul class="topbar-navigation">
+<li id="topbar-search" class="topbar-item topbar-search separated-left">
+<div id="search">
+<label title="Suche" for="search_term" class="min-height-full width-full">
+<form method="post" class="min-height-full row width-full" autocomplete="off" action="/borrow/search">
+
+<input type="text" placeholder="Suche" name="search_term" id="search_term" class="text-ellipsis round-borders has-addon width-full padding-right-m padding-left-s" />
+<div class="addon transparent padding-right-xs">
+<i class="icon-search icon-size-xxs"></i>
+</div>
+</form>
+</label>
+<div id="search-autocomplete"></div>
+</div>
+<script type="text/javascript">
+  //&lt;![CDATA[
+    (function() {
+  jQuery(function() {
+    return new App.Borrow.SearchTopbarController({
+      el: $("#search")
+    });
+  });
+
+}).call(this);
+
+  //]]&gt;
+</script>
+
+</li>
+<li class="topbar-item separated-left">
+<a href="/borrow/to_pick_up" class="topbar-item-inner">
+<span class="badge">2</span>
+Abzuholen
+</a>
+</li>
+<li class="topbar-item separated-left">
+<a href="/borrow/returns" class="topbar-item-inner">
+<span class="badge">3</span> Rückgaben
+</a>
+</li>
+<li class="topbar-item separated-left">
+<a href="/borrow/orders" class="topbar-item-inner">
+<span class="badge">1</span> Bestellung
+</a>
+</li>
+<li class="topbar-item separated-left">
+<a href="/borrow/inventory_pools" class="topbar-item-inner">Geräteparks</a>
+</li>
+<li class="topbar-item separated-left">
+<a href="/backend" class="topbar-item-inner">Verwalten</a>
+</li>
+<li class="topbar-item separated-left dropdown-holder">
+<a href="/borrow/user" class="topbar-item-inner max-width-s-alt text-ellipsis">
+Normin N.
+<i class="arrow down"></i>
+</a>
+<ul class="dropdown right straight-top">
+<li>
+<a href="/logout" class="dropdown-item">
+<div class="icon-signout"></div>
+Logout
+</a>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<script type="text/javascript">
+  //&lt;![CDATA[
+    (function() {
+  jQuery(function() {
+    return new App.TopBarSearchItem({
+      el: $("#topbar-search")
+    });
+  });
+
+}).call(this);
+
+  //]]&gt;
+</script>
+</header>
+<div class="row"><div id="template-availability" class="wrapper margin-top-m">
+<form method="post" autocomplete="off" action="/borrow/templates/25/add_to_order">
+
+<div class="col4of5">
+<div class="row">
+<nav>
+<ul>
+<li style="z-index: 800; position: relative">
+<a href="/borrow" class="float-left margin-right-xxs navigation-tab-item padding-horizontal-m straight-right">
+<i class="icon-home"></i>
+Start
+<div class="navigation-tab-arrow-border"></div>
+<div class="navigation-tab-arrow"></div>
+</a>
+</li>
+<li style="z-index: 799; position: relative">
+<a href="/borrow/templates" class="float-left margin-right-xxs navigation-tab-item negative-margin-left-xxs-alt padding-horizontal-m padding-left-l straight-left straight-right">
+<span title="Vorlagen" class="max-width-s-alt block text text-ellipsis">
+Vorlagen
+</span>
+<div class="navigation-tab-arrow-border"></div>
+<div class="navigation-tab-arrow"></div>
+</a>
+</li>
+<li style="z-index: 798; position: relative">
+<a href="/borrow/templates/25" class="float-left margin-right-xxs navigation-tab-item negative-margin-left-xxs-alt padding-horizontal-m padding-left-l straight-left straight-right">
+<span title="Kamera &amp; Stativ" class="max-width-s-alt block text text-ellipsis">
+Kamera &amp; Stativ
+</span>
+<div class="navigation-tab-arrow-border"></div>
+<div class="navigation-tab-arrow"></div>
+</a>
+</li>
+<li style="z-index: 797; position: relative">
+<a href="/borrow/templates/25/availability" class="active float-left margin-right-xxs navigation-tab-item negative-margin-left-xxs-alt padding-horizontal-m padding-left-l straight-left">
+<span title="Verfügbarkeit" class="max-width-s-alt block text text-ellipsis">
+Verfügbarkeit
+</span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+
+<div class="row content-wrapper straight-top-left">
+<div id="template-lines">
+<div class="row padding-inset-l">
+<div class="col1of7">
+<h3 class="headline-m">12.08.2013</h3>
+</div>
+<div class="col5of7">
+<h2 class="headline-m">A-Ausleihe</h2>
+</div>
+</div>
+<div class="separated-top padding-bottom-l">
+<div data-model_link_id="71" class="row line">
+<input type="hidden" value="118" name="lines[][model_id]" />
+<input type="hidden" value="1" name="lines[][quantity]" />
+<input type="hidden" value="2013-08-12" name="lines[][start_date]" />
+<input type="hidden" value="2013-08-13" name="lines[][end_date]" />
+<input type="hidden" value="21" name="lines[][inventory_pool_id]" />
+<div class="line-col col1of9 padding-left-s text-align-center">
+<img src="/models/118/image_thumb" class="max-height-xxs-alt max-width-xs" />
+</div>
+<div class="line-col col5of9 text-align-left">
+<div class="col1of10 text-align-right padding-right-s">
+1
+x
+</div>
+<strong title="Kamera Nikon X12" class="col6of10 text-ellipsis">Kamera Nikon X12</strong>
+<strong title="Nikon" class="col2of10 text-ellipsis padding-left-m">Nikon</strong>
+</div>
+<div class="line-col col1of9 text-align-left">
+2 Tage
+bis
+13.08.2013
+</div>
+<div class="line-col line-actions col2of9">
+<div class="multibutton">
+<button data-start-date="2013-08-12" data-quantity="1" data-model-id="118" data-end-date="2013-08-13" data-change-template-line="" class="button white">
+<i class="icon-calendar"></i>
+Ändern
+</button>
+<div class="dropdown-holder inline-block">
+<div class="button white dropdown-toggle">
+<span class="arrow down"></span>
+</div>
+<div class="dropdown right">
+<a data-destroy-template-line="" class="dropdown-item red">
+<i class="icon-trash"></i>
+Löschen
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div data-model_link_id="72" class="row line">
+<input type="hidden" value="120" name="lines[][model_id]" />
+<input type="hidden" value="1" name="lines[][quantity]" />
+<input type="hidden" value="2013-08-12" name="lines[][start_date]" />
+<input type="hidden" value="2013-08-13" name="lines[][end_date]" />
+<input type="hidden" value="21" name="lines[][inventory_pool_id]" />
+<div class="line-col col1of9 padding-left-s text-align-center">
+<img src="/models/120/image_thumb" class="max-height-xxs-alt max-width-xs" />
+</div>
+<div class="line-col col5of9 text-align-left">
+<div class="col1of10 text-align-right padding-right-s">
+1
+x
+</div>
+<strong title="Kamera Stativ" class="col6of10 text-ellipsis">Kamera Stativ</strong>
+<strong title="Feli" class="col2of10 text-ellipsis padding-left-m">Feli</strong>
+</div>
+<div class="line-col col1of9 text-align-left">
+2 Tage
+bis
+13.08.2013
+</div>
+<div class="line-col line-actions col2of9">
+<div class="multibutton">
+<button data-start-date="2013-08-12" data-quantity="1" data-model-id="120" data-end-date="2013-08-13" data-change-template-line="" class="button white">
+<i class="icon-calendar"></i>
+Ändern
+</button>
+<div class="dropdown-holder inline-block">
+<div class="button white dropdown-toggle">
+<span class="arrow down"></span>
+</div>
+<div class="dropdown right">
+<a data-destroy-template-line="" class="dropdown-item red">
+<i class="icon-trash"></i>
+Löschen
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div class="row emboss padding-inset-l separated-top">
+<div class="col1of2"></div>
+<div class="col1of2 text-align-right">
+<div class="multibutton">
+<button type="submit" class="button green">
+Zur Bestellung hinzufügen
+</button>
+<div class="dropdown-holder inline-block">
+<div class="button green dropdown-toggle">
+<span class="arrow down"></span>
+</div>
+<div class="dropdown right width-m-alt">
+<button value="true" type="submit" name="force_continue" class="dropdown-item text-ellipsis">
+Mit den verfügbaren Modellen weiterfahren
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="col1of5"><div id="current-order-basket" class="margin-left-xxs">
+<div class="row">
+<ul>
+<li>
+<a href="/borrow/order" class="navigation-tab-item margin-right-xxs padding-horizontal-m float-left active">
+<i class="icon-shopping-cart"></i>
+<span class="margin-top-s">
+Bestellung
+</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="row content-wrapper straight-top-left padding-top-xs">
+<div id="current-order-lines">
+<div class="padding-horizontal-s padding-bottom-s padding-top-xxs margin-top-xxs">
+<div class="emboss padding-inset-xs">
+<p class="paragraph-s">
+<strong>Nichts ausgewählt</strong>
+</p>
+</div>
+</div>
+</div>
+<div id="order-overview-button" class="hidden padding-inset-xxs">
+<div class="row padding-inset-s">
+<a href="/borrow/order" class="button green min-width-full">Bestellübersicht</a>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+  //&lt;![CDATA[
+    (function() {
+  var model, order_line, _i, _j, _len, _len1, _ref, _ref1,
+    _this = this;
+
+  App.Order.records[6] = new App.Order({
+    "created_at": "2013-08-12T15:05:18+02:00",
+    "delta": true,
+    "id": 6,
+    "inventory_pool_id": null,
+    "purpose": {
+      "description": null,
+      "id": null
+    },
+    "status_const": 1,
+    "updated_at": "2013-08-12T15:05:19+02:00",
+    "user_id": 20
+  });
+
+  App.Order.current = App.Order.find(6);
+
+  _ref = [];
+  for (_i = 0, _len = _ref.length; _i &lt; _len; _i++) {
+    order_line = _ref[_i];
+    App.OrderLine.records[order_line.id] = new App.OrderLine(order_line);
+  }
+
+  _ref1 = [];
+  for (_j = 0, _len1 = _ref1.length; _j &lt; _len1; _j++) {
+    model = _ref1[_j];
+    App.Model.records[model.id] = new App.Model(model);
+  }
+
+  jQuery(function() {
+    return new App.Borrow.CurrentOrderBasketController({
+      el: $("#current-order-basket")
+    });
+  });
+
+}).call(this);
+
+  //]]&gt;
+</script>
+
+</div>
+</form>
+</div>
+<script type="text/javascript">
+  //&lt;![CDATA[
+    (function() {
+  var ip, line, model, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2;
+
+  _ref = [
+    {
+      "created_at": "2013-08-12T15:05:14+02:00",
+      "delta": true,
+      "description": "Super Kamera.",
+      "hand_over_note": "Kamera brauch Akkus!",
+      "id": 118,
+      "info_url": null,
+      "internal_description": "Atque illum maiores qui ut sunt alias dolor dolorem.",
+      "is_package": false,
+      "maintenance_period": 0,
+      "manufacturer": "Nikon",
+      "name": "Kamera Nikon X12",
+      "rental_price": null,
+      "technical_detail": "Et omnis reiciendis enim.",
+      "updated_at": "2013-08-12T15:05:14+02:00"
+    }, {
+      "created_at": "2013-08-12T15:05:14+02:00",
+      "delta": true,
+      "description": "Stabiles Kamera Stativ",
+      "hand_over_note": "Stativ muss mit Stativtasche ausgeh\u00e4ndigt werden.",
+      "id": 120,
+      "info_url": null,
+      "internal_description": "Corrupti voluptates eaque tempora.",
+      "is_package": false,
+      "maintenance_period": 0,
+      "manufacturer": "Feli",
+      "name": "Kamera Stativ",
+      "rental_price": null,
+      "technical_detail": "Veniam placeat incidunt exercitationem maiores iste nulla.",
+      "updated_at": "2013-08-12T15:05:14+02:00"
+    }
+  ];
+  for (_i = 0, _len = _ref.length; _i &lt; _len; _i++) {
+    model = _ref[_i];
+    App.Model.records[model.id] = new App.Model(model);
+  }
+
+  _ref1 = [
+    {
+      "address_id": null,
+      "color": null,
+      "contact_details": "A Verleih  /  ZHdK\nav@zh-dk.ch\n+41 00 00 00 00",
+      "contract_description": "Ger\u00e4t erhalten",
+      "contract_url": "av@zhdk.ch",
+      "default_contract_note": null,
+      "delta": true,
+      "description": "Wichtige Hinweise...\n Bitte die Gegenst\u00e4nde rechtzeitig zur\u00fcckbringen",
+      "email": "av@zhdk.ch",
+      "id": 21,
+      "logo_url": null,
+      "name": "A-Ausleihe",
+      "opening_hours": null,
+      "print_contracts": true,
+      "shortname": "A"
+    }, {
+      "address_id": null,
+      "color": null,
+      "contact_details": "IT Verleih  /  ZHdK\nav@zh-dk.ch\n+41 00 00 00 00",
+      "contract_description": "Ger\u00e4t erhalten",
+      "contract_url": "it@zhdk.ch",
+      "default_contract_note": null,
+      "delta": true,
+      "description": "Bringt die Ger\u00e4te bitte rechtzeitig zur\u00fcck",
+      "email": "it@zhdk.ch",
+      "id": 22,
+      "logo_url": null,
+      "name": "IT-Ausleihe",
+      "opening_hours": null,
+      "print_contracts": true,
+      "shortname": "IT"
+    }, {
+      "address_id": null,
+      "color": null,
+      "contact_details": "AV Verleih  /  ZHdK\nav@zh-dk.ch\n+41 00 00 00 00",
+      "contract_description": "Ger\u00e4t erhalten",
+      "contract_url": "it@zhdk.ch",
+      "default_contract_note": null,
+      "delta": true,
+      "description": "Bringt die Ger\u00e4te bitte rechtzeitig zur\u00fcck",
+      "email": "it@zhdk.ch",
+      "id": 23,
+      "logo_url": null,
+      "name": "AV-Technik",
+      "opening_hours": null,
+      "print_contracts": true,
+      "shortname": "AV"
+    }
+  ];
+  for (_j = 0, _len1 = _ref1.length; _j &lt; _len1; _j++) {
+    ip = _ref1[_j];
+    App.InventoryPool.records[ip.id] = new App.InventoryPool(ip);
+  }
+
+  App.Template.records[25] = new App.Template({
+    "created_at": "2013-08-12T15:05:14+02:00",
+    "delta": true,
+    "id": 25,
+    "name": "Kamera &amp; Stativ",
+    "updated_at": "2013-08-12T15:05:14+02:00"
+  });
+
+  _ref2 = [
+    {
+      "model_link_id": 71,
+      "template_id": 25,
+      "model_id": 118,
+      "quantity": 1,
+      "start_date": "2013-08-12",
+      "end_date": "2013-08-13",
+      "available": true,
+      "inventory_pool_id": 21,
+      "unborrowable": false
+    }, {
+      "model_link_id": 72,
+      "template_id": 25,
+      "model_id": 120,
+      "quantity": 1,
+      "start_date": "2013-08-12",
+      "end_date": "2013-08-13",
+      "available": true,
+      "inventory_pool_id": 21,
+      "unborrowable": false
+    }
+  ];
+  for (_k = 0, _len2 = _ref2.length; _k &lt; _len2; _k++) {
+    line = _ref2[_k];
+    App.TemplateLine.create(line);
+  }
+
+  jQuery(function() {
+    return new App.Borrow.TemplateAvailabilityController({
+      el: $("#template-availability")
+    });
+  });
+
+}).call(this);
+
+  //]]&gt;
+</script>
+
+</div>
+<div class="wrapper padding-vertical-l">
+<ul class="row text-align-center">
+<li class="inline">
+<a href="/borrow/templates/25/availability?&amp;end_date=2013-08-13&amp;lines%5B%5D%5Bmodel_id%5D%5B%5D=118&amp;lines%5B%5D%5Bmodel_id%5D%5B%5D=120&amp;lines%5B%5D%5Bquantity%5D%5B%5D=1&amp;lines%5B%5D%5Bquantity%5D%5B%5D=1&amp;locale=es&amp;start_date=2013-08-12" class="grey padding-inset-xs">Castellano</a>
+</li>
+<li class="inline">
+<a href="" class="grey padding-inset-xs">
+<strong>Deutsch</strong>
+</a>
+</li>
+<li class="inline">
+<a href="/borrow/templates/25/availability?&amp;end_date=2013-08-13&amp;lines%5B%5D%5Bmodel_id%5D%5B%5D=118&amp;lines%5B%5D%5Bmodel_id%5D%5B%5D=120&amp;lines%5B%5D%5Bquantity%5D%5B%5D=1&amp;lines%5B%5D%5Bquantity%5D%5B%5D=1&amp;locale=en-GB&amp;start_date=2013-08-12" class="grey padding-inset-xs">English</a>
+</li>
+<li class="inline">
+<a href="/borrow/templates/25/availability?&amp;end_date=2013-08-13&amp;lines%5B%5D%5Bmodel_id%5D%5B%5D=118&amp;lines%5B%5D%5Bmodel_id%5D%5B%5D=120&amp;lines%5B%5D%5Bquantity%5D%5B%5D=1&amp;lines%5B%5D%5Bquantity%5D%5B%5D=1&amp;locale=gsw-CH&amp;start_date=2013-08-12" class="grey padding-inset-xs">Züritüütsch</a>
+</li>
+</ul>
+
+</div>
+
+
+
+</body></html>

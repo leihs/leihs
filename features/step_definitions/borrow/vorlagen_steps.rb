@@ -155,7 +155,7 @@ end
 
 Dann(/^ich kann das Zeitfenster für die Verfügbarkeitsberechnung einzelner Modelle ändern$/) do
   init_date = Date.today
-  inventory_pool = binding.pry
+  
   while all(".available[data-date='#{init_date.to_s}']").empty? do
     init_date += 1
   end

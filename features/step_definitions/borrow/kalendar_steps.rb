@@ -187,8 +187,6 @@ Dann(/^wird die Verfügbarkeit des Modells im Kalendar angezeigt$/) do
         next unless @ip.is_open_on? change_date_el[:"data-date"].to_date
         # check borrower availability
         quantity_for_borrower = av.maximum_available_in_period_summed_for_groups next_date, next_date, @current_user.group_ids
-
-        binding.pry if change_date_el.find(".fc-day-content div").text.to_i != quantity_for_borrower
         change_date_el.find(".fc-day-content div").text.to_i.should == quantity_for_borrower
         last_month = next_date.month
         next_date += 1.day
