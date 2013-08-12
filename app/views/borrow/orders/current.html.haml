@@ -33,8 +33,15 @@
               = _("Delete %s") % _("Order")
 
           .col1of2.text-align-right
-            = link_to borrow_root_path, class: "button white" do
-              = _("Continue this order")
+            .multibutton
+              = link_to borrow_root_path, class: "button white" do
+                = _("Continue this order")
+              .dropdown-holder.inline-block
+                .button.white.dropdown-toggle
+                  %span.arrow.down
+                .dropdown.right
+                  = link_to borrow_order_delete_unavailables_path, class: "dropdown-item", method: :post do
+                    = _("Continue with available models only")
 
       - else
         = form_tag borrow_order_path do

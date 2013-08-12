@@ -51,8 +51,8 @@ When /^I delete all lines of a model thats availability is blocked by these line
   line_ids = target_linegroup.all(".line.error", :text => @model.name).map{|line| line["data-id"]}
   line_ids.each do |id|
     if id != @reference_id
-      all(".line").detect{|line| line["data-id"] == id}.find(".multibutton .trigger").click
-      all(".line").detect{|line| line["data-id"] == id}.find(".button", :text => _("Delete")).click
+      find(".line[data-id='#{id}'] .multibutton .trigger").click
+      find(".line[data-id='#{id}'] .button", :text => _("Delete")).click
       sleep(0.6)
     end
   end
