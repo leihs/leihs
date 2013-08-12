@@ -12,7 +12,8 @@ Dann /^kann ich für jedes sichtbare Model die Timeline anzeigen lassen$/ do
   elsif not all("#take_back").empty?
     ".item_line"
   elsif not all("#search_results").empty?
-    ".line.model"
+    find(".line.toggler.model.toggle.show_more").click
+    ".line.model:not(.toggle)"
   elsif not all("#inventory").empty?
     ".line.model"
   else
