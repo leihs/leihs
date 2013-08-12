@@ -62,12 +62,6 @@ When(/^ich kann höchstens die maximale Anzahl an verfügbaren Geräten eingeben
   wait_until {r.value.to_i == max}
 end
 
-When(/^in dieser Vorlage hat es Modelle, die nicht genügeng Gegenstände haben, um die in der Vorlage gewünschte Anzahl zu erfüllen$/) do
-  @template = @current_user.templates.detect {|t| t.unaccomplishable_models(@current_user).size > 0}
-  visit borrow_template_path(@template)
-  find("nav a[href='#{borrow_template_path(@template)}']")
-end
-
 When(/^sehe ich eine auffällige Warnung sowohl auf der Seite wie bei den betroffenen Modellen$/) do
   find(".emboss.red", text: _("The highlighted entries are not accomplishable for the intended quantity."))
   all(".separated-top .row.line .line-info.red").size.should > 0
@@ -101,11 +95,6 @@ When(/^in dieser Vorlage hat es Modelle, die nicht genügeng Gegenstände haben,
   @template = @current_user.templates.detect {|t| t.unaccomplishable_models(@current_user).size > 0}
   visit borrow_template_path(@template)
   find("nav a[href='#{borrow_template_path(@template)}']")
-end
-
-When(/^sehe ich eine auffällige Warnung sowohl auf der Seite wie bei den betroffenen Modellen$/) do
-  find(".emboss.red", text: _("The highlighted entries are not accomplishable for the intended quantity."))
-  all(".separated-top .row.line .line-info.red").size.should > 0
 end
 
 When(/^ich sehe die Verfügbarkeit einer Vorlage$/) do
