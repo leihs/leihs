@@ -82,11 +82,11 @@ class window.App.Borrow.BookingCalendarDialog extends Spine.Controller
     @loading = @dialog.find "img.loading"
     @submitButton = @dialog.find "#submit-booking-calendar"
     @controlElements = @dialog.find "#booking-calendar-controls"
-    @inventoryPoolSelect = @dialog.find "#order-inventory-pool"
-    @quantityEl = @dialog.find "#order-quantity"
+    @inventoryPoolSelect = @dialog.find "#booking-calendar-inventory-pool"
+    @quantityEl = @dialog.find "#booking-calendar-quantity"
     @errorsContainer = @dialog.find "#booking-calendar-errors"
-    @startDateEl = @dialog.find("#order-start-date")
-    @endDateEl = @dialog.find("#order-end-date")
+    @startDateEl = @dialog.find("#booking-calendar-start-date")
+    @endDateEl = @dialog.find("#booking-calendar-end-date")
     @modal = new App.Modal @dialog
 
   setupDates: =>
@@ -100,8 +100,8 @@ class window.App.Borrow.BookingCalendarDialog extends Spine.Controller
       calendarEl: @dialog.find "#booking-calendar"
       startDateEl: @startDateEl
       endDateEl: @endDateEl
-      quantityEl: @dialog.find "#order-quantity"
-      ipSelectorEl: @dialog.find "#order-inventory-pool"
+      quantityEl: @dialog.find "#booking-calendar-quantity"
+      ipSelectorEl: @dialog.find "#booking-calendar-inventory-pool"
       quantityMode: "numbers"
       groupIds: _.map App.Group.all(), (g)-> g.id
 

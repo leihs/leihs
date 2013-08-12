@@ -35,18 +35,18 @@ Wenn(/^man versucht ein Modell zur Bestellung hinzufügen, welches nicht verfüg
 end
 
 Wenn(/^ich setze die Anzahl im Kalendar auf (\d+)$/) do |quantity|
-  wait_until{find("#order-quantity")}
+  wait_until{find("#booking-calendar-quantity")}
   wait_until{find(".modal.ui-shown")}
   sleep 1
-  find("#order-quantity").set quantity
+  find("#booking-calendar-quantity").set quantity
 end
 
 Wenn(/^ich setze das Startdatum im Kalendar auf '(.*?)'$/) do |date|
-  page.execute_script %Q{ $("#order-start-date").focus().select().val("#{date}").change() }
+  page.execute_script %Q{ $("#booking-calendar-start-date").focus().select().val("#{date}").change() }
 end
 
 Wenn(/^ich setze das Enddatum im Kalendar auf '(.*?)'$/) do |date|
-  page.execute_script %Q{ $("#order-end-date").focus().select().val("#{date}").change() }
+  page.execute_script %Q{ $("#booking-calendar-end-date").focus().select().val("#{date}").change() }
 end
 
 Dann(/^schlägt der Versuch es hinzufügen fehl$/) do
@@ -69,17 +69,17 @@ Dann(/^der Kalender beinhaltet die folgenden Komponenten$/) do |table|
   find ".headline-m", text: @model_name
   find ".fc-header-title", text: I18n.l(Date.today, format: :month_year)
   find "#booking-calendar"
-  find "#order-inventory-pool"
-  find "#order-start-date"
-  find "#order-end-date"
-  find "#order-quantity"
+  find "#booking-calendar-inventory-pool"
+  find "#booking-calendar-start-date"
+  find "#booking-calendar-end-date"
+  find "#booking-calendar-quantity"
   find "#submit-booking-calendar"
   find ".modal-close", text: _("Cancel")
 end
 
 Wenn(/^alle Angaben die ich im Kalender mache gültig sind$/) do
   @quantity = 1
-  @inventory_pool = InventoryPool.find all("#order-inventory-pool option").detect{|o| o.selected?}["data-id"]
+  @inventory_pool = InventoryPool.find all("#booking-calendar-inventory-pool option").detect{|o| o.selected?}["data-id"]
   step "ich setze die Anzahl im Kalendar auf #{@quantity}"
   @start_date = @end_date = @inventory_pool.next_open_date
   step "ich setze das Startdatum im Kalendar auf '#{I18n::l(@start_date)}'"
@@ -99,15 +99,15 @@ Wenn(/^man den Gegenstand aus der Modellliste hinzufügt$/) do
 end
 
 Dann(/^das aktuelle Startdatum ist heute$/) do
-  find("#order-start-date").value.should == I18n.l(Date.today)
+  find("#booking-calendar-start-date").value.should == I18n.l(Date.today)
 end
 
 Dann(/^das Enddatum ist morgen$/) do
-  find("#order-end-date").value.should == I18n.l(Date.tomorrow)
+  find("#booking-calendar-end-date").value.should == I18n.l(Date.tomorrow)
 end
 
 Dann(/^die Anzahl ist 1$/) do
-  find("#order-quantity").value.should == 1.to_s
+  find("#booking-calendar-quantity").value.should == 1.to_s
 end
 
 Dann(/^es sind alle Geräteparks angezeigt die Gegenstände von dem Modell haben$/) do
@@ -139,11 +139,11 @@ Wenn(/^man einen in der Zeitspanne verfügbaren Gegenstand aus der Modellliste h
 end
 
 Dann(/^das Startdatum entspricht dem vorausgewählten Startdatum$/) do
-  find("#order-start-date").value.should == I18n.l(Date.today + 1)
+  find("#booking-calendar-start-date").value.should == I18n.l(Date.today + 1)
 end
 
 Dann(/^das Enddatum entspricht dem vorausgewählten Enddatum$/) do
-  find("#order-end-date").value.should == I18n.l(Date.today + 2)
+  find("#booking-calendar-end-date").value.should == I18n.l(Date.today + 2)
 end
 
 Angenommen(/^es existiert ein Modell für das eine Bestellung vorhanden ist$/) do
@@ -161,7 +161,7 @@ Wenn(/^man dieses Modell aus der Modellliste hinzufügt$/) do
 end
 
 Dann(/^wird die Verfügbarkeit des Modells im Kalendar angezeigt$/) do
-  @ip = InventoryPool.find_by_name find("#order-inventory-pool option").value.split(" ").first
+  @ip = InventoryPool.find_by_name find("#booking-calendar-inventory-pool option").value.split(" ").first
   av = @model.availability_in(@ip)
   changes = av.available_total_quantities
 
@@ -230,7 +230,7 @@ Dann(/^wird der Kalender gemäss aktuell gewähltem Monat angezeigt$/) do
 end
 
 Dann(/^werden die Schliesstage gemäss gewähltem Gerätepark angezeigt$/) do
-  @inventory_pool = InventoryPool.find all("#order-inventory-pool option").detect{|o| o.selected?}["data-id"]
+  @inventory_pool = InventoryPool.find all("#booking-calendar-inventory-pool option").detect{|o| o.selected?}["data-id"]
   @holiday = @inventory_pool.holidays.first
   holiday_not_found = all(".fc-day-content", :text => @holiday.name).empty?
   while holiday_not_found do
@@ -247,7 +247,7 @@ Wenn(/^man ein Start und Enddatum ändert$/) do
 end
 
 Dann(/^wird die Verfügbarkeit des Gegenstandes aktualisiert$/) do
-  @ip = InventoryPool.find_by_name find("#order-inventory-pool option").value.split(" ").first
+  @ip = InventoryPool.find_by_name find("#booking-calendar-inventory-pool option").value.split(" ").first
 
   (@start..@end).each do |date|
     date_el = get_fullcalendar_day_element date
@@ -262,25 +262,25 @@ end
 
 Dann(/^sind nur diejenigen Geräteparks auswählbar, welche über Kapizäteten für das ausgewählte Modell verfügen$/) do
   @inventory_pools = @model.inventory_pools.reject {|ip| @model.total_borrowable_items_for_user(@current_user, ip) <= 0 }
-  all("#order-inventory-pool option").each do |option|
+  all("#booking-calendar-inventory-pool option").each do |option|
     expect(@inventory_pools.include?(InventoryPool.find(option["data-id"]))).to be_true
   end
 end
 
 Dann(/^die Geräteparks sind alphabetisch sortiert$/) do
-  all("#order-inventory-pool option").map(&:text).should == all("#order-inventory-pool option").map(&:text).sort
+  all("#booking-calendar-inventory-pool option").map(&:text).should == all("#booking-calendar-inventory-pool option").map(&:text).sort
 end
 
 Dann(/^wird die maximal ausleihbare Anzahl des ausgewählten Modells angezeigt$/) do
-  all("#order-inventory-pool option").each do |option|
+  all("#booking-calendar-inventory-pool option").each do |option|
     inventory_pool = InventoryPool.find(option["data-id"])
     option.text[/#{@model.total_borrowable_items_for_user(@current_user, inventory_pool)}/].should be
   end
 end
 
 Dann(/^man kann maximal die maximal ausleihbare Anzahl eingeben$/) do
-  inventory_pool = InventoryPool.find(all("#order-inventory-pool option").detect{|o| o.selected?}["data-id"])
+  inventory_pool = InventoryPool.find(all("#booking-calendar-inventory-pool option").detect{|o| o.selected?}["data-id"])
   max_quantity = @model.total_borrowable_items_for_user(@current_user, inventory_pool)
-  find("#order-quantity").set (max_quantity+1).to_s
-  wait_until{find("#order-quantity").value == (max_quantity).to_s}
+  find("#booking-calendar-quantity").set (max_quantity+1).to_s
+  wait_until{find("#booking-calendar-quantity").value == (max_quantity).to_s}
 end

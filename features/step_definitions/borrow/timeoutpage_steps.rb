@@ -83,8 +83,8 @@ end
 When(/^ich die Menge eines Eintrags heraufsetze$/) do
   step "ich den Eintrag ändere"
   step "öffnet der Kalender"
-  @new_quantity = find("#order-quantity")[:max].to_i
-  find("#order-quantity").set(@new_quantity)
+  @new_quantity = find("#booking-calendar-quantity")[:max].to_i
+  find("#booking-calendar-quantity").set(@new_quantity)
   step "speichere die Einstellungen"
 end
 
@@ -92,7 +92,7 @@ When(/^ich die Menge eines Eintrags heruntersetze$/) do
   step "ich den Eintrag ändere"
   step "öffnet der Kalender"
   @new_quantity = 1
-  find("#order-quantity").set(@new_quantity)
+  find("#booking-calendar-quantity").set(@new_quantity)
   step "speichere die Einstellungen"
 end
 

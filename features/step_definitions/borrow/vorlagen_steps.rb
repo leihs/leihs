@@ -77,6 +77,7 @@ When(/^ich sehe die Verfügbarkeit einer Vorlage$/) do
   step "ich sehe mir eine Vorlage an"
   step "ich kann im Prozess weiterfahren zur Verfügbarkeitsanzeige der Vorlage"
 end
+
 Dann(/^kann ich Start\- und Enddatum einer potenziellen Bestellung angeben$/) do
   @start_date = Date.tomorrow
   @end_date = Date.tomorrow + 4.days
@@ -105,11 +106,6 @@ end
 When(/^sehe ich eine auffällige Warnung sowohl auf der Seite wie bei den betroffenen Modellen$/) do
   find(".emboss.red", text: _("The highlighted entries are not accomplishable for the intended quantity."))
   all(".separated-top .row.line .line-info.red").size.should > 0
-end
-
-When(/^ich sehe die Verfügbarkeit einer Vorlage$/) do
-  step "ich sehe mir eine Vorlage an"
-  step "ich kann im Prozess weiterfahren zur Verfügbarkeitsanzeige der Vorlage"
 end
 
 When(/^ich sehe die Verfügbarkeit einer nicht verfügbaren Vorlage$/) do
@@ -154,11 +150,12 @@ Dann(/^ich kann die Anzahl der Modelle ändern$/) do
   @model = Model.find_by_name find(".row.line .col6of10").text
   find(".line .button").click
   find("#booking-calendar .fc-day-content")
-  find("#order-quantity").set 1
+  find("#booking-calendar-quantity").set 1
 end
 
 Dann(/^ich kann das Zeitfenster für die Verfügbarkeitsberechnung einzelner Modelle ändern$/) do
   init_date = Date.today
+  inventory_pool = binding.pry
   while all(".available[data-date='#{init_date.to_s}']").empty? do
     init_date += 1
   end
@@ -176,4 +173,15 @@ Dann(/^kann ich im Prozess weiterfahren und alle Modelle gesamthaft zu einer Bes
   find(".button.green", text: _("Add to order")).click
   page.has_selector? "#current-order-show"
   @current_user.current_order.models.should eq [@model]
+end
+
+Angenommen(/^ich sehe die Verfügbarkeit einer Vorlage, die nicht verfügbare Modelle enthält$/) do
+  step "ich sehe mir eine Vorlage an"
+  date = Date.today
+  while @template.inventory_pools.first.is_open_on?(date) do
+   date += 1.day 
+  end
+  find("#start_date").set I18n::localize(date)
+  find("#end_date").set I18n::localize(date)
+  step "ich kann im Prozess weiterfahren zur Verfügbarkeitsanzeige der Vorlage"
 end

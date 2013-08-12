@@ -38,7 +38,7 @@ Funktionalität: Vorlagen
     
   @javascript
   Szenario: Verfügbarkeitsansicht der Vorlage
-    Angenommen ich sehe die Verfügbarkeit einer Vorlage
+    Angenommen ich sehe die Verfügbarkeit einer Vorlage, die nicht verfügbare Modelle enthält
     Dann sind diejenigen Modelle hervorgehoben, die zu diesem Zeitpunkt nicht verfügbar sind
     Und die Modelle sind innerhalb eine Gruppe alphabetisch sortiert
     Und ich kann Modelle aus der Ansicht entfernen
