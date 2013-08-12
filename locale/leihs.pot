@@ -863,6 +863,11 @@ msgstr ""
 msgid "Order"
 msgstr ""
 
+msgid "%s Order"
+msgid_plural "%s Orders"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "Order History"
 msgstr ""
 
@@ -2043,8 +2048,8 @@ msgid_plural "Collections"
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "Return"
-msgid_plural "Returns"
+msgid "%s Return"
+msgid_plural "%s Returns"
 msgstr[0] ""
 msgstr[1] ""
 

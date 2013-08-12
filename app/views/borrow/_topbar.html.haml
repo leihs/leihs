@@ -16,14 +16,12 @@
     - if (q2 = current_user.visits.take_back.count) > 0
       %li.topbar-item.separated-left{:class => current_page?(:controller => :returns) ? "active" : nil}
         %a.topbar-item-inner{:href => borrow_returns_path}
-          %span.badge= q2
-          = _("Returns")
+          != n_("%s Return", "%s Returns", q2) % "<span class='badge'>#{q2}</span>"
 
     - if (q3 = current_user.orders.submitted.count) > 0
       %li.topbar-item.separated-left{:class => current_page?(:controller => :orders) ? "active" : nil}
         %a.topbar-item-inner{:href => borrow_orders_path}
-          %span.badge= q3
-          = _("Orders")
+          != n_("%s Order", "%s Orders", q3) % "<span class='badge'>#{q3}</span>"
 
     %li.topbar-item.separated-left{:class => current_page?(:controller => :inventory_pools) ? "active" : nil}
       %a.topbar-item-inner{:href => borrow_inventory_pools_path}= _("Inventory Pools")

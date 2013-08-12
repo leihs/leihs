@@ -868,6 +868,11 @@ msgstr "Öffnungszeiten"
 msgid "Order"
 msgstr "Bestellung"
 
+msgid "%s Order"
+msgid_plural "%s Orders"
+msgstr[0] "%s Bestellung"
+msgstr[1] "%s Bestellungen"
+
 msgid "Order History"
 msgstr "Vergangene Bestellungen"
 
@@ -2103,10 +2108,10 @@ msgid_plural "Collections"
 msgstr[0] "Abholung"
 msgstr[1] "Abholungen"
 
-msgid "Return"
-msgid_plural "Returns"
-msgstr[0] "Rückgabe"
-msgstr[1] "Rückgaben"
+msgid "%s Return"
+msgid_plural "%s Returns"
+msgstr[0] "%s Rückgabe"
+msgstr[1] "%s Rückgaben"
 
 msgid "not yet saved"
 msgstr "noch nicht gespeichert"
