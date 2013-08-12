@@ -108,6 +108,11 @@ When(/^sehe ich eine auffällige Warnung sowohl auf der Seite wie bei den betrof
   all(".separated-top .row.line .line-info.red").size.should > 0
 end
 
+When(/^ich sehe die Verfügbarkeit einer Vorlage$/) do
+  step "ich sehe mir eine Vorlage an"
+  step "ich kann im Prozess weiterfahren zur Verfügbarkeitsanzeige der Vorlage"
+end
+
 When(/^ich sehe die Verfügbarkeit einer nicht verfügbaren Vorlage$/) do
   step "in dieser Vorlage hat es Modelle, die nicht genügeng Gegenstände haben, um die in der Vorlage gewünschte Anzahl zu erfüllen"
   step "ich kann im Prozess weiterfahren zur Verfügbarkeitsanzeige der Vorlage"
