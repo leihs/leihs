@@ -2,6 +2,19 @@
 
 .wrapper.margin-top-m
 
-  .row.content-wrapper.padding-inset-l
+  .content-wrapper.padding-inset-l
 
     %h1.headline-xl= _("User")
+
+    .row.line
+      .line-col.col1of2= _("Firstname") + ":"
+      .line-col.col1of2.text-align-left= current_user.firstname
+    .row.line
+      .line-col.col1of2= _("Lastname") + ":"
+      .line-col.col1of2.text-align-left= current_user.lastname
+    .row.line
+      .line-col.col1of2= _("Email") + ":"
+      .line-col.col1of2.text-align-left= current_user.email
+    .row.line
+      .line-col.col1of2= _("Phone") + ":"
+      .line-col.col1of2.text-align-left= current_user.phone
