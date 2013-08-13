@@ -13,7 +13,7 @@ end
 
 Wenn(/^ich auf den Bestellungen Link drücke$/) do
   visit borrow_root_path
-  find(".topbar a", text: _("Orders")).click
+  find("nav a[href='#{borrow_orders_path}']").click
 end
 
 Dann(/^sehe ich meine abgeschickten, noch nicht genehmigten Bestellungen$/) do
