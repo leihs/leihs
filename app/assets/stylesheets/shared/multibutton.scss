@@ -42,6 +42,13 @@
       border-bottom-left-radius: 0;
     }
   }
+
+  .converse > .button {
+    border-top-right-radius: 6px !important;
+    border-bottom-right-radius: 6px !important;
+    border-bottom-left-radius: 6px !important;
+    border-top-left-radius: 6px !important;
+  }
   
   .alternatives {
     display: inline-block;

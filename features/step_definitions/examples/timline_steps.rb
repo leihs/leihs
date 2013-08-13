@@ -24,6 +24,10 @@ Dann /^kann ich für jedes sichtbare Model die Timeline anzeigen lassen$/ do
 
   all(lines, visible: true)[0..5].each do |line|
     line.find(".trigger").click
+    while all(".button", :text => _("Timeline")).empty?
+      line.find(".trigger").click
+      sleep(0.5)
+    end
     line.find(".button", :text => _("Timeline")).click
     find(".dialog iframe")
     wait_until { evaluate_script %Q{ $(".dialog iframe").contents().find("#my_timeline").length; } }

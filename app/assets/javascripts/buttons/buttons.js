@@ -29,6 +29,16 @@ function Buttons() {
   this.setupMultibutton = function() {
     $(".multibutton[disabled!=disabled] .alternatives").live("mouseenter", function(){
       $(this).closest(".multibutton").addClass("open");
+      if($(this).offset().top-$(window).scrollTop()+$(this).height() > $(window).height()) {
+        container = $("<div class='converse'></div>")
+        $(this).find(".button").appendTo(container);
+        $(this).append(container);
+        var top = 31 + container.height();
+        container.css("position", "absolute")
+        container.css("top", "-"+top+"px");
+        container.css("right", "0px");
+        container.css("width", "100%");
+      }
     });
     
     $(".multibutton").live("mouseleave", function(){
