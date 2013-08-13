@@ -57,3 +57,12 @@ Funktionalität: Bestellübersicht
     Und speichere die Einstellungen
     Dann wird der Eintrag gemäss aktuellen Einstellungen geändert
     Und der Eintrag wird in der Liste anhand der des aktuellen Startdatums und des Geräteparks gruppiert
+
+  Szenario: Zeitentität, Ablauf der erlaubten Zeit anzeigen
+    Dann sehe ich die folgenden Zeitinformationen
+    | Die Bestellung läuft ab in MM:ss |
+    Und die Zeitanzeige zählt von 30 Minuten herunter
+
+  Szenario: Zeit zurücksetzen
+    Wenn ich auf die Zeitanzeige drücke
+    Dann wird die Zeit zurückgesetzt
