@@ -66,3 +66,8 @@ Funktionalität: Bestellübersicht
   Szenario: Zeit zurücksetzen
     Wenn ich auf die Zeitanzeige drücke
     Dann wird die Zeit zurückgesetzt
+    
+  Szenario: Zeit abgelaufen    
+    Wenn die Zeit abgelaufen ist
+    Dann werde ich auf die Timeout Page weitergeleitet
+    
