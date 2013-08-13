@@ -6,8 +6,7 @@ Dann(/^sehe ich die Anzahl meiner abgeschickten, noch nicht genehmigten Bestellu
    borrow_current_order_path,
    borrow_current_user_path].each do |path|
     visit path
-    a = find(".topbar a", text: _("Orders"))
-    a.find(".badge").text.to_i.should == @current_user.orders.submitted.count
+    find("nav a[href='#{borrow_orders_path}'] .badge").text.to_i.should == @current_user.orders.submitted.count
   end
 end
 
