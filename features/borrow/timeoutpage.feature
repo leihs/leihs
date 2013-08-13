@@ -44,6 +44,8 @@ Funktionalität: Timeout Page
     Und ich auf "Diese Bestellung fortsetzen" drücke
     Dann lande ich wieder auf der Timeout Page
     Und ich erhalte ich einen Fehler
+    Wenn ich alle Fehler korrigiere
+    Dann verschwindet die Fehlermeldung
 
   Szenario: Bestellung löschen
     Wenn ich die Bestellung lösche
