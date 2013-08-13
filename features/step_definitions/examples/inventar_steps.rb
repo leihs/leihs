@@ -32,6 +32,7 @@ Dann /^hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind$/ do |
   items = Item.by_owner_or_responsible(@current_inventory_pool)
   section_tabs = find("section .inlinetabs")
   (section_tabs.all(".active").size == 1).should be_true
+
   table.hashes.each do |row|
     tab = nil
     case row["auswahlmöglichkeit"]
@@ -59,11 +60,11 @@ Dann /^hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind$/ do |
       when "Ausleihbar"
         tab = section_tabs.find(:xpath, "a[contains(@data-tab,'{\"borrowable\":false}')]")
         tab.click
+        step "ensure there are no active requests"
+        page.execute_script %Q{ $(".model.line .toggle:not(.open) .text").click() }
         all(".model.line").each_with_index do |model_el, i|
-          all(".model.line")[i].find(".toggle .text").click if model_el.all(".toggle.open").empty?
-          all(".model.line")[i].all(".item.line").each do |item_el|
-            items.borrowable
-            .find_by_inventory_code(item_el.find(".inventory_code").text).should_not be_nil
+          all(".model.line")[i].all(".item.line").each do |item_el, j|
+            items.borrowable.find_by_inventory_code(all(".model.line")[i].all(".item.line")[j].find(".inventory_code").text).should_not be_nil
           end
         end
       when "Nicht ausleihbar"
