@@ -15,6 +15,17 @@ Funktionalität: Inventarhelfer
     Dann scanne oder gebe ich den Inventarcode ein
     Dann sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert
     Und die geänderten Werte sind hervorgehoben
+    
+  @javascript
+  Szenario: Pflichtfelder
+    Angenommen man ist auf dem Helferschirm
+    Wenn "Investition" bei "Bezug" ausgewählt ist muss auch "Projektnummer" angegeben werden
+    Wenn "Ja" bei "Inventarrelevant" ausgewählt ist muss auch "Anschaffungskategorie" ausgewählt werden
+    Wenn "Ausgemustert" bei "Ausmusterung" ausgewählt ist muss auch "Grund der Ausmusterung" angegeben werden
+    Dann sind alle Pflichtfelder mit einem Stern gekenzeichnet
+    Wenn ein Pflichtfeld nicht ausgefüllt/ausgewählt ist, dann lässt sich der Gegenstand nicht speichern
+    Und der Benutzer sieht eine Fehlermeldung
+    Und die nicht ausgefüllten/ausgewählten Pflichtfelder sind rot markiert
 
   Szenario: Wie man den Helferschirm erreicht
     Wenn man im Inventar Bereich ist
