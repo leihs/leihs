@@ -63,31 +63,3 @@ a.topbar-logo, a.topbar-logo:hover
 .topbar-item:active
   background: rgba(190,190,190,0.2)
   @include box-shadow(inset 1px 0 4px rgba(0,0,0,0.3))
-
-.topbar.dark
-  background: $grey
-  @include background(linear-gradient(top, lighten($grey, 5%) 50%, $grey 50%))
-  @include border-radius($border-radius-s)
-  border: 1px solid $darkgrey
-  border-top: 1px solid transparent
-  
-  a.topbar-logo, a.topbar-logo:hover
-    color: white
-    @include text-shadow (1px 1px 0 rgba(0,0,0,0.5))
-
-  .topbar-item-inner, a.topbar-item-inner
-    color: rgba(255,255,255,0.8)
-    @include text-shadow (1px 1px 0 rgba(0,0,0,0.3))
-
-  .arrow
-    @include change-all-arrow-colors(rgba(255,255,255,0.8))
-
-  .topbar-item.active, .topbar-item:hover
-    background: rgba(255,255,255,0.3)
-
-    .topbar-item-inner
-      color: white
-      @include text-shadow (1px 1px 0 rgba(0,0,0,0.5))
-      
-    .arrow
-      @include change-all-arrow-colors(white transparent transparent)
