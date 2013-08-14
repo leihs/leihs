@@ -2,6 +2,7 @@ class window.App.Borrow.CurrentOrderShowController extends Spine.Controller
 
   elements:
     "#current-order-lines": "linesContainer"
+    ".emboss.red": "conflictsWarning"
 
   events:
     "click [data-change-order-lines]": "changeOrderLines"
@@ -31,3 +32,4 @@ class window.App.Borrow.CurrentOrderShowController extends Spine.Controller
 
   render: =>
     @linesContainer.html App.Render "borrow/views/order/grouped_and_merged_lines", App.Order.current.groupedAndMergedLines()
+    @conflictsWarning.addClass("hidden") if App.Order.current.isAvailable()
