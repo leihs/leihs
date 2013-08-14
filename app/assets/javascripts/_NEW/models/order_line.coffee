@@ -13,5 +13,3 @@ class window.App.OrderLine extends Spine.Model
   @belongsTo "order", "App.Order", "order_id"
   @belongsTo "model", "App.Model", "model_id"
   @belongsTo "inventory_pool", "App.InventoryPool", "inventory_pool_id"
-
-  available: => @["available?"]
