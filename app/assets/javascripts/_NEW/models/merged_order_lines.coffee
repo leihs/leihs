@@ -19,4 +19,7 @@ class window.App.MergedOrderLines extends Spine.Model
   available: =>
     _.all @line_ids, (line_id) =>
       line = App.OrderLine.find line_id
-      line["available?"]
+      if line["available?"]?
+        line["available?"]
+      else
+        true
