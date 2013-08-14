@@ -17,7 +17,7 @@ Funktionalität: Benutzeransicht
     |E-Mail|
     |Telefon|
     
+  @javascript
   Szenario: Benutzerdaten unter dem Benutzername
     Wenn ich über meinen Namen fahre
     Dann sehe ich im Dropdown eine Schaltfläche die zur Benutzeransicht führt
-  

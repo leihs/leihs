@@ -9,7 +9,7 @@ Dann(/^gelange ich auf die Seite der Benutzerdaten$/) do
 end
 
 Dann(/^werden mir meine Benutzerdaten angezeigt$/) do
-  find("h1.headline-xl", text: _("User"))
+  find("h1.headline-xl", text: _("User data"))
 end
 
 Dann(/^die Benutzerdaten beinhalten$/) do |table|
@@ -30,10 +30,11 @@ Dann(/^die Benutzerdaten beinhalten$/) do |table|
 end
 
 Wenn(/^ich über meinen Namen fahre$/) do
-  pending # express the regexp above with the code you wish you had
+  page.execute_script("$(\"nav.topbar ul.topbar-navigation a[href='/borrow/user']\").trigger('mouseover');")
 end
 
 Dann(/^sehe ich im Dropdown eine Schaltfläche die zur Benutzeransicht führt$/) do
-  pending # express the regexp above with the code you wish you had
+  find("ul.dropdown a.dropdown-item[href='/borrow/user']", text: _("User data")).click
+  step "gelange ich auf die Seite der Benutzerdaten"
 end
 

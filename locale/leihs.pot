@@ -1466,6 +1466,9 @@ msgstr ""
 msgid "User details were updated successfully."
 msgstr ""
 
+msgid "User data"
+msgstr ""
+
 msgid "User created successfully"
 msgstr ""
 

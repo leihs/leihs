@@ -1505,6 +1505,9 @@ msgstr "Fehler beim Hochladen."
 msgid "User"
 msgstr "Benutzer"
 
+msgid "User data"
+msgstr "Benutzerdaten"
+
 msgid "User details were updated successfully."
 msgstr "Die neuen Benutzerinformationen wurden gespeichert."
 

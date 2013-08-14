@@ -36,6 +36,10 @@
 
       %ul.dropdown.right.straight-top
         %li
+          %a.dropdown-item{:href => borrow_current_user_path}
+            .icon-user
+            = _("User data")
+        %li
           %a.dropdown-item{:href => logout_path}
             .icon-signout
             = _("Logout")
