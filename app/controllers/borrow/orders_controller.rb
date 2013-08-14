@@ -1,7 +1,9 @@
 class Borrow::OrdersController < Borrow::ApplicationController
 
   before_filter :only => [:current, :timed_out] do
-    @grouped_and_merged_lines = current_order.grouped_and_merged_lines    
+    @grouped_and_merged_lines = current_order.grouped_and_merged_lines
+    @models = current_order.lines.map(&:model).uniq
+    @inventory_pools = current_order.lines.map(&:inventory_pool).uniq
   end
 
   def index
@@ -9,6 +11,7 @@ class Borrow::OrdersController < Borrow::ApplicationController
   end
 
   def current
+    @lines = current_order.lines
   end
 
   def submit
@@ -35,6 +38,7 @@ class Borrow::OrdersController < Borrow::ApplicationController
 
   def timed_out
     flash[:error] = _("Your order is older than %d minutes, the items are not reserved any more!") % Order::TIMEOUT_MINUTES
+    @lines = current_order.lines.as_json(methods: :available?)
     render :current
   end
 

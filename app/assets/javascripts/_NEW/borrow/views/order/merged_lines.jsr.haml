@@ -1,5 +1,9 @@
 .row.line
 
+  {{if !available}}
+  .line-info.red{title: _("Not available")}
+  {{/if}}
+
   .line-col.col1of9.padding-left-l
 
     %img.max-height-xxs-alt.max-width-xs{src: "/models/{{>model.id}}/image_thumb"}

@@ -66,13 +66,13 @@
   App.Order.records[#{current_order.id}] = new App.Order #{current_order.to_json}
   App.Order.current = App.Order.find(#{current_order.id})
 
-  for order_line in #{current_order.lines.to_json}
+  for order_line in #{@lines.to_json}
     App.OrderLine.records[order_line.id] = new App.OrderLine order_line
 
-  for model in #{current_order.lines.map(&:model).to_json}
+  for model in #{@models.to_json}
     App.Model.records[model.id] = new App.Model model
 
-  for ip in #{current_order.lines.map(&:inventory_pool).to_json}
+  for ip in #{@inventory_pools.to_json}
     App.InventoryPool.records[ip.id] = new App.InventoryPool ip
 
   jQuery ->

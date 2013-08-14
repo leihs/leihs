@@ -6,10 +6,12 @@
 
 class window.App.OrderLine extends Spine.Model
 
-  @configure "OrderLine", "id", "model_id", "order_id", "inventory_pool_id", "quantity", "start_date", "end_date", "purpose_id"
+  @configure "OrderLine", "id", "model_id", "order_id", "inventory_pool_id", "quantity", "start_date", "end_date", "purpose_id", "available?"
 
   @extend Spine.Model.Ajax
 
   @belongsTo "order", "App.Order", "order_id"
   @belongsTo "model", "App.Model", "model_id"
   @belongsTo "inventory_pool", "App.InventoryPool", "inventory_pool_id"
+
+  available: => @["available?"]

@@ -11,6 +11,7 @@ class window.App.Borrow.OrderLinesChangeController extends window.App.Borrow.Boo
 
   # overwrite
   done: (data)=>
+    line["available?"] = true for line in @lines
     App.Order.trigger "refresh", App.Order.current
     super
 
