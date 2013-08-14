@@ -1,4 +1,6 @@
-Funktionalitaet: Benutzerdokumente
+# language: de
+
+Funktionalität: Benutzerdokumente
 
 Als Benutzer moechte ich meine Dokumente einsehen koennen
 
