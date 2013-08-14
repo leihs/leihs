@@ -40,9 +40,12 @@ Funktionalität: Vertrag
     | Anzahl        |
     | Inventarcode  |
     | Modellname    |
-    | Startdatum    |
     | Enddatum      |
-    | Rückgabedatum |
+    | Rückgabedatum / Rücknehmende Person |
+
+  @javascript   
+  Szenario: Rüchnehmende Person
+    Dann sieht man auf jeder Linie die Rücknehmende Person im Format "P. Castelli"
   
   @javascript
   Szenario: Zwecke
