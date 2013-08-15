@@ -20,15 +20,14 @@ class Contract < Document
   belongs_to :handed_over_by_user, :class_name => "User"
 
   # TODO validates_uniqueness [user_id, inventory_pool_id, status_const] if status_consts == Contract::UNSIGNED
+  validate :unique_start_date
 
   UNSIGNED = 1
   SIGNED = 2
   CLOSED = 3
 
-  STATUS = {_("Unsigned") => UNSIGNED, _("Signed") => SIGNED, _("Closed") => CLOSED }
-
   def status_string
-    n = STATUS.index(status_const)
+    n = {_("Unsigned") => UNSIGNED, _("Signed") => SIGNED, _("Closed") => CLOSED }.key(status_const)
     n.nil? ? status_const : n
   end
 
@@ -180,7 +179,11 @@ class Contract < Document
 
   # NOTE override the column attribute (until leihs 2 is switched off)
   def purpose
-    nil
+    purposes
+  end
+
+  def purposes
+    lines.map {|x| x.purpose.to_s }.uniq.delete_if{|x| x.blank? }.join("; ")
   end
   
   # NOTE override the column attribute (until leihs 2 is switched off)
@@ -192,7 +195,15 @@ class Contract < Document
     change = _("Purpose changed '%s' for '%s'") % [self.purpose.try(:description), new_purpose]
     log_change(change, user_id)
     self.purpose = new_purpose
-  end  
+  end
+
+  ############################################
+
+  private
+
+  def unique_start_date
+    errors.add(:base, _("The start_date is not unique")) if status_const != UNSIGNED and lines.group(:start_date).count.keys.size != 1
+  end
 
 end
 

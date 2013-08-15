@@ -23,8 +23,13 @@ class Document < ActiveRecord::Base
     raise "Abstract method called"
   end
 
-  def quantity
+  def total_quantity
     lines.sum(:quantity)
+  end
+  alias :quantity :total_quantity # TODO remove quantity where is used
+
+  def total_price
+    lines.sum(&:price)
   end
 
 ################################################################
