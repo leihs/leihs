@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+
 Given /^personas existing$/ do
   Persona.create_all
 end
@@ -18,4 +20,14 @@ end
 
 Angenommen /^Personas existieren$/ do
   step 'personas existing'
+end
+
+Angenommen(/^man ist ein Kunde$/) do
+  user = AccessRight.where(role_id: Role.find_by_name("customer")).map(&:user).uniq.sample
+  step 'I am "%s"' % user.firstname
+end
+
+Angenommen(/^man ist ein Kunde mit Verträge$/) do
+  user = Contract.where(status_const: [Contract::SIGNED, Contract::CLOSED]).map(&:user).uniq.sample
+  step 'I am "%s"' % user.firstname
 end

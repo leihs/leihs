@@ -40,6 +40,10 @@
             .icon-user
             = _("User data")
         %li
+          %a.dropdown-item{:href => borrow_user_documents_path}
+            .icon-copy
+            = _("My documents")
+        %li
           %a.dropdown-item{:href => logout_path}
             .icon-signout
             = _("Logout")

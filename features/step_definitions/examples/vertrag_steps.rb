@@ -62,7 +62,7 @@ Dann /^beinhalten Liste (\d+) und Liste (\d+) folgende Spalten:$/ do |arg1, arg2
       when "Inventarcode"
         @contract.lines.each {|line| @list.find("tr", :text=> line.item.inventory_code) } 
       when "Modellname"
-        @contract.lines.each {|line| @list.find("tr", :text=> line.item.inventory_code).find(".model_name", :text=> line.item.model.name) } 
+        @contract.lines.each {|line| @list.find("tr", :text=> line.item.inventory_code).find(".model_name", :text=> line.item.model.name) }
       when "Startdatum"
         @contract.lines.each {|line| 
           line_element = @list.find("tr", :text=> line.item.inventory_code)

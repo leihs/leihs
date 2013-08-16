@@ -58,7 +58,11 @@ Leihs::Application.routes.draw do
 
     get "to_pick_up", :to => "to_pick_up#index", :as => "to_pick_up"
     get "workdays", :to => "workdays#index", :as => "workdays"
+
     get "user", :to => "users#current", :as => "current_user"
+    get "user_documents", :to => "users#documents"
+    get "user/contracts/:id", :to => "users#contract", :as => "user_contract"
+    get "user/value_lists/:id", :to => "users#value_list", :as => "user_value_list"
   end
 
   # Categories

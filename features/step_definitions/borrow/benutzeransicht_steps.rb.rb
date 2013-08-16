@@ -24,13 +24,13 @@ Dann(/^die Benutzerdaten beinhalten$/) do |table|
       when "Telefon"
         page.should have_content @current_user.phone
       else
-        rais "unkown section"
+        raise "unkown section"
     end
   end
 end
 
 Wenn(/^ich über meinen Namen fahre$/) do
-  page.execute_script("$(\"nav.topbar ul.topbar-navigation a[href='/borrow/user']\").trigger('mouseover');")
+  page.execute_script("$(\"nav.topbar ul.topbar-navigation a[href='/borrow/user']\").trigger('mouseenter');")
 end
 
 Dann(/^sehe ich im Dropdown eine Schaltfläche die zur Benutzeransicht führt$/) do

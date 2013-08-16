@@ -384,6 +384,9 @@ msgstr "Beschreibung"
 msgid "Documents"
 msgstr "Dokumente"
 
+msgid "My documents"
+msgstr "Meine Dokumente"
+
 msgid "Documents for hand over"
 msgstr "Dokumente für Herausgabe"
 

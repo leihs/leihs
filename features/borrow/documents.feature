@@ -2,36 +2,43 @@
 
 Funktionalität: Benutzerdokumente
 
-Als Benutzer moechte ich meine Dokumente einsehen koennen
+  Als Benutzer möchte ich meine Dokumente einsehen koennen
 
-  Szenario: Werteliste
-    Angenommen ich bin "Normin"
+  Grundlage:
+    Angenommen Personas existieren
+    Und man ist ein Kunde mit Verträge
+
+  @javascript
+  Szenario: Schaltfläche zur Dokumentenübersichtsseite
     Wenn ich unter meinem Benutzernamen auf "Meine Dokumente" klicke
-    Dann gelange ich zu der Wertelisten aufgefuehrt
+    Dann gelange ich zu der Dokumentenübersichtsseite
   
-
-  Szenario: Dokumentenuebersicht
-    Angenommen ich befinde mich auf der Dokumentenuebersichtsseite
-    Dann sind die Vertraege nach neuestem Zeitfenster sortiert
-    Und fuer jede Vertrag sehe ich folgende Informationen
-    |Vertragnummer|
+  Szenario: Dokumentenübersicht
+    Angenommen ich befinde mich auf der Dokumentenübersichtsseite
+    Dann sind die Verträge nach neuestem Zeitfenster sortiert
+    Und für jede Vertrag sehe ich folgende Informationen
+    |Vertragsnummer|
     |Zeitfenster mit von bis Datum und Dauer|
-    |Geraetepark|
+    |Gerätepark|
     |Zweck|
     |Status|
     |Vertraglink|
     |Wertelistelink|
   
-  Szenario: Werteliste oeffnen
-    Angenommen ich befinde mich auf der Dokumentenuebersichtsseite
-    Und ich druecke auf den wertelistelink
-    Dann oeffnet sich die Werteliste
-  
-  Szenario: Vertrag oeffnen
-    Angenommen ich befinde mich auf der Dokumentenuebersichtsseite
-    Und ich druecke auf den Vertraglink
-    Dann oeffnet sich der Vertrag
-  
-  
-  
-  
+  Szenario: Werteliste öffnen
+    Angenommen ich befinde mich auf der Dokumentenübersichtsseite
+    Und ich drücke auf den Wertelistelink
+    Dann öffnet sich die Werteliste
+
+  Szenario: Was ich auf der Werteliste sehen möchte
+    Wenn ich eine Werteliste aus meinen Dokumenten öffne
+    Dann sehe ich die Werteliste genau wie im Verwalten-Bereich
+
+  Szenario: Vertrag öffnen
+    Angenommen ich befinde mich auf der Dokumentenübersichtsseite
+    Und ich drücke auf den Vertraglink
+    Dann öffnet sich der Vertrag
+
+  Szenario: Was ich auf dem Vertrag sehen möchte
+    Wenn ich einen Vertrag aus meinen Dokumenten öffne
+    Dann sehe ich den Vertrag genau wie im Verwalten-Bereich

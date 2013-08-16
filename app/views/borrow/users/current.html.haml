@@ -1,10 +1,10 @@
-- content_for :title, _("User")
+- content_for :title, _("User data")
 
 .wrapper.margin-top-m
 
-  .content-wrapper.padding-inset-l
+  = render :partial => 'borrow/tabs', :locals => {:tabs => [[request.fullpath, _("User data")]]}
 
-    %h1.headline-xl= _("User data")
+  .content-wrapper.straight-top-left
 
     .row.line
       .line-col.col1of2= _("Firstname") + ":"

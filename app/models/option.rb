@@ -61,6 +61,11 @@ class Option < ActiveRecord::Base
     nil
   end
 
+  # NOTE when we call option_line.item.model, item is actually an option, then model it's itself again
+  def model
+    self
+  end
+
   # Generates an array suitable for outputting a line of CSV using CSV
   def to_csv_array    
     # Using #{} notation to catch nils gracefully and silently 

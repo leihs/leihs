@@ -44,7 +44,6 @@ module Leihs
     # Enable the asset pipeline
     config.assets.enabled = true
     config.assets.precompile += %w( simile_timeline/*
-                                    i18n/locale/*
                                     splash.css
                                     shared.js
                                     backend.css
@@ -53,9 +52,11 @@ module Leihs
                                     frontend.js
                                     print.css
                                     timeline.css
-                                    application.js
-                                    borrow.js
-                                    application.css
+                                    _NEW/application.js
+                                    _NEW/borrow.js
+                                    _NEW/application.css
+                                    _NEW/print.css
+                                    i18n/locale/*
                                   )
     # Enable IdentityMap for Active Record, to disable set to false or remove the line below.  
     # config.active_record.identity_map = true

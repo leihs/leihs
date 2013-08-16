@@ -1,0 +1,87 @@
+.contract
+
+  .barcode
+    %img{src: barcode_for_contract(@contract)}
+  
+  %h1
+    = _("Lending Contract No.")
+    = @contract.id
+  .date
+    = l Time.now.to_date
+    
+  %section.parties
+    .customer
+      %label= _("Borrower")
+      %span.name= @contract.user
+      %span.street= @contract.user.address
+      %span.plz_city= "%s %s" % [@contract.user.zip, @contract.user.city]
+    .inventory_pool
+      %label= _("Lender")
+      %span.name= @contract.inventory_pool.name
+      - if @contract.inventory_pool.address
+        %span.street= @contract.inventory_pool.address.street
+        %span.plz_city= "%s-%s %s" % [@contract.inventory_pool.address.country_code, @contract.inventory_pool.address.zip_code, @contract.inventory_pool.address.city]
+    .clear
+
+  - not_returned_lines, returned_lines = @contract.lines.partition {|line| line.returned_date.blank? }
+
+  - unless returned_lines.empty?
+    %section.list.returned_items
+      %h2= _("Returned Items")
+      %table
+        %thead
+          %tr
+            %td.quantity= _("Quantity")
+            %td.inventory_code= _("Inventory code")
+            %td.model_name= _("Model")
+            %td.start_date= _("Start date")
+            %td.end_date= _("End date")
+            %td.returning_date= _("Return")
+        %tbody
+          - returned_lines.each do |line|
+            %tr
+              %td.quantity= line.quantity
+              %td.inventory_code= line.item.inventory_code
+              %td.model_name= line.model.name
+              %td.start_date= l line.start_date
+              %td.end_date= l line.end_date
+              %td.returning_date= l line.returned_date
+
+  - unless not_returned_lines.empty?
+    %section.list.not_returned_items
+      %h2= _("Borrowed Items")
+      %table
+        %thead
+          %tr
+            %td.quantity= _("Quantity")
+            %td.inventory_code= _("Inventory code")
+            %td.model_name= _("Model")
+            %td.start_date= _("Start date")
+            %td.end_date= _("End date")
+            %td.returning_date= _("Return")
+        %tbody
+          - not_returned_lines.each do |line|
+            %tr
+              %td.quantity= line.quantity
+              %td.inventory_code= line.item.inventory_code
+              %td.model_name= line.model.name
+              %td.start_date= l line.start_date
+              %td.end_date= l line.end_date
+              %td.returning_date
+
+  .dontbreak
+    %section.purposes
+      %h2= _("Purpose these items are borrowed for")
+      %p= @contract.purpose
+    %section.note
+      - if @contract.note
+        %h2= _("Additional notes")
+        %p= @contract.note
+    %section.terms_and_signature
+      %p.terms= _("Terms and conditions of the lender apply.")
+      %hr
+      %span= _("Signature")
+
+    - if @contract.handed_over_by_user
+      %section
+        %p= _("You were served by %s") % @contract.handed_over_by_user.name

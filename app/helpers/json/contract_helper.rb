@@ -31,18 +31,21 @@ module Json
         end
 
         if with[:barcode]
-          require 'barby' 
-          require 'barby/barcode/code_128' 
-          require 'barby/outputter/png_outputter'
           with[:barcode] = {} unless with[:barcode].is_a?(Hash)
           with[:barcode][:height] ||= 25
-          png = Barby::Code128B.new(" C #{contract.id}").to_png(:height => with[:barcode][:height].to_i)
-
-          h[:barcode] = "data:image/png;base64,#{Base64.encode64(png)}"
+          h[:barcode] = barcode_for_contract(contract, with[:barcode][:height])
         end
       end
       
       h
+    end
+
+    def barcode_for_contract(contract, height = 25)
+      require 'barby'
+      require 'barby/barcode/code_128'
+      require 'barby/outputter/png_outputter'
+      png = Barby::Code128B.new(" C #{contract.id}").to_png(:height => height.to_i)
+      "data:image/png;base64,#{Base64.encode64(png)}"
     end
 
   end

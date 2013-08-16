@@ -4,10 +4,10 @@
   %head
     %meta{:charset => 'utf-8'}
     %title= "#{yield(:title)}#{(yield :title).blank? ? "":" | "}leihs"
-    = stylesheet_link_tag "application"
+    = stylesheet_link_tag "_NEW/application"
     = javascript_include_tag "i18n/locale/#{I18n.locale}"
-    = javascript_include_tag "application"
-    = javascript_include_tag "borrow"
+    = javascript_include_tag "_NEW/application"
+    = javascript_include_tag "_NEW/borrow"
     = favicon_link_tag "borrow/favicon.ico", :type => "image/x-icon"
     = csrf_meta_tag
     = yield :head

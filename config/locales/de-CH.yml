@@ -130,7 +130,7 @@ de-CH:
       strip_insignificant_zeros: false
     currency:
       format:
-        unit: 'SFr.'
+        unit: 'CHF'
         format: '%u %n'
         separator: '.'
         delimiter: "'"

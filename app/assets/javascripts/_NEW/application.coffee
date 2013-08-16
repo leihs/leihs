@@ -30,10 +30,10 @@
 #
 ##### LIB
 #
-#= require_tree ./_NEW/lib
-#= require_tree ./_NEW/modules
-#= require_tree ./_NEW/models
-#= require_tree ./_NEW/views
+#= require_tree ./lib
+#= require_tree ./modules
+#= require_tree ./models
+#= require_tree ./views
 #
 #####
 
