@@ -14,11 +14,12 @@ Given /^the MacBook availability as of (\d+\-\d+\-\d+)$/ do |date|
     klass = fixture_instance.class
     mass_attrs = [:id, :unique_id, :extended_info, :created_at, :updated_at, :type]
     attrs = fixture_instance.attributes.select {|k,v| not mass_attrs.include? k.to_sym }
-    klass.create(attrs) do |r|
+    o = klass.new(attrs) do |r|
       mass_attrs.each do |a|
         r.send("#{a}=", fixture_instance.send(a)) if fixture_instance.respond_to?(a)
       end
     end
+    o.save(validate: false) # we skip validations because we are sequencially creating objects that are validating each other
   end
 
   # first item inside the fixtures is the model
