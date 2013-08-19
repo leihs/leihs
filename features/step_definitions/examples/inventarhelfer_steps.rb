@@ -1,10 +1,11 @@
 # encoding: utf-8
 Wenn /^man im Inventar Bereich ist$/ do
-  find("nav.navigation a", :text => /(Inventar|Inventory)/)
+  find("nav.navigation a", :text => _("Inventory")).click
+  current_path.should == backend_inventory_pool_inventory_path(@current_inventory_pool)
 end
 
 Dann /^kann man über die Tabnavigation zum Helferschirm wechseln$/ do
-  find("nav#navigation a", :text => /(Helfer|Helper)/).click
+  find("nav#navigation a", :text => _("Helper")).click
   find("h1", :text => /(Inventarhelfer|Inventory Helper)/)
 end
 

@@ -281,7 +281,7 @@ Dann /^man kann neue Benutzer erstellen (.*?) inventory_pool$/ do |arg1|
   end
   response = case arg1
                 when "für"
-                  page.driver.browser.process(:post, backend_inventory_pool_users_path(@inventory_pool), user: attributes)
+                  page.driver.browser.process(:post, backend_inventory_pool_users_path(@inventory_pool), user: attributes, access_right: {role_name: "customer"})
                when "ohne"
                   page.driver.browser.process(:post, backend_users_path, user: attributes)
              end
@@ -300,27 +300,23 @@ end
 
 Dann /^man kann Benutzern die folgende Rollen zuweisen und wegnehmen, wobei diese immer auf den Gerätepark bezogen ist, für den auch der Verwalter berechtigt ist$/ do |table|
   table.hashes.map do |x|
-    role_name = case x[:role]
-                  when _("Customer")
-                    "customer"
-                  when _("Lending manager")
-                    "lending_manager"
-                  when _("Inventory manager")
-                    "inventory_manager"
-                  #when _("No access")
-                  #  "no_access"
-                end
-
     unknown_user = User.no_access_for(@inventory_pool).order("RAND()").first
 
-    case role_name
-      when "customer"
-        unknown_user.has_role?("customer", @inventory_pool).should be_false
-      when "lending_manager"
-        unknown_user.has_role?("manager", @inventory_pool).should be_false
-      when "inventory_manager"
-        unknown_user.has_role?("manager", @inventory_pool).should be_false
-    end
+    role_name = case x[:role]
+                  when _("Customer")
+                    unknown_user.has_role?("customer", @inventory_pool).should be_false
+                    "customer"
+                  when _("Lending manager")
+                    unknown_user.has_role?("manager", @inventory_pool).should be_false
+                    "lending_manager"
+                  when _("Inventory manager")
+                    unknown_user.has_role?("manager", @inventory_pool).should be_false
+                    "inventory_manager"
+                  when _("No access")
+                    # the unknown_user needs to have a role first, than it can be deleted
+                    page.driver.browser.process(:put, backend_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), access_right: {role_name: "customer"})
+                    "no_access"
+                end
 
     page.driver.browser.process(:put, backend_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), access_right: {role_name: role_name, suspended_until: nil})
     expect(page.status_code == 200).to be_true
