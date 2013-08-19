@@ -18,7 +18,7 @@ end
 
 Then /^I already see possible matches of models$/ do
   page.execute_script('$("#code").keyup().focus()')
-  wait_until { all(".loading", :visible => true).size == 0 and find(".ui-autocomplete", :text => @item.model.name) }
+  wait_until { find(".ui-autocomplete", :text => @item.model.name) }
 end
 
 When /^I select one of the matched models$/ do
