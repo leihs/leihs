@@ -2,13 +2,14 @@
 
 When /^I open a hand over$/ do
   @ip = @current_user.managed_inventory_pools.first
-  @customer = @ip.users.all.detect {|x| x.contracts.unsigned.exists? }
+  @customer = @ip.users.all.detect {|c| c.visits.hand_over.exists? and c.visits.hand_over.any?{|v| v.lines.size >= 3}}
+  raise "customer not found" unless @customer
   visit backend_inventory_pool_user_hand_over_path(@ip, @customer)
   page.has_css?("#hand_over", :visible => true)
 end
 
 When /^I select an item line and assign an inventory code$/ do
-  @item_line = @line = @customer.visits.hand_over.first.lines.detect {|x| x.class.to_s == "ItemLine" and x.item_id.nil? }
+  @item_line = @line = @customer.visits.hand_over.flat_map(&:lines).detect {|x| x.class.to_s == "ItemLine" and x.item_id.nil? }
   step 'I assign an inventory code the item line'
 end
 
@@ -50,7 +51,7 @@ end
 When /^I change the contract lines time range to tomorrow$/ do
   step 'I open the booking calendar for this line'
   @new_start_date = if @line.start_date + 1.day < Date.today
-      Date.today
+    Date.today
     else
       @line.start_date + 1.day
   end
