@@ -172,11 +172,9 @@ end
 Wenn(/^ich einen der Fehler korrigiere$/) do
   @line_ids = @current_user.get_current_order.lines.select{|l| not l.available?}.map(&:id)
   resolve_conflict_for_model find(".row.line[data-line-ids='[#{@line_ids.delete_at(0)}]']").find(".col6of10").text
-  binding.pry
 end
 
 Wenn(/^ich alle Fehler korrigiere$/) do
-  binding.pry
   @line_ids.each {|line_id| resolve_conflict_for_model find(".row.line[data-line-ids='[#{line_id}]']").find(".col6of10").text}
 end
 
