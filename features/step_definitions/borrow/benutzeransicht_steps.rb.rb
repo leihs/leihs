@@ -9,7 +9,7 @@ Dann(/^gelange ich auf die Seite der Benutzerdaten$/) do
 end
 
 Dann(/^werden mir meine Benutzerdaten angezeigt$/) do
-  find("h1.headline-xl", text: _("User data"))
+  find("nav ul li a", text: _("User data"))
 end
 
 Dann(/^die Benutzerdaten beinhalten$/) do |table|

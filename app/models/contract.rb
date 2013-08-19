@@ -110,20 +110,22 @@ class Contract < Document
       false
     else
       transaction do
-        update_attributes({:status_const => Contract::SIGNED, :created_at => Time.now, :handed_over_by_user_id => current_user.id}) 
-        log_history(_("Contract %d has been signed by %s") % [self.id, self.user.name], current_user.id)
-    
-        # Forces handover date to be today.
-        selected_lines.each {|cl|
-          cl.update_attributes(:start_date => Date.today) if cl.start_date != Date.today 
-        }
-        
         unless (lines_for_new_contract = self.contract_lines - selected_lines).empty?
-          new_contract = user.get_current_contract(self.inventory_pool)
+          new_contract = dup
+          new_contract.save
           lines_for_new_contract.each do |cl|
             cl.update_attributes(:contract => new_contract)
           end
-        end        
+          contract_lines.reload
+        end
+
+        # Forces handover date to be today.
+        selected_lines.each {|cl|
+          cl.update_attributes(:start_date => Date.today) if cl.start_date != Date.today
+        }
+
+        update_attributes({:status_const => Contract::SIGNED, :created_at => Time.now, :handed_over_by_user_id => current_user.id})
+        log_history(_("Contract %d has been signed by %s") % [self.id, self.user.name], current_user.id)
       end
       true
     end

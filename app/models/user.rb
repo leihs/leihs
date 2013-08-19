@@ -222,7 +222,7 @@ class User < ActiveRecord::Base
 
   # a user has at most one new contract for each inventory pool
   def current_contract(inventory_pool)
-    contracts = current_contracts.where(:inventory_pool_id => inventory_pool)
+    contracts = current_contracts.where(:inventory_pool_id => inventory_pool, :status_const => Contract::UNSIGNED)
     return nil if contracts.empty?
     if contracts.size > 1
       contracts[1..-1].each do |c|
