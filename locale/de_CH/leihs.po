@@ -2396,3 +2396,6 @@ msgstr "Die Vorlage wurde Ihrer Bestellung hinzugefügt."
 
 msgid "Settings"
 msgstr "Einstellungen"
+
+msgid "Document"
+msgstr "Dokument"

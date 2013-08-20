@@ -7,14 +7,18 @@
   .content-wrapper.straight-top-left
 
     .row.line
-      .line-col.col1of2= _("Firstname") + ":"
-      .line-col.col1of2.text-align-left= current_user.firstname
+      .line-col.col1of5
+        %strong= _("Firstname") + ":"
+      .line-col.col4of5.text-align-left= current_user.firstname
     .row.line
-      .line-col.col1of2= _("Lastname") + ":"
-      .line-col.col1of2.text-align-left= current_user.lastname
+      .line-col.col1of5
+        %strong= _("Lastname") + ":"
+      .line-col.col4of5.text-align-left= current_user.lastname
     .row.line
-      .line-col.col1of2= _("Email") + ":"
-      .line-col.col1of2.text-align-left= current_user.email
+      .line-col.col1of5
+        %strong= _("Email") + ":"
+      .line-col.col4of5.text-align-left= current_user.email
     .row.line
-      .line-col.col1of2= _("Phone") + ":"
-      .line-col.col1of2.text-align-left= current_user.phone
+      .line-col.col1of5
+        %strong= _("Phone") + ":"
+      .line-col.col4of5.text-align-left= current_user.phone

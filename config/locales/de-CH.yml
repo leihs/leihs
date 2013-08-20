@@ -7,6 +7,7 @@ de-CH:
     date:
       formats:
         day_long: "%A %d. %B %Y"
+        short_year: ""
   
 # ==== FROM HERE DEFAULTS:  
   

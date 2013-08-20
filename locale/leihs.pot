@@ -2330,3 +2330,6 @@ msgstr ""
 
 msgid "Settings"
 msgstr ""
+
+msgid "Document"
+msgstr ""

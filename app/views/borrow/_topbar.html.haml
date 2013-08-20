@@ -37,15 +37,18 @@
       %ul.dropdown.right.straight-top
         %li
           %a.dropdown-item{:href => borrow_current_user_path}
-            .icon-user
+            .width-xxxs.inline-block.text-align-center
+              .icon-user
             = _("User data")
         %li
           %a.dropdown-item{:href => borrow_user_documents_path}
-            .icon-copy
+            .width-xxxs.inline-block.text-align-center
+              .icon-copy
             = _("My documents")
-        %li
+        %li.separated-top
           %a.dropdown-item{:href => logout_path}
-            .icon-signout
+            .width-xxxs.inline-block.text-align-center
+              .icon-signout
             = _("Logout")
 
 :coffeescript

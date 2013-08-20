@@ -22,26 +22,28 @@ Dann(/^für jede Vertrag sehe ich folgende Informationen$/) do |table|
   contracts = @current_user.contracts.includes(:contract_lines).where(status_const: [Contract::SIGNED, Contract::CLOSED])
   contracts.sort! {|a,b| b.time_window_min <=> a.time_window_min}
   contracts.each do |contract|
-    table.raw.flatten.each do |s|
-      case s
-        when "Vertragsnummer"
-          page.should have_content contract.id
-        when "Zeitfenster mit von bis Datum und Dauer"
-          page.should have_content contract.time_window_min.strftime("%d.%m.%Y")
-          page.should have_content contract.time_window_max.strftime("%d.%m.%Y")
-          page.should have_content (contract.time_window_max - contract.time_window_min).to_i.abs + 1
-        when "Gerätepark"
-          page.should have_content contract.inventory_pool.to_s
-        when "Zweck"
-          page.should have_content contract.purpose
-        when "Status"
-          page.should have_content contract.status_string
-        when "Vertraglink"
-          find("a[href='#{borrow_user_contract_path(contract.id)}']", text: _("Contract"))
-        when "Wertelistelink"
-          find("a[href='#{borrow_user_value_list_path(contract.id)}']", text: _("Value List"))
-        else
-          raise "unkown section"
+    within find(".line-col", :text => contract.id.to_s).find(:xpath, "./..") do
+      table.raw.flatten.each do |s|
+        case s
+          when "Vertragsnummer"
+            should have_content contract.id
+          when "Zeitfenster mit von bis Datum und Dauer"
+            should have_content contract.time_window_min.strftime("%d.%m.%Y")
+            should have_content contract.time_window_max.strftime("%d.%m.%Y")
+            should have_content (contract.time_window_max - contract.time_window_min).to_i.abs + 1
+          when "Gerätepark"
+            should have_content contract.inventory_pool.shortname
+          when "Zweck"
+            should have_content contract.purpose
+          when "Status"
+              should have_content _("Open") if contract.status_const == Contract::SIGNED
+          when "Vertraglink"
+            find("a[href='#{borrow_user_contract_path(contract.id)}']", text: _("Contract"))
+          when "Wertelistelink"
+            find("a[href='#{borrow_user_value_list_path(contract.id)}']", text: _("Value List"))
+          else
+            raise "unkown section"
+        end
       end
     end
   end
