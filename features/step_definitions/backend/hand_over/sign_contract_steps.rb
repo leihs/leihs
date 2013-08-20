@@ -92,7 +92,7 @@ When /^I assign an inventory code the item line$/ do
   @selected_items = [item]
   find(".line[data-id='#{@item_line.id}'] .inventory_code input").set item.inventory_code
   find(".line[data-id='#{@item_line.id}'] .inventory_code input").native.send_key(:enter)
-  wait_until { find(".line[data-id='#{@item_line.id}']").has_xpath?(".[contains(@class, 'assigned')]") and find(".line[data-id='#{@item_line.id}'] .select input").checked? }
+  wait_until{ page.evaluate_script("$.active") == 0}
 end
 
 Then /^wird die Adresse des Verleihers aufgeführt$/ do
