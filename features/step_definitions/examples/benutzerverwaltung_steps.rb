@@ -800,3 +800,9 @@ Dann(/^sind die Benutzer nach ihrem Vornamen alphabetisch sortiert$/) do
     all("li.user_name").map(&:text)
   end.should == User.scoped.order(:firstname).paginate(page:1, per_page: 20).map(&:name)
 end
+
+Und(/^man gibt die Login-Daten ein$/) do
+  find(".field", text: _("Login")).find("input").set "username"
+  find(".field", text: _("Password")).find("input").set "password"
+  find(".field", text: _("Password Confirmation")).find("input").set "password"
+end

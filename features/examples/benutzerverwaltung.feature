@@ -126,6 +126,7 @@ Funktionalität: Benutzer verwalten
     Und den Nachnamen eingibt
     Und den Vornahmen eingibt
     Und die Email-Addresse eingibt
+    Und man gibt die Login-Daten ein
     Und man speichert den neuen Benutzer
     Dann wird man auf die Benutzerliste ausserhalb der Inventarpools umgeleitet
     Und man sieht eine Bestätigungsmeldung
@@ -181,6 +182,7 @@ Funktionalität: Benutzer verwalten
       | Land           |
       | Telefon        |
       | E-Mail         |
+    Und man gibt die Login-Daten ein
     Und man gibt eine Badge-Id ein
     Und man hat nur die folgenden Rollen zur Auswahl
       | No access        |
@@ -203,6 +205,7 @@ Funktionalität: Benutzer verwalten
       | Nachname       |
       | Vorname        |
       | E-Mail         |
+    Und man gibt die Login-Daten ein
     Und man gibt eine Badge-Id ein
     Und man hat nur die folgenden Rollen zur Auswahl
       | No access |
@@ -223,6 +226,7 @@ Funktionalität: Benutzer verwalten
       | Nachname       |
       | Vorname        |
       | E-Mail         |
+    Und man gibt die Login-Daten ein
     Und man gibt eine Badge-Id ein
     Und man hat nur die folgenden Rollen zur Auswahl
       | No access          |

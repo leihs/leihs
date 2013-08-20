@@ -10,7 +10,7 @@ class DatabaseAuthentication < ActiveRecord::Base
   validates_length_of       :login,    :within => 3..40
   validates_uniqueness_of   :login, :case_sensitive => false
 
-  before_save :encrypt_password
+  before_validation :encrypt_password
   
   belongs_to :user
 

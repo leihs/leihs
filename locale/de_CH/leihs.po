@@ -945,6 +945,9 @@ msgstr "Paket gespeichert"
 msgid "Password"
 msgstr "Passwort"
 
+msgid "Password Confirmation"
+msgstr "Passwort-Bestätigung"
+
 msgid "Password changed"
 msgstr "Passwort geändert"
 

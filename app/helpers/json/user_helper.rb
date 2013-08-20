@@ -28,6 +28,12 @@ module Json
         if with[:is_destroyable]
           h[:is_destroyable] = user.can_destroy?
         end
+
+        if with[:db_auth]
+          if db_auth = DatabaseAuthentication.find_by_user_id(user.id)
+            h[:db_auth] = {login: db_auth.login}
+          end
+        end
       end
       
       h

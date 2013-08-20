@@ -940,6 +940,9 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
+msgid "Password Confirmation"
+msgstr ""
+
 msgid "Password changed"
 msgstr ""
 

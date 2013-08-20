@@ -61,9 +61,12 @@ UsersEditCtrl = ($scope, $location, $routeParams, User) ->
     $scope.user.is_editable = true
     unless $scope.user.access_right?
       $scope.user.access_right = {role_name: "no_access"}
+    if $scope.user.db_auth?
+      $scope.user.db_auth.password = "_password_"
+      $scope.user.db_auth.password_confirmation = "_password_"
 
   $scope.submit = ->
-    User.update
+    params =
       inventory_pool_id: $scope.current_inventory_pool_id
       id: $scope.user.id
       user:
@@ -81,6 +84,14 @@ UsersEditCtrl = ($scope, $location, $routeParams, User) ->
         role_name: $scope.user.access_right.role_name
         suspended_until: if $scope.user.access_right.suspended_until? then moment($scope.user.access_right.suspended_until).format("YYYY-MM-DD") else undefined
         suspended_reason: $scope.user.access_right.suspended_reason
+
+    if $scope.user.db_auth?
+      params.db_auth =
+        login: $scope.user.db_auth.login
+        password: $scope.user.db_auth.password
+        password_confirmation: $scope.user.db_auth.password_confirmation
+
+    User.update params
     , (response) ->
       #$location.path "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/users/#{$scope.user.id}"
       window.location = "/backend/inventory_pools/#{$scope.current_inventory_pool_id}/users"

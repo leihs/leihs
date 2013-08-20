@@ -1193,6 +1193,11 @@ window.i18n.locale_data = {
          null,
          "Bestellung"
       ],
+      "%s Order": [
+         "%s Orders",
+         "%s Bestellung",
+         "%s Bestellungen"
+      ],
       "Order History": [
          null,
          "Vergangene Bestellungen"
@@ -1284,6 +1289,10 @@ window.i18n.locale_data = {
       "Password": [
          null,
          "Passwort"
+      ],
+      "Password Confirmation": [
+         null,
+         "Passwort-Bestätigung"
       ],
       "Password changed": [
          null,
@@ -1458,9 +1467,8 @@ window.i18n.locale_data = {
          "Ausmusterung"
       ],
       "Return": [
-         "Returns",
-         "Rückgabe",
-         "Rückgaben"
+         null,
+         "Zurück"
       ],
       "Return to this hand over": [
          null,
@@ -1945,6 +1953,10 @@ window.i18n.locale_data = {
       "User": [
          null,
          "Benutzer"
+      ],
+      "User data": [
+         null,
+         "Benutzerdaten"
       ],
       "User details were updated successfully.": [
          null,
@@ -2703,6 +2715,11 @@ window.i18n.locale_data = {
          "Collections",
          "Abholung",
          "Abholungen"
+      ],
+      "%s Return": [
+         "%s Returns",
+         "%s Rückgabe",
+         "%s Rückgaben"
       ],
       "not yet saved": [
          null,
