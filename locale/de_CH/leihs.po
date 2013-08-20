@@ -145,6 +145,30 @@ msgstr "Ankunftsnotiz"
 msgid "Ankunftszustand"
 msgstr "Ankunftszustand"
 
+msgid "Anschaffungskategorie"
+msgstr "Anschaffungskategorie"
+
+msgid "Werkstatt-Technik"
+msgstr "Werkstatt-Technik"
+
+msgid "Produktionstechnik"
+msgstr "Produktionstechnik"
+
+msgid "AV-Technik"
+msgstr "AV-Technik"
+
+msgid "Musikinstrumente"
+msgstr "Musikinstrumente"
+
+msgid "Facility Management"
+msgstr "Facility Management"
+
+msgid "IC-Technik/Software"
+msgstr "IC-Technik/Software"
+
+msgid "Business Applications"
+msgstr "Business Applications"
+
 msgid "Approval Successful"
 msgstr "Genehmigung erfolgreich"
 

@@ -3,7 +3,7 @@
 def resolve_conflict_for_model name
   # open booking calender for model
   @model = Model.find_by_name name
-  find(".line .button").click
+  find(".line", :text => @model.name).find(".button", :text => _("Change entry")).click
   find("#booking-calendar .fc-day-content")
   find("#booking-calendar-quantity").set 1
 
@@ -179,5 +179,5 @@ Wenn(/^ich alle Fehler korrigiere$/) do
 end
 
 Dann(/^verschwindet die Fehlermeldung$/) do
-  page.should_not have_content _("Please solve the conflicts for all highlighted lines in order to continue.")
+  all(".emboss", :text => _("Please solve the conflicts for all highlighted lines in order to continue.")).empty?.should be_true
 end

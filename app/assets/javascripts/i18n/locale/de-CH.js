@@ -248,6 +248,38 @@ window.i18n.locale_data = {
          null,
          "Ankunftszustand"
       ],
+      "Anschaffungskategorie": [
+         null,
+         "Anschaffungskategorie"
+      ],
+      "Werkstatt-Technik": [
+         null,
+         "Werkstatt-Technik"
+      ],
+      "Produktionstechnik": [
+         null,
+         "Produktionstechnik"
+      ],
+      "AV-Technik": [
+         null,
+         "AV-Technik"
+      ],
+      "Musikinstrumente": [
+         null,
+         "Musikinstrumente"
+      ],
+      "Facility Management": [
+         null,
+         "Facility Management"
+      ],
+      "IC-Technik/Software": [
+         null,
+         "IC-Technik/Software"
+      ],
+      "Business Applications": [
+         null,
+         "Business Applications"
+      ],
       "Approval Successful": [
          null,
          "Genehmigung erfolgreich"

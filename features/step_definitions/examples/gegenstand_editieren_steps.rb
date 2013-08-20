@@ -55,3 +55,10 @@ Dann /^sehe ich die Felder in folgender Reihenfolge:$/ do |table|
   end
   (page.text =~ Regexp.new(values.join('.*'), Regexp::MULTILINE)).should_not be_nil
 end
+
+Wenn(/^"(.*?)" bei "(.*?)" ausgewählt ist muss auch "(.*?)" ausgewählt werden$/) do |value, key, newkey|
+  field = find("h3", :text => key).find(:xpath, "./..")
+  field.find("option", :text => value).select_option
+  newfield = find("h3", :text => newkey).find(:xpath, "./..")
+  newfield[:class][/required/].should_not be_nil
+end

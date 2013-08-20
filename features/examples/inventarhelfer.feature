@@ -19,11 +19,11 @@ Funktionalität: Inventarhelfer
   @javascript
   Szenario: Pflichtfelder
     Angenommen man ist auf dem Helferschirm
-    Wenn "Investition" bei "Bezug" ausgewählt ist muss auch "Projektnummer" angegeben werden
-    Wenn "Ja" bei "Inventarrelevant" ausgewählt ist muss auch "Anschaffungskategorie" ausgewählt werden
-    Wenn "Ausgemustert" bei "Ausmusterung" ausgewählt ist muss auch "Grund der Ausmusterung" angegeben werden
+    Wenn "Bezug" ausgewählt und auf "Investition" gesetzt wird, dann muss auch "Projektnummer" angegeben werden
+    Wenn "Inventarrelevant" ausgewählt und auf "Ja" gesetzt wird, dann muss auch "Anschaffungskategorie" angegeben werden
+    Wenn "Ausmusterung" ausgewählt und auf "Ausgemustert" gesetzt wird, dann muss auch "Grund der Ausmusterung" angegeben werden
     Dann sind alle Pflichtfelder mit einem Stern gekenzeichnet
-    Wenn ein Pflichtfeld nicht ausgefüllt/ausgewählt ist, dann lässt sich der Gegenstand nicht speichern
+    Wenn ein Pflichtfeld nicht ausgefüllt/ausgewählt ist, dann lässt sich der Inventarhelfer nicht nutzen
     Und der Benutzer sieht eine Fehlermeldung
     Und die nicht ausgefüllten/ausgewählten Pflichtfelder sind rot markiert
 

@@ -39,5 +39,7 @@ class EditItemController
         type: "error"
       do e.preventDefault
       return false
+    else
+      true
 
 window.App.EditItemController = EditItemController

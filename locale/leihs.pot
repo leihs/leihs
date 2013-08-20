@@ -143,6 +143,30 @@ msgstr ""
 msgid "Ankunftszustand"
 msgstr ""
 
+msgid "Anschaffungskategorie"
+msgstr ""
+
+msgid "Werkstatt-Technik"
+msgstr ""
+
+msgid "Produktionstechnik"
+msgstr ""
+
+msgid "AV-Technik"
+msgstr ""
+
+msgid "Musikinstrumente"
+msgstr ""
+
+msgid "Facility Management"
+msgstr ""
+
+msgid "IC-Technik/Software"
+msgstr ""
+
+msgid "Business Applications"
+msgstr ""
+
 msgid "Approval Successful"
 msgstr ""
 

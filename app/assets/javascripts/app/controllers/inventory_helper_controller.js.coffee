@@ -61,8 +61,10 @@ class InventoryHelperController
       @fieldSelection.find(".left")
     else
       @fieldSelection.find(".right")
-    target.append $.tmpl "app/views/inventory/edit/field", field, {removable: true}
+    template = $.tmpl "app/views/inventory/edit/field", field, {removable: true}
+    target.append template
     target.show()
+    App.Field.toggleChildren template, @fieldSelection
 
   applyFields: (inventoryCode)->
     do @resetItemView
@@ -127,7 +129,7 @@ class InventoryHelperController
 
   renderItem: (item)=>
     @currentItem = item
-    new App.EditItemController @fields, item
+    @editItemController = new App.EditItemController @fields, item
     @itemView.addClass "selected"
     $(document).scrollTop @itemView.offset().top
 
@@ -148,10 +150,11 @@ class InventoryHelperController
     @itemView.removeClass "edit"
     @itemSelection.find("input, .button").removeAttr("disabled")
 
-  saveEditedItem: =>
-    @itemView.removeClass "edit"
-    @itemSelection.find("input, .button").removeAttr("disabled")
-    @updateItem @inventoryCode.val(), @itemView.find("form").serializeArray(), []
-    do @resetItemView
+  saveEditedItem: (e)=>
+    if @editItemController.validate e
+      @itemView.removeClass "edit"
+      @itemSelection.find("input, .button").removeAttr("disabled")
+      @updateItem @inventoryCode.val(), @itemView.find("form").serializeArray(), []
+      do @resetItemView
 
 window.App.InventoryHelperController = InventoryHelperController

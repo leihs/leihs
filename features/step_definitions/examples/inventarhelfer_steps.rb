@@ -27,47 +27,66 @@ Dann /^wähle Ich all die Felder über eine List oder per Namen aus$/ do
 end
 
 Dann /^ich setze all ihre Initalisierungswerte$/ do
-  @all_editable_fields = all("#field_selection .field", :visible => true)
-  @all_editable_fields.each do |field|
-    field_type = field[:class][/\s(\w(-\w)?)+\s/].strip
-    case field_type
-
+  @data = {}
+  Field.all.each do |field|
+    next if all(".field[data-field_id='#{field[:id]}']").empty?
+    case field[:type]
       when "radio"
-        field.find("input[type=radio]").click
+        find(".field[data-field_id='#{field[:id]}'] input[type=radio]").click
+        @data[field[:id]] = find(".field[data-field_id='#{field[:id]}'] input[type=radio]").value
       when "textarea"
-        field.find("textarea").set "This is a text for a textarea"
+        find(".field[data-field_id='#{field[:id]}'] textarea").set "This is a text for a textarea"
+        @data[field[:id]] = find(".field[data-field_id='#{field[:id]}'] textarea").value
       when "select"
-        field.find("option").select_option
+        find(".field[data-field_id='#{field[:id]}'] option").select_option
+        @data[field[:id]] = find(".field[data-field_id='#{field[:id]}'] option").value
       when "text"
-        unless field.all("input[name='item[inventory_code]']").empty?
-          field.find("input[type='text']").set "123456"
+        unless all(".field[data-field_id='#{field[:id]}'] input[name='item[inventory_code]']").empty?
+          find(".field[data-field_id='#{field[:id]}'] input[type='text']").set "123456"
         else
-          field.find("input[type='text']").set "This is a text for a input text"
+          find(".field[data-field_id='#{field[:id]}'] input[type='text']").set "This is a text for a input text"
         end
+        @data[field[:id]] = find(".field[data-field_id='#{field[:id]}'] input[type='text']").value
       when "date"
-        field.find(".datepicker").click
-        wait_until{ not all(".ui-datepicker-calendar .ui-state-default", :visible => true).empty? }
-        find(".ui-datepicker-calendar .ui-state-default").click
+        find(".field[data-field_id='#{field[:id]}'] .datepicker").click
+        wait_until{ not all(:xpath, "//*[contains(@class, 'ui-state-default')]").empty? }
+        find(:xpath, "//*[contains(@class, 'ui-state-default')]").click
+        @data[field[:id]] = find(".field[data-field_id='#{field[:id]}'] input.datepicker").value
       when "autocomplete"
-        target_name = field.find('.autocomplete')['data-autocomplete_value_target']
+        target_name = find(".field[data-field_id='#{field[:id]}'] .autocomplete")['data-autocomplete_value_target']
         page.execute_script %Q{ $(".autocomplete[data-autocomplete_value_target='#{target_name}']").focus() }
         page.execute_script %Q{ $(".autocomplete[data-autocomplete_value_target='#{target_name}']").focus() }
         wait_until{ not all(".ui-menu-item a",:visible => true).empty? }
         find(".ui-menu-item a").click
+        @data[field[:id]] = find(".field[data-field_id='#{field[:id]}'] .autocomplete")
       when "autocomplete-search"
-        field.find("input").set "Sharp Beamer"
-        field.find("input").click
+        find(".field[data-field_id='#{field[:id]}'] input").set "Sharp Beamer"
+        find(".field[data-field_id='#{field[:id]}'] input").click
         wait_until {not all("a", text: "Sharp Beamer").empty?}
-        field.find("a", text: "Sharp Beamer").click
+        find(".field[data-field_id='#{field[:id]}'] a", text: "Sharp Beamer").click
+        @data[field[:id]] = Model.find_by_name("Sharp Beamer").id
       when "checkbox"
         # currently we only have "ausgemustert"
-        field.find("input[type='checkbox']").click
+        find(".field[data-field_id='#{field[:id]}'] input[type='checkbox']").click
         find("[name='item[retired_reason]']").set "This is a text for a input text"
+        @data[field[:id]] = "This is a text for a input text"
       else
         raise "field type not found"
-
     end
-      
+  end
+end
+
+Dann /^ich setze das Feld "(.*?)" auf "(.*?)"$/ do |field_name, value|
+  field = Field.find find(".field", text: field_name)["data-field_id"]
+  case field[:type]
+  when "radio"
+    find(".field[data-field_id='#{field[:id]}'] label", :text => value).click
+  when "select"
+    find(".field[data-field_id='#{field[:id]}'] option", :text => value).select_option
+  when "checkbox"
+    find(".field[data-field_id='#{field[:id]}'] label", :text => value).click
+  else
+    raise "unknown field"
   end
 end
 
@@ -80,8 +99,8 @@ end
 Dann /^sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert$/ do
   FastGettext.locale = @current_user.language.locale_name.gsub(/-/, "_")
   wait_until {!all("#item.selected").empty?}
-  @all_editable_fields.each do |field|
-    field = Field.find field["data-field_id"]
+  Field.all.each do |field|
+    next if all(".field[data-field_id='#{field[:id]}']").empty?
     value = field.get_value_from_params @item.reload
     within("#item") do
       field_el = all(".field[data-field_id='#{field.id}']").first
@@ -110,7 +129,7 @@ Dann /^sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, di
           end
         elsif field_type == "autocomplete"
           if value
-            value = field[:values].detect{|v| v["value"] == value}["label"]
+            value = field.as_json["values"].detect{|v| v["value"] == value}["label"]
             field_el.should have_content _(value)
           end
         elsif field_type == "autocomplete-search"
@@ -183,10 +202,8 @@ Wenn /^man die Editierfunktion nutzt$/ do
 end
 
 Dann /^kann man an Ort und Stelle alle Werte des Gegenstandes editieren$/ do
-  find("#item input[type='text']")
-  @all_edited_fields = all("#item .field.text", :visible => true)
-  @all_edited_fields.each do |field|
-    field.find("input[type='text']").set "New text for this input"
+  within("#item") do
+    step %Q{ich setze all ihre Initalisierungswerte}
   end
 end
 
@@ -195,14 +212,7 @@ Dann /^man die Änderungen speichert$/ do
 end
 
 Dann /^sind sie gespeichert$/ do
-  wait_until{!all("#item .field", :visible => true).empty?}
-  all("#item .field.text", :visible => true).each_with_index do |f, i|
-    field = Field.find all("#item .field.text", :visible => true)[i]["data-field_id"]
-    value = field.get_value_from_params @item.reload
-    if not field[:visibility_dependency_field_id] and value.is_a? String
-      value.should == "New text for this input"
-    end
-  end
+  step %Q{sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert}
 end
 
 Wenn /^man seine Änderungen widerruft$/ do
@@ -241,4 +251,17 @@ end
 
 Dann(/^der Ort des anderen Gegenstandes ist dergleiche geblieben$/) do
   @item_2.reload.location.should == @item_2_location
+end
+
+Wenn(/^"(.*?)" ausgewählt und auf "(.*?)" gesetzt wird, dann muss auch "(.*?)" angegeben werden$/) do |field, value, dependent_field|
+  find("#fieldname").click
+  find("#fieldname").set field
+  sleep(0.5)
+  find("#fieldname").native.send_keys([:down, :return])
+  step %Q{ich setze das Feld "#{field}" auf "#{value}"}
+  find(".field", text: dependent_field)
+end
+
+Wenn(/^ein Pflichtfeld nicht ausgefüllt\/ausgewählt ist, dann lässt sich der Inventarhelfer nicht nutzen$/) do
+  step %Q{scanne oder gebe ich den Inventarcode ein}
 end

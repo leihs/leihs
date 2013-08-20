@@ -123,11 +123,11 @@ Funktionalität: Gegenstand erstellen
     | Modell        |
     | Inventarcode  |
     | Projektnummer |
-    Wenn ich das gekennzeichnete <Pflichtfeld> leer lasse
+    | Anschaffungskategorie |
+    Wenn ich das gekennzeichnete "<Pflichtfeld>" leer lasse
     Dann kann das Modell nicht erstellt werden
     Und ich sehe eine Fehlermeldung
     Und die anderen Angaben wurde nicht gelöscht
-
     Beispiele:
     | Pflichtfeld   |
     | Modell        |
@@ -170,6 +170,7 @@ Funktionalität: Gegenstand erstellen
     Und man ist "Matti"
     Und man navigiert zur Gegenstandserstellungsseite
     Dann sind die folgenden Werte im Feld Anschaffungskategorie hinterlegt
+    | Anschaffungskategorie |
     | Werkstatt-Technik     |
     | Produktionstechnik    |
     | AV-Technik            |
