@@ -2399,3 +2399,6 @@ msgstr "Einstellungen"
 
 msgid "Document"
 msgstr "Dokument"
+
+msgid "%d minutes passed. The items are not reserved any more!"
+msgstr "%d minuten sind abgelaufen. Die folgenden Gegenstände sind nicht mehr reserviert!"

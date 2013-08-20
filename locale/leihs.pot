@@ -2333,3 +2333,6 @@ msgstr ""
 
 msgid "Document"
 msgstr ""
+
+msgid "%d minutes passed. The items are not reserved any more!"
+msgstr ""
