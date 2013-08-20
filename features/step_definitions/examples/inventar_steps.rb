@@ -384,7 +384,15 @@ Dann /^so eine Zeile zeigt nur noch Inventarcode und Modellname des Bestandteils
 end
 
 Dann /^kann man diese Daten als CSV\-Datei exportieren$/ do
-  find(".export_csv")
+  def parsed_query
+    href = find(".export_csv")[:href]
+    uri = URI.parse href
+    uri.path.should == backend_inventory_pool_inventory_path(@current_inventory_pool, format: :csv)
+    Rack::Utils.parse_nested_query uri.query
+  end
+  parsed_query.keys.size.should == 0
+  find("input[type='checkbox'][data-filter='in_stock']").click
+  parsed_query.should == {"filter"=>{"flags"=>["in_stock"]}}
 end
 
 Dann /^die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden \(inkl\. Filter\)$/ do
