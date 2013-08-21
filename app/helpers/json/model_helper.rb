@@ -32,10 +32,8 @@ module Json
         end
 
         if with[:packages]
-          Item.unscoped do
-            packages = model.items.joins("JOIN items as i ON i.parent_id = items.id").uniq
-            h[:packages] = hash_for packages, with[:packages]
-          end
+          packages = model.items.packages
+          h[:packages] = hash_for packages, with[:packages]
         end
       
         if with[:categories] and model.respond_to? :categories
