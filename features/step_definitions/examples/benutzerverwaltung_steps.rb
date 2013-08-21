@@ -281,7 +281,7 @@ Dann /^man kann neue Benutzer erstellen (.*?) inventory_pool$/ do |arg1|
   end
   response = case arg1
                 when "für"
-                  page.driver.browser.process(:post, backend_inventory_pool_users_path(@inventory_pool), user: attributes, access_right: {role_name: "customer"})
+                  page.driver.browser.process(:post, backend_inventory_pool_users_path(@inventory_pool), user: attributes, access_right: {role_name: "customer"}, db_auth: {login: attributes[:login], password: "password", password_confirmation: "password"})
                when "ohne"
                   page.driver.browser.process(:post, backend_users_path, user: attributes)
              end
