@@ -27,6 +27,8 @@ Wenn(/^man versucht ein Modell zur Bestellung hinzufügen, welches nicht verfüg
     m.availability_in(@inventory_pool).maximum_available_in_period_summed_for_groups(@start_date, @end_date, @current_user.group_ids) < @quantity and 
     m.total_borrowable_items_for_user(@current_user, @inventory_pool) >= @quantity
   end
+  raise "no available model found" if @model.nil?
+  raise "no category found for the model #{@model}" if @model.categories.empty?
   visit borrow_models_path(:category_id => @model.categories.first.id)
   find("#model-list .line *[data-create-order-line][data-model-id='#{@model.id}']").click
   step "ich setze die Anzahl im Kalendar auf #{@quantity}"
