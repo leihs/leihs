@@ -76,7 +76,7 @@ Wenn /^ich erstellen druecke$/ do
 end
 
 Dann /^ist der Gegenstand mit all den angegebenen Informationen erstellt$/ do
-  find("a[data-tab*='retired']").click if (@table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"} ["Wert"]) == "checked"
+  find("a[data-tab*='retired']").click if (@table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"} ["Wert"]) == "Ja"
   find_field('query').set (@table_hashes.detect {|r| r["Feldname"] == "Inventarcode"} ["Wert"])
   wait_until { all("li.modelname").first.text =~ /#{@table_hashes.detect {|r| r["Feldname"] == "Modell"} ["Wert"]}/ }
   find(".toggle .icon").click

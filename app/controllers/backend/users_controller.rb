@@ -215,7 +215,7 @@ class Backend::UsersController < Backend::BackendController
       User.transaction do
         @user.update_attributes! params[:user]
         if db_auth
-          DatabaseAuthentication.find_by_user_id(@user.id).update_attributes! db_auth.merge(user: @user)
+          DatabaseAuthentication.find_or_create_by_user_id(@user.id).update_attributes! db_auth.merge(user: @user)
           @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
         end
         @access_right.save!
@@ -232,6 +232,7 @@ class Backend::UsersController < Backend::BackendController
         end
       end
     rescue => e
+      binding.pry
       respond_to do |format|
         format.html do
           flash.now[:error] = e.to_s

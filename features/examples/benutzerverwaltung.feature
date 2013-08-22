@@ -92,10 +92,6 @@ Funktionalität: Benutzer verwalten
     Und diese Gegenstände ausschliesslich nicht inventarrelevant sind
     Und man kann Optionen erstellen
     Und man kann neue Benutzer erstellen und für die Ausleihe sperren
-    Und man kann Benutzern die folgende Rollen zuweisen und wegnehmen, wobei diese immer auf den Gerätepark bezogen ist, für den auch der Verwalter berechtigt ist
-    | role           |
-    | Kein Zugriff   |
-    | Kunde          |
     Und man kann nicht inventarrelevante Gegenstände ausmustern, sofern man deren Besitzer ist
 
   # English: inventory manager 
@@ -259,7 +255,7 @@ Funktionalität: Benutzer verwalten
       | E-Mail      |
 
   @javascript
-  Szenario: Zugriff ändern als Ausleihe-Verwalter
+  Szenario: Zugriff auf Ausleihe-Verwalter ändern als Ausleihe-Verwalter
     Angenommen man ist "Pius"
     Und man editiert einen Benutzer der Kunde ist
     Dann man hat nur die folgenden Rollen zur Auswahl
@@ -269,6 +265,14 @@ Funktionalität: Benutzer verwalten
     Wenn man den Zugriff auf "Ausleihe-Verwalter" ändert
     Und man speichert den Benutzer
     Dann hat der Benutzer die Rolle Ausleihe-Verwalter
+
+  @javascript
+  Szenario: Zugriff auf Kunde ändern als Ausleihe-Verwalter
+    Angenommen man ist "Pius"
+    Und man editiert einen Benutzer der Ausleihe-Verwalter ist
+    Wenn man den Zugriff auf "Kunde" ändert
+    Und man speichert den Benutzer
+    Dann hat der Benutzer die Rolle Kunde
 
   @javascript
   Szenario: Zugriff ändern als Inventar-Verwalter

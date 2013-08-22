@@ -14,7 +14,7 @@ Funktionalität: Gegenstand erstellen
     Angenommen Personas existieren
     Und man ist "Matti"
     Und man navigiert zur Gegenstandserstellungsseite
-    Und I check "Ausgemustert"
+    Und I select "Ja" from "item[retired]"
     Und I choose "Investition"
     Dann sehe ich die Felder in folgender Reihenfolge:
     | Inventarcode                 |
@@ -71,7 +71,8 @@ Funktionalität: Gegenstand erstellen
     | Inventarcode                 |              | Test Inventory Code           |
     | Modell                       | autocomplete | Sharp Beamer                  |
 
-    | Ausmusterung                 | checkbox     | unchecked                     |
+    | Ausmusterung                 | select       | Ja                            |
+    | Grund der Ausmusterung       |              | Ja                            |
     | Zustand                      | radio        | OK                            |
     | Vollständigkeit              | radio        | OK                            |
     | Ausleihbar                   | radio        | OK                            |

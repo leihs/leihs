@@ -301,6 +301,7 @@ end
 Dann /^man kann Benutzern die folgende Rollen zuweisen und wegnehmen, wobei diese immer auf den Gerätepark bezogen ist, für den auch der Verwalter berechtigt ist$/ do |table|
   table.hashes.map do |x|
     unknown_user = User.no_access_for(@inventory_pool).order("RAND()").first
+    raise "No user found" unless unknown_user
 
     role_name = case x[:role]
                   when _("Customer")
@@ -314,11 +315,13 @@ Dann /^man kann Benutzern die folgende Rollen zuweisen und wegnehmen, wobei dies
                     "inventory_manager"
                   when _("No access")
                     # the unknown_user needs to have a role first, than it can be deleted
-                    page.driver.browser.process(:put, backend_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), access_right: {role_name: "customer"})
+                    page.driver.browser.process(:put, backend_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), access_right: {role_name: "customer"}, db_auth: {login: Faker::Lorem.words(3).join, password: "password", password_confirmation: "password"})
                     "no_access"
                 end
 
-    page.driver.browser.process(:put, backend_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), access_right: {role_name: role_name, suspended_until: nil})
+    data = {access_right: {role_name: role_name, suspended_until: nil},
+            db_auth: {login: Faker::Lorem.words(3).join, password: "password", password_confirmation: "password"}}
+    page.driver.browser.process(:put, backend_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), data)
     expect(page.status_code == 200).to be_true
     
     case role_name
@@ -331,18 +334,6 @@ Dann /^man kann Benutzern die folgende Rollen zuweisen und wegnehmen, wobei dies
       when "inventory_manager"
         unknown_user.has_role?("manager", @inventory_pool).should be_true
         unknown_user.has_at_least_access_level(3, @inventory_pool).should be_true
-    end
-
-    page.driver.browser.process(:put, backend_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), access_right: {role_name: "no_access"})
-    expect(page.status_code == 200).to be_true
-
-    case role_name
-      when "customer"
-        unknown_user.has_role?("customer", @inventory_pool).should be_false
-      when "lending_manager"
-        unknown_user.has_role?("manager", @inventory_pool).should be_false
-      when "inventory_manager"
-        unknown_user.has_role?("manager", @inventory_pool).should be_false
     end
   end
 end
@@ -699,11 +690,21 @@ Angenommen(/^man editiert einen Benutzer der Kunde ist$/) do
   visit edit_backend_inventory_pool_user_path(@current_inventory_pool, @user)
 end
 
+Angenommen(/^man editiert einen Benutzer der Ausleihe-Verwalter ist$/) do
+  access_right = AccessRight.find{|ar| ar.role_name == "lending_manager" and ar.inventory_pool == @current_inventory_pool and ar.user != @current_user}
+  @user = access_right.user
+  visit edit_backend_inventory_pool_user_path(@current_inventory_pool, @user)
+end
+
 Angenommen(/^man editiert in irgendeinem Inventarpool einen Benutzer der Kunde ist$/) do
   access_right = AccessRight.find{|ar| ar.role_name == "customer"}
   @user = access_right.user
   @current_inventory_pool = access_right.inventory_pool
   visit edit_backend_inventory_pool_user_path(access_right.inventory_pool, @user)
+end
+
+Wenn(/^man den Zugriff auf "Kunde" ändert$/) do
+  find(".field", text: _("Access as")).find("select").select _("Customer")
 end
 
 Wenn(/^man den Zugriff auf "Ausleihe-Verwalter" ändert$/) do
@@ -712,6 +713,11 @@ end
 
 Wenn(/^man den Zugriff auf "Inventar-Verwalter" ändert$/) do
   find(".field", text: _("Access as")).find("select").select _("Inventory manager")
+end
+
+Dann(/^hat der Benutzer die Rolle Kunde$/) do
+  wait_until { find_link _("New User") }
+  @user.reload.access_right_for(@current_inventory_pool).role_name.should == "customer"
 end
 
 Dann(/^hat der Benutzer die Rolle Ausleihe-Verwalter$/) do

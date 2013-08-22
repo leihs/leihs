@@ -52,9 +52,9 @@ class Field < ActiveHash::Base
       id: 7,
       label: "Retirement",
       attribute: "retired",
-      type: "checkbox",
+      type: "select",
       permissions: {level: 2, owner: true},
-      values: [{label: "Retired", value:true}],
+      values: [{label: "No", value: false}, {label: "Yes", value: true}],
       group: "Status"
     },{
       id: 8,

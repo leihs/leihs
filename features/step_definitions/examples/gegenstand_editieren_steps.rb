@@ -17,7 +17,7 @@ end
 
 Wenn /^"(.*?)" bei "(.*?)" ausgewählt ist muss auch "(.*?)" angegeben werden$/ do |value, key, newkey|
   field = find("h3", :text => key).find(:xpath, "./..")
-  field.find("label", :text => value).click
+  field.find("label,option", :text => value).click
   newfield = find("h3", :text => newkey).find(:xpath, "./..")
   newfield[:class][/required/].should_not be_nil
 end

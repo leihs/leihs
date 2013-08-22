@@ -21,7 +21,7 @@ Funktionalität: Inventarhelfer
     Angenommen man ist auf dem Helferschirm
     Wenn "Bezug" ausgewählt und auf "Investition" gesetzt wird, dann muss auch "Projektnummer" angegeben werden
     Wenn "Inventarrelevant" ausgewählt und auf "Ja" gesetzt wird, dann muss auch "Anschaffungskategorie" angegeben werden
-    Wenn "Ausmusterung" ausgewählt und auf "Ausgemustert" gesetzt wird, dann muss auch "Grund der Ausmusterung" angegeben werden
+    Wenn "Ausmusterung" ausgewählt und auf "Ja" gesetzt wird, dann muss auch "Grund der Ausmusterung" angegeben werden
     Dann sind alle Pflichtfelder mit einem Stern gekenzeichnet
     Wenn ein Pflichtfeld nicht ausgefüllt/ausgewählt ist, dann lässt sich der Inventarhelfer nicht nutzen
     Und der Benutzer sieht eine Fehlermeldung

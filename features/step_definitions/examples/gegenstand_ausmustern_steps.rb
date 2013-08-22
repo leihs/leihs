@@ -57,3 +57,37 @@ end
 Dann /^der Gegenstand ist noch nicht Ausgemustert$/ do
   @unretired_item.retired.should be_nil
 end
+
+Angenommen(/^man sucht nach einem ausgemusterten Gegenstand, wo man der Besitzer ist$/) do
+  @retired_item = Item.unscoped.find {|i| i.retired? and i.owner_id == @current_inventory_pool.id}
+end
+
+Angenommen(/^man befindet sich auf der Gegenstandseditierseite dieses Gegenstands$/) do
+  visit backend_inventory_pool_item_path(@current_inventory_pool, @retired_item)
+  page.has_content? @retired_item.model.name
+end
+
+Wenn(/^man die Ausmusterung bei diesem Gegenstand zurück setzt$/) do
+  page.has_content? _("Retirement")
+  find("*[name='item[retired]']").select _("No")
+end
+
+Dann(/^wurde man auf die Inventarliste geleitet$/) do
+  page.has_content? _("List of Inventory")
+end
+
+Dann(/^dieses Gegenstand ist nicht mehr ausgemustert$/) do
+  @retired_item.reload.should_not be_retired
+end
+
+Wenn(/^man speichert den Gegenstand$/) do
+  click_button _("Save %s") % _("Item")
+end
+
+Wenn(/^die Anschaffungskategorie ist ausgewählt$/) do
+  find(".field", text: "Anschaffungskategorie").find("select option[value!='']").select_option
+end
+
+Angenommen(/^man sucht nach einem ausgemusterten Gegenstand, wo man der Verantwortliche und nicht der Besitzer ist$/) do
+  @retired_item = Item.unscoped.find {|i| i.retired? and i.owner != @current_inventory_pool and i.inventory_pool == @current_inventory_pool}
+end
