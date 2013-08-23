@@ -57,3 +57,21 @@ Funktionalität: Bestellübersicht
     Und speichere die Einstellungen
     Dann wird der Eintrag gemäss aktuellen Einstellungen geändert
     Und der Eintrag wird in der Liste anhand der des aktuellen Startdatums und des Geräteparks gruppiert
+
+  @javascript
+  Szenario: Zeitentität, Ablauf der erlaubten Zeit anzeigen
+    Dann sehe ich die Zeitinformationen in folgendem Format "mm:ss"
+    Und die Zeitanzeige zählt von 30 Minuten herunter
+
+  @javascript
+  Szenario: Zeit zurücksetzen
+    Angenommen die Bestellung ist nicht leer
+    Dann sehe ich die Zeitanzeige
+    Wenn ich den Time-Out zurücksetze
+    Dann wird die Zeit zurückgesetzt
+    
+  @javascript
+  Szenario: Zeit abgelaufen    
+    Wenn die Zeit abgelaufen ist
+    Dann werde ich auf die Timeout Page weitergeleitet
+    

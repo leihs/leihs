@@ -116,3 +116,13 @@ Dann(/^ich kann die Ausleihschliessungszeiten wieder löschen$/) do
   step 'ich speichere den Gerätepark'
   @current_inventory_pool.holidays.where(:start_date => holiday[:start_date], :end_date => holiday[:end_date], :name => holiday[:name]).should be_empty
 end
+
+Wenn(/^jedes Pflichtfeld des Geräteparks ist gesetzt$/) do |table|
+  table.raw.flatten.each do |field_name|
+    find(".field", :text => field_name).find("input").value.length.should > 0
+  end
+end
+
+Wenn(/^ich das gekennzeichnete "(.*?)" des Geräteparks leer lasse$/) do |field_name|
+  find(".field", :text => field_name).find("input").set ""
+end

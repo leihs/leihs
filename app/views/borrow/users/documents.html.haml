@@ -1,0 +1,40 @@
+- content_for :title, _("My documents")
+
+.wrapper.margin-top-m
+
+  = render :partial => 'borrow/tabs', :locals => {:tabs => [[request.fullpath, _("My documents")]]}
+
+  .content-wrapper.straight-top-left
+
+    - @contracts.each do |contract|
+      - start_date, end_date = [contract.time_window_min, contract.time_window_max]
+      .row.line
+        .line-col.col2of10
+          .row
+            .col1of2.text-align-right
+              %strong= contract.id
+            .col1of2.text-align-right
+              = interval(start_date, end_date)
+        .line-col.col2of10.text-align-center
+          = l start_date
+          \-
+          = l end_date
+        .line-col.col1of10.text-align-center{:title => contract.inventory_pool}
+          = contract.inventory_pool.shortname
+        - purpose = contract.purpose
+        .line-col.col2of10.text-align-left.tooltip{title: (purpose.blank? ? nil : purpose)}
+          .max-width-s-alt.text-ellipsis= purpose
+        .line-col.col1of10
+          - if contract.status_const == Contract::SIGNED
+            %span.badge.blue
+              = _("Open")
+        .line-col.line-actions.col2of10
+          .multibutton
+            %a.button.white.text-ellipsis{href: borrow_user_contract_path(contract.id), target: "_blank"}
+              = _("Contract")
+            .dropdown-holder.inline-block
+              .button.white.dropdown-toggle
+                %span.arrow.down
+              .dropdown.right
+                %a.dropdown-item.text-ellipsis{href: borrow_user_value_list_path(contract.id), target: "_blank"}
+                  = _("Value List")

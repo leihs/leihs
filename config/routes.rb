@@ -46,6 +46,7 @@ Leihs::Application.routes.draw do
     post "order/delete_unavailables", :to => "orders#delete_unavailables"
     get "orders", :to => "orders#index", :as => "orders"
 
+    get "refresh_timeout", :to => "application#refresh_timeout"
     get "returns", :to => "returns#index", :as => "returns"
 
     post 'search', :to => 'search#search', :as => "search"
@@ -58,7 +59,11 @@ Leihs::Application.routes.draw do
 
     get "to_pick_up", :to => "to_pick_up#index", :as => "to_pick_up"
     get "workdays", :to => "workdays#index", :as => "workdays"
+
     get "user", :to => "users#current", :as => "current_user"
+    get "user_documents", :to => "users#documents"
+    get "user/contracts/:id", :to => "users#contract", :as => "user_contract"
+    get "user/value_lists/:id", :to => "users#value_list", :as => "user_value_list"
   end
 
   # Categories

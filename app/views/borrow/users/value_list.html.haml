@@ -1,0 +1,58 @@
+.value_list
+
+  %h1
+    = _("Value List for Lending Contract No.")
+    = @contract.id
+  .date
+    = l Time.now.to_date
+
+  %section.parties
+    .customer
+      %label= _("Borrower")
+      %span.name= @contract.user
+      %span.street= @contract.user.address
+      %span.plz_city= "%s %s" % [@contract.user.zip, @contract.user.city]
+    .inventory_pool
+      %label= _("Lender")
+      %span.name= @contract.inventory_pool.name
+      - if @contract.inventory_pool.address
+        %span.street= @contract.inventory_pool.address.street
+        %span.plz_city= "%s-%s %s" % [@contract.inventory_pool.address.country_code, @contract.inventory_pool.address.zip_code, @contract.inventory_pool.address.city]
+    .clear
+
+  %section.list
+    %table
+      %thead
+        %tr
+          %td.consecutive_number= _("No.")
+          %td.inventory_code= _("Inventory Code")
+          %td.model_name= _("Model")
+          %td.start_date= _("Start date")
+          %td.end_date= _("End date")
+          %td.quantity= _("Quantity")
+          %td.item_price= _("Value")
+
+      %tbody
+        - consecutive_number = 0
+        - @contract.lines.each do |line|
+          %tr
+            %td.consecutive_number
+              - if line.quantity > 1
+                = "%s/%s" % [consecutive_number += 1, consecutive_number += line.quantity-1]
+              - else
+                = consecutive_number += 1
+            %td.inventory_code= line.item.inventory_code
+            %td.model_name= line.model.name
+            %td.start_date= l line.start_date
+            %td.end_date= l line.end_date
+            %td.quantity= line.quantity
+            %td.item_price= number_to_currency(line.price, format: '%n %u')
+
+      %tfoot.total
+        %tr
+          %td{:colspan => 5}
+            %strong= _("Total")
+          %td.quantity
+            %strong= @contract.quantity
+          %td.value
+            %strong= number_to_currency(@contract.total_price, format: '%n %u')

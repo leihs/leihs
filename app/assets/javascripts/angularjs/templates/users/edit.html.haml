@@ -15,56 +15,56 @@
       %h2 {{_jed("General Information")}}
       .inner
         .field.text
-          %h3.key {{_jed("Last name")}}:
+          %h3.key {{_jed("Last name")}} *
           .value{"ng-switch" => "user.is_editable"}
             .input{"ng-switch-when" => "true"}
               %input{:type => "text", "ng-model" => "user.lastname"}
             .readonly{"ng-switch-when" => "false"}
               %span {{user.lastname}}
         .field.text
-          %h3.key {{_jed("First name")}}:
+          %h3.key {{_jed("First name")}} *
           .value{"ng-switch" => "user.is_editable"}
             .input{"ng-switch-when" => "true"}
               %input{:type => "text", "ng-model" => "user.firstname"}
             .readonly{"ng-switch-when" => "false"}
               %span {{user.firstname}}
         .field.text
-          %h3.key {{_jed("Address")}}:
+          %h3.key {{_jed("Address")}}
           .value{"ng-switch" => "user.is_editable"}
             .input{"ng-switch-when" => "true"}
               %input{:type => "text", "ng-model" => "user.address"}
             .readonly{"ng-switch-when" => "false"}
               %span {{user.address}}
         .field.text
-          %h3.key {{_jed("Zip")}}:
+          %h3.key {{_jed("Zip")}}
           .value{"ng-switch" => "user.is_editable"}
             .input{"ng-switch-when" => "true"}
               %input{:type => "text", "ng-model" => "user.zip"}
             .readonly{"ng-switch-when" => "false"}
               %span {{user.zip}}
         .field.text
-          %h3.key {{_jed("City")}}:
+          %h3.key {{_jed("City")}}
           .value{"ng-switch" => "user.is_editable"}
             .input{"ng-switch-when" => "true"}
               %input{:type => "text", "ng-model" => "user.city"}
             .readonly{"ng-switch-when" => "false"}
               %span {{user.city}}
         .field.text
-          %h3.key {{_jed("Country")}}:
+          %h3.key {{_jed("Country")}}
           .value{"ng-switch" => "user.is_editable"}
             .input{"ng-switch-when" => "true"}
               %input{:type => "text", "ng-model" => "user.country"}
             .readonly{"ng-switch-when" => "false"}
               %span {{user.country}}
         .field.text
-          %h3.key {{_jed("Phone")}}:
+          %h3.key {{_jed("Phone")}}
           .value{"ng-switch" => "user.is_editable"}
             .input{"ng-switch-when" => "true"}
               %input{:type => "text", "ng-model" => "user.phone"}
             .readonly{"ng-switch-when" => "false"}
               %span {{user.phone}}
         .field.text
-          %h3.key {{_jed("E-Mail")}}:
+          %h3.key {{_jed("E-Mail")}} *
           .value{"ng-switch" => "user.is_editable"}
             .input{"ng-switch-when" => "true"}
               %input{:type => "text", "ng-model" => "user.email"}
@@ -73,21 +73,39 @@
 
 
   .right
+    %section{"ng-switch" => "!!user.db_auth"}
+      %div{"ng-switch-when" => "true"}
+        %h2 {{_jed("Login Details")}}
+        .inner
+          .field.text
+            %h3.key {{_jed("Login")}} *
+            .value
+              .input
+                %input{:type => "text", "ng-model" => "user.db_auth.login"}
+          .field.text
+            %h3.key {{_jed("Password")}} *
+            .value
+              %input{:type => "password", "ng-model" => "user.db_auth.password"}
+          .field.text
+            %h3.key {{_jed("Password Confirmation")}} *
+            .value
+              .input
+                %input{:type => "password", "ng-model" => "user.db_auth.password_confirmation"}
     %section
       %h2 {{_jed("Access")}}
       .inner
         .field.text
-          %h3.key {{_jed("Badge ID")}}:
+          %h3.key {{_jed("Badge ID")}}
           .value
             .input
               %input{:type => "text", "ng-model" => "user.badge_id"}
         .field.text
-          %h3.key {{_jed("Access as")}}:
+          %h3.key {{_jed("Access as")}}
           .value
             %select{"ng-model" => "user.access_right.role_name", "ng-options" => "role.name as role.text for role in possible_roles"}
 
         .field.text
-          %h3.key {{_jed("Suspended until")}}:
+          %h3.key {{_jed("Suspended until")}}
           .value
             .input
               %input{:type => "text", "ng-model" => "user.access_right.suspended_until", "ui-date" => ""}
@@ -102,7 +120,7 @@
         
         .field.text
           %div
-            %h3.key {{_jed("Groups")}}:
+            %h3.key {{_jed("Groups")}}
             .value
               %label.container
                 %input.autocomplete{:type => "text",

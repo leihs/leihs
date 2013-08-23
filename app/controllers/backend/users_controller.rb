@@ -67,7 +67,7 @@ class Backend::UsersController < Backend::BackendController
     respond_to do |format|
       format.html
       format.json {
-        render json: view_context.hash_for(@user, {:access_right => true, :preset => :user, :groups => true})
+        render json: view_context.hash_for(@user, {:access_right => true, :preset => :user, :groups => true, :db_auth => true})
       }
     end
   end
@@ -86,44 +86,67 @@ class Backend::UsersController < Backend::BackendController
   def create
 
     should_be_admin = params[:user].delete(:admin)
-    @user = User.new(params[:user])
-    @user.login = @user.email if @user.email
+    @user = User.new(params[:user].merge(login: params[:db_auth][:login]))
 
-    if @user.save
-      @user.all_access_rights.create(role_name: "admin") if should_be_admin == "true"
+    begin
+      User.transaction do
+        @user.save!
+        @db_auth = DatabaseAuthentication.create!(params[:db_auth].merge(user: @user))
+        @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
+        @user.all_access_rights.create!(role_name: "admin") if should_be_admin == "true"
 
-      flash[:notice] = _("User created successfully")
-      redirect_to backend_users_path
-    else
-      @user.errors.delete(:login) if @user.errors.has_key? :email
-      flash.now[:error] = @user.errors.full_messages.uniq
-      @is_admin = should_be_admin
-      render action: :new
+        respond_to do |format|
+          format.html do
+            flash[:notice] = _("User created successfully")
+            redirect_to backend_users_path
+          end
+        end
+      end
+    rescue ActiveRecord::RecordInvalid => e
+      respond_to do |format|
+        format.html do
+          flash.now[:error] = e.to_s
+          @accessible_roles = get_accessible_roles_for_current_user
+          @is_admin = should_be_admin
+          render action: :new
+        end
+      end
     end
   end
 
   def create_in_inventory_pool
     groups = params[:user].delete(:groups) if params[:user].has_key?(:groups)
-    @user = User.new(params[:user])
-    @user.login = @user.email if @user.email
+    @user = User.new(params[:user].merge(login: params[:db_auth][:login]))
     @user.groups = groups.map {|g| Group.find g["id"]} if groups
 
-    @access_right = AccessRight.new inventory_pool: @current_inventory_pool, role_name: params[:access_right][:role_name] unless params[:access_right][:role_name] == "no_access"
+    begin
+      User.transaction do
+        @user.save!
+        DatabaseAuthentication.create!(params[:db_auth].merge(user: @user))
+        @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
+        @user.access_rights.create!(inventory_pool: @current_inventory_pool, role_name: params[:access_right][:role_name]) unless params[:access_right][:role_name] == "no_access"
 
-    if @user.save and @access_right.user = @user and @access_right.save
-      flash[:notice] = _("User created successfully")
-      redirect_to backend_inventory_pool_users_path(@current_inventory_pool)
-    else
-      @user.errors.delete(:login) if @user.errors.has_key? :email
-      errors = @access_right.errors.full_messages.uniq + @user.errors.full_messages.uniq
-      flash.now[:error] = errors
-      @accessible_roles = get_accessible_roles_for_current_user
-      render action: :new_in_inventory_pool
+        respond_to do |format|
+          format.html do
+            flash[:notice] = _("User created successfully")
+            redirect_to backend_inventory_pool_users_path(@current_inventory_pool)
+          end
+        end
+      end
+    rescue ActiveRecord::RecordInvalid => e
+      respond_to do |format|
+        format.html do
+          flash.now[:error] = e.to_s
+          @accessible_roles = get_accessible_roles_for_current_user
+          render action: :new_in_inventory_pool
+        end
+      end
     end
   end
 
   def edit
     @is_admin = @user.has_role? "admin"
+    @db_auth = DatabaseAuthentication.find_by_user_id(@user.id)
   end
 
   def edit_in_inventory_pool
@@ -133,29 +156,39 @@ class Backend::UsersController < Backend::BackendController
 
     should_be_admin = params[:user].delete(:admin)
 
-    if @user.update_attributes(params[:user])
-
-      @user.all_access_rights.delete_all {|ar| ar.role_name == "admin"}
-      @user.all_access_rights.create(role_name: "admin") if should_be_admin == "true"
-
-      respond_to do |format|
-        format.html {
-          flash[:notice] = _("User details were updated successfully.")
-          redirect_to backend_users_path
-        }
-      end
-
-    else
-      respond_to do |format|
-        format.html {
-          @user.errors.delete(:login) if @user.errors.has_key? :email
-          flash.now[:error] = @user.errors.full_messages.uniq
-          @is_admin = should_be_admin
-          render action: :edit
-        }
-      end
+    if db_auth = params[:db_auth]
+      db_auth.delete(:password) if db_auth[:password] == "_password_"
+      db_auth.delete(:password_confirmation) if db_auth[:password_confirmation] == "_password_"
+      @user.login = db_auth[:login] if db_auth[:login]
     end
 
+    begin
+      User.transaction do
+        @user.update_attributes! params[:user]
+        if db_auth
+          DatabaseAuthentication.find_by_user_id(@user.id).update_attributes! db_auth.merge(user: @user)
+          @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
+        end
+        @user.all_access_rights.delete_all {|ar| ar.role_name == "admin"}
+        @user.all_access_rights.create!(role_name: "admin") if should_be_admin == "true"
+
+        respond_to do |format|
+          format.html do
+            flash[:notice] = _("User details were updated successfully.")
+            redirect_to backend_users_path
+          end
+        end
+      end
+    rescue ActiveRecord::RecordInvalid => e
+      respond_to do |format|
+        format.html do
+          flash.now[:error] = e.to_s
+          @is_admin = should_be_admin
+          @db_auth = DatabaseAuthentication.find_by_user_id(@user.id)
+          render action: :edit
+        end
+      end
+    end
   end
 
   def update_in_inventory_pool
@@ -172,28 +205,40 @@ class Backend::UsersController < Backend::BackendController
                                                                     end
     @access_right.role_name = params[:access_right][:role_name] unless params[:access_right][:role_name].blank?
 
-    if @access_right.save and @user.update_attributes(params[:user])
+    if db_auth = params[:db_auth]
+      db_auth.delete(:password) if db_auth[:password] == "_password_"
+      db_auth.delete(:password_confirmation) if db_auth[:password_confirmation] == "_password_"
+      @user.login = db_auth[:login] if db_auth[:login]
+    end
 
-      respond_to do |format|
-        format.html {
-          flash[:notice] = _("User details were updated successfully.")
-          redirect_to [:backend, current_inventory_pool, @user].compact
-        }
-        format.json {
-          with = {:access_right => true}
-          render json: view_context.hash_for(@user, with.merge({:preset => :user}))
-        }
+    begin
+      User.transaction do
+        @user.update_attributes! params[:user]
+        if db_auth
+          DatabaseAuthentication.find_or_create_by_user_id(@user.id).update_attributes! db_auth.merge(user: @user)
+          @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
+        end
+        @access_right.save!
+
+        respond_to do |format|
+          format.html do
+            flash[:notice] = _("User details were updated successfully.")
+            redirect_to [:backend, current_inventory_pool, @user].compact
+          end
+          format.json do
+            with = {:access_right => true}
+            render json: view_context.hash_for(@user, with.merge({:preset => :user}))
+          end
+        end
       end
-
-    else
-      @user.errors.delete(:login) if @user.errors.has_key? :email
-      errors = @access_right.errors.full_messages.uniq + @user.errors.full_messages.uniq
+    rescue => e
+      binding.pry
       respond_to do |format|
-        format.html {
-          flash.now[:error] = errors
+        format.html do
+          flash.now[:error] = e.to_s
           render action: :edit_in_inventory_pool
-        }
-        format.json { render :text => errors.join(", "), :status => 500 }
+        end
+        format.json { render :text => e.to_s, :status => 500 }
       end
     end
   end

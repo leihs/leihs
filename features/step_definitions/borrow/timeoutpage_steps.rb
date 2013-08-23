@@ -1,6 +1,24 @@
 # -*- encoding : utf-8 -*-
 
-Angenommen(/^ich zur Timeout Page weitergeleitet werde$/) do
+def resolve_conflict_for_model name
+  # open booking calender for model
+  @model = Model.find_by_name name
+  find(".line", :text => @model.name).find(".button", :text => _("Change entry")).click
+  find("#booking-calendar .fc-day-content")
+  find("#booking-calendar-quantity").set 1
+
+  # find available start and end date
+  init_date = Date.today
+  while all(".available[data-date='#{init_date.to_s}']").empty? do
+    init_date += 1
+  end
+  step "ich setze das Startdatum im Kalendar auf '#{I18n::l(init_date)}'"
+  step "ich setze das Enddatum im Kalendar auf '#{I18n::l(init_date)}'"
+  find(".modal[role='dialog'] .button.green").click
+  wait_until {all("#booking-calendar").empty?}
+end
+
+Angenommen(/^ich zur Timeout Page mit einem Konfliktmodell weitergeleitet werde$/) do
   step "ich habe eine offene Bestellung mit Modellen"
   step "ein Modell ist nicht verfügbar"
   step "ich länger als 30 Minuten keine Aktivität ausgeführt habe"
@@ -9,8 +27,17 @@ Angenommen(/^ich zur Timeout Page weitergeleitet werde$/) do
   step "ich sehe eine Information, dass die Geräte nicht mehr reserviert sind"
 end
 
+Angenommen(/^ich zur Timeout Page mit (\d+) Konfliktmodellen weitergeleitet werde$/) do |n|
+  step "ich habe eine offene Bestellung mit Modellen"
+  step "#{n} Modelle sind nicht verfügbar"
+  step "ich länger als 30 Minuten keine Aktivität ausgeführt habe"
+  step "ich eine Aktivität ausführe"
+  step "werde ich auf die Timeout Page geleitet"
+  step "ich sehe eine Information, dass die Geräte nicht mehr reserviert sind"
+end
+
 Dann(/^ich sehe eine Information, dass die Geräte nicht mehr reserviert sind$/) do
-  page.should have_content _("Your order is older than %d minutes, the items are not reserved any more!") % Order::TIMEOUT_MINUTES
+  page.should have_content _("%d minutes passed. The items are not reserved any more!") % Order::TIMEOUT_MINUTES
 end
 
 Dann(/^ich sehe eine Information, dass alle Geräte wieder verfügbar sind$/) do
@@ -120,7 +147,7 @@ Wenn(/^ich auf "(.*?)" drücke$/) do |arg1|
   end
 end
 
-Dann(/^ich erhalte ich einen Fehler$/) do
+Dann(/^ich erhalte einen Fehler$/) do
   page.should have_content _("Please solve the conflicts for all highlighted lines in order to continue.")
 end
 
@@ -140,4 +167,17 @@ end
 
 When(/^werden die nicht verfügbaren Modelle aus der Bestellung gelöscht$/) do
   @current_user.get_current_order.reload.lines.all? {|l| l.available? }.should be_true
+end
+
+Wenn(/^ich einen der Fehler korrigiere$/) do
+  @line_ids = @current_user.get_current_order.lines.select{|l| not l.available?}.map(&:id)
+  resolve_conflict_for_model find(".row.line[data-line-ids='[#{@line_ids.delete_at(0)}]']").find(".col6of10").text
+end
+
+Wenn(/^ich alle Fehler korrigiere$/) do
+  @line_ids.each {|line_id| resolve_conflict_for_model find(".row.line[data-line-ids='[#{line_id}]']").find(".col6of10").text}
+end
+
+Dann(/^verschwindet die Fehlermeldung$/) do
+  all(".emboss", :text => _("Please solve the conflicts for all highlighted lines in order to continue.")).empty?.should be_true
 end

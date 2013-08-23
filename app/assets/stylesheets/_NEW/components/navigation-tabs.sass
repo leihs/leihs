@@ -10,8 +10,12 @@
   bottom: -1px
 
   &.active
+    cursor: default
     padding-bottom: 1px
     z-index: 1001
+
+    &:active
+      @include box-shadow(none)
 
   [class^='icon']
     vertical-align: text-top
@@ -28,11 +32,11 @@
 .navigation-tab-item:active .navigation-tab-arrow
   border-color: transparent transparent transparent rgb(226,226,226)
 
+.navigation-tab-item:active .navigation-tab-arrow-border
+  border-color: transparent transparent transparent $grey
+
 .navigation-tab-arrow-border
   @include arrow(15px, right, $lightergrey)
   position: absolute
   right: -15px
   top: 0
-
-.navigation-tab-item:active .navigation-tab-arrow-border
-  border-color: transparent transparent transparent $grey

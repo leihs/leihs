@@ -1,0 +1,13 @@
+!!! 5
+%html{:lang => I18n.locale}
+
+  %head
+    %meta{:charset => 'utf-8'}
+    %title= "#{yield(:title)}#{(yield :title).blank? ? "":" | "}leihs"
+    = favicon_link_tag "borrow/favicon.ico", :type => "image/x-icon"
+    = stylesheet_link_tag "_NEW/print", media: "print"
+    = stylesheet_link_tag "_NEW/print", media: "screen"
+
+  %body
+
+    = yield

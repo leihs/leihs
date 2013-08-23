@@ -6,6 +6,10 @@ class window.App.Borrow.CurrentOrderBasketController extends Spine.Controller
 
   constructor: ->
     super
+    @timeoutCountdown = new App.Borrow.TimeoutCountdownController
+      el: @el.find("#timeout-countdown")
+      template: "borrow/views/order/basket/timeout_countdown"
+      refreshTarget: @el.find("#timeout-countdown-refresh")
     do @delegateEvents
 
   delegateEvents: =>

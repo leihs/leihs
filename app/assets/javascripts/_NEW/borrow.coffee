@@ -5,10 +5,10 @@
 #
 #= require_self
 #
-#= require_tree ./_NEW/borrow/lib
-#= require_tree ./_NEW/borrow/models
-#= require_tree ./_NEW/borrow/controllers
-#= require_tree ./_NEW/borrow/views
+#= require_tree ./borrow/lib
+#= require_tree ./borrow/models
+#= require_tree ./borrow/controllers
+#= require_tree ./borrow/views
 #
 #####
 

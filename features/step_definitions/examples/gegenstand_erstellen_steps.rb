@@ -76,7 +76,7 @@ Wenn /^ich erstellen druecke$/ do
 end
 
 Dann /^ist der Gegenstand mit all den angegebenen Informationen erstellt$/ do
-  find("a[data-tab*='retired']").click if (@table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"} ["Wert"]) == "checked"
+  find("a[data-tab*='retired']").click if (@table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"} ["Wert"]) == "Ja"
   find_field('query').set (@table_hashes.detect {|r| r["Feldname"] == "Inventarcode"} ["Wert"])
   wait_until { all("li.modelname").first.text =~ /#{@table_hashes.detect {|r| r["Feldname"] == "Modell"} ["Wert"]}/ }
   find(".toggle .icon").click
@@ -124,6 +124,10 @@ Wenn /^jedes Pflichtfeld ist gesetzt$/ do |table|
       @project_number_value = "test"
       @project_number_field = find(".field", text: must_field_name).find("input,textarea")
       @project_number_field.set @project_number_value
+    when "Anschaffungskategorie"
+      find(".field", text: "Anschaffungskategorie").find("select option[value!='']").select_option
+    else
+      raise 'unknown field'
     end
   end
 end
@@ -131,18 +135,30 @@ end
 Wenn /^kein Pflichtfeld ist gesetzt$/ do |table|
   table.raw.flatten.each do |must_field_name|
     case must_field_name
-    when "Inventarcode"
-      find(".field", text: must_field_name).find("input,textarea").set ""
-    when "Projektnummer"
-      find(".field", text: "Bezug").find("input[value='investment']").set true
-      find(".field", text: must_field_name).find("input,textarea").set ""
+      when "Inventarcode"
+        find(".field", text: must_field_name).find("input,textarea").set ""
+      when "Modell"
+        find(".field", text: must_field_name).find("input").set ""
+      when "Projektnummer"
+        find(".field", text: "Bezug").find("input[value='investment']").set true
+        find(".field", text: must_field_name).find("input,textarea").set ""
+      when "Anschaffungskategorie"
+        find(".field", text: "Anschaffungskategorie").find("select option[value='']").select_option
+      else
+        raise 'unknown field'
     end
   end
 end
 
-Wenn /^ich das gekennzeichnete (.+) leer lasse$/ do |must_field_name|
+Wenn /^ich das gekennzeichnete "(.+)" leer lasse$/ do |must_field_name|
   @must_field_name = must_field_name
-  find(".field", text: @must_field_name).find("input,textarea").set ""
+  if not find(".field", text: @must_field_name).all("input,textarea").empty?
+    find(".field", text: @must_field_name).find("input,textarea").set ""
+  elsif not find(".field", text: @must_field_name).all("select").empty?
+    find(".field", text: @must_field_name).find("select option[value='']").select_option
+  else
+    raise "unkown field"
+  end
 end
 
 Dann /^kann das Modell nicht erstellt werden$/ do
@@ -169,4 +185,15 @@ end
 
 Dann /^folgende Felder haben folgende Standardwerte$/ do |table|
   check_fields_and_their_values table
+end
+
+Angenommen(/^man setzt Bezug auf Investition$/) do
+  find("input[name='item[properties][reference]'][value='investment']").click
+end
+
+Dann(/^sind die folgenden Werte im Feld Anschaffungskategorie hinterlegt$/) do |table|
+  @table_hashes = table.hashes
+  @table_hashes.each do |hash|
+    find("select[name='item[properties][anschaffungskategorie]'] option[value='#{hash.values.first}']").select_option
+  end
 end

@@ -275,7 +275,7 @@ Wenn /^der Gegenstand nicht an Lager ist und meine oder andere Abteilung für de
   find(".responsible option[data-responsible_id='#{@current_inventory_pool.id}']").select_option
   find(".filter input[data-filter='in_stock']").click if find(".filter input[data-filter='in_stock']").checked?
   step 'ich nach "%s" suche' % @current_inventory_pool.items.detect{|i| not i.inventory_pool_id.nil? and not i.in_stock?}.inventory_code
-  wait_until { all(".loading", :visible => true).empty? }
+  step "ensure there are no active requests"
   wait_until {not all(".items .item.line .item_location.borrower").empty?}
   all(".toggle .text").each {|toggle| toggle.click}
   @item_line = find(".items .item.line .item_location.borrower").find(:xpath, "..")
@@ -384,7 +384,15 @@ Dann /^so eine Zeile zeigt nur noch Inventarcode und Modellname des Bestandteils
 end
 
 Dann /^kann man diese Daten als CSV\-Datei exportieren$/ do
-  find(".export_csv")
+  def parsed_query
+    href = find(".export_csv")[:href]
+    uri = URI.parse href
+    uri.path.should == backend_inventory_pool_inventory_path(@current_inventory_pool, format: :csv)
+    Rack::Utils.parse_nested_query uri.query
+  end
+  parsed_query.keys.size.should == 0
+  find("input[type='checkbox'][data-filter='in_stock']").click
+  parsed_query.should == {"filter"=>{"flags"=>["in_stock"]}}
 end
 
 Dann /^die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden \(inkl\. Filter\)$/ do

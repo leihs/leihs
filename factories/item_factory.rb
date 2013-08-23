@@ -14,6 +14,7 @@ FactoryGirl.define do
     is_incomplete 0
     is_borrowable 1
     is_inventory_relevant 1
+    properties { {anschaffungskategorie: "AV-Technik" } }
   end
 
 end

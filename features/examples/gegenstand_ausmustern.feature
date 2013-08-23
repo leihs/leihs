@@ -31,3 +31,20 @@ Funktionalität: Gegenstand ausmustern
     Und man gibt bei der Ausmusterung keinen Grund an
     Dann sieht man eine Fehlermeldung
     Und der Gegenstand ist noch nicht Ausgemustert
+
+  @javascript
+  Szenario: Ausmusterung rückgangig machen
+    Angenommen man ist "Mike"
+    Und man sucht nach einem ausgemusterten Gegenstand, wo man der Besitzer ist
+    Und man befindet sich auf der Gegenstandseditierseite dieses Gegenstands
+    Wenn man die Ausmusterung bei diesem Gegenstand zurück setzt
+    Und die Anschaffungskategorie ist ausgewählt
+    Und man speichert den Gegenstand
+    Dann wurde man auf die Inventarliste geleitet
+    Und dieses Gegenstand ist nicht mehr ausgemustert
+
+  @javascript
+  Szenario: Gegenstandsansichtseite von einem ausgemusterten Gegenstand für Verantwortlichen anzeigen
+    Angenommen man ist "Mike"
+    Und man sucht nach einem ausgemusterten Gegenstand, wo man der Verantwortliche und nicht der Besitzer ist
+    Dann man befindet sich auf der Gegenstandseditierseite dieses Gegenstands

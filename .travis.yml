@@ -3,7 +3,6 @@ notifications:
   email: false
 rvm:
   - 1.9.3
-  - jruby-19mode
 env: DISPLAY=:99.0
 before_script:
   - mysql -e 'create database leihs2_test;'
@@ -13,7 +12,8 @@ before_script:
   - "rm -f tmp/*.mysql"
 before_install:
   - "sudo apt-get update"
-  - "sudo apt-get install imagemagick wget memcached"
+  - "sudo apt-get install imagemagick wget memcached fluxbox"
+  - "fluxbox &"
 bundler_args: --without development
 # uncomment this line if your project needs to run something other than `rake`:
-script: bundle exec rake app:test:travis
+script: bundle exec rake leihs:test

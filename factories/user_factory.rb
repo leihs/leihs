@@ -12,7 +12,7 @@ FactoryGirl.define do
     address { Faker::Address.street_address }
     city { Faker::Address.city }
     country { Faker::Address.country }
-    zip { "#{country[0]}-#{Faker::Address.zip_code}" }
+    zip { "#{country[0]}-#{Faker::Address.zip_code}".squish }
     language { Language.find_by_default(true) || LanguageFactory.create }
   end
 

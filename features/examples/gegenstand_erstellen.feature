@@ -14,7 +14,7 @@ Funktionalität: Gegenstand erstellen
     Angenommen Personas existieren
     Und man ist "Matti"
     Und man navigiert zur Gegenstandserstellungsseite
-    Und I check "Ausgemustert"
+    Und I select "Ja" from "item[retired]"
     Und I choose "Investition"
     Dann sehe ich die Felder in folgender Reihenfolge:
     | Inventarcode                 |
@@ -27,6 +27,7 @@ Funktionalität: Gegenstand erstellen
     | Ausleihbar                   |
     | - Inventar -                 |
     | Inventarrelevant             |
+    | Anschaffungskategorie        |    
     | Besitzer                     |
     | Letzte Inventur              |
     | Verantwortliche Abteilung    |
@@ -70,12 +71,14 @@ Funktionalität: Gegenstand erstellen
     | Inventarcode                 |              | Test Inventory Code           |
     | Modell                       | autocomplete | Sharp Beamer                  |
 
-    | Ausmusterung                 | checkbox     | unchecked                     |
+    | Ausmusterung                 | select       | Ja                            |
+    | Grund der Ausmusterung       |              | Ja                            |
     | Zustand                      | radio        | OK                            |
     | Vollständigkeit              | radio        | OK                            |
     | Ausleihbar                   | radio        | OK                            |
 
     | Inventarrelevant             | select       | Ja                            |
+    | Anschaffungskategorie        | select       | Werkstatt-Technik             | 
     | Letzte Inventur              |              | 01.01.2013                    |
     | Verantwortliche Abteilung    | autocomplete | A-Ausleihe                    |
     | Verantwortliche Person       |              | Matus Kmit                    |
@@ -116,30 +119,34 @@ Funktionalität: Gegenstand erstellen
     Angenommen Personas existieren
     Und man ist "Matti"
     Und man navigiert zur Gegenstandserstellungsseite
+    Und man setzt Bezug auf Investition
     Und jedes Pflichtfeld ist gesetzt
     | Modell        |
     | Inventarcode  |
     | Projektnummer |
-    Wenn ich das gekennzeichnete <Pflichtfeld> leer lasse
+    | Anschaffungskategorie |
+    Wenn ich das gekennzeichnete "<Pflichtfeld>" leer lasse
     Dann kann das Modell nicht erstellt werden
     Und ich sehe eine Fehlermeldung
     Und die anderen Angaben wurde nicht gelöscht
-
     Beispiele:
     | Pflichtfeld   |
     | Modell        |
     | Inventarcode  |
     | Projektnummer |
+    | Anschaffungskategorie  |
 
   @javascript
   Szenario: Einen Gegenstand mit allen fehlenden Pflichtangaben erstellen
     Angenommen Personas existieren
     Und man ist "Matti"
     Und man navigiert zur Gegenstandserstellungsseite
+    Und man setzt Bezug auf Investition
     Und kein Pflichtfeld ist gesetzt
     | Modell        |
     | Inventarcode  |
     | Projektnummer |
+    | Anschaffungskategorie  |
     Dann kann das Modell nicht erstellt werden
     Und ich sehe eine Fehlermeldung
 
@@ -156,3 +163,25 @@ Funktionalität: Gegenstand erstellen
     | Inventarrelevant | select           | Ja               |
     | Zustand          | radio            | OK               |
     | Vollständigkeit  | radio            | OK               |
+    | Anschaffungskategorie  | select     |                  |    
+    
+  @javascript
+  Szenario: Werte für Anschaffungskategorie hinterlegen
+    Angenommen Personas existieren
+    Und man ist "Matti"
+    Und man navigiert zur Gegenstandserstellungsseite
+    Dann sind die folgenden Werte im Feld Anschaffungskategorie hinterlegt
+    | Anschaffungskategorie |
+    | Werkstatt-Technik     |
+    | Produktionstechnik    |
+    | AV-Technik            |
+    | Musikinstrumente      |
+    | Facility Management   |
+    | IC-Technik/Software   |
+    | Business Applications |
+    
+    
+    
+    
+    
+    

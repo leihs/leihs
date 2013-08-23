@@ -74,6 +74,10 @@ class DocumentLine < ActiveRecord::Base
   end
 ###############################################  
 
+  def price
+    item.price * quantity
+  end
+
   private
   
   def set_defaults

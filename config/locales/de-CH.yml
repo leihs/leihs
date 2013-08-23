@@ -7,6 +7,7 @@ de-CH:
     date:
       formats:
         day_long: "%A %d. %B %Y"
+        short_year: ""
   
 # ==== FROM HERE DEFAULTS:  
   
@@ -130,7 +131,7 @@ de-CH:
       strip_insignificant_zeros: false
     currency:
       format:
-        unit: 'SFr.'
+        unit: 'CHF'
         format: '%u %n'
         separator: '.'
         delimiter: "'"

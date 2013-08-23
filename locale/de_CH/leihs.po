@@ -145,6 +145,30 @@ msgstr "Ankunftsnotiz"
 msgid "Ankunftszustand"
 msgstr "Ankunftszustand"
 
+msgid "Anschaffungskategorie"
+msgstr "Anschaffungskategorie"
+
+msgid "Werkstatt-Technik"
+msgstr "Werkstatt-Technik"
+
+msgid "Produktionstechnik"
+msgstr "Produktionstechnik"
+
+msgid "AV-Technik"
+msgstr "AV-Technik"
+
+msgid "Musikinstrumente"
+msgstr "Musikinstrumente"
+
+msgid "Facility Management"
+msgstr "Facility Management"
+
+msgid "IC-Technik/Software"
+msgstr "IC-Technik/Software"
+
+msgid "Business Applications"
+msgstr "Business Applications"
+
 msgid "Approval Successful"
 msgstr "Genehmigung erfolgreich"
 
@@ -383,6 +407,9 @@ msgstr "Beschreibung"
 
 msgid "Documents"
 msgstr "Dokumente"
+
+msgid "My documents"
+msgstr "Meine Dokumente"
 
 msgid "Documents for hand over"
 msgstr "Dokumente für Herausgabe"
@@ -941,6 +968,9 @@ msgstr "Paket gespeichert"
 
 msgid "Password"
 msgstr "Passwort"
+
+msgid "Password Confirmation"
+msgstr "Passwort-Bestätigung"
 
 msgid "Password changed"
 msgstr "Passwort geändert"
@@ -1504,6 +1534,9 @@ msgstr "Fehler beim Hochladen."
 
 msgid "User"
 msgstr "Benutzer"
+
+msgid "User data"
+msgstr "Benutzerdaten"
 
 msgid "User details were updated successfully."
 msgstr "Die neuen Benutzerinformationen wurden gespeichert."
@@ -2363,3 +2396,18 @@ msgstr "Die Vorlage wurde Ihrer Bestellung hinzugefügt."
 
 msgid "Settings"
 msgstr "Einstellungen"
+
+msgid "Document"
+msgstr "Dokument"
+
+msgid "%d minutes passed. The items are not reserved any more!"
+msgstr "%d minuten sind abgelaufen. Die folgenden Gegenstände sind nicht mehr reserviert!"
+
+msgid "Time until your order times out. Click to reset."
+msgstr "Dauer, bis Ihre Bestellung abläuft. Klicken um zurückzusetzen."
+
+msgid "Your order will time out in %s."
+msgstr "Ihre Bestellung läuft ab in %s."
+
+msgid "Reset timeout"
+msgstr "Time-Out zurücksetzen"

@@ -11,7 +11,8 @@ Funktionalität: Gegenstand bearbeiten
     Angenommen man editiert einen Gegenstand
     Dann muss der "Bezug" unter "Rechnungsinformationen" ausgewählt werden
     Wenn "Investition" bei "Bezug" ausgewählt ist muss auch "Projektnummer" angegeben werden
-    Wenn "Ausgemustert" bei "Ausmusterung" ausgewählt ist muss auch "Grund der Ausmusterung" angegeben werden
+    Wenn "Ja" bei "Inventarrelevant" ausgewählt ist muss auch "Anschaffungskategorie" ausgewählt werden
+    Wenn "Ja" bei "Ausmusterung" ausgewählt ist muss auch "Grund der Ausmusterung" angegeben werden
     Dann sind alle Pflichtfelder mit einem Stern gekenzeichnet
     Wenn ein Pflichtfeld nicht ausgefüllt/ausgewählt ist, dann lässt sich der Gegenstand nicht speichern 
     Und der Benutzer sieht eine Fehlermeldung
@@ -20,7 +21,7 @@ Funktionalität: Gegenstand bearbeiten
   @javascript
   Szenario: Reihenfolge der Felder
     Angenommen man editiert einen Gegenstand
-    Wenn I check "Ausgemustert"
+    Wenn I select "Ja" from "item[retired]"
     Wenn I choose "Investition"
     Dann sehe ich die Felder in folgender Reihenfolge:
     | Inventarcode |
@@ -33,6 +34,7 @@ Funktionalität: Gegenstand bearbeiten
     | Ausleihbar |
     | - Inventar - |
     | Inventarrelevant |
+    | Anschaffungskategorie |
     | Besitzer |
     | Letzte Inventur |
     | Verantwortliche Abteilung |

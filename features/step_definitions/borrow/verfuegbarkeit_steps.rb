@@ -67,6 +67,21 @@ Angenommen(/^ein Modell ist nicht verfügbar$/) do
   line.reload.available?.should be_false
 end
 
+Angenommen(/^(\d+) Modelle sind nicht verfügbar$/) do |n|
+  @current_user.get_current_order.order_lines.take(n.to_i).each do |line|
+    (line.maximum_available_quantity + 1).times do
+      c = FactoryGirl.create(:contract,
+                             :inventory_pool => line.inventory_pool)
+      FactoryGirl.create(:contract_line,
+                         :contract => c,
+                         :model => line.model,
+                         :start_date => line.start_date,
+                         :end_date => line.end_date)
+    end
+  end
+  @current_user.get_current_order.reload.order_lines.select{|line| not line.available?}.length.should == n.to_i
+end
+
 Wenn(/^ich eine Aktivität ausführe$/) do
   visit borrow_root_path
 end

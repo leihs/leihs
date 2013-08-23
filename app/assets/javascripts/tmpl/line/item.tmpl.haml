@@ -34,8 +34,12 @@
     %li.item_location.borrower
       .hand_over.icon
       %span
-        {{if $item.data.inventory_pool.name}}
+        {{if $item.data.inventory_pool && $item.data.inventory_pool.name}}
         ${$item.data.inventory_pool.name},
+        {{else}}
+        {{if $item.data.owner && $item.data.owner.name}}
+        ${$item.data.owner.name},
+        {{/if}}
         {{/if}}
         ${current_borrower.firstname} ${current_borrower.lastname}
         ${_jed("until")}

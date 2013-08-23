@@ -12,7 +12,10 @@ window._jed = (args...)->
   if typeof args[0] == "number"
     i18n.jed.translate(args[1]).ifPlural(args[0], args[2]).fetch args[3]
   else
-    i18n.jed.translate(args[0]).fetch args[1]
+    if args[0].length
+      i18n.jed.translate(args[0]).fetch args[1] 
+    else
+      ""
 
 jQuery ()->
 

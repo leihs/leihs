@@ -1,7 +1,24 @@
-- content_for :title, _("User")
+- content_for :title, _("User data")
 
 .wrapper.margin-top-m
 
-  .row.content-wrapper.padding-inset-l
+  = render :partial => 'borrow/tabs', :locals => {:tabs => [[request.fullpath, _("User data")]]}
 
-    %h1.headline-xl= _("User")
+  .content-wrapper.straight-top-left
+
+    .row.line
+      .line-col.col1of5
+        %strong= _("Firstname") + ":"
+      .line-col.col4of5.text-align-left= current_user.firstname
+    .row.line
+      .line-col.col1of5
+        %strong= _("Lastname") + ":"
+      .line-col.col4of5.text-align-left= current_user.lastname
+    .row.line
+      .line-col.col1of5
+        %strong= _("Email") + ":"
+      .line-col.col4of5.text-align-left= current_user.email
+    .row.line
+      .line-col.col1of5
+        %strong= _("Phone") + ":"
+      .line-col.col4of5.text-align-left= current_user.phone

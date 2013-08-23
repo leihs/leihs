@@ -143,6 +143,30 @@ msgstr ""
 msgid "Ankunftszustand"
 msgstr ""
 
+msgid "Anschaffungskategorie"
+msgstr ""
+
+msgid "Werkstatt-Technik"
+msgstr ""
+
+msgid "Produktionstechnik"
+msgstr ""
+
+msgid "AV-Technik"
+msgstr ""
+
+msgid "Musikinstrumente"
+msgstr ""
+
+msgid "Facility Management"
+msgstr ""
+
+msgid "IC-Technik/Software"
+msgstr ""
+
+msgid "Business Applications"
+msgstr ""
+
 msgid "Approval Successful"
 msgstr ""
 
@@ -381,6 +405,9 @@ msgid "Description"
 msgstr ""
 
 msgid "Documents"
+msgstr ""
+
+msgid "My documents"
 msgstr ""
 
 msgid "Documents for hand over"
@@ -937,6 +964,9 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
+msgid "Password Confirmation"
+msgstr ""
+
 msgid "Password changed"
 msgstr ""
 
@@ -1464,6 +1494,9 @@ msgid "User"
 msgstr ""
 
 msgid "User details were updated successfully."
+msgstr ""
+
+msgid "User data"
 msgstr ""
 
 msgid "User created successfully"
@@ -2296,4 +2329,19 @@ msgid "The template has been added to your order."
 msgstr ""
 
 msgid "Settings"
+msgstr ""
+
+msgid "Document"
+msgstr ""
+
+msgid "%d minutes passed. The items are not reserved any more!"
+msgstr ""
+
+msgid "Time until your order times out. Click to reset."
+msgstr ""
+
+msgid "Your order will time out in %s."
+msgstr ""
+
+msgid "Reset timeout"
 msgstr ""

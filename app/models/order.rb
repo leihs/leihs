@@ -29,10 +29,8 @@ class Order < Document
   APPROVED = 3
   REJECTED = 4
 
-  STATUS = {_("Unsubmitted") => UNSUBMITTED, _("Submitted") => SUBMITTED, _("Approved") => APPROVED, _("Rejected") => REJECTED }
-
   def status_string
-    n = STATUS.index(status_const)
+    n = {_("Unsubmitted") => UNSUBMITTED, _("Submitted") => SUBMITTED, _("Approved") => APPROVED, _("Rejected") => REJECTED }.key(status_const)
     n.nil? ? status_const : n
   end
 

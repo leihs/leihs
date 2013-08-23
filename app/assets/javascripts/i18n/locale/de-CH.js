@@ -248,6 +248,38 @@ window.i18n.locale_data = {
          null,
          "Ankunftszustand"
       ],
+      "Anschaffungskategorie": [
+         null,
+         "Anschaffungskategorie"
+      ],
+      "Werkstatt-Technik": [
+         null,
+         "Werkstatt-Technik"
+      ],
+      "Produktionstechnik": [
+         null,
+         "Produktionstechnik"
+      ],
+      "AV-Technik": [
+         null,
+         "AV-Technik"
+      ],
+      "Musikinstrumente": [
+         null,
+         "Musikinstrumente"
+      ],
+      "Facility Management": [
+         null,
+         "Facility Management"
+      ],
+      "IC-Technik/Software": [
+         null,
+         "IC-Technik/Software"
+      ],
+      "Business Applications": [
+         null,
+         "Business Applications"
+      ],
       "Approval Successful": [
          null,
          "Genehmigung erfolgreich"
@@ -555,6 +587,10 @@ window.i18n.locale_data = {
       "Documents": [
          null,
          "Dokumente"
+      ],
+      "My documents": [
+         null,
+         "Meine Dokumente"
       ],
       "Documents for hand over": [
          null,
@@ -1193,6 +1229,11 @@ window.i18n.locale_data = {
          null,
          "Bestellung"
       ],
+      "%s Order": [
+         "%s Orders",
+         "%s Bestellung",
+         "%s Bestellungen"
+      ],
       "Order History": [
          null,
          "Vergangene Bestellungen"
@@ -1284,6 +1325,10 @@ window.i18n.locale_data = {
       "Password": [
          null,
          "Passwort"
+      ],
+      "Password Confirmation": [
+         null,
+         "Passwort-Bestätigung"
       ],
       "Password changed": [
          null,
@@ -1458,9 +1503,8 @@ window.i18n.locale_data = {
          "Ausmusterung"
       ],
       "Return": [
-         "Returns",
-         "Rückgabe",
-         "Rückgaben"
+         null,
+         "Zurück"
       ],
       "Return to this hand over": [
          null,
@@ -1945,6 +1989,10 @@ window.i18n.locale_data = {
       "User": [
          null,
          "Benutzer"
+      ],
+      "User data": [
+         null,
+         "Benutzerdaten"
       ],
       "User details were updated successfully.": [
          null,
@@ -2704,6 +2752,11 @@ window.i18n.locale_data = {
          "Abholung",
          "Abholungen"
       ],
+      "%s Return": [
+         "%s Returns",
+         "%s Rückgabe",
+         "%s Rückgaben"
+      ],
       "not yet saved": [
          null,
          "noch nicht gespeichert"
@@ -3036,6 +3089,22 @@ window.i18n.locale_data = {
       "Settings": [
          null,
          "Einstellungen"
+      ],
+      "Document": [
+         null,
+         "Dokument"
+      ],
+      "%d minutes passed. The items are not reserved any more!": [
+         null,
+         "%d minuten sind abgelaufen. Die folgenden Gegenstände sind nicht mehr reserviert!"
+      ],
+      "Time until your order times out. Click to reset.": [
+         null,
+         "Dauer, bis Ihre Bestellung abläuft. Klicken um zurückzusetzen."
+      ],
+      "Your order will time out in %s.": [
+         null,
+         "Ihre Bestellung läuft in %s ab."
       ]
    }
 }

@@ -52,9 +52,9 @@ class Field < ActiveHash::Base
       id: 7,
       label: "Retirement",
       attribute: "retired",
-      type: "checkbox",
+      type: "select",
       permissions: {level: 2, owner: true},
-      values: [{label: "Retired", value:true}],
+      values: [{label: "No", value: false}, {label: "Yes", value: true}],
       group: "Status"
     },{
       id: 8,
@@ -117,6 +117,18 @@ class Field < ActiveHash::Base
       permissions: {level: 3, owner: true},
       values: [{label: "No", value: false}, {label: "Yes", value: true}],
       default: true,
+      group: "Inventory"
+    },{
+      id: 36,
+      label: "Anschaffungskategorie",
+      attribute: ["properties", "anschaffungskategorie"],
+      value_label: ["properties", "anschaffungskategorie"],
+      required: true,
+      type: "select",
+      values: [{label: "", value: nil}, {label: "Werkstatt-Technik", value: "Werkstatt-Technik"}, {label: "Produktionstechnik", value: "Produktionstechnik"}, {label: "AV-Technik", value: "AV-Technik"}, {label: "Musikinstrumente", value: "Musikinstrumente"}, {label: "Facility Management", value: "Facility Management"}, {label: "IC-Technik/Software", value: "IC-Technik/Software"}, {label: "Business Applications", value: "Business Applications"}],
+      visibility_dependency_field_id: 15,
+      visibility_dependency_value: "true",
+      permissions: {level: 3, owner: true},
       group: "Inventory"
     },{
       id: 16,
@@ -302,10 +314,11 @@ class Field < ActiveHash::Base
   end
 
   def as_json(options = {})
-    self[:values] = values
-    self[:default] = default
-    self[:search_path] = search_path options[:current_inventory_pool]
-    self.attributes.as_json options
+    h = self.attributes.clone
+    h[:values] = values
+    h[:default] = default
+    h[:search_path] = search_path options[:current_inventory_pool]
+    h.as_json options
   end
 
   def get_value_from_params(params)

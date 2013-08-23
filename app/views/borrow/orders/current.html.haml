@@ -5,11 +5,25 @@
   = render :partial => 'borrow/tabs', :locals => {:tabs => [[request.fullpath ,_("Order overview")]]}
 
   .row.content-wrapper.straight-top-left
-    - if current_order.timeout? and @grouped_and_merged_lines.values.flatten.any?{|x| not x[:available?]}
-      .padding-inset-m
+    .padding-inset-m
+      - if current_order.timeout? and @grouped_and_merged_lines.values.flatten.any?{|x| not x[:available?]}
         .emboss.red.padding-inset-m.text-align-center
           %strong.font-size-m
             = _("Please solve the conflicts for all highlighted lines in order to continue.")
+      - elsif current_order.lines.empty?
+        .emboss.padding-inset-m.text-align-center
+          %h3.headline-m
+            = _("Your order ist empty.")
+            %br
+            = _("Should should start selecting some items.")
+            %br
+          .padding-top-m
+            %a.button.green.large{:href => borrow_root_path}= _("Start lending")
+      - elsif not @timed_out
+        #timeout-countdown.emboss.padding-inset-m.text-align-center
+          %strong.font-size-m!= _("Your order will time out in %s.") % "<span id='timeout-countdown-time'></span>"
+          %span#timeout-countdown-refresh.button.inset.vertical-align-baseline.margin-left-s
+            = _("Reset timeout")
 
     #current-order-lines
       - @grouped_and_merged_lines.each_pair do |k, v|
@@ -24,55 +38,57 @@
 
           = render :partial => "borrow/orders/unsubmitted/merged_lines", :collection => v, :as => :line
 
-    .emboss.padding-inset-l.separated-top
-      - if current_order.timeout?
-        .row
-          .col1of2
-            = link_to borrow_order_remove_path, method: :delete, data: { confirm: _("The order will be discarded.") }, class: "button red" do
-              %i.icon-trash
-              = _("Delete %s") % _("Order")
-
-          .col1of2.text-align-right
-            .multibutton
-              = link_to borrow_root_path, class: "button white" do
-                = _("Continue this order")
-              .dropdown-holder.inline-block
-                .button.white.dropdown-toggle
-                  %span.arrow.down
-                .dropdown.right
-                  = link_to borrow_order_delete_unavailables_path, class: "dropdown-item", method: :post do
-                    = _("Continue with available models only")
-
-      - else
-        = form_tag borrow_order_path do
+    - if not current_order.lines.empty?
+      .emboss.padding-inset-l.separated-top
+        - if current_order.timeout? or @timed_out
           .row
-            %h3.headline-s.padding-bottom-m
-              = _("Purpose of the order")
-              *
-            %textarea.padding-inset-s.width-full{name: "purpose", placeholder: _("Specification of the purpose is required")}
-              = current_order.purpose
-          .row.padding-top-l
             .col1of2
               = link_to borrow_order_remove_path, method: :delete, data: { confirm: _("The order will be discarded.") }, class: "button red" do
                 %i.icon-trash
                 = _("Delete %s") % _("Order")
+
             .col1of2.text-align-right
-              %button.button.green
-                %i.icon-ok
-                = _("Submit Order")
+              .multibutton
+                = link_to borrow_root_path, class: "button white" do
+                  = _("Continue this order")
+                .dropdown-holder.inline-block
+                  .button.white.dropdown-toggle
+                    %span.arrow.down
+                  .dropdown.right
+                    = link_to borrow_order_delete_unavailables_path, class: "dropdown-item", method: :post do
+                      = _("Continue with available models only")
+
+        - else
+          = form_tag borrow_order_path do
+            .row
+              %h3.headline-s.padding-bottom-m
+                = _("Purpose of the order")
+                *
+              %textarea.padding-inset-s.width-full{name: "purpose", placeholder: _("Specification of the purpose is required")}
+                = current_order.purpose
+            .row.padding-top-l
+              .col1of2
+                = link_to borrow_order_remove_path, method: :delete, data: { confirm: _("The order will be discarded.") }, class: "button red" do
+                  %i.icon-trash
+                  = _("Delete %s") % _("Order")
+              .col1of2.text-align-right
+                %button.button.green
+                  %i.icon-ok
+                  = _("Submit Order")
 
 :coffeescript
 
   App.Order.records[#{current_order.id}] = new App.Order #{current_order.to_json}
   App.Order.current = App.Order.find(#{current_order.id})
+  App.Order.current.timedOut = #{(!!@timed_out).to_json}
 
-  for order_line in #{current_order.lines.to_json}
+  for order_line in #{@lines.to_json}
     App.OrderLine.records[order_line.id] = new App.OrderLine order_line
 
-  for model in #{current_order.lines.map(&:model).to_json}
+  for model in #{@models.to_json}
     App.Model.records[model.id] = new App.Model model
 
-  for ip in #{current_order.lines.map(&:inventory_pool).to_json}
+  for ip in #{@inventory_pools.to_json}
     App.InventoryPool.records[ip.id] = new App.InventoryPool ip
 
   jQuery ->

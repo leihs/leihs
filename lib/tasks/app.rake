@@ -33,12 +33,6 @@ namespace :app do
       Rake::Task["app:test:jasmine"].invoke
     end
 
-    task :travis do
-      Rake::Task["app:test:setup"].invoke
-      Rake::Task["app:test:rspec"].invoke
-      Rake::Task["app:test:jasmine"].invoke
-    end
-
     task :rspec do
       system "bundle exec rspec --format d --format html --out tmp/html/rspec.html spec"
       exit_code = $?.exitstatus

@@ -113,3 +113,17 @@ Don't forget that the leihs application at http://leihs.vagrant is running
 in production mode! You will have to precompile assets and make sure
 that the 'production' database exists and is migrated and seeded, otherwise
 none of this will work properly.
+
+
+
+# Changelog
+
+## 1.0.1
+
+Removed requirement for USB 2.0 drivers, therefore removing the need
+for VirtualBox Extension Pack. (rca)
+
+
+## 1.0.0
+
+Initial release.

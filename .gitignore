@@ -33,3 +33,4 @@ public/attachments/*
 Gemfile.local*
 .vagrant/*
 .vagrant*
+tags

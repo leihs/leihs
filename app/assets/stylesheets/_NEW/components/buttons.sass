@@ -2,21 +2,25 @@
   border: 0
   cursor: pointer
   display: inline-block
-  font-size: $font-size-xs
   font-weight: bold
   line-height: 2.4em
   position: relative
-  vertical-align: middle
   white-space: nowrap
   @include border-radius(6px)
   @include user-select(none)
   @include box-shadow(0 1px 0 rgba(255,255,255,0.2))
+
+  &:not([class*='font-size'])
+    font-size: $font-size-xs
 
   &:not([class*='padding'])
     padding: 0 10px
     
   &:not([class*='text-align'])
     text-align: center
+
+  &:not([class*='vertical-align'])
+    vertical-align: middle
 
 @mixin button($color, $grad_color_2, $grad_color_1, $grad_color_1_active, $grad_color_2_active) 
   color: $color
@@ -62,12 +66,27 @@
   @include button($darkergrey, rgba(230,230,230,0.2), rgba(255,255,255,0.2), rgb(226,226,226), rgb(232,232,232))
   @include box-shadow(1px 1px 0 white)
 
+// LARGE BUTTONS
+
+.button.large 
+  font-weight: bold
+  line-height: 2em
+  vertical-align: bottom
+
+  &:not([class*='padding'])
+    padding: 0 $space-l
+
+  &:not([class*='font-size'])
+    font-size: $font-size-m
+
 // SMALL BUTTONS
 
-.button.small 
-  font-size: $font-size-xxs
+.button.small
   font-weight: bold
   vertical-align: bottom
+
+  &:not([class*='font-size'])
+    font-size: $font-size-xxs
 
   &:not([class*='padding'])
     padding: 0 8px
@@ -75,13 +94,8 @@
   [class^='icon']
     vertical-align: text-bottom
 
-// LARGE BUTTONS
+// MICRO BUTTONS
 
-.button.large 
-  font-size: $font-size-m
-  font-weight: bold
-  line-height: 2em
-  vertical-align: bottom
-
-  &:not([class*='padding'])
-    padding: 0 $space-l
+.button.micro
+  @extend .button.small
+  line-height: $line-height-m

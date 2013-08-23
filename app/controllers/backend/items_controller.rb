@@ -148,6 +148,7 @@ class Backend::ItemsController < Backend::BackendController
   end
   
   def show(with = params[:with])
+    @item = Item.unscoped.by_owner_or_responsible(current_inventory_pool).find(params[:id])
     respond_to do |format|
       format.json { 
         unless @item.nil?
