@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
       current_user.language
     end
     language ||= Language.default_language
-    current_user.update_attributes(:language_id => language.id) if current_user and session[:locale] != language.locale_name
+    current_user.update_attributes(:language_id => language.id) if current_user
     session[:locale] = language.locale_name
     I18n.locale = language.locale_name.to_sym
   end
