@@ -588,6 +588,10 @@ window.i18n.locale_data = {
          null,
          "Dokumente"
       ],
+      "My documents": [
+         null,
+         "Meine Dokumente"
+      ],
       "Documents for hand over": [
          null,
          "Dokumente für Herausgabe"
@@ -3085,6 +3089,22 @@ window.i18n.locale_data = {
       "Settings": [
          null,
          "Einstellungen"
+      ],
+      "Document": [
+         null,
+         "Dokument"
+      ],
+      "%d minutes passed. The items are not reserved any more!": [
+         null,
+         "%d minuten sind abgelaufen. Die folgenden Gegenstände sind nicht mehr reserviert!"
+      ],
+      "Time until your order times out. Click to reset.": [
+         null,
+         "Dauer, bis Ihre Bestellung abläuft. Klicken um zurückzusetzen."
+      ],
+      "Your order will time out in %s.": [
+         null,
+         "Ihre Bestellung läuft in %s ab."
       ]
    }
 }

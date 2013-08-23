@@ -8,6 +8,7 @@
     = javascript_include_tag "i18n/locale/#{I18n.locale}"
     = javascript_include_tag "_NEW/application"
     = javascript_include_tag "_NEW/borrow"
+    = render :partial => "borrow/global_javascript_injection"
     = favicon_link_tag "borrow/favicon.ico", :type => "image/x-icon"
     = csrf_meta_tag
     = yield :head

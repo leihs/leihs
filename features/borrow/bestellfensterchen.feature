@@ -33,6 +33,7 @@ Funktionalität: Bestellung
     Wenn ich mit dem Kalender ein Modell der Bestellung hinzufüge
     Dann wird das Bestellfensterchen aktualisiert
  
+  @javascript
   Szenario: Zeitentität, Ablauf der erlaubten Zeit anzeigen
     Angenommen meine Bestellung ist leer
     Wenn man befindet sich auf der Seite der Hauptkategorien
@@ -42,12 +43,14 @@ Funktionalität: Bestellung
     Und die Zeitanzeige ist in einer Schaltfläche im Reiter "Bestellung" auf der rechten Seite
     Und die Zeitanzeige zählt von 30 Minuten herunter
     
+  @javascript
   Szenario: Zeit zurücksetzen
     Angenommen die Bestellung ist nicht leer
-    Wenn ich auf die Zeitanzeige  drücke
+    Dann sehe ich die Zeitanzeige
+    Wenn ich den Time-Out zurücksetze
     Dann wird die Zeit zurückgesetzt
     
-  Szenario: Zeit abgelaufen    
+  @javascript
+  Szenario: Zeit abgelaufen
     Wenn die Zeit abgelaufen ist
     Dann werde ich auf die Timeout Page weitergeleitet
-    

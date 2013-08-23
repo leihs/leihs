@@ -2336,3 +2336,12 @@ msgstr ""
 
 msgid "%d minutes passed. The items are not reserved any more!"
 msgstr ""
+
+msgid "Time until your order times out. Click to reset."
+msgstr ""
+
+msgid "Your order will time out in %s."
+msgstr ""
+
+msgid "Reset timeout"
+msgstr ""

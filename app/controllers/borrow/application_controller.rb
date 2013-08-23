@@ -16,6 +16,16 @@ class Borrow::ApplicationController < ApplicationController
   end
   helper_method :current_order
 
+  def refresh_timeout
+    # ok, refreshed
+    respond_to do |format|
+      format.html {render :nothing => true}
+      format.json do
+        render :json => { date: current_user.get_current_order.updated_at }
+      end
+    end
+  end
+
   private
 
   def require_customer; require_role "customer"; end

@@ -2402,3 +2402,12 @@ msgstr "Dokument"
 
 msgid "%d minutes passed. The items are not reserved any more!"
 msgstr "%d minuten sind abgelaufen. Die folgenden Gegenstände sind nicht mehr reserviert!"
+
+msgid "Time until your order times out. Click to reset."
+msgstr "Dauer, bis Ihre Bestellung abläuft. Klicken um zurückzusetzen."
+
+msgid "Your order will time out in %s."
+msgstr "Ihre Bestellung läuft ab in %s."
+
+msgid "Reset timeout"
+msgstr "Time-Out zurücksetzen"

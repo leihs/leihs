@@ -209,3 +209,7 @@ Dann(/^der Eintrag wird in der Liste anhand der des aktuellen Startdatums und de
   @current_user.get_current_order.reload
   step 'sehe ich die Einträge gruppiert nach Startdatum und Gerätepark'
 end
+
+Dann(/^sehe ich die Zeitinformationen in folgendem Format "(.*?)"$/) do |format|
+  find("#timeout-countdown-time", :text => Regexp.new(format.gsub("mm", "\\d+").gsub("ss", "\\d+")))
+end

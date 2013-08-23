@@ -11,6 +11,10 @@ class window.App.Borrow.CurrentOrderShowController extends Spine.Controller
     super
     new App.Borrow.ModelsShowPropertiesController {el: "#properties"}
     new App.Borrow.ModelsShowImagesController {el: "#images"}
+    unless App.Order.current.timedOut
+      @timeoutCountdown = new App.Borrow.TimeoutCountdownController
+        el: @el.find("#timeout-countdown")
+        refreshTarget: @el.find("#timeout-countdown")
     
   delegateEvents: =>
     super

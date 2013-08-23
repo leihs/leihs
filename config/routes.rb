@@ -46,6 +46,7 @@ Leihs::Application.routes.draw do
     post "order/delete_unavailables", :to => "orders#delete_unavailables"
     get "orders", :to => "orders#index", :as => "orders"
 
+    get "refresh_timeout", :to => "application#refresh_timeout"
     get "returns", :to => "returns#index", :as => "returns"
 
     post 'search', :to => 'search#search', :as => "search"

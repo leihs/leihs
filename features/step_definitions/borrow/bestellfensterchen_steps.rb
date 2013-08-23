@@ -60,5 +60,59 @@ Dann(/^wird das Bestellfensterchen aktualisiert$/) do
   find("#current-order-basket #current-order-lines .line[title='#{@model.name}']", :text => "#{@quantity}x #{@model.name}")
 end
 
+Angenommen(/^meine Bestellung ist leer$/) do
+  @current_user.get_current_order.lines.empty?.should be_true
+end
 
+Dann(/^sehe ich keine Zeitanzeige$/) do
+  all("#current-order-basket #timeout-countdown", :visible => true).empty?.should be_true
+end
 
+Dann(/^sehe ich die Zeitanzeige$/) do
+  visit root_path
+  all("#current-order-basket #timeout-countdown", :visible => true).empty?.should be_false
+  sleep(2)
+  @timeoutStart = @current_user.get_current_order.created_at
+  @countdown = find("#timeout-countdown-time").text
+end
+
+Dann(/^die Zeitanzeige ist in einer Schaltfläche im Reiter "Bestellung" auf der rechten Seite$/) do
+  find("#current-order-basket .navigation-tab-item #timeout-countdown #timeout-countdown-time")
+end
+
+Dann(/^die Zeitanzeige zählt von (\d+) Minuten herunter$/) do |timeout_minutes|
+  @countdown = find("#timeout-countdown-time").text
+  minutes = @countdown.split(":")[0].to_i
+  seconds = @countdown.split(":")[1].to_i
+  expect(minutes >= (Order::TIMEOUT_MINUTES - 1)).to be_true
+  sleep(2)
+  expect(seconds > find("#timeout-countdown-time").reload.text.split(":")[1].to_i).to be_true
+end
+
+Angenommen(/^die Bestellung ist nicht leer$/) do
+  step 'ich ein Modell der Bestellung hinzufüge'
+end
+
+Wenn(/^ich den Time-Out zurücksetze$/) do
+  @countdown = find("#timeout-countdown-time").text
+  find("#timeout-countdown-refresh").click
+end
+
+Dann(/^wird die Zeit zurückgesetzt$/) do
+  seconds = @countdown.split(":")[1].to_i
+  sleep(2)
+  secondsNow = find("#timeout-countdown-time").reload.text.split(":")[1].to_i
+  expect(seconds <= secondsNow).to be_true
+end
+
+Wenn(/^die Zeit abgelaufen ist$/) do
+  Order::TIMEOUT_MINUTES = 1
+  step 'ich ein Modell der Bestellung hinzufüge'
+  step 'sehe ich die Zeitanzeige'
+  sleep(70)
+end
+
+Dann(/^werde ich auf die Timeout Page weitergeleitet$/) do
+  wait_until {page.should have_content  _("%d minutes passed. The items are not reserved any more!") % Order::TIMEOUT_MINUTES}
+  current_path.should == borrow_order_timed_out_path
+end

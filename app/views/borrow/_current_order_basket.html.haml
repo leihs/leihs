@@ -2,10 +2,13 @@
   .row
     %ul
       %li
-        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left.active{:href => borrow_current_order_path}
+        .navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left.active
           %i.icon-shopping-cart
           %span.margin-top-s
             = _("Order")
+          %span#timeout-countdown.hidden
+            #timeout-countdown-refresh.button.white.micro.font-size-s.margin-left-s.negative-margin-right-s.negative-top-xxs
+              #timeout-countdown-time
 
   .row.content-wrapper.straight-top-left.padding-top-xs
 
