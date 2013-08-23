@@ -6,16 +6,18 @@ Dann(/^sieht man die Suche$/) do
 end
 
 Wenn(/^man einen Suchbegriff eingibt$/) do
-  @model ||= @current_user.models.borrowable.detect {|m| @current_user.models.borrowable.where("models.name like '%#{m.name[0..3]}%'").length >= 6}
-  page.execute_script %Q{ $("input[name='search_term']").focus() }
-  fill_in "search_term", :with => @model.name[0..3]
+  step 'man gibt einen Suchbegriff ein'
 end
 
 Dann(/^sieht man das Foto, den Namen und den Hersteller der ersten 6 Modelle gemäss aktuellem Suchbegriff$/) do
   wait_until{find(".ui-autocomplete")}
-  find(".ui-autocomplete a", :text => @model.name)
-  find(".ui-autocomplete a", :text => @model.manufacturer)
-  find(".ui-autocomplete a img[src='/models/#{@model.id}/image_thumb']")
+  all(".ui-autocomplete a").length.should >= 6
+  6.times do |i|
+    find(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//strong").text[@search_term].should_not be_nil
+    model = @current_user.models.borrowable.find_by_name find(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//strong").text
+    find(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//*[contains(./text(), '#{model.manufacturer}')]")
+    find(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//img[@src='/models/#{model.id}/image_thumb']")
+  end
 end
 
 Dann(/^sieht den Link 'Alle Suchresultate anzeigen'$/) do
@@ -24,6 +26,7 @@ end
 
 Angenommen(/^man wählt ein Modell von der Vorschlagsliste der Suche$/) do
   step 'man einen Suchbegriff eingibt'
+  @model = @current_user.models.find_by_name(find(".ui-autocomplete a strong").text)
   find(".ui-autocomplete a", :text => @model.name).click
 end
 
@@ -32,8 +35,9 @@ Dann(/^wird die Modell\-Ansichtsseite geöffnet$/) do
 end
 
 Angenommen(/^man gibt einen Suchbegriff ein$/) do
-  @model = @current_user.models.borrowable.detect {|m| @current_user.models.borrowable.where("models.name like '%#{m.name[0..3]}%'").length >= 6}
-  fill_in "search_term", :with => @model.name[0..3]
+  @model ||= @current_user.models.borrowable.detect {|m| @current_user.models.borrowable.where("models.name like '%#{m.name[0..3]}%'").length >= 6}
+  @search_term = @model.name[0..3]
+  fill_in "search_term", :with => @search_term
 end
 
 Angenommen(/^drückt ENTER$/) do
