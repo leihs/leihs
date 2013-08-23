@@ -52,16 +52,16 @@ class Backend::InventoryController < Backend::BackendController
       format.html
       format.json {
         item_ids = scoped_items.select("items.id")
-        models = Model
-                  .select("DISTINCT models.*")
-                  .search(query, [:name, :items])
-                  .order("#{sort_attr} #{sort_dir}")
+        models = Model.
+                  select("DISTINCT models.*").
+                  search(query, [:name, :items]).
+                  order("#{sort_attr} #{sort_dir}")
         models = models.joins(:items).where("items.id IN (#{item_ids.to_sql})") 
         # TODO migrate strip directly to the database, and strip on before_validation
-        models_and_options = (models + options)
-                             .sort{|a,b| a.name.strip <=> b.name.strip}
-                             .paginate(:page => page, :per_page => PER_PAGE)
-        with.deep_merge!({ :items => {:scoped_ids => item_ids, :query => query} })  
+        models_and_options = (models + options).
+                             sort{|a,b| a.name.strip <=> b.name.strip}.
+                             paginate(:page => page, :per_page => PER_PAGE)
+        with.deep_merge!({ :items => {:scoped_ids => item_ids, :query => query} })
         hash = { inventory: {
                     entries: view_context.hash_for(models_and_options, with),
                     pagination: {
@@ -72,7 +72,7 @@ class Backend::InventoryController < Backend::BackendController
                     }
                   },
                 } 
-        
+
         if responsibles
           responsibles_for_items = InventoryPool.joins(:items).where("items.id IN (#{item_ids.to_sql})").select("DISTINCT inventory_pools.*")
           hash.merge!({responsibles: view_context.hash_for(responsibles_for_items)})
