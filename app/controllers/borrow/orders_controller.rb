@@ -37,7 +37,7 @@ class Borrow::OrdersController < Borrow::ApplicationController
   end
 
   def timed_out
-    flash[:error] = _("%d minutes passed. The items are not reserved any more!") % Order::TIMEOUT_MINUTES
+    flash[:error] = _("%d minutes passed. The items are not reserved for you any more!") % Order::TIMEOUT_MINUTES
     @timed_out = true
     @lines = current_order.lines.as_json(methods: :available?)
     render :current

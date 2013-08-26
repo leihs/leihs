@@ -113,6 +113,6 @@ Wenn(/^die Zeit abgelaufen ist$/) do
 end
 
 Dann(/^werde ich auf die Timeout Page weitergeleitet$/) do
-  wait_until {page.should have_content  _("%d minutes passed. The items are not reserved any more!") % Order::TIMEOUT_MINUTES}
+  wait_until {page.should have_content  _("%d minutes passed. The items are not reserved for you any more!") % Order::TIMEOUT_MINUTES}
   current_path.should == borrow_order_timed_out_path
 end

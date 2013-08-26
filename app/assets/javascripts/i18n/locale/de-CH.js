@@ -3094,9 +3094,9 @@ window.i18n.locale_data = {
          null,
          "Dokument"
       ],
-      "%d minutes passed. The items are not reserved any more!": [
+      "%d minutes passed. The items are not reserved for you any more!": [
          null,
-         "%d minuten sind abgelaufen. Die folgenden Gegenstände sind nicht mehr reserviert!"
+         "%d Minuten sind abgelaufen. Die folgenden Gegenstände sind nicht mehr für Sie reserviert!"
       ],
       "Time until your order times out. Click to reset.": [
          null,
@@ -3104,7 +3104,19 @@ window.i18n.locale_data = {
       ],
       "Your order will time out in %s.": [
          null,
-         "Ihre Bestellung läuft in %s ab."
+         "Ihre Bestellung läuft ab in %s."
+      ],
+      "Reset timeout": [
+         null,
+         "Time-Out zurücksetzen"
+      ],
+      "Firstname": [
+         null,
+         "Vorname"
+      ],
+      "Lastname": [
+         null,
+         "Nachname"
       ]
    }
 }
