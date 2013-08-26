@@ -2089,7 +2089,7 @@ msgid "This user is suspended"
 msgstr "Dieser Benutzer ist gesperrt"
 
 msgid "Email"
-msgstr ""
+msgstr "E-Mail"
 
 msgid "Short Name"
 msgstr "Kurzname"
