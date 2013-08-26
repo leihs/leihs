@@ -2417,3 +2417,9 @@ msgstr "Vorname"
 
 msgid "Lastname"
 msgstr "Nachname"
+
+msgid "Your order ist empty."
+msgstr "Ihre Bestellung ist leer."
+
+msgid "Borrow items"
+msgstr "Gegenstände ausleihen"

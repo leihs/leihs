@@ -2351,3 +2351,9 @@ msgstr ""
 
 msgid "Lastname"
 msgstr ""
+
+msgid "Your order ist empty."
+msgstr ""
+
+msgid "Borrow items"
+msgstr ""
