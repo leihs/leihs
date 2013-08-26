@@ -227,12 +227,12 @@ class Backend::UsersController < Backend::BackendController
           end
           format.json do
             with = {:access_right => true}
+            flash[:notice] = _("User details were updated successfully.")
             render json: view_context.hash_for(@user, with.merge({:preset => :user}))
           end
         end
       end
     rescue => e
-      binding.pry
       respond_to do |format|
         format.html do
           flash.now[:error] = e.to_s
