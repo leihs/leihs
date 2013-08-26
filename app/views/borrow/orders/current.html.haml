@@ -14,11 +14,8 @@
         .emboss.padding-inset-m.text-align-center
           %h3.headline-m
             = _("Your order ist empty.")
-            %br
-            = _("Should should start selecting some items.")
-            %br
           .padding-top-m
-            %a.button.green.large{:href => borrow_root_path}= _("Start lending")
+            %a.button.green.large{:href => borrow_root_path}= _("Borrow items")
       - elsif not @timed_out
         #timeout-countdown.emboss.padding-inset-m.text-align-center
           %strong.font-size-m!= _("Your order will time out in %s.") % "<span id='timeout-countdown-time'></span>"

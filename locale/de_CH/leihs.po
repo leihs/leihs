@@ -2089,7 +2089,7 @@ msgid "This user is suspended"
 msgstr "Dieser Benutzer ist gesperrt"
 
 msgid "Email"
-msgstr ""
+msgstr "E-Mail"
 
 msgid "Short Name"
 msgstr "Kurzname"
@@ -2400,8 +2400,8 @@ msgstr "Einstellungen"
 msgid "Document"
 msgstr "Dokument"
 
-msgid "%d minutes passed. The items are not reserved any more!"
-msgstr "%d minuten sind abgelaufen. Die folgenden Gegenstände sind nicht mehr reserviert!"
+msgid "%d minutes passed. The items are not reserved for you any more!"
+msgstr "%d Minuten sind abgelaufen. Die folgenden Gegenstände sind nicht mehr für Sie reserviert!"
 
 msgid "Time until your order times out. Click to reset."
 msgstr "Dauer, bis Ihre Bestellung abläuft. Klicken um zurückzusetzen."
@@ -2411,3 +2411,15 @@ msgstr "Ihre Bestellung läuft ab in %s."
 
 msgid "Reset timeout"
 msgstr "Time-Out zurücksetzen"
+
+msgid "Firstname"
+msgstr "Vorname"
+
+msgid "Lastname"
+msgstr "Nachname"
+
+msgid "Your order ist empty."
+msgstr "Ihre Bestellung ist leer."
+
+msgid "Borrow items"
+msgstr "Gegenstände ausleihen"

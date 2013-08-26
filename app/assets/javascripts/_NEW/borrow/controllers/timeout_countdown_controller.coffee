@@ -13,7 +13,9 @@ class window.App.Borrow.TimeoutCountdownController extends Spine.Controller
     $(@countdown).on "timeUpdated", => do @renderTime
     $(@countdown).on "timeout", => do @timeout
     @refreshTarget.on "click", => do @refreshTime
-    App.Order.on "refresh", @validateStart      
+    App.Order.on "refresh", =>
+      do @validateStart      
+      do @refreshTime
     
   refreshTime: => do @countdown.refresh
 

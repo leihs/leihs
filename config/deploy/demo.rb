@@ -14,7 +14,6 @@ set :branch, "master"
 set :deploy_via, :remote_cache
 
 set :db_config, "/home/leihs/#{application}/database.yml"
-set :app_config, "/home/leihs/#{application}/application.rb"
 set :ldap_config, "/home/leihs/#{application}/LDAP.yml"
 
 set :use_sudo, false
@@ -49,10 +48,8 @@ task :link_config do
     run "ln -s #{ldap_config} #{release_path}/config/LDAP.yml"
   end
   run "rm -f #{release_path}/config/database.yml"
-  run "rm -f #{release_path}/config/application.rb"
 
   run "ln -s #{db_config} #{release_path}/config/database.yml"
-  run "ln -s #{app_config} #{release_path}/config/application.rb"
 end
 
 task :link_attachments do

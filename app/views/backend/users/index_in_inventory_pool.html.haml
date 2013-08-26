@@ -1,3 +1,19 @@
 - content_for :title, _("List of Users")
 
 .innercontent{"ng-app" => "Leihs", "ng-view" => "ng-view"}
+
+:coffeescript
+
+  notice = #{flash[:notice].to_json}
+  error = #{flash[:error].to_json}
+
+  jQuery ->
+    if notice
+      Notification.add_headline
+        text: notice
+        type: "success"
+
+    if error
+      Notification.add_headline
+        text: error
+        type: "error"

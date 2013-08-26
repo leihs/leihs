@@ -75,7 +75,7 @@ class DocumentLine < ActiveRecord::Base
 ###############################################  
 
   def price
-    item.price * quantity
+    (item.price || 0) * quantity
   end
 
   private

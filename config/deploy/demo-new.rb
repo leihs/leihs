@@ -15,7 +15,6 @@ load 'config/deploy/stable_version'
 set :deploy_via, :remote_cache
 
 set :db_config, "/home/leihs/#{application}/database.yml"
-set :app_config, "/home/leihs/#{application}/application.rb"
 set :use_sudo, false
 
 set :rails_env, "production"

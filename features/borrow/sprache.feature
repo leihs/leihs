@@ -10,4 +10,6 @@ Funktionalität: Suche
     Angenommen man ist "Normin"
     Und man sich auf der Modellliste befindet
     Wenn ich die Sprache auf "English" umschalte
-    Dann ist die Sprache English
+    Dann ist die Sprache "English"
+    Wenn ich die Sprache auf "Deutsch" umschalte
+    Dann ist die Sprache "Deutsch"

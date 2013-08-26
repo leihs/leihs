@@ -11,11 +11,11 @@ set :application, "leihs-test"
 
 set :scm, :git
 set :repository,  "git://github.com/zhdk/leihs.git"
-set :branch, "next"
+set :branch, "master"
 set :deploy_via, :remote_cache
 
 set :db_config, "/home/leihs/#{application}/database.yml"
-set :app_config, "/home/leihs/#{application}/application.rb"
+#set :app_config, "/home/leihs/#{application}/application.rb"
 set :ldap_config, "/home/leihs/#{application}/LDAP.yml"
 set :use_sudo, false
 

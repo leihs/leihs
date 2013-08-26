@@ -37,7 +37,7 @@ Angenommen(/^ich zur Timeout Page mit (\d+) Konfliktmodellen weitergeleitet werd
 end
 
 Dann(/^ich sehe eine Information, dass die Geräte nicht mehr reserviert sind$/) do
-  page.should have_content _("%d minutes passed. The items are not reserved any more!") % Order::TIMEOUT_MINUTES
+  page.should have_content _("%d minutes passed. The items are not reserved for you any more!") % Order::TIMEOUT_MINUTES
 end
 
 Dann(/^ich sehe eine Information, dass alle Geräte wieder verfügbar sind$/) do

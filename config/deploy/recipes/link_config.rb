@@ -4,10 +4,10 @@ task :link_config do
     run "ln -s #{ldap_config} #{release_path}/config/LDAP.yml"
   end
   run "rm -f #{release_path}/config/database.yml"
-  run "rm -f #{release_path}/config/application.rb"
+#  run "rm -f #{release_path}/config/application.rb"
 
   run "ln -s #{db_config} #{release_path}/config/database.yml"
-  run "ln -s #{app_config} #{release_path}/config/application.rb"
+#  run "ln -s #{app_config} #{release_path}/config/application.rb"
 
   # So we can check from outside which revision is deployed on that instance
   # Note: Must use a .txt suffix so that Passengers knows to deliver this
