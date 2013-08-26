@@ -2345,3 +2345,9 @@ msgstr ""
 
 msgid "Reset timeout"
 msgstr ""
+
+msgid "Firstname"
+msgstr ""
+
+msgid "Lastname"
+msgstr ""

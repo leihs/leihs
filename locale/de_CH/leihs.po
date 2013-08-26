@@ -2411,3 +2411,9 @@ msgstr "Ihre Bestellung läuft ab in %s."
 
 msgid "Reset timeout"
 msgstr "Time-Out zurücksetzen"
+
+msgid "Firstname"
+msgstr "Vorname"
+
+msgid "Lastname"
+msgstr "Nachname"
