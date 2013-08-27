@@ -23,6 +23,7 @@ Funktionalität: Vorlagen
     Und ich sehe für jedes Modell die Anzahl Gegenstände dieses Modells, welche die Vorlage vorgibt
     Und ich kann die Anzahl jedes Modells verändern, bevor ich den Prozess fortsetze
     Und ich kann höchstens die maximale Anzahl an verfügbaren Geräten eingeben
+    Und ich muss den Prozess zur Datumseingabe fortsetzen
 
   Szenario: Warnung bei nicht erfüllbaren Vorlagen
     Angenommen ich sehe mir eine Vorlage an
@@ -30,16 +31,18 @@ Funktionalität: Vorlagen
     Dann sehe ich eine auffällige Warnung sowohl auf der Seite wie bei den betroffenen Modellen
 
   @javascript
-  Szenario: Datumseingabe bei Auswahl der Vorlage
-    Angenommen ich sehe mir eine Vorlage an
-    Dann kann ich Start- und Enddatum einer potenziellen Bestellung angeben
-    Und ich kann im Prozess weiterfahren zur Verfügbarkeitsanzeige der Vorlage
+  Szenario: Datumseingabe nach Mengenangabe
+    Angenommen ich habe die Mengen in der Vorlage gewählt
+    Dann ist das Startdatum heute und das Enddatum morgen 
+    Und ich kann das Start- und Enddatum einer potenziellen Bestellung ändern
+    Und ich muss im Prozess weiterfahren zur Verfügbarkeitsanzeige der Vorlage
     Und alle Einträge erhalten das ausgewählte Start- und Enddatum
     
   @javascript
   Szenario: Verfügbarkeitsansicht der Vorlage
     Angenommen ich sehe die Verfügbarkeit einer Vorlage, die nicht verfügbare Modelle enthält
     Dann sind diejenigen Modelle hervorgehoben, die zu diesem Zeitpunkt nicht verfügbar sind
+    Und ich kann das Start und Enddatum wählen
     Und die Modelle sind innerhalb eine Gruppe alphabetisch sortiert
     Und ich kann Modelle aus der Ansicht entfernen
     Und ich kann die Anzahl der Modelle ändern
