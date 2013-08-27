@@ -68,7 +68,7 @@ class SessionsController < ApplicationController
     reset_session
     # redirect and flash
     flash[:notice] = _("You have been logged out.")
-    session[:locale] = current_user.language.locale_name
+    session[:locale] = current_user.language.locale_name if current_user
     redirect_back_or_default('/')
   end
 end
