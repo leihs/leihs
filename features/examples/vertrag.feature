@@ -28,6 +28,7 @@ Funktionalität: Vertrag
     | Seitennummer                  |
     | Barcode                       |
     | Vertragsnummer                |
+    Und die Modelle sind innerhalb ihrer Gruppe alphabetisch sortiert
 
   @javascript
   Szenario: Hinweis auf AGB
