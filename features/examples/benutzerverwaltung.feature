@@ -366,3 +366,11 @@ Funktionalität: Benutzer verwalten
     Angenommen man ist "Gino"
     Und man befindet sich auf der Benutzerliste im beliebigen Inventarpool
     Dann sind die Benutzer nach ihrem Vornamen alphabetisch sortiert
+
+  Szenario: Auflistung der Inventarpools eines Benutzers
+    Angenommen man ist "Ramon"
+    Und man befindet sich auf der Benutzerliste ausserhalb der Inventarpools
+    Und man einen Benutzer mit Zugriffsrechten editiert
+    Dann werden die ihm zugeteilt Geräteparks mit entsprechender Rolle aufgelistet
+    
+    
