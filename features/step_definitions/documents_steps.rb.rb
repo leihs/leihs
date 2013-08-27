@@ -94,6 +94,7 @@ Dann(/^sehe ich die Werteliste genau wie im Verwalten\-Bereich$/) do
     | Ausleihender     |
     | Verleier         |
     | Liste            |
+    Und die Modelle sind alphabetisch sortiert
 
     Dann beinhaltet die Werte-Liste folgende Spalten:
     | Spaltenname     |
@@ -130,6 +131,7 @@ Dann(/^sehe ich den Vertrag genau wie im Verwalten-Bereich$/) do
       | Seitennummer                  |
       | Barcode                       |
       | Vertragsnummer                |
+    Und die Modelle sind innerhalb ihrer Gruppe alphabetisch sortiert
 
     Dann seh ich den Hinweis auf AGB "Es gelten die Ausleih- und Benutzungsreglemente des Verleihers."
 
