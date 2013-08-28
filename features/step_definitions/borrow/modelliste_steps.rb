@@ -40,7 +40,7 @@ end
 Wenn(/^man ein bestimmten Gerätepark in der Geräteparkauswahl auswählt$/) do
   page.execute_script %Q($("#ip-selector").trigger("mouseenter"))
   wait_until{find("#ip-selector .dropdown .dropdown-item", :visible => true)}
-  @ip = @current_user.inventory_pools.first
+  @ip ||= @current_user.inventory_pools.first
   wait_until{find("#ip-selector .dropdown .dropdown-item", text: @ip.name)}
   find("#ip-selector .dropdown .dropdown-item", text: @ip.name).click
 end
