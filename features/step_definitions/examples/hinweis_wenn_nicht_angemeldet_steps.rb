@@ -11,5 +11,5 @@ Dann /^werden ich auf die Startseite weitergeleitet$/ do
 end
 
 Dann /^sehe einen Hinweis, dass ich nicht angemeldet bin$/ do
-  page.should have_content("You are not logged in")
+  page.should have_content _("You are not logged in.")
 end
