@@ -19,7 +19,7 @@ Funktionalität: Vorlagen verwalten
     Und ich Modelle hinzufüge
     Dann steht bei jedem Modell die höchst mögliche ausleihbare Anzahl der Gegenstände für dieses Modell
     Und für jedes hinzugefügte Modell ist die Mindestanzahl 1
-    wenn ich zu jedem Modell die Anzahl angebe
+    Wenn ich zu jedem Modell die Anzahl angebe
     Und ich speichere die Vorlage
     Dann wurde die neue Vorlage mit all den erfassten Informationen erfolgreich gespeichert
     Und ich wurde auf die Liste der Vorlagen weitergeleitet
