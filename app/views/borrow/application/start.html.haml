@@ -8,7 +8,7 @@
     .content-wrapper.straight-top-left.padding-inset-s
       .emboss.row
         - @categories.each_with_index do |category, i|
-          .col1of3.padding-inset-m.text-align-center
+          .col1of3.padding-inset-m.text-align-center.height-m
             .row.emboss.white.focus-hover.unselectable{:"data-category_id" => category.id}
               %a{:href => @bread_crumbs.path_for(borrow_models_path(:category_id => category.id), category.id)}
                 .padding-inset-s

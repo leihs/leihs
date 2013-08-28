@@ -13,7 +13,7 @@
 
       .col2of5.font-size-m.padding-top-s.text-align-left.padding-left-xs
         = "/"
-        = line.model.total_borrowable_items_for_user(current_user)
+        = @template.inventory_pools.map {|ip| line.model.total_borrowable_items_for_user(current_user, ip) }.max
 
   .line-col.col1of6.text-align-left.text-align-center
 

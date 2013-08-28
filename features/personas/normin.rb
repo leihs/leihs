@@ -43,6 +43,10 @@ module Persona
       @language = Language.find_by_locale_name "de-CH"
       @user = FactoryGirl.create(:user, :language => @language, :firstname => @@name, :lastname => @@lastname, :login => @@name.downcase, :email => @@email)
       @@inventory_pool_names.each { |ip_name| @user.access_rights.create(:role => Role.find_by_name("customer"), :inventory_pool => InventoryPool.find_by_name(ip_name)) }
+
+      # create deactivated access right
+      @user.access_rights.create(:role => Role.find_by_name("customer"), :inventory_pool => InventoryPool.last, :deleted_at => Date.yesterday)
+
       @database_authentication = FactoryGirl.create(:database_authentication, :user => @user, :password => @@password)
     end
     

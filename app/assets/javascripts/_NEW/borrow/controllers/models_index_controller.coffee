@@ -47,7 +47,6 @@ class window.App.Borrow.ModelsIndexController extends Spine.Controller
   resetAndFetchModels: =>
     do @reset.validate
     do @loading
-    App.Model.records = {}
     @models = []
     @pagination.page = 1
     @tooltips.tooltips = {}

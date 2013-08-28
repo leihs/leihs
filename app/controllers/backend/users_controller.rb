@@ -197,14 +197,6 @@ class Backend::UsersController < Backend::BackendController
       @user.groups = groups.map {|g| Group.find g["id"]}
     end
 
-    @access_right = @user.all_access_rights.find_or_initialize_by_inventory_pool_id(@ip_id)
-    @access_right.suspended_until, @access_right.suspended_reason = if params[:access_right][:suspended_until].blank?
-                                                                      [nil, nil]
-                                                                    else
-                                                                      [params[:access_right][:suspended_until], params[:access_right][:suspended_reason]]
-                                                                    end
-    @access_right.role_name = params[:access_right][:role_name] unless params[:access_right][:role_name].blank?
-
     if db_auth = params[:db_auth]
       db_auth.delete(:password) if db_auth[:password] == "_password_"
       db_auth.delete(:password_confirmation) if db_auth[:password_confirmation] == "_password_"
@@ -214,11 +206,14 @@ class Backend::UsersController < Backend::BackendController
     begin
       User.transaction do
         @user.update_attributes! params[:user]
+
         if db_auth
           DatabaseAuthentication.find_or_create_by_user_id(@user.id).update_attributes! db_auth.merge(user: @user)
           @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
         end
-        @access_right.save!
+
+        @access_right = AccessRight.find_or_initialize_by_user_id_and_inventory_pool_id(@user.id, @ip_id)
+        @access_right.update_attributes! params[:access_right] unless @access_right.new_record? and params[:access_right][:role_name] == "no_access"
 
         respond_to do |format|
           format.html do

@@ -59,6 +59,7 @@ class AccessRight < ActiveRecord::Base
   end
 
   def role_name=(v)
+    self.deleted_at = nil unless v == "no_access"
     case v
       when "admin"
         self.role = Role.find_by_name("admin")

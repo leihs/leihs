@@ -94,8 +94,8 @@ Dann(/^ist das Modell mit Start- und Enddatum, Anzahl und Gerätepark der Bestel
   @current_user.get_current_order.lines.detect{|line| line.model == @model}.should be
 end
 
-Wenn(/^man den Gegenstand aus der Modellliste hinzufügt$/) do
-  pending # express the regexp above with the code you wish you had
+Dann(/^lässt sich das Modell mit Start\- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügen$/) do
+  step 'ist das Modell mit Start- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügt worden'
 end
 
 Dann(/^das aktuelle Startdatum ist heute$/) do
@@ -281,4 +281,22 @@ Dann(/^man kann maximal die maximal ausleihbare Anzahl eingeben$/) do
   max_quantity = @model.total_borrowable_items_for_user(@current_user, inventory_pool)
   find("#booking-calendar-quantity").set (max_quantity+1).to_s
   wait_until{find("#booking-calendar-quantity").value == (max_quantity).to_s}
+end
+
+Dann(/^man auf dem letzten Model "Zur Bestellung hinzufügen" wählt$/) do
+  all("body > .wrapper").last.click
+  step "ensure there are no active requests"
+  wait_until {all("#model-list .line").last["data-id"].length > 0}
+  @model = Model.find all("#model-list .line").last["data-id"]
+  find("#model-list .line:last button[data-create-order-line]").click
+end
+
+Wenn(/^man den letzten Gerätepark in der Geräteparkauswahl auswählt$/) do
+  @ip = @current_user.inventory_pools.sort.last
+  step 'man ein bestimmten Gerätepark in der Geräteparkauswahl auswählt'
+end
+
+Wenn(/^man den zweiten Gerätepark in der Geräteparkauswahl auswählt$/) do
+  @ip = @current_user.inventory_pools.sort[1]
+  step 'man ein bestimmten Gerätepark in der Geräteparkauswahl auswählt'
 end
