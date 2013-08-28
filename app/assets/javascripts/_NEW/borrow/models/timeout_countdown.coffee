@@ -34,7 +34,7 @@ class window.App.TimeoutCountdown
 
   timeout: ->
     $.get("/borrow/refresh_timeout.json").done (data)=>
-      if moment().diff(moment(data.date).add(@timeoutMinutes, "minutes")) < 0
+      if moment().diff(moment(data.date).add(@timeoutMinutes, "minutes")) <= 0
         @storeCurrentTimeout moment(data.date).toDate()
       else
         $(@).trigger "timeout"
@@ -46,9 +46,9 @@ class window.App.TimeoutCountdown
 
   updateTime: =>
     do @sync
-    if @seconds == 0 and @minutes == 0
+    if @seconds <= 0 and @minutes <= 0
       do @timeout
-    else if @seconds == 0
+    else if @seconds <= 0
       @seconds = 59
       @minutes = @minutes - 1 if @minutes > 0
     else
