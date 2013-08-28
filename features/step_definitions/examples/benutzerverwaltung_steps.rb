@@ -716,7 +716,7 @@ Wenn(/^man den Zugriff auf "Inventar-Verwalter" ändert$/) do
 end
 
 Dann(/^hat der Benutzer die Rolle Kunde$/) do
-  wait_until { find_link _("New User") }
+  page.has_content? _("List of Users")
   @user.reload.access_right_for(@current_inventory_pool).role_name.should == "customer"
 end
 
@@ -811,4 +811,32 @@ Und(/^man gibt die Login-Daten ein$/) do
   find(".field", text: _("Login")).find("input").set "username"
   find(".field", text: _("Password")).find("input").set "password"
   find(".field", text: _("Password Confirmation")).find("input").set "password"
+end
+
+Angenommen(/^man editiert einen Benutzer der kein Zugriff auf das aktuelle Inventarpool hat$/) do
+  @user = User.find {|u| u.access_rights.blank?}
+  visit edit_backend_inventory_pool_user_path(@current_inventory_pool, @user)
+end
+
+Wenn(/^man ändert die Email$/) do
+  find(".field", text: _("E-Mail")).find("input,textarea").set "changed@test.ch"
+end
+
+Dann(/^sieht man die Erfolgsbestätigung$/) do
+  page.has_content? _("List of Users")
+  page.has_selector? ".notice"
+end
+
+Dann(/^die neue Email des Benutzers wurde gespeichert$/) do
+  @user.reload.email.should == "changed@test.ch"
+end
+
+Dann(/^der Benutzer hat nach wie vor keinen Zugriff auf das aktuelle Inventarpool$/) do
+  @user.access_rights.detect{|ar| ar.inventory_pool == @current_inventory_pool}.should be_nil
+end
+
+Angenommen(/^man editiert einen Benutzer der mal einen Zugriff auf das aktuelle Inventarpool hatte$/) do
+  @user = User.find_by_login "normin"
+  @current_inventory_pool = (@current_user.managed_inventory_pools & @user.all_access_rights.select(&:deleted_at).map(&:inventory_pool)).first
+  visit edit_backend_inventory_pool_user_path(@current_inventory_pool, @user)
 end

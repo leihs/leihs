@@ -134,7 +134,8 @@ Funktionalität: Benutzer verwalten
     Und man befindet sich auf der Editierseite eines Benutzers, der kein Administrator ist
     Wenn man diesen Benutzer die Rolle Administrator zuweist
     Und man speichert den Benutzer
-    Dann hat dieser Benutzer die Rolle Administrator
+    Dann sieht man die Erfolgsbestätigung
+    Und hat dieser Benutzer die Rolle Administrator
 
   Szenario: Als Administrator einem anderen Benutzer die Rolle Administrator wegnehmen
     Angenommen man ist "Gino"
@@ -288,6 +289,15 @@ Funktionalität: Benutzer verwalten
     Dann hat der Benutzer die Rolle Inventar-Verwalter
 
   @javascript
+  Szenario: Zugriff auf ein Inventarpool gewährleisten als Inventar-Verwalter
+    Angenommen man ist "Mike"
+    Und man editiert einen Benutzer der kein Zugriff auf das aktuelle Inventarpool hat
+    Wenn man den Zugriff auf "Kunde" ändert
+    Und man speichert den Benutzer
+    Dann sieht man die Erfolgsbestätigung
+    Und hat der Benutzer die Rolle Kunde
+
+  @javascript
   Szenario: Zugriff ändern als Administrator
     Angenommen man ist "Gino"
     Und man editiert in irgendeinem Inventarpool einen Benutzer der Kunde ist
@@ -372,5 +382,22 @@ Funktionalität: Benutzer verwalten
     Und man befindet sich auf der Benutzerliste ausserhalb der Inventarpools
     Und man einen Benutzer mit Zugriffsrechten editiert
     Dann werden die ihm zugeteilt Geräteparks mit entsprechender Rolle aufgelistet
-    
-    
+
+  @javascript
+  Szenario: Benutzer ohne Zugriff im Inventarpool editieren ohne ihm dabei Zugriff zu gewährleisten
+    Angenommen man ist "Pius"
+    Und man editiert einen Benutzer der kein Zugriff auf das aktuelle Inventarpool hat
+    Wenn man ändert die Email
+    Und man speichert den Benutzer
+    Dann sieht man die Erfolgsbestätigung
+    Und die neue Email des Benutzers wurde gespeichert
+    Und der Benutzer hat nach wie vor keinen Zugriff auf das aktuelle Inventarpool
+
+  @javascript
+  Szenario: Benutzer den Zugriff auf ein Inventarpool reaktivieren
+    Angenommen man ist "Mike"
+    Und man editiert einen Benutzer der mal einen Zugriff auf das aktuelle Inventarpool hatte
+    Wenn man den Zugriff auf "Kunde" ändert
+    Und man speichert den Benutzer
+    Dann sieht man die Erfolgsbestätigung
+    Und hat der Benutzer die Rolle Kunde
