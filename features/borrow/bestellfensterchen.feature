@@ -57,5 +57,7 @@ Funktionalität: Bestellung
 
   @javascript
   Szenario: Zeit überschritten
+    Wenn ich ein Modell der Bestellung hinzufüge
+    Dann sehe ich die Zeitanzeige
     Wenn die Zeit überschritten ist
     Dann werde ich auf die Timeout Page weitergeleitet
