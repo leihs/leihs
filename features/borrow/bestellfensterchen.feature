@@ -54,3 +54,8 @@ Funktionalität: Bestellung
   Szenario: Zeit abgelaufen
     Wenn die Zeit abgelaufen ist
     Dann werde ich auf die Timeout Page weitergeleitet
+
+  @javascript
+  Szenario: Zeit überschritten
+    Wenn die Zeit überschritten ist
+    Dann werde ich auf die Timeout Page weitergeleitet

@@ -46,7 +46,7 @@ class window.App.TimeoutCountdown
 
   updateTime: =>
     do @sync
-    if @seconds <= 0 and @minutes <= 0
+    if @minutes <= 0
       do @timeout
     else if @seconds <= 0
       @seconds = 59

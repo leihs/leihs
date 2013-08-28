@@ -116,3 +116,11 @@ Dann(/^werde ich auf die Timeout Page weitergeleitet$/) do
   wait_until {page.should have_content  _("%d minutes passed. The items are not reserved for you any more!") % Order::TIMEOUT_MINUTES}
   current_path.should == borrow_order_timed_out_path
 end
+
+Wenn(/^die Zeit überschritten ist$/) do
+  step 'ich ein Modell der Bestellung hinzufüge'
+  step 'sehe ich die Zeitanzeige'
+  past_date = Time.now - (Order::TIMEOUT_MINUTES + 1).minutes
+  @current_user.get_current_order.update_attribute :updated_at, past_date
+  page.execute_script %Q{ localStorage.currentTimeout = moment("#{past_date.to_s}").toDate() }
+end
