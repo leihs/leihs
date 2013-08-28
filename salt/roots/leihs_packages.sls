@@ -1,0 +1,29 @@
+leihs_packages:
+  pkg.installed:
+    - pkgs:
+      - apache2
+      - apache2-prefork-dev
+      - autoconf
+      - automake
+      - bison
+      - build-essential
+      - curl
+      - git
+      - imagemagick
+      - libcairo2-dev
+      - libcairo2-dev
+      - libcurl4-openssl-dev
+      - libffi-dev
+      - libgdbm-dev
+      - libmagickwand-dev
+      - libmysqlclient-dev
+      - libncurses5-dev
+      - libreadline6-dev
+      - libssl-dev
+      - libtool
+      - libxml2-dev
+      - libxslt-dev
+      - libyaml-dev
+      - make
+      - mysql-client
+      - mysql-server
