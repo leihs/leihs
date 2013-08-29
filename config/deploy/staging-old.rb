@@ -1,6 +1,7 @@
 require "rvm/capistrano"                  # Load RVM's capistrano plugin.
 set :rvm_type, :system
-#set :rvm_ruby_string, '1.9.2'        # Or whatever env you want it to run in.
+set :rvm_ruby_string, '1.8.7'        # Or whatever env you want it to run in.
+set :rvm_path, "/usr/local/rvm"
 
 require "bundler/capistrano"
 
@@ -9,7 +10,7 @@ set :application, "leihs-test-old"
 
 set :scm, :git
 set :repository,  "git://github.com/zhdk/leihs.git"
-set :branch, "master"
+set :branch, "legacy-master"
 set :deploy_via, :remote_cache
 
 set :db_config, "/home/leihs/#{application}/database.yml"
