@@ -1,3 +1,4 @@
+# encoding: utf-8
 require "rvm/capistrano"                  # Load RVM's capistrano plugin.
 set :rvm_type, :system
 #set :rvm_ruby_string, '1.9.2'        # Or whatever env you want it to run in.
@@ -5,7 +6,7 @@ set :rvm_type, :system
 require "bundler/capistrano"
 
 
-set :application, "leihs2-hslu"
+set :application, "leihs"
 
 set :scm, :git
 set :repository,  "git://github.com/zhdk/leihs.git"
@@ -38,9 +39,13 @@ task :retrieve_db_config do
 end
 
 task :link_config do
+  if File.exist?("#{release_path}/config/LDAP.yml")
+    run "rm #{release_path}/config/LDAP.yml"
+    run "ln -s #{ldap_config} #{release_path}/config/LDAP.yml"
+  end
   run "rm -f #{release_path}/config/database.yml"
   run "rm -f #{release_path}/config/environment.rb"
-
+  
   run "ln -s #{db_config} #{release_path}/config/database.yml"
   run "ln -s #{app_config} #{release_path}/config/environment.rb"
 end
@@ -75,13 +80,9 @@ end
 task :configure_sphinx do
  run "cd #{release_path} && RAILS_ENV='production' bundle exec rake ts:config"
  
-  run "sed -i 's/port: 3342/port: 3400/' #{release_path}/config/sphinx.yml"
-  run "sed -i 's/port: 3343/port: 3401/' #{release_path}/config/sphinx.yml"
-  run "sed -i 's/port: 3344/port: 3402/' #{release_path}/config/sphinx.yml"
-
-  run "sed -i 's/listen: 127.0.0.1:3342/port: 3400/' #{release_path}/config/sphinx.yml"
-  run "sed -i 's/listen: 127.0.0.1:3343/port: 3401/' #{release_path}/config/sphinx.yml"
-  run "sed -i 's/listen: 127.0.0.1:3344/port: 3402/' #{release_path}/config/sphinx.yml"
+#  run "sed -i 's/port: 3342/port: 3362/' #{release_path}/config/sphinx.yml"
+#  run "sed -i 's/port: 3343/port: 3363/' #{release_path}/config/sphinx.yml"
+#  run "sed -i 's/port: 3344/port: 3364/' #{release_path}/config/sphinx.yml"
 
  run "sed -i 's/sql_host =.*/sql_host = #{sql_host}/' #{release_path}/config/production.sphinx.conf"
  run "sed -i 's/sql_user =.*/sql_user = #{sql_username}/' #{release_path}/config/production.sphinx.conf"
@@ -89,9 +90,9 @@ task :configure_sphinx do
  run "sed -i 's/sql_db =.*/sql_db = #{sql_database}/' #{release_path}/config/production.sphinx.conf"
  run "sed -i 's/sql_sock.*//' #{release_path}/config/production.sphinx.conf"
 
-  run "sed -i 's/listen = 127.0.0.1:3342/listen = 127.0.0.1:3400/' #{release_path}/config/production.sphinx.conf"
-  run "sed -i 's/listen = 127.0.0.1:3343/listen = 127.0.0.1:3401/' #{release_path}/config/production.sphinx.conf"
-  run "sed -i 's/listen = 127.0.0.1:3344/listen = 127.0.0.1:3402/' #{release_path}/config/production.sphinx.conf"
+#  run "sed -i 's/listen = 127.0.0.1:3342/listen = 127.0.0.1:3362/' #{release_path}/config/production.sphinx.conf"
+#  run "sed -i 's/listen = 127.0.0.1:3343/listen = 127.0.0.1:3363/' #{release_path}/config/production.sphinx.conf"
+#  run "sed -i 's/listen = 127.0.0.1:3344/listen = 127.0.0.1:3364/' #{release_path}/config/production.sphinx.conf"
 
 end
 
@@ -99,7 +100,6 @@ task :migrate_database do
   # Produce a string like 2010-07-15T09-16-35+02-00
   date_string = DateTime.now.to_s.gsub(":","-")
   dump_dir = "#{deploy_to}/#{shared_dir}/db_backups"
-  run "mkdir -p #{dump_dir}"
   dump_path =  "#{dump_dir}/#{sql_database}-#{date_string}.sql"
   # If mysqldump fails for any reason, Capistrano will stop here
   # because run catches the exit code of mysqldump
@@ -120,11 +120,6 @@ task :bundle_install do
   run "cd #{release_path} && bundle install --gemfile '#{release_path}/Gemfile' --path '#{deploy_to}/#{shared_dir}/bundle' --deployment --without development test"
 end
 
-task :modify_config do
-  # On staging/test, we don't want to deliver e-mail
-  run "echo 'config.action_mailer.perform_deliveries = false' >> #{release_path}/config/environments/production.rb"
-end
-
 task :stop_sphinx do
   run "cd #{release_path} && RAILS_ENV='production' bundle exec rake ts:stop"
 end
@@ -136,22 +131,21 @@ end
 
 
 namespace :deploy do
-  task :start do
-    # we do absolutely nothing here, as we currently aren't
-    # using a spinner script or anything of that sort.
-    run "cd #{release_path} && passenger start -p 3008 -e production -d"
-  end
+	task :start do
+	# we do absolutely nothing here, as we currently aren't
+	# using a spinner script or anything of that sort.
+	end
 
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    # We cannot use Passenger on the server because this app runs with a legacy Ruby 1.8.7 and legacy Rails.
-    # That's why we have to restart using a proxied standalone Passenger server.
-    #run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-    run "cd #{release_path} && passenger stop -p 3008 && passenger start -p 3008 -e production -d"
-  end
-
-  # This overwrites the (broken, when using Bundler) deploy:migrate task
-  task :migrate do
-  end
+   task :restart, :roles => :app, :except => { :no_release => true } do
+     # We cannot use Passenger on the server because this app runs with a legacy Ruby 1.8.7 and legacy Rails.
+     # That's why we have to restart using a proxied standalone Passenger server.
+     #run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+     run "cd #{release_path} && passenger stop -p 3003 && passenger start -p 3003 -e production -d"
+   end
+   
+   # This overwrites the (broken, when using Bundler) deploy:migrate task
+   task :migrate do
+   end
 
 end
 
@@ -165,8 +159,6 @@ before "deploy:create_symlink", :link_db_backups
 before "deploy:create_symlink", :chmod_tmp
 
 after "link_config", :migrate_database
-#after "link_config", :modify_config
-
 after "migrate_database", :configure_sphinx
 
 before "deploy:restart", :make_tmp
