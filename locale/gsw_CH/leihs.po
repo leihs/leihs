@@ -169,9 +169,6 @@ msgstr ""
 msgid "IC-Technik/Software"
 msgstr ""
 
-msgid "Business Applications"
-msgstr ""
-
 msgid "Approval Successful"
 msgstr ""
 

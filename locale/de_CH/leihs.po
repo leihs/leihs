@@ -166,9 +166,6 @@ msgstr "Facility Management"
 msgid "IC-Technik/Software"
 msgstr "IC-Technik/Software"
 
-msgid "Business Applications"
-msgstr "Business Applications"
-
 msgid "Approval Successful"
 msgstr "Genehmigung erfolgreich"
 

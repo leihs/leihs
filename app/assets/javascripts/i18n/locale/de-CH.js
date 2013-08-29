@@ -276,10 +276,6 @@ window.i18n.locale_data = {
          null,
          "IC-Technik/Software"
       ],
-      "Business Applications": [
-         null,
-         "Business Applications"
-      ],
       "Approval Successful": [
          null,
          "Genehmigung erfolgreich"

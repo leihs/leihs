@@ -178,10 +178,3 @@ Funktionalität: Gegenstand erstellen
     | Musikinstrumente      |
     | Facility Management   |
     | IC-Technik/Software   |
-    | Business Applications |
-    
-    
-    
-    
-    
-    
