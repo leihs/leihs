@@ -72,7 +72,13 @@ Dann /^diese summierte die Spalten:$/ do |table|
       when "Anzahl"
         @total.find(".quantity").should have_content @contract.quantity 
       when "Wert"
-        @total.find(".value").text.gsub(/\D/, "").should == ("%.2f" % @contract.items.map(&:price).inject{|sum,x| sum+x}).gsub(/\D/, "")
+        @total.find(".value").text.gsub(/\D/, "").should == ("%.2f" % @contract.lines.map(&:price).sum).gsub(/\D/, "")
     end
   end
+end
+
+When(/^die Modelle in der Werteliste sind alphabetisch sortiert$/) do
+  names = all(".value_list tbody .model_name").map{|name| name.text}
+  names.empty?.should be_false
+  expect(names.sort == names).to be_true
 end

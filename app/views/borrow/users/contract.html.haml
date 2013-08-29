@@ -38,7 +38,7 @@
             %td.end_date= _("End date")
             %td.returning_date= _("Return")
         %tbody
-          - returned_lines.each do |line|
+          - returned_lines.sort.each do |line|
             %tr
               %td.quantity= line.quantity
               %td.inventory_code= line.item.inventory_code
@@ -60,7 +60,7 @@
             %td.end_date= _("End date")
             %td.returning_date= _("Return")
         %tbody
-          - not_returned_lines.each do |line|
+          - not_returned_lines.sort.each do |line|
             %tr
               %td.quantity= line.quantity
               %td.inventory_code= line.item.inventory_code

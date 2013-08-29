@@ -95,7 +95,7 @@ Dann /^sehe ich eine Liste Zwecken, getrennt durch Kommas$/ do
 end
 
 Dann /^jeder identische Zweck ist maximal einmal aufgelistet$/ do
-  purposes = @contract.lines.map{|l| l.purpose.to_s }.uniq.join('; ')
+  purposes = @contract.lines.sort.map{|l| l.purpose.to_s }.uniq.join('; ')
   @contract_element.find(".purposes > p").text.should == purposes
 end
 
@@ -180,5 +180,21 @@ Dann /^diese Liste enthält Gegenstände, die ausgeliehen und noch nicht zurück
   @not_returned.each do |line|
     @contract_element.find(".not_returned_items").should have_content line.model.name
     @contract_element.find(".not_returned_items").should have_content line.item.inventory_code
+  end
+end
+
+When(/^die Modelle sind innerhalb ihrer Gruppe alphabetisch sortiert$/) do
+  not_returned_lines, returned_lines = @contract.lines.partition {|line| line.returned_date.blank? }
+
+  unless returned_lines.empty?
+    names = all(".contract .returned_items tbody .model_name").map{|name| name.text}
+    names.empty?.should be_false
+    expect(names.sort == names).to be_true
+  end
+
+  unless not_returned_lines.empty?
+    names = all(".contract .not_returned_items tbody .model_name").map{|name| name.text}
+    names.empty?.should be_false
+    expect(names.sort == names).to be_true
   end
 end

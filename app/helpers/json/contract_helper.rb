@@ -15,7 +15,7 @@ module Json
         end
       
         if with[:lines]
-          h[:lines] = hash_for contract.lines, with[:lines]
+          h[:lines] = hash_for contract.lines.sort, with[:lines]
         end
 
         if with[:user]

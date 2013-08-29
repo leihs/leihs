@@ -94,7 +94,7 @@ Dann(/^sehe ich die Werteliste genau wie im Verwalten\-Bereich$/) do
     | Ausleihender     |
     | Verleier         |
     | Liste            |
-    Und die Modelle sind alphabetisch sortiert
+    Und die Modelle in der Werteliste sind alphabetisch sortiert
 
     Dann beinhaltet die Werte-Liste folgende Spalten:
     | Spaltenname     |
