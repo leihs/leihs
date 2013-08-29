@@ -26,8 +26,9 @@
     %li.topbar-item.separated-left{:class => current_page?(:controller => :inventory_pools) ? "active" : nil}
       %a.topbar-item-inner{:href => borrow_inventory_pools_path}= _("Inventory Pools")
 
-    %li.topbar-item.separated-left
-      %a.topbar-item-inner{:href => backend_path}= _("Manage")
+    - if current_user.has_role?('manager', nil, false) or current_user.has_role?('admin')
+      %li.topbar-item.separated-left
+        %a.topbar-item-inner{:href => backend_path}= _("Manage")
 
     %li.topbar-item.separated-left.dropdown-holder{:class => current_page?(borrow_current_user_path) ? "active" : nil}
       %a.topbar-item-inner.max-width-s-alt.text-ellipsis{:href => borrow_current_user_path}
