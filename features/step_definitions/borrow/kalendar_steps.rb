@@ -239,7 +239,7 @@ end
 
 Wenn(/^man ein Start und Enddatum ändert$/) do
   @start = Date.today + 1.day
-  @end = @order_line.end_date + 1.day
+  @end = @start + 1.day
   step "ich setze das Startdatum im Kalendar auf '#{I18n.l(@start)}'"
   step "ich setze das Enddatum im Kalendar auf '#{I18n.l(@end)}'"
 end
