@@ -16,7 +16,6 @@ leihs_packages:
       - libffi-dev
       - libgdbm-dev
       - libmagickwand-dev
-      - libmysqlclient-dev
       - libncurses5-dev
       - libreadline6-dev
       - libssl-dev
@@ -25,5 +24,3 @@ leihs_packages:
       - libxslt-dev
       - libyaml-dev
       - make
-      - mysql-client
-      - mysql-server

@@ -2,6 +2,9 @@ passenger:
   gem.installed:
     - ruby: ruby-1.9.3
     - runas: vagrant
+    - require:
+      - pkg: leihs_packages
+      - rvm: ruby-1.9.3
 
 passenger-install-apache2-module:
   cmd.run:

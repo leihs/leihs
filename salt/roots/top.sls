@@ -2,7 +2,8 @@ base:
   '*':
     - rvm
     - leihs_packages
-#    - leihs_ssh_keys
+    - leihs_virtual_host
+    - mariadb
     - iceweasel_updates
     - vnc_packages
     - passenger

@@ -47,3 +47,11 @@ ruby-1.9.3:
     - require:
       - pkg: rvm-deps
       - pkg: mri-deps
+
+bundler:
+  gem.installed:
+    - ruby: ruby-1.9.3
+    - runas: vagrant
+    - require:
+      - pkg: leihs_packages
+      - rvm: ruby-1.9.3

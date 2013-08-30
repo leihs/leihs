@@ -1,4 +1,4 @@
-base:
+iceweasel_updates:
   pkgrepo.managed:
     - humanname: iceweasel updates for Debian
     - name: deb http://mozilla.debian.net/ wheezy-backports iceweasel-release
