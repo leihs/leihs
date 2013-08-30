@@ -9,9 +9,10 @@
       %ul
         %li.seperator
 
-        %li.search.item{:class => is_current_page?("search") ? "active" : nil}
-          = render :partial => '/layouts/backend/search'
-        %li.seperator
+        - if current_inventory_pool
+          %li.search.item{:class => is_current_page?("search") ? "active" : nil}
+            = render :partial => '/layouts/backend/search'
+          %li.seperator
 
         - if is_lending_manager?  
           %li.lending.item{:class => is_current_page?("lending") ? "active" : nil}
