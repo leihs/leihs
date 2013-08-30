@@ -1362,6 +1362,10 @@ window.i18n.locale_data = {
          null,
          "Bitte füllen Sie alle Pflichtfelder aus"
       ],
+      "Please provide an inventory code": [
+         null,
+         "Bitte Inventarcode angeben"
+      ],
       "Please specify the purpose of your order here...": [
          null,
          "Bitte geben Sie den Zweck Ihrer Bestellung hier an..."

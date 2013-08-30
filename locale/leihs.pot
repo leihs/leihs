@@ -995,6 +995,9 @@ msgstr ""
 msgid "Please provide all required fields"
 msgstr ""
 
+msgid "Please provide an inventory code"
+msgstr ""
+
 msgid "Please specify the purpose of your order here..."
 msgstr ""
 
