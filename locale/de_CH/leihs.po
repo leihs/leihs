@@ -1690,6 +1690,9 @@ msgstr "Sie sind nun ausgeloggt."
 msgid "You are not logged in."
 msgstr "Sie sind nicht eingeloggt."
 
+msgid "You were served by %s"
+msgstr "Sie wurden bedient von %s"
+
 msgid ""
 "You might receive an admonishment and be subject to late fees as well as the "
 "restriction of borrowing privileges. In case of recurrence you might be "

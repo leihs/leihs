@@ -2170,6 +2170,10 @@ window.i18n.locale_data = {
          null,
          "Sie sind nicht eingeloggt."
       ],
+      "You were served by %s": [
+         null,
+         "Sie wurden bedient von %s"
+      ],
       "You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from the reservation system for up to 6 months.": [
          null,
          "Dies kann eine Verwarnung nach sich ziehen und Sie können im Wiederholungsfall vom Verleiher bis zu 6 Monaten von der Ausleihe gesperrt werden."
