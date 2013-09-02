@@ -3,28 +3,25 @@
   sudo: True
   tasks:
   - name: Install packages necessary for leihs hosting/running
-    apt: pkg={{ item }} state=present update_cache=yes
-    with_items:
-      - apache2
-      - apache2-threaded-dev
-      - autoconf
-      - automake
-      - bison
-      - build-essential
-      - curl
-      - git
-      - imagemagick
-      - libcurl4-openssl-dev
-      - libffi-dev
-      - libgdbm-dev
-      - libmagickwand-dev
-      - libncurses5-dev
-      - libreadline6-dev
-      - libssl-dev
-      - libtool
-      - libxml2-dev
-      - libxslt1-dev
-      - libyaml-dev
-      - make
-      - libapr1-dev
-      - libaprutil1-dev
+    apt: pkg=apache2 state=present update_cache=yes
+  - apt: pkg=apache2-threaded-dev state=present update_cache=yes
+  - apt: pkg=autoconf state=present update_cache=yes
+  - apt: pkg=automake state=present update_cache=yes
+  - apt: pkg=bison state=present update_cache=yes
+  - apt: pkg=build-essential state=present update_cache=yes
+  - apt: pkg=curl state=present update_cache=yes
+  - apt: pkg=git state=present update_cache=yes
+  - apt: pkg=imagemagick state=present update_cache=yes
+  - apt: pkg=libapr1-dev state=present update_cache=yes
+  - apt: pkg=libcurl4-openssl-dev state=present update_cache=yes
+  - apt: pkg=libffi-dev state=present update_cache=yes
+  - apt: pkg=libgdbm-dev state=present update_cache=yes
+  - apt: pkg=libmagickwand-dev state=present update_cache=yes
+  - apt: pkg=libncurses5-dev state=present update_cache=yes
+  - apt: pkg=libssl-dev state=present update_cache=yes
+  - apt: pkg=libreadline6-dev state=present update_cache=yes
+  - apt: pkg=libtool state=present update_cache=yes
+  - apt: pkg=libxml2-dev state=present update_cache=yes
+  - apt: pkg=libxslt1-dev state=present update_cache=yes
+  - apt: pkg=libyaml-dev state=present update_cache=yes
+  - apt: pkg=make state=present update_cache=yes
