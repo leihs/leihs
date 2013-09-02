@@ -6,10 +6,9 @@
     apt: pkg={{ item }} state=present
     with_items:
       - libssl-dev
-      - libreadline-dev
+      - libreadline6-dev
       - build-essential
       - curl
       - bash
-      - zlib1g-dev
     tags:
       - packages
