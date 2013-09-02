@@ -1,0 +1,14 @@
+---
+- hosts: vagrant
+  sudo: True
+  tasks:
+  - name: Install leihs virtual host in Apache
+    copy: ansible/leihs_virtual_host /etc/apache2/sites-available/leihs
+  - name: Activate leihs virtual host
+    command: a2ensite leihs
+    notify:
+      - reload apache
+
+  handlers:
+    - name: reload apache
+      service: name=apache2 state=reloaded

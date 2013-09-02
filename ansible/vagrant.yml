@@ -6,3 +6,4 @@
 - include: rvm_dependencies.yml
 - include: rvm.yml
 - include: passenger.yml
+- include: leihs_virtual_host.yml
