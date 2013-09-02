@@ -1,0 +1,15 @@
+---
+- hosts: vagrant
+  sudo: True
+  tasks:
+  - name: Install Ruby compilation dependencies
+    apt: pkg={{ item }} state=present
+    with_items:
+      - libssl-dev
+      - libreadline-dev
+      - build-essential
+      - curl
+      - bash
+      - zlib1g-dev
+    tags:
+      - packages

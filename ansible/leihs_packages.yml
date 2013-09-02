@@ -1,0 +1,30 @@
+---
+- hosts: vagrant
+  sudo: True
+  tasks:
+  - name: Install packages necessary for leihs hosting/running
+    apt: pkg={{ item }} state=present update_cache=yes
+    with_items:
+      - apache2
+      - apache2-threaded-dev
+      - autoconf
+      - automake
+      - bison
+      - build-essential
+      - curl
+      - git
+      - imagemagick
+      - libcurl4-openssl-dev
+      - libffi-dev
+      - libgdbm-dev
+      - libmagickwand-dev
+      - libncurses5-dev
+      - libreadline6-dev
+      - libssl-dev
+      - libtool
+      - libxml2-dev
+      - libxslt1-dev
+      - libyaml-dev
+      - make
+      - libapr1-dev
+      - libaprutil1-dev

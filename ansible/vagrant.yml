@@ -1,0 +1,8 @@
+---
+- include: leihs_packages.yml
+- include: repository_management_reqs.yml
+- include: iceweasel.yml
+- include: mariadb.yml
+- include: rvm_dependencies.yml
+- include: rvm.yml
+- include: passenger.yml
