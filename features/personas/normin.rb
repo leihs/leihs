@@ -98,7 +98,7 @@ module Persona
       @arbitrary_model_1 = @inventory_pool_2.items.in_stock.first.model
       @arbitrary_model_2 = @inventory_pool_2.items.in_stock.last.model
       FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @unsigned_contract_2, :item_id => @inventory_pool_2.items.in_stock.where(:model_id => @arbitrary_model_1).first.id, :model => @arbitrary_model_1, :start_date => Date.yesterday, :end_date => Date.today)
-      FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @unsigned_contract_2, :item_id => @inventory_pool_2.items.in_stock.where(:model_id => @arbitrary_model_2).first.id, :model => @arbitrary_model_2, :start_date => Date.yesterday, :end_date => Date.today)
+      FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @unsigned_contract_2, :item_id => @inventory_pool_2.items.in_stock.where(:model_id => @arbitrary_model_2).first.id, :model => @arbitrary_model_2, :start_date => Date.yesterday, :end_date => Date.today, :returned_to_user => @pius, :returned_date => Date.today)
       @unsigned_contract_2.sign(@pius)
     end
 

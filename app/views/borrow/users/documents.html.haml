@@ -31,10 +31,12 @@
         .line-col.line-actions.col2of10
           .multibutton
             %a.button.white.text-ellipsis{href: borrow_user_contract_path(contract.id), target: "_blank"}
+              %i.icon-file-alt
               = _("Contract")
             .dropdown-holder.inline-block
               .button.white.dropdown-toggle
                 %span.arrow.down
               .dropdown.right
                 %a.dropdown-item.text-ellipsis{href: borrow_user_value_list_path(contract.id), target: "_blank"}
+                  %i.icon-list-ol
                   = _("Value List")

@@ -1,3 +1,5 @@
+- content_for :title, "#{_("Lending Contract No.")} #{@contract.id}"
+
 .contract
 
   .barcode
@@ -6,6 +8,7 @@
   %h1
     = _("Lending Contract No.")
     = @contract.id
+    = _("from %s") % l(@contract.created_at.to_date)
   .date
     = l Time.now.to_date
     
@@ -34,7 +37,6 @@
             %td.quantity= _("Quantity")
             %td.inventory_code= _("Inventory code")
             %td.model_name= _("Model")
-            %td.start_date= _("Start date")
             %td.end_date= _("End date")
             %td.returning_date= _("Return")
         %tbody
@@ -43,9 +45,10 @@
               %td.quantity= line.quantity
               %td.inventory_code= line.item.inventory_code
               %td.model_name= line.model.name
-              %td.start_date= l line.start_date
               %td.end_date= l line.end_date
-              %td.returning_date= l line.returned_date
+              %td.returning_date
+                = l line.returned_date
+                != "#{line.returned_to_user.try(:short_name)}"
 
   - unless not_returned_lines.empty?
     %section.list.not_returned_items
@@ -56,7 +59,6 @@
             %td.quantity= _("Quantity")
             %td.inventory_code= _("Inventory code")
             %td.model_name= _("Model")
-            %td.start_date= _("Start date")
             %td.end_date= _("End date")
             %td.returning_date= _("Return")
         %tbody
@@ -65,7 +67,6 @@
               %td.quantity= line.quantity
               %td.inventory_code= line.item.inventory_code
               %td.model_name= line.model.name
-              %td.start_date= l line.start_date
               %td.end_date= l line.end_date
               %td.returning_date
 

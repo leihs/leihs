@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   
   has_many :items, :through => :inventory_pools, :uniq => true
   has_many :models, :through => :inventory_pools, :uniq => true do
+
     #def inventory_pools(ips = nil)
     #  find :all, :conditions => ["inventory_pools.id IN (?)", ips] if ips
     #end
@@ -44,6 +45,10 @@ class User < ActiveRecord::Base
     inventory_pools.flat_map(&:templates).sort
   end
 
+  def short_name
+    "#{firstname[0]}. #{lastname}"
+  end
+
   def start_screen(path = nil)
     if path 
       self.settings[:start_screen] = path
@@ -60,6 +65,7 @@ class User < ActiveRecord::Base
 
   has_many :contracts, dependent: :restrict
   has_many :contract_lines, :through => :contracts, :uniq => true
+  has_many :contract_lines_taken_back, :class_name => "ContractLine", :foreign_key => :returned_to_user_id
   has_many :current_contracts, :class_name => "Contract", :conditions => { :status_const => Contract::UNSIGNED }
   has_many :visits #, :include => :inventory_pool # MySQL View based on contract_lines
 

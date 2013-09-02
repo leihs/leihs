@@ -2360,3 +2360,6 @@ msgstr ""
 
 msgid "Borrow items"
 msgstr ""
+
+msgid "from %s"
+msgstr ""

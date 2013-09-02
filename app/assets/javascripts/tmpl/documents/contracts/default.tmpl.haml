@@ -9,6 +9,7 @@ ${$not_returned_lines = Line.get_not_returned(lines), ""}
   %h1
     ${_jed("Lending Contract No.")}
     ${id}
+    ${_jed("from %s", moment(created_at).format(i18n.date.L))}
   .date
     ${$now = moment(),""}
     ${$now.format(i18n.date.L)}
@@ -37,7 +38,6 @@ ${$not_returned_lines = Line.get_not_returned(lines), ""}
           %td.quantity ${_jed("Quantity")}
           %td.inventory_code ${_jed("Inventory code")}
           %td.model_name ${_jed("Model")}
-          %td.start_date ${_jed("Start date")}
           %td.end_date ${_jed("End date")}
           %td.returning_date ${_jed("Return")}
       %tbody
@@ -46,9 +46,10 @@ ${$not_returned_lines = Line.get_not_returned(lines), ""}
           %td.quantity ${line.quantity}
           %td.inventory_code ${line.item.inventory_code}
           %td.model_name ${line.model.name}
-          %td.start_date ${moment(line.start_date).format(i18n.date.L)}
           %td.end_date ${moment(line.end_date).format(i18n.date.L)}
-          %td.returning_date ${moment(line.returned_date).format(i18n.date.L)}
+          %td.returning_date 
+            ${moment(line.returned_date).format(i18n.date.L)}
+            ${line.returned_to_user}
         {{/each}}
   {{/if}}
   
@@ -61,7 +62,6 @@ ${$not_returned_lines = Line.get_not_returned(lines), ""}
           %td.quantity ${_jed("Quantity")}
           %td.inventory_code ${_jed("Inventory code")}
           %td.model_name ${_jed("Model")}
-          %td.start_date ${_jed("Start date")}
           %td.end_date ${_jed("End date")}
           %td.returning_date ${_jed("Return")}
       %tbody
@@ -70,7 +70,6 @@ ${$not_returned_lines = Line.get_not_returned(lines), ""}
           %td.quantity ${line.quantity}
           %td.inventory_code ${line.item.inventory_code}
           %td.model_name ${line.model.name}
-          %td.start_date ${moment(line.start_date).format(i18n.date.L)}
           %td.end_date ${moment(line.end_date).format(i18n.date.L)}
           %td.returning_date
         {{/each}}

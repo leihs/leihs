@@ -2689,7 +2689,7 @@ window.i18n.locale_data = {
       ],
       "Email": [
          null,
-         ""
+         "E-Mail"
       ],
       "Short Name": [
          null,
@@ -3121,6 +3121,18 @@ window.i18n.locale_data = {
       "Lastname": [
          null,
          "Nachname"
+      ],
+      "Your order ist empty.": [
+         null,
+         "Ihre Bestellung ist leer."
+      ],
+      "Borrow items": [
+         null,
+         "Gegenstände ausleihen"
+      ],
+      "from %s": [
+         null,
+         "vom %s"
       ]
    }
 }

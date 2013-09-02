@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-Angenommen /^man öffnet einen Vertrag$/ do
+Angenommen /^man öffnet einen Vertrag bei der Aushändigung$/ do
   step %Q{I open a hand over}
   step %Q{I select an item line and assign an inventory code}
   step %Q{I select an item line and assign an inventory code}
@@ -11,6 +11,13 @@ Angenommen /^man öffnet einen Vertrag$/ do
   step %Q{the contract is signed for the selected items}
   @contract_element = find("#print section.contract")
   @contract = @customer.contracts.signed.sort_by(&:updated_at).last
+end
+
+Angenommen /^man öffnet einen Vertrag bei der Rücknahme/ do
+  step %Q{I open a take back}
+  step %Q{I select all lines of an open contract}
+  step %Q{I click take back}
+  step %Q{I click take back inside the dialog}
 end
 
 Dann /^möchte ich die folgenden Bereiche sehen:$/ do |table|

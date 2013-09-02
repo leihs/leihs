@@ -13,6 +13,7 @@ class ContractLine < DocumentLine
   alias :document :contract
   has_one :user, :through => :contract
   has_many :groups, :through => :user
+  belongs_to :returned_to_user, :class_name => "User"
 
   delegate :inventory_pool, :to => :contract
   

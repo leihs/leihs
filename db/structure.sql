@@ -130,6 +130,7 @@ CREATE TABLE `contract_lines` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `purpose_id` int(11) DEFAULT NULL,
+  `returned_to_user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_contract_lines_on_start_date` (`start_date`),
   KEY `index_contract_lines_on_end_date` (`end_date`),
@@ -611,3 +612,5 @@ INSERT INTO schema_migrations (version) VALUES ('20130704160000');
 INSERT INTO schema_migrations (version) VALUES ('20130729120232');
 
 INSERT INTO schema_migrations (version) VALUES ('20130730145452');
+
+INSERT INTO schema_migrations (version) VALUES ('20130823104438');
