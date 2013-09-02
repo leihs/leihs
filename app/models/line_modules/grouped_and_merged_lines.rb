@@ -37,7 +37,7 @@ module LineModules
                   start_date: array.first.start_date,
                   end_date: array.first.end_date
               }
-              h[:available?] = array.all? {|l| l.available? } if respond_to? :timeout? and timeout?
+              h[:available?] = array.all? {|l| l.available? } if array.all? {|l| l.class == OrderLine } and array.any? {|l| l.order.timeout? }
               h
             }
           end
