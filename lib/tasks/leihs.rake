@@ -76,15 +76,14 @@ namespace :leihs do
   desc "Remind users"
   task :remind => :environment do
     puts "Reminding users..."    
-    system "./script/runner User.remind_all"
-
+    User.remind_all
     puts "Remind complete -----------------------------"    
   end
 
   desc "Deadline soon reminder" 
   task :deadline_soon_reminder => :environment do
     puts "Sending a deadline soon reminder..."
-    system "./script/runner User.send_deadline_soon_reminder_to_everybody"
+    User.send_deadline_soon_reminder_to_everybody
     puts "Deadline soon reminded ----------------------"
   end
   
@@ -98,8 +97,6 @@ namespace :leihs do
     Rake::Task["db:create"].invoke
     Rake::Task["db:migrate"].invoke
     Rake::Task["db:seed"].invoke
-    #Rake::Task["ts:conf"].invoke
-    #Rake::Task["ts:reindex"].invoke
   end
   
 ################################################################################################

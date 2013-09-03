@@ -193,9 +193,9 @@ class User < ActiveRecord::Base
   def alternative_email
     extended_info["email_alt"] if extended_info
   end
-  
+
   def emails
-    [email, alternative_email].compact
+    [email, alternative_email].compact.uniq
   end
 
   def image_url
@@ -320,9 +320,9 @@ class User < ActiveRecord::Base
                                                                                 :c => visits_to_remind.flat_map(&:contract_lines).collect(&:contract_id).uniq.join(',') },
                          :user_id => reminder_user,
                          :type_const => History::REMIND)
-        puts "Deadline soon: #{self.login}"
+        puts "Deadline soon: #{self.name}"
       rescue
-        puts "Couldn't send reminder: #{self.login}"  
+        puts "Couldn't send reminder: #{self.name}"
       end
     end    
   end
