@@ -3114,14 +3114,6 @@ window.i18n.locale_data = {
          null,
          "Time-Out zurücksetzen"
       ],
-      "Firstname": [
-         null,
-         "Vorname"
-      ],
-      "Lastname": [
-         null,
-         "Nachname"
-      ],
       "Your order ist empty.": [
          null,
          "Ihre Bestellung ist leer."

@@ -16,12 +16,16 @@ Dann(/^die Benutzerdaten beinhalten$/) do |table|
   table.raw.flatten.each do |section|
     case section
       when "Vorname"
+        page.should have_content _("First name")
         page.should have_content @current_user.firstname
       when "Nachname"
+        page.should have_content _("Last name")
         page.should have_content @current_user.lastname
       when "E-Mail"
+        page.should have_content _("Email")
         page.should have_content @current_user.email
       when "Telefon"
+        page.should have_content _("Phone")
         page.should have_content @current_user.phone
       else
         raise "unkown section"
