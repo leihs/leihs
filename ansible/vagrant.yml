@@ -8,3 +8,5 @@
   tasks:
     - include: tasks/leihs_packages.yml
     - include: tasks/leihs_virtual_host.yml
+  handlers:
+    - include: handlers/reload_apache.yml
