@@ -1,35 +1,31 @@
-body > * // hide screen elements
-  display: none !important
-
 $border-width: 0.5pt
 $border-color: rgb(100,100,100)
 
-#print > .dialog
-  display: block !important
-  
-  &>*
-    display: none !important
-    
-  &>.documents
-    display: block !important
-    
-    &>*
-      display: none !important
-      
-    &>section.active
-      display: block !important
+body > * // hide screen elements
+  display: none !important
 
 #print
-  display: block !important
   display: block !important
   left: 0 !important
   top: 0 !important
   min-height: auto !important
   width: 100% !important
   height: auto !important
-  
-  & > *
-    display: none
+
+  &, &>.dialog, .contract
+    border: none !important
+    -moz-box-shadow: none !important
+    -webkit-box-shadow: none !important
+    box-shadow: none !important
+    padding: none !important
+    display: block !important
+    width: 100% !important
+
+  .documents
+    display: block !important
+
+  .dialog > *:not(.documents), .ui-dialog-titlebar, .documents > *:not(.active)
+    display: none !important
 
 *
   color: black

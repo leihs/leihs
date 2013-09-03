@@ -9,6 +9,7 @@
       = "leihs Backend"
       
     = stylesheet_link_tag "backend", :media => "screen"
+    = stylesheet_link_tag "backend_print_screen", :media => "print"
     = stylesheet_link_tag "print", :media => "print"
     = javascript_include_tag "i18n/locale/#{current_user.language.locale_name.dasherize}"
     = javascript_include_tag "backend"
