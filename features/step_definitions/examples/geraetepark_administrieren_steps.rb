@@ -78,3 +78,11 @@ Wenn(/^der Gerätepark wurde aus der Datenbank gelöscht$/) do
   InventoryPool.find_by_name(@ip.name).should be_nil
 end
 
+Dann(/^ich sehe die Geräteparkauswahl$/) do
+  find("#ipselection").click
+end
+
+Dann(/^die Geräteparkauswahl ist alphabetish sortiert$/) do
+  names = find("#ipselection .popup").text.split
+  names.map(&:downcase).sort.should == names.map(&:downcase)
+end

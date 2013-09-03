@@ -8,7 +8,7 @@ Funktionalität: Statistiken von Ausleihe und Inventar
 
   @javascript
   Szenario: Wo die Statistik-Ansicht erscheint
-    Wenn ich in den Admin-Bereich wechsle
+    Wenn ich in den Admin-Bereich wechsel
     Dann sehe ich als erstes direkt die Statistik-Ansicht
 
   @javascript
