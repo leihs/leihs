@@ -2363,3 +2363,9 @@ msgstr ""
 
 msgid "from %s"
 msgstr ""
+
+msgid "Please select a time range and continue."
+msgstr ""
+
+msgid "You can modify the time range for each separate model in the next step."
+msgstr ""

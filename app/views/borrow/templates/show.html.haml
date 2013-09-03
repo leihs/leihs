@@ -2,7 +2,7 @@
 
 #template-show.wrapper.margin-top-m
 
-  %form{:action => borrow_template_availability_path, :method => :post, :autocomplete => :off}
+  %form{:action => borrow_template_select_dates_path, :method => :post, :autocomplete => :off}
     = token_tag nil
   
     .col4of5
@@ -30,31 +30,7 @@
           = render :partial => "borrow/templates/show/line", :collection => @model_links, as: :line
 
         .emboss.padding-inset-l.separated-top.margin-top-l
-
           .row
-            .col4of9
-              %h3.headline-s.padding-bottom-s
-                = _("Start date")
-            .col1of9
-            .col4of9
-              %h3.headline-s.padding-bottom-s
-                = _("End date")
-
-          .row
-            .col4of9
-              %label.row{:for => :start_date}
-                %input{:type => :hidden, :name => :start_date, :value => Date.today}
-                %input.width-full.has-addon{:type => :text, :id => "start_date"}
-                %span.addon
-                  %i.icon-calendar
-            .col1of9
-            .col4of9
-              %label.row{:for => :end_date}
-                %input{:type => :hidden, :name => :end_date, :value => Date.tomorrow}
-                %input.width-full.has-addon{:type => :text, :id => "end_date"}
-                %span.addon
-                  %i.icon-calendar
-          .row.padding-top-l
             .col1of2
             .col1of2.text-align-right
               %button.button.green{:type => :submit}
