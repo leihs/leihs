@@ -24,12 +24,6 @@ Vagrant.configure("2") do |config|
   #  salt.run_highstate = true
   #end
 
-  config.vm.provision :ansible do |ansible|
-    ansible.playbook = "ansible/vagrant.yml"
-    ansible.inventory_file = "ansible/hosts"
-    #ansible.sudo = true
-    #ansible.sudo_user = "vagrant"
-  end
 
 
   # Boot with a GUI so you can see the screen. (Default is headless)
@@ -46,6 +40,14 @@ Vagrant.configure("2") do |config|
   # physical device on your network.
   config.vm.network :public_network
   config.vm.network :private_network, :ip => "192.168.10.10" # This is so Ansible or other provisioning systems can reach the host under a static IP
+
+  config.vm.provision :ansible do |ansible|
+    ansible.playbook = "ansible/vagrant.yml"
+    ansible.inventory_file = "ansible/hosts"
+    #ansible.sudo = true
+    ansible.verbose = true
+    #ansible.sudo_user = "vagrant"
+  end
 
   # Forward a port from the guest to the host, which allows for outside
   # computers to access the VM, whereas host only networking does not.

@@ -1,9 +1,10 @@
 ---
-- include: leihs_packages.yml
-- include: repository_management_reqs.yml
-- include: iceweasel.yml
-- include: mariadb.yml
-- include: rvm_dependencies.yml
-- include: rvm.yml
-- include: passenger.yml
-- include: leihs_virtual_host.yml
+- hosts: vagrant
+  user: vagrant
+  roles:
+    - ci_servers
+    - mariadb_servers
+    - rails_servers
+  tasks:
+    - include: tasks/leihs_packages.yml
+    - include: tasks/leihs_virtual_host.yml

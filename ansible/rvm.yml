@@ -1,9 +1,0 @@
----
-- hosts: vagrant
-  tasks:
-  - name: Install RVM
-    shell: curl -L https://get.rvm.io | bash -s stable
-  - name: Install Ruby
-    shell: /home/vagrant/.rvm/bin/rvm install 1.9.3
-  - name: Set default Ruby
-    shell: /home/vagrant/.rvm/bin/rvm alias create default 1.9.3
