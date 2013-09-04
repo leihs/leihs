@@ -1,6 +1,9 @@
 # encoding: utf-8
 
-When(/^ich in den Admin-Bereich wechsel$/) do
-  visit backend_inventory_pools_path
-  current_path.should == backend_inventory_pools_path
+Wenn(/^ich im Verwalten\-Bereich bin$/) do
+  visit backend_path
+end
+
+Dann(/^habe ich die Möglichkeit zur Statistik\-Ansicht zu wechseln$/) do
+  find("a[href='#{statistics_path}']")
 end

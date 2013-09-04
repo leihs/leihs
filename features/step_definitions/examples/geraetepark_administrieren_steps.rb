@@ -1,5 +1,9 @@
 # encoding: utf-8
 
+When(/^ich in den Admin-Bereich wechsel$/) do
+  find(".navigation .admin a").click
+end
+
 Angenommen(/^es existiert noch kein Gerätepark$/) do
   InventoryPool.delete_all
 end
