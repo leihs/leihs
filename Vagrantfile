@@ -41,9 +41,10 @@ Vagrant.configure("2") do |config|
   config.vm.network :public_network
   config.vm.network :private_network, :ip => "192.168.10.10" # This is so Ansible or other provisioning systems can reach the host under a static IP
 
+  # Set the path to wherever you cloned the ZHdK ansible repo
   config.vm.provision :ansible do |ansible|
-    ansible.playbook = "ansible/vagrant.yml"
-    ansible.inventory_file = "ansible/hosts"
+    ansible.playbook = "../../ansible/vagrant_leihs.yml"
+    ansible.inventory_file = "../../ansible/hosts"
     #ansible.sudo = true
     ansible.verbose = true
     #ansible.sudo_user = "vagrant"
