@@ -8,23 +8,14 @@ Vagrant.configure("2") do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  #config.vm.box = "leihs-1.0.1"
-  #config.vm.box = "wheezy32"
-  config.vm.box = "wheezy32-2.0.1" # Includes pip, necessary for Salt
+  config.vm.box = "leihs-2.0.0"
+  #config.vm.box = "wheezy32-2.0.1" # Includes pip
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
   # Use this base box if you want to rebuild the leihs box:
-  config.vm.box_url = "http://www.psy-q.ch/stuff/wheezy32-2.0.1.box"
-  #config.vm.box_url = "http://www.psy-q.ch/stuff/leihs-1.0.1.box"
-
-  #config.vm.provision :shell, :path => "vagrant-bootstrap.sh"
-  #config.vm.provision :salt do |salt|
-  #  salt.minion_config = "salt/minion"
-  #  salt.run_highstate = true
-  #end
-
-
+  #config.vm.box_url = "http://www.psy-q.ch/stuff/wheezy32-2.0.1.box"
+  config.vm.box_url = "http://www.psy-q.ch/stuff/leihs-2.0.0.box"
 
   # Boot with a GUI so you can see the screen. (Default is headless)
   # config.vm.boot_mode = :gui
@@ -42,13 +33,13 @@ Vagrant.configure("2") do |config|
   config.vm.network :private_network, :ip => "192.168.10.10" # This is so Ansible or other provisioning systems can reach the host under a static IP
 
   # Set the path to wherever you cloned the ZHdK ansible repo
-  config.vm.provision :ansible do |ansible|
-    ansible.playbook = "../../ansible/vagrant_leihs.yml"
-    ansible.inventory_file = "../../ansible/hosts"
-    #ansible.sudo = true
-    ansible.verbose = true
-    #ansible.sudo_user = "vagrant"
-  end
+#  config.vm.provision :ansible do |ansible|
+#    ansible.playbook = "../../ansible/vagrant_leihs.yml"
+#    ansible.inventory_file = "../../ansible/hosts"
+#    #ansible.sudo = true
+#    ansible.verbose = true
+#    #ansible.sudo_user = "vagrant"
+#  end
 
   # Forward a port from the guest to the host, which allows for outside
   # computers to access the VM, whereas host only networking does not.
@@ -62,12 +53,9 @@ Vagrant.configure("2") do |config|
      vb.customize ["modifyvm", :id, "--memory", "1024"]
   end
 
-  #config.vm.synced_folder "salt/roots", "/srv/salt"
-
   # Share an additional folder to the guest VM. The first argument is
   # an identifier, the second is the path on the guest to mount the
   # folder, and the third is the path on the host to the actual folder.
   # config.vm.share_folder "v-data", "/vagrant_data", "../data"
-
 
 end
