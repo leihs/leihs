@@ -126,7 +126,7 @@ end
 
 Wenn(/^ich die Passwort\-Angaben nicht eingebe und speichere$/) do
   find(".field", text: _("Login")).find("input").set "newlogin"
-  find(".field", text: _("Password")).find("input").set ""
-  find(".field", text: _("Password Confirmation")).find("input").set ""
+  find(".field", text: _("Password")).find("input").set " "
+  find(".field", text: _("Password Confirmation")).find("input").set " "
   step "man speichert den Benutzer"
 end
