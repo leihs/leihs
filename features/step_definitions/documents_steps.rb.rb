@@ -22,7 +22,7 @@ Dann(/^für jede Vertrag sehe ich folgende Informationen$/) do |table|
   contracts = @current_user.contracts.includes(:contract_lines).where(status_const: [Contract::SIGNED, Contract::CLOSED])
   contracts.sort! {|a,b| b.time_window_min <=> a.time_window_min}
   contracts.each do |contract|
-    within find(".line-col", :text => contract.id.to_s).find(:xpath, "./..") do
+    within find(".line[data-id='#{contract.id}']") do
       table.raw.flatten.each do |s|
         case s
           when "Vertragsnummer"
@@ -36,11 +36,11 @@ Dann(/^für jede Vertrag sehe ich folgende Informationen$/) do |table|
           when "Zweck"
             should have_content contract.purpose
           when "Status"
-              should have_content _("Open") if contract.status_const == Contract::SIGNED
+            should have_content _("Open") if contract.status_const == Contract::SIGNED
           when "Vertraglink"
             find("a[href='#{borrow_user_contract_path(contract.id)}']", text: _("Contract"))
           when "Wertelistelink"
-            find("a[href='#{borrow_user_value_list_path(contract.id)}']", text: _("Value List"))
+            all("a[href='#{borrow_user_value_list_path(contract.id)}']").should_not be_empty
           else
             raise "unkown section"
         end

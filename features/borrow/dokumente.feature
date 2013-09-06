@@ -12,7 +12,8 @@ Funktionalität: Benutzerdokumente
   Szenario: Schaltfläche zur Dokumentenübersichtsseite
     Wenn ich unter meinem Benutzernamen auf "Meine Dokumente" klicke
     Dann gelange ich zu der Dokumentenübersichtsseite
-  
+
+  @javascript  
   Szenario: Dokumentenübersicht
     Angenommen ich befinde mich auf der Dokumentenübersichtsseite
     Dann sind die Verträge nach neuestem Zeitfenster sortiert

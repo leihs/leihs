@@ -8,7 +8,7 @@
 
     - @contracts.each do |contract|
       - start_date, end_date = [contract.time_window_min, contract.time_window_max]
-      .row.line
+      .row.line{:"data-id" => contract.id}
         .line-col.col2of10
           .row
             .col1of2.text-align-right
