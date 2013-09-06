@@ -217,17 +217,25 @@ module Persona
     end
     
     def setup_templates
-      @camera_tripod_template = FactoryGirl.create(:template, :name => "Kamera & Stativ")
+      @camera_tripod_template = FactoryGirl.build(:template, :name => "Kamera & Stativ")
+      @camera_tripod_template.model_links << FactoryGirl.build(:model_link, :model_group => @camera_tripod_template, :model => @camera_model, :quantity => 1)
+      @camera_tripod_template.model_links << FactoryGirl.build(:model_link, :model_group => @camera_tripod_template, :model => @tripod_model, :quantity => 1)
       @camera_tripod_template.inventory_pools << @inventory_pool
-      FactoryGirl.create(:model_link, :model_group => @camera_tripod_template, :model => @camera_model, :quantity => 1)      
-      FactoryGirl.create(:model_link, :model_group => @camera_tripod_template, :model => @tripod_model, :quantity => 1)
+      @camera_tripod_template.save
 
-      @unaccomplishable_template = FactoryGirl.create(:template, :name => "Unaccomplishable template")
+      @beamer_hifi_template = FactoryGirl.build(:template, :name => "Beamer & Hifi")
+      @beamer_hifi_template.model_links << FactoryGirl.build(:model_link, :model_group => @camera_tripod_template, :model => @beamer_model, :quantity => 1)
+      @beamer_hifi_template.model_links << FactoryGirl.build(:model_link, :model_group => @camera_tripod_template, :model => @hifi_model, :quantity => 1)
+      @beamer_hifi_template.inventory_pools << @inventory_pool
+      @beamer_hifi_template.save
+
+      @unaccomplishable_template = FactoryGirl.build(:template, :name => "Unaccomplishable template")
+      @unaccomplishable_template.model_links << FactoryGirl.build(:model_link, :model_group => @unaccomplishable_template, :model => @camera_model, :quantity => 999)
+      @unaccomplishable_template.model_links << FactoryGirl.build(:model_link, :model_group => @unaccomplishable_template, :model => @tripod_model, :quantity => 999)
       @unaccomplishable_template.inventory_pools << @inventory_pool
-      FactoryGirl.create(:model_link, :model_group => @unaccomplishable_template, :model => @camera_model, :quantity => 999)
-      FactoryGirl.create(:model_link, :model_group => @unaccomplishable_template, :model => @tripod_model, :quantity => 999)
+      @unaccomplishable_template.save
     end
-    
+
     def setup_packages
       @camera_package = FactoryGirl.create(:package_with_items, :inventory_pool => @inventory_pool, :name => "Kamera Set")
       @camera_package2 = FactoryGirl.create(:package_with_items, :inventory_pool => @inventory_pool, :name => "Kamera Set2")

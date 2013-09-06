@@ -2,7 +2,7 @@ class ModelGroup < ActiveRecord::Base
   
   attr_accessor :current_parent_id
 
-  has_many :model_links
+  has_many :model_links, inverse_of: :model_group
   has_many :models, :through => :model_links, :uniq => true
   has_many :items, :through => :models, :uniq => true
   
@@ -12,6 +12,8 @@ class ModelGroup < ActiveRecord::Base
   has_and_belongs_to_many :inventory_pools
 
   validates_presence_of :name
+
+  accepts_nested_attributes_for :model_links, allow_destroy: true
 
 ##################################################
 

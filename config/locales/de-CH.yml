@@ -223,6 +223,10 @@ de-CH:
       body: "Bitte überprüfen Sie die folgenden Felder:"
 
   activerecord:
+    attributes:
+      template:
+        models: "Modelle"
+
     errors:
       messages:
         taken: "ist bereits vergeben"
@@ -233,3 +237,9 @@ de-CH:
 
       full_messages:
         format: "%{attribute} %{message}"
+
+      models:
+        template:
+          attributes:
+            models:
+              blank: "können nicht leer sein"

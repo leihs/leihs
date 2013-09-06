@@ -104,6 +104,10 @@ module Json
         if with[:is_destroyable]
           h[:is_destroyable] = model.can_destroy?
         end
+         
+        if with[:total_borrowable]
+          h[:total_borrowable] = model.borrowable_items.size
+        end
       end
       
       h

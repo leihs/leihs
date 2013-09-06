@@ -66,6 +66,10 @@
         = link_to backend_inventory_pool_categories_path(current_inventory_pool), :class => "anchor" do
           .leftend
           = _("Categories")
+      %li.item{:class => (is_current_page?("templates")) ? "active" : nil}
+        = link_to backend_inventory_pool_templates_path(current_inventory_pool), :class => "anchor" do
+          .leftend
+          = _("Templates")
 
     - if is_current_page?("search")
       %li.item{:class => (!is_current_page?("focused_search")) ? "active" : nil}

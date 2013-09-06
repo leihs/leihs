@@ -92,7 +92,7 @@ Dann(/^alle Einträge erhalten das ausgewählte Start\- und Enddatum$/) do
 end
 
 When(/^in dieser Vorlage hat es Modelle, die nicht genügeng Gegenstände haben, um die in der Vorlage gewünschte Anzahl zu erfüllen$/) do
-  @template = @current_user.templates.detect {|t| t.unaccomplishable_models(@current_user).size > 0}
+  @template = @current_user.templates.detect {|t| not t.accomplishable?(@current_user) }
   visit borrow_template_path(@template)
   find("nav a[href='#{borrow_template_path(@template)}']")
 end

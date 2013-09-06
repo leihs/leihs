@@ -3,7 +3,7 @@
 def fill_in_autocomplete_field field_name, field_value
   find(".field", text: field_name).find("input").set field_value
   find(".field", text: field_name).find("input").click
-  wait_until {not all("a", text: field_value).empty?}
+  wait_until { find("a", text: field_value) }
   find(".field", text: field_name).find("a", text: field_value).click
 end
 

@@ -2197,6 +2197,9 @@ msgstr "Name des Modells"
 msgid "Name of the group"
 msgstr "Name der Gruppe"
 
+msgid "Name of the template"
+msgstr "Name der Vorlage"
+
 msgid "%s saved"
 msgstr "%s gespeichert"
 
@@ -2429,3 +2432,21 @@ msgstr "Bitte wählen Sie eine Zeitspanne aus und fahren Sie fort."
 
 msgid "You can modify the time range for each separate model in the next step."
 msgstr "Sie können die Zeitspannen jedes einzelnen Models im nöchsten Schritt editieren."
+
+msgid "List of templates"
+msgstr "Liste der Vorlagen"
+
+msgid "Template"
+msgstr "Vorlage"
+
+msgid "New Template"
+msgstr "Neue Vorlage"
+
+msgid "Template must have at least one model"
+msgstr "Vorlage muss mindestens ein Modell haben"
+
+msgid "%s created successfully"
+msgstr "%s erfolgreich erstellt"
+
+msgid "%s successfully saved"
+msgstr "%s erfolgreich gespeichert"

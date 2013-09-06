@@ -1938,6 +1938,9 @@ msgstr ""
 msgid "New User"
 msgstr ""
 
+msgid "New Template"
+msgstr ""
+
 msgid "List of %d Users"
 msgstr ""
 
@@ -2132,6 +2135,9 @@ msgid "Name of the model"
 msgstr ""
 
 msgid "Name of the group"
+msgstr ""
+
+msgid "Name of the template"
 msgstr ""
 
 msgid "%s saved"
@@ -2362,4 +2368,22 @@ msgid "Please select a time range and continue."
 msgstr ""
 
 msgid "You can modify the time range for each separate model in the next step."
+msgstr ""
+
+msgid "from %s"
+msgstr ""
+
+msgid "List of templates"
+msgstr ""
+
+msgid "Template"
+msgstr ""
+
+msgid "Template must have at least one model"
+msgstr ""
+
+msgid "%s created successfully"
+msgstr ""
+
+msgid "%s successfully saved"
 msgstr ""

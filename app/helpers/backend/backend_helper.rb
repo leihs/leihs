@@ -68,7 +68,8 @@ module Backend::BackendHelper
           is_current_page?("items") or 
           is_current_page?("inventory_helper") or
           is_current_page?("options") or
-          is_current_page?("categories")
+          is_current_page?("categories") or
+          is_current_page?("templates")
       when "inventory_helper"
         path_parameters?(:controller => "backend/inventory_helper")
       when "models"
@@ -91,6 +92,8 @@ module Backend::BackendHelper
         path_parameters?(:controller => "backend/options")
       when "categories"
         path_parameters?(:controller => "backend/categories")
+      when "templates"
+        path_parameters?(:controller => "backend/templates")
       when "groups"
         path_parameters?(:controller => "backend/groups")
       when "settings"
