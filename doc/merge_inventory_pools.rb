@@ -1,15 +1,16 @@
 
+@logfile = File.open("/tmp/switch.log", "w+")
 @zhdk = InventoryPool.where(:name => 'ZHdK-Inventar').first
 itz = InventoryPool.where(:name => 'IT-Zentrum').first
 avz = InventoryPool.where(:name => 'AV-Technik').first
 
 def fill_in_ask(item, ask)
   item.properties[:anschaffungskategorie] = ask
-  @logfile.puts "Item #{item.to_s} now has Anschaffungskategorie '#{item.properties[:anschaffungskategorie}'"
+  @logfile.puts "Item #{item.to_s} now has Anschaffungskategorie '#{item.properties[:anschaffungskategorie]}'"
   #if item.save
-  #  @logfile.puts "Item #{item.to_s} now has Anschaffungskategorie '#{item.properties[:anschaffungskategorie}'"
+  #  @logfile.puts "Item #{item.to_s} now has Anschaffungskategorie '#{item.properties[:anschaffungskategorie]}'"
   #else
-  #  @logfile.puts "ERROR: Item #{item.to_s} could NOT be set to '#{item.properties[:anschaffungskategorie}'"
+  #  @logfile.puts "ERROR: Item #{item.to_s} could NOT be set to '#{item.properties[:anschaffungskategorie]}'"
   #end
 end
 
