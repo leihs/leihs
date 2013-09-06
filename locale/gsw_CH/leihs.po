@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-22 12:39+0200\n"
-"PO-Revision-Date: 2013-09-06 10:30+0100\n"
+"PO-Revision-Date: 2013-09-06 16:36+0100\n"
 "Last-Translator: Ramón Cahenzli <rca@psy-q.ch>\n"
 "Language-Team: Swiss-German (Zürich area) <ramon.cahenzli@zhdk.ch>\n"
 "MIME-Version: 1.0\n"
@@ -14,9 +14,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.7\n"
 
-#, fuzzy
 msgid "Additional label in inventory codes"
-msgstr "Fehler bim aktualisiere vom Invenrarcode"
+msgstr "Wiiteri Bezeichnige im Inventar-Code"
 
 msgid "Visible for borrowers in frontend"
 msgstr ""
@@ -89,23 +88,20 @@ msgstr "Zuegriffsrächt erfolgriich erstellt"
 msgid "Access Right successfully updated"
 msgstr "D Zuegriffsrächt sind erfolgriich aktualisiert"
 
-#, fuzzy
 msgid "Access right reinstated"
-msgstr "Zuegriffsrächt erfolgriich erstellt"
+msgstr "Zuegriffsrächt wider hergschtellt"
 
 msgid "Acknowledge"
 msgstr ""
 
-#, fuzzy
 msgid "Add"
 msgstr "Dezuetue"
 
 msgid "Add %s"
 msgstr ""
 
-#, fuzzy
 msgid "Add Model"
-msgstr "Modäll"
+msgstr "Modäll dezue tue"
 
 msgid "Add Option"
 msgstr ""
@@ -131,11 +127,12 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#, fuzzy
 msgid ""
 "An order for the following items listed below was received in an inventory "
 "pool you are responsible for."
-msgstr "Ihri Bstellig vo de folgende Sache isch verschickt worde."
+msgstr ""
+"D Bschtellig vo de folgende Sache isch imene Grätepark wo sie verantwortlich "
+"sind inechoo."
 
 msgid "Ankunftsdatum"
 msgstr ""
@@ -173,28 +170,23 @@ msgstr ""
 msgid "Approval Successful"
 msgstr ""
 
-#, fuzzy
 msgid "Approve"
-msgstr "Genehmigt"
+msgstr "Genehmige"
 
-#, fuzzy
 msgid "Approve Order"
-msgstr "Genehmigt"
+msgstr "Bschtellig genehmige"
 
-#, fuzzy
 msgid "Approve anyway"
-msgstr "Genehmigt"
+msgstr "Trotzdem genehmige"
 
 msgid "Approved"
 msgstr "Genehmigt"
 
-#, fuzzy
 msgid "Approved Items"
-msgstr "Genehmigt"
+msgstr "Genehmigti Sache"
 
-#, fuzzy
 msgid "Approved on"
-msgstr "Genehmigt"
+msgstr "Genehmigt am"
 
 msgid "Are any of the above borrowed items?"
 msgstr ""
@@ -220,9 +212,8 @@ msgstr ""
 msgid "Availability Timeline"
 msgstr ""
 
-#, fuzzy
 msgid "Available"
-msgstr "nöd verfüegbar."
+msgstr "Verfüegbar."
 
 msgid "Available in group '"
 msgstr ""
@@ -290,9 +281,8 @@ msgstr ""
 msgid "Cancel"
 msgstr "Abbräche"
 
-#, fuzzy
 msgid "Cancel Edit"
-msgstr "Abbräche"
+msgstr "Bearbeitig abbräche"
 
 msgid "Categories"
 msgstr ""
@@ -327,16 +317,14 @@ msgstr "Kompatibls Grät erfolgriich wäggnoh."
 msgid "Compatibles"
 msgstr ""
 
-#, fuzzy
 msgid "Complete"
-msgstr "Nöd vollständig"
+msgstr "Vollständig"
 
 msgid "Complete Search"
 msgstr ""
 
-#, fuzzy
 msgid "Completeness"
-msgstr "Nöd vollständig"
+msgstr "Vollständigkeit"
 
 msgid "Consider opening hours"
 msgstr ""
@@ -344,23 +332,20 @@ msgstr ""
 msgid "Contract"
 msgstr "Vertrag"
 
-#, fuzzy
 msgid "Default Contract Note"
-msgstr "Vertrag nr. "
+msgstr "Standard Vertrag-Nachricht"
 
 msgid "Contract %d has been signed by %s"
 msgstr "Vertrag %d isch vo %s underschribe worde"
 
-#, fuzzy
 msgid "Contract No."
-msgstr "Vertrag nr. "
+msgstr "Vertrags-Nr. "
 
 msgid "Contract Nr."
 msgstr "Vertrag nr. "
 
-#, fuzzy
 msgid "Contracts"
-msgstr "Vertrag"
+msgstr "Verträg"
 
 msgid "Couldn't update "
 msgstr ""
@@ -395,16 +380,14 @@ msgstr "Baldigi Deadline"
 msgid "Deadline soon reminder sent for %{q} items on contracts %{c}"
 msgstr "Reminder für baldigi Deadline für %{q} Sachä vom Vertrag %{c} gschickt"
 
-#, fuzzy
 msgid "Dear client,"
 msgstr "Liebe leihs-Benutzer,"
 
 msgid "Dear leihs client,"
 msgstr "Liebe leihs-Benutzer,"
 
-#, fuzzy
 msgid "Dear leihs manager,"
-msgstr "Liebe leihs-Benutzer,"
+msgstr "Liebe leihs-Manager,"
 
 msgid "Defective"
 msgstr ""
@@ -427,9 +410,8 @@ msgstr ""
 msgid "Documents"
 msgstr "Dokument"
 
-#, fuzzy
 msgid "My documents"
-msgstr "Dokument"
+msgstr "Mini Dokument"
 
 msgid "Documents for hand over"
 msgstr ""
@@ -449,9 +431,8 @@ msgstr ""
 msgid "Edit %s"
 msgstr ""
 
-#, fuzzy
 msgid "Edit Model"
-msgstr "Modäll"
+msgstr "Modäll bearbeite"
 
 msgid "Edit Item"
 msgstr ""
@@ -468,9 +449,8 @@ msgstr ""
 msgid "Edit Selection"
 msgstr ""
 
-#, fuzzy
 msgid "Edit multiple selected lines"
-msgstr "S'Modäll muess uusgwählt sii"
+msgstr "Mehreri aagwählti Linie bearbeite"
 
 msgid "Edit purpose for order from"
 msgstr ""
@@ -517,9 +497,8 @@ msgstr "Rückgab erwartet"
 msgid "Finish this hand over"
 msgstr ""
 
-#, fuzzy
 msgid "Finish this take back"
-msgstr "Dä Gägestand isch zrugg gno"
+msgstr "Rücknahm abschlüsse"
 
 msgid "Found %d matches"
 msgstr ""
@@ -597,9 +576,8 @@ msgstr "Im Interässe vo allne Chunde bittemer Sie, d'Rückgabedate z'beachte"
 msgid "Incomplete"
 msgstr "Nöd vollständig"
 
-#, fuzzy
 msgid "Inconsistent Inventory Pool"
-msgstr "Grätepark"
+msgstr "Inkonsischtänte Grätepark"
 
 msgid "Initial Price"
 msgstr ""
@@ -628,35 +606,29 @@ msgstr ""
 msgid "Invalid username/password"
 msgstr "Ungültige Benutzername/Passwort"
 
-#, fuzzy
 msgid "Inventory"
 msgstr "Grätepark"
 
-#, fuzzy
 msgid "Inventory Code"
-msgstr "Grätepark"
+msgstr "Grätepark-Code"
 
-#, fuzzy
 msgid "Inventory Code / Name"
-msgstr "Inventarcode aktualisiert"
+msgstr "Grätepark-Code/Name"
 
 msgid "Inventory Pool"
 msgstr "Grätepark"
 
-#, fuzzy
 msgid "Inventory pool successfully created"
-msgstr "Attachment erfolgriich erstellt."
+msgstr "Grätepark erfolgriich erstellt"
 
 msgid "Inventory Pool is missing"
 msgstr "Grätepark fählt"
 
-#, fuzzy
 msgid "Inventory Pools"
-msgstr "Grätepark"
+msgstr "Grätepärk"
 
-#, fuzzy
 msgid "Inventory code"
-msgstr "Grätepark"
+msgstr "Grätepark-Code"
 
 msgid "Inventory code updated"
 msgstr "Inventarcode aktualisiert"
@@ -664,13 +636,11 @@ msgstr "Inventarcode aktualisiert"
 msgid "Inventory pool"
 msgstr "Grätepark"
 
-#, fuzzy
 msgid "InventoryPool|Email"
-msgstr "Grätepark"
+msgstr "Grätepark|Mail"
 
-#, fuzzy
 msgid "InventoryPool|Shortname"
-msgstr "Grätepark"
+msgstr "Grätepark|Churzname"
 
 msgid "Investment"
 msgstr ""
@@ -695,9 +665,8 @@ msgstr "Sach als Teil vom Vertrag %d übergäh"
 msgid "Item is defective"
 msgstr ""
 
-#, fuzzy
 msgid "Item is incomplete"
-msgstr "Nöd vollständig"
+msgstr "Sach isch nöd vollständig"
 
 msgid "Item is overdue and therefore unavailable!"
 msgstr ""
@@ -735,16 +704,14 @@ msgstr ""
 msgid "Last Visitors:"
 msgstr ""
 
-#, fuzzy
 msgid "Latest Reminder"
-msgstr "[leihs] Erinnerig"
+msgstr "Letschti Erinnerig"
 
 msgid "Legend"
 msgstr ""
 
-#, fuzzy
 msgid "Lender"
-msgstr "Erinnerig"
+msgstr "Verleiher"
 
 #, fuzzy
 msgid "Lending"
@@ -753,32 +720,26 @@ msgstr "Am lade"
 msgid "Lending / Daily View"
 msgstr ""
 
-#, fuzzy
 msgid "Lending Contract No."
-msgstr "Vertrag nr. "
+msgstr "Uuslei-Vertrags-Nummere "
 
-#, fuzzy
 msgid "Lending Contract No. %d"
-msgstr "Vertrag nr. "
+msgstr "Uuslei-Vertrags-Nummere %d"
 
-#, fuzzy
 msgid "Lending Contract No. %s"
-msgstr "Vertrag nr. "
+msgstr "Uuslei-Vertrags-Nummere %s"
 
-#, fuzzy
 msgid "Lending Contracts No. %s"
-msgstr "Vertrag nr. "
+msgstr "Uuslei-Verträg-Nummere %s"
 
-#, fuzzy
 msgid "List of Contracts"
-msgstr "Vertrag"
+msgstr "Vertragslischte"
 
 msgid "List of Inventory"
 msgstr ""
 
-#, fuzzy
 msgid "List of Inventory Pools"
-msgstr "Grätepark"
+msgstr "Gräteparklischte"
 
 msgid "List of Orders"
 msgstr ""
@@ -828,13 +789,11 @@ msgstr ""
 msgid "Model"
 msgstr "Modäll"
 
-#, fuzzy
 msgid "Model (A-Z)"
-msgstr "Modäll"
+msgstr "Modäll (A-Z)"
 
-#, fuzzy
 msgid "Model (Z-A)"
-msgstr "Modäll"
+msgstr "Modäll (Z-A)"
 
 msgid "Model must be selected"
 msgstr "S'Modäll muess uusgwählt sii"
@@ -845,11 +804,9 @@ msgstr ""
 msgid "Model successfully added as compatible"
 msgstr "Modäll erfolgriich als kompatibel dezue tah."
 
-#, fuzzy
 msgid "Model successfully removed"
-msgstr "Kompatibls Grät erfolgriich wäggnoh."
+msgstr "Grät entfernt"
 
-#, fuzzy
 msgid "Models"
 msgstr "Modäll"
 
@@ -877,27 +834,23 @@ msgstr "Neui Gägestand erstellt."
 msgid "Next"
 msgstr ""
 
-#, fuzzy
 msgid "No"
-msgstr "kei"
+msgstr "Nr."
 
 msgid "No description available for this model."
 msgstr ""
 
-#, fuzzy
 msgid "No entries found"
-msgstr "Z'vil Benutzer gfunde"
+msgstr "Kei Iiträg gfunde"
 
 msgid "No entry found"
 msgstr ""
 
-#, fuzzy
 msgid "No hand overs found"
-msgstr "Z'vil Benutzer gfunde"
+msgstr "Kei Übergabe gfunde"
 
-#, fuzzy
 msgid "No reminder yet"
-msgstr "Erinnerig"
+msgstr "No kei Erinnerig"
 
 msgid "No take backs found"
 msgstr ""
@@ -911,9 +864,8 @@ msgstr "kei"
 msgid "Not Borrowable"
 msgstr ""
 
-#, fuzzy
 msgid "Not available"
-msgstr "nöd verfüegbar."
+msgstr "nöd verfüegbar"
 
 msgid "Note"
 msgstr ""
@@ -953,16 +905,14 @@ msgstr ""
 msgid "Order approved"
 msgstr "Bstellig genehmigt"
 
-#, fuzzy
 msgid "Order from"
-msgstr "Bstellig genehmigt"
+msgstr "Bschtellig vo"
 
 msgid "Order from %s"
 msgstr ""
 
-#, fuzzy
 msgid "Order received"
-msgstr "Bstellig abglehnt"
+msgstr "Bschtellig übercho"
 
 msgid "Order rejected"
 msgstr "Bstellig abglehnt"
@@ -997,17 +947,14 @@ msgstr ""
 msgid "Owner"
 msgstr ""
 
-#, fuzzy
 msgid "Package"
-msgstr "Paketfähler"
+msgstr "Paket"
 
-#, fuzzy
 msgid "Packages"
-msgstr "Paketfähler"
+msgstr "Paket"
 
-#, fuzzy
 msgid "Package Code"
-msgstr "Paketfähler"
+msgstr "Paket-Code"
 
 msgid "Package error"
 msgstr "Paketfähler"
@@ -1018,13 +965,11 @@ msgstr "Packeet erfolgriich glöscht"
 msgid "Package successfully saved"
 msgstr "Packeet erfolgriich gspeicheret"
 
-#, fuzzy
 msgid "Password"
-msgstr "Passwort g'änderet"
+msgstr "Passwort"
 
-#, fuzzy
 msgid "Password Confirmation"
-msgstr "[leihs] Reservationsbestätigung"
+msgstr "Passwortbeschtätigung"
 
 msgid "Password changed"
 msgstr "Passwort g'änderet"
@@ -1069,9 +1014,8 @@ msgstr ""
 msgid "Print"
 msgstr ""
 
-#, fuzzy
 msgid "Print Contracts"
-msgstr "Vertrag"
+msgstr "Verträg uusdrucke"
 
 msgid "Problems"
 msgstr ""
@@ -1082,7 +1026,6 @@ msgstr ""
 msgid "Purpose"
 msgstr ""
 
-#, fuzzy
 msgid "Purpose changed '%s' for '%s'"
 msgstr "Zwäck gwächslet vo '%{from}' uf '%{to}'"
 
@@ -1098,9 +1041,8 @@ msgstr ""
 msgid "Quantity"
 msgstr "Aazahl"
 
-#, fuzzy
 msgid "Quantity: %d"
-msgstr "Aazahl"
+msgstr "Aazahl: %d"
 
 msgid "Reason for Retirement"
 msgstr ""
@@ -1111,20 +1053,17 @@ msgstr ""
 msgid "Accessories"
 msgstr ""
 
-#, fuzzy
 msgid "Reject"
-msgstr "Abglehnt"
+msgstr "Abglehne"
 
 msgid "Rejected"
 msgstr "Abglehnt"
 
-#, fuzzy
 msgid "Rejected on"
-msgstr "Abglehnt"
+msgstr "Abglehnt am"
 
-#, fuzzy
 msgid "Rejection Successful"
-msgstr "Erfolgriich iigloggt"
+msgstr "Abglehnt"
 
 msgid "Relevant for inventory"
 msgstr ""
@@ -1159,17 +1098,14 @@ msgstr ""
 msgid "Retire"
 msgstr "Uusmuschtere"
 
-#, fuzzy
 msgid "Retire Item"
-msgstr "Uusmuschtere"
+msgstr "Sach uusmuschtere"
 
-#, fuzzy
 msgid "Retired"
-msgstr "Uusmuschtere"
+msgstr "Uugmuschtered"
 
-#, fuzzy
 msgid "Retirement"
-msgstr "Uusmuschtere"
+msgstr "Uusmuschterig"
 
 msgid "Return"
 msgstr ""
@@ -1198,9 +1134,8 @@ msgstr ""
 msgid "Copy Item"
 msgstr ""
 
-#, fuzzy
 msgid "Create copied item"
-msgstr "Erstellt bi"
+msgstr "Kopierti Sach erschtellä"
 
 msgid "Save changes"
 msgstr ""
@@ -1250,16 +1185,14 @@ msgstr ""
 msgid "Show all ..."
 msgstr ""
 
-#, fuzzy
 msgid "Signature"
-msgstr "Unterschribe"
+msgstr "Underschrift"
 
 msgid "Signed"
 msgstr "Unterschribe"
 
-#, fuzzy
 msgid "Signed contracts"
-msgstr "Nöd unterschribni Verträg"
+msgstr "Underschribni Verträg"
 
 msgid ""
 "Since we did not receive any request for renewal, we consequently demand the "
@@ -1292,20 +1225,17 @@ msgstr "Status"
 msgid "Submission failed"
 msgstr "Abschicke hät nöd funktioniert"
 
-#, fuzzy
 msgid "Submit"
-msgstr "Abgschickt"
+msgstr "Abgschicke"
 
-#, fuzzy
 msgid "Submit Order"
-msgstr "Abgschickt"
+msgstr "Bschtellig abschicke"
 
 msgid "Submitted"
 msgstr "Abgschickt"
 
-#, fuzzy
 msgid "Successful Order"
-msgstr "erfolgriich gsetzt"
+msgstr "erfolgriichi Bschtellig"
 
 msgid "Successfully set."
 msgstr "erfolgriich gsetzt"
@@ -1316,9 +1246,8 @@ msgstr ""
 msgid "Swapped %{from} for %{to}"
 msgstr "%{from} dür %{to} ustuuschet"
 
-#, fuzzy
 msgid "Swapped from %s "
-msgstr "%{from} dür %{to} ustuuschet"
+msgstr "Ustuuschet vo %s"
 
 msgid "Take Back"
 msgstr ""
@@ -1364,9 +1293,8 @@ msgstr "S'Zuebehör isch erfolgriich erstellt."
 msgid "The accessory was successfully deleted."
 msgstr "S'Zuebehör isch erfolgriich glöscht."
 
-#, fuzzy
 msgid "%s successfully deleted"
-msgstr "Packeet erfolgriich glöscht"
+msgstr "%s glöscht"
 
 msgid "The admin role cannot be scoped to an inventory pool"
 msgstr "D Admin-Rolle chan sich nöd uf en Grätepark beziehe"
@@ -1387,22 +1315,18 @@ msgstr ""
 msgid "The following items are overdue or need to be inspected by their owners"
 msgstr ""
 
-#, fuzzy
 msgid "The group quantities were successfully saved."
-msgstr "S'Zuebehör isch erfolgriich erstellt."
+msgstr "D'Zuebehör-Aazahl isch gspeicheret"
 
-#, fuzzy
 msgid "The inventory code %s is not valid for this model"
-msgstr "Ich han de Inventarcode %s nöd gfunde"
+msgstr "De Inventarcode %s isch für das Modäll nöd gültig"
 
 msgid "The item belongs to a package"
 msgstr ""
 
-#, fuzzy
 msgid "The item cannot be retired because it's not returned yet."
 msgstr ""
-"S Modäll chan nod gänderet werde will d'Sach scho imene Vertrag enthalte "
-"isch."
+"D Sach chan nöd uusgmuschtered werdä, will sie nonig zruggbracht worde isch."
 
 msgid "The item doesn't belong to the inventory pool related to this contract"
 msgstr "Die Sach ghört nöd zum Grätepark wo zu dem Vertrag ghört"
@@ -1414,16 +1338,14 @@ msgid ""
 "The item is already handed over or assigned to a different contract line"
 msgstr ""
 
-#, fuzzy
 msgid "The item with the inventory code %s was not found"
-msgstr "Ich han de Inventarcode %s nöd gfunde"
+msgstr "D Sach mit em Inventarcode %s isch nöd gfunde worde"
 
 msgid "The item %s will be retired and no longer available for rentals."
 msgstr ""
 
-#, fuzzy
 msgid "The line was not found"
-msgstr "Ich han de Inventarcode %s nöd gfunde"
+msgstr "D Linie isch nöd gfunde worde"
 
 msgid "The mail was sent"
 msgstr ""
@@ -1486,13 +1408,11 @@ msgstr ""
 msgid "This customer's groups"
 msgstr ""
 
-#, fuzzy
 msgid "This inventory pool is closed on that day."
-msgstr "Grätepark isch am start_date zue."
+msgstr "Grätepark isch a dem tag zue."
 
-#, fuzzy
 msgid "Inventory pool successfully updated."
-msgstr "Inventarcode aktualisiert"
+msgstr "De Grätepark isch aktualisiert."
 
 msgid "This is a package containing the following items"
 msgstr ""
@@ -1534,9 +1454,8 @@ msgstr ""
 msgid "Time window"
 msgstr "Ziitfenschter"
 
-#, fuzzy
 msgid "Timeline"
-msgstr "Ziitfenschter"
+msgstr "Timeline"
 
 msgid "Today"
 msgstr "Hüt"
@@ -1568,9 +1487,8 @@ msgstr ""
 msgid "Unsigned"
 msgstr "nöd unterschribe"
 
-#, fuzzy
 msgid "Unsigned Hand Over"
-msgstr "nöd unterschribe"
+msgstr "Nöd unterschribni Übergab"
 
 msgid "Unsigned contracts"
 msgstr "Nöd unterschribni Verträg"
@@ -1590,13 +1508,11 @@ msgstr "Benutzer"
 msgid "User details were updated successfully."
 msgstr ""
 
-#, fuzzy
 msgid "User data"
-msgstr "Benutzer"
+msgstr "Benutzer-Date"
 
-#, fuzzy
 msgid "User created successfully"
-msgstr "Erfolgriich iigloggt"
+msgstr "Benutzer erschtellt"
 
 msgid "User must be selected"
 msgstr "Benutzer muess usgwählt sii"
@@ -1613,18 +1529,15 @@ msgstr "Unbekannte Benutzer"
 msgid "User/Typical usage"
 msgstr ""
 
-#, fuzzy
 msgid "Username"
-msgstr "Benutzer"
+msgstr "Benutzername"
 
-#, fuzzy
 msgid "Users"
 msgstr "Benutzer"
 
 msgid "Value"
 msgstr "Wert"
 
-#, fuzzy
 msgid "Value List"
 msgstr "Wertelischte"
 
@@ -1643,9 +1556,8 @@ msgstr ""
 msgid "View Item"
 msgstr ""
 
-#, fuzzy
 msgid "View Model"
-msgstr "Modäll"
+msgstr "Modäll aaluegä"
 
 msgid "View Option"
 msgstr ""
@@ -1696,9 +1608,8 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#, fuzzy
 msgid "You are not the owner of this item"
-msgstr "Sii händ kei Berechtigung für die Sach."
+msgstr "Si sind nöd de Bsitzer vo dere Sach."
 
 msgid "You bring back your items"
 msgstr ""
@@ -1725,27 +1636,23 @@ msgstr "Sii händ kei Berechtigung für die Sach."
 msgid "You don't have any rights to access this application."
 msgstr "Sii händ kei Zuegriffsrächt für die Aawändig"
 
-#, fuzzy
 msgid "You don't have permission"
-msgstr "Sii händ kei Berechtigung für die Sach."
+msgstr "Si händ kei Berechtigung."
 
 msgid "You have %{no_access} to any inventory pools!"
 msgstr ""
 
-#, fuzzy
 msgid "You have access to the following inventory pools"
-msgstr " im Grätepark "
+msgstr "Si händ kei Zuegang für die Grätepark"
 
-#, fuzzy
 msgid "You have access to the following inventory pools:"
-msgstr " im Grätepark "
+msgstr "Si händ Zuegang zu dene Grätepärk:"
 
 msgid "You have been logged out."
 msgstr "Sie sind etz usgloggt."
 
-#, fuzzy
 msgid "You are not logged in."
-msgstr "Sie sind etz usgloggt."
+msgstr "Si sind nöd aagmeldet."
 
 msgid ""
 "You might receive an admonishment and be subject to late fees as well as the "
@@ -1784,9 +1691,8 @@ msgstr ""
 msgid "Zielraum"
 msgstr ""
 
-#, fuzzy
 msgid "[Model %s] "
-msgstr "Modäll"
+msgstr "[Modäll %s]"
 
 msgid "[leihs] Order received"
 msgstr "[leihs] Bstellig akoh"
@@ -1815,9 +1721,8 @@ msgstr "Scho inere Karegorie"
 msgid "assigned to %s"
 msgstr ""
 
-#, fuzzy
 msgid "available"
-msgstr "nöd verfüegbar."
+msgstr "verfüegbar"
 
 msgid "awaiting approval"
 msgstr ""
@@ -1831,11 +1736,10 @@ msgstr ""
 msgid "current page is set as start page"
 msgstr ""
 
-#, fuzzy
 msgid "day"
 msgid_plural "days"
-msgstr[0] "Hüt"
-msgstr[1] "Hüt"
+msgstr[0] "Tag"
+msgstr[1] "Täg"
 
 msgid "delete"
 msgstr ""
@@ -1873,13 +1777,11 @@ msgstr ""
 msgid "in"
 msgstr ""
 
-#, fuzzy
 msgid "Inventory pool is closed on end date"
-msgstr "Grätepark isch am end_date zue."
+msgstr "De Grätepark isch am Enddatum zue."
 
-#, fuzzy
 msgid "Inventory pool is closed on start date"
-msgstr "Grätepark isch am start_date zue."
+msgstr "De Grätepark isch am Startdatum zue."
 
 msgid "is late"
 msgstr ""
@@ -1908,9 +1810,8 @@ msgstr ""
 msgid "no image"
 msgstr ""
 
-#, fuzzy
 msgid "no item assigned"
-msgstr "Sach nöd zuegwiesä"
+msgstr "Kei Sach zuegwiesä"
 
 msgid "no purpose specified"
 msgstr ""
@@ -1969,9 +1870,8 @@ msgstr ""
 msgid "since max."
 msgstr ""
 
-#, fuzzy
 msgid "submit it"
-msgstr "Anöd agschickt"
+msgstr "agschicke"
 
 msgid "therefore you may not be able to change some of these fields"
 msgstr ""
@@ -1985,9 +1885,8 @@ msgstr ""
 msgid "to substitute"
 msgstr ""
 
-#, fuzzy
 msgid "today"
-msgstr "Hüt"
+msgstr "hüt"
 
 msgid "unavailable / can't be guaranteed"
 msgstr ""
@@ -1995,9 +1894,8 @@ msgstr ""
 msgid "unknown Model"
 msgstr ""
 
-#, fuzzy
 msgid "until"
-msgstr "Vom %s bis am %s "
+msgstr "bis"
 
 msgid "upcoming"
 msgstr ""
@@ -2038,9 +1936,8 @@ msgstr ""
 msgid "Suspended"
 msgstr ""
 
-#, fuzzy
 msgid "Edit User"
-msgstr "Benutzer"
+msgstr "Benutzer bearbeite"
 
 msgid "Customer"
 msgstr ""
@@ -2048,13 +1945,11 @@ msgstr ""
 msgid "Lending manager"
 msgstr ""
 
-#, fuzzy
 msgid "Inventory manager"
-msgstr "Grätepark"
+msgstr "Grätepark-Manager"
 
-#, fuzzy
 msgid "New User"
-msgstr "Benutzer"
+msgstr "Noie Benutzer"
 
 msgid "List of %d Users"
 msgstr ""
@@ -2062,9 +1957,8 @@ msgstr ""
 msgid "List of Users"
 msgstr ""
 
-#, fuzzy
 msgid "Contract expiration"
-msgstr "Vertrag nr. "
+msgstr "Ablauf vom Vertrag"
 
 msgid "Warranty expiration"
 msgstr ""
@@ -2075,16 +1969,14 @@ msgstr ""
 msgid "Select Field"
 msgstr ""
 
-#, fuzzy
 msgid "no fields selected"
-msgstr "S'Modäll muess uusgwählt sii"
+msgstr "Keis Fäld uusgwählt"
 
 msgid "Apply Fields on Item"
 msgstr ""
 
-#, fuzzy
 msgid "no item selected"
-msgstr "S'Modäll muess uusgwählt sii"
+msgstr "Käs Modäll uusgwählt"
 
 msgid "requested"
 msgstr ""
@@ -2095,9 +1987,8 @@ msgstr ""
 msgid "Options"
 msgstr ""
 
-#, fuzzy
 msgid "Inventory Helper"
-msgstr "Grätepark"
+msgstr "Inventar-Helfer"
 
 msgid "Select Image"
 msgstr ""
@@ -2108,9 +1999,8 @@ msgstr ""
 msgid "Images"
 msgstr ""
 
-#, fuzzy
 msgid "Attachments"
-msgstr "Dokument"
+msgstr "Aahang"
 
 msgid "undo"
 msgstr ""
@@ -2118,13 +2008,11 @@ msgstr ""
 msgid "Do you realy want to delete the '%s' category?"
 msgstr ""
 
-#, fuzzy
 msgid "Create %s"
-msgstr "Erstellt bi"
+msgstr "%s erschtellä"
 
-#, fuzzy
 msgid "Create new category"
-msgstr "Scho inere Karegorie"
+msgstr "Noii Kategorii erschtellä"
 
 msgid "Category name"
 msgstr ""
@@ -2150,9 +2038,8 @@ msgstr ""
 msgid "You can not create a package without any item"
 msgstr ""
 
-#, fuzzy
 msgid "Packages created"
-msgstr "Paketfähler"
+msgstr "Paketf erschtellt"
 
 msgid "Attention"
 msgstr ""
@@ -2166,9 +2053,8 @@ msgstr ""
 msgid "Short Name"
 msgstr ""
 
-#, fuzzy
 msgid "Inventory pool successfully updated"
-msgstr "Inventarcode aktualisiert"
+msgstr "Grätepark aktualisiert"
 
 msgid "Basic Information"
 msgstr ""
@@ -2176,9 +2062,8 @@ msgstr ""
 msgid "Workdays"
 msgstr ""
 
-#, fuzzy
 msgid "Closed Days"
-msgstr "Gschlosse"
+msgstr "Gschlossni Täg"
 
 msgid "Toggle %s"
 msgstr ""
@@ -2192,9 +2077,8 @@ msgstr ""
 msgid "Select"
 msgstr ""
 
-#, fuzzy
 msgid "Closed Day"
-msgstr "Gschlosse"
+msgstr "Gschlossne Tag"
 
 msgid "Borrow"
 msgstr ""
@@ -2224,9 +2108,8 @@ msgstr ""
 msgid "Prepackaged"
 msgstr ""
 
-#, fuzzy
 msgid "Model saved"
-msgstr "Modäll"
+msgstr "Modäll gspeichered"
 
 msgid "The package is not in stock"
 msgstr ""
@@ -2252,17 +2135,14 @@ msgstr ""
 msgid "Allocations"
 msgstr ""
 
-#, fuzzy
 msgid "%s created"
-msgstr "Erstellt bi"
+msgstr "%s erstellt"
 
-#, fuzzy
 msgid "Name of the user"
-msgstr "Azahl Sache"
+msgstr "Name vom Benutzer"
 
-#, fuzzy
 msgid "Name of the model"
-msgstr "Azahl Sache"
+msgstr "Name vom Modäll"
 
 msgid "Name of the group"
 msgstr ""
@@ -2270,9 +2150,8 @@ msgstr ""
 msgid "%s saved"
 msgstr ""
 
-#, fuzzy
 msgid "Order overview"
-msgstr "Bstellig genehmigt"
+msgstr "Übersicht vo de Bschtellig"
 
 msgid "To pick up"
 msgstr ""
@@ -2301,20 +2180,17 @@ msgstr ""
 msgid "All %s"
 msgstr ""
 
-#, fuzzy
 msgid "ascending"
-msgstr "Am lade"
+msgstr "uufschtiigend"
 
 msgid "descending"
 msgstr ""
 
-#, fuzzy
 msgid "All inventory pools"
-msgstr "Grätepark"
+msgstr "Alli Grätepärk"
 
-#, fuzzy
 msgid "Inventory pools"
-msgstr "Grätepark"
+msgstr "Grätepärk"
 
 msgid "Show all search results"
 msgstr ""
@@ -2367,9 +2243,8 @@ msgstr ""
 msgid "User|AccessRight|Suspended reason"
 msgstr ""
 
-#, fuzzy
 msgid "The selected inventory pool is closed on that day"
-msgstr "Grätepark isch am start_date zue."
+msgstr "De uusgwählti Grätepark isch am den Tag zue"
 
 msgid "Item is not available in that time range"
 msgstr ""
@@ -2444,9 +2319,8 @@ msgid ""
 "The highlighted entries are not accomplishable for the intended quantity."
 msgstr ""
 
-#, fuzzy
 msgid "Please contact the concerned inventory pool."
-msgstr " im Grätepark "
+msgstr "Bitte nämed Si mit em Grätepark Kontakt uuf."
 
 msgid "Continue"
 msgstr ""
@@ -2475,9 +2349,8 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#, fuzzy
 msgid "Document"
-msgstr "Dokument"
+msgstr "Dokumänt"
 
 msgid "%d minutes passed. The items are not reserved for you any more!"
 msgstr ""
@@ -2501,4 +2374,4 @@ msgid "Your order ist empty."
 msgstr ""
 
 msgid "Borrow items"
-msgstr " Sache nuuslehnä"
+msgstr "Sache nuuslehnä"
