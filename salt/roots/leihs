@@ -1,0 +1,9 @@
+<VirtualHost *:80>
+   ServerName leihs.vagrant
+   DocumentRoot /vagrant/public/
+
+   <Directory /vagrant/public>
+      AllowOverride all
+      Options -MultiViews
+   </Directory>
+</VirtualHost>

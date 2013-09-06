@@ -1,0 +1,16 @@
+---
+- hosts: vagrant
+  user: vagrant
+  sudo: True
+  tasks:
+  - name: Copy our Passenger install script
+    copy: src=install_passenger.sh dest=/home/vagrant/install_passenger.sh owner=vagrant group=vagrant mode=0755
+  - name: Run our Passenger install script
+    script: /home/vagrant/install_passenger.sh
+  - name: Enable Passenger module
+    command: a2enmod passenger
+    notify:
+    - restart apache
+  handlers:
+    - name: restart apache
+      service: name=apache2 state=restarted
