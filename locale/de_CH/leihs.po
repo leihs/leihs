@@ -2450,3 +2450,6 @@ msgstr "%s erfolgreich erstellt"
 
 msgid "%s successfully saved"
 msgstr "%s erfolgreich gespeichert"
+
+msgid "Source code"
+msgstr "Quellcode"

@@ -13,6 +13,7 @@ FactoryGirl.define do
     default_email { 'sender@example.com' }
     deliver_order_notifications { false }
     user_image_url { "http://www.zhdk.ch/?person/foto&width=100&compressionlevel=0&id={:id}" }
+    logo_url { "/assets/image-logo-zhdk.png" }
   end
 
 end

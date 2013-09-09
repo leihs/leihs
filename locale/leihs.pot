@@ -2387,3 +2387,6 @@ msgstr ""
 
 msgid "%s successfully saved"
 msgstr ""
+
+msgid "Source code"
+msgstr ""

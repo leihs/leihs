@@ -1,6 +1,5 @@
 .topbar
   background: $almostwhite
-  border: 1px solid $lightergrey
   border-top: 1px solid lighten($lightergrey, 5%)
   border-bottom: 1px solid darken($lightergrey, 5%)
   display: block
@@ -9,7 +8,6 @@
   position: relative
   z-index: 1999 // modal is 2000
   @include background(linear-gradient(top, white 50%, darken($almostwhite, 3%) 50%))
-  @include border-radius($border-radius-s)
   @include box-shadow (0 2px 8px -1px rgba(0,0,0,0.1))
 
 a.topbar-logo, a.topbar-logo:hover
@@ -18,24 +16,26 @@ a.topbar-logo, a.topbar-logo:hover
   
 .topbar-logo
   display: inline-block
-  height: 100%
   float: left
   font-size: 21px
   font-weight: bold
   letter-spacing: -1px
   line-height: 1.9em
+  text-align: center
+
+  img
+    max-height: 38px
+    max-width: 100px
+    vertical-align: text-top
     
 .topbar-navigation 
   display: inline-block
   height: 100%
-  float: right
+  position: relative
 
 .topbar-item
-  background: rgba(190,190,190,0.2)
   cursor: pointer
   float: left
-  height: 100%
-  position: relative
 
   .arrow
     @include change-all-arrow-colors($grey)
@@ -43,23 +43,23 @@ a.topbar-logo, a.topbar-logo:hover
 .topbar-item-inner, a.topbar-item-inner
   color: $darkergrey
   display: block
+  border: 1px solid rgba(255,255,255,0)
   font-weight: bold
   font-size: 1.2em
-  line-height: 3.5em
-  height: 100%
-  padding: 0 16px
+  line-height: 27px
+  padding: 0 12px
+  margin: 6px 1px
+  position: relative
+  @include border-radius($border-radius-s)
   @include text-shadow (0 0 1px rgba(255,255,255,0.4))
+  @extend .text-ellipsis
 
-.topbar-item.active, .topbar-item:hover
-  background: none
-  @include box-shadow(none)
+.topbar-item:not([class*='max-width']) .topbar-item-inner
+  @extend .max-width-s-alt
 
+.topbar-item-inner
+  @extend .focus-hover-thin
+
+.topbar-item:active, .topbar-item.active
   .topbar-item-inner
-    @include text-shadow (1px 1px 1px white)
-
-  .arrow
-    @include change-all-arrow-colors($darkergrey)
-
-.topbar-item:active
-  background: rgba(190,190,190,0.2)
-  @include box-shadow(inset 1px 0 4px rgba(0,0,0,0.3))
+    @extend .focus-thin
