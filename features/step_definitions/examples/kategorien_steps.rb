@@ -151,7 +151,7 @@ end
 
 Dann /^sind die Kategorien entfernt und das Modell gespeichert$/ do
   page.has_content? _("List of Models")
-  @model.model_groups.reload.should be_empty
+  @model.categories.reload.should be_empty
 end
 
 Wenn /^eine Kategorie nicht genutzt ist$/ do

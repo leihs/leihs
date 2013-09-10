@@ -1,0 +1,76 @@
+%h3.headline-m.light.margin-top-m.padding-vertical-m.margin-bottom-m.margin-top-m= ".topbar"
+
+%nav.topbar
+
+  %a.topbar-logo.padding-horizontal-s{:href => borrow_root_path} leihs
+
+  %ul.topbar-navigation.padding-right-m
+
+    .placeholder.height-xxs-alt.width-s.float-left.inline-block.margin-right-m
+
+    %li#topbar-search.topbar-item.topbar-search.position-absolute-left
+      #search
+        %label.min-height-full.width-full{:title => _("Search"), :for => "search_term"}
+          %form.min-height-full.row.width-full{:action => borrow_search_path, :method => :post, :autocomplete => :off}
+            = token_tag nil
+            %input.text-ellipsis.round-borders.has-addon.width-full.padding-right-m.padding-left-s{:type => "text", :id => "search_term", :name => "search_term", :placeholder => _("Search")}
+            .addon.transparent.padding-right-xs
+              %i.icon-search.icon-size-xxs
+        #search-autocomplete
+
+    %li.topbar-item
+      %a.topbar-item-inner
+        %span.badge 3
+        Orders
+
+    %li.topbar-item
+      %a.topbar-item-inner
+        %span.badge 1
+        To pick up
+
+    %li.topbar-item
+      %a.topbar-item-inner
+        %span.badge 2
+        Returns
+
+    %li.topbar-item
+      %a.topbar-item-inner= _("Inventory Pools")
+
+  %ul.topbar-navigation.float-right
+
+    %li.topbar-item.with-icon
+      %a.topbar-item-inner
+        %i.icon-gears
+        %span= _("Manage")
+
+    %li.topbar-item.dropdown-holder
+      %a.topbar-item-inner
+        %img.max-height-xxxs.max-width-xxs.emboss.deep{:src => "http://lorempixel.com/200/200/people"}
+        %span Max Muster
+        %i.arrow.down
+
+      %ul.dropdown.right.straight-top
+        %li
+          %a.dropdown-item
+            .width-xxxs.inline-block.text-align-center
+              .icon-user
+            = _("User data")
+        %li
+          %a.dropdown-item
+            .width-xxxs.inline-block.text-align-center
+              .icon-copy
+            = _("My documents")
+        %li.separated-top
+          %a.dropdown-item
+            .width-xxxs.inline-block.text-align-center
+              .icon-signout
+            = _("Logout")
+
+:coffeescript
+  
+  jQuery -> 
+    new App.TopBarSearchItem
+      el: $("#topbar-search")
+
+    new App.Borrow.SearchTopbarController
+      el: $("#search")

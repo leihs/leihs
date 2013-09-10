@@ -317,11 +317,11 @@ Dann(/^wurden alle Modelle der ausgewählten Kategorie geladen und angezeigt$/) 
   all("#model-list .line").size.should == @current_user.models.borrowable.from_category_and_all_its_descendants(@category).length
 end
 
-Wenn(/^man über ein Modell hovered$/) do
-  page.execute_script %Q($(".line").mouseenter())
+Wenn(/^man über das Modell hovered$/) do
+  page.execute_script %Q($(".line[data-id='#{@model.id}']").mouseenter())
 end
 
-Dann(/^werden folgende zusätzliche Informationen angezeigt Modellname, Bilder, Beschreibung, Liste der Eigenschaften$/) do
+Dann(/^werden zusätzliche Informationen angezeigt zu Modellname, Bilder, Beschreibung, Liste der Eigenschaften$/) do
   find(".tooltipster-default").should have_content @model.name
   page.should have_content @model.description
   @model.properties.take(5).map(&:key).each {|key| page.should have_content key}
@@ -443,4 +443,14 @@ end
 
 Dann(/^die Auswahl klappt nocht nicht zu$/) do
   find("#ip-selector .dropdown").should be_visible
+end
+
+Dann(/^wenn ich den Kalendar für dieses Modell benutze$/) do
+  find(".line[data-id='#{@model.id}'] *[data-create-order-line]").click
+  find("#submit-booking-calendar").click
+end
+
+Dann(/^können die zusätzliche Informationen immer noch abgerufen werden$/) do
+  step 'man über das Modell hovered'
+  step 'werden zusätzliche Informationen angezeigt zu Modellname, Bilder, Beschreibung, Liste der Eigenschaften'
 end

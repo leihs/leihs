@@ -57,6 +57,15 @@ module Persona
       @order_for_camera_purpose = FactoryGirl.create :purpose, :description => "Benötige ich für die Aufnahmen meiner Abschlussarbeit."
       @order_line_camera = FactoryGirl.create(:order_line, :purpose => @order_for_camera_purpose, :inventory_pool => @inventory_pool, :model => @camera_model, :order => @order_for_camera, :start_date => (Date.today + 7.days), :end_date => (Date.today + 10.days))
       @order_line_tripod = FactoryGirl.create(:order_line, :purpose => @order_for_camera_purpose, :inventory_pool => @inventory_pool, :model => @tripod_model, :order => @order_for_camera, :start_date => (Date.today + 7.days), :end_date => (Date.today + 10.days))
+
+      # and some more random submitted orders with lines
+      rand(2..4).times do
+        random_inventory_pool = @user.inventory_pools.sample
+        random_order = FactoryGirl.create(:order, :user => @user, :inventory_pool => random_inventory_pool, :status_const => Order::SUBMITTED)
+        rand(3..5).times do
+          FactoryGirl.create(:order_line, :order => random_order, :inventory_pool => random_inventory_pool)
+        end
+      end
     end
     
     def create_unsigned_contracts
@@ -89,7 +98,7 @@ module Persona
       @arbitrary_model_1 = @inventory_pool_2.items.in_stock.first.model
       @arbitrary_model_2 = @inventory_pool_2.items.in_stock.last.model
       FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @unsigned_contract_2, :item_id => @inventory_pool_2.items.in_stock.where(:model_id => @arbitrary_model_1).first.id, :model => @arbitrary_model_1, :start_date => Date.yesterday, :end_date => Date.today)
-      FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @unsigned_contract_2, :item_id => @inventory_pool_2.items.in_stock.where(:model_id => @arbitrary_model_2).first.id, :model => @arbitrary_model_2, :start_date => Date.yesterday, :end_date => Date.today)
+      FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @unsigned_contract_2, :item_id => @inventory_pool_2.items.in_stock.where(:model_id => @arbitrary_model_2).first.id, :model => @arbitrary_model_2, :start_date => Date.yesterday, :end_date => Date.today, :returned_to_user => @pius, :returned_date => Date.today)
       @unsigned_contract_2.sign(@pius)
     end
 

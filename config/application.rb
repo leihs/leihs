@@ -47,6 +47,7 @@ module Leihs
                                     splash.css
                                     shared.js
                                     backend.css
+                                    backend_print_screen.css
                                     backend.js
                                     frontend.css
                                     frontend.js

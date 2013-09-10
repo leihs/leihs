@@ -1,0 +1,12 @@
+---
+- name: Install Ruby compilation dependencies
+  apt: pkg={{ item }} state=present
+  sudo: True
+  with_items:
+    #- libssl-dev
+    #- libreadline6-dev
+    - build-essential
+    - curl
+    - bash
+  tags:
+    - packages

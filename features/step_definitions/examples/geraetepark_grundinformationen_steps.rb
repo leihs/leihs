@@ -1,9 +1,5 @@
 # encoding: utf-8
 
-Angenommen(/^ich bin (.*)$/) do |persona|
-  step "I am \"#{persona}\""
-end
-
 Wenn(/^ich den Admin\-Bereich betrete$/) do
   click_link _("Admin")
   click_link _("Inventory Pool")

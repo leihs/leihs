@@ -1,15 +1,16 @@
 class Backend::TemplatesController < Backend::BackendController
 
   before_filter do
-    params[:template_id] ||= params[:id] if params[:id]
-    # NOTE @template is a reserved variable
-    @my_template = current_inventory_pool.templates.find(params[:template_id]) if params[:template_id]
+    @template = current_inventory_pool.templates.find(params[:id]) if params[:id]
   end
 
 ######################################################################
 
   def index
-    @templates = current_inventory_pool.templates.search(params[:query]).paginate(:page => params[:page], :per_page => PER_PAGE)
+    @templates = current_inventory_pool.templates.search(params[:query]).paginate(:page => params[:page], :per_page => PER_PAGE).sort
+
+    @unaccomplishable_templates = @templates.select {|t| not t.accomplishable? }
+    flash.now[:error] = _("The highlighted entries are not accomplishable for the intended quantity.") unless @unaccomplishable_templates.empty?
 
     respond_to do |format|
       format.html
@@ -20,28 +21,40 @@ class Backend::TemplatesController < Backend::BackendController
   end
 
   def new
-    @my_template = Template.new
-    render :action => 'show'
+    @template = current_inventory_pool.templates.build
   end
 
   def create
-    @my_template = Template.new
-    @my_template.inventory_pools << current_inventory_pool
-    update
+    begin
+      template = current_inventory_pool.templates.create! params[:template]
+      flash[:notice] = _("%s created successfully") % _("Template")
+      redirect_to action: :index
+    rescue => e
+      flash.now[:error] = e.to_s
+      render action: :new
+    end
   end
   
   def update
-    @my_template.update_attributes(params[:template])
-    redirect_to :action => 'show', :id => @my_template
+    begin
+      @template.update_attributes!(params[:template])
+      flash[:notice] = _("%s successfully saved") % _("Template")
+      redirect_to action: :index
+    rescue => e
+      flash[:error] = e.to_s
+      redirect_to action: :edit
+    end
   end
 
   def destroy
-    if params[:model_link_id]
-      @my_template.model_links.delete(@my_template.model_links.find(params[:model_link_id])) # OPTIMIZE
-      redirect_to :action => 'models'
-    else
-      @my_template.destroy
-      redirect_to :action => 'show'
+    respond_to do |format|
+      format.json do
+        if @template.destroy and @template.destroyed?
+          render :json => true, :status => 200
+        else
+          render :json => false, :status => 500
+        end
+      end
     end
   end
   
@@ -53,7 +66,7 @@ class Backend::TemplatesController < Backend::BackendController
   
   def add_model(model_link = params[:model_link])
     @model = current_inventory_pool.models.find(model_link[:model_id])
-    @my_template.model_links.create(:model => @model, :quantity => model_link[:quantity])
+    @template.model_links.create(:model => @model, :quantity => model_link[:quantity])
     redirect_to :action => 'models'
   end
   

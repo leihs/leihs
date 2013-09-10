@@ -106,7 +106,7 @@ Dann(/^kann ich das Modell aus der Liste nicht löschen$/) do
   find_field('query').set @model.name
   page.has_selector? "li.modelname", text: @model.name
   page.execute_script("$('.trigger .arrow').trigger('mouseover');")
-  find(".line.toggler.model", text: @model.name).should_not have_content(_("Delete %s") % _("Modell"))
+  find(".line.toggler.model", text: @model.name).should_not have_content(_("Delete %s") % _("Model"))
 end
 
 Und /^ich sehe eine Dialog-Fehlermeldung$/ do
@@ -128,7 +128,7 @@ Wenn(/^ich dieses Modell aus der Liste lösche$/) do
   find_field('query').set @model.name
   wait_until { all("li.modelname").first.text == @model.name }
   page.execute_script("$('.trigger .arrow').trigger('mouseover');")
-  wait_until {find(".line.toggler.model", text: @model.name).find(".button", text: _("Delete %s") % _("Modell"))}.click
+  wait_until {find(".line.toggler.model", text: @model.name).find(".button", text: _("Delete %s") % _("Model"))}.click
 end
 
 Dann(/^das Modell wurde aus der Liste gelöscht$/) do

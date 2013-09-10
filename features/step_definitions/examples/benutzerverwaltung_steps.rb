@@ -840,3 +840,15 @@ Angenommen(/^man editiert einen Benutzer der mal einen Zugriff auf das aktuelle 
   @current_inventory_pool = (@current_user.managed_inventory_pools & @user.all_access_rights.select(&:deleted_at).map(&:inventory_pool)).first
   visit edit_backend_inventory_pool_user_path(@current_inventory_pool, @user)
 end
+
+Angenommen(/^man einen Benutzer mit Zugriffsrechten editiert$/) do
+  @user =  User.find {|u| u.access_rights.count >= 2 }
+  @user.access_rights.count.should >= 2
+  visit edit_backend_user_path(@user)
+end
+
+Dann(/^werden die ihm zugeteilt Geräteparks mit entsprechender Rolle aufgelistet$/) do
+  @user.access_rights.each do |access_right|
+    find(".field-inline-entry", text: access_right.to_s)
+  end
+end

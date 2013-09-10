@@ -210,7 +210,18 @@ class Model < ActiveRecord::Base
   # returns an array of document_lines
   def add_to_document(document, user_id, quantity = nil, start_date = nil, end_date = nil, inventory_pool = nil)
     document.add_lines(quantity, self, user_id, start_date, end_date, inventory_pool)
-  end  
-                                                                                                      
+  end
+
+#############################################
+
+  def total_borrowable_items_for_user(user, inventory_pool = nil)
+    groups = user.groups.with_general
+    if inventory_pool
+      inventory_pool.partitions_with_generals.hash_for_model_and_groups(self, groups).values.sum
+    else
+      inventory_pools.sum {|ip| ip.partitions_with_generals.hash_for_model_and_groups(self, groups).values.sum }
+    end
+  end
+
 end
 

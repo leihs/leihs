@@ -276,10 +276,6 @@ window.i18n.locale_data = {
          null,
          "IC-Technik/Software"
       ],
-      "Business Applications": [
-         null,
-         "Business Applications"
-      ],
       "Approval Successful": [
          null,
          "Genehmigung erfolgreich"
@@ -1366,6 +1362,10 @@ window.i18n.locale_data = {
          null,
          "Bitte füllen Sie alle Pflichtfelder aus"
       ],
+      "Please provide an inventory code": [
+         null,
+         "Bitte Inventarcode angeben"
+      ],
       "Please specify the purpose of your order here...": [
          null,
          "Bitte geben Sie den Zweck Ihrer Bestellung hier an..."
@@ -2174,6 +2174,10 @@ window.i18n.locale_data = {
          null,
          "Sie sind nicht eingeloggt."
       ],
+      "You were served by %s": [
+         null,
+         "Sie wurden bedient von %s"
+      ],
       "You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from the reservation system for up to 6 months.": [
          null,
          "Dies kann eine Verwarnung nach sich ziehen und Sie können im Wiederholungsfall vom Verleiher bis zu 6 Monaten von der Ausleihe gesperrt werden."
@@ -2685,7 +2689,7 @@ window.i18n.locale_data = {
       ],
       "Email": [
          null,
-         ""
+         "E-Mail"
       ],
       "Short Name": [
          null,
@@ -3110,13 +3114,17 @@ window.i18n.locale_data = {
          null,
          "Time-Out zurücksetzen"
       ],
-      "Firstname": [
+      "Your order ist empty.": [
          null,
-         "Vorname"
+         "Ihre Bestellung ist leer."
       ],
-      "Lastname": [
+      "Borrow items": [
          null,
-         "Nachname"
+         "Gegenstände ausleihen"
+      ],
+      "from %s": [
+         null,
+         "vom %s"
       ]
    }
 }

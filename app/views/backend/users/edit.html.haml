@@ -28,6 +28,11 @@
             .value
               = select_tag "user[admin]", options_for_select([[_("No"), false], [_("Yes"), true]], @is_admin)
 
+          .field.text
+            - @user.access_rights.each do |access_right|
+              %div.field-inline-entry
+                %span.text-ellipsis= access_right
+
     .clear
 
 :coffeescript

@@ -331,7 +331,6 @@ class BorrowBookingCalendar
     @fullcalendar.find(".calendar-tail").remove()
     @fullcalendar.find(".other_month").text ""
     @fullcalendar.find(".closed").removeClass "closed"
-    do App.Tooltip.destroyAll
 
   setSelected: (day_el, date)=>
     startDate = moment(@startDate_el.val(), df).startOf("day").toDate()
@@ -397,7 +396,6 @@ class BorrowBookingCalendar
       else
         do resetSelection
         target.addClass "selected_for_target_selection"
-        do App.Tooltip.destroyAll
         new App.Tooltip
           el: target
           content: App.Render "views/booking_calendar/target-selection"

@@ -61,7 +61,7 @@ Wenn /^ich etwas zuweise, das nicht in den Rücknahmen vorkommt$/ do
 end
 
 Dann /^(?:sehe ich|ich sehe) eine Fehlermeldung$/ do
-  wait_until{ @notification = find(".notification") }
+  wait_until{ @notification = find(".notification.error") }
 end
 
 Dann /^die Fehlermeldung lautet "(.*?)"$/ do |text|

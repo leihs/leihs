@@ -125,7 +125,7 @@ class Backend::BackendController < ApplicationController
     end
 
     def current_managed_inventory_pools
-      @current_managed_inventory_pools ||= (current_user.managed_inventory_pools - [current_inventory_pool])
+      @current_managed_inventory_pools ||= (current_user.managed_inventory_pools - [current_inventory_pool]).sort
     end
 
     ##################################################

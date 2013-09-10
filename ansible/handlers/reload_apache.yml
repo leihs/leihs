@@ -1,0 +1,4 @@
+---
+- name: reload apache
+  sudo: True
+  service: name=apache2 state=reloaded

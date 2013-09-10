@@ -5,6 +5,7 @@ ${lines = Line.extend_with_consecutive_numbers(lines),""}
   %h1
     ${_jed("Value List for Lending Contract No.")}
     ${id}
+    ${_jed("from %s", moment(created_at).format(i18n.date.L))}
   .date
     ${$now = moment(),""}
     ${$now.format(i18n.date.L)}
@@ -32,7 +33,6 @@ ${lines = Line.extend_with_consecutive_numbers(lines),""}
           %td.consecutive_number ${_jed("No.")}
           %td.inventory_code ${_jed("Inventory Code")}
           %td.model_name ${_jed("Model")}
-          %td.start_date ${_jed("Start date")}
           %td.end_date ${_jed("End date")}
           %td.quantity ${_jed("Quantity")}
           %td.item_price ${_jed("Value")}
@@ -47,14 +47,13 @@ ${lines = Line.extend_with_consecutive_numbers(lines),""}
             {{/if}}
           %td.inventory_code ${line.item.inventory_code}
           %td.model_name ${line.model.name}
-          %td.start_date ${moment(line.start_date).format(i18n.date.L)}
           %td.end_date ${moment(line.end_date).format(i18n.date.L)}
           %td.quantity ${line.quantity}
           %td.item_price {{html accounting.formatMoney(parseFloat(Number(line.item.price) * line.quantity))}}
         {{/each}}
       %tfoot.total
         %tr
-          %td{:colspan => 5}
+          %td{:colspan => 4}
             ${_jed("Total")}
           %td.quantity
             {{html Underscore.reduce(lines, function(memo, line){ return memo + line.quantity; }, 0)}}

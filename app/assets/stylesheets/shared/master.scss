@@ -6,11 +6,14 @@ html {
   color: $darkgrey;
   font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
   font-size: 62.5%;
+  height: 100%
 }
 
 body {
   background: #F3F1EB;
   min-width: 990px;
+  height: auto;
+  min-height: 100%;
   @include box-shadow(inset 0 28px 42px 7px rgba(255,255,255, 0.5));
 }
 

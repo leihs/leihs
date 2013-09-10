@@ -26,8 +26,9 @@ Dann(/^ich sehe die Information, dass die Bestellung noch nicht genehmigt wurde$
 end
 
 Dann(/^die Bestellungen sind nach Datum und Gerätepark sortiert$/) do
-  names = all(".emboss.deep .headline-m").map {|x| x.text}
-  expect(names.sort == names).to be_true
+  titles = all(".row.padding-inset-l").map {|x| [Date.parse(x.find("h3").text), x.find("h2").text]}
+  titles.empty?.should be_false
+  expect(titles.sort == titles).to be_true
 end
 
 Dann(/^jede Bestellung zeigt die zu genehmigenden Geräte$/) do

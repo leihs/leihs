@@ -8,7 +8,7 @@
 
     - @contracts.each do |contract|
       - start_date, end_date = [contract.time_window_min, contract.time_window_max]
-      .row.line
+      .row.line{:"data-id" => contract.id}
         .line-col.col2of10
           .row
             .col1of2.text-align-right
@@ -31,10 +31,12 @@
         .line-col.line-actions.col2of10
           .multibutton
             %a.button.white.text-ellipsis{href: borrow_user_contract_path(contract.id), target: "_blank"}
+              %i.icon-file-alt
               = _("Contract")
             .dropdown-holder.inline-block
               .button.white.dropdown-toggle
                 %span.arrow.down
               .dropdown.right
                 %a.dropdown-item.text-ellipsis{href: borrow_user_value_list_path(contract.id), target: "_blank"}
+                  %i.icon-list-ol
                   = _("Value List")

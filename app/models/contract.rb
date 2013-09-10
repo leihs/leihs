@@ -185,7 +185,7 @@ class Contract < Document
   end
 
   def purposes
-    lines.map {|x| x.purpose.to_s }.uniq.delete_if{|x| x.blank? }.join("; ")
+    lines.sort.map {|x| x.purpose.to_s }.uniq.delete_if{|x| x.blank? }.join("; ")
   end
   
   # NOTE override the column attribute (until leihs 2 is switched off)

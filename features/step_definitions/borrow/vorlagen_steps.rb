@@ -92,7 +92,7 @@ Dann(/^alle Einträge erhalten das ausgewählte Start\- und Enddatum$/) do
 end
 
 When(/^in dieser Vorlage hat es Modelle, die nicht genügeng Gegenstände haben, um die in der Vorlage gewünschte Anzahl zu erfüllen$/) do
-  @template = @current_user.templates.detect {|t| t.unaccomplishable_models(@current_user).size > 0}
+  @template = @current_user.templates.detect {|t| not t.accomplishable?(@current_user) }
   visit borrow_template_path(@template)
   find("nav a[href='#{borrow_template_path(@template)}']")
 end
@@ -105,6 +105,7 @@ end
 When(/^ich sehe die Verfügbarkeit einer nicht verfügbaren Vorlage$/) do
   step "in dieser Vorlage hat es Modelle, die nicht genügeng Gegenstände haben, um die in der Vorlage gewünschte Anzahl zu erfüllen"
   step "ich kann im Prozess weiterfahren zur Verfügbarkeitsanzeige der Vorlage"
+  find("*[type='submit']").click
 end
 
 Angenommen(/^einige Modelle sind nicht verfügbar$/) do
@@ -170,6 +171,7 @@ end
 
 Angenommen(/^ich sehe die Verfügbarkeit einer Vorlage, die nicht verfügbare Modelle enthält$/) do
   step "ich sehe mir eine Vorlage an"
+  find("*[type='submit']").click
   date = Date.today
   while @template.inventory_pools.first.is_open_on?(date) do
    date += 1.day 
@@ -177,4 +179,36 @@ Angenommen(/^ich sehe die Verfügbarkeit einer Vorlage, die nicht verfügbare Mo
   find("#start_date").set I18n::localize(date)
   find("#end_date").set I18n::localize(date)
   step "ich kann im Prozess weiterfahren zur Verfügbarkeitsanzeige der Vorlage"
+end
+
+Dann(/^ich muss den Prozess zur Datumseingabe fortsetzen$/) do
+  find("*[type='submit']").click
+  find("*[name='start_date']")
+  find("*[name='end_date']")
+end
+
+Angenommen(/^ich habe die Mengen in der Vorlage gewählt$/) do
+  step "ich sehe mir eine Vorlage an"
+  find("*[type='submit']").click
+end
+
+Dann(/^ist das Startdatum heute und das Enddatum morgen$/) do
+  find("#start_date").value.should == I18n.localize(Date.today)
+  find("#end_date").value.should == I18n.localize(Date.tomorrow)
+end
+
+Dann(/^ich kann das Start\- und Enddatum einer potenziellen Bestellung ändern$/) do
+  @start_date = Date.tomorrow
+  @end_date = Date.tomorrow + 4.days
+  find("#start_date").set I18n.localize @start_date
+  find("#end_date").set I18n.localize @end_date
+end
+
+Dann(/^ich muss im Prozess weiterfahren zur Verfügbarkeitsanzeige der Vorlage$/) do
+  find("*[type='submit']").click
+  current_path.should == borrow_template_availability_path(@template)
+end
+
+Dann(/^ich kann das Start und Enddatum wählen$/) do
+  binding.pry
 end

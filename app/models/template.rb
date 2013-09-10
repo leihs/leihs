@@ -5,6 +5,10 @@ class Template < ModelGroup
   # TODO 12** validates all models are present to current inventory_pool
   # TODO 12** has_many :models through
 
+  after_save do
+    raise _("Template must have at least one model") if model_links.blank?
+  end
+
   ####################################################################################
 
   def self.filter2(options)
@@ -31,13 +35,21 @@ class Template < ModelGroup
     model_links.sum(:quantity)
   end
 
-  def unaccomplishable_models(user, quantity = nil)
+  def accomplishable?(user = nil)
+    unaccomplishable_models(user).empty?
+  end
+
+  def unaccomplishable_models(user = nil, quantity = nil)
     models.keep_if do |model|
       q = quantity || model_links.detect{|l| l.model_id == model.id}.quantity
-      not inventory_pools.any? {|ip| model.total_borrowable_items_for_user(user, ip) >= q}
+      not inventory_pools.any? do |ip|
+        if user
+          model.total_borrowable_items_for_user(user, ip) >= q
+        else
+          model.borrowable_items.by_responsible_or_owner_as_fallback(ip).count >= q
+        end
+      end
     end
   end
-  
-  
 end
 

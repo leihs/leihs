@@ -1,6 +1,6 @@
 class Borrow::TemplatesController < Borrow::ApplicationController
 
-  before_filter :only => [:availability, :show, :add_to_order] do
+  before_filter :only => [:availability, :show, :add_to_order, :select_dates] do
     @template = current_user.templates.detect{|t| t.id == params[:id].to_i}
   end
 
@@ -24,6 +24,21 @@ class Borrow::TemplatesController < Borrow::ApplicationController
         l[:model].add_to_document(current_order, current_user.id, l[:quantity], l[:start_date], l[:end_date], l[:inventory_pool])
       end
       redirect_to borrow_current_order_path, :flash => {:notice => _("The template has been added to your order.")}
+    end
+  end
+
+  def select_dates
+    model_links = @template.model_links.all
+    @models = @template.models.all
+    @lines = params[:lines].delete_if{|l| l["quantity"].to_i == 0}.map do |line|
+      model = @models.detect{|m| m.id == line["model_id"].to_i}
+      quantity = line["quantity"].to_i
+      {
+        model_link_id: model_links.detect{|link| link.model_id == model.id}.id,
+        template_id: @template.id,
+        model_id: model.id,
+        quantity: quantity
+      }
     end
   end
 

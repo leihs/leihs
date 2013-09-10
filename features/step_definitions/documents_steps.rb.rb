@@ -22,7 +22,7 @@ Dann(/^für jede Vertrag sehe ich folgende Informationen$/) do |table|
   contracts = @current_user.contracts.includes(:contract_lines).where(status_const: [Contract::SIGNED, Contract::CLOSED])
   contracts.sort! {|a,b| b.time_window_min <=> a.time_window_min}
   contracts.each do |contract|
-    within find(".line-col", :text => contract.id.to_s).find(:xpath, "./..") do
+    within find(".line[data-id='#{contract.id}']") do
       table.raw.flatten.each do |s|
         case s
           when "Vertragsnummer"
@@ -36,11 +36,11 @@ Dann(/^für jede Vertrag sehe ich folgende Informationen$/) do |table|
           when "Zweck"
             should have_content contract.purpose
           when "Status"
-              should have_content _("Open") if contract.status_const == Contract::SIGNED
+            should have_content _("Open") if contract.status_const == Contract::SIGNED
           when "Vertraglink"
             find("a[href='#{borrow_user_contract_path(contract.id)}']", text: _("Contract"))
           when "Wertelistelink"
-            find("a[href='#{borrow_user_value_list_path(contract.id)}']", text: _("Value List"))
+            all("a[href='#{borrow_user_value_list_path(contract.id)}']").should_not be_empty
           else
             raise "unkown section"
         end
@@ -85,6 +85,14 @@ Wenn(/^ich einen Vertrag aus meinen Dokumenten öffne$/) do
   @contract_element = find(".contract")
 end
 
+Wenn(/^ich einen Vertrag mit zurück gebrachten Gegenständen aus meinen Dokumenten öffne$/) do
+  contracts = @current_user.contracts.where(status_const: [Contract::SIGNED, Contract::CLOSED])
+  @contract = contracts.find {|c| c.lines.any? &:returned_to_user}
+  visit borrow_user_contract_path(@contract.id)
+  step "öffnet sich der Vertrag"
+  @contract_element = find(".contract")
+end
+
 Dann(/^sehe ich die Werteliste genau wie im Verwalten\-Bereich$/) do
   steps %{
     Dann möchte ich die folgenden Bereiche in der Werteliste sehen:
@@ -94,14 +102,13 @@ Dann(/^sehe ich die Werteliste genau wie im Verwalten\-Bereich$/) do
     | Ausleihender     |
     | Verleier         |
     | Liste            |
-    Und die Modelle sind alphabetisch sortiert
+    Und die Modelle in der Werteliste sind alphabetisch sortiert
 
     Dann beinhaltet die Werte-Liste folgende Spalten:
     | Spaltenname     |
     | Laufende Nummer |
     | Inventarcode    |
     | Modellname      |
-    | Start Datum     |
     | End Datum       |
     | Anzahl          |
     | Wert            |
@@ -172,7 +179,7 @@ Dann(/^sehe ich den Vertrag genau wie im Verwalten-Bereich$/) do
   unless returned_lines.empty?
     @contract_element.text.should have_content _("Returned Items")
     @contract_element.all("tbody .returning_date").each do |date|
-      date.text.should_not == ""
+      date.text.should match @current_user.short_name
     end
   end
 
@@ -190,4 +197,10 @@ Dann(/^sehe ich den Vertrag genau wie im Verwalten-Bereich$/) do
   steps %{
     Dann wird die Adresse des Verleihers aufgeführt
   }
+end
+
+Dann(/^sieht man bei den betroffenen Linien die rücknehmende Person im Format "V. Nachname"$/) do
+  @contract.lines.select(&:returned_to_user).each do |cl|
+    find(".returned_items tr", text: cl.item.inventory_code).find(".returning_date", text: cl.returned_to_user.short_name)
+  end
 end

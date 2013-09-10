@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-Angenommen /^man öffnet einen Vertrag$/ do
+Angenommen /^man öffnet einen Vertrag bei der Aushändigung$/ do
   step %Q{I open a hand over}
   step %Q{I select an item line and assign an inventory code}
   step %Q{I select an item line and assign an inventory code}
@@ -11,6 +11,13 @@ Angenommen /^man öffnet einen Vertrag$/ do
   step %Q{the contract is signed for the selected items}
   @contract_element = find("#print section.contract")
   @contract = @customer.contracts.signed.sort_by(&:updated_at).last
+end
+
+Angenommen /^man öffnet einen Vertrag bei der Rücknahme/ do
+  step %Q{I open a take back}
+  step %Q{I select all lines of an open contract}
+  step %Q{I click take back}
+  step %Q{I click take back inside the dialog}
 end
 
 Dann /^möchte ich die folgenden Bereiche sehen:$/ do |table|
@@ -95,7 +102,7 @@ Dann /^sehe ich eine Liste Zwecken, getrennt durch Kommas$/ do
 end
 
 Dann /^jeder identische Zweck ist maximal einmal aufgelistet$/ do
-  purposes = @contract.lines.map{|l| l.purpose.to_s }.uniq.join('; ')
+  purposes = @contract.lines.sort.map{|l| l.purpose.to_s }.uniq.join('; ')
   @contract_element.find(".purposes > p").text.should == purposes
 end
 
@@ -180,5 +187,21 @@ Dann /^diese Liste enthält Gegenstände, die ausgeliehen und noch nicht zurück
   @not_returned.each do |line|
     @contract_element.find(".not_returned_items").should have_content line.model.name
     @contract_element.find(".not_returned_items").should have_content line.item.inventory_code
+  end
+end
+
+When(/^die Modelle sind innerhalb ihrer Gruppe alphabetisch sortiert$/) do
+  not_returned_lines, returned_lines = @contract.lines.partition {|line| line.returned_date.blank? }
+
+  unless returned_lines.empty?
+    names = all(".contract .returned_items tbody .model_name").map{|name| name.text}
+    names.empty?.should be_false
+    expect(names.sort == names).to be_true
+  end
+
+  unless not_returned_lines.empty?
+    names = all(".contract .not_returned_items tbody .model_name").map{|name| name.text}
+    names.empty?.should be_false
+    expect(names.sort == names).to be_true
   end
 end

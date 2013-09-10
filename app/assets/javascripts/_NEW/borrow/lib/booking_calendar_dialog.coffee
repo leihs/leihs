@@ -3,7 +3,6 @@ class window.App.Borrow.BookingCalendarDialog extends Spine.Controller
   constructor: ->
     super
     return false unless App.Model.exists @modelId
-    do App.Tooltip.destroyAll
     @availabilities = {}
     do @setupModal
     do @setupDates
@@ -14,7 +13,6 @@ class window.App.Borrow.BookingCalendarDialog extends Spine.Controller
   delegateEvents: =>
     @submitButton.on "click", @submit
     @dialog.on "change", "*", => @errorsContainer.html ""
-    @modal.el.on "hide", => do App.Tooltip.destroyAll
 
   done: (data)=>
     @modal.undestroyable = false
@@ -111,7 +109,6 @@ class window.App.Borrow.BookingCalendarDialog extends Spine.Controller
       do @showOverlay
       do @showSubmitting
       @errorsContainer.html ""
-      do App.Tooltip.destroyAll
       do @store
     else 
       @showError @errors.join(", ")

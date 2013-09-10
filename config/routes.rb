@@ -54,6 +54,7 @@ Leihs::Application.routes.draw do
 
     get 'templates', :to => 'templates#index', :as => "templates"
     get 'templates/:id', :to => 'templates#show', :as => "template"
+    post 'templates/:id', :to => 'templates#select_dates', :as => "template_select_dates"
     post 'templates/:id/availability', :to => 'templates#availability', :as => "template_availability"
     post 'templates/:id/add_to_order', :to => 'templates#add_to_order', :as => "template_add_to_order"
 

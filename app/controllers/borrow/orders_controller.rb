@@ -1,13 +1,13 @@
 class Borrow::OrdersController < Borrow::ApplicationController
 
   before_filter :only => [:current, :timed_out] do
-    @grouped_and_merged_lines = current_order.grouped_and_merged_lines
+    @grouped_and_merged_lines = Order.grouped_and_merged_lines(current_order.lines)
     @models = current_order.lines.map(&:model).uniq
     @inventory_pools = current_order.lines.map(&:inventory_pool).uniq
   end
 
   def index
-    @grouped_and_merged_lines = Order.grouped_and_merged_lines_for_collection :start_date, current_user.orders.submitted
+    @grouped_and_merged_lines = Order.grouped_and_merged_lines current_user.orders.submitted.flat_map(&:lines)
   end
 
   def current

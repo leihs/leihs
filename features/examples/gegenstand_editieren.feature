@@ -5,10 +5,10 @@ Funktionalität: Gegenstand bearbeiten
   Grundlage:
     Angenommen Personas existieren
     Und man ist "Matti"
-    
+    Und man editiert einen Gegenstand, wo man der Besitzer ist
+
   @javascript
   Szenario: Pflichtfelder
-    Angenommen man editiert einen Gegenstand
     Dann muss der "Bezug" unter "Rechnungsinformationen" ausgewählt werden
     Wenn "Investition" bei "Bezug" ausgewählt ist muss auch "Projektnummer" angegeben werden
     Wenn "Ja" bei "Inventarrelevant" ausgewählt ist muss auch "Anschaffungskategorie" ausgewählt werden
@@ -20,7 +20,6 @@ Funktionalität: Gegenstand bearbeiten
 
   @javascript
   Szenario: Reihenfolge der Felder
-    Angenommen man editiert einen Gegenstand
     Wenn I select "Ja" from "item[retired]"
     Wenn I choose "Investition"
     Dann sehe ich die Felder in folgender Reihenfolge:

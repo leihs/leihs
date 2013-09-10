@@ -16,6 +16,10 @@ module Json
           h[k] = line.send(k) if with[k]
         end
 
+        if with[:returned_to_user]
+          h[:returned_to_user] = line.returned_to_user.try(:short_name)
+        end
+
         if with[:is_valid]
           h[:is_valid] = line.valid?
         end

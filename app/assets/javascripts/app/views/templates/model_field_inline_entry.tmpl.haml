@@ -1,0 +1,11 @@
+%div.field-inline-entry
+  %input{:type => :hidden, :name => "template[model_links_attributes][][model_id]", :value => "${id}"}
+  %input{:type => :hidden, :name => "template[model_links_attributes][][_destroy]", :value => nil}
+  .capacity{:style => "display: inline-block; padding-right: 16px"}
+    %input{:type => :number, :name => "template[model_links_attributes][][quantity]", :value => 1, :min => 1, :max => "${total_borrowable}", :style => "width: 30px; text-align: center"}
+    = "/"
+    ${total_borrowable}
+  %span.text-ellipsis{:style => "display: inline-block; max-width: 250px; line-height: 1em"} ${name}
+  .floatright
+    %div{:style => "display: inline-block;"}
+      %a.clickable.remove ${_jed("Remove")}

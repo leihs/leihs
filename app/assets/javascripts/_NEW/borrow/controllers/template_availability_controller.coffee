@@ -33,6 +33,8 @@ class window.App.Borrow.TemplateAvailabilityController extends Spine.Controller
     templateLine = App.TemplateLine.findByAttribute("model_link_id", line.data("model_link_id"))
     if confirm _jed "%s will be removed from the template and not been added to your order.", templateLine.model().name
       App.TemplateLine.destroy templateLine.id
+      if @templateLines.find(".line").length == 0
+        document.location = "/borrow/templates"
     return false
 
   render: =>

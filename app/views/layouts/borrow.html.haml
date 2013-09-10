@@ -15,10 +15,14 @@
 
   %body
 
-    = render :partial => "flash", :locals => {:flash => flash} if flash
-  
-    %header.wrapper.padding-top-m= render :partial => "borrow/topbar"
+    .main-wrapper
 
-    .row= yield
+      .padding-bottom-l
 
-    = render :partial => "footer"            
+        = render :partial => "flash", :locals => {:flash => flash} if flash
+    
+        %header= render :partial => "borrow/topbar"
+
+        .row= yield
+
+    = render :partial => "footer"

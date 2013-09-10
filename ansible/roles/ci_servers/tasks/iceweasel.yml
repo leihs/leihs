@@ -1,0 +1,9 @@
+---
+- hosts: vagrant
+  user: vagrant
+  sudo: True
+  tasks:
+  - name: Add the Iceweasel repository
+    apt_repository: repo='deb http://mozilla.debian.net/ wheezy-backports iceweasel-release' state=present
+  - name: Install Iceweasel and keep it fresh
+    apt: pkg=iceweasel state=installed update_cache=true

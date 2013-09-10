@@ -10,10 +10,12 @@
     
   %body
 
-    = render :partial => "flash", :locals => {:flash => flash} if flash
+    .main-wrapper
 
-    %header.wrapper.padding-top-m= render :partial => "splash/topbar"
-    
-    = yield
+      = render :partial => "flash", :locals => {:flash => flash} if flash
 
-    = render :partial => "footer"            
+      %header= render :partial => "splash/topbar"
+      
+      = yield
+
+    = render :partial => "footer"

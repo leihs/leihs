@@ -164,9 +164,6 @@ msgstr ""
 msgid "IC-Technik/Software"
 msgstr ""
 
-msgid "Business Applications"
-msgstr ""
-
 msgid "Approval Successful"
 msgstr ""
 
@@ -998,6 +995,9 @@ msgstr ""
 msgid "Please provide all required fields"
 msgstr ""
 
+msgid "Please provide an inventory code"
+msgstr ""
+
 msgid "Please specify the purpose of your order here..."
 msgstr ""
 
@@ -1639,6 +1639,9 @@ msgstr ""
 msgid "You are not logged in."
 msgstr ""
 
+msgid "You were served by %s"
+msgstr ""
+
 msgid ""
 "You might receive an admonishment and be subject to late fees as well as the "
 "restriction of borrowing privileges. In case of recurrence you might be "
@@ -1935,6 +1938,9 @@ msgstr ""
 msgid "New User"
 msgstr ""
 
+msgid "New Template"
+msgstr ""
+
 msgid "List of %d Users"
 msgstr ""
 
@@ -2129,6 +2135,9 @@ msgid "Name of the model"
 msgstr ""
 
 msgid "Name of the group"
+msgstr ""
+
+msgid "Name of the template"
 msgstr ""
 
 msgid "%s saved"
@@ -2346,14 +2355,38 @@ msgstr ""
 msgid "Reset timeout"
 msgstr ""
 
-msgid "Firstname"
-msgstr ""
-
-msgid "Lastname"
-msgstr ""
-
 msgid "Your order ist empty."
 msgstr ""
 
 msgid "Borrow items"
+msgstr ""
+
+msgid "from %s"
+msgstr ""
+
+msgid "Please select a time range and continue."
+msgstr ""
+
+msgid "You can modify the time range for each separate model in the next step."
+msgstr ""
+
+msgid "from %s"
+msgstr ""
+
+msgid "List of templates"
+msgstr ""
+
+msgid "Template"
+msgstr ""
+
+msgid "Template must have at least one model"
+msgstr ""
+
+msgid "%s created successfully"
+msgstr ""
+
+msgid "%s successfully saved"
+msgstr ""
+
+msgid "Source code"
 msgstr ""

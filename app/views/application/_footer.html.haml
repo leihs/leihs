@@ -1,2 +1,28 @@
-.wrapper.padding-vertical-l
-  = render :partial => "languages"
+:ruby  
+  active_language = Language.find_by_locale_name(I18n.locale)
+
+%footer.separated-top.emboss
+
+  .wrapper.padding-top-m.padding-horizontal-s
+
+    .col1of10.padding-top-xs.padding-left-xs
+      %span.headline-m.light= "leihs"
+
+    .col9of10.padding-top-xs
+
+      .padding-top-xxs
+        .padding-top-xxs
+
+          .col1of2
+            %span.padding-top-s
+              %a.dark-grey.padding-inset-s{:href => "https://github.com/zhdk/leihs", :target => "_blank"}= _("Source code")
+
+          .col1of2.text-align-right
+
+            %i.icon-globe.grey.margin-right-s
+            - Language.active_languages.each do |language|
+              - if language == active_language
+                %a.dark-grey.padding-inset-s{:href => ""}
+                  %strong= language.name
+              - else
+                %a.dark-grey.padding-inset-s{:href => @bread_crumbs ? @bread_crumbs.path_for(url_for(params.merge(:locale => language.locale_name))) : url_for(params.merge(:locale => language.locale_name))}= language.name

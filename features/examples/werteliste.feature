@@ -32,7 +32,7 @@ Funktionalität: Werteliste
     | End Datum       |
     | Anzahl          |
     | Wert            |
-    Und die Modelle sind alphabetisch sortiert
+    Und die Modelle in der Werteliste sind alphabetisch sortiert
 
   @javascript  
   Szenario: Totale Werte

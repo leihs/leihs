@@ -73,7 +73,7 @@ class InventoryHelperController
     if not inventoryCode? or inventoryCode.length == 0
       Notification.add_headline
         title: _jed('Error')
-        text: _jed('Please provide an Inventorycode')
+        text: _jed('Please provide an inventory code')
         type: "error"
       return false
     else

@@ -1,6 +1,6 @@
 class ModelLink < ActiveRecord::Base
   
-  belongs_to :model_group
+  belongs_to :model_group, inverse_of: :model_links
   belongs_to :model
 
   before_validation do

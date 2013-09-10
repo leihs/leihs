@@ -11,9 +11,8 @@
         = link_to truncate(ip.name, :length => 26), is_admin? ? edit_backend_inventory_pool_path(ip) : backend_inventory_pool_path(ip), :title => ip.name
         
 :javascript
-
-$(document).ready(function(){
-  if($("#ipselection .popup a").length <= 0) {
-    $("#ipselection").attr("disabled", true); 
-  }
-});
+  $(document).ready(function(){
+    if($("#ipselection .popup a").length <= 0) {
+      $("#ipselection").attr("disabled", true);
+    }
+  });
