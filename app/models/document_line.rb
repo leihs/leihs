@@ -26,7 +26,8 @@ class DocumentLine < ActiveRecord::Base
 
   # compares two objects in order to sort them
   def <=>(other)
-    [self.start_date, self.model.name] <=> [other.start_date, other.model.name]
+    # TODO prevent name with leading and trailing whitespaces directly on model and option save
+    [self.start_date, self.model.name.strip] <=> [other.start_date, other.model.name.strip]
   end
 
 ###############################################  
