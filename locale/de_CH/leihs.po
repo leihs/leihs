@@ -2364,6 +2364,9 @@ msgstr "Vorlage bestellen"
 msgid "Please select a template."
 msgstr "Bitte wählen Sie eine Vorlage."
 
+msgid "The template \"%s\" will be deleted and no longer available for usage."
+msgstr "Die Vorlage \"%s\" wird gelöscht und nicht mehr zur Verfügung stehen."
+
 msgid "Please adapt the specific quantities to fit your needs."
 msgstr "Bitte passen Sie die jeweils benötigte Anzahl der folgenden Einträge an."
 
