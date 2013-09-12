@@ -300,3 +300,29 @@ Wenn(/^man den zweiten Gerätepark in der Geräteparkauswahl auswählt$/) do
   @ip = @current_user.inventory_pools.sort[1]
   step 'man ein bestimmten Gerätepark in der Geräteparkauswahl auswählt'
 end
+
+Angenommen(/^man die Geräteparks begrenzt$/) do
+  inventory_pool_ids = all("#ip-selector .dropdown-item[data-id]").map{|i| i[:"data-id"]}
+  find("#ip-selector").click
+  wait_until{find(:xpath, "(//*[@id='ip-selector']//input)[1]", :visible => true)}.click
+  inventory_pool_ids.shift
+  @inventory_pools = inventory_pool_ids.map{|id| InventoryPool.find id}
+end
+
+Angenommen(/^man ein Modell welches über alle Geräteparks der begrenzten Liste beziehbar ist zur Bestellung hinzufügt$/) do
+  wait_until {find(".line[data-id]", :visible => true)}
+  all(".line[data-id]").each do |line|
+    model = Model.find line["data-id"]
+    if @inventory_pools.all?{|ip| ip.models.include?(model)}
+      @model = model
+    end
+  end
+  wait_until{find(:xpath, "(//*[@id='ip-selector']//input)[2]", :visible => true)}.click
+  wait_until {find(".line[data-id]", :visible => true)}
+  @inventory_pools.shift
+  find(".line[data-id='#{@model.id}'] *[data-create-order-line]").click
+end
+
+Dann(/^es wird der alphabetisch erste Gerätepark ausgewählt der teil der begrenzten Geräteparks ist$/) do
+  find("#booking-calendar-inventory-pool").value.split(" ")[0].should == @inventory_pools.first.name
+end
