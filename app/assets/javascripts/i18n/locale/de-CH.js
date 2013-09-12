@@ -3169,6 +3169,10 @@ window.i18n.locale_data = {
       "Source code": [
          null,
          "Quellcode"
+      ],
+      "Complete order": [
+         null,
+         "Bestellung abschliessen"
       ]
    }
 }

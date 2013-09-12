@@ -2393,3 +2393,6 @@ msgstr ""
 
 msgid "Source code"
 msgstr ""
+
+msgid "Complete order"
+msgstr ""

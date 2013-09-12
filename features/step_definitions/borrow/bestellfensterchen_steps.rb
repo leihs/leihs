@@ -44,7 +44,7 @@ Dann(/^wird die Anzahl dieses Modells erhöht$/) do
 end
 
 Dann(/^ich kann zur detaillierten Bestellübersicht gelangen$/) do
-  find("#current-order-basket .button.green", text: _("Order overview"))
+  find("#current-order-basket .button.green", text: _("Complete order"))
 end
 
 Wenn(/^ich mit dem Kalender ein Modell der Bestellung hinzufüge$/) do

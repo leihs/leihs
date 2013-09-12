@@ -2456,3 +2456,6 @@ msgstr "%s erfolgreich gespeichert"
 
 msgid "Source code"
 msgstr "Quellcode"
+
+msgid "Complete order"
+msgstr "Bestellung abschliessen"
