@@ -122,3 +122,11 @@ Dann /^alle Felder sind editierbar, da man jetzt Besitzer von diesem Gegenstand 
   wait_until {@fields = all(".field:not(.editable)")}
   @fields.size.should == 0
 end
+
+Dann(/^bei dem kopierten Gegestand ist der neue Lieferant eingetragen$/) do
+  Item.find_by_inventory_code(@inventory_code).supplier.name.should == @new_supplier
+end
+
+Wenn(/^ich merke mir den Inventarcode für weitere Schritte$/) do
+  @inventory_code = find(".field", text: _("Inventory code")).find("input,textarea").value
+end

@@ -38,7 +38,7 @@ Funktionalität: Gegenstand kopieren
     | Rechnungsnummer              |              | Test Nummer                   |
     | Rechnungsdatum               |              | 01.01.2013                    |
     | Anschaffungswert             |              | 50.0                          |
-    | Lieferant                    | autocomplete | Neuer Lieferant               |
+    #| Lieferant                    | autocomplete | Neuer Lieferant               |
     | Garantieablaufdatum          |              | 01.01.2013                    |
     | Vertragsablaufdatum          |              | 01.01.2013                    |
     Wenn man speichert und kopiert
@@ -78,10 +78,12 @@ Funktionalität: Gegenstand kopieren
     Dann wird eine neue Gegenstandskopieransicht geöffnet
     Und alle Felder sind editierbar, da man jetzt Besitzer von diesem Gegenstand ist
 
+  @javascript
   Szenario: Neuen Lieferanten erstellen falls nicht vorhanden
-    Angenommen ich bin Mike
-    Und ich befinde mich auf der Kopierensseite eines Gegenstandes
-    Wenn ich einen nicht existierenen Lieferanten angeben
-    Und ich speichere den Gegenstand
+    Angenommen man einen Gegenstand kopiert
+    Dann wird eine neue Gegenstandskopieransicht geöffnet
+    Wenn ich einen nicht existierenen Lieferanten angebe
+    Und ich merke mir den Inventarcode für weitere Schritte
+    Und ich speichern druecke
     Dann wird der neue Lieferant erstellt
     Und bei dem kopierten Gegestand ist der neue Lieferant eingetragen

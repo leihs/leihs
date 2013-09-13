@@ -453,11 +453,19 @@ class Item < ActiveRecord::Base
 
   # overriding association setter
   def supplier_with_params=(v)
-    self.supplier_without_params = if v.is_a? Hash
-      Supplier.find(v[:id]) unless v[:id].blank?
-    else
-      v
-    end
+    self.supplier_without_params =
+      if v.is_a? Hash
+        # if id is provided, then use an already existing supplier
+        if not v[:id].blank?
+          Supplier.find v[:id]
+        # if id is empty, but name is provided, then create a supplier
+        elsif v[:id].blank? and not v[:name].blank?
+          Supplier.create v
+        end
+        # otherwise, item.supplier is set to nil automatically
+      else
+        v
+      end
   end
   alias_method_chain :supplier=, :params
 

@@ -214,8 +214,10 @@ class Field < ActiveHash::Base
       label: "Supplier",
       attribute: ["supplier", "id"],
       type: "autocomplete",
+      extensible: true,
+      extended_key: ["supplier", "name"],
       permissions: {level: 2, owner: true},
-      values: lambda{([{:value => nil, :label => _("None")}] + Supplier.order(:name).map {|x| {:value => x.id, :label => x.name}}).as_json},
+      values: lambda{Supplier.order(:name).map {|x| {:value => x.id, :label => x.name}}.as_json},
       group: "Invoice Information"
     },{
       id: 28,

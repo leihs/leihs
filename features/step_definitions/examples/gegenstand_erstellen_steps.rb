@@ -197,3 +197,22 @@ Dann(/^sind die folgenden Werte im Feld Anschaffungskategorie hinterlegt$/) do |
     find("select[name='item[properties][anschaffungskategorie]'] option[value='#{hash.values.first}']").select_option
   end
 end
+
+Angenommen(/^ich befinde mich auf der Erstellungsseite eines Gegenstandes$/) do
+  visit new_backend_inventory_pool_item_path(@current_inventory_pool)
+end
+
+Wenn(/^ich einen nicht existierenen Lieferanten angebe$/) do
+  @new_supplier = Faker::Lorem.words(rand 1..3).join(' ')
+  Supplier.find_by_name(@new_supplier).should be_nil
+  find(".field", text: _("Supplier")).find("input").set @new_supplier
+end
+
+Dann(/^wird der neue Lieferant erstellt$/) do
+  page.should have_content _("List of Inventory")
+  Supplier.find_by_name(@new_supplier).should_not be_nil
+end
+
+Dann(/^bei dem erstellten Gegestand ist der neue Lieferant eingetragen$/) do
+  Item.find_by_inventory_code("test").supplier.name.should == @new_supplier
+end

@@ -25,9 +25,8 @@ class AutoComplete
     do @delegateEvents
     
   delegateEvents: =>
-    @el.bind "blur", (event)=>
-      @current_ajax.abort() if @current_ajax?
-      do @deselect unless @el.val().length
+    @el.bind "blur", (event)=> @current_ajax.abort() if @current_ajax?
+    @el.bind "change", @onChange
   
   setup: (input_field, source)=>
     @el = $(input_field)
@@ -105,11 +104,18 @@ class AutoComplete
         callback(element, event)
     @el.blur() if @data.autocomplete_blur_on_select == true
     @el.trigger("autocomplete:select",[element])
+    @setExtendedValue()
     return false
 
-  deselect: =>
-    $("input[name='#{@data.autocomplete_value_target}']").removeAttr("value").change()
-
   focus: (event, ui)=> false
-    
+
+  onChange: (e) =>
+    target = $(e.currentTarget)
+    @setExtendedValue()
+    $("input[name='#{@data.autocomplete_value_target}']").val null
+
+  setExtendedValue: () =>
+    if @el.data("autocomplete_extensible")
+      $("input[name='#{@data.autocomplete_extended_key_target}']").val @el.val()
+
 window.AutoComplete = AutoComplete

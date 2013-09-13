@@ -112,7 +112,6 @@ Funktionalität: Gegenstand bearbeiten
       | Rechnungsnummer              |              | Test Nummer                   |
       | Rechnungsdatum               |              | 01.01.2013                    |
       | Anschaffungswert             |              | 50.0                          |
-      | Lieferant                    | autocomplete | Neuer Lieferant               |
       | Garantieablaufdatum          |              | 01.01.2013                    |
       | Vertragsablaufdatum          |              | 01.01.2013                    |
 
@@ -120,10 +119,39 @@ Funktionalität: Gegenstand bearbeiten
     Dann man wird zur Liste des Inventars zurueckgefuehrt
     Und ist der Gegenstand mit all den angegebenen Informationen gespeichert
 
+  @javascript
   Szenario: Neuen Lieferanten erstellen falls nicht vorhanden
-    Angenommen ich bin Mike
-    Und ich befinde mich auf der Bearbeitungsseite eines Gegenstandes
-    Wenn ich einen nicht existierenen Lieferanten angeben
-    Und ich speichere den Gegenstand
+    Angenommen man navigiert zur Gegenstandsbearbeitungsseite
+    Und jedes Pflichtfeld ist gesetzt
+      | Modell        |
+      | Inventarcode  |
+      | Projektnummer |
+      | Anschaffungskategorie |
+    Wenn ich einen nicht existierenen Lieferanten angebe
+    Und ich speichern druecke
     Dann wird der neue Lieferant erstellt
     Und bei dem bearbeiteten Gegestand ist der neue Lieferant eingetragen
+
+  @javascript
+  Szenario: Lieferanten löschen
+    Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes mit gesetztem Lieferanten
+    Und jedes Pflichtfeld ist gesetzt
+      | Modell        |
+      | Inventarcode  |
+      | Projektnummer |
+      | Anschaffungskategorie |
+    Wenn ich den Lieferanten lösche
+    Und ich speichern druecke
+    Dann ist bei dem bearbeiteten Gegenstand keiner Lieferant eingetragen
+
+  @javascript
+  Szenario: Lieferanten ändern
+    Angenommen man navigiert zur Gegenstandsbearbeitungsseite
+    Und jedes Pflichtfeld ist gesetzt
+      | Modell        |
+      | Inventarcode  |
+      | Projektnummer |
+      | Anschaffungskategorie |
+    Wenn ich den Lieferanten ändere
+    Und ich speichern druecke
+    Dann ist bei dem bearbeiteten Gegestand der geänderte Lieferant eingetragen
