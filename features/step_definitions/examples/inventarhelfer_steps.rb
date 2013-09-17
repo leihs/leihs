@@ -280,6 +280,11 @@ Angenommen(/^man editiert das Feld "(.*?)" eines ausgeliehenen Gegenstandes$/) d
   step %Q{scanne oder gebe ich den Inventarcode ein}
 end
 
+Dann(/^erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da dass Gerät ausgeliehen ist$/) do
+  page.should have_content _("The responsible inventory pool cannot be changed because the item is currently not in stock.")
+  @item_before.should == @item.reload.to_json
+end
+
 Dann(/^erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da dass Gerät in einem Vortrag vorhanden ist$/) do
   page.should have_content _("The model cannot be changed because the item is used in contracts already.")
   @item_before.should == @item.reload.to_json
@@ -291,5 +296,14 @@ Angenommen(/^man editiert das Feld "(.*?)" eines Gegenstandes, der im irgendeine
   @item = @current_inventory_pool.items.select{|i| not i.contract_lines.blank?}.sample
   @item_before = @item.to_json
   fill_in_autocomplete_field name, @current_inventory_pool.models.select{|m| m != @item.model}.sample.name
+  step %Q{scanne oder gebe ich den Inventarcode ein}
+end
+
+Angenommen(/^man mustert einen ausgeliehenen Gegenstand aus$/) do
+  step %Q{wähle ich das Feld "Ausmusterung" aus der Liste aus}
+  find(".field", text: _("Retirement")).first("select").select ("Yes")
+  find(".field", text: _("Retirement Reason")).first("input").set "Retirement reason"
+  @item = @current_inventory_pool.items.not_in_stock.sample
+  @item_before = @item.to_json
   step %Q{scanne oder gebe ich den Inventarcode ein}
 end

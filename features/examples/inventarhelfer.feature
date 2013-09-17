@@ -82,7 +82,10 @@ Funktionalität: Inventarhelfer
   Szenario: Bei ausgeliehenen Gegenständen können gewisse Felder nicht editiert werden
     Angenommen man ist auf dem Helferschirm
     Und man editiert das Feld "Verantwortliche Abteilung" eines ausgeliehenen Gegenstandes
-    Dann erhalt man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da dass Gerät ausgeliehen ist
+    Dann erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da dass Gerät ausgeliehen ist
+    Angenommen man ist auf dem Helferschirm
+    Und man mustert einen ausgeliehenen Gegenstand aus
+    Dann erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht ausmustern kann, da dass Gerät ausgeliehen ist
 
   @javascript
   Szenario: Bei Gegenständen, die in Verträgen vorhanden sind, können gewisse Felder nicht editiert werden
