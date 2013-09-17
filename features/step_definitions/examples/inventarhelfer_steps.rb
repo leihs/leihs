@@ -91,7 +91,7 @@ Dann /^ich setze das Feld "(.*?)" auf "(.*?)"$/ do |field_name, value|
 end
 
 Dann /^scanne oder gebe ich den Inventarcode ein$/ do
-  @item= @current_inventory_pool.items.first
+  @item ||= @current_inventory_pool.items.first
   find("#item_selection .barcode_target").set @item.inventory_code
   find("#item_selection button[type=submit]").click
 end
@@ -264,4 +264,17 @@ end
 
 Wenn(/^ein Pflichtfeld nicht ausgefüllt\/ausgewählt ist, dann lässt sich der Inventarhelfer nicht nutzen$/) do
   step %Q{scanne oder gebe ich den Inventarcode ein}
+end
+
+Angenommen(/^man editiert das Feld "(.*?)" eines ausgeliehenen Gegenstandes$/) do |name|
+  field = Field.all.detect{|f| _(f.label) == name}
+  step %Q{wähle ich das Feld "#{name}" aus der Liste aus}
+  @item = @current_inventory_pool.items.not_in_stock.sample
+  @item_before = @item.to_json
+  step %Q{scanne oder gebe ich den Inventarcode ein}
+end
+
+Dann(/^erhalt man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da dass Gerät ausgeliehen ist$/) do
+  page.should have_content _("The responsible inventory pool cannot be changed because the item is currently not in stock.")
+  @item_before.should == @item.reload.to_json
 end
