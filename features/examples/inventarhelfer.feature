@@ -83,3 +83,9 @@ Funktionalität: Inventarhelfer
     Angenommen man ist auf dem Helferschirm
     Und man editiert das Feld "Verantwortliche Abteilung" eines ausgeliehenen Gegenstandes
     Dann erhalt man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da dass Gerät ausgeliehen ist
+
+  @javascript
+  Szenario: Bei Gegenständen, die in Verträgen vorhanden sind, können gewisse Felder nicht editiert werden
+    Angenommen man ist auf dem Helferschirm
+    Und man editiert das Feld "Modell" eines Gegenstandes, der im irgendeinen Vertrag vorhanden ist
+    Dann erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da dass Gerät in einem Vortrag vorhanden ist

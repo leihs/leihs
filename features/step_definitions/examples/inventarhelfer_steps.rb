@@ -96,6 +96,12 @@ Dann /^scanne oder gebe ich den Inventarcode von einem Gegenstand ein, der am La
   find("#item_selection button[type=submit]").click
 end
 
+Dann /^scanne oder gebe ich den Inventarcode ein$/ do
+  @item ||= @current_inventory_pool.items.first
+  find("#item_selection .barcode_target").set @item.inventory_code
+  find("#item_selection button[type=submit]").click
+end
+
 Dann /^sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert$/ do
   FastGettext.locale = @current_user.language.locale_name.gsub(/-/, "_")
   wait_until {!all("#item.selected").empty?}
@@ -274,7 +280,16 @@ Angenommen(/^man editiert das Feld "(.*?)" eines ausgeliehenen Gegenstandes$/) d
   step %Q{scanne oder gebe ich den Inventarcode ein}
 end
 
-Dann(/^erhalt man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da dass Gerät ausgeliehen ist$/) do
-  page.should have_content _("The responsible inventory pool cannot be changed because the item is currently not in stock.")
+Dann(/^erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da dass Gerät in einem Vortrag vorhanden ist$/) do
+  page.should have_content _("The model cannot be changed because the item is used in contracts already.")
   @item_before.should == @item.reload.to_json
+end
+
+Angenommen(/^man editiert das Feld "(.*?)" eines Gegenstandes, der im irgendeinen Vertrag vorhanden ist$/) do |name|
+  field = Field.all.detect{|f| _(f.label) == name}
+  step %Q{wähle ich das Feld "#{name}" aus der Liste aus}
+  @item = @current_inventory_pool.items.select{|i| not i.contract_lines.blank?}.sample
+  @item_before = @item.to_json
+  fill_in_autocomplete_field name, @current_inventory_pool.models.select{|m| m != @item.model}.sample.name
+  step %Q{scanne oder gebe ich den Inventarcode ein}
 end
