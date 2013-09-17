@@ -78,8 +78,8 @@ Funktionalität: Inventarhelfer
     Und die geänderten Werte sind hervorgehoben
     Und der Ort des anderen Gegenstandes ist dergleiche geblieben
 
-#  @javascript
-#  Szenario: Bei Fehler Linien farblich kennzeichnen
-#    Angenommen man editiert ein Gerät über den Helferschirm
-#    Und möchte Felder ändern, für die man keine Berechtigung hat
-#    Dann werden die ausgewählten Felder die geändert werden dürfen und diejenigen die nicht geändert werden dürfen farblich gekennzeichnet
+  @javascript
+  Szenario: Bei ausgeliehenen Gegenständen können gewisse Felder nicht editiert werden
+    Angenommen man ist auf dem Helferschirm
+    Und man editiert das Feld "Verantwortliche Abteilung" eines ausgeliehenen Gegenstandes
+    Dann erhalt man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da dass Gerät ausgeliehen ist

@@ -2456,3 +2456,9 @@ msgstr "%s erfolgreich gespeichert"
 
 msgid "Source code"
 msgstr "Quellcode"
+
+msgid "Complete order"
+msgstr "Bestellung abschliessen"
+
+msgid "The responsible inventory pool cannot be changed because the item is currently not in stock."
+msgstr "Die verantwortliche Abteilung kann nicht geändert werden, da der Gegenstand nicht am Lager ist."

@@ -2393,3 +2393,9 @@ msgstr ""
 
 msgid "Source code"
 msgstr ""
+
+msgid "Complete order"
+msgstr ""
+
+msgid "The responsible inventory pool cannot be changed because the item is currently not in stock."
+msgstr ""
