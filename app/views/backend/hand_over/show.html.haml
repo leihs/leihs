@@ -12,8 +12,7 @@
           %strong= "#{_("Attention")}:"
           =_("This user is suspended")
 
-
-  .indent
+  #hand_over_inner.indent{:style => "display: none;"}
     = form_tag add_line_backend_inventory_pool_user_hand_over_path(current_inventory_pool, @contract.user), 
     :id => "process_helper", 
     :method => :post, 
@@ -107,18 +106,11 @@
   %hr
   
   #visits
-
-:ruby
-  visits_json = json_for @visits, {:preset => :hand_over_visit} 
+    = image_tag "loading.gif", :id => "loading", :class => "loading", :style => "margin: 36px auto 36px auto; display: block;"
 
 :coffeescript    
 
-  visits_json = #{visits_json}
-
+  window.current_customer = #{@contract.user.id}
   jQuery ->
-    $('#visits').html($.tmpl("tmpl/visit", visits_json))
-    window.current_customer = #{@contract.user.id}
-    HandOver.setup()
-    ProcessHelper.setup()
-    SelectedLines.setup()
-    
+    new App.HandOverShowController
+      el: $("#hand_over")
