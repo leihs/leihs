@@ -56,6 +56,7 @@ gem 'ruby_parser', '~> 3.1' # gettext dependency that Bundler seems unable to re
 gem 'sass', '~> 3.2', :group => :assets
 gem 'sass-rails', '~> 3.2', :group => :assets
 gem 'selenium-webdriver', :group => [:test, :development]
+gem 'therubyracer', :platform => :mri
 gem 'therubyrhino', :platform => :jruby
 gem 'thin', :group => :development, :platform => :mri # web server (Webrick do not support keep-alive connections)
 gem 'timecop', '~> 0.5', :group => [:test, :development]
