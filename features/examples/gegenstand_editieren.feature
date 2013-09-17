@@ -70,7 +70,7 @@ Funktionalität: Gegenstand bearbeiten
   Szenario: Einen Gegenstand mit allen Informationen editieren
     Angenommen Personas existieren
     Und man ist "Matti"
-    Und man navigiert zur Gegenstandsbearbeitungsseite
+    Und man navigiert zur Gegenstandsbearbeitungsseite eines Gegenstandes, der am Lager und in keinem Vertrag vorhanden ist
     Wenn ich die folgenden Informationen erfasse
       | Feldname                     | Type         | Wert                          |
 
@@ -122,11 +122,6 @@ Funktionalität: Gegenstand bearbeiten
   @javascript
   Szenario: Neuen Lieferanten erstellen falls nicht vorhanden
     Angenommen man navigiert zur Gegenstandsbearbeitungsseite
-    Und jedes Pflichtfeld ist gesetzt
-      | Modell        |
-      | Inventarcode  |
-      | Projektnummer |
-      | Anschaffungskategorie |
     Wenn ich einen nicht existierenen Lieferanten angebe
     Und ich speichern druecke
     Dann wird der neue Lieferant erstellt
@@ -135,11 +130,6 @@ Funktionalität: Gegenstand bearbeiten
   @javascript
   Szenario: Lieferanten löschen
     Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes mit gesetztem Lieferanten
-    Und jedes Pflichtfeld ist gesetzt
-      | Modell        |
-      | Inventarcode  |
-      | Projektnummer |
-      | Anschaffungskategorie |
     Wenn ich den Lieferanten lösche
     Und ich speichern druecke
     Dann ist bei dem bearbeiteten Gegenstand keiner Lieferant eingetragen
@@ -147,11 +137,6 @@ Funktionalität: Gegenstand bearbeiten
   @javascript
   Szenario: Lieferanten ändern
     Angenommen man navigiert zur Gegenstandsbearbeitungsseite
-    Und jedes Pflichtfeld ist gesetzt
-      | Modell        |
-      | Inventarcode  |
-      | Projektnummer |
-      | Anschaffungskategorie |
     Wenn ich den Lieferanten ändere
     Und ich speichern druecke
     Dann ist bei dem bearbeiteten Gegestand der geänderte Lieferant eingetragen

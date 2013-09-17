@@ -69,6 +69,11 @@ Angenommen(/^man navigiert zur Gegenstandsbearbeitungsseite$/) do
   visit backend_inventory_pool_item_path(@current_inventory_pool, @item)
 end
 
+Angenommen(/^man navigiert zur Gegenstandsbearbeitungsseite eines Gegenstandes, der am Lager und in keinem Vertrag vorhanden ist$/) do
+  @item = @current_inventory_pool.items.find {|i| i.in_stock? and i.contract_lines.blank?}
+  visit backend_inventory_pool_item_path(@current_inventory_pool, @item)
+end
+
 Wenn(/^ich speichern druecke$/) do
   find("button", text: _("Save %s") % _("Item")).click
   step "ensure there are no active requests"

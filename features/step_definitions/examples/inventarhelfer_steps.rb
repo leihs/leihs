@@ -90,8 +90,8 @@ Dann /^ich setze das Feld "(.*?)" auf "(.*?)"$/ do |field_name, value|
   end
 end
 
-Dann /^scanne oder gebe ich den Inventarcode ein$/ do
-  @item ||= @current_inventory_pool.items.first
+Dann /^scanne oder gebe ich den Inventarcode von einem Gegenstand ein, der am Lager und in keinem Vertrag vorhanden ist$/ do
+  @item = @current_inventory_pool.items.find {|i| i.in_stock? and i.contract_lines.blank?}
   find("#item_selection .barcode_target").set @item.inventory_code
   find("#item_selection button[type=submit]").click
 end

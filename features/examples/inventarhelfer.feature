@@ -12,7 +12,7 @@ Funktionalität: Inventarhelfer
     Angenommen man ist auf dem Helferschirm
     Dann wähle Ich all die Felder über eine List oder per Namen aus
     Und ich setze all ihre Initalisierungswerte
-    Dann scanne oder gebe ich den Inventarcode ein
+    Dann scanne oder gebe ich den Inventarcode von einem Gegenstand ein, der am Lager und in keinem Vertrag vorhanden ist
     Dann sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert
     Und die geänderten Werte sind hervorgehoben
     
