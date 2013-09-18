@@ -236,7 +236,7 @@ end
 Dann(/^wähle ich das Feld "(.*?)" aus der Liste aus$/) do |field|
   find("#fieldname").click
   find("#fieldname").set field
-  wait_until {all(".ui-menu-item a")[0].text == field}
+  wait_until {find(".ui-menu-item a", :text => field, :visible => true)}
   find("#fieldname").native.send_keys([:down, :return])
   @all_editable_fields = all("#field_selection .field", :visible => true)
 end
