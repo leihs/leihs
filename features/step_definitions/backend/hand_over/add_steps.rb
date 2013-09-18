@@ -70,7 +70,7 @@ When /^I type the beginning of (.*?) name to the add\/assign input field$/ do |t
       @template = @current_user.managed_inventory_pools.first.templates.first
       @template.name
   end
-  wait_until {find("#code")}
+  wait_until {find("#code", :visible => true)}
   type_into_autocomplete "#code", @target_name[0..(@target_name.size/2)]
 end
 
