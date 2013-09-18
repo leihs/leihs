@@ -116,6 +116,7 @@ Angenommen(/^ich befinde mich in einer Bestellung$/) do
 end
 
 Dann(/^kann ich ein Modell anhand der explorativen Suche wählen$/) do
+  wait_until{find("#process_helper *[type='submit']", :visible=>true)}
   find("#process_helper *[type='submit']").click
   wait_until{not all(".dialog .line").empty?}
   find(".explorative-entry").click
