@@ -120,3 +120,28 @@ end
 Dann(/^ist bei dem bearbeiteten Gegestand der geänderte Lieferant eingetragen$/) do
   @item.reload.supplier.should == @supplier
 end
+
+Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeliehen ist$/) do
+  @item = @current_inventory_pool.items.not_in_stock.sample
+  @item_before = @item.to_json
+  visit backend_inventory_pool_item_path(@current_inventory_pool, @item)
+end
+
+Wenn(/^ich die verantwortliche Abteilung ändere$/) do
+  fill_in_autocomplete_field _("Responsible"), InventoryPool.all.sample.name
+end
+
+Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes, der in einem Vertrag vorhanden ist$/) do
+  @item = @current_inventory_pool.items.select{|i| not i.contract_lines.blank?}.sample
+  @item_before = @item.to_json
+  visit backend_inventory_pool_item_path(@current_inventory_pool, @item)
+end
+
+Wenn(/^ich das Modell ändere$/) do
+  fill_in_autocomplete_field _("Model"), @current_inventory_pool.models.select{|m| m != @item.model}.sample.name
+end
+
+Wenn(/^ich den Gegenstand ausmustere$/) do
+  find(".field", text: _("Retirement")).first("select").select _("Yes")
+  find(".field", text: _("Reason for Retirement")).first("input, textarea").set "Retirement reason"
+end
