@@ -1,6 +1,7 @@
 When /^I add an item to the hand over by providing an inventory code and a date range$/ do
   existing_model_ids = @customer.contracts.unsigned.flat_map(&:models).map(&:id)
   @inventory_code = @current_user.managed_inventory_pools.first.items.in_stock.detect{|i| not existing_model_ids.include?(i.model_id)}.inventory_code unless @inventory_code
+  wait_until { find("#code") }
   find("#code").set @inventory_code
   line_amount_before = all(".line").size
   find("#process_helper .button").click
@@ -69,6 +70,7 @@ When /^I type the beginning of (.*?) name to the add\/assign input field$/ do |t
       @template = @current_user.managed_inventory_pools.first.templates.first
       @template.name
   end
+  wait_until {find("#code")}
   type_into_autocomplete "#code", @target_name[0..(@target_name.size/2)]
 end
 
@@ -102,6 +104,7 @@ When /^I add so many lines that I break the maximal quantity of an model$/ do
     @model.items.size
   end
   (@quantity_added+1).times do
+    wait_until {find("#code")}
     type_into_autocomplete "#code", @target_name
     step 'I see a list of suggested model names'
     step 'I select the model from the list'
