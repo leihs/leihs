@@ -12,6 +12,7 @@ Dann /^kann ich die reservierende Person für eine Auswahl an Linien wechseln$/ 
   find(".ui-menu-item a").click
   find(".dialog .button[type='submit']").click
   wait_until {find("h1", :text => @new_user.name)}
+  wait_until {find(".line")}
   page.evaluate_script('$(".line").tmplItem().data.contract.user.id').should == @new_user.id
   @line_ids.each {|l| ContractLine.find(l).user.should == @new_user}
 end

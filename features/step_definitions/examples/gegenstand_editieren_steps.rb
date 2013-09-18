@@ -4,6 +4,7 @@ Angenommen /^man editiert einen Gegenstand, wo man der Besitzer ist$/ do
   @ip = @current_user.managed_inventory_pools
   visit backend_inventory_pool_inventory_path(@ip)
   find("label", text: _("Owned")).click
+  wait_until{find(".model.line .toggle .text", :visible => true)}
   find(".model.line .toggle .text", :text => /(1|2|3|4|5|6)/).click
   item_line = find(".item.line")
   @item = Item.find_by_inventory_code(item_line.find(".inventory_code").text)

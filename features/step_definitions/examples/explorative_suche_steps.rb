@@ -118,6 +118,7 @@ end
 Dann(/^kann ich ein Modell anhand der explorativen Suche wählen$/) do
   page.should have_selector "#process_helper"
   step "ensure there are no active requests"
+  wait_until{find("#process_helper *[type='submit']", :visible=>true)}
   find("#process_helper *[type='submit']").click
   page.should have_selector(".dialog .line")
   find(".explorative-entry").click

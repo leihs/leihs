@@ -17,6 +17,7 @@ Then /^this line is deleted$/ do
 end
 
 When /^I select multiple lines$/ do
+  find(".line[data-id]")
   @selected_lines = @hand_over.lines.map do |line|
     line = all(".line", :text => line.model.name).detect {|x| not x.find(".select input").checked?}
     line.find(".select input").click
