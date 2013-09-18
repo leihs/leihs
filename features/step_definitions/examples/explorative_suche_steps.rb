@@ -116,10 +116,12 @@ Angenommen(/^ich befinde mich in einer Bestellung$/) do
 end
 
 Dann(/^kann ich ein Modell anhand der explorativen Suche wählen$/) do
+  page.should have_selector "#process_helper"
+  step "ensure there are no active requests"
   find("#process_helper *[type='submit']").click
-  wait_until{not all(".dialog .line").empty?}
+  page.should have_selector(".dialog .line")
   find(".explorative-entry").click
-  wait_until { page.evaluate_script("$.active") == 0}
+  step "ensure there are no active requests"
   model = Model.find find(".dialog .line")["data-id"]
   find(".line button.select-model").click
   wait_until{all(".loading", :visible => true).empty?}
