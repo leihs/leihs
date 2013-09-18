@@ -236,7 +236,8 @@ end
 Dann(/^wähle ich das Feld "(.*?)" aus der Liste aus$/) do |field|
   find("#fieldname").click
   find("#fieldname").set field
-  wait_until {all(".ui-menu-item a")[0].text == field}
+  page.should have_selector(".ui-menu-item a", text: field)
+  #wait_until {all(".ui-menu-item a")[0].text == field}
   find("#fieldname").native.send_keys([:down, :return])
   @all_editable_fields = all("#field_selection .field", :visible => true)
 end
@@ -280,12 +281,17 @@ Angenommen(/^man editiert das Feld "(.*?)" eines ausgeliehenen Gegenstandes$/) d
   step %Q{scanne oder gebe ich den Inventarcode ein}
 end
 
-Dann(/^erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da dass Gerät ausgeliehen ist$/) do
+Dann(/^erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät ausgeliehen ist$/) do
   page.should have_content _("The responsible inventory pool cannot be changed because the item is currently not in stock.")
   @item_before.should == @item.reload.to_json
 end
 
-Dann(/^erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da dass Gerät in einem Vortrag vorhanden ist$/) do
+Dann(/^erhält man eine Fehlermeldung, dass man den Gegenstand nicht ausmustern kann, da das Gerät ausgeliehen ist$/) do
+  page.should have_content _("The item cannot be retired because it's not returned yet.")
+  @item_before.should == @item.reload.to_json
+end
+
+Dann(/^erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät in einem Vortrag vorhanden ist$/) do
   page.should have_content _("The model cannot be changed because the item is used in contracts already.")
   @item_before.should == @item.reload.to_json
 end
@@ -301,8 +307,8 @@ end
 
 Angenommen(/^man mustert einen ausgeliehenen Gegenstand aus$/) do
   step %Q{wähle ich das Feld "Ausmusterung" aus der Liste aus}
-  find(".field", text: _("Retirement")).first("select").select ("Yes")
-  find(".field", text: _("Retirement Reason")).first("input").set "Retirement reason"
+  find(".field", text: _("Retirement")).first("select").select _("Yes")
+  find(".field", text: _("Reason for Retirement")).first("input, textarea").set "Retirement reason"
   @item = @current_inventory_pool.items.not_in_stock.sample
   @item_before = @item.to_json
   step %Q{scanne oder gebe ich den Inventarcode ein}
