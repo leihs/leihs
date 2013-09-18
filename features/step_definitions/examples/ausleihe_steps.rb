@@ -126,6 +126,7 @@ Dann /^diejenigen Gegenstände sind gekennzeichnet, welche als nicht ausleihbar 
 end
 
 Wenn /^die ausgewählten Gegenstände auch solche beinhalten, die in einer zukünftige Aushändigung enthalten sind$/ do
+  wait_until {find("#add_start_date", :visible => true)}
   find("#add_start_date").set (Date.today+2.days).strftime("%d.%m.%Y")
   step 'I add an item to the hand over by providing an inventory code and a date range'
 end
