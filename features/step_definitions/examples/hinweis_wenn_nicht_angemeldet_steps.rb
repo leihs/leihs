@@ -3,7 +3,8 @@
 Wenn /^versuche eine Aktion im Backend auszuführen obwohl ich abgemeldet bin$/ do
   step 'ich mache eine Aushändigung'
   page.execute_script %Q{ $.ajax({url: "/logout"}); }
-  find("#code").set "A B"
+  wait_until {find("#code",:visible => true)}
+  find("#code",:visible => true).set "A B"
 end
 
 Dann /^werden ich auf die Startseite weitergeleitet$/ do
