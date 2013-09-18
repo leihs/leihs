@@ -41,10 +41,9 @@ end
 
 When(/^I add an option$/) do
   @option = Option.find_by_inventory_pool_id @current_inventory_pool.id
-  wait_until {find("#code")}
+  wait_until {find("#code", :visible => true)}
   field_value = @option.name
-  input_field = find("input.autocomplete")
-  input_field.set field_value
+  find("#code", :visible => true).set field_value
   wait_until {not all("a", text: field_value).empty?}
   find("a", text: field_value).click
 end
