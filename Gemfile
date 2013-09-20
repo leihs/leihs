@@ -2,6 +2,8 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.14'
 
+
+gem 'rake' # So that cronjobs work -- otherwise they can't find rake
 gem 'active_hash', '~> 0.9'
 gem 'activerecord-jdbcmysql-adapter', :platform => :jruby
 gem 'acts-as-dag', :git => 'git://github.com/jrust/acts-as-dag.git' #tmp# '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
