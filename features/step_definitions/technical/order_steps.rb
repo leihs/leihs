@@ -77,7 +77,7 @@ When "$who chooses one order" do | who |
 end
 
 When "I choose to process $who's order" do | who |
-  el = page.find(:xpath, "//tr[contains(.,'#{who}')]")
+  el = page.first(:xpath, "//tr[contains(.,'#{who}')]")
   el.click_link("View and edit")
 end
 
@@ -174,7 +174,7 @@ Then "customer '$user' gets notified that his order has been submitted" do |who|
 end
 
 Then "the order was placed by a customer named '$name'" do | name |
-  page.find(".table-overview .fresh").should have_content(name)
+  page.first(".table-overview .fresh").should have_content(name)
 end
 
 Then /^removal of this line should not be possible$/ do

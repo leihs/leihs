@@ -2,7 +2,7 @@
 
 Dann(/^sieht man die Suche$/) do
   visit borrow_root_path
-  find(".topbar").find(".topbar-search")
+  page.should have_selector(".topbar .topbar-search")
 end
 
 Wenn(/^man einen Suchbegriff eingibt$/) do
@@ -10,24 +10,24 @@ Wenn(/^man einen Suchbegriff eingibt$/) do
 end
 
 Dann(/^sieht man das Foto, den Namen und den Hersteller der ersten 6 Modelle gemäss aktuellem Suchbegriff$/) do
-  wait_until{find(".ui-autocomplete")}
+  page.should have_selector(".ui-autocomplete")
   all(".ui-autocomplete a").length.should >= 6
   6.times do |i|
-    find(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//strong").text[@search_term].should_not be_nil
-    model = @current_user.models.borrowable.find_by_name find(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//strong").text
-    find(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//*[contains(./text(), '#{model.manufacturer}')]")
-    find(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//img[@src='/models/#{model.id}/image_thumb']")
+    first(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//strong").text[@search_term].should_not be_nil
+    model = @current_user.models.borrowable.find_by_name first(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//strong").text
+    first(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//*[contains(./text(), '#{model.manufacturer}')]")
+    first(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//img[@src='/models/#{model.id}/image_thumb']")
   end
 end
 
 Dann(/^sieht den Link 'Alle Suchresultate anzeigen'$/) do
-  find(".ui-autocomplete a", :text => _("Show all search results"))
+  page.should have_selector(".ui-autocomplete a", :text => _("Show all search results"))
 end
 
 Angenommen(/^man wählt ein Modell von der Vorschlagsliste der Suche$/) do
   step 'man einen Suchbegriff eingibt'
-  @model = @current_user.models.find_by_name(find(".ui-autocomplete a strong").text)
-  find(".ui-autocomplete a", :text => @model.name).click
+  @model = @current_user.models.find_by_name(find(".ui-autocomplete a strong", match: :first).text)
+  find(".ui-autocomplete a", match: :first, :text => @model.name).click
 end
 
 Dann(/^wird die Modell\-Ansichtsseite geöffnet$/) do
@@ -49,14 +49,13 @@ Dann(/^wird die Such\-Resultatseite angezeigt$/) do
 end
 
 Dann(/^man sieht alle gefundenen Modelle mit Bild, Modellname und Herstellername$/) do
-  @models = @current_user.models.borrowable
-    .search(@model.name[0..3])
-    .default_order.paginate(page: 1, per_page: 20)
-    .map(&:name)
+  @models = @current_user.models.borrowable.search(@model.name[0..3]).default_order.paginate(page: 1, per_page: 20)
   @models.each do |model|
-    find(".line", :text => @model.name)
-    find(".line", :text => @model.manufacturer)
-    find(".line img[src='/models/#{@model.id}/image_thumb']")
+    within "#model-list .line[data-id='#{model.id}']" do
+      find("div", :text => model.manufacturer)
+      find("div", :text => model.name)
+      find("div img[src='/models/#{model.id}/image_thumb']")
+    end
   end
 end
 
@@ -73,7 +72,7 @@ Dann(/^man sieht die Ausleihzeitraumwahl$/) do
 end
 
 Dann(/^die Vorschlagswerte sind verschwunden$/) do
-  all(".ui-autocomplete").empty?.should be_true
+  page.should_not have_selector(".ui-autocomplete")
 end
 
 Wenn(/^ich nach einem Modell suche, welches in nicht ausleihen kann$/) do

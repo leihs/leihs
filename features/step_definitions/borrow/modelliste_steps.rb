@@ -17,7 +17,7 @@ Wenn(/^man sich auf der Modellliste befindet die nicht verfügbare Modelle beinh
   @category = model.categories.first
   visit borrow_models_path(category_id: @category.id)
   page.execute_script %Q{$('#model-list-search input').focus()}
-  find("#model-list-search input").set model.name  
+  find("#model-list-search input").set model.name
 end
 
 Dann(/^sind alle Geräteparks ausgewählt$/) do
@@ -39,21 +39,19 @@ end
 
 Wenn(/^man ein bestimmten Gerätepark in der Geräteparkauswahl auswählt$/) do
   page.execute_script %Q($("#ip-selector").trigger("mouseenter"))
-  wait_until{find("#ip-selector .dropdown .dropdown-item", :visible => true)}
+  page.should have_selector("#ip-selector .dropdown .dropdown-item", :visible => true)
   @ip ||= @current_user.inventory_pools.first
-  wait_until{find("#ip-selector .dropdown .dropdown-item", text: @ip.name)}
   find("#ip-selector .dropdown .dropdown-item", text: @ip.name).click
 end
 
 Dann(/^sind alle anderen Geräteparks abgewählt$/) do
   page.execute_script %Q($("#ip-selector").trigger("mouseenter"))
   (@current_user.inventory_pools - [@ip]).each do |ip|
-    find("#ip-selector .dropdown-item", text: ip.name).find("input").should_not be_checked
+    find("#ip-selector .dropdown-item", text: ip.name).first("input").should_not be_checked
   end
 end
 
 Dann(/^die Modellliste zeigt nur Modelle dieses Geräteparks an$/) do
-  wait_until {all(".loading").empty?}
   all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}.should eq @current_user.models.borrowable
                                                   .from_category_and_all_its_descendants(@category.id)
                                                   .by_inventory_pool(@ip.id)
@@ -66,18 +64,18 @@ Dann(/^die Auswahl klappt zu$/) do
 end
 
 Dann(/^im Filter steht der Name des ausgewählten Geräteparks$/) do
-  find("#ip-selector .button", text: @ip.name)
+  page.should have_selector("#ip-selector .button", text: @ip.name)
 end
 
 Wenn(/^man einige Geräteparks abwählt$/) do
   page.execute_script %Q($("#ip-selector").trigger("mouseenter"))
   @ip = @current_user.inventory_pools.first
   @dropdown_element = find("#ip-selector .dropdown")
-  @dropdown_element.find(".dropdown-item", text: @ip.name).find("input").click
-  wait_until { page.evaluate_script("$.active") == 0}
+  @dropdown_element.first(".dropdown-item", text: @ip.name).first("input").click
 end
 
 Dann(/^wird die Modellliste nach den übrig gebliebenen Geräteparks gefiltert$/) do
+  page.should have_selector("#model-list .text-align-left")
   all("#model-list .text-align-left").map(&:text).should eq @current_user.models.borrowable
                                                   .from_category_and_all_its_descendants(@category.id)
                                                   .all_from_inventory_pools(@current_user.inventory_pool_ids - [@ip.id])
@@ -95,12 +93,12 @@ Wenn(/^man alle Geräteparks bis auf einen abwählt$/) do
   @ip = @current_user.inventory_pools.first
   @ips_for_unselect = @current_user.inventory_pools.where("inventory_pools.id != ?", @ip.id)
   @ips_for_unselect.each do |ip|
-    find("#ip-selector .dropdown-item", text: ip.name).find("input").click
+    find("#ip-selector .dropdown-item", text: ip.name).first("input").click
   end
-  wait_until { page.evaluate_script("$.active") == 0}
 end
 
 Dann(/^wird die Modellliste nach dem übrig gebliebenen Gerätepark gefiltert$/) do
+  page.should have_selector("#model-list .text-align-left")
   all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}[0..20].should eq @current_user.models.borrowable
                                                   .from_category_and_all_its_descendants(@category.id)
                                                   .all_from_inventory_pools(@current_user.inventory_pool_ids - @ips_for_unselect.map(&:id))
@@ -117,10 +115,10 @@ Dann(/^kann man nicht alle Geräteparks in der Geräteparkauswahl abwählen$/) d
   page.execute_script %Q($("#ip-selector").trigger("mouseenter"))
   inventory_pool_ids = all("#ip-selector .dropdown-item[data-id]").map{|item| item["data-id"]}
   inventory_pool_ids.each do |ip_id|
-    wait_until { find("#ip-selector .dropdown .dropdown-item", :visible => true) }
+    page.should have_selector("#ip-selector .dropdown .dropdown-item", visible: true)
     find("#ip-selector .dropdown-item[data-id='#{ip_id}']").click
   end
-  wait_until{find("#ip-selector .dropdown-item input", checked: true)}
+  page.should have_selector("#ip-selector .dropdown-item input:checked")
   page.execute_script %Q($("#ip-selector").trigger("mouseleave"))
 end
 
@@ -147,7 +145,7 @@ Wenn(/^man die Liste nach "(.*?)" sortiert$/) do |sort_order|
   end
   find("#model-sorting a", :text => text).click
   step "ensure there are no active requests"
-  wait_until {all("#model-list .line").count > 0}
+  all("#model-list .line").count.should > 0
 end
 
 Dann(/^ist die Liste nach "(.*?)" "(.*?)" sortiert$/) do |sort, order|
@@ -177,7 +175,6 @@ Wenn(/^man ein Suchwort eingibt$/) do
 end
 
 Dann(/^werden diejenigen Modelle angezeigt, deren Name oder Hersteller dem Suchwort entsprechen$/) do
-  wait_until {all("#model-list .line").count == 1}
   find("#model-list .line").text.should match /bea.*panas/i
 end
 
@@ -189,7 +186,7 @@ end
 Wenn(/^man ein Startdatum auswählt$/) do
   @start_date ||= Date.today
   find("#start-date").set I18n.l @start_date
-  find(".ui-datepicker-current-day").click
+  find(".ui-state-active").click
 end
 
 Dann(/^wird automatisch das Enddatum auf den folgenden Tag gesetzt$/) do
@@ -198,7 +195,7 @@ Dann(/^wird automatisch das Enddatum auf den folgenden Tag gesetzt$/) do
 end
 
 Dann(/^die Liste wird gefiltert nach Modellen die in diesem Zeitraum verfügbar sind$/) do
-  wait_until {all("#model-list .line").count > 0}
+  page.should have_selector("#model-list .line")
   all("#model-list .line[data-id]").each do |model_el|
     model = Model.find_by_id(model_el["data-id"])
     model = Model.find_by_id(model_el.reload["data-id"]) if model.nil?
@@ -218,10 +215,10 @@ end
 Wenn(/^man ein Enddatum auswählt$/) do
   @end_date = Date.today+1.day
   find("#end-date").set I18n.l @end_date
-  find(".ui-datepicker-current-day").click
 end
 
 Dann(/^wird automatisch das Startdatum auf den vorhergehenden Tag gesetzt$/) do
+  sleep(0.88)
   @start_date = Date.today
   find("#start-date").value.should == I18n.l(@start_date)
 end
@@ -234,10 +231,11 @@ end
 Wenn(/^man das Startdatum und Enddatum leert$/) do
   find("#start-date").set ""
   find("#end-date").set ""
+  page.execute_script %Q{ $("#start-date, #end-date").trigger("change") }
 end
 
 Dann(/^wird die Liste nichtmehr nach Ausleihzeitraum gefiltert$/) do
-  all(".grayed-out").size.should == 0
+  page.should_not have_selector(".grayed-out")
 end
 
 Wenn(/^kann man für das Startdatum und für das Enddatum den Datepick benutzen$/) do
@@ -248,8 +246,8 @@ Wenn(/^kann man für das Startdatum und für das Enddatum den Datepick benutzen$
 end
 
 Dann(/^sieht man die Explorative Suche$/) do
-  find("#explorative-search")
-  find("#explorative-search a[href*='/models']")
+  page.should have_selector("#explorative-search")
+  page.should have_selector("#explorative-search a[href*='/models']")
 end
 
 Dann(/^man sieht die Modelle der ausgewählten Kategorie$/) do
@@ -261,33 +259,33 @@ Dann(/^man sieht die Modelle der ausgewählten Kategorie$/) do
 end
 
 Dann(/^man sieht Sortiermöglichkeiten$/) do
-  find("#model-sorting")
-  find("#model-sorting .dropdown *[data-sort]")
+  page.should have_selector("#model-sorting")
+  page.should have_selector("#model-sorting .dropdown *[data-sort]", visible: false)
 end
 
 Dann(/^man sieht die Gerätepark\-Auswahl$/) do
-  find("#ip-selector")
-  find("#ip-selector .dropdown")
+  page.should have_selector("#ip-selector")
+  page.should have_selector("#ip-selector .dropdown", visible: false)
 end
 
 Dann(/^man sieht die Einschränkungsmöglichkeit eines Ausleihzeitraums$/) do
-  find("#start-date")
-  find("#end-date")
+  page.should have_selector("#start-date")
+  page.should have_selector("#end-date")
 end
 
 Wenn(/^einen einzelner Modelleintrag beinhaltet$/) do |table|
-  model_line = find("#model-list .line")
+  model_line = first("#model-list .line")
   model = Model.find model_line["data-id"]
   table.raw.map{|e| e.first}.each do |row|
     case row
       when "Bild"
-        model_line.find("img[src*='#{model.id}']")
+        model_line.first("img[src*='#{model.id}']")
       when "Modellname"
-        model_line.find(".line-col", :text => model.name)
+        model_line.first(".line-col", :text => model.name)
       when "Herstellname"
-        model_line.find(".line-col", :text => model.manufacturer)
+        model_line.first(".line-col", :text => model.manufacturer)
       when "Auswahl-Schaltfläche"
-        model_line.find(".line-col .button")
+        model_line.first(".line-col .button")
       else
         raise "Unbekannt"
     end
@@ -304,13 +302,13 @@ Wenn(/^bis ans ende der bereits geladenen Modelle fährt$/) do
 end
 
 Dann(/^wird der nächste Block an Modellen geladen und angezeigt$/) do
-  wait_until{all("#model-list .line").count > 20}
+  all("#model-list .line").count.should > 20
 end
 
 Wenn(/^man bis zum Ende der Liste fährt$/) do
-  wait_until {not all(".page").empty?}
+  page.should have_selector(".page")
   page.execute_script %Q{ $('.page').trigger('inview'); }
-  wait_until {all(".page").empty?}
+  page.should_not have_selector(".page")
 end
 
 Dann(/^wurden alle Modelle der ausgewählten Kategorie geladen und angezeigt$/) do
@@ -327,7 +325,7 @@ Dann(/^werden zusätzliche Informationen angezeigt zu Modellname, Bilder, Beschr
   @model.properties.take(5).map(&:key).each {|key| page.should have_content key}
   @model.properties.take(5).map(&:value).each {|value| page.should have_content value}
   (0..@model.images.count-1).each do |i|
-    page.should have_selector(:css, "img[src*='/models/#{@model.id}/image_thumb?offset=#{i}']")
+    page.should have_selector("img[src*='/models/#{@model.id}/image_thumb?offset=#{i}']", :visible => false)
   end
 end
 
@@ -362,7 +360,7 @@ Dann(/^die Liste zeigt Modelle aller Geräteparks$/) do
   models = @current_user.models.borrowable.from_category_and_all_its_descendants(@category.id)
     .all_from_inventory_pools(all("#ip-selector .dropdown-item[data-id]").map{|ip| ip["data-id"]})
     .order_by_attribute_and_direction "model", "name"
-  wait_until {all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?} == models.map(&:name)}
+  all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}.should == models.map(&:name)
 end
 
 Angenommen(/^Filter sind ausgewählt$/) do
@@ -370,13 +368,13 @@ Angenommen(/^Filter sind ausgewählt$/) do
   find("input#start-date").set Date.today.strftime("%d.%m.%Y")
   find("input#end-date").set (Date.today + 1).strftime("%d.%m.%Y")
   find("body").click
-  wait_until{all(".ui-datepicker-calendar", :visible => true).empty?}
+  page.should_not have_selector(".ui-datepicker-calendar", :visible => true)
   page.execute_script %Q($("#ip-selector").trigger("mouseenter"))
-  wait_until{ !all("#ip-selector .dropdown-item", :visible => true).empty? }
+  page.should have_selector("#ip-selector .dropdown-item", :visible => true)
   all("#ip-selector .dropdown-item").last.click
   page.execute_script %Q($("#ip-selector").trigger("mouseleave"))
   page.execute_script %Q($("#model-sorting").trigger("mouseenter"))
-  wait_until{ !all("#model-sorting a", :visible => true).empty? }
+  page.should have_selector("#model-sorting a", :visible => true)
   all("#model-sorting a").last.click
   page.execute_script %Q($("#model-sorting").trigger("mouseleave"))
 end
@@ -388,7 +386,7 @@ end
 Wenn(/^man "Alles zurücksetzen" wählt$/) do
   find("#reset-all-filter").click
   step "ensure there are no active requests"
-  wait_until {all("#model-list .line").count > 0}
+  all("#model-list .line").count.should > 0
 end
 
 Dann(/^sind alle Geräteparks in der Geräteparkauswahl wieder ausgewählt$/) do
@@ -401,11 +399,11 @@ Dann(/^der Ausleihezeitraum ist leer$/) do
 end
 
 Dann(/^die Sortierung ist nach Modellnamen \(aufsteigend\)$/) do
-  find(".button", text: _("Model")).find(".icon-circle-arrow-up")
+  find(".button", text: _("Model")).first(".icon-circle-arrow-up")
 end
 
 Dann(/^die Schaltfläche "(?:.+)" ist deaktiviert$/) do
-  find("#reset-all-filter").visible?
+  page.should have_selector("#reset-all-filter", visible: false)
 end
 
 Dann(/^das Suchfeld ist leer$/) do
@@ -413,12 +411,7 @@ Dann(/^das Suchfeld ist leer$/) do
 end
 
 Dann(/^man sieht wieder die ungefilterte Liste der Modelle$/) do
-  all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}.should eq @current_user
-    .models
-    .from_category_and_all_its_descendants(@category.id)
-    .default_order
-    .paginate(page: 1, per_page: 20)
-    .map(&:name)
+  all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}.should eq @current_user.models.from_category_and_all_its_descendants(@category.id).default_order.paginate(page: 1, per_page: 20).map(&:name)
 end
 
 Wenn(/^ich alle Filter manuell zurücksetze$/) do
@@ -426,19 +419,19 @@ Wenn(/^ich alle Filter manuell zurücksetze$/) do
   find("input#start-date").set ""
   find("input#end-date").set ""
   find("body").click
-  wait_until{all(".ui-datepicker-calendar", :visible => true).empty?}
+  all(".ui-datepicker-calendar", :visible => true).empty?.should be_true
   page.execute_script %Q($("#ip-selector").trigger("mouseenter"))
-  wait_until{ !all("#ip-selector .dropdown-item", :visible => true).empty? }
+  page.should have_selector("#ip-selector .dropdown-item", :visible => true)
   all("#ip-selector .dropdown-item").first.click
   page.execute_script %Q($("#ip-selector").trigger("mouseleave"))
   page.execute_script %Q($("#model-sorting").trigger("mouseenter"))
-  wait_until{ !all("#model-sorting a", :visible => true).empty? }
+  page.should have_selector("#model-sorting a", :visible => true)
   all("#model-sorting a").first.click
   page.execute_script %Q($("#model-sorting").trigger("mouseleave"))
 end
 
 Dann(/^verschwindet auch die "Alles zurücksetzen" Schaltfläche$/) do
-  expect(find("#reset-all-filter").visible?).to be_false
+  page.should have_selector("#reset-all-filter", visible: false)
 end
 
 Dann(/^die Auswahl klappt nocht nicht zu$/) do

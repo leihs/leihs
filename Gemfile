@@ -12,7 +12,7 @@ gem 'angularjs-rails', '~> 1.0'
 gem 'barby', '~> 0.5.0'
 gem 'better_errors', :group => :development
 gem 'binding_of_caller', :group => :development
-gem 'capybara', '1.1.4', :group => [:test, :development] # TODO upgrade to '~> 2.0'
+gem 'capybara', '2.1.0', :group => [:test, :development] # TODO upgrade to '~> 2.0'
 gem 'capybara-screenshot', :group => [:test, :development]
 gem 'chunky_png', '~> 1.2'
 gem 'coffee-filter', '~> 0.1.1'

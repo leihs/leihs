@@ -13,7 +13,7 @@ Wenn(/^ich ein ergänzendes Modell mittel Autocomplete Feld hinzufüge$/) do
 end
 
 Dann(/^ist dem Modell das ergänzende Modell hinzugefügt worden$/) do
-  wait_until { page.has_content? _("List of Models") }
+  page.should have_content _("List of Models")
   @model.compatibles.size.should be 2
   @model.compatibles.any? {|m| m.name == @comp1.name}.should be_true
   @model.compatibles.any? {|m| m.name == @comp2.name}.should be_true
@@ -22,17 +22,17 @@ end
 Wenn(/^ich ein Modell öffne, das bereits ergänzende Modelle hat$/) do
   @model = Model.find_by_name "Walkera v120"
   step 'ich nach "%s" suche' % @model.name
-  wait_until { find(".line", :text => @model.name).find(".button", :text => _("Edit Model")) }.click
+  find(".line", match: :first, text: @model.name).find(".button", text: _("Edit Model")).click
 end
 
 Wenn(/^ich ein ergänzendes Modell entferne$/) do
-  within find(".inner", text: _("Compatibles")) do
+  within first(".inner", text: _("Compatibles")) do
     all("label", text: _("delete")).each {|comp| comp.click}
   end
 end
 
 Dann(/^ist das Modell ohne das gelöschte ergänzende Modell gespeichert$/) do
-  wait_until { page.has_content? _("List of Models") }
+  page.should have_content _("List of Models")
   @model.reload.compatibles.should be_empty
 end
 
@@ -42,12 +42,11 @@ Wenn(/^ich ein bereits bestehendes ergänzende Modell mittel Autocomplete Feld h
 end
 
 Dann(/^wurde das redundante Modell nicht hizugefügt$/) do
-  wait_until {find ".field", text: _("Compatibles")}
-  find(".field", text: _("Compatibles")).all(".field-inline-entry", text: @comp.name).count.should == 1
+  find(".field", match: :first, text: _("Compatibles")).all(".field-inline-entry", text: @comp.name).count.should == 1
 end
 
 Dann(/^wurde das redundante ergänzende Modell nicht gespeichert$/) do
-  wait_until {page.has_content? _("List of Models")}
+  page.should have_content _("List of Models")
   comp_before = @model.compatibles
   comp_before.count.should == @model.reload.compatibles.count
 end
@@ -101,12 +100,13 @@ Und /^das Modell hat (.+) zugewiesen$/ do |assoc|
 end
 
 Dann(/^kann ich das Modell aus der Liste nicht löschen$/) do
+  sleep(0.88)
+  find(".top", match: :first, text: _("List of Inventory"))
   visit backend_inventory_pool_models_path(@current_inventory_pool)
-
   find_field('query').set @model.name
-  page.has_selector? "li.modelname", text: @model.name
-  page.execute_script("$('.trigger .arrow').trigger('mouseover');")
-  find(".line.toggler.model", text: @model.name).should_not have_content(_("Delete %s") % _("Model"))
+  find("li.modelname", match: :prefer_exact, text: @model.name)
+  find(".trigger .arrow", match: :first).hover
+  find(".line.toggler.model", match: :prefer_exact, text: @model.name).should_not have_content(_("Delete %s") % _("Model"))
 end
 
 Und /^ich sehe eine Dialog-Fehlermeldung$/ do
@@ -125,10 +125,10 @@ end
 
 Wenn(/^ich dieses Modell aus der Liste lösche$/) do
   visit backend_inventory_pool_models_path(@current_inventory_pool)
-  find_field('query').set @model.name
-  wait_until { all("li.modelname").first.text == @model.name }
-  page.execute_script("$('.trigger .arrow').trigger('mouseover');")
-  wait_until {find(".line.toggler.model", text: @model.name).find(".button", text: _("Delete %s") % _("Model"))}.click
+  fill_in 'query', with: @model.name
+  find("li.modelname", match: :prefer_exact, text: @model.name).text.should == @model.name
+  find(".trigger .arrow", match: :first).hover
+  find(".line.toggler.model", match: :prefer_exact, text: @model.name).first(".button", text: _("Delete %s") % _("Model")).click
 end
 
 Dann(/^das Modell wurde aus der Liste gelöscht$/) do
@@ -141,9 +141,9 @@ Angenommen(/^ich editieren ein bestehndes Modell mit bereits zugeteilten Kapazit
 end
 
 Wenn(/^ich bestehende Zuteilungen entfernen$/) do
-  wait_until{find(".field-inline-entry")}
+  page.should have_selector(".field-inline-entry")
   all(".field-inline-entry.partition").each do |line|
-    line.find(".clickable", :text => _("Remove")).click
+    line.first(".clickable", :text => _("Remove")).click
   end
 end
 
@@ -156,7 +156,7 @@ Wenn(/^neue Zuteilungen hinzufügen$/) do
 end
 
 Dann(/^sind die geänderten Gruppenzuteilungen gespeichert$/) do
-  wait_until { page.has_content? _("List of Models") }
+  page.should have_content _("List of Models")
   model_group_ids = @model.reload.partitions.map(&:group_id)
   model_group_ids.sort.should == @groups.map(&:id)
 end

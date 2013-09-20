@@ -10,11 +10,11 @@ When /^I pick a closed day for beeing the "(.*?)"$/ do |date_target|
   end
   @date_el = get_fullcalendar_day_element(next_closed_day)
   @date_el.click
-  find("a", :text => /(Start Date|Startdatum)/).click if date_target == "start date"
-  find("a", :text => /(End Date|Enddatum)/).click if date_target == "end date"
+  first("a", :text => /(Start Date|Startdatum)/).click if date_target == "start date"
+  first("a", :text => /(End Date|Enddatum)/).click if date_target == "end date"
 end
 
 Then /^this date becomes red and I see a closed day warning$/ do
   @date_el[:class][/closed/].should_not be_nil
-  find(".ui-tooltip.closed-day-alert")
+  first(".ui-tooltip.closed-day-alert")
 end

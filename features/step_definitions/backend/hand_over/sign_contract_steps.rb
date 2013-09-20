@@ -5,73 +5,73 @@ When /^I open a hand over$/ do
   @customer = @ip.users.all.detect {|c| c.visits.hand_over.exists? and c.visits.hand_over.any?{|v| v.lines.size >= 3}}
   raise "customer not found" unless @customer
   visit backend_inventory_pool_user_hand_over_path(@ip, @customer)
-  page.has_css?("#hand_over", :visible => true)
+  page.should have_selector("#hand_over", :visible => true)
 end
 
 When /^I select an item line and assign an inventory code$/ do
+  sleep(0.88)
   @item_line = @line = @customer.visits.hand_over.flat_map(&:lines).detect {|x| x.class.to_s == "ItemLine" and x.item_id.nil? }
   step 'I assign an inventory code the item line'
 end
 
 Then /^I see a summary of the things I selected for hand over$/ do
   @selected_items.each do |item|
-    find(".dialog").should have_content(item.model.name)
+    first(".dialog").should have_content(item.model.name)
   end
 end
 
 When /^I click hand over$/ do
-  find("#hand_over_button").click
+  first("#hand_over_button").click
 end
 
 When /^I click hand over inside the dialog$/ do
   page.execute_script ("window.print = function(){window.printed = 1; return true;}")
-  wait_until { find ".dialog .button" }
   sleep(0.5)
-  find(".dialog .button", :text => /(Hand Over|Aushändigen)/).click
-  wait_until(20){ find(".dialog .documents") }
+  first(".dialog .button", :text => /(Hand Over|Aushändigen)/).click
+  first(".dialog .documents")
 end
 
 Then /^the contract is signed for the selected items$/ do
+  sleep(0.88)
   to_take_back_lines = @customer.visits.take_back.flat_map &:contract_lines
+  to_take_back_items = to_take_back_lines.map(&:item)
   @selected_items.each do |item|
-    to_take_back_lines.map(&:item).include?(item).should be_true
+    to_take_back_items.include?(item).should be_true
   end
 end
 
 When /^I select an item without assigning an inventory code$/ do
   @item_line = @customer.visits.hand_over.first.lines.detect {|x| x.class.to_s == "ItemLine"}
-  @line_element = find(".line[data-id='#{@item_line.id}']")
-  @line_element.find(".select input").click
+  find(".line[data-id='#{@item_line.id}'] .select input", :visible => true).click
 end
 
 Then /^I got an error that i have to assign all selected item lines$/ do
-  find(".notification").should have_content("keine Inventarcodes zugewiesen") # Pius has his system set to German
+  first(".notification").should have_content("keine Inventarcodes zugewiesen") # Pius has his system set to German
 end
 
 When /^I change the contract lines time range to tomorrow$/ do
   step 'I open the booking calendar for this line'
   @new_start_date = if @line.start_date + 1.day < Date.today
     Date.today
-    else
-      @line.start_date + 1.day
+  else
+    @line.start_date + 1.day
   end
-  wait_until { find(".fc-widget-content .fc-day-number") }
+  page.should have_selector(".fc-widget-content .fc-day-number")
   @new_start_date_element = get_fullcalendar_day_element(@new_start_date)
   puts "@new_start_date = #{@new_start_date}"
   puts "@new_start_date_element = #{@new_start_date_element.text}"
   @new_start_date_element.click
-  wait_until{ find("a", :text => /(Start Date|Startdatum)/) }
-  find("a", :text => /(Start Date|Startdatum)/).click
+  first("a", :text => /(Start Date|Startdatum)/).click
   step 'I save the booking calendar'
 end
 
 Then /^I see that the time range in the summary starts today$/ do
-  wait_until { find(".summary .date") }
-  find(".summary .date").should have_content("#{Date.today.strftime("%d.%m.%Y")}")
+  first(".summary .date").should have_content("#{Date.today.strftime("%d.%m.%Y")}")
   sleep(0.5)
 end
 
 Then /^the lines start date is today$/ do
+  sleep(0.88)
   @line.reload.start_date.should == Date.today
 end
 
@@ -89,12 +89,13 @@ end
 
 When /^I assign an inventory code the item line$/ do
   item = @ip.items.in_stock.where(model_id: @item_line.model).first
-  @selected_items = [item]
-  find(".line[data-id='#{@item_line.id}'] .inventory_code input").set item.inventory_code
-  find(".line[data-id='#{@item_line.id}'] .inventory_code input").native.send_key(:enter)
-  wait_until{ page.evaluate_script("$.active") == 0}
+  @selected_items ||= []
+  @selected_items << item
+  first(".line[data-id='#{@item_line.id}'] .inventory_code input").set item.inventory_code
+  first(".line[data-id='#{@item_line.id}'] .inventory_code input").native.send_key(:enter)
+  sleep(0.88)
 end
 
 Then /^wird die Adresse des Verleihers aufgeführt$/ do
-  find(".parties .inventory_pool .name")
+  page.should have_selector(".parties .inventory_pool .name")
 end

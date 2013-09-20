@@ -118,7 +118,7 @@ def type_into_autocomplete(selector, value)
   find(selector).set value
   page.execute_script("$('#{selector}').focus()")
   page.execute_script("$('#{selector}').autocomplete('search')")
-  wait_until(10){ find(".ui-autocomplete") }
+  find(".ui-autocomplete")
 end
 
 def change_line_start_date(line, days = 2)

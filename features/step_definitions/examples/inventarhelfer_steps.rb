@@ -16,12 +16,12 @@ end
 
 Dann /^wähle Ich all die Felder über eine List oder per Namen aus$/ do
   find("#fieldname").click
-  wait_until {!all(".ui-menu-item a", :visible => true).empty?}
+  page.should have_selector(".ui-menu-item a", :visible => true)
   number_of_items_left = all(".ui-menu-item a", :visible => true).size
 
   number_of_items_left.times do 
     find("#fieldname").click
-    wait_until {!all(".ui-menu-item a", :visible => true).empty?}
+    page.should have_selector(".ui-menu-item a", :visible => true)
     find(".ui-menu-item a").click
   end  
 end
@@ -32,14 +32,14 @@ Dann /^ich setze all ihre Initalisierungswerte$/ do
     next if all(".field[data-field_id='#{field[:id]}']").empty?
     case field[:type]
       when "radio"
-        find(".field[data-field_id='#{field[:id]}'] input[type=radio]").click
-        @data[field[:id]] = find(".field[data-field_id='#{field[:id]}'] input[type=radio]").value
+        first(".field[data-field_id='#{field[:id]}'] input[type=radio]").click
+        @data[field[:id]] = first(".field[data-field_id='#{field[:id]}'] input[type=radio]").value
       when "textarea"
         find(".field[data-field_id='#{field[:id]}'] textarea").set "This is a text for a textarea"
         @data[field[:id]] = find(".field[data-field_id='#{field[:id]}'] textarea").value
       when "select"
-        find(".field[data-field_id='#{field[:id]}'] option").select_option
-        @data[field[:id]] = find(".field[data-field_id='#{field[:id]}'] option").value
+        first(".field[data-field_id='#{field[:id]}'] option").select_option
+        @data[field[:id]] = first(".field[data-field_id='#{field[:id]}'] option").value
       when "text"
         unless all(".field[data-field_id='#{field[:id]}'] input[name='item[inventory_code]']").empty?
           find(".field[data-field_id='#{field[:id]}'] input[type='text']").set "123456"
@@ -49,21 +49,19 @@ Dann /^ich setze all ihre Initalisierungswerte$/ do
         @data[field[:id]] = find(".field[data-field_id='#{field[:id]}'] input[type='text']").value
       when "date"
         find(".field[data-field_id='#{field[:id]}'] .datepicker").click
-        wait_until{ not all(:xpath, "//*[contains(@class, 'ui-state-default')]").empty? }
-        find(:xpath, "//*[contains(@class, 'ui-state-default')]").click
+        page.should have_selector(:xpath, "//*[contains(@class, 'ui-state-default')]")
+        first(:xpath, "//*[contains(@class, 'ui-state-default')]").click
         @data[field[:id]] = find(".field[data-field_id='#{field[:id]}'] input.datepicker").value
       when "autocomplete"
         target_name = find(".field[data-field_id='#{field[:id]}'] .autocomplete")['data-autocomplete_value_target']
         page.execute_script %Q{ $(".autocomplete[data-autocomplete_value_target='#{target_name}']").focus() }
         page.execute_script %Q{ $(".autocomplete[data-autocomplete_value_target='#{target_name}']").focus() }
-        wait_until{ not all(".ui-menu-item a",:visible => true).empty? }
-        find(".ui-menu-item a").click
+        find(".ui-menu-item a", match: :first).click
         @data[field[:id]] = find(".field[data-field_id='#{field[:id]}'] .autocomplete")
       when "autocomplete-search"
         find(".field[data-field_id='#{field[:id]}'] input").set "Sharp Beamer"
         find(".field[data-field_id='#{field[:id]}'] input").click
-        wait_until {not all("a", text: "Sharp Beamer").empty?}
-        find(".field[data-field_id='#{field[:id]}'] a", text: "Sharp Beamer").click
+        find(".field[data-field_id='#{field[:id]}'] a", text: "Sharp Beamer", match: :prefer_exact).click
         @data[field[:id]] = Model.find_by_name("Sharp Beamer").id
       when "checkbox"
         # currently we only have "ausgemustert"
@@ -82,7 +80,7 @@ Dann /^ich setze das Feld "(.*?)" auf "(.*?)"$/ do |field_name, value|
   when "radio"
     find(".field[data-field_id='#{field[:id]}'] label", :text => value).click
   when "select"
-    find(".field[data-field_id='#{field[:id]}'] option", :text => value).select_option
+    first(".field[data-field_id='#{field[:id]}'] option", :text => value).select_option
   when "checkbox"
     find(".field[data-field_id='#{field[:id]}'] label", :text => value).click
   else
@@ -104,7 +102,7 @@ end
 
 Dann /^sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert$/ do
   FastGettext.locale = @current_user.language.locale_name.gsub(/-/, "_")
-  wait_until {!all("#item.selected").empty?}
+  page.should have_selector("#item.selected")
   Field.all.each do |field|
     next if all(".field[data-field_id='#{field[:id]}']").empty?
     value = field.get_value_from_params @item.reload
@@ -152,7 +150,7 @@ Dann /^sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, di
     end
   end
 
-  find(".field[data-field_id='#{Field.find_by_label("Model").id}']").should have_content @item.reload.model.name
+  find(".field[data-field_id='#{Field.find_by_label("Model").id}'] .readonly").should have_content @item.reload.model.name
 end
 
 Dann /^die geänderten Werte sind hervorgehoben$/ do
@@ -190,7 +188,7 @@ Dann /^gebe ich den Anfang des Inventarcodes eines Gegenstand ein$/ do
 end
 
 Dann /^wähle den Gegenstand über die mir vorgeschlagenen Suchtreffer$/ do
-  wait_until{!all(".ui-menu-item").empty?}
+  page.should have_selector(".ui-menu-item")
   find(".ui-menu-item a", :text => @item.inventory_code).click
 end
 
@@ -237,7 +235,6 @@ Dann(/^wähle ich das Feld "(.*?)" aus der Liste aus$/) do |field|
   find("#fieldname").click
   find("#fieldname").set field
   page.should have_selector(".ui-menu-item a", text: field)
-  #wait_until {all(".ui-menu-item a")[0].text == field}
   find("#fieldname").native.send_keys([:down, :return])
   @all_editable_fields = all("#field_selection .field", :visible => true)
 end

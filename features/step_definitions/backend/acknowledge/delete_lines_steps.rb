@@ -11,14 +11,13 @@ end
 
 When /^I delete a line of this order$/ do
   @line = @order.lines.first
-  @line_element = find(".line", :text => @line.model.name)
-  @line_element.find(".multibutton .trigger").click
-  wait_until {@line_element.find(".button", :text => _("Delete"))}
-  @line_element.find(".button", :text => _("Delete")).click
-  wait_until { page.evaluate_script("$.active") == 0 }
+  @line_element = first(".line", :text => @line.model.name)
+  @line_element.first(".multibutton .trigger").click
+  @line_element.first(".button", :text => _("Delete")).click
 end
 
 Then /^this orderline is deleted$/ do
+  sleep(0.88)
   @order.lines.reload.include?(@line).should == false
 end
 
@@ -31,8 +30,9 @@ end
 When /^I delete the selection$/ do
   page.execute_script('$("#selection_actions .button").show()')
   line_amount_before = all(".line").size
-  find(".button", :text => /.*(Delete|Löschen).*/i).click
-  wait_until { all(".line").size < line_amount_before }
+  first(".button", :text => /.*(Delete|Löschen).*/i).click
+  sleep(0.88)
+  all(".line").size.should < line_amount_before
 end
 
 Then /^these orderlines are deleted$/ do
@@ -42,16 +42,16 @@ end
 
 When /^I delete all lines of this order$/ do
   all(".line").each do |line|
-    line.find("input[type=checkbox]").click
+    line.first("input[type=checkbox]").click
   end
   page.execute_script('$("#selection_actions .button").show()')
   line_amount_before = all(".line").size
-  find(".button", :text => /.*(Delete|Löschen).*/i).click
+  first(".button", :text => /.*(Delete|Löschen).*/i).click
 end
 
 Then /^I got an error message that not all lines can be deleted$/ do
-  wait_until {find(".notification")}
-  find(".error.notification")
+  first(".notification")
+  first(".error.notification")
 end
 
 Then /^none of the lines are deleted$/ do

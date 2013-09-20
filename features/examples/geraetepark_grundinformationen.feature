@@ -22,9 +22,9 @@ Funktionalität: Gerätepark-Grundinformationen
     | Standard-Vertragsnotiz |
     | Verträge drucken | 
     Und ich kann die angegebenen Grundinformationen speichern
-    Dann sind die Informationen aktualisiert
+    Dann sehe eine Bestätigung
+    Und sind die Informationen aktualisiert
     Und ich bleibe auf derselben Ansicht 
-    Und sehe eine Bestätigung
 
   @javascript
   Szenariogrundriss: Pflichtfelder der Grundinformationen einzeln prüfen

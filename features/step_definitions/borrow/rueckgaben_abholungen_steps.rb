@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 Dann(/^sehe ich die Anzahl meiner "(.*?)" auf jeder Seite$/) do |visit_type|
-  find("a[href*='borrow/#{case visit_type
+  first("a[href*='borrow/#{case visit_type
                           when "Rückgaben"
                             "returns"
                           when "Abholungen"
@@ -28,7 +28,7 @@ Dann(/^sehe ich den "(.*?)" Button nicht$/) do |visit_type|
 end
 
 Wenn(/^ich auf den "(.*?)" Link drücke$/) do |visit_type|
-  find("a[href*='borrow/#{case visit_type
+  first("a[href*='borrow/#{case visit_type
                           when "Rückgaben"
                             "returns"
                           when "Abholungen"
@@ -108,6 +108,6 @@ end
 
 Dann(/^jedes Gerät zeigt seinen Inventarcode$/) do
   @current_user.contract_lines.to_take_back.each do |line|
-    find(".line.row", text: line.model.name).should have_content line.item.inventory_code
+    first(".line.row", text: line.model.name).should have_content line.item.inventory_code
   end
 end

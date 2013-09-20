@@ -42,7 +42,7 @@ Dann /^sehe ich auf den beteiligten Linien die Auszeichnung von Problemen$/ do
   @lines.each do |line|
     page.execute_script(%Q{ $(".line[data-id=#{line["data-id"]}] .problems").trigger("mouseenter") })
     sleep(0.5)
-    @problems << find(".tip").text
+    @problems << first(".tip").text
   end
   @reference_line = @lines.first
   @reference_problem = @problems.first
@@ -100,9 +100,9 @@ Angenommen /^eine Gegenstand ist nicht ausleihbar$/ do
   if @event == "hand_over"
     @item = @ip.items.unborrowable.first
     step 'I add an item to the hand over'
-    @line = find(".line.assigned") 
+    @line_id = find(".line.assigned", match: :first)[:"data-id"]
   elsif @event === "take_back"
-    @line = find(".item_line")
+    @line_id = find(".item_line", match: :first)[:"data-id"]
     step 'markiere ich den Gegenstand als nicht ausleihbar'
   end
 end
@@ -111,44 +111,45 @@ Angenommen /^ich mache eine Rücknahme eines verspäteten Gegenstandes$/ do
   @event = "take_back"
   @ip = @current_user.managed_inventory_pools.first
   overdued_take_back = @ip.visits.take_back.detect{|x| x.date < Date.today}
+  @line_id = overdued_take_back.lines.first.id
   visit backend_inventory_pool_user_take_back_path(@ip, overdued_take_back.user)
-  @line = find(".line[data-id='#{overdued_take_back.lines.first.id}']") 
+  page.should have_selector(".line[data-id='#{@line_id}']")
 end
 
 Dann /^markiere ich den Gegenstand als nicht ausleihbar$/ do
-  @line.find(".actions .trigger").click
-  @line.find(".actions .button", :text => /(Inspect|Inspektion)/).click
-  wait_until { find(".dialog") }
-  find("select[name='flags[is_borrowable]']").select "Nicht ausleihbar"
-  find(".dialog .navigation button[type='submit']").click
-  wait_until { find(".notification") }
+  find(".line[data-id='#{@line_id}'] .actions .trigger").hover
+  find(".line[data-id='#{@line_id}'] .actions .button", text: _("Inspect")).click
+  page.should have_selector(".dialog")
+  first("select[name='flags[is_borrowable]']").select "Nicht ausleihbar"
+  first(".dialog .navigation button[type='submit']").click
+  page.should have_selector(".notification")
 end
 
 Dann /^markiere ich den Gegenstand als defekt$/ do
-  @line.find(".actions .trigger").click
-  @line.find(".actions .button", :text => /(Inspect|Inspektion)/).click
-  wait_until { find(".dialog") }
-  find("select[name='flags[is_broken]']").select "Defekt"
-  find(".dialog .navigation button[type='submit']").click
-  wait_until { find(".notification") }
+  find(".line[data-id='#{@line_id}'] .actions .trigger").hover
+  find(".line[data-id='#{@line_id}'] .actions .button", text: _("Inspect")).click
+  page.should have_selector(".dialog")
+  first("select[name='flags[is_broken]']").select "Defekt"
+  first(".dialog .navigation button[type='submit']").click
+  page.should have_selector(".notification")
 end
 
 Dann /^markiere ich den Gegenstand als unvollständig$/ do
-  @line.find(".actions .trigger").click
-  @line.find(".actions .button", :text => /(Inspect|Inspektion)/).click
-  wait_until { find(".dialog") }
-  find("select[name='flags[is_incomplete]']").select "Unvollständig"
-  find(".dialog .navigation button[type='submit']").click
-  wait_until { find(".notification") }
+  find(".line[data-id='#{@line_id}'] .actions .trigger").hover
+  find(".line[data-id='#{@line_id}'] .actions .button", text: _("Inspect")).click
+  page.should have_selector(".dialog", :visible => true)
+  first("select[name='flags[is_incomplete]']").select "Unvollständig"
+  first(".dialog .navigation button[type='submit']").click
+  page.should have_selector(".notification")
 end
 
 Angenommen /^eine Gegenstand ist defekt$/ do
   if @event == "hand_over"
     @item = @ip.items.broken.first
     step 'I add an item to the hand over'
-    @line = find(".line.assigned") 
+    @line_id = find(".line.assigned", match: :first)[:"data-id"]
   elsif  @event == "take_back"
-    @line = find(".item_line")
+    @line_id = find(".item_line", match: :first)[:"data-id"]
     step 'markiere ich den Gegenstand als defekt'
   end
 end
@@ -157,17 +158,16 @@ Angenommen /^eine Gegenstand ist unvollständig$/ do
   if @event == "hand_over"
     @item = @ip.items.incomplete.first
     step 'I add an item to the hand over'
-    @line = find(".line.assigned") 
+    @line_id = find(".line.assigned", match: :first)[:"data-id"]
   elsif  @event == "take_back"
-    @line = find(".item_line")
+    @line_id = find(".item_line", match: :first)[:"data-id"]
     step 'markiere ich den Gegenstand als unvollständig'
   end
 end
 
 Dann /^sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen$/ do
-  wait_until { find(".line[data-id='#{@line.reload["data-id"]}']") }
-  page.execute_script(%Q{ $(".line[data-id=#{@line.reload["data-id"]}] .problems").trigger("mouseenter") })
-  wait_until { find(".tip").text.match(/\w/) }
+  find(".line[data-id='#{@line_id}'] .problems", :visible => true).hover
+  find(".tip", :visible => true).text.match(/\w/).should be_true
   @problems = []
-  @problems << find(".tip").text
+  @problems << first(".tip").text
 end

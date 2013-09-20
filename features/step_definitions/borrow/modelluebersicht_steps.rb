@@ -13,7 +13,7 @@ Angenommen(/^man befindet sich auf der Liste der Modelle$/) do
 end
 
 Wenn(/^ich ein Modell auswähle$/) do
-  find(".line[data-id='#{@model.id}']").click
+  first(".line[data-id='#{@model.id}']").click
 end
 
 Dann(/^lande ich auf der Modellübersicht$/) do
@@ -28,11 +28,11 @@ Dann(/^ich sehe die folgenden Informationen$/) do |table|
       when "Hersteller"
         page.should have_content @model.manufacturer
       when "Bilder"
-        @model.images.each_with_index {|image,i| find("img[src='#{model_image_thumb_path(@model, :offset => i)}']")}
+        @model.images.each_with_index {|image,i| first("img[src='#{model_image_thumb_path(@model, :offset => i)}']")}
       when "Beschreibung"
         page.should have_content @model.description
       when "Anhänge"
-        @model.attachments.each {|a| find("a[href='#{a.public_filename}']")}
+        @model.attachments.each {|a| first("a[href='#{a.public_filename}']")}
       when "Eigenschaften"
         @model.properties.each do |p|
           page.should have_content p.key
@@ -40,8 +40,8 @@ Dann(/^ich sehe die folgenden Informationen$/) do |table|
         end
       when "Ergänzende Modelle"
         @model.compatibles.each do |c|
-          find("a[href='#{borrow_model_path(c)}']")
-          find("img[src='#{model_image_thumb_path(c)}']")
+          first("a[href='#{borrow_model_path(c)}']")
+          first("img[src='#{model_image_thumb_path(c)}']")
           page.should have_content c.name
         end
       else
@@ -60,7 +60,7 @@ Wenn(/^ich über ein solches Bild hovere$/) do
 end
 
 Dann(/^wird das Bild zum Hauptbild$/) do
-  wait_until { not find("#main-image")["src"][model_image_path(@model, offset: 0)].blank? }
+  find("#main-image", :visible => false)["src"][model_image_path(@model, offset: 0)].blank?.should be_false
 end
 
 Wenn(/^ich über ein weiteres Bild hovere$/) do
@@ -68,16 +68,16 @@ Wenn(/^ich über ein weiteres Bild hovere$/) do
 end
 
 Dann(/^wird dieses zum Hauptbild$/) do
-  wait_until { not find("#main-image")["src"][model_image_path(@model, offset: 1)].blank? }
+  find("#main-image", :visible => false)["src"][model_image_path(@model, offset: 1)].blank?.should be_false
 end
 
 Wenn(/^ich ein Bild anklicke$/) do
-  find("img[src='#{model_image_thumb_path(@model, offset: 1)}']").click
+  find("img[src='#{model_image_thumb_path(@model, offset: 1)}']", :visible => false).find(:xpath, "./..").click
 end
 
 Dann(/^wird das Bild zum Hauptbild auch wenn ich das hovern beende$/) do
   find("body").click
-  wait_until { not find("#main-image")["src"][model_image_path(@model, offset: 1)].blank? }
+  find("#main-image", :visible => false)["src"][model_image_path(@model, offset: 1)].should_not be_nil
 end
 
 Angenommen(/^man befindet sich in einer Modellübersicht mit Eigenschaften$/) do
@@ -87,19 +87,19 @@ end
 
 Dann(/^werden die ersten fünf Eigenschaften mit Schlüssel und Wert angezeigt$/) do
   @model.properties[0..4].each do |property|
-    find("*", :text => property.key, :visible => true)
+    first("*", :text => property.key, :visible => true)
   end
 end
 
 Dann(/^wenn man 'Alle Eigenschaften anzeigen' wählt$/) do
-  find("#properties-toggle").click
+  first("#properties-toggle").click
 end
 
 Dann(/^werden alle weiteren Eigenschaften angezeigt$/) do
-  find("#collapsed-properties")["class"]["collapsed"].nil?.should be_true
+  first("#collapsed-properties")["class"]["collapsed"].nil?.should be_true
 end
 
 Dann(/^man kann an derselben Stelle die Eigenschaften wieder zuklappen$/) do
-  find("#properties-toggle").click
-  find("#collapsed-properties")["class"]["collapsed"].nil?.should be_false
+  first("#properties-toggle").click
+  first("#collapsed-properties")["class"]["collapsed"].nil?.should be_false
 end

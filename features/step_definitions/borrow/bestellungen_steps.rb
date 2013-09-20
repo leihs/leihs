@@ -6,13 +6,13 @@ Dann(/^sehe ich die Anzahl meiner abgeschickten, noch nicht genehmigten Bestellu
    borrow_current_order_path,
    borrow_current_user_path].each do |path|
     visit path
-    find("nav a[href='#{borrow_orders_path}'] .badge").text.to_i.should == @current_user.orders.submitted.count
+    first("nav a[href='#{borrow_orders_path}'] .badge").text.to_i.should == @current_user.orders.submitted.count
   end
 end
 
 Wenn(/^ich auf den Bestellungen Link drücke$/) do
   visit borrow_root_path
-  find("nav a[href='#{borrow_orders_path}']").click
+  first("nav a[href='#{borrow_orders_path}']").click
 end
 
 Dann(/^sehe ich meine abgeschickten, noch nicht genehmigten Bestellungen$/) do
@@ -26,7 +26,7 @@ Dann(/^ich sehe die Information, dass die Bestellung noch nicht genehmigt wurde$
 end
 
 Dann(/^die Bestellungen sind nach Datum und Gerätepark sortiert$/) do
-  titles = all(".row.padding-inset-l").map {|x| [Date.parse(x.find("h3").text), x.find("h2").text]}
+  titles = all(".row.padding-inset-l").map {|x| [Date.parse(x.first("h3").text), x.first("h2").text]}
   titles.empty?.should be_false
   expect(titles.sort == titles).to be_true
 end
@@ -34,7 +34,7 @@ end
 Dann(/^jede Bestellung zeigt die zu genehmigenden Geräte$/) do
   @current_user.orders.submitted.each do |order|
     order.lines.each do |line|
-      find(".line", text: line.model.name)
+      first(".line", text: line.model.name)
     end
   end
 end

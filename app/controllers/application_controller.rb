@@ -46,9 +46,11 @@ class ApplicationController < ActionController::Base
       Language.where(:locale_name => session[:locale]).first
     end
     language ||= Language.default_language
-    current_user.update_attributes(:language_id => language.id) if current_user and (params[:locale] or current_user.language_id.nil?)
-    session[:locale] = language.locale_name
-    I18n.locale = language.locale_name.to_sym
+    unless language.nil?
+      current_user.update_attributes(:language_id => language.id) if current_user and (params[:locale] or current_user.language_id.nil?)
+      session[:locale] = language.locale_name
+      I18n.locale = language.locale_name.to_sym
+    end
   end
 
   def load_settings

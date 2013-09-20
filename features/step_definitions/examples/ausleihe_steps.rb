@@ -3,7 +3,7 @@
 Angenommen /^ich öffne die Tagesansicht$/ do
   @current_inventory_pool = @current_user.managed_inventory_pools.first
   visit backend_inventory_pool_path(@current_inventory_pool)
-  wait_until(10){ find("#daily") }
+  find("#daily")
 end
 
 Wenn /^ich kehre zur Tagesansicht zurück$/ do
@@ -12,10 +12,10 @@ end
 
 Wenn /^ich öffne eine Bestellung von "(.*?)"$/ do |arg1|
   find(".toggle .text").click
-  el = find("#daily .order.line", :text => arg1)
+  el = first("#daily .order.line", :text => arg1)
   @order = Order.find el["data-id"]
   page.execute_script '$(":hidden").show();'
-  el.find(".actions .alternatives .button .icon.edit").click
+  el.first(".actions .alternatives .button .icon.edit").click
 end
 
 Wenn /^ich öffne eine Bestellung$/ do
@@ -51,7 +51,7 @@ end
 
 Dann /^werden mir diejenigen Gegenstände vorgeschlagen, die in den dargestellten Rücknahmen vorkommen$/ do
   @customer.visits.take_back.first.lines.all do |line|
-    find(".ui-autocomplete").should have_content line.item.inventory_code
+    first(".ui-autocomplete").should have_content line.item.inventory_code
   end
 end
 
@@ -61,7 +61,7 @@ Wenn /^ich etwas zuweise, das nicht in den Rücknahmen vorkommt$/ do
 end
 
 Dann /^(?:sehe ich|ich sehe) eine Fehlermeldung$/ do
-  wait_until{ @notification = find(".notification.error") }
+  page.should have_selector(".notification.error")
 end
 
 Dann /^die Fehlermeldung lautet "(.*?)"$/ do |text|
@@ -74,7 +74,7 @@ Wenn /^einem Gegenstand einen Inventarcode manuell zuweise$/ do
 end
 
 Dann /^wird der Gegenstand ausgewählt und der Haken gesetzt$/ do
-  wait_until { find(".line.assigned", :text => @item.model.name).find(".select input").checked? }
+  first(".line.assigned", :text => @item.model.name).first(".select input").checked?.should be_true
   step 'the count matches the amount of selected lines'
 end
 
@@ -86,12 +86,12 @@ Wenn /^ich eine Rücknahme mache die Optionen beinhaltet$/ do
 end
 
 Wenn /^die Anzahl einer zurückzugebenden Option manuell ändere$/ do
-  @option_line = find(".option_line")
-  @option_line.find(".quantity input").set 1
+  @option_line = first(".option_line")
+  @option_line.first(".quantity input").set 1
 end
 
 Dann /^wird die Option ausgewählt und der Haken gesetzt$/ do
-  @option_line.find(".select input").checked?.should be_true
+  @option_line.first(".select input").checked?.should be_true
   step 'the count matches the amount of selected lines'
 end
 
@@ -110,23 +110,21 @@ Wenn /^ich eine Aushändigung mache die ein Model enthält dessen Gegenstände e
 end
 
 Wenn /^diesem Model ein Inventarcode zuweisen möchte$/ do
-  @item_line_element = find(:xpath, "//ul[@data-id='#{@contract_line.id}']")
+  @item_line_element = find(:xpath, "//ul[@data-id='#{@contract_line.id}']", :visible => true)
   @item_line_element.find(".inventory_code input").click
-  #page.execute_script('$(".line[data-id=\'#{@contract_line.id}\'] .inventory_code input").focus()')
 end
 
 Dann /^schlägt mir das System eine Liste von Gegenständen vor$/ do
-  wait_until { find(".ui-autocomplete .ui-menu-item") }
+  first(".ui-autocomplete .ui-menu-item")
 end
 
 Dann /^diejenigen Gegenstände sind gekennzeichnet, welche als nicht ausleihbar markiert sind$/ do
   @model.items.unborrowable.in_stock.each do |item|
-    find(".ui-autocomplete .ui-menu-item a.unborrowable", :text => item.inventory_code)
+    first(".ui-autocomplete .ui-menu-item a.unborrowable", :text => item.inventory_code)
   end
 end
 
 Wenn /^die ausgewählten Gegenstände auch solche beinhalten, die in einer zukünftige Aushändigung enthalten sind$/ do
-  wait_until {find("#add_start_date", :visible => true)}
   find("#add_start_date").set (Date.today+2.days).strftime("%d.%m.%Y")
   step 'I add an item to the hand over by providing an inventory code and a date range'
 end
@@ -153,11 +151,11 @@ Wenn /^eine Zeile mit Gruppen-Partitionen editiere$/ do
   @inventory_code = @ip.models.detect {|m| m.partitions.size > 1}.items.in_stock.borrowable.first.inventory_code
   @model = Item.find_by_inventory_code(@inventory_code).model
   step 'I assign an item to the hand over by providing an inventory code and a date range'
-  find(".line.assigned .button", :text => /(Edit|Editieren)/).click
+  first(".line.assigned .button", :text => /(Edit|Editieren)/).click
 end
 
 Wenn /^die Gruppenauswahl aufklappe$/ do
-  wait_until {find(".partition.container")}
+  page.should have_selector(".partition.container")
 end
 
 Dann /^erkenne ich, in welchen Gruppen der Kunde ist$/ do
@@ -165,7 +163,7 @@ Dann /^erkenne ich, in welchen Gruppen der Kunde ist$/ do
   @model.partitions.each do |partition|
     next if partition.group_id.nil?
     if @customer_group_ids.include? partition.group_id
-      find(".partition.container optgroup.customer_groups").should have_content partition.group.name
+      first(".partition.container optgroup.customer_groups").should have_content partition.group.name
     end
   end
 end
@@ -174,7 +172,7 @@ Dann /^dann erkennen ich, in welchen Gruppen der Kunde nicht ist$/ do
   @model.partitions.each do |partition|
     next if partition.group_id.nil?
     unless @customer_group_ids.include?(partition.group_id)
-      find(".partition.container optgroup.other_groups").should have_content partition.group.name
+      first(".partition.container optgroup.other_groups").should have_content partition.group.name
     end
   end
 end
@@ -191,7 +189,7 @@ Wenn /^ich etwas scanne \(per Inventarcode zuweise\) und es in irgendeinem zukü
   @item = @model.items.borrowable.in_stock.first
   find("#code").set @item.inventory_code
   find("#process_helper .button").click
-  wait_until { find(".line.assigned") }
+  page.should have_selector(".line.assigned")
 end
 
 Dann /^wird es zugewiesen \(unabhängig ob es ausgewählt ist\)$/ do
@@ -209,28 +207,29 @@ Wenn /^es in keinem zukünftigen Vertrag existiert$/ do
 end
 
 Dann /^wird es für die ausgewählte Zeitspanne hinzugefügt$/ do
-  wait_until { @amount_lines_before < all(".line").size }
+  page.should have_selector(".line")
+  @amount_lines_before.should < all(".line").size
 end
 
 Dann /^habe ich für jeden Gegenstand die Möglichkeit, eine Inspektion auszulösen$/ do
   page.execute_script '$(":hidden").show();'
-  all(".item_line").all? {|x| x.find(".actions .alternatives .button", :text => /Inspektion/) }
+  all(".item_line").all? {|x| x.first(".actions .alternatives .button", :text => /Inspektion/) }
 end
 
 Wenn /^ich bei einem Gegenstand eine Inspektion durchführen$/ do
-  find(".item_line .actions .alternatives .button", :text => /Inspektion/).click
-  wait_until { find(".dialog") }
+  first(".item_line .actions .alternatives .button", :text => /Inspektion/).click
+  first(".dialog")
 end
 
 Dann /^die Inspektion erlaubt es, den Status von "(.*?)" auf "(.*?)" oder "(.*?)" zu setzen$/ do |arg1, arg2, arg3|
   within("form#inspection label", :text => arg1) do
-    find("option", :text => arg2)
-    find("option", :text => arg3)
+    first("option", :text => arg2)
+    first("option", :text => arg3)
   end
 end
 
 Wenn /^ich Werte der Inspektion ändere$/ do
-  @line_id = find("form#inspection input[name='line_id']")[:value]
+  page.should have_selector("form#inspection input[name='line_id']", visible: false)
   all("form#inspection select").each do |s|
     s.all("option").each do |o|
       o.select_option unless o.selected?
@@ -243,25 +242,25 @@ Dann /^wenn ich die Inspektion speichere$/ do
 end
 
 Dann /^wird der Gegenstand mit den aktuell gesetzten Status gespeichert$/ do
-  wait_until { find(".notification.success")}
+  find(".notification.success")
 end
 
 Angenommen /^man fährt über die Anzahl von Gegenständen in einer Zeile$/ do
+  page.should have_selector(".line")
   @lines = all(".line")
 end
 
 Dann /^werden alle diese Gegenstände aufgelistet$/ do
   @lines.each_with_index do |line, i|
     page.execute_script("$($('.line .items')[#{i}]).trigger('mouseenter')")
-    find(".tip")
+    first(".tip")
   end
 end
 
 Dann /^man sieht pro Modell eine Zeile$/ do
   @lines.each_with_index do |line, i|
     page.execute_script("$($('.line .items')[#{i}]).trigger('mouseenter')")
-    sleep(1)
-    model_names = find(".tip", :visible => true).all(".model_name").map{|x| x.text}
+    model_names = find(".tip", match: :first, :visible => true).all(".model_name").map{|x| x.text}
     model_names.size.should == model_names.uniq.size
   end
 end
@@ -269,8 +268,7 @@ end
 Dann /^man sieht auf jeder Zeile die Summe der Gegenstände des jeweiligen Modells$/ do
   @lines.each_with_index do |line, i|
     page.execute_script("$($('.line .items')[#{i}]).trigger('mouseenter')")
-    sleep(1)
-    quantities = find(".tip", :visible => true).all(".quantity").map{|x| x.text.to_i}
+    quantities = find(".tip", match: :first, :visible => true).all(".quantity").map{|x| x.text.to_i}
     quantities.sum.should >= quantities.size
   end
 end
@@ -285,17 +283,17 @@ Dann /^erhalte ich Suchresultate in den Kategorien:$/ do |table|
   table.hashes.each do |t|
     case t[:category]
       when "Benutzer"
-        find(".user .list .line")
+        first(".user .list .line")
       when "Modelle"
-        find(".model .list .line")
+        first(".model .list .line")
       when "Gegenstände"
-        find(".item .list .line")
+        first(".item .list .line")
       when "Verträge"
-        find(".contract .list .line")
+        first(".contract .list .line")
       when "Bestellungen"
-        find(".order .list .line")
+        first(".order .list .line")
       when "Optionen"
-        find(".option .list .line")
+        first(".option .list .line")
     end
   end
 end
@@ -318,13 +316,13 @@ end
 
 Dann /^kann ich wählen, ob ich aus einer Kategorie mehr Resultate sehen will$/ do
   @lists.each do |list|
-    list.find(".toggle")
+    list.first(".toggle")
   end
 end
 
 Wenn /^ich mehr Resultate wähle$/ do
   @lists.each do |list|
-    list.find(".toggle .text").click
+    list.first(".toggle .text").click
   end
 end
 
@@ -339,46 +337,42 @@ end
 
 Wenn /^die Kategorie mehr als (\d+) Resultate bringt$/ do |amount|
   amount = amount.to_i
-  @list_with_more_matches = []
-  all(".inlinetabs .badge").each do |badge|
-    @list_with_more_matches.push badge.find(:xpath, "../../..").find(".list") if badge.text.to_i > amount
-  end
+  @list_with_more_matches = all(".inlinetabs .badge").map do |badge|
+    badge.first(:xpath, "../../..").first(".list") if badge.text.to_i > amount
+  end.compact
 end
 
 Dann /^kann ich wählen, ob ich alle Resultate sehen will$/ do
-  @links_of_more_results = []
-  @list_with_more_matches.each do |list|
-    @links_of_more_results.push list.find(".line.show-all a")[:href]
+  @links_of_more_results = @list_with_more_matches.map do |list|
+    list.find(".line.show-all a", visible: false)[:href]
   end
 end
 
 Wenn /^ich alle Resultate wähle erhalte ich eine separate Liste aller Resultate dieser Kategorie$/ do
   @links_of_more_results.each do |link|
     visit link
-    wait_until { find("#search_results.focused") }
+    find("#search_results.focused")
   end
 end
 
 Angenommen /^ich sehe Probleme auf einer Zeile, die durch die Verfügbarkeit bedingt sind$/ do
   step 'I open a hand over'
   step 'I add so many lines that I break the maximal quantity of an model'
-  @line_el = find(".line.error")
-  wait_until {page.evaluate_script %Q{ $(".line.error:first-child").tmplItem().data.id; }}
+  @line_el = first(".line.error")
+  page.evaluate_script %Q{ $(".line.error:first-child").tmplItem().data.id; }
   @line = ContractLine.find page.evaluate_script %Q{ $(".line.error:first-child").tmplItem().data.id; }
 end
 
 Angenommen /^ich fahre über das Problem$/ do
   page.execute_script %Q{ $(".line.error:first-child .problems").trigger("mouseenter"); }
-  wait_until { find(".tip") }
+  page.should have_selector(".tip")
 end
 
 Dann /^wird automatisch der Druck\-Dialog geöffnet$/ do
   step 'I select an item line and assign an inventory code'
   step 'I click hand over'
   page.execute_script ("window.print = function(){window.printed = 1;return true;}")
-  wait_until { find ".dialog .button" }
-  sleep(0.5)
-  find(".dialog .button", :text => /(Hand Over|Aushändigen)/).click
-  wait_until{ find(".dialog .documents") }
-  wait_until { page.evaluate_script("window.printed") == 1}
+  find(".dialog .button", match: :first, :text => /(Hand Over|Aushändigen)/).click
+  page.should have_selector(".dialog .documents")
+  page.evaluate_script("window.printed").should == 1
 end

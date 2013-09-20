@@ -1,11 +1,11 @@
 When /^I add an item to the hand over by providing an inventory code and a date range$/ do
   existing_model_ids = @customer.contracts.unsigned.flat_map(&:models).map(&:id)
   @inventory_code = @current_user.managed_inventory_pools.first.items.in_stock.detect{|i| not existing_model_ids.include?(i.model_id)}.inventory_code unless @inventory_code
-  wait_until { find("#code") }
   find("#code").set @inventory_code
   line_amount_before = all(".line").size
-  find("#process_helper .button").click
-  wait_until(25) { line_amount_before < all(".line").size }
+  first("#process_helper .button").click
+  sleep(0.88)
+  line_amount_before.should < all(".line").size
 end
 
 Then /^the item is added to the hand over for the provided date range and the inventory code is already assigend$/ do
@@ -15,29 +15,26 @@ Then /^the item is added to the hand over for the provided date range and the in
 end
 
 When /^I add an option to the hand over by providing an inventory code and a date range$/ do
-  wait_until(15){ all(".loading", :visible => true).empty? }
   @inventory_code = @current_user.managed_inventory_pools.first.options.first.inventory_code
   find("#code").set @inventory_code
   page.execute_script('$("#code").focus()')
-  find("#process_helper .button").click
-  wait_until(25){ page.evaluate_script("$.active") == 0}
-  find(".line .inventory_code", :text => @inventory_code)
+  first("#process_helper .button").click
+  page.should have_selector(".line .inventory_code", :text => @inventory_code)
   step 'the option is added to the hand over'
 end
 
 Then /^the (.*?) is added to the hand over$/ do |type|
+  sleep(0.88)
   contract = @customer.get_current_contract(@ip)
   case type
   when "option"  
     option = Option.find_by_inventory_code(@inventory_code)
-    wait_until(25){ page.evaluate_script("$.active") == 0}
     @option_line = contract.reload.option_lines.where(:option_id => option).first
     contract.reload.options.include?(option).should == true
-    find(".option_line .inventory_code", :text => @inventory_code)
+    first(".option_line .inventory_code", :text => @inventory_code)
   when "model"
-    wait_until(25){ page.evaluate_script("$.active") == 0}
     contract.reload.models.include?(@model).should == true
-    find(".item_line", :text => @model.name)
+    first(".item_line", :text => @model.name)
   end
 end
 
@@ -45,7 +42,7 @@ When /^I add an option to the hand over which is already existing in the selecte
   2.times do
     step 'I add an option to the hand over by providing an inventory code and a date range'
   end
-  wait_until { @option_line.reload.quantity == 2 }
+  @option_line.reload.quantity.should == 2
 end
 
 Then /^the existing option quantity is increased$/ do
@@ -54,7 +51,7 @@ Then /^the existing option quantity is increased$/ do
   matching_option_lines.size.should == 1
   all(".option_line.line", :text => @inventory_code).size.should == 1
   matching_option_lines.first.quantity == 2
-  all(".option_line.line", :text => @inventory_code).first.find(".quantity input").value.to_i.should == 2
+  all(".option_line.line", :text => @inventory_code).first.first(".quantity input").value.to_i.should == 2
 end
 
 When /^I type the beginning of (.*?) name to the add\/assign input field$/ do |type| 
@@ -70,18 +67,17 @@ When /^I type the beginning of (.*?) name to the add\/assign input field$/ do |t
       @template = @current_user.managed_inventory_pools.first.templates.first
       @template.name
   end
-  wait_until {find("#code")}
   type_into_autocomplete "#code", @target_name[0..(@target_name.size/2)]
 end
 
 Then /^I see a list of suggested (.*?) names$/ do |type|
   page.execute_script('$("#code").focus()')
-  find(".ui-autocomplete a")
+  first(".ui-autocomplete a")
 end
 
 When /^I select the (.*?) from the list$/ do |type|
   sleep(1)
-  find(".ui-autocomplete a", :text => @target_name).click
+  first(".ui-autocomplete a", :text => @target_name).click
 end
 
 Then /^each model of the template is added to the hand over for the provided date range$/ do
@@ -104,7 +100,6 @@ When /^I add so many lines that I break the maximal quantity of an model$/ do
     @model.items.size
   end
   (@quantity_added+1).times do
-    wait_until {find("#code")}
     type_into_autocomplete "#code", @target_name
     step 'I see a list of suggested model names'
     step 'I select the model from the list'
@@ -112,17 +107,14 @@ When /^I add so many lines that I break the maximal quantity of an model$/ do
 end
 
 Then /^I see that all lines of that model have availability problems$/ do
-  @lines = find(".linegroup", :text => /(Today|Heute)/).all(".item_line", :text => @target_name)
+  @lines = first(".linegroup", :text => /(Today|Heute)/).all(".item_line", :text => @target_name)
   @lines.each do |line|
-    wait_until {
-      line.find(".problem.icon")
-    } 
+    line.first(".problem.icon")
   end
 end
 
 When /^I add an item to the hand over$/ do
   find("#code").set @item.inventory_code
   page.execute_script('$("#code").focus()')
-  find("#process_helper .button").click
-  wait_until(25){ page.evaluate_script("$.active") == 0}
+  first("#process_helper .button").click
 end

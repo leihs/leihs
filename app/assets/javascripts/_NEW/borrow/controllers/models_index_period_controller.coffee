@@ -11,6 +11,8 @@ class window.App.Borrow.ModelsIndexPeriodController extends Spine.Controller
     "mousedown #end-date": "validate"
     "change #start-date": "validate"
     "change #end-date": "validate"
+    "delayedChange #start-date": "selectStartDate"
+    "delayedChange #end-date": "selectEndDate"
 
   constructor: ->
     super
@@ -21,8 +23,11 @@ class window.App.Borrow.ModelsIndexPeriodController extends Spine.Controller
     @startDate.datepicker
       onSelect: @selectStartDate
       minDate: moment().toDate()
+    @startDate.delayedChange()
 
   selectStartDate: (date)=>
+    date = moment(@startDate.val(), i18n.date.L) unless moment(date).isValid()
+    return false unless moment(date).isValid()
     if not @endDate.val()? or not @endDate.val().length or moment(date, i18n.date.L).diff(moment(@endDate.val(), i18n.date.L), "days") >= 0
       @endDate.val(moment(date, i18n.date.L).add("days", 1).format(i18n.date.L))
     @endDate.datepicker "option", "minDate", moment(date, i18n.date.L).toDate()
@@ -33,8 +38,11 @@ class window.App.Borrow.ModelsIndexPeriodController extends Spine.Controller
     @endDate.datepicker
       onSelect: @selectEndDate
       minDate: moment().toDate()
+    @endDate.delayedChange()
 
   selectEndDate: (date)=>
+    date = moment(@endDate.val(), i18n.date.L) unless moment(date).isValid()
+    return false unless moment(date).isValid()
     if not @startDate.val()? or not @startDate.val().length
       @startDate.val(moment(date, i18n.date.L).subtract("days", 1).format(i18n.date.L))
     @endDate.trigger "change"

@@ -12,8 +12,8 @@ Feature: Add Item during acknowledge process
   @javascript
   Scenario: Adding a model quickly to an order by just typing in the inventory_number
      When I add a model by typing in the inventory code of an item of that model to the quick add
-     Then the model is added to the order 
-    
+     Then the model is added to the order
+
   @javascript
   Scenario: Autocompletion of the quick add input by inventory code
      When I start to type the inventory code of an item
@@ -21,7 +21,7 @@ Feature: Add Item during acknowledge process
      Then I already see possible matches of models
      When I select one of the matched models
      Then the model is added to the order
-    
+
   @javascript
   Scenario: Autocompletion of the quick add input by model name
      When I start to type the name of a model

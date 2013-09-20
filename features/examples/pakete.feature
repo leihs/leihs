@@ -28,7 +28,6 @@ Funktionalität: Modell mit Paketen erstellen
     Und ich diesem Paket eines oder mehrere Gegenstände hinzufügen
     Und ich die folgenden Informationen erfasse
     | Feldname                     | Type         | Wert                          |
-    | Ausmusterung                 | checkbox     | unchecked                     |
     | Zustand                      | radio        | OK                            |
     | Vollständigkeit              | radio        | OK                            |
     | Ausleihbar                   | radio        | OK                            |
@@ -53,7 +52,6 @@ Funktionalität: Modell mit Paketen erstellen
     Und ich ein bestehendes Paket editiere
     Und ich die folgenden Informationen erfasse
     | Feldname                     | Type         | Wert                          |
-    | Ausmusterung                 | checkbox     | unchecked                     |
     | Zustand                      | radio        | OK                            |
     | Vollständigkeit              | radio        | OK                            |
     | Ausleihbar                   | radio        | OK                            |

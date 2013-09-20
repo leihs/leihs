@@ -3,7 +3,7 @@
 Angenommen /^man öffnet die Liste des Inventars$/ do
   @current_inventory_pool = @current_user.managed_inventory_pools.first
   visit backend_inventory_pool_inventory_path(@current_inventory_pool)
-  wait_until(10){ find(".line:not(.navigation)") }
+  page.should have_selector(".line:not(.navigation)")
 end
 
 Wenn /^man die Liste des Inventars öffnet$/ do
@@ -11,19 +11,17 @@ Wenn /^man die Liste des Inventars öffnet$/ do
 end
 
 Dann /^sieht man Modelle$/ do
-  all(".model.line").empty?.should be_false
+  page.should have_selector(".model.line")
 end
 
 Dann /^man sieht Optionen$/ do
-  all(".option.line").empty?.should be_false
+  page.should have_selector(".option.line")
 end
 
 Dann /^man sieht Pakete$/ do
   step 'ich nach "%s" suche' % @current_inventory_pool.items.packages.last.inventory_code
-  wait_until { all(".loading", :visible => true).empty? }
-  wait_until {not all(".model.package.line").empty?}
+  page.should have_selector(".model.package.line")
   step 'ich nach "%s" suche' % " "
-  wait_until { all(".loading", :visible => true).empty? }
 end
 
 ########################################################################
@@ -37,7 +35,7 @@ Dann /^hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind$/ do |
     tab = nil
     case row["auswahlmöglichkeit"]
       when "Alles"
-        tab = section_tabs.find("a")
+        tab = section_tabs.first("a")
         tab[:"data-tab"].should == "null"
         all(".model.line").each do |model_el|
           model_el.find(".toggle .text").click if model_el.all(".toggle.open").empty?
@@ -47,7 +45,7 @@ Dann /^hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind$/ do |
           end
         end
       when "Ausgemustert"
-        tab = section_tabs.find(:xpath, "a[contains(@data-tab,'{\"borrowable\":true}')]")
+        tab = section_tabs.first(:xpath, "a[contains(@data-tab,'{\"borrowable\":true}')]")
         tab.click
         step "ensure there are no active requests"
         all(".model.line").each do |model_el|
@@ -58,7 +56,7 @@ Dann /^hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind$/ do |
           end
         end
       when "Ausleihbar"
-        tab = section_tabs.find(:xpath, "a[contains(@data-tab,'{\"borrowable\":false}')]")
+        tab = section_tabs.first(:xpath, "a[contains(@data-tab,'{\"borrowable\":false}')]")
         tab.click
         step "ensure there are no active requests"
         page.execute_script %Q{ $(".model.line .toggle:not(.open) .text").click() }
@@ -68,7 +66,7 @@ Dann /^hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind$/ do |
           end
         end
       when "Nicht ausleihbar"
-        tab = section_tabs.find(:xpath, "a[contains(@data-tab,'{\"retired\":true}')]")
+        tab = section_tabs.first(:xpath, "a[contains(@data-tab,'{\"retired\":true}')]")
         tab.click
         step "ensure there are no active requests"
         page.execute_script %Q{ $(".model.line .toggle:not(.open) .text").click() }
@@ -136,7 +134,7 @@ Dann /^hat man folgende Filtermöglichkeiten$/ do |table|
           end
         end
       when "Verantwortliche Abteilung"
-        s = section_filter.find(".responsible select")
+        s = section_filter.find(".responsible select", visible: false)
         s.all("option").last.select_option
         step "ensure there are no active requests"
         page.execute_script %Q{ $(".model.line .toggle:not(.open) .text").click() }
@@ -162,7 +160,7 @@ end
 Dann /^ist die Auswahl "(.*?)" aktiviert$/ do |arg1|
   case arg1
     when "Alles"
-      find("section .inlinetabs").find(".tab.active").text.should == find("section .inlinetabs").find(:xpath, "a[contains(@data-tab,'null')]").text
+      find("section .inlinetabs").find(".tab.active").text.should == find("section .inlinetabs").first(:xpath, "a[contains(@data-tab,'null')]").text
   end
 end
 
@@ -175,7 +173,8 @@ end
 ########################################################################
 
 Wenn /^man eine Modell\-Zeile sieht$/ do
-  @model_line = find(".model.line")
+  page.should have_selector(".model.line")
+  @model_line = first(".model.line")
   @model = Model.find_by_name(@model_line.find(".modelname").text)
 end
 
@@ -198,7 +197,6 @@ end
 
 Wenn /^man eine Gegenstands\-Zeile sieht$/ do
   all(".tab").detect{|x| x["data-tab"] == '{"borrowable":true}'}.click
-  wait_until { all(".loading", :visible => true).empty? }
   find(".filter input[data-filter='in_stock']").click unless find(".filter input[data-filter='in_stock']").checked?
 end
 
@@ -267,7 +265,7 @@ Wenn /^der Gegenstand an Lager ist und meine Abteilung für den Gegenstand veran
   find(".filter input[data-filter='in_stock']").click unless find(".filter input[data-filter='in_stock']").checked?
   step "ensure there are no active requests"
   page.execute_script %Q{ $(".toggle:not(.open) .text").click() }
-  @item_line = find(".items .item.line")
+  @item_line = first(".items .item.line")
   @item = Item.find_by_inventory_code @item_line.find(".inventory_code").text
 end
 
@@ -276,15 +274,16 @@ Wenn /^der Gegenstand nicht an Lager ist und meine oder andere Abteilung für de
   find(".filter input[data-filter='in_stock']").click if find(".filter input[data-filter='in_stock']").checked?
   step 'ich nach "%s" suche' % @current_inventory_pool.items.detect{|i| not i.inventory_pool_id.nil? and not i.in_stock?}.inventory_code
   step "ensure there are no active requests"
-  wait_until {not all(".items .item.line .item_location.borrower").empty?}
+  page.should have_selector(".toggle .text")
   all(".toggle .text").each {|toggle| toggle.click}
-  @item_line = find(".items .item.line .item_location.borrower").find(:xpath, "..")
+  @item_line = find(".items .item.line .item_location.borrower").first(:xpath, "..")
   @item = Item.find_by_inventory_code @item_line.find(".inventory_code").text
 end
 
 Wenn /^meine Abteilung Besitzer des Gegenstands ist die Verantwortung aber auf eine andere Abteilung abgetreten hat$/ do
-  find(".responsible option[data-responsible_id!='#{@current_inventory_pool.id}']").select_option
-  wait_until { all(".loading", :visible => true).empty? }
+  all(".responsible option:not([selected])").detect{|o| o.value != @current_inventory_pool.name}.select_option
+  step "ensure there are no active requests"
+  page.should have_selector(".toggle .text")
   all(".toggle .text").each {|toggle| toggle.click}
   index = 0
   while not @item or not @item.in_stock?
@@ -296,7 +295,8 @@ Wenn /^meine Abteilung Besitzer des Gegenstands ist die Verantwortung aber auf e
 end
 
 Dann /^enthält die Options\-Zeile folgende Informationen$/ do |table|
-  @option_line = find(".option.line")
+  page.should have_selector(".option.line")
+  @option_line = first(".option.line")
   @option = Option.find_by_inventory_code @option_line.find(".inventory_code").text
   table.hashes.each do |row|
     case row["information"]
@@ -313,13 +313,14 @@ Dann /^enthält die Options\-Zeile folgende Informationen$/ do |table|
 end
 
 Dann /^kann man jedes Modell aufklappen$/ do
-  @model_line = find(".model.line")
+  page.should have_selector(".model.line")
+  @model_line = first(".model.line")
   @model = Model.find_by_name(@model_line.find(".modelname").text)
   @model_line.find(".toggle .text").click
 end
 
 Dann /^man sieht die Gegenstände, die zum Modell gehören$/ do
-  @items_element = @model_line.find(:xpath, "following-sibling::div")
+  @items_element = @model_line.first(:xpath, "following-sibling::div")
   @model.items.each do |item|
     @items_element.should have_content item.inventory_code
   end
@@ -356,7 +357,7 @@ Dann /^kann man jedes Paket\-Modell aufklappen$/ do
 end
 
 Dann /^man sieht die Pakete dieses Paket\-Modells$/ do
-  @packages_element = @package_line.find(:xpath, "following-sibling::div")
+  @packages_element = @package_line.first(:xpath, "following-sibling::div")
   @packages = @packages_element.all(".package.line")
   @package.items.each do |package|
     @packages_element.should have_content package.inventory_code  
@@ -367,7 +368,7 @@ end
 
 Dann /^man kann diese Paket\-Zeile aufklappen$/ do
   @item_line.find(".toggle .text").click
-  @package_parts_element = @item_line.find(:xpath, "following-sibling::div")
+  @package_parts_element = @item_line.first(:xpath, "following-sibling::div")
 end
 
 Dann /^man sieht die Bestandteile, die zum Paket gehören$/ do
@@ -408,8 +409,8 @@ Und /^ich (?:erfasse|ändere)? ?die folgenden Details ?(?:erfasse|ändere)?$/ do
   # table is a Cucumber::Ast::Table
   @table_hashes = table.hashes
   @table_hashes.each do |row|
-    f = find(".key", text: row["Feld"] + ":")
-    f.find(:xpath, "./..//input | ./..//textarea") .set row["Wert"]
+    f = find(".key", match: :first, text: "#{row["Feld"]}:")
+    f.first(:xpath, "./..//input | ./..//textarea").set row["Wert"]
   end
 end
 
@@ -420,20 +421,27 @@ Und /^ich speichere die Informationen/ do
 end
 
 Dann /^ensure there are no active requests$/ do
-  wait_until {page.evaluate_script(%Q{jQuery.active}) == 0}
+  def wait_for_ajax
+    Timeout.timeout(Capybara.default_wait_time) do
+      loop do
+        active = page.evaluate_script('jQuery.active')
+        break if active == 0
+      end
+    end
+  end
+  wait_for_ajax
 end
 
 Dann /^die Informationen sind gespeichert$/ do
   search_string = @table_hashes.detect {|h| h["Feld"] == "Name"}["Wert"]
   step 'ich nach "%s" suche' % search_string
-  wait_until {page.evaluate_script(%Q{jQuery.active}) == 0}
+  step 'ensure there are no active requests'
   step 'I should see "%s"' % search_string
 end
 
 Dann /^die Daten wurden entsprechend aktualisiert$/ do
   search_string = @table_hashes.detect {|h| h["Feld"] == "Name"}["Wert"]
   step 'ich nach "%s" suche' % search_string
-  wait_until { all(".loading", :visible => true).empty? }
   find(".line", :text => search_string).find("a", :text => Regexp.new(_("Edit"),"i")).click
 
   # check that the same model was modified
@@ -443,8 +451,8 @@ Dann /^die Daten wurden entsprechend aktualisiert$/ do
     field_name = row["Feld"]
     field_value = row["Wert"]
 
-    f = find(".key", text: field_name + ":")
-    value_in_field = f.find(:xpath, "./..//input | ./..//textarea").value
+    f = find(".key", match: :first, text: "#{field_name}:")
+    value_in_field = f.first(:xpath, "./..//input | ./..//textarea").value
 
     if field_name == "Preis"
       field_value = field_value.to_i
@@ -455,6 +463,7 @@ Dann /^die Daten wurden entsprechend aktualisiert$/ do
   end
 
   click_link("%s" % _("Cancel"))
+  step 'ensure there are no active requests'
   current_path.should eq @page_to_return
 end
 
@@ -473,7 +482,7 @@ Wenn /^ich eine?n? bestehende[s|n]? (.+) bearbeite$/ do |entity|
                   @option.name
                 end
   step 'ich nach "%s" suche' % object_name
-  wait_until { find(".line", :text => object_name).find(".button", :text => "#{entity} editieren") }.click
+  find(".line", match: :prefer_exact, :text => object_name).find(".button", :text => "#{entity} editieren").click
 end
 
 Wenn /^ich ein bestehendes Modell bearbeite welches bereits Zubehör hat$/ do
@@ -532,6 +541,7 @@ Wenn /^ich Zubehör hinzufüge und falls notwendig die Anzahl des Zubehör ins T
 end
 
 Dann /^ist das Zubehör dem Modell hinzugefügt worden$/ do
+  page.should have_content _("List of Models")
   @model.accessories.reload.where(:name => @new_accessory_name).should_not be_nil
 end
 
@@ -540,35 +550,37 @@ Dann /^kann ich ein einzelnes Zubehör löschen, wenn es für keinen anderen Poo
   find(".field", :text => _("Accessories")).find(".field-inline-entry", :text => accessory_to_delete.name).find("label", :text => _("Delete")).click
   step 'ich speichere die Informationen'
   step 'ensure there are no active requests'
-  page.has_content? _("List of Models")
+  page.should have_content _("List of Models")
   lambda{accessory_to_delete.reload}.should raise_error(ActiveRecord::RecordNotFound)
 end
 
 Dann /^kann ich ein einzelnes Zubehör für meinen Pool deaktivieren$/ do
+  step 'ensure there are no active requests'
   accessory_to_deactivate = @model.accessories.detect{|x| x.inventory_pools.where(id: @current_inventory_pool.id).first}
+  sleep(0.88)
   find(".field", :text => _("Accessories")).find(".field-inline-entry", :text => accessory_to_deactivate.name).find("input").click
   step 'ich speichere die Informationen'
-  page.has_content? _("List of Models")
+  page.should have_content _("List of Models")
   lambda {@current_inventory_pool.accessories.reload.find(accessory_to_deactivate)}.should raise_error(ActiveRecord::RecordNotFound)
 end
 
 Dann /^kann ich mehrere Bilder hinzufügen$/ do
-  wait_until{find("input[type='file']")}
+  find("input[type='file']", match: :first, visible: false)
   page.execute_script("$('input:file').attr('class', 'visible');")
-  image_field_id = find ".visible"
+  image_field_id = find(".visible", match: :first)
   ["image1.jpg", "image2.jpg", "image3.png"].each do |image|
     image_field_id.set Rails.root.join("features", "data", "images", image)
   end
 end
 
 Dann /^ich kann Bilder auch wieder entfernen$/ do
-  find(".field", :text => _('Images')).find(".field-inline-entry .clickable").click
+  find(".field", match: :prefer_exact, :text => _('Images')).first(".field-inline-entry .clickable").click
   @images_to_save = ["image2.jpg", "image3.png"]
 end
 
 Dann /^zu grosse Bilder werden den erlaubten Grössen entsprechend verkleinert$/ do
   step 'ich nach "%s" suche' % @model.name
-  wait_until { find(".line", :text => @model.name).find(".button", :text => "Modell editieren") }.click
+  find(".line", :text => @model.name).find(".button", :text => "Modell editieren").click
   @images_to_save.each do |image_name|
     find("a[href*='#{image_name}']").find("img[src*='#{image_name.split(".").first}_thumb.#{image_name.split(".").last}']")
   end
@@ -581,7 +593,7 @@ end
 Und /^ich speichere das Modell mit Bilder$/ do
   @model_name_from_url = get_rails_model_name_from_url
   step 'I press "%s"' % (_("Save %s") % _("#{@model_name_from_url.capitalize}"))
-  page.has_content? _("List of Models")
+  page.should have_content _("List of Models")
 end
 
 Angenommen /^ich erstelle ein neues Modell oder ich ändere ein bestehendes Modell$/ do
@@ -592,23 +604,23 @@ end
 Dann /^füge ich eine oder mehrere Datein den Attachments hinzu$/ do
   @attachment_filename = "image1.jpg"
   2.times do
-    find("#attachments_filepicker").set Rails.root.join("features","data","images", @attachment_filename)
+    find("#attachments_filepicker", visible: false).set Rails.root.join("features","data","images", @attachment_filename)
   end
 end
 
 Dann /^kann Attachments auch wieder entfernen$/ do
-  find(".field", :text => _('Attachments')).find(".field-inline-entry .clickable").click
+  find(".field", :text => _('Attachments')).first(".field-inline-entry .clickable").click
 end
 
 Dann /^sind die Attachments gespeichert$/ do
   step "ensure there are no active requests"
-  wait_until {@model.attachments.where(:filename => @attachment_filename).empty? == false}
+  find(".top", match: :first, text: _("List of Models"))
+  @model.attachments.reload.where(:filename => @attachment_filename).should_not be_empty
 end
 
 Dann /^sieht man keine Modelle, denen keine Gegenstänge zugewiesen unter keinem der vorhandenen Reiter$/ do
   all(".inlinetabs .tab").each do |tab|
     tab.click
-    wait_until {page.evaluate_script(%Q{jQuery.active}) == 0}
-    all(".model.line .toggle .text", :text => "0").size.should == 0
+    page.should_not have_selector(".model.line .toggle .text", :text => "0")
   end
 end

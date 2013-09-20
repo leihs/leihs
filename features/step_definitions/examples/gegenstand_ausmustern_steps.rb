@@ -2,12 +2,12 @@
 
 Angenommen /^man sucht nach einem nicht ausgeliehenen Gegenstand$/ do
   @unretired_item = Item.where(inventory_pool_id: @current_inventory_pool.id).detect {|i| not i.retired? and i.is_borrowable? and i.in_stock?}
-  find_field('query').set @unretired_item.model.name
-  wait_until{ not all("li.modelname").empty? }
-  wait_until{ all("li.modelname").first.text == @unretired_item.model.name }
-  find(".toggle .icon").click
+  fill_in 'query', with: @unretired_item.model.name
+  page.should have_selector("li.modelname")
+  first("li.modelname").text.should == @unretired_item.model.name
+  first(".toggle .icon").click
   page.execute_script("$('.items.children .arrow').trigger('mouseover');")
-  wait_until {find(".line.toggler.item", text: @unretired_item.inventory_code).find(".button", text: _("Retire Item"))}.click
+  find(".line.toggler.item", text: @unretired_item.inventory_code).find(".button", text: _("Retire Item")).click
 end
 
 Dann /^kann man diesen Gegenstand mit Angabe des Grundes erfolgreich ausmustern$/ do
@@ -25,8 +25,9 @@ end
 
 Angenommen /^man sucht nach einem ausgeliehenen Gegenstand$/ do
   @borrowed_item = Item.where(inventory_pool_id: @current_inventory_pool.id).detect {|i| not (i.retired? or i.in_stock?)}
-  find_field('query').set @borrowed_item.model.name
-  wait_until { find(".line.model", text: @borrowed_item.model.name).find ".arrow" }
+  fill_in 'query', with: @borrowed_item.model.name
+  page.should have_selector(".line.model")
+  first(".line.model", text: @borrowed_item.model.name).find ".arrow"
 end
 
 Dann /^hat man keine Möglichkeit übers Interface solchen Gegenstand auszumustern$/ do
@@ -40,8 +41,8 @@ end
 
 Angenommen /^man sucht nach einem Gegenstand bei dem ich nicht als Besitzer eingetragen bin$/ do
   @unborrowed_item_not_the_owner = Item.where(inventory_pool_id: @current_inventory_pool.id).detect {|i| i.in_stock? and i.owner_id != @current_inventory_pool.id}
-  find_field('query').set @unborrowed_item_not_the_owner.model.name
-  wait_until { find(".line.model", text: @unborrowed_item_not_the_owner.model.name).find ".arrow" }
+  fill_in 'query', with: @unborrowed_item_not_the_owner.model.name
+  find(".line.model", text: @unborrowed_item_not_the_owner.model.name).find ".arrow"
 end
 
 Angenommen /^man gibt bei der Ausmusterung keinen Grund an$/ do
@@ -85,7 +86,7 @@ Wenn(/^man speichert den Gegenstand$/) do
 end
 
 Wenn(/^die Anschaffungskategorie ist ausgewählt$/) do
-  find(".field", text: "Anschaffungskategorie").find("select option[value!='']").select_option
+  find(".field", text: "Anschaffungskategorie").find("select option:not([value=''])", match: :first).select_option
 end
 
 Angenommen(/^man sucht nach einem ausgemusterten Gegenstand, wo man der Verantwortliche und nicht der Besitzer ist$/) do

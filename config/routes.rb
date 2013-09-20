@@ -78,6 +78,7 @@ Leihs::Application.routes.draw do
   # Models
   get "models/:id/image", :to => "models#image", :as => "model_image"
   get "models/:id/image_thumb", :to => "models#image_thumb", :as => "model_image_thumb"
+  get "models/placeholder", :to => "models#placeholder"
 
   # Properties
   get "properties", to: "properties#index", as: "properties"
