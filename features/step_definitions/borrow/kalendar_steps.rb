@@ -187,7 +187,7 @@ Dann(/^wird die Verfügbarkeit des Modells im Kalendar angezeigt$/) do
         if next_date.month != last_month
           find(".fc-button-next").click
         end
-        change_date_el = find(".fc-widget-content:not(.fc-other-month) .fc-day-number", :text => /#{next_date.day}/).first(:xpath, "../..")
+        change_date_el = find(".fc-widget-content:not(.fc-other-month) .fc-day-number", match: :prefer_exact, :text => /#{next_date.day}/).first(:xpath, "../..")
         next unless @ip.is_open_on? change_date_el[:"data-date"].to_date
         # check borrower availability
         quantity_for_borrower = av.maximum_available_in_period_summed_for_groups next_date, next_date, @current_user.group_ids
