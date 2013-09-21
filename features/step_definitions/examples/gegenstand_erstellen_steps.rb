@@ -2,11 +2,12 @@
 
 def fill_in_autocomplete_field field_name, field_value
   step "ensure there are no active requests"
-  find("form .field", match: :prefer_exact, text: field_name)
-  matched_field = all("form").last.find(".field", match: :first, text: field_name)
-  matched_field.find("input", match: :first).click
-  matched_field.find("input", match: :first).set field_value
-  matched_field.find("a", match: :prefer_exact, text: field_value, visible: true).click
+  within find("form .field", match: :prefer_exact, text: field_name) do
+    find("input", match: :first).click
+    find("input", match: :first).set field_value
+    step "ensure there are no active requests"
+    find("a", match: :prefer_exact, text: field_value, visible: true).click
+  end
 end
 
 def check_fields_and_their_values table
@@ -121,7 +122,7 @@ Wenn /^jedes Pflichtfeld ist gesetzt$/ do |table|
       @inventory_code_field = first(".field", text: must_field_name).first("input,textarea")
       @inventory_code_field.set @inventory_code_value
     when "Modell"
-      model_name =
+      model_name = Model.first.name
       fill_in_autocomplete_field must_field_name, model_name
     when "Projektnummer"
       first(".field", text: "Bezug").first("input[value='investment']").set true

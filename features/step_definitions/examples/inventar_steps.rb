@@ -436,6 +436,7 @@ Dann /^die Informationen sind gespeichert$/ do
   search_string = @table_hashes.detect {|h| h["Feld"] == "Name"}["Wert"]
   step 'ich nach "%s" suche' % search_string
   step 'ensure there are no active requests'
+  find(".line", match: :prefer_exact, text: search_string)
   step 'I should see "%s"' % search_string
 end
 

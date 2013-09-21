@@ -22,7 +22,7 @@ Dann /^wähle Ich all die Felder über eine List oder per Namen aus$/ do
   number_of_items_left.times do 
     find("#fieldname").click
     page.should have_selector(".ui-menu-item a", :visible => true)
-    find(".ui-menu-item a").click
+    find(".ui-menu-item a", match: :first).click
   end  
 end
 
@@ -54,14 +54,15 @@ Dann /^ich setze all ihre Initalisierungswerte$/ do
         @data[field[:id]] = find(".field[data-field_id='#{field[:id]}'] input.datepicker").value
       when "autocomplete"
         target_name = find(".field[data-field_id='#{field[:id]}'] .autocomplete")['data-autocomplete_value_target']
-        page.execute_script %Q{ $(".autocomplete[data-autocomplete_value_target='#{target_name}']").focus() }
-        page.execute_script %Q{ $(".autocomplete[data-autocomplete_value_target='#{target_name}']").focus() }
+        find(".autocomplete[data-autocomplete_value_target='#{target_name}']").click
         find(".ui-menu-item a", match: :first).click
         @data[field[:id]] = find(".field[data-field_id='#{field[:id]}'] .autocomplete")
       when "autocomplete-search"
-        find(".field[data-field_id='#{field[:id]}'] input").set "Sharp Beamer"
-        find(".field[data-field_id='#{field[:id]}'] input").click
-        find(".field[data-field_id='#{field[:id]}'] a", text: "Sharp Beamer", match: :prefer_exact).click
+        within ".field[data-field_id='#{field[:id]}']" do
+          find("input").click
+          find("input").set "Sharp Beamer"
+          find("a", match: :prefer_exact, text: "Sharp Beamer").click
+        end
         @data[field[:id]] = Model.find_by_name("Sharp Beamer").id
       when "checkbox"
         # currently we only have "ausgemustert"
