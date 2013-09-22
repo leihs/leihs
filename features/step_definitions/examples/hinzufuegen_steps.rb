@@ -2,9 +2,10 @@
 
 Angenommen /^ich suche ein Modell um es hinzuzufügen$/ do
   @truncated_model_name = @current_user.managed_inventory_pools.first.items.first.model.name[0]
-  first("#code").set @truncated_model_name
-  page.execute_script('$("#code").focus()')
-  first(".ui-autocomplete .ui-menu-item")
+  find("#code").click
+  find("#code").set @truncated_model_name
+  step "ensure there are no active requests"
+  find(".ui-autocomplete .ui-menu-item", match: :first)
 end
 
 Dann /^sehe ich die Verfügbarkeit innerhalb der gefundenen Modelle im Format: "(.*?)"$/ do |arg1|

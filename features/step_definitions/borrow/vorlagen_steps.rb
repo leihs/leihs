@@ -145,21 +145,22 @@ Dann(/^ich kann Modelle aus der Ansicht entfernen$/) do
 end
 
 Dann(/^ich kann die Anzahl der Modelle ändern$/) do
-  @model = Model.find_by_name first(".row.line .col6of10").text
-  first(".line .button").click
+  @model = Model.find_by_name find(".row.line .col6of10").text
+  find(".line .button", match: :first).click
   page.should have_selector "#booking-calendar .fc-day-content"
-  first("#booking-calendar-quantity").set 1
+  find("#booking-calendar-quantity").set 1
 end
 
 Dann(/^ich kann das Zeitfenster für die Verfügbarkeitsberechnung einzelner Modelle ändern$/) do
   init_date = Date.today
-  while all(".available[data-date='#{init_date.to_s}']").empty? do
+  while all(".available:not(.closed)[data-date='#{init_date.to_s}']").empty? do
     init_date += 1
   end
   step "ich setze das Startdatum im Kalendar auf '#{I18n::l(init_date)}'"
   step "ich setze das Enddatum im Kalendar auf '#{I18n::l(init_date)}'"
-  first(".modal[role='dialog'] .button.green").click
-  all("#booking-calendar").empty?.should be_true
+  find(".modal[role='dialog'] .button.green", match: :first).click
+  step "ensure there are no active requests"
+  page.should_not have_selector("#booking-calendar")
 end
 
 Wenn(/^ich sämtliche Verfügbarkeitsprobleme gelöst habe$/) do

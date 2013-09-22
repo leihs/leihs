@@ -26,9 +26,7 @@ Wenn(/^ich ein Modell öffne, das bereits ergänzende Modelle hat$/) do
 end
 
 Wenn(/^ich ein ergänzendes Modell entferne$/) do
-  within first(".inner", text: _("Compatibles")) do
-    all("label", text: _("delete")).each {|comp| comp.click}
-  end
+  find(".inner", match: :first, text: _("Compatibles")).all("label", text: _("delete")).each {|comp| comp.click}
 end
 
 Dann(/^ist das Modell ohne das gelöschte ergänzende Modell gespeichert$/) do
