@@ -16,6 +16,7 @@ Wenn /^ich Eigenschaften hinzufügen und die Felder mit den Platzhaltern Schlüs
 end
 
 Wenn /^ich die Eigenschaft "(.*?)" "(.*?)" hinzufüge$/ do |k,v|
+  page.has_selector? ".top", text: /(#{_("Create %s") % _("Model")}|#{_("Edit %s") % _("Model")})/
   find("#add-property").click
   find("[ng-model='property.key'][placeholder='#{_("Key")}']", match: :first).set k
   find("[ng-model='property.value'][placeholder='#{_("Value")}']", match: :first).set v
@@ -27,6 +28,7 @@ Wenn /^ich die Eigenschaften sortiere$/ do
 end
 
 Dann /^sind die Eigenschaften gemäss Sortierreihenfolge für dieses Modell gespeichert$/ do
+  page.has_selector? ".line"
   all(".line").size.should > 0
   Model.last.properties.empty?.should be_false
   Model.last.properties.each_with_index do |property, i|
@@ -36,6 +38,7 @@ Dann /^sind die Eigenschaften gemäss Sortierreihenfolge für dieses Modell gesp
 end
 
 Dann /^sind die Eigenschaften gemäss Sortierreihenfolge für das geänderte Modell gespeichert$/ do
+  page.has_selector? ".line"
   all(".line").size.should > 0
   @model = @model.reload
   @model.properties.size.should == @properties.size
@@ -48,6 +51,7 @@ end
 Angenommen /^ich editiere ein Modell$/ do
   step 'man öffnet die Liste der Modelle'
   step 'ich ein bestehendes Modell bearbeite'
+  page.has_selector? ".top", text: _("Edit %s") % _("Model")
 end
 
 Angenommen /^ich editiere ein Modell welches bereits Eigenschaften hat$/ do

@@ -407,10 +407,10 @@ end
 
 Und /^ich (?:erfasse|ändere)? ?die folgenden Details ?(?:erfasse|ändere)?$/ do |table|
   # table is a Cucumber::Ast::Table
+  page.has_selector? ".top", text: /(#{_("Create %s") % _("Model")}|#{@model.try :name})/
   @table_hashes = table.hashes
   @table_hashes.each do |row|
-    f = find(".key", match: :first, text: "#{row["Feld"]}:")
-    f.first(:xpath, "./..//input | ./..//textarea").set row["Wert"]
+    find(".key", match: :first, text: "#{row["Feld"]}:").first(:xpath, "./..//input | ./..//textarea").set row["Wert"]
   end
 end
 
