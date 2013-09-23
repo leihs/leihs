@@ -223,6 +223,7 @@ Dann /^enthält die Gegenstands\-Zeile folgende Informationen:$/ do |table|
         raise 'step not found'
     end
   end
+  sleep(2.88)
 end
 
 Dann /^enthält die Gegenstands\-Zeile den Inventarcode$/ do
