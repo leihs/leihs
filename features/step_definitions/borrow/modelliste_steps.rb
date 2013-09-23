@@ -306,9 +306,9 @@ Dann(/^wird der nächste Block an Modellen geladen und angezeigt$/) do
 end
 
 Wenn(/^man bis zum Ende der Liste fährt$/) do
-  page.should have_selector(".page")
+  has_selector?(".page")
   page.execute_script %Q{ $('.page').trigger('inview'); }
-  page.should_not have_selector(".page")
+  has_selector?(".page")
 end
 
 Dann(/^wurden alle Modelle der ausgewählten Kategorie geladen und angezeigt$/) do
