@@ -91,8 +91,8 @@ When /^I assign an inventory code the item line$/ do
   item = @ip.items.in_stock.where(model_id: @item_line.model).first
   @selected_items ||= []
   @selected_items << item
-  first(".line[data-id='#{@item_line.id}'] .inventory_code input").set item.inventory_code
-  first(".line[data-id='#{@item_line.id}'] .inventory_code input").native.send_key(:enter)
+  find(".line[data-id='#{@item_line.id}'] .inventory_code input", :match => :first).set item.inventory_code
+  find(".line[data-id='#{@item_line.id}'] .inventory_code input", :match => :first).native.send_key(:enter)
   sleep(0.88)
 end
 
