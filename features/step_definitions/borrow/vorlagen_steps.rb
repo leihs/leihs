@@ -152,12 +152,14 @@ Dann(/^ich kann die Anzahl der Modelle ändern$/) do
 end
 
 Dann(/^ich kann das Zeitfenster für die Verfügbarkeitsberechnung einzelner Modelle ändern$/) do
-  init_date = Date.today
-  while all(".available:not(.closed)[data-date='#{init_date.to_s}']").empty? do
-    init_date += 1
+  current_date = Date.today
+  while all(".available:not(.closed)[data-date='#{current_date.to_s}']").empty? do
+    before_date = current_date
+    current_date += 1.day
+    find(".fc-button-next").click if before_date.month < current_date.month
   end
-  step "ich setze das Startdatum im Kalendar auf '#{I18n::l(init_date)}'"
-  step "ich setze das Enddatum im Kalendar auf '#{I18n::l(init_date)}'"
+  step "ich setze das Startdatum im Kalendar auf '#{I18n::l(current_date)}'"
+  step "ich setze das Enddatum im Kalendar auf '#{I18n::l(current_date)}'"
   find(".modal[role='dialog'] .button.green", match: :first).click
   step "ensure there are no active requests"
   page.should_not have_selector("#booking-calendar")
