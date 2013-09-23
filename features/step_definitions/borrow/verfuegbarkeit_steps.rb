@@ -44,7 +44,7 @@ Dann(/^wird die Bestellung nicht abgeschlossen$/) do
 end
 
 Dann(/^ich erhalte eine Fehlermeldung$/) do
-  find(".error")
+  first(".error")
 end
 
 #######################################################################

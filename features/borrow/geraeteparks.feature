@@ -7,4 +7,4 @@ Funktionalität: Geräteparks
     Wenn ich den Gerätepark Link drücke
     Dann sehe ich die Geräteparks für die ich berechtigt bin 
     Und sehe die Beschreibung für jeden Gerätepark
-    Und die Geräteparks sind alphabetisch sortiert
+    Und die Geräteparks sind auf dieser Seite alphabetisch sortiert

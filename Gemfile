@@ -2,6 +2,8 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.14'
 
+
+gem 'rake' # So that cronjobs work -- otherwise they can't find rake
 gem 'active_hash', '~> 0.9'
 gem 'activerecord-jdbcmysql-adapter', :platform => :jruby
 gem 'acts-as-dag', :git => 'git://github.com/jrust/acts-as-dag.git' #tmp# '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
@@ -10,7 +12,7 @@ gem 'angularjs-rails', '~> 1.0'
 gem 'barby', '~> 0.5.0'
 gem 'better_errors', :group => :development
 gem 'binding_of_caller', :group => :development
-gem 'capybara', '1.1.4', :group => [:test, :development] # TODO upgrade to '~> 2.0'
+gem 'capybara', '2.1.0', :group => [:test, :development] # TODO upgrade to '~> 2.0'
 gem 'capybara-screenshot', :group => [:test, :development]
 gem 'chunky_png', '~> 1.2'
 gem 'coffee-filter', '~> 0.1.1'

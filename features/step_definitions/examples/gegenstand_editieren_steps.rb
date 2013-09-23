@@ -3,24 +3,24 @@
 Angenommen /^man editiert einen Gegenstand, wo man der Besitzer ist$/ do
   @ip = @current_user.managed_inventory_pools
   visit backend_inventory_pool_inventory_path(@ip)
-  find("label", text: _("Owned")).click
-  wait_until{find(".model.line .toggle .text", :visible => true)}
-  find(".model.line .toggle .text", :text => /(1|2|3|4|5|6)/).click
-  item_line = find(".item.line")
-  @item = Item.find_by_inventory_code(item_line.find(".inventory_code").text)
-  item_line.find(".actions .button", :text => /(Editieren|Edit)/i).click
+  step "ensure there are no active requests"
+  first("label", text: _("Owned")).click
+  step "ensure there are no active requests"
+  first(".model.line .toggle .text", :text => /(1|2|3|4|5|6)/).click
+  @item = Item.find_by_inventory_code(first(".item.line").first(".inventory_code").text)
+  first(".item.line").first(".actions .button", :text => /(editieren|edit)/i).click
 end
 
 Dann /^muss der "(.*?)" unter "(.*?)" ausgewählt werden$/ do |key, section|
-  section = find("h2", :text => section).find(:xpath, "./..")
-  field = section.find("h3", :text => key).find(:xpath, "./..")
+  section = first("h2", :text => section).first(:xpath, "./..")
+  field = section.first("h3", :text => key).first(:xpath, "./..")
   field[:class][/required/].should_not be_nil
 end
 
 Wenn /^"(.*?)" bei "(.*?)" ausgewählt ist muss auch "(.*?)" angegeben werden$/ do |value, key, newkey|
-  field = find("h3", :text => key).find(:xpath, "./..")
-  field.find("label,option", :text => value).click
-  newfield = find("h3", :text => newkey).find(:xpath, "./..")
+  field = first("h3", :text => key).first(:xpath, "./..")
+  field.first("label,option", :text => value).click
+  newfield = first("h3", :text => newkey).first(:xpath, "./..")
   newfield[:class][/required/].should_not be_nil
 end
 
@@ -30,15 +30,15 @@ Dann /^sind alle Pflichtfelder mit einem Stern gekenzeichnet$/ do
 end
 
 Wenn /^ein Pflichtfeld nicht ausgefüllt\/ausgewählt ist, dann lässt sich der Gegenstand nicht speichern$/ do
-  find(".field.required textarea").set("")
-  find(".field.required input[type='text']").set("")
-  find(".content_navigation button[type=submit]").click
-  find(".content_navigation button[type=submit]")
+  first(".field.required textarea").set("")
+  first(".field.required input[type='text']").set("")
+  first(".content_navigation button[type=submit]").click
+  first(".content_navigation button[type=submit]")
   @item.to_json.should == @item.reload.to_json
 end
 
 Wenn /^der Benutzer sieht eine Fehlermeldung$/ do
-  find(".notification.error")
+  first(".notification.error")
 end
 
 Wenn /^die nicht ausgefüllten\/ausgewählten Pflichtfelder sind rot markiert$/ do
@@ -59,9 +59,9 @@ Dann /^sehe ich die Felder in folgender Reihenfolge:$/ do |table|
 end
 
 Wenn(/^"(.*?)" bei "(.*?)" ausgewählt ist muss auch "(.*?)" ausgewählt werden$/) do |value, key, newkey|
-  field = find("h3", :text => key).find(:xpath, "./..")
-  field.find("option", :text => value).select_option
-  newfield = find("h3", :text => newkey).find(:xpath, "./..")
+  field = first("h3", :text => key).first(:xpath, "./..")
+  field.first("option", :text => value).select_option
+  newfield = first("h3", :text => newkey).first(:xpath, "./..")
   newfield[:class][/required/].should_not be_nil
 end
 
@@ -87,16 +87,15 @@ end
 Dann(/^ist der Gegenstand mit all den angegebenen Informationen gespeichert$/) do
   find("a[data-tab*='retired']").click if (@table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"} ["Wert"]) == "Ja"
   find_field('query').set (@table_hashes.detect {|r| r["Feldname"] == "Inventarcode"} ["Wert"])
-  wait_until { all("li.modelname").first.text =~ /#{@table_hashes.detect {|r| r["Feldname"] == "Modell"} ["Wert"]}/ }
+  find("li.modelname", :text => @table_hashes.detect {|r| r["Feldname"] == "Modell"} ["Wert"], :visible => true)
   find(".toggle .icon").click
   find(".button", text: 'Gegenstand editieren').click
-
-  wait_until { all("form").count == 2 }
   step 'hat der Gegenstand alle zuvor eingetragenen Werte'
 end
 
 Wenn(/^ich den Lieferanten lösche$/) do
   find(".field", text: _("Supplier")).find("input").set ""
+  page.execute_script %Q{ $("[data-autocomplete_extended_key_target='item[supplier][name]']").trigger('change') }
 end
 
 Dann(/^wird der neue Lieferant gelöscht$/) do
@@ -105,6 +104,7 @@ Dann(/^wird der neue Lieferant gelöscht$/) do
 end
 
 Dann(/^ist bei dem bearbeiteten Gegenstand keiner Lieferant eingetragen$/) do
+  page.should have_content _("List of Inventory")
   @item.reload.supplier.should be_nil
 end
 
@@ -120,4 +120,29 @@ end
 
 Dann(/^ist bei dem bearbeiteten Gegestand der geänderte Lieferant eingetragen$/) do
   @item.reload.supplier.should == @supplier
+end
+
+Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeliehen ist$/) do
+  @item = @current_inventory_pool.items.not_in_stock.sample
+  @item_before = @item.to_json
+  visit backend_inventory_pool_item_path(@current_inventory_pool, @item)
+end
+
+Wenn(/^ich die verantwortliche Abteilung ändere$/) do
+  fill_in_autocomplete_field _("Responsible"), InventoryPool.all.sample.name
+end
+
+Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes, der in einem Vertrag vorhanden ist$/) do
+  @item = @current_inventory_pool.items.select{|i| not i.contract_lines.blank?}.sample
+  @item_before = @item.to_json
+  visit backend_inventory_pool_item_path(@current_inventory_pool, @item)
+end
+
+Wenn(/^ich das Modell ändere$/) do
+  fill_in_autocomplete_field _("Model"), @current_inventory_pool.models.select{|m| m != @item.model}.sample.name
+end
+
+Wenn(/^ich den Gegenstand ausmustere$/) do
+  find(".field", text: _("Retirement")).first("select").select _("Yes")
+  find(".field", text: _("Reason for Retirement")).first("input, textarea").set "Retirement reason"
 end

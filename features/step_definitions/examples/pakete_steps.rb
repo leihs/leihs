@@ -2,26 +2,25 @@
 def add_item_via_autocomplete input_value, element
   element.set input_value
   page.has_selector? "a", text: input_value
-  find("a", text: input_value).click
+  find("a", match: :prefer_exact, text: input_value).click
 end
 
 Wenn /^ich mindestens die Pflichtfelder ausfülle$/ do
   @model_name = "Test Modell-Paket"
-  find(".field", :text => _("Name")).fill_in 'name', :with => @model_name
+  find(".field", match: :prefer_exact, :text => _("Name")).fill_in 'name', :with => @model_name
 end
 
 Wenn /^ich eines oder mehrere Pakete hinzufüge$/ do
-  find("a", text: _("Add %s") % _("Package")).click
+  find("a", match: :prefer_exact, text: _("Add %s") % _("Package")).click
 end
 
 Wenn /^ich(?: kann | )diesem Paket eines oder mehrere Gegenstände hinzufügen$/ do
-  add_item_via_autocomplete "beam123", find(".dialog #add-item .autocomplete")
-  add_item_via_autocomplete "beam345", find(".dialog #add-item .autocomplete")
+  add_item_via_autocomplete "beam123", first(".dialog #add-item .autocomplete")
+  add_item_via_autocomplete "beam345", first(".dialog #add-item .autocomplete")
 end
 
 Dann /^ist das Modell erstellt und die Pakete und dessen zugeteilten Gegenstände gespeichert$/ do
-  wait_until{ page.evaluate_script("$.active") == 0 }
-  wait_until{ Model.find_by_name(@model_name) }
+  page.should have_selector ".success"
   @model = Model.find_by_name @model_name
   @model.should_not be_nil
   @model.should be_is_package
@@ -42,9 +41,10 @@ end
 
 Dann /^kann ich das Paket löschen und die Gegenstände sind nicht mehr dem Paket zugeteilt$/ do
   @package_item_ids = @package.children.map(&:id)
-  find(".field-inline-entry", :text => @package.inventory_code).find(".clickable", :text => _("Delete")).click
+  find(".field-inline-entry", :text => @package.inventory_code).first(".clickable", :text => _("Delete")).click
   step 'ich speichere die Informationen'
-  wait_until {Item.find_by_id(@package.id).nil?}
+  find(".top", match: :prefer_exact, text: _("List of Models"))
+  Item.find_by_id(@package.id).nil?.should be_true
   lambda {@package.reload}.should raise_error(ActiveRecord::RecordNotFound)
   @package_item_ids.size.should > 0
   @package_item_ids.each{|id| Item.find(id).parent_id.should be_nil}
@@ -64,7 +64,8 @@ Wenn /^ich ein Modell editiere, welches bereits Pakete hat$/ do
   @model = @current_inventory_pool.models.detect {|m| not m.items.empty? and m.is_package?}
   @model_name = @model.name
   step 'ich nach "%s" suche' % @model.name
-  wait_until { find(".line", :text => @model.name).find(".button", :text => _("Edit Model")) }.click
+  page.should have_selector(".line", text: @model.name)
+  find(".line", match: :prefer_exact, :text => @model.name).first(".button", :text => _("Edit Model")).click
 end
 
 Wenn /^ich ein Modell editiere, welches bereits Gegenstände hat$/ do
@@ -72,7 +73,8 @@ Wenn /^ich ein Modell editiere, welches bereits Gegenstände hat$/ do
   @model = @current_inventory_pool.models.detect {|m| not (m.items.empty? and m.is_package?)}
   @model_name = @model.name
   step 'ich nach "%s" suche' % @model.name
-  wait_until { find(".line", :text => @model.name).find(".button", :text => _("Edit Model")) }.click
+  page.should have_selector(".line", text: @model.name)
+  find(".line", match: :prefer_exact, :text => @model.name).first(".button", :text => _("Edit Model")).click
 end
 
 Dann /^kann ich diesem Modell keine Pakete mehr zuweisen$/ do
@@ -90,7 +92,7 @@ Dann /^kann ich dieses Paket nur speichern, wenn dem Paket auch Gegenstände zug
   page.should have_content _("You can not create a package without any item")
   page.should have_content _("New Package")
   click_button _("Cancel")
-  find(".field", text: _("Packages")).should_not have_selector ".field-inline-entry"
+  find(".field", match: :prefer_exact, text: _("Packages")).should_not have_selector ".field-inline-entry"
 end
 
 Wenn /^ich ein Paket editiere$/ do
@@ -104,13 +106,13 @@ Dann /^kann ich einen Gegenstand aus dem Paket entfernen$/ do
   items = all(".dialog .inventory_code")
   @number_of_items_before = items.size
   @item_to_remove = items.first.text
-  find(".removeItem").click
+  find(".removeItem", match: :first).click
   click_button _("Save")
   step 'ich speichere die Informationen'
 end
 
 Dann /^dieser Gegenstand ist nicht mehr dem Paket zugeteilt$/ do
-  wait_until { page.has_content? _("List of Models") }
+  page.has_content? _("List of Models")
   @package_to_edit.reload
   @package_to_edit.children.count.should eq (@number_of_items_before - 1)
   @package_to_edit.children.detect {|i| i.inventory_code == @item_to_remove}.should be_nil
@@ -124,34 +126,35 @@ Dann /^werden die folgenden Felder angezeigt$/ do |table|
 end
 
 Wenn /^ich das Paket speichere$/ do
-  find(".dialog .save").click
+  find(".dialog .save", match: :first).click
 end
 
 Wenn /^ich das Paket und das Modell speichere$/ do
   step 'ich das Paket speichere'
-  find(".content_navigation .button.green").click
+  find(".content_navigation .button.green", match: :first).click
 end
 
 Dann /^(?:besitzt das Paket alle angegebenen Informationen|das Paket besitzt alle angegebenen Informationen)$/ do
-  wait_until{ page.evaluate_script("$.active") == 0}
+  sleep(0.88)
   model = Model.find_by_name @model_name
   visit edit_backend_inventory_pool_model_path(@current_inventory_pool, model)
-  find("[ng-repeat='package in model.packages']").find(".clickable", :text => _("Edit")).click
+  page.should have_selector "[ng-repeat='package in model.packages']"
+  find("[ng-repeat='package in model.packages']", match: :first).first(".clickable", :text => _("Edit")).click
   step 'hat der Gegenstand alle zuvor eingetragenen Werte'
 end
 
 Wenn /^ich ein bestehendes Paket editiere$/ do
-  find("[ng-repeat='package in model.packages']").find(".clickable", :text => _("Edit")).click
+  page.should have_selector "[ng-repeat='package in model.packages']"
+  find("[ng-repeat='package in model.packages']", match: :first).first(".clickable", :text => _("Edit")).click
 end
 
 Wenn(/^ich eine Paket hinzufüge$/) do
-  find("a", text: _("Add %s") % _("Package")).click
+  find("a", match: :prefer_exact, text: _("Add %s") % _("Package")).click
 end
 
 Wenn(/^ich die Paketeigenschaften eintrage$/) do
   steps %Q{Und ich die folgenden Informationen erfasse
     | Feldname                     | Type         | Wert                          |
-    | Ausmusterung                 | checkbox     | unchecked                     |
     | Zustand                      | radio        | OK                            |
     | Vollständigkeit              | radio        | OK                            |
     | Ausleihbar                   | radio        | OK                            |
@@ -169,11 +172,11 @@ Wenn(/^ich die Paketeigenschaften eintrage$/) do
 end
 
 Wenn(/^ich dieses Paket speichere$/) do
-  find(".dialog .button.save").click
+  find(".dialog .button.save", match: :first).click
 end
 
 Wenn(/^ich dieses Paket wieder editiere$/) do
-  find(".field-inline-entry .clickable", text: _("Edit")).click
+  find(".field-inline-entry .clickable", match: :prefer_exact, text: _("Edit")).click
 end
 
 Dann(/^kann ich die Paketeigenschaften erneut bearbeiten$/) do
@@ -181,5 +184,5 @@ Dann(/^kann ich die Paketeigenschaften erneut bearbeiten$/) do
 end
 
 Dann(/^sehe ich die Meldung "(.*?)"$/) do |text|
-  find(".notification.headline", :text => text)
+  find(".notification.headline", match: :prefer_exact, :text => text)
 end

@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 When(/^ich in den Admin-Bereich wechsel$/) do
-  find(".navigation .admin a").click
+  first(".navigation .admin a").click
 end
 
 Angenommen(/^es existiert noch kein Gerätepark$/) do
@@ -9,14 +9,14 @@ Angenommen(/^es existiert noch kein Gerätepark$/) do
 end
 
 Wenn(/^ich im Admin\-Bereich unter dem Reiter Geräteparks einen neuen Gerätepark erstelle$/) do
-  wait_until {current_path == backend_inventory_pools_path}
+  current_path.should == backend_inventory_pools_path
   click_link _("Create %s") % _("Inventory Pool")
 end
 
 Wenn(/^ich Name und Kurzname und Email eingebe$/) do
-  find(".field", text: _("Name")).find("input").set "test"
-  find(".field", text: _("Short Name")).find("input").set "test"
-  find(".field", text: _("E-Mail")).find("input").set "test@test.ch"
+  first(".field", text: _("Name")).first("input").set "test"
+  first(".field", text: _("Short Name")).first("input").set "test"
+  first(".field", text: _("E-Mail")).first("input").set "test@test.ch"
 end
 
 Wenn(/^ich speichere$/) do
@@ -28,16 +28,16 @@ Dann(/^ist der Gerätepark gespeichert$/) do
 end
 
 Dann(/^eine Bestätigung wird angezeigt$/) do
-  wait_until {page.has_selector? ".success"}
+  page.has_selector? ".success"
 end
 
 Dann(/^ich sehe die Geräteparkliste$/) do
-  wait_until {page.has_content? _("List of Inventory Pools")}
+  page.has_content? _("List of Inventory Pools")
 end
 
 Wenn(/^ich (.+) nicht eingebe$/) do |must_field|
   step "ich Name und Kurzname und Email eingebe"
-  find(".field", text: must_field).find("input").set ""
+  first(".field", text: must_field).first("input").set ""
 end
 
 Dann(/^wird mir eine Fehlermeldung angezeigt$/) do
@@ -51,14 +51,14 @@ end
 
 Wenn(/^ich im Admin\-Bereich unter dem Reiter Geräteparks einen bestehenden Gerätepark ändere$/) do
   @ip = InventoryPool.first
-  wait_until {page.has_content? _("List of Inventory Pools")}
-  find("ul.line", text: @ip.name).click_link _("Edit %s") % _("Inventory Pool")
+  page.has_content? _("List of Inventory Pools")
+  first("ul.line", text: @ip.name).click_link _("Edit %s") % _("Inventory Pool")
 end
 
 Wenn(/^ich Name und Kurzname und Email ändere$/) do
-  find(".field", text: _("Name")).find("input").set "test"
-  find(".field", text: _("Short Name")).find("input").set "test"
-  find(".field", text: _("E-Mail")).find("input").set "test@test.ch"
+  first(".field", text: _("Name")).first("input").set "test"
+  first(".field", text: _("Short Name")).first("input").set "test"
+  first(".field", text: _("E-Mail")).first("input").set "test@test.ch"
 end
 
 Dann(/^ist der Gerätepark und die eingegebenen Informationen gespeichert$/) do
@@ -69,9 +69,9 @@ Wenn(/^ich im Admin\-Bereich unter dem Reiter Geräteparks einen bestehenden Ger
   @ip = InventoryPool.find &:can_destroy?
   visit backend_inventory_pools_path
 
-  wait_until { find("ul.line", text: @ip.name) }
+  first("ul.line", text: @ip.name)
   page.execute_script("$('.trigger .arrow').trigger('mouseover');")
-  find("ul.line", text: @ip.name).find(".button", text: _("Delete %s") % _("Inventory Pool")).click
+  first("ul.line", text: @ip.name).first(".button", text: _("Delete %s") % _("Inventory Pool")).click
 end
 
 Wenn(/^der Gerätepark wurde aus der Liste gelöscht$/) do
@@ -83,10 +83,10 @@ Wenn(/^der Gerätepark wurde aus der Datenbank gelöscht$/) do
 end
 
 Dann(/^ich sehe die Geräteparkauswahl$/) do
-  find("#ipselection").click
+  first("#ipselection").click
 end
 
 Dann(/^die Geräteparkauswahl ist alphabetish sortiert$/) do
-  names = find("#ipselection .popup").text.split
+  names = first("#ipselection .popup").text.split
   names.map(&:downcase).sort.should == names.map(&:downcase)
 end

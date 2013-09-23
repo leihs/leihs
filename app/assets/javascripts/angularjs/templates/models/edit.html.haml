@@ -114,7 +114,7 @@
             %span{"ng-switch" => "!!file.id"}
               %span{"ng-switch-when" => "true"}
                 %a{"ng-class" => "{tobedeleted: file._destroy}", href: "{{file.public_filename}}", target: '_blank'} 
-                  %img{src: "{{file.public_filename_thumb}}", style: "max-height: 26px; max-width: 26px"}
+                  %img{"ng-src" => "{{file.public_filename_thumb}}", style: "max-height: 26px; max-width: 26px"}
                   {{file.filename}}
                 %label.clickable.floatright
                   %input.hidden{type: "checkbox", "ng-model" => "file._destroy"} 

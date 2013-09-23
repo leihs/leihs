@@ -2,7 +2,7 @@
 
 When(/^ich unter meinem Benutzernamen auf "([^"]*)" klicke$/) do |arg|
   step "ich über meinen Namen fahre"
-  find("nav.topbar ul.topbar-navigation a[href='/borrow/user']", text: @current_user.to_s).find(:xpath, "./..").find("ul.dropdown a.dropdown-item", text: arg).click
+  first("nav.topbar ul.topbar-navigation a[href='/borrow/user']", text: @current_user.to_s).first(:xpath, "./..").first("ul.dropdown a.dropdown-item", text: arg).click
 end
 
 Dann(/^gelange ich zu der Dokumentenübersichtsseite/) do
@@ -22,7 +22,7 @@ Dann(/^für jede Vertrag sehe ich folgende Informationen$/) do |table|
   contracts = @current_user.contracts.includes(:contract_lines).where(status_const: [Contract::SIGNED, Contract::CLOSED])
   contracts.sort! {|a,b| b.time_window_min <=> a.time_window_min}
   contracts.each do |contract|
-    within find(".line[data-id='#{contract.id}']") do
+    within first(".line[data-id='#{contract.id}']") do
       table.raw.flatten.each do |s|
         case s
           when "Vertragsnummer"
@@ -38,9 +38,11 @@ Dann(/^für jede Vertrag sehe ich folgende Informationen$/) do |table|
           when "Status"
             should have_content _("Open") if contract.status_const == Contract::SIGNED
           when "Vertraglink"
-            find("a[href='#{borrow_user_contract_path(contract.id)}']", text: _("Contract"))
+            page.should have_selector("a[href='#{borrow_user_contract_path(contract.id)}']", text: _("Contract"))
           when "Wertelistelink"
-            all("a[href='#{borrow_user_value_list_path(contract.id)}']").should_not be_empty
+            find("a[href='#{borrow_user_contract_path(contract.id)}'] + .dropdown-holder > .dropdown-toggle").hover
+            page.should have_selector("a[href='#{borrow_user_value_list_path(contract.id)}']")
+            find("a[href='#{borrow_user_contract_path(contract.id)}']").hover # release the previous hover
           else
             raise "unkown section"
         end
@@ -52,7 +54,7 @@ end
 Angenommen(/^ich drücke auf den Wertelistelink$/) do
   contracts = @current_user.contracts.where(status_const: [Contract::SIGNED, Contract::CLOSED])
   @contract = contracts.sample
-  find("a[href='#{borrow_user_value_list_path(@contract.id)}']", text: _("Value List")).click
+  first("a[href='#{borrow_user_value_list_path(@contract.id)}']", text: _("Value List")).click
 end
 
 Dann(/^öffnet sich die Werteliste$/) do
@@ -62,7 +64,7 @@ end
 Angenommen(/^ich drücke auf den Vertraglink$/) do
   contracts = @current_user.contracts.where(status_const: [Contract::SIGNED, Contract::CLOSED])
   @contract = contracts.sample
-  find("a[href='#{borrow_user_contract_path(@contract.id)}']", text: _("Contract")).click
+  first("a[href='#{borrow_user_contract_path(@contract.id)}']", text: _("Contract")).click
 end
 
 Dann(/^öffnet sich der Vertrag$/) do
@@ -74,7 +76,7 @@ Wenn(/^ich eine Werteliste aus meinen Dokumenten öffne$/) do
   @contract = contracts.sample
   visit borrow_user_value_list_path(@contract.id)
   step "öffnet sich die Werteliste"
-  @value_list_element = find(".value_list")
+  @value_list_element = first(".value_list")
 end
 
 Wenn(/^ich einen Vertrag aus meinen Dokumenten öffne$/) do
@@ -82,7 +84,7 @@ Wenn(/^ich einen Vertrag aus meinen Dokumenten öffne$/) do
   @contract = contracts.sample
   visit borrow_user_contract_path(@contract.id)
   step "öffnet sich der Vertrag"
-  @contract_element = find(".contract")
+  @contract_element = first(".contract")
 end
 
 Wenn(/^ich einen Vertrag mit zurück gebrachten Gegenständen aus meinen Dokumenten öffne$/) do
@@ -90,7 +92,7 @@ Wenn(/^ich einen Vertrag mit zurück gebrachten Gegenständen aus meinen Dokumen
   @contract = contracts.find {|c| c.lines.any? &:returned_to_user}
   visit borrow_user_contract_path(@contract.id)
   step "öffnet sich der Vertrag"
-  @contract_element = find(".contract")
+  @contract_element = first(".contract")
 end
 
 Dann(/^sehe ich die Werteliste genau wie im Verwalten\-Bereich$/) do
@@ -189,8 +191,8 @@ Dann(/^sehe ich den Vertrag genau wie im Verwalten-Bereich$/) do
       date.text.should == ""
     end
     not_returned_lines.each do |line|
-      @contract_element.find(".not_returned_items").should have_content line.model.name
-      @contract_element.find(".not_returned_items").should have_content line.item.inventory_code
+      @contract_element.first(".not_returned_items").should have_content line.model.name
+      @contract_element.first(".not_returned_items").should have_content line.item.inventory_code
     end
   end
 
@@ -201,6 +203,6 @@ end
 
 Dann(/^sieht man bei den betroffenen Linien die rücknehmende Person im Format "V. Nachname"$/) do
   @contract.lines.select(&:returned_to_user).each do |cl|
-    find(".returned_items tr", text: cl.item.inventory_code).find(".returning_date", text: cl.returned_to_user.short_name)
+    find(".returned_items tr", text: cl.item.inventory_code).first(".returning_date", text: cl.returned_to_user.short_name)
   end
 end

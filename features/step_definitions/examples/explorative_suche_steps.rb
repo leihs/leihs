@@ -6,15 +6,14 @@ end
 
 Angenommen(/^ich die Navigation der Kategorien aufklappe$/) do
   find(".explorative-search-toggle").click
-  wait_until { not all(".explorative-entry").empty? }
+  page.should have_selector(".explorative-entry")
 end
 
 Wenn(/^ich eine Kategorie anwähle$/) do
   find("body").click
-  @category_el = find(".explorative-entry")
+  @category_el = first(".explorative-entry")
   @category = Category.find @category_el[:"data-id"]
   @category_el.click
-  wait_until { page.evaluate_script("$.active") == 0}
 end
 
 Dann(/^sehe ich die darunterliegenden Kategorien$/) do
@@ -35,8 +34,8 @@ Dann(/^ich sehe die Hauptkategorie sowie die aktuell ausgewählte und die darunt
 end
 
 Dann(/^das Inventar wurde nach dieser Kategorie gefiltert$/) do
-  wait_until { page.evaluate_script("$.active") == 0}
-  all(".line.model").each_with_index do |model_line, i|
+  page.should have_selector(".line.model")
+  all(".line.model").each do |model_line|
     model = Model.find_by_name model_line.find(".modelname").text
     (model.categories.include?(@child_category) or @child_category.descendants.any? {|c| model.categories.include? c}).should be_true
   end
@@ -59,7 +58,7 @@ Wenn(/^ich die Navigation der Kategorien wieder zuklappe$/) do
 end
 
 Dann(/^sehe ich nur noch die Liste des Inventars$/) do
-  all(".explorative-navigation", :visible => true).empty?.should be_true
+  page.should_not have_selector(".explorative-navigation", visible: true)
 end
 
 Angenommen(/^die Navigation der Kategorien ist aufgeklappt$/) do
@@ -70,7 +69,7 @@ Wenn(/^ich nach dem Namen einer Kategorie suche$/) do
   @category = Category.first
   @search_term = @category.name[0..2]
   find(".explorative-search").set @search_term
-  wait_until {find(".explorative-current", :text => @search_term)}
+  find(".explorative-current", :text => @search_term)
 end
 
 Dann(/^werden alle Kategorien angezeigt, welche den Namen beinhalten$/) do
@@ -116,15 +115,15 @@ Angenommen(/^ich befinde mich in einer Bestellung$/) do
 end
 
 Dann(/^kann ich ein Modell anhand der explorativen Suche wählen$/) do
-  wait_until{find("#process_helper *[type='submit']", :visible=>true)}
+  page.should have_selector "#process_helper"
+  step "ensure there are no active requests"
   find("#process_helper *[type='submit']").click
-  wait_until{not all(".dialog .line").empty?}
-  find(".explorative-entry").click
-  wait_until { page.evaluate_script("$.active") == 0}
-  model = Model.find find(".dialog .line")["data-id"]
-  find(".line button.select-model").click
-  wait_until{all(".loading", :visible => true).empty?}
-  wait_until{not all(".notification").empty?}
+  page.should have_selector(".dialog .line")
+  find(".explorative-entry", :match => :first).click
+  step "ensure there are no active requests"
+  model = Model.find find(".dialog .line", :match => :first)["data-id"]
+  find(".line button.select-model", :match => :first).click
+  page.should have_selector(".notification")
   if @order
     expect(@order.models.include? model).to be_true
   else
@@ -134,7 +133,7 @@ end
 
 Dann(/^die explorative Suche zeigt nur Modelle aus meinem Park an$/) do
   find("#process_helper *[type='submit']").click
-  wait_until{not all(".dialog .line").empty?}  
+  page.should have_selector(".dialog .line")
   all(".dialog .model.line").each do |line|
     model = Model.find line["data-id"]
     expect(@current_inventory_pool.models.include? model).to be_true
@@ -143,7 +142,7 @@ end
 
 Dann(/^die nicht verfügbaren Modelle sind rot markiert$/) do
   all(".model.line .availability", :text => /0 \(\d+\) \/ \d+/).each do |cell|
-    line = cell.find(:xpath, "./../..")
+    line = cell.first(:xpath, "./../..")
     (line[:class] =~ /error/).should_not be_nil
   end
 end

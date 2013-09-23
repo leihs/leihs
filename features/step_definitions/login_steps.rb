@@ -19,10 +19,10 @@ Given "I am logged in as '$username' with password '$password'" do |username, pa
   case Capybara.current_driver
     when :selenium
       visit "/"
-      find("[href='#{login_path}']").click
+      first("[href='#{login_path}']").click
       fill_in 'username', :with => username
       fill_in 'password', :with => password
-      find("[type='submit']").click
+      first("[type='submit']").click
     when :rack_test
       step "I log in as '%s' with password '%s'" % [username, password]
   end
@@ -64,7 +64,7 @@ end
 When /^"([^"]*)" sign in successfully he is redirected to the "([^"]*)" section$/ do |login, section_name|
   visit "/logout"
   step "I am logged in as '#{login}' with password 'password'"
-  find(".navigation .active.#{section_name.downcase}")
+  first(".navigation .active.#{section_name.downcase}")
 end
 
 Angenommen(/^man ist eingeloggt als "(.*?)"$/) do |persona|
@@ -72,8 +72,8 @@ Angenommen(/^man ist eingeloggt als "(.*?)"$/) do |persona|
   @current_user = User.where(:login => persona.downcase).first
   I18n.locale = if @current_user.language then @current_user.language.locale_name.to_sym else Language.default_language end
   visit root_path
-  find("a[href='#{login_path}']").click
+  first("a[href='#{login_path}']").click
   fill_in 'username', :with => persona.downcase
   fill_in 'password', :with => 'password'
-  find("[type='submit']").click
+  first("[type='submit']").click
 end

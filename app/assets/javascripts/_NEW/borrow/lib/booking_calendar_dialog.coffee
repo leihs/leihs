@@ -62,6 +62,7 @@ class window.App.Borrow.BookingCalendarDialog extends Spine.Controller
       @controlElements.removeClass "hidden"
       @submitButton.attr "disabled", false
       do @renderInventoryPools
+      do @setupInventoryPool
       do @setupBookingCalendar
 
   renderInventoryPools: =>
@@ -90,6 +91,8 @@ class window.App.Borrow.BookingCalendarDialog extends Spine.Controller
   setupDates: =>
     @startDateEl.val @startDate
     @endDateEl.val @endDate
+
+  setupInventoryPool: => # virtual
 
   setupQuantity: => @quantityEl.val @quantity
 

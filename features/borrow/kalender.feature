@@ -40,8 +40,17 @@ Funktionalität: Kalender
     Wenn man einen in der Zeitspanne verfügbaren Gegenstand aus der Modellliste hinzufügt
     Dann öffnet sich der Kalender
     Und das Startdatum entspricht dem vorausgewählten Startdatum
-    Und das Enddatum entspricht dem vorausgewählten Enddatum 
-    
+    Und das Enddatum entspricht dem vorausgewählten Enddatum
+
+  @javascript
+  Szenario: Kalender Grundeinstellung wenn Geräteparks bereits ausgewählt sind
+    Angenommen man ist "Normin"
+    Und man befindet sich auf der Modellliste
+    Und man die Geräteparks begrenzt
+    Und man ein Modell welches über alle Geräteparks der begrenzten Liste beziehbar ist zur Bestellung hinzufügt
+    Dann öffnet sich der Kalender
+    Und es wird der alphabetisch erste Gerätepark ausgewählt der teil der begrenzten Geräteparks ist
+
   @javascript
   Szenario: Kalender Verfügbarkeitsanzeige
     Angenommen man ist "Normin"

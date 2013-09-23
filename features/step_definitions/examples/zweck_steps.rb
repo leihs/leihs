@@ -42,20 +42,20 @@ end
 Dann /^kann ich den Zweck editieren$/ do
   find(".button", :text => /(Edit Purpose|Zweck editieren)/).click
   @new_purpose_description = "Benötigt für die Sommer-Austellung"
-  wait_until{ find(".dialog #purpose") }.set @new_purpose_description
+  find(".dialog #purpose").set @new_purpose_description
   find(".dialog button[type=submit]").click
-  wait_until(15){ all(".dialog", :visible => true).empty? }
+  page.should_not have_selector(".dialog")
   @order.reload.lines.first.purpose.description.should == @new_purpose_description
-  find("section.purpose").should have_content @new_purpose_description 
+  find("section.purpose").should have_content @new_purpose_description
 end
 
 Dann /^kann ich einen Zweck hinzufügen$/ do
   step 'I click an inventory code input field of an item line'
   step 'I select one of those'
   find("#hand_over_button").click
-  wait_until { find(".dialog .purpose") }
+  page.should have_selector(".dialog .purpose")
   find(".purpose .button").click
-  find("#purpose")
+  page.should have_selector("#purpose")
 end
 
 Wenn /^keine der ausgewählten Gegenstände hat einen Zweck angegeben$/ do
@@ -65,20 +65,21 @@ end
 
 Dann /^werde ich beim Aushändigen darauf hingewiesen einen Zweck anzugeben$/ do
   find("#hand_over_button").click
-  wait_until{ find(".dialog .button") }
-  find(".purpose #purpose")
+  page.should have_selector(".dialog .button")
+  page.should have_selector(".purpose #purpose")
 end
 
 Dann /^erst wenn ich einen Zweck angebebe$/ do
   find(".dialog .button[type=submit]", :text => /(Hand Over|Aushändigen)/).click
-  wait_until { find(".notification") }
+  page.should have_selector(".notification")
   find(".dialog #purpose").set "The purpose for this hand over"
 end
 
 Dann /^kann ich die Aushändigung durchführen$/ do
   signed_contracts_size = @customer.contracts.signed.size
-  wait_until { find(".dialog .button[type=submit]", :text => /(Hand Over|Aushändigen)/) }
+  find(".dialog .button[type=submit]", :text => /(Hand Over|Aushändigen)/)
   step 'I click hand over inside the dialog'
+  sleep(0.88)
   @customer.contracts.signed.size.should > signed_contracts_size
 end
 
@@ -91,13 +92,13 @@ end
 
 Dann /^muss ich keinen Zweck angeben um die Aushändigung durchzuführen$/ do
   find("#hand_over_button").click
-  wait_until(15) { find(".dialog .button") }
+  page.should have_selector(".dialog .button")
   step 'kann ich die Aushändigung durchführen'
 end
 
 Wenn /^ich einen Zweck angebe$/ do
   find("#hand_over_button").click
-  wait_until{ find(".dialog .button") }
+  page.should have_selector(".dialog .button")
   find(".purpose .button").click
   @added_purpose = "Another Purpose"
   find("#purpose").set @added_purpose
@@ -121,9 +122,9 @@ Wenn /^alle der ausgewählten Gegenstände haben einen Zweck angegeben$/ do
     select.click unless select.selected?
   end
   find("#hand_over_button").click
-  wait_until { find(".dialog .purpose") }
+  page.should have_selector(".dialog .purpose")
 end
 
 Dann /^kann ich keinen weiteren Zweck angeben$/ do
-  all(".dialog .purpose button", :visible => true).size.should == 0
+  page.should_not have_selector(".dialog .purpose button", :visible => true)
 end

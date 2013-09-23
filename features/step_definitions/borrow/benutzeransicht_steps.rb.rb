@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 Wenn(/^ich auf meinen Namen klicke$/) do
-  find("nav.topbar ul.topbar-navigation a[href='/borrow/user']").click
+  first("nav.topbar ul.topbar-navigation a[href='/borrow/user']").click
 end
 
 Dann(/^gelange ich auf die Seite der Benutzerdaten$/) do
@@ -9,7 +9,7 @@ Dann(/^gelange ich auf die Seite der Benutzerdaten$/) do
 end
 
 Dann(/^werden mir meine Benutzerdaten angezeigt$/) do
-  find("nav ul li a", text: _("User data"))
+  first("nav ul li a", text: _("User data"))
 end
 
 Dann(/^die Benutzerdaten beinhalten$/) do |table|

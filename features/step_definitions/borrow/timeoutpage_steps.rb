@@ -3,8 +3,8 @@
 def resolve_conflict_for_model name
   # open booking calender for model
   @model = Model.find_by_name name
-  find(".line", :text => @model.name).find(".button", :text => _("Change entry")).click
-  find("#booking-calendar .fc-day-content")
+  first(".line", :text => @model.name).first(".button", :text => _("Change entry")).click
+  page.should have_selector("#booking-calendar .fc-day-content")
   find("#booking-calendar-quantity").set 1
 
   # find available start and end date
@@ -14,8 +14,9 @@ def resolve_conflict_for_model name
   end
   step "ich setze das Startdatum im Kalendar auf '#{I18n::l(init_date)}'"
   step "ich setze das Enddatum im Kalendar auf '#{I18n::l(init_date)}'"
-  find(".modal[role='dialog'] .button.green").click
-  wait_until {all("#booking-calendar").empty?}
+  first(".modal[role='dialog'] .button.green").click
+  step "ensure there are no active requests"
+  all("#booking-calendar").empty?.should be_true
 end
 
 Angenommen(/^ich zur Timeout Page mit einem Konfliktmodell weitergeleitet werde$/) do
@@ -53,14 +54,14 @@ end
 Dann(/^die nicht mehr verfügbaren Modelle sind hervorgehoben$/) do
   @current_user.get_current_order.lines.each do |line|
     unless line.available?
-      find("[data-line-ids*='#{line.id}']").find(:xpath, "./../../..").find(".line-info.red[title='#{_("Not available")}']")
+      first("[data-line-ids*='#{line.id}']").find(:xpath, "./../../..").find(".line-info.red[title='#{_("Not available")}']")
     end
   end
 end
 
 Dann(/^ich kann Einträge löschen$/) do
   all(".row.line").each do |x|
-    x.find("a", text: _("Delete"))
+    x.first("a", text: _("Delete"))
   end
 end
 
@@ -87,10 +88,10 @@ end
 #########################################################################
 
 Angenommen(/^ich lösche einen Eintrag$/) do
-  row = find(".row.line")
+  row = first(".row.line")
   @line_ids = row.find("button[data-line-ids]")["data-line-ids"].gsub(/\[|\]/, "").split(',').map(&:to_i)
   @line_ids.all? {|id| @current_user.get_current_order.lines.exists?(id) }.should be_true
-  row = find("a", text: _("Delete")).click
+  row = first("a", text: _("Delete")).click
 end
 
 Dann(/^wird der Eintrag aus der Bestellung gelöscht$/) do
@@ -171,11 +172,11 @@ end
 
 Wenn(/^ich einen der Fehler korrigiere$/) do
   @line_ids = @current_user.get_current_order.lines.select{|l| not l.available?}.map(&:id)
-  resolve_conflict_for_model find(".row.line[data-line-ids='[#{@line_ids.delete_at(0)}]']").find(".col6of10").text
+  resolve_conflict_for_model find(".row.line[data-line-ids='[#{@line_ids.delete_at(0)}]']").first(".col6of10").text
 end
 
 Wenn(/^ich alle Fehler korrigiere$/) do
-  @line_ids.each {|line_id| resolve_conflict_for_model find(".row.line[data-line-ids='[#{line_id}]']").find(".col6of10").text}
+  @line_ids.each {|line_id| resolve_conflict_for_model find(".row.line[data-line-ids='[#{line_id}]']").first(".col6of10").text}
 end
 
 Dann(/^verschwindet die Fehlermeldung$/) do

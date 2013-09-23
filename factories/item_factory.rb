@@ -1,7 +1,7 @@
 FactoryGirl.define do
 
   factory :item do
-    inventory_code { "#{Faker::Lorem.words(3).join.slice(0,3)}#{rand(9999)+1000}" }
+    inventory_code { "#{UUIDTools::UUID.random_create.to_s}" }
     serial_number { "#{Faker::Lorem.words(3).join.slice(0,3)}-#{rand(9999)+1000}#{Faker::Lorem.words(3).join.slice(0,2)}#{rand(9999)+1000}" }
     model { FactoryGirl.create :model }
     location { FactoryGirl.create :location }

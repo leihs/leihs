@@ -7,7 +7,7 @@ end
 
 Wenn(/^ich die Bestellübersicht öffne$/) do
   visit borrow_current_order_path
-  page.should have_content _("Order Overview")
+  page.should have_content _("Order overview")
   all(".line").count.should == @current_user.get_current_order.lines.count
 end
 
@@ -15,7 +15,7 @@ end
 
 Dann(/^sehe ich die Einträge gruppiert nach Startdatum und Gerätepark$/) do
   @current_user.get_current_order.lines.group_by{|l| [l.start_date, l.inventory_pool]}.each do |k,v|
-    find("*", text: I18n.l(k[0])).should have_content k[1].name
+    first("*", text: I18n.l(k[0])).should have_content k[1].name
   end
 end
 
@@ -32,7 +32,7 @@ Dann(/^für jeden Eintrag sehe ich die folgenden Informationen$/) do |table|
     table.raw.map{|e| e.first}.each do |row|
       case row
         when "Bild"
-          line.find("img")[:src][order_lines.first.model.id.to_s].should be
+          line.first("img")[:src][order_lines.first.model.id.to_s].should be
         when "Anzahl"
            line.should have_content order_lines.sum(&:quantity)
         when "Modellname"
@@ -44,7 +44,7 @@ Dann(/^für jeden Eintrag sehe ich die folgenden Informationen$/) do |table|
         when "Enddatum"
           line.should have_content I18n.l order_lines.first.end_date
         when "die versch. Aktionen"
-          line.find(".line-actions")
+          line.first(".line-actions")
         else
           raise "Unbekannt"
       end
@@ -63,10 +63,8 @@ def before_max_available(order)
 end
 
 Wenn(/^ich einen Eintrag lösche$/) do
-  lines = all(".line")
-  line = lines.sample
-  line.find(".dropdown-holder").click
-  wait_until{line.find("a[data-method='delete']")}
+  line = find(".line", :match => :first)
+  line.find(".dropdown-holder").hover
   @before_max_available = before_max_available(@current_user.get_current_order)
   line.find("a[data-method='delete']").click
   step "werde ich gefragt ob ich die Bestellung wirklich löschen möchte"
@@ -83,7 +81,7 @@ Wenn(/^ich die Bestellung lösche$/) do
 
   @before_max_available = before_max_available(@current_user.get_current_order)
 
-  a = find("a[data-method='delete'][href='/borrow/order/remove']")
+  a = first("a[data-method='delete'][href='/borrow/order/remove']")
   a.click
 end
 
@@ -117,11 +115,11 @@ end
 #############################################################################
 
 Wenn(/^ich einen Zweck eingebe$/) do
-  find("form textarea[name='purpose']").set Faker::Lorem.sentences 2
+  first("form textarea[name='purpose']").set Faker::Lorem.sentences(2).join()
 end
 
 Wenn(/^ich die Bestellung abschliesse$/) do
-  find("form button.green").click
+  first("form button.green").click
 end
 
 Dann(/^ändert sich der Status der Bestellung auf Abgeschickt$/) do
@@ -129,17 +127,17 @@ Dann(/^ändert sich der Status der Bestellung auf Abgeschickt$/) do
 end
 
 Dann(/^ich erhalte eine Bestellbestätigung$/) do
-  find(".notice")
+  first(".notice")
 end
 
 Dann(/^in der Bestellbestätigung wird mitgeteilt, dass die Bestellung in Kürze bearbeitet wird$/) do
-  find(".notice", text: _("Your order has been successfully submitted, but is NOT YET APPROVED."))
+  first(".notice", text: _("Your order has been successfully submitted, but is NOT YET APPROVED."))
 end
 
 #############################################################################
 
 Wenn(/^der Zweck nicht abgefüllt wird$/) do
-  find("form textarea[name='purpose']").set ""
+  first("form textarea[name='purpose']").set ""
 end
 
 Dann(/^hat der Benutzer keine Möglichkeit die Bestellung abzuschicken$/) do
@@ -165,14 +163,14 @@ Wenn(/^ich den Eintrag ändere$/) do
     if line_to_edit
       line_to_edit.click
     else
-      @changed_lines = OrderLine.find JSON.parse find("[data-change-order-lines]")["data-line-ids"]
-      find("[data-change-order-lines]").click
+      @changed_lines = OrderLine.find JSON.parse first("[data-change-order-lines]")["data-line-ids"]
+      first("[data-change-order-lines]").click
     end
   end
 end
 
 Dann(/^öffnet der Kalender$/) do
-  wait_until{find("#booking-calendar .fc-widget-content")}
+  first("#booking-calendar .fc-widget-content")
 end
 
 Dann(/^ich ändere die aktuellen Einstellung$/) do
@@ -186,22 +184,21 @@ Dann(/^ich ändere die aktuellen Einstellung$/) do
 end
 
 Dann(/^speichere die Einstellungen$/) do
-  find("#submit-booking-calendar").click
+  first("#submit-booking-calendar").click
 end
 
 Dann(/^wird der Eintrag gemäss aktuellen Einstellungen geändert$/) do
   step "ensure there are no active requests"
-  wait_until{all(".loading").empty?}
   if @new_date
-    wait_until{@changed_lines.first.reload.start_date == @new_date}
-    wait_until{find("*", :text => I18n.l(@new_date))}
+    @changed_lines.first.reload.start_date.should == @new_date
+    first("*", :text => I18n.l(@new_date))
   end
   if @new_quantity
     @changed_lines.first.order.lines.where(model_id: @changed_lines.first.model_id,
                                            start_date: @changed_lines.first.start_date,
                                            end_date: @changed_lines.first.end_date,
                                            inventory_pool_id: @changed_lines.first.inventory_pool_id).sum(:quantity).should == @new_quantity
-    @just_changed_line = find("[data-quantity='#{@new_quantity}'][data-model-id='#{@changed_lines.first.model_id}'][data-start-date='#{@changed_lines.first.start_date}'][data-end-date='#{@changed_lines.first.end_date}']")
+    @just_changed_line = first("[data-quantity='#{@new_quantity}'][data-model-id='#{@changed_lines.first.model_id}'][data-start-date='#{@changed_lines.first.start_date}'][data-end-date='#{@changed_lines.first.end_date}']")
   end
 end
 
@@ -211,5 +208,5 @@ Dann(/^der Eintrag wird in der Liste anhand der des aktuellen Startdatums und de
 end
 
 Dann(/^sehe ich die Zeitinformationen in folgendem Format "(.*?)"$/) do |format|
-  find("#timeout-countdown-time", :text => Regexp.new(format.gsub("mm", "\\d+").gsub("ss", "\\d+")))
+  first("#timeout-countdown-time", :text => Regexp.new(format.gsub("mm", "\\d+").gsub("ss", "\\d+")))
 end

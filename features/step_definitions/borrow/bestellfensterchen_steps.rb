@@ -18,7 +18,7 @@ end
 
 Dann(/^erscheint es im Bestellfensterchen$/) do
   visit borrow_root_path
-  find("#current-order-basket")
+  first("#current-order-basket")
 end
 
 Dann(/^die Modelle im Bestellfensterchen sind alphabetisch sortiert$/) do
@@ -39,12 +39,12 @@ Wenn(/^das gleiche Modell nochmals hinzugefügt wird$/) do
 end
 
 Dann(/^wird die Anzahl dieses Modells erhöht$/) do
-  line = find("#current-order-basket #current-order-lines .line[title='#{@new_order_line.model.name}']")
-  line.find("span").text.should == "2x #{@new_order_line.model.name}"
+  line = first("#current-order-basket #current-order-lines .line[title='#{@new_order_line.model.name}']")
+  line.first("span").text.should == "2x #{@new_order_line.model.name}"
 end
 
 Dann(/^ich kann zur detaillierten Bestellübersicht gelangen$/) do
-  find("#current-order-basket .button.green", text: _("Order overview"))
+  first("#current-order-basket .button.green", text: _("Order overview"))
 end
 
 Wenn(/^ich mit dem Kalender ein Modell der Bestellung hinzufüge$/) do
@@ -57,7 +57,7 @@ end
 Dann(/^wird das Bestellfensterchen aktualisiert$/) do
   step 'ist das Modell mit Start- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügt worden'
   step "erscheint es im Bestellfensterchen"
-  find("#current-order-basket #current-order-lines .line[title='#{@model.name}']", :text => "#{@quantity}x #{@model.name}")
+  first("#current-order-basket #current-order-lines .line[title='#{@model.name}']", :text => "#{@quantity}x #{@model.name}")
 end
 
 Angenommen(/^meine Bestellung ist leer$/) do
@@ -70,23 +70,23 @@ end
 
 Dann(/^sehe ich die Zeitanzeige$/) do
   visit root_path
-  all("#current-order-basket #timeout-countdown", :visible => true).empty?.should be_false
+  page.should have_selector("#current-order-basket #timeout-countdown", :visible => true)
   sleep(2)
   @timeoutStart = @current_user.get_current_order.created_at
-  @countdown = find("#timeout-countdown-time").text
+  @countdown = first("#timeout-countdown-time").text
 end
 
 Dann(/^die Zeitanzeige ist in einer Schaltfläche im Reiter "Bestellung" auf der rechten Seite$/) do
-  find("#current-order-basket .navigation-tab-item #timeout-countdown #timeout-countdown-time")
+  first("#current-order-basket .navigation-tab-item #timeout-countdown #timeout-countdown-time")
 end
 
 Dann(/^die Zeitanzeige zählt von (\d+) Minuten herunter$/) do |timeout_minutes|
-  @countdown = find("#timeout-countdown-time").text
+  @countdown = first("#timeout-countdown-time").text
   minutes = @countdown.split(":")[0].to_i
   seconds = @countdown.split(":")[1].to_i
   expect(minutes >= (Order::TIMEOUT_MINUTES - 1)).to be_true
   sleep(2)
-  expect(seconds > find("#timeout-countdown-time").reload.text.split(":")[1].to_i).to be_true
+  expect(seconds > first("#timeout-countdown-time").reload.text.split(":")[1].to_i).to be_true
 end
 
 Angenommen(/^die Bestellung ist nicht leer$/) do
@@ -94,14 +94,14 @@ Angenommen(/^die Bestellung ist nicht leer$/) do
 end
 
 Wenn(/^ich den Time-Out zurücksetze$/) do
-  @countdown = find("#timeout-countdown-time").text
-  find("#timeout-countdown-refresh").click
+  @countdown = first("#timeout-countdown-time").text
+  first("#timeout-countdown-refresh").click
 end
 
 Dann(/^wird die Zeit zurückgesetzt$/) do
   seconds = @countdown.split(":")[1].to_i
   sleep(2)
-  secondsNow = find("#timeout-countdown-time").reload.text.split(":")[1].to_i
+  secondsNow = first("#timeout-countdown-time").reload.text.split(":")[1].to_i
   expect(seconds <= secondsNow).to be_true
 end
 
@@ -113,10 +113,9 @@ Wenn(/^die Zeit abgelaufen ist$/) do
 end
 
 Dann(/^werde ich auf die Timeout Page weitergeleitet$/) do
-  wait_until {page.should have_content  _("%d minutes passed. The items are not reserved for you any more!") % Order::TIMEOUT_MINUTES}
+  step "ich sehe eine Information, dass die Geräte nicht mehr reserviert sind"
   current_path.should == borrow_order_timed_out_path
 end
-
 Wenn(/^die Zeit überschritten ist$/) do
   past_date = Time.now - (Order::TIMEOUT_MINUTES + 1).minutes
   @current_user.get_current_order.update_attribute :updated_at, past_date

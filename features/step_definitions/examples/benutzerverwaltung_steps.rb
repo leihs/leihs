@@ -58,17 +58,14 @@ end
 
 Dann /^man kann filtern nach den folgenden Eigenschaften: gesperrt$/ do
   step 'man kann filtern nach "%s" Rolle' % _("Customer")
-  wait_until { all(".loading", :visible => true).empty? }
 
   find("[ng-model='suspended']").click
-  wait_until { all(".loading", :visible => true).empty? }
   @inventory_pool.suspended_users.customers.paginate(page: 1, per_page: 20).each do |user|
     page.should have_content(user.name)
   end
   page.should have_content _("List of Users")
 
   find("[ng-model='suspended']").click
-  wait_until { all(".loading", :visible => true).empty? }
   @inventory_pool.users.customers.paginate(page: 1, per_page: 20).each do |user|
     page.should have_content(user.name)
   end
@@ -89,7 +86,6 @@ Dann /^man kann filtern nach den folgenden Rollen:$/ do |table|
             else
               User.scoped
             end.paginate(page:1, per_page: 20)
-    wait_until { all(".loading", :visible => true).empty? }
     users.each do |user|
       page.should have_content(user.name)
     end
@@ -99,9 +95,7 @@ end
 
 Dann /^man kann für jeden Benutzer die Editieransicht aufrufen$/ do
   step 'man kann filtern nach "%s" Rolle' % "All"
-  el = find(".list ul.user")
-  page.execute_script '$(":hidden").show();'
-  el.find(".actions .button .icon.user")
+  find(".list ul.user .actions .button .icon.user", visible: false)
 end
 
 Dann /^man kann einen neuen Benutzer erstellen$/ do
@@ -133,7 +127,7 @@ Dann /^sofern der Benutzer gesperrt ist, kann man die Sperrung aufheben$/ do
   visit edit_backend_inventory_pool_user_path(@inventory_pool, @customer)
   find("[ng-model='user.access_right.suspended_until']").set("")
   find(".content_navigation > button.green").click
-  wait_until { find(".button.white", :text => _("New User")) }
+  find(".button.white", :text => _("New User"))
   current_path.should == backend_inventory_pool_users_path(@inventory_pool)
   @inventory_pool.suspended_users.find_by_id(@customer.id).should be_nil
   @inventory_pool.users.find_by_id(@customer.id).should_not be_nil
@@ -169,7 +163,7 @@ Dann /^sieht man folgende Informationen in folgender Reihenfolge:$/ do |table|
       when "Rolle"
         ".role"
       when "Sperr-Status 'Gesperrt bis dd.mm.yyyy'"
-        @el.find(".suspended_status", text: "Gesperrt bis\n%s" % (Date.today + 1.year).strftime("%d.%m.%Y"))
+        @el.find(".suspended_status", text: "Gesperrt bis %s" % (Date.today + 1.year).strftime("%d.%m.%Y"))
         ".suspended_status"
     end
   end
@@ -525,7 +519,7 @@ Wenn(/^man in der Benutzeransicht ist$/) do
 end
 
 Wenn(/^man einen Benutzer hinzufügt$/) do
-  link = wait_until { find "a", text: _("New User")}
+  link = find "a", text: _("New User")
   link.click
 end
 
@@ -547,13 +541,14 @@ end
 Wenn(/^man wählt ein Sperrdatum und ein Sperrgrund$/) do
   find(".field", text: _("Suspended until")).find("input").set (Date.today + 1).strftime("%d.%m.%Y")
   find(".ui-datepicker-current-day").click
-  suspended_reason = wait_until { find(".field", text: _("Suspended reason")).find("textarea") }
+  suspended_reason = find(".field", text: _("Suspended reason")).find("textarea")
   suspended_reason.set "test"
 end
 
 Wenn(/^man teilt mehrere Gruppen zu$/) do
   @current_inventory_pool.groups.each do |group|
     find(".field", :text => _("Groups")).find(".autocomplete").click
+    page.should have_selector(".ui-autocomplete .ui-menu-item a")
     find(".ui-autocomplete .ui-menu-item a", :text => group.name).click
   end
 end
@@ -563,7 +558,7 @@ Wenn(/^man speichert$/) do
 end
 
 Dann(/^ist der Benutzer mit all den Informationen gespeichert$/) do
-  wait_until { find_link _("New User") }
+  find_link _("New User")
   user = User.find_by_lastname "test"
   user.should_not be_nil
   user.access_right_for(@current_inventory_pool).role_name.should eq @role_hash[:role]
@@ -625,8 +620,8 @@ Dann(/^er hat keine Zugriffe auf Inventarpools und ist kein Administrator$/) do
 end
 
 Dann(/^man sieht eine Bestätigungsmeldung$/) do
-  wait_until { find ".pagination_container" }
-  page.should have_selector ".success"
+  page.should have_selector(".success")
+  page.should have_selector(".pagination_container", visible: false)
 end
 
 Angenommen(/^man befindet sich auf der Editierseite eines Benutzers, der kein Administrator ist$/) do
@@ -721,12 +716,12 @@ Dann(/^hat der Benutzer die Rolle Kunde$/) do
 end
 
 Dann(/^hat der Benutzer die Rolle Ausleihe-Verwalter$/) do
-  wait_until { find_link _("New User") }
+  find_link _("New User")
   @user.reload.access_right_for(@current_inventory_pool).role_name.should == "lending_manager"
 end
 
 Dann(/^hat der Benutzer die Rolle Inventar-Verwalter$/) do
-  wait_until { find_link _("New User") }
+  find_link _("New User")
   @user.reload.access_right_for(@current_inventory_pool).role_name.should == "inventory_manager"
 end
 
@@ -735,15 +730,13 @@ Angenommen(/^man sucht sich einen Benutzer ohne Zugriffsrechte, Bestellungen und
 end
 
 Wenn(/^ich diesen Benutzer aus der Liste lösche$/) do
-  #find_field('query').set @model.name
-  #wait_until { all("li.modelname").first.text == @model.name }
-  wait_until { find(".line.user") }
+  page.should have_selector(".line.user")
   page.execute_script("$('.trigger .arrow').trigger('mouseover');")
-  wait_until {find(".line.user", text: @user.name).find(".button", text: _("Delete %s") % _("User"))}.click
+  find(".line.user", text: @user.name).find(".button", text: _("Delete %s") % _("User")).click
 end
 
 Dann(/^wurde der Benutzer aus der Liste gelöscht$/) do
-  page.should_not have_content @user.name
+  page.should_not have_selector(".line.user", text: @user.name)
 end
 
 Dann(/^der Benutzer ist gelöscht$/) do
@@ -765,7 +758,7 @@ end
 Dann(/^wird der Delete Button für diese Benutzer nicht angezeigt$/) do
   @users.each do |user|
     find('.innercontent .search input').set user.name
-    wait_until { find(".line.user", text: user.name) }
+    find(".line.user", text: user.name)
     page.execute_script("$('.trigger .arrow').trigger('mouseover');")
     find(".line.user", text: user.name).text.should_not match /#{_("Delete %s") % _("User")}/
   end
@@ -793,24 +786,24 @@ Wenn(/^man den Zugriff entfernt$/) do
 end
 
 Dann(/^hat der Benutzer keinen Zugriff auf das Inventarpool$/) do
-  wait_until { find_link _("New User") }
+  find_link _("New User")
   @user.reload.access_right_for(@current_inventory_pool).should be_nil
 end
 
 Dann(/^sind die Benutzer nach ihrem Vornamen alphabetisch sortiert$/) do
-  wait_until { find ".line.user" }
+  find ".line.user", match: :first
 
   if current_path == backend_users_path
-    all("li.user_name").map(&:text).map{|t| t.split("\n").second}
+    all("li.user_name").map(&:text).map{|t| t.split(" ").take(2).join(" ")}
   else
     all("li.user_name").map(&:text)
   end.should == User.scoped.order(:firstname).paginate(page:1, per_page: 20).map(&:name)
 end
 
 Und(/^man gibt die Login-Daten ein$/) do
-  find(".field", text: _("Login")).find("input").set "username"
-  find(".field", text: _("Password")).find("input").set "password"
-  find(".field", text: _("Password Confirmation")).find("input").set "password"
+  first(".field", text: _("Login")).find("input").set "username"
+  first(".field", text: _("Password")).find("input").set "password"
+  first(".field", text: _("Password Confirmation")).find("input").set "password"
 end
 
 Angenommen(/^man editiert einen Benutzer der kein Zugriff auf das aktuelle Inventarpool hat$/) do

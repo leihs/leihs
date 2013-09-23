@@ -1,8 +1,8 @@
 When /^I change a contract lines end date$/ do
   visit @contract
   @line = @contract.lines.first
-  find(".line", :text => @line.model.name).find(".trigger").click
-  find(".line", :text => @line.model.name).find(".button", :text => "Edit").click
+  first(".line", :text => @line.model.name).first(".trigger").click
+  first(".line", :text => @line.model.name).first(".button", :text => "Edit").click
   @old_end_date = @line.end_date
   @new_end_date = @old_end_date + 1.day
   @new_end_date_element = get_fullcalendar_day_element(@new_end_date)

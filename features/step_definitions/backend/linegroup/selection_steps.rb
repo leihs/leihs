@@ -17,28 +17,28 @@ When /^I open a take back, hand over or I edit an order$/ do
 end
 
 When /^I select all lines of an linegroup$/ do
-  @linegroup = find(".linegroup")
+  @linegroup = find(".linegroup", match: :first)
   @linegroup.all(".line").each do |line|
-    line.find("input[type=checkbox]").click
+    line.first("input[type=checkbox]").click
   end
 end
 
 Then /^the linegroup is selected$/ do
-  @linegroup.find(".select_group").checked?.should == true
+  @linegroup.first(".select_group").checked?.should be_true
 end
 
 Then /^the count matches the amount of selected lines$/ do
-  count = find("#selection_actions .count").text.gsub(/[()]/, "").to_i
+  count = first("#selection_actions .count").text.gsub(/[()]/, "").to_i
   page.evaluate_script(%Q{ $(".line input:checked").length }).should == count
 end
 
 When /^I select the linegroup$/ do
-  @linegroup = find(".linegroup")
-  @linegroup.find(".dates input").click
+  @linegroup = find(".linegroup", match: :first)
+  @linegroup.first(".dates input").click
 end
 
 Then /^all lines of that linegroup are selected$/ do
   @linegroup.all(".line").each do |line|
-    line.find(".select input[type=checkbox]").checked?.should == true
+    line.first(".select input[type=checkbox]").checked?.should be_true
   end
 end

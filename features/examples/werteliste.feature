@@ -28,13 +28,12 @@ Funktionalität: Werteliste
     | Laufende Nummer |
     | Inventarcode    |
     | Modellname      |
-    | Start Datum     |
     | End Datum       |
     | Anzahl          |
     | Wert            |
     Und die Modelle in der Werteliste sind alphabetisch sortiert
 
-  @javascript  
+  @javascript
   Szenario: Totale Werte
     Dann gibt es eine Zeile für die totalen Werte
      Und diese summierte die Spalten:

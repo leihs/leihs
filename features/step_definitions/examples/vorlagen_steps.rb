@@ -31,7 +31,7 @@ Dann(/^öffnet sich die Seite zur Erstellung einer neuen Vorlage$/) do
 end
 
 Wenn(/^ich den Namen der Vorlage eingebe$/) do
-  find(".field", text: _("Name")).find("input").set "test"
+  first(".field", text: _("Name")).first("input").set "test"
 end
 
 Wenn(/^ich Modelle hinzufüge$/) do
@@ -40,16 +40,16 @@ Wenn(/^ich Modelle hinzufüge$/) do
 end
 
 Dann(/^steht bei jedem Modell die höchst mögliche ausleihbare Anzahl der Gegenstände für dieses Modell$/) do
-  find(".field-inline-entry .capacity").text.should match /\/\s#{@changed_model.items.borrowable.size}/
+  first(".field-inline-entry .capacity").text.should match /\/\s#{@changed_model.items.borrowable.size}/
 end
 
 Dann(/^für jedes hinzugefügte Modell ist die Mindestanzahl (\d+)$/) do |n|
-  find(".field-inline-entry .capacity input").value.should == n
+  first(".field-inline-entry .capacity input").value.should == n
 end
 
 Wenn(/^ich zu jedem Modell die Anzahl angebe$/) do
   @new_value = 2
-  find(".field-inline-entry .capacity input").set @new_value
+  first(".field-inline-entry .capacity input").set @new_value
 end
 
 Wenn(/^ich speichere die Vorlage$/) do
@@ -81,7 +81,7 @@ Angenommen(/^es existiert eine Vorlage mit mindestens zwei Modellen$/) do
 end
 
 Wenn(/^ich auf den Button "Vorlage bearbeiten" klicke$/) do
-  find(".line", text: @template.name).click_link _("Edit %s") % _("Template")
+  first(".line", text: @template.name).click_link _("Edit %s") % _("Template")
 end
 
 Dann(/^öffnet sich die Seite zur Bearbeitung einer existierenden Vorlage$/) do
@@ -90,7 +90,7 @@ end
 
 Wenn(/^ich den Namen ändere$/) do
   @new_name = "new name"
-  find(".field", text: _("Name")).find("input").set @new_name
+  first(".field", text: _("Name")).first("input").set @new_name
 end
 
 Wenn(/^ich ein zusätzliches Modell hinzufüge$/) do
@@ -102,13 +102,13 @@ end
 
 Wenn(/^ein Modell aus der Liste lösche$/) do
   @removed_model = Model.find_by_name all(".field-inline-entry > span").last.text
-  find(".field-inline-entry", text: @removed_model.name).find(".remove").click
+  first(".field-inline-entry", text: @removed_model.name).first(".remove").click
 end
 
 Wenn(/^die Anzahl bei einem der Modell ändere$/) do
   @changed_model = Model.find_by_name all(".field-inline-entry > span").first.text
-  @new_value = find(".field-inline-entry", text: @changed_model.name).find("input").value.to_i + 1
-  find(".field-inline-entry", text: @changed_model.name).find("input").set @new_value
+  @new_value = first(".field-inline-entry", text: @changed_model.name).first("input").value.to_i + 1
+  first(".field-inline-entry", text: @changed_model.name).first("input").set @new_value
 end
 
 Wenn(/^ich speichere die bearbeitete Vorlage$/) do
@@ -126,7 +126,7 @@ end
 Dann(/^kann ich beliebige Vorlage direkt aus der Liste löschen$/) do
   @template = @current_inventory_pool.templates.first
   page.execute_script("$('.trigger .arrow').trigger('mouseover');")
-  find(".line", text: @template.name).find(".button", text: _("Delete %s") % _("Template")).click
+  first(".line", text: @template.name).first(".button", text: _("Delete %s") % _("Template")).click
 end
 
 Dann(/^es wird mir dabei vorher eine Warnung angezeigt$/) do
@@ -152,20 +152,20 @@ Angenommen(/^ich befinde mich auf der Erstellungsansicht einer Vorlage$/) do
 end
 
 Wenn(/^der Name nicht ausgefüllt ist$/) do
-  find(".field", text: _("Name")).find("input").set ""
-  find(".field", text: _("Name")).find("input").value.should be_empty
+  first(".field", text: _("Name")).first("input").set ""
+  first(".field", text: _("Name")).first("input").value.should be_empty
 end
 
 Wenn(/^ich den Namen einer bereits existierenden Vorlage eingebe$/) do
-  find(".field", text: _("Name")).find("input").set @current_inventory_pool.templates.first.name
+  first(".field", text: _("Name")).first("input").set @current_inventory_pool.templates.first.name
 end
 
 Wenn(/^ich den Name ausgefüllt habe$/) do
-  find(".field", text: _("Name")).find("input").set "test"
+  first(".field", text: _("Name")).first("input").set "test"
 end
 
 Wenn(/^kein Modell hinzugefügt habe$/) do
-  all(".field-inline-entry").each {|e| e.find(".remove").click}
+  all(".field-inline-entry").each {|e| e.first(".remove").click}
 end
 
 Angenommen(/^ich befinde mich auf der Editieransicht einer Vorlage$/) do
@@ -183,25 +183,25 @@ Angenommen(/^ich habe den Namen der Vorlage eingegeben$/) do
 end
 
 Wenn(/^ich bei einem Modell eine Anzahl eingebe, welche höher ist als die höchst mögliche ausleihbare Anzahl der Gegenstände für dieses Modell$/) do
-  max = find(".field-inline-entry", text: @changed_model.name).find(".capacity").text.gsub(/\D/, "").to_i
+  max = first(".field-inline-entry", text: @changed_model.name).first(".capacity").text.gsub(/\D/, "").to_i
   @new_value = max + 1
-  find(".field-inline-entry", text: @changed_model.name).find(".capacity input[name='template[model_links_attributes][][quantity]']").set @new_value
+  first(".field-inline-entry", text: @changed_model.name).first(".capacity input[name='template[model_links_attributes][][quantity]']").set @new_value
 end
 
 Dann(/^die Vorlage ist in der Liste (nicht )?als unerfüllbar markiert$/) do |n|
   if n
-    find(".line", text: @template.name)[:class].split.include?("error").should be_false
+    first(".line", text: @template.name)[:class].split.include?("error").should be_false
   else
-    find(".line", text: @template.name)[:class].split.include?("error").should be_true
+    first(".line", text: @template.name)[:class].split.include?("error").should be_true
   end
 end
 
 Wenn(/^ich die gleiche Vorlage bearbeite$/) do
-  find(".line", text: @template.name).click_link _("Edit %s") % _("Template")
+  first(".line", text: @template.name).click_link _("Edit %s") % _("Template")
 end
 
 Wenn(/^ich die korrekte Anzahl angebe$/) do
-  max = find(".field-inline-entry", text: @changed_model.name).find(".capacity").text.gsub(/\D/, "").to_i
+  max = first(".field-inline-entry", text: @changed_model.name).first(".capacity").text.gsub(/\D/, "").to_i
   @new_value = max
-  find(".field-inline-entry", text: @changed_model.name).find(".capacity input[name='template[model_links_attributes][][quantity]']").set @new_value
+  first(".field-inline-entry", text: @changed_model.name).first(".capacity input[name='template[model_links_attributes][][quantity]']").set @new_value
 end

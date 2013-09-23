@@ -16,9 +16,10 @@ Wenn /^ich Eigenschaften hinzufügen und die Felder mit den Platzhaltern Schlüs
 end
 
 Wenn /^ich die Eigenschaft "(.*?)" "(.*?)" hinzufüge$/ do |k,v|
+  page.has_selector? ".top", text: /(#{_("Create %s") % _("Model")}|#{_("Edit %s") % _("Model")})/
   find("#add-property").click
-  find("[ng-model='property.key'][placeholder='#{_("Key")}']").set k
-  find("[ng-model='property.value'][placeholder='#{_("Value")}']").set v
+  find("[ng-model='property.key'][placeholder='#{_("Key")}']", match: :first).set k
+  find("[ng-model='property.value'][placeholder='#{_("Value")}']", match: :first).set v
 end
 
 Wenn /^ich die Eigenschaften sortiere$/ do
@@ -27,9 +28,9 @@ Wenn /^ich die Eigenschaften sortiere$/ do
 end
 
 Dann /^sind die Eigenschaften gemäss Sortierreihenfolge für dieses Modell gespeichert$/ do
-  wait_until { page.evaluate_script("$.active") == 0 }
-  wait_until { all(".line").size > 0 }
-  wait_until{ not Model.last.properties.empty? }
+  page.has_selector? ".line"
+  all(".line").size.should > 0
+  Model.last.properties.empty?.should be_false
   Model.last.properties.each_with_index do |property, i|
     property.key.should == @properties[i][:key]
     property.value.should == @properties[i][:value]
@@ -37,8 +38,8 @@ Dann /^sind die Eigenschaften gemäss Sortierreihenfolge für dieses Modell gesp
 end
 
 Dann /^sind die Eigenschaften gemäss Sortierreihenfolge für das geänderte Modell gespeichert$/ do
-  wait_until { page.evaluate_script("$.active") == 0 }
-  wait_until { all(".line").size > 0 }
+  page.has_selector? ".line"
+  all(".line").size.should > 0
   @model = @model.reload
   @model.properties.size.should == @properties.size
   @model.properties.each_with_index do |property, i|
@@ -50,6 +51,7 @@ end
 Angenommen /^ich editiere ein Modell$/ do
   step 'man öffnet die Liste der Modelle'
   step 'ich ein bestehendes Modell bearbeite'
+  page.has_selector? ".top", text: _("Edit %s") % _("Model")
 end
 
 Angenommen /^ich editiere ein Modell welches bereits Eigenschaften hat$/ do
@@ -58,11 +60,11 @@ Angenommen /^ich editiere ein Modell welches bereits Eigenschaften hat$/ do
 end
 
 Wenn /^ich bestehende Eigenschaften ändere$/ do
-  find("[ng-model='property.key']").set "Anschluss"
-  find("[ng-model='property.value']").set "USB"
+  first("[ng-model='property.key']").set "Anschluss"
+  first("[ng-model='property.value']").set "USB"
 end
 
 Wenn /^ich eine oder mehrere bestehende Eigenschaften lösche$/ do
-  find(".properties .clickable").click
+  find(".properties .clickable", match: :first).click
   @properties = all(".properties li:not(.tobedeleted)").map{|li| {:key => li.find("input[ng-model='property.key']").value, :value => li.find("input[ng-model='property.value']").value}}
 end

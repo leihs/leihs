@@ -106,7 +106,6 @@ Funktionalität: Gegenstand erstellen
     | Rechnungsnummer              |              | Test Nummer                   |
     | Rechnungsdatum               |              | 01.01.2013                    |
     | Anschaffungswert             |              | 50.0                          |
-    | Lieferant                    | autocomplete | Keine/r                       |
     | Garantieablaufdatum          |              | 01.01.2013                    |
     | Vertragsablaufdatum          |              | 01.01.2013                    |
 
@@ -178,3 +177,17 @@ Funktionalität: Gegenstand erstellen
     | Musikinstrumente      |
     | Facility Management   |
     | IC-Technik/Software   |
+
+  @javascript
+  Szenario: Neuen Lieferanten erstellen falls nicht vorhanden
+    Angenommen ich bin Mike
+    Und ich befinde mich auf der Erstellungsseite eines Gegenstandes
+    Und jedes Pflichtfeld ist gesetzt
+      | Modell        |
+      | Inventarcode  |
+      | Projektnummer |
+      | Anschaffungskategorie |
+    Wenn ich einen nicht existierenen Lieferanten angebe
+    Und ich erstellen druecke
+    Dann wird der neue Lieferant erstellt
+    Und bei dem erstellten Gegestand ist der neue Lieferant eingetragen

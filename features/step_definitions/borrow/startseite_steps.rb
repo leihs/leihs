@@ -8,7 +8,7 @@ Dann(/^sieht man genau die für den User bestimmte Haupt\-Kategorien mit Bild un
   @main_categories = @current_user.all_categories.select {|c| c.parents.empty?}
   categories_counter = 0
   @main_categories.each do |mc|
-    find("a", text: mc.name)
+    first("a", text: mc.name)
     categories_counter += 1
   end
   categories_counter.should eq @main_categories.count
@@ -16,7 +16,7 @@ end
 
 Wenn(/^man eine Hauptkategorie auswählt$/) do
   @main_category = @current_user.categories.select {|c| c.parents.empty?}.sample
-  find("[data-category_id='#{@main_category.id}'] a").click
+  first("[data-category_id='#{@main_category.id}'] a").click
 end
 
 Und(/^man sieht die Überschrift "(.*?)"$/) do |arg1|
@@ -36,12 +36,12 @@ Dann(/^sehe ich nur die Kinder dieser Hauptkategorie, die dem User zur Verfügun
   second_level_categories = @main_category.children
   visible_2nd_level_categories = (Category.with_borrowable_models_for_user(@current_user) & @main_category.children)
   @second_level_category = visible_2nd_level_categories.first
-  wait_until {find "a", text: @second_level_category.name}
+  first("a", text: @second_level_category.name)
 
   visible_2nd_level_categories_count = 0
-  within find("*[data-category_id] .padding-inset-s", text: @main_category.name).find(:xpath, "../..").find(".dropdown-holder") do
+  within first("*[data-category_id] .padding-inset-s", text: @main_category.name).first(:xpath, "../..").first(".dropdown-holder") do
     visible_2nd_level_categories.each do |c|
-      find(".dropdown a", text: c.name)
+      first(".dropdown a", text: c.name)
       visible_2nd_level_categories_count += 1
     end
   end
@@ -68,5 +68,5 @@ Angenommen(/^es gibt eine Hauptkategorie, derer Kinderkategorien keine dem User 
 end
 
 Dann(/^hat diese Hauptkategorie keine Kinderkategorie\-Dropdown$/) do
-  find(".row.emboss.focus-hover", text: @main_category.name).should_not have_selector ".dropdown-holder"
+  first(".row.emboss.focus-hover", text: @main_category.name).should_not have_selector ".dropdown-holder"
 end
