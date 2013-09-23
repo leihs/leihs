@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 
 Angenommen /^man öffnet eine Werteliste$/ do
-  step 'man öffnet einen Vertrag'
-  first(".tab", :text=> /(Value List|Werteverzeichnis)/).click
+  step 'man öffnet einen Vertrag bei der Aushändigung'
+  find(".tab", :text=> /(Value List|Werteverzeichnis)/, match: :first).click
   @value_list_element = first(".value_list")
 end
 
@@ -39,12 +39,6 @@ Dann /^beinhaltet die Werte\-Liste folgende Spalten:$/ do |table|
         @contract.lines.each {|line| @list.first("tr", :text=> line.item.inventory_code).first(".inventory_code") }
       when "Modellname"
         @contract.lines.each {|line| @list.first("tr", :text=> line.item.inventory_code).first(".model_name").should have_content line.model.name }
-      when "Start Datum"
-        @contract.lines.each {|line| 
-          @list.first("tr", :text=> line.item.inventory_code).first(".start_date").should have_content line.start_date.year
-          @list.first("tr", :text=> line.item.inventory_code).first(".start_date").should have_content line.start_date.month
-          @list.first("tr", :text=> line.item.inventory_code).first(".start_date").should have_content line.start_date.day
-        }
       when "End Datum"
         @contract.lines.each {|line| 
           @list.first("tr", :text=> line.item.inventory_code).first(".end_date").should have_content line.end_date.year
