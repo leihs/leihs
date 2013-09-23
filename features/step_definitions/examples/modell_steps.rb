@@ -13,7 +13,7 @@ Wenn(/^ich ein ergänzendes Modell mittel Autocomplete Feld hinzufüge$/) do
 end
 
 Dann(/^ist dem Modell das ergänzende Modell hinzugefügt worden$/) do
-  page.should have_content _("List of Models")
+  find(".top", match: :prefer_exact, text: _("List of Models"))
   @model.compatibles.size.should be 2
   @model.compatibles.any? {|m| m.name == @comp1.name}.should be_true
   @model.compatibles.any? {|m| m.name == @comp2.name}.should be_true
@@ -30,7 +30,7 @@ Wenn(/^ich ein ergänzendes Modell entferne$/) do
 end
 
 Dann(/^ist das Modell ohne das gelöschte ergänzende Modell gespeichert$/) do
-  page.should have_content _("List of Models")
+  find(".top", match: :prefer_exact, text: _("List of Models"))
   @model.reload.compatibles.should be_empty
 end
 
@@ -44,7 +44,7 @@ Dann(/^wurde das redundante Modell nicht hizugefügt$/) do
 end
 
 Dann(/^wurde das redundante ergänzende Modell nicht gespeichert$/) do
-  page.should have_content _("List of Models")
+  find(".top", match: :prefer_exact, text: _("List of Models"))
   comp_before = @model.compatibles
   comp_before.count.should == @model.reload.compatibles.count
 end
@@ -99,9 +99,8 @@ end
 
 Dann(/^kann ich das Modell aus der Liste nicht löschen$/) do
   sleep(0.88)
-  find(".top", match: :first, text: _("List of Inventory"))
   visit backend_inventory_pool_models_path(@current_inventory_pool)
-  find_field('query').set @model.name
+  fill_in 'query', with: @model.name
   find("li.modelname", match: :prefer_exact, text: @model.name)
   find(".trigger .arrow", match: :first).hover
   find(".line.toggler.model", match: :prefer_exact, text: @model.name).should_not have_content(_("Delete %s") % _("Model"))
@@ -154,7 +153,7 @@ Wenn(/^neue Zuteilungen hinzufügen$/) do
 end
 
 Dann(/^sind die geänderten Gruppenzuteilungen gespeichert$/) do
-  page.should have_content _("List of Models")
+  find(".top", match: :prefer_exact, text: _("List of Models"))
   model_group_ids = @model.reload.partitions.map(&:group_id)
   model_group_ids.sort.should == @groups.map(&:id)
 end

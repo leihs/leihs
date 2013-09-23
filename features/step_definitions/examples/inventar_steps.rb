@@ -3,7 +3,7 @@
 Angenommen /^man öffnet die Liste des Inventars$/ do
   @current_inventory_pool = @current_user.managed_inventory_pools.first
   visit backend_inventory_pool_inventory_path(@current_inventory_pool)
-  page.should have_selector(".line:not(.navigation)")
+  page.has_selector?(".line:not(.navigation)")
 end
 
 Wenn /^man die Liste des Inventars öffnet$/ do
@@ -542,7 +542,7 @@ Wenn /^ich Zubehör hinzufüge und falls notwendig die Anzahl des Zubehör ins T
 end
 
 Dann /^ist das Zubehör dem Modell hinzugefügt worden$/ do
-  page.should have_content _("List of Models")
+  find(".top", match: :prefer_exact, text: _("List of Models"))
   @model.accessories.reload.where(:name => @new_accessory_name).should_not be_nil
 end
 
@@ -551,7 +551,7 @@ Dann /^kann ich ein einzelnes Zubehör löschen, wenn es für keinen anderen Poo
   find(".field", :text => _("Accessories")).find(".field-inline-entry", :text => accessory_to_delete.name).find("label", :text => _("Delete")).click
   step 'ich speichere die Informationen'
   step 'ensure there are no active requests'
-  page.should have_content _("List of Models")
+  find(".top", match: :prefer_exact, text: _("List of Models"))
   lambda{accessory_to_delete.reload}.should raise_error(ActiveRecord::RecordNotFound)
 end
 
@@ -561,7 +561,7 @@ Dann /^kann ich ein einzelnes Zubehör für meinen Pool deaktivieren$/ do
   sleep(0.88)
   find(".field", :text => _("Accessories")).find(".field-inline-entry", :text => accessory_to_deactivate.name).find("input").click
   step 'ich speichere die Informationen'
-  page.should have_content _("List of Models")
+  find(".top", match: :prefer_exact, text: _("List of Models"))
   lambda {@current_inventory_pool.accessories.reload.find(accessory_to_deactivate)}.should raise_error(ActiveRecord::RecordNotFound)
 end
 
@@ -594,7 +594,7 @@ end
 Und /^ich speichere das Modell mit Bilder$/ do
   @model_name_from_url = get_rails_model_name_from_url
   step 'I press "%s"' % (_("Save %s") % _("#{@model_name_from_url.capitalize}"))
-  page.should have_content _("List of Models")
+  find(".top", match: :prefer_exact, text: _("List of Models"))
 end
 
 Angenommen /^ich erstelle ein neues Modell oder ich ändere ein bestehendes Modell$/ do
