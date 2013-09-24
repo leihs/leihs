@@ -19,6 +19,7 @@ When /^I assign an item to the hand over by providing an inventory code and a da
   line_amount_before = all(".line").size
   assigned_amount_before = all(".line.assigned").size
   find("#process_helper .button").click
+  has_selector? ".line"
   line_amount_before.should == all(".line").size
   assigned_amount_before.should < all(".line.assigned").size
 end
