@@ -14,9 +14,9 @@ Wenn(/^ich im Admin\-Bereich unter dem Reiter Geräteparks einen neuen Gerätepa
 end
 
 Wenn(/^ich Name und Kurzname und Email eingebe$/) do
-  first(".field", text: _("Name")).first("input").set "test"
-  first(".field", text: _("Short Name")).first("input").set "test"
-  first(".field", text: _("E-Mail")).first("input").set "test@test.ch"
+  find(".field", text: _("Name"), match: :first).first("input").set "test"
+  find(".field", text: _("Short Name"), match: :first).first("input").set "test"
+  find(".field", text: _("E-Mail"), match: :first).first("input").set "test@test.ch"
 end
 
 Wenn(/^ich speichere$/) do
@@ -75,7 +75,8 @@ Wenn(/^ich im Admin\-Bereich unter dem Reiter Geräteparks einen bestehenden Ger
 end
 
 Wenn(/^der Gerätepark wurde aus der Liste gelöscht$/) do
-  page.has_no_selector? "ul.line", text: @ip.name
+  step "ensure there are no active requests"
+  page.has_no_text? @ip.name
 end
 
 Wenn(/^der Gerätepark wurde aus der Datenbank gelöscht$/) do
