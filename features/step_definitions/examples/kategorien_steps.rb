@@ -9,7 +9,7 @@ Wenn /^man das Register Kategorien wählt$/ do
 end
 
 Und /^man eine neue Kategorie erstellt$/ do
-  first("a", text: _("Create %s") % _("Category")).click
+  find("a", text: _("Create %s") % _("Category"), match: :first).click
 end
 
 Und /^man gibt man den Namen der Kategorie ein$/ do
