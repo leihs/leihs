@@ -14,7 +14,7 @@ end
 
 Und /^man gibt man den Namen der Kategorie ein$/ do
   @new_category_name = "Neue Kategorie"
-  first(".field.text input").set @new_category_name
+  find(".field.text input", match: :first).set @new_category_name
 end
 
 Und /^man gibt die Elternelemente und die dazugehörigen Bezeichnungen ein$/ do
