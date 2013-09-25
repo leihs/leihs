@@ -465,7 +465,6 @@ Dann /^die Daten wurden entsprechend aktualisiert$/ do
   end
 
   click_link("%s" % _("Cancel"))
-  step 'ensure there are no active requests'
   current_path.should eq @page_to_return
 end
 
