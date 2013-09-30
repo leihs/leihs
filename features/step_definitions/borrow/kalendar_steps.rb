@@ -129,17 +129,15 @@ end
 Angenommen(/^man hat eine Zeitspanne ausgewählt$/) do
   find("#start-date").click
   find("#start-date").set I18n.l(Date.today + 1)
-  find(".ui-datepicker-current-day").click
   find("#end-date").click
   find("#end-date").set I18n.l(Date.today + 2)
-  find(".ui-datepicker-current-day").click
 end
 
 Wenn(/^man einen in der Zeitspanne verfügbaren Gegenstand aus der Modellliste hinzufügt$/) do
   step "ensure there are no active requests"
-  @model_name = first(".line:not(.grayed-out) .line-col.col3of6").text
+  @model_name = find(".line:not(.grayed-out) .line-col.col3of6", match: :first).text
   @model = Model.find_by_name(@model_name)
-  first(".line .button").click
+  find(".line .button", match: :first).click
 end
 
 Dann(/^das Startdatum entspricht dem vorausgewählten Startdatum$/) do
