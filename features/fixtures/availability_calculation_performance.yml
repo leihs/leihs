@@ -4191,7 +4191,7 @@
   attributes: 
     created_at: 2010-02-02 09:36:32
     updated_at: 2010-02-02 09:36:32
-    status_const: "2"
+    status: signed
     id: "4472"
     user_id: "2473"
     note:
@@ -4202,7 +4202,7 @@
   attributes: 
     created_at: 2010-02-02 09:50:32
     updated_at: 2010-04-22 11:10:44
-    status_const: "2"
+    status: signed
     id: "4474"
     user_id: "174"
     note:
@@ -4213,7 +4213,7 @@
   attributes: 
     created_at: 2010-02-02 15:15:18
     updated_at: 2010-02-02 15:15:18
-    status_const: "2"
+    status: signed
     id: "4493"
     user_id: "1436"
     note:
@@ -4224,7 +4224,7 @@
   attributes: 
     created_at: 2010-02-05 08:34:03
     updated_at: 2010-02-05 08:34:03
-    status_const: "2"
+    status: signed
     id: "4535"
     user_id: "2500"
     note:
@@ -4235,7 +4235,7 @@
   attributes: 
     created_at: 2010-02-05 11:08:26
     updated_at: 2010-02-05 11:08:26
-    status_const: "2"
+    status: signed
     id: "4544"
     user_id: "2123"
     note:
@@ -4246,7 +4246,7 @@
   attributes: 
     created_at: 2010-02-09 11:21:32
     updated_at: 2010-10-21 13:36:49
-    status_const: "2"
+    status: signed
     id: "4587"
     user_id: "134"
     note:
@@ -4257,7 +4257,7 @@
   attributes: 
     created_at: 2010-02-16 17:57:45
     updated_at: 2010-02-16 17:57:45
-    status_const: "2"
+    status: signed
     id: "4734"
     user_id: "2530"
     note:
@@ -4268,7 +4268,7 @@
   attributes: 
     created_at: 2010-02-19 13:32:30
     updated_at: 2010-02-19 13:32:30
-    status_const: "2"
+    status: signed
     id: "4794"
     user_id: "2536"
     note:
@@ -4279,7 +4279,7 @@
   attributes: 
     created_at: 2010-02-22 15:15:55
     updated_at: 2010-02-22 15:15:55
-    status_const: "2"
+    status: signed
     id: "4822"
     user_id: "1545"
     note:
@@ -4290,7 +4290,7 @@
   attributes: 
     created_at: 2010-03-05 15:25:56
     updated_at: 2010-03-05 15:25:56
-    status_const: "2"
+    status: signed
     id: "5140"
     user_id: "564"
     note:
@@ -4301,7 +4301,7 @@
   attributes: 
     created_at: 2010-03-10 15:30:22
     updated_at: 2010-03-10 15:30:22
-    status_const: "2"
+    status: signed
     id: "5232"
     user_id: "864"
     note:
@@ -4312,7 +4312,7 @@
   attributes: 
     created_at: 2010-03-10 15:32:18
     updated_at: 2010-03-10 15:32:18
-    status_const: "2"
+    status: signed
     id: "5234"
     user_id: "2576"
     note:
@@ -4323,7 +4323,7 @@
   attributes: 
     created_at: 2010-03-11 10:39:12
     updated_at: 2010-03-11 10:39:12
-    status_const: "2"
+    status: signed
     id: "5255"
     user_id: "2579"
     note:
@@ -4334,7 +4334,7 @@
   attributes: 
     created_at: 2010-03-11 13:56:54
     updated_at: 2010-03-11 13:56:54
-    status_const: "2"
+    status: signed
     id: "5273"
     user_id: "1496"
     note:
@@ -4345,7 +4345,7 @@
   attributes: 
     created_at: 2010-03-24 08:23:16
     updated_at: 2010-03-24 08:23:16
-    status_const: "2"
+    status: signed
     id: "5537"
     user_id: "2608"
     note:
@@ -4356,7 +4356,7 @@
   attributes: 
     created_at: 2010-04-06 13:28:11
     updated_at: 2010-04-06 13:28:11
-    status_const: "2"
+    status: signed
     id: "5809"
     user_id: "535"
     note:
@@ -4367,7 +4367,7 @@
   attributes: 
     created_at: 2010-04-08 14:12:51
     updated_at: 2010-04-08 14:12:51
-    status_const: "2"
+    status: signed
     id: "5912"
     user_id: "2631"
     note:
@@ -4378,7 +4378,7 @@
   attributes: 
     created_at: 2010-04-14 11:16:15
     updated_at: 2010-04-14 11:16:15
-    status_const: "2"
+    status: signed
     id: "6050"
     user_id: "1608"
     note:
@@ -4389,7 +4389,7 @@
   attributes: 
     created_at: 2010-04-16 13:10:10
     updated_at: 2010-04-20 14:00:21
-    status_const: "2"
+    status: signed
     id: "6146"
     user_id: "1806"
     note:
@@ -4400,7 +4400,7 @@
   attributes: 
     created_at: 2010-04-21 08:57:13
     updated_at: 2010-04-21 08:57:13
-    status_const: "2"
+    status: signed
     id: "5999"
     user_id: "2513"
     note:
@@ -4411,7 +4411,7 @@
   attributes: 
     created_at: 2010-04-21 17:03:52
     updated_at: 2010-04-21 17:03:52
-    status_const: "2"
+    status: signed
     id: "6267"
     user_id: "2667"
     note:
@@ -4422,7 +4422,7 @@
   attributes: 
     created_at: 2010-04-23 06:36:44
     updated_at: 2010-04-23 06:36:44
-    status_const: "2"
+    status: signed
     id: "6328"
     user_id: "2668"
     note:
@@ -4433,7 +4433,7 @@
   attributes: 
     created_at: 2010-04-26 11:05:22
     updated_at: 2010-04-26 11:05:22
-    status_const: "2"
+    status: signed
     id: "6349"
     user_id: "1227"
     note:
@@ -4444,7 +4444,7 @@
   attributes: 
     created_at: 2010-04-28 14:46:45
     updated_at: 2010-04-28 14:46:45
-    status_const: "2"
+    status: signed
     id: "6391"
     user_id: "2678"
     note:
@@ -4455,7 +4455,7 @@
   attributes: 
     created_at: 2010-04-29 09:09:03
     updated_at: 2010-04-29 09:09:03
-    status_const: "2"
+    status: signed
     id: "5256"
     user_id: "2579"
     note:
@@ -4466,7 +4466,7 @@
   attributes: 
     created_at: 2010-05-03 10:40:04
     updated_at: 2010-05-03 10:40:04
-    status_const: "2"
+    status: signed
     id: "6428"
     user_id: "682"
     note:
@@ -4477,7 +4477,7 @@
   attributes: 
     created_at: 2010-05-03 13:04:24
     updated_at: 2010-05-03 13:04:24
-    status_const: "2"
+    status: signed
     id: "6434"
     user_id: "2684"
     note:
@@ -4488,7 +4488,7 @@
   attributes: 
     created_at: 2010-05-06 09:04:58
     updated_at: 2010-05-06 09:04:58
-    status_const: "2"
+    status: signed
     id: "6466"
     user_id: "1687"
     note:
@@ -4499,7 +4499,7 @@
   attributes: 
     created_at: 2010-05-18 09:39:28
     updated_at: 2010-05-18 09:39:28
-    status_const: "2"
+    status: signed
     id: "6624"
     user_id: "2713"
     note:
@@ -4510,7 +4510,7 @@
   attributes: 
     created_at: 2010-05-19 07:32:44
     updated_at: 2010-05-19 07:32:44
-    status_const: "2"
+    status: signed
     id: "6640"
     user_id: "14"
     note:
@@ -4521,7 +4521,7 @@
   attributes: 
     created_at: 2010-05-20 17:28:09
     updated_at: 2010-05-20 17:28:09
-    status_const: "2"
+    status: signed
     id: "3727"
     user_id: "1574"
     note:
@@ -4532,7 +4532,7 @@
   attributes: 
     created_at: 2010-05-28 16:36:46
     updated_at: 2010-05-28 16:36:46
-    status_const: "2"
+    status: signed
     id: "6893"
     user_id: "2741"
     note:
@@ -4543,7 +4543,7 @@
   attributes: 
     created_at: 2010-05-31 15:22:48
     updated_at: 2010-05-31 15:22:48
-    status_const: "2"
+    status: signed
     id: "6921"
     user_id: "602"
     note:
@@ -4554,7 +4554,7 @@
   attributes: 
     created_at: 2010-06-02 14:35:08
     updated_at: 2010-06-02 14:35:08
-    status_const: "2"
+    status: signed
     id: "6964"
     user_id: "2749"
     note:
@@ -4565,7 +4565,7 @@
   attributes: 
     created_at: 2010-06-04 08:34:50
     updated_at: 2010-11-04 08:23:52
-    status_const: "2"
+    status: signed
     id: "6993"
     user_id: "1231"
     note:
@@ -4576,7 +4576,7 @@
   attributes: 
     created_at: 2010-06-04 12:41:23
     updated_at: 2010-06-04 12:41:23
-    status_const: "2"
+    status: signed
     id: "7003"
     user_id: "2115"
     note:
@@ -4587,7 +4587,7 @@
   attributes: 
     created_at: 2010-06-08 14:45:08
     updated_at: 2010-06-08 14:45:08
-    status_const: "2"
+    status: signed
     id: "7056"
     user_id: "1971"
     note:
@@ -4598,7 +4598,7 @@
   attributes: 
     created_at: 2010-06-08 15:08:27
     updated_at: 2010-06-08 15:08:27
-    status_const: "2"
+    status: signed
     id: "7057"
     user_id: "2015"
     note:
@@ -4609,7 +4609,7 @@
   attributes: 
     created_at: 2010-06-08 15:26:15
     updated_at: 2010-06-08 15:26:15
-    status_const: "2"
+    status: signed
     id: "7058"
     user_id: "553"
     note:
@@ -4620,7 +4620,7 @@
   attributes: 
     created_at: 2010-06-08 15:27:21
     updated_at: 2010-08-23 09:53:00
-    status_const: "2"
+    status: signed
     id: "7059"
     user_id: "147"
     note:
@@ -4631,7 +4631,7 @@
   attributes: 
     created_at: 2010-06-08 15:44:26
     updated_at: 2010-06-11 12:15:45
-    status_const: "2"
+    status: signed
     id: "4529"
     user_id: "92"
     note:
@@ -4642,7 +4642,7 @@
   attributes: 
     created_at: 2010-06-11 12:30:11
     updated_at: 2010-06-11 12:30:11
-    status_const: "2"
+    status: signed
     id: "7127"
     user_id: "1572"
     note:
@@ -4653,7 +4653,7 @@
   attributes: 
     created_at: 2010-06-15 08:22:38
     updated_at: 2010-06-15 08:22:38
-    status_const: "2"
+    status: signed
     id: "7146"
     user_id: "3881"
     note:
@@ -4664,7 +4664,7 @@
   attributes: 
     created_at: 2010-06-17 09:45:27
     updated_at: 2010-06-17 09:45:27
-    status_const: "2"
+    status: signed
     id: "7184"
     user_id: "1047"
     note:
@@ -4675,7 +4675,7 @@
   attributes: 
     created_at: 2010-06-21 07:32:42
     updated_at: 2010-06-21 07:32:42
-    status_const: "2"
+    status: signed
     id: "7210"
     user_id: "369"
     note:
@@ -4686,7 +4686,7 @@
   attributes: 
     created_at: 2010-06-21 12:18:38
     updated_at: 2010-06-21 12:18:38
-    status_const: "2"
+    status: signed
     id: "7217"
     user_id: "2536"
     note:
@@ -4697,7 +4697,7 @@
   attributes: 
     created_at: 2010-06-23 08:16:54
     updated_at: 2010-06-23 08:16:54
-    status_const: "2"
+    status: signed
     id: "7236"
     user_id: "897"
     note:
@@ -4708,7 +4708,7 @@
   attributes: 
     created_at: 2010-06-23 09:30:18
     updated_at: 2010-12-14 11:42:09
-    status_const: "2"
+    status: signed
     id: "7237"
     user_id: "2706"
     note:
@@ -4719,7 +4719,7 @@
   attributes: 
     created_at: 2010-07-01 09:12:59
     updated_at: 2010-07-01 09:12:59
-    status_const: "2"
+    status: signed
     id: "6211"
     user_id: "731"
     note:
@@ -4730,7 +4730,7 @@
   attributes: 
     created_at: 2010-07-05 13:45:55
     updated_at: 2010-07-05 13:45:55
-    status_const: "2"
+    status: signed
     id: "7343"
     user_id: "3846"
     note:
@@ -4741,7 +4741,7 @@
   attributes: 
     created_at: 2010-07-06 14:58:50
     updated_at: 2010-07-06 14:58:50
-    status_const: "2"
+    status: signed
     id: "7359"
     user_id: "3862"
     note:
@@ -4752,7 +4752,7 @@
   attributes: 
     created_at: 2010-07-08 08:09:21
     updated_at: 2010-07-08 08:09:21
-    status_const: "2"
+    status: signed
     id: "4064"
     user_id: "25"
     note:
@@ -4763,7 +4763,7 @@
   attributes: 
     created_at: 2010-07-08 09:30:06
     updated_at: 2010-07-08 09:30:06
-    status_const: "2"
+    status: signed
     id: "7366"
     user_id: "417"
     note:
@@ -4774,7 +4774,7 @@
   attributes: 
     created_at: 2010-07-08 10:37:37
     updated_at: 2010-10-29 10:38:21
-    status_const: "2"
+    status: signed
     id: "7367"
     user_id: "3900"
     note:
@@ -4785,7 +4785,7 @@
   attributes: 
     created_at: 2010-07-26 09:45:50
     updated_at: 2010-07-26 09:45:50
-    status_const: "2"
+    status: signed
     id: "7477"
     user_id: "3907"
     note:
@@ -4796,7 +4796,7 @@
   attributes: 
     created_at: 2010-07-29 13:18:08
     updated_at: 2010-07-29 13:18:08
-    status_const: "2"
+    status: signed
     id: "7435"
     user_id: "823"
     note:
@@ -4807,7 +4807,7 @@
   attributes: 
     created_at: 2010-08-04 14:28:59
     updated_at: 2010-08-04 14:28:59
-    status_const: "2"
+    status: signed
     id: "7504"
     user_id: "486"
     note:
@@ -4818,7 +4818,7 @@
   attributes: 
     created_at: 2010-08-04 14:44:11
     updated_at: 2010-08-04 14:44:11
-    status_const: "2"
+    status: signed
     id: "7506"
     user_id: "91"
     note:
@@ -4829,7 +4829,7 @@
   attributes: 
     created_at: 2010-08-05 10:26:06
     updated_at: 2010-08-05 10:26:06
-    status_const: "2"
+    status: signed
     id: "7509"
     user_id: "317"
     note:
@@ -4840,7 +4840,7 @@
   attributes: 
     created_at: 2010-08-13 13:39:35
     updated_at: 2010-08-13 13:39:35
-    status_const: "2"
+    status: signed
     id: "7528"
     user_id: "3927"
     note:
@@ -4851,7 +4851,7 @@
   attributes: 
     created_at: 2010-08-24 08:47:34
     updated_at: 2010-10-28 11:45:32
-    status_const: "2"
+    status: signed
     id: "7614"
     user_id: "3912"
     note:
@@ -4862,7 +4862,7 @@
   attributes: 
     created_at: 2010-08-24 14:00:57
     updated_at: 2010-09-03 07:03:52
-    status_const: "2"
+    status: signed
     id: "7622"
     user_id: "320"
     note:
@@ -4873,7 +4873,7 @@
   attributes: 
     created_at: 2010-08-24 14:41:02
     updated_at: 2010-08-24 14:41:02
-    status_const: "2"
+    status: signed
     id: "7624"
     user_id: "1403"
     note:
@@ -4884,7 +4884,7 @@
   attributes: 
     created_at: 2010-08-25 10:47:26
     updated_at: 2010-08-25 10:47:26
-    status_const: "2"
+    status: signed
     id: "7638"
     user_id: "3903"
     note:
@@ -4895,7 +4895,7 @@
   attributes: 
     created_at: 2010-08-25 14:14:27
     updated_at: 2010-08-25 14:14:27
-    status_const: "2"
+    status: signed
     id: "7646"
     user_id: "413"
     note:
@@ -4906,7 +4906,7 @@
   attributes: 
     created_at: 2010-08-26 09:20:30
     updated_at: 2010-08-26 09:20:30
-    status_const: "2"
+    status: signed
     id: "7648"
     user_id: "540"
     note:
@@ -4917,7 +4917,7 @@
   attributes: 
     created_at: 2010-08-30 08:27:42
     updated_at: 2010-08-30 08:27:42
-    status_const: "2"
+    status: signed
     id: "7672"
     user_id: "2628"
     note:
@@ -4928,7 +4928,7 @@
   attributes: 
     created_at: 2010-08-30 09:19:24
     updated_at: 2010-10-01 09:16:08
-    status_const: "2"
+    status: signed
     id: "7673"
     user_id: "641"
     note:
@@ -4939,7 +4939,7 @@
   attributes: 
     created_at: 2010-08-31 13:24:15
     updated_at: 2010-08-31 13:24:15
-    status_const: "2"
+    status: signed
     id: "5838"
     user_id: "1149"
     note:
@@ -4950,7 +4950,7 @@
   attributes: 
     created_at: 2010-09-06 09:32:52
     updated_at: 2010-09-06 09:32:52
-    status_const: "2"
+    status: signed
     id: "5259"
     user_id: "1620"
     note:
@@ -4961,7 +4961,7 @@
   attributes: 
     created_at: 2010-09-02 10:18:29
     updated_at: 2010-09-02 10:18:29
-    status_const: "2"
+    status: signed
     id: "7717"
     user_id: "3962"
     note:
@@ -4972,7 +4972,7 @@
   attributes: 
     created_at: 2010-09-02 10:23:38
     updated_at: 2010-09-02 10:23:38
-    status_const: "2"
+    status: signed
     id: "7718"
     user_id: "3963"
     note:
@@ -4983,7 +4983,7 @@
   attributes: 
     created_at: 2010-09-02 10:33:26
     updated_at: 2010-09-02 10:33:26
-    status_const: "2"
+    status: signed
     id: "7719"
     user_id: "1006"
     note:
@@ -4994,7 +4994,7 @@
   attributes: 
     created_at: 2010-09-03 09:41:53
     updated_at: 2010-09-03 09:41:53
-    status_const: "2"
+    status: signed
     id: "7733"
     user_id: "12"
     note:
@@ -5005,7 +5005,7 @@
   attributes: 
     created_at: 2010-09-16 09:38:45
     updated_at: 2010-09-16 09:38:45
-    status_const: "2"
+    status: signed
     id: "7803"
     user_id: "2984"
     note:
@@ -5016,7 +5016,7 @@
   attributes: 
     created_at: 2010-09-08 11:46:53
     updated_at: 2010-09-08 11:46:53
-    status_const: "2"
+    status: signed
     id: "7837"
     user_id: "73"
     note:
@@ -5027,7 +5027,7 @@
   attributes: 
     created_at: 2010-09-16 09:37:16
     updated_at: 2010-09-16 09:37:16
-    status_const: "2"
+    status: signed
     id: "8031"
     user_id: "739"
     note:
@@ -5038,7 +5038,7 @@
   attributes: 
     created_at: 2010-09-20 13:39:49
     updated_at: 2010-09-20 13:39:50
-    status_const: "2"
+    status: signed
     id: "8129"
     user_id: "2101"
     note:
@@ -5049,7 +5049,7 @@
   attributes: 
     created_at: 2010-09-22 11:03:47
     updated_at: 2010-09-22 11:03:47
-    status_const: "2"
+    status: signed
     id: "8199"
     user_id: "2897"
     note:
@@ -5060,7 +5060,7 @@
   attributes: 
     created_at: 2010-09-24 08:15:45
     updated_at: 2010-09-24 08:15:45
-    status_const: "2"
+    status: signed
     id: "8307"
     user_id: "1130"
     note:
@@ -5071,7 +5071,7 @@
   attributes: 
     created_at: 2010-10-04 11:52:42
     updated_at: 2010-10-04 11:52:42
-    status_const: "2"
+    status: signed
     id: "8663"
     user_id: "2673"
     note:
@@ -5082,7 +5082,7 @@
   attributes: 
     created_at: 2010-10-08 15:13:14
     updated_at: 2010-10-08 15:13:14
-    status_const: "2"
+    status: signed
     id: "8889"
     user_id: "4191"
     note:
@@ -5093,7 +5093,7 @@
   attributes: 
     created_at: 2010-10-12 15:01:21
     updated_at: 2010-10-21 11:36:26
-    status_const: "2"
+    status: signed
     id: "8985"
     user_id: "4199"
     note:
@@ -5104,7 +5104,7 @@
   attributes: 
     created_at: 2010-10-19 16:20:47
     updated_at: 2010-10-19 16:20:47
-    status_const: "2"
+    status: signed
     id: "9259"
     user_id: "748"
     note:
@@ -5115,7 +5115,7 @@
   attributes: 
     created_at: 2010-10-21 15:19:34
     updated_at: 2010-10-21 15:19:34
-    status_const: "2"
+    status: signed
     id: "9379"
     user_id: "4263"
     note:
@@ -5126,7 +5126,7 @@
   attributes: 
     created_at: 2010-10-21 15:28:31
     updated_at: 2010-10-21 15:28:31
-    status_const: "2"
+    status: signed
     id: "9381"
     user_id: "3983"
     note:
@@ -5137,7 +5137,7 @@
   attributes: 
     created_at: 2010-11-04 12:14:51
     updated_at: 2010-11-04 12:14:51
-    status_const: "2"
+    status: signed
     id: "9963"
     user_id: "3061"
     note:
@@ -5148,7 +5148,7 @@
   attributes: 
     created_at: 2010-11-08 08:01:06
     updated_at: 2010-11-08 08:01:06
-    status_const: "2"
+    status: signed
     id: "9993"
     user_id: "862"
     note:
@@ -5159,7 +5159,7 @@
   attributes: 
     created_at: 2010-11-08 14:57:33
     updated_at: 2010-11-08 14:57:33
-    status_const: "2"
+    status: signed
     id: "10101"
     user_id: "476"
     note:
@@ -5170,7 +5170,7 @@
   attributes: 
     created_at: 2010-11-12 12:12:48
     updated_at: 2010-11-12 12:12:48
-    status_const: "2"
+    status: signed
     id: "10351"
     user_id: "1403"
     note:
@@ -5181,7 +5181,7 @@
   attributes: 
     created_at: 2010-11-12 15:42:28
     updated_at: 2010-11-12 15:42:28
-    status_const: "2"
+    status: signed
     id: "10369"
     user_id: "117"
     note:
@@ -5192,7 +5192,7 @@
   attributes: 
     created_at: 2010-11-18 13:40:26
     updated_at: 2010-11-18 13:40:26
-    status_const: "2"
+    status: signed
     id: "10639"
     user_id: "354"
     note:
@@ -5203,7 +5203,7 @@
   attributes: 
     created_at: 2010-11-18 14:47:07
     updated_at: 2010-11-18 14:47:07
-    status_const: "2"
+    status: signed
     id: "10655"
     user_id: "1059"
     note:
@@ -5214,7 +5214,7 @@
   attributes: 
     created_at: 2010-11-23 14:26:31
     updated_at: 2010-11-23 14:26:31
-    status_const: "2"
+    status: signed
     id: "10871"
     user_id: "2061"
     note:
@@ -5225,7 +5225,7 @@
   attributes: 
     created_at: 2010-12-03 15:16:33
     updated_at: 2010-12-03 15:16:33
-    status_const: "2"
+    status: signed
     id: "11391"
     user_id: "3866"
     note:
@@ -5236,7 +5236,7 @@
   attributes: 
     created_at: 2010-12-08 14:41:47
     updated_at: 2010-12-08 14:41:47
-    status_const: "2"
+    status: signed
     id: "11619"
     user_id: "4593"
     note:
@@ -5247,7 +5247,7 @@
   attributes: 
     created_at: 2010-12-14 14:57:33
     updated_at: 2010-12-14 14:57:33
-    status_const: "2"
+    status: signed
     id: "11879"
     user_id: "1669"
     note:
@@ -5258,7 +5258,7 @@
   attributes: 
     created_at: 2010-12-15 12:31:19
     updated_at: 2010-12-15 12:31:19
-    status_const: "2"
+    status: signed
     id: "11967"
     user_id: "2308"
     note:
@@ -5269,7 +5269,7 @@
   attributes: 
     created_at: 2010-12-16 10:55:09
     updated_at: 2010-12-16 10:55:09
-    status_const: "2"
+    status: signed
     id: "12001"
     user_id: "1502"
     note:
@@ -5280,7 +5280,7 @@
   attributes: 
     created_at: 2010-12-17 12:52:43
     updated_at: 2010-12-17 12:52:43
-    status_const: "2"
+    status: signed
     id: "12067"
     user_id: "3897"
     note:
@@ -5291,7 +5291,7 @@
   attributes: 
     created_at: 2010-12-20 12:26:50
     updated_at: 2010-12-20 12:26:50
-    status_const: "2"
+    status: signed
     id: "12133"
     user_id: "2526"
     note:
@@ -5302,7 +5302,7 @@
   attributes: 
     created_at: 2011-01-10 09:26:46
     updated_at: 2011-01-10 09:26:46
-    status_const: "2"
+    status: signed
     id: "12505"
     user_id: "176"
     note:
@@ -5313,7 +5313,7 @@
   attributes: 
     created_at: 2009-01-27 11:46:32
     updated_at: 2010-04-20 14:03:36
-    status_const: "2"
+    status: signed
     id: "902"
     user_id: "731"
     note:

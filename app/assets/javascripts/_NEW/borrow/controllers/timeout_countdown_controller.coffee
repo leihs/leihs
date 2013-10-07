@@ -5,7 +5,7 @@ class window.App.Borrow.TimeoutCountdownController extends Spine.Controller
 
   constructor: (options)->
     super
-    @countdown = new App.TimeoutCountdown(App.Order.TIMEOUT_MINUTES)
+    @countdown = new App.TimeoutCountdown(App.Contract.TIMEOUT_MINUTES)
     do @validateStart
     do @delegateEvents
 
@@ -13,7 +13,7 @@ class window.App.Borrow.TimeoutCountdownController extends Spine.Controller
     $(@countdown).on "timeUpdated", => do @renderTime
     $(@countdown).on "timeout", => do @timeout
     @refreshTarget.on "click", => do @refreshTime
-    App.Order.on "refresh", =>
+    App.Contract.on "refresh", =>
       do @validateStart      
       do @refreshTime
     
@@ -25,7 +25,8 @@ class window.App.Borrow.TimeoutCountdownController extends Spine.Controller
   timeout: => document.location = "/borrow/order/timed_out"
 
   validateStart: =>
-    if App.Order.current.lines().all().length != 0
+    all_lines = _.flatten(_.map App.Contract.currents, (c)-> c.lines().all())
+    if all_lines.length != 0
       do @countdown.start
       do @renderTime
       @el.removeClass "hidden"

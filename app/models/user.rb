@@ -6,15 +6,15 @@ class User < ActiveRecord::Base
 
   belongs_to :authentication_system
   belongs_to :language
-  
+
   has_many :access_rights, :include => :role, :conditions => "access_rights.deleted_at IS NULL", :dependent => :restrict
   has_many :deleted_access_rights, :class_name => "AccessRight", :include => :role, :conditions => 'deleted_at IS NOT NULL'
   has_many :all_access_rights, :class_name => "AccessRight", :dependent => :delete_all, :include => :role
-  
+
   has_many :inventory_pools, :through => :access_rights, :uniq => true
   has_many :active_inventory_pools, :through => :access_rights, :uniq => true, :source => :inventory_pool, :conditions => "(access_rights.suspended_until IS NULL OR access_rights.suspended_until < CURDATE())"
   has_many :suspended_inventory_pools, :through => :access_rights, :uniq => true, :source => :inventory_pool, :conditions => "access_rights.suspended_until IS NOT NULL AND access_rights.suspended_until >= CURDATE()"
-  
+
   has_many :items, :through => :inventory_pools, :uniq => true
   has_many :models, :through => :inventory_pools, :uniq => true do
 
@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   end
 
   def start_screen(path = nil)
-    if path 
+    if path
       self.settings[:start_screen] = path
       return self.save
     else
@@ -59,14 +59,10 @@ class User < ActiveRecord::Base
   end
 
   has_many :notifications, :dependent => :delete_all
-  
-  has_many :orders, :dependent => :restrict
-  has_one  :current_order, :class_name => "Order", :conditions => { :status_const => Contract::UNSIGNED }
 
   has_many :contracts, dependent: :restrict
   has_many :contract_lines, :through => :contracts, :uniq => true
   has_many :contract_lines_taken_back, :class_name => "ContractLine", :foreign_key => :returned_to_user_id
-  has_many :current_contracts, :class_name => "Contract", :conditions => { :status_const => Contract::UNSIGNED }
   has_many :visits #, :include => :inventory_pool # MySQL View based on contract_lines
 
   validates_presence_of     :lastname, :firstname, :email, :login
@@ -82,10 +78,6 @@ class User < ActiveRecord::Base
       all + [Group::GENERAL_GROUP_ID]
     end
   end
-#tmp#1402  
-#  def group_ids_including_general
-#    group_ids + [Group::GENERAL_GROUP_ID]
-#  end
 
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
@@ -153,7 +145,7 @@ class User < ActiveRecord::Base
 
 ################################################
 
-  # NOTE working for User.customers but not working for InventoryPool.first.users.customers, use InventoryPool.first.customers instead  
+  # NOTE working for User.customers but not working for InventoryPool.first.users.customers, use InventoryPool.first.customers instead
   scope :admins, select("DISTINCT users.*").
                   joins("LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id").
                   where(['roles.name = ? AND deleted_at IS NULL', 'admin'])
@@ -183,11 +175,11 @@ class User < ActiveRecord::Base
   def name
     "#{firstname} #{lastname}"
   end
-  
+
   def documents
-    orders + contracts
+    contracts
   end
-  
+
 ################################################
 
   def alternative_email
@@ -204,31 +196,26 @@ class User < ActiveRecord::Base
       Setting::USER_IMAGE_URL.gsub(/\{:id\}/, numeric_unique_id)
     end
   end
-  
+
 ################################################
 
   def things_to_return
     contract_lines.to_take_back.sort {|a,b| a.end_date <=> b.end_date }
   end
 
-  # get or create a new order (among all inventory pools)
-  def get_current_order
-    order = current_order
-    if order.nil?
-      order = orders.create(:status_const => Order::UNSUBMITTED)
+  # get or create a new unsubmitted contract for a specific inventory_pool
+  def get_unsubmitted_contract(inventory_pool)
+    contract = contracts.unsubmitted.where(inventory_pool_id: inventory_pool).first
+    unless contract
+      contract = contracts.create(status: :unsubmitted, inventory_pool: inventory_pool)
       reload
-    end  
-    order
+    end
+    contract
   end
 
-  # get unsubmitted order lines, grouped by inventory_pool and sorted by created_at 
-  def get_current_grouped_order_lines
-    OrderLine.grouped_by_inventory_pool(get_current_order.order_lines)
-  end
-
-  # a user has at most one new contract for each inventory pool
-  def current_contract(inventory_pool)
-    contracts = current_contracts.where(:inventory_pool_id => inventory_pool, :status_const => Contract::UNSIGNED)
+  # a user has at most one approved contract for each inventory pool
+  def approved_contract(inventory_pool)
+    contracts = self.contracts.where(:inventory_pool_id => inventory_pool, :status => :approved)
     return nil if contracts.empty?
     if contracts.size > 1
       contracts[1..-1].each do |c|
@@ -238,14 +225,14 @@ class User < ActiveRecord::Base
     end
     return contracts.first
   end
-  
+
   # get or create a new contract for a given inventory pool
-  def get_current_contract(inventory_pool)
-    contract = current_contract(inventory_pool)
+  def get_approved_contract(inventory_pool)
+    contract = approved_contract(inventory_pool)
     if contract.nil?
-      contract = contracts.create(:status_const => Contract::UNSIGNED, :inventory_pool => inventory_pool, :note => inventory_pool.default_contract_note)
+      contract = contracts.create(:status => :approved, :inventory_pool => inventory_pool, :note => inventory_pool.default_contract_note)
       reload
-    end  
+    end
     contract
   end
 
@@ -265,7 +252,7 @@ class User < ActiveRecord::Base
   def access_right_for(ip)
     access_rights.scoped_by_inventory_pool_id(ip).first
   end
-  
+
 ####################################################################
 
   def self.remind_all
@@ -292,7 +279,7 @@ class User < ActiveRecord::Base
                        :user_id => reminder_user,
                        :type_const => History::REMIND)
          puts "Failed to remind: #{self.name}"
-         
+
          # archive problem in the log, so the admin/developper
          # can look up what happened
          logger.error "#{exception}\n    #{exception.backtrace.join("\n    ")}"
@@ -300,7 +287,7 @@ class User < ActiveRecord::Base
       end
     end
   end
-  
+
   def to_remind?
     not to_remind.empty?
   end
@@ -324,7 +311,7 @@ class User < ActiveRecord::Base
       rescue
         puts "Couldn't send reminder: #{self.name}"
       end
-    end    
+    end
   end
 
 #################### Start role_requirement
@@ -334,7 +321,7 @@ class User < ActiveRecord::Base
   # You may wish to modify it to suit your need
   # modified by sellittf
 
-  # has_role? simply needs to return true or false whether a user has a role or not.  
+  # has_role? simply needs to return true or false whether a user has a role or not.
   # It may be a good idea to have "admin" roles return true always
   def has_role?(role_in_question, inventory_pool_in_question = nil, exact_match = false)
     # retrieve roles for a given inventory_pool hierarchically with betternestedset plugin
@@ -344,7 +331,7 @@ class User < ActiveRecord::Base
     else
       roles = access_rights.collect(&:role)
     end
-    
+
     if exact_match
       return roles.include?(role)
     else
@@ -352,19 +339,32 @@ class User < ActiveRecord::Base
     end
   end
   # ---------------------------------------
-  
+
 #################### End role_requirement
 
   def deletable?
-    orders.empty? and contracts.empty? and access_rights.empty?
+    contracts.empty? and access_rights.empty?
   end
+
+  ############################################
+
+  def timeout?
+    # NOTE the second check is superfluous in case we ensure there are no empty contracts
+    if contracts.unsubmitted.empty? or contracts.unsubmitted.flat_map(&:lines).empty?
+      false
+    else
+      (Time.now - contracts.unsubmitted.first.updated_at) > Contract::TIMEOUT_MINUTES.minutes
+    end
+  end
+
+  ############################################
 
  private
 
   def to_remind
     visits.take_back.where("date < CURDATE()")
   end
-  
+
   def deadline_soon
     visits.take_back.where("date = ADDDATE(CURDATE(), 1)")
   end

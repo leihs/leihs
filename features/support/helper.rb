@@ -115,9 +115,8 @@ end
 
 def type_into_autocomplete(selector, value)
   raise "please provide a value" if value.size.zero?
+  find(selector).click
   find(selector).set value
-  page.execute_script("$('#{selector}').focus()")
-  page.execute_script("$('#{selector}').autocomplete('search')")
   find(".ui-autocomplete")
 end
 

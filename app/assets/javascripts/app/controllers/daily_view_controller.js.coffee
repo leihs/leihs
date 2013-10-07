@@ -16,7 +16,7 @@ class DailyViewController
 
   setupOrders: =>
     $.ajax
-      url: "/backend/inventory_pools/#{currentInventoryPool.id}/orders.json"
+      url: "/backend/inventory_pools/#{currentInventoryPool.id}/contracts.json"
       type: "GET"
       cache: false
       data:

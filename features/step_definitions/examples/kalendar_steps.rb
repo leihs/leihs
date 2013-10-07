@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 Wenn /^man den Kalender sieht$/ do
-  step 'I open an order for acknowledgement'
+  step 'I open a contract for acknowledgement'
   @line_element = first(".line")
   step 'I open the booking calendar for this line'
 end
@@ -17,13 +17,9 @@ end
 
 Angenommen /^ich öffne den Kalender$/ do
   @line_el = find(".line", match: :first)
-  @line = if @event == "order"
-    OrderLine.find_by_id @line_el["data-id"]
-  elsif @event == "hand_over"
-    ContractLine.find_by_id @line_el["data-id"]
-  end
+  @line = ContractLine.find_by_id @line_el["data-id"]
   @line_el.first(".actions .button", :text => /(Edit|Editieren)/).click
-  first(".fc-day-content")
+  page.has_selector?(".fc-day-content")
 end
 
 Dann /^kann ich die Anzahl unbegrenzt erhöhen \/ überbuchen$/ do
@@ -34,7 +30,7 @@ end
 
 Dann /^die Bestellung kann gespeichert werden$/ do
   step 'I save the booking calendar'
-  @line.order.lines.where(:start_date => @line.start_date, :end_date => @line.end_date, :model_id => @line.model).size == @size
+  @line.contract.lines.where(:start_date => @line.start_date, :end_date => @line.end_date, :model_id => @line.model).size == @size
 end
 
 Dann /^die Aushändigung kann gespeichert werden$/ do

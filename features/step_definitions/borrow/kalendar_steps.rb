@@ -54,7 +54,7 @@ end
 
 Dann(/^schlägt der Versuch es hinzufügen fehl$/) do
   find("#booking-calendar")
-  @current_user.get_current_order.lines.length.should == 0
+  @current_user.contracts.unsubmitted.flat_map(&:lines).length.should == 0
 end
 
 Dann(/^ich sehe die Fehlermeldung, dass das ausgewählte Modell im ausgewählten Zeitraum nicht verfügbar ist$/) do
@@ -95,7 +95,7 @@ end
 Dann(/^ist das Modell mit Start- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügt worden$/) do
   page.has_selector? "#current-order-lines .line"
   find("#current-order-lines .line", :text => "#{@quantity}x #{@model.name}")
-  @current_user.get_current_order.lines.detect{|line| line.model == @model}.should be
+  @current_user.contracts.unsubmitted.flat_map(&:lines).detect{|line| line.model == @model}.should be
 end
 
 Dann(/^lässt sich das Modell mit Start\- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügen$/) do
@@ -149,12 +149,12 @@ Dann(/^das Enddatum entspricht dem vorausgewählten Enddatum$/) do
 end
 
 Angenommen(/^es existiert ein Modell für das eine Bestellung vorhanden ist$/) do
-  @order_line = OrderLine.find do |ol|
-    ol.start_date.future? and
-    @current_user.inventory_pools.include?(ol.inventory_pool)
+  order_line = ContractLine.find do |cl|
+    cl.start_date.future? and
+    @current_user.inventory_pools.include?(cl.contract.inventory_pool)
   end
 
-  @model = @order_line.model
+  @model = order_line.model
 end
 
 Wenn(/^man dieses Modell aus der Modellliste hinzufügt$/) do

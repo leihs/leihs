@@ -7,8 +7,10 @@
 # them once the manager chooses a specific #Item of the #Model that the
 # customer wants.
 #
-class ContractLine < DocumentLine
-  
+class ContractLine < ActiveRecord::Base
+  include Availability::DocumentLine
+
+  belongs_to :purpose
   belongs_to :contract
   alias :document :contract
   has_one :user, :through => :contract
@@ -18,7 +20,8 @@ class ContractLine < DocumentLine
   delegate :inventory_pool, :to => :contract
   
   validates_presence_of :contract
-  
+  # TODO validates_presence_of :purpose, if: Proc.new { |record| record.status != :unsubmitted }
+
 ####################################################
 
   # TODO default_scope :joins ??
@@ -26,13 +29,13 @@ class ContractLine < DocumentLine
   
   # these are the things we need to_take_back, to_hand_over, ...
   # NOTE using table alias to prevent "Not unique table/alias" Mysql error
-  scope :to_hand_over, joins(:contract).where(:contracts => {:status_const => Contract::UNSIGNED}, :returned_date => nil).readonly(false)
-  scope :to_take_back, joins(:contract).where(:contracts => {:status_const => Contract::SIGNED}, :returned_date => nil).readonly(false)
+  scope :to_hand_over, joins(:contract).where(:contracts => {:status => :approved}, :returned_date => nil).readonly(false)
+  scope :to_take_back, joins(:contract).where(:contracts => {:status => :signed}, :returned_date => nil).readonly(false)
   scope :handed_over_or_assigned_but_not_returned, where("returned_date IS NULL AND NOT (end_date < CURDATE() AND item_id IS NULL)")
   
   # TODO 1209** refactor to InventoryPool has_many :contract_lines_by_user(user) ??
   # NOTE InventoryPool#contract_lines.by_user(user)
-  scope :by_user, lambda { |user| where(:contracts => {:user_id => user}) }
+  scope :by_user, lambda { |user| joins(:contract).where(:contracts => {:user_id => user}) }
   #temp# scope :by_user, lambda { |user| joins(:contract).where(["contracts.user_id = ?", user]) }
   scope :by_inventory_pool, lambda { |inventory_pool|
                               joins(:contract).where(:contracts => {:inventory_pool_id => inventory_pool})
@@ -47,7 +50,78 @@ class ContractLine < DocumentLine
   def is_reserved?
     start_date > Date.today && item
   end
-  
+
+###############################################
+
+  before_validation :set_defaults, :on => :create
+  validate :date_sequence
+  validates_numericality_of :quantity, :greater_than_or_equal_to => 0, :only_integer => true
+
+  # compares two objects in order to sort them
+  def <=>(other)
+    # TODO prevent name with leading and trailing whitespaces directly on model and option save
+    [self.start_date, self.model.name.strip] <=> [other.start_date, other.model.name.strip]
+  end
+
+###############################################
+
+# TODO 03** merge here available_tooltip and complete_tooltip
+  def tooltip
+    r = ""
+    r += self.available_tooltip
+    r += "<br/>"
+    r += self.complete_tooltip
+    # TODO 03** include errors?
+    # r += self.errors.full_messages.uniq
+    return r
+  end
+
+  def visits_on_open_date?
+    inventory_pool.is_open_on(start_date) and inventory_pool.is_open_on(end_date)
+  end
+
+  # custom valid? method
+  def complete?
+    self.valid? and self.available?
+  end
+
+  # TODO 04** merge in complete?
+  def complete_tooltip
+    r = ""
+    r += _("not valid. ") unless self.valid? # TODO 04** self.errors.full_messages.uniq
+    r += _("not available. ") unless self.available?
+    return r
+  end
+
+  # TODO 04** merge in available?
+  def available_tooltip
+    r = ""
+    r += _("quantity not available. ") unless available?
+    r += _("inventory pool is closed on start_date. ") unless inventory_pool.is_open_on?(start_date)
+    r += _("inventory pool is closed on end_date. ") unless inventory_pool.is_open_on?(end_date)
+    return r
+  end
+
+  ###############################################
+
+  def price
+    (item.price || 0) * quantity
+  end
+
+  private
+
+  def set_defaults
+    self.start_date ||= Date.today
+    self.end_date ||= Date.today
+  end
+
+  def date_sequence
+    # OPTIMIZE strange behavior: in some cases, this error raises when shouldn't
+    errors.add(:base, _("Start Date must be before End Date")) if end_date < start_date
+    #TODO: Think about this a little bit more.... errors.add(:base, _("Start Date cannot be a past date")) if start_date < Date.today
+  end
+
+
 end
 
 

@@ -13,7 +13,7 @@
 
 <%= _("The order now looks like this:") %>
 
-<% @order.order_lines.each do | line | %>
+<% @order.lines.each do | line | %>
 	<%= line.quantity%> <%= line.model.name %>,  <%= line.start_date %> - <%= line.end_date %>
 <% end %>
 

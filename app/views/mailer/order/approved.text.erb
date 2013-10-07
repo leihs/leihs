@@ -6,7 +6,7 @@
 
 <%= _("Inventory pool") + ": " + @order.inventory_pool.name unless @order.inventory_pool.nil? %>
 
-<% @order.order_lines.each do | line | %>
+<% @order.lines.each do | line | %>
 	<%= line.quantity%> <%= line.model.name %>,  <%= line.start_date %> - <%= line.end_date %>
 <% end %>
 

@@ -2,7 +2,7 @@ class Backend::HandOverController < Backend::BackendController
   
   before_filter do
     @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
-    @contract = @user.get_current_contract(current_inventory_pool) if @user
+    @contract = @user.get_approved_contract(current_inventory_pool) if @user
   end
 
 ######################################################################
@@ -191,7 +191,7 @@ class Backend::HandOverController < Backend::BackendController
       # try to assign to contract lines of the customer
       line ||= @contract.lines.where(:model_id => model.id, :item_id => nil).order(:start_date).first if code
       # add new line
-      line ||= model.add_to_document(@contract, @user, quantity, start_date, end_date, current_inventory_pool).first
+      line ||= model.add_to_contract(@contract, @user, quantity, start_date, end_date).first
       @error = {:message => line.errors.values.join} if model_group_id.nil? and item and line and not line.update_attributes(item: item)
     elsif option
       if line = @contract.lines.where(:option_id => option.id, :start_date => start_date, :end_date => end_date).first
@@ -233,7 +233,7 @@ class Backend::HandOverController < Backend::BackendController
       new_user = current_inventory_pool.users.find(params[:swap_user_id])
       lines_for_new_contract = @contract.contract_lines.find(params[:line_ids].split(',')) if params[:line_ids]
       if new_user and lines_for_new_contract
-        new_contract = new_user.get_current_contract(current_inventory_pool)
+        new_contract = new_user.get_approved_contract(current_inventory_pool)
         lines_for_new_contract.each do |cl|
           cl.update_attributes(:contract => new_contract)
         end

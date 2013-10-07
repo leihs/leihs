@@ -1,17 +1,17 @@
-When /^I open a take back, hand over or I edit an order$/ do
+When /^I open a take back, hand over or I edit a contract$/ do
   @ip = @current_user.managed_inventory_pools.first
-  possible_types = ["take_back", "hand_over", "order"]
+  possible_types = ["take_back", "hand_over", "contract"]
   type = possible_types.shuffle.first
   case type
     when "take_back"
       @customer = @ip.users.detect {|x| x.contracts.signed.size > 0}
       visit backend_inventory_pool_user_take_back_path(@ip, @customer)
     when "hand_over"
-      @customer = @ip.users.detect {|x| x.contracts.unsigned.size > 0}
+      @customer = @ip.users.detect {|x| x.contracts.approved.size > 0}
       visit backend_inventory_pool_user_hand_over_path(@ip, @customer)
-    when "order"
-      @customer = @ip.users.detect {|x| x.orders.submitted.size > 0}
-      @entity = @customer.orders.submitted.first
+    when "contract"
+      @customer = @ip.users.detect {|x| x.contracts.submitted.size > 0}
+      @entity = @customer.contracts.submitted.first
       visit backend_inventory_pool_acknowledge_path(@ip, @entity)
   end
 end

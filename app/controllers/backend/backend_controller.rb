@@ -44,8 +44,7 @@ class Backend::BackendController < ApplicationController
 
     # default if types are not provided
     conditions[:klasses][User]      = {:sort_by => "firstname ASC, lastname ASC"} if types.blank? or types.include?("user")
-    conditions[:klasses][Order]     = {:sort_by => "status_const ASC, created_at DESC"} if types.blank? or types.include?("order")
-    conditions[:klasses][Contract]  = {:sort_by => "status_const ASC, created_at DESC", :filter => {:status_const => Contract::SIGNED..Contract::CLOSED}} if types.blank? or types.include?("contract")
+    conditions[:klasses][Contract]  = {:sort_by => "status ASC, created_at DESC", :filter => {:status => [:signed, :closed]}} if types.blank? or types.include?("contract")
     conditions[:klasses][Model]     = {:sort_by => "name ASC", :filter => {:availability => (with ? with[:availability] : nil)}} if types.blank? or types.include?("model")
     conditions[:klasses][Item]      = {:sort_by => "inventory_code ASC"} if types.blank? or types.include?("item")
     conditions[:klasses][Option]    = {:sort_by => "options.name ASC"} if types.blank? or types.include?("option")

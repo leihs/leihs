@@ -31,16 +31,15 @@ Dann(/^gleiche Modelle werden zusammengefasst$/) do
 end
 
 Wenn(/^das gleiche Modell nochmals hinzugefügt wird$/) do
-  FactoryGirl.create(:order_line,
-                     :order => @current_user.get_current_order,
-                     :model => @new_order_line.model,
-                     :inventory_pool => @inventory_pool)
+  FactoryGirl.create(:contract_line,
+                     :contract => @current_user.get_unsubmitted_contract(@inventory_pool),
+                     :model => @new_contract_line.model)
   step "erscheint es im Bestellfensterchen"
 end
 
 Dann(/^wird die Anzahl dieses Modells erhöht$/) do
-  line = first("#current-order-basket #current-order-lines .line[title='#{@new_order_line.model.name}']")
-  line.first("span").text.should == "2x #{@new_order_line.model.name}"
+  line = first("#current-order-basket #current-order-lines .line[title='#{@new_contract_line.model.name}']")
+  line.first("span").text.should == "2x #{@new_contract_line.model.name}"
 end
 
 Dann(/^ich kann zur detaillierten Bestellübersicht gelangen$/) do
@@ -61,7 +60,7 @@ Dann(/^wird das Bestellfensterchen aktualisiert$/) do
 end
 
 Angenommen(/^meine Bestellung ist leer$/) do
-  @current_user.get_current_order.lines.empty?.should be_true
+  @current_user.contracts.unsubmitted.flat_map(&:lines).empty?.should be_true
 end
 
 Dann(/^sehe ich keine Zeitanzeige$/) do
@@ -72,7 +71,11 @@ Dann(/^sehe ich die Zeitanzeige$/) do
   visit root_path
   page.should have_selector("#current-order-basket #timeout-countdown", :visible => true)
   sleep(2)
-  @timeoutStart = @current_user.get_current_order.created_at
+  @timeoutStart = if @current_user.contracts.unsubmitted.empty?
+                    Time.now
+                  else
+                    @current_user.contracts.unsubmitted.sample.updated_at
+                  end
   @countdown = first("#timeout-countdown-time").text
 end
 
@@ -84,7 +87,7 @@ Dann(/^die Zeitanzeige zählt von (\d+) Minuten herunter$/) do |timeout_minutes|
   @countdown = first("#timeout-countdown-time").text
   minutes = @countdown.split(":")[0].to_i
   seconds = @countdown.split(":")[1].to_i
-  expect(minutes >= (Order::TIMEOUT_MINUTES - 1)).to be_true
+  expect(minutes >= (Contract::TIMEOUT_MINUTES - 1)).to be_true
   sleep(2)
   expect(seconds > first("#timeout-countdown-time").reload.text.split(":")[1].to_i).to be_true
 end
@@ -106,7 +109,7 @@ Dann(/^wird die Zeit zurückgesetzt$/) do
 end
 
 Wenn(/^die Zeit abgelaufen ist$/) do
-  Order::TIMEOUT_MINUTES = 1
+  Contract::TIMEOUT_MINUTES = 1
   step 'ich ein Modell der Bestellung hinzufüge'
   step 'sehe ich die Zeitanzeige'
   sleep(70)
@@ -117,7 +120,9 @@ Dann(/^werde ich auf die Timeout Page weitergeleitet$/) do
   current_path.should == borrow_order_timed_out_path
 end
 Wenn(/^die Zeit überschritten ist$/) do
-  past_date = Time.now - (Order::TIMEOUT_MINUTES + 1).minutes
-  @current_user.get_current_order.update_attribute :updated_at, past_date
+  past_date = Time.now - (Contract::TIMEOUT_MINUTES + 1).minutes
+  @current_user.contracts.unsubmitted.each do |contract|
+    contract.update_attribute :updated_at, past_date
+  end
   page.execute_script %Q{ localStorage.currentTimeout = moment("#{past_date.to_s}").toDate() }
 end

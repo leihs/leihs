@@ -25,8 +25,30 @@
       width: 70%;
     }
   }
-  
+
+  li.range {
+    white-space: nowrap;
+    width: 115px;
+
+    span.number {
+      display: inline-block;
+      text-align: right;
+      width: 30px;
+    }
+  }
+
+  li.purpose {
+    line-height: 1.2em;
+    padding-right: 0;
+    width: 205px;
+  }
+
   li.status {
     width: 360px;
+
+    .red {
+      font-weight: bold;
+      font-style: italic;
+    }
   }
 }

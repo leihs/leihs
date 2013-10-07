@@ -5,6 +5,7 @@ Angenommen /^ich suche ein Modell um es hinzuzufügen$/ do
   find("#code").click
   find("#code").set @truncated_model_name
   step "ensure there are no active requests"
+  page.has_selector?(".ui-autocomplete .ui-menu-item")
   find(".ui-autocomplete .ui-menu-item", match: :first)
 end
 

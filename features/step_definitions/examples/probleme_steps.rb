@@ -2,7 +2,7 @@
 
 Angenommen /^ich editiere eine Bestellung$/ do
   @event = "order"
-  step 'I open an order for acknowledgement'
+  step 'I open a contract for acknowledgement'
 end
 
 Angenommen /^ich mache eine Rücknahme$/ do
@@ -20,16 +20,16 @@ Angenommen /^eine Model ist nichtmehr verfügbar$/ do
     @entity = if @order
       @order
     else
-      @customer.get_current_contract(@ip)
+      @customer.get_approved_contract(@ip)
     end
     @max_before = @entity.lines.first.model.availability_in(@entity.inventory_pool).maximum_available_in_period_summed_for_groups(@entity.lines.first.start_date, @entity.lines.first.end_date, @entity.lines.first.group_ids)
     step 'I add so many lines that I break the maximal quantity of an model'
   else
     @model = @contract.models.first
-    visit backend_inventory_pool_user_hand_over_path(@ip, @customer)
+    visit backend_inventory_pool_user_hand_over_path(@contract.inventory_pool, @customer)
     @max_before = @contract.lines.first.model.availability_in(@contract.inventory_pool).maximum_available_in_period_summed_for_groups(@contract.lines.first.start_date, @contract.lines.first.end_date, @contract.lines.first.group_ids)
     step 'I add so many lines that I break the maximal quantity of an model'
-    visit backend_inventory_pool_user_take_back_path(@ip, @customer)
+    visit backend_inventory_pool_user_take_back_path(@contract.inventory_pool, @customer)
   end
   page.has_selector? ".line.error", text: @model.name
   @lines = all(".line.error", :text => @model.name)
@@ -40,31 +40,26 @@ Dann /^sehe ich auf den beteiligten Linien die Auszeichnung von Problemen$/ do
   @problems = []
 
   @lines.each do |line|
-    page.execute_script(%Q{ $(".line[data-id=#{line["data-id"]}] .problems").trigger("mouseenter") })
-    sleep(0.5)
-    @problems << first(".tip").text
+    find(".line[data-id='#{line["data-id"]}'] .problems").hover
+    @problems << find(".tip", match: :first).text
   end
   @reference_line = @lines.first
   @reference_problem = @problems.first
-  @line = if @event == "hand_over" or @event == "take_back"
-    ContractLine.find @reference_line["data-id"]
-  else
-    OrderLine.find @reference_line["data-id"]
-  end
+  @line = ContractLine.find @reference_line["data-id"]
   @av = @line.model.availability_in(@line.inventory_pool)
 end
 
 Dann /^das Problem wird wie folgt dargestellt: "(.*?)"$/ do |format|
-  regexp = if (format == "Nicht verfügbar 2(3)/7")
-     /(Nicht verfügbar|Not available) -*\d\(-*\d\)\/\d/
-  elsif  format == "Gegenstand nicht ausleihbar"
-    /(Gegenstand nicht ausleihbar|Item not borrowable)/
-  elsif  format == "Gegenstand ist defekt"
-    /(Gegenstand ist defekt|Item is defective)/
-  elsif  format == "Gegenstand ist unvollständig"
-    /(Gegenstand ist unvollständig|Item is incomplete)/
-  elsif (format == "Überfällig seit 6 Tagen")
-     /(Überfällig seit \d+ (Tagen|Tag)|Overdue since \d+ (days|day))/
+  regexp = if format == "Nicht verfügbar 2(3)/7"
+     /#{_("Not available")} -*\d\(-*\d\)\/\d/
+  elsif format == "Gegenstand nicht ausleihbar"
+    /_("Item not borrowable")/
+  elsif format == "Gegenstand ist defekt"
+    /_("Item is defective")/
+  elsif format == "Gegenstand ist unvollständig"
+    /_("Item is incomplete")/
+  elsif format == "Überfällig seit 6 Tagen"
+     /(Überfällig seit \d+ (Tagen|Tag)|#{_("Overdue")} #{_("since")} \d+ (days|day))/
   end
   @problems.each do |problem|
     problem.match(regexp).should_not be_nil
@@ -72,10 +67,10 @@ Dann /^das Problem wird wie folgt dargestellt: "(.*?)"$/ do |format|
 end
 
 Dann /^"(.*?)" sind verfügbar für den Kunden$/ do |arg1|
-  max = if @line.document.is_a?(Order)
+  max = if [:unsubmitted, :submitted].include? @line.contract.status
     @max_before + @quantity_added
-  elsif @line.document.is_a?(Contract)
-    @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @line.group_ids) + @line.document.lines.where(:start_date => @line.start_date, :end_date => @line.end_date, :model_id => @line.model).size
+  elsif [:approved, :signed].include? @line.contract.status
+    @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @line.group_ids) + @line.contract.lines.where(:start_date => @line.start_date, :end_date => @line.end_date, :model_id => @line.model).size
   else
     @max_before - @quantity_added
   end
@@ -84,8 +79,8 @@ end
 
 Dann /^"(.*?)" sind insgesamt verfügbar$/ do |arg1|
   max = @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @ip.group_ids)
-  if @line.document.is_a? Order
-    max += @line.document.lines.where(:start_date => @line.start_date, :end_date => @line.end_date, :model_id => @line.model).size
+  if [:unsubmitted, :submitted].include? @line.contract.status
+    max += @line.contract.lines.where(:start_date => @line.start_date, :end_date => @line.end_date, :model_id => @line.model).size
   else
     max += @line.quantity
   end

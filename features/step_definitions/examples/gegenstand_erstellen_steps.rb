@@ -6,6 +6,7 @@ def fill_in_autocomplete_field field_name, field_value
     find("input", match: :first).click
     find("input", match: :first).set field_value
     step "ensure there are no active requests"
+    page.has_selector?("a", text: field_value, visible: true)
     find("a", match: :prefer_exact, text: field_value, visible: true).click
   end
 end

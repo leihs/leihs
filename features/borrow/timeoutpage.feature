@@ -20,6 +20,7 @@ Funktionalität: Timeout Page
     Und ich kann Einträge editieren
     Und ich kann zur Hauptübersicht
   
+  @javascript
   Szenario: Eintrag löschen
     Angenommen man ist "Normin"
     Und ich zur Timeout Page mit einem Konfliktmodell weitergeleitet werde

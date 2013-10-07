@@ -5,11 +5,11 @@ end
 Given "a reservation exists for $quantity '$model' from $from to $to" \
 do |quantity, model, from, to|
   model = Model.find_by_name(model)
-  order = FactoryGirl.create :order, :inventory_pool => model.inventory_pools.first # OPTIMIZE
-  order.add_lines(quantity.to_i, model, nil, to_date(from), to_date(to))
-  order.submit("this is the required purpose").should be_true
-  order.lines.size.should >= 1
-  model.availability_in(order.inventory_pool.reload).document_lines.size.should >= 1
+  contract = FactoryGirl.create :contract, :inventory_pool => model.inventory_pools.first # OPTIMIZE
+  contract.add_lines(quantity.to_i, model, nil, to_date(from), to_date(to))
+  contract.submit("this is the required purpose").should be_true
+  contract.lines.size.should >= 1
+  model.availability_in(contract.inventory_pool.reload).document_lines.size.should >= 1
 end
 
 Given "a contract exists for $quantity '$model' from $from to $to" \
@@ -18,7 +18,7 @@ do |quantity, model, from, to|
   to   = to_date(to)
 
   model = Model.find_by_name(model)
-  @contract = LeihsFactory.create_user.get_current_contract(model.items.first.inventory_pool)
+  @contract = LeihsFactory.create_user.get_approved_contract(model.items.first.inventory_pool)
   @contract.add_lines(quantity.to_i, model, nil, from, to)
   @contract.save
   line = @contract.item_lines.first
@@ -47,7 +47,7 @@ end
 
 Given "the $who signs the contract" do |who|
   @contract.sign(User.find_by_login(who))
-  @contract.status_const.should == Contract::SIGNED
+  @contract.status.should == :signed
 end
 
 # TODO merge with next step

@@ -70,6 +70,26 @@ module Json
         if with[:errors]
           h[:errors] = line.errors.full_messages.uniq
         end
+
+        ############# from order_line preset #############
+        #
+        if [:unsubmitted, :submitted, :rejected].include?(line.contract.status) # NOTE we still emulate the old order json
+          [:is_available].each do |k|
+            h[k] = line.send(k) if with[k]
+          end
+
+          if with[:availability_for_inventory_pool]
+            h.deep_merge! hash_for_availability(line)
+          end
+
+          if with[:dates]
+            h[:start_date] = line.start_date
+            h[:end_date] = line.end_date
+          end
+        end
+        #
+        #############
+
       end
       
       h

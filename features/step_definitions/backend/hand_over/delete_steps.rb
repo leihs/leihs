@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 When /^I delete a line$/ do
-  @contract = @customer.contracts.unsigned.first
+  @contract = @customer.contracts.approved.first
   @line = @contract.lines.first
   step 'I delete this line element'
 end
@@ -41,7 +41,7 @@ Then /^these lines are deleted$/ do
 end
 
 When /^I delete all lines of a model thats availability is blocked by these lines$/ do
-  if not @customer.contracts.unsigned.last.lines.first.available?
+  if not @customer.contracts.approved.last.lines.first.available?
     step 'I add an item to the hand over by providing an inventory code and a date range'
     @model = Item.find_by_inventory_code(@inventory_code).model
     first(".line", :text => @model.name).first(".select input").click

@@ -115,14 +115,14 @@ end
 Dann(/^kann ich diejenigen Modelle, die verfügbar sind, gesamthaft einer Bestellung hinzufügen$/) do
   page.should have_selector ".separated-top .row.line .line-info.red"
   @unavailable_model_ids = all(".separated-top .row.line .line-info.red").map {|x| x.first(:xpath, "./..").first("input[name='lines[][model_id]']", visible: false).value.to_i}
-  @unavailable_model_ids -= @current_user.current_order.lines.map(&:model_id).uniq
+  @unavailable_model_ids -= @current_user.contracts.unsubmitted.flat_map(&:lines).map(&:model_id).uniq
   first(".button.green.dropdown-toggle").click
   page.should have_content _("Continue with available models only")
   first("*[name='force_continue']", :text => _("Continue with available models only")).click
 end
 
 Dann(/^die restlichen Modelle werden verworfen$/) do
-  (@unavailable_model_ids - @current_user.current_order.reload.lines.map(&:model_id).uniq).should == @unavailable_model_ids
+  (@unavailable_model_ids - @current_user.contracts.unsubmitted.reload.flat_map(&:lines).map(&:model_id).uniq).should == @unavailable_model_ids
 end
 
 Dann(/^die Modelle sind innerhalb eine Gruppe alphabetisch sortiert$/) do
@@ -172,7 +172,7 @@ end
 Dann(/^kann ich im Prozess weiterfahren und alle Modelle gesamthaft zu einer Bestellung hinzufügen$/) do
   first(".button.green", text: _("Add to order")).click
   page.has_selector? "#current-order-show"
-  @current_user.current_order.models.should eq [@model]
+  @current_user.contracts.unsubmitted.flat_map(&:models).should eq [@model]
 end
 
 Angenommen(/^ich sehe die Verfügbarkeit einer Vorlage, die nicht verfügbare Modelle enthält$/) do

@@ -21,7 +21,7 @@ class Borrow::TemplatesController < Borrow::ApplicationController
       availability and render :availability
     else
       available_lines.each do |l|
-        l[:model].add_to_document(current_order, current_user.id, l[:quantity], l[:start_date], l[:end_date], l[:inventory_pool])
+        l[:model].add_to_contract(current_user.get_unsubmitted_contract(l[:inventory_pool]), current_user.id, l[:quantity], l[:start_date], l[:end_date])
       end
       redirect_to borrow_current_order_path, :flash => {:notice => _("The template has been added to your order.")}
     end

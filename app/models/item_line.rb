@@ -1,6 +1,6 @@
 # An ItemLine is a line in a #Contract and as such derived from the
 # more general ContractLine. It only contains #Item s but NOT
-# #Option s. The latter ones are part of #OrderLine s.
+# #Option s.
 #
 # An ItemLine at first only contains a #Model and a desired quantity
 # of that #Model. It's only after the #InventoryPool manager has
@@ -29,15 +29,10 @@ class ItemLine < ContractLine
     "#{item} - #{end_date.strftime('%d.%m.%Y')}"
   end
 
-# TODO 2602** important: check this method!!!
-#  before_save { |record| 
-#    unless record.returned_date
-#      #TODO 27 Commented for import
-#      # But what happens if an inventory manager sees on the next day that he put in the wrong number and wants to correct it?
-#      # record.item = nil if record.start_date != Date.today
-#      record.start_date = Date.today unless record.item.nil?
-#    end
-#  }
+  before_save do
+    # keep the unsubmitted contract computed for the availability
+    contract.touch if contract.status == :unsubmitted and not contract.user.timeout?
+  end
 
 ##################################################
 
@@ -59,7 +54,7 @@ class ItemLine < ContractLine
     # an ItemLine can only be late if the Item has been
     # handed out. And an Item can only be handed out, if
     # the contract has been signed. Thus:
-    contract.status_const == Contract::SIGNED and super
+    contract.status == :signed and super
   end
 
 ##################################################
@@ -68,7 +63,7 @@ class ItemLine < ContractLine
     
   # validator
   def validate_item
-    if item_id and contract.status_const == Contract::UNSIGNED
+    if item_id and contract.status == :approved
       # model matching
       errors.add(:base, _("The item doesn't match with the reserved model")) unless item.model_id == model_id
   

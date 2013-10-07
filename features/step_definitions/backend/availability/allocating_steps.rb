@@ -6,15 +6,15 @@ Given /^a user that is in that group$/ do
   pending
 end
 
-When /^the user orders the sum of his group and group general$/ do
+When /^the user contracts the sum of his group and group general$/ do
   pending
 end
 
-Then /^this order should be allocated in the group and the group general$/ do
+Then /^this contract should be allocated in the group and the group general$/ do
   pending
 end
 
-Then /^the quantity should be available for that order$/ do
+Then /^the quantity should be available for that contract$/ do
   pending
 end
 

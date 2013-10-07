@@ -1,5 +1,5 @@
 When /^I click an inventory code input field of an item line$/ do
-  @item_line = @customer.contracts.unsigned.last.lines.first
+  @item_line = @customer.contracts.approved.last.lines.first
   @item = @item_line.model.items.in_stock.last
   @item_line_element = find(".item_line", match: :first, :text => @item.model.name)
   @item_line_element.find(".inventory_code input").click
@@ -27,7 +27,7 @@ end
 When /^I select one of those$/ do
   find(".line[data-id='#{@item_line.id}'] .inventory_code input").click
   step "ensure there are no active requests"
-  page.should have_selector(".line[data-id='#{@item_line.id}']")
+  page.has_selector?(".line[data-id='#{@item_line.id}']")
   @selected_inventory_code = find(".line[data-id='#{@item_line.id}'] .ui-autocomplete", visible: true).first("a .label").text
   find(".line[data-id='#{@item_line.id}'] .ui-autocomplete").first("a").click
   step "ensure there are no active requests"

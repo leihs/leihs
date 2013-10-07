@@ -44,7 +44,8 @@ When(/^I add an option$/) do
   input_field.click
   input_field.set field_value
   step "ensure there are no active requests"
-  find("a[title='#{field_value}']", match: :first, text: field_value).click
+  find("a[title='#{field_value}']", match: :prefer_exact, text: field_value).click
+  step "ensure there are no active requests"
 end
 
 When(/^I change the quantity right on the line$/) do

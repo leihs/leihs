@@ -1,9 +1,9 @@
 # encoding: utf-8
 
 def fill_in_required_user_information
-  first(".field", text: _("Last name")).first("input").set "test"
-  first(".field", text: _("First name")).first("input").set "test"
-  first(".field", text: _("E-Mail")).first("input").set "test@test.ch"
+  find(".field", match: :prefer_exact, text: _("Last name")).first("input").set "test"
+  find(".field", match: :prefer_exact, text: _("First name")).first("input").set "test"
+  find(".field", match: :prefer_exact, text: _("E-Mail")).first("input").set "test@test.ch"
 end
 
 Angenommen(/^man befindet sich auf der Benutzerliste$/) do
@@ -19,9 +19,9 @@ Wenn(/^ich einen Benutzer mit Login "(.*?)" und Passwort "(.*?)" erstellt habe$/
   step "man einen Benutzer hinzufügt"
   fill_in_required_user_information
 
-  first(".field", text: _("Login")).first("input").set "#{@login = login}"
-  first(".field", text: _("Password")).first("input").set "#{@password = password}"
-  first(".field", text: _("Password Confirmation")).first("input").set "#{password}"
+  find(".field", match: :prefer_exact, text: _("Login")).first("input").set "#{@login = login}"
+  find(".field", match: :prefer_exact, text: _("Password")).first("input").set "#{@password = password}"
+  find(".field", match: :prefer_exact, text: _("Password Confirmation")).first("input").set "#{password}"
 
   click_button _("Create %s") % _("User")
   page.has_content? _("List of Users")
@@ -44,8 +44,8 @@ Dann(/^kann sich der Benutzer "(.*?)" mit "(.*?)" anmelden$/) do |login, passwor
 end
 
 Wenn(/^ich das Passwort von "(.*?)" auf "(.*?)" ändere$/) do |persona, new_password|
-  first(".field", text: _("Password")).first("input").set "#{@password = new_password}"
-  first(".field", text: _("Password Confirmation")).first("input").set "#{new_password}"
+  find(".field", match: :prefer_exact, text: _("Password")).first("input").set "#{@password = new_password}"
+  find(".field", match: :prefer_exact, text: _("Password Confirmation")).first("input").set "#{new_password}"
 
   step "man speichert den Benutzer"
   page.has_content? _("List of Users")
@@ -64,9 +64,9 @@ Angenommen(/^man befindet sich auf der Benutzereditieransicht von "(.*?)"$/) do 
 end
 
 Wenn(/^ich den Benutzernamen auf "(.*?)" und das Passwort auf "(.*?)" ändere$/) do |new_username, new_password|
-  first(".field", text: _("Login")).first("input").set "#{@login = new_username}"
-  first(".field", text: _("Password")).first("input").set "#{@password = new_password}"
-  first(".field", text: _("Password Confirmation")).first("input").set "#{new_password}"
+  find(".field", match: :prefer_exact, text: _("Login")).first("input").set "#{@login = new_username}"
+  find(".field", match: :prefer_exact, text: _("Password")).first("input").set "#{@password = new_password}"
+  find(".field", match: :prefer_exact, text: _("Password Confirmation")).first("input").set "#{new_password}"
 
   step "man speichert den Benutzer"
   page.has_content? _("List of Users")
@@ -75,7 +75,7 @@ Wenn(/^ich den Benutzernamen auf "(.*?)" und das Passwort auf "(.*?)" ändere$/)
 end
 
 Wenn(/^ich den Benutzernamen von "(.*?)" auf "(.*?)" ändere$/) do |person, new_username|
-  first(".field", text: _("Login")).first("input").set "#{@login = new_username}"
+  find(".field", match: :prefer_exact, text: _("Login")).first("input").set "#{@login = new_username}"
 
   step "man speichert den Benutzer"
   page.has_content? _("List of Users")
@@ -87,8 +87,8 @@ Wenn(/^ich einen Benutzer ohne Loginnamen erstellen probiere$/) do
   step "man einen Benutzer hinzufügt"
   fill_in_required_user_information
 
-  first(".field", text: _("Password")).first("input").set "newpassword}"
-  first(".field", text: _("Password Confirmation")).first("input").set "newpassword"
+  find(".field", match: :prefer_exact, text: _("Password")).first("input").set "newpassword}"
+  find(".field", match: :prefer_exact, text: _("Password Confirmation")).first("input").set "newpassword"
 
   click_button _("Create %s") % _("User")
 end
@@ -97,9 +97,9 @@ Wenn(/^ich einen Benutzer mit falscher Passwort\-Bestätigung erstellen probiere
   step "man einen Benutzer hinzufügt"
   fill_in_required_user_information
 
-  first(".field", text: _("Login")).first("input").set "new_username"
-  first(".field", text: _("Password")).first("input").set "newpassword"
-  first(".field", text: _("Password Confirmation")).first("input").set "wrongconfir"
+  find(".field", match: :prefer_exact, text: _("Login")).first("input").set "new_username"
+  find(".field", match: :prefer_exact, text: _("Password")).first("input").set "newpassword"
+  find(".field", match: :prefer_exact, text: _("Password Confirmation")).first("input").set "wrongconfir"
 
   click_button _("Create %s") % _("User")
 end
@@ -107,27 +107,27 @@ end
 Wenn(/^ich einen Benutzer mit fehlenden Passwortangaben erstellen probiere$/) do
   step "man einen Benutzer hinzufügt"
   fill_in_required_user_information
-  first(".field", text: _("Login")).first("input").set "new_username"
+  find(".field", match: :prefer_exact, text: _("Login")).first("input").set "new_username"
   click_button _("Create %s") % _("User")
 end
 
 Wenn(/^ich den Benutzernamen von nicht ausfülle und speichere$/) do
-  first(".field", text: _("Login")).first("input").set "a"
-  first(".field", text: _("Password")).first("input").set "newpassword"
-  first(".field", text: _("Password Confirmation")).first("input").set "newpassword"
+  find(".field", match: :prefer_exact, text: _("Login")).first("input").set "a"
+  find(".field", match: :prefer_exact, text: _("Password")).first("input").set "newpassword"
+  find(".field", match: :prefer_exact, text: _("Password Confirmation")).first("input").set "newpassword"
   step "man speichert den Benutzer"
 end
 
 Wenn(/^ich eine falsche Passwort\-Bestägigung eingebe und speichere$/) do
-  first(".field", text: _("Login")).first("input").set "newlogin"
-  first(".field", text: _("Password")).first("input").set "newpassword"
-  first(".field", text: _("Password Confirmation")).first("input").set "newpasswordxyz"
+  find(".field", match: :prefer_exact, text: _("Login")).first("input").set "newlogin"
+  find(".field", match: :prefer_exact, text: _("Password")).first("input").set "newpassword"
+  find(".field", match: :prefer_exact, text: _("Password Confirmation")).first("input").set "newpasswordxyz"
   step "man speichert den Benutzer"
 end
 
 Wenn(/^ich die Passwort\-Angaben nicht eingebe und speichere$/) do
-  first(".field", text: _("Login")).first("input").set "newlogin"
-  first(".field", text: _("Password")).first("input").set " "
-  first(".field", text: _("Password Confirmation")).first("input").set " "
+  find(".field", match: :prefer_exact, text: _("Login")).first("input").set "newlogin"
+  find(".field", match: :prefer_exact, text: _("Password")).first("input").set " "
+  find(".field", match: :prefer_exact, text: _("Password Confirmation")).first("input").set " "
   step "man speichert den Benutzer"
 end

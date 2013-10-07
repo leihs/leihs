@@ -17,7 +17,7 @@ end
 
 When /^I open a take back which has multiple lines$/ do
   @ip = @current_user.managed_inventory_pools.first
-  @customer = @ip.users.all.select {|x| x.contracts.signed.size > 0 && !x.contracts.signed.detect{|c| c.lines.size > 1 and c.inventory_pool == @ip}.nil? }.first
+  @customer = @ip.users.find {|x| x.contracts.signed.size > 0 && !x.contracts.signed.detect{|c| c.lines.size > 1 and c.inventory_pool == @ip}.nil? }
   @contract = @customer.contracts.signed.detect{|c| c.lines.size > 1 and c.inventory_pool == @ip}
   visit backend_inventory_pool_user_take_back_path(@ip, @customer)
   page.has_css?("#take_back", :visible => true)

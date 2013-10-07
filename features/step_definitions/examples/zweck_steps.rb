@@ -2,11 +2,11 @@
 
 Wenn /^ein Zweck gespeichert wird ist er unabhängig von einer Bestellung$/ do
   purpose = FactoryGirl.create :purpose
-  lambda{ purpose.order }.should raise_error(NoMethodError)
+  lambda{ purpose.contract }.should raise_error(NoMethodError)
 end
 
-Wenn /^jeder Eintrag einer Bestellung referenziert auf einen Zweck$/ do
-  FactoryGirl.create(:order_with_lines).lines.each do |line|
+Wenn /^jeder Eintrag einer abgeschickten Bestellung referenziert auf einen Zweck$/ do
+  FactoryGirl.create(:contract_with_lines, status: :submitted).lines.each do |line|
     line.purpose.should be_a_kind_of Purpose
   end
 end
@@ -18,13 +18,15 @@ Wenn /^jeder Eintrag eines Vertrages kann auf einen Zweck referenzieren$/ do
   end
 end
 
-Wenn /^ich eine Bestellung genehmige$/ do
-  step 'I open an order for acknowledgement'
+Wenn /^ich eine Bestellung editiere$/ do
+  contract_id = find(".contract.line", match: :first)["data-id"].to_i
+  @contract = Contract.find(contract_id)
+  visit backend_inventory_pool_acknowledge_path(@contract.inventory_pool, @contract)
 end
 
 Dann /^sehe ich den Zweck$/ do
-  if @order.lines.first.purpose
-    page.should have_content @order.lines.first.purpose.description
+  if @contract.lines.first.purpose
+    page.should have_content @contract.lines.first.purpose.description
   end
 end
 
@@ -33,7 +35,7 @@ Wenn /^ich eine Aushändigung mache$/ do
 end
 
 Dann /^sehe ich auf jeder Zeile den zugewisenen Zweck$/ do
-  @customer.contracts.unsigned.first.lines.each do |line|
+  @customer.contracts.approved.first.lines.each do |line|
     find(".line[data-id='#{line.id}']").should have_content line.model.name
     find(".line[data-id='#{line.id}']").should have_content line.purpose.description[0..10]
   end
@@ -45,7 +47,7 @@ Dann /^kann ich den Zweck editieren$/ do
   find(".dialog #purpose").set @new_purpose_description
   find(".dialog button[type=submit]").click
   page.should_not have_selector(".dialog")
-  @order.reload.lines.first.purpose.description.should == @new_purpose_description
+  @contract.reload.lines.first.purpose.description.should == @new_purpose_description
   find("section.purpose").should have_content @new_purpose_description
 end
 
@@ -65,13 +67,13 @@ end
 
 Dann /^werde ich beim Aushändigen darauf hingewiesen einen Zweck anzugeben$/ do
   find("#hand_over_button").click
-  page.should have_selector(".dialog .button")
-  page.should have_selector(".purpose #purpose")
+  page.has_selector?(".dialog .button")
+  page.has_selector?(".purpose #purpose")
 end
 
 Dann /^erst wenn ich einen Zweck angebebe$/ do
   find(".dialog .button[type=submit]", :text => /(Hand Over|Aushändigen)/).click
-  page.should have_selector(".notification")
+  page.has_selector?(".notification")
   find(".dialog #purpose").set "The purpose for this hand over"
 end
 
@@ -102,18 +104,18 @@ Wenn /^ich einen Zweck angebe$/ do
   find(".purpose .button").click
   @added_purpose = "Another Purpose"
   find("#purpose").set @added_purpose
-  @unsigned_lines = @customer.contracts.unsigned.first.lines
+  @approved_lines = @customer.contracts.approved.first.lines
   step 'kann ich die Aushändigung durchführen'
 end
 
 Dann /^wird nur den Gegenständen ohne Zweck der angegebene Zweck zugewiesen$/ do
-  @unsigned_lines.select{|l| l.purpose.blank?}.each do |line|
+  @approved_lines.select{|l| l.purpose.blank?}.each do |line|
     line.purpose.description.should == @added_purpose
   end
 end
 
 Wenn /^alle der ausgewählten Gegenstände haben einen Zweck angegeben$/ do
-  @contract = @customer.contracts.unsigned.first
+  @contract = @customer.contracts.approved.first
   @contract.lines.where(ContractLine.arel_table[:start_date].lteq(Date.today)).each do |line|
     @item_line = line
     step 'I select one of those'

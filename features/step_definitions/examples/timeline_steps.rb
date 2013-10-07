@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 Wenn /^ich eine Bestellung bearbeite$/ do
-  step 'I open an order for acknowledgement'
+  step 'I open a contract for acknowledgement'
 end
 
 Dann /^kann ich für jedes sichtbare Model die Timeline anzeigen lassen$/ do

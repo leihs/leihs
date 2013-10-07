@@ -35,16 +35,16 @@ Leihs::Application.routes.draw do
     get "models/availability", :to => "models#availability", :as => "models_availability"
     get "models/:id", :to => "models#show", :as => "model"
 
-    get "order", :to => "orders#current", :as => "current_order"
-    post "order", :to => "orders#submit"
-    delete "order/remove", :to => "orders#remove"
-    post "order_lines", :to => "order_lines#create"
-    post "order_lines/change_time_range", :to => "order_lines#change_time_range"
-    delete "order_lines/:line_id", :to => "order_lines#destroy"
-    delete "order/remove_lines", :to => "orders#remove_lines"
-    get "order/timed_out", :to => "orders#timed_out"
-    post "order/delete_unavailables", :to => "orders#delete_unavailables"
-    get "orders", :to => "orders#index", :as => "orders"
+    get "order", :to => "contracts#current", :as => "current_order"
+    post "order", :to => "contracts#submit"
+    delete "order/remove", :to => "contracts#remove"
+    post "contract_lines", :to => "contract_lines#create"
+    post "contract_lines/change_time_range", :to => "contract_lines#change_time_range"
+    delete "contract_lines/:line_id", :to => "contract_lines#destroy"
+    delete "order/remove_lines", :to => "contracts#remove_lines"
+    get "order/timed_out", :to => "contracts#timed_out"
+    post "order/delete_unavailables", :to => "contracts#delete_unavailables"
+    get "orders", :to => "contracts#index", :as => "orders"
 
     get "refresh_timeout", :to => "application#refresh_timeout"
     get "returns", :to => "returns#index", :as => "returns"
@@ -156,7 +156,6 @@ Leihs::Application.routes.draw do
 
       resources :mails
 
-      resources :orders
       resources :contracts
       resources :visits, :only => :index
       resource :inventory_helper, :controller => "inventory_helper", :only => :show

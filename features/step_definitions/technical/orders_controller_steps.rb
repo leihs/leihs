@@ -11,7 +11,7 @@ end
 Then /^the result of this action are all submitted\/pending orders for the given inventory pool$/ do
   @json.each do |order|
     order["lines"].each do |line|
-      OrderLine.find_by_id(line["id"].to_i).order.status_const.should == Order::SUBMITTED
+      OrderLine.find_by_id(line["id"].to_i).order.status.should == :submitted
     end
   end
 end

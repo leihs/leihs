@@ -19,7 +19,7 @@ Dann(/^sind die Verträge nach neuestem Zeitfenster sortiert$/) do
 end
 
 Dann(/^für jede Vertrag sehe ich folgende Informationen$/) do |table|
-  contracts = @current_user.contracts.includes(:contract_lines).where(status_const: [Contract::SIGNED, Contract::CLOSED])
+  contracts = @current_user.contracts.includes(:contract_lines).where(status: [:signed, :closed])
   contracts.sort! {|a,b| b.time_window_min <=> a.time_window_min}
   contracts.each do |contract|
     within first(".line[data-id='#{contract.id}']") do
@@ -36,7 +36,7 @@ Dann(/^für jede Vertrag sehe ich folgende Informationen$/) do |table|
           when "Zweck"
             should have_content contract.purpose
           when "Status"
-            should have_content _("Open") if contract.status_const == Contract::SIGNED
+            should have_content _("Open") if contract.status == :signed
           when "Vertraglink"
             page.should have_selector("a[href='#{borrow_user_contract_path(contract.id)}']", text: _("Contract"))
           when "Wertelistelink"
@@ -52,7 +52,7 @@ Dann(/^für jede Vertrag sehe ich folgende Informationen$/) do |table|
 end
 
 Angenommen(/^ich drücke auf den Wertelistelink$/) do
-  contracts = @current_user.contracts.where(status_const: [Contract::SIGNED, Contract::CLOSED])
+  contracts = @current_user.contracts.where(status: [:signed, :closed])
   @contract = contracts.sample
   first("a[href='#{borrow_user_value_list_path(@contract.id)}']", text: _("Value List")).click
 end
@@ -62,7 +62,7 @@ Dann(/^öffnet sich die Werteliste$/) do
 end
 
 Angenommen(/^ich drücke auf den Vertraglink$/) do
-  contracts = @current_user.contracts.where(status_const: [Contract::SIGNED, Contract::CLOSED])
+  contracts = @current_user.contracts.where(status: [:signed, :closed])
   @contract = contracts.sample
   first("a[href='#{borrow_user_contract_path(@contract.id)}']", text: _("Contract")).click
 end
@@ -72,7 +72,7 @@ Dann(/^öffnet sich der Vertrag$/) do
 end
 
 Wenn(/^ich eine Werteliste aus meinen Dokumenten öffne$/) do
-  contracts = @current_user.contracts.where(status_const: [Contract::SIGNED, Contract::CLOSED])
+  contracts = @current_user.contracts.where(status: [:signed, :closed])
   @contract = contracts.sample
   visit borrow_user_value_list_path(@contract.id)
   step "öffnet sich die Werteliste"
@@ -80,7 +80,7 @@ Wenn(/^ich eine Werteliste aus meinen Dokumenten öffne$/) do
 end
 
 Wenn(/^ich einen Vertrag aus meinen Dokumenten öffne$/) do
-  contracts = @current_user.contracts.where(status_const: [Contract::SIGNED, Contract::CLOSED])
+  contracts = @current_user.contracts.where(status: [:signed, :closed])
   @contract = contracts.sample
   visit borrow_user_contract_path(@contract.id)
   step "öffnet sich der Vertrag"
@@ -88,7 +88,7 @@ Wenn(/^ich einen Vertrag aus meinen Dokumenten öffne$/) do
 end
 
 Wenn(/^ich einen Vertrag mit zurück gebrachten Gegenständen aus meinen Dokumenten öffne$/) do
-  contracts = @current_user.contracts.where(status_const: [Contract::SIGNED, Contract::CLOSED])
+  contracts = @current_user.contracts.where(status: [:signed, :closed])
   @contract = contracts.find {|c| c.lines.any? &:returned_to_user}
   visit borrow_user_contract_path(@contract.id)
   step "öffnet sich der Vertrag"

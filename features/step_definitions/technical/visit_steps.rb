@@ -1,5 +1,5 @@
 def object_with_sign_state?(object, sign_state)
-  object.status_const == Contract.const_get(sign_state.upcase.to_sym)
+  object.status == sign_state.downcase.to_sym
 end
 
 Given /^there are "(.*?)" visits$/ do |visit_type|

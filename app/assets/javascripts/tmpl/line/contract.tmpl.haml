@@ -1,34 +1,103 @@
-%ul.line{:class => "${type}"}
+%ul.line{:class => "${type}", :"data-id" => "${id}"}
   
   .main
   
     {{tmpl($item.data.user) "tmpl/cell/user_name"}}
         
+    {{if status == 'signed' || status == 'closed'}}
     %li.number
       ${_jed("No.")}
       ${id}
-      
+    {{/if}}
+
     %li.date
       ${moment(created_at).format(i18n.date.L)}
   
     {{tmpl($item.data) "tmpl/cell/items"}}
-  
+
+    {{if status == 'submitted' || status == 'rejected'}}
+    %li.range
+      {{if lines.length}}
+      %span.text
+        %span.grey
+          ${_jed("for max.")}
+      %span.number
+        ${$max_range = App.Line.getMaxRange(lines), ""}
+        ${$max_range}
+      %span.text
+        ${_jed($max_range, "day")}
+      {{/if}}
+    {{/if}}
+
+    {{if status == 'submitted'}}
+    {{tmpl(purpose) "tmpl/cell/purpose"}}
+    {{/if}}
+    {{if status == 'rejected'}}
+    %li.status
+      %span.red
+        %strong
+          ${_jed("Rejected on")}
+        ${moment(updated_at).format(i18n.date.L)}
+    {{/if}}
+    {{if status == 'signed'}}
     %li.status_with_date
-      {{if status_const == 1}}
-      ${_jed("Unsigned (Hand Over)")}
-      {{/if}}
-      {{if status_const == 2}}
       ${_jed("Open")}
-      {{/if}}
-      {{if status_const == 3}}
-      ${_jed("Closed")}
-      {{/if}}
       %span.grey
         ${moment(updated_at).format(i18n.date.L)}
-  
+    {{/if}}
+    {{if status == 'closed'}}
+    %li.status_with_date
+      ${_jed("Closed")}
+      %span.grey
+        ${moment(updated_at).format(i18n.date.L)}
+    {{/if}}
+
   .actions    
     %li.actions
-      {{if status_const == 2}}
+      {{if status == 'submitted'}}
+      .multibutton
+        .alternatives
+          .trigger
+            .arrow
+          = link_to "/backend/inventory_pools/${currentInventoryPool.id}/acknowledge/${id}", :class => "button white" do
+            .icon.edit
+            ${_jed("Edit")}
+
+          = link_to "/backend/inventory_pools/${currentInventoryPool.id}/acknowledge/${id}/approve", :remote => true,
+            :class => "button white",
+            :method => :post,
+            :"data-tmpl" => "tmpl/dialog/acknowledge/approve",
+            :"data-dialog_class" => "medium",
+            :"data-on_success" => 'window.location = "//"+location.host+"/backend/inventory_pools/${currentInventoryPool.id}/users/${user.id}/hand_over"',
+            :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
+            .icon.hand_over
+            ${_jed("Hand Over")}
+
+          = link_to "/backend/inventory_pools/${currentInventoryPool.id}/acknowledge/${id}/reject",
+            :class => "button red open_dialog",
+            :"data-tmpl" => "tmpl/dialog/acknowledge/reject",
+            :"data-dialog_class" => "medium with_comment",
+            :"data-on_success" => 'Line.remove({"element": $(this).closest(".dialog").data("trigger").closest(".line"), "color": "red"})',
+            :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
+            .icon.delete
+            ${_jed("Reject")}
+
+        = link_to "/backend/inventory_pools/${currentInventoryPool.id}/acknowledge/${id}/approve",
+          :class => "button white",
+          :remote => true,
+          :method => :post,
+          :"data-tmpl" => "tmpl/dialog/acknowledge/approve",
+          :"data-dialog_class" => "medium with_comment",
+          :"data-on_success" => 'Line.remove({"element": $(".order.line[data-id=\'${id}\']"), "color": "green"})',
+          :"data-ref_for_dialog" => "$(_this).closest('.line').tmplItem().data" do
+          .icon.approve
+          ${_jed("Approve")}
+      {{/if}}
+
+      {{if status == 'rejected'}}
+      {{/if}}
+
+      {{if status == 'signed'}}
       .multibutton
         .alternatives
           .trigger
@@ -52,7 +121,7 @@
           ${_jed("Take Back")}
       {{/if}}
       
-      {{if status_const == 3}}
+      {{if status == 'closed'}}
       .multibutton
         .alternatives
           .trigger

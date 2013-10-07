@@ -836,7 +836,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Invalid order_lines": [
+      "Invalid contract_lines": [
          null,
          ""
       ],

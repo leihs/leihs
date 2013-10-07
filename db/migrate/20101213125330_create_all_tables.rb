@@ -152,7 +152,7 @@ class CreateAllTables < ActiveRecord::Migration
         t.belongs_to :order          # reference to orginal
         t.belongs_to :user
         t.belongs_to :inventory_pool
-        t.integer    :status_const,  :default => Order::UNSUBMITTED
+        t.integer    :status_const,  :default => 1
         t.string     :purpose
         t.boolean    :delta,         :default => true
         t.timestamps
@@ -214,7 +214,7 @@ class CreateAllTables < ActiveRecord::Migration
       create_table :contracts, :force => true do |t|
         t.belongs_to :user
         t.belongs_to :inventory_pool
-        t.integer    :status_const,  :default => Contract::UNSIGNED
+        t.integer    :status_const,  :default => 1
         t.text       :purpose
         t.text       :note
         t.boolean    :delta,         :default => true
@@ -506,7 +506,7 @@ class CreateAllTables < ActiveRecord::Migration
       create_table :orders, :force => true do |t|
         t.belongs_to :user
         t.belongs_to :inventory_pool
-        t.integer    :status_const,  :default => Order::UNSUBMITTED
+        t.integer    :status_const,  :default => 1
         t.text       :purpose
         t.boolean    :delta,         :default => true
         t.timestamps

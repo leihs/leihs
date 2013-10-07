@@ -1,18 +1,18 @@
 # -*- encoding : utf-8 -*-
 
-When /^I open an order for acknowledgement$/ do
+When /^I open a contract for acknowledgement$/ do
   @ip = @current_user.managed_inventory_pools.first
-  @customer = @ip.users.all.detect {|x| x.orders.submitted.exists? }
-  @order = @customer.orders.submitted.first
-  visit backend_inventory_pool_acknowledge_path(@ip, @order)
+  @customer = @ip.users.all.detect {|x| x.contracts.submitted.exists? }
+  @contract = @customer.contracts.submitted.first
+  visit backend_inventory_pool_acknowledge_path(@ip, @contract)
   page.should have_selector("#acknowledge", :visible => true)
 end
 
-When /^I open an order for acknowledgement with more then one line$/ do
+When /^I open a contract for acknowledgement with more then one line$/ do
   @ip = @current_user.managed_inventory_pools.first
-  @customer = @ip.users.all.detect {|x| x.orders.submitted.exists? and x.orders.submitted.first.lines.size > 1}
-  @order = @customer.orders.submitted.first
-  visit backend_inventory_pool_acknowledge_path(@ip, @order)
+  @customer = @ip.users.all.detect {|x| x.contracts.submitted.exists? and x.contracts.submitted.first.lines.size > 1}
+  @contract = @customer.contracts.submitted.first
+  visit backend_inventory_pool_acknowledge_path(@ip, @contract)
   page.should have_selector("#acknowledge", :visible => true)
 end
 
@@ -33,11 +33,10 @@ When /^I save the booking calendar$/ do
   page.should_not have_selector(".dialog")
 end
 
-When /^I change (.*?) lines time range$/ do |type|
-  @line = case type
-  when "an order"
-    @order.lines.first
-  when "a contract"
+When /^I change a contract lines time range$/ do
+  @line = if @contract
+    @contract.lines.first
+  else
     @customer.visits.hand_over.first.lines.first
   end
   @line_element = find(".line[data-id='#{@line.id}']")
@@ -57,11 +56,10 @@ Then /^the time range of that line is changed$/ do
   @line.reload.start_date.should == @new_start_date
 end
 
-When /^I change (.*?) lines quantity$/ do |type|
-  @line = case type
-  when "an order"
-    @order.lines.first
-  when "a contract"
+When /^I change a contract lines quantity$/ do
+  @line = if @contract
+    @contract.lines.first
+  else
     @customer.visits.hand_over.first.lines.first
   end
   @line_element = find(".line", match: :first, :text => @line.model.name)
@@ -77,10 +75,10 @@ Then /^the quantity of that line is changed$/ do
 end
 
 When /^I select two lines$/ do
-  @line1 = @order.lines.first
+  @line1 = @contract.lines.first
   @line1_element = find(".line", match: :first, :text => @line1.model.name)
   @line1_element.first("input[type=checkbox]").click
-  @line2 = @order.lines.second
+  @line2 = @contract.lines.second
   @line2_element = find(".line", match: :first, :text => @line2.model.name)
   @line2_element.first("input[type=checkbox]").click
 end
@@ -117,7 +115,7 @@ Then /^I see the booking calendar$/ do
 end
 
 When /^I change the time range for multiple lines that have quantity bigger then (\d+)$/ do |arg1|
-  step 'I change an order lines quantity'
+  step 'I change a contract lines quantity'
   first(".line[data-id='#{@line.id}'] .selected").text.to_i.should == @new_quantity
   step 'I change the time range for multiple lines'
 end

@@ -832,9 +832,9 @@ window.i18n.locale_data = {
          null,
          "Einführung"
       ],
-      "Invalid order_lines": [
+      "Invalid contract_lines": [
          null,
-         "Ungültige order_lines"
+         "Ungültige contract_lines"
       ],
       "Invalid technical user - contact your leihs admin": [
          null,

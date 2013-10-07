@@ -548,7 +548,7 @@ end
 Wenn(/^man teilt mehrere Gruppen zu$/) do
   @current_inventory_pool.groups.each do |group|
     find(".field", :text => _("Groups")).find(".autocomplete").click
-    page.should have_selector(".ui-autocomplete .ui-menu-item a")
+    page.has_selector?(".ui-autocomplete .ui-menu-item a")
     find(".ui-autocomplete .ui-menu-item a", :text => group.name).click
   end
 end
@@ -624,8 +624,8 @@ Dann(/^man sieht eine Bestätigungsmeldung$/) do
   page.should have_selector(".pagination_container", visible: false)
 end
 
-Angenommen(/^man befindet sich auf der Editierseite eines Benutzers, der kein Administrator ist$/) do
-  @user = User.find {|u| not u.has_role? "admin"}
+Angenommen(/^man befindet sich auf der Editierseite eines Benutzers, der kein Administrator ist und der Zugriffe auf Inventarpools hat$/) do
+  @user = User.find {|u| not u.has_role? "admin" and u.has_role? "customer"}
   visit edit_backend_user_path(@user)
 end
 
@@ -645,8 +645,8 @@ Wenn(/^man speichert den neuen Benutzer$/) do
   find(".button", text: _("Create %s") % _("User")).click
 end
 
-Angenommen(/^man befindet sich auf der Editierseite eines Benutzers, der ein Administrator ist$/) do
-  @user = User.find {|u| u.has_role? "admin"}
+Angenommen(/^man befindet sich auf der Editierseite eines Benutzers, der ein Administrator ist und der Zugriffe auf Inventarpools hat$/) do
+  @user = User.find {|u| u.has_role? "admin" and u.has_role? "customer"}
   visit edit_backend_user_path(@user)
 end
 
@@ -726,7 +726,7 @@ Dann(/^hat der Benutzer die Rolle Inventar-Verwalter$/) do
 end
 
 Angenommen(/^man sucht sich einen Benutzer ohne Zugriffsrechte, Bestellungen und Verträge aus$/) do
-  @user = User.find {|u| u.access_rights.empty? and u.orders.empty? and u.contracts.empty?}
+  @user = User.find {|u| u.access_rights.empty? and u.contracts.empty?}
 end
 
 Wenn(/^ich diesen Benutzer aus der Liste lösche$/) do
@@ -750,17 +750,17 @@ end
 
 Angenommen(/^man sucht sich je einen Benutzer mit Zugriffsrechten, Bestellungen und Verträgen aus$/) do
   @users = []
-  @users << User.find {|u| not u.access_rights.empty? and u.orders.empty? and u.contracts.empty?}
-  @users << User.find {|u| u.orders.empty? and not u.contracts.empty?}
-  @users << User.find {|u| not u.orders.empty? and u.contracts.empty?}
+  @users << User.find {|u| not u.access_rights.empty? and u.contracts.empty?}
+  @users << User.find {|u| not u.contracts.empty?}
+  @users << User.find {|u| u.contracts.empty?}
 end
 
 Dann(/^wird der Delete Button für diese Benutzer nicht angezeigt$/) do
   @users.each do |user|
     find('.innercontent .search input').set user.name
-    find(".line.user", text: user.name)
-    page.execute_script("$('.trigger .arrow').trigger('mouseover');")
-    find(".line.user", text: user.name).text.should_not match /#{_("Delete %s") % _("User")}/
+    line_user = find(".line.user", text: user.name)
+    line_user.find(".trigger .arrow").hover
+    line_user.text.should_not match /#{_("Delete %s") % _("User")}/
   end
 end
 

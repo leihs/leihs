@@ -52,28 +52,26 @@ end
 Angenommen(/^es existiert ein Modell mit folgenden Eigenschaften$/) do |table|
   conditions = table.raw.flatten.map do |condition|
     case condition
-    when "in keinem Vertrag aufgeführt"
-      lambda {|m| m.contract_lines.empty?}
-    when "keiner Bestellung zugewiesen"
-      lambda {|m| m.order_lines.empty?}
-    when "keine Gegenstände zugefügt"
-      lambda {|m| m.items.empty?}
-    when "hat Gruppenkapazitäten zugeteilt"
-      lambda {|m| Partition.find_by_model_id(m.id)}
-    when "hat Eigenschaften"
-      lambda {|m| not m.properties.empty?}
-    when "hat Zubehör"
-      lambda {|m| not m.accessories.empty?}
-    when "hat Bilder"
-      lambda {|m| not m.images.empty?}
-    when "hat Anhänge"
-      lambda {|m| not m.attachments.empty?}
-    when "hat Kategoriezuweisungen"
-      lambda {|m| not m.categories.empty?}
-    when "hat sich ergänzende Modelle"
-      lambda {|m| not m.compatibles.empty?}
-    else
-      false
+      when "in keinem Vertrag aufgeführt", "keiner Bestellung zugewiesen"
+        lambda {|m| m.contract_lines.empty?}
+      when "keine Gegenstände zugefügt"
+        lambda {|m| m.items.empty?}
+      when "hat Gruppenkapazitäten zugeteilt"
+        lambda {|m| Partition.find_by_model_id(m.id)}
+      when "hat Eigenschaften"
+        lambda {|m| not m.properties.empty?}
+      when "hat Zubehör"
+        lambda {|m| not m.accessories.empty?}
+      when "hat Bilder"
+        lambda {|m| not m.images.empty?}
+      when "hat Anhänge"
+        lambda {|m| not m.attachments.empty?}
+      when "hat Kategoriezuweisungen"
+        lambda {|m| not m.categories.empty?}
+      when "hat sich ergänzende Modelle"
+        lambda {|m| not m.compatibles.empty?}
+      else
+        false
     end
   end
   @model = Model.find {|m| conditions.map{|c| c.class == Proc ? c.call(m) : c}.all?}
@@ -87,12 +85,10 @@ end
 Und /^das Modell hat (.+) zugewiesen$/ do |assoc|
   @model = Model.find do |m|
     case assoc
-    when "Vertrag"
-      not m.contract_lines.empty?
-    when "Bestellung"
-      not m.order_lines.empty?
-    when "Gegenstand"
-      not m.items.empty?
+      when "Vertrag", "Bestellung"
+        not m.contract_lines.empty?
+      when "Gegenstand"
+        not m.items.empty?
     end
   end
 end

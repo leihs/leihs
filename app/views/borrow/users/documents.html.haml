@@ -25,7 +25,7 @@
         .line-col.col2of10.text-align-left.tooltip{title: (purpose.blank? ? nil : purpose)}
           .max-width-s-alt.text-ellipsis= purpose
         .line-col.col1of10
-          - if contract.status_const == Contract::SIGNED
+          - if contract.status == :signed
             %span.badge.blue
               = _("Open")
         .line-col.line-actions.col2of10

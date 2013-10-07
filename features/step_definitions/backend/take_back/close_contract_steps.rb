@@ -1,7 +1,7 @@
 When /^I open a take back$/ do
-  @ip = @current_user.managed_inventory_pools.first
-  @customer = @ip.users.detect {|x| x.contracts.signed.size > 0}
-  @contract = @customer.contracts.signed.first
+  @ip = @current_user.managed_inventory_pools.sample
+  @customer = @ip.users.select {|x| x.contracts.signed.where(inventory_pool_id: @ip).size > 0}.sample
+  @contract = @customer.contracts.signed.where(inventory_pool_id: @ip).sample
   visit backend_inventory_pool_user_take_back_path(@ip, @customer)
   page.has_css?("#take_back", :visible => true)
 end
@@ -31,7 +31,7 @@ end
 Then /^the contract is closed and all items are returned$/ do
   first(".dialog .documents")
   step "ensure there are no active requests"
-  @contract.reload.status_const.should == Contract::CLOSED
+  @contract.reload.status.should == :closed
   @contract.items.each do |item|
     item.in_stock?.should be_true
   end

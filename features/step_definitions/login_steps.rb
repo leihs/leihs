@@ -64,7 +64,7 @@ end
 When /^"([^"]*)" sign in successfully he is redirected to the "([^"]*)" section$/ do |login, section_name|
   visit "/logout"
   step "I am logged in as '#{login}' with password 'password'"
-  first(".navigation .active.#{section_name.downcase}")
+  find(".navigation .active.#{section_name.downcase}")
 end
 
 Angenommen(/^man ist eingeloggt als "(.*?)"$/) do |persona|

@@ -12,8 +12,8 @@ end
 
 Wenn /^ich öffne eine Bestellung von "(.*?)"$/ do |arg1|
   find(".toggle .text").click
-  el = first("#daily .order.line", :text => arg1)
-  @order = Order.find el["data-id"]
+  el = find("#daily .contract.line", match: :prefer_exact, :text => arg1)
+  @order = Contract.find el["data-id"]
   page.execute_script '$(":hidden").show();'
   el.first(".actions .alternatives .button .icon.edit").click
 end
@@ -98,7 +98,7 @@ end
 Wenn /^ich eine Aushändigung mache die ein Model enthält dessen Gegenstände ein nicht ausleihbares enthält$/ do
   @ip = @current_user.managed_inventory_pools.first
   @contract_line = nil
-  @contract = @ip.contracts.unsigned.detect do |c|
+  @contract = @ip.contracts.approved.detect do |c|
     @contract_line = c.lines.detect do |l|
       l.model.items.unborrowable.scoped_by_inventory_pool_id(@ip).first
     end
@@ -185,7 +185,7 @@ Wenn /^ich eine Aushändigung mache mit einem Kunden der sowohl am heutigen Tag 
 end
 
 Wenn /^ich etwas scanne \(per Inventarcode zuweise\) und es in irgendeinem zukünftigen Vertrag existiert$/ do
-  @model = @customer.contracts.unsigned.first.models.first
+  @model = @customer.contracts.approved.first.models.first
   @item = @model.items.borrowable.in_stock.first
   find("#code").set @item.inventory_code
   find("#process_helper .button").click
@@ -197,7 +197,7 @@ Dann /^wird es zugewiesen \(unabhängig ob es ausgewählt ist\)$/ do
 end
 
 Wenn /^es in keinem zukünftigen Vertrag existiert$/ do
-  @model_not_in_contract = (@ip.items.flat_map(&:model).uniq.delete_if{|m| m.items.borrowable.in_stock == 0} - @customer.contracts.unsigned.flat_map(&:models)).first
+  @model_not_in_contract = (@ip.items.flat_map(&:model).uniq.delete_if{|m| m.items.borrowable.in_stock == 0} - @customer.contracts.approved.flat_map(&:models)).first
   @item = @model_not_in_contract.items.borrowable.in_stock.first
   find("#add_start_date").set (Date.today+7.days).strftime("%d.%m.%Y")
   find("#add_end_date").set (Date.today+8.days).strftime("%d.%m.%Y")
@@ -246,29 +246,34 @@ Dann /^wird der Gegenstand mit den aktuell gesetzten Status gespeichert$/ do
 end
 
 Angenommen /^man fährt über die Anzahl von Gegenständen in einer Zeile$/ do
-  page.should have_selector(".line")
-  @lines = all(".line")
+  page.has_selector?(".line .items")
+  @lines = all(".line .items")
 end
 
 Dann /^werden alle diese Gegenstände aufgelistet$/ do
-  @lines.each_with_index do |line, i|
-    page.execute_script("$($('.line .items')[#{i}]).trigger('mouseenter')")
-    first(".tip")
+  all(".show_more").each(&:click)
+  @lines.each do |line|
+    line.hover
+    page.has_selector?(".tip")
   end
 end
 
 Dann /^man sieht pro Modell eine Zeile$/ do
-  @lines.each_with_index do |line, i|
-    page.execute_script("$($('.line .items')[#{i}]).trigger('mouseenter')")
-    model_names = find(".tip", match: :first, :visible => true).all(".model_name").map{|x| x.text}
+  all(".show_more").each(&:click)
+  @lines.each do |line|
+    line.hover
+    page.has_selector?(".tip .model_name")
+    model_names = find(".tip", match: :first, :visible => true).all(".model_name", text: /.+/).map{|x| x.text}
     model_names.size.should == model_names.uniq.size
   end
 end
 
 Dann /^man sieht auf jeder Zeile die Summe der Gegenstände des jeweiligen Modells$/ do
-  @lines.each_with_index do |line, i|
-    page.execute_script("$($('.line .items')[#{i}]).trigger('mouseenter')")
-    quantities = find(".tip", match: :first, :visible => true).all(".quantity").map{|x| x.text.to_i}
+  all(".show_more").each(&:click)
+  @lines.each do |line|
+    line.hover
+    page.has_selector?(".tip .quantity")
+    quantities = find(".tip", match: :first, :visible => true).all(".quantity", text: /.+/).map{|x| x.text.to_i}
     quantities.sum.should >= quantities.size
   end
 end

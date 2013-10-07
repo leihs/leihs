@@ -33,9 +33,6 @@ class InventoryPool < ActiveRecord::Base
 
   has_and_belongs_to_many :accessories
 
-  has_many :orders, :dependent => :delete_all
-  has_many :order_lines #old#, :through => :orders
-
   has_many :contracts, :dependent => :restrict
   has_many :contract_lines, :through => :contracts, :uniq => true #Rails3.1# TODO still needed?
   has_many :visits #, :include => {:user => [:reminders, :groups]} # MySQL View based on contract_lines

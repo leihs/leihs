@@ -26,9 +26,9 @@ When /^I select one of the matched models$/ do
   find(".ui-autocomplete a[title='#{@item.model.name}']", :text => @item.model.name).click
 end
 
-Then /^the model is added to the order$/ do
+Then /^the model is added to the contract$/ do
   page.should have_content @item.model.name
-  @order.models.include? @item.model
+  @contract.models.include? @item.model
 end
 
 When /^I start to type the name of a model$/ do
@@ -37,8 +37,8 @@ When /^I start to type the name of a model$/ do
 end
 
 When /^I add a model to the acknowledge which is already existing in the selected date range by providing an inventory code$/ do
-  @line = @order.lines.first
-  @old_lines_count = @order.lines.count
+  @line = @contract.lines.first
+  @old_lines_count = @contract.lines.count
   @model = @line.model
   @line_el_count = all(".line").size
   find("#process_helper").fill_in 'code', :with => @line.model.items.first.inventory_code
@@ -53,7 +53,7 @@ end
 
 Then /^an additional line has been created in the backend system$/ do
   step "ensure there are no active requests"
-  @order.lines.reload.count.should == @old_lines_count + 1
+  @contract.lines.reload.count.should == @old_lines_count + 1
 end
 
 Then /^the new line is getting visually merged with the existing line$/ do

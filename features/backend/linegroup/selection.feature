@@ -10,7 +10,7 @@ Feature: Select lines or linegroups
 
   @javascript
   Scenario: Select multiple lines
-     When I open a take back, hand over or I edit an order 
+     When I open a take back, hand over or I edit a contract 
       And I select all lines of an linegroup
      Then the linegroup is selected
       And the count matches the amount of selected lines
