@@ -124,8 +124,8 @@ Dann(/^kann ich ein Modell anhand der explorativen Suche wählen$/) do
   model = Model.find find(".dialog .line", :match => :first)["data-id"]
   find(".line button.select-model", :match => :first).click
   page.should have_selector(".notification")
-  if @order
-    expect(@order.models.include? model).to be_true
+  if @contract
+    expect(@contract.models.include? model).to be_true
   else
     expect(@customer.contracts.map(&:models).flatten.include? model).to be_true
   end

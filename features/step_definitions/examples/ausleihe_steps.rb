@@ -13,7 +13,7 @@ end
 Wenn /^ich öffne eine Bestellung von "(.*?)"$/ do |arg1|
   find(".toggle .text").click
   el = find("#daily .contract.line", match: :prefer_exact, :text => arg1)
-  @order = Contract.find el["data-id"]
+  @contract = Contract.find el["data-id"]
   page.execute_script '$(":hidden").show();'
   el.first(".actions .alternatives .button .icon.edit").click
 end

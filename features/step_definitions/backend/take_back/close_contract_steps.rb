@@ -1,7 +1,12 @@
-When /^I open a take back$/ do
-  @ip = @current_user.managed_inventory_pools.sample
-  @customer = @ip.users.select {|x| x.contracts.signed.where(inventory_pool_id: @ip).size > 0}.sample
-  @contract = @customer.contracts.signed.where(inventory_pool_id: @ip).sample
+When /^I open a take back(, not overdue)?$/ do |arg1|
+  contracts = Contract.signed.where(inventory_pool_id: @current_user.managed_inventory_pools)
+  @contract = if arg1
+                contracts.select {|c| not c.lines.any? {|l| l.end_date < Date.today} }
+              else
+                contracts
+              end.sample
+  @ip = @contract.inventory_pool
+  @customer = @contract.user
   visit backend_inventory_pool_user_take_back_path(@ip, @customer)
   page.has_css?("#take_back", :visible => true)
 end

@@ -27,14 +27,14 @@ Then /^the (.*?) is added to the hand over$/ do |type|
   sleep(0.88)
   contract = @customer.get_approved_contract(@ip)
   case type
-  when "option"  
-    option = Option.find_by_inventory_code(@inventory_code)
-    @option_line = contract.reload.option_lines.where(:option_id => option).first
-    contract.reload.options.include?(option).should == true
-    first(".option_line .inventory_code", :text => @inventory_code)
-  when "model"
-    contract.reload.models.include?(@model).should == true
-    first(".item_line", :text => @model.name)
+    when "option"
+      option = Option.find_by_inventory_code(@inventory_code)
+      @option_line = contract.reload.option_lines.where(:option_id => option).first
+      contract.reload.options.include?(option).should == true
+      first(".option_line .inventory_code", :text => @inventory_code)
+    when "model"
+      contract.reload.models.include?(@model).should == true
+      first(".item_line", :text => @model.name)
   end
 end
 
@@ -72,12 +72,12 @@ end
 
 Then /^I see a list of suggested (.*?) names$/ do |type|
   page.execute_script('$("#code").focus()')
-  first(".ui-autocomplete a")
+  find(".ui-autocomplete a", match: :first)
 end
 
 When /^I select the (.*?) from the list$/ do |type|
   sleep(1)
-  first(".ui-autocomplete a", :text => @target_name).click
+  find(".ui-autocomplete a", match: :first, :text => @target_name).click
 end
 
 Then /^each model of the template is added to the hand over for the provided date range$/ do
@@ -89,9 +89,9 @@ end
 
 When /^I add so many lines that I break the maximal quantity of an model$/ do
   @model ||= if @contract
-    @contract.lines.first.model
+    @contract.lines.sample.model
   else
-    @customer.get_approved_contract(@ip).lines.first.model
+    @customer.get_approved_contract(@ip).lines.sample.model
   end
   @target_name = @model.name
   @quantity_added = if @contract

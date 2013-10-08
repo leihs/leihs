@@ -5,9 +5,13 @@ Angenommen /^ich editiere eine Bestellung$/ do
   step 'I open a contract for acknowledgement'
 end
 
-Angenommen /^ich mache eine Rücknahme$/ do
+Angenommen /^ich mache eine Rücknahme(, die nicht überfällig ist)?$/ do |arg1|
   @event = "take_back"
-  step 'I open a take back'
+  if arg1
+    step 'I open a take back, not overdue'
+  else
+    step 'I open a take back'
+  end
 end
 
 Angenommen /^ich mache eine Aushändigung$/ do
@@ -17,15 +21,15 @@ end
 
 Angenommen /^eine Model ist nichtmehr verfügbar$/ do
   if @event=="order" or @event=="hand_over"
-    @entity = if @order
-      @order
-    else
-      @customer.get_approved_contract(@ip)
-    end
+    @entity = if @contract
+                @contract
+              else
+                @customer.get_approved_contract(@ip)
+              end
     @max_before = @entity.lines.first.model.availability_in(@entity.inventory_pool).maximum_available_in_period_summed_for_groups(@entity.lines.first.start_date, @entity.lines.first.end_date, @entity.lines.first.group_ids)
     step 'I add so many lines that I break the maximal quantity of an model'
   else
-    @model = @contract.models.first
+    @model = @contract.models.sample
     visit backend_inventory_pool_user_hand_over_path(@contract.inventory_pool, @customer)
     @max_before = @contract.lines.first.model.availability_in(@contract.inventory_pool).maximum_available_in_period_summed_for_groups(@contract.lines.first.start_date, @contract.lines.first.end_date, @contract.lines.first.group_ids)
     step 'I add so many lines that I break the maximal quantity of an model'
@@ -53,11 +57,11 @@ Dann /^das Problem wird wie folgt dargestellt: "(.*?)"$/ do |format|
   regexp = if format == "Nicht verfügbar 2(3)/7"
      /#{_("Not available")} -*\d\(-*\d\)\/\d/
   elsif format == "Gegenstand nicht ausleihbar"
-    /_("Item not borrowable")/
+    /#{_("Item not borrowable")}/
   elsif format == "Gegenstand ist defekt"
-    /_("Item is defective")/
+    /#{_("Item is defective")}/
   elsif format == "Gegenstand ist unvollständig"
-    /_("Item is incomplete")/
+    /#{_("Item is incomplete")}/
   elsif format == "Überfällig seit 6 Tagen"
      /(Überfällig seit \d+ (Tagen|Tag)|#{_("Overdue")} #{_("since")} \d+ (days|day))/
   end
