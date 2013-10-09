@@ -1,9 +1,18 @@
+#### Before running this migration, perform by hand the following cleanup on the database ####
+#
+## delete all contracts related to a not exisisting inventory_pool
+# Contract.joins("LEFT JOIN inventory_pools ON inventory_pools.id = contracts.inventory_pool_id").where(inventory_pools: {id: nil}).destroy_all
+#
+## delete all submitted, approved and rejected orders related to a not exisisting inventory_pool
+# Order.where("orders.status_const != ?", Order::UNSUBMITTED).joins("LEFT JOIN inventory_pools ON inventory_pools.id = orders.inventory_pool_id").where(inventory_pools: {id: nil}).destroy_all
+
 class MergeOrdersToContracts < ActiveRecord::Migration
 
   class Order < ActiveRecord::Base
     belongs_to :inventory_pool
     belongs_to :user
-    has_many :order_lines, :order => 'start_date ASC, end_date ASC, created_at ASC'
+    has_many :order_lines, :dependent => :destroy, :order => 'start_date ASC, end_date ASC, created_at ASC'
+    has_many :histories, :as => :target, :dependent => :destroy
   end
 
   class OrderLine < ActiveRecord::Base
@@ -58,9 +67,6 @@ class MergeOrdersToContracts < ActiveRecord::Migration
         next if order.order_lines.empty?
 
         if value == :unsubmitted
-          # TODO discuss these filters: ignore unsubmitted orders older than 1 month # with less than 20 lines
-          next if order.order_lines.all? {|l| l.end_date < (Date.today - 1.month) } # and order.order_lines.count < 20
-
           order.order_lines.group_by {|ol| ol.inventory_pool }.each_pair do |inventory_pool, lines|
             contract = order.user.contracts.create( status: value,
                                                     inventory_pool: inventory_pool,
@@ -70,9 +76,6 @@ class MergeOrdersToContracts < ActiveRecord::Migration
             History.where(target_type: "Order", target_id: order.id).update_all(target_type: "Contract", target_id: contract.id)
           end
         else
-          # TODO discuss these filters: InventoryPool 44 is missing
-          next unless order.inventory_pool
-
           contract = order.user.contracts.create( status: value,
                                                   inventory_pool: order.inventory_pool,
                                                   created_at: order.created_at,
