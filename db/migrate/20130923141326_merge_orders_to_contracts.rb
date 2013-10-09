@@ -3,6 +3,9 @@
 ## delete all contracts related to a not exisisting inventory_pool
 # Contract.joins("LEFT JOIN inventory_pools ON inventory_pools.id = contracts.inventory_pool_id").where(inventory_pools: {id: nil}).destroy_all
 #
+## delete all contracts without contract_lines
+# Contract.joins("LEFT JOIN contract_lines ON contract_lines.contract_id = contracts.id").where(contract_lines: {id: nil}).destroy_all
+#
 ## delete all submitted, approved and rejected orders related to a not exisisting inventory_pool
 # Order.where("orders.status_const != ?", Order::UNSUBMITTED).joins("LEFT JOIN inventory_pools ON inventory_pools.id = orders.inventory_pool_id").where(inventory_pools: {id: nil}).destroy_all
 
@@ -49,7 +52,11 @@ class MergeOrdersToContracts < ActiveRecord::Migration
     end
     Contract.reset_column_information
 
-    def order_lines_to_contract(lines, contract)
+    def order_to_contract(order, status, inventory_pool, lines)
+      contract = order.user.contracts.create( status: status,
+                                              inventory_pool: inventory_pool,
+                                              created_at: order.created_at,
+                                              updated_at: order.updated_at )
       lines.each do |ol|
         ol.quantity.times do
           contract.item_lines.create( model: ol.model,
@@ -61,6 +68,8 @@ class MergeOrdersToContracts < ActiveRecord::Migration
                                       updated_at: ol.updated_at )
         end
       end
+
+      History.where(target_type: "Order", target_id: order.id).update_all(target_type: "Contract", target_id: contract.id)
     end
 
     status_map[Order].each_pair do |key, value|
@@ -69,20 +78,10 @@ class MergeOrdersToContracts < ActiveRecord::Migration
 
         if value == :unsubmitted
           order.order_lines.group_by {|ol| ol.inventory_pool }.each_pair do |inventory_pool, lines|
-            contract = order.user.contracts.create( status: value,
-                                                    inventory_pool: inventory_pool,
-                                                    created_at: order.created_at,
-                                                    updated_at: order.updated_at )
-            order_lines_to_contract(lines, contract)
-            History.where(target_type: "Order", target_id: order.id).update_all(target_type: "Contract", target_id: contract.id)
+            order_to_contract(order, value, inventory_pool, lines)
           end
         else
-          contract = order.user.contracts.create( status: value,
-                                                  inventory_pool: order.inventory_pool,
-                                                  created_at: order.created_at,
-                                                  updated_at: order.updated_at )
-          order_lines_to_contract(order.order_lines, contract)
-          History.where(target_type: "Order", target_id: order.id).update_all(target_type: "Contract", target_id: contract.id)
+          order_to_contract(order, value, order.inventory_pool, order.order_lines)
         end
       end
     end
