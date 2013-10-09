@@ -56,6 +56,7 @@ class Contract < ActiveRecord::Base
   [:unsubmitted, :submitted, :rejected, :approved, :signed, :closed].each do |status|
     scope status, where(status: status)
   end
+  scope :submitted_or_approved_or_rejected, where(status: [:submitted, :approved, :rejected])
   scope :signed_or_closed, where(status: [:signed, :closed])
 
   # OPTIMIZE use INNER JOIN (:joins => :contract_lines) -OR- union :approved + :signed (with lines)

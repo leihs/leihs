@@ -18,20 +18,26 @@ class Backend::ContractsController < Backend::BackendController
     conditions[:user_id] = @user.id if @user
 
     scope = case filter
+              when "submitted_or_approved_or_rejected"
+                :submitted_or_approved_or_rejected
               when "pending"
                 :submitted
+              when "approved"
+                :approved
               when "rejected"
                 :rejected
+              when "signed_or_closed"
+                :signed_or_closed
               when "signed"
                 :signed
               when "closed"
                 :closed
               else
-                :scoped
+                nil
             end
 
-    # unscoped is for skip de default_scope
-    sql = Contract.unscoped.send(scope).where(conditions)
+    sql = Contract.where(conditions)
+    sql = sql.send(scope) if scope
     search_sql = sql.search(query)
 
     time_range = if not year.zero? and month.zero?

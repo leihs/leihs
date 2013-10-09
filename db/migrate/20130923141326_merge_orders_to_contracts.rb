@@ -13,6 +13,7 @@ class MergeOrdersToContracts < ActiveRecord::Migration
     belongs_to :user
     has_many :order_lines, :dependent => :destroy, :order => 'start_date ASC, end_date ASC, created_at ASC'
     has_many :histories, :as => :target, :dependent => :destroy
+    UNSUBMITTED = 1
   end
 
   class OrderLine < ActiveRecord::Base
