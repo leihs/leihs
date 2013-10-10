@@ -86,49 +86,8 @@ end
 # Necessary to prevent this error:
 # http://www.viget.com/extend/rubyinline-in-shared-rails-environments/
 ENV['INLINEDIR'] = "#{Rails.root}/tmp/"
-######################################################
-
-ActionMailer::Base.smtp_settings = {
-  :address => "smtp.zhdk.ch",
-  :port => 25,
-  :domain => "beta.ausleihe.zhdk.ch"
-}
-ActionMailer::Base.default :charset => 'utf-8'
 
 ######################################################
-# Settings
-# TODO remove these settings
-
-# This currency string is used on value lists. leihs itself has no capability
-# to deal with currencies, any numbers used as values for items are just "n pieces of currency"
-LOCAL_CURRENCY_STRING = "CHF"
-
-# These terms are printed at the bottom of lending contracts.
-CONTRACT_TERMS = "Die Benutzerin/der Benutzer ist bei unsachgemässer Handhabung oder Verlust schadenersatzpflichtig. Sie/Er verpflichtet sich, das Material sorgfältig zu behandeln und gereinigt zu retournieren. Bei mangelbehafteter oder verspäteter Rückgabe kann eine Ausleihsperre (bis zu 6 Monaten) verhängt werden. Das geliehene Material bleibt jederzeit uneingeschränktes Eigentum der Zürcher Hochschule der Künste und darf ausschliesslich für schulische Zwecke eingesetzt werden. Mit ihrer/seiner Unterschrift akzeptiert die Benutzerin/der Benutzer diese Bedingungen sowie die 'Richtlinie zur Ausleihe von Sachen' der ZHdK und etwaige abteilungsspezifische Ausleih-Richtlinien."
-
-# This is used as address block on the top of contracts. Use \n if you
-# want to create a line break.
-CONTRACT_LENDING_PARTY_STRING = "Your\nAddress\nHere"
-
-# This is appended to the bottom of e-mails sent by the system
-EMAIL_SIGNATURE = "Das PZ-leihs Team"
-
-# The file we get our LDAP configuration from
-#LDAP_CONFIG = YAML::load_file("#{Rails.root}/config/LDAP.yml")
-
-# The email address that inventory pool related messages are sent to
-# if no inventory pool specific address has been set in the backend
-DEFAULT_EMAIL = 'sender@example.com'
-
-# Send a notification to the e-mail address of the inventory
-# pool when this inventory pool receives an order? If the
-# inventory pool has no address set, messages go to DEFAULT_EMAIL
-DELIVER_ORDER_NOTIFICATIONS = false
-
-USER_IMAGE_URL = "http://www.zhdk.ch/?person/foto&width=100&compressionlevel=0&id={:id}"
-
-######################################################
-# NOTE do not remove this setting
 
 PER_PAGE = 20
 

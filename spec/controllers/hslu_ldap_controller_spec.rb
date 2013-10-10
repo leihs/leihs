@@ -14,19 +14,20 @@ describe Authenticator::HsluAuthenticationController do
     Role.find_or_create_by_name("admin")
     Role.find_or_create_by_name("customer")
 
-    LDAP_CONFIG = {"test"=>
-                  {"master_bind_pw"=>"12345",
-                   "base_dn"=>"OU=p_user,OU=prod,OU=hslu,DC=campus,DC=intern",
-                   "encryption"=>"simple_tls",
-                   "master_bind_dn"=> "CN=blah,OU=diblah,OU=diblahblah,OU=hslu,OU=enterprise,DC=campus,DC=intern",
-                   "admin_dn"=> "CN=blah,OU=diblah,OU=diblahblah,OU=p_ma,OU=p_group,OU=prod,OU=hslu,DC=campus,DC=intern",
-                   "port"=>636,
-                   "unique_id_field"=>"pager",
-                   "log_file"=>"log/ldap_server.log",
-                   "video_displayname"=>"DK.BA_VID",
-                   "host"=>"ldap.host",
-                   "search_field"=>"samaccountname",
-                   "log_level"=>"warn"}}
+    Setting::LDAP_CONFIG = File.join(Rails.root, "spec", "LDAP.yml")
+    #LDAP_CONFIG = {"test"=>
+    #              {"master_bind_pw"=>"12345",
+    #               "base_dn"=>"OU=p_user,OU=prod,OU=hslu,DC=campus,DC=intern",
+    #               "encryption"=>"simple_tls",
+    #               "master_bind_dn"=> "CN=blah,OU=diblah,OU=diblahblah,OU=hslu,OU=enterprise,DC=campus,DC=intern",
+    #               "admin_dn"=> "CN=blah,OU=diblah,OU=diblahblah,OU=p_ma,OU=p_group,OU=prod,OU=hslu,DC=campus,DC=intern",
+    #               "port"=>636,
+    #               "unique_id_field"=>"pager",
+    #               "log_file"=>"log/ldap_server.log",
+    #               "video_displayname"=>"DK.BA_VID",
+    #               "host"=>"ldap.host",
+    #               "search_field"=>"samaccountname",
+    #               "log_level"=>"warn"}}
   end
 
   def destroy_user(login)
