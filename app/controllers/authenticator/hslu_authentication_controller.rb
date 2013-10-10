@@ -9,16 +9,17 @@ class LdapHelper
   attr_reader :base_dn
 
   def initialize
-    @base_dn = Setting::LDAP_CONFIG[Rails.env]["base_dn"]
-    @search_field = Setting::LDAP_CONFIG[Rails.env]["search_field"]
-    @host = Setting::LDAP_CONFIG[Rails.env]["host"]
-    @port = Setting::LDAP_CONFIG[Rails.env]["port"].to_i || 636
-    @encryption = Setting::LDAP_CONFIG[Rails.env]["encryption"].to_sym || :simple_tls
+    ldap_config = YAML::load_file(Setting::LDAP_CONFIG)
+    @base_dn = ldap_config[Rails.env]["base_dn"]
+    @search_field = ldap_config[Rails.env]["search_field"]
+    @host = ldap_config[Rails.env]["host"]
+    @port = ldap_config[Rails.env]["port"].to_i || 636
+    @encryption = ldap_config[Rails.env]["encryption"].to_sym || :simple_tls
     @method = :simple
-    @master_bind_dn = Setting::LDAP_CONFIG[Rails.env]["master_bind_dn"]
-    @master_bind_pw = Setting::LDAP_CONFIG[Rails.env]["master_bind_pw"]
-    @unique_id_field = Setting::LDAP_CONFIG[Rails.env]["unique_id_field"]
-    @video_displayname = Setting::LDAP_CONFIG[Rails.env]["video_displayname"]
+    @master_bind_dn = ldap_config[Rails.env]["master_bind_dn"]
+    @master_bind_pw = ldap_config[Rails.env]["master_bind_pw"]
+    @unique_id_field = ldap_config[Rails.env]["unique_id_field"]
+    @video_displayname = ldap_config[Rails.env]["video_displayname"]
     raise "'master_bind_dn' and 'master_bind_pw' must be set in LDAP configuration file" if (@master_bind_dn.blank? or @master_bind_pw.blank?)
     raise "'unique_id_field' in LDAP configuration file must point to an LDAP field that allows unique identification of a user" if @unique_id_field.blank?
     raise "'video_displayname' in LDAP configuration file must be present and must be a string" if @video_displayname.blank?
@@ -98,7 +99,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
     user.country = user_data["c"].first.to_s
     user.zip = user_data["postalcode"].first.to_s
 
-    admin_dn = Setting::LDAP_CONFIG[Rails.env]["admin_dn"]
+    admin_dn = ldap_config[Rails.env]["admin_dn"]
     unless admin_dn.blank?
       if user_data["memberof"].include?(admin_dn)
         admin_role = Role.where(:name => "admin").first
@@ -133,7 +134,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
           ldap = ldaphelper.bind
 
           if ldap
-            users = ldap.search(:base => ldaphelper.base_dn, :filter => Net::LDAP::Filter.eq(Setting::LDAP_CONFIG[Rails.env]["search_field"], "#{user}"))
+            users = ldap.search(:base => ldaphelper.base_dn, :filter => Net::LDAP::Filter.eq(ldap_config[Rails.env]["search_field"], "#{user}"))
 
             if users.size == 1
               ldap_user = users.first
@@ -171,7 +172,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
             flash[:notice] = _("Invalid technical user - contact your leihs admin")
           end
         rescue Net::LDAP::LdapError
-          flash[:notice] = _("Couldn't connect to LDAP: #{Setting::LDAP_CONFIG[:host]}:#{Setting::LDAP_CONFIG[:port]}")
+          flash[:notice] = _("Couldn't connect to LDAP: #{ldap_config[:host]}:#{ldap_config[:port]}")
         end
       end
     end
