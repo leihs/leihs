@@ -8,7 +8,8 @@ class Setting < ActiveRecord::Base
                         :contract_lending_party_string,
                         :email_signature,
                         :default_email,
-                        :user_image_url
+                        :user_image_url,
+                        :ldap_config
 
   validates_numericality_of :smtp_port, :greater_than => 0
 
@@ -28,6 +29,7 @@ class Setting < ActiveRecord::Base
        :default_email,
        :deliver_order_notifications,
        :user_image_url,
+       :ldap_config,
        :logo_url].each do |k|
         Setting.const_set k.to_s.upcase, singleton.send(k) if singleton.methods.include?(k)
       end
