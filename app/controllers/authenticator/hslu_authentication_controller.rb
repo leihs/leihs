@@ -9,7 +9,7 @@ class LdapHelper
   attr_reader :base_dn
 
   def initialize
-    @@ldap_config = YAML::load_file(Setting::LDAP_CONFIG)
+    @ldap_config = YAML::load_file(Setting::LDAP_CONFIG)
     @base_dn = @ldap_config[Rails.env]["base_dn"]
     @search_field = @ldap_config[Rails.env]["search_field"]
     @host = @ldap_config[Rails.env]["host"]
