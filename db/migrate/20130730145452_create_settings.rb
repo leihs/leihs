@@ -13,6 +13,7 @@ class CreateSettings < ActiveRecord::Migration
       t.string  :default_email
       t.boolean :deliver_order_notifications
       t.string  :user_image_url
+      t.string  :ldap_config
     end
 
     Setting.create(

@@ -8,8 +8,7 @@ class Setting < ActiveRecord::Base
                         :contract_lending_party_string,
                         :email_signature,
                         :default_email,
-                        :user_image_url,
-                        :ldap_config
+                        :user_image_url
 
   validates_numericality_of :smtp_port, :greater_than => 0
 
