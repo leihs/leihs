@@ -10,7 +10,7 @@ set :application, "leihs-demo"
 
 set :scm, :git
 set :repository,  "git://github.com/zhdk/leihs.git"
-set :branch, "master"
+set :branch, "legacy-master"
 set :deploy_via, :remote_cache
 
 set :db_config, "/home/leihs/#{application}/database.yml"
