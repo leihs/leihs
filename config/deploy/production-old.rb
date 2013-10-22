@@ -159,8 +159,10 @@ before "deploy:create_symlink", :link_attachments
 before "deploy:create_symlink", :link_db_backups
 before "deploy:create_symlink", :chmod_tmp
 
-after "link_config", :migrate_database
-after "migrate_database", :configure_sphinx
+#after "link_config", :migrate_database
+#after "migrate_database", :configure_sphinx
+
+after "link_config", :configure_sphinx
 
 before "deploy:restart", :make_tmp
 after "deploy:restart", :stop_sphinx
