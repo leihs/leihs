@@ -1,6 +1,6 @@
 Feature: Edit purpose during acknowledge process
 
-  In order to edit an orders purpose
+  In order to edit a contracts purpose
   As an Lending Manager
   I want to have functionalities to change the purpose
 
@@ -9,8 +9,8 @@ Feature: Edit purpose during acknowledge process
       And I am "Pius"
 
   @javascript
-  Scenario: Change the purpose of an order
-     When I open an order for acknowledgement
-     Then I see the order's purpose 
-     When I change the order's purpose
-     Then the order's purpose is changed
+  Scenario: Change the purpose of a contract
+     When I open a contract for acknowledgement
+     Then I see the contract's purpose 
+     When I change the contract's purpose
+     Then the contract's purpose is changed

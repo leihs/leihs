@@ -172,5 +172,7 @@ Funktionalität: Modellliste
     Angenommen man ist "Normin"
     Und es gibt ein Modell mit Bilder, Beschreibung und Eigenschaften
     Und man befindet sich auf der Modellliste mit diesem Modell
-    Wenn man über ein Modell hovered
-    Dann werden folgende zusätzliche Informationen angezeigt Modellname, Bilder, Beschreibung, Liste der Eigenschaften
+    Wenn man über das Modell hovered
+    Dann werden zusätzliche Informationen angezeigt zu Modellname, Bilder, Beschreibung, Liste der Eigenschaften
+    Und wenn ich den Kalendar für dieses Modell benutze
+    Dann können die zusätzliche Informationen immer noch abgerufen werden

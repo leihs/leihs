@@ -28,13 +28,12 @@ Funktionalität: Werteliste
     | Laufende Nummer |
     | Inventarcode    |
     | Modellname      |
-    | Start Datum     |
     | End Datum       |
     | Anzahl          |
     | Wert            |
-    Und die Modelle sind alphabetisch sortiert
+    Und die Modelle in der Werteliste sind alphabetisch sortiert
 
-  @javascript  
+  @javascript
   Szenario: Totale Werte
     Dann gibt es eine Zeile für die totalen Werte
      Und diese summierte die Spalten:
@@ -42,3 +41,20 @@ Funktionalität: Werteliste
      | Anzahl      |
      | Wert        |
   
+  Szenario: Werteliste auf Bestellübersicht ausdrucken
+    Wenn ich eine Bestellung öffne 
+    Und ich mehrere Linien auswähle
+    Und das Werteverzeichniss öffne
+    Dann sehe ich das Werteverzeichniss für die ausgewählten Linien
+    Und der Preis ist der höchste Preis eines Gegenstandes eines Models innerhalb des Geräteparks
+    Und der Preis einer Option ist der innerhalb des Geräteparks
+    
+  Szenario: Werteliste auf der Aushändigungsansicht ausdrucken
+    Wenn ich eine Aushändigung öffne 
+    Und ich mehrere Linien auswähle
+    Und das Werteverzeichniss öffne
+    Dann sehe ich das Werteverzeichniss für die ausgewählten Linien
+    Und für die nicht zugewiesenen Linien ist der Preis ist der höchste Preis eines Gegenstandes eines Models innerhalb des Geräteparks
+    Und für die zugewisenen Linien ist der Preis der des Gegenstandes
+    Und die nicht zugewiesenen Linien sind zusammengefasst
+    Und der Preis einer Option ist der innerhalb des Geräteparks

@@ -9,7 +9,7 @@ module Persona
   class Pius
     
     @@name = "Pius"
-    @@lastname = "C."
+    @@lastname = Faker::Lorem.word
     @@password = "password"
     @@email = "pius@zhdk.ch"
     @@inventory_pool_name = "A-Ausleihe"

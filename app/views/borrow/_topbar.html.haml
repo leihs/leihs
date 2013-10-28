@@ -1,55 +1,78 @@
 %nav.topbar
-  
-  %a.topbar-logo.padding-horizontal-s{:href => borrow_root_path} leihs
 
-  %ul.topbar-navigation
+  .wrapper 
 
-    %li#topbar-search.topbar-item.topbar-search.separated-left
-      = render :partial => 'topbar_search'
+    %a.topbar-logo.padding-horizontal-s.margin-right-s{:href => borrow_root_path}
+      - if Setting::LOGO_URL
+        .table
+          .table-row
+            .table-cell.vertical-align-middle
+              %img{:src => Setting::LOGO_URL}   
+      - else
+        leihs
 
-    - if (q3 = current_user.orders.submitted.count) > 0
-      %li.topbar-item.separated-left{:class => current_page?(:controller => :orders) ? "active" : nil}
-        %a.topbar-item-inner{:href => borrow_orders_path}
-          != n_("%s Order", "%s Orders", q3) % "<span class='badge'>#{q3}</span>"
+    %ul.topbar-navigation.padding-right-m
 
-    - if (q1 = current_user.visits.hand_over.count) > 0
-      %li.topbar-item.separated-left{:class => current_page?(:controller => :to_pick_up) ? "active" : nil}
-        %a.topbar-item-inner{:href => borrow_to_pick_up_path}
-          %span.badge= q1
-          = _("To pick up")
+      .placeholder.height-xxs-alt.width-s.float-left.inline-block.margin-right-m
 
-    - if (q2 = current_user.visits.take_back.count) > 0
-      %li.topbar-item.separated-left{:class => current_page?(:controller => :returns) ? "active" : nil}
-        %a.topbar-item-inner{:href => borrow_returns_path}
-          != n_("%s Return", "%s Returns", q2) % "<span class='badge'>#{q2}</span>"
+      %li#topbar-search.topbar-item.topbar-search.position-absolute-left
+        = render :partial => 'topbar_search'
 
-    %li.topbar-item.separated-left{:class => current_page?(:controller => :inventory_pools) ? "active" : nil}
-      %a.topbar-item-inner{:href => borrow_inventory_pools_path}= _("Inventory Pools")
+      - if (q3 = current_user.contracts.submitted.count) > 0
+        %li.topbar-item{:class => current_page?(:controller => :contracts) ? "active" : nil}
+          %a.topbar-item-inner{:href => borrow_orders_path}
+            != n_("%s Order", "%s Orders", q3) % "<span class='badge'>#{q3}</span>"
 
-    %li.topbar-item.separated-left
-      %a.topbar-item-inner{:href => backend_path}= _("Manage")
+      - if (q1 = current_user.visits.hand_over.count) > 0
+        %li.topbar-item{:class => current_page?(:controller => :to_pick_up) ? "active" : nil}
+          %a.topbar-item-inner{:href => borrow_to_pick_up_path}
+            %span.badge= q1
+            = _("To pick up")
 
-    %li.topbar-item.separated-left.dropdown-holder{:class => current_page?(borrow_current_user_path) ? "active" : nil}
-      %a.topbar-item-inner.max-width-s-alt.text-ellipsis{:href => borrow_current_user_path}
-        = current_user
-        %i.arrow.down
+      - if (q2 = current_user.visits.take_back.count) > 0
+        %li.topbar-item{:class => current_page?(:controller => :returns) ? "active" : nil}
+          %a.topbar-item-inner{:href => borrow_returns_path}
+            != n_("%s Return", "%s Returns", q2) % "<span class='badge'>#{q2}</span>"
 
-      %ul.dropdown.right.straight-top
-        %li
-          %a.dropdown-item{:href => borrow_current_user_path}
-            .width-xxxs.inline-block.text-align-center
-              .icon-user
-            = _("User data")
-        %li
-          %a.dropdown-item{:href => borrow_user_documents_path}
-            .width-xxxs.inline-block.text-align-center
-              .icon-copy
-            = _("My documents")
-        %li.separated-top
-          %a.dropdown-item{:href => logout_path}
-            .width-xxxs.inline-block.text-align-center
-              .icon-signout
-            = _("Logout")
+      %li.topbar-item{:class => current_page?(:controller => :inventory_pools) ? "active" : nil}
+        %a.topbar-item-inner{:href => borrow_inventory_pools_path}= _("Inventory Pools")
+
+    %ul.topbar-navigation.float-right
+
+      - if current_user.has_role?('manager', nil, false) or current_user.has_role?('admin')
+        %li.topbar-item.with-icon
+          %a.topbar-item-inner{:href => backend_path, :title => _("Manage")}
+            %i.icon-gears
+            %span= _("Manage")
+
+      %li.topbar-item.dropdown-holder{:class => current_page?(borrow_current_user_path) ? "active" : nil}
+        %a.topbar-item-inner{:href => borrow_current_user_path}
+          %img.max-height-xxxs.max-width-xxs.emboss.deep{:src => current_user.image_url}
+          %span
+            - if current_user.to_s.length > 13
+              - unless current_user.firstname.blank?
+                = "#{current_user.firstname[0]}."
+              = current_user.lastname
+            - else
+              = current_user
+          %i.arrow.down
+
+        %ul.dropdown.right.straight-top
+          %li
+            %a.dropdown-item{:href => borrow_current_user_path}
+              .width-xxxs.inline-block.text-align-center
+                .icon-user
+              = _("User data")
+          %li
+            %a.dropdown-item{:href => borrow_user_documents_path}
+              .width-xxxs.inline-block.text-align-center
+                .icon-copy
+              = _("My documents")
+          %li.separated-top
+            %a.dropdown-item{:href => logout_path}
+              .width-xxxs.inline-block.text-align-center
+                .icon-signout
+              = _("Logout")
 
 :coffeescript
   

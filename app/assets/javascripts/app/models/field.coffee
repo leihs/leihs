@@ -12,10 +12,12 @@ class Field
     for k,v of data
       @[k] = v
     @formName = @getFormName @attribute, @form_name
+    @extendedKeyFormName = @getFormName(@extended_key, @form_name) if @extensible
     @label = _jed(@label)
     if item?
       @value = @getValue item, @attribute
       @value = @default if !@value? and @default?
+      @extendedKeyValue = @getValue item, @extended_key
       @editable = @getEditable item
       @item = item
     else

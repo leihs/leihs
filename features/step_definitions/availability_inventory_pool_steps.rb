@@ -34,8 +34,8 @@ Then "he sees the '$model' model" do |model|
 end
 
 Then "all order lines should be available" do
-  @order = @current_user.get_current_order
-  @order.order_lines.reload.all?{|l| l.available? }.should be_true
+  lines = @current_user.contracts.unsubmitted.flat_map(&:lines)
+  lines.reload.all?{|l| l.available? }.should be_true
 end
 
 Then(/^these additional order lines were not created$/) do

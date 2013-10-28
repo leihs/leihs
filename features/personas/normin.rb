@@ -21,8 +21,8 @@ module Persona
         select_inventory_pool 
         create_user
         setup_groups
-        create_orders
-        create_unsigned_contracts
+        create_submitted_contracts
+        create_approved_contracts
         create_signed_contracts
         lend_package
       end
@@ -50,56 +50,56 @@ module Persona
       @database_authentication = FactoryGirl.create(:database_authentication, :user => @user, :password => @@password)
     end
     
-    def create_orders
+    def create_submitted_contracts
       @camera_model = Model.find_by_name "Kamera Nikon X12"
       @tripod_model = Model.find_by_name "Kamera Stativ"
-      @order_for_camera = FactoryGirl.create(:order, :user => @user, :inventory_pool => @inventory_pool, :status_const => Order::SUBMITTED)
-      @order_for_camera_purpose = FactoryGirl.create :purpose, :description => "Benötige ich für die Aufnahmen meiner Abschlussarbeit."
-      @order_line_camera = FactoryGirl.create(:order_line, :purpose => @order_for_camera_purpose, :inventory_pool => @inventory_pool, :model => @camera_model, :order => @order_for_camera, :start_date => (Date.today + 7.days), :end_date => (Date.today + 10.days))
-      @order_line_tripod = FactoryGirl.create(:order_line, :purpose => @order_for_camera_purpose, :inventory_pool => @inventory_pool, :model => @tripod_model, :order => @order_for_camera, :start_date => (Date.today + 7.days), :end_date => (Date.today + 10.days))
+      @contract_for_camera = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :submitted)
+      @contract_for_camera_purpose = FactoryGirl.create :purpose, :description => "Benötige ich für die Aufnahmen meiner Abschlussarbeit."
+      @contract_line_camera = FactoryGirl.create(:contract_line, :purpose => @contract_for_camera_purpose, :model => @camera_model, :contract => @contract_for_camera, :start_date => (Date.today + 7.days), :end_date => (Date.today + 10.days))
+      @contract_line_tripod = FactoryGirl.create(:contract_line, :purpose => @contract_for_camera_purpose, :model => @tripod_model, :contract => @contract_for_camera, :start_date => (Date.today + 7.days), :end_date => (Date.today + 10.days))
 
-      # and some more random submitted orders with lines
+      # and some more random submitted contracts with lines
       rand(2..4).times do
         random_inventory_pool = @user.inventory_pools.sample
-        random_order = FactoryGirl.create(:order, :user => @user, :inventory_pool => random_inventory_pool, :status_const => Order::SUBMITTED)
+        random_contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => random_inventory_pool, :status => :submitted)
         rand(3..5).times do
-          FactoryGirl.create(:order_line, :order => random_order, :inventory_pool => random_inventory_pool)
+          FactoryGirl.create(:contract_line, :contract => random_contract)
         end
       end
     end
     
-    def create_unsigned_contracts
-      # unsigned_contract_1
-      @unsigned_contract_1 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool)
-      @unsigned_contract_1_purpose = FactoryGirl.create :purpose, :description => "Ersatzstativ für die Ausstellung."
-      FactoryGirl.create(:contract_line, :purpose => @unsigned_contract_1_purpose, :contract => @unsigned_contract_1, :model => @tripod_model)
+    def create_approved_contracts
+      # approved_contract_1
+      @approved_contract_1 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :approved)
+      @approved_contract_1_purpose = FactoryGirl.create :purpose, :description => "Ersatzstativ für die Ausstellung."
+      FactoryGirl.create(:contract_line, :purpose => @approved_contract_1_purpose, :contract => @approved_contract_1, :model => @tripod_model)
       
-      # unsigned_contract_2
-      @unsigned_contract_2 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool)
-      @unsigned_contract_2_purpose = FactoryGirl.create :purpose, :description => "Für das zweite Austellungswochenende."
-      FactoryGirl.create(:contract_line, :purpose => @unsigned_contract_2_purpose, :contract => @unsigned_contract_2, :model => @tripod_model)
-      FactoryGirl.create(:contract_line, :purpose => @unsigned_contract_2_purpose, :contract => @unsigned_contract_2, :model => @camera_model)
+      # approved_contract_2
+      @approved_contract_2 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :approved)
+      @approved_contract_2_purpose = FactoryGirl.create :purpose, :description => "Für das zweite Austellungswochenende."
+      FactoryGirl.create(:contract_line, :purpose => @approved_contract_2_purpose, :contract => @approved_contract_2, :model => @tripod_model)
+      FactoryGirl.create(:contract_line, :purpose => @approved_contract_2_purpose, :contract => @approved_contract_2, :model => @camera_model)
 
-      # unsigned_contract_3
-      @unsigned_contract_3 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool)
-      @unsigned_contract_3_purpose = FactoryGirl.create :purpose, :description => "Für das dritte Austellungswochenende."
-      FactoryGirl.create(:contract_line, :purpose => @unsigned_contract_3_purpose, :contract => @unsigned_contract_3, :model => @tripod_model, :start_date => Date.today + 7.days, :end_date => Date.today + 8.days)
-      FactoryGirl.create(:contract_line, :purpose => @unsigned_contract_3_purpose, :contract => @unsigned_contract_3, :model => @camera_model, :start_date => Date.today + 7.days, :end_date => Date.today + 8.days)
+      # approved_contract_3
+      @approved_contract_3 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :approved)
+      @approved_contract_3_purpose = FactoryGirl.create :purpose, :description => "Für das dritte Austellungswochenende."
+      FactoryGirl.create(:contract_line, :purpose => @approved_contract_3_purpose, :contract => @approved_contract_3, :model => @tripod_model, :start_date => Date.today + 7.days, :end_date => Date.today + 8.days)
+      FactoryGirl.create(:contract_line, :purpose => @approved_contract_3_purpose, :contract => @approved_contract_3, :model => @camera_model, :start_date => Date.today + 7.days, :end_date => Date.today + 8.days)
     end
     
     def create_signed_contracts
-      @unsigned_contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool)
+      @approved_contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :approved)
       purpose = FactoryGirl.create :purpose, :description => "Um meine Abschlussarbeit zu fotografieren."
-      FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @unsigned_contract, :item_id => @inventory_pool.items.in_stock.where(:model_id => @camera_model).first.id, :model => @camera_model, :start_date => Date.yesterday, :end_date => Date.today)
-      @unsigned_contract.sign(@pius)
+      @approved_contract.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @approved_contract, :item_id => @inventory_pool.items.in_stock.where(:model_id => @camera_model).first.id, :model => @camera_model, :start_date => Date.yesterday, :end_date => Date.today)
+      @approved_contract.sign(@pius)
 
-      @unsigned_contract_2 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool_2)
+      @approved_contract_2 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool_2, :status => :approved)
       purpose = FactoryGirl.create :purpose, :description => "Um meine Abschlussarbeit zu fotografieren."
       @arbitrary_model_1 = @inventory_pool_2.items.in_stock.first.model
       @arbitrary_model_2 = @inventory_pool_2.items.in_stock.last.model
-      FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @unsigned_contract_2, :item_id => @inventory_pool_2.items.in_stock.where(:model_id => @arbitrary_model_1).first.id, :model => @arbitrary_model_1, :start_date => Date.yesterday, :end_date => Date.today)
-      FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @unsigned_contract_2, :item_id => @inventory_pool_2.items.in_stock.where(:model_id => @arbitrary_model_2).first.id, :model => @arbitrary_model_2, :start_date => Date.yesterday, :end_date => Date.today)
-      @unsigned_contract_2.sign(@pius)
+      @approved_contract_2.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @approved_contract_2, :item_id => @inventory_pool_2.items.in_stock.where(:model_id => @arbitrary_model_1).first.id, :model => @arbitrary_model_1, :start_date => Date.yesterday, :end_date => Date.today)
+      @approved_contract_2.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @approved_contract_2, :item_id => @inventory_pool_2.items.in_stock.where(:model_id => @arbitrary_model_2).first.id, :model => @arbitrary_model_2, :start_date => Date.yesterday, :end_date => Date.today, :returned_to_user => @pius, :returned_date => Date.today)
+      @approved_contract_2.sign(@pius)
     end
 
     def setup_groups
@@ -109,10 +109,10 @@ module Persona
     end
 
     def lend_package
-      contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool)
+      contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :approved)
       purpose = FactoryGirl.create :purpose, :description => "Paketausgabe"
       package_item =  @inventory_pool.items.detect{|i| i.children.size > 0}
-      FactoryGirl.create(:contract_line, :purpose => purpose, :contract => contract, :item_id => package_item.id, :model => package_item.model, :start_date => Date.yesterday, :end_date => Date.tomorrow)
+      contract.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => contract, :item_id => package_item.id, :model => package_item.model, :start_date => Date.yesterday, :end_date => Date.tomorrow)
       contract.sign(@pius)
     end
   end  

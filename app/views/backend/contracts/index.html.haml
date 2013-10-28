@@ -2,19 +2,33 @@
 #orders.innercontent
 
   .top
-    %h1= _("List of Contracts")
+    %h1= yield :title
   
   %section
     .inlinetabs
-      = link_to backend_inventory_pool_contracts_path(current_inventory_pool, :filter => "", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' active' if params[:filter].blank? or params[:filter] == ""}" do
-        %span.text
-          = _("All")
-      = link_to backend_inventory_pool_contracts_path(current_inventory_pool, :filter => "signed", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' active' if params[:filter] == 'signed'}" do
-        %span.text
-          = _("Open")
-      = link_to backend_inventory_pool_contracts_path(current_inventory_pool, :filter => "closed", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' active' if params[:filter] == 'closed'}" do
-        %span.text
-          = _("Closed")
+      - if %w(submitted_or_approved_or_rejected pending approved rejected).include? params[:filter]
+        = link_to backend_inventory_pool_contracts_path(current_inventory_pool, :filter => "submitted_or_approved_or_rejected", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' active' if params[:filter].blank? or params[:filter] == "submitted_or_approved_or_rejected"}" do
+          %span.text
+            = _("All")
+        = link_to backend_inventory_pool_contracts_path(current_inventory_pool, :filter => "pending", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' active' if params[:filter] == 'pending'}" do
+          %span.text
+            = _("Pending")
+        = link_to backend_inventory_pool_contracts_path(current_inventory_pool, :filter => "approved", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' active' if params[:filter] == 'approved'}" do
+          %span.text
+            = _("Approved")
+        = link_to backend_inventory_pool_contracts_path(current_inventory_pool, :filter => "rejected", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' active' if params[:filter] == 'rejected'}" do
+          %span.text
+            = _("Rejected")
+      - elsif %w(signed_or_closed signed closed).include? params[:filter]
+        = link_to backend_inventory_pool_contracts_path(current_inventory_pool, :filter => "signed_or_closed", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' active' if params[:filter].blank? or params[:filter] == "signed_or_closed"}" do
+          %span.text
+            = _("All")
+        = link_to backend_inventory_pool_contracts_path(current_inventory_pool, :filter => "signed", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' active' if params[:filter] == 'signed'}" do
+          %span.text
+            = _("Open")
+        = link_to backend_inventory_pool_contracts_path(current_inventory_pool, :filter => "closed", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' active' if params[:filter] == 'closed'}" do
+          %span.text
+            = _("Closed")
             
     .list
       %ul.navigation.line
@@ -46,16 +60,9 @@
   - unless @contracts.blank?
     .pagination_container
 
-:ruby
-  contracts_json = json_for @contracts, {:lines => {:model => {}},
-                                         :user => {:preset => :user},
-                                         :quantity => true,
-                                         :created_at => true,
-                                         :updated_at => true}
-  
 :javascript
   $(document).ready(function(){
-    $('section .list').append($.tmpl("tmpl/line", #{contracts_json}));
+    $('section .list').append($.tmpl("tmpl/line", #{json_for(@contracts, { :preset => :contract_minimal })}));
     
     // setup ListSearch
     ListSearch.setup();

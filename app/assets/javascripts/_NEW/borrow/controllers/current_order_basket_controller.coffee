@@ -13,11 +13,12 @@ class window.App.Borrow.CurrentOrderBasketController extends Spine.Controller
     do @delegateEvents
 
   delegateEvents: =>
-    App.Order.on "refresh", @render
+    App.Contract.on "refresh", @render
 
   render: =>
     data = []
-    for model_id, lines of _.groupBy App.Order.current.lines().all(), "model_id"
+    all_lines = _.flatten(_.map App.Contract.currents, (c)-> c.lines().all())
+    for model_id, lines of _.groupBy all_lines, "model_id"
       data.push
         model: App.Model.find model_id
         quantity: _.reduce lines, ((mem, line)=> mem+line.quantity), 0

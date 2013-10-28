@@ -141,7 +141,7 @@ class Backend::ItemsController < Backend::BackendController
         if @item
           render(:json => view_context.json_for(@item))
         else
-          render(:status => :not_found)
+          render(:nothing => true, :status => :not_found)
         end
       }
     end

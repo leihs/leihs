@@ -47,9 +47,9 @@
                            :description   => begin
                               # construct the popup that is being displayed when you click on an event
                               link_string, link_path =
-                                if line.is_a?(OrderLine)
-                                  [ _("Acknowledge"), backend_inventory_pool_acknowledge_path(current_inventory_pool, line.document) ]
-                                elsif line.document.status_const == Contract::UNSIGNED
+                                if line.contract.status == :submitted
+                                  [ _("Acknowledge"), backend_inventory_pool_acknowledge_path(current_inventory_pool, line.contract) ]
+                                elsif line.contract.status == :approved
                                   [ _("Hand Over"), backend_inventory_pool_user_hand_over_path(current_inventory_pool, user) ]
                                 else
                                   [ _("Take Back"), backend_inventory_pool_user_take_back_path(current_inventory_pool, user) ]

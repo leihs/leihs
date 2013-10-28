@@ -1,0 +1,13 @@
+%div.field-inline-entry
+  %input{:type => :hidden, :name => "template[model_links_attributes][][id]", :value => model_link.id}
+  %input{:type => :hidden, :name => "template[model_links_attributes][][model_group_id]", :value => model_link.model_group_id}
+  %input{:type => :hidden, :name => "template[model_links_attributes][][model_id]", :value => model_link.model_id}
+  %input{:type => :hidden, :name => "template[model_links_attributes][][_destroy]", :value => nil}
+  .capacity{:style => "display: inline-block; padding-right: 16px"}
+    - max_borrowable_items = model_link.model.borrowable_items.by_responsible_or_owner_as_fallback(current_inventory_pool).count
+    %input{:type => :number, :name => "template[model_links_attributes][][quantity]", :value => model_link.quantity, :min => 1, :style => "width: 3em; text-align: center"}
+    %span{style: "#{model_link.quantity > max_borrowable_items ? "color: red" : nil}"}= "/ #{max_borrowable_items}"
+  %span.text-ellipsis{:style => "display: inline-block; max-width: 250px; line-height: 1em"}= model_link.model.name
+  .floatright
+    %div{:style => "display: inline-block;"}
+      %a.clickable.remove= _("Remove")

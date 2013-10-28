@@ -48,9 +48,9 @@ module Json
 
     def get_eager_preset(key)
       case key.to_sym
-        when :order_minimal
+        when :contract_minimal
           {:user => nil,
-           :order_lines => :model}
+           :contract_lines => :model}
         when :visit
           {:user => :reminders,
            :contract_lines => :model}
@@ -126,13 +126,13 @@ module Json
            :properties => {},
            :partitions => {:group => true},
            :accessories => {}}
-        when :order_minimal
+        when :contract_minimal
           {:user => {:preset => :user},
            :purpose => {},
            :created_at => true,
            :updated_at => true,
            :quantity => true,
-           :lines => {:model => {}, 
+           :lines => {:model => {},
                       :dates => true,
                       :quantity => true}
           }
@@ -143,19 +143,20 @@ module Json
            :purpose => true }
         when :order_line
           {:model => {},
-           :order => {:user => {:groups => true}}, # FIXME remove this, we already have it as parent (used in line.js.coffee.erb @get_user)
+           :contract => {:user => {:groups => true}}, # FIXME remove this, we already have it as parent (used in line.js.coffee.erb @get_user)
            :availability_for_inventory_pool => true,
            :dates => true,
-           :quantity => true,
            :is_available => true}
          when :contract
            {:barcode => true,
             :note => true,
+            :created_at => true,
             :inventory_pool => {:address => {}},
             :lines => {:item => {:price => true},
                        :model => {},
                        :purpose => {},
-                       :returned_date => true},
+                       :returned_date => true,
+                       :returned_to_user => true},
             :user => {:address => true,
                       :zip => true,
                       :city => true},

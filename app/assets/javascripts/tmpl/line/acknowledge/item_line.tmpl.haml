@@ -1,0 +1,53 @@
+${$problems = Line.get_problems($item.data), ""}
+${$availability = new App.Availability(availability_for_inventory_pool, $item.data), ""}
+${$max_available = $availability.maxAvailableForGroups(moment(start_date).sod().toDate(), moment(end_date).eod().toDate(), new App.User(Line.get_user($item.data)).groupIds()), ""}
+
+%ul{:class => "line ${type}{{if $problems.length}} error{{/if}}", :"data-id" => "${id}"}
+  
+  .main
+  
+    %li.select
+      %label
+        = check_box_tag "selected"
+        
+    %li.amount
+      %span.selected
+        ${quantity}
+      %span.grey= "/ ${$max_available} ${_jed('available')}"
+        
+    {{tmpl($item.data) "tmpl/cell/model"}}
+    {{tmpl({problems: $problems}) "tmpl/line/problems"}}
+  
+  .actions    
+    %li.actions
+      .multibutton
+        .alternatives
+          .trigger
+            .arrow
+          = link_to "/backend/inventory_pools/${currentInventoryPool.id}/models/${model.id}/timeline", :class => "button white open_dialog",
+          :"data-tmpl" => "tmpl/dialog/availability/timeline",
+          :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data",
+          :"data-dialog_class" => "full_width timeline" do
+            .icon.timeline
+            ${_jed("Timeline")}
+          = link_to "/backend/inventory_pools/${currentInventoryPool.id}/acknowledge/${contract.id}/remove_lines?{{if sublines}}{{each(i, sid) Line.get_subline_ids($item.data)}}&line_ids[]=${sid}{{/each}}{{else}}line_ids[]=${id}{{/if}}",
+          :class => "button red",
+          :method => "delete",
+          :remote => "true",
+          :"data-tmpl" => "tmpl/dialog/contract_line/delete",
+          :"data-dialog_class" => "medium",
+          :"data-on_success" => 'Acknowledge.remove_lines([$(this).parents(".line")]);' ,
+          :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
+            .icon.delete
+            ${_jed("Delete")}
+            
+        = link_to "/backend/inventory_pools/${currentInventoryPool.id}/acknowledge/${contract.id}/update_lines",
+          :class => "button white open_dialog", 
+          :"data-tmpl" => "tmpl/dialog/calendar", 
+          :"data-dialog_class" => "calendar medium",
+          :"data-on_success" => 'Acknowledge.update_order(response);',
+          :"data-dialog_ready" => "new BookingCalendar({limitMaxQuantity: false})",
+          :"data-ref_for_dialog" => "Line.data_for_edit_lines($(this).closest('.line').tmplItem().data)" do
+          .icon.timerange
+          ${_jed("Edit")}
+      

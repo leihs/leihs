@@ -47,8 +47,11 @@ namespace :app do
         exit_code_first_run = $?.exitstatus
 
         if exit_code_first_run != 0
-          puts "Non-zero exit necessiates a rerun. Go, go, go!"
-          Rake::Task["app:test:cucumber:rerun"].invoke
+          #puts "Non-zero exit necessiates a rerun. Go, go, go!"
+          puts "Non-zero exit WOULD necessiate a rerun. But we are not rerunning at all at the moment since it wastes time."
+          puts "You can still peek at tmp/rerun.txt to see what you COULD rerun, if you like."
+          raise "Tests failed on first run, giving up." 
+          #Rake::Task["app:test:cucumber:rerun"].invoke
         end
       end
 

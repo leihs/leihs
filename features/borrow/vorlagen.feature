@@ -42,7 +42,6 @@ Funktionalität: Vorlagen
   Szenario: Verfügbarkeitsansicht der Vorlage
     Angenommen ich sehe die Verfügbarkeit einer Vorlage, die nicht verfügbare Modelle enthält
     Dann sind diejenigen Modelle hervorgehoben, die zu diesem Zeitpunkt nicht verfügbar sind
-    Und ich kann das Start und Enddatum wählen
     Und die Modelle sind innerhalb eine Gruppe alphabetisch sortiert
     Und ich kann Modelle aus der Ansicht entfernen
     Und ich kann die Anzahl der Modelle ändern
@@ -50,6 +49,7 @@ Funktionalität: Vorlagen
     Wenn ich sämtliche Verfügbarkeitsprobleme gelöst habe
     Dann kann ich im Prozess weiterfahren und alle Modelle gesamthaft zu einer Bestellung hinzufügen
 
+  @javascript
   Szenario: Nur verfügbaren Modelle aus Vorlage in Bestellung übernehmen
     Angenommen ich sehe die Verfügbarkeit einer nicht verfügbaren Vorlage
     Und einige Modelle sind nicht verfügbar

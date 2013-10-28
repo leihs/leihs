@@ -11,14 +11,14 @@ class window.App.Borrow.CurrentOrderShowController extends Spine.Controller
     super
     new App.Borrow.ModelsShowPropertiesController {el: "#properties"}
     new App.Borrow.ModelsShowImagesController {el: "#images"}
-    unless App.Order.current.timedOut
+    unless App.Contract.first()?.timedOut
       @timeoutCountdown = new App.Borrow.TimeoutCountdownController
         el: @el.find("#timeout-countdown")
         refreshTarget: @el.find("#timeout-countdown")
     
   delegateEvents: =>
     super
-    App.Order.bind "refresh", (data)=>
+    App.Contract.bind "refresh", (data)=>
       do @render
 
   changeOrderLines: (e)=>
@@ -26,7 +26,7 @@ class window.App.Borrow.CurrentOrderShowController extends Spine.Controller
     target = $(e.currentTarget)
     new App.Borrow.OrderLinesChangeController 
       modelId: target.data("model-id")
-      lines: _.map target.data("line-ids"), (id) -> App.OrderLine.find id
+      lines: _.map target.data("line-ids"), (id) -> App.ContractLine.find id
       quantity: target.data("quantity")
       startDate: target.data("start-date")
       endDate: target.data("end-date")
@@ -35,5 +35,5 @@ class window.App.Borrow.CurrentOrderShowController extends Spine.Controller
     return false
 
   render: =>
-    @linesContainer.html App.Render "borrow/views/order/grouped_and_merged_lines", App.Order.current.groupedAndMergedLines()
-    @conflictsWarning.addClass("hidden") if App.Order.current.isAvailable()
+    @linesContainer.html App.Render "borrow/views/order/grouped_and_merged_lines", App.Contract.groupedAndMergedLines()
+    @conflictsWarning.addClass("hidden") if _.all App.Contract.currents, (c) -> c.isAvailable()

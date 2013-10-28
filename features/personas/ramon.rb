@@ -25,8 +25,8 @@ module Persona
         create_inventory_pool_av_technik
         create_naked_users
         create_users_with_access_rights
-        create_users_with_orders
-        create_users_with_contracts
+        create_users_with_unsubmitted_contracts
+        create_users_with_approved_contracts
       end
     end
     
@@ -75,12 +75,12 @@ module Persona
       FactoryGirl.create :access_right, inventory_pool: @av_technik, user: FactoryGirl.create(:user), role: Role.find_by_name("customer")
     end
 
-    def create_users_with_orders
-      FactoryGirl.create :order_with_lines
+    def create_users_with_unsubmitted_contracts
+      FactoryGirl.create :contract_with_lines, status: :unsubmitted
     end
 
-    def create_users_with_contracts
-      FactoryGirl.create :contract_with_lines
+    def create_users_with_approved_contracts
+      FactoryGirl.create :contract_with_lines, status: :approved
     end
   end
 end

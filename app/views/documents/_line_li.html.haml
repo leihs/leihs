@@ -13,7 +13,7 @@
       - elsif line.is_a? ContractLine
         - if line.is_late?
           = _("overdue")
-        - elsif line.contract.status_const == Contract::UNSIGNED
+        - elsif line.contract.status == :approved
           = _("delete")
         - else
           = link_to _("extend"), "#"

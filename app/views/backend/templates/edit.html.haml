@@ -1,0 +1,70 @@
+- content_for :title, _("Edit %s") % _("Template")
+
+= form_for @template, url: backend_inventory_pool_template_path(@current_inventory_pool), :class => "edit_template" do |f|
+
+  .innercontent
+
+    .top
+      %h1= @template.name
+      .content_navigation
+        %a.button.red{:href => backend_inventory_pool_templates_path}
+          = _("Cancel")
+        %button.button.green{:type => :submit}
+          = _("Save %s") % _("Template")
+
+    %section.form_edit.indent.edit
+
+      .left
+        %section
+          .inner
+            .field.text
+              .key
+                %h3= "#{_("Name")} *"
+              .value
+                .input
+                  = f.text_field :name, autofocus: :autofocus, autocomplete: :off
+      .right
+        %section
+          .inner
+            .field.text
+              .key
+                %h3= "#{_("Quantity")} / #{_("Models")}"
+              .value
+                .input
+                  %label.container
+                    %input.autocomplete#add-model{:type => "text",
+                                                  :autocomplete => :off,
+                                                  :placeholder => _("Name of the model"),
+                                                  :data => { :autocomplete_element_tmpl => "tmpl/autocomplete/generic",
+                                                             :autocomplete_search_attr => 'query',
+                                                             :url => backend_inventory_pool_models_path(current_inventory_pool,
+                                                               :for_current_inventory_pool => true,
+                                                               :with => {:total_borrowable => true}),
+                                                             :autocomplete_display_attribute => "name",
+                                                             :autocomplete_clear_input_value_on_select => "true",
+                                                             :autocomplete_blur_on_select => "true"}}
+                    .arrow.icon
+              .clear
+            = render :partial => "backend/templates/model_inline_entry", :collection => @template.model_links.sort{|ml1, ml2| ml1.model.name <=> ml2.model.name}, :as => :model_link
+
+      .clear
+
+:coffeescript
+
+  notice = #{flash[:notice].to_json}
+  error = #{flash[:error].to_json}
+
+  jQuery ->
+    if notice
+      Notification.add_headline
+        text: notice
+        type: "success"
+
+    if error
+      Notification.add_headline
+        text: error
+        type: "error"
+
+  jQuery ->
+    new App.TemplatesController
+      el: $(".edit_template")

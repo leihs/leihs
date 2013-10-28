@@ -7,15 +7,6 @@ module Availability
       #inventory_pool.availability_for(self)
     end
 
-    def total_borrowable_items_for_user(user, inventory_pool = nil)
-      groups = user.groups.with_general
-      if inventory_pool
-        inventory_pool.partitions_with_generals.hash_for_model_and_groups(self, groups).values.sum
-      else       
-        inventory_pools.sum {|ip| ip.partitions_with_generals.hash_for_model_and_groups(self, groups).values.sum }
-      end
-    end
-
     def availability_periods_for_user(user, with_total_borrowable = false)
       (inventory_pools & user.inventory_pools).collect do |inventory_pool|
         groups = user.groups.scoped_by_inventory_pool_id(inventory_pool).with_general

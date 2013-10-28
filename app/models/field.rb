@@ -125,7 +125,7 @@ class Field < ActiveHash::Base
       value_label: ["properties", "anschaffungskategorie"],
       required: true,
       type: "select",
-      values: [{label: "", value: nil}, {label: "Werkstatt-Technik", value: "Werkstatt-Technik"}, {label: "Produktionstechnik", value: "Produktionstechnik"}, {label: "AV-Technik", value: "AV-Technik"}, {label: "Musikinstrumente", value: "Musikinstrumente"}, {label: "Facility Management", value: "Facility Management"}, {label: "IC-Technik/Software", value: "IC-Technik/Software"}, {label: "Business Applications", value: "Business Applications"}],
+      values: [{label: "", value: nil}, {label: "Werkstatt-Technik", value: "Werkstatt-Technik"}, {label: "Produktionstechnik", value: "Produktionstechnik"}, {label: "AV-Technik", value: "AV-Technik"}, {label: "Musikinstrumente", value: "Musikinstrumente"}, {label: "Facility Management", value: "Facility Management"}, {label: "IC-Technik/Software", value: "IC-Technik/Software"}],
       visibility_dependency_field_id: 15,
       visibility_dependency_value: "true",
       permissions: {level: 3, owner: true},
@@ -214,8 +214,10 @@ class Field < ActiveHash::Base
       label: "Supplier",
       attribute: ["supplier", "id"],
       type: "autocomplete",
+      extensible: true,
+      extended_key: ["supplier", "name"],
       permissions: {level: 2, owner: true},
-      values: lambda{([{:value => nil, :label => _("None")}] + Supplier.order(:name).map {|x| {:value => x.id, :label => x.name}}).as_json},
+      values: lambda{Supplier.order(:name).map {|x| {:value => x.id, :label => x.name}}.as_json},
       group: "Invoice Information"
     },{
       id: 28,

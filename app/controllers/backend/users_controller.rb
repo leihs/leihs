@@ -156,17 +156,12 @@ class Backend::UsersController < Backend::BackendController
 
     should_be_admin = params[:user].delete(:admin)
 
-    if db_auth = params[:db_auth]
-      db_auth.delete(:password) if db_auth[:password] == "_password_"
-      db_auth.delete(:password_confirmation) if db_auth[:password_confirmation] == "_password_"
-      @user.login = db_auth[:login] if db_auth[:login]
-    end
-
     begin
       User.transaction do
+        params[:user].merge!(login: params[:db_auth][:login]) if params[:db_auth]
         @user.update_attributes! params[:user]
-        if db_auth
-          DatabaseAuthentication.find_by_user_id(@user.id).update_attributes! db_auth.merge(user: @user)
+        if params[:db_auth]
+          DatabaseAuthentication.find_by_user_id(@user.id).update_attributes! params[:db_auth].merge(user: @user)
           @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
         end
         @user.all_access_rights.delete_all {|ar| ar.role_name == "admin"}
@@ -197,21 +192,14 @@ class Backend::UsersController < Backend::BackendController
       @user.groups = groups.map {|g| Group.find g["id"]}
     end
 
-    if db_auth = params[:db_auth]
-      db_auth.delete(:password) if db_auth[:password] == "_password_"
-      db_auth.delete(:password_confirmation) if db_auth[:password_confirmation] == "_password_"
-      @user.login = db_auth[:login] if db_auth[:login]
-    end
-
     begin
       User.transaction do
+        params[:user].merge!(login: params[:db_auth][:login]) if params[:db_auth]
         @user.update_attributes! params[:user]
-
-        if db_auth
-          DatabaseAuthentication.find_or_create_by_user_id(@user.id).update_attributes! db_auth.merge(user: @user)
+        if params[:db_auth]
+          DatabaseAuthentication.find_or_create_by_user_id(@user.id).update_attributes! params[:db_auth].merge(user: @user)
           @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
         end
-
         @access_right = AccessRight.find_or_initialize_by_user_id_and_inventory_pool_id(@user.id, @ip_id)
         @access_right.update_attributes! params[:access_right] unless @access_right.new_record? and params[:access_right][:role_name] == "no_access"
 

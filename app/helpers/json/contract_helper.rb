@@ -6,7 +6,7 @@ module Json
         type: 'contract',
         id: contract.id,
         action: contract.action,
-        status_const: contract.status_const
+        status: contract.status
       }
 
       if with ||= nil
@@ -15,14 +15,14 @@ module Json
         end
       
         if with[:lines]
-          h[:lines] = hash_for contract.lines, with[:lines]
+          h[:lines] = hash_for contract.lines.sort, with[:lines]
         end
 
         if with[:user]
           h[:user] = hash_for contract.user, with[:user] 
         end
 
-        if with[:handed_over_by_user] and contract.status_const != Contract::UNSIGNED
+        if with[:handed_over_by_user] and contract.status != :approved
           h[:handed_over_by_user] = contract.handed_over_by_user ? hash_for(contract.handed_over_by_user, with[:handed_over_by_user]) : nil
         end
 
@@ -35,6 +35,17 @@ module Json
           with[:barcode][:height] ||= 25
           h[:barcode] = barcode_for_contract(contract, with[:barcode][:height])
         end
+
+        ############# from order preset #############
+        #
+        if [:unsubmitted, :submitted, :rejected].include?(contract.status) # NOTE we still emulate the old order json
+          if with[:purpose]
+            h[:purpose] = contract.purpose ? hash_for(contract.purpose, with[:purpose]) : nil
+          end
+        end
+        #
+        #############
+
       end
       
       h

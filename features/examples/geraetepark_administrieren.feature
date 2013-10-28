@@ -7,6 +7,15 @@ Funktionalität: Geräteparks administrieren
   die nötigen Funktionalitäten
 
   @javascript
+  Szenario: Geräteparkauswahl
+    Angenommen Personas existieren
+    Und man ist "Gino"
+    Wenn ich in den Admin-Bereich wechsel
+    Dann ich sehe die Geräteparkliste
+    Und ich sehe die Geräteparkauswahl
+    Und die Geräteparkauswahl ist alphabetish sortiert
+
+  @javascript
   Szenario: Den ersten Gerätepark erstellen
     Angenommen persona "Gino" existing
     Und ich bin Gino

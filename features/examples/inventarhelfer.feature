@@ -12,7 +12,7 @@ Funktionalität: Inventarhelfer
     Angenommen man ist auf dem Helferschirm
     Dann wähle Ich all die Felder über eine List oder per Namen aus
     Und ich setze all ihre Initalisierungswerte
-    Dann scanne oder gebe ich den Inventarcode ein
+    Dann scanne oder gebe ich den Inventarcode von einem Gegenstand ein, der am Lager und in keinem Vertrag vorhanden ist
     Dann sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert
     Und die geänderten Werte sind hervorgehoben
     
@@ -78,8 +78,20 @@ Funktionalität: Inventarhelfer
     Und die geänderten Werte sind hervorgehoben
     Und der Ort des anderen Gegenstandes ist dergleiche geblieben
 
-#  @javascript
-#  Szenario: Bei Fehler Linien farblich kennzeichnen
-#    Angenommen man editiert ein Gerät über den Helferschirm
-#    Und möchte Felder ändern, für die man keine Berechtigung hat
-#    Dann werden die ausgewählten Felder die geändert werden dürfen und diejenigen die nicht geändert werden dürfen farblich gekennzeichnet
+  @javascript
+  Szenario: Bei ausgeliehenen Gegenständen kann man die verantwortliche Abteilung nicht editieren
+    Angenommen man ist auf dem Helferschirm
+    Und man editiert das Feld "Verantwortliche Abteilung" eines ausgeliehenen Gegenstandes
+    Dann erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät ausgeliehen ist
+
+  @javascript
+  Szenario: Die ausgeliehenen Gegenständen kann man nicht ausmustern
+    Angenommen man ist auf dem Helferschirm
+    Und man mustert einen ausgeliehenen Gegenstand aus
+    Dann erhält man eine Fehlermeldung, dass man den Gegenstand nicht ausmustern kann, da das Gerät ausgeliehen ist
+
+  @javascript
+  Szenario: Bei Gegenständen, die in Verträgen vorhanden sind, können gewisse Felder nicht editiert werden
+    Angenommen man ist auf dem Helferschirm
+    Und man editiert das Feld "Modell" eines Gegenstandes, der im irgendeinen Vertrag vorhanden ist
+    Dann erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät in einem Vortrag vorhanden ist

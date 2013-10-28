@@ -20,7 +20,7 @@
       <p><%= _("The order now looks like this:") %></p>
 
       <ul>
-        <% @order.order_lines.each do | line | %>
+        <% @order.lines.each do | line | %>
           <li><%= line.quantity%> <%= line.model.name %>,  <%= line.start_date %> - <%= line.end_date %></li>
         <% end %>
       </ul>

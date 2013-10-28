@@ -12,8 +12,8 @@ Feature: Allocating of capacities inside the availability
     Given a model that has capacities for a group and group general
       And a user that is in that group
      When the user orders the sum of his group and group general
-     Then this order should be allocated in the group and the group general
-      And the quantity should be available for that order
+     Then this contract should be allocated in the group and the group general
+      And the quantity should be available for that contract
 
   Scenario: Allocating should be always the same
    Given a list of changes/availabilities

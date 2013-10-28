@@ -1,19 +1,20 @@
 class window.App.Borrow.OrderLinesChangeController extends window.App.Borrow.BookingCalendarDialog
 
   createOrderLine: (quantity)=>
-    order_line = new App.OrderLine
+    contract_line = new App.ContractLine
       model_id: @modelId
       start_date: @getStartDate().format("YYYY-MM-DD")
       end_date: @getEndDate().format("YYYY-MM-DD")
       inventory_pool_id: @getSelectedInventoryPool().id
       quantity: quantity
-    App.OrderLine.ajaxChange(order_line, "create", {})
+    App.ContractLine.ajaxChange(contract_line, "create", {})
 
   # overwrite
   done: (data)=>
     if @lines?
       line["available?"] = true for line in @lines
-    App.Order.trigger "refresh", App.Order.current
+    for contract in App.Contract.currents
+      App.Contract.trigger "refresh", contract
     super
 
   # overwrite
@@ -27,14 +28,14 @@ class window.App.Borrow.OrderLinesChangeController extends window.App.Borrow.Boo
       deletionDone = _.after linesToBeDestroyed.length, @changeRange
       for line in linesToBeDestroyed
         do (line)->
-          App.OrderLine.ajaxChange(line, "destroy", {}).done =>
-            delete App.OrderLine.records[line.id]
+          App.ContractLine.ajaxChange(line, "destroy", {}).done =>
+            delete App.ContractLine.records[line.id]
             do deletionDone
       @lines = _.reject @lines, (l)-> _.include(linesToBeDestroyed, l)
     else if difference > 0 # create new lines in the amount of the quantity difference
       ajax = @createOrderLine(difference)
       ajax.done (newLines)=>
-        @lines.push new App.OrderLine(line) for line in newLines
+        @lines.push new App.ContractLine(line) for line in newLines
         do @changeRange
       ajax.fail @fail
     else # do quantity difference, try to change the range
@@ -42,7 +43,7 @@ class window.App.Borrow.OrderLinesChangeController extends window.App.Borrow.Boo
 
   changeRange: => 
     if @getStartDate().format("YYYY-MM-DD") != @startDate or @getEndDate().format("YYYY-MM-DD") != @endDate
-      ajax = App.OrderLine.changeTimeRange @lines, @getStartDate(), @getEndDate(), @getSelectedInventoryPool()
+      ajax = App.ContractLine.changeTimeRange @lines, @getStartDate(), @getEndDate(), @getSelectedInventoryPool()
       ajax.done @done
       ajax.fail @fail
     else

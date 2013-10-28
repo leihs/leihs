@@ -30,7 +30,7 @@ module Backend::BackendHelper
       when "daily"
         current_inventory_pool and path_parameters?(:controller => "backend/inventory_pools", :action => "show")
       when "orders"
-        path_parameters?(:controller => "backend/orders") ||
+        (path_parameters?(:controller => "backend/contracts") and %w(submitted_or_approved_or_rejected pending approved rejected).include? params[:filter]) or
         !!(request.path =~ /acknowledge\/\d+$/)
       when "search"
         path_parameters?(:controller => "backend/backend", :action => :search)
@@ -41,7 +41,7 @@ module Backend::BackendHelper
       when "take_back"
         path_parameters?(:controller => "backend/take_back", :action => :show)
       when "contracts"
-        path_parameters?(:controller => "backend/contracts")
+        path_parameters?(:controller => "backend/contracts") and not %w(submitted_or_approved_or_rejected pending approved rejected).include? params[:filter]
       when "visits"
         path_parameters?(:controller => "backend/visits") or
           is_current_page?("hand_over") or
@@ -68,7 +68,8 @@ module Backend::BackendHelper
           is_current_page?("items") or 
           is_current_page?("inventory_helper") or
           is_current_page?("options") or
-          is_current_page?("categories")
+          is_current_page?("categories") or
+          is_current_page?("templates")
       when "inventory_helper"
         path_parameters?(:controller => "backend/inventory_helper")
       when "models"
@@ -91,6 +92,8 @@ module Backend::BackendHelper
         path_parameters?(:controller => "backend/options")
       when "categories"
         path_parameters?(:controller => "backend/categories")
+      when "templates"
+        path_parameters?(:controller => "backend/templates")
       when "groups"
         path_parameters?(:controller => "backend/groups")
       when "settings"

@@ -178,7 +178,7 @@ end
 # this test is specifically for the 'New Item' page
 Then /^the item should( only)? be assignable to the '([^']*)' departement$/ \
 do |only,name|
-  select = find("#item_inventory_pool_id")
+  select = first("#item_inventory_pool_id")
   options = select.all("option")
   if only
     options.size.should == 1

@@ -1,0 +1,68 @@
+- content_for :title, _("Create %s") % _("Template")
+
+= form_tag backend_inventory_pool_templates_path, :method => :post, :id => "new_template" do
+
+  .innercontent
+
+    .top
+      %h1= yield :title
+      .content_navigation
+        %a.button.red{:href => backend_inventory_pool_templates_path}
+          = _("Cancel")
+        %button.button.green{:type => :submit}
+          = _("Save %s") % _("Template")
+
+    %section.form_edit.indent.edit
+
+      .left
+        %section
+          .inner
+            .field.text
+              .key
+                %h3= "#{_("Name")} *"
+              .value
+                .input
+                  %input{type: "text", name: "template[name]", :autofocus => :autofocus, :autocomplete => :off, :placeholder => _("Name of the template")}
+      .right
+        %section
+          .inner
+            .field.text
+              .key
+                %h3= "#{_("Quantity")} / #{_("Models")}"
+              .value
+                .input
+                  %label.container
+                    %input.autocomplete#add-model{:type => "text",
+                                        :autocomplete => :off,
+                                        :placeholder => _("Name of the model"),
+                                        :data => { :autocomplete_element_tmpl => "tmpl/autocomplete/generic",
+                                                   :autocomplete_search_attr => 'query',
+                                                   :url => backend_inventory_pool_models_path(current_inventory_pool,
+                                                     :for_current_inventory_pool => true,
+                                                     :with => {:total_borrowable => true}),
+                                                   :autocomplete_display_attribute => "name",
+                                                   :autocomplete_clear_input_value_on_select => "true",
+                                                   :autocomplete_blur_on_select => "true"}}
+                    .arrow.icon
+              .clear
+      .clear
+
+:coffeescript
+
+  notice = #{flash[:notice].to_json}
+  error = #{flash[:error].to_json}
+
+  jQuery ->
+    if notice
+      Notification.add_headline
+        text: notice
+        type: "success"
+
+    if error
+      Notification.add_headline
+        text: error
+        type: "error"
+
+  jQuery ->
+    new App.TemplatesController
+      el: $("#new_template")

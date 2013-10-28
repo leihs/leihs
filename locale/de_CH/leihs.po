@@ -166,9 +166,6 @@ msgstr "Facility Management"
 msgid "IC-Technik/Software"
 msgstr "IC-Technik/Software"
 
-msgid "Business Applications"
-msgstr "Business Applications"
-
 msgid "Approval Successful"
 msgstr "Genehmigung erfolgreich"
 
@@ -1007,6 +1004,9 @@ msgstr "Bitte geben Sie einen Zweck an..."
 msgid "Please provide all required fields"
 msgstr "Bitte füllen Sie alle Pflichtfelder aus"
 
+msgid "Please provide an inventory code"
+msgstr "Bitte Inventarcode angeben"
+
 msgid "Please specify the purpose of your order here..."
 msgstr "Bitte geben Sie den Zweck Ihrer Bestellung hier an..."
 
@@ -1693,6 +1693,9 @@ msgstr "Sie sind nun ausgeloggt."
 msgid "You are not logged in."
 msgstr "Sie sind nicht eingeloggt."
 
+msgid "You were served by %s"
+msgstr "Sie wurden bedient von %s"
+
 msgid ""
 "You might receive an admonishment and be subject to late fees as well as the "
 "restriction of borrowing privileges. In case of recurrence you might be "
@@ -2194,6 +2197,9 @@ msgstr "Name des Modells"
 msgid "Name of the group"
 msgstr "Name der Gruppe"
 
+msgid "Name of the template"
+msgstr "Name der Vorlage"
+
 msgid "%s saved"
 msgstr "%s gespeichert"
 
@@ -2358,6 +2364,9 @@ msgstr "Vorlage bestellen"
 msgid "Please select a template."
 msgstr "Bitte wählen Sie eine Vorlage."
 
+msgid "The template \"%s\" will be deleted and no longer available for usage."
+msgstr "Die Vorlage \"%s\" wird gelöscht und nicht mehr zur Verfügung stehen."
+
 msgid "Please adapt the specific quantities to fit your needs."
 msgstr "Bitte passen Sie die jeweils benötigte Anzahl der folgenden Einträge an."
 
@@ -2412,14 +2421,44 @@ msgstr "Ihre Bestellung läuft ab in %s."
 msgid "Reset timeout"
 msgstr "Time-Out zurücksetzen"
 
-msgid "Firstname"
-msgstr "Vorname"
-
-msgid "Lastname"
-msgstr "Nachname"
-
 msgid "Your order ist empty."
 msgstr "Ihre Bestellung ist leer."
 
 msgid "Borrow items"
 msgstr "Gegenstände ausleihen"
+
+msgid "from %s"
+msgstr "vom %s"
+
+msgid "Please select a time range and continue."
+msgstr "Bitte wählen Sie eine Zeitspanne aus und fahren Sie fort."
+
+msgid "You can modify the time range for each separate model in the next step."
+msgstr "Sie können die Zeitspannen jedes einzelnen Models im nöchsten Schritt editieren."
+
+msgid "List of templates"
+msgstr "Liste der Vorlagen"
+
+msgid "Template"
+msgstr "Vorlage"
+
+msgid "New Template"
+msgstr "Neue Vorlage"
+
+msgid "Template must have at least one model"
+msgstr "Vorlage muss mindestens ein Modell haben"
+
+msgid "%s created successfully"
+msgstr "%s erfolgreich erstellt"
+
+msgid "%s successfully saved"
+msgstr "%s erfolgreich gespeichert"
+
+msgid "Source code"
+msgstr "Quellcode"
+
+msgid "Complete order"
+msgstr "Bestellung abschliessen"
+
+msgid "The responsible inventory pool cannot be changed because the item is currently not in stock."
+msgstr "Die verantwortliche Abteilung kann nicht geändert werden, da der Gegenstand nicht am Lager ist."

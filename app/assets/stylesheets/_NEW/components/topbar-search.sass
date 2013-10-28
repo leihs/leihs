@@ -1,14 +1,19 @@
 .topbar-search
   vertical-align: middle
   width: 110px
+  z-index: 100
   @include transition(width 0.3s)
+
+  &, &.topbar-item:hover
+    border: none !important
+    @include box-shadow(none !important)
 
   input[type='text']
     font-size: $font-size-xs
     height: $space-l
 
   &.active
-    width: 180px
+    width: 100%
 
   label
     padding: 6px

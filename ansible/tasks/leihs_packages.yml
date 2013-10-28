@@ -1,0 +1,5 @@
+---
+- apt: pkg=imagemagick state=present update_cache=yes
+  sudo: True
+- apt: pkg=libmagickwand-dev state=present update_cache=yes
+  sudo: True

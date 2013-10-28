@@ -6,18 +6,18 @@ Dann(/^sehe ich die Anzahl meiner abgeschickten, noch nicht genehmigten Bestellu
    borrow_current_order_path,
    borrow_current_user_path].each do |path|
     visit path
-    find("nav a[href='#{borrow_orders_path}'] .badge").text.to_i.should == @current_user.orders.submitted.count
+    find("nav a[href='#{borrow_orders_path}'] .badge", match: :first).text.to_i.should == @current_user.contracts.submitted.count
   end
 end
 
 Wenn(/^ich auf den Bestellungen Link drücke$/) do
   visit borrow_root_path
-  find("nav a[href='#{borrow_orders_path}']").click
+  find("nav a[href='#{borrow_orders_path}']", match: :first).click
 end
 
 Dann(/^sehe ich meine abgeschickten, noch nicht genehmigten Bestellungen$/) do
-  @current_user.orders.submitted.each do |order|
-    page.should have_content order.inventory_pool.name
+  @current_user.contracts.submitted.each do |contract|
+    page.should have_content contract.inventory_pool.name
   end
 end
 
@@ -26,15 +26,15 @@ Dann(/^ich sehe die Information, dass die Bestellung noch nicht genehmigt wurde$
 end
 
 Dann(/^die Bestellungen sind nach Datum und Gerätepark sortiert$/) do
-  titles = all(".row.padding-inset-l").map {|x| [Date.parse(x.find("h3").text), x.find("h2").text]}
+  titles = all(".row.padding-inset-l").map {|x| [Date.parse(x.first("h3").text), x.first("h2").text]}
   titles.empty?.should be_false
   expect(titles.sort == titles).to be_true
 end
 
 Dann(/^jede Bestellung zeigt die zu genehmigenden Geräte$/) do
-  @current_user.orders.submitted.each do |order|
-    order.lines.each do |line|
-      find(".line", text: line.model.name)
+  @current_user.contracts.submitted.each do |contract|
+    contract.lines.each do |line|
+      find(".line", match: :prefer_exact, text: line.model.name)
     end
   end
 end

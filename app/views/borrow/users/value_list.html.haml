@@ -1,8 +1,11 @@
+- content_for :title, "#{_("Value List for Lending Contract No.")} #{@contract.id}"
+
 .value_list
 
   %h1
     = _("Value List for Lending Contract No.")
     = @contract.id
+    = _("from %s") % l(@contract.created_at.to_date)
   .date
     = l Time.now.to_date
 
@@ -27,14 +30,13 @@
           %td.consecutive_number= _("No.")
           %td.inventory_code= _("Inventory Code")
           %td.model_name= _("Model")
-          %td.start_date= _("Start date")
           %td.end_date= _("End date")
           %td.quantity= _("Quantity")
           %td.item_price= _("Value")
 
       %tbody
         - consecutive_number = 0
-        - @contract.lines.each do |line|
+        - @contract.lines.sort.each do |line|
           %tr
             %td.consecutive_number
               - if line.quantity > 1
@@ -43,14 +45,13 @@
                 = consecutive_number += 1
             %td.inventory_code= line.item.inventory_code
             %td.model_name= line.model.name
-            %td.start_date= l line.start_date
             %td.end_date= l line.end_date
             %td.quantity= line.quantity
             %td.item_price= number_to_currency(line.price, format: '%n %u', :unit => Setting::LOCAL_CURRENCY_STRING)
 
       %tfoot.total
         %tr
-          %td{:colspan => 5}
+          %td{:colspan => 4}
             %strong= _("Total")
           %td.quantity
             %strong= @contract.quantity

@@ -5,10 +5,23 @@ class ModelsController < ApplicationController
   end
   
   def image
-    redirect_to Model.find(params[:id]).image(params[:offset]), :status => :moved_permanently
+    if img = Model.find(params[:id]).image(params[:offset])
+      redirect_to img
+    else
+      redirect_to :action => :placeholder
+    end
   end
 
   def image_thumb
-    redirect_to Model.find(params[:id]).image_thumb(params[:offset]), :status => :moved_permanently
+    if img = Model.find(params[:id]).image_thumb(params[:offset])
+      redirect_to img
+    else
+      redirect_to :action => :placeholder
+    end
+  end
+
+  def placeholder
+    empty_gif_pixel = "R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\n"
+    send_data Base64.decode64(empty_gif_pixel), :type => "image/gif", :disposition => 'inline'
   end
 end

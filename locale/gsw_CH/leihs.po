@@ -164,9 +164,6 @@ msgstr ""
 msgid "IC-Technik/Software"
 msgstr ""
 
-msgid "Business Applications"
-msgstr ""
-
 msgid "Approval Successful"
 msgstr ""
 
@@ -2362,12 +2359,6 @@ msgid "Your order will time out in %s."
 msgstr ""
 
 msgid "Reset timeout"
-msgstr ""
-
-msgid "Firstname"
-msgstr ""
-
-msgid "Lastname"
 msgstr ""
 
 msgid "Your order ist empty."

@@ -1,6 +1,12 @@
 %label.container
+  {{if extensible}}
+  %input{:type => "hidden", :name => "${extendedKeyFormName}", :value => "${extendedKeyValue}"}
+  {{/if}}
+
   {{if value}}
   %input{:type => "hidden", :name => "${formName}", :value => "${value}"}
+
+
   %input.autocomplete{:type => "text",
                       :placeholder => "${label}",
                       :title => "${label}",
@@ -10,7 +16,10 @@
                                  :autocomplete_search_on_focus => 'true',
                                  :autocomplete_value_target => '${formName}',
                                  :autocomplete_display_attribute => "label",
-                                 :autocomplete_blur_on_select => "true" }}
+                                 :autocomplete_blur_on_select => "true",
+                                 :autocomplete_extended_key_target => "${extendedKeyFormName}",
+                                 :autocomplete_extensible => "${extensible}"}}
+
   {{else}}
   %input{:type => "hidden", :name => "${formName}"}
   %input.autocomplete{:type => "text",
@@ -21,6 +30,8 @@
                                  :autocomplete_search_on_focus => 'true',
                                  :autocomplete_value_target => '${formName}',
                                  :autocomplete_display_attribute => "label",
-                                 :autocomplete_blur_on_select => "true" }}
+                                 :autocomplete_blur_on_select => "true",
+                                 :autocomplete_extended_key_target => "${extendedKeyFormName}",
+                                 :autocomplete_extensible => "${extensible}"}}
   {{/if}}
   .arrow.icon

@@ -5,7 +5,7 @@ App.Dropdown
 This script provides functionalities for dropdowns.
 
 It prevents that a dropdown is immediatly shown when hovered (containing delay)
-It prevents that a dropdown is immediatly destroy when mouse
+It prevents that a dropdown is immediatly destroy when mouse leaves
 
 ###
 

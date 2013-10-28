@@ -1,11 +1,17 @@
 class window.App.Borrow.ModelsIndexIpSelectorController extends Spine.Controller
 
+  @activeInventoryPoolIds = []
+
   events:
     "change input[type='checkbox']": "changeInventoryPools"
     "click .dropdown-item": "selectInventoryPool"
 
   elements:
     ".button": "button"
+
+  constructor: ->
+    super
+    App.Borrow.ModelsIndexIpSelectorController.activeInventoryPoolIds = _.map @el.find("input:checked"), (i)-> $(i).closest("[data-id]").data().id
 
   selectInventoryPool: (e)=>
     target = $(e.target)
@@ -23,11 +29,11 @@ class window.App.Borrow.ModelsIndexIpSelectorController extends Spine.Controller
       do @change
 
   change: =>
+    App.Borrow.ModelsIndexIpSelectorController.activeInventoryPoolIds = do @activeInventoryPoolIds
     do @render
     do @onChange
 
-  activeInventoryPoolIds: =>
-    _.map @el.find("input:checked"), (i)-> $(i).closest("[data-id]").data("id")
+  activeInventoryPoolIds: => _.map @el.find("input:checked"), (i)-> $(i).closest("[data-id]").data("id")
 
   render: =>
     activeInventoryPools = _.map @el.find("input:checked"), (i)-> $(i).closest("[data-id]").data()

@@ -1,4 +1,4 @@
--content_for :title, _("Order from %s") % @order.user
+-content_for :title, _("Order from %s") % @contract.user
 
 #acknowledge.innercontent
   .top
@@ -6,7 +6,7 @@
     %p.subtitle
       
     .content_navigation
-      = link_to swap_user_backend_inventory_pool_acknowledge_path(current_inventory_pool, @order), 
+      = link_to swap_user_backend_inventory_pool_acknowledge_path(current_inventory_pool, @contract),
         :class => "button white open_dialog",
         :"data-tmpl" => "tmpl/dialog/swap_user/swap_user", 
         :"data-dialog_class" => "change_orderer swap_user medium",
@@ -17,7 +17,7 @@
         .icon.swap
         = _("Change Orderer")
 
-      = link_to _("Reject"), reject_backend_inventory_pool_acknowledge_path(current_inventory_pool, @order),
+      = link_to _("Reject"), reject_backend_inventory_pool_acknowledge_path(current_inventory_pool, @contract),
         :class => "button red open_dialog",
         :"data-dialog_class" => "medium with_comment",
         :"data-tmpl" => "tmpl/dialog/acknowledge/reject",
@@ -28,7 +28,7 @@
         .alternatives
           .trigger.green
             .arrow
-          = link_to approve_backend_inventory_pool_acknowledge_path(current_inventory_pool, @order),
+          = link_to approve_backend_inventory_pool_acknowledge_path(current_inventory_pool, @contract),
             :class => "button white open_dialog", 
             :"data-dialog_class" => "medium with_comment",
             :"data-tmpl" => "tmpl/dialog/acknowledge/approve",
@@ -36,7 +36,7 @@
             :"data-ref_for_dialog" => "$('#order').tmplItem().data" do
             .icon.comment
             = _("with comment")
-        = link_to _("Approve Order"), approve_backend_inventory_pool_acknowledge_path(current_inventory_pool, @order),
+        = link_to _("Approve Order"), approve_backend_inventory_pool_acknowledge_path(current_inventory_pool, @contract),
           :remote => true,
           :method => :post,
           :class => "button green", 
@@ -48,11 +48,11 @@
   .indent.purpose
     %section.purpose
       %label= _("Purpose")
-      -unless @order.purpose.blank?
-        %p= "#{@order.purpose}"
+      -unless @contract.purpose.blank?
+        %p= "#{@contract.purpose}"
       -else
         %p.none= _("no purpose specified")
-      %button.button.white.open_dialog{:"href" => change_purpose_backend_inventory_pool_acknowledge_path(current_inventory_pool, @order),
+      %button.button.white.open_dialog{:"href" => change_purpose_backend_inventory_pool_acknowledge_path(current_inventory_pool, @contract),
       :"data-dialog_class" => "medium edit_purpose",
       :"data-tmpl" => "tmpl/dialog/acknowledge/edit_purpose",
       :"data-on_success" => "Acknowledge.update_purpose(response.purpose);",
@@ -60,16 +60,16 @@
         = _("Edit Purpose")
       
   .indent      
-    = form_tag add_line_backend_inventory_pool_acknowledge_path(current_inventory_pool, @order), :id => "process_helper", :method => :post, :remote => true, :"data-submit_button" => true do
+    = form_tag add_line_backend_inventory_pool_acknowledge_path(current_inventory_pool, @contract), :id => "process_helper", :method => :post, :remote => true, :"data-submit_button" => true do
       .dates
         .container
-          %input.start.date{:type => "text", :name => "start_date", :id => "add_start_date", :"data-date" => (@order.min_date).blank? ? Date.today : @order.min_date , :title => _("Start Date")}
+          %input.start.date{:type => "text", :name => "start_date", :id => "add_start_date", :"data-date" => (@contract.min_date).blank? ? Date.today : @contract.min_date , :title => _("Start Date")}
           %label{:for => "add_start_date"}
             = _("Start Date")
           %label.datepicker.icon{:for => "add_start_date", :title => _("Open Datepicker")}
         = "-"
         .container
-          %input.end.date{:type => "text", :name => "end_date", :id => "add_end_date", :"data-date" => (@order.max_date).blank? ? Date.today : @order.max_date, :title => _("End Date")}
+          %input.end.date{:type => "text", :name => "end_date", :id => "add_end_date", :"data-date" => (@contract.max_date).blank? ? Date.today : @contract.max_date, :title => _("End Date")}
           %label{:for => "add_end_date"}
             = _("End Date")
           %label.datepicker.icon{:for => "add_end_date", :title => _("Open Datepicker")}  
@@ -99,7 +99,7 @@
             .alternatives
               .trigger
                 .arrow
-              = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/acknowledge/#{@order.id}/remove_lines",
+              = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/acknowledge/#{@contract.id}/remove_lines",
               :class => "button red",
               :remote => "true",
               :method => "delete",
@@ -109,7 +109,7 @@
               :id => "delete_selection" do
                 .icon.delete
                 = _("Delete Selection")
-            = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/acknowledge/#{@order.id}/update_lines", 
+            = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/acknowledge/#{@contract.id}/update_lines",
             :class => "button white open_dialog",
             :"data-tmpl" => "tmpl/dialog/calendar", 
             :"data-dialog_class" => "calendar medium multiple",
@@ -126,13 +126,9 @@
   %section#order
 
 :ruby
-  order_json = json_for @order, {:preset => :order}
+  order_json = json_for @contract, {:preset => :order}
 
 :coffeescript
-  
-  # this is for inspecting CI remove afterwards
-  window.inspect_order_json = #{order_json}
-
   order_json = #{order_json}
 
   jQuery ->

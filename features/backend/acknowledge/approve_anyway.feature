@@ -1,8 +1,8 @@
 Feature: Approve anyway
 
-  In order to approve an order
+  In order to approve a contract
   As a Lending Manager
-  I want to have functionalities to approve an order even if there are conflicts/problems
+  I want to have functionalities to approve a contract even if there are conflicts/problems
 
   Background:
     Given personas existing
@@ -11,8 +11,8 @@ Feature: Approve anyway
   @javascript
   Scenario: Approve anyway on daily view
     Given I open the daily view
-      And I try to approve an order that has problems
-     Then I got an information that this order has problems
+      And I try to approve a contract that has problems
+     Then I got an information that this contract has problems
      When I approve anyway
-     Then this order is approved
+     Then this contract is approved
       

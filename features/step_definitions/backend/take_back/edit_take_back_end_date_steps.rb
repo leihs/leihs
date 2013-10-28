@@ -1,8 +1,8 @@
 When /^I change a contract lines end date$/ do
   visit @contract
   @line = @contract.lines.first
-  find(".line", :text => @line.model.name).find(".trigger").click
-  find(".line", :text => @line.model.name).find(".button", :text => "Edit").click
+  first(".line", :text => @line.model.name).first(".trigger").click
+  first(".line", :text => @line.model.name).first(".button", :text => "Edit").click
   @old_end_date = @line.end_date
   @new_end_date = @old_end_date + 1.day
   @new_end_date_element = get_fullcalendar_day_element(@new_end_date)
@@ -17,7 +17,7 @@ end
 
 When /^I open a take back which has multiple lines$/ do
   @ip = @current_user.managed_inventory_pools.first
-  @customer = @ip.users.all.select {|x| x.contracts.signed.size > 0 && !x.contracts.signed.detect{|c| c.lines.size > 1 and c.inventory_pool == @ip}.nil? }.first
+  @customer = @ip.users.find {|x| x.contracts.signed.size > 0 && !x.contracts.signed.detect{|c| c.lines.size > 1 and c.inventory_pool == @ip}.nil? }
   @contract = @customer.contracts.signed.detect{|c| c.lines.size > 1 and c.inventory_pool == @ip}
   visit backend_inventory_pool_user_take_back_path(@ip, @customer)
   page.has_css?("#take_back", :visible => true)

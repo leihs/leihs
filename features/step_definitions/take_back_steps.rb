@@ -2,9 +2,8 @@ Given "a signed contract by '$who' for item '$inventory_code'" \
 do | who, inventory_code |
   user     = LeihsFactory.create_user( :login => who ); user.save
   item     = Item.find_by_inventory_code( inventory_code )
-  contract = LeihsFactory.create_contract( :user_id => user.id )
-  contract.contract_lines << LeihsFactory.create_contract_line(:model_name => item.model.name,
-                                                          :quantity => 1 )
+  contract = FactoryGirl.create :contract, :user => user, :status => :approved
+  contract.contract_lines << FactoryGirl.create(:contract_line, contract: contract, model: item.model, quantity: 1)
   cl = contract.contract_lines.first
   cl.update_attribute(:item, item) # don't validate - allow creation of *invalid* records!
   contract.reload
@@ -43,5 +42,5 @@ end
 Then "$who's contract should be closed" do |who|
   user = User.find_by_login( who )
   contract = Contract.find_by_user_id user.id
-  contract.status_const.should == Contract::CLOSED
+  contract.status.should == :closed
 end

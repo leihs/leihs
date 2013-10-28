@@ -122,10 +122,10 @@ When /^I lend (\w+) item(s?) of that model to "([^"]*)"$/ do |n, plural, user_lo
   user = User.find_by_login user_login
   @inventory_pool.reload
   n = to_number(n)
-  order = FactoryGirl.create :order, :user => user, :inventory_pool => @inventory_pool, :purpose => "this is the required purpose"
-  order.add_lines(n, @model, nil, Date.today, Date.tomorrow, @inventory_pool)
-  order.submit.should be_true
-  order.approve("foo'lish comment").should be_true
+  contract = FactoryGirl.create :contract, :user => user, :inventory_pool => @inventory_pool, :purpose => "this is the required purpose"
+  contract.add_lines(n, @model, nil, Date.today, Date.tomorrow)
+  contract.submit("this is the required purpose").should be_true
+  contract.approve("foo'lish comment").should be_true
   c = Contract.find_by_user_id user
   c.sign(@user)
 end

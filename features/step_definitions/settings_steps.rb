@@ -10,8 +10,8 @@ Then(/^there is an error for the missing settings$/) do
 end
 
 Then(/^I can edit the settings$/) do
-  find("form[action='/backend/settings']")
-  @old_setting_smtp_address = find("input#setting_smtp_address").value
+  first("form[action='/backend/settings']")
+  @old_setting_smtp_address = first("input#setting_smtp_address").value
   Setting::SMTP_ADDRESS.should == @old_setting_smtp_address
 end
 
@@ -19,7 +19,7 @@ Then(/^the settings are persisted$/) do
   new_setting_smtp_address = Faker::Internet.domain_name
   new_setting_smtp_address.should_not == @old_setting_smtp_address
   step 'I fill in "setting_smtp_address" with "%s"' % new_setting_smtp_address
-  find("button.green[type='submit']").click
+  first("button.green[type='submit']").click
   Setting::SMTP_ADDRESS.should == new_setting_smtp_address
   Setting.first.smtp_address.should == new_setting_smtp_address
 end

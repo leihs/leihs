@@ -3,8 +3,17 @@ class window.App.Borrow.OrderLinesCreateController extends window.App.Borrow.Ord
   # @override
   getAvailability: (inventoryPool)=> @availabilities[inventoryPool.id]
 
-  # @overried
+  # @override
   setupQuantity: -> true
+
+  # @override
+  setupInventoryPool: ->
+    inventoryPoolIds = App.Borrow.ModelsIndexIpSelectorController.activeInventoryPoolIds
+    for id in inventoryPoolIds
+      option = @inventoryPoolSelect.find "option[data-id='#{id}']"
+      if option.length
+        option.attr "selected", true
+        break
 
   # @override
   setupDates: =>

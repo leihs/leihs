@@ -13,7 +13,7 @@
       <h3><%= _("Inventory pool") + ": " + @order.inventory_pool.name unless @order.inventory_pool.nil? %></h3>
 
       <ul>
-        <% @order.order_lines.each do | line | %>
+        <% @order.lines.each do | line | %>
           <li><%= line.quantity%> <%= line.model.name %>,  <%= line.start_date %> - <%= line.end_date %></li>
         <% end %>
       </ul>

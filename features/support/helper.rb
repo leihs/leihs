@@ -5,7 +5,7 @@ end
 
 def find_line(model)
   id = 0
-  @order.order_lines.each do |line|
+  @contract.lines.each do |line|
     if model == line.model.name
       return line
     end
@@ -110,7 +110,7 @@ end
 ##############################################################
 
 def get_fullcalendar_day_element(date)
-  wait_until { all("td[data-date='#{date}']").first }
+  find("td[data-date='#{date}']")
 end
 
 def type_into_autocomplete(selector, value)
@@ -118,7 +118,7 @@ def type_into_autocomplete(selector, value)
   find(selector).set value
   page.execute_script("$('#{selector}').focus()")
   page.execute_script("$('#{selector}').autocomplete('search')")
-  wait_until(10){ find(".ui-autocomplete") }
+  find(".ui-autocomplete")
 end
 
 def change_line_start_date(line, days = 2)

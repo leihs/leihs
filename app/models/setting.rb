@@ -27,8 +27,10 @@ class Setting < ActiveRecord::Base
        :email_signature,
        :default_email,
        :deliver_order_notifications,
-       :user_image_url].each do |k|
-        Setting.const_set k.to_s.upcase, singleton.send(k)
+       :user_image_url,
+       :ldap_config,
+       :logo_url].each do |k|
+        Setting.const_set k.to_s.upcase, singleton.send(k) if singleton.methods.include?(k)
       end
     end
   end

@@ -4,12 +4,12 @@ Funktionalität: Statistiken von Ausleihe und Inventar
 
   Grundlage:
     Angenommen Personas existieren
-    Und man ist "Mike"
+    Und man ist "Ramon"
 
   @javascript
   Szenario: Wo die Statistik-Ansicht erscheint
-    Wenn ich in den Admin-Bereich wechsle
-    Dann sehe ich als erstes direkt die Statistik-Ansicht
+    Wenn ich im Verwalten-Bereich bin
+    Dann habe ich die Möglichkeit zur Statistik-Ansicht zu wechseln
 
   @javascript
   Szenario: Zeitliche Eingrenzung der Statistik-Ansicht

@@ -21,10 +21,9 @@ class window.App.Borrow.ModelsIndexTooltipController extends Spine.Controller
       model.propertiesToDisplay = _.first model.properties().all(), 5
       model.amount_of_images = 3
       content = App.Render "borrow/views/models/index/tooltip", model
-      @preloadImages content, model, =>
-        tooltip.update App.Render "borrow/views/models/index/tooltip", model
-        do tooltip.enable
-        do tooltip.show if @currentTooltip == tooltip and @mouseOverTooltip
+      tooltip.update App.Render "borrow/views/models/index/tooltip", model
+      do tooltip.enable
+      do tooltip.show if @currentTooltip == tooltip and @mouseOverTooltip
 
   enterLine: (e)=> 
     @mouseOverTooltip = true
@@ -48,12 +47,3 @@ class window.App.Borrow.ModelsIndexTooltipController extends Spine.Controller
 
   leaveLine: (e)=> 
     @mouseOverTooltip = false
-
-  preloadImages: (content, model, update)=>
-    errors = 0
-    amountOfImages = $(content).find("img").length
-    update = _.after amountOfImages, update
-    $(content).find("img").one "error", (e)=> 
-      errors++
-      model.amount_of_images--
-    $(content).find("img").one "load error", update

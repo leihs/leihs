@@ -1,8 +1,8 @@
 Given "the list of approved orders contains $total elements" do | total |
-  orders = @inventory_pool.orders.approved
+  contracts = @inventory_pool.contracts.approved
   user = LeihsFactory.create_user
-  total.to_i.times { orders << LeihsFactory.create_order(:user_id => user.id, :status_const => Order::APPROVED) }
-  orders.size.should == total.to_i
+  total.to_i.times { contracts << FactoryGirl.create(:contract, :user => user, :status => :approved) }
+  contracts.size.should == total.to_i
 end
 
 When "$who approves the order" do | who |
@@ -10,7 +10,7 @@ When "$who approves the order" do | who |
   post approve_backend_inventory_pool_acknowledge_path(@inventory_pool, @order, :comment => "test comment")
   @order = assigns(:order)
   @order.should_not be_nil
-  @contract = @order.user.reload.current_contract(@order.inventory_pool)
+  @contract = @order.user.reload.approved_contract(@order.inventory_pool)
   @contract.should_not be_nil
 end
 
@@ -139,7 +139,7 @@ end
 Then /^I choose "([^"]*)" for the order by "([^"]*)"$/ do |button, person|
   all("#list_table tr").each do |row|
     if row.text =~ /#{person.to_s}/
-      row.find("td.buttons").find('a', :text => /.*#{button}.*/i).click
+      row.first("td.buttons").find('a', :text => /.*#{button}.*/i).click
     end
   end
 #   debugger

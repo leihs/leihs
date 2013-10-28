@@ -1,0 +1,22 @@
+:ruby
+
+  model = @models.detect{|m| m.id == line[:model_id]}
+
+.row.line
+
+  %input{:type => :hidden, :name => "lines[][model_id]", :value => line[:model_id]}
+  %input{:type => :hidden, :name => "lines[][quantity]", :value => line[:quantity]}
+
+  .line-col.col1of9.padding-left-s.text-align-center
+
+    %img.max-height-xxs-alt.max-width-xs{src: model_image_thumb_path(model)}
+
+  .line-col.col7of9.text-align-left
+
+    .col1of10.text-align-right.padding-right-s
+      = line[:quantity]
+      x
+
+    %strong.col6of10.text-ellipsis{:title => "#{model.name}"}= model.name
+
+    %strong.col2of10.text-ellipsis.padding-left-m{:title => "#{model.manufacturer}"}= model.manufacturer

@@ -1,16 +1,15 @@
 When /^I click an inventory code input field of an item line$/ do
-  @item_line = @customer.contracts.unsigned.last.lines.first
+  @item_line = @customer.contracts.approved.last.lines.first
   @item = @item_line.model.items.in_stock.last
-  @item_line_element = find(".item_line", :text => @item.model.name)
+  @item_line_element = find(".item_line", match: :first, :text => @item.model.name)
   @item_line_element.find(".inventory_code input").click
-  page.execute_script("$('.line[data-id=#{@item_line.id}] .inventory_code input').focus()")
 end
 
 Then /^I see a list of inventory codes of items that are in stock and matching the model$/ do
-  find(".ui-autocomplete")
-  puts @item.model.items.in_stock
-  @item.model.items.in_stock do |item|
-    find(".ui-autocomplete").should have_content item.inventory_code
+  page.should have_selector(".ui-autocomplete", visible: false)
+  @item_line_element.find(".ui-autocomplete")
+  @item.model.items.in_stock.each do |item|
+    @item_line_element.find(".ui-autocomplete").should have_content item.inventory_code
   end
 end
 
@@ -20,15 +19,17 @@ When /^I assign an item to the hand over by providing an inventory code and a da
   line_amount_before = all(".line").size
   assigned_amount_before = all(".line.assigned").size
   find("#process_helper .button").click
-  wait_until(25) { line_amount_before == all(".line").size and assigned_amount_before < all(".line.assigned").size }
+  has_selector? ".line"
+  line_amount_before.should == all(".line").size
+  assigned_amount_before.should < all(".line.assigned").size
 end
 
 When /^I select one of those$/ do
-  wait_until { find(".line[data-id='#{@item_line.id}'] .inventory_code input") }.click
-  page.execute_script("$(\".line[data-id='#{@item_line.id}'] .inventory_code input\").focus()")
-  wait_until(25) { find(".ui-autocomplete a") }
-  @selected_inventory_code = find(".ui-autocomplete a").find(".label").text
-  find(".ui-autocomplete a").click
+  find(".line[data-id='#{@item_line.id}'] .inventory_code input").click
+  step "ensure there are no active requests"
+  page.has_selector?(".line[data-id='#{@item_line.id}']")
+  @selected_inventory_code = find(".line[data-id='#{@item_line.id}'] .ui-autocomplete", visible: true).first("a .label").text
+  find(".line[data-id='#{@item_line.id}'] .ui-autocomplete").first("a").click
   step "ensure there are no active requests"
 end
 
@@ -37,20 +38,19 @@ Then /^the item line is assigned to the selected inventory code$/ do
 end
 
 When /^I select a linegroup$/ do
-  find(".linegroup .dates input").click
+  find(".linegroup .dates input", match: :first).click
 end
 
 When /^I add an item which is matching the model of one of the selected lines to the hand over by providing an inventory code$/ do
   @item = @hand_over.lines.first.model.items.in_stock.first
   find("#code").set @item.inventory_code
   page.execute_script('$("#process_helper").submit()')
-  wait_until { all(".loading", :visible => true).empty? }
 end
 
 Then /^the first itemline in the selection matching the provided inventory code is assigned$/ do
+  page.should have_selector(".item_line.assigned")
   line = @hand_over.lines.detect{|line| line.item == @item}
   line.should_not == nil
-  find(".item_line.assigned")
 end
 
 Then /^no new line is added to the hand over$/ do
@@ -76,11 +76,17 @@ When /^I open a hand over with lines that have assigned inventory codes$/ do
 end
 
 When /^I clean the inventory code of one of the lines$/ do
-  @item_line_element.find(".inventory_code input").click
-  @item_line_element.find(".inventory_code input").set ""
-  @item_line_element.click
+  within(".item_line.assigned[data-id='#{@item_line.id}']", :text => @item_line.model.name) do
+    find(".inventory_code input").value.should == @selected_inventory_code
+    find(".inventory_code input").click
+    find(".inventory_code input").set ""
+    find(:xpath, ".").native.send_key :tab
+  end
 end
 
 Then /^the assignment of the line to an inventory code is removed$/ do
-  pending
+  page.should have_selector ".notification", text: _("The assignment for %s was removed") % @item_line.model.name, visible: true
+  @item_line_element = find(".item_line[data-id='#{@item_line.id}']", :text => @item_line.model.name)
+  @item_line_element.find(".inventory_code input").value.should be_empty
+  @item_line.reload.item.should be_nil
 end

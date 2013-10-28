@@ -12,19 +12,19 @@ Funktionalität: Zweck
   
   Szenario: Unabhängigkeit
     Wenn ein Zweck gespeichert wird ist er unabhängig von einer Bestellung
-     Und jeder Eintrag einer Bestellung referenziert auf einen Zweck
+     Und jeder Eintrag einer abgeschickten Bestellung referenziert auf einen Zweck
      Und jeder Eintrag eines Vertrages kann auf einen Zweck referenzieren
   
   @javascript
   Szenario: Orte, an denen ich den Zweck sehe
-    Wenn ich eine Bestellung genehmige
+    Wenn ich eine Bestellung editiere
     Dann sehe ich den Zweck
     Wenn ich eine Aushändigung mache
     Dann sehe ich auf jeder Zeile den zugewisenen Zweck 
   
   @javascript
   Szenario: Orte, an denen ich den Zweck editieren kann
-    Wenn ich eine Bestellung genehmige
+    Wenn ich eine Bestellung editiere
     Dann kann ich den Zweck editieren
   
   @javascript  
