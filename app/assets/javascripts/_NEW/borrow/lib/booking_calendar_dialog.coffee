@@ -37,7 +37,7 @@ class window.App.Borrow.BookingCalendarDialog extends Spine.Controller
     App.Holiday.ajaxFetch().done => @holidays = true
 
   fetchGroups: =>
-    App.Group.ajaxFetch().done => @groups = true
+    App.Group.ajaxFetch().done (data)=> @groups = (App.Group.find datum.id for datum in data) 
 
   fetchAvailability: (inventoryPoolId)=>
     App.Availability.ajaxFetch
@@ -104,7 +104,7 @@ class window.App.Borrow.BookingCalendarDialog extends Spine.Controller
       quantityEl: @dialog.find "#booking-calendar-quantity"
       ipSelectorEl: @dialog.find "#booking-calendar-inventory-pool"
       quantityMode: "numbers"
-      groupIds: _.map App.Group.all(), (g)-> g.id
+      groupIds: _.map @groups, (g)-> g.id
 
   submit: =>
     if @valid()

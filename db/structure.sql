@@ -407,6 +407,7 @@ CREATE TABLE `settings` (
   `default_email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `deliver_order_notifications` tinyint(1) DEFAULT NULL,
   `user_image_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ldap_config` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `logo_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
