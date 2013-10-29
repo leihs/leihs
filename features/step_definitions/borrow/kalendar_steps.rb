@@ -333,3 +333,19 @@ end
 Dann(/^es wird der alphabetisch erste Gerätepark ausgewählt der teil der begrenzten Geräteparks ist$/) do
   find("#booking-calendar-inventory-pool").value.split(" ")[0].should == @inventory_pools.first.name
 end
+
+Wenn(/^ein Modell existiert, welches nur einer Gruppe vorbehalten ist$/) do
+  @model = Model.all.detect{|m| m.partitions_with_generals.length > 1 and m.partitions_with_generals.find{|p| p.group_id == nil}.quantity == 0}
+  @model.blank?.should be_false
+  @partition = @model.partitions.sample
+end
+
+Dann(/^kann ich dieses Modell ausleihen, wenn ich in dieser Gruppe bin$/) do
+  @current_user.groups << Group.find(@partition.group_id)
+  visit borrow_model_path(@model)
+  find("*[data-create-order-line][data-model-id='#{@model.id}']").click
+  find(".fc-widget-content", :match => :first)
+  find("#submit-booking-calendar").click
+  find("#current-order-lines").should have_content @model.name
+  @current_user.get_current_order.lines.map(&:model).include?(@model).should be_true
+end

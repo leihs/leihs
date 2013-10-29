@@ -142,3 +142,9 @@ Funktionalität: Kalender
     Dann öffnet sich der Kalender
     Wenn alle Angaben die ich im Kalender mache gültig sind
     Dann lässt sich das Modell mit Start- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügen
+
+  @javascript
+  Szenario: Etwas bestellen, was nur Gruppen vorbehalten ist
+    Angenommen man ist "Normin"
+    Wenn ein Modell existiert, welches nur einer Gruppe vorbehalten ist
+    Dann kann ich dieses Modell ausleihen, wenn ich in dieser Gruppe bin
