@@ -2,6 +2,7 @@
 
 Dann /^man sieht das Register Kategorien$/ do
   find("nav a[href*='categories']", text: _("Categories"))
+  sleep(0.11)
 end
 
 Wenn /^man das Register Kategorien wählt$/ do
@@ -20,10 +21,10 @@ end
 
 Und /^man gibt die Elternelemente und die dazugehörigen Bezeichnungen ein$/ do
   @parent_category = ModelGroup.where(name: "Portabel").first
-  checkbox = find("input[type='checkbox'][value='#{@parent_category.id}']")
-  checkbox.set true
   @label_1 = "Label 1"
-  find("li", text: "#{@parent_category.name}").find("input[type='text']").set @label_1
+  find("#categories input[data-type='autocomplete']").set @parent_category.name
+  find("a.ui-corner-all", match: :first, text: @parent_category.name).click
+  find("#categories .list-of-lines .line", text: @parent_category.name).find("input[type='text']").set @label_1
 end
 
 Dann /^ist die Kategorie mit dem angegegebenen Namen erstellt$/ do
@@ -64,23 +65,15 @@ Wenn /^man den Namen und die Elternelemente anpasst$/ do
   @new_category_name = "Neue Kategorie"
   find("input[name='category[name]']").set @new_category_name
 
-  find("input[type='checkbox']", match: :first)
-  all("input[type='checkbox'][checked='checked']").map(&:value).uniq.each {|id| find("input[value='#{id}']").click}
+  @category.parents.count.should == 2
 
-  @new_parent_category_1 = ModelGroup.where(name: "Standard").first
-  @new_parent_category_2 = ModelGroup.where(name: "Kurzdistanz").first
-  @new_parent_category_3 = ModelGroup.where(name: "Stative").first
-  @label_parent_category_1 = "Label Standard"
-  @label_parent_category_2 = "Label Kurzdistanz"
-
-  new_parent_checkbox_1 = find("input[type='checkbox'][value='#{@new_parent_category_1.id}']", match: :first)
-  new_parent_checkbox_1.click
-  new_parent_checkbox_2 = find("input[type='checkbox'][value='#{@new_parent_category_2.id}']", match: :first)
-  new_parent_checkbox_2.click
-  new_parent_checkbox_3 = find("input[type='checkbox'][value='#{@new_parent_category_3.id}']", match: :first)
-  new_parent_checkbox_3.click
-  find("label", match: :prefer_exact, text: @new_parent_category_1.name).find(:xpath, "./../ul/li/input").set @label_parent_category_1
-  find("label", match: :prefer_exact, text: @new_parent_category_2.name).find(:xpath, "./../ul/li/input").set @label_parent_category_2
+  within("#categories .list-of-lines") do
+    @parent_category_labels = @category.parents.map do |parent|
+      new_label = "Label #{parent.name}"
+      find(".line", match: :prefer_exact, text: parent.name).find(".col3of10 input").set new_label
+      new_label
+    end
+  end
 end
 
 Dann /^werden die Werte gespeichert$/ do
@@ -88,8 +81,8 @@ Dann /^werden die Werte gespeichert$/ do
   current_path.should == manage_categories_path(@current_inventory_pool)
   @category.reload
   @category.name.should eql @new_category_name
-  @category.links_as_child.count.should eql 3
-  @category.links_as_child.map(&:label).to_set.delete_if(&:empty?).should eql [@label_parent_category_1, @label_parent_category_2].to_set
+  @category.links_as_child.count.should eql 2
+  @category.links_as_child.map(&:label).to_set.should eql @parent_category_labels.to_set
 end
 
 Und /^die Kategorien sind alphabetisch sortiert$/ do

@@ -31,7 +31,7 @@
 
           .col1of2.padding-left-xs
 
-            #parents
+            #categories
               = render :layout => "manage/fields/field", :locals => {key: _("Parent categories"), entries: @category.parents, entry_partial: "manage/categories/category_link_inline_entry"} do
                 .row
                   %input.has-addon.width-full{:"data-type" => "autocomplete", :type => :text, :autocomplete => :off, :placeholder => _("Category")}
@@ -48,6 +48,6 @@
       el: $("#new-category-view")
 
     new App.CategoriesLinksController
-      el: $("#parents")
+      el: $("#categories")
       labelInput: $("#name-input")
       category: App.Category.find #{@category.id}
