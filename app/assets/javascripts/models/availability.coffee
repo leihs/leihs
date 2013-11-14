@@ -33,7 +33,9 @@ class window.App.Availability extends Spine.Model
   maxAvailableForGroups: (startDate, endDate, groupIds)->
     min = _.min @changesBetween(startDate, endDate), (change)=> @availabilityForGroups(change, groupIds)
     if min?
-      _.reduce min[2], ((mem, partition) => if @groupIsIn(groupIds, partition.group_id) then mem+partition.in_quantity else mem), 0
+      _.reduce min[2], ((mem, partition) => 
+        if @groupIsIn(groupIds, partition.group_id) then mem+partition.in_quantity else mem
+      ), 0
     else
       0
 
@@ -80,7 +82,7 @@ class window.App.Availability extends Spine.Model
   ###
     solves the self-blocking problem 
     excludes the given lines from the changes
-    if its not possible to solve the self-blocking problem with just adding the line quantity again
+    if it is not possible to solve the self-blocking problem with just adding the line quantity again
     take care to deep clone the availability to not manipulate the original
   ###
   withoutLines: (lines) ->
