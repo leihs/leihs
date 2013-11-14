@@ -44,7 +44,7 @@ Funktionalität: Modell
     | Feld                               | Wert                         |
     | Name                               | Test Modell y                |
     Und ich speichere die Informationen
-    Dann das neue Modell ist erstellt
+    Dann ist das neue Modell erstellt und unter ungenutzen Modellen auffindbar
 
   @javascript
   Szenario: Modelldetails bearbeiten
