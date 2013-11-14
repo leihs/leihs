@@ -17,7 +17,7 @@ Dann(/^ist dem Modell das ergänzende Modell hinzugefügt worden$/) do
   @model.compatibles.size.should be 2
   @model.compatibles.any? {|m| m.name == @comp1.name}.should be_true
   @model.compatibles.any? {|m| m.name == @comp2.name}.should be_true
-  sleep(0.3) # fix lazy request fail problem
+  sleep(0.66) # fix lazy request fail problem
 end
 
 Wenn(/^ich ein Modell öffne, das bereits ergänzende Modelle hat$/) do
@@ -33,7 +33,7 @@ end
 Dann(/^ist das Modell ohne das gelöschte ergänzende Modell gespeichert$/) do
   find("#flash")
   @model.reload.compatibles.should be_empty
-  sleep(0.3) # fix lazy request fail problem
+  sleep(0.66) # fix lazy request fail problem
 end
 
 Wenn(/^ich ein bereits bestehendes ergänzende Modell mittel Autocomplete Feld hinzufüge$/) do
@@ -49,7 +49,7 @@ Dann(/^wurde das redundante ergänzende Modell nicht gespeichert$/) do
   find("#flash")
   comp_before = @model.compatibles
   comp_before.count.should == @model.reload.compatibles.count
-  sleep(0.6) # fix lazy request fail problem
+  sleep(0.66) # fix lazy request fail problem
 end
 
 Angenommen(/^es existiert ein Modell mit folgenden Eigenschaften$/) do |table|
@@ -137,10 +137,7 @@ Angenommen(/^ich editieren ein bestehndes Modell mit bereits zugeteilten Kapazit
 end
 
 Wenn(/^ich bestehende Zuteilungen entfernen$/) do
-  page.should have_selector(".field-inline-entry")
-  all(".field-inline-entry.partition").each do |line|
-    line.first(".clickable", :text => _("Remove")).click
-  end
+  find(".field", match: :first, text: _("Allocations")).all("[data-remove]").each {|comp| comp.click}
 end
 
 Wenn(/^neue Zuteilungen hinzufügen$/) do
@@ -152,9 +149,10 @@ Wenn(/^neue Zuteilungen hinzufügen$/) do
 end
 
 Dann(/^sind die geänderten Gruppenzuteilungen gespeichert$/) do
-  find(".top", match: :prefer_exact, text: _("List of Models"))
+  find("#flash")
   model_group_ids = @model.reload.partitions.map(&:group_id)
   model_group_ids.sort.should == @groups.map(&:id)
+  sleep(0.66) # fix lazy request fail problem
 end
 
 Dann /^ist das neue Modell erstellt und unter ungenutzen Modellen auffindbar$/ do
