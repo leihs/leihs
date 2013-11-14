@@ -456,8 +456,8 @@ Wenn /^ich eine?n? bestehende[s|n]? (.+) bearbeite$/ do |entity|
   find(".line", match: :prefer_exact, :text => object_name).find(".button", :text => "#{entity} editieren").click
 end
 
-Wenn /^ich ein bestehendes Modell bearbeite welches bereits Zubehör hat$/ do
-  @model = Model.all.detect {|m| m.accessories.count > 0}
+Wenn /^ich ein bestehendes, genutztes Modell bearbeite welches bereits Zubehör hat$/ do
+  @model = @current_inventory_pool.models.all.detect {|m| m.accessories.count > 0}
   visit "/manage/%d/models/%d/edit" % [@current_inventory_pool.id, @model.id]
 end
 
