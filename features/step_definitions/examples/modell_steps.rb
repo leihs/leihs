@@ -13,10 +13,11 @@ Wenn(/^ich ein ergänzendes Modell mittel Autocomplete Feld hinzufüge$/) do
 end
 
 Dann(/^ist dem Modell das ergänzende Modell hinzugefügt worden$/) do
-  find(".top", match: :prefer_exact, text: _("List of Models"))
+  find("#flash")
   @model.compatibles.size.should be 2
   @model.compatibles.any? {|m| m.name == @comp1.name}.should be_true
   @model.compatibles.any? {|m| m.name == @comp2.name}.should be_true
+  sleep(0.3) # fix lazy request fail problem
 end
 
 Wenn(/^ich ein Modell öffne, das bereits ergänzende Modelle hat$/) do
