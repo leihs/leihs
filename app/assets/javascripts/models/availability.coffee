@@ -93,10 +93,10 @@ class window.App.Availability extends Spine.Model
             outDocumentLines = allocation.out_document_lines["ItemLine"]
             if _.include(outDocumentLines, line.id)
               allocation.out_document_lines["ItemLine"] = _.filter outDocumentLines, (l)-> l != line.id
-              # total quantity
-              change[1] += line.quantity
               # we recover the quantity only if is not a soft-overbooking
               if @groupIsIn line.user().groupIds, allocation.group_id
+                # total quantity
+                change[1] += line.quantity
                 # partition based quantity
                 allocation.in_quantity += line.quantity
       return change
