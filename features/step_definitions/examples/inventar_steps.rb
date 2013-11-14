@@ -36,7 +36,7 @@ def check_existing_inventory_codes(items)
     model_el.find(".button[data-type='inventory-expander'] i.arrow.right").click
     model_el.find(".button[data-type='inventory-expander'] i.arrow.down")
     find(".group-of-lines")
-    all(".group-of-lines .line[data-type='item'] .col1of5:nth-child(2)").map(&:text).each do |inventory_code|
+    all(".group-of-lines .line[data-type='item'] > .col1of5:nth-child(2)").map(&:text).each do |inventory_code|
       items.find_by_inventory_code(inventory_code).should_not be_nil
     end
     model_el.find(".button[data-type='inventory-expander'] i.arrow.down").click
