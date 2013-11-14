@@ -8,14 +8,14 @@ class window.App.ModelsPackageDialogController extends Spine.Controller
 
   events:
     "change #search-item": "setupAutocomplete"
-    "delayedChange #search-item": "setupAutocomplete"
+    "preChange #search-item": "setupAutocomplete"
     "click [date-remove]": "removeItem"
     "click #save-package": "save"
 
   constructor: ->
     @el = $ App.Render "manage/views/models/packages/package_dialog"
     super
-    @searchItemInput.delayedChange()
+    @searchItemInput.preChange()
     @childrenContainer.html App.Render "manage/views/models/packages/item", @children
     @modal = new App.Modal @el
     new App.InlineEntryRemoveController {el: @el}

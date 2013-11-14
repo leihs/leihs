@@ -8,14 +8,14 @@ class window.App.SearchTopbarController extends Spine.Controller
     "form": "form"
 
   events:
-    "delayedChange input": "search"
+    "preChange input": "search"
     "blur input": "close"
     "focus input": "open"
     "submit form": "submit"
 
   constructor: ->
     super
-    @input.delayedChange()
+    @input.preChange()
 
   search: =>
     return false unless @input.val().length

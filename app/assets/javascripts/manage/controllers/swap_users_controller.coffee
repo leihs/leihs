@@ -2,7 +2,7 @@ class window.App.SwapUsersController extends Spine.Controller
 
   events:
     "submit form": "submit"
-    "delayedChange #user-id": "searchUser"
+    "preChange #user-id": "searchUser"
     "click #remove-user": "removeUser"
 
   elements:
@@ -18,7 +18,7 @@ class window.App.SwapUsersController extends Spine.Controller
       data.contract
     @modal = new App.Modal App.Render "manage/views/contracts/edit/swap_user_modal", @contract
     @el = @modal.el
-    @el.find("#user-id").delayedChange {delay: 200}
+    @el.find("#user-id").preChange {delay: 200}
     super
 
   delegateEvents: =>

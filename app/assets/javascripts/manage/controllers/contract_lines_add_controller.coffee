@@ -6,7 +6,7 @@ class window.App.ContractLinesAddController extends Spine.Controller
     "[data-add-contract-line]": "input"
 
   events:
-    "delayedChange [data-add-contract-line]": "search"
+    "preChange [data-add-contract-line]": "search"
     "focus [data-add-contract-line]": "search"
     "click [type='submit']": "showExplorativeSearch"
     "submit": "submit"
@@ -15,7 +15,7 @@ class window.App.ContractLinesAddController extends Spine.Controller
     super 
     @preventSubmit = false
     do @setupDatepickers
-    @input.delayedChange()
+    @input.preChange()
 
   setupDatepickers: =>
     for date in [@addStartDate, @addEndDate]
@@ -30,7 +30,6 @@ class window.App.ContractLinesAddController extends Spine.Controller
 
   search: =>
     return false unless @input.val().length
-    @input.autocomplete "destroy"
     @models = @options = @templates = @availabilities = @options = null
     do @searchModels
     do @searchTemplates
@@ -42,7 +41,7 @@ class window.App.ContractLinesAddController extends Spine.Controller
       @pushModelsTo data
       @pushOptionsTo data if @optionsEnabled
       @pushTemplatesTo data
-      @setupAutocomplete data
+      @setupAutocomplete data if @input.is(":focus")
 
   getStartDate: => moment(@addStartDate.val(), i18n.date.L)
 
@@ -151,8 +150,6 @@ class window.App.ContractLinesAddController extends Spine.Controller
     if data?
       if data.model_id?
         App.Model.ajaxFetch({id: data.model_id}).done (data)=> @add App.Model.find(data.id), @getStartDate(), @getEndDate()
-      else
-        console.log "ADD OPTION"
     else
       App.Flash
         type: "error"

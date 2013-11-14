@@ -11,7 +11,7 @@ class window.App.CategoriesFilterController extends Spine.Controller
     "click [data-type='category-root']": "goRoot"
     "click [data-type='category-current']": "goBack"
     "change #category-search": "search"
-    "delayedChange #category-search": "search"
+    "preChange #category-search": "search"
 
   constructor: ->
     super
@@ -19,7 +19,7 @@ class window.App.CategoriesFilterController extends Spine.Controller
     @searchTerm = ""
     @fetchCategories().done => do @render
     @fetchCategoryLinks().done => do @render
-    @input.delayedChange()
+    @input.preChange()
 
   fetchCategories: =>
     App.Category.ajaxFetch().done (data)=> 

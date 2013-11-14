@@ -5,12 +5,12 @@ class window.App.GroupPartitionsController extends Spine.Controller
     "[data-models-list]": "modelsList"
 
   events:
-    "delayedChange input[data-search-models]": "search"
+    "preChange input[data-search-models]": "search"
     "click [data-remove-group]": "removeHandler"
 
   constructor: ->
     super
-    @input.delayedChange()
+    @input.preChange()
 
   search: =>
     return false unless @input.val().length

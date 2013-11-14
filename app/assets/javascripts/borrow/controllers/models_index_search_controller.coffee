@@ -1,14 +1,14 @@
 class window.App.ModelsIndexSearchController extends Spine.Controller
 
   events:
-    "delayedChange input": "onChange"
+    "preChange input": "onChange"
 
   elements:
     "input": "inputField"
 
   constructor: ->
     super
-    @inputField.delayedChange()
+    @inputField.preChange()
 
   getInputText: ->
     if @inputField.val().length

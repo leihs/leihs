@@ -5,11 +5,11 @@ class window.App.TemplateModelsController extends Spine.Controller
     "[data-models-list]": "modelsList"
 
   events:
-    "delayedChange input[data-search-models]": "search"
+    "preChange input[data-search-models]": "search"
 
   constructor: ->
     super
-    @input.delayedChange()
+    @input.preChange()
 
   search: =>
     return false unless @input.val().length

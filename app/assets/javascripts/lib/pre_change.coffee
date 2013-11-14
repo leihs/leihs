@@ -1,6 +1,6 @@
 ###
 
-jQuery Plugin for having a delayedChange event triggered even when the field was not blured 
+jQuery Plugin for having a preChange event triggered even when the field was not blured 
 
 after the default waiting time or the one that is provided with options.delay
 
@@ -8,20 +8,22 @@ after the default waiting time or the one that is provided with options.delay
 
 $ = jQuery
 
-$.extend $.fn, delayedChange: (options)-> @each -> $(this).data('_delayed_change', new DelayedChange(this, options)) unless $(this).data("_delayed_change")?
+$.extend $.fn, preChange: (options)-> @each -> $(this).data('_delayed_change', new PreChange(this, options)) unless $(this).data("_delayed_change")?
 
-class window.DelayedChange
+class window.PreChange
   
   constructor:(target, options)->
     @delay = if options? and options.delay? then options.delay else 500 
     @target = target
     do @delegateEvents
     this
+    @validates = 0
+    @timeouts = 0
     
   delegateEvents: ->
     validate = (e)=>
       target = $ e.currentTarget
-      @validate({})
+      @validate(e)
     if typeof @target is "string"
       $(document).on "keydown mousedown change", @target, validate
       $(document).on "keyup", @target, @validate
@@ -31,8 +33,12 @@ class window.DelayedChange
     
   validate: (e)=>
     target = $ e.currentTarget
-    clearTimeout target.data("timeout") if target.data("timeout")?
+    target.data "lastValue", null if e.type == "change"
+    if target.data("timeout")?
+      clearTimeout target.data("timeout")
+      target.data "timeout", null
     target.data "timeout", setTimeout =>
-      target.trigger("delayedChange") if target.data("lastValue") != target.val()
+      target.trigger("preChange") if target.data("lastValue") != target.val()
       target.data "lastValue", target.val()
+      target.data "timeout", null
     , @delay

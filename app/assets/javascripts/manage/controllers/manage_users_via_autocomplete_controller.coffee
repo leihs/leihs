@@ -5,12 +5,12 @@ class window.App.ManageUsersViaAutocompleteController extends Spine.Controller
     "[data-users-list]": "usersList"
 
   events:
-    "delayedChange input[data-search-users]": "search"
+    "preChange input[data-search-users]": "search"
     "click [data-remove-user]": "removeHandler"
 
   constructor: ->
     super
-    @input.delayedChange()
+    @input.preChange()
 
   search: =>
     return false unless @input.val().length

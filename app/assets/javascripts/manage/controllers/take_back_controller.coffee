@@ -12,7 +12,7 @@ class window.App.TakeBackController extends Spine.Controller
     "submit form#assign": "assign"
     "focus #assign-input": "showAutocomplete"
     "change [data-quantity-returned]": "changeQuantity"
-    "delayedChange [data-quantity-returned]": "changeQuantity"
+    "preChange [data-quantity-returned]": "changeQuantity"
 
   constructor: ->
     super
@@ -22,7 +22,7 @@ class window.App.TakeBackController extends Spine.Controller
     do @setupAutocomplete
     new App.TimeLineController {el: @el}
     new App.ContractLinesEditController {el: @el, user: @user, contract: @contract, startDateDisabled: true}
-    new DelayedChange "[data-quantity-returned]"
+    new PreChange "[data-quantity-returned]"
 
   delegateEvents: =>
     super

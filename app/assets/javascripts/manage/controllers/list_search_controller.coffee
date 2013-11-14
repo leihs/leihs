@@ -2,11 +2,11 @@ class window.App.ListSearchController extends Spine.Controller
 
   events:
     "change": "search"
-    "delayedChange": "search"
+    "preChange": "search"
 
   constructor: ->
     super
-    @el.delayedChange()
+    @el.preChange()
 
   search: => 
     do @reset unless @currentSearch == @term()

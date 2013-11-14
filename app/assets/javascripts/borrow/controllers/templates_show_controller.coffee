@@ -2,14 +2,14 @@ class window.App.TemplatesShowController extends Spine.Controller
 
   events: 
     "change input[type='number']": "validateNumber"
-    "delayedChange input[type='number']": "validateNumber"
+    "preChange input[type='number']": "validateNumber"
 
   constructor: ->
     super
     do @setupNumbers
 
   setupNumbers: =>
-    @el.find("input[type='number']").delayedChange()
+    @el.find("input[type='number']").preChange()
 
   validateNumber: (e)=>
     target = $(e.currentTarget)

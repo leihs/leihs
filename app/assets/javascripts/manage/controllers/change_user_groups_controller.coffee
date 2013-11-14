@@ -6,12 +6,12 @@ class window.App.ChangeUserGroupsController extends Spine.Controller
 
   events:
     "focus input[name='name']": "search"
-    "delayedChange input[name='name']": "search"
+    "preChange input[name='name']": "search"
     "click [data-remove-group]": "removeGroup"
 
   constructor: ->
     super
-    @input.delayedChange()
+    @input.preChange()
 
   search: =>
     @input.autocomplete "destroy"

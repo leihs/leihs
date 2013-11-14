@@ -11,8 +11,8 @@ class window.App.ModelsIndexPeriodController extends Spine.Controller
     "mousedown #end-date": "validate"
     "change #start-date": "validate"
     "change #end-date": "validate"
-    "delayedChange #start-date": "selectStartDate"
-    "delayedChange #end-date": "selectEndDate"
+    "preChange #start-date": "selectStartDate"
+    "preChange #end-date": "selectEndDate"
 
   constructor: ->
     super
@@ -23,7 +23,7 @@ class window.App.ModelsIndexPeriodController extends Spine.Controller
     @startDate.datepicker
       onSelect: @selectStartDate
       minDate: moment().toDate()
-    @startDate.delayedChange()
+    @startDate.preChange()
 
   selectStartDate: (date)=>
     date = moment(@startDate.val(), i18n.date.L) unless moment(date).isValid()
@@ -38,7 +38,7 @@ class window.App.ModelsIndexPeriodController extends Spine.Controller
     @endDate.datepicker
       onSelect: @selectEndDate
       minDate: moment().toDate()
-    @endDate.delayedChange()
+    @endDate.preChange()
 
   selectEndDate: (date)=>
     date = moment(@endDate.val(), i18n.date.L) unless moment(date).isValid()
