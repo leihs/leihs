@@ -29,13 +29,14 @@ Angenommen /^eine Model ist nichtmehr verfügbar$/ do
     @max_before = @entity.lines.first.model.availability_in(@entity.inventory_pool).maximum_available_in_period_summed_for_groups(@entity.lines.first.start_date, @entity.lines.first.end_date, @entity.lines.first.group_ids)
     step 'I add so many lines that I break the maximal quantity of an model'
   else
-    @model = @contract.models.sample
-    visit manage_hand_over_path(@contract.inventory_pool, @customer)
-    @max_before = @contract.lines.first.model.availability_in(@contract.inventory_pool).maximum_available_in_period_summed_for_groups(@contract.lines.first.start_date, @contract.lines.first.end_date, @contract.lines.first.group_ids)
+    contract_line = @contract_lines_to_take_back.sample
+    @model = contract_line.model
+    visit manage_hand_over_path(@ip, @customer)
+    @max_before = @model.availability_in(@ip).maximum_available_in_period_summed_for_groups(contract_line.start_date, contract_line.end_date, contract_line.group_ids)
     step 'I add so many lines that I break the maximal quantity of an model'
-    visit manage_take_back_path(@contract.inventory_pool, @customer)
+    visit manage_take_back_path(@ip, @customer)
   end
-  find(".line", text: @model.name)
+  page.has_selector?(".line", text: @model.name).should be_true
   @lines = all(".line", text: @model.name)
   @lines.size.should > 0
 end
@@ -48,7 +49,8 @@ Dann /^sehe ich auf den beteiligten Linien die Auszeichnung von Problemen$/ do
   end
   @reference_line = @lines.first
   @reference_problem = @problems.first
-  @line = ContractLine.find JSON.parse(@reference_line["data-ids"]).first
+  contract_line_id = @reference_line["data-id"] || JSON.parse(@reference_line["data-ids"]).first
+  @line = ContractLine.find(contract_line_id)
   @av = @line.model.availability_in(@line.inventory_pool)
 end
 
