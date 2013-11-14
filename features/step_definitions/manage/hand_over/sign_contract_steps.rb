@@ -1,8 +1,9 @@
 # -*- encoding : utf-8 -*-
 
 When /^I open a hand over$/ do
-  @ip = @current_user.managed_inventory_pools.sample
-  @customer = @ip.users.all.shuffle.detect {|c| c.visits.hand_over.exists? and c.visits.hand_over.any?{|v| v.lines.size >= 3}}
+  @ip = @current_user.managed_inventory_pools.detect do |ip|
+    @customer = ip.users.all.shuffle.detect {|c| c.visits.hand_over.exists? and c.visits.hand_over.any?{|v| v.lines.size >= 3}}
+  end
   raise "customer not found" unless @customer
   visit manage_hand_over_path(@ip, @customer)
   page.should have_selector("#hand-over-view", :visible => true)

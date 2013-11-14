@@ -6,32 +6,28 @@ end
 Dann /^kann ich für jedes sichtbare Model die Timeline anzeigen lassen$/ do
 
   lines = if not all("#edit-contract-view").empty?
-    ".order_line"
+    ".order-line"
   elsif not all("#hand-over-view").empty?
     ".line[data-line-type='item_line']"
   elsif not all("#take-back-view").empty?
     ".line[data-line-type='item_line']"
-  elsif not all("#search_results").empty?
-    first(".line.toggler.model.toggle.show_more").click
-    ".line.model:not(.toggle)"
+  elsif not all("#search-overview").empty?
+    ".line[data-type='model']"
   elsif not all("#inventory").empty?
-    ".line.model"
+    ".line[data-type='model']"
   else
     raise "unknown page"
   end
 
   raise "no lines found for this page" if lines.size.zero?
 
+  page.has_selector?(lines).should be_true
   all(lines, visible: true)[0..5].each do |line|
-    line.first(".trigger").click
-    while all(".button", :text => _("Timeline")).empty?
-      line.first(".trigger").click
-      sleep(0.5)
-    end
-    line.first(".button", :text => _("Timeline")).click
-    first(".modal iframe")
+    line.find(".multibutton .dropdown-toggle").hover
+    line.find(".multibutton .dropdown-item", text: _("Timeline")).click
+    find(".modal iframe")
     evaluate_script %Q{ $(".modal iframe").contents().first("#my_timeline").length; }
-    first(".modal .button.close_dialog").click
-    all(".modal", visible: true).size.should == 0
+    find(".modal .button", text: _("Close")).click
+    page.has_no_selector?(".modal", visible: true).should be_true
   end
 end
