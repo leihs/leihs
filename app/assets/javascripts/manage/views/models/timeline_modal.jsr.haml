@@ -1,0 +1,25 @@
+.modal.large.hide.fade.ui-modal.padding-inset-m.padding-horizontal-l{:role => "dialog", :tabindex => "-1"}
+
+  .row.padding-vertical-m
+    .col1of2
+      %h3.headline-l {{jed "Availability Timeline"/}}
+      %h3.headline-s.light {{>name}}
+
+    .col1of2
+      .float-right
+        %a.modal-close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button", :title => '{{jed "close dialog"/}}', :class => "weak"}
+          Abbrechen
+        %button.button.white.text-ellipsis.modal-close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button", :title => '{{jed "close dialog"/}}', :class => "weak"}
+          {{jed "Close"/}}
+
+  .row.margin-top-m
+
+    .modal-body.no-padding
+
+      .row
+        .position-absolute-topright.width-full.text-align-center
+          #loading 
+            .height-m
+            {{partial "views/loading"/}}
+        
+        %iframe#timeline{:src => "/manage/{{current_inventory_pool_id/}}/models/{{>id}}/timeline", :width => "100%", :height => "500px"}

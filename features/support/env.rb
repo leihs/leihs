@@ -1,3 +1,8 @@
+require 'simplecov'
+SimpleCov.start 'rails' do
+  merge_timeout 3600
+end
+
 require 'rubygems'
 require 'pry'
 
@@ -63,5 +68,8 @@ Before('@javascript') do
 end
 
 After do |scenario|
+  sleep(0.2) # to prevent lazy failures i.e: features/examples/benutzerverwaltung.feature:328 "Zugriff entfernen als Inventar-Verwalter"
   DatabaseCleaner.clean
 end
+
+

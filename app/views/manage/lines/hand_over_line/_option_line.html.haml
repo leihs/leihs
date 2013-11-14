@@ -1,0 +1,41 @@
+.line.light.row.focus-hover-thin{:"data-line-type" => "option_line", :"data-id" => line.id}
+
+  .line-info
+  
+  .line-col.padding-left-xs
+    .row
+      .col1of4
+        %label.padding-inset-s
+          %input{:type => :checkbox, :"data-select-line" => true, :autocomplete => :off}
+
+  .col1of10.line-col
+    %input.small.width-full.text-align-center{:type => :text, :value => line.quantity, :"data-line-quantity" => true}
+
+  .col1of10.line-col.text-align-center
+    %span.grey-text= line.option.inventory_code
+
+  .col4of10.line-col.text-align-left
+    %strong= line.option.name
+
+  .col1of10.line-col.text-align-center
+    - unless line.purpose.blank?
+      .tooltip{:"title" => line.purpose.description, :"data-tooltip-template" => "manage/views/purposes/tooltip"}
+        %i.icon-comment.grey
+
+  .col1of10.line-col.text-align-center
+
+  .col2of10.line-col.line-actions.padding-left-xxs.padding-right-s
+    .multibutton
+      %button.button.white.text-ellipsis{:"data-edit-lines" => true, :"data-ids" => "[#{line.id}]"}= _("Change entry")
+      .dropdown-holder.inline-block
+        .button.white.dropdown-toggle
+          .arrow.down
+        %ul.dropdown.right
+          %li
+            %a.dropdown-item{:"data-open-time-line" => true, :"data-model-id" => line.model.id}
+              %i.icon-align-left
+              = _("Timeline")
+          %li
+            %a.dropdown-item.red{:"data-destroy-line" => true}
+              %i.icon-trash
+              = _("Delete")

@@ -51,7 +51,7 @@ Funktionalität: Gegenstand kopieren
     | Name                         |
     | Seriennummer                 |
     Und der Inventarcode ist vorausgefüllt
-    Wenn man den kopierten Gegenstand speichert
+    Wenn ich speichere
     Dann wird der kopierte Gegenstand gespeichert
     Und man wird zur Liste des Inventars zurückgeführt
 

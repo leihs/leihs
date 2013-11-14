@@ -2,20 +2,27 @@ require 'persona'
 
 class SessionsController < ApplicationController
 
-  AUTHENTICATION_URL = 'http://localhost:3000/backend/temporary/login'
+  AUTHENTICATION_URL = 'http://localhost:3000/manage/temporary/login'
 
-  # render new.rhtml
   def new
-    if Rails.env.development? and params["bypass"] and User.find_by_login(params["bypass"])
-      create params["bypass"]
+    if Rails.env.test? and params[:login]
+      self.current_user = User.find_by_login(params[:login])
+      if logged_in?
+        if current_user.access_rights.size == 0
+          render :text => _("You don't have any rights to access this application.")
+          return
+        end
+        redirect_back_or_default('/')
+        flash[:notice] = _("Logged in successfully")
+      else
+        render :action => 'new'
+      end
+    elsif Rails.env.development? and params["bypass"] and self.current_user = User.find_by_login(params["bypass"])
+      redirect_back_or_default('/')
+      flash[:notice] = _("Logged in successfully")
     else
       redirect_to :action => 'authenticate'
     end
-  end
-
-  # TODO 05** temporary
-  def old_new
-    render :action => 'new', :layout => 'layouts/backend/general'
   end
 
   def authenticate(id = params[:id])
@@ -40,21 +47,6 @@ class SessionsController < ApplicationController
     a.save
     flash[:notice] = "Switched Authentication to LDAP"
     redirect_back_or_default("/")
-  end
-
-  # TODO 05** temporary, needed by Rspec tests
-  def create(login = params[:login])
-    self.current_user = User.find_by_login(login)
-    if logged_in?
-      if current_user.access_rights.size == 0
-        render :text => _("You don't have any rights to access this application.") 
-        return
-      end
-      redirect_back_or_default('/')
-      flash[:notice] = _("Logged in successfully")
-    else
-      render :action => 'new'
-    end
   end
 
   def destroy

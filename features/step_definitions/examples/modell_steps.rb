@@ -1,8 +1,8 @@
 # encoding: utf-8
 
 Angenommen /^man öffnet die Liste der Modelle$/ do
-  @current_inventory_pool = @current_user.managed_inventory_pools.first
-  visit backend_inventory_pool_models_path @current_inventory_pool
+  @current_inventory_pool = @current_user.managed_inventory_pools.sample
+  visit "/manage/#{@current_inventory_pool.id}/inventory"
 end
 
 Wenn(/^ich ein ergänzendes Modell mittel Autocomplete Feld hinzufüge$/) do
@@ -40,7 +40,7 @@ Wenn(/^ich ein bereits bestehendes ergänzende Modell mittel Autocomplete Feld h
 end
 
 Dann(/^wurde das redundante Modell nicht hizugefügt$/) do
-  find(".field", match: :first, text: _("Compatibles")).all(".field-inline-entry", text: @comp.name).count.should == 1
+  find(".row.emboss", match: :first, text: _("Compatibles")).all(".field-inline-entry", text: @comp.name).count.should == 1
 end
 
 Dann(/^wurde das redundante ergänzende Modell nicht gespeichert$/) do
@@ -95,8 +95,8 @@ end
 
 Dann(/^kann ich das Modell aus der Liste nicht löschen$/) do
   sleep(0.88)
-  visit backend_inventory_pool_models_path(@current_inventory_pool)
-  fill_in 'query', with: @model.name
+  visit "/manage/#{@current_inventory_pool.id}/inventory"
+  fill_in 'list-search', with: @model.name
   find("li.modelname", match: :prefer_exact, text: @model.name)
   find(".trigger .arrow", match: :first).hover
   find(".line.toggler.model", match: :prefer_exact, text: @model.name).should_not have_content(_("Delete %s") % _("Model"))
@@ -117,9 +117,9 @@ Dann(/^es wurden auch alle Anhängsel gelöscht$/) do
 end
 
 Wenn(/^ich dieses Modell aus der Liste lösche$/) do
-  visit backend_inventory_pool_models_path(@current_inventory_pool)
-  fill_in 'query', with: @model.name
-  find("li.modelname", match: :prefer_exact, text: @model.name).text.should == @model.name
+  visit "/manage/#{@current_inventory_pool.id}/inventory"
+  fill_in 'list-search', with: @model.name
+  find("#inventory .line .col2of5 strong", match: :prefer_exact, text: @model.name).text.should == @model.name
   find(".trigger .arrow", match: :first).hover
   find(".line.toggler.model", match: :prefer_exact, text: @model.name).first(".button", text: _("Delete %s") % _("Model")).click
 end
@@ -130,7 +130,7 @@ end
 
 Angenommen(/^ich editieren ein bestehndes Modell mit bereits zugeteilten Kapazitäten$/) do
   @model = @current_inventory_pool.models.find{|m| m.partitions.count > 0}
-  visit edit_backend_inventory_pool_model_path @current_inventory_pool, @model
+  visit "/manage/%d/models/%d/edit" % [@current_inventory_pool.id, @model.id]
 end
 
 Wenn(/^ich bestehende Zuteilungen entfernen$/) do

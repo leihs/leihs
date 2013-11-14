@@ -1,0 +1,33 @@
+.line.row.focus-hover-thin{:"data-id" => "{{>id}}", :"data-type" => "hand_over"}
+  
+  {{if isOverdue()}}
+  .line-info.red
+  {{/if}}
+
+  {{partial 'manage/views/users/cell' user() "col1of5"/}}
+
+  .col1of5.line-col
+    {{if isOverdue()}}
+    %strong {{diffToday date/}}
+    {{else}}
+    {{diffToday date/}}
+    {{/if}}
+
+  .col1of5.line-col.text-align-center{:"data-type" => "lines-cell"} {{include tmpl='manage/views/lines/cell'/}}
+
+  .col1of5.line-col.text-align-center
+    {{>getMaxRange()}}
+    {{jed getMaxRange() "day" "days"/}}
+
+  .col1of5.line-col.line-actions
+    .multibutton
+      %a.button.white.text-ellipsis{:href => "/manage/{{current_inventory_pool_id/}}/users/{{>user().id}}/hand_over"}
+        {{jed "Hand Over"/}}
+      .dropdown-holder.inline-block
+        .button.white.dropdown-toggle
+          .arrow.down
+        %ul.dropdown.right
+          %li
+            %a.dropdown-item.red{:"data-hand-over-delete" => true} 
+              %i.icon-trash
+              {{jed "Delete"/}}

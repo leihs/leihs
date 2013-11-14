@@ -1,0 +1,61 @@
+.modal.medium.hide.fade.ui-modal.padding-inset-m.padding-horizontal-l{:role => "dialog", :tabindex => "-1"}
+
+  %form
+
+    .row.padding-vertical-m
+      .col1of2
+        %h3.headline-l {{jed "Approval failed"/}}
+        %h3.headline-s.light 
+          {{>user().firstname}}
+          {{>user().lastname}}
+
+      .col1of2
+        .float-right
+          %a.modal-close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button", :title => '{{jed "close dialog"/}}', :class => "weak"}
+            Abbrechen
+          .multibutton
+            %a.button.white.text-ellipsis{:href => "/manage/{{current_inventory_pool_id/}}/contracts/{{>id}}/edit"}
+              {{jed "Edit Order"/}}
+            .dropdown-holder.inline-block
+              .button.white.dropdown-toggle
+                .arrow.down
+              %ul.dropdown.right
+                %li
+                  %a.dropdown-item{:"data-approve-anyway" => true}
+                    %i.icon-thumbs-up
+                    {{jed "Approve anyway"/}}
+
+    .row.margin-top-m
+
+      .separated-bottom.padding-bottom-m.margin-bottom-m
+        .row.margin-bottom-s.emboss.red.padding-inset-s
+          %p.paragraph-s
+            %strong {{>error}}
+
+      .modal-body
+        {{for groupedLinesByDateRange(true)}}
+        .padding-bottom-m.margin-bottom-m.no-last-child-margin
+          .row.margin-bottom-s
+            .col1of2
+              %p
+                {{date start_date/}}
+                = "-"
+                {{date end_date/}}
+            .col1of2.text-align-right
+              %strong {{diffDatesInDays start_date end_date/}}
+          {{for lines}}
+          .row
+            .col1of8.text-align-center
+              .paragraph-s {{>quantity}}
+            .col7of8
+              .paragraph-s
+                %strong {{>model().name}}
+          {{/for}}
+        {{/for}}
+
+    .row.separated-top.padding-top-m
+
+      .col1of1.padding-bottom-s
+        %p {{jed "Write a comment... (your comment will be part of the confirmation e-mail)"/}}
+      %textarea.col1of1#comment.height-s{:name => :comment, :autofocus => :autofocus}
+        {{>~comment}}

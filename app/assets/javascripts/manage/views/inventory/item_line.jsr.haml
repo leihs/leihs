@@ -1,0 +1,39 @@
+.line.row.focus-hover-thin{:"data-type" => "item", :"data-id" => "{{>id}}"}
+  
+  .col1of5.line-col 
+    {{if model().is_package}}
+    .row
+      .col1of2
+      .col1of2
+        %button.button.inset.small.width-full{:"data-type" => "inventory-expander"}
+          {{if children().count()>0}}
+          %i.arrow.right
+          {{/if}}
+          %span {{>children().count()}}
+    {{/if}}
+
+  .col1of5.line-col.text-align-left
+    {{>inventory_code}}
+
+  .col1of5.line-col.text-align-left
+    {{if parent_id}}
+    %strong {{>model().name}}
+    {{else}}
+    {{>currentLocation()}}
+    {{/if}}
+
+  .col1of5.line-col.text-align-center
+    %strong.darkred-text {{>getProblems()}}
+
+  .col1of5.line-col.line-actions.padding-right-xs
+    .multibutton.width-full.text-align-right
+      %a.button.white.text-ellipsis.col4of5.negative-margin-right-xxs{:href => "{{>url('edit')}}", :title => "{{jed 'Edit Item'/}}"}
+        {{jed "Edit Item"/}}
+      .dropdown-holder.inline-block.col1of5
+        .button.white.dropdown-toggle.width-full.no-padding.text-align-center
+          .arrow.down
+        %ul.dropdown.right
+          %li
+            %a.dropdown-item{:href => "{{>url('copy')}}"}
+              %i.icon-copy
+              {{jed "Copy Item"/}}

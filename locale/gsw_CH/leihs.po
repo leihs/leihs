@@ -177,7 +177,7 @@ msgid "Approve"
 msgstr "Genehmigt"
 
 #, fuzzy
-msgid "Approve Order"
+msgid "Approve order"
 msgstr "Genehmigt"
 
 #, fuzzy
@@ -305,10 +305,10 @@ msgstr ""
 msgid "Change Borrower Successful"
 msgstr ""
 
-msgid "Change Orderer"
+msgid "Change orderer"
 msgstr ""
 
-msgid "Change Orderer Successful"
+msgid "Change orderer Successful"
 msgstr ""
 
 msgid "Changed %s from %s to %s"
@@ -735,7 +735,7 @@ msgid "Last Visitors:"
 msgstr ""
 
 #, fuzzy
-msgid "Latest Reminder"
+msgid "Latest reminder"
 msgstr "[leihs] Erinnerig"
 
 msgid "Legend"
@@ -1482,7 +1482,7 @@ msgstr ""
 msgid "This contract is not signable because some lines are not assigned."
 msgstr ""
 
-msgid "This customer's groups"
+msgid "Groups of this customer"
 msgstr ""
 
 #, fuzzy
@@ -2185,7 +2185,7 @@ msgstr ""
 msgid "Search %s"
 msgstr ""
 
-msgid "By browsing categories"
+msgid "by browsing categories"
 msgstr ""
 
 msgid "Select"

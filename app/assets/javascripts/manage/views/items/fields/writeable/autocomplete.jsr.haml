@@ -1,0 +1,39 @@
+%label.row
+
+  {{if ~field.extensible}}
+  %input{:type => "hidden", :"data-type" => 'extended-value', :name => "{{>~field.getExtendedKeyFormName()}}", :value => "{{>~field.getValue(~itemData, ~field.extended_key, true)}}"}
+  {{/if}}
+
+  {{if ~field.getValue(~itemData, ~field.attribute, true)}}
+  %input{:type => "hidden", :name => "{{>~field.getFormName()}}", :value => "{{>~field.getValue(~itemData, ~field.attribute, true)}}"}
+  %input.has-addon.width-full{:type => "text", :autocomplete => :off,
+                              :placeholder => "{{>~field.getLabel()}}",
+                              :title => "{{>~field.getLabel()}}",
+                              :value => "{{>~field.getValueLabel(~field.values, ~field.getValue(~itemData, ~field.attribute, true))}}",
+                              :data => { :type => "autocomplete",
+                                 :autocomplete_data => "{{stringify ~field.values/}}",
+                                 :autocomplete_element_tmpl => "views/autocomplete/element",
+                                 :autocomplete_search_on_focus => 'true',
+                                 :autocomplete_value_target => '{{>~field.getFormName()}}',
+                                 :autocomplete_display_attribute => "label",
+                                 :autocomplete_blur_on_select => "true",
+                                 :autocomplete_extended_key_target => "{{>~field.getExtendedKeyFormName()}}",
+                                 :autocomplete_extensible => "{{>~field.extensible}}"}}
+
+  {{else}}
+  %input{:type => "hidden", :name => "{{>~field.getFormName()}}"}
+  %input.has-addon.width-full{:type => "text", :autocomplete => :off,
+                              :placeholder => "{{>~field.getLabel()}}",
+                              :title => "{{>~field.getLabel()}}",
+                              :data => { :type => "autocomplete",
+                                 :autocomplete_data => "{{stringify ~field.values/}}",
+                                 :autocomplete_element_tmpl => "views/autocomplete/element",
+                                 :autocomplete_search_on_focus => 'true',
+                                 :autocomplete_value_target => '{{>~field.getFormName()}}',
+                                 :autocomplete_display_attribute => "label",
+                                 :autocomplete_blur_on_select => "true",
+                                 :autocomplete_extended_key_target => "{{>~field.getExtendedKeyFormName()}}",
+                                 :autocomplete_extensible => "{{>~field.extensible}}"}}
+  {{/if}}
+  .addon.transparent
+    %i.arrow.down

@@ -1,0 +1,10 @@
+.row.padding-vertical-s
+  - if @count_overdue > 0
+    %h2.font-size-m.inline-block.emboss.red.padding-horizontal-s.padding-vertical-xs
+      %strong= n_("%s visit overdue", "%s visits overdue", @count_overdue) % @count_overdue
+  - if @count_today > 0
+    %h2.font-size-m.inline-block.emboss.padding-horizontal-s.padding-vertical-xs
+      = _("%s visit today") % 1
+  - if @count_future > 0
+    %h2.font-size-m.inline-block.emboss.padding-horizontal-s.padding-vertical-xs
+      = n_("%s future visit", "%s future visits", @count_future) % @count_future

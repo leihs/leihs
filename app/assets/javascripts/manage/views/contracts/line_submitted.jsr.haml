@@ -1,0 +1,31 @@
+{{partial 'manage/views/users/cell' user() "col1of8"/}}
+
+.col1of8.line-col {{diffToday created_at/}}
+
+.col1of8.line-col.text-align-center{:"data-type" => "lines-cell"} {{include tmpl='manage/views/lines/cell'/}}
+
+.col1of8.line-col
+  {{>getMaxRange()}}
+  {{jed getMaxRange() "day" "days"/}}
+
+.col2of8.line-col.text-align-left {{include tmpl='manage/views/purposes/cell'/}}
+
+.col2of8.line-col.line-actions
+  .multibutton
+    %button.button.white.text-ellipsis{:"data-order-approve" => true} {{jed "Approve"/}}
+    .dropdown-holder.inline-block
+      .button.white.dropdown-toggle
+        .arrow.down
+      %ul.dropdown.right
+        %li
+          %a.dropdown-item{:href => "{{>editPath()}}"}
+            %i.icon-edit
+            {{jed "Edit"/}}
+        %li
+          %a.dropdown-item{:href => "{{>handOverPath()}}"}
+            %i.icon-signout
+            {{jed "Hand Over"/}}
+        %li
+          %a.dropdown-item{:"data-order-reject" => true}
+            %i.icon-thumbs-down
+            {{jed "Reject"/}}

@@ -4,7 +4,7 @@ class Borrow::ApplicationController < ApplicationController
 
   before_filter :require_customer, :redirect_if_order_timed_out, :init_breadcrumbs
 
-  def start
+  def root
     current_user_categories = current_user.all_categories
     @categories = (current_user_categories & Category.roots).sort
     @child_categories = @categories.map {|c| (current_user_categories & c.children).sort}
@@ -41,7 +41,7 @@ class Borrow::ApplicationController < ApplicationController
                borrow_order_delete_unavailables_path,
                borrow_order_remove_path,
                borrow_order_remove_lines_path,
-               borrow_contract_lines_change_time_range_path].include? request.path
+               borrow_change_time_range_path].include? request.path
     if current_user.timeout? and unsubmitted_contracts.flat_map(&:lines).any? {|l| not l.available? }
       redirect_to borrow_order_timed_out_path
     else
@@ -53,14 +53,6 @@ class Borrow::ApplicationController < ApplicationController
 
   def init_breadcrumbs 
     @bread_crumbs = BreadCrumbs.new params.delete("_bc")
-  end
-
-  def set_pagination_header(paginated_active_record)
-    headers["X-Pagination"] = {
-      total_count: paginated_active_record.count,
-      per_page: paginated_active_record.per_page,
-      offset: paginated_active_record.offset
-    }.to_json
   end
 
 end

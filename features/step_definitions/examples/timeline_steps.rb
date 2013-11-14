@@ -5,12 +5,12 @@ end
 
 Dann /^kann ich für jedes sichtbare Model die Timeline anzeigen lassen$/ do
 
-  lines = if not all("#acknowledge").empty?
+  lines = if not all("#edit-contract-view").empty?
     ".order_line"
-  elsif not all("#hand_over").empty?
-    ".item_line"
-  elsif not all("#take_back").empty?
-    ".item_line"
+  elsif not all("#hand-over-view").empty?
+    ".line[data-line-type='item_line']"
+  elsif not all("#take-back-view").empty?
+    ".line[data-line-type='item_line']"
   elsif not all("#search_results").empty?
     first(".line.toggler.model.toggle.show_more").click
     ".line.model:not(.toggle)"
@@ -29,13 +29,9 @@ Dann /^kann ich für jedes sichtbare Model die Timeline anzeigen lassen$/ do
       sleep(0.5)
     end
     line.first(".button", :text => _("Timeline")).click
-    first(".dialog iframe")
-    evaluate_script %Q{ $(".dialog iframe").contents().first("#my_timeline").length; }
-    first(".dialog .button.close_dialog").click
-    all(".dialog", visible: true).size.should == 0
+    first(".modal iframe")
+    evaluate_script %Q{ $(".modal iframe").contents().first("#my_timeline").length; }
+    first(".modal .button.close_dialog").click
+    all(".modal", visible: true).size.should == 0
   end
-end
-
-Wenn /^ich eine Suche mache$/ do
-  step 'ich suche'
 end

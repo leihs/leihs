@@ -4,7 +4,7 @@ Wenn /^versuche eine Aktion im Backend auszuführen obwohl ich abgemeldet bin$/ 
   step 'ich mache eine Aushändigung'
   page.execute_script %Q{ $.ajax({url: "/logout"}); }
   step "ensure there are no active requests"
-  find("#code", match: :first).set "A B"
+  find("[data-add-contract-line]").set "A B"
   step "ensure there are no active requests"
   sleep(0.88)
   sleep(0.88)

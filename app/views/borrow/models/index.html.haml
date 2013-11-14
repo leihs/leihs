@@ -14,19 +14,19 @@
             .table-cell.separated-left{:class => @child_categories.blank? ? "col1of1" : "col3of4"}
               = render partial: "borrow/models/index/list"
 
-  .col1of5= render :partial => "borrow/current_order_basket"
+  .col1of5= render :partial => "borrow/basket"
 
 :coffeescript
     
   for model in #{@models.to_json}
-    App.Model.records[model.id] = new App.Model model
+    App.Model.addRecord new App.Model model
 
   for inventory_pool in #{@inventory_pools.to_json}
-    App.InventoryPool.records[inventory_pool.id] = new App.InventoryPool inventory_pool
+    App.InventoryPool.addRecord new App.InventoryPool inventory_pool
   
   jQuery ->
 
-    new App.Borrow.ModelsIndexController
+    new App.ModelsIndexController
       el: $("#models-index")
       params: #{params.delete_if{|k,v| k == "_bc"}.to_json}
       models: #{@models.to_json}

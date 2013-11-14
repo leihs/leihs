@@ -1,0 +1,20 @@
+.row.line.font-size-xs.focus-hover-thin{:"data-type" => "inline-entry", :"data-new" => true}
+
+  {{for data}}
+  %input{:type => :hidden, :name => "model[packages][{{>~uid}}]{{>name}}", :value => "{{>value}}"}
+  {{/for}}
+
+  {{for children}}
+  %input{:type => :hidden, :name => "model[packages][{{>~uid}}][children][id][]", :value => "{{>id}}"}
+  {{/for}}
+
+  .line-col.col1of4.text-align-left
+    {{jed 'Prepackaged'/}}
+
+  .line-col.col1of4.text-align-left
+    %span.grey-text {{jed 'not yet saved'/}}
+
+  .line-col.col1of2.text-align-right
+    %button.button.small.inset{:"data-remove" => true, :type => :button, :title => _("Remove")}
+      %i.icon-trash
+    %button.button.small.inset{:"data-edit" => true, :type => :button}= _("Edit")

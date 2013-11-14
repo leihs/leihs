@@ -1,0 +1,14 @@
+:ruby
+  diff_to_today = (@date - Date.today).to_i
+
+%h2.headline-m.light
+  - if diff_to_today == 0
+    = _("Today")
+  - else
+    = diff_to_today.abs 
+    = n_('day', 'days', diff_to_today.abs)
+
+    - if diff_to_today > 0
+      = _('in the future')
+    - else
+      = _('in the past')

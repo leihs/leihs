@@ -1,0 +1,10 @@
+#list-tabs.inline-tab-navigation
+
+  %a.inline-tab-item.active{:"data-status" => ["signed", "closed"]}
+    = _("All")
+
+  %a.inline-tab-item{:"data-status" => ["signed"]}
+    = _("Open")
+
+  %a.inline-tab-item{:"data-status" => ["closed"]}
+    = _("Closed")

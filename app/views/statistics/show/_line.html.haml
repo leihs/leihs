@@ -1,0 +1,19 @@
+.row.line
+
+  .col1of8.line-col
+    - unless line[:children].blank?
+      .toggle
+        .text{:title => _('expand')}
+          .icon
+          = line[:children].size
+
+  .col1of8.line-col
+    = "%s %s" % [number_with_delimiter(line[:quantity]), line[:unit]]
+  .col1of8.line-col
+    = line[:object]
+  .col5of8.line-col.text-align-left
+    = line[:label]
+
+- unless line[:children].blank?
+  .children
+    = render partial: "statistics/show/line", collection: line[:children]

@@ -36,10 +36,10 @@
               %button.button.green{:type => :submit}
                 = _("Continue")
 
-    .col1of5= render :partial => "borrow/current_order_basket"
+    .col1of5= render :partial => "borrow/basket"
 
 :coffeescript
   
   jQuery ->
-    new App.Borrow.TemplatesShowController
+    new App.TemplatesShowController
       el: $("#template-show")

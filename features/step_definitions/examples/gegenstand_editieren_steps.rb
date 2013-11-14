@@ -2,7 +2,7 @@
 
 Angenommen /^man editiert einen Gegenstand, wo man der Besitzer ist$/ do
   @ip = @current_user.managed_inventory_pools
-  visit backend_inventory_pool_inventory_path(@ip)
+  visit manage_inventory_path(@ip)
   step "ensure there are no active requests"
   first("label", text: _("Owned")).click
   step "ensure there are no active requests"
@@ -25,13 +25,13 @@ Wenn /^"(.*?)" bei "(.*?)" ausgewählt ist muss auch "(.*?)" angegeben werden$/ 
 end
 
 Dann /^sind alle Pflichtfelder mit einem Stern gekenzeichnet$/ do
-  all(".field.required", :visible => true).each {|field| field.text[/\*/].should_not be_nil}
-  all(".field:not(.required)").each {|field| field.text[/\*/].should be_nil}
+  all(".field[data-required='true']", :visible => true).each {|field| field.text[/\*/].should_not be_nil}
+  all(".field:not([data-required='true'])").each {|field| field.text[/\*/].should be_nil}
 end
 
 Wenn /^ein Pflichtfeld nicht ausgefüllt\/ausgewählt ist, dann lässt sich der Gegenstand nicht speichern$/ do
-  first(".field.required textarea").set("")
-  first(".field.required input[type='text']").set("")
+  first(".field[data-required='true'] textarea").set("")
+  first(".field[data-required='true'] input[type='text']").set("")
   first(".content_navigation button[type=submit]").click
   first(".content_navigation button[type=submit]")
   @item.to_json.should == @item.reload.to_json
@@ -42,7 +42,7 @@ Wenn /^der Benutzer sieht eine Fehlermeldung$/ do
 end
 
 Wenn /^die nicht ausgefüllten\/ausgewählten Pflichtfelder sind rot markiert$/ do
-  all(".required.field", :visible => true).each do |field|
+  all(".field[data-required='true']", :visible => true).each do |field|
     if field.all("input[type=text]").any?{|input| input.value == 0} or 
       field.all("textarea").any?{|textarea| textarea.value == 0} or
       (ips = field.all("input[type=radio]"); ips.all?{|input| not input.checked?} if not ips.empty?)
@@ -67,12 +67,12 @@ end
 
 Angenommen(/^man navigiert zur Gegenstandsbearbeitungsseite$/) do
   @item = @current_inventory_pool.items.first
-  visit backend_inventory_pool_item_path(@current_inventory_pool, @item)
+  visit "/manage/%d/items/%d" % [@current_inventory_pool.id, @item.id]
 end
 
 Angenommen(/^man navigiert zur Gegenstandsbearbeitungsseite eines Gegenstandes, der am Lager und in keinem Vertrag vorhanden ist$/) do
   @item = @current_inventory_pool.items.find {|i| i.in_stock? and i.contract_lines.blank?}
-  visit backend_inventory_pool_item_path(@current_inventory_pool, @item)
+  visit "/manage/%d/items/%d" % [@current_inventory_pool.id, @item.id]
 end
 
 Wenn(/^ich speichern druecke$/) do
@@ -86,7 +86,7 @@ end
 
 Dann(/^ist der Gegenstand mit all den angegebenen Informationen gespeichert$/) do
   find("a[data-tab*='retired']").click if (@table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"} ["Wert"]) == "Ja"
-  find_field('query').set (@table_hashes.detect {|r| r["Feldname"] == "Inventarcode"} ["Wert"])
+  find_field('list-search').set (@table_hashes.detect {|r| r["Feldname"] == "Inventarcode"} ["Wert"])
   find("li.modelname", :text => @table_hashes.detect {|r| r["Feldname"] == "Modell"} ["Wert"], :visible => true)
   find(".toggle .icon").click
   find(".button", text: 'Gegenstand editieren').click
@@ -94,7 +94,7 @@ Dann(/^ist der Gegenstand mit all den angegebenen Informationen gespeichert$/) d
 end
 
 Wenn(/^ich den Lieferanten lösche$/) do
-  find(".field", text: _("Supplier")).find("input").set ""
+  find(".row.emboss", match: :prefer_exact, text: _("Supplier")).find("input").set ""
   page.execute_script %Q{ $("[data-autocomplete_extended_key_target='item[supplier][name]']").trigger('change') }
 end
 
@@ -110,7 +110,7 @@ end
 
 Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes mit gesetztem Lieferanten$/) do
   @item = @current_inventory_pool.items.find {|i| not i.supplier.nil?}
-  visit backend_inventory_pool_item_path(@current_inventory_pool, @item)
+  visit "/manage/%d/items/%d" % [@current_inventory_pool.id, @item.id]
 end
 
 Wenn(/^ich den Lieferanten ändere$/) do
@@ -125,7 +125,7 @@ end
 Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeliehen ist$/) do
   @item = @current_inventory_pool.items.not_in_stock.sample
   @item_before = @item.to_json
-  visit backend_inventory_pool_item_path(@current_inventory_pool, @item)
+  visit "/manage/%d/items/%d" % [@current_inventory_pool.id, @item.id]
 end
 
 Wenn(/^ich die verantwortliche Abteilung ändere$/) do
@@ -135,7 +135,7 @@ end
 Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes, der in einem Vertrag vorhanden ist$/) do
   @item = @current_inventory_pool.items.select{|i| not i.contract_lines.blank?}.sample
   @item_before = @item.to_json
-  visit backend_inventory_pool_item_path(@current_inventory_pool, @item)
+  visit "/manage/%d/items/%d" % [@current_inventory_pool.id, @item.id]
 end
 
 Wenn(/^ich das Modell ändere$/) do
@@ -143,6 +143,6 @@ Wenn(/^ich das Modell ändere$/) do
 end
 
 Wenn(/^ich den Gegenstand ausmustere$/) do
-  find(".field", text: _("Retirement")).first("select").select _("Yes")
-  find(".field", text: _("Reason for Retirement")).first("input, textarea").set "Retirement reason"
+  find(".row.emboss", match: :prefer_exact, text: _("Retirement")).first("select").select _("Yes")
+  find(".row.emboss", match: :prefer_exact, text: _("Reason for Retirement")).first("input, textarea").set "Retirement reason"
 end

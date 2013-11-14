@@ -30,13 +30,13 @@ Angenommen /^eine Model ist nichtmehr verfügbar$/ do
     step 'I add so many lines that I break the maximal quantity of an model'
   else
     @model = @contract.models.sample
-    visit backend_inventory_pool_user_hand_over_path(@contract.inventory_pool, @customer)
+    visit manage_hand_over_path(@contract.inventory_pool, @customer)
     @max_before = @contract.lines.first.model.availability_in(@contract.inventory_pool).maximum_available_in_period_summed_for_groups(@contract.lines.first.start_date, @contract.lines.first.end_date, @contract.lines.first.group_ids)
     step 'I add so many lines that I break the maximal quantity of an model'
-    visit backend_inventory_pool_user_take_back_path(@contract.inventory_pool, @customer)
+    visit manage_take_back_path(@contract.inventory_pool, @customer)
   end
-  page.has_selector? ".line.error", text: @model.name
-  @lines = all(".line.error", :text => @model.name)
+  find(".line .line-info.red ~ .col5of10", match: :first, text: @model.name)
+  @lines = all(".line .line-info.red ~ .col5of10", text: @model.name)
   @lines.size.should > 0
 end
 
@@ -99,9 +99,9 @@ Angenommen /^eine Gegenstand ist nicht ausleihbar$/ do
   if @event == "hand_over"
     @item = @ip.items.unborrowable.first
     step 'I add an item to the hand over'
-    @line_id = find(".line.assigned", match: :first)[:"data-id"]
+    @line_id = find(".line [data-assign-item][disabled]", match: :first).find(:xpath, "./../../..")[:"data-id"]
   elsif @event === "take_back"
-    @line_id = find(".item_line", match: :first)[:"data-id"]
+    @line_id = find(".line[data-line-type='item_line']", match: :first)[:"data-id"]
     step 'markiere ich den Gegenstand als nicht ausleihbar'
   end
 end
@@ -111,44 +111,46 @@ Angenommen /^ich mache eine Rücknahme eines verspäteten Gegenstandes$/ do
   @ip = @current_user.managed_inventory_pools.first
   overdued_take_back = @ip.visits.take_back.detect{|x| x.date < Date.today}
   @line_id = overdued_take_back.lines.first.id
-  visit backend_inventory_pool_user_take_back_path(@ip, overdued_take_back.user)
+  visit manage_take_back_path(@ip, overdued_take_back.user)
   page.should have_selector(".line[data-id='#{@line_id}']")
 end
 
+def open_inspection_for_line(line_id)
+  within(".line[data-id='#{line_id}'] .multibutton") do
+    find(".dropdown-toggle").hover
+    find(".dropdown-holder .dropdown-item", text: _("Inspect")).click
+  end
+  find(".modal")
+end
+
 Dann /^markiere ich den Gegenstand als nicht ausleihbar$/ do
-  find(".line[data-id='#{@line_id}'] .actions .trigger").hover
-  find(".line[data-id='#{@line_id}'] .actions .button", text: _("Inspect")).click
-  page.should have_selector(".dialog")
-  first("select[name='flags[is_borrowable]']").select "Nicht ausleihbar"
-  first(".dialog .navigation button[type='submit']").click
-  page.should have_selector(".notification")
+  open_inspection_for_line(@line_id)
+  find("select[name='flags[is_borrowable]']").select "Nicht ausleihbar"
+  find(".modal .navigation button[type='submit']").click
+  find(".notice")
 end
 
 Dann /^markiere ich den Gegenstand als defekt$/ do
-  find(".line[data-id='#{@line_id}'] .actions .trigger").hover
-  find(".line[data-id='#{@line_id}'] .actions .button", text: _("Inspect")).click
-  page.should have_selector(".dialog")
-  first("select[name='flags[is_broken]']").select "Defekt"
-  first(".dialog .navigation button[type='submit']").click
-  page.should have_selector(".notification")
+  open_inspection_for_line(@line_id)
+  find("select[name='flags[is_broken]']").select "Defekt"
+  find(".modal .navigation button[type='submit']").click
+  find(".notice")
 end
 
 Dann /^markiere ich den Gegenstand als unvollständig$/ do
-  find(".line[data-id='#{@line_id}'] .actions .trigger").hover
-  find(".line[data-id='#{@line_id}'] .actions .button", text: _("Inspect")).click
-  page.should have_selector(".dialog", :visible => true)
-  first("select[name='flags[is_incomplete]']").select "Unvollständig"
-  first(".dialog .navigation button[type='submit']").click
-  page.should have_selector(".notification")
+  open_inspection_for_line(@line_id)
+  find("select[name='flags[is_incomplete]']").select "Unvollständig"
+  find(".modal .navigation button[type='submit']").click
+  find(".notice")
 end
 
 Angenommen /^eine Gegenstand ist defekt$/ do
   if @event == "hand_over"
     @item = @ip.items.broken.first
     step 'I add an item to the hand over'
-    @line_id = find(".line.assigned", match: :first)[:"data-id"]
+    @line_id = find(".line [data-assign-item][disabled]", match: :first).find(:xpath, "./../../..")[:"data-id"]
   elsif  @event == "take_back"
-    @line_id = find(".item_line", match: :first)[:"data-id"]
+    @line_id = find(".line[data-line-type='item_line']", match: :first)[:"data-id"]
     step 'markiere ich den Gegenstand als defekt'
   end
 end
@@ -157,16 +159,17 @@ Angenommen /^eine Gegenstand ist unvollständig$/ do
   if @event == "hand_over"
     @item = @ip.items.incomplete.first
     step 'I add an item to the hand over'
-    @line_id = find(".line.assigned", match: :first)[:"data-id"]
+    @line_id = find(".line [data-assign-item][disabled]", match: :first).find(:xpath, "./../../..")[:"data-id"]
   elsif  @event == "take_back"
-    @line_id = find(".item_line", match: :first)[:"data-id"]
+    @line_id = find(".line[data-line-type='item_line']", match: :first)[:"data-id"]
     step 'markiere ich den Gegenstand als unvollständig'
   end
 end
 
 Dann /^sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen$/ do
-  find(".line[data-id='#{@line_id}'] .problems", :visible => true).hover
-  find(".tip", :visible => true).text.match(/\w/).should be_true
+  find(".line[data-id='#{@line_id}'] .emboss.red").hover
+  t = find(".tooltipster-base").text
+  t.match(/\w/).should be_true
   @problems = []
-  @problems << first(".tip").text
+  @problems << t
 end

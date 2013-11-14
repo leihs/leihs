@@ -1,0 +1,9 @@
+- grouped_lines_by_date.each do |group|
+  %h3.headline-s.padding-inset-s
+    - if group[:date] == Date.today
+      %strong= _("Today")
+    - else 
+      = I18n.t('date.day_names')[group[:date].wday]
+      = l(group[:date])
+    
+  = render :partial => "manage/lines/grouped_lines", :locals => {:grouped_lines => group[:grouped_lines], :line_partial => line_partial}

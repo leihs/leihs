@@ -1,0 +1,15 @@
+.row.line.font-size-xs.focus-hover-thin{:"data-type" => "inline-entry"}
+  
+  %input{:type => :hidden, :name => "model[images_attributes][#{entry.id}][id]", :value => entry.id}
+  %input{:type => :hidden, :name => "model[images_attributes][#{entry.id}][_destroy]"}
+
+  .line-col.col1of10.text-align-center
+    %a{:href => entry.public_filename, :target => "_blank"}
+      %img.max-height-xxs.max-width-xxs{:src => entry.public_filename_thumb}
+
+  .line-col.col6of10.text-align-left
+    %a.blue{:href => entry.public_filename, :target => "_blank"}
+      = entry.filename
+
+  .line-col.col3of10.text-align-right
+    %button.button.small.inset{:"data-remove" => true}= _("Remove")

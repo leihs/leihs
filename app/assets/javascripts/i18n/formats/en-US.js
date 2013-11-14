@@ -10,7 +10,8 @@
   };
 
   i18n.datepicker = {
-    L: "mm/dd/yy"
+    L: "mm/dd/yy",
+    XS: "mm/dd/y"
   };
 
   i18n.months = {

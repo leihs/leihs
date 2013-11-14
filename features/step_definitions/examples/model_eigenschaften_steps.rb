@@ -16,19 +16,19 @@ Wenn /^ich Eigenschaften hinzufügen und die Felder mit den Platzhaltern Schlüs
 end
 
 Wenn /^ich die Eigenschaft "(.*?)" "(.*?)" hinzufüge$/ do |k,v|
-  page.has_selector? ".top", text: /(#{_("Create %s") % _("Model")}|#{_("Edit %s") % _("Model")})/
+  find(".button.green", text: _("Save %s") % _("Model"))
   find("#add-property").click
-  find("[ng-model='property.key'][placeholder='#{_("Key")}']", match: :first).set k
-  find("[ng-model='property.value'][placeholder='#{_("Value")}']", match: :first).set v
+  find("[name='model[properties_attributes][][key]']", match: :first).set k
+  find("[name='model[properties_attributes][][value]']", match: :first).set v
 end
 
 Wenn /^ich die Eigenschaften sortiere$/ do
-  find(".properties .ui-sortable") # real sorting is not possible with capybara/selenium
-  @properties = all(".properties li").map{|li| {:key => li.find("input[ng-model='property.key']").value, :value => li.find("input[ng-model='property.value']").value}}
+  find("#properties .list-of-lines.ui-sortable") # real sorting is not possible with capybara/selenium
+  @properties = all("#properties .list-of-lines .line").map{|line| {:key => line.find("input[name='model[properties_attributes][][key]']").value, :value => line.find("input[name='model[properties_attributes][][value]']").value}}
 end
 
 Dann /^sind die Eigenschaften gemäss Sortierreihenfolge für dieses Modell gespeichert$/ do
-  page.has_selector? ".line"
+  find(".line", match: :first)
   all(".line").size.should > 0
   Model.last.properties.empty?.should be_false
   Model.last.properties.each_with_index do |property, i|
@@ -38,7 +38,7 @@ Dann /^sind die Eigenschaften gemäss Sortierreihenfolge für dieses Modell gesp
 end
 
 Dann /^sind die Eigenschaften gemäss Sortierreihenfolge für das geänderte Modell gespeichert$/ do
-  page.has_selector? ".line"
+  find(".line", match: :first)
   all(".line").size.should > 0
   @model = @model.reload
   @model.properties.size.should == @properties.size
@@ -51,20 +51,20 @@ end
 Angenommen /^ich editiere ein Modell$/ do
   step 'man öffnet die Liste der Modelle'
   step 'ich ein bestehendes Modell bearbeite'
-  page.has_selector? ".top", text: _("Edit %s") % _("Model")
+  find(".top", match: :first, text: _("Edit %s") % _("Model"))
 end
 
 Angenommen /^ich editiere ein Modell welches bereits Eigenschaften hat$/ do
   @model = @current_inventory_pool.models.joins(:properties).first
-  visit edit_backend_inventory_pool_model_path @current_inventory_pool, @model
+  visit "/manage/%d/models/%d/edit" % [@current_inventory_pool.id, @model.id]
 end
 
 Wenn /^ich bestehende Eigenschaften ändere$/ do
-  first("[ng-model='property.key']").set "Anschluss"
-  first("[ng-model='property.value']").set "USB"
+  find("input[name='model[properties_attributes][][key]']", match: :first).set "Anschluss"
+  find("input[name='model[properties_attributes][][value]']", match: :first).set "USB"
 end
 
 Wenn /^ich eine oder mehrere bestehende Eigenschaften lösche$/ do
-  find(".properties .clickable", match: :first).click
-  @properties = all(".properties li:not(.tobedeleted)").map{|li| {:key => li.find("input[ng-model='property.key']").value, :value => li.find("input[ng-model='property.value']").value}}
+  find("#properties .list-of-lines .line:not(.striked) .button[data-remove]", match: :first).click
+  @properties = all("#properties .list-of-lines .line:not(.striked)").map{|line| {:key => line.find("input[name='model[properties_attributes][][key]']").value, :value => line.find("input[name='model[properties_attributes][][value]']").value}}
 end

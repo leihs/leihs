@@ -1,0 +1,29 @@
+= render :partial => "manage/users/cell", :locals => {:user => contract.user}
+
+.col1of8.line-col 
+  = _("No.")
+  = contract.id
+
+= render :partial => "manage/lines/cell", :locals => {:lines => contract.lines}
+
+.col1of8.line-col
+  %strong= _("Closed")
+
+.col2of8.line-col.text-align-left
+  .padding-left-m
+    = l(contract.min_date)
+    = "-"
+    = l contract.max_date
+
+.col2of8.line-col.line-actions
+  .multibutton
+    %button.button.white.text-ellipsis{:href => manage_contract_path(current_inventory_pool, contract), :target => "_blank"}
+      = _("Contract")
+    .dropdown-holder.inline-block
+      .button.white.dropdown-toggle
+        .arrow.down
+      %ul.dropdown.right
+        %li
+          %a.dropdown-item{:href => manage_value_list_path(current_inventory_pool, contract), :target => "_blank"}
+            %i.icon-list-ol
+            = _("Value List")

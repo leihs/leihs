@@ -1,7 +1,0 @@
-%label.select.responsible
-  %select
-    %option
-    {{each(i, ip) responsibles}}
-    %option{:"data-responsible_id" => "${ip.id}"} ${ip.name}
-    {{/each}}
-  %span ${_jed("Responsible")}

@@ -37,7 +37,7 @@ class AccessRight < ActiveRecord::Base
 ####################################################################
 
   def to_s
-    s = "#{role.name}"
+    s = _("#{role.name}".humanize)
     s += " #{_("for")} #{inventory_pool.name}" if inventory_pool
     s += " (#{_("Access Level: %d") % access_level.to_i})" if role.name == "manager"
     s

@@ -12,6 +12,7 @@
 # riding pleasure. 
 #
 class Item < ActiveRecord::Base
+  include ItemModules::Filter
   
   belongs_to :parent, :class_name => "Item", :foreign_key => 'parent_id'
   has_many :children, :class_name => "Item", :foreign_key => 'parent_id', :dependent => :nullify,
@@ -372,6 +373,17 @@ class Item < ActiveRecord::Base
     end
   end
   
+  def current_location
+    current_location = []
+    current_location.push inventory_pool.to_s if inventory_pool and owner != inventory_pool 
+    if u = current_borrower 
+      current_location.push "#{u.firstname} #{u.lastname} #{_('until')} #{I18n.l(current_return_date)}"
+    elsif location
+      current_location.push location.to_s
+    end
+    current_location.join(", ")
+  end
+
   def current_borrower
     contract_line = current_contract_line
     contract_line.contract.user if contract_line
@@ -511,7 +523,7 @@ class Item < ActiveRecord::Base
   end
 
   def update_child_attributes(item)
-    item.update_attributes(:inventory_pool_id => self.inventory_pool_id,
+    item.update_attributes(:inventory_pool_id => self.inventory_pool_id || item.inventory_pool_id,
                            :location_id => self.location_id,
                            :responsible => self.responsible)
   end

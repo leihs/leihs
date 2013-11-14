@@ -1,0 +1,110 @@
+.button 
+  border: 0
+  color: $grey
+  cursor: pointer
+  display: inline-block
+  font-weight: bold
+  line-height: 2.4em
+  position: relative
+  white-space: nowrap
+  @include border-radius(6px)
+  @include user-select(none)
+  @include box-shadow(0 1px 0 rgba(255,255,255,0.2))
+  @include link-colors($grey)
+
+  &:not([class*='font-size'])
+    font-size: $font-size-xs
+
+  &:not([class*='padding'])
+    padding: 0 10px
+    
+  &:not([class*='text-align'])
+    text-align: center
+
+  &:not([class*='vertical-align'])
+    vertical-align: middle
+
+  &:hover
+    color: $darkgrey
+
+  &:active, .active
+    color: $grey
+
+button.button:focus
+  @extend .focus
+
+@mixin button($color, $grad_color_2, $grad_color_1, $grad_color_1_active, $grad_color_2_active) 
+  color: $color
+  border: 1px solid rgba(80,80,80,0.3)
+  border-bottom: 1px solid rgba(80,80,80,0.4)
+  @include background(linear-gradient($grad_color_1 20%, $grad_color_2 80%))
+  @include link-colors($color)
+  
+  &:hover:not([disabled]) 
+    @include background(linear-gradient(lighten(opacify($grad_color_1,1.0), 10%) 20%, lighten(opacify($grad_color_2,1.0), 10%) 80%))
+    color: darken($color, 5%)
+
+    .arrow:not(.grey)
+      @include change-all-arrow-colors(darken($color, 5%))
+  
+  &:active:not([disabled]) 
+    @include background(linear-gradient($grad_color_1_active 20%, $grad_color_2_active 80%))
+    @include box-shadow(inset 0 -2px 3px rgba(0,0,0,0.1))
+
+  &.disabled, &.disabled:hover, &.disabled:active, &[disabled=disabled], &[disabled=disabled]:hover, &[disabled=disabled]:active 
+    cursor: default
+    color: $color !important
+    @include background(linear-gradient($grad_color_1 20%, $grad_color_2 80%))
+    @include opacity(0.6)
+
+  &.active
+    background: $grad_color_1 !important
+    color: darken($color, 5%) !important
+
+  .arrow:not(.grey)
+    @include change-all-arrow-colors(lighten($color, 5%))
+
+.button.green, .button-green
+  @include button(black, rgb(141,206,88), rgb(175,236,129), rgb(148,209,98), rgb(131,201,74))
+
+.button.white, .button-white
+  @include button(black, rgb(230,230,230), white, rgb(226,226,226), rgb(232,232,232))
+
+.button.red, .button-red
+  @include button(white, $darkred, $red, $red, $red)
+  @include text-shadow(1px 1px 0 rgba(0,0,0,0.1))
+
+.button.inset, .button-inset
+  @include button(black, rgba(230,230,230,0.2), rgba(255,255,255,0.2), rgb(226,226,226), rgb(232,232,232))
+  @include box-shadow(1px 1px 0 white)
+
+// LARGE BUTTONS
+
+.button.large 
+  font-weight: bold
+  line-height: 2em
+  vertical-align: bottom
+
+  &:not([class*='padding'])
+    padding: 0 $space-l
+
+  &:not([class*='font-size'])
+    font-size: $font-size-m
+
+// SMALL BUTTONS
+
+.button.small
+  font-weight: bold
+  vertical-align: bottom
+
+  &:not([class*='font-size'])
+    font-size: $font-size-xxs
+
+  &:not([class*='padding'])
+    padding: 0 8px
+
+// MICRO BUTTONS
+
+.button.micro
+  @extend .button.small
+  line-height: $line-height-m

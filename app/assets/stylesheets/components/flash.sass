@@ -1,0 +1,16 @@
+#flash
+  min-height: 43px
+  max-height: 43px
+  position: fixed
+  z-index: 2000
+  width: 100%
+  overflow: hidden
+
+#flash:hover
+  overflow: scroll
+  max-height: 33%
+
+#flash:not(.hidden) + #flash-spacer
+  display: block
+  height: 43px
+  width: 100%

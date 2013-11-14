@@ -1,0 +1,8 @@
+%li.separated-bottom.exclude-last-child
+  %a.row{:title => "{{>firstname}} {{>lastname}}"}
+    .row.text-ellipsis 
+      %strong 
+        {{>firstname}}
+        {{>lastname}}
+    .row.text-ellipsis 
+      {{>address}}{{>city}}

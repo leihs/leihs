@@ -7,7 +7,10 @@ class Borrow::ContractsController < Borrow::ApplicationController
   end
 
   def index
-    @grouped_and_merged_lines = Contract.grouped_and_merged_lines current_user.contracts.submitted.flat_map(&:lines)
+    respond_to do |format|
+      format.json { @contracts = Contract.filter params, current_user }
+      format.html { @grouped_and_merged_lines = Contract.grouped_and_merged_lines current_user.contracts.submitted.flat_map(&:lines) }
+    end
   end
 
   def current

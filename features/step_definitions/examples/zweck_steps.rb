@@ -19,9 +19,9 @@ Wenn /^jeder Eintrag eines Vertrages kann auf einen Zweck referenzieren$/ do
 end
 
 Wenn /^ich eine Bestellung editiere$/ do
-  contract_id = find(".contract.line", match: :first)["data-id"].to_i
+  contract_id = all(".line[data-type='contract']").to_a.sample["data-id"].to_i
   @contract = Contract.find(contract_id)
-  visit backend_inventory_pool_acknowledge_path(@contract.inventory_pool, @contract)
+  visit manage_edit_contract_path(@contract.inventory_pool, @contract)
 end
 
 Dann /^sehe ich den Zweck$/ do
@@ -36,28 +36,27 @@ end
 
 Dann /^sehe ich auf jeder Zeile den zugewisenen Zweck$/ do
   @customer.contracts.approved.first.lines.each do |line|
-    find(".line[data-id='#{line.id}']").should have_content line.model.name
-    find(".line[data-id='#{line.id}']").should have_content line.purpose.description[0..10]
+    l = find(".line[data-id='#{line.id}']")
+    l.should have_content line.model.name
+    l.should have_content line.purpose.description[0..10]
   end
 end
 
 Dann /^kann ich den Zweck editieren$/ do
   find(".button", :text => /(Edit Purpose|Zweck editieren)/).click
   @new_purpose_description = "Benötigt für die Sommer-Austellung"
-  find(".dialog #purpose").set @new_purpose_description
-  find(".dialog button[type=submit]").click
-  page.should_not have_selector(".dialog")
+  find(".modal textarea[name='purpose']").set @new_purpose_description
+  find(".modal button[type=submit]").click
+  find("#purpose", text: @new_purpose_description)
   @contract.reload.lines.first.purpose.description.should == @new_purpose_description
-  find("section.purpose").should have_content @new_purpose_description
 end
 
 Dann /^kann ich einen Zweck hinzufügen$/ do
   step 'I click an inventory code input field of an item line'
   step 'I select one of those'
-  find("#hand_over_button").click
-  page.should have_selector(".dialog .purpose")
+  find(".multibutton .button[data-hand-over-selection]").click
   find(".purpose .button").click
-  page.should have_selector("#purpose")
+  find("#purpose")
 end
 
 Wenn /^keine der ausgewählten Gegenstände hat einen Zweck angegeben$/ do
@@ -66,22 +65,20 @@ Wenn /^keine der ausgewählten Gegenstände hat einen Zweck angegeben$/ do
 end
 
 Dann /^werde ich beim Aushändigen darauf hingewiesen einen Zweck anzugeben$/ do
-  find("#hand_over_button").click
-  page.has_selector?(".dialog .button")
-  page.has_selector?(".purpose #purpose")
+  find(".multibutton .button[data-hand-over-selection]").click
+  find(".modal .button", match: :first)
+  find("#purpose")
 end
 
 Dann /^erst wenn ich einen Zweck angebebe$/ do
-  find(".dialog .button[type=submit]", :text => /(Hand Over|Aushändigen)/).click
-  page.has_selector?(".notification")
-  find(".dialog #purpose").set "The purpose for this hand over"
+  find(".modal .button.green[data-hand-over]", :text => _("Hand Over")).click
+  find(".modal #error")
+  find(".modal #purpose").set "The purpose for this hand over"
 end
 
 Dann /^kann ich die Aushändigung durchführen$/ do
   signed_contracts_size = @customer.contracts.signed.size
-  find(".dialog .button[type=submit]", :text => /(Hand Over|Aushändigen)/)
   step 'I click hand over inside the dialog'
-  sleep(0.88)
   @customer.contracts.signed.size.should > signed_contracts_size
 end
 
@@ -93,14 +90,14 @@ Wenn /^einige der ausgewählten Gegenstände hat keinen Zweck angegeben$/ do
 end
 
 Dann /^muss ich keinen Zweck angeben um die Aushändigung durchzuführen$/ do
-  find("#hand_over_button").click
-  page.should have_selector(".dialog .button")
+  find(".multibutton .button[data-hand-over-selection]").click
+  page.should have_selector(".modal .button")
   step 'kann ich die Aushändigung durchführen'
 end
 
 Wenn /^ich einen Zweck angebe$/ do
-  find("#hand_over_button").click
-  page.should have_selector(".dialog .button")
+  find(".multibutton .button[data-hand-over-selection]").click
+  find(".modal .button")
   find(".purpose .button").click
   @added_purpose = "Another Purpose"
   find("#purpose").set @added_purpose
@@ -116,17 +113,23 @@ end
 
 Wenn /^alle der ausgewählten Gegenstände haben einen Zweck angegeben$/ do
   @contract = @customer.contracts.approved.first
-  @contract.lines.where(ContractLine.arel_table[:start_date].lteq(Date.today)).each do |line|
+  lines = @contract.lines.where(ContractLine.arel_table[:start_date].lteq(Date.today))
+  lines.each do |line|
     @item_line = line
     step 'I select one of those'
   end
-  all(".line.assigned .select input").each do |select|
+  all(".line [data-assign-item][disabled]").each do |input|
+    select = input.find(:xpath, "./../../..").find("[data-select-line]")
     select.click unless select.selected?
   end
-  find("#hand_over_button").click
-  page.should have_selector(".dialog .purpose")
+  find(".multibutton .button[data-hand-over-selection]").click
+  within(".modal") do
+    lines.each do |line|
+      find(".row", match: :first, text: line.purpose.to_s)
+    end
+  end
 end
 
 Dann /^kann ich keinen weiteren Zweck angeben$/ do
-  page.should_not have_selector(".dialog .purpose button", :visible => true)
+  page.should_not have_selector(".modal .purpose button", :visible => true)
 end

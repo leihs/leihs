@@ -4,8 +4,8 @@
   %head
     %meta{:charset => 'utf-8'}
     %title= "leihs | #{_("Equipment Booking and Inventory Management System")}"
-    = stylesheet_link_tag "_NEW/application"
-    = favicon_link_tag "frontend/favicon.ico", :type => "image/x-icon"
+    = stylesheet_link_tag "application", :media => "all"
+    = favicon_link_tag "favicon.ico", :type => "image/x-icon"
     = csrf_meta_tag
     
   %body
@@ -14,7 +14,7 @@
 
       = render :partial => "flash", :locals => {:flash => flash} if flash
 
-      %header= render :partial => "splash/topbar"
+      %header= render :partial => "topbar"
       
       = yield
 

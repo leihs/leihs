@@ -1,0 +1,9 @@
+.row.emboss.padding-bottom-xxs.margin-bottom-xxs{:"data-type" => "inline-entry", :"data-new" => true, :"data-id" => "{{>id}}"}
+  .row.padding-inset-xxs
+    .col1of4.padding-left-s.padding-top-xs
+      %strong.font-size-m.inline-block
+        {{>inventory_code}}
+    .col2of4.padding-top-xs
+      {{>model().name}}
+    .col1of4.text-align-right
+      %button.button.small.inset{:"data-remove" => true, :type => :button}= _("Remove")

@@ -1,3 +1,14 @@
-- flash.each do |k,v|
-  %p.paragraph-m.row.emboss.straight.text-align-center.padding-inset-xs{:class => k}
-    %strong= v
+:ruby
+  flash = if flash.length > 0 then flash else params[:flash] end
+
+#flash{class: (flash ? nil : "hidden")}
+  - if flash
+    - flash.each do |k,v|
+      .paragraph-m.row.emboss.straight.text-align-center.padding-inset-xs{:class => k}
+        %strong= v
+        %a.no-colors.transparent-hover.position-absolute-topright.height-full.padding-horizontal-m{:"data-remove" => "true", :title => _('Hide notification')}
+          .table
+            .table-row
+              .table-cell.vertical-align-middle
+                %i.icon-remove-sign
+#flash-spacer

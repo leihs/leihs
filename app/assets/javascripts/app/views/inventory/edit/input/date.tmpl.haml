@@ -1,6 +1,0 @@
-%input{:type => :hidden, :name => "${formName}", :value => "${value}"}
-{{if value}}
-%input.datepicker{:type => "text", :value => "${moment(value).format(i18n.date.L)}"}
-{{else}}
-%input.datepicker{:type => "text"}
-{{/if}}

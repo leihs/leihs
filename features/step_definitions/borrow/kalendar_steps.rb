@@ -70,7 +70,7 @@ end
 
 Dann(/^der Kalender beinhaltet die folgenden Komponenten$/) do |table|
   find ".headline-m", text: @model_name
-  find ".fc-header-title", text: I18n.l(Date.today, format: :month_year)
+  find ".fc-header-title", text: I18n.l(Date.today, format: "%B %Y")
   find "#booking-calendar"
   find "#booking-calendar-inventory-pool"
   find "#booking-calendar-start-date"
@@ -93,7 +93,7 @@ Wenn(/^alle Angaben die ich im Kalender mache gültig sind$/) do
 end
 
 Dann(/^ist das Modell mit Start- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügt worden$/) do
-  page.has_selector? "#current-order-lines .line"
+  find("#current-order-lines .line", match: :first)
   find("#current-order-lines .line", :text => "#{@quantity}x #{@model.name}")
   @current_user.contracts.unsubmitted.flat_map(&:lines).detect{|line| line.model == @model}.should be
 end
@@ -209,7 +209,8 @@ Wenn(/^man anhand der Sprungtaste zum aktuellen Startdatum springt$/) do
 end
 
 Dann(/^wird das Startdatum im Kalender angezeigt$/) do
-  find(".fc-widget-content.start-date")
+  start_date = Date.parse(find("#booking-calendar-start-date").value).to_s(:db)
+  find(".fc-widget-content.start-date[data-date='#{start_date}']")
 end
 
 Wenn(/^man anhand der Sprungtaste zum aktuellen Enddatum springt$/) do
@@ -218,7 +219,8 @@ Wenn(/^man anhand der Sprungtaste zum aktuellen Enddatum springt$/) do
 end
 
 Dann(/^wird das Enddatum im Kalender angezeigt$/) do
-  find(".fc-widget-content.end-date")
+  end_date = Date.parse(find("#booking-calendar-end-date").value).to_s(:db)
+  find(".fc-widget-content.end-date[data-date='#{end_date}']")
 end
 
 Wenn(/^man zwischen den Monaten hin und herspring$/) do
@@ -226,7 +228,7 @@ Wenn(/^man zwischen den Monaten hin und herspring$/) do
 end
 
 Dann(/^wird der Kalender gemäss aktuell gewähltem Monat angezeigt$/) do
-  find(".fc-header-title").text.should == I18n.l(Date.today.next_month, format: :month_year)
+  find(".fc-header-title").text.should == I18n.l(Date.today.next_month, format: "%B %Y")
 end
 
 Dann(/^werden die Schliesstage gemäss gewähltem Gerätepark angezeigt$/) do
@@ -345,5 +347,5 @@ Dann(/^kann ich dieses Modell ausleihen, wenn ich in dieser Gruppe bin$/) do
   find(".fc-widget-content", :match => :first)
   find("#submit-booking-calendar").click
   find("#current-order-lines").should have_content @model.name
-  @current_user.get_current_order.lines.map(&:model).include?(@model).should be_true
+  @current_user.contracts.unsubmitted.flat_map(&:lines).map(&:model).include?(@model).should be_true
 end

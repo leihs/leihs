@@ -1,9 +1,0 @@
-:coffeescript
-  window.local_currency_string = "#{Setting::LOCAL_CURRENCY_STRING}"
-  window.current_user = #{ {id: current_user.try(:id), start_screen: current_user.start_screen.as_json, admin: current_user.has_role?("admin")}.to_json}
-
-- if current_inventory_pool
-  :coffeescript
-    window.currentInventoryPool = new InventoryPool #{json_for current_inventory_pool, {:closed_days => true, :holidays => true}}
-    window.current_user.access_level = #{current_user.access_level_for(current_inventory_pool)}
-  

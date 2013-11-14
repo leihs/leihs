@@ -1,0 +1,53 @@
+-content_for :title, _("Daily View")
+- content_for :lending_section, "active"
+
+#daily-view.wrapper.margin-top-m
+
+  = render :partial => 'manage/tabs/lending', :locals => {:active_tab => :daily_view}
+
+  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+    .margin-top-l.padding-horizontal-m
+      .row
+        .col4of6
+          %h1.headline-xl
+            = l @date, :format => "%A"
+            = l @date, :format => :long
+          = render :partial => "manage/inventory_pools/daily/subtitle"
+        #daily-navigation.col2of6.text-align-right= render :partial => "manage/inventory_pools/daily/navigation"
+      .clear
+
+    .margin-top-l.padding-bottom-m.row
+
+      = render :partial => "manage/inventory_pools/daily/last_visitors" if @last_visitors
+
+      = render :partial => "manage/inventory_pools/daily/submitted_contracts" if @date == Date.today
+
+      = render :partial => "manage/inventory_pools/daily/hand_overs"
+
+      = render :partial => "manage/inventory_pools/daily/take_backs"
+
+      = render :partial => "manage/inventory_pools/daily/workload"
+
+- if @submitted_contracts
+  :coffeescript
+    for contract in #{@submitted_contracts.to_json}
+      App.Contract.addRecord new App.Contract contract
+
+    for user in #{@submitted_contracts.map{|o| o.user}.flatten.uniq.to_json}
+      App.User.addRecord new App.User user
+
+    for line in #{@submitted_contracts.map{|o| o.lines}.flatten.uniq.to_json}
+      App.ContractLine.addRecord new App.ContractLine line
+
+    for model in #{@submitted_contracts.map{|o| o.models}.flatten.uniq.to_json}
+      App.Model.addRecord new App.Model model
+
+    for purpose in #{@purposes.to_json}
+      App.Purpose.addRecord new App.Purpose purpose
+
+:coffeescript
+
+  jQuery -> new App.InventoryPoolDailyController
+    el: $("#daily-view")
+    date: #{@date.to_json}

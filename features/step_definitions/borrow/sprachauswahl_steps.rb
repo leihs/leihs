@@ -1,13 +1,13 @@
 # -*- encoding : utf-8 -*-
 
 Angenommen(/^ich sehe die Sprachauswahl$/) do
-  find("nav.navigation .item.language").click
+  find("footer a[href*='locale']", match: :first)
 end
 
 Wenn(/^ich die Sprache ändere$/) do
-  find("a[href*='locale']", :text => 'English').click
+  find("footer a[href*='locale']", :text => 'English').click
 end
 
 Dann(/^ist die Sprache für mich geändert$/) do
-  find("nav.navigation .item.language").text.should == "English"
+  find("footer a[href='']", :text => 'English')
 end

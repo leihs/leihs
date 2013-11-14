@@ -170,7 +170,7 @@ msgstr ""
 msgid "Approve"
 msgstr ""
 
-msgid "Approve Order"
+msgid "Approve order"
 msgstr ""
 
 msgid "Approve anyway"
@@ -290,10 +290,10 @@ msgstr ""
 msgid "Change Borrower Successful"
 msgstr ""
 
-msgid "Change Orderer"
+msgid "Change orderer"
 msgstr ""
 
-msgid "Change Orderer Successful"
+msgid "Change orderer Successful"
 msgstr ""
 
 msgid "Changed %s from %s to %s"
@@ -698,7 +698,7 @@ msgstr ""
 msgid "Last Visitors:"
 msgstr ""
 
-msgid "Latest Reminder"
+msgid "Latest reminder"
 msgstr ""
 
 msgid "Legend"
@@ -1278,6 +1278,9 @@ msgstr ""
 msgid "The Inventory Code %s was not found."
 msgstr ""
 
+msgid "The Inventory Code %s was not found for %s"
+msgstr ""
+
 msgid "The Inventory Pool must be empty"
 msgstr ""
 
@@ -1396,7 +1399,7 @@ msgstr ""
 msgid "This contract is not signable because some lines are not assigned."
 msgstr ""
 
-msgid "This customer's groups"
+msgid "Groups of this customer"
 msgstr ""
 
 msgid "This inventory pool is closed on that day."
@@ -1941,6 +1944,9 @@ msgstr ""
 msgid "New Template"
 msgstr ""
 
+msgid "New Category"
+msgstr ""
+
 msgid "List of %d Users"
 msgstr ""
 
@@ -2061,7 +2067,7 @@ msgstr ""
 msgid "Search %s"
 msgstr ""
 
-msgid "By browsing categories"
+msgid "by browsing categories"
 msgstr ""
 
 msgid "Select"
@@ -2108,6 +2114,9 @@ msgid "The items of the package can not be edited"
 msgstr ""
 
 msgid "Access"
+msgstr ""
+
+msgid "Access rights"
 msgstr ""
 
 msgid "Group"
@@ -2398,4 +2407,250 @@ msgid "Complete order"
 msgstr ""
 
 msgid "The responsible inventory pool cannot be changed because the item is currently not in stock."
+msgstr ""
+
+msgid "Send reminder"
+msgstr ""
+
+msgid "Approval failed"
+msgstr ""
+
+msgid "Deleted"
+msgstr ""
+
+msgid "Reminder send"
+msgstr ""
+
+msgid "Available in total"
+msgstr ""
+
+msgid "Loading availability"
+msgstr ""
+
+msgid "Availability loaded"
+msgstr ""
+
+msgid "Invalid data"
+msgstr ""
+
+msgid "Reject order"
+msgstr ""
+
+msgid "Inventory code, model name, search term"
+msgstr ""
+
+msgid "Adding item"
+msgstr ""
+
+msgid "Added %s"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Removing items"
+msgstr ""
+
+msgid "Edit reservation"
+msgstr ""
+
+msgid "Availability for"
+msgstr ""
+
+msgid "Please select an inventory pool"
+msgstr ""
+
+msgid "%s visit overdue"
+msgid_plural "%s visits overdue"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "%s future visit"
+msgid_plural "%s future visits"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "%s visit today"
+msgid_plural "%s visits today"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "%s quantity increased to %s"
+msgstr ""
+
+msgid "%s assigned to %s"
+msgstr ""
+
+msgid "%s is already assigned to a different contract"
+msgstr ""
+
+msgid "Hand over of %s item"
+msgid_plural "Hand over of %s items"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Hand over completed"
+msgstr ""
+
+msgid "Open %s"
+msgstr ""
+
+msgid "%s item"
+msgid_plural "%s items"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "to %s"
+msgstr ""
+
+msgid "Back to this user"
+msgstr ""
+
+msgid "Extend entry"
+msgstr ""
+
+msgid "%s selected for take back"
+msgstr ""
+
+msgid "%s was not found for this take back"
+msgstr ""
+
+msgid "You can not take back more items then you handed over"
+msgstr ""
+
+msgid "You have to provide the quantity for the things you want to return"
+msgstr ""
+
+msgid "Take back completed"
+msgstr ""
+
+msgid "Take back of %s item"
+msgid_plural "Take back of %s items"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "No."
+msgstr ""
+
+msgid "Contract signed"
+msgstr ""
+
+msgid "You cannot delete this user"
+msgstr ""
+
+msgid "Add inventory"
+msgstr ""
+
+msgid "Active Inventory"
+msgstr ""
+
+msgid "Unused Models"
+msgstr ""
+
+msgid "Responsible"
+msgstr ""
+
+msgid "Responsible inventory pool"
+msgstr ""
+
+msgid "from"
+msgstr ""
+
+msgid "to"
+msgstr ""
+
+msgid "Create new item"
+msgstr ""
+
+msgid "Insert all required information"
+msgstr ""
+
+msgid "Make changes and save"
+msgstr ""
+
+msgid "Create new model"
+msgstr ""
+
+msgid "Removed on save"
+msgstr ""
+
+msgid "File has to be uploaded on save"
+msgstr ""
+
+msgid "Upload problems"
+msgstr ""
+
+msgid "The model was saved, but there were problems uploading files"
+msgstr ""
+
+msgid "Uploading files - please wait"
+msgstr ""
+
+msgid "Save package"
+msgstr ""
+
+msgid "Add item"
+msgstr ""
+
+msgid "Search Results for %s"
+msgstr ""
+
+msgid "Show all found %s"
+msgstr ""
+
+msgid "Please provide a search term"
+msgstr ""
+
+msgid "Start search"
+msgstr ""
+
+msgid "models"
+msgstr ""
+
+msgid "items"
+msgstr ""
+
+msgid "contracts"
+msgstr ""
+
+msgid "orders"
+msgstr ""
+
+msgid "Search results (%s) for %s"
+msgstr ""
+
+msgid "Search results (%s) for \"%s\""
+msgstr ""
+
+msgid "Create new option"
+msgstr ""
+
+msgid "Option saved"
+msgstr ""
+
+msgid "Hide notification"
+msgstr ""
+
+msgid "Changed"
+msgstr ""
+
+msgid "Parent categories"
+msgstr ""
+
+msgid "Subordinate to %s"
+msgstr ""
+
+msgid "Category saved"
+msgstr ""
+
+msgid "in the future"
+msgstr ""
+
+msgid "in the past"
+msgstr ""
+
+msgid "Borrowable items"
+msgstr ""
+
+msgid "Available for borrower"
 msgstr ""

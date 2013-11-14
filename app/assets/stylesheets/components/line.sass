@@ -1,0 +1,79 @@
+.line
+  border-bottom: 1px solid $lightergrey
+  border-left: 1px solid transparent
+  border-right: 1px solid transparent
+  border-top: 1px solid white
+  display: table
+  width: 100%
+
+  &
+    @include link-colors($darkergrey, $darkergrey, $darkergrey, $darkergrey, $darkergrey)
+
+  &:not([class*='height'])
+    height: $space-xxl
+
+    .line-info
+      height: $space-xxl - 3px      
+
+  &.small:not([class*='height'])
+    height: $space-l
+
+    .line-info
+      height: $space-l - 3px      
+
+  &.focus-hover-thin:hover
+    @extend .round-border-on-hover
+
+  &.light:not(:hover)
+    background: rgba(200,200,200,0.1)
+
+  &.grayed-out
+    color: $lightgrey
+
+    img
+      @include opacity(0.3)
+
+    .button
+      color: $lightgrey
+
+.line-actions
+  
+  .button
+    max-width: 160px
+
+.line-col
+  float: none
+  display: table-cell
+  height: 100%
+  line-height: $line-height-s
+  vertical-align: middle
+
+  &:not([class*='padding'])
+    padding: 0 0 0 $space-m
+
+  &:not([class*='text-align'])
+    text-align: right
+
+  &:not(.line-actions):not([class*='font-size'])
+    font-size: $font-size-xs
+
+  &:first-child:not([class*='text-align'])
+    text-align: left
+
+  &:last-child:not([class*='padding'])
+    padding-right: $space-s
+
+.line-info
+  left: 1px
+  position: absolute
+  top: 1px
+  width: 6px
+
+  &.red
+    background: $red
+
+  &.green
+    background: $darkgreen
+
+  &+.line-col:not([class*='text-align'])
+    text-align: left

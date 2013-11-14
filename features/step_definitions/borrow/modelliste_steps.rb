@@ -306,27 +306,33 @@ Dann(/^wird der nächste Block an Modellen geladen und angezeigt$/) do
 end
 
 Wenn(/^man bis zum Ende der Liste fährt$/) do
-  has_selector?(".page")
+  find(".page", match: :first)
   page.execute_script %Q{ $('.page').trigger('inview'); }
-  has_selector?(".page")
+  find(".page", match: :first)
 end
 
 Dann(/^wurden alle Modelle der ausgewählten Kategorie geladen und angezeigt$/) do
-  has_selector? "#model-list .line"
+  find("#model-list .line", match: :first)
   all("#model-list .line").size.should == @current_user.models.borrowable.from_category_and_all_its_descendants(@category).length
 end
 
 Wenn(/^man über das Modell hovered$/) do
-  page.execute_script %Q($(".line[data-id='#{@model.id}']").mouseenter())
+  find(".line[data-id='#{@model.id}']").hover()
 end
 
 Dann(/^werden zusätzliche Informationen angezeigt zu Modellname, Bilder, Beschreibung, Liste der Eigenschaften$/) do
-  find(".tooltipster-default").should have_content @model.name
-  page.should have_content @model.description
-  @model.properties.take(5).map(&:key).each {|key| page.should have_content key}
-  @model.properties.take(5).map(&:value).each {|value| page.should have_content value}
-  (0..@model.images.count-1).each do |i|
-    page.should have_selector("img[src*='/models/#{@model.id}/image_thumb?offset=#{i}']", :visible => false)
+  within(".tooltipster-default") do
+    find(".headline-s", text: @model.name)
+    find(".paragraph-s", text: @model.description)
+    @model.properties.take(5).each do |property|
+      within(".row.margin-top-xs", text: property.key) do
+        find(".col1of3", text: property.key)
+        find(".col2of3", text: property.value)
+      end
+    end
+    (0..@model.images.count-1).each do |i|
+      page.should have_selector("img[src*='/models/#{@model.id}/image_thumb?offset=#{i}']", :visible => false)
+    end
   end
 end
 
@@ -440,11 +446,34 @@ Dann(/^die Auswahl klappt nocht nicht zu$/) do
 end
 
 Dann(/^wenn ich den Kalendar für dieses Modell benutze$/) do
-  find(".line[data-id='#{@model.id}'] *[data-create-order-line]").click
-  find("#submit-booking-calendar").click
+  find(".line[data-id='#{@model.id}'] [data-create-order-line]").click
+  step "ich wähle ein Startdatum und ein Enddatum an dem der Geräterpark geöffnet ist"
+  find("#submit-booking-calendar:not(:disabled)").click
+  page.should_not have_selector "#submit-booking-calendar"
 end
 
 Dann(/^können die zusätzliche Informationen immer noch abgerufen werden$/) do
   step 'man über das Modell hovered'
   step 'werden zusätzliche Informationen angezeigt zu Modellname, Bilder, Beschreibung, Liste der Eigenschaften'
+end
+
+Wenn(/^ich wähle ein Startdatum und ein Enddatum an dem der Geräterpark geöffnet ist$/) do
+  step "I see the booking calendar"
+
+  while all(".start-date.selected.available:not(.closed)").empty? do
+    find("#booking-calendar-start-date").native.send_key :up
+  end
+
+  rand(0..40).times do
+    find("#booking-calendar-end-date").native.send_key :up
+    find(".end-date")
+  end
+  begin
+    find("#booking-calendar-end-date").native.send_key :up
+    find(".end-date")
+  end while page.has_selector?(".end-date.closed")
+
+  while all(".end-date.selected.available:not(.closed)").empty? do
+    find("#booking-calendar-end-date").native.send_key :up
+  end
 end

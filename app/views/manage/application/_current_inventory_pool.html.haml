@@ -1,0 +1,17 @@
+.emboss.white.no-border-radius.negative-margin-bottom-xxs
+
+  .wrapper.paragraph-s
+
+    .row.text-align-center  
+      %strong.margin-right-s
+        = current_inventory_pool
+        %span.arrow.down.grey
+
+    / .row
+
+    /   - current_managed_inventory_pools.each do |ip|
+    /     %a.emboss.padding-horizontal-xs.dark-grey{:title => ip.name, :href => url_for(:inventory_pool_id => ip.id)}<
+    /       - if ip.shortname
+    /         = ip.shortname
+    /       - else
+    /         = ip

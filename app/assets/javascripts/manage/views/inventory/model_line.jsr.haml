@@ -1,0 +1,41 @@
+.line.row.focus-hover-thin{:"data-type" => "model", :"data-id" => "{{>id}}", :"data-is_package" => "{{>is_package}}"}
+  
+  .col1of5.line-col 
+
+    .row
+      .col1of2
+        %button.button.inset.small.width-full{:"data-type" => "inventory-expander", :"title" => "{{if is_package}}{{jed 'Packages'/}}{{else}}{{jed 'Items'/}}{{/if}}"}
+          {{if items().count()>0}}
+          %i.arrow.right
+          {{/if}}
+          %span {{>items().count()}}
+      .col1of2.text-align-center.height-xxs
+        .table
+          .table-row
+            .table-cell.vertical-align-middle
+              %img.max-width-xxs.max-height-xxs{:src => "/models/{{>id}}/image_thumb"}
+
+  .col2of5.line-col.text-align-left
+    {{if is_package}}
+    .grey-text {{jed 'Package'/}}
+    {{/if}}
+    %strong 
+      {{> name}}
+
+  .col1of5.line-col.text-align-center
+    %span{:title => "{{jed 'in stock'/}}"} {{> availability().in_stock}}
+    \/
+    %span{:title => "{{jed 'rentable'/}}"} {{> availability().total_rentable}}
+
+  .col1of5.line-col.line-actions.padding-right-xs
+    .multibutton.width-full.text-align-right
+      %a.button.white.text-ellipsis.col4of5.negative-margin-right-xxs{:href => "{{>url('edit')}}", :title => "{{jed 'Edit Model'/}}"}
+        {{jed "Edit Model"/}}
+      .dropdown-holder.inline-block.col1of5
+        .button.white.dropdown-toggle.width-full.no-padding.text-align-center
+          .arrow.down
+        %ul.dropdown.right
+          %li
+            %a.dropdown-item{:"data-open-time-line" => true, :"data-model-id" => "{{>id}}"}
+              %i.icon-align-left
+              {{jed "Timeline"/}}

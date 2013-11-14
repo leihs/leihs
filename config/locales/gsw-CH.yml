@@ -1,13 +1,4 @@
 "gsw-CH":
-
-  leihs:
-    date:
-      formats:
-        day_long: "%A %d. %B %Y"
-        short_year: ""
-  
-# ==== FROM HERE DEFAULTS:  
-
   date:
     abbr_day_names:
     - Su

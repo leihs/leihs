@@ -17,10 +17,11 @@ Funktionalität: Inventar
   Szenario: Auswahlmöglichkeiten
     Dann hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind
     | auswahlmöglichkeit |
-    | Alles              |
-    | Ausgemustert       |
+    | Aktives Inventar   |
     | Ausleihbar         |
     | Nicht ausleihbar   |
+    | Ausgemustert       |
+    | Ungenutzte Modelle |
 
   @javascript
   Szenario: Filtermöglichkeiten von Listen
@@ -35,7 +36,7 @@ Funktionalität: Inventar
 
   @javascript
   Szenario: Grundeinstellung der Listenansicht
-    Dann ist die Auswahl "Alles" aktiviert
+    Dann ist die Auswahl "Aktives Inventar" aktiviert
     Und es sind keine Filtermöglichkeiten aktiviert
   
   @javascript
@@ -100,3 +101,8 @@ Funktionalität: Inventar
   @javascript
   Szenario: Keine Leeren Modelle auf der Liste des Inventars
     Dann sieht man keine Modelle, denen keine Gegenstänge zugewiesen unter keinem der vorhandenen Reiter
+
+  @javascript
+  Szenario: Keine Resultate auf der Liste des Inventars
+    Wenn ich eine resultatlose Suche mache
+    Dann sehe ich "Kein Eintrag gefunden"

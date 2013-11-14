@@ -1,0 +1,80 @@
+.row.line
+  .col1of5.line-col{:data => {:type => "user-cell",
+                              :id => "{{>id}}",
+                              :firstname => "{{>firstname}}",
+                              :lastname => "{{>lastname}}",
+                              :email => "{{>email}}",
+                              :phone => "{{>phone}}",
+                              :badge_id => "{{>badge_id}}",
+                              :address => "{{>address}}",
+                              :image_url => "{{>image_url}}",
+                              :zip => "{{>zip}}",
+                              :city => "{{>city}}"}}
+
+    %strong
+      {{>name()}}
+
+  .col1of5.line-col.text-align-left
+    {{>phone}}
+
+  .col1of5.line-col.text-align-left
+    {{>roleName()}}
+
+  .col1of5.line-col.text-align-left.darkred-text
+    {{if suspended()}}
+    {{jed "Suspended until"/}} {{date suspendedUntil()/}}
+    {{/if}}
+
+  .col1of5.line-col.line-actions
+
+    .multibutton
+
+      {{if ~currentInventoryPool}}
+
+      %a.button.white{:href => "{{>url('hand_over')}}"}
+        {{jed "Hand Over"/}}
+
+      .dropdown-holder.inline-block
+        .button.white.dropdown-toggle
+          .arrow.down
+
+        %ul.dropdown.right
+
+          %li
+            %a.dropdown-item{:href => "{{>url('edit')}}"}
+              %i.icon-edit
+              {{jed "Edit"/}}
+
+          %li
+            %a.dropdown-item{:href => "mailto:{{>email}}"}
+              %i.icon-envelope
+              {{jed "E-Mail"/}}
+
+          %li
+            %a.dropdown-item.red{:href => "{{>url()}}", "data-method" => "delete"}
+              %i.icon-trash
+              {{jed "Delete"/}}
+
+      {{else}}
+
+      %a.button.white{:href => "{{>url('edit')}}"}
+        {{jed "Edit"/}}
+
+      .dropdown-holder.inline-block
+        .button.white.dropdown-toggle
+          .arrow.down
+
+        %ul.dropdown.right
+
+          %li
+            %a.dropdown-item{:href => "mailto:{{>email}}"}
+              %i.icon-envelope
+              {{jed "E-Mail"/}}
+
+          %li
+            %a.dropdown-item.red{:href => "{{>url()}}", "data-method" => "delete"}
+              %i.icon-trash
+              {{jed "Delete"/}}
+
+      {{/if}}
+

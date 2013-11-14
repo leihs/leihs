@@ -123,7 +123,7 @@ Funktionalität: Benutzer verwalten
     Und den Vornahmen eingibt
     Und die Email-Addresse eingibt
     Und man gibt die Login-Daten ein
-    Und man speichert den neuen Benutzer
+    Und man speichert den Benutzer
     Dann wird man auf die Benutzerliste ausserhalb der Inventarpools umgeleitet
     Und man sieht eine Bestätigungsmeldung
     Und der neue Benutzer wurde erstellt
@@ -187,12 +187,14 @@ Funktionalität: Benutzer verwalten
       | No access        |
       | Customer         |
       | Lending manager  |
+      | Inventory manager  |
     Und eine der folgenden Rollen auswählt
     | tab                | role              |
     | Kunde              | customer          |
     | Ausleihe-Verwalter | lending_manager   |
+    | Inventar-Verwalter | inventory_manager   |
     Und man teilt mehrere Gruppen zu
-    Und man speichert
+    Und man speichert den Benutzer
     Dann ist der Benutzer mit all den Informationen gespeichert
 
   @javascript
@@ -209,11 +211,13 @@ Funktionalität: Benutzer verwalten
     Und man hat nur die folgenden Rollen zur Auswahl
       | No access |
       | Customer  |
+      | Lending manager  |
     Und eine der folgenden Rollen auswählt
       | tab                | role              |
       | Kunde              | customer          |
+      | Ausleihe-Verwalter | lending_manager   |
     Und man teilt mehrere Gruppen zu
-    Und man speichert
+    Und man speichert den Benutzer
     Dann ist der Benutzer mit all den Informationen gespeichert
 
   @javascript
@@ -238,7 +242,7 @@ Funktionalität: Benutzer verwalten
       | Ausleihe-Verwalter | lending_manager     |
       | Inventar-Verwalter | inventory_manager   |
     Und man teilt mehrere Gruppen zu
-    Und man speichert
+    Und man speichert den Benutzer
     Dann ist der Benutzer mit all den Informationen gespeichert
 
   @javascript
@@ -248,7 +252,7 @@ Funktionalität: Benutzer verwalten
     Und man einen Benutzer hinzufügt
     Und alle Pflichtfelder sind sichtbar und abgefüllt
     Wenn man ein <Pflichtfeld> nicht eingegeben hat
-    Und man speichert
+    Und man speichert den Benutzer
     Dann sehe ich eine Fehlermeldung
 
     Beispiele:
@@ -359,15 +363,20 @@ Funktionalität: Benutzer verwalten
     Angenommen man ist "Ramon"
     Und man befindet sich auf der Benutzerliste ausserhalb der Inventarpools
     Und man sucht sich je einen Benutzer mit Zugriffsrechten, Bestellungen und Verträgen aus
-    Dann wird der Delete Button für diese Benutzer nicht angezeigt
+    Wenn ich diesen Benutzer aus der Liste lösche
+    Dann sehe ich eine Fehlermeldung
+    Und der Benutzer ist nicht gelöscht
 
   @javascript
   Szenario: Voraussetzungen fürs Löschen eines Benutzers im Gerätepark
     Angenommen man ist "Ramon"
     Und man sucht sich je einen Benutzer mit Zugriffsrechten, Bestellungen und Verträgen aus
     Und man befindet sich auf der Benutzerliste im beliebigen Inventarpool
-    Dann wird der Delete Button für diese Benutzer nicht angezeigt
+    Wenn ich diesen Benutzer aus der Liste lösche
+    Dann sehe ich eine Fehlermeldung
+    Und der Benutzer ist nicht gelöscht
 
+  @javascript
   Szenario: Alphabetische Sortierung der Benutzer ausserhalb vom Inventarpool
     Angenommen man ist "Gino"
     Und man befindet sich auf der Benutzerliste ausserhalb der Inventarpools
@@ -403,3 +412,18 @@ Funktionalität: Benutzer verwalten
     Und man speichert den Benutzer
     Dann sieht man die Erfolgsbestätigung
     Und hat der Benutzer die Rolle Kunde
+
+  Szenario: Startseite setzen
+    Angenommen man ist "Pius"
+    Und man befindet sich auf der Liste der Benutzer
+    Wenn man die Startseite setzt
+    Dann ist die Liste der Benutzer die Startseite
+
+  Szenario: Startseite zurücksetzen
+    Angenommen man ist "Pius"
+    Und man hat eine Startseite gesetzt
+    Wenn man seine Startseite zurücksetzt
+    Dann ist ist keine Startseite gesetzt
+    Wenn man auf das Logo klickt
+    Dann landet man auf der Tagesansicht als Standard-Startseite
+    

@@ -10,7 +10,7 @@ Funktionalität: Inventarhelfer
   @javascript
   Szenario: Geräte über den Helferschirm editieren, mittels vollständigem Inventarcode (Scanner)
     Angenommen man ist auf dem Helferschirm
-    Dann wähle Ich all die Felder über eine List oder per Namen aus
+    Dann wähle ich all die Felder über eine List oder per Namen aus
     Und ich setze all ihre Initalisierungswerte
     Dann scanne oder gebe ich den Inventarcode von einem Gegenstand ein, der am Lager und in keinem Vertrag vorhanden ist
     Dann sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert
@@ -34,7 +34,7 @@ Funktionalität: Inventarhelfer
   @javascript
   Szenario: Geräte über den Helferschirm editieren, mittels Inventarcode konnte nicht gefunden wurde
     Angenommen man ist auf dem Helferschirm
-    Dann wähle Ich die Felder über eine List oder per Namen aus
+    Dann wähle ich die Felder über eine List oder per Namen aus
     Und ich setze ihre Initalisierungswerte
     Dann scanne oder gebe ich den Inventarcode eines Gegenstandes ein der nicht gefunden wird
     Dann erhählt man eine Fehlermeldung
@@ -42,7 +42,7 @@ Funktionalität: Inventarhelfer
   @javascript
   Szenario: Geräte über den Helferschirm editieren mittels Inventarcode über Autovervollständigung
     Angenommen man ist auf dem Helferschirm
-    Dann wähle Ich die Felder über eine List oder per Namen aus
+    Dann wähle ich die Felder über eine List oder per Namen aus
     Und ich setze ihre Initalisierungswerte
     Dann gebe ich den Anfang des Inventarcodes eines Gegenstand ein
     Und wähle den Gegenstand über die mir vorgeschlagenen Suchtreffer

@@ -1,0 +1,8 @@
+%div{:class => "paragraph-m row emboss straight text-align-center padding-inset-xs {{>type}}"}
+  %strong {{>message}}
+
+  %a.no-colors.transparent-hover.position-absolute-topright.height-full.padding-horizontal-m{:"data-remove" => "true", :title => "{{jed 'Hide notification'/}}"}
+    .table
+      .table-row
+        .table-cell.vertical-align-middle
+          %i.icon-remove-sign

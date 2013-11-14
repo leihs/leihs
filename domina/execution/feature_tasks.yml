@@ -1,0 +1,469 @@
+---
+- name: acknowledge
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/acknowledge.feature"
+- name: automatischer_email_versand
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/automatischer_email_versand.feature"
+- name: availability_caching
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/availability_caching.feature"
+- name: availability_inventory_pool_story
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/availability_inventory_pool_story.feature"
+- name: availability_story
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/availability_story.feature"
+- name: borrow/abholungen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/abholungen.feature"
+- name: borrow/benutzeransicht
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/benutzeransicht.feature"
+- name: borrow/bestellfensterchen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/bestellfensterchen.feature"
+- name: borrow/bestelluebersicht
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/bestelluebersicht.feature"
+- name: borrow/bestellungen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/bestellungen.feature"
+- name: borrow/brotkrumennavigation
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/brotkrumennavigation.feature"
+- name: borrow/dokumente
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/dokumente.feature"
+- name: borrow/explorative_suche
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/explorative_suche.feature"
+- name: borrow/geraeteparks
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/geraeteparks.feature"
+- name: borrow/kalender
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/kalender.feature"
+- name: borrow/modellliste
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/modellliste.feature"
+- name: borrow/modelluebersicht
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/modelluebersicht.feature"
+- name: borrow/navigation
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/navigation.feature"
+- name: borrow/rueckgaben
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/rueckgaben.feature"
+- name: borrow/sprache
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/sprache.feature"
+- name: borrow/startseite
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/startseite.feature"
+- name: borrow/suche
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/suche.feature"
+- name: borrow/timeoutpage
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/timeoutpage.feature"
+- name: borrow/verfuegbarkeit
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/verfuegbarkeit.feature"
+- name: borrow/vorlagen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/vorlagen.feature"
+- name: category
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/category.feature"
+- name: examples/ausleihe
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/ausleihe.feature"
+- name: examples/benutzerverwaltung
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/benutzerverwaltung.feature"
+- name: examples/explorative_suche
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/explorative_suche.feature"
+- name: examples/gegenstand_ausmustern
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_ausmustern.feature"
+- name: examples/gegenstand_editieren
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_editieren.feature"
+- name: examples/gegenstand_erstellen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen.feature"
+- name: examples/gegenstand_kopieren
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_kopieren.feature"
+- name: examples/geraetepark_administrieren
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/geraetepark_administrieren.feature"
+- name: examples/geraetepark_grundinformationen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/geraetepark_grundinformationen.feature"
+- name: examples/gruppen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gruppen.feature"
+- name: examples/hinweis_wenn_nicht_angemeldet
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/hinweis_wenn_nicht_angemeldet.feature"
+- name: examples/hinzufuegen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/hinzufuegen.feature"
+- name: examples/inventar
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/inventar.feature"
+- name: examples/inventarhelfer
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/inventarhelfer.feature"
+- name: examples/kalender
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/kalender.feature"
+- name: examples/kategorien
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/kategorien.feature"
+- name: examples/model_eigenschaften
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/model_eigenschaften.feature"
+- name: examples/modell
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/modell.feature"
+- name: examples/option
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/option.feature"
+- name: examples/pakete
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/pakete.feature"
+- name: examples/passwort
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/passwort.feature"
+- name: examples/probleme
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/probleme.feature"
+- name: examples/reservierenden_wechseln
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/reservierenden_wechseln.feature"
+- name: examples/ruecknahme
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/ruecknahme.feature"
+- name: examples/sprachauswahl
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/sprachauswahl.feature"
+- name: examples/statistik
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/statistik.feature"
+- name: examples/suche
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/suche.feature"
+- name: examples/timeline
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/timeline.feature"
+- name: examples/verfuegbarkeit
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/verfuegbarkeit.feature"
+- name: examples/vertrag
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/vertrag.feature"
+- name: examples/vorlagen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/vorlagen.feature"
+- name: examples/werteliste
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/werteliste.feature"
+- name: examples/zweck
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/zweck.feature"
+- name: frontend
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/frontend.feature"
+- name: groups
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/groups.feature"
+- name: hand_over_story
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/hand_over_story.feature"
+- name: hauptkategorie
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/hauptkategorie.feature"
+- name: home
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/home.feature"
+- name: inventory_creation
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/inventory_creation.feature"
+- name: inventory_story
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/inventory_story.feature"
+- name: login/database_login
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/login/database_login.feature"
+- name: login/login
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/login/login.feature"
+- name: mail
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/mail.feature"
+- name: manage/acknowledge/add_item
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/acknowledge/add_item.feature"
+- name: manage/acknowledge/delete_lines
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/acknowledge/delete_lines.feature"
+- name: manage/acknowledge/edit_order_line
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/acknowledge/edit_order_line.feature"
+- name: manage/acknowledge/edit_purpose
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/acknowledge/edit_purpose.feature"
+- name: manage/acknowledge/quick_approve
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/acknowledge/quick_approve.feature"
+- name: manage/acknowledge/reject
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/acknowledge/reject.feature"
+- name: manage/availability/allocating
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/availability/allocating.feature"
+- name: manage/booking_calendar/availability_changes
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/booking_calendar/availability_changes.feature"
+- name: manage/booking_calendar/closed_day_alert
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/booking_calendar/closed_day_alert.feature"
+- name: manage/booking_calendar/summary_of_lines_in_calendar
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/booking_calendar/summary_of_lines_in_calendar.feature"
+- name: manage/daily_view/item_hover
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/daily_view/item_hover.feature"
+- name: manage/hand_over/add
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/hand_over/add.feature"
+- name: manage/hand_over/add_purpose
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/hand_over/add_purpose.feature"
+- name: manage/hand_over/assign
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/hand_over/assign.feature"
+- name: manage/hand_over/delete
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/hand_over/delete.feature"
+- name: manage/hand_over/edit_contract_line
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/hand_over/edit_contract_line.feature"
+- name: manage/hand_over/sign_contract
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/hand_over/sign_contract.feature"
+- name: manage/lending/day_navigation
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/lending/day_navigation.feature"
+- name: manage/lending/tabs_navigation
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/lending/tabs_navigation.feature"
+- name: manage/linegroup/selection
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/linegroup/selection.feature"
+- name: manage/take_back/close_contract
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/take_back/close_contract.feature"
+- name: manage/take_back/edit_take_back_end_date
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/take_back/edit_take_back_end_date.feature"
+- name: package
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/package.feature"
+- name: performance_stability
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/performance_stability.feature"
+- name: search
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/search.feature"
+- name: search_complete
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/search_complete.feature"
+- name: settings
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/settings.feature"
+- name: take_back_story
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/take_back_story.feature"
+- name: technical/contract/add_lines_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/technical/contract/add_lines_model.feature"
+- name: technical/contract/approve_order_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/technical/contract/approve_order_model.feature"
+- name: technical/contract/orders_controller
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/technical/contract/orders_controller.feature"
+- name: technical/contract/remove_line_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/technical/contract/remove_line_model.feature"
+- name: technical/contract/sign_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/technical/contract/sign_model.feature"
+- name: technical/contract/submit_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/technical/contract/submit_model.feature"
+- name: technical/contract/update_lines_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/technical/contract/update_lines_model.feature"
+- name: technical/field/field_instance_methods
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/technical/field/field_instance_methods.feature"
+- name: technical/field/fields_controller
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/technical/field/fields_controller.feature"
+- name: technical/field/provide_accessible_fields_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/technical/field/provide_accessible_fields_model.feature"
+- name: technical/inventory_pool/hand_over_visits_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/technical/inventory_pool/hand_over_visits_model.feature"
+- name: technical/inventory_pool/take_back_visits_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/technical/inventory_pool/take_back_visits_model.feature"
+- name: technical/item/search_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/technical/item/search_model.feature"
+- name: technical/model/availability_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/technical/model/availability_model.feature"
+- name: technical/purpose/purpose
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/technical/purpose/purpose.feature"
+- name: technical/visit/hand_over_and_take_back_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/technical/visit/hand_over_and_take_back_model.feature"
+- name: technical/visit/hand_over_controller
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/technical/visit/hand_over_controller.feature"
+- name: technical/visit/overdue_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/technical/visit/overdue_model.feature"
+- name: technical/visit/visits_controller
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/technical/visit/visits_controller.feature"
+- name: work_days_story
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/work_days_story.feature"

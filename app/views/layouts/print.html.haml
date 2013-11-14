@@ -4,10 +4,18 @@
   %head
     %meta{:charset => 'utf-8'}
     %title= "#{yield(:title)}#{(yield :title).blank? ? "":" | "}leihs"
-    = favicon_link_tag "borrow/favicon.ico", :type => "image/x-icon"
-    = stylesheet_link_tag "_NEW/print", media: "print"
-    = stylesheet_link_tag "_NEW/print", media: "screen"
+    = favicon_link_tag "favicon.ico", :type => "image/x-icon"
+    = stylesheet_link_tag "print", media: "print"
+    = stylesheet_link_tag "print", media: "screen"
 
   %body
 
     = yield
+
+    - if Rails.env.test?
+      :javascript
+        window.print = function(){ window.printed = 1; return true; }
+
+    :coffeescript
+      if #{params[:print].to_json}
+        window.print()

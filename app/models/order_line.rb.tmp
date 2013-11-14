@@ -1,9 +1,0 @@
-class OrderLine < DocumentLine
-
-  scope :submitted,   joins(:order).where(["orders.status_const = ?", Order::SUBMITTED])
-  scope :unsubmitted, joins(:order).where(["orders.status_const = ?", Order::UNSUBMITTED])
-  scope :running,     lambda { |date| where(["end_date >= ?", date]) }
-
-
-end
-

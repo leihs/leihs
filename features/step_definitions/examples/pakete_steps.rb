@@ -1,13 +1,12 @@
 # encoding: utf-8
 def add_item_via_autocomplete input_value, element
   element.set input_value
-  page.has_selector? "a", text: input_value
   find("a", match: :prefer_exact, text: input_value).click
 end
 
 Wenn /^ich mindestens die Pflichtfelder ausfülle$/ do
   @model_name = "Test Modell-Paket"
-  find(".field", match: :prefer_exact, :text => _("Name")).fill_in 'name', :with => @model_name
+  find(".row.emboss", match: :prefer_exact, :text => _("Name")).fill_in 'name', :with => @model_name
 end
 
 Wenn /^ich eines oder mehrere Pakete hinzufüge$/ do
@@ -15,8 +14,8 @@ Wenn /^ich eines oder mehrere Pakete hinzufüge$/ do
 end
 
 Wenn /^ich(?: kann | )diesem Paket eines oder mehrere Gegenstände hinzufügen$/ do
-  add_item_via_autocomplete "beam123", first(".dialog #add-item .autocomplete")
-  add_item_via_autocomplete "beam345", first(".dialog #add-item .autocomplete")
+  add_item_via_autocomplete "beam123", first(".modal #add-item .autocomplete")
+  add_item_via_autocomplete "beam345", first(".modal #add-item .autocomplete")
 end
 
 Dann /^ist das Modell erstellt und die Pakete und dessen zugeteilten Gegenstände gespeichert$/ do
@@ -36,7 +35,7 @@ end
 
 Wenn /^das Paket zurzeit nicht ausgeliehen ist$/ do
   @package = @current_inventory_pool.items.packages.in_stock.first
-  visit edit_backend_inventory_pool_model_path(@current_inventory_pool, @package.model)
+  visit "/manage/%d/models/%d/edit" % [@current_inventory_pool.id, @package.model.id]
 end
 
 Dann /^kann ich das Paket löschen und die Gegenstände sind nicht mehr dem Paket zugeteilt$/ do
@@ -52,7 +51,7 @@ end
 
 Wenn /^das Paket zurzeit ausgeliehen ist$/ do
   @package_not_in_stock = @current_inventory_pool.items.packages.not_in_stock.first
-  visit edit_backend_inventory_pool_model_path(@current_inventory_pool, @package_not_in_stock.model)
+  visit "/manage/%d/models/%d/edit" % [@current_inventory_pool.id, @package_not_in_stock.model.id]
 end
 
 Dann /^kann ich das Paket nicht löschen$/ do
@@ -60,7 +59,7 @@ Dann /^kann ich das Paket nicht löschen$/ do
 end
 
 Wenn /^ich ein Modell editiere, welches bereits Pakete hat$/ do
-  visit backend_inventory_pool_models_path(@current_inventory_pool)
+  visit "/manage/#{@current_inventory_pool.id}/inventory"
   @model = @current_inventory_pool.models.detect {|m| not m.items.empty? and m.is_package?}
   @model_name = @model.name
   step 'ich nach "%s" suche' % @model.name
@@ -69,7 +68,7 @@ Wenn /^ich ein Modell editiere, welches bereits Pakete hat$/ do
 end
 
 Wenn /^ich ein Modell editiere, welches bereits Gegenstände hat$/ do
-  visit backend_inventory_pool_models_path(@current_inventory_pool)
+  visit "/manage/#{@current_inventory_pool.id}/inventory"
   @model = @current_inventory_pool.models.detect {|m| not (m.items.empty? and m.is_package?)}
   @model_name = @model.name
   step 'ich nach "%s" suche' % @model.name
@@ -92,18 +91,18 @@ Dann /^kann ich dieses Paket nur speichern, wenn dem Paket auch Gegenstände zug
   page.should have_content _("You can not create a package without any item")
   page.should have_content _("New Package")
   click_button _("Cancel")
-  find(".field", match: :prefer_exact, text: _("Packages")).should_not have_selector ".field-inline-entry"
+  find(".row.emboss", match: :prefer_exact, text: _("Packages")).should_not have_selector ".field-inline-entry"
 end
 
 Wenn /^ich ein Paket editiere$/ do
   @model = Model.find_by_name "Kamera Set"
-  visit edit_backend_inventory_pool_model_path(@current_inventory_pool, @model)
+  visit "/manage/%d/models/%d/edit" % [@current_inventory_pool.id, @model.id]
   @package_to_edit = @model.items.detect &:in_stock?
   find(".field-inline-entry", text: @package_to_edit.inventory_code).find(".clickable", text: _("Edit")).click
 end
 
 Dann /^kann ich einen Gegenstand aus dem Paket entfernen$/ do
-  items = all(".dialog .inventory_code")
+  items = all(".modal .inventory_code")
   @number_of_items_before = items.size
   @item_to_remove = items.first.text
   find(".removeItem", match: :first).click
@@ -126,7 +125,7 @@ Dann /^werden die folgenden Felder angezeigt$/ do |table|
 end
 
 Wenn /^ich das Paket speichere$/ do
-  find(".dialog .save", match: :first).click
+  find(".modal .save", match: :first).click
 end
 
 Wenn /^ich das Paket und das Modell speichere$/ do
@@ -137,7 +136,7 @@ end
 Dann /^(?:besitzt das Paket alle angegebenen Informationen|das Paket besitzt alle angegebenen Informationen)$/ do
   sleep(0.88)
   model = Model.find_by_name @model_name
-  visit edit_backend_inventory_pool_model_path(@current_inventory_pool, model)
+  visit "/manage/%d/models/%d/edit" % [@current_inventory_pool.id, model.id]
   page.should have_selector "[ng-repeat='package in model.packages']"
   find("[ng-repeat='package in model.packages']", match: :first).first(".clickable", :text => _("Edit")).click
   step 'hat der Gegenstand alle zuvor eingetragenen Werte'
@@ -172,7 +171,7 @@ Wenn(/^ich die Paketeigenschaften eintrage$/) do
 end
 
 Wenn(/^ich dieses Paket speichere$/) do
-  find(".dialog .button.save", match: :first).click
+  find(".modal .button.save", match: :first).click
 end
 
 Wenn(/^ich dieses Paket wieder editiere$/) do

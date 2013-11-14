@@ -29,7 +29,7 @@ Funktionalität: Gegenstand ausmustern
     Angenommen man ist "Matti"
     Und man sucht nach einem nicht ausgeliehenen Gegenstand
     Und man gibt bei der Ausmusterung keinen Grund an
-    Dann sieht man eine Fehlermeldung
+    Dann sehe ich eine Fehlermeldung
     Und der Gegenstand ist noch nicht Ausgemustert
 
   @javascript
@@ -39,7 +39,7 @@ Funktionalität: Gegenstand ausmustern
     Und man befindet sich auf der Gegenstandseditierseite dieses Gegenstands
     Wenn man die Ausmusterung bei diesem Gegenstand zurück setzt
     Und die Anschaffungskategorie ist ausgewählt
-    Und man speichert den Gegenstand
+    Und ich speichere
     Dann wurde man auf die Inventarliste geleitet
     Und dieses Gegenstand ist nicht mehr ausgemustert
 

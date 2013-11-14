@@ -179,7 +179,7 @@
 
   msgstr("Genehmigen");
 
-  msgid("Approve Order");
+  msgid("Approve order");
 
   msgstr("Bestellung genehmigen");
 
@@ -783,7 +783,7 @@
 
   msgstr("Letzte Besucher:");
 
-  msgid("Latest Reminder:");
+  msgid("Latest reminder:");
 
   msgstr("Letzte Erinnerung:");
 
@@ -1603,7 +1603,7 @@
 
   msgstr("Der Vertrag kann nicht unterschrieben werden, weil einige Zeilen noch nicht zugewiesen wurden.");
 
-  msgid("This customer's groups");
+  msgid("Groups of this customer");
 
   msgstr("Gruppen des Kunden");
 

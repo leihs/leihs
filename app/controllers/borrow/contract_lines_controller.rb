@@ -1,7 +1,7 @@
 class Borrow::ContractLinesController < Borrow::ApplicationController
 
   def create(model = current_user.models.borrowable.find(params[:model_id]),
-             quantity = (params[:quantity] || 1).to_i,
+             quantity = 1,
              start_date = params[:start_date].try{|x| Date.parse(x)} || Date.today,
              end_date = params[:end_date].try{|x| Date.parse(x)} || Date.tomorrow,
              inventory_pool = current_user.inventory_pools.find(params[:inventory_pool_id]))
@@ -14,7 +14,7 @@ class Borrow::ContractLinesController < Borrow::ApplicationController
     end
 
     if not target_contract.errors.any? and (lines = model.add_to_contract(target_contract, current_user.id, quantity, start_date, end_date)) and target_contract.save
-      render :status => :ok, :json => {contract: target_contract, new_lines: lines}
+      render :status => :ok, :json => lines.first
     else
       render :status => :bad_request, :json => target_contract.errors.full_messages.uniq.join(", ")
     end

@@ -1,0 +1,36 @@
+- content_for :title, _("Settings")
+- content_for :admin_section, "active"
+
+.wrapper.margin-top-m
+
+  = render :partial => 'manage/tabs/admin', :locals => {:active_tab => :settings}
+
+  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+    = form_for @setting, :as => :setting, :url => manage_settings_path, :method => :put, :html => { class: "indent", name: "form" } do |f|
+
+      .row.margin-top-l.padding-horizontal-m
+
+        .row
+          %h1.headline-l.float-left= yield :title
+
+          %div.float-right
+            %button.button.green{:type => :submit}= _("Save %s") % _("Settings")
+
+        .row.margin-vertical-s
+          - @setting.attributes.each_pair do |k,v|
+            - next if k == "id"
+            .padding-bottom-xxs
+              .row.emboss.padding-inset-s
+                .col1of2
+                  %strong.font-size-m= k
+                .col1of2
+                  - case Setting.columns_hash[k].type
+                    - when :string
+                      = f.text_field k, :class => "width-full"
+                    - when :text
+                      = f.text_area k, rows: 8, :class => "width-full"
+                    - when :integer
+                      = f.number_field k, :class => "width-full"
+                    - when :boolean
+                      = f.check_box k, :class => "width-full"

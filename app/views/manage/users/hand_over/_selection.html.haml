@@ -1,0 +1,22 @@
+.padding-top-m.padding-left-m.padding-bottom-m
+
+  .multibutton{:disabled => :disabled}
+    %button.button.green{:disabled => :disabled, :"data-selection-enabled" => true, :"data-hand-over-selection" => true}
+      = _("Hand Over Selection")
+      %span#line-selection-counter.badge.dark 0
+    .dropdown-holder.inline-block
+      .button.green.dropdown-toggle
+        .arrow.down
+      %ul.dropdown.right
+        %li
+          %a.dropdown-item{:"data-edit-lines" => "selected-lines"}
+            %i.icon-calendar
+            = _("Edit Selection")
+        %li
+          %a#swap-user.dropdown-item
+            %i.icon-exchange
+            = _("Change Borrower")
+        %li
+          %a.dropdown-item.red{:"data-destroy-selected-lines" => true}
+            %i.icon-trash
+            = _("Delete Selection")

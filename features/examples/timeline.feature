@@ -14,7 +14,7 @@ Funktionalität: Timeline der Modell-Verfügbarkeit
     Dann kann ich für jedes sichtbare Model die Timeline anzeigen lassen
     Wenn ich eine Rücknahme mache
     Dann kann ich für jedes sichtbare Model die Timeline anzeigen lassen
-    Wenn ich eine Suche mache
+    Wenn ich suche
     Dann kann ich für jedes sichtbare Model die Timeline anzeigen lassen
     Wenn man die Liste des Inventars öffnet
     Dann kann ich für jedes sichtbare Model die Timeline anzeigen lassen

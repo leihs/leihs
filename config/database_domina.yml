@@ -1,0 +1,11 @@
+default: &default
+  host: localhost
+  adapter: mysql2
+  encoding: utf8
+  username: domina
+  password: domina
+  pool: 5
+
+test: 
+  <<: *default
+  database: leihs_test

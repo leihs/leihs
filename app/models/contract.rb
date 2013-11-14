@@ -1,4 +1,5 @@
 class Contract < ActiveRecord::Base
+  include ContractModules::Filter
   include LineModules::GroupedAndMergedLines
 
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
@@ -271,6 +272,12 @@ class Contract < ActiveRecord::Base
     else
       nil
     end
+  end
+
+  def max_range
+    return nil if lines.blank?
+    line = lines.min {|x| (x.end_date - x.start_date).to_i }
+    (line.end_date - line.start_date).to_i + 1
   end
 
   ############################################

@@ -1,0 +1,2 @@
+= render :layout => "manage/fields/field", :locals => {key: _("Manufacturer")} do
+  %input.width-full{:type => :text, :name => "model[manufacturer]", :autocomplete => :off, :value => @model.manufacturer}

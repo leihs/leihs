@@ -15,8 +15,7 @@ Given /^test data setup for scenario "Writing an unavailable inventory code"$/ d
 end
 
 When /^an unavailable inventory code is assigned to a contract line$/ do
-  @response = post assign_inventory_code_backend_inventory_pool_user_hand_over_path(@inventory_pool, @line.contract.user_id,), {:inventory_code => @item.inventory_code,
-                                                                                                                            :line_id => @line.id}
+  @response = post "/manage/#{@inventory_pool.id}/contract_lines/assign", {:inventory_code => @item.inventory_code, :id => @line.id}
 end
 
 Then /^the response from this action should not be successful$/ do
@@ -37,7 +36,7 @@ end
 
 When /^the visit is deleted$/ do
   @visit_count = Visit.count
-  @response = delete delete_visit_backend_inventory_pool_user_hand_over_path(@inventory_pool, @visit.user), {:format => :json, :visit_id => @visit.id}
+  @response = delete manage_inventory_pool_destroy_hand_over_path(@inventory_pool, @visit.id), {:format => :json}
 end
 
 Then /^the visit does not exist anymore$/ do
@@ -47,17 +46,18 @@ end
 
 When /^the index action of the visits controller is called with the filter parameter "take back" and a given date$/ do
   @date = Date.today
-  response = get backend_inventory_pool_visits_path(@inventory_pool), {date: @date.to_s, filter: "take_back", format: "json"}
+  response = get manage_inventory_pool_take_backs_path(@inventory_pool), {date: @date.to_s, format: "json", date_comparison: "lteq"}
   @json = JSON.parse response.body
 end
 
 When /^the index action of the visits controller is called with the filter parameter "hand over" and a given date$/ do
   @date = Date.today
-  response = get backend_inventory_pool_visits_path(@inventory_pool), {date: @date.to_s, filter: "hand_over", format: "json"}
+  response = get manage_inventory_pool_hand_overs_path(@inventory_pool), {date: @date.to_s, format: "json", date_comparison: "lteq"}
   @json = JSON.parse response.body
 end
 
 Then /^the result of this action are all take back visits for the given inventory pool and the given date$/ do
+  @json.should_not be_empty
   @json.each do |visit|
     visit["action"].should == "take_back"
     if @date <= Date.today
@@ -69,6 +69,7 @@ Then /^the result of this action are all take back visits for the given inventor
 end
 
 Then /^the result of this action are all hand over visits for the given inventory pool and the given date$/ do
+  @json.should_not be_empty
   @json.each do |visit|
     visit["action"].should == "hand_over"
     if @date <= Date.today

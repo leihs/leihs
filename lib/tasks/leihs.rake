@@ -24,7 +24,7 @@ namespace :leihs do
     time_now = Time.now.to_s
     sha = json["sha"]
 
-    File.open(Rails.root.join("app", "views", "layouts", "_deploy_information.html.haml"), 'a+') do |f| 
+    File.open(Rails.root.join("app", "views", "staging", "_deploy_information.html.haml"), 'a+') do |f| 
 
       f.puts "\n        %p"
       f.print "          = _(\"this is the branch '%s'\")"
@@ -44,9 +44,9 @@ namespace :leihs do
       f.print "          = \"#{sha}\""
     end
 
-    text = File.read(Rails.root.join("app", "views", "layouts", "_deploy_information.html.haml"))
+    text = File.read(Rails.root.join("app", "views", "staging", "_deploy_information.html.haml"))
     File.open(Rails.root.join("app", "views", "layouts", "splash.html.haml"), 'a+') {|f| f.puts text}
-    File.open(Rails.root.join("app", "views", "layouts", "backend.html.haml"), 'a+') {|f| f.puts text}
+    File.open(Rails.root.join("app", "views", "layouts", "manage.html.haml"), 'a+') {|f| f.puts text}
     File.open(Rails.root.join("app", "views", "layouts", "borrow.html.haml"), 'a+') {|f| f.puts text}
   end
 

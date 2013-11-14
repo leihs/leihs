@@ -14,7 +14,7 @@ def resolve_conflict_for_model name
   end
   step "ich setze das Startdatum im Kalendar auf '#{I18n::l(init_date)}'"
   step "ich setze das Enddatum im Kalendar auf '#{I18n::l(init_date)}'"
-  first(".modal[role='dialog'] .button.green").click
+  first(".modal .button.green").click
   step "ensure there are no active requests"
   page.has_no_selector?("#booking-calendar")
 end

@@ -8,6 +8,7 @@
 # customer wants.
 #
 class ContractLine < ActiveRecord::Base
+  include ContractLineModules::Filter
   include Availability::DocumentLine
 
   belongs_to :purpose

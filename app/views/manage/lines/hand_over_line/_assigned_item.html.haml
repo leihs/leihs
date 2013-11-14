@@ -1,0 +1,4 @@
+%input.small.width-full.has-addon.text-align-center{:disabled => true, :autocomplete => :off, :id => "assigned-item-#{line.id}", :type => :text, :"data-assign-item" => true, :value => line.item.inventory_code}
+%label.addon.small.transparent.padding-top-xxs{:for => "assigned-item-#{line.id}",:"data-remove-assignment" => true}
+  %span.link.grey.padding-horizontal-xs.padding-vertical-xxs
+    %i.icon-remove-sign

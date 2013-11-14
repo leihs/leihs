@@ -8,6 +8,7 @@
 # #Model as id the case for #Item s.
 #
 class Option < ActiveRecord::Base
+  include OptionModules::Filter
 
   belongs_to :inventory_pool
   has_many :option_lines

@@ -1,0 +1,15 @@
+%option{:"data-value" => "[{{>user}}]"} {{jed "Borrower"/}}
+
+{{if userGroups.length}}
+%optgroup{:label => "{{jed 'Groups of this customer'/}}"}
+  {{for userGroups}}
+  %option{:"data-value" => "[{{>id}}]"} {{>name}}
+  {{/for}}
+{{/if}}
+
+{{if otherGroups.length}}
+%optgroup{:label => "{{jed 'Other Groups'/}}"}
+  {{for otherGroups}}
+  %option{:"data-value" => "[{{>id}}]"} {{>name}}
+  {{/for}}
+{{/if}}

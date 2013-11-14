@@ -1,72 +1,78 @@
 # encoding: utf-8
 Wenn /^man im Inventar Bereich ist$/ do
-  find("nav.navigation a", :text => _("Inventory")).click
-  current_path.should == backend_inventory_pool_inventory_path(@current_inventory_pool)
+  find("#topbar .topbar-navigation .topbar-item a", :text => _("Inventory")).click
+  current_path.should == manage_inventory_path(@current_inventory_pool)
 end
 
 Dann /^kann man über die Tabnavigation zum Helferschirm wechseln$/ do
-  find("nav#navigation a", :text => _("Helper")).click
-  find("h1", :text => /(Inventarhelfer|Inventory Helper)/)
+  find("#inventory-index-view nav a.navigation-tab-item", :text => _("Helper")).click
+  find("h1", :text => _("Inventory Helper"))
 end
 
 Angenommen /^man ist auf dem Helferschirm$/ do
   @current_inventory_pool = @current_user.managed_inventory_pools.first
-  visit backend_inventory_pool_inventory_helper_path @current_inventory_pool
+  visit manage_inventory_helper_path @current_inventory_pool
 end
 
-Dann /^wähle Ich all die Felder über eine List oder per Namen aus$/ do
-  find("#fieldname").click
+Dann /^wähle ich all die Felder über eine List oder per Namen aus$/ do
+  i = find("#field-input")
+  i.click
   page.should have_selector(".ui-menu-item a", :visible => true)
   number_of_items_left = all(".ui-menu-item a", :visible => true).size
 
-  number_of_items_left.times do 
-    find("#fieldname").click
-    page.should have_selector(".ui-menu-item a", :visible => true)
-    find(".ui-menu-item a", match: :first).click
+  number_of_items_left.times do
+    i.click
+    find(".ui-menu-item a", match: :first, :visible => true).click
   end  
 end
 
 Dann /^ich setze all ihre Initalisierungswerte$/ do
   @data = {}
   Field.all.each do |field|
-    next if all(".field[data-field_id='#{field[:id]}']").empty?
+    next if all(".field[data-id='#{field[:id]}']").empty?
     case field[:type]
       when "radio"
-        first(".field[data-field_id='#{field[:id]}'] input[type=radio]").click
-        @data[field[:id]] = first(".field[data-field_id='#{field[:id]}'] input[type=radio]").value
+        r = find(".field[data-id='#{field[:id]}'] input[type=radio]", match: :first)
+        r.click
+        @data[field[:id]] = r.value
       when "textarea"
-        find(".field[data-field_id='#{field[:id]}'] textarea").set "This is a text for a textarea"
-        @data[field[:id]] = find(".field[data-field_id='#{field[:id]}'] textarea").value
+        ta = find(".field[data-id='#{field[:id]}'] textarea")
+        ta.set "This is a text for a textarea"
+        @data[field[:id]] = ta.value
       when "select"
-        first(".field[data-field_id='#{field[:id]}'] option").select_option
-        @data[field[:id]] = first(".field[data-field_id='#{field[:id]}'] option").value
+        o = find(".field[data-id='#{field[:id]}'] option", match: :first)
+        o.select_option
+        @data[field[:id]] = o.value
       when "text"
-        unless all(".field[data-field_id='#{field[:id]}'] input[name='item[inventory_code]']").empty?
-          find(".field[data-field_id='#{field[:id]}'] input[type='text']").set "123456"
-        else
-          find(".field[data-field_id='#{field[:id]}'] input[type='text']").set "This is a text for a input text"
-        end
-        @data[field[:id]] = find(".field[data-field_id='#{field[:id]}'] input[type='text']").value
+        string = if all(".field[data-id='#{field[:id]}'] input[name='item[inventory_code]']").empty?
+                   "This is a text for a input text"
+                 else
+                    "123456"
+                 end
+        i = find(".field[data-id='#{field[:id]}'] input[type='text']")
+        i.set string
+        @data[field[:id]] = i.value
       when "date"
-        find(".field[data-field_id='#{field[:id]}'] .datepicker").click
-        page.should have_selector(:xpath, "//*[contains(@class, 'ui-state-default')]")
-        first(:xpath, "//*[contains(@class, 'ui-state-default')]").click
-        @data[field[:id]] = find(".field[data-field_id='#{field[:id]}'] input.datepicker").value
+        dp = find(".field[data-id='#{field[:id]}'] [data-type='datepicker']")
+        dp.click
+        find(".ui-datepicker-calendar .ui-state-highlight", visible: true).click
+        @data[field[:id]] = dp.value
       when "autocomplete"
-        target_name = find(".field[data-field_id='#{field[:id]}'] .autocomplete")['data-autocomplete_value_target']
-        find(".autocomplete[data-autocomplete_value_target='#{target_name}']").click
+        target_name = find(".field[data-id='#{field[:id]}'] [data-type='autocomplete']")['data-autocomplete_value_target']
+        find("[data-type='autocomplete'][data-autocomplete_value_target='#{target_name}']").click
         find(".ui-menu-item a", match: :first).click
-        @data[field[:id]] = find(".field[data-field_id='#{field[:id]}'] .autocomplete")
+        @data[field[:id]] = find(".field[data-id='#{field[:id]}'] [data-type='autocomplete']")
       when "autocomplete-search"
-        within ".field[data-field_id='#{field[:id]}']" do
+        string = "Sharp Beamer"
+        within ".field[data-id='#{field[:id]}']" do
           find("input").click
-          find("input").set "Sharp Beamer"
-          find("a", match: :prefer_exact, text: "Sharp Beamer").click
+          find("input").set string
+          find("a", match: :prefer_exact, text: string).click
         end
-        @data[field[:id]] = Model.find_by_name("Sharp Beamer").id
+        @data[field[:id]] = Model.find_by_name(string).id
       when "checkbox"
         # currently we only have "ausgemustert"
-        find(".field[data-field_id='#{field[:id]}'] input[type='checkbox']").click
+        find(".field[data-id='#{field[:id]}'] input[type='checkbox']").click
         find("[name='item[retired_reason]']").set "This is a text for a input text"
         @data[field[:id]] = "This is a text for a input text"
       else
@@ -76,41 +82,45 @@ Dann /^ich setze all ihre Initalisierungswerte$/ do
 end
 
 Dann /^ich setze das Feld "(.*?)" auf "(.*?)"$/ do |field_name, value|
-  field = Field.find find(".field", text: field_name)["data-field_id"]
-  case field[:type]
-  when "radio"
-    find(".field[data-field_id='#{field[:id]}'] label", :text => value).click
-  when "select"
-    first(".field[data-field_id='#{field[:id]}'] option", :text => value).select_option
-  when "checkbox"
-    find(".field[data-field_id='#{field[:id]}'] label", :text => value).click
-  else
-    raise "unknown field"
+  field = Field.find find(".row.emboss[data-type='field']", match: :prefer_exact, text: field_name)["data-id"]
+  within(".field[data-id='#{field[:id]}']") do
+    case field[:type]
+      when "radio"
+        find("label", :text => value).click
+      when "select"
+        find("option", :text => value).select_option
+      when "checkbox"
+        find("label", :text => value).click
+      else
+        raise "unknown field"
+    end
   end
 end
 
 Dann /^scanne oder gebe ich den Inventarcode von einem Gegenstand ein, der am Lager und in keinem Vertrag vorhanden ist$/ do
   @item = @current_inventory_pool.items.find {|i| i.in_stock? and i.contract_lines.blank?}
-  find("#item_selection .barcode_target").set @item.inventory_code
-  find("#item_selection button[type=submit]").click
+  within("#item-selection") do
+    find("[data-barcode-scanner-target]").set @item.inventory_code
+    find("button[type=submit]").click
+  end
 end
 
 Dann /^scanne oder gebe ich den Inventarcode ein$/ do
   @item ||= @current_inventory_pool.items.first
-  find("#item_selection .barcode_target").set @item.inventory_code
-  find("#item_selection button[type=submit]").click
+  within("#item-selection") do
+    find("[data-barcode-scanner-target]").set @item.inventory_code
+    find("button[type=submit]").click
+  end
 end
 
 Dann /^sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert$/ do
   FastGettext.locale = @current_user.language.locale_name.gsub(/-/, "_")
-  page.should have_selector("#item.selected")
   Field.all.each do |field|
-    next if all(".field[data-field_id='#{field[:id]}']").empty?
-    value = field.get_value_from_params @item.reload
-    within("#item") do
-      field_el = all(".field[data-field_id='#{field.id}']").first
-      if field_el
-        field_type = field_el[:class][/\s(\w(-\w)?)+\s/].strip
+    next if all(".field[data-id='#{field[:id]}']").empty?
+    within("form#flexible-fields") do
+      if field_el = find(".field[data-id='#{field.id}']")
+        value = field.get_value_from_params @item.reload
+        field_type = field.type
         if field_type == "date"
           unless value.blank?
             value = Date.parse(value) if value.is_a?(String)
@@ -151,41 +161,48 @@ Dann /^sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, di
     end
   end
 
-  find(".field[data-field_id='#{Field.find_by_label("Model").id}'] .readonly").should have_content @item.reload.model.name
+  find("form#flexible-fields .field[data-id='#{Field.find_by_label("Model").id}']", text: @item.reload.model.name)
 end
 
 Dann /^die geänderten Werte sind hervorgehoben$/ do
-  all("#field_selection .field").each do |selected_field|
-    find("#item .field[data-field_id='#{selected_field['data-field_id']}']")[:class][/highlight/].should_not be_nil
+  find("#field-selection .field", match: :first)
+  all("#field-selection .field").each do |selected_field|
+    c = all("#item-section .field[data-id='#{selected_field['data-id']}'].success").count + all("#item-section .field[data-id='#{selected_field['data-id']}'].error").count
+    c.should == 1
   end
 end
 
-Dann /^wähle Ich die Felder über eine List oder per Namen aus$/ do
+Dann /^wähle ich die Felder über eine List oder per Namen aus$/ do
   field = Field.all.select{|f| f[:readonly] == nil and f[:type] != "autocomplete-search"}.last
-  find("#fieldname").click
-  find("#fieldname").set field.label
-  find("#fieldname").native.send_keys([:down, :return])
-  @all_editable_fields = all("#field_selection .field", :visible => true)
+  find("#field-input").click
+  find("#field-input").set field.label
+  find("a.ui-corner-all:nth-child(1)", text: field.label).click
+  @all_editable_fields = all("#field-selection .field", :visible => true)
 end
 
 Dann /^ich setze ihre Initalisierungswerte$/ do
-  all("#field_selection .field input", :visible => true).each do |input|
+  fields = all("#field-selection .field input, #field-selection .field textarea", :visible => true)
+  fields.count.should > 0
+  fields.each do |input|
     input.set "Test123"
   end
 end
 
 Dann /^scanne oder gebe ich den Inventarcode eines Gegenstandes ein der nicht gefunden wird$/ do
-  find("#item_selection .barcode_target").set "THIS FOR SURE NO INVENTORY CODE"
-  find("#item_selection button[type=submit]").click
+  @not_existing_inventory_code = "THIS FOR SURE NO INVENTORY CODE"
+  within("#item-selection") do
+    find("[data-barcode-scanner-target]").set @not_existing_inventory_code
+    find("button[type=submit]").click
+  end
 end
 
 Dann /^erhählt man eine Fehlermeldung$/ do
-  find(".notification.error", :text => /(Gegenstand .*? nicht gefunden|item .*? was not found)/)
+  find("#flash .error", text: _("The Inventory Code %s was not found.") % @not_existing_inventory_code)
 end
 
 Dann /^gebe ich den Anfang des Inventarcodes eines Gegenstand ein$/ do
   @item= @current_inventory_pool.items.first
-  find("#item_selection .barcode_target").set @item.inventory_code[0..1]
+  find("#item-selection [data-barcode-scanner-target]").set @item.inventory_code[0..1]
 end
 
 Dann /^wähle den Gegenstand über die mir vorgeschlagenen Suchtreffer$/ do
@@ -194,26 +211,26 @@ Dann /^wähle den Gegenstand über die mir vorgeschlagenen Suchtreffer$/ do
 end
 
 Angenommen /^man editiert ein Gerät über den Helferschirm mittels Inventarcode$/ do
-  step %Q{man ist auf dem Helferschirm}
-  step %Q{wähle Ich die Felder über eine List oder per Namen aus}
-  step %Q{ich setze ihre Initalisierungswerte}
-  step %Q{scanne oder gebe ich den Inventarcode ein}
-  step %Q{sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert}
-  step %Q{die geänderten Werte sind hervorgehoben}
+  step 'man ist auf dem Helferschirm'
+  step 'wähle ich die Felder über eine List oder per Namen aus'
+  step 'ich setze ihre Initalisierungswerte'
+  step 'scanne oder gebe ich den Inventarcode ein'
+  step 'sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert'
+  step 'die geänderten Werte sind hervorgehoben'
 end
 
 Wenn /^man die Editierfunktion nutzt$/ do
-  find("#item .content_navigation button", :text => /(editieren|edit)/i).click
+  find("#item-section button#item-edit", :text => _("Edit Item")).click
 end
 
 Dann /^kann man an Ort und Stelle alle Werte des Gegenstandes editieren$/ do
-  within("#item") do
+  within("#item-section") do
     step %Q{ich setze all ihre Initalisierungswerte}
   end
 end
 
 Dann /^man die Änderungen speichert$/ do
-  find("#item .content_navigation button", :text => /(Speichern|Save)/i).click
+  find("#item-section button", :text => _("Save")).click
 end
 
 Dann /^sind sie gespeichert$/ do
@@ -221,7 +238,7 @@ Dann /^sind sie gespeichert$/ do
 end
 
 Wenn /^man seine Änderungen widerruft$/ do
-  find("#item .content_navigation button", :text => /(abbrechen|cancel)/i).click
+  find("#item-section button", :text => _("cancel")).click
 end
 
 Dann /^sind die Änderungen widerrufen$/ do
@@ -233,15 +250,15 @@ Dann /^man sieht alle ursprünglichen Werte des Gegenstandes in der Übersicht$/
 end
 
 Dann(/^wähle ich das Feld "(.*?)" aus der Liste aus$/) do |field|
-  find("#fieldname").click
-  find("#fieldname").set field
+  find("#field-input").click
+  find("#field-input").set field
   page.should have_selector(".ui-menu-item a", text: field)
-  find("#fieldname").native.send_keys([:down, :return])
-  @all_editable_fields = all("#field_selection .field", :visible => true)
+  find("#field-input").native.send_keys([:down, :return])
+  @all_editable_fields = all("#field-selection .field", :visible => true)
 end
 
 Dann(/^ich setze den Wert für das Feld "(.*?)"$/) do |field|
-  find(".field", text: field).find("input").set "Test123"
+  find(".row.emboss", match: :prefer_exact, text: field).find("input").set "Test123"
 end
 
 Angenommen(/^es existiert ein Gegenstand, welches sich denselben Ort mit einem anderen Gegenstand teilt$/) do
@@ -251,7 +268,7 @@ Angenommen(/^es existiert ein Gegenstand, welches sich denselben Ort mit einem a
 end
 
 Dann(/^gebe ich den Anfang des Inventarcodes des spezifischen Gegenstandes ein$/) do
-  find("#item_selection .barcode_target").set @item.inventory_code[0..1]
+  find("#item-selection [data-barcode-scanner-target]").set @item.inventory_code[0..1]
 end
 
 Dann(/^der Ort des anderen Gegenstandes ist dergleiche geblieben$/) do
@@ -259,12 +276,12 @@ Dann(/^der Ort des anderen Gegenstandes ist dergleiche geblieben$/) do
 end
 
 Wenn(/^"(.*?)" ausgewählt und auf "(.*?)" gesetzt wird, dann muss auch "(.*?)" angegeben werden$/) do |field, value, dependent_field|
-  find("#fieldname").click
-  find("#fieldname").set field
+  find("#field-input").click
+  find("#field-input").set field
   sleep(0.5)
-  find("#fieldname").native.send_keys([:down, :return])
-  step %Q{ich setze das Feld "#{field}" auf "#{value}"}
-  find(".field", text: dependent_field)
+  find("a.ui-corner-all", match: :prefer_exact, text: field).click
+  step 'ich setze das Feld "%s" auf "%s"' % [field, value]
+  find(".row.emboss", match: :prefer_exact, text: dependent_field)
 end
 
 Wenn(/^ein Pflichtfeld nicht ausgefüllt\/ausgewählt ist, dann lässt sich der Inventarhelfer nicht nutzen$/) do
@@ -304,10 +321,10 @@ Angenommen(/^man editiert das Feld "(.*?)" eines Gegenstandes, der im irgendeine
 end
 
 Angenommen(/^man mustert einen ausgeliehenen Gegenstand aus$/) do
-  step %Q{wähle ich das Feld "Ausmusterung" aus der Liste aus}
-  find(".field", text: _("Retirement")).first("select").select _("Yes")
-  find(".field", text: _("Reason for Retirement")).first("input, textarea").set "Retirement reason"
+  step 'wähle ich das Feld "Ausmusterung" aus der Liste aus'
+  find(".row.emboss", match: :prefer_exact, text: _("Retirement")).find("select").select _("Yes")
+  find(".row.emboss", match: :prefer_exact, text: _("Reason for Retirement")).find("input, textarea").set "Retirement reason"
   @item = @current_inventory_pool.items.not_in_stock.sample
   @item_before = @item.to_json
-  step %Q{scanne oder gebe ich den Inventarcode ein}
+  step 'scanne oder gebe ich den Inventarcode ein'
 end

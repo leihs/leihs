@@ -1,0 +1,60 @@
+- content_for :title, _("Create %s") % _("Group")
+- content_for :admin_section, "active"
+
+#group.wrapper.margin-top-m
+
+  = render :partial => 'manage/tabs/admin', :locals => {:active_tab => :groups}
+
+  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+    = form_tag manage_inventory_pool_groups_path(current_inventory_pool) do
+
+      .margin-top-l.padding-horizontal-m
+
+        .row
+
+          %h1.headline-l.float-left= yield :title
+
+          .float-right
+            %a.button.grey{:href => manage_inventory_pool_groups_path}= _("Cancel")
+            %button.button.green{:type => :submit}= _("Save")
+
+        .row.margin-top-m
+
+          .col1of2.padding-right-xs
+
+            .row.padding-inset-s.emboss.margin-bottom-xxs
+              .col1of2
+                %strong.font-size-m= _("Name") + " *"
+              .col1of2.text-align-right
+                %input{type: "text", placeholder: _("Name of the group"), name: "group[name]", value: @group.try(:name)}
+
+            #models-allocations.row.emboss.margin-bottom-xxs
+              .row.padding-inset-s
+                .col1of2
+                  %strong.font-size-m= "#{_("Models")} / #{_("Allocations")}:"
+                .col1of2.text-align-right
+                  .row
+                    %input.has-addon{type: "text", placeholder: _("Name of the model"), :"data-search-models" => true, autocomplete: :off}
+                    %label.addon.small.transparent.padding-right-s
+                      .arrow.down
+
+              .row.list-of-lines.even{:"data-models-list" => true}
+
+          .col1of2.padding-left-xs
+
+            #users.row.emboss.margin-bottom-xxs
+              .row.padding-inset-s
+                .col1of2
+                  %strong.font-size-m= _("Users")
+                .col1of2.text-align-right
+                  .row
+                    %input{type: "text", placeholder: _("Name of the user"), :"data-search-users" => true, autocomplete: :off}
+                    %label.addon.small.transparent.padding-right-s
+                      .arrow.down
+
+              .row.list-of-lines.even{:"data-users-list" => true}
+
+:coffeescript
+
+  jQuery -> new App.GroupController {el: "#group"}

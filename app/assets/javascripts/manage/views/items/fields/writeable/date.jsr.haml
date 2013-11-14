@@ -1,0 +1,6 @@
+%input{:type => :hidden, :name => "{{>~field.getFormName()}}", :value => "{{>~field.getValue(~itemData, ~field.attribute, true)}}"}
+{{if ~field.getValue(~itemData, ~field.attribute, true)}}
+%input.width-full{:type => "text", :"data-type" => "datepicker", :value => "{{date ~field.getValue(~itemData, ~field.attribute, true)/}}", :autocomplete => :off}
+{{else}}
+%input.width-full{:type => "text", :"data-type" => "datepicker", :autocomplete => :off}
+{{/if}}

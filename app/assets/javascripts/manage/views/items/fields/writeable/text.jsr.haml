@@ -1,0 +1,5 @@
+{{if ~field.getValue(~itemData, ~field.attribute, true)}}
+%input.width-full{:type => "text", :value => "{{>~field.getValue(~itemData, ~field.attribute, true)}}",:name => "{{>~field.getFormName()}}", :autocomplete => :off}
+{{else}}
+%input.width-full{:type => "text", :name => "{{>~field.getFormName()}}", :autocomplete => :off}
+{{/if}}

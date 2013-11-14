@@ -71,8 +71,8 @@ Funktionalität: Gegenstand erstellen
     | Inventarcode                 |              | Test Inventory Code           |
     | Modell                       | autocomplete | Sharp Beamer                  |
 
-    | Ausmusterung                 | select       | Ja                            |
-    | Grund der Ausmusterung       |              | Ja                            |
+    | Ausmusterung                 | select       | Nein                          |
+    #| Grund der Ausmusterung       |              | Ja                            |
     | Zustand                      | radio        | OK                            |
     | Vollständigkeit              | radio        | OK                            |
     | Ausleihbar                   | radio        | OK                            |

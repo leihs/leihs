@@ -1,0 +1,6 @@
+.row.line.font-size-xs
+  %input{:type => :hidden, :name => "user[groups][][id]", :value => "{{>id}}"}
+  .line-col.col1of2.text-align-left
+    {{>name}}
+  .line-col.col1of2.text-align-right
+    %button.button.inset.small{:"data-remove-group" => true} {{jed "Remove"/}}

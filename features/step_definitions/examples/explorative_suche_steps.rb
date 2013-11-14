@@ -1,64 +1,62 @@
 # -*- encoding : utf-8 -*-
 
-Angenommen(/^ich befinde mich in der Liste des Inventars$/) do
-  step 'man öffnet die Liste des Inventars'
-end
-
 Angenommen(/^ich die Navigation der Kategorien aufklappe$/) do
-  find(".explorative-search-toggle").click
-  page.should have_selector(".explorative-entry")
+  find("#categories-toggle").click
+  find("#categories #category-list")
 end
 
 Wenn(/^ich eine Kategorie anwähle$/) do
   find("body").click
-  @category_el = first(".explorative-entry")
+  @category_el = find("#categories #category-list [data-type='category-filter']", match: :first)
   @category = Category.find @category_el[:"data-id"]
   @category_el.click
 end
 
 Dann(/^sehe ich die darunterliegenden Kategorien$/) do
   @category.children.each do |child|
-    find(".explorative-entry", :text => child.name)
+    find("#categories", match: :prefer_exact, :text => child.name)
   end
 end
 
 Dann(/^kann die darunterliegende Kategorie anwählen$/) do
-  @child_el = find(".explorative-entry")
+  @child_el = find("#categories #category-list [data-type='category-filter']", match: :first)
   @child_category = Category.find @child_el[:"data-id"]
   @child_el.click
 end
 
 Dann(/^ich sehe die Hauptkategorie sowie die aktuell ausgewählte und die darunterliegenden Kategorien$/) do
-  find(".explorative-top", :text => @category.name)
-  find(".explorative-current", :text => @child_category.name)
+  find("#category-root", :text => @category.name)
+  find("#category-current", :text => @child_category.name)
 end
 
 Dann(/^das Inventar wurde nach dieser Kategorie gefiltert$/) do
-  page.should have_selector(".line.model")
-  all(".line.model").each do |model_line|
-    model = Model.find_by_name model_line.find(".modelname").text
-    (model.categories.include?(@child_category) or @child_category.descendants.any? {|c| model.categories.include? c}).should be_true
+  within("#inventory") do
+    find(".line[data-type='model']", match: :first)
+    all(".line[data-type='model']").each do |model_line|
+      model = Model.find_by_name model_line.find(".col2of5 strong").text
+      (model.categories.include?(@child_category) or @child_category.descendants.any? {|c| model.categories.include? c}).should be_true
+    end
   end
 end
 
 Dann(/^ich kann in einem Schritt auf die aktuelle Hauptkategorie zurücknavigieren$/) do
-  find(".explorative-top").click
+  find("#category-root a").click
   step 'sehe ich die darunterliegenden Kategorien'
 end
 
 Dann(/^ich kann in einem Schritt auf die Übersicht der Hauptkategorien zurücknavigieren$/) do
-  find(".explorative-current").click
+  step 'kann ich in die übergeordnete Kategorie navigieren'
   Category.roots.each do |child|
-    find(".explorative-entry", :text => child.name)
+    find("#categories #category-list [data-type='category-filter']", match: :prefer_exact, :text => child.name)
   end
 end
 
 Wenn(/^ich die Navigation der Kategorien wieder zuklappe$/) do
-  find(".explorative-search-toggle").click
+  find("#categories-toggle").click
 end
 
 Dann(/^sehe ich nur noch die Liste des Inventars$/) do
-  page.should_not have_selector(".explorative-navigation", visible: true)
+  page.should_not have_selector("#categories #category-list", visible: true)
 end
 
 Angenommen(/^die Navigation der Kategorien ist aufgeklappt$/) do
@@ -68,15 +66,15 @@ end
 Wenn(/^ich nach dem Namen einer Kategorie suche$/) do
   @category = Category.first
   @search_term = @category.name[0..2]
-  find(".explorative-search").set @search_term
-  find(".explorative-current", :text => @search_term)
+  find("#category-search").set @search_term
+  find("#category-root", :text => @search_term)
 end
 
 Dann(/^werden alle Kategorien angezeigt, welche den Namen beinhalten$/) do
   Category.all.map(&:name).reject{|name| ! name[@search_term]}.each do |name|
-    find(".explorative-entry", :text => name)
+    find("#categories #category-list [data-type='category-filter']", match: :prefer_exact, :text => name)
   end
-  all(".explorative-entry").size.should == all(".explorative-entry", :text => @search_term).size
+  all("#categories #category-list [data-type='category-filter']").size.should == all("#categories #category-list [data-type='category-filter']", :text => @search_term).size
 end
 
 Dann(/^ich wähle eine Kategorie$/) do
@@ -84,11 +82,11 @@ Dann(/^ich wähle eine Kategorie$/) do
 end
 
 Dann(/^ich sehe ein Suchicon mit dem Namen des gerade gesuchten Begriffs sowie die aktuell ausgewählte und die darunterliegenden Kategorien$/) do
-  find(".explorative-top .search.icon")
-  find(".explorative-top", :text => @search_term)
-  find(".explorative-current", :text => @child_category.name)
+  find("#category-root .icon-search")
+  find("#category-root", :text => @search_term)
+  find("#category-current", :text => @child_category.name)
   @child_category.children.each do |child|
-    find(".explorative-entry", :text => child.name)
+    find("#category-list", :text => child.name)
   end
 end
 
@@ -99,7 +97,7 @@ Angenommen(/^ich befinde mich in der Unterkategorie der explorativen Suche$/) do
 end
 
 Dann(/^kann ich in die übergeordnete Kategorie navigieren$/) do
-  find(".explorative-current").click
+  find("#category-current a").click
 end
 
 Angenommen(/^ich befinde mich in der Liste der Modelle$/) do
@@ -118,10 +116,10 @@ Dann(/^kann ich ein Modell anhand der explorativen Suche wählen$/) do
   page.should have_selector "#process_helper"
   step "ensure there are no active requests"
   find("#process_helper *[type='submit']").click
-  page.should have_selector(".dialog .line")
-  find(".explorative-entry", :match => :first).click
+  page.should have_selector(".modal .line")
+  find("#category-list", :match => :first).click
   step "ensure there are no active requests"
-  model = Model.find find(".dialog .line", :match => :first)["data-id"]
+  model = Model.find find(".modal .line", :match => :first)["data-id"]
   find(".line button.select-model", :match => :first).click
   page.should have_selector(".notification")
   if @contract
@@ -133,8 +131,8 @@ end
 
 Dann(/^die explorative Suche zeigt nur Modelle aus meinem Park an$/) do
   find("#process_helper *[type='submit']").click
-  page.should have_selector(".dialog .line")
-  all(".dialog .model.line").each do |line|
+  page.should have_selector(".modal .line")
+  all(".modal .model.line").each do |line|
     model = Model.find line["data-id"]
     expect(@current_inventory_pool.models.include? model).to be_true
   end
@@ -142,7 +140,7 @@ end
 
 Dann(/^die nicht verfügbaren Modelle sind rot markiert$/) do
   all(".model.line .availability", :text => /0 \(\d+\) \/ \d+/).each do |cell|
-    line = cell.first(:xpath, "./../..")
+    line = cell.find(:xpath, "./../..")
     (line[:class] =~ /error/).should_not be_nil
   end
 end

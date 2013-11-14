@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 Wenn(/^ich im Inventarbereich auf den Link "Vorlagen" klicke$/) do
-  visit backend_inventory_pool_inventory_path(@current_inventory_pool)
+  visit manage_inventory_path(@current_inventory_pool)
   click_link _("Vorlagen")
 end
 
@@ -13,13 +13,14 @@ Dann(/^öffnet sich die Seite mit der Liste der im aktuellen Inventarpool erfass
 end
 
 Dann(/^die Vorlagen für dieses Inventarpool sind alphabetisch nach Namen sortiert$/) do
-  all_names = all(".line .modelname").map(&:text)
+  find(".line .col3of4 strong", match: :first)
+  all_names = all(".line .col3of4 strong").map(&:text)
   all_names.sort.should == @current_inventory_pool.templates.sort.map(&:name)
   all_names.count.should == @current_inventory_pool.templates.count
 end
 
 Angenommen(/^ich befinde mich auf der Liste der Vorlagen$/) do
-  visit backend_inventory_pool_templates_path(@current_inventory_pool)
+  visit manage_templates_path(@current_inventory_pool)
 end
 
 Wenn(/^ich auf den Button "Neue Vorlage" klicke$/) do
@@ -27,11 +28,11 @@ Wenn(/^ich auf den Button "Neue Vorlage" klicke$/) do
 end
 
 Dann(/^öffnet sich die Seite zur Erstellung einer neuen Vorlage$/) do
-  current_path.should == new_backend_inventory_pool_template_path(@current_inventory_pool)
+  current_path.should == manage_new_template_path(@current_inventory_pool)
 end
 
 Wenn(/^ich den Namen der Vorlage eingebe$/) do
-  first(".field", text: _("Name")).first("input").set "test"
+  find(".row.emboss.padding-inset-s", match: :prefer_exact, text: _("Name")).find("input").set "test"
 end
 
 Wenn(/^ich Modelle hinzufüge$/) do
@@ -40,20 +41,26 @@ Wenn(/^ich Modelle hinzufüge$/) do
 end
 
 Dann(/^steht bei jedem Modell die höchst mögliche ausleihbare Anzahl der Gegenstände für dieses Modell$/) do
-  first(".field-inline-entry .capacity").text.should match /\/\s#{@changed_model.items.borrowable.size}/
+  all("#models .line").each do |line|
+    line.find("input[name='template[model_links_attributes][][quantity]']").text.should match /\/\s#{@changed_model.items.borrowable.size}/
+  end
 end
 
 Dann(/^für jedes hinzugefügte Modell ist die Mindestanzahl (\d+)$/) do |n|
-  first(".field-inline-entry .capacity input").value.should == n
+  all("#models .line").each do |line|
+    line.find("input[name='template[model_links_attributes][][quantity]']").value.should == n
+  end
+end
+
+Dann(/^für das hinzugefügte Modell ist die Mindestanzahl (\d+)$/) do |n|
+  find("#models .line", match: :first, text: @additional_model.name).find("input[name='template[model_links_attributes][][quantity]']").value.should == n
 end
 
 Wenn(/^ich zu jedem Modell die Anzahl angebe$/) do
-  @new_value = 2
-  first(".field-inline-entry .capacity input").set @new_value
-end
-
-Wenn(/^ich speichere die Vorlage$/) do
-  click_button _("Save %s") % _("Template")
+  @new_value ||= 1
+  all("#models .line").each do |line|
+    line.find("input[name='template[model_links_attributes][][quantity]']").set @new_value
+  end
 end
 
 Dann(/^die neue Vorlage wurde mit all den erfassten Informationen erfolgreich gespeichert$/) do
@@ -64,12 +71,12 @@ Dann(/^die neue Vorlage wurde mit all den erfassten Informationen erfolgreich ge
 end
 
 Dann(/^ich wurde auf die Liste der Vorlagen weitergeleitet$/) do
-  current_path.should == backend_inventory_pool_templates_path(@current_inventory_pool)
+  current_path.should == manage_templates_path(@current_inventory_pool)
   page.should have_content _("List of templates")
 end
 
 Dann(/^ich sehe die Erfolgsbestätigung$/) do
-  page.should have_selector(".success")
+  find("#flash .notice")
 end
 
 Angenommen(/^es existiert eine Vorlage mit mindestens zwei Modellen$/) do
@@ -81,16 +88,16 @@ Angenommen(/^es existiert eine Vorlage mit mindestens zwei Modellen$/) do
 end
 
 Wenn(/^ich auf den Button "Vorlage bearbeiten" klicke$/) do
-  first(".line", text: @template.name).click_link _("Edit %s") % _("Template")
+  find(".line", text: @template.name).click_link _("Edit")
 end
 
 Dann(/^öffnet sich die Seite zur Bearbeitung einer existierenden Vorlage$/) do
-  current_path.should == edit_backend_inventory_pool_template_path(@current_inventory_pool, @template)
+  current_path.should == manage_edit_template_path(@current_inventory_pool, @template)
 end
 
 Wenn(/^ich den Namen ändere$/) do
   @new_name = "new name"
-  first(".field", text: _("Name")).first("input").set @new_name
+  find(".row.emboss.padding-inset-s", match: :prefer_exact, text: _("Name")).find("input").set @new_name
 end
 
 Wenn(/^ich ein zusätzliches Modell hinzufüge$/) do
@@ -101,18 +108,18 @@ Wenn(/^ich ein zusätzliches Modell hinzufüge$/) do
 end
 
 Wenn(/^ein Modell aus der Liste lösche$/) do
-  @removed_model = Model.find_by_name all(".field-inline-entry > span").last.text
-  first(".field-inline-entry", text: @removed_model.name).first(".remove").click
+  within all("#models .line").to_a.sample do
+    @changed_model = Model.find_by_name find("[data-model-name]").text
+    find(".button[data-remove]").click
+  end
 end
 
 Wenn(/^die Anzahl bei einem der Modell ändere$/) do
-  @changed_model = Model.find_by_name all(".field-inline-entry > span").first.text
-  @new_value = first(".field-inline-entry", text: @changed_model.name).first("input").value.to_i + 1
-  first(".field-inline-entry", text: @changed_model.name).first("input").set @new_value
-end
-
-Wenn(/^ich speichere die bearbeitete Vorlage$/) do
-  step "ich speichere die Vorlage"
+  within all("#models .line:not(.striked)").to_a.sample do
+    @changed_model = Model.find_by_name find("[data-model-name]").text
+    @new_value = find("input").value.to_i + 1
+    find("input").set @new_value
+  end
 end
 
 Dann(/^die bearbeitete Vorlage wurde mit all den erfassten Informationen erfolgreich gespeichert$/) do
@@ -124,14 +131,11 @@ Dann(/^die bearbeitete Vorlage wurde mit all den erfassten Informationen erfolgr
 end
 
 Dann(/^kann ich beliebige Vorlage direkt aus der Liste löschen$/) do
-  @template = @current_inventory_pool.templates.first
-  page.execute_script("$('.trigger .arrow').trigger('mouseover');")
-  first(".line", text: @template.name).first(".button", text: _("Delete %s") % _("Template")).click
-end
-
-Dann(/^es wird mir dabei vorher eine Warnung angezeigt$/) do
-  page.should have_selector "form.summary"
-  click_button _("Delete")
+  @template = @current_inventory_pool.templates.sample
+  within(".line", text: @template.name) do
+    find(".multibutton .dropdown-toggle").hover
+    find(".multibutton .red[data-method='delete']", :text => _("Delete")).click
+  end
 end
 
 Dann(/^die Vorlage wurde aus der Liste gelöscht$/) do
@@ -148,28 +152,26 @@ Dann(/^die Vorlage wurde erfolgreich aus der Datenbank gelöscht$/) do
 end
 
 Angenommen(/^ich befinde mich auf der Erstellungsansicht einer Vorlage$/) do
-  visit new_backend_inventory_pool_template_path(@current_inventory_pool)
+  visit manage_new_template_path(@current_inventory_pool)
 end
 
 Wenn(/^der Name nicht ausgefüllt ist$/) do
-  first(".field", text: _("Name")).first("input").set ""
-  first(".field", text: _("Name")).first("input").value.should be_empty
+  within(".row.emboss.padding-inset-s", match: :prefer_exact, text: _("Name")) do
+    find("input").set ""
+    find("input").value.should be_empty
+  end
 end
 
 Wenn(/^ich den Namen einer bereits existierenden Vorlage eingebe$/) do
-  first(".field", text: _("Name")).first("input").set @current_inventory_pool.templates.first.name
-end
-
-Wenn(/^ich den Name ausgefüllt habe$/) do
-  first(".field", text: _("Name")).first("input").set "test"
+  find(".row.emboss.padding-inset-s", match: :prefer_exact, text: _("Name")).find("input").set @current_inventory_pool.templates.first.name
 end
 
 Wenn(/^kein Modell hinzugefügt habe$/) do
-  all(".field-inline-entry").each {|e| e.first(".remove").click}
+  all("#models .line").each {|e| e.find(".button[data-remove]").click}
 end
 
 Angenommen(/^ich befinde mich auf der Editieransicht einer Vorlage$/) do
-  visit edit_backend_inventory_pool_template_path(@current_inventory_pool, @current_inventory_pool.templates.first)
+  visit manage_edit_template_path(@current_inventory_pool, @current_inventory_pool.templates.first)
 end
 
 Angenommen(/^ich befinde mich der Seite zur Erstellung einer neuen Vorlage$/) do
@@ -182,26 +184,39 @@ Angenommen(/^ich habe den Namen der Vorlage eingegeben$/) do
   step 'ich den Namen der Vorlage eingebe'
 end
 
+Wenn(/^ich den Name ausgefüllt habe$/) do
+  step 'ich den Namen der Vorlage eingebe'
+end
+
 Wenn(/^ich bei einem Modell eine Anzahl eingebe, welche höher ist als die höchst mögliche ausleihbare Anzahl der Gegenstände für dieses Modell$/) do
-  max = first(".field-inline-entry", text: @changed_model.name).first(".capacity").text.gsub(/\D/, "").to_i
+  l = find("#models .line", match: :prefer_exact, text: @changed_model.name)
+  max = l.find("[data-quantities]:nth-child(2)").text.gsub(/\D/, "").to_i
   @new_value = max + 1
-  first(".field-inline-entry", text: @changed_model.name).first(".capacity input[name='template[model_links_attributes][][quantity]']").set @new_value
+  l.find("input[name='template[model_links_attributes][][quantity]']").set @new_value
 end
 
 Dann(/^die Vorlage ist in der Liste (nicht )?als unerfüllbar markiert$/) do |n|
-  if n
-    first(".line", text: @template.name)[:class].split.include?("error").should be_false
-  else
-    first(".line", text: @template.name)[:class].split.include?("error").should be_true
+  within(".line", text: @template.name) do
+    if n
+      page.should_not have_selector(".line-info.red")
+    else
+      page.should have_selector(".line-info.red")
+    end
   end
 end
 
 Wenn(/^ich die gleiche Vorlage bearbeite$/) do
-  first(".line", text: @template.name).click_link _("Edit %s") % _("Template")
+  find(".line", text: @template.name).click_link _("Edit")
 end
 
 Wenn(/^ich die korrekte Anzahl angebe$/) do
-  max = first(".field-inline-entry", text: @changed_model.name).first(".capacity").text.gsub(/\D/, "").to_i
-  @new_value = max
-  first(".field-inline-entry", text: @changed_model.name).first(".capacity input[name='template[model_links_attributes][][quantity]']").set @new_value
+  within("#models .line", match: :prefer_exact, text: @changed_model.name) do
+    max = find("[data-quantities]:nth-child(2)").text.gsub(/\D/, "").to_i
+    @new_value = max
+    find("input[name='template[model_links_attributes][][quantity]']").set @new_value
+  end
+end
+
+Dann(/^ich sehe eine Warnmeldung wegen nicht erfüllbaren Vorlagen$/) do
+  find(".red", text: _("The highlighted entries are not accomplishable for the intended quantity."))
 end

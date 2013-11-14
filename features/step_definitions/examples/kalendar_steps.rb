@@ -17,15 +17,16 @@ end
 
 Angenommen /^ich öffne den Kalender$/ do
   @line_el = find(".line", match: :first)
-  @line = ContractLine.find_by_id @line_el["data-id"]
-  @line_el.first(".actions .button", :text => /(Edit|Editieren)/).click
-  page.has_selector?(".fc-day-content")
+  id = @line_el["data-id"] || JSON.parse(@line_el["data-ids"]).first
+  @line = ContractLine.find_by_id id
+  @line_el.find(".multibutton .button[data-edit-lines]", :text => _("Change entry")).click
+  find(".fc-day-content", match: :first)
 end
 
 Dann /^kann ich die Anzahl unbegrenzt erhöhen \/ überbuchen$/ do
   @size = @line.model.items.where(:inventory_pool_id => @ip).size*2
-  first(".dialog #quantity").set @size
-  first(".dialog #quantity").value.to_i.should == @size
+  find(".modal #booking-calendar-quantity").set @size
+  find(".modal #booking-calendar-quantity").value.to_i.should == @size
 end
 
 Dann /^die Bestellung kann gespeichert werden$/ do
@@ -39,10 +40,10 @@ Dann /^die Aushändigung kann gespeichert werden$/ do
 end
 
 Angenommen /^ich editiere alle Linien$/ do
-  first("#selection_actions .actions .trigger").click
-  first("#selection_actions .actions .button", :text => /(Edit Selection|Auswahl editieren)/).click
+  find(".multibutton .green.dropdown-toggle").hover
+  find(".multibutton .dropdown-item[data-edit-lines='selected-lines']", :text => _("Edit Selection")).click
 end
 
 Dann /^wird in der Liste unter dem Kalender die entsprechende Linie als nicht verfügbar \(rot\) ausgezeichnet$/ do
-  first(".dialog .list .line.unavailable", :text => @model.name)
+  find(".modal .line-info.red ~ .col5of10", match: :prefer_exact, :text => @model.name)
 end

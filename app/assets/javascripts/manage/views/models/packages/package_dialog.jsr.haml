@@ -1,0 +1,37 @@
+.modal.medium.hide.fade.ui-modal.padding-vertical-m{:role => "dialog", :tabindex => "-1"}
+
+  .row.padding-vertical-m.padding-horizontal-l
+
+    .col1of2
+      %h3.headline-l {{jed "New Package"/}}
+
+    .col1of2
+      .float-right
+        %a.modal-close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button", :title => '{{jed "close dialog"/}}', :class => "weak"}
+          Abbrechen
+        %button#save-package.button.green{:type => :button}
+          {{jed "Save Package"/}}
+
+  #notifications.hidden
+
+  .padding-horizontal-l
+    %h2.headline-m.padding-bottom-m {{jed 'Items'/}}
+    .row.emboss.margin-vertical-xxs.margin-right-xs
+      .row.padding-inset-xs
+        .col1of2.padding-vertical-xs
+          %strong.font-size-m.inline-block {{jed 'Add item'/}}
+        .col1of2
+          .row
+            %input#search-item.width-full.has-addon{:type => :text, :autocomplete => :off,:"data-barcode-scanner-target" => true}
+            .addon.transparent
+              %span.arrow.down
+    #items.row
+
+  .modal-body.row.margin-top-m.padding-horizontal-l.padding-top-s
+
+    %form#item-form
+
+      #flexible-fields
+        .height-s
+        %img.margin-horziontal-auto.margin-top-xxl.margin-bottom-xxl{:src => asset_path("loading.gif")}
+        .height-s

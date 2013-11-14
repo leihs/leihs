@@ -46,7 +46,7 @@ When "$who try to order an item for $date" do |who, date|
   inventory_pool, inv_manager, user, model = LeihsFactory.create_dataset_simple
 
   # Login                            
-  post "/session", :login => user.login
+  post login_path(:login => user.login)
   step "I am logged in as '#{user.login}' with password '#{nil}'"
   @contract.destroy if @contract
   get borrow_root_path
@@ -66,7 +66,7 @@ When "$who clicks '$action'" do |who, action|
   @inventory_pool, inv_manager, @user, model = LeihsFactory.create_dataset_simple
   
   #Login as User
-  post "/session", :login => inv_manager.login
+  post login_path(:login => inv_manager.login)
   get backend_inventory_pool_hand_over_index_path(@inventory_pool) if action == 'hand over'
   get backend_inventory_pool_workdays_path(@inventory_pool) if action == 'Opening Times'
 

@@ -1,0 +1,72 @@
+-content_for :title, _("List of Inventory")
+-content_for :inventory_section, "active"
+
+#inventory-index-view.wrapper.margin-top-m
+
+  = render :partial => 'manage/tabs/inventory', :locals => {:active_tab => :inventory}
+
+  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+    .margin-top-l.padding-horizontal-m
+      .row
+        .col1of3
+          %h1.headline-xl= _("List of Inventory")
+        .col2of3= render :partial => "manage/inventory/index/actions"
+
+    .row.margin-top-l
+      
+      = render :partial => "manage/inventory/index/tabs"
+
+      .row.margin-vertical-xs.padding-horizontal-s
+
+        .col1of5.padding-right-s
+          .row
+            .col1of5.padding-right-xs
+              %button#categories-toggle.button.inset.width-full.height-full.no-padding.text-align-center
+                %i.icon-reorder.vertical-align-middle
+            .col4of5
+              %input#list-search.width-full{type: "text", name: "input", placeholder: _("Search..."), autocomplete: :off}
+
+        %form#list-filters.col4of5
+          .row
+            .col1of5.padding-right-xs
+              %select#responsibles.width-full{:name => "responsible_id", :title => _("Responsible inventory pool")}
+                %option{:value => nil}
+            .col1of5.padding-right-xs
+              %label.button.inset.white.width-full.height-xxs{:for => :owned}
+                %input{:name => :owned, :type => :hidden, :value => "0"}
+                %input#owned{:name => :owned, :type => :checkbox, :value => "1", :autocomplete => :off}
+                %span= _("Owned")
+            .col1of5.padding-right-xs
+              %label.button.inset.white.width-full.height-xxs{:for => :in_stock}
+                %input{:name => :in_stock, :type => :hidden, :value => "0"}
+                %input#in_stock{:name => :in_stock, :type => :checkbox, :value => "1", :autocomplete => :off}
+                %span= _("In Stock")
+            .col1of5.padding-right-xs
+              %label.button.inset.white.width-full.height-xxs{:for => :incomplete}
+                %input{:name => :incomplete, :type => :hidden, :value => "0"}
+                %input#incomplete{:name => :incomplete, :type => :checkbox, :value => "1", :autocomplete => :off}
+                %span= _("Incomplete")
+            .col1of5.padding-right-xs
+              %label.button.inset.white.width-full.height-xxs{:for => :broken}
+                %input{:name => :broken, :type => :hidden, :value => "0"}
+                %input#broken{:name => :broken, :type => :checkbox, :value => "1", :autocomplete => :off}
+                %span= _("Broken")
+
+      .table
+
+        .table-row
+
+          = render :partial => "manage/inventory/categories"
+
+          .table-cell#inventory.list-of-lines.even.separated-top.padding-bottom-s.min-height-l
+            .height-s
+            %img.margin-horziontal-auto.margin-top-xxl.margin-bottom-xxl{:src => asset_path("loading.gif")}
+            .height-s
+
+
+:coffeescript
+
+  jQuery ->
+    new App.InventoryIndexController
+      el: $("#inventory-index-view")

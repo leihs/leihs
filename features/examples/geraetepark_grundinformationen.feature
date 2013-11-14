@@ -64,7 +64,7 @@ Funktionalität: Gerätepark-Grundinformationen
    Und ich bin Mike
    Und ich verwalte die Gerätepark Grundinformationen
    Wenn ich die Arbeitstage Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag, Sonntag ändere
-   Und ich die Änderungen speichere
+   Und ich speichere
    Dann sind die Arbeitstage gespeichert
 
   @javascript
@@ -73,6 +73,6 @@ Funktionalität: Gerätepark-Grundinformationen
    Und ich bin Mike
    Und ich verwalte die Gerätepark Grundinformationen
    Wenn ich eine oder mehrere Zeitspannen und einen Namen für die Ausleihsschliessung angebe
-   Und ich speichere den Gerätepark
+   Und ich speichere
    Dann werden die Ausleihschliessungszeiten gespeichert
    Und ich kann die Ausleihschliessungszeiten wieder löschen  

@@ -16,7 +16,7 @@ Funktionalität: Kategorien
     Wenn man das Register Kategorien wählt
     Und man eine neue Kategorie erstellt
     Und man gibt man den Namen der Kategorie ein
-    Und man speichert die neue Kategorie
+    Und ich speichere
     Dann ist die Kategorie mit dem angegegebenen Namen erstellt
 
   @javascript
@@ -25,7 +25,7 @@ Funktionalität: Kategorien
     Und man eine neue Kategorie erstellt
     Und man gibt man den Namen der Kategorie ein
     Und man gibt die Elternelemente und die dazugehörigen Bezeichnungen ein
-    Und man speichert die neue Kategorie
+    Und ich speichere
     Dann ist die Kategorie mit dem angegegebenen Namen und den zugewiesenen Elternelementen erstellt
 
   @javascript
@@ -40,7 +40,7 @@ Funktionalität: Kategorien
   Szenario: Kategorien editieren
     Wenn man eine Kategorie editiert
     Und man den Namen und die Elternelemente anpasst
-    Und man speichert die editierte Kategorie
+    Und ich speichere
     Dann werden die Werte gespeichert
 
   @javascript

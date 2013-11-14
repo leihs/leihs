@@ -1,0 +1,22 @@
+:ruby
+
+  prev_open_date = current_inventory_pool.last_open_date(@date - 1.day)
+  next_open_date = current_inventory_pool.next_open_date(@date + 1.day)
+
+%a.button.white{:title => _("go to today"),
+:href =>  manage_daily_view_path(current_inventory_pool, :tab => params[:tab])}
+  = _("Today")
+
+%button.button.white.datepicker#datepicker{:title => _("open datepicker")}
+  %input#datepicker-input.hidden-datepicker-input
+  %i.icon-calendar
+
+%a.button.white{:href => manage_daily_view_path(current_inventory_pool, :date => prev_open_date, :tab => params[:tab]),
+:title => l(prev_open_date, :format => :long)}
+  %i.arrow.left
+  = I18n.t('date.day_names')[prev_open_date.wday]
+
+%a.button.white{:href => manage_daily_view_path(current_inventory_pool, :date => next_open_date, :tab => params[:tab]),
+:title => l(next_open_date, :format => :long)}
+  = I18n.t('date.day_names')[next_open_date.wday]
+  %i.arrow.right

@@ -1,0 +1,1 @@
+window.App.Template.url = => "/manage/#{App.InventoryPool.current.id}/templates"
