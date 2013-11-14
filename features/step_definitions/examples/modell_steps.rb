@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 Angenommen /^man öffnet die Liste der Modelle$/ do
-  @current_inventory_pool = @current_user.managed_inventory_pools.sample
+  @current_inventory_pool = @current_user.managed_inventory_pools.keep_if{|ip| ip.models.any?}.sample
   visit "/manage/#{@current_inventory_pool.id}/inventory"
 end
 

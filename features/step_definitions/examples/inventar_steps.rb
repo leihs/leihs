@@ -546,15 +546,18 @@ Dann /^kann ich mehrere Bilder hinzufügen$/ do
 end
 
 Dann /^ich kann Bilder auch wieder entfernen$/ do
-  find(".row.emboss", match: :prefer_exact, :text => _('Images')).find(".list-of-lines button[data-remove]", match: :first).click
-  @images_to_save = ["image2.jpg", "image3.png"]
+  find(".row.emboss", match: :prefer_exact, :text => _('Images')).find("[data-type='inline-entry']", :text => "image1.jpg").find("button[data-remove]", match: :first).click
+  @images_to_save = []
+  find(".row.emboss", match: :prefer_exact, :text => _('Images')).all("[data-type='inline-entry']").each do |entry|
+    @images_to_save << entry.text.split(" ")[0]
+  end
 end
 
 Dann /^zu grosse Bilder werden den erlaubten Grössen entsprechend verkleinert$/ do
   step 'ich nach "%s" suche' % @model.name
-  find(".line", :text => @model.name).find(".button", :text => "Modell editieren").click
+  find(".line[data-id='#{@model.id}']").find(".button", :text => "Modell editieren").click
   @images_to_save.each do |image_name|
-    find("a[href*='#{image_name}']").find("img[src*='#{image_name.split(".").first}_thumb.#{image_name.split(".").last}']")
+    find("a[href*='#{image_name}'] img[src*='#{image_name.split(".").first}_thumb.#{image_name.split(".").last}']")
   end
 end
 
