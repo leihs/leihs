@@ -7,7 +7,6 @@
 #
 #= require jquery-file-upload/cors/jquery.postmessage-transport
 #= require jquery-file-upload/cors/jquery.xdr-transport
-#= require jquery-file-upload/vendor/jquery.ui.widget.js
 #= require jquery-file-upload/jquery.fileupload
 #= require jquery-file-upload/jquery.fileupload-process
 #

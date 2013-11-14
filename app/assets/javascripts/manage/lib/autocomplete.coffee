@@ -54,8 +54,8 @@ class AutoComplete
         , 100
     # render autocomplete item
     if @data.autocomplete_element_tmpl?
-      @el.data("autocomplete")._renderItem = (ul, item)=> 
-        $(App.Render(@data.autocomplete_element_tmpl, item)).data("item.autocomplete", item).appendTo(ul)
+      @el.data("uiAutocomplete")._renderItem = (ul, item) => 
+        $(App.Render(@data.autocomplete_element_tmpl, item)).data("value", item).appendTo(ul)
 
   remote_source: (request, response)=>
     data = {format: "json"}

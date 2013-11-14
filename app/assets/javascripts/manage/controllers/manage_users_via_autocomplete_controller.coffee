@@ -28,7 +28,8 @@ class window.App.ManageUsersViaAutocompleteController extends Spine.Controller
       source: (request, response) => response users
       focus: => return false
       select: @select
-    .data("autocomplete")._renderItem = (ul, item) => $(App.Render "manage/views/groups/users/autocomplete_element", item).data("item.autocomplete", item).appendTo(ul)
+    .data("uiAutocomplete")._renderItem = (ul, item) => 
+      $(App.Render "manage/views/groups/users/autocomplete_element", item).data("value", item).appendTo(ul)
     @input.autocomplete("search")
 
   select: (e, ui) =>

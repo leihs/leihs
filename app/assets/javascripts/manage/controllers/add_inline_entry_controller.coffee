@@ -13,7 +13,8 @@ class window.App.AddInlineEntryController extends Spine.Controller
       focus: => return false
       select: @select
       minLength: 0
-    .data("autocomplete")._renderItem = (ul, item) => $(App.Render "views/autocomplete/element", item).data("item.autocomplete", item).appendTo(ul)
+    .data("uiAutocomplete")._renderItem = (ul, item) => 
+      $(App.Render "views/autocomplete/element", item).data("value", item).appendTo(ul)
     @input.autocomplete("search")
 
   source: (request, response) => 
@@ -21,7 +22,7 @@ class window.App.AddInlineEntryController extends Spine.Controller
       data = _.map data, (datum)=>
         label: datum.name
         record: App[@model].find datum.id
-      response data
+      response data if @input.is(":focus")
 
   fetch: (term)=>
     App[@model].ajaxFetch
@@ -30,8 +31,9 @@ class window.App.AddInlineEntryController extends Spine.Controller
 
   select: (e, ui)=>
     record = ui.item.record
-    @input.autocomplete("destroy")
     @input.val("").blur()
+    @input.autocomplete("destroy")
     unless @list.find(@getExistingEntry(record)).length
       @list.prepend App.Render @templatePath, record, uid: App[@model].uid("uid")
+    e.preventDefault()
     return false

@@ -70,11 +70,11 @@ class window.App.SearchTopbarController extends Spine.Controller
         else
           window.location = "/borrow/models/#{ui.item.id}"
           return false
-    .data("autocomplete")._renderItem = (ul, item)=>
+    .data("uiAutocomplete")._renderItem = (ul, item)=>
       if item.searchAll?
-        showAll = $(App.Render("borrow/views/search/autocomplete/show_all")).data("item.autocomplete", item).appendTo(ul)
+        showAll = $(App.Render("borrow/views/search/autocomplete/show_all")).data("value", item).appendTo(ul)
       else
-        $(App.Render "borrow/views/search/autocomplete/model", item).data("item.autocomplete", item).appendTo(ul)
+        $(App.Render "borrow/views/search/autocomplete/model", item).data("value", item).appendTo(ul)
     @input.autocomplete("search")
 
   submit: (e)=>

@@ -34,7 +34,8 @@ class window.App.ContractLineAssignItemController extends Spine.Controller
       focus: => return false
       minLength: 0
       select: (e, ui)=> @assignItem(input, ui.item); return false
-    .data("autocomplete")._renderItem = (ul, item)=> $(App.Render "manage/views/items/autocomplete_element", item).data("item.autocomplete", item).appendTo(ul)
+    .data("uiAutocomplete")._renderItem = (ul, item) => 
+      $(App.Render "manage/views/items/autocomplete_element", item).data("value", item).appendTo(ul)
     input.autocomplete("search", "")
 
   fetchItems: (model)=>

@@ -108,7 +108,8 @@ class window.App.TakeBackController extends Spine.Controller
         response data
       focus: => return false
       select: @select
-    .data("autocomplete")._renderItem = (ul, item)=> $(App.Render "manage/views/lines/assign/autocomplete_element", item).data("item.autocomplete", item).appendTo(ul)
+    .data("uiAutocomplete")._renderItem = (ul, item) => 
+      $(App.Render "manage/views/lines/assign/autocomplete_element", item).data("value", item).appendTo(ul)
 
   select: (e, ui)=>
     @input.val ui.item.record.inventoryCode()

@@ -43,7 +43,8 @@ class App.InventoryHelperController extends Spine.Controller
       focus: => return false
       select: @selectField
       minLength: 0
-    .data("autocomplete")._renderItem = (ul, item)=> $(App.Render "views/autocomplete/element", item).data("item.autocomplete", item).appendTo(ul)
+    .data("uiAutocomplete")._renderItem = (ul, item) => 
+      $(App.Render "views/autocomplete/element", item).data("value", item).appendTo(ul)
     @fieldInput.autocomplete("search")
 
   getFields: (request, response)=> 
@@ -80,7 +81,8 @@ class App.InventoryHelperController extends Spine.Controller
         @itemInput.val ui.item.inventory_code
         do @applyFields
       minLength: 0
-    .data("autocomplete")._renderItem = (ul, item)=> $(App.Render "manage/views/inventory/helper/item_autocomplete_element", item).data("item.autocomplete", item).appendTo(ul)
+    .data("uiAutocomplete")._renderItem = (ul, item) => 
+      $(App.Render "manage/views/inventory/helper/item_autocomplete_element", item).data("value", item).appendTo(ul)
 
   fetchItems: (term)=>
     App.Item.ajaxFetch

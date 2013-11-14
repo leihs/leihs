@@ -29,7 +29,8 @@ class window.App.ChangeUserGroupsController extends Spine.Controller
       focus: => return false
       select: @select
       minLength: 0
-    .data("autocomplete")._renderItem = (ul, item) => $(App.Render "manage/views/groups/autocomplete_element", item).data("item.autocomplete", item).appendTo(ul)
+    .data("uiAutocomplete")._renderItem = (ul, item) => 
+      $(App.Render "manage/views/groups/autocomplete_element", item).data("value", item).appendTo(ul)
     @input.autocomplete("search")
 
   select: (e, ui) =>

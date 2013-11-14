@@ -69,7 +69,8 @@ class window.App.SwapUsersController extends Spine.Controller
         response data
       focus: => return false
       select: (e, ui)=> @selectUser(ui.item); return false
-    .data("autocomplete")._renderItem = (ul, item)=> $(App.Render "manage/views/users/autocomplete_element", item).data("item.autocomplete", item).appendTo(ul)
+    .data("uiAutocomplete")._renderItem = (ul, item) => 
+      $(App.Render "manage/views/users/autocomplete_element", item).data("value", item).appendTo(ul)
     @input.autocomplete("search")
 
   selectUser: (user)->

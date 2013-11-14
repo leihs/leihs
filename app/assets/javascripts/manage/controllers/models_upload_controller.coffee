@@ -53,6 +53,7 @@ class window.App.ModelsUploadController extends Spine.Controller
     App.Flash
       type: "notice"
       message: _jed "Uploading files - please wait"
+      loading: true
     , 9999
 
   remove: (e)=>

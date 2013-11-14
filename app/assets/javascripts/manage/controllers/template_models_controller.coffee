@@ -28,7 +28,8 @@ class window.App.TemplateModelsController extends Spine.Controller
       source: (request, response) => response models
       focus: => return false
       select: @select
-    .data("autocomplete")._renderItem = (ul, item) => $(App.Render "manage/views/templates/models/autocomplete_element", item).data("item.autocomplete", item).appendTo(ul)
+    .data("uiAutocomplete")._renderItem = (ul, item) => 
+      $(App.Render "manage/views/templates/models/autocomplete_element", item).data("value", item).appendTo(ul)
     @input.autocomplete("search")
 
   select: (e, ui) =>
