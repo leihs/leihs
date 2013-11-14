@@ -67,12 +67,12 @@ end
 
 Angenommen(/^man navigiert zur Gegenstandsbearbeitungsseite$/) do
   @item = @current_inventory_pool.items.first
-  visit "/manage/%d/items/%d" % [@current_inventory_pool.id, @item.id]
+  visit manage_edit_item_path(@current_inventory_pool, @item)
 end
 
 Angenommen(/^man navigiert zur Gegenstandsbearbeitungsseite eines Gegenstandes, der am Lager und in keinem Vertrag vorhanden ist$/) do
   @item = @current_inventory_pool.items.find {|i| i.in_stock? and i.contract_lines.blank?}
-  visit "/manage/%d/items/%d" % [@current_inventory_pool.id, @item.id]
+  visit manage_edit_item_path(@current_inventory_pool, @item)
 end
 
 Wenn(/^ich speichern druecke$/) do
@@ -110,7 +110,7 @@ end
 
 Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes mit gesetztem Lieferanten$/) do
   @item = @current_inventory_pool.items.find {|i| not i.supplier.nil?}
-  visit "/manage/%d/items/%d" % [@current_inventory_pool.id, @item.id]
+  visit manage_edit_item_path(@current_inventory_pool, @item)
 end
 
 Wenn(/^ich den Lieferanten ändere$/) do
@@ -125,7 +125,7 @@ end
 Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeliehen ist$/) do
   @item = @current_inventory_pool.items.not_in_stock.sample
   @item_before = @item.to_json
-  visit "/manage/%d/items/%d" % [@current_inventory_pool.id, @item.id]
+  visit manage_edit_item_path(@current_inventory_pool, @item)
 end
 
 Wenn(/^ich die verantwortliche Abteilung ändere$/) do
@@ -135,7 +135,7 @@ end
 Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes, der in einem Vertrag vorhanden ist$/) do
   @item = @current_inventory_pool.items.select{|i| not i.contract_lines.blank?}.sample
   @item_before = @item.to_json
-  visit "/manage/%d/items/%d" % [@current_inventory_pool.id, @item.id]
+  visit manage_edit_item_path(@current_inventory_pool, @item)
 end
 
 Wenn(/^ich das Modell ändere$/) do

@@ -63,7 +63,7 @@ Angenommen(/^man sucht nach einem ausgemusterten Gegenstand, wo man der Besitzer
 end
 
 Angenommen(/^man befindet sich auf der Gegenstandseditierseite dieses Gegenstands$/) do
-  visit "/manage/%d/items/%d" % [@current_inventory_pool.id, @retired_item.id]
+  visit manage_edit_item_path(@current_inventory_pool, @retired_item)
   page.has_content?(@retired_item.model.name).should be_true
 end
 
