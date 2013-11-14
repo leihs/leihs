@@ -59,7 +59,7 @@ Dann /^kann ich das Paket nicht löschen$/ do
 end
 
 Wenn /^ich ein Modell editiere, welches bereits Pakete hat$/ do
-  visit "/manage/#{@current_inventory_pool.id}/inventory"
+  visit manage_inventory_path(@current_inventory_pool)
   @model = @current_inventory_pool.models.detect {|m| not m.items.empty? and m.is_package?}
   @model_name = @model.name
   step 'ich nach "%s" suche' % @model.name
@@ -68,7 +68,7 @@ Wenn /^ich ein Modell editiere, welches bereits Pakete hat$/ do
 end
 
 Wenn /^ich ein Modell editiere, welches bereits Gegenstände hat$/ do
-  visit "/manage/#{@current_inventory_pool.id}/inventory"
+  visit manage_inventory_path(@current_inventory_pool)
   @model = @current_inventory_pool.models.detect {|m| not (m.items.empty? and m.is_package?)}
   @model_name = @model.name
   step 'ich nach "%s" suche' % @model.name
