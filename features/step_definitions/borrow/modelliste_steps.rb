@@ -241,6 +241,7 @@ end
 Wenn(/^kann man für das Startdatum und für das Enddatum den Datepick benutzen$/) do
   find("#start-date").set I18n.l Date.today
   find(".ui-datepicker")
+  sleep(0.22)
   find("#end-date").set I18n.l Date.today
   find(".ui-datepicker")
 end
