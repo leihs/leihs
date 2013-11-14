@@ -36,7 +36,7 @@ def check_existing_inventory_codes(items)
     model_el.find(".button[data-type='inventory-expander'] i.arrow.right").click
     model_el.find(".button[data-type='inventory-expander'] i.arrow.down")
     find(".group-of-lines")
-    all(".group-of-lines .line[data-type='item'] > .col1of5:nth-child(2)").map(&:text).each do |inventory_code|
+    all(".group-of-lines .line[data-type='item'] .col1of5:nth-child(2)").map(&:text).each do |inventory_code|
       items.find_by_inventory_code(inventory_code).should_not be_nil
     end
     model_el.find(".button[data-type='inventory-expander'] i.arrow.down").click
@@ -246,15 +246,9 @@ end
 Wenn /^meine Abteilung Besitzer des Gegenstands ist die Verantwortung aber auf eine andere Abteilung abgetreten hat$/ do
   all("select#responsibles option:not([selected])").detect{|o| o.value != @current_inventory_pool.name}.select_option
   step "ensure there are no active requests"
-  page.should have_selector(".toggle .text")
-  all(".toggle .text").each {|toggle| toggle.click}
-  index = 0
-  while not @item or not @item.in_stock?
-    @item_line = all(".group-of-lines .line[data-type='item']")[index]
-    @item = Item.find_by_inventory_code @item_line.find(".col1of5:nth-child(2)").text
-    index = index+1
-    raise("no item found") if index > 20
-  end
+  find(".button[data-type='inventory-expander'] i.arrow.right", match: :first).click
+  @item_line = find(".group-of-lines .line[data-type='item']", match: :first)
+  @item = Item.find_by_inventory_code @item_line.find(".col1of5.text-align-left:nth-child(2)").text
 end
 
 Dann /^enthält die Options\-Zeile folgende Informationen$/ do |table|
