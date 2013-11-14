@@ -109,14 +109,15 @@ end
 
 Angenommen /^man editiert ein Gegenstand eines anderen Besitzers$/ do
   @item = Item.find {|i| i.inventory_pool_id == @current_inventory_pool.id and @current_inventory_pool.id != i.owner_id}
-  visit "/manage/%d/items/%d" % [@current_inventory_pool.id, @item.id]
-  find(".field")
+  visit "/manage/%d/items/%d/edit" % [@current_inventory_pool.id, @item.id]
+  page.has_selector?(".field")
   @fields = all(".field:not(.editable)")
   @fields.size.should > 0
 end
 
 Dann /^alle Felder sind editierbar, da man jetzt Besitzer von diesem Gegenstand ist$/ do
-  @fields = all(".field:not(.editable)")
+  page.has_selector?(".field")
+  @fields = all(".field[data-editable='false']")
   @fields.size.should == 0
 end
 
