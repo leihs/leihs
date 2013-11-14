@@ -35,21 +35,20 @@ Angenommen /^eine Model ist nichtmehr verfügbar$/ do
     step 'I add so many lines that I break the maximal quantity of an model'
     visit manage_take_back_path(@contract.inventory_pool, @customer)
   end
-  find(".line .line-info.red ~ .col5of10", match: :first, text: @model.name)
-  @lines = all(".line .line-info.red ~ .col5of10", text: @model.name)
+  find(".line", text: @model.name)
+  @lines = all(".line", text: @model.name)
   @lines.size.should > 0
 end
 
 Dann /^sehe ich auf den beteiligten Linien die Auszeichnung von Problemen$/ do
   @problems = []
-
   @lines.each do |line|
-    find(".line[data-id='#{line["data-id"]}'] .problems").hover
-    @problems << find(".tip", match: :first).text
+    line.find("[data-tooltip-template='manage/views/lines/problems_tooltip']").hover
+    @problems << find(".tooltipster-content strong", match: :first).text
   end
   @reference_line = @lines.first
   @reference_problem = @problems.first
-  @line = ContractLine.find @reference_line["data-id"]
+  @line = ContractLine.find JSON.parse(@reference_line["data-ids"]).first
   @av = @line.model.availability_in(@line.inventory_pool)
 end
 

@@ -6,7 +6,12 @@ window.App.Modules.LineProblems =
     problems = []
 
     if @model_id?
-      maxAvailableForUser = @model().availability().withoutLines([@]).maxAvailableForGroups(@start_date, @end_date, _.map(@user().groupIds, (g)->g.id))
+      linesToExclude = if @sublines? then @sublines else [@]
+      maxAvailableForUser = @model().availability().withoutLines(linesToExclude).maxAvailableForGroups(@start_date, @end_date, _.map(@user().groupIds, (g)->g.id))
+      quantity = if @sublines? 
+        _.reduce @sublines, ((mem, l)-> mem + l.quantity), 0
+      else
+        @quantity
 
     # OVERDUE
     if moment(@start_date).endOf("day").diff(moment().endOf("day"), "days") < 0 and _.include(["approved", "submitted"], @contract().status) or 
@@ -20,8 +25,8 @@ window.App.Modules.LineProblems =
         message: "#{_jed("Overdue")} #{_jed("since")} #{days} #{_jed(days, "day")}"
 
     # AVAILABILITY
-    else if maxAvailableForUser? and maxAvailableForUser < @quantity
-      maxAvailableInTotal = @model().availability().withoutLines([@]).maxAvailableInTotal(@start_date, @end_date)
+    else if maxAvailableForUser? and maxAvailableForUser < quantity
+      maxAvailableInTotal = @model().availability().withoutLines(linesToExclude).maxAvailableInTotal(@start_date, @end_date)
       problems.push 
         type: "availability"
         message: "#{_jed("Not available")} #{maxAvailableForUser}(#{maxAvailableInTotal})/#{@model().availability().total_rentable}"
