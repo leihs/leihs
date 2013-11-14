@@ -137,6 +137,8 @@ class Manage::ItemsController < Manage::ApplicationController
     @item = @item.dup
     @item.owner = @current_inventory_pool
     @item.inventory_code = Item.proposed_inventory_code(current_inventory_pool)
+    @item.serial_number = nil
+    @item.name = nil
     render :new
   end
 

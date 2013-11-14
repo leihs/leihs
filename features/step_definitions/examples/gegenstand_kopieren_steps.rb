@@ -8,9 +8,8 @@ Angenommen /^man erstellt einen Gegenstand$/ do |table|
 end
 
 Wenn /^man speichert und kopiert$/ do
-  find(".content_navigation .arrow", match: :first)
-  page.execute_script("$('.content_navigation .arrow').trigger('mouseover');")
-  click_button _("Save and copy")
+  find(".content-wrapper .dropdown-holder", match: :first).hover
+  find("a[id='item-save-and-copy']", match: :first).click
 end
 
 Dann /^wird der Gegenstand gespeichert$/ do
@@ -80,10 +79,10 @@ Wenn /^man einen Gegenstand kopiert$/ do
   @item = Item.where(inventory_pool_id: @current_inventory_pool).detect {|i| not i.retired? and not i.serial_number.nil? and not i.name.nil?}
   find_field('list-search').set @item.model.name
   step "ensure there are no active requests"
-  all("li.modelname").first.text.should == @item.model.name
-  first(".toggle .icon").click
-  page.execute_script("$('.items.children .arrow').trigger('mouseover');")
-  first(".line.toggler.item", text: @item.inventory_code).first(".button", text: _("Copy Item")).click
+  find(".line[data-type='model'] .col2of5", match: :first, text: @item.model.name)
+  first("[data-type='inventory-expander']").click
+  find(".line[data-id='#{@item.id}'] .dropdown-holder").hover
+  first(".line[data-type='item']", text: @item.inventory_code).first("a", text: _("Copy Item")).click
 end
 
 Dann /^wird eine neue Gegenstandskopieransicht geöffnet$/ do
@@ -91,25 +90,27 @@ Dann /^wird eine neue Gegenstandskopieransicht geöffnet$/ do
 end
 
 Dann /^alle Felder bis auf Inventarcode, Seriennummer und Name wurden kopiert$/ do
-  expect(first(".row.emboss", match: :prefer_exact, text: _("Inventory code")).first("input,textarea").value == @item.inventory_code).to be_false
-  expect(first(".row.emboss", match: :prefer_exact, text: _("Inventory code")).first("input,textarea").value.empty?).to be_false
-  expect(first(".row.emboss", match: :prefer_exact, text: _("Model")).first("input,textarea").value).to eql @item.model.name
-  expect(first(".row.emboss", match: :prefer_exact, text: _("Serial Number")).first("input,textarea").value.empty?).to be_true
-  expect(first(".row.emboss", match: :prefer_exact, text: _("Name")).first("input,textarea").value.empty?).to be_true
+  expect(find(".row.emboss", match: :prefer_exact, text: _("Inventory code")).first("input,textarea").value == @item.inventory_code).to be_false
+  expect(find(".row.emboss", match: :prefer_exact, text: _("Inventory code")).first("input,textarea").value.empty?).to be_false
+  expect(find(".row.emboss", match: :prefer_exact, text: _("Model")).first("input,textarea").value).to eql @item.model.name
+  expect(find(".row.emboss", match: :prefer_exact, text: _("Serial Number")).first("input,textarea").value.empty?).to be_true
+  expect(find(".row.emboss", match: :prefer_exact, text: _("Name")).first("input,textarea").value.empty?).to be_true
 end
 
 Angenommen /^man befindet sich auf der Gegenstandserstellungsansicht$/ do
   @item = Item.where(inventory_pool_id: @current_inventory_pool.id).detect {|i| not i.retired?}
   find_field('list-search').set @item.model.name
   step "ensure there are no active requests"
-  all("li.modelname").first.text.should == @item.model.name
-  first(".toggle .icon").click
-  first(".line.toggler.item", text: @item.inventory_code).first(".button", text: _("Edit Item")).click
+  find(".line[data-type='model'] .col2of5", match: :first, text: @item.model.name)
+  first("[data-type='inventory-expander']").click
+  find(".line[data-id='#{@item.id}'] .dropdown-holder").hover
+  first(".line[data-type='item']", text: @item.inventory_code).first(".button", text: _("Edit Item")).click
 end
 
 Angenommen /^man editiert ein Gegenstand eines anderen Besitzers$/ do
   @item = Item.find {|i| i.inventory_pool_id == @current_inventory_pool.id and @current_inventory_pool.id != i.owner_id}
   visit "/manage/%d/items/%d" % [@current_inventory_pool.id, @item.id]
+  find(".field")
   @fields = all(".field:not(.editable)")
   @fields.size.should > 0
 end
