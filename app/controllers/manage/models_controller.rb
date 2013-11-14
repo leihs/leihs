@@ -111,7 +111,6 @@ class Manage::ModelsController < Manage::ApplicationController
       flash[:error] = _("The selected model is not a package")
       return
     end
-    
     if @model.update_attributes(params[:model])
       flash[:notice] = _("Package successfully saved")
       redirect_to package_manage_inventory_pool_model_path(current_inventory_pool, @model, :filter => params[:filter])
@@ -250,6 +249,8 @@ class Manage::ModelsController < Manage::ApplicationController
       @model.is_package = true
       update_packages packages
     end
+    # COMPATIBLES
+    @model.compatibles = []
     # PROPERTIES
     @model.properties.destroy_all
     # REMAINING DATA

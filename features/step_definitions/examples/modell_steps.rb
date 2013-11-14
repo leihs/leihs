@@ -27,12 +27,13 @@ Wenn(/^ich ein Modell öffne, das bereits ergänzende Modelle hat$/) do
 end
 
 Wenn(/^ich ein ergänzendes Modell entferne$/) do
-  find(".inner", match: :first, text: _("Compatibles")).all("label", text: _("delete")).each {|comp| comp.click}
+  find(".field", match: :first, text: _("Compatibles")).all("[data-remove]").each {|comp| comp.click}
 end
 
 Dann(/^ist das Modell ohne das gelöschte ergänzende Modell gespeichert$/) do
-  find(".top", match: :prefer_exact, text: _("List of Models"))
+  find("#flash")
   @model.reload.compatibles.should be_empty
+  sleep(0.3) # fix lazy request fail problem
 end
 
 Wenn(/^ich ein bereits bestehendes ergänzende Modell mittel Autocomplete Feld hinzufüge$/) do
