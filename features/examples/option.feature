@@ -11,10 +11,10 @@ Funktionalität: Option
   Szenario: Option hinzufügen
     Wenn ich eine neue Option hinzufüge
     Und ich ändere die folgenden Details
-    | Feld        | Wert         |
-    | Name        | Test Option  |
-    | Preis       | 50           |
-    | Barcode     | Test Barcode |
+    | Feld             | Wert         |
+    | Name             | Test Option  |
+    | Preis            | 50           |
+    | Inventarcode     | Test Barcode |
     Und ich speichere die Informationen
     Dann die neue Option ist erstellt
 
@@ -22,10 +22,10 @@ Funktionalität: Option
   Szenario: Option bearbeiten
     Wenn ich eine bestehende Option bearbeite
     Und ich erfasse die folgenden Details
-    | Feld        | Wert           |
-    | Name        | Test Option x  |
-    | Preis       | 51             |
-    | Barcode     | Test Barcode x |
+    | Feld             | Wert           |
+    | Name             | Test Option x  |
+    | Preis            | 51             |
+    | Inventarcode     | Test Barcode x |
     Und ich speichere die Informationen
     Dann die Informationen sind gespeichert
     Und die Daten wurden entsprechend aktualisiert

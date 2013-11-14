@@ -376,7 +376,7 @@ end
 
 Und /^ich (?:erfasse|ändere)? ?die folgenden Details ?(?:erfasse|ändere)?$/ do |table|
   # table is a Cucumber::Ast::Table
-  find("#model-save", text: _("Save %s") % _("Model"))
+  find(".button.green", text: _("Save %s") % _("#{get_rails_model_name_from_url.capitalize}"))
   @table_hashes = table.hashes
   @table_hashes.each do |row|
     find(".field .row", match: :prefer_exact, text: row["Feld"]).find(:xpath, ".//input | .//textarea").set row["Wert"]
@@ -433,6 +433,8 @@ Dann /^die Daten wurden entsprechend aktualisiert$/ do
   end
 
   click_link("%s" % _("Cancel"))
+  find("#inventory-index-view h1", match: :prefer_exact, text: _("List of Inventory"))
+  sleep(0.44)
   current_path.should eq @page_to_return
 end
 
