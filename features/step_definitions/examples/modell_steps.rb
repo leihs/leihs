@@ -121,10 +121,10 @@ end
 
 Wenn(/^ich dieses Modell aus der Liste lösche$/) do
   visit "/manage/#{@current_inventory_pool.id}/inventory"
+  find("[data-unused_models]").click
   fill_in 'list-search', with: @model.name
-  find("#inventory .line .col2of5 strong", match: :prefer_exact, text: @model.name).text.should == @model.name
-  find(".trigger .arrow", match: :first).hover
-  find(".line.toggler.model", match: :prefer_exact, text: @model.name).first(".button", text: _("Delete %s") % _("Model")).click
+  find(".line[data-id='#{@model.id}'] .dropdown-holder").hover
+  find(".line[data-id='#{@model.id}'] [data-method='delete']").click
 end
 
 Dann(/^das Modell wurde aus der Liste gelöscht$/) do

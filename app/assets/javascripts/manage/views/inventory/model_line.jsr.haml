@@ -39,3 +39,9 @@
             %a.dropdown-item{:"data-open-time-line" => true, :"data-model-id" => "{{>id}}"}
               %i.icon-align-left
               {{jed "Timeline"/}}
+          {{if items().count() == 0}}
+          %li
+            %a.dropdown-item.red{href: "{{>url()}}", :"data-method" => "delete"}
+              %i.icon-trash
+              {{jed "Delete"/}}
+          {{/if}}

@@ -59,17 +59,18 @@ class Manage::ModelsController < Manage::ApplicationController
   def destroy
     @model = fetch_model
     begin @model.destroy
-      render :json => true, status: :ok
-    rescue ActiveRecord::DeleteRestrictionError => e
+      respond_to do |format| 
+        format.json {render :json => true, status: :ok}
+        format.html {redirect_to manage_inventory_path(current_inventory_pool), flash: {success: _("%s successfully deleted") % _("Model")}}
+      end
+    rescue => e
       @model.errors.add(:base, e)
-      render :text => @model.errors.full_messages.uniq.join(", "), :status => :forbidden
+      text = @model.errors.full_messages.uniq.join(", ")
+      respond_to do |format| 
+        format.json {render :text => text, :status => :forbidden}
+        format.html {redirect_to manage_inventory_path(current_inventory_pool), flash: {error: text}}
+      end
     end
-
-    #if @model and params[:id]
-      #@model.compatibles.delete(@model.compatibles.find(params[:id]))
-      #flash[:notice] = _("Compatible successfully removed")
-      #redirect_to :action => 'index', :model_id => @model
-    #end
   end
 
   def handle_compatibles
