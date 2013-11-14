@@ -35,7 +35,7 @@ Angenommen /^eine Model ist nichtmehr verfügbar$/ do
     step 'I add so many lines that I break the maximal quantity of an model'
     visit manage_take_back_path(@contract.inventory_pool, @customer)
   end
-  find(".line", text: @model.name)
+  find(".line", text: @model.name, match: :first)
   @lines = all(".line", text: @model.name)
   @lines.size.should > 0
 end
@@ -44,11 +44,16 @@ Dann /^sehe ich auf den beteiligten Linien die Auszeichnung von Problemen$/ do
   @problems = []
   @lines.each do |line|
     line.find("[data-tooltip-template='manage/views/lines/problems_tooltip']").hover
+    sleep(0.5) # wait for tooltip
     @problems << find(".tooltipster-content strong", match: :first).text
   end
   @reference_line = @lines.first
   @reference_problem = @problems.first
-  @line = ContractLine.find JSON.parse(@reference_line["data-ids"]).first
+  @line = if @reference_line["data-id"]
+      ContractLine.find @reference_line["data-id"]
+    else
+      ContractLine.find JSON.parse(@reference_line["data-ids"]).first
+  end
   @av = @line.model.availability_in(@line.inventory_pool)
 end
 
@@ -73,7 +78,7 @@ Dann /^"(.*?)" sind verfügbar für den Kunden$/ do |arg1|
   max = if [:unsubmitted, :submitted].include? @line.contract.status
     @max_before + @quantity_added
   elsif [:approved, :signed].include? @line.contract.status
-    @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @line.group_ids) + @line.contract.lines.where(:start_date => @line.start_date, :end_date => @line.end_date, :model_id => @line.model).size
+    @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @line.group_ids) + 1 # free up self blocking
   else
     @max_before - @quantity_added
   end
