@@ -28,7 +28,7 @@ Funktionalität: Modell
     | Interne Beschreibung               | Test Interne Beschreibung  |
     | Wichtige Notizen zur Aushändigung  | Test Notizen               |
     Und ich speichere die Informationen
-    Dann das neue Modell ist erstellt
+    Dann ist das neue Modell erstellt und unter ungenutzen Modellen auffindbar
 
   @javascript
   Szenario: Modell erstellen nur mit Name

@@ -153,3 +153,8 @@ Dann(/^sind die geänderten Gruppenzuteilungen gespeichert$/) do
   model_group_ids = @model.reload.partitions.map(&:group_id)
   model_group_ids.sort.should == @groups.map(&:id)
 end
+
+Dann /^ist das neue Modell erstellt und unter ungenutzen Modellen auffindbar$/ do
+  find("[data-unused_models]").click
+  step "die Informationen sind gespeichert"
+end
