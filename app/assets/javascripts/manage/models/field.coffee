@@ -58,15 +58,15 @@ class window.App.Field extends Spine.Model
       else
         item[value_label]
 
-  getFormName: ->
-    if @form_name?
-      "item[#{@form_name}]"
-    else if @attribute instanceof Array
-      _.reduce @attribute, (name, attr) -> 
+  getFormName: (attribute = @attribute, formName = @form_name) ->
+    if formName?
+      "item[#{formName}]"
+    else if attribute instanceof Array
+      _.reduce attribute, (name, attr) -> 
         "#{name}[#{attr}]"
       , "item"
     else
-      "item[#{@attribute}]"
+      "item[#{attribute}]"
 
   getExtendedKeyFormName: -> @getFormName @extended_key, @form_name
 
