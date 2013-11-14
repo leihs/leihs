@@ -41,13 +41,14 @@ Wenn(/^ich ein bereits bestehendes ergänzende Modell mittel Autocomplete Feld h
 end
 
 Dann(/^wurde das redundante Modell nicht hizugefügt$/) do
-  find(".row.emboss", match: :first, text: _("Compatibles")).all(".field-inline-entry", text: @comp.name).count.should == 1
+  find(".row.emboss", match: :first, text: _("Compatibles")).all("[data-type='inline-entry']", text: @comp.name).count.should == 1
 end
 
 Dann(/^wurde das redundante ergänzende Modell nicht gespeichert$/) do
-  find(".top", match: :prefer_exact, text: _("List of Models"))
+  find("#flash")
   comp_before = @model.compatibles
   comp_before.count.should == @model.reload.compatibles.count
+  sleep(0.6) # fix lazy request fail problem
 end
 
 Angenommen(/^es existiert ein Modell mit folgenden Eigenschaften$/) do |table|
