@@ -158,3 +158,9 @@ Dann /^ist das neue Modell erstellt und unter ungenutzen Modellen auffindbar$/ d
   find("[data-unused_models]").click
   step "die Informationen sind gespeichert"
 end
+
+Wenn(/^ich ein bestehendes, genutztes Modell bearbeite$/) do
+  @page_to_return = current_path
+  @model = @current_inventory_pool.items.sample.model
+  visit manage_edit_model_path @current_inventory_pool, @model
+end

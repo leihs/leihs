@@ -207,7 +207,7 @@ Leihs::Application.routes.draw do
       get     'models/:id/timeline',          to: "models#timeline"
       put     'models/:id',                   to: "models#update"
       get     'models/:id',                   to: "models#show"
-      get     'models/:id/edit',              to: "models#edit"
+      get     'models/:id/edit',              to: "models#edit",      as: "edit_model"
       post    'models/:id/upload/image',      to: "models#upload",    type: "image"
       post    'models/:id/upload/attachment', to: "models#upload",    type: "attachment"
 

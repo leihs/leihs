@@ -49,7 +49,7 @@ Funktionalität: Modell
   @javascript
   Szenario: Modelldetails bearbeiten
     Angenommen man öffnet die Liste der Modelle
-    Wenn ich ein bestehendes Modell bearbeite
+    Wenn ich ein bestehendes, genutztes Modell bearbeite
     Und ich ändere die folgenden Details
     | Feld                               | Wert                         |
     | Name                               | Test Modell x                |
@@ -64,7 +64,7 @@ Funktionalität: Modell
 
   @javascript
   Szenario: Modellzubehör bearbeiten
-    Wenn ich ein bestehendes Modell bearbeite welches bereits Zubehör hat
+    Wenn ich ein bestehendes, genutztes Modell bearbeite welches bereits Zubehör hat
     Dann ich sehe das gesamte Zubehöre für dieses Modell
     Und ich sehe, welches Zubehör für meinen Pool aktiviert ist
     Wenn ich Zubehör hinzufüge und falls notwendig die Anzahl des Zubehör ins Textfeld schreibe
@@ -73,12 +73,12 @@ Funktionalität: Modell
   
   @javascript
   Szenario: Modellzubehör löschen
-    Wenn ich ein bestehendes Modell bearbeite welches bereits Zubehör hat
+    Wenn ich ein bestehendes, genutztes Modell bearbeite welches bereits Zubehör hat
     Dann kann ich ein einzelnes Zubehör löschen, wenn es für keinen anderen Pool aktiviert ist
 
   @javascript
   Szenario: Modellzubehör deaktivieren
-    Wenn ich ein bestehendes Modell bearbeite welches bereits Zubehör hat
+    Wenn ich ein bestehendes, genutztes Modell bearbeite welches bereits Zubehör hat
     Dann kann ich ein einzelnes Zubehör für meinen Pool deaktivieren
 
   @javascript
@@ -92,7 +92,7 @@ Funktionalität: Modell
   @javascript
   Szenario: Bilder
     Angenommen man öffnet die Liste der Modelle
-    Wenn ich ein bestehendes Modell bearbeite
+    Wenn ich ein bestehendes, genutztes Modell bearbeite
     Dann kann ich mehrere Bilder hinzufügen
     Und ich kann Bilder auch wieder entfernen
     Und ich speichere das Modell mit Bilder
@@ -102,7 +102,7 @@ Funktionalität: Modell
   @javascript
   Szenario: sich ergänzende Modelle hinzufügen (kompatibel)
     Angenommen man öffnet die Liste der Modelle
-    Wenn ich ein bestehendes Modell bearbeite
+    Wenn ich ein bestehendes, genutztes Modell bearbeite
     Und ich ein ergänzendes Modell mittel Autocomplete Feld hinzufüge
     Und ich speichere die Informationen
     Dann ist dem Modell das ergänzende Modell hinzugefügt worden
