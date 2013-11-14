@@ -882,8 +882,9 @@ window.i18n.locale_data = {
          "Invetarcode aktualisiert"
       ],
       "Inventory pool": [
-         null,
-         "Gerätepark"
+         "Inventory pools",
+         "Gerätepark",
+         "Geräteparks"
       ],
       "InventoryPool|Email": [
          null,
@@ -3480,6 +3481,26 @@ window.i18n.locale_data = {
       "Subordinate to %s": [
          null,
          "Untergeordnet zu %s"
+      ],
+      "Category saved": [
+         null,
+         "Kategorie gespeichert"
+      ],
+      "in the future": [
+         null,
+         "in der Zukunft"
+      ],
+      "in the past": [
+         null,
+         "in der Vergangenheit"
+      ],
+      "Borrowable items": [
+         null,
+         "Ausleihbare Gegenstände"
+      ],
+      "Available for borrower": [
+         null,
+         "Verfügbar für Ausleihenden"
       ]
    }
 }

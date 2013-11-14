@@ -45,7 +45,7 @@ class window.App.ModelsIndexIpSelectorController extends Spine.Controller
       when total_count
         _jed("All inventory pools")
       else
-        "#{length} #{_jed(length, _jed("Inventory pool"), _jed("Inventory pools"))}"
+        "#{length} #{_jed(length, "Inventory pool", "Inventory pools")}"
     @button.html App.Render "borrow/views/models/index/ip_selector", {text: text}
 
   reset: =>

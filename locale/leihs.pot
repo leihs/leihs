@@ -2654,3 +2654,8 @@ msgstr ""
 
 msgid "Available for borrower"
 msgstr ""
+
+msgid "Inventory pool"
+msgid_plural "Inventory pools"
+msgstr[0] ""
+msgstr[1] ""
