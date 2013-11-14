@@ -35,7 +35,7 @@ end
 
 Wenn /^das Paket zurzeit nicht ausgeliehen ist$/ do
   @package = @current_inventory_pool.items.packages.in_stock.first
-  visit "/manage/%d/models/%d/edit" % [@current_inventory_pool.id, @package.model.id]
+  visit manage_edit_model_path(@current_inventory_pool, @package.model)
 end
 
 Dann /^kann ich das Paket löschen und die Gegenstände sind nicht mehr dem Paket zugeteilt$/ do
@@ -51,7 +51,7 @@ end
 
 Wenn /^das Paket zurzeit ausgeliehen ist$/ do
   @package_not_in_stock = @current_inventory_pool.items.packages.not_in_stock.first
-  visit "/manage/%d/models/%d/edit" % [@current_inventory_pool.id, @package_not_in_stock.model.id]
+  visit manage_edit_model_path(@current_inventory_pool, @package_not_in_stock.model)
 end
 
 Dann /^kann ich das Paket nicht löschen$/ do
@@ -96,7 +96,7 @@ end
 
 Wenn /^ich ein Paket editiere$/ do
   @model = Model.find_by_name "Kamera Set"
-  visit "/manage/%d/models/%d/edit" % [@current_inventory_pool.id, @model.id]
+  visit manage_edit_model_path(@current_inventory_pool, @model)
   @package_to_edit = @model.items.detect &:in_stock?
   find(".field-inline-entry", text: @package_to_edit.inventory_code).find(".clickable", text: _("Edit")).click
 end
@@ -136,7 +136,7 @@ end
 Dann /^(?:besitzt das Paket alle angegebenen Informationen|das Paket besitzt alle angegebenen Informationen)$/ do
   sleep(0.88)
   model = Model.find_by_name @model_name
-  visit "/manage/%d/models/%d/edit" % [@current_inventory_pool.id, model.id]
+  visit manage_edit_model_path(@current_inventory_pool, model)
   page.should have_selector "[ng-repeat='package in model.packages']"
   find("[ng-repeat='package in model.packages']", match: :first).first(".clickable", :text => _("Edit")).click
   step 'hat der Gegenstand alle zuvor eingetragenen Werte'

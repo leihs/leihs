@@ -452,7 +452,7 @@ end
 
 Wenn /^ich ein bestehendes, genutztes Modell bearbeite welches bereits Zubehör hat$/ do
   @model = @current_inventory_pool.models.all.detect {|m| m.accessories.count > 0}
-  visit "/manage/%d/models/%d/edit" % [@current_inventory_pool.id, @model.id]
+  visit manage_edit_model_path(@current_inventory_pool, @model)
 end
 
 Dann /^(?:die|das|der) neue[sr]? (?:.+) ist erstellt$/ do
@@ -567,7 +567,7 @@ end
 
 Angenommen /^ich erstelle ein neues Modell oder ich ändere ein bestehendes Modell$/ do
   @model = Model.all.first
-  visit "/manage/%d/models/%d/edit" % [@current_inventory_pool.id, @model.id]
+  visit manage_edit_model_path(@current_inventory_pool, @model)
 end
 
 Dann /^füge ich eine oder mehrere Datein den Attachments hinzu$/ do

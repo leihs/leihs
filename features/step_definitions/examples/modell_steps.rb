@@ -136,7 +136,7 @@ end
 
 Angenommen(/^ich editieren ein bestehndes Modell mit bereits zugeteilten Kapazitäten$/) do
   @model = @current_inventory_pool.models.find{|m| m.partitions.count > 0}
-  visit "/manage/%d/models/%d/edit" % [@current_inventory_pool.id, @model.id]
+  visit manage_edit_model_path(@current_inventory_pool, @model)
 end
 
 Wenn(/^ich bestehende Zuteilungen entfernen$/) do
