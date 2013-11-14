@@ -23,7 +23,7 @@ Funktionalität: Geräteparks administrieren
     Und ich Name und Kurzname und Email eingebe
     Und ich speichere
     Dann ich sehe die Geräteparkliste
-    Und eine Bestätigung wird angezeigt
+    Und man sieht eine Bestätigungsmeldung
     Und ist der Gerätepark gespeichert
 
   @javascript

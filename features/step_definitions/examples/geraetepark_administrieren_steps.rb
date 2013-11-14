@@ -27,10 +27,6 @@ Dann(/^ist der Gerätepark gespeichert$/) do
   InventoryPool.find_by_name_and_shortname_and_email("test", "test", "test@test.ch").should_not be_nil
 end
 
-Dann(/^eine Bestätigung wird angezeigt$/) do
-  find(".success", match: :first)
-end
-
 Dann(/^ich sehe die Geräteparkliste$/) do
   page.has_content? _("List of Inventory Pools")
 end

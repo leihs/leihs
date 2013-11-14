@@ -10,7 +10,7 @@ Feature: Item Hover on daily view
 
   @javascript
   Scenario: Hover item cell to see lines
-    When I am on the daily view
+    When I open the daily view
     And I hover an item's cell
     Then I see a list of items
     And items of the same models are merged
