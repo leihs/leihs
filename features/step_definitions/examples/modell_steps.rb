@@ -99,10 +99,13 @@ end
 Dann(/^kann ich das Modell aus der Liste nicht löschen$/) do
   sleep(0.88)
   visit "/manage/#{@current_inventory_pool.id}/inventory"
+  find("[data-unused_models]").click unless @current_inventory_pool.models.include? @model
   fill_in 'list-search', with: @model.name
-  find("li.modelname", match: :prefer_exact, text: @model.name)
-  find(".trigger .arrow", match: :first).hover
-  find(".line.toggler.model", match: :prefer_exact, text: @model.name).should_not have_content(_("Delete %s") % _("Model"))
+  find(".line[data-id='#{@model.id}'] .dropdown-holder").hover
+  find(".line[data-id='#{@model.id}'] [data-method='delete']").click
+  find("#flash .error")
+  @model.reload # is still there
+  sleep(0.66) # fix lazy request fail problem
 end
 
 Und /^ich sehe eine Dialog-Fehlermeldung$/ do
