@@ -84,6 +84,7 @@ Dann /^"(.*?)" sind verfügbar für den Kunden$/ do |arg1|
   else
     @max_before - @quantity_added
   end
+  binding.pry
   @reference_problem.match(/#{max}\(/).should_not be_nil
 end
 
