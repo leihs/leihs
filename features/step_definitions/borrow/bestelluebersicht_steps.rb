@@ -19,7 +19,7 @@ end
 
 Dann(/^sehe ich die Einträge gruppiert nach Startdatum und Gerätepark$/) do
   @current_user.contracts.unsubmitted.flat_map(&:lines).group_by{|l| [l.start_date, l.inventory_pool]}.each do |k,v|
-    first("*", text: I18n.l(k[0])).should have_content k[1].name
+    find("#current-order-lines .row", text: I18n.l(k[0]), match: :first).should have_content k[1].name
   end
 end
 
@@ -179,7 +179,7 @@ Wenn(/^ich den Eintrag ändere$/) do
 end
 
 Dann(/^öffnet der Kalender$/) do
-  first("#booking-calendar .fc-widget-content")
+  find("#booking-calendar .fc-widget-content", :match => :first)
 end
 
 Dann(/^ich ändere die aktuellen Einstellung$/) do
@@ -197,16 +197,17 @@ Dann(/^speichere die Einstellungen$/) do
 end
 
 Dann(/^wird der Eintrag gemäss aktuellen Einstellungen geändert$/) do
-  step "ensure there are no active requests"
+  first("[data-change-order-lines]").click
+  find("#booking-calendar .fc-widget-content", :match => :first)
+  find(".modal-close").click
   if @new_date
     @changed_lines.first.reload.start_date.should == @new_date
-    first("*", :text => I18n.l(@new_date))
   end
   if @new_quantity
     @changed_lines.first.contract.lines.where(model_id: @changed_lines.first.model_id,
                                               start_date: @changed_lines.first.start_date,
                                               end_date: @changed_lines.first.end_date).sum(:quantity).should == @new_quantity
-    @just_changed_line = first("[data-quantity='#{@new_quantity}'][data-model-id='#{@changed_lines.first.model_id}'][data-start-date='#{@changed_lines.first.start_date}'][data-end-date='#{@changed_lines.first.end_date}']")
+    @just_changed_line = find("[data-quantity='#{@new_quantity}'][data-model-id='#{@changed_lines.first.model_id}'][data-start-date='#{@changed_lines.first.start_date}'][data-end-date='#{@changed_lines.first.end_date}']")
   end
 end
 

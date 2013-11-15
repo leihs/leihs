@@ -390,10 +390,8 @@ end
 Dann /^ensure there are no active requests$/ do
   def wait_for_ajax
     Timeout.timeout(Capybara.default_wait_time) do
-      loop do
-        active = page.evaluate_script('jQuery.active')
-        break if active == 0
-      end
+      sleep(0.1) until page.evaluate_script('jQuery.active').to_i == 0
+      true
     end
   end
   wait_for_ajax
