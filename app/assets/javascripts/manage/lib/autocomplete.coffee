@@ -86,15 +86,14 @@ class AutoComplete
     else
       @el.val element.item[@data.autocomplete_display_attribute]
     value = if @data.autocomplete_value_attribute? then element.item[@data.autocomplete_value_attribute] else element.item.value
+    @el.blur() if @data.autocomplete_blur_on_select == true
     if @data.autocomplete_value_target?
-      @el.prev("input[name='#{@data.autocomplete_value_target}']").val(value).change()
+      @el.prevAll("input[name='#{@data.autocomplete_value_target}']").val(value).change()
     if @data.autocomplete_select_callback?
       el = $(event.currentTarget)
       callback = eval @data.autocomplete_select_callback
       if callback?
         callback(element, event)
-    @el.blur() if @data.autocomplete_blur_on_select == true
-    @el.trigger("autocomplete:select",[element])
     @setExtendedValue()
     return false
 
