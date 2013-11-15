@@ -32,7 +32,7 @@ class window.App.ModelsIndexTooltipController extends Spine.Controller
 
   stayOnLine: (e)=>
     return false if @currentTargetId != $(e.currentTarget).data("id") or !@mouseOverTooltip
-    $("*:focus").blur().autocomplete("close").datepicker("hide")
+    $("*:focus").blur().datepicker("hide")
     target = $(e.currentTarget)
     model_id = target.data('id')
     if App.Model.exists model_id

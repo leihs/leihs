@@ -41,7 +41,7 @@ class Contract < ActiveRecord::Base
     "#{id}"
   end
 
-  TIMEOUT_MINUTES = 30
+  TIMEOUT_MINUTES = 1
 
 #########################################################################
 

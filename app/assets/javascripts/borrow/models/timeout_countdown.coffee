@@ -28,9 +28,9 @@ class window.App.TimeoutCountdown
     localStorage.currentTimeout = date
 
   sync: ->
-    currentTimeout = moment localStorage.currentTimeout
-    @minutes = @timeoutMinutes - 1 - Math.floor(Math.floor(moment().diff(currentTimeout) / 1000) / 60)
-    @seconds = 59 - Math.floor(Math.floor(moment().diff(currentTimeout) / 1000) % 60)
+    @currentTimeout = moment localStorage.currentTimeout
+    @minutes = @timeoutMinutes - 1 - Math.floor(Math.floor(moment().diff(@currentTimeout) / 1000) / 60)
+    @seconds = 59 - Math.floor(Math.floor(moment().diff(@currentTimeout) / 1000) % 60)
 
   timeout: ->
     $.get("/borrow/refresh_timeout.json").done (data)=>
@@ -46,11 +46,12 @@ class window.App.TimeoutCountdown
 
   updateTime: =>
     do @sync
-    if @minutes <= 0
+    remainingSeconds = _.clone(@currentTimeout).add("minutes", @timeoutMinutes).diff(moment(), "seconds")
+    if remainingSeconds <= 0
       do @timeout
-    else if @seconds <= 0
+    if @seconds <= 0 and @minutes > 0
       @seconds = 59
-      @minutes = @minutes - 1 if @minutes > 0
-    else
+      @minutes = @minutes - 1
+    else if remainingSeconds > 0
       @seconds = @seconds - 1
     $(@).trigger "timeUpdated"
