@@ -18,6 +18,10 @@ When /^an unavailable inventory code is assigned to a contract line$/ do
   @response = post "/manage/#{@inventory_pool.id}/contract_lines/assign", {:inventory_code => @item.inventory_code, :id => @line.id}
 end
 
+Then /^the response from this action should be successful$/ do
+  @response.should be_successful
+end
+
 Then /^the response from this action should not be successful$/ do
   @response.should_not be_successful
 end
