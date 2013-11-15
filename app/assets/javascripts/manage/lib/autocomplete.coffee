@@ -37,7 +37,6 @@ class AutoComplete
       source: if source? then source else if @data.autocomplete_data? then @data.autocomplete_data else if @data.url then @remote_source
       select: @select
       focus: @focus
-      appendTo: @el.closest("div")
     # add class name to autocomplete widget
     @el.autocomplete("widget").addClass @data.autocomplete_class
     # show on focus
@@ -67,8 +66,6 @@ class AutoComplete
       url: @data.url
       data: data
       dataType: "json"
-      beforeSend: =>
-        @el.autocomplete("close")
       success: (data)=>
         # compute entries
         data = data.entries if data.entries?
@@ -88,7 +85,6 @@ class AutoComplete
       @el.val ""
     else
       @el.val element.item[@data.autocomplete_display_attribute]
-    @el.autocomplete("close")
     value = if @data.autocomplete_value_attribute? then element.item[@data.autocomplete_value_attribute] else element.item.value
     if @data.autocomplete_value_target?
       @el.prev("input[name='#{@data.autocomplete_value_target}']").val(value).change()
