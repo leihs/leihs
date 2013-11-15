@@ -51,7 +51,7 @@ end
 Angenommen /^ich editiere ein Modell$/ do
   step 'man öffnet die Liste der Modelle'
   step 'ich ein bestehendes Modell bearbeite'
-  find(".top", match: :first, text: _("Edit %s") % _("Model"))
+  find("h1", match: :prefer_exact, text: _("Edit Model"))
 end
 
 Angenommen /^ich editiere ein Modell welches bereits Eigenschaften hat$/ do

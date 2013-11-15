@@ -444,10 +444,10 @@ Wenn /^ich eine?n? bestehende[s|n]? (.+) bearbeite$/ do |entity|
   @page_to_return = current_path
   object_name = case entity
                   when "Modell"
-                    @model = Model.all.first
+                    @model = @current_inventory_pool.models.sample
                     @model.name
                   when "Option"
-                    @option = Option.all.first
+                    @option = @current_inventory_pool.options.sample
                     @option.name
                 end
   step 'ich nach "%s" suche' % object_name
