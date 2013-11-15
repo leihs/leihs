@@ -95,15 +95,15 @@ Dann(/^werden die Modelle meiner Bestellung freigegeben$/) do
 end
 
 Dann(/^bleiben die Modelle in der Bestellung blockiert$/) do
-  @current_user.get_unsubmitted_contract.lines.all? do |line|
+  @current_user.contracts.unsubmitted.flat_map(&:lines).all? do |line|
     line.inventory_pool.running_lines.exists? type: "OrderLine", id: line.id
-  end.should be_true
+  end.should be_false
 end
 
 #######################################################################
 
 Angenommen(/^alle Modelle verfügbar sind$/) do
-  @current_user.get_unsubmitted_contract.lines.all? {|line| line.available? }.should be_true
+  @current_user.contracts.unsubmitted.flat_map(&:lines).all? {|line| line.available? }.should be_true
 end
 
 Dann(/^kann man sein Prozess fortsetzen$/) do
