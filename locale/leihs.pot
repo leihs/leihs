@@ -2659,3 +2659,6 @@ msgid "Inventory pool"
 msgid_plural "Inventory pools"
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "is part of a package"
+msgstr ""

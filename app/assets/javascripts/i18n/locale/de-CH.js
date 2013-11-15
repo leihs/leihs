@@ -3501,6 +3501,10 @@ window.i18n.locale_data = {
       "Available for borrower": [
          null,
          "Verfügbar für Ausleihenden"
+      ],
+      "is part of a package": [
+         null,
+         "ist Bestandteil eines Pakets"
       ]
    }
 }
