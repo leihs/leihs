@@ -1,3 +1,26 @@
+/*
+ Navicat Premium Data Transfer
+
+ Source Server         : MySQL
+ Source Server Type    : MySQL
+ Source Server Version : 50527
+ Source Host           : localhost
+ Source Database       : leihs2_dev
+
+ Target Server Type    : MySQL
+ Target Server Version : 50527
+ File Encoding         : utf-8
+
+ Date: 11/15/2013 09:34:15 AM
+*/
+
+SET NAMES utf8;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+--  Table structure for `access_rights`
+-- ----------------------------
+DROP TABLE IF EXISTS `access_rights`;
 CREATE TABLE `access_rights` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role_id` int(11) DEFAULT NULL,
@@ -17,6 +40,10 @@ CREATE TABLE `access_rights` (
   KEY `index_on_user_id_and_inventory_pool_id_and_deleted_at` (`user_id`,`inventory_pool_id`,`deleted_at`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `accessories`
+-- ----------------------------
+DROP TABLE IF EXISTS `accessories`;
 CREATE TABLE `accessories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `model_id` int(11) DEFAULT NULL,
@@ -26,6 +53,10 @@ CREATE TABLE `accessories` (
   KEY `index_accessories_on_model_id` (`model_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `accessories_inventory_pools`
+-- ----------------------------
+DROP TABLE IF EXISTS `accessories_inventory_pools`;
 CREATE TABLE `accessories_inventory_pools` (
   `accessory_id` int(11) DEFAULT NULL,
   `inventory_pool_id` int(11) DEFAULT NULL,
@@ -33,6 +64,10 @@ CREATE TABLE `accessories_inventory_pools` (
   KEY `index_accessories_inventory_pools_on_inventory_pool_id` (`inventory_pool_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `addresses`
+-- ----------------------------
+DROP TABLE IF EXISTS `addresses`;
 CREATE TABLE `addresses` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `street` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -45,6 +80,10 @@ CREATE TABLE `addresses` (
   UNIQUE KEY `index_addresses_on_street_and_zip_code_and_city_and_country_code` (`street`,`zip_code`,`city`,`country_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `attachments`
+-- ----------------------------
+DROP TABLE IF EXISTS `attachments`;
 CREATE TABLE `attachments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `model_id` int(11) DEFAULT NULL,
@@ -56,6 +95,10 @@ CREATE TABLE `attachments` (
   KEY `index_attachments_on_model_id` (`model_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `authentication_systems`
+-- ----------------------------
+DROP TABLE IF EXISTS `authentication_systems`;
 CREATE TABLE `authentication_systems` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -65,6 +108,10 @@ CREATE TABLE `authentication_systems` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `buildings`
+-- ----------------------------
+DROP TABLE IF EXISTS `buildings`;
 CREATE TABLE `buildings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -72,6 +119,10 @@ CREATE TABLE `buildings` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `contract_lines`
+-- ----------------------------
+DROP TABLE IF EXISTS `contract_lines`;
 CREATE TABLE `contract_lines` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `contract_id` int(11) DEFAULT NULL,
@@ -98,6 +149,10 @@ CREATE TABLE `contract_lines` (
   KEY `index_contract_lines_on_type_and_contract_id` (`type`,`contract_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `contracts`
+-- ----------------------------
+DROP TABLE IF EXISTS `contracts`;
 CREATE TABLE `contracts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
@@ -113,6 +168,10 @@ CREATE TABLE `contracts` (
   KEY `index_contracts_on_status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `database_authentications`
+-- ----------------------------
+DROP TABLE IF EXISTS `database_authentications`;
 CREATE TABLE `database_authentications` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -124,6 +183,10 @@ CREATE TABLE `database_authentications` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `groups`
+-- ----------------------------
+DROP TABLE IF EXISTS `groups`;
 CREATE TABLE `groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -134,6 +197,10 @@ CREATE TABLE `groups` (
   KEY `index_groups_on_inventory_pool_id` (`inventory_pool_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `groups_users`
+-- ----------------------------
+DROP TABLE IF EXISTS `groups_users`;
 CREATE TABLE `groups_users` (
   `user_id` int(11) DEFAULT NULL,
   `group_id` int(11) DEFAULT NULL,
@@ -141,6 +208,10 @@ CREATE TABLE `groups_users` (
   KEY `index_groups_users_on_group_id` (`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `histories`
+-- ----------------------------
+DROP TABLE IF EXISTS `histories`;
 CREATE TABLE `histories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `text` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
@@ -155,6 +226,10 @@ CREATE TABLE `histories` (
   KEY `index_histories_on_user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `holidays`
+-- ----------------------------
+DROP TABLE IF EXISTS `holidays`;
 CREATE TABLE `holidays` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `inventory_pool_id` int(11) DEFAULT NULL,
@@ -166,6 +241,10 @@ CREATE TABLE `holidays` (
   KEY `index_holidays_on_start_date_and_end_date` (`start_date`,`end_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `images`
+-- ----------------------------
+DROP TABLE IF EXISTS `images`;
 CREATE TABLE `images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `model_id` int(11) DEFAULT NULL,
@@ -181,6 +260,10 @@ CREATE TABLE `images` (
   KEY `index_images_on_model_id` (`model_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `inventory_pools`
+-- ----------------------------
+DROP TABLE IF EXISTS `inventory_pools`;
 CREATE TABLE `inventory_pools` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -200,6 +283,10 @@ CREATE TABLE `inventory_pools` (
   UNIQUE KEY `index_inventory_pools_on_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `inventory_pools_model_groups`
+-- ----------------------------
+DROP TABLE IF EXISTS `inventory_pools_model_groups`;
 CREATE TABLE `inventory_pools_model_groups` (
   `inventory_pool_id` int(11) DEFAULT NULL,
   `model_group_id` int(11) DEFAULT NULL,
@@ -207,6 +294,10 @@ CREATE TABLE `inventory_pools_model_groups` (
   KEY `index_inventory_pools_model_groups_on_model_group_id` (`model_group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `items`
+-- ----------------------------
+DROP TABLE IF EXISTS `items`;
 CREATE TABLE `items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `inventory_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -249,6 +340,10 @@ CREATE TABLE `items` (
   KEY `index_items_on_model_id_and_retired_and_inventory_pool_id` (`model_id`,`retired`,`inventory_pool_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `languages`
+-- ----------------------------
+DROP TABLE IF EXISTS `languages`;
 CREATE TABLE `languages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -260,6 +355,10 @@ CREATE TABLE `languages` (
   KEY `index_languages_on_active_and_default` (`active`,`default`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `locations`
+-- ----------------------------
+DROP TABLE IF EXISTS `locations`;
 CREATE TABLE `locations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `room` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -269,6 +368,10 @@ CREATE TABLE `locations` (
   KEY `index_locations_on_building_id` (`building_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `model_group_links`
+-- ----------------------------
+DROP TABLE IF EXISTS `model_group_links`;
 CREATE TABLE `model_group_links` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ancestor_id` int(11) DEFAULT NULL,
@@ -282,6 +385,10 @@ CREATE TABLE `model_group_links` (
   KEY `index_on_descendant_id_and_ancestor_id_and_direct` (`descendant_id`,`ancestor_id`,`direct`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `model_groups`
+-- ----------------------------
+DROP TABLE IF EXISTS `model_groups`;
 CREATE TABLE `model_groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -292,6 +399,10 @@ CREATE TABLE `model_groups` (
   KEY `index_model_groups_on_type` (`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `model_links`
+-- ----------------------------
+DROP TABLE IF EXISTS `model_links`;
 CREATE TABLE `model_links` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `model_group_id` int(11) DEFAULT NULL,
@@ -302,6 +413,10 @@ CREATE TABLE `model_links` (
   KEY `index_model_links_on_model_group_id_and_model_id` (`model_group_id`,`model_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `models`
+-- ----------------------------
+DROP TABLE IF EXISTS `models`;
 CREATE TABLE `models` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -320,6 +435,10 @@ CREATE TABLE `models` (
   KEY `index_models_on_is_package` (`is_package`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `models_compatibles`
+-- ----------------------------
+DROP TABLE IF EXISTS `models_compatibles`;
 CREATE TABLE `models_compatibles` (
   `model_id` int(11) DEFAULT NULL,
   `compatible_id` int(11) DEFAULT NULL,
@@ -327,6 +446,10 @@ CREATE TABLE `models_compatibles` (
   KEY `index_models_compatibles_on_model_id` (`model_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `notifications`
+-- ----------------------------
+DROP TABLE IF EXISTS `notifications`;
 CREATE TABLE `notifications` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
@@ -336,12 +459,20 @@ CREATE TABLE `notifications` (
   KEY `index_notifications_on_user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `numerators`
+-- ----------------------------
+DROP TABLE IF EXISTS `numerators`;
 CREATE TABLE `numerators` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `item` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `options`
+-- ----------------------------
+DROP TABLE IF EXISTS `options`;
 CREATE TABLE `options` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `inventory_pool_id` int(11) DEFAULT NULL,
@@ -352,6 +483,10 @@ CREATE TABLE `options` (
   KEY `index_options_on_inventory_pool_id` (`inventory_pool_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `partitions`
+-- ----------------------------
+DROP TABLE IF EXISTS `partitions`;
 CREATE TABLE `partitions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `model_id` int(11) DEFAULT NULL,
@@ -362,6 +497,10 @@ CREATE TABLE `partitions` (
   UNIQUE KEY `index_partitions_on_model_id_and_inventory_pool_id_and_group_id` (`model_id`,`inventory_pool_id`,`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `properties`
+-- ----------------------------
+DROP TABLE IF EXISTS `properties`;
 CREATE TABLE `properties` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `model_id` int(11) DEFAULT NULL,
@@ -371,12 +510,20 @@ CREATE TABLE `properties` (
   KEY `index_properties_on_model_id` (`model_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `purposes`
+-- ----------------------------
+DROP TABLE IF EXISTS `purposes`;
 CREATE TABLE `purposes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `description` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `roles`
+-- ----------------------------
+DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) DEFAULT NULL,
@@ -390,11 +537,19 @@ CREATE TABLE `roles` (
   KEY `index_roles_on_name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `schema_migrations`
+-- ----------------------------
+DROP TABLE IF EXISTS `schema_migrations`;
 CREATE TABLE `schema_migrations` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   UNIQUE KEY `unique_schema_migrations` (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `settings`
+-- ----------------------------
+DROP TABLE IF EXISTS `settings`;
 CREATE TABLE `settings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `smtp_address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -412,6 +567,10 @@ CREATE TABLE `settings` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `suppliers`
+-- ----------------------------
+DROP TABLE IF EXISTS `suppliers`;
 CREATE TABLE `suppliers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -420,6 +579,10 @@ CREATE TABLE `suppliers` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `users`
+-- ----------------------------
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -443,6 +606,10 @@ CREATE TABLE `users` (
   KEY `index_users_on_authentication_system_id` (`authentication_system_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- ----------------------------
+--  Table structure for `workdays`
+-- ----------------------------
+DROP TABLE IF EXISTS `workdays`;
 CREATE TABLE `workdays` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `inventory_pool_id` int(11) DEFAULT NULL,
@@ -457,72 +624,28 @@ CREATE TABLE `workdays` (
   KEY `index_workdays_on_inventory_pool_id` (`inventory_pool_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO schema_migrations (version) VALUES ('20101213125330');
+-- ----------------------------
+--  View structure for `partitions_with_generals`
+-- ----------------------------
+DROP VIEW IF EXISTS `partitions_with_generals`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `partitions_with_generals` AS select `partitions`.`model_id` AS `model_id`,`partitions`.`inventory_pool_id` AS `inventory_pool_id`,`partitions`.`group_id` AS `group_id`,`partitions`.`quantity` AS `quantity` from `partitions` union select `i`.`model_id` AS `model_id`,`i`.`inventory_pool_id` AS `inventory_pool_id`,NULL AS `group_id`,(count(`i`.`id`) - ifnull((select sum(`p`.`quantity`) from `partitions` `p` where ((`p`.`model_id` = `i`.`model_id`) and (`p`.`inventory_pool_id` = `i`.`inventory_pool_id`)) group by `p`.`inventory_pool_id`,`p`.`model_id`),0)) AS `quantity` from `items` `i` where (isnull(`i`.`retired`) and (`i`.`is_borrowable` = 1) and isnull(`i`.`parent_id`)) group by `i`.`inventory_pool_id`,`i`.`model_id`;
 
-INSERT INTO schema_migrations (version) VALUES ('20110111175705');
+-- ----------------------------
+--  View structure for `running_lines`
+-- ----------------------------
+DROP VIEW IF EXISTS `running_lines`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `running_lines` AS select `contract_lines`.`id` AS `id`,`contract_lines`.`type` AS `type`,`contracts`.`inventory_pool_id` AS `inventory_pool_id`,`contract_lines`.`model_id` AS `model_id`,`contract_lines`.`quantity` AS `quantity`,`contract_lines`.`start_date` AS `start_date`,`contract_lines`.`end_date` AS `end_date`,((`contract_lines`.`end_date` < curdate()) and (`contracts`.`status` = 'signed')) AS `is_late`,if((`contract_lines`.`item_id` is not null),curdate(),if((`contract_lines`.`start_date` > curdate()),`contract_lines`.`start_date`,curdate())) AS `unavailable_from`,group_concat(`groups_users`.`group_id` separator ',') AS `concat_group_ids` from ((`contract_lines` join `contracts` on((`contracts`.`id` = `contract_lines`.`contract_id`))) left join `groups_users` on((`groups_users`.`user_id` = `contracts`.`user_id`))) where ((`contract_lines`.`type` = 'ItemLine') and isnull(`contract_lines`.`returned_date`) and (`contracts`.`status` <> 'rejected') and ((`contracts`.`status` <> 'unsubmitted') or (`contracts`.`updated_at` >= (utc_timestamp() - interval 30 minute))) and ((`contract_lines`.`end_date` >= curdate()) or (`contract_lines`.`item_id` is not null))) group by `contract_lines`.`id`;
 
-INSERT INTO schema_migrations (version) VALUES ('20110117113700');
+-- ----------------------------
+--  View structure for `visit_lines`
+-- ----------------------------
+DROP VIEW IF EXISTS `visit_lines`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `visit_lines` AS select hex(concat(if((`c`.`status` = 'approved'),`cl`.`start_date`,`cl`.`end_date`),convert(`c`.`inventory_pool_id` using utf8),convert(`c`.`user_id` using utf8),`c`.`status`)) AS `visit_id`,`c`.`inventory_pool_id` AS `inventory_pool_id`,`c`.`user_id` AS `user_id`,`c`.`status` AS `status`,if((`c`.`status` = 'approved'),'hand_over','take_back') AS `action`,if((`c`.`status` = 'approved'),`cl`.`start_date`,`cl`.`end_date`) AS `date`,`cl`.`quantity` AS `quantity`,`cl`.`id` AS `contract_line_id` from (`contract_lines` `cl` join `contracts` `c` on((`cl`.`contract_id` = `c`.`id`))) where ((`c`.`status` in ('approved','signed')) and isnull(`cl`.`returned_date`)) order by if((`c`.`status` = 'approved'),`cl`.`start_date`,`cl`.`end_date`);
 
-INSERT INTO schema_migrations (version) VALUES ('20110119193618');
+-- ----------------------------
+--  View structure for `visits`
+-- ----------------------------
+DROP VIEW IF EXISTS `visits`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `visits` AS select hex(concat(convert(`visit_lines`.`date` using utf8),convert(`visit_lines`.`inventory_pool_id` using utf8),convert(`visit_lines`.`user_id` using utf8),`visit_lines`.`status`)) AS `id`,`visit_lines`.`inventory_pool_id` AS `inventory_pool_id`,`visit_lines`.`user_id` AS `user_id`,`visit_lines`.`status` AS `status`,`visit_lines`.`action` AS `action`,`visit_lines`.`date` AS `date`,sum(`visit_lines`.`quantity`) AS `quantity` from `visit_lines` group by `visit_lines`.`user_id`,`visit_lines`.`status`,`visit_lines`.`date`,`visit_lines`.`inventory_pool_id`;
 
-INSERT INTO schema_migrations (version) VALUES ('20110201160119');
-
-INSERT INTO schema_migrations (version) VALUES ('20110222163245');
-
-INSERT INTO schema_migrations (version) VALUES ('20110318110901');
-
-INSERT INTO schema_migrations (version) VALUES ('20110523133506');
-
-INSERT INTO schema_migrations (version) VALUES ('20110617090905');
-
-INSERT INTO schema_migrations (version) VALUES ('20110704075302');
-
-INSERT INTO schema_migrations (version) VALUES ('20110815110417');
-
-INSERT INTO schema_migrations (version) VALUES ('20110921134810');
-
-INSERT INTO schema_migrations (version) VALUES ('20111123154235');
-
-INSERT INTO schema_migrations (version) VALUES ('20111215221843');
-
-INSERT INTO schema_migrations (version) VALUES ('20120106214650');
-
-INSERT INTO schema_migrations (version) VALUES ('20120301140904');
-
-INSERT INTO schema_migrations (version) VALUES ('20120424080000');
-
-INSERT INTO schema_migrations (version) VALUES ('20120424080001');
-
-INSERT INTO schema_migrations (version) VALUES ('20120427113142');
-
-INSERT INTO schema_migrations (version) VALUES ('20120523134739');
-
-INSERT INTO schema_migrations (version) VALUES ('20120618143839');
-
-INSERT INTO schema_migrations (version) VALUES ('20120619083752');
-
-INSERT INTO schema_migrations (version) VALUES ('20120806140527');
-
-INSERT INTO schema_migrations (version) VALUES ('20120806203246');
-
-INSERT INTO schema_migrations (version) VALUES ('20120806203332');
-
-INSERT INTO schema_migrations (version) VALUES ('20120921102118');
-
-INSERT INTO schema_migrations (version) VALUES ('20121109141157');
-
-INSERT INTO schema_migrations (version) VALUES ('20130111105833');
-
-INSERT INTO schema_migrations (version) VALUES ('20130729120232');
-
-INSERT INTO schema_migrations (version) VALUES ('20130730145452');
-
-INSERT INTO schema_migrations (version) VALUES ('20130823104438');
-
-INSERT INTO schema_migrations (version) VALUES ('20130906084646');
-
-INSERT INTO schema_migrations (version) VALUES ('20130923141326');
-
-INSERT INTO schema_migrations (version) VALUES ('20130924180000');
-
-INSERT INTO schema_migrations (version) VALUES ('20130924180001');
+SET FOREIGN_KEY_CHECKS = 1;
