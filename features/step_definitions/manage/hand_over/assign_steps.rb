@@ -28,11 +28,11 @@ end
 
 When /^I select one of those$/ do
   within(".line[data-id='#{@item_line.id}']") do
-    find("[data-assign-item]").click
+    find("input[data-assign-item]").click
     step "ensure there are no active requests"
-    find(".ui-autocomplete")
-    @selected_inventory_code = find(".ui-autocomplete a strong", match: :first).text
-    find(".ui-autocomplete a", match: :first).click
+    x = find(".ui-autocomplete a", match: :first)
+    @selected_inventory_code = x.find("strong", match: :first).text
+    x.click
     step "ensure there are no active requests"
   end
 end

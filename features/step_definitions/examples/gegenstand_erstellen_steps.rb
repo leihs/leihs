@@ -89,7 +89,7 @@ Dann /^ist der Gegenstand mit all den angegebenen Informationen erstellt$/ do
     find(".button[data-type='inventory-expander'] i.arrow.right").click
     find(".button[data-type='inventory-expander'] i.arrow.down")
   end
-  find(".group-of-lines .line[data-type='item'] .col1of5:nth-child(2)", text: inventory_code).find(:xpath, "./..").find(".button", text: _("Edit Item")).click
+  find(".group-of-lines .line[data-type='item']", text: inventory_code).find(".button", text: _("Edit Item")).click
   step 'hat der Gegenstand alle zuvor eingetragenen Werte'
 end
 
