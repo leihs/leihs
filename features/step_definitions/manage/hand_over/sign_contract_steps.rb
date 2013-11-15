@@ -95,9 +95,9 @@ When /^I assign an inventory code the item line$/ do
   @selected_items ||= []
   @selected_items << item
   within(".line[data-id='#{@item_line.id}']") do
-    find("[data-assign-item]").set item.inventory_code
+    find("input[data-assign-item]").set item.inventory_code
     find("a.ui-corner-all", text: item.inventory_code)
-    find("[data-assign-item]").native.send_key(:enter)
+    find("input[data-assign-item]").native.send_key(:enter)
   end
   sleep(0.88)
 end
