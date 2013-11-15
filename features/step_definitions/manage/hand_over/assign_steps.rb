@@ -9,7 +9,7 @@ end
 Then /^I see a list of inventory codes of items that are in stock and matching the model$/ do
   within @item_line_element.find(".ui-autocomplete") do
     @item_line.model.items.in_stock.each do |item|
-      find("[role='menuitem']", text: item.inventory_code)
+      find("a", text: item.inventory_code)
     end
   end
 end
