@@ -179,6 +179,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/passwort.feature"
+- name: examples/kategorien2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/kategorien2.feature"
 - name: examples/gegenstand_ausmustern
   scripts:
     cucumber:
