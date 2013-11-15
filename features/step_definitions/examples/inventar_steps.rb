@@ -321,7 +321,7 @@ Dann /^kann man jedes Paket\-Modell aufklappen$/ do
 end
 
 Dann /^man sieht die Pakete dieses Paket\-Modells$/ do
-  @packages_element = @package_line.find(:xpath, "following-sibling::span[@class='group-of-lines']")
+  @packages_element = @package_line.find(:xpath, "following-sibling::div[@class='group-of-lines']")
   package_items = @packages_element.all(".line[data-type='item']")
   @package.items.each do |package|
     @packages_element.should have_content package.inventory_code  
