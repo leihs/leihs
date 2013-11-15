@@ -68,7 +68,7 @@ Before('@javascript') do
 end
 
 After do |scenario|
-  sleep(0.44) # to prevent lazy failures i.e: features/examples/benutzerverwaltung.feature:328 "Zugriff entfernen als Inventar-Verwalter"
+  sleep(0.88) # to prevent lazy failures i.e: features/examples/benutzerverwaltung.feature:328 "Zugriff entfernen als Inventar-Verwalter"
   DatabaseCleaner.clean
 end
 
