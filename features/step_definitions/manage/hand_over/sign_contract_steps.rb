@@ -16,8 +16,10 @@ When /^I select an item line and assign an inventory code$/ do
 end
 
 Then /^I see a summary of the things I selected for hand over$/ do
-  @selected_items.each do |item|
-    first(".modal").should have_content(item.model.name)
+  within(".modal") do
+    @selected_items.each do |item|
+      page.should have_content(item.model.name)
+    end
   end
 end
 
@@ -94,6 +96,7 @@ When /^I assign an inventory code the item line$/ do
   @selected_items << item
   within(".line[data-id='#{@item_line.id}']") do
     find("[data-assign-item]").set item.inventory_code
+    find("a.ui-corner-all", text: item.inventory_code)
     find("[data-assign-item]").native.send_key(:enter)
   end
   sleep(0.88)

@@ -18,6 +18,8 @@
   .col1of5.line-col.text-align-left
     {{if parent_id}}
     %strong {{>model().name}}
+    .row.grey-text.text-ellipsis.width-s-alt{title: '{{jed "is part of a package"/}}'}
+      {{jed "is part of a package"/}}
     {{else}}
     {{>currentLocation()}}
     {{/if}}

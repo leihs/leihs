@@ -24,7 +24,6 @@ Dann /^man sieht Pakete$/ do
   package = @current_inventory_pool.items.packages.sample
   step 'ich nach "%s" suche' % package.inventory_code
   find(".line[data-is_package='true']", match: :prefer_exact, text: package.name)
-  step 'ich nach "%s" suche' % " "
 end
 
 ########################################################################
@@ -136,9 +135,13 @@ end
 
 ########################################################################
 
-Wenn /^man eine Modell\-Zeile sieht$/ do
-  @model_line = find("#inventory .line[data-type='model']", match: :first)
-  @model = Model.find_by_name(@model_line.find(".col2of5 strong").text)
+Wenn /^man eine Modell\-Zeile eines Modells, das weder ein Paket-Modell oder ein Bestandteil eines Paket-Modells ist, sieht$/ do
+  page.has_selector? "#inventory .line[data-type='model']"
+  all("#inventory .line[data-type='model']").each do |model_line|
+    @model = Model.find_by_name(model_line.find(".col2of5 strong").text)
+    next if @model.is_package? or @model.items.all? {|i| i.parent}
+    @model_line = model_line and break
+  end
 end
 
 Dann /^enthält die Modell\-Zeile folgende Informationen:$/ do |table|
@@ -233,18 +236,19 @@ Wenn /^der Gegenstand an Lager ist und meine Abteilung für den Gegenstand veran
   @item = Item.find_by_inventory_code @item_line.find(".col1of5.text-align-left:nth-child(2)").text
 end
 
-Wenn /^der Gegenstand nicht an Lager ist und meine oder andere Abteilung für den Gegenstand verantwortlich ist$/ do
-  find("select#responsibles option[value='#{@current_inventory_pool.id}']").select_option
+Wenn /^der Gegenstand nicht an Lager ist und eine andere Abteilung für den Gegenstand verantwortlich ist$/ do
+  all("select#responsibles option:not([selected])").detect{|o| o.value != @current_inventory_pool.id.to_s and o.value != ""}.select_option
   find("#list-filters input#in_stock").click if find("#list-filters input#in_stock").checked?
-  step 'ich nach "%s" suche' % @current_inventory_pool.items.detect{|i| not i.inventory_pool_id.nil? and not i.in_stock?}.inventory_code
-  step "ensure there are no active requests"
-  find(".button[data-type='inventory-expander'] i.arrow.right", match: :first).click
+  item = @current_inventory_pool.own_items.detect{|i| not i.inventory_pool_id.nil? and i.inventory_pool != @current_inventory_pool and not i.in_stock?}
+  step 'ich nach "%s" suche' % item.inventory_code
+  page.has_selector? ".line[data-id='#{item.id}']"
+  find(".line[data-id='#{item.model.id}'] .button[data-type='inventory-expander'] i.arrow.right", match: :first).click
   @item_line = find(".group-of-lines .line[data-type='item']", match: :first)
   @item = Item.find_by_inventory_code @item_line.find(".col1of5.text-align-left:nth-child(2)").text
 end
 
 Wenn /^meine Abteilung Besitzer des Gegenstands ist die Verantwortung aber auf eine andere Abteilung abgetreten hat$/ do
-  all("select#responsibles option:not([selected])").detect{|o| o.value != @current_inventory_pool.name}.select_option
+  all("select#responsibles option:not([selected])").detect{|o| o.value != @current_inventory_pool.id.to_s and o.value != ""}.select_option
   step "ensure there are no active requests"
   find(".button[data-type='inventory-expander'] i.arrow.right", match: :first).click
   @item_line = find(".group-of-lines .line[data-type='item']", match: :first)
@@ -269,7 +273,7 @@ Dann /^enthält die Options\-Zeile folgende Informationen$/ do |table|
 end
 
 Dann /^kann man jedes Modell aufklappen$/ do
-  step "man eine Modell-Zeile sieht"
+  step "man eine Modell-Zeile eines Modells, das weder ein Paket-Modell oder ein Bestandteil eines Paket-Modells ist, sieht"
   within @model_line do
     find(".button[data-type='inventory-expander'] i.arrow.right").click
     find(".button[data-type='inventory-expander'] i.arrow.down")
@@ -277,7 +281,7 @@ Dann /^kann man jedes Modell aufklappen$/ do
 end
 
 Dann /^man sieht die Gegenstände, die zum Modell gehören$/ do
-  @items_element = @model_line.find(:xpath, "following-sibling::span[@class='group-of-lines']")
+  @items_element = @model_line.find(:xpath, "following-sibling::div[@class='group-of-lines']")
   @model.items.each do |item|
     @items_element.should have_content item.inventory_code
   end
@@ -288,7 +292,7 @@ Dann /^so eine Zeile sieht aus wie eine Gegenstands\-Zeile$/ do
   @item ||= Item.find_by_inventory_code @item_line.find(".col1of5.text-align-left:nth-child(2)").text
   
   if @item.in_stock? && @item.inventory_pool == @current_inventory_pool
-    step 'enthält die Gegenstands-Zeile den Ort des Gegenstands'
+    step 'enthält die Gegenstands-Zeile die Gebäudeabkürzung'
     step 'enthält die Gegenstands-Zeile den Raum'
     step 'enthält die Gegenstands-Zeile das Gestell'
   elsif not @item.in_stock? && @item.inventory_pool == @current_inventory_pool
@@ -440,10 +444,10 @@ Wenn /^ich eine?n? bestehende[s|n]? (.+) bearbeite$/ do |entity|
   @page_to_return = current_path
   object_name = case entity
                   when "Modell"
-                    @model = Model.all.first
+                    @model = @current_inventory_pool.models.sample
                     @model.name
                   when "Option"
-                    @option = Option.all.first
+                    @option = @current_inventory_pool.options.sample
                     @option.name
                 end
   step 'ich nach "%s" suche' % object_name

@@ -53,6 +53,7 @@ module Persona
     def create_submitted_contracts
       @camera_model = Model.find_by_name "Kamera Nikon X12"
       @tripod_model = Model.find_by_name "Kamera Stativ"
+      @beamer_model = Model.find_by_name "Sharp Beamer"
       @contract_for_camera = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :submitted)
       @contract_for_camera_purpose = FactoryGirl.create :purpose, :description => "Benötige ich für die Aufnahmen meiner Abschlussarbeit."
       @contract_line_camera = FactoryGirl.create(:contract_line, :purpose => @contract_for_camera_purpose, :model => @camera_model, :contract => @contract_for_camera, :start_date => (Date.today + 7.days), :end_date => (Date.today + 10.days))
@@ -100,6 +101,11 @@ module Persona
       @approved_contract_2.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @approved_contract_2, :item_id => @inventory_pool_2.items.in_stock.where(:model_id => @arbitrary_model_1).first.id, :model => @arbitrary_model_1, :start_date => Date.yesterday, :end_date => Date.today)
       @approved_contract_2.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @approved_contract_2, :item_id => @inventory_pool_2.items.in_stock.where(:model_id => @arbitrary_model_2).first.id, :model => @arbitrary_model_2, :start_date => Date.yesterday, :end_date => Date.today, :returned_to_user => @pius, :returned_date => Date.today)
       @approved_contract_2.sign(@pius)
+
+      @approved_contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool_2, :status => :approved)
+      purpose = FactoryGirl.create :purpose, :description => "Um meine Abschlussarbeit zu fotografieren."
+      @approved_contract.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @approved_contract, :item_id => @inventory_pool_2.items.in_stock.where(:model_id => @beamer_model).first.id, :model => @beamer_model, :start_date => Date.yesterday, :end_date => Date.today)
+      @approved_contract.sign(@pius)
     end
 
     def setup_groups

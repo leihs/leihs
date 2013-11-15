@@ -2722,3 +2722,6 @@ msgid "Inventory pool"
 msgid_plural "Inventory pools"
 msgstr[0] "Gerätepark"
 msgstr[1] "Geräteparks"
+
+msgid "is part of a package"
+msgstr "ist Bestandteil eines Pakets"

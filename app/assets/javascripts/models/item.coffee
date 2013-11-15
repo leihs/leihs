@@ -11,6 +11,7 @@ class window.App.Item extends Spine.Model
   @belongsTo "model", "App.Model", "model_id"
   @hasOne "currentLocation", "App.CurrentItemLocation", "id"
   @hasMany "children", "App.Item", "parent_id"
+  @belongsTo "parent", "App.Item", "parent_id"
 
   @extend Spine.Model.Ajax
 

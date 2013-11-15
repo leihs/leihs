@@ -37,6 +37,7 @@ module Persona
       @language = Language.find_by_locale_name "de-CH"
       @user = FactoryGirl.create(:user, :language => @language, :firstname => @@name, :lastname => @@lastname, :login => @@name.downcase, :email => @@email)
       @inventory_pool = InventoryPool.find_by_name(@@inventory_pool_names.first)
+      @inventory_pool_2 = InventoryPool.find_by_name(@@inventory_pool_names.second)
       @user.access_rights.create(:role => Role.find_by_name("manager"), :inventory_pool => @inventory_pool, :access_level => 3)
       @user.access_rights.create(:role => Role.find_by_name("manager"), :inventory_pool => InventoryPool.last, :access_level => 3)
       @database_authentication = FactoryGirl.create(:database_authentication, :user => @user, :password => @@password)
@@ -133,6 +134,7 @@ module Persona
       @beamer_item = FactoryGirl.create(:item, :inventory_code => "beam123", :serial_number => "xyz456", name: "name123", :model => @beamer_model, :location => @location, :owner => @inventory_pool)
       @beamer_item2 = FactoryGirl.create(:item, :inventory_code => "beam345", :serial_number => "xyz890", :model => @beamer_model, :location => @location, :owner => @inventory_pool)
       @beamer_item3 = FactoryGirl.create(:item, :inventory_code => "beam678", :serial_number => "xyz678", :model => @beamer_model2, :location => @location, :owner => @inventory_pool)
+      @beamer_item4 = FactoryGirl.create(:item, :inventory_code => "beam749", :serial_number => "xyz749", :model => @beamer_model, :location => @location, :owner => @inventory_pool, inventory_pool: @inventory_pool_2)
     end
 
     def setup_more_beamers
