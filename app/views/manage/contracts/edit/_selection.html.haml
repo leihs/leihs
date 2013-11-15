@@ -1,7 +1,7 @@
 .padding-top-m.padding-left-m.padding-bottom-m
 
   .multibutton{:disabled => :disabled}
-    %button.button.white{:disabled => :disabled, :"data-selection-enabled" => true, :"data-edit-lines" => "selected-lines"}
+    %button.button.white{:disabled => :disabled, :"data-selection-enabled" => true, :"data-edit-lines" => "selected-lines", :autocomplete => :off}}
       = _("Edit Selection")
       %span#line-selection-counter.badge.dark 0
     .dropdown-holder.inline-block

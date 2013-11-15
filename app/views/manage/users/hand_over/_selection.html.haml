@@ -1,7 +1,7 @@
 .padding-top-m.padding-left-m.padding-bottom-m
 
   .multibutton{:disabled => :disabled}
-    %button.button.green{:disabled => :disabled, :"data-selection-enabled" => true, :"data-hand-over-selection" => true}
+    %button.button.green{:disabled => :disabled, :"data-selection-enabled" => true, :"data-hand-over-selection" => true, :autocomplete => :off}}
       = _("Hand Over Selection")
       %span#line-selection-counter.badge.dark 0
     .dropdown-holder.inline-block
