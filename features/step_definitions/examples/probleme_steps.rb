@@ -84,7 +84,6 @@ Dann /^"(.*?)" sind verfügbar für den Kunden$/ do |arg1|
   else
     @max_before - @quantity_added
   end
-  binding.pry
   @reference_problem.match(/#{max}\(/).should_not be_nil
 end
 
@@ -171,6 +170,7 @@ Angenommen /^eine Gegenstand ist unvollständig$/ do
 end
 
 Dann /^sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen$/ do
+  find(".line[data-id='#{@line_id}']")
   find(".line[data-id='#{@line_id}'] .emboss.red").hover
   t = find(".tooltipster-base").text
   t.match(/\w/).should be_true
