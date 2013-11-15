@@ -35,7 +35,6 @@ Wenn /^ich auf "(.*?)" klicke$/ do |arg1|
 end
 
 Dann /^wird mir ich ein Suchresultat nach "(.*?)" angezeigt/ do |arg1|
-  step "ensure there are no active requests"
   find("#search-overview h1", text: _("Search Results for \"%s\"") % arg1)
 end
 
@@ -79,7 +78,6 @@ Dann /^wird der Gegenstand ausgewählt und der Haken gesetzt$/ do
     @item_line.item.inventory_code.should == @selected_inventory_code
     find("input[data-assign-item][value='#{@item_line.item.inventory_code}']")
     find("input[type='checkbox'][data-select-line]").checked?.should be_true
-    find(".col5of10 strong", text: @item_line.model.name)
   end
   step 'the count matches the amount of selected lines'
 end
@@ -215,6 +213,7 @@ end
 
 Dann /^wird es für die ausgewählte Zeitspanne hinzugefügt$/ do
   find(".line", match: :first)
+  all(".line")
   @amount_lines_before.should < all(".line").size
 end
 
