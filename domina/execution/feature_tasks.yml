@@ -47,6 +47,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/borrow/bestelluebersicht2.feature"
+- name: borrow/bestelluebersicht3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/bestelluebersicht3.feature"
 - name: borrow/bestellungen
   scripts:
     cucumber:
@@ -75,6 +79,14 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/borrow/kalender2.feature"
+- name: borrow/kalender3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/kalender3.feature"
+- name: borrow/kalender4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/kalender4.feature"
 - name: borrow/modellliste
   scripts:
     cucumber:
@@ -83,10 +95,22 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/borrow/modellliste2.feature"
+- name: borrow/modellliste3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/modellliste3.feature"
+- name: borrow/modellliste4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/modellliste4.feature"
 - name: borrow/modelluebersicht
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/borrow/modelluebersicht.feature"
+- name: borrow/modelluebersicht2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/modelluebersicht2.feature"
 - name: borrow/navigation
   scripts:
     cucumber:
