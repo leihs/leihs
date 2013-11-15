@@ -109,7 +109,7 @@ end
 
 Angenommen /^man editiert ein Gegenstand eines anderen Besitzers$/ do
   @item = Item.find {|i| i.inventory_pool_id == @current_inventory_pool.id and @current_inventory_pool.id != i.owner_id}
-  visit "/manage/%d/items/%d/edit" % [@current_inventory_pool.id, @item.id]
+  visit manage_edit_item_path(@current_inventory_pool, @item)
   page.has_selector?(".field")
   @fields = all(".field:not(.editable)")
   @fields.size.should > 0

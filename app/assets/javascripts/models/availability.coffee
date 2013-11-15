@@ -85,7 +85,7 @@ class window.App.Availability extends Spine.Model
     if it is not possible to solve the self-blocking problem with just adding the line quantity again
     take care to deep clone the availability to not manipulate the original
   ###
-  withoutLines: (lines) ->
+  withoutLines: (lines, recoverSoftOverBooking) ->
     clone = $.extend true, {}, @
     _.each clone.changes, (change)=>
       for allocation in change[2]
@@ -96,7 +96,8 @@ class window.App.Availability extends Spine.Model
             if _.include(outDocumentLines, line.id)
               allocation.out_document_lines["ItemLine"] = _.filter outDocumentLines, (l)-> l != line.id
               # we recover the quantity only if is not a soft-overbooking
-              if @groupIsIn line.user().groupIds, allocation.group_id
+              # or if it is request by passing true as second argument
+              if recoverSoftOverBooking or @groupIsIn line.user().groupIds, allocation.group_id
                 # total quantity
                 change[1] += line.quantity
                 # partition based quantity

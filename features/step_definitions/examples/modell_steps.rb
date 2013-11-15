@@ -2,7 +2,7 @@
 
 Angenommen /^man öffnet die Liste der Modelle$/ do
   @current_inventory_pool = @current_user.managed_inventory_pools.keep_if{|ip| ip.models.any?}.sample
-  visit "/manage/#{@current_inventory_pool.id}/inventory"
+  visit manage_inventory_path(@current_inventory_pool)
 end
 
 Wenn(/^ich ein ergänzendes Modell mittel Autocomplete Feld hinzufüge$/) do
@@ -98,7 +98,7 @@ end
 
 Dann(/^kann ich das Modell aus der Liste nicht löschen$/) do
   sleep(0.88)
-  visit "/manage/#{@current_inventory_pool.id}/inventory"
+  visit manage_inventory_path(@current_inventory_pool)
   find("[data-unused_models]").click unless @current_inventory_pool.models.include? @model
   fill_in 'list-search', with: @model.name
   find(".line[data-id='#{@model.id}'] .dropdown-holder").hover
@@ -123,7 +123,7 @@ Dann(/^es wurden auch alle Anhängsel gelöscht$/) do
 end
 
 Wenn(/^ich dieses Modell aus der Liste lösche$/) do
-  visit "/manage/#{@current_inventory_pool.id}/inventory"
+  visit manage_inventory_path(@current_inventory_pool)
   find("[data-unused_models]").click
   fill_in 'list-search', with: @model.name
   find(".line[data-id='#{@model.id}'] .dropdown-holder").hover
@@ -136,7 +136,7 @@ end
 
 Angenommen(/^ich editieren ein bestehndes Modell mit bereits zugeteilten Kapazitäten$/) do
   @model = @current_inventory_pool.models.find{|m| m.partitions.count > 0}
-  visit "/manage/%d/models/%d/edit" % [@current_inventory_pool.id, @model.id]
+  visit manage_edit_model_path(@current_inventory_pool, @model)
 end
 
 Wenn(/^ich bestehende Zuteilungen entfernen$/) do

@@ -56,7 +56,7 @@ end
 
 Angenommen /^ich editiere ein Modell welches bereits Eigenschaften hat$/ do
   @model = @current_inventory_pool.models.joins(:properties).first
-  visit "/manage/%d/models/%d/edit" % [@current_inventory_pool.id, @model.id]
+  visit manage_edit_model_path(@current_inventory_pool, @model)
 end
 
 Wenn /^ich bestehende Eigenschaften ändere$/ do
