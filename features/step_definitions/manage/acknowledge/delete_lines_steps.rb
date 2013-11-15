@@ -32,7 +32,6 @@ When /^I delete multiple lines of this contract$/ do
 end
 
 When /^I delete the selection$/ do
-  page.execute_script('$("#selection_actions .button").show()')
   line_amount_before = all(".line").size
   find(".multibutton [data-selection-enabled] + .dropdown-holder").hover
   find("a", :text => _("Delete Selection")).click

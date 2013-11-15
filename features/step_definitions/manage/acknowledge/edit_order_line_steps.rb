@@ -9,8 +9,10 @@ When /^I open a contract for acknowledgement$/ do
 end
 
 When /^I open a contract for acknowledgement with more then one line$/ do
-  @ip = @current_user.managed_inventory_pools.first
-  @customer = @ip.users.all.detect {|x| x.contracts.submitted.exists? and x.contracts.submitted.first.lines.size > 1}
+  @ip = @current_user.managed_inventory_pools.detect do |ip|
+    @customer = ip.users.all.shuffle.detect {|x| x.contracts.submitted.exists? and x.contracts.submitted.first.lines.size > 1}
+  end
+  raise "customer not found" unless @customer
   @contract = @customer.contracts.submitted.first
   visit manage_edit_contract_path(@ip, @contract)
   page.should have_selector("[data-order-approve]", :visible => true)
@@ -83,11 +85,9 @@ end
 
 When /^I select two lines$/ do
   @line1 = @contract.lines.first
-  @line1_element = find(".line", match: :first, :text => @line1.model.name)
-  @line1_element.first("input[type=checkbox]").click
+  find(".line", match: :first, :text => @line1.model.name).find("input[type=checkbox]").click
   @line2 = @contract.lines.second
-  @line2_element = find(".line", match: :first, :text => @line2.model.name)
-  @line2_element.first("input[type=checkbox]").click
+  find(".line", match: :first, :text => @line2.model.name).find("input[type=checkbox]").click
 end
 
 When /^I change the time range for multiple lines$/ do
