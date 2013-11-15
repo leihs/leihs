@@ -132,23 +132,20 @@ end
 
 Dann /^markiere ich den Gegenstand als nicht ausleihbar$/ do
   open_inspection_for_line(@line_id)
-  find("select[name='flags[is_borrowable]']").select "Nicht ausleihbar"
-  find(".modal .navigation button[type='submit']").click
-  find(".notice")
+  find("select[name='is_borrowable']").select "Nicht ausleihbar"
+  find(".modal button[type='submit']").click
 end
 
 Dann /^markiere ich den Gegenstand als defekt$/ do
   open_inspection_for_line(@line_id)
-  find("select[name='flags[is_broken]']").select "Defekt"
-  find(".modal .navigation button[type='submit']").click
-  find(".notice")
+  find("select[name='is_broken']").select "Defekt"
+  find(".modal button[type='submit']").click
 end
 
 Dann /^markiere ich den Gegenstand als unvollständig$/ do
   open_inspection_for_line(@line_id)
-  find("select[name='flags[is_incomplete]']").select "Unvollständig"
-  find(".modal .navigation button[type='submit']").click
-  find(".notice")
+  find("select[name='is_incomplete']").select "Unvollständig"
+  find(".modal button[type='submit']").click
 end
 
 Angenommen /^eine Gegenstand ist defekt$/ do
