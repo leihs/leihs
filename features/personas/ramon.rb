@@ -53,18 +53,26 @@ module Persona
       description = "Wichtige Hinweise...\n Bitte die Gegenstände rechtzeitig zurückbringen"
       contact_details = "A Verleih  /  ZHdK\nav@zh-dk.ch\n+41 00 00 00 00"
       @a_ausleihe = FactoryGirl.create(:inventory_pool, :name => "A-Ausleihe", :description => description, :contact_details => contact_details, :contract_description => "Gerät erhalten", :email => "av@zhdk.ch", :shortname => "A")
+      create_christmas_holiday @a_ausleihe
+    end
+
+    def create_christmas_holiday inventory_pool
+      next_christmas = (Date.today().month == 12 and Date.today().day > 23)? Date.new(Date.today().year+1.day, 12, 24) : Date.new(Date.today().year, 12, 24)
+      Holiday.create({:inventory_pool_id => inventory_pool.id, :start_date => next_christmas, :end_date => next_christmas, :name => "Christmas"})
     end
     
     def create_inventory_pool_it_ausleihe
       description = "Bringt die Geräte bitte rechtzeitig zurück"
       contact_details = "IT Verleih  /  ZHdK\nav@zh-dk.ch\n+41 00 00 00 00"
-      FactoryGirl.create(:inventory_pool, :name => "IT-Ausleihe", :description => description, :contact_details => contact_details, :contract_description => "Gerät erhalten", :email => "it@zhdk.ch", :shortname => "IT")
+      @it_ausleihe = FactoryGirl.create(:inventory_pool, :name => "IT-Ausleihe", :description => description, :contact_details => contact_details, :contract_description => "Gerät erhalten", :email => "it@zhdk.ch", :shortname => "IT")
+      create_christmas_holiday @it_ausleihe
     end
 
     def create_inventory_pool_av_technik
       description = "Bringt die Geräte bitte rechtzeitig zurück"
       contact_details = "AV Verleih  /  ZHdK\nav@zh-dk.ch\n+41 00 00 00 00"
       @av_technik = FactoryGirl.create(:inventory_pool, :name => "AV-Technik", :description => description, :contact_details => contact_details, :contract_description => "Gerät erhalten", :email => "it@zhdk.ch", :shortname => "AV")
+      create_christmas_holiday @av_technik
     end
 
     def create_naked_users
