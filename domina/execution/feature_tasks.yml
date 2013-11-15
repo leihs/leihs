@@ -159,18 +159,50 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/ausleihe.feature"
+- name: examples/ausleihe2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/ausleihe2.feature"
 - name: examples/benutzerverwaltung
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/benutzerverwaltung.feature"
+- name: examples/benutzerverwaltung2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/benutzerverwaltung2.feature"
+- name: examples/benutzerverwaltung3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/benutzerverwaltung3.feature"
+- name: examples/benutzerverwaltung4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/benutzerverwaltung4.feature"
+- name: examples/benutzerverwaltung5
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/benutzerverwaltung5.feature"
+- name: examples/benutzerverwaltung6
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/benutzerverwaltung6.feature"
 - name: examples/explorative_suche
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/explorative_suche.feature"
+- name: examples/explorative_suche2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/explorative_suche2.feature"
 - name: examples/gegenstand_ausmustern
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/gegenstand_ausmustern.feature"
+- name: examples/gegenstand_ausmustern2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_ausmustern2.feature"
 - name: examples/gegenstand_editieren
   scripts:
     cucumber:
