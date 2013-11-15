@@ -82,7 +82,7 @@ Leihs::Application.routes.draw do
     get "workdays", to: "workdays#index", as: "workdays"
 
     get "user",                 to: "users#current",    as: "current_user"
-    get "user_documents",       to: "users#documents"
+    get "user_documents",       to: "users#documents",  as: "user_documents"
     get "user/contracts/:id",   to: "users#contract",   as: "user_contract"
     get "user/value_lists/:id", to: "users#value_list", as: "user_value_list"
   end

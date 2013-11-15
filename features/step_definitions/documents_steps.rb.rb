@@ -2,7 +2,7 @@
 
 When(/^ich unter meinem Benutzernamen auf "([^"]*)" klicke$/) do |arg|
   step "ich über meinen Namen fahre"
-  first("nav.topbar ul.topbar-navigation a[href='/borrow/user']", text: @current_user.to_s).first(:xpath, "./..").first("ul.dropdown a.dropdown-item", text: arg).click
+  find("a[href='#{borrow_user_documents_path}']").click
 end
 
 Dann(/^gelange ich zu der Dokumentenübersichtsseite/) do

@@ -63,6 +63,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/borrow/dokumente.feature"
+- name: borrow/dokumente2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/dokumente2.feature"
 - name: borrow/explorative_suche
   scripts:
     cucumber:
@@ -167,14 +171,6 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/ausleihe2.feature"
-- name: examples/gruppen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gruppen.feature"
-- name: examples/geraetepark_administrieren
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/geraetepark_administrieren.feature"
 - name: examples/benutzerverwaltung
   scripts:
     cucumber:
