@@ -12,16 +12,14 @@
           %span {{>children().count()}}
     {{/if}}
 
-  .col1of5.line-col.text-align-left
-    {{>inventory_code}}
-
-  .col1of5.line-col.text-align-left
+  .col2of5.line-col.text-align-left
+    .row {{>inventory_code}}
     {{if parent_id}}
-    %strong {{>model().name}}
-    .row.grey-text.text-ellipsis.width-s-alt{title: '{{jed "is part of a package"/}}'}
+    %strong.grey-text {{>model().name}}
+    .row.grey-text.text-ellipsis.width-full{title: '{{jed "is part of a package"/}}'}
       {{jed "is part of a package"/}}
     {{else}}
-    {{>currentLocation()}}
+    .row.grey-text {{>currentLocation()}}
     {{/if}}
 
   .col1of5.line-col.text-align-center
