@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   require File.join(Rails.root, 'lib', 'authenticated_system.rb')
   include AuthenticatedSystem
 
-  before_filter :set_gettext_locale, :load_settings
+  before_filter :set_gettext_locale, :load_settings, :load_mailer_settings
 
   layout "splash"
 
@@ -60,7 +60,55 @@ class ApplicationController < ActionController::Base
       else
         raise "Application settings are missing!"
       end
+    else
+
     end
+  end
+
+
+
+
+  def load_mailer_settings
+    # If you don't check for the existence of a settings table, you will break
+    # Rails initialization and so e.g. rake db:migrate no longer works. So
+    # having no settings table will break initialization of the Rake task that
+    # creates the settings table in the first place (!), creating a chicken and
+    # egg problem.
+    if ActiveRecord::Base.connection.tables.include?("settings")
+      settings = {
+        :address => Setting::SMTP_ADDRESS,
+        :port => Setting::SMTP_PORT,
+        :domain => Setting::SMTP_DOMAIN,
+        :enable_starttls_auto => true,
+        :openssl_verify_mode => 'none'
+      }
+
+      # Catch NameError if these settings aren't defined
+      begin
+        if Setting::SMTP_USERNAME and Setting::SMTP_PASSWORD
+          auth_settings = {
+            :user_name => Setting::SMTP_USERNAME,
+            :password => Setting::SMTP_PASSWORD
+          }
+          settings.merge!(auth_settings)
+        end
+      rescue
+      end
+
+    else
+      # Set some silly defaults since we can't reach our settings table
+      settings = {
+        :address => "localhost",
+        :port => 25,
+        :domain => "localhost",
+        :enable_starttls_auto => false,
+        :openssl_verify_mode => 'none'
+      }
+    end
+    ActionMailer::Base.smtp_settings = settings
+    ActionMailer::Base.delivery_method = :smtp
+    ActionMailer::Base.default :charset => 'utf-8'
+
   end
 
 end
