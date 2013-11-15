@@ -19,6 +19,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/availability_story.feature"
+- name: availability_story2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/availability_story2.feature"
 - name: borrow/abholungen
   scripts:
     cucumber:
@@ -31,10 +35,18 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/borrow/bestellfensterchen.feature"
+- name: borrow/bestellfensterchen2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/bestellfensterchen2.feature"
 - name: borrow/bestelluebersicht
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/borrow/bestelluebersicht.feature"
+- name: borrow/bestelluebersicht2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/bestelluebersicht2.feature"
 - name: borrow/bestellungen
   scripts:
     cucumber:
@@ -59,10 +71,18 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/borrow/kalender.feature"
+- name: borrow/kalender2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/kalender2.feature"
 - name: borrow/modellliste
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/borrow/modellliste.feature"
+- name: borrow/modellliste2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/modellliste2.feature"
 - name: borrow/modelluebersicht
   scripts:
     cucumber:
@@ -91,6 +111,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/borrow/timeoutpage.feature"
+- name: borrow/timeoutpage2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/timeoutpage2.feature"
 - name: borrow/verfuegbarkeit
   scripts:
     cucumber:
@@ -99,6 +123,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/borrow/vorlagen.feature"
+- name: borrow/vorlagen2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/vorlagen2.feature"
 - name: category
   scripts:
     cucumber:
