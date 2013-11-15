@@ -167,6 +167,14 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/ausleihe2.feature"
+- name: examples/gruppen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gruppen.feature"
+- name: examples/geraetepark_administrieren
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/geraetepark_administrieren.feature"
 - name: examples/benutzerverwaltung
   scripts:
     cucumber:
@@ -191,6 +199,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/benutzerverwaltung6.feature"
+- name: examples/benutzerverwaltung7
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/benutzerverwaltung7.feature"
 - name: examples/explorative_suche
   scripts:
     cucumber:

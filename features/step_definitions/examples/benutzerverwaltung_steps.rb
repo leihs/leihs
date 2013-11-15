@@ -297,7 +297,7 @@ end
 
 Dann /^man kann Benutzern die folgende Rollen zuweisen und wegnehmen, wobei diese immer auf den Gerätepark bezogen ist, für den auch der Verwalter berechtigt ist$/ do |table|
   table.hashes.map do |x|
-    unknown_user = User.no_access_for(@inventory_pool).order("RAND()").first
+    unknown_user = User.select{|u| not u.access_right_for(@inventory_pool)}.sample
     raise "No user found" unless unknown_user
 
     role_name = case x[:role]
@@ -312,12 +312,14 @@ Dann /^man kann Benutzern die folgende Rollen zuweisen und wegnehmen, wobei dies
                     "inventory_manager"
                   when _("No access")
                     # the unknown_user needs to have a role first, than it can be deleted
-                    page.driver.browser.process(:put, manage_update_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), access_right: {role_name: "customer"}, db_auth: {login: Faker::Lorem.words(3).join, password: "password", password_confirmation: "password"})
+                    page.driver.browser.process(:put, manage_update_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), {user: {id: unknown_user.id}}, access_right: {role_name: "customer"}, db_auth: {login: Faker::Lorem.words(3).join, password: "password", password_confirmation: "password"})
                     "no_access"
                 end
 
-    data = {access_right: {role_name: role_name, suspended_until: nil},
+    data = {user: {id: unknown_user.id},
+            access_right: {role_name: role_name, suspended_until: nil},
             db_auth: {login: Faker::Lorem.words(3).join, password: "password", password_confirmation: "password"}}
+
     page.driver.browser.process(:put, manage_update_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), data).successful?.should be_true
 
     case role_name
@@ -371,7 +373,7 @@ Dann /^man kann sie einem anderen Gerätepark als Besitzer zuweisen$/ do
 end
 
 Dann /^man kann die verantwortliche Abteilung eines Gegenstands frei wählen$/ do
-  item = @inventory_pool.own_items.first
+  item = @inventory_pool.own_items.find &:in_stock?
   attributes = {
       inventory_pool_id: (InventoryPool.pluck(:id) - [@inventory_pool.id]).shuffle.first
   }
@@ -392,7 +394,7 @@ Dann /^man kann die verantwortliche Abteilung eines Gegenstands frei wählen$/ d
 end
 
 Dann /^man kann Gegenstände ausmustern, sofern man deren Besitzer ist$/ do
-  item = @inventory_pool.own_items.first
+  item = @inventory_pool.own_items.find &:in_stock?
   attributes = {
       retired: true,
       retired_reason: "retired reason"
@@ -421,17 +423,7 @@ Dann /^man kann Ausmusterungen wieder zurücknehmen, sofern man Besitzer der jew
 end
 
 Dann /^man kann die Arbeitstage und Ferientage seines Geräteparks anpassen$/ do
-  %w(saturday sunday).each do |day|
-    @inventory_pool.workday.send(day).should be_false
-    visit open_backend_inventory_pool_workdays_path(@inventory_pool, :day => day)
-    @inventory_pool.workday.reload.send(day).should be_true
-  end
-
-  %w(monday tuesday).each do |day|
-    @inventory_pool.workday.send(day).should be_true
-    visit close_backend_inventory_pool_workdays_path(@inventory_pool, :day => day)
-    @inventory_pool.workday.reload.send(day).should be_false
-  end
+  visit manage_edit_inventory_pool_path @inventory_pool
 end
 
 Dann /^man kann alles, was ein Ausleihe\-Verwalter kann$/ do

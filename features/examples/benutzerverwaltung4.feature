@@ -5,6 +5,41 @@ Funktionalität: Benutzer verwalten
   Grundlage:
     Angenommen Personas existieren
 
+
+  @javascript
+  Szenario: Zugriff entfernen als Inventar-Verwalter
+    Angenommen man ist "Mike"
+    Und man editiert einen Benutzer der Zugriff auf das aktuelle Inventarpool hat und keine Gegenstände mehr zurückzugeben hat
+    Wenn man den Zugriff entfernt
+    Und man speichert den Benutzer
+    Dann hat der Benutzer keinen Zugriff auf das Inventarpool
+
+  @javascript
+  Szenario: Zugriff entfernen als Administrator
+    Angenommen man ist "Gino"
+    Und man editiert einen Benutzer der Zugriff auf ein Inventarpool hat
+    Wenn man den Zugriff entfernt
+    Und man speichert den Benutzer
+    Dann hat der Benutzer keinen Zugriff auf das Inventarpool
+
+  @javascript
+  Szenario: Benutzer als Administrator löschen
+    Angenommen man ist "Gino"
+    Und man befindet sich auf der Benutzerliste ausserhalb der Inventarpools
+    Und man sucht sich einen Benutzer ohne Zugriffsrechte, Bestellungen und Verträge aus
+    Wenn ich diesen Benutzer aus der Liste lösche
+    Dann wurde der Benutzer aus der Liste gelöscht
+    Und der Benutzer ist gelöscht
+
+  @javascript
+  Szenario: Benutzer im Geräterpark als Administrator löschen
+    Angenommen man ist "Gino"
+    Und man sucht sich einen Benutzer ohne Zugriffsrechte, Bestellungen und Verträge aus
+    Und man befindet sich auf der Benutzerliste im beliebigen Inventarpool
+    Wenn ich diesen Benutzer aus der Liste lösche
+    Dann wurde der Benutzer aus der Liste gelöscht
+    Und der Benutzer ist gelöscht
+
   @javascript @upcoming
   Szenario: Gruppenzuteilung in Benutzeransicht hinzufügen/entfernen
     Angenommen man ist "Pius"
@@ -43,67 +78,3 @@ Funktionalität: Benutzer verwalten
     Und man teilt mehrere Gruppen zu
     Und man speichert den Benutzer
     Dann ist der Benutzer mit all den Informationen gespeichert
-
-  @javascript
-  Szenario: Neuen Benutzer im Geräterpark als Ausleihe-Verwalter hinzufügen
-    Angenommen man ist "Pius"
-    Wenn man in der Benutzeransicht ist
-    Und man einen Benutzer hinzufügt
-    Und die folgenden Informationen eingibt
-      | Nachname       |
-      | Vorname        |
-      | E-Mail         |
-    Und man gibt die Login-Daten ein
-    Und man gibt eine Badge-Id ein
-    Und man hat nur die folgenden Rollen zur Auswahl
-      | No access |
-      | Customer  |
-      | Lending manager  |
-    Und eine der folgenden Rollen auswählt
-      | tab                | role              |
-      | Kunde              | customer          |
-      | Ausleihe-Verwalter | lending_manager   |
-    Und man teilt mehrere Gruppen zu
-    Und man speichert den Benutzer
-    Dann ist der Benutzer mit all den Informationen gespeichert
-
-  @javascript
-  Szenario: Neuen Benutzer im Geräterpark als Administrator hinzufügen
-    Angenommen man ist "Gino"
-    Wenn man in der Benutzeransicht ist
-    Und man einen Benutzer hinzufügt
-    Und die folgenden Informationen eingibt
-      | Nachname       |
-      | Vorname        |
-      | E-Mail         |
-    Und man gibt die Login-Daten ein
-    Und man gibt eine Badge-Id ein
-    Und man hat nur die folgenden Rollen zur Auswahl
-      | No access          |
-      | Customer           |
-      | Lending manager    |
-      | Inventory manager  |
-    Und eine der folgenden Rollen auswählt
-      | tab                | role                |
-      | Kunde              | customer            |
-      | Ausleihe-Verwalter | lending_manager     |
-      | Inventar-Verwalter | inventory_manager   |
-    Und man teilt mehrere Gruppen zu
-    Und man speichert den Benutzer
-    Dann ist der Benutzer mit all den Informationen gespeichert
-
-  @javascript
-  Szenariogrundriss: Neuen Benutzer hinzufügen - ohne Eingabe der Pflichtfelder
-    Angenommen man ist "Pius"
-    Wenn man in der Benutzeransicht ist
-    Und man einen Benutzer hinzufügt
-    Und alle Pflichtfelder sind sichtbar und abgefüllt
-    Wenn man ein <Pflichtfeld> nicht eingegeben hat
-    Und man speichert den Benutzer
-    Dann sehe ich eine Fehlermeldung
-
-    Beispiele:
-      | Pflichtfeld |
-      | Nachname    |
-      | Vorname     |
-      | E-Mail      |
