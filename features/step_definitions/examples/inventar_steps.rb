@@ -227,13 +227,17 @@ Dann /^enthält die Gegenstands\-Zeile die Verantwortliche Abteilung$/ do
   step 'ich nach "%s" suche' % " "
 end
 
+def get_item_by_inventory_code(item_line)
+  Item.find_by_inventory_code item_line.find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text
+end
+
 Wenn /^der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist$/ do
   find("select#responsibles option[value='#{@current_inventory_pool.id}']").select_option
   find("#list-filters input#in_stock").click unless find("#list-filters input#in_stock").checked?
   step "ensure there are no active requests"
   find(".button[data-type='inventory-expander'] i.arrow.right", match: :first).click
   @item_line = find(".group-of-lines .line[data-type='item']", match: :first)
-  @item = Item.find_by_inventory_code @item_line.find(".col1of5.text-align-left:nth-child(2)").text
+  @item = get_item_by_inventory_code(@item_line)
 end
 
 Wenn /^der Gegenstand nicht an Lager ist und eine andere Abteilung für den Gegenstand verantwortlich ist$/ do
@@ -244,7 +248,7 @@ Wenn /^der Gegenstand nicht an Lager ist und eine andere Abteilung für den Gege
   page.has_selector? ".line[data-id='#{item.id}']"
   find(".line[data-id='#{item.model.id}'] .button[data-type='inventory-expander'] i.arrow.right", match: :first).click
   @item_line = find(".group-of-lines .line[data-type='item']", match: :first)
-  @item = Item.find_by_inventory_code @item_line.find(".col1of5.text-align-left:nth-child(2)").text
+  @item = get_item_by_inventory_code(@item_line)
 end
 
 Wenn /^meine Abteilung Besitzer des Gegenstands ist die Verantwortung aber auf eine andere Abteilung abgetreten hat$/ do
@@ -252,7 +256,7 @@ Wenn /^meine Abteilung Besitzer des Gegenstands ist die Verantwortung aber auf e
   step "ensure there are no active requests"
   find(".button[data-type='inventory-expander'] i.arrow.right", match: :first).click
   @item_line = find(".group-of-lines .line[data-type='item']", match: :first)
-  @item = Item.find_by_inventory_code @item_line.find(".col1of5.text-align-left:nth-child(2)").text
+  @item = get_item_by_inventory_code(@item_line)
 end
 
 Dann /^enthält die Options\-Zeile folgende Informationen$/ do |table|
@@ -289,7 +293,7 @@ end
 
 Dann /^so eine Zeile sieht aus wie eine Gegenstands\-Zeile$/ do
   @item_line ||= @items_element.find(".line")
-  @item ||= Item.find_by_inventory_code @item_line.find(".col1of5.text-align-left:nth-child(2)").text
+  @item ||= get_item_by_inventory_code(@item_line)
   
   if @item.in_stock? && @item.inventory_pool == @current_inventory_pool
     step 'enthält die Gegenstands-Zeile die Gebäudeabkürzung'
@@ -327,7 +331,7 @@ Dann /^man sieht die Pakete dieses Paket\-Modells$/ do
     @packages_element.should have_content package.inventory_code  
   end
   @item_line = package_items.to_a.sample
-  @item = Item.find_by_inventory_code @item_line.find(".col1of5.text-align-left:nth-child(2)").text
+  @item = get_item_by_inventory_code(@item_line)
 end
 
 Dann /^man kann diese Paket\-Zeile aufklappen$/ do
