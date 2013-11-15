@@ -344,6 +344,9 @@ Dann(/^kann ich dieses Modell ausleihen, wenn ich in dieser Gruppe bin$/) do
   @current_user.groups << Group.find(@partition.group_id)
   visit borrow_model_path(@model)
   find("*[data-create-order-line][data-model-id='#{@model.id}']").click
+  date = @current_user.inventory_pools.first.next_open_date
+  step "ich setze das Startdatum im Kalendar auf '#{I18n::l(date)}'"
+  step "ich setze das Enddatum im Kalendar auf '#{I18n::l(date)}'"
   find(".fc-widget-content", :match => :first)
   find("#submit-booking-calendar").click
   find("#current-order-lines").should have_content @model.name

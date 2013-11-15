@@ -69,16 +69,3 @@ Funktionalität: Bestellübersicht
     Dann sehe ich die Zeitanzeige
     Wenn ich den Time-Out zurücksetze
     Dann wird die Zeit zurückgesetzt
-    
-  @javascript
-  Szenario: Zeit abgelaufen    
-    Wenn die Zeit abgelaufen ist
-    Dann werde ich auf die Timeout Page weitergeleitet
-
-  @javascript
-  Szenario: Zeit überschritten
-    Wenn ich ein Modell der Bestellung hinzufüge
-    Dann sehe ich die Zeitanzeige
-    Wenn man befindet sich auf der Bestellübersicht
-    Und  die Zeit überschritten ist
-    Dann werde ich auf die Timeout Page weitergeleitet
