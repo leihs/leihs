@@ -107,6 +107,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/borrow/modellliste4.feature"
+- name: borrow/modellliste5
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/modellliste5.feature"
 - name: borrow/modelluebersicht
   scripts:
     cucumber:
