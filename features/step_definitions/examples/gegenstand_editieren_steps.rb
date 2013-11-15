@@ -6,22 +6,22 @@ Angenommen /^man editiert einen Gegenstand, wo man der Besitzer ist$/ do
   step "ensure there are no active requests"
   first("label", text: _("Owned")).click
   step "ensure there are no active requests"
-  first(".model.line .toggle .text", :text => /(1|2|3|4|5|6)/).click
-  @item = Item.find_by_inventory_code(first(".item.line").first(".inventory_code").text)
-  first(".item.line").first(".actions .button", :text => /(editieren|edit)/i).click
+  first(".button[title='#{_("Items")}']", :match => :first).click
+  item_line = find(".line[data-type='item']", :match => :first)
+  @item = Item.find item_line["data-id"]
+  visit manage_edit_item_path @ip, @item
 end
 
 Dann /^muss der "(.*?)" unter "(.*?)" ausgewählt werden$/ do |key, section|
-  section = first("h2", :text => section).first(:xpath, "./..")
-  field = section.first("h3", :text => key).first(:xpath, "./..")
-  field[:class][/required/].should_not be_nil
+  field = find("[data-type='field']", text: key)
+  field[:"data-required"].should == "true"
 end
 
 Wenn /^"(.*?)" bei "(.*?)" ausgewählt ist muss auch "(.*?)" angegeben werden$/ do |value, key, newkey|
-  field = first("h3", :text => key).first(:xpath, "./..")
+  field = find("[data-type='field']", text: key)
   field.first("label,option", :text => value).click
-  newfield = first("h3", :text => newkey).first(:xpath, "./..")
-  newfield[:class][/required/].should_not be_nil
+  newfield = find("[data-type='field']", text: newkey)
+  newfield[:"data-required"].should == "true"
 end
 
 Dann /^sind alle Pflichtfelder mit einem Stern gekenzeichnet$/ do
@@ -32,8 +32,8 @@ end
 Wenn /^ein Pflichtfeld nicht ausgefüllt\/ausgewählt ist, dann lässt sich der Gegenstand nicht speichern$/ do
   first(".field[data-required='true'] textarea").set("")
   first(".field[data-required='true'] input[type='text']").set("")
-  first(".content_navigation button[type=submit]").click
-  first(".content_navigation button[type=submit]")
+  find("#item-save").click
+  find("#flash .error")
   @item.to_json.should == @item.reload.to_json
 end
 
@@ -59,10 +59,10 @@ Dann /^sehe ich die Felder in folgender Reihenfolge:$/ do |table|
 end
 
 Wenn(/^"(.*?)" bei "(.*?)" ausgewählt ist muss auch "(.*?)" ausgewählt werden$/) do |value, key, newkey|
-  field = first("h3", :text => key).first(:xpath, "./..")
+  field = find("[data-type='field']", text: key)
   field.first("option", :text => value).select_option
-  newfield = first("h3", :text => newkey).first(:xpath, "./..")
-  newfield[:class][/required/].should_not be_nil
+  newfield = find("[data-type='field']", text: newkey)
+  newfield[:"data-required"].should == "true"
 end
 
 Angenommen(/^man navigiert zur Gegenstandsbearbeitungsseite$/) do
@@ -85,11 +85,10 @@ Dann(/^bei dem bearbeiteten Gegestand ist der neue Lieferant eingetragen$/) do
 end
 
 Dann(/^ist der Gegenstand mit all den angegebenen Informationen gespeichert$/) do
-  find("a[data-tab*='retired']").click if (@table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"} ["Wert"]) == "Ja"
+  find("[data-retired='true']").click if (@table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"} ["Wert"]) == "Ja"
   find_field('list-search').set (@table_hashes.detect {|r| r["Feldname"] == "Inventarcode"} ["Wert"])
-  find("li.modelname", :text => @table_hashes.detect {|r| r["Feldname"] == "Modell"} ["Wert"], :visible => true)
-  find(".toggle .icon").click
-  find(".button", text: 'Gegenstand editieren').click
+  find(".line", :text => @table_hashes.detect {|r| r["Feldname"] == "Modell"} ["Wert"], :visible => true)
+  visit manage_edit_item_path @ip, @item
   step 'hat der Gegenstand alle zuvor eingetragenen Werte'
 end
 

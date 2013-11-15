@@ -38,7 +38,8 @@ class window.App.Field extends Spine.Model
           , item
         else
           item[attribute]
-
+    # some special behavior for retired ;(
+    value = !! value if attribute == "retired"
     if value?
       return value
     else if @default? and defaultFallback
