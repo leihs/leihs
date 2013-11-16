@@ -144,7 +144,7 @@ Wenn(/^man die Liste nach "(.*?)" sortiert$/) do |sort_order|
       "#{_("Manufacturer")} (#{_("descending")})"
   end
   find("#model-sorting a", :text => text).click
-  step "ensure there are no active requests"
+  find("#model-list .line", :match => :first)
   all("#model-list .line").count.should > 0
 end
 
@@ -171,7 +171,7 @@ end
 Wenn(/^man ein Suchwort eingibt$/) do
   find("#model-list-search input").set " "
   find("#model-list-search input").set "bea panas"
-  step "ensure there are no active requests"
+  find("#model-list .line", :match => :first)
 end
 
 Dann(/^werden diejenigen Modelle angezeigt, deren Name oder Hersteller dem Suchwort entsprechen$/) do
@@ -346,15 +346,11 @@ Angenommen(/^man befindet sich auf der Modellliste mit diesem Modell$/) do
 end
 
 Wenn(/^man wählt alle Geräteparks bis auf einen ab$/) do
-  step "ensure there are no active requests"
   step 'man ein bestimmten Gerätepark in der Geräteparkauswahl auswählt'
-  step "ensure there are no active requests"
 end
 
 Wenn(/^man wählt "Alle Geräteparks"$/) do
-  step "ensure there are no active requests"
   find("#ip-selector .dropdown-item", :text => _("All inventory pools")).click
-  step "ensure there are no active requests"
 end
 
 Dann(/^sind alle Geräteparks wieder ausgewählt$/) do
@@ -393,7 +389,7 @@ end
 
 Wenn(/^man "Alles zurücksetzen" wählt$/) do
   find("#reset-all-filter").click
-  step "ensure there are no active requests"
+  find("#model-list .line", :match => :first)
   all("#model-list .line").count.should > 0
 end
 

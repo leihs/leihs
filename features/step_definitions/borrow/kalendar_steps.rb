@@ -15,7 +15,6 @@ Wenn(/^ich den Kalender schliesse$/) do
 end
 
 Dann(/^schliesst das Dialogfenster$/) do
-  step "ensure there are no active requests"
   page.should_not have_selector("#booking-calendar")
 end
 
@@ -134,7 +133,6 @@ Angenommen(/^man hat eine Zeitspanne ausgewählt$/) do
 end
 
 Wenn(/^man einen in der Zeitspanne verfügbaren Gegenstand aus der Modellliste hinzufügt$/) do
-  step "ensure there are no active requests"
   @model_name = find(".line:not(.grayed-out) .line-col.col3of6", match: :first).text
   @model = Model.find_by_name(@model_name)
   find(".line .button", match: :first).click
@@ -288,14 +286,6 @@ Dann(/^man kann maximal die maximal ausleihbare Anzahl eingeben$/) do
   max_quantity = @model.total_borrowable_items_for_user(@current_user, inventory_pool)
   find("#booking-calendar-quantity").set (max_quantity+1).to_s
   find("#booking-calendar-quantity").value.should == (max_quantity).to_s
-end
-
-Dann(/^man auf dem letzten Model "Zur Bestellung hinzufügen" wählt$/) do
-  all("body > .wrapper").last.click
-  step "ensure there are no active requests"
-  wait_until {all("#model-list .line").last["data-id"].length > 0}
-  @model = Model.find all("#model-list .line").last["data-id"]
-  find("#model-list .line:last button[data-create-order-line]").click
 end
 
 Wenn(/^man den letzten Gerätepark in der Geräteparkauswahl auswählt$/) do
