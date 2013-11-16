@@ -7,17 +7,11 @@ Feature: Hand over controller
     And I log in as 'pius' with password 'password'
     And test data setup for "Hand over controller" feature
 
-  @wip
-  Scenario: Picking an available inventory code
-
   Scenario: Writing an unavailable inventory code
     Given test data setup for scenario "Writing an unavailable inventory code"
     When an unavailable inventory code is assigned to a contract line
     Then the response from this action should not be successful
     And the contract line has no item
-
-  @wip
-  Scenario: Assigning an inventory code without selecting an item line
 
   Scenario: Visit that is overdue, should be deleted and respond with success
     Given visit that is overdue

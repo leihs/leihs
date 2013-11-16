@@ -66,11 +66,11 @@ class Manage::ContractLinesController < Manage::ApplicationController
       line.update_attributes(item: item)
       @error = {:message => line.errors.full_messages.uniq.join(', ')} unless line.valid?
     else
-      unless inventory_code.blank?
+      unless params[:inventory_code].blank?
         @error = if item and line and line.model_id != item.model_id
-          {:message => _("The inventory code %s is not valid for this model" % inventory_code)}
+          {:message => _("The inventory code %s is not valid for this model" % params[:inventory_code])}
         elsif line
-          {:message => _("The item with the inventory code '%s' was not found" % inventory_code)}
+          {:message => _("The item with the inventory code '%s' was not found" % params[:inventory_code])}
         elsif item
           {:message => _("The line was not found")}
         else 

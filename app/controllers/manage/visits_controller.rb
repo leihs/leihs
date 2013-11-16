@@ -8,7 +8,7 @@ class Manage::VisitsController < Manage::ApplicationController
   def destroy
     visit = current_inventory_pool.visits.hand_over.find params[:visit_id]
     unless visit.blank?
-      contract = visit.user.get_unsubmitted_contract(current_inventory_pool)
+      contract = visit.user.approved_contract(current_inventory_pool)
       contract.remove_lines(visit.lines, current_user.id)
     end
     render :status => :no_content, :nothing => true
