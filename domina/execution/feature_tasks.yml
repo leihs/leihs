@@ -583,3 +583,5 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/work_days_story.feature"
+
+
