@@ -16,7 +16,7 @@ class window.App.Availability extends Spine.Model
 
   @extend Spine.Model.Ajax
 
-  constructor: ->
+  constructor: (data)->
     super
 
   availabilityForGroups: (change, groupIds) ->

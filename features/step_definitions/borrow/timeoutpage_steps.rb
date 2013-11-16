@@ -3,7 +3,9 @@
 def resolve_conflict_for_model name
   # open booking calender for model
   @model = Model.find_by_name name
-  find(".line", :text => @model.name, :match => :first).first(".button", :text => _("Change entry")).click
+  line = find(".line", :text => @model.name, :match => :first)
+  ids = line[:"data-ids"]
+  line.find(".button", :text => _("Change entry")).click
   page.should have_selector("#booking-calendar .fc-day-content")
   find("#booking-calendar-quantity").set 1
   # find available start and end date
@@ -14,8 +16,8 @@ def resolve_conflict_for_model name
   step "ich setze das Startdatum im Kalendar auf '#{I18n::l(date)}'"
   step "ich setze das Enddatum im Kalendar auf '#{I18n::l(date)}'"
   first(".modal .button.green").click
-  page.has_no_selector?("#booking-calendar").should be_true
-  find(".line", :text => @model.name, :match => :first).should_not have_selector(".line-info.red")
+  has_no_selector?("#booking-calendar").should be_true
+  has_no_selector?(".line[data-ids='#{ids}'] .line-info.red").should be_true
 end
 
 Angenommen(/^ich zur Timeout Page mit einem Konfliktmodell weitergeleitet werde$/) do

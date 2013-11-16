@@ -14,12 +14,12 @@ window.App.ContractLine.changeTimeRange = (lines, startDate, endDate, inventoryP
     end_date: endDate
     inventory_pool_id: inventoryPool.id
 
-window.App.ContractLine::available = (recover = false)->
+window.App.ContractLine::available = (recover = true)->
   quantity = if @sublines? 
     _.reduce @sublines, ((mem, l)-> mem + l.quantity), 0
   else
     @quantity
-  availability = @model().availability()
+  availability = @model().availabilities().findByAttribute "inventory_pool_id", @contract().inventory_pool_id
   return true unless availability
   if recover
     linesToExclude = if @sublines? then @sublines else [@]

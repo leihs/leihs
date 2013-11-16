@@ -1,5 +1,7 @@
 window.App.Model.url = => "/borrow/models"
 
+window.App.Model.hasMany "availabilities", "App.Availability", "model_id"
+
 window.App.Model::availableQuantityForInventoryPools = (inventory_pool_ids)->
   return undefined unless @plainAvailabilities().all().length
   _.reduce @plainAvailabilities().all(), (memory, av)->
