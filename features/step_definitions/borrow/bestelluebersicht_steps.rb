@@ -197,7 +197,8 @@ Dann(/^speichere die Einstellungen$/) do
 end
 
 Dann(/^wird der Eintrag gemäss aktuellen Einstellungen geändert$/) do
-  first("[data-change-order-lines]").click
+  find(".line", match: :first)
+  find("[data-change-order-lines]", match: :first).click
   find("#booking-calendar .fc-widget-content", :match => :first)
   find(".modal-close").click
   if @new_date
@@ -207,7 +208,8 @@ Dann(/^wird der Eintrag gemäss aktuellen Einstellungen geändert$/) do
     @changed_lines.first.contract.lines.where(model_id: @changed_lines.first.model_id,
                                               start_date: @changed_lines.first.start_date,
                                               end_date: @changed_lines.first.end_date).sum(:quantity).should == @new_quantity
-    @just_changed_line = find("[data-quantity='#{@new_quantity}'][data-model-id='#{@changed_lines.first.model_id}'][data-start-date='#{@changed_lines.first.start_date}'][data-end-date='#{@changed_lines.first.end_date}']")
+    
+    @just_changed_line = find("[data-model-id='#{@changed_lines.first.model_id}'][data-start-date='#{@changed_lines.first.start_date}'][data-end-date='#{@changed_lines.first.end_date}']")
   end
 end
 
