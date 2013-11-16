@@ -44,10 +44,3 @@ Funktionalität: Ausleihe
     Dann schlägt mir das System eine Liste von Gegenständen vor
     Und diejenigen Gegenstände sind gekennzeichnet, welche als nicht ausleihbar markiert sind
 
-  @javascript
-  Szenario: Scanning-Verhalten beim Aushändigen
-    Wenn ich eine Aushändigung mache mit einem Kunden der sowohl am heutigen Tag sowie in der Zukunft Abholungen hat
-    Wenn ich etwas scanne (per Inventarcode zuweise) und es in irgendeinem zukünftigen Vertrag existiert
-    Dann wird es zugewiesen (unabhängig ob es ausgewählt ist)
-    Wenn es in keinem zukünftigen Vertrag existiert 
-    Dann wird es für die ausgewählte Zeitspanne hinzugefügt

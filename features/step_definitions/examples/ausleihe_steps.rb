@@ -212,8 +212,8 @@ Wenn /^es in keinem zukünftigen Vertrag existiert$/ do
 end
 
 Dann /^wird es für die ausgewählte Zeitspanne hinzugefügt$/ do
+  find("#flash")
   find(".line", match: :first)
-  all(".line")
   @amount_lines_before.should < all(".line").size
 end
 
@@ -228,6 +228,7 @@ end
 
 Wenn /^ich bei einem Gegenstand eine Inspektion durchführen$/ do
   within all(".line[data-line-type='item_line']").to_a.sample.find(".multibutton") do
+    @item = ContractLine.find(JSON.parse(find("[data-ids]")["data-ids"]).first).item
     find(".dropdown-toggle").hover
     find(".dropdown-holder .dropdown-item", text: _("Inspect")).click
   end
@@ -235,27 +236,31 @@ Wenn /^ich bei einem Gegenstand eine Inspektion durchführen$/ do
 end
 
 Dann /^die Inspektion erlaubt es, den Status von "(.*?)" auf "(.*?)" oder "(.*?)" zu setzen$/ do |arg1, arg2, arg3|
-  within("form#inspection label", :text => arg1) do
-    first("option", :text => arg2)
-    first("option", :text => arg3)
+  within(".col1of3", :text => arg1) do
+    find("option", :text => arg2)
+    find("option", :text => arg3)
   end
 end
 
 Wenn /^ich Werte der Inspektion ändere$/ do
-  page.should have_selector("form#inspection input[name='line_id']", visible: false)
-  all("form#inspection select").each do |s|
-    s.all("option").each do |o|
-      o.select_option unless o.selected?
-    end
-  end  
+  @is_borrowable = true
+  find("select[name='is_borrowable'] option[value='true']").select_option
+  @is_broken = true
+  find("select[name='is_broken'] option[value='true']").select_option
+  @is_incomplete = true
+  find("select[name='is_incomplete'] option[value='true']").select_option
 end
 
 Dann /^wenn ich die Inspektion speichere$/ do
-  find("form#inspection .button.green").click
+  find(".modal button[type='submit']").click
 end
 
 Dann /^wird der Gegenstand mit den aktuell gesetzten Status gespeichert$/ do
-  find(".notification.success")
+  visit current_path
+  @item.reload
+  @item.is_borrowable.should == @is_borrowable
+  @item.is_broken.should == @is_broken
+  @item.is_incomplete.should == @is_incomplete
 end
 
 Angenommen /^man fährt über die Anzahl von Gegenständen in einer Zeile$/ do

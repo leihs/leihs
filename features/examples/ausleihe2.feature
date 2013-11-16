@@ -51,21 +51,3 @@ Funktionalität: Ausleihe
     Dann werden alle diese Gegenstände aufgelistet
     Und man sieht pro Modell eine Zeile
     Und man sieht auf jeder Zeile die Summe der Gegenstände des jeweiligen Modells
-
-  @javascript
-  Szenario: Inspektion bei Rücknahme
-    Angenommen ich mache eine Rücknahme
-    Dann habe ich für jeden Gegenstand die Möglichkeit, eine Inspektion auszulösen
-    Wenn ich bei einem Gegenstand eine Inspektion durchführen
-    Und die Inspektion erlaubt es, den Status von "Zustand" auf "Funktionstüchtig" oder "Defekt" zu setzen
-    Und die Inspektion erlaubt es, den Status von "Vollständigkeit" auf "Vollständig" oder "Unvollständig" zu setzen
-    Und die Inspektion erlaubt es, den Status von "Ausleihbar" auf "Ausleihbar" oder "Nicht ausleihbar" zu setzen
-    Wenn ich Werte der Inspektion ändere
-    Und wenn ich die Inspektion speichere
-    Dann wird der Gegenstand mit den aktuell gesetzten Status gespeichert
-
-  @javascript
-    Szenario: Automatischer Druck Dialog beim Aushändigen
-    Wenn ich eine Aushändigung mache
-    Dann wird automatisch der Druck-Dialog geöffnet
-

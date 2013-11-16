@@ -175,6 +175,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/ausleihe2.feature"
+- name: examples/ausleihe3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/ausleihe3.feature"
 - name: examples/benutzerverwaltung
   scripts:
     cucumber:

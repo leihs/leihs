@@ -13,6 +13,10 @@ When /^I select an item line and assign an inventory code$/ do
   sleep(0.88)
   @item_line = @line = @customer.visits.hand_over.flat_map(&:lines).detect {|x| x.class.to_s == "ItemLine" and x.item_id.nil? }
   step 'I assign an inventory code the item line'
+  find(".button[data-edit-lines][data-ids='[#{@item_line.id}]']").click
+  step "ich setze das Startdatum im Kalendar auf '#{I18n.l(Date.today)}'"
+  find("#submit-booking-calendar").click
+  find(".button[data-edit-lines][data-ids='[#{@item_line.id}]']")
 end
 
 Then /^I see a summary of the things I selected for hand over$/ do
