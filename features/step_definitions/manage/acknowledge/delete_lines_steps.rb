@@ -35,7 +35,7 @@ When /^I delete the selection$/ do
   line_amount_before = all(".line").size
   find(".multibutton [data-selection-enabled] + .dropdown-holder").hover
   find("a", :text => _("Delete Selection")).click
-  step "ensure there are no active requests"
+  find(".line", match: :first)
   all(".line").size.should < line_amount_before
 end
 
@@ -51,7 +51,7 @@ When /^I delete all lines of this contract$/ do
   page.execute_script('$("#selection_actions .button").show()')
   find(".multibutton [data-selection-enabled] + .dropdown-holder").hover
   find("a", :text => _("Delete Selection")).click
-  step "ensure there are no active requests"
+  find(".line", match: :first)
 end
 
 Then /^I got an error message that not all lines can be deleted$/ do

@@ -14,7 +14,7 @@ When /^I delete this line element$/ do
 end
 
 Then /^this line is deleted$/ do
-  step "ensure there are no active requests"
+  page.has_no_selector?(".line[data-id='#{@line.id}']").should be_false
   lambda {@line.reload}.should raise_error(ActiveRecord::RecordNotFound) 
 end
 
@@ -33,7 +33,7 @@ When /^I delete the seleted lines$/ do
     find(".dropdown-toggle").hover
     find(".dropdown-item.red[data-destroy-selected-lines]", text: _("Delete Selection")).click
   end
-  step "ensure there are no active requests"
+  find(".line", match: first)
 end
 
 Then /^these lines are deleted$/ do
@@ -52,7 +52,6 @@ When /^I delete all lines of a model thats availability is blocked by these line
   end
   step 'I add so many lines that I break the maximal quantity of an model'
   target_linegroup = find("[data-selected-lines-container]", text: /#{find("#add-start-date").value}.*#{find("#add-end-date").value}/)
-  step "ensure there are no active requests"
 
   reference_line = target_linegroup.all(".line", :text => @model.name).detect{|line| line.find(".line-info.red")}
   @reference_id = reference_line["data-id"]

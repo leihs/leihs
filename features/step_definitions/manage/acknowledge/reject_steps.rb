@@ -26,10 +26,10 @@ end
 
 When /^I reject the contract$/ do
   find(".modal .button.red[type=submit]").click
+  page.has_no_selector?(".modal").should be_true
 end
 
 Then /^the contract is rejected$/ do
-  step "ensure there are no active requests"
   find("#open-orders .line[data-id='#{@contract.id}'] .button", match: :first, text: _("Rejected"))
   @contract.reload.status.should == :rejected
 end

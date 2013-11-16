@@ -139,7 +139,7 @@ Dann(/^kann ich beliebige Vorlage direkt aus der Liste löschen$/) do
 end
 
 Dann(/^die Vorlage wurde aus der Liste gelöscht$/) do
-  step "ensure there are no active requests"
+  find(".line", match: :first)
   page.should_not have_content @template.name
 end
 

@@ -10,7 +10,6 @@ Dann /^kann ich die reservierende Person für eine Auswahl an Linien wechseln$/ 
   find("input#user-id").set @new_user.name
   find(".ui-menu-item a", :visible => true, :text => @new_user.name).click
   find(".modal .button[type='submit']").click
-  page.should have_selector("h1", :text => @new_user.name)
-  step "ensure there are no active requests"
+  find("h1", :text => @new_user.name)
   @line_ids.each {|l| ContractLine.find(l).user.should == @new_user}
 end

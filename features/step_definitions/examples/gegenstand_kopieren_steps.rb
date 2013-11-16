@@ -78,11 +78,10 @@ end
 Wenn /^man einen Gegenstand kopiert$/ do
   @item = Item.where(inventory_pool_id: @current_inventory_pool).detect {|i| not i.retired? and not i.serial_number.nil? and not i.name.nil?}
   find_field('list-search').set @item.model.name
-  step "ensure there are no active requests"
   find(".line[data-type='model'] .col2of5", match: :first, text: @item.model.name)
-  first("[data-type='inventory-expander']").click
+  find("[data-type='inventory-expander']", match: first).click
   find(".line[data-id='#{@item.id}'] .dropdown-holder").hover
-  first(".line[data-type='item']", text: @item.inventory_code).first("a", text: _("Copy Item")).click
+  find(".line[data-type='item']", text: @item.inventory_code, match: :first).find("a", text: _("Copy Item"), match: :first).click
 end
 
 Dann /^wird eine neue Gegenstandskopieransicht geöffnet$/ do
@@ -100,11 +99,10 @@ end
 Angenommen /^man befindet sich auf der Gegenstandserstellungsansicht$/ do
   @item = Item.where(inventory_pool_id: @current_inventory_pool.id).detect {|i| not i.retired?}
   find_field('list-search').set @item.model.name
-  step "ensure there are no active requests"
   find(".line[data-type='model'] .col2of5", match: :first, text: @item.model.name)
-  first("[data-type='inventory-expander']").click
+  find("[data-type='inventory-expander']", match: :first).click
   find(".line[data-id='#{@item.id}'] .dropdown-holder").hover
-  first(".line[data-type='item']", text: @item.inventory_code).first(".button", text: _("Edit Item")).click
+  find(".line[data-type='item']", text: @item.inventory_code, match: :first).find(".button", text: _("Edit Item"), match: :first).click
 end
 
 Angenommen /^man editiert ein Gegenstand eines anderen Besitzers$/ do

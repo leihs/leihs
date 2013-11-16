@@ -12,7 +12,6 @@ end
 When /^I wait until the autocompletion is loaded$/ do
   find("#add-input")
   page.execute_script('$("#add-input").keyup().focus()')
-  step "ensure there are no active requests"
   find(".ui-autocomplete", match: :first)
 end
 
@@ -27,7 +26,6 @@ When /^I select one of the matched models$/ do
 end
 
 Then /^the model is added to the contract$/ do
-  step "ensure there are no active requests"
   find(".line", text: @item.model.name)
   @contract.models.include?(@item.model).should be_true
 end
@@ -43,7 +41,8 @@ When /^I add a model to the acknowledge which is already existing in the selecte
   @model = @line.model
   @line_el_count = all(".line").size
   fill_in 'add-input', :with => @line.model.items.first.inventory_code
-  find("button[type='submit'][title='#{_("Add")}']").click
+  sleep 0.3
+  find("#add-input+button").click
 end
 
 Then /^the existing line quantity is not increased$/ do
@@ -53,7 +52,7 @@ Then /^the existing line quantity is not increased$/ do
 end
 
 Then /^an additional line has been created in the backend system$/ do
-  step "ensure there are no active requests"
+  find("#flash")
   @contract.lines.reload.count.should == @old_lines_count + 1
 end
 
@@ -66,7 +65,6 @@ Given /^I search for a model with default dates and note the current availabilit
   @model_name = "Kamera Nikon X12"
   @model = Model.find_by_name @model_name
   fill_in "add-input", with: @model_name
-  step "ensure there are no active requests"
   find("a.ui-corner-all", match: :first)
   @init_aval = find("a.ui-corner-all", text: @model_name).find("div.col1of4:nth-child(2) > div:nth-child(1)").text
 end

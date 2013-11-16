@@ -161,8 +161,7 @@ Dann(/^ich kann das Zeitfenster für die Verfügbarkeitsberechnung einzelner Mod
   step "ich setze das Startdatum im Kalendar auf '#{I18n::l(current_date)}'"
   step "ich setze das Enddatum im Kalendar auf '#{I18n::l(current_date)}'"
   find(".modal .button.green", match: :first).click
-  step "ensure there are no active requests"
-  page.should_not have_selector("#booking-calendar")
+  page.has_no_selector?("#booking-calendar").should be_true
 end
 
 Wenn(/^ich sämtliche Verfügbarkeitsprobleme gelöst habe$/) do

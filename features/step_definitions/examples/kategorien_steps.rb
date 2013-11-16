@@ -128,10 +128,10 @@ end
 Wenn /^ich das Modell speichere$/ do
   click_button _("Save %s") % _("Model")
   find("h1", text: _("List of Inventory"))
+  find("#flash .success")
 end
 
 Dann /^sind die Kategorien zugeteilt$/ do
-  step "ensure there are no active requests"
   @model.model_groups.where(id: @category.id).count.should eq 1
 end
 
@@ -199,7 +199,8 @@ Wenn /^man nach einer Kategorie anhand des Namens sucht$/ do
   @searchTerm ||= Category.first.name[0]
   countBefore = all(".line").size
   find("#list-search").set @searchTerm
-  step "ensure there are no active requests"
+  find("#list-search")
+  find(".line", match: :first)
   countBefore.should_not == all(".line").size
   sleep(0.88)
 end

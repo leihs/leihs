@@ -34,9 +34,7 @@ end
 
 When /^I save the booking calendar$/ do
   find("#submit-booking-calendar", :text => _("Save")).click
-  sleep(0.88)
-  step "ensure there are no active requests"
-  page.should_not have_selector(".modal")
+  page.has_no_selector?("#booking-calendar").should be_true
 end
 
 When /^I change a contract lines time range$/ do

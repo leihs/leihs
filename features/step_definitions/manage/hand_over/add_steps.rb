@@ -5,7 +5,7 @@ When /^I add an item to the hand over by providing an inventory code and a date 
   find("[data-add-contract-line]").set @inventory_code
   line_amount_before = all(".line").size
   find("[data-add-contract-line] + .addon").click
-  step "ensure there are no active requests"
+  find(".line", match: :first)
   line_amount_before.should < all(".line").size
 end
 
@@ -48,7 +48,7 @@ When /^I add an option to the hand over which is already existing in the selecte
 end
 
 Then /^the existing option quantity is increased$/ do
-  step "ensure there are no active requests"
+  find(".line[data-line-type='option_line']", text: @option.inventory_code)
   @option_line.reload
   within(".line[data-line-type='option_line']", text: @option.inventory_code) do
     find("input[value='#{@option_line.quantity}']")

@@ -17,7 +17,6 @@ When /^I select all lines of an open contract$/ do
     @contract_lines_to_take_back.each do |line|
       find("[data-barcode-scanner-target]").set line.item.inventory_code
       find("[data-barcode-scanner-target]").native.send_key :enter
-      step "ensure there are no active requests"
     end
   end
   all(".line input[type=checkbox][data-select-line]").all? {|x| x.checked? }.should be_true

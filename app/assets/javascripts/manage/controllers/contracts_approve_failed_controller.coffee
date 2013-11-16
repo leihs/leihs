@@ -17,5 +17,8 @@ class window.App.ContractsApproveFailedController extends Spine.Controller
 
   approveAnyway: => 
     comment = if @commentEl.val().length then @commentEl.val()
-    @order.approve_anyway comment
-    @modal.destroy true
+    @modal.destroy(false)
+    @modal.undestroyable()
+    @order.approve_anyway(comment).done =>
+      @line.html App.Render "manage/views/contracts/line_approved", @order
+      @modal.destroyable().destroy true

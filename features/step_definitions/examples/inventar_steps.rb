@@ -29,7 +29,6 @@ end
 ########################################################################
 
 def check_existing_inventory_codes(items)
-  step "ensure there are no active requests"
   step "sieht man Modelle"
   all(".line[data-type='model']").each do |model_el|
     model_el.find(".button[data-type='inventory-expander'] i.arrow.right").click
@@ -69,7 +68,6 @@ Dann /^hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind$/ do |
       when "Ungenutzte Modelle"
         tab = section_tabs.find("a[data-unused_models='true']")
         tab.click
-        step "ensure there are no active requests"
         step "sieht man Modelle"
         all(".line[data-type='model']").each do |model_el|
           model_el.find(".button[data-type='inventory-expander'] span").text.should == "0"
@@ -234,7 +232,6 @@ end
 Wenn /^der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist$/ do
   find("select#responsibles option[value='#{@current_inventory_pool.id}']").select_option
   find("#list-filters input#in_stock").click unless find("#list-filters input#in_stock").checked?
-  step "ensure there are no active requests"
   find(".button[data-type='inventory-expander'] i.arrow.right", match: :first).click
   @item_line = find(".group-of-lines .line[data-type='item']", match: :first)
   @item = get_item_by_inventory_code(@item_line)
@@ -253,7 +250,6 @@ end
 
 Wenn /^meine Abteilung Besitzer des Gegenstands ist die Verantwortung aber auf eine andere Abteilung abgetreten hat$/ do
   all("select#responsibles option:not([selected])").detect{|o| o.value != @current_inventory_pool.id.to_s and o.value != ""}.select_option
-  step "ensure there are no active requests"
   find(".button[data-type='inventory-expander'] i.arrow.right", match: :first).click
   @item_line = find(".group-of-lines .line[data-type='item']", match: :first)
   @item = get_item_by_inventory_code(@item_line)
@@ -391,20 +387,9 @@ Und /^ich speichere die Informationen/ do
   step 'I press "%s"' % (_("Save %s") % _("#{@model_name_from_url.capitalize}"))
 end
 
-Dann /^ensure there are no active requests$/ do
-  def wait_for_ajax
-    Timeout.timeout(Capybara.default_wait_time) do
-      sleep(0.1) until page.evaluate_script('jQuery.active').to_i == 0
-      true
-    end
-  end
-  wait_for_ajax
-end
-
 Dann /^die Informationen sind gespeichert$/ do
   search_string = @table_hashes.detect {|h| h["Feld"] == "Name"}["Wert"]
   step 'ich nach "%s" suche' % search_string
-  step 'ensure there are no active requests'
   find(".line", match: :prefer_exact, text: search_string)
   step 'I should see "%s"' % search_string
 end
@@ -521,13 +506,12 @@ Dann /^kann ich ein einzelnes Zubehör löschen, wenn es für keinen anderen Poo
   accessory_to_delete = @model.accessories.detect{|x| x.inventory_pools.count <= 1}
   find(".row.emboss", match: :prefer_exact, :text => _("Accessories")).find(".list-of-lines .line", text: accessory_to_delete.name).find("button", text: _("Remove")).click
   step 'ich speichere die Informationen'
-  step 'ensure there are no active requests'
   find("#inventory-index-view h1", match: :prefer_exact, text: _("List of Inventory"))
   lambda{accessory_to_delete.reload}.should raise_error(ActiveRecord::RecordNotFound)
 end
 
 Dann /^kann ich ein einzelnes Zubehör für meinen Pool deaktivieren$/ do
-  step 'ensure there are no active requests'
+  find(".row.emboss", match: :prefer_exact, :text => _("Accessories"))
   accessory_to_deactivate = @model.accessories.detect{|x| x.inventory_pools.where(id: @current_inventory_pool.id).first}
   find(".row.emboss", match: :prefer_exact, :text => _("Accessories")).find(".list-of-lines .line", text: accessory_to_deactivate.name).find("input").click
   step 'ich speichere die Informationen'
@@ -590,7 +574,6 @@ Dann /^kann Attachments auch wieder entfernen$/ do
 end
 
 Dann /^sind die Attachments gespeichert$/ do
-  step "ensure there are no active requests"
   find("#inventory-index-view h1", match: :prefer_exact, text: _("List of Inventory"))
   @model.attachments.reload.where(:filename => @attachment_filename).should_not be_empty
 end

@@ -722,7 +722,7 @@ Dann(/^wurde der Benutzer aus der Liste gelöscht$/) do
 end
 
 Dann(/^der Benutzer ist gelöscht$/) do
-  step "ensure there are no active requests"
+  find("#flash .success")
   User.find_by_id(@user.id).should be_nil
 end
 

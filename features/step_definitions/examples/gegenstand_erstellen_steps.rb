@@ -1,11 +1,9 @@
 # encoding: utf-8
 
 def fill_in_autocomplete_field field_name, field_value
-  step "ensure there are no active requests"
   within("form .row.emboss", match: :prefer_exact, text: field_name) do
     find("input", match: :first).click
     find("input", match: :first).set field_value
-    step "ensure there are no active requests"
   end
   find("a", match: :prefer_exact, text: field_value, visible: true).click
 end
@@ -66,7 +64,6 @@ Wenn /^ich die folgenden Informationen erfasse$/ do |table|
         find("form .field", match: :prefer_exact, text: field_name)
         matched_field.find("input").click
         matched_field.find("input").set field_value
-        step "ensure there are no active requests"
         find(".ui-autocomplete a", match: :prefer_exact, text: field_value, visible: true).click
       else
         matched_field.find("input,textarea").set ""
@@ -77,7 +74,7 @@ end
 
 Wenn /^ich erstellen druecke$/ do
   find("button", text: _("Save %s") % _("Item")).click
-  step "ensure there are no active requests"
+  find("#flash")
 end
 
 Dann /^ist der Gegenstand mit all den angegebenen Informationen erstellt$/ do
@@ -172,7 +169,6 @@ end
 
 Dann /^kann das Modell nicht erstellt werden$/ do
   step "ich erstellen druecke"
-  step "ensure there are no active requests"
   Item.find_by_inventory_code("").should be_nil
   Item.find_by_inventory_code("test").should be_nil
 end

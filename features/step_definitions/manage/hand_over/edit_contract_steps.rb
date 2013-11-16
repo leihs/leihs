@@ -42,9 +42,7 @@ When(/^I add an option$/) do
   @option = Option.find_by_inventory_pool_id @current_inventory_pool.id
   field_value = @option.name
   find("[data-add-contract-line]").set field_value
-  step "ensure there are no active requests"
   find(".ui-autocomplete a[title='#{field_value}']", match: :prefer_exact, text: field_value).click
-  step "ensure there are no active requests"
   @option_line = OptionLine.find find(".line[data-line-type='option_line']", match: :prefer_exact, text: @option.name)["data-id"]
 end
 
@@ -52,8 +50,6 @@ When(/^I change the quantity right on the line$/) do
   @quantity = rand(2..9)
   within(".line[data-line-type='option_line'][data-id='#{@option_line.id}']") do
     find("input[data-line-quantity]").set @quantity
-    step "ensure there are no active requests"
-    sleep(0.88)
     find("input[data-line-quantity]").value.should == @quantity.to_s
   end
 end

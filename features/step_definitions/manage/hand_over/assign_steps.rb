@@ -20,7 +20,6 @@ When /^I assign an item to the hand over by providing an inventory code and a da
   line_amount_before = all(".line").size
   assigned_amount_before = all(".line [data-assign-item][disabled]").size
   find("[data-add-contract-line] + .addon").click
-  step "ensure there are no active requests"
   find(".line", match: :first)
   line_amount_before.should == all(".line").size
   assigned_amount_before.should < all(".line [data-assign-item][disabled]").size
@@ -29,11 +28,9 @@ end
 When /^I select one of those$/ do
   within(".line[data-id='#{@item_line.id}']") do
     find("input[data-assign-item]").click
-    step "ensure there are no active requests"
     x = find(".ui-autocomplete a", match: :first)
     @selected_inventory_code = x.find("strong", match: :first).text
     x.click
-    step "ensure there are no active requests"
   end
 end
 

@@ -81,7 +81,7 @@ Angenommen(/^es existiert ein Modell mit folgenden Eigenschaften$/) do |table|
 end
 
 Dann(/^das Modell ist gelöscht$/) do
-  step "ensure there are no active requests"
+  find("#flash")
   Model.find_by_id(@model.id).should be_nil
 end
 

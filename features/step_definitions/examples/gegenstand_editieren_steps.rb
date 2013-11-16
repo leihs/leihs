@@ -3,10 +3,8 @@
 Angenommen /^man editiert einen Gegenstand, wo man der Besitzer ist$/ do
   @ip = @current_user.managed_inventory_pools
   visit manage_inventory_path(@ip)
-  step "ensure there are no active requests"
-  first("label", text: _("Owned")).click
-  step "ensure there are no active requests"
-  first(".button[title='#{_("Items")}']", :match => :first).click
+  find("label", text: _("Owned")).click
+  find(".button[title='#{_("Items")}']", :match => :first).click
   item_line = find(".line[data-type='item']", :match => :first)
   @item = Item.find item_line["data-id"]
   visit manage_edit_item_path @ip, @item
@@ -77,7 +75,7 @@ end
 
 Wenn(/^ich speichern druecke$/) do
   find("button", text: _("Save %s") % _("Item")).click
-  step "ensure there are no active requests"
+  find("#flash .success")
 end
 
 Dann(/^bei dem bearbeiteten Gegestand ist der neue Lieferant eingetragen$/) do

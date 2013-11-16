@@ -12,15 +12,14 @@ Then /^I got an information that this contract has problems$/ do
 end
 
 When /^I approve anyway$/ do
-  within(".modal") do
-    find(".dropdown-toggle").hover
-    find(".dropdown-item[data-approve-anyway]").click
-  end
-  page.has_no_selector?(".modal")
+  find(".modal.ui-shown")
+  find(".modal.ui-shown .dropdown-toggle").hover
+  find(".modal.ui-shown .dropdown-item[data-approve-anyway]").click
+  page.has_no_selector?(".modal").should be_true
 end
 
 Then /^this contract is approved$/ do
-  step "ensure there are no active requests"
-  page.has_no_selector?(".contract.line[data-id='#{@unapprovable_contract.id}']")
+  find(".line[data-id='#{@unapprovable_contract.id}']").should have_content _("Approved")
+  find(".line[data-id='#{@unapprovable_contract.id}'] a[href='#{manage_hand_over_path(@ip, @unapprovable_contract.user)}']")
   @unapprovable_contract.reload.status.should == :approved
 end

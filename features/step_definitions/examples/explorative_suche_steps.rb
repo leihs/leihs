@@ -114,11 +114,9 @@ end
 
 Dann(/^kann ich ein Modell anhand der explorativen Suche wählen$/) do
   page.should have_selector "#process_helper"
-  step "ensure there are no active requests"
   find("#process_helper *[type='submit']").click
   page.should have_selector(".modal .line")
   find("#category-list", :match => :first).click
-  step "ensure there are no active requests"
   model = Model.find find(".modal .line", :match => :first)["data-id"]
   find(".line button.select-model", :match => :first).click
   page.should have_selector(".notification")
