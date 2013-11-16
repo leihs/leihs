@@ -198,7 +198,12 @@ class BookingCalendar
       else # today or future day
         @setHolidays dayElement, holidays if holidays.length
         @setDayElement date, dayElement, holidays
+        @setClosedDay date, dayElement
     do @renderFunctionCallback if @renderFunctionCallback?
+
+  setClosedDay: (date, dayElement)=>
+    if @isClosedDay date
+      dayElement.addClass "closed"
 
   closedDayValidation: =>
     for date_el in [@startDate_el, @endDate_el]
@@ -213,7 +218,6 @@ class BookingCalendar
 
   addClosedDayAlert: (el)=>
     el = $(el)
-    el.addClass "closed"
     setTimeout =>
       @el.trigger "closed-day-alert", el
     , 100
