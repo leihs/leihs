@@ -128,7 +128,6 @@ class window.App.ContractLinesAddController extends Spine.Controller
 
   select: (e, ui)=>
     e.preventDefault()
-    @input.autocomplete "destroy"
     record = ui.item.record
     @add record, @getStartDate(), @getEndDate()
     @preventSubmit = true
@@ -140,7 +139,6 @@ class window.App.ContractLinesAddController extends Spine.Controller
   submit: (e)=>
     e.preventDefault() if e?
     return false if @preventSubmit
-    @input.autocomplete "destroy"
     inventoryCode = @input.val()
     if inventoryCode.length
       App.Inventory.findByInventoryCode(inventoryCode).done @addInventoryItem, inventoryCode
