@@ -33,7 +33,8 @@ class window.PreChange
     
   validate: (e)=>
     target = $ e.currentTarget
-    target.data "lastValue", null if e.type == "change"
+    target.data "lastValue", "" unless target.data("lastValue")?
+    target.data "lastValue", "" if e.type == "change"
     if target.data("timeout")?
       clearTimeout target.data("timeout")
       target.data "timeout", null
