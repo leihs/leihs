@@ -1,5 +1,5 @@
 When /^I add a model by typing in the inventory code of an item of that model to the quick add$/ do
-  @item = @ip.items.detect {|x| not x.inventory_code.blank? }
+  @item ||= @ip.items.detect {|x| not x.inventory_code.blank? }
   find("#add-input").set @item.inventory_code
   find("button[type='submit'][title='#{_("Add")}']").click
 end

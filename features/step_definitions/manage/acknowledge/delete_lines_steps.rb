@@ -22,13 +22,15 @@ Then /^this contractline is deleted$/ do
 end
 
 When /^I delete multiple lines of this contract$/ do
-  step 'I add a model by typing in the inventory code of an item of that model to the quick add'
-
-  find("[data-selected-lines-container] input[data-select-lines]", match: :first).click
-  find("[data-selected-lines-container] input[data-select-lines]", match: :first).click
-
+  step 'I add a model that is not already part of that contract'
   step 'I select two lines'
   step 'I delete the selection'
+  find(".line", match: :first)
+end
+
+When(/^I add a model that is not already part of that contract$/) do
+  @item = (@ip.models - @contract.models).sample.items.sample
+  step 'I add a model by typing in the inventory code of an item of that model to the quick add'
 end
 
 When /^I delete the selection$/ do
@@ -36,7 +38,6 @@ When /^I delete the selection$/ do
   find(".multibutton [data-selection-enabled] + .dropdown-holder").hover
   find("a", :text => _("Delete Selection")).click
   find(".line", match: :first)
-  all(".line").size.should < line_amount_before
 end
 
 Then /^these contractlines are deleted$/ do
