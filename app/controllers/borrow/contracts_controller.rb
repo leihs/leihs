@@ -45,7 +45,7 @@ class Borrow::ContractsController < Borrow::ApplicationController
   def timed_out
     flash[:error] = _("%d minutes passed. The items are not reserved for you any more!") % Contract::TIMEOUT_MINUTES
     @timed_out = true
-    @lines = unsubmitted_contracts.flat_map(&:lines).as_json(methods: :available?)
+    @lines = unsubmitted_contracts.flat_map(&:lines)
     render :current
   end
 

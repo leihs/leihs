@@ -9,8 +9,6 @@ class window.App.UnsubmittedContractsShowController extends Spine.Controller
 
   constructor: ->
     super
-    new App.ModelsShowPropertiesController {el: "#properties"}
-    new App.ModelsShowImagesController {el: "#images"}
     unless App.Contract.timedOut
       @timeoutCountdown = new App.TimeoutCountdownController
         el: @el.find("#timeout-countdown")
@@ -35,5 +33,6 @@ class window.App.UnsubmittedContractsShowController extends Spine.Controller
     return false
 
   render: =>
-    @linesContainer.html App.Render "borrow/views/order/grouped_and_merged_lines", App.Contract.groupedAndMergedLines()
-    @conflictsWarning.addClass("hidden") if _.all App.Contract.currents, (c) -> c.isAvailable()
+    lines = _.flatten(_.map App.Contract.currents, (c)-> c.lines().all())
+    @linesContainer.html App.Render "borrow/views/order/grouped_and_merged_lines", App.Modules.HasLines.groupByDateAndPool(lines, true)
+    @conflictsWarning.addClass("hidden") if _.all lines, (l) -> l.available()

@@ -6,5 +6,6 @@
     %h2.headline-m {{>inventory_pool.name}}
 
 .separated-top.padding-bottom-l
-
-  {{partial "borrow/views/order/merged_lines" merged_lines/}}
+  {{for groups}}
+  {{partial "borrow/views/order/order_line" lines/}}
+  {{/for}}

@@ -13,3 +13,16 @@ window.App.ContractLine.changeTimeRange = (lines, startDate, endDate, inventoryP
     start_date: startDate
     end_date: endDate
     inventory_pool_id: inventoryPool.id
+
+window.App.ContractLine::available = (recover = false)->
+  quantity = if @sublines? 
+    _.reduce @sublines, ((mem, l)-> mem + l.quantity), 0
+  else
+    @quantity
+  availability = @model().availability()
+  return true unless availability
+  if recover
+    linesToExclude = if @sublines? then @sublines else [@]
+    availability = availability.withoutLines(linesToExclude)
+  maxAvailableForUser = availability.maxAvailableForGroups(@start_date, @end_date, App.User.current.groupIds)
+  maxAvailableForUser >= quantity

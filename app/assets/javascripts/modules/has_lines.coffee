@@ -50,6 +50,23 @@ App.Modules.HasLines =
         result.push {date: key_obj.date, groups: value}
     return result
 
+  groupByDateAndPool: (lines, mergeModels = false)->
+    merge = _.groupBy lines, (l)-> JSON.stringify({start_date: l.start_date, inventory_pool_id: l.contract().inventory_pool_id})
+    for k, v of merge
+      merge[k] = _.chain(v)
+      .sortBy((l)-> l.model().name)
+      .groupBy((l)-> JSON.stringify {model_id: l.model_id, end_date: l.end_date})
+      .value()
+      merge[k] = _(merge[k]).values().map (lines)-> {lines: if mergeModels then App.Modules.HasLines.mergeLinesByModel(lines) else lines}
+    result = []
+    for k, v of merge
+      result.push
+        inventory_pool: App.InventoryPool.find JSON.parse(k).inventory_pool_id
+        start_date: JSON.parse(k).start_date
+        groups: v
+    result = _.sortBy result, (e)-> e.start_date
+    return result
+
   #
   # Merging lines by model is needed to merge multiple selected lines of the same model to display them as one line with increased quantity for the booking calendar.
   # They have an additonal key/vaulue for storing the merged sub line ids called "sublines". 

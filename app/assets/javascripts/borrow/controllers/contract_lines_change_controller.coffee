@@ -11,8 +11,6 @@ class window.App.ContractLinesChangeController extends window.App.BorrowBookingC
 
   # overwrite
   done: (data)=>
-    if @lines?
-      line["available?"] = true for line in @lines
     for contract in App.Contract.currents
       App.Contract.trigger "refresh", contract
     super
