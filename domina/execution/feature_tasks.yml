@@ -559,10 +559,6 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/technical/item/search_model.feature"
-- name: technical/model/availability_model
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/technical/model/availability_model.feature"
 - name: technical/purpose/purpose
   scripts:
     cucumber:
