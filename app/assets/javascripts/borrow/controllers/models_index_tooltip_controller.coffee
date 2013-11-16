@@ -17,13 +17,14 @@ class window.App.ModelsIndexTooltipController extends Spine.Controller
     .done =>
       return false unless App.Model.exists model_id
       tooltip = @tooltips[model_id]
-      model = App.Model.find(model_id)
-      model.propertiesToDisplay = _.first model.properties().all(), 5
-      model.amount_of_images = 3
-      content = App.Render "borrow/views/models/index/tooltip", model
-      tooltip.update App.Render "borrow/views/models/index/tooltip", model
-      do tooltip.enable
-      do tooltip.show if @currentTooltip == tooltip and @mouseOverTooltip
+      if tooltip?
+        model = App.Model.find(model_id)
+        model.propertiesToDisplay = _.first model.properties().all(), 5
+        model.amount_of_images = 3
+        content = App.Render "borrow/views/models/index/tooltip", model
+        tooltip.update App.Render "borrow/views/models/index/tooltip", model
+        do tooltip.enable
+        do tooltip.show if @currentTooltip == tooltip and @mouseOverTooltip
 
   enterLine: (e)=> 
     @mouseOverTooltip = true
