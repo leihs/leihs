@@ -12,6 +12,7 @@ or create an Tooltip with new App.Tooltio(options).
 class App.Tooltip
 
   @origins = []
+  @interactive = true
 
   constructor: (options)->
     @target = $(options.el).tooltipster
@@ -21,7 +22,7 @@ class App.Tooltip
       delay: if options.delay? then options.delay else 150,
       fixedWidth: 0,
       maxWidth: 0,
-      interactive: if options.interactive? then options.interactive else true,
+      interactive: if options.interactive? then options.interactive else App.Tooltip.interactive,
       interactiveTolerance: 500,
       offsetX: 0,
       offsetY: -12,
