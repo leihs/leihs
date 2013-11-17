@@ -79,7 +79,7 @@ Wenn /^man einen Gegenstand kopiert$/ do
   @item = Item.where(inventory_pool_id: @current_inventory_pool).detect {|i| not i.retired? and not i.serial_number.nil? and not i.name.nil?}
   find_field('list-search').set @item.model.name
   find(".line[data-type='model'] .col2of5", match: :first, text: @item.model.name)
-  find("[data-type='inventory-expander']", match: first).click
+  find("[data-type='inventory-expander']", match: :first).click
   find(".line[data-id='#{@item.id}'] .dropdown-holder").hover
   find(".line[data-type='item']", text: @item.inventory_code, match: :first).find("a", text: _("Copy Item"), match: :first).click
 end

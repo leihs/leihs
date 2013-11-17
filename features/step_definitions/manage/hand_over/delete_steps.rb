@@ -7,14 +7,15 @@ When /^I delete a line$/ do
 end
 
 When /^I delete this line element$/ do
-  within(".line[data-id='#{@line.id}'] .multibutton") do
+  within(".line[data-id='#{@line.id}']") do
     find(".dropdown-toggle").hover
     find(".red[data-destroy-line]", :text => _("Delete")).click
   end
 end
 
 Then /^this line is deleted$/ do
-  page.has_no_selector?(".line[data-id='#{@line.id}']").should be_false
+  find(".line", match: :first)
+  page.has_no_selector?(".line[data-id='#{@line.id}']").should be_true
   lambda {@line.reload}.should raise_error(ActiveRecord::RecordNotFound) 
 end
 
@@ -33,7 +34,7 @@ When /^I delete the seleted lines$/ do
     find(".dropdown-toggle").hover
     find(".dropdown-item.red[data-destroy-selected-lines]", text: _("Delete Selection")).click
   end
-  find(".line", match: first)
+  find(".line", match: :first)
 end
 
 Then /^these lines are deleted$/ do
