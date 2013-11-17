@@ -41,6 +41,7 @@ When /^I delete the selection$/ do
 end
 
 Then /^these contractlines are deleted$/ do
+  visit current_path
   lambda {@line1.reload}.should raise_error(ActiveRecord::RecordNotFound)
   lambda {@line2.reload}.should raise_error(ActiveRecord::RecordNotFound)
 end
