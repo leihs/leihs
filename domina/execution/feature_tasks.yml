@@ -407,6 +407,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/manage/acknowledge/edit_order_line.feature"
+- name: manage/acknowledge/edit_order_line2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/acknowledge/edit_order_line2.feature"
 - name: manage/acknowledge/edit_purpose
   scripts:
     cucumber:
