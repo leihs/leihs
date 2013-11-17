@@ -35,6 +35,7 @@ When /^I select one of those$/ do
 end
 
 Then /^the item line is assigned to the selected inventory code$/ do
+  visit current_path
   @item_line.reload.item.inventory_code.should == @selected_inventory_code
 end
 
