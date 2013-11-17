@@ -38,7 +38,8 @@ Dann /^sehe ich auf jeder Zeile den zugewisenen Zweck$/ do
   @customer.contracts.approved.first.lines.each do |line|
     l = find(".line[data-id='#{line.id}']")
     l.should have_content line.model.name
-    l.should have_content line.purpose.description[0..10]
+    l.find("[title='#{line.purpose.description}']").hover
+    page.should have_content line.purpose.description
   end
 end
 
@@ -62,6 +63,9 @@ end
 Wenn /^keine der ausgewählten Gegenstände hat einen Zweck angegeben$/ do
   step 'I add an item to the hand over by providing an inventory code and a date range'
   step 'I add an option to the hand over by providing an inventory code and a date range'
+  step 'I edit the timerange of the selection'
+  step "ich setze das Startdatum im Kalendar auf '#{I18n.l(Date.today)}'"
+  step 'I save the booking calendar'
 end
 
 Dann /^werde ich beim Aushändigen darauf hingewiesen einen Zweck anzugeben$/ do
@@ -90,15 +94,20 @@ Wenn /^einige der ausgewählten Gegenstände hat keinen Zweck angegeben$/ do
 end
 
 Dann /^muss ich keinen Zweck angeben um die Aushändigung durchzuführen$/ do
+  step 'I edit the timerange of the selection'
+  step "ich setze das Startdatum im Kalendar auf '#{I18n.l(Date.today)}'"
+  step 'I save the booking calendar'
   find(".multibutton .button[data-hand-over-selection]").click
-  page.should have_selector(".modal .button")
+  find(".modal.ui-shown")
   step 'kann ich die Aushändigung durchführen'
 end
 
 Wenn /^ich einen Zweck angebe$/ do
+  step 'I edit the timerange of the selection'
+  step "ich setze das Startdatum im Kalendar auf '#{I18n.l(Date.today)}'"
+  step 'I save the booking calendar'
   find(".multibutton .button[data-hand-over-selection]").click
-  find(".modal .button")
-  find(".purpose .button").click
+  find("#add-purpose").click
   @added_purpose = "Another Purpose"
   find("#purpose").set @added_purpose
   @approved_lines = @customer.contracts.approved.first.lines
@@ -113,15 +122,14 @@ end
 
 Wenn /^alle der ausgewählten Gegenstände haben einen Zweck angegeben$/ do
   @contract = @customer.contracts.approved.first
-  lines = @contract.lines.where(ContractLine.arel_table[:start_date].lteq(Date.today))
+  lines = @contract.lines
   lines.each do |line|
     @item_line = line
     step 'I select one of those'
   end
-  all(".line [data-assign-item][disabled]").each do |input|
-    select = input.find(:xpath, "./../../..").find("[data-select-line]")
-    select.click unless select.selected?
-  end
+  step 'I edit the timerange of the selection'
+  step "ich setze das Startdatum im Kalendar auf '#{I18n.l(Date.today)}'"
+  step 'I save the booking calendar'
   find(".multibutton .button[data-hand-over-selection]").click
   within(".modal") do
     lines.each do |line|
