@@ -34,6 +34,8 @@ end
 
 When /^I save the booking calendar$/ do
   find("#submit-booking-calendar", :text => _("Save")).click
+  sleep(0.88)
+  page.has_no_selector?("#submit-booking-calendar", :text => _("Save")).should be_true
   page.has_no_selector?("#booking-calendar").should be_true
 end
 
@@ -74,6 +76,11 @@ When /^I change a contract lines quantity$/ do
   @new_quantity = @line.model.total_borrowable_items_for_user @customer
   first("input#booking-calendar-quantity").set @new_quantity
   step 'I save the booking calendar'
+end
+
+Then(/^the contract line was duplicated$/) do
+  @line.reload.quantity
+  @line.contract.lines.where(:model_id => @line.model_id).sum(&:quantity).should >= @new_quantity
 end
 
 Then /^the quantity of that line is changed$/ do

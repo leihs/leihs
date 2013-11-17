@@ -60,5 +60,14 @@ When(/^I decrease the quantity again$/) do
 end
 
 Then(/^the quantity for that option line is changed$/) do
+  visit current_path
   @option_line.reload.quantity.should == @quantity
+end
+
+When(/^I change the quantity through the edit dialog$/) do
+  find(".line[data-id='#{@option_line.id}'] button").click
+  @quantity = rand(2..9)
+  find("#booking-calendar-quantity").set @quantity
+  find("#submit-booking-calendar").click
+  find(".line[data-id='#{@option_line.id}'] input[data-line-quantity]").value.to_i.should == @quantity
 end
