@@ -443,6 +443,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/manage/hand_over/add.feature"
+- name: manage/hand_over/add2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/hand_over/add2.feature"
 - name: manage/hand_over/add_purpose
   scripts:
     cucumber:
