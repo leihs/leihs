@@ -17,62 +17,67 @@ end
 Dann /^wähle ich all die Felder über eine List oder per Namen aus$/ do
   i = find("#field-input")
   i.click
-  page.should have_selector(".ui-menu-item a", :visible => true)
-  number_of_items_left = all(".ui-menu-item a", :visible => true).size
+  page.has_selector?("a.ui-corner-all", :visible => true).should be_true
+  number_of_items_left = all("a.ui-corner-all", :visible => true).size
 
   number_of_items_left.times do
     i.click
-    find(".ui-menu-item a", match: :first, :visible => true).click
-  end  
+    find("a.ui-corner-all", match: :first, :visible => true).click
+  end
 end
 
 Dann /^ich setze all ihre Initalisierungswerte$/ do
+  @parent_el ||= find("#field-selection")
   @data = {}
   Field.all.each do |field|
-    next if all(".field[data-id='#{field[:id]}']").empty?
+    next if @parent_el.all(".field[data-id='#{field[:id]}']").empty?
+    field_el = @parent_el.find(".field[data-id='#{field[:id]}']")
     case field[:type]
       when "radio"
-        r = find(".field[data-id='#{field[:id]}'] input[type=radio]", match: :first)
+        r = field_el.find("input[type=radio]", match: :first)
         r.click
         @data[field[:id]] = r.value
       when "textarea"
-        ta = find(".field[data-id='#{field[:id]}'] textarea")
+        ta = field_el.find("textarea")
         ta.set "This is a text for a textarea"
         @data[field[:id]] = ta.value
       when "select"
-        o = find(".field[data-id='#{field[:id]}'] option", match: :first)
+        o = field_el.find("option", match: :first)
         o.select_option
         @data[field[:id]] = o.value
       when "text"
-        string = if all(".field[data-id='#{field[:id]}'] input[name='item[inventory_code]']").empty?
-                   "This is a text for a input text"
-                 else
-                    "123456"
-                 end
-        i = find(".field[data-id='#{field[:id]}'] input[type='text']")
-        i.set string
-        @data[field[:id]] = i.value
+        within field_el do
+          string = if all("input[name='item[inventory_code]']").empty?
+                     "This is a text for a input text"
+                   else
+                     "123456"
+                   end
+          i = find("input[type='text']")
+          i.set string
+          @data[field[:id]] = i.value
+        end
       when "date"
-        dp = find(".field[data-id='#{field[:id]}'] [data-type='datepicker']")
+        dp = field_el.find("[data-type='datepicker']")
         dp.click
-        find(".ui-datepicker-calendar .ui-state-highlight", visible: true).click
+        find(".ui-datepicker-calendar").find(".ui-state-highlight, .ui-state-active", visible: true).click
         @data[field[:id]] = dp.value
       when "autocomplete"
         target_name = find(".field[data-id='#{field[:id]}'] [data-type='autocomplete']")['data-autocomplete_value_target']
-        find("[data-type='autocomplete'][data-autocomplete_value_target='#{target_name}']").click
-        find(".ui-menu-item a", match: :first).click
+        find(".field[data-id='#{field[:id]}'] [data-type='autocomplete'][data-autocomplete_value_target='#{target_name}']").click
+        sleep(0.44)
+        find("a.ui-corner-all", match: :first).click
         @data[field[:id]] = find(".field[data-id='#{field[:id]}'] [data-type='autocomplete']")
       when "autocomplete-search"
         string = "Sharp Beamer"
         within ".field[data-id='#{field[:id]}']" do
           find("input").click
           find("input").set string
-          find("a", match: :prefer_exact, text: string).click
         end
+        find("a.ui-corner-all", match: :prefer_exact, text: string).click
         @data[field[:id]] = Model.find_by_name(string).id
       when "checkbox"
         # currently we only have "ausgemustert"
-        find(".field[data-id='#{field[:id]}'] input[type='checkbox']").click
+        field_el.find("input[type='checkbox']").click
         find("[name='item[retired_reason]']").set "This is a text for a input text"
         @data[field[:id]] = "This is a text for a input text"
       else
@@ -118,45 +123,44 @@ Dann /^sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, di
   Field.all.each do |field|
     next if all(".field[data-id='#{field[:id]}']").empty?
     within("form#flexible-fields") do
-      if field_el = find(".field[data-id='#{field.id}']")
-        value = field.get_value_from_params @item.reload
-        field_type = field.type
-        if field_type == "date"
-          unless value.blank?
-            value = Date.parse(value) if value.is_a?(String)
-            field_el.should have_content value.year
-            field_el.should have_content value.month
-            field_el.should have_content value.day
-          end
-        elsif field[:attribute] == "retired"
-          unless value.blank?
-            field_el.should have_content _(field[:values].first[:label])
-          end
-        elsif field_type == "radio"
-          if value
-            value = field[:values].detect{|v| v[:value] == value}[:label]
-            field_el.should have_content _(value)
-          end
-        elsif field_type == "select"
-          if value
-            value = field[:values].detect{|v| v[:value] == value}[:label]
-            field_el.should have_content _(value)
-          end
-        elsif field_type == "autocomplete"
-          if value
-            value = field.as_json["values"].detect{|v| v["value"] == value}["label"]
-            field_el.should have_content _(value)
-          end
-        elsif field_type == "autocomplete-search"
-          if value
-            if field[:label] == "Model"
-              value = Model.find(value).name
-              field_el.should have_content value
-            end
-          end
-        else
+      field_el = find(".field[data-id='#{field.id}']")
+      value = field.get_value_from_params @item.reload
+      field_type = field.type
+      if field_type == "date"
+        unless value.blank?
+          value = Date.parse(value) if value.is_a?(String)
+          field_el.should have_content value.year
+          field_el.should have_content value.month
+          field_el.should have_content value.day
+        end
+      elsif field[:attribute] == "retired"
+        unless value.blank?
+          field_el.should have_content _(field[:values].first[:label])
+        end
+      elsif field_type == "radio"
+        if value
+          value = field[:values].detect{|v| v[:value] == value}[:label]
           field_el.should have_content _(value)
         end
+      elsif field_type == "select"
+        if value
+          value = field[:values].detect{|v| v[:value] == value}[:label]
+          field_el.should have_content _(value)
+        end
+      elsif field_type == "autocomplete"
+        if value
+          value = field.as_json["values"].detect{|v| v["value"] == value}["label"]
+          field_el.should have_content _(value)
+        end
+      elsif field_type == "autocomplete-search"
+        if value
+          if field[:label] == "Model"
+            value = Model.find(value).name
+            field_el.should have_content value
+          end
+        end
+      else
+        field_el.should have_content _(value)
       end
     end
   end
@@ -176,7 +180,7 @@ Dann /^wähle ich die Felder über eine List oder per Namen aus$/ do
   field = Field.all.select{|f| f[:readonly] == nil and f[:type] != "autocomplete-search"}.last
   find("#field-input").click
   find("#field-input").set field.label
-  find("a.ui-corner-all:nth-child(1)", text: field.label).click
+  find("a.ui-corner-all", match: :first, text: field.label).click
   @all_editable_fields = all("#field-selection .field", :visible => true)
 end
 
@@ -207,7 +211,7 @@ end
 
 Dann /^wähle den Gegenstand über die mir vorgeschlagenen Suchtreffer$/ do
   page.should have_selector(".ui-menu-item")
-  find(".ui-menu-item a", :text => @item.inventory_code).click
+  find("a.ui-corner-all", :text => @item.inventory_code).click
 end
 
 Angenommen /^man editiert ein Gerät über den Helferschirm mittels Inventarcode$/ do
@@ -224,13 +228,12 @@ Wenn /^man die Editierfunktion nutzt$/ do
 end
 
 Dann /^kann man an Ort und Stelle alle Werte des Gegenstandes editieren$/ do
-  within("#item-section") do
-    step %Q{ich setze all ihre Initalisierungswerte}
-  end
+  @parent_el = find("#item-section")
+  step 'ich setze all ihre Initalisierungswerte'
 end
 
 Dann /^man die Änderungen speichert$/ do
-  find("#item-section button", :text => _("Save")).click
+  find("#item-section button", :text => _("Save change")).click
 end
 
 Dann /^sind sie gespeichert$/ do
@@ -238,7 +241,7 @@ Dann /^sind sie gespeichert$/ do
 end
 
 Wenn /^man seine Änderungen widerruft$/ do
-  find("#item-section button", :text => _("cancel")).click
+  find("#item-section a", :text => _("Cancel")).click
 end
 
 Dann /^sind die Änderungen widerrufen$/ do
@@ -252,8 +255,8 @@ end
 Dann(/^wähle ich das Feld "(.*?)" aus der Liste aus$/) do |field|
   find("#field-input").click
   find("#field-input").set field
-  page.should have_selector(".ui-menu-item a", text: field)
-  find("#field-input").native.send_keys([:down, :return])
+  sleep(0.44)
+  find("a.ui-corner-all", match: :prefer_exact, text: field).click
   @all_editable_fields = all("#field-selection .field", :visible => true)
 end
 
