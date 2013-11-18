@@ -78,10 +78,18 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/vertrag.feature"
+- name: examples/vertrag3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/vertrag3.feature"
 - name: examples/werteliste
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/werteliste.feature"
+- name: examples/werteliste3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/werteliste3.feature"
 - name: examples/zweck
   scripts:
     cucumber:

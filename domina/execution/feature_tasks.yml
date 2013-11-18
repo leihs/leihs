@@ -387,6 +387,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/vertrag2.feature"
+- name: examples/vertrag3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/vertrag3.feature"
 - name: examples/vorlagen
   scripts:
     cucumber:
