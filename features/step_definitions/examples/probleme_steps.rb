@@ -36,8 +36,8 @@ Angenommen /^eine Model ist nichtmehr verfügbar$/ do
     step 'I add so many lines that I break the maximal quantity of an model'
     visit manage_take_back_path(@ip, @customer)
   end
+  sleep(0.88)
   find(".line", text: @model.name, match: :first)
-  page.has_selector?(".line", text: @model.name).should be_true
   @lines = all(".line", text: @model.name)
   @lines.size.should > 0
 end
