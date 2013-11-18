@@ -97,12 +97,15 @@ Und /^das Modell hat (.+) zugewiesen$/ do |assoc|
 end
 
 Dann(/^kann ich das Modell aus der Liste nicht löschen$/) do
-  sleep(0.88)
+  sleep(0.44)
   visit manage_inventory_path(@current_inventory_pool)
   find("[data-unused_models]").click unless @current_inventory_pool.models.include? @model
   fill_in 'list-search', with: @model.name
-  find(".line[data-id='#{@model.id}'] .dropdown-holder").hover
-  find(".line[data-id='#{@model.id}'] [data-method='delete']").click
+  sleep(0.44)
+  within(".line[data-id='#{@model.id}']") do
+    find(".dropdown-holder").hover
+    find("[data-method='delete']").click
+  end
   find("#flash .error")
   @model.reload # is still there
   sleep(0.66) # fix lazy request fail problem
