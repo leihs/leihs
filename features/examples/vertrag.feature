@@ -50,31 +50,6 @@ Funktionalität: Vertrag
   Szenario: Rücknehmende Person
     Angenommen man öffnet einen Vertrag bei der Rücknahme
     Dann sieht man bei den betroffenen Linien die rücknehmende Person im Format "V. Nachname"
-  
-  @javascript
-  Szenario: Zwecke
-    Angenommen man öffnet einen Vertrag bei der Aushändigung
-    Dann sehe ich eine Liste Zwecken, getrennt durch Kommas
-     Und jeder identische Zweck ist maximal einmal aufgelistet
 
-  @javascript    
-  Szenario: Datum
-    Angenommen man öffnet einen Vertrag bei der Aushändigung
-    Dann sehe ich das heutige Datum oben rechts
-    
-  @javascript
-  Szenario: Titel
-    Angenommen man öffnet einen Vertrag bei der Aushändigung
-    Dann sehe ich den Titel im Format "Leihvertrag Nr. #"
-  
-  @javascript 
-  Szenario: Position des Barcodes
-    Angenommen man öffnet einen Vertrag bei der Aushändigung
-    Dann sehe ich den Barcode oben links
-  
-  @javascript  
-  Szenario: Position des Ausleihenden
-    Angenommen man öffnet einen Vertrag bei der Aushändigung
-    Dann sehe ich den Ausleihenden oben links
     
 
