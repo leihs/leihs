@@ -45,19 +45,3 @@ Funktionalität: Modell
     | Name                               | Test Modell y                |
     Und ich speichere die Informationen
     Dann ist das neue Modell erstellt und unter ungenutzen Modellen auffindbar
-
-  @javascript
-  Szenario: Modelldetails bearbeiten
-    Angenommen man öffnet die Liste der Modelle
-    Wenn ich ein bestehendes, genutztes Modell bearbeite
-    Und ich ändere die folgenden Details
-    | Feld                               | Wert                         |
-    | Name                               | Test Modell x                |
-    | Hersteller                         | Test Hersteller x            |
-    | Beschreibung                       | Test Beschreibung x          |
-    | Technische Details                 | Test Technische Details x    |
-    | Interne Beschreibung               | Test Interne Beschreibung x  |
-    | Wichtige Notizen zur Aushändigung  | Test Notizen x               |
-    Und ich speichere die Informationen
-    Und die Informationen sind gespeichert
-    Und die Daten wurden entsprechend aktualisiert
