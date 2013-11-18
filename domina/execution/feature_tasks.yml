@@ -363,6 +363,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/pakete.feature"
+- name: examples/pakete2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/pakete2.feature"
 - name: examples/passwort
   scripts:
     cucumber:
