@@ -24,6 +24,9 @@ end
 When /^I delete multiple lines of this contract$/ do
   step 'I add a model that is not already part of that contract'
   step 'I select two lines'
+  if all("input[data-select-line]").map{|i| i.checked?}.all?
+    find("input[data-select-line]", match: :first).click
+  end
   step 'I delete the selection'
   find(".line", match: :first)
 end
