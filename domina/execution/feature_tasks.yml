@@ -239,6 +239,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen2.feature"
+- name: examples/gegenstand_erstellen3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen3.feature"
 - name: examples/gegenstand_kopieren
   scripts:
     cucumber:
