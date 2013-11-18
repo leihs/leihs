@@ -26,6 +26,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/inventar.feature"
+- name: examples/inventar2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/inventar2.feature"
 - name: examples/inventarhelfer
   scripts:
     cucumber:
