@@ -12,6 +12,7 @@ end
 
 Wenn /^ich öffne eine Bestellung von "(.*?)"$/ do |arg1|
   find("[data-collapsed-toggle='#open-orders']").click unless all("[data-collapsed-toggle='#open-orders']").empty?
+  @contract = Contract.find find("#daily-view #open-orders .line", match: :prefer_exact, :text => arg1)["data-id"]
   within("#daily-view #open-orders .line", match: :prefer_exact, :text => arg1) do
     find(".line-actions .multibutton .dropdown-holder").hover
     find(".dropdown-item", :text => _("Edit")).click

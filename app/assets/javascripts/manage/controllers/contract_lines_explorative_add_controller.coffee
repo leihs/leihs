@@ -35,6 +35,8 @@ class window.App.ContractLinesExplorativeAddController extends Spine.Controller
       data: $.param
         page: page
         category_id: @categoriesFilter.getCurrent()?.id
+        borrowable: true
+        responsible_id: App.InventoryPool.current.id
     .done (data, status, xhr) => 
       @pagination.set JSON.parse(xhr.getResponseHeader("X-Pagination"))
       models = (App.Model.find(datum.id) for datum in data)

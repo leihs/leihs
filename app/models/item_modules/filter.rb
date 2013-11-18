@@ -13,6 +13,7 @@ module ItemModules
         items = params[:all] ? Item.unscoped : Item.scoped
         items = items.by_owner_or_responsible current_inventory_pool if current_inventory_pool
         items = items.where(Item.arel_table[:retired].not_eq(nil)) if params[:retired]
+        items = items.where(:retired => nil) if params[:unretired] and not params[:retired]
         items = items.borrowable if params[:borrowable]
         items = items.unborrowable if params[:unborrowable] 
         items = items.where(:model_id => Model.joins(:categories).where(:"model_groups.id" => [Category.find(params[:category_id])] + Category.find(params[:category_id]).descendants)) if params[:category_id]

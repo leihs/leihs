@@ -49,6 +49,7 @@ class window.App.InventoryIndexController extends Spine.Controller
         page: page
         search_term: @search.term()
         category_id: @categoriesFilter?.getCurrent()?.id
+        unretired: true
     .done (data, status, xhr) => 
       @pagination.set JSON.parse(xhr.getResponseHeader("X-Pagination"))
       inventory = (App.Inventory.find(datum.id).cast() for datum in data)
@@ -73,6 +74,7 @@ class window.App.InventoryIndexController extends Spine.Controller
         paginate: false
         search_term: @search.term()
         all: true
+        unretired: true
 
   getData: => _.clone $.extend @tabs.getData(), @filter.getData()
 
