@@ -22,14 +22,6 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen2.feature"
-- name: examples/gegenstand_kopieren2
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_kopieren2.feature"
-- name: examples/geraetepark_grundinformationen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/geraetepark_grundinformationen.feature"
 - name: examples/inventar
   scripts:
     cucumber:
@@ -62,6 +54,14 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/modell5.feature"
+- name: examples/modell6
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/modell6.feature"
+- name: examples/modell7
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/modell7.feature"
 - name: examples/pakete
   scripts:
     cucumber:

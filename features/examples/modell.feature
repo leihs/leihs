@@ -30,18 +30,3 @@ Funktionalität: Modell
     Und ich speichere die Informationen
     Dann ist das neue Modell erstellt und unter ungenutzen Modellen auffindbar
 
-  @javascript
-  Szenario: Modell erstellen nur mit Name
-    Wenn ich ein neues Modell hinzufüge
-    Und ich speichere die Informationen
-    Dann wird das Modell nicht gespeichert, da es keinen Namen hat
-    Und sehe ich eine Fehlermeldung
-    Wenn ich einen Namen eines existierenden Modelles eingebe
-    Und ich speichere die Informationen
-    Dann wird das Modell nicht gespeichert, da es keinen eindeutigen Namen hat
-    Und ich sehe eine Fehlermeldung
-    Wenn ich die folgenden Details ändere
-    | Feld                               | Wert                         |
-    | Name                               | Test Modell y                |
-    Und ich speichere die Informationen
-    Dann ist das neue Modell erstellt und unter ungenutzen Modellen auffindbar

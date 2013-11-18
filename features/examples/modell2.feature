@@ -26,10 +26,3 @@ Funktionalität: Modell
     Wenn ich ein bestehendes, genutztes Modell bearbeite welches bereits Zubehör hat
     Dann kann ich ein einzelnes Zubehör für meinen Pool deaktivieren
 
-  @javascript
-  Szenario: Attachments erstellen
-    Und ich erstelle ein neues Modell oder ich ändere ein bestehendes Modell
-    Dann füge ich eine oder mehrere Datein den Attachments hinzu
-    Und kann Attachments auch wieder entfernen
-    Und ich speichere die Informationen
-    Dann sind die Attachments gespeichert

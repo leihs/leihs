@@ -203,6 +203,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/passwort2.feature"
+- name: examples/modell6
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/modell6.feature"
 - name: examples/ausleihe2
   scripts:
     cucumber:
@@ -319,6 +323,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen2.feature"
+- name: examples/modell7
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/modell7.feature"
 - name: examples/probleme2
   scripts:
     cucumber:
