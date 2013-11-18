@@ -1,0 +1,92 @@
+- name: examples/ausleihe2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/ausleihe2.feature"
+- name: examples/explorative_suche2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/explorative_suche2.feature"
+- name: examples/gegenstand_editieren
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_editieren.feature"
+- name: examples/gegenstand_editieren2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_editieren2.feature"
+- name: examples/gegenstand_erstellen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen.feature"
+- name: examples/gegenstand_erstellen2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen2.feature"
+- name: examples/gegenstand_kopieren2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_kopieren2.feature"
+- name: examples/geraetepark_grundinformationen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/geraetepark_grundinformationen.feature"
+- name: examples/gruppen3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gruppen3.feature"
+- name: examples/gruppen4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gruppen4.feature"
+- name: examples/inventar
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/inventar.feature"
+- name: examples/inventarhelfer
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/inventarhelfer.feature"
+- name: examples/kalender
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/kalender.feature"
+- name: examples/modell
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/modell.feature"
+- name: examples/pakete
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/pakete.feature"
+- name: examples/passwort
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/passwort.feature"
+- name: examples/probleme
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/probleme.feature"
+- name: examples/sprachauswahl
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/sprachauswahl.feature"
+- name: examples/timeline
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/timeline.feature"
+- name: examples/vertrag
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/vertrag.feature"
+- name: examples/werteliste
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/werteliste.feature"
+- name: examples/zweck
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/zweck.feature"
+- name: examples/zweck2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/zweck2.feature"
