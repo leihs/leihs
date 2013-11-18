@@ -283,6 +283,7 @@ Dann /^man sieht pro Modell eine Zeile$/ do
   all(".show_more").each(&:click)
   @lines.each do |line|
     line.hover
+    sleep(0.66)
     find(".tooltipster-default", match: :first)
     model_names = find(".tooltipster-default", match: :first, :visible => true).all(".row .col7of8:nth-child(2) strong", text: /.+/).map &:text
     model_names.size.should == model_names.uniq.size
