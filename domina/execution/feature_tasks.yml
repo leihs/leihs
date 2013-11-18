@@ -379,6 +379,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/probleme2.feature"
+- name: examples/probleme3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/probleme3.feature"
 - name: examples/reservierenden_wechseln
   scripts:
     cucumber:

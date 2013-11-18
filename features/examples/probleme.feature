@@ -35,17 +35,3 @@ Funktionalität: Anzeige von Problemen
      Und "2" sind verfügbar für den Kunden
      Und "3" sind insgesamt verfügbar
      Und "7" sind total im Pool bekannt (ausleihbar)
-
-  @javascript
-  Szenario: Problemanzeige bei Aushändigung wenn Gegenstand nicht ausleihbar
-    Angenommen ich mache eine Aushändigung
-     Und eine Gegenstand ist nicht ausleihbar
-     Dann sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen
-     Und das Problem wird wie folgt dargestellt: "Gegenstand nicht ausleihbar"
-
-  @javascript
-  Szenario: Problemanzeige bei Rücknahme wenn Gegenstand nicht ausleihbar
-    Angenommen ich mache eine Rücknahme
-    Und eine Gegenstand ist nicht ausleihbar
-    Dann sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen
-    Und das Problem wird wie folgt dargestellt: "Gegenstand nicht ausleihbar"
