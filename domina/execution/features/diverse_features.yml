@@ -38,10 +38,6 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/kalender.feature"
-- name: examples/modell
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/modell.feature"
 - name: examples/modell2
   scripts:
     cucumber:
@@ -54,18 +50,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/modell4.feature"
-- name: examples/modell5
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/modell5.feature"
 - name: examples/modell6
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/modell6.feature"
-- name: examples/modell7
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/modell7.feature"
 - name: examples/pakete
   scripts:
     cucumber:
