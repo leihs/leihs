@@ -54,6 +54,14 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/modell.feature"
+- name: examples/modell2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/modell2.feature"
+- name: examples/modell3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/modell3.feature"
 - name: examples/pakete
   scripts:
     cucumber:
