@@ -6,10 +6,9 @@ Angenommen(/^ich die Navigation der Kategorien aufklappe$/) do
 end
 
 Wenn(/^ich eine Kategorie anwähle$/) do
-  find("body").click
-  @category_el = find("#categories #category-list [data-type='category-filter']", match: :first)
-  @category = Category.find @category_el[:"data-id"]
-  @category_el.click
+  @category = Category.find find("a[data-type='category-filter']", match: :first)[:"data-id"]
+  page.execute_script %Q{ $("a[data-type='category-filter']").trigger("click") }
+  find("#category-current", :text => @category.name)
 end
 
 Dann(/^sehe ich die darunterliegenden Kategorien$/) do
@@ -19,9 +18,10 @@ Dann(/^sehe ich die darunterliegenden Kategorien$/) do
 end
 
 Dann(/^kann die darunterliegende Kategorie anwählen$/) do
-  @child_el = find("#categories #category-list [data-type='category-filter']", match: :first)
-  @child_category = Category.find @child_el[:"data-id"]
-  @child_el.click
+  @child_category = Category.find find("a[data-type='category-filter']", match: :first)[:"data-id"]
+  @category.children.should include @child_category
+  page.execute_script %Q{ $("a[data-type='category-filter']").trigger("click") }
+  find("#category-current", :text => @child_category.name)
 end
 
 Dann(/^ich sehe die Hauptkategorie sowie die aktuell ausgewählte und die darunterliegenden Kategorien$/) do
@@ -68,6 +68,7 @@ Wenn(/^ich nach dem Namen einer Kategorie suche$/) do
   @search_term = @category.name[0..2]
   find("#category-search").set @search_term
   find("#category-root", :text => @search_term)
+  find(".line", match: :first)
 end
 
 Dann(/^werden alle Kategorien angezeigt, welche den Namen beinhalten$/) do
