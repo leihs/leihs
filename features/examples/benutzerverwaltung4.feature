@@ -5,7 +5,6 @@ Funktionalität: Benutzer verwalten
   Grundlage:
     Angenommen Personas existieren
 
-
   @javascript
   Szenario: Zugriff entfernen als Inventar-Verwalter
     Angenommen man ist "Mike"
@@ -13,32 +12,6 @@ Funktionalität: Benutzer verwalten
     Wenn man den Zugriff entfernt
     Und man speichert den Benutzer
     Dann hat der Benutzer keinen Zugriff auf das Inventarpool
-
-  @javascript
-  Szenario: Zugriff entfernen als Administrator
-    Angenommen man ist "Gino"
-    Und man editiert einen Benutzer der Zugriff auf ein Inventarpool hat
-    Wenn man den Zugriff entfernt
-    Und man speichert den Benutzer
-    Dann hat der Benutzer keinen Zugriff auf das Inventarpool
-
-  @javascript
-  Szenario: Benutzer als Administrator löschen
-    Angenommen man ist "Gino"
-    Und man befindet sich auf der Benutzerliste ausserhalb der Inventarpools
-    Und man sucht sich einen Benutzer ohne Zugriffsrechte, Bestellungen und Verträge aus
-    Wenn ich diesen Benutzer aus der Liste lösche
-    Dann wurde der Benutzer aus der Liste gelöscht
-    Und der Benutzer ist gelöscht
-
-  @javascript
-  Szenario: Benutzer im Geräterpark als Administrator löschen
-    Angenommen man ist "Gino"
-    Und man sucht sich einen Benutzer ohne Zugriffsrechte, Bestellungen und Verträge aus
-    Und man befindet sich auf der Benutzerliste im beliebigen Inventarpool
-    Wenn ich diesen Benutzer aus der Liste lösche
-    Dann wurde der Benutzer aus der Liste gelöscht
-    Und der Benutzer ist gelöscht
 
   @javascript @upcoming
   Szenario: Gruppenzuteilung in Benutzeransicht hinzufügen/entfernen

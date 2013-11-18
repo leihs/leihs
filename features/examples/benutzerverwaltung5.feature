@@ -6,29 +6,6 @@ Funktionalität: Benutzer verwalten
     Angenommen Personas existieren
 
   @javascript
-  Szenario: Benutzer den Zugriff auf ein Inventarpool reaktivieren
-    Angenommen man ist "Mike"
-    Und man editiert einen Benutzer der mal einen Zugriff auf das aktuelle Inventarpool hatte
-    Wenn man den Zugriff auf "Kunde" ändert
-    Und man speichert den Benutzer
-    Dann sieht man die Erfolgsbestätigung
-    Und hat der Benutzer die Rolle Kunde
-
-  Szenario: Startseite setzen
-    Angenommen man ist "Pius"
-    Und man befindet sich auf der Liste der Benutzer
-    Wenn man die Startseite setzt
-    Dann ist die Liste der Benutzer die Startseite
-
-  Szenario: Startseite zurücksetzen
-    Angenommen man ist "Pius"
-    Und man hat eine Startseite gesetzt
-    Wenn man seine Startseite zurücksetzt
-    Dann ist ist keine Startseite gesetzt
-    Wenn man auf das Logo klickt
-    Dann landet man auf der Tagesansicht als Standard-Startseite
-
-  @javascript
   Szenario: Zugriff auf Ausleihe-Verwalter ändern als Ausleihe-Verwalter
     Angenommen man ist "Pius"
     Und man editiert einen Benutzer der Kunde ist

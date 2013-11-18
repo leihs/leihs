@@ -30,3 +30,7 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/benutzerverwaltung8.feature"
+- name: examples/benutzerverwaltung9
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/benutzerverwaltung9.feature"
