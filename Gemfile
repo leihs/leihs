@@ -43,6 +43,7 @@ gem 'net-ldap', '0.2.2', :require => 'net/ldap' # Never upgrade beyond 0.2.2, ru
 gem 'newrelic_rpm', '~> 3.5', :group => [:profiling, :development]
 gem 'paperclip'
 gem 'phantomjs', '~> 1.6.0.0', :group => [:test, :development] # headless webdriver (UI & JS tests)
+gem 'poltergeist'
 gem 'pry', '~> 0.9', :group => [:test, :development]
 gem 'pry-debugger', '~> 0.2.2', :group => :development
 gem 'pry-rails', '~> 0.2', :group => [:test, :development]

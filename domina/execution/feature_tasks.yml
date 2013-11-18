@@ -251,6 +251,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/geraetepark_grundinformationen.feature"
+- name: examples/geraetepark_grundinformationen2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/geraetepark_grundinformationen2.feature"
 - name: examples/gruppen
   scripts:
     cucumber:

@@ -265,7 +265,7 @@ Dann /^wird der Gegenstand mit den aktuell gesetzten Status gespeichert$/ do
 end
 
 Angenommen /^man fährt über die Anzahl von Gegenständen in einer Zeile$/ do
-  find(".line [data-type='lines-cell']", match: :first)
+  find(".line [data-type='lines-cell']", match: :first).hover
   @lines = all(".line [data-type='lines-cell']")
 end
 
@@ -273,7 +273,6 @@ Dann /^werden alle diese Gegenstände aufgelistet$/ do
   all(".show_more").each(&:click)
   @lines.each do |line|
     line.hover
-    sleep(0.88)
     find(".tooltipster-default", match: :first)
   end
 end
@@ -282,8 +281,7 @@ Dann /^man sieht pro Modell eine Zeile$/ do
   all(".show_more").each(&:click)
   @lines.each do |line|
     line.hover
-    find(".tooltipster-default .row .col7of8:nth-child(2) strong", match: :first)
-    sleep(0.88)
+    find(".tooltipster-default", match: :first)
     model_names = find(".tooltipster-default", match: :first, :visible => true).all(".row .col7of8:nth-child(2) strong", text: /.+/).map &:text
     model_names.size.should == model_names.uniq.size
   end
