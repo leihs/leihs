@@ -11,7 +11,7 @@ end
 
 When /^I wait until the autocompletion is loaded$/ do
   find("#add-input")
-  page.execute_script('$("#add-input").change()')
+  page.execute_script('$("#add-input").change().blur().focus().change()')
   find(".ui-autocomplete", match: :first)
 end
 

@@ -272,7 +272,9 @@ end
 Dann /^werden alle diese Gegenstände aufgelistet$/ do
   all(".show_more").each(&:click)
   @lines.each do |line|
+    line.click 
     line.hover
+    sleep(0.88) 
     find(".tooltipster-default", match: :first)
   end
 end

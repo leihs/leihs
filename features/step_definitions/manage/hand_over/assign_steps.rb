@@ -17,12 +17,13 @@ end
 When /^I assign an item to the hand over by providing an inventory code and a date range$/ do
   @inventory_code = @current_user.managed_inventory_pools.first.items.in_stock.first.inventory_code unless @inventory_code
   find("[data-add-contract-line]").set @inventory_code
-  line_amount_before = all(".line").size
-  assigned_amount_before = all(".line [data-assign-item][disabled]").size
+  line_amount_before = all(".line").count
+  assigned_amount_before = all(".line [data-assign-item][disabled]").count
   find("[data-add-contract-line] + .addon").click
-  find(".line", match: :first)
-  line_amount_before.should == all(".line").size
-  assigned_amount_before.should < all(".line [data-assign-item][disabled]").size
+  find("input[data-assign-item][value='#{@inventory_code}']")
+  sleep(0.88)
+  line_amount_before.should == all(".line").count
+  assigned_amount_before.should < all(".line [data-assign-item][disabled]").count
 end
 
 When /^I select one of those$/ do
