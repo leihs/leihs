@@ -69,24 +69,3 @@ Funktionalität: Benutzer verwalten
     Und man speichert den Benutzer
     Dann sieht man die Erfolgsbestätigung
     Und hat der Benutzer die Rolle Kunde
-
-  @javascript
-  Szenario: Zugriff ändern als Administrator
-    Angenommen man ist "Gino"
-    Und man editiert in irgendeinem Inventarpool einen Benutzer der Kunde ist
-    Dann man hat nur die folgenden Rollen zur Auswahl
-      | No access          |
-      | Customer           |
-      | Lending manager    |
-      | Inventory manager  |
-    Wenn man den Zugriff auf "Inventar-Verwalter" ändert
-    Und man speichert den Benutzer
-    Dann hat der Benutzer die Rolle Inventar-Verwalter
-
-  @javascript
-  Szenario: Zugriff entfernen als Ausleihe-Verwalter
-    Angenommen man ist "Pius"
-    Und man editiert einen Benutzer der Zugriff auf das aktuelle Inventarpool hat
-    Wenn man den Zugriff entfernt
-    Und man speichert den Benutzer
-    Dann hat der Benutzer keinen Zugriff auf das Inventarpool
