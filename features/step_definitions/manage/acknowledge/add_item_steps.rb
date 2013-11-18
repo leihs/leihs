@@ -57,7 +57,9 @@ Then /^an additional line has been created in the backend system$/ do
 end
 
 Then /^the new line is getting visually merged with the existing line$/ do
-  all(".line").size.should == @line_el_count
+  find(".line", :text => @model).should have_content @contract.lines.where(:model_id => @model.id).sum(&:quantity)
+  sleep(0.88)
+  all(".line").count.should == @line_el_count
   find(".line", match: :prefer_exact, :text => @model.name).find("div:nth-child(3) > span:nth-child(1)").text.to_i.should == @new_quantity + 1
 end
 
