@@ -15,7 +15,8 @@ def resolve_conflict_for_model name
   end
   step "ich setze das Startdatum im Kalendar auf '#{I18n::l(date)}'"
   step "ich setze das Enddatum im Kalendar auf '#{I18n::l(date)}'"
-  first(".modal .button.green").click
+  find(".modal .button.green").click
+  find(".line", :text => @model.name, :match => :first)
   has_no_selector?("#booking-calendar").should be_true
   has_no_selector?(".line[data-ids='#{ids}'] .line-info.red").should be_true
 end
