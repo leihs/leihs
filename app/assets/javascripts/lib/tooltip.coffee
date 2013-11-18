@@ -80,7 +80,9 @@ window.App.Tooltip = App.Tooltip
 jQuery -> 
   $(document).on "mouseenter", ".tooltip[title], .tooltip[data-tooltip-data]", (e)-> 
     template = if $(this).data("tooltip-template")? then $(this).data("tooltip-template") else "views/tooltips/default"
-    content = if $(this).data("tooltip-data")? then $(this).data("tooltip-data") else $(this).attr("title")
+    $(this).data("tooltip-data", $(this).attr("title")) if $(this).attr("title")? and not $(this).data("tooltip-data")?
+    $(this).removeAttr "title"
+    content = $(this).data("tooltip-data")
     target = if $(this).closest(".line-col").length then $(this).closest(".line-col") else $(this)
     new App.Tooltip
       el: target

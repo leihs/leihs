@@ -78,7 +78,7 @@ class window.App.TakeBackController extends Spine.Controller
       App.Flash
         type: "error"
         message: _jed "%s was not found for this take back", inventoryCode
-    @input.val ""
+    @input.val("").blur()
 
   getQuantity: (line)=>
     input = @el.find(".line[data-id='#{line.id}'] input[data-quantity-returned]")
@@ -93,7 +93,7 @@ class window.App.TakeBackController extends Spine.Controller
     App.Flash
       type: "success"
       message: _jed "%s quantity increased to %s", [line.model().name, quantity]
-    @validateQuantity {currentTarget: input}
+    @changeQuantity {currentTarget: input}
 
   setupAutocomplete: =>
     @input.autocomplete
