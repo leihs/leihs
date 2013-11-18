@@ -231,6 +231,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/explorative_suche.feature"
+- name: examples/kategorien3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/kategorien3.feature"
 - name: examples/benutzerverwaltung6
   scripts:
     cucumber:

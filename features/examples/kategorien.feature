@@ -35,17 +35,3 @@ Funktionalität: Kategorien
     Und die Kategorien sind alphabetisch sortiert
     Und die erste Ebene steht zuoberst
     Und man kann die Unterkategorien anzeigen und verstecken
-
-  @javascript
-  Szenario: Kategorien editieren
-    Wenn man eine Kategorie editiert
-    Und man den Namen und die Elternelemente anpasst
-    Und ich speichere
-    Dann werden die Werte gespeichert
-
-  @javascript
-  Szenario: Kategorien löschen
-    Wenn eine Kategorie nicht genutzt ist
-    Und man die Kategorie löscht
-    Dann ist die Kategorie gelöscht und alle Duplikate sind aus dem Baum entfernt
-    Und man bleibt in der Liste der Kategorien
