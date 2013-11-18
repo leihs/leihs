@@ -38,6 +38,7 @@ Dann /^sehe ich auf jeder Zeile den zugewisenen Zweck$/ do
   @customer.contracts.approved.first.lines.each do |line|
     l = find(".line[data-id='#{line.id}']")
     l.should have_content line.model.name
+    l.find("[title='#{line.purpose.description}']").click
     l.find("[title='#{line.purpose.description}']").hover
     sleep(0.88)
     find(".tooltipster-default").should have_content line.purpose.description
