@@ -60,6 +60,7 @@ When /^I delete all lines of a model thats availability is blocked by these line
   line_ids = target_linegroup.all(".line", :text => @model.name).select{|line| line.find(".line-info.red")}.map{|line| line["data-id"]}
   line_ids.each do |id|
     if id != @reference_id
+      find(".line[data-id='#{id}'] .multibutton .dropdown-toggle").click
       find(".line[data-id='#{id}'] .multibutton .dropdown-toggle").hover
       find(".line[data-id='#{id}'] .dropdown-item.red", :text => _("Delete")).click
       sleep(0.6)
