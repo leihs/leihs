@@ -22,10 +22,6 @@ contexts:
     completeness:
       body: "substitute_with_path: domina/scripts/context_meta_completeness.sh"
   tasks:
-  - name: completeness of cucumber feature tasks
-    scripts:
-      completeness: 
-        body: "substitute_with_path: domina/scripts/context_meta_cucumber_complete.sh"
   - name: env
     scripts:
       main:
