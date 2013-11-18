@@ -14,7 +14,6 @@ class window.App.ChangeUserGroupsController extends Spine.Controller
     @input.preChange()
 
   search: =>
-    @input.autocomplete "destroy"
     @searchGroups().done (data) =>
       @setupAutocomplete(App.Group.find datum.id for datum in data)
 
