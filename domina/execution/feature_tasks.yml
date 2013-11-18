@@ -403,6 +403,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/werteliste2.feature"
+- name: examples/werteliste3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/werteliste3.feature"
 - name: examples/zweck
   scripts:
     cucumber:
