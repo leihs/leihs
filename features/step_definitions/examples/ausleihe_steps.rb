@@ -73,11 +73,11 @@ Wenn /^einem Gegenstand einen Inventarcode manuell zuweise$/ do
 end
 
 Dann /^wird der Gegenstand ausgewählt und der Haken gesetzt$/ do
-  @item_line.reload
+  find("#flash")
   within(".line[data-id='#{@item_line.id}']") do
-    @item_line.item.inventory_code.should == @selected_inventory_code
-    find("input[data-assign-item][value='#{@item_line.item.inventory_code}']")
+    find("input[data-assign-item][value='#{@selected_inventory_code}']")
     find("input[type='checkbox'][data-select-line]").checked?.should be_true
+    @item_line.reload.item.inventory_code.should == @selected_inventory_code
   end
   step 'the count matches the amount of selected lines'
 end
