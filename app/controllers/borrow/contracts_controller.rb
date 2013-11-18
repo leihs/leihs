@@ -51,7 +51,7 @@ class Borrow::ContractsController < Borrow::ApplicationController
 
   def delete_unavailables
     unsubmitted_contracts.flat_map(&:lines).each {|l| l.delete unless l.available? }
-    redirect_to borrow_current_order_path, flash: {notice: _("Your order has been modified. All reservations are now available.")}
+    redirect_to borrow_current_order_path, flash: {success: _("Your order has been modified. All reservations are now available.")}
   end
 
 end

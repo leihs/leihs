@@ -28,7 +28,7 @@ class Manage::GroupsController < Manage::ApplicationController
     @group.inventory_pool = current_inventory_pool
     update_users(@group, params[:group].delete(:users)) if params[:group].has_key?(:users)
     if @group.save and @group.update_attributes(params[:group])
-      redirect_to manage_inventory_pool_groups_path, :flash => {:notice => _("%s created") % _("Group")}
+      redirect_to manage_inventory_pool_groups_path, :flash => {:success => _("%s created") % _("Group")}
     else
       redirect_to :back, flash: {error: @group.errors.full_messages.uniq.join(", ")}
     end
@@ -37,7 +37,7 @@ class Manage::GroupsController < Manage::ApplicationController
   def update
     update_users(@group, params[:group].delete(:users)) if params[:group].has_key?(:users)
     if @group.update_attributes(params[:group])
-      redirect_to manage_inventory_pool_groups_path, :flash => {:notice => _("%s saved") % _("Group")}
+      redirect_to manage_inventory_pool_groups_path, :flash => {:success => _("%s saved") % _("Group")}
     else
       render :text => @group.errors.full_messages.uniq.join(", "), :status => :bad_request
     end
@@ -47,7 +47,7 @@ class Manage::GroupsController < Manage::ApplicationController
     respond_to do |format|
       format.html do
         begin @group.destroy
-          redirect_to manage_inventory_pool_groups_path, flash: { notice: _("%s successfully deleted") % _("Group") }
+          redirect_to manage_inventory_pool_groups_path, flash: { success: _("%s successfully deleted") % _("Group") }
         rescue ActiveRecord::DeleteRestrictionError => e
           @group.errors.add(:base, e)
           redirect_to manage_inventory_pool_groups_path, flash: { error: @group.errors.full_messages.uniq.join(", ") }

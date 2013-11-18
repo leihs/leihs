@@ -73,7 +73,7 @@ class Manage::InventoryPoolsController < Manage::ApplicationController
       InventoryPool.find_by_id(params[:id]).try :destroy
       respond_to do |format|
         format.json { render :status => :no_content, :nothing => true }
-        format.html { redirect_to action: :index, flash: { notice: _("%s successfully deleted") % _("Inventory Pool") }}
+        format.html { redirect_to action: :index, flash: { success: _("%s successfully deleted") % _("Inventory Pool") }}
       end
     rescue => e
       respond_to do |format|
