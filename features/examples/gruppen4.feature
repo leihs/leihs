@@ -6,6 +6,10 @@ Funktionalität: Gruppen
   möchte ich als Ausleih-Verwalter
   vom System Funktionalitäten bereitgestellt bekommen
 
+  Grundlage:
+    Angenommen Personas existieren
+    Und ich bin Mike
+
   @javascript
   Szenario: Modelle hinzufügen
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen

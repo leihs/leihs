@@ -149,6 +149,7 @@ Wenn(/^ich ein Modell hinzufüge$/) do
 end
 
 Dann(/^wird das Modell zuoberst in der Liste hinzugefügt$/) do
+  page.has_selector? "#models-allocations .list-of-lines .line", text: @model_name
   find("#models-allocations .list-of-lines .line", match: :first).text.should match @model_name
 end
 
