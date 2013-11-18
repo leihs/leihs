@@ -375,6 +375,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/vorlagen.feature"
+- name: examples/vorlagen2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/vorlagen2.feature"
 - name: examples/werteliste
   scripts:
     cucumber:
