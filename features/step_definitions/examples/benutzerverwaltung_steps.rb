@@ -711,10 +711,8 @@ end
 
 Wenn(/^ich diesen Benutzer aus der Liste lösche$/) do
   @user ||= @users.sample
-  within("#user-list .line", text: @user.name) do
-    find(".multibutton .dropdown-toggle").hover
-    find(".multibutton .dropdown-item.red", text: _("Delete")).click
-  end
+  find("#user-list .line", text: @user.name).find(".multibutton .dropdown-toggle").hover
+  find("#user-list .line", text: @user.name).find(".multibutton .dropdown-item.red", text: _("Delete")).click
 end
 
 Dann(/^wurde der Benutzer aus der Liste gelöscht$/) do
