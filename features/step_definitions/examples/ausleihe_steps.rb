@@ -214,6 +214,7 @@ end
 Dann /^wird es für die ausgewählte Zeitspanne hinzugefügt$/ do
   find("#flash")
   find(".line", match: :first)
+  sleep(0.88)
   @amount_lines_before.should < all(".line").size
 end
 
