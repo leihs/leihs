@@ -1,25 +1,4 @@
 class Manage::ItemsController < Manage::ApplicationController
-  
-  before_filter do
-    params[:id] ||= params[:item_id] if params[:item_id]
-    
-    conditions = if params[:id]
-      {:id => params[:id]}
-    elsif params[:inventory_code]
-      {:inventory_code => params[:inventory_code]}
-    end
-
-    @item = if conditions
-      current_inventory_pool.items.where(conditions).first ||
-      Item.unscoped { current_inventory_pool.own_items.where(conditions).first }
-    end
-    
-    @model = if @item
-                @item.model
-             elsif params[:model_id]
-                Model.find(params[:model_id])
-             end
-  end
 
   def index
     @items = Item.filter params, current_inventory_pool
@@ -44,6 +23,7 @@ class Manage::ItemsController < Manage::ApplicationController
   end
 
   def edit
+    fetch_item
   end
  
   def create
@@ -90,6 +70,7 @@ class Manage::ItemsController < Manage::ApplicationController
   end
 
   def update
+    fetch_item
     if @item
       # check permissions by checking flexible field permissions
       Field.all.each do |field|
@@ -142,88 +123,13 @@ class Manage::ItemsController < Manage::ApplicationController
     @item.name = nil
     render :new
   end
-
-  def find
-    respond_to do |format|
-      format.json { 
-        if @item
-          render(:json => view_context.json_for(@item))
-        else
-          render(:nothing => true, :status => :not_found)
-        end
-      }
-    end
-  end
   
   def show
-    @item = Item.filter(params, current_inventory_pool).first
-  end
-
-  def retire
-    @item.retired = Date.today
-    @item.retired_reason = params[:retired_reason]
-
-    if @item.save
-      msg = _("Item retired (%s)") % @item.retired_reason
-      @item.log_history(msg, current_user.id)
-
-      respond_to do |format|
-        format.json { render :json => true, :status => 200 }
-      end
-    else
-      errors = @item.errors.full_messages.join ", "
-
-      respond_to do |format|
-        format.json { render :text => errors, :status => 500 }
-      end
-    end
-  end
-
-  def status
-  end
-
-  def toggle_permission
-    if request.post?
-      @item.needs_permission = (not @item.needs_permission?)
-      @item.save
-    end
-    redirect_to :action => 'show', :id => @item.id
-  end
-
-  def notes
-    if request.post?
-      @item.log_history(params[:note], current_user.id)
-    end
-    @histories = @item.histories
-
-    get_histories
-    
-    params[:layout] = "modal" #old??#
-  end
-
-  def get_notes
-    get_histories
-    render :partial => 'notes', :object => @histories
-  end
-  
-  def supplier
-    if request.post? and params[:supplier]
-      s = Supplier.create(params[:supplier])
-      search_term = s.name
-    end
-    if request.post? and (params[:search] || search_term)
-      search_term ||= params[:search][:name]
-      @results = Supplier.where(['name like ?', "%#{search_term}%"]).order(:name)
-    end
-    render :layout => false
-  end
-
-  def inventory_codes
-    @free_ranges = Item.free_inventory_code_ranges(params)
+    fetch_item
   end
 
   def inspect
-    @item = Item.by_owner_or_responsible(current_inventory_pool).find params[:id]
+    fetch_item
     [:is_borrowable, :is_incomplete, :is_broken].each do |attr|
       @item.update_attributes(attr => params[attr])
     end
@@ -233,16 +139,8 @@ class Manage::ItemsController < Manage::ApplicationController
 
   private
 
-  def get_histories
-    @histories = @item.histories
-    @item.contract_lines.collect(&:contract).uniq.each do |contract|
-      @histories += contract.actions
-    end
-    @item.contract_lines.each do |cl|
-      @histories << History.new(:created_at => cl.start_date, :user => cl.contract.user, :text => _("Item handed over as part of contract %d.") % cl.contract.id) if cl.start_date
-      @histories << History.new(:created_at => cl.end_date, :user => cl.contract.user, :text => _("Expected to be returned.")) unless cl.returned_date
-    end
-    @histories.sort!
+  def fetch_item
+    @item = Item.filter(params.clone.merge(all: true), current_inventory_pool).first
   end
   
 end

@@ -20,7 +20,7 @@ Wenn(/^ich Name und Kurzname und Email eingebe$/) do
 end
 
 Wenn(/^ich speichere$/) do
-  click_button _("Save")
+  find("button", :text => /#{_("Save")}/i).click
 end
 
 Dann(/^ist der Gerätepark gespeichert$/) do

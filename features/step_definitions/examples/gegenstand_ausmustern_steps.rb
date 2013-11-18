@@ -63,7 +63,6 @@ end
 
 Angenommen(/^man befindet sich auf der Gegenstandseditierseite dieses Gegenstands$/) do
   visit manage_edit_item_path(@current_inventory_pool, @item)
-  page.has_content?(@item.model.name).should be_true
 end
 
 Wenn(/^man die Ausmusterung bei diesem Gegenstand zurück setzt$/) do
