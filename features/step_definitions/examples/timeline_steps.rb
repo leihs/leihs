@@ -23,7 +23,9 @@ Dann /^kann ich für jedes sichtbare Model die Timeline anzeigen lassen$/ do
 
   page.has_selector?(lines).should be_true
   all(lines, visible: true)[0..5].each do |line|
+    line.find(".multibutton .dropdown-toggle").click
     line.find(".multibutton .dropdown-toggle").hover
+    sleep(0.88)
     line.find(".multibutton .dropdown-item", text: _("Timeline")).click
     find(".modal iframe")
     evaluate_script %Q{ $(".modal iframe").contents().first("#my_timeline").length; }
