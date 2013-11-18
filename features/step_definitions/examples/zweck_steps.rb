@@ -39,7 +39,8 @@ Dann /^sehe ich auf jeder Zeile den zugewisenen Zweck$/ do
     l = find(".line[data-id='#{line.id}']")
     l.should have_content line.model.name
     l.find("[title='#{line.purpose.description}']").hover
-    page.should have_content line.purpose.description
+    sleep(0.88)
+    find(".tooltipster-default").should have_content line.purpose.description
   end
 end
 

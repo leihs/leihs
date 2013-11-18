@@ -7,6 +7,7 @@ When /^I add an item to the hand over by providing an inventory code and a date 
   find("[data-add-contract-line] + .addon").click
   find("#flash")
   find(".line", match: :first)
+  find("input[value='#{@inventory_code}']")
   line_amount_before.should < all(".line").size
 end
 
