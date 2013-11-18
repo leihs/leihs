@@ -371,6 +371,14 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/passwort2.feature"
+- name: examples/passwort3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/passwort3.feature"
+- name: examples/passwort4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/passwort4.feature"
 - name: examples/probleme
   scripts:
     cucumber:
