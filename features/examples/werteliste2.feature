@@ -10,29 +10,7 @@ Funktionalität: Werteliste
     Angenommen Personas existieren
     Und man ist "Pius"
     Und man öffnet eine Werteliste
-
-  @javascript
-  Szenario: Was ich auf der Werteliste sehen möchte
-    Dann möchte ich die folgenden Bereiche in der Werteliste sehen:
-    | Bereich          |
-    | Datum            |
-    | Titel            |
-    | Ausleihender     |
-    | Verleier         |
-    | Liste            |
-
-  @javascript
-  Szenario: Der Inhalt der Werte-Liste
-    Dann beinhaltet die Werte-Liste folgende Spalten:
-    | Spaltenname     |
-    | Laufende Nummer |
-    | Inventarcode    |
-    | Modellname      |
-    | End Datum       |
-    | Anzahl          |
-    | Wert            |
-    Und die Modelle in der Werteliste sind alphabetisch sortiert
-
+    
   @javascript
   Szenario: Totale Werte
     Dann gibt es eine Zeile für die totalen Werte
