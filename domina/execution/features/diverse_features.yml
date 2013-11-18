@@ -30,14 +30,6 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/geraetepark_grundinformationen.feature"
-- name: examples/gruppen3
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gruppen3.feature"
-- name: examples/gruppen4
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gruppen4.feature"
 - name: examples/inventar
   scripts:
     cucumber:
@@ -78,35 +70,11 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/probleme.feature"
-- name: examples/sprachauswahl
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/sprachauswahl.feature"
-- name: examples/timeline
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/timeline.feature"
-- name: examples/vertrag
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/vertrag.feature"
 - name: examples/vertrag3
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/vertrag3.feature"
-- name: examples/werteliste
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/werteliste.feature"
-- name: examples/werteliste3
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/werteliste3.feature"
 - name: examples/zweck
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/zweck.feature"
-- name: examples/zweck2
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/zweck2.feature"
