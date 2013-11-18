@@ -191,6 +191,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/geraetepark_administrieren.feature"
+- name: examples/gruppen4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gruppen4.feature"
 - name: examples/passwort
   scripts:
     cucumber:
@@ -203,6 +207,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/gegenstand_ausmustern.feature"
+- name: examples/gruppen3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gruppen3.feature"
 - name: examples/reservierenden_wechseln
   scripts:
     cucumber:
