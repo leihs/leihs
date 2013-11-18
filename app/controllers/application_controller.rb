@@ -93,4 +93,6 @@ class ApplicationController < ActionController::Base
     current_user.has_role?('admin')
   end
 
+
+
 end

@@ -6,6 +6,10 @@ class UpdateSettingsWithLogoUrl < ActiveRecord::Migration
       t.string :logo_url
     end
 
+    Setting.reset_column_information
+
+    Setting.create(:logo_url => nil)
+
   end
 
 end

@@ -1,6 +1,8 @@
 # language: de
 
 Funktionalität: Automatischer E-Mail versand
+  Grundlage:
+    Angenommen Das System ist für den Mailversand im Testmodus konfiguriert
 
   Szenario: Automatische Rückgabeerinnerung
     Angenommen man ist "Normin"
