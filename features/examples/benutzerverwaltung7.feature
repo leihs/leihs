@@ -11,12 +11,6 @@ Funktionalität: Benutzer verwalten
     Und man befindet sich auf der Benutzerliste im beliebigen Inventarpool
     Dann sind die Benutzer nach ihrem Vornamen alphabetisch sortiert
 
-  Szenario: Auflistung der Inventarpools eines Benutzers
-    Angenommen man ist "Ramon"
-    Und man befindet sich auf der Benutzerliste ausserhalb der Inventarpools
-    Und man einen Benutzer mit Zugriffsrechten editiert
-    Dann werden die ihm zugeteilt Geräteparks mit entsprechender Rolle aufgelistet
-
   @javascript
   Szenario: Benutzer ohne Zugriff im Inventarpool editieren ohne ihm dabei Zugriff zu gewährleisten
     Angenommen man ist "Pius"
