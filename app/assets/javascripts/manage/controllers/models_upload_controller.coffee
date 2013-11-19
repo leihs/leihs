@@ -48,8 +48,9 @@ class window.App.ModelsUploadController extends Spine.Controller
       upload.submit().fail(fail).always(always)
 
   showUploading: => 
-    modal = new App.Modal $ "<div></div>"
-    modal.undestroyable()
+    return true if @modal?
+    @modal = new App.Modal $ "<div></div>"
+    @modal.undestroyable()
     App.Flash
       type: "notice"
       message: _jed "Uploading files - please wait"

@@ -20,6 +20,7 @@ class window.App.Modal
     do @delegateEvents
     App.Modal.all.push @
     App.Tooltip.hideAll()
+    modal.destroyable().destroy(true) for modal in App.Modal.all
     @el.modal 
       backdrop: true
 
