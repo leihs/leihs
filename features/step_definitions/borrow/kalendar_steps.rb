@@ -36,7 +36,7 @@ end
 
 Wenn(/^ich setze die Anzahl im Kalendar auf (\d+)$/) do |quantity|
   find("#booking-calendar-quantity")
-  find(".modal.ui-shown")
+  find(".fc-widget-content", match: :first)
   sleep 1
   find("#booking-calendar-quantity").set quantity
 end

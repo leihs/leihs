@@ -18,9 +18,9 @@ class window.App.Modal
     @el = $(el)
     @isDestroyable = true
     do @delegateEvents
+    modal.destroyable().destroy(true) for modal in App.Modal.all
     App.Modal.all.push @
     App.Tooltip.hideAll()
-    modal.destroyable().destroy(true) for modal in App.Modal.all
     @el.modal 
       backdrop: true
 
