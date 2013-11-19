@@ -5,11 +5,11 @@ class window.App.ContractsApproveController extends Spine.Controller
 
   approve: (e)=>
     trigger = $ e.currentTarget
-    line = trigger.closest(".line")
     App.Button.disable trigger
-    order = @order ? App.Contract.findOrBuild line.data()
+    order = @order ? App.Contract.findOrBuild trigger.closest("[data-id]").data()
     done = @done ? =>
-      line.html App.Render "manage/views/contracts/line_approved", order
+      line = trigger.closest(".line")
+      line.html App.Render "manage/views/contracts/line_approved", order if line?
     fail = @fail ? (response)=>
       new App.ContractsApproveFailedController {order: order, line: line, trigger: trigger, error: response.responseText}
       App.Button.enable trigger
