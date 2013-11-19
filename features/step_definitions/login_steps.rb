@@ -76,4 +76,5 @@ Angenommen(/^man ist eingeloggt als "(.*?)"$/) do |persona|
   fill_in 'username', :with => persona.downcase
   fill_in 'password', :with => 'password'
   first("[type='submit']").click
+  page.has_content? @current_user.name
 end

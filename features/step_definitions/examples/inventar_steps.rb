@@ -508,6 +508,7 @@ Dann /^kann ich ein einzelnes Zubehör löschen, wenn es für keinen anderen Poo
   find(".row.emboss", match: :prefer_exact, :text => _("Accessories")).find(".list-of-lines .line", text: accessory_to_delete.name).find("button", text: _("Remove")).click
   step 'ich speichere die Informationen'
   find("#inventory-index-view h1", match: :prefer_exact, text: _("List of Inventory"))
+  sleep 0.88 # for fixing the lazy request problem
   lambda{accessory_to_delete.reload}.should raise_error(ActiveRecord::RecordNotFound)
 end
 

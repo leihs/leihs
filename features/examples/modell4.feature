@@ -25,17 +25,6 @@ Funktionalität: Modell
     Dann wurde das redundante ergänzende Modell nicht gespeichert
 
   @javascript
-  Szenariogrundriss: Modelllöschversuch verhindern
-    Angenommen das Modell hat <Zuweisung> zugewiesen
-    Dann kann ich das Modell aus der Liste nicht löschen
-
-  Beispiele:
-    | Zuweisung   |
-    | Vertrag     |
-    | Bestellung  |
-    | Gegenstand  |
-
-  @javascript
   Szenario: Modelanhängsel löschen
     Angenommen es existiert ein Modell mit folgenden Eigenschaften
       | in keinem Vertrag aufgeführt |
