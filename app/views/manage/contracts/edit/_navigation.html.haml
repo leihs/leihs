@@ -7,7 +7,7 @@
   = _("Reject order")
 
 .multibutton
-  %button.button.green{:"data-order-approve" => true, :"data-id" => @contract.id}
+  %button.button.green{:"data-order-approve" => true, :"data-id" => @contract.id, :autocomplete => :off}
     %i.icon-thumbs-up
     = _("Approve order")
   .dropdown-holder.inline-block
