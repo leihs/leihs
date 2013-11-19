@@ -98,7 +98,6 @@ end
 
 Dann(/^kann ich das Modell aus der Liste nicht löschen$/) do
   sleep 1.66
-  visit manage_inventory_path(@current_inventory_pool)
   find("[data-unused_models]").click unless @current_inventory_pool.models.include? @model
   fill_in 'list-search', with: @model.name
   sleep(0.44)
