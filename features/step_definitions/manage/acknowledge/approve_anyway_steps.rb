@@ -12,9 +12,10 @@ Then /^I got an information that this contract has problems$/ do
 end
 
 When /^I approve anyway$/ do
-  find(".modal.ui-shown")
-  find(".modal.ui-shown .dropdown-toggle").hover
-  find(".modal.ui-shown .dropdown-item[data-approve-anyway]").click
+  within(".modal") do
+    find(".modal .dropdown-toggle").hover
+    find(".modal .dropdown-item[data-approve-anyway]").click
+  end
   page.has_no_selector?(".modal").should be_true
 end
 
