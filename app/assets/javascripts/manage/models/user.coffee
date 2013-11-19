@@ -7,6 +7,5 @@ window.App.User.url = => if App.InventoryPool.current? then "/manage/#{App.Inven
 window.App.User::isSuspended = -> _.include App.InventoryPool.current.suspended_user_ids, @id
 
 window.App.User::imageUrl = -> 
-  # this is currently ZHDK only
-  if App.UserImageUrl? and @extended_info and @extended_info.id
-    App.UserImageUrl.replace(/{:id}/, @extended_info.id)
+  if App.UserImageUrl? and @unique_id
+    App.UserImageUrl.replace(/{:id}/, @unique_id)

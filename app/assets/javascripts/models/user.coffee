@@ -6,7 +6,7 @@
 
 class window.App.User extends Spine.Model
 
-  @configure "User", "id", "firstname", "lastname", "settings", "groupIds", "accessLevel"
+  @configure "User", "id", "firstname", "lastname", "settings", "groupIds", "accessLevel", "unique_id"
 
   @hasMany "contracts", "App.Contract", "user_id"
   @hasMany "accessRights", "App.AccessRight", "user_id"
