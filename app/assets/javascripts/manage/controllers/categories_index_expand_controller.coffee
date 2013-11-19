@@ -18,8 +18,9 @@ class window.App.CategoriesIndexExpandController extends Spine.Controller
     if line.data("childrenContainer")?
       childrenContainer = line.data "childrenContainer"
     else
+      children = _(App.Category.find(line.data "id").children()).sortBy (c)=> c.name
       childrenContainer = $("<div class='group-of-lines level-padding'></div>")
-      childrenContainer.append App.Render "manage/views/categories/line", App.Category.find(line.data "id").children()
+      childrenContainer.append App.Render "manage/views/categories/line", children
       line.data "childrenContainer", childrenContainer
 
     line.after childrenContainer
