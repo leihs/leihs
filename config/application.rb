@@ -51,6 +51,7 @@ module Leihs
                                     i18n/locale/*
                                     simile_timeline/* 
                                     timeline.css
+                                    upload.js
                                   )
     # Enable IdentityMap for Active Record, to disable set to false or remove the line below.  
     # config.active_record.identity_map = true
