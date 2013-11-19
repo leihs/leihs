@@ -152,7 +152,7 @@ Leihs::Application.routes.draw do
       ## Visits
       delete  'visits/hand_overs/:visit_id',        to: 'visits#destroy',   type: "hand_over", as: "inventory_pool_destroy_hand_over"
       get     'visits/hand_overs',                  to: 'visits#index',     type: "hand_over", as: "inventory_pool_hand_overs"
-      post    'visits/take_backs/:visit_id/remind', to: 'take_back#remind', type: "take_back", as: "inventory_pool_remind_take_back"
+      post    'visits/take_backs/:visit_id/remind', to: 'visits#remind',    type: "take_back", as: "inventory_pool_remind_take_back"
       get     'visits/take_backs',                  to: 'visits#index',     type: "take_back", as: "inventory_pool_take_backs"
       get     'visits',                             to: "visits#index",                        as: "inventory_pool_visits"
 
