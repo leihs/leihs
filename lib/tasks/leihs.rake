@@ -28,17 +28,14 @@ namespace :leihs do
 
       f.puts "\n        %span"
       f.print "          = _(\"this is the branch '%s'\")"
-      f.print "          = '|'"
       f.print " % \"#{branch}\""
 
       f.puts "\n        %span"
       f.print "          = _(\"deployed %s ago\")"
-      f.print "          = '|'"
       f.print " % distance_of_time_in_words_to_now(\"#{time_now}\")"
 
       f.puts "\n        %span\n"
       f.print "          = _(\"last change by '%s'\")"
-      f.print "          = '|'"
       f.print " % \"#{author["name"]}\"\n"
 
       f.print "          = _(\"is %s ago\")"
