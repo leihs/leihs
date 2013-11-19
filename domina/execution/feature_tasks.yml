@@ -139,6 +139,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/borrow/suche.feature"
+- name: borrow/suche2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/suche2.feature"
 - name: borrow/timeoutpage
   scripts:
     cucumber:
@@ -183,6 +187,14 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/benutzerverwaltung.feature"
+- name: examples/benutzerverwaltung10
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/benutzerverwaltung10.feature"
+- name: examples/benutzerverwaltung11
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/benutzerverwaltung11.feature"
 - name: examples/benutzerverwaltung2
   scripts:
     cucumber:
@@ -239,6 +251,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/gegenstand_editieren2.feature"
+- name: examples/gegenstand_editieren3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_editieren3.feature"
 - name: examples/gegenstand_erstellen
   scripts:
     cucumber:
@@ -251,6 +267,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen3.feature"
+- name: examples/gegenstand_erstellen4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen4.feature"
 - name: examples/gegenstand_kopieren
   scripts:
     cucumber:
@@ -259,6 +279,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/gegenstand_kopieren2.feature"
+- name: examples/gegenstand_kopieren3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_kopieren3.feature"
 - name: examples/geraetepark_administrieren
   scripts:
     cucumber:
