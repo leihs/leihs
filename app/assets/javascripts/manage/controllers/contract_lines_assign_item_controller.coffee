@@ -14,11 +14,11 @@ class window.App.ContractLineAssignItemController extends Spine.Controller
     @fetchItems(model).done (data)=> 
       items = (App.Item.find(datum.id) for datum in data) 
       if items.length
-        location_ids = _.uniq _.map items, (i)->i.location_id
+        location_ids = _.compact _.uniq _.map items, (i)->i.location_id
         @fetchLocations(location_ids).done (data)=>
           if data?
             locations = (App.Location.find(datum.id) for datum in data)
-            building_ids = _.uniq _.map locations, (l)-> l.building_id
+            building_ids = _.compact _.uniq _.map locations, (l)-> l.building_id
             @fetchBuildings(building_ids).done => @setupAutocomplete(target, items)
 
   setupAutocomplete: (input, items)->
@@ -45,11 +45,13 @@ class window.App.ContractLineAssignItemController extends Spine.Controller
         in_stock: true
 
   fetchLocations: (ids)=>
+    return {done: (c)-> c()} unless ids.length
     App.Location.ajaxFetch
       data: $.param 
         ids: ids
 
   fetchBuildings: (ids)=>
+    return {done: (c)-> c()} unless ids.length
     App.Building.ajaxFetch
       data: $.param 
         ids: ids
