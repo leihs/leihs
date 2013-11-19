@@ -26,27 +26,3 @@ Funktionalität: Benutzer verwalten
     Dann sieht man die Erfolgsbestätigung
     Und die neue Email des Benutzers wurde gespeichert
     Und der Benutzer hat nach wie vor keinen Zugriff auf das aktuelle Inventarpool
-
-  @javascript
-  Szenario: Neuen Benutzer im Geräterpark als Ausleihe-Verwalter hinzufügen
-    Angenommen man ist "Pius"
-    Wenn man in der Benutzeransicht ist
-    Und man einen Benutzer hinzufügt
-    Und die folgenden Informationen eingibt
-      | Nachname       |
-      | Vorname        |
-      | E-Mail         |
-    Und man gibt die Login-Daten ein
-    Und man gibt eine Badge-Id ein
-    Und man hat nur die folgenden Rollen zur Auswahl
-      | No access |
-      | Customer  |
-      | Lending manager  |
-    Und eine der folgenden Rollen auswählt
-      | tab                | role              |
-      | Kunde              | customer          |
-      | Ausleihe-Verwalter | lending_manager   |
-    Und man teilt mehrere Gruppen zu
-    Und man speichert den Benutzer
-    Dann ist der Benutzer mit all den Informationen gespeichert
-

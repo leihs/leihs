@@ -191,6 +191,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/benutzerverwaltung10.feature"
+- name: examples/benutzerverwaltung11
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/benutzerverwaltung11.feature"
 - name: examples/benutzerverwaltung2
   scripts:
     cucumber:
