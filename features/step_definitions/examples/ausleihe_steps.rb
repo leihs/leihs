@@ -285,9 +285,13 @@ Dann /^man sieht pro Modell eine Zeile$/ do
   @lines.each do |line|
     line.hover
     sleep(0.66)
-    find(".tooltipster-default", match: :first)
-    model_names = find(".tooltipster-default", match: :first, :visible => true).all(".row .col7of8:nth-child(2) strong", text: /.+/).map &:text
-    model_names.size.should == model_names.uniq.size
+    within(".tooltipster-default", match: :first, :visible => true) do
+      find(".exclude-last-child", match: :first)
+      all(".exclude-last-child").each do |div|
+        model_names = div.all(".row .col7of8:nth-child(2) strong", text: /.+/).map &:text
+        model_names.size.should == model_names.uniq.size
+      end
+    end
   end
 end
 
