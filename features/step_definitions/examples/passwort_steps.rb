@@ -54,6 +54,7 @@ Wenn(/^ich das Passwort von "(.*?)" auf "(.*?)" ändere$/) do |persona, new_pass
 end
 
 Angenommen(/^man befindet sich auf der Benutzereditieransicht von "(.*?)"$/) do |persona|
+  step 'persona "%s" existing' % persona
   @user = User.find_by_firstname persona
   if @current_user.access_rights.map(&:role_name).include? "admin"
     visit manage_edit_user_path @user
