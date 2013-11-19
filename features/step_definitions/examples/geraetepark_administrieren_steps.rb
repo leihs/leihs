@@ -72,7 +72,7 @@ Wenn(/^ich im Admin\-Bereich unter dem Reiter Geräteparks einen bestehenden Ger
 end
 
 Wenn(/^der Gerätepark wurde aus der Liste gelöscht$/) do
-  find("#flash .notice", text: _("%s successfully deleted") % _("Inventory Pool"))
+  find("#flash .success", text: _("%s successfully deleted") % _("Inventory Pool"))
   page.has_no_text? @ip.name
 end
 
