@@ -1,11 +1,3 @@
-- name: examples/modell2
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/modell2.feature"
-- name: examples/modell4
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/modell4.feature"
 - name: examples/modell6
   scripts:
     cucumber:
