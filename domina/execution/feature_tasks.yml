@@ -127,6 +127,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/gegenstand_ausmustern2.feature"
+- name: examples/geraetepark_grundinformationen3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/geraetepark_grundinformationen3.feature"
 - name: examples/ruecknahme
   scripts:
     cucumber:
