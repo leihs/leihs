@@ -46,9 +46,9 @@
     &:hover, &.selected_for_target_selection 
       background-color: #61eb52 !important
   
-  .fc-widget-content.unavailable, .fc-widget-content.closed 
+  .fc-widget-content.unavailable
 
-    &.end-date, &.start-date
+    &.selected
       background-color: #ff4c4d !important
       border-left: 1px dashed #e62b2c !important
       border-top: 1px dashed #e62b2c !important
@@ -67,6 +67,13 @@
       
       &:not(.history):hover, &.selected_for_target_selection 
         background-color: #e52526 !important
+
+  .fc-widget-content.closed 
+
+    &.start-date, &.end-date
+      background-color: #ff4c4d !important
+      border-left: 1px dashed #e62b2c !important
+      border-top: 1px dashed #e62b2c !important
  
   .fc-other-month .fc-day-content .total_quantity 
     color: #B9B9B9
