@@ -5,6 +5,7 @@ Feature: Reject Order
   I want to have functionalities on a submitted contract line
 
   Background:
+    Given Das System ist für den Mailversand im Testmodus konfiguriert
     Given personas existing
       And I am "Pius"
 

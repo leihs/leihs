@@ -1,4 +1,5 @@
 class Mailer::Order < ActionMailer::Base
+  include Mailer::Settings
 
 
   def choose_language_for(user)
