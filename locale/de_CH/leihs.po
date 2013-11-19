@@ -2482,7 +2482,7 @@ msgid "Deleted"
 msgstr "Gelöscht"
 
 msgid "Reminder send"
-msgstr "Erinerung gesendet"
+msgstr "Erinnerung gesendet"
 
 msgid "Available in total"
 msgstr "Total verfügbar"
@@ -2579,10 +2579,10 @@ msgid "%s was not found for this take back"
 msgstr "%s würde nicht für diese Rücknahme gefunden"
 
 msgid "You can not take back more items then you handed over"
-msgstr "Sie können nicht mehr Zurücknehmen als Sie ausgehändigt haben"
+msgstr "Sie können nicht mehr zurücknehmen als Sie ausgehändigt haben"
 
 msgid "You have to provide the quantity for the things you want to return"
-msgstr "Sie müssen die Anzahl angeben, die sie Zurücknehmen wollen"
+msgstr "Sie müssen die Anzahl angeben, die sie zurücknehmen wollen"
 
 msgid "Take back completed"
 msgstr "Rücknahme abgeschlossen"
