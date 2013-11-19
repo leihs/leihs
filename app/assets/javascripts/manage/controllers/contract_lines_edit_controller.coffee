@@ -24,3 +24,4 @@ class window.App.ContractLinesEditController extends Spine.Controller
       quantity: quantity
       contract: @contract
       startDateDisabled: @startDateDisabled
+      quantityDisabled: @quantityDisabled

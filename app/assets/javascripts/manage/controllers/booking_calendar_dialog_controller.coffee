@@ -2,7 +2,7 @@ class window.App.ManageBookingCalendarDialogController extends App.BookingCalend
     
   # overwrite
   setupModal: =>
-    @dialog = $ App.Render "manage/views/booking_calendar/calendar_dialog", {user: @user}, {startDateDisabled: @startDateDisabled}
+    @dialog = $ App.Render "manage/views/booking_calendar/calendar_dialog", {user: @user}, {startDateDisabled: @startDateDisabled, quantityDisabled: @quantityDisabled}
     @listOfLines = @dialog.find("#booking-calendar-lines .list-of-lines")
     @partitionsEl = @dialog.find("#booking-calendar-partitions")
     super    

@@ -40,7 +40,11 @@
                 %input#booking-calendar-end-date{:type => :text, :autocomplete => :off}
             .col1of2
               .col2of8
+                {{if ~quantityDisabled}}
+                %input#booking-calendar-quantity.text-align-center{:type => :text, :autocomplete => :off, :value => 1, :disabled => :disabled}
+                {{else}}
                 %input#booking-calendar-quantity.text-align-center{:type => :text, :autocomplete => :off, :value => 1}
+                {{/if}}
               .col6of8.padding-left-xs
                 %select#booking-calendar-partitions.width-full
 

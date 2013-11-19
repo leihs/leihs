@@ -21,7 +21,7 @@ class window.App.TakeBackController extends Spine.Controller
     do @fetchAvailability
     do @setupAutocomplete
     new App.TimeLineController {el: @el}
-    new App.ContractLinesEditController {el: @el, user: @user, contract: @contract, startDateDisabled: true}
+    new App.ContractLinesEditController {el: @el, user: @user, contract: @contract, startDateDisabled: true, quantityDisabled: true}
     new PreChange "[data-quantity-returned]"
 
   delegateEvents: =>
