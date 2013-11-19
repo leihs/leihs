@@ -500,7 +500,7 @@ Dann /^ist das Zubehör dem Modell hinzugefügt worden$/ do
   sleep(0.88)
   find("#inventory-index-view h1", match: :prefer_exact, text: _("List of Inventory"))
   @model.accessories.reload.where(:name => @new_accessory_name).should_not be_nil
-  sleep(0.88) # fix lazy request problem
+  sleep(1.11) # fix lazy request problem
 end
 
 Dann /^kann ich ein einzelnes Zubehör löschen, wenn es für keinen anderen Pool aktiviert ist$/ do
