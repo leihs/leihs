@@ -114,13 +114,13 @@ Angenommen(/^ich befinde mich in einer Bestellung$/) do
 end
 
 Dann(/^kann ich ein Modell anhand der explorativen Suche wählen$/) do
-  page.should have_selector "#process_helper"
-  find("#process_helper *[type='submit']").click
-  page.should have_selector(".modal .line")
-  find("#category-list", :match => :first).click
-  model = Model.find find(".modal .line", :match => :first)["data-id"]
-  find(".line button.select-model", :match => :first).click
-  page.should have_selector(".notification")
+  find("button.addon[type='submit'] .icon-plus-sign-alt").click
+  find(".modal.ui-shown .line", match: :first)
+  find("[data-type='category-filter']", :match => :first).click
+  find(".modal.ui-shown .line", match: :first)
+  model = Model.find find(".modal.ui-shown .line", match: :first)["data-id"]
+  find(".modal.ui-shown .line .button", match: :first).click
+  find("#flash")
   if @contract
     expect(@contract.models.include? model).to be_true
   else
@@ -129,9 +129,9 @@ Dann(/^kann ich ein Modell anhand der explorativen Suche wählen$/) do
 end
 
 Dann(/^die explorative Suche zeigt nur Modelle aus meinem Park an$/) do
-  find("#process_helper *[type='submit']").click
-  page.should have_selector(".modal .line")
-  all(".modal .model.line").each do |line|
+  find("button.addon[type='submit'] .icon-plus-sign-alt").click
+  find(".modal.ui-shown .line", match: :first)
+  all(".modal .line[data-id]").each do |line|
     model = Model.find line["data-id"]
     expect(@current_inventory_pool.models.include? model).to be_true
   end

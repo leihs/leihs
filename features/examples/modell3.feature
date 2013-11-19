@@ -34,29 +34,12 @@ Funktionalität: Modell
     Und das Modell ist gelöscht
 
   @javascript
-  Szenariogrundriss: Modelllöschversuch verhindern
-    Angenommen das Modell hat <Zuweisung> zugewiesen
-    Dann kann ich das Modell aus der Liste nicht löschen
-
-  Beispiele:
-    | Zuweisung   |
-    | Vertrag     |
-    | Bestellung  |
-    | Gegenstand  |
-
-  @javascript
-  Szenario: Modelanhängsel löschen
-    Angenommen es existiert ein Modell mit folgenden Eigenschaften
-      | in keinem Vertrag aufgeführt |
-      | keiner Bestellung zugewiesen |
-      | keine Gegenstände zugefügt |
-      | hat Gruppenkapazitäten zugeteilt |
-      | hat Eigenschaften |
-      | hat Zubehör |
-      | hat Bilder |
-      | hat Anhänge |
-      | hat Kategoriezuweisungen |
-      | hat sich ergänzende Modelle |
-    Wenn ich dieses Modell aus der Liste lösche
-    Und das Modell ist gelöscht
-    Und es wurden auch alle Anhängsel gelöscht
+  Szenario: Bilder
+    Angenommen man öffnet die Liste der Modelle
+    Wenn ich ein bestehendes, genutztes Modell bearbeite
+    Dann kann ich mehrere Bilder hinzufügen
+    Und ich kann Bilder auch wieder entfernen
+    Und ich speichere das Modell mit Bilder
+    Dann wurden die ausgewählten Bilder für dieses Modell gespeichert
+    Und zu grosse Bilder werden den erlaubten Grössen entsprechend verkleinert
+    

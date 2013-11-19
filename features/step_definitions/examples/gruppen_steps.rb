@@ -73,7 +73,7 @@ Dann(/^ich sehe die Gruppenliste alphabetisch sortiert$/) do
 end
 
 Dann(/^ich sehe eine Bestätigung$/) do
-  find("#flash .notice")
+  find("#flash .success")
 end
 
 Wenn(/^ich eine bestehende Gruppe editiere$/) do

@@ -37,9 +37,11 @@ module ModelModules
         if params[:all]
           models = Model.scoped
         else
-          models = Model.joins(:items).where(":id IN (owner_id, inventory_pool_id)", :id => inventory_pool.id).uniq
+          models = Model.joins(:items).where(":id IN (`items`.`owner_id`, `items`.`inventory_pool_id`)", :id => inventory_pool.id).uniq
+          models = models.joins(:items).where(:items => {:retired => nil}) unless params[:include_retired_models]
           models = models.joins(:items).where(:items => {:parent_id => nil}) unless params[:include_package_models]
         end
+        models = models.joins(:items).where(:items => {:inventory_pool_id => params[:responsible_id]}) if params[:responsible_id]
         models = models.joins(:categories).where(:"model_groups.id" => [Category.find(params[:category_id])] + Category.find(params[:category_id]).descendants) unless params[:category_id].blank?
         models = models.joins(:model_links).where(:model_links => {:model_group_id => params[:template_id]}) if params[:template_id]
         return models

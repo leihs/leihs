@@ -8,6 +8,7 @@ When /^I add an item to the hand over by providing an inventory code and a date 
   find("#flash")
   find(".line", match: :first)
   find("input[value='#{@inventory_code}']")
+  sleep(0.88)
   line_amount_before.should < all(".line").size
 end
 

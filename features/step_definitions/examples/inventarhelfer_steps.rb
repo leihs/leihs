@@ -233,7 +233,7 @@ Dann /^kann man an Ort und Stelle alle Werte des Gegenstandes editieren$/ do
 end
 
 Dann /^man die Änderungen speichert$/ do
-  find("#item-section button", :text => _("Save change")).click
+  find("#item-section button#save-edit").click
 end
 
 Dann /^sind sie gespeichert$/ do

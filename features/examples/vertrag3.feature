@@ -25,13 +25,3 @@ Funktionalität: Vertrag
   Szenario: Titel
     Angenommen man öffnet einen Vertrag bei der Aushändigung
     Dann sehe ich den Titel im Format "Leihvertrag Nr. #"
-  
-  @javascript 
-  Szenario: Position des Barcodes
-    Angenommen man öffnet einen Vertrag bei der Aushändigung
-    Dann sehe ich den Barcode oben links
-  
-  @javascript  
-  Szenario: Position des Ausleihenden
-    Angenommen man öffnet einen Vertrag bei der Aushändigung
-    Dann sehe ich den Ausleihenden oben links

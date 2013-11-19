@@ -22,18 +22,14 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen2.feature"
-- name: examples/gegenstand_kopieren2
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_kopieren2.feature"
-- name: examples/geraetepark_grundinformationen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/geraetepark_grundinformationen.feature"
 - name: examples/inventar
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/inventar.feature"
+- name: examples/inventar2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/inventar2.feature"
 - name: examples/inventarhelfer
   scripts:
     cucumber:
@@ -42,10 +38,6 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/kalender.feature"
-- name: examples/modell
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/modell.feature"
 - name: examples/modell2
   scripts:
     cucumber:
@@ -54,10 +46,22 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/modell3.feature"
+- name: examples/modell4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/modell4.feature"
+- name: examples/modell6
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/modell6.feature"
 - name: examples/pakete
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/pakete.feature"
+- name: examples/pakete2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/pakete2.feature"
 - name: examples/passwort
   scripts:
     cucumber:
@@ -66,14 +70,30 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/passwort2.feature"
+- name: examples/passwort3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/passwort3.feature"
+- name: examples/passwort4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/passwort4.feature"
 - name: examples/probleme
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/probleme.feature"
+- name: examples/probleme3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/probleme3.feature"
 - name: examples/vertrag3
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/vertrag3.feature"
+- name: examples/vertrag4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/vertrag4.feature"
 - name: examples/zweck
   scripts:
     cucumber:
