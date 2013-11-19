@@ -16,12 +16,11 @@ When /^I wait until the autocompletion is loaded$/ do
 end
 
 Then /^I already see possible matches of models$/ do
-  page.execute_script('$("#add-input").keyup().focus()')
-  page.should have_selector(".ui-autocomplete", :text => @item.model.name)
+  find("#add-input").click
+  find(".ui-autocomplete", match: :first, :text => @item.model.name)
 end
 
 When /^I select one of the matched models$/ do
-  page.should have_selector(".ui-autocomplete", :text => @item.model.name)
   find(".ui-autocomplete a[title='#{@item.model.name}']", :text => @item.model.name).click
 end
 
@@ -32,7 +31,7 @@ end
 
 When /^I start to type the name of a model$/ do
   @item = @ip.items.borrowable.sample
-  fill_in 'add-input', :with => @item.model.name[0..3]
+  fill_in 'add-input', :with => @item.model.name[0..7]
 end
 
 When /^I add a model to the acknowledge which is already existing in the selected date range by providing an inventory code$/ do
