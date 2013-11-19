@@ -8,7 +8,12 @@ class UpdateSettingsWithLogoUrl < ActiveRecord::Migration
 
     Setting.reset_column_information
 
-    Setting.create(:logo_url => nil)
+    setting = Setting.first
+    if not setting
+      setting = Setting.create(:logo_url => nil)
+    else
+      setting.update_attributes(:logo_url => nil)
+    end
 
   end
 

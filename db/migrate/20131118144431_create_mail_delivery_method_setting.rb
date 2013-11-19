@@ -7,7 +7,12 @@ class CreateMailDeliveryMethodSetting < ActiveRecord::Migration
 
     Setting.reset_column_information
 
-    Setting.create(:mail_delivery_method => 'smtp')
+    setting = Setting.first
+    if not setting
+      setting = Setting.create(:mail_delivery_method => 'smtp')
+    else
+      setting.update_attributes(:mail_delivery_method => 'smtp')
+    end
 
   end
 end
