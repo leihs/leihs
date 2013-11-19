@@ -26,21 +26,24 @@ namespace :leihs do
 
     File.open(Rails.root.join("app", "views", "staging", "_deploy_information.html.haml"), 'a+') do |f| 
 
-      f.puts "\n        %p"
+      f.puts "\n        %span"
       f.print "          = _(\"this is the branch '%s'\")"
+      f.print "          = '|'"
       f.print " % \"#{branch}\""
 
-      f.puts "\n        %p"
+      f.puts "\n        %span"
       f.print "          = _(\"deployed %s ago\")"
+      f.print "          = '|'"
       f.print " % distance_of_time_in_words_to_now(\"#{time_now}\")"
 
-      f.puts "\n        %p\n"
+      f.puts "\n        %span\n"
       f.print "          = _(\"last change by '%s'\")"
+      f.print "          = '|'"
       f.print " % \"#{author["name"]}\"\n"
 
       f.print "          = _(\"is %s ago\")"
       f.print " % distance_of_time_in_words_to_now(\"#{time_of_commit}\")"
-      f.puts "\n        %p\n"
+      f.puts "\n        %span\n"
       f.print "          = \"#{sha}\""
     end
 
