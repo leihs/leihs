@@ -191,6 +191,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/vertrag.feature"
+- name: examples/benutzerverwaltung14
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/benutzerverwaltung14.feature"
 - name: examples/gegenstand_kopieren2
   scripts:
     cucumber:
@@ -307,6 +311,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/modell5.feature"
+- name: examples/benutzerverwaltung13
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/benutzerverwaltung13.feature"
 - name: examples/option
   scripts:
     cucumber:

@@ -2,10 +2,6 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/benutzerverwaltung.feature"
-- name: examples/benutzerverwaltung1
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/benutzerverwaltung1.feature"
 - name: examples/benutzerverwaltung2
   scripts:
     cucumber:
@@ -50,15 +46,19 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/benutzerverwaltung12.feature"
+- name: examples/benutzerverwaltung13
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/benutzerverwaltung13.feature"
+- name: examples/benutzerverwaltung14
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/benutzerverwaltung14.feature"
 
 - name: examples/modell
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/modell.feature"
-- name: examples/modell1
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/modell1.feature"
 - name: examples/modell2
   scripts:
     cucumber:
