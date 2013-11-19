@@ -139,6 +139,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/borrow/suche.feature"
+- name: borrow/suche2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/suche2.feature"
 - name: borrow/timeoutpage
   scripts:
     cucumber:
