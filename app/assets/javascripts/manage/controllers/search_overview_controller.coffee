@@ -14,10 +14,10 @@ class window.App.SearchOverviewController extends Spine.Controller
     @previewAmount = 5
     do @searchModels
     do @searchItems
+    do @searchOptions
     do @searchUsers
     do @searchContracts
     do @searchOrders
-    do @searchOptions
     new App.LatestReminderTooltipController {el: @el}
     new App.LinesCellTooltipController {el: @el}
     new App.UserCellTooltipController {el: @el}
