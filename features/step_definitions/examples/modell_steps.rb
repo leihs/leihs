@@ -97,8 +97,7 @@ Und /^das Modell hat (.+) zugewiesen$/ do |assoc|
 end
 
 Dann(/^kann ich das Modell aus der Liste nicht löschen$/) do
-  sleep(0.44)
-  @current_inventory_pool = @current_user.managed_inventory_pools.first unless @current_inventory_pool # fix for CI, running locally not needed
+  sleep 1.66
   visit manage_inventory_path(@current_inventory_pool)
   find("[data-unused_models]").click unless @current_inventory_pool.models.include? @model
   fill_in 'list-search', with: @model.name
