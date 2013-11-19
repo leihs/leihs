@@ -18,7 +18,8 @@ class window.App.TakeBackController extends Spine.Controller
     super
     App.TakeBackController.readyForTakeBack = []
     @lineSelection = new App.LineSelectionController {el: @el}
-    do @fetchAvailability
+    if @getLines().length
+      do @fetchAvailability
     do @setupAutocomplete
     new App.TimeLineController {el: @el}
     new App.ContractLinesEditController {el: @el, user: @user, contract: @contract, startDateDisabled: true, quantityDisabled: true}
