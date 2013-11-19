@@ -30,7 +30,11 @@
               {{if ~returnedQuantity[id]}}
               {{> ~returnedQuantity[id]}}/{{>quantity}}
               {{else}}
-              {{>quantity}}
+              {{if sublines}}
+              {{sum sublines "quantity"/}}
+              {{else}}
+              {{> quantity}}
+              {{/if}}
               {{/if}}
           .col7of8
             .paragraph-s
