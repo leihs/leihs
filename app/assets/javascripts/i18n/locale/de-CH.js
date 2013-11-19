@@ -3206,7 +3206,7 @@ window.i18n.locale_data = {
       ],
       "Reminder send": [
          null,
-         "Erinerung gesendet"
+         "Erinnerung gesendet"
       ],
       "Available in total": [
          null,
@@ -3327,11 +3327,11 @@ window.i18n.locale_data = {
       ],
       "You can not take back more items then you handed over": [
          null,
-         "Sie können nicht mehr Zurücknehmen als Sie ausgehändigt haben"
+         "Sie können nicht mehr zurücknehmen als Sie ausgehändigt haben"
       ],
       "You have to provide the quantity for the things you want to return": [
          null,
-         "Sie müssen die Anzahl angeben, die sie Zurücknehmen wollen"
+         "Sie müssen die Anzahl angeben, die sie zurücknehmen wollen"
       ],
       "Take back completed": [
          null,
