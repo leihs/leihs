@@ -38,7 +38,12 @@
           {{for lines}}
           .row
             .col1of8.text-align-center
-              .paragraph-s {{>quantity}}
+              .paragraph-s
+                {{if sublines}}
+                {{sum sublines "quantity"/}}
+                {{else}}
+                {{> quantity}}
+                {{/if}}
             .col7of8
               .paragraph-s
                 %strong {{>model().name}}
