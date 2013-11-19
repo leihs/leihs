@@ -23,9 +23,9 @@ class window.App.VisitsIndexController extends Spine.Controller
 
   fetch: (page, target)=>
     @fetchVisits(page).done =>
-      @fetchContractLines(page).done =>
+      @fetchContractLines page, =>
         @fetchUsers(page).done =>
-          @fetchPurposes(page).done => 
+          @fetchPurposes page, => 
             @render target, @visits[page], page
 
   fetchVisits: (page)=>
@@ -39,12 +39,15 @@ class window.App.VisitsIndexController extends Spine.Controller
       visits = (App.Visit.find(datum.id) for datum in data)
       @visits[page] = visits
 
-  fetchContractLines: (page)=>
+  fetchContractLines: (page, callback)=>
     ids = _.flatten _.map @visits[page], (v)-> v.contract_line_ids
-    return {done: (c)=>c()} unless ids.length
-    App.ContractLine.ajaxFetch
-      data: $.param
-        ids: ids
+    do callback unless ids.length
+    done = _.after Math.ceil(ids.length/300), callback
+    _(ids).each_slice 300, (slice)=>
+      App.ContractLine.ajaxFetch
+        data: $.param
+          ids: slice
+      .done done
 
   fetchUsers: (page)=>
     ids = _.filter (_.map @visits[page], (c) -> c.user_id), (id) -> not App.User.exists(id)?
@@ -53,12 +56,15 @@ class window.App.VisitsIndexController extends Spine.Controller
       data: $.param
         ids: ids
 
-  fetchPurposes: (page)=>
+  fetchPurposes: (page, callback)=>
     ids = _.compact _.filter (_.map (_.flatten (_.map @visits[page], (o) -> o.lines().all())), (l) -> l.purpose_id), (id) -> not App.Purpose.exists(id)?
-    return {done: (c)=>c()} unless ids.length
-    App.Purpose.ajaxFetch
-      data: $.param
-        purpose_ids: ids
+    do callback unless ids.length
+    done = _.after Math.ceil(ids.length/300), callback
+    _(ids).each_slice 300, (slice)=>
+      App.Purpose.ajaxFetch
+        data: $.param
+          purpose_ids: slice
+      .done done
 
   render: (target, data, page)=> 
     target.html App.Render "manage/views/visits/line", data
