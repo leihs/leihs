@@ -5,8 +5,8 @@ class window.App.ContractsApproveWithCommentController extends Spine.Controller
 
   constructor: (options)->
     @trigger = options.trigger
-    @order = options.order
-    tmpl = App.Render "manage/views/contracts/approve_with_comment_modal", @order
+    @contract = options.contract
+    tmpl = App.Render "manage/views/contracts/approve_with_comment_modal", @contract
     @modal = new App.Modal(tmpl)
     @el = @modal.el
     super
