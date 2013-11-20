@@ -97,7 +97,6 @@ Und /^das Modell hat (.+) zugewiesen$/ do |assoc|
 end
 
 Dann(/^kann ich das Modell aus der Liste nicht löschen$/) do
-  sleep 1.66
   find("[data-unused_models]").click unless @current_inventory_pool.models.include? @model
   fill_in 'list-search', with: @model.name
   sleep(0.44)
@@ -122,6 +121,7 @@ Dann(/^es wurden auch alle Anhängsel gelöscht$/) do
   Attachment.where(model_id: @model.id).should be_empty
   ModelLink.where(model_id: @model.id).should be_empty
   Model.all {|m| m.compatibles.include? Model.find_by_name("Windows Laptop")}.include?(@model).should be_false
+  sleep 0.66 # fix lazy request problem
 end
 
 Wenn(/^ich dieses Modell aus der Liste lösche$/) do

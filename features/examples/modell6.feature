@@ -8,6 +8,17 @@ Funktionalität: Modell
     Und man öffnet die Liste des Inventars
 
   @javascript
+  Szenariogrundriss: Modelllöschversuch verhindern
+    Angenommen das Modell hat <Zuweisung> zugewiesen
+    Dann kann ich das Modell aus der Liste nicht löschen
+
+  Beispiele:
+    | Zuweisung   |
+    | Vertrag     |
+    | Bestellung  |
+    | Gegenstand  |
+
+  @javascript
   Szenario: Modelanhängsel löschen
     Angenommen es existiert ein Modell mit folgenden Eigenschaften
       | in keinem Vertrag aufgeführt |
@@ -23,14 +34,3 @@ Funktionalität: Modell
     Wenn ich dieses Modell aus der Liste lösche
     Und das Modell ist gelöscht
     Und es wurden auch alle Anhängsel gelöscht
-
-  @javascript
-  Szenariogrundriss: Modelllöschversuch verhindern
-    Angenommen das Modell hat <Zuweisung> zugewiesen
-    Dann kann ich das Modell aus der Liste nicht löschen
-
-  Beispiele:
-    | Zuweisung   |
-    | Vertrag     |
-    | Bestellung  |
-    | Gegenstand  |
