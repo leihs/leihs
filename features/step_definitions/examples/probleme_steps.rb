@@ -170,10 +170,10 @@ Angenommen /^eine Gegenstand ist unvollständig$/ do
 end
 
 Dann /^sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen$/ do
-  find(".line[data-id='#{@line_id}']")
-  find(".line[data-id='#{@line_id}'] .emboss.red").hover
-  t = find(".tooltipster-base").text
-  t.match(/\w/).should be_true
+  within(".line[data-id='#{@line_id}']") do
+    find(".emboss.red").hover
+  end
+  sleep(0.2) # wait for the css transition
   @problems = []
-  @problems << t
+  @problems << find(".tooltipster-default .tooltipster-content", text: /\w/).text
 end

@@ -39,7 +39,8 @@ Dann /^sehe ich auf jeder Zeile den zugewisenen Zweck$/ do
     within(".line[data-id='#{line.id}']", text: line.model.name) do
       find(".col1of10:nth-child(5) .tooltip").hover
     end
-    find(".tooltipster-default", text: line.purpose.description)
+    sleep(0.2) # wait for the css transition
+    find(".tooltipster-default .tooltipster-content", text: line.purpose.description)
   end
 end
 

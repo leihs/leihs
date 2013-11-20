@@ -271,20 +271,19 @@ Angenommen /^man fährt über die Anzahl von Gegenständen in einer Zeile$/ do
 end
 
 Dann /^werden alle diese Gegenstände aufgelistet$/ do
-  all(".show_more").each(&:click)
+  all("button[data-collapsed-toggle]").each(&:click)
   @lines.each do |line|
-    line.click 
     line.hover
-    sleep(0.88) 
+    sleep(0.2) # wait for the css transition
     find(".tooltipster-default", match: :first)
   end
 end
 
 Dann /^man sieht pro Modell eine Zeile$/ do
-  all(".show_more").each(&:click)
+  all("button[data-collapsed-toggle]").each(&:click)
   @lines.each do |line|
     line.hover
-    sleep(0.66)
+    sleep(0.2) # wait for the css transition
     within(".tooltipster-default", match: :first, :visible => true) do
       find(".exclude-last-child", match: :first)
       all(".exclude-last-child").each do |div|
@@ -296,11 +295,11 @@ Dann /^man sieht pro Modell eine Zeile$/ do
 end
 
 Dann /^man sieht auf jeder Zeile die Summe der Gegenstände des jeweiligen Modells$/ do
-  all(".show_more").each(&:click)
+  all("button[data-collapsed-toggle]").each(&:click)
   @lines.each do |line|
     line.hover
+    sleep(0.2) # wait for the css transition
     find(".tooltipster-default .row .col1of8:nth-child(1)", match: :first)
-    sleep(0.88)
     quantities = find(".tooltipster-default", match: :first, :visible => true).all(".row .col1of8:nth-child(1)", text: /.+/).map{|x| x.text.to_i}
     quantities.sum.should >= quantities.size
   end
