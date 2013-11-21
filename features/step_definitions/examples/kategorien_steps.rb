@@ -132,6 +132,7 @@ Wenn /^ich das Modell speichere$/ do
 end
 
 Dann /^sind die Kategorien zugeteilt$/ do
+  sleep 0.66 # fix lazy request problem
   @model.model_groups.where(id: @category.id).count.should eq 1
 end
 
