@@ -9,7 +9,8 @@ class window.App.ModelsPackageDialogController extends Spine.Controller
   events:
     "change #search-item": "setupAutocomplete"
     "preChange #search-item": "setupAutocomplete"
-    "click [date-remove]": "removeItem"
+    "focus #search-item": "setupAutocomplete"
+    "inline-entry-remove [data-type='inline-entry']": "removeItem"
     "click #save-package": "save"
 
   constructor: ->
@@ -34,7 +35,8 @@ class window.App.ModelsPackageDialogController extends Spine.Controller
       source: (request, response) => 
         @fetchItems(request.term).done (data)=> 
           items = (App.Item.find datum.id for datum in data)
-          @fetchModels(items).done => response items
+          @fetchModels(items).done => 
+            response items if input.is(":focus")
       focus: => return false
       select: (e, ui) => @select(e, ui) and input.val("") and input.blur()
       appendTo: @modal.el

@@ -6,6 +6,7 @@ class window.App.InlineEntryRemoveController extends Spine.Controller
   remove: (e) =>
     e.preventDefault()
     line = $(e.currentTarget).closest("[data-type='inline-entry']")
+    line.trigger "inline-entry-remove", line
     if line.data("new")?
       line.remove()
     else
