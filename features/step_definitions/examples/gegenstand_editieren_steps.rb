@@ -79,7 +79,7 @@ Dann(/^bei dem bearbeiteten Gegestand ist der neue Lieferant eingetragen$/) do
 end
 
 Dann(/^ist der Gegenstand mit all den angegebenen Informationen gespeichert$/) do
-  find("[data-retired='true']").click if (@table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"} ["Wert"]) == "Ja"
+  find("[data-retired='true']").click if @table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"} and (@table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"} ["Wert"]) == "Ja"
   find_field('list-search').set (@table_hashes.detect {|r| r["Feldname"] == "Inventarcode"} ["Wert"])
   find(".line", :text => @table_hashes.detect {|r| r["Feldname"] == "Modell"} ["Wert"], :visible => true)
   visit manage_edit_item_path @ip, @item

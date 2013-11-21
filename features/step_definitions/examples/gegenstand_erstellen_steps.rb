@@ -91,6 +91,7 @@ Dann /^ist der Gegenstand mit all den angegebenen Informationen erstellt$/ do
 end
 
 Dann /^hat der Gegenstand alle zuvor eingetragenen Werte$/ do
+  page.has_selector? ".row.emboss"
   @table_hashes.each do |hash_row|
     field_name = hash_row["Feldname"]
     field_value = hash_row["Wert"]

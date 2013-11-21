@@ -91,10 +91,18 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/verfuegbarkeit.feature"
+- name: examples/inventarhelfer3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/inventarhelfer3.feature"
 - name: examples/passwort3
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/passwort3.feature"
+- name: examples/pakete3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/pakete3.feature"
 - name: examples/gegenstand_editieren
   scripts:
     cucumber:
@@ -111,6 +119,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/gegenstand_editieren2.feature"
+- name: examples/inventarhelfer4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/inventarhelfer4.feature"
 - name: examples/werteliste
   scripts:
     cucumber:
@@ -127,6 +139,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/gegenstand_ausmustern2.feature"
+- name: examples/zweck3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/zweck3.feature"
 - name: examples/passwort9
   scripts:
     cucumber:
@@ -191,6 +207,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/gegenstand_editieren3.feature"
+- name: examples/gegenstand_erstellen5
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen5.feature"
 - name: examples/werteliste2
   scripts:
     cucumber:
@@ -255,6 +275,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/probleme.feature"
+- name: examples/inventar3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/inventar3.feature"
 - name: examples/probleme3
   scripts:
     cucumber:
@@ -263,6 +287,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/passwort2.feature"
+- name: examples/inventarhelfer2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/inventarhelfer2.feature"
 - name: examples/modell6
   scripts:
     cucumber:
@@ -287,6 +315,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/geraetepark_administrieren.feature"
+- name: examples/vertrag5
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/vertrag5.feature"
 - name: examples/gruppen4
   scripts:
     cucumber:
@@ -299,6 +331,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/kategorien2.feature"
+- name: examples/vertrag6
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/vertrag6.feature"
 - name: examples/gegenstand_ausmustern
   scripts:
     cucumber:
@@ -323,6 +359,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/suche.feature"
+- name: examples/kalender2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/kalender2.feature"
 - name: examples/ausleihe
   scripts:
     cucumber:
@@ -343,6 +383,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/option.feature"
+- name: examples/gegenstand_editieren4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_editieren4.feature"
 - name: examples/explorative_suche
   scripts:
     cucumber:
@@ -411,6 +455,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/probleme2.feature"
+- name: examples/inventar4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/inventar4.feature"
 - name: examples/modell
   scripts:
     cucumber:
@@ -555,6 +603,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/manage/hand_over/sign_contract.feature"
+- name: manage/hand_over/add3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/hand_over/add3.feature"
 - name: manage/hand_over/add
   scripts:
     cucumber:

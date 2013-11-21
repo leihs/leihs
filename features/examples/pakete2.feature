@@ -27,15 +27,3 @@ Funktionalität: Modell mit Paketen erstellen
     Wenn ich ein Paket editiere
     Dann kann ich einen Gegenstand aus dem Paket entfernen
     Und dieser Gegenstand ist nicht mehr dem Paket zugeteilt
-
-  @javascript
-  Szenario: Modell mit Paketzuteilung erstellen und wieder editieren
-    Wenn ich ein neues Modell hinzufüge
-    Und ich mindestens die Pflichtfelder ausfülle
-    Und ich eine Paket hinzufüge
-    Und ich die Paketeigenschaften eintrage
-    Und ich diesem Paket eines oder mehrere Gegenstände hinzufügen
-    Und ich dieses Paket speichere
-    Und ich dieses Paket wieder editiere
-    Dann kann ich die Paketeigenschaften erneut bearbeiten
-    Und ich kann diesem Paket eines oder mehrere Gegenstände hinzufügen

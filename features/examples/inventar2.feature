@@ -14,13 +14,11 @@ Funktionalität: Inventar
     | Barcode     |
     | Name        |
     | Preis       |
-  
+
   @javascript
-  Szenario: Modell aufklappen
-    Dann kann man jedes Modell aufklappen
-    Und man sieht die Gegenstände, die zum Modell gehören
-    Und so eine Zeile sieht aus wie eine Gegenstands-Zeile
-  
+  Szenario: Keine Leeren Modelle auf der Liste des Inventars
+    Dann sieht man keine Modelle, denen keine Gegenstänge zugewiesen unter keinem der vorhandenen Reiter
+
   @javascript
   Szenario: Paket-Modelle aufklappen
     Dann kann man jedes Paket-Modell aufklappen
@@ -29,17 +27,3 @@ Funktionalität: Inventar
     Und man kann diese Paket-Zeile aufklappen
     Und man sieht die Bestandteile, die zum Paket gehören
     Und so eine Zeile zeigt nur noch Inventarcode und Modellname des Bestandteils
-
-  @javascript
-  Szenario: Export der aktuellen Ansicht als CSV
-    Dann kann man diese Daten als CSV-Datei exportieren
-    Und die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden (inkl. Filter)
-    
-  @javascript
-  Szenario: Keine Leeren Modelle auf der Liste des Inventars
-    Dann sieht man keine Modelle, denen keine Gegenstänge zugewiesen unter keinem der vorhandenen Reiter
-
-  @javascript
-  Szenario: Keine Resultate auf der Liste des Inventars
-    Wenn ich eine resultatlose Suche mache
-    Dann sehe ich "Kein Eintrag gefunden"
