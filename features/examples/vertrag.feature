@@ -34,22 +34,3 @@ Funktionalität: Vertrag
   Szenario: Hinweis auf AGB
     Angenommen man öffnet einen Vertrag bei der Aushändigung
     Dann seh ich den Hinweis auf AGB "Es gelten die Ausleih- und Benutzungsreglemente des Verleihers."
-  
-  @javascript   
-  Szenario: Inhalt der Liste 1 und Liste 2
-    Angenommen man öffnet einen Vertrag bei der Aushändigung
-    Dann beinhalten Liste 1 und Liste 2 folgende Spalten:
-    | Spaltenname   |
-    | Anzahl        |
-    | Inventarcode  |
-    | Modellname    |
-    | Enddatum      |
-    | Rückgabedatum / Rücknehmende Person |
-
-  @javascript   
-  Szenario: Rücknehmende Person
-    Angenommen man öffnet einen Vertrag bei der Rücknahme
-    Dann sieht man bei den betroffenen Linien die rücknehmende Person im Format "V. Nachname"
-
-    
-

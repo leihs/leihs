@@ -23,17 +23,3 @@ Feature: Add lines during hand over
   Scenario: Increase the quantity of an option of the hand over by adding an option providing an inventory code
       And I add an option to the hand over which is already existing in the selected date range by providing an inventory code
      Then the existing option quantity is increased
-
-  @javascript
-  Scenario: Add an option to the hand over picking an autocomplete element
-      And I type the beginning of an option name to the add/assign input field
-     Then I see a list of suggested option names
-     When I select the option from the list
-     Then the option is added to the hand over
-     
-  @javascript
-  Scenario: Add an model to the hand over picking an autocomplete element
-      And I type the beginning of a model name to the add/assign input field
-     Then I see a list of suggested model names
-     When I select the modle from the list
-     Then the model is added to the hand over
