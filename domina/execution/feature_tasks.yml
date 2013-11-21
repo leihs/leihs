@@ -347,6 +347,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/option.feature"
+- name: examples/gegenstand_editieren4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_editieren4.feature"
 - name: examples/explorative_suche
   scripts:
     cucumber:
