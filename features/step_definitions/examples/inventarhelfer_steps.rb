@@ -111,7 +111,7 @@ Dann /^scanne oder gebe ich den Inventarcode von einem Gegenstand ein, der am La
 end
 
 Dann /^scanne oder gebe ich den Inventarcode ein$/ do
-  @item ||= @current_inventory_pool.items.first
+  @item ||= @current_inventory_pool.items.select{|i| i.contract_lines.empty?}.first
   within("#item-selection") do
     find("[data-barcode-scanner-target]").set @item.inventory_code
     find("button[type=submit]").click
