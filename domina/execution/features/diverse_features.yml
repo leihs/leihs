@@ -10,3 +10,19 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/ausleihe2.feature"
+- name: examples/inventar
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/inventar.feature"
+- name: examples/inventar2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/inventar2.feature"
+- name: examples/inventar3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/inventar3.feature"
+- name: examples/inventar4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/inventar4.feature"

@@ -225,16 +225,17 @@ Dann /^enthält die Gegenstands\-Zeile die Verantwortliche Abteilung$/ do
   step 'ich nach "%s" suche' % " "
 end
 
-def get_item_by_inventory_code(item_line)
-  Item.find_by_inventory_code item_line.find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text
-end
+# not needed -> is a problem for capybara: "element not found in cache" error
+#def get_item_by_inventory_code(item_line)
+  #Item.find_by_inventory_code item_line.find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text
+#end
 
 Wenn /^der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist$/ do
   find("select#responsibles option[value='#{@current_inventory_pool.id}']").select_option
   find("#list-filters input#in_stock").click unless find("#list-filters input#in_stock").checked?
   find(".button[data-type='inventory-expander'] i.arrow.right", match: :first).click
   @item_line = find(".group-of-lines .line[data-type='item']", match: :first)
-  @item = get_item_by_inventory_code(@item_line)
+  @item = Item.find_by_inventory_code(@item_line.find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text)
 end
 
 Wenn /^der Gegenstand nicht an Lager ist und eine andere Abteilung für den Gegenstand verantwortlich ist$/ do
@@ -245,14 +246,14 @@ Wenn /^der Gegenstand nicht an Lager ist und eine andere Abteilung für den Gege
   page.has_selector? ".line[data-id='#{item.id}']"
   find(".line[data-id='#{item.model.id}'] .button[data-type='inventory-expander'] i.arrow.right", match: :first).click
   @item_line = find(".group-of-lines .line[data-type='item']", match: :first)
-  @item = get_item_by_inventory_code(@item_line)
+  @item = Item.find_by_inventory_code(@item_line.find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text)
 end
 
 Wenn /^meine Abteilung Besitzer des Gegenstands ist die Verantwortung aber auf eine andere Abteilung abgetreten hat$/ do
   all("select#responsibles option:not([selected])").detect{|o| o.value != @current_inventory_pool.id.to_s and o.value != ""}.select_option
   find(".button[data-type='inventory-expander'] i.arrow.right", match: :first).click
   @item_line = find(".group-of-lines .line[data-type='item']", match: :first)
-  @item = get_item_by_inventory_code(@item_line)
+  @item = Item.find_by_inventory_code(@item_line.find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text)
 end
 
 Dann /^enthält die Options\-Zeile folgende Informationen$/ do |table|
@@ -289,7 +290,7 @@ end
 
 Dann /^so eine Zeile sieht aus wie eine Gegenstands\-Zeile$/ do
   @item_line ||= @items_element.find(".line")
-  @item ||= get_item_by_inventory_code(@item_line)
+  @item ||= Item.find_by_inventory_code(@item_line.find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text)
   
   if @item.in_stock? && @item.inventory_pool == @current_inventory_pool
     step 'enthält die Gegenstands-Zeile die Gebäudeabkürzung'
@@ -322,12 +323,11 @@ end
 
 Dann /^man sieht die Pakete dieses Paket\-Modells$/ do
   @packages_element = @package_line.find(:xpath, "following-sibling::div[@class='group-of-lines']")
-  package_items = @packages_element.all(".line[data-type='item']")
   @package.items.each do |package|
     @packages_element.should have_content package.inventory_code  
   end
-  @item_line = package_items.to_a.sample
-  @item = get_item_by_inventory_code(@item_line)
+  @item_line = @packages_element.all(".line[data-type='item']").to_a.sample
+  @item = Item.find_by_inventory_code(@item_line.find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text)
 end
 
 Dann /^man kann diese Paket\-Zeile aufklappen$/ do
@@ -335,7 +335,7 @@ Dann /^man kann diese Paket\-Zeile aufklappen$/ do
     find(".button[data-type='inventory-expander'] i.arrow.right").click
     find(".button[data-type='inventory-expander'] i.arrow.down")
   end
-  @package_parts_element = @item_line.find(:xpath, "following-sibling::span[@class='group-of-lines']")
+  @package_parts_element = @item_line.find(:xpath, "following-sibling::div[@class='group-of-lines']")
 end
 
 Dann /^man sieht die Bestandteile, die zum Paket gehören$/ do
@@ -361,6 +361,7 @@ Dann /^kann man diese Daten als CSV\-Datei exportieren$/ do
   parsed_query.keys.size.should == 0
   find("input#in_stock").click
   parsed_query.should == {"in_stock"=>"1"}
+  sleep 0.66 # fix lazy request problem
 end
 
 Dann /^die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden \(inkl\. Filter\)$/ do
@@ -595,5 +596,5 @@ Wenn(/^ich eine resultatlose Suche mache$/) do
 end
 
 Dann(/^sehe ich "(.*?)"$/) do |arg1|
-  find(".line", text: _("No entries found"))
+  find("#inventory", text: _("No entries found"))
 end
