@@ -3505,6 +3505,14 @@ window.i18n.locale_data = {
       "is part of a package": [
          null,
          "ist Bestandteil eines Pakets"
+      ],
+      "Packages updated": [
+         null,
+         "Pakete aktualisiert"
+      ],
+      "Save Package": [
+         null,
+         "Paket speichern"
       ]
    }
 }

@@ -14,22 +14,22 @@
 
   #notifications.hidden
 
-  .padding-horizontal-l
-    %h2.headline-m.padding-bottom-m {{jed 'Items'/}}
-    .row.emboss.margin-vertical-xxs.margin-right-xs
-      .row.padding-inset-xs
-        .col1of2.padding-vertical-xs
-          %strong.font-size-m.inline-block {{jed 'Add item'/}}
-        .col1of2
-          .row
-            %input#search-item.width-full.has-addon{:type => :text, :autocomplete => :off,:"data-barcode-scanner-target" => true}
-            .addon.transparent
-              %span.arrow.down
-    #items.row
+  .modal-body.row.padding-horizontal-l
 
-  .modal-body.row.margin-top-m.padding-horizontal-l.padding-top-s
+    .margin-bottom-m
+      %h2.headline-m.padding-bottom-m {{jed 'Items'/}}
+      .row.emboss.margin-vertical-xxs.margin-right-xs
+        .row.padding-inset-xs
+          .col1of2.padding-vertical-xs
+            %strong.font-size-m.inline-block {{jed 'Add item'/}}
+          .col1of2
+            .row
+              %input#search-item.width-full.has-addon{:type => :text, :autocomplete => :off,:"data-barcode-scanner-target" => true}
+              .addon.transparent
+                %span.arrow.down
+      #items.row
 
-    %form#item-form
+    %form#item-form.padding-top-s
 
       #flexible-fields
         .height-s

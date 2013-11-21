@@ -451,6 +451,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/pakete3.feature"
+- name: examples/pakete4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/pakete4.feature"
 - name: examples/passwort
   scripts:
     cucumber:

@@ -143,12 +143,15 @@ Dann /^(?:besitzt das Paket alle angegebenen Informationen|das Paket besitzt all
 end
 
 Wenn /^ich ein bestehendes Paket editiere$/ do
-  page.should have_selector "[ng-repeat='package in model.packages']"
-  find("[ng-repeat='package in model.packages']", match: :first).first(".clickable", :text => _("Edit")).click
+  find("[data-edit-package]", match: :first).click
+  find(".modal")
+  find(".modal [data-type='field']", match: :first)
 end
 
 Wenn(/^ich eine Paket hinzufüge$/) do
-  find("a", match: :prefer_exact, text: _("Add %s") % _("Package")).click
+  find("#add-package").click
+  find(".modal")
+  find(".modal [data-type='field']", match: :first)
 end
 
 Wenn(/^ich die Paketeigenschaften eintrage$/) do
@@ -171,11 +174,11 @@ Wenn(/^ich die Paketeigenschaften eintrage$/) do
 end
 
 Wenn(/^ich dieses Paket speichere$/) do
-  find(".modal .button.save", match: :first).click
+  find("#save-package").click
 end
 
 Wenn(/^ich dieses Paket wieder editiere$/) do
-  find(".field-inline-entry .clickable", match: :prefer_exact, text: _("Edit")).click
+  step 'ich ein bestehendes Paket editiere'
 end
 
 Dann(/^kann ich die Paketeigenschaften erneut bearbeiten$/) do

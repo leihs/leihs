@@ -40,12 +40,12 @@ class window.App.ModelsPackagesController extends Spine.Controller
         entry: entry
 
   getRemoteItemData: (entry, callback)=>
-    @fetchItem(entry.data("id"))
-    .done =>
-      item = App.Item.find entry.data "id"
-      @fetchChildren(item).done =>
-        children = item.children().all()
-        @fetchModels(children).done => callback(item, item.children().all())
+    id = entry.data("id")
+    @fetchItem(id)
+    .done (itemData)=>
+      @fetchChildren(id).done (data)=>
+        children = (App.Item.find datum.id for datum in data)
+        @fetchModels(children).done => callback(itemData, children)
 
   fetchModels: (items)=>
     ids = (item.model_id for item in items)
@@ -57,23 +57,20 @@ class window.App.ModelsPackagesController extends Spine.Controller
         include_package_models: true
 
   fetchItem: (id)=>
-    App.Item.ajaxFetch
-      data: $.param
-        id: id
-        for: "flexibleFields"
+    $.get App.Item.url()+"/#{id}",
+      for: "flexibleFields"
 
-  fetchChildren: (item)=>
+  fetchChildren: (id)=>
     App.Item.ajaxFetch
       data: $.param
-        package_ids: [item.id]
+        package_ids: [id]
         paginate: false
 
-  saveExistingPackage: (data, children, entry)=>
+  saveExistingPackage: (itemData, children, entry)=>
     @list.prepend entry
-    item = App.Item.find entry.data("id")
-    formData = entry.find("[data-type='form-data']")
     entry.find("[data-type='updated-text']").removeClass "hidden"
-    formData.html App.Render "manage/views/models/form/package_inline_entry/updated_package_form_data", {children: children, data: data, item: item}, {uid: item.id}
+    entry.find("[data-type='form-data']").html ->
+      App.Render "manage/views/models/form/package_inline_entry/updated_package_form_data", {children: children, data: itemData}, {uid: entry.data("id")}
 
   editNewPackage: (entry)=>
     data = App.ElementFormDataAsObject entry  

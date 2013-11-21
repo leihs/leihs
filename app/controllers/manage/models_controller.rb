@@ -238,6 +238,7 @@ class Manage::ModelsController < Manage::ApplicationController
             end
           end
         end
+        flash[:success] = "#{_("Model saved")} / #{_("Packages updated")}"
       end
       item.save!
     end

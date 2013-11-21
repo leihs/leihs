@@ -2725,3 +2725,9 @@ msgstr[1] "Geräteparks"
 
 msgid "is part of a package"
 msgstr "ist Bestandteil eines Pakets"
+
+msgid "Packages updated"
+msgstr "Pakete aktualisiert"
+
+msgid "Save Package"
+msgstr "Paket speichern"

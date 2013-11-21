@@ -2662,3 +2662,9 @@ msgstr[1] ""
 
 msgid "is part of a package"
 msgstr ""
+
+msgid "Packages updated"
+msgstr ""
+
+msgid "Save Package"
+msgstr ""
