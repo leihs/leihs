@@ -26,3 +26,19 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/inventar4.feature"
+- name: examples/inventar5
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/inventar5.feature"
+- name: examples/ausleihe4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/ausleihe4.feature"
+- name: examples/probleme4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/probleme4.feature"
+- name: examples/probleme5
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/probleme5.feature"
