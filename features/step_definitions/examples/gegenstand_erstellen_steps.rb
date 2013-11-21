@@ -99,7 +99,6 @@ Dann /^hat der Gegenstand alle zuvor eingetragenen Werte$/ do
     matched_field = all("form").last.find(".row.emboss", match: :prefer_exact, text: field_name)
     case field_type
       when "autocomplete"
-        binding.pry if field_value == "A-Ausleihe"
         matched_field.find("input,textarea").value.should == (field_value != "Keine/r" ? field_value : "")
       when "select"
         matched_field.all("option").detect(&:selected?).text.should == field_value
