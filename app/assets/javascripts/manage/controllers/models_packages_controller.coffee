@@ -60,6 +60,7 @@ class window.App.ModelsPackagesController extends Spine.Controller
     App.Item.ajaxFetch
       data: $.param
         id: id
+        for: "flexibleFields"
 
   fetchChildren: (item)=>
     App.Item.ajaxFetch

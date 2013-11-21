@@ -7,8 +7,6 @@ class window.App.ModelsPackageDialogController extends Spine.Controller
     "#items": "childrenContainer"
 
   events:
-    "change #search-item": "setupAutocomplete"
-    "preChange #search-item": "setupAutocomplete"
     "focus #search-item": "setupAutocomplete"
     "inline-entry-remove [data-type='inline-entry']": "removeItem"
     "click #save-package": "save"
