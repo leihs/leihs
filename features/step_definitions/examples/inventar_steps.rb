@@ -155,6 +155,7 @@ Dann /^enthält die Modell\-Zeile folgende Informationen:$/ do |table|
         @model_line.find ".col1of5:nth-child(3)", :text => /\/.*?#{@model.borrowable_items.count}/
     end
   end
+  sleep 0.66 # fix lazy request problem
 end
 
 ########################################################################
