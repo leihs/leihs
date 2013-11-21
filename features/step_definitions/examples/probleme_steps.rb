@@ -169,9 +169,7 @@ Angenommen /^eine Gegenstand ist unvollständig$/ do
 end
 
 Dann /^sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen$/ do
-  within(".line[data-id='#{@line_id}']") do
-    hover_for_tooltip find(".emboss.red")
-  end
+  hover_for_tooltip find(".line[data-id='#{@line_id}'] .emboss.red")
   @problems = []
   @problems << find(".tooltipster-default .tooltipster-content", text: /\w/).text
 end

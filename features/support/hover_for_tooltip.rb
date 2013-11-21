@@ -1,10 +1,7 @@
-def hover_for_tooltip(el)
+def hover_for_tooltip(target)
   sleep(0.33) # wait for potential previous hovers
-  find("body").click
-  find("body").hover
-  el.hover
-  sleep(0.51) # popup delay
-  el.hover
-  sleep(0.44) # wait for the css transition
-  find(".tooltipster-default", match: :first)
+  find("div", match: :first).click # move mouse somewhere else to ensure its currently not over the target
+  target.click
+  sleep(0.99) # wait for the css transition
+  all(".tooltipster-content") # there should be just one
 end
