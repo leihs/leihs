@@ -35,8 +35,8 @@ end
 When /^I save the booking calendar$/ do
   find("#submit-booking-calendar", :text => _("Save")).click
   sleep(0.88)
-  page.has_no_selector?("#submit-booking-calendar", :text => _("Save")).should be_true
-  page.has_no_selector?("#booking-calendar").should be_true
+  page.has_no_selector?("#submit-booking-calendar", :text => _("Save"))
+  page.has_no_selector?("#booking-calendar")
 end
 
 When /^I change a contract lines time range$/ do
