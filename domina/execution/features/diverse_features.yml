@@ -1,44 +1,12 @@
-- name: examples/probleme
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/probleme.feature"
-- name: examples/probleme2
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/probleme2.feature"
-- name: examples/ausleihe2
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/ausleihe2.feature"
-- name: examples/inventar
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/inventar.feature"
-- name: examples/inventar2
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/inventar2.feature"
-- name: examples/inventar3
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/inventar3.feature"
-- name: examples/inventar4
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/inventar4.feature"
-- name: examples/inventar5
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/inventar5.feature"
 - name: examples/ausleihe4
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/ausleihe4.feature"
+- name: examples/inventar3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/inventar3.feature"
 - name: examples/probleme4
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/probleme4.feature"
-- name: examples/probleme5
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/probleme5.feature"

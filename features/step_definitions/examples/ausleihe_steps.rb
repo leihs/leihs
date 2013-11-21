@@ -272,33 +272,27 @@ end
 
 Dann /^werden alle diese Gegenstände aufgelistet$/ do
   all("button[data-collapsed-toggle]").each(&:click)
-  @lines.each do |line|
-    hover_for_tooltip line
-  end
+  hover_for_tooltip @lines.to_a.sample
 end
 
 Dann /^man sieht pro Modell eine Zeile$/ do
   all("button[data-collapsed-toggle]").each(&:click)
-  @lines.each do |line|
-    hover_for_tooltip line
-    within(".tooltipster-default", match: :first, :visible => true) do
-      find(".exclude-last-child", match: :first)
-      all(".exclude-last-child").each do |div|
-        model_names = div.all(".row .col7of8:nth-child(2) strong", text: /.+/).map &:text
-        model_names.size.should == model_names.uniq.size
-      end
+  hover_for_tooltip @lines.to_a.sample
+  within(".tooltipster-default", match: :first, :visible => true) do
+    find(".exclude-last-child", match: :first)
+    all(".exclude-last-child").each do |div|
+      model_names = div.all(".row .col7of8:nth-child(2) strong", text: /.+/).map &:text
+      model_names.size.should == model_names.uniq.size
     end
   end
 end
 
 Dann /^man sieht auf jeder Zeile die Summe der Gegenstände des jeweiligen Modells$/ do
   all("button[data-collapsed-toggle]").each(&:click)
-  @lines.each do |line|
-    hover_for_tooltip line
-    find(".tooltipster-default .row .col1of8:nth-child(1)", match: :first)
-    quantities = find(".tooltipster-default", match: :first, :visible => true).all(".row .col1of8:nth-child(1)", text: /.+/).map{|x| x.text.to_i}
-    quantities.sum.should >= quantities.size
-  end
+  hover_for_tooltip @lines.to_a.sample
+  find(".tooltipster-default .row .col1of8:nth-child(1)", match: :first)
+  quantities = find(".tooltipster-default", match: :first, :visible => true).all(".row .col1of8:nth-child(1)", text: /.+/).map{|x| x.text.to_i}
+  quantities.sum.should >= quantities.size
 end
 
 Angenommen /^ich suche$/ do
