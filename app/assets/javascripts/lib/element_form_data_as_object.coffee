@@ -13,7 +13,7 @@ window.App.ElementFormDataAsObject = (el)->
         else if _.size(hash[key]) != 0 # value exists, force an array
           initalizeArray keys, key, datum, data
         else
-          hash[key] = datum.value
+          hash[key] = setValue datum.value
       return hash[key]
     , data
   data
@@ -27,3 +27,12 @@ initalizeArray = (keys, key, datum, data)->
       h[k] = [h[k], add]
     return h[k]
   , data
+
+setValue = (val)->
+  switch val
+    when "false"
+      false
+    when "true"
+      true
+    else
+      val

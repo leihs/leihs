@@ -33,6 +33,7 @@ class window.App.ModelsPackageDialogController extends Spine.Controller
     input = $ e.currentTarget
     input.autocomplete
       source: (request, response) => 
+        response []
         @fetchItems(request.term).done (data)=> 
           items = (App.Item.find datum.id for datum in data)
           @fetchModels(items).done => 
@@ -40,7 +41,7 @@ class window.App.ModelsPackageDialogController extends Spine.Controller
       focus: => return false
       select: (e, ui) => @select(e, ui) and input.val("") and input.blur()
       appendTo: @modal.el
-      minLength: 0 
+      minLength: 1
     .data("uiAutocomplete")._renderItem = (ul, item) => 
       $(App.Render "manage/views/models/packages/item_autocomplete_element", item).data("value", item).appendTo(ul)
     input.autocomplete("search")

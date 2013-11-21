@@ -13,10 +13,11 @@ class window.App.ModelsPackagesController extends Spine.Controller
   createPackage: =>
     new App.ModelsPackageDialogController
       item: new App.Item
-      done: @saveNewPackage
+      done: @saveNotExistingPackage
       children: []
 
-  saveNewPackage: (data, children)=>
+  saveNotExistingPackage: (data, children, entry)=>
+    entry.remove() if entry?
     @list.prepend App.Render "manage/views/models/form/package_inline_entry", {children: children, data: data}, {uid: App.Model.uid("uid")}
 
   editPackage: (e)=>
@@ -37,10 +38,6 @@ class window.App.ModelsPackagesController extends Spine.Controller
         children: children
         done: @saveExistingPackage
         entry: entry
-
-  getLocalItemData: (entry, callback)=>
-    data = App.ElementFormDataAsObject entry
-    callback(data, entry.data("children"))
 
   getRemoteItemData: (entry, callback)=>
     @fetchItem(entry.data("id"))
@@ -74,13 +71,13 @@ class window.App.ModelsPackagesController extends Spine.Controller
     @list.prepend entry
     item = App.Item.find entry.data("id")
     formData = entry.find("[data-type='form-data']")
-    entry.data "updated", true
-    entry.data "children", children
     entry.find("[data-type='updated-text']").removeClass "hidden"
     formData.html App.Render "manage/views/models/form/package_inline_entry/updated_package_form_data", {children: children, data: data, item: item}, {uid: item.id}
 
   editNewPackage: (entry)=>
+    data = App.ElementFormDataAsObject entry  
     new App.ModelsPackageDialogController
-      item: @getLocalItemData entry
-      done: @saveNewPackage
-      children: []
+      item: data
+      done: @saveNotExistingPackage
+      children: _.map data.children, (c)-> App.Item.find c.id
+      entry: entry
