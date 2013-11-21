@@ -6,10 +6,10 @@ Funktionalität: Passwörter von Benutzern
   möchte ich eine Benutzer ein Login und Passwort zuteilen
 
   @javascript
-  Szenariogrundriss: Benutzer ohne Loginnamen erstellen
+  Szenariogrundriss: Benutzer ohne Loginnamen editieren
     Angenommen man ist "<Person>"
-    Und man befindet sich auf der Benutzerliste
-    Wenn ich einen Benutzer ohne Loginnamen erstellen probiere
+    Und man befindet sich auf der Benutzereditieransicht von "Normin"
+    Wenn ich den Benutzernamen von nicht ausfülle und speichere
     Dann sehe ich eine Fehlermeldung
 
     Beispiele:

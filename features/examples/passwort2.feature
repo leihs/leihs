@@ -17,29 +17,3 @@ Funktionalität: Passwörter von Benutzern
       | Mike   |
       | Pius   |
       | Gino   |
-
-  @javascript
-  Szenariogrundriss: Benutzer mit fehlenden Passwortangaben erstellen
-    Angenommen man ist "<Person>"
-    Und man befindet sich auf der Benutzerliste
-    Wenn ich einen Benutzer mit fehlenden Passwortangaben erstellen probiere
-    Dann sehe ich eine Fehlermeldung
-
-    Beispiele:
-      | Person |
-      | Mike   |
-      | Pius   |
-      | Gino   |
-
-  @javascript
-  Szenariogrundriss: Benutzer ohne Loginnamen editieren
-    Angenommen man ist "<Person>"
-    Und man befindet sich auf der Benutzereditieransicht von "Normin"
-    Wenn ich den Benutzernamen von nicht ausfülle und speichere
-    Dann sehe ich eine Fehlermeldung
-
-    Beispiele:
-      | Person |
-      | Mike   |
-      | Pius   |
-      | Gino   |
