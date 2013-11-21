@@ -247,6 +247,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/benutzerverwaltung2.feature"
+- name: examples/inventar5
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/inventar5.feature"
 - name: examples/gegenstand_erstellen3
   scripts:
     cucumber:
