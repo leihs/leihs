@@ -15,6 +15,8 @@ class Setting < ActiveRecord::Base
       [:smtp_address,
        :smtp_port,
        :smtp_domain,
+       :smtp_username,
+       :smtp_password,
        :mail_delivery_method,
        :local_currency_string,
        :contract_terms,
