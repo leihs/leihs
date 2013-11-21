@@ -45,8 +45,7 @@ end
 Dann /^sehe ich auf den beteiligten Linien die Auszeichnung von Problemen$/ do
   @problems = []
   @lines.each do |line|
-    line.find("[data-tooltip-template='manage/views/lines/problems_tooltip']").hover
-    sleep(0.5) # wait for tooltip
+    hover_for_tooltip line.find("[data-tooltip-template='manage/views/lines/problems_tooltip']")
     @problems << find(".tooltipster-content strong", match: :first).text
   end
   @reference_line = @lines.first
@@ -171,9 +170,8 @@ end
 
 Dann /^sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen$/ do
   within(".line[data-id='#{@line_id}']") do
-    find(".emboss.red").hover
+    hover_for_tooltip find(".emboss.red")
   end
-  sleep(0.2) # wait for the css transition
   @problems = []
   @problems << find(".tooltipster-default .tooltipster-content", text: /\w/).text
 end

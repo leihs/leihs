@@ -273,17 +273,14 @@ end
 Dann /^werden alle diese Gegenstände aufgelistet$/ do
   all("button[data-collapsed-toggle]").each(&:click)
   @lines.each do |line|
-    line.hover
-    sleep(0.2) # wait for the css transition
-    find(".tooltipster-default", match: :first)
+    hover_for_tooltip line
   end
 end
 
 Dann /^man sieht pro Modell eine Zeile$/ do
   all("button[data-collapsed-toggle]").each(&:click)
   @lines.each do |line|
-    line.hover
-    sleep(0.2) # wait for the css transition
+    hover_for_tooltip line
     within(".tooltipster-default", match: :first, :visible => true) do
       find(".exclude-last-child", match: :first)
       all(".exclude-last-child").each do |div|
@@ -297,8 +294,7 @@ end
 Dann /^man sieht auf jeder Zeile die Summe der Gegenstände des jeweiligen Modells$/ do
   all("button[data-collapsed-toggle]").each(&:click)
   @lines.each do |line|
-    line.hover
-    sleep(0.2) # wait for the css transition
+    hover_for_tooltip line
     find(".tooltipster-default .row .col1of8:nth-child(1)", match: :first)
     quantities = find(".tooltipster-default", match: :first, :visible => true).all(".row .col1of8:nth-child(1)", text: /.+/).map{|x| x.text.to_i}
     quantities.sum.should >= quantities.size
@@ -396,8 +392,7 @@ end
 #end
 
 Angenommen /^ich fahre über das Problem$/ do
-  page.execute_script %Q{ $(".line.error:first-child .problems").trigger("mouseenter"); }
-  page.should have_selector(".tooltipster-default")
+  hover_for_tooltip find(".line .problems", match: first)
 end
 
 Dann /^wird automatisch der Druck\-Dialog geöffnet$/ do
