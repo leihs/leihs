@@ -1,21 +1,19 @@
 # encoding: utf-8
-def add_item_via_autocomplete input_value, element
-  element.set input_value
-  find("a", match: :prefer_exact, text: input_value).click
-end
 
 Wenn /^ich mindestens die Pflichtfelder ausfülle$/ do
   @model_name = "Test Modell-Paket"
-  find(".row.emboss", match: :prefer_exact, :text => _("Name")).fill_in 'name', :with => @model_name
+  find(".row.emboss", match: :prefer_exact, :text => _("Name")).fill_in 'model[name]', :with => @model_name
 end
 
 Wenn /^ich eines oder mehrere Pakete hinzufüge$/ do
-  find("a", match: :prefer_exact, text: _("Add %s") % _("Package")).click
+  find("button", match: :prefer_exact, text: _("Add %s") % _("Package")).click
 end
 
 Wenn /^ich(?: kann | )diesem Paket eines oder mehrere Gegenstände hinzufügen$/ do
-  add_item_via_autocomplete "beam123", first(".modal #add-item .autocomplete")
-  add_item_via_autocomplete "beam345", first(".modal #add-item .autocomplete")
+  find(".modal #search-item").set "beam123"
+  find("a", match: :prefer_exact, text: "beam123").click
+  find(".modal #search-item").set "beam345"
+  find("a", match: :prefer_exact, text: "beam345").click
 end
 
 Dann /^ist das Modell erstellt und die Pakete und dessen zugeteilten Gegenstände gespeichert$/ do
@@ -125,20 +123,22 @@ Dann /^werden die folgenden Felder angezeigt$/ do |table|
 end
 
 Wenn /^ich das Paket speichere$/ do
-  find(".modal .save", match: :first).click
+  find(".modal #save-package", match: :first).click
 end
 
 Wenn /^ich das Paket und das Modell speichere$/ do
   step 'ich das Paket speichere'
-  find(".content_navigation .button.green", match: :first).click
+  find("button#model-save", match: :first).click
 end
 
 Dann /^(?:besitzt das Paket alle angegebenen Informationen|das Paket besitzt alle angegebenen Informationen)$/ do
   sleep(0.88)
   model = Model.find_by_name @model_name
   visit manage_edit_model_path(@current_inventory_pool, model)
-  page.should have_selector "[ng-repeat='package in model.packages']"
-  find("[ng-repeat='package in model.packages']", match: :first).first(".clickable", :text => _("Edit")).click
+  model.items.each do |item|
+    page.has_selector? ".line[data-id='#{item.id}']", visible: false
+  end
+  find(".line[data-id='#{model.items.first.id}']", visible: false).find("button[data-edit-package]").click
   step 'hat der Gegenstand alle zuvor eingetragenen Werte'
 end
 
@@ -183,5 +183,5 @@ Dann(/^kann ich die Paketeigenschaften erneut bearbeiten$/) do
 end
 
 Dann(/^sehe ich die Meldung "(.*?)"$/) do |text|
-  find(".notification.headline", match: :prefer_exact, :text => text)
+  find("#flash", match: :prefer_exact, :text => text)
 end

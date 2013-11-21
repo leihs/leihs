@@ -91,6 +91,7 @@ Dann /^ist der Gegenstand mit all den angegebenen Informationen erstellt$/ do
 end
 
 Dann /^hat der Gegenstand alle zuvor eingetragenen Werte$/ do
+  page.has_selector? ".row.emboss"
   @table_hashes.each do |hash_row|
     field_name = hash_row["Feldname"]
     field_value = hash_row["Wert"]
@@ -98,6 +99,7 @@ Dann /^hat der Gegenstand alle zuvor eingetragenen Werte$/ do
     matched_field = all("form").last.find(".row.emboss", match: :prefer_exact, text: field_name)
     case field_type
       when "autocomplete"
+        binding.pry if field_value == "A-Ausleihe"
         matched_field.find("input,textarea").value.should == (field_value != "Keine/r" ? field_value : "")
       when "select"
         matched_field.all("option").detect(&:selected?).text.should == field_value
