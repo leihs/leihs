@@ -1,4 +1,44 @@
-- name: examples/modell6
+- name: examples/passwort
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/examples/modell6.feature"
+      body: bundle exec cucumber -p all "features/examples/passwort.feature"
+- name: examples/passwort1
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/passwort1.feature"
+- name: examples/passwort2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/passwort2.feature"
+- name: examples/passwort3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/passwort3.feature"
+- name: examples/passwort4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/passwort4.feature"
+- name: examples/passwort5
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/passwort5.feature"
+- name: examples/passwort6
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/passwort6.feature"
+- name: examples/passwort7
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/passwort7.feature"
+- name: examples/passwort8
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/passwort8.feature"
+- name: examples/passwort9
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/passwort9.feature"
+- name: examples/passwort10
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/passwort10.feature"

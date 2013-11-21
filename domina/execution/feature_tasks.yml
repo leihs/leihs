@@ -127,10 +127,18 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/gegenstand_ausmustern2.feature"
+- name: examples/passwort9
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/passwort9.feature"
 - name: examples/geraetepark_grundinformationen3
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/geraetepark_grundinformationen3.feature"
+- name: examples/passwort10
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/passwort10.feature"
 - name: examples/ruecknahme
   scripts:
     cucumber:
@@ -143,6 +151,14 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/modell3.feature"
+- name: examples/passwort8
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/passwort8.feature"
+- name: examples/passwort5
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/passwort5.feature"
 - name: examples/statistik
   scripts:
     cucumber:
@@ -151,6 +167,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/vertrag2.feature"
+- name: examples/passwort7
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/passwort7.feature"
 - name: examples/modell4
   scripts:
     cucumber:
@@ -343,6 +363,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/hinweis_wenn_nicht_angemeldet.feature"
+- name: examples/passwort6
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/passwort6.feature"
 - name: examples/timeline
   scripts:
     cucumber:
