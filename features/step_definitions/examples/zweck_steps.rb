@@ -36,10 +36,7 @@ end
 
 Dann /^sehe ich auf jeder Zeile den zugewisenen Zweck$/ do
   @customer.contracts.approved.first.lines.each do |line|
-    within(".line[data-id='#{line.id}']", text: line.model.name) do
-      find(".col1of10:nth-child(5) .tooltip").hover
-    end
-    sleep(0.2) # wait for the css transition
+    hover_for_tooltip find(".line[data-id='#{line.id}'] .col1of10:nth-child(5) .tooltip")
     find(".tooltipster-default .tooltipster-content", text: line.purpose.description)
   end
 end
