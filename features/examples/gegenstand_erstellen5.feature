@@ -20,14 +20,6 @@ Funktionalität: Gegenstand erstellen
 
     | Inventarrelevant             | select       | Ja                            |
     | Anschaffungskategorie        | select       | Werkstatt-Technik             | 
-    | Umzug                        | select       | sofort entsorgen              |
-    | Zielraum                     |              | Test Raum                     |
-
-    | Seriennummer                 |              | Test Seriennummer             |
-    | MAC-Adresse                  |              | Test MAC-Adresse              |
-    | IMEI-Nummer                  |              | Test IMEI-Nummer              |
-    | Name                         |              | Test Name                     |
-    | Notiz                        |              | Test Notiz                    |
 
     | Gebäude                      | autocomplete | Keine/r                       |
     | Raum                         |              | Test Raum                     |

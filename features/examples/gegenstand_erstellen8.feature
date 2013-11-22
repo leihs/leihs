@@ -15,14 +15,14 @@ Funktionalität: Gegenstand erstellen
 
     | Inventarrelevant             | select       | Ja                            |
     | Anschaffungskategorie        | select       | Werkstatt-Technik             | 
-    | Letzte Inventur              |              | 01.01.2013                    |
-    | Verantwortliche Abteilung    | autocomplete | A-Ausleihe                    |
-    | Verantwortliche Person       |              | Matus Kmit                    |
-    | Benutzer/Verwendung          |              | Test Verwendung               |
+    | Umzug                        | select       | sofort entsorgen              |
+    | Zielraum                     |              | Test Raum                     |
 
-    | Ankunftsdatum                |              | 01.01.2013                    |
-    | Ankunftszustand              | select       | transportschaden              |
-    | Ankunftsnotiz                |              | Test Notiz                    |
+    | Seriennummer                 |              | Test Seriennummer             |
+    | MAC-Adresse                  |              | Test MAC-Adresse              |
+    | IMEI-Nummer                  |              | Test IMEI-Nummer              |
+    | Name                         |              | Test Name                     |
+    | Notiz                        |              | Test Notiz                    |
 
     Und ich erstellen druecke
     Dann man wird zur Liste des Inventars zurueckgefuehrt
