@@ -6,8 +6,7 @@ class window.App.ContractLinesAddController extends Spine.Controller
     "[data-add-contract-line]": "input"
 
   events:
-    "preChange [data-add-contract-line]": "search"
-    "focus [data-add-contract-line]": "search"
+    "focus [data-add-contract-line]": "setupAutocomplete"
     "click [type='submit']": "showExplorativeSearch"
     "submit": "submit"
 
@@ -27,21 +26,6 @@ class window.App.ContractLinesAddController extends Spine.Controller
       endDate = moment(@addEndDate.val(), i18n.date.L).startOf("day")
       if newStartDate.toDate() > endDate.toDate()
         @addEndDate.val newStartDate.format(i18n.date.L)
-
-  search: =>
-    return false unless @input.val().length
-    @models = @options = @templates = @availabilities = @options = null
-    do @searchModels
-    do @searchTemplates
-    do @searchOptions if @optionsEnabled
-
-  searchDone: =>
-    if @models? and @templates? and @availabilities? and (if @optionsEnabled then @options? else true)
-      data = []
-      @pushModelsTo data
-      @pushOptionsTo data if @optionsEnabled
-      @pushTemplatesTo data
-      @setupAutocomplete data if @input.is(":focus")
 
   getStartDate: => moment(@addStartDate.val(), i18n.date.L)
 
@@ -74,7 +58,7 @@ class window.App.ContractLinesAddController extends Spine.Controller
         type: _jed "Option"
         record: option
 
-  searchModels: =>
+  searchModels: (callback)=>
     App.Model.ajaxFetch
       data: $.param
         search_term: @input.val()
@@ -82,28 +66,27 @@ class window.App.ContractLinesAddController extends Spine.Controller
         per_page: 5
     .done (data)=> 
       @models = (App.Model.find(datum.id) for datum in data)
-      do @fetchAvailabilities
-      do @searchDone
+      @fetchAvailabilities => do callback
 
-  searchOptions: =>
+  searchOptions: (callback)=>
     App.Option.ajaxFetch
       data: $.param
         search_term: @input.val()
         per_page: 5
     .done (data)=> 
       @options = (App.Option.find(datum.id) for datum in data)
-      do @searchDone
+      do callback
 
-  searchTemplates: =>
+  searchTemplates: (callback)=>
     App.Template.ajaxFetch
       data: $.param
         search_term: @input.val()
         per_page: 5
     .done (data)=>
       @templates = (App.Template.find(datum.id) for datum in data)
-      do @searchDone
+      do callback
 
-  fetchAvailabilities: =>
+  fetchAvailabilities: (callback)=>
     if @models? and @models.length
       App.Availability.ajaxFetch
         data: $.param
@@ -111,20 +94,37 @@ class window.App.ContractLinesAddController extends Spine.Controller
           user_id: @user.id
       .done (data)=>
         @availabilities = (App.Availability.find(datum.id) for datum in data)
-        do @searchDone 
+        do callback 
     else
       @availabilities = []
-      do @searchDone
+      do callback
 
   setupAutocomplete: (data)->
     @input.autocomplete
       appendTo: @el
-      source: (request, response)=> response data
+      source: (request, response)=> 
+        response []
+        @search request, response
+      search: => console.log "Search"
       focus: => return false
       select: @select
     .data("uiAutocomplete")._renderItem = (ul, item) => 
       $(App.Render "manage/views/lines/add/autocomplete_element", item).data("value", item).appendTo(ul)
     @input.autocomplete("search")
+
+  search: (request, response)=>
+    return false unless @input.val().length
+    @models = @options = @templates = @availabilities = @options = null
+    done = =>
+      if @models? and @templates? and @availabilities? and (if @optionsEnabled then @options? else true)
+        data = []
+        @pushModelsTo data
+        @pushOptionsTo data if @optionsEnabled
+        @pushTemplatesTo data
+        response data if @input.is(":focus")
+    @searchModels done
+    @searchTemplates done
+    @searchOptions(done) if @optionsEnabled
 
   select: (e, ui)=>
     e.preventDefault()
