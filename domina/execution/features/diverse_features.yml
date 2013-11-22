@@ -1,12 +1,24 @@
-- name: examples/ausleihe4
+- name: examples/gegenstand_editieren.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/examples/ausleihe4.feature"
-- name: examples/inventar3
+      body: bundle exec cucumber -p all "features/examples/gegenstand_editieren.feature"
+- name: examples/gegenstand_editieren2.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/examples/inventar3.feature"
-- name: examples/probleme4
+      body: bundle exec cucumber -p all "features/examples/gegenstand_editieren2.feature"
+- name: examples/gegenstand_editieren3.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/examples/probleme4.feature"
+      body: bundle exec cucumber -p all "features/examples/gegenstand_editieren3.feature"
+- name: examples/gegenstand_editieren4.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_editieren4.feature"
+- name: examples/gegenstand_editieren5.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_editieren5.feature"
+- name: examples/gegenstand_editieren6.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_editieren6.feature"
