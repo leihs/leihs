@@ -76,6 +76,7 @@ When /^I change a contract lines quantity$/ do
   @new_quantity = @line.model.total_borrowable_items_for_user @customer
   first("input#booking-calendar-quantity").set @new_quantity
   step 'I save the booking calendar'
+  find("#status .icon-ok")
 end
 
 Then(/^the contract line was duplicated$/) do

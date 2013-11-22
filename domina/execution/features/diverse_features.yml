@@ -22,3 +22,7 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/gegenstand_editieren6.feature"
+- name: manage/acknowledge/edit_order_line.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "manage/acknowledge/edit_order_line.feature"
