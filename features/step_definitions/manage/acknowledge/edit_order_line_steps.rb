@@ -45,10 +45,7 @@ When /^I change a contract lines time range$/ do
   else
     @customer.visits.hand_over.first.lines.sample
   end
-  @line_element = all(".line[data-ids]").detect do |dom_line|
-    JSON.parse(dom_line["data-ids"]).include? @line.id
-  end
-  @line_element ||= find(".line[data-id='#{@line.id}']")
+  @line_element = find(".line[data-ids*='#{@line.id}']")
   step 'I open the booking calendar for this line'
   @new_start_date = if @line.start_date + 1.day < Date.today
       Date.today

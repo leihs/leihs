@@ -27,7 +27,7 @@ contexts:
       main:
         body: env | sort; ls
 
-- name: benutzerverwaltung features 
+- name: diverse features 
   scripts:
     bundle: 
       order: 1
