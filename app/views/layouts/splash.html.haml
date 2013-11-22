@@ -4,6 +4,8 @@
   %head
     %meta{:charset => 'utf-8'}
     %title= "leihs | #{_("Equipment Booking and Inventory Management System")}"
+    = javascript_include_tag "i18n/locale/#{I18n.locale}"
+    = javascript_include_tag "application"
     = stylesheet_link_tag "application", :media => "all"
     = favicon_link_tag "favicon.ico", :type => "image/x-icon"
     = csrf_meta_tag
