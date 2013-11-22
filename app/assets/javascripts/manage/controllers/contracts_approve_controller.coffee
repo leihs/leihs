@@ -11,6 +11,7 @@ class window.App.ContractsApproveController extends Spine.Controller
       line = trigger.closest(".line")
       line.html App.Render "manage/views/contracts/line_approved", order if line?
     fail = @fail ? (response)=>
+      line = trigger.closest(".line")
       new App.ContractsApproveFailedController {order: order, line: line, trigger: trigger, error: response.responseText}
       App.Button.enable trigger
     comment = if @comment?

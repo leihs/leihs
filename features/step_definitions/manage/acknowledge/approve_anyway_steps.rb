@@ -13,8 +13,8 @@ end
 
 When /^I approve anyway$/ do
   within(".modal") do
-    find(".modal .dropdown-toggle").hover
-    find(".modal .dropdown-item[data-approve-anyway]").click
+    find(".dropdown-toggle").hover
+    find(".dropdown-item[data-approve-anyway]").click
   end
   page.has_no_selector?(".modal").should be_true
 end
