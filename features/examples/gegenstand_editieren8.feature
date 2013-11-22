@@ -18,14 +18,12 @@ Funktionalität: Gegenstand bearbeiten
       | Inventarcode                 |              | Test Inventory Code           |
       | Modell                       | autocomplete | Sharp Beamer                  |
 
-      | Ausmusterung                 | select       | Ja                            |
-      | Grund der Ausmusterung       |              | Ja                            |
-      | Zustand                      | radio        | OK                            |
-      | Vollständigkeit              | radio        | OK                            |
-      | Ausleihbar                   | radio        | OK                            |
-
       | Inventarrelevant             | select       | Ja                            |
       | Anschaffungskategorie        | select       | Werkstatt-Technik             |
+      | Letzte Inventur              |              | 01.01.2013                    |
+      | Verantwortliche Abteilung    | autocomplete | A-Ausleihe                    |
+      | Verantwortliche Person       |              | Matus Kmit                    |
+      | Benutzer/Verwendung          |              | Test Verwendung               |
 
     Und ich speichern druecke
     Dann man wird zur Liste des Inventars zurueckgefuehrt
