@@ -38,9 +38,9 @@ end
 
 Dann /^kann ich das Paket löschen und die Gegenstände sind nicht mehr dem Paket zugeteilt$/ do
   @package_item_ids = @package.children.map(&:id)
-  find(".field-inline-entry", :text => @package.inventory_code).first(".clickable", :text => _("Delete")).click
+  find("[data-type='inline-entry'][data-id='#{@package.id}'] [data-remove]").click
   step 'ich speichere die Informationen'
-  find(".top", match: :prefer_exact, text: _("List of Models"))
+  find("#flash")
   Item.find_by_id(@package.id).nil?.should be_true
   lambda {@package.reload}.should raise_error(ActiveRecord::RecordNotFound)
   @package_item_ids.size.should > 0
@@ -53,7 +53,7 @@ Wenn /^das Paket zurzeit ausgeliehen ist$/ do
 end
 
 Dann /^kann ich das Paket nicht löschen$/ do
-  find(".field-inline-entry", :text => @package_not_in_stock.inventory_code).all(".clickable", :text => _("Delete")).size.should == 0
+  page.should_not have_selector("[data-type='inline-entry'][data-id='#{@package_not_in_stock.id}'] [data-remove]")
 end
 
 Wenn /^ich ein Modell editiere, welches bereits Pakete hat$/ do
@@ -85,26 +85,27 @@ Wenn /^ich einem Modell ein Paket hinzufüge$/ do
 end
 
 Dann /^kann ich dieses Paket nur speichern, wenn dem Paket auch Gegenstände zugeteilt sind$/ do
-  click_button _("Save")
+  find("#save-package").click
   page.should have_content _("You can not create a package without any item")
   page.should have_content _("New Package")
-  click_button _("Cancel")
-  find(".row.emboss", match: :prefer_exact, text: _("Packages")).should_not have_selector ".field-inline-entry"
+  find(".modal-close").click
+  page.should_not have_selector("[data-type='field-inline-entry']")
 end
 
 Wenn /^ich ein Paket editiere$/ do
   @model = Model.find_by_name "Kamera Set"
   visit manage_edit_model_path(@current_inventory_pool, @model)
   @package_to_edit = @model.items.detect &:in_stock?
-  find(".field-inline-entry", text: @package_to_edit.inventory_code).find(".clickable", text: _("Edit")).click
+  find(".line[data-id='#{@package_to_edit.id}']").find("button[data-edit-package]").click
 end
 
 Dann /^kann ich einen Gegenstand aus dem Paket entfernen$/ do
-  items = all(".modal .inventory_code")
+  find(".modal #items [data-type='inline-entry']", match: :first)
+  items = all("#items [data-type='inline-entry']")
   @number_of_items_before = items.size
   @item_to_remove = items.first.text
-  find(".removeItem", match: :first).click
-  click_button _("Save")
+  find("#items [data-remove]", match: :first).click
+  find("#save-package").click
   step 'ich speichere die Informationen'
 end
 
