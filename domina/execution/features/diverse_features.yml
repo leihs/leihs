@@ -1,36 +1,4 @@
-- name: examples/gegenstand_erstellen.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen.feature"
-- name: examples/gegenstand_erstellen2.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen2.feature"
-- name: examples/gegenstand_erstellen3.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen3.feature"
 - name: examples/inventarhelfer4
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/examples/inventarhelfer4"
-- name: examples/gegenstand_erstellen4.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen4.feature"
-- name: examples/gegenstand_erstellen5.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen5.feature"
-- name: examples/gegenstand_erstellen6.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen6.feature"
-- name: examples/gegenstand_erstellen7.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen7.feature"
-- name: examples/gegenstand_erstellen8.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen8.feature"
+      body: bundle exec cucumber -p all "features/examples/inventarhelfer4.feature"
