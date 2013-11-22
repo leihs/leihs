@@ -68,3 +68,4 @@ gem 'underscore-rails', '~> 1.4'
 gem 'uuidtools', '~> 2.1' # needed for creating unique ids during tests (factories)
 gem 'will_paginate', '~> 3.0'
 gem 'yard', :group => [:test, :development]
+ 
