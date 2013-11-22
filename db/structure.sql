@@ -410,6 +410,8 @@ CREATE TABLE `settings` (
   `ldap_config` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `logo_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `mail_delivery_method` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `smtp_username` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `smtp_password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -529,3 +531,5 @@ INSERT INTO schema_migrations (version) VALUES ('20130924180000');
 INSERT INTO schema_migrations (version) VALUES ('20130924180001');
 
 INSERT INTO schema_migrations (version) VALUES ('20131118144431');
+
+INSERT INTO schema_migrations (version) VALUES ('20131121171123');

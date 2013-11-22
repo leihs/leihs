@@ -97,7 +97,7 @@ Dann /^hat der Gegenstand alle zuvor eingetragenen Werte$/ do
     field_name = hash_row["Feldname"]
     field_value = hash_row["Wert"]
     field_type = hash_row["Type"]
-    matched_field = find(".row.emboss", match: :prefer_exact, text: field_name)
+    matched_field = all(".row.emboss", match: :prefer_exact, text: field_name).last
     case field_type
       when "autocomplete"
         matched_field.find("input,textarea").value.should == (field_value != "Keine/r" ? field_value : "")
