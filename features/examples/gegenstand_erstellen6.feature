@@ -13,7 +13,7 @@ Funktionalität: Gegenstand erstellen
     | Inventarcode  |
     | Projektnummer |
     | Anschaffungskategorie |
-    Wenn ich das gekennzeichnete "Modell" leer lasse
+    Wenn ich das gekennzeichnete "Projektnummer" leer lasse
     Dann kann das Modell nicht erstellt werden
     Und ich sehe eine Fehlermeldung
     Und die anderen Angaben wurde nicht gelöscht
@@ -29,7 +29,7 @@ Funktionalität: Gegenstand erstellen
     | Inventarcode  |
     | Projektnummer |
     | Anschaffungskategorie |
-    Wenn ich das gekennzeichnete "Inventarcode" leer lasse
+    Wenn ich das gekennzeichnete "Anschaffungskategorie" leer lasse
     Dann kann das Modell nicht erstellt werden
     Und ich sehe eine Fehlermeldung
     Und die anderen Angaben wurde nicht gelöscht

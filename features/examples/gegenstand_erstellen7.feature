@@ -15,14 +15,14 @@ Funktionalität: Gegenstand erstellen
 
     | Inventarrelevant             | select       | Ja                            |
     | Anschaffungskategorie        | select       | Werkstatt-Technik             | 
-    | Letzte Inventur              |              | 01.01.2013                    |
-    | Verantwortliche Abteilung    | autocomplete | A-Ausleihe                    |
-    | Verantwortliche Person       |              | Matus Kmit                    |
-    | Benutzer/Verwendung          |              | Test Verwendung               |
 
-    | Ankunftsdatum                |              | 01.01.2013                    |
-    | Ankunftszustand              | select       | transportschaden              |
-    | Ankunftsnotiz                |              | Test Notiz                    |
+    | Bezug                        | radio must   | investment                    |
+    | Projektnummer                |              | Test Nummer                   |
+    | Rechnungsnummer              |              | Test Nummer                   |
+    | Rechnungsdatum               |              | 01.01.2013                    |
+    | Anschaffungswert             |              | 50.0                          |
+    | Garantieablaufdatum          |              | 01.01.2013                    |
+    | Vertragsablaufdatum          |              | 01.01.2013                    |
 
     Und ich erstellen druecke
     Dann man wird zur Liste des Inventars zurueckgefuehrt

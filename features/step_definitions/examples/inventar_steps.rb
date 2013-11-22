@@ -290,7 +290,7 @@ Dann /^man sieht die Gegenstände, die zum Modell gehören$/ do
 end
 
 Dann /^so eine Zeile sieht aus wie eine Gegenstands\-Zeile$/ do
-  @item_line ||= @items_element.find(".line")
+  @item_line ||= @items_element.find(".line", match: :first)
   @item ||= Item.find_by_inventory_code(@item_line.find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text)
   
   if @item.in_stock? && @item.inventory_pool == @current_inventory_pool

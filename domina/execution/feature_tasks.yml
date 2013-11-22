@@ -395,10 +395,18 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/ausleihe.feature"
+- name: examples/gegenstand_erstellen7
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen7.feature"
 - name: examples/benutzerverwaltung10
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/benutzerverwaltung10.feature"
+- name: examples/gegenstand_erstellen8
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen8.feature"
 - name: examples/modell5
   scripts:
     cucumber:
@@ -439,6 +447,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/hinweis_wenn_nicht_angemeldet.feature"
+- name: examples/gegenstand_erstellen6
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen6.feature"
 - name: examples/gegenstand_editieren8
   scripts:
     cucumber:
