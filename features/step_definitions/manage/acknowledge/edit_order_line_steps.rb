@@ -19,7 +19,7 @@ When /^I open a contract for acknowledgement with more then one line$/ do
 end
 
 When /^I open the booking calendar for this line$/ do
-  @line_element.find("[data-edit-lines]", :text => _("Change entry")).click
+  @line_element.find("[data-edit-lines]").click
   step "I see the booking calendar"
 end
 
@@ -71,7 +71,7 @@ When /^I change a contract lines quantity$/ do
   else
     @customer.visits.hand_over.first.lines.sample
   end
-  @line_element = find(".line", match: :first, :text => @line.model.name)
+  @line_element = find(".line[data-ids*='#{@line.id}']")
   step 'I open the booking calendar for this line'
   @new_quantity = @line.model.total_borrowable_items_for_user @customer
   first("input#booking-calendar-quantity").set @new_quantity
