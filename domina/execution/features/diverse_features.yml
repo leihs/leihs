@@ -10,3 +10,7 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/gegenstand_editieren8.feature"
+- name: examples/inventarhelfer4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/inventarhelfer4"

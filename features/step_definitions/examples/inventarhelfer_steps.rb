@@ -234,6 +234,7 @@ end
 
 Dann /^man die Änderungen speichert$/ do
   find("#item-section button#save-edit").click
+  find("#notifications .green")
 end
 
 Dann /^sind sie gespeichert$/ do
