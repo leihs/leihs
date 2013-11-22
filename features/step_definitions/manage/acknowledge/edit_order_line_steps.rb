@@ -45,7 +45,8 @@ When /^I change a contract lines time range$/ do
   else
     @customer.visits.hand_over.first.lines.sample
   end
-  @line_element = find(".line[data-ids*='#{@line.id}']")
+  @line_element = all(".line[data-ids*='#{@line.id}']").first
+  @line_element ||= all(".line[data-id='#{@line.id}']").first
   step 'I open the booking calendar for this line'
   @new_start_date = if @line.start_date + 1.day < Date.today
       Date.today
@@ -68,7 +69,8 @@ When /^I change a contract lines quantity$/ do
   else
     @customer.visits.hand_over.first.lines.sample
   end
-  @line_element = find(".line[data-ids*='#{@line.id}']")
+  @line_element = all(".line[data-ids*='#{@line.id}']").first
+  @line_element ||= all(".line[data-id='#{@line.id}']").first
   step 'I open the booking calendar for this line'
   @new_quantity = @line.model.total_borrowable_items_for_user @customer
   first("input#booking-calendar-quantity").set @new_quantity
