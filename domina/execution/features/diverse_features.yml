@@ -25,4 +25,4 @@
 - name: manage/acknowledge/edit_order_line.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "manage/acknowledge/edit_order_line.feature"
+      body: bundle exec cucumber -p all "features/manage/acknowledge/edit_order_line.feature"
