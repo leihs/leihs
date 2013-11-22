@@ -1,11 +1,6 @@
 # language: de
 
 Funktionalität: Gegenstand bearbeiten
-
-  Grundlage:
-    Angenommen Personas existieren
-    Und man ist "Matti"
-    Und man editiert einen Gegenstand, wo man der Besitzer ist
     
   @javascript
   Szenario: Einen Gegenstand mit allen Informationen editieren

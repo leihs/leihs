@@ -195,7 +195,8 @@ Dann(/^wird automatisch das Enddatum auf den folgenden Tag gesetzt$/) do
 end
 
 Dann(/^die Liste wird gefiltert nach Modellen die in diesem Zeitraum verfügbar sind$/) do
-  page.should have_selector("#model-list .line")
+  find("#model-list .line", match: :first)
+  sleep(1.22)
   all("#model-list .line[data-id]").each do |model_el|
     model = Model.find_by_id(model_el["data-id"])
     model = Model.find_by_id(model_el.reload["data-id"]) if model.nil?

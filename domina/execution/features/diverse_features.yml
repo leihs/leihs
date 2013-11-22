@@ -1,4 +1,24 @@
-- name: examples/inventarhelfer4
+- name: examples/modellliste3.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/examples/inventarhelfer4.feature"
+      body: bundle exec cucumber -p all "features/borrow/modellliste3.feature"
+- name: examples/gegenstand_editieren4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_editieren4.feature"
+- name: examples/inventar3.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/inventar3.feature"
+- name: examples/pakete2.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/pakete2.feature"
+- name: examples/pakete3.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/pakete3.feature"
+- name: manage/hand_over/edit_contract_line.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/hand_over/edit_contract_line.feature"

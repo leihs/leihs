@@ -115,6 +115,7 @@ Dann /^dieser Gegenstand ist nicht mehr dem Paket zugeteilt$/ do
   @package_to_edit.reload
   @package_to_edit.children.count.should eq (@number_of_items_before - 1)
   @package_to_edit.children.detect {|i| i.inventory_code == @item_to_remove}.should be_nil
+  sleep(1.22) # fix lazy request problem
 end
 
 Dann /^werden die folgenden Felder angezeigt$/ do |table|
