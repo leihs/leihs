@@ -67,6 +67,7 @@ end
 Angenommen(/^man navigiert zur Gegenstandsbearbeitungsseite eines Gegenstandes, der am Lager und in keinem Vertrag vorhanden ist$/) do
   @item = @current_inventory_pool.items.find {|i| i.in_stock? and i.contract_lines.blank?}
   visit manage_edit_item_path(@current_inventory_pool, @item)
+  page.has_selector?(".row.emboss")
 end
 
 Wenn(/^ich speichern druecke$/) do
@@ -112,6 +113,12 @@ end
 
 Dann(/^ist bei dem bearbeiteten Gegestand der geänderte Lieferant eingetragen$/) do
   @item.reload.supplier.should == @supplier
+end
+
+Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeliehen ist und wo man Besitzer ist$/) do
+  @item = @current_inventory_pool.own_items.not_in_stock.sample
+  @item_before = @item.to_json
+  visit manage_edit_item_path(@current_inventory_pool, @item)
 end
 
 Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeliehen ist$/) do

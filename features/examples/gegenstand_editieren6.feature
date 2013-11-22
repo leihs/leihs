@@ -15,7 +15,7 @@ Funktionalität: Gegenstand bearbeiten
 
   @javascript
   Szenario: Einen Gegenstand, der ausgeliehen ist, kann man nicht ausmustern
-    Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeliehen ist
+    Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeliehen ist und wo man Besitzer ist
     Wenn ich den Gegenstand ausmustere
     Und ich speichern druecke
     Dann erhält man eine Fehlermeldung, dass man den Gegenstand nicht ausmustern kann, da das Gerät ausgeliehen ist

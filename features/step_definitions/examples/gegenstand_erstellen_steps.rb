@@ -42,6 +42,7 @@ end
 
 Angenommen /^man navigiert zur Gegenstandserstellungsseite$/ do
   visit manage_new_item_path(@current_inventory_pool)
+  page.has_selector?(".row.emboss")
 end
 
 Wenn /^ich die folgenden Informationen erfasse$/ do |table|
@@ -96,7 +97,7 @@ Dann /^hat der Gegenstand alle zuvor eingetragenen Werte$/ do
     field_name = hash_row["Feldname"]
     field_value = hash_row["Wert"]
     field_type = hash_row["Type"]
-    matched_field = all(".row.emboss", match: :prefer_exact, text: field_name).last
+    matched_field = find(".row.emboss", match: :prefer_exact, text: field_name)
     case field_type
       when "autocomplete"
         matched_field.find("input,textarea").value.should == (field_value != "Keine/r" ? field_value : "")
