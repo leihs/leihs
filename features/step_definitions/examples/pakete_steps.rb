@@ -45,6 +45,7 @@ Dann /^kann ich das Paket löschen und die Gegenstände sind nicht mehr dem Pake
   lambda {@package.reload}.should raise_error(ActiveRecord::RecordNotFound)
   @package_item_ids.size.should > 0
   @package_item_ids.each{|id| Item.find(id).parent_id.should be_nil}
+  sleep(0.99) # fix lazy request problem
 end
 
 Wenn /^das Paket zurzeit ausgeliehen ist$/ do
