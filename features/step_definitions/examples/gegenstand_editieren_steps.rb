@@ -71,7 +71,6 @@ end
 
 Wenn(/^ich speichern druecke$/) do
   find("button", text: _("Save %s") % _("Item")).click
-  find("#flash .success")
 end
 
 Dann(/^bei dem bearbeiteten Gegestand ist der neue Lieferant eingetragen$/) do

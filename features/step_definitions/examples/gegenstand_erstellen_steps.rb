@@ -2,7 +2,7 @@
 
 def fill_in_autocomplete_field field_name, field_value
   within("form .row.emboss", match: :prefer_exact, text: field_name) do
-    find("input", match: :first).click
+    find("input", match: :first).set ""
     find("input", match: :first).set field_value
   end
   find("a", match: :prefer_exact, text: field_value, visible: true).click
