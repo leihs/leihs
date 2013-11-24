@@ -855,6 +855,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/technical/item/search_model.feature"
+- name: technical/mailer/mailer_settings
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/technical/mailer/mailer_settings.feature"
 - name: technical/purpose/purpose
   scripts:
     cucumber:

@@ -1,24 +1,28 @@
-- name: examples/modellliste3.feature
+- name: examples/gegenstand_editieren2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/borrow/modellliste3.feature"
+      body: bundle exec cucumber -p all "features/examples/gegenstand_editieren2.feature"
 - name: examples/gegenstand_editieren4
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/gegenstand_editieren4.feature"
-- name: examples/inventar3.feature
+- name: examples/kalender2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/examples/inventar3.feature"
-- name: examples/pakete2.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/pakete2.feature"
-- name: examples/pakete3.feature
+      body: bundle exec cucumber -p all "features/examples/kalender2.feature"
+- name: examples/pakete3
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/pakete3.feature"
-- name: manage/hand_over/edit_contract_line.feature
+- name: examples/probleme4
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/manage/hand_over/edit_contract_line.feature"
+      body: bundle exec cucumber -p all "features/examples/probleme4.feature"
+- name: manage/hand_over/add2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/hand_over/add2.feature"
+- name: manage/hand_over/delete
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/hand_over/delete.feature"
