@@ -56,6 +56,7 @@ class window.App.InventoryPoolDailyController extends Spine.Controller
       data: $.param
         for: "daily_view"
         date: @date
+        paginate: false
         date_comparison: 
           if moment(@date).startOf("day").diff(moment().startOf("days"), "days") > 0
             "eq"
@@ -68,6 +69,7 @@ class window.App.InventoryPoolDailyController extends Spine.Controller
       data: $.param
         for: "daily_view"
         date: @date
+        paginate: false
         date_comparison: 
           if moment(@date).startOf("day").diff(moment().startOf("days"), "days") > 0
             "eq"
