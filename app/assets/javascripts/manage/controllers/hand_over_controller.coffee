@@ -38,15 +38,19 @@ class window.App.HandOverController extends Spine.Controller
 
   fetchAvailability: =>
     @render false
-    @status.html App.Render "manage/views/availabilities/loading"
-    App.Availability.ajaxFetch
-      data: $.param
-        model_ids: _.uniq(_.map(@getLines(), (l)->l.model().id))
-        user_id: @user.id
-    .done (data)=>
-      @initalAvailabilityFetched = true
-      @status.html App.Render "manage/views/availabilities/loaded"
-      @render true
+    ids = _.uniq(_.map(@getLines(), (l)->l.model().id))
+    if ids.length
+      @status.html App.Render "manage/views/availabilities/loading"
+      App.Availability.ajaxFetch
+        data: $.param
+          model_ids: ids
+          user_id: @user.id
+      .done (data)=>
+        @initalAvailabilityFetched = true
+        @status.html App.Render "manage/views/availabilities/loaded"
+        @render true
+    else
+      @status.html App.Render "manage/views/users/hand_over/no_handover_found"
 
   notFetchedItemIds: => 
     _.filter _.compact(_.map(@getLines(), (l)->l.item_id)), (id)-> not App.Item.exists(id)?
