@@ -97,7 +97,10 @@ Dann /^hat der Gegenstand alle zuvor eingetragenen Werte$/ do
     field_name = hash_row["Feldname"]
     field_value = hash_row["Wert"]
     field_type = hash_row["Type"]
-    matched_field = all(".row.emboss", match: :prefer_exact, text: field_name).last
+    field = Field.all.detect{|f| _(f.label) == field_name}
+    find("[data-type='field'][data-id='#{field.id}']", match: :first)
+    matched_field = all("[data-type='field'][data-id='#{field.id}']").last
+    raise "no field found" if matched_field.blank?
     case field_type
       when "autocomplete"
         matched_field.find("input,textarea").value.should == (field_value != "Keine/r" ? field_value : "")

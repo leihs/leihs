@@ -82,7 +82,7 @@ Dann(/^ist der Gegenstand mit all den angegebenen Informationen gespeichert$/) d
   find("[data-retired='true']").click if @table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"} and (@table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"} ["Wert"]) == "Ja"
   find_field('list-search').set (@table_hashes.detect {|r| r["Feldname"] == "Inventarcode"} ["Wert"])
   find(".line", :text => @table_hashes.detect {|r| r["Feldname"] == "Modell"} ["Wert"], :visible => true)
-  visit manage_edit_item_path @ip, @item
+  visit manage_edit_item_path @current_inventory_pool.id, @item.id
   step 'hat der Gegenstand alle zuvor eingetragenen Werte'
   sleep(1.22) # fix lazy request problem
 end
