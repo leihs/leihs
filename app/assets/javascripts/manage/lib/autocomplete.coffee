@@ -37,7 +37,7 @@ class AutoComplete
       source: if source? then source else if @data.autocomplete_data? then @data.autocomplete_data else if @data.url then @remote_source
       select: @select
       focus: @focus
-      appendTo: @el.closest("form")
+      appendTo: if @el.closest(".modal").length then @el.closest(".modal") else @el.closest("form")
     # add class name to autocomplete widget
     @el.autocomplete("widget").addClass @data.autocomplete_class
     # show on focus
