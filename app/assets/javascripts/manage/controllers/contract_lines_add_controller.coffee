@@ -33,7 +33,7 @@ class window.App.ContractLinesAddController extends Spine.Controller
 
   pushModelsTo: (data)=>
     for model in @models
-      maxAvailableForUser = model.availability().maxAvailableForGroups(@getStartDate(), @getEndDate(), _.map(@user.groupIds, (g)->g.id))
+      maxAvailableForUser = model.availability().maxAvailableForGroups(@getStartDate(), @getEndDate(), @user.groupIds)
       maxAvailableInTotal = model.availability().maxAvailableInTotal(@getStartDate(), @getEndDate())
       data.push
         name: model.name

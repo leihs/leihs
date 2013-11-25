@@ -7,7 +7,7 @@ window.App.Modules.LineProblems =
 
     if @model_id?
       linesToExclude = if @sublines? then @sublines else [@]
-      maxAvailableForUser = @model().availability().withoutLines(linesToExclude).maxAvailableForGroups(@start_date, @end_date, _.map(@user().groupIds, (g)->g.id))
+      maxAvailableForUser = @model().availability().withoutLines(linesToExclude).maxAvailableForGroups(@start_date, @end_date, @user().groupIds)
       quantity = if @sublines? 
         _.reduce @sublines, ((mem, l)-> mem + l.quantity), 0
       else
