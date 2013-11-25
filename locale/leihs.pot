@@ -1947,6 +1947,9 @@ msgstr ""
 msgid "New Category"
 msgstr ""
 
+msgid "New Group"
+msgstr ""
+
 msgid "List of %d Users"
 msgstr ""
 

@@ -2064,6 +2064,9 @@ msgstr "%s erstellen"
 msgid "New Category"
 msgstr "Neue Kategorie"
 
+msgid "New Group"
+msgstr "Neue Gruppe"
+
 msgid "Create new category"
 msgstr "Neue Kategorie erstellen"
 
