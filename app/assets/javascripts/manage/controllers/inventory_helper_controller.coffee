@@ -125,12 +125,13 @@ class App.InventoryHelperController extends Spine.Controller
     else
       data = @fieldSelection.serializeArray()
       @fetchItem inventoryCode, (item)=> 
+
         @updateItem(item, data)
         .fail (e, status)=>
           @fetchItemWithFlexibleFields(item).done (itemData)=>
             @currentItemData = itemData
             @setupAppliedItem "error"
-        .success (data)=> 
+        .done (data)=> 
           @currentItemData = data
           @setupAppliedItem "success"
 
@@ -178,12 +179,13 @@ class App.InventoryHelperController extends Spine.Controller
   updateItem: (item, data)=>
     unless data.length
       h = 
-        complete: (c)-> c()
+        always: (c)-> c()
         fail: (c)-> c()
-        success: (c)-> c()
+        done: (c)-> c()
       return h
-    item.updateWithFieldData(data)
-    .fail (e)=> @setNotification(e.responseText, "error")
+    else
+      item.updateWithFieldData(data)
+      .fail (e)=> @setNotification(e.responseText, "error")
 
   setNotification: (text, status)-> 
     @notifications.html App.Render "manage/views/inventory/helper/"+status, {text: text}
