@@ -1,0 +1,21 @@
+.inline-tab-navigation
+  border-bottom: 1px solid $lightergrey
+  padding-left: $space-m
+
+.inline-tab-item
+  @extend .navigation-tab-item
+  background: none !important
+  @include box-shadow(none !important)
+
+  &.active
+    border-bottom: 1px solid white !important
+
+  &:not(.active)
+    color: $grey
+
+    &:not(:hover)
+      border: 1px solid transparent 
+      border-bottom: none
+
+      .badge, i
+        @include opacity(0.7)

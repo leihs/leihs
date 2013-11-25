@@ -1,0 +1,94 @@
+- content_for :title, _("Order Overview")
+
+#current-order-show.wrapper.margin-top-m
+  
+  = render :partial => 'borrow/tabs', :locals => {:tabs => [[request.fullpath ,_("Order overview")]]}
+
+  .row.content-wrapper.straight-top-left
+    .padding-inset-m
+      - if current_user.timeout? and @grouped_and_merged_lines.values.flatten.any?{|x| not x[:available?]}
+        .emboss.red.padding-inset-m.text-align-center
+          %strong.font-size-m
+            = _("Please solve the conflicts for all highlighted lines in order to continue.")
+      - elsif unsubmitted_contracts.flat_map(&:lines).empty?
+        .emboss.padding-inset-m.text-align-center
+          %h3.headline-m
+            = _("Your order ist empty.")
+          .padding-top-m
+            %a.button.green.large{:href => borrow_root_path}= _("Borrow items")
+      - elsif not @timed_out
+        #timeout-countdown.emboss.padding-inset-m.text-align-center
+          %strong.font-size-m!= _("Your order will time out in %s.") % "<span id='timeout-countdown-time'></span>"
+          %span#timeout-countdown-refresh.button.inset.vertical-align-baseline.margin-left-s
+            = _("Reset timeout")
+
+    #current-order-lines
+      - @grouped_and_merged_lines.each_pair do |k, v|
+
+        .row.padding-inset-l
+          .col1of7
+            %h3.headline-m= l k[:start_date]
+          .col5of7
+            %h2.headline-m= k[:inventory_pool]
+
+        .separated-top.padding-bottom-l
+
+          = render :partial => "borrow/contracts/unsubmitted/merged_lines", :collection => v, :as => :line
+
+    - if not unsubmitted_contracts.flat_map(&:lines).empty?
+      .emboss.padding-inset-l.separated-top
+        - if current_user.timeout? or @timed_out
+          .row
+            .col1of2
+              = link_to borrow_order_remove_path, method: :delete, data: { confirm: _("The order will be discarded.") }, class: "button red" do
+                %i.icon-trash
+                = _("Delete %s") % _("Order")
+
+            .col1of2.text-align-right
+              .multibutton
+                = link_to borrow_root_path, class: "button white" do
+                  = _("Continue this order")
+                .dropdown-holder.inline-block
+                  .button.white.dropdown-toggle
+                    %span.arrow.down
+                  .dropdown.right
+                    = link_to borrow_order_delete_unavailables_path, class: "dropdown-item", method: :post do
+                      = _("Continue with available models only")
+
+        - else
+          = form_tag borrow_order_path do
+            .row
+              %h3.headline-s.padding-bottom-m
+                = _("Purpose of the order")
+                *
+              %textarea.padding-inset-s.width-full{name: "purpose", placeholder: _("Specification of the purpose is required")}
+                = unsubmitted_contracts.first.purpose
+            .row.padding-top-l
+              .col1of2
+                = link_to borrow_order_remove_path, method: :delete, data: { confirm: _("The order will be discarded.") }, class: "button red" do
+                  %i.icon-trash
+                  = _("Delete %s") % _("Order")
+              .col1of2.text-align-right
+                %button.button.green
+                  = _("Submit Order")
+
+:coffeescript
+
+  for contract_json in #{unsubmitted_contracts.to_json}
+    App.Contract.addRecord new App.Contract contract_json
+    App.Contract.currents.push App.Contract.find(contract_json.id)
+
+  App.Contract.timedOut = #{(!!@timed_out).to_json}
+
+  for contract_line in #{@lines.to_json}
+    App.ContractLine.addRecord new App.ContractLine contract_line
+
+  for model in #{@models.to_json}
+    App.Model.addRecord new App.Model model
+
+  for ip in #{@inventory_pools.to_json}
+    App.InventoryPool.addRecord new App.InventoryPool ip
+
+  jQuery ->
+    new App.UnsubmittedContractsShowController
+      el: $("#current-order-show")

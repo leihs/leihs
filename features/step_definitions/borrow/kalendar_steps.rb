@@ -15,7 +15,6 @@ Wenn(/^ich den Kalender schliesse$/) do
 end
 
 Dann(/^schliesst das Dialogfenster$/) do
-  step "ensure there are no active requests"
   page.should_not have_selector("#booking-calendar")
 end
 
@@ -37,7 +36,7 @@ end
 
 Wenn(/^ich setze die Anzahl im Kalendar auf (\d+)$/) do |quantity|
   find("#booking-calendar-quantity")
-  find(".modal.ui-shown")
+  find(".fc-widget-content", match: :first)
   sleep 1
   find("#booking-calendar-quantity").set quantity
 end
@@ -54,7 +53,7 @@ end
 
 Dann(/^schlägt der Versuch es hinzufügen fehl$/) do
   find("#booking-calendar")
-  @current_user.get_current_order.lines.length.should == 0
+  @current_user.contracts.unsubmitted.flat_map(&:lines).length.should == 0
 end
 
 Dann(/^ich sehe die Fehlermeldung, dass das ausgewählte Modell im ausgewählten Zeitraum nicht verfügbar ist$/) do
@@ -70,7 +69,7 @@ end
 
 Dann(/^der Kalender beinhaltet die folgenden Komponenten$/) do |table|
   find ".headline-m", text: @model_name
-  find ".fc-header-title", text: I18n.l(Date.today, format: :month_year)
+  find ".fc-header-title", text: I18n.l(Date.today, format: "%B %Y")
   find "#booking-calendar"
   find "#booking-calendar-inventory-pool"
   find "#booking-calendar-start-date"
@@ -93,9 +92,9 @@ Wenn(/^alle Angaben die ich im Kalender mache gültig sind$/) do
 end
 
 Dann(/^ist das Modell mit Start- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügt worden$/) do
-  page.has_selector? "#current-order-lines .line"
+  find("#current-order-lines .line", match: :first)
   find("#current-order-lines .line", :text => "#{@quantity}x #{@model.name}")
-  @current_user.get_current_order.lines.detect{|line| line.model == @model}.should be
+  @current_user.contracts.unsubmitted.flat_map(&:lines).detect{|line| line.model == @model}.should be
 end
 
 Dann(/^lässt sich das Modell mit Start\- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügen$/) do
@@ -129,17 +128,14 @@ end
 Angenommen(/^man hat eine Zeitspanne ausgewählt$/) do
   find("#start-date").click
   find("#start-date").set I18n.l(Date.today + 1)
-  find(".ui-datepicker-current-day").click
   find("#end-date").click
   find("#end-date").set I18n.l(Date.today + 2)
-  find(".ui-datepicker-current-day").click
 end
 
 Wenn(/^man einen in der Zeitspanne verfügbaren Gegenstand aus der Modellliste hinzufügt$/) do
-  step "ensure there are no active requests"
-  @model_name = first(".line:not(.grayed-out) .line-col.col3of6").text
+  @model_name = find(".line:not(.grayed-out) .line-col.col3of6", match: :first).text
   @model = Model.find_by_name(@model_name)
-  first(".line .button").click
+  find(".line .button", match: :first).click
 end
 
 Dann(/^das Startdatum entspricht dem vorausgewählten Startdatum$/) do
@@ -151,12 +147,12 @@ Dann(/^das Enddatum entspricht dem vorausgewählten Enddatum$/) do
 end
 
 Angenommen(/^es existiert ein Modell für das eine Bestellung vorhanden ist$/) do
-  @order_line = OrderLine.find do |ol|
-    ol.start_date.future? and
-    @current_user.inventory_pools.include?(ol.inventory_pool)
+  order_line = ContractLine.find do |cl|
+    cl.start_date.future? and
+    @current_user.inventory_pools.include?(cl.contract.inventory_pool)
   end
 
-  @model = @order_line.model
+  @model = order_line.model
 end
 
 Wenn(/^man dieses Modell aus der Modellliste hinzufügt$/) do
@@ -211,7 +207,8 @@ Wenn(/^man anhand der Sprungtaste zum aktuellen Startdatum springt$/) do
 end
 
 Dann(/^wird das Startdatum im Kalender angezeigt$/) do
-  find(".fc-widget-content.start-date")
+  start_date = Date.parse(find("#booking-calendar-start-date").value).to_s(:db)
+  find(".fc-widget-content.start-date[data-date='#{start_date}']")
 end
 
 Wenn(/^man anhand der Sprungtaste zum aktuellen Enddatum springt$/) do
@@ -220,7 +217,8 @@ Wenn(/^man anhand der Sprungtaste zum aktuellen Enddatum springt$/) do
 end
 
 Dann(/^wird das Enddatum im Kalender angezeigt$/) do
-  find(".fc-widget-content.end-date")
+  end_date = Date.parse(find("#booking-calendar-end-date").value).to_s(:db)
+  find(".fc-widget-content.end-date[data-date='#{end_date}']")
 end
 
 Wenn(/^man zwischen den Monaten hin und herspring$/) do
@@ -228,7 +226,7 @@ Wenn(/^man zwischen den Monaten hin und herspring$/) do
 end
 
 Dann(/^wird der Kalender gemäss aktuell gewähltem Monat angezeigt$/) do
-  find(".fc-header-title").text.should == I18n.l(Date.today.next_month, format: :month_year)
+  find(".fc-header-title").text.should == I18n.l(Date.today.next_month, format: "%B %Y")
 end
 
 Dann(/^werden die Schliesstage gemäss gewähltem Gerätepark angezeigt$/) do
@@ -290,14 +288,6 @@ Dann(/^man kann maximal die maximal ausleihbare Anzahl eingeben$/) do
   find("#booking-calendar-quantity").value.should == (max_quantity).to_s
 end
 
-Dann(/^man auf dem letzten Model "Zur Bestellung hinzufügen" wählt$/) do
-  all("body > .wrapper").last.click
-  step "ensure there are no active requests"
-  wait_until {all("#model-list .line").last["data-id"].length > 0}
-  @model = Model.find all("#model-list .line").last["data-id"]
-  find("#model-list .line:last button[data-create-order-line]").click
-end
-
 Wenn(/^man den letzten Gerätepark in der Geräteparkauswahl auswählt$/) do
   @ip = @current_user.inventory_pools.sort.last
   step 'man ein bestimmten Gerätepark in der Geräteparkauswahl auswählt'
@@ -344,8 +334,11 @@ Dann(/^kann ich dieses Modell ausleihen, wenn ich in dieser Gruppe bin$/) do
   @current_user.groups << Group.find(@partition.group_id)
   visit borrow_model_path(@model)
   find("*[data-create-order-line][data-model-id='#{@model.id}']").click
+  date = @current_user.inventory_pools.first.next_open_date
+  step "ich setze das Startdatum im Kalendar auf '#{I18n::l(date)}'"
+  step "ich setze das Enddatum im Kalendar auf '#{I18n::l(date)}'"
   find(".fc-widget-content", :match => :first)
   find("#submit-booking-calendar").click
   find("#current-order-lines").should have_content @model.name
-  @current_user.get_current_order.lines.map(&:model).include?(@model).should be_true
+  @current_user.contracts.unsubmitted.flat_map(&:lines).map(&:model).include?(@model).should be_true
 end

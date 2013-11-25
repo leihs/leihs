@@ -1,0 +1,29 @@
+.modal.fade.ui-modal.medium{:role => "dialog", :tabindex => "-1"}
+
+  .modal-header.row.padding-bottom-s
+    .col4of5
+      %h2.headline-l {{jed 'Add Model'/}} {{jed 'by browsing categories'/}}
+      %h3.headline-m.light= "({{date startDate/}} - {{date endDate/}})"
+    .col1of5.text-align-right
+      .modal-close {{jed "Cancel"/}}
+
+  .modal-body.separated-top
+
+    .table
+      .table-row
+
+        #categories.col1of4.table-cell.separated-right.padding-inset-m
+          .row.padding-inset-s
+            %input#category-search.small{:type => :text, :placeholder => "#{_("Search")} #{_("Category")}", :autocomplete => :off}
+          #category-root
+          #category-current
+          #category-list.row.padding-bottom-s
+            .height-xs
+            %img.margin-horziontal-auto.margin-top-xxl.margin-bottom-xxl{:src => asset_path("loading.gif")}  
+
+        #models.table-cell.col3of4.list-of-lines.even.min-height-l
+          .height-s
+          %img.margin-horziontal-auto.margin-top-xxl.margin-bottom-xxl{:src => asset_path("loading.gif")}
+          .height-s
+
+  .modal-footer

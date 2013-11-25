@@ -1,0 +1,139 @@
+-content_for :title, _("Order from %s") % @contract.user
+
+#acknowledge.innercontent
+  .top
+    %h1= yield :title
+    %p.subtitle
+      
+    .content_navigation
+      = link_to swap_user_backend_inventory_pool_acknowledge_path(current_inventory_pool, @contract),
+        :class => "button white open_dialog",
+        :"data-tmpl" => "tmpl/dialog/swap_user/swap_user", 
+        :"data-dialog_class" => "change_orderer swap_user medium",
+        :"data-ref_for_dialog" => "$('#order').tmplItem().data",
+        :"data-dialog_ready" => "SwapUser.setup();",
+        :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading", {title: "'+_("Change Orderer Successful")+'", message: "'+_("please wait...")+'"}), dialogClass: "loading"});window.location = window.location;',
+        :id => "change_orderer" do
+        .icon.swap
+        = _("Change Orderer")
+
+      = link_to _("Reject"), reject_backend_inventory_pool_acknowledge_path(current_inventory_pool, @contract),
+        :class => "button red open_dialog",
+        :"data-dialog_class" => "medium with_comment",
+        :"data-tmpl" => "tmpl/dialog/acknowledge/reject",
+        :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading", {title: "'+_("Rejection Successful")+'", message: "'+_("please wait...")+'"}), dialogClass: "loading"}); window.location = document.referrer',
+        :"data-ref_for_dialog" => "$('#order').tmplItem().data"
+      
+      #approve.multibutton
+        .alternatives
+          .trigger.green
+            .arrow
+          = link_to approve_backend_inventory_pool_acknowledge_path(current_inventory_pool, @contract),
+            :class => "button white open_dialog", 
+            :"data-dialog_class" => "medium with_comment",
+            :"data-tmpl" => "tmpl/dialog/acknowledge/approve",
+            :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading", {title: "'+_("Approval Successful")+'", message: "'+_("please wait...")+'"}), dialogClass: "loading"}); window.location = document.referrer',
+            :"data-ref_for_dialog" => "$('#order').tmplItem().data" do
+            .icon.comment
+            = _("with comment")
+        = link_to _("Approve Order"), approve_backend_inventory_pool_acknowledge_path(current_inventory_pool, @contract),
+          :remote => true,
+          :method => :post,
+          :class => "button green", 
+          :"data-dialog_class" => "medium",
+          :"data-tmpl" => "tmpl/dialog/acknowledge/approve",
+          :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading", {title: "'+_("Approval Successful")+'", message: "'+_("please wait...")+'"}), dialogClass: "loading"}); window.location = document.referrer',
+          :"data-ref_for_dialog" => "$('#order').tmplItem().data"
+  
+  .indent.purpose
+    %section.purpose
+      %label= _("Purpose")
+      -unless @contract.purpose.blank?
+        %p= "#{@contract.purpose}"
+      -else
+        %p.none= _("no purpose specified")
+      %button.button.white.open_dialog{:"href" => change_purpose_backend_inventory_pool_acknowledge_path(current_inventory_pool, @contract),
+      :"data-dialog_class" => "medium edit_purpose",
+      :"data-tmpl" => "tmpl/dialog/acknowledge/edit_purpose",
+      :"data-on_success" => "Acknowledge.update_purpose(response.purpose);",
+      :"data-ref_for_dialog" => "$('#order').tmplItem().data"}
+        = _("Edit Purpose")
+      
+  .indent      
+    = form_tag add_line_backend_inventory_pool_acknowledge_path(current_inventory_pool, @contract), :id => "process_helper", :method => :post, :remote => true, :"data-submit_button" => true do
+      .dates
+        .container
+          %input.start.date{:type => "text", :name => "start_date", :id => "add_start_date", :"data-date" => (@contract.min_date).blank? ? Date.today : @contract.min_date , :title => _("Start Date")}
+          %label{:for => "add_start_date"}
+            = _("Start Date")
+          %label.datepicker.icon{:for => "add_start_date", :title => _("Open Datepicker")}
+        = "-"
+        .container
+          %input.end.date{:type => "text", :name => "end_date", :id => "add_end_date", :"data-date" => (@contract.max_date).blank? ? Date.today : @contract.max_date, :title => _("End Date")}
+          %label{:for => "add_end_date"}
+            = _("End Date")
+          %label.datepicker.icon{:for => "add_end_date", :title => _("Open Datepicker")}  
+            
+      .container
+        %input.autocomplete.barcode_target{:type => "text", :name => "code", :autocomplete => "off", :id => "code", 
+        :"data-url" => backend_inventory_pool_search_path(current_inventory_pool, :types => ["model", "template"]),
+        :"data-autocomplete_class" => "add_item", 
+        :"data-autocomplete_element_tmpl" => "tmpl/autocomplete/add_item",
+        :"data-autocomplete_select_callback" => "ProcessHelper.add_through_autocomplete"}
+        %label{:for => "code"}
+          = _("Inventory Code / Name")
+        
+      %button.button.white{:type => "submit"}
+        = _("Add")
+        
+    #selection_actions
+
+      .selection
+
+        .text
+          = _("Auswahl")
+          %span.count= "(0)"
+
+        .actions
+          .multibutton{:"data-toggle_on_line_selection" => true}
+            .alternatives
+              .trigger
+                .arrow
+              = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/acknowledge/#{@contract.id}/remove_lines",
+              :class => "button red",
+              :remote => "true",
+              :method => "delete",
+              :"data-tmpl" => "tmpl/dialog/order_line/delete_multiple",
+              :"data-on_success" => 'Acknowledge.remove_lines(SelectedLines.lines);' ,
+              :"data-add_selected_line_ids" => "true",
+              :id => "delete_selection" do
+                .icon.delete
+                = _("Delete Selection")
+            = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/acknowledge/#{@contract.id}/update_lines",
+            :class => "button white open_dialog",
+            :"data-tmpl" => "tmpl/dialog/calendar", 
+            :"data-dialog_class" => "calendar medium multiple",
+            :"data-on_success" => 'Acknowledge.update_order(response);',
+            :"data-ref_for_dialog" => "Line.data_for_edit_lines(SelectedLines.lines_data)",
+            :"data-dialog_ready" => "new BookingCalendar()",
+            :id => "edit_selection" do
+              .icon.timerange
+              = _("Edit Selection")
+              
+    .clear
+  %hr
+  
+  %section#order
+
+:ruby
+  order_json = json_for @contract, {:preset => :order}
+
+:coffeescript
+  order_json = #{order_json}
+
+  jQuery ->
+    $('#acknowledge #order').replaceWith($.tmpl("tmpl/order", order_json))
+    window.current_customer = order_json.user.id
+    Acknowledge.setup()
+    ProcessHelper.setup()
+    SelectedLines.setup()

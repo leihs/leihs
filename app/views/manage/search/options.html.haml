@@ -1,0 +1,24 @@
+- content_for :title, _("Search results (%s) for %s") % [_("Options"), @search_term]
+- content_for :search_section, "focus-thin"
+
+#options-search-results.wrapper.margin-top-m
+
+  = render :partial => 'manage/tabs/search', :locals => {:active_tab => :option_search}
+
+  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+    .margin-top-l.padding-horizontal-m.padding-bottom-l
+      .row
+        %h1.headline-xl= _("Search results (%s) for \"%s\"") % [_("Options"), @search_term]
+        %h2#total-count.headline-m.light
+  
+    .list-of-lines.separated-top.padding-bottom-s.min-height-l.margin-top-l
+      .height-s
+      %img.margin-horziontal-auto.margin-top-xxl.margin-bottom-xxl{:src => asset_path("loading.gif")}
+
+:coffeescript
+  
+  jQuery ->
+    new App.SearchResultsOptionsController
+      el: $("#options-search-results")
+      searchTerm: #{@search_term.to_json}

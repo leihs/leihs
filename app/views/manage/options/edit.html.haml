@@ -1,0 +1,38 @@
+- content_for :title, "#{_("Edit %s") % _("Option")}"
+- content_for :inventory_section, "active"
+
+.wrapper.margin-top-m
+
+  = render :partial => 'manage/tabs/inventory', :locals => {:active_tab => :inventory}
+
+  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+    = form_tag manage_update_option_path(current_inventory_pool.id, @option.id), method: :put do
+
+      .margin-top-l.padding-horizontal-m
+        .row
+          .col2of3
+            %h1.headline-l= "#{_("Edit %s") % _("Option")}"
+            %h2.headline-s.light= _("Make changes and save")
+          .col1of3.text-align-right
+
+            %a.button.grey{:href => manage_inventory_path(current_inventory_pool)}
+              = _("Cancel")
+
+            %button.button.green{:type => :submit}
+              = _("Save %s") % _("Option")
+
+      .padding-horizontal-m.padding-top-l
+
+        .row
+          
+          .col1of2.padding-right-xs
+            = render :layout => "manage/fields/field", :locals => {key: _("Name"), required: true} do
+              %input.width-full{:type => :text, :name => "option[name]", :autocomplete => :off, :value => @option.name}
+
+            = render :layout => "manage/fields/field", :locals => {key: _("Price")} do
+              %input.width-full{:type => :text, :name => "option[price]", :autocomplete => :off, :value => @option.price}
+
+          .col1of2
+            = render :layout => "manage/fields/field", :locals => {key: _("Inventory code")} do
+              %input.width-full{:type => :text, :name => "option[inventory_code]", :autocomplete => :off, :value => @option.inventory_code}

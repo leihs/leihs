@@ -4,11 +4,11 @@
       = token_tag nil
       %input.text-ellipsis.round-borders.has-addon.width-full.padding-right-m.padding-left-s{:type => "text", :id => "search_term", :name => "search_term", :placeholder => _("Search")}
       .addon.transparent.padding-right-xs
-        %i.icon-search.icon-size-xxs
+        %i.icon-search.icon-size-xxs.grey
   #search-autocomplete
 
 :coffeescript
   
   jQuery ->
-    new App.Borrow.SearchTopbarController
+    new App.SearchTopbarController
       el: $("#search")

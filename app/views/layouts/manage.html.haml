@@ -1,0 +1,28 @@
+!!! 5
+%html{:lang => I18n.locale}
+
+  %head
+    %meta{:charset => 'utf-8'}
+    %title= "#{current_inventory_pool ? "#{current_inventory_pool.shortname || current_inventory_pool.name} | " : ""}#{yield(:title)}#{(yield :title).blank? ? "":" | "}leihs"
+    = stylesheet_link_tag "application", :media => "all"
+    = javascript_include_tag "i18n/locale/#{I18n.locale}"
+    = javascript_include_tag "application"
+    = javascript_include_tag "manage"
+    = render :partial => "manage/global_javascript_injection"
+    = favicon_link_tag "favicon.ico", :type => "image/x-icon"
+    = csrf_meta_tag
+    = yield :head
+
+  %body
+
+    .main-wrapper
+
+      .padding-bottom-l
+
+        = render :partial => "flash", :locals => {:flash => flash}
+
+        %header= render :partial => "manage/topbar"
+
+        .row= yield
+
+    = render :partial => "footer"

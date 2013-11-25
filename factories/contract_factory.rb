@@ -7,12 +7,16 @@ FactoryGirl.define do
       u.access_rights.create(:inventory_pool => inventory_pool, :role => Role.find_by_name("customer"))
       u
     }
-    status_const 1
-    
+    status { :unsubmitted }
+
     factory :contract_with_lines do
-      after(:create) do |contract|
-        3.times do
-          contract.contract_lines << FactoryGirl.create(:contract_line, :contract => contract)
+      ignore do
+        lines_count { rand(3..6) }
+      end
+      after(:create) do |contract, evaluator|
+        purpose = FactoryGirl.create(:purpose) unless contract.status == :unsubmitted
+        evaluator.lines_count.times do
+          contract.contract_lines << FactoryGirl.create(:contract_line, :contract => contract, purpose: purpose)
         end
       end
     end

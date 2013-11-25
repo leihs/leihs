@@ -1,0 +1,37 @@
+.modal.fade.ui-modal.medium.min-height-m{:role => "dialog", :tabindex => "-1"}
+
+  .modal-header.row
+    .col3of5
+      %h2.headline-l {{jed "Take back completed"/}}
+      %h3.headline-m.light
+        {{jed itemsCount "%s item" "%s items" itemsCount/}}
+        {{jed "from %s" user.name()/}}
+    .col2of5.text-align-right
+      .multibutton
+        %a.button.white.text-ellipsis{:href => "{{dailyPath/}}"} {{jed "Finish this take back"/}}
+        .dropdown-holder.inline-block
+          .button.white.dropdown-toggle
+            .arrow.down
+          %ul.dropdown.right
+            %li
+              %a.dropdown-item{:href => ""}
+                %i.icon-undo
+                {{jed "Back to this user"/}}
+
+  .modal-body
+    .padding-inset-l.margin-top-s
+
+      {{for contracts}}
+      .row.emboss.padding-inset-s.margin-bottom-s
+        .col1of6
+        .col2of6.padding-inset-s
+          %a.button.white.width-full{:href => "{{>url()}}", :target => "_blank"}
+            %i.icon-file-alt
+            {{jed "Contract"/}}
+            {{>id}}
+        .col2of6.padding-inset-s
+          %a.button.white.width-full{:href => "{{>url('value_list')}}", :target => "_blank"}
+            %i.icon-list-ol
+            {{jed "Value List"/}}
+        .col1of6
+      {{/for}}

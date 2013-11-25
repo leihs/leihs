@@ -16,12 +16,12 @@ class Accessory < ActiveRecord::Base
 
   validates_presence_of :name
 
-  def inventory_pool_ids_add=(id)
-    self.inventory_pool_ids += [id]
-  end
-
-  def inventory_pool_ids_remove=(id)
-    self.inventory_pool_ids -= [id]
+  def inventory_pool_toggle=(val)
+    if val.split(",")[0] == "1"
+      self.inventory_pool_ids += [val.split(",")[1].to_i]
+    else
+      self.inventory_pool_ids -= [val.split(",")[1].to_i]
+    end
   end
 
   attr_writer :is_deletable

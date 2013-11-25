@@ -9,15 +9,15 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  def index
+  helper_method :is_admin?
+
+  def root
     if logged_in?
       if current_user.has_role?('manager', nil, false) or current_user.has_role?('admin')
-        redirect_to backend_path, flash: flash
+        redirect_to manage_root_path, flash: flash
       else
         redirect_to borrow_root_path, flash: flash
       end
-    else
-      render "splash/show"
     end
   end
  
@@ -54,13 +54,45 @@ class ApplicationController < ActionController::Base
   end
 
   def load_settings
-    if not Setting.const_defined?("SMTP_ADDRESS") and logged_in? and not [backend_settings_path, logout_path].include? request.path
+    if not Setting.const_defined?("SMTP_ADDRESS") and logged_in? and not [manage_settings_path, logout_path].include? request.path
       if current_user.has_role?('admin')
-        redirect_to backend_settings_path
+        redirect_to manage_settings_path
       else
         raise "Application settings are missing!"
       end
     end
   end
+
+  def set_pagination_header(paginated_active_record)
+    headers["X-Pagination"] = {
+      total_count: paginated_active_record.total_entries,
+      per_page: paginated_active_record.per_page,
+      offset: paginated_active_record.offset
+    }.to_json
+  end
+
+  ##################################################
+  # ACL
+
+  def not_authorized!(options = {redirect_path: nil})
+    options[:redirect_path] ||= manage_inventory_pools_path
+    msg = "You don't have appropriate permission to perform this operation."
+
+    respond_to do |format|
+      format.html do
+        flash[:error] = msg
+        redirect_to options[:redirect_path]
+      end
+      format.json { render :text => msg }
+    end
+  end
+
+  ####### Helper Methods #######
+
+  def is_admin?
+    current_user.has_role?('admin')
+  end
+
+
 
 end

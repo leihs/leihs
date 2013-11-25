@@ -4,7 +4,7 @@ class Borrow::UsersController < Borrow::ApplicationController
   end
 
   def documents
-    @contracts = current_user.contracts.includes(:contract_lines).where(status_const: [Contract::SIGNED, Contract::CLOSED])
+    @contracts = current_user.contracts.includes(:contract_lines).where(status: [:signed, :closed])
     @contracts.sort! {|a,b| b.time_window_min <=> a.time_window_min}
   end
 
@@ -12,13 +12,14 @@ class Borrow::UsersController < Borrow::ApplicationController
 
   before_filter only: [:contract, :value_list] do
     @contract = current_user.contracts.find(params[:id])
-    render layout: "print"
   end
 
   def contract
+    render "documents/contract", layout: "print"
   end
 
   def value_list
+    render "documents/value_list", layout: "print"
   end
 
 end

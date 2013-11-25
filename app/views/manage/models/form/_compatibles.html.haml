@@ -1,0 +1,6 @@
+#compatibles
+  = render :layout => "manage/fields/field", :locals => {key: _("Compatibles"), entries: @model.compatibles, entry_partial: "manage/models/form/compatible_inline_entry"} do
+    .row
+      %input.has-addon.width-full{:"data-type" => "autocomplete", :type => :text, :autocomplete => :off, :placeholder => _("Model")}
+      .addon.transparent
+        %i.arrow.down

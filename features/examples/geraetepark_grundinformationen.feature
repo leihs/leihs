@@ -6,9 +6,6 @@ Funktionalität: Gerätepark-Grundinformationen
   möchte ich als Zuständiger
   die Informationen/Einstellungen für einen Gerätepark bearbeiten können
 
-  #Grundlage:
-    #Angenommen Personas existieren
-
   @javascript
   Szenario: Grundinformationen erfassen
     Angenommen Personas existieren
@@ -27,26 +24,6 @@ Funktionalität: Gerätepark-Grundinformationen
     Und ich bleibe auf derselben Ansicht 
 
   @javascript
-  Szenariogrundriss: Pflichtfelder der Grundinformationen einzeln prüfen
-    Angenommen Personas existieren
-    Und ich bin Mike
-    Wenn ich die Grundinformationen des Geräteparks abfüllen möchte
-    Und jedes Pflichtfeld des Geräteparks ist gesetzt
-    | Name        |
-    | Kurzname    |
-    | E-Mail      |
-    Wenn ich das gekennzeichnete "<Pflichtfeld>" des Geräteparks leer lasse
-    Dann kann das Gerätepark nicht gespeichert werden
-    Und ich sehe eine Fehlermeldung
-    Und die anderen Angaben wurde nicht gelöscht
-
-    Beispiele:
-      | Pflichtfeld |
-      | Name        |
-      | Kurzname    |
-      | E-Mail      |
-
-  @javascript
   Szenario: Pflichtfelder der Grundinformationen zusammen prüfen
     Angenommen Personas existieren
     Und ich bin Mike
@@ -57,22 +34,3 @@ Funktionalität: Gerätepark-Grundinformationen
       | E-Mail   |
     Dann kann das Gerätepark nicht gespeichert werden
     Und ich sehe eine Fehlermeldung
-
-  @javascript
-  Szenario: Arbeitstage verwalten
-   Angenommen Personas existieren
-   Und ich bin Mike
-   Und ich verwalte die Gerätepark Grundinformationen
-   Wenn ich die Arbeitstage Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag, Sonntag ändere
-   Und ich die Änderungen speichere
-   Dann sind die Arbeitstage gespeichert
-
-  @javascript
-  Szenario: Tage der Ausleihschliessung verwalten
-   Angenommen Personas existieren
-   Und ich bin Mike
-   Und ich verwalte die Gerätepark Grundinformationen
-   Wenn ich eine oder mehrere Zeitspannen und einen Namen für die Ausleihsschliessung angebe
-   Und ich speichere den Gerätepark
-   Dann werden die Ausleihschliessungszeiten gespeichert
-   Und ich kann die Ausleihschliessungszeiten wieder löschen  

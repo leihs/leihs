@@ -1,5 +1,5 @@
-When /^I create an unsigned contract for "(.*?)"$/ do |name|
-  @contract = FactoryGirl.create :contract, :status_const => Contract::UNSIGNED, :user => Persona.get(name)
+When /^I create an approved contract for "(.*?)"$/ do |name|
+  @contract = FactoryGirl.create :contract, :status => :approved, :user => Persona.get(name)
 end
 
 Then /^the new contract is empty$/ do
@@ -10,9 +10,9 @@ When /^I sign the contract$/ do
   @sign_result = @contract.sign(@user)
 end
 
-Then /^the contract is unsigned$/ do
+Then /^the contract is approved$/ do
   @sign_result.should be_false
-  @contract.status_const.should == Contract::UNSIGNED
+  @contract.status.should == :approved
 end
 
 When /^I add a contract line without an assigned item to the new contract$/ do

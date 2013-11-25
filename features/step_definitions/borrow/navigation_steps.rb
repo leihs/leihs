@@ -11,7 +11,7 @@ Dann(/^die Navigation beinhaltet "(.*?)"$/) do |section|
     when "Rückgaben"
       first("nav a[href='#{borrow_returns_path}']") if @current_user.contract_lines.to_take_back.sum(&:quantity) > 0
     when "Bestellungen"
-      first("nav a[href='#{borrow_orders_path}']") if @current_user.orders.submitted.count > 0
+      first("nav a[href='#{borrow_orders_path}']") if @current_user.contracts.submitted.count > 0
     when "Geräteparks"
       first("nav a[href='#{borrow_inventory_pools_path}']", :text => _("Inventory Pools"))
     when "Benutzer"
@@ -19,7 +19,7 @@ Dann(/^die Navigation beinhaltet "(.*?)"$/) do |section|
     when "Logout"
       first("nav a[href='#{logout_path}']")
     when "Verwalten"
-      first("nav a[href='#{backend_path}']", :text => _("Manage"))
+      first("nav a[href='#{manage_root_path}']", :text => _("Manage"))
     else
       pending
   end

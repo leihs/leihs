@@ -11,7 +11,8 @@ if (window.i18n == undefined) window.i18n = {};
   };
 
   i18n.datepicker = {
-    L: "dd.mm.yy"
+    L: "dd.mm.yy",
+    XS: "dd.mm.y"
   };
 
   i18n.months = {
@@ -284,7 +285,7 @@ window.i18n.locale_data = {
          null,
          "Genehmigen"
       ],
-      "Approve Order": [
+      "Approve order": [
          null,
          "Bestellung genehmigen"
       ],
@@ -440,11 +441,11 @@ window.i18n.locale_data = {
          null,
          "Reservierende/n wechseln war erfolgreich"
       ],
-      "Change Orderer": [
+      "Change orderer": [
          null,
          "Bestellende/n wechseln"
       ],
-      "Change Orderer Successful": [
+      "Change orderer Successful": [
          null,
          "Bestellende/n wechseln war erfolgreich"
       ],
@@ -881,8 +882,9 @@ window.i18n.locale_data = {
          "Invetarcode aktualisiert"
       ],
       "Inventory pool": [
-         null,
-         "Gerätepark"
+         "Inventory pools",
+         "Gerätepark",
+         "Geräteparks"
       ],
       "InventoryPool|Email": [
          null,
@@ -973,7 +975,7 @@ window.i18n.locale_data = {
          null,
          "Letzte Besucher:"
       ],
-      "Latest Reminder": [
+      "Latest reminder": [
          null,
          "Letzte Erinnerung"
       ],
@@ -1730,6 +1732,10 @@ window.i18n.locale_data = {
          null,
          "Inventarcode %s nicht gefunden"
       ],
+      "The Inventory Code %s was not found for %s": [
+         null,
+         "Der Inventarcode %s für %s wurde nicht gefunden"
+      ],
       "The Inventory Pool must be empty": [
          null,
          "Der Gerätepark muss leer sein"
@@ -1874,7 +1880,7 @@ window.i18n.locale_data = {
          null,
          "Der Vertrag kann nicht unterschrieben werden, weil einige Zeilen noch nicht zugewiesen wurden."
       ],
-      "This customer's groups": [
+      "Groups of this customer": [
          null,
          "Gruppen dieses/r Kunden/in"
       ],
@@ -2643,6 +2649,10 @@ window.i18n.locale_data = {
          null,
          "%s erstellen"
       ],
+      "New Category": [
+         null,
+         "Neue Kategorie"
+      ],
       "Create new category": [
          null,
          "Neue Kategorie erstellen"
@@ -2723,7 +2733,7 @@ window.i18n.locale_data = {
          null,
          "%s suchen"
       ],
-      "By browsing categories": [
+      "by browsing categories": [
          null,
          "über Kategorien"
       ],
@@ -2788,6 +2798,10 @@ window.i18n.locale_data = {
       "Access": [
          null,
          "Zugriff"
+      ],
+      "Access rights": [
+         null,
+         "Zugriffsrechte"
       ],
       "Group": [
          null,
@@ -3173,6 +3187,332 @@ window.i18n.locale_data = {
       "Complete order": [
          null,
          "Bestellung abschliessen"
+      ],
+      "The responsible inventory pool cannot be changed because the item is currently not in stock.": [
+         null,
+         "Die verantwortliche Abteilung kann nicht geändert werden, da der Gegenstand nicht am Lager ist."
+      ],
+      "Send reminder": [
+         null,
+         "Erinnerung senden"
+      ],
+      "Approval failed": [
+         null,
+         "Genehmigung fehlgeschlagen"
+      ],
+      "Deleted": [
+         null,
+         "Gelöscht"
+      ],
+      "Reminder send": [
+         null,
+         "Erinnerung gesendet"
+      ],
+      "Available in total": [
+         null,
+         "Total verfügbar"
+      ],
+      "Loading availability": [
+         null,
+         "Verfügbarkeit wird geladen"
+      ],
+      "Availability loaded": [
+         null,
+         "Verfügbarkeit geladen"
+      ],
+      "Invalid data": [
+         null,
+         "Ungültige Eingabe"
+      ],
+      "Reject order": [
+         null,
+         "Bestellung ablehnen"
+      ],
+      "Inventory code, model name, search term": [
+         null,
+         "Inventarcode, Modellname, Suchwort"
+      ],
+      "Adding item": [
+         null,
+         "Eintrag wird hinzugefügt"
+      ],
+      "Added %s": [
+         null,
+         "%s hinzugefügt"
+      ],
+      "Close": [
+         null,
+         "Schliessen"
+      ],
+      "Removing items": [
+         null,
+         "Einträge werden gelöscht"
+      ],
+      "Edit reservation": [
+         null,
+         "Reservation bearbeiten"
+      ],
+      "Availability for": [
+         null,
+         "Verfügbarkeit"
+      ],
+      "Please select an inventory pool": [
+         null,
+         "Bitte Gerätepark auswählen"
+      ],
+      "%s visit overdue": [
+         "%s visits overdue",
+         "%s Besuch überfällig",
+         "%s Besuche überfällig"
+      ],
+      "%s future visit": [
+         "%s future visits",
+         "%s zukünftiger Besuch",
+         "%s zukünftige Besuche"
+      ],
+      "%s visit today": [
+         "%s visits today",
+         "%s Besuch heute",
+         "%s Besuche heute"
+      ],
+      "%s quantity increased to %s": [
+         null,
+         "%s Anzahl erhöht auf %s"
+      ],
+      "%s assigned to %s": [
+         null,
+         "%s zugeordnet zu %s"
+      ],
+      "%s is already assigned to a contract": [
+         null,
+         "%s ist bereits einem Vertrag zugewiesen"
+      ],
+      "Hand over of %s item": [
+         "Hand over of %s items",
+         "Aushändigung von %s Gegenstand",
+         "Aushändigung von %s Gegenständen"
+      ],
+      "Hand over completed": [
+         null,
+         "Aushändigung abgeschlossen"
+      ],
+      "Open %s": [
+         null,
+         "%s öffnen"
+      ],
+      "%s item": [
+         "%s items",
+         "%s Gegenstand",
+         "%s Gegenstände"
+      ],
+      "to %s": [
+         null,
+         "an %s"
+      ],
+      "Back to this user": [
+         null,
+         "Zurück zu diesem Benutzer"
+      ],
+      "Extend entry": [
+         null,
+         "Eintrag verlängern"
+      ],
+      "%s selected for take back": [
+         null,
+         "%s für Rücknahme ausgewählt"
+      ],
+      "%s was not found for this take back": [
+         null,
+         "%s würde nicht für diese Rücknahme gefunden"
+      ],
+      "You can not take back more items then you handed over": [
+         null,
+         "Sie können nicht mehr zurücknehmen als Sie ausgehändigt haben"
+      ],
+      "You have to provide the quantity for the things you want to return": [
+         null,
+         "Sie müssen die Anzahl angeben, die sie zurücknehmen wollen"
+      ],
+      "Take back completed": [
+         null,
+         "Rücknahme abgeschlossen"
+      ],
+      "Take back of %s item": [
+         "Take back of %s items",
+         "Rücknahme von %s Gegenstand",
+         "Rücknahme von %s Gegenständen"
+      ],
+      "Contract signed": [
+         null,
+         "Vertrag unterschrieben"
+      ],
+      "You cannot delete this user": [
+         null,
+         "Sie können diesen Benutzer nicht löschen"
+      ],
+      "Add inventory": [
+         null,
+         "Inventar hinzufügen"
+      ],
+      "Active Inventory": [
+         null,
+         "Aktives Inventar"
+      ],
+      "Unused Models": [
+         null,
+         "Ungenutzte Modelle"
+      ],
+      "Responsible inventory pool": [
+         null,
+         "Verantwortlicher Gerätepark"
+      ],
+      "from": [
+         null,
+         "von"
+      ],
+      "to": [
+         null,
+         "bis"
+      ],
+      "Create new item": [
+         null,
+         "Neuen Gegenstand erstellen"
+      ],
+      "Insert all required information": [
+         null,
+         "Geben Sie alle erforderlichen Informationen an"
+      ],
+      "Make changes and save": [
+         null,
+         "Nehmen Sie Änderungen vor und speichern Sie anschliessend"
+      ],
+      "Create new model": [
+         null,
+         "Neues Modell erstellen"
+      ],
+      "Removed on save": [
+         null,
+         "Wird beim speichern entfernt"
+      ],
+      "File has to be uploaded on save": [
+         null,
+         "Datei wird beim speichern hochgeladen"
+      ],
+      "Upload problems": [
+         null,
+         "Probleme beim hochladen"
+      ],
+      "The model was saved, but there were problems uploading files": [
+         null,
+         "Das Modell wurde gespeichert, beim heraufladen von Dateien ist es allerdings zu Problemen gekommen"
+      ],
+      "Uploading files - please wait": [
+         null,
+         "Dateien werden hochgeladen - bitte warten"
+      ],
+      "Save package": [
+         null,
+         "Paket speichern"
+      ],
+      "Add item": [
+         null,
+         "Gegenstand hinzufügen"
+      ],
+      "Search Results for %s": [
+         null,
+         "Suchresultate für %s"
+      ],
+      "Show all found %s": [
+         null,
+         "Zeige alle gefundenen %s"
+      ],
+      "Please provide a search term": [
+         null,
+         "Bitte geben Sie ein Suchwort ein"
+      ],
+      "Start search": [
+         null,
+         "Suche starten"
+      ],
+      "models": [
+         null,
+         "Modelle"
+      ],
+      "items": [
+         null,
+         "Gegenstände"
+      ],
+      "contracts": [
+         null,
+         "Verträge"
+      ],
+      "orders": [
+         null,
+         "Bestellungen"
+      ],
+      "Search results (%s) for %s": [
+         null,
+         "Suchresultate (%s) für %s"
+      ],
+      "Search results (%s) for \"%s\"": [
+         null,
+         "Suchresultate (%s) für \"%s\""
+      ],
+      "Create new option": [
+         null,
+         "Neue Option erstellen"
+      ],
+      "Option saved": [
+         null,
+         "Option gespeichert"
+      ],
+      "Hide notification": [
+         null,
+         "Mitteilung verbergen"
+      ],
+      "Changed": [
+         null,
+         "Geändert"
+      ],
+      "Parent categories": [
+         null,
+         "Eltern Kategorien"
+      ],
+      "Subordinate to %s": [
+         null,
+         "Untergeordnet zu %s"
+      ],
+      "Category saved": [
+         null,
+         "Kategorie gespeichert"
+      ],
+      "in the future": [
+         null,
+         "in der Zukunft"
+      ],
+      "in the past": [
+         null,
+         "in der Vergangenheit"
+      ],
+      "Borrowable items": [
+         null,
+         "Ausleihbare Gegenstände"
+      ],
+      "Available for borrower": [
+         null,
+         "Verfügbar für Ausleihenden"
+      ],
+      "is part of a package": [
+         null,
+         "ist Bestandteil eines Pakets"
+      ],
+      "Packages updated": [
+         null,
+         "Pakete aktualisiert"
+      ],
+      "Save Package": [
+         null,
+         "Paket speichern"
       ]
    }
 }

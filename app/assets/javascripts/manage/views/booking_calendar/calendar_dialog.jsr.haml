@@ -1,0 +1,59 @@
+.modal.fade.ui-modal.medium{:role => "dialog", :tabindex => "-1"}
+
+  .modal-header.row
+    .col3of5
+      %h2.headline-l {{jed "Edit reservation"/}}
+      %h3.headline-m
+        {{>user.firstname}}
+        {{>user.lastname}}
+    .col2of5.text-align-right
+      .modal-close {{jed "Cancel"/}}
+      %button#submit-booking-calendar.button.green{:disabled => :disabled} {{jed "Save"/}}
+
+  #booking-calendar-errors
+
+  .modal-body
+
+    %form.padding-inset-m
+
+      #booking-calendar-controls.hidden
+        .col5of8.float-right
+          .row.grey.padding-bottom-xxs
+            .col1of2
+              .col1of2.padding-right-xs.text-align-left
+                %div{:class => "row {{if ~startDateDisabled}} hidden{{/if}}"}
+                  %span {{jed "Startdate"/}}
+                  %a.grey#jump-to-start-date.icon-eye-open.position-absolute-right.padding-right-xxs
+              .col1of2.padding-right-xs.text-align-left 
+                .row
+                  %span {{jed "Enddate"/}}
+                  %a.grey#jump-to-end-date.icon-eye-open.position-absolute-right.padding-right-xxs
+            .col1of2
+              .col2of8.text-align-left {{jed "Quantity"/}}
+              .col6of8.padding-left-xs.text-align-left {{jed "Availability"/}}
+          .row
+            .col1of2
+              .col1of2.padding-right-xs
+                %div{:class => "row {{if ~startDateDisabled}} hidden{{/if}}"}
+                  %input#booking-calendar-start-date{:type => :text, :autocomplete => :off}
+              .col1of2.padding-right-xs
+                %input#booking-calendar-end-date{:type => :text, :autocomplete => :off}
+            .col1of2
+              .col2of8
+                {{if ~quantityDisabled}}
+                %input#booking-calendar-quantity.text-align-center{:type => :text, :autocomplete => :off, :value => 1, :disabled => :disabled}
+                {{else}}
+                %input#booking-calendar-quantity.text-align-center{:type => :text, :autocomplete => :off, :value => 1}
+                {{/if}}
+              .col6of8.padding-left-xs
+                %select#booking-calendar-partitions.width-full
+
+      #booking-calendar.booking-calendar.padding-top-xs
+
+      %img.loading.margin-horziontal-auto.margin-vertical-xl{:src => image_path("loading.gif")}
+
+    #booking-calendar-lines
+
+      .list-of-lines.separated-top
+
+  .modal-footer

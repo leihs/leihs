@@ -1,0 +1,7 @@
+#images
+  = render :layout => "manage/fields/field", :locals => {key: _("Images"), entries: @model.images.reverse, entry_partial: "manage/models/form/image_inline_entry"} do
+    .row
+      .col1of3
+      .col2of3
+        %button.button.inset.width-full{:"data-type" => "select"}= _("Select Image")
+        %input.invisible.height-full.width-full.position-absolute-topleft{:type => :file, :autocomplete => :false}

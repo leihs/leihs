@@ -1,0 +1,1 @@
+window.App.Workday.url = => "/manage/#{App.InventoryPool.current.id}/workdays"

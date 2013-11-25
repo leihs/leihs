@@ -8,6 +8,7 @@
 #
 # Reading a MySQL View
 class Visit < ActiveRecord::Base
+  include VisitModules::Filter
   include LineModules::GroupedAndMergedLines
   self.primary_key = :id
 
@@ -45,8 +46,8 @@ class Visit < ActiveRecord::Base
 
   #######################################################
   
-  scope :hand_over, lambda { where(:status_const => Contract::UNSIGNED) }
-  scope :take_back, lambda { where(:status_const => Contract::SIGNED) }
+  scope :hand_over, lambda { where(:status => :approved) }
+  scope :take_back, lambda { where(:status => :signed) }
 
   #######################################################
 
@@ -74,6 +75,10 @@ class Visit < ActiveRecord::Base
 
   def is_overdue
     date < Date.today
+  end
+
+  def status
+    read_attribute(:status).to_sym
   end
 
 end

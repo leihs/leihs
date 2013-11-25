@@ -131,7 +131,7 @@ msgstr ""
 msgid "Approve"
 msgstr ""
 
-msgid "Approve Order"
+msgid "Approve order"
 msgstr ""
 
 msgid "Approve anyway"
@@ -245,10 +245,10 @@ msgstr ""
 msgid "Change Borrower Successful"
 msgstr ""
 
-msgid "Change Orderer"
+msgid "Change orderer"
 msgstr ""
 
-msgid "Change Orderer Successful"
+msgid "Change orderer Successful"
 msgstr ""
 
 msgid "Changed %s from %s to %s"
@@ -617,7 +617,7 @@ msgstr ""
 msgid "Last Visitors:"
 msgstr ""
 
-msgid "Latest Reminder"
+msgid "Latest reminder"
 msgstr ""
 
 msgid "Legend"
@@ -1265,7 +1265,7 @@ msgstr ""
 msgid "This contract is not signable because some lines are not assigned."
 msgstr ""
 
-msgid "This customer's groups"
+msgid "Groups of this customer"
 msgstr ""
 
 msgid "This inventory pool is closed on that day."

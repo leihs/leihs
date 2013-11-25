@@ -1,107 +1,95 @@
 # encoding: utf-8
 
 Dann /^man sieht das Register Kategorien$/ do
-  first("#navigation a[href*='categories']").should have_content _("Categories")
+  find("nav a[href*='categories']", text: _("Categories"))
+  sleep(0.11)
 end
 
 Wenn /^man das Register Kategorien wählt$/ do
-  first("#navigation a[href*='categories']").click
+  find("nav a[href*='categories']").click
+  find("#categories-index-view h1", text: _("List of Categories"))
 end
 
 Und /^man eine neue Kategorie erstellt$/ do
-  first("a", text: _("Create %s") % _("Category")).click
+  find("a", text: _("New Category")).click
 end
 
 Und /^man gibt man den Namen der Kategorie ein$/ do
   @new_category_name = "Neue Kategorie"
-  first(".field.text input").set @new_category_name
+  find("input[name='category[name]']").set @new_category_name
 end
 
 Und /^man gibt die Elternelemente und die dazugehörigen Bezeichnungen ein$/ do
   @parent_category = ModelGroup.where(name: "Portabel").first
-  checkbox = first("input[type='checkbox'][value='#{@parent_category.id}']")
-  checkbox.set true
   @label_1 = "Label 1"
-  first("li", text: "#{@parent_category.name}").first("input[type='text']").set @label_1
+  find("#categories input[data-type='autocomplete']").set @parent_category.name
+  find("a.ui-corner-all", match: :first, text: @parent_category.name).click
+  find("#categories .list-of-lines .line", text: @parent_category.name).find("input[type='text']").set @label_1
 end
 
 Dann /^ist die Kategorie mit dem angegegebenen Namen erstellt$/ do
-  page.should have_content _("List of Categories")
-  current_path.should == backend_inventory_pool_categories_path(@current_inventory_pool)
+  find("#categories-index-view h1", text: _("List of Categories"))
+  current_path.should == manage_categories_path(@current_inventory_pool)
   ModelGroup.where(name: "#{@new_category_name}").count.should eql 1
 end
 
 Dann /^ist die Kategorie mit dem angegegebenen Namen und den zugewiesenen Elternelementen erstellt$/ do
-  page.should have_content _("List of Categories")
-  current_path.should == backend_inventory_pool_categories_path(@current_inventory_pool)
+  find("#categories-index-view h1", text: _("List of Categories"))
+  current_path.should == manage_categories_path(@current_inventory_pool)
   ModelGroup.where(name: "#{@new_category_name}").count.should eql 1
   ModelGroupLink.where("ancestor_id = ? AND label = ?", @parent_category.id, @label_1).count.should eql 1
 end
 
 Dann /^sieht man die Liste der Kategorien$/ do
-  page.should have_content _("List of Categories")
-  current_path.should == backend_inventory_pool_categories_path(@current_inventory_pool)
-  @parent_categories = ModelGroup.where(type: "Category").select { |mg| ModelGroupLink.where(descendant_id: mg.id).empty? }
-  @parent_categories.each do |pc|
-    find ".line.category", visible: true, text: pc.name
+  within("#categories-index-view") do
+    find("h1", text: _("List of Categories"))
+    current_path.should == manage_categories_path(@current_inventory_pool)
+    @parent_categories = ModelGroup.where(type: "Category").select { |mg| ModelGroupLink.where(descendant_id: mg.id).empty? }
+    @parent_categories.each do |pc|
+      find ".line", visible: true, text: pc.name
+    end
   end
 end
 
 Wenn /^man eine Kategorie editiert$/ do
-  visit backend_inventory_pool_categories_path @current_inventory_pool
-  @category= ModelGroup.where(name: "Portabel").first
-  page.should have_selector(".line.category")
-  first(".line.category")
-  all(".toggle .text").each {|toggle| toggle.click}
-  page.should have_selector("a[href*='#{@category.id.to_s + '/edit'}']")
-  first("a[href*='#{@category.id.to_s + '/edit'}']").click
+  visit manage_categories_path @current_inventory_pool
+  @category = ModelGroup.where(name: "Portabel").first
+  within("#categories-index-view #list") do
+    find(".line", match: :first)
+    all(".button[data-type='expander'] i.arrow.right").each {|toggle| toggle.click }
+    find("a[href='/manage/%d/categories/%d/edit']" % [@current_inventory_pool.id, @category.id], match: :first).click
+  end
 end
 
 Wenn /^man den Namen und die Elternelemente anpasst$/ do
   @new_category_name = "Neue Kategorie"
-  first(".field.text input").set @new_category_name
+  find("input[name='category[name]']").set @new_category_name
 
-  first("input[type='checkbox']")
-  all("input[type='checkbox'][checked='checked']").map(&:value).uniq.each {|id| first("input[value='#{id}']").click}
+  @category.parents.count.should == 2
 
-  @new_parent_category_1 = ModelGroup.where(name: "Standard").first
-  @new_parent_category_2 = ModelGroup.where(name: "Kurzdistanz").first
-  @new_parent_category_3 = ModelGroup.where(name: "Stative").first
-  @label_parent_category_1 = "Label Standard"
-  @label_parent_category_2 = "Label Kurzdistanz"
-
-  new_parent_checkbox_1 = first("input[type='checkbox'][value='#{@new_parent_category_1.id}']")
-  new_parent_checkbox_1.click
-  new_parent_checkbox_2 = first("input[type='checkbox'][value='#{@new_parent_category_2.id}']")
-  new_parent_checkbox_2.click
-  new_parent_checkbox_3 = first("input[type='checkbox'][value='#{@new_parent_category_3.id}']")
-  new_parent_checkbox_3.click
-  first("label", text: "#{@new_parent_category_1.name}").first(:xpath, "./../ul/li/input").set @label_parent_category_1
-  first("label", text: "#{@new_parent_category_2.name}").first(:xpath, "./../ul/li/input").set @label_parent_category_2
-end
-
-Wenn /^man speichert die neue Kategorie/ do
-  first("button", text: _("Create %s") % _("Category")).click
-end
-
-Wenn /^man speichert die editierte Kategorie/ do
-  first("button", text: _("Save %s") % _("Category")).click
+  within("#categories .list-of-lines") do
+    @parent_category_labels = @category.parents.map do |parent|
+      new_label = "Label #{parent.name}"
+      find(".line", match: :prefer_exact, text: parent.name).find(".col3of10 input").set new_label
+      new_label
+    end
+  end
 end
 
 Dann /^werden die Werte gespeichert$/ do
-  page.should have_content _("List of Categories")
-  current_path.should == backend_inventory_pool_categories_path(@current_inventory_pool)
+  find("#categories-index-view h1", text: _("List of Categories"))
+  current_path.should == manage_categories_path(@current_inventory_pool)
   @category.reload
   @category.name.should eql @new_category_name
-  @category.links_as_child.count.should eql 3
-  @category.links_as_child.map(&:label).to_set.delete_if(&:empty?).should eql [@label_parent_category_1, @label_parent_category_2].to_set
+  @category.links_as_child.count.should eql 2
+  @category.links_as_child.map(&:label).to_set.should eql @parent_category_labels.to_set
 end
 
 Und /^die Kategorien sind alphabetisch sortiert$/ do
   sorted_parent_categories = @parent_categories.sort
   @first_category = sorted_parent_categories.first
   @last_category = sorted_parent_categories.last
-  @visible_categories = all(".line.category", visible: true)
+  @visible_categories = all("#categories-index-view .line", visible: true)
   @visible_categories.first.text.include? @first_category.name
   @visible_categories.last.text.include? @last_category.name
 end
@@ -112,47 +100,48 @@ end
 
 Und /^man kann die Unterkategorien anzeigen und verstecken$/ do
   child_name = @first_category.children.first.name
-  expand_icon = @visible_categories.first.first(".icon")
-  expand_icon.click
-  page.should have_css(".line.category", visible: true, text: child_name)
-  expand_icon.click
-  page.should_not have_css(".line.category", visible: true, text: child_name)
+  within @visible_categories.first do
+    find(".button[data-type='expander'] i.arrow.right").click
+    find(".button[data-type='expander'] i.arrow.down")
+  end
+  find(".group-of-lines .line .col3of9:nth-child(2) strong", visible: true, text: child_name)
+  within @visible_categories.first do
+    find(".button[data-type='expander'] i.arrow.down").click
+    find(".button[data-type='expander'] i.arrow.right")
+  end
+  page.has_selector?(".group-of-lines .line .col3of9:nth-child(2) strong", visible: true, text: child_name).should be_false
 end
 
 Wenn /^man das Modell editiert$/ do
   @model = Model.where(name: "Sharp Beamer").first
   step 'ich nach "%s" suche' % @model.name
-  find(".line", :text => "#{@model.name}", match: :prefer_exact).first(".button", :text => _("Edit %s" % "Model")).click
+  find(".line", :text => "#{@model.name}", match: :prefer_exact).find(".button", :text => _("Edit %s" % "Model")).click
 end
 
 Wenn /^ich die Kategorien zuteile$/ do
-  @category_id = ModelGroup.where(name: "Standard").first.id
-  first("input[value='#{@category_id}']").click
-  # proof that checking checkbox at one place makes it selected everywhere in the tree
-  all("input[value='#{@category_id}']").all? {|checkbox| checkbox.checked?}.should be_true
+  @category = ModelGroup.where(name: "Standard").first
+  find("#categories input[data-type='autocomplete']").set @category.name
+  find("a.ui-corner-all", match: :first, text: @category.name).click
+  find("#categories .list-of-lines .line", text: @category.name)
 end
 
 Wenn /^ich das Modell speichere$/ do
-  first("button", text: _("Save %s") % _("Model")).click
-  page.has_content? _("List of Models")
+  click_button _("Save %s") % _("Model")
+  find("h1", text: _("List of Inventory"))
+  find("#flash .success")
 end
 
 Dann /^sind die Kategorien zugeteilt$/ do
-  step "ensure there are no active requests"
-  @model.model_groups.where(id: @category_id).count.should eq 1
+  sleep 0.66 # fix lazy request problem
+  @model.model_groups.where(id: @category.id).count.should eq 1
 end
 
 Wenn /^ich eine oder mehrere Kategorien entferne$/ do
-  @category_id_1 = ModelGroup.where(name: "Beamer").first.id
-  @category_id_2 = ModelGroup.where(name: "Portabel").first.id
-
-  first("input[value='#{@category_id_1}']").click
-  # proof that checking checkbox at one place makes it selected everywhere in the tree
-  all("input[value='#{@category_id_1}']").all? {|checkbox| checkbox.checked?}.should be_false
-
-  first("input[value='#{@category_id_2}']").click
-  # proof that checking checkbox at one place makes it selected everywhere in the tree
-  all("input[value='#{@category_id_2}']").all? {|checkbox| checkbox.checked?}.should be_false
+  within("#categories .list-of-lines") do
+    @model.categories.each do |category|
+      find(".line", text: category.name).find(".button[data-remove]", text: _("Remove")).click
+    end
+  end
 end
 
 Dann /^sind die Kategorien entfernt und das Modell gespeichert$/ do
@@ -165,23 +154,26 @@ Wenn /^eine Kategorie nicht genutzt ist$/ do
 end
 
 Wenn /^man die Kategorie löscht$/ do
-  visit backend_inventory_pool_categories_path @current_inventory_pool
-  find(".line.category[data-id='#{@unused_category.id}']", visible: false, match: :first)
-  all(".toggle .text").each do |toggle| toggle.click end
-  page.should have_selector(".line.category[data-id='#{@unused_category.id}']")
-  first(".line.category[data-id='#{@unused_category.id}'] .actions .trigger").click
-  first(".line.category[data-id='#{@unused_category.id}'] .actions .button", :text => _("Delete %s") % _("Category")).click
+  visit manage_categories_path @current_inventory_pool
+  within("#categories-index-view #list") do
+    find(".line", match: :first)
+    all(".button[data-type='expander'] i.arrow.right").each {|toggle| toggle.click }
+    within(".line[data-id='#{@unused_category.id}']", match: :first) do
+      find(".multibutton .dropdown-holder .dropdown-toggle").hover
+      find(".multibutton .dropdown-item.red[data-method='delete']", text: _("Delete")).click
+    end
+  end
 end
 
 Dann /^ist die Kategorie gelöscht und alle Duplikate sind aus dem Baum entfernt$/ do
-  sleep(1)
-  all(".line.category[data-id='#{@unused_category.id}']").empty?.should be_true
+  sleep(0.88)
+  all("#categories-index-view .line[data-id='#{@unused_category.id}']").empty?.should be_true
   lambda{@unused_category.reload}.should raise_error
 end
 
 Dann /^man bleibt in der Liste der Kategorien$/ do
-  page.should have_content _("List of Categories")
-  current_path.should == backend_inventory_pool_categories_path(@current_inventory_pool)
+  find("#categories-index-view h1", text: _("List of Categories"))
+  current_path.should == manage_categories_path(@current_inventory_pool)
 end
 
 Wenn /^eine Kategorie genutzt ist$/ do
@@ -189,9 +181,13 @@ Wenn /^eine Kategorie genutzt ist$/ do
 end
 
 Dann /^ist es nicht möglich die Kategorie zu löschen$/ do
-  visit backend_inventory_pool_categories_path @current_inventory_pool
-  first(".line.category[data-id='#{@used_category.id}']")
-  all(".line.category[data-id='#{@used_category.id}'] .actions .button", :text => _("Delete Category")).size.should == 0
+  visit manage_categories_path @current_inventory_pool
+  within("#categories-index-view #list") do
+    within(".line[data-id='#{@used_category.id}']") do
+      all(".multibutton .dropdown-holder .dropdown-toggle").size.should == 0
+      all(".multibutton .dropdown-item.red[data-method='delete']", text: _("Delete")).size.should == 0
+    end
+  end
 end
 
 Wenn /^ich eine ungenutzte Kategorie lösche die im Baum mehrmals vorhanden ist$/ do
@@ -200,16 +196,18 @@ Wenn /^ich eine ungenutzte Kategorie lösche die im Baum mehrmals vorhanden ist$
 end
 
 Wenn /^man nach einer Kategorie anhand des Namens sucht$/ do
-  visit backend_inventory_pool_categories_path @current_inventory_pool
+  visit manage_categories_path @current_inventory_pool
   @searchTerm ||= Category.first.name[0]
   countBefore = all(".line").size
-  first("input[name='query']").set @searchTerm
+  find("#list-search").set @searchTerm
+  find("#list-search")
+  find(".line", match: :first)
   countBefore.should_not == all(".line").size
-  sleep(1)
+  sleep(0.88)
 end
 
 Dann /^sieht man nur die Kategorien, die den Suchbegriff im Namen enthalten$/ do
-  all(".line.category", :visible => true).each do |line|
+  all("#categories-index-view .line", :visible => true).each do |line|
     expect(line.text).to match(Regexp.new(@searchTerm, "i"))
   end
 end
@@ -220,8 +218,8 @@ Dann /^sieht die Ergebnisse in alphabetischer Reihenfolge$/ do
 end
 
 Dann /^man kann diese Kategorien editieren$/ do
-  all(".line.category", :visible => true).each do |line|
-    line.first("a[href*='categories'][href*='edit']")
+  all("#categories-index-view .line", :visible => true).each do |line|
+    line.find("a[href*='categories'][href*='edit']")
   end
 end
 
@@ -232,5 +230,8 @@ Wenn /^man nach einer ungenutzten Kategorie anhand des Namens sucht$/ do
 end
 
 Dann /^man kann diese Kategorien löschen$/ do
-  first(".line[data-id='#{@unused_category.id}']").first("[ng-click='delete_category(this)']")
+  within(".line[data-id='#{@unused_category.id}']", match: :first) do
+    find(".multibutton .dropdown-holder .dropdown-toggle").hover
+    find(".multibutton .dropdown-item.red[data-method='delete']", text: _("Delete"))
+  end
 end

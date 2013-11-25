@@ -1,0 +1,52 @@
+:ruby
+  active_tab, title, start_date = unless (Array(params[:status]).map(&:to_sym) & [:approved, :rejected, :submitted]).empty?
+      [:orders, _("List of Orders"), nil]
+    else
+      [:contracts, _("List of Contracts"), Date.today - 1.year]
+    end
+
+-content_for :title, title
+-content_for :lending_section, "active"
+#contracts-index-view.wrapper.margin-top-m
+
+  = render :partial => 'manage/tabs/lending', :locals => {:active_tab => active_tab}
+
+  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+    .margin-top-l.padding-horizontal-m
+      .row
+        %h1.headline-xl= title
+
+    .row.margin-top-l
+      
+      = render :partial => "manage/contracts/index/#{active_tab}_tabs"
+
+      .row.margin-vertical-xs.padding-horizontal-m
+
+        .col2of6.padding-right-s
+          %input#list-search.width-full{type: "text", name: "input", placeholder: _("Search..."), autocomplete: :off}
+
+        #list-range.col2of6.padding-right-s
+          .col4of10
+            %label.row
+              %input.has-addon{type: "text", name: "start_date", placeholder: _("from"), autocomplete: :off, value: start_date ? start_date : nil}
+              %span.addon
+                %i.icon-calendar
+          .col1of10.text-align-center
+            .padding-top-s= "-"
+          .col4of10
+            %label.row
+              %input.has-addon{type: "text", name: "end_date", placeholder: _("to"), autocomplete: :off}
+              %span.addon
+                %i.icon-calendar
+
+      #contracts.list-of-lines.even.separated-top.padding-bottom-s.min-height-l
+        .height-s
+        %img.margin-horziontal-auto.margin-top-xxl.margin-bottom-xxl{:src => asset_path("loading.gif")}
+
+:coffeescript
+
+  jQuery ->
+    new App.ContractsIndexController
+      el: $("#contracts-index-view")
+      status: #{params[:status].to_json}

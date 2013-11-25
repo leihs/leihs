@@ -12,7 +12,7 @@ class Borrow::SearchController < Borrow::ApplicationController
 
   def results
     @search_term = CGI::escape params[:search_term]
-    @models = Model.filter params, @category, current_user
+    @models = Model.filter params, current_user, @category, true
     set_pagination_header(@models)
     respond_to do |format|
       format.json 

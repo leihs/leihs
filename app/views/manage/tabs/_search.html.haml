@@ -1,0 +1,41 @@
+.row
+
+  %nav
+    %ul
+
+      %li
+        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => manage_search_results_path(current_inventory_pool, {search_term: @search_term}),
+        :class => (defined? active_tab and active_tab == :search_overview) ? "active" : ""}
+          = _("Overview")
+
+      %li
+        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => manage_search_models_path(current_inventory_pool, {search_term: @search_term}),
+        :class => (defined? active_tab and active_tab == :model_search) ? "active" : ""}
+          = _("Models")
+          
+      %li
+        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => manage_search_items_path(current_inventory_pool, {search_term: @search_term}),
+        :class => (defined? active_tab and active_tab == :item_search) ? "active" : ""}
+          = _("Items")
+
+      %li
+        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => manage_search_options_path(current_inventory_pool, {search_term: @search_term}),
+        :class => (defined? active_tab and active_tab == :option_search) ? "active" : ""}
+          = _("Options")
+
+      %li
+        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => manage_search_users_path(current_inventory_pool, {search_term: @search_term}),
+        :class => (defined? active_tab and active_tab == :user_search) ? "active" : ""}
+          = _("Users")
+
+      %li
+        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => manage_search_contracts_path(current_inventory_pool, {search_term: @search_term}),
+        :class => (defined? active_tab and active_tab == :contract_search) ? "active" : ""}
+          = _("Contracts")
+
+      %li
+        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => manage_search_orders_path(current_inventory_pool, {search_term: @search_term}),
+        :class => (defined? active_tab and active_tab == :order_search) ? "active" : ""}
+          = _("Orders")
+
+  = render :partial => "manage/tabs/current_inventory_pool", :locals => {:current_inventory_pool => current_inventory_pool}

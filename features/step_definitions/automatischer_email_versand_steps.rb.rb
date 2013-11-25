@@ -1,5 +1,19 @@
 # -*- encoding : utf-8 -*-
 
+Angenommen(/^Das System ist für den Mailversand im Testmodus konfiguriert$/) do
+  setting = Setting.first
+
+  # Need to have these settings, otherwise we can't save. Ouch, coupling.
+  if not setting
+    setting = Setting.new
+    setting[:local_currency_string] = 'GBP'
+    setting[:email_signature] = 'Cheers,'
+    setting[:default_email] = 'sender@example.com'
+  end
+  setting[:mail_delivery_method] = 'test'
+  setting.save.should be_true
+end
+
 Angenommen(/^ich habe eine verspätete Rückgabe$/) do
   jump_to_date = @current_user.contract_lines.to_take_back.first.end_date + 1.day
   back_to_the_future(jump_to_date)

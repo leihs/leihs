@@ -1,0 +1,22 @@
+.modal.medium.hide.fade.ui-modal.padding-inset-m.padding-horizontal-l{:role => "dialog", :tabindex => "-1"}
+
+  %form
+
+    .row.padding-vertical-m
+      .col1of2
+        %h3.headline-l {{jed "Edit Purpose"/}}
+
+      .col1of2
+        .float-right
+          %a.modal-close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button", :title => '{{jed "close dialog"/}}', :class => "weak"}
+            Abbrechen
+          %button.button.white.text-ellipsis{:type => :submit}
+            {{jed "Save"/}}
+
+    #errors.padding-vertical-m.hidden
+      .row.emboss.red.text-align-center.font-size-m.padding-inset-s
+        %strong
+
+    .row.padding-top-m
+
+      %textarea.col1of1.height-s{:name => :purpose, :autofocus => :autofocus} {{>description}}

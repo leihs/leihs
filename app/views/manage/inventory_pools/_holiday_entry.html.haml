@@ -1,0 +1,14 @@
+.row.line.font-size-xs{:"data-index" => i}
+  - if holiday_entry._destroy
+    %input{:type => :hidden, :name => "inventory_pool[holidays_attributes][#{i}][_destroy]", :value => 1}
+  - if holiday_entry.id
+    %input{:type => :hidden, :name => "inventory_pool[holidays_attributes][#{i}][id]", :value => holiday_entry.id}
+  %input{:type => :hidden, :name => "inventory_pool[holidays_attributes][#{i}][name]", :value => holiday_entry.name}
+  %input{:type => :hidden, :name => "inventory_pool[holidays_attributes][#{i}][start_date]", :value => holiday_entry.start_date}
+  %input{:type => :hidden, :name => "inventory_pool[holidays_attributes][#{i}][end_date]", :value => holiday_entry.end_date}
+  .line-col.col1of4.text-align-left
+    %strong= holiday_entry.name
+  .line-col.col2of4.text-align-left
+    = "#{holiday_entry.start_date} - #{holiday_entry.end_date}"
+  .line-col.col1of4
+    %button.button.inset.small{:"data-remove-holiday" => true}= _("Delete")

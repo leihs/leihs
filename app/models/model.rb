@@ -13,7 +13,7 @@ class Model < ActiveRecord::Base
   include ModelModules::Filter
 
   before_destroy do
-    if is_package? and order_lines.empty? and contract_lines.empty?
+    if is_package? and contract_lines.empty?
       items.destroy_all
     end
   end
@@ -51,7 +51,6 @@ class Model < ActiveRecord::Base
   # MySQL View based on partitions and items
   has_many :partitions_with_generals
 
-  has_many :order_lines, dependent: :restrict
   has_many :contract_lines, dependent: :restrict
   has_many :properties, :dependent => :destroy
   accepts_nested_attributes_for :properties, :allow_destroy => true
@@ -195,7 +194,7 @@ class Model < ActiveRecord::Base
   end
 
   def lines
-    order_lines.submitted + contract_lines
+    contract_lines
   end
   
   def needs_permission
@@ -207,9 +206,9 @@ class Model < ActiveRecord::Base
 
 #############################################  
 
-  # returns an array of document_lines
-  def add_to_document(document, user_id, quantity = nil, start_date = nil, end_date = nil, inventory_pool = nil)
-    document.add_lines(quantity, self, user_id, start_date, end_date, inventory_pool)
+  # returns an array of contract_lines
+  def add_to_contract(contract, user_id, quantity = nil, start_date = nil, end_date = nil)
+    contract.add_lines(quantity, self, user_id, start_date, end_date)
   end
 
 #############################################
@@ -218,6 +217,7 @@ class Model < ActiveRecord::Base
     groups = user.groups.with_general
     if inventory_pool
       inventory_pool.partitions_with_generals.hash_for_model_and_groups(self, groups).values.sum
+      #tmp# inventory_pool.partitions_with_generals.where(model_id: id, group_id: groups).sum(:quantity)
     else
       inventory_pools.sum {|ip| ip.partitions_with_generals.hash_for_model_and_groups(self, groups).values.sum }
     end

@@ -1,0 +1,29 @@
+%label.row
+  {{if ~field.getValue(~itemData, ~field.attribute, true)}}
+  %input{:type => "hidden", :name => "{{>~field.getFormName()}}", :value => "{{>~field.getValue(~itemData, ~field.attribute, true)}}"}
+  %input.has-addon.width-full{:type => "text", :autocomplete => :off,
+        :placeholder => "{{>~field.getLabel()}}",
+        :title => "{{>~field.getLabel()}}",
+        :value => "{{>~field.getItemValueLabel(~field.value_label, ~itemData)}}",
+        :data => { :url => "{{>~field.search_path}}", :type => "autocomplete",
+                   :autocomplete_search_attr => "{{>~field.search_attr}}",
+                   :autocomplete_element_tmpl => "views/autocomplete/element",
+                   :autocomplete_value_target => '{{>~field.getFormName()}}',
+                   :autocomplete_display_attribute => "{{>~field.display_attr}}",
+                   :autocomplete_value_attribute => "{{>~field.value_attr}}",
+                   :autocomplete_blur_on_select => "true"}}
+  {{else}}
+  %input{:type => "hidden", :name => "{{>~field.getFormName()}}"}
+  %input.has-addon.width-full{:type => "text", :autocomplete => :off,
+          :placeholder => "{{>~field.getLabel()}}",
+          :title => "{{>~field.getLabel()}}",
+          :data => { :url => "{{>~field.search_path}}", :type => "autocomplete",
+                     :autocomplete_search_attr => "{{>~field.search_attr}}",
+                     :autocomplete_element_tmpl => "views/autocomplete/element",
+                     :autocomplete_value_target => '{{>~field.getFormName()}}',
+                     :autocomplete_display_attribute => "{{>~field.display_attr}}",
+                     :autocomplete_value_attribute => "{{>~field.value_attr}}",
+                     :autocomplete_blur_on_select => "true" }}
+  {{/if}}
+  .addon.transparent
+    %i.arrow.down

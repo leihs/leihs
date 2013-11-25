@@ -1,0 +1,24 @@
+%div{:class => "line row focus-hover-thin{{if availability().maxAvailableForGroups(~startDate, ~endDate, ~groupIds) <= 0}} grayed-out{{/if}}",:"data-type" => "model", :"data-id" => "{{>id}}"}
+  
+  .col1of10.line-col.no-padding.text-align-center
+    .table
+      .table-row
+        .table-cell.vertical-align-middle
+          %img.max-width-xxs.max-height-xxs{:src => "/models/{{>id}}/image_thumb"}
+
+  .col5of10.line-col.text-align-left
+    {{if is_package}}
+    .grey-text {{jed 'Package'/}}
+    {{/if}}
+    %strong 
+      {{> name}}
+
+  .col2of10.line-col.no-padding.text-align-center
+    %span{:title => "{{jed 'Available for borrower'/}}"} {{>availability().maxAvailableForGroups(~startDate, ~endDate, ~groupIds)}}
+    %span{:title => "{{jed 'Available in total'/}}"} ({{>availability().maxAvailableInTotal(~startDate, ~endDate)}})
+    \/
+    %span{:title => "{{jed 'Borrowable items'/}}"} {{>availability().total_rentable}}
+
+  .col2of10.line-col.line-actions.padding-right-s.text-align-center
+    %a.button.white{:"data-type" => "select"}
+      {{jed "Select"/}}

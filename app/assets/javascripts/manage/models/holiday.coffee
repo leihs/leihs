@@ -1,0 +1,1 @@
+window.App.Holiday.url = => "/manage/#{App.InventoryPool.current.id}/holidays"

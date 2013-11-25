@@ -11,7 +11,7 @@ class CreatePurposes < ActiveRecord::Migration
       t.belongs_to :purpose
     end
 
-    [Order, Contract].each do |k|
+    [Contract].each do |k|
       k.all.each do |x|
         description = x.read_attribute(:purpose)
         next if description.nil?

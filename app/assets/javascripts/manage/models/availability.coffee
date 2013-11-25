@@ -1,0 +1,1 @@
+window.App.Availability.url = => "/manage/#{App.InventoryPool.current.id}/availabilities"

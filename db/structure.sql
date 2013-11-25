@@ -65,55 +65,11 @@ CREATE TABLE `authentication_systems` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE `backup_order_lines` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `model_id` int(11) DEFAULT NULL,
-  `order_id` int(11) DEFAULT NULL,
-  `inventory_pool_id` int(11) DEFAULT NULL,
-  `quantity` int(11) DEFAULT NULL,
-  `start_date` date DEFAULT NULL,
-  `end_date` date DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `index_backup_order_lines_on_order_id` (`order_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-CREATE TABLE `backup_orders` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `inventory_pool_id` int(11) DEFAULT NULL,
-  `status_const` int(11) DEFAULT '1',
-  `purpose` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `delta` tinyint(1) DEFAULT '1',
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `index_backup_orders_on_inventory_pool_id` (`inventory_pool_id`),
-  KEY `index_backup_orders_on_order_id` (`order_id`),
-  KEY `index_backup_orders_on_status_const` (`status_const`),
-  KEY `index_backup_orders_on_user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
 CREATE TABLE `buildings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-CREATE TABLE `comments` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `comment` text COLLATE utf8_unicode_ci,
-  `created_at` datetime DEFAULT NULL,
-  `commentable_id` int(11) NOT NULL,
-  `commentable_type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `index_comments_on_commentable_id_and_commentable_type` (`commentable_id`,`commentable_type`),
-  KEY `index_comments_on_user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `contract_lines` (
@@ -146,18 +102,15 @@ CREATE TABLE `contracts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `inventory_pool_id` int(11) DEFAULT NULL,
-  `status_const` int(11) DEFAULT '1',
-  `purpose` text COLLATE utf8_unicode_ci,
   `note` text COLLATE utf8_unicode_ci,
-  `delta` tinyint(1) DEFAULT '1',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `handed_over_by_user_id` int(11) DEFAULT NULL,
+  `status` enum('unsubmitted','submitted','rejected','approved','signed','closed') COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_contracts_on_delta` (`delta`),
   KEY `index_contracts_on_inventory_pool_id` (`inventory_pool_id`),
-  KEY `index_contracts_on_status_const` (`status_const`),
-  KEY `index_contracts_on_user_id` (`user_id`)
+  KEY `index_contracts_on_user_id` (`user_id`),
+  KEY `index_contracts_on_status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `database_authentications` (
@@ -175,11 +128,9 @@ CREATE TABLE `groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `inventory_pool_id` int(11) DEFAULT NULL,
-  `delta` tinyint(1) DEFAULT '1',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_groups_on_delta` (`delta`),
   KEY `index_groups_on_inventory_pool_id` (`inventory_pool_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -243,12 +194,10 @@ CREATE TABLE `inventory_pools` (
   `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `color` text COLLATE utf8_unicode_ci,
   `print_contracts` tinyint(1) DEFAULT '1',
-  `delta` tinyint(1) DEFAULT '1',
   `opening_hours` text COLLATE utf8_unicode_ci,
   `address_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `index_inventory_pools_on_name` (`name`),
-  KEY `index_inventory_pools_on_delta` (`delta`)
+  UNIQUE KEY `index_inventory_pools_on_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `inventory_pools_model_groups` (
@@ -283,14 +232,12 @@ CREATE TABLE `items` (
   `insurance_number` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   `name` text COLLATE utf8_unicode_ci,
-  `delta` tinyint(1) DEFAULT '1',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `user_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `properties` varchar(2048) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_items_on_inventory_code` (`inventory_code`),
-  KEY `index_items_on_delta` (`delta`),
   KEY `index_items_on_inventory_pool_id` (`inventory_pool_id`),
   KEY `index_items_on_retired` (`retired`),
   KEY `index_items_on_is_borrowable` (`is_borrowable`),
@@ -318,9 +265,7 @@ CREATE TABLE `locations` (
   `room` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `shelf` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `building_id` int(11) DEFAULT NULL,
-  `delta` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `index_locations_on_delta` (`delta`),
   KEY `index_locations_on_building_id` (`building_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -341,11 +286,9 @@ CREATE TABLE `model_groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `delta` tinyint(1) DEFAULT '1',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_model_groups_on_delta` (`delta`),
   KEY `index_model_groups_on_type` (`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -370,12 +313,10 @@ CREATE TABLE `models` (
   `maintenance_period` int(11) DEFAULT '0',
   `is_package` tinyint(1) DEFAULT '0',
   `technical_detail` text COLLATE utf8_unicode_ci,
-  `delta` tinyint(1) DEFAULT '1',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `hand_over_note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`),
-  KEY `index_models_on_delta` (`delta`),
   KEY `index_models_on_is_package` (`is_package`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -407,47 +348,8 @@ CREATE TABLE `options` (
   `inventory_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `price` decimal(8,2) DEFAULT NULL,
-  `delta` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `index_options_on_delta` (`delta`),
   KEY `index_options_on_inventory_pool_id` (`inventory_pool_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-CREATE TABLE `order_lines` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `model_id` int(11) DEFAULT NULL,
-  `order_id` int(11) DEFAULT NULL,
-  `inventory_pool_id` int(11) DEFAULT NULL,
-  `quantity` int(11) DEFAULT '1',
-  `start_date` date DEFAULT NULL,
-  `end_date` date DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `purpose_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `index_order_lines_on_start_date` (`start_date`),
-  KEY `index_order_lines_on_end_date` (`end_date`),
-  KEY `index_order_lines_on_inventory_pool_id` (`inventory_pool_id`),
-  KEY `index_order_lines_on_model_id` (`model_id`),
-  KEY `index_order_lines_on_order_id` (`order_id`),
-  KEY `index_order_lines_on_created_at` (`created_at`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-CREATE TABLE `orders` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `inventory_pool_id` int(11) DEFAULT NULL,
-  `status_const` int(11) DEFAULT '1',
-  `purpose` text COLLATE utf8_unicode_ci,
-  `delta` tinyint(1) DEFAULT '1',
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `index_orders_on_delta` (`delta`),
-  KEY `index_orders_on_inventory_pool_id` (`inventory_pool_id`),
-  KEY `index_orders_on_status_const` (`status_const`),
-  KEY `index_orders_on_user_id_and_status_const` (`user_id`,`status_const`),
-  KEY `index_orders_on_created_at` (`created_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `partitions` (
@@ -481,9 +383,7 @@ CREATE TABLE `roles` (
   `lft` int(11) DEFAULT NULL,
   `rgt` int(11) DEFAULT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `delta` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `index_roles_on_delta` (`delta`),
   KEY `index_roles_on_parent_id` (`parent_id`),
   KEY `index_roles_on_lft` (`lft`),
   KEY `index_roles_on_rgt` (`rgt`),
@@ -509,6 +409,9 @@ CREATE TABLE `settings` (
   `user_image_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `ldap_config` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `logo_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mail_delivery_method` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `smtp_username` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `smtp_password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -536,12 +439,10 @@ CREATE TABLE `users` (
   `country` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `language_id` int(11) DEFAULT NULL,
   `extended_info` text COLLATE utf8_unicode_ci,
-  `delta` tinyint(1) DEFAULT '1',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `settings` varchar(1024) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_users_on_delta` (`delta`),
   KEY `index_users_on_authentication_system_id` (`authentication_system_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -583,13 +484,19 @@ INSERT INTO schema_migrations (version) VALUES ('20110815110417');
 
 INSERT INTO schema_migrations (version) VALUES ('20110921134810');
 
-INSERT INTO schema_migrations (version) VALUES ('20111118141748');
-
 INSERT INTO schema_migrations (version) VALUES ('20111123154235');
+
+INSERT INTO schema_migrations (version) VALUES ('20111215221843');
 
 INSERT INTO schema_migrations (version) VALUES ('20120106214650');
 
+INSERT INTO schema_migrations (version) VALUES ('20120301140904');
+
 INSERT INTO schema_migrations (version) VALUES ('20120424080000');
+
+INSERT INTO schema_migrations (version) VALUES ('20120424080001');
+
+INSERT INTO schema_migrations (version) VALUES ('20120427113142');
 
 INSERT INTO schema_migrations (version) VALUES ('20120523134739');
 
@@ -601,15 +508,13 @@ INSERT INTO schema_migrations (version) VALUES ('20120806140527');
 
 INSERT INTO schema_migrations (version) VALUES ('20120806203246');
 
-INSERT INTO schema_migrations (version) VALUES ('20120807101549');
+INSERT INTO schema_migrations (version) VALUES ('20120806203332');
 
 INSERT INTO schema_migrations (version) VALUES ('20120921102118');
 
 INSERT INTO schema_migrations (version) VALUES ('20121109141157');
 
 INSERT INTO schema_migrations (version) VALUES ('20130111105833');
-
-INSERT INTO schema_migrations (version) VALUES ('20130704160000');
 
 INSERT INTO schema_migrations (version) VALUES ('20130729120232');
 
@@ -618,3 +523,13 @@ INSERT INTO schema_migrations (version) VALUES ('20130730145452');
 INSERT INTO schema_migrations (version) VALUES ('20130823104438');
 
 INSERT INTO schema_migrations (version) VALUES ('20130906084646');
+
+INSERT INTO schema_migrations (version) VALUES ('20130923141326');
+
+INSERT INTO schema_migrations (version) VALUES ('20130924180000');
+
+INSERT INTO schema_migrations (version) VALUES ('20130924180001');
+
+INSERT INTO schema_migrations (version) VALUES ('20131118144431');
+
+INSERT INTO schema_migrations (version) VALUES ('20131121171123');

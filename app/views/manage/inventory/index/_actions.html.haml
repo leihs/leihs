@@ -1,0 +1,18 @@
+.text-align-right
+  %a.button.white#csv-export{:href => manage_inventory_csv_export_path(current_inventory_pool), :target => "_blank"}
+    %i.icon-table.vertical-align-middle
+    = _("CSV export")
+  .dropdown-holder.inline-block
+    .button.white.dropdown-toggle
+      = _("Add inventory")
+      .arrow.down
+    %ul.dropdown.right
+      %li
+        %a.dropdown-item{:href => manage_new_model_path(current_inventory_pool)}
+          = _("Model")
+      %li
+        %a.dropdown-item{:href => manage_new_item_path(current_inventory_pool)}
+          = _("Item")
+      %li
+        %a.dropdown-item{:href => manage_new_option_path(current_inventory_pool)}
+          = _("Option")

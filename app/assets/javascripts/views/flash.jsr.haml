@@ -1,0 +1,11 @@
+%div{:class => "paragraph-m row emboss straight text-align-center padding-inset-xs {{>type}}"}
+  %strong {{>message}}
+  {{if loading}}
+  %img.max-width-micro.max-height-micro{:src => image_path("loading.gif")}
+  {{/if}}
+
+  %a.no-colors.transparent-hover.position-absolute-topright.height-full.padding-horizontal-m{:"data-remove" => "true", :title => "{{jed 'Hide notification'/}}"}
+    .table
+      .table-row
+        .table-cell.vertical-align-middle
+          %i.icon-remove-sign

@@ -41,13 +41,15 @@ class Field < ActiveHash::Base
       label: "Name",
       attribute: "name",
       type: "text",
-      group: "General Information"
+      group: "General Information",
+      forPackage: true
     },{
       id: 6,
       label: "Note",
       attribute: "note",
       type: "textarea",
-      group: "General Information"
+      group: "General Information",
+      forPackage: true
     },{
       id: 7,
       label: "Retirement",
@@ -73,7 +75,8 @@ class Field < ActiveHash::Base
       type: "radio",
       values: [{label: "OK", value: false}, {label: "Broken", value: true}],
       default: false,
-      group: "Status"
+      group: "Status",
+      forPackage: true
     },{
       id: 10,
       label: "Completeness",
@@ -81,7 +84,8 @@ class Field < ActiveHash::Base
       type: "radio",
       values: [{label: "OK", value: false}, {label: "Incomplete", value: true}],
       default: false,
-      group: "Status"
+      group: "Status",
+      forPackage: true
     },{
       id: 11,
       label: "Borrowable",
@@ -89,26 +93,30 @@ class Field < ActiveHash::Base
       type: "radio",
       values: [{label: "OK", value: true}, {label: "Unborrowable", value: false}],
       default: false,
-      group: "Status"
+      group: "Status",
+      forPackage: true
     },{
       id: 12,
       label: "Building",
       attribute: ["location", "building_id"],
       type: "autocomplete",
       values: lambda{([{:value => nil, :label => _("None")}] + Building.all.map {|x| {:value => x.id, :label => x.to_s}}).as_json},
-      group: "Location"
+      group: "Location",
+      forPackage: true
     },{
       id: 13,
       label: "Room",
       attribute: ["location", "room"],
       type: "text",
-      group: "Location"
+      group: "Location",
+      forPackage: true
     },{
       id: 14,
       label: "Shelf",
       attribute: ["location", "shelf"],
       type: "text",
-      group: "Location"
+      group: "Location",
+      forPackage: true
     },{
       id: 15,
       label: "Relevant for inventory",
@@ -117,7 +125,8 @@ class Field < ActiveHash::Base
       permissions: {level: 3, owner: true},
       values: [{label: "No", value: false}, {label: "Yes", value: true}],
       default: true,
-      group: "Inventory"
+      group: "Inventory",
+      forPackage: true
     },{
       id: 36,
       label: "Anschaffungskategorie",
@@ -145,7 +154,8 @@ class Field < ActiveHash::Base
       permissions: {level: 2, owner: true},
       default: lambda{Date.today.as_json},
       type: "date",
-      group: "Inventory"
+      group: "Inventory",
+      forPackage: true
     },{
       id: 18,
       label: "Responsible department",
@@ -153,21 +163,24 @@ class Field < ActiveHash::Base
       type: "autocomplete",
       values: lambda{([{:value => nil, :label => _("None")}] + InventoryPool.all.map {|x| {:value => x.id, :label => x.name}}).as_json},
       permissions: {level: 3, owner: true},
-      group: "Inventory"
+      group: "Inventory",
+      forPackage: true
     },{
       id: 19,
       label: "Responsible person",
       attribute: "responsible",
       permissions: {level: 2, owner: true},
       type: "text",
-      group: "Inventory"
+      group: "Inventory",
+      forPackage: true
     },{
       id: 20,
       label: "User/Typical usage",
       attribute: "user_name",
       permissions: {level: 3, owner: true},
       type: "text",
-      group: "Inventory"
+      group: "Inventory",
+      forPackage: true
     },{
       id: 21,
       label: "Reference",
@@ -208,7 +221,8 @@ class Field < ActiveHash::Base
       attribute: "price",
       permissions: {level: 2, owner: true},
       type: "text",
-      group: "Invoice Information"
+      group: "Invoice Information",
+      forPackage: true
     },{
       id: 27,
       label: "Supplier",
@@ -278,8 +292,8 @@ class Field < ActiveHash::Base
       form_name: "model_id",
       required: true,
       type: "autocomplete-search",
-      search_path: lambda{|current_inventory_pool| Rails.application.routes.url_helpers.backend_inventory_pool_models_path(current_inventory_pool)},
-      search_attr: "query",
+      search_path: lambda{|current_inventory_pool| Rails.application.routes.url_helpers.manage_models_path(current_inventory_pool, {all: true})},
+      search_attr: "search_term",
       value_attr: "id",
       display_attr: "name",
       group: nil
@@ -344,7 +358,6 @@ class Field < ActiveHash::Base
   def editable(user, inventory_pool, item)
     return true unless self.permissions
 
-    return false if self[:readonly]
     return false if self[:permissions][:level] and not user.has_at_least_access_level self[:permissions][:level], inventory_pool
     return false if self[:permissions][:owner] and item.owner != inventory_pool
 

@@ -1,0 +1,53 @@
+-content_for :title, _("List of Visits")
+-content_for :lending_section, "active"
+#visits-index-view.wrapper.margin-top-m
+
+  = render :partial => 'manage/tabs/lending', :locals => {:active_tab => :visits}
+
+  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+    .margin-top-l.padding-horizontal-m
+      .row
+        %h1.headline-xl= _("List of Visits")
+
+    .row.margin-top-l
+      
+      #list-tabs.inline-tab-navigation
+
+        %a.inline-tab-item.active{:"data-actions" => ["hand_over", "take_back"]}
+          = _("All")
+
+        %a.inline-tab-item{:"data-actions" => ["hand_over"]}
+          = _("Hand Over")
+
+        %a.inline-tab-item{:"data-actions" => ["take_back"]}
+          = _("Take Back")
+
+      .row.margin-vertical-xs.padding-horizontal-m
+
+        .col2of6.padding-right-s
+          %input#list-search.width-full{type: "text", name: "input", placeholder: _("Search..."), autocomplete: :off}
+
+        #list-range.col2of6.padding-right-s
+          .col4of10
+            %label.row
+              %input.has-addon{type: "text", name: "start_date", placeholder: _("from"), autocomplete: :off}
+              %span.addon
+                %i.icon-calendar
+          .col1of10.text-align-center
+            .padding-top-s= "-"
+          .col4of10
+            %label.row
+              %input.has-addon{type: "text", name: "end_date", placeholder: _("to"), autocomplete: :off}
+              %span.addon
+                %i.icon-calendar
+
+      #visits.list-of-lines.even.separated-top.padding-bottom-s.min-height-l
+        .height-s
+        %img.margin-horziontal-auto.margin-top-xxl.margin-bottom-xxl{:src => asset_path("loading.gif")}
+
+:coffeescript
+
+  jQuery ->
+    new App.VisitsIndexController
+      el: $("#visits-index-view")

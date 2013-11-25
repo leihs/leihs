@@ -1,0 +1,16 @@
+%nav.float-right
+
+  %ul
+
+    %li
+      .dropdown-holder
+        .navigation-tab-item.margin-right-xxs.padding-horizontal-m.text-ellipsis.max-width-m{:title => current_inventory_pool.try(&:name)}
+          - if current_inventory_pool
+            = current_inventory_pool
+            %i.arrow.down.margin-left-xs
+          - else
+            %span.italic.grey-text= _("Please select an inventory pool")
+            %i.arrow.grey.down.margin-left-xs
+        .dropdown.right.width-m
+          - current_managed_inventory_pools.each do |ip|
+            %a.dropdown-item.text-ellipsis{:title => ip, :href => manage_root_path(:inventory_pool_id => ip.id)}= ip

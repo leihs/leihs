@@ -79,10 +79,14 @@ Given /^all contracts and contract lines are deleted$/ do
   ContractLine.delete_all
 end
 
+Given /^there are open contracts for all users$/ do
+  @open_contracts = User.all.map { |user|
+    FactoryGirl.create :contract_with_lines, :user => user, :inventory_pool => @ip, :status => :approved
+  }
+end
+
 Given /^there are open contracts for all users of a specific inventory pool$/ do
-  @open_contracts = User.all.map do |user|
-    FactoryGirl.create :contract_with_lines, :user => user, :inventory_pool => @ip
-  end
+  step "there are open contracts for all users"
 end
 
 Given /^every contract has a different start date$/ do
@@ -102,7 +106,7 @@ Then /^the result is a set of contract lines that are associated with the users'
 end
 
 Given /^there is an open contract with lines for a user$/ do
-  @open_contract = FactoryGirl.create :contract_with_lines, :user => User.first, :inventory_pool => @ip
+  @open_contract = FactoryGirl.create :contract_with_lines, :user => User.first, :inventory_pool => @ip, :status => :approved
 end
 
 Given /^the first contract line starts on the same date as the second one$/ do
@@ -122,13 +126,13 @@ Then /^the first two contract lines should now be grouped inside the first visit
 end
 
 Given /^there are 2 different contracts for 2 different users$/ do
-  @open_contract  = LeihsFactory.create_contract( {:user => User.first}, {:contract_lines => 1 } )
-  @open_contract2 = LeihsFactory.create_contract( {:user => User.last}, {:contract_lines => 1 } )
+  @open_contract  = FactoryGirl.create :contract_with_lines, :user => User.first, :inventory_pool => @ip, :status => :approved, :lines_count => 1
+  @open_contract2 = FactoryGirl.create :contract_with_lines, :user => User.last, :inventory_pool => @ip, :status => :approved, :lines_count => 1
 end
 
 Given /^there are 2 different contracts with lines for 2 different users$/ do
-  @open_contract  = FactoryGirl.create :contract_with_lines, :user => User.first, :inventory_pool => @ip
-  @open_contract2 = FactoryGirl.create :contract_with_lines, :user => User.last, :inventory_pool => @ip
+  @open_contract  = FactoryGirl.create :contract_with_lines, :user => User.first, :inventory_pool => @ip, :status => :approved
+  @open_contract2 = FactoryGirl.create :contract_with_lines, :user => User.last, :inventory_pool => @ip, :status => :approved
 end
 
 Then /^there are 2 hand over visits for the given inventory pool$/ do
@@ -161,12 +165,6 @@ Then /^there should be different visits for 2 users with same start and end date
                2
              end
   @ip.visits.hand_over.reload.count.should equal(expected)
-end
-
-Given /^there are open contracts for all users$/ do
-  @open_contracts = User.all.map { |user|
-    FactoryGirl.create :contract_with_lines, :user => user, :inventory_pool => @ip 
-  }
 end
 
 Given /^make sure no end date is identical to any other$/ do

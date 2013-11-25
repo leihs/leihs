@@ -1,0 +1,36 @@
+$dark: darken(#F3F1EB,2%)
+$light: lighten(#F3F1EB,1%)
+
+.list-of-lines.even .group-of-lines
+  
+  .line:nth-child(odd)
+    background: $dark
+
+  .line:nth-child(even)
+    background: $light
+
+.list-of-lines.even .line:nth-child(odd) + .group-of-lines
+
+  .line:nth-child(even)
+    background: $dark
+
+  .line:nth-child(odd)
+    background: $light
+
+.list-of-lines.even .group-of-lines 
+
+  .line:nth-child(even) + .group-of-lines
+  
+    &>.line:nth-child(odd)
+      background: $light !important
+
+    &>.line:nth-child(even)
+      background: $dark !important
+
+  .line:nth-child(odd) + .group-of-lines
+  
+    &>.line:nth-child(odd)
+      background: $dark !important
+
+    &>.line:nth-child(even)
+      background: $light !important

@@ -1,53 +1,45 @@
-#statistics.innercontent
+- content_for :title, _("Statistics")
 
-  .top
-    %h1= _("Statistics")
+.wrapper.margin-top-m
 
-  .indent#process_helper{:style => "float: none; text-align: right;"}
-    = form_tag statistics_path, :method => :get do
-      .dates
-        .container
-          %input{:type => "text", :name => "start_date", :id => "add_start_date", :title => _("Start Date"), :value => "#{params[:start_date]}"}
-          %label{:for => "add_start_date"}
-            = _("Start Date")
-          %label.datepicker.icon{:for => "add_start_date", :title => _("Open Datepicker")}
-        = "-"
-        .container
-          %input{:type => "text", :name => "end_date", :id => "add_end_date", :title => _("End Date"), :value => "#{params[:end_date]}"}
-          %label{:for => "add_end_date"}
-            = _("End Date")
-          %label.datepicker.icon{:for => "add_end_date", :title => _("Open Datepicker")} 
-      = submit_tag _("Filter"), :class => "button"
-  .clear
- 
-  %section
-    .inlinetabs
-      .tab.active{:disabled => true}
-        %span.text
-          = _("Who borrowed the most things?")
-    .list.users
-  
-  %section
-    .inlinetabs
-      .tab.active{:disabled => true}
-        %span.text
-          = _("Which inventory pool is busiest?")
-    .list.inventory_pools
-  
-  %section
-    .inlinetabs
-      .tab.active{:disabled => true}
-        %span.text
-          = _("Who bought the most items?")
-    .list.item_values
+  .row.content-wrapper.min-height-xl.min-width-full
 
+    .row.margin-top-l.padding-horizontal-m
+
+      .row
+        %h1.headline-l.float-left= yield :title
+
+      .row
+        = form_tag statistics_path, :method => :get do
+          %label{:for => "add_start_date"}= _("Start Date")
+          %label
+            %input.has-addon.datepicker{:type => "text", :name => "start_date", :id => "add_start_date", :title => _("Start Date"), :value => params[:start_date]}
+            .addon
+              %i.icon-calendar
+          = "-"
+          %label{:for => "add_end_date"}= _("End Date")
+          %label
+            %input.has-addon.datepicker{:type => "text", :name => "end_date", :id => "add_end_date", :title => _("End Date"), :value => params[:end_date]}
+            .addon
+              %i.icon-calendar
+          = submit_tag _("Filter"), :class => "button"
+
+      .row.emboss.margin-vertical-s
+        %h1.headline-l.float-left= _("Who borrowed the most things?")
+        .list.users
+          = render partial: "statistics/show/line", collection: @list_1
+
+
+      .row.emboss.margin-vertical-s
+        %h1.headline-l.float-left= _("Which inventory pool is busiest?")
+        .list.inventory_pools
+          = render partial: "statistics/show/line", collection: @list_2
+
+      .row.emboss.margin-vertical-s
+        %h1.headline-l.float-left= _("Who bought the most items?")
+        .list.item_values
+          = render partial: "statistics/show/line", collection: @list_3
 
 :coffeescript
   jQuery ->
-    $('#statistics .users').append $.tmpl("tmpl/line", #{@list_1.to_json})
-    $('#statistics .inventory_pools').append $.tmpl("tmpl/line", #{@list_2.to_json})
-    $('#statistics .item_values').append $.tmpl("tmpl/line", #{@list_3.to_json})
-
-    $(".toggle[data-toggle_target]").expandable_line()
-    $(".dates input").datepicker()
-
+    $(".datepicker").datepicker()

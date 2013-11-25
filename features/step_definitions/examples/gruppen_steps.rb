@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
 
 Angenommen(/^ich befinde mich im Admin\-Bereich im Reiter Gruppen$/) do
-  visit backend_inventory_pool_groups_path(@current_inventory_pool)
+  visit manage_inventory_pool_groups_path(@current_inventory_pool)
 end
 
 Dann(/^sehe ich die Liste der Gruppen$/) do
   @current_inventory_pool.groups.reload.each do |group|
-    find(".line .name", :text => group.name)
+    find(".list-of-lines .line strong", :text => group.name)
   end
 end
 
@@ -24,11 +24,11 @@ Dann(/^die Anzahl der zugeteilten Modell\-Kapazitäten$/) do
 end
 
 Dann(/^die Liste ist alphabetisch sortiert$/) do
-  (all(".line .name").map(&:text).to_json == Group.all.map(&:name).sort.to_json).should be_true
+  (all(".list-of-lines .line strong").map(&:text).to_json == Group.all.map(&:name).sort.to_json).should be_true
 end
 
 Wenn(/^ich eine Gruppe erstelle$/) do
-  find(".button", :text => _("Create %s") % _("Group")).click
+  find(".button", :text => _("New Group")).click
 end
 
 Wenn(/^den Namen der Gruppe angebe$/) do
@@ -39,9 +39,8 @@ end
 Wenn(/^die Benutzer hinzufüge$/) do
   @users = @current_inventory_pool.users.customers
   @users.each do |user|
-   fill_in "add-user", :with => user.name
-   find(".ui-menu-item")
-   first(".ui-menu-item a", :text => user.name).click
+    find("input[data-search-users]").set user.name
+    find(".ui-menu-item a", match: :prefer_exact, :text => user.name).click
   end
 end
 
@@ -49,23 +48,18 @@ Wenn(/^die Modelle und deren Kapazität hinzufüge$/) do
   @models = @current_inventory_pool.models[0..2]
   @partitions = []
   @models.each do |model|
-    fill_in "add-model", :with => model.name
-    page.should have_selector(".ui-menu-item a", :text => model.name)
-    first(".ui-menu-item a", :text => model.name).click
+    find("input[data-search-models]").set model.name
+    find(".ui-menu-item a", match: :prefer_exact, :text => model.name).click
     borrowable_items = model.items.where(:inventory_pool_id => @current_inventory_pool.id).borrowable.size - 1
     partition = {:model_id => model.id, :quantity => (borrowable_items.zero? ? 0 : rand(borrowable_items)) + 1}
     @partitions.push partition
-    find(".field-inline-entry", :text => model.name).fill_in "group[partitions_attributes][][quantity]", :with => partition[:quantity]
+    find(".list-of-lines .line", text: model.name).fill_in "group[partitions_attributes][][quantity]", :with => partition[:quantity]
   end
 end
 
-Wenn(/^ich speichere die Gruppe$/) do
-  find(".button", :text => _("Save %s") % _("Group")).click
-end
-
 Dann(/^ist die Gruppe gespeichert$/) do
-  page.should have_selector ".success"
   @group = Group.find_by_name @name
+  @group.should_not be_nil
 end
 
 Dann(/^die Benutzer und Modelle mit deren Kapazitäten sind zugeteilt$/) do
@@ -79,12 +73,12 @@ Dann(/^ich sehe die Gruppenliste alphabetisch sortiert$/) do
 end
 
 Dann(/^ich sehe eine Bestätigung$/) do
-  find(".notification")
+  find("#flash .success")
 end
 
 Wenn(/^ich eine bestehende Gruppe editiere$/) do
   @group = @current_inventory_pool.groups.find {|g| g.models.length >= 2 and g.users.length >= 2}
-  visit edit_backend_inventory_pool_group_path @group.inventory_pool_id, @group
+  visit manage_edit_inventory_pool_group_path @group.inventory_pool_id, @group
 end
 
 Wenn(/^ich den Namen der Gruppe ändere$/) do
@@ -94,25 +88,24 @@ end
 
 Wenn(/^die Benutzer hinzufüge und entferne$/) do
   all("[name*='users'][name*='id']", visible: false).each do |existing_user_line|
-    existing_user_line.first(:xpath, "./..").find(".clickable", :text => _("Remove")).click
+    existing_user_line.first(:xpath, "./..").find(".button[data-remove-user]", :text => _("Remove")).click
   end
   user = (@current_inventory_pool.users-@group.users).shuffle.first
   @users = [user]
-  fill_in "add-user", :with => user.name
-  find(".ui-menu-item")
-  first(".ui-menu-item a", :text => user.name).click
+  find("input[data-search-users]").set user.name
+  find(".ui-menu-item a", match: :prefer_exact, :text => user.name).click
 end
 
 Wenn(/^die Modelle und deren Kapazität hinzufüge und entferne$/) do
   all("[name='group[partitions_attributes][][quantity]']").each do |existing_partition_line|
-    existing_partition_line.first(:xpath, "./../..").find(".clickable", :text => _("Remove")).click
+    existing_partition_line.first(:xpath, "./../../..").find(".button[data-remove-group]", :text => _("Remove")).click
   end
   model = (@current_inventory_pool.models-@group.models).first
-  fill_in "add-model", :with => model.name
-  find(".ui-menu-item a", :text => model.name, match: :first).click
+  find("input[data-search-models]").set model.name
+  find(".ui-menu-item a", match: :prefer_exact, :text => model.name).click
   partition = {:model_id => model.id, :quantity => rand(model.items.where(:inventory_pool_id => @current_inventory_pool.id).borrowable.size-1)+1}
   @partitions = [partition]
-  find(".field-inline-entry", :text => model.name).fill_in "group[partitions_attributes][][quantity]", :with => partition[:quantity]
+  find(".list-of-lines .line", :text => model.name).fill_in "group[partitions_attributes][][quantity]", :with => partition[:quantity]
 end
 
 Dann(/^ich sehe die Gruppenliste$/) do
@@ -128,10 +121,11 @@ end
 
 Wenn(/^ich eine Gruppe lösche$/) do
   @group = @current_inventory_pool.groups.detect &:can_destroy?
-  visit backend_inventory_pool_groups_path @current_inventory_pool
-  find("ul.line", text: @group.name)
-  page.execute_script("$('.trigger .arrow').trigger('mouseover');")
-  find("ul.line", text: @group.name).find(".button", text: _("Delete %s") % _("Group")).click
+  visit manage_inventory_pool_groups_path @current_inventory_pool
+  within(".list-of-lines .line", text: @group.name) do
+    find(".multibutton .dropdown-toggle").hover
+    find(".multibutton .dropdown-item.red", text: _("Delete")).click
+  end
 end
 
 Wenn(/^die Gruppe wurde aus der Liste gelöscht$/) do
@@ -143,11 +137,11 @@ Wenn(/^die Gruppe wurde aus der Datenbank gelöscht$/) do
 end
 
 Wenn(/^ich einen Benutzer hinzufüge$/) do
-  fill_in_autocomplete_field _("Users"), @user_name = User.first.name
+  fill_in_autocomplete_field _("Users"), @user_name = @current_inventory_pool.users.sample.name
 end
 
 Dann(/^wird der Benutzer zuoberst in der Liste hinzugefügt$/) do
-  find(".inner", text: _("Users")).first(".field-inline-entry > .text-ellipsis").text.should eq @user_name
+  find("#users .list-of-lines .line [data-user-name]", text: @user_name)
 end
 
 Wenn(/^ich ein Modell hinzufüge$/) do
@@ -155,29 +149,36 @@ Wenn(/^ich ein Modell hinzufüge$/) do
 end
 
 Dann(/^wird das Modell zuoberst in der Liste hinzugefügt$/) do
-  find(".inner", text: _("Models")).first(".field-inline-entry > .text-ellipsis").text.should eq @model_name
+  page.has_selector? "#models-allocations .list-of-lines .line", text: @model_name
+  find("#models-allocations .list-of-lines .line", match: :first).text.should match @model_name
 end
 
 Dann(/^sind die bereits hinzugefügten Benutzer alphabetisch sortiert$/) do
-  entries = find(".inner", text: _("Users")).all(".field-inline-entry > .text-ellipsis")
-  entries.first.text.should be < entries.last.text
+  within("#users") do
+    all(".list-of-lines .line").size.should > 0
+    entries = all(".list-of-lines .line")
+    entries.map(&:text).sort.should == entries.map(&:text)
+  end
 end
 
 Dann(/^sind die bereits hinzugefügten Modelle alphabetisch sortiert$/) do
-  entries = find(".inner", text: _("Models")).all(".field-inline-entry > .text-ellipsis")
-  entries.first.text.should be < entries.last.text
+  within("#models-allocations") do
+    all(".list-of-lines .line").size.should > 0
+    entries = all(".list-of-lines .line")
+    entries.map(&:text).sort.should == entries.map(&:text)
+  end
 end
 
 Wenn(/^ich ein bereits hinzugefügtes Modell hinzufüge$/) do
   @model = @group.models.first
   @quantity = 2
-  find(".inner", text: _("Models")).first(".field-inline-entry", text: @model.name).fill_in "group[partitions_attributes][][quantity]", :with => @quantity
+  find("#models-allocations .list-of-lines .line", match: :prefer_exact, text: @model_name).fill_in "group[partitions_attributes][][quantity]", :with => @quantity
   fill_in_autocomplete_field _("Models"), @model.name
 end
 
 Dann(/^wird das Modell nicht erneut hinzugefügt$/) do
-  find ".field", text: _("Models")
-  find(".inner", text: _("Models")).all(".field-inline-entry", text: @model.name).count.should == 1
+  find ".row.emboss", match: :prefer_exact, text: _("Models")
+  find("#models-allocations .list-of-lines .line", text: @model.name)
 end
 
 Wenn(/^ich einen bereits hinzugefügten Benutzer hinzufüge$/) do
@@ -186,17 +187,17 @@ Wenn(/^ich einen bereits hinzugefügten Benutzer hinzufüge$/) do
 end
 
 Dann(/^wird der Benutzer nicht hinzugefügt$/) do
-  find(".inner", text: _("Users")).all(".field-inline-entry", text: @user.name).count.should == 1
+  find("#users .list-of-lines .line", text: @user.name)
 end
 
 Dann(/^das vorhandene Modell ist nach oben gerutscht$/) do
-  find(".inner", text: _("Models")).all(".field-inline-entry", text: @model.name).first.text.should match @model.name
+  find("#models-allocations .list-of-lines .line", match: :first).text.should match @model.name
 end
 
 Dann(/^der vorhandene Benutzer ist nach oben gerutscht$/) do
-  find(".inner", text: _("Users")).all(".field-inline-entry", text: @user.name).first.text.should match @user.name
+  find("#users .list-of-lines .line", match: :first).text.should match @user.name
 end
 
 Dann(/^das vorhandene Modell behält die eingestellte Anzahl$/) do
-  find(".inner", text: _("Models")).first(".field-inline-entry", text: @model.name).find("input[name='group[partitions_attributes][][quantity]']").value.to_i.should == @quantity
+  find("#models-allocations .list-of-lines .line", match: :prefer_exact, text: @model.name).find("input[name='group[partitions_attributes][][quantity]']").value.to_i.should == @quantity
 end

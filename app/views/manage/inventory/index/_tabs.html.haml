@@ -1,0 +1,16 @@
+#list-tabs.inline-tab-navigation
+
+  %a.inline-tab-item.active
+    = _("Active Inventory")
+
+  %a.inline-tab-item{:"data-borrowable" => "true"}
+    = _("Borrowable")
+
+  %a.inline-tab-item{:"data-unborrowable" => "true"}
+    = _("Not Borrowable")
+
+  %a.inline-tab-item{:"data-retired" => "true"}
+    = _("Retired")
+
+  %a.inline-tab-item{:"data-unused_models" => "true"}
+    = _("Unused Models")

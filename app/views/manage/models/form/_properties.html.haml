@@ -1,0 +1,4 @@
+#properties
+  = render :layout => "manage/fields/field", :locals => {key: _("Properties"), entries: @model.properties, entry_partial: "manage/models/form/property_inline_entry"} do
+    .text-align-right
+      %button#add-property.button.inset{:type => :button}= _("Add %s") % _("Property")

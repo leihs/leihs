@@ -1,0 +1,2 @@
+= render :layout => "manage/fields/field", :locals => {key: _("Important notes for hand over")} do
+  %textarea.width-full{:type => :text, :name => "model[hand_over_note]", :autocomplete => :off}= @model.hand_over_note

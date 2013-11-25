@@ -1,4 +1,5 @@
 class Template < ModelGroup
+  include TemplateModules::Filter
   
   # TODO 12** belongs_to :inventory_pool through
   # TODO 12** validates belongs_to 1 and only 1 inventory pool
@@ -24,10 +25,10 @@ class Template < ModelGroup
 
   ####################################################################################
   
-  # returns an array of document_lines
-  def add_to_document(document, user_id, quantity = nil, start_date = nil, end_date = nil, inventory_pool = nil)
+  # returns an array of contract_lines
+  def add_to_contract(contract, user_id, quantity = nil, start_date = nil, end_date = nil)
     model_links.flat_map do |ml|
-      ml.model.add_to_document(document, user_id, ml.quantity, start_date, end_date, inventory_pool)
+      ml.model.add_to_contract(contract, user_id, ml.quantity, start_date, end_date)
     end
   end  
   

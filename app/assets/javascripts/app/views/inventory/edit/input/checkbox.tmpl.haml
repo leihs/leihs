@@ -1,9 +1,0 @@
-%label
-  {{each(i, checkbox) values}}
-  {{if String($item.data.value) == String(checkbox.value)}}
-  %input{:type => "checkbox", :name => "${formName}", :value => "${checkbox.value}", :checked => true}
-  {{else}}
-  %input{:type => "checkbox", :name => "${formName}", :value => "${checkbox.value}"}
-  {{/if}}
-  ${_jed(checkbox.label)}
-  {{/each}}

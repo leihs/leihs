@@ -1,3 +1,0 @@
-= form_tag '${$item.action}', :remote => true, :"data-submit_button" => true do
-  {{tmpl({title: name}) "app/views/shared/dialog/title"}}
-  {{tmpl({buttons: ["save"], close: true, on_success: $item.on_success}) "app/views/shared/dialog/navigation"}}

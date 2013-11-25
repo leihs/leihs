@@ -3,12 +3,9 @@ source 'http://rubygems.org'
 gem 'rails', '3.2.14'
 
 
-gem 'rake' # So that cronjobs work -- otherwise they can't find rake
 gem 'active_hash', '~> 0.9'
 gem 'activerecord-jdbcmysql-adapter', :platform => :jruby
 gem 'acts-as-dag', :git => 'git://github.com/jrust/acts-as-dag.git' #tmp# '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
-gem 'angular-ui-rails', '0.3.2' # '~> 0.3' # FIXME '0.4.0' not working
-gem 'angularjs-rails', '~> 1.0'
 gem 'barby', '~> 0.5.0'
 gem 'better_errors', :group => :development
 gem 'binding_of_caller', :group => :development
@@ -46,10 +43,12 @@ gem 'net-ldap', '0.2.2', :require => 'net/ldap' # Never upgrade beyond 0.2.2, ru
 gem 'newrelic_rpm', '~> 3.5', :group => [:profiling, :development]
 gem 'paperclip'
 gem 'phantomjs', '~> 1.6.0.0', :group => [:test, :development] # headless webdriver (UI & JS tests)
+gem 'poltergeist'
 gem 'pry', '~> 0.9', :group => [:test, :development]
 gem 'pry-debugger', '~> 0.2.2', :group => :development
 gem 'pry-rails', '~> 0.2', :group => [:test, :development]
 gem 'rails_autolink', '~> 1.0'
+gem 'rake' # So that cronjobs work -- otherwise they can't find rake
 gem 'redcarpet', :group => [:test, :development] # This isn't being pulled in by yard, but it's required
 gem 'rgl', '~> 0.4.0', :require => 'rgl/adjacency' # use ruby-graphviz instead ?? (already in test group)
 gem 'rspec', '~> 2.12', :group => [:test, :development], :require => false
@@ -58,6 +57,7 @@ gem 'ruby_parser', '~> 3.1' # gettext dependency that Bundler seems unable to re
 gem 'sass', '~> 3.2', :group => :assets
 gem 'sass-rails', '~> 3.2', :group => :assets
 gem 'selenium-webdriver', :group => [:test, :development]
+gem 'simplecov', :require => false, :group => :test
 gem 'therubyracer', :platform => :mri
 gem 'therubyrhino', :platform => :jruby
 gem 'thin', :group => :development, :platform => :mri # web server (Webrick do not support keep-alive connections)
@@ -68,3 +68,4 @@ gem 'underscore-rails', '~> 1.4'
 gem 'uuidtools', '~> 2.1' # needed for creating unique ids during tests (factories)
 gem 'will_paginate', '~> 3.0'
 gem 'yard', :group => [:test, :development]
+ 

@@ -1,0 +1,29 @@
+-content_for :title, _("List of templates")
+-content_for :inventory_section, "active"
+
+.wrapper.margin-top-m
+
+  = render :partial => 'manage/tabs/inventory', :locals => {:active_tab => :templates}
+
+  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+    .margin-top-l.padding-horizontal-m
+
+      .row
+
+        %h1.headline-xl.float-left= yield :title
+        %a.button.white.float-right{:href => manage_new_template_path}= _("New Template")
+
+    - if @unaccomplishable_templates_error
+
+      .padding-inset-m
+        %p.emboss.red.padding-inset-s.text-align-center.paragraph-s
+          %strong= @unaccomplishable_templates_error
+
+    .margin-top-m
+
+      .inline-tab-navigation
+
+        .inline-tab-item.active= _("All")
+
+    .padding-bottom-s= render @templates

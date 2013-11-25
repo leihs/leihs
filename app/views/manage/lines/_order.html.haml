@@ -1,0 +1,32 @@
+.order-line.line.light.row.focus-hover-thin{:"data-ids" => lines.map(&:id)}
+
+  .line-info
+  
+  .line-col.padding-left-xs
+    .row
+      .col1of4
+        %label.padding-inset-s
+          %input{:type => :checkbox, :"data-select-line" => true, :autocomplete => :off}
+
+  .col1of10.line-col.text-align-center
+    %span= lines.size
+
+  .col7of10.line-col.text-align-left
+    %strong= model
+
+  .col2of10.line-col.line-actions
+    .multibutton
+      %button.button.white.text-ellipsis
+        = _("Change entry")
+      .dropdown-holder.inline-block
+        .button.white.dropdown-toggle
+          .arrow.down
+        %ul.dropdown.right
+          %li
+            %a.dropdown-item{:"data-open-time-line" => true, :"data-model-id" => model.id}
+              %i.icon-align-left
+              = _("Timeline")
+          %li
+            %a.dropdown-item.red{:"data-destroy-lines" => true, :"data-ids" => lines.map(&:id)}
+              %i.icon-trash
+              = _("Delete")

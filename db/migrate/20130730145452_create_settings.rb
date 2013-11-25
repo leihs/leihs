@@ -16,18 +16,37 @@ class CreateSettings < ActiveRecord::Migration
       t.string  :ldap_config
     end
 
-    Setting.create(
-      :smtp_address => ActionMailer::Base.smtp_settings[:address],
-      :smtp_port => ActionMailer::Base.smtp_settings[:port],
-      :smtp_domain => ActionMailer::Base.smtp_settings[:domain],
-      :local_currency_string => LOCAL_CURRENCY_STRING,
-      :contract_terms => CONTRACT_TERMS,
-      :contract_lending_party_string => CONTRACT_LENDING_PARTY_STRING,
-      :email_signature => EMAIL_SIGNATURE,
-      :default_email => DEFAULT_EMAIL,
-      :deliver_order_notifications => DELIVER_ORDER_NOTIFICATIONS,
-      :user_image_url => USER_IMAGE_URL
-    )
+    h = {}
+    h[:smtp_address]                  = ActionMailer::Base.smtp_settings[:address]  if ActionMailer::Base.smtp_settings[:address]
+    h[:smtp_port]                     = ActionMailer::Base.smtp_settings[:port]     if ActionMailer::Base.smtp_settings[:port]
+    h[:smtp_domain]                   = ActionMailer::Base.smtp_settings[:domain]   if ActionMailer::Base.smtp_settings[:domain]
+    h[:local_currency_string]         = LOCAL_CURRENCY_STRING                       if Leihs::Application.const_defined? :LOCAL_CURRENCY_STRING
+    h[:contract_terms]                = CONTRACT_TERMS                              if Leihs::Application.const_defined? :CONTRACT_TERMS
+    h[:contract_lending_party_string] = CONTRACT_LENDING_PARTY_STRING               if Leihs::Application.const_defined? :CONTRACT_LENDING_PARTY_STRING
+    h[:email_signature]               = EMAIL_SIGNATURE                             if Leihs::Application.const_defined? :EMAIL_SIGNATURE
+    h[:default_email]                 = DEFAULT_EMAIL                               if Leihs::Application.const_defined? :DEFAULT_EMAIL
+    h[:deliver_order_notifications]   = DELIVER_ORDER_NOTIFICATIONS                 if Leihs::Application.const_defined? :DELIVER_ORDER_NOTIFICATIONS
+    h[:user_image_url]                = USER_IMAGE_URL                              if Leihs::Application.const_defined? :USER_IMAGE_URL
+
+    # Create some sane defaults if they couldn't be exctracted from the application.rb, e.g.
+    # if application.rb is empty.
+    h[:smtp_address]                  ||= "localhost"
+    h[:smtp_port]                     ||= 25
+    h[:smtp_domain]                   ||= "example.com"
+    h[:local_currency_string]         ||= "GBP"
+    h[:contract_terms]                ||= nil
+    h[:contract_lending_party_string] ||= nil
+    h[:email_signature]               ||= "Cheers,"
+    h[:default_email]                 ||= "your.lending.desk@example.com"
+    h[:deliver_order_notifications]   ||= false
+    h[:user_image_url]                ||= nil
+
+    setting = Setting.new(h) unless h.empty?
+    if setting.save
+      puts "Settings created: #{h}"
+    else
+      raise "Settings could not be created: #{setting.errors.full_messages}"
+    end
 
   end
 

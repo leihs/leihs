@@ -12,7 +12,7 @@ Funktionalität: Explorative Suche
   
   @javascript  
   Szenario: Explorative Suche in der Liste des Inventars
-    Angenommen ich befinde mich in der Liste des Inventars
+    Angenommen man öffnet die Liste des Inventars
     Und ich die Navigation der Kategorien aufklappe
     Wenn ich eine Kategorie anwähle
     Dann sehe ich die darunterliegenden Kategorien
@@ -26,7 +26,7 @@ Funktionalität: Explorative Suche
 
   @javascript
   Szenario: Kategorie in der explorativen Suche suchen
-    Angenommen ich befinde mich in der Liste des Inventars
+    Angenommen man öffnet die Liste des Inventars
     Und die Navigation der Kategorien ist aufgeklappt
     Wenn ich nach dem Namen einer Kategorie suche
     Dann werden alle Kategorien angezeigt, welche den Namen beinhalten
@@ -50,17 +50,3 @@ Funktionalität: Explorative Suche
     Und kann die darunterliegende Kategorie anwählen
     Und ich sehe die Hauptkategorie sowie die aktuell ausgewählte und die darunterliegenden Kategorien
     Und die Modelle wurden nach dieser Kategorie gefiltert    
-  
-  @javascript
-  Szenario: Explorative Suche in der Bestellung
-    Angenommen ich befinde mich in einer Bestellung
-    Dann kann ich ein Modell anhand der explorativen Suche wählen
-    Und die explorative Suche zeigt nur Modelle aus meinem Park an
-    Und die nicht verfügbaren Modelle sind rot markiert
-
-  @javascript
-  Szenario: Explorative Suche in der Aushändigung
-    Wenn ich eine Aushändigung mache
-    Dann kann ich ein Modell anhand der explorativen Suche wählen
-    Und die explorative Suche zeigt nur Modelle aus meinem Park an
-    Und die nicht verfügbaren Modelle sind rot markiert

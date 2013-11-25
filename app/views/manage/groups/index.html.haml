@@ -1,0 +1,24 @@
+- content_for :title, _("List of Groups")
+- content_for :admin_section, "active"
+
+.wrapper.margin-top-m
+
+  = render :partial => 'manage/tabs/admin', :locals => {:active_tab => :groups}
+
+  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+    .margin-top-l.padding-horizontal-m
+
+      .row
+
+        %h1.headline-l.float-left= yield :title
+
+        %a.button.white.float-right{:href => manage_new_inventory_pool_group_path}= _("New Group")
+
+    .margin-top-m
+
+      .inline-tab-navigation
+
+        .inline-tab-item.active= _("All")
+
+    .list-of-lines.even= render @groups

@@ -40,4 +40,3 @@ Funktionalität: Werteliste
      | Spaltenname |
      | Anzahl      |
      | Wert        |
-  

@@ -54,12 +54,7 @@ Given /^pending cucumber for: Total borrowable items$/ do
 end
 
 Given /^pending cucumber for: Scoped by inventory pool$/ do
-  @normin = Persona.get "Normin"
-  model = Model.find_by_name("Sharp Beamer")
-  ip_a = InventoryPool.find_by_name "A-Ausleihe"
-  model.total_borrowable_items_for_user(@normin, ip_a).should == 2
-  ip_b = InventoryPool.find_by_name "IT-Ausleihe"
-  model.total_borrowable_items_for_user(@normin, ip_b).should == 1
+  pending
 end
 
 Given /^pending cucumber for: The maximum quantity available for users$/ do

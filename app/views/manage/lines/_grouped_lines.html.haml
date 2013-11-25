@@ -1,0 +1,30 @@
+- grouped_lines.each_pair do |dates, lines|
+  
+  .emboss.deep.padding-bottom-s.margin-bottom-m{:"data-selected-lines-container" => true}
+
+    .row
+      .col1of2.padding-vertical-s
+        %label.padding-inset-s.inline
+          %input{:type => :checkbox, :"data-select-lines" => true, :autocomplete => :off}
+        %p.paragraph-s.inline
+          = l(dates[0], :format => "%A")
+          = l(dates[0])
+          \-
+          = l(dates[1], :format => "%A")
+          = l(dates[1])
+          
+      .col1of2.padding-inset-s.text-align-right
+        %p.paragraph-s.inline
+          = interval dates[0], dates[1]
+
+    .row
+
+      - if lines.is_a? Array
+
+        = render :partial => line_partial, :collection => lines, :as => :line
+
+      - else
+
+        - lines.each_pair do |model, lines|
+
+          = render :partial => line_partial, :locals => {:model => model, :lines => lines}

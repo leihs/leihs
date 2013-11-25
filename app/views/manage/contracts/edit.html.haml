@@ -1,0 +1,61 @@
+- content_for :title, "#{ _("Order")} | #{@user}"
+- content_for :lending_section, "active"
+
+#edit-contract-view.wrapper.margin-top-m
+
+  = render :partial => 'manage/tabs/lending', :locals => {:active_tab => :orders}
+
+  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+    .margin-top-l.padding-horizontal-m
+      .row
+        .col2of6
+          %h1.headline-l= _("Edit %s") % _("Order")
+          %h2.headline-s.light= @user
+
+        #daily-navigation.col4of6.text-align-right= render :partial => "manage/contracts/edit/navigation"
+
+    .margin-top-m.padding-inset-m.separated-bottom
+
+      = render :partial => "manage/contracts/edit/purpose"
+
+    #status.padding-horizontal-m.margin-top-m
+      .emboss.blue.padding-inset-s
+        %p.paragraph-s
+          %img.margin-right-s.max-width-micro{:src => asset_path("loading.gif")}
+          %strong
+            = _("Loading availability")
+
+    .row.margin-top-s.padding-top-m.padding-horizontal-m
+
+      .col2of3
+
+        = render :partial => "manage/contracts/edit/add"
+
+      .col1of3
+
+        .float-right= render :partial => "manage/contracts/edit/selection"
+
+    #lines.padding-inset-m= render :partial => "manage/lines/grouped_lines", :locals => {:grouped_lines => @grouped_lines, :line_partial => "manage/lines/order"}
+
+:coffeescript
+  
+  jQuery ->
+
+    App.User.addRecord new App.User $.extend {groupIds: #{@group_ids}}, #{@user.to_json}
+
+    App.Purpose.addRecord new App.Purpose #{@purpose.to_json}
+
+    App.Contract.addRecord new App.Contract #{@contract.to_json}
+    App.Contract.current = App.Contract.find(#{@contract.id})
+
+    for model in #{@models.to_json}
+      App.Model.addRecord new App.Model model
+
+    for contract_line in #{@contract_lines.to_json}
+      App.ContractLine.addRecord new App.ContractLine contract_line
+
+    new App.ContractsEditController
+      el: "#edit-contract-view"
+      contract: App.Contract.find #{@contract.id}
+      purpose: App.Purpose.find #{@purpose.id}

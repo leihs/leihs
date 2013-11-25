@@ -1,0 +1,34 @@
+.line.row
+
+  {{if model().availability}}
+  %div{:class => "line-info{{if model().availability().withoutLines([#view.data]).maxAvailableForGroups(~start_date, ~end_date, ~groupIds) < (~quantity||quantity)}} red{{/if}}"}
+  {{/if}}
+
+  .col1of10.line-col.text-align-center
+    %span 
+      {{if ~quantity}}
+      {{>~quantity}}
+      {{else sublines}}
+      {{sum sublines "quantity"/}}
+      {{else}}
+      {{>quantity}}
+      {{/if}}
+    {{if model().availability}}
+    %span.grey-text 
+      \/
+      {{if sublines}}
+      {{>model().availability().withoutLines(sublines).maxAvailableForGroups(~start_date, ~end_date, ~groupIds)}}
+      {{else}}
+      {{>model().availability().withoutLines([#view.data]).maxAvailableForGroups(~start_date, ~end_date, ~groupIds)}}
+      {{/if}}
+    {{/if}}
+
+  .col5of10.line-col.text-align-left
+    %strong {{>model().name}}
+
+  .col4of10.line-col
+    {{if model().availability}}
+    {{for model().availability().withoutLines([#view.data]).unavailableRanges((~quantity||quantity), ~groupIds, ~start_date, ~end_date)}}
+    %strong.darkred-text {{date startDate/}}-{{date endDate/}}
+    {{/for}}
+    {{/if}}

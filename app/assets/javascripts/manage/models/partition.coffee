@@ -1,0 +1,1 @@
+window.App.Partition.url = => "/manage/#{App.InventoryPool.current.id}/partitions"

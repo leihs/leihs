@@ -1,8 +1,8 @@
 # encoding: utf-8
 
 Angenommen /^man öffnet die Liste der Modelle$/ do
-  @current_inventory_pool = @current_user.managed_inventory_pools.first
-  visit backend_inventory_pool_models_path @current_inventory_pool
+  @current_inventory_pool = @current_user.managed_inventory_pools.keep_if{|ip| ip.models.any?}.sample
+  visit manage_inventory_path(@current_inventory_pool)
 end
 
 Wenn(/^ich ein ergänzendes Modell mittel Autocomplete Feld hinzufüge$/) do
@@ -13,10 +13,11 @@ Wenn(/^ich ein ergänzendes Modell mittel Autocomplete Feld hinzufüge$/) do
 end
 
 Dann(/^ist dem Modell das ergänzende Modell hinzugefügt worden$/) do
-  find(".top", match: :prefer_exact, text: _("List of Models"))
+  find("#flash")
   @model.compatibles.size.should be 2
   @model.compatibles.any? {|m| m.name == @comp1.name}.should be_true
   @model.compatibles.any? {|m| m.name == @comp2.name}.should be_true
+  sleep(0.66) # fix lazy request fail problem
 end
 
 Wenn(/^ich ein Modell öffne, das bereits ergänzende Modelle hat$/) do
@@ -26,12 +27,13 @@ Wenn(/^ich ein Modell öffne, das bereits ergänzende Modelle hat$/) do
 end
 
 Wenn(/^ich ein ergänzendes Modell entferne$/) do
-  find(".inner", match: :first, text: _("Compatibles")).all("label", text: _("delete")).each {|comp| comp.click}
+  find(".field", match: :first, text: _("Compatibles")).all("[data-remove]").each {|comp| comp.click}
 end
 
 Dann(/^ist das Modell ohne das gelöschte ergänzende Modell gespeichert$/) do
-  find(".top", match: :prefer_exact, text: _("List of Models"))
+  find("#flash")
   @model.reload.compatibles.should be_empty
+  sleep(0.66) # fix lazy request fail problem
 end
 
 Wenn(/^ich ein bereits bestehendes ergänzende Modell mittel Autocomplete Feld hinzufüge$/) do
@@ -40,70 +42,71 @@ Wenn(/^ich ein bereits bestehendes ergänzende Modell mittel Autocomplete Feld h
 end
 
 Dann(/^wurde das redundante Modell nicht hizugefügt$/) do
-  find(".field", match: :first, text: _("Compatibles")).all(".field-inline-entry", text: @comp.name).count.should == 1
+  find(".row.emboss", match: :first, text: _("Compatibles")).all("[data-type='inline-entry']", text: @comp.name).count.should == 1
 end
 
 Dann(/^wurde das redundante ergänzende Modell nicht gespeichert$/) do
-  find(".top", match: :prefer_exact, text: _("List of Models"))
+  find("#flash")
   comp_before = @model.compatibles
   comp_before.count.should == @model.reload.compatibles.count
+  sleep(0.66) # fix lazy request fail problem
 end
 
 Angenommen(/^es existiert ein Modell mit folgenden Eigenschaften$/) do |table|
   conditions = table.raw.flatten.map do |condition|
     case condition
-    when "in keinem Vertrag aufgeführt"
-      lambda {|m| m.contract_lines.empty?}
-    when "keiner Bestellung zugewiesen"
-      lambda {|m| m.order_lines.empty?}
-    when "keine Gegenstände zugefügt"
-      lambda {|m| m.items.empty?}
-    when "hat Gruppenkapazitäten zugeteilt"
-      lambda {|m| Partition.find_by_model_id(m.id)}
-    when "hat Eigenschaften"
-      lambda {|m| not m.properties.empty?}
-    when "hat Zubehör"
-      lambda {|m| not m.accessories.empty?}
-    when "hat Bilder"
-      lambda {|m| not m.images.empty?}
-    when "hat Anhänge"
-      lambda {|m| not m.attachments.empty?}
-    when "hat Kategoriezuweisungen"
-      lambda {|m| not m.categories.empty?}
-    when "hat sich ergänzende Modelle"
-      lambda {|m| not m.compatibles.empty?}
-    else
-      false
+      when "in keinem Vertrag aufgeführt", "keiner Bestellung zugewiesen"
+        lambda {|m| m.contract_lines.empty?}
+      when "keine Gegenstände zugefügt"
+        lambda {|m| m.items.empty?}
+      when "hat Gruppenkapazitäten zugeteilt"
+        lambda {|m| Partition.find_by_model_id(m.id)}
+      when "hat Eigenschaften"
+        lambda {|m| not m.properties.empty?}
+      when "hat Zubehör"
+        lambda {|m| not m.accessories.empty?}
+      when "hat Bilder"
+        lambda {|m| not m.images.empty?}
+      when "hat Anhänge"
+        lambda {|m| not m.attachments.empty?}
+      when "hat Kategoriezuweisungen"
+        lambda {|m| not m.categories.empty?}
+      when "hat sich ergänzende Modelle"
+        lambda {|m| not m.compatibles.empty?}
+      else
+        false
     end
   end
   @model = Model.find {|m| conditions.map{|c| c.class == Proc ? c.call(m) : c}.all?}
 end
 
 Dann(/^das Modell ist gelöscht$/) do
-  step "ensure there are no active requests"
+  find("#flash")
   Model.find_by_id(@model.id).should be_nil
 end
 
 Und /^das Modell hat (.+) zugewiesen$/ do |assoc|
   @model = Model.find do |m|
     case assoc
-    when "Vertrag"
-      not m.contract_lines.empty?
-    when "Bestellung"
-      not m.order_lines.empty?
-    when "Gegenstand"
-      not m.items.empty?
+      when "Vertrag", "Bestellung"
+        not m.contract_lines.empty?
+      when "Gegenstand"
+        not m.items.empty?
     end
   end
 end
 
 Dann(/^kann ich das Modell aus der Liste nicht löschen$/) do
-  sleep(0.88)
-  visit backend_inventory_pool_models_path(@current_inventory_pool)
-  fill_in 'query', with: @model.name
-  find("li.modelname", match: :prefer_exact, text: @model.name)
-  find(".trigger .arrow", match: :first).hover
-  find(".line.toggler.model", match: :prefer_exact, text: @model.name).should_not have_content(_("Delete %s") % _("Model"))
+  find("[data-unused_models]").click unless @current_inventory_pool.models.include? @model
+  fill_in 'list-search', with: @model.name
+  sleep(0.44)
+  within(".line[data-id='#{@model.id}']") do
+    find(".dropdown-holder").hover
+    find("[data-method='delete']").click
+  end
+  find("#flash .error")
+  @model.reload # is still there
+  sleep(0.66) # fix lazy request fail problem
 end
 
 Und /^ich sehe eine Dialog-Fehlermeldung$/ do
@@ -118,14 +121,15 @@ Dann(/^es wurden auch alle Anhängsel gelöscht$/) do
   Attachment.where(model_id: @model.id).should be_empty
   ModelLink.where(model_id: @model.id).should be_empty
   Model.all {|m| m.compatibles.include? Model.find_by_name("Windows Laptop")}.include?(@model).should be_false
+  sleep 0.66 # fix lazy request problem
 end
 
 Wenn(/^ich dieses Modell aus der Liste lösche$/) do
-  visit backend_inventory_pool_models_path(@current_inventory_pool)
-  fill_in 'query', with: @model.name
-  find("li.modelname", match: :prefer_exact, text: @model.name).text.should == @model.name
-  find(".trigger .arrow", match: :first).hover
-  find(".line.toggler.model", match: :prefer_exact, text: @model.name).first(".button", text: _("Delete %s") % _("Model")).click
+  visit manage_inventory_path(@current_inventory_pool)
+  find("[data-unused_models]").click
+  fill_in 'list-search', with: @model.name
+  find(".line[data-id='#{@model.id}'] .dropdown-holder").hover
+  find(".line[data-id='#{@model.id}'] [data-method='delete']").click
 end
 
 Dann(/^das Modell wurde aus der Liste gelöscht$/) do
@@ -134,14 +138,11 @@ end
 
 Angenommen(/^ich editieren ein bestehndes Modell mit bereits zugeteilten Kapazitäten$/) do
   @model = @current_inventory_pool.models.find{|m| m.partitions.count > 0}
-  visit edit_backend_inventory_pool_model_path @current_inventory_pool, @model
+  visit manage_edit_model_path(@current_inventory_pool, @model)
 end
 
 Wenn(/^ich bestehende Zuteilungen entfernen$/) do
-  page.should have_selector(".field-inline-entry")
-  all(".field-inline-entry.partition").each do |line|
-    line.first(".clickable", :text => _("Remove")).click
-  end
+  find(".field", match: :first, text: _("Allocations")).all("[data-remove]").each {|comp| comp.click}
 end
 
 Wenn(/^neue Zuteilungen hinzufügen$/) do
@@ -153,7 +154,19 @@ Wenn(/^neue Zuteilungen hinzufügen$/) do
 end
 
 Dann(/^sind die geänderten Gruppenzuteilungen gespeichert$/) do
-  find(".top", match: :prefer_exact, text: _("List of Models"))
+  find("#flash")
   model_group_ids = @model.reload.partitions.map(&:group_id)
   model_group_ids.sort.should == @groups.map(&:id)
+  sleep(0.66) # fix lazy request fail problem
+end
+
+Dann /^ist das neue Modell erstellt und unter ungenutzen Modellen auffindbar$/ do
+  find("[data-unused_models]").click
+  step "die Informationen sind gespeichert"
+end
+
+Wenn(/^ich ein bestehendes, genutztes Modell bearbeite$/) do
+  @page_to_return = current_path
+  @model = @current_inventory_pool.items.sample.model
+  visit manage_edit_model_path @current_inventory_pool, @model
 end

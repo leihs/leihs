@@ -1,0 +1,16 @@
+{{partial 'manage/views/users/cell' user() "col1of8"/}}
+
+.col1of8.line-col {{diffToday created_at/}}
+
+.col1of8.line-col.text-align-center{:"data-type" => "lines-cell"} {{include tmpl='manage/views/lines/cell'/}}
+
+.col1of8.line-col
+  {{>getMaxRange()}}
+  {{jed getMaxRange() "day" "days"/}}
+
+.col2of8.line-col.text-align-left
+  %strong {{jed "Approved"/}}
+
+.col2of8.line-col.line-actions
+  %a.button.white.text-ellipsis{:href => "{{>user().url('hand_over')}}"}
+    {{jed "Hand Over"/}}

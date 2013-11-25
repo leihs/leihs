@@ -1,16 +1,16 @@
 Given "the list of approved orders contains $total elements" do | total |
-  orders = @inventory_pool.orders.approved
+  contracts = @inventory_pool.contracts.approved
   user = LeihsFactory.create_user
-  total.to_i.times { orders << LeihsFactory.create_order(:user_id => user.id, :status_const => Order::APPROVED) }
-  orders.size.should == total.to_i
+  total.to_i.times { contracts << FactoryGirl.create(:contract, :user => user, :status => :approved) }
+  contracts.size.should == total.to_i
 end
 
 When "$who approves the order" do | who |
-  post "/session", :login => @last_manager_login_name #new#
-  post approve_backend_inventory_pool_acknowledge_path(@inventory_pool, @order, :comment => "test comment")
+  post login_path(:login => @last_manager_login_name)
+  post manage_approve_contract_path(@inventory_pool, @order, :comment => "test comment")
   @order = assigns(:order)
   @order.should_not be_nil
-  @contract = @order.user.reload.current_contract(@order.inventory_pool)
+  @contract = @order.user.reload.approved_contract(@order.inventory_pool)
   @contract.should_not be_nil
 end
 
@@ -22,7 +22,7 @@ When "$who clicks on 'hand_over'" do | who |
 end
 
 When "he tries to hand over an item to a customer" do
-  get backend_inventory_pool_user_hand_over_path(@inventory_pool, @user)
+  get manage_hand_over_path(@inventory_pool, @user)
   
   @contract = assigns(:contract)
   @contract.lines.size.should == 0
@@ -52,7 +52,7 @@ end
 
 When "$who chooses one line" do | who |
   visit = @visits.first
-  get backend_inventory_pool_user_hand_over_path(@inventory_pool, visit.user)
+  get manage_hand_over_path(@inventory_pool, visit.user)
   response.should render_template('backend/hand_over/show')
   @contract = assigns(:contract)
 end
@@ -60,7 +60,7 @@ end
 # copied from 'When "$who chooses $name's order"'
 When "$who chooses $name's visit" do | who, name |
   @visit = @visits.detect { |c| c.user.login == name }
-  get backend_inventory_pool_user_hand_over_path(@inventory_pool, @visit.user)
+  get manage_hand_over_path(@inventory_pool, @visit.user)
   response.should render_template('backend/hand_over/show')
   @contract = assigns(:contract)
   @response = response

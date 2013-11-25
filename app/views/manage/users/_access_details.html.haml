@@ -1,0 +1,42 @@
+%h2.headline-m.padding-left-s= _("Access")
+
+.row.margin-vertical-s
+
+  .row.padding-inset-s.emboss.margin-bottom-xxs
+    .col1of2
+      %strong.font-size-m= _("Badge ID")
+    .col1of2.text-align-right
+      %input{type: "text", name: "user[badge_id]", value: @user.badge_id}
+
+  .row.padding-inset-s.emboss.margin-bottom-xxs
+    .col1of2
+      %strong.font-size-m= _("Access as")
+    .col1of2.text-align-right
+      %select{type: "text", name: "access_right[role_name]"}
+        - @accessible_roles.each do |name, key|
+          %option{value: key, selected: ("selected" if (key == "no_access" and not @access_right) or key == @access_right.try(:role_name))}= name
+
+  - unless @user.new_record?
+
+    #suspended-until.row.padding-inset-s.emboss.margin-bottom-xxs
+      .col1of2
+        %strong.font-size-m= _("Suspended until")
+      .col1of2.text-align-right
+        %input{type: "text", name: "access_right[suspended_until]", value: @access_right.try(:suspended_until), :"data-suspended-until-input" => true, autocomplete: :off}
+
+    #suspended-reason.row.padding-inset-s.emboss.margin-bottom-xxs{class: ("hidden" unless @access_right.try(:suspended_until))}
+      .col1of2
+        %strong.font-size-m= _("Suspended reason") + " *"
+      .col1of2.text-align-right
+        %input{type: "text", name: "access_right[suspended_reason]", value: @access_right.try(:suspended_reason), autocomplete: :off}
+
+  #change-groups.row.emboss.margin-bottom-xxs
+    .row.padding-inset-s
+      .col1of2
+        %strong.font-size-m= _("Groups")
+      .col1of2.text-align-right
+        %input{type: "text", name: "name", placeholder: _("Group"), autocomplete: :off}
+
+    .row.list-of-lines.even{:"data-group-list" => true}
+
+      = render partial: "group_inline_entry", collection: @user.groups, as: :group unless @user.groups.blank?

@@ -14,7 +14,7 @@
       <p><%= _("User") + ": " + @order.user.to_s unless @order.user.nil? %></p>
 
       <ul>
-        <% @order.order_lines.each do | line | %>
+        <% @order.lines.each do | line | %>
           <li><%= line.quantity%> <%= line.model.name %>,  <%= line.start_date %> - <%= line.end_date %></li>
         <% end %>
       </ul>

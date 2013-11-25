@@ -8,28 +8,30 @@ end
 Dann(/^kann ich die Gerätepark\-Grundinformationen eingeben$/) do |table|
   # table is a Cucumber::Ast::Table
   @table_raw = table.raw
-  page.should have_selector(".inner .field")
   @table_raw.flatten.each do |field_name|
-    if field_name == "Verträge drucken"
-      first(".inner .field", text: field_name).first("input").set false
-    else
-      first(".inner .field", text: field_name).first("input,textarea").set (field_name == "E-Mail" ? "test@test.ch" : "test")
+    within(".row.padding-inset-s", match: :prefer_exact, text: field_name) do
+      if field_name == "Verträge drucken"
+        first("input").set false
+      else
+        first("input,textarea").set (field_name == "E-Mail" ? "test@test.ch" : "test")
+      end
     end
   end
 end
 
 Dann(/^ich kann die angegebenen Grundinformationen speichern$/) do
   @path_before_save = current_path
-  click_button _("Save %s") % _("Inventory Pool")
+  click_button _("Save")
 end
 
 Dann(/^sind die Informationen aktualisiert$/) do
-  page.should have_selector(".inner .field")
   @table_raw.flatten.each do |field_name|
-    if field_name == "Verträge drucken"
-      first(".inner .field", text: field_name).first("input").selected?.should be_false
-    else
-      first(".inner .field", text: field_name).first("input,textarea").value.should == (field_name == "E-Mail" ? "test@test.ch" : "test")
+    within(".row.padding-inset-s", match: :prefer_exact, text: field_name) do
+      if field_name == "Verträge drucken"
+        first("input").selected?.should be_false
+      else
+        first("input,textarea").value.should == (field_name == "E-Mail" ? "test@test.ch" : "test")
+      end
     end
   end
 end
@@ -39,39 +41,35 @@ Dann(/^ich bleibe auf derselben Ansicht$/) do
 end
 
 Dann(/^sehe eine Bestätigung$/) do
-  find(".notification", text: _("Inventory pool successfully updated"))
+  find("#flash .notice", text: _("Inventory pool successfully updated"))
 end
 
 Wenn(/^ich die Grundinformationen des Geräteparks abfüllen möchte$/) do
-  visit edit_backend_inventory_pool_path(@current_inventory_pool)
+  visit manage_edit_inventory_pool_path(@current_inventory_pool)
 end
 
 Dann(/^kann das Gerätepark nicht gespeichert werden$/) do
-  click_button _("Save %s") % _("Inventory Pool")
-  page.should have_selector ".error"
+  click_button _("Save")
+  find("#flash .error")
 end
 
 Angenommen(/^ich die folgenden Felder nicht befüllt habe$/) do |table|
   table.raw.flatten.each do |must_field_name|
-    first(".field", text: must_field_name).first("input,textarea").set ""
+    first(".row.emboss", match: :prefer_exact, text: must_field_name).first("input,textarea").set ""
   end
 end
 
 Angenommen(/^ich verwalte die Gerätepark Grundinformationen$/) do
-  visit edit_backend_inventory_pool_path(@current_inventory_pool)
+  visit manage_edit_inventory_pool_path(@current_inventory_pool)
 end
 
 Wenn(/^ich die Arbeitstage Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag, Sonntag ändere$/) do
   @workdays = {}
   [0,1,2,3,4,5,6].each do |day|
-    select = first(".field", text: I18n.t('date.day_names')[day]).first("select")
+    select = first(".row.emboss", match: :prefer_exact, text: I18n.t('date.day_names')[day]).first("select")
     @workdays[day] = rand > 0.5 ? _("Open") : _("Closed")
     select.first("option[label='#{@workdays[day]}']").click
   end
-end
-
-Wenn(/^ich die Änderungen speichere$/) do
-  click_button _("Save %s") % _("Inventory Pool")
 end
 
 Dann(/^sind die Arbeitstage gespeichert$/) do
@@ -92,12 +90,8 @@ Wenn(/^ich eine oder mehrere Zeitspannen und einen Namen für die Ausleihsschlie
     fill_in "start_date", :with => I18n.l(holiday[:start_date])
     fill_in "end_date", :with => I18n.l(holiday[:end_date])
     fill_in "name", :with => holiday[:name]
-    first(".add-holiday").click
+    find(".button[data-add-holiday]").click
   end
-end
-
-Wenn(/^ich speichere den Gerätepark$/) do
-  first(".button", :text => /#{_("Save")}/i).click
 end
 
 Dann(/^werden die Ausleihschliessungszeiten gespeichert$/) do
@@ -108,17 +102,17 @@ end
 
 Dann(/^ich kann die Ausleihschliessungszeiten wieder löschen$/) do
   holiday = @holidays.last
-  first(".field-inline-entry", :text => holiday[:name]).first(".delete-holiday").click
-  step 'ich speichere den Gerätepark'
+  find(".row[data-holidays-list] .line", :text => holiday[:name]).find(".button[data-remove-holiday]").click
+  step 'ich speichere'
   @current_inventory_pool.holidays.where(:start_date => holiday[:start_date], :end_date => holiday[:end_date], :name => holiday[:name]).should be_empty
 end
 
 Wenn(/^jedes Pflichtfeld des Geräteparks ist gesetzt$/) do |table|
   table.raw.flatten.each do |field_name|
-    first(".field", :text => field_name).first("input").value.length.should > 0
+    first(".row.emboss", match: :prefer_exact, :text => field_name).first("input").value.length.should > 0
   end
 end
 
 Wenn(/^ich das gekennzeichnete "(.*?)" des Geräteparks leer lasse$/) do |field_name|
-  first(".field", :text => field_name).first("input").set ""
+  first(".row.emboss", match: :prefer_exact, :text => field_name).first("input").set ""
 end

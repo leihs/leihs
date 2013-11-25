@@ -1,0 +1,35 @@
+#hand_overs.collapsed
+  .list-of-lines.collapsed-inner.max-height-m
+    - 10.times do
+      .line.row.handover-line
+        .col1of5.line-col.text-align-left{:"data-type" => "user-cell" ,"data-address" => "Röntgenstr. 6, ", "data-badge_id" => "", "data-city" => "Zürich", "data-email" => "wanda.bonzi@zhdk.ch", "data-firstname" => "Wanda", "data-id" => "7957", "data-image_url" => "http://www.zhdk.ch/?person/foto&width=100&compressionlevel=0&id=7157", "data-lastname" => "Bonzi", "data-phone" => "076 421 65 93", "data-zip" => "CH-8005"}
+          %strong Wanda Bonzi
+        .col1of5.line-col
+          Heute
+        .col1of5.line-col{:"data-type" => "lines-cell"}
+          1
+          Gegenstand
+        .col1of5.line-col
+          9
+          Tage
+        .col1of5.line-col.line-actions
+          .multibutton
+            %button.button.white.text-ellipsis
+              Aushändigen
+            .button.white.dropdown-toggle
+              .arrow.down
+            %ul.dropdown.right
+              %li
+                %a.dropdown-item Löschen
+  .row.collapsed-shadow
+  .row.collapsed-shadow-cover
+.margin-bottom-m
+  .row.text-align-center.padding-top-xs
+    %button.button.inset{:"data-collapsed-toggle" => "#hand_overs"}
+      %span.collapsed-text
+        = 5
+        = _("more")
+        %i.arrow.down
+      %span.collapsed-text-expanded
+        = _("show less")
+        %i.arrow.up

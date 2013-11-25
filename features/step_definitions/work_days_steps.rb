@@ -46,19 +46,19 @@ When "$who try to order an item for $date" do |who, date|
   inventory_pool, inv_manager, user, model = LeihsFactory.create_dataset_simple
 
   # Login                            
-  post "/session", :login => user.login
+  post login_path(:login => user.login)
   step "I am logged in as '#{user.login}' with password '#{nil}'"
-  @order.destroy if @order
+  @contract.destroy if @contract
   get borrow_root_path
-  post borrow_order_lines_path(:model_id => model.id,
-                               :quantity => 1,
-                               :inventory_pool_id => inventory_pool.id,
-                               :start_date => date,
-                               :end_date => date)
+  post borrow_contract_lines_path(:model_id => model.id,
+                                  :quantity => 1,
+                                  :inventory_pool_id => inventory_pool.id,
+                                  :start_date => date,
+                                  :end_date => date)
                            
-  @order = @current_user.get_current_order
-  @order.purpose = "this is the required purpose"
-  @line = @order.order_lines.last
+  @contract = @current_user.get_unsubmitted_contract(inventory_pool)
+  @contract.purpose = "this is the required purpose"
+  @line = @contract.contract_lines.last
 end
 
 # OPTIMIZE 0402
@@ -66,7 +66,7 @@ When "$who clicks '$action'" do |who, action|
   @inventory_pool, inv_manager, @user, model = LeihsFactory.create_dataset_simple
   
   #Login as User
-  post "/session", :login => inv_manager.login
+  post login_path(:login => inv_manager.login)
   get backend_inventory_pool_hand_over_index_path(@inventory_pool) if action == 'hand over'
   get backend_inventory_pool_workdays_path(@inventory_pool) if action == 'Opening Times'
 

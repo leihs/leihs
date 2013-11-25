@@ -1,0 +1,9 @@
+.row.line.font-size-xs.focus-hover-thin{:"data-type" => "inline-entry"}
+
+  %input{:type => :hidden, :name => "model[category_ids][]", :value => entry.id, :"data-disable-on-remove" => true}
+  
+  .line-col.col2of3.text-align-left
+    = entry.name
+
+  .line-col.col1of3.text-align-right
+    %button.button.small.inset{:"data-remove" => true, :type => :button}= _("Remove")

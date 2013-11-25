@@ -33,6 +33,6 @@ Angenommen(/^man ist ein Kunde$/) do
 end
 
 Angenommen(/^man ist ein Kunde mit Verträge$/) do
-  user = Contract.where(status_const: [Contract::SIGNED, Contract::CLOSED]).select{|c| c.lines.any? &:returned_to_user}.map(&:user).uniq.sample
+  user = Contract.where(status: [:signed, :closed]).select{|c| c.lines.any? &:returned_to_user}.map(&:user).uniq.sample
   step 'I am "%s"' % user.firstname
 end

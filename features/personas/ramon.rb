@@ -25,8 +25,8 @@ module Persona
         create_inventory_pool_av_technik
         create_naked_users
         create_users_with_access_rights
-        create_users_with_orders
-        create_users_with_contracts
+        create_users_with_unsubmitted_contracts
+        create_users_with_approved_contracts
       end
     end
     
@@ -35,7 +35,7 @@ module Persona
     end
     
     def create_minimal_setup
-      FactoryGirl.create :setting unless Setting.count != 0
+      FactoryGirl.create :setting unless Setting.first
       LeihsFactory.create_default_languages
       LeihsFactory.create_default_authentication_systems
       LeihsFactory.create_default_roles
@@ -53,18 +53,26 @@ module Persona
       description = "Wichtige Hinweise...\n Bitte die Gegenstände rechtzeitig zurückbringen"
       contact_details = "A Verleih  /  ZHdK\nav@zh-dk.ch\n+41 00 00 00 00"
       @a_ausleihe = FactoryGirl.create(:inventory_pool, :name => "A-Ausleihe", :description => description, :contact_details => contact_details, :contract_description => "Gerät erhalten", :email => "av@zhdk.ch", :shortname => "A")
+      create_christmas_holiday @a_ausleihe
+    end
+
+    def create_christmas_holiday inventory_pool
+      next_christmas = (Date.today().month == 12 and Date.today().day > 23)? Date.new(Date.today().year+1.day, 12, 24) : Date.new(Date.today().year, 12, 24)
+      Holiday.create({:inventory_pool_id => inventory_pool.id, :start_date => next_christmas, :end_date => next_christmas, :name => "Christmas"})
     end
     
     def create_inventory_pool_it_ausleihe
       description = "Bringt die Geräte bitte rechtzeitig zurück"
       contact_details = "IT Verleih  /  ZHdK\nav@zh-dk.ch\n+41 00 00 00 00"
-      FactoryGirl.create(:inventory_pool, :name => "IT-Ausleihe", :description => description, :contact_details => contact_details, :contract_description => "Gerät erhalten", :email => "it@zhdk.ch", :shortname => "IT")
+      @it_ausleihe = FactoryGirl.create(:inventory_pool, :name => "IT-Ausleihe", :description => description, :contact_details => contact_details, :contract_description => "Gerät erhalten", :email => "it@zhdk.ch", :shortname => "IT")
+      create_christmas_holiday @it_ausleihe
     end
 
     def create_inventory_pool_av_technik
       description = "Bringt die Geräte bitte rechtzeitig zurück"
       contact_details = "AV Verleih  /  ZHdK\nav@zh-dk.ch\n+41 00 00 00 00"
       @av_technik = FactoryGirl.create(:inventory_pool, :name => "AV-Technik", :description => description, :contact_details => contact_details, :contract_description => "Gerät erhalten", :email => "it@zhdk.ch", :shortname => "AV")
+      create_christmas_holiday @av_technik
     end
 
     def create_naked_users
@@ -75,12 +83,12 @@ module Persona
       FactoryGirl.create :access_right, inventory_pool: @av_technik, user: FactoryGirl.create(:user), role: Role.find_by_name("customer")
     end
 
-    def create_users_with_orders
-      FactoryGirl.create :order_with_lines
+    def create_users_with_unsubmitted_contracts
+      FactoryGirl.create :contract_with_lines, status: :unsubmitted
     end
 
-    def create_users_with_contracts
-      FactoryGirl.create :contract_with_lines
+    def create_users_with_approved_contracts
+      FactoryGirl.create :contract_with_lines, status: :approved
     end
   end
 end

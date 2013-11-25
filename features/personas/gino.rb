@@ -20,6 +20,7 @@ module Persona
     end
 
     def create_minimal_setup
+      FactoryGirl.create :setting unless Setting.first
       LeihsFactory.create_default_languages
       LeihsFactory.create_default_authentication_systems
       LeihsFactory.create_default_roles

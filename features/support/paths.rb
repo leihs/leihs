@@ -18,7 +18,7 @@ module NavigationHelpers
       '/logout'
 
     when /^the settings page$/
-      '/backend/settings'
+      '/manage/settings'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

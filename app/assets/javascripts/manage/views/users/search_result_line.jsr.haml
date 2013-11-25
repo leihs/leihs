@@ -1,0 +1,53 @@
+.row.line
+  .col2of8.line-col{:data => {:type => "user-cell",
+                              :id => "{{>id}}",
+                              :firstname => "{{>firstname}}",
+                              :lastname => "{{>lastname}}",
+                              :email => "{{>email}}",
+                              :phone => "{{>phone}}",
+                              :badge_id => "{{>badge_id}}",
+                              :address => "{{>address}}",
+                              :image_url => "{{>image_url}}",
+                              :zip => "{{>zip}}",
+                              :city => "{{>city}}"}}
+
+    %strong {{>name()}}
+
+  .col2of8.line-col.text-align-left
+    {{>city}}
+
+  .col1of8.line-col.text-align-left
+    {{if phone}}
+    .row.grey-text {{jed 'Phone'/}}
+    {{>phone}}
+    {{/if}}
+  
+  .col1of8.line-col.text-align-left
+    {{if badge_id}}
+    .row.grey-text {{jed 'Badge'/}}
+    {{>badge_id}}
+    {{/if}}
+ 
+  .col2of8.line-col.line-actions
+
+    .multibutton
+
+      %a.button.white{:href => "{{>url('hand_over')}}"}
+        {{jed "Hand Over"/}}
+
+      .dropdown-holder.inline-block
+        .button.white.dropdown-toggle
+          .arrow.down
+
+        %ul.dropdown.right
+
+          %li
+            %a.dropdown-item{:href => "{{>url('edit')}}"}
+              %i.icon-edit
+              {{jed "Edit"/}}
+
+          %li
+            %a.dropdown-item{:href => "mailto:{{>email}}"}
+              %i.icon-envelope
+              {{jed "E-Mail"/}}
+

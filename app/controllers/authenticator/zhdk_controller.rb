@@ -36,6 +36,7 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
   end
     
   def create_or_update_user(xml)
+    return false unless xml["authresponse"]["person"]
     uid = xml["authresponse"]["person"]["uniqueid"]
     email = xml["authresponse"]["person"]["email"] || uid + "@leihs.zhdk.ch"
     phone = "#{xml["authresponse"]["person"]["phone_mobile"]}"

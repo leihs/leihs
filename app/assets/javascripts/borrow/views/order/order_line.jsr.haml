@@ -1,0 +1,53 @@
+.row.line{:"data-ids" => "[{{>ids}}]"}
+
+  {{if !available()}}
+  .line-info.red{title: _("Not available")}
+  {{/if}}
+
+  .line-col.col1of9.padding-left-l.text-align-center
+
+    %img.max-height-xxs-alt.max-width-xs{src: "/models/{{>model_id}}/image_thumb"}
+
+  .line-col.col4of9.text-align-left
+
+    .col1of10.text-align-right.padding-right-s
+      {{if sublines}}
+      {{sum sublines "quantity"/}}
+      {{else}}
+      {{> quantity}}
+      {{/if}}
+      x
+
+    %strong.col6of10.text-ellipsis{:title => "{{>model().name}}"} {{>model().name}}
+
+    %strong.col2of10.text-ellipsis.padding-left-m{:title => "{{>model().manufacturer}}"} {{>model().manufacturer}}
+
+  .line-col.col2of9.text-align-left
+    {{interval start_date end_date/}}
+    {{jed "until"/}}
+    {{localize end_date/}}
+
+  .line-col.line-actions.col2of9.padding-right-l
+
+    .multibutton
+
+      %button.button.white{:"data-change-order-lines" => true,
+                           :"data-model-id" => "{{>model_id}}",
+                           :"data-line-ids" => "[{{>ids}}]",
+                           :"data-start-date" => "{{>start_date}}",
+                           :"data-end-date" => "{{>end_date}}"}
+        %i.icon-calendar
+        {{jed "Change entry"/}}
+
+      .dropdown-holder.inline-block
+
+        .button.white.dropdown-toggle
+          %span.arrow.down
+
+        .dropdown.right
+
+          %a.dropdown-item.red{:href => "/borrow/order/remove_lines?{{param ids 'line_ids'/}}",
+             :"data-confirm" => "{{jed 'Are you sure?'/}}",
+             :"data-method" => :delete}
+            %i.icon-trash
+            {{jed 'Delete'/}}

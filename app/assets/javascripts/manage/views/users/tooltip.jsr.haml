@@ -1,0 +1,28 @@
+.row.width-xl.min-height-s.padding-right-s.padding-left-s
+
+  .col3of4
+
+    .row
+      %h3.headline-l {{>firstname}} {{>lastname}}
+      %h3.headline-s.light {{>email}}
+
+    {{if address}}
+    .row.margin-top-m
+      %p.paragraph-xs.line-height-s {{jed "Address"/}}
+      %p.paragraph-s.line-height-s {{>address}}{{>zip}} {{>city}}
+    {{/if}}
+
+    {{if phone}}
+    .row.margin-top-m
+      %p.paragraph-xs.line-height-s {{jed "Phone"/}}
+      %p.paragraph-s.line-height-s {{>phone}}
+    {{/if}}
+
+    {{if badge_id}}
+    .row.margin-top-m
+      %p.paragraph-xs.line-height-s {{jed "Badge"/}}
+      %p.paragraph-s.line-height-s {{>badge_id}}
+    {{/if}}
+        
+  .col1of4
+    %img.max-size-xxs.margin-horziontal-auto{src: "{{if imageUrl}}{{>imageUrl()/}}{{/if}}"}

@@ -1,0 +1,28 @@
+- name: examples/gegenstand_editieren2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_editieren2.feature"
+- name: examples/gegenstand_editieren4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/gegenstand_editieren4.feature"
+- name: examples/kalender2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/kalender2.feature"
+- name: examples/pakete3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/pakete3.feature"
+- name: examples/probleme4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/probleme4.feature"
+- name: manage/hand_over/add2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/hand_over/add2.feature"
+- name: manage/hand_over/delete
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/hand_over/delete.feature"

@@ -1,0 +1,12 @@
+- name: examples/benutzerverwaltung2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/benutzerverwaltung2.feature"
+- name: examples/benutzerverwaltung7
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/benutzerverwaltung7.feature"
+- name: examples/benutzerverwaltung12
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/benutzerverwaltung12.feature"

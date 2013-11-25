@@ -19,7 +19,7 @@ class Borrow::ModelsController < Borrow::ApplicationController
 
   def index
     @category = Category.find_by_id params[:category_id]
-    @models = Model.filter params, @category, current_user, true
+    @models = Model.filter params, current_user, @category, true
     set_pagination_header(@models)
     respond_to do |format|
       format.json 

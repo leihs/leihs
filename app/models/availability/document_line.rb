@@ -8,12 +8,12 @@ module Availability
     def available?
       b = if end_date < Date.today # check if it was never handed over
         false
-      elsif is_a?(OrderLine) and order.status_const == Order::UNSUBMITTED
-        if order.timeout?
-          same_order_summed_quantity = order.lines.where(model_id: model_id, inventory_pool_id: inventory_pool_id).where("start_date <= ? AND end_date >= ?", end_date, start_date).sum(:quantity)
-          (maximum_available_quantity >= same_order_summed_quantity)
+      elsif contract.status == :unsubmitted
+        if contract.user.timeout?
+          same_contract_summed_quantity = contract.lines.where(model_id: model_id).where("start_date <= ? AND end_date >= ?", end_date, start_date).sum(:quantity)
+          (maximum_available_quantity >= same_contract_summed_quantity)
         else
-          # the unsubmitted order_lines are also considered as running_lines for the availability, then we sum up again the current order_line quantity (preventing self-blocking problem)
+          # the unsubmitted contract_lines are also considered as running_lines for the availability, then we sum up again the current contract_line quantity (preventing self-blocking problem)
           (maximum_available_quantity + quantity >= quantity)
         end
       elsif is_a?(OptionLine)
@@ -33,11 +33,11 @@ module Availability
       end
 
       # OPTIMIZE
-      if b and is_a?(OrderLine)
+      if b and [:unsubmitted, :submitted].include? contract.status
         b = (b and inventory_pool.is_open_on?(start_date) and inventory_pool.is_open_on?(end_date)) 
-        b = (b and not order.user.access_right_for(inventory_pool).suspended?) if order.user # OPTIMIZE why checking for user ??
+        b = (b and not contract.user.access_right_for(inventory_pool).suspended?) if contract.user # OPTIMIZE why checking for user ??
       end
-      
+
       return b
     end
     alias :is_available :available? # NOTE remove if custom as_json is gone 
