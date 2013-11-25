@@ -9,3 +9,4 @@ window.App.User::isSuspended = -> _.include App.InventoryPool.current.suspended_
 window.App.User::imageUrl = -> 
   if App.UserImageUrl? and @unique_id
     App.UserImageUrl.replace(/{:id}/, @unique_id)
+    App.UserImageUrl.replace(/{:extended_info:id}/, @extended_info.id)

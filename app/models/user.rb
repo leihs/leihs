@@ -188,6 +188,7 @@ class User < ActiveRecord::Base
   def image_url
     if unique_id and Setting::USER_IMAGE_URL
       Setting::USER_IMAGE_URL.gsub(/\{:id\}/, unique_id)
+      Setting::USER_IMAGE_URL.gsub(/\{:extended_info:id\}/, extended_info["id"].to_s) if extended_info
     end
   end
 
