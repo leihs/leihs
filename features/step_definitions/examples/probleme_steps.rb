@@ -29,7 +29,7 @@ Angenommen /^eine Model ist nichtmehr verfügbar$/ do
     @max_before = @entity.lines.first.model.availability_in(@entity.inventory_pool).maximum_available_in_period_summed_for_groups(@entity.lines.first.start_date, @entity.lines.first.end_date, @entity.lines.first.group_ids)
     step 'I add so many lines that I break the maximal quantity of an model'
   else
-    contract_line = @contract_lines_to_take_back.sample
+    contract_line = @contract_lines_to_take_back.where(option_id: nil).sample
     @model = contract_line.model
     visit manage_hand_over_path(@ip, @customer)
     @max_before = @model.availability_in(@ip).maximum_available_in_period_summed_for_groups(contract_line.start_date, contract_line.end_date, contract_line.group_ids)

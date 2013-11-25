@@ -115,6 +115,7 @@ end
 
 def type_into_autocomplete(selector, value)
   raise "please provide a value" if value.size.zero?
+  find("body").click # blur all possible focused autocomplete inputs
   find(selector).set value
   find(".ui-autocomplete")
 end
