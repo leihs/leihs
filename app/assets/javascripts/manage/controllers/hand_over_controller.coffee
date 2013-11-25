@@ -38,7 +38,7 @@ class window.App.HandOverController extends Spine.Controller
 
   fetchAvailability: =>
     @render false
-    ids = _.uniq(_.map(@getLines(), (l)->l.model().id))
+    ids = _.uniq(_.map(_.filter(@getLines(), (l)-> l.model_id?), (l)->l.model().id))
     if ids.length
       @status.html App.Render "manage/views/availabilities/loading"
       App.Availability.ajaxFetch

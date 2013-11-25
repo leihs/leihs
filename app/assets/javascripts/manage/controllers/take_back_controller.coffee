@@ -32,15 +32,17 @@ class window.App.TakeBackController extends Spine.Controller
 
   fetchAvailability: =>
     @render false
-    @status.html App.Render "manage/views/availabilities/loading"
-    App.Availability.ajaxFetch
-      data: $.param
-        model_ids: _.uniq(_.map(@getLines(), (l)->l.model().id))
-        user_id: @user.id
-    .done (data)=>
-      @initalAvailabilityFetched = true
-      @status.html App.Render "manage/views/availabilities/loaded"
-      @render true
+    ids = _.uniq(_.map(_.filter(@getLines(), (l)-> l.model_id?), (l)->l.model().id))
+    if ids.length
+      @status.html App.Render "manage/views/availabilities/loading"
+      App.Availability.ajaxFetch
+        data: $.param
+          model_ids: ids
+          user_id: @user.id
+      .done (data)=>
+        @initalAvailabilityFetched = true
+        @status.html App.Render "manage/views/availabilities/loaded"
+        @render true
 
   getLines: => _.flatten _.map(@user.contracts().all(), (c)->c.lines().all())
 
