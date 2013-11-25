@@ -12,6 +12,10 @@ end
 Then /^I see all availabilities in that calendar, where the small number is the total quantity of that specific date$/ do
   within(".modal") do
     find("#booking-calendar .fc-widget-content", match: :first)
+    # go to today
+    while(all(".fc-button-prev:not(.fc-state-disabled)").length != 0)
+      find(".fc-button-prev").click
+    end
     av = @model.availability_in(@ip)
     changes = av.available_total_quantities
     changes.each_with_index do |c, i|
