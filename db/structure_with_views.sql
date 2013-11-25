@@ -242,7 +242,7 @@ CREATE TABLE `contract_lines` (
   KEY `fk_contract_lines_model_id` (`model_id`),
   KEY `index_contract_lines_on_returned_date_and_contract_id` (`returned_date`,`contract_id`),
   KEY `index_contract_lines_on_type_and_contract_id` (`type`,`contract_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -251,7 +251,7 @@ CREATE TABLE `contract_lines` (
 
 LOCK TABLES `contract_lines` WRITE;
 /*!40000 ALTER TABLE `contract_lines` DISABLE KEYS */;
-INSERT INTO `contract_lines` VALUES (1,1,'ItemLine',1,1,1,'2013-01-01','2013-02-01',NULL,NULL,'2013-11-18 13:25:17','2013-11-18 13:28:38',1,NULL);
+INSERT INTO `contract_lines` VALUES (1,1,'ItemLine',1,1,1,'2013-01-01','2013-02-01',NULL,NULL,'2013-11-18 13:25:17','2013-11-18 13:28:38',1,NULL),(2,2,'ItemLine',NULL,1,1,'2013-12-31','2014-01-02',NULL,NULL,'2013-11-21 17:20:54','2013-11-21 17:21:01',2,NULL);
 /*!40000 ALTER TABLE `contract_lines` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -275,7 +275,7 @@ CREATE TABLE `contracts` (
   KEY `index_contracts_on_inventory_pool_id` (`inventory_pool_id`),
   KEY `index_contracts_on_user_id` (`user_id`),
   KEY `index_contracts_on_status` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -284,7 +284,7 @@ CREATE TABLE `contracts` (
 
 LOCK TABLES `contracts` WRITE;
 /*!40000 ALTER TABLE `contracts` DISABLE KEYS */;
-INSERT INTO `contracts` VALUES (1,1,1,'asdfasdf','2013-11-18 13:28:38','2013-11-18 13:28:38',1,'signed');
+INSERT INTO `contracts` VALUES (1,1,1,'asdfasdf','2013-11-18 13:28:38','2013-11-18 13:28:38',1,'signed'),(2,1,1,NULL,'2013-11-21 17:21:01','2013-11-21 17:21:43',NULL,'approved');
 /*!40000 ALTER TABLE `contracts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -387,7 +387,7 @@ CREATE TABLE `histories` (
   KEY `index_histories_on_target_type_and_target_id` (`target_type`,`target_id`),
   KEY `index_histories_on_type_const` (`type_const`),
   KEY `index_histories_on_user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -396,7 +396,7 @@ CREATE TABLE `histories` (
 
 LOCK TABLES `histories` WRITE;
 /*!40000 ALTER TABLE `histories` DISABLE KEYS */;
-INSERT INTO `histories` VALUES (1,'Contract 1 has been signed by Leonard Harris',1,'2013-11-18 13:28:38',1,'Contract',1),(2,'[leihs] Reminder',1,'2013-11-18 13:49:15',1,'User',1),(3,'Reminded 1 items for contracts 1',3,'2013-11-18 13:49:15',1,'User',NULL),(4,'[leihs] Reminder',1,'2013-11-18 13:50:41',1,'User',1),(5,'Reminded 1 items for contracts 1',3,'2013-11-18 13:50:41',1,'User',NULL);
+INSERT INTO `histories` VALUES (1,'Contract 1 has been signed by Leonard Harris',1,'2013-11-18 13:28:38',1,'Contract',1),(2,'[leihs] Reminder',1,'2013-11-18 13:49:15',1,'User',1),(3,'Reminded 1 items for contracts 1',3,'2013-11-18 13:49:15',1,'User',NULL),(4,'[leihs] Reminder',1,'2013-11-18 13:50:41',1,'User',1),(5,'Reminded 1 items for contracts 1',3,'2013-11-18 13:50:41',1,'User',NULL),(6,'Order submitted',1,'2013-11-21 17:21:01',2,'Contract',1);
 /*!40000 ALTER TABLE `histories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -797,7 +797,7 @@ CREATE TABLE `notifications` (
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_notifications_on_user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -806,7 +806,7 @@ CREATE TABLE `notifications` (
 
 LOCK TABLES `notifications` WRITE;
 /*!40000 ALTER TABLE `notifications` DISABLE KEYS */;
-INSERT INTO `notifications` VALUES (1,1,'[leihs] Reminder','2013-11-18 13:49:15'),(2,1,'[leihs] Reminder','2013-11-18 13:50:41');
+INSERT INTO `notifications` VALUES (1,1,'[leihs] Reminder','2013-11-18 13:49:15'),(2,1,'[leihs] Reminder','2013-11-18 13:50:41'),(3,1,'Order submitted','2013-11-21 17:21:01');
 /*!40000 ALTER TABLE `notifications` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -940,7 +940,7 @@ CREATE TABLE `purposes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `description` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -949,7 +949,7 @@ CREATE TABLE `purposes` (
 
 LOCK TABLES `purposes` WRITE;
 /*!40000 ALTER TABLE `purposes` DISABLE KEYS */;
-INSERT INTO `purposes` VALUES (1,'asdfasdf');
+INSERT INTO `purposes` VALUES (1,'asdfasdf'),(2,'uuu');
 /*!40000 ALTER TABLE `purposes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1025,7 +1025,7 @@ CREATE TABLE `schema_migrations` (
 
 LOCK TABLES `schema_migrations` WRITE;
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
-INSERT INTO `schema_migrations` VALUES ('20101213125330'),('20110111175705'),('20110117113700'),('20110119193618'),('20110201160119'),('20110222163245'),('20110318110901'),('20110523133506'),('20110617090905'),('20110704075302'),('20110815110417'),('20110921134810'),('20111123154235'),('20111215221843'),('20120106214650'),('20120301140904'),('20120424080000'),('20120424080001'),('20120427113142'),('20120523134739'),('20120618143839'),('20120619083752'),('20120806140527'),('20120806203246'),('20120806203332'),('20120921102118'),('20121109141157'),('20130111105833'),('20130729120232'),('20130730145452'),('20130823104438'),('20130906084646'),('20130923141326'),('20130924180000'),('20130924180001'),('20131118144431');
+INSERT INTO `schema_migrations` VALUES ('20101213125330'),('20110111175705'),('20110117113700'),('20110119193618'),('20110201160119'),('20110222163245'),('20110318110901'),('20110523133506'),('20110617090905'),('20110704075302'),('20110815110417'),('20110921134810'),('20111123154235'),('20111215221843'),('20120106214650'),('20120301140904'),('20120424080000'),('20120424080001'),('20120427113142'),('20120523134739'),('20120618143839'),('20120619083752'),('20120806140527'),('20120806203246'),('20120806203332'),('20120921102118'),('20121109141157'),('20130111105833'),('20130729120232'),('20130730145452'),('20130823104438'),('20130906084646'),('20130923141326'),('20130924180000'),('20130924180001'),('20131118144431'),('20131121171123');
 /*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1051,6 +1051,8 @@ CREATE TABLE `settings` (
   `ldap_config` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `logo_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `mail_delivery_method` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `smtp_username` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `smtp_password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1061,7 +1063,7 @@ CREATE TABLE `settings` (
 
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-INSERT INTO `settings` VALUES (1,'the not localhost',25,'the smtp domain','GBP','','','Cheers,','your.lending.desk@example.com',0,'','','',NULL);
+INSERT INTO `settings` VALUES (1,'the not localhost',25,'the smtp domain','GBP','','','Cheers,','your.lending.desk@example.com',0,'','','','','test','test');
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1283,4 +1285,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-11-19  8:34:51
+-- Dump completed on 2013-11-25 11:16:10
