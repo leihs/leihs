@@ -6,7 +6,7 @@
 
 class window.App.Field extends Spine.Model
 
-  @configure "Field", "id", "attribute", "default", "display_attr", "package",
+  @configure "Field", "id", "attribute", "default", "display_attr", "forPackage",
                       "extended_key", "extensible", "form_name", "group", "label",
                       "permissions", "required", "search_attr", "search_path", "type", "value_attr",
                       "value_label", "values", "visibility_dependency_field_id", "visibility_dependency_value"
