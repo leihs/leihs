@@ -13,7 +13,7 @@ module ContractModules
         contracts = if user 
             user.contracts 
           elsif inventory_pool
-            inventory_pool.contracts
+            inventory_pool.contracts.not_empty
           else
             Contract.scoped
         end

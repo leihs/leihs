@@ -59,6 +59,7 @@ class Contract < ActiveRecord::Base
   end
   scope :submitted_or_approved_or_rejected, where(status: [:submitted, :approved, :rejected])
   scope :signed_or_closed, where(status: [:signed, :closed])
+  scope :not_empty, joins(:contract_lines).uniq
 
   # OPTIMIZE use INNER JOIN (:joins => :contract_lines) -OR- union :approved + :signed (with lines)
   scope :pending, select("DISTINCT contracts.*").
