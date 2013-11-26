@@ -4,7 +4,7 @@
   .line-info.red
   {{/if}}
 
-  {{partial 'manage/views/users/cell' user() "col1of5"/}}
+  {{partial 'manage/views/users/cell' user() '{"grid":"col1of5"}'/}}
 
   .col1of5.line-col
     {{if isOverdue()}}

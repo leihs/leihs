@@ -13,6 +13,9 @@ class window.App.Render
 
   @defaultPath: ""
 
-  constructor: (template, data, options)-> return $.views.render["#{App.Render.defaultPath}#{template}"](data, options)
+  constructor: (template, data, options)-> 
+    if typeof options == "string"
+      options = JSON.parse options
+    return $.views.render["#{App.Render.defaultPath}#{template}"](data, options)
 
   @path: (template)=> "#{App.Render.defaultPath}#{template}"
