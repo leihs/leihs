@@ -3,6 +3,12 @@ task :link_config do
     run "rm #{release_path}/config/LDAP.yml"
     run "ln -s #{ldap_config} #{release_path}/config/LDAP.yml"
   end
+
+  # Link the production.rb file if it exists, so that e.g. ActionMailer settings are read from it
+  if File.exist?("#{deploy_to}/production.rb")
+    run "ln -sf #{release_path} #{release_path}/config/environments/production.rb"
+  end
+
   run "rm -f #{release_path}/config/database.yml"
 #  run "rm -f #{release_path}/config/application.rb"
 
