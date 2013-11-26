@@ -102,17 +102,19 @@ class window.App.SearchOverviewController extends Spine.Controller
         status: ["signed", "closed"]
     .done (data, status, xhr)=>
       contracts = (App.Contract.find datum.id for datum in data)
-      @fetchUsers(contracts).done =>
+      @fetchUsers(contracts, "all").done =>
         @fetchContractLines(contracts).done =>
           @render @contracts, "manage/views/contracts/line", contracts, xhr
 
-  fetchUsers: (records)=>
+  fetchUsers: (records, all = false) =>
     ids = _.uniq _.map records, (r)-> r.user_id
     return {done: (c)->c()} unless ids.length
+    data =
+      ids: ids
+      paginate: false
+    $.extend data, {all: true} if all == "all"
     App.User.ajaxFetch
-      data: $.param
-        ids: ids
-        paginate: false
+      data: $.param(data)
 
   fetchContractLines: (records)=>
     ids = _.flatten _.map records, (r)-> r.id
