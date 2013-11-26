@@ -33,14 +33,15 @@ class window.App.ContractLinesAddController extends Spine.Controller
 
   pushModelsTo: (data)=>
     for model in @models
-      maxAvailableForUser = model.availability().maxAvailableForGroups(@getStartDate(), @getEndDate(), @user.groupIds)
-      maxAvailableInTotal = model.availability().maxAvailableInTotal(@getStartDate(), @getEndDate())
-      data.push
-        name: model.name
-        availability: "#{maxAvailableForUser}(#{maxAvailableInTotal})/#{model.availability().total_rentable}"
-        available: maxAvailableForUser > 0
-        type: _jed "Model"
-        record: model
+      if model.availability()?
+        maxAvailableForUser = model.availability().maxAvailableForGroups(@getStartDate(), @getEndDate(), @user.groupIds)
+        maxAvailableInTotal = model.availability().maxAvailableInTotal(@getStartDate(), @getEndDate())
+        data.push
+          name: model.name
+          availability: "#{maxAvailableForUser}(#{maxAvailableInTotal})/#{model.availability().total_rentable}"
+          available: maxAvailableForUser > 0
+          type: _jed "Model"
+          record: model
 
   pushTemplatesTo: (data)=>
     for template in @templates
