@@ -275,6 +275,7 @@ class Manage::UsersController < Manage::ApplicationController
       @models = @contract.models
       @options = @contract.options  
     end
+    add_visitor(@user)
   end
 
   def take_back
@@ -285,6 +286,7 @@ class Manage::UsersController < Manage::ApplicationController
       @options = @contracts.flat_map(&:options).uniq
       @items = @contracts.flat_map(&:items).uniq
     end
+    add_visitor(@user)
   end
 
   private

@@ -7,7 +7,7 @@ Funktionalität: Ausleihe
     Und man ist "Pius"
     
   @javascript
-  Szenario: Klick auf Letzten Besucher
+  Szenario: Klick auf Letzten Besucher nach Editieren einer Bestellung
     Angenommen ich öffne die Tagesansicht
     Und ich öffne eine Bestellung von "Normin N."
     Dann ich kehre zur Tagesansicht zurück
@@ -15,6 +15,16 @@ Funktionalität: Ausleihe
     Und ich sehe "Normin N." als letzten Besucher
     Wenn ich auf "Normin N." klicke
     Dann wird mir ich ein Suchresultat nach "Normin N." angezeigt
+
+  @javascript
+  Szenario: Wann letzter Besucher erscheint
+    Angenommen ich öffne die Tagesansicht
+    Wenn ich eine Bestellung editieren
+    Dann erscheint der Benutzer unter den letzten Besuchern
+    Wenn ich eine Aushändigung mache
+    Dann erscheint der Benutzer unter den letzten Besuchern
+    Wenn ich eine Rücknahme mache
+    Dann erscheint der Benutzer unter den letzten Besuchern
 
   @javascript
   Szenario: Autocomplete bei der Rücknahme

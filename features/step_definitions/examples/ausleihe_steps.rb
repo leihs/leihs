@@ -405,3 +405,14 @@ def check_printed_contract(window_handles, ip = nil, contract = nil)
     page.evaluate_script("window.printed").should == 1
   end
 end
+
+Wenn(/^ich eine Bestellung editieren$/) do
+  order = @current_inventory_pool.contracts.submitted.sample
+  @user = order.user
+  visit manage_edit_contract_path @current_inventory_pool, order.id
+end
+
+Dann(/^erscheint der Benutzer unter den letzten Besuchern$/) do
+  visit manage_daily_view_path @current_inventory_pool
+  find("#last-visitors a", :text => @user.name)
+end
