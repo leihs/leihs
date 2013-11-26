@@ -1,6 +1,4 @@
 class Mailer::Order < ActionMailer::Base
-  include Mailer::Settings
-
 
   def choose_language_for(user)
     #set_locale(user.language.locale_name)#NOTE: not working anymore "set_locale"
@@ -9,7 +7,6 @@ class Mailer::Order < ActionMailer::Base
 
 
   def approved(order, comment, sent_at = Time.now)
-    load_mailer_settings
     choose_language_for(order.user)
     @order = order
     @comment = comment
@@ -20,7 +17,6 @@ class Mailer::Order < ActionMailer::Base
   end
 
   def submitted(order, purpose, sent_at = Time.now)
-    load_mailer_settings
     choose_language_for(order.user)
     @order = order
     @purpose = purpose
@@ -31,7 +27,6 @@ class Mailer::Order < ActionMailer::Base
   end
 
   def received(order, purpose, sent_at = Time.now)
-    load_mailer_settings
     choose_language_for(order.user)
     @order = order
     @purpose = purpose
@@ -42,7 +37,6 @@ class Mailer::Order < ActionMailer::Base
   end
 
   def rejected(order, comment, sent_at = Time.now)
-    load_mailer_settings
     choose_language_for(order.user)
     @order = order
     @comment = comment
@@ -53,7 +47,6 @@ class Mailer::Order < ActionMailer::Base
   end
 
   def changed(order, comment, sent_at = Time.now)
-    load_mailer_settings
     choose_language_for(order.user)
     @order = order
     @comment = comment

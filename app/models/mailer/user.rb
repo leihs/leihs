@@ -1,5 +1,4 @@
 class Mailer::User < ActionMailer::Base
-  include Mailer::Settings
 
   def choose_language_for(user)
     language = user.language.try(:locale_name) || Language.default_language.try(:locale_name)
@@ -7,7 +6,6 @@ class Mailer::User < ActionMailer::Base
   end
 
   def remind(user, visits, sent_at = Time.now)
-    load_mailer_settings
     choose_language_for(user)
     @visits = visits
     mail( :to => user.emails,
@@ -17,7 +15,6 @@ class Mailer::User < ActionMailer::Base
   end
   
   def deadline_soon_reminder(user, visits, sent_at = Time.now)
-    load_mailer_settings
     choose_language_for(user)
     @visits = visits
     mail( :to => user.emails,
@@ -28,7 +25,6 @@ class Mailer::User < ActionMailer::Base
   
   
   def email(from, to, subject, body)
-    load_mailer_settings
     @email = body
     mail( :to => to,
           :from => from,
