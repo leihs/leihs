@@ -1,120 +1,16 @@
-- name: examples/bestelluebersicht.feature
+- name: borrow/bestelluebersicht.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/examples/bestelluebersicht.feature"
-- name: examples/bestelluebersicht2.feature
+      body: bundle exec cucumber -p all "features/borrow/bestelluebersicht.feature"
+- name: borrow/bestelluebersicht2.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/examples/bestelluebersicht2.feature"
-- name: examples/bestelluebersicht3.feature
+      body: bundle exec cucumber -p all "features/borrow/bestelluebersicht2.feature"
+- name: borrow/bestelluebersicht3.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/examples/bestelluebersicht3.feature"
-- name: examples/bestelluebersicht4.feature
+      body: bundle exec cucumber -p all "features/borrow/bestelluebersicht3.feature"
+- name: borrow/bestelluebersicht4.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/examples/bestelluebersicht4.feature"
-- name: examples/ausleihe.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/ausleihe.feature"
-- name: examples/ausleihe2.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/ausleihe2.feature"
-- name: examples/ausleihe3.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/ausleihe3.feature"
-- name: examples/ausleihe4.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/ausleihe4.feature"
-- name: examples/ausleihe5.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/ausleihe5.feature"
-- name: examples/gegenstand_editieren.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_editieren.feature"
-- name: examples/gegenstand_editieren2.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_editieren2.feature"
-- name: examples/gegenstand_editieren3.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_editieren3.feature"
-- name: examples/gegenstand_editieren4.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_editieren4.feature"
-- name: examples/gegenstand_editieren5.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_editieren5.feature"
-- name: examples/gegenstand_editieren6.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_editieren6.feature"
-- name: examples/gegenstand_editieren7.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_editieren7.feature"
-- name: examples/gegenstand_erstellen.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen.feature"
-- name: examples/gegenstand_erstellen2.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen2.feature"
-- name: examples/gegenstand_erstellen3.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen3.feature"
-- name: examples/gegenstand_erstellen4.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen4.feature"
-- name: examples/gegenstand_erstellen5.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen5.feature"
-- name: examples/gegenstand_erstellen6.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen6.feature"
-- name: examples/gegenstand_erstellen7.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen7.feature"
-- name: examples/gegenstand_erstellen8.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen8.feature"
-- name: examples/inventar.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/inventar.feature"
-- name: examples/inventar2.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/inventar2.feature"
-- name: examples/inventar3.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/inventar3.feature"
-- name: examples/inventar4.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/inventar4.feature"
-- name: examples/inventar5.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/inventar5.feature"
-- name: examples/probleme.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/probleme.feature"
+      body: bundle exec cucumber -p all "features/borrow/bestelluebersicht4.feature"
