@@ -48,6 +48,7 @@ App.Modules.HasLines =
       $.each hash, (key, value) ->
         key_obj = JSON.parse key
         result.push {date: key_obj.date, groups: value}
+      result = _.sortBy result, (el) -> el.date
     return result
 
   groupByDateAndPool: (lines, mergeModels = false)->
