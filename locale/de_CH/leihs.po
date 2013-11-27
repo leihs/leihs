@@ -2446,7 +2446,7 @@ msgid "Please select a time range and continue."
 msgstr "Bitte wählen Sie eine Zeitspanne aus und fahren Sie fort."
 
 msgid "You can modify the time range for each separate model in the next step."
-msgstr "Sie können die Zeitspannen jedes einzelnen Models im nöchsten Schritt editieren."
+msgstr "Sie können die Zeitspannen jedes einzelnen Modells im nächsten Schritt editieren."
 
 msgid "List of templates"
 msgstr "Liste der Vorlagen"
