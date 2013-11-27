@@ -84,16 +84,21 @@ class Model < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name
 
-#############################################  
+#############################################
 
   # OPTIMIZE Mysql::Error: Not unique table/alias: 'items'
   scope :active, select("DISTINCT models.*").joins(:items).where("items.retired IS NULL")
 
   scope :without_items, select("models.*").joins("LEFT JOIN items ON items.model_id = models.id").
                         where(['items.model_id IS NULL'])
-                              
+
+  scope :unused_for_inventory_pool, ( lambda do |ip|
+    model_ids = Model.select("models.id").joins(:items).where(":id IN (items.owner_id, items.inventory_pool_id)", :id => ip.id).uniq
+    Model.where("models.id NOT IN (#{model_ids.to_sql})")
+  end )
+
   scope :packages, where(:is_package => true)
-  
+
   scope :with_properties, select("DISTINCT models.*").
                           joins("LEFT JOIN properties ON properties.model_id = models.id").
                           where("properties.model_id IS NOT NULL")

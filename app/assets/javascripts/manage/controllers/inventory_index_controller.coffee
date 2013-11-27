@@ -50,6 +50,8 @@ class window.App.InventoryIndexController extends Spine.Controller
         search_term: @search.term()
         category_id: @categoriesFilter?.getCurrent()?.id
         unretired: true
+        sort: "name"
+        order: "ASC"
     .done (data, status, xhr) => 
       @pagination.set JSON.parse(xhr.getResponseHeader("X-Pagination"))
       inventory = (App.Inventory.find(datum.id).cast() for datum in data)

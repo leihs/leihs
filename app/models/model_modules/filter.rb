@@ -17,7 +17,6 @@ module ModelModules
         else
           Model.scoped
         end
-
         models = models.where(id: params[:id]) if params[:id]
         models = models.where(id: params[:ids]) if params[:ids]
         models = models.joins(:items).where(:items => {:is_borrowable => true}) if borrowable or params[:borrowable]
@@ -36,12 +35,19 @@ module ModelModules
       def filter_for_inventory_pool (params, inventory_pool, category)
         if params[:all]
           models = Model.scoped
+        elsif params[:unused_models]
+          models = Model.unused_for_inventory_pool inventory_pool
         else
           models = Model.joins(:items).where(":id IN (`items`.`owner_id`, `items`.`inventory_pool_id`)", :id => inventory_pool.id).uniq
           models = models.joins(:items).where(:items => {:retired => nil}) unless params[:include_retired_models]
           models = models.joins(:items).where(:items => {:parent_id => nil}) unless params[:include_package_models]
         end
-        models = models.joins(:items).where(:items => {:inventory_pool_id => params[:responsible_id]}) if params[:responsible_id]
+
+        unless params[:unused_models]
+          models = models.joins(:items).where(items: {id: params[:item_ids]}) if params[:item_ids]
+          models = models.joins(:items).where(:items => {:inventory_pool_id => params[:responsible_id]}) if params[:responsible_id]
+        end
+
         models = models.joins(:categories).where(:"model_groups.id" => [Category.find(params[:category_id])] + Category.find(params[:category_id]).descendants) unless params[:category_id].blank?
         models = models.joins(:model_links).where(:model_links => {:model_group_id => params[:template_id]}) if params[:template_id]
         return models

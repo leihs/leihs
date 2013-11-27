@@ -10,26 +10,17 @@ module InventoryModules
     module ClassMethods
 
       def filter (params, current_inventory_pool = nil)
-        
+
         items = Item.filter params.clone.merge({paginate: "false", all: "true", search_term: nil}), current_inventory_pool
 
         if [:unborrowable, :retired, :category_id, :in_stock, :incomplete, :broken, :owned, :responsible_id, :unused_models].all? {|param| params[param].blank?}
           options = Option.filter params.clone.merge({paginate: "false", sort: "name", order: "ASC"}), current_inventory_pool
         end
 
-        item_ids = items.select("items.id")
+        item_ids = items.pluck(:id)
 
-        models = unless params[:unused_models]
-            Model.joins(:items).select("DISTINCT models.*").where("items.id IN (#{item_ids.to_sql})")
-          else
-            model_ids = Model.joins(:items).select("DISTINCT models.id").where("items.id IN (#{item_ids.to_sql})")
-            Model.where("models.id NOT IN (#{model_ids.to_sql})") 
-        end
+        models = Model.filter params.clone.merge({paginate: "false", item_ids: item_ids}), current_inventory_pool
 
-        models = models.search(params[:search_term], [:name, :items]) if params[:search_term]
-                       
-        models = models.order("name ASC")
-            
         inventory = (models + (options || [])).
                     sort{|a,b| a.name.strip <=> b.name.strip}
 
