@@ -11,7 +11,7 @@ $.views.tags
     "#{days} #{_jed('Days', 'Day', days)}"
 
   diffToday: (date) ->
-    if moment().startOf("day").diff(moment(date).startOf("day"), "days") < 1
+    if moment().startOf("day").diff(moment(date).startOf("day"), "days") == 0
       _jed("Today")
     else
       moment(date).startOf("day").from(moment().startOf("day"))
