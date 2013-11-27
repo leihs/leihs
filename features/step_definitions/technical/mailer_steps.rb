@@ -11,7 +11,7 @@ When(/^the mail delivery method is set to "(.*?)"$/) do |method|
 end
 
 Then(/^ActionMailer's delivery method is "(.*?)"$/) do |method|
-  ActionMailer::Base.delivery_method.should == method
+  ActionMailer::Base.delivery_method.should == method.to_sym
 end
 
 When(/^the SMTP username is set to "(.*?)"$/) do |username|
