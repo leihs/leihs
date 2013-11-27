@@ -12,9 +12,6 @@ Funktionalität: Bestellübersicht
     Wenn ich die Bestellübersicht öffne
 
   @javascript
-  Szenario: Zeit überschritten
-    Wenn ich ein Modell der Bestellung hinzufüge
-    Dann sehe ich die Zeitanzeige
-    Wenn man befindet sich auf der Bestellübersicht
-    Und  die Zeit überschritten ist
+  Szenario: Zeit abgelaufen
+    Wenn die Zeit abgelaufen ist
     Dann werde ich auf die Timeout Page weitergeleitet

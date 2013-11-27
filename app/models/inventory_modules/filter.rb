@@ -19,7 +19,7 @@ module InventoryModules
 
         item_ids = items.pluck(:id)
 
-        models = Model.filter params.clone.merge({paginate: "false", item_ids: item_ids}), current_inventory_pool
+        models = Model.filter params.clone.merge({paginate: "false", item_ids: item_ids, include_retired_models: params[:retired]}), current_inventory_pool
 
         inventory = (models + (options || [])).
                     sort{|a,b| a.name.strip <=> b.name.strip}
