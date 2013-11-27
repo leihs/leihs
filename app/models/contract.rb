@@ -277,7 +277,7 @@ class Contract < ActiveRecord::Base
 
   def max_range
     return nil if lines.blank?
-    line = lines.min {|x| (x.end_date - x.start_date).to_i }
+    line = lines.max_by {|x| (x.end_date - x.start_date).to_i }
     (line.end_date - line.start_date).to_i + 1
   end
 
