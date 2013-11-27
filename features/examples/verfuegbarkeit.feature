@@ -28,3 +28,7 @@ Funktionalität: Verfügbarkeit
     Szenario: Prioritäten der Gruppen bei der Zuweisung
     	Wenn ein Modell in mehreren Gruppen verfügbar ist
     	Dann wird zuletzt die Gruppe "Allgemein" belastet
+    	
+    Szenario: Keine Verfügbarkeitsberechnung bei Optionen
+    	Wenn eine Rücknahme nur Optionen enthält
+    	Dann wird für diese Optionen keine Verfügbarkeit berechnet
