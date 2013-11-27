@@ -20,7 +20,7 @@ module ModelModules
         models = models.where(id: params[:id]) if params[:id]
         models = models.where(id: params[:ids]) if params[:ids]
         models = models.joins(:items).where(:items => {:is_borrowable => true}) if borrowable or params[:borrowable]
-        models = models.search(params[:search_term], [:name, :manufacturer]) unless params[:search_term].blank?
+        models = models.search(params[:search_term], params[:search_targets] ? params[:search_targets] : [:name, :manufacturer]) unless params[:search_term].blank?
         models = models.order_by_attribute_and_direction params[:sort], params[:order]
         models = models.paginate(:page => params[:page]||1, :per_page => [(params[:per_page].try(&:to_i) || 20), 100].min) unless params[:paginate] == "false"
         return models

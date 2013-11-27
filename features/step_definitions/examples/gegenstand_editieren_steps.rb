@@ -81,6 +81,7 @@ end
 Dann(/^ist der Gegenstand mit all den angegebenen Informationen gespeichert$/) do
   find("[data-retired='true']").click if @table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"} and (@table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"} ["Wert"]) == "Ja"
   find_field('list-search').set (@table_hashes.detect {|r| r["Feldname"] == "Inventarcode"} ["Wert"])
+  find("img[src*='loading.gif']")
   find(".line", :text => @table_hashes.detect {|r| r["Feldname"] == "Modell"} ["Wert"], :visible => true)
   visit manage_edit_item_path @current_inventory_pool.id, @item.id
   step 'hat der Gegenstand alle zuvor eingetragenen Werte'
