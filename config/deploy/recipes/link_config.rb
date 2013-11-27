@@ -4,8 +4,6 @@ task :link_config do
     run "ln -s #{ldap_config} #{release_path}/config/LDAP.yml"
   end
 
-  run "ln -sf #{deploy_to}/production.rb #{release_path}/config/environments/production.rb"
-
   run "rm -f #{release_path}/config/database.yml"
 #  run "rm -f #{release_path}/config/application.rb"
 
