@@ -38,7 +38,7 @@
       <hr />
       <% inventory_pools.each do |ip| %>
         <h4><%= ip.name unless ip.name.blank? %></h4>
-        <p><%= ip.description.gsub(/\n/, '<br>') unless ip.description.blank? %></p>
+        <p><%= raw(ip.description.gsub(/\n/, '<br>')) unless ip.description.blank? %></p>
       <% end %>
    </body>
 </html>
