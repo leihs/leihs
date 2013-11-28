@@ -10,6 +10,6 @@ end
 Dann(/^sehe ich für diese Bestellung die längste Zeitspanne direkt auf der Linie$/) do
   visit manage_daily_view_path(@current_inventory_pool)
   line_with_max_range = @contract.item_lines.max{|line| line.end_date - line.start_date}
-  range = (line_with_max_range.end_date-line_with_max_range.start_date)+1
+  range = (line_with_max_range.end_date-line_with_max_range.start_date).to_i+1
   find(".line[data-id='#{@contract.id}']").should have_content "#{range} #{_('days')}"
 end
