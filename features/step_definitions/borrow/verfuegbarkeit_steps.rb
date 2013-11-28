@@ -114,3 +114,19 @@ Dann(/^die Modelle werden blockiert$/) do
   step "bleiben die Modelle in der Bestellung blockiert"
 end
 
+Wenn(/^eine Rücknahme nur Optionen enthält$/) do
+  @ip = @current_inventory_pool = @current_user.active_inventory_pools.first
+  (@customer = @current_inventory_pool.users.find{|u| u.visits.take_back.count == 0}).should be
+  visit manage_hand_over_path @current_inventory_pool, @customer
+  step 'I add an option to the hand over by providing an inventory code and a date range'
+  step 'the option is added to the hand over'
+  step 'I click hand over'
+  find('#purpose')
+  find('#purpose').set 'text'
+  step 'I click hand over inside the dialog'
+  visit manage_take_back_path @current_inventory_pool, @customer
+end
+
+Dann(/^wird für diese Optionen keine Verfügbarkeit berechnet$/) do
+  find('#status').should have_content _('Availability loaded')
+end
