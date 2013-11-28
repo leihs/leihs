@@ -37,3 +37,10 @@ Feature: Add Item during acknowledge process
     And I search again for the same model
     And I wait until the autocompletion is loaded
     Then the model's availability has changed
+
+  @javascript
+  Scenario: Show autocomplete also on frenzied interaction
+    When I start searching some model for adding it
+    And I leave the autocomplete
+    And I reenter the autocomplete
+    Then I should still see the model in the resultlist

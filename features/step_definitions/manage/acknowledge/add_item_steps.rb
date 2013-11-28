@@ -91,3 +91,21 @@ Then (/^the model's availability has changed$/) do
   @changed_aval = find("a.ui-corner-all", text: @model_name).find("div.col1of4:nth-child(2) > div:nth-child(1)").text
   @changed_aval.slice(0).should_not == @init_aval.slice(0)
 end
+
+When(/^I start searching some model for adding it$/) do
+  @model = @current_inventory_pool.models.sample
+  find('#add-input').set @model.name[0..2]
+  find('#add-input').click
+end
+
+When(/^I leave the autocomplete$/) do
+  find('body').click
+end
+
+When(/^I reenter the autocomplete$/) do
+  find('#add-input').click
+end
+
+Then(/^I should still see the model in the resultlist$/) do
+  find('.ui-autocomplete a', text: @model.name[0..2], match: :first)
+end
