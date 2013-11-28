@@ -27,6 +27,7 @@ module Persona
         create_users_with_access_rights
         create_users_with_unsubmitted_contracts
         create_users_with_approved_contracts
+        create_users_with_deleted_access_rights_and_closed_contracts
       end
     end
     
@@ -81,6 +82,16 @@ module Persona
 
     def create_users_with_access_rights
       FactoryGirl.create :access_right, inventory_pool: @av_technik, user: FactoryGirl.create(:user), role: Role.find_by_name("customer")
+    end
+
+    def create_users_with_deleted_access_rights_and_closed_contracts
+      user = FactoryGirl.create(:user)
+      FactoryGirl.create :access_right, inventory_pool: @a_ausleihe, deleted_at: Date.today, user: user, role: Role.find_by_name("customer")
+      @contract = FactoryGirl.create :contract_with_lines, inventory_pool: @a_ausleihe, status: :approved, user: user
+      manager = User.find_by_login "ramon"
+      @contract.sign(manager)
+      @contract.lines.each {|cl| cl.update_attributes(returned_date: Date.today, returned_to_user_id: manager.id)}
+      @contract.close
     end
 
     def create_users_with_unsubmitted_contracts
