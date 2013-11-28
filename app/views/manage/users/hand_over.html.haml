@@ -56,6 +56,9 @@
     for contract_line in #{@lines.to_json}
       App.ContractLine.addRecord new App.ContractLine contract_line
 
+    for item in #{@items.to_json}
+      App.Item.addRecord new App.Item item
+
     new App.HandOverController
       el: "#hand-over-view"
       user: App.User.find(#{@user.id})

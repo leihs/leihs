@@ -274,6 +274,7 @@ class Manage::UsersController < Manage::ApplicationController
       @lines = @contract.lines.includes([:purpose, :model])
       @models = @contract.models
       @options = @contract.options  
+      @items = @contract.items
     end
     add_visitor(@user)
   end

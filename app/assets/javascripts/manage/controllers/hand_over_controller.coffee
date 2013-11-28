@@ -61,6 +61,7 @@ class window.App.HandOverController extends Spine.Controller
     App.Item.ajaxFetch
       data: $.param
         ids: @notFetchedItemIds()
+        paginate: 'false'
 
   render: (renderAvailability)=> 
     @linesContainer.html App.Render "manage/views/lines/grouped_lines_with_action_date", App.Modules.HasLines.groupByDateRange(@getLines(), false, "start_date"), 
