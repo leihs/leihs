@@ -29,6 +29,7 @@ end
 
 Dann /^den Paketen wird ein Inventarcode zugewiesen$/ do
   @packages.first.inventory_code.should_not be_nil
+  sleep 1.22 # fix lazy request problem
 end
 
 Wenn /^das Paket zurzeit nicht ausgeliehen ist$/ do
