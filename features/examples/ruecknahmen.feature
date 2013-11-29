@@ -1,6 +1,6 @@
 # language: de
 
-Funktionalität: Rücknahme
+Funktionalität: Rücknahmen
 
   Um eine Gegenstände wieder dem Verleih zuzuführen
   möchte ich als Ausleih-Verwalter
