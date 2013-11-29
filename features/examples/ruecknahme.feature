@@ -14,3 +14,10 @@ Funktionalität: Rücknahme
     Angenommen man ist "Pius"
     Wenn ich einen Gegenstand zurücknehme
     Dann wird festgehalten, dass ich diesen Gegenstand zurückgenommen habe
+
+  @javascript
+  Szenario: Korrekte Reihenfolge mehrerer Verträge
+    Angenommen man ist "Pius"
+    Und es existiert ein Benutzer mit mindestens 2 Rückgaben an 2 verschiedenen Tagen
+    Wenn man die Rücknahmenansicht für den Benutzer öffnet
+    Dann sind die Rücknahmen aufsteigend nach Datum sortiert
