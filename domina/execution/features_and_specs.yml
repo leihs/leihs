@@ -7,6 +7,12 @@ environments:
 - ruby-1.9.3
 - tightvncserver
 
+ports:
+  xvnc_port:
+    inet_address: "localhost"
+    min: 5900
+    max: 5999
+
 attachments: 
   logs: 
     glob: 'log/*.log'

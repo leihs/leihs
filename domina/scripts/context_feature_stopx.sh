@@ -1,1 +1,1 @@
-tightvncserver -kill ":$DOMINA_TRIAL_INT" -clean
+tightvncserver -kill ":$XVNC_PORT" -clean
