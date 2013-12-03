@@ -1,4 +1,5 @@
 class Location < ActiveRecord::Base
+  include LocationModules::Filter
 
   has_many :items
   belongs_to :building

@@ -1,4 +1,5 @@
 class Template < ModelGroup
+  include TemplateModules::Filter
   
   # TODO 12** belongs_to :inventory_pool through
   # TODO 12** validates belongs_to 1 and only 1 inventory pool

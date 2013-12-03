@@ -1,0 +1,1 @@
+window.App.InventoryPool.url = "/manage"

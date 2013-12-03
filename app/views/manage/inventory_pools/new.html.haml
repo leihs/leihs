@@ -1,0 +1,12 @@
+- content_for :title, _("Create %s") % _("Inventory Pool")
+- content_for :admin_section, "active"
+
+.wrapper.margin-top-m
+
+  = render :partial => 'manage/tabs/admin', :locals => {:active_tab => :inventory_pools}
+
+  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+    = form_tag manage_inventory_pools_path do
+
+      = render partial: "manage/inventory_pools/form"

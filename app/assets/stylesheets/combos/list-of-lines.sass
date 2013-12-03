@@ -1,0 +1,26 @@
+.list-of-lines
+
+  &.even .line:nth-child(odd)
+    background: rgba(200,200,200,0.2)
+
+  &:not(.even) .line:nth-child(even)
+    background: rgba(200,200,200,0.2)
+
+  .level-padding .line
+    padding-left: 1.5em
+
+  // level 2
+  .level-padding .level-padding .line
+    padding-left: 3.0em
+
+  // level 3
+  .level-padding .level-padding .level-padding .line
+    padding-left: 4.5em
+
+  // level 4
+  .level-padding .level-padding .level-padding .level-padding .line
+    padding-left: 6.0em
+
+  // level 5
+  .level-padding .level-padding .level-padding .level-padding .level-padding .line
+    padding-left: 7.5em

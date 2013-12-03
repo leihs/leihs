@@ -1,0 +1,13 @@
+%li.separated-bottom.exclude-last-child
+  %a{:class => "row{{if available}}{{else}} light-red{{/if}}", :title => "{{>name}}"}
+    .row
+      .col3of4{:title => "{{>name}}"}
+        %strong.wrap
+          {{>name}}
+      .col1of4.text-align-right
+        .row
+          {{if availability}}
+          {{>availability}}
+          {{/if}}
+        .row
+          %span.grey-text {{>type}}

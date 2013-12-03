@@ -1,7 +1,8 @@
 Feature: Implement new Group feature#
 
         Background: Provide a minimal lending environment
-                Given inventory pool 'AVZ'
+                Given the settings are exising
+                  And inventory pool 'AVZ'
                   And a manager 'lending_manager' for inventory pool 'AVZ'
                   And I am logged in as 'lending_manager' with password 'foobar'
 

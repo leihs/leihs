@@ -2,55 +2,66 @@
 
 Angenommen /^man öffnet eine Werteliste$/ do
   step 'man öffnet einen Vertrag bei der Aushändigung'
-  find(".tab", :text=> /(Value List|Werteverzeichnis)/, match: :first).click
-  @value_list_element = first(".value_list")
+
+  page.driver.browser.close
+  new_window = page.driver.browser.window_handles.last
+  page.driver.browser.switch_to.window new_window
+
+  find(".modal a", text: _("Value list")).click
+  new_window = page.driver.browser.window_handles.last
+  page.driver.browser.switch_to.window new_window
+
+  @value_list_element = find(".value_list")
 end
 
 Dann /^möchte ich die folgenden Bereiche in der Werteliste sehen:$/ do |table|
-  table.hashes.each do |area|
-    case area["Bereich"]
-      when "Datum"
-        @value_list_element.first(".date").should have_content Date.today.year
-        @value_list_element.first(".date").should have_content Date.today.month
-        @value_list_element.first(".date").should have_content Date.today.day
-      when "Titel"
-        @value_list_element.first("h1").should have_content @contract.id
-      when "Ausleihender"
-        @value_list_element.first(".customer").should have_content @contract.user.firstname
-        @value_list_element.first(".customer").should have_content @contract.user.lastname
-        @value_list_element.first(".customer").should have_content @contract.user.address
-        @value_list_element.first(".customer").should have_content @contract.user.zip
-        @value_list_element.first(".customer").should have_content @contract.user.city
-      when "Verleiher"
-        @value_list_element.first(".inventory_pool")
-      when "Liste"
-        @value_list_element.first(".list")
+  within @value_list_element do
+    table.hashes.each do |area|
+      case area["Bereich"]
+        when "Datum"
+          first(".date").should have_content Date.today.year
+          first(".date").should have_content Date.today.month
+          first(".date").should have_content Date.today.day
+        when "Titel"
+          first("h1").should have_content @contract.id
+        when "Ausleihender"
+          first(".customer").should have_content @contract.user.firstname
+          first(".customer").should have_content @contract.user.lastname
+          first(".customer").should have_content @contract.user.address
+          first(".customer").should have_content @contract.user.zip
+          first(".customer").should have_content @contract.user.city
+        when "Verleiher"
+          first(".inventory_pool")
+        when "Liste"
+          first(".list")
       end
+    end
   end
 end
 
 Dann /^beinhaltet die Werte\-Liste folgende Spalten:$/ do |table| 
-  @list = @value_list_element.first(".list")
-  table.hashes.each do |area|
-    case area["Spaltenname"]
-      when "Laufende Nummer"
-        @contract.lines.each {|line| @list.first("tr", :text=> line.item.inventory_code).first(".consecutive_number") }
-      when "Inventarcode"
-        @contract.lines.each {|line| @list.first("tr", :text=> line.item.inventory_code).first(".inventory_code") }
-      when "Modellname"
-        @contract.lines.each {|line| @list.first("tr", :text=> line.item.inventory_code).first(".model_name").should have_content line.model.name }
-      when "End Datum"
-        @contract.lines.each {|line| 
-          @list.first("tr", :text=> line.item.inventory_code).first(".end_date").should have_content line.end_date.year
-          @list.first("tr", :text=> line.item.inventory_code).first(".end_date").should have_content line.end_date.month
-          @list.first("tr", :text=> line.item.inventory_code).first(".end_date").should have_content line.end_date.day
-        }
-      when "Anzahl"
-        @contract.lines.each {|line| @list.first("tr", :text=> line.item.inventory_code).first(".quantity").should have_content line.quantity }
-      when "Wert"
-        @contract.lines.each {|line|
-          @list.first("tbody tr", :text=> line.item.inventory_code).first(".item_price").text.gsub(/\D/, "").should == ("%.2f" % line.item.price).gsub(/\D/, "")
-        }
+  within @value_list_element.first(".list") do
+    table.hashes.each do |area|
+      case area["Spaltenname"]
+        when "Laufende Nummer"
+          @contract.lines.each {|line| first("tr", :text=> line.item.inventory_code).first(".consecutive_number") }
+        when "Inventarcode"
+          @contract.lines.each {|line| first("tr", :text=> line.item.inventory_code).first(".inventory_code") }
+        when "Modellname"
+          @contract.lines.each {|line| first("tr", :text=> line.item.inventory_code).first(".model_name").should have_content line.model.name }
+        when "End Datum"
+          @contract.lines.each {|line|
+            first("tr", :text=> line.item.inventory_code).first(".end_date").should have_content line.end_date.year
+            first("tr", :text=> line.item.inventory_code).first(".end_date").should have_content line.end_date.month
+            first("tr", :text=> line.item.inventory_code).first(".end_date").should have_content line.end_date.day
+          }
+        when "Anzahl"
+          @contract.lines.each {|line| first("tr", :text=> line.item.inventory_code).first(".quantity").should have_content line.quantity }
+        when "Wert"
+          @contract.lines.each {|line|
+            first("tbody tr", :text=> line.item.inventory_code).first(".item_price").text.gsub(/\D/, "").should == ("%.2f" % line.item.price).gsub(/\D/, "")
+          }
+      end
     end
   end
 end

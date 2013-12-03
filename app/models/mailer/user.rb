@@ -1,6 +1,5 @@
 class Mailer::User < ActionMailer::Base
 
-
   def choose_language_for(user)
     language = user.language.try(:locale_name) || Language.default_language.try(:locale_name)
     I18n.locale = language || I18n.default_locale

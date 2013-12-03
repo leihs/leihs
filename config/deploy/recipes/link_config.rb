@@ -3,6 +3,7 @@ task :link_config do
     run "rm #{release_path}/config/LDAP.yml"
     run "ln -s #{ldap_config} #{release_path}/config/LDAP.yml"
   end
+
   run "rm -f #{release_path}/config/database.yml"
 #  run "rm -f #{release_path}/config/application.rb"
 

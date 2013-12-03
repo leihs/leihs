@@ -1,7 +1,28 @@
 - @sections[@current_section].each do |section|
-  %a.button{:href => "##{section}"}= section.camelize
+  %a{:href => "##{section}"}= section.camelize
 
-%h3.headline-m.light.padding-vertical-m.margin-bottom-m.margin-top-m .grey-text
+%h3.headline-m.light.padding-vertical-m.margin-bottom-m.margin-top-m .blue
 
 - @sections[@current_section].each do |section|
-  %a.grey-text.button{:href => "##{section}"}= section.camelize
+  %a.blue{:href => "##{section}"}= section.camelize
+
+%h3.headline-m.light.padding-vertical-m.margin-bottom-m.margin-top-m .grey
+
+- @sections[@current_section].each do |section|
+  %a.grey{:href => "##{section}"}= section.camelize
+
+%h3.headline-m.light.padding-vertical-m.margin-bottom-m.margin-top-m .white
+
+.emboss.red.padding-inset-s
+  - @sections[@current_section].each do |section|
+    %a.white{:href => "##{section}"}= section.camelize
+
+%h3.headline-m.light.padding-vertical-m.margin-bottom-m.margin-top-m .straight-grey
+
+- @sections[@current_section].each do |section|
+  %a.straight-grey{:href => "##{section}"}= section.camelize
+
+%h3.headline-m.light.padding-vertical-m.margin-bottom-m.margin-top-m .straight-dark-grey
+
+- @sections[@current_section].each do |section|
+  %a.straight-dark-grey{:href => "##{section}"}= section.camelize

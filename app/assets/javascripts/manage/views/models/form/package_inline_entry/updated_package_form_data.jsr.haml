@@ -1,0 +1,7 @@
+{{for data}}
+%input{:type => :hidden, :name => "model[packages][{{>~uid}}]{{>name}}", :value => "{{>value}}"}
+{{/for}}
+
+{{for children}}
+%input{:type => :hidden, :name => "model[packages][{{>~uid}}][children][id][]", :value => "{{>id}}"}
+{{/for}}

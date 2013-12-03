@@ -1,0 +1,1 @@
+window.App.Category.url = => "/manage/#{App.InventoryPool.current.id}/categories"

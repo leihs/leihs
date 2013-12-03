@@ -1,0 +1,54 @@
+.modal.medium.hide.fade.ui-modal.padding-inset-m.padding-horizontal-l{:role => "dialog", :tabindex => "-1"}
+
+  %form
+
+    .row.padding-vertical-m
+      .col1of2
+        %h3.headline-l 
+          {{jed "Inspect Item"/}}
+          {{>inventory_code}}
+        %h4.headline-m.light {{>model().name}}
+
+      .col1of2
+        .float-right
+          %a.modal-close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button", :title => '{{jed "close dialog"/}}', :class => "weak"}
+            Abbrechen
+          %button.button.green{:type => :submit}
+            {{jed "Save"/}}
+
+      .row.padding-vertical-m
+
+        .row.padding-top-m
+          %label.col1of3.padding-right-s
+            .row {{jed 'Status'/}}
+            .row
+              %select.width-full{:name => "is_broken"}
+                {{if is_broken}}
+                %option{:value => "false"} {{jed 'Functional'/}}
+                %option{:value => "true", :selected => true} {{jed 'Defective'/}}
+                {{else}}
+                %option{:value => "false", :selected => true} {{jed 'Functional'/}}
+                %option{:value => "true"} {{jed 'Defective'/}}
+                {{/if}}
+          %label.col1of3.padding-right-s
+            .row {{jed 'Completeness'/}}
+            .row
+              %select.width-full{:name => "is_incomplete"}
+                {{if is_incomplete}}
+                %option{:value => "false"} {{jed 'Complete'/}}
+                %option{:value => "true", :selected => true} {{jed 'Incomplete'/}}
+                {{else}}
+                %option{:value => "false", :selected => true} {{jed 'Complete'/}}
+                %option{:value => "true"} {{jed 'Incomplete'/}}
+                {{/if}}
+          .col1of3.padding-right-s
+            .row {{jed 'Borrowable'/}}
+            .row
+              %select.width-full{:name => "is_borrowable"}
+                {{if is_borrowable}}
+                %option{:value => "true", :selected => true} {{jed 'Borrowable'/}}
+                %option{:value => "false"} {{jed 'Unborrowable'/}}
+                {{else}}
+                %option{:value => "true"} {{jed 'Borrowable'/}}
+                %option{:value => "false", :selected => true} {{jed 'Unborrowable'/}}
+                {{/if}}

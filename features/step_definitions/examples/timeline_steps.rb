@@ -5,37 +5,31 @@ end
 
 Dann /^kann ich für jedes sichtbare Model die Timeline anzeigen lassen$/ do
 
-  lines = if not all("#acknowledge").empty?
-    ".order_line"
-  elsif not all("#hand_over").empty?
-    ".item_line"
-  elsif not all("#take_back").empty?
-    ".item_line"
-  elsif not all("#search_results").empty?
-    first(".line.toggler.model.toggle.show_more").click
-    ".line.model:not(.toggle)"
+  lines = if not all("#edit-contract-view").empty?
+    ".order-line"
+  elsif not all("#hand-over-view").empty?
+    ".line[data-line-type='item_line']"
+  elsif not all("#take-back-view").empty?
+    ".line[data-line-type='item_line']"
+  elsif not all("#search-overview").empty?
+    ".line[data-type='model']"
   elsif not all("#inventory").empty?
-    ".line.model"
+    ".line[data-type='model']"
   else
     raise "unknown page"
   end
 
   raise "no lines found for this page" if lines.size.zero?
 
+  page.has_selector?(lines).should be_true
   all(lines, visible: true)[0..5].each do |line|
-    line.first(".trigger").click
-    while all(".button", :text => _("Timeline")).empty?
-      line.first(".trigger").click
-      sleep(0.5)
-    end
-    line.first(".button", :text => _("Timeline")).click
-    first(".dialog iframe")
-    evaluate_script %Q{ $(".dialog iframe").contents().first("#my_timeline").length; }
-    first(".dialog .button.close_dialog").click
-    all(".dialog", visible: true).size.should == 0
+    line.find(".multibutton .dropdown-toggle").click
+    line.find(".multibutton .dropdown-toggle").hover
+    sleep(0.88)
+    line.find(".multibutton .dropdown-item", text: _("Timeline")).click
+    find(".modal iframe")
+    evaluate_script %Q{ $(".modal iframe").contents().first("#my_timeline").length; }
+    find(".modal .button", text: _("Close")).click
+    page.has_no_selector?(".modal", visible: true).should be_true
   end
-end
-
-Wenn /^ich eine Suche mache$/ do
-  step 'ich suche'
 end

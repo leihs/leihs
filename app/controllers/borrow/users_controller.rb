@@ -12,13 +12,14 @@ class Borrow::UsersController < Borrow::ApplicationController
 
   before_filter only: [:contract, :value_list] do
     @contract = current_user.contracts.find(params[:id])
-    render layout: "print"
   end
 
   def contract
+    render "documents/contract", layout: "print"
   end
 
   def value_list
+    render "documents/value_list", layout: "print"
   end
 
 end

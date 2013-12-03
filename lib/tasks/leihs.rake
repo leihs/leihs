@@ -24,29 +24,29 @@ namespace :leihs do
     time_now = Time.now.to_s
     sha = json["sha"]
 
-    File.open(Rails.root.join("app", "views", "layouts", "_deploy_information.html.haml"), 'a+') do |f| 
+    File.open(Rails.root.join("app", "views", "staging", "_deploy_information.html.haml"), 'a+') do |f| 
 
-      f.puts "\n        %p"
+      f.puts "\n        %span"
       f.print "          = _(\"this is the branch '%s'\")"
       f.print " % \"#{branch}\""
 
-      f.puts "\n        %p"
+      f.puts "\n        %span"
       f.print "          = _(\"deployed %s ago\")"
       f.print " % distance_of_time_in_words_to_now(\"#{time_now}\")"
 
-      f.puts "\n        %p\n"
+      f.puts "\n        %span\n"
       f.print "          = _(\"last change by '%s'\")"
       f.print " % \"#{author["name"]}\"\n"
 
       f.print "          = _(\"is %s ago\")"
       f.print " % distance_of_time_in_words_to_now(\"#{time_of_commit}\")"
-      f.puts "\n        %p\n"
+      f.puts "\n        %span\n"
       f.print "          = \"#{sha}\""
     end
 
-    text = File.read(Rails.root.join("app", "views", "layouts", "_deploy_information.html.haml"))
+    text = File.read(Rails.root.join("app", "views", "staging", "_deploy_information.html.haml"))
     File.open(Rails.root.join("app", "views", "layouts", "splash.html.haml"), 'a+') {|f| f.puts text}
-    File.open(Rails.root.join("app", "views", "layouts", "backend.html.haml"), 'a+') {|f| f.puts text}
+    File.open(Rails.root.join("app", "views", "layouts", "manage.html.haml"), 'a+') {|f| f.puts text}
     File.open(Rails.root.join("app", "views", "layouts", "borrow.html.haml"), 'a+') {|f| f.puts text}
   end
 

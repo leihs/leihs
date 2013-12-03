@@ -29,27 +29,32 @@ Angenommen /^eine Model ist nichtmehr verfügbar$/ do
     @max_before = @entity.lines.first.model.availability_in(@entity.inventory_pool).maximum_available_in_period_summed_for_groups(@entity.lines.first.start_date, @entity.lines.first.end_date, @entity.lines.first.group_ids)
     step 'I add so many lines that I break the maximal quantity of an model'
   else
-    @model = @contract.models.sample
-    visit backend_inventory_pool_user_hand_over_path(@contract.inventory_pool, @customer)
-    @max_before = @contract.lines.first.model.availability_in(@contract.inventory_pool).maximum_available_in_period_summed_for_groups(@contract.lines.first.start_date, @contract.lines.first.end_date, @contract.lines.first.group_ids)
+    contract_line = @contract_lines_to_take_back.where(option_id: nil).sample
+    @model = contract_line.model
+    visit manage_hand_over_path(@ip, @customer)
+    @max_before = @model.availability_in(@ip).maximum_available_in_period_summed_for_groups(contract_line.start_date, contract_line.end_date, contract_line.group_ids)
     step 'I add so many lines that I break the maximal quantity of an model'
-    visit backend_inventory_pool_user_take_back_path(@contract.inventory_pool, @customer)
+    visit manage_take_back_path(@ip, @customer)
   end
-  page.has_selector? ".line.error", text: @model.name
-  @lines = all(".line.error", :text => @model.name)
+  sleep(0.88)
+  find(".line", text: @model.name, match: :first)
+  @lines = all(".line", text: @model.name)
   @lines.size.should > 0
 end
 
 Dann /^sehe ich auf den beteiligten Linien die Auszeichnung von Problemen$/ do
   @problems = []
-
   @lines.each do |line|
-    find(".line[data-id='#{line["data-id"]}'] .problems").hover
-    @problems << find(".tip", match: :first).text
+    hover_for_tooltip line.find("[data-tooltip-template='manage/views/lines/problems_tooltip']")
+    @problems << find(".tooltipster-content strong", match: :first).text
   end
   @reference_line = @lines.first
   @reference_problem = @problems.first
-  @line = ContractLine.find @reference_line["data-id"]
+  @line = if @reference_line["data-id"]
+      ContractLine.find @reference_line["data-id"]
+    else
+      ContractLine.find JSON.parse(@reference_line["data-ids"]).first
+  end
   @av = @line.model.availability_in(@line.inventory_pool)
 end
 
@@ -74,7 +79,7 @@ Dann /^"(.*?)" sind verfügbar für den Kunden$/ do |arg1|
   max = if [:unsubmitted, :submitted].include? @line.contract.status
     @max_before + @quantity_added
   elsif [:approved, :signed].include? @line.contract.status
-    @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @line.group_ids) + @line.contract.lines.where(:start_date => @line.start_date, :end_date => @line.end_date, :model_id => @line.model).size
+    @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @line.group_ids) + 1 # free up self blocking
   else
     @max_before - @quantity_added
   end
@@ -99,9 +104,9 @@ Angenommen /^eine Gegenstand ist nicht ausleihbar$/ do
   if @event == "hand_over"
     @item = @ip.items.unborrowable.first
     step 'I add an item to the hand over'
-    @line_id = find(".line.assigned", match: :first)[:"data-id"]
+    @line_id = find(".line [data-assign-item][disabled]", match: :first).find(:xpath, "./../../..")[:"data-id"]
   elsif @event === "take_back"
-    @line_id = find(".item_line", match: :first)[:"data-id"]
+    @line_id = find(".line[data-line-type='item_line']", match: :first)[:"data-id"]
     step 'markiere ich den Gegenstand als nicht ausleihbar'
   end
 end
@@ -111,44 +116,43 @@ Angenommen /^ich mache eine Rücknahme eines verspäteten Gegenstandes$/ do
   @ip = @current_user.managed_inventory_pools.first
   overdued_take_back = @ip.visits.take_back.detect{|x| x.date < Date.today}
   @line_id = overdued_take_back.lines.first.id
-  visit backend_inventory_pool_user_take_back_path(@ip, overdued_take_back.user)
+  visit manage_take_back_path(@ip, overdued_take_back.user)
   page.should have_selector(".line[data-id='#{@line_id}']")
 end
 
+def open_inspection_for_line(line_id)
+  within(".line[data-id='#{line_id}'] .multibutton") do
+    find(".dropdown-toggle").hover
+    find(".dropdown-holder .dropdown-item", text: _("Inspect")).click
+  end
+  find(".modal")
+end
+
 Dann /^markiere ich den Gegenstand als nicht ausleihbar$/ do
-  find(".line[data-id='#{@line_id}'] .actions .trigger").hover
-  find(".line[data-id='#{@line_id}'] .actions .button", text: _("Inspect")).click
-  page.should have_selector(".dialog")
-  first("select[name='flags[is_borrowable]']").select "Nicht ausleihbar"
-  first(".dialog .navigation button[type='submit']").click
-  page.should have_selector(".notification")
+  open_inspection_for_line(@line_id)
+  find("select[name='is_borrowable']").select "Nicht ausleihbar"
+  find(".modal button[type='submit']").click
 end
 
 Dann /^markiere ich den Gegenstand als defekt$/ do
-  find(".line[data-id='#{@line_id}'] .actions .trigger").hover
-  find(".line[data-id='#{@line_id}'] .actions .button", text: _("Inspect")).click
-  page.should have_selector(".dialog")
-  first("select[name='flags[is_broken]']").select "Defekt"
-  first(".dialog .navigation button[type='submit']").click
-  page.should have_selector(".notification")
+  open_inspection_for_line(@line_id)
+  find("select[name='is_broken']").select "Defekt"
+  find(".modal button[type='submit']").click
 end
 
 Dann /^markiere ich den Gegenstand als unvollständig$/ do
-  find(".line[data-id='#{@line_id}'] .actions .trigger").hover
-  find(".line[data-id='#{@line_id}'] .actions .button", text: _("Inspect")).click
-  page.should have_selector(".dialog", :visible => true)
-  first("select[name='flags[is_incomplete]']").select "Unvollständig"
-  first(".dialog .navigation button[type='submit']").click
-  page.should have_selector(".notification")
+  open_inspection_for_line(@line_id)
+  find("select[name='is_incomplete']").select "Unvollständig"
+  find(".modal button[type='submit']").click
 end
 
 Angenommen /^eine Gegenstand ist defekt$/ do
   if @event == "hand_over"
     @item = @ip.items.broken.first
     step 'I add an item to the hand over'
-    @line_id = find(".line.assigned", match: :first)[:"data-id"]
+    @line_id = find(".line [data-assign-item][disabled]", match: :first).find(:xpath, "./../../..")[:"data-id"]
   elsif  @event == "take_back"
-    @line_id = find(".item_line", match: :first)[:"data-id"]
+    @line_id = find(".line[data-line-type='item_line']", match: :first)[:"data-id"]
     step 'markiere ich den Gegenstand als defekt'
   end
 end
@@ -157,16 +161,15 @@ Angenommen /^eine Gegenstand ist unvollständig$/ do
   if @event == "hand_over"
     @item = @ip.items.incomplete.first
     step 'I add an item to the hand over'
-    @line_id = find(".line.assigned", match: :first)[:"data-id"]
+    @line_id = find(".line [data-assign-item][disabled]", match: :first).find(:xpath, "./../../..")[:"data-id"]
   elsif  @event == "take_back"
-    @line_id = find(".item_line", match: :first)[:"data-id"]
+    @line_id = find(".line[data-line-type='item_line']", match: :first)[:"data-id"]
     step 'markiere ich den Gegenstand als unvollständig'
   end
 end
 
 Dann /^sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen$/ do
-  find(".line[data-id='#{@line_id}'] .problems", :visible => true).hover
-  find(".tip", :visible => true).text.match(/\w/).should be_true
+  hover_for_tooltip find(".line[data-id='#{@line_id}'] .emboss.red")
   @problems = []
-  @problems << first(".tip").text
+  @problems << find(".tooltipster-default .tooltipster-content", text: /\w/).text
 end

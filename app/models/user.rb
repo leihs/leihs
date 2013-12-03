@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  include UserModules::Filter
 
   serialize :extended_info
 
@@ -146,13 +147,7 @@ class User < ActiveRecord::Base
 ################################################
 
   # NOTE working for User.customers but not working for InventoryPool.first.users.customers, use InventoryPool.first.customers instead
-  scope :admins, select("DISTINCT users.*").
-                  joins("LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id").
-                  where(['roles.name = ? AND deleted_at IS NULL', 'admin'])
-
-  scope :no_access_for, lambda { |inventory_pool|
-    where("users.id NOT IN (#{inventory_pool.users.select("users.id").to_sql})")
-  }
+  scope :admins, joins("LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id").where(['roles.name = ? AND deleted_at IS NULL', 'admin'])
 
   # NOTE working for InventoryPool.first.users.customers (through access_rights)
   scope :customers, joins("INNER JOIN roles ON roles.id = access_rights.role_id").
@@ -192,8 +187,8 @@ class User < ActiveRecord::Base
 
   def image_url
     if unique_id and Setting::USER_IMAGE_URL
-      numeric_unique_id = unique_id.gsub(/\D/, '')
-      Setting::USER_IMAGE_URL.gsub(/\{:id\}/, numeric_unique_id)
+      Setting::USER_IMAGE_URL.gsub(/\{:id\}/, unique_id)
+      Setting::USER_IMAGE_URL.gsub(/\{:extended_info:id\}/, extended_info["id"].to_s) if extended_info
     end
   end
 
@@ -234,11 +229,6 @@ class User < ActiveRecord::Base
       reload
     end
     contract
-  end
-
-  # get signed contract lines, filtering the already returned lines
-  def get_signed_contract_lines(inv_pool_id)
-    contracts.by_inventory_pool(inv_pool_id).signed.flat_map { |c| c.contract_lines.to_take_back}
   end
 
 ####################################################################

@@ -27,7 +27,7 @@ end
 
 When "$manager chooses to take back $customer's entry" do | manager, customer |
   @user = User.find_by_login( customer )
-  get backend_inventory_pool_user_take_back_path( @inventory_pool, @user )
+  get manage_take_back_path( @inventory_pool, @user )
   @contract_lines = assigns(:contract_lines)
 end
 

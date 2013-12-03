@@ -3,13 +3,7 @@
   .wrapper 
 
     %a.topbar-logo.padding-horizontal-s.margin-right-s{:href => borrow_root_path}
-      - if Setting::LOGO_URL
-        .table
-          .table-row
-            .table-cell.vertical-align-middle
-              %img{:src => Setting::LOGO_URL}   
-      - else
-        leihs
+      = render :partial => "logo"
 
     %ul.topbar-navigation.padding-right-m
 
@@ -41,7 +35,7 @@
 
       - if current_user.has_role?('manager', nil, false) or current_user.has_role?('admin')
         %li.topbar-item.with-icon
-          %a.topbar-item-inner{:href => backend_path, :title => _("Manage")}
+          %a.topbar-item-inner{:href => manage_root_path}
             %i.icon-gears
             %span= _("Manage")
 

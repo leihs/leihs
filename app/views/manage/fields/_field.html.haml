@@ -1,0 +1,13 @@
+.field.row.emboss.margin-vertical-xxs.margin-right-xs
+  .row.padding-inset-xs
+    .col1of2.padding-vertical-xs
+      %strong.font-size-m.inline-block
+        = key
+        - if defined?(required) and required
+          *
+    .col1of2
+      = yield
+
+  .list-of-lines.even.padding-bottom-xxs
+    - if defined?(entries) and not entries.blank?
+      = render :partial => entry_partial, :collection => entries, :as => :entry

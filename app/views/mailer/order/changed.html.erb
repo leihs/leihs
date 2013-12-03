@@ -32,6 +32,6 @@
       <p><%= _("Kind regards,") %></p>
       <p><%= Setting::EMAIL_SIGNATURE %></p>
       <hr />
-      <p><%= @order.inventory_pool.description.gsub(/\n/, '<br>') unless (@order.inventory_pool.nil? or @order.inventory_pool.description.blank?) %></p>
+      <p><%= raw(@order.inventory_pool.description.gsub(/\n/, '<br>')) unless (@order.inventory_pool.nil? or @order.inventory_pool.description.blank?) %></p>
    </body>
 </html>

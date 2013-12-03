@@ -1,0 +1,27 @@
+.min-width-l
+  {{for groupedLinesByDateRange(true)}}
+  .exclude-last-child.padding-bottom-m.margin-bottom-m.no-last-child-margin
+    .row.margin-bottom-s
+      .col1of2
+        %span
+          {{date start_date/}}
+          = "-"
+          {{date end_date/}}
+      .col1of2.text-align-right
+        %strong {{diffDatesInDays start_date end_date/}}
+    {{for lines}}
+    .row.padding-top-xs
+      .col1of8.text-align-center
+        .paragraph-s.line-height-s 
+          {{if ~quantity}}
+          {{>~quantity}}
+          {{else sublines}}
+          {{sum sublines "quantity"/}}
+          {{else}}
+          {{>quantity}}
+          {{/if}}
+      .col7of8
+        .paragraph-s.line-height-s.text-ellipsis.width-full.padding-right-s
+          %strong {{>model().name}}
+    {{/for}}
+  {{/for}}

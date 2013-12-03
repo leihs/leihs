@@ -23,7 +23,7 @@
 
             .row.padding-inset-l
               .col1of7
-                %h3.headline-m= short_date(k[:start_date])
+                %h3.headline-m= l(k[:start_date])
               .col5of7
                 %h2.headline-m= k[:inventory_pool_name]
 
@@ -44,20 +44,20 @@
                   %button.dropdown-item.text-ellipsis{:type => :submit, :name => "force_continue", :value => "true"}
                     = _("Continue with available models only")
 
-    .col1of5= render :partial => "borrow/current_order_basket"
+    .col1of5= render :partial => "borrow/basket"
 
 :coffeescript
 
   for model in #{@models.to_json}
-    App.Model.records[model.id] = new App.Model model
+    App.Model.addRecord new App.Model model
 
   for ip in #{current_user.inventory_pools.to_json}
-    App.InventoryPool.records[ip.id] = new App.InventoryPool ip
+    App.InventoryPool.addRecord new App.InventoryPool ip
 
-  App.Template.records[#{@template.id}] = new App.Template #{@template.to_json}
+  App.Template.addRecord new App.Template #{@template.to_json}
 
   App.TemplateLine.create line for line in #{@lines.to_json}
 
   jQuery ->
-    new App.Borrow.TemplateAvailabilityController
+    new App.TemplateAvailabilityController
       el: $("#template-availability")

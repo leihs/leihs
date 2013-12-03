@@ -1,0 +1,8 @@
+%li.separated-bottom.exclude-last-child.width-xl{}
+  %a{:class => "row{{if hasProblems()}} light-red{{/if}}",:title => "{{>inventory_code}} {{>location().building().name}} {{>location().room}} {{>location().shelf}}"}
+    .col1of4.text-ellipsis 
+      %strong {{>inventory_code}}
+    .col3of4.text-ellipsis 
+      {{>location().building().name}}
+      {{>location().room}}
+      {{>location().shelf}}

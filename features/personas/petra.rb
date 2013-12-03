@@ -49,11 +49,12 @@ module Persona
       @tripod_model = Model.find_by_name "Kamera Stativ"
       @ultra_compact_model_model = Model.find_by_name "Ultra Compact Beamer"
       @contract_for_camera = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :submitted)
-      @contract_line_camera = FactoryGirl.create(:contract_line, :purpose => @purpose, :model => @camera_model, :contract => @contract_for_camera, :start_date => (Date.today + 7.days), :end_date => (Date.today + 10.days))
-      @contract_line_tripod = FactoryGirl.create(:contract_line, :purpose => @purpose, :model => @tripod_model, :contract => @contract_for_camera, :start_date => (Date.today + 7.days), :end_date => (Date.today + 10.days))
+      FactoryGirl.create(:contract_line, :purpose => @purpose, :model => @camera_model, :contract => @contract_for_camera, :start_date => (Date.today + 7.days), :end_date => (Date.today + 10.days))
+      FactoryGirl.create(:contract_line, :purpose => @purpose, :model => @tripod_model, :contract => @contract_for_camera, :start_date => (Date.today + 7.days), :end_date => (Date.today + 10.days))
+      FactoryGirl.create(:contract_line, :purpose => @purpose, :model => @tripod_model, :contract => @contract_for_camera, :start_date => (Date.today + 8.days), :end_date => (Date.today + 11.days))
 
-      @contract_for_ultra_compact_model = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :submitted)
-      @contract_line_ultra_compact_model = FactoryGirl.create(:contract_line, :purpose => @purpose, :model => @ultra_compact_model_model, :contract => @contract_for_ultra_compact_model, :start_date => (Date.today), :end_date => (Date.today + 1.days))
+      contract_for_ultra_compact_model = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :submitted)
+      FactoryGirl.create(:contract_line, :purpose => @purpose, :model => @ultra_compact_model_model, :contract => contract_for_ultra_compact_model, :start_date => (Date.today), :end_date => (Date.today + 1.days))
     end
     
     def create_overdue_hand_overs

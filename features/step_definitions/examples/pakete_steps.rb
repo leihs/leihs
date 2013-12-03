@@ -1,22 +1,19 @@
 # encoding: utf-8
-def add_item_via_autocomplete input_value, element
-  element.set input_value
-  page.has_selector? "a", text: input_value
-  find("a", match: :prefer_exact, text: input_value).click
-end
 
 Wenn /^ich mindestens die Pflichtfelder ausfülle$/ do
   @model_name = "Test Modell-Paket"
-  find(".field", match: :prefer_exact, :text => _("Name")).fill_in 'name', :with => @model_name
+  find(".row.emboss", match: :prefer_exact, :text => _("Name")).fill_in 'model[name]', :with => @model_name
 end
 
 Wenn /^ich eines oder mehrere Pakete hinzufüge$/ do
-  find("a", match: :prefer_exact, text: _("Add %s") % _("Package")).click
+  find("button", match: :prefer_exact, text: _("Add %s") % _("Package")).click
 end
 
 Wenn /^ich(?: kann | )diesem Paket eines oder mehrere Gegenstände hinzufügen$/ do
-  add_item_via_autocomplete "beam123", first(".dialog #add-item .autocomplete")
-  add_item_via_autocomplete "beam345", first(".dialog #add-item .autocomplete")
+  find(".modal #search-item").set "beam123"
+  find("a", match: :prefer_exact, text: "beam123").click
+  find(".modal #search-item").set "beam345"
+  find("a", match: :prefer_exact, text: "beam345").click
 end
 
 Dann /^ist das Modell erstellt und die Pakete und dessen zugeteilten Gegenstände gespeichert$/ do
@@ -32,35 +29,37 @@ end
 
 Dann /^den Paketen wird ein Inventarcode zugewiesen$/ do
   @packages.first.inventory_code.should_not be_nil
+  sleep 1.22 # fix lazy request problem
 end
 
 Wenn /^das Paket zurzeit nicht ausgeliehen ist$/ do
   @package = @current_inventory_pool.items.packages.in_stock.first
-  visit edit_backend_inventory_pool_model_path(@current_inventory_pool, @package.model)
+  visit manage_edit_model_path(@current_inventory_pool, @package.model)
 end
 
 Dann /^kann ich das Paket löschen und die Gegenstände sind nicht mehr dem Paket zugeteilt$/ do
   @package_item_ids = @package.children.map(&:id)
-  find(".field-inline-entry", :text => @package.inventory_code).first(".clickable", :text => _("Delete")).click
+  find("[data-type='inline-entry'][data-id='#{@package.id}'] [data-remove]").click
   step 'ich speichere die Informationen'
-  find(".top", match: :prefer_exact, text: _("List of Models"))
+  find("#flash")
   Item.find_by_id(@package.id).nil?.should be_true
   lambda {@package.reload}.should raise_error(ActiveRecord::RecordNotFound)
   @package_item_ids.size.should > 0
   @package_item_ids.each{|id| Item.find(id).parent_id.should be_nil}
+  sleep(0.99) # fix lazy request problem
 end
 
 Wenn /^das Paket zurzeit ausgeliehen ist$/ do
   @package_not_in_stock = @current_inventory_pool.items.packages.not_in_stock.first
-  visit edit_backend_inventory_pool_model_path(@current_inventory_pool, @package_not_in_stock.model)
+  visit manage_edit_model_path(@current_inventory_pool, @package_not_in_stock.model)
 end
 
 Dann /^kann ich das Paket nicht löschen$/ do
-  find(".field-inline-entry", :text => @package_not_in_stock.inventory_code).all(".clickable", :text => _("Delete")).size.should == 0
+  page.should_not have_selector("[data-type='inline-entry'][data-id='#{@package_not_in_stock.id}'] [data-remove]")
 end
 
 Wenn /^ich ein Modell editiere, welches bereits Pakete hat$/ do
-  visit backend_inventory_pool_models_path(@current_inventory_pool)
+  visit manage_inventory_path(@current_inventory_pool)
   @model = @current_inventory_pool.models.detect {|m| not m.items.empty? and m.is_package?}
   @model_name = @model.name
   step 'ich nach "%s" suche' % @model.name
@@ -69,7 +68,7 @@ Wenn /^ich ein Modell editiere, welches bereits Pakete hat$/ do
 end
 
 Wenn /^ich ein Modell editiere, welches bereits Gegenstände hat$/ do
-  visit backend_inventory_pool_models_path(@current_inventory_pool)
+  visit manage_inventory_path(@current_inventory_pool)
   @model = @current_inventory_pool.models.detect {|m| not (m.items.empty? and m.is_package?)}
   @model_name = @model.name
   step 'ich nach "%s" suche' % @model.name
@@ -88,26 +87,27 @@ Wenn /^ich einem Modell ein Paket hinzufüge$/ do
 end
 
 Dann /^kann ich dieses Paket nur speichern, wenn dem Paket auch Gegenstände zugeteilt sind$/ do
-  click_button _("Save")
+  find("#save-package").click
   page.should have_content _("You can not create a package without any item")
   page.should have_content _("New Package")
-  click_button _("Cancel")
-  find(".field", match: :prefer_exact, text: _("Packages")).should_not have_selector ".field-inline-entry"
+  find(".modal-close").click
+  page.should_not have_selector("[data-type='field-inline-entry']")
 end
 
 Wenn /^ich ein Paket editiere$/ do
   @model = Model.find_by_name "Kamera Set"
-  visit edit_backend_inventory_pool_model_path(@current_inventory_pool, @model)
+  visit manage_edit_model_path(@current_inventory_pool, @model)
   @package_to_edit = @model.items.detect &:in_stock?
-  find(".field-inline-entry", text: @package_to_edit.inventory_code).find(".clickable", text: _("Edit")).click
+  find(".line[data-id='#{@package_to_edit.id}']").find("button[data-edit-package]").click
 end
 
 Dann /^kann ich einen Gegenstand aus dem Paket entfernen$/ do
-  items = all(".dialog .inventory_code")
+  find(".modal #items [data-type='inline-entry']", match: :first)
+  items = all("#items [data-type='inline-entry']")
   @number_of_items_before = items.size
   @item_to_remove = items.first.text
-  find(".removeItem", match: :first).click
-  click_button _("Save")
+  find("#items [data-remove]", match: :first).click
+  find("#save-package").click
   step 'ich speichere die Informationen'
 end
 
@@ -116,6 +116,7 @@ Dann /^dieser Gegenstand ist nicht mehr dem Paket zugeteilt$/ do
   @package_to_edit.reload
   @package_to_edit.children.count.should eq (@number_of_items_before - 1)
   @package_to_edit.children.detect {|i| i.inventory_code == @item_to_remove}.should be_nil
+  sleep(1.22) # fix lazy request problem
 end
 
 Dann /^werden die folgenden Felder angezeigt$/ do |table|
@@ -126,30 +127,35 @@ Dann /^werden die folgenden Felder angezeigt$/ do |table|
 end
 
 Wenn /^ich das Paket speichere$/ do
-  find(".dialog .save", match: :first).click
+  find(".modal #save-package", match: :first).click
 end
 
 Wenn /^ich das Paket und das Modell speichere$/ do
   step 'ich das Paket speichere'
-  find(".content_navigation .button.green", match: :first).click
+  find("button#model-save", match: :first).click
 end
 
 Dann /^(?:besitzt das Paket alle angegebenen Informationen|das Paket besitzt alle angegebenen Informationen)$/ do
   sleep(0.88)
   model = Model.find_by_name @model_name
-  visit edit_backend_inventory_pool_model_path(@current_inventory_pool, model)
-  page.should have_selector "[ng-repeat='package in model.packages']"
-  find("[ng-repeat='package in model.packages']", match: :first).first(".clickable", :text => _("Edit")).click
+  visit manage_edit_model_path(@current_inventory_pool, model)
+  model.items.each do |item|
+    page.has_selector? ".line[data-id='#{item.id}']", visible: false
+  end
+  find(".line[data-id='#{model.items.first.id}']", visible: false).find("button[data-edit-package]").click
   step 'hat der Gegenstand alle zuvor eingetragenen Werte'
 end
 
 Wenn /^ich ein bestehendes Paket editiere$/ do
-  page.should have_selector "[ng-repeat='package in model.packages']"
-  find("[ng-repeat='package in model.packages']", match: :first).first(".clickable", :text => _("Edit")).click
+  find("[data-edit-package]", match: :first).click
+  find(".modal")
+  find(".modal [data-type='field']", match: :first)
 end
 
 Wenn(/^ich eine Paket hinzufüge$/) do
-  find("a", match: :prefer_exact, text: _("Add %s") % _("Package")).click
+  find("#add-package").click
+  find(".modal")
+  find(".modal [data-type='field']", match: :first)
 end
 
 Wenn(/^ich die Paketeigenschaften eintrage$/) do
@@ -172,11 +178,11 @@ Wenn(/^ich die Paketeigenschaften eintrage$/) do
 end
 
 Wenn(/^ich dieses Paket speichere$/) do
-  find(".dialog .button.save", match: :first).click
+  find("#save-package").click
 end
 
 Wenn(/^ich dieses Paket wieder editiere$/) do
-  find(".field-inline-entry .clickable", match: :prefer_exact, text: _("Edit")).click
+  step 'ich ein bestehendes Paket editiere'
 end
 
 Dann(/^kann ich die Paketeigenschaften erneut bearbeiten$/) do
@@ -184,5 +190,5 @@ Dann(/^kann ich die Paketeigenschaften erneut bearbeiten$/) do
 end
 
 Dann(/^sehe ich die Meldung "(.*?)"$/) do |text|
-  find(".notification.headline", match: :prefer_exact, :text => text)
+  find("#flash", match: :prefer_exact, :text => text)
 end

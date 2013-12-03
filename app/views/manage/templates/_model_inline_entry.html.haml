@@ -1,0 +1,20 @@
+.row.line.font-size-xs{:"data-type" => "inline-entry"}
+  %input{:type => :hidden, :name => "template[model_links_attributes][][id]", :value => model_link.id}
+  %input{:type => :hidden, :name => "template[model_links_attributes][][model_group_id]", :value => model_link.model_group_id}
+  %input{:type => :hidden, :name => "template[model_links_attributes][][model_id]", :value => model_link.model_id}
+  %input{:type => :hidden, :name => "template[model_links_attributes][][_destroy]", :value => nil}
+
+  - max_borrowable_items = model_link.model.borrowable_items.by_responsible_or_owner_as_fallback(current_inventory_pool).count
+
+  - if model_link.quantity > max_borrowable_items
+    .line-info.red
+
+  .line-col.col2of6.no-padding
+    .line-col.col1of2{:"data-quantities" => true}
+      %input.width-full.small.text-align-center{type: :text, value: model_link.quantity, min: 1, name: "template[model_links_attributes][][quantity]", autocomplete: :off}
+    .line-col.col1of2.padding-left-xs.text-align-left{:"data-quantities" => true}= "/ #{max_borrowable_items}"
+
+  .line-col.col3of6.text-align-left{:"data-model-name" => true}= model_link.model.name
+
+  .line-col.col1of6.text-align-right
+    %button.button.inset.small{:"data-remove" => true}= _("Remove")

@@ -1,9 +1,0 @@
-%a
-  %span.inventory_code
-    {{if model.inventory_code}}
-    ${model.inventory_code}
-    {{else}}
-    ${item.inventory_code}
-    {{/if}}
-  %span.name 
-    ${Str.sliced_trunc(Underscore.str.capitalize(model.name), 30)}

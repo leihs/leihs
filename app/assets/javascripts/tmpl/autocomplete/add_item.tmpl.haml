@@ -1,8 +1,0 @@
-%a{:class => "{{if type=='model'}}{{if parseInt(max_available)<=0}}unavailable{{/if}}{{/if}}", :title => "${name}"}
-  %span.label ${Str.sliced_trunc(name, 50)}
-  %span.type ${Str.sliced_trunc(Underscore.str.capitalize(type), 14)}
-  {{if type == "model"}}
-  %span.availability ${max_available}(${max_available_in_total})/${total_rentable}
-  {{else}}
-  %span.availability= "-"
-  {{/if}}

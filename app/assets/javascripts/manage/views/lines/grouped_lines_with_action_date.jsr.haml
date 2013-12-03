@@ -1,0 +1,10 @@
+%h3.headline-s.padding-inset-s 
+  
+  {{if ~moment(date).endOf("day").diff(~moment().endOf("day"), "days") == 0}}
+  %strong {{jed "Today"/}}
+  {{else}}
+  {{day date/}}
+  {{date date/}}
+  {{/if}}
+
+{{partial "manage/views/lines/grouped_lines" groups #view.ctx/}}

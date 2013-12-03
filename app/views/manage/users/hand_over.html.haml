@@ -1,0 +1,65 @@
+- content_for :title, "#{ _("Hand Over to %s") % @user}"
+- content_for :lending_section, "active"
+
+#hand-over-view.wrapper.margin-top-m
+
+  = render :partial => 'manage/tabs/lending', :locals => {:active_tab => :visits}
+
+  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+    .margin-top-l.padding-horizontal-m
+      .row
+        %h1.headline-l= _("Hand Over to %s") % @user
+        = render :partial => "manage/users/visits/visits_overview"
+
+    #status.padding-horizontal-m.margin-top-m
+      - if @lines.count > 0
+        .emboss.blue.padding-inset-s
+          %p.paragraph-s
+            %img.margin-right-s.max-width-micro{:src => asset_path("loading.gif")}
+            %strong
+              = _("Loading availability")
+      - else
+        .emboss.padding-inset-s
+          %p.paragraph-s
+            %strong
+              = _("No hand overs found")
+
+    .row.margin-top-s.padding-top-m.padding-horizontal-m
+
+      .col2of3= render :partial => "manage/users/hand_over/assign_or_add"
+
+      .col1of3
+
+        .float-right= render :partial => "manage/users/hand_over/selection"
+
+    #lines.padding-inset-m.padding-top-xxs= render :partial => "manage/lines/grouped_lines_with_action_date", :locals => {:grouped_lines_by_date => @grouped_lines_by_date, :line_partial => "manage/lines/hand_over"}
+
+:coffeescript
+  
+  jQuery ->
+
+    App.User.addRecord new App.User $.extend {groupIds: #{@group_ids}}, #{@user.to_json}
+
+    for purpose in #{@purposes.to_json}
+      if purpose != null
+        App.Purpose.addRecord new App.Purpose purpose 
+
+    App.Contract.addRecord new App.Contract #{@contract.to_json}
+
+    for model in #{@models.to_json}
+      App.Model.addRecord new App.Model model
+
+    for option in #{@options.to_json}
+      App.Option.addRecord new App.Option option
+
+    for contract_line in #{@lines.to_json}
+      App.ContractLine.addRecord new App.ContractLine contract_line
+
+    for item in #{@items.to_json}
+      App.Item.addRecord new App.Item item
+
+    new App.HandOverController
+      el: "#hand-over-view"
+      user: App.User.find(#{@user.id})
+      contract: App.Contract.find #{@contract.id}

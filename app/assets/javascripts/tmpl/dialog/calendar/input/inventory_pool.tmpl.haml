@@ -1,8 +1,0 @@
-.inventorypool.container
-  %span.select
-  %select{:id => "inventory_pool_id", :name => "inventory_pool_id"}
-    %option{:value => "current",
-            :"data-total_borrowable" => "{{if total_rentable}}${JSON.stringify(total_rentable)}{{else}}undefined{{/if}}",
-            :"data-closed_days" => "${JSON.stringify(currentInventoryPool.closed_days)}",
-            :"data-holidays" => "${JSON.stringify(currentInventoryPool.holidays)}"}
-      ${currentInventoryPool.name}

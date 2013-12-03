@@ -1,16 +1,10 @@
 class Setting < ActiveRecord::Base
 
-  validates_presence_of :smtp_address,
-                        :smtp_port,
-                        :smtp_domain,
-                        :local_currency_string,
-                        :contract_terms,
-                        :contract_lending_party_string,
+  validates_presence_of :local_currency_string,
                         :email_signature,
-                        :default_email,
-                        :user_image_url
+                        :default_email
 
-  validates_numericality_of :smtp_port, :greater_than => 0
+  #validates_numericality_of :smtp_port, :greater_than => 0
 
   validates_format_of :default_email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
 
@@ -21,6 +15,9 @@ class Setting < ActiveRecord::Base
       [:smtp_address,
        :smtp_port,
        :smtp_domain,
+       :smtp_username,
+       :smtp_password,
+       :mail_delivery_method,
        :local_currency_string,
        :contract_terms,
        :contract_lending_party_string,

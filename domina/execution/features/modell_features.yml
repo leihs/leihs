@@ -1,0 +1,4 @@
+- name: examples/modell6
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/modell6.feature"

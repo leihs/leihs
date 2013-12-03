@@ -1,0 +1,66 @@
+%nav#topbar.topbar
+
+  .wrapper 
+
+    %a.topbar-logo.padding-horizontal-s.margin-right-s{:href => manage_root_path}
+      = render :partial => "logo"
+
+    %ul.topbar-navigation.padding-right-m
+
+      - if current_inventory_pool
+        .placeholder.height-xxs-alt.width-s.float-left.inline-block.margin-right-m
+        %li#topbar-search.topbar-item.topbar-search.position-absolute-left
+          = render :partial => 'manage/application/topbar_search'
+
+      - if current_inventory_pool and is_lending_manager?
+        %li.topbar-item{:class => yield(:lending_section)}
+          %a.topbar-item-inner{:href => manage_daily_view_path(current_inventory_pool)}=  _("Lending")
+
+        %li.topbar-item{:class => yield(:inventory_section)}
+          %a.topbar-item-inner{:href => manage_inventory_path(current_inventory_pool)}=  _("Inventory")
+
+      - if is_admin? or (current_inventory_pool and is_lending_manager?)
+        %li.topbar-item{:class => yield(:admin_section)}
+          %a.topbar-item-inner{:href => is_admin? ? manage_inventory_pools_path : manage_inventory_pool_users_path(current_inventory_pool)}
+            = _("Admin")
+
+      - if is_admin?
+        %li.topbar-item{:class => yield(:statistics_section)}
+          %a.topbar-item-inner{:href => statistics_path}= _("Statistics")
+
+    %ul.topbar-navigation.float-right
+
+      %li.topbar-item.with-icon
+        %a.topbar-item-inner{:href => borrow_root_path}
+          %i.icon-shopping-cart
+          %span= _("Borrow")
+
+      %li.topbar-item.dropdown-holder{:class => current_page?(borrow_current_user_path) ? "active" : nil}
+        %a.topbar-item-inner{:href => borrow_current_user_path}
+          %img.max-height-xxxs.max-width-xxs.emboss.deep{:src => current_user.image_url}
+          %span
+            - if current_user.to_s.length > 13
+              - unless current_user.firstname.blank?
+                = "#{current_user.firstname[0]}."
+              = current_user.lastname
+            - else
+              = current_user
+          %i.arrow.down
+
+        %ul.dropdown.right.straight-top
+          / %li{:class => current_page?("start_screen") ? "active" : nil}
+          /   %label.dropdown-item{:title => _("Set current screen as your personal start screen")}
+          /     %input#start_screen_checkbox{:type => :checkbox, :name => "start_screen", :checked => current_user.start_screen == request.fullpath, :autocomplete => :off}
+          /     = _("Start Screen")
+          %li.separated-top
+            %a.dropdown-item{:href => logout_path}
+              .width-xxxs.inline-block.text-align-center
+                .icon-signout
+              = _("Logout")
+
+:coffeescript
+  jQuery -> 
+    new App.TopBarController
+      el: $("#topbar")
+    new App.TopBarSearchItem
+      el: $("#topbar-search")

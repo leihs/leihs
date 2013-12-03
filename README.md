@@ -13,25 +13,24 @@ The install guide can be found on GitHub:
 
 https://github.com/zhdk/leihs/wiki
 
+
 ## Project web pages
 
-Please find our project webpage at: 
+Please find our project webpage at:
 http://github.com/zhdk/leihs
 
-You can also find major releases of leihs as file packages at SourceForge: 
-http://sf.net/projects/leihs
 
+Other important links:
+
+* Blog:                http://blog.zhdk.ch/leihs
 * Source code:         http://github.com/zhdk/leihs
-* Discussion group:    http://groups.google.com/group/leihs
-* Downloads:           http://sourceforge.net/projects/leihs/
+* Issues/discussion:   http://github.com/zhdk/leihs/issues
+* Downloads:           http://github.com/zhdk/leihs/releases
 * Guides and wiki:     http://github.com/zhdk/leihs/wiki
 
-## Forks and pull requests
+## Contributing your own changes
 
-Please fork as much as you like (via GitHub), then send a pull request to
-zhdk. Please run the existing tests (rake leihs:test) before sending the request.
-If you want our extra special thanks, also include tests for your own new code.
-
+See the contribution guide about this: http://github.com/zhdk/leihs/wiki/Contributing
 
 ## Contributors
 

@@ -7,7 +7,10 @@ class Borrow::ContractsController < Borrow::ApplicationController
   end
 
   def index
-    @grouped_and_merged_lines = Contract.grouped_and_merged_lines current_user.contracts.submitted.flat_map(&:lines)
+    respond_to do |format|
+      format.json { @contracts = Contract.filter params, current_user }
+      format.html { @grouped_and_merged_lines = Contract.grouped_and_merged_lines current_user.contracts.submitted.flat_map(&:lines) }
+    end
   end
 
   def current
@@ -42,13 +45,13 @@ class Borrow::ContractsController < Borrow::ApplicationController
   def timed_out
     flash[:error] = _("%d minutes passed. The items are not reserved for you any more!") % Contract::TIMEOUT_MINUTES
     @timed_out = true
-    @lines = unsubmitted_contracts.flat_map(&:lines).as_json(methods: :available?)
+    @lines = unsubmitted_contracts.flat_map(&:lines)
     render :current
   end
 
   def delete_unavailables
     unsubmitted_contracts.flat_map(&:lines).each {|l| l.delete unless l.available? }
-    redirect_to borrow_current_order_path, flash: {notice: _("Your order has been modified. All reservations are now available.")}
+    redirect_to borrow_current_order_path, flash: {success: _("Your order has been modified. All reservations are now available.")}
   end
 
 end

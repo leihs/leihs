@@ -1,0 +1,8 @@
+.table-cell#categories.hidden.separated-top.separated-right
+  .row.padding-inset-s
+    %input#category-search.small{:type => :text, :placeholder => "#{_("Search")} #{_("Category")}", :autocomplete => :off}
+  #category-root
+  #category-current
+  #category-list.row.padding-bottom-s
+    .height-xs
+    %img.margin-horziontal-auto.margin-top-xxl.margin-bottom-xxl{:src => asset_path("loading.gif")}  

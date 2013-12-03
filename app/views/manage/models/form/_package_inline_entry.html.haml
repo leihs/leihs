@@ -1,0 +1,22 @@
+.row.line.font-size-xs.focus-hover-thin{:"data-type" => "inline-entry", :"data-id" => entry.id}
+
+  %input{:type => :hidden, :name => "model[packages][#{entry.id}][id]", :value => entry.id}
+  %input{:type => :hidden, :name => "model[packages][#{entry.id}][_destroy]"}
+  %div{:"data-type" => "form-data"}
+  
+  .line-col.col1of5.text-align-left
+    = entry.inventory_code
+
+  .line-col.col2of5.text-align-left
+    - unless entry.in_stock?
+      %span.grey-text= _("not in stock")
+    %span.grey-text.hidden{:"data-type" => "updated-text"}
+      = _("Changed")
+      %br
+      = _("not yet saved")
+
+  .line-col.col2of5.text-align-right
+    - if entry.in_stock?
+      %button.button.small.inset{:"data-remove" => true, :type => :button, :title => _("Remove")}
+        %i.icon-trash
+    %button.button.small.inset{:"data-edit-package" => true, :type => :button}= _("Edit")

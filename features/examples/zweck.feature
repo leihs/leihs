@@ -26,30 +26,3 @@ Funktionalität: Zweck
   Szenario: Orte, an denen ich den Zweck editieren kann
     Wenn ich eine Bestellung editiere
     Dann kann ich den Zweck editieren
-  
-  @javascript  
-  Szenario: Aushändigung ohne Zweck
-    Wenn ich eine Aushändigung mache
-    Und keine der ausgewählten Gegenstände hat einen Zweck angegeben
-    Dann werde ich beim Aushändigen darauf hingewiesen einen Zweck anzugeben
-    Und erst wenn ich einen Zweck angebebe
-    Dann kann ich die Aushändigung durchführen
-
-  @javascript  
-  Szenario: Aushändigung mit Gegenständen teilweise ohne Zweck können durchgeführt werden
-    Wenn ich eine Aushändigung mache
-    Und einige der ausgewählten Gegenstände hat keinen Zweck angegeben
-    Dann muss ich keinen Zweck angeben um die Aushändigung durchzuführen
-
-  @javascript  
-  Szenario: Aushändigung mit Gegenständen teilweise ohne Zweck übertragen einen angegebenen Zweck nur auf die Gegenstände ohne Zweck
-    Wenn ich eine Aushändigung mache
-     Und einige der ausgewählten Gegenstände hat keinen Zweck angegeben
-     Und ich einen Zweck angebe
-    Dann wird nur den Gegenständen ohne Zweck der angegebene Zweck zugewiesen
-    
-  @javascript  
-  Szenario: Aushändigung mit Gegenständen die alle einen Zweck haben
-    Wenn ich eine Aushändigung mache
-    Und alle der ausgewählten Gegenstände haben einen Zweck angegeben
-    Dann kann ich keinen weiteren Zweck angeben

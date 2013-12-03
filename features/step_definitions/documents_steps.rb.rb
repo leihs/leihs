@@ -2,7 +2,7 @@
 
 When(/^ich unter meinem Benutzernamen auf "([^"]*)" klicke$/) do |arg|
   step "ich über meinen Namen fahre"
-  first("nav.topbar ul.topbar-navigation a[href='/borrow/user']", text: @current_user.to_s).first(:xpath, "./..").first("ul.dropdown a.dropdown-item", text: arg).click
+  find("a[href='#{borrow_user_documents_path}']").click
 end
 
 Dann(/^gelange ich zu der Dokumentenübersichtsseite/) do
@@ -22,7 +22,7 @@ Dann(/^für jede Vertrag sehe ich folgende Informationen$/) do |table|
   contracts = @current_user.contracts.includes(:contract_lines).where(status: [:signed, :closed])
   contracts.sort! {|a,b| b.time_window_min <=> a.time_window_min}
   contracts.each do |contract|
-    within first(".line[data-id='#{contract.id}']") do
+    within(".line[data-id='#{contract.id}']") do
       table.raw.flatten.each do |s|
         case s
           when "Vertragsnummer"
@@ -92,7 +92,6 @@ Wenn(/^ich einen Vertrag mit zurück gebrachten Gegenständen aus meinen Dokumen
   @contract = contracts.find {|c| c.lines.any? &:returned_to_user}
   visit borrow_user_contract_path(@contract.id)
   step "öffnet sich der Vertrag"
-  @contract_element = first(".contract")
 end
 
 Dann(/^sehe ich die Werteliste genau wie im Verwalten\-Bereich$/) do
@@ -202,7 +201,21 @@ Dann(/^sehe ich den Vertrag genau wie im Verwalten-Bereich$/) do
 end
 
 Dann(/^sieht man bei den betroffenen Linien die rücknehmende Person im Format "V. Nachname"$/) do
-  @contract.lines.select(&:returned_to_user).each do |cl|
-    find(".returned_items tr", text: cl.item.inventory_code).first(".returning_date", text: cl.returned_to_user.short_name)
+  if @contract_lines_to_take_back
+    @contract_lines_to_take_back.map(&:contract).uniq.each do |contract|
+      find(".button[target='_blank'][href='#{manage_contract_path(@ip, contract)}']").click
+      new_window = page.driver.browser.window_handles.last
+      page.within_window new_window do
+        contract.lines.each do |cl|
+          find(".contract .list.returned_items tr", text: cl.item.inventory_code).find(".returning_date", text: cl.returned_to_user.short_name)
+        end
+      end
+    end
+  elsif @contract
+    lines = @contract.lines.where("returned_date IS NOT NULL")
+    lines.size.should > 0
+    lines.each do |cl|
+      find(".contract .list.returned_items tr", text: cl.item.inventory_code).find(".returning_date", text: cl.returned_to_user.short_name)
+    end
   end
 end

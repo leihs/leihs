@@ -3,20 +3,22 @@
 def resolve_conflict_for_model name
   # open booking calender for model
   @model = Model.find_by_name name
-  first(".line", :text => @model.name).first(".button", :text => _("Change entry")).click
+  line = find(".line", :text => @model.name, :match => :first)
+  ids = line[:"data-ids"]
+  line.find(".button", :text => _("Change entry")).click
   page.should have_selector("#booking-calendar .fc-day-content")
   find("#booking-calendar-quantity").set 1
-
   # find available start and end date
-  init_date = Date.today
-  while all(".available:not(.closed)[data-date='#{init_date.to_s}']").empty? do
-    init_date += 1
+  date = Date.today
+  while all(".available:not(.closed)[data-date='#{date.to_s}']").empty? do
+    date += 1
   end
-  step "ich setze das Startdatum im Kalendar auf '#{I18n::l(init_date)}'"
-  step "ich setze das Enddatum im Kalendar auf '#{I18n::l(init_date)}'"
-  first(".modal[role='dialog'] .button.green").click
-  step "ensure there are no active requests"
-  page.has_no_selector?("#booking-calendar")
+  step "ich setze das Startdatum im Kalendar auf '#{I18n::l(date)}'"
+  step "ich setze das Enddatum im Kalendar auf '#{I18n::l(date)}'"
+  find(".modal .button.green").click
+  find(".line", :text => @model.name, :match => :first)
+  has_no_selector?("#booking-calendar").should be_true
+  has_no_selector?(".line[data-ids='#{ids}'] .line-info.red").should be_true
 end
 
 Angenommen(/^ich zur Timeout Page mit einem Konfliktmodell weitergeleitet werde$/) do
@@ -188,5 +190,5 @@ Wenn(/^ich alle Fehler korrigiere$/) do
 end
 
 Dann(/^verschwindet die Fehlermeldung$/) do
-  page.has_no_selector?(".emboss", :text => _("Please solve the conflicts for all highlighted lines in order to continue."))
+  should_not have_content _("Please solve the conflicts for all highlighted lines in order to continue.")
 end

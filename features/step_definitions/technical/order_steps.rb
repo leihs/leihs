@@ -15,7 +15,7 @@ end
 # TODO perform real post 
 When "'$who' places a new contract" do | who |
   step "there is a contract by '#{who}'"
-  post "/session", :login => who #new#
+  post login_path(:login => who)
 end
 
 Given "the contract was submitted" do
@@ -71,7 +71,7 @@ end
 
 When "$who chooses one contract" do | who |
   contract = @contracts.first
-  get backend_inventory_pool_acknowledge_path(@inventory_pool, contract)
+  get manage_edit_contract_path(@inventory_pool, contract)
   response.should render_template('backend/acknowledge/show')
   #old??# @contract = assigns(:contract)
 end
@@ -103,8 +103,8 @@ end
 #When "$who approves contract" do |who|
 #  @comment ||= ""
 #  @contract.approvable?.should be_true
-##0402  post "/session", :login => @last_manager_login_name #new#
-#  post approve_backend_inventory_pool_acknowledge_path(@inventory_pool, @contract, :comment => @comment)
+##0402  post login_path(:login => @last_manager_login_name)
+#  post manage_approve_contract_path(@inventory_pool, @contract, :comment => @comment)
 #  @contract = assigns(:contract)
 #  @contract.should_not be_nil
 #  @contract.approvable?.should be_false
@@ -127,7 +127,7 @@ When "he deletes contract" do
 end
 
 When "'$who' contracts $quantity '$model'" do |who, quantity, model|
-  post "/session", :login => who #, :password => "pass"
+  post login_path(:login => who)
   step "I am logged in as '#{who}' with password '#{nil}'"
   get borrow_root_path
   model_id = Model.find_by_name(model).id
@@ -142,7 +142,7 @@ When "'$user' contracts another $quantity '$model' for the same time" do |user, 
 end
 
 When "'$who' contracts $quantity '$model' from inventory pool $ip" do |who, quantity, model, ip|
-  post "/session", :login => who #, :password => "pass"
+  post login_path(:login => who)
   step "I am logged in as '#{who}' with password '#{nil}'"
   get borrow_root_path
   model_id = Model.find_by_name(model).id
@@ -157,7 +157,7 @@ When "'$who' contracts $quantity '$model' from inventory pool $ip" do |who, quan
 end
 
 When "'$who' searches for '$model' on frontend" do |who, model|
-  post "/session", :login => who #, :password => "pass"
+  post login_path(:login => who)
   response = get search_path(:term => model, :format => :json)
   @models_json = JSON.parse(response.body)
 end

@@ -16,7 +16,7 @@ Then /^(\w+) can "([^\"]*)"$/ do |who, what|
 end
 
 When "lending_manager looks at the screen" do
-  get backend_inventory_pool_path(@inventory_pool)
+  get manage_daily_view_path(@inventory_pool)
   @response = response
 end
 

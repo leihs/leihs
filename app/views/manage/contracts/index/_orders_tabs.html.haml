@@ -1,0 +1,13 @@
+#list-tabs.inline-tab-navigation
+
+  %a.inline-tab-item.active{:"data-status" => ["approved", "submitted", "rejected"]}
+    = _("All")
+
+  %a.inline-tab-item{:"data-status" => ["submitted"]}
+    = _("Pending")
+
+  %a.inline-tab-item{:"data-status" => ["approved"]}
+    = _("Approved")
+
+  %a.inline-tab-item{:"data-status" => ["rejected"]}
+    = _("Rejected")

@@ -1,0 +1,8 @@
+:ruby
+
+  entries = @model.persisted? ? @model.items.order("created_at DESC") : []
+
+#packages
+  = render :layout => "manage/fields/field", :locals => {key: _("Packages"), entries: entries, entry_partial: "manage/models/form/package_inline_entry"} do
+    .text-align-right
+      %button#add-package.button.inset{:type => :button}= _("Add %s") % _("Package")

@@ -1,0 +1,15 @@
+p
+  @extend .paragraph-s
+
+.paragraph-xs
+  font-size: $font-size-xxs
+
+.paragraph-s
+  font-size: $font-size-xs
+  &:not([class*="line-height"])
+    line-height: $line-height-m
+
+.paragraph-m
+  font-size: $font-size-s
+  &:not([class*="line-height"])
+    line-height: $line-height-m

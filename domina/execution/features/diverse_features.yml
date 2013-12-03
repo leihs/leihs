@@ -1,0 +1,16 @@
+- name: borrow/bestelluebersicht.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/bestelluebersicht.feature"
+- name: borrow/bestelluebersicht2.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/bestelluebersicht2.feature"
+- name: borrow/bestelluebersicht3.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/bestelluebersicht3.feature"
+- name: borrow/bestelluebersicht4.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/bestelluebersicht4.feature"

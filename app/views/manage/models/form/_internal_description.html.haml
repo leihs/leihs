@@ -1,0 +1,2 @@
+= render :layout => "manage/fields/field", :locals => {key: _("Internal Description")} do
+  %textarea.width-full{:type => :text, :name => "model[internal_description]", :autocomplete => :off}= @model.internal_description

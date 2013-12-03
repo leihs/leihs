@@ -27,7 +27,7 @@
 
         .row.padding-inset-l
           .col1of7
-            %h3.headline-m= short_date(k[:start_date])
+            %h3.headline-m= l k[:start_date]
           .col5of7
             %h2.headline-m= k[:inventory_pool]
 
@@ -75,19 +75,20 @@
 :coffeescript
 
   for contract_json in #{unsubmitted_contracts.to_json}
-    App.Contract.records[contract_json.id] = new App.Contract contract_json
-    App.Contract.records[contract_json.id].timedOut = #{(!!@timed_out).to_json}
-    App.Contract.currents.push App.Contract.records[contract_json.id]
+    App.Contract.addRecord new App.Contract contract_json
+    App.Contract.currents.push App.Contract.find(contract_json.id)
+
+  App.Contract.timedOut = #{(!!@timed_out).to_json}
 
   for contract_line in #{@lines.to_json}
-    App.ContractLine.records[contract_line.id] = new App.ContractLine contract_line
+    App.ContractLine.addRecord new App.ContractLine contract_line
 
   for model in #{@models.to_json}
-    App.Model.records[model.id] = new App.Model model
+    App.Model.addRecord new App.Model model
 
   for ip in #{@inventory_pools.to_json}
-    App.InventoryPool.records[ip.id] = new App.InventoryPool ip
+    App.InventoryPool.addRecord new App.InventoryPool ip
 
   jQuery ->
-    new App.Borrow.CurrentOrderShowController
+    new App.UnsubmittedContractsShowController
       el: $("#current-order-show")

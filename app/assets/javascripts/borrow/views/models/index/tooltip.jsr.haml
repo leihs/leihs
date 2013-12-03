@@ -1,0 +1,28 @@
+.padding-inset-s.width-xl-alt
+  
+  .row
+
+    {{if amount_of_images != 0}}
+    .col1of4.text-align-center.emboss.white.min-width-s.min-height-s.padding-inset-s
+      {{count amount_of_images}}
+      %img.margin-bottom-s.max-height-s-alt.max-width-s{src: "/models/{{>#parent.data.id}}/image_thumb?offset={{>count}}"}
+      {{/count}}
+    {{/if}}
+
+    %div{:class => "{{if amount_of_images == 0}}row{{else}}col3of4 padding-left-m{{/if}}"}
+
+      .row
+        .headline-s {{>name}}
+
+      .row
+        %p.paragraph-s.margin-top-s.text-align-left {{>description}}
+
+      {{if propertiesToDisplay.length}}
+      .row.margin-top-m.padding-bottom-m.padding-inset-s
+        {{for propertiesToDisplay}}
+        .row.margin-top-xs
+          .col1of3.text-align-right.text-ellipsis
+            %strong {{>key/}}
+          .col2of3.padding-left-s {{>value}}
+        {{/for}}
+      {{/if}}

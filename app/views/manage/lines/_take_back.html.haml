@@ -1,0 +1,4 @@
+- if line.model_id
+  = render :partial => "manage/lines/take_back_line/item_line", :locals => {:line => line}
+- elsif line.option_id
+  = render :partial => "manage/lines/take_back_line/option_line", :locals => {:line => line}

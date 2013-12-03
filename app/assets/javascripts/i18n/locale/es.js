@@ -11,7 +11,8 @@ if (window.i18n == undefined) window.i18n = {};
   };
 
   i18n.datepicker = {
-    L: "dd.mm.yy"
+    L: "dd.mm.yy",
+    XS: "dd.mm.y"
   };
 
   i18n.months = {
@@ -254,7 +255,7 @@ window.i18n.locale_data = {
          null,
          "Incompleto"
       ],
-      "Invalid contract_lines": [
+      "Invalid order_lines": [
          null,
          ""
       ],
@@ -554,7 +555,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "This customer's groups": [
+      "Groups of this customer": [
          null,
          ""
       ],

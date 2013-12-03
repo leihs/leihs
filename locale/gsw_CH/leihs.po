@@ -299,7 +299,7 @@ msgid "Change Orderer"
 msgstr "Bschteller ändere"
 
 msgid "Change Orderer Successful"
-msgstr "Bschtellig erfolgriich ändere"
+msgstr "Bschteller erfolgriich gänderet"
 
 msgid "Changed %s from %s to %s"
 msgstr "%s vo %s zu %s g'ändered"

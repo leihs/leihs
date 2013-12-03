@@ -1,0 +1,6 @@
+- if params[:for] == "flexibleFields"
+  != @item.to_json :methods => [:current_borrower, :current_return_date, :in_stock?],
+                   :include => [:inventory_pool, :location, :model, :owner, :supplier]
+
+- else
+  != @item.to_json

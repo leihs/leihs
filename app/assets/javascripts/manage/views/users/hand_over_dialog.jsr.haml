@@ -1,0 +1,68 @@
+.modal.fade.ui-modal.medium{:role => "dialog", :tabindex => "-1"}
+
+  .modal-header.row
+    .col3of5
+      %h2.headline-l {{jed itemsCount "Hand over of %s item" "Hand over of %s items" itemsCount/}}
+      %h3.headline-m.light
+        {{>user.firstname}} {{>user.lastname}}
+    .col2of5.text-align-right
+      .modal-close {{jed "Cancel"/}}
+      %button.button.green{:"data-hand-over" => true} {{jed "Hand Over"/}}
+
+  .row.margin-top-s.padding-horizontal-l
+
+    .separated-bottom.padding-bottom-m.margin-bottom-m
+
+      %p#error.emboss.red.padding-inset-s.hidden.paragraph-s.margin-bottom-s
+        %strong
+
+      {{if purpose}}
+      .row.margin-bottom-s.emboss.padding-inset-s
+        .col3of4
+          %p.paragraph-s {{>purpose}}
+        .col1of4.text-align-right
+          {{if ~showAddPurpose}}
+          %button#add-purpose.button.inset {{jed 'Add Purpose'/}}
+          {{/if}}
+      #purpose-input.hidden
+        .row.padding-bottom-s
+          %p {{jed "Please provide a purpose..."/}}
+        %textarea#purpose.row.height-xs{:name => :purpose}
+      {{else}}
+      .row.padding-bottom-s
+        %p {{jed "Please provide a purpose..."/}}
+      %textarea#purpose.row.height-xs{:name => :purpose}
+      {{/if}}
+
+    .modal-body
+
+      {{for groupedLines}}
+      .padding-bottom-m.margin-bottom-m.no-last-child-margin
+        .row.margin-bottom-s
+          .col1of2
+            %p
+              {{date start_date/}}
+              = "-"
+              {{date end_date/}}
+          .col1of2.text-align-right
+            %strong {{diffDatesInDays start_date end_date/}}
+        {{for lines}}
+        .row
+          .col1of8.text-align-center
+            .paragraph-s
+              {{if sublines}}
+              {{sum sublines "quantity"/}}
+              {{else}}
+              {{> quantity}}
+              {{/if}}
+          .col7of8
+            .paragraph-s
+              %strong {{>model().name}}
+        {{/for}}
+      {{/for}}
+
+    .row.separated-top.padding-top-m.padding-bottom-m
+
+      .col1of1.padding-bottom-s
+        %p {{jed "Write a note... the note will be part of the contract"/}}
+      %textarea.col1of1#note.height-xs{:name => :note}

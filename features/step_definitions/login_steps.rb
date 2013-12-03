@@ -64,7 +64,7 @@ end
 When /^"([^"]*)" sign in successfully he is redirected to the "([^"]*)" section$/ do |login, section_name|
   visit "/logout"
   step "I am logged in as '#{login}' with password 'password'"
-  find(".navigation .active.#{section_name.downcase}")
+  find("nav#topbar .active", text: _(section_name))
 end
 
 Angenommen(/^man ist eingeloggt als "(.*?)"$/) do |persona|
@@ -76,4 +76,5 @@ Angenommen(/^man ist eingeloggt als "(.*?)"$/) do |persona|
   fill_in 'username', :with => persona.downcase
   fill_in 'password', :with => 'password'
   first("[type='submit']").click
+  page.has_content? @current_user.name
 end

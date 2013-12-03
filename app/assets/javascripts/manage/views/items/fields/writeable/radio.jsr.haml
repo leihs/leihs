@@ -1,0 +1,10 @@
+.padding-inset-xxs
+  {{for ~field.values}}
+  %label.padding-inset-xxs
+    {{if ~field.getValue(~itemData, ~field.attribute, true) == value}}
+    %input{:type => "radio", :value => "{{>value}}", :name => "{{>~field.getFormName()}}", :checked => true}
+    {{else}}
+    %input{:type => "radio", :value => "{{>value}}", :name => "{{>~field.getFormName()}}"}
+    {{/if}}
+    %span.font-size-m {{jed label/}}
+  {{/for}}

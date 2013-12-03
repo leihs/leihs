@@ -1,0 +1,16 @@
+.row.line.font-size-xs.focus-hover-thin{:"data-type" => "inline-entry"}
+
+  %input{:type => :hidden, :name => "category[links][#{entry.id}][parent_id]", :value => entry.id}
+  %input{:type => :hidden, :name => "category[links][#{entry.id}][_destroy]"}
+  
+  .line-col.col3of10.text-align-left
+    = entry.name
+
+  .line-col.col1of10.text-align-center{:title =>_("Subordinate to %s") % entry.name}
+    %i.icon-sitemap
+
+  .line-col.col3of10.text-align-left
+    %input.small.width-full{:type => :text, :autocomplete => :off, :placeholder => _("Label"), :name => "category[links][#{entry.id}][label]", :value => @category.label(entry.id)}
+
+  .line-col.col3of10.text-align-right
+    %button.button.small.inset{:"data-remove" => true}= _("Remove")

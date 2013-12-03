@@ -1,5 +1,5 @@
 When /^the fields in json format are fetched via the index action$/ do
-  response = get backend_fields_path, format: :json, inventory_pool_id: @current_inventory_pool.id
+  response = get manage_fields_path(@current_inventory_pool, format: :json)
   @json = JSON.parse response.body
 end
 

@@ -105,7 +105,7 @@ namespace :app do
 
       commands = []
       commands << "mkdir ./db/backups/"
-      commands << "scp leihs@rails:/tmp/leihs-current.sql ./db/backups/"
+      commands << "scp leihs@rails.zhdk.ch:/tmp/leihs-current.sql ./db/backups/"
       commands << "rake db:drop db:create"
       commands << "mysql -h localhost -u root leihs2_dev < ./db/backups/leihs-current.sql"
       commands << "rake db:migrate"

@@ -1,6 +1,6 @@
 # language: de
 
-Funktionalität: Bestellung
+Funktionalität: Bestellfensterchen
 
   Um Gegenstände ausleihen zu können
   möchte ich als Ausleiher
@@ -49,15 +49,3 @@ Funktionalität: Bestellung
     Dann sehe ich die Zeitanzeige
     Wenn ich den Time-Out zurücksetze
     Dann wird die Zeit zurückgesetzt
-    
-  @javascript
-  Szenario: Zeit abgelaufen
-    Wenn die Zeit abgelaufen ist
-    Dann werde ich auf die Timeout Page weitergeleitet
-
-  @javascript
-  Szenario: Zeit überschritten
-    Wenn ich ein Modell der Bestellung hinzufüge
-    Dann sehe ich die Zeitanzeige
-    Wenn die Zeit überschritten ist
-    Dann werde ich auf die Timeout Page weitergeleitet

@@ -9,7 +9,7 @@ class InventoryPool < ActiveRecord::Base
   has_many :holidays, :dependent => :delete_all
   accepts_nested_attributes_for :holidays, :allow_destroy => true, :reject_if =>  proc {|holiday| holiday[:id]}
 
-  has_many :access_rights, :dependent => :delete_all, :include => :role, :conditions => 'deleted_at IS NULL'
+  has_many :access_rights, :dependent => :delete_all, :include => :role, :conditions => 'access_rights.deleted_at IS NULL'
   has_many :users, :through => :access_rights, :uniq => true
   has_many :suspended_users, :through => :access_rights, :uniq => true, :source => :user, :conditions => "access_rights.suspended_until IS NOT NULL AND access_rights.suspended_until >= CURDATE()"
 

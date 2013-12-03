@@ -9,7 +9,7 @@
 
       .row.padding-bottom-m
         .col2of3
-          %h1.headline-xl.padding-bottom-s= @model.name  
+          %h1.headline-xl= @model.name  
           %h2.headline-m.light= @model.manufacturer
         .col1of3.text-align-right
           %button.button.white{:"data-create-order-line" => true, :"data-model-id" => @model.id}
@@ -31,13 +31,13 @@
 
       = render "borrow/models/show/compatibles" unless @model.compatibles.blank?
 
-  .col1of5= render :partial => "borrow/current_order_basket"
+  .col1of5= render :partial => "borrow/basket"
 
 :coffeescript
 
-  App.Model.records[#{@model.id}] = new App.Model #{@model.to_json}
+  App.Model.addRecord new App.Model #{@model.to_json}
 
   jQuery ->
 
-    new App.Borrow.ModelsShowController
+    new App.ModelsShowController
       el: $("#model-show")

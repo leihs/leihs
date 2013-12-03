@@ -160,9 +160,8 @@ Dann(/^ich kann das Zeitfenster für die Verfügbarkeitsberechnung einzelner Mod
   end
   step "ich setze das Startdatum im Kalendar auf '#{I18n::l(current_date)}'"
   step "ich setze das Enddatum im Kalendar auf '#{I18n::l(current_date)}'"
-  find(".modal[role='dialog'] .button.green", match: :first).click
-  step "ensure there are no active requests"
-  page.should_not have_selector("#booking-calendar")
+  find(".modal .button.green", match: :first).click
+  page.has_no_selector?("#booking-calendar").should be_true
 end
 
 Wenn(/^ich sämtliche Verfügbarkeitsprobleme gelöst habe$/) do
@@ -171,7 +170,7 @@ end
 
 Dann(/^kann ich im Prozess weiterfahren und alle Modelle gesamthaft zu einer Bestellung hinzufügen$/) do
   first(".button.green", text: _("Add to order")).click
-  page.has_selector? "#current-order-show"
+  find("#current-order-show", match: :first)
   @current_user.contracts.unsubmitted.flat_map(&:models).should eq [@model]
 end
 
@@ -213,8 +212,4 @@ end
 Dann(/^ich muss im Prozess weiterfahren zur Verfügbarkeitsanzeige der Vorlage$/) do
   first("*[type='submit']").click
   current_path.should == borrow_template_availability_path(@template)
-end
-
-Dann(/^ich kann das Start und Enddatum wählen$/) do
-  binding.pry
 end

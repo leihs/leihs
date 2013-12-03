@@ -1,9 +1,0 @@
-{{each(i, radio) values}}
-%label
-  {{if String($item.data.value) == String(radio.value)}}
-  %input{:type => "radio", :value => "${radio.value}", :name => "${formName}", :checked => true}
-  {{else}}
-  %input{:type => "radio", :value => "${radio.value}", :name => "${formName}"}
-  {{/if}}
-  ${_jed(radio.label)}
-{{/each}}

@@ -3,9 +3,10 @@
   %head
     %meta{:charset => 'utf-8'}
     %title= "#{@current_section.camelize} | Styleguide | leihs"
-    = stylesheet_link_tag "_NEW/application"
-    = javascript_include_tag "_NEW/application"
-    = favicon_link_tag "frontend/favicon.ico", :type => "image/x-icon"
+    = javascript_include_tag "i18n/locale/#{I18n.locale}"
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "application"
+    = favicon_link_tag "favicon.ico", :type => "image/x-icon"
 
   %body
 

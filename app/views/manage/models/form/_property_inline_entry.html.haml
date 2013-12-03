@@ -1,0 +1,14 @@
+.row.line.font-size-xs.focus-hover-thin{:"data-type" => "inline-entry"}
+  
+  .line-col.col1of10.text-align-left.no-padding.text-align-center.cursor-move{:"data-type" => "sort-handle"}
+    %i.icon-resize-vertical
+  
+  .line-col.col4of10.no-padding
+    %input.small.width-full{:type => :text, :value => entry.key, :name => "model[properties_attributes][][key]"}
+
+  .line-col.col4of10
+    %input.small.width-full{:type => :text, :value => entry.value, :name => "model[properties_attributes][][value]"}
+
+  .line-col.col1of10.text-align-right
+    %button.button.small.inset{:"data-remove" => true, :title => _("Remove")}
+      %i.icon-trash

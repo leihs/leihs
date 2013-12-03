@@ -1,9 +1,9 @@
-class StatisticsController < Backend::BackendController
+class StatisticsController < ApplicationController
+
+  layout 'manage'
 
   before_filter do
-    unless current_inventory_pool
-      not_authorized! unless is_admin?
-    end
+    not_authorized!(root_path) unless is_admin?
   end
   
   def show

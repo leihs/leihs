@@ -1,0 +1,61 @@
+.dropdown-holder
+  position: relative
+
+.dropdown
+  background: white
+  border: 1px solid $almostwhite
+  display: none
+  font-size: $font-size-xs
+  font-weight: normal
+  line-height: 1.5em
+  position: absolute
+  left: -1px
+  top: 100%
+  z-index: 999
+  @include border-radius($border-radius-m)
+  @include box-shadow($default-box-shadow)
+
+  &:not([class*='width-'])
+    max-width: 450px
+    min-width: 160px
+
+  &.show
+    display: inline-block
+
+  &.right
+    left: auto
+    right: 1px
+
+  &:not(.straight-top)
+    li:first-child .dropdown-item
+      @include border-top-radius($border-radius-m)
+  li
+    &:last-child .dropdown-item
+      @include border-bottom-radius($border-radius-m)
+
+.dropdown-item, a.dropdown-item
+  color: black
+  display: block
+  font-weight: bold
+  padding: 6px $space-xs
+  cursor: pointer
+  white-space: nowrap
+  width: 100%
+  @include user-select(none)
+  @include border-radius($border-radius-m)
+  @extend .focus-hover-thin
+
+  &:not([class*='text-align'])
+    text-align: left
+
+  &.red, &.red:hover
+    background: $red !important
+    color: white !important
+
+  &.light-red, &.light-red:hover
+    &, *
+      color: $lightred !important
+
+button.dropdown-item
+  background: none
+  font-size: 1em

@@ -1,0 +1,20 @@
+.emboss.deep.padding-bottom-s.margin-bottom-m{:"data-selected-lines-container" => true}
+
+  .row
+    .col1of2.padding-vertical-s
+      %label.padding-inset-s.inline
+        %input{:type => :checkbox, :"data-select-lines" => true, :autocomplete => :off}
+      %p.paragraph-s.inline
+        {{day start_date/}}
+        {{date start_date/}}
+        \-
+        {{day end_date/}}
+        {{date end_date/}}
+        
+    .col1of2.padding-inset-s.text-align-right
+      %p.paragraph-s.inline
+        {{diffDatesInDays start_date end_date/}}
+
+  .row
+
+    {{partial ~linePartial lines #view.ctx/}}

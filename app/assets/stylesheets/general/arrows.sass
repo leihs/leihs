@@ -1,0 +1,73 @@
+@mixin arrow($size:$default-arrow-size, $direction:$default-arrow-direction, $color:$default-arrow-color)
+  border-width: $size
+  border-color: transparent
+  border-style: solid
+  display: inline-block
+  position: relative
+  height: 0px
+  width: 0px
+  vertical-align: middle
+   
+  @if $direction == "right"
+    border-left-color: $color
+    border-right-width: 0px
+  @else if $direction == "left"
+    border-right-color: $color
+    border-left-width: 0px
+  @else if $direction == "up"
+    border-bottom-color: $color
+    border-top-width: 0px
+  @else if $direction == "down"
+    border-top-color: $color
+    border-bottom-width: 0px
+
+@mixin change-all-arrow-colors($color)
+  &.down, &.down.medium
+    border-color: $color transparent transparent transparent 
+  &.up, &.up.medium
+    border-color: transparent transparent $color transparent 
+  &.left, &.left.medium
+    border-color: transparent $color transparent transparent 
+  &.right, &.right.medium
+    border-color: transparent transparent transparent $color
+
+// COLORS
+
+.arrow.white
+  @include change-all-arrow-colors(white)
+
+.arrow.grey
+  @include change-all-arrow-colors($grey)
+
+// DOWN
+
+.arrow.down
+  @include arrow(4px, down, black)
+
+  &.medium
+    @include arrow(6px, down, black)
+
+// LEFT
+
+.arrow.left
+  @include arrow(4px, left, black)
+  top: -1px
+
+  &.medium
+    @include arrow(6px, left, black)
+
+// RIGHT
+
+.arrow.right
+  @include arrow(4px, right, black)
+
+  &.medium
+    @include arrow(6px, right, black)
+
+// UP
+
+.arrow.up
+  @include arrow(4px, up, black)
+
+  &.medium
+    @include arrow(6px, up, black)

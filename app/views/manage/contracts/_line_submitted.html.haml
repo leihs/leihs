@@ -1,0 +1,29 @@
+= render :partial => "manage/users/cell", :locals => {:user => contract.user}
+
+.col1of8.line-col
+  = _("%s") % time_ago_in_words(contract.created_at)
+
+= render :partial => "manage/lines/cell", :locals => {:lines => contract.lines}
+
+.col1of8.line-col
+  = contract.max_range
+  = n_("Day", "Days", contract.max_range)
+
+= render :partial => "manage/purposes/cell", :locals => {:purpose => contract.purpose}
+
+.col2of8.line-col.line-actions
+  .multibutton
+    %button.button.white.text-ellipsis{:"data-order-approve" => true, :autocomplete => :off}
+      = _("Approve")
+    .dropdown-holder.inline-block
+      .button.white.dropdown-toggle
+        .arrow.down
+      %ul.dropdown.right
+        %li
+          %a.dropdown-item{:href => manage_edit_contract_path(current_inventory_pool, contract)}
+            %i.icon-edit
+            = _("Edit")
+        %li
+          %a.dropdown-item.red{:"data-order-reject" => true}
+            %i.icon-thumbs-down
+            = _("Reject")

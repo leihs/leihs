@@ -1,0 +1,14 @@
+.row.line.font-size-xs.focus-hover-thin{:"data-type" => "inline-entry"}
+
+  %input{:type => :hidden, :name => "model[partitions_attributes][#{entry.id}][group_id]", :value => entry.group.id}
+  %input{:type => :hidden, :name => "model[partitions_attributes][#{entry.id}][id]", :value => entry.id}
+  %input{:type => :hidden, :name => "model[partitions_attributes][#{entry.id}][_destroy]"}
+  
+  .line-col.col3of5.text-align-left{:"data-name" => entry.group.name}
+    = entry.group.name
+
+  .line-col.col1of5.text-align-center
+    %input.width-xs.small.text-align-center{:type => :text, :name => "model[partitions_attributes][#{entry.id}][quantity]", :value => entry.quantity}
+
+  .line-col.col1of5.text-align-right
+    %button.button.small.inset{:"data-remove" => true, :type => :button}= _("Remove")

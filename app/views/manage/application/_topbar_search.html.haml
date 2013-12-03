@@ -1,0 +1,8 @@
+#search
+  %label.min-height-full.width-full{:title => _("Search"), :for => "search_term"}
+    %form.min-height-full.row.width-full{:action => manage_search_path(current_inventory_pool), :method => :post, :autocomplete => :off}
+      = token_tag nil
+      %input.text-ellipsis.round-borders.has-addon.width-full.padding-right-m.padding-left-s{:class => yield(:search_section), :type => "text", :id => "search_term", :name => "search_term", :placeholder => _("Search"), :"data-barcode-scanner-target" => true}
+      %button.addon.transparent.padding-right-xs{:type => :submit}
+        %i.icon-search.icon-size-xxs.grey
+  #search-autocomplete

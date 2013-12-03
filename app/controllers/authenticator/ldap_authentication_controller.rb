@@ -2,7 +2,7 @@
     
 class Authenticator::LdapAuthenticationController < Authenticator::AuthenticatorController
 
-  layout 'layouts/backend/general'
+  layout 'layouts/manage/general'
         
   def login_form_path
     "/authenticator/ldap/login"

@@ -1,0 +1,57 @@
+.modal.medium.hide.fade.ui-modal.padding-inset-m.padding-horizontal-l{:role => "dialog", :tabindex => "-1"}
+
+  %form{:method => :post, :action => "/manage/{{current_inventory_pool_id/}}/contracts/{{>id}}/reject"}
+    {{csrf_token/}}
+
+    .row.padding-vertical-m
+      .col1of2
+        %h3.headline-l {{jed "Reject order"/}}
+        %h3.headline-s.light 
+          {{>user().firstname}}
+          {{>user().lastname}}
+
+      .col1of2
+        .float-right
+          %a.modal-close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button", :title => '{{jed "close dialog"/}}', :class => "weak"}
+            Abbrechen
+          %button.button.red{:type => :submit}
+            %i.icon-thumbs-down
+            {{jed 'Reject'/}}
+
+    .row.margin-top-m
+
+      .separated-bottom.padding-bottom-m.margin-bottom-m
+        .row.margin-bottom-s.emboss.padding-inset-s
+          %p.paragraph-s {{>concatenatedPurposes()}}
+
+      .modal-body
+        {{for groupedLinesByDateRange(true)}}
+        .padding-bottom-m.margin-bottom-m.no-last-child-margin
+          .row.margin-bottom-s
+            .col1of2
+              %p
+                {{date start_date/}}
+                = "-"
+                {{date end_date/}}
+            .col1of2.text-align-right
+              %strong {{diffDatesInDays start_date end_date/}}
+          {{for lines}}
+          .row
+            .col1of8.text-align-center
+              .paragraph-s
+                {{if sublines}}
+                {{sum sublines "quantity"/}}
+                {{else}}
+                {{> quantity}}
+                {{/if}}
+            .col7of8
+              .paragraph-s
+                %strong {{>model().name}}
+          {{/for}}
+        {{/for}}
+
+    .row.separated-top.padding-top-m
+
+      .col1of1.padding-bottom-s
+        %p {{jed "Write a comment. The comment will be part of the rejection e-mail."/}}
+      %textarea.col1of1#rejection-comment.height-s{:name => :comment, :autofocus => :autofocus}

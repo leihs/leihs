@@ -19,7 +19,7 @@ Dann(/^die Navigation beinhaltet "(.*?)"$/) do |section|
     when "Logout"
       first("nav a[href='#{logout_path}']")
     when "Verwalten"
-      first("nav a[href='#{backend_path}']", :text => _("Manage"))
+      first("nav a[href='#{manage_root_path}']", :text => _("Manage"))
     else
       pending
   end

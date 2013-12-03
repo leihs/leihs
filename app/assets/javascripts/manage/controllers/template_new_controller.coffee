@@ -1,0 +1,1 @@
+class window.App.TemplateNewController extends App.TemplateController

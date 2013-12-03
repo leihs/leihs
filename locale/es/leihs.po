@@ -373,7 +373,7 @@ msgstr ""
 msgid "This contract is not signable because some lines are not assigned."
 msgstr ""
 
-msgid "This customer's groups"
+msgid "Groups of this customer"
 msgstr ""
 
 msgid "This item will be given to a different inventory pool and not show up in yours anymore!"

@@ -1,0 +1,59 @@
+-content_for :title, _("Inventory Helper")
+-content_for :inventory_section, "active"
+
+#inventory-helper-view.wrapper.margin-top-m
+
+  = render :partial => 'manage/tabs/inventory', :locals => {:active_tab => :helper}
+
+  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+    .margin-top-l.padding-horizontal-m
+      .row
+        %h1.headline-xl= _("Inventory Helper")
+        %h2.headline-m.light= _("Process multiple fields for multiple items in a row")
+
+    .row.margin-top-l.padding-inset-m.separated-bottom
+      
+      .row
+        .col1of3
+          %label.row.margin-bottom-xxs= _("Select Field")
+          .row
+            %input#field-input.has-addon.width-full{:type => :text, :autocomplete => :off}
+            %label.addon.transparent{:for => "add-start-date"}
+              %i.arrow.down
+
+      %form#field-selection.row.emboss.deep.margin-top-m.padding-inset-s
+        %h3#no-fields-message.headline-s.light.padding-inset-m.text-align-center= _("no fields selected")
+        #field-form-left-side.col1of2.padding-right-xs
+        #field-form-right-side.col1of2
+
+    #item-section.row.padding-inset-m
+
+      %label.row.margin-bottom-xxs= _("Item")
+      .row  
+        .col2of3
+          %form#item-selection.row
+            .col1of2
+              .row
+                %input#item-input.has-addon.width-full{:type => :text, :autocomplete => :off, :"data-barcode-scanner-target" => true}
+                %label.addon.transparent{:for => "item-input"}
+                  %i.arrow.down
+            .col1of2.padding-left-s
+              .row.width-full.height-micro
+              %button.button.green{:type => :submit}= _("Apply Fields on Item")
+        .col1of3.text-align-right
+          %button#item-edit.button.white.hidden= _("Edit Item")
+          %a#cancel-edit.button.hidden= _("Cancel")
+          %button#save-edit.button.green.hidden= _("Save changes")
+
+      #notifications.padding-vertical-m
+      
+      %form#flexible-fields.row
+        .height-s
+        %h3.headline-s.light.padding-inset-m.text-align-center= _("no item selected")
+        .height-s
+
+:coffeescript
+
+  jQuery -> new App.InventoryHelperController
+    el: $("#inventory-helper-view")

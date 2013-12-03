@@ -1,0 +1,6 @@
+- if purpose.to_s.size > 60
+  .col2of8.line-col.text-align-left.tooltip{:title => purpose.to_s, :"data-tooltip-template" => "manage/views/purposes/tooltip"}
+    .padding-left-m= purpose.to_s.truncate(60, :separator => '...')
+- else
+  .col2of8.line-col.text-align-left
+    .padding-left-m= purpose.to_s

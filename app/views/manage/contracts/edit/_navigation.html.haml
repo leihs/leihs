@@ -1,0 +1,20 @@
+%button#swap-user.button.white
+  %i.icon-exchange
+  = _("Change orderer")
+
+%button.button.red{:"data-order-reject" => true, :"data-id" => @contract.id}
+  %i.icon-thumbs-down
+  = _("Reject order")
+
+.multibutton
+  %button.button.green{:"data-order-approve" => true, :"data-id" => @contract.id, :autocomplete => :off}
+    %i.icon-thumbs-up
+    = _("Approve order")
+  .dropdown-holder.inline-block
+    .button.green.dropdown-toggle
+      .arrow.down
+    %ul.dropdown.right
+      %li
+        %a#approve-with-comment.dropdown-item
+          %i.icon-comment-alt
+          = _("with comment")

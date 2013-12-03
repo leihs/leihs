@@ -1,0 +1,7 @@
+%li.separated-bottom.exclude-last-child
+  %a
+    .row.text-ellipsis
+      .col1of3
+        %strong {{>inventory_code}}
+      .col2of3.text-ellipsis{:title => "{{>currentLocation()}}"}
+        {{>currentLocation()}}

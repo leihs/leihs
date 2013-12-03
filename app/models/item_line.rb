@@ -68,7 +68,7 @@ class ItemLine < ContractLine
       errors.add(:base, _("The item doesn't match with the reserved model")) unless item.model_id == model_id
   
       # check if available
-      errors.add(:base, _("The item is already handed over or assigned to a different contract line")) if item_already_handed_over_or_assigned?
+      errors.add(:base, _("%s is already assigned to a contract") % item.inventory_code) if item_already_handed_over_or_assigned?
    
       # inventory_pool matching
       errors.add(:base, _("The item doesn't belong to the inventory pool related to this contract")) unless item.inventory_pool_id == contract.inventory_pool_id 

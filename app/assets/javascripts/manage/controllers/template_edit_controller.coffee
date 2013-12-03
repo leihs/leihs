@@ -1,0 +1,1 @@
+class window.App.TemplateEditController extends App.TemplateController

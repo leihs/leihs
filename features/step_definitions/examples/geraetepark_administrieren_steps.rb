@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 When(/^ich in den Admin-Bereich wechsel$/) do
-  first(".navigation .admin a").click
+  find(".topbar-navigation a", text: _("Admin")).click
 end
 
 Angenommen(/^es existiert noch kein Gerätepark$/) do
@@ -9,26 +9,22 @@ Angenommen(/^es existiert noch kein Gerätepark$/) do
 end
 
 Wenn(/^ich im Admin\-Bereich unter dem Reiter Geräteparks einen neuen Gerätepark erstelle$/) do
-  current_path.should == backend_inventory_pools_path
+  current_path.should == manage_inventory_pools_path
   click_link _("Create %s") % _("Inventory Pool")
 end
 
 Wenn(/^ich Name und Kurzname und Email eingebe$/) do
-  find(".field", text: _("Name"), match: :first).first("input").set "test"
-  find(".field", text: _("Short Name"), match: :first).first("input").set "test"
-  find(".field", text: _("E-Mail"), match: :first).first("input").set "test@test.ch"
+  find("input[name='inventory_pool[name]']").set "test"
+  find("input[name='inventory_pool[shortname]']").set "test"
+  find("input[name='inventory_pool[email]']").set "test@test.ch"
 end
 
 Wenn(/^ich speichere$/) do
-  click_button _("Save %s") % _("Inventory Pool")
+  find("button", :text => /#{_("Save")}/i).click
 end
 
 Dann(/^ist der Gerätepark gespeichert$/) do
   InventoryPool.find_by_name_and_shortname_and_email("test", "test", "test@test.ch").should_not be_nil
-end
-
-Dann(/^eine Bestätigung wird angezeigt$/) do
-  page.has_selector? ".success"
 end
 
 Dann(/^ich sehe die Geräteparkliste$/) do
@@ -37,7 +33,7 @@ end
 
 Wenn(/^ich (.+) nicht eingebe$/) do |must_field|
   step "ich Name und Kurzname und Email eingebe"
-  first(".field", text: must_field).first("input").set ""
+  find(".row .col1of2 strong", text: must_field).find(:xpath, "./../..").find("input").set ""
 end
 
 Dann(/^wird mir eine Fehlermeldung angezeigt$/) do
@@ -52,13 +48,13 @@ end
 Wenn(/^ich im Admin\-Bereich unter dem Reiter Geräteparks einen bestehenden Gerätepark ändere$/) do
   @ip = InventoryPool.first
   page.has_content? _("List of Inventory Pools")
-  first("ul.line", text: @ip.name).click_link _("Edit %s") % _("Inventory Pool")
+  find(".line", match: :prefer_exact, text: @ip.name).click_link _("Edit")
 end
 
 Wenn(/^ich Name und Kurzname und Email ändere$/) do
-  first(".field", text: _("Name")).first("input").set "test"
-  first(".field", text: _("Short Name")).first("input").set "test"
-  first(".field", text: _("E-Mail")).first("input").set "test@test.ch"
+  find(".row .col1of2 strong", text: _("Name")).find(:xpath, "./../..").find("input").set "test"
+  find(".row .col1of2 strong", text: _("Short Name")).find(:xpath, "./../..").find("input").set "test"
+  find(".row .col1of2 strong", text: _("E-Mail")).find(:xpath, "./../..").find("input").set "test@test.ch"
 end
 
 Dann(/^ist der Gerätepark und die eingegebenen Informationen gespeichert$/) do
@@ -67,15 +63,16 @@ end
 
 Wenn(/^ich im Admin\-Bereich unter dem Reiter Geräteparks einen bestehenden Gerätepark lösche$/) do
   @ip = InventoryPool.find &:can_destroy?
-  visit backend_inventory_pools_path
-
-  first("ul.line", text: @ip.name)
-  page.execute_script("$('.trigger .arrow').trigger('mouseover');")
-  first("ul.line", text: @ip.name).first(".button", text: _("Delete %s") % _("Inventory Pool")).click
+  visit manage_inventory_pools_path
+  within(".line", text: @ip.name) do
+    find(:xpath, ".").click # NOTE it scrolls to the target line
+    find(".multibutton .dropdown-toggle").hover
+    find(".multibutton a", text: _("Delete")).click
+  end
 end
 
 Wenn(/^der Gerätepark wurde aus der Liste gelöscht$/) do
-  step "ensure there are no active requests"
+  find("#flash .success", text: _("%s successfully deleted") % _("Inventory Pool"))
   page.has_no_text? @ip.name
 end
 
@@ -84,10 +81,10 @@ Wenn(/^der Gerätepark wurde aus der Datenbank gelöscht$/) do
 end
 
 Dann(/^ich sehe die Geräteparkauswahl$/) do
-  first("#ipselection").click
+  find("div.dropdown-holder:nth-child(1)").hover
 end
 
 Dann(/^die Geräteparkauswahl ist alphabetish sortiert$/) do
-  names = first("#ipselection .popup").text.split
+  names = all("div.dropdown-holder:nth-child(1) .dropdown .dropdown-item").map(&:text)
   names.map(&:downcase).sort.should == names.map(&:downcase)
 end

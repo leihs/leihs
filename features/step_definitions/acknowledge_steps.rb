@@ -7,14 +7,14 @@ end
 
 When "$who chooses $name's order" do | who, name |
   contract = @contracts.detect { |o| o.user.login == name }
-  get backend_inventory_pool_acknowledge_path(@inventory_pool, contract)
+  get manage_edit_contract_path(@inventory_pool, contract)
   response.should render_template('backend/acknowledge/show')
   @contract = assigns(:contract)
   @response = response
 end
 
 When "$who rejects order with reason '$reason'" do |who, reason|
-  post reject_backend_inventory_pool_acknowledge_path(@inventory_pool, @contract, :comment => reason)
+  post "/manage/#{@inventory_pool.id}/contracts/#{@contract.id}/reject", {:comment => reason}
   @contract = assigns(:contract)
   @contracts.should_not be_nil
   @contract.should_not be_nil
@@ -59,7 +59,7 @@ When "$who chooses 'swap' on order line '$model'" do |who, model|
 end
 
 When "$who searches for '$model'" do |who, model|
-  get backend_inventory_pool_inventory_path(@inventory_pool, :query => model, :user_id => @contract.user_id,
+  get manage_inventory_path(@inventory_pool, :query => model, :user_id => @contract.user_id,
                                         :source_path => swap_model_line_backend_inventory_pool_acknowledge_path(@inventory_pool, @contract, :line_id => @contract_line_id),
                                         :contract_line_id => @contract_line_id )
   @models = assigns(:models)

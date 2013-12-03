@@ -1,0 +1,48 @@
+- content_for :title, _("Create %s") % _("Template")
+- content_for :inventory_section, "active"
+
+#template.wrapper.margin-top-m
+
+  = render :partial => 'manage/tabs/inventory', :locals => {:active_tab => :templates}
+
+  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+    = form_tag manage_templates_path(current_inventory_pool) do
+
+      .margin-top-l.padding-horizontal-m
+
+        .row
+
+          %h1.headline-l.float-left= yield :title
+
+          .float-right
+            %a.button.grey{:href => manage_templates_path(current_inventory_pool)}= _("Cancel")
+            %button.button.green{:type => :submit}= _("Save")
+
+        .row.margin-top-m
+
+          .col1of2.padding-right-xs
+
+            .row.padding-inset-s.emboss.margin-bottom-xxs
+              .col1of2
+                %strong.font-size-m= _("Name") + " *"
+              .col1of2.text-align-right
+                %input{type: "text", placeholder: _("Name of the template"), name: "template[name]", value: @template.try(:name)}
+
+          .col1of2.padding-left-xs
+
+            #models.row.emboss.margin-bottom-xxs
+              .row.padding-inset-s
+                .col1of2
+                  %strong.font-size-m= "#{_("Quantity")} / #{_("Models")}"
+                .col1of2.text-align-right
+                  .row
+                    %input{type: "text", placeholder: _("Name of the model"), :"data-search-models" => true, autocomplete: :off}
+                    %label.addon.small.transparent.padding-right-s
+                      .arrow.down
+
+              .row.list-of-lines.even{:"data-models-list" => true}
+
+:coffeescript
+
+  jQuery -> new App.TemplateNewController {el: "#template"}

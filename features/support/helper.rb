@@ -115,16 +115,15 @@ end
 
 def type_into_autocomplete(selector, value)
   raise "please provide a value" if value.size.zero?
+  find("body").click # blur all possible focused autocomplete inputs
   find(selector).set value
-  page.execute_script("$('#{selector}').focus()")
-  page.execute_script("$('#{selector}').autocomplete('search')")
   find(".ui-autocomplete")
 end
 
 def change_line_start_date(line, days = 2)
   new_start_date = line.start_date + days.days
   get_fullcalendar_day_element(new_start_date).click
-  find("a", :text => /(Start Date|Startdatum)/).click
+  find(".button#set-start-date", :text => _("Start Date")).click
   step 'I save the booking calendar'
   new_start_date
 end

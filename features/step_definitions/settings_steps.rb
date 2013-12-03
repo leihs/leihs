@@ -1,3 +1,7 @@
+Given(/^the settings are exising$/) do
+  FactoryGirl.create :setting unless Setting.first
+end
+
 When(/^the settings are not exising$/) do
   Setting.delete_all
   Setting.count.should be_zero

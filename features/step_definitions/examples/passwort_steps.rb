@@ -1,9 +1,9 @@
 # encoding: utf-8
 
 def fill_in_required_user_information
-  find(".field", match: :prefer_exact, text: _("Last name")).first("input").set "test"
-  find(".field", match: :prefer_exact, text: _("First name")).first("input").set "test"
-  find(".field", match: :prefer_exact, text: _("E-Mail")).first("input").set "test@test.ch"
+  find(".row.emboss", match: :prefer_exact, text: _("Last name")).find("input").set "test"
+  find(".row.emboss", match: :prefer_exact, text: _("First name")).find("input").set "test"
+  find(".row.emboss", match: :prefer_exact, text: _("E-Mail")).find("input").set "test@test.ch"
 end
 
 Angenommen(/^man befindet sich auf der Benutzerliste$/) do
@@ -11,7 +11,7 @@ Angenommen(/^man befindet sich auf der Benutzerliste$/) do
     step "man befindet sich auf der Benutzerliste ausserhalb der Inventarpools"
   else
     @inventory_pool = @current_user.inventory_pools.first
-    visit backend_inventory_pool_users_path(@inventory_pool)
+    visit manage_inventory_pool_users_path(@inventory_pool)
   end
 end
 
@@ -19,11 +19,11 @@ Wenn(/^ich einen Benutzer mit Login "(.*?)" und Passwort "(.*?)" erstellt habe$/
   step "man einen Benutzer hinzufügt"
   fill_in_required_user_information
 
-  find(".field", match: :prefer_exact, text: _("Login")).first("input").set "#{@login = login}"
-  find(".field", match: :prefer_exact, text: _("Password")).first("input").set "#{@password = password}"
-  find(".field", match: :prefer_exact, text: _("Password Confirmation")).first("input").set "#{password}"
+  find(".row.emboss", match: :prefer_exact, text: _("Login")).find("input").set "#{@login = login}"
+  find(".row.emboss", match: :prefer_exact, text: _("Password")).find("input").set "#{@password = password}"
+  find(".row.emboss", match: :prefer_exact, text: _("Password Confirmation")).find("input").set "#{password}"
 
-  click_button _("Create %s") % _("User")
+  click_button _("Save")
   page.has_content? _("List of Users")
   @user = User.find_by_login "#{@login}"
   DatabaseAuthentication.find_by_user_id(@user.id).should_not be_nil
@@ -36,7 +36,7 @@ end
 
 Dann(/^kann sich der Benutzer "(.*?)" mit "(.*?)" anmelden$/) do |login, password|
   step 'I make sure I am logged out'
-  visit login_authenticator_path
+  visit login_path
   step %Q{I fill in "username" with "#{login}"}
   step %Q{I fill in "password" with "#{password}"}
   step 'I press "Login"'
@@ -44,8 +44,8 @@ Dann(/^kann sich der Benutzer "(.*?)" mit "(.*?)" anmelden$/) do |login, passwor
 end
 
 Wenn(/^ich das Passwort von "(.*?)" auf "(.*?)" ändere$/) do |persona, new_password|
-  find(".field", match: :prefer_exact, text: _("Password")).first("input").set "#{@password = new_password}"
-  find(".field", match: :prefer_exact, text: _("Password Confirmation")).first("input").set "#{new_password}"
+  find(".row.emboss", match: :prefer_exact, text: _("Password")).find("input").set "#{@password = new_password}"
+  find(".row.emboss", match: :prefer_exact, text: _("Password Confirmation")).find("input").set "#{new_password}"
 
   step "man speichert den Benutzer"
   page.has_content? _("List of Users")
@@ -54,19 +54,20 @@ Wenn(/^ich das Passwort von "(.*?)" auf "(.*?)" ändere$/) do |persona, new_pass
 end
 
 Angenommen(/^man befindet sich auf der Benutzereditieransicht von "(.*?)"$/) do |persona|
+  step 'persona "%s" existing' % persona
   @user = User.find_by_firstname persona
   if @current_user.access_rights.map(&:role_name).include? "admin"
-    visit edit_backend_user_path @user
+    visit manage_edit_user_path @user
   else
-    visit edit_backend_inventory_pool_user_path((@user.inventory_pools & @current_user.managed_inventory_pools).first, @user)
+    visit manage_edit_inventory_pool_user_path((@user.inventory_pools & @current_user.managed_inventory_pools).first, @user)
   end
   sleep(0.88)
 end
 
 Wenn(/^ich den Benutzernamen auf "(.*?)" und das Passwort auf "(.*?)" ändere$/) do |new_username, new_password|
-  find(".field", match: :prefer_exact, text: _("Login")).first("input").set "#{@login = new_username}"
-  find(".field", match: :prefer_exact, text: _("Password")).first("input").set "#{@password = new_password}"
-  find(".field", match: :prefer_exact, text: _("Password Confirmation")).first("input").set "#{new_password}"
+  find(".row.emboss", match: :prefer_exact, text: _("Login")).find("input").set "#{@login = new_username}"
+  find(".row.emboss", match: :prefer_exact, text: _("Password")).find("input").set "#{@password = new_password}"
+  find(".row.emboss", match: :prefer_exact, text: _("Password Confirmation")).find("input").set "#{new_password}"
 
   step "man speichert den Benutzer"
   page.has_content? _("List of Users")
@@ -75,7 +76,7 @@ Wenn(/^ich den Benutzernamen auf "(.*?)" und das Passwort auf "(.*?)" ändere$/)
 end
 
 Wenn(/^ich den Benutzernamen von "(.*?)" auf "(.*?)" ändere$/) do |person, new_username|
-  find(".field", match: :prefer_exact, text: _("Login")).first("input").set "#{@login = new_username}"
+  find(".row.emboss", match: :prefer_exact, text: _("Login")).find("input").set "#{@login = new_username}"
 
   step "man speichert den Benutzer"
   page.has_content? _("List of Users")
@@ -87,47 +88,47 @@ Wenn(/^ich einen Benutzer ohne Loginnamen erstellen probiere$/) do
   step "man einen Benutzer hinzufügt"
   fill_in_required_user_information
 
-  find(".field", match: :prefer_exact, text: _("Password")).first("input").set "newpassword}"
-  find(".field", match: :prefer_exact, text: _("Password Confirmation")).first("input").set "newpassword"
+  find(".row.emboss", match: :prefer_exact, text: _("Password")).find("input").set "newpassword}"
+  find(".row.emboss", match: :prefer_exact, text: _("Password Confirmation")).find("input").set "newpassword"
 
-  click_button _("Create %s") % _("User")
+  click_button _("Save")
 end
 
 Wenn(/^ich einen Benutzer mit falscher Passwort\-Bestätigung erstellen probiere$/) do
   step "man einen Benutzer hinzufügt"
   fill_in_required_user_information
 
-  find(".field", match: :prefer_exact, text: _("Login")).first("input").set "new_username"
-  find(".field", match: :prefer_exact, text: _("Password")).first("input").set "newpassword"
-  find(".field", match: :prefer_exact, text: _("Password Confirmation")).first("input").set "wrongconfir"
+  find(".row.emboss", match: :prefer_exact, text: _("Login")).find("input").set "new_username"
+  find(".row.emboss", match: :prefer_exact, text: _("Password")).find("input").set "newpassword"
+  find(".row.emboss", match: :prefer_exact, text: _("Password Confirmation")).find("input").set "wrongconfir"
 
-  click_button _("Create %s") % _("User")
+  click_button _("Save")
 end
 
 Wenn(/^ich einen Benutzer mit fehlenden Passwortangaben erstellen probiere$/) do
   step "man einen Benutzer hinzufügt"
   fill_in_required_user_information
-  find(".field", match: :prefer_exact, text: _("Login")).first("input").set "new_username"
-  click_button _("Create %s") % _("User")
+  find(".row.emboss", match: :prefer_exact, text: _("Login")).find("input").set "new_username"
+  click_button _("Save")
 end
 
 Wenn(/^ich den Benutzernamen von nicht ausfülle und speichere$/) do
-  find(".field", match: :prefer_exact, text: _("Login")).first("input").set "a"
-  find(".field", match: :prefer_exact, text: _("Password")).first("input").set "newpassword"
-  find(".field", match: :prefer_exact, text: _("Password Confirmation")).first("input").set "newpassword"
+  find(".row.emboss", match: :prefer_exact, text: _("Login")).find("input").set "a"
+  find(".row.emboss", match: :prefer_exact, text: _("Password")).find("input").set "newpassword"
+  find(".row.emboss", match: :prefer_exact, text: _("Password Confirmation")).find("input").set "newpassword"
   step "man speichert den Benutzer"
 end
 
 Wenn(/^ich eine falsche Passwort\-Bestägigung eingebe und speichere$/) do
-  find(".field", match: :prefer_exact, text: _("Login")).first("input").set "newlogin"
-  find(".field", match: :prefer_exact, text: _("Password")).first("input").set "newpassword"
-  find(".field", match: :prefer_exact, text: _("Password Confirmation")).first("input").set "newpasswordxyz"
+  find(".row.emboss", match: :prefer_exact, text: _("Login")).find("input").set "newlogin"
+  find(".row.emboss", match: :prefer_exact, text: _("Password")).find("input").set "newpassword"
+  find(".row.emboss", match: :prefer_exact, text: _("Password Confirmation")).find("input").set "newpasswordxyz"
   step "man speichert den Benutzer"
 end
 
 Wenn(/^ich die Passwort\-Angaben nicht eingebe und speichere$/) do
-  find(".field", match: :prefer_exact, text: _("Login")).first("input").set "newlogin"
-  find(".field", match: :prefer_exact, text: _("Password")).first("input").set " "
-  find(".field", match: :prefer_exact, text: _("Password Confirmation")).first("input").set " "
+  find(".row.emboss", match: :prefer_exact, text: _("Login")).find("input").set "newlogin"
+  find(".row.emboss", match: :prefer_exact, text: _("Password")).find("input").set " "
+  find(".row.emboss", match: :prefer_exact, text: _("Password Confirmation")).find("input").set " "
   step "man speichert den Benutzer"
 end

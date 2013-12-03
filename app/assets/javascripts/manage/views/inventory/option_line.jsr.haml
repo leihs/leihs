@@ -1,0 +1,14 @@
+.line.row.focus-hover-thin{:"data-type" => "option", :"data-id" => "{{>id}}"}
+  
+  .col1of5.line-col.text-align-center {{>inventory_code}}
+
+  .col2of5.line-col.text-align-left 
+    %strong {{> name}}
+
+  .col1of5.line-col.text-align-center
+    {{money price/}}
+
+  .col1of5.line-col.line-actions.padding-right-xs
+    %a.button.white.text-ellipsis{:href => "{{>url('edit')}}"}
+      {{jed "Edit Option"/}}
+
