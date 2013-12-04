@@ -3,10 +3,15 @@
   %input{:type => :hidden, :name => "group[partitions_attributes][][model_id]", :value => partition.model_id}
   %input{:type => :hidden, :name => "group[partitions_attributes][][inventory_pool_id]", :value => partition.inventory_pool_id}
   %input{:type => :hidden, :name => "group[partitions_attributes][][_destroy]", :value => nil}
+
+  - items_size = partition.model.items.scoped_by_inventory_pool_id(partition.inventory_pool_id).size
+  - if partition.quantity > items_size
+    .line-info.red
+
   .line-col.col3of6.text-align-left{:"data-model-name" => true}= partition.model.name
   .line-col.col2of6
     .line-col.col1of2{:"data-quantities" => true}
       %input.width-full.small.text-align-center{type: "text", value: partition.quantity, min: 1, name: "group[partitions_attributes][][quantity]"}
-    .line-col.col1of2.padding-left-xs.text-align-left{:"data-quantities" => true}= "/ #{partition.model.items.scoped_by_inventory_pool_id(partition.inventory_pool_id).size}"
+    .line-col.col1of2.padding-left-xs.text-align-left{:"data-quantities" => true}= "/ #{items_size}"
   .line-col.col1of6.text-align-right
     %button.button.inset.small{:"data-remove-group" => true}= _("Remove")
