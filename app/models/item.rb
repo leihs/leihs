@@ -197,7 +197,7 @@ class Item < ActiveRecord::Base
 
     if self.model.nil? or self.model.name.blank?
       model_name = "UNKNOWN/CHANGED"
-      model_manufacturer = "UNKNOWN" if self.model.manufacturer.blank?
+      model_manufacturer = "UNKNOWN" if self.model.try(:manufacturer).blank?
     else
       model_name = self.model.name.gsub(/\"/, '""')
       model_manufacturer = self.model.manufacturer.gsub(/\"/, '""') unless self.model.manufacturer.blank?
@@ -210,7 +210,7 @@ class Item < ActiveRecord::Base
     end
 
     categories = []
-    unless self.model.categories.nil? or self.model.categories.count == 0
+    unless self.model.try(:categories).nil? or self.model.categories.count == 0
       self.model.categories.each do |c|
         categories << c.name
       end
