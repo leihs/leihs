@@ -1,0 +1,4 @@
+= link_to _("All"), manage_inventory_pool_users_path, class: "inline-tab-item #{"active" unless @role}"
+= link_to _("Customer"), manage_inventory_pool_users_path(params: {role: "customers"}), class: "inline-tab-item #{"active" if @role == "customers"}"
+= link_to _("Lending manager"), manage_inventory_pool_users_path(params: {role: "lending_managers"}), class: "inline-tab-item #{"active" if @role == "lending_managers"}"
+= link_to _("Inventory manager"), manage_inventory_pool_users_path(params: {role: "inventory_managers"}), class: "inline-tab-item #{"active" if @role == "inventory_managers"}"

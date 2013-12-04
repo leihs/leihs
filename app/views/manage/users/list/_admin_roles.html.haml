@@ -1,0 +1,2 @@
+= link_to _("All"), manage_users_path, class: "inline-tab-item #{"active" unless @role == "admins"}"
+= link_to _("Administrator"), manage_users_path(params: {role: "admins"}), class: "inline-tab-item #{"active" if @role == "admins"}"
