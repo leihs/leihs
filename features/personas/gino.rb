@@ -8,7 +8,6 @@ module Persona
   class Gino
     @@name = "Gino"
     @@lastname = "F."
-    @@password = "password"
     @@email = "gino@zhdk.ch"
     @@inventory_pool = FactoryGirl.create :inventory_pool
 
@@ -31,7 +30,6 @@ module Persona
       @language = Language.find_by_locale_name "de-CH"
       @user = FactoryGirl.create(:user, :language => @language, :firstname => @@name, :lastname => @@lastname, :login => @@name.downcase, :email => @@email)
       @user.access_rights.create(:role => Role.find_by_name("admin"))
-      @database_authentication = FactoryGirl.create(:database_authentication, :user => @user, :password => @@password)
     end
   end
 end

@@ -10,7 +10,6 @@ module Persona
     
     @@name = "Mike"
     @@lastname = "H."
-    @@password = "password"
     @@email = "mike@zhdk.ch"
     @@inventory_pool_names = ["A-Ausleihe", "IT-Ausleihe"]
     
@@ -40,7 +39,6 @@ module Persona
       @inventory_pool_2 = InventoryPool.find_by_name(@@inventory_pool_names.second)
       @user.access_rights.create(:role => Role.find_by_name("manager"), :inventory_pool => @inventory_pool, :access_level => 3)
       @user.access_rights.create(:role => Role.find_by_name("manager"), :inventory_pool => InventoryPool.last, :access_level => 3)
-      @database_authentication = FactoryGirl.create(:database_authentication, :user => @user, :password => @@password)
     end
     
     def create_location_and_building

@@ -11,7 +11,6 @@ module Persona
     
     @@name = "Ramon"
     @@lastname = "C."
-    @@password = "password"
     @@email = "ramon@zhdk.ch"
     
     def initialize
@@ -47,7 +46,6 @@ module Persona
       @language = Language.find_by_locale_name "de-CH"
       @user = FactoryGirl.create(:user, :language => @language, :firstname => @@name, :lastname => @@lastname, :login => @@name.downcase, :email => @@email)
       @user.access_rights.create(:role => Role.find_by_name("admin"))
-      @database_authentication = FactoryGirl.create(:database_authentication, :user => @user, :password => @@password)
     end
     
     def create_inventory_pool_a_ausleihe

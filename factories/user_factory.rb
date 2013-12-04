@@ -14,6 +14,10 @@ FactoryGirl.define do
     country { Faker::Address.country }
     zip { "#{country[0]}-#{Faker::Address.zip_code}".squish }
     language { Language.find_by_default(true) || LanguageFactory.create }
+
+    after(:create) do |user|
+      FactoryGirl.create(:database_authentication, :user => user, :password => "password")
+    end
   end
 
 end

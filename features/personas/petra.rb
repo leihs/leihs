@@ -10,7 +10,6 @@ module Persona
     
     @@name = "Petra"
     @@lastname = "K."
-    @@password = "password"
     @@email = "petra@zhdk.ch"
     @@inventory_pool_name = "A-Ausleihe"
     
@@ -40,7 +39,6 @@ module Persona
       @language = Language.find_by_locale_name "de-CH"
       @user = FactoryGirl.create(:user, :language => @language, :firstname => @@name, :lastname => @@lastname, :login => @@name.downcase, :email => @@email)
       @user.access_rights.create(:role => Role.find_by_name("customer"), :inventory_pool => @inventory_pool)
-      @database_authentication = FactoryGirl.create(:database_authentication, :user => @user, :password => @@password)
     end
     
     def create_submitted_contracts

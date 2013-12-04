@@ -10,7 +10,6 @@ module Persona
     
     @@name = "Normin"
     @@lastname = "N."
-    @@password = "password"
     @@email = "normin@zhdk.ch"
     @@inventory_pool_names = ["A-Ausleihe", "IT-Ausleihe", "AV-Technik"]
     
@@ -46,8 +45,6 @@ module Persona
 
       # create deactivated access right
       @user.access_rights.create(:role => Role.find_by_name("customer"), :inventory_pool => InventoryPool.last, :deleted_at => Date.yesterday)
-
-      @database_authentication = FactoryGirl.create(:database_authentication, :user => @user, :password => @@password)
     end
     
     def create_submitted_contracts
