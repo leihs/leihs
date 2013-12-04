@@ -1,6 +1,7 @@
 When /^I pick a closed day for beeing the "(.*?)"$/ do |date_target|
   next_closed_day = nil
   date = Date.today
+  page.has_selector? "td[data-date]"
   if all("td[data-date='#{date}']").empty? then date = Date.new(date.year, date.month + 1) end
 
   while next_closed_day.nil?
