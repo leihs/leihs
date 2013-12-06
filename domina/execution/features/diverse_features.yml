@@ -2,6 +2,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/probleme.feature"
+- name: examples/zweck.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/zweck.feature"
 - name: examples/zweck2.feature
   scripts:
     cucumber:
@@ -10,23 +14,11 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/manage/acknowledge/add_item.feature"
-- name: manage/acknowledge/delete_lines.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/manage/acknowledge/delete_lines.feature"
 - name: manage/acknowledge/edit_order_line.feature
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/manage/acknowledge/edit_order_line.feature"
-- name: manage/booking_calender/summary_of_lines_in_calender.feature
+- name: manage/acknowledge/edit_order_line2.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/manage/booking_calender/summary_of_lines_in_calender.feature"
-- name: manage/hand_over/delete.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/manage/hand_over/delete.feature"
-- name: manage/hand_over/delete2.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/manage/hand_over/delete2.feature"
+      body: bundle exec cucumber -p all "features/manage/acknowledge/edit_order_line2.feature"
