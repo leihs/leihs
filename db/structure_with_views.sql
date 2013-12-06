@@ -1,6 +1,6 @@
 -- MySQL dump 10.14  Distrib 5.5.33-MariaDB, for debian-linux-gnu (i686)
 --
--- Host: localhost    Database: leihs2_dev
+-- Host: localhost    Database: leihs2_test
 -- ------------------------------------------------------
 -- Server version	5.5.33-MariaDB-1~wheezy
 
@@ -39,7 +39,7 @@ CREATE TABLE `access_rights` (
   KEY `index_access_rights_on_inventory_pool_id` (`inventory_pool_id`),
   KEY `index_access_rights_on_role_id` (`role_id`),
   KEY `index_on_user_id_and_inventory_pool_id_and_deleted_at` (`user_id`,`inventory_pool_id`,`deleted_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,7 +48,6 @@ CREATE TABLE `access_rights` (
 
 LOCK TABLES `access_rights` WRITE;
 /*!40000 ALTER TABLE `access_rights` DISABLE KEYS */;
-INSERT INTO `access_rights` VALUES (1,1,1,NULL,NULL,NULL,0,'2013-11-18 13:21:30','2013-11-18 13:21:30',NULL),(2,2,1,1,NULL,NULL,3,'2013-11-18 13:23:12','2013-11-18 13:23:12',NULL);
 /*!40000 ALTER TABLE `access_rights` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,7 +65,7 @@ CREATE TABLE `accessories` (
   `quantity` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_accessories_on_model_id` (`model_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=341 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -147,7 +146,7 @@ CREATE TABLE `attachments` (
   `size` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_attachments_on_model_id` (`model_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -173,7 +172,7 @@ CREATE TABLE `authentication_systems` (
   `is_default` tinyint(1) DEFAULT '0',
   `is_active` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -182,7 +181,6 @@ CREATE TABLE `authentication_systems` (
 
 LOCK TABLES `authentication_systems` WRITE;
 /*!40000 ALTER TABLE `authentication_systems` DISABLE KEYS */;
-INSERT INTO `authentication_systems` VALUES (1,'Database Authentication','DatabaseAuthentication',1,1),(2,'LDAP Authentication','LdapAuthentication',0,0),(3,'ZHDK Authentication','Zhdk',0,0);
 /*!40000 ALTER TABLE `authentication_systems` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -198,7 +196,7 @@ CREATE TABLE `buildings` (
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -207,7 +205,6 @@ CREATE TABLE `buildings` (
 
 LOCK TABLES `buildings` WRITE;
 /*!40000 ALTER TABLE `buildings` DISABLE KEYS */;
-INSERT INTO `buildings` VALUES (1,'Great Pyramid of Giza','ZZZ');
 /*!40000 ALTER TABLE `buildings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -233,6 +230,7 @@ CREATE TABLE `contract_lines` (
   `updated_at` datetime NOT NULL,
   `purpose_id` int(11) DEFAULT NULL,
   `returned_to_user_id` int(11) DEFAULT NULL,
+  `full_text` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`),
   KEY `index_contract_lines_on_start_date` (`start_date`),
   KEY `index_contract_lines_on_end_date` (`end_date`),
@@ -242,7 +240,7 @@ CREATE TABLE `contract_lines` (
   KEY `fk_contract_lines_model_id` (`model_id`),
   KEY `index_contract_lines_on_returned_date_and_contract_id` (`returned_date`,`contract_id`),
   KEY `index_contract_lines_on_type_and_contract_id` (`type`,`contract_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -251,7 +249,6 @@ CREATE TABLE `contract_lines` (
 
 LOCK TABLES `contract_lines` WRITE;
 /*!40000 ALTER TABLE `contract_lines` DISABLE KEYS */;
-INSERT INTO `contract_lines` VALUES (1,1,'ItemLine',1,1,1,'2013-01-01','2013-02-01',NULL,NULL,'2013-11-18 13:25:17','2013-11-18 13:28:38',1,NULL),(2,2,'ItemLine',NULL,1,1,'2013-12-31','2014-01-02',NULL,NULL,'2013-11-21 17:20:54','2013-11-21 17:21:01',2,NULL);
 /*!40000 ALTER TABLE `contract_lines` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -271,11 +268,12 @@ CREATE TABLE `contracts` (
   `updated_at` datetime NOT NULL,
   `handed_over_by_user_id` int(11) DEFAULT NULL,
   `status` enum('unsubmitted','submitted','rejected','approved','signed','closed') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `full_text` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`),
   KEY `index_contracts_on_inventory_pool_id` (`inventory_pool_id`),
   KEY `index_contracts_on_user_id` (`user_id`),
   KEY `index_contracts_on_status` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -284,7 +282,6 @@ CREATE TABLE `contracts` (
 
 LOCK TABLES `contracts` WRITE;
 /*!40000 ALTER TABLE `contracts` DISABLE KEYS */;
-INSERT INTO `contracts` VALUES (1,1,1,'asdfasdf','2013-11-18 13:28:38','2013-11-18 13:28:38',1,'signed'),(2,1,1,NULL,'2013-11-21 17:21:01','2013-11-21 17:21:43',NULL,'approved');
 /*!40000 ALTER TABLE `contracts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -304,7 +301,7 @@ CREATE TABLE `database_authentications` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -313,7 +310,6 @@ CREATE TABLE `database_authentications` (
 
 LOCK TABLES `database_authentications` WRITE;
 /*!40000 ALTER TABLE `database_authentications` DISABLE KEYS */;
-INSERT INTO `database_authentications` VALUES (1,'super_user_1','9fc0ed621a0602e2e959d8b1bd7138443bd4a327','4f73844566bc0bd81d7a4a2a1e6789472c10d613',1,'2013-11-18 13:21:30','2013-11-18 13:21:30');
 /*!40000 ALTER TABLE `database_authentications` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -332,7 +328,7 @@ CREATE TABLE `groups` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_groups_on_inventory_pool_id` (`inventory_pool_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -396,7 +392,6 @@ CREATE TABLE `histories` (
 
 LOCK TABLES `histories` WRITE;
 /*!40000 ALTER TABLE `histories` DISABLE KEYS */;
-INSERT INTO `histories` VALUES (1,'Contract 1 has been signed by Leonard Harris',1,'2013-11-18 13:28:38',1,'Contract',1),(2,'[leihs] Reminder',1,'2013-11-18 13:49:15',1,'User',1),(3,'Reminded 1 items for contracts 1',3,'2013-11-18 13:49:15',1,'User',NULL),(4,'[leihs] Reminder',1,'2013-11-18 13:50:41',1,'User',1),(5,'Reminded 1 items for contracts 1',3,'2013-11-18 13:50:41',1,'User',NULL),(6,'Order submitted',1,'2013-11-21 17:21:01',2,'Contract',1);
 /*!40000 ALTER TABLE `histories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -416,7 +411,7 @@ CREATE TABLE `holidays` (
   PRIMARY KEY (`id`),
   KEY `index_holidays_on_inventory_pool_id` (`inventory_pool_id`),
   KEY `index_holidays_on_start_date_and_end_date` (`start_date`,`end_date`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -448,7 +443,7 @@ CREATE TABLE `images` (
   `thumbnail` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_images_on_model_id` (`model_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -484,7 +479,7 @@ CREATE TABLE `inventory_pools` (
   `address_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_inventory_pools_on_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -493,7 +488,7 @@ CREATE TABLE `inventory_pools` (
 
 LOCK TABLES `inventory_pools` WRITE;
 /*!40000 ALTER TABLE `inventory_pools` DISABLE KEYS */;
-INSERT INTO `inventory_pools` VALUES (1,'test','',NULL,NULL,NULL,NULL,'','test','asdfasdf@asdfafd.com',NULL,1,NULL,NULL);
+INSERT INTO `inventory_pools` VALUES (1,'Quiaquasinon','Perferendis cum autem ipsa.','Commodi tenetur voluptas sunt sapiente qui.','Quiaquasinon','mina_dibbert@pollich.biz',NULL,NULL,'164EF3','mina_dibbert@pollich.biz',NULL,1,NULL,NULL);
 /*!40000 ALTER TABLE `inventory_pools` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -568,7 +563,7 @@ CREATE TABLE `items` (
   KEY `index_items_on_owner_id` (`owner_id`),
   KEY `index_items_on_parent_id_and_retired` (`parent_id`,`retired`),
   KEY `index_items_on_model_id_and_retired_and_inventory_pool_id` (`model_id`,`retired`,`inventory_pool_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=165 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -577,7 +572,6 @@ CREATE TABLE `items` (
 
 LOCK TABLES `items` WRITE;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
-INSERT INTO `items` VALUES (1,'test1','',1,2,NULL,1,NULL,'',NULL,'2013-11-18',NULL,NULL,NULL,0,0,1,0,1,1,'',NULL,'','','2013-11-18 13:24:21','2013-11-18 13:27:33','','---\n:anschaffungskategorie: Musikinstrumente\n:umzug: zügeln\n:ankunftszustand: intakt\n:reference: invoice\n');
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -606,7 +600,6 @@ CREATE TABLE `languages` (
 
 LOCK TABLES `languages` WRITE;
 /*!40000 ALTER TABLE `languages` DISABLE KEYS */;
-INSERT INTO `languages` VALUES (1,'English','en-GB',1,1),(2,'Deutsch','de-CH',0,1),(3,'Castellano','es',0,1),(4,'Züritüütsch','gsw-CH',0,1);
 /*!40000 ALTER TABLE `languages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -624,7 +617,7 @@ CREATE TABLE `locations` (
   `building_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_locations_on_building_id` (`building_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=117 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -633,7 +626,6 @@ CREATE TABLE `locations` (
 
 LOCK TABLES `locations` WRITE;
 /*!40000 ALTER TABLE `locations` DISABLE KEYS */;
-INSERT INTO `locations` VALUES (1,NULL,NULL,NULL),(2,NULL,NULL,1);
 /*!40000 ALTER TABLE `locations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -655,7 +647,7 @@ CREATE TABLE `model_group_links` (
   KEY `index_model_group_links_on_ancestor_id` (`ancestor_id`),
   KEY `index_model_group_links_on_direct` (`direct`),
   KEY `index_on_descendant_id_and_ancestor_id_and_direct` (`descendant_id`,`ancestor_id`,`direct`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -682,7 +674,7 @@ CREATE TABLE `model_groups` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_model_groups_on_type` (`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -691,7 +683,6 @@ CREATE TABLE `model_groups` (
 
 LOCK TABLES `model_groups` WRITE;
 /*!40000 ALTER TABLE `model_groups` DISABLE KEYS */;
-INSERT INTO `model_groups` VALUES (1,'Category','faafaa','2013-11-18 13:27:49','2013-11-18 13:27:49');
 /*!40000 ALTER TABLE `model_groups` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -710,7 +701,7 @@ CREATE TABLE `model_links` (
   PRIMARY KEY (`id`),
   KEY `index_model_links_on_model_id_and_model_group_id` (`model_id`,`model_group_id`),
   KEY `index_model_links_on_model_group_id_and_model_id` (`model_group_id`,`model_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -719,7 +710,6 @@ CREATE TABLE `model_links` (
 
 LOCK TABLES `model_links` WRITE;
 /*!40000 ALTER TABLE `model_links` DISABLE KEYS */;
-INSERT INTO `model_links` VALUES (1,1,1,1);
 /*!40000 ALTER TABLE `model_links` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -746,7 +736,7 @@ CREATE TABLE `models` (
   `hand_over_note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`),
   KEY `index_models_on_is_package` (`is_package`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=182 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -755,7 +745,6 @@ CREATE TABLE `models` (
 
 LOCK TABLES `models` WRITE;
 /*!40000 ALTER TABLE `models` DISABLE KEYS */;
-INSERT INTO `models` VALUES (1,'asdfasdf','','','',NULL,NULL,0,0,'','2013-11-18 13:23:46','2013-11-18 13:23:46','');
 /*!40000 ALTER TABLE `models` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -797,7 +786,7 @@ CREATE TABLE `notifications` (
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_notifications_on_user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -806,7 +795,6 @@ CREATE TABLE `notifications` (
 
 LOCK TABLES `notifications` WRITE;
 /*!40000 ALTER TABLE `notifications` DISABLE KEYS */;
-INSERT INTO `notifications` VALUES (1,1,'[leihs] Reminder','2013-11-18 13:49:15'),(2,1,'[leihs] Reminder','2013-11-18 13:50:41'),(3,1,'Order submitted','2013-11-21 17:21:01');
 /*!40000 ALTER TABLE `notifications` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -846,9 +834,10 @@ CREATE TABLE `options` (
   `inventory_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `price` decimal(8,2) DEFAULT NULL,
+  `full_text` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`),
   KEY `index_options_on_inventory_pool_id` (`inventory_pool_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -875,7 +864,7 @@ CREATE TABLE `partitions` (
   `quantity` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_partitions_on_model_id_and_inventory_pool_id_and_group_id` (`model_id`,`inventory_pool_id`,`group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -917,7 +906,7 @@ CREATE TABLE `properties` (
   `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_properties_on_model_id` (`model_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -940,7 +929,7 @@ CREATE TABLE `purposes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `description` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -949,7 +938,6 @@ CREATE TABLE `purposes` (
 
 LOCK TABLES `purposes` WRITE;
 /*!40000 ALTER TABLE `purposes` DISABLE KEYS */;
-INSERT INTO `purposes` VALUES (1,'asdfasdf'),(2,'uuu');
 /*!40000 ALTER TABLE `purposes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -980,7 +968,6 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,NULL,1,6,'admin'),(2,1,2,5,'manager'),(3,2,3,4,'customer');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1025,7 +1012,7 @@ CREATE TABLE `schema_migrations` (
 
 LOCK TABLES `schema_migrations` WRITE;
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
-INSERT INTO `schema_migrations` VALUES ('20101213125330'),('20110111175705'),('20110117113700'),('20110119193618'),('20110201160119'),('20110222163245'),('20110318110901'),('20110523133506'),('20110617090905'),('20110704075302'),('20110815110417'),('20110921134810'),('20111123154235'),('20111215221843'),('20120106214650'),('20120301140904'),('20120424080000'),('20120424080001'),('20120427113142'),('20120523134739'),('20120618143839'),('20120619083752'),('20120806140527'),('20120806203246'),('20120806203332'),('20120921102118'),('20121109141157'),('20130111105833'),('20130729120232'),('20130730145452'),('20130823104438'),('20130906084646'),('20130923141326'),('20130924180000'),('20130924180001'),('20131118144431'),('20131121171123');
+INSERT INTO `schema_migrations` VALUES ('20101213125330'),('20110111175705'),('20110117113700'),('20110119193618'),('20110201160119'),('20110222163245'),('20110318110901'),('20110523133506'),('20110617090905'),('20110704075302'),('20110815110417'),('20110921134810'),('20111123154235'),('20111215221843'),('20120106214650'),('20120301140904'),('20120424080000'),('20120424080001'),('20120427113142'),('20120523134739'),('20120618143839'),('20120619083752'),('20120806140527'),('20120806203246'),('20120806203332'),('20120921102118'),('20121109141157'),('20130111105833'),('20130729120232'),('20130730145452'),('20130823104438'),('20130906084646'),('20130923141326'),('20130924180000'),('20130924180001'),('20131118144431'),('20131121171123'),('20131205085439'),('20131205091411'),('20131205154851');
 /*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1063,7 +1050,6 @@ CREATE TABLE `settings` (
 
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-INSERT INTO `settings` VALUES (1,'the not localhost',25,'the smtp domain','GBP','','','Cheers,','your.lending.desk@example.com',0,'','','','','test','test');
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1080,7 +1066,7 @@ CREATE TABLE `suppliers` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=165 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1120,7 +1106,7 @@ CREATE TABLE `users` (
   `settings` varchar(1024) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_users_on_authentication_system_id` (`authentication_system_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1129,7 +1115,6 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'super_user_1','Leonard','Harris','08112399349',1,'5b083de9-c212-4c4b-a498-badd47a58053','super_user_1@example.com','0e3082f1-af27-4f86-8aac-4750cf40a25f','28742 Stokes Harbors','Port Taya','B-WX8 8LN','Burkina Faso',1,'--- \n...\n','2013-11-18 13:21:30','2013-11-18 13:21:30','--- {}\n');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1191,7 +1176,7 @@ CREATE TABLE `workdays` (
   `sunday` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `index_workdays_on_inventory_pool_id` (`inventory_pool_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1285,4 +1270,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-11-25 11:16:10
+-- Dump completed on 2013-12-06 16:02:24
