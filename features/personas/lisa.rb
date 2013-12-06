@@ -4,6 +4,8 @@
 # Job:      ZHDK Dozentin
 #
 
+require "#{Rails.root}/features/support/helper.rb"
+
 module Persona
   
   class Lisa

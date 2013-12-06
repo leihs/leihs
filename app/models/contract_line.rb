@@ -109,6 +109,14 @@ class ContractLine < ActiveRecord::Base
     (item.price || 0) * quantity
   end
 
+  def price_or_max_price
+    if item
+      (item.price || 0) * quantity
+    else
+      (model.borrowable_items.by_responsible_or_owner_as_fallback(inventory_pool).map(&:price).compact.max || 0) * quantity
+    end
+  end
+
   private
 
   def set_defaults

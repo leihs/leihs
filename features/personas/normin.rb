@@ -53,8 +53,13 @@ module Persona
       @beamer_model = Model.find_by_name "Sharp Beamer"
       @contract_for_camera = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :submitted)
       @contract_for_camera_purpose = FactoryGirl.create :purpose, :description => "Benötige ich für die Aufnahmen meiner Abschlussarbeit."
-      @contract_line_camera = FactoryGirl.create(:contract_line, :purpose => @contract_for_camera_purpose, :model => @camera_model, :contract => @contract_for_camera, :start_date => (Date.today + 7.days), :end_date => (Date.today + 10.days))
-      @contract_line_tripod = FactoryGirl.create(:contract_line, :purpose => @contract_for_camera_purpose, :model => @tripod_model, :contract => @contract_for_camera, :start_date => (Date.today + 7.days), :end_date => (Date.today + 10.days))
+
+      rand(3..5).times do
+        FactoryGirl.create(:contract_line, :purpose => @contract_for_camera_purpose, :model => @camera_model, :contract => @contract_for_camera, :start_date => (Date.today + 7.days), :end_date => (Date.today + 10.days))
+      end
+      rand(3..5).times do
+        FactoryGirl.create(:contract_line, :purpose => @contract_for_camera_purpose, :model => @tripod_model, :contract => @contract_for_camera, :start_date => (Date.today + 7.days), :end_date => (Date.today + 10.days))
+      end
 
       # and some more random submitted contracts with lines
       rand(2..4).times do
@@ -70,19 +75,35 @@ module Persona
       # approved_contract_1
       @approved_contract_1 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :approved)
       @approved_contract_1_purpose = FactoryGirl.create :purpose, :description => "Ersatzstativ für die Ausstellung."
-      FactoryGirl.create(:contract_line, :purpose => @approved_contract_1_purpose, :contract => @approved_contract_1, :model => @tripod_model)
+      @approved_contract_1.contract_lines << FactoryGirl.create(:contract_line, :purpose => @approved_contract_1_purpose, :contract => @approved_contract_1, :model => @tripod_model)
       
       # approved_contract_2
       @approved_contract_2 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :approved)
       @approved_contract_2_purpose = FactoryGirl.create :purpose, :description => "Für das zweite Austellungswochenende."
-      FactoryGirl.create(:contract_line, :purpose => @approved_contract_2_purpose, :contract => @approved_contract_2, :model => @tripod_model)
-      FactoryGirl.create(:contract_line, :purpose => @approved_contract_2_purpose, :contract => @approved_contract_2, :model => @camera_model)
+      @approved_contract_2.contract_lines << FactoryGirl.create(:contract_line, :purpose => @approved_contract_2_purpose, :contract => @approved_contract_2, :model => @tripod_model)
+      @approved_contract_2.contract_lines << FactoryGirl.create(:contract_line, :purpose => @approved_contract_2_purpose, :contract => @approved_contract_2, :model => @camera_model)
 
       # approved_contract_3
       @approved_contract_3 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :approved)
       @approved_contract_3_purpose = FactoryGirl.create :purpose, :description => "Für das dritte Austellungswochenende."
-      FactoryGirl.create(:contract_line, :purpose => @approved_contract_3_purpose, :contract => @approved_contract_3, :model => @tripod_model, :start_date => Date.today + 7.days, :end_date => Date.today + 8.days)
-      FactoryGirl.create(:contract_line, :purpose => @approved_contract_3_purpose, :contract => @approved_contract_3, :model => @camera_model, :start_date => Date.today + 7.days, :end_date => Date.today + 8.days)
+      @approved_contract_3.contract_lines << FactoryGirl.create(:contract_line, :purpose => @approved_contract_3_purpose, :contract => @approved_contract_3, :model => @tripod_model, :start_date => Date.today + 7.days, :end_date => Date.today + 8.days)
+
+      # approved_contract_4
+      @approved_contract_4 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :approved)
+      @approved_contract_4_purpose = FactoryGirl.create :purpose, :description => "Für die Abschlussarbeit."
+      @approved_contract_4.contract_lines << FactoryGirl.create(:contract_line, :purpose => @approved_contract_4_purpose, :contract => @approved_contract_4, :model => @beamer_model)
+      @approved_contract_4.contract_lines << FactoryGirl.create(:contract_line, :purpose => @approved_contract_4_purpose, :contract => @approved_contract_4, :model => @beamer_model)
+      @approved_contract_4.contract_lines << FactoryGirl.create(:contract_line, :purpose => @approved_contract_4_purpose, :contract => @approved_contract_4, :model => @beamer_model)
+
+      # approved_contract_5
+      @approved_contract_5 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :approved)
+      @approved_contract_5_purpose = FactoryGirl.create :purpose, :description => "Ersatzstativ für die Ausstellung."
+      @approved_contract_5.contract_lines << FactoryGirl.create(:contract_line, :purpose => @approved_contract_5_purpose, :contract => @approved_contract_5, :model => @camera_model)
+      @approved_contract_5.contract_lines << FactoryGirl.create(:contract_line, :purpose => @approved_contract_5_purpose, :contract => @approved_contract_5, :model => @camera_model)
+      @approved_contract_5.contract_lines << FactoryGirl.create(:contract_line, :purpose => @approved_contract_5_purpose, :contract => @approved_contract_5, :model => @tripod_model)
+      @akku_aa = Option.find_by_name "Akku AA"
+      @approved_contract_5.contract_lines << FactoryGirl.create(:option_line, :purpose => @approved_contract_5_purpose, :contract => @approved_contract_5, :option => @akku_aa, :quantity => 5)
+
     end
     
     def create_signed_contracts

@@ -291,6 +291,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/model_eigenschaften.feature"
+- name: examples/statistik2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/statistik2.feature"
 - name: examples/inventar2
   scripts:
     cucumber:
@@ -699,6 +703,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/manage/hand_over/delete.feature"
+- name: manage/hand_over/delete2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/hand_over/delete2.feature"
 - name: manage/hand_over/edit_contract_line
   scripts:
     cucumber:

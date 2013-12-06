@@ -4,6 +4,8 @@
 # Job:      Admin
 #
 
+require "#{Rails.root}/features/support/leihs_factory.rb"
+
 module Persona
   class Gino
     @@name = "Gino"

@@ -17,6 +17,10 @@
             %i.icon-exchange
             = _("Change Borrower")
         %li
+          %a.dropdown-item{:href => manage_print_contract_lines_path(current_inventory_pool, merge: true), :target => "_blank", :"data-update-href" => true}
+            %i.icon-print
+            = _("Print Selection")
+        %li
           %a.dropdown-item.red{:"data-destroy-selected-lines" => true}
             %i.icon-trash
             = _("Delete Selection")

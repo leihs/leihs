@@ -46,8 +46,7 @@ end
 
 Then /^the existing line quantity is not increased$/ do
   old_quantity = @line.quantity 
-  @new_quantity = @line.reload.quantity
-  @new_quantity.should == old_quantity
+  @line.reload.quantity.should == old_quantity
 end
 
 Then /^an additional line has been created in the backend system$/ do
@@ -59,7 +58,7 @@ Then /^the new line is getting visually merged with the existing line$/ do
   find(".line", :text => @model).should have_content @contract.lines.where(:model_id => @model.id).sum(&:quantity)
   sleep(0.88)
   all(".line").count.should == @line_el_count
-  find(".line", match: :prefer_exact, :text => @model.name).find("div:nth-child(3) > span:nth-child(1)").text.to_i.should == @new_quantity + 1
+  find(".line", match: :prefer_exact, :text => @model.name).find("div:nth-child(3) > span:nth-child(1)").text.to_i.should == @contract.reload.lines.select{|l| l.model == @model}.size
 end
 
 Given /^I search for a model with default dates and note the current availability$/ do
@@ -71,13 +70,15 @@ Given /^I search for a model with default dates and note the current availabilit
 end
 
 When /^I change the start date$/ do
-  fill_in "add-start-date", with: Date.today.strftime("%d.%m.%Y")
+  av = @model.availability_in(@current_inventory_pool)
+  @new_start_date = av.changes.keys.second
+  fill_in "add-start-date", with: @new_start_date.strftime("%d.%m.%Y")
   find("#add-start-date").click
   find(".ui-state-active").click
 end
 
 And /^I change the end date$/ do
-  fill_in "add-end-date", with: (Date.today + 1).strftime("%d.%m.%Y")
+  fill_in "add-end-date", with: (@new_start_date + 1).strftime("%d.%m.%Y")
   find("#add-end-date").click
   find(".ui-state-active").click
 end

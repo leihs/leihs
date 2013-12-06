@@ -32,11 +32,3 @@ Funktionalität: Werteliste
     | Anzahl          |
     | Wert            |
     Und die Modelle in der Werteliste sind alphabetisch sortiert
-
-  @javascript
-  Szenario: Totale Werte
-    Dann gibt es eine Zeile für die totalen Werte
-     Und diese summierte die Spalten:
-     | Spaltenname |
-     | Anzahl      |
-     | Wert        |

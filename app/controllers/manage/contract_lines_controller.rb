@@ -198,6 +198,13 @@ class Manage::ContractLinesController < Manage::ApplicationController
     render status: :no_content, :nothing => true
   end
 
+  def print
+    @contract_lines = current_inventory_pool.contract_lines.where(id: params[:ids])
+    @user = @contract_lines.first.user
+    @inventory_pool = current_inventory_pool
+    render "documents/contract_lines", layout: "print"
+  end
+
   private
 
   def create_contract_line contract_id, record, quantity, start_date, end_date, purpose_id

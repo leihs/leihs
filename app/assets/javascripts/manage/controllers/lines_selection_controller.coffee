@@ -57,6 +57,7 @@ class window.App.LineSelectionController extends Spine.Controller
     @store lines
     @lineSelectionCounter.html lines.length
     if lines.length then @enable() else @disable()
+    do @storeIdsToHrefs
 
   store: (lines)->
     ids = _.flatten _.map lines, (line) -> ($(line).data("ids") ? [$(line).data("id")])
@@ -81,6 +82,12 @@ class window.App.LineSelectionController extends Spine.Controller
   disable: =>
     for button in $(".button[data-selection-enabled]")
       App.Button.disable $(button)
+
+  storeIdsToHrefs: =>
+    for link in $("a[data-update-href]")
+      link = $ link
+      uri = URI(link.attr("href")).removeQuery("ids[]").addQuery("ids[]", App.LineSelectionController.selected)
+      link.attr "href", uri.toString()
 
   @add: (id)=>
     unless _.find(@selected, (i)-> i is id)

@@ -2734,3 +2734,6 @@ msgstr "Pakete aktualisiert"
 
 msgid "Save Package"
 msgstr "Paket speichern"
+
+msgid "Print Selection"
+msgstr "Auswahl ausdrucken"

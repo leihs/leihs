@@ -9,32 +9,26 @@ Funktionalität: Werteliste
   Grundlage:
     Angenommen Personas existieren
     Und man ist "Pius"
-    Und man öffnet eine Werteliste
-    
-  @javascript
-  Szenario: Totale Werte
-    Dann gibt es eine Zeile für die totalen Werte
-     Und diese summierte die Spalten:
-     | Spaltenname |
-     | Anzahl      |
-     | Wert        |
 
   @javascript
   Szenario: Werteliste auf Bestellübersicht ausdrucken
-    Wenn ich eine Bestellung öffne 
-    Und ich mehrere Linien auswähle
+    Angenommen es existiert eine Bestellung mit mindestens zwei Modellen, wo die Bestellmenge mindestens drei pro Modell ist
+    Wenn ich eine Bestellung öffne
+    Und ich mehrere Linien von der Bestellung auswähle
     Und das Werteverzeichniss öffne
     Dann sehe ich das Werteverzeichniss für die ausgewählten Linien
-    Und der Preis ist der höchste Preis eines Gegenstandes eines Models innerhalb des Geräteparks
-    Und der Preis einer Option ist der innerhalb des Geräteparks
+    Und die nicht zugewiesenen Linien sind zusammengefasst
+    Und für die nicht zugewiesenen Linien ist der Preis der höchste Preis eines Gegenstandes eines Models innerhalb des Geräteparks
 
   @javascript
   Szenario: Werteliste auf der Aushändigungsansicht ausdrucken
-    Wenn ich eine Aushändigung öffne 
-    Und ich mehrere Linien auswähle
+    Angenommen es existiert eine Aushändigung mit mindestens zwei Modellen und einer Option, wo die Bestellmenge mindestens drei pro Modell ist
+    Und es ist pro Modell genau einer Linie ein Gegenstand zugewiesen
+    Wenn ich eine Aushändigung öffne
+    Und ich mehrere Linien von der Aushändigung auswähle
     Und das Werteverzeichniss öffne
     Dann sehe ich das Werteverzeichniss für die ausgewählten Linien
-    Und für die nicht zugewiesenen Linien ist der Preis ist der höchste Preis eines Gegenstandes eines Models innerhalb des Geräteparks
-    Und für die zugewisenen Linien ist der Preis der des Gegenstandes
+    Und für die nicht zugewiesenen Linien ist der Preis der höchste Preis eines Gegenstandes eines Models innerhalb des Geräteparks
+    Und für die zugewiesenen Linien ist der Preis der des Gegenstandes
     Und die nicht zugewiesenen Linien sind zusammengefasst
     Und der Preis einer Option ist der innerhalb des Geräteparks

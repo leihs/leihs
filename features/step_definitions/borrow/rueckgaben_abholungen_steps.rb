@@ -84,10 +84,11 @@ Dann(/^die Geräte sind alphabetisch sortiert und gruppiert nach Modellname mit 
     flatten.
     should == all(".row.line .col6of10").map(&:text)
 
-  temp.map{|visit_lines| visit_lines.group_by(&:model_id)}.
-    map {|h| h.sort_by {|k, v| Model.find(k).name}}.
+  temp.
+    map{|visit_lines| visit_lines.group_by {|l| l.model.name}}.
+    map {|h| h.sort}.
     flatten(1).
-    map{|vl| [Model.find(vl.first).name, vl.second.length]}.
+    map{|vl| [vl.first, (if vl.second.first.is_a? OptionLine then vl.second.first.quantity else vl.second.length end)]}.
     each do |element|
       page.should have_selector(".row.line", text: /#{element.second}[\sx]*#{element.first}/)
     end

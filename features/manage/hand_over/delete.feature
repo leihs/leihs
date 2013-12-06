@@ -20,15 +20,3 @@ Feature: Sign Contract
       And I select multiple lines
       And I delete the seleted lines
      Then these lines are deleted
-
-  @javascript
-  Scenario: Delete lines which changes other lines availability
-     When I open a hand over
-      And I delete all lines of a model thats availability is blocked by these lines
-     Then the availability of the keeped line is updated
-
-  Scenario: Delete a hand over from the daily view
-    Given I open the daily view
-    When I delete a hand over
-    Then all lines of that hand over are deleted
-

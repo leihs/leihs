@@ -2671,3 +2671,6 @@ msgstr ""
 
 msgid "Save Package"
 msgstr ""
+
+msgid "Print Selection"
+msgstr ""

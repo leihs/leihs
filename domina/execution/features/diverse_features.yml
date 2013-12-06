@@ -1,16 +1,32 @@
-- name: borrow/bestelluebersicht.feature
+- name: examples/probleme.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/borrow/bestelluebersicht.feature"
-- name: borrow/bestelluebersicht2.feature
+      body: bundle exec cucumber -p all "features/examples/probleme.feature"
+- name: examples/zweck2.feature
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/zweck2.feature"
+- name: manage/acknowledge/add_item.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/acknowledge/add_item.feature"
 - name: manage/acknowledge/delete_lines.feature
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/manage/acknowledge/delete_lines.feature"
-- name: manage/booking_calendar/summary_of_lines_in_calendar.feature
+- name: manage/acknowledge/edit_order_line.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/manage/booking_calendar/summary_of_lines_in_calendar.feature"
+      body: bundle exec cucumber -p all "features/manage/acknowledge/edit_order_line.feature"
+- name: manage/booking_calender/summary_of_lines_in_calender.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/booking_calender/summary_of_lines_in_calender.feature"
+- name: manage/hand_over/delete.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/hand_over/delete.feature"
+- name: manage/hand_over/delete2.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/hand_over/delete2.feature"

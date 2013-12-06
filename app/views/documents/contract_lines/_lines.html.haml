@@ -1,0 +1,15 @@
+%tbody
+
+  - consecutive_number = 0
+  - @contract_lines.sort.each do |line|
+    %tr
+      %td.consecutive_number
+        - if line.quantity > 1
+          = "%s/%s" % [consecutive_number += 1, consecutive_number += line.quantity-1]
+        - else
+          = consecutive_number += 1
+      %td.inventory_code= line.item.try(&:inventory_code)
+      %td.model_name= line.model.name
+      %td.end_date= l line.end_date
+      %td.quantity= line.quantity
+      %td.item_price= number_to_currency(line.price_or_max_price, format: '%n %u', :unit => Setting::LOCAL_CURRENCY_STRING)

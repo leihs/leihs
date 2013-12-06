@@ -54,20 +54,23 @@ end
 Angenommen(/^ich drücke auf den Wertelistelink$/) do
   contracts = @current_user.contracts.where(status: [:signed, :closed])
   @contract = contracts.sample
-  first("a[href='#{borrow_user_value_list_path(@contract.id)}']", text: _("Value List")).click
+  find(".row.line[data-id='#{@contract.id}']").find(".dropdown-toggle").hover
+  find(".row.line[data-id='#{@contract.id}']").click_link _("Value List")
 end
 
 Dann(/^öffnet sich die Werteliste$/) do
+  page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
   current_path.should == borrow_user_value_list_path(@contract.id)
 end
 
 Angenommen(/^ich drücke auf den Vertraglink$/) do
   contracts = @current_user.contracts.where(status: [:signed, :closed])
   @contract = contracts.sample
-  first("a[href='#{borrow_user_contract_path(@contract.id)}']", text: _("Contract")).click
+  find("a[href='#{borrow_user_contract_path(@contract.id)}']", text: _("Contract")).click
 end
 
 Dann(/^öffnet sich der Vertrag$/) do
+  page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
   current_path.should == borrow_user_contract_path(@contract.id)
 end
 
@@ -123,6 +126,8 @@ Dann(/^sehe ich die Werteliste genau wie im Verwalten\-Bereich$/) do
 end
 
 Dann(/^sehe ich den Vertrag genau wie im Verwalten-Bereich$/) do
+  page.has_selector? ".contract"
+
   steps %{
     Dann möchte ich die folgenden Bereiche sehen:
       | Bereich                       |

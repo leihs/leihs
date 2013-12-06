@@ -30,8 +30,8 @@ When /^I select multiple lines$/ do
 end
 
 When /^I delete the seleted lines$/ do
+  find(".multibutton .button[data-selection-enabled] + .dropdown-holder").click
   within(".multibutton .button[data-selection-enabled] + .dropdown-holder") do
-    find(".dropdown-toggle").hover
     find(".dropdown-item.red[data-destroy-selected-lines]", text: _("Delete Selection")).click
   end
   find(".line", match: :first)
