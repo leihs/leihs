@@ -19,7 +19,7 @@ Angenommen /^ich mache eine Aushändigung$/ do
   step 'I open a hand over'
 end
 
-Angenommen /^eine Model ist nichtmehr verfügbar$/ do
+Angenommen /^ein Modell ist nichtmehr verfügbar$/ do
   if @event=="order" or @event=="hand_over"
     @entity = if @contract
                 @contract
@@ -83,7 +83,7 @@ Dann /^"(.*?)" sind verfügbar für den Kunden$/ do |arg1|
   else
     @max_before - @quantity_added
   end
-  @reference_problem.match(/#{max}\(/).should_not be_nil
+  @reference_problem.should match /#{max}\(/
 end
 
 Dann /^"(.*?)" sind insgesamt verfügbar$/ do |arg1|
@@ -93,11 +93,11 @@ Dann /^"(.*?)" sind insgesamt verfügbar$/ do |arg1|
   else
     max += @line.quantity
   end
-  @reference_problem.match(/\(#{max}/).should_not be_nil
+  @reference_problem.should match(/\(#{max}/)
 end
 
 Dann /^"(.*?)" sind total im Pool bekannt \(ausleihbar\)$/ do |arg1|
-  @reference_problem.match("/#{@line.model.items.scoped_by_inventory_pool_id(@line.inventory_pool).borrowable.size}").should_not be_nil
+  @reference_problem.should match("/#{@line.model.items.scoped_by_inventory_pool_id(@line.inventory_pool).borrowable.size}")
 end
 
 Angenommen /^eine Gegenstand ist nicht ausleihbar$/ do

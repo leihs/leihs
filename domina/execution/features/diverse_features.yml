@@ -5,12 +5,12 @@
 - name: borrow/bestelluebersicht2.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/borrow/bestelluebersicht2.feature"
-- name: borrow/bestelluebersicht3.feature
+      body: bundle exec cucumber -p all "features/examples/zweck2.feature"
+- name: manage/acknowledge/delete_lines.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/borrow/bestelluebersicht3.feature"
-- name: borrow/bestelluebersicht4.feature
+      body: bundle exec cucumber -p all "features/manage/acknowledge/delete_lines.feature"
+- name: manage/booking_calendar/summary_of_lines_in_calendar.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/borrow/bestelluebersicht4.feature"
+      body: bundle exec cucumber -p all "features/manage/booking_calendar/summary_of_lines_in_calendar.feature"

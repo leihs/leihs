@@ -9,7 +9,7 @@ Funktionalität: Anzeige von Problemen
   @javascript
   Szenario: Problemanzeige wenn Modell nicht verfügbar bei Bestellungen
     Angenommen ich editiere eine Bestellung
-     Und eine Model ist nichtmehr verfügbar
+     Und ein Modell ist nichtmehr verfügbar
      Dann sehe ich auf den beteiligten Linien die Auszeichnung von Problemen
      Und das Problem wird wie folgt dargestellt: "Nicht verfügbar 2(3)/7"
      Und "2" sind verfügbar für den Kunden
