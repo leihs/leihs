@@ -36,7 +36,8 @@ end
 
 Dann /^sehe ich auf jeder Zeile den zugewisenen Zweck$/ do
   @customer.contracts.approved.first.lines.each do |line|
-    hover_for_tooltip find(".line[data-id='#{line.id}'] .col1of10:nth-child(5) .tooltip")
+    target = find(".line[data-id='#{line.id}'] [data-tooltip-template*='purpose']")
+    hover_for_tooltip target
     find(".tooltipster-default .tooltipster-content", text: line.purpose.description)
   end
 end
