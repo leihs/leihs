@@ -15,7 +15,7 @@ Funktionalität: Gegenstand bearbeiten
 
   @javascript
   Szenario: Bei ausgeliehenen Gegenständen kann man die verantwortliche Abteilung nicht editieren
-    Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeliehen ist
+    Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeliehen ist und wo man Besitzer ist
     Wenn ich die verantwortliche Abteilung ändere
     Und ich speichern druecke
     Dann erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät ausgeliehen ist
