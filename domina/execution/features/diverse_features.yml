@@ -1,24 +1,4 @@
-- name: examples/probleme.feature
+- name: examples/probleme5.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/examples/probleme.feature"
-- name: examples/zweck.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/zweck.feature"
-- name: examples/zweck2.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/zweck2.feature"
-- name: manage/acknowledge/add_item.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/manage/acknowledge/add_item.feature"
-- name: manage/acknowledge/edit_order_line.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/manage/acknowledge/edit_order_line.feature"
-- name: manage/acknowledge/edit_order_line2.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/manage/acknowledge/edit_order_line2.feature"
+      body: bundle exec cucumber -p all "features/examples/probleme5.feature"

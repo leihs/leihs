@@ -172,7 +172,14 @@ Angenommen /^eine Gegenstand ist unvollständig$/ do
 end
 
 Dann /^sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen$/ do
-  hover_for_tooltip find(".line[data-id='#{@line_id}'] .emboss.red")
+  target = find(".line[data-id='#{@line_id}'] .emboss.red")
+  sleep(0.99) # wait for potential previous tooltips
+  find("footer").click # move mouse somewhere else to ensure its currently not over the target
+  target.click
+  target.click
+  sleep(0.99) # wait for the css transition
+  all(".tooltipster-content") # there should be just one
+
   @problems = []
   @problems << find(".tooltipster-default .tooltipster-content", text: /\w/).text
 end
