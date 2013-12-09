@@ -34,3 +34,4 @@ Gemfile.local*
 .vagrant/*
 .vagrant*
 /tags
+db/exports/
