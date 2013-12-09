@@ -100,12 +100,13 @@ When /^I add so many lines that I break the maximal quantity of an model$/ do
     @customer.get_approved_contract(@ip).lines.sample.model
   end
   @target_name = @model.name
-  @quantity_added = if @contract
+  quantity_to_add = if @contract
     @model.availability_in(@ip).maximum_available_in_period_summed_for_groups @contract.lines.first.start_date, @contract.lines.first.end_date, @contract.user.groups.map(&:id)
   else
     @model.items.size
   end
-  (@quantity_added+1).times do
+  @quantity_added = [quantity_to_add+1, 0].max
+  @quantity_added.times do
     type_into_autocomplete "[data-add-contract-line]", @target_name
     step 'I see a list of suggested model names'
     step 'I select the model from the list'

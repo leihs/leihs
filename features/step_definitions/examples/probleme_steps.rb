@@ -26,7 +26,9 @@ Angenommen /^ein Modell ist nichtmehr verfügbar$/ do
               else
                 @customer.get_approved_contract(@ip)
               end
-    @max_before = @entity.lines.first.model.availability_in(@entity.inventory_pool).maximum_available_in_period_summed_for_groups(@entity.lines.first.start_date, @entity.lines.first.end_date, @entity.lines.first.group_ids)
+    contract_line = @entity.lines.sample
+    @model = contract_line.model
+    @max_before = contract_line.model.availability_in(@entity.inventory_pool).maximum_available_in_period_summed_for_groups(contract_line.start_date, contract_line.end_date, contract_line.group_ids)
     step 'I add so many lines that I break the maximal quantity of an model'
   else
     contract_line = @contract_lines_to_take_back.where(option_id: nil).sample
@@ -40,6 +42,7 @@ Angenommen /^ein Modell ist nichtmehr verfügbar$/ do
   find(".line", text: @model.name, match: :first)
   @lines = all(".line", text: @model.name)
   @lines.size.should > 0
+  @max_before = [@max_before, 0].max
 end
 
 Dann /^sehe ich auf den beteiligten Linien die Auszeichnung von Problemen$/ do

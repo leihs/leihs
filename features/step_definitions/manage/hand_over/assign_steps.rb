@@ -27,9 +27,7 @@ When /^I assign an item to the hand over by providing an inventory code and a da
 end
 
 When /^I select one of those$/ do
-  binding.pry
   within(".line[data-id='#{@item_line.id}']") do
-    binding.pry
     find("input[data-assign-item]").click
     x = find(".ui-autocomplete a", match: :first)
     @selected_inventory_code = x.find("strong", match: :first).text
