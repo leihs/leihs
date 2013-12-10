@@ -815,6 +815,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/borrow/modellliste4.feature"
+- name: borrow/bestellfensterchen3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/bestellfensterchen3.feature"
 - name: borrow/modellliste
   scripts:
     cucumber:
