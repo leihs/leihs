@@ -13,7 +13,12 @@ module ContractModules
         contracts = if user 
             user.contracts 
           elsif inventory_pool
-            inventory_pool.contracts.not_empty
+            # NOTE in case we are using the global search, we already have an inner join defined in contract#search scope, preventing displaying empty contracts
+            if params[:search_term].blank?
+              inventory_pool.contracts.not_empty
+            else
+              inventory_pool.contracts
+            end
           else
             Contract.scoped
         end

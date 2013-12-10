@@ -77,7 +77,7 @@ class Contract < ActiveRecord::Base
 
     sql = select("DISTINCT contracts.*").
         joins("LEFT JOIN `users` ON `users`.`id` = `contracts`.`user_id`").
-        joins("LEFT JOIN `contract_lines` ON `contract_lines`.`contract_id` = `contracts`.`id`").
+        joins("INNER JOIN `contract_lines` ON `contract_lines`.`contract_id` = `contracts`.`id`").
         joins("LEFT JOIN `options` ON `options`.`id` = `contract_lines`.`option_id`").
         joins("LEFT JOIN `models` ON `models`.`id` = `contract_lines`.`model_id`").
         joins("LEFT JOIN `items` ON `items`.`id` = `contract_lines`.`item_id`")
