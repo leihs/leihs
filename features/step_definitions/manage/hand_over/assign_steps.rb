@@ -80,7 +80,6 @@ end
 
 When /^I clean the inventory code of one of the lines$/ do
   within(".line[data-line-type='item_line'][data-id='#{@item_line.id}']") do
-    find(".line-info.green")
     find(".col4of10 strong", text: @item_line.model.name)
     find("[data-assign-item][disabled]").value.should == @selected_inventory_code
     find("[data-remove-assignment]").click
