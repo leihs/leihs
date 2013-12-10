@@ -6,7 +6,3 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/gegenstand_editieren3.feature"
-- name: examples/zweck.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/zweck.feature"

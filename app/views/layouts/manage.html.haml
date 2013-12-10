@@ -13,14 +13,6 @@
     = csrf_meta_tag
     = yield :head
 
-    / capybara does not retain focus on an element, that's why we override the jQuery focus function. See: https://github.com/mattheworiordan/jquery-focus-selenium-webkit-fix
-    - if Rails.env.test?
-      :javascript
-        jQuery.find.selectors.filters.focus = function(elem) {
-          var doc = elem.ownerDocument;
-          return elem === doc.activeElement && !!(elem.type || elem.href);
-        }
-
   %body
 
     .main-wrapper
