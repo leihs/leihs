@@ -124,14 +124,27 @@ Wenn /^alle der ausgewählten Gegenstände haben einen Zweck angegeben$/ do
   lines = @contract.lines
   lines.each do |line|
     @item_line = line
-    step 'I select one of those'
+    begin
+      step 'I select one of those'
+    rescue
+      # if we ran out of available items, and an Capybara::Element not found exception was raised, just ensure that all the selected and assigned contract lines so far, have a purpose
+      lines.reload.select(&:item).all?(&:purpose).should be_true
+      break
+    end
   end
+
+  # ensure that only lines with assigned items are selected before continuing with the test
+  lines.reload.select{|l| !l.item}.each do |l|
+    cb = find(".line[data-id='#{l.id}'] input[type='checkbox']")
+    cb.click if cb.checked?
+  end
+
   step 'I edit the timerange of the selection'
   step "ich setze das Startdatum im Kalendar auf '#{I18n.l(Date.today)}'"
   step 'I save the booking calendar'
   find(".multibutton .button[data-hand-over-selection]").click
   within(".modal") do
-    lines.each do |line|
+    lines.select(&:item).each do |line|
       find(".row", match: :first, text: line.purpose.to_s)
     end
   end
