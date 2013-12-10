@@ -142,6 +142,7 @@ Dann /^(?:besitzt das Paket alle angegebenen Informationen|das Paket besitzt all
   model.items.each do |item|
     page.has_selector? ".line[data-id='#{item.id}']", visible: false
   end
+  page.has_no_selector? "[src*='loading']"
   find(".line[data-id='#{model.items.first.id}']", visible: false).find("button[data-edit-package]").click
   page.has_selector? ".modal .row.emboss"
   step 'hat der Gegenstand alle zuvor eingetragenen Werte'
