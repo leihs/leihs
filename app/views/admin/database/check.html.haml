@@ -1,0 +1,46 @@
+- content_for :title, _("Database check")
+
+.wrapper.margin-top-m
+
+  .row
+    %nav
+      %ul
+        %li
+          %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => manage_inventory_pools_path,
+                                                                                  :class => (defined? active_tab and active_tab == :inventory_pools) ? "active" : ""}
+            = _("Indexes")
+        %li
+          %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => (current_inventory_pool ? manage_inventory_pool_users_path(current_inventory_pool) : manage_users_path),
+                                                                                  :class => (defined? active_tab and active_tab == :users) ? "active" : ""}
+            = _("Consistency")
+
+
+  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+    .row.margin-top-l.padding-horizontal-m
+
+      .row
+        .headline-l.float-left= yield :title
+
+      .row.emboss.deep.margin-vertical-s
+        - @indexes_not_found.each do |table, columns, options|
+          .row.line
+            .line-info.red
+            .col1of3.line-col
+              = table
+            .col1of3.line-col.text-align-left
+              = columns
+            .col1of3.line-col
+              = options
+        - @indexes_found.each do |table, columns, options|
+          .row.line
+            .col1of3.line-col
+              = table
+            .col1of3.line-col.text-align-left
+              = columns
+            .col1of3.line-col
+              = options
+
+
+      .row.emboss.margin-vertical-s
+

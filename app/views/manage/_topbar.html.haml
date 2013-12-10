@@ -26,7 +26,7 @@
 
       - if is_admin?
         %li.topbar-item{:class => yield(:statistics_section)}
-          %a.topbar-item-inner{:href => statistics_path}= _("Statistics")
+          %a.topbar-item-inner{:href => admin_statistics_path}= _("Statistics")
 
     %ul.topbar-navigation.float-right
 

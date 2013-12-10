@@ -1,11 +1,5 @@
-class StatisticsController < ApplicationController
+class Admin::StatisticsController < Admin::ApplicationController
 
-  layout 'manage'
-
-  before_filter do
-    not_authorized!(root_path) unless is_admin?
-  end
-  
   def show
     @list_1 = Statistics::Base.hand_overs([User, Model], params.to_hash)
     @list_2 = Statistics::Base.hand_overs([InventoryPool, Model], params.to_hash)

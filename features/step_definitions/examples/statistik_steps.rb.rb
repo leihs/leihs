@@ -5,5 +5,5 @@ Wenn(/^ich im Verwalten\-Bereich bin$/) do
 end
 
 Dann(/^habe ich die Möglichkeit zur Statistik\-Ansicht zu wechseln$/) do
-  first("a[href='#{statistics_path}']")
+  first("a[href='#{admin_statistics_path}']")
 end

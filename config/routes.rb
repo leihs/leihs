@@ -37,8 +37,13 @@ Leihs::Application.routes.draw do
   # Properties
   get "properties", to: "properties#index", as: "properties"
 
-  # Statistics
-  get "statistics", to: "statistics#show", as: "statistics"
+  namespace :admin do
+    # Statistics
+    get "statistics", to: "statistics#show", as: "statistics"
+
+    # Database
+    get "database_check", to: "database#check"
+  end
 
   # Borrow Section
   namespace :borrow do

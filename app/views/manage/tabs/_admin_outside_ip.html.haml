@@ -15,7 +15,12 @@
 
       %li
         %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => manage_settings_path,
-        :class => (defined? active_tab and active_tab == :settings) ? "active" : ""}
+                                                                                :class => (defined? active_tab and active_tab == :settings) ? "active" : ""}
           = _("Settings")
+
+      %li
+        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => "/admin/database_check",
+                                                                                :class => (defined? active_tab and active_tab == :database_check) ? "active" : ""}
+          = _("Database check")
 
   = render :partial => "manage/tabs/current_inventory_pool", :locals => {:current_inventory_pool => current_inventory_pool}
