@@ -129,9 +129,7 @@ class Manage::UsersController < Manage::ApplicationController
           DatabaseAuthentication.find_by_user_id(@user.id).update_attributes! params[:db_auth].merge(user: @user)
           @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
         end
-        #AR
-        binding.pry
-        @user.access_rights.delete_all {|ar| ar.role_name == "admin"}
+        @user.access_rights.joins(:role).where(roles: {name: "admin"}).each(&:destroy)
         @user.access_rights.create!(role_name: "admin") if should_be_admin == "true"
 
         respond_to do |format|

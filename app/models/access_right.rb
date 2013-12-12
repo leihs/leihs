@@ -27,8 +27,8 @@ class AccessRight < ActiveRecord::Base
     end
   end
 
-  before_destroy do 
-    raise _("Currently has things to return") unless inventory_pool.contract_lines.by_user(user).to_take_back.empty?
+  before_destroy do
+    raise _("Currently has things to return") if inventory_pool and not inventory_pool.contract_lines.by_user(user).to_take_back.empty?
   end
 
 ####################################################################

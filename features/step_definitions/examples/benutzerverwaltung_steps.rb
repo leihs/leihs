@@ -620,12 +620,13 @@ Dann(/^hat dieser Benutzer die Rolle Administrator$/) do
   @user.reload.has_role?("admin").should be_true
 end
 
-Dann(/^alle andere Zugriffe auf Inventarpools bleiben beibehalten$/) do
-  binding.pry
+Wenn(/^man speichert den Benutzer$/) do
+  @previous_non_admin_access_rights = @user.access_rights.select{|ar| ar.role_name != "admin"}.freeze
+  find(".button", text: _("Save")).click
 end
 
-Wenn(/^man speichert den Benutzer$/) do
-  find(".button", text: _("Save")).click
+Dann(/^alle andere Zugriffe auf Inventarpools bleiben beibehalten$/) do
+  (@previous_non_admin_access_rights - @user.access_rights.reload).should be_empty
 end
 
 Angenommen(/^man befindet sich auf der Editierseite eines Benutzers, der ein Administrator ist und der Zugriffe auf Inventarpools hat$/) do
