@@ -969,6 +969,12 @@ msgstr "Passwort"
 msgid "Password Confirmation"
 msgstr "Passwort-Bestätigung"
 
+msgid "DatabaseAuthentication|Password"
+msgstr "Passwort"
+
+msgid "DatabaseAuthentication|Password confirmation"
+msgstr "Passwort-Bestätigung"
+
 msgid "Password changed"
 msgstr "Passwort geändert"
 
