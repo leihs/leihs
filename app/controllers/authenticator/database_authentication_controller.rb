@@ -12,7 +12,7 @@ class Authenticator::DatabaseAuthenticationController < Authenticator::Authentic
     if request.post?
       if (l = DatabaseAuthentication.authenticate(params[:login][:username], params[:login][:password]))
         self.current_user = l.user
-        if current_user.access_rights.size == 0
+        if current_user.access_rights.active.size == 0
           render :text => _("You don't have any rights to access this application.") 
           return
         end

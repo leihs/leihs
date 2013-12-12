@@ -56,7 +56,7 @@ end
 Angenommen(/^man befindet sich auf der Benutzereditieransicht von "(.*?)"$/) do |persona|
   step 'persona "%s" existing' % persona
   @user = User.find_by_firstname persona
-  if @current_user.access_rights.map(&:role_name).include? "admin"
+  if @current_user.access_rights.active.map(&:role_name).include? "admin"
     visit manage_edit_user_path @user
   else
     visit manage_edit_inventory_pool_user_path((@user.inventory_pools & @current_user.managed_inventory_pools).first, @user)

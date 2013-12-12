@@ -7,13 +7,8 @@ class User < ActiveRecord::Base
   belongs_to :authentication_system
   belongs_to :language
 
-  has_many :access_rights, :include => :role, :conditions => "access_rights.deleted_at IS NULL", :dependent => :restrict
-  has_many :deleted_access_rights, :class_name => "AccessRight", :include => :role, :conditions => 'deleted_at IS NOT NULL'
-  has_many :all_access_rights, :class_name => "AccessRight", :dependent => :delete_all, :include => :role
-
-  has_many :inventory_pools, :through => :access_rights, :uniq => true
-  has_many :active_inventory_pools, :through => :access_rights, :uniq => true, :source => :inventory_pool, :conditions => "(access_rights.suspended_until IS NULL OR access_rights.suspended_until < CURDATE())"
-  has_many :suspended_inventory_pools, :through => :access_rights, :uniq => true, :source => :inventory_pool, :conditions => "access_rights.suspended_until IS NOT NULL AND access_rights.suspended_until >= CURDATE()"
+  has_many :access_rights, :include => :role, :dependent => :restrict
+  has_many :inventory_pools, :through => :access_rights, :uniq => true, :conditions => "access_rights.deleted_at IS NULL"
 
   has_many :items, :through => :inventory_pools, :uniq => true
   has_many :models, :through => :inventory_pools, :uniq => true do
@@ -142,7 +137,7 @@ class User < ActiveRecord::Base
     if has_role? "admin"
       InventoryPool.all
     else
-      access_rights.managers.where("access_level >= 1").includes(:inventory_pool).collect(&:inventory_pool)
+      access_rights.active.managers.where("access_level >= 1").includes(:inventory_pool).collect(&:inventory_pool)
     end
   end
 
@@ -240,13 +235,13 @@ class User < ActiveRecord::Base
 ####################################################################
 
   def access_level_for(ip)
-    al = access_rights.scoped_by_inventory_pool_id(ip).not_suspended.managers.first.try(:access_level).to_i
+    al = access_rights.active.scoped_by_inventory_pool_id(ip).not_suspended.managers.first.try(:access_level).to_i
     al = 2 if al == 1 # in leihs 3.0 we drop level 1 and we treat it as 2
     al
   end
 
   def access_right_for(ip)
-    access_rights.scoped_by_inventory_pool_id(ip).first
+    access_rights.active.scoped_by_inventory_pool_id(ip).first
   end
 
 ####################################################################
@@ -323,9 +318,9 @@ class User < ActiveRecord::Base
     # retrieve roles for a given inventory_pool hierarchically with betternestedset plugin
     role = Role.where( :name => role_in_question ).first
     if inventory_pool_in_question
-      roles = access_rights.scoped_by_inventory_pool_id(inventory_pool_in_question).collect(&:role)
+      roles = access_rights.active.scoped_by_inventory_pool_id(inventory_pool_in_question).collect(&:role)
     else
-      roles = access_rights.collect(&:role)
+      roles = access_rights.active.collect(&:role)
     end
 
     if exact_match
@@ -339,7 +334,7 @@ class User < ActiveRecord::Base
 #################### End role_requirement
 
   def deletable?
-    contracts.empty? and access_rights.empty?
+    contracts.empty? and access_rights.active.empty?
   end
 
   ############################################

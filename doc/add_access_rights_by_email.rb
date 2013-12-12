@@ -20,7 +20,7 @@ emails.each do |email|
     ar.user = user
     puts "AccessRight created, do not need to assign to user" if ar.save
     
-    if user.access_rights.include?(ar)
+    if user.access_rights.active.include?(ar)
       puts "User #{email} already has this access right"
     else
       user.access_rights << ar

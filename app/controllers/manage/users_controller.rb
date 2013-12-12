@@ -56,7 +56,7 @@ class Manage::UsersController < Manage::ApplicationController
         @user.save!
         @db_auth = DatabaseAuthentication.create!(params[:db_auth].merge(user: @user))
         @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
-        @user.all_access_rights.create!(role_name: "admin") if should_be_admin == "true"
+        @user.access_rights.create!(role_name: "admin") if should_be_admin == "true"
 
         respond_to do |format|
           format.html do
@@ -119,7 +119,6 @@ class Manage::UsersController < Manage::ApplicationController
   end
 
   def update
-
     should_be_admin = params[:user].delete(:admin)
 
     begin
@@ -130,8 +129,10 @@ class Manage::UsersController < Manage::ApplicationController
           DatabaseAuthentication.find_by_user_id(@user.id).update_attributes! params[:db_auth].merge(user: @user)
           @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
         end
-        @user.all_access_rights.delete_all {|ar| ar.role_name == "admin"}
-        @user.all_access_rights.create!(role_name: "admin") if should_be_admin == "true"
+        #AR
+        binding.pry
+        @user.access_rights.delete_all {|ar| ar.role_name == "admin"}
+        @user.access_rights.create!(role_name: "admin") if should_be_admin == "true"
 
         respond_to do |format|
           format.html do

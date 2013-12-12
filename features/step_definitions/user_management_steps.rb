@@ -8,7 +8,7 @@ Given /^a customer "([^"]*)"( exists)?$/ do |name,foo|
   @user = LeihsFactory.create_user({:login => name },
                                   {:role => 'customer',
                                    :inventory_pool => @inventory_pool})
-  r = @user.access_rights.first
+  r = @user.access_rights.active.first
   r.save
 end
 
@@ -41,7 +41,7 @@ end
 
 Given "he has access level $level" do |level|
   # TODO: very ugly
-  ar = @user.access_rights.find_by_role_id_and_inventory_pool_id @role.id, @inventory_pool.id
+  ar = @user.access_rights.active.find_by_role_id_and_inventory_pool_id @role.id, @inventory_pool.id
   ar.access_level = level.to_i
   ar.save!
 end

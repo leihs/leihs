@@ -6,6 +6,6 @@
 
   .row
 
-    - @user.access_rights.each do |access_right|
+    - @user.access_rights.active.each do |access_right|
 
       .row.padding-inset-s.vertical-align-middle= access_right

@@ -2,7 +2,7 @@
 
 Angenommen /^ein Benutzer hat aus der leihs 2.0-Datenbank den Level 1 auf einem Gerätepark$/ do
   step 'man ist "%s"' % "Assist"
-  ar = @current_user.access_rights.where(:access_level => 1).first
+  ar = @current_user.access_rights.active.where(:access_level => 1).first
   ar.should_not be_nil
   @inventory_pool = ar.inventory_pool
 end
@@ -15,21 +15,21 @@ end
 
 Angenommen /^man ist Inventar\-Verwalter oder Ausleihe\-Verwalter$/ do
   step 'man ist "%s"' % ["Mike", "Pius"].shuffle.first
-  ar = @current_user.access_rights.where(:access_level => [2, 3]).first
+  ar = @current_user.access_rights.active.where(:access_level => [2, 3]).first
   ar.should_not be_nil
   @inventory_pool = ar.inventory_pool
 end
 
 Angenommen /^man ist Ausleihe\-Verwalter$/ do
   step 'man ist "%s"' % "Pius"
-  ar = @current_user.access_rights.where(:access_level => [1, 2]).first
+  ar = @current_user.access_rights.active.where(:access_level => [1, 2]).first
   ar.should_not be_nil
   @inventory_pool = ar.inventory_pool
 end
 
 Angenommen /^man ist Inventar\-Verwalter$/ do
   step 'man ist "%s"' % "Mike"
-  ar = @current_user.access_rights.where(:access_level => 3).first
+  ar = @current_user.access_rights.active.where(:access_level => 3).first
   ar.should_not be_nil
   @inventory_pool = ar.inventory_pool
 end
@@ -147,14 +147,14 @@ Angenommen /^ein (.*?)Benutzer (mit zugeteilter|ohne zugeteilte) Rolle erscheint
   step 'findet man die Benutzeradministration im Bereich "Administration" unter "Benutzer"'
   case arg1
     when "gesperrter "
-      user.access_rights.first.update_attributes(suspended_until: Date.today + 1.year, suspended_reason: "suspended reason")
+      user.access_rights.active.first.update_attributes(suspended_until: Date.today + 1.year, suspended_reason: "suspended reason")
   end
   case arg2
     when "mit zugeteilter"
-      user.access_rights.should_not be_empty
+      user.access_rights.active.should_not be_empty
     when "ohne zugeteilte"
-      user.access_rights.delete_all
-      user.access_rights.should be_empty
+      user.access_rights.active.delete_all
+      user.access_rights.active.should be_empty
   end
   @el = find("#user-list .line", text: user.to_s)
 end
@@ -470,7 +470,7 @@ Dann /^man kann Benutzern jegliche Rollen zuweisen und wegnehmen$/ do
   page.driver.browser.process(:put, manage_user_path(user, format: :json), access_right: {inventory_pool_id: inventory_pool.id, role_name: "no_access"}).successful?.should be_true
 
   user.has_at_least_access_level(3, inventory_pool).should be_false
-  user.deleted_access_rights.scoped_by_inventory_pool_id(inventory_pool).first.deleted_at.should_not be_nil
+  user.access_rights.where("deleted_at IS NOT NULL").scoped_by_inventory_pool_id(inventory_pool).first.deleted_at.should_not be_nil
 end
 
 Dann(/^kann man Gruppen über eine Autocomplete\-Liste hinzufügen$/) do
@@ -600,7 +600,7 @@ Dann(/^der neue Benutzer wurde erstellt$/) do
 end
 
 Dann(/^er hat keine Zugriffe auf Inventarpools und ist kein Administrator$/) do
-  @user.access_rights.should be_empty
+  @user.access_rights.active.should be_empty
 end
 
 Dann(/^man sieht eine Bestätigungsmeldung$/) do
@@ -618,6 +618,10 @@ end
 
 Dann(/^hat dieser Benutzer die Rolle Administrator$/) do
   @user.reload.has_role?("admin").should be_true
+end
+
+Dann(/^alle andere Zugriffe auf Inventarpools bleiben beibehalten$/) do
+  binding.pry
 end
 
 Wenn(/^man speichert den Benutzer$/) do
@@ -706,7 +710,7 @@ Dann(/^hat der Benutzer die Rolle Inventar-Verwalter$/) do
 end
 
 Angenommen(/^man sucht sich einen Benutzer ohne Zugriffsrechte, Bestellungen und Verträge aus$/) do
-  @user = User.find {|u| u.access_rights.empty? and u.contracts.empty?}
+  @user = User.find {|u| u.access_rights.active.empty? and u.contracts.empty?}
 end
 
 Wenn(/^ich diesen Benutzer aus der Liste lösche$/) do
@@ -736,7 +740,7 @@ end
 
 Angenommen(/^man sucht sich je einen Benutzer mit Zugriffsrechten, Bestellungen und Verträgen aus$/) do
   @users = []
-  @users << User.find {|u| not u.access_rights.empty? and u.contracts.empty?}
+  @users << User.find {|u| not u.access_rights.active.empty? and u.contracts.empty?}
   @users << User.find {|u| not u.contracts.empty?}
   @users << User.find {|u| u.contracts.empty?}
 end
@@ -759,12 +763,12 @@ Angenommen(/^man editiert einen Benutzer der Zugriff auf ein Inventarpool hat$/)
 end
 
 Angenommen(/^man editiert einen Benutzer der Zugriff auf das aktuelle Inventarpool hat$/) do
-  @user = @current_inventory_pool.access_rights.find{|ar| ar.role_name == "customer"}.user
+  @user = @current_inventory_pool.access_rights.active.find{|ar| ar.role_name == "customer"}.user
   visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @user)
 end
 
 Angenommen(/^man editiert einen Benutzer der Zugriff auf das aktuelle Inventarpool hat und keine Gegenstände mehr zurückzugeben hat$/) do
-  @user = @current_inventory_pool.access_rights.select{|ar| ar.role_name == "customer"}.detect{|ar| @current_inventory_pool.contract_lines.by_user(ar.user).to_take_back.empty?}.user
+  @user = @current_inventory_pool.access_rights.active.select{|ar| ar.role_name == "customer"}.detect{|ar| @current_inventory_pool.contract_lines.by_user(ar.user).to_take_back.empty?}.user
   visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @user)
 end
 
@@ -795,7 +799,7 @@ Und(/^man gibt die Login-Daten ein$/) do
 end
 
 Angenommen(/^man editiert einen Benutzer der kein Zugriff auf das aktuelle Inventarpool hat$/) do
-  @user = User.find {|u| u.access_rights.blank?}
+  @user = User.find {|u| u.access_rights.active.blank?}
   visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @user)
 end
 
@@ -813,23 +817,23 @@ Dann(/^die neue Email des Benutzers wurde gespeichert$/) do
 end
 
 Dann(/^der Benutzer hat nach wie vor keinen Zugriff auf das aktuelle Inventarpool$/) do
-  @user.access_rights.detect{|ar| ar.inventory_pool == @current_inventory_pool}.should be_nil
+  @user.access_rights.active.detect{|ar| ar.inventory_pool == @current_inventory_pool}.should be_nil
 end
 
 Angenommen(/^man editiert einen Benutzer der mal einen Zugriff auf das aktuelle Inventarpool hatte$/) do
   @user = User.find_by_login "normin"
-  @current_inventory_pool = (@current_user.managed_inventory_pools & @user.all_access_rights.select(&:deleted_at).map(&:inventory_pool)).first
+  @current_inventory_pool = (@current_user.managed_inventory_pools & @user.access_rights.select(&:deleted_at).map(&:inventory_pool)).first
   visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @user)
 end
 
 Angenommen(/^man einen Benutzer mit Zugriffsrechten editiert$/) do
-  @user =  User.find {|u| u.access_rights.count >= 2 }
-  @user.access_rights.count.should >= 2
+  @user =  User.find {|u| u.access_rights.active.count >= 2 }
+  @user.access_rights.active.count.should >= 2
   visit manage_edit_user_path(@user)
 end
 
 Dann(/^werden die ihm zugeteilt Geräteparks mit entsprechender Rolle aufgelistet$/) do
-  @user.access_rights.each do |access_right|
+  @user.access_rights.active.each do |access_right|
     find(".padding-inset-s", text: access_right.to_s)
   end
 end

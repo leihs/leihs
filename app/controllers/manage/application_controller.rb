@@ -27,10 +27,10 @@ class Manage::ApplicationController < ApplicationController
       else
         redirect_to manage_inventory_pools_path, flash: flash
       end
-    elsif current_user.access_rights.managers.where(:access_level => 3).exists? # user has manager level 3 => inventory manager
+    elsif current_user.access_rights.active.managers.where(:access_level => 3).exists? # user has manager level 3 => inventory manager
       ip ||= current_user.managed_inventory_pools.first
       redirect_to manage_inventory_path(ip), flash: flash
-    elsif current_user.access_rights.managers.where(:access_level => 1..2).exists? # user has at least manager level 1 => lending manager
+    elsif current_user.access_rights.active.managers.where(:access_level => 1..2).exists? # user has at least manager level 1 => lending manager
       ip ||= current_user.managed_inventory_pools.first
       redirect_to manage_daily_view_path(ip), flash: flash
     else

@@ -282,7 +282,7 @@ describe Authenticator::HsluAuthenticationController do
     it "should give that user the admin role" do
       post :login, {:login => { :username => "admin_user", :password => "1234" }}, {}
       user = User.where(:login => "admin_user").first
-      user.access_rights.collect(&:role).include?(Role.where(:name => 'admin').first).should == true
+      user.access_rights.active.collect(&:role).include?(Role.where(:name => 'admin').first).should == true
     end
   end
   

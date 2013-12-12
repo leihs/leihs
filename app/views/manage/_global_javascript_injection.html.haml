@@ -7,7 +7,7 @@
   :coffeescript
     App.User.addRecord new App.User(#{current_user.to_json})
     App.User.current = App.User.find(#{current_user.id})
-- if current_user and current_inventory_pool and access_right = current_inventory_pool.access_rights.where(:user_id => current_user.id).first
+- if current_user and current_inventory_pool and access_right = current_inventory_pool.access_rights.active.where(:user_id => current_user.id).first
   :coffeescript
     App.User.current.accessLevel = #{access_right.access_level.to_json}
 

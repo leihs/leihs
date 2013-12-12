@@ -20,8 +20,8 @@ class AccessRight < ActiveRecord::Base
   before_validation(:on => :create) do
     self.inventory_pool = nil if role and role.name == 'admin'
     if user
-      unless user.access_rights.empty?
-        old_ar = user.access_rights.where( :inventory_pool_id => inventory_pool.id ).first if inventory_pool
+      unless user.access_rights.active.empty?
+        old_ar = user.access_rights.active.where( :inventory_pool_id => inventory_pool.id ).first if inventory_pool
         user.access_rights.delete(old_ar) if old_ar
       end
     end
@@ -31,9 +31,12 @@ class AccessRight < ActiveRecord::Base
     raise _("Currently has things to return") unless inventory_pool.contract_lines.by_user(user).to_take_back.empty?
   end
 
+####################################################################
+
+  scope :active, where(deleted_at: nil)
   scope :not_suspended, where("suspended_until IS NULL OR suspended_until < CURDATE()")
-  scope :managers, joins(:role).where(:roles => {:name => "manager"}, :deleted_at => nil)
-  
+  scope :managers, joins(:role).where(:roles => {:name => "manager"}, :deleted_at => nil) #AR
+
 ####################################################################
 
   def to_s
