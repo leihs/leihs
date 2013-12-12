@@ -8,7 +8,6 @@ Funktionalität: Aushändigungen
   Grundlage:
     Angenommen Personas existieren
 
-  @javascript
   Szenario: Anzeige von bereits zugewiesenen Gegenständen
     Angenommen man ist "Pius"
     Und es besteht bereits eine Aushändigung mit mindestens 21 zugewiesenen Gegenständen für einen Benutzer

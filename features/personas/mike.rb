@@ -81,6 +81,7 @@ module Persona
       setup_micro_beamers
       setup_more_beamers
       setup_cameras
+      setup_more_cameras
       
       setup_hifis
       setup_tripods
@@ -180,7 +181,17 @@ module Persona
       @camera_item4= FactoryGirl.create(:item, :inventory_code => "cam53267", :serial_number => "ab782129", :model => @camera_model, :location => @location, :owner => @inventory_pool)
       @camera_item5= FactoryGirl.create(:item, :inventory_code => "cam532asd67", :serial_number => "ab78as2129", :model => @camera_model, :location => @location, :owner => @inventory_pool)
     end
-    
+
+    def setup_more_cameras
+      (1..30).to_a.each do |i|
+        model = FactoryGirl.create(:model, :name => "Camera #{i}",
+                                   :manufacturer => "Nikon",
+                                   :maintenance_period => 0)
+        model.model_links.create :model_group => @camera_category
+        FactoryGirl.create(:item, :inventory_code => "mcam#{i}", :serial_number => "mcam#{i}", name: "mcam#{i}", :model => model, :location => @location, :owner => @inventory_pool)
+      end
+    end
+
     def setup_tripods
       @tripod_model = FactoryGirl.create(:model, :name => "Kamera Stativ",
                                 :manufacturer => "Feli", 
