@@ -8,7 +8,6 @@
 # customer wants.
 #
 class ContractLine < ActiveRecord::Base
-  include ContractLineModules::Filter
   include Availability::DocumentLine
 
   belongs_to :purpose
@@ -41,6 +40,17 @@ class ContractLine < ActiveRecord::Base
   scope :by_inventory_pool, lambda { |inventory_pool|
                               joins(:contract).where(:contracts => {:inventory_pool_id => inventory_pool})
                             }
+
+  def self.filter(params, inventory_pool = nil)
+    contract_lines = if inventory_pool
+                       inventory_pool.contract_lines
+                     else
+                       scoped
+                     end
+    contract_lines = contract_lines.where(contract_id: params[:contract_ids]) if params[:contract_ids]
+    contract_lines = contract_lines.where(id: params[:ids]) if params[:ids]
+    contract_lines
+  end
 
 ##################################################### 
 

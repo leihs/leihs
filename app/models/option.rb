@@ -8,7 +8,6 @@
 # #Model as id the case for #Item s.
 #
 class Option < ActiveRecord::Base
-  include OptionModules::Filter
 
   belongs_to :inventory_pool
   has_many :option_lines
@@ -33,7 +32,16 @@ class Option < ActiveRecord::Base
     }
     sql
   }
-    
+
+  def self.filter(params, inventory_pool = nil)
+    options = inventory_pool ? inventory_pool.options : scoped
+    options = options.search(params[:search_term], [:name]) unless params[:search_term].blank?
+    options = options.where(:id => params[:ids]) if params[:ids]
+    options = options.order("#{params[:sort]} #{params[:order]}") if params[:sort] and params[:order]
+    options = options.paginate(:page => params[:page]||1, :per_page => [(params[:per_page].try(&:to_i) || 20), 100].min) unless params[:paginate] == "false"
+    options
+  end
+
 ##########################################
 
   # TODO 2702** before_destroy: check if option_lines.empty?

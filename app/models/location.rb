@@ -1,5 +1,4 @@
 class Location < ActiveRecord::Base
-  include LocationModules::Filter
 
   has_many :items
   belongs_to :building
@@ -47,7 +46,11 @@ class Location < ActiveRecord::Base
     sql.joins(:building)
   }
 
-#################################################################
+  def self.filter(params)
+    locations = scoped
+    locations = locations.where(id: params[:ids]) if params[:ids]
+    locations
+  end
 
 end
 
