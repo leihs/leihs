@@ -117,17 +117,6 @@ class User < ActiveRecord::Base
     sql
   }
 
-  def self.filter2(options)
-    sql = select("DISTINCT users.*")
-    options.each_pair do |k,v|
-      case k
-        when :inventory_pool_id
-          sql = sql.joins(:access_rights).where(:access_rights => {k => v})
-      end
-    end
-    sql
-  end
-
 ################################################
 
   # TODO has_many :managed_inventory_pools OR scope ??

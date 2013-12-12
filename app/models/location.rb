@@ -47,17 +47,6 @@ class Location < ActiveRecord::Base
     sql.joins(:building)
   }
 
-  def self.filter2(options)
-    sql = select("DISTINCT locations.*")
-    options.each_pair do |k,v|
-      case k
-        when :inventory_pool_id
-          sql = sql.joins(:items).where(:items => {k => v})
-      end
-    end
-    sql
-  end
-
 #################################################################
 
 end

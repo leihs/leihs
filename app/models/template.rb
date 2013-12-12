@@ -12,19 +12,6 @@ class Template < ModelGroup
 
   ####################################################################################
 
-  def self.filter2(options)
-    sql = select("DISTINCT model_groups.*")
-    options.each_pair do |k,v|
-      case k
-        when :inventory_pool_id
-          sql = sql.joins(:inventory_pools).where(:inventory_pools_model_groups => {k => v})
-      end
-    end
-    sql
-  end
-
-  ####################################################################################
-  
   # returns an array of contract_lines
   def add_to_contract(contract, user_id, quantity = nil, start_date = nil, end_date = nil)
     model_links.flat_map do |ml|

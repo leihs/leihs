@@ -97,19 +97,6 @@ class Contract < ActiveRecord::Base
     sql
   }
 
-  def self.filter2(options)
-    sql = scoped
-    options.each_pair do |k,v|
-      case k
-        when :inventory_pool_id
-          sql = sql.where(k => v)
-        when :status
-          sql = sql.where(k => v)
-      end
-    end
-    sql
-  end
-
 #########################################################################
 
   def sign(current_user, selected_lines = nil)

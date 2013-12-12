@@ -34,17 +34,6 @@ class Option < ActiveRecord::Base
     sql
   }
     
-  def self.filter2(options)
-    sql = scoped
-    options.each_pair do |k,v|
-      case k
-        when :inventory_pool_id
-          sql = sql.where(k => v)
-      end
-    end
-    sql
-  end
-
 ##########################################
 
   # TODO 2702** before_destroy: check if option_lines.empty?

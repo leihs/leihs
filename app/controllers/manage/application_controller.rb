@@ -37,41 +37,6 @@ class Manage::ApplicationController < ApplicationController
       render :nothing => true, :status => :bad_request
     end 
   end
-  
-###############################################################    
-  
-  def search(term = params[:term], types = Array(params[:types]), with = params[:with])
-    conditions = { :klasses => {}, :filter => { :inventory_pool_id => [current_inventory_pool.id] } }
-
-    # default if types are not provided
-    conditions[:klasses][User]      = {:sort_by => "firstname ASC, lastname ASC"} if types.blank? or types.include?("user")
-    conditions[:klasses][Contract]  = {:sort_by => "status ASC, created_at DESC", :filter => {:status => [:signed, :closed]}} if types.blank? or types.include?("contract")
-    conditions[:klasses][Model]     = {:sort_by => "name ASC", :filter => {:availability => (with ? with[:availability] : nil)}} if types.blank? or types.include?("model")
-    conditions[:klasses][Item]      = {:sort_by => "inventory_code ASC"} if types.blank? or types.include?("item")
-    conditions[:klasses][Option]    = {:sort_by => "options.name ASC"} if types.blank? or types.include?("option")
-    # no default
-    conditions[:klasses][Template]  = {:sort_by => "model_groups.name ASC"} if types.include?("template")
-
-    #TODO conditions << { :filter => { :owner_id => [current_inventory_pool.id]} } if  # INVENTORY MANAGER
-    #TODO conditions << { :filter => { :owner_id => [current_inventory_pool.id]} } if  # ADMIN find USERS
-
-    # TODO prevent search for Inventory if current_user doesn't have enough permissions
-    # TODO implement this later on :filter => { :owner_id => [current_inventory_pool.id]}
-    # TODO implement serach for all user "ADMIN" and merge with users
-
-    results = []
-    @hits = {}
-    per_page = (types and types.size == 1) ? PER_PAGE : 5
-    conditions[:klasses].each_pair do |klass, options|
-      r = klass.search(term).
-          filter2(conditions[:filter].merge(options[:filter] || {})).
-          reorder(options[:sort_by]).
-          paginate(:page => params[:page], :per_page => per_page)
-
-      results << r
-      @hits[klass.to_s.underscore] = r.total_entries
-    end
-  end
 
 ###############################################################  
 
