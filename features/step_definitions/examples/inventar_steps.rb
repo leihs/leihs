@@ -142,6 +142,11 @@ Wenn /^man eine Modell\-Zeile eines Modells, das weder ein Paket-Modell oder ein
   end
 end
 
+Wenn /^man eine Modell\-Zeile sieht$/ do
+  @model_line = find("#inventory .line[data-type='model']", match: :first)
+  @model = Model.find_by_name(@model_line.find(".col2of5 strong").text)
+end
+
 Dann /^enthält die Modell\-Zeile folgende Informationen:$/ do |table|
   table.hashes.each do |row|
     case row["information"]
@@ -192,37 +197,37 @@ Dann /^enthält die Gegenstands\-Zeile folgende Informationen:$/ do |table|
 end
 
 Dann /^enthält die Gegenstands\-Zeile den Inventarcode$/ do
-  @item_line.should have_content @item.inventory_code
+  find(@item_line, match: :first).should have_content @item.inventory_code
 end
 
 Dann /^enthält die Gegenstands\-Zeile den Ort des Gegenstands$/ do
-  @item_line.should have_content @item.location.to_s
+  find(@item_line, match: :first).should have_content @item.location.to_s
 end
 
 Dann /^enthält die Gegenstands\-Zeile die Gebäudeabkürzung$/ do
-  @item_line.should have_content @item.location.building.code
+  find(@item_line, match: :first).should have_content @item.location.building.code
 end
 
 Dann /^enthält die Gegenstands\-Zeile den Raum$/ do
-  @item_line.should have_content @item.location.room
+  find(@item_line, match: :first).should have_content @item.location.room
 end
 
 Dann /^enthält die Gegenstands\-Zeile das Gestell$/ do
-  @item_line.should have_content @item.location.shelf
+  find(@item_line, match: :first).should have_content @item.location.shelf
 end
 
 Dann /^enthält die Gegenstands\-Zeile den aktuell Ausleihenden$/ do
-  @item_line.should have_content @item.current_borrower.to_s
+  find(@item_line, match: :first).should have_content @item.current_borrower.to_s
 end
 
 Dann /^enthält die Gegenstands\-Zeile das Enddatum der Ausleihe$/ do
-  @item_line.should have_content @item.current_return_date.year
-  @item_line.should have_content @item.current_return_date.month
-  @item_line.should have_content @item.current_return_date.day
+  find(@item_line, match: :first).should have_content @item.current_return_date.year
+  find(@item_line, match: :first).should have_content @item.current_return_date.month
+  find(@item_line, match: :first).should have_content @item.current_return_date.day
 end
 
 Dann /^enthält die Gegenstands\-Zeile die Verantwortliche Abteilung$/ do
-  @item_line.should have_content @item.inventory_pool.to_s
+  find(@item_line, match: :first).should have_content @item.inventory_pool.to_s
   step 'ich nach "%s" suche' % " "
 end
 
@@ -235,8 +240,8 @@ Wenn /^der Gegenstand an Lager ist und meine Abteilung für den Gegenstand veran
   find("select#responsibles option[value='#{@current_inventory_pool.id}']").select_option
   find("#list-filters input#in_stock").click unless find("#list-filters input#in_stock").checked?
   find(".button[data-type='inventory-expander'] i.arrow.right", match: :first).click
-  @item_line = find(".group-of-lines .line[data-type='item']", match: :first)
-  @item = Item.find_by_inventory_code(@item_line.find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text)
+  @item_line = ".group-of-lines .line[data-type='item']"
+  @item = Item.find_by_inventory_code(find(@item_line, match: :first).find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text)
 end
 
 Wenn /^der Gegenstand nicht an Lager ist und eine andere Abteilung für den Gegenstand verantwortlich ist$/ do
@@ -246,15 +251,15 @@ Wenn /^der Gegenstand nicht an Lager ist und eine andere Abteilung für den Gege
   step 'ich nach "%s" suche' % item.inventory_code
   page.has_selector? ".line[data-id='#{item.id}']"
   find(".line[data-id='#{item.model.id}'] .button[data-type='inventory-expander'] i.arrow.right", match: :first).click
-  @item_line = find(".group-of-lines .line[data-type='item']", match: :first)
-  @item = Item.find_by_inventory_code(@item_line.find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text)
+  @item_line = ".group-of-lines .line[data-type='item']"
+  @item = Item.find_by_inventory_code(find(@item_line, match: :first).find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text)
 end
 
 Wenn /^meine Abteilung Besitzer des Gegenstands ist die Verantwortung aber auf eine andere Abteilung abgetreten hat$/ do
   all("select#responsibles option:not([selected])").detect{|o| o.value != @current_inventory_pool.id.to_s and o.value != ""}.select_option
   find(".button[data-type='inventory-expander'] i.arrow.right", match: :first).click
-  @item_line = find(".group-of-lines .line[data-type='item']", match: :first)
-  @item = Item.find_by_inventory_code(@item_line.find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text)
+  @item_line = ".group-of-lines .line[data-type='item']"
+  @item = Item.find_by_inventory_code(find(@item_line, match: :first).find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text)
 end
 
 Dann /^enthält die Options\-Zeile folgende Informationen$/ do |table|

@@ -1,8 +1,2 @@
-- name: examples/probleme5.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/probleme5.feature"
-- name: examples/gegenstand_editieren3.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/examples/gegenstand_editieren3.feature"
+- name: inventar features
+  tasks: "substitute_with_path: domina/execution/features/inventar_features.yml"
