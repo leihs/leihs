@@ -184,11 +184,14 @@ class Item < ActiveRecord::Base
       'name',
       'user_name',
       'note',
-      'location']
+      'location',
+      'invoice',
+      'investment',
+      'project_number']
   end
 
   # Generates an array suitable for outputting a line of CSV using CSV
-  def to_csv_array    
+  def to_csv_array(options = {global: false})
     if self.inventory_pool.nil? or self.inventory_pool.name.blank?
       ip = "UNKNOWN"
     else
@@ -210,22 +213,35 @@ class Item < ActiveRecord::Base
     end
 
     categories = []
-    unless self.model.try(:categories).nil? or self.model.categories.count == 0
-      self.model.categories.each do |c|
-        categories << c.name
+    unless options[:global]
+      unless self.model.try(:categories).nil? or self.model.categories.count == 0
+        self.model.categories.each do |c|
+          categories << c.name
+        end
       end
     end
-    
+
+    retired = if options[:global] and self.retired? then "X" else self.retired end
+
     if self.supplier.blank?
       supplier = "UNKNOWN"
     else
       supplier = self.supplier.name
     end
-    
+
     if self.parent
       part_of_package = "#{self.parent.id} #{self.parent.model.name}"
     else
       part_of_package = "NONE"
+    end
+
+    if ref = self.properties[:reference]
+      case ref
+      when "invoice"
+        invoice = "X"
+      when "investment"
+        investment = "X"
+      end
     end
    
     # Using #{} notation to catch nils gracefully and silently 
@@ -239,10 +255,10 @@ class Item < ActiveRecord::Base
       "#{self.invoice_number}",
       "#{self.invoice_date}",
       "#{self.last_check}",
-      "#{self.retired}",
+      "#{retired}",
       "#{self.retired_reason}",
       "#{self.price}",
-      "#{self.current_borrowing_info}",
+      "#{self.current_borrowing_info unless options[:global]}",
       "#{self.is_broken}",
       "#{self.is_incomplete}",
       "#{self.is_borrowable}",
@@ -257,7 +273,10 @@ class Item < ActiveRecord::Base
       "#{self.name}",
       "#{self.user_name}",
       "#{self.note}",
-      "#{self.location.to_s}"       
+      "#{self.location.to_s}",
+      invoice,
+      investment,
+      "#{self.properties[:project_number]}"
     ]
     
   end

@@ -599,3 +599,11 @@ end
 Dann(/^sehe ich "(.*?)"$/) do |arg1|
   find("#inventory", text: _("No entries found"))
 end
+
+Angenommen(/^man öffnet die Liste der Geräteparks$/) do
+  visit manage_inventory_pools_path if current_path != manage_inventory_pools_path
+end
+
+Dann(/^kann man das globale Inventar als CSV\-Datei exportieren$/) do
+  page.has_selector?("#csv-export")
+end

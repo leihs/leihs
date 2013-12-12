@@ -71,7 +71,7 @@ class Option < ActiveRecord::Base
   def to_csv_array    
     # Using #{} notation to catch nils gracefully and silently 
     return [ "#{self.inventory_code}",
-      "#{self.inventory_pool.name}",  
+      "#{self.inventory_pool.try(:name)}",  
       "",
       "",
       "#{self.name}",  

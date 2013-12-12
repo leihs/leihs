@@ -151,6 +151,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/gegenstand_ausmustern2.feature"
+- name: examples/inventar6
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/inventar6.feature"
 - name: examples/zweck3
   scripts:
     cucumber:

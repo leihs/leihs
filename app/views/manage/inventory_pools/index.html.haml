@@ -11,8 +11,15 @@
 
       %h1.headline-l.float-left= yield :title
 
-      %a.button.white.float-right{href: manage_new_inventory_pool_path}
-        = _("Create %s") % _("Inventory pool")
+      .float-right
+
+        %a#csv-export.button.white{href: manage_global_inventory_csv_export_path, target: :_blank}
+          %i.icon-table
+          = "#{_("CSV export")} #{_("Inventory")}"
+
+        %a.button.white{href: manage_new_inventory_pool_path}
+          %i.icon-plus
+          = _("Create %s") % _("Inventory pool")
 
     .margin-top-m
 

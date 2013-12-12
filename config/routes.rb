@@ -111,6 +111,9 @@ Leihs::Application.routes.draw do
     put     'inventory_pools/:id',      to: 'inventory_pools#update',   as: 'update_inventory_pool'
     delete  'inventory_pools/:id',      to: 'inventory_pools#destroy',  as: 'delete_inventory_pool'
 
+    # Export inventory of all inventory pools
+    get 'inventory/csv',              :to => "inventory#csv_export",  :as => "global_inventory_csv_export"
+
     # Administrate users
     get     'users',          to: 'users#index'
     get     'users/new',      to: 'users#new'
