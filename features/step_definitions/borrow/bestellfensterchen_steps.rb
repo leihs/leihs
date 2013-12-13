@@ -120,10 +120,12 @@ Dann(/^werde ich auf die Timeout Page weitergeleitet$/) do
   step "ich sehe eine Information, dass die Geräte nicht mehr reserviert sind"
   current_path.should == borrow_order_timed_out_path
 end
+
 Wenn(/^die Zeit überschritten ist$/) do
   past_date = Time.now - (Contract::TIMEOUT_MINUTES + 1).minutes
   @current_user.contracts.unsubmitted.each do |contract|
     contract.update_attribute :updated_at, past_date
   end
   page.execute_script %Q{ localStorage.currentTimeout = moment("#{past_date.to_s}").toDate() }
+  sleep 2 # fix lazy request problem
 end
