@@ -48,7 +48,8 @@ end
 
 Wenn(/^ich mit dem Kalender ein Modell der Bestellung hinzufüge$/) do
   step 'man sich auf der Modellliste befindet'
-  step 'man auf einem Model "Zur Bestellung hinzufügen" wählt'
+  step 'man ein Startdatum auswählt'
+  step 'man auf einem verfügbaren Model "Zur Bestellung hinzufügen" wählt'
   step 'öffnet sich der Kalender'
   step 'alle Angaben die ich im Kalender mache gültig sind'
 end

@@ -6,6 +6,12 @@ Wenn(/^man auf einem Model "Zur Bestellung hinzufügen" wählt$/) do
   line.find("button[data-create-order-line]").click
 end
 
+Wenn(/^man auf einem verfügbaren Model "Zur Bestellung hinzufügen" wählt$/) do
+  line = find("#model-list .line:not(.grayed-out)", match: :first)
+  @model = Model.find line["data-id"]
+  line.find("button[data-create-order-line]").click
+end
+
 Dann(/^öffnet sich der Kalender$/) do
   first("#booking-calendar .fc-day-content")
 end
