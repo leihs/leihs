@@ -759,6 +759,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/borrow/dokumente2.feature"
+- name: borrow/kalender5
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/kalender5.feature"
 - name: borrow/brotkrumennavigation
   scripts:
     cucumber:
@@ -779,6 +783,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/borrow/kalender.feature"
+- name: borrow/kalender6
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/kalender6.feature"
 - name: borrow/bestellungen
   scripts:
     cucumber:
