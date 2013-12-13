@@ -1,24 +1,48 @@
-- name: examples/inventar.feature
+ name: borrow/bestellfensterchen.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/examples/inventar.feature"
-- name: examples/inventar2.feature
+      body: bundle exec cucumber -p all "features/borrow/bestellfensterchen.feature"
+ name: borrow/bestellfensterchen2.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/examples/inventar2.feature"
-- name: examples/inventar3.feature
+      body: bundle exec cucumber -p all "features/borrow/bestellfensterchen2.feature"
+ name: borrow/bestellfensterchen3.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/examples/inventar3.feature"
-- name: examples/inventar4.feature
+      body: bundle exec cucumber -p all "features/borrow/bestellfensterchen3.feature"
+ name: borrow/bestellfensterchen4.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/examples/inventar4.feature"
-- name: examples/inventar5.feature
+      body: bundle exec cucumber -p all "features/borrow/bestellfensterchen4.feature"
+ name: borrow/brotkrumennavigation.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/examples/inventar5.feature"
-- name: examples/inventar6.feature
+      body: bundle exec cucumber -p all "features/borrow/brotkrumennavigation.feature"
+ name: borrow/brotkrumennavigation2.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/examples/inventar6.feature"
+      body: bundle exec cucumber -p all "features/borrow/brotkrumennavigation2.feature"
+ name: borrow/kalendar.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/kalendar.feature"
+ name: borrow/kalendar2.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/kalendar2.feature"
+ name: borrow/kalendar3.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/kalendar3.feature"
+ name: borrow/kalendar4.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/kalendar4.feature"
+ name: borrow/kalendar5.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/kalendar5.feature"
+ name: borrow/kalendar6.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/kalendar6.feature"
