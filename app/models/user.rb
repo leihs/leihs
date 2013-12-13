@@ -8,14 +8,10 @@ class User < ActiveRecord::Base
   belongs_to :language
 
   has_many :access_rights, :include => :role, :dependent => :restrict
-  has_many :inventory_pools, :through => :access_rights, :uniq => true, :conditions => "access_rights.deleted_at IS NULL"
+  has_many :inventory_pools, :through => :access_rights, :uniq => true, :conditions => {access_rights: {deleted_at: nil}}
 
   has_many :items, :through => :inventory_pools, :uniq => true
   has_many :models, :through => :inventory_pools, :uniq => true do
-
-    #def inventory_pools(ips = nil)
-    #  find :all, :conditions => ["inventory_pools.id IN (?)", ips] if ips
-    #end
     def borrowable
       joins("INNER JOIN `partitions_with_generals` ON `models`.`id` = `partitions_with_generals`.`model_id`
                                                   AND `inventory_pools`.`id` = `partitions_with_generals`.`inventory_pool_id`
@@ -57,7 +53,6 @@ class User < ActiveRecord::Base
 
   has_many :contracts, dependent: :restrict
   has_many :contract_lines, :through => :contracts, :uniq => true
-  has_many :contract_lines_taken_back, :class_name => "ContractLine", :foreign_key => :returned_to_user_id
   has_many :visits #, :include => :inventory_pool # MySQL View based on contract_lines
 
   validates_presence_of     :lastname, :firstname, :email, :login

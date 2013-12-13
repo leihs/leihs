@@ -10,18 +10,14 @@ class InventoryPool < ActiveRecord::Base
   accepts_nested_attributes_for :holidays, :allow_destroy => true, :reject_if =>  proc {|holiday| holiday[:id]}
 
   has_many :access_rights, :dependent => :delete_all, :include => :role
-  has_many :users, :through => :access_rights, :uniq => true, :conditions => "access_rights.deleted_at IS NULL"
+  has_many :users, :through => :access_rights, :uniq => true, :conditions => {access_rights: {deleted_at: nil}}
   has_many :suspended_users, :through => :access_rights, :uniq => true, :source => :user, :conditions => "access_rights.deleted_at IS NULL AND access_rights.suspended_until IS NOT NULL AND access_rights.suspended_until >= CURDATE()"
 
   has_many :locations, :through => :items, :uniq => true
   has_many :items, :dependent => :nullify # OPTIMIZE prevent self.destroy unless self.items.empty? 
                                           # NOTE these are only the active items (unretired), because Item has a default_scope
   has_many :own_items, :class_name => "Item", :foreign_key => "owner_id", :dependent => :restrict
-  #TODO  do we need a :all_items ??
   has_many :models, :through => :items, :uniq => true
-  has_many :models_active, :through => :items, :source => :model, :uniq => true, :conditions => "items.retired IS NULL" # OPTIMIZE models.active 
-  has_many :own_models, :through => :own_items, :source => :model, :uniq => true
-  has_many :own_models_active, :through => :own_items, :source => :model, :uniq => true, :conditions => "items.retired IS NULL" # OPTIMIZE own_models.active 
   has_many :options
 
   has_and_belongs_to_many :model_groups
