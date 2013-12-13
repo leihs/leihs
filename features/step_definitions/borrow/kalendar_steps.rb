@@ -163,6 +163,7 @@ end
 
 Wenn(/^man dieses Modell aus der Modellliste hinzufügt$/) do
   visit borrow_models_path(category_id: @model.categories.first)
+  find("#model-list-search input").set @model.name
   find(".line", text: @model.name).find(".button").click
 end
 
