@@ -5,6 +5,13 @@ Wenn(/^man sich auf der Modellliste befindet$/) do
   visit borrow_models_path(category_id: @category.id)
 end
 
+Wenn(/^man sich auf der Modellliste befindet die verfügbare Modelle beinhaltet$/) do
+  @category = Category.find do |c|
+    c.models.any? { |m| m.availability_in(@current_user.inventory_pools.first).maximum_available_in_period_summed_for_groups(Date.today, Date.today, @current_user.groups) >= 1 }
+  end
+  visit borrow_models_path(category_id: @category.id)
+end
+
 Wenn(/^man sich auf der Modellliste befindet die nicht verfügbare Modelle beinhaltet$/) do
   @start_date ||= Date.today
   @end_date ||= Date.today+1.day

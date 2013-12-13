@@ -7,6 +7,7 @@ Wenn(/^man auf einem Model "Zur Bestellung hinzufügen" wählt$/) do
 end
 
 Wenn(/^man auf einem verfügbaren Model "Zur Bestellung hinzufügen" wählt$/) do
+  step 'man ein Startdatum auswählt'
   line = find("#model-list .line:not(.grayed-out)", match: :first)
   @model = Model.find line["data-id"]
   line.find("button[data-create-order-line]").click

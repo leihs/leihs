@@ -25,8 +25,8 @@ Funktionalität: Kalender
   @javascript
   Szenario: Meiner Bestellung einen Gegenstand hinzufügen
     Angenommen man ist "Normin"
-    Wenn man sich auf der Modellliste befindet
-    Und man auf einem Model "Zur Bestellung hinzufügen" wählt
+    Wenn man sich auf der Modellliste befindet die verfügbare Modelle beinhaltet
+    Und man auf einem verfügbaren Model "Zur Bestellung hinzufügen" wählt
     Dann öffnet sich der Kalender
     Wenn alle Angaben die ich im Kalender mache gültig sind
     Dann ist das Modell mit Start- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügt worden
