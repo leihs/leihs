@@ -203,8 +203,8 @@ Dann /^wird es zugewiesen \(unabhängig ob es ausgewählt ist\)$/ do
 end
 
 Wenn /^es in keinem zukünftigen Vertrag existiert$/ do
-  @model_not_in_contract = (@ip.items.flat_map(&:model).uniq.delete_if{|m| m.items.borrowable.in_stock == 0} - @customer.contracts.approved.flat_map(&:models)).first
-  @item = @model_not_in_contract.items.borrowable.in_stock.first
+  @model_not_in_contract = (@ip.items.borrowable.in_stock.map(&:model).uniq - @customer.contracts.approved.flat_map(&:models)).sample
+  @item = @model_not_in_contract.items.borrowable.in_stock.sample
   find("#add-start-date").set (Date.today+7.days).strftime("%d.%m.%Y")
   find("#add-end-date").set (Date.today+8.days).strftime("%d.%m.%Y")
   find("[data-add-contract-line]").set @item.inventory_code
