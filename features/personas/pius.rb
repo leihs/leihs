@@ -42,6 +42,8 @@ module Persona
 
     def create_user_with_large_hand_over
       user = FactoryGirl.create :user
+      user.access_rights.create(:role => Role.find_by_name("customer"), :inventory_pool => @inventory_pool)
+
       approved_contract = FactoryGirl.create(:contract, :user => user, :inventory_pool => @inventory_pool, :status => :approved)
       approved_contract_purpose = FactoryGirl.create :purpose, :description => "Ersatzstativ für die Ausstellung."
 
