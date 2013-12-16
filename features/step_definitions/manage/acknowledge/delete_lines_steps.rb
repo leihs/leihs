@@ -1,9 +1,8 @@
 # -*- encoding : utf-8 -*-
 
-
 When(/^I open a contract for acknowledgement that has more then one line$/) do
   @ip = @current_user.managed_inventory_pools.first
-  @contract = @ip.contracts.detect {|o| not o.status == :closed and o.lines.length > 1}
+  @contract = @ip.contracts.detect {|o| o.status == :submitted and o.lines.length > 1}
   @customer = @contract.user
   visit manage_edit_contract_path(@ip, @contract)
   page.has_css?("#acknowledge", :visible => true)

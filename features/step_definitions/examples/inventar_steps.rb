@@ -197,37 +197,37 @@ Dann /^enthält die Gegenstands\-Zeile folgende Informationen:$/ do |table|
 end
 
 Dann /^enthält die Gegenstands\-Zeile den Inventarcode$/ do
-  find(@item_line, match: :first).should have_content @item.inventory_code
+  (@item_line.is_a?(String) ? find(@item_line, match: :first) : @item_line).should have_content @item.inventory_code
 end
 
 Dann /^enthält die Gegenstands\-Zeile den Ort des Gegenstands$/ do
-  find(@item_line, match: :first).should have_content @item.location.to_s
+  (@item_line.is_a?(String) ? find(@item_line, match: :first) : @item_line).should have_content @item.location.to_s
 end
 
 Dann /^enthält die Gegenstands\-Zeile die Gebäudeabkürzung$/ do
-  find(@item_line, match: :first).should have_content @item.location.building.code
+  (@item_line.is_a?(String) ? find(@item_line, match: :first) : @item_line).should have_content @item.location.building.code
 end
 
 Dann /^enthält die Gegenstands\-Zeile den Raum$/ do
-  find(@item_line, match: :first).should have_content @item.location.room
+  (@item_line.is_a?(String) ? find(@item_line, match: :first) : @item_line).should have_content @item.location.room
 end
 
 Dann /^enthält die Gegenstands\-Zeile das Gestell$/ do
-  find(@item_line, match: :first).should have_content @item.location.shelf
+  (@item_line.is_a?(String) ? find(@item_line, match: :first) : @item_line).should have_content @item.location.shelf
 end
 
 Dann /^enthält die Gegenstands\-Zeile den aktuell Ausleihenden$/ do
-  find(@item_line, match: :first).should have_content @item.current_borrower.to_s
+  (@item_line.is_a?(String) ? find(@item_line, match: :first) : @item_line).should have_content @item.current_borrower.to_s
 end
 
 Dann /^enthält die Gegenstands\-Zeile das Enddatum der Ausleihe$/ do
-  find(@item_line, match: :first).should have_content @item.current_return_date.year
-  find(@item_line, match: :first).should have_content @item.current_return_date.month
-  find(@item_line, match: :first).should have_content @item.current_return_date.day
+  (@item_line.is_a?(String) ? find(@item_line, match: :first) : @item_line).should have_content @item.current_return_date.year
+  (@item_line.is_a?(String) ? find(@item_line, match: :first) : @item_line).should have_content @item.current_return_date.month
+  (@item_line.is_a?(String) ? find(@item_line, match: :first) : @item_line).should have_content @item.current_return_date.day
 end
 
 Dann /^enthält die Gegenstands\-Zeile die Verantwortliche Abteilung$/ do
-  find(@item_line, match: :first).should have_content @item.inventory_pool.to_s
+  (@item_line.is_a?(String) ? find(@item_line, match: :first) : @item_line).should have_content @item.inventory_pool.to_s
   step 'ich nach "%s" suche' % " "
 end
 

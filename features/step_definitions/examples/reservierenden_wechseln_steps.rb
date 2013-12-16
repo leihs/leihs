@@ -2,7 +2,7 @@
 
 Dann /^kann ich die reservierende Person für eine Auswahl an Linien wechseln$/ do
   step 'I select all lines of an linegroup'
-  find(".multibutton [data-selection-enabled] + .dropdown-holder").hover
+  find(".multibutton [data-selection-enabled] + .dropdown-holder").click
   find("a", :text => _("Change Borrower")).click
   find(".modal")
   @line_ids = @linegroup.all(".line").map {|l| l[:'data-id'].to_i }
