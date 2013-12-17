@@ -20,6 +20,7 @@ Funktionalität: Rücknahme
     Angenommen der Benutzer ist gesperrt
     Dann sehe ich neben seinem Namen den Sperrstatus 'Gesperrt!'
 
+  
   @javascript
   Szenario: Hinzufügen eines Gegenstandes in der Rücknahme
     Angenommen ich befinde mich in einer Rücknahme
