@@ -14,3 +14,8 @@ Funktionalität: Rücknahme
     Angenommen man ist "Pius"
     Wenn ich einen Gegenstand zurücknehme
     Dann wird festgehalten, dass ich diesen Gegenstand zurückgenommen habe
+    
+  @javascript
+  Szenario: Sperrstatus des Benutzers anzeigen
+    Angenommen der Benutzer ist gesperrt
+    Dann sehe ich neben seinem Namen den Sperrstatus 'Gesperrt!'
