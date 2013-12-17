@@ -20,12 +20,11 @@ Then /^this line is deleted$/ do
 end
 
 When /^I select multiple lines$/ do
-  find(".line[data-id]", match: :first)
-  @selected_line_ids = @hand_over.lines.map do |line|
-    find(".line", match: :first, :text => line.model.name)
-    line = all(".line", :text => line.model.name).detect {|x| not x.find("input[type='checkbox'][data-select-line]").checked?}
-    line.find("input[type='checkbox'][data-select-line]").click
-    line["data-id"]
+  @selected_line_ids = @hand_over.lines.sample(rand(1..@hand_over.lines.count)).map &:id
+  page.has_selector? ".line[data-id]", match: :first
+  @selected_line_ids.each do |id|
+    cb = find(".line[data-id='#{id}'] input[type='checkbox'][data-select-line]")
+    cb.click unless cb.checked?
   end
 end
 
@@ -34,15 +33,13 @@ When /^I delete the seleted lines$/ do
   within(".multibutton .button[data-selection-enabled] + .dropdown-holder") do
     find(".dropdown-item.red[data-destroy-selected-lines]", text: _("Delete Selection")).click
   end
-  find(".line", match: :first)
 end
 
 Then /^these lines are deleted$/ do
   @selected_line_ids.each do |line_id|
     page.should_not have_selector(".line[data-id='#{line_id}']")
   end
-  lambda {@hand_over.reload}.should raise_error(ActiveRecord::RecordNotFound)
-  step 'the count matches the amount of selected lines'
+  @selected_line_ids.each {|id| lambda{ContractLine.find(id)}.should raise_error(ActiveRecord::RecordNotFound)}
 end
 
 When /^I delete all lines of a model thats availability is blocked by these lines$/ do

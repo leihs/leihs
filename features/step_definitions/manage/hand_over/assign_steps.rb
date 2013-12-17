@@ -46,15 +46,15 @@ When /^I select a linegroup$/ do
   find("[data-selected-lines-container] input[data-select-lines]", match: :first).click
 end
 
-When /^I add an item which is matching the model of one of the selected lines to the hand over by providing an inventory code$/ do
-  @item = @hand_over.lines.first.model.items.in_stock.first
+When /^I add an item which is matching the model of one of the selected unassigned lines to the hand over by providing an inventory code$/ do
+  @item = @hand_over.lines.select{|l| !l.item}.first.model.items.in_stock.first
   find("[data-add-contract-line]").set @item.inventory_code
   find("[data-add-contract-line] + .addon").click
 end
 
 Then /^the first itemline in the selection matching the provided inventory code is assigned$/ do
   page.should have_selector(".line-info.green")
-  line = @hand_over.lines.detect{|line| line.item == @item}
+  line = @hand_over.reload.lines.detect{|line| line.item == @item}
   line.should_not == nil
 end
 
@@ -65,6 +65,14 @@ end
 When /^I open a hand over which has multiple lines$/ do
   @ip = @current_user.managed_inventory_pools.first
   @hand_over = @ip.visits.hand_over.detect{|x| x.lines.size > 1}
+  @customer = @hand_over.user
+  visit manage_hand_over_path(@ip, @customer)
+  page.has_css?("#hand-over-view", :visible => true)
+end
+
+When /^I open a hand over which has multiple unassigned lines$/ do
+  @ip = @current_user.managed_inventory_pools.first
+  @hand_over = @ip.visits.hand_over.detect{|x| x.lines.select{|l| !l.item}.count >= 2}
   @customer = @hand_over.user
   visit manage_hand_over_path(@ip, @customer)
   page.has_css?("#hand-over-view", :visible => true)

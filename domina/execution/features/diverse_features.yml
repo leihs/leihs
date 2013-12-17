@@ -1,44 +1,44 @@
- name: examples/inventar3.feature
+name: examples/inventar3.feature
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/inventar3.feature"
- name: examples/inventar4.feature
+name: examples/inventar4.feature
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/inventar4.feature"
- name: examples/pakete3.feature
+name: examples/pakete3.feature
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/pakete3.feature"
- name: examples/probleme2.feature
+name: examples/probleme2.feature
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/probleme2.feature"
- name: examples/vertrag6.feature
+name: examples/vertrag6.feature
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/vertrag6.feature"
- name: examples/werteliste3.feature
+name: examples/werteliste3.feature
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/werteliste3.feature"
- name: examples/zweck2.feature
+name: examples/zweck2.feature
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/zweck2.feature"
- name: login/login.feature
+name: login/login.feature
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/login/login.feature"
- name: manage/hand_over/assign.feature
+name: manage/hand_over/assign.feature
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/manage/hand_over/assign.feature"
- name: manage/hand_over/delete.feature
+name: manage/hand_over/delete.feature
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/manage/hand_over/delete.feature"
- name: manage/hand_over/sign.feature
+name: manage/hand_over/sign.feature
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/manage/hand_over/sign.feature"
