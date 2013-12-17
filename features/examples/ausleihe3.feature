@@ -27,7 +27,15 @@ Funktionalität: Ausleihe
     Dann wird der Gegenstand mit den aktuell gesetzten Status gespeichert
 
   @javascript
-    Szenario: Automatischer Druck Dialog beim Aushändigen
+  Szenario: Automatischer Druck Dialog beim Aushändigen
     Wenn ich eine Aushändigung mache
     Dann wird automatisch der Druck-Dialog geöffnet
 
+  @javascript
+  Szenario: Default des Start- und Enddatums
+    Wenn ich eine Aushändigung mache
+    Dann ist das Start- und Enddatum gemäss dem ersten Zeitfenster der Aushändigung gesetzt
+
+  
+  
+  
