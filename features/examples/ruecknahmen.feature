@@ -21,3 +21,13 @@ Funktionalität: Rücknahmen
     Und es existiert ein Benutzer mit mindestens 2 Rückgaben an 2 verschiedenen Tagen
     Wenn man die Rücknahmenansicht für den Benutzer öffnet
     Dann sind die Rücknahmen aufsteigend nach Datum sortiert
+
+  @javascript
+  Szenario: Optionen in mehreren Zeitfenstern vorhanden
+    Angenommen man ist "Pius"
+    Wenn ich eine Option zurücknehme
+    Und die Option in mehreren Zeitfenstern vorhanden ist
+    Dann wird die Option dem ersten Zeitfenster hinzugefügt
+    Wenn ich dieselbe Option nochmals hinzufüge
+    Und im ersten Zeitfenster sind bereits die maximale Anzahl dieser Option erreicht
+    Dann wird die Option dem zweiten Zeitfenster hinzugefügt
