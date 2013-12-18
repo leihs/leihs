@@ -719,6 +719,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/manage/hand_over/edit_contract_line.feature"
+- name: manage/hand_over/sign_contract2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/hand_over/sign_contract2.feature"
 - name: manage/hand_over/add2
   scripts:
     cucumber:

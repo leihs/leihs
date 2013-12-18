@@ -9,15 +9,6 @@ Feature: Sign Contract
       And I am "Pius"
 
   @javascript
-  Scenario: Hand over a selection of items
-     When I open a hand over
-      And I select an item line and assign an inventory code
-      And I click hand over
-     Then I see a summary of the things I selected for hand over
-     When I click hand over inside the dialog
-     Then the contract is signed for the selected items
-
-  @javascript
   Scenario: Hand over an not complete quantity of an option line
      When I open a hand over
       And I select an option line
@@ -28,13 +19,6 @@ Feature: Sign Contract
      When I click hand over inside the dialog
      Then the quantity of options is handed over
 
-  @javascript
-  Scenario: Try to hand over unsassigned items
-     When I open a hand over
-      And I select an item without assigning an inventory code
-      And I click hand over
-     Then I got an error that i have to assign all selected item lines
-     
   @javascript
   Scenario: Hand over lines which start in the history
      When I open a hand over with overdue lines
