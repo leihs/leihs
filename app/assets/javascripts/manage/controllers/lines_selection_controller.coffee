@@ -74,6 +74,7 @@ class window.App.LineSelectionController extends Spine.Controller
     ids = App.LineSelectionController.selected
     @lineSelectionCounter.html ids.length
     if ids.length then @enable() else @disable()
+    do @storeIdsToHrefs
 
   enable: =>
     for button in $(".button[data-selection-enabled]")
