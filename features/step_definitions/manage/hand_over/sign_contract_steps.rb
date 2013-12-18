@@ -84,18 +84,25 @@ end
 
 When /^I open a hand over with overdue lines$/ do
   @ip = @current_user.managed_inventory_pools.first
-  @customer = @ip.users.all.detect {|u| u.contracts.approved.exists? and u.contracts.approved.any?{|c| c.lines.any?{|l| l.start_date < Date.today}}}
+  @models_in_stock = @ip.items.by_responsible_or_owner_as_fallback(@ip).in_stock.map(&:model).uniq
+  @customer = @ip.users.all.detect do |u|
+    u.contracts.approved.exists? and u.contracts.approved.any? do |c|
+      c.lines.any? {|l| l.start_date < Date.today and @models_in_stock.include? l.model}
+    end
+  end
+  @customer.should_not be_nil
   visit manage_hand_over_path(@ip, @customer)
   page.has_css?("#hand-over-view", :visible => true)
 end
 
 When /^I select an overdue item line and assign an inventory code$/ do
-  @item_line = @line = @customer.visits.hand_over.detect{|v| v.date < Date.today}.lines.detect {|x| x.class.to_s == "ItemLine"}
+  @item_line = @line = @customer.visits.hand_over.detect{|v| v.date < Date.today}.lines.detect {|l| l.class.to_s == "ItemLine" and @models_in_stock.include? l.model}
+  @item_line.should_not be_nil
   step 'I assign an inventory code the item line'
 end
 
 When /^I assign an inventory code the item line$/ do
-  item = @ip.items.in_stock.where(model_id: @item_line.model).first
+  item = @ip.items.by_responsible_or_owner_as_fallback(@ip).in_stock.where(model_id: @item_line.model).first
   @selected_items ||= []
   @selected_items << item
   within(".line[data-id='#{@item_line.id}']") do

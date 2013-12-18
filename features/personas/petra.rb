@@ -60,6 +60,7 @@ module Persona
       @approved_contract_1 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :approved)
       @approved_contract_1_purpose = FactoryGirl.create :purpose, :description => "Ersatzstativ für die Ausstellung."
       FactoryGirl.create(:contract_line, :purpose => @approved_contract_1_purpose, :contract => @approved_contract_1, :model => @beamer_model, :start_date => Date.yesterday-1, :end_date => Date.today + 1)
+      FactoryGirl.create(:contract_line, :purpose => @approved_contract_1_purpose, :contract => @approved_contract_1, :model => FactoryGirl.create(:model_with_items, inventory_pool: @inventory_pool), :start_date => Date.yesterday-1, :end_date => Date.today + 1)
     end
     
     def create_signed_contracts
