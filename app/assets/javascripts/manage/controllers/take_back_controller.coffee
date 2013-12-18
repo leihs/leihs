@@ -110,7 +110,7 @@ class window.App.TakeBackController extends Spine.Controller
           inventoryCode: line.inventoryCode()
           record: line
         regexp = RegExp(request.term, "i")
-        data = _.filter data, (d)-> d.name.match(regexp) or d.inventoryCode.match(regexp)
+        data = _.filter data, (d)-> d.name.match(regexp) or d.inventoryCode?.match(regexp)
         response data
       focus: => return false
       select: @select
