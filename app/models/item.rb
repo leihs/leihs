@@ -91,7 +91,13 @@ class Item < ActiveRecord::Base
 
   def self.filter(params, current_inventory_pool = nil)
     items = params[:all] ? unscoped : scoped
-    items = items.by_owner_or_responsible current_inventory_pool if current_inventory_pool
+    items = if current_inventory_pool
+              if params[:responsible_or_owner_as_fallback]
+                items.by_responsible_or_owner_as_fallback current_inventory_pool
+              else
+                items.by_owner_or_responsible current_inventory_pool
+              end
+            end
     items = items.where(Item.arel_table[:retired].not_eq(nil)) if params[:retired]
     items = items.where(:retired => nil) if params[:unretired] and not params[:retired]
     items = items.borrowable if params[:borrowable]

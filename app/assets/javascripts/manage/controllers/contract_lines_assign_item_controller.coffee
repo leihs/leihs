@@ -43,6 +43,7 @@ class window.App.ContractLineAssignItemController extends Spine.Controller
       data: $.param 
         model_ids: [model.id]
         in_stock: true
+        responsible_or_owner_as_fallback: true
 
   fetchLocations: (ids)=>
     return {done: (c)-> c()} unless ids.length
