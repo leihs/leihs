@@ -9,9 +9,19 @@ When /^I open a hand over$/ do
   page.should have_selector("#hand-over-view", :visible => true)
 end
 
+When /^I open a hand over with at least one unassigned line$/ do
+  @ip = @current_user.managed_inventory_pools.detect do |ip|
+    @customer = ip.users.all.shuffle.detect {|c| c.visits.hand_over.exists? and c.visits.hand_over.any?{|v| v.lines.size >= 3 and v.lines.any? {|l| not l.item}}}
+  end
+  raise "customer not found" unless @customer
+  visit manage_hand_over_path(@ip, @customer)
+  page.should have_selector("#hand-over-view", :visible => true)
+end
+
 When /^I select an item line and assign an inventory code$/ do
   sleep(0.88)
-  @item_line = @line = @customer.visits.hand_over.flat_map(&:lines).detect {|x| x.class.to_s == "ItemLine" and x.item_id.nil? }
+  @item_line = @line = @customer.visits.hand_over.flat_map(&:lines).detect {|l| l.class.to_s == "ItemLine" and l.item_id.nil? }
+  @item_line.should_not be_nil
   step 'I assign an inventory code the item line'
   find(".button[data-edit-lines][data-ids='[#{@item_line.id}]']").click
   step "ich setze das Startdatum im Kalendar auf '#{I18n.l(Date.today)}'"
@@ -103,6 +113,7 @@ end
 
 When /^I assign an inventory code the item line$/ do
   item = @ip.items.by_responsible_or_owner_as_fallback(@ip).in_stock.where(model_id: @item_line.model).first
+  item.should_not be_nil
   @selected_items ||= []
   @selected_items << item
   within(".line[data-id='#{@item_line.id}']") do
