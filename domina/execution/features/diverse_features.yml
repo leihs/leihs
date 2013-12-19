@@ -1,4 +1,5 @@
-name: examples/inventar3.feature
+---
+- name: examples/inventar3
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/inventar3.feature"
