@@ -34,6 +34,7 @@ class AccessRight < ActiveRecord::Base
 ####################################################################
 
   scope :active, where(deleted_at: nil)
+  scope :suspended, where("suspended_until IS NOT NULL AND suspended_until >= CURDATE()")
   scope :not_suspended, where("suspended_until IS NULL OR suspended_until < CURDATE()")
   scope :managers, joins(:role).where(:roles => {:name => "manager"}, :deleted_at => nil) #AR
 

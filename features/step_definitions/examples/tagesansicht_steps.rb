@@ -13,3 +13,17 @@ Dann(/^sehe ich für diese Bestellung die längste Zeitspanne direkt auf der Lin
   range = (line_with_max_range.end_date-line_with_max_range.start_date).to_i+1
   find(".line[data-id='#{@contract.id}']").should have_content "#{range} #{_('days')}"
 end
+
+When(/^eigenes Benutzer sind gesperrt$/) do
+  @current_inventory_pool.users.customers.each do |user|
+    ensure_suspended_user(user, @current_inventory_pool)
+  end
+end
+
+When(/^sehe ich auf allen Linien dieses Benutzers den Sperrstatus 'Gesperrt'$/) do
+  visit manage_daily_view_path(@current_inventory_pool)
+  find("[data-type='user-cell'] span.darkred-text", match: :first)
+  all("[data-type='user-cell']").each do |line|
+    line.find("span.darkred-text", text: "%s!" % _("Suspended"))
+  end
+end

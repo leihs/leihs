@@ -9,7 +9,11 @@
 
     .margin-top-l.padding-horizontal-m
       .row
-        %h1.headline-l= _("Hand Over to %s") % @user
+        %h1.headline-l
+          = _("Hand Over to %s") % @user
+          - if @user.suspended?(current_inventory_pool)
+            %span.darkred-text= "%s!" % _("Suspended")
+
         = render :partial => "manage/users/visits/visits_overview"
 
     #status.padding-horizontal-m.margin-top-m

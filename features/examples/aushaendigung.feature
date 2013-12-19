@@ -5,18 +5,16 @@ Funktionalität: Aushaendigung editieren
   Grundlage:
     Angenommen Personas existieren
     Und man ist "Pius"
-    Und ich öffne eine Aushaendigung
-  
+    Und ich eine Aushändigung mache
+
   @javascript
   Szenario: Sperrstatus des Benutzers anzeigen
-    Angenommen der Benutzer ist gesperrt
+    Angenommen der Benutzer für die Aushändigung ist gesperrt
     Dann sehe ich neben seinem Namen den Sperrstatus 'Gesperrt!'
-    
-    
+
   @javascript
   Szenario: Systemfeedback bei erfolgreicher manueller Interaktion bei Aushändigung
-    Wenn ich eine Aushändigung mache
-    Und einem Gegenstand einen Inventarcode manuell zuweise
+    Wenn einem Gegenstand einen Inventarcode manuell zuweise
     Dann wird der Gegenstand der Zeile zugeteilt
     Und die Zeile wird selektiert
     Und die Zeile wird grün markiert
@@ -35,8 +33,7 @@ Funktionalität: Aushaendigung editieren
   
   @javascript
   Szenario: Systemfeedback bei NICHT erfolgreicher manueller Interaktion bei Aushändigung
-    Wenn ich eine Aushändigung mache
-    Und einem Gegenstand einen Inventarcode manuell zuweise
+    Wenn einem Gegenstand einen Inventarcode manuell zuweise
     Und der Gegenstand nicht verfügbar ist
     Und das Problemfeld wird angezeigt
     Und die Zeile wird selektiert
@@ -44,7 +41,6 @@ Funktionalität: Aushaendigung editieren
   
   @javascript
   Szenario: Aushändigung eines bereits zugeteilten Gegenstandes
-    Angenommen ich befinde mich in einer Aushändigung
     Wenn ich einen bereits hinzugefügten Gegenstand zuteile
     Dann erhalte ich eine entsprechende Info-Meldung 'Sie haben diesen Gegenstand diesem Vertrag bereits zugeteilt'
     Und die Zeile bleibt selektiert

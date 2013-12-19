@@ -43,3 +43,9 @@ Dann(/^sind die Rücknahmen aufsteigend nach Datum sortiert$/) do
   end
 
 end
+
+When(/^ich befinde mich in einer Rücknahme für ein gesperrter Benutzer$/) do
+  step 'I open a take back'
+  ensure_suspended_user(@customer, @ip)
+  visit manage_take_back_path(@ip, @customer)
+end

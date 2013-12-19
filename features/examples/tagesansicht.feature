@@ -13,7 +13,7 @@ Funktionalität: Ausleihe
     
   @javascript
   Szenario: Sperrstatus des Benutzers anzeigen
-    Angenommen der Benutzer ist gesperrt
+    Angenommen eigenes Benutzer sind gesperrt
     Dann sehe ich auf allen Linien dieses Benutzers den Sperrstatus 'Gesperrt'
-    
-    
+
+

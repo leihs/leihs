@@ -239,6 +239,10 @@ class User < ActiveRecord::Base
     access_rights.active.scoped_by_inventory_pool_id(ip).first
   end
 
+  def suspended?(ip)
+    access_rights.active.suspended.scoped_by_inventory_pool_id(ip).exists?
+  end
+
 ####################################################################
 
   def self.remind_all

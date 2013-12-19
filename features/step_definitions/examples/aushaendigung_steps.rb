@@ -12,3 +12,8 @@ end
 Dann(/^sehe ich all die bereits zugewiesenen Gegenstände mittels Inventarcodes$/) do
   @hand_over.contract_lines.each {|l| page.has_content? l.item.inventory_code}
 end
+
+When(/^der Benutzer für die Aushändigung ist gesperrt$/) do
+  ensure_suspended_user(@customer, @ip)
+  visit manage_hand_over_path(@ip, @customer)
+end

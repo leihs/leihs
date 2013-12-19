@@ -8,19 +8,18 @@ Funktionalität: Rücknahme
 
   Grundlage:
     Angenommen Personas existieren
+    Und man ist "Pius"
 
   @javascript
   Szenario: Festhalten wer einen Gegenstand zurückgenommen hat
-    Angenommen man ist "Pius"
     Wenn ich einen Gegenstand zurücknehme
     Dann wird festgehalten, dass ich diesen Gegenstand zurückgenommen habe
     
   @javascript
   Szenario: Sperrstatus des Benutzers anzeigen
-    Angenommen der Benutzer ist gesperrt
+    Angenommen ich befinde mich in einer Rücknahme für ein gesperrter Benutzer
     Dann sehe ich neben seinem Namen den Sperrstatus 'Gesperrt!'
 
-  
   @javascript
   Szenario: Hinzufügen eines Gegenstandes in der Rücknahme
     Angenommen ich befinde mich in einer Rücknahme

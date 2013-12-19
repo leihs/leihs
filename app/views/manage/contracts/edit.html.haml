@@ -11,7 +11,10 @@
       .row
         .col2of6
           %h1.headline-l= _("Edit %s") % _("Order")
-          %h2.headline-s.light= @user
+          %h2.headline-s.light
+            = @user
+            - if @user.suspended?(current_inventory_pool)
+              %span.darkred-text= "%s!" % _("Suspended")
 
         #daily-navigation.col4of6.text-align-right= render :partial => "manage/contracts/edit/navigation"
 
