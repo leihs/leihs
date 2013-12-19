@@ -20,7 +20,8 @@ end
 
 When /^I select an item line and assign an inventory code$/ do
   sleep(0.88)
-  @item_line = @line = @customer.visits.hand_over.flat_map(&:lines).detect {|l| l.class.to_s == "ItemLine" and l.item_id.nil? }
+  @models_in_stock = @ip.items.by_responsible_or_owner_as_fallback(@ip).in_stock.map(&:model).uniq
+  @item_line = @line = @customer.visits.hand_over.flat_map(&:lines).detect {|l| l.class.to_s == "ItemLine" and l.item_id.nil? and @models_in_stock.include? l.model }
   @item_line.should_not be_nil
   step 'I assign an inventory code the item line'
   find(".button[data-edit-lines][data-ids='[#{@item_line.id}]']").click
