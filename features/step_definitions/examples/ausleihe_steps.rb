@@ -416,3 +416,10 @@ Dann(/^erscheint der Benutzer unter den letzten Besuchern$/) do
   visit manage_daily_view_path @current_inventory_pool
   find("#last-visitors a", :text => @user.name)
 end
+
+When(/^ist das Start- und Enddatum gemäss dem ersten Zeitfenster der Aushändigung gesetzt$/) do
+  first_dates = find("#hand-over-view #lines [data-selected-lines-container]", match: :first).find(".row .col1of2 p.paragraph-s", match: :first).text
+  start_date, end_date = first_dates.split('-').map{|x| Date.parse x}
+  Date.parse(find("input#add-start-date").value).should == [start_date, Date.today].max
+  Date.parse(find("input#add-end-date").value).should == [end_date, Date.today].max
+end

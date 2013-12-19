@@ -275,6 +275,7 @@ class Manage::UsersController < Manage::ApplicationController
       @options = @contract.options  
       @items = @contract.items
     end
+    @start_date, @end_date = @grouped_lines.keys.sort.first || [Date.today, Date.today]
     add_visitor(@user)
   end
 
@@ -286,6 +287,8 @@ class Manage::UsersController < Manage::ApplicationController
       @options = @contracts.flat_map(&:options).uniq
       @items = @contracts.flat_map(&:items).uniq
     end
+    @start_date = @lines.map(&:start_date).min || Date.today
+    @end_date = @lines.map(&:end_date).max || Date.today
     add_visitor(@user)
   end
 
@@ -302,8 +305,6 @@ class Manage::UsersController < Manage::ApplicationController
     @count_today = @grouped_lines.keys.select{|range| range[date_index] == Date.today}.length
     @count_future = @grouped_lines.keys.select{|range| range[date_index] > Date.today}.length
     @count_overdue = @grouped_lines.keys.select{|range| range[date_index] < Date.today}.length
-    @start_date = @lines.map(&:start_date).min || Date.today
-    @end_date = @lines.map(&:end_date).max || Date.today
     @purposes = @lines.map(&:purpose).uniq
     @grouped_lines_by_date = []
     @grouped_lines.each_pair do |range, lines|
