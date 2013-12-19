@@ -145,7 +145,7 @@ Dann /^(?:besitzt das Paket alle angegebenen Informationen|das Paket besitzt all
   page.has_no_selector? "[src*='loading']"
   find(".line[data-id='#{model.items.first.id}']", visible: false).find("button[data-edit-package]").click
   page.has_selector? ".modal .row.emboss"
-  step 'hat der Gegenstand alle zuvor eingetragenen Werte'
+  step 'hat das Paket alle zuvor eingetragenen Werte'
 end
 
 Wenn /^ich ein bestehendes Paket editiere$/ do
@@ -193,4 +193,29 @@ end
 
 Dann(/^sehe ich die Meldung "(.*?)"$/) do |text|
   find("#flash", match: :prefer_exact, :text => text)
+end
+
+Dann /^hat das Paket alle zuvor eingetragenen Werte$/ do
+  page.has_selector? ".modal .row.emboss"
+  @table_hashes.each do |hash_row|
+    field_name = hash_row["Feldname"]
+    field_value = hash_row["Wert"]
+    field_type = hash_row["Type"]
+    field = Field.all.detect{|f| _(f.label) == field_name}
+    within ".modal" do
+      find("[data-type='field'][data-id='#{field.id}']", match: :first)
+      matched_field = all("[data-type='field'][data-id='#{field.id}']").last
+      raise "no field found" if matched_field.blank?
+      case field_type
+      when "autocomplete"
+        matched_field.find("input,textarea").value.should == (field_value != "Keine/r" ? field_value : "")
+      when "select"
+        matched_field.all("option").detect(&:selected?).text.should == field_value
+      when "radio must"
+        matched_field.find("input[checked][type='radio']").value.should == field_value
+      when ""
+        matched_field.find("input,textarea").value.should == field_value
+      end
+    end
+  end
 end
