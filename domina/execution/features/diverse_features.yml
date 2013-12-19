@@ -1,5 +1,45 @@
 ---
-- name: examples/inventar3
+- name: examples/pakete3
   scripts:
     cucumber:
-      body: bundle exec cucumber -p all "features/examples/inventar3.feature"
+      body: bundle exec cucumber -p all "features/examples/pakete3.feature"
+- name: examples/vertrag
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/vetrag.feature"
+- name: examples/vertrag3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/vetrag3.feature"
+- name: examples/vertrag4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/vetrag4.feature"
+- name: examples/werteliste3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/werteliste3.feature"
+- name: examples/zweck2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/zweck2.feature"
+- name: examples/zweck3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/zweck3.feature"
+- name: manage/acknowledge/add_item
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "manage/acknowledge/add_item.feature"
+- name: manage/acknowledge/edit_order_line
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "manage/acknowledge/edit_order_line.feature"
+- name: manage/hand_over/assign
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "manage/hand_over/assign.feature"
+- name: manage/hand_over/sign_contract2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "manage/hand_over/sign_contract2.feature"
