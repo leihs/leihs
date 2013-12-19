@@ -228,7 +228,7 @@ end
 
 Dann /^enthält die Gegenstands\-Zeile die Verantwortliche Abteilung$/ do
   (@item_line.is_a?(String) ? find(@item_line, match: :first) : @item_line).should have_content @item.inventory_pool.to_s
-  step 'ich nach "%s" suche' % " "
+  #step 'ich nach "%s" suche' % " "
 end
 
 # not needed -> is a problem for capybara: "element not found in cache" error
