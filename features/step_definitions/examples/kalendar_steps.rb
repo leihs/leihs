@@ -41,7 +41,6 @@ end
 
 Angenommen /^ich editiere alle Linien$/ do
   find(".multibutton .green.dropdown-toggle").click
-  find(".multibutton .green.dropdown-toggle").hover
   find(".multibutton .dropdown-item[data-edit-lines='selected-lines']", :text => _("Edit Selection")).click
 end
 
