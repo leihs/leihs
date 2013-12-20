@@ -26,7 +26,9 @@ class window.App.ContractLinesChangeController extends window.App.BorrowBookingC
       deletionDone = _.after linesToBeDestroyed.length, @changeRange
       for line in linesToBeDestroyed
         do (line)->
-          App.ContractLine.ajaxChange(line, "destroy", {}).done deletionDone
+          App.ContractLine.ajaxChange(line, "destroy", {}).done =>
+            line.remove()
+            do deletionDone
       @lines = _.reject @lines, (l)-> _.include(linesToBeDestroyed, l)
     else if difference > 0 # create new lines in the amount of the quantity difference
       finish = _.after difference, @changeRange

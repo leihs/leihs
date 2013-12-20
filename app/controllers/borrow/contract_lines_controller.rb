@@ -25,7 +25,7 @@ class Borrow::ContractLinesController < Borrow::ApplicationController
       unsubmitted_contracts.flat_map(&:lines).detect {|line| line.id  == params[:line_id].to_i }.destroy
     rescue
     ensure
-      render :status => :ok, :json => {id: params[:line_id]}
+      render :status => :ok, :json => {id: params[:line_id].to_i}
     end
   end
 
