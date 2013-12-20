@@ -175,6 +175,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/passwort10.feature"
+- name: examples/ruecknahme
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/ruecknahme.feature"
 - name: examples/kalender
   scripts:
     cucumber:
@@ -515,6 +519,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/gruppen2.feature"
+- name: examples/bestellung
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/bestellung.feature"
 - name: examples/vertrag3
   scripts:
     cucumber:
@@ -547,6 +555,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/gegenstand_editieren7.feature"
+- name: examples/aushaendigung
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/aushaendigung.feature"
 - name: examples/modell
   scripts:
     cucumber:
