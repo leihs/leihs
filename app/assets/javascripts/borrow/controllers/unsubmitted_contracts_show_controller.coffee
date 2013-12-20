@@ -32,6 +32,7 @@ class window.App.UnsubmittedContractsShowController extends Spine.Controller
       endDate: target.data("end-date")
       titel: _jed("Change %s", _jed("Order"))
       buttonText: _jed("Save change")
+      withoutLines: true
     return false
 
   render: =>

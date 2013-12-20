@@ -60,6 +60,7 @@ class window.App.BorrowBookingCalendarDialogController extends App.BookingCalend
   valid: =>
     ip = @getSelectedInventoryPool()
     av = @availabilities[ip.id]
+    av = av.withoutLines(@lines) if @withoutLines
     @errors = []
     if av.maxAvailableForGroups(@getStartDate(), @getEndDate(), _.map(@groups,(g)->g.id)) < @getQuantity()
       @errors.push _jed("Item is not available in that time range")
