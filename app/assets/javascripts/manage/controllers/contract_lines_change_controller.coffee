@@ -11,7 +11,7 @@ class window.App.ContractLinesChangeController extends window.App.ManageBookingC
     App.ContractLine.ajaxChange(contract_line, "create", {})
 
   # overwrite
-  done: (data)=> 
+  done: (data)=>
     App.ContractLine.trigger "refresh", (App.ContractLine.find datum.id for datum in data)
     super
 
@@ -32,7 +32,9 @@ class window.App.ContractLinesChangeController extends window.App.ManageBookingC
       @lines = _.reject @lines, (l)-> _.include(linesToBeDestroyed, l)
       for line in linesToBeDestroyed
         do (line)->
-          App.ContractLine.ajaxChange(line, "destroy", {}).done => deletionDone
+          App.ContractLine.ajaxChange(line, "destroy", {}).done =>
+            line.remove()
+            do deletionDone
     else if difference > 0 # create new lines in the amount of the quantity difference
       finish = _.after difference, @changeRange
       for time in [1..difference]

@@ -41,7 +41,7 @@ class Manage::ContractLinesController < Manage::ApplicationController
     rescue => e
       Rails.logger.error e
     ensure
-      render :status => :ok, :json => {id: params[:line_id]}
+      render :status => :ok, :json => {id: params[:line_id].to_i}
     end
   end
 
