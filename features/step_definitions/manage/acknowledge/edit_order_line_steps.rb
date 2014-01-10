@@ -63,28 +63,43 @@ Then /^the time range of that line is changed$/ do
   @line.reload.start_date.should == @new_start_date
 end
 
+When /^I increase a submitted contract lines quantity$/ do
+  @line_element ||= all(".line[data-ids]").to_a.sample
+  @line_model_name = @line_element.find(".col6of10 strong").text
+  @new_quantity = @line_element.find("div:nth-child(3) > span:nth-child(1)").text.to_i + 1
+  step 'I change a contract lines quantity'
+end
+
+When /^I decrease a submitted contract lines quantity$/ do
+  @line_element = all(".line[data-ids]").detect {|l| l.find("div:nth-child(3) > span:nth-child(1)").text.to_i > 1 }
+  @line_model_name = @line_element.find(".col6of10 strong").text
+  @new_quantity = @line_element.find("div:nth-child(3) > span:nth-child(1)").text.to_i - 1
+  step 'I change a contract lines quantity'
+end
+
 When /^I change a contract lines quantity$/ do
-  @line = if @contract
-    @contract.lines.sample
-  else
-    @customer.visits.hand_over.first.lines.sample
+  if @line_element.nil? and page.has_selector?("#hand-over-view")
+    @line = if @contract
+              @contract.lines.sample
+            else
+              @customer.visits.hand_over.first.lines.sample
+            end
+    @total_quantity = @line.contract.lines.where(:model_id => @line.model_id).sum(&:quantity)
+    @new_quantity = @line.quantity + 1
+    @line_element = find(".line[data-id='#{@line.id}']")
   end
-  @line_element = all(".line[data-ids*='#{@line.id}']").first
-  @line_element ||= all(".line[data-id='#{@line.id}']").first
   step 'I open the booking calendar for this line'
-  @new_quantity = @line.model.total_borrowable_items_for_user @customer
   first("input#booking-calendar-quantity").set @new_quantity
   step 'I save the booking calendar'
   find("#status .icon-ok")
 end
 
 Then(/^the contract line was duplicated$/) do
-  @line.reload.quantity
-  @line.contract.lines.where(:model_id => @line.model_id).sum(&:quantity).should >= @new_quantity
+  @line.contract.lines.where(:model_id => @line.model_id).sum(&:quantity).should == @total_quantity + 1
 end
 
-Then /^the quantity of that line is changed$/ do
-  @line_element = find(".line", match: :first, :text => @line.model.name)
+Then /^the quantity of that submitted contract line is changed$/ do
+  @line_element = find(".line", match: :prefer_exact, :text => @line_model_name)
   @line_element.find("div:nth-child(3) > span:nth-child(1)").text.should == @new_quantity.to_s
 end
 
@@ -127,17 +142,21 @@ Then /^I see the booking calendar$/ do
 end
 
 When /^I change the time range for multiple lines that have quantity bigger then (\d+)$/ do |arg1|
-  step 'I change a contract lines quantity'
-  line_element = all(".line[data-ids]").detect do |dom_line|
-    JSON.parse(dom_line["data-ids"]).include? @line.id
+  all_ids = all(".line[data-ids]").to_a.map {|x| x["data-ids"]}
+  @models_quantities = all_ids.map do |ids|
+    @line_element = find(".line[data-ids='#{ids}']")
+    step 'I increase a submitted contract lines quantity'
+    step 'the quantity of that submitted contract line is changed'
+    @new_quantity.should > arg1.to_i
+    {name: @line_model_name, quantity: @new_quantity}
   end
-  line_element.find("div:nth-child(3) > span:nth-child(1)").text.to_i.should == @new_quantity
+  @models_quantities.size.should > 0
   step 'I change the time range for multiple lines'
 end
 
 Then /^the quantity is not changed after just moving the lines start and end date$/ do
-  line_element = all(".line[data-ids]").detect do |dom_line|
-    JSON.parse(dom_line["data-ids"]).include? @line.id
+  @models_quantities.each do |x|
+    line_element = find(".line", match: :prefer_exact, :text => x[:name])
+    line_element.find("div:nth-child(3) > span:nth-child(1)").text.to_i.should == x[:quantity]
   end
-  line_element.find("div:nth-child(3) > span:nth-child(1)").text.to_i.should == @new_quantity
 end

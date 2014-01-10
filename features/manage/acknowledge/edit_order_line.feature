@@ -17,8 +17,10 @@ Feature: Edit contract line during acknowledge process
   @javascript
   Scenario: Change the quantity of a single contract line
      When I open a contract for acknowledgement
-      And I change a contract lines quantity
-     Then the quantity of that line is changed
+      And I increase a submitted contract lines quantity
+     Then the quantity of that submitted contract line is changed
+     When I decrease a submitted contract lines quantity
+     Then the quantity of that submitted contract line is changed
 
   @javascript
   Scenario: Preserve the quantity when edit multiple lines

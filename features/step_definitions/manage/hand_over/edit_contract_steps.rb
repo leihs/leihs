@@ -66,7 +66,7 @@ end
 
 When(/^I change the quantity through the edit dialog$/) do
   find(".line[data-id='#{@option_line.id}'] button").click
-  @quantity = rand(2..9)
+  @quantity = @option_line.quantity > 1 ? 1 : rand(2..9)
   find("#booking-calendar-quantity").set @quantity
   find("#submit-booking-calendar").click
   find(".line[data-id='#{@option_line.id}'] input[data-line-quantity]").value.to_i.should == @quantity
