@@ -16,3 +16,9 @@ Feature: Edit contract line during acknowledge process
      And I close the booking calendar
      And I edit one of the selected lines
     Then I see the booking calendar
+
+  @javascript
+  Scenario: Preserve the quantity when edit multiple lines
+    When I open a contract for acknowledgement with more then one line
+    And I change the time range for multiple lines that have quantity bigger then 1
+    Then the quantity is not changed after just moving the lines start and end date

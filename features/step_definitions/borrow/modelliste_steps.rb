@@ -19,7 +19,7 @@ Wenn(/^man sich auf der Modellliste befindet die nicht verfügbare Modelle beinh
     quantity = @current_user.inventory_pools.sum do |ip|
       m.availability_in(ip).maximum_available_in_period_summed_for_groups(@start_date, @end_date, @current_user.groups.map(&:id))
     end
-    quantity <= 0
+    quantity <= 0 and not m.categories.blank?
   end
   @category = model.categories.first
   visit borrow_models_path(category_id: @category.id)
@@ -210,7 +210,7 @@ Dann(/^die Liste wird gefiltert nach Modellen die in diesem Zeitraum verfügbar 
     quantity = @current_user.inventory_pools.sum do |ip|
       model.availability_in(ip).maximum_available_in_period_summed_for_groups(@start_date, @end_date, @current_user.groups.map(&:id))
     end
-    if quantity == 0
+    if quantity <= 0
       @unavailable_model_found = true
       model_el[:class]["grayed-out"].should be
     else

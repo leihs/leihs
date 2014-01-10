@@ -60,16 +60,22 @@ class ItemLine < ContractLine
 ##################################################
 
   private
-    
+
   # validator
   def validate_item
     if item_id and contract.status == :approved
       # model matching
       errors.add(:base, _("The item doesn't match with the reserved model")) unless item.model_id == model_id
-  
-      # check if available
-      errors.add(:base, _("%s is already assigned to a contract") % item.inventory_code) if item_already_handed_over_or_assigned?
-   
+
+      if item_already_handed_over_or_assigned_to_the_same_contract?
+        # check if already assigned to the same contract
+        errors.add(:base, _("%s is already assigned to this contract") % item.inventory_code)
+
+      elsif item_already_handed_over_or_assigned_to_a_different_contract?
+        # check if available
+        errors.add(:base, _("%s is already assigned to a different contract") % item.inventory_code) 
+      end
+
       # inventory_pool matching
       errors.add(:base, _("The item doesn't belong to the inventory pool related to this contract")) unless item.inventory_pool_id == contract.inventory_pool_id 
 
@@ -77,10 +83,14 @@ class ItemLine < ContractLine
       errors.add(:base, _("The item belongs to a package")) if item.parent_id
     end
   end
-  
-  def item_already_handed_over_or_assigned?
-    item.contract_lines.handed_over_or_assigned_but_not_returned.where(["id != ?", id]).exists?
+
+  def item_already_handed_over_or_assigned_to_a_different_contract?
+    item.contract_lines.handed_over_or_assigned_but_not_returned.where(["id != ? and contract_id != ?", id, contract.id]).exists?
   end
-  
+
+  def item_already_handed_over_or_assigned_to_the_same_contract?
+    item.contract_lines.handed_over_or_assigned_but_not_returned.where(["id != ? and contract_id = ?", id, contract.id]).exists?
+  end
+
 end
 

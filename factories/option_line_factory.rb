@@ -2,7 +2,7 @@ FactoryGirl.define do
 
   factory :option_line do
     contract
-    option { FactoryGirl.create :model_with_items, :inventory_pool => contract.inventory_pool }
+    option { FactoryGirl.create :option, :inventory_pool => contract.inventory_pool }
     purpose
     quantity 1
     start_date { Date.today }

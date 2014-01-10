@@ -63,8 +63,7 @@ class Manage::ContractLinesController < Manage::ApplicationController
     end
 
     if item and line and line.model_id == item.model_id
-      line.update_attributes(item: item)
-      @error = {:message => line.errors.full_messages.uniq.join(', ')} unless line.valid?
+      @error = {:message => line.errors.full_messages.uniq.join(', ')} unless line.update_attributes(item: item)
     else
       unless params[:inventory_code].blank?
         @error = if item and line and line.model_id != item.model_id

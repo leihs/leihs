@@ -1,6 +1,6 @@
 .line.light.row.focus-hover-thin{:"data-line-type" => "option_line", :"data-id" => "{{>id}}"}
 
-  %div{:class => "line-info{{if ~renderAvailability && anyProblems()}} red{{/if}}{{if ~renderAvailability && !anyProblems()}} green{{/if}}"}
+  %div{:class => "line-info{{if ~renderAvailability && anyProblems()}} red{{/if}}"}
   
   .line-col.padding-left-xs
     .row
@@ -33,7 +33,7 @@
     .emboss.red.padding-inset-xxs-alt.text-align-center.tooltip{:"data-tooltip-data" => "{{JSON getProblems()/}}", :"data-tooltip-template" => "manage/views/lines/problems_tooltip"}
       %strong {{>getProblems().length}}
     {{else ~renderAvailability && !anyProblems()}}
-    .emboss.green.padding-inset-xxs-alt.text-align-center
+    .padding-inset-xxs-alt.text-align-center
       %i.icon-ok
     {{/if}}
 

@@ -47,13 +47,14 @@ When /^I select a linegroup$/ do
 end
 
 When /^I add an item which is matching the model of one of the selected unassigned lines to the hand over by providing an inventory code$/ do
-  @item = @hand_over.lines.select{|l| !l.item}.first.model.items.in_stock.first
+  selected_ids = all(".line [data-select-line]:checked").map {|cb| cb.find(:xpath, "ancestor::div[@data-id]")["data-id"]}
+  @item = @hand_over.lines.select{|l| !l.item and selected_ids.include? l.id.to_s and l.model.items.in_stock.exists?}.first.model.items.in_stock.first
   find("[data-add-contract-line]").set @item.inventory_code
   find("[data-add-contract-line] + .addon").click
 end
 
 Then /^the first itemline in the selection matching the provided inventory code is assigned$/ do
-  page.should have_selector(".line-info.green")
+  page.should have_selector(".line.green")
   line = @hand_over.reload.lines.detect{|line| line.item == @item}
   line.should_not == nil
 end

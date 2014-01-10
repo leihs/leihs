@@ -291,6 +291,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/inventar5.feature"
+- name: examples/aushaendigung2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/aushaendigung2.feature"
 - name: examples/gegenstand_erstellen3
   scripts:
     cucumber:
@@ -323,6 +327,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/examples/gegenstand_erstellen.feature"
+- name: examples/ruecknahme2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/ruecknahme2.feature"
 - name: examples/probleme
   scripts:
     cucumber:
@@ -879,6 +887,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/borrow/kalender4.feature"
+- name: borrow/modellliste6
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/modellliste6.feature"
 - name: borrow/suche
   scripts:
     cucumber:

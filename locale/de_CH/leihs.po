@@ -2556,6 +2556,12 @@ msgstr "%s zugeordnet zu %s"
 msgid "%s is already assigned to a contract"
 msgstr "%s ist bereits einem Vertrag zugewiesen"
 
+msgid "%s is already assigned to this contract"
+msgstr "%s ist bereits diesem Vertrag zugewiesen"
+
+msgid "%s is already assigned to a different contract"
+msgstr "%s ist bereits einem anderen Vertrag zugewiesen"
+
 msgid "Hand over of %s item"
 msgid_plural "Hand over of %s items"
 msgstr[0] "Aushändigung von %s Gegenstand"

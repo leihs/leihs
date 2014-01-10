@@ -2484,6 +2484,12 @@ msgstr ""
 msgid "%s assigned to %s"
 msgstr ""
 
+msgid "%s is already assigned to a contract"
+msgstr ""
+
+msgid "%s is already assigned to this contract"
+msgstr ""
+
 msgid "%s is already assigned to a different contract"
 msgstr ""
 

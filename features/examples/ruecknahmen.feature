@@ -8,26 +8,25 @@ Funktionalität: Rücknahmen
 
   Grundlage:
     Angenommen Personas existieren
+    Angenommen man ist "Pius"
 
   @javascript
   Szenario: Festhalten wer einen Gegenstand zurückgenommen hat
-    Angenommen man ist "Pius"
     Wenn ich einen Gegenstand zurücknehme
     Dann wird festgehalten, dass ich diesen Gegenstand zurückgenommen habe
 
   @javascript
   Szenario: Korrekte Reihenfolge mehrerer Verträge
-    Angenommen man ist "Pius"
     Und es existiert ein Benutzer mit mindestens 2 Rückgaben an 2 verschiedenen Tagen
     Wenn man die Rücknahmenansicht für den Benutzer öffnet
     Dann sind die Rücknahmen aufsteigend nach Datum sortiert
 
   @javascript
   Szenario: Optionen in mehreren Zeitfenstern vorhanden
-    Angenommen man ist "Pius"
-    Wenn ich eine Option zurücknehme
-    Und die Option in mehreren Zeitfenstern vorhanden ist
+    Angenommen es existiert ein Benutzer mit einer zurückzugebender Option in zwei verschiedenen Zeitfenstern
+    Und ich öffne die Rücknahmeansicht für diesen Benutzer
+    Wenn ich diese Option zurücknehme
     Dann wird die Option dem ersten Zeitfenster hinzugefügt
-    Wenn ich dieselbe Option nochmals hinzufüge
-    Und im ersten Zeitfenster sind bereits die maximale Anzahl dieser Option erreicht
+    Wenn im ersten Zeitfenster bereits die maximale Anzahl dieser Option erreicht ist
+    Und ich dieselbe Option nochmals hinzufüge
     Dann wird die Option dem zweiten Zeitfenster hinzugefügt

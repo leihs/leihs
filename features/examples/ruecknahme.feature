@@ -11,44 +11,25 @@ Funktionalität: Rücknahme
     Und man ist "Pius"
 
   @javascript
-  Szenario: Festhalten wer einen Gegenstand zurückgenommen hat
-    Wenn ich einen Gegenstand zurücknehme
-    Dann wird festgehalten, dass ich diesen Gegenstand zurückgenommen habe
-    
-  @javascript
-  Szenario: Sperrstatus des Benutzers anzeigen
-    Angenommen ich befinde mich in einer Rücknahme für ein gesperrter Benutzer
-    Dann sehe ich neben seinem Namen den Sperrstatus 'Gesperrt!'
-
-  @javascript
   Szenario: Hinzufügen eines Gegenstandes in der Rücknahme
     Angenommen ich befinde mich in einer Rücknahme
-    Wenn ich einen Gegenstand zuteile
+    Wenn ich einen Gegenstand über das Zuweisenfeld zurücknehme
     Dann wird die Zeile selektiert
     Und die Zeile wird grün markiert
     Und ich erhalte eine Erfolgsmeldung
-  
+
   @javascript
-  Szenario: Bereits zugeteilter Gegenstand wird entfernt
+  Szenario: Deselektieren einer Linie
     Angenommen ich befinde mich in einer Rücknahme
-    Wenn ich die Zeile deselektiere
+    Wenn ich einen Gegenstand über das Zuweisenfeld zurücknehme
+    Und ich die Zeile deselektiere
     Dann ist die Zeile nicht mehr grün markiert
-  
+
   @javascript
   Szenario: Zurückzugebender Gegenstand hat Verspätung
-    Angenommen ich befinde mich in einer Rücknahme
-    Wenn ich einen Gegenstand zuteile, der ein Probelem hat
+    Angenommen ich befinde mich in einer Rücknahme mit mindestens einem verspäteten Gegenstand
+    Wenn ich einen verspäteten Gegenstand über das Zuweisenfeld zurücknehme
     Dann wird die Zeile grün markiert
     Und die Zeile wird selektiert
-    Und das Problemfeld wird mir angezeigt
-    Und ich erhalte eine grüne Erfolgsmeldung
-  
-  @javascript
-  Szenario: Zurückgeben einer Option
-    Angenommen ich befinde mich in einer Rücknahme
-    Wenn ich eine Option zuteile
-    Dann wird die Zeile selektiert
-    Und ich erhalte eine grüne Erfolgsmeldung
-    Wenn ich alle Optionen der gleichen Zeile zuteile
-    Dann wird die Zeile grün selektiert
-    Und ich erhalte eine grüne Erfolgsmeldung
+    Und das Problemfeld für die Linie wird angezeigt
+    Und ich erhalte eine Erfolgsmeldung

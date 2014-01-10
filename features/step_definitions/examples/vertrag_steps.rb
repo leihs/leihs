@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 Angenommen /^man öffnet einen Vertrag bei der Aushändigung$/ do
-  step 'I open a hand over'
+  step 'I open a hand over which has multiple unassigned lines and models in stock'
   3.times do
     step 'I select an item line and assign an inventory code'
   end

@@ -73,7 +73,7 @@ class window.App.TakeBackController extends Spine.Controller
   assign: (e)=>
     e.preventDefault() if e?
     inventoryCode = @input.val()
-    line = _.find @getLines(), (l)-> l.inventoryCode() == inventoryCode
+    line = _.find @getLines(), @getCheckLineFunction(inventoryCode)
     if line
       App.Flash
         type: "success"
@@ -85,6 +85,12 @@ class window.App.TakeBackController extends Spine.Controller
         type: "error"
         message: _jed "%s was not found for this take back", inventoryCode
     @input.val("").blur()
+
+  getCheckLineFunction: (inv_code) =>
+    el = @el
+    (line) ->
+      line.inventoryCode() == inv_code and
+        (if line.option() then el.find(".line[data-id='#{line.id}'] input[data-quantity-returned]").val() < line.quantity else true)
 
   getQuantity: (line)=>
     input = @el.find(".line[data-id='#{line.id}'] input[data-quantity-returned]")
@@ -127,6 +133,8 @@ class window.App.TakeBackController extends Spine.Controller
     target = $ e.currentTarget
     line = App.ContractLine.find target.closest("[data-id]").data "id"
     App.LineSelectionController.add(line.id)
+    do @lineSelection.unmarkAllLines
+    do @lineSelection.markSelectedLines
     quantity = parseInt target.val()
     target.val(0) if _.isNaN(quantity)
     target.val(0) if quantity < 0

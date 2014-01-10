@@ -20,6 +20,7 @@ module Persona
         create_lending_manager_user
         create_external_user
         create_user_with_large_hand_over
+        create_users_with_take_backs
       end
     end
 
@@ -51,5 +52,32 @@ module Persona
         approved_contract.contract_lines << FactoryGirl.create(:contract_line, :purpose => approved_contract_purpose, :contract => approved_contract, :model => i.model, :item => i)
       end
     end
+
+    def create_users_with_take_backs
+      # user with a take back which has an option line with quantity >= 2
+      user1 = FactoryGirl.create :user
+      user1.access_rights.create(:role => Role.find_by_name("customer"), :inventory_pool => @inventory_pool)
+
+      contract = FactoryGirl.create(:contract, :user => user1, :inventory_pool => @inventory_pool, :status => :approved)
+      contract_purpose = FactoryGirl.create :purpose, :description => "Ersatzstativ für die Ausstellung."
+
+      contract.contract_lines << FactoryGirl.create(:option_line, purpose: contract_purpose, contract: contract, quantity: 2)
+      item = FactoryGirl.create(:item, owner: @inventory_pool)
+      contract.contract_lines << FactoryGirl.create(:contract_line, item: item, model: item.model, purpose: contract_purpose, contract: contract)
+      contract.sign User.find_by_login("pius")
+
+      # create user with more take backs with same option
+      user2 = FactoryGirl.create :user
+      user2.access_rights.create(:role => Role.find_by_name("customer"), :inventory_pool => @inventory_pool)
+
+      contract = FactoryGirl.create(:contract, :user => user2, :inventory_pool => @inventory_pool, :status => :approved)
+      contract_purpose = FactoryGirl.create :purpose, :description => "Ersatzstativ für die Ausstellung."
+
+      option = FactoryGirl.create :option, inventory_pool: @inventory_pool
+      contract.contract_lines << FactoryGirl.create(:option_line, option: option, purpose: contract_purpose, contract: contract, quantity: 2, start_date: Date.yesterday, end_date: Date.today)
+      contract.contract_lines << FactoryGirl.create(:option_line, option: option, purpose: contract_purpose, contract: contract, quantity: 1, start_date: Date.yesterday, end_date: Date.tomorrow)
+      contract.sign User.find_by_login("pius")
+    end
+
   end
 end

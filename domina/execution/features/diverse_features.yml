@@ -1,168 +1,76 @@
-- name: borrow/verfuegbarkeit
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/verfuegbarkeit.feature"
-- name: borrow/timeoutpage
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/timeoutpage.feature"
-- name: borrow/startseite
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/startseite.feature"
-- name: borrow/modellliste5
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/modellliste5.feature"
-- name: borrow/bestellfensterchen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/bestellfensterchen.feature"
-- name: borrow/navigation
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/navigation.feature"
-- name: borrow/suche2
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/suche2.feature"
-- name: borrow/kalender
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/kalender.feature"
-- name: borrow/dokumente
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/dokumente.feature"
-- name: borrow/brotkrumennavigation2
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/brotkrumennavigation2.feature"
-- name: borrow/kalender6
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/kalender6.feature"
-- name: borrow/dokumente2
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/dokumente2.feature"
-- name: borrow/bestelluebersicht3
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/bestelluebersicht3.feature"
-- name: borrow/bestelluebersicht2
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/bestelluebersicht2.feature"
-- name: borrow/bestelluebersicht4
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/bestelluebersicht4.feature"
-- name: borrow/geraeteparks
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/geraeteparks.feature"
-- name: borrow/modellliste4
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/modellliste4.feature"
-- name: borrow/bestellfensterchen3
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/bestellfensterchen3.feature"
-- name: borrow/modellliste
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/modellliste.feature"
-- name: borrow/benutzeransicht
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/benutzeransicht.feature"
-- name: borrow/modelluebersicht
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/modelluebersicht.feature"
-- name: borrow/modellliste3
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/modellliste3.feature"
-- name: borrow/bestellfensterchen4
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/bestellfensterchen4.feature"
-- name: borrow/kalender5
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/kalender5.feature"
-- name: borrow/kalender4
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/kalender4.feature"
-- name: borrow/suche
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/suche.feature"
-- name: borrow/kalender2
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/kalender2.feature"
-- name: borrow/timeoutpage2
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/timeoutpage2.feature"
-- name: borrow/explorative_suche
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/explorative_suche.feature"
-- name: borrow/modelluebersicht2
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/modelluebersicht2.feature"
-- name: borrow/bestelluebersicht
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/bestelluebersicht.feature"
-- name: borrow/vorlagen2
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/vorlagen2.feature"
-- name: borrow/vorlagen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/vorlagen.feature"
-- name: borrow/abholungen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/abholungen.feature"
-- name: borrow/sprache
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/sprache.feature"
-- name: borrow/rueckgaben
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/rueckgaben.feature"
-- name: borrow/kalender3
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/kalender3.feature"
-- name: borrow/bestellfensterchen2
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/bestellfensterchen2.feature"
-- name: borrow/timeoutpage3
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/timeoutpage3.feature"
-- name: borrow/brotkrumennavigation
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/brotkrumennavigation.feature"
-- name: borrow/bestellungen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p all "features/borrow/bestellungen.feature"
 - name: borrow/modellliste2
   scripts:
     cucumber:
       body: bundle exec cucumber -p all "features/borrow/modellliste2.feature"
+- name: borrow/modellliste6
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/modellliste6.feature"
+- name: borrow/timeoutpage3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/borrow/timeoutpage3.feature"
+- name: examples/inventar5
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/inventar5.feature"
+- name: examples/probleme2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/probleme2.feature"
+- name: examples/vertrag
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/vertrag.feature"
+- name: examples/vertrag2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/vertrag2.feature"
+- name: examples/vertrag3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/vertrag3.feature"
+- name: examples/vertrag6
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/vertrag6.feature"
+- name: examples/werteliste
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/werteliste.feature"
+- name: examples/werteliste3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/werteliste3.feature"
+- name: examples/zweck2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/examples/zweck2.feature"
+- name: login/login
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/login/login.feature"
+- name: manage/acknowledge/add_item
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/acknowledge/add_item.feature"
+- name: manage/acknowledge/edit_order_line
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/acknowledge/edit_order_line.feature"
+- name: manage/hand_over/assign
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/hand_over/assign.feature"
+- name: manage/hand_over/delete2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/hand_over/delete2.feature"
+- name: manage/hand_over/edit_contract_line
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/hand_over/edit_contract_line.feature"
+- name: manage/hand_over/edit_contract_line2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p all "features/manage/hand_over/edit_contract_line2.feature"

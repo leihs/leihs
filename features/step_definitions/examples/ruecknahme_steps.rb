@@ -49,3 +49,103 @@ When(/^ich befinde mich in einer Rücknahme für ein gesperrter Benutzer$/) do
   ensure_suspended_user(@customer, @ip)
   visit manage_take_back_path(@ip, @customer)
 end
+
+Angenommen(/^ich befinde mich in einer Rücknahme$/) do
+  @take_back = @current_inventory_pool.visits.take_back.sample
+  @user = @take_back.user
+  step "man die Rücknahmenansicht für den Benutzer öffnet"
+end
+
+Dann(/^ich erhalte eine Erfolgsmeldung$/) do
+  page.has_selector? ".flash.success"
+end
+
+Wenn(/^ich einen Gegenstand über das Zuweisenfeld zurücknehme$/) do
+  @contract_line = @take_back.lines.select{|l| l.is_a? ItemLine}.sample
+  find("form#assign input#assign-input").set @contract_line.item.inventory_code
+  find("form#assign button .icon-ok-sign").click
+  @line_css = ".line[data-id='#{@contract_line.id}']"
+end
+
+Angenommen(/^ich befinde mich in einer Rücknahme mit mindestens einem verspäteten Gegenstand$/) do
+  @take_back = @current_inventory_pool.visits.take_back.find {|v| v.lines.any? {|l| l.end_date.past? }}
+  @user = @take_back.user
+  step "man die Rücknahmenansicht für den Benutzer öffnet"
+end
+
+Wenn(/^ich einen verspäteten Gegenstand über das Zuweisenfeld zurücknehme$/) do
+  @contract_line = @take_back.lines.find{|l| l.end_date.past?}
+  find("form#assign input#assign-input").set @contract_line.item.inventory_code
+  find("form#assign button .icon-ok-sign").click
+  @line_css = ".line[data-id='#{@contract_line.id}']"
+end
+
+Dann(/^das Problemfeld für die Linie wird angezeigt$/) do
+  page.has_selector? "#{@line_css} .line-info.red"
+  page.has_selector? "#{@line_css} .red.tooltip"
+end
+
+Angenommen(/^ich befinde mich in einer Rücknahme mit mindestens zwei gleichen Optionen$/) do
+  @take_back = @current_inventory_pool.visits.take_back.find {|v| v.lines.any? {|l| l.quantity >= 2 }}
+  @user = @take_back.user
+  step "man die Rücknahmenansicht für den Benutzer öffnet"
+end
+
+Wenn(/^ich eine Option über das Zuweisenfeld zurücknehme$/) do
+  @contract_line = @take_back.lines.find {|l| l.quantity >= 2 }
+  find("form#assign input#assign-input").set @contract_line.item.inventory_code
+  find("form#assign button .icon-ok-sign").click
+  @line_css = ".line[data-id='#{@contract_line.id}']"
+end
+
+Dann(/^die Zeile ist nicht grün markiert$/) do
+  find(@line_css).native.attribute("class").should_not include "green"
+end
+
+Wenn(/^ich alle Optionen der gleichen Zeile zurücknehme$/) do
+  (@contract_line.quantity - find(@line_css).find("input[data-quantity-returned]").value.to_i).times do
+    find("form#assign input#assign-input").set @contract_line.item.inventory_code
+    find("form#assign button .icon-ok-sign").click
+  end
+end
+
+Angenommen(/^es existiert ein Benutzer mit einer zurückzugebender Option in zwei verschiedenen Zeitfenstern$/) do
+  @user = User.find do |u|
+    option_lines = u.visits.take_back.flat_map(&:lines).select {|l| l.is_a? OptionLine}
+    option_lines.uniq(&:option).size < option_lines.size
+  end
+  @user.should_not be_nil
+end
+
+Wenn(/^ich öffne die Rücknahmeansicht für diesen Benutzer$/) do
+  visit manage_take_back_path(@current_inventory_pool, @user)
+end
+
+Wenn(/^ich diese Option zurücknehme$/) do
+  @option = Option.find {|o| o.option_lines.select{|l| l.contract.status == :signed and l.contract.user == @user}.count >= 2}
+  find("form#assign input#assign-input").set @option.inventory_code
+  find("form#assign button .icon-ok-sign").click
+end
+
+Dann(/^wird die Option dem ersten Zeitfenster hinzugefügt$/) do
+  @option_lines = @option.option_lines.select{|l| l.contract.status == :signed and l.contract.user == @user}
+  @option_line = @option_lines.sort{|a, b| a.end_date <=> b.end_date}.first
+  first("[data-selected-lines-container]").find(".line[data-id='#{@option_line.id}'] [data-quantity-returned]").value.to_i > 0
+end
+
+Wenn(/^ich dieselbe Option nochmals hinzufüge$/) do
+  find("form#assign input#assign-input").set @option.inventory_code
+  find("form#assign button .icon-ok-sign").click
+end
+
+Wenn(/^im ersten Zeitfenster bereits die maximale Anzahl dieser Option erreicht ist$/) do
+  until first("[data-selected-lines-container]").find(".line[data-id='#{@option_line.id}'] [data-quantity-returned]").value.to_i == @option_line.quantity
+    find("form#assign input#assign-input").set @option.inventory_code
+    find("form#assign button .icon-ok-sign").click
+  end
+end
+
+Dann(/^wird die Option dem zweiten Zeitfenster hinzugefügt$/) do
+  @option_line = @option_lines.sort{|a, b| a.end_date <=> b.end_date}.second
+  all("[data-selected-lines-container]").to_a.second.find(".line[data-id='#{@option_line.id}'] [data-quantity-returned]").value.to_i > 0
+end

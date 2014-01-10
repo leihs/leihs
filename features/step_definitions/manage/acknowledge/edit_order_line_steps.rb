@@ -19,7 +19,12 @@ When /^I open a contract for acknowledgement with more then one line$/ do
 end
 
 When /^I open the booking calendar for this line$/ do
-  @line_element.find("[data-edit-lines]").click
+  begin
+    el = @line_element
+  rescue # fix 'Element not found in the cache'
+    el = find(@line_element_css)
+  end
+  el.find("[data-edit-lines]").click
   step "I see the booking calendar"
 end
 
@@ -88,6 +93,10 @@ When /^I change a contract lines quantity$/ do
     @new_quantity = @line.quantity + 1
     @line_element = find(".line[data-id='#{@line.id}']")
   end
+  @line_element_css = ".line[data-ids*='#{@line.id}']"
+  @line_element_css ||= ".line[data-id='#{@line.id}']"
+  @line_element = all(@line_element_css).first
+  @line_element ||= all(@line_element_css).first
   step 'I open the booking calendar for this line'
   first("input#booking-calendar-quantity").set @new_quantity
   step 'I save the booking calendar'
