@@ -117,7 +117,7 @@ items_to_import.each do |item|
   #  puts i.inspect
   else
     @failures += 1
-    puts "Could not import item #{i.inventory_code}"
+    @errorlog.puts "Could not import item #{i.inventory_code}. Errors: #{i.errors.full_messages}"
   end
 
 end
