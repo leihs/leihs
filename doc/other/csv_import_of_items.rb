@@ -8,18 +8,61 @@ import_file = "/tmp/items.csv"
 @failures = 0
 @successes = 0
 
+@errorlog = File.open("/tmp/import_errors.txt", "w+")
+
 items_to_import = CSV.open(import_file, :col_sep => "\t", :headers => true)
 
-# CSV fields:
-# 0: Bezeichnung
-# 1: Inventarnummer
-# 2: Seriennummer
-# 3: Hersteller
-# 4: Typ (= Kategorie)
-# 5: Zubehör (comma-separated field)
-# 6: Defekt: (-> Notiz)
+def log_error(error, item)
+  @errorlog.puts "ERROR: #{error}. Item: #{item}"
+end
+
+def validate_item(item)
+  errors = false
+
+  unless item["Leihs - Modellnummer"].match(/^\d+$/)
+    log_error "Model ID is not numeric.", item
+    errors = true
+  else
+    begin
+      Model.find(item["Leihs - Modellnummer"])
+    rescue
+      errors = true
+      log_error "Model not found.", item
+    end
+  end
+
+  if item["Verantwortliche Abteilung"].blank?
+    errors = true
+    log_error "Verantwortliche Abteilung is blank", item
+  else
+    responsible_ip = InventoryPool.where(:name => item["Verantwortliche Abteilung"]).first
+    if responsible_ip.nil?
+      errors = true
+      log_error "Responsible inventory pool does not exist", item
+    end
+  end
+
+  if item["Besitzer"].blank?
+    errors = true
+    log_error "Besitzer is blank", item
+  else
+    owner_ip = InventoryPool.where(:name => item["Besitzer"]).first
+    if owner_ip.nil?
+      errors = true
+      log_error "Owner does not exist", item
+    end
+  end
+
+
+  if errors
+    return false
+  else
+    return true
+  end
+end
 
 items_to_import.each do |item|
+  next if not validate_item(item)
   i = Item.new
   i.model = Model.find(item["Leihs - Modellnummer"])
   i.inventory_code = item["Inv-Code:"]
@@ -68,14 +111,14 @@ items_to_import.each do |item|
   puts i
 
 
-  #if i.save
+  if i.save
   #  puts "Item imported correctly:"
-  #  @successes += 1
+    @successes += 1
   #  puts i.inspect
-  #else
-  #  @failures += 1
-  #  puts "Could not import item #{inventory_code}"
-  #end
+  else
+    @failures += 1
+    puts "Could not import item #{i.inventory_code}"
+  end
 
 end
 
@@ -83,3 +126,6 @@ puts "-----------------------------------------"
 puts "DONE"
 puts "#{@successes} successes, #{@failures} failures"
 puts "-----------------------------------------"
+
+
+@errorlog.close
