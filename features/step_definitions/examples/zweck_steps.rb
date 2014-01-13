@@ -31,7 +31,7 @@ Dann /^sehe ich den Zweck$/ do
 end
 
 Wenn /^ich eine Aushändigung mache$/ do
-  step 'I open a hand over'
+  step 'I open a hand over which has multiple unassigned lines and models in stock'
 end
 
 Dann /^sehe ich auf jeder Zeile den zugewisenen Zweck$/ do
