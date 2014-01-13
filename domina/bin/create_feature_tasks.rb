@@ -4,7 +4,7 @@ require 'pry'
 
 def task_for_feature_file file_path
   name= file_path.match(/features\/(.*)\.feature/).captures.first
-  exec = %{bundle exec cucumber -p all "#{file_path}"}
+  exec = %{bundle exec cucumber -p default "#{file_path}"}
   {"name" => name,
     "scripts" => {
     "cucumber" => {

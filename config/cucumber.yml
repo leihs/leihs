@@ -1,4 +1,2 @@
-all:  -r features --tags=~@upcoming --format pretty --format rerun --out tmp/rerun.txt --format junit --out tmp/junit --format html --tags=~@old-ui --out tmp/html/cucumber_all.html
-default:  -r features --tags=~@upcoming --format pretty --format junit --out tmp/junit --format html --out tmp/html/cucumber.html --tags=~@old-ui -e 'features/examples' features
-examples: -r features --tags=~@upcoming --format pretty --format junit --out tmp/junit --format html --out tmp/html/examples.html
+default:  -r features --tags=~@upcoming --format pretty --format rerun --out tmp/rerun.txt --format junit --out tmp/junit --format html --tags=~@old-ui --out tmp/html/cucumber_all.html
 rerun: "-r features @tmp/rerun.txt --format pretty --format junit --out tmp/junit --format rerun --out tmp/rererun.txt"

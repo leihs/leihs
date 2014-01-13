@@ -43,7 +43,7 @@ namespace :app do
       task :all do
         ENV['CUCUMBER_FORMAT'] = 'pretty' unless ENV['CUCUMBER_FORMAT']
         # We skip the tests that broke due to the new UI. We need to re-implement them with the new UI.
-        system "bundle exec cucumber -p all"
+        system "bundle exec cucumber -p default"
         exit_code_first_run = $?.exitstatus
 
         if exit_code_first_run != 0
