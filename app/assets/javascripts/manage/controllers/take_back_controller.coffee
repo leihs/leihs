@@ -17,7 +17,7 @@ class window.App.TakeBackController extends Spine.Controller
   constructor: ->
     super
     App.TakeBackController.readyForTakeBack = []
-    @lineSelection = new App.LineSelectionController {el: @el}
+    @lineSelection = new App.LineSelectionController {el: @el, markVisitLinesController: new App.MarkVisitLinesController {el: @el}}
     if @getLines().length
       do @fetchAvailability
     do @setupAutocomplete
@@ -80,7 +80,8 @@ class window.App.TakeBackController extends Spine.Controller
         message: _jed "%s selected for take back", line.model().name
       App.LineSelectionController.add line.id
       @increaseOption line if line.option_id
-    else if App.ContractLine.findByAttribute("option_id", App.Option.findByAttribute("inventory_code", inventoryCode).id)?
+    # line for assignment not found because it was already assigned maximum possible before
+    else if App.ContractLine.findByAttribute("option_id", App.Option.findByAttribute("inventory_code", inventoryCode)?.id)
       App.Flash
         type: "error"
         message: _jed "You can not take back more options then you handed over"
@@ -137,8 +138,7 @@ class window.App.TakeBackController extends Spine.Controller
     target = $ e.currentTarget
     line = App.ContractLine.find target.closest("[data-id]").data "id"
     App.LineSelectionController.add(line.id)
-    do @lineSelection.unmarkAllLines
-    do @lineSelection.markSelectedLines
+    @lineSelection.markVisitLinesController?.update App.LineSelectionController.selected
     quantity = parseInt target.val()
     target.val(0) if _.isNaN(quantity)
     target.val(0) if quantity < 0
@@ -147,8 +147,7 @@ class window.App.TakeBackController extends Spine.Controller
         type: "error"
         message: _jed "You can not take back more items then you handed over"
       target.val line.quantity
-      do @lineSelection.unmarkAllLines
-      do @lineSelection.markSelectedLines
+      @lineSelection.markVisitLinesController?.update App.LineSelectionController.selected
 
   inspectItem: (e)=>
     item = App.Item.find $(e.currentTarget).data("item-id")

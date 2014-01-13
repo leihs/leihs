@@ -2591,10 +2591,13 @@ msgid "%s selected for take back"
 msgstr "%s für Rücknahme ausgewählt"
 
 msgid "%s was not found for this take back"
-msgstr "%s würde nicht für diese Rücknahme gefunden"
+msgstr "%s wurde nicht für diese Rücknahme gefunden"
 
 msgid "You can not take back more items then you handed over"
-msgstr "Sie können nicht mehr zurücknehmen als Sie ausgehändigt haben"
+msgstr "Sie können nicht mehr Gegenstände zurücknehmen als Sie ausgehändigt haben"
+
+msgid "You can not take back more options then you handed over"
+msgstr "Sie können nicht mehr Optionen zurücknehmen als Sie ausgehändigt haben"
 
 msgid "You have to provide the quantity for the things you want to return"
 msgstr "Sie müssen die Anzahl angeben, die sie zurücknehmen wollen"

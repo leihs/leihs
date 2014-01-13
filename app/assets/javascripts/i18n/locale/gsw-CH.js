@@ -73,36 +73,34 @@ window.i18n.locale_data = {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
          "POT-Creation-Date": " 2012-10-22 12:39+0200",
-         "PO-Revision-Date": " 2011-06-17 11:43+0100",
+         "PO-Revision-Date": " 2013-12-03 18:16+0100",
          "Last-Translator": " Ramón Cahenzli <rca@psy-q.ch>",
          "Language-Team": " Swiss-German (Zürich area) <ramon.cahenzli@zhdk.ch>",
-         "Language": " ",
          "MIME-Version": " 1.0",
          "Content-Type": " text/plain; charset=UTF-8",
          "Content-Transfer-Encoding": " 8bit",
-         "Plural-Forms": " nplurals=2; plural=(n != 1)",
-         "X-Poedit-Language": " Swiss-German",
-         "X-Poedit-Country": " Switzerland"
+         "Plural-Forms": " nplurals=2; plural=(n != 1);",
+         "X-Generator": " Poedit 1.5.7"
       },
       "Additional label in inventory codes": [
          null,
-         "Fehler bim aktualisiere vom Invenrarcode"
+         "Wiiteri Bezeichnige im Inventar-Code"
       ],
       "Visible for borrowers in frontend": [
          null,
-         ""
+         "Für Benutzer im Frontend sichtbar."
       ],
       "Print dialog will open aut.": [
          null,
-         ""
+         "Druckdialog wird automatisch göffnet"
       ],
       "Used for sending e-mails from leihs": [
          null,
-         ""
+         "Wird benutzt, zum E-Mails vo leihs z'verschicke"
       ],
       "This note is added to any contract, but can be changed individually before actually printing and signing each contract.": [
          null,
-         ""
+         "Die Notiz wird zu jedem Vertrag dezue taa, chan aber vor em drucke und underschriibe individuell aapasst werde."
       ],
       " at the inventory pool ": [
          null,
@@ -122,16 +120,16 @@ window.i18n.locale_data = {
       ],
       "%d day in the future": [
          "%d days in the future",
-         "",
-         ""
+         "%d Tag i de Zuekunft",
+         "%d Täg i de Zuekunft"
       ],
       "%s (View in Order)": [
          null,
-         ""
+         "%s (I de Bschtellig gseh)"
       ],
       "%s Search Results for \"%s\"": [
          null,
-         ""
+         "%s Suech-Resultat für \"%s\""
       ],
       "%s until %s": [
          null,
@@ -143,27 +141,27 @@ window.i18n.locale_data = {
       ],
       "A model for the Inventory Code / Serial Number '%s' was not found": [
          null,
-         "Ich han kes Modäll für de Inventarcode/Serienummärä %s gfunde"
+         "Ich han käs Modäll für de Inventarcode/d'Serienummärä %s gfunde"
       ],
       "A model with the ID '%s' was not found": [
          null,
-         ""
+         "Käs Modäll mit de ID '%s' gfunde"
       ],
       "A package cannot be nested to another package": [
          null,
-         ""
+         "Äs Packet chan nöd in es anders Paket "
       ],
       "A template with the ID '%s' was not found": [
          null,
-         ""
+         "Kei Vorlag mit de ID '%s' gfunde"
       ],
       "Ablauf Garantie": [
          null,
-         ""
+         "Ablauf Garantie"
       ],
       "Ablauf Vertrag": [
          null,
-         ""
+         "Ablauf Vertrag"
       ],
       "Access Level: %d": [
          null,
@@ -175,119 +173,119 @@ window.i18n.locale_data = {
       ],
       "Access Right successfully updated": [
          null,
-         "D Zuegriffsrächt sind erfolgriich aktualisiert"
+         "D'Zuegriffsrächt sind erfolgriich aktualisiert"
       ],
       "Access right reinstated": [
          null,
-         "Zuegriffsrächt erfolgriich erstellt"
+         "Zuegriffsrächt wider hergschtellt"
       ],
       "Acknowledge": [
          null,
-         ""
+         "Z'Kenntnis neh"
       ],
       "Add": [
          null,
-         "Dezuetue"
+         "Dezue tue"
       ],
       "Add %s": [
          null,
-         ""
+         "%s dezue tue"
       ],
       "Add Model": [
          null,
-         "Modäll"
+         "Modäll dezue tue"
       ],
       "Add Option": [
          null,
-         ""
+         "Option ergänze"
       ],
       "Add Purpose": [
          null,
-         ""
+         "Zwäck ergänze"
       ],
       "Add/Assign": [
          null,
-         ""
+         "Dezue tue/zuewiise"
       ],
       "Added": [
          null,
-         "Dezuetue"
+         "Dezue taa"
       ],
       "Additional notes": [
          null,
-         ""
+         "Zusätzlichi Notize"
       ],
       "Address": [
          null,
-         ""
+         "Adrässe"
       ],
       "Admin": [
          null,
-         ""
+         "Admin"
       ],
       "All": [
          null,
-         ""
+         "All"
       ],
       "An order for the following items listed below was received in an inventory pool you are responsible for.": [
          null,
-         "Ihri Bstellig vo de folgende Sache isch verschickt worde."
+         "D Bschtellig vo de folgende Sache isch imene Grätepark wo sie verantwortlich sind inechoo."
       ],
       "Ankunftsdatum": [
          null,
-         ""
+         "Aachumpftsdatum"
       ],
       "Ankunftsnotiz": [
          null,
-         ""
+         "Aachumpftsnotiz"
       ],
       "Ankunftszustand": [
          null,
-         ""
+         "Aachumpftszuestand"
       ],
       "Anschaffungskategorie": [
          null,
-         ""
+         "Aaschaffigskategorie"
       ],
       "Werkstatt-Technik": [
          null,
-         ""
+         "Werchstatt-Technik"
       ],
       "Produktionstechnik": [
          null,
-         ""
+         "Produktionstechnik"
       ],
       "AV-Technik": [
          null,
-         ""
+         "AV-Technik"
       ],
       "Musikinstrumente": [
          null,
-         ""
+         "Musiginstrumänt"
       ],
       "Facility Management": [
          null,
-         ""
+         "Huusdienscht"
       ],
       "IC-Technik/Software": [
          null,
-         ""
+         "IC-Technik/Software"
       ],
       "Approval Successful": [
          null,
-         ""
+         "Erfolgriichi Zuestimmig"
       ],
       "Approve": [
          null,
-         "Genehmigt"
+         "Genehmige"
       ],
-      "Approve order": [
+      "Approve Order": [
          null,
-         "Genehmigt"
+         "Bschtellig genehmige"
       ],
       "Approve anyway": [
          null,
-         "Genehmigt"
+         "Trotzdem genehmige"
       ],
       "Approved": [
          null,
@@ -295,31 +293,31 @@ window.i18n.locale_data = {
       ],
       "Approved Items": [
          null,
-         "Genehmigt"
+         "Genehmigti Sache"
       ],
       "Approved on": [
          null,
-         "Genehmigt"
+         "Genehmigt am"
       ],
       "Are any of the above borrowed items?": [
          null,
-         ""
+         "Hät's bi de obige Sache uusglehnti debi?"
       ],
       "Are any of the above items your personal computer?": [
          null,
-         ""
+         "Isch eini vo de obige Sache Ihre Computer"
       ],
       "Assign": [
          null,
-         ""
+         "Zuewisse"
       ],
       "Assigning the inventory code fails": [
          null,
-         ""
+         "S'Zuewiise vom Inventar-Code schlaat fähl"
       ],
       "Attachment was successfully created.": [
          null,
-         "Attachment erfolgriich erstellt."
+         "Aahang erfolgriich erstellt."
       ],
       "Attempt to add node to own graph collection": [
          null,
@@ -327,91 +325,91 @@ window.i18n.locale_data = {
       ],
       "Auswahl": [
          null,
-         ""
+         "Uuswahl"
       ],
       "Availability Timeline": [
          null,
-         ""
+         "Verfüegbarkeits Ziitachse"
       ],
       "Available": [
          null,
-         "nöd verfüegbar."
+         "Verfüegbar."
       ],
       "Available in group '": [
          null,
-         ""
+         "Verfüegbar i de Gruppe '"
       ],
       "Available in total: ": [
          null,
-         ""
+         "Total verfüegbar: "
       ],
       "Back": [
          null,
-         ""
+         "Zrugg"
       ],
       "Back to this take back": [
          null,
-         ""
+         "Zrugg zu dere Rücknahm"
       ],
       "Back to this hand over": [
          null,
-         ""
+         "Zrugg zu dere d'Uusgab"
       ],
       "Backend": [
          null,
-         ""
+         "Backend"
       ],
       "Badge ID was updated": [
          null,
-         ""
+         "D'Backend-ID isch aktualisiert worde"
       ],
       "Badge%s": [
          null,
-         ""
+         "Badge%s"
       ],
       "Barcode": [
          null,
-         ""
+         "Barcode"
       ],
       "Reference": [
          null,
-         ""
+         "Referänz"
       ],
       "Book": [
          null,
-         ""
+         "Buech"
       ],
       "Borrowable": [
          null,
-         ""
+         "Uuslehnbar"
       ],
       "Borrowed Items": [
          null,
-         ""
+         "Ussglehnti Sache"
       ],
       "Borrower": [
          null,
-         ""
+         "Uuslehner"
       ],
       "Broken": [
          null,
-         ""
+         "kabutt"
       ],
       "Building": [
          null,
-         ""
+         "Geboide"
       ],
       "By not returning these items, you are blocking other people's reservations. This is very unfair to the other clients and to the inventory manager, since you are causing a significant amount of trouble and annoyance.": [
          null,
-         "Will Sie die Gägeständ nöd zurgg bringed blockiered Sie andere Lüüt ihri Reservatione. Das isch de andere Chunde und am Inventar-Manager gägenüber sehr unfair will Sie vil lästige Ärger verursachet."
+         "Will Sie die Sache nöd zurgg bringed, blockiered Sie anderne Lüüt ihri Reservatione. Das isch de andere Chunde und am Inventar-Manager gägenüber sehr unfär, will Si vil läschtige Ärger verursachet."
       ],
       "CSV": [
          null,
-         ""
+         "CSV"
       ],
       "CSV export": [
          null,
-         ""
+         "CSV-Export"
       ],
       "Cancel": [
          null,
@@ -419,35 +417,35 @@ window.i18n.locale_data = {
       ],
       "Cancel Edit": [
          null,
-         "Abbräche"
+         "Bearbeitig abbräche"
       ],
       "Categories": [
          null,
-         ""
+         "Kategorie"
       ],
       "Category": [
          null,
-         ""
+         "Kategorii"
       ],
       "Change Borrower": [
          null,
-         ""
+         "Uuslehner ändere"
       ],
       "Change Borrower Successful": [
          null,
-         ""
+         "Uuslehner erfolgriich ändere"
       ],
-      "Change orderer": [
+      "Change Orderer": [
          null,
-         ""
+         "Bschteller ändere"
       ],
-      "Change orderer Successful": [
+      "Change Orderer Successful": [
          null,
-         ""
+         "Bschteller erfolgriich gänderet"
       ],
       "Changed %s from %s to %s": [
          null,
-         ""
+         "%s vo %s zu %s g'ändered"
       ],
       "Changed dates for %{model} from %{from} to %{to}": [
          null,
@@ -463,23 +461,23 @@ window.i18n.locale_data = {
       ],
       "Compatibles": [
          null,
-         ""
+         "Kompatiible"
       ],
       "Complete": [
          null,
-         "Nöd vollständig"
+         "Vollständig"
       ],
       "Complete Search": [
          null,
-         ""
+         "Vollständigi Suechi"
       ],
       "Completeness": [
          null,
-         "Nöd vollständig"
+         "Vollständigkeit"
       ],
       "Consider opening hours": [
          null,
-         ""
+         "Öffnigsziite berücksichtige"
       ],
       "Contract": [
          null,
@@ -487,7 +485,7 @@ window.i18n.locale_data = {
       ],
       "Default Contract Note": [
          null,
-         "Vertrag nr. "
+         "Standard Vertragsnachricht"
       ],
       "Contract %d has been signed by %s": [
          null,
@@ -495,19 +493,19 @@ window.i18n.locale_data = {
       ],
       "Contract No.": [
          null,
-         "Vertrag nr. "
+         "Vertrags-Nr. "
       ],
       "Contract Nr.": [
          null,
-         "Vertrag nr. "
+         "Vertrags-Nr. "
       ],
       "Contracts": [
          null,
-         "Vertrag"
+         "Verträg"
       ],
       "Couldn't update ": [
          null,
-         ""
+         "Aktualisierig isch fählgschlage"
       ],
       "Created at": [
          null,
@@ -515,31 +513,31 @@ window.i18n.locale_data = {
       ],
       "Current Order": [
          null,
-         ""
+         "Aktuelli Bschtellig"
       ],
       "Currently Borrowed Items": [
          null,
-         ""
+         "Aktuell uusglehnti Sache"
       ],
       "Currently has things to return": [
          null,
-         ""
+         "Hät aktuell Sache zum zrugg bringe"
       ],
       "Currently you have no items in your order.": [
          null,
-         ""
+         "Sie händ grad kei Sache i de Bschtellig"
       ],
       "Daily View": [
          null,
-         ""
+         "Tagesaasicht"
       ],
       "Day": [
          null,
-         ""
+         "Tag"
       ],
       "Days": [
          null,
-         ""
+         "Täg"
       ],
       "Deadline soon": [
          null,
@@ -551,123 +549,123 @@ window.i18n.locale_data = {
       ],
       "Dear client,": [
          null,
-         "Liebe leihs-Benutzer,"
+         "Liebe Chund,"
       ],
       "Dear leihs client,": [
          null,
-         "Liebe leihs-Benutzer,"
+         "Liebe leihs-Chund,"
       ],
       "Dear leihs manager,": [
          null,
-         "Liebe leihs-Benutzer,"
+         "Liebe leihs-Manager,"
       ],
       "Defective": [
          null,
-         ""
+         "Beschädigt"
       ],
       "Delete": [
          null,
-         ""
+         "Lösche"
       ],
       "Delete %s": [
          null,
-         ""
+         "%s lösche"
       ],
       "Delete Selection": [
          null,
-         ""
+         "Bereich lösche"
       ],
       "Delete this line": [
          null,
-         ""
+         "Ziile lösche"
       ],
       "Description": [
          null,
-         ""
+         "Beschriibig"
       ],
       "Documents": [
          null,
-         "Dokument"
+         "Dokumänt"
       ],
       "My documents": [
          null,
-         "Dokument"
+         "Mini Dokumänt"
       ],
       "Documents for hand over": [
          null,
-         ""
+         "Dokumänt für d'Uusgab"
       ],
       "Documents for take back": [
          null,
-         ""
+         "Dokumänt für d'Rücknahm"
       ],
       "E-Mail": [
          null,
-         ""
+         "E-Mail"
       ],
       "ERROR": [
          null,
-         ""
+         "ERROR"
       ],
       "Edit": [
          null,
-         ""
+         "Ändere"
       ],
       "Edit %s": [
          null,
-         ""
+         "%s ändere"
       ],
       "Edit Model": [
          null,
-         "Modäll"
+         "Modäll bearbeite"
       ],
       "Edit Item": [
          null,
-         ""
+         "Sache ändere"
       ],
       "Edit Option": [
          null,
-         ""
+         "Option ändere"
       ],
       "Edit Order": [
          null,
-         ""
+         "Bschtellig ändere"
       ],
       "Edit Purpose": [
          null,
-         ""
+         "Zwäck ändere"
       ],
       "Edit Selection": [
          null,
-         ""
+         "Uuswahl ändere"
       ],
       "Edit multiple selected lines": [
          null,
-         "S'Modäll muess uusgwählt sii"
+         "Mehreri aagwählti Linie bearbeite"
       ],
       "Edit purpose for order from": [
          null,
-         ""
+         "Zwäck ändere für's Bschtellformular"
       ],
       "Edit this Order": [
          null,
-         ""
+         "Bschtellig ändere"
       ],
       "Empty Username and/or Password": [
          null,
-         "Leere Benutzername und/oder Passwort"
+         "Lääre Benutzername und/oder Passwort"
       ],
       "End Date": [
          null,
-         ""
+         "Änd-Datum"
       ],
       "End date": [
          null,
-         ""
+         "Änd-Datum"
       ],
       "Equipment Booking and Inventory Management System": [
          null,
-         ""
+         "Equipment-Bschtellig und Inventar-Management-System"
       ],
       "Error": [
          null,
@@ -679,15 +677,15 @@ window.i18n.locale_data = {
       ],
       "Error deleting the accessory.": [
          null,
-         "Fähler bim lösche vom Zuebhör"
+         "Fähler bim lösche vom Zuebehör"
       ],
       "Error destroying the item package": [
          null,
-         "Error bim lösche vom Paked"
+         "Error bim lösche vom Paket"
       ],
       "Error destroying the package": [
          null,
-         "Fähler bim lösche vom Packet"
+         "Fähler bim lösche vom Paket"
       ],
       "Error saving the package": [
          null,
@@ -703,103 +701,103 @@ window.i18n.locale_data = {
       ],
       "Finish this hand over": [
          null,
-         ""
+         "Uusgab abschlüsse"
       ],
       "Finish this take back": [
          null,
-         "Dä Gägestand isch zrugg gno"
+         "Rücknahm abschlüsse"
       ],
       "Found %d matches": [
          null,
-         ""
+         "%d Träfffer gfunde"
       ],
       "Found %s": [
          null,
-         ""
+         "%s gfunde"
       ],
       "Fri": [
          null,
-         ""
+         "Fr"
       ],
       "Frontend": [
          null,
-         ""
+         "Frontend"
       ],
       "Functional": [
          null,
-         ""
+         "Funktional"
       ],
       "General Information": [
          null,
-         ""
+         "Allgemeini Information"
       ],
       "Go Back": [
          null,
-         ""
+         "Zrugg gah"
       ],
       "Group %s": [
          null,
-         ""
+         "Gruppe %s"
       ],
       "Hand Over": [
          null,
-         ""
+         "Uusgab"
       ],
       "Hand Over Selection": [
          null,
-         ""
+         "Uuswahl uusgäh"
       ],
       "Hand Over to": [
          null,
-         ""
+         "Uusgab a"
       ],
       "Hand Over to %s": [
          null,
-         ""
+         "Uusgäh a %s"
       ],
       "Hand Overs": [
          null,
-         ""
+         "Uusgabe"
       ],
       "Help": [
          null,
-         ""
+         "Hilf"
       ],
       "Highlight available items.": [
          null,
-         ""
+         "Verfüegbari Sache kännzeichne."
       ],
       "History": [
          null,
-         ""
+         "Verlauf"
       ],
       "IMEI-Number": [
          null,
-         ""
+         "IMEI-Nummere"
       ],
       "Important notes for hand over": [
          null,
-         ""
+         "Wichtigi Bemerkige für d'Uusgab"
       ],
       "In Stock": [
          null,
-         ""
+         "A Lager"
       ],
       "in stock": [
          null,
-         ""
+         "a Lager"
       ],
       "rentable": [
          null,
-         ""
+         "uuslehnbar"
       ],
       "not in stock": [
          null,
-         ""
+         "nöd a Lager"
       ],
       "In Total": [
          null,
-         ""
+         "Im Ganze"
       ],
       "In the interest of all our clients we ask you to observe the return dates.": [
          null,
@@ -811,39 +809,39 @@ window.i18n.locale_data = {
       ],
       "Inconsistent Inventory Pool": [
          null,
-         "Grätepark"
+         "Inkonsischtänte Grätepark"
       ],
       "Initial Price": [
          null,
-         ""
+         "Aafangspriis"
       ],
       "Inspect": [
          null,
-         ""
+         "Undersueche"
       ],
       "Inspect Item": [
          null,
-         ""
+         "Sach undersueche"
       ],
       "Insurance Number": [
          null,
-         ""
+         "Versicherigs-Nummerä"
       ],
       "Internal Description": [
          null,
-         ""
+         "Interni Beschriibig"
       ],
       "Introduction": [
          null,
-         ""
+         "Iileitig"
       ],
       "Invalid order_lines": [
          null,
-         ""
+         "Ungültigi Bschtellinie"
       ],
       "Invalid technical user - contact your leihs admin": [
          null,
-         ""
+         "ungütlrige technische Benutzer - kontaktiered Si ihre leihs-Admin"
       ],
       "Invalid username/password": [
          null,
@@ -855,11 +853,11 @@ window.i18n.locale_data = {
       ],
       "Inventory Code": [
          null,
-         "Grätepark"
+         "Grätepark-Code"
       ],
       "Inventory Code / Name": [
          null,
-         "Inventarcode aktualisiert"
+         "Grätepark-Code/Name"
       ],
       "Inventory Pool": [
          null,
@@ -867,7 +865,7 @@ window.i18n.locale_data = {
       ],
       "Inventory pool successfully created": [
          null,
-         "Attachment erfolgriich erstellt."
+         "Grätepark erfolgriich erstellt"
       ],
       "Inventory Pool is missing": [
          null,
@@ -875,11 +873,11 @@ window.i18n.locale_data = {
       ],
       "Inventory Pools": [
          null,
-         "Grätepark"
+         "Grätepärk"
       ],
       "Inventory code": [
          null,
-         "Grätepark"
+         "Grätepark-Code"
       ],
       "Inventory code updated": [
          null,
@@ -891,60 +889,60 @@ window.i18n.locale_data = {
       ],
       "InventoryPool|Email": [
          null,
-         "Grätepark"
+         "Grätepark|Mail"
       ],
       "InventoryPool|Shortname": [
          null,
-         "Grätepark"
+         "Grätepark|Churzname"
       ],
       "Investment": [
          null,
-         ""
+         "Inveschtment"
       ],
       "Invoice Date": [
          null,
-         ""
+         "Rächnigsdatum"
       ],
       "Invoice Information": [
          null,
-         ""
+         "Rächnigsinformatione"
       ],
       "Invoice Number": [
          null,
-         ""
+         "Rächnigsnummere"
       ],
       "Item": [
          "Items",
-         "",
-         ""
+         "Sach",
+         "Sache"
       ],
       "Item handed over as part of contract %d.": [
          null,
-         "Sach als Teil vom Vertrag %d übergäh"
+         "D'Sach als Teil vom Vertrag %d übergäh"
       ],
       "Item is defective": [
          null,
-         ""
+         "D'Sach isch defekt"
       ],
       "Item is incomplete": [
          null,
-         "Nöd vollständig"
+         "D'Sach isch nöd vollständig"
       ],
       "Item is overdue and therefore unavailable!": [
          null,
-         ""
+         "D'Sach isch überfällig und drum nöd verfüegbar!"
       ],
       "Item is part of package": [
          null,
-         ""
+         "D'Sach isch Teil vomene Paket"
       ],
       "Item is reserved in the future, therefore it's not available!": [
          null,
-         ""
+         "D'Sach isch ide Zuekunft reserviert und drum nöd verfüegbar!"
       ],
       "Item not borrowable": [
          null,
-         ""
+         "D'Sach isch nöd uuslehnbar"
       ],
       "Item package successfully destroyed": [
          null,
@@ -952,19 +950,19 @@ window.i18n.locale_data = {
       ],
       "Item saved.": [
          null,
-         ""
+         "Sach gspeichered."
       ],
       "Item taken back": [
          null,
-         "Dä Gägestand isch zrugg gno"
+         "D'Sach isch zrugg gno"
       ],
       "Items": [
          null,
-         ""
+         "Sache"
       ],
       "Key": [
          null,
-         ""
+         "Schlüssel"
       ],
       "Kind regards,": [
          null,
@@ -972,71 +970,71 @@ window.i18n.locale_data = {
       ],
       "Last Checked": [
          null,
-         ""
+         "Z'letscht überprüeft"
       ],
       "Last Visitors:": [
          null,
-         ""
+         "Letschti Bsuecher:"
       ],
-      "Latest reminder": [
+      "Latest Reminder": [
          null,
-         "[leihs] Erinnerig"
+         "Letschti Erinnerig"
       ],
       "Legend": [
          null,
-         ""
+         "Legände"
       ],
       "Lender": [
          null,
-         "Erinnerig"
+         "Verleiher"
       ],
       "Lending": [
          null,
-         "Am lade"
+         "Uusleii"
       ],
       "Lending / Daily View": [
          null,
-         ""
+         "Uuslehne / Tagesaasicht"
       ],
       "Lending Contract No.": [
          null,
-         "Vertrag nr. "
+         "Uuslei-Vertrags-Nummere "
       ],
       "Lending Contract No. %d": [
          null,
-         "Vertrag nr. "
+         "Uuslei-Vertrags-Nummere %d"
       ],
       "Lending Contract No. %s": [
          null,
-         "Vertrag nr. "
+         "Uuslei-Vertrags-Nummere %s"
       ],
       "Lending Contracts No. %s": [
          null,
-         "Vertrag nr. "
+         "Uuslei-Verträg-Nummere %s"
       ],
       "List of Contracts": [
          null,
-         "Vertrag"
+         "Vertragslischte"
       ],
       "List of Inventory": [
          null,
-         ""
+         "Inventarlischte"
       ],
       "List of Inventory Pools": [
          null,
-         "Grätepark"
+         "Gräteparklischte"
       ],
       "List of Orders": [
          null,
-         ""
+         "Bschtelllischte"
       ],
       "List of Visits": [
          null,
-         ""
+         "Bsuechlischte"
       ],
       "List of Models": [
          null,
-         ""
+         "Modällischte"
       ],
       "Loading": [
          null,
@@ -1044,11 +1042,11 @@ window.i18n.locale_data = {
       ],
       "Location": [
          null,
-         ""
+         "Standort"
       ],
       "Locations": [
          null,
-         ""
+         "Standort"
       ],
       "Logged in successfully": [
          null,
@@ -1056,35 +1054,35 @@ window.i18n.locale_data = {
       ],
       "Login": [
          null,
-         ""
+         "Login"
       ],
       "Logout": [
          null,
-         ""
+         "Logout"
       ],
       "MAC-Address": [
          null,
-         ""
+         "MAC-Adrässe"
       ],
       "Manufacturer": [
          null,
-         ""
+         "Hersteller"
       ],
       "Manufacturer (A-Z)": [
          null,
-         ""
+         "Hersteller (A-Z)"
       ],
       "Manufacturer (Z-A)": [
          null,
-         ""
+         "Hersteller (Z-A)"
       ],
       "Matching Templates": [
          null,
-         ""
+         "Passendi Vorlage"
       ],
       "Mobile": [
          null,
-         ""
+         "Mobiil"
       ],
       "Model": [
          null,
@@ -1092,11 +1090,11 @@ window.i18n.locale_data = {
       ],
       "Model (A-Z)": [
          null,
-         "Modäll"
+         "Modäll (A-Z)"
       ],
       "Model (Z-A)": [
          null,
-         "Modäll"
+         "Modäll (Z-A)"
       ],
       "Model must be selected": [
          null,
@@ -1104,7 +1102,7 @@ window.i18n.locale_data = {
       ],
       "Model not present anymore": [
          null,
-         ""
+         "Modäll aktuell nüme vorhande"
       ],
       "Model successfully added as compatible": [
          null,
@@ -1112,7 +1110,7 @@ window.i18n.locale_data = {
       ],
       "Model successfully removed": [
          null,
-         "Kompatibls Grät erfolgriich wäggnoh."
+         "Modäll entfernt"
       ],
       "Models": [
          null,
@@ -1120,67 +1118,67 @@ window.i18n.locale_data = {
       ],
       "Mon": [
          null,
-         ""
+         "Mo"
       ],
       "Name": [
          null,
-         ""
+         "Name"
       ],
       "Name / ID": [
          null,
-         ""
+         "Name / ID"
       ],
       "New Borrower": [
          null,
-         ""
+         "Neue Uuslehner"
       ],
       "New Orderer": [
          null,
-         ""
+         "Noii Bschtellig"
       ],
       "New Package": [
          null,
-         ""
+         "Nois Paket"
       ],
       "New item created.": [
          null,
-         "Neui Gägestand erstellt."
+         "Neui Sache erstellt."
       ],
       "Next": [
          null,
-         ""
+         "Näggscht"
       ],
       "No": [
          null,
-         "kei"
+         "Nr."
       ],
       "No description available for this model.": [
          null,
-         ""
+         "Kei Beschriibig vorhande für das Modäll."
       ],
       "No entries found": [
          null,
-         "Z'vil Benutzer gfunde"
+         "Kei Iiträg gfunde"
       ],
       "No entry found": [
          null,
-         ""
+         "Kän Iitrag gfunde"
       ],
       "No hand overs found": [
          null,
-         "Z'vil Benutzer gfunde"
+         "Kei Uusgabe gfunde"
       ],
       "No reminder yet": [
          null,
-         "Erinnerig"
+         "No kei Erinnerig"
       ],
       "No take backs found": [
          null,
-         ""
+         "Kei Rücknahme gfunde"
       ],
       "No.": [
          null,
-         ""
+         "No."
       ],
       "None": [
          null,
@@ -1188,56 +1186,56 @@ window.i18n.locale_data = {
       ],
       "Not Borrowable": [
          null,
-         ""
+         "Nöd uuslehnbar"
       ],
       "Not available": [
          null,
-         "nöd verfüegbar."
+         "nöd verfüegbar"
       ],
       "Note": [
          null,
-         ""
+         "Notiz"
       ],
       "Number of items": [
          null,
-         "Azahl Sache"
+         "Aazahl Sache"
       ],
       "OK": [
          null,
-         ""
+         "OK"
       ],
       "One of the managers approves/denies or changes your reservation": [
          null,
-         ""
+         "Eine vo de Manager tuet Ihri Reservation bewillige/ablehne oder ändere"
       ],
       "Open": [
          null,
-         ""
+         "Offe"
       ],
       "Open Datepicker": [
          null,
-         ""
+         "Datums-Uuswahl öffne"
       ],
       "Open Orders": [
          null,
-         ""
+         "Bschtellige öffne"
       ],
       "Opening Hours": [
          null,
-         ""
+         "Öffnigsziite"
       ],
       "Order": [
          null,
-         ""
+         "Bschtellig"
       ],
       "%s Order": [
          "%s Orders",
-         "",
-         ""
+         "%s Bschtellig",
+         "%s Bschtellige"
       ],
       "Order History": [
          null,
-         ""
+         "Bschtelligs-Verlauf"
       ],
       "Order approved": [
          null,
@@ -1245,15 +1243,15 @@ window.i18n.locale_data = {
       ],
       "Order from": [
          null,
-         "Bstellig genehmigt"
+         "Bschtellig vo"
       ],
       "Order from %s": [
          null,
-         ""
+         "Bschtellige vo %s"
       ],
       "Order received": [
          null,
-         "Bstellig abglehnt"
+         "Bschtellig übercho"
       ],
       "Order rejected": [
          null,
@@ -1265,51 +1263,51 @@ window.i18n.locale_data = {
       ],
       "Orders": [
          null,
-         ""
+         "Bschtellige"
       ],
       "Other Groups": [
          null,
-         ""
+         "Anderi Gruppe"
       ],
       "Overbooked Quantity": [
          null,
-         ""
+         "Überbuechti Aazahl"
       ],
       "Overbooking": [
          null,
-         ""
+         "Überbuechig"
       ],
       "Overdue": [
          null,
-         ""
+         "Überfällig"
       ],
       "Overdue Returns": [
          null,
-         ""
+         "Überfälligi Rückkehr"
       ],
       "Overdue Visit": [
          null,
-         ""
+         "Überfällige Bsuech"
       ],
       "Owned": [
          null,
-         ""
+         "bsitzt"
       ],
       "Owner": [
          null,
-         ""
+         "Bsitzer"
       ],
       "Package": [
          null,
-         "Paketfähler"
+         "Paket"
       ],
       "Packages": [
          null,
-         "Paketfähler"
+         "Paket"
       ],
       "Package Code": [
          null,
-         "Paketfähler"
+         "Paket-Code"
       ],
       "Package error": [
          null,
@@ -1317,19 +1315,19 @@ window.i18n.locale_data = {
       ],
       "Package successfully destroyed": [
          null,
-         "Packeet erfolgriich glöscht"
+         "Paket erfolgriich glöscht"
       ],
       "Package successfully saved": [
          null,
-         "Packeet erfolgriich gspeicheret"
+         "Paket erfolgriich gspeicheret"
       ],
       "Password": [
          null,
-         "Passwort g'änderet"
+         "Passwort"
       ],
       "Password Confirmation": [
          null,
-         "[leihs] Reservationsbestätigung"
+         "Passwortbeschtätigung"
       ],
       "Password changed": [
          null,
@@ -1337,67 +1335,67 @@ window.i18n.locale_data = {
       ],
       "Pending": [
          null,
-         ""
+         "Pendänt"
       ],
       "Period": [
          null,
-         ""
+         "Ziitruum"
       ],
       "Phone": [
          null,
-         ""
+         "Telefon"
       ],
       "Phone%s": [
          null,
-         ""
+         "Telefon%s"
       ],
       "Manage inventory, place reservations on items and pick them up": [
          null,
-         ""
+         "Inventaar bearbeite, Sache reserviere und abhole"
       ],
       "Please note that these contracts, while they do belong to approved orders, may be changed by the lending manager at any time. They represent only a current snapshot of the order and might not contain the same items as the final contract once you pick up your items.": [
          null,
-         ""
+         "Die Verträg chönd so lang si nöd zunere bewilligte Bschtellig ghöret, vom Uusleih-Manager jederziit g'änderet werde. Si sind nur e Momäntuufnahm vo de Bschtellig und enthaltet allefalls nöd di gliiche Sache wie de definitiv Vertrag bi de Abholig."
       ],
       "Please provide a purpose...": [
          null,
-         ""
+         "Gänd Si än Zwäck aa..."
       ],
       "Please provide all required fields": [
          null,
-         ""
+         "Fülled Si bitte ali erforderliche Felder uus"
       ],
       "Please specify the purpose of your order here...": [
          null,
-         ""
+         "Gänd Si bitte de Zwäck für Ihri Bschtellig da aa..."
       ],
       "Previous": [
          null,
-         ""
+         "Vorhärig"
       ],
       "Price": [
          null,
-         ""
+         "Priis"
       ],
       "Print": [
          null,
-         ""
+         "Drucke"
       ],
       "Print Contracts": [
          null,
-         "Vertrag"
+         "Verträg uusdrucke"
       ],
       "Problems": [
          null,
-         ""
+         "Problem"
       ],
       "Project Number": [
          null,
-         ""
+         "Projäktnummere"
       ],
       "Purpose": [
          null,
-         ""
+         "Zwäck"
       ],
       "Purpose changed '%s' for '%s'": [
          null,
@@ -1409,11 +1407,11 @@ window.i18n.locale_data = {
       ],
       "Purpose these items are borrowed for": [
          null,
-         ""
+         "Zwäck vo de Uusleii vo dene Sache"
       ],
       "Qty.": [
          null,
-         ""
+         "Aaz."
       ],
       "Quantity": [
          null,
@@ -1421,23 +1419,23 @@ window.i18n.locale_data = {
       ],
       "Quantity: %d": [
          null,
-         "Aazahl"
+         "Aazahl: %d"
       ],
       "Reason for Retirement": [
          null,
-         ""
+         "Grund für d'Rücknahm"
       ],
       "Recommended Accessories": [
          null,
-         ""
+         "Empfohles Zuebehör"
       ],
       "Accessories": [
          null,
-         ""
+         "Zuebehör"
       ],
       "Reject": [
          null,
-         "Abglehnt"
+         "Ablehne"
       ],
       "Rejected": [
          null,
@@ -1445,15 +1443,15 @@ window.i18n.locale_data = {
       ],
       "Rejected on": [
          null,
-         "Abglehnt"
+         "Abglehnt am"
       ],
       "Rejection Successful": [
          null,
-         "Erfolgriich iigloggt"
+         "Abglehnt"
       ],
       "Relevant for inventory": [
          null,
-         ""
+         "Relevant für s'Inventar"
       ],
       "Remind": [
          null,
@@ -1473,23 +1471,23 @@ window.i18n.locale_data = {
       ],
       "Requested Items": [
          null,
-         ""
+         "Verlangti Sache"
       ],
       "Reservation": [
          null,
-         ""
+         "Reservation"
       ],
       "Responsible": [
          null,
-         ""
+         "Reservation"
       ],
       "Responsible department": [
          null,
-         ""
+         "Zueständigs Departemänt"
       ],
       "Responsible person": [
          null,
-         ""
+         "Zueständigi Person"
       ],
       "Retire": [
          null,
@@ -1497,147 +1495,147 @@ window.i18n.locale_data = {
       ],
       "Retire Item": [
          null,
-         "Uusmuschtere"
+         "Sach uusmuschtere"
       ],
       "Retired": [
          null,
-         "Uusmuschtere"
+         "Uusgmuschtered"
       ],
       "Retirement": [
          null,
-         "Uusmuschtere"
+         "Uusmuschterig"
       ],
       "Return": [
          null,
-         ""
+         "Zrugg"
       ],
       "Return to this hand over": [
          null,
-         ""
+         "Zrugg zu dere Uusgab"
       ],
       "Returned Items": [
          null,
-         ""
+         "Zruggbrachti Sache"
       ],
       "Room": [
          null,
-         ""
+         "Ruum"
       ],
       "Save": [
          null,
-         ""
+         "Speichere"
       ],
       "Save %s": [
          null,
-         ""
+         "%s speichere"
       ],
       "Save and copy": [
          null,
-         ""
+         "Speichere und kopiere"
       ],
       "Save and copy %s": [
          null,
-         ""
+         "%s speichere und kopiere"
       ],
       "Copy Item": [
          null,
-         ""
+         "Sache kopiere"
       ],
       "Create copied item": [
          null,
-         "Erstellt bi"
+         "Kopierti Sach erschtellä"
       ],
       "Save changes": [
          null,
-         ""
+         "Änderige speichere"
       ],
       "Saved": [
          null,
-         ""
+         "gspeichered"
       ],
       "Search": [
          null,
-         ""
+         "Sueche"
       ],
       "Search Results for \"%s\"": [
          null,
-         ""
+         "Suechresultat für \"%s\""
       ],
       "Search...": [
          null,
-         ""
+         "Sueche..."
       ],
       "Searching": [
          null,
-         ""
+         "Sueche"
       ],
       "Selected Pools (%s)": [
          null,
-         ""
+         "Uusgwählti Grateparks (%s)"
       ],
       "Selection": [
          null,
-         ""
+         "Uuswahl"
       ],
       "Serial Number": [
          null,
-         ""
+         "Serienummere"
       ],
       "Settings for %s": [
          null,
-         ""
+         "Iischtellige für %s"
       ],
       "Shelf": [
          null,
-         ""
+         "Regal"
       ],
       "Show": [
          null,
-         ""
+         "Zeige"
       ],
       "Show Availability": [
          null,
-         ""
+         "Verfüegbarkeit zeige"
       ],
       "Show Full History": [
          null,
-         ""
+         "Gesamti Verlauf zeige"
       ],
       "Show all %s...": [
          null,
-         ""
+         "All %s zeige..."
       ],
       "Show all ...": [
          null,
-         ""
+         "All zeige ..."
       ],
       "Signature": [
          null,
-         "Unterschribe"
+         "Underschrift"
       ],
       "Signed": [
          null,
-         "Unterschribe"
+         "Underschribe"
       ],
       "Signed contracts": [
          null,
-         "Nöd unterschribni Verträg"
+         "Underschribni Verträg"
       ],
       "Since we did not receive any request for renewal, we consequently demand the return of the items without further delay.": [
          null,
-         "Will mir kei Aafrag um Verlängerig übercho händ, forderemer di sofortig Rückgab vom Gägestand."
+         "Will mir kei Aafrag um Verlängerig übercho händ, forderemer di sofortig Rückgab vo de Sach."
       ],
       "Something went wrong!": [
          null,
-         ""
+         "Öppis isch schief gange!"
       ],
       "Start": [
          null,
-         ""
+         "Start"
       ],
       "Start Date": [
          null,
-         ""
+         "Startdatum"
       ],
       "Start Date must be before End Date": [
          null,
@@ -1645,11 +1643,11 @@ window.i18n.locale_data = {
       ],
       "Start Screen": [
          null,
-         ""
+         "Startbildschirm"
       ],
       "Start date": [
          null,
-         ""
+         "Startdatum"
       ],
       "Status": [
          null,
@@ -1661,11 +1659,11 @@ window.i18n.locale_data = {
       ],
       "Submit": [
          null,
-         "Abgschickt"
+         "Abgschicke"
       ],
       "Submit Order": [
          null,
-         "Abgschickt"
+         "Bschtellig abschicke"
       ],
       "Submitted": [
          null,
@@ -1673,7 +1671,7 @@ window.i18n.locale_data = {
       ],
       "Successful Order": [
          null,
-         "erfolgriich gsetzt"
+         "erfolgriichi Bschtellig"
       ],
       "Successfully set.": [
          null,
@@ -1681,7 +1679,7 @@ window.i18n.locale_data = {
       ],
       "Supplier": [
          null,
-         ""
+         "Liferant"
       ],
       "Swapped %{from} for %{to}": [
          null,
@@ -1689,51 +1687,51 @@ window.i18n.locale_data = {
       ],
       "Swapped from %s ": [
          null,
-         "%{from} dür %{to} ustuuschet"
+         "Uustuuschet vo %s"
       ],
       "Take Back": [
          null,
-         ""
+         "Rücknahm"
       ],
       "Take Back Selection": [
          null,
-         ""
+         "Uuswahl zruggnäh"
       ],
       "Take Back from": [
          null,
-         ""
+         "Rücknahm vo"
       ],
       "Take Back from %s": [
          null,
-         ""
+         "Rücknahm vo %s"
       ],
       "Take Backs": [
          null,
-         ""
+         "Rücknahme"
       ],
       "Technical Details": [
          null,
-         ""
+         "Technischi Details"
       ],
       "Templates": [
          null,
-         ""
+         "Vorlage"
       ],
       "Terms and conditions of the lender apply.": [
          null,
-         ""
+         "AGB vom Uuslehner gälted"
       ],
       "That means that the user probably did not get the approval mail and you need to contact him/her in a different way.": [
          null,
-         ""
+         "Das bedüütet, dass de Benutzer s'Zuestimmigsmail nöd übercho hät und Sie mit ihm/ihre uf än anderi Art Kontakt uufnäh müend."
       ],
       "The Category must be empty": [
          null,
-         "D Kategorie muess läär sii"
+         "D Kategorii muess läär sii"
       ],
       "The Inventory Code %s was not found.": [
          null,
-         "Ich han de Inventarcode %s nöd gfunde"
+         "De Inventarcode %s isch nöd gfunde worde."
       ],
       "The Inventory Pool must be empty": [
          null,
@@ -1741,7 +1739,7 @@ window.i18n.locale_data = {
       ],
       "The accessory was successfully created.": [
          null,
-         "S'Zuebehör isch erfolgriich erstellt."
+         "S'Zuebehör isch erfolgriich erschtellt."
       ],
       "The accessory was successfully deleted.": [
          null,
@@ -1749,7 +1747,7 @@ window.i18n.locale_data = {
       ],
       "%s successfully deleted": [
          null,
-         "Packeet erfolgriich glöscht"
+         "%s glöscht"
       ],
       "The admin role cannot be scoped to an inventory pool": [
          null,
@@ -1757,35 +1755,35 @@ window.i18n.locale_data = {
       ],
       "The assignment for %s was removed": [
          null,
-         ""
+         "D'Zuewiisig für %s isch entfernt worde."
       ],
       "The following error happened while sending a notification email to %{email}:\\\\n": [
          null,
-         ""
+         "De folgend Fähler isch bim schicke vo de Benachrichtigung a %{email} passiert:\\\\n"
       ],
       "The following items are due to be returned tomorrow or need to be inspected by their owners": [
          null,
-         ""
+         "Di folgende Sache sind morn für d'Rückgab fällig oder müend vo de Bsitzer kontrolliert werde."
       ],
       "The following items are overdue or need to be inspected by their owners": [
          null,
-         ""
+         "Di folgendä Sache sind überfällig oder müend vo de Bsitzer kontrolliert werde."
       ],
       "The group quantities were successfully saved.": [
          null,
-         "S'Zuebehör isch erfolgriich erstellt."
+         "D'Zuebehör-Aazahl isch gspeicheret"
       ],
       "The inventory code %s is not valid for this model": [
          null,
-         "Ich han de Inventarcode %s nöd gfunde"
+         "De Inventarcode %s isch für das Modäll nöd gültig"
       ],
       "The item belongs to a package": [
          null,
-         ""
+         "Diä Sach ghört zumene Paket"
       ],
       "The item cannot be retired because it's not returned yet.": [
          null,
-         "S Modäll chan nod gänderet werde will d'Sach scho imene Vertrag enthalte isch."
+         "D Sach chan nöd uusgmuschtered werdä, will sie nonig zruggbracht worde isch."
       ],
       "The item doesn't belong to the inventory pool related to this contract": [
          null,
@@ -1797,23 +1795,23 @@ window.i18n.locale_data = {
       ],
       "The item is already handed over or assigned to a different contract line": [
          null,
-         ""
+         "D'Sach isch bereits überreicht oder emene andere Vertrag zuegwise worde"
       ],
       "The item with the inventory code %s was not found": [
          null,
-         "Ich han de Inventarcode %s nöd gfunde"
+         "D Sach mit em Inventarcode %s isch nöd gfunde worde"
       ],
       "The item %s will be retired and no longer available for rentals.": [
          null,
-         ""
+         "D'Sach %s wird entfernt und isch nüme für d'Uusleii verfüegbar"
       ],
       "The line was not found": [
          null,
-         "Ich han de Inventarcode %s nöd gfunde"
+         "D Linie isch nöd gfunde worde"
       ],
       "The mail was sent": [
          null,
-         ""
+         "S'Mail isch verschickt worde"
       ],
       "The model cannot be changed because the item is used in contracts already.": [
          null,
@@ -1825,11 +1823,11 @@ window.i18n.locale_data = {
       ],
       "The new user details could not be saved.": [
          null,
-         ""
+         "Di noie Benutzeraagabe händ nöd chöne gschpeicheret werde."
       ],
       "The option could not be added": [
          null,
-         ""
+         "D'Option hät nöd chöne dezueta werde"
       ],
       "The option doesn't belong to the inventory pool related to this contract": [
          null,
@@ -1841,7 +1839,7 @@ window.i18n.locale_data = {
       ],
       "The parent item doesn't exist (parent_id: %d)": [
          null,
-         ""
+         "Di übergordnet Sach exischtiert nöd (parent_id: %d)"
       ],
       "The properties have been updated.": [
          null,
@@ -1853,15 +1851,15 @@ window.i18n.locale_data = {
       ],
       "The selected model is not a package": [
          null,
-         ""
+         "S'uusgwählte Modäll isch nöd äs Paket"
       ],
       "The user does not have an email address": [
          null,
-         ""
+         "De Benutzer hät kei E-Mail-Adresse"
       ],
       "The user who placed this order has received a similar e-mail message informing them that the order first needs to be approved before it is valid.": [
          null,
-         ""
+         "De Benutzer, wo die Bschtellig gmacht hät, hät än ähnlichs E-Mail übercho, dass de Bschtellig no muess zuegstimmt werde, bevor si gültig isch."
       ],
       "These are the comments of the inventory manager:": [
          null,
@@ -1869,75 +1867,75 @@ window.i18n.locale_data = {
       ],
       "This contract is not signable because it doesn't have any contract lines.": [
          null,
-         ""
+         "De Vertrag cha nöd underschribe wärde, will er kei Vertragsziile hät."
       ],
       "This contract is not signable because none of the lines have a purpose.": [
          null,
-         ""
+         "Dä Vertrag cha nöd underschribe wärde, will keini vode Ziile en Zwäck enthaltet."
       ],
       "This contract is not signable because some lines are not assigned.": [
          null,
-         ""
+         "Dä Vertrag cha nöd underschribe wärde, will einig Ziile nöd zuegwise sind."
       ],
-      "Groups of this customer": [
+      "This customer's groups": [
          null,
-         ""
+         "Dem Benutzer sini Gruppene"
       ],
       "This inventory pool is closed on that day.": [
          null,
-         "Grätepark isch am start_date zue."
+         "Grätepark isch a dem Tag zue."
       ],
       "Inventory pool successfully updated.": [
          null,
-         "Inventarcode aktualisiert"
+         "De Grätepark isch aktualisiert."
       ],
       "This is a package containing the following items": [
          null,
-         ""
+         "Das isch es Paket mit dem folgende Sache"
       ],
       "This is the list of items you requested. To complete this order, please %s.": [
          null,
-         ""
+         "Das isch e Lischte mit de vo Ihne aagforderete Sache. Zum d'Bschtellig z'vervollständige, bitte %s."
       ],
       "This item was retired": [
          null,
-         ""
+         "D'Sach isch entfernt worde."
       ],
       "This item will be given to a different inventory pool and not show up in yours anymore!": [
          null,
-         ""
+         "Die Sach wird an en andere Grätepark übergäh und erschiint nüme i Ihrem!"
       ],
       "This model is now in %d categories": [
          null,
-         ""
+         "Das Modäll isch etz i %d Kategorie"
       ],
       "This order has already been approved.": [
          null,
-         ""
+         "Die Bschtellig isch scho bewilligt worde."
       ],
       "This order is not approvable because doesn't have any models.": [
          null,
-         ""
+         "Die Bschtellig cha nöd bewilligt werde, will's kei Modäll drin hät."
       ],
       "This order is not approvable because some reserved models are not available or the inventory pool is closed on either the start or enddate.": [
          null,
-         ""
+         "Die Bschtellig chan nöd bewilligt werde, will einigi reservierti Modäll nöd verfüegbar sind oder de Grätepark wägem Start- oder Änddatum gschlosse isch."
       ],
       "This order is still pending. Please log in to your leihs system and either approve or reject it.": [
          null,
-         ""
+         "Die Beschtellig isch immer no offe. Bitte mäldet Si sich i Ihrem leihs-Sischtem a und tünd sie d'Bschtellig bewillige oder ablehne."
       ],
       "Thu": [
          null,
-         ""
+         "Do"
       ],
       "Time window": [
          null,
-         "Ziitfenschter"
+         "Ziitfänschter"
       ],
       "Timeline": [
          null,
-         "Ziitfenschter"
+         "Timeline"
       ],
       "Today": [
          null,
@@ -1949,23 +1947,23 @@ window.i18n.locale_data = {
       ],
       "Total": [
          null,
-         ""
+         "Total"
       ],
       "Tue": [
          null,
-         ""
+         "Di"
       ],
       "Umzug": [
          null,
-         ""
+         "Zügle"
       ],
       "Unborrowable": [
          null,
-         ""
+         "Nöd uuslehnbar"
       ],
       "Unfortunately your order is still pending, but you will soon receive a confirmation of order by separate e-mail. You can view the status of your order through your leihs account.": [
          null,
-         "Leider isch Ihri Bstellig no offe, aber Sie chömed glii ä Bstellbestätigung imene separate E-Mail über. Sie chönd de Status vo ihrere Bstellig im leihs-Account gseh."
+         "Leider isch Ihri Bstellig no offe, aber Sie chömed glii ä Bschtellbestätigung imene separate E-Mail über. Sie chönd de Status vo ihrere Bschtellig im leihs-Konto gseh."
       ],
       "Unsigned": [
          null,
@@ -1973,7 +1971,7 @@ window.i18n.locale_data = {
       ],
       "Unsigned Hand Over": [
          null,
-         "nöd unterschribe"
+         "Nöd unterschribni Uusgab"
       ],
       "Unsigned contracts": [
          null,
@@ -1981,11 +1979,11 @@ window.i18n.locale_data = {
       ],
       "Unsubmitted": [
          null,
-         "Anöd agschickt"
+         "Nöd agschickt"
       ],
       "Unsuccessful reminder of %{q} items for contracts %{c}": [
          null,
-         "Fehlgschlagne Reminder vo %{q} Sachä vom Vertrag %{c}"
+         "Fählgschlagne Reminder vo %{q} Sachä vom Vertrag %{c}"
       ],
       "Upload error.": [
          null,
@@ -1997,23 +1995,23 @@ window.i18n.locale_data = {
       ],
       "User details were updated successfully.": [
          null,
-         ""
+         "Benutzeraagabe sind gänderet"
       ],
       "User data": [
          null,
-         "Benutzer"
+         "Benutzer-Date"
       ],
       "User created successfully": [
          null,
-         "Erfolgriich iigloggt"
+         "Benutzer erschtellt"
       ],
       "User must be selected": [
          null,
-         "Benutzer muess usgwählt sii"
+         "Benutzer muess uusgwählt sii"
       ],
       "User or Order not found": [
          null,
-         ""
+         "Benutzer oder Bschtellig nöd gfunde"
       ],
       "User swapped %{from} for %{to}": [
          null,
@@ -2025,11 +2023,11 @@ window.i18n.locale_data = {
       ],
       "User/Typical usage": [
          null,
-         ""
+         "Benutzer/tüpischi Verwändig"
       ],
       "Username": [
          null,
-         "Benutzer"
+         "Benutzername"
       ],
       "Users": [
          null,
@@ -2045,11 +2043,11 @@ window.i18n.locale_data = {
       ],
       "Value List for Lending Contract No.": [
          null,
-         ""
+         "Wertelischte für Uusleihvertrag mit No."
       ],
       "Value List for Lending Contract No. %s": [
          null,
-         ""
+         "Wertelischte für Uusleihvertrag mit No. %s"
       ],
       "Value list": [
          null,
@@ -2057,27 +2055,27 @@ window.i18n.locale_data = {
       ],
       "View %s": [
          null,
-         ""
+         "%s gseh"
       ],
       "View Item": [
          null,
-         ""
+         "Sach gseh"
       ],
       "View Model": [
          null,
-         "Modäll"
+         "Modäll aaluegä"
       ],
       "View Option": [
          null,
-         ""
+         "Option gseh"
       ],
       "Visits": [
          null,
-         ""
+         "Bsüech"
       ],
       "Warning": [
          null,
-         ""
+         "Warnig"
       ],
       "We are just sending you this little reminder because someone else is already waiting for some of these items.": [
          null,
@@ -2085,147 +2083,147 @@ window.i18n.locale_data = {
       ],
       "We kindly ask you to contact us as soon as possible. Your computer might need an update.": [
          null,
-         ""
+         "Mir bittet Si, ois so schnäll wie möglich z'kontaktiere. Ihre Computer mues vilich aktualisiert werde."
       ],
       "Wed": [
          null,
-         ""
+         "Mi"
       ],
       "Welcome %s": [
          null,
-         ""
+         "Willkomme %s"
       ],
       "Working order": [
          null,
-         ""
+         "Arbetsreihefolg"
       ],
       "Workload": [
          null,
-         ""
+         "Uuslaschtig"
       ],
       "Write a note... (the note will be part of the contract)": [
          null,
-         ""
+         "Schriibed Si e Notiz (si wird Teil vom Vertrag sii)"
       ],
       "Write a comment. The comment will be part of the rejection e-mail.": [
          null,
-         ""
+         "Schriibed Si e Bemerkig. Si wird Teil vom Ablehnigs-Mail sii."
       ],
       "Write a comment... (your comment will be part of the confirmation e-mail)": [
          null,
-         ""
+         "Schriibed Si e Bemerkig... (si wird Teil vom Beschtätigungs-Mail sii)"
       ],
       "Write a note... the note will be part of the contract": [
          null,
-         ""
+         "Schriibed Si e Notiz... si wird Teil vom Vertrag sii"
       ],
       "Yes": [
          null,
-         ""
+         "Ja"
       ],
       "You are not the owner of this item": [
          null,
-         "Sii händ kei Berechtigung für die Sach."
+         "Si sind nöd de Bsitzer vo dere Sach."
       ],
       "You bring back your items": [
          null,
-         ""
+         "Si bringed Ihri Sache zrugg"
       ],
       "You can edit your personal data": [
          null,
-         ""
+         "Si chönd Ihri persönliche Date ändere"
       ],
       "You can't add a package to a package.": [
          null,
-         ""
+         "Si chönd käs Paket zumene Pakte dezue tue"
       ],
       "You cannot delete all lines of an order. Perhaps you want to reject it instead?": [
          null,
-         ""
+         "Si chönd nöd all Ziile vonere Bschtellig lösche. Vilicht wännd Si si ablehnä?"
       ],
       "You do not have any items in your order. Please %s and choose items for your order.": [
          null,
-         ""
+         "Si händ kei Sache i Ihrere Bschtellig. Bitte % und wähled Si Sache für Ihri Bschtellig."
       ],
       "You don't have access to this item.": [
          null,
-         "Sii händ kei Berechtigung für die Sach."
+         "Si händ kei Berächtigung für die Sach."
       ],
       "You don't have any rights to access this application.": [
          null,
-         "Sii händ kei Zuegriffsrächt für die Aawändig"
+         "Si händ kei Zuegriffsrächt für die Aawändig"
       ],
       "You don't have permission": [
          null,
-         "Sii händ kei Berechtigung für die Sach."
+         "Si händ kei Berechtigung."
       ],
       "You have %{no_access} to any inventory pools!": [
          null,
-         ""
+         "Si händ %{no_access} zu mene Grätepark!"
       ],
       "You have access to the following inventory pools": [
          null,
-         " im Grätepark "
+         "Si händ kei Zuegang zu dene Grätepärk"
       ],
       "You have access to the following inventory pools:": [
          null,
-         " im Grätepark "
+         "Si händ Zuegang zu dene Grätepärk:"
       ],
       "You have been logged out.": [
          null,
-         "Sie sind etz usgloggt."
+         "Si sind etz usgloggt."
       ],
       "You are not logged in.": [
          null,
-         "Sie sind etz usgloggt."
+         "Si sind nöd aagmeldet."
       ],
       "You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from the reservation system for up to 6 months.": [
          null,
-         ""
+         "Si chömed allefalls en Ermahnig über, müend Gebühre für Verzögerige zahle und verlüüred Ihres Rächt, Sache uuszlehne. Im Widerholigsfall chönd sie au für 6 Mönet vom Reservationssischtem  uusgschlosse werde."
       ],
       "You pick up the reserved items at the inventory pool": [
          null,
-         ""
+         "Si holed di reservierte Sache bim Grätepark ab"
       ],
       "You place a reservation for some items in this system": [
          null,
-         ""
+         "Si mached e Reservation für einigi Sache im Sischtem"
       ],
       "You should redo your action or reload the page!": [
          null,
-         ""
+         "Si sötted Ihri Aktion widerhole oder d'Siite neu lade!"
       ],
       "You wait for confirmation from the inventory pools in question": [
          null,
-         ""
+         "Si warted für d'Beschtätigung vo de betroffene Grätepärk"
       ],
       "Your order for the following items has been confirmed by the inventory manager": [
          null,
-         "Ihri Bstellig vo de folgende Sache isch vom Inventar-Manager bestätigt worde."
+         "Ihri Bschtellig vo de folgende Sache isch vom Inventar-Manager beschtätigt worde."
       ],
       "Your order for the following items listed below was successfully submitted.": [
          null,
-         "Ihri Bstellig vo de folgende Sache isch verschickt worde."
+         "Ihri Bschtellig vo de folgende Sache isch verschickt worde."
       ],
       "Your order was rejected for the following reason:": [
          null,
-         "Ihri Bstellig isch us em folgende Grund abglehnt worde:"
+         "Ihri Bschtellig isch us em folgende Grund abglehnt worde:"
       ],
       "Your order was successfully transmitted to those responsible and is %s.": [
          null,
-         ""
+         "Ihri Bschtellig isch erfolgriich a di Verantwortliche gschickt worde und isch %s."
       ],
       "Zielraum": [
          null,
-         ""
+         "Ziilruum"
       ],
       "[Model %s] ": [
          null,
-         "Modäll"
+         "[Modäll %s]"
       ],
       "[leihs] Order received": [
          null,
-         "[leihs] Bstellig akoh"
+         "[leihs] D'Bschtellig isch achoo"
       ],
       "[leihs] Reminder": [
          null,
@@ -2233,7 +2231,7 @@ window.i18n.locale_data = {
       ],
       "[leihs] Reservation Confirmation": [
          null,
-         "[leihs] Reservationsbestätigung"
+         "[leihs] Reservationsbeschtätigung"
       ],
       "[leihs] Reservation Rejected": [
          null,
@@ -2245,7 +2243,7 @@ window.i18n.locale_data = {
       ],
       "[leihs] Reservation confirmed (with changes)": [
          null,
-         "[leihs] Reservation aagnoh (mit Änderige)"
+         "[leihs] Reservation aagnoo (mit Änderige)"
       ],
       "[leihs] Some items should be returned tomorrow": [
          null,
@@ -2257,92 +2255,92 @@ window.i18n.locale_data = {
       ],
       "assigned to %s": [
          null,
-         ""
+         "zu %s zuegwise"
       ],
       "available": [
          null,
-         "nöd verfüegbar."
+         "verfüegbar"
       ],
       "awaiting approval": [
          null,
-         ""
+         "Uf Bestätigung am warte"
       ],
       "but a few changes were made to it": [
          null,
-         "aber ma hät es paar Änderige gmacht"
+         "aber es paar Änderige sind gmacht worde"
       ],
       "could not be assigned for take back": [
          null,
-         ""
+         "hät nöd chöne für d'Rücknahm zuegwise werde"
       ],
       "current page is set as start page": [
          null,
-         ""
+         "di aktuell Siite isch als Startsiite gsetzt"
       ],
       "day": [
          "days",
-         "Hüt",
-         "Hüt"
+         "Tag",
+         "Täg"
       ],
       "delete": [
          null,
-         ""
+         "lösche"
       ],
       "doesn't match parent's attribute": [
          null,
-         ""
+         "passed nöd zu de Eigeschafte vom Pärent"
       ],
       "entries%s": [
          null,
-         ""
+         "Iiträg%s"
       ],
       "extend": [
          null,
-         ""
+         "uuswiite"
       ],
       "for '%s'": [
          null,
-         ""
+         "für '%s'"
       ],
       "for max.": [
          null,
-         ""
+         "für max."
       ],
       "found %i": [
          null,
-         ""
+         "%i gfunde"
       ],
       "general": [
          null,
-         ""
+         "generell"
       ],
       "go back": [
          null,
-         ""
+         "zrugg gah"
       ],
       "go to today": [
          null,
-         ""
+         "uf hüt gah"
       ],
       "here": [
          null,
-         ""
+         "da"
       ],
       "in": [
          null,
-         ""
+         "in"
       ],
       "Inventory pool is closed on end date": [
          null,
-         "Grätepark isch am end_date zue."
+         "De Grätepark isch am Enddatum zue."
       ],
       "Inventory pool is closed on start date": [
          null,
-         "Grätepark isch am start_date zue."
+         "De Grätepark isch am Startdatum zue."
       ],
       "is late": [
          null,
-         ""
+         "isch z'schpaht"
       ],
       "item not assigned. ": [
          null,
@@ -2350,39 +2348,39 @@ window.i18n.locale_data = {
       ],
       "jump to this date": [
          null,
-         ""
+         "zu däm Datum gumpe"
       ],
       "Running Account": [
          null,
-         ""
+         "Laufends Konto"
       ],
       "more": [
          null,
-         ""
+         "meh"
       ],
       "more properties": [
          null,
-         ""
+         "meh Eigeschafte"
       ],
       "Property": [
          null,
-         ""
+         "Eigeschaft"
       ],
       "Properties": [
          null,
-         ""
+         "Eigeschafte"
       ],
       "no image": [
          null,
-         ""
+         "käs Bild"
       ],
       "no item assigned": [
          null,
-         "Sach nöd zuegwiesä"
+         "Kei Sach zuegwiesä"
       ],
       "no purpose specified": [
          null,
-         ""
+         "kän Zwäck aagäh"
       ],
       "not available. ": [
          null,
@@ -2390,7 +2388,7 @@ window.i18n.locale_data = {
       ],
       "not borrowable": [
          null,
-         ""
+         "nöd uuslehnbar"
       ],
       "not valid. ": [
          null,
@@ -2398,27 +2396,27 @@ window.i18n.locale_data = {
       ],
       "on time!": [
          null,
-         ""
+         "rächtziitig!"
       ],
       "open datepicker": [
          null,
-         ""
+         "Datumswähler uuf mache"
       ],
       "overdue": [
          null,
-         ""
+         "überfällig"
       ],
       "please wait": [
          null,
-         ""
+         "bitte warte"
       ],
       "please wait...": [
          null,
-         ""
+         "bitte warte..."
       ],
       "quantity increased by %s": [
          null,
-         ""
+         "Aazahl um %s erhöht"
       ],
       "quantity not available. ": [
          null,
@@ -2426,243 +2424,243 @@ window.i18n.locale_data = {
       ],
       "reserved / item assigned in future": [
          null,
-         ""
+         "reserviert / Sach i de Zuekunft zuegwise"
       ],
       "reset user": [
          null,
-         ""
+         "Benutzer zruggsetzä"
       ],
       "set current page as start page": [
          null,
-         ""
+         "aktuelli Siite als Startsiite setzä"
       ],
       "show less": [
          null,
-         ""
+         "weniger zeige"
       ],
       "show less properties": [
          null,
-         ""
+         "weniger Eigeschafte zeige"
       ],
       "show package parts": [
          null,
-         ""
+         "Paketteili zeige"
       ],
       "since": [
          null,
-         ""
+         "sit"
       ],
       "since max.": [
          null,
-         ""
+         "sit max."
       ],
       "submit it": [
          null,
-         "Anöd agschickt"
+         "agschicke"
       ],
       "therefore you may not be able to change some of these fields": [
          null,
-         ""
+         "drum chönd si allefalls einige Fälder nöd ändere"
       ],
       "this is a package": [
          null,
-         ""
+         "das isch es Paket"
       ],
       "to edit this item": [
          null,
-         ""
+         "zum das Paket ändere"
       ],
       "to substitute": [
          null,
-         ""
+         "ersetzä"
       ],
       "today": [
          null,
-         "Hüt"
+         "hüt"
       ],
       "unavailable / can't be guaranteed": [
          null,
-         ""
+         "nöd verfüegbar / chan nöd zuegsichered werde"
       ],
       "unknown Model": [
          null,
-         ""
+         "unbekannts Modäll"
       ],
       "until": [
          null,
-         "Vom %s bis am %s "
+         "bis"
       ],
       "upcoming": [
          null,
-         ""
+         "zuekünftig"
       ],
       "was assigned for take back": [
          null,
-         ""
+         "de Rücknahm zuegwise"
       ],
       "while deleting a hand over line": [
          null,
-         ""
+         "währed em lösche vonere Uusgabelinie"
       ],
       "while deleting hand over for": [
          null,
-         ""
+         "während em lösche vonere Uusgab für"
       ],
       "while deleting multiple order lines": [
          null,
-         ""
+         "während em lösche vo mehrere Ussgabelinie"
       ],
       "while deleting order line for": [
          null,
-         ""
+         "während em lösche vo Uusgabelinie für"
       ],
       "while try to send an e-mail reminder to:": [
          null,
-         ""
+         "während em Versuech, es Erinnerigsmail z'schicke a:"
       ],
       "with comment": [
          null,
-         ""
+         "mitere Bemerkig"
       ],
       "without conflict": [
          null,
-         ""
+         "ohni Konflikt"
       ],
       "you cannot hand out lines wich are starting in the future": [
          null,
-         ""
+         "Si chönd nöd Linie uusgäh, wo i de Zuekunft aafanged"
       ],
       "you cannot hand out lines with unassigned inventory codes": [
          null,
-         ""
+         "Si chönd Linie ohni zuegwisni Inventarcodes nöd uusgäh"
       ],
       "Helper": [
          null,
-         ""
+         "Helfer"
       ],
       "Suspended": [
          null,
-         ""
+         "Suschpändiert"
       ],
       "Edit User": [
          null,
-         "Benutzer"
+         "Benutzer bearbeite"
       ],
       "Customer": [
          null,
-         ""
+         "Chund"
       ],
       "Lending manager": [
          null,
-         ""
+         "Uusleihmanager"
       ],
       "Inventory manager": [
          null,
-         "Grätepark"
+         "Grätepark-Manager"
       ],
       "New User": [
          null,
-         "Benutzer"
+         "Noie Benutzer"
       ],
       "List of %d Users": [
          null,
-         ""
+         "Lischte vo %d Benutzer"
       ],
       "List of Users": [
          null,
-         ""
+         "Lischte vo Benutzer"
       ],
       "Contract expiration": [
          null,
-         "Vertrag nr. "
+         "Ablauf vom Vertrag"
       ],
       "Warranty expiration": [
          null,
-         ""
+         "Garantieverfall"
       ],
       "Process multiple fields for multiple items in a row": [
          null,
-         ""
+         "Mehreri Fälder oder mehreri Ziile bearbeite"
       ],
       "Select Field": [
          null,
-         ""
+         "Fäld wähle"
       ],
       "no fields selected": [
          null,
-         "S'Modäll muess uusgwählt sii"
+         "Keis Fäld uusgwählt"
       ],
       "Apply Fields on Item": [
          null,
-         ""
+         "Felder uf d'Sach aawände"
       ],
       "no item selected": [
          null,
-         "S'Modäll muess uusgwählt sii"
+         "Käs Modäll uusgwählt"
       ],
       "requested": [
          null,
-         ""
+         "verlangt"
       ],
       "Option": [
          null,
-         ""
+         "Option"
       ],
       "Options": [
          null,
-         ""
+         "Optione"
       ],
       "Inventory Helper": [
          null,
-         "Grätepark"
+         "Inventar-Helfer"
       ],
       "Select Image": [
          null,
-         ""
+         "Bild uuswähle"
       ],
       "Select File": [
          null,
-         ""
+         "Dokumänt wähle"
       ],
       "Images": [
          null,
-         ""
+         "Bilder"
       ],
       "Attachments": [
          null,
-         "Dokument"
+         "Aahang"
       ],
       "undo": [
          null,
-         ""
+         "rückgängig mache"
       ],
       "Do you realy want to delete the '%s' category?": [
          null,
-         ""
+         "Wännd Si würklich d'Kategorie '%s' lösche?"
       ],
       "Create %s": [
          null,
-         "Erstellt bi"
+         "%s erschtellä"
       ],
       "Create new category": [
          null,
-         "Scho inere Karegorie"
+         "Noii Kategorii erschtellä"
       ],
       "Category name": [
          null,
-         ""
+         "Kategoriename"
       ],
       "List of Categories": [
          null,
-         ""
+         "Lischte vo Kategorie"
       ],
       "Label": [
          null,
-         ""
+         "Beschriftig"
       ],
       "not used": [
          null,
-         ""
+         "nöd benutzt"
       ],
       "Model|Images|File file size": [
          null,
@@ -2678,93 +2676,93 @@ window.i18n.locale_data = {
       ],
       "You can not create a package without any item": [
          null,
-         ""
+         "Si chönd kei Paket erschtelle ohni Sache"
       ],
       "Packages created": [
          null,
-         "Paketfähler"
+         "Paket erschtellt"
       ],
       "Attention": [
          null,
-         ""
+         "Achtung"
       ],
       "This user is suspended": [
          null,
-         ""
+         "De Benutzer isch suschpendiert"
       ],
       "Email": [
          null,
-         ""
+         "E-Mail"
       ],
       "Short Name": [
          null,
-         ""
+         "Churzname"
       ],
       "Inventory pool successfully updated": [
          null,
-         "Inventarcode aktualisiert"
+         "Grätepark aktualisiert"
       ],
       "Basic Information": [
          null,
-         ""
+         "Basic Informatione"
       ],
       "Workdays": [
          null,
-         ""
+         "Arbetstäg"
       ],
       "Closed Days": [
          null,
-         "Gschlosse"
+         "Gschlossni Täg"
       ],
       "Toggle %s": [
          null,
-         ""
+         "%s umschalte"
       ],
       "Search %s": [
          null,
-         ""
+         "%s sueche"
       ],
-      "by browsing categories": [
+      "By browsing categories": [
          null,
-         ""
+         "Kategorie durchstöbere"
       ],
       "Select": [
          null,
-         ""
+         "Wähle"
       ],
       "Closed Day": [
          null,
-         "Gschlosse"
+         "Gschlossne Tag"
       ],
       "Borrow": [
          null,
-         ""
+         "Uuslehne"
       ],
       "Overview": [
          null,
-         ""
+         "Übersicht"
       ],
       "Manage": [
          null,
-         ""
+         "Organisiere"
       ],
       "Nothing selected": [
          null,
-         ""
+         "Nüt uusgwählt"
       ],
       "Collection": [
          "Collections",
-         "",
-         ""
+         "Sammlig",
+         "Sammlige"
       ],
       "%s Return": [
          "%s Returns",
-         "",
-         ""
+         "%s Rücknahm",
+         "%s Rücknahme"
       ],
       "not yet saved": [
          null,
-         ""
+         "nonig gschpeicheret"
       ],
       "Prepackaged": [
          null,
@@ -2772,167 +2770,167 @@ window.i18n.locale_data = {
       ],
       "Model saved": [
          null,
-         "Modäll"
+         "Modäll gspeichered"
       ],
       "The package is not in stock": [
          null,
-         ""
+         "S'Paket isch nöd a Lager"
       ],
       "The items of the package can not be edited": [
          null,
-         ""
+         "D'Sache vom Paket chönd nöd gändered werde"
       ],
       "Access": [
          null,
-         ""
+         "Zuegriff"
       ],
       "Group": [
          null,
-         ""
+         "Gruppe"
       ],
       "Groups": [
          null,
-         ""
+         "Gruppene"
       ],
       "Remove": [
          null,
-         ""
+         "Entferne"
       ],
       "List of Groups": [
          null,
-         ""
+         "Lischte vo Gruppene"
       ],
       "Allocations": [
          null,
-         ""
+         "Zueteilige"
       ],
       "%s created": [
          null,
-         "Erstellt bi"
+         "%s erschtellt"
       ],
       "Name of the user": [
          null,
-         "Azahl Sache"
+         "Name vom Benutzer"
       ],
       "Name of the model": [
          null,
-         "Azahl Sache"
+         "Name vom Modäll"
       ],
       "Name of the group": [
          null,
-         ""
+         "Name vo de Gruppe"
       ],
       "%s saved": [
          null,
-         ""
+         "%s gschpeichered"
       ],
       "Order overview": [
          null,
-         "Bstellig genehmigt"
+         "Übersicht vo de Bschtellig"
       ],
       "To pick up": [
          null,
-         ""
+         "abhole"
       ],
       "deployed %s ago": [
          null,
-         ""
+         "vor %s uusglifered"
       ],
       "is %s ago": [
          null,
-         ""
+         "vor %s"
       ],
       "this is the branch '%s'": [
          null,
-         ""
+         "Das isch de Branch '%s'"
       ],
       "last change by '%s'": [
          null,
-         ""
+         "letschti Änderige vo '%s'"
       ],
       "Add to order": [
          null,
-         ""
+         "Zu de Bschtellig dezue tue"
       ],
       "Reset": [
          null,
-         ""
+         "Zruggsetzä"
       ],
       "Reset all filter": [
          null,
-         ""
+         "All Filter zruggsetzä"
       ],
       "All %s": [
          null,
-         ""
+         "All %s"
       ],
       "ascending": [
          null,
-         "Am lade"
+         "uufschtiigend"
       ],
       "descending": [
          null,
-         ""
+         "abschtiigend"
       ],
       "All inventory pools": [
          null,
-         "Grätepark"
+         "Alli Grätepärk"
       ],
       "Inventory pools": [
          null,
-         "Grätepark"
+         "Grätepärk"
       ],
       "Show all search results": [
          null,
-         ""
+         "All Suechresultat aazeige"
       ],
       "Show all properties": [
          null,
-         ""
+         "All Eigeschafte aazeige"
       ],
       "Show less properties": [
          null,
-         ""
+         "Weniger Eigeschafte aazeige"
       ],
       "Last name": [
          null,
-         ""
+         "Nachname"
       ],
       "First name": [
          null,
-         ""
+         "Vorname"
       ],
       "City": [
          null,
-         ""
+         "Stadt"
       ],
       "Country": [
          null,
-         ""
+         "Land"
       ],
       "Zip": [
          null,
-         ""
+         "PLZ"
       ],
       "Suspended until": [
          null,
-         ""
+         "Schperä bis"
       ],
       "Suspended reason": [
          null,
-         ""
+         "Grund für d'Schprerig"
       ],
       "Role": [
          null,
-         ""
+         "Rolle"
       ],
       "Access as": [
          null,
-         ""
+         "Zuegriffe als"
       ],
       "No access": [
          null,
-         ""
+         "Kei Zuegfriff"
       ],
       "User|Email": [
          null,
@@ -2952,168 +2950,168 @@ window.i18n.locale_data = {
       ],
       "The selected inventory pool is closed on that day": [
          null,
-         "Grätepark isch am start_date zue."
+         "De uusgwählti Grätepark isch am dem Tag zue"
       ],
       "Item is not available in that time range": [
          null,
-         ""
+         "D'Sach isch für de Ziitruum nöd verfüegbar"
       ],
       "Purpose of the order": [
          null,
-         ""
+         "Zwäck für d'Bschtellig"
       ],
       "Specification of the purpose is required": [
          null,
-         ""
+         "D'Aagab vom Zwäck isch zwingend"
       ],
       "Change": [
          null,
-         ""
+         "Ändere"
       ],
       "Change %s": [
          null,
-         ""
+         "%s ändere"
       ],
       "Change entry": [
          null,
-         ""
+         "Iitrag ändere"
       ],
       "Save change": [
          null,
-         ""
+         "Ändergige schpeichere"
       ],
       "Continue this order": [
          null,
-         ""
+         "Wiiterfahre mit dere Bschtellig"
       ],
       "Please solve the conflicts for all highlighted lines in order to continue.": [
          null,
-         ""
+         "Lösed si bitte d'Konflikt für alli markierte Ziile zum wiitermache."
       ],
       "You have permission to access the following inventory pool": [
          "You have permission to access the following inventory pools",
-         "",
-         ""
+         "Si händ d'Berächtigung für de folgendi Grätepark",
+         "Si händ d'Berächtigung für di folgende Grätepärk"
       ],
       "No description": [
          null,
-         ""
+         "Kei Beschriibig"
       ],
       "for": [
          null,
-         ""
+         "für"
       ],
       "Open orders": [
          null,
-         ""
+         "Offni Bschtellige"
       ],
       "These orders have been successfully submitted, but are NOT YET APPROVED": [
          null,
-         ""
+         "Die Bschtellige sind erfolgriich abgschickt worde, si sind aber NONIG BEWILLIGT"
       ],
       "Search for '%s'": [
          null,
-         ""
+         "Sueche nach '%s'"
       ],
       "Your order has been successfully submitted, but is NOT YET APPROVED": [
          null,
-         ""
+         "Ihri Bschtellig isch erfolgriich abgickt worde, si isch aber NONIG BEWILLIGT worde."
       ],
       "Continue with available models only": [
          null,
-         ""
+         "Mit de verfüegbare Modäll wiiterfahre"
       ],
       "Your order has been modified. All reservations are now available.": [
          null,
-         ""
+         "Ihri Bschtellig isch gänderet worde. All Reservatione sind etz verfüegbar."
       ],
       "Borrow template": [
          null,
-         ""
+         "Uusleihvorlag"
       ],
       "Please select a template.": [
          null,
-         ""
+         "Bitte wähled si e Vorlag"
       ],
       "Please adapt the specific quantities to fit your needs.": [
          null,
-         ""
+         "Passed si bitte d'Mängene gmäss ihrne Bedürfnis aa."
       ],
       "Insert 0 for the entries you dont need.": [
          null,
-         ""
+         "Gänd si es 0 ii für Sache, wo si nöd bruuchet."
       ],
       "The highlighted entries are not accomplishable for the intended quantity.": [
          null,
-         ""
+         "Di markierte Iiträg sind nöd i de vorgsehne Aazahl vorhande."
       ],
       "Please contact the concerned inventory pool.": [
          null,
-         " im Grätepark "
+         "Bitte nämed Si mit em Grätepark Kontakt uuf."
       ],
       "Continue": [
          null,
-         ""
+         "Fortsetzä"
       ],
       "Availability": [
          null,
-         ""
+         "Verfüegbarkeit"
       ],
       "Entry": [
          null,
-         ""
+         "Iitrag"
       ],
       "Delete entry": [
          null,
-         ""
+         "Iitrag lösche"
       ],
       "%s will be removed from the template and not been added to your order.": [
          null,
-         ""
+         "%s wird vo de Vorlag entfernt und nöd zu Ihrere Bschtellig dezue tah."
       ],
       "The order will be discarded.": [
          null,
-         ""
+         "D'Bschtellig wird verworfe"
       ],
       "This entry will be removed from the order.": [
          null,
-         ""
+         "De Iitrag wird vo de Bschtellig wäggno."
       ],
       "The template has been added to your order.": [
          null,
-         ""
+         "D'Vorlag isch zu Ihrne Bschtellige dezue tah worde."
       ],
       "Settings": [
          null,
-         ""
+         "Iischtellige"
       ],
       "Document": [
          null,
-         "Dokument"
+         "Dokumänt"
       ],
       "%d minutes passed. The items are not reserved for you any more!": [
          null,
-         ""
+         "%d Minute sind vergange. D'Sache sind nüme für si reserviert!"
       ],
       "Time until your order times out. Click to reset.": [
          null,
-         ""
+         "Ziit bis Ihri Bschtellig ablauft. Klicke zum zruggsetze."
       ],
       "Your order will time out in %s.": [
          null,
-         ""
+         "Ihri Bschtellig lauf i %s ab."
       ],
       "Reset timeout": [
          null,
-         ""
+         "Ablaufziit zruggsetze"
       ],
       "Your order ist empty.": [
          null,
-         ""
+         "Ihri Bschtellig isch läär"
       ],
       "Borrow items": [
          null,
-         " Sach(e)"
+         "Sache nuuslehnä"
       ]
    }
 }

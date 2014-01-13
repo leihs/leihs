@@ -55,29 +55,10 @@ class window.App.LineSelectionController extends Spine.Controller
   update: =>
     lines = $("[data-select-line]:checked").closest ".line"
     @store lines
-    do @unmarkAllLines
-    do @markSelectedLines
+    @markVisitLinesController?.update App.LineSelectionController.selected
     @lineSelectionCounter.html lines.length
     if lines.length then @enable() else @disable()
     do @storeIdsToHrefs
-
-  unmarkAllLines: =>
-    for line in $(".line[data-id]")
-      $(line).removeClass("green").addClass("light")
-
-  markSelectedLines: =>
-    for id in App.LineSelectionController.selected
-      cl = App.ContractLine.find(id)
-      if cl.item()
-        line = $(".line[data-id='#{id}']")
-        line.removeClass("light").addClass("green")
-      else if cl.option()
-        line = $(".line[data-id='#{id}']")
-        c_status = cl.contract().status
-        if c_status == "approved"
-          line.removeClass("light").addClass("green") if Number(line.find("input[data-line-quantity]").val()) >= 1
-        else if c_status == "signed"
-          line.removeClass("light").addClass("green") if Number(line.find("input[data-quantity-returned]").val()) == cl.quantity
 
   store: (lines)->
     ids = _.flatten _.map lines, (line) -> ($(line).data("ids") ? [$(line).data("id")])
@@ -92,8 +73,7 @@ class window.App.LineSelectionController extends Spine.Controller
         input.attr("checked", true)
         @toggleContainerAbove line
     ids = App.LineSelectionController.selected
-    do @unmarkAllLines
-    do @markSelectedLines
+    @markVisitLinesController?.update App.LineSelectionController.selected
     @lineSelectionCounter.html ids.length
     if ids.length then @enable() else @disable()
     do @storeIdsToHrefs

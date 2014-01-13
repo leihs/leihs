@@ -1328,6 +1328,14 @@ window.i18n.locale_data = {
          null,
          "Passwort-Bestätigung"
       ],
+      "DatabaseAuthentication|Password": [
+         null,
+         "Passwort"
+      ],
+      "DatabaseAuthentication|Password confirmation": [
+         null,
+         "Passwort-Bestätigung"
+      ],
       "Password changed": [
          null,
          "Passwort geändert"
@@ -2653,6 +2661,10 @@ window.i18n.locale_data = {
          null,
          "Neue Kategorie"
       ],
+      "New Group": [
+         null,
+         "Neue Gruppe"
+      ],
       "Create new category": [
          null,
          "Neue Kategorie erstellen"
@@ -3154,7 +3166,7 @@ window.i18n.locale_data = {
       ],
       "You can modify the time range for each separate model in the next step.": [
          null,
-         "Sie können die Zeitspannen jedes einzelnen Models im nöchsten Schritt editieren."
+         "Sie können die Zeitspannen jedes einzelnen Modells im nächsten Schritt editieren."
       ],
       "List of templates": [
          null,
@@ -3287,6 +3299,14 @@ window.i18n.locale_data = {
          null,
          "%s ist bereits einem Vertrag zugewiesen"
       ],
+      "%s is already assigned to this contract": [
+         null,
+         "%s ist bereits diesem Vertrag zugewiesen"
+      ],
+      "%s is already assigned to a different contract": [
+         null,
+         "%s ist bereits einem anderen Vertrag zugewiesen"
+      ],
       "Hand over of %s item": [
          "Hand over of %s items",
          "Aushändigung von %s Gegenstand",
@@ -3323,11 +3343,15 @@ window.i18n.locale_data = {
       ],
       "%s was not found for this take back": [
          null,
-         "%s würde nicht für diese Rücknahme gefunden"
+         "%s wurde nicht für diese Rücknahme gefunden"
       ],
       "You can not take back more items then you handed over": [
          null,
-         "Sie können nicht mehr zurücknehmen als Sie ausgehändigt haben"
+         "Sie können nicht mehr Gegenstände zurücknehmen als Sie ausgehändigt haben"
+      ],
+      "You can not take back more options then you handed over": [
+         null,
+         "Sie können nicht mehr Optionen zurücknehmen als Sie ausgehändigt haben"
       ],
       "You have to provide the quantity for the things you want to return": [
          null,
@@ -3513,6 +3537,10 @@ window.i18n.locale_data = {
       "Save Package": [
          null,
          "Paket speichern"
+      ],
+      "Print Selection": [
+         null,
+         "Auswahl ausdrucken"
       ]
    }
 }

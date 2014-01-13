@@ -10,7 +10,7 @@ class window.App.HandOverController extends Spine.Controller
 
   constructor: ->
     super
-    @lineSelection = new App.LineSelectionController {el: @el}
+    @lineSelection = new App.LineSelectionController {el: @el, markVisitLinesController: new App.MarkVisitLinesController {el: @el}}
     do @initalFetch
     new App.ContractLinesDestroyController {el: @el}
     new App.ContractLineAssignItemController {el: @el}

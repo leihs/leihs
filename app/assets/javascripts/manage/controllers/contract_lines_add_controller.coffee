@@ -142,10 +142,12 @@ class window.App.ContractLinesAddController extends Spine.Controller
     return false if @preventSubmit
     inventoryCode = @input.val()
     if inventoryCode.length
+      console.log inventoryCode
       App.Inventory.findByInventoryCode(inventoryCode).done @addInventoryItem, inventoryCode
     @input.val("").change()
 
   addInventoryItem: (data, inventoryCode)=>
+    console.log inventoryCode
     if data?
       if data.model_id?
         App.Model.ajaxFetch({id: data.model_id}).done (data)=> @add App.Model.find(data.id), @getStartDate(), @getEndDate()

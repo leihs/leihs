@@ -39,7 +39,7 @@ When /^I add a model to the acknowledge which is already existing in the selecte
   @old_lines_count = @contract.lines.count
   @model = @line.model
   @line_el_count = all(".line").size
-  fill_in 'add-input', :with => @line.model.items.first.inventory_code
+  fill_in 'add-input', :with => @model.items.first.inventory_code
   sleep 0.3
   find("#add-input+button").click
 end

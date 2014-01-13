@@ -2527,6 +2527,9 @@ msgstr ""
 msgid "You can not take back more items then you handed over"
 msgstr ""
 
+msgid "You can not take back more options then you handed over"
+msgstr ""
+
 msgid "You have to provide the quantity for the things you want to return"
 msgstr ""
 
