@@ -11,7 +11,11 @@
                               :zip => "{{>zip}}",
                               :city => "{{>city}}"}}
 
-    %strong {{>name()}}
+    %strong
+      {{>name()}}
+      {{if isSuspended()}}
+      %span.darkred-text {{jed "Suspended"/}}!
+      {{/if}}
 
   .col2of8.line-col.text-align-left
     {{>city}}
