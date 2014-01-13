@@ -19,8 +19,13 @@
           = _("Settings")
 
       %li
-        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => "/admin/database_check",
-                                                                                :class => (defined? active_tab and active_tab == :database_check) ? "active" : ""}
+        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => "/admin/database_indexes",
+                                                                                :class => (defined? active_tab and active_tab == :database_indexes) ? "active" : ""}
           = _("Database check")
+
+      %li
+        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => "/admin/scenarios",
+                                                                                :class => (defined? active_tab and active_tab == :scenarios) ? "active" : ""}
+          = _("Scenarios")
 
   = render :partial => "manage/tabs/current_inventory_pool", :locals => {:current_inventory_pool => current_inventory_pool}

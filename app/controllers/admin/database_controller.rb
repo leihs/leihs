@@ -13,7 +13,7 @@
 
 class Admin::DatabaseController < Admin::ApplicationController
 
-  def check
+  def indexes
     connection = ActiveRecord::Base.connection
 
     @indexes_found, @indexes_not_found = begin
@@ -91,22 +91,33 @@ class Admin::DatabaseController < Admin::ApplicationController
         ["users", ["authentication_system_id"]],
         ["workdays", ["inventory_pool_id"]]
       ].partition do |table, columns, options|
-        indexes = connection.indexes(table)
-        index = indexes.detect {|x| x.columns == columns}
-        if not index
-          false
-        elsif options.blank?
-          true
-        else
-          index.unique == !!options[:unique]
+          indexes = connection.indexes(table)
+          index = indexes.detect {|x| x.columns == columns}
+          if not index
+            false
+          elsif options.blank?
+            true
+          else
+            index.unique == !!options[:unique]
+          end
         end
       end
+  end
 
-      @missing_references = begin
+  def consistency
+    flash[:error] = _("This report is not complete yet! Additional checks are coming soon...")
+    @missing_references = {
+        "items with missing model" => Item.unscoped.joins("LEFT JOIN models AS x ON items.model_id = x.id").where(x: {id: nil}),
+        "items with missing parent item" => Item.unscoped.joins("LEFT JOIN items AS x ON items.parent_id = x.id").where(x: {id: nil}).where("items.parent_id IS NOT NULL"),
+        "items with missing owner inventory_pool" => Item.unscoped.joins("LEFT JOIN inventory_pools AS x ON items.owner_id = x.id").where(x: {id: nil}),
+        "items with missing responsible inventory_pool" => Item.unscoped.joins("LEFT JOIN inventory_pools AS x ON items.inventory_pool_id = x.id").where(x: {id: nil}).where("items.inventory_pool_id IS NOT NULL"),
 
-      end
+        "contracts with missing inventory_pool" => Contract.unscoped.joins("LEFT JOIN inventory_pools AS x ON contracts.inventory_pool_id = x.id").where(x: {id: nil}),
+        "contracts with missing user" => Contract.unscoped.joins("LEFT JOIN users AS x ON contracts.user_id = x.id").where(x: {id: nil}),
 
-    end
+        "item_lines with missing item" => ItemLine.unscoped.joins("LEFT JOIN items AS x ON contract_lines.item_id = x.id").where(x: {id: nil}).where("contract_lines.item_id IS NOT NULL"),
+        "option_lines with missing option" => OptionLine.unscoped.joins("LEFT JOIN options AS x ON contract_lines.option_id = x.id").where(x: {id: nil})
+    }
   end
 
 end

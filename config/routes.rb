@@ -41,8 +41,12 @@ Leihs::Application.routes.draw do
     # Statistics
     get "statistics", to: "statistics#show", as: "statistics"
 
-    # Database
-    get "database_check", to: "database#check"
+    # Database Check
+    get "database_indexes", to: "database#indexes"
+    get "database_consistency", to: "database#consistency"
+
+    # Test report
+    get "scenarios", to: "scenarios#index"
   end
 
   # Borrow Section
