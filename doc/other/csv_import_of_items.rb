@@ -89,7 +89,8 @@ items_to_import.each do |item|
   b = Building.where(:code => building_code).first
   room = nil
   room = item["Raum"] unless item["Raum"].blank?
-  i.location = Location.find_or_create({:building_id => b.code, :room => room})
+  location = Location.find_or_create({"building_id" => b.id, "room" => room})
+  i.location = location
 
   # Invoice
   i.invoice_number = item["Rechungsnummer"]
