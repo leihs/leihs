@@ -80,6 +80,10 @@ class window.App.TakeBackController extends Spine.Controller
         message: _jed "%s selected for take back", line.model().name
       App.LineSelectionController.add line.id
       @increaseOption line if line.option_id
+    else if App.ContractLine.findByAttribute("option_id", App.Option.findByAttribute("inventory_code", inventoryCode).id)?
+      App.Flash
+        type: "error"
+        message: _jed "You can not take back more options then you handed over"
     else
       App.Flash
         type: "error"
@@ -143,6 +147,8 @@ class window.App.TakeBackController extends Spine.Controller
         type: "error"
         message: _jed "You can not take back more items then you handed over"
       target.val line.quantity
+      do @lineSelection.unmarkAllLines
+      do @lineSelection.markSelectedLines
 
   inspectItem: (e)=>
     item = App.Item.find $(e.currentTarget).data("item-id")
