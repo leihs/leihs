@@ -90,7 +90,7 @@ end
 
 When /^I open a hand over with lines that have assigned inventory codes$/ do
   steps %Q{
-    When I open a hand over
+    When I open a hand over which has multiple unassigned lines and models in stock
      And I click an inventory code input field of an item line
     Then I see a list of inventory codes of items that are in stock and matching the model
     When I select one of those
