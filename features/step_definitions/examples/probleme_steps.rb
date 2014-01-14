@@ -107,6 +107,8 @@ Angenommen /^eine Gegenstand ist nicht ausleihbar$/ do
   if @event == "hand_over"
     @item = @ip.items.unborrowable.first
     step 'I add an item to the hand over'
+    find(".line [data-assign-item][disabled]", match: :first).find(:xpath, "./../../..")[:"data-id"].should_not be_empty
+    find(".line [data-assign-item][disabled]", match: :first).find(:xpath, "./../../..")[:"data-id"].should_not be_nil
     @line_id = find(".line [data-assign-item][disabled]", match: :first).find(:xpath, "./../../..")[:"data-id"]
   elsif @event === "take_back"
     @line_id = find(".line[data-line-type='item_line']", match: :first)[:"data-id"]
