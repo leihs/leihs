@@ -56,4 +56,4 @@ contexts:
       order: 9
       type: post_process
       body: "substitute_with_path: domina/scripts/context_feature_stopx.sh"
-  tasks: "substitute_with_path: domina/execution/features/diverse_features.yml"
+  tasks: "substitute_with_path: domina/execution/features/manage_features.yml"
