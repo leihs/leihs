@@ -93,9 +93,7 @@ When /^I change a contract lines quantity$/ do
     @new_quantity = @line.quantity + 1
     @line_element = find(".line[data-id='#{@line.id}']")
   end
-  @line_element_css = ".line[data-ids*='#{@line.id}']"
-  @line_element_css ||= ".line[data-id='#{@line.id}']"
-  @line_element = all(@line_element_css).first
+  @line_element_css ||= ".line[data-ids*='#{@line.id}']" if @line
   @line_element ||= all(@line_element_css).first
   step 'I open the booking calendar for this line'
   first("input#booking-calendar-quantity").set @new_quantity

@@ -94,7 +94,7 @@ Then (/^the model's availability has changed$/) do
 end
 
 When(/^I start searching some model for adding it$/) do
-  @model = @current_inventory_pool.models.sample
+  @model = Model.filter({"inventory_pool_id" => @current_inventory_pool.id, "borrowable" => true}, InventoryPool).sample
   find('#add-input').set @model.name[0..2]
   find('#add-input').click
 end
