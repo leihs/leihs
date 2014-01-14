@@ -21,6 +21,6 @@
             - else 
               %p.grey-text= _("No description")
 
-          - if @suspended_inventory_pools.include? inventory_pool
+          - if current_user.access_right_for(inventory_pool).suspended?
             .emboss.red.padding-inset-xxs.padding-horizontal-s.paragraph-s.text-align-center.margin-top-m
               %strong= _("You are suspended for this inventory pool")

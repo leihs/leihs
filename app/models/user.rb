@@ -8,7 +8,11 @@ class User < ActiveRecord::Base
   belongs_to :language
 
   has_many :access_rights, :include => :role, :dependent => :restrict
-  has_many :inventory_pools, :through => :access_rights, :uniq => true, :conditions => {access_rights: {deleted_at: nil}}
+  has_many :inventory_pools, :through => :access_rights, :uniq => true, :conditions => {access_rights: {deleted_at: nil}} do
+    def with_borrowable_items
+      joins(:items).where(items: {retired: nil, is_borrowable: true, parent_id: nil})
+    end
+  end
 
   has_many :items, :through => :inventory_pools, :uniq => true
   has_many :models, :through => :inventory_pools, :uniq => true do
