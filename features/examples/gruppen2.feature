@@ -8,7 +8,7 @@ Funktionalität: Gruppen
 
   Grundlage:
     Angenommen Personas existieren
-    Und ich bin Mike
+    Und ich bin Pius
 
   @javascript
   Szenario: Gruppe editieren
