@@ -2,15 +2,15 @@
 require 'yaml'
 require 'securerandom'
 
-raise "env DOMINA_TRIAL_UUID must be set" unless ENV['DOMINA_TRIAL_UUID'] 
-raise "env DOMINA_EXECUTION_UUID ust be set" unless ENV['DOMINA_EXECUTION_UUID'] 
+raise "env DOMINA_TRIAL_ID must be set" unless ENV['DOMINA_TRIAL_ID'] 
+raise "env DOMINA_EXECUTION_ID ust be set" unless ENV['DOMINA_EXECUTION_ID'] 
 
 def trial_id
-  @_trial_id ||= (ENV['DOMINA_TRIAL_UUID'][0..7])
+  @_trial_id ||= (ENV['DOMINA_TRIAL_ID'][0..7])
 end
 
 def execution_id
-  @_execution_id ||= (ENV['DOMINA_EXECUTION_UUID'])[0..7]
+  @_execution_id ||= (ENV['DOMINA_EXECUTION_ID'])[0..7]
 end
 
 config = YAML.load_file("config/database_domina.yml")
