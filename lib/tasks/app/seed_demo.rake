@@ -2,6 +2,14 @@ namespace :app do
 
   namespace :seed do
 
+
+    def set_stupid_password_for(user)
+      dba = DatabaseAuthentication.where(:login => user.login).first
+      dba.password = 'pass'
+      dba.password_confirmation = 'pass'
+      dba.save
+    end
+
     desc "Seed the app with data"
     task :demo => :environment do
       puts "[START] Seeding the demo data"
@@ -33,7 +41,8 @@ namespace :app do
       normal_user.access_rights.build(:role => customer_role, :inventory_pool => ip2)
       normal_user.access_rights.build(:role => customer_role, :inventory_pool => ip3)
       normal_user.save
-      FactoryGirl.create(:database_authentication, :user => normal_user, :password => 'pass')
+      set_stupid_password_for(normal_user)
+
       
 
       # An inventory manager
@@ -42,7 +51,7 @@ namespace :app do
       manager_user.access_rights.build(:role => manager_role, :inventory_pool => ip2, :access_level => 3)
       manager_user.access_rights.build(:role => manager_role, :inventory_pool => ip3, :access_level => 3)   
       manager_user.save
-      FactoryGirl.create(:database_authentication, :user => manager_user, :password => 'pass')
+      set_stupid_password_for(manager_user)
 
       # Categories
       head = FactoryGirl.create(:category, :name => 'Headphones')
