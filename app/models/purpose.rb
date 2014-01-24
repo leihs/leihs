@@ -9,7 +9,7 @@ class Purpose < ActiveRecord::Base
   end
 
   def to_s
-    description
+    "#{description}"
   end
 
   def change_description(new_description, scoped_lines = nil)
