@@ -2610,9 +2610,6 @@ msgid_plural "Take back of %s items"
 msgstr[0] "Rücknahme von %s Gegenstand"
 msgstr[1] "Rücknahme von %s Gegenständen"
 
-msgid "No."
-msgstr "Nr."
-
 msgid "Contract signed"
 msgstr "Vertrag unterschrieben"
 
@@ -2627,9 +2624,6 @@ msgstr "Aktives Inventar"
 
 msgid "Unused Models"
 msgstr "Ungenutzte Modelle"
-
-msgid "Responsible"
-msgstr "Verantwortlich"
 
 msgid "Responsible inventory pool"
 msgstr "Verantwortlicher Gerätepark"
@@ -2735,11 +2729,6 @@ msgstr "Ausleihbare Gegenstände"
 
 msgid "Available for borrower"
 msgstr "Verfügbar für Ausleihenden"
-
-msgid "Inventory pool"
-msgid_plural "Inventory pools"
-msgstr[0] "Gerätepark"
-msgstr[1] "Geräteparks"
 
 msgid "is part of a package"
 msgstr "ist Bestandteil eines Pakets"

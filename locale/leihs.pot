@@ -848,9 +848,6 @@ msgstr ""
 msgid "No take backs found"
 msgstr ""
 
-msgid "No."
-msgstr ""
-
 msgid "None"
 msgstr ""
 
@@ -2385,9 +2382,6 @@ msgstr ""
 msgid "You can modify the time range for each separate model in the next step."
 msgstr ""
 
-msgid "from %s"
-msgstr ""
-
 msgid "List of templates"
 msgstr ""
 
@@ -2559,9 +2553,6 @@ msgstr ""
 msgid "Unused Models"
 msgstr ""
 
-msgid "Responsible"
-msgstr ""
-
 msgid "Responsible inventory pool"
 msgstr ""
 
@@ -2666,11 +2657,6 @@ msgstr ""
 
 msgid "Available for borrower"
 msgstr ""
-
-msgid "Inventory pool"
-msgid_plural "Inventory pools"
-msgstr[0] ""
-msgstr[1] ""
 
 msgid "is part of a package"
 msgstr ""
