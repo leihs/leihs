@@ -12,6 +12,10 @@ namespace :app do
   namespace :test do
 
     task :setup do
+      `#{Rails.root}/script/validate_gettext_files.sh`
+      if $?.exitstatus != 0
+        raise "FATAL: Gettext files did not validate. Exiting."
+      end
       # force environment
       Rails.env = 'test'
       RAILS_ENV='test'
