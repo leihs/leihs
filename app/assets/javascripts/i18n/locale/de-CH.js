@@ -882,9 +882,8 @@ window.i18n.locale_data = {
          "Invetarcode aktualisiert"
       ],
       "Inventory pool": [
-         "Inventory pools",
-         "Gerätepark",
-         "Geräteparks"
+         null,
+         "Gerätepark"
       ],
       "InventoryPool|Email": [
          null,
