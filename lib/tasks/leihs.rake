@@ -50,13 +50,8 @@ namespace :leihs do
     File.open(Rails.root.join("app", "views", "layouts", "borrow.html.haml"), 'a+') {|f| f.puts text}
   end
 
-  # TODO :boot or :server_reboot ??
-  desc "Application boot (task called after server reboot)"
-  task :boot => :environment do
-  end
- 
   task :test do
-    Rake::Task["app:test"].invoke
+    raise "Please call app:test, not leihs:test. The leihs: namespace is being deprecated."
   end
 
   desc "Initialize"
