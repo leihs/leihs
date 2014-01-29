@@ -45,7 +45,7 @@ contexts:
   scripts:
     validate_gettext:
       order: 1
-      body: "substitute_with_path: script/validate_gettext_files.sh"
+      body: "script/validate_gettext_files.sh"
 
 - name: rspec specs
   scripts:
