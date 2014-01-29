@@ -40,12 +40,11 @@ contexts:
     scripts:
       main:
         body: env | sort; ls
-
-- name: validate gettext
-  scripts:
-    validate_gettext:
-      order: 1
-      body: "script/validate_gettext_files.sh"
+  - name: gettext
+    scripts:
+      validate_gettext:
+        order: 1
+        body: "script/validate_gettext_files.sh"
 
 - name: rspec specs
   scripts:
