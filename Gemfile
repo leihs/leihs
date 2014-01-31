@@ -44,9 +44,9 @@ gem 'newrelic_rpm', '~> 3.5', :group => [:profiling, :development]
 gem 'paperclip'
 gem 'phantomjs', '~> 1.6.0.0', :group => [:test, :development] # headless webdriver (UI & JS tests)
 gem 'poltergeist'
-gem 'pry', '~> 0.9', :group => [:test, :development]
-gem 'pry-debugger', '~> 0.2.2', :group => :development
-gem 'pry-rails', '~> 0.2', :group => [:test, :development]
+gem 'pry', :group => [:test, :development]
+gem 'pry-debugger', :group => :development
+gem 'pry-rails', :group => [:test, :development]
 gem 'rails_autolink', '~> 1.0'
 gem 'rake' # So that cronjobs work -- otherwise they can't find rake
 gem 'redcarpet', :group => [:test, :development] # This isn't being pulled in by yard, but it's required
