@@ -20,7 +20,7 @@
               .arrow.down
             %ul.dropdown.right
               %li
-                %a.dropdown-item{href: (current_inventory_pool ? manage_new_inventory_pool_user_path(type: :delegation) : manage_users_new_path)}= _("New Delegation")
+                %a.dropdown-item{href: (current_inventory_pool ? manage_new_inventory_pool_user_path(type: :delegation) : manage_users_new_path(type: :delegation))}= _("New Delegation")
 
     .margin-top-m
 

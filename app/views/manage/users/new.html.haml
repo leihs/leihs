@@ -1,4 +1,4 @@
-- content_for :title, _("Create %s") % _("User")
+- content_for :title, _("Create %s") % (@delegation ? _("Delegation") : _("User"))
 - content_for :admin_section, "active"
 
 .wrapper.margin-top-m
@@ -21,12 +21,18 @@
 
         .row.margin-top-m
 
-          .col1of2.padding-right-xs
+          - if @delegation
 
-            = render partial: "personal_details"
+            = render partial: "delegation"
 
-          .col1of2.padding-left-xs
+          - else
 
-            = render partial: "login_details"
+            .col1of2.padding-right-xs
 
-            = render partial: "admin_details"
+              = render partial: "personal_details"
+
+            .col1of2.padding-left-xs
+
+              = render partial: "login_details"
+
+              = render partial: "admin_details"

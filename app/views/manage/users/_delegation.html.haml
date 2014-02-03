@@ -1,0 +1,31 @@
+#delegation.row.margin-vertical-s
+
+  .col1of2.padding-right-xs
+
+    .row.padding-inset-s.emboss.margin-bottom-xxs
+      .col1of2
+        %strong.font-size-m= "#{_("Name")} *"
+      .col1of2.text-align-right
+        %input{type: "text", name: "user[firstname]", value: @user.try(:firstname)}
+
+    #users.row.emboss.margin-bottom-xxs
+      .row.padding-inset-s
+        .col1of2
+          %strong.font-size-m= _("Users")
+        .col1of2.text-align-right
+          .row
+            %input{type: "text", placeholder: _("Name of the user"), :"data-search-users" => true, autocomplete: :off}
+            %label.addon.small.transparent.padding-right-s
+              .arrow.down
+
+      .row.list-of-lines.even{:"data-users-list" => true}
+
+  .col1of2.padding-left-xs
+
+    .row.padding-inset-s.emboss.margin-bottom-xxs
+      .col1of2
+        %strong.font-size-m= "#{_("Responsible")} *"
+
+:coffeescript
+
+  jQuery -> new App.DelegationController {el: "#delegation"}

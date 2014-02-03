@@ -54,14 +54,22 @@ class Manage::UsersController < Manage::ApplicationController
   end
 
   def new
-    @user = User.new
-    @is_admin = false
+    if params[:type] == "delegation"
+      @delegation = User.new
+    else
+      @user = User.new
+      @is_admin = false
+    end
   end
 
   def new_in_inventory_pool
-    @user = User.new
-    @accessible_roles = get_accessible_roles_for_current_user
-    @access_right = @user.access_rights.new inventory_pool_id: current_inventory_pool.id, role: :customer
+    if params[:type] == "delegation"
+      @delegation = User.new
+    else
+      @user = User.new
+      @accessible_roles = get_accessible_roles_for_current_user
+      @access_right = @user.access_rights.new inventory_pool_id: current_inventory_pool.id, role: :customer
+    end
   end
 
   def create
