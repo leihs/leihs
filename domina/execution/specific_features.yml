@@ -80,13 +80,13 @@ contexts:
       body: |
             rbenv shell $RBENV_VERSION \
             && domina/bin/create_db_config_file.rb \
-            && domina/bin/setup_test_db.rb && \
-            bundle exec rake app:test:generate_personas_dumps
+            && domina/bin/setup_test_db.rb \
+            && bundle exec rake app:test:generate_personas_dumps
     copy_personas_dumps:
       order: 3
       body: |
             mkdir -p features/personas/dumps/ \
-            && cp /tmp/${DOMINA_EXECUTION_ID}/personas*.sql features/personas/dumps/
+            && cp -v /tmp/${DOMINA_EXECUTION_ID}/personas*.sql features/personas/dumps/
     setup_leihs:
       order: 4
       body: "substitute_with_path: domina/scripts/setup_leihs.sh"
