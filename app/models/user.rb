@@ -60,7 +60,8 @@ class User < ActiveRecord::Base
   has_many :contract_lines, :through => :contracts, :uniq => true
   has_many :visits #, :include => :inventory_pool # MySQL View based on contract_lines
 
-  validates_presence_of     :lastname, :firstname, :email, :login
+  validates_presence_of     :firstname
+  validates_presence_of     :lastname, :email, :login, unless: :is_delegation
   validates_length_of       :login, :within => 3..40
   validates_uniqueness_of   :email
   validates :email, format: /.+@.+\..+/, allow_blank: true
