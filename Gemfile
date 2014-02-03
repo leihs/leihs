@@ -38,7 +38,6 @@ gem 'launchy', '~> 2.1', :group => [:test, :development]
 gem 'meta_request', :group => :development
 gem 'mini_magick', '~> 3.4'
 gem 'mysql2', '~> 0.3.11', :platform => :mri
-gem 'nested_set', '~> 1.7'
 gem 'net-ldap', '0.2.2', :require => 'net/ldap' # Never upgrade beyond 0.2.2, ruby-net-ldap has broken in many unpredictable ways. Wait for 1.0.0 before upgrading, at least 0.2.2 works.
 gem 'newrelic_rpm', '~> 3.5', :group => [:profiling, :development]
 gem 'paperclip'
@@ -47,6 +46,7 @@ gem 'poltergeist'
 gem 'pry', :group => [:test, :development]
 gem 'pry-debugger', :group => :development
 gem 'pry-rails', :group => [:test, :development]
+gem "rack_session_access", "~> 0.1.1", group: :test
 gem 'rails_autolink', '~> 1.0'
 gem 'rake' # So that cronjobs work -- otherwise they can't find rake
 gem 'redcarpet', :group => [:test, :development] # This isn't being pulled in by yard, but it's required
@@ -61,7 +61,7 @@ gem 'simplecov', :require => false, :group => :test
 gem 'therubyracer', :platform => :mri
 gem 'therubyrhino', :platform => :jruby
 gem 'thin', :group => :development, :platform => :mri # web server (Webrick do not support keep-alive connections)
-gem 'timecop', '~> 0.5', :group => [:test, :development]
+gem 'timecop', '~> 0.7', :group => [:test, :development]
 gem 'trinidad', :group => :development, :platform => :jruby # web server (Webrick do not support keep-alive connections)
 gem 'uglifier', '~> 1.3', :group => :assets
 gem 'underscore-rails', '~> 1.4'

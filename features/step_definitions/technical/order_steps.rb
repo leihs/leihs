@@ -240,7 +240,7 @@ end
 
 When /^I approve the contract of the borrowing user$/ do
   @contract.approve("That will be fine.", Persona::get("Ramon"))
-  @contract.is_approved?.should be_true
+  @contract.status.should == :approved
 end
 
 Then /^the borrowing user gets one confirmation email$/ do

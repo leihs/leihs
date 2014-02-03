@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   def root
     if logged_in?
-      if current_user.has_role?('manager', nil, false) or current_user.has_role?('admin')
+      if current_user.has_role?(:group_manager) or current_user.has_role?(:admin)
         redirect_to manage_root_path, flash: flash
       else
         redirect_to borrow_root_path, flash: flash
@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
 
   def load_settings
     if not Setting.const_defined?("SMTP_ADDRESS") and logged_in? and not [manage_settings_path, logout_path].include? request.path
-      if current_user.has_role?('admin')
+      if current_user.has_role?(:admin)
         redirect_to manage_settings_path
       else
         raise "Application settings are missing!"
@@ -90,7 +90,7 @@ class ApplicationController < ActionController::Base
   ####### Helper Methods #######
 
   def is_admin?
-    current_user.has_role?('admin')
+    current_user.has_role?(:admin)
   end
 
 

@@ -33,7 +33,9 @@ class Borrow::ApplicationController < ApplicationController
 
   private
 
-  def require_customer; require_role "customer"; end
+  def require_customer
+    require_role :customer
+  end
 
   def redirect_if_order_timed_out
     return if request.format == :json or

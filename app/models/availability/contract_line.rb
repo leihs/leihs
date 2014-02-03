@@ -1,5 +1,5 @@
 module Availability
-  module DocumentLine
+  module ContractLine
 
     attr_accessor :allocated_group_id
     
@@ -33,14 +33,13 @@ module Availability
       end
 
       # OPTIMIZE
-      if b and [:unsubmitted, :submitted].include? contract.status
+      if b and [:unsubmitted].include? contract.status
         b = (b and inventory_pool.is_open_on?(start_date) and inventory_pool.is_open_on?(end_date)) 
-        b = (b and not contract.user.access_right_for(inventory_pool).suspended?) if contract.user # OPTIMIZE why checking for user ??
+        b = (b and not contract.user.access_right_for(inventory_pool).suspended?)
       end
 
-      return b
+      b
     end
-    alias :is_available :available? # NOTE remove if custom as_json is gone 
 
     def maximum_available_quantity
       model.availability_in(inventory_pool).maximum_available_in_period_for_groups(start_date, end_date, group_ids)

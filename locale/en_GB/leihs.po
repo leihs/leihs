@@ -1295,9 +1295,10 @@ msgstr ""
 msgid "This order is not approvable because doesn't have any models."
 msgstr ""
 
-msgid ""
-"This order is not approvable because some reserved models are not available "
-"or the inventory pool is closed on either the start or enddate."
+msgid "This order is not approvable because some reserved models are not available."
+msgstr ""
+
+msgid "This order is not approvable because the inventory pool is closed on either the start or enddate."
 msgstr ""
 
 msgid ""

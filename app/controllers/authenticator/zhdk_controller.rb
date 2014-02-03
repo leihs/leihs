@@ -57,18 +57,16 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
     user.extended_info = xml["authresponse"]["person"]
     if user.new_record?
       user.save
-      r = Role.where(:name => "customer").first
       ips = InventoryPool.where(:name => DEFAULT_INVENTORY_POOLS)
       ips.each do |ip|
-        user.access_rights.create(:role => r, :inventory_pool => ip)
+        user.access_rights.create(:role => :customer, :inventory_pool => ip)
       end
     else
       user.save
     end
     
     if SUPER_USERS.include?(user.unique_id)
-      r = Role.where(:name => "admin").first    
-      user.access_rights.create(:role => r, :inventory_pool => nil)
+      user.access_rights.create(:role => :admin, :inventory_pool => nil)
     end
     user
   end

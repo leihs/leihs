@@ -12,28 +12,28 @@ class Field < ActiveHash::Base
       label: "Inventory Code",
       attribute: "inventory_code",
       required: true,
-      permissions: {level: 3, owner: true},
+      permissions: {role: :inventory_manager, owner: true},
       type: "text",
       group: nil
     },{
       id: 2,
       label: "Serial Number",
       attribute: "serial_number",
-      permissions: {level: 2, owner: true},
+      permissions: {role: :lending_manager, owner: true},
       type: "text",
       group: "General Information"
     },{
       id: 3,
       label: "MAC-Address",
       attribute: ["properties", "mac_address"],
-      permissions: {level: 2, owner: true},
+      permissions: {role: :lending_manager, owner: true},
       type: "text",
       group: "General Information"
     },{
       id: 4,
       label: "IMEI-Number",
       attribute: ["properties", "imei_number"],
-      permissions: {level: 2, owner: true},
+      permissions: {role: :lending_manager, owner: true},
       type: "text",
       group: "General Information"
     },{
@@ -55,7 +55,7 @@ class Field < ActiveHash::Base
       label: "Retirement",
       attribute: "retired",
       type: "select",
-      permissions: {level: 2, owner: true},
+      permissions: {role: :lending_manager, owner: true},
       values: [{label: "No", value: false}, {label: "Yes", value: true}],
       group: "Status"
     },{
@@ -64,7 +64,7 @@ class Field < ActiveHash::Base
       attribute: "retired_reason",
       type: "textarea",
       required: true,
-      permissions: {level: 2, owner: true},
+      permissions: {role: :lending_manager, owner: true},
       visibility_dependency_field_id: 7,
       visibility_dependency_value: "true",
       group: "Status"
@@ -122,7 +122,7 @@ class Field < ActiveHash::Base
       label: "Relevant for inventory",
       attribute: "is_inventory_relevant",
       type: "select",
-      permissions: {level: 3, owner: true},
+      permissions: {role: :inventory_manager, owner: true},
       values: [{label: "No", value: false}, {label: "Yes", value: true}],
       default: true,
       group: "Inventory",
@@ -137,21 +137,21 @@ class Field < ActiveHash::Base
       values: [{label: "", value: nil}, {label: "Werkstatt-Technik", value: "Werkstatt-Technik"}, {label: "Produktionstechnik", value: "Produktionstechnik"}, {label: "AV-Technik", value: "AV-Technik"}, {label: "Musikinstrumente", value: "Musikinstrumente"}, {label: "Facility Management", value: "Facility Management"}, {label: "IC-Technik/Software", value: "IC-Technik/Software"}],
       visibility_dependency_field_id: 15,
       visibility_dependency_value: "true",
-      permissions: {level: 3, owner: true},
+      permissions: {role: :inventory_manager, owner: true},
       group: "Inventory"
     },{
       id: 16,
       label: "Owner",
       attribute: ["owner", "id"],
       type: "autocomplete",
-      permissions: {level: 3, owner: true},
+      permissions: {role: :inventory_manager, owner: true},
       values: lambda{(InventoryPool.all.map {|x| {:value => x.id, :label => x.name}}).as_json},
       group: "Inventory"
     },{
       id: 17,
       label: "Last Checked",
       attribute: "last_check",
-      permissions: {level: 2, owner: true},
+      permissions: {role: :lending_manager, owner: true},
       default: lambda{Date.today.as_json},
       type: "date",
       group: "Inventory",
@@ -162,14 +162,14 @@ class Field < ActiveHash::Base
       attribute: ["inventory_pool", "id"],
       type: "autocomplete",
       values: lambda{([{:value => nil, :label => _("None")}] + InventoryPool.all.map {|x| {:value => x.id, :label => x.name}}).as_json},
-      permissions: {level: 3, owner: true},
+      permissions: {role: :inventory_manager, owner: true},
       group: "Inventory",
       forPackage: true
     },{
       id: 19,
       label: "Responsible person",
       attribute: "responsible",
-      permissions: {level: 2, owner: true},
+      permissions: {role: :lending_manager, owner: true},
       type: "text",
       group: "Inventory",
       forPackage: true
@@ -177,7 +177,7 @@ class Field < ActiveHash::Base
       id: 20,
       label: "User/Typical usage",
       attribute: "user_name",
-      permissions: {level: 3, owner: true},
+      permissions: {role: :inventory_manager, owner: true},
       type: "text",
       group: "Inventory",
       forPackage: true
@@ -185,7 +185,7 @@ class Field < ActiveHash::Base
       id: 21,
       label: "Reference",
       attribute: ["properties", "reference"],
-      permissions: {level: 3, owner: true},
+      permissions: {role: :inventory_manager, owner: true},
       required: true,
       values: [{label: "Running Account", value: "invoice"}, {label: "Investment", value: "investment"}],
       default: "invoice", 
@@ -195,7 +195,7 @@ class Field < ActiveHash::Base
       id: 22,
       label: "Project Number",
       attribute: ["properties", "project_number"],
-      permissions: {level: 3, owner: true},
+      permissions: {role: :inventory_manager, owner: true},
       type: "text",
       required: true,
       visibility_dependency_field_id: 21,
@@ -205,21 +205,21 @@ class Field < ActiveHash::Base
       id: 23,
       label: "Invoice Number",
       attribute: "invoice_number",
-      permissions: {level: 2, owner: true},
+      permissions: {role: :lending_manager, owner: true},
       type: "text",
       group: "Invoice Information"
     },{
       id: 24,
       label: "Invoice Date",
       attribute: "invoice_date",
-      permissions: {level: 2, owner: true},
+      permissions: {role: :lending_manager, owner: true},
       type: "date",
       group: "Invoice Information"
     },{
       id: 25,
       label: "Initial Price",
       attribute: "price",
-      permissions: {level: 2, owner: true},
+      permissions: {role: :lending_manager, owner: true},
       type: "text",
       group: "Invoice Information",
       forPackage: true
@@ -230,21 +230,21 @@ class Field < ActiveHash::Base
       type: "autocomplete",
       extensible: true,
       extended_key: ["supplier", "name"],
-      permissions: {level: 2, owner: true},
+      permissions: {role: :lending_manager, owner: true},
       values: lambda{Supplier.order(:name).map {|x| {:value => x.id, :label => x.name}}.as_json},
       group: "Invoice Information"
     },{
       id: 28,
       label: "Warranty expiration",
       attribute: ["properties", "warranty_expiration"],
-      permissions: {level: 2, owner: true},
+      permissions: {role: :lending_manager, owner: true},
       type: "date",
       group: "Invoice Information"
     },{
       id: 29,
       label: "Contract expiration",
       attribute: ["properties", "contract_expiration"],
-      permissions: {level: 2, owner: true},
+      permissions: {role: :lending_manager, owner: true},
       type: "date",
       group: "Invoice Information"
     },{
@@ -253,21 +253,21 @@ class Field < ActiveHash::Base
       attribute: ["properties", "umzug"],
       type: "select",
       values: [{label:"zügeln", value:"zügeln"}, {label:"sofort entsorgen", value:"sofort entsorgen"}, {label:"bei Umzug entsorgen", value:"bei Umzug entsorgen"}, {label:"bei Umzug verkaufen", value:"bei Umzug verkaufen"}],
-      permissions: {level: 3, owner: true},
+      permissions: {role: :inventory_manager, owner: true},
       group: "Umzug"
     },{
       id: 31,
       label: "Zielraum",
       attribute: ["properties", "zielraum"],
       type: "text",
-      permissions: {level: 3, owner: true},
+      permissions: {role: :inventory_manager, owner: true},
       group: "Umzug"
     },{
       id: 32,
       label: "Ankunftsdatum",
       attribute: ["properties", "ankunftsdatum"],
       type: "date",
-      permissions: {level: 3, owner: true},
+      permissions: {role: :inventory_manager, owner: true},
       group: "Toni Ankunftskontrolle"
     },{
       id: 33,
@@ -275,14 +275,14 @@ class Field < ActiveHash::Base
       attribute: ["properties", "ankunftszustand"],
       type: "select",
       values: [{label:"intakt", value:"intakt"}, {label:"transportschaden", value:"transportschaden"}],
-      permissions: {level: 3, owner: true},
+      permissions: {role: :inventory_manager, owner: true},
       group: "Toni Ankunftskontrolle"
     },{
       id: 34,
       label: "Ankunftsnotiz",
       attribute: ["properties", "ankunftsnotiz"],
       type: "textarea",
-      permissions: {level: 3, owner: true},
+      permissions: {role: :inventory_manager, owner: true},
       group: "Toni Ankunftskontrolle"
     },{
       id: 35,
@@ -292,7 +292,7 @@ class Field < ActiveHash::Base
       form_name: "model_id",
       required: true,
       type: "autocomplete-search",
-      search_path: lambda{|current_inventory_pool| Rails.application.routes.url_helpers.manage_models_path(current_inventory_pool, {all: true})},
+      search_path: lambda{|inventory_pool| Rails.application.routes.url_helpers.manage_models_path(inventory_pool, {all: true})},
       search_attr: "search_term",
       value_attr: "id",
       display_attr: "name",
@@ -321,9 +321,9 @@ class Field < ActiveHash::Base
     end
   end
 
-  def search_path (current_inventory_pool)
+  def search_path(inventory_pool)
     if self[:search_path].is_a? Proc
-      self[:search_path].call current_inventory_pool
+      self[:search_path].call inventory_pool
     else
       self[:search_path]
     end
@@ -358,7 +358,7 @@ class Field < ActiveHash::Base
   def editable(user, inventory_pool, item)
     return true unless self.permissions
 
-    return false if self[:permissions][:level] and not user.has_at_least_access_level self[:permissions][:level], inventory_pool
+    return false if self[:permissions][:role] and not user.has_role? self[:permissions][:role], inventory_pool
     return false if self[:permissions][:owner] and item.owner != inventory_pool
 
     return true
@@ -369,7 +369,7 @@ class Field < ActiveHash::Base
   def self.accessible_by user, inventory_pool
     Field.all.select do |field|
       if field[:permissions]
-        user.has_at_least_access_level field[:permissions][:level], inventory_pool
+        user.has_role? field[:permissions][:role], inventory_pool
       else
         true
       end

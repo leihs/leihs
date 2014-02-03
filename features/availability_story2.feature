@@ -9,8 +9,8 @@ Background: As a Organisation we have some Inventory with things to lend out
     And inventory pool 'ABC'
     # this used the old UI -- we don't need to use any UI at all, so let's do the login more
     # directly as below
-    #And a manager for inventory pool 'ABC' logs in as 'lending_manager'
-    And a manager for inventory pool 'ABC' is logged in as 'lending_manager'
+    #And a lending_manager for inventory pool 'ABC' logs in as 'lending_manager'
+    And a lending_manager for inventory pool 'ABC' is logged in as 'lending_manager'
 
 
 Scenario: In Repair

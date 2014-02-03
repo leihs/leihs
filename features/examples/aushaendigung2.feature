@@ -18,7 +18,7 @@ Funktionalität: Aushaendigung editieren
     Wenn ich eine Option hinzufüge
     Dann wird die Zeile selektiert
     Und die Zeile wird grün markiert
-    Und mir wird eine Erfolgsmeldung angezeigt
+    Und ich erhalte eine Meldung
 
   @javascript
   Szenario: Aushändigung eines bereits zugeteilten Gegenstandes

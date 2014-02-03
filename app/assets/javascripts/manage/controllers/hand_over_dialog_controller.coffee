@@ -26,13 +26,21 @@ class window.App.HandOverDialogController extends Spine.Controller
       @noteTextArea.focus()
 
   validateDialog: =>
-    do @validateStartDate and do @validateAssignment
+    do @validateStartDate and do @validateEndDate and do @validateAssignment
 
   validateStartDate: =>
     if _.any(@lines, (l)-> moment(l.start_date).endOf("day").diff(moment().startOf("day"), "days") > 0)
       App.Flash
         type: "error"
-        message: _jed "you cannot hand out lines wich are starting in the future"
+        message: _jed "you cannot hand out lines which are starting in the future"
+      return false
+    return true
+
+  validateEndDate: =>
+    if _.any(@lines, (l)-> moment(l.end_date).endOf("day").diff(moment().startOf("day"), "days") < 0)
+      App.Flash
+        type: "error"
+        message: _jed "you cannot hand out lines which are ending in the past"
       return false
     return true
 

@@ -5,11 +5,11 @@ Feature: Hand Over
        in order to generate contracts and hand over the physical items
 
 #Background:
-#  Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
+#  Given a lending_manager for inventory pool 'ABC' logs in as 'inv_man_0'
 #    And his password is 'pass'
 #  # For full-stack steps:
 #  Given inventory pool 'ABC'
-#    And a manager 'inv_man_0' with access level 3
+#    And a inventory_manager 'inv_man_0' for inventory pool 'ABC'
 #    And his password is 'pass'
 
 @old-ui       

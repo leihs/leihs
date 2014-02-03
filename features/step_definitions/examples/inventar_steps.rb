@@ -298,7 +298,11 @@ Dann /^so eine Zeile sieht aus wie eine Gegenstands\-Zeile$/ do
   @item_line ||= @items_element.find(".line", match: :first)
   @item ||= Item.find_by_inventory_code(@item_line.find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text)
   
-  if @item.in_stock? && @item.inventory_pool == @current_inventory_pool
+  # this check is to cover the case where there is item assigned but the user has not signed yet
+  if @item.in_stock? && @item.current_borrower && @item.inventory_pool == @current_inventory_pool
+    step 'enthält die Gegenstands-Zeile den aktuell Ausleihenden'
+    step 'enthält die Gegenstands-Zeile das Enddatum der Ausleihe'
+  elsif @item.in_stock? && @item.inventory_pool == @current_inventory_pool
     step 'enthält die Gegenstands-Zeile die Gebäudeabkürzung'
     step 'enthält die Gegenstands-Zeile den Raum'
     step 'enthält die Gegenstands-Zeile das Gestell'
@@ -597,7 +601,7 @@ end
 Wenn(/^ich eine resultatlose Suche mache$/) do
   begin
     search_term = Faker::Lorem.words.join
-  end while not Inventory.filter({search_term: search_term}, @current_inventory_pool).empty?
+  end while not @current_inventory_pool.inventory({search_term: search_term}).empty?
   find("#list-search").set search_term
 end
 

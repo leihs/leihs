@@ -1,18 +1,10 @@
-def add_access_right(user, inventory_pool, role = nil, level = nil)
+def add_access_right(user, inventory_pool, role = :customer)
 
-  if role == nil
-    role = Role.where(:name => 'customer').first
-  end
-
-  existing = user.access_rights.where(:inventory_pool_id => inventory_pool,
-                                      :role_id => role,
-                                      :access_level => level).first
+  existing = user.access_rights.where(:inventory_pool_id => inventory_pool, :role => role).first
   if existing
     return true
   else
-    new_right = user.access_rights.build(:inventory_pool_id => inventory_pool.id,
-                                         :role_id => role.id,
-                                         :access_level => level)
+    new_right = user.access_rights.build(:inventory_pool => inventory_pool, :role => role)
     if new_right.save
       return true
     else
@@ -22,6 +14,3 @@ def add_access_right(user, inventory_pool, role = nil, level = nil)
   end
 
 end
-
-
-

@@ -70,18 +70,16 @@ class Authenticator::ShibbolethAuthenticationController < Authenticator::Authent
     user.authentication_system = AuthenticationSystem.where(:class_name => AUTHENTICATION_SYSTEM_CLASS_NAME).first
     if user.new_record?
       user.save
-      r = Role.where(:name => "customer").first
       ips = InventoryPool.where(:name => DEFAULT_INVENTORY_POOLS)
       ips.each do |ip|
-        user.access_rights.create(:role => r, :inventory_pool => ip)
+        user.access_rights.create(:role => :customer, :inventory_pool => ip)
       end
     else
       user.save
     end
 
     if SUPER_USERS.include?(user.unique_id)
-      r = Role.where(:name => "admin").first
-      user.access_rights.create(:role => r, :inventory_pool => nil)
+      user.access_rights.create(:role => :admin, :inventory_pool => nil)
     end
     user
   end

@@ -1,7 +1,7 @@
 class ModelsController < ApplicationController
 
   before_filter do
-    require_role "customer"
+    require_role :customer
   end
   
   def image

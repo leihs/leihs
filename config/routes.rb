@@ -131,9 +131,6 @@ Leihs::Application.routes.draw do
     put     'users/:id',      to: 'users#update', as: 'update_user'
     delete  'users/:id',      to: 'users#destroy'
 
-    # Roles
-    get "roles", to: "roles#index"
-
     # Access rights
     get "access_rights", to: "access_rights#index"
 
@@ -154,6 +151,7 @@ Leihs::Application.routes.draw do
       get   'contracts',                to: "contracts#index",      as: "contracts"
       get   "contracts/:id",            to: "contracts#show",       as: "contract"
       post  "contracts/:id/approve",    to: "contracts#approve",    as: "approve_contract"
+      post  "contracts/:id/unapprove",  to: "contracts#unapprove",  as: "unapprove_contract"
       post  "contracts/:id/reject",     to: "contracts#reject"
       post  'contracts/:id/sign',       to: "contracts#sign"
       get   'contracts/:id/edit',       to: "contracts#edit",       as: "edit_contract"

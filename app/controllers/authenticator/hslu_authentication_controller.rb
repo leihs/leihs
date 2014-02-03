@@ -61,9 +61,8 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
     user.authentication_system = AuthenticationSystem.where(:class_name => 'HsluAuthentication').first
     if user.save
       # Assign any default roles you want
-      role = Role.where(:name => "customer").first
       InventoryPool.all.each do |ip|
-        user.access_rights.create(:inventory_pool => ip, :role => role)
+        user.access_rights.create(:inventory_pool => ip, :role => :customer)
       end
       return user
     else
@@ -103,9 +102,8 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
     admin_dn = ldaphelper.ldap_config[Rails.env]["admin_dn"]
     unless admin_dn.blank?
       if user_data["memberof"].include?(admin_dn)
-        admin_role = Role.where(:name => "admin").first
-        if user.access_rights.active.empty? or !user.access_rights.active.collect(&:role).include?(admin_role)
-          user.access_rights.create(:role => admin_role)
+        if user.access_rights.active.empty? or !user.access_rights.active.collect(&:role).include?(:admin)
+          user.access_rights.create(:role => :admin)
         end
       end
     end

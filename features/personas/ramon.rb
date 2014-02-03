@@ -22,11 +22,13 @@ module Persona
         create_inventory_pool_a_ausleihe
         create_inventory_pool_it_ausleihe
         create_inventory_pool_av_technik
+        create_inventory_pool_deletable
         create_naked_users
         create_users_with_access_rights
         create_users_with_unsubmitted_contracts
         create_users_with_approved_contracts
         create_users_with_deleted_access_rights_and_closed_contracts
+        become_customer_of_inventory_pool_a_ausleihe
       end
     end
     
@@ -38,14 +40,13 @@ module Persona
       FactoryGirl.create :setting unless Setting.first
       LeihsFactory.create_default_languages
       LeihsFactory.create_default_authentication_systems
-      LeihsFactory.create_default_roles
       LeihsFactory.create_default_building
     end
     
     def create_admin_user
       @language = Language.find_by_locale_name "de-CH"
       @user = FactoryGirl.create(:user, :language => @language, :firstname => @@name, :lastname => @@lastname, :login => @@name.downcase, :email => @@email)
-      @user.access_rights.create(:role => Role.find_by_name("admin"))
+      @user.access_rights.create(:role => :admin)
     end
     
     def create_inventory_pool_a_ausleihe
@@ -74,17 +75,24 @@ module Persona
       create_christmas_holiday @av_technik
     end
 
+    def create_inventory_pool_deletable
+      description = "Bringt die Geräte bitte rechtzeitig zurück"
+      contact_details = "AV Verleih  /  ZHdK\nav@zh-dk.ch\n+41 00 00 00 00"
+      FactoryGirl.create(:inventory_pool, :name => "DT deletable", :description => description, :contact_details => contact_details, :contract_description => "Gerät erhalten", :email => "it@zhdk.ch", :shortname => "DT")
+    end
+
     def create_naked_users
       FactoryGirl.create :user
     end
 
     def create_users_with_access_rights
-      FactoryGirl.create :access_right, inventory_pool: @av_technik, user: FactoryGirl.create(:user), role: Role.find_by_name("customer")
+      FactoryGirl.create :access_right, inventory_pool: @av_technik, user: FactoryGirl.create(:user), role: :customer
+      FactoryGirl.create :access_right, inventory_pool: @a_ausleihe, user: FactoryGirl.create(:user), role: :lending_manager
     end
 
     def create_users_with_deleted_access_rights_and_closed_contracts
       user = FactoryGirl.create(:user)
-      FactoryGirl.create :access_right, inventory_pool: @a_ausleihe, deleted_at: Date.today, user: user, role: Role.find_by_name("customer")
+      FactoryGirl.create :access_right, inventory_pool: @a_ausleihe, deleted_at: Date.today, user: user, role: :customer
       @contract = FactoryGirl.create :contract_with_lines, inventory_pool: @a_ausleihe, status: :approved, user: user
       manager = User.find_by_login "ramon"
       @contract.sign(manager)
@@ -99,5 +107,10 @@ module Persona
     def create_users_with_approved_contracts
       FactoryGirl.create :contract_with_lines, status: :approved
     end
+
+    def become_customer_of_inventory_pool_a_ausleihe
+      @user.access_rights.create role: :customer, inventory_pool: @a_ausleihe
+    end
+
   end
 end

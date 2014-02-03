@@ -115,6 +115,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/pakete3.feature"
+- name: examples/gruppen5
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/gruppen5.feature"
 - name: examples/gegenstand_editieren
   scripts:
     cucumber:
@@ -199,6 +203,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/passwort5.feature"
+- name: examples/bestellenden_wechseln
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/bestellenden_wechseln.feature"
 - name: examples/statistik
   scripts:
     cucumber:
@@ -323,6 +331,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/pakete2.feature"
+- name: examples/pakete6
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/pakete6.feature"
 - name: examples/gegenstand_erstellen
   scripts:
     cucumber:
@@ -495,6 +507,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/gegenstand_erstellen6.feature"
+- name: examples/kategorien4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/kategorien4.feature"
 - name: examples/gegenstand_editieren8
   scripts:
     cucumber:
@@ -547,6 +563,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/passwort4.feature"
+- name: examples/benutzerverwaltung15
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung15.feature"
 - name: examples/modell7
   scripts:
     cucumber:
@@ -647,6 +667,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/search.feature"
+- name: manage/delegation
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/delegation.feature"
 - name: manage/take_back/close_contract
   scripts:
     cucumber:
@@ -655,6 +679,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/manage/take_back/edit_take_back_end_date.feature"
+- name: manage/navigation
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/navigation.feature"
 - name: manage/acknowledge/edit_purpose
   scripts:
     cucumber:
@@ -863,6 +891,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/borrow/bestellfensterchen3.feature"
+- name: borrow/bestelluebersicht5
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/bestelluebersicht5.feature"
 - name: borrow/modellliste
   scripts:
     cucumber:

@@ -14,7 +14,7 @@ Feature: Take Back
 @old-ui
 Scenario: Because of a bug in leihs, we've handed over an Item twice, now we want to at least be able to take it back
 
-	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given a lending_manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given a model 'NEC 245' exists
 	  And item 'AV_NEC245_1' of model 'NEC 245' exists only
 	Given there is only a signed contract by 'Joe' for item 'AV_NEC245_1'

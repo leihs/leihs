@@ -10,7 +10,6 @@ class window.App.UsersIndexController extends Spine.Controller
     @pagination = new App.ListPaginationController {el: @list, fetch: @fetch}
     @search = new App.ListSearchController {el: @el.find("#list-search"), reset: @reset}
     @filter = new App.ListFiltersController {el: @el.find("#list-filters"), reset: @reset}
-    @fetchRoles()
     do @reset
 
   reset: =>
@@ -34,9 +33,6 @@ class window.App.UsersIndexController extends Spine.Controller
       @pagination.set JSON.parse(xhr.getResponseHeader("X-Pagination"))
       users = (App.User.find(datum.id) for datum in data)
       @users[page] = users
-
-  fetchRoles: =>
-    App.Role.fetch()
 
   fetchAccessRights: (page) =>
     ids = _.map @users[page], (u) -> u.id

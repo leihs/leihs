@@ -14,7 +14,7 @@
           = _("Groups")
 
       %li
-        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => (current_user.has_role?("admin") ? manage_inventory_pools_path : manage_edit_inventory_pool_path(current_inventory_pool)),
+        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => (current_user.has_role?(:admin) ? manage_inventory_pools_path : manage_edit_inventory_pool_path(current_inventory_pool)),
                                                                                 :class => (defined? active_tab and active_tab == :inventory_pools) ? "active" : ""}
           = _("Inventory Pools")
 

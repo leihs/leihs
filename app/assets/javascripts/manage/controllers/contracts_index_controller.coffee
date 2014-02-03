@@ -8,9 +8,11 @@ class window.App.ContractsIndexController extends Spine.Controller
     new App.LinesCellTooltipController {el: @el}
     new App.UserCellTooltipController {el: @el}
     new App.ContractsApproveController {el: @el}
+    new App.ContractsUnapproveController {el: @el}
     new App.ContractsRejectController {el: @el, async: true, callback: @orderRejected}
     @pagination = new App.ListPaginationController {el: @list, fetch: @fetch}
     @search = new App.ListSearchController {el: @el.find("#list-search"), reset: @reset}
+    @filter = new App.ListFiltersController {el: @el.find("#list-filters"), reset: @reset}
     @range = new App.ListRangeController {el: @el.find("#list-range"), reset: @reset}
     @tabs = new App.ListTabsController {el: @el.find("#list-tabs"), reset: @reset, data:{status: @status}}
     do @reset
@@ -19,6 +21,7 @@ class window.App.ContractsIndexController extends Spine.Controller
     @contracts = {}
     @list.html App.Render "manage/views/lists/loading"
     @fetch 1, @list
+    @pagination.page = 1
 
   fetch: (page, target)=>
     @fetchContracts(page).done =>
@@ -28,11 +31,12 @@ class window.App.ContractsIndexController extends Spine.Controller
             @render target, @contracts[page], page
 
   fetchContracts: (page)=>
-    App.Contract.ajaxFetch
-      data: $.param $.extend @tabs.getData(),
-        search_term: @search.term()
-        page: page
-        range: @range.get()
+    data = $.extend @tabs.getData(), $.extend @filter.getData(),
+      search_term: @search.term()
+      page: page
+      range: @range.get()
+    data = $.extend data, { from_verifiable_users: true } if App.User.current.role == "group_manager"
+    App.Contract.ajaxFetch({ data: $.param data })
     .done (data, status, xhr) => 
       @pagination.set JSON.parse(xhr.getResponseHeader("X-Pagination"))
       contracts = (App.Contract.find(datum.id) for datum in data)
@@ -68,5 +72,5 @@ class window.App.ContractsIndexController extends Spine.Controller
       .done done
 
   render: (target, data, page)=> 
-    target.html App.Render "manage/views/contracts/line", data
+    target.html App.Render "manage/views/contracts/line", data, { accessRight: App.AccessRight, currentUserRole: App.User.current.role }
     @pagination.renderPlaceholders() if page == 1

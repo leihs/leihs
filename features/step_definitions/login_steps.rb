@@ -61,20 +61,14 @@ When 'I make sure I am logged out' do
   visit "/logout"
 end
 
-When /^"([^"]*)" sign in successfully he is redirected to the "([^"]*)" section$/ do |login, section_name|
-  visit "/logout"
-  step "I am logged in as '#{login}' with password 'password'"
-  find("nav#topbar .active", text: _(section_name))
+When /^I am redirected to the "([^"]*)" section$/ do |section_name|
+  find("nav#topbar .topbar-navigation .active", match: :prefer_exact, text: _(section_name))
 end
 
 Angenommen(/^man ist eingeloggt als "(.*?)"$/) do |persona|
   visit "/logout"
   @current_user = User.where(:login => persona.downcase).first
   I18n.locale = if @current_user.language then @current_user.language.locale_name.to_sym else Language.default_language end
+  page.set_rack_session user_id: @current_user.id
   visit root_path
-  first("a[href='#{login_path}']").click
-  fill_in 'username', :with => persona.downcase
-  fill_in 'password', :with => 'password'
-  first("[type='submit']").click
-  page.has_content? @current_user.name
 end

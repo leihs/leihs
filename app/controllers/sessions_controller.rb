@@ -1,5 +1,3 @@
-require 'persona'
-
 class SessionsController < ApplicationController
 
   AUTHENTICATION_URL = 'http://localhost:3000/manage/temporary/login'

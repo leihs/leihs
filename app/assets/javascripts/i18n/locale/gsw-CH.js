@@ -73,14 +73,15 @@ window.i18n.locale_data = {
          "Project-Id-Version": " version 0.0.1",
          "Report-Msgid-Bugs-To": " ",
          "POT-Creation-Date": " 2012-10-22 12:39+0200",
-         "PO-Revision-Date": " 2013-12-03 18:16+0100",
+         "PO-Revision-Date": " 2014-01-28 09:45+0100",
          "Last-Translator": " Ramón Cahenzli <rca@psy-q.ch>",
          "Language-Team": " Swiss-German (Zürich area) <ramon.cahenzli@zhdk.ch>",
          "MIME-Version": " 1.0",
          "Content-Type": " text/plain; charset=UTF-8",
          "Content-Transfer-Encoding": " 8bit",
          "Plural-Forms": " nplurals=2; plural=(n != 1);",
-         "X-Generator": " Poedit 1.5.7"
+         "X-Generator": " Poedit 1.6.3",
+         "Language": " gsw_CH"
       },
       "Additional label in inventory codes": [
          null,
@@ -1917,9 +1918,13 @@ window.i18n.locale_data = {
          null,
          "Die Bschtellig cha nöd bewilligt werde, will's kei Modäll drin hät."
       ],
-      "This order is not approvable because some reserved models are not available or the inventory pool is closed on either the start or enddate.": [
+      "This order is not approvable because some reserved models are not available.": [
          null,
-         "Die Bschtellig chan nöd bewilligt werde, will einigi reservierti Modäll nöd verfüegbar sind oder de Grätepark wägem Start- oder Änddatum gschlosse isch."
+         "Die Bschtellig chan nöd bewilligt werde, will einigi reservierti Modäll nöd verfüegbar sind."
+      ],
+      "This order is not approvable because the inventory pool is closed on either the start or enddate.": [
+         null,
+         "Die Bschtellig chan nöd bewilligt werde, will de Grätepark wägem Start- oder Änddatum gschlosse isch."
       ],
       "This order is still pending. Please log in to your leihs system and either approve or reject it.": [
          null,
@@ -2550,6 +2555,10 @@ window.i18n.locale_data = {
          null,
          "Chund"
       ],
+      "Group manager": [
+         null,
+         "Gruppe-Manager"
+      ],
       "Lending manager": [
          null,
          "Uusleihmanager"
@@ -2686,7 +2695,7 @@ window.i18n.locale_data = {
          null,
          "Achtung"
       ],
-      "This user is suspended": [
+      "This user is suspended.": [
          null,
          "De Benutzer isch suschpendiert"
       ],
@@ -2744,7 +2753,7 @@ window.i18n.locale_data = {
       ],
       "Manage": [
          null,
-         "Organisiere"
+         "Verwalte"
       ],
       "Nothing selected": [
          null,

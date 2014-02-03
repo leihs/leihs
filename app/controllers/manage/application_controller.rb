@@ -10,32 +10,56 @@ class Manage::ApplicationController < ApplicationController
         format.json { flash[:error] = _("You are not logged in.") ; render :nothing => true, :status => :unauthorized }
         format.js { flash[:error] = _("You are not logged in.") ; render :nothing => true, :status => :unauthorized }
       end
-    else
-      require_role "manager", current_inventory_pool unless is_admin?
     end
   end
- 
+
+  before_filter :required_manager_role
+
+  private
+
+  # NOTE this method may be overridden in the sub controllers
+  def required_manager_role
+    unless is_admin?
+      open_actions = [:root]
+      if not open_actions.include?(action_name.to_sym) and (request.post? or not request.format.json?)
+        require_role :lending_manager, current_inventory_pool
+      else
+        require_role :group_manager, current_inventory_pool
+      end
+    end
+  end
+
+  public
+
   def root
-    ip_id = session[:current_inventory_pool_id] || current_user.latest_inventory_pool_id_before_logout
-    ip = current_user.managed_inventory_pools.detect{|x| x.id==ip_id} if ip_id
     # start_screen = current_user.start_screen
     # if start_screen
     #   redirect_to current_user.start_screen, flash: flash
+
     if current_user.has_role? :admin
       if current_inventory_pool
         redirect_to manage_edit_inventory_pool_path(current_inventory_pool), flash: flash
       else
         redirect_to manage_inventory_pools_path, flash: flash
       end
-    elsif current_user.access_rights.active.managers.where(:access_level => 3).exists? # user has manager level 3 => inventory manager
-      ip ||= current_user.managed_inventory_pools.first
-      redirect_to manage_inventory_path(ip), flash: flash
-    elsif current_user.access_rights.active.managers.where(:access_level => 1..2).exists? # user has at least manager level 1 => lending manager
-      ip ||= current_user.managed_inventory_pools.first
-      redirect_to manage_daily_view_path(ip), flash: flash
     else
-      render :nothing => true, :status => :bad_request
-    end 
+      last_ip_id = session[:current_inventory_pool_id] || current_user.latest_inventory_pool_id_before_logout
+      ip = current_user.managed_inventory_pools.detect{|x| x.id==last_ip_id} if last_ip_id
+      role_for_last_ip = current_user.access_right_for(ip).try :role if ip
+
+      if [:inventory_manager, nil].include?(role_for_last_ip) and current_user.access_rights.active.where(role: :inventory_manager).exists?
+        ip ||= current_user.managed_inventory_pools(:inventory_manager).first
+        redirect_to manage_inventory_path(ip), flash: flash
+      elsif [:lending_manager, nil].include?(role_for_last_ip) and current_user.access_rights.active.where(role: :lending_manager).exists?
+        ip ||= current_user.managed_inventory_pools(:lending_manager).first
+        redirect_to manage_daily_view_path(ip), flash: flash
+      elsif [:group_manager, nil].include?(role_for_last_ip) and current_user.access_rights.active.where(role: :group_manager).exists?
+        ip ||= current_user.managed_inventory_pools(:group_manager).first
+        redirect_to manage_contracts_path(ip, status: [:approved, :submitted, :rejected]), flash: flash
+      else
+        render :nothing => true, :status => :bad_request
+      end
+    end
   end
 
 ###############################################################  
@@ -62,7 +86,7 @@ class Manage::ApplicationController < ApplicationController
 
   protected
 
-    helper_method :is_owner?, :is_privileged_user?, :is_super_user?, :is_inventory_manager?, :is_lending_manager?, :current_managed_inventory_pools
+    helper_method :is_owner?, :is_privileged_user?, :is_super_user?, :is_inventory_manager?, :is_lending_manager?, :is_group_manager?, :current_managed_inventory_pools
 
     # TODO: what's happening here? Explain the goal of this method
     def current_inventory_pool
@@ -87,7 +111,7 @@ class Manage::ApplicationController < ApplicationController
 
     # Allow operations on items. 'user' is *not* a customer!
     def is_privileged_user?
-      (current_user.has_at_least_access_level(2, current_inventory_pool) and is_owner?)
+      (is_lending_manager? and is_owner?)
     end
     
     def is_super_user?
@@ -95,11 +119,15 @@ class Manage::ApplicationController < ApplicationController
     end
     
     def is_inventory_manager?
-      current_user.has_at_least_access_level(3, current_inventory_pool)
+      current_user.has_role?(:inventory_manager, current_inventory_pool)
     end
     
-    def is_lending_manager?(inventory_pool = current_inventory_pool)
-      current_user.has_at_least_access_level(2, inventory_pool)
+    def is_lending_manager?
+      current_user.has_role?(:lending_manager, current_inventory_pool)
+    end
+
+    def is_group_manager?
+      current_user.has_role?(:group_manager, current_inventory_pool)
     end
 
     def is_owner?

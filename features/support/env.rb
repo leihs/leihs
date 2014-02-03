@@ -18,6 +18,7 @@ require 'pry'
 # files.
 
 require 'cucumber/rails'
+require 'rack_session_access/capybara'
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
@@ -46,18 +47,14 @@ Capybara::Screenshot.autosave_on_failure = true
 #
 ActionController::Base.allow_rescue = false
 
-# Remove/comment out the lines below if your app doesn't have a database.
-# For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.
-
-our_default_strategy = :transaction
-
 begin
+  # we cannot use transactional tests because we are restoring personas data from sql dumps
+  our_default_strategy = :truncation
   DatabaseCleaner.strategy = our_default_strategy
+  DatabaseCleaner.clean_with our_default_strategy
 rescue NameError
   raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
 end
-
-DatabaseCleaner.clean_with :truncation
 
 Before do
   DatabaseCleaner.start
@@ -71,5 +68,3 @@ After do |scenario|
   sleep(0.88) # to prevent lazy failures i.e: features/examples/benutzerverwaltung.feature:328 "Zugriff entfernen als Inventar-Verwalter"
   DatabaseCleaner.clean
 end
-
-

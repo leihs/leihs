@@ -71,7 +71,7 @@ Given /^inventory pool model test data setup$/ do
     LeihsFactory.create_user :login => login_name
   end
 
-  @manager = LeihsFactory.create_user({:login => "hammer"}, {:role  => "manager"} )
+  @manager = LeihsFactory.create_user({:login => "hammer"}, {:role  => :lending_manager} )
 end
 
 Given /^all contracts and contract lines are deleted$/ do

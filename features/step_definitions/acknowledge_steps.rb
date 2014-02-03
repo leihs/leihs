@@ -24,15 +24,6 @@ end
 
 When "$who changes number of items of model '$model' to $quantity" do |who, model, quantity|
   pending
-=begin #old leihs#  
-  id = find_line(model).id
-  id.should > 0
-  post change_line_quantity_backend_inventory_pool_acknowledge_path(@inventory_pool, @contract, :contract_line_id => id, :quantity => quantity)
-  response.should render_template('backend/acknowledge/change_line_quantity')
-  @contract = assigns(:contract)
-  @contract.has_changes?.should == true
-  find_line(model).quantity.should == quantity.to_i
-=end
 end
 
 When "$who adds $quantity item '$model'" do |who, quantity, model|

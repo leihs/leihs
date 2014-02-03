@@ -20,7 +20,6 @@ class Admin::DatabaseController < Admin::ApplicationController
       [
         ["access_rights", ["deleted_at"]],
         ["access_rights", ["inventory_pool_id"]],
-        ["access_rights", ["role_id"]],
         ["access_rights", ["suspended_until"]],
         ["access_rights", ["user_id", "inventory_pool_id", "deleted_at"]],
         ["accessories", ["model_id"]],
@@ -84,10 +83,6 @@ class Admin::DatabaseController < Admin::ApplicationController
         ["options", ["inventory_pool_id"]],
         ["partitions", ["model_id", "inventory_pool_id", "group_id"], :unique => true],
         ["properties", ["model_id"]],
-        ["roles", ["lft"]],
-        ["roles", ["name"]],
-        ["roles", ["parent_id"]],
-        ["roles", ["rgt"]],
         ["users", ["authentication_system_id"]],
         ["workdays", ["inventory_pool_id"]]
       ].partition do |table, columns, options|

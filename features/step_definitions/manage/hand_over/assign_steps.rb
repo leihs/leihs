@@ -16,13 +16,17 @@ end
 
 When /^I assign an item to the hand over by providing an inventory code and a date range$/ do
   @inventory_code = @current_user.managed_inventory_pools.first.items.in_stock.first.inventory_code unless @inventory_code
-  find("[data-add-contract-line]").set @inventory_code
+  model_already_there = @customer.visits.hand_over.flat_map(&:lines).any? {|l| l.model == Item.find_by_inventory_code(@inventory_code).model}
   line_amount_before = all(".line").count
   assigned_amount_before = all(".line [data-assign-item][disabled]").count
+
+  find("[data-add-contract-line]").set @inventory_code
   find("[data-add-contract-line] + .addon").click
   find("input[data-assign-item][value='#{@inventory_code}']")
-  sleep(0.88)
-  line_amount_before.should == all(".line").count
+
+  line_amount_after = all(".line").count
+  # if we addcurrent_user item for whose model there is already a visit line, then not new line is created but the inv code is added to the existing one
+  line_amount_before.should == ( model_already_there ? line_amount_after : line_amount_after - 1 )
   assigned_amount_before.should < all(".line [data-assign-item][disabled]").count
 end
 

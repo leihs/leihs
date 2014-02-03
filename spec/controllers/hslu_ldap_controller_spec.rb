@@ -10,9 +10,6 @@ describe Authenticator::HsluAuthenticationController do
     @ip = FactoryGirl.create(:inventory_pool)
     LeihsFactory.create_default_languages
     @group = FactoryGirl.create(:group, :name => 'Video')
-    Role.find_or_create_by_name("manager")
-    Role.find_or_create_by_name("admin")
-    Role.find_or_create_by_name("customer")
 
     Setting::LDAP_CONFIG = File.join(Rails.root, "spec", "LDAP.yml")
     #LDAP_CONFIG = {"test"=>
@@ -282,7 +279,7 @@ describe Authenticator::HsluAuthenticationController do
     it "should give that user the admin role" do
       post :login, {:login => { :username => "admin_user", :password => "1234" }}, {}
       user = User.where(:login => "admin_user").first
-      user.access_rights.active.collect(&:role).include?(Role.where(:name => 'admin').first).should == true
+      user.access_rights.active.collect(&:role).include?(:admin).should == true
     end
   end
   

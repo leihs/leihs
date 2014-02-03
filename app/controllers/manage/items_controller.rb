@@ -16,7 +16,7 @@ class Manage::ItemsController < Manage::ApplicationController
   def new
     @item = Item.new(:owner => current_inventory_pool)
     @item.inventory_code = Item.proposed_inventory_code(current_inventory_pool)
-    if @current_user.access_level_for(current_inventory_pool) < 2
+    unless @current_user.has_role?(:lending_manager, current_inventory_pool)
       @item.inventory_pool = current_inventory_pool
     end
     @item.is_inventory_relevant = (is_super_user? ? true : false)

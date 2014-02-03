@@ -5,6 +5,7 @@ class window.App.SearchResultsOrdersController extends App.SearchResultsControll
   templatePath: "manage/views/contracts/line"
 
   constructor: ->
+    @additionalData = { accessRight: App.AccessRight, currentUserRole: App.User.current.role }
     super
     new App.LinesCellTooltipController {el: @el}
     new App.UserCellTooltipController {el: @el}

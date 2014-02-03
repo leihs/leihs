@@ -9,4 +9,7 @@
                               :image_url => user.image_url,
                               :zip => user.zip,
                               :city => user.city}}
-  %strong= user
+  %strong
+    = user
+    - if user.suspended?(current_inventory_pool)
+      %span.darkred-text= "%s!" % _("Suspended")

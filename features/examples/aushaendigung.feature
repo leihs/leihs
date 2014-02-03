@@ -14,7 +14,7 @@ Funktionalität: Aushaendigung editieren
     Dann wird der Gegenstand der Zeile zugeteilt
     Und die Zeile wird selektiert
     Und die Zeile wird grün markiert
-    Und mir wird eine Erfolgsmeldung angezeigt
+    Und ich erhalte eine Erfolgsmeldung
     Wenn ich die Zeile deselektiere
     Dann ist die Zeile nicht mehr grün eingefärbt
     Wenn ich die Zeile wieder selektiere

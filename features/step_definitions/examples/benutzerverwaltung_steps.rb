@@ -1,35 +1,22 @@
 # -*- encoding : utf-8 -*-
 
-Angenommen /^ein Benutzer hat aus der leihs 2.0-Datenbank den Level 1 auf einem Gerätepark$/ do
-  step 'man ist "%s"' % "Assist"
-  ar = @current_user.access_rights.active.where(:access_level => 1).first
-  ar.should_not be_nil
-  @inventory_pool = ar.inventory_pool
-end
-
-Dann /^gilt er in leihs 3.0 als Level 2 für diesen Gerätepark$/ do
-  @current_user.has_at_least_access_level(2, @inventory_pool).should be_true
-end
-
-####################################################################
-
 Angenommen /^man ist Inventar\-Verwalter oder Ausleihe\-Verwalter$/ do
   step 'man ist "%s"' % ["Mike", "Pius"].shuffle.first
-  ar = @current_user.access_rights.active.where(:access_level => [2, 3]).first
+  ar = @current_user.access_rights.active.where(role: [:lending_manager, :inventory_manager]).first
   ar.should_not be_nil
   @inventory_pool = ar.inventory_pool
 end
 
 Angenommen /^man ist Ausleihe\-Verwalter$/ do
   step 'man ist "%s"' % "Pius"
-  ar = @current_user.access_rights.active.where(:access_level => [1, 2]).first
+  ar = @current_user.access_rights.active.where(role: :lending_manager).first
   ar.should_not be_nil
   @inventory_pool = ar.inventory_pool
 end
 
 Angenommen /^man ist Inventar\-Verwalter$/ do
   step 'man ist "%s"' % "Mike"
-  ar = @current_user.access_rights.active.where(:access_level => 3).first
+  ar = @current_user.access_rights.active.where(role: :inventory_manager).first
   ar.should_not be_nil
   @inventory_pool = ar.inventory_pool
 end
@@ -46,7 +33,7 @@ Dann /^findet man die Benutzeradministration im Bereich "Administration" unter "
 end
 
 Dann /^sieht man eine Liste aller Benutzer$/ do
-  User.scoped.paginate(page: 1, per_page: 20).each do |user|
+  User.scoped.order("firstname ASC").paginate(page: 1, per_page: 20).each do |user|
     page.should have_content(user.name)
   end
   page.should have_content _("List of Users")
@@ -95,9 +82,12 @@ end
 
 Dann /^man kann für jeden Benutzer die Editieransicht aufrufen$/ do
   step 'man kann filtern nach "%s" Rolle' % "All"
+  page.has_selector? "[data-type='user-cell']"
   within("#user-list") do
-    all(".line").each do |line|
-      line.find(".multibutton .dropdown-toggle").hover
+    users = User.find all("[data-type='user-cell']").map{|el| el.native.attribute("data-id").to_i}
+    users.each do |u|
+      line = find(".line", text: u.name)
+      line.find(".multibutton .dropdown-toggle").click
       line.find(".multibutton .dropdown-item", text: _("Edit"))
     end
   end
@@ -170,8 +160,8 @@ Dann /^sieht man folgende Informationen in folgender Reihenfolge:$/ do |table|
       when "Telefonnummer"
         user.phone
       when "Rolle"
-        role_name =  access_right.try(:role_name) || "no access"
-        _(role_name.humanize)
+        role = access_right.try(:role) || "no access"
+        _(role.to_s.humanize)
       when "Sperr-Status 'Gesperrt bis dd.mm.yyyy'"
         "#{_("Suspended until")} %s" % access_right.suspended_until.strftime("%d.%m.%Y")
     end
@@ -221,7 +211,7 @@ Dann /^man kann die Informationen nicht verändern, sofern es sich um einen Benu
 end
 
 Dann /^man sieht die Rollen des Benutzers und kann diese entsprechend seiner Rolle verändern$/ do
-  find("select[ng-model='user.access_right.role_name']")
+  find("select[ng-model='user.access_right.role']")
 end
 
 Dann /^man kann die vorgenommenen Änderungen abspeichern$/ do
@@ -279,7 +269,7 @@ Dann /^man kann neue Benutzer erstellen (.*?) inventory_pool$/ do |arg1|
   end
   response = case arg1
                 when "für"
-                  page.driver.browser.process(:post, manage_inventory_pool_users_path(@inventory_pool), user: attributes, access_right: {role_name: "customer"}, db_auth: {login: attributes[:login], password: "password", password_confirmation: "password"})
+                  page.driver.browser.process(:post, manage_inventory_pool_users_path(@inventory_pool), user: attributes, access_right: {role: :customer}, db_auth: {login: attributes[:login], password: "password", password_confirmation: "password"})
                when "ohne"
                   page.driver.browser.process(:post, manage_users_path, user: attributes)
              end
@@ -300,38 +290,45 @@ Dann /^man kann Benutzern die folgende Rollen zuweisen und wegnehmen, wobei dies
     unknown_user = User.select{|u| not u.access_right_for(@inventory_pool)}.sample
     raise "No user found" unless unknown_user
 
-    role_name = case x[:role]
-                  when _("Customer")
-                    unknown_user.has_role?("customer", @inventory_pool).should be_false
-                    "customer"
-                  when _("Lending manager")
-                    unknown_user.has_role?("manager", @inventory_pool).should be_false
-                    "lending_manager"
-                  when _("Inventory manager")
-                    unknown_user.has_role?("manager", @inventory_pool).should be_false
-                    "inventory_manager"
-                  when _("No access")
-                    # the unknown_user needs to have a role first, than it can be deleted
-                    page.driver.browser.process(:put, manage_update_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), {user: {id: unknown_user.id}}, access_right: {role_name: "customer"}, db_auth: {login: Faker::Lorem.words(3).join, password: "password", password_confirmation: "password"})
-                    "no_access"
-                end
+    role = case x[:role]
+              when _("Customer")
+                unknown_user.has_role?(:customer, @inventory_pool).should be_false
+                :customer
+              when _("Group manager")
+                unknown_user.has_role?(:group_manager, @inventory_pool).should be_false
+                :group_manager
+              when _("Lending manager")
+                unknown_user.has_role?(:lending_manager, @inventory_pool).should be_false
+                :lending_manager
+              when _("Inventory manager")
+                unknown_user.has_role?(:inventory_manager, @inventory_pool).should be_false
+                :inventory_manager
+              when _("No access")
+                # the unknown_user needs to have a role first, than it can be deleted
+                page.driver.browser.process(:put, manage_update_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), {user: {id: unknown_user.id}}, access_right: {role: :customer}, db_auth: {login: Faker::Lorem.words(3).join, password: "password", password_confirmation: "password"})
+                :no_access
+            end
 
     data = {user: {id: unknown_user.id},
-            access_right: {role_name: role_name, suspended_until: nil},
+            access_right: {role: role, suspended_until: nil},
             db_auth: {login: Faker::Lorem.words(3).join, password: "password", password_confirmation: "password"}}
 
     page.driver.browser.process(:put, manage_update_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), data).successful?.should be_true
 
-    case role_name
-      when "customer"
-        unknown_user.has_role?("customer", @inventory_pool).should be_true
-      when "lending_manager"
-        unknown_user.has_role?("manager", @inventory_pool).should be_true
-        unknown_user.has_at_least_access_level(2, @inventory_pool).should be_true
-        unknown_user.has_at_least_access_level(3, @inventory_pool).should be_false
-      when "inventory_manager"
-        unknown_user.has_role?("manager", @inventory_pool).should be_true
-        unknown_user.has_at_least_access_level(3, @inventory_pool).should be_true
+    case role
+      when :customer
+        unknown_user.has_role?(:customer, @inventory_pool).should be_true
+      when :group_manager
+        unknown_user.has_role?(:group_manager, @inventory_pool).should be_true
+        unknown_user.has_role?(:lending_manager, @inventory_pool).should be_false
+      when :lending_manager
+        unknown_user.has_role?(:group_manager, @inventory_pool).should be_true
+        unknown_user.has_role?(:lending_manager, @inventory_pool).should be_true
+        unknown_user.has_role?(:inventory_manager, @inventory_pool).should be_false
+      when :inventory_manager
+        unknown_user.has_role?(:group_manager, @inventory_pool).should be_true
+        unknown_user.has_role?(:lending_manager, @inventory_pool).should be_true
+        unknown_user.has_role?(:inventory_manager, @inventory_pool).should be_true
     end
   end
 end
@@ -427,8 +424,8 @@ Dann /^man kann die Arbeitstage und Ferientage seines Geräteparks anpassen$/ do
 end
 
 Dann /^man kann alles, was ein Ausleihe\-Verwalter kann$/ do
-  @current_user.has_at_least_access_level(2, @inventory_pool).should be_true
-  @current_user.has_at_least_access_level(3, @inventory_pool).should be_true
+  @current_user.has_role?(:lending_manager, @inventory_pool).should be_true
+  @current_user.has_role?(:inventory_manager, @inventory_pool).should be_true
 end
 
 ####################################################################
@@ -460,16 +457,16 @@ end
 Dann /^man kann Benutzern jegliche Rollen zuweisen und wegnehmen$/ do
   user = Persona.get "Normin"
   inventory_pool = InventoryPool.find_by_name "IT-Ausleihe"
-  user.has_at_least_access_level(3, inventory_pool).should be_false
+  user.has_role?(:inventory_manager, inventory_pool).should be_false
 
-  page.driver.browser.process(:put, manage_user_path(user, format: :json), access_right: {inventory_pool_id: inventory_pool.id, role_name: "inventory_manager"}).successful?.should be_true
+  page.driver.browser.process(:put, manage_user_path(user, format: :json), access_right: {inventory_pool_id: inventory_pool.id, role: :inventory_manager}).successful?.should be_true
 
-  user.has_at_least_access_level(3, inventory_pool).should be_true
+  user.has_role?(:inventory_manager, inventory_pool).should be_true
   user.access_right_for(inventory_pool).deleted_at.should be_nil
 
-  page.driver.browser.process(:put, manage_user_path(user, format: :json), access_right: {inventory_pool_id: inventory_pool.id, role_name: "no_access"}).successful?.should be_true
+  page.driver.browser.process(:put, manage_user_path(user, format: :json), access_right: {inventory_pool_id: inventory_pool.id, role: :no_access}).successful?.should be_true
 
-  user.has_at_least_access_level(3, inventory_pool).should be_false
+  user.has_role?(:inventory_manager, inventory_pool).should be_false
   user.access_rights.where("deleted_at IS NOT NULL").scoped_by_inventory_pool_id(inventory_pool).first.deleted_at.should_not be_nil
 end
 
@@ -521,7 +518,7 @@ end
 
 Wenn(/^eine der folgenden Rollen auswählt$/) do |table|
   @role_hash = table.hashes[rand table.hashes.length]
-  page.select @role_hash[:tab], from: "access_right[role_name]"
+  page.select @role_hash[:tab], from: "access_right[role]"
 end
 
 Wenn(/^man wählt ein Sperrdatum und ein Sperrgrund$/) do
@@ -533,7 +530,7 @@ end
 
 Wenn(/^man teilt mehrere Gruppen zu$/) do
   @current_inventory_pool.groups.each do |group|
-    find(".row.emboss", match: :prefer_exact, :text => _("Groups")).find("input").click
+    find("#change-groups input").click
     find(".ui-autocomplete .ui-menu-item a", match: :first)
     find(".ui-autocomplete .ui-menu-item a", :text => group.name).click
   end
@@ -544,7 +541,7 @@ Dann(/^ist der Benutzer mit all den Informationen gespeichert$/) do
   find("#flash .notice", text: _("User created successfully"))
   user = User.find_by_lastname "test"
   user.should_not be_nil
-  user.access_right_for(@current_inventory_pool).role_name.should eq @role_hash[:role]
+  user.access_right_for(@current_inventory_pool).role.should eq @role_hash[:role].to_sym
   user.groups.should == @current_inventory_pool.groups
 end
 
@@ -608,7 +605,7 @@ Dann(/^man sieht eine Bestätigungsmeldung$/) do
 end
 
 Angenommen(/^man befindet sich auf der Editierseite eines Benutzers, der kein Administrator ist und der Zugriffe auf Inventarpools hat$/) do
-  @user = User.find {|u| not u.has_role? "admin" and u.has_role? "customer"}
+  @user = User.find {|u| not u.has_role? :admin and u.has_role? :customer}
   @previous_access_rights = @user.access_rights.freeze
   visit manage_edit_user_path(@user)
 end
@@ -618,7 +615,7 @@ Wenn(/^man diesen Benutzer die Rolle Administrator zuweist$/) do
 end
 
 Dann(/^hat dieser Benutzer die Rolle Administrator$/) do
-  @user.reload.has_role?("admin").should be_true
+  @user.reload.has_role?(:admin).should be_true
 end
 
 Wenn(/^man speichert den Benutzer$/) do
@@ -630,8 +627,9 @@ Dann(/^alle andere Zugriffe auf Inventarpools bleiben beibehalten$/) do
 end
 
 Angenommen(/^man befindet sich auf der Editierseite eines Benutzers, der ein Administrator ist und der Zugriffe auf Inventarpools hat$/) do
-  @user = User.find {|u| u.has_role? "admin" and u.has_role? "customer"}
-  @previous_access_rights = @user.access_rights.select{|ar| ar.role_name != "admin"}.freeze
+  @user = User.find {|u| u.has_role? :admin and u.has_role? :customer}
+  raise "user not found" unless @user
+  @previous_access_rights = @user.access_rights.select{|ar| ar.role != :admin}.freeze
   visit manage_edit_user_path(@user)
 end
 
@@ -640,7 +638,7 @@ Wenn(/^man diesem Benutzer die Rolle Administrator wegnimmt$/) do
 end
 
 Dann(/^hat dieser Benutzer die Rolle Administrator nicht mehr$/) do
-  @user.reload.has_role?("admin").should be_false
+  @user.reload.has_role?(:admin).should be_false
 end
 
 Wenn(/^man versucht auf die Administrator Benutzererstellenansicht zu gehen$/) do
@@ -665,19 +663,19 @@ Wenn(/^man hat nur die folgenden Rollen zur Auswahl$/) do |table|
 end
 
 Angenommen(/^man editiert einen Benutzer der Kunde ist$/) do
-  access_right = AccessRight.find{|ar| ar.role_name == "customer" and ar.inventory_pool == @current_inventory_pool}
+  access_right = AccessRight.find{|ar| ar.role == :customer and ar.inventory_pool == @current_inventory_pool}
   @user = access_right.user
   visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @user)
 end
 
 Angenommen(/^man editiert einen Benutzer der Ausleihe-Verwalter ist$/) do
-  access_right = AccessRight.find{|ar| ar.role_name == "lending_manager" and ar.inventory_pool == @current_inventory_pool and ar.user != @current_user}
+  access_right = AccessRight.find{|ar| ar.role == :lending_manager and ar.inventory_pool == @current_inventory_pool and ar.user != @current_user}
   @user = access_right.user
   visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @user)
 end
 
 Angenommen(/^man editiert in irgendeinem Inventarpool einen Benutzer der Kunde ist$/) do
-  access_right = AccessRight.find{|ar| ar.role_name == "customer"}
+  access_right = AccessRight.find{|ar| ar.role == :customer}
   @user = access_right.user
   @current_inventory_pool = access_right.inventory_pool
   visit manage_edit_inventory_pool_user_path(access_right.inventory_pool, @user)
@@ -697,18 +695,18 @@ end
 
 Dann(/^hat der Benutzer die Rolle Kunde$/) do
   page.has_content? _("List of Users")
-  @user.reload.access_right_for(@current_inventory_pool).role_name.should == "customer"
+  @user.reload.access_right_for(@current_inventory_pool).role.should == :customer
 end
 
 Dann(/^hat der Benutzer die Rolle Ausleihe-Verwalter$/) do
   find_link _("New User")
-  @user.reload.access_right_for(@current_inventory_pool).role_name.should == "lending_manager"
+  @user.reload.access_right_for(@current_inventory_pool).role.should == :lending_manager
 end
 
 Dann(/^hat der Benutzer die Rolle Inventar-Verwalter$/) do
   find("#flash .notice", text: _("User details were updated successfully."))
   find_link _("New User")
-  @user.reload.access_right_for(@current_inventory_pool).role_name.should == "inventory_manager"
+  @user.reload.access_right_for(@current_inventory_pool).role.should == :inventory_manager
 end
 
 Angenommen(/^man sucht sich einen Benutzer ohne Zugriffsrechte, Bestellungen und Verträge aus$/) do
@@ -717,6 +715,7 @@ end
 
 Wenn(/^ich diesen Benutzer aus der Liste lösche$/) do
   @user ||= @users.sample
+  find("footer").click # loading pages (but probably only the last one)
   find("#user-list .line", text: @user.name).find(".multibutton .dropdown-toggle").click
   find("#user-list .line", text: @user.name).find(".multibutton .dropdown-toggle").hover
   find("#user-list .line", text: @user.name).find(".multibutton .dropdown-item.red", text: _("Delete")).click
@@ -732,6 +731,7 @@ Dann(/^der Benutzer ist gelöscht$/) do
 end
 
 Dann(/^der Benutzer ist nicht gelöscht$/) do
+  find("footer").click # loading pages (but probably only the last one)
   find("#user-list .line", text: @user.name)
   User.find_by_id(@user.id).should_not be_nil
 end
@@ -758,19 +758,19 @@ Dann(/^wird der Delete Button für diese Benutzer nicht angezeigt$/) do
 end
 
 Angenommen(/^man editiert einen Benutzer der Zugriff auf ein Inventarpool hat$/) do
-  access_right = AccessRight.find{|ar| ar.role_name == "customer"}
+  access_right = AccessRight.find{|ar| ar.role == :customer}
   @user = access_right.user
   @current_inventory_pool = access_right.inventory_pool
   visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @user)
 end
 
 Angenommen(/^man editiert einen Benutzer der Zugriff auf das aktuelle Inventarpool hat$/) do
-  @user = @current_inventory_pool.access_rights.active.find{|ar| ar.role_name == "customer"}.user
+  @user = @current_inventory_pool.access_rights.active.find{|ar| ar.role == :customer}.user
   visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @user)
 end
 
 Angenommen(/^man editiert einen Benutzer der Zugriff auf das aktuelle Inventarpool hat und keine Gegenstände mehr zurückzugeben hat$/) do
-  @user = @current_inventory_pool.access_rights.active.select{|ar| ar.role_name == "customer"}.detect{|ar| @current_inventory_pool.contract_lines.by_user(ar.user).to_take_back.empty?}.user
+  @user = @current_inventory_pool.access_rights.active.select{|ar| ar.role == :customer}.detect{|ar| @current_inventory_pool.contract_lines.by_user(ar.user).to_take_back.empty?}.user
   visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @user)
 end
 
@@ -823,8 +823,8 @@ Dann(/^der Benutzer hat nach wie vor keinen Zugriff auf das aktuelle Inventarpoo
 end
 
 Angenommen(/^man editiert einen Benutzer der mal einen Zugriff auf das aktuelle Inventarpool hatte$/) do
-  @user = User.find_by_login "normin"
-  @current_inventory_pool = (@current_user.managed_inventory_pools & @user.access_rights.select(&:deleted_at).map(&:inventory_pool)).first
+  @current_inventory_pool = (@current_user.managed_inventory_pools & AccessRight.select(&:deleted_at).map(&:inventory_pool)).sample
+  @user = @current_inventory_pool.access_rights.select(&:deleted_at).map(&:user).sample
   visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @user)
 end
 
@@ -836,6 +836,6 @@ end
 
 Dann(/^werden die ihm zugeteilt Geräteparks mit entsprechender Rolle aufgelistet$/) do
   @user.access_rights.active.each do |access_right|
-    find(".padding-inset-s", text: access_right.to_s)
+    find(".row.emboss .padding-inset-s", text: access_right.to_s)
   end
 end

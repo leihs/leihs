@@ -882,8 +882,9 @@ window.i18n.locale_data = {
          "Invetarcode aktualisiert"
       ],
       "Inventory pool": [
-         null,
-         "Gerätepark"
+         "Inventory pools",
+         "Gerätepark",
+         "Geräteparks"
       ],
       "InventoryPool|Email": [
          null,
@@ -1927,9 +1928,13 @@ window.i18n.locale_data = {
          null,
          "Diese Bestellung kann noch nicht genehmigt werden, weil sie noch keine Modelle hat."
       ],
-      "This order is not approvable because some reserved models are not available or the inventory pool is closed on either the start or enddate.": [
+      "This order is not approvable because some reserved models are not available.": [
          null,
-         "Die Bestellung kann nicht genehmigt werden, weil einige reservierte Modelle nicht verfügbar sind oder der Gerätepark ist bei der Herausgabe/Rücknahme geschlossen."
+         "Die Bestellung kann nicht genehmigt werden, weil einige reservierte Modelle nicht verfügbar sind."
+      ],
+      "This order is not approvable because the inventory pool is closed on either the start or enddate.": [
+         null,
+         "Die Bestellung kann nicht genehmigt werden, weil der Gerätepark ist bei der Herausgabe/Rücknahme geschlossen."
       ],
       "This order is still pending. Please log in to your leihs system and either approve or reject it.": [
          null,
@@ -2540,9 +2545,13 @@ window.i18n.locale_data = {
          null,
          "ohne Konflikt"
       ],
-      "you cannot hand out lines wich are starting in the future": [
+      "you cannot hand out lines which are starting in the future": [
          null,
          "Sie können keine Zeilen aushändigen, deren Startdatum in der Zukunft liegt"
+      ],
+      "you cannot hand out lines which are ending in the past": [
+         null,
+         "Sie können keine Zeilen aushändigen, deren Enddatum in der Vergangenheit liegt"
       ],
       "you cannot hand out lines with unassigned inventory codes": [
          null,
@@ -2563,6 +2572,10 @@ window.i18n.locale_data = {
       "Customer": [
          null,
          "Kunde"
+      ],
+      "Group manager": [
+         null,
+         "Gruppen-Verwalter"
       ],
       "Lending manager": [
          null,
@@ -2704,7 +2717,7 @@ window.i18n.locale_data = {
          null,
          "Achtung"
       ],
-      "This user is suspended": [
+      "This user is suspended.": [
          null,
          "Dieser Benutzer ist gesperrt"
       ],
@@ -2877,6 +2890,10 @@ window.i18n.locale_data = {
       "is %s ago": [
          null,
          "ist %s her"
+      ],
+      "one day ago": [
+         null,
+         "vor einem Tag"
       ],
       "this is the branch '%s'": [
          null,
@@ -3540,6 +3557,30 @@ window.i18n.locale_data = {
       "Print Selection": [
          null,
          "Auswahl ausdrucken"
+      ],
+      "Undo approval": [
+         null,
+         "Genehmigung zurücksetzen"
+      ],
+      "Verify": [
+         null,
+         "Prüfen"
+      ],
+      "To be verified": [
+         null,
+         "Zu prüfen"
+      ],
+      "Verify + approve order": [
+         null,
+         "Bestellung prüfen + genehmigen"
+      ],
+      "No verification required": [
+         null,
+         "nicht visierungspflichtig"
+      ],
+      "Verification required": [
+         null,
+         "Visierungspflichtig"
       ]
    }
 }

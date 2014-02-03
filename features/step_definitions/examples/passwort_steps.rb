@@ -30,7 +30,7 @@ Wenn(/^ich einen Benutzer mit Login "(.*?)" und Passwort "(.*?)" erstellt habe$/
 end
 
 Wenn(/^der Benutzer hat Zugriff auf ein Inventarpool$/) do
-  attributes = {user_id: @user.id, inventory_pool_id: @inventory_pool.try(:id) || InventoryPool.first.id, role_id: Role.find_by_name("customer").id}
+  attributes = {user_id: @user.id, inventory_pool_id: @inventory_pool.try(:id) || InventoryPool.first.id, role: :customer}
   AccessRight.create(attributes) unless AccessRight.where(attributes).first
 end
 
@@ -56,7 +56,7 @@ end
 Angenommen(/^man befindet sich auf der Benutzereditieransicht von "(.*?)"$/) do |persona|
   step 'persona "%s" existing' % persona
   @user = User.find_by_firstname persona
-  if @current_user.access_rights.active.map(&:role_name).include? "admin"
+  if @current_user.access_rights.active.map(&:role).include? :admin
     visit manage_edit_user_path @user
   else
     visit manage_edit_inventory_pool_user_path((@user.inventory_pools & @current_user.managed_inventory_pools).first, @user)

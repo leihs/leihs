@@ -4,7 +4,7 @@ class Manage::UsersController < Manage::ApplicationController
     unless current_inventory_pool
       not_authorized! unless is_admin?
     else
-      not_authorized! unless is_lending_manager? or is_admin?
+      not_authorized! unless is_group_manager? or is_admin?
     end
 
     if params[:access_right]
@@ -43,7 +43,7 @@ class Manage::UsersController < Manage::ApplicationController
   def new_in_inventory_pool
     @user = User.new
     @accessible_roles = get_accessible_roles_for_current_user
-    @access_right = @user.access_rights.new inventory_pool_id: current_inventory_pool.id, role: Role.find_by_name("customer")
+    @access_right = @user.access_rights.new inventory_pool_id: current_inventory_pool.id, role: :customer
   end
 
   def create
@@ -56,7 +56,7 @@ class Manage::UsersController < Manage::ApplicationController
         @user.save!
         @db_auth = DatabaseAuthentication.create!(params[:db_auth].merge(user: @user))
         @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
-        @user.access_rights.create!(role_name: "admin") if should_be_admin == "true"
+        @user.access_rights.create!(role: :admin) if should_be_admin == "true"
 
         respond_to do |format|
           format.html do
@@ -87,7 +87,7 @@ class Manage::UsersController < Manage::ApplicationController
         @user.save!
         DatabaseAuthentication.create!(params[:db_auth].merge(user: @user))
         @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
-        @user.access_rights.create!(inventory_pool: @current_inventory_pool, role_name: params[:access_right][:role_name]) unless params[:access_right][:role_name] == "no_access"
+        @user.access_rights.create!(inventory_pool: @current_inventory_pool, role: params[:access_right][:role]) unless params[:access_right][:role].to_sym == :no_access
 
         respond_to do |format|
           format.html do
@@ -108,7 +108,7 @@ class Manage::UsersController < Manage::ApplicationController
   end
 
   def edit
-    @is_admin = @user.has_role? "admin"
+    @is_admin = @user.has_role? :admin
     @db_auth = DatabaseAuthentication.find_by_user_id(@user.id)
   end
 
@@ -129,8 +129,8 @@ class Manage::UsersController < Manage::ApplicationController
           DatabaseAuthentication.find_by_user_id(@user.id).update_attributes! params[:db_auth].merge(user: @user)
           @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
         end
-        @user.access_rights.joins(:role).where(roles: {name: "admin"}).each(&:destroy)
-        @user.access_rights.create!(role_name: "admin") if should_be_admin == "true"
+        @user.access_rights.where(role: :admin).each(&:destroy)
+        @user.access_rights.create!(role: :admin) if should_be_admin == "true"
 
         respond_to do |format|
           format.html do
@@ -166,7 +166,7 @@ class Manage::UsersController < Manage::ApplicationController
           @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
         end
         @access_right = AccessRight.find_or_initialize_by_user_id_and_inventory_pool_id(@user.id, @ip_id)
-        @access_right.update_attributes! params[:access_right] unless @access_right.new_record? and params[:access_right][:role_name] == "no_access"
+        @access_right.update_attributes! params[:access_right] unless @access_right.new_record? and params[:access_right][:role].to_sym == :no_access
 
         respond_to do |format|
           format.html do
@@ -258,12 +258,12 @@ class Manage::UsersController < Manage::ApplicationController
   end
 
   def get_accessible_roles_for_current_user
-    accessible_roles = [[_("No access"), "no_access"], [_("Customer"), "customer"]]
+    accessible_roles = [[_("No access"), :no_access], [_("Customer"), :customer]]
     accessible_roles +
-      if @current_user.has_role? "admin" or @current_user.has_at_least_access_level 3, @current_inventory_pool
-        [[_("Lending manager"), "lending_manager"], [_("Inventory manager"), "inventory_manager"]]
-      elsif @current_user.has_at_least_access_level 2, @current_inventory_pool
-        [[_("Lending manager"), "lending_manager"]]
+      if @current_user.has_role? :admin or @current_user.has_role? :inventory_manager, @current_inventory_pool
+        [[_("Group manager"), :group_manager], [_("Lending manager"), :lending_manager], [_("Inventory manager"), :inventory_manager]]
+      elsif @current_user.has_role? :lending_manager, @current_inventory_pool
+        [[_("Group manager"), :group_manager], [_("Lending manager"), :lending_manager]]
       else [] end
   end
 

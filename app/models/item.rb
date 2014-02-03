@@ -89,13 +89,13 @@ class Item < ActiveRecord::Base
 =end
   }
 
-  def self.filter(params, current_inventory_pool = nil)
+  def self.filter(params, inventory_pool = nil)
     items = params[:all] ? unscoped : scoped
-    items = if current_inventory_pool
+    items = if inventory_pool
               if params[:responsible_or_owner_as_fallback]
-                items.by_responsible_or_owner_as_fallback current_inventory_pool
+                items.by_responsible_or_owner_as_fallback inventory_pool
               else
-                items.by_owner_or_responsible current_inventory_pool
+                items.by_owner_or_responsible inventory_pool
               end
             end
     items = items.where(Item.arel_table[:retired].not_eq(nil)) if params[:retired]
@@ -110,7 +110,7 @@ class Item < ActiveRecord::Base
     items = items.in_stock if params[:in_stock]
     items = items.incomplete if params[:incomplete]
     items = items.broken if params[:broken]
-    items = items.where(:owner_id => current_inventory_pool) if params[:owned]
+    items = items.where(:owner_id => inventory_pool) if params[:owned]
     items = items.where(:inventory_pool_id => params[:responsible_id]) if params[:responsible_id]
     items = items.where(:inventory_code => params[:inventory_code]) if params[:inventory_code]
     items = items.where(:model_id => params[:model_ids]) if params[:model_ids]

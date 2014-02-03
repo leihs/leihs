@@ -4,7 +4,7 @@ FactoryGirl.define do
     inventory_pool
     user {
       u = FactoryGirl.create :user
-      u.access_rights.create(:inventory_pool => inventory_pool, :role => Role.find_by_name("customer"))
+      u.access_rights.create(:inventory_pool => inventory_pool, :role => :customer)
       u
     }
     status { :unsubmitted }

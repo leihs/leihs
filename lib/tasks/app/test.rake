@@ -18,5 +18,17 @@ namespace :app do
       
       puts "[END] finishing jasmine-headless-webkit"
     end
+
+    desc "Generate personas dumps (executed by Domina CI)"
+    task :generate_personas_dumps => :environment do
+      Persona.create_dumps(3)
+
+      if execution_id = ENV["DOMINA_EXECUTION_ID"]
+        `rm -r /tmp/#{execution_id}`
+        `mkdir -p /tmp/#{execution_id}`
+        `cp -r #{File.join(Rails.root, "features/personas/dumps/personas_*.sql")} /tmp/#{execution_id}`
+      end
+    end
+
   end
 end

@@ -19,6 +19,7 @@ Wenn /^jeder Eintrag eines Vertrages kann auf einen Zweck referenzieren$/ do
 end
 
 Wenn /^ich eine Bestellung editiere$/ do
+  find(".line[data-type='contract']", match: :first)
   contract_id = all(".line[data-type='contract']").to_a.sample["data-id"].to_i
   @contract = Contract.find(contract_id)
   visit manage_edit_contract_path(@contract.inventory_pool, @contract)

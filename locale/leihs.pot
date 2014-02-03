@@ -628,7 +628,9 @@ msgid "Inventory code updated"
 msgstr ""
 
 msgid "Inventory pool"
-msgstr ""
+msgid_plural "Inventory pools"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "InventoryPool|Email"
 msgstr ""
@@ -1429,9 +1431,10 @@ msgstr ""
 msgid "This order is not approvable because doesn't have any models."
 msgstr ""
 
-msgid ""
-"This order is not approvable because some reserved models are not available "
-"or the inventory pool is closed on either the start or enddate."
+msgid "This order is not approvable because some reserved models are not available."
+msgstr ""
+
+msgid "This order is not approvable because the inventory pool is closed on either the start or enddate."
 msgstr ""
 
 msgid ""
@@ -1911,7 +1914,10 @@ msgstr ""
 msgid "without conflict"
 msgstr ""
 
-msgid "you cannot hand out lines wich are starting in the future"
+msgid "you cannot hand out lines which are starting in the future"
+msgstr ""
+
+msgid "you cannot hand out lines which are ending in the past"
 msgstr ""
 
 msgid "you cannot hand out lines with unassigned inventory codes"
@@ -1927,6 +1933,9 @@ msgid "Edit User"
 msgstr ""
 
 msgid "Customer"
+msgstr ""
+
+msgid "Group manager"
 msgstr ""
 
 msgid "Lending manager"
@@ -2040,7 +2049,7 @@ msgstr ""
 msgid "Attention"
 msgstr ""
 
-msgid "This user is suspended"
+msgid "This user is suspended."
 msgstr ""
 
 msgid "Email"
@@ -2162,6 +2171,9 @@ msgid "deployed %s ago"
 msgstr ""
 
 msgid "is %s ago"
+msgstr ""
+
+msgid "one day ago"
 msgstr ""
 
 msgid "this is the branch '%s'"
@@ -2668,4 +2680,22 @@ msgid "Save Package"
 msgstr ""
 
 msgid "Print Selection"
+msgstr ""
+
+msgid "Undo approval"
+msgstr ""
+
+msgid "Verify"
+msgstr ""
+
+msgid "To be verified"
+msgstr ""
+
+msgid "Verify + approve order"
+msgstr ""
+
+msgid "No verification required"
+msgstr ""
+
+msgid "Verification required"
 msgstr ""

@@ -18,10 +18,6 @@ namespace :app do
 #      require 'pry'
       #FactoryGirl.find_definitions
 
-      customer_role = Role.where(:name => 'customer').first
-      admin_role = Role.where(:name => 'admin').first
-      manager_role = Role.where(:name => 'manager').first
-      
       ip1 = FactoryGirl.create(:inventory_pool, :name => 'General Reservation Desk')
       ip2 = FactoryGirl.create(:inventory_pool, :name => 'Chemistry Lab')
       ip3 = FactoryGirl.create(:inventory_pool, :name => 'Film Studio')
@@ -29,17 +25,17 @@ namespace :app do
       # Some customers so that the database doesn't look so empty
       20.times do  
         us = FactoryGirl.create(:user)
-        us.access_rights.build(:role => customer_role, :inventory_pool => ip1)
-        us.access_rights.build(:role => customer_role, :inventory_pool => ip2)
-        us.access_rights.build(:role => customer_role, :inventory_pool => ip3)
+        us.access_rights.build(:role => :customer, :inventory_pool => ip1)
+        us.access_rights.build(:role => :customer, :inventory_pool => ip2)
+        us.access_rights.build(:role => :customer, :inventory_pool => ip3)
         us.save
       end
 
       # A normal user that people can use to log in with
       normal_user = FactoryGirl.create(:user, :login => 'normal_user', :firstname => 'Normalio', :lastname => 'Normex')
-      normal_user.access_rights.build(:role => customer_role, :inventory_pool => ip1)
-      normal_user.access_rights.build(:role => customer_role, :inventory_pool => ip2)
-      normal_user.access_rights.build(:role => customer_role, :inventory_pool => ip3)
+      normal_user.access_rights.build(:role => :customer, :inventory_pool => ip1)
+      normal_user.access_rights.build(:role => :customer, :inventory_pool => ip2)
+      normal_user.access_rights.build(:role => :customer, :inventory_pool => ip3)
       normal_user.save
       set_stupid_password_for(normal_user)
 
@@ -47,9 +43,9 @@ namespace :app do
 
       # An inventory manager
       manager_user = FactoryGirl.create(:user, :login => 'manager_user', :firstname => 'Inventory', :lastname => 'Manager')
-      manager_user.access_rights.build(:role => manager_role, :inventory_pool => ip1, :access_level => 3)
-      manager_user.access_rights.build(:role => manager_role, :inventory_pool => ip2, :access_level => 3)
-      manager_user.access_rights.build(:role => manager_role, :inventory_pool => ip3, :access_level => 3)   
+      manager_user.access_rights.build(:role => :inventory_manager, :inventory_pool => ip1)
+      manager_user.access_rights.build(:role => :inventory_manager, :inventory_pool => ip2)
+      manager_user.access_rights.build(:role => :inventory_manager, :inventory_pool => ip3)
       manager_user.save
       set_stupid_password_for(manager_user)
 

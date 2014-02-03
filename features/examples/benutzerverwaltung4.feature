@@ -39,14 +39,16 @@ Funktionalität: Benutzer verwalten
     Und man gibt die Login-Daten ein
     Und man gibt eine Badge-Id ein
     Und man hat nur die folgenden Rollen zur Auswahl
-      | No access        |
-      | Customer         |
-      | Lending manager  |
+      | No access          |
+      | Customer           |
+      | Group manager      |
+      | Lending manager    |
       | Inventory manager  |
     Und eine der folgenden Rollen auswählt
-    | tab                | role              |
-    | Kunde              | customer          |
-    | Ausleihe-Verwalter | lending_manager   |
+    | tab                | role                |
+    | Kunde              | customer            |
+    | Gruppen-Verwalter  | group_manager       |
+    | Ausleihe-Verwalter | lending_manager     |
     | Inventar-Verwalter | inventory_manager   |
     Und man teilt mehrere Gruppen zu
     Und man speichert den Benutzer

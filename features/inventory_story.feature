@@ -50,7 +50,7 @@ Feature: Inventory
        Given inventory pool 'ABC'
        And inventory pool short name 'ABC'
        Given item 'P-ABC124' of model 'Book' exists
-       Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
+       Given a inventory_manager for inventory pool 'ABC' logs in as 'inv_man_0'
         # monkeypatch Item.proposed_inventory_code
         When the broken alorithm proposes wrongly a duplicate inventory code 'ABC124'
          And the lending_manager creates a new package
@@ -105,7 +105,7 @@ Feature: Inventory
       Given inventory pool 'ABC'
       And inventory pool short name 'ABC'
       Given a model 'Trumpet' exists
-       And a manager 'George' with access level 2
+       And a lending_manager 'George' for inventory pool 'ABC'
        And his password is 'pass'
       When I log in as 'George' with password 'pass'
        And I press "Backend"
@@ -118,7 +118,7 @@ Feature: Inventory
       Given inventory pool 'ABC'
       And inventory pool short name 'ABC'
        Given a model 'Trumpet' exists
-         And a manager 'George' with access level 3
+         And a inventory_manager 'George' for inventory pool 'ABC'
          And his password is 'pass'
         When I log in as 'George' with password 'pass'
          And I press "Backend"

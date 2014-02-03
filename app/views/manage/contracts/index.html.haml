@@ -39,6 +39,27 @@
               %input.has-addon{type: "text", name: "end_date", placeholder: _("to"), autocomplete: :off}
               %span.addon
                 %i.icon-calendar
+          .col1of10
+            %form#list-filters.col4of5.padding-left-s
+              %label.button.inset.white.height-xxs
+
+                - if is_group_manager? and not is_lending_manager?
+
+                  %input{ :name => :to_be_verified,
+                    :type => :checkbox,
+                    :value => "true",
+                    :checked => "checked",
+                    :autocomplete => :off }
+                  %span= _("To be verified")
+
+                - elsif is_lending_manager?
+
+                  %input{ :name => :no_verification_required,
+                    :type => :checkbox,
+                    :value => "true",
+                    :checked => "checked",
+                    :autocomplete => :off }
+                  %span= _("No verification required")
 
       #contracts.list-of-lines.even.separated-top.padding-bottom-s.min-height-l
         .height-s

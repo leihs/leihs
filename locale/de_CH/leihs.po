@@ -633,7 +633,9 @@ msgid "Inventory code updated"
 msgstr "Invetarcode aktualisiert"
 
 msgid "Inventory pool"
-msgstr "Gerätepark"
+msgid_plural "Inventory pools"
+msgstr[0] "Gerätepark"
+msgstr[1] "Geräteparks"
 
 msgid "InventoryPool|Email"
 msgstr "E-Mail"
@@ -1472,13 +1474,11 @@ msgstr ""
 "Diese Bestellung kann noch nicht genehmigt werden, weil sie noch keine "
 "Modelle hat."
 
-msgid ""
-"This order is not approvable because some reserved models are not available "
-"or the inventory pool is closed on either the start or enddate."
-msgstr ""
-"Die Bestellung kann nicht genehmigt werden, weil einige reservierte Modelle "
-"nicht verfügbar sind oder der Gerätepark ist bei der Herausgabe/Rücknahme "
-"geschlossen."
+msgid "This order is not approvable because some reserved models are not available."
+msgstr "Die Bestellung kann nicht genehmigt werden, weil einige reservierte Modelle nicht verfügbar sind."
+
+msgid "This order is not approvable because the inventory pool is closed on either the start or enddate."
+msgstr "Die Bestellung kann nicht genehmigt werden, weil der Gerätepark ist bei der Herausgabe/Rücknahme geschlossen."
 
 msgid ""
 "This order is still pending. Please log in to your leihs system and either "
@@ -1978,9 +1978,13 @@ msgstr "mit Kommentar"
 msgid "without conflict"
 msgstr "ohne Konflikt"
 
-msgid "you cannot hand out lines wich are starting in the future"
+msgid "you cannot hand out lines which are starting in the future"
 msgstr ""
 "Sie können keine Zeilen aushändigen, deren Startdatum in der Zukunft liegt"
+
+msgid "you cannot hand out lines which are ending in the past"
+msgstr ""
+"Sie können keine Zeilen aushändigen, deren Enddatum in der Vergangenheit liegt"
 
 msgid "you cannot hand out lines with unassigned inventory codes"
 msgstr ""
@@ -1997,6 +2001,9 @@ msgstr "Benutzer editieren"
 
 msgid "Customer"
 msgstr "Kunde"
+
+msgid "Group manager"
+msgstr "Gruppen-Verwalter"
 
 msgid "Lending manager"
 msgstr "Ausleihe-Verwalter"
@@ -2103,7 +2110,7 @@ msgstr "Sie können kein Paket ohne Gegenstände erstellen"
 msgid "Attention"
 msgstr "Achtung"
 
-msgid "This user is suspended"
+msgid "This user is suspended."
 msgstr "Dieser Benutzer ist gesperrt"
 
 msgid "Email"
@@ -2235,6 +2242,9 @@ msgstr "deploy ist %s her"
 
 msgid "is %s ago"
 msgstr "ist %s her"
+
+msgid "one day ago"
+msgstr "vor einem Tag"
 
 msgid "this is the branch '%s'"
 msgstr "dies ist der '%s'-Branch"
@@ -2741,3 +2751,21 @@ msgstr "Paket speichern"
 
 msgid "Print Selection"
 msgstr "Auswahl ausdrucken"
+
+msgid "Undo approval"
+msgstr "Genehmigung zurücksetzen"
+
+msgid "Verify"
+msgstr "Prüfen"
+
+msgid "To be verified"
+msgstr "Zu prüfen"
+
+msgid "Verify + approve order"
+msgstr "Bestellung prüfen + genehmigen"
+
+msgid "No verification required"
+msgstr "nicht visierungspflichtig"
+
+msgid "Verification required"
+msgstr "Visierungspflichtig"

@@ -26,5 +26,5 @@ Then /^each of the lines of such contract must also be "(.*?)"$/ do |line_state|
 end
 
 Then /^every visit with date < today is overdue$/ do
-  @visits.all?{ |visit| visit.is_overdue }.should be_true
+  @visits.all?{ |visit| visit.date < Date.today }.should be_true
 end

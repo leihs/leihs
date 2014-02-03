@@ -23,7 +23,7 @@ class window.App.Field extends Spine.Model
   isEditable: (item)->
     editable = true
     if @permissions? and item?
-      editable = false if @permissions.level? and App.User.current.accessLevel < @permissions.level
+      editable = false if @permissions.role? and not App.AccessRight.atLeastRole(App.User.current.role, @permissions.role)
       editable = false if @permissions.owner? and @permissions.owner and item.owner? and App.InventoryPool.current.id != item.owner.id
     editable
 

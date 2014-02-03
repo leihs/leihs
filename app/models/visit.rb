@@ -85,10 +85,6 @@ class Visit < ActiveRecord::Base
     # self.date <=> other.date
   # end  
 
-  def is_overdue
-    date < Date.today
-  end
-
   def status
     read_attribute(:status).to_sym
   end

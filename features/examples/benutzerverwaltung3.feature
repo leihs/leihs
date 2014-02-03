@@ -30,6 +30,7 @@ Funktionalität: Benutzer verwalten
     | role                |
     | Kein Zugriff        |
     | Kunde               |
+    | Gruppen-Verwalter   |
     | Ausleihe-Verwalter  |
     | Inventar-Verwalter  |
     Und man kann alles, was ein Ausleihe-Verwalter kann

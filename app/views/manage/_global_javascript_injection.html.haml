@@ -9,7 +9,7 @@
     App.User.current = App.User.find(#{current_user.id})
 - if current_user and current_inventory_pool and access_right = current_inventory_pool.access_rights.active.where(:user_id => current_user.id).first
   :coffeescript
-    App.User.current.accessLevel = #{access_right.access_level.to_json}
+    App.User.current.role = #{ access_right.role.to_json }
 
 :coffeescript
   App.UserImageUrl = #{Setting::USER_IMAGE_URL.to_json}

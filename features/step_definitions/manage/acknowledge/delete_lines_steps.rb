@@ -49,9 +49,7 @@ Then /^these contractlines are deleted$/ do
 end
 
 When /^I delete all lines of this contract$/ do
-  all(".line").each do |line|
-    line.find("input[type=checkbox]").click
-  end
+  all(".line input[type=checkbox]").each &:click
   page.execute_script('$("#selection_actions .button").show()')
   find(".multibutton [data-selection-enabled] + .dropdown-holder").hover
   find("a", :text => _("Delete Selection")).click

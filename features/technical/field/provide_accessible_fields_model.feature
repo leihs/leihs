@@ -6,15 +6,13 @@ Feature: Provision of accessible fields
     Given test data setup for =Provision of accessible fields= feature
 
   Scenario Outline: Accessible fields should be provided according to user's access level
-    Given an user with role manager and <an access level> exists
+    Given a user with role <a manager role> exists
     When you get the accessible fields for this user
     Then the user has access to at least all the fields without any permissions
-    And the amount of the accessible fields <compared to> <an higher access level> can be different
+    And the amount of the accessible fields <compared to> <an higher manager role> can be different
 
     Examples:
       Lower level should have less accessible fields than higher level
-      Except for level 1, where it's the same as for level 2 (leihs 3.0 drops level 1 and treats it as level 2)
 
-      | an access level | compared to              | an higher access level |
-      | 1               | equals                   | 2                      |
-      | 2               | less than or equal to    | 3                      |
+      | a manager role  | compared to   | an higher manager role |
+      | lending_manager | less than     | inventory_manager      |

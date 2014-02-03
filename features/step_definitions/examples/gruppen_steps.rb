@@ -24,7 +24,7 @@ Dann(/^die Anzahl der zugeteilten Modell\-Kapazitäten$/) do
 end
 
 Dann(/^die Liste ist alphabetisch sortiert$/) do
-  (all(".list-of-lines .line strong").map(&:text).to_json == Group.all.map(&:name).sort.to_json).should be_true
+  (all(".list-of-lines .line strong").map(&:text).to_json == @current_inventory_pool.groups.map(&:name).sort.to_json).should be_true
 end
 
 Wenn(/^ich eine Gruppe erstelle$/) do

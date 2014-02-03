@@ -15,7 +15,7 @@ Dann(/^sieht man genau die für den User bestimmte Haupt\-Kategorien mit Bild un
 end
 
 Wenn(/^man eine Hauptkategorie auswählt$/) do
-  @main_category = @current_user.categories.select {|c| c.parents.empty?}.sample
+  @main_category = (@current_user.all_categories & Category.roots).sample
   first("[data-category_id='#{@main_category.id}'] a").click
 end
 

@@ -51,13 +51,17 @@ When(/^ich befinde mich in einer Rücknahme für ein gesperrter Benutzer$/) do
 end
 
 Angenommen(/^ich befinde mich in einer Rücknahme$/) do
-  @take_back = @current_inventory_pool.visits.take_back.sample
+  @take_back = @current_inventory_pool.visits.take_back.select{|v| v.lines.any? {|l| l.is_a? ItemLine}}.sample
   @user = @take_back.user
   step "man die Rücknahmenansicht für den Benutzer öffnet"
 end
 
+Dann(/^ich erhalte eine Meldung$/) do
+  find("#flash .notice")
+end
+
 Dann(/^ich erhalte eine Erfolgsmeldung$/) do
-  page.has_selector? ".flash.success"
+  find("#flash .success")
 end
 
 Wenn(/^ich einen Gegenstand über das Zuweisenfeld zurücknehme$/) do

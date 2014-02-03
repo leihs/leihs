@@ -13,7 +13,8 @@ When /^I open a contract for acknowledgement with more then one line$/ do
     @customer = ip.users.all.shuffle.detect {|x| x.contracts.submitted.exists? and x.contracts.submitted.first.lines.size > 1}
   end
   raise "customer not found" unless @customer
-  @contract = @customer.contracts.submitted.first
+  @models_in_stock = @ip.items.by_responsible_or_owner_as_fallback(@ip).in_stock.map(&:model).uniq
+  @contract = @customer.contracts.submitted.detect{|v| v.lines.select{|l| !l.item and @models_in_stock.include? l.model}.count >= 2}
   visit manage_edit_contract_path(@ip, @contract)
   page.should have_selector("[data-order-approve]", :visible => true)
 end
@@ -69,6 +70,7 @@ Then /^the time range of that line is changed$/ do
 end
 
 When /^I increase a submitted contract lines quantity$/ do
+  page.should have_selector(".line[data-ids]")
   @line_element ||= all(".line[data-ids]").to_a.sample
   @line_model_name = @line_element.find(".col6of10 strong").text
   @new_quantity = @line_element.find("div:nth-child(3) > span:nth-child(1)").text.to_i + 1
@@ -112,9 +114,9 @@ end
 
 When /^I select two lines$/ do
   @line1 = @contract.lines.first
-  find(".line", match: :first, :text => @line1.model.name).find("input[type=checkbox]").click
-  @line2 = @contract.lines.second
-  find(".line", match: :first, :text => @line2.model.name).find("input[type=checkbox]").click
+  find(".line", match: :prefer_exact, :text => @line1.model.name).find("input[type=checkbox]").set(true)
+  @line2 = @contract.lines.detect {|l| l.model != @line1.model }
+  find(".line", match: :prefer_exact, :text => @line2.model.name).find("input[type=checkbox]").set(true)
 end
 
 When /^I change the time range for multiple lines$/ do
@@ -149,6 +151,7 @@ Then /^I see the booking calendar$/ do
 end
 
 When /^I change the time range for multiple lines that have quantity bigger then (\d+)$/ do |arg1|
+  page.should have_selector(".line[data-ids]")
   all_ids = all(".line[data-ids]").to_a.map {|x| x["data-ids"]}
   @models_quantities = all_ids.map do |ids|
     @line_element = find(".line[data-ids='#{ids}']")

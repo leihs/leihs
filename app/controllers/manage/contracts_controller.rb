@@ -8,6 +8,22 @@ class Manage::ContractsController < Manage::ApplicationController
     @contract = current_inventory_pool.contracts.submitted.find(params[:id])
   end
 
+  private
+
+  # NOTE overriding super controller
+  def required_manager_role
+    unless is_admin?
+      closed_actions = [:sign]
+      if closed_actions.include?(action_name.to_sym)
+        require_role :lending_manager, current_inventory_pool
+      else
+        require_role :group_manager, current_inventory_pool
+      end
+    end
+  end
+
+  public
+
 ######################################################################
 
   def index
@@ -41,6 +57,19 @@ class Manage::ContractsController < Manage::ApplicationController
 
   def approve(force = (params.has_key? :force) ? true : false)
     if @contract.approve(params[:comment], true, current_user, force)
+      respond_to do |format|
+        format.json { render :json => true, :status => 200  }
+      end
+    else
+      errors = @contract.errors.full_messages.uniq.join("\n")
+      respond_to do |format|
+        format.json { render :text => errors, :status => 500 }
+      end
+    end
+  end
+
+  def unapprove
+    if @contract.unapprove
       respond_to do |format|
         format.json { render :json => true, :status => 200  }
       end

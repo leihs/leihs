@@ -151,6 +151,7 @@ end
 
 Wenn /^ich eine Aushändigung an diesen Kunden mache$/ do
   visit manage_hand_over_path(@ip, @customer)
+  find("#status .icon-ok")
 end
 
 Wenn /^eine Zeile mit Gruppen-Partitionen editiere$/ do

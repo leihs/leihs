@@ -21,6 +21,10 @@ attachments:
     glob: 'tmp/capybara/*.png'
     content-type: image/png
 
+environment_variables:
+  RBENV_VERSION: ruby-1.9.3
+  RAILS_ENV: test
+
 contexts:
 
 - name: meta
@@ -53,13 +57,13 @@ contexts:
       type: prepare_executor
       body: "substitute_with_path: domina/scripts/bundle.sh"
     setup_leihs:
-      order: 2
+      order: 4
       body: "substitute_with_path: domina/scripts/setup_leihs.sh"
     rspec: 
-      order: 3
+      order: 5
       body: "substitute_with_path: domina/scripts/context_specs_rspec.sh"
     drop_test_db: 
-      order: 4
+      order: 7
       type: post_process
       body: "substitute_with_path: domina/scripts/drop_test_db.sh"
   tasks: "substitute_with_path: domina/execution/rspec_tasks.yml"
@@ -70,14 +74,21 @@ contexts:
       order: 1
       type: prepare_executor
       body: "substitute_with_path: domina/scripts/bundle.sh"
-    setup_leihs:
+    generate_personas_dumps:
+      order: 2
+      type: prepare_executor
+      body: "rbenv shell $RBENV_VERSION && bundle exec rake app:test:generate_personas_dumps"
+    copy_personas_dumps:
       order: 3
+      body: cp /tmp/${DOMINA_EXECUTION_ID}/personas*.sql features/personas/dumps/
+    setup_leihs:
+      order: 4
       body: "substitute_with_path: domina/scripts/setup_leihs.sh"
     startx:
-      order: 4
+      order: 5
       body: "substitute_with_path: domina/scripts/context_feature_startx.sh"
     cucumber: 
-      order: 5
+      order: 6
       body: "substitute_with_path: domina/scripts/context_feature_cucumber.sh"
     drop_test_db: 
       order: 8

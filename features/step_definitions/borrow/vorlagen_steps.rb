@@ -66,11 +66,6 @@ When(/^sehe ich eine auffällige Warnung sowohl auf der Seite wie bei den betrof
   all(".separated-top .row.line .line-info.red").size.should > 0
 end
 
-When(/^ich sehe die Verfügbarkeit einer Vorlage$/) do
-  step "ich sehe mir eine Vorlage an"
-  step "ich kann im Prozess weiterfahren zur Verfügbarkeitsanzeige der Vorlage"
-end
-
 Dann(/^kann ich Start\- und Enddatum einer potenziellen Bestellung angeben$/) do
   @start_date = Date.tomorrow
   @end_date = Date.tomorrow + 4.days

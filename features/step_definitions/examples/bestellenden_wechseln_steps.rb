@@ -1,15 +1,14 @@
 # -*- encoding : utf-8 -*-
 
 Dann /^kann ich die bestellende Person wechseln$/ do
-  first("#change_orderer").click
-  first(".modal .focus")
-  @order = Order.find page.evaluate_script('$("#order").tmplItem().data.id')
+  find("#swap-user", match: :first).click
+  find(".modal", match: :first)
+  @order = Contract.find find("[data-order-approve]")["data-id"].to_i
   @old_user = @order.user
   @new_user = @current_user.managed_inventory_pools.first.users.detect {|u| u.id != @old_user.id and u.visits.size > 0}
-  first(".new.orderer input").set @new_user.name
-  first(".ui-menu-item a").click
-  first(".modal .button[type='submit']").click
-  first("h1", :text => @new_user.name)
-  page.evaluate_script('$("#order").tmplItem().data.user.id').should == @new_user.id
+  find("input#user-id", match: :first).set @new_user.name
+  find(".ui-menu-item a", match: :first).click
+  find(".modal .button[type='submit']", match: :first).click
+  find(".content-wrapper", :text => @new_user.name, match: :first)
   @order.reload.user.id.should == @new_user.id
 end

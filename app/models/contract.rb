@@ -49,11 +49,13 @@ class Contract < ActiveRecord::Base
 
 #########################################################################
 
+  STATUSES = [:unsubmitted, :submitted, :rejected, :approved, :signed, :closed]
+
   def status
     read_attribute(:status).to_sym
   end
 
-  [:unsubmitted, :submitted, :rejected, :approved, :signed, :closed].each do |status|
+  STATUSES.each do |status|
     scope status, where(status: status)
   end
   scope :submitted_or_approved_or_rejected, where(status: [:submitted, :approved, :rejected])
@@ -67,7 +69,15 @@ class Contract < ActiveRecord::Base
                          OR (contracts.status = '#{:approved}' AND
                              contract_lines.contract_id IS NOT NULL)")
 
-  scope :by_inventory_pool, lambda { |inventory_pool| where(:inventory_pool_id => inventory_pool) }
+  scope :with_verifiable_user, joins("INNER JOIN groups_users USING(user_id) INNER JOIN groups ON groups.id = groups_users.group_id  AND groups.inventory_pool_id = contracts.inventory_pool_id").
+                                joins(:contract_lines).
+                                where(groups: {is_verification_required: true}).uniq
+
+  scope :with_verifiable_user_and_model, with_verifiable_user.
+                                          joins("INNER JOIN partitions USING(group_id)").
+                                          where("contract_lines.model_id = partitions.model_id")
+
+  scope :no_verification_required, where("contracts.id NOT IN (#{with_verifiable_user_and_model.select("contracts.id").to_sql})")
 
 #########################################################################
 
@@ -111,6 +121,13 @@ class Contract < ActiveRecord::Base
                 end
     contracts = contracts.search(params[:search_term]) unless params[:search_term].blank?
     contracts = contracts.where(:status => params[:status]) if params[:status]
+    if params[:no_verification_required]
+      contracts = contracts.no_verification_required
+    elsif params[:to_be_verified]
+      contracts = contracts.with_verifiable_user_and_model
+    elsif params[:from_verifiable_users]
+      contracts = contracts.with_verifiable_user
+    end
     contracts = contracts.where(:id => params[:ids]) if params[:ids]
     contracts = contracts.where(Contract.arel_table[:created_at].gt(params[:range][:start_date])) if params[:range] and params[:range][:start_date]
     contracts = contracts.where(Contract.arel_table[:created_at].lt(params[:range][:end_date])) if params[:range] and params[:range][:end_date]
@@ -132,6 +149,9 @@ class Contract < ActiveRecord::Base
       false
     elsif selected_lines.any? {|l| l.item.nil? }
       errors.add(:base, _("This contract is not signable because some lines are not assigned."))
+      false
+    elsif selected_lines.any? {|l| l.end_date < Date.today }
+      errors.add(:base, _("Start Date must be before End Date"))
       false
     else
       transaction do
@@ -174,31 +194,22 @@ class Contract < ActiveRecord::Base
 
   ############################################
 
-  def is_approved?
-    self.status == :approved
-  end
-
   def approvable?
-    if is_approved?
+    if status == :approved
       errors.add(:base, _("This order has already been approved."))
       false
-    elsif lines.empty?
-      errors.add(:base, _("This order is not approvable because doesn't have any models."))
-      false
-    elsif purpose.to_s.blank?
-      errors.add(:base, _("Please provide a purpose..."))
-      false
-    elsif lines.all? {|l| l.available? }
-      true
     else
-      errors.add(:base, _("This order is not approvable because some reserved models are not available or the inventory pool is closed on either the start or enddate."))
-      false
+      errors.add(:base, _("This user is suspended.")) if user.suspended?(inventory_pool)
+      errors.add(:base, _("This order is not approvable because doesn't have any models.")) if lines.empty?
+      errors.add(:base, _("This order is not approvable because the inventory pool is closed on either the start or enddate.")) if lines.any? {|l| not l.visits_on_open_date? }
+      errors.add(:base, _("This order is not approvable because some reserved models are not available.")) if lines.any? {|l| not l.available? }
+      errors.add(:base, _("Please provide a purpose...")) if purpose.to_s.blank?
+      errors.empty?
     end
   end
-  alias :is_approvable :approvable?
 
   def approve(comment, send_mail = true, current_user = nil, force = false)
-    if approvable? || force
+    if approvable? or (force and current_user.has_role?(:lending_manager, inventory_pool))
       update_attributes(status: :approved)
 
       begin
@@ -213,9 +224,15 @@ class Contract < ActiveRecord::Base
                             _("That means that the user probably did not get the approval mail and you need to contact him/her in a different way."))
       end
 
-      return true
+      true
     else
-      return false
+      false
+    end
+  end
+
+  def unapprove
+    if status == :approved
+      update_attributes(status: :submitted)
     end
   end
 
@@ -454,6 +471,10 @@ class Contract < ActiveRecord::Base
   end
   #
   #######################
+
+  def is_to_be_verified
+    self.class.with_verifiable_user_and_model.exists? self
+  end
 
 end
 

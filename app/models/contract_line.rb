@@ -8,7 +8,7 @@
 # customer wants.
 #
 class ContractLine < ActiveRecord::Base
-  include Availability::DocumentLine
+  include Availability::ContractLine
 
   belongs_to :purpose
   belongs_to :contract
@@ -88,7 +88,7 @@ class ContractLine < ActiveRecord::Base
   end
 
   def visits_on_open_date?
-    inventory_pool.is_open_on(start_date) and inventory_pool.is_open_on(end_date)
+    inventory_pool.is_open_on?(start_date) and inventory_pool.is_open_on?(end_date)
   end
 
   # custom valid? method

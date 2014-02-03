@@ -2,12 +2,12 @@ Feature: A admin can search and sort various things in leihs
 
        As an admin I want to be able to search things in leihs and to sort them
 
-  Background: We have a user and various tables
-    Given inventory pool 'ABC'
-      And a manager 'inv_man_0' with access level 3
-      And his password is 'pass'
-      And I log in as 'inv_man_0' with password 'pass'
-      And I press "Backend"  
+  #Background: We have a user and various tables
+    #Given inventory pool 'ABC'
+      #And a inventory_manager 'inv_man_0' for inventory pool 'ABC'
+      #And his password is 'pass'
+      #And I log in as 'inv_man_0' with password 'pass'
+      #And I press "Backend"  
 
   @javascript @old-ui
   Scenario: Search and sort customers

@@ -7,7 +7,6 @@ Given "a minimal leihs setup" do
   #old?????# puts `rake leihs:reset`
   LeihsFactory.create_default_languages
   LeihsFactory.create_default_authentication_system
-  LeihsFactory.create_default_roles
   LeihsFactory.create_super_user
   LeihsFactory.create_default_building
 end

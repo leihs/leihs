@@ -30,8 +30,7 @@ Scenario: Admin: create user in an inventory pool and mail him from there
 
        Given inventory pool 'Central Park'
          And the admin
-         And he is a manager
-         And he has access level 3
+         And he is a inventory_manager
        When I log in as the admin
        When I press "Backend"
        When I follow "Central Park"
@@ -48,8 +47,7 @@ Scenario: When mailing from a greybox then we should stay in it
 
        Given inventory pool 'Central Park'
          And the admin
-         And he is a manager
-         And he has access level 3
+         And he is a inventory_manager
       When I log in as the admin
       When I press "Backend"
       When I follow "Central Park"

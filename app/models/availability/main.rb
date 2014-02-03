@@ -116,6 +116,8 @@ module Availability
       end
     end
 
+    private
+
     # returns a Hash {group_id => quantity}
     def available_quantities_for_groups(group_ids, inner_changes = nil)
       inner_changes ||= @changes

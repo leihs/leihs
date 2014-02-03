@@ -3,6 +3,7 @@ When /^I add an item to the hand over by providing an inventory code and a date 
   #@ip ||= @current_user.managed_inventory_pools.sample
   @inventory_code = @ip.items.in_stock.detect{|i| not existing_model_ids.include?(i.model_id)}.inventory_code unless @inventory_code
   find("[data-add-contract-line]").set @inventory_code
+  find(".line", match: :first)
   line_amount_before = all(".line").size
   find("[data-add-contract-line] + .addon").click
   find("#flash")
@@ -73,7 +74,7 @@ When /^I type the beginning of (.*?) name to the add\/assign input field$/ do |t
       @template = @ip.templates.first
       @template.name
   end
-  type_into_autocomplete "[data-add-contract-line]", @target_name[0..(@target_name.size/2)]
+  type_into_autocomplete "[data-add-contract-line]", @target_name[0..-2]
 end
 
 Then /^I see a list of suggested (.*?) names$/ do |type|
@@ -82,8 +83,7 @@ Then /^I see a list of suggested (.*?) names$/ do |type|
 end
 
 When /^I select the (.*?) from the list$/ do |type|
-  sleep(1)
-  find(".ui-autocomplete a", match: :first, :text => @target_name).click
+  find(".ui-autocomplete a", match: :prefer_exact, :text => @target_name).click
 end
 
 Then /^each model of the template is added to the hand over for the provided date range$/ do

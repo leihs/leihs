@@ -72,10 +72,9 @@ module LeihsFactory
     u = User.find_by_login attributes[:login]
     u ||= FactoryGirl.create :user, attributes
 
-    options[:role] ||= "customer"
-    options[:access_level] ||= 0
+    options[:role] ||= :customer
     options[:inventory_pool] ||= InventoryPool.first
-    LeihsFactory.define_role(u, options[:inventory_pool], options[:role], options[:access_level])
+    LeihsFactory.define_role(u, options[:inventory_pool], options[:role])
 
     u.save
 
@@ -117,12 +116,10 @@ module LeihsFactory
   #
   # Role
   # 
-  def self.define_role(user, inventory_pool, role_name = "manager", access_level = 0 )
-    role = Role.find_or_create_by_name(:name => role_name)
+  def self.define_role(user, inventory_pool, role = :inventory_manager)
+    role = role.to_sym
     begin
-      user.access_rights.create(:role => role,
-                                :inventory_pool => inventory_pool,
-                                :access_level => access_level)
+      user.access_rights.create(:role => role, :inventory_pool => inventory_pool)
     rescue
       # unique index, record already present
     end
@@ -338,11 +335,11 @@ module LeihsFactory
         
     # Create Manager
     user = LeihsFactory.create_user( {:login => 'inv_man'},
-                                {:role => "manager",
-                                 :inventory_pool => inventory_pool})
+                                    {:role => :lending_manager,
+                                     :inventory_pool => inventory_pool})
     # Create Customer
     customer = LeihsFactory.create_user( {:login => 'customer'},
-                                    {:role => "customer",
+                                    {:role => :customer,
                                      :inventory_pool => inventory_pool})
     # Create Model and Item
     model = LeihsFactory.create_model(:name => 'holey parachute')
@@ -392,30 +389,15 @@ module LeihsFactory
   end
 
   #
-  # create default roles
-  #
-  def self.create_default_roles
-    unless Role.find_by_name( 'admin')
-      r_a = Role.create!( :name => 'admin')
-      
-      r_m = Role.create!( :name => 'manager')
-      r_m.move_to_child_of r_a
-  
-      r_c = Role.create!( :name => 'customer')
-      r_c.move_to_child_of r_m
-    end
-  end
-
-  #
   # create the super user aka admin
   #
   # TODO tpo: reuse create_user and create_db_auth instead
   def self.create_super_user
     self.create_user( { :email          => "super_user_1@example.com",
                         :login          => "super_user_1" },
-          { :role           => "admin",
-            :password       => "pass",
-            :inventory_pool => nil,            })
+                      { :role           => :admin,
+                        :password       => "pass",
+                        :inventory_pool => nil,            })
   end
 
   #
@@ -492,7 +474,6 @@ module LeihsFactory
   def self.create_minimal_setup
     LeihsFactory.create_default_languages
     LeihsFactory.create_default_authentication_systems
-    LeihsFactory.create_default_roles
     superuser = LeihsFactory.create_super_user
     puts _("The administrator %{a} has been created ") % { :a => superuser.login }
     LeihsFactory.create_default_building

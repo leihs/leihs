@@ -29,6 +29,13 @@
               .col1of2.text-align-right
                 %input{type: "text", placeholder: _("Name of the group"), name: "group[name]", value: @group.try(:name)}
 
+            .row.padding-inset-s.emboss.margin-bottom-xxs
+              .col1of2
+                %strong.font-size-m= _("Verification required")
+              .col1of2.text-align-right
+                = select_tag "group[is_verification_required]", options_for_select([[_("No"), "false"], [_("Yes"), "true"]])
+
+
             #models-allocations.row.emboss.margin-bottom-xxs
               .row.padding-inset-s
                 .col1of2

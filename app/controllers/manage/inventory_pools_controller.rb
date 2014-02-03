@@ -4,11 +4,31 @@ class Manage::InventoryPoolsController < Manage::ApplicationController
     not_authorized!(redirect_path: root_path) and return unless is_admin?
   end
 
+  private
+
+  # NOTE overriding super controller
+  def required_manager_role
+    unless is_admin?
+      open_actions = [:daily]
+      if not open_actions.include?(action_name.to_sym)
+        require_role :lending_manager, current_inventory_pool
+      else
+        require_role :group_manager, current_inventory_pool
+      end
+    end
+  end
+
+  public
+
   def index
     @inventory_pools = InventoryPool.all.sort
   end
 
   def daily(date = params[:date])
+    if is_group_manager? and not is_lending_manager?
+      redirect_to manage_contracts_path(current_inventory_pool, status: [:approved, :submitted, :rejected]), flash: params[:flash] and return
+    end
+
     @date = date ? Date.parse(date) : Date.today
     if @date == Date.today
       @submitted_contracts = current_inventory_pool.contracts.submitted.includes([:user, {:contract_lines => :model}]).order(Contract.arel_table[:created_at].desc).reverse
@@ -46,9 +66,7 @@ class Manage::InventoryPoolsController < Manage::ApplicationController
       render :new
     end
 
-    current_user.access_rights.create(:role => Role.where(:name => 'manager').first,
-                                      :inventory_pool => @inventory_pool,
-                                      :access_level => 3) unless @inventory_pool.new_record?
+    current_user.access_rights.create(:role => :inventory_manager, :inventory_pool => @inventory_pool) unless @inventory_pool.new_record?
   end
 
   # TODO: this mess needs to be untangled and split up into functions called by new/create/update

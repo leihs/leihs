@@ -12,7 +12,12 @@
 
 .col2of8.line-col.line-actions
   .multibutton
-    %button.button.white.text-ellipsis{:"data-order-approve" => true} {{jed "Approve"/}}
+    %a.button.white.text-ellipsis{:"data-order-approve" => true}
+      {{if is_to_be_verified}}
+      {{jed "Verify"/}} + {{jed "Approve"/}}
+      {{else}}
+      {{jed "Approve"/}}
+      {{/if}}
     .dropdown-holder.inline-block
       .button.white.dropdown-toggle
         .arrow.down
@@ -21,10 +26,12 @@
           %a.dropdown-item{:href => "{{>editPath()}}"}
             %i.icon-edit
             {{jed "Edit"/}}
+        {{if ~accessRight.atLeastRole(~currentUserRole, "lending_manager") }}
         %li
           %a.dropdown-item{:href => "{{>handOverPath()}}"}
             %i.icon-signout
             {{jed "Hand Over"/}}
+        {{/if}}
         %li
           %a.dropdown-item.red{:"data-order-reject" => true}
             %i.icon-thumbs-down

@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 
 Given /^personas existing$/ do
-  Persona.create_all
+  Persona.restore_random_dump.should be_true
 end
 
 Angenommen(/^persona "(.*?)" existing$/) do |persona_name|
-  Persona.create persona_name
+  step 'personas existing'
 end
 
 Given /^I am "(.*)"$/ do |persona_name|
@@ -28,7 +28,7 @@ Angenommen /^Personas existieren$/ do
 end
 
 Angenommen(/^man ist ein Kunde$/) do
-  user = AccessRight.where(role_id: Role.find_by_name("customer")).map(&:user).uniq.sample
+  user = AccessRight.where(role: :customer).map(&:user).uniq.sample
   step 'I am "%s"' % user.firstname
 end
 

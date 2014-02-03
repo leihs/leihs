@@ -35,9 +35,10 @@ When /^I start to type the name of a model$/ do
 end
 
 When /^I add a model to the acknowledge which is already existing in the selected date range by providing an inventory code$/ do
-  @line = @contract.lines.first
+  @line = @contract.lines.sample
   @old_lines_count = @contract.lines.count
   @model = @line.model
+  find(".line", match: :prefer_exact, text: @model.name)
   @line_el_count = all(".line").size
   fill_in 'add-input', :with => @model.items.first.inventory_code
   sleep 0.3
@@ -55,23 +56,28 @@ Then /^an additional line has been created in the backend system$/ do
 end
 
 Then /^the new line is getting visually merged with the existing line$/ do
-  find(".line", :text => @model).should have_content @contract.lines.where(:model_id => @model.id).sum(&:quantity)
+  find(".line", match: :prefer_exact, text: @model.name).should have_content @contract.lines.where(:model_id => @model.id).sum(&:quantity)
   sleep(0.88)
   all(".line").count.should == @line_el_count
-  find(".line", match: :prefer_exact, :text => @model.name).find("div:nth-child(3) > span:nth-child(1)").text.to_i.should == @contract.reload.lines.select{|l| l.model == @model}.size
+  find(".line", match: :prefer_exact, text: @model.name).find("div:nth-child(3) > span:nth-child(1)").text.to_i.should == @contract.reload.lines.select{|l| l.model == @model}.size
 end
 
 Given /^I search for a model with default dates and note the current availability$/ do
-  @model_name = "Kamera Nikon X12"
-  @model = Model.find_by_name @model_name
-  fill_in "add-input", with: @model_name
+  av = nil
+  @model = @current_inventory_pool.models.detect do |model|
+    av = model.availability_in(@current_inventory_pool)
+    av.changes.keys.size > 1
+  end
+
+  total_quantity_in_ip = @current_inventory_pool.items.borrowable.select{|i| i.model == @model}.count
+  @new_start_date = av.changes.select{|k, v| v.values.any? {|v| v[:in_quantity] < total_quantity_in_ip }}.keys.first
+
+  fill_in "add-input", with: @model.name
   find("a.ui-corner-all", match: :first)
-  @init_aval = find("a.ui-corner-all", text: @model_name).find("div.col1of4:nth-child(2) > div:nth-child(1)").text
+  @init_aval = find("a.ui-corner-all", match: :prefer_exact, text: @model.name).find("div.col1of4:nth-child(2) > div:nth-child(1)").text
 end
 
 When /^I change the start date$/ do
-  av = @model.availability_in(@current_inventory_pool)
-  @new_start_date = av.changes.keys.second
   fill_in "add-start-date", with: @new_start_date.strftime("%d.%m.%Y")
   find("#add-start-date").click
   find(".ui-state-active").click
@@ -84,17 +90,17 @@ And /^I change the end date$/ do
 end
 
 And /^I search again for the same model$/ do
-  fill_in "add-input", with: @model_name
+  fill_in "add-input", with: @model.name
 end
 
 Then (/^the model's availability has changed$/) do
   sleep(0.88)
-  @changed_aval = find("a.ui-corner-all", text: @model_name).find("div.col1of4:nth-child(2) > div:nth-child(1)").text
+  @changed_aval = find("a.ui-corner-all", match: :prefer_exact, text: @model.name).find("div.col1of4:nth-child(2) > div:nth-child(1)").text
   @changed_aval.slice(0).should_not == @init_aval.slice(0)
 end
 
 When(/^I start searching some model for adding it$/) do
-  @model = Model.filter({"inventory_pool_id" => @current_inventory_pool.id, "borrowable" => true}, InventoryPool).sample
+  @model = @current_inventory_pool.items.borrowable.map(&:model).sample
   find('#add-input').set @model.name[0..2]
   find('#add-input').click
 end

@@ -1744,7 +1744,11 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "This order is not approvable because some reserved models are not available or the inventory pool is closed on either the start or enddate.": [
+      "This order is not approvable because some reserved models are not available.": [
+         null,
+         ""
+      ],
+      "This order is not approvable because the inventory pool is closed on either the start or enddate.": [
          null,
          ""
       ],

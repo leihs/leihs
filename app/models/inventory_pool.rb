@@ -9,7 +9,7 @@ class InventoryPool < ActiveRecord::Base
   has_many :holidays, :dependent => :delete_all
   accepts_nested_attributes_for :holidays, :allow_destroy => true, :reject_if =>  proc {|holiday| holiday[:id]}
 
-  has_many :access_rights, :dependent => :delete_all, :include => :role
+  has_many :access_rights, :dependent => :delete_all
   has_many :users, :through => :access_rights, :uniq => true, :conditions => {access_rights: {deleted_at: nil}}
   has_many :suspended_users, :through => :access_rights, :uniq => true, :source => :user, :conditions => "access_rights.deleted_at IS NULL AND access_rights.suspended_until IS NOT NULL AND access_rights.suspended_until >= CURDATE()"
 
@@ -66,12 +66,6 @@ class InventoryPool < ActiveRecord::Base
 
   has_many :running_lines, :order => [:start_date, :end_date, :type, :id] # the order is needed by the availability computation TODO sort directly on to the sql-view ??
 
-#######################################################################
-
-  def used_root_categories
-    models.flat_map(&:categories).flat_map{|x| x.ancestors.roots }.uniq
-  end
-  
 #######################################################################
 
   validates_presence_of :name, :shortname, :email
@@ -142,16 +136,6 @@ class InventoryPool < ActiveRecord::Base
   def running_holiday_on(date)
     holidays.where(["start_date <= :d AND end_date >= :d", {:d => date}]).first
   end
-  
-###################################################################################
-
-  def has_access?(user)
-    user.inventory_pools.include?(self)
-  end
-  
-  def is_blacklisted?(user)
-    suspended_users.where(:id => user.id).exists?
-  end
 
 ###################################################################################
 
@@ -165,6 +149,23 @@ class InventoryPool < ActiveRecord::Base
 
   def create_workday
     self.workday ||= Workday.new
-  end 
+  end
+
+  def inventory(params)
+    items = Item.filter params.clone.merge({paginate: "false", all: "true", search_term: nil}), self
+
+    if [:unborrowable, :retired, :category_id, :in_stock, :incomplete, :broken, :owned, :responsible_id, :unused_models].all? {|param| params[param].blank?}
+      options = Option.filter params.clone.merge({paginate: "false", sort: "name", order: "ASC"}), self
+    end
+
+    item_ids = items.pluck(:id)
+
+    models = Model.filter params.clone.merge({paginate: "false", item_ids: item_ids, include_retired_models: params[:retired], search_targets: [:name, :items]}), self
+
+    inventory = (models + (options || [])).sort{|a,b| a.name.strip <=> b.name.strip}
+    inventory = inventory.paginate(:page => params[:page]||1, :per_page => [(params[:per_page].try(&:to_i) || 20), 100].min) unless params[:paginate] == "false"
+
+    inventory
+  end
 
 end

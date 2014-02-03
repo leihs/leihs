@@ -37,8 +37,8 @@ module Persona
       @user = FactoryGirl.create(:user, :language => @language, :firstname => @@name, :lastname => @@lastname, :login => @@name.downcase, :email => @@email)
       @inventory_pool = InventoryPool.find_by_name(@@inventory_pool_names.first)
       @inventory_pool_2 = InventoryPool.find_by_name(@@inventory_pool_names.second)
-      @user.access_rights.create(:role => Role.find_by_name("manager"), :inventory_pool => @inventory_pool, :access_level => 3)
-      @user.access_rights.create(:role => Role.find_by_name("manager"), :inventory_pool => InventoryPool.last, :access_level => 3)
+      @user.access_rights.create(:role => :inventory_manager, :inventory_pool => @inventory_pool)
+      @user.access_rights.create(:role => :inventory_manager, :inventory_pool => InventoryPool.last)
     end
     
     def create_location_and_building
@@ -138,7 +138,7 @@ module Persona
 
     def setup_more_beamers
       (1..20).to_a.each do |i|
-        model = FactoryGirl.create(:model, :name => "Beamer #{i}",
+        model = FactoryGirl.create(:model, :name => "Beamer #{i} #{Faker::Lorem.word}",
                            :manufacturer => "Sony", 
                            :hand_over_note => "Beamer brauch ein VGA Kabel!", 
                            :maintenance_period => 0)
@@ -184,7 +184,7 @@ module Persona
 
     def setup_more_cameras
       (1..30).to_a.each do |i|
-        model = FactoryGirl.create(:model, :name => "Camera #{i}",
+        model = FactoryGirl.create(:model, :name => "Camera #{i} #{Faker::Lorem.word}",
                                    :manufacturer => "Nikon",
                                    :maintenance_period => 0)
         model.model_links.create :model_group => @camera_category

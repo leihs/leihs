@@ -12,6 +12,7 @@ Funktionalität: Benutzer verwalten
     Dann man hat nur die folgenden Rollen zur Auswahl
       | No access          |
       | Customer           |
+      | Group manager      |
       | Lending manager    |
       | Inventory manager  |
     Wenn man den Zugriff auf "Inventar-Verwalter" ändert

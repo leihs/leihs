@@ -4,7 +4,7 @@ When /^I change a contract lines end date$/ do
   line_el.has_content?(@line.model.name)
   line_el.find(".multibutton .button", :text => _("Change entry")).click
   @old_end_date = @line.end_date
-  @new_end_date = @old_end_date + 1.day
+  @new_end_date = [@old_end_date, Date.today].max + 1.day
   @new_end_date_element = get_fullcalendar_day_element(@new_end_date)
   @new_end_date_element.click
   step 'I save the booking calendar'
@@ -28,11 +28,7 @@ When /^I change the end date for all contract lines, envolving option and item l
   step 'I edit the timerange of the selection'
   @line = @contract.lines.first
   @old_end_date = @line.end_date
-  @new_end_date = if @line.start_date + 1.day < Date.today
-      Date.today
-    else
-      @line.start_date + 1.day
-  end
+  @new_end_date = [@line.start_date, Date.today].max + 1.day
   @new_end_date_element = get_fullcalendar_day_element(@new_end_date)
   @new_end_date_element.click
   step 'I save the booking calendar'

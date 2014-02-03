@@ -19,17 +19,6 @@ Then /^(\w+) item(s?) of that model should be available in group '([^"]*)'( only
   end if exclusivity
 end
 
-# TODO: currently unused
-=begin
-When /^I move (\w+) item(s?) of that model from group "([^"]*)" to group "([^"]*)"$/ do |n, plural, from_group_name, to_group_name|
-  from_group = @inventory_pool.groups.find_by_name from_group_name
-  to_group   = @inventory_pool.groups.find_by_name to_group_name
-  to_number(n).times do
-    Availability::Change.move(@model, from_group, to_group)
-  end
-end
-=end
-
 Then "that model should not be available in any group"  do
   @inventory_pool.partitions_with_generals.hash_for_model_and_groups(@model).reject { |group_id, num| group_id == Group::GENERAL_GROUP_ID }.size.should == 0
 end

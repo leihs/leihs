@@ -10,7 +10,7 @@ class Manage::InventoryController < Manage::ApplicationController
   end
 
   def index
-    @inventory = Inventory.filter params, current_inventory_pool
+    @inventory = current_inventory_pool.inventory params
     set_pagination_header(@inventory) unless params[:paginate] == "false"
   end
 

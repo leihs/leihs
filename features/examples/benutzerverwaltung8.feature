@@ -19,11 +19,13 @@ Funktionalität: Benutzer verwalten
     Und man hat nur die folgenden Rollen zur Auswahl
       | No access          |
       | Customer           |
+      | Group manager      |
       | Lending manager    |
       | Inventory manager  |
     Und eine der folgenden Rollen auswählt
       | tab                | role                |
       | Kunde              | customer            |
+      | Gruppen-Verwalter  | group_manager       |
       | Ausleihe-Verwalter | lending_manager     |
       | Inventar-Verwalter | inventory_manager   |
     Und man teilt mehrere Gruppen zu

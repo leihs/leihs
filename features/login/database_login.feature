@@ -6,12 +6,10 @@ Feature: Login through database authentication
 
   Background:
     Given personas existing
-      And I am "Ramon"
 
   @javascript
   Scenario: Login through database authentication
-     And I am logged out 
+   Given I log out
     When I visit the homepage
-     And I login
+     And I login as "Normin" via web interface
     Then I am logged in
-    

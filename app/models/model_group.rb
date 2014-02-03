@@ -36,8 +36,6 @@ class ModelGroup < ActiveRecord::Base
     all_models.detect {|m| not m.image.blank? }.try(:image)
   end
 
-  scope :have_borrowable_items, joins(:items).where(Item.arel_table[:retired].not_eq(nil)).where(:items => {:is_borrowable => true}).uniq
-
   scope :with_borrowable_models_for_user, lambda { |user|
     joins(:models).where(:models => {:id => user.models.borrowable}).uniq
   }

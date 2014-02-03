@@ -40,7 +40,7 @@ class MergeOrdersToContracts < ActiveRecord::Migration
         }
     }
 
-    execute "ALTER TABLE contracts ADD COLUMN status ENUM('#{:unsubmitted}', '#{:submitted}', '#{:rejected}', '#{:approved}', '#{:signed}', '#{:closed}')"
+    execute "ALTER TABLE contracts ADD COLUMN status ENUM('#{Contract::STATUSES.join("', '")}')"
 
     status_map[Contract].each_pair do |key, value|
       Contract.where(status_const: key).update_all(status: value)

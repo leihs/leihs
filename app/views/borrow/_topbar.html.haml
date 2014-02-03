@@ -33,7 +33,7 @@
 
     %ul.topbar-navigation.float-right
 
-      - if current_user.has_role?('manager', nil, false) or current_user.has_role?('admin')
+      - if current_user.has_role?(:group_manager) or current_user.has_role?(:admin)
         %li.topbar-item.with-icon
           %a.topbar-item-inner{:href => manage_root_path}
             %i.icon-gears

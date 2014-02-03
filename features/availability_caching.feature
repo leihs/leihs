@@ -59,7 +59,7 @@ Scenario: Don't influence other Orders
 @old-ui
 Scenario: Manage a Contract
 
-       Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
+       Given a lending_manager for inventory pool 'ABC' logs in as 'inv_man_0'
        And a model 'Coffee Mug' exists
        And this model has 4 items in inventory pool ABC
        And customer 'Joe' has access to inventory pool ABC
@@ -69,7 +69,7 @@ Scenario: Manage a Contract
         And he checks his basket
        Then the availability of all order lines should be cached
        When he submits the new order
-        And a manager for inventory pool 'ABC' logs in as 'inv_man_0'
+        And a lending_manager for inventory pool 'ABC' logs in as 'inv_man_0'
         And the lending_manager clicks on 'acknowledge'
        Then he sees 1 order
         And the availability of all order lines should be cached

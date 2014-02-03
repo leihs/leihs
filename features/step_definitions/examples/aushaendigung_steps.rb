@@ -55,10 +55,6 @@ Dann(/^die Zeile wird grün markiert$/) do
   find(@line_css).native.attribute("class").should include "green"
 end
 
-Dann(/^mir wird eine Erfolgsmeldung angezeigt$/) do
-  page.has_selector?(".flash .success")
-end
-
 Wenn(/^ich die Zeile deselektiere$/) do
   find(@line_css).find("input[type=checkbox]").click
   find(@line_css).find("input[type=checkbox]").should_not be_checked
@@ -89,8 +85,8 @@ Wenn(/^ich eine Option hinzufüge$/) do
   @option = @current_inventory_pool.options.first
   find("input#assign-or-add-input").set @option.inventory_code
   find("form#assign-or-add .ui-menu-item a", match: :first).click
-  page.has_selector? ".flash"
-  cl_id = @hand_over.user.contracts.approved.flat_map(&:lines).find{|l| l.start_date == Date.today and l.end_date == Date.tomorrow and l.item == @option}.id
+  find("#flash")
+  cl_id = @hand_over.user.contracts.approved.flat_map(&:lines).find{|l| l.item == @option}.id
   @line_css = ".line[data-id='#{cl_id}']"
 end
 
@@ -101,13 +97,20 @@ end
 Angenommen(/^es gibt eine Aushändigung mit mindestens einer problematischen Linie$/) do
   items_in_stock = Item.by_responsible_or_owner_as_fallback(@current_inventory_pool).in_stock
   @hand_over = @current_inventory_pool.visits.hand_over.find {|ho| ho.lines.any? do |l|
-    av = l.model.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups(l.start_date, l.end_date, ho.user.groups)
-    l.start_date.past? and av > 1
+    if l.is_a? ItemLine
+      av = l.model.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups(l.start_date, l.end_date, ho.user.groups)
+      l.start_date.past? and av > 1
+    end
   end }
 end
 
 Dann(/^wird das Problemfeld für das problematische Modell angezeigt$/) do
-  @contract_line = @hand_over.lines.find {|l| l.start_date.past? and l.model.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups(l.start_date, l.end_date, @hand_over.user.groups) > 1}
+  @contract_line = @hand_over.lines.find do |l|
+    if l.is_a? ItemLine
+      av = l.model.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups(l.start_date, l.end_date, @hand_over.user.groups)
+      l.start_date.past? and av > 1
+    end
+  end
   @line_css = ".line[data-id='#{@contract_line.id}']"
   find(@line_css).should have_selector ".line-info.red"
   find(@line_css).should have_selector ".tooltip.red"

@@ -10,7 +10,7 @@ Feature: Handling of Packages
 Background: An inventory, a manager, a package with two items and a non-packaged item
 
        Given 2 inventory pools
-       Given a manager for inventory pool '1' logs in as 'inv_man_0'
+       Given a inventory_manager for inventory pool '1' logs in as 'inv_man_0'
          And we are using inventory pool '1' for now
        Given a package 'Trololo Complete Edition' exists
          And item 'TROLL' of model 'Trololo Complete Edition' exists
@@ -48,7 +48,7 @@ Scenario: If a Model is completely packaged in one Inventory Pool it can have an
        Given there is an order by 'Toshi'
          And it asks for 1 item of model 'Tokio Nightlife'
          And the order was submitted
-       Given a manager for inventory pool '2' logs in as 'inv_man_0'
+       Given a lending_manager for inventory pool '2' logs in as 'inv_man_0'
        When the lending_manager clicks on 'acknowledge'
         And he chooses Toshi's order
        Then Toshi's order is shown

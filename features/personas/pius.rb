@@ -33,17 +33,17 @@ module Persona
       @language = Language.find_by_locale_name "de-CH"
       @user = FactoryGirl.create(:user, :language => @language, :firstname => @@name, :lastname => @@lastname, :login => @@name.downcase, :email => @@email)
       @inventory_pool = InventoryPool.find_by_name(@@inventory_pool_name)
-      @user.access_rights.create(:role => Role.find_by_name("manager"), :inventory_pool => @inventory_pool, :access_level => 2)
+      @user.access_rights.create(:role => :lending_manager, :inventory_pool => @inventory_pool)
     end
 
     def create_external_user
       @external_user = FactoryGirl.create(:user, :language => @language, :firstname => "Peter", :lastname => "Silie", :login => "peter", :email => "peter@silie.com")
-      @external_user.access_rights.create(:role => Role.find_by_name("customer"), :inventory_pool => @inventory_pool)
+      @external_user.access_rights.create(:role => :customer, :inventory_pool => @inventory_pool)
     end
 
     def create_user_with_large_hand_over
       user = FactoryGirl.create :user
-      user.access_rights.create(:role => Role.find_by_name("customer"), :inventory_pool => @inventory_pool)
+      user.access_rights.create(:role => :customer, :inventory_pool => @inventory_pool)
 
       approved_contract = FactoryGirl.create(:contract, :user => user, :inventory_pool => @inventory_pool, :status => :approved)
       approved_contract_purpose = FactoryGirl.create :purpose, :description => "Ersatzstativ für die Ausstellung."
@@ -56,7 +56,7 @@ module Persona
     def create_users_with_take_backs
       # user with a take back which has an option line with quantity >= 2
       user1 = FactoryGirl.create :user
-      user1.access_rights.create(:role => Role.find_by_name("customer"), :inventory_pool => @inventory_pool)
+      user1.access_rights.create(:role => :customer, :inventory_pool => @inventory_pool)
 
       contract = FactoryGirl.create(:contract, :user => user1, :inventory_pool => @inventory_pool, :status => :approved)
       contract_purpose = FactoryGirl.create :purpose, :description => "Ersatzstativ für die Ausstellung."
@@ -68,7 +68,7 @@ module Persona
 
       # create user with more take backs with same option
       user2 = FactoryGirl.create :user
-      user2.access_rights.create(:role => Role.find_by_name("customer"), :inventory_pool => @inventory_pool)
+      user2.access_rights.create(:role => :customer, :inventory_pool => @inventory_pool)
 
       contract = FactoryGirl.create(:contract, :user => user2, :inventory_pool => @inventory_pool, :status => :approved)
       contract_purpose = FactoryGirl.create :purpose, :description => "Ersatzstativ für die Ausstellung."

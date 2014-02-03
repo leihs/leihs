@@ -18,20 +18,16 @@ Funktionalität: Gruppen
     Und die Anzahl der zugeteilten Modell-Kapazitäten
 
   @javascript
-  Szenario: Gruppenliste Sortierung
-    Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
-    Dann sehe ich die Liste der Gruppen
-    Und die Liste ist alphabetisch sortiert
-  
-  @javascript
-  Szenario: Gruppe erstellen
+  Szenario: Visierungspflichtige Gruppe erstellen
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
     Wenn ich eine Gruppe erstelle
+    Und ich die Eigenschaft 'Visierung erforderlich' anwähle
     Und den Namen der Gruppe angebe
     Und die Benutzer hinzufüge
     Und die Modelle und deren Kapazität hinzufüge
     Und ich speichere
     Dann ist die Gruppe gespeichert
+    Und die Gruppe ist visierungspflichtig
     Und die Benutzer und Modelle mit deren Kapazitäten sind zugeteilt
     Und ich sehe die Gruppenliste alphabetisch sortiert
     Und ich sehe eine Bestätigung

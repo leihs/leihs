@@ -19,6 +19,7 @@ When /^I select all lines of an open contract$/ do
       find("[data-barcode-scanner-target]").native.send_key :enter
     end
   end
+  page.should have_selector(".line input[type=checkbox][data-select-line]")
   all(".line input[type=checkbox][data-select-line]").all? {|x| x.checked? }.should be_true
 end
 

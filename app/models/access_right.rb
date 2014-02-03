@@ -1,15 +1,45 @@
 class AccessRight < ActiveRecord::Base
 
-  belongs_to :role
   belongs_to :user
   belongs_to :inventory_pool
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
+
+####################################################################
+
+  # NOTE the elements have to be sorted in ascending order
+  ROLES_HIERARCHY = [:customer, :group_manager, :lending_manager, :inventory_manager]
+  AVAILABLE_ROLES = ROLES_HIERARCHY + [:admin]
+
+  def role
+    read_attribute(:role).to_sym
+  end
+
+  def role=(v)
+    v = v.to_sym
+    self.deleted_at = nil unless v == :no_access
+    case v
+      when :admin, :customer, :group_manager, :lending_manager, :inventory_manager
+        write_attribute(:role, v)
+      when :no_access
+        self.deleted_at = Date.today # keep the existing role, just flag as deleted
+    end
+
+    # assigning a new role, reactivate (ensure is not deleted)
+    if role_changed?
+      case v
+        when :admin, :customer, :group_manager, :lending_manager, :inventory_manager
+          self.deleted_at = nil
+      end
+    end
+  end
+
+####################################################################
 
   validates_presence_of :user, :role
   validates_presence_of :suspended_reason, if: :suspended_until?
   validates_uniqueness_of :inventory_pool_id, :scope => :user_id
   validate do
-    if role and role.name == 'admin'
+    if role.to_sym == :admin
       errors.add(:base, _("The admin role cannot be scoped to an inventory pool")) unless inventory_pool.nil?
     else
       errors.add(:base, _("Inventory Pool is missing")) if inventory_pool.nil?
@@ -18,7 +48,7 @@ class AccessRight < ActiveRecord::Base
   end
 
   before_validation(:on => :create) do
-    self.inventory_pool = nil if role and role.name == 'admin'
+    self.inventory_pool = nil if role.to_sym == :admin
     if user
       unless user.access_rights.active.empty?
         old_ar = user.access_rights.active.where( :inventory_pool_id => inventory_pool.id ).first if inventory_pool
@@ -36,57 +66,13 @@ class AccessRight < ActiveRecord::Base
   scope :active, where(deleted_at: nil)
   scope :suspended, where("suspended_until IS NOT NULL AND suspended_until >= CURDATE()")
   scope :not_suspended, where("suspended_until IS NULL OR suspended_until < CURDATE()")
-  scope :managers, joins(:role).where(:roles => {:name => "manager"}, :deleted_at => nil) #AR
 
 ####################################################################
 
   def to_s
-    s = _("#{role.name}".humanize)
+    s = _("#{role}".humanize)
     s += " #{_("for")} #{inventory_pool.name}" if inventory_pool
-    s += " (#{_("Access Level: %d") % access_level.to_i})" if role.name == "manager"
     s
-  end
-
-  def role_name
-    case role.name
-      when "admin", "customer"
-        role.name
-      when "manager"
-        case access_level
-          when 1, 2
-            "lending_manager"
-          when 3
-            "inventory_manager"
-        end
-    end
-  end
-
-  def role_name=(v)
-    self.deleted_at = nil unless v == "no_access"
-    case v
-      when "admin"
-        self.role = Role.find_by_name("admin")
-        self.access_level = nil
-      when "customer"
-        self.role = Role.find_by_name("customer")
-        self.access_level = nil
-      when "lending_manager"
-        self.role = Role.find_by_name("manager")
-        self.access_level = 2
-      when "inventory_manager"
-        self.role = Role.find_by_name("manager")
-        self.access_level = 3
-      when "no_access"
-        self.deleted_at = Date.today # keep the existing role, just flag as deleted
-    end
-
-    # assigning a new role, reactivate (ensure is not deleted)
-    if role_id_changed? or access_level_changed?
-      case v
-        when "admin", "customer", "lending_manager", "inventory_manager"
-          self.deleted_at = nil
-      end
-    end
   end
 
   def suspended?

@@ -90,4 +90,5 @@ class window.App.ContractsEditController extends Spine.Controller
       trigger: @approveButton
       contract: @contract
 
-  contractApproved: => window.location = "/manage/#{App.InventoryPool.current.id}/daily?flash[success]=#{_jed('Order approved')}"
+  contractApproved: =>
+    window.location = "/manage/#{App.InventoryPool.current.id}/daily?flash[success]=#{_jed('Order approved')}"

@@ -1,63 +1,48 @@
--- MySQL dump 10.14  Distrib 5.5.33-MariaDB, for debian-linux-gnu (i686)
---
--- Host: localhost    Database: leihs2_test
--- ------------------------------------------------------
--- Server version	5.5.33-MariaDB-1~wheezy
+# ************************************************************
+# Database: leihs2_test
+# Generation Time: 2014-01-21 09:03:33 +0000
+# ************************************************************
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Table structure for table `access_rights`
---
+
+# Dump of table access_rights
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `access_rights`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `access_rights` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `role_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `inventory_pool_id` int(11) DEFAULT NULL,
   `suspended_until` date DEFAULT NULL,
   `deleted_at` date DEFAULT NULL,
-  `access_level` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `suspended_reason` text COLLATE utf8_unicode_ci,
+  `role` enum('customer','group_manager','lending_manager','inventory_manager','admin') COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_access_rights_on_suspended_until` (`suspended_until`),
   KEY `index_access_rights_on_deleted_at` (`deleted_at`),
   KEY `index_access_rights_on_inventory_pool_id` (`inventory_pool_id`),
-  KEY `index_access_rights_on_role_id` (`role_id`),
-  KEY `index_on_user_id_and_inventory_pool_id_and_deleted_at` (`user_id`,`inventory_pool_id`,`deleted_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  KEY `index_on_user_id_and_inventory_pool_id_and_deleted_at` (`user_id`,`inventory_pool_id`,`deleted_at`),
+  KEY `index_access_rights_on_role` (`role`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `access_rights`
---
 
-LOCK TABLES `access_rights` WRITE;
-/*!40000 ALTER TABLE `access_rights` DISABLE KEYS */;
-/*!40000 ALTER TABLE `access_rights` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `accessories`
---
+# Dump of table accessories
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `accessories`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `accessories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `model_id` int(11) DEFAULT NULL,
@@ -65,49 +50,29 @@ CREATE TABLE `accessories` (
   `quantity` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_accessories_on_model_id` (`model_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=341 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `accessories`
---
 
-LOCK TABLES `accessories` WRITE;
-/*!40000 ALTER TABLE `accessories` DISABLE KEYS */;
-/*!40000 ALTER TABLE `accessories` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `accessories_inventory_pools`
---
+# Dump of table accessories_inventory_pools
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `accessories_inventory_pools`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `accessories_inventory_pools` (
   `accessory_id` int(11) DEFAULT NULL,
   `inventory_pool_id` int(11) DEFAULT NULL,
   UNIQUE KEY `index_accessories_inventory_pools` (`accessory_id`,`inventory_pool_id`),
   KEY `index_accessories_inventory_pools_on_inventory_pool_id` (`inventory_pool_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `accessories_inventory_pools`
---
 
-LOCK TABLES `accessories_inventory_pools` WRITE;
-/*!40000 ALTER TABLE `accessories_inventory_pools` DISABLE KEYS */;
-/*!40000 ALTER TABLE `accessories_inventory_pools` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `addresses`
---
+# Dump of table addresses
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `addresses`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `addresses` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `street` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -119,24 +84,14 @@ CREATE TABLE `addresses` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_addresses_on_street_and_zip_code_and_city_and_country_code` (`street`,`zip_code`,`city`,`country_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `addresses`
---
 
-LOCK TABLES `addresses` WRITE;
-/*!40000 ALTER TABLE `addresses` DISABLE KEYS */;
-/*!40000 ALTER TABLE `addresses` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `attachments`
---
+# Dump of table attachments
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `attachments`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `attachments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `model_id` int(11) DEFAULT NULL,
@@ -146,25 +101,15 @@ CREATE TABLE `attachments` (
   `size` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_attachments_on_model_id` (`model_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `attachments`
---
 
-LOCK TABLES `attachments` WRITE;
-/*!40000 ALTER TABLE `attachments` DISABLE KEYS */;
-/*!40000 ALTER TABLE `attachments` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `authentication_systems`
---
+# Dump of table authentication_systems
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `authentication_systems`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `authentication_systems` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -172,49 +117,29 @@ CREATE TABLE `authentication_systems` (
   `is_default` tinyint(1) DEFAULT '0',
   `is_active` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `authentication_systems`
---
 
-LOCK TABLES `authentication_systems` WRITE;
-/*!40000 ALTER TABLE `authentication_systems` DISABLE KEYS */;
-/*!40000 ALTER TABLE `authentication_systems` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `buildings`
---
+# Dump of table buildings
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `buildings`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `buildings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `buildings`
---
 
-LOCK TABLES `buildings` WRITE;
-/*!40000 ALTER TABLE `buildings` DISABLE KEYS */;
-/*!40000 ALTER TABLE `buildings` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `contract_lines`
---
+# Dump of table contract_lines
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `contract_lines`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `contract_lines` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `contract_id` int(11) DEFAULT NULL,
@@ -230,7 +155,6 @@ CREATE TABLE `contract_lines` (
   `updated_at` datetime NOT NULL,
   `purpose_id` int(11) DEFAULT NULL,
   `returned_to_user_id` int(11) DEFAULT NULL,
-  `full_text` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`),
   KEY `index_contract_lines_on_start_date` (`start_date`),
   KEY `index_contract_lines_on_end_date` (`end_date`),
@@ -240,25 +164,15 @@ CREATE TABLE `contract_lines` (
   KEY `fk_contract_lines_model_id` (`model_id`),
   KEY `index_contract_lines_on_returned_date_and_contract_id` (`returned_date`,`contract_id`),
   KEY `index_contract_lines_on_type_and_contract_id` (`type`,`contract_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `contract_lines`
---
 
-LOCK TABLES `contract_lines` WRITE;
-/*!40000 ALTER TABLE `contract_lines` DISABLE KEYS */;
-/*!40000 ALTER TABLE `contract_lines` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `contracts`
---
+# Dump of table contracts
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `contracts`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `contracts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
@@ -267,31 +181,20 @@ CREATE TABLE `contracts` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `handed_over_by_user_id` int(11) DEFAULT NULL,
-  `status` enum('unsubmitted','submitted','rejected','approved','signed','closed') COLLATE utf8_unicode_ci DEFAULT NULL,
-  `full_text` text COLLATE utf8_unicode_ci,
+  `status` enum('unsubmitted','submitted','rejected','approved','signed','closed') COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_contracts_on_inventory_pool_id` (`inventory_pool_id`),
   KEY `index_contracts_on_user_id` (`user_id`),
   KEY `index_contracts_on_status` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `contracts`
---
 
-LOCK TABLES `contracts` WRITE;
-/*!40000 ALTER TABLE `contracts` DISABLE KEYS */;
-/*!40000 ALTER TABLE `contracts` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `database_authentications`
---
+# Dump of table database_authentications
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `database_authentications`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `database_authentications` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -301,76 +204,48 @@ CREATE TABLE `database_authentications` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `database_authentications`
---
 
-LOCK TABLES `database_authentications` WRITE;
-/*!40000 ALTER TABLE `database_authentications` DISABLE KEYS */;
-/*!40000 ALTER TABLE `database_authentications` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `groups`
---
+# Dump of table groups
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `groups`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `inventory_pool_id` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
+  `is_verification_required` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `index_groups_on_inventory_pool_id` (`inventory_pool_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  KEY `index_groups_on_inventory_pool_id` (`inventory_pool_id`),
+  KEY `index_groups_on_is_verification_required` (`is_verification_required`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `groups`
---
 
-LOCK TABLES `groups` WRITE;
-/*!40000 ALTER TABLE `groups` DISABLE KEYS */;
-/*!40000 ALTER TABLE `groups` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `groups_users`
---
+# Dump of table groups_users
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `groups_users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `groups_users` (
   `user_id` int(11) DEFAULT NULL,
   `group_id` int(11) DEFAULT NULL,
   UNIQUE KEY `index_groups_users_on_user_id_and_group_id` (`user_id`,`group_id`),
   KEY `index_groups_users_on_group_id` (`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `groups_users`
---
 
-LOCK TABLES `groups_users` WRITE;
-/*!40000 ALTER TABLE `groups_users` DISABLE KEYS */;
-/*!40000 ALTER TABLE `groups_users` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `histories`
---
+# Dump of table histories
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `histories`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `histories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `text` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
@@ -383,25 +258,15 @@ CREATE TABLE `histories` (
   KEY `index_histories_on_target_type_and_target_id` (`target_type`,`target_id`),
   KEY `index_histories_on_type_const` (`type_const`),
   KEY `index_histories_on_user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `histories`
---
 
-LOCK TABLES `histories` WRITE;
-/*!40000 ALTER TABLE `histories` DISABLE KEYS */;
-/*!40000 ALTER TABLE `histories` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `holidays`
---
+# Dump of table holidays
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `holidays`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `holidays` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `inventory_pool_id` int(11) DEFAULT NULL,
@@ -411,25 +276,15 @@ CREATE TABLE `holidays` (
   PRIMARY KEY (`id`),
   KEY `index_holidays_on_inventory_pool_id` (`inventory_pool_id`),
   KEY `index_holidays_on_start_date_and_end_date` (`start_date`,`end_date`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `holidays`
---
 
-LOCK TABLES `holidays` WRITE;
-/*!40000 ALTER TABLE `holidays` DISABLE KEYS */;
-/*!40000 ALTER TABLE `holidays` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `images`
---
+# Dump of table images
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `images`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `model_id` int(11) DEFAULT NULL,
@@ -443,25 +298,15 @@ CREATE TABLE `images` (
   `thumbnail` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_images_on_model_id` (`model_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `images`
---
 
-LOCK TABLES `images` WRITE;
-/*!40000 ALTER TABLE `images` DISABLE KEYS */;
-/*!40000 ALTER TABLE `images` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `inventory_pools`
---
+# Dump of table inventory_pools
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `inventory_pools`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `inventory_pools` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -479,50 +324,29 @@ CREATE TABLE `inventory_pools` (
   `address_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_inventory_pools_on_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `inventory_pools`
---
 
-LOCK TABLES `inventory_pools` WRITE;
-/*!40000 ALTER TABLE `inventory_pools` DISABLE KEYS */;
-INSERT INTO `inventory_pools` VALUES (1,'Quiaquasinon','Perferendis cum autem ipsa.','Commodi tenetur voluptas sunt sapiente qui.','Quiaquasinon','mina_dibbert@pollich.biz',NULL,NULL,'164EF3','mina_dibbert@pollich.biz',NULL,1,NULL,NULL);
-/*!40000 ALTER TABLE `inventory_pools` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `inventory_pools_model_groups`
---
+# Dump of table inventory_pools_model_groups
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `inventory_pools_model_groups`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `inventory_pools_model_groups` (
   `inventory_pool_id` int(11) DEFAULT NULL,
   `model_group_id` int(11) DEFAULT NULL,
   KEY `index_inventory_pools_model_groups_on_inventory_pool_id` (`inventory_pool_id`),
   KEY `index_inventory_pools_model_groups_on_model_group_id` (`model_group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `inventory_pools_model_groups`
---
 
-LOCK TABLES `inventory_pools_model_groups` WRITE;
-/*!40000 ALTER TABLE `inventory_pools_model_groups` DISABLE KEYS */;
-/*!40000 ALTER TABLE `inventory_pools_model_groups` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `items`
---
+# Dump of table items
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `items`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `inventory_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -563,25 +387,15 @@ CREATE TABLE `items` (
   KEY `index_items_on_owner_id` (`owner_id`),
   KEY `index_items_on_parent_id_and_retired` (`parent_id`,`retired`),
   KEY `index_items_on_model_id_and_retired_and_inventory_pool_id` (`model_id`,`retired`,`inventory_pool_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=165 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `items`
---
 
-LOCK TABLES `items` WRITE;
-/*!40000 ALTER TABLE `items` DISABLE KEYS */;
-/*!40000 ALTER TABLE `items` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `languages`
---
+# Dump of table languages
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `languages`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `languages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -591,25 +405,15 @@ CREATE TABLE `languages` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_languages_on_name` (`name`),
   KEY `index_languages_on_active_and_default` (`active`,`default`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `languages`
---
 
-LOCK TABLES `languages` WRITE;
-/*!40000 ALTER TABLE `languages` DISABLE KEYS */;
-/*!40000 ALTER TABLE `languages` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `locations`
---
+# Dump of table locations
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `locations`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `locations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `room` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -617,25 +421,15 @@ CREATE TABLE `locations` (
   `building_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_locations_on_building_id` (`building_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=117 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `locations`
---
 
-LOCK TABLES `locations` WRITE;
-/*!40000 ALTER TABLE `locations` DISABLE KEYS */;
-/*!40000 ALTER TABLE `locations` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `model_group_links`
---
+# Dump of table model_group_links
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `model_group_links`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `model_group_links` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ancestor_id` int(11) DEFAULT NULL,
@@ -647,25 +441,15 @@ CREATE TABLE `model_group_links` (
   KEY `index_model_group_links_on_ancestor_id` (`ancestor_id`),
   KEY `index_model_group_links_on_direct` (`direct`),
   KEY `index_on_descendant_id_and_ancestor_id_and_direct` (`descendant_id`,`ancestor_id`,`direct`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `model_group_links`
---
 
-LOCK TABLES `model_group_links` WRITE;
-/*!40000 ALTER TABLE `model_group_links` DISABLE KEYS */;
-/*!40000 ALTER TABLE `model_group_links` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `model_groups`
---
+# Dump of table model_groups
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `model_groups`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `model_groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -674,25 +458,15 @@ CREATE TABLE `model_groups` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_model_groups_on_type` (`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `model_groups`
---
 
-LOCK TABLES `model_groups` WRITE;
-/*!40000 ALTER TABLE `model_groups` DISABLE KEYS */;
-/*!40000 ALTER TABLE `model_groups` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `model_links`
---
+# Dump of table model_links
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `model_links`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `model_links` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `model_group_id` int(11) DEFAULT NULL,
@@ -701,25 +475,15 @@ CREATE TABLE `model_links` (
   PRIMARY KEY (`id`),
   KEY `index_model_links_on_model_id_and_model_group_id` (`model_id`,`model_group_id`),
   KEY `index_model_links_on_model_group_id_and_model_id` (`model_group_id`,`model_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `model_links`
---
 
-LOCK TABLES `model_links` WRITE;
-/*!40000 ALTER TABLE `model_links` DISABLE KEYS */;
-/*!40000 ALTER TABLE `model_links` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `models`
---
+# Dump of table models
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `models`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `models` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -736,49 +500,29 @@ CREATE TABLE `models` (
   `hand_over_note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`),
   KEY `index_models_on_is_package` (`is_package`)
-) ENGINE=InnoDB AUTO_INCREMENT=182 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `models`
---
 
-LOCK TABLES `models` WRITE;
-/*!40000 ALTER TABLE `models` DISABLE KEYS */;
-/*!40000 ALTER TABLE `models` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `models_compatibles`
---
+# Dump of table models_compatibles
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `models_compatibles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `models_compatibles` (
   `model_id` int(11) DEFAULT NULL,
   `compatible_id` int(11) DEFAULT NULL,
   KEY `index_models_compatibles_on_compatible_id` (`compatible_id`),
   KEY `index_models_compatibles_on_model_id` (`model_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `models_compatibles`
---
 
-LOCK TABLES `models_compatibles` WRITE;
-/*!40000 ALTER TABLE `models_compatibles` DISABLE KEYS */;
-/*!40000 ALTER TABLE `models_compatibles` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `notifications`
---
+# Dump of table notifications
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `notifications`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `notifications` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
@@ -787,75 +531,44 @@ CREATE TABLE `notifications` (
   PRIMARY KEY (`id`),
   KEY `index_notifications_on_user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `notifications`
---
 
-LOCK TABLES `notifications` WRITE;
-/*!40000 ALTER TABLE `notifications` DISABLE KEYS */;
-/*!40000 ALTER TABLE `notifications` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `numerators`
---
+# Dump of table numerators
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `numerators`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `numerators` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `item` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `numerators`
---
 
-LOCK TABLES `numerators` WRITE;
-/*!40000 ALTER TABLE `numerators` DISABLE KEYS */;
-/*!40000 ALTER TABLE `numerators` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `options`
---
+# Dump of table options
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `options`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `options` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `inventory_pool_id` int(11) DEFAULT NULL,
   `inventory_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `price` decimal(8,2) DEFAULT NULL,
-  `full_text` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`),
   KEY `index_options_on_inventory_pool_id` (`inventory_pool_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `options`
---
 
-LOCK TABLES `options` WRITE;
-/*!40000 ALTER TABLE `options` DISABLE KEYS */;
-/*!40000 ALTER TABLE `options` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `partitions`
---
+# Dump of table partitions
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `partitions`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `partitions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `model_id` int(11) DEFAULT NULL,
@@ -864,41 +577,29 @@ CREATE TABLE `partitions` (
   `quantity` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_partitions_on_model_id_and_inventory_pool_id_and_group_id` (`model_id`,`inventory_pool_id`,`group_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `partitions`
---
 
-LOCK TABLES `partitions` WRITE;
-/*!40000 ALTER TABLE `partitions` DISABLE KEYS */;
-/*!40000 ALTER TABLE `partitions` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Temporary table structure for view `partitions_with_generals`
---
+# Dump of table partitions_with_generals
+# ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `partitions_with_generals`;
-/*!50001 DROP VIEW IF EXISTS `partitions_with_generals`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE TABLE `partitions_with_generals` (
-  `model_id` tinyint NOT NULL,
-  `inventory_pool_id` tinyint NOT NULL,
-  `group_id` tinyint NOT NULL,
-  `quantity` tinyint NOT NULL
-) ENGINE=MyISAM */;
-SET character_set_client = @saved_cs_client;
+DROP VIEW IF EXISTS `partitions_with_generals`;
 
---
--- Table structure for table `properties`
---
+CREATE TABLE `partitions_with_generals` (
+   `model_id` INT(11) NULL DEFAULT NULL,
+   `inventory_pool_id` INT(11) NULL DEFAULT NULL,
+   `group_id` INT(11) NULL DEFAULT NULL,
+   `quantity` DECIMAL(33) NULL DEFAULT NULL
+) ENGINE=MyISAM;
+
+
+
+# Dump of table properties
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `properties`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `properties` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `model_id` int(11) DEFAULT NULL,
@@ -906,123 +607,60 @@ CREATE TABLE `properties` (
   `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_properties_on_model_id` (`model_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `properties`
---
 
-LOCK TABLES `properties` WRITE;
-/*!40000 ALTER TABLE `properties` DISABLE KEYS */;
-/*!40000 ALTER TABLE `properties` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `purposes`
---
+# Dump of table purposes
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `purposes`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `purposes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `description` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `purposes`
---
 
-LOCK TABLES `purposes` WRITE;
-/*!40000 ALTER TABLE `purposes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `purposes` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `roles`
---
+# Dump of table running_lines
+# ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `roles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `roles` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `parent_id` int(11) DEFAULT NULL,
-  `lft` int(11) DEFAULT NULL,
-  `rgt` int(11) DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `index_roles_on_parent_id` (`parent_id`),
-  KEY `index_roles_on_lft` (`lft`),
-  KEY `index_roles_on_rgt` (`rgt`),
-  KEY `index_roles_on_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+DROP VIEW IF EXISTS `running_lines`;
 
---
--- Dumping data for table `roles`
---
+CREATE TABLE `running_lines` (
+   `id` INT(11) NOT NULL DEFAULT '0',
+   `type` VARCHAR(255) NOT NULL DEFAULT 'ItemLine',
+   `inventory_pool_id` INT(11) NULL DEFAULT NULL,
+   `model_id` INT(11) NULL DEFAULT NULL,
+   `quantity` INT(11) NULL DEFAULT '1',
+   `start_date` DATE NULL DEFAULT NULL,
+   `end_date` DATE NULL DEFAULT NULL,
+   `is_late` INT(1) NULL DEFAULT NULL,
+   `unavailable_from` DATE NULL DEFAULT NULL,
+   `concat_group_ids` LONGBLOB NULL DEFAULT NULL
+) ENGINE=MyISAM;
 
-LOCK TABLES `roles` WRITE;
-/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Temporary table structure for view `running_lines`
---
 
-DROP TABLE IF EXISTS `running_lines`;
-/*!50001 DROP VIEW IF EXISTS `running_lines`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE TABLE `running_lines` (
-  `id` tinyint NOT NULL,
-  `type` tinyint NOT NULL,
-  `inventory_pool_id` tinyint NOT NULL,
-  `model_id` tinyint NOT NULL,
-  `quantity` tinyint NOT NULL,
-  `start_date` tinyint NOT NULL,
-  `end_date` tinyint NOT NULL,
-  `is_late` tinyint NOT NULL,
-  `unavailable_from` tinyint NOT NULL,
-  `concat_group_ids` tinyint NOT NULL
-) ENGINE=MyISAM */;
-SET character_set_client = @saved_cs_client;
-
---
--- Table structure for table `schema_migrations`
---
+# Dump of table schema_migrations
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `schema_migrations`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `schema_migrations` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   UNIQUE KEY `unique_schema_migrations` (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `schema_migrations`
---
 
-LOCK TABLES `schema_migrations` WRITE;
-/*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
-INSERT INTO `schema_migrations` VALUES ('20101213125330'),('20110111175705'),('20110117113700'),('20110119193618'),('20110201160119'),('20110222163245'),('20110318110901'),('20110523133506'),('20110617090905'),('20110704075302'),('20110815110417'),('20110921134810'),('20111123154235'),('20111215221843'),('20120106214650'),('20120301140904'),('20120424080000'),('20120424080001'),('20120427113142'),('20120523134739'),('20120618143839'),('20120619083752'),('20120806140527'),('20120806203246'),('20120806203332'),('20120921102118'),('20121109141157'),('20130111105833'),('20130729120232'),('20130730145452'),('20130823104438'),('20130906084646'),('20130923141326'),('20130924180000'),('20130924180001'),('20131118144431'),('20131121171123'),('20131205085439'),('20131205091411'),('20131205154851');
-/*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `settings`
---
+# Dump of table settings
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `settings`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `settings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `smtp_address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -1041,50 +679,30 @@ CREATE TABLE `settings` (
   `smtp_username` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `smtp_password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `settings`
---
 
-LOCK TABLES `settings` WRITE;
-/*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-/*!40000 ALTER TABLE `settings` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `suppliers`
---
+# Dump of table suppliers
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `suppliers`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `suppliers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=165 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `suppliers`
---
 
-LOCK TABLES `suppliers` WRITE;
-/*!40000 ALTER TABLE `suppliers` DISABLE KEYS */;
-/*!40000 ALTER TABLE `suppliers` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `users`
---
+# Dump of table users
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -1106,64 +724,50 @@ CREATE TABLE `users` (
   `settings` varchar(1024) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_users_on_authentication_system_id` (`authentication_system_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `users`
---
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Temporary table structure for view `visit_lines`
---
+# Dump of table visit_lines
+# ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `visit_lines`;
-/*!50001 DROP VIEW IF EXISTS `visit_lines`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE TABLE `visit_lines` (
-  `visit_id` tinyint NOT NULL,
-  `inventory_pool_id` tinyint NOT NULL,
-  `user_id` tinyint NOT NULL,
-  `status` tinyint NOT NULL,
-  `action` tinyint NOT NULL,
-  `date` tinyint NOT NULL,
-  `quantity` tinyint NOT NULL,
-  `contract_line_id` tinyint NOT NULL
-) ENGINE=MyISAM */;
-SET character_set_client = @saved_cs_client;
+DROP VIEW IF EXISTS `visit_lines`;
 
---
--- Temporary table structure for view `visits`
---
+CREATE TABLE `visit_lines` (
+   `visit_id` VARCHAR(86) NULL DEFAULT NULL,
+   `inventory_pool_id` INT(11) NULL DEFAULT NULL,
+   `user_id` INT(11) NULL DEFAULT NULL,
+   `status` ENUM('unsubmitted','submitted','rejected','approved','signed','closed') NOT NULL,
+   `action` VARCHAR(9) NOT NULL DEFAULT '',
+   `date` DATE NULL DEFAULT NULL,
+   `quantity` INT(11) NULL DEFAULT '1',
+   `contract_line_id` INT(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM;
 
-DROP TABLE IF EXISTS `visits`;
-/*!50001 DROP VIEW IF EXISTS `visits`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE TABLE `visits` (
-  `id` tinyint NOT NULL,
-  `inventory_pool_id` tinyint NOT NULL,
-  `user_id` tinyint NOT NULL,
-  `status` tinyint NOT NULL,
-  `action` tinyint NOT NULL,
-  `date` tinyint NOT NULL,
-  `quantity` tinyint NOT NULL
-) ENGINE=MyISAM */;
-SET character_set_client = @saved_cs_client;
 
---
--- Table structure for table `workdays`
---
+
+# Dump of table visits
+# ------------------------------------------------------------
+
+DROP VIEW IF EXISTS `visits`;
+
+CREATE TABLE `visits` (
+   `id` VARCHAR(86) NULL DEFAULT NULL,
+   `inventory_pool_id` INT(11) NULL DEFAULT NULL,
+   `user_id` INT(11) NULL DEFAULT NULL,
+   `status` ENUM('unsubmitted','submitted','rejected','approved','signed','closed') NOT NULL,
+   `action` VARCHAR(9) NOT NULL DEFAULT '',
+   `date` DATE NULL DEFAULT NULL,
+   `quantity` DECIMAL(32) NULL DEFAULT NULL
+) ENGINE=MyISAM;
+
+
+
+# Dump of table workdays
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `workdays`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `workdays` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `inventory_pool_id` int(11) DEFAULT NULL,
@@ -1176,98 +780,84 @@ CREATE TABLE `workdays` (
   `sunday` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `index_workdays_on_inventory_pool_id` (`inventory_pool_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `workdays`
---
 
-LOCK TABLES `workdays` WRITE;
-/*!40000 ALTER TABLE `workdays` DISABLE KEYS */;
-INSERT INTO `workdays` VALUES (1,1,1,1,1,1,1,0,0);
-/*!40000 ALTER TABLE `workdays` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Final view structure for view `partitions_with_generals`
---
 
-/*!50001 DROP TABLE IF EXISTS `partitions_with_generals`*/;
-/*!50001 DROP VIEW IF EXISTS `partitions_with_generals`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50001 VIEW `partitions_with_generals` AS select `partitions`.`model_id` AS `model_id`,`partitions`.`inventory_pool_id` AS `inventory_pool_id`,`partitions`.`group_id` AS `group_id`,`partitions`.`quantity` AS `quantity` from `partitions` union select `i`.`model_id` AS `model_id`,`i`.`inventory_pool_id` AS `inventory_pool_id`,NULL AS `group_id`,(count(`i`.`id`) - ifnull((select sum(`p`.`quantity`) from `partitions` `p` where ((`p`.`model_id` = `i`.`model_id`) and (`p`.`inventory_pool_id` = `i`.`inventory_pool_id`)) group by `p`.`inventory_pool_id`,`p`.`model_id`),0)) AS `quantity` from `items` `i` where (isnull(`i`.`retired`) and (`i`.`is_borrowable` = 1) and isnull(`i`.`parent_id`)) group by `i`.`inventory_pool_id`,`i`.`model_id` */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
 
---
--- Final view structure for view `running_lines`
---
+# Replace placeholder table for partitions_with_generals with correct view syntax
+# ------------------------------------------------------------
 
-/*!50001 DROP TABLE IF EXISTS `running_lines`*/;
-/*!50001 DROP VIEW IF EXISTS `running_lines`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50001 VIEW `running_lines` AS select `contract_lines`.`id` AS `id`,`contract_lines`.`type` AS `type`,`contracts`.`inventory_pool_id` AS `inventory_pool_id`,`contract_lines`.`model_id` AS `model_id`,`contract_lines`.`quantity` AS `quantity`,`contract_lines`.`start_date` AS `start_date`,`contract_lines`.`end_date` AS `end_date`,((`contract_lines`.`end_date` < curdate()) and (`contracts`.`status` = 'signed')) AS `is_late`,if((`contract_lines`.`item_id` is not null),curdate(),if((`contract_lines`.`start_date` > curdate()),`contract_lines`.`start_date`,curdate())) AS `unavailable_from`,group_concat(`groups_users`.`group_id` separator ',') AS `concat_group_ids` from ((`contract_lines` join `contracts` on((`contracts`.`id` = `contract_lines`.`contract_id`))) left join `groups_users` on((`groups_users`.`user_id` = `contracts`.`user_id`))) where ((`contract_lines`.`type` = 'ItemLine') and isnull(`contract_lines`.`returned_date`) and (`contracts`.`status` <> 'rejected') and ((`contracts`.`status` <> 'unsubmitted') or (`contracts`.`updated_at` >= (utc_timestamp() - interval 30 minute))) and ((`contract_lines`.`end_date` >= curdate()) or (`contract_lines`.`item_id` is not null))) group by `contract_lines`.`id` */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
+DROP TABLE `partitions_with_generals`;
 
---
--- Final view structure for view `visit_lines`
---
+CREATE VIEW `partitions_with_generals`
+AS SELECT
+   `partitions`.`model_id` AS `model_id`,
+   `partitions`.`inventory_pool_id` AS `inventory_pool_id`,
+   `partitions`.`group_id` AS `group_id`,
+   `partitions`.`quantity` AS `quantity`
+FROM `partitions` union select `i`.`model_id` AS `model_id`,`i`.`inventory_pool_id` AS `inventory_pool_id`,NULL AS `group_id`,(count(`i`.`id`) - ifnull((select sum(`p`.`quantity`) from `partitions` `p` where ((`p`.`model_id` = `i`.`model_id`) and (`p`.`inventory_pool_id` = `i`.`inventory_pool_id`)) group by `p`.`inventory_pool_id`,`p`.`model_id`),0)) AS `quantity` from `items` `i` where (isnull(`i`.`retired`) and (`i`.`is_borrowable` = 1) and isnull(`i`.`parent_id`)) group by `i`.`inventory_pool_id`,`i`.`model_id`;
 
-/*!50001 DROP TABLE IF EXISTS `visit_lines`*/;
-/*!50001 DROP VIEW IF EXISTS `visit_lines`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50001 VIEW `visit_lines` AS select hex(concat(if((`c`.`status` = 'approved'),`cl`.`start_date`,`cl`.`end_date`),`c`.`inventory_pool_id`,`c`.`user_id`,`c`.`status`)) AS `visit_id`,`c`.`inventory_pool_id` AS `inventory_pool_id`,`c`.`user_id` AS `user_id`,`c`.`status` AS `status`,if((`c`.`status` = 'approved'),'hand_over','take_back') AS `action`,if((`c`.`status` = 'approved'),`cl`.`start_date`,`cl`.`end_date`) AS `date`,`cl`.`quantity` AS `quantity`,`cl`.`id` AS `contract_line_id` from (`contract_lines` `cl` join `contracts` `c` on((`cl`.`contract_id` = `c`.`id`))) where ((`c`.`status` in ('approved','signed')) and isnull(`cl`.`returned_date`)) order by if((`c`.`status` = 'approved'),`cl`.`start_date`,`cl`.`end_date`) */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
 
---
--- Final view structure for view `visits`
---
+# Replace placeholder table for visit_lines with correct view syntax
+# ------------------------------------------------------------
 
-/*!50001 DROP TABLE IF EXISTS `visits`*/;
-/*!50001 DROP VIEW IF EXISTS `visits`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50001 VIEW `visits` AS select hex(concat(`visit_lines`.`date`,`visit_lines`.`inventory_pool_id`,`visit_lines`.`user_id`,`visit_lines`.`status`)) AS `id`,`visit_lines`.`inventory_pool_id` AS `inventory_pool_id`,`visit_lines`.`user_id` AS `user_id`,`visit_lines`.`status` AS `status`,`visit_lines`.`action` AS `action`,`visit_lines`.`date` AS `date`,sum(`visit_lines`.`quantity`) AS `quantity` from `visit_lines` group by `visit_lines`.`user_id`,`visit_lines`.`status`,`visit_lines`.`date`,`visit_lines`.`inventory_pool_id` */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+DROP TABLE `visit_lines`;
 
+CREATE VIEW `visit_lines`
+AS SELECT
+   hex(concat(if((`c`.`status` = 'approved'),`cl`.`start_date`,
+   `cl`.`end_date`),`c`.`inventory_pool_id`,
+   `c`.`user_id`,
+   `c`.`status`)) AS `visit_id`,
+   `c`.`inventory_pool_id` AS `inventory_pool_id`,
+   `c`.`user_id` AS `user_id`,
+   `c`.`status` AS `status`,if((`c`.`status` = 'approved'),'hand_over','take_back') AS `action`,if((`c`.`status` = 'approved'),`cl`.`start_date`,
+   `cl`.`end_date`) AS `date`,
+   `cl`.`quantity` AS `quantity`,
+   `cl`.`id` AS `contract_line_id`
+FROM (`contract_lines` `cl` join `contracts` `c` on((`cl`.`contract_id` = `c`.`id`))) where ((`c`.`status` in ('approved','signed')) and isnull(`cl`.`returned_date`)) order by if((`c`.`status` = 'approved'),`cl`.`start_date`,`cl`.`end_date`);
+
+
+# Replace placeholder table for running_lines with correct view syntax
+# ------------------------------------------------------------
+
+DROP TABLE `running_lines`;
+
+CREATE VIEW `running_lines`
+AS SELECT
+   `contract_lines`.`id` AS `id`,
+   `contract_lines`.`type` AS `type`,
+   `contracts`.`inventory_pool_id` AS `inventory_pool_id`,
+   `contract_lines`.`model_id` AS `model_id`,
+   `contract_lines`.`quantity` AS `quantity`,
+   `contract_lines`.`start_date` AS `start_date`,
+   `contract_lines`.`end_date` AS `end_date`,((`contract_lines`.`end_date` < curdate()) and (`contracts`.`status` = 'signed')) AS `is_late`,if((`contract_lines`.`item_id` is not null),curdate(),if((`contract_lines`.`start_date` > curdate()),`contract_lines`.`start_date`,curdate())) AS `unavailable_from`,group_concat(`groups_users`.`group_id` separator ',') AS `concat_group_ids`
+FROM ((`contract_lines` join `contracts` on((`contracts`.`id` = `contract_lines`.`contract_id`))) left join `groups_users` on((`groups_users`.`user_id` = `contracts`.`user_id`))) where ((`contract_lines`.`type` = 'ItemLine') and isnull(`contract_lines`.`returned_date`) and (`contracts`.`status` <> 'rejected') and ((`contracts`.`status` <> 'unsubmitted') or (`contracts`.`updated_at` >= (utc_timestamp() - interval 30 minute))) and ((`contract_lines`.`end_date` >= curdate()) or (`contract_lines`.`item_id` is not null))) group by `contract_lines`.`id`;
+
+
+# Replace placeholder table for visits with correct view syntax
+# ------------------------------------------------------------
+
+DROP TABLE `visits`;
+
+CREATE VIEW `visits`
+AS SELECT
+   hex(concat(`visit_lines`.`date`,
+   `visit_lines`.`inventory_pool_id`,
+   `visit_lines`.`user_id`,
+   `visit_lines`.`status`)) AS `id`,
+   `visit_lines`.`inventory_pool_id` AS `inventory_pool_id`,
+   `visit_lines`.`user_id` AS `user_id`,
+   `visit_lines`.`status` AS `status`,
+   `visit_lines`.`action` AS `action`,
+   `visit_lines`.`date` AS `date`,sum(`visit_lines`.`quantity`) AS `quantity`
+FROM `visit_lines` group by `visit_lines`.`user_id`,`visit_lines`.`status`,`visit_lines`.`date`,`visit_lines`.`inventory_pool_id`;
+
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2013-12-06 16:02:24

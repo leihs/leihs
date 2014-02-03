@@ -8,7 +8,7 @@ Feature: Acknowledge orders
 # Need to comment this background so it doesn't get run -- backgrounds don't support
 # tags like @old-ui
 #Background:
-#       Given I log in as a manager for inventory pool 'ABC' with access level 3
+#       Given I log in as a inventory_manager for inventory pool 'ABC'
 
 # Does not work due to completely new UI
 @old-ui       

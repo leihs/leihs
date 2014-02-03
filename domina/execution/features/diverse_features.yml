@@ -1,3 +1,13 @@
 ---
-- name: cucumber features
-  tasks: "substitute_with_path: domina/execution/features/manage_feature.yml"
+- name: examples/benutzerverwaltung
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung.feature"
+- name: examples/benutzerverwaltung2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung2.feature"
+- name: examples/benutzerverwaltung3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung3.feature"
