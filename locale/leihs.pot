@@ -1950,6 +1950,9 @@ msgstr ""
 msgid "Inventory manager"
 msgstr ""
 
+msgid "New Delegation"
+msgstr ""
+
 msgid "New User"
 msgstr ""
 

@@ -819,6 +819,9 @@ msgstr "Name"
 msgid "Name / ID"
 msgstr "Name / ID"
 
+msgid "New Delegation"
+msgstr "Neue Delegation"
+
 msgid "New Borrower"
 msgstr "Ausleihende/r wechseln"
 
