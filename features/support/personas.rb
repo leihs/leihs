@@ -29,7 +29,9 @@ module Persona
       DatabaseCleaner.clean_with :truncation
       srand(Random.new_seed)
       create_all
-      system "mysqldump -u #{config['username']} #{config['password'] ? "-p #{config['password']}" : nil} #{config['database']} --no-create-db | grep -v 'SQL SECURITY DEFINER' > #{File.join(Rails.root, "features/personas/dumps/personas_#{i}.sql")}"
+      cmd= "mysqldump #{config['host'] ? "-h #{config['host']}" : nil} -u #{config['username']} #{config['password'] ? "--password=#{config['password']}" : nil}  #{config['database']} --no-create-db | grep -v 'SQL SECURITY DEFINER' > #{File.join(Rails.root, "features/personas/dumps/personas_#{i}.sql")}"
+      puts cmd
+      system cmd
     end
   end
 
