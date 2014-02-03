@@ -77,7 +77,7 @@ contexts:
     generate_personas_dumps:
       order: 2
       type: prepare_executor
-      body: "rbenv shell $RBENV_VERSION && bundle exec rake app:test:generate_personas_dumps"
+      body: "rbenv shell $RBENV_VERSION && domina/bin/create_db_config_file.rb && domina/bin/setup_test_db.rb && bundle exec rake app:test:generate_personas_dumps"
     copy_personas_dumps:
       order: 3
       body: cp /tmp/${DOMINA_EXECUTION_ID}/personas*.sql features/personas/dumps/
