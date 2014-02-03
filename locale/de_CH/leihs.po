@@ -1542,7 +1542,13 @@ msgid "Upload error."
 msgstr "Fehler beim Hochladen."
 
 msgid "User"
-msgstr "Benutzer"
+msgid_plural "Users"
+msgstr[0] "Benutzer"
+
+msgid "Delegation"
+msgid_plural "Delegations"
+msgstr[0] "Delegation"
+msgstr[1] "Delegationen"
 
 msgid "User data"
 msgstr "Benutzerdaten"
