@@ -1,9 +1,9 @@
-module Delegation
+module Delegation::User
 
   def self.included(base)
     base.class_eval do
 
-      belongs_to :delegation_responsible_user, class_name: 'User'
+      belongs_to :delegator_user, class_name: 'User'
 
       # NOTE this method is called from a normal user perspective
       has_and_belongs_to_many :delegations,
@@ -19,11 +19,12 @@ module Delegation
                               foreign_key: 'delegation_id',
                               association_foreign_key: 'user_id'
 
-      scope :as_delegations, where("delegation_responsible_user_id IS NOT NULL")
+      scope :as_delegations, where("delegator_user_id IS NOT NULL")
+      scope :not_as_delegations, where(delegator_user_id: nil)
 
       validate do
         if is_delegation
-          errors.add(:base, _("The responsible user has to be member of the delegation")) unless users.exists? delegation_responsible_user
+          errors.add(:base, _("The responsible user has to be member of the delegation")) unless users.exists? delegator_user
         end
       end
 

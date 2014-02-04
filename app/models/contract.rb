@@ -1,5 +1,6 @@
 class Contract < ActiveRecord::Base
   include LineModules::GroupedAndMergedLines
+  include Delegation::User
 
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
   has_many :actions, :as => :target, :class_name => "History", :order => 'created_at ASC', :conditions => "type_const = #{History::ACTION}"

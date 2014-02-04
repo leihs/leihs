@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  include Delegation
+  include Delegation::User
 
   serialize :extended_info
 
