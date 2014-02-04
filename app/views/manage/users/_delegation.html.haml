@@ -5,18 +5,16 @@
     .row.padding-inset-s.emboss.margin-bottom-xxs
       .col1of2
         %strong.font-size-m= "#{_("Name")} *"
-      .col1of2.text-align-right
-        %input{type: "text", name: "user[firstname]", value: @user.try(:firstname)}
+      .col1of2
+        %input.width-full{type: "text", name: "user[firstname]", value: @user.try(:firstname)}
 
     #users.row.emboss.margin-bottom-xxs
       .row.padding-inset-s
         .col1of2
           %strong.font-size-m= _("Users")
-        .col1of2.text-align-right
+        .col1of2
           .row
-            %input{type: "text", placeholder: _("Name of the user"), :"data-search-users" => true, autocomplete: :off}
-            %label.addon.small.transparent.padding-right-s
-              .arrow.down
+            %input.width-full{type: "text", placeholder: _("Name of the user"), :"data-search-users" => true, autocomplete: :off}
 
       .row.list-of-lines.even{:"data-users-list" => true}
 
@@ -25,6 +23,21 @@
     .row.padding-inset-s.emboss.margin-bottom-xxs
       .col1of2
         %strong.font-size-m= "#{_("Responsible")} *"
+      .col1of2
+        %label.row
+          %input{:type => "hidden", :name => "user[delegator_user_id]", :value => @delegation.try(:delegator_user_id)}
+          %input.width-full{:type => "text",
+                            :autocomplete => :off,
+                            :placeholder => _("Name of the responsible"),
+                            :title => _("Responsible"),
+                            :data => { :url => manage_users_path,
+                                       :type => "autocomplete",
+                                       :autocomplete_search_attr => "search_term",
+                                       :autocomplete_element_tmpl => "views/autocomplete/element",
+                                       :autocomplete_value_target => "user[delegator_user_id]",
+                                       :autocomplete_display_attribute => "name",
+                                       :autocomplete_value_attribute => "id",
+                                       :autocomplete_blur_on_select => "true" }}
 
 :coffeescript
 
