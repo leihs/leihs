@@ -294,8 +294,8 @@ Dann /^man sieht auf jeder Zeile die Summe der Gegenstände des jeweiligen Model
   quantities.sum.should >= quantities.size
 end
 
-Angenommen /^ich suche$/ do
-  @search_term = "a"
+Angenommen /^ich suche( '(.*)')?$/ do |arg1, arg2|
+  @search_term = arg2 || "a"
   find("#search_term").set(@search_term)
   find("#search_term").native.send_key :enter
 end
