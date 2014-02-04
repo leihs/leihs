@@ -28,7 +28,6 @@ module Persona
     end
     
     def setup_dependencies 
-      Persona.create :ramon
       Persona.create :mike
       @pius = Persona.create :pius
     end

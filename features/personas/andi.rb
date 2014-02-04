@@ -1,7 +1,7 @@
 # coding: UTF-8
 
-# Persona:  Pius
-# Job:      Inventory Pool Manager
+# Persona:  Andi
+# Job:      Group Manager
 #
 
 module Persona
@@ -9,7 +9,7 @@ module Persona
   class Andi
 
     @@name = "Andi"
-    @@lastname = Faker::Lorem.word
+    @@lastname = Faker::Name.last_name
     @@email = "andi@zhdk.ch"
     @@inventory_pool_names = ["A-Ausleihe", "IT-Ausleihe", "AV-Technik"]
 
@@ -26,7 +26,6 @@ module Persona
     end
 
     def setup_dependencies 
-      Persona.create :ramon
       Persona.create :mike
     end
 

@@ -22,9 +22,15 @@ module Delegation::User
       scope :as_delegations, where("delegator_user_id IS NOT NULL")
       scope :not_as_delegations, where(delegator_user_id: nil)
 
+      before_validation do
+        if is_delegation
+          users << delegator_user
+        end
+      end
+
       validate do
         if is_delegation
-          errors.add(:base, _("The responsible user has to be member of the delegation")) unless users.exists? delegator_user
+          errors.add(:base, _("The responsible user has to be member of the delegation")) unless users.include? delegator_user
         end
       end
 
@@ -32,7 +38,7 @@ module Delegation::User
   end
 
   def is_delegation
-    self.class.as_delegations.exists? self
+    not delegator_user_id.nil?
   end
 
 end
