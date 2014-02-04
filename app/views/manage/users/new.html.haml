@@ -21,9 +21,13 @@
 
         .row.margin-top-m
 
-          - if @delegation
+          - if @delegation_type
 
             = render partial: "delegation"
+
+            :coffeescript
+
+              jQuery -> new App.DelegationController {el: "#delegation"}
 
           - else
 

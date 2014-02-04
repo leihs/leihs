@@ -63,7 +63,7 @@
 
               .row.list-of-lines.even{:"data-users-list" => true}
 
-                = render :partial => "manage/templates/user_inline_entry", :collection => @group.users.sort{|u1, u2| u1.name <=> u2.name}, :as => :user
+                = render :partial => "manage/templates/user_inline_entry", :collection => @group.users.sort{|u1, u2| u1.name <=> u2.name}, :as => :user, locals: { ref_name: "group" }
 
 :coffeescript
 

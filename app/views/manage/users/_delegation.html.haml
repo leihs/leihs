@@ -18,7 +18,7 @@
 
       .row.list-of-lines.even{:"data-users-list" => true}
 
-        = render partial: "", collection: @user.partitions.sort(&:firstname), as: :partition
+        = render partial: "manage/templates/user_inline_entry", collection: @user.users.sort {|u1, u2| u1.firstname <=> u2.firstname}, as: :user, locals: { ref_name: "user" }
 
   .col1of2.padding-left-xs
 
@@ -27,12 +27,13 @@
         %strong.font-size-m= "#{_("Responsible")} *"
       .col1of2
         %label.row
-          %input{:type => "hidden", :name => "user[delegator_user_id]", :value => @delegation.try(:delegator_user_id)}
+          %input{:type => "hidden", :name => "user[delegator_user_id]", :value => @user.try(:delegator_user_id)}
           %input.width-full{:type => "text",
+                            :value => @user.delegator_user.try(:name),
                             :autocomplete => :off,
                             :placeholder => _("Name of the responsible"),
                             :title => _("Responsible"),
-                            :data => { :url => manage_users_path,
+                            :data => { :url => manage_users_path(type: :user),
                                        :type => "autocomplete",
                                        :autocomplete_search_attr => "search_term",
                                        :autocomplete_element_tmpl => "views/autocomplete/element",
@@ -40,7 +41,3 @@
                                        :autocomplete_display_attribute => "name",
                                        :autocomplete_value_attribute => "id",
                                        :autocomplete_blur_on_select => "true" }}
-
-:coffeescript
-
-  jQuery -> new App.DelegationController {el: "#delegation"}

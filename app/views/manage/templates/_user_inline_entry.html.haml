@@ -1,6 +1,6 @@
 .row.line.font-size-xs
-  %input{:type => :hidden, :name => "group[users][][id]", :value => user.id}
-  %input{:type => :hidden, :name => "group[users][][_destroy]", :value => nil}
+  %input{:type => :hidden, :name => "#{ref_name}[users][][id]", :value => user.id}
+  %input{:type => :hidden, :name => "#{ref_name}[users][][_destroy]", :value => nil}
   .line-col.col5of6.text-align-left{:"data-user-name" => true}= user.name
   .line-col.col1of6.text-align-right
     %button.button.inset.small{:"data-remove-user" => true}= _("Remove")

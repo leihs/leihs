@@ -54,19 +54,15 @@ class Manage::UsersController < Manage::ApplicationController
   end
 
   def new
-    if params[:type] == "delegation"
-      @delegation = User.new
-    else
-      @user = User.new
-      @is_admin = false
-    end
+    @delegation_type = true if params[:type] == "delegation"
+    @user = User.new
+    @is_admin = false unless @delegation_type
   end
 
   def new_in_inventory_pool
-    if params[:type] == "delegation"
-      @delegation = User.new
-    else
-      @user = User.new
+    @delegation_type = true if params[:type] == "delegation"
+    @user = User.new
+    unless @delegation_type
       @accessible_roles = get_accessible_roles_for_current_user
       @access_right = @user.access_rights.new inventory_pool_id: current_inventory_pool.id, role: :customer
     end
@@ -153,10 +149,13 @@ class Manage::UsersController < Manage::ApplicationController
 
   def update
     should_be_admin = params[:user].delete(:admin)
+    user_ids = params[:user].delete(:user_ids)
 
     begin
       User.transaction do
         params[:user].merge!(login: params[:db_auth][:login]) if params[:db_auth]
+        @user.user_ids = user_ids if user_ids
+        binding.pry
         @user.update_attributes! params[:user]
         if params[:db_auth]
           DatabaseAuthentication.find_by_user_id(@user.id).update_attributes! params[:db_auth].merge(user: @user)

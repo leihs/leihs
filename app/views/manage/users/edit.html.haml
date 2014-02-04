@@ -25,6 +25,10 @@
 
             = render partial: "delegation"
 
+            :coffeescript
+
+              jQuery -> new App.DelegationEditController {el: "#delegation"}
+
           - else
 
             .col1of2.padding-right-xs
