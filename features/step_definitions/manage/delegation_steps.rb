@@ -20,3 +20,11 @@ Dann(/^mir werden alle Delegationen angezeigt, den Julie zugeteilt ist$/) do
   end
   # TODO also check contracts matches, etc...
 end
+
+Dann(/^kann ich in der Benutzerliste nach Delegationen einschränken$/) do
+  pending
+end
+
+Dann(/^ich kann in der Benutzerliste nach Benutzer einschränken$/) do
+  pending # express the regexp above with the code you wish you had
+end

@@ -10,7 +10,7 @@ Angenommen(/^man befindet sich auf der Benutzerliste$/) do
   if @current_user == User.find_by_login("gino")
     step "man befindet sich auf der Benutzerliste ausserhalb der Inventarpools"
   else
-    @inventory_pool = @current_user.inventory_pools.first
+    @inventory_pool = @current_inventory_pool || @current_user.inventory_pools.sample
     visit manage_inventory_pool_users_path(@inventory_pool)
   end
 end

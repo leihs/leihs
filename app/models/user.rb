@@ -93,7 +93,7 @@ class User < ActiveRecord::Base
     sql = scoped
     return sql if query.blank?
 
-    sql = sql.joins("LEFT JOIN (`delegations_users` AS `du`, `users` AS `u2`) ON (`du`.`delegation_id` = `users`.`id` AND `du`.`user_id` = `u2`.`id`)")
+    sql = sql.uniq.joins("LEFT JOIN (`delegations_users` AS `du`, `users` AS `u2`) ON (`du`.`delegation_id` = `users`.`id` AND `du`.`user_id` = `u2`.`id`)")
     u2_table = Arel::Table.new(:u2)
 
     query.split.each{|q|

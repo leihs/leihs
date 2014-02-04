@@ -2,10 +2,10 @@
 
 Funktionalität: Delegation
 
-  @upcoming
   Szenario: Filter der Delegationen
     Angenommen ich bin Pius
-    Und ich befinde mich im Admin-Bereich
+    Wenn ich in den Admin-Bereich wechsel
+    Und man befindet sich auf der Benutzerliste
     Dann kann ich in der Benutzerliste nach Delegationen einschränken
     Und ich kann in der Benutzerliste nach Benutzer einschränken
 
