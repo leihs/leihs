@@ -18,6 +18,8 @@
 
       .row.list-of-lines.even{:"data-users-list" => true}
 
+        = render partial: "", collection: @user.partitions.sort(&:firstname), as: :partition
+
   .col1of2.padding-left-xs
 
     .row.padding-inset-s.emboss.margin-bottom-xxs

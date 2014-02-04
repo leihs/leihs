@@ -21,12 +21,18 @@
 
         .row.margin-top-m
 
-          .col1of2.padding-right-xs
+          - if @user.is_delegation
 
-            = render partial: "personal_details"
+            = render partial: "delegation"
 
-          .col1of2.padding-left-xs
+          - else
 
-            = render partial: "login_details" if @db_auth
+            .col1of2.padding-right-xs
 
-            = render partial: "admin_details"
+              = render partial: "personal_details"
+
+            .col1of2.padding-left-xs
+
+              = render partial: "login_details" if @db_auth
+
+              = render partial: "admin_details"
