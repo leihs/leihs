@@ -124,6 +124,8 @@ class User < ActiveRecord::Base
     end
 
     users = users.admins if params[:role] == "admins"
+    users = users.as_delegations if params[:type] == "delegation"
+    users = users.not_as_delegations if params[:type] == "user"
     users = users.where(id: params[:ids]) if params[:ids]
     users = users.search(params[:search_term]) if params[:search_term]
     users = users.order(User.arel_table[:firstname].asc)
