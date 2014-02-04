@@ -1,5 +1,5 @@
 .row.line.font-size-xs
-  %input{:type => :hidden, :name => "group[users][][id]", :value => "{{>id}}"}
+  %input{:type => :hidden, :name => "{{>~paramName}}", :value => "{{>id}}"}
   .line-col.col5of6.text-align-left{:"data-user-name" => true}
     {{>name()}}
   .line-col.col1of6.text-align-right

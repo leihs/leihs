@@ -3,7 +3,7 @@ class window.App.GroupController extends Spine.Controller
   constructor: ->
     super
     new App.GroupPartitionsController {el: @el.find("#models-allocations"), removeHandler: @removePartitionHandler}
-    new App.ManageUsersViaAutocompleteController {el: @el.find("#users"), removeHandler: @removeUserHandler}
+    new App.ManageUsersViaAutocompleteController {el: @el.find("#users"), removeHandler: @removeUserHandler, paramName: "group[users][][id]"}
 
   @removeHandler: (e) =>
     e.preventDefault()

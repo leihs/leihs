@@ -37,4 +37,4 @@ class window.App.ManageUsersViaAutocompleteController extends Spine.Controller
     if userElement.length
       @usersList.prepend userElement
     else
-      @usersList.prepend(App.Render "manage/views/templates/users/user_inline_entry", App.User.find(ui.item.id))
+      @usersList.prepend(App.Render "manage/views/templates/users/user_inline_entry", App.User.find(ui.item.id), paramName: @paramName)
