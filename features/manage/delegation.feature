@@ -2,6 +2,7 @@
 
 Funktionalität: Delegation
 
+  @javascript
   Szenario: Filter der Delegationen
     Angenommen ich bin Pius
     Wenn ich in den Admin-Bereich wechsel
@@ -9,11 +10,12 @@ Funktionalität: Delegation
     Dann kann ich in der Benutzerliste nach Delegationen einschränken
     Und ich kann in der Benutzerliste nach Benutzer einschränken
 
-  @upcoming
+  @javascript
   Szenario: Erfassung einer Delegation
     Angenommen ich bin Pius
-    Und ich befinde mich im Admin-Bereich
-    Wenn ich im Reiter Benutzer eine neue Delegation erstelle
+    Und ich in den Admin-Bereich wechsel
+    Und ich befinde mich im Reiter 'Benutzer'
+    Wenn ich eine neue Delegation erstelle
     Und ich der Delegation Zugriff für diesen Pool gebe
     Und ich dieser Delegation einen Namen gebe
     Und ich dieser Delegation keinen, einen oder mehrere Personen zuteile
@@ -25,21 +27,23 @@ Funktionalität: Delegation
   @upcoming
   Szenario: Delegation erhält Zugriff als Kunde
     Angenommen ich bin Pius
-    Und ich befinde mich im Admin-Bereich
-    Wenn ich eine Delegation erstelle
+    Und ich in den Admin-Bereich wechsel
+    Und ich befinde mich im Reiter 'Benutzer'
+    Wenn ich eine neue Delegation erstelle
     Dann kann ich dieser Delegation ausschliesslich Zugriff als Kunde zuteilen
 
 
   @upcoming
   Szenario: Delegation erfassen ohne Pflichtfelder abzufüllen
     Angenommen ich bin Pius
-    Und ich erstelle eine neue Delegation
+    Und ich befinde mich im Reiter 'Benutzer'
+    Und ich eine neue Delegation erstelle
     Wenn ich keinen Verantwortlichen zuteile
     Dann erhalte ich eine Fehlermeldung
     Und ich keinen Namen angebe
     Dann erhalte ich eine Fehlermeldung
 
-  @upcoming
+  @javascript
   Szenario: Delegation editieren
     Angenommen ich bin Pius
     Und ich befinde mich im Reiter 'Benutzer'
@@ -95,21 +99,21 @@ Funktionalität: Delegation
   @upcoming
   Szenario: Delegation in Aushändigung ändern
     Angenommen ich bin Pius
-    Und ich befinde mich in einer Aushändigung
+    Und ich öffne eine Aushändigung
     Wenn ich die Delegation wechsle
     Dann lautet die Aushändigung auf diese neu gewählte Delegation
 
   @upcoming
   Szenario: Auswahl der Delegation in Aushändigung ändern
     Angenommen ich bin Pius
-    Und ich befinde mich in einer Aushändigung
+    Und ich öffne eine Aushändigung
     Wenn ich die Delegation wechsle
     Dann kann ich nur diejenigen Delegationen wählen, die Zugriff auf meinen Gerätepark haben
 
   @upcoming
   Szenario: Auswahl der Kontaktperson in Aushändigung ändern
     Angenommen ich bin Pius
-    Und ich befinde mich in einer Aushändigung
+    Und ich öffne eine Aushändigung
     Wenn ich die Kontaktperson wechsle
     Dann kann ich nur diejenigen Personen wählen, die zur Delegationsgruppe gehören
 
@@ -147,7 +151,7 @@ Funktionalität: Delegation
   @upcoming
   Szenario: Delegation in persönliche Bestellungen ändern in Aushändigung
     Angenommen ich bin Pius
-    Und ich befinde mich in einer Aushändigung
+    Und ich öffne eine Aushändigung
     Wenn ich statt einer Delegation einen Benutzer wähle
     Dann ist in der Aushändigung der Benutzer aufgeführt
 
@@ -162,18 +166,18 @@ Funktionalität: Delegation
   @upcoming
   Szenario: Persönliche Bestellung in Delegationsbestellung ändern in Aushändigung
     Angenommen ich bin Pius
-    Und ich befinde mich in einer Aushändigung
+    Und ich öffne eine Aushändigung
     Wenn ich statt eines Benutzers eine Delegation wähle
     Dann ist in der Bestellung der Name der Delegation aufgeführt
 
-  @upcoming
+  @javascript
   Szenario: Aushändigen und eine Kontaktperson hinzufügen
     Angenommen ich bin Pius
-    Und ich befinde mich in einer Aushändigung
+    Und ich öffne eine Aushändigung
     Wenn ich die Gegenstände aushändige
     Dann muss ich eine Kontaktperson hinzufügen
 
-  @upcoming
+  @javascript
   Szenario: Anzeige des Tooltipps
     Angenommen ich bin Pius
     Wenn ich nach einer Delegation suche

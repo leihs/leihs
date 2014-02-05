@@ -18,9 +18,9 @@ When(/^der Benutzer für die Aushändigung ist gesperrt$/) do
   visit manage_hand_over_path(@ip, @customer)
 end
 
-Angenommen(/^ich öffne eine Aushaendigung$/) do
-  @hand_over = @current_inventory_pool.visits.hand_over.first
-  visit manage_hand_over_path(@current_inventory_pool, @hand_over.user)
+Angenommen(/^ich öffne eine Aushändigung$/) do
+  @hand_over = @current_inventory_pool.visits.hand_over.sample
+  step "ich die Aushändigung öffne"
 end
 
 Angenommen(/^es gibt eine Aushändigung mit mindestens einem nicht problematischen Modell$/) do
@@ -30,10 +30,6 @@ Angenommen(/^es gibt eine Aushändigung mit mindestens einem nicht problematisch
       !l.start_date.past? and !l.item and @models_in_stock.include?(l.model)
     end.count >= 1
   end
-end
-
-Angenommen(/^ich öffne diese Aushändigung$/) do
-  visit manage_hand_over_path(@current_inventory_pool, @hand_over.user)
 end
 
 Wenn(/^ich dem nicht problematischen Modell einen Inventarcode zuweise$/) do
@@ -138,9 +134,9 @@ Dann(/^erhalte ich eine entsprechende Info\-Meldung 'XY ist bereits diesem Vertr
   find "#flash", text: "#{@contract_line.item.inventory_code} ist bereits diesem Vertrag zugewiesen"
 end
 
-Angenommen(/^ich öffne eine Aushaendigung mit mindestens einem zugewiesenen Gegenstand$/) do
+Angenommen(/^ich öffne eine Aushändigung mit mindestens einem zugewiesenen Gegenstand$/) do
   @hand_over = @current_inventory_pool.visits.hand_over.find {|ho| ho.lines.any? &:item_id}
-  step "ich öffne diese Aushändigung"
+  step "ich die Aushändigung öffne"
 end
 
 Dann(/^die Zeile bleibt selektiert$/) do

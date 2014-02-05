@@ -22,9 +22,72 @@ Dann(/^mir werden alle Delegationen angezeigt, den Julie zugeteilt ist$/) do
 end
 
 Dann(/^kann ich in der Benutzerliste nach Delegationen einschränken$/) do
-  pending
+  find("#user-index-view form#list-filters select#type").select _("Delegations")
+  find("#user-list.list-of-lines .line", match: :first)
+  ids = all("#user-list.list-of-lines .line [data-type='user-cell']").map {|user_data| user_data["data-id"] }
+  User.find(ids).all?(&:is_delegation).should be_true
 end
 
 Dann(/^ich kann in der Benutzerliste nach Benutzer einschränken$/) do
+  find("#user-index-view form#list-filters select#type").select _("Users")
+  find("#user-list.list-of-lines .line", match: :first)
+  ids = all("#user-list.list-of-lines .line [data-type='user-cell']").map {|user_data| user_data["data-id"] }
+  User.find(ids).any?(&:is_delegation).should be_false
+end
+
+Angenommen(/^ich befinde mich im Reiter '(.*)'$/) do |arg1|
+  find("nav ul li a.navigation-tab-item", text: arg1).click
+  find("nav ul li a.navigation-tab-item.active", text: arg1)
+  find("#user-index-view ")
+end
+
+Wenn(/^ich eine neue Delegation erstelle$/) do
+  within(".multibutton", text: _("New User")) do
+    find(".dropdown-toggle").hover
+    find(".dropdown-item", text: _("New Delegation")).click
+  end
+  pending
+end
+
+Wenn(/^ich der Delegation Zugriff für diesen Pool gebe$/) do
   pending # express the regexp above with the code you wish you had
 end
+
+Wenn(/^ich dieser Delegation einen Namen gebe$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Wenn(/^ich dieser Delegation keinen, einen oder mehrere Personen zuteile$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Wenn(/^ich kann dieser Delegation keine Delegation zuteile$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Wenn(/^ich genau einen Verantwortlichen eintrage$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Wenn(/^ich die Delegation speichere$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Dann(/^ist die Delegation mit den aktuellen Informationen gespeichert$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Wenn(/^ich nach einer Delegation suche$/) do
+  @delegation = @current_inventory_pool.users.as_delegations.sample
+  step "ich suche '%s'" % @delegation.firstname
+end
+
+Wenn(/^ich über den Delegationname fahre$/) do
+  find("#users .list-of-lines .line", match: :prefer_exact, text: @delegation.to_s).find("[data-type='user-cell']").hover
+end
+
+Dann(/^werden mir im Tooltipp der Name und der Verantwortliche der Delegation angezeigt$/) do
+  find("body > .tooltipster-base", text: @delegation.delegator_user.to_s)
+end
+
+

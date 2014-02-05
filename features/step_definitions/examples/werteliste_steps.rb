@@ -110,10 +110,6 @@ Wenn(/^es ist pro Modell genau einer Linie ein Gegenstand zugewiesen$/) do
   end
 end
 
-Wenn(/^ich eine Aushändigung öffne$/) do
-  visit manage_hand_over_path(@current_inventory_pool, @hand_over.user)
-end
-
 Wenn(/^ich mehrere Linien von der Aushändigung auswähle$/) do
   page.has_selector? "#lines .line input[type='checkbox']"
   @number_of_selected_lines = all("#lines .line input[type='checkbox']").size
