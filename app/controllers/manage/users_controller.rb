@@ -67,7 +67,6 @@ class Manage::UsersController < Manage::ApplicationController
   end
 
   def create
-
     should_be_admin = params[:user].delete(:admin)
     user_ids = params[:user].delete(:users).map {|h| h["id"]}
     @user = User.new(params[:user])
@@ -192,14 +191,16 @@ class Manage::UsersController < Manage::ApplicationController
   end
 
   def update_in_inventory_pool
-
     if params[:user] and params[:user].has_key?(:groups) and (groups = params[:user].delete(:groups))
       @user.groups = groups.map {|g| Group.find g["id"]}
     end
 
+    user_ids = params[:user].delete(:users).select{|h| h["_destroy"] != "1"}.map {|h| h["id"]}
+
     begin
       User.transaction do
         params[:user].merge!(login: params[:db_auth][:login]) if params[:db_auth]
+        @user.user_ids = user_ids if user_ids
         @user.update_attributes! params[:user]
         if params[:db_auth]
           DatabaseAuthentication.find_or_create_by_user_id(@user.id).update_attributes! params[:db_auth].merge(user: @user)
