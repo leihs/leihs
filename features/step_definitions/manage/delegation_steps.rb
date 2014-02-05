@@ -123,3 +123,19 @@ Dann(/^ich werde als Kontaktperson hinterlegt$/) do
   end
 end
 
+Angenommen(/^es wurde für eine Delegation eine Bestellung erstellt$/) do
+  @contract = @current_inventory_pool.contracts.find {|c| c.user.is_delegation }
+  @contract.should_not be_nil
+end
+
+Angenommen(/^ich befinde mich in dieser Bestellung$/) do
+  visit manage_edit_contract_path @current_inventory_pool, @contract
+end
+
+Dann(/^sehe ich den Namen der Delegation$/) do
+  page.has_content? @contract.user.name
+end
+
+Dann(/^ich sehe die Kontaktperson$/) do
+  page.has_content? @contract.delegated_user.name
+end

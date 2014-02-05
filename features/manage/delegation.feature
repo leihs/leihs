@@ -74,8 +74,8 @@ Funktionalität: Delegation
   @javascript
   Szenario: Anzeige der Bestellungen für eine Delegation
     Angenommen ich bin Pius
-    Und ich befinde mich in einer Bestellung
-    Wenn die Bestellung für eine Delegation erstellt wurde
+    Und es wurde für eine Delegation eine Bestellung erstellt
+    Und ich befinde mich in dieser Bestellung
     Dann sehe ich den Namen der Delegation
     Und ich sehe die Kontaktperson
 
