@@ -90,41 +90,8 @@ Dann(/^werden mir im Tooltipp der Name und der Verantwortliche der Delegation an
   find("body > .tooltipster-base", text: @delegation.delegator_user.to_s)
 end
 
-Dann(/^werden mir die Delegationen angezeigt, denen ich zugeteilt bin$/) do
-  @current_user.delegations.each do |delegation|
-    find(".line strong", match: :prefer_exact, text: delegation.to_s)
-  end
-end
-
-Wenn(/^ich eine Delegation wähle$/) do
-  within(all(".line").to_a.sample) do
-    id = find(".line-actions a.button")[:href].gsub(/.*\//, '')
-    @delegation = @current_user.delegations.find(id)
-    find("strong", match: :prefer_exact, text: @new_delegation.to_s)
-    find(".line-actions a.button").click
-  end
-end
-
-Dann(/^wechsle ich die Anmeldung zur Delegation$/) do
-  find("nav.topbar ul.topbar-navigation a[href='/borrow/user']", text: @delegation.short_name)
-  @delegated_user = @current_user
-  @current_user = @delegation
-end
-
-Dann(/^die Delegation ist als Besteller gespeichert$/) do
-  @current_user.contracts.find(@contract_ids).each do |contract|
-    contract.user.should == @delegation
-  end
-end
-
-Dann(/^ich werde als Kontaktperson hinterlegt$/) do
-  @current_user.contracts.find(@contract_ids).each do |contract|
-    contract.delegated_user.should == @delegated_user
-  end
-end
-
 Angenommen(/^es wurde für eine Delegation eine Bestellung erstellt$/) do
-  @contract = @current_inventory_pool.contracts.find {|c| c.user.is_delegation }
+  @contract = @current_inventory_pool.contracts.submitted.find {|c| c.user.is_delegation }
   @contract.should_not be_nil
 end
 
@@ -138,4 +105,17 @@ end
 
 Dann(/^ich sehe die Kontaktperson$/) do
   page.has_content? @contract.delegated_user.name
+end
+
+Angenommen(/^es existiert eine persönliche Bestellung$/) do
+  @contract = @current_inventory_pool.contracts.submitted.find {|c| not c.user.is_delegation }
+  @contract.should_not be_nil
+end
+
+Dann(/^ist in der Bestellung der Name des Benutzers aufgeführt$/) do
+  page.has_content? @contract.user.name
+end
+
+Dann(/^ich sehe keine Kontatkperson$/) do
+  all("h2", text: @contract.user.name).size.should == 1
 end
