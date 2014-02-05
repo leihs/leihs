@@ -100,6 +100,7 @@ class Manage::UsersController < Manage::ApplicationController
           flash.now[:error] = e.to_s
           @accessible_roles = get_accessible_roles_for_current_user
           @is_admin = should_be_admin
+          @delegation_type = true if @user.is_delegation
           render action: :new
         end
       end
