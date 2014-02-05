@@ -21,6 +21,7 @@ module Persona
         create_user
         create_delegations
         create_submitted_contracts
+        create_signed_contracts
       end
     end
 
@@ -103,8 +104,8 @@ module Persona
       end
     end
 
-    def create_approved_contracts
-      contract = FactoryGirl.create(:contract, :user => @delegation1, :delegated_user => @julie, :inventory_pool => @inventory_pool, :status => :submitted)
+    def create_signed_contracts
+      contract = FactoryGirl.create(:contract, :user => @delegation1, :delegated_user => @julie, :inventory_pool => @inventory_pool, :status => :approved)
       contract_purpose = FactoryGirl.create :purpose, :description => Faker::Lorem.sentence
 
       rand(3..5).times do

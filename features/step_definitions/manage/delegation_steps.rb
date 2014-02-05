@@ -119,3 +119,20 @@ end
 Dann(/^ich sehe keine Kontatkperson$/) do
   all("h2", text: @contract.user.name).size.should == 1
 end
+
+Angenommen(/^es existiert eine Aushändigung für eine Delegation$/) do
+  @hand_over = @current_inventory_pool.visits.hand_over.find {|v| v.user.is_delegation }
+  @hand_over.should_not be_nil
+end
+
+Angenommen(/^ich öffne diese Aushändigung$/) do
+  visit manage_hand_over_path @current_inventory_pool, @hand_over.user
+end
+
+Wenn(/^ich die Delegation wechsle$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Dann(/^lautet die Aushändigung auf diese neu gewählte Delegation$/) do
+  pending # express the regexp above with the code you wish you had
+end

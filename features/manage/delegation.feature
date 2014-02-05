@@ -96,10 +96,11 @@ Funktionalität: Delegation
     Dann ist in der Bestellung der Name des Benutzers aufgeführt
     Und ich sehe keine Kontatkperson
 
-  @upcoming
+  @javascript
   Szenario: Delegation in Aushändigung ändern
     Angenommen ich bin Pius
-    Und ich öffne eine Aushändigung
+    Und es existiert eine Aushändigung für eine Delegation
+    Und ich öffne diese Aushändigung
     Wenn ich die Delegation wechsle
     Dann lautet die Aushändigung auf diese neu gewählte Delegation
 
