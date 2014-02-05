@@ -156,7 +156,6 @@ class Manage::UsersController < Manage::ApplicationController
       User.transaction do
         params[:user].merge!(login: params[:db_auth][:login]) if params[:db_auth]
         @user.user_ids = user_ids if user_ids
-        binding.pry
         @user.update_attributes! params[:user]
         if params[:db_auth]
           DatabaseAuthentication.find_by_user_id(@user.id).update_attributes! params[:db_auth].merge(user: @user)
