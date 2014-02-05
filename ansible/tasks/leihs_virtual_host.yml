@@ -1,9 +1,0 @@
----
-- name: Install leihs virtual host in Apache
-  copy: src=../ansible/leihs_virtual_host dest=/etc/apache2/sites-available/leihs
-  sudo: True
-- name: Activate leihs virtual host
-  command: a2ensite leihs
-  sudo: True
-  notify:
-    - reload apache
