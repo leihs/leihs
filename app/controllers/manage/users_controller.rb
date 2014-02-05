@@ -148,6 +148,7 @@ class Manage::UsersController < Manage::ApplicationController
   end
 
   def edit_in_inventory_pool
+    @delegation_type = @user.is_delegation
     @accessible_roles = get_accessible_roles_for_current_user
     @db_auth = DatabaseAuthentication.find_by_user_id(@user.id)
     @access_right = @user.access_right_for current_inventory_pool
