@@ -1,0 +1,7 @@
+.row.padding-inset-s.emboss.margin-bottom-xxs
+  .col1of2
+    %strong.font-size-m= _("Access as")
+  .col1of2.text-align-right
+    %select{type: "text", name: "access_right[role]"}
+      - @accessible_roles.each do |name, key|
+        %option{value: key, selected: ("selected" if (key == :no_access and not @access_right) or key == @access_right.try(:role))}= name

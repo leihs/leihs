@@ -62,10 +62,8 @@ class Manage::UsersController < Manage::ApplicationController
   def new_in_inventory_pool
     @delegation_type = true if params[:type] == "delegation"
     @user = User.new
-    unless @delegation_type
-      @accessible_roles = get_accessible_roles_for_current_user
-      @access_right = @user.access_rights.new inventory_pool_id: current_inventory_pool.id, role: :customer
-    end
+    @accessible_roles = get_accessible_roles_for_current_user
+    @access_right = @user.access_rights.new inventory_pool_id: current_inventory_pool.id, role: :customer
   end
 
   def create
@@ -109,14 +107,22 @@ class Manage::UsersController < Manage::ApplicationController
 
   def create_in_inventory_pool
     groups = params[:user].delete(:groups) if params[:user].has_key?(:groups)
-    @user = User.new(params[:user].merge(login: params[:db_auth][:login]))
+    user_ids = params[:user].delete(:users).map {|h| h["id"]}
+
+    @user = User.new(params[:user])
+    @user.merge(login: params[:db_auth][:login]) if params[:user].has_key?(:db_auth)
     @user.groups = groups.map {|g| Group.find g["id"]} if groups
 
     begin
       User.transaction do
+        @user.user_ids = user_ids if user_ids
         @user.save!
-        DatabaseAuthentication.create!(params[:db_auth].merge(user: @user))
-        @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
+
+        unless @user.is_delegation
+          DatabaseAuthentication.create!(params[:db_auth].merge(user: @user))
+          @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
+        end
+
         @user.access_rights.create!(inventory_pool: @current_inventory_pool, role: params[:access_right][:role]) unless params[:access_right][:role].to_sym == :no_access
 
         respond_to do |format|
@@ -288,12 +294,15 @@ class Manage::UsersController < Manage::ApplicationController
 
   def get_accessible_roles_for_current_user
     accessible_roles = [[_("No access"), :no_access], [_("Customer"), :customer]]
-    accessible_roles +
-      if @current_user.has_role? :admin or @current_user.has_role? :inventory_manager, @current_inventory_pool
-        [[_("Group manager"), :group_manager], [_("Lending manager"), :lending_manager], [_("Inventory manager"), :inventory_manager]]
+    unless @delegation_type
+      accessible_roles +
+        if @current_user.has_role? :admin or @current_user.has_role? :inventory_manager, @current_inventory_pool
+          [[_("Group manager"), :group_manager], [_("Lending manager"), :lending_manager], [_("Inventory manager"), :inventory_manager]]
       elsif @current_user.has_role? :lending_manager, @current_inventory_pool
         [[_("Group manager"), :group_manager], [_("Lending manager"), :lending_manager]]
       else [] end
+    end
+    accessible_roles
   end
 
   def hand_over
