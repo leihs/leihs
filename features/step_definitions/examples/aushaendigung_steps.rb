@@ -107,8 +107,7 @@ Dann(/^wird das Problemfeld für das problematische Modell angezeigt$/) do
     end
   end
   @line_css = ".line[data-id='#{@contract_line.id}']"
-  find(@line_css).should have_selector ".line-info.red"
-  find(@line_css).should have_selector ".tooltip.red"
+  step "die problematischen Auszeichnungen bleiben bei der Linie bestehen"
 end
 
 Wenn(/^ich dieser Linie einen Inventarcode manuell zuweise$/) do

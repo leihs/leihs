@@ -150,9 +150,11 @@ end
 Wenn(/^ich auf "(.*?)" drücke$/) do |arg1|
   case arg1
     when "Diese Bestellung fortsetzen"
-      find(".button", :text => _("Continue this order")).click
+      find(".button", text: _("Continue this order")).click
     when "Mit den verfügbaren Modellen weiterfahren"
-      find(".dropdown-item", :text => _("Continue with available models only")).click
+      find(".dropdown-item", text: _("Continue with available models only")).click
+    when "Delegationen"
+      find(".dropdown-item", text: _("Delegations")).click
   end
 end
 

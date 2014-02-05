@@ -41,10 +41,6 @@ class User < ActiveRecord::Base
     inventory_pools.flat_map(&:templates).sort
   end
 
-  def short_name
-    "#{firstname[0]}. #{lastname}"
-  end
-
   def start_screen(path = nil)
     if path
       self.settings[:start_screen] = path
@@ -161,6 +157,14 @@ class User < ActiveRecord::Base
 
   def name
     "#{firstname} #{lastname}"
+  end
+
+  def short_name
+    if is_delegation
+      name
+    else
+      "#{firstname[0]}. #{lastname}"
+    end
   end
 
   def documents

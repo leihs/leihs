@@ -24,7 +24,7 @@ Funktionalität: Delegation
     Und ich die Delegation speichere
     Dann ist die Delegation mit den aktuellen Informationen gespeichert
 
-  @upcoming
+  @javascript
   Szenario: Delegation erhält Zugriff als Kunde
     Angenommen ich bin Pius
     Und ich in den Admin-Bereich wechsel
@@ -33,7 +33,7 @@ Funktionalität: Delegation
     Dann kann ich dieser Delegation ausschliesslich Zugriff als Kunde zuteilen
 
 
-  @upcoming
+  @javascript
   Szenario: Delegation erfassen ohne Pflichtfelder abzufüllen
     Angenommen ich bin Pius
     Und ich befinde mich im Reiter 'Benutzer'
@@ -54,14 +54,14 @@ Funktionalität: Delegation
     Und ich die Delegation speichere
     Dann ist die Delegation mit den aktuellen Informationen gespeichert
 
-  @upcoming
+  @javascript
   Szenario: Delegation Zugriff entziehen
     Angenommen ich bin Pius
     Und ich befinde mich in der Editieransicht einer Delegation
     Wenn ich dieser Delegation den Zugriff für den aktuellen Gerätepark entziehe
     Dann können keine Bestellungen oder Aushändungen für diese Delegation erstellt werden
 
-  @upcoming
+  @javascript
   Szenario: Delegation löschen
     Angenommen ich bin Pius
     Und ich befinde mich im Reiter 'Benutzer'
@@ -71,7 +71,7 @@ Funktionalität: Delegation
 
   #  ANZEIGE BACKEND
 
-  @upcoming
+  @javascript
   Szenario: Anzeige der Bestellungen für eine Delegation
     Angenommen ich bin Pius
     Und ich befinde mich in einer Bestellung
@@ -79,7 +79,7 @@ Funktionalität: Delegation
     Dann sehe ich den Namen der Delegation
     Und ich sehe die Kontaktperson
 
-  @upcoming
+  @javascript
   Szenario: Definition Kontaktperson auf Auftragserstellung
     Angenommen ich bin Julie
     Wenn ich eine Bestellung für eine Delegationsgruppe erstelle
@@ -88,7 +88,7 @@ Funktionalität: Delegation
     Wenn ich die Gegenstände abhole
     Dann bin ich die neue Kontaktperson dieses Auftrages
 
-  @upcoming
+  @javascript
   Szenario: Anzeige der Bestellungen einer persönlichen Bestellung
     Angenommen ich bin Pius
     Und ich befinde mich in einer Bestellung
@@ -96,28 +96,28 @@ Funktionalität: Delegation
     Dann ist in der Bestellung der Name des Benutzers aufgeführt
     Und ich sehe keine Kontatkperson
 
-  @upcoming
+  @javascript
   Szenario: Delegation in Aushändigung ändern
     Angenommen ich bin Pius
     Und ich öffne eine Aushändigung
     Wenn ich die Delegation wechsle
     Dann lautet die Aushändigung auf diese neu gewählte Delegation
 
-  @upcoming
+  @javascript
   Szenario: Auswahl der Delegation in Aushändigung ändern
     Angenommen ich bin Pius
     Und ich öffne eine Aushändigung
     Wenn ich die Delegation wechsle
     Dann kann ich nur diejenigen Delegationen wählen, die Zugriff auf meinen Gerätepark haben
 
-  @upcoming
+  @javascript
   Szenario: Auswahl der Kontaktperson in Aushändigung ändern
     Angenommen ich bin Pius
     Und ich öffne eine Aushändigung
     Wenn ich die Kontaktperson wechsle
     Dann kann ich nur diejenigen Personen wählen, die zur Delegationsgruppe gehören
 
-  @upcoming
+  @javascript
   Szenario: Delegation in Bestellungen ändern
     Angenommen ich bin Pius
     Und ich befinde mich in einer Bestellung
@@ -126,21 +126,21 @@ Funktionalität: Delegation
     Dann lautet die Aushändigung auf diese neu gewählte Delegation
     Und die neu gewählte Kontaktperson wird gespeichert
 
-  @upcoming
+  @javascript
   Szenario: Auswahl der Delegation in Bestellung ändern
     Angenommen ich bin Pius
     Und ich befinde mich in einer Bestellung
     Wenn ich die Delegation wechsle
     Dann kann ich nur diejenigen Delegationen wählen, die Zugriff auf meinen Gerätepark haben
 
-  @upcoming
+  @javascript
   Szenario: Auswahl der Kontaktperson in Bestellung ändern
     Angenommen ich bin Pius
     Und ich befinde mich in einer Bestellung
     Wenn ich die Kontaktperson wechsle
     Dann kann ich nur diejenigen Personen wählen, die zur Delegationsgruppe gehören
 
-  @upcoming
+  @javascript
   Szenario: Delegation in persönliche Bestellungen ändern in Bestellung
     Angenommen ich bin Pius
     Und ich befinde mich in einer Bestellung
@@ -148,14 +148,14 @@ Funktionalität: Delegation
     Dann ist in der Bestellung der Benutzer aufgeführt
     Und es ist keine Kontaktperson aufgeführt
 
-  @upcoming
+  @javascript
   Szenario: Delegation in persönliche Bestellungen ändern in Aushändigung
     Angenommen ich bin Pius
     Und ich öffne eine Aushändigung
     Wenn ich statt einer Delegation einen Benutzer wähle
     Dann ist in der Aushändigung der Benutzer aufgeführt
 
-  @upcoming
+  @javascript
   Szenario: Persönliche Bestellung in Delegationsbestellung ändern in Bestellung
     Angenommen ich bin Pius
     Und ich befinde mich in einer Bestellung
@@ -163,7 +163,7 @@ Funktionalität: Delegation
     Dann ist in der Bestellung der Name der Delegation aufgeführt
     Und der Besteller wird als Kontaktperson angezeigt
 
-  @upcoming
+  @javascript
   Szenario: Persönliche Bestellung in Delegationsbestellung ändern in Aushändigung
     Angenommen ich bin Pius
     Und ich öffne eine Aushändigung
@@ -192,15 +192,18 @@ Funktionalität: Delegation
     Dann werden mir im alle Suchresultate von Julie oder Delegation mit Namen Julie angezeigt
     Und mir werden alle Delegationen angezeigt, den Julie zugeteilt ist
 
-  @upcoming
+  @javascript
   Szenario: Borrow: Bestellung erfassen mit Delegation
     Angenommen ich bin Julie
     Wenn ich über meinen Namen fahre
-    Und ich auf 'Delegationen' drücke
+    Und ich auf "Delegationen" drücke
     Dann werden mir die Delegationen angezeigt, denen ich zugeteilt bin
     Wenn ich eine Delegation wähle
     Dann wechsle ich die Anmeldung zur Delegation
-    Wenn ich eine Bestellung abschicke
-    Dann wird die Bestellung gespeichert
+    Wenn ich habe Gegenstände der Bestellung hinzugefügt
+    Und ich die Bestellübersicht öffne
+    Und ich einen Zweck eingebe
+    Und ich die Bestellung abschliesse
+    Dann ändert sich der Status der Bestellung auf Abgeschickt
     Und die Delegation ist als Besteller gespeichert
     Und ich werde als Kontaktperson hinterlegt

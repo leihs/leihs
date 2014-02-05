@@ -34,7 +34,7 @@ Dann(/^die Benutzerdaten beinhalten$/) do |table|
 end
 
 Wenn(/^ich über meinen Namen fahre$/) do
-  page.execute_script("$(\"nav.topbar ul.topbar-navigation a[href='/borrow/user']\").trigger('mouseenter');")
+  find("nav.topbar ul.topbar-navigation a[href='/borrow/user']").hover
 end
 
 Dann(/^sehe ich im Dropdown eine Schaltfläche die zur Benutzeransicht führt$/) do
