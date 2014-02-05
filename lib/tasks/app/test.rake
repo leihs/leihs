@@ -105,5 +105,16 @@ namespace :app do
       end
 
     end
+
+    desc "Generate structure_with_views.sql (needed by Domina CI)"
+    task :generate_structure_with_views_sql do
+      Rails.env = "test"
+      config = Rails.configuration.database_configuration[Rails.env]
+      `mysqldump #{config['host'] ? "-h #{config['host']}" : nil} -u #{config['username']} #{config['password'] ? "--password=#{config['password']}" : nil}  #{config['database']} --no-create-db --no-data | grep -v 'SQL SECURITY DEFINER' > #{File.join(Rails.root, "db/structure_with_views.sql")}`
+    end
+
+
+
+
   end
 end
