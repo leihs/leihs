@@ -71,7 +71,7 @@ class Manage::UsersController < Manage::ApplicationController
   def create
 
     should_be_admin = params[:user].delete(:admin)
-    user_ids = params[:user].delete(:user_ids)
+    user_ids = params[:user].delete(:users).map {|h| h["id"]}
     @user = User.new(params[:user])
     @user.merge(login: params[:db_auth][:login]) unless @user.is_delegation
 
