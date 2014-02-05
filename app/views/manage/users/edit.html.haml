@@ -5,7 +5,7 @@
 
   = render :partial => 'manage/tabs/admin', :locals => {:active_tab => :users}
 
-  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+  #form-context.row.content-wrapper.min-height-xl.min-width-full.straight-top
 
     = form_tag manage_update_user_path(@user), method: :put do
 
@@ -27,7 +27,7 @@
 
             :coffeescript
 
-              jQuery -> new App.DelegationEditController {el: "#delegation"}
+              jQuery -> new App.DelegationEditController {el: "#form-context"}
 
           - else
 

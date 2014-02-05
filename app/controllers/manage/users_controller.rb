@@ -150,7 +150,9 @@ class Manage::UsersController < Manage::ApplicationController
 
   def update
     should_be_admin = params[:user].delete(:admin)
-    user_ids = params[:user].delete(:user_ids)
+
+    # for complete users replacement, get only user ids without the _destroy flag
+    user_ids = params[:user].delete(:users).select{|h| h["_destroy"] != "1"}.map {|h| h["id"]}
 
     begin
       User.transaction do

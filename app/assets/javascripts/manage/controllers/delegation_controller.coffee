@@ -2,7 +2,7 @@ class window.App.DelegationController extends Spine.Controller
 
   constructor: ->
     super
-    new App.ManageUsersViaAutocompleteController {el: @el.find("#users"), removeHandler: @removeUserHandler, paramName: "user[user_ids][]"}
+    new App.ManageUsersViaAutocompleteController {el: @el.find("#users"), removeHandler: @removeUserHandler, paramName: "user[users][][id]"}
 
   @removeHandler: (e) =>
     e.preventDefault()

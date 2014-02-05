@@ -24,7 +24,7 @@ module Delegation::User
 
       before_validation do
         if is_delegation
-          users << delegator_user
+          users << delegator_user unless users.include? delegator_user
         end
       end
 
