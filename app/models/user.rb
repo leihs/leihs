@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
   validates_presence_of     :firstname
   validates_presence_of     :lastname, :email, :login, unless: :is_delegation
   validates_length_of       :login, :within => 3..40, unless: :is_delegation
-  validates_uniqueness_of   :email
+  validates_uniqueness_of   :email, unless: :is_delegation
   validates :email, format: /.+@.+\..+/, allow_blank: true
 
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
