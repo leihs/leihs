@@ -88,7 +88,7 @@ Funktionalität: Delegation
     Wenn ich die Gegenstände abhole
     Dann bin ich die neue Kontaktperson dieses Auftrages
 
-  @upcoming
+  @javascript
   Szenario: Anzeige der Bestellungen einer persönlichen Bestellung
     Angenommen ich bin Pius
     Und es existiert eine persönliche Bestellung
