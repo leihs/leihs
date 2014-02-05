@@ -157,7 +157,9 @@ class Manage::UsersController < Manage::ApplicationController
     should_be_admin = params[:user].delete(:admin)
 
     # for complete users replacement, get only user ids without the _destroy flag
-    user_ids = params[:user].delete(:users).select{|h| h["_destroy"] != "1"}.map {|h| h["id"]}
+    if users = params[:user].delete(:users)
+      user_ids = users.select{|h| h["_destroy"] != "1"}.map {|h| h["id"]}
+    end
 
     begin
       User.transaction do
@@ -195,7 +197,10 @@ class Manage::UsersController < Manage::ApplicationController
       @user.groups = groups.map {|g| Group.find g["id"]}
     end
 
-    user_ids = params[:user].delete(:users).select{|h| h["_destroy"] != "1"}.map {|h| h["id"]}
+    # for complete users replacement, get only user ids without the _destroy flag
+    if users = params[:user].delete(:users)
+      user_ids = users.select{|h| h["_destroy"] != "1"}.map {|h| h["id"]}
+    end
 
     begin
       User.transaction do
