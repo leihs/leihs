@@ -9,6 +9,10 @@ gem 'acts-as-dag', :git => 'git://github.com/jrust/acts-as-dag.git' #tmp# '~> 2.
 gem 'barby', '~> 0.5.0'
 gem 'better_errors', :group => :development
 gem 'binding_of_caller', :group => :development
+gem 'capistrano', '~> 2.15', :group => :development
+gem 'capistrano-ext', :group => :development
+gem 'rvm-capistrano', :group => :development
+
 gem 'capybara', '2.1.0', :group => [:test, :development] # TODO upgrade to '~> 2.0'
 gem 'capybara-screenshot', :group => [:test, :development]
 gem 'chunky_png', '~> 1.2'
