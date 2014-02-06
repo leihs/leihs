@@ -3,7 +3,7 @@
 which msgcat >> /dev/null
 if [ $? -ne 0 ]
 then
-  echo "FATAL: Gettext is not installed, the 'msgcat' tool is missing or can't be found in your PATH. Install gettext or make sure the msgcat binary is in your PATH."
+  echo "FATAL: Gettext is not installed, the 'msgcat' tool is missing or can't be found in your PATH. Install gettext or make sure the msgcat binary is in your PATH." 1>&2
   exit 1
 fi
 
