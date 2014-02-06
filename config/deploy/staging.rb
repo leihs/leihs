@@ -11,7 +11,6 @@ set :application, "leihs-test"
 
 set :scm, :git
 set :repository,  "git://github.com/zhdk/leihs.git"
-set :branch, "next"
 set :deploy_via, :remote_cache
 
 set :db_config, "/home/leihs/#{application}/database.yml"
@@ -29,6 +28,7 @@ role :app, "leihs@rails.zhdk.ch"
 role :web, "leihs@rails.zhdk.ch"
 role :db,  "leihs@rails.zhdk.ch", :primary => true
 
+load 'config/deploy/recipes/set_branch'
 load 'config/deploy/recipes/retrieve_db_config'
 load 'config/deploy/recipes/link_config'
 load 'config/deploy/recipes/link_attachments'
