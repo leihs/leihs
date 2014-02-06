@@ -1081,6 +1081,9 @@ msgstr ""
 msgid "Reservation"
 msgstr ""
 
+msgid "Contact person"
+msgstr ""
+
 msgid "Responsible"
 msgstr ""
 

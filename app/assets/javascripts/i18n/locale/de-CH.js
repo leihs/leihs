@@ -1127,6 +1127,10 @@ window.i18n.locale_data = {
          null,
          "Name / ID"
       ],
+      "New Delegation": [
+         null,
+         "Neue Delegation"
+      ],
       "New Borrower": [
          null,
          "Ausleihende/r wechseln"
@@ -1483,6 +1487,10 @@ window.i18n.locale_data = {
       "Reservation": [
          null,
          "Reservation"
+      ],
+      "Contact person": [
+         null,
+         "Kontaktperson"
       ],
       "Responsible": [
          null,
@@ -2005,8 +2013,13 @@ window.i18n.locale_data = {
          "Fehler beim Hochladen."
       ],
       "User": [
-         null,
+         "Users",
          "Benutzer"
+      ],
+      "Delegation": [
+         "Delegations",
+         "Delegation",
+         "Delegationen"
       ],
       "User data": [
          null,

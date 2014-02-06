@@ -1099,6 +1099,9 @@ msgstr "Bestellte Artikel"
 msgid "Reservation"
 msgstr "Reservation"
 
+msgid "Contact person"
+msgstr "Kontaktperson"
+
 msgid "Responsible"
 msgstr "Verantwortlich"
 

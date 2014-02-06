@@ -14,7 +14,7 @@ CREATE TABLE `access_rights` (
   KEY `index_access_rights_on_deleted_at` (`deleted_at`),
   KEY `index_on_user_id_and_inventory_pool_id_and_deleted_at` (`user_id`,`inventory_pool_id`,`deleted_at`),
   KEY `index_access_rights_on_role` (`role`)
-) ENGINE=InnoDB AUTO_INCREMENT=41131 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB AUTO_INCREMENT=41183 DEFAULT CHARSET=utf8 CHECKSUM=1;
 
 CREATE TABLE `accessories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -23,7 +23,7 @@ CREATE TABLE `accessories` (
   `quantity` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_accessories_on_model_id` (`model_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=611 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB AUTO_INCREMENT=619 DEFAULT CHARSET=utf8 CHECKSUM=1;
 
 CREATE TABLE `accessories_inventory_pools` (
   `accessory_id` int(11) DEFAULT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE `attachments` (
   `size` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_attachments_on_model_id` (`model_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=627 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB AUTO_INCREMENT=635 DEFAULT CHARSET=utf8 CHECKSUM=1;
 
 CREATE TABLE `audits` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -119,7 +119,7 @@ CREATE TABLE `contract_lines` (
   KEY `index_contract_lines_on_model_id` (`model_id`),
   KEY `index_contract_lines_on_returned_date_and_contract_id` (`returned_date`,`contract_id`),
   KEY `index_contract_lines_on_type_and_contract_id` (`type`,`contract_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=299571 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB AUTO_INCREMENT=300765 DEFAULT CHARSET=utf8 CHECKSUM=1;
 
 CREATE TABLE `contracts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -135,7 +135,7 @@ CREATE TABLE `contracts` (
   KEY `index_contracts_on_user_id` (`user_id`),
   KEY `index_contracts_on_inventory_pool_id` (`inventory_pool_id`),
   KEY `index_contracts_on_status` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=67175 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB AUTO_INCREMENT=67365 DEFAULT CHARSET=utf8 CHECKSUM=1;
 
 CREATE TABLE `database_authentications` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -146,7 +146,7 @@ CREATE TABLE `database_authentications` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8 CHECKSUM=1;
 
 CREATE TABLE `delegations_users` (
   `delegation_id` int(11) DEFAULT NULL,
@@ -186,7 +186,7 @@ CREATE TABLE `histories` (
   KEY `index_histories_on_user_id` (`user_id`),
   KEY `index_histories_on_target_type_and_target_id` (`target_type`,`target_id`),
   KEY `index_histories_on_type_const` (`type_const`)
-) ENGINE=InnoDB AUTO_INCREMENT=876197 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB AUTO_INCREMENT=877535 DEFAULT CHARSET=utf8 CHECKSUM=1;
 
 CREATE TABLE `holidays` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -212,7 +212,7 @@ CREATE TABLE `images` (
   `thumbnail` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_images_on_model_id` (`model_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6327 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB AUTO_INCREMENT=6345 DEFAULT CHARSET=utf8 CHECKSUM=1;
 
 CREATE TABLE `inventory_pools` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -280,7 +280,7 @@ CREATE TABLE `items` (
   KEY `index_items_on_retired` (`retired`),
   KEY `index_items_on_parent_id_and_retired` (`parent_id`,`retired`),
   KEY `index_items_on_model_id_and_retired_and_inventory_pool_id` (`model_id`,`retired`,`inventory_pool_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32131 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB AUTO_INCREMENT=32331 DEFAULT CHARSET=utf8 CHECKSUM=1;
 
 CREATE TABLE `items_backup` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -344,7 +344,7 @@ CREATE TABLE `locations` (
   `building_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_locations_on_building_id` (`building_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5285 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB AUTO_INCREMENT=5289 DEFAULT CHARSET=utf8 CHECKSUM=1;
 
 CREATE TABLE `model_group_links` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -357,7 +357,7 @@ CREATE TABLE `model_group_links` (
   KEY `index_model_group_links_on_ancestor_id` (`ancestor_id`),
   KEY `index_model_group_links_on_direct` (`direct`),
   KEY `index_on_descendant_id_and_ancestor_id_and_direct` (`descendant_id`,`ancestor_id`,`direct`)
-) ENGINE=InnoDB AUTO_INCREMENT=1849 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1859 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `model_groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -367,7 +367,7 @@ CREATE TABLE `model_groups` (
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_model_groups_on_type` (`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=707 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB AUTO_INCREMENT=713 DEFAULT CHARSET=utf8 CHECKSUM=1;
 
 CREATE TABLE `model_groups_parents_backup` (
   `model_group_id` int(11) DEFAULT NULL,
@@ -385,7 +385,7 @@ CREATE TABLE `model_links` (
   PRIMARY KEY (`id`),
   KEY `index_model_links_on_model_id_and_model_group_id` (`model_id`,`model_group_id`),
   KEY `index_model_links_on_model_group_id_and_model_id` (`model_group_id`,`model_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17705 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB AUTO_INCREMENT=17735 DEFAULT CHARSET=utf8 CHECKSUM=1;
 
 CREATE TABLE `models` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -403,7 +403,7 @@ CREATE TABLE `models` (
   `hand_over_note` text,
   PRIMARY KEY (`id`),
   KEY `index_models_on_is_package` (`is_package`)
-) ENGINE=InnoDB AUTO_INCREMENT=12483 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB AUTO_INCREMENT=12521 DEFAULT CHARSET=utf8 CHECKSUM=1;
 
 CREATE TABLE `models_compatibles` (
   `model_id` int(11) DEFAULT NULL,
@@ -419,7 +419,7 @@ CREATE TABLE `notifications` (
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_notifications_on_user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=215201 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB AUTO_INCREMENT=215569 DEFAULT CHARSET=utf8 CHECKSUM=1;
 
 CREATE TABLE `numerators` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -445,7 +445,7 @@ CREATE TABLE `partitions` (
   `quantity` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_partitions_on_model_id_and_inventory_pool_id_and_group_id` (`model_id`,`inventory_pool_id`,`group_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4993 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5023 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `properties` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -454,13 +454,13 @@ CREATE TABLE `properties` (
   `value` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_properties_on_model_id` (`model_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12109 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB AUTO_INCREMENT=12263 DEFAULT CHARSET=utf8 CHECKSUM=1;
 
 CREATE TABLE `purposes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `description` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=76047 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=76289 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `schema_migrations` (
   `version` varchar(255) NOT NULL,
@@ -516,7 +516,7 @@ CREATE TABLE `users` (
   `delegator_user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_users_on_authentication_system_id` (`authentication_system_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8927 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB AUTO_INCREMENT=8945 DEFAULT CHARSET=utf8 CHECKSUM=1;
 
 CREATE TABLE `workdays` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
