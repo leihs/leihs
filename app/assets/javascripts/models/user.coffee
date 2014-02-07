@@ -6,10 +6,11 @@
 
 class window.App.User extends Spine.Model
 
-  @configure "User", "id", "firstname", "lastname", "settings", "groupIds", "unique_id"
+  @configure "User", "id", "firstname", "lastname", "settings", "groupIds", "unique_id", "delegator_user_id"
 
   @hasMany "contracts", "App.Contract", "user_id"
   @hasMany "accessRights", "App.AccessRight", "user_id"
+  @belongsTo "delegator_user", "App.User", "delegator_user_id"
 
   @extend Spine.Model.Ajax
   @extend App.Modules.FindOrBuild

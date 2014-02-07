@@ -46,6 +46,7 @@ Funktionalität: Delegation
   @javascript
   Szenario: Delegation editieren
     Angenommen ich bin Pius
+    Und ich in den Admin-Bereich wechsel
     Und ich befinde mich im Reiter 'Benutzer'
     Wenn ich eine Delegation editiere
     Und ich den Verantwortlichen ändere
@@ -64,6 +65,7 @@ Funktionalität: Delegation
   @upcoming
   Szenario: Delegation löschen
     Angenommen ich bin Pius
+    Und ich in den Admin-Bereich wechsel
     Und ich befinde mich im Reiter 'Benutzer'
     Wenn keine Bestellung, Aushändigung oder ein Vertrag für eine Delegation besteht
     Und wenn für diese Delegation keine Zugriffsrechte für andere Geräteparks bestehen

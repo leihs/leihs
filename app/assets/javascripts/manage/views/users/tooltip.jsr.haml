@@ -6,6 +6,12 @@
       %h3.headline-l {{>firstname}} {{>lastname}}
       %h3.headline-s.light {{>email}}
 
+    {{if delegator_user()}}
+    .row.margin-top-m
+      %p.paragraph-xs.line-height-s {{jed "Responsible"/}}
+      %p.paragraph-s.line-height-s {{>delegator_user().name()}}
+    {{/if}}
+
     {{if address}}
     .row.margin-top-m
       %p.paragraph-xs.line-height-s {{jed "Address"/}}

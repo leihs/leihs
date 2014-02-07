@@ -92,7 +92,9 @@ class window.App.SearchOverviewController extends Spine.Controller
         search_term: @searchTerm
     .done (data, status, xhr)=>
       users = (App.User.find datum.id for datum in data)
-      @render @users, "manage/views/users/search_result_line", users, xhr
+      ids = _.uniq _.map users, (r)-> r.delegator_user_id
+      @fetchUsers(ids, "all").done =>
+        @render @users, "manage/views/users/search_result_line", users, xhr
 
   searchContracts: =>
     App.Contract.ajaxFetch
@@ -102,12 +104,12 @@ class window.App.SearchOverviewController extends Spine.Controller
         status: ["signed", "closed"]
     .done (data, status, xhr)=>
       contracts = (App.Contract.find datum.id for datum in data)
-      @fetchUsers(contracts, "all").done =>
+      ids = _.uniq _.map contracts, (r)-> r.user_id
+      @fetchUsers(ids, "all").done =>
         @fetchContractLines(contracts).done =>
           @render @contracts, "manage/views/contracts/line", contracts, xhr
 
-  fetchUsers: (records, all = false) =>
-    ids = _.uniq _.map records, (r)-> r.user_id
+  fetchUsers: (ids, all = false) =>
     return {done: (c)->c()} unless ids.length
     data =
       ids: ids
@@ -132,7 +134,8 @@ class window.App.SearchOverviewController extends Spine.Controller
         status: ["approved", "submitted", "rejected"]
     .done (data, status, xhr)=>
       contracts = (App.Contract.find datum.id for datum in data)
-      @fetchUsers(contracts).done =>
+      ids = _.uniq _.map contracts, (r)-> r.user_id
+      @fetchUsers(ids).done =>
         @fetchContractLines(contracts).done =>
           @fetchPurposes(contracts).done =>
             @render @orders, "manage/views/contracts/line", contracts, xhr, { accessRight: App.AccessRight, currentUserRole: App.User.current.role }
