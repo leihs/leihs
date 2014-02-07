@@ -10,7 +10,7 @@ class window.App.SearchSetUserController extends Spine.Controller
 
   constructor: (options)->
     super
-    @el.find("#user-id").preChange {delay: 200}
+    @input.preChange {delay: 200}
 
   searchUser: ->
     term = @input.val()
