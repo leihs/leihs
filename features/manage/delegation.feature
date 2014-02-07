@@ -148,7 +148,8 @@ Funktionalität: Delegation
   @javascript
   Szenario: Delegation in persönliche Bestellungen ändern in Bestellung
     Angenommen ich bin Pius
-    Und ich befinde mich in einer Bestellung
+    Und es wurde für eine Delegation eine Bestellung erstellt
+    Und ich befinde mich in dieser Bestellung
     Wenn ich statt einer Delegation einen Benutzer wähle
     Dann ist in der Bestellung der Benutzer aufgeführt
     Und es ist keine Kontaktperson aufgeführt
