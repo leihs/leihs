@@ -14,7 +14,9 @@ class window.App.HandOverDialogController extends Spine.Controller
     @purpose = (_.uniq _.map @lines, (l)->l.purpose().description).join ", "
     if @validateDialog()
       do @setupModal
-      @searchSetUserController = new App.SearchSetUserController { el: @el.find("#contact-person") }
+      @searchSetUserController = new App.SearchSetUserController
+        el: @el.find("#contact-person")
+        additionalSearchParams: { delegation_id: @user.id }
       super
       do @autoFocus
     else

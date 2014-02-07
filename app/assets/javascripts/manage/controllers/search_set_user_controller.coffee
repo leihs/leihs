@@ -15,9 +15,10 @@ class window.App.SearchSetUserController extends Spine.Controller
   searchUser: ->
     term = @input.val()
     return false if term.length == 0
+    data = { search_term: term }
+    $.extend data, @additionalSearchParams
     App.User.ajaxFetch
-      data: $.param
-        search_term: term
+      data: $.param data
     .done (data)=> @setupAutocomplete(App.User.find(datum.id) for datum in data)
 
   setupAutocomplete: (users)->
