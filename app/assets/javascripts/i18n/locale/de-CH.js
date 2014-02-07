@@ -3032,6 +3032,10 @@ window.i18n.locale_data = {
          null,
          "Die Angabe eines Zwecks ist verpflichtend"
       ],
+      "Specification of the contact person is required": [
+         null,
+         "Die Angabe einer Kontaktperson ist verpflichtend"
+      ],
       "Change": [
          null,
          "Ändern"

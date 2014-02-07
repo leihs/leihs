@@ -2281,6 +2281,12 @@ msgstr ""
 msgid "Specification of the purpose is required"
 msgstr ""
 
+msgid "Specification of the contact person is required"
+msgstr ""
+
+msgid ""
+msgstr ""
+
 msgid "Change"
 msgstr ""
 

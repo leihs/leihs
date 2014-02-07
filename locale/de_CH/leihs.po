@@ -2351,6 +2351,9 @@ msgstr "Zweck der Bestellung"
 msgid "Specification of the purpose is required"
 msgstr "Die Angabe eines Zwecks ist verpflichtend"
 
+msgid "Specification of the contact person is required"
+msgstr "Die Angabe einer Kontaktperson ist verpflichtend"
+
 msgid "Change"
 msgstr "Ändern"
 
