@@ -25,6 +25,7 @@ class DropRolesAndAccessLevels < ActiveRecord::Migration
       t.remove :access_level
       t.index :role
     end
+    AccessRight.reset_column_information
 
     drop_table :roles
 
