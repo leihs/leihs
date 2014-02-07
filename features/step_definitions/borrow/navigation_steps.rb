@@ -15,7 +15,7 @@ Dann(/^die Navigation beinhaltet "(.*?)"$/) do |section|
     when "Geräteparks"
       find("nav a[href='#{borrow_inventory_pools_path}']", :text => _("Inventory Pools"))
     when "Benutzer"
-      find("nav a[href='#{borrow_current_user_path}']", :text => @current_user.name.length > 13 ? @current_user.short_name : @current_user.name)
+      find("nav a[href='#{borrow_current_user_path}']", :text => @current_user.short_name)
     when "Logout"
       find("nav a[href='#{logout_path}']")
     when "Verwalten"

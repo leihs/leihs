@@ -68,9 +68,11 @@ class Manage::UsersController < Manage::ApplicationController
 
   def create
     should_be_admin = params[:user].delete(:admin)
-    user_ids = params[:user].delete(:users).map {|h| h["id"]}
+    if users = params[:user].delete(:users)
+      user_ids = users.map {|h| h["id"]}
+    end
     @user = User.new(params[:user])
-    @user.merge(login: params[:db_auth][:login]) unless @user.is_delegation
+    @user.login = params[:db_auth][:login] unless @user.is_delegation
 
     begin
       User.transaction do
@@ -106,10 +108,12 @@ class Manage::UsersController < Manage::ApplicationController
 
   def create_in_inventory_pool
     groups = params[:user].delete(:groups) if params[:user].has_key?(:groups)
-    user_ids = params[:user].delete(:users).map {|h| h["id"]}
+    if users = params[:user].delete(:users)
+      user_ids = users.map {|h| h["id"]}
+    end
 
     @user = User.new(params[:user])
-    @user.merge(login: params[:db_auth][:login]) if params[:user].has_key?(:db_auth)
+    @user.login = params[:db_auth][:login] if params[:user].has_key?(:db_auth)
     @user.groups = groups.map {|g| Group.find g["id"]} if groups
 
     begin
