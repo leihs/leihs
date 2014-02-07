@@ -41,10 +41,6 @@ Dann(/^lande ich auf der Seite der Hauptkategorien$/) do
   current_path.should == borrow_root_path
 end
 
-When(/^man befindet sich im Verwalten\-Bereich$/) do
-  visit manage_root_path
-end
-
 Und(/^man befindet sich im Verleih\-Bereich$/) do
   @current_inventory_pool = @current_user.managed_inventory_pools(:group_manager).sample
   visit manage_daily_view_path(@current_inventory_pool)

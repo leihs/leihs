@@ -40,7 +40,7 @@ Dann(/^kann sich der Benutzer "(.*?)" mit "(.*?)" anmelden$/) do |login, passwor
   step %Q{I fill in "username" with "#{login}"}
   step %Q{I fill in "password" with "#{password}"}
   step 'I press "Login"'
-  page.should have_content @user.name
+  page.should have_content @user.short_name
 end
 
 Wenn(/^ich das Passwort von "(.*?)" auf "(.*?)" ändere$/) do |persona, new_password|

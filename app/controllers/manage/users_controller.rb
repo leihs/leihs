@@ -198,13 +198,14 @@ class Manage::UsersController < Manage::ApplicationController
   end
 
   def update_in_inventory_pool
-    if params[:user] and params[:user].has_key?(:groups) and (groups = params[:user].delete(:groups))
-      @user.groups = groups.map {|g| Group.find g["id"]}
-    end
-
-    # for complete users replacement, get only user ids without the _destroy flag
-    if users = params[:user].delete(:users)
-      user_ids = users.select{|h| h["_destroy"] != "1"}.map {|h| h["id"]}
+    if params[:user]
+      if params[:user].has_key?(:groups) and (groups = params[:user].delete(:groups))
+        @user.groups = groups.map {|g| Group.find g["id"]}
+      end
+      # for complete users replacement, get only user ids without the _destroy flag
+      if users = params[:user].delete(:users)
+        user_ids = users.select{|h| h["_destroy"] != "1"}.map {|h| h["id"]}
+      end
     end
 
     begin

@@ -40,12 +40,7 @@
         %a.topbar-item-inner{:href => borrow_current_user_path}
           %img.max-height-xxxs.max-width-xxs.emboss.deep{:src => current_user.image_url}
           %span
-            - if current_user.to_s.length > 13
-              - unless current_user.firstname.blank?
-                = "#{current_user.firstname[0]}."
-              = current_user.lastname
-            - else
-              = current_user
+            = current_user.short_name
           %i.arrow.down
 
         %ul.dropdown.right.straight-top

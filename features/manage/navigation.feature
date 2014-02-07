@@ -4,7 +4,7 @@ Funktionalität: Navigation
 
   Szenario: Navigation für Gruppen-Verwalter
     Angenommen ich bin Andi
-    Und man befindet sich im Verwalten-Bereich
+    Und man befindet sich im Verleih-Bereich
     Dann seh ich die Navigation
     Und die Navigation beinhaltet "Verleih"
     Und die Navigation beinhaltet "Ausleihen"
