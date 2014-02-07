@@ -18,10 +18,12 @@ class window.App.ManageUsersViaAutocompleteController extends Spine.Controller
       @setupAutocomplete(App.User.find datum.id for datum in data)
 
   fetchUsers: =>
+    data =
+      search_term: @input.val()
+      per_page: 5
+    $.extend data, @fetchUsersParams
     App.User.ajaxFetch
-      data: $.param
-        search_term: @input.val()
-        per_page: 5
+      data: $.param data
 
   setupAutocomplete: (users) =>
     @input.autocomplete
