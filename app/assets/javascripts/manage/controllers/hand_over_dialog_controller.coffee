@@ -23,7 +23,9 @@ class window.App.HandOverDialogController extends Spine.Controller
       return false
 
   autoFocus: =>
-    if @purposeTextArea.length
+    if @searchSetUserController.input.length
+      @searchSetUserController.input.focus()
+    else if @purposeTextArea.length
       @purposeTextArea.focus()
     else
       @noteTextArea.focus()
