@@ -184,12 +184,24 @@ Wenn(/^ich die Delegation wechsle$/) do
   @hand_over.lines.reload.map(&:contracts).uniq.all? {|c| c.user == @new_delegation }
 end
 
+Wenn(/^ich versuche die Delegation zu wechseln$/) do
+  page.has_selector?("input[data-select-lines]", match: :first)
+  all("input[data-select-lines]").select{|el| !el.checked?}.map(&:click)
+  multibutton = find(".multibutton", text: _("Hand Over Selection"))
+  multibutton.find(".dropdown-toggle").hover
+  find("#swap-user", match: :first).click
+  find(".modal", match: :first)
+  find("input#user-id", match: :first)
+  @wrong_delegation = User.as_delegations.find {|d| not d.access_right_for @current_inventory_pool}
+  @valid_delegation = @current_inventory_pool.users.as_delegations.sample
+end
+
 Dann(/^lautet die Aushändigung auf diese neu gewählte Delegation$/) do
   page.has_content? @new_delegation.name
   page.has_no_content? @old_delegation.name
 end
 
-Wenn(/^ich die Kontaktperson wechsle$/) do
+Wenn(/^ich versuche die Kontaktperson zu wechseln$/) do
   page.has_selector?("input[data-select-lines]", match: :first)
   all("input[data-select-lines]").select{|el| !el.checked?}.map(&:click)
   find("button", text: _("Hand Over Selection")).click
@@ -204,4 +216,12 @@ Dann(/^kann ich nur diejenigen Personen wählen, die zur Delegationsgruppe gehö
   find("input#user-id", match: :first).set @contact.name
   find(".ui-menu-item a", match: :first, text: @contact.name).click
   find("#selected-user", text: @contact.name)
+end
+
+Dann(/^kann ich nur diejenigen Delegationen wählen, die Zugriff auf meinen Gerätepark haben$/) do
+  find("input#user-id", match: :first).set @wrong_delegation.name
+  page.has_no_selector? ".ui-menu-item a"
+  find("input#user-id", match: :first).set @valid_delegation.name
+  find(".ui-menu-item a", match: :first, text: @valid_delegation.name).click
+  find("#selected-user", text: @valid_delegation.name)
 end
