@@ -21,7 +21,7 @@ Funktionalität: Delegation
     Und ich dieser Delegation keinen, einen oder mehrere Personen zuteile
     Und ich kann dieser Delegation keine Delegation zuteile
     Und ich genau einen Verantwortlichen eintrage
-    Und ich die Delegation speichere
+    Und ich speichere
     Dann ist die Delegation mit den aktuellen Informationen gespeichert
 
   @javascript
@@ -53,7 +53,7 @@ Funktionalität: Delegation
     Und ich den Verantwortlichen ändere
     Und ich einen bestehenden Benutzer lösche
     Und ich einen neuen Benutzer hinzufüge
-    Und ich die Delegation speichere
+    Und ich speichere
     Dann ist die Delegation mit den aktuellen Informationen gespeichert
 
   @javascript
@@ -201,11 +201,14 @@ Funktionalität: Delegation
   Szenario: Borrow: Bestellung erfassen mit Delegation
     Angenommen ich bin Julie
     Wenn ich über meinen Namen fahre
-    Und ich auf 'Delegationen' drücke
+    Und ich auf "Delegationen" drücke
     Dann werden mir die Delegationen angezeigt, denen ich zugeteilt bin
     Wenn ich eine Delegation wähle
     Dann wechsle ich die Anmeldung zur Delegation
-    Wenn ich eine Bestellung abschicke
-    Dann wird die Bestellung gespeichert
+    Wenn ich habe Gegenstände der Bestellung hinzugefügt
+    Und ich die Bestellübersicht öffne
+    Und ich einen Zweck eingebe
+    Und ich die Bestellung abschliesse
+    Dann ändert sich der Status der Bestellung auf Abgeschickt
     Und die Delegation ist als Besteller gespeichert
     Und ich werde als Kontaktperson hinterlegt

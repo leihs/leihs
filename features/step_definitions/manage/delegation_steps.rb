@@ -46,30 +46,31 @@ Wenn(/^ich eine neue Delegation erstelle$/) do
     find(".dropdown-toggle").hover
     find(".dropdown-item", text: _("New Delegation")).click
   end
-  pending
 end
 
 Wenn(/^ich der Delegation Zugriff für diesen Pool gebe$/) do
-  pending # express the regexp above with the code you wish you had
+  find("select[name='access_right[role]']").select(_("Customer"))
 end
 
 Wenn(/^ich dieser Delegation einen Namen gebe$/) do
-  pending # express the regexp above with the code you wish you had
+  find("input[name='user[firstname]']").set Faker::Lorem.sentence
 end
 
 Wenn(/^ich dieser Delegation keinen, einen oder mehrere Personen zuteile$/) do
-  pending # express the regexp above with the code you wish you had
+  rand(0..2).times do
+    find("[data-search-users]").set " "
+    find("ul.ui-autocomplete")
+    all("ul.ui-autocomplete > li").to_a.sample.click
+  end
 end
 
 Wenn(/^ich kann dieser Delegation keine Delegation zuteile$/) do
-  pending # express the regexp above with the code you wish you had
+  find("[data-search-users]").set @current_inventory_pool.users.as_delegations.sample.name
+  sleep(0.88)
+  all("ul.ui-autocomplete > li").empty?.should be_true
 end
 
 Wenn(/^ich genau einen Verantwortlichen eintrage$/) do
-  pending # express the regexp above with the code you wish you had
-end
-
-Wenn(/^ich die Delegation speichere$/) do
   pending # express the regexp above with the code you wish you had
 end
 
@@ -88,6 +89,39 @@ end
 
 Dann(/^werden mir im Tooltipp der Name und der Verantwortliche der Delegation angezeigt$/) do
   find("body > .tooltipster-base", text: @delegation.delegator_user.to_s)
+end
+
+Dann(/^werden mir die Delegationen angezeigt, denen ich zugeteilt bin$/) do
+  @current_user.delegations.each do |delegation|
+    find(".line strong", match: :prefer_exact, text: delegation.to_s)
+  end
+end
+
+Wenn(/^ich eine Delegation wähle$/) do
+  within(all(".line").to_a.sample) do
+    id = find(".line-actions a.button")[:href].gsub(/.*\//, '')
+    @delegation = @current_user.delegations.find(id)
+    find("strong", match: :prefer_exact, text: @new_delegation.to_s)
+    find(".line-actions a.button").click
+  end
+end
+
+Dann(/^wechsle ich die Anmeldung zur Delegation$/) do
+  find("nav.topbar ul.topbar-navigation a[href='/borrow/user']", text: @delegation.short_name)
+  @delegated_user = @current_user
+  @current_user = @delegation
+end
+
+Dann(/^die Delegation ist als Besteller gespeichert$/) do
+  @current_user.contracts.find(@contract_ids).each do |contract|
+    contract.user.should == @delegation
+  end
+end
+
+Dann(/^ich werde als Kontaktperson hinterlegt$/) do
+  @current_user.contracts.find(@contract_ids).each do |contract|
+    contract.delegated_user.should == @delegated_user
+  end
 end
 
 Angenommen(/^es wurde für eine Delegation eine Bestellung erstellt$/) do

@@ -157,7 +157,7 @@ class User < ActiveRecord::Base
   end
 
   def name
-    "#{firstname} #{lastname}"
+    "#{firstname} #{lastname}".strip
   end
 
   def short_name
