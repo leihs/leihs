@@ -96,7 +96,7 @@ Wenn /^die Anzahl einer zurückzugebenden Option manuell ändere$/ do
 end
 
 Dann /^wird die Option ausgewählt und der Haken gesetzt$/ do
-  sleep(0.11)
+  sleep(0.66)
   @option_line.find("input[data-select-line]").checked?.should be_true
   step 'the count matches the amount of selected lines'
 end
@@ -216,7 +216,7 @@ end
 Dann /^wird es für die ausgewählte Zeitspanne hinzugefügt$/ do
   find("#flash")
   find(".line", match: :first)
-  sleep(0.11)
+  sleep(0.66)
   @amount_lines_before.should < all(".line").size
 end
 

@@ -487,9 +487,9 @@ end
 
 Dann(/^speichert den Benutzer$/) do
   find(".button", :text => _("Save %s") % _("User")).click
-  sleep(0.11)
+  sleep(0.66)
   step "man sieht eine Bestätigungsmeldung"
-  sleep(0.11)
+  sleep(0.66)
 end
 
 Dann(/^ist die Gruppenzugehörigkeit gespeichert$/) do
@@ -592,7 +592,7 @@ Dann(/^wird man auf die Benutzerliste ausserhalb der Inventarpools umgeleitet$/)
 end
 
 Dann(/^der neue Benutzer wurde erstellt$/) do
-  sleep(0.11)
+  sleep(0.66)
   @user = User.find_by_firstname_and_lastname "test", "admin"
 end
 

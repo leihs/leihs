@@ -76,7 +76,7 @@ end
 
 Dann(/^dieses Gegenstand ist nicht mehr ausgemustert$/) do
   @item.reload.should_not be_retired
-  sleep(0.11) # fix lazy request problem
+  sleep(0.66) # fix lazy request problem
 end
 
 Wenn(/^die Anschaffungskategorie ist ausgewählt$/) do

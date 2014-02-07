@@ -371,7 +371,7 @@ Dann /^kann man diese Daten als CSV\-Datei exportieren$/ do
   parsed_query.keys.size.should == 0
   find("input#in_stock").click
   parsed_query.should == {"in_stock"=>"1"}
-  sleep 0.66 # fix lazy request problem
+  sleep(0.66) # fix lazy request problem
 end
 
 Dann /^die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden \(inkl\. Filter\)$/ do
@@ -508,7 +508,7 @@ Wenn /^ich Zubehör hinzufüge und falls notwendig die Anzahl des Zubehör ins T
 end
 
 Dann /^ist das Zubehör dem Modell hinzugefügt worden$/ do
-  sleep(0.11)
+  sleep(0.66)
   find("#inventory-index-view h1", match: :prefer_exact, text: _("List of Inventory"))
   @model.accessories.reload.where(:name => @new_accessory_name).should_not be_nil
   sleep(1.11) # fix lazy request problem
@@ -519,7 +519,7 @@ Dann /^kann ich ein einzelnes Zubehör löschen, wenn es für keinen anderen Poo
   find(".row.emboss", match: :prefer_exact, :text => _("Accessories")).find(".list-of-lines .line", text: accessory_to_delete.name).find("button", text: _("Remove")).click
   step 'ich speichere die Informationen'
   find("#inventory-index-view h1", match: :prefer_exact, text: _("List of Inventory"))
-  sleep 0.11 # for fixing the lazy request problem
+  sleep(0.66) # for fixing the lazy request problem
   lambda{accessory_to_delete.reload}.should raise_error(ActiveRecord::RecordNotFound)
 end
 
@@ -528,7 +528,7 @@ Dann /^kann ich ein einzelnes Zubehör für meinen Pool deaktivieren$/ do
   accessory_to_deactivate = @model.accessories.detect{|x| x.inventory_pools.where(id: @current_inventory_pool.id).first}
   find(".row.emboss", match: :prefer_exact, :text => _("Accessories")).find(".list-of-lines .line", text: accessory_to_deactivate.name).find("input").click
   step 'ich speichere die Informationen'
-  sleep(0.11)
+  sleep(0.66)
   find("#inventory-index-view h1", match: :prefer_exact, text: _("List of Inventory"))
   lambda {@current_inventory_pool.accessories.reload.find(accessory_to_deactivate)}.should raise_error(ActiveRecord::RecordNotFound)
 end
