@@ -151,7 +151,18 @@ Dann(/^lautet die Aushändigung auf diese neu gewählte Delegation$/) do
 end
 
 Wenn(/^ich die Kontaktperson wechsle$/) do
-  pending # express the regexp above with the code you wish you had
+  page.has_selector?("input[data-select-lines]", match: :first)
+  all("input[data-select-lines]").select{|el| !el.checked?}.map(&:click)
+  find("button", text: _("Hand Over Selection")).click
+  find("#user-id", match: :first).click
+  find(".modal", match: :first)
+  @old_delegation = @hand_over.user
+  @new_delegation = @current_inventory_pool.users.find {|u| u.is_delegation and u.firstname != @old_delegation.firstname}
+  find("input#user-id", match: :first).set @new_delegation.name
+  find(".ui-menu-item a", match: :first).click
+  find(".modal .button[type='submit']", match: :first).click
+  find(".content-wrapper", :text => @new_delegation.name, match: :first)
+  @hand_over.lines.reload.map(&:contracts).uniq.all? {|c| c.user == @new_delegation }
 end
 
 Dann(/^kann ich nur diejenigen Personen wählen, die zur Delegationsgruppe gehören$/) do
