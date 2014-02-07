@@ -15,7 +15,7 @@ Dann(/^werden mir im alle Suchresultate von Julie oder Delegation mit Namen Juli
 end
 
 Dann(/^mir werden alle Delegationen angezeigt, den Julie zugeteilt ist$/) do
-  @user.delegations.each do |u|
+  (@user.delegations & @current_inventory_pool.users).each do |u|
     find("#users .list-of-lines .line", match: :prefer_exact, text: u.to_s)
   end
   # TODO also check contracts matches, etc...
