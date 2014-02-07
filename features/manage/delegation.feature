@@ -122,7 +122,7 @@ Funktionalität: Delegation
     Wenn ich die Kontaktperson wechsle
     Dann kann ich nur diejenigen Personen wählen, die zur Delegationsgruppe gehören
 
-  @javascript
+  @upcoming
   Szenario: Delegation in Bestellungen ändern
     Angenommen ich bin Pius
     Und ich befinde mich in einer Bestellung
@@ -135,7 +135,7 @@ Funktionalität: Delegation
   Szenario: Auswahl der Delegation in Bestellung ändern
     Angenommen ich bin Pius
     Und ich befinde mich in einer Bestellung
-    Wenn ich die Delegation wechsle
+    Wenn ich versuche die Delegation zu wechseln
     Dann kann ich nur diejenigen Delegationen wählen, die Zugriff auf meinen Gerätepark haben
 
   @javascript

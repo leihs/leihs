@@ -187,7 +187,8 @@ end
 Wenn(/^ich versuche die Delegation zu wechseln$/) do
   page.has_selector?("input[data-select-lines]", match: :first)
   all("input[data-select-lines]").select{|el| !el.checked?}.map(&:click)
-  multibutton = find(".multibutton", text: _("Hand Over Selection"))
+  multibutton = first(".multibutton", text: _("Hand Over Selection"))
+  multibutton ||= first(".multibutton", text: _("Edit Selection"))
   multibutton.find(".dropdown-toggle").hover
   find("#swap-user", match: :first).click
   find(".modal", match: :first)
