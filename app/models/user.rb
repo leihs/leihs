@@ -112,10 +112,9 @@ class User < ActiveRecord::Base
   def self.filter(params, inventory_pool = nil)
     # NOTE if params[:role] == "all" is provided, then we have to skip the deleted access_rights, so we fetch directly from User
     # NOTE the case of fetching users with specific ids from a specific inventory_pool is still missing, might be necessary in future
-    if id = params[:delegation_id]
-      users = User.find(id).users
-    elsif inventory_pool and params[:all].blank?
+    if inventory_pool and params[:all].blank?
       users = params[:suspended] == "true" ? inventory_pool.suspended_users : inventory_pool.users
+      users = users.find(params[:delegation_id]).delegated_users unless params[:delegation_id].blank?
       users = users.send params[:role] unless params[:role].blank?
     else
       users = scoped

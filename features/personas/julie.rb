@@ -54,7 +54,7 @@ module Persona
                                         country: nil,
                                         zip: nil,
                                         language: nil)
-      @delegation1.users << @mina
+      @delegation1.delegated_users << @mina
       @delegation1.access_rights.create(:role => :customer, :inventory_pool => @inventory_pool)
 
       @delegation2 = FactoryGirl.create(:user,
@@ -72,7 +72,7 @@ module Persona
                                         country: nil,
                                         zip: nil,
                                         language: nil)
-      @delegation2.users << @julie
+      @delegation2.delegated_users << @julie
       @delegation2.access_rights.create(:role => :customer, :inventory_pool => @inventory_pool)
 
       # delegation without access rights
@@ -91,7 +91,7 @@ module Persona
                                         country: nil,
                                         zip: nil,
                                         language: nil)
-      @delegation3.users << @julie
+      @delegation3.delegated_users << @julie
     end
 
     def create_submitted_contracts

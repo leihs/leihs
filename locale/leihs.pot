@@ -1401,6 +1401,9 @@ msgstr ""
 msgid "This contract is not signable because some lines are not assigned."
 msgstr ""
 
+msgid "This contract is not signable because the delegated user is either missing or not part of this delegation."
+msgstr ""
+
 msgid "Groups of this customer"
 msgstr ""
 

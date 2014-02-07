@@ -18,7 +18,7 @@
 
       .row.list-of-lines.even{:"data-users-list" => true}
 
-        = render partial: "manage/templates/user_inline_entry", collection: @user.users.sort {|u1, u2| u1.firstname <=> u2.firstname}, as: :user, locals: { ref_name: "user" }
+        = render partial: "manage/templates/user_inline_entry", collection: @user.delegated_users.sort {|u1, u2| u1.firstname <=> u2.firstname}, as: :user, locals: { ref_name: "user" }
 
   .col1of2.padding-left-xs
 

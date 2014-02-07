@@ -154,6 +154,9 @@ class Contract < ActiveRecord::Base
     elsif selected_lines.any? {|l| l.end_date < Date.today }
       errors.add(:base, _("Start Date must be before End Date"))
       false
+    elsif user.is_delegation and not user.delegated_users.exists?(delegated_user)
+      errors.add(:base, _("This contract is not signable because the delegated user is either missing or not part of this delegation."))
+      false
     else
       transaction do
         unless (lines_for_new_contract = self.contract_lines - selected_lines).empty?

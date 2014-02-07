@@ -13,7 +13,7 @@ module Delegation::User
                               association_foreign_key: 'delegation_id'
 
       # NOTE this method is called from a delegation perspective
-      has_and_belongs_to_many :users,
+      has_and_belongs_to_many :delegated_users,
                               class_name: 'User',
                               join_table: 'delegations_users',
                               foreign_key: 'delegation_id',
@@ -24,13 +24,13 @@ module Delegation::User
 
       before_validation do
         if is_delegation
-          users << delegator_user unless users.include? delegator_user
+          delegated_users << delegator_user unless delegated_users.include? delegator_user
         end
       end
 
       validate do
         if is_delegation
-          errors.add(:base, _("The responsible user has to be member of the delegation")) unless users.include? delegator_user
+          errors.add(:base, _("The responsible user has to be member of the delegation")) unless delegated_users.include? delegator_user
         end
       end
 
