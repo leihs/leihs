@@ -92,7 +92,8 @@ class window.App.SearchOverviewController extends Spine.Controller
         search_term: @searchTerm
     .done (data, status, xhr)=>
       users = (App.User.find datum.id for datum in data)
-      ids = _.uniq _.map users, (r)-> r.delegator_user_id
+      delegations = _.filter users, (r)-> r.isDelegation()
+      ids = _.uniq _.map delegations, (r)-> r.delegator_user_id
       @fetchUsers(ids, "all").done =>
         @render @users, "manage/views/users/search_result_line", users, xhr
 

@@ -37,4 +37,4 @@ class window.App.User extends Spine.Model
   suspended: ->
     if @.suspendedUntil() then moment(@.suspendedUntil()).diff(moment(), "days") >= 0 else false
 
-  isDelegation: -> @.delegator_user() ? false
+  isDelegation: -> @.delegator_user_id ? false
