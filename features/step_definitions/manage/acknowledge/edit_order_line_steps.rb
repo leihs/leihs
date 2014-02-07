@@ -40,7 +40,7 @@ end
 
 When /^I save the booking calendar$/ do
   find("#submit-booking-calendar", :text => _("Save")).click
-  sleep(0.88)
+  sleep(0.11)
   page.has_no_selector?("#submit-booking-calendar", :text => _("Save"))
   page.has_no_selector?("#booking-calendar")
 end

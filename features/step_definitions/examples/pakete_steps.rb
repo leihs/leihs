@@ -136,7 +136,7 @@ Wenn /^ich das Paket und das Modell speichere$/ do
 end
 
 Dann /^(?:besitzt das Paket alle angegebenen Informationen|das Paket besitzt alle angegebenen Informationen)$/ do
-  sleep(0.88)
+  sleep(0.11)
   model = Model.find_by_name @model_name
   visit manage_edit_model_path(@current_inventory_pool, model)
   model.items.each do |item|
