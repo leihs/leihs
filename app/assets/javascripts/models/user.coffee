@@ -10,7 +10,7 @@ class window.App.User extends Spine.Model
 
   @hasMany "contracts", "App.Contract", "user_id"
   @hasMany "accessRights", "App.AccessRight", "user_id"
-  @belongsTo "delegator_user", "App.User", "delegator_user_id"
+  @belongsTo "reponsible", "App.User", "delegator_user_id"
 
   @extend Spine.Model.Ajax
   @extend App.Modules.FindOrBuild
@@ -36,3 +36,5 @@ class window.App.User extends Spine.Model
 
   suspended: ->
     if @.suspendedUntil() then moment(@.suspendedUntil()).diff(moment(), "days") >= 0 else false
+
+  isDelegation: -> @.delegator_user() ? false

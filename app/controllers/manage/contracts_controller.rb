@@ -90,6 +90,7 @@ class Manage::ContractsController < Manage::ApplicationController
     
     lines = @contract.contract_lines.find(line_ids)
     @contract.note = note if note
+    @contract.delegated_user = User.find params[:delegated_user_id] if params[:delegated_user_id]
     if purpose_description
       purpose = Purpose.create :description => purpose_description
       lines.each do |line|

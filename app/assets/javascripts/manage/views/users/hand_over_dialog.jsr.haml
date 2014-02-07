@@ -13,13 +13,13 @@
 
     .separated-bottom.padding-bottom-m.margin-bottom-m
 
+      %p#error.emboss.red.padding-inset-s.hidden.paragraph-s.margin-bottom-s
+        %strong
+
       #contact-person.row.margin-bottom-l
         .col1of3
           %input#user-id.width-full{:autocomplete => :off, :type => :text, :placeholder => "{{jed 'Contact person'/}} {{jed 'Name / ID'/}}", :autofocus => :autofocus, :"data-barcode-scanner-target" => true, :"data-prevent-barcode-scanner-submit" => true}
           #selected-user
-
-      %p#error.emboss.red.padding-inset-s.hidden.paragraph-s.margin-bottom-s
-        %strong
 
       {{if purpose}}
       .row.margin-bottom-s.emboss.padding-inset-s

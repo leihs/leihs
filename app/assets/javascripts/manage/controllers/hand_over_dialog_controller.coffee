@@ -14,10 +14,9 @@ class window.App.HandOverDialogController extends Spine.Controller
     @purpose = (_.uniq _.map @lines, (l)->l.purpose().description).join ", "
     if @validateDialog()
       do @setupModal
-      new App.SearchSetUserController { el: @el.find("#contact-person") }
+      @searchSetUserController = new App.SearchSetUserController { el: @el.find("#contact-person") }
       super
       do @autoFocus
-      @el.find("#user-id").preChange {delay: 200}
     else
       return false
 
@@ -95,3 +94,12 @@ class window.App.HandOverDialogController extends Spine.Controller
     return true
 
   toggleAddPurpose: =>
+
+  validateDelegatedUser: =>
+    if @contract.user().isDelegation() and not @contract.delegatedUser()
+      @errorContainer.find("strong").html(_jed("Specification of the contact person is required"))
+      @errorContainer.removeClass("hidden")
+      @searchSetUserController.input.focus()
+      false
+    else
+      true
