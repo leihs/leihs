@@ -117,7 +117,7 @@ Funktionalität: Delegation
   @javascript
   Szenario: Auswahl der Kontaktperson in Aushändigung ändern
     Angenommen ich bin Pius
-    Und es existiert eine Aushändigung für eine Delegation
+    Und es existiert eine Aushändigung für eine Delegation mit zugewiesenen Gegenständen
     Und ich öffne diese Aushändigung
     Wenn ich die Kontaktperson wechsle
     Dann kann ich nur diejenigen Personen wählen, die zur Delegationsgruppe gehören

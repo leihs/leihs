@@ -21,11 +21,13 @@ module Persona
         create_user
         create_delegations
         create_submitted_contracts
+        create_approved_contracts
         create_signed_contracts
       end
     end
 
     def setup_dependencies 
+      @pius = Persona.create :pius
       @mina = Persona.create :mina
     end
 
@@ -104,17 +106,28 @@ module Persona
       end
     end
 
-    def create_signed_contracts
+    def create_approved_contracts
       contract = FactoryGirl.create(:contract, :user => @delegation1, :delegated_user => @julie, :inventory_pool => @inventory_pool, :status => :approved)
       contract_purpose = FactoryGirl.create :purpose, :description => Faker::Lorem.sentence
 
       rand(3..5).times do
         item = FactoryGirl.create :item, inventory_pool: @inventory_pool
-        contract.contract_lines << FactoryGirl.create(:contract_line, :purpose => contract_purpose, :contract => contract, :model => item.model)
+        contract.contract_lines << FactoryGirl.create(:contract_line, :purpose => contract_purpose, :contract => contract, :model => item.model, :item => item)
+      end
+    end
+
+    def create_signed_contracts
+      contract = FactoryGirl.create(:contract, :user => @delegation1, :delegated_user => @julie, :inventory_pool => @inventory_pool, :status => :approved, :delegated_user => @mina)
+      contract_purpose = FactoryGirl.create :purpose, :description => Faker::Lorem.sentence
+
+      rand(3..5).times do
+        item = FactoryGirl.create :item, inventory_pool: @inventory_pool
+        contract.contract_lines << FactoryGirl.create(:contract_line, :purpose => contract_purpose, :contract => contract, :model => item.model, :item => item)
       end
 
-      contract.sign Persona.get(:pius)
+      contract.sign @pius
     end
 
   end
+
 end
