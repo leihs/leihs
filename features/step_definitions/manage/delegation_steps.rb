@@ -149,3 +149,11 @@ Dann(/^lautet die Aushändigung auf diese neu gewählte Delegation$/) do
   page.has_content? @new_delegation.name
   page.has_no_content? @old_delegation.name
 end
+
+Wenn(/^ich die Kontaktperson wechsle$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Dann(/^kann ich nur diejenigen Personen wählen, die zur Delegationsgruppe gehören$/) do
+  pending # express the regexp above with the code you wish you had
+end
