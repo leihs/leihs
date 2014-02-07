@@ -31,8 +31,10 @@ class window.App.SearchSetUserController extends Spine.Controller
         response data
       focus: => return false
       select: (e, ui)=> @selectUser(ui.item); return false
-    .data("uiAutocomplete")._renderItem = (ul, item) => 
+    .data("uiAutocomplete")
+    ._renderItem = (ul, item) => 
       $(App.Render "manage/views/users/autocomplete_element", item).data("value", item).appendTo(ul)
+
     @input.autocomplete("search")
 
   selectUser: (user)->

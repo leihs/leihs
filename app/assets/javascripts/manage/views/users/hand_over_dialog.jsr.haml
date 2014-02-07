@@ -17,9 +17,9 @@
         %strong
 
       {{if user.isDelegation()}}
-      #contact-person.row.margin-bottom-l
-        .col1of3
-          %input#user-id.width-full{:autocomplete => :off, :type => :text, :placeholder => "{{jed 'Contact person'/}} {{jed 'Name / ID'/}}", :"data-barcode-scanner-target" => true, :"data-prevent-barcode-scanner-submit" => true}
+      .row.margin-bottom-l
+        #contact-person.col1of3
+          %input#user-id.width-full{:autocomplete => :off, :type => :text, :placeholder => "{{jed 'Contact person'/}} {{jed 'Name / ID'/}}", :autofocus => :autofocus, :"data-barcode-scanner-target" => true, :"data-prevent-barcode-scanner-submit" => true}
           #selected-user
       {{/if}}
 
