@@ -307,7 +307,7 @@ class Manage::UsersController < Manage::ApplicationController
   def get_accessible_roles_for_current_user
     accessible_roles = [[_("No access"), :no_access], [_("Customer"), :customer]]
     unless @delegation_type
-      accessible_roles +
+      accessible_roles +=
         if @current_user.has_role? :admin or @current_user.has_role? :inventory_manager, @current_inventory_pool
           [[_("Group manager"), :group_manager], [_("Lending manager"), :lending_manager], [_("Inventory manager"), :inventory_manager]]
       elsif @current_user.has_role? :lending_manager, @current_inventory_pool
