@@ -174,6 +174,14 @@ class User < ActiveRecord::Base
 
 ################################################
 
+  def email
+    if is_delegation
+      delegator_user.email
+    else
+      read_attribute(:email)
+    end
+  end
+
   def alternative_email
     extended_info["email_alt"] if extended_info
   end
