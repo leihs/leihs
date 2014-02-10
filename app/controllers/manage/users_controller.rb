@@ -69,14 +69,14 @@ class Manage::UsersController < Manage::ApplicationController
   def create
     should_be_admin = params[:user].delete(:admin)
     if users = params[:user].delete(:users)
-      user_ids = users.map {|h| h["id"]}
+      delegated_user_ids = users.map {|h| h["id"]}
     end
     @user = User.new(params[:user])
     @user.login = params[:db_auth][:login] unless @user.is_delegation
 
     begin
       User.transaction do
-        @user.user_ids = user_ids if user_ids
+        @user.delegated_user_ids = delegated_user_ids if delegated_user_ids
         @user.save!
 
         unless @user.is_delegation
@@ -109,7 +109,7 @@ class Manage::UsersController < Manage::ApplicationController
   def create_in_inventory_pool
     groups = params[:user].delete(:groups) if params[:user].has_key?(:groups)
     if users = params[:user].delete(:users)
-      user_ids = users.map {|h| h["id"]}
+      delegated_user_ids = users.map {|h| h["id"]}
     end
 
     @user = User.new(params[:user])
@@ -118,7 +118,7 @@ class Manage::UsersController < Manage::ApplicationController
 
     begin
       User.transaction do
-        @user.user_ids = user_ids if user_ids
+        @user.delegated_user_ids = delegated_user_ids if delegated_user_ids
         @user.save!
 
         unless @user.is_delegation
@@ -163,13 +163,13 @@ class Manage::UsersController < Manage::ApplicationController
 
     # for complete users replacement, get only user ids without the _destroy flag
     if users = params[:user].delete(:users)
-      user_ids = users.select{|h| h["_destroy"] != "1"}.map {|h| h["id"]}
+      delegated_user_ids = users.select{|h| h["_destroy"] != "1"}.map {|h| h["id"]}
     end
 
     begin
       User.transaction do
         params[:user].merge!(login: params[:db_auth][:login]) if params[:db_auth]
-        @user.user_ids = user_ids if user_ids
+        @user.delegated_user_ids = delegated_user_ids if delegated_user_ids
         @user.update_attributes! params[:user]
         if params[:db_auth]
           DatabaseAuthentication.find_by_user_id(@user.id).update_attributes! params[:db_auth].merge(user: @user)
@@ -204,14 +204,14 @@ class Manage::UsersController < Manage::ApplicationController
       end
       # for complete users replacement, get only user ids without the _destroy flag
       if users = params[:user].delete(:users)
-        user_ids = users.select{|h| h["_destroy"] != "1"}.map {|h| h["id"]}
+        delegated_user_ids = users.select{|h| h["_destroy"] != "1"}.map {|h| h["id"]}
       end
     end
 
     begin
       User.transaction do
         params[:user].merge!(login: params[:db_auth][:login]) if params[:db_auth]
-        @user.user_ids = user_ids if user_ids
+        @user.delegated_user_ids = delegated_user_ids if delegated_user_ids
         @user.update_attributes! params[:user]
         if params[:db_auth]
           DatabaseAuthentication.find_or_create_by_user_id(@user.id).update_attributes! params[:db_auth].merge(user: @user)
