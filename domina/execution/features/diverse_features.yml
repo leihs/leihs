@@ -11,3 +11,87 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/benutzerverwaltung3.feature"
+- name: examples/benutzerverwaltung4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung4.feature"
+- name: examples/benutzerverwaltung5
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung5.feature"
+- name: examples/benutzerverwaltung6
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung6.feature"
+- name: examples/benutzerverwaltung7
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung7.feature"
+- name: examples/benutzerverwaltung8
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung8.feature"
+- name: examples/benutzerverwaltung9
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung9.feature"
+- name: examples/benutzerverwaltung10
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung10.feature"
+- name: examples/benutzerverwaltung11
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung11.feature"
+- name: examples/benutzerverwaltung12
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung12.feature"
+- name: examples/benutzerverwaltung13
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung13.feature"
+- name: examples/benutzerverwaltung14
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung14.feature"
+- name: examples/benutzerverwaltung15
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung15.feature"
+- name: examples/aushaendigung
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/aushaendigung.feature"
+- name: examples/bestellungen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/bestellungen.feature"
+- name: examples/gegenstand_kopieren2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/gegenstand_kopieren2.feature"
+- name: examples/inventar5
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/inventar5.feature"
+- name: examples/passwort
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/passwort.feature"
+- name: examples/probleme3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/probleme3.feature"
+- name: examples/vorlagen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/vorlagen.feature"
+- name: examples/vorlagen2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/vorlagen2.feature"
+- name: manage/delegation
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/delegation.feature"
