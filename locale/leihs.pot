@@ -2287,9 +2287,6 @@ msgstr ""
 msgid "Specification of the contact person is required"
 msgstr ""
 
-msgid ""
-msgstr ""
-
 msgid "Change"
 msgstr ""
 
