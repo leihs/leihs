@@ -13,17 +13,8 @@
     = l Time.now.to_date
     
   %section.parties
-    .customer
-      %label= _("Borrower")
-      %span.name= @contract.user
-      %span.street= @contract.user.address
-      %span.plz_city= "%s %s" % [@contract.user.zip, @contract.user.city]
-    .inventory_pool
-      %label= _("Lender")
-      %span.name= @contract.inventory_pool.name
-      - if @contract.inventory_pool.address
-        %span.street= @contract.inventory_pool.address.street
-        %span.plz_city= "%s-%s %s" % [@contract.inventory_pool.address.country_code, @contract.inventory_pool.address.zip_code, @contract.inventory_pool.address.city]
+    = render "documents/customer"
+    = render "documents/inventory_pool"
     .clear
 
   - not_returned_lines, returned_lines = @contract.lines.partition {|line| line.returned_date.blank? }

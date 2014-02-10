@@ -1,0 +1,9 @@
+.customer
+  %label= _("Borrower")
+  %span.name= @contract.user
+  - contact_person = ( @contract.delegated_user or @contract.user )
+  - if @contract.delegated_user
+    %br
+    %span.name= contact_person
+  %span.street= contact_person.address
+  %span.plz_city= "%s %s" % [contact_person.zip, contact_person.city]
