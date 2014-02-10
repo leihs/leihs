@@ -20,6 +20,15 @@ class Borrow::UsersController < Borrow::ApplicationController
     redirect_to borrow_root_path
   end
 
+  def switch_back
+    if current_user.delegated_users.exists? @current_delegated_user
+      session[:delegated_user_id] = nil
+      self.current_user = @current_delegated_user
+      @current_delegated_user = nil
+    end
+    redirect_to borrow_root_path
+  end
+
   ################################################################
 
   before_filter only: [:contract, :value_list] do

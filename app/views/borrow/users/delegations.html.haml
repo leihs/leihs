@@ -11,6 +11,6 @@
         .line-col.col3of4
           %strong= delegation
         .line-col.line-actions.col1of4
-          %a.button.green.text-ellipsis{href: borrow_user_switch_to_delegation_path(delegation)}
+          = link_to borrow_user_switch_to_delegation_path(delegation), method: :post, class: "button green text-ellipsis" do
             %i.icon-group
             = _("Switch to")

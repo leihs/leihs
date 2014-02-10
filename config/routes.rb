@@ -95,7 +95,8 @@ Leihs::Application.routes.draw do
     get "user/contracts/:id",             to: "users#contract",             as: "user_contract"
     get "user/value_lists/:id",           to: "users#value_list",           as: "user_value_list"
     get "user/delegations",               to: "users#delegations",          as: "user_delegations"
-    get "user/switch_to_delegation/:id",  to: "users#switch_to_delegation", as: "user_switch_to_delegation"
+    post "user/switch_to_delegation/:id", to: "users#switch_to_delegation", as: "user_switch_to_delegation"
+    get "user/switch_back",               to: "users#switch_back",          as: "user_switch_back"
   end
 
   # Manage Section
