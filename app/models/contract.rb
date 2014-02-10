@@ -204,7 +204,7 @@ class Contract < ActiveRecord::Base
       false
     else
       errors.add(:base, _("This user is suspended.")) if user.suspended?(inventory_pool)
-      errors.add(:base, _("This user of the delegation is suspended.")) if delegated_user.suspended?(inventory_pool)
+      errors.add(:base, _("The delegated user #{delegated_user} is suspended.")) if delegated_user.suspended?(inventory_pool)
       errors.add(:base, _("This order is not approvable because doesn't have any models.")) if lines.empty?
       errors.add(:base, _("This order is not approvable because the inventory pool is closed on either the start or enddate.")) if lines.any? {|l| not l.visits_on_open_date? }
       errors.add(:base, _("This order is not approvable because some reserved models are not available.")) if lines.any? {|l| not l.available? }
