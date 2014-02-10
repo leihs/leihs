@@ -30,6 +30,9 @@ class window.App.SearchResultsContractsController extends App.SearchResultsContr
       data: $.param
         ids: ids
         paginate: false
+    .done (data)=>
+      users = (App.User.find datum.id for datum in data)
+      App.User.fetchDelegators users
 
   fetchContractLines: (contracts)=>
     ids = _.flatten _.map contracts, (r)-> r.id

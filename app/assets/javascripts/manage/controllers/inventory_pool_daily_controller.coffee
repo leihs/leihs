@@ -48,6 +48,9 @@ class window.App.InventoryPoolDailyController extends Spine.Controller
           ids: ids
           all: true
           paginate: false
+      .done (data)=>
+        users = (App.User.find datum.id for datum in data)
+        App.User.fetchDelegators users
     else
       {done: (c)->c()}
 

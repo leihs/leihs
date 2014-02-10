@@ -92,9 +92,7 @@ class window.App.SearchOverviewController extends Spine.Controller
         search_term: @searchTerm
     .done (data, status, xhr)=>
       users = (App.User.find datum.id for datum in data)
-      delegations = _.filter users, (r)-> r.isDelegation()
-      ids = _.uniq _.map delegations, (r)-> r.delegator_user_id
-      @fetchUsers(ids, "all").done =>
+      App.User.fetchDelegators users, =>
         @render @users, "manage/views/users/search_result_line", users, xhr
 
   searchContracts: =>
@@ -105,12 +103,12 @@ class window.App.SearchOverviewController extends Spine.Controller
         status: ["signed", "closed"]
     .done (data, status, xhr)=>
       contracts = (App.Contract.find datum.id for datum in data)
-      ids = _.uniq _.map contracts, (r)-> r.user_id
-      @fetchUsers(ids, "all").done =>
+      @fetchUsers(contracts, "all").done =>
         @fetchContractLines(contracts).done =>
           @render @contracts, "manage/views/contracts/line", contracts, xhr
 
-  fetchUsers: (ids, all = false) =>
+  fetchUsers: (records, all = false) =>
+    ids = _.uniq _.map records, (r)-> r.user_id
     return {done: (c)->c()} unless ids.length
     data =
       ids: ids
@@ -118,6 +116,9 @@ class window.App.SearchOverviewController extends Spine.Controller
     $.extend data, {all: true} if all == "all"
     App.User.ajaxFetch
       data: $.param(data)
+    .done (data)=>
+      users = (App.User.find datum.id for datum in data)
+      App.User.fetchDelegators users
 
   fetchContractLines: (records)=>
     ids = _.flatten _.map records, (r)-> r.id
@@ -135,8 +136,7 @@ class window.App.SearchOverviewController extends Spine.Controller
         status: ["approved", "submitted", "rejected"]
     .done (data, status, xhr)=>
       contracts = (App.Contract.find datum.id for datum in data)
-      ids = _.uniq _.map contracts, (r)-> r.user_id
-      @fetchUsers(ids).done =>
+      @fetchUsers(contracts).done =>
         @fetchContractLines(contracts).done =>
           @fetchPurposes(contracts).done =>
             @render @orders, "manage/views/contracts/line", contracts, xhr, { accessRight: App.AccessRight, currentUserRole: App.User.current.role }

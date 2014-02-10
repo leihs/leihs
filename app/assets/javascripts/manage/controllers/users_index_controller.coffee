@@ -33,6 +33,8 @@ class window.App.UsersIndexController extends Spine.Controller
       @pagination.set JSON.parse(xhr.getResponseHeader("X-Pagination"))
       users = (App.User.find(datum.id) for datum in data)
       @users[page] = users
+      App.User.fetchDelegators users
+
 
   fetchAccessRights: (page) =>
     ids = _.map @users[page], (u) -> u.id

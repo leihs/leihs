@@ -38,3 +38,15 @@ class window.App.User extends Spine.Model
     if @.suspendedUntil() then moment(@.suspendedUntil()).diff(moment(), "days") >= 0 else false
 
   isDelegation: -> @.delegator_user_id ? false
+
+  @fetchDelegators: (users, callback = null)->
+    delegations = _.filter users, (r)-> r.isDelegation()
+    delegator_user_ids = _.uniq _.map delegations, (r)-> r.delegator_user_id
+    if delegator_user_ids.length
+      App.User.ajaxFetch
+        data: $.param
+          ids: delegator_user_ids
+      .done ->
+        callback?()
+    else
+      callback?()

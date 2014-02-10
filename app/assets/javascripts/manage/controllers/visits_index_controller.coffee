@@ -55,6 +55,9 @@ class window.App.VisitsIndexController extends Spine.Controller
     App.User.ajaxFetch
       data: $.param
         ids: ids
+    .done (data)=>
+      users = (App.User.find datum.id for datum in data)
+      App.User.fetchDelegators users
 
   fetchPurposes: (page, callback)=>
     ids = _.compact _.filter (_.map (_.flatten (_.map @visits[page], (o) -> o.lines().all())), (l) -> l.purpose_id), (id) -> not App.Purpose.exists(id)?

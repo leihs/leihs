@@ -12,3 +12,6 @@ class window.App.SearchResultsUsersController extends App.SearchResultsControlle
     App.User.ajaxFetch
       data: $.param
         search_term: @searchTerm
+    .done (data)=>
+      users = (App.User.find datum.id for datum in data)
+      App.User.fetchDelegators users
