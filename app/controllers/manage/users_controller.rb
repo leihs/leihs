@@ -113,7 +113,7 @@ class Manage::UsersController < Manage::ApplicationController
     end
 
     @user = User.new(params[:user])
-    @user.login = params[:db_auth][:login] if params[:user].has_key?(:db_auth)
+    @user.login = params[:db_auth][:login] if params.has_key?(:db_auth)
     @user.groups = groups.map {|g| Group.find g["id"]} if groups
 
     begin
