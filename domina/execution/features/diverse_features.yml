@@ -95,3 +95,27 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/manage/delegation.feature"
+- name: manage/delegation2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/delegation2.feature"
+- name: manage/delegation3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/delegation3.feature"
+- name: manage/delegation4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/delegation4.feature"
+- name: manage/delegation5
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/delegation5.feature"
+- name: manage/delegation6
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/delegation6.feature"
+- name: manage/delegation7
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/delegation7.feature"
