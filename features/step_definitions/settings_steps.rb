@@ -13,7 +13,8 @@ Then(/^there is an error for the missing settings$/) do
   lambda { step "I go to the home page" }.should raise_error(RuntimeError)
 end
 
-Then(/^I can edit the settings$/) do
+Then(/^I can edit the following settings$/) do |table|
+  pending
   first("form[action='/backend/settings']")
   @old_setting_smtp_address = first("input#setting_smtp_address").value
   Setting::SMTP_ADDRESS.should == @old_setting_smtp_address
