@@ -5,7 +5,7 @@ Funktionalität: Delegation
   @javascript
   Szenario: Delegation löschen
     Angenommen ich bin Pius
-    Und ich in den Admin-Bereich wechsel
+    Und ich in den Admin-Bereich wechsle
     Und ich befinde mich im Reiter 'Benutzer'
     Wenn keine Bestellung, Aushändigung oder ein Vertrag für eine Delegation besteht
     Und wenn für diese Delegation keine Zugriffsrechte für andere Geräteparks bestehen

@@ -53,14 +53,18 @@ Wenn(/^ich der Delegation Zugriff für diesen Pool gebe$/) do
 end
 
 Wenn(/^ich dieser Delegation einen Namen gebe$/) do
-  find("input[name='user[firstname]']").set Faker::Lorem.sentence
+  @name = Faker::Lorem.sentence
+  find("input[name='user[firstname]']").set @name
 end
 
 Wenn(/^ich dieser Delegation keinen, einen oder mehrere Personen zuteile$/) do
+  @delegated_users = []
   rand(0..2).times do
     find("[data-search-users]").set " "
     find("ul.ui-autocomplete")
-    all("ul.ui-autocomplete > li").to_a.sample.click
+    el = all("ul.ui-autocomplete > li").to_a.sample
+    @delegated_users << el.text
+    el.click
   end
 end
 
@@ -71,11 +75,18 @@ Wenn(/^ich kann dieser Delegation keine Delegation zuteile$/) do
 end
 
 Wenn(/^ich genau einen Verantwortlichen eintrage$/) do
-  pending # express the regexp above with the code you wish you had
+  @responsible = @current_inventory_pool.users.not_as_delegations.sample
+  find(".row.emboss", text: _("Responsible")).find("input[data-type='autocomplete']").set @responsible.name
+  find("ul.ui-autocomplete").click
 end
 
 Dann(/^ist die Delegation mit den aktuellen Informationen gespeichert$/) do
-  pending # express the regexp above with the code you wish you had
+  @delegation.reload.instance_eval do
+    name.should == @name
+    delegator_user.should == @responsible
+    delegated_users.each {|du| @delegated_users.include? du.name}
+    delegated_users.count == @delegated_users.count
+  end
 end
 
 Wenn(/^ich nach einer Delegation suche$/) do
@@ -249,4 +260,26 @@ end
 
 Dann(/^es ist keine Kontaktperson aufgeführt$/) do
   page.has_no_selector? @delegated_user
+end
+
+Wenn(/^keine Bestellung, Aushändigung oder ein Vertrag für eine Delegation besteht$/) do
+  @delegations = @current_inventory_pool.users.as_delegations.select {|d| d.contracts.blank?}
+end
+
+Wenn(/^wenn für diese Delegation keine Zugriffsrechte für andere Geräteparks bestehen$/) do
+  @delegation = @delegations.find {|d| d.access_rights.count == 1 and d.access_right_for @current_inventory_pool}
+  @delegation.should_not be_nil
+end
+
+Dann(/^kann ich diese Delegation löschen$/) do
+  fill_in "list-search", with: @delegation.name
+  line = find(".line", text: @delegation.name)
+  line.find(".dropdown-toggle").hover
+  find("[data-method='delete']").click
+  page.has_selector? ".success"
+  @delegation.reload.should raise Exception
+end
+
+Angenommen(/^ich in den Admin\-Bereich wechsle$/) do
+  click_link _("Admin")
 end
