@@ -161,10 +161,6 @@ Dann(/^ich sehe auf der Bestellungszeile den Status$/) do
   find(@line_css).text.should include _(@contract.status.to_s.capitalize)
 end
 
-Dann(/^ich kann die genehmigte Bestellung auf den Status noch nicht genehmigt zurücksetzen$/) do
-  find(@line_css).has_css? "[data-order-unapprove]"
-end
-
 Dann(/^sehe ich alle abgelehnten visierpflichtigen Bestellungen$/) do
   find("footer").click
   @contracts = @current_inventory_pool.contracts.where(status: :rejected).with_verifiable_user_and_model
@@ -185,12 +181,6 @@ Dann(/^sehe ich alle Bestellungen, welche von Benutzern der visierpflichtigen Gr
   find("footer").click
   @contracts = @current_inventory_pool.contracts.where(status: [:submitted, :rejected, :signed]).with_verifiable_user
   @contracts.each {|c| page.has_selector? "[data-type='contract'][data-id='#{c.id}']"}
-end
-
-Wenn(/^ich eine bereits genehmigte Bestellung zurücksetze$/) do
-  @contract = Contract.find find(".line[data-type='contract']", match: :first)["data-id"].to_i
-  @line_css =  "[data-type='contract'][data-id='#{@contract.id}']"
-  find(@line_css).find("a", text: _("Undo approval")).click
 end
 
 Dann(/^ist die Bestellung wieder im Status noch nicht genehmigt$/) do

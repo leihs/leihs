@@ -54,7 +54,8 @@ Funktionalität: Bestellungen
     Und ich sehe auf der Bestellungszeile die Anzahl Gegenstände mit Popup-Ansicht der bestellten Gegenstände
     Und ich sehe auf der Bestellungszeile die Dauer der Bestellung
     Und ich sehe auf der Bestellungszeile den Status
-    Und ich kann die genehmigte Bestellung auf den Status noch nicht genehmigt zurücksetzen
+    Und ich eine bereits gehmigte Bestellung editiere
+    Dann gelange ich in die Ansicht der Aushändigung
     Und ich kann keine Bestellungen aushändigen
 
   @javascript
@@ -82,5 +83,10 @@ Funktionalität: Bestellungen
     Angenommen ich bin Andi
     Und ich mich auf der Liste der Bestellungen befinde
     Wenn ich den Reiter "Genehmigt" einsehe
-    Und ich eine bereits genehmigte Bestellung zurücksetze
-    Dann ist die Bestellung wieder im Status noch nicht genehmigt
+    Und ich eine bereits gehmigte Bestellung editiere
+    Dann gelange ich in die Ansicht der Aushändigung
+    Und ich kann Modelle hinzufügen
+    Und ich kann Optionen hinzufügen
+    Aber ich kann keine Gegenstände zuteilen
+    Und ich kann keine Bestellungen aushändigen
+
