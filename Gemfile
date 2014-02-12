@@ -13,7 +13,7 @@ gem 'capistrano', '~> 2.15', :group => :development
 gem 'capistrano-ext', :group => :development
 gem 'rvm-capistrano', :group => :development
 
-gem 'capybara', '2.1.0', :group => [:test, :development] # TODO upgrade to '~> 2.0'
+gem 'capybara', '~> 2.2', :group => [:test, :development]
 gem 'capybara-screenshot', :group => [:test, :development]
 gem 'chunky_png', '~> 1.2'
 gem 'coffee-filter', '~> 0.1.1'
