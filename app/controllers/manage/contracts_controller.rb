@@ -68,19 +68,6 @@ class Manage::ContractsController < Manage::ApplicationController
     end
   end
 
-  def unapprove
-    if @contract.unapprove
-      respond_to do |format|
-        format.json { render :json => true, :status => 200  }
-      end
-    else
-      errors = @contract.errors.full_messages.uniq.join("\n")
-      respond_to do |format|
-        format.json { render :text => errors, :status => 500 }
-      end
-    end
-  end
-
   def reject
     if request.post? and params[:comment] and @contract.update_attributes(status: :rejected)
       Notification.order_rejected(@contract, params[:comment], true, current_user)

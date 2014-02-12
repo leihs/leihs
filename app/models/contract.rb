@@ -230,12 +230,6 @@ class Contract < ActiveRecord::Base
     end
   end
 
-  def unapprove
-    if status == :approved
-      update_attributes(status: :submitted)
-    end
-  end
-
   def submit(purpose_description = nil)
     # TODO relate to Application Settings (required_purpose)
     self.purpose = purpose_description if purpose_description
