@@ -44,7 +44,7 @@ gem 'mini_magick', '~> 3.4'
 gem 'mysql2', '~> 0.3.11', :platform => :mri
 gem 'net-ldap', '0.2.2', :require => 'net/ldap' # Never upgrade beyond 0.2.2, ruby-net-ldap has broken in many unpredictable ways. Wait for 1.0.0 before upgrading, at least 0.2.2 works.
 gem 'newrelic_rpm', '~> 3.5', :group => [:profiling, :development]
-gem 'paperclip'
+gem 'paperclip', '~> 3.5'
 gem 'phantomjs', '~> 1.6.0.0', :group => [:test, :development] # headless webdriver (UI & JS tests)
 gem 'poltergeist'
 gem 'pry', :group => [:test, :development]

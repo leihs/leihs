@@ -210,7 +210,7 @@ GEM
     nio4r (1.0.0)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
-    paperclip (4.1.0)
+    paperclip (3.5.3)
       activemodel (>= 3.0.0)
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
@@ -386,7 +386,7 @@ DEPENDENCIES
   mysql2 (~> 0.3.11)
   net-ldap (= 0.2.2)
   newrelic_rpm (~> 3.5)
-  paperclip
+  paperclip (~> 3.5)
   phantomjs (~> 1.6.0.0)
   poltergeist
   pry
