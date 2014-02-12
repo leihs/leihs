@@ -15,7 +15,7 @@ Given /^test data setup for scenario "Writing an unavailable inventory code"$/ d
 end
 
 When /^an unavailable inventory code is assigned to a contract line$/ do
-  @response = post "/manage/#{@inventory_pool.id}/contract_lines/assign", {:inventory_code => @item.inventory_code, :id => @line.id}
+  @response = post "/manage/#{@inventory_pool.id}/contract_lines/#{@line.id}/assign", {:inventory_code => @item.inventory_code}
 end
 
 Then /^the response from this action should be successful$/ do

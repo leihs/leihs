@@ -37,11 +37,6 @@ window.App.ContractLine.changeTimeRange = (lines, startDate, endDate)=>
     end_date: endDate
   .done => App.Contract.trigger "refresh"
 
-window.App.ContractLine.assign = (user, inventory_code)->
-  $.post("/manage/#{App.InventoryPool.current.id}/contract_lines/assign", {user_id: user.id, inventory_code: inventory_code})
-  .done (data)->
-    App.ContractLine.update data.id, data
-
 window.App.ContractLine.assignOrCreate = (data)->
   $.post("/manage/#{App.InventoryPool.current.id}/contract_lines/assign_or_create", data)
 

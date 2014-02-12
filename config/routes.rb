@@ -188,7 +188,6 @@ Leihs::Application.routes.draw do
       delete  "contract_lines",                        to: "contract_lines#destroy"
       post    "contract_lines/swap_user",              to: "contract_lines#swap_user"
       post    "contract_lines/assign_or_create",       to: "contract_lines#assign_or_create"
-      post    "contract_lines/assign",                 to: "contract_lines#assign"
       post    "contract_lines/change_time_range",      to: "contract_lines#change_time_range"
       post    "contract_lines/for_template",           to: "contract_lines#create_for_template"
       post    "contract_lines/:id/assign",             to: "contract_lines#assign"
