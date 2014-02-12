@@ -77,16 +77,14 @@ end
 Wenn(/^ich genau einen Verantwortlichen eintrage$/) do
   @responsible = @current_inventory_pool.users.not_as_delegations.sample
   find(".row.emboss", text: _("Responsible")).find("input[data-type='autocomplete']").set @responsible.name
-  find("ul.ui-autocomplete").click
+  find("ul.ui-autocomplete > li").click
 end
 
 Dann(/^ist die Delegation mit den aktuellen Informationen gespeichert$/) do
-  @delegation.reload.instance_eval do
-    name.should == @name
-    delegator_user.should == @responsible
-    delegated_users.each {|du| @delegated_users.include? du.name}
-    delegated_users.count == @delegated_users.count
-  end
+  delegation = User.find_by_firstname(@name)
+  delegation.delegator_user.should == @responsible
+  delegation.delegated_users.each {|du| @delegated_users.include? du.name}
+  delegation.delegated_users.count == @delegated_users.count
 end
 
 Wenn(/^ich nach einer Delegation suche$/) do
@@ -277,7 +275,7 @@ Dann(/^kann ich diese Delegation löschen$/) do
   line.find(".dropdown-toggle").hover
   find("[data-method='delete']").click
   page.has_selector? ".success"
-  @delegation.reload.should raise Exception
+  @delegation.reload.should raise ActiveRecord::RecordNotFound
 end
 
 Angenommen(/^ich in den Admin\-Bereich wechsle$/) do
