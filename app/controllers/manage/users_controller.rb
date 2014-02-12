@@ -99,7 +99,7 @@ class Manage::UsersController < Manage::ApplicationController
           flash.now[:error] = e.to_s
           @accessible_roles = get_accessible_roles_for_current_user
           @is_admin = should_be_admin
-          @delegation_type = true if @user.is_delegation
+          @delegation_type = true if params[:user].has_key? :delegator_user_id
           render action: :new
         end
       end
@@ -140,6 +140,7 @@ class Manage::UsersController < Manage::ApplicationController
         format.html do
           flash.now[:error] = e.to_s
           @accessible_roles = get_accessible_roles_for_current_user
+          @delegation_type = true if params[:user].has_key? :delegator_user_id
           render action: :new_in_inventory_pool
         end
       end

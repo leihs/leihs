@@ -80,11 +80,11 @@ Wenn(/^ich genau einen Verantwortlichen eintrage$/) do
   find("ul.ui-autocomplete > li").click
 end
 
-Dann(/^ist die Delegation mit den aktuellen Informationen gespeichert$/) do
+Dann(/^ist die neue Delegation mit den aktuellen Informationen gespeichert$/) do
   delegation = User.find_by_firstname(@name)
   delegation.delegator_user.should == @responsible
   delegation.delegated_users.each {|du| @delegated_users.include? du.name}
-  delegation.delegated_users.count == @delegated_users.count
+  delegation.delegated_users.count == (@delegated_users + [@resonsible]).uniq.count
 end
 
 Wenn(/^ich nach einer Delegation suche$/) do
@@ -280,4 +280,73 @@ end
 
 Angenommen(/^ich in den Admin\-Bereich wechsle$/) do
   click_link _("Admin")
+end
+
+Dann(/^kann ich dieser Delegation ausschliesslich Zugriff als Kunde zuteilen$/) do
+  roles = all("[name='access_right[role]'] option")
+  roles.size.should == 2
+  roles.include? "no_access"
+  roles.include? "customer"
+end
+
+Wenn(/^ich keinen Verantwortlichen zuteile$/) do
+  find("input[name='user[delegator_user_id]']", visible: false)["value"].should be_empty
+end
+
+Dann(/^ich keinen Namen angebe$/) do
+  find("input[name='user[firstname]']").set ""
+end
+
+Wenn(/^ich eine Delegation editiere$/) do
+  @delegation = User.find {|u| u.is_delegation and u.delegated_users.exists? }
+  visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @delegation)
+end
+
+Wenn(/^ich den Verantwortlichen ändere$/) do
+  @responsible = @current_inventory_pool.users.not_as_delegations.find {|u| u != @delegation.delegator_user }
+  find(".row.emboss", text: _("Responsible")).find("input[data-type='autocomplete']").set @responsible.name
+  find("ul.ui-autocomplete > li").click
+end
+
+Wenn(/^ich einen bestehenden Benutzer lösche$/) do
+  @delegated_users = @delegation.delegated_users
+  inline_user_entry = find(".row.emboss", text: _("Users")).find("[data-users-list] .row.line", match: :first)
+  @removed_delegated_user = User.find {|u| u.name == inline_user_entry.find("[data-user-name]").text}
+  inline_user_entry.find("button[data-remove-user]").click
+  @delegated_users.delete @removed_delegated_user
+end
+
+Wenn(/^ich der Delegation einen neuen Benutzer hinzufüge$/) do
+  find("[data-search-users]").set " "
+  find("ul.ui-autocomplete")
+  el = all("ul.ui-autocomplete > li").to_a.sample
+  @delegated_users << User.find {|u| u.name == el.text}
+  el.click
+end
+
+Dann(/^ist die bearbeitete Delegation mit den aktuellen Informationen gespeichert$/) do
+  @delegation.reload.delegator_user.should == @responsible
+  @delegation.delegated_users.each {|du| @delegated_users.include? du}
+  @delegation.delegated_users.count == (@delegated_users + [@responsible]).uniq.count
+end
+
+Wenn(/^ich eine Delegation mit Zugriff auf das aktuelle Gerätepark editiere$/) do
+  @delegation = @current_inventory_pool.users.find {|u| u.is_delegation and not u.visits.take_back.exists? and u.inventory_pools.count >= 2}
+  @delegation.should_not be_nil
+  visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @delegation)
+end
+
+Wenn(/^ich dieser Delegation den Zugriff für den aktuellen Gerätepark entziehe$/) do
+  @ip = @current_inventory_pool
+  select _("No access"), from: "access_right[role]"
+end
+
+Dann(/^können keine Bestellungen für diese Delegation für dieses Gerätepark erstellt werden$/) do
+  visit logout_path
+  step %Q(I am logged in as '#{@delegation.delegator_user.login}' with password 'password')
+  find(".dropdown-holder", text: @current_user.lastname).hover
+  find(".dropdown-item[href*='delegations']").click
+  find(".row.line", text: @delegation.name).click_link _("Switch to")
+  find(".topbar-item", text: _("Inventory Pools")).click
+  page.has_no_content? @ip.name
 end

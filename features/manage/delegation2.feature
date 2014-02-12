@@ -22,7 +22,7 @@ Funktionalität: Delegation
     Und ich kann dieser Delegation keine Delegation zuteile
     Und ich genau einen Verantwortlichen eintrage
     Und ich speichere
-    Dann ist die Delegation mit den aktuellen Informationen gespeichert
+    Dann ist die neue Delegation mit den aktuellen Informationen gespeichert
 
   @javascript
   Szenario: Delegation erhält Zugriff als Kunde

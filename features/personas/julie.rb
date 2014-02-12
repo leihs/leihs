@@ -94,6 +94,30 @@ module Persona
                                         zip: nil,
                                         language: nil)
       @delegation3.delegated_users << @julie
+
+      # delegation with access rights to more pools
+      @delegation4 = FactoryGirl.create(:user,
+                                        delegator_user: @mina,
+                                        firstname: Faker::Lorem.sentence,
+                                        lastname: nil,
+                                        login: nil,
+                                        phone: nil,
+                                        authentication_system: nil,
+                                        unique_id: nil,
+                                        email: nil,
+                                        badge_id: nil,
+                                        address: nil,
+                                        city: nil,
+                                        country: nil,
+                                        zip: nil,
+                                        language: nil)
+      @delegation4.delegated_users << @julie
+      @delegation4.access_rights.create(:role => :customer, :inventory_pool => @inventory_pool)
+      rand(1..3).times do
+        ip = FactoryGirl.create(:inventory_pool)
+        @delegation4.access_rights.create(:role => :customer, :inventory_pool => ip)
+        ip.items << FactoryGirl.create(:item)
+      end
     end
 
     def create_submitted_contracts
