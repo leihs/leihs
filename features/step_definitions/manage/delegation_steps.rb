@@ -350,3 +350,19 @@ Dann(/^können keine Bestellungen für diese Delegation für dieses Gerätepark 
   find(".topbar-item", text: _("Inventory Pools")).click
   page.has_no_content? @ip.name
 end
+
+Wenn(/^ich eine Bestellung für eine Delegationsgruppe erstelle$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Dann(/^bin ich die Kontaktperson für diesen Auftrag$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Wenn(/^ich die Gegenstände abhole$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Dann(/^bin ich die neue Kontaktperson dieses Auftrages$/) do
+  pending # express the regexp above with the code you wish you had
+end
