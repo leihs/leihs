@@ -259,16 +259,17 @@ Dann(/^kann ich nur diejenigen Delegationen wählen, die Zugriff auf meinen Ger�
 end
 
 Wenn(/^ich statt einer Delegation einen Benutzer wähle$/) do
+  @delegation = @contract.user
+  @delegated_user = @contract.delegated_user
+  @new_user = @current_inventory_pool.users.not_as_delegations.sample
+
   page.has_selector?("input[data-select-lines]", match: :first)
   all("input[data-select-lines]").select{|el| !el.checked?}.map(&:click)
   multibutton = first(".multibutton", text: _("Hand Over Selection"))
   multibutton ||= first(".multibutton", text: _("Edit Selection"))
   find("#swap-user", match: :first).click
   find(".modal", match: :first)
-  @delegation = @contract.user
-  @delegated_user = @contract.delegated_user
-  @new_user = @current_inventory_pool.users.not_as_delegations.sample
-  find("input#user-id", match: :first).set @new_user.name
+  find("#user input#user-id", match: :first).set @new_user.name
   find(".ui-menu-item a", match: :first).click
   find(".modal .button[type='submit']", match: :first).click
 end

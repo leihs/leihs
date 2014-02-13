@@ -15,11 +15,10 @@ class window.App.SwapUsersController extends Spine.Controller
     @modal = new App.Modal App.Render "manage/views/contracts/edit/swap_user_modal", @contract
     @el = @modal.el
     @searchSetUserController = new App.SearchSetUserController { el: @el.find("#user #swapped-person") }
-    debugger
     if @contract.user().isDelegation()
       @searchSetContactPersonController = new App.SearchSetUserController
         el: @el.find("#contact-person #swapped-person")
-        additionalSearchParams: { delegation_id: @contract.user().id }
+        additionalSearchParams: { delegation_id: @searchSetUserController.selectedUserId ? @contract.user().id }
     super
 
   delegateEvents: =>
