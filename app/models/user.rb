@@ -229,6 +229,7 @@ class User < ActiveRecord::Base
       contract = contracts.create(:status => :approved, :inventory_pool => inventory_pool, :note => inventory_pool.default_contract_note)
       reload
     end
+    contract.update_attributes(delegated_user: nil) # remove delegated user from contract, as it has to be explicitly chosen in the hand over process
     contract
   end
 
