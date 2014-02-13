@@ -28,7 +28,7 @@ Funktionalität: Delegation
   @javascript
   Szenario: Delegation in persönliche Bestellungen ändern in Aushändigung
     Angenommen ich bin Pius
-    Und ich öffne eine Aushändigung
+    Und ich öffne eine Aushändigung für eine Delegation
     Wenn ich statt einer Delegation einen Benutzer wähle
     Dann ist in der Aushändigung der Benutzer aufgeführt
 

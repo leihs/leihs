@@ -14,7 +14,10 @@ class window.App.SwapUsersController extends Spine.Controller
       data.contract
     @modal = new App.Modal App.Render "manage/views/contracts/edit/swap_user_modal", @contract
     @el = @modal.el
-    @searchSetUserController = new App.SearchSetUserController { el: @el.find("#user #swapped-person") }
+
+    @searchSetUserController = new App.SearchSetUserController
+      el: @el.find("#user #swapped-person")
+
     if @contract.user().isDelegation()
       @searchSetContactPersonController = new App.SearchSetUserController
         el: @el.find("#contact-person #swapped-person")

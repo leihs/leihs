@@ -259,18 +259,20 @@ Dann(/^kann ich nur diejenigen Delegationen wählen, die Zugriff auf meinen Ger�
 end
 
 Wenn(/^ich statt einer Delegation einen Benutzer wähle$/) do
+  @contract ||= @hand_over.lines.map(&:contract).uniq.first
   @delegation = @contract.user
   @delegated_user = @contract.delegated_user
   @new_user = @current_inventory_pool.users.not_as_delegations.sample
 
   page.has_selector?("input[data-select-lines]", match: :first)
-  all("input[data-select-lines]").select{|el| !el.checked?}.map(&:click)
+  all("input[data-select-lines]").each {|el| el.click unless el.checked?}
   multibutton = first(".multibutton", text: _("Hand Over Selection"))
   multibutton ||= first(".multibutton", text: _("Edit Selection"))
+  multibutton.find(".dropdown-toggle").hover if multibutton
   find("#swap-user", match: :first).click
   find(".modal", match: :first)
   find("#user input#user-id", match: :first).set @new_user.name
-  find(".ui-menu-item a", match: :first).click
+  find(".ui-menu-item a", match: :first, text: @new_user.name).click
   find(".modal .button[type='submit']", match: :first).click
 end
 
@@ -388,4 +390,16 @@ end
 
 Dann(/^bin ich die neue Kontaktperson dieses Auftrages$/) do
   pending # express the regexp above with the code you wish you had
+end
+
+Dann(/^ist in der Aushändigung der Benutzer aufgeführt$/) do
+  find(".content-wrapper", :text => @new_user.name, match: :first)
+  current_path.should == manage_hand_over_path(@current_inventory_pool, @new_user)
+  @delegation.visits.hand_over.should be_blank
+end
+
+Dann(/^ich öffne eine Aushändigung für eine Delegation$/) do
+  @hand_over = @current_inventory_pool.visits.hand_over.find {|v| v.user.is_delegation }
+  @delegation = @hand_over.user
+  visit manage_hand_over_path @current_inventory_pool, @delegation
 end
