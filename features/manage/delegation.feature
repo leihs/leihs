@@ -12,9 +12,9 @@ Funktionalität: Delegation
   @javascript
   Szenario: Auswahl der Kontaktperson in Bestellung ändern
     Angenommen ich bin Pius
-    Und ich befinde mich in einer Bestellung
-    Wenn ich versuche die Kontaktperson zu wechseln
-    Dann kann ich nur diejenigen Personen wählen, die zur Delegationsgruppe gehören
+    Und ich befinde mich in einer Bestellung von einer Delegation
+    Wenn ich versuche bei der Bestellung die Kontaktperson zu wechseln
+    Dann kann ich als Kontaktperson nur diejenigen Personen wählen, die zur Delegationsgruppe gehören
 
   @javascript
   Szenario: Delegation in persönliche Bestellungen ändern in Bestellung

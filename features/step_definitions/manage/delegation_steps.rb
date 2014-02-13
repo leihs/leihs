@@ -142,6 +142,12 @@ Angenommen(/^ich befinde mich in dieser Bestellung$/) do
   visit manage_edit_contract_path @current_inventory_pool, @contract
 end
 
+Angenommen(/^ich befinde mich in einer Bestellung von einer Delegation$/) do
+  @contract = @current_inventory_pool.contracts.find {|c| [:submitted, :approved].include? c.status and c.delegated_user and c.user.delegated_users.count >= 2}
+  @delegation = @contract.user
+  visit manage_edit_contract_path @current_inventory_pool, @contract
+end
+
 Dann(/^sehe ich den Namen der Delegation$/) do
   page.has_content? @contract.user.name
 end
@@ -220,12 +226,28 @@ Wenn(/^ich versuche die Kontaktperson zu wechseln$/) do
   @not_contact = @current_inventory_pool.users.find {|u| not @delegation.delegated_users.include? u}
 end
 
+Wenn(/^ich versuche bei der Bestellung die Kontaktperson zu wechseln$/) do
+  click_button "swap-user"
+  @contact = @delegation.delegated_users.sample
+  @not_contact = @current_inventory_pool.users.find {|u| not @delegation.delegated_users.include? u}
+end
+
 Dann(/^kann ich nur diejenigen Personen wählen, die zur Delegationsgruppe gehören$/) do
   find("input#user-id", match: :first).set @not_contact.name
   page.has_no_selector? ".ui-menu-item a"
   find("input#user-id", match: :first).set @contact.name
   find(".ui-menu-item a", match: :first, text: @contact.name).click
   find("#selected-user", text: @contact.name)
+end
+
+Dann(/^kann ich als Kontaktperson nur diejenigen Personen wählen, die zur Delegationsgruppe gehören$/) do
+  within "#contact-person" do
+    find("input#user-id", match: :first).set @not_contact.name
+    page.has_no_selector? ".ui-menu-item a"
+    find("input#user-id", match: :first).set @contact.name
+    find(".ui-menu-item a", match: :first, text: @contact.name).click
+    find("#selected-user", text: @contact.name)
+  end
 end
 
 Dann(/^kann ich nur diejenigen Delegationen wählen, die Zugriff auf meinen Gerätepark haben$/) do

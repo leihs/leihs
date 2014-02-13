@@ -10,7 +10,7 @@ window.App.Contract::approve_anyway = (comment)-> $.post "/manage/#{App.Inventor
 
 window.App.Contract::reject = (comment)-> $.post "/manage/#{App.InventoryPool.current.id}/contracts/#{@id}/reject", {comment: comment}
 
-window.App.Contract::swapUser = (user_id)-> $.post "/manage/#{App.InventoryPool.current.id}/contracts/#{@id}/swap_user", {user_id: user_id}
+window.App.Contract::swapUser = (user_id, delegated_user_id)-> $.post "/manage/#{App.InventoryPool.current.id}/contracts/#{@id}/swap_user", {user_id: user_id, delegated_user_id: delegated_user_id}
 
 window.App.Contract::sign = (data)-> $.post "#{App.InventoryPool.url}/#{App.InventoryPool.current.id}/contracts/#{@id}/sign", data
 
