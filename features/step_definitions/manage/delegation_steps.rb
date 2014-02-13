@@ -170,7 +170,7 @@ Dann(/^ich sehe keine Kontatkperson$/) do
 end
 
 Angenommen(/^es existiert eine Aushändigung für eine Delegation$/) do
-  @hand_over = @current_inventory_pool.visits.hand_over.find {|v| v.user.is_delegation }
+  @hand_over = @current_inventory_pool.visits.hand_over.find {|v| v.user.is_delegation and v.lines.any? &:item }
   @hand_over.should_not be_nil
 end
 
@@ -437,4 +437,16 @@ end
 
 Dann(/^ich bestätige den Benutzerwechsel$/) do
   find(".modal button[type='submit']").click
+end
+
+Wenn(/^ich die Gegenstände aushändige$/) do
+  line = find(".line[data-line-type='item_line'] input[id*='assigned-item']", match: :first).find(:xpath, "ancestor::div[@data-line-type]")
+  line.find("input[data-select-line]").click
+  first(".multibutton", text: _("Hand Over Selection")).find("button").click
+end
+
+Dann(/^muss ich eine Kontaktperson hinzufügen$/) do
+  find("button[data-hand-over]").click
+  page.has_selector? ".modal #contact-person"
+  find(".modal #error").text.should_not be_empty
 end

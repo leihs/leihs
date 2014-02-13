@@ -52,7 +52,7 @@ Funktionalität: Delegation
   @javascript
   Szenario: Aushändigen und eine Kontaktperson hinzufügen
     Angenommen ich bin Pius
-    Und ich öffne eine Aushändigung
+    Und ich öffne eine Aushändigung für eine Delegation
     Wenn ich die Gegenstände aushändige
     Dann muss ich eine Kontaktperson hinzufügen
 
