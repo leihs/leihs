@@ -54,11 +54,19 @@ Spine.Model.include.call App.ContractLine, App.Modules.LineProblems
 
 ## Prototype
 
-window.App.ContractLine::assign = (item)->
+window.App.ContractLine::assign = (item, callback)->
   $.post("/manage/#{App.InventoryPool.current.id}/contract_lines/#{@id}/assign", {inventory_code: item.inventory_code})
+  .fail (e)=>
+    App.Flash
+      type: "error"
+      message: e.responseText
   .done (data)=>
     @refresh data
     App.ContractLine.trigger "update", @
+    App.Flash
+      type: "success"
+      message: _jed "%s assigned to %s", [item.inventory_code, item.model().name]
+    do callback()
 
 window.App.ContractLine::removeAssignment = ->
   $.post("/manage/#{App.InventoryPool.current.id}/contract_lines/#{@id}/remove_assignment")
