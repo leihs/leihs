@@ -13,8 +13,8 @@ class Notification < ActiveRecord::Base
   def self.order_submitted(order, purpose, send_mail = false)
     o = Mailer::Order.submitted(order, purpose).deliver if send_mail
     title = (o.nil? ? _("Order submitted") : o.subject)
-    Notification.create(:user => order.user, :title => title)
-    order.log_history(title, order.user.id) if order.user
+    Notification.create(:user => order.target_user, :title => title)
+    order.log_history(title, order.target_user.id) if order.target_user
   end
 
   # Notify the person responsible for the inventory pool that an order
@@ -25,7 +25,7 @@ class Notification < ActiveRecord::Base
   end
   
   def self.order_approved(order, comment, send_mail = true, current_user = nil)
-    current_user ||= order.user
+    current_user ||= order.target_user
     if send_mail
       if order.has_changes?
         o = Mailer::Order.changed(order, comment).deliver
@@ -34,15 +34,15 @@ class Notification < ActiveRecord::Base
       end
     end
     title = (o.nil? ? _("Order approved") : o.subject)
-    Notification.create(:user => order.user, :title => title)
+    Notification.create(:user => order.target_user, :title => title)
     order.log_history(title, current_user.id)
   end
   
   def self.order_rejected(order, comment, send_mail = true, current_user = nil)
-    current_user ||= order.user
+    current_user ||= order.target_user
     o = Mailer::Order.rejected(order, comment).deliver if send_mail
     title = (o.nil? ? _("Order rejected") : o.subject)
-    Notification.create(:user => order.user, :title => title)
+    Notification.create(:user => order.target_user, :title => title)
     order.log_history(title, current_user.id)
   end
   

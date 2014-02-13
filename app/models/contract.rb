@@ -41,6 +41,14 @@ class Contract < ActiveRecord::Base
     "#{id}"
   end
 
+  def target_user
+    if user.is_delegation and delegated_user
+      delegated_user
+    else
+      user
+    end
+  end
+
   TIMEOUT_MINUTES = 30
 
 #########################################################################
@@ -224,7 +232,7 @@ class Contract < ActiveRecord::Base
         # can look up what happened
         logger.error "#{exception}\n    #{exception.backtrace.join("\n    ")}"
         self.errors.add(:base,
-                        _("The following error happened while sending a notification email to %{email}:\n") % { :user => user.email } +
+                        _("The following error happened while sending a notification email to %{email}:\n") % { :email => target_user.email } +
                             "#{exception}.\n" +
                             _("That means that the user probably did not get the approval mail and you need to contact him/her in a different way."))
       end
