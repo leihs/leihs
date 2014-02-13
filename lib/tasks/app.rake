@@ -9,8 +9,6 @@ namespace :app do
   desc "Run cucumber tests. Run leihs:test[0] to only test failed scenarios"
   task :test => 'test:run_all'
 
-<<<<<<< HEAD
-=======
   namespace :test do
 
     task :setup do
@@ -94,7 +92,6 @@ namespace :app do
 
     end
 
-
     task :jasmine do
       output = `guard-jasmine --server_timeout 120 2>&1` # Redirect STDERR to STDOUT so the `` construct captures it
       output.split("\n").each do |out|
@@ -104,8 +101,6 @@ namespace :app do
     end
   end
 
-
->>>>>>> Improving reruns.
   namespace :db do
 
     desc "Sync local application instance with test servers most recent database dump"
