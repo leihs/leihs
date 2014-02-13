@@ -36,27 +36,3 @@
             %strong
               {{>user().firstname}}
               {{>user().lastname}}
-
-    {{if user().isDelegation()}}
-    #contact-person.row.padding-vertical-m
-
-      .row.emboss.padding-inset-m
-
-        #swapped-person.col4of9.text-align-center
-
-          %input#user-id{:autocomplete => :off, :type => :text, :placeholder => "{{jed 'Contact person'/}} {{jed 'Name / ID'/}}", :autofocus => :autofocus, :"data-barcode-scanner-target" => true, :"data-prevent-barcode-scanner-submit" => true}
-
-          #selected-user
-
-        .col1of9.text-align-center
-          %i.icon-exchange.icon-size-xxl
-
-        .col4of9.text-align-center
-
-          {{if delegatedUser()}}
-          %p.paragraph-s.padding-top-xxs.margin-top-xxs
-            %strong
-              {{>delegatedUser().firstname}}
-              {{>delegatedUser().lastname}}
-          {{/if}}
-    {{/if}}

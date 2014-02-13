@@ -42,6 +42,7 @@ class window.App.SearchSetUserController extends Spine.Controller
     @input.attr "value", user.id
     @selectedUserId = user.id
     @selectedUser.html App.Render "manage/views/contracts/edit/swapped_user", user
+    @selectCallback?()
 
   removeUser: =>
     @input.show().val("").focus()

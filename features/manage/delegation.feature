@@ -37,8 +37,10 @@ Funktionalität: Delegation
     Angenommen ich bin Pius
     Und ich befinde mich in einer Bestellung
     Wenn ich statt eines Benutzers eine Delegation wähle
+    Und ich eine Kontaktperson aus der Delegation wähle
+    Und ich bestätige den Benutzerwechsel
     Dann ist in der Bestellung der Name der Delegation aufgeführt
-    Und der Besteller wird als Kontaktperson angezeigt
+    Und ist in der Bestellung der Name der Kontaktperson aufgeführt
 
   @javascript
   Szenario: Persönliche Bestellung in Delegationsbestellung ändern in Aushändigung
