@@ -88,8 +88,7 @@ Dann(/^sehe ich alle visierpflichtigen Bestellungen$/) do
 end
 
 Dann(/^diese Bestellungen sind nach Erstelltdatum aufgelistet$/) do
-  @contracts.order("created_at DESC").first.id.to_s.should == all("[data-type='contract']").first["data-id"]
-  @contracts.order("created_at DESC").last.id.to_s.should == all("[data-type='contract']").last["data-id"]
+  @contracts.order("created_at DESC").map{|c| c.id.to_s }.should == all("[data-type='contract']").map{|x| x["data-id"]}
 end
 
 Dann(/^sehe ich alle offenen visierpflichtigen Bestellungen$/) do
@@ -169,10 +168,6 @@ Dann(/^sehe ich alle abgelehnten visierpflichtigen Bestellungen$/) do
   @line_css =  "[data-type='contract'][data-id='#{@contract.id}']"
 end
 
-Angenommen(/^ich sehe alle visierpflichtigen Bestellungen$/) do
-  step "sehe ich alle visierpflichtigen Bestellungen"
-end
-
 Wenn(/^ich den Filter "(.*?)" aufhebe$/) do |filter|
   uncheck filter
 end
@@ -186,4 +181,53 @@ end
 Dann(/^ist die Bestellung wieder im Status noch nicht genehmigt$/) do
   find(@line_css).has_text? _("Approved")
   @contract.reload.status.should == :submitted
+end
+
+Dann(/^ich eine bereits gehmigte Bestellung editiere$/) do
+  find("#contracts .line[data-id]", match: :first)
+  within all("#contracts .line[data-id]").sample do
+    a = find("a", text: _("Editieren"))
+    @target_url = a[:href]
+    a.click
+  end
+end
+
+Dann(/^gelange ich in die Ansicht der Aushändigung$/) do
+  find("#hand-over-view")
+  current_url.should == @target_url
+end
+
+Aber(/^ich kann nicht aushändigen$/) do
+  find("[data-line-type='item_line']", match: :first)
+  all("[data-line-type='item_line'] input[type='checkbox'][checked]").each &:click
+  unless page.has_selector?("[data-hand-over-selection][disabled]")
+    find("[data-hand-over-selection]").click
+    find("#purpose").set Faker::Lorem.paragraph
+    find("#note").set Faker::Lorem.paragraph
+    find("button.green[data-hand-over]").click
+    find("#error", text: _("You don't have permission"))
+  end
+end
+
+Dann(/^ich kann Modelle hinzufügen$/) do
+  model = @current_inventory_pool.models.sample
+  find("input#assign-or-add-input").set model.to_s
+  find("form#assign-or-add .ui-menu-item a:not(.red)", match: :first).click
+  find("#flash .notice", text: _("Added %s") % model)
+end
+
+Dann(/^ich kann Optionen hinzufügen$/) do
+  option = @current_inventory_pool.options.sample
+  find("input#assign-or-add-input").set option.to_s
+  find("form#assign-or-add .ui-menu-item a", match: :first).click
+  find("#flash .notice", text: _("Added %s") % option)
+end
+
+Aber(/^ich kann keine Gegenstände zuteilen$/) do
+  find("[data-line-type='item_line']", match: :first)
+  within all("[data-line-type='item_line']").sample do
+    find("input[data-assign-item]").click
+    find("li.ui-menu-item a", match: :first).click
+  end
+  find("#flash .error", text: _("You don't have permission"))
 end

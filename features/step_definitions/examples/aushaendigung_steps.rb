@@ -39,25 +39,30 @@ end
 Wenn(/^ich dem nicht problematischen Modell einen Inventarcode zuweise$/) do
   @contract_line = @hand_over.lines.find {|l| !l.start_date.past? and !l.item and @models_in_stock.include?(l.model) }
   @line_css = ".line[data-id='#{@contract_line.id}']"
-  find(@line_css).find("input[data-assign-item]").click
-  find(@line_css).find("li.ui-menu-item a", match: :first).click
+  within @line_css do
+    find("input[data-assign-item]").click
+    find("li.ui-menu-item a", match: :first).click
+  end
 end
 
 Dann(/^wird der Gegenstand der Zeile zugeteilt$/) do
+  find("#flash")
   @contract_line.reload.item.should_not be_nil
 end
 
-Dann(/^die Zeile wird selektiert$/) do
+Dann(/^die Zeile wird selektiert|wird die Zeile selektiert$/) do
   find(@line_css).find("input[type=checkbox]").should be_checked
 end
 
-Dann(/^die Zeile wird grün markiert$/) do
+Dann(/^die Zeile wird grün markiert|wird die Zeile grün markiert$/) do
   find(@line_css).native.attribute("class").should include "green"
 end
 
 Wenn(/^ich die Zeile deselektiere$/) do
-  find(@line_css).find("input[type=checkbox]").click
-  find(@line_css).find("input[type=checkbox]").should_not be_checked
+  within @line_css do
+    find("input[type=checkbox]").click
+    find("input[type=checkbox]").should_not be_checked
+  end
 end
 
 Dann(/^ist die Zeile nicht mehr grün eingefärbt$/) do
@@ -65,12 +70,10 @@ Dann(/^ist die Zeile nicht mehr grün eingefärbt$/) do
 end
 
 Wenn(/^ich die Zeile wieder selektiere$/) do
-  find(@line_css).find("input[type=checkbox]").click
-  find(@line_css).find("input[type=checkbox]").should be_checked
-end
-
-Dann(/^wird die Zeile grün markiert$/) do
-  find(@line_css).native.attribute("class").should include "green"
+  within @line_css do
+    find("input[type=checkbox]").click
+    find("input[type=checkbox]").should be_checked
+  end
 end
 
 Wenn(/^ich den zugeteilten Gegenstand auf der Zeile entferne$/) do
@@ -88,10 +91,6 @@ Wenn(/^ich eine Option hinzufüge$/) do
   find("#flash")
   cl_id = @hand_over.user.contracts.approved.flat_map(&:lines).find{|l| l.item == @option}.id
   @line_css = ".line[data-id='#{cl_id}']"
-end
-
-Dann(/^wird die Zeile selektiert$/) do
-  step "die Zeile wird selektiert"
 end
 
 Angenommen(/^es gibt eine Aushändigung mit mindestens einer problematischen Linie$/) do

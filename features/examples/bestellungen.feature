@@ -55,8 +55,8 @@ Funktionalität: Bestellungen
     Und ich sehe auf der Bestellungszeile die Dauer der Bestellung
     Und ich sehe auf der Bestellungszeile den Status
     Und ich eine bereits gehmigte Bestellung editiere
-    Dann gelange ich in die Ansicht der Aushändigung
-    Und ich kann keine Bestellungen aushändigen
+    Und gelange ich in die Ansicht der Aushändigung
+    Aber ich kann nicht aushändigen
 
   @javascript
   Szenario: Reiter "Abgelehnt" Darstellung
@@ -74,7 +74,7 @@ Funktionalität: Bestellungen
   Szenario: Filter zum visieren aufheben
     Angenommen ich bin Andi
     Und ich mich auf der Liste der Bestellungen befinde
-    Und ich sehe alle visierpflichtigen Bestellungen
+    Und sehe ich alle visierpflichtigen Bestellungen
     Wenn ich den Filter "Zu prüfen" aufhebe
     Dann sehe ich alle Bestellungen, welche von Benutzern der visierpflichtigen Gruppen erstellt wurden
 
@@ -88,5 +88,5 @@ Funktionalität: Bestellungen
     Und ich kann Modelle hinzufügen
     Und ich kann Optionen hinzufügen
     Aber ich kann keine Gegenstände zuteilen
-    Und ich kann keine Bestellungen aushändigen
+    Und ich kann nicht aushändigen
 

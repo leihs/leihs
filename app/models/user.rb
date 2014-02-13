@@ -173,10 +173,6 @@ class User < ActiveRecord::Base
 
 ################################################
 
-  def things_to_return
-    contract_lines.to_take_back.sort {|a,b| a.end_date <=> b.end_date }
-  end
-
   # get or create a new unsubmitted contract for a specific inventory_pool
   def get_unsubmitted_contract(inventory_pool)
     contract = contracts.unsubmitted.where(inventory_pool_id: inventory_pool).first
