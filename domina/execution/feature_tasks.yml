@@ -739,10 +739,6 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/manage/delegation6.feature"
-- name: manage/delegation7
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/delegation7.feature"
 - name: manage/linegroup/selection
   scripts:
     cucumber:
