@@ -12,22 +12,8 @@ class Setting < ActiveRecord::Base
     singleton = first # fetch the singleton from the database
     return unless singleton
     silence_warnings do
-      [:smtp_address,
-       :smtp_port,
-       :smtp_domain,
-       :smtp_username,
-       :smtp_password,
-       :mail_delivery_method,
-       :local_currency_string,
-       :contract_terms,
-       :contract_lending_party_string,
-       :email_signature,
-       :default_email,
-       :deliver_order_notifications,
-       :user_image_url,
-       :ldap_config,
-       :logo_url].each do |k|
-        Setting.const_set k.to_s.upcase, singleton.send(k) if singleton.methods.include?(k)
+      (attribute_names - ["id"]).sort.each do |k|
+        Setting.const_set k.upcase, singleton.send(k.to_sym) if singleton.methods.include?(k.to_sym)
       end
     end
   end

@@ -18,19 +18,22 @@
             %button.button.green{:type => :submit}= _("Save %s") % _("Settings")
 
         .row.margin-vertical-s
-          - @setting.attributes.each_pair do |k,v|
+          - Hash[@setting.attributes.sort].each_pair do |k,v|
             - next if k == "id"
             .padding-bottom-xxs
               .row.emboss.padding-inset-s
                 .col1of2
                   %strong.font-size-m= k
                 .col1of2
-                  - case Setting.columns_hash[k].type
-                    - when :string
-                      = f.text_field k, :class => "width-full"
-                    - when :text
-                      = f.text_area k, rows: 8, :class => "width-full"
-                    - when :integer
-                      = f.number_field k, :class => "width-full"
-                    - when :boolean
-                      = f.check_box k, :class => "width-full"
+                  - if k == "time_zone"
+                    = f.time_zone_select k
+                  - else
+                    - case Setting.columns_hash[k].type
+                      - when :string
+                        = f.text_field k, :class => "width-full"
+                      - when :text
+                        = f.text_area k, rows: 8, :class => "width-full"
+                      - when :integer
+                        = f.number_field k, :class => "width-full"
+                      - when :boolean
+                        = f.check_box k, :class => "width-full"
