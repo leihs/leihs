@@ -220,6 +220,7 @@ end
 Wenn(/^ich versuche die Kontaktperson zu wechseln$/) do
   page.has_selector?("input[data-select-lines]", match: :first)
   all("input[data-select-lines]").select{|el| !el.checked?}.map(&:click)
+  binding.pry
   find("button", text: _("Hand Over Selection")).click
   @delegation = @hand_over.user
   @contact = @delegation.delegated_users.sample
@@ -240,7 +241,7 @@ Dann(/^kann ich nur diejenigen Personen wählen, die zur Delegationsgruppe gehö
   find("#selected-user", text: @contact.name)
 end
 
-Dann(/^kann ich als Kontaktperson nur diejenigen Personen wählen, die zur Delegationsgruppe gehören$/) do
+Dann(/^kann ich bei der Bestellung als Kontaktperson nur diejenigen Personen wählen, die zur Delegationsgruppe gehören$/) do
   within "#contact-person" do
     find("input#user-id", match: :first).set @not_contact.name
     page.has_no_selector? ".ui-menu-item a"
