@@ -17,30 +17,11 @@ Funktionalität: Delegation
     Dann kann ich bei der Bestellung als Kontaktperson nur diejenigen Personen wählen, die zur Delegationsgruppe gehören
 
   @javascript
-  Szenario: Delegation in persönliche Bestellungen ändern in Bestellung
-    Angenommen ich bin Pius
-    Und es wurde für eine Delegation eine Bestellung erstellt
-    Und ich befinde mich in dieser Bestellung
-    Wenn ich statt einer Delegation einen Benutzer wähle
-    Dann ist in der Bestellung der Benutzer aufgeführt
-    Und es ist keine Kontaktperson aufgeführt
-
-  @javascript
   Szenario: Delegation in persönliche Bestellungen ändern in Aushändigung
     Angenommen ich bin Pius
     Und ich öffne eine Aushändigung für eine Delegation
     Wenn ich statt einer Delegation einen Benutzer wähle
     Dann ist in der Aushändigung der Benutzer aufgeführt
-
-  @javascript
-  Szenario: Persönliche Bestellung in Delegationsbestellung ändern in Bestellung
-    Angenommen ich bin Pius
-    Und ich befinde mich in einer Bestellung
-    Wenn ich statt eines Benutzers eine Delegation wähle
-    Und ich eine Kontaktperson aus der Delegation wähle
-    Und ich bestätige den Benutzerwechsel
-    Dann ist in der Bestellung der Name der Delegation aufgeführt
-    Und ist in der Bestellung der Name der Kontaktperson aufgeführt
 
   @javascript
   Szenario: Persönliche Bestellung in Delegationsbestellung ändern in Aushändigung

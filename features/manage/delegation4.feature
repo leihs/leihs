@@ -4,11 +4,11 @@ Funktionalität: Delegation
 
   @javascript
   Szenario: Delegation löschen
-    Angenommen ich bin Pius
+    Angenommen ich bin Gino
     Und ich in den Admin-Bereich wechsle
     Und ich befinde mich im Reiter 'Benutzer'
     Wenn keine Bestellung, Aushändigung oder ein Vertrag für eine Delegation besteht
-    Und wenn für diese Delegation keine Zugriffsrechte für andere Geräteparks bestehen
+    Und wenn für diese Delegation keine Zugriffsrechte für irgendwelches Gerätepark bestehen
     Dann kann ich diese Delegation löschen
 
   #  ANZEIGE BACKEND
@@ -26,9 +26,9 @@ Funktionalität: Delegation
     Angenommen ich bin Julie
     Wenn ich eine Bestellung für eine Delegationsgruppe erstelle
     Dann bin ich die Kontaktperson für diesen Auftrag
-    Angenommen ich bin Mina
-    Wenn ich die Gegenstände abhole
-    Dann bin ich die neue Kontaktperson dieses Auftrages
+    Angenommen ich bin Pius
+    Wenn ich die Gegenstände für die Delegation an "Mina" aushändige
+    Dann ist "Mina" die neue Kontaktperson dieses Auftrages
 
   @javascript
   Szenario: Anzeige der Bestellungen einer persönlichen Bestellung

@@ -101,7 +101,7 @@ Dann(/^werden mir im Tooltipp der Name und der Verantwortliche der Delegation an
 end
 
 Dann(/^werden mir die Delegationen angezeigt, denen ich zugeteilt bin$/) do
-  @current_user.delegations.each do |delegation|
+  @current_user.delegations.customers.each do |delegation|
     find(".line strong", match: :prefer_exact, text: delegation.to_s)
   end
 end
@@ -109,8 +109,8 @@ end
 Wenn(/^ich eine Delegation wähle$/) do
   within(all(".line").to_a.sample) do
     id = find(".line-actions a.button")[:href].gsub(/.*\//, '')
-    @delegation = @current_user.delegations.find(id)
-    find("strong", match: :prefer_exact, text: @new_delegation.to_s)
+    @delegation = @current_user.delegations.customers.find(id)
+    find("strong", match: :prefer_exact, text: @delegation.to_s)
     find(".line-actions a.button").click
   end
 end
@@ -185,23 +185,23 @@ end
 
 Wenn(/^ich die Delegation wechsle$/) do
   page.has_selector?("input[data-select-lines]", match: :first)
-  all("input[data-select-lines]").select{|el| !el.checked?}.map(&:click)
-  multibutton = find(".multibutton", text: _("Hand Over Selection"))
+  all("input[data-select-lines]").each {|el| el.click unless el.checked?}
+  multibutton = first(".multibutton", text: _("Hand Over Selection"))
+  multibutton ||= first(".multibutton", text: _("Edit Selection"))
   multibutton.find(".dropdown-toggle").hover
   find("#swap-user", match: :first).click
   find(".modal", match: :first)
-  @old_delegation = @hand_over.user
+  @contract ||= @hand_over.lines.map(&:contract).uniq.first
+  @old_delegation = @contract.user
   @new_delegation = @current_inventory_pool.users.find {|u| u.is_delegation and u.firstname != @old_delegation.firstname}
   find("input#user-id", match: :first).set @new_delegation.name
   find(".ui-menu-item a", match: :first).click
-  find(".modal .button[type='submit']", match: :first).click
-  find(".content-wrapper", :text => @new_delegation.name, match: :first)
-  @hand_over.lines.reload.map(&:contracts).uniq.all? {|c| c.user == @new_delegation }
+  @contract.lines.reload.all? {|c| c.user == @new_delegation }
 end
 
 Wenn(/^ich versuche die Delegation zu wechseln$/) do
   page.has_selector?("input[data-select-lines]", match: :first)
-  all("input[data-select-lines]").select{|el| !el.checked?}.map(&:click)
+  all("input[data-select-lines]").each {|el| el.click unless el.checked?}
   multibutton = first(".multibutton", text: _("Hand Over Selection"))
   multibutton ||= first(".multibutton", text: _("Edit Selection"))
   multibutton.find(".dropdown-toggle").hover
@@ -219,8 +219,7 @@ end
 
 Wenn(/^ich versuche die Kontaktperson zu wechseln$/) do
   page.has_selector?("input[data-select-lines]", match: :first)
-  all("input[data-select-lines]").select{|el| !el.checked?}.map(&:click)
-  binding.pry
+  all("input[data-select-lines]").each {|el| el.click unless el.checked?}
   find("button", text: _("Hand Over Selection")).click
   @delegation = @hand_over.user
   @contact = @delegation.delegated_users.sample
@@ -245,6 +244,15 @@ Dann(/^kann ich bei der Bestellung als Kontaktperson nur diejenigen Personen wä
   within "#contact-person" do
     find("input#user-id", match: :first).set @not_contact.name
     page.has_no_selector? ".ui-menu-item a"
+    find("input#user-id", match: :first).set @contact.name
+    find(".ui-menu-item a", match: :first, text: @contact.name).click
+    find("#selected-user", text: @contact.name)
+  end
+end
+
+Wenn(/^ich die Kontaktperson wechsle$/) do
+  @contact ||= (@delegation or @new_delegation).delegated_users.sample
+  within "#contact-person" do
     find("input#user-id", match: :first).set @contact.name
     find(".ui-menu-item a", match: :first, text: @contact.name).click
     find("#selected-user", text: @contact.name)
@@ -287,11 +295,11 @@ Dann(/^es ist keine Kontaktperson aufgeführt$/) do
 end
 
 Wenn(/^keine Bestellung, Aushändigung oder ein Vertrag für eine Delegation besteht$/) do
-  @delegations = @current_inventory_pool.users.as_delegations.select {|d| d.contracts.blank?}
+  @delegations = User.as_delegations.select {|d| d.contracts.blank?}
 end
 
-Wenn(/^wenn für diese Delegation keine Zugriffsrechte für andere Geräteparks bestehen$/) do
-  @delegation = @delegations.find {|d| d.access_rights.count == 1 and d.access_right_for @current_inventory_pool}
+Wenn(/^wenn für diese Delegation keine Zugriffsrechte für irgendwelches Gerätepark bestehen$/) do
+  @delegation = @delegations.find {|d| d.access_rights.empty?}
   @delegation.should_not be_nil
 end
 
@@ -301,7 +309,7 @@ Dann(/^kann ich diese Delegation löschen$/) do
   line.find(".dropdown-toggle").hover
   find("[data-method='delete']").click
   page.has_selector? ".success"
-  @delegation.reload.should raise ActiveRecord::RecordNotFound
+  lambda{ @delegation.reload }.should raise_error ActiveRecord::RecordNotFound
 end
 
 Angenommen(/^ich in den Admin\-Bereich wechsle$/) do
@@ -378,19 +386,42 @@ Dann(/^können keine Bestellungen für diese Delegation für dieses Gerätepark 
 end
 
 Wenn(/^ich eine Bestellung für eine Delegationsgruppe erstelle$/) do
-  pending # express the regexp above with the code you wish you had
+  steps %{
+    Wenn ich über meinen Namen fahre
+    Und ich auf "Delegationen" drücke
+    Dann werden mir die Delegationen angezeigt, denen ich zugeteilt bin
+    Wenn ich eine Delegation wähle
+    Dann wechsle ich die Anmeldung zur Delegation
+    Wenn ich habe Gegenstände der Bestellung hinzugefügt
+    Und ich die Bestellübersicht öffne
+    Und ich einen Zweck eingebe
+    Und ich die Bestellung abschliesse
+    Dann ändert sich der Status der Bestellung auf Abgeschickt
+    Und die Delegation ist als Besteller gespeichert
+  }
 end
 
 Dann(/^bin ich die Kontaktperson für diesen Auftrag$/) do
-  pending # express the regexp above with the code you wish you had
+  step "ich werde als Kontaktperson hinterlegt"
 end
 
-Wenn(/^ich die Gegenstände abhole$/) do
-  pending # express the regexp above with the code you wish you had
+Wenn(/^ich die Gegenstände für die Delegation an "(.*?)" aushändige$/) do |contact_person|
+  @contract = @delegation.contracts.submitted.first
+  @contract.approve Faker::Lorem.sentence
+  visit manage_hand_over_path(@current_inventory_pool, @delegation)
+  page.has_selector?("input[data-assign-item]")
+  all("input[data-assign-item]").detect{|el| not el.disabled?}.click
+  find(".ui-autocomplete .ui-menu-item", match: :first).click
+  has_selector? "[data-remove-assignment]"
+  find(".multibutton button[data-hand-over-selection]").click
+  @contact = User.find_by_login(contact_person.downcase)
+  step "ich die Kontaktperson wechsle"
+  find("button[data-hand-over]").click
+  page.has_no_selector? ".modal button[data-hand-over]"
 end
 
-Dann(/^bin ich die neue Kontaktperson dieses Auftrages$/) do
-  pending # express the regexp above with the code you wish you had
+Dann(/^ist "(.*?)" die neue Kontaktperson dieses Auftrages$/) do |contact_person|
+  @delegation.contracts.signed.first.delegated_user.should == @contact
 end
 
 Dann(/^ist in der Aushändigung der Benutzer aufgeführt$/) do
@@ -443,11 +474,15 @@ end
 Wenn(/^ich die Gegenstände aushändige$/) do
   line = find(".line[data-line-type='item_line'] input[id*='assigned-item']", match: :first).find(:xpath, "ancestor::div[@data-line-type]")
   line.find("input[data-select-line]").click
-  first(".multibutton", text: _("Hand Over Selection")).find("button").click
+  find(".multibutton", text: _("Hand Over Selection")).find("button").click
 end
 
 Dann(/^muss ich eine Kontaktperson hinzufügen$/) do
   find("button[data-hand-over]").click
   page.has_selector? ".modal #contact-person"
   find(".modal #error").text.should_not be_empty
+end
+
+Dann(/^die neu gewählte Kontaktperson wird gespeichert$/) do
+  @contract.reload.delegated_user.should == @contact
 end

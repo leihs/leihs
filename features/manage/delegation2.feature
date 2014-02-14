@@ -31,3 +31,13 @@ Funktionalität: Delegation
     Und ich befinde mich im Reiter 'Benutzer'
     Wenn ich eine neue Delegation erstelle
     Dann kann ich dieser Delegation ausschliesslich Zugriff als Kunde zuteilen
+
+  @javascript
+  Szenario: Delegation in persönliche Bestellungen ändern in Bestellung
+    Angenommen ich bin Pius
+    Und es wurde für eine Delegation eine Bestellung erstellt
+    Und ich befinde mich in dieser Bestellung
+    Wenn ich statt einer Delegation einen Benutzer wähle
+    Dann ist in der Bestellung der Benutzer aufgeführt
+    Und es ist keine Kontaktperson aufgeführt
+

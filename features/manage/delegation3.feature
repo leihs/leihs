@@ -37,3 +37,13 @@ Funktionalität: Delegation
     Und ich dieser Delegation den Zugriff für den aktuellen Gerätepark entziehe
     Und ich speichere
     Dann können keine Bestellungen für diese Delegation für dieses Gerätepark erstellt werden
+
+  @javascript
+  Szenario: Persönliche Bestellung in Delegationsbestellung ändern in Bestellung
+    Angenommen ich bin Pius
+    Und ich befinde mich in einer Bestellung
+    Wenn ich statt eines Benutzers eine Delegation wähle
+    Und ich eine Kontaktperson aus der Delegation wähle
+    Und ich bestätige den Benutzerwechsel
+    Dann ist in der Bestellung der Name der Delegation aufgeführt
+    Und ist in der Bestellung der Name der Kontaktperson aufgeführt

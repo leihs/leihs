@@ -9,7 +9,7 @@ class Borrow::UsersController < Borrow::ApplicationController
   end
 
   def delegations
-    @delegations = current_user.delegations
+    @delegations = current_user.delegations.customers
   end
 
   def switch_to_delegation

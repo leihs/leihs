@@ -17,6 +17,7 @@ class window.App.HandOverDialogController extends Spine.Controller
       @searchSetUserController = new App.SearchSetUserController
         el: @el.find("#contact-person")
         additionalSearchParams: { delegation_id: @user.id }
+        selectCallback: => @contract.delegated_user_id = @searchSetUserController.selectedUserId
       super
       do @autoFocus
     else
@@ -74,11 +75,12 @@ class window.App.HandOverDialogController extends Spine.Controller
 
   handOver: =>
     @purpose = @purposeTextArea.val() unless @purpose.length
-    if @validatePurpose()
+    if @validatePurpose() and @validateDelegatedUser()
       @contract.sign
         line_ids: _.map(@lines, (l)->l.id)
         purpose: @purposeTextArea.val()
         note: @noteTextArea.val()
+        delegated_user_id: @contract.delegatedUser()?.id
       .fail (e)=>
         @errorContainer.find("strong").html(e.responseText)
         @errorContainer.removeClass("hidden")
