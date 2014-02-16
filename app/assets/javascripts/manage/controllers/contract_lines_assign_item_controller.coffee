@@ -60,14 +60,11 @@ class window.App.ContractLineAssignItemController extends Spine.Controller
   assignItem: (input, item)=>
     input.blur()
     input.autocomplete "destroy"
-    input.val item.inventory_code
-    input.attr "disabled", true
     contractLine = App.ContractLine.find input.closest("[data-id]").data("id")
-    contractLine.assign item
-    App.LineSelectionController.add contractLine.id
-    App.Flash
-      type: "success"
-      message: _jed "%s assigned to %s", [item.inventory_code, item.model().name]
+    contractLine.assign item, =>
+      input.val item.inventory_code
+      input.attr "disabled", true
+      App.LineSelectionController.add contractLine.id
 
   removeAssignment: (e)=>
     target = $ e.currentTarget

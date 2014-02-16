@@ -127,3 +127,12 @@ def change_line_start_date(line, days = 2)
   step 'I save the booking calendar'
   new_start_date
 end
+
+def hover_for_tooltip(target)
+  sleep(0.99) # wait for potential previous tooltips
+  find("footer").click # move mouse somewhere else to ensure its currently not over the target
+  target.click
+  target.click
+  sleep(0.99) # wait for the css transition
+  all(".tooltipster-content") # there should be just one
+end

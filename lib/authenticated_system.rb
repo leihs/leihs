@@ -27,8 +27,13 @@ module AuthenticatedSystem
     # to access the requested action.  For example, a popup window might
     # simply close itself.
     def access_denied
-      store_location
-      redirect_to login_path
+      if request.get?
+        store_location
+        redirect_to login_path
+      else
+        # NOTE in case of post requests
+        render status: :method_not_allowed, text: _("You don't have permission")
+      end
     end
 
     # Store the URI of the current request in the session.

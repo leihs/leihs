@@ -70,15 +70,19 @@ class window.App.HandOverDialogController extends Spine.Controller
   handOver: =>
     @purpose = @purposeTextArea.val() unless @purpose.length
     if @validatePurpose()
-      @modal.undestroyable()
-      @modal.el.detach()
       @contract.sign
         line_ids: _.map(@lines, (l)->l.id)
         purpose: @purposeTextArea.val()
         note: @noteTextArea.val()
-      .done => new App.DocumentsAfterHandOverController
-        contract: @contract
-        itemsCount: @itemsCount
+      .fail (e)=>
+        @errorContainer.find("strong").html(e.responseText)
+        @errorContainer.removeClass("hidden")
+      .done =>
+        @modal.undestroyable()
+        @modal.el.detach()
+        new App.DocumentsAfterHandOverController
+          contract: @contract
+          itemsCount: @itemsCount
 
   validatePurpose: => 
     unless @purpose.length

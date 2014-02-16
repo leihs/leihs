@@ -277,8 +277,7 @@ Dann /^werden alle diese Gegenstände aufgelistet$/ do
 end
 
 Dann /^man sieht pro Modell eine Zeile$/ do
-  all("button[data-collapsed-toggle]").each(&:click)
-  hover_for_tooltip @lines.to_a.sample
+  step 'werden alle diese Gegenstände aufgelistet'
   within(".tooltipster-default", match: :first, :visible => true) do
     find(".exclude-last-child", match: :first)
     all(".exclude-last-child").each do |div|
@@ -289,8 +288,7 @@ Dann /^man sieht pro Modell eine Zeile$/ do
 end
 
 Dann /^man sieht auf jeder Zeile die Summe der Gegenstände des jeweiligen Modells$/ do
-  all("button[data-collapsed-toggle]").each(&:click)
-  hover_for_tooltip @lines.to_a.sample
+  step 'werden alle diese Gegenstände aufgelistet'
   find(".tooltipster-default .row .col1of8:nth-child(1)", match: :first)
   quantities = find(".tooltipster-default", match: :first, :visible => true).all(".row .col1of8:nth-child(1)", text: /.+/).map{|x| x.text.to_i}
   quantities.sum.should >= quantities.size

@@ -72,11 +72,7 @@ class Manage::ContractLinesController < Manage::ApplicationController
 
   def assign
     item = current_inventory_pool.items.find_by_inventory_code params[:inventory_code]
-    line = if params[:id]
-      current_inventory_pool.contract_lines.to_hand_over.find params[:id]
-    else
-      current_inventory_pool.users.find(params[:user_id]).contract_lines.to_hand_over.where(:model_id => item.model_id).first
-    end
+    line = current_inventory_pool.contract_lines.to_hand_over.find params[:id]
 
     if item and line and line.model_id == item.model_id
       @error = {:message => line.errors.full_messages.uniq.join(', ')} unless line.update_attributes(item: item)

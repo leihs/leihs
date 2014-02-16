@@ -6,8 +6,6 @@ window.App.Contract.url = => "#{App.InventoryPool.url}/#{App.InventoryPool.curre
 
 window.App.Contract::approve = (comment)-> $.post "/manage/#{App.InventoryPool.current.id}/contracts/#{@id}/approve", {comment: comment}
 
-window.App.Contract::unapprove = -> $.post "/manage/#{App.InventoryPool.current.id}/contracts/#{@id}/unapprove"
-
 window.App.Contract::approve_anyway = (comment)-> $.post "/manage/#{App.InventoryPool.current.id}/contracts/#{@id}/approve", {force: true, comment: comment}
 
 window.App.Contract::reject = (comment)-> $.post "/manage/#{App.InventoryPool.current.id}/contracts/#{@id}/reject", {comment: comment}

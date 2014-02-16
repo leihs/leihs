@@ -13,7 +13,7 @@
           %h2.headline-m.light= @model.manufacturer
         .col1of3.text-align-right
           %button.button.white{:"data-create-order-line" => true, :"data-model-id" => @model.id}
-            Zur Bestellung hinzufügen
+            = _("Add to order")
             %span.separated-left.padding-left-xs.margin-left-xxs
               %i.icon-plus.margin-left-xxs
 

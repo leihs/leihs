@@ -20,6 +20,24 @@ class Manage::UsersController < Manage::ApplicationController
     @user = User.find(params[:id]) if params[:id]
   end
 
+  private
+
+  # NOTE overriding super controller
+  def required_manager_role
+    unless is_admin?
+      open_actions = [:hand_over]
+      if not open_actions.include?(action_name.to_sym) and (request.post? or not request.format.json?)
+        require_role :lending_manager, current_inventory_pool
+      else
+        require_role :group_manager, current_inventory_pool
+      end
+    end
+  end
+
+  public
+
+######################################################################
+
   def index
     @role = params[:role]
     @users = User.filter params, current_inventory_pool
@@ -215,11 +233,6 @@ class Manage::UsersController < Manage::ApplicationController
   end
 
 #################################################################
-
-# OPTIMIZE
-  def things_to_return
-    @user_things_to_return = @user.things_to_return
-  end
 
   def extended_info
   end

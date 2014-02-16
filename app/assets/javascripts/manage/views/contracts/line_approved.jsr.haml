@@ -11,12 +11,10 @@
 .col2of8.line-col.text-align-left
   %strong {{jed "Approved"/}}
 
-{{if ~accessRight.atLeastRole(~currentUserRole, "lending_manager") }}
 .col2of8.line-col.line-actions
   %a.button.white.text-ellipsis{:href => "{{>user().url('hand_over')}}"}
+    {{if ~accessRight.atLeastRole(~currentUserRole, "lending_manager") }}
     {{jed "Hand Over"/}}
-{{else}}
-.col2of8.line-col.line-actions
-  %a.button.white.text-ellipsis{:"data-order-unapprove" => true}
-    {{jed "Undo approval"/}}
-{{/if}}
+    {{else}}
+    {{jed "Edit"/}}
+    {{/if}}

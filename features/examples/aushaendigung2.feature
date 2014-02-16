@@ -27,3 +27,18 @@ Funktionalität: Aushaendigung editieren
     Dann erhalte ich eine entsprechende Info-Meldung 'XY ist bereits diesem Vertrag zugewiesen'
     Und die Zeile bleibt selektiert
     Und die Zeile bleibt grün markiert
+
+  Szenario: Standard-Vertragsnotiz
+    Wenn ich eine Aushändigung mache
+    Angenommen für den Gerätepark ist eine Standard-Vertragsnotiz konfiguriert
+    Wenn ich aushändige
+    Dann erscheint ein Dialog
+    Und diese Standard-Vertragsnotiz erscheint im Textfeld für die Vertragsnotiz
+
+  Szenario: Vertragsnotiz
+    Wenn ich eine Aushändigung mache
+    Wenn ich aushändige
+    Dann erscheint ein Dialog
+    Und ich kann eine Notiz für diesen Vertrag eingeben
+    Wenn ich eine Notiz für diesen Vertrag eingebe
+    Dann erscheint diese Notiz auf dem Vertrag

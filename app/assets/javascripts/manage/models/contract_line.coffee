@@ -37,11 +37,6 @@ window.App.ContractLine.changeTimeRange = (lines, startDate, endDate)=>
     end_date: endDate
   .done => App.Contract.trigger "refresh"
 
-window.App.ContractLine.assign = (user, inventory_code)->
-  $.post("/manage/#{App.InventoryPool.current.id}/contract_lines/assign", {user_id: user.id, inventory_code: inventory_code})
-  .done (data)->
-    App.ContractLine.update data.id, data
-
 window.App.ContractLine.assignOrCreate = (data)->
   $.post("/manage/#{App.InventoryPool.current.id}/contract_lines/assign_or_create", data)
 
@@ -59,11 +54,19 @@ Spine.Model.include.call App.ContractLine, App.Modules.LineProblems
 
 ## Prototype
 
-window.App.ContractLine::assign = (item)->
+window.App.ContractLine::assign = (item, callback)->
   $.post("/manage/#{App.InventoryPool.current.id}/contract_lines/#{@id}/assign", {inventory_code: item.inventory_code})
+  .fail (e)=>
+    App.Flash
+      type: "error"
+      message: e.responseText
   .done (data)=>
     @refresh data
     App.ContractLine.trigger "update", @
+    App.Flash
+      type: "success"
+      message: _jed "%s assigned to %s", [item.inventory_code, item.model().name]
+    do callback()
 
 window.App.ContractLine::removeAssignment = ->
   $.post("/manage/#{App.InventoryPool.current.id}/contract_lines/#{@id}/remove_assignment")

@@ -8,7 +8,6 @@ class window.App.ContractsIndexController extends Spine.Controller
     new App.LinesCellTooltipController {el: @el}
     new App.UserCellTooltipController {el: @el}
     new App.ContractsApproveController {el: @el}
-    new App.ContractsUnapproveController {el: @el}
     new App.ContractsRejectController {el: @el, async: true, callback: @orderRejected}
     @pagination = new App.ListPaginationController {el: @list, fetch: @fetch}
     @search = new App.ListSearchController {el: @el.find("#list-search"), reset: @reset}
