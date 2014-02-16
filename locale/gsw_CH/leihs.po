@@ -5,15 +5,15 @@ msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-22 12:39+0200\n"
-"PO-Revision-Date: 2014-01-28 09:45+0100\n"
+"PO-Revision-Date: 2014-02-16 07:46+0100\n"
 "Last-Translator: Ramón Cahenzli <rca@psy-q.ch>\n"
 "Language-Team: Swiss-German (Zürich area) <ramon.cahenzli@zhdk.ch>\n"
+"Language: gsw_CH\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.6.3\n"
-"Language: gsw_CH\n"
 
 msgid "Additional label in inventory codes"
 msgstr "Wiiteri Bezeichnige im Inventar-Code"
@@ -35,13 +35,13 @@ msgstr ""
 "underschriibe individuell aapasst werde."
 
 msgid " at the inventory pool "
-msgstr " im Grätepark "
+msgstr " usem Grätepark "
 
 msgid " item(s)"
 msgstr " Sach(e)"
 
 msgid " item(s) due on "
-msgstr "Sachä fällig am"
+msgstr " Sachä fällig am "
 
 msgid ""
 "\"Couldn't connect to LDAP: #{LDAP_CONFIG[:host]}:#{LDAP_CONFIG[:port]}\""
@@ -62,7 +62,7 @@ msgid "%s until %s"
 msgstr "Vom %s bis am %s "
 
 msgid "** This is an automatically generated response **"
-msgstr "** Das isch en automatisch generierti Antwort **"
+msgstr "** Das isch en automatisch generierti E-Mail **"
 
 msgid "A model for the Inventory Code / Serial Number '%s' was not found"
 msgstr "Ich han käs Modäll für de Inventarcode/d'Serienummärä %s gfunde"
@@ -173,8 +173,8 @@ msgstr "Erfolgriichi Zuestimmig"
 msgid "Approve"
 msgstr "Genehmige"
 
-msgid "Approve Order"
-msgstr "Bschtellig genehmige"
+msgid "Approve order"
+msgstr "Bschtellig bewillige"
 
 msgid "Approve anyway"
 msgstr "Trotzdem genehmige"
@@ -296,10 +296,10 @@ msgstr "Uuslehner ändere"
 msgid "Change Borrower Successful"
 msgstr "Uuslehner erfolgriich ändere"
 
-msgid "Change Orderer"
+msgid "Change orderer"
 msgstr "Bschteller ändere"
 
-msgid "Change Orderer Successful"
+msgid "Change orderer Successful"
 msgstr "Bschteller erfolgriich gänderet"
 
 msgid "Changed %s from %s to %s"
@@ -607,13 +607,13 @@ msgid "Invalid username/password"
 msgstr "Ungültige Benutzername/Passwort"
 
 msgid "Inventory"
-msgstr "Grätepark"
+msgstr "Inventar"
 
 msgid "Inventory Code"
-msgstr "Grätepark-Code"
+msgstr "Inventar-Code"
 
 msgid "Inventory Code / Name"
-msgstr "Grätepark-Code/Name"
+msgstr "Inventar-Code/Name"
 
 msgid "Inventory Pool"
 msgstr "Grätepark"
@@ -628,13 +628,15 @@ msgid "Inventory Pools"
 msgstr "Grätepärk"
 
 msgid "Inventory code"
-msgstr "Grätepark-Code"
+msgstr "Inventar-Code"
 
 msgid "Inventory code updated"
-msgstr "Inventarcode aktualisiert"
+msgstr "Inventar-Code aktualisiert"
 
 msgid "Inventory pool"
-msgstr "Grätepark"
+msgid_plural "Inventory pools"
+msgstr[0] "Grätepark"
+msgstr[1] "Grätepärk"
 
 msgid "InventoryPool|Email"
 msgstr "Grätepark|Mail"
@@ -704,7 +706,7 @@ msgstr "Z'letscht überprüeft"
 msgid "Last Visitors:"
 msgstr "Letschti Bsuecher:"
 
-msgid "Latest Reminder"
+msgid "Latest reminder"
 msgstr "Letschti Erinnerig"
 
 msgid "Legend"
@@ -854,9 +856,6 @@ msgstr "No kei Erinnerig"
 msgid "No take backs found"
 msgstr "Kei Rücknahme gfunde"
 
-msgid "No."
-msgstr "No."
-
 msgid "None"
 msgstr "kei"
 
@@ -1004,6 +1003,9 @@ msgstr "Gänd Si än Zwäck aa..."
 
 msgid "Please provide all required fields"
 msgstr "Fülled Si bitte ali erforderliche Felder uus"
+
+msgid "Please provide an inventory code"
+msgstr "Gänd Si än Inventar-Code aa..."
 
 msgid "Please specify the purpose of your order here..."
 msgstr "Gänd Si bitte de Zwäck für Ihri Bschtellig da aa..."
@@ -1289,6 +1291,9 @@ msgstr "D Kategorii muess läär sii"
 msgid "The Inventory Code %s was not found."
 msgstr "De Inventarcode %s isch nöd gfunde worde."
 
+msgid "The Inventory Code %s was not found for %s"
+msgstr "De Inventar-Code %s isch nöd gfunde worde."
+
 msgid "The Inventory Pool must be empty"
 msgstr "De Grätepark muess läär sii"
 
@@ -1422,8 +1427,8 @@ msgid "This contract is not signable because some lines are not assigned."
 msgstr ""
 "Dä Vertrag cha nöd underschribe wärde, will einig Ziile nöd zuegwise sind."
 
-msgid "This customer's groups"
-msgstr "Dem Benutzer sini Gruppene"
+msgid "Groups of this customer"
+msgstr "Gruppene vo dem Chund"
 
 msgid "This inventory pool is closed on that day."
 msgstr "Grätepark isch a dem Tag zue."
@@ -1458,11 +1463,18 @@ msgstr "Die Bschtellig isch scho bewilligt worde."
 msgid "This order is not approvable because doesn't have any models."
 msgstr "Die Bschtellig cha nöd bewilligt werde, will's kei Modäll drin hät."
 
-msgid "This order is not approvable because some reserved models are not available."
-msgstr "Die Bschtellig chan nöd bewilligt werde, will einigi reservierti Modäll nöd verfüegbar sind."
+msgid ""
+"This order is not approvable because some reserved models are not available."
+msgstr ""
+"Die Bschtellig chan nöd bewilligt werde, will einigi reservierti Modäll nöd "
+"verfüegbar sind."
 
-msgid "This order is not approvable because the inventory pool is closed on either the start or enddate."
-msgstr "Die Bschtellig chan nöd bewilligt werde, will de Grätepark wägem Start- oder Änddatum gschlosse isch."
+msgid ""
+"This order is not approvable because the inventory pool is closed on either "
+"the start or enddate."
+msgstr ""
+"Die Bschtellig chan nöd bewilligt werde, will de Grätepark wägem Start- oder "
+"Änddatum gschlosse isch."
 
 msgid ""
 "This order is still pending. Please log in to your leihs system and either "
@@ -1682,6 +1694,9 @@ msgstr "Si sind etz usgloggt."
 msgid "You are not logged in."
 msgstr "Si sind nöd aagmeldet."
 
+msgid "You were served by %s"
+msgstr "Si sind bedient worde vo %s"
+
 msgid ""
 "You might receive an admonishment and be subject to late fees as well as the "
 "restriction of borrowing privileges. In case of recurrence you might be "
@@ -1729,7 +1744,7 @@ msgid "[Model %s] "
 msgstr "[Modäll %s]"
 
 msgid "[leihs] Order received"
-msgstr "[leihs] D'Bschtellig isch achoo"
+msgstr "[leihs] Bschtellig achoo"
 
 msgid "[leihs] Reminder"
 msgstr "[leihs] Erinnerig"
@@ -1744,10 +1759,10 @@ msgid "[leihs] Reservation Submitted"
 msgstr "[leihs] Reservation abgschickt"
 
 msgid "[leihs] Reservation confirmed (with changes)"
-msgstr "[leihs] Reservation aagnoo (mit Änderige)"
+msgstr "[leihs] Reservation bewilligt (mit Änderige)"
 
 msgid "[leihs] Some items should be returned tomorrow"
-msgstr "[leihs] Einige Sache sötted morn zruggäh werde"
+msgstr "[leihs] Einige Sache sötted morn zruggbracht werde"
 
 msgid "already in Category"
 msgstr "Scho inere Karegorie"
@@ -1958,8 +1973,11 @@ msgstr "mitere Bemerkig"
 msgid "without conflict"
 msgstr "ohni Konflikt"
 
-msgid "you cannot hand out lines wich are starting in the future"
-msgstr "Si chönd nöd Linie uusgäh, wo i de Zuekunft aafanged"
+msgid "you cannot hand out lines which are starting in the future"
+msgstr "Si chönd nöd Linie usegäh, wo i de Zuekunft aafanged"
+
+msgid "you cannot hand out lines which are ending in the past"
+msgstr "Si chönd nöd Linie usegäh, wo s Enddatum i de Vergangeheit liged."
 
 msgid "you cannot hand out lines with unassigned inventory codes"
 msgstr "Si chönd Linie ohni zuegwisni Inventarcodes nöd uusgäh"
@@ -1987,6 +2005,15 @@ msgstr "Grätepark-Manager"
 
 msgid "New User"
 msgstr "Noie Benutzer"
+
+msgid "New Template"
+msgstr "Noii Vorlag"
+
+msgid "New Category"
+msgstr "Noii Kategorii"
+
+msgid "New Group"
+msgstr "Noii Gruppe"
 
 msgid "List of %d Users"
 msgstr "Lischte vo %d Benutzer"
@@ -2064,13 +2091,13 @@ msgid "not used"
 msgstr "nöd benutzt"
 
 msgid "Model|Images|File file size"
-msgstr ""
+msgstr "Dateigrössi"
 
 msgid "Model|Images|File content type"
-msgstr ""
+msgstr "Dateityp"
 
 msgid "Item|Retired reason"
-msgstr ""
+msgstr "Grund für d Uusmuschterig"
 
 msgid "You can not create a package without any item"
 msgstr "Si chönd kei Paket erschtelle ohni Sache"
@@ -2108,8 +2135,8 @@ msgstr "%s umschalte"
 msgid "Search %s"
 msgstr "%s sueche"
 
-msgid "By browsing categories"
-msgstr "Kategorie durchstöbere"
+msgid "by browsing categories"
+msgstr "über Kategorie"
 
 msgid "Select"
 msgstr "Wähle"
@@ -2143,7 +2170,7 @@ msgid "not yet saved"
 msgstr "nonig gschpeicheret"
 
 msgid "Prepackaged"
-msgstr ""
+msgstr "Vorbereitets Packet"
 
 msgid "Model saved"
 msgstr "Modäll gspeichered"
@@ -2156,6 +2183,9 @@ msgstr "D'Sache vom Paket chönd nöd gändered werde"
 
 msgid "Access"
 msgstr "Zuegriff"
+
+msgid "Access rights"
+msgstr "Zuegriffsrächt"
 
 msgid "Group"
 msgstr "Gruppe"
@@ -2184,6 +2214,9 @@ msgstr "Name vom Modäll"
 msgid "Name of the group"
 msgstr "Name vo de Gruppe"
 
+msgid "Name of the template"
+msgstr "Name vo de Vorlag"
+
 msgid "%s saved"
 msgstr "%s gschpeichered"
 
@@ -2198,6 +2231,9 @@ msgstr "vor %s uusglifered"
 
 msgid "is %s ago"
 msgstr "vor %s"
+
+msgid "one day ago"
+msgstr "vor eim Tag"
 
 msgid "this is the branch '%s'"
 msgstr "Das isch de Branch '%s'"
@@ -2269,16 +2305,16 @@ msgid "No access"
 msgstr "Kei Zuegfriff"
 
 msgid "User|Email"
-msgstr ""
+msgstr "E-Mail"
 
 msgid "User|Lastname"
-msgstr ""
+msgstr "Nachname"
 
 msgid "User|Firstname"
-msgstr ""
+msgstr "Vorname"
 
 msgid "User|AccessRight|Suspended reason"
-msgstr ""
+msgstr "Sperrgrund"
 
 msgid "The selected inventory pool is closed on that day"
 msgstr "De uusgwählti Grätepark isch am dem Tag zue"
@@ -2351,6 +2387,9 @@ msgstr "Uusleihvorlag"
 msgid "Please select a template."
 msgstr "Bitte wähled si e Vorlag"
 
+msgid "The template \"%s\" will be deleted and no longer available for usage."
+msgstr "D'Vorlag %s wird glöscht und staht nüme zur Verfüegig"
+
 msgid "Please adapt the specific quantities to fit your needs."
 msgstr "Passed si bitte d'Mängene gmäss ihrne Bedürfnis aa."
 
@@ -2395,7 +2434,8 @@ msgid "Document"
 msgstr "Dokumänt"
 
 msgid "%d minutes passed. The items are not reserved for you any more!"
-msgstr "%d Minute sind vergange. D'Sache sind nüme für si reserviert!"
+msgstr ""
+"%d Minute sind abgloffe. Di folgende Sache sind nüme für Si reserviert!"
 
 msgid "Time until your order times out. Click to reset."
 msgstr "Ziit bis Ihri Bschtellig ablauft. Klicke zum zruggsetze."
@@ -2411,3 +2451,328 @@ msgstr "Ihri Bschtellig isch läär"
 
 msgid "Borrow items"
 msgstr "Sache nuuslehnä"
+
+msgid "from %s"
+msgstr "vom %s"
+
+msgid "Please select a time range and continue."
+msgstr "Bitte wähled si en Ziitruum und mached si wiiter"
+
+msgid "You can modify the time range for each separate model in the next step."
+msgstr ""
+"Si chönd d Ziitspane vo jedem einzelne Modäll im nächschte Schritt editiere."
+
+msgid "List of templates"
+msgstr "Lischte vo Vorlage"
+
+msgid "Template"
+msgstr "Vorlag"
+
+msgid "Template must have at least one model"
+msgstr "Vorlag mues mindeschtens eis Modäll ha"
+
+msgid "%s created successfully"
+msgstr "%s erfolgriich erschtellt"
+
+msgid "%s successfully saved"
+msgstr "%s erfolgriich gschpeichered"
+
+msgid "Source code"
+msgstr "Quällcode"
+
+msgid "Complete order"
+msgstr "Vollständigi Bschtellig"
+
+msgid ""
+"The responsible inventory pool cannot be changed because the item is "
+"currently not in stock."
+msgstr ""
+"Di verantwortlich Abteilig chan näd gändert werdä, will de Gägenstand nöd a "
+"Lager isch."
+
+msgid "Send reminder"
+msgstr "Erinnerig schicke"
+
+msgid "Approval failed"
+msgstr "Bewilligung fählgschlage"
+
+msgid "Deleted"
+msgstr "Glöscht"
+
+msgid "Reminder send"
+msgstr "Erinnerig gschickt"
+
+msgid "Available in total"
+msgstr "Im Ganze verfüegbar: "
+
+msgid "Loading availability"
+msgstr "Verfüegbarkeit wird glade"
+
+msgid "Availability loaded"
+msgstr "D Verfüegbarkeit isch glade"
+
+msgid "Invalid data"
+msgstr "nöd gültigi Iigab."
+
+msgid "Reject order"
+msgstr "Bschtellig ablehne"
+
+msgid "Inventory code, model name, search term"
+msgstr "Inventarcode, Modällname, Suechwort"
+
+msgid "Adding item"
+msgstr "Iitrag wird dezue taa"
+
+msgid "Added %s"
+msgstr "%s dezue taa"
+
+msgid "Close"
+msgstr "Schlüüsse"
+
+msgid "Removing items"
+msgstr "Iiträg werdet glöscht"
+
+msgid "Edit reservation"
+msgstr "Reservation bearbeite"
+
+msgid "Availability for"
+msgstr "Verfüegbarkeit für"
+
+msgid "Please select an inventory pool"
+msgstr "Wähled Si bitte en Grätepark uus"
+
+msgid "%s visit overdue"
+msgid_plural "%s visits overdue"
+msgstr[0] "Bsuech überfällig"
+msgstr[1] "Bsüech überfällig"
+
+msgid "%s future visit"
+msgid_plural "%s future visits"
+msgstr[0] "%s zuekünftig Bsuech"
+msgstr[1] "%s zuekünftigi Bsüech"
+
+msgid "%s visit today"
+msgid_plural "%s visits today"
+msgstr[0] "%s Bsuech hüt"
+msgstr[1] "%s Bsüech hüt"
+
+msgid "%s quantity increased to %s"
+msgstr "%s Aazahl erhöht uf %s"
+
+msgid "%s assigned to %s"
+msgstr "%s zugordnet zu %s"
+
+msgid "%s is already assigned to a contract"
+msgstr "%s isch scho emene Vertrag zuegewiise"
+
+msgid "%s is already assigned to this contract"
+msgstr "%s isch scho dem Vertrag zuegewiise"
+
+msgid "%s is already assigned to a different contract"
+msgstr "%s isch scho emene andere Vertrag zuegewiise"
+
+msgid "Hand over of %s item"
+msgid_plural "Hand over of %s items"
+msgstr[0] "Uusgab vo %s Gägestand"
+msgstr[1] "Uusgab vo %s Gägeständ"
+
+msgid "Hand over completed"
+msgstr "Uusgab abgschlosse"
+
+msgid "Open %s"
+msgstr "%s öffne"
+
+msgid "%s item"
+msgid_plural "%s items"
+msgstr[0] "%s Gägenstand"
+msgstr[1] "%s Gägenständ"
+
+msgid "to %s"
+msgstr "an %s"
+
+msgid "Back to this user"
+msgstr "Zrugg zu dem Benutzer"
+
+msgid "Extend entry"
+msgstr "Iitrag verlängere"
+
+msgid "%s selected for take back"
+msgstr "%s für Rücknahm uusgwählt"
+
+msgid "%s was not found for this take back"
+msgstr "%s isch nöd für die Rücknahm gefunde worde"
+
+msgid "You can not take back more items then you handed over"
+msgstr "Si chönd nöd meh Sache zruggnäh wi Si usegäh händ"
+
+msgid "You can not take back more options then you handed over"
+msgstr "Si chönd nöd meh Optione zruggnäh wi Si usegäh händ"
+
+msgid "You have to provide the quantity for the things you want to return"
+msgstr "Si münd d Aazahl aagäh, wo si zruggnäh wänd"
+
+msgid "Take back completed"
+msgstr "Rücknahm abgschlosse"
+
+msgid "Take back of %s item"
+msgid_plural "Take back of %s items"
+msgstr[0] "Rücknahm vo %s Sach"
+msgstr[1] "Rücknahm vo %s Sache"
+
+msgid "No."
+msgstr "No."
+
+msgid "Contract signed"
+msgstr "Vertrag underschribe"
+
+msgid "You cannot delete this user"
+msgstr "Si chönd de Benutzer nöd lösche"
+
+msgid "Add inventory"
+msgstr "Inventar dezuetue"
+
+msgid "Active Inventory"
+msgstr "Aktivs Inventar"
+
+msgid "Unused Models"
+msgstr "Ungnutzti Modäll"
+
+msgid "Responsible inventory pool"
+msgstr "Verantwortlich Grätepärk"
+
+msgid "from"
+msgstr "vo"
+
+msgid "to"
+msgstr "bis"
+
+msgid "Create new item"
+msgstr "Noii Sach erschtelä"
+
+msgid "Insert all required information"
+msgstr "Gännd Si alli nötige Informatione aa"
+
+msgid "Make changes and save"
+msgstr "Mached Si Änderige und speichered Si dänn"
+
+msgid "Create new model"
+msgstr "Nois Modäll erschtelä"
+
+msgid "Removed on save"
+msgstr "Wird bim speichere entfernt"
+
+msgid "File has to be uploaded on save"
+msgstr "Datei wird bim speichere ufeglade"
+
+msgid "Upload problems"
+msgstr "Problem bim ufelade"
+
+msgid "The model was saved, but there were problems uploading files"
+msgstr ""
+"S Modäll isch gspeicheret worde, bim ufelade vo Dateie isch es allerdings zu "
+"Problem cho"
+
+msgid "Uploading files - please wait"
+msgstr "Dateie werdet ufeglade - bitte warte"
+
+msgid "Save package"
+msgstr "Packeet schpeichere"
+
+msgid "Add item"
+msgstr " Sach dezuetue"
+
+msgid "Search Results for %s"
+msgstr "Suechresultat für %s"
+
+msgid "Show all found %s"
+msgstr "Zeig all gfundene %s"
+
+msgid "Please provide a search term"
+msgstr "Bitte gännd Si es Suechwort aa"
+
+msgid "Start search"
+msgstr "Suechi starte"
+
+msgid "models"
+msgstr "Modäll"
+
+msgid "items"
+msgstr "Sache"
+
+msgid "contracts"
+msgstr "Verträg"
+
+msgid "orders"
+msgstr "Bschtellige"
+
+msgid "Search results (%s) for %s"
+msgstr "Suechresultat (%s) für %s"
+
+msgid "Search results (%s) for \"%s\""
+msgstr "Suechresultat (%s) für \"%s\""
+
+msgid "Create new option"
+msgstr "Noii Option erschtelä"
+
+msgid "Option saved"
+msgstr "Option gschpeichered"
+
+msgid "Hide notification"
+msgstr "Mittelig verberge"
+
+msgid "Changed"
+msgstr "Gändered"
+
+msgid "Parent categories"
+msgstr "Eltere-Kategorie"
+
+msgid "Subordinate to %s"
+msgstr "Undergordnet zu %s"
+
+msgid "Category saved"
+msgstr "Kategorii gschpeichered"
+
+msgid "in the future"
+msgstr "i Zuekunft"
+
+msgid "in the past"
+msgstr "ide Vergangeheit"
+
+msgid "Borrowable items"
+msgstr "Uusleibaari Sache"
+
+msgid "Available for borrower"
+msgstr "Verfüegbar dür de Uusleiendi"
+
+msgid "is part of a package"
+msgstr "isch Teil vomene Paket"
+
+msgid "Packages updated"
+msgstr "Pakeet aktualisiert"
+
+msgid "Save Package"
+msgstr "Pakeet speichere"
+
+msgid "Print Selection"
+msgstr "Uuswahl uusdrucke"
+
+msgid "Undo approval"
+msgstr "Genehmigung zruggsetzä"
+
+msgid "Verify"
+msgstr "Prüefe"
+
+msgid "To be verified"
+msgstr "Z prüefe"
+
+msgid "Verify + approve order"
+msgstr "Bschtellig prüefe + genehmige"
+
+msgid "No verification required"
+msgstr "nöd visierigspflichtig"
+
+msgid "Verification required"
+msgstr "Visierigspflichtig"
+
+#~ msgid "This customer's groups"
+#~ msgstr "Dem Benutzer sini Gruppene"
