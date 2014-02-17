@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-22 12:39+0200\n"
-"PO-Revision-Date: 2014-02-16 07:46+0100\n"
+"PO-Revision-Date: 2014-02-17 18:03+0100\n"
 "Last-Translator: Ramón Cahenzli <rca@psy-q.ch>\n"
 "Language-Team: Swiss-German (Zürich area) <ramon.cahenzli@zhdk.ch>\n"
 "Language: gsw_CH\n"
@@ -65,10 +65,10 @@ msgid "** This is an automatically generated response **"
 msgstr "** Das isch en automatisch generierti E-Mail **"
 
 msgid "A model for the Inventory Code / Serial Number '%s' was not found"
-msgstr "Ich han käs Modäll für de Inventarcode/d'Serienummärä %s gfunde"
+msgstr "S Modäll für de Inventarcode/d Serienummere %s isch nöd gfunde worde"
 
 msgid "A model with the ID '%s' was not found"
-msgstr "Käs Modäll mit de ID '%s' gfunde"
+msgstr "S Modäll mit de ID '%s' isch nöd gfunde worde"
 
 msgid "A package cannot be nested to another package"
 msgstr "Äs Packet chan nöd in es anders Paket "
@@ -1744,7 +1744,7 @@ msgid "[Model %s] "
 msgstr "[Modäll %s]"
 
 msgid "[leihs] Order received"
-msgstr "[leihs] Bschtellig achoo"
+msgstr "[leihs] Bschtellig aachoo"
 
 msgid "[leihs] Reminder"
 msgstr "[leihs] Erinnerig"
@@ -2441,7 +2441,7 @@ msgid "Time until your order times out. Click to reset."
 msgstr "Ziit bis Ihri Bschtellig ablauft. Klicke zum zruggsetze."
 
 msgid "Your order will time out in %s."
-msgstr "Ihri Bschtellig lauf i %s ab."
+msgstr "Ihri Bschtellig lauft i %s ab."
 
 msgid "Reset timeout"
 msgstr "Ablaufziit zruggsetze"
@@ -2563,13 +2563,13 @@ msgid "%s assigned to %s"
 msgstr "%s zugordnet zu %s"
 
 msgid "%s is already assigned to a contract"
-msgstr "%s isch scho emene Vertrag zuegewiise"
+msgstr "%s isch scho emene Vertrag zuegwise"
 
 msgid "%s is already assigned to this contract"
-msgstr "%s isch scho dem Vertrag zuegewiise"
+msgstr "%s isch scho dem Vertrag zuegwise"
 
 msgid "%s is already assigned to a different contract"
-msgstr "%s isch scho emene andere Vertrag zuegewiise"
+msgstr "%s isch scho emene andere Vertrag zuegwise"
 
 msgid "Hand over of %s item"
 msgid_plural "Hand over of %s items"
@@ -2584,8 +2584,8 @@ msgstr "%s öffne"
 
 msgid "%s item"
 msgid_plural "%s items"
-msgstr[0] "%s Gägenstand"
-msgstr[1] "%s Gägenständ"
+msgstr[0] "%s Gägenschtand"
+msgstr[1] "%s Gägeschtänd"
 
 msgid "to %s"
 msgstr "an %s"
@@ -2600,7 +2600,7 @@ msgid "%s selected for take back"
 msgstr "%s für Rücknahm uusgwählt"
 
 msgid "%s was not found for this take back"
-msgstr "%s isch nöd für die Rücknahm gefunde worde"
+msgstr "%s isch nöd für d Rücknahm gfunde worde"
 
 msgid "You can not take back more items then you handed over"
 msgstr "Si chönd nöd meh Sache zruggnäh wi Si usegäh händ"
