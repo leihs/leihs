@@ -61,10 +61,10 @@ msgid "A template with the ID '%s' was not found"
 msgstr ""
 
 msgid "Ablauf Garantie"
-msgstr ""
+msgstr "Warranty Expiration"
 
 msgid "Ablauf Vertrag"
-msgstr ""
+msgstr "Contract Expiration"
 
 msgid "Access Level: %d"
 msgstr ""
@@ -117,13 +117,13 @@ msgid ""
 msgstr ""
 
 msgid "Ankunftsdatum"
-msgstr ""
+msgstr "Check-In Date"
 
 msgid "Ankunftsnotiz"
-msgstr ""
+msgstr "Check-In Note"
 
 msgid "Ankunftszustand"
-msgstr ""
+msgstr "Check-In State"
 
 msgid "Approval Successful"
 msgstr ""
@@ -165,7 +165,7 @@ msgid "Attempt to add node to own graph collection"
 msgstr ""
 
 msgid "Auswahl"
-msgstr ""
+msgstr "Selection"
 
 msgid "Availability Timeline"
 msgstr ""
@@ -198,7 +198,7 @@ msgid "Barcode"
 msgstr ""
 
 msgid "Bezug"
-msgstr ""
+msgstr "Reference"
 
 msgid "Book"
 msgstr ""
@@ -483,7 +483,7 @@ msgid "History"
 msgstr ""
 
 msgid "IMEI-Nummer"
-msgstr ""
+msgstr "IMEI-Number"
 
 msgid "Important notes for hand over"
 msgstr ""
@@ -907,7 +907,7 @@ msgid "Problems"
 msgstr ""
 
 msgid "Projektnummer"
-msgstr ""
+msgstr "Project Number"
 
 msgid "Purpose"
 msgstr ""
@@ -1328,7 +1328,7 @@ msgid "Tue"
 msgstr ""
 
 msgid "Umzug"
-msgstr ""
+msgstr "Move"
 
 msgid "Unborrowable"
 msgstr ""
