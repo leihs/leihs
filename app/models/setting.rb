@@ -28,11 +28,16 @@ class Setting < ActiveRecord::Base
   after_save do
     self.class.initialize_constants
 
-    # Only reading from the initializers is not enough, they are only read during
-    # server start, making changes of the time zone during runtime impossible.
-    if self.time_zone and self.time_zone_changed? # Check for existence of time_zone first, in case the migration for time_zone has not run yet
-      Rails.configuration.time_zone = self.time_zone
-      Time.zone = self.time_zone
+
+    begin
+      # Only reading from the initializers is not enough, they are only read during
+      # server start, making changes of the time zone during runtime impossible.
+      if self.time_zone_changed? # Check for existence of time_zone first, in case the migration for time_zone has not run yet
+        Rails.configuration.time_zone = self.time_zone
+        Time.zone = self.time_zone
+      end
+    rescue
+      logger.info "Timezone setting could not be loaded. Did the migrations run?"
     end
   end
 
