@@ -250,6 +250,6 @@ Funktionalität: Delegation
     Wenn ich von meinem Benutzer zu einer Delegation wechsle
     Und die Delegation ist für einen Gerätepark freigeschaltet
     Aber ich bin für diesen Gerätepark gesperrt
-    Dann kann ich keine Gegenstände dieses Geräteparks bestellen
+    Dann kann ich keine Gegenstände dieses Geräteparks absenden
     
     
