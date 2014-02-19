@@ -45,6 +45,7 @@ namespace :app do
 
       File.delete("tmp/rerun.txt") if File.exists?("tmp/rerun.txt")
 
+      Rake::Task["app:test:generate_personas_dumps"].invoke
       Rake::Task["leihs:reset"].invoke
     end
 
