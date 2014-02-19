@@ -1,10 +1,3 @@
-Given(/^a settings object$/) do
-  @setting = Setting.first
-  @setting ||= Setting.create({:local_currency_string => 'GBP',
-                               :email_signature => 'kthxbye',
-                               :default_email => 'from@example.com'})
-end
-
 When(/^the mail delivery method is set to "(.*?)"$/) do |method|
   @setting.update_attributes({:mail_delivery_method => method}).should be_true
   Setting::MAIL_DELIVERY_METHOD.should == method
