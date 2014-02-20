@@ -21,7 +21,26 @@ Funktionalität: Delegation
     Und ich genau einen Verantwortlichen eintrage
     Und ich die Delegation speichere
     Dann ist die Delegation mit den aktuellen Informationen gespeichert
-
+    
+  @upcoming
+  Szenario: Einer Delegation einen gesperrten Verantwortlichen zuteilen 
+    Angenommen ich bin Pius
+    Und ich befinde mich in der Editieransicht einer Delegation
+    Wenn ich einen Verantwortlichen zuteile
+    Und der Verantwortliche ist für diesen Gerätepark gesperrt
+    Dann ist dieser bei der Auswahl rot markiert
+    Und hinter dem Namen steht in rot 'Gesperrt!'
+    
+  @upcoming
+  Szenario: Einer Delegation einen gesperrten Benutzer hinzufügen 
+    Angenommen ich bin Pius
+    Und ich befinde mich in der Editieransicht einer Delegation
+    Wenn ich einen Benutzer hinzufüge
+    Und der Benutzer ist für diesen Gerätepark gesperrt
+    Dann ist er bei der Auswahl rot markiert
+    Und in der Auwahl steht hinter dem Namen in rot 'Gesperrt!'
+    Und in der Auflistung der Benutzer steht hinter dem Namen in rot 'Gesperrt!'
+    
   @upcoming
   Szenario: Delegation erhält Zugriff als Kunde
     Angenommen ich bin Pius
@@ -108,11 +127,21 @@ Funktionalität: Delegation
     Dann kann ich nur diejenigen Delegationen wählen, die Zugriff auf meinen Gerätepark haben
 
   @upcoming
-  Szenario: Auswahl der Kontaktperson in Aushändigung ändern
+  Szenario: Kontaktperson bei Aushändigung wählen
     Angenommen ich bin Pius
     Angenommen ich befinde mich in einer Aushändigung
-    Wenn ich die Kontaktperson wechsle
-    Dann kann ich nur diejenigen Personen wählen, die zur Delegationsgruppe gehören
+    Wenn ich die Aushändigung abschliesse
+    Dann muss ich eine Kontaktperson auswählen 
+
+  @upcoming
+  Szenario: Anzeige einer gesperrten Kontaktperson in Aushändigung
+    Angenommen ich bin Pius
+    Angenommen ich befinde mich in einer Aushändigung
+    Wenn ich die Aushändigung abschliesse
+    Und ich eine Kontaktperson wähle
+    Und diese Kontaktperson ist gesperrt
+    Dann ist diese Kontaktperson bei der Auswahl rot markiert
+    Und in der Auwahl steht hinter dem Namen in rot 'Gesperrt!'
 
   @upcoming
   Szenario: Delegation in Bestellungen ändern
@@ -136,6 +165,17 @@ Funktionalität: Delegation
     Angenommen ich befinde mich in einer Bestellung
     Wenn ich die Kontaktperson wechsle
     Dann kann ich nur diejenigen Personen wählen, die zur Delegationsgruppe gehören
+    
+  @upcoming
+  Szenario: Auswahl einer gesperrten Kontaktperson in Bestellung
+    Angenommen ich bin Pius
+    Angenommen ich befinde mich in einer Bestellung
+    Und ich wechsle den Benutzer
+    Und ich wähle eine Delegation
+    Wenn ich eine Kontaktperson wähle
+    Und diese Kontaktperson ist für diesen Gerätepark gesperrt
+    Dann ist er bei der Auswahl rot markiert
+    Und in der Auwahl steht hinter dem Namen in rot 'Gesperrt!'
 
   @upcoming
   Szenario: Delegation in persönliche Bestellungen ändern in Bestellung
@@ -203,3 +243,13 @@ Funktionalität: Delegation
     Dann wird die Bestellung gespeichert
     Und die Delegation ist als Besteller gespeichert
     Und ich werde als Kontaktperson hinterlegt
+    
+  @upcoming
+  Szenario: Gesperrte Benutzer können keine Bestellungen senden
+    Angenommen ich bin Julie
+    Wenn ich von meinem Benutzer zu einer Delegation wechsle
+    Und die Delegation ist für einen Gerätepark freigeschaltet
+    Aber ich bin für diesen Gerätepark gesperrt
+    Dann kann ich keine Gegenstände dieses Geräteparks absenden
+    
+    
