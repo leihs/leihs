@@ -6,7 +6,7 @@ class ActionMailer::Base
       :port => 25,
       :domain => "localhost",
       :enable_starttls_auto => false,
-      :openssl_verify_mode => false
+      :openssl_verify_mode => 'none'
     }
 
     # If you don't check for the existence of a settings table, you will break
