@@ -194,7 +194,7 @@ Leihs::Application.routes.draw do
       put     "contract_lines/:line_id",               to: "contract_lines#update"
       delete  "contract_lines/:line_id",               to: "contract_lines#destroy"
       post    "contract_lines/take_back",              to: "contract_lines#take_back"
-      get     "contract_lines/print",                  to: "contract_lines#print", as: "print_contract_lines"
+      post    "contract_lines/print",                  to: "contract_lines#print", as: "print_contract_lines"
 
       # Hand Over
       get 'users/:user_id/hand_over', to: "users#hand_over", as: "hand_over"

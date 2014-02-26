@@ -128,7 +128,7 @@ end
 
 Wenn(/^das Werteverzeichniss öffne$/) do
   find("[data-selection-enabled]").find(:xpath, "./following-sibling::*").click
-  click_link _("Print Selection")
+  click_button _("Print Selection")
   page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
 end
 

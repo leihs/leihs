@@ -9,9 +9,7 @@
         .arrow.down
       %ul.dropdown.right
         %li
-          %a.dropdown-item{:href => manage_print_contract_lines_path(current_inventory_pool, merge: true), :target => "_blank", :"data-update-href" => true}
-            %i.icon-print
-            = _("Print Selection")
+          = render 'manage/templates/print_selection'
         %li
           %a.dropdown-item.red{:"data-destroy-selected-lines" => true}
             %i.icon-trash

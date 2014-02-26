@@ -783,6 +783,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/manage/hand_over/add_purpose.feature"
+- name: manage/delegation_mail
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/delegation_mail.feature"
 - name: manage/daily_view/item_hover
   scripts:
     cucumber:

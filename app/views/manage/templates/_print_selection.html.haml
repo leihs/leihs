@@ -1,0 +1,5 @@
+= form_tag manage_print_contract_lines_path(current_inventory_pool), target: "_blank" do
+  = hidden_field_tag "merge", true
+  %button.dropdown-item.font-size-larger{:"data-insert-before" => true}
+    %i.icon-print
+    = _("Print Selection")

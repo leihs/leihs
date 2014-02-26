@@ -58,7 +58,7 @@ class window.App.LineSelectionController extends Spine.Controller
     @markVisitLinesController?.update App.LineSelectionController.selected
     @lineSelectionCounter.html lines.length
     if lines.length then @enable() else @disable()
-    do @storeIdsToHrefs
+    do @storeIds
 
   store: (lines)->
     ids = _.flatten _.map lines, (line) -> ($(line).data("ids") ? [$(line).data("id")])
@@ -76,7 +76,7 @@ class window.App.LineSelectionController extends Spine.Controller
     @markVisitLinesController?.update App.LineSelectionController.selected
     @lineSelectionCounter.html ids.length
     if ids.length then @enable() else @disable()
-    do @storeIdsToHrefs
+    do @storeIds
 
   enable: =>
     for button in $(".button[data-selection-enabled]")
@@ -86,11 +86,22 @@ class window.App.LineSelectionController extends Spine.Controller
     for button in $(".button[data-selection-enabled]")
       App.Button.disable $(button)
 
+  storeIds: =>
+    do @storeIdsToHrefs
+    do @storeIdsToInputValues
+
   storeIdsToHrefs: =>
     for link in $("a[data-update-href]")
       link = $ link
       uri = URI(link.attr("href")).removeQuery("ids[]").addQuery("ids[]", App.LineSelectionController.selected)
       link.attr "href", uri.toString()
+
+  storeIdsToInputValues: =>
+    @el.find("[data-input-fields-container]").remove()
+    @el.find("[data-insert-before]").before("<div data-input-fields-container></div>")
+    appendTo = @el.find("[data-input-fields-container]")
+    for id in App.LineSelectionController.selected
+      appendTo.append "<input type='hidden' name='ids[]' data-store-id value='#{id}'>"
 
   @add: (id)=>
     unless _.find(@selected, (i)-> i is id)
