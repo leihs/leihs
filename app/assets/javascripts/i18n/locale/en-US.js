@@ -22,7 +22,7 @@ if (window.i18n == undefined) window.i18n = {};
 
   i18n.days = {
     first: 1,
-    full: ['Sunday', 'Monday', 'Thuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    full: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     trunc: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
   };
 
