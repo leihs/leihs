@@ -2427,7 +2427,7 @@ msgstr ""
 msgid "Deleted"
 msgstr ""
 
-msgid "Reminder send"
+msgid "Reminder sent"
 msgstr ""
 
 msgid "Available in total"

@@ -2500,7 +2500,7 @@ msgstr "Genehmigung fehlgeschlagen"
 msgid "Deleted"
 msgstr "Gelöscht"
 
-msgid "Reminder send"
+msgid "Reminder sent"
 msgstr "Erinnerung gesendet"
 
 msgid "Available in total"

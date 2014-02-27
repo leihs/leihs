@@ -2491,7 +2491,7 @@ msgstr "Bewilligung fählgschlage"
 msgid "Deleted"
 msgstr "Glöscht"
 
-msgid "Reminder send"
+msgid "Reminder sent"
 msgstr "Erinnerig gschickt"
 
 msgid "Available in total"
