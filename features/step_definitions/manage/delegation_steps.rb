@@ -486,3 +486,7 @@ end
 Dann(/^die neu gewählte Kontaktperson wird gespeichert$/) do
   @contract.reload.delegated_user.should == @contact
 end
+
+Dann(/^sehe ich genau ein Kontaktpersonfeld$/) do
+  all("#contact-person").count.should == 1
+end

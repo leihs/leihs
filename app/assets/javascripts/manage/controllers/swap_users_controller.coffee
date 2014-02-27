@@ -62,8 +62,8 @@ class window.App.SwapUsersController extends Spine.Controller
   renderContactPerson: => @form.append App.Render "manage/views/contracts/edit/contact_person", @contract
 
   setupContactPerson: =>
+    @el.find("#contact-person").remove()
     @renderContactPerson()
     @searchSetContactPersonController = new App.SearchSetUserController
       el: @el.find("#contact-person #swapped-person")
       additionalSearchParams: { delegation_id: @searchSetUserController.selectedUserId ? @contract.user().id }
-
