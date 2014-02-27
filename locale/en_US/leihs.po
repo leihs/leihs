@@ -146,25 +146,25 @@ msgid "Ankunftszustand"
 msgstr "Check-In State"
 
 msgid "Anschaffungskategorie"
-msgstr ""
+msgstr "Supply Category"
 
 msgid "Werkstatt-Technik"
-msgstr ""
+msgstr "Workshop Technology"
 
 msgid "Produktionstechnik"
-msgstr ""
+msgstr "Production Technology"
 
 msgid "AV-Technik"
-msgstr ""
+msgstr "AV Technology"
 
 msgid "Musikinstrumente"
-msgstr ""
+msgstr "Musical Instrument"
 
 msgid "Facility Management"
 msgstr ""
 
 msgid "IC-Technik/Software"
-msgstr ""
+msgstr "IT/Software"
 
 msgid "Approval Successful"
 msgstr ""
@@ -1685,7 +1685,7 @@ msgid "Your order was successfully transmitted to those responsible and is %s."
 msgstr ""
 
 msgid "Zielraum"
-msgstr ""
+msgstr "Target area"
 
 msgid "[Model %s] "
 msgstr ""
