@@ -2699,3 +2699,18 @@ msgstr ""
 
 msgid "Verification required"
 msgstr ""
+
+msgid "Statistics"
+msgstr ""
+
+msgid "Who borrowed the most things?"
+msgstr ""
+
+msgid "lends"
+msgstr ""
+
+msgid "Which inventory pool is busiest?"
+msgstr ""
+
+msgid "Who bought the most items?"
+msgstr ""

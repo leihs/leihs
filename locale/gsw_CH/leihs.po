@@ -2766,5 +2766,17 @@ msgstr "nöd visierigspflichtig"
 msgid "Verification required"
 msgstr "Visierigspflichtig"
 
-#~ msgid "This customer's groups"
-#~ msgstr "Dem Benutzer sini Gruppene"
+msgid "Statistics"
+msgstr "Statistik"
+
+msgid "Who borrowed the most things?"
+msgstr "Wer hät di meischta Sachä usglehnt?"
+
+msgid "lends"
+msgstr "Leihvorgäng"
+
+msgid "Which inventory pool is busiest?"
+msgstr "Welle Grätepark wird am meischte psuecht?"
+
+msgid "Who bought the most items?"
+msgstr "Wer hät di meischta Sachä kauft?"

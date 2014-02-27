@@ -461,6 +461,10 @@ window.i18n.locale_data = {
          null,
          "Geschlossen"
       ],
+      "Compatible successfully removed": [
+         null,
+         "Ergänzung gelöscht"
+      ],
       "Compatibles": [
          null,
          "Ergänzende Modelle"
@@ -484,6 +488,10 @@ window.i18n.locale_data = {
       "Contract": [
          null,
          "Vertrag"
+      ],
+      "Default Contract Note": [
+         null,
+         "Standard-Vertragsnotiz"
       ],
       "Contract %d has been signed by %s": [
          null,
@@ -1107,9 +1115,9 @@ window.i18n.locale_data = {
          null,
          "Modell erfolgreich als kompatibel hinzugefügt"
       ],
-      "Model successfully deleted": [
+      "Model successfully removed": [
          null,
-         "Model erfolgreich gelöscht"
+         "Modell gelöscht"
       ],
       "Models": [
          null,
@@ -1174,10 +1182,6 @@ window.i18n.locale_data = {
       "No take backs found": [
          null,
          "Keine Rücknahmen gefunden"
-      ],
-      "No.": [
-         null,
-         "Nr."
       ],
       "None": [
          null,
@@ -1328,14 +1332,6 @@ window.i18n.locale_data = {
          null,
          "Passwort-Bestätigung"
       ],
-      "DatabaseAuthentication|Password": [
-         null,
-         "Passwort"
-      ],
-      "DatabaseAuthentication|Password confirmation": [
-         null,
-         "Passwort-Bestätigung"
-      ],
       "Password changed": [
          null,
          "Passwort geändert"
@@ -1391,6 +1387,10 @@ window.i18n.locale_data = {
       "Print": [
          null,
          "Drucken"
+      ],
+      "Print Contracts": [
+         null,
+         "Verträge drucken"
       ],
       "Problems": [
          null,
@@ -1896,9 +1896,9 @@ window.i18n.locale_data = {
          null,
          "Dieser Gerätepark ist an diesem Tag geschlossen."
       ],
-      "Inventory pool successfully updated": [
+      "Inventory pool successfully updated.": [
          null,
-         "Gerätepark erfolgreich aktualisiert"
+         "Gerätepark aktualisiert"
       ],
       "This is a package containing the following items": [
          null,
@@ -2008,13 +2008,13 @@ window.i18n.locale_data = {
          null,
          "Benutzer"
       ],
-      "User data": [
-         null,
-         "Benutzerdaten"
-      ],
       "User details were updated successfully.": [
          null,
          "Die neuen Benutzerinformationen wurden gespeichert."
+      ],
+      "User data": [
+         null,
+         "Benutzerdaten"
       ],
       "User created successfully": [
          null,
@@ -2589,6 +2589,18 @@ window.i18n.locale_data = {
          null,
          "Neuer Benutzer"
       ],
+      "New Template": [
+         null,
+         "Neue Vorlage"
+      ],
+      "New Category": [
+         null,
+         "Neue Kategorie"
+      ],
+      "New Group": [
+         null,
+         "Neue Gruppe"
+      ],
       "List of %d Users": [
          null,
          "Liste von %d Benutzern"
@@ -2669,14 +2681,6 @@ window.i18n.locale_data = {
          null,
          "%s erstellen"
       ],
-      "New Category": [
-         null,
-         "Neue Kategorie"
-      ],
-      "New Group": [
-         null,
-         "Neue Gruppe"
-      ],
       "Create new category": [
          null,
          "Neue Kategorie erstellen"
@@ -2713,6 +2717,10 @@ window.i18n.locale_data = {
          null,
          "Sie können kein Paket ohne Gegenstände erstellen"
       ],
+      "Packages created": [
+         null,
+         "Pakete erstellt"
+      ],
       "Attention": [
          null,
          "Achtung"
@@ -2729,13 +2737,9 @@ window.i18n.locale_data = {
          null,
          "Kurzname"
       ],
-      "Default Contract Note": [
+      "Inventory pool successfully updated": [
          null,
-         "Standard-Vertragsnotiz"
-      ],
-      "Print Contracts": [
-         null,
-         "Verträge drucken"
+         "Gerätepark erfolgreich aktualisiert"
       ],
       "Basic Information": [
          null,
@@ -2807,10 +2811,6 @@ window.i18n.locale_data = {
          null,
          "Modell gespeichert"
       ],
-      "Packages created": [
-         null,
-         "Pakete erstellt"
-      ],
       "The package is not in stock": [
          null,
          "Das Paket ist nicht am Lager"
@@ -2870,10 +2870,6 @@ window.i18n.locale_data = {
       "%s saved": [
          null,
          "%s gespeichert"
-      ],
-      "order": [
-         null,
-         "bestellen"
       ],
       "Order overview": [
          null,
@@ -2963,9 +2959,9 @@ window.i18n.locale_data = {
          null,
          "Land"
       ],
-      "ZIP": [
+      "Zip": [
          null,
-         "PLZ"
+         ""
       ],
       "Suspended until": [
          null,
@@ -3060,7 +3056,7 @@ window.i18n.locale_data = {
          null,
          "Offene Bestellungen"
       ],
-      "These orders have been successfully submitted, but are NOT YET APPROVED.": [
+      "These orders have been successfully submitted, but are NOT YET APPROVED": [
          null,
          "Diese Bestellungen wurden abgeschickt. Sie sind allerdings NOCH NICHT GENEHMIGT."
       ],
@@ -3068,7 +3064,7 @@ window.i18n.locale_data = {
          null,
          "Suche nach '%s'"
       ],
-      "Your order has been successfully submitted, but is NOT YET APPROVED.": [
+      "Your order has been successfully submitted, but is NOT YET APPROVED": [
          null,
          "Ihre Bestellungen wurden abgeschickt. Sie ist allerdings NOCH NICHT GENEHMIGT."
       ],
@@ -3192,10 +3188,6 @@ window.i18n.locale_data = {
          null,
          "Vorlage"
       ],
-      "New Template": [
-         null,
-         "Neue Vorlage"
-      ],
       "Template must have at least one model": [
          null,
          "Vorlage muss mindestens ein Modell haben"
@@ -3232,7 +3224,7 @@ window.i18n.locale_data = {
          null,
          "Gelöscht"
       ],
-      "Reminder send": [
+      "Reminder sent": [
          null,
          "Erinnerung gesendet"
       ],
@@ -3381,6 +3373,10 @@ window.i18n.locale_data = {
          "Take back of %s items",
          "Rücknahme von %s Gegenstand",
          "Rücknahme von %s Gegenständen"
+      ],
+      "No.": [
+         null,
+         "Nr."
       ],
       "Contract signed": [
          null,
@@ -3581,6 +3577,26 @@ window.i18n.locale_data = {
       "Verification required": [
          null,
          "Visierungspflichtig"
+      ],
+      "Statistics": [
+         null,
+         "Statistik"
+      ],
+      "Who borrowed the most things?": [
+         null,
+         "Wer leiht die meisten Dinge?"
+      ],
+      "lends": [
+         null,
+         "Leihvorgänge"
+      ],
+      "Which inventory pool is busiest?": [
+         null,
+         "Was sind die meistbesuchten Geräteparks?"
+      ],
+      "Who bought the most items?": [
+         null,
+         "Wer hat die meisten Gegenstände gekauft?"
       ]
    }
 }
