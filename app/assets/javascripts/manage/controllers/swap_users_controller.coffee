@@ -19,15 +19,9 @@ class window.App.SwapUsersController extends Spine.Controller
 
     @searchSetUserController = new App.SearchSetUserController
       el: @el.find("#user #swapped-person")
-      selectCallback:
-        if @manageContactPerson
-          =>
-            isDelegation = App.User.find(@searchSetUserController.selectedUserId).isDelegation()
-            @setupContactPerson() if isDelegation
-        else
-          null
+      selectCallback: if @manageContactPerson then => @setupContactPerson() else null
 
-    @setupContactPerson() if @manageContactPerson and @contract.user().isDelegation()
+    @setupContactPerson() if @manageContactPerson
 
   delegateEvents: =>
     super
@@ -63,7 +57,10 @@ class window.App.SwapUsersController extends Spine.Controller
 
   setupContactPerson: =>
     @el.find("#contact-person").remove()
-    @renderContactPerson()
-    @searchSetContactPersonController = new App.SearchSetUserController
-      el: @el.find("#contact-person #swapped-person")
-      additionalSearchParams: { delegation_id: @searchSetUserController.selectedUserId ? @contract.user().id }
+    @searchSetContactPersonController = null
+    user_id = @searchSetUserController.selectedUserId ? @contract.user().id
+    if App.User.find(user_id).isDelegation()
+      @renderContactPerson()
+      @searchSetContactPersonController = new App.SearchSetUserController
+        el: @el.find("#contact-person #swapped-person")
+        additionalSearchParams: { delegation_id: user_id }

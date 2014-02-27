@@ -40,4 +40,3 @@ Funktionalität: Delegation
     Wenn ich statt einer Delegation einen Benutzer wähle
     Dann ist in der Bestellung der Benutzer aufgeführt
     Und es ist keine Kontaktperson aufgeführt
-

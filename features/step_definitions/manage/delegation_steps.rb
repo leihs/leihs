@@ -291,7 +291,8 @@ Dann(/^ist in der Bestellung der Benutzer aufgeführt$/) do
 end
 
 Dann(/^es ist keine Kontaktperson aufgeführt$/) do
-  page.has_no_selector? @delegated_user
+  page.should_not have_content "(#{@delegated_user.name})"
+  @contract.reload.delegated_user.should be_nil
 end
 
 Wenn(/^keine Bestellung, Aushändigung oder ein Vertrag für eine Delegation besteht$/) do
