@@ -50,10 +50,6 @@ namespace :leihs do
     File.open(Rails.root.join("app", "views", "layouts", "borrow.html.haml"), 'a+') {|f| f.puts text}
   end
 
-  task :test do
-    raise "Please call app:test, not leihs:test. The leihs: namespace is being deprecated."
-  end
-
   desc "Initialize"
   task :init => :environment do
     params = {:all => ENV['items']}
