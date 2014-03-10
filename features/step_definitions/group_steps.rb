@@ -86,7 +86,7 @@ do |group, filler, inventory_pool|
     inventory_pools = @user.inventory_pools
   end
 
-  groups = inventory_pools.collect { |ip| ip.groups.scoped_by_name(group).first }
+  groups = inventory_pools.collect { |ip| ip.groups.where(name: group).first }
   groups.each do |group|
     group.users.find_by_id( @user.id ).should_not be nil
   end

@@ -10,27 +10,26 @@ class InventoryPool < ActiveRecord::Base
   accepts_nested_attributes_for :holidays, :allow_destroy => true, :reject_if =>  proc {|holiday| holiday[:id]}
 
   has_many :access_rights, :dependent => :delete_all
-  has_many :users, :through => :access_rights, :uniq => true, :conditions => {access_rights: {deleted_at: nil}}
-  has_many :suspended_users, :through => :access_rights, :uniq => true, :source => :user, :conditions => "access_rights.deleted_at IS NULL AND access_rights.suspended_until IS NOT NULL AND access_rights.suspended_until >= CURDATE()"
+  has_many :users, -> { where(access_rights: {deleted_at: nil}).uniq }, :through => :access_rights
+  has_many :suspended_users, -> { where("access_rights.deleted_at IS NULL AND access_rights.suspended_until IS NOT NULL AND access_rights.suspended_until >= CURDATE()").uniq } , :through => :access_rights, :source => :user
 
-  has_many :locations, :through => :items, :uniq => true
+  has_many :locations, -> { uniq }, :through => :items
   has_many :items, :dependent => :nullify # OPTIMIZE prevent self.destroy unless self.items.empty? 
                                           # NOTE these are only the active items (unretired), because Item has a default_scope
-  has_many :own_items, :class_name => "Item", :foreign_key => "owner_id", :dependent => :restrict
-  has_many :models, :through => :items, :uniq => true
+  has_many :own_items, :class_name => "Item", :foreign_key => "owner_id", :dependent => :restrict_with_exception
+  has_many :models, -> { uniq }, :through => :items
   has_many :options
 
   has_and_belongs_to_many :model_groups
-  has_and_belongs_to_many :templates,
+  has_and_belongs_to_many :templates, -> { where(:type => 'Template') },
                           :join_table => 'inventory_pools_model_groups',
-                          :association_foreign_key => 'model_group_id',
-                          :conditions => {:type => 'Template'}
+                          :association_foreign_key => 'model_group_id'
 
 
   has_and_belongs_to_many :accessories
 
-  has_many :contracts, :dependent => :restrict
-  has_many :contract_lines, :through => :contracts, :uniq => true #Rails3.1# TODO still needed?
+  has_many :contracts, :dependent => :restrict_with_exception
+  has_many :contract_lines, -> { uniq }, :through => :contracts #Rails3.1# TODO still needed?
   has_many :visits #, :include => {:user => [:reminders, :groups]} # MySQL View based on contract_lines
 
   has_many :groups do #tmp#2#, :finder_sql => 'SELECT * FROM `groups` WHERE (`groups`.inventory_pool_id = #{id} OR `groups`.inventory_pool_id IS NULL)'
@@ -64,7 +63,7 @@ class InventoryPool < ActiveRecord::Base
     end
   end
 
-  has_many :running_lines, :order => [:start_date, :end_date, :type, :id] # the order is needed by the availability computation TODO sort directly on to the sql-view ??
+  has_many :running_lines, -> { order(:start_date, :end_date, :type, :id) } # the order is needed by the availability computation TODO sort directly on to the sql-view ??
 
 #######################################################################
 

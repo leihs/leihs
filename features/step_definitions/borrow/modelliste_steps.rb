@@ -315,9 +315,7 @@ Dann(/^wird der nächste Block an Modellen geladen und angezeigt$/) do
 end
 
 Wenn(/^man bis zum Ende der Liste fährt$/) do
-  find(".page", match: :first)
-  page.execute_script %Q{ $('.page').trigger('inview'); }
-  find(".page", match: :first)
+  find("footer").click
 end
 
 Dann(/^wurden alle Modelle der ausgewählten Kategorie geladen und angezeigt$/) do
@@ -368,11 +366,12 @@ Dann(/^sind alle Geräteparks wieder ausgewählt$/) do
 end
 
 Dann(/^die Liste zeigt Modelle aller Geräteparks$/) do
+  ip_ids = all("#ip-selector .dropdown-item[data-id]").map{|ip| ip["data-id"]}
   step 'man bis zum Ende der Liste fährt'
-  models = @current_user.models.borrowable.from_category_and_all_its_descendants(@category.id)
-    .all_from_inventory_pools(all("#ip-selector .dropdown-item[data-id]").map{|ip| ip["data-id"]})
-    .order_by_attribute_and_direction "model", "name"
-  all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}.should == models.map(&:name)
+  models = @current_user.models.borrowable.from_category_and_all_its_descendants(@category.id).
+    all_from_inventory_pools(ip_ids).
+    order_by_attribute_and_direction "model", "name"
+  all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}.uniq.should == models.map(&:name)
 end
 
 Angenommen(/^Filter sind ausgewählt$/) do

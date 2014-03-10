@@ -16,7 +16,7 @@ class CreatePurposes < ActiveRecord::Migration
         description = x.read_attribute(:purpose)
         next if description.nil?
         p_id = Purpose.create(description: description).id
-        "#{k}Line".constantize.update_all({purpose_id: p_id}, {id: x.send("#{k}_line_ids".downcase), purpose_id: nil})
+        "#{k}Line".constantize.where(id: x.send("#{k}_line_ids".downcase), purpose_id: nil).update_all(purpose_id: p_id)
       end    
     end
     

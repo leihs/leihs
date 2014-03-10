@@ -4,7 +4,7 @@
   %input{:type => :hidden, :name => "group[partitions_attributes][][inventory_pool_id]", :value => partition.inventory_pool_id}
   %input{:type => :hidden, :name => "group[partitions_attributes][][_destroy]", :value => nil}
 
-  - items_size = partition.model.items.scoped_by_inventory_pool_id(partition.inventory_pool_id).size
+  - items_size = partition.model.items.where(inventory_pool_id: partition.inventory_pool_id).size
   - if partition.quantity > items_size
     .line-info.red
 

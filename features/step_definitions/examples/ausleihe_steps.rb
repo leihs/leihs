@@ -17,6 +17,8 @@ Wenn /^ich öffne eine Bestellung von "(.*?)"$/ do |arg1|
     find(".line-actions .multibutton .dropdown-holder").hover
     find(".dropdown-item", :text => _("Edit")).click
   end
+  find("h1", text: _("Edit %s") % _("Order"))
+  find("h2", text: arg1)
 end
 
 Wenn /^ich öffne eine Bestellung$/ do
@@ -24,7 +26,7 @@ Wenn /^ich öffne eine Bestellung$/ do
 end
 
 Dann /^sehe ich die letzten Besucher$/ do
-  find("#daily-view .straight-top > div:nth-child(2) > div:nth-child(1) > strong", :text => _("Last Visitors:"))
+  find("#daily-view strong", :text => _("Last Visitors:"))
 end
 
 Dann /^ich sehe "(.*?)" als letzten Besucher$/ do |arg1|
@@ -106,7 +108,7 @@ Wenn /^ich eine Aushändigung mache die ein Model enthält dessen Gegenstände e
   @contract_line = nil
   @contract = @ip.contracts.approved.detect do |c|
     @contract_line = c.lines.detect do |l|
-      l.model.items.unborrowable.scoped_by_inventory_pool_id(@ip).first
+      l.model.items.unborrowable.where(inventory_pool_id: @ip).first
     end
   end
   @model = @contract_line.model

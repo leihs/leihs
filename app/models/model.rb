@@ -17,17 +17,17 @@ class Model < ActiveRecord::Base
     end
   end
 
-  has_many :items, dependent: :restrict # NOTE these are only the active items (unretired), because Item has a default_scope
+  has_many :items, dependent: :restrict_with_exception # NOTE these are only the active items (unretired), because Item has a default_scope
   accepts_nested_attributes_for :items, :allow_destroy => true
 
-  has_many :unretired_items, :class_name => "Item", :conditions => {:retired => nil} # TODO this is used by the filter
+  has_many :unretired_items, -> { where(:retired => nil) }, :class_name => "Item" # TODO this is used by the filter
   #TODO  do we need a :all_items ??
-  has_many :borrowable_items, :class_name => "Item", :conditions => {:retired => nil, :is_borrowable => true, :parent_id => nil}
-  has_many :unborrowable_items, :class_name => "Item", :conditions => {:retired => nil, :is_borrowable => false}
-  has_many :unpackaged_items, :class_name => "Item", :conditions => {:parent_id => nil}
-  
-  has_many :locations, :through => :items, :uniq => true  # OPTIMIZE N+1 select problem, :include => :inventory_pools
-  has_many :inventory_pools, :through => :items, :uniq => true
+  has_many :borrowable_items, -> { where(:retired => nil, :is_borrowable => true, :parent_id => nil) }, :class_name => "Item"
+  has_many :unborrowable_items, -> { where(:retired => nil, :is_borrowable => false) }, :class_name => "Item"
+  has_many :unpackaged_items, -> { where(:parent_id => nil) }, :class_name => "Item"
+
+  has_many :locations, -> { uniq }, :through => :items # OPTIMIZE N+1 select problem, :include => :inventory_pools
+  has_many :inventory_pools, -> { uniq }, :through => :items
 
   has_many :partitions, :dependent => :delete_all do
     def set_in(inventory_pool, new_partitions)
@@ -50,7 +50,7 @@ class Model < ActiveRecord::Base
   # MySQL View based on partitions and items
   has_many :partitions_with_generals
 
-  has_many :contract_lines, dependent: :restrict
+  has_many :contract_lines, dependent: :restrict_with_exception
   has_many :properties, :dependent => :destroy
   accepts_nested_attributes_for :properties, :allow_destroy => true
 
@@ -65,20 +65,19 @@ class Model < ActiveRecord::Base
 
   # ModelGroups
   has_many :model_links, :dependent => :destroy
-  has_many :model_groups, :through => :model_links, :uniq => true
-  has_many :categories, :through => :model_links, :source => :model_group, :conditions => {:type => 'Category'}
-  has_many :templates, :through => :model_links, :source => :model_group, :conditions => {:type => 'Template'}
+  has_many :model_groups, -> { uniq }, :through => :model_links
+  has_many :categories, -> { where(:type => 'Category') }, :through => :model_links, :source => :model_group
+  has_many :templates, -> { where(:type => 'Template') }, :through => :model_links, :source => :model_group
 
 ########
   # says which other Model one Model works with
-  has_and_belongs_to_many :compatibles,
+  has_and_belongs_to_many :compatibles, -> { uniq },
                           :class_name => "Model",
                           :join_table => "models_compatibles",
                           :foreign_key => "model_id",
-                          :association_foreign_key => "compatible_id",
-                          :uniq => true
+                          :association_foreign_key => "compatible_id"
 
-#############################################  
+#############################################
 
   validates_presence_of :name
   validates_uniqueness_of :name
@@ -86,26 +85,28 @@ class Model < ActiveRecord::Base
 #############################################
 
   # OPTIMIZE Mysql::Error: Not unique table/alias: 'items'
-  scope :active, select("DISTINCT models.*").joins(:items).where("items.retired IS NULL")
+  scope :active, -> { joins(:items).where(items: {retired: nil}).uniq }
+  # workaround preventing redundant inner joins (should be fixed in Arel >= 5.0 ??)
+  scope :active_without_extra_join, -> { where(items: {retired: nil}).uniq }
 
-  scope :without_items, select("models.*").joins("LEFT JOIN items ON items.model_id = models.id").
-                        where(['items.model_id IS NULL'])
+  scope :without_items, -> {select("models.*").joins("LEFT JOIN items ON items.model_id = models.id").
+                        where(['items.model_id IS NULL'])}
 
   scope :unused_for_inventory_pool, ( lambda do |ip|
     model_ids = Model.select("models.id").joins(:items).where(":id IN (items.owner_id, items.inventory_pool_id)", :id => ip.id).uniq
     Model.where("models.id NOT IN (#{model_ids.to_sql})")
   end )
 
-  scope :packages, where(:is_package => true)
+  scope :packages, -> {where(:is_package => true)}
 
-  scope :with_properties, select("DISTINCT models.*").
+  scope :with_properties, -> {select("DISTINCT models.*").
                           joins("LEFT JOIN properties ON properties.model_id = models.id").
-                          where("properties.model_id IS NOT NULL")
+                          where("properties.model_id IS NOT NULL")}
 
   scope :by_inventory_pool, lambda { |inventory_pool| select("DISTINCT models.*").joins(:items).
                                                       where(["items.inventory_pool_id = ?", inventory_pool]) }
 
-  scope :all_from_inventory_pools, lambda { |inventory_pool_ids| joins(:items).where("items.inventory_pool_id IN (?)", inventory_pool_ids) }
+  scope :all_from_inventory_pools, lambda { |inventory_pool_ids| where(items: {inventory_pool_id: inventory_pool_ids}) }
 
   scope :by_categories, lambda { |categories| joins("INNER JOIN model_links AS ml"). # OPTIMIZE no ON ??
                                               where(["ml.model_group_id IN (?)", categories]) }
@@ -121,7 +122,7 @@ class Model < ActiveRecord::Base
     end
   end)
 
-  scope :default_order, order_by_attribute_and_direction("name", "asc")
+  scope :default_order, -> {order_by_attribute_and_direction("name", "asc")}
 
 
 #############################################
@@ -152,7 +153,7 @@ class Model < ActiveRecord::Base
         s << "p2.value LIKE :query"
       end
       s << "CONCAT_WS(' ', i2.inventory_code, i2.serial_number, i2.invoice_number, i2.note, i2.name, i2.user_name, i2.properties) LIKE :query" if fields.empty? or fields.include?(:items)
-      
+
       sql = sql.where("%s" % s.join(' OR '), :query => "%#{x}%")
     end
     sql
@@ -168,7 +169,7 @@ class Model < ActiveRecord::Base
              end
     models = models.where(id: params[:id]) if params[:id]
     models = models.where(id: params[:ids]) if params[:ids]
-    models = models.joins(:items).where(:items => {:is_borrowable => true}) if borrowable or params[:borrowable]
+    models = models.where(:items => {:is_borrowable => true}) if borrowable or params[:borrowable]
     models = models.search(params[:search_term], params[:search_targets] ? params[:search_targets] : [:name, :manufacturer]) unless params[:search_term].blank?
     models = models.order_by_attribute_and_direction params[:sort], params[:order]
     models = models.paginate(:page => params[:page]||1, :per_page => [(params[:per_page].try(&:to_i) || 20), 100].min) unless params[:paginate] == "false"
@@ -188,13 +189,13 @@ class Model < ActiveRecord::Base
       models = unused_for_inventory_pool inventory_pool
     else
       models = joins(:items).where(":id IN (`items`.`owner_id`, `items`.`inventory_pool_id`)", :id => inventory_pool.id).uniq
-      models = models.joins(:items).where(:items => {:retired => nil}) unless params[:include_retired_models]
-      models = models.joins(:items).where(:items => {:parent_id => nil}) unless params[:include_package_models]
+      models = models.where(:items => {:retired => nil}) unless params[:include_retired_models]
+      models = models.where(:items => {:parent_id => nil}) unless params[:include_package_models]
     end
 
     unless params[:unused_models]
       models = models.joins(:items).where(items: {id: params[:item_ids]}) if params[:item_ids]
-      models = models.joins(:items).where(:items => {:inventory_pool_id => params[:responsible_id]}) if params[:responsible_id]
+      models = models.joins(:items).where(items: {inventory_pool_id: params[:responsible_id]}) if params[:responsible_id]
     end
 
     models = models.joins(:categories).where(:"model_groups.id" => [Category.find(params[:category_id])] + Category.find(params[:category_id]).descendants) unless params[:category_id].blank?
@@ -203,7 +204,7 @@ class Model < ActiveRecord::Base
   end
 
 
-#############################################  
+#############################################
 
   def to_s
     "#{name}"
@@ -218,7 +219,7 @@ class Model < ActiveRecord::Base
   def image_thumb(offset = 0)
     image(offset, :thumb)
   end
-  
+
   def image(offset = 0, size = nil)
     images.limit(1).offset(offset).first.try(:public_filename, size)
   end
@@ -226,7 +227,7 @@ class Model < ActiveRecord::Base
   def lines
     contract_lines
   end
-  
+
   def needs_permission
     items.each do |item|
       return true if item.needs_permission
@@ -234,7 +235,7 @@ class Model < ActiveRecord::Base
     return false
   end
 
-#############################################  
+#############################################
 
   # returns an array of contract_lines
   def add_to_contract(contract, user_id, quantity = nil, start_date = nil, end_date = nil)

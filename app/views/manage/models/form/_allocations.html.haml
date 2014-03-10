@@ -1,7 +1,7 @@
 :ruby
   key = "#{_("Allocations")}"
   if @model.persisted?
-    key += " (#{_("max. %s") % @model.items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable.count})"
+    key += " (#{_("max. %s") % @model.items.where(inventory_pool_id: current_inventory_pool).borrowable.count})"
   end
 
 #allocations

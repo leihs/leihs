@@ -18,7 +18,7 @@ class ItemLine < ContractLine
   validates_numericality_of :quantity, :equal_to => 1
   validate :validate_item
 
-# TODO 1301  default_scope includes(:model).order("models.name")
+# TODO 1301  default_scope -> {includes(:model).order("models.name")}
 
   # OPTMIZE 0209** overriding the item getter in order to get a retired item as well if is the case
   def item

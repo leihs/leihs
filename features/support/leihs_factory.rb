@@ -184,7 +184,8 @@ module LeihsFactory
     default_attributes = {
       :name => 'model_1'
     }
-    t = Model.find_or_create_by_name default_attributes.merge(attributes)
+    attrs = default_attributes.merge(attributes)
+    t = Model.create_with(attrs).find_or_create_by(name: attrs[:name])
     t.save
     t
   end
@@ -299,8 +300,7 @@ module LeihsFactory
       :shortname => "ABC",
       :email => "ABC@abc.de"
     }
-    ip = InventoryPool.find_or_create_by_name(
-             default_attributes.merge(attributes)[:name] )
+    ip = InventoryPool.find_or_create_by(name: default_attributes.merge(attributes)[:name])
     ip.update_attributes default_attributes.merge(attributes)
     ip
   end
@@ -313,7 +313,8 @@ module LeihsFactory
     default_attributes = {
       :name => 'category'
     }
-    t = Category.find_or_create_by_name default_attributes.merge(attributes)
+    attrs = default_attributes.merge(attributes)
+    t = Category.create_with(attrs).find_or_create_by(name: attrs[:name])
     t
   end
 

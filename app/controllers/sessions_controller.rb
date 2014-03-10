@@ -35,18 +35,6 @@ class SessionsController < ApplicationController
     raise 'Class not found or missing login_form_path method: ' + @selected_system.class_name
   end
 
-#TODO 1009: Remove as soon as not needed anymore
-  def switch_to_ldap
-    AuthenticationSystem.update_all({:is_active => false, :is_default => false})
-    a=AuthenticationSystem.find_by_class_name "LdapAuthentication"
-    a.class_name="LdapAuthentication"
-    a.is_default = true
-    a.is_active =true
-    a.save
-    flash[:notice] = "Switched Authentication to LDAP"
-    redirect_back_or_default("/")
-  end
-
   def destroy
     # store last inventory pool to the settings column
     if current_user

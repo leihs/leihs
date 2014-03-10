@@ -100,7 +100,7 @@ Dann /^"(.*?)" sind insgesamt verfügbar$/ do |arg1|
 end
 
 Dann /^"(.*?)" sind total im Pool bekannt \(ausleihbar\)$/ do |arg1|
-  @reference_problem.should match("/#{@line.model.items.scoped_by_inventory_pool_id(@line.inventory_pool).borrowable.size}")
+  @reference_problem.should match("/#{@line.model.items.where(inventory_pool_id: @line.inventory_pool).borrowable.size}")
 end
 
 Angenommen /^eine Gegenstand ist nicht ausleihbar$/ do

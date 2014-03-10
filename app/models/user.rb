@@ -7,15 +7,15 @@ class User < ActiveRecord::Base
   belongs_to :authentication_system
   belongs_to :language
 
-  has_many :access_rights, :dependent => :restrict
-  has_many :inventory_pools, :through => :access_rights, :uniq => true, :conditions => {access_rights: {deleted_at: nil}} do
+  has_many :access_rights, :dependent => :restrict_with_exception
+  has_many :inventory_pools, -> { where(access_rights: {deleted_at: nil}).uniq }, :through => :access_rights do
     def with_borrowable_items
       joins(:items).where(items: {retired: nil, is_borrowable: true, parent_id: nil})
     end
   end
 
-  has_many :items, :through => :inventory_pools, :uniq => true
-  has_many :models, :through => :inventory_pools, :uniq => true do
+  has_many :items, -> { uniq }, :through => :inventory_pools
+  has_many :models, -> { uniq }, :through => :inventory_pools do
     def borrowable
       joins("INNER JOIN `partitions_with_generals` ON `models`.`id` = `partitions_with_generals`.`model_id`
                                                   AND `inventory_pools`.`id` = `partitions_with_generals`.`inventory_pool_id`
@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  has_many :categories, :through => :models, :uniq => true # (nested)
+  has_many :categories, -> { uniq }, :through => :models # (nested)
 
   def all_categories
     borrowable_categories = Category.with_borrowable_models_for_user(self)
@@ -55,8 +55,8 @@ class User < ActiveRecord::Base
 
   has_many :notifications, :dependent => :delete_all
 
-  has_many :contracts, dependent: :restrict
-  has_many :contract_lines, :through => :contracts, :uniq => true
+  has_many :contracts, dependent: :restrict_with_exception
+  has_many :contract_lines, -> { uniq }, :through => :contracts
   has_many :visits #, :include => :inventory_pool # MySQL View based on contract_lines
 
   validates_presence_of     :lastname, :firstname, :email, :login
@@ -64,18 +64,14 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :email
   validates :email, format: /.+@.+\..+/, allow_blank: true
 
-  has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
-  has_many :reminders, :as => :target, :class_name => "History", :dependent => :destroy, :conditions => {:type_const => History::REMIND}, :order => 'created_at ASC'
+  has_many :histories, -> { order(:created_at) }, :as => :target, :dependent => :destroy
+  has_many :reminders, -> { where(:type_const => History::REMIND).order(:created_at) }, :as => :target, :class_name => "History", :dependent => :destroy
 
   has_and_belongs_to_many :groups do #tmp#2#, :finder_sql => 'SELECT * FROM `groups` INNER JOIN `groups_users` ON `groups`.id = `groups_users`.group_id OR groups.inventory_pool_id IS NULL WHERE (`groups_users`.user_id = #{id})'
     def with_general
       all + [Group::GENERAL_GROUP_ID]
     end
   end
-
-  # prevents a user from submitting a crafted form that bypasses activation
-  # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :phone, :address, :city, :zip, :country, :authentication_system_id, :badge_id, :language_id
 
 ################################################
 
@@ -134,10 +130,10 @@ class User < ActiveRecord::Base
 
 ################################################
 
-  scope :admins, joins(:access_rights).where(access_rights: {role: :admin, deleted_at: nil})
+  scope :admins, -> {joins(:access_rights).where(access_rights: {role: :admin, deleted_at: nil})}
 
   AccessRight::ROLES_HIERARCHY.each do |role|
-    scope role.to_s.pluralize.to_sym, joins(:access_rights).where(access_rights: {role: role}).uniq
+    scope role.to_s.pluralize.to_sym, -> {joins(:access_rights).where(access_rights: {role: role}).uniq}
   end
 
 ################################################
@@ -189,7 +185,7 @@ class User < ActiveRecord::Base
     return nil if contracts.empty?
     if contracts.size > 1
       contracts[1..-1].each do |c|
-        ContractLine.update_all({:contract_id => contracts.first.id}, {:id => c.lines})
+        c.contract_lines.update_all(:contract_id => contracts.first.id)
         c.reload.destroy
       end
     end
@@ -271,7 +267,7 @@ class User < ActiveRecord::Base
 
   def has_role?(role, inventory_pool = nil)
     roles = if inventory_pool
-      access_rights.active.scoped_by_inventory_pool_id(inventory_pool).collect(&:role)
+      access_rights.active.where(inventory_pool_id: inventory_pool).collect(&:role)
     else
       access_rights.active.collect(&:role)
     end
@@ -285,11 +281,11 @@ class User < ActiveRecord::Base
   end
 
   def access_right_for(ip)
-    access_rights.active.scoped_by_inventory_pool_id(ip).first
+    access_rights.active.where(inventory_pool_id: ip).first
   end
 
   def suspended?(ip)
-    access_rights.active.suspended.scoped_by_inventory_pool_id(ip).exists?
+    access_rights.active.suspended.where(inventory_pool_id: ip).exists?
   end
 
 #################### End role_requirement

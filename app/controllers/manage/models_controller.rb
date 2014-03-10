@@ -86,7 +86,7 @@ class Manage::ModelsController < Manage::ApplicationController
   end
 
   def max_partition_capacity
-    max_partition_capacity = Model.find(params[:id]).items.scoped_by_inventory_pool(current_inventory_pool).borrowable.count
+    max_partition_capacity = Model.find(params[:id]).items.where(inventory_pool_id: current_inventory_pool).borrowable.count
     respond_to {|format| format.json {render json: max_partition_capacity}}
   end
 
@@ -154,9 +154,9 @@ class Manage::ModelsController < Manage::ApplicationController
   def get_root_items
     @root_items = case params[:filter]
                     when "own", "own_items"
-                      current_inventory_pool.own_items.scoped_by_model_id(@model)
+                      current_inventory_pool.own_items.where(model_id: @model)
                     else
-                      current_inventory_pool.items.scoped_by_model_id(@model)
+                      current_inventory_pool.items.where(model_id: @model)
                   end
   end
 

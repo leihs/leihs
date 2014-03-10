@@ -2961,7 +2961,7 @@ window.i18n.locale_data = {
       ],
       "Zip": [
          null,
-         ""
+         "PLZ"
       ],
       "Suspended until": [
          null,

@@ -1,11 +1,11 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.14'
+gem 'rails', '4.0.3'
 
 
 gem 'active_hash', '~> 0.9'
 gem 'activerecord-jdbcmysql-adapter', :platform => :jruby
-gem 'acts-as-dag', :git => 'git://github.com/jrust/acts-as-dag.git' #tmp# '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
+gem 'acts-as-dag', '~> 3.0' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
 gem 'barby', '~> 0.5.0'
 gem 'better_errors', :group => :development
 gem 'binding_of_caller', :group => :development
@@ -17,26 +17,26 @@ gem 'capybara', '~> 2.2', :group => [:test, :development]
 gem 'capybara-screenshot', :group => [:test, :development]
 gem 'chunky_png', '~> 1.2'
 gem 'coffee-filter', '~> 0.1.1'
-gem 'coffee-rails', '~> 3.2', :group => :assets
+gem 'coffee-rails', '~> 4.0'
 gem 'coffee-script', '~> 2.2'
-gem 'compass-rails', '~> 1.0.3', :group => :assets
+gem 'compass-rails', '~> 1.1'
 gem 'cucumber-rails', '~> 1.3', :group => [:test, :development], :require => false
 gem 'database_cleaner', :group => [:test, :development]
 gem 'execjs'
 gem 'factory_girl', '~> 4.1' # factories also in production mode to seed our demo data on the demo server
 gem 'factory_girl_rails', '~> 4.1'
 gem 'faker'
-gem 'font-awesome-rails', '~> 3.2.1.1'
+gem 'font-awesome-rails', '~> 3.2.1'
 gem 'geocoder', '~> 1.1'
 gem 'gettext_i18n_rails', '~> 0.8'
 gem 'guard-jasmine', '~> 1.11', :group => [:test, :development]
 gem 'haml', '~> 3.1'
 gem 'haml_assets', '~> 0.2'
-gem 'jasminerice', '~> 0.0.10', :group => [:test, :development] # needed for implement coffeescript, fixtures and asset pipeline serverd css into jasmine
+gem "jasminerice", :git => 'https://github.com/bradphelan/jasminerice.git', :group => [:test, :development] # needed for implement coffeescript, fixtures and asset pipeline serverd css into jasmine
 gem 'jquery-rails', '2.1.3' # '~> 2.1' FIXME the version 2.1.4 clashes with underscore-rails 1.4.2.1
 gem 'jquery-tmpl-rails', '~> 1.1'
 gem 'jruby-openssl', :platform => :jruby
-gem 'json', '~> 1.7'
+gem 'json', '~> 1.8'
 gem 'jsrender-rails', '~> 1.2', :git => 'https://github.com/spape/jsrender-rails.git', :branch => 'own_template_prefix'
 gem 'launchy', '~> 2.1', :group => [:test, :development]
 gem 'meta_request', :group => :development
@@ -45,11 +45,12 @@ gem 'mysql2', '~> 0.3.11', :platform => :mri
 gem 'net-ldap', '0.2.2', :require => 'net/ldap' # Never upgrade beyond 0.2.2, ruby-net-ldap has broken in many unpredictable ways. Wait for 1.0.0 before upgrading, at least 0.2.2 works.
 gem 'newrelic_rpm', '~> 3.5', :group => [:profiling, :development]
 gem 'paperclip', '~> 3.5'
-gem 'phantomjs', '~> 1.6.0.0', :group => [:test, :development] # headless webdriver (UI & JS tests)
+gem 'phantomjs', '~> 1.9.7', :group => [:test, :development] # headless webdriver (UI & JS tests)
 gem 'poltergeist'
 gem 'pry', :group => [:test, :development]
 gem 'pry-debugger', :group => :development
 gem 'pry-rails', :group => [:test, :development]
+gem 'protected_attributes', '~> 1.0'
 gem "rack_session_access", "~> 0.1.1", group: :test
 gem 'rails_autolink', '~> 1.0'
 gem 'rake' # So that cronjobs work -- otherwise they can't find rake
@@ -58,8 +59,8 @@ gem 'rgl', '~> 0.4.0', :require => 'rgl/adjacency' # use ruby-graphviz instead ?
 gem 'rspec', '~> 2.12', :group => [:test, :development], :require => false
 gem 'rspec-rails', '~> 2.12', :group => [:test, :development], :require => false
 gem 'ruby_parser', '~> 3.1' # gettext dependency that Bundler seems unable to resolve
-gem 'sass', '~> 3.2', :group => :assets
-gem 'sass-rails', '~> 3.2', :group => :assets
+gem 'sass', '~> 3.2'
+gem 'sass-rails', '~> 4.0'
 gem 'selenium-webdriver', :group => [:test, :development]
 gem 'simplecov', :require => false, :group => :test
 gem 'therubyracer', :platform => :mri
@@ -67,7 +68,7 @@ gem 'therubyrhino', :platform => :jruby
 gem 'thin', :group => :development, :platform => :mri # web server (Webrick do not support keep-alive connections)
 gem 'timecop', '~> 0.7', :group => [:test, :development]
 gem 'trinidad', :group => :development, :platform => :jruby # web server (Webrick do not support keep-alive connections)
-gem 'uglifier', '~> 1.3', :group => :assets
+gem 'uglifier', '~> 2.4'
 gem 'underscore-rails', '~> 1.4'
 gem 'uuidtools', '~> 2.1' # needed for creating unique ids during tests (factories)
 gem 'will_paginate', '~> 3.0'

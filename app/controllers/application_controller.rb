@@ -54,9 +54,9 @@ class ApplicationController < ActionController::Base
   end
 
   def load_settings
-    if not Setting.const_defined?("SMTP_ADDRESS") and logged_in? and not [manage_settings_path, logout_path].include? request.path
+    if not Setting.const_defined?("SMTP_ADDRESS") and logged_in? and not [manage_edit_settings_path, manage_update_settings_path, logout_path].include? request.path
       if current_user.has_role?(:admin)
-        redirect_to manage_settings_path
+        redirect_to manage_edit_settings_path
       else
         raise "Application settings are missing!"
       end

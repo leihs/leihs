@@ -12,7 +12,7 @@ class Manage::AvailabilityController < Manage::ApplicationController
       @availabilities.push({
         id: "#{model.id}-#{user.id}-#{current_inventory_pool.id}",
         changes: model.availability_in(current_inventory_pool).available_total_quantities,
-        total_rentable: model.items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable.count,
+        total_rentable: model.items.where(inventory_pool_id: current_inventory_pool).borrowable.count,
         inventory_pool_id: current_inventory_pool.id,
         model_id: model.id
       })
@@ -23,8 +23,8 @@ class Manage::AvailabilityController < Manage::ApplicationController
     @models.each do |model|
       @availabilities.push({
         id: "#{model.id}-#{current_inventory_pool.id}",
-        total_rentable: model.items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable.count,
-        in_stock: model.items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable.in_stock.count,
+        total_rentable: model.items.where(inventory_pool_id: current_inventory_pool).borrowable.count,
+        in_stock: model.items.where(inventory_pool_id: current_inventory_pool).borrowable.in_stock.count,
         inventory_pool_id: current_inventory_pool.id,
         model_id: model.id
       })

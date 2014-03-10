@@ -3,20 +3,19 @@ Leihs::Application.routes.draw do
   root to: "application#root"
 
   # Authenticator
-  match 'authenticator/zhdk/login',                 to: 'authenticator/zhdk#login'
-  match 'authenticator/zhdk/login_successful/:id',  to: 'authenticator/zhdk#login_successful'
-  match 'authenticator/db/:action',                 to: 'authenticator/database_authentication'
-  match 'authenticator/ldap/:action',               to: 'authenticator/ldap_authentication'
-  match 'authenticator/hslu/:action',               to: 'authenticator/hslu_authentication'
-  match 'authenticator/shibboleth/:action/:id',     to: 'authenticator/shibboleth_authentication'
-  match 'authenticator/login',                      to: "authenticator/database_authentication#login"
+  match 'authenticator/zhdk/login',                 to: 'authenticator/zhdk#login',                    via: [:get, :post]
+  match 'authenticator/zhdk/login_successful/:id',  to: 'authenticator/zhdk#login_successful',         via: [:get, :post]
+  match 'authenticator/db/:action',                 to: 'authenticator/database_authentication',       via: [:get, :post]
+  match 'authenticator/ldap/:action',               to: 'authenticator/ldap_authentication',           via: [:get, :post]
+  match 'authenticator/hslu/:action',               to: 'authenticator/hslu_authentication',           via: [:get, :post]
+  match 'authenticator/shibboleth/:action/:id',     to: 'authenticator/shibboleth_authentication',     via: [:get, :post]
+  match 'authenticator/login',                      to: "authenticator/database_authentication#login", via: [:get, :post]
 
   # For RESTful_Authentication
-  match 'activate/:activation_code',  to: 'users#activate', :activation_code => nil
-  match 'signup',                     to: 'users#new'
-  match 'login',                      to: 'sessions#new', as: :login
-  match 'logout',                     to: 'sessions#destroy'
-  match 'switch_to_ldap',             to: 'sessions#switch_to_ldap' #TODO 1009: Remove when not used anymore
+  match 'activate/:activation_code',  to: 'users#activate', :activation_code => nil, via: [:get, :post]
+  match 'signup',                     to: 'users#new',                               via: [:get, :post]
+  match 'login',                      to: 'sessions#new', as: :login,                via: [:get, :post]
+  match 'logout',                     to: 'sessions#destroy',                        via: [:get, :post]
 
   # Session
   get 'session/authenticate', to: 'sessions#authenticate'
@@ -135,8 +134,8 @@ Leihs::Application.routes.draw do
     get "access_rights", to: "access_rights#index"
 
     # Administrate settings
-    get 'settings', to: 'settings#edit',    as: 'settings'
-    put 'settings', to: 'settings#update',  as: 'settings'
+    get 'settings', to: 'settings#edit',    as: 'edit_settings'
+    put 'settings', to: 'settings#update',  as: 'update_settings'
 
     scope ":inventory_pool_id/" do
 

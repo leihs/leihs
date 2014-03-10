@@ -7,7 +7,7 @@
 
   .row.content-wrapper.min-height-xl.min-width-full.straight-top
 
-    = form_tag manage_update_inventory_pool_user_path(current_inventory_pool), method: :put do
+    = form_tag manage_update_inventory_pool_user_path(current_inventory_pool, @user), method: :put do
 
       .margin-top-l.padding-horizontal-m
 

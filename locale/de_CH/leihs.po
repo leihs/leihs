@@ -2309,7 +2309,7 @@ msgid "Country"
 msgstr "Land"
 
 msgid "Zip"
-msgstr ""
+msgstr "PLZ"
 
 msgid "Suspended until"
 msgstr "Gesperrt bis"

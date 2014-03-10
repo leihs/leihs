@@ -4,7 +4,7 @@ environments:
 - linux
 - mariadb
 - rbenv
-- ruby-1.9.3
+- ruby-2.1.0
 - tightvncserver
 
 ports:
@@ -22,7 +22,7 @@ attachments:
     content-type: image/png
 
 environment_variables:
-  RBENV_VERSION: ruby-1.9.3
+  RBENV_VERSION: ruby-2.1.0
   RAILS_ENV: test
 
 contexts:

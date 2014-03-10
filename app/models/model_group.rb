@@ -3,11 +3,11 @@ class ModelGroup < ActiveRecord::Base
   attr_accessor :current_parent_id
 
   has_many :model_links, inverse_of: :model_group
-  has_many :models, :through => :model_links, :uniq => true
-  has_many :items, :through => :models, :uniq => true
+  has_many :models, -> { uniq }, :through => :model_links
+  has_many :items, -> { uniq }, :through => :models
   
   #has_many :all_model_links, :class_name => "ModelLink", :finder_sql => proc { ModelLink.where(["model_group_id IN (?)", descendant_ids]).to_sql }
-  #has_many :all_models, :class_name => "Model", :through => :all_model_links, :source => :model, :uniq => true
+  #has_many :all_models, -> { uniq }, :class_name => "Model", :through => :all_model_links, :source => :model
   
   has_and_belongs_to_many :inventory_pools
 
@@ -37,10 +37,10 @@ class ModelGroup < ActiveRecord::Base
   end
 
   scope :with_borrowable_models_for_user, lambda { |user|
-    joins(:models).where(:models => {:id => user.models.borrowable}).uniq
+    joins(:models).where("models.id IN (#{user.models.borrowable.select("models.id").to_sql})").uniq
   }
 
-  scope :roots, joins("LEFT JOIN model_group_links AS mgl ON mgl.descendant_id = model_groups.id").where("mgl.descendant_id IS NULL")
+  scope :roots, -> {joins("LEFT JOIN model_group_links AS mgl ON mgl.descendant_id = model_groups.id").where("mgl.descendant_id IS NULL")}
 
   # scope :accessible_roots, lambda do |user_id|     
   # end

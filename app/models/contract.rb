@@ -1,18 +1,18 @@
 class Contract < ActiveRecord::Base
   include LineModules::GroupedAndMergedLines
 
-  has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
-  has_many :actions, :as => :target, :class_name => "History", :order => 'created_at ASC', :conditions => "type_const = #{History::ACTION}"
+  has_many :histories, -> { order(:created_at) }, :as => :target, :dependent => :destroy
+  has_many :actions, -> { where("type_const = #{History::ACTION}").order(:created_at) }, :as => :target, :class_name => "History"
 
   belongs_to :inventory_pool
   belongs_to :user
 
-  has_many :contract_lines, :dependent => :destroy, :order => 'start_date ASC, end_date ASC, contract_lines.created_at ASC' #Rails3.1# TODO ContractLin#default_scope
-  has_many :item_lines, :dependent => :destroy, :order => 'start_date ASC, end_date ASC, contract_lines.created_at ASC'
-  has_many :option_lines, :dependent => :destroy, :order => 'start_date ASC, end_date ASC, contract_lines.created_at ASC'
-  has_many :models, :through => :item_lines, :uniq => true, :order => 'contract_lines.start_date ASC, contract_lines.end_date ASC, models.name ASC'
-  has_many :items, :through => :item_lines, :uniq => false
-  has_many :options, :through => :option_lines, :uniq => true
+  has_many :contract_lines, -> { order('start_date ASC, end_date ASC, contract_lines.created_at ASC') }, :dependent => :destroy #Rails3.1# TODO ContractLin#default_scope
+  has_many :item_lines, -> { order('start_date ASC, end_date ASC, contract_lines.created_at ASC') }, :dependent => :destroy
+  has_many :option_lines, -> { order('start_date ASC, end_date ASC, contract_lines.created_at ASC') }, :dependent => :destroy
+  has_many :models, -> { order('contract_lines.start_date ASC, contract_lines.end_date ASC, models.name ASC').uniq }, :through => :item_lines
+  has_many :items, :through => :item_lines
+  has_many :options, -> { uniq }, :through => :option_lines
   belongs_to :handed_over_by_user, :class_name => "User"
 
 #########################################################################
@@ -44,11 +44,6 @@ class Contract < ActiveRecord::Base
 
 #########################################################################
 
-  # TODO do we really want this ??
-  # default_scope order('contracts.created_at ASC')
-
-#########################################################################
-
   STATUSES = [:unsubmitted, :submitted, :rejected, :approved, :signed, :closed]
 
   def status
@@ -56,28 +51,28 @@ class Contract < ActiveRecord::Base
   end
 
   STATUSES.each do |status|
-    scope status, where(status: status)
+    scope status, -> {where(status: status)}
   end
-  scope :submitted_or_approved_or_rejected, where(status: [:submitted, :approved, :rejected])
-  scope :signed_or_closed, where(status: [:signed, :closed])
-  scope :not_empty, joins(:contract_lines).uniq
+  scope :submitted_or_approved_or_rejected, -> {where(status: [:submitted, :approved, :rejected])}
+  scope :signed_or_closed, -> {where(status: [:signed, :closed])}
+  scope :not_empty, -> {joins(:contract_lines).uniq}
 
   # OPTIMIZE use INNER JOIN (:joins => :contract_lines) -OR- union :approved + :signed (with lines)
-  scope :pending, select("DISTINCT contracts.*").
+  scope :pending, -> { select("DISTINCT contracts.*").
       joins("LEFT JOIN contract_lines ON contract_lines.contract_id = contracts.id").
       where("contracts.status = '#{:signed}'
                          OR (contracts.status = '#{:approved}' AND
-                             contract_lines.contract_id IS NOT NULL)")
+                             contract_lines.contract_id IS NOT NULL)") }
 
-  scope :with_verifiable_user, joins("INNER JOIN groups_users USING(user_id) INNER JOIN groups ON groups.id = groups_users.group_id  AND groups.inventory_pool_id = contracts.inventory_pool_id").
+  scope :with_verifiable_user, -> { joins("INNER JOIN groups_users USING(user_id) INNER JOIN groups ON groups.id = groups_users.group_id  AND groups.inventory_pool_id = contracts.inventory_pool_id").
                                 joins(:contract_lines).
-                                where(groups: {is_verification_required: true}).uniq
+                                where(groups: {is_verification_required: true}).uniq }
 
-  scope :with_verifiable_user_and_model, with_verifiable_user.
+  scope :with_verifiable_user_and_model, -> { with_verifiable_user.
                                           joins("INNER JOIN partitions USING(group_id)").
-                                          where("contract_lines.model_id = partitions.model_id")
+                                          where("contract_lines.model_id = partitions.model_id") }
 
-  scope :no_verification_required, where("contracts.id NOT IN (#{with_verifiable_user_and_model.select("contracts.id").to_sql})")
+  scope :no_verification_required, -> { where("contracts.id NOT IN (#{with_verifiable_user_and_model.select("contracts.id").to_sql})") }
 
 #########################################################################
 

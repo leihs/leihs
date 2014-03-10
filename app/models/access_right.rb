@@ -2,7 +2,7 @@ class AccessRight < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :inventory_pool
-  has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
+  has_many :histories, -> { order('created_at ASC') }, :as => :target, :dependent => :destroy
 
 ####################################################################
 
@@ -63,9 +63,9 @@ class AccessRight < ActiveRecord::Base
 
 ####################################################################
 
-  scope :active, where(deleted_at: nil)
-  scope :suspended, where("suspended_until IS NOT NULL AND suspended_until >= CURDATE()")
-  scope :not_suspended, where("suspended_until IS NULL OR suspended_until < CURDATE()")
+  scope :active, -> { where(deleted_at: nil) }
+  scope :suspended, -> { where("suspended_until IS NOT NULL AND suspended_until >= CURDATE()") }
+  scope :not_suspended, -> { where("suspended_until IS NULL OR suspended_until < CURDATE()") }
 
 ####################################################################
 

@@ -1,6 +1,6 @@
 class Category < ModelGroup
 
-  has_many :templates, :through => :models, :uniq => true
+  has_many :templates, -> { uniq }, :through => :models
 
   def is_used
     not(self.models.empty? and self.children.empty?)

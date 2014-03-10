@@ -180,10 +180,10 @@ class Manage::UsersController < Manage::ApplicationController
         params[:user].merge!(login: params[:db_auth][:login]) if params[:db_auth]
         @user.update_attributes! params[:user]
         if params[:db_auth]
-          DatabaseAuthentication.find_or_create_by_user_id(@user.id).update_attributes! params[:db_auth].merge(user: @user)
+          DatabaseAuthentication.find_or_create_by(user_id: @user.id).update_attributes! params[:db_auth].merge(user: @user)
           @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
         end
-        @access_right = AccessRight.find_or_initialize_by_user_id_and_inventory_pool_id(@user.id, @ip_id)
+        @access_right = AccessRight.find_or_initialize_by(user_id: @user.id, inventory_pool_id: @ip_id)
         @access_right.update_attributes! params[:access_right] unless @access_right.new_record? and params[:access_right][:role].to_sym == :no_access
 
         respond_to do |format|

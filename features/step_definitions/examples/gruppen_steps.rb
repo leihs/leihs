@@ -115,7 +115,7 @@ end
 Dann(/^sehe ich die noch nicht zugeteilten Kapazitäten$/) do
   @partitions.each do |partition|
     model = Model.find partition[:model_id]
-    find("input[value='#{model.id}']", visible: false).parent.should have_content("/ #{model.items.scoped_by_inventory_pool_id(@current_inventory_pool.id).borrowable.size}")
+    find("input[value='#{model.id}']", visible: false).parent.should have_content("/ #{model.items.where(inventory_pool_id: @current_inventory_pool.id).borrowable.size}")
   end
 end
 

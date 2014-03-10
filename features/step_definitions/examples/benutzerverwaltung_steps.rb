@@ -467,7 +467,7 @@ Dann /^man kann Benutzern jegliche Rollen zuweisen und wegnehmen$/ do
   page.driver.browser.process(:put, manage_user_path(user, format: :json), access_right: {inventory_pool_id: inventory_pool.id, role: :no_access}).successful?.should be_true
 
   user.has_role?(:inventory_manager, inventory_pool).should be_false
-  user.access_rights.where("deleted_at IS NOT NULL").scoped_by_inventory_pool_id(inventory_pool).first.deleted_at.should_not be_nil
+  user.access_rights.where("deleted_at IS NOT NULL").where(inventory_pool_id: inventory_pool).first.deleted_at.should_not be_nil
 end
 
 Dann(/^kann man Gruppen über eine Autocomplete\-Liste hinzufügen$/) do
@@ -715,7 +715,7 @@ end
 
 Wenn(/^ich diesen Benutzer aus der Liste lösche$/) do
   @user ||= @users.sample
-  find("footer").click # loading pages (but probably only the last one)
+  step 'man bis zum Ende der Liste fährt' # loading pages (but probably only the last one)
   find("#user-list .line", text: @user.name).find(".multibutton .dropdown-toggle").click
   find("#user-list .line", text: @user.name).find(".multibutton .dropdown-toggle").hover
   find("#user-list .line", text: @user.name).find(".multibutton .dropdown-item.red", text: _("Delete")).click
@@ -731,7 +731,7 @@ Dann(/^der Benutzer ist gelöscht$/) do
 end
 
 Dann(/^der Benutzer ist nicht gelöscht$/) do
-  find("footer").click # loading pages (but probably only the last one)
+  step 'man bis zum Ende der Liste fährt' # loading pages (but probably only the last one)
   find("#user-list .line", text: @user.name)
   User.find_by_id(@user.id).should_not be_nil
 end

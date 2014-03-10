@@ -82,7 +82,7 @@ Wenn(/^ich den Reiter "(.*?)" einsehe$/) do |tab|
 end
 
 Dann(/^sehe ich alle visierpflichtigen Bestellungen$/) do
-  find("footer").click
+  step 'man bis zum Ende der Liste fährt'
   @contracts = @current_inventory_pool.contracts.where(status: [:submitted, :approved, :rejected]).with_verifiable_user_and_model
   @contracts.each {|c| page.has_selector? "[data-type='contract'][data-id='#{c.id}']"}
 end
@@ -92,7 +92,7 @@ Dann(/^diese Bestellungen sind nach Erstelltdatum aufgelistet$/) do
 end
 
 Dann(/^sehe ich alle offenen visierpflichtigen Bestellungen$/) do
-  find("footer").click
+  step 'man bis zum Ende der Liste fährt'
   @contracts = @current_inventory_pool.contracts.where(status: :submitted).with_verifiable_user_and_model
   @contracts.each {|c| page.has_selector? "[data-type='contract'][data-id='#{c.id}']"}
   @contract = @contracts.order("created_at DESC").first
@@ -149,7 +149,7 @@ Dann(/^ich kann keine Bestellungen aushändigen$/) do
 end
 
 Dann(/^sehe ich alle genehmigten visierpflichtigen Bestellungen$/) do
-  find("footer").click
+  step 'man bis zum Ende der Liste fährt'
   @contracts = @current_inventory_pool.contracts.where(status: :approved).with_verifiable_user_and_model
   @contracts.each {|c| page.has_selector? "[data-type='contract'][data-id='#{c.id}']"}
   @contract = @contracts.order("created_at DESC").first
@@ -161,7 +161,7 @@ Dann(/^ich sehe auf der Bestellungszeile den Status$/) do
 end
 
 Dann(/^sehe ich alle abgelehnten visierpflichtigen Bestellungen$/) do
-  find("footer").click
+  step 'man bis zum Ende der Liste fährt'
   @contracts = @current_inventory_pool.contracts.where(status: :rejected).with_verifiable_user_and_model
   @contracts.each {|c| page.has_selector? "[data-type='contract'][data-id='#{c.id}']"}
   @contract = @contracts.order("created_at DESC").first
@@ -173,7 +173,7 @@ Wenn(/^ich den Filter "(.*?)" aufhebe$/) do |filter|
 end
 
 Dann(/^sehe ich alle Bestellungen, welche von Benutzern der visierpflichtigen Gruppen erstellt wurden$/) do
-  find("footer").click
+  step 'man bis zum Ende der Liste fährt'
   @contracts = @current_inventory_pool.contracts.where(status: [:submitted, :rejected, :signed]).with_verifiable_user
   @contracts.each {|c| page.has_selector? "[data-type='contract'][data-id='#{c.id}']"}
 end

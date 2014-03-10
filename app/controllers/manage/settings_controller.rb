@@ -10,7 +10,7 @@ class Manage::SettingsController < Manage::ApplicationController
   def update
     if @setting.update_attributes(params[:setting])
       flash[:notice] = _("Successfully set.")
-      redirect_to manage_settings_path
+      redirect_to manage_edit_settings_path
     else
       flash.now[:error] = @setting.errors.full_messages.uniq.join(", ")
       render :edit

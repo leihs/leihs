@@ -16,24 +16,23 @@ class Item < ActiveRecord::Base
   belongs_to :parent, :class_name => "Item", :foreign_key => 'parent_id'
   has_many :children, :class_name => "Item", :foreign_key => 'parent_id', :dependent => :nullify,
                       :after_add => :update_child_attributes
-  
+
   belongs_to :model
   belongs_to :location
   belongs_to :owner, :class_name => "InventoryPool", :foreign_key => "owner_id"
   belongs_to :supplier
   belongs_to :inventory_pool
-  
+
   has_many :item_lines
   alias :contract_lines :item_lines
-  has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
-
+  has_many :histories, -> { order(:created_at) }, :as => :target, :dependent => :destroy
   store :properties
-  
+
 ####################################################################
-  
+
   validates_uniqueness_of :inventory_code
   validates_presence_of :inventory_code, :model, :owner
-  
+
   validate :validates_package, :validates_changes
   validates :retired_reason, presence: true, if: :retired?
 
@@ -133,34 +132,34 @@ class Item < ActiveRecord::Base
       return false
     end
   end
-    
+
 ####################################################################
 
-  default_scope where(:retired => nil)
+  #### working here, just a try... #### default_scope { where(retired: nil) }
   #scope :retired, unscoped { where{{retired.not_eq => nil}} } # NOTE using squeel gem # where(arel_table[:retired].not_eq(nil))
   #scope :retired_and_unretired, unscoped {}
 
 ####################################################################
 
-  scope :borrowable, where(:is_borrowable => true, :parent_id => nil) 
-  scope :unborrowable, where(:is_borrowable => false)
+  scope :borrowable, -> {where(:is_borrowable => true, :parent_id => nil)}
+  scope :unborrowable, -> {where(:is_borrowable => false)}
 
-  scope :broken, where(:is_broken => true)
-  scope :incomplete, where(:is_incomplete => true)
+  scope :broken, -> {where(:is_broken => true)}
+  scope :incomplete, -> {where(:is_incomplete => true)}
 
-  scope :unfinished, where(['inventory_code IS NULL OR model_id IS NULL'])
-  scope :unallocated, where(['inventory_pool_id IS NULL'])
- 
-  scope :inventory_relevant, where(:is_inventory_relevant => true)
-  scope :not_inventory_relevant, where(:is_inventory_relevant => false)
- 
+  scope :unfinished, -> {where(['inventory_code IS NULL OR model_id IS NULL'])}
+  scope :unallocated, -> {where(['inventory_pool_id IS NULL'])}
+
+  scope :inventory_relevant, -> {where(:is_inventory_relevant => true)}
+  scope :not_inventory_relevant, -> {where(:is_inventory_relevant => false)}
+
   # OPTIMIZE 1102** use item_lines association
-  scope :packages, where(['items.id IN (SELECT DISTINCT parent_id FROM items WHERE retired IS NULL)'])
-  #temp# scope :packaged, where("parent_id IS NOT NULL")
-  
+  scope :packages, -> {where(['items.id IN (SELECT DISTINCT parent_id FROM items WHERE retired IS NULL)'])}
+  #temp# scope :packaged, -> {where("parent_id IS NOT NULL")}
+
   # Added parent_id to "in_stock" so items that are in packages are considered to not be available
-  scope :in_stock, joins("LEFT JOIN contract_lines ON items.id=contract_lines.item_id AND returned_date IS NULL").where("contract_lines.id IS NULL AND parent_id IS NULL")
-  scope :not_in_stock, joins("INNER JOIN contract_lines ON items.id=contract_lines.item_id AND returned_date IS NULL")
+  scope :in_stock, -> {joins("LEFT JOIN contract_lines ON items.id=contract_lines.item_id AND returned_date IS NULL").where("contract_lines.id IS NULL AND parent_id IS NULL")}
+  scope :not_in_stock, -> {joins("INNER JOIN contract_lines ON items.id=contract_lines.item_id AND returned_date IS NULL")}
 
   scope :by_owner_or_responsible, lambda {|ip| where(":id IN (owner_id, inventory_pool_id)", :id => ip.id) }
   # TODO sql constraint: items.inventory_pool_id cannot be null, but at least equal to items.owner_id
@@ -171,15 +170,15 @@ class Item < ActiveRecord::Base
   def to_s
     "#{model.name} #{inventory_code}"
   end
- 
+
   # Returns an array of field headers for CSV, useful for including as first line
   # using e.g. CSV. Matches what's returned by to_csv_array
-  def self.csv_header    
-    ['inventory_code', 
+  def self.csv_header
+    ['inventory_code',
       'inventory_pool',
       'owner',
       'serial_number',
-      'model_name', 
+      'model_name',
       'borrowable',
       'categories',
       'invoice_number',
@@ -214,7 +213,7 @@ class Item < ActiveRecord::Base
     if self.inventory_pool.nil? or self.inventory_pool.name.blank?
       ip = "UNKNOWN"
     else
-      ip = self.inventory_pool.name 
+      ip = self.inventory_pool.name
     end
 
     if self.model.nil? or self.model.name.blank?
@@ -262,10 +261,10 @@ class Item < ActiveRecord::Base
         investment = "X"
       end
     end
-   
-    # Using #{} notation to catch nils gracefully and silently 
+
+    # Using #{} notation to catch nils gracefully and silently
     return [ self.inventory_code,
-      ip,  
+      ip,
       owner,
       "#{self.serial_number}",
       model_name,
@@ -297,24 +296,24 @@ class Item < ActiveRecord::Base
       investment,
       "#{self.properties[:project_number]}"
     ]
-    
-  end
-   
 
-#old??#  
+  end
+
+
+#old??#
  # def inventory_code
  #   s = read_attribute('inventory_code')
  #   s = "#{parent.inventory_code}/#{s}" if parent
  #   s
  # end
-  
+
   def inv_code_with_location
     "#{inventory_code}<br/><div>#{location}</div>"
   end
 
 ####################################################################
 
-  # extract *last* number sequence in string   
+  # extract *last* number sequence in string
   def self.last_number(inventory_code)
     inventory_code ||= ""
     inventory_code.reverse.sub(/[^\d]*/,'').sub(/[^\d]+.*/,'').reverse.to_i
@@ -333,11 +332,11 @@ class Item < ActiveRecord::Base
   # the key is the allocated inventory_code_number
   # the value is the count of the allocated items
   # if the value is larger than 1, then there is a allocation conflict
-  #   
+  #
   # if argument is true returns { 1 => ["AVZ1", "ITZ1", "VMK1"], 2 => "AVZ2", 77 => "AVZ77", 79 => ["AVZ79", "ITZ79"], ... }
   # the key is the allocated inventory_code_number
   # the value is/are the inventory_code/s of the allocated items
-  # if the value is an Array, then there is a allocation conflict   
+  # if the value is an Array, then there is a allocation conflict
   #
   def self.allocated_inventory_code_numbers(with_allocated_codes = false)
     h = {}
@@ -358,7 +357,7 @@ class Item < ActiveRecord::Base
   end
 
   # returns [ [1, 2], [5, 23], [28, 29], ... [9990, Infinity] ]
-  # all displayed numbers [from, to] included are available 
+  # all displayed numbers [from, to] included are available
   #
   # Attention: params could be negative!
   #
@@ -384,7 +383,7 @@ class Item < ActiveRecord::Base
       last_n = n
     end
     ranges << [last_n+1, to] if last_n+1 <= to and (to - last_n >= min_gap)
-  
+
     ranges
   end
 
@@ -394,7 +393,7 @@ class Item < ActiveRecord::Base
   def in_stock?
     if parent_id
       parent.in_stock?
-    else    
+    else
       contract_lines.to_take_back.empty?
     end
   end
@@ -404,17 +403,17 @@ class Item < ActiveRecord::Base
 
   def current_borrowing_info
     contract_line = current_contract_line
-    
+
     # FIXME this is a quick fix
     if contract_line
       _("%s until %s") % [contract_line.contract.user, contract_line.end_date.strftime("%d.%m.%Y")] # TODO 1102** patch Date.to_s => to_s(:rfc822)
     end
   end
-  
+
   def current_location
     current_location = []
-    current_location.push inventory_pool.to_s if inventory_pool and owner != inventory_pool 
-    if u = current_borrower 
+    current_location.push inventory_pool.to_s if inventory_pool and owner != inventory_pool
+    if u = current_borrower
       current_location.push "#{u.firstname} #{u.lastname} #{_('until')} #{I18n.l(current_return_date)}"
     elsif location
       current_location.push location.to_s
@@ -426,19 +425,19 @@ class Item < ActiveRecord::Base
     contract_line = current_contract_line
     contract_line.contract.user if contract_line
   end
-  
+
   def current_return_date
     contract_line = current_contract_line
     contract_line.end_date if contract_line
   end
 
-  # TODO statistics  
+  # TODO statistics
   def latest_borrower
     contract_line = latest_contract_line
     contract_line.contract.user if contract_line
   end
 
-  # TODO statistics  
+  # TODO statistics
   def latest_take_back_manager
   end
 
@@ -461,8 +460,8 @@ class Item < ActiveRecord::Base
     h = histories.create(:text => text, :user_id => user_id, :type_const => History::BROKEN)
     histories.reset if h.changed?
   end
-  
-  
+
+
 ####################################################################
 
   def update_children_attributes
@@ -541,7 +540,7 @@ class Item < ActiveRecord::Base
 ####################################################################
 
   private
-  
+
   def validates_package
     if parent_id
       if parent.nil?
@@ -553,10 +552,10 @@ class Item < ActiveRecord::Base
       errors.add(:base, _("Package error")) unless children.empty? or model.is_package
     end
   end
-  
+
   def validates_changes
     errors.add(:base, _("The model cannot be changed because the item is used in contracts already.")) if model_id_changed? and not contract_lines.empty?
-    errors.add(:base, _("The responsible inventory pool cannot be changed because the item is currently not in stock.")) if inventory_pool_id_changed? and not in_stock? 
+    errors.add(:base, _("The responsible inventory pool cannot be changed because the item is currently not in stock.")) if inventory_pool_id_changed? and not in_stock?
     errors.add(:base, _("The item cannot be retired because it's not returned yet.")) if not retired.nil? and not in_stock?
   end
 

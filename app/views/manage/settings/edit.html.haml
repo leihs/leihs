@@ -7,7 +7,7 @@
 
   .row.content-wrapper.min-height-xl.min-width-full.straight-top
 
-    = form_for @setting, :as => :setting, :url => manage_settings_path, :method => :put, :html => { class: "indent", name: "form" } do |f|
+    = form_for @setting, :as => :setting, :url => manage_update_settings_path, :method => :put, :html => { class: "indent", name: "form" } do |f|
 
       .row.margin-top-l.padding-horizontal-m
 

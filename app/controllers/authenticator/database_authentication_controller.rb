@@ -26,7 +26,7 @@ class Authenticator::DatabaseAuthenticationController < Authenticator::Authentic
 
   def change_password
     if request.post?
-      d = DatabaseAuthentication.find_or_create_by_login(params[:dbauth])
+      d = DatabaseAuthentication.create_with(params[:dbauth]).find_or_create_by(login: params[:dbauth][:login])
       d.update_attributes(params[:dbauth])
       d.password_confirmation = d.password
       unless d.save

@@ -14,7 +14,7 @@ class MergeOrdersToContracts < ActiveRecord::Migration
   class Order < ActiveRecord::Base
     belongs_to :inventory_pool
     belongs_to :user
-    has_many :order_lines, :dependent => :destroy, :order => 'start_date ASC, end_date ASC, created_at ASC'
+    has_many :order_lines, -> { order('start_date ASC, end_date ASC, created_at ASC') }, :dependent => :destroy
     has_many :histories, :as => :target, :dependent => :destroy
     UNSUBMITTED = 1
   end
