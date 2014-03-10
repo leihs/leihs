@@ -1510,9 +1510,10 @@ msgid_plural "Users"
 msgstr[0] ""
 
 msgid "Delegation"
-msgid_plural "Delegations"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
+
+msgid "Delegations"
+msgstr ""
 
 msgid "User details were updated successfully."
 msgstr ""
