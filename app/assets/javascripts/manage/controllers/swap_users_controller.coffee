@@ -61,6 +61,13 @@ class window.App.SwapUsersController extends Spine.Controller
     user_id = @searchSetUserController.selectedUserId ? @contract.user().id
     if App.User.find(user_id).isDelegation()
       @renderContactPerson()
-      @searchSetContactPersonController = new App.SearchSetUserController
-        el: @el.find("#contact-person #swapped-person")
-        additionalSearchParams: { delegation_id: user_id }
+      App.User.ajaxFetch
+        data: $.param
+          delegation_id: user_id
+      .done (data) =>
+        @searchSetContactPersonController = new App.SearchSetUserController
+          el: @el.find("#contact-person #swapped-person")
+          localSearch: true
+          customAutocompleteOptions:
+            source: ( App.User.find(datum.id) for datum in data )
+            minLength: 0

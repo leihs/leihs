@@ -10,7 +10,29 @@ class window.App.SearchSetUserController extends Spine.Controller
 
   constructor: (options)->
     super
-    @input.preChange {delay: 200}
+    if @localSearch == true
+      @setupAutocomplete()
+      @input.on "focus", -> $(this).autocomplete("search")
+    else
+      @input.preChange {delay: 200} 
+
+  setupAutocomplete: (users) ->
+    autocompleteOptions =
+      appendTo: @el
+      source: (request, response) => 
+        data = _.map users, (u)=>
+          u.value = u.id
+          u
+        response data
+      focus: => return false
+      select: (e, ui)=> @selectUser(ui.item); return false
+    $.extend autocompleteOptions, @customAutocompleteOptions
+
+    @input.autocomplete(autocompleteOptions)
+    .data("uiAutocomplete")
+    ._renderItem = (ul, item) => 
+      $(App.Render "manage/views/users/autocomplete_element", item).data("value", item).appendTo(ul)
+    @input.autocomplete("search")
 
   searchUser: ->
     term = @input.val()
@@ -20,22 +42,6 @@ class window.App.SearchSetUserController extends Spine.Controller
     App.User.ajaxFetch
       data: $.param data
     .done (data)=> @setupAutocomplete(App.User.find(datum.id) for datum in data)
-
-  setupAutocomplete: (users)->
-    @input.autocomplete
-      appendTo: @el
-      source: (request, response)=> 
-        data = _.map users, (u)=>
-          u.value = u.id
-          u
-        response data
-      focus: => return false
-      select: (e, ui)=> @selectUser(ui.item); return false
-    .data("uiAutocomplete")
-    ._renderItem = (ul, item) => 
-      $(App.Render "manage/views/users/autocomplete_element", item).data("value", item).appendTo(ul)
-
-    @input.autocomplete("search")
 
   selectUser: (user)->
     @input.hide()
