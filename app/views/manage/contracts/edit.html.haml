@@ -48,6 +48,7 @@
   jQuery ->
 
     App.User.addRecord new App.User $.extend {groupIds: #{@group_ids}}, #{@user.to_json}
+    App.User.addRecord new App.User(#{@contract.delegated_user.to_json})
 
     App.Purpose.addRecord new App.Purpose #{@purpose.to_json}
 

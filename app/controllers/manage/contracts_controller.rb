@@ -110,7 +110,7 @@ class Manage::ContractsController < Manage::ApplicationController
 
   def swap_user
     contract = current_inventory_pool.contracts.find params[:id]
-    contract.user = current_inventory_pool.users.find(params[:user_id])
+    contract.user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
     contract.delegated_user = ( params[:delegated_user_id] ? current_inventory_pool.users.find(params[:delegated_user_id]) : nil )
     contract.save!
     render :status => :no_content, :nothing => true
