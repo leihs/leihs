@@ -2,24 +2,7 @@ namespace :app do
 
   namespace :test do
 
-    desc "Test the applications Javascript with Jasmine-Headless-Webkit"
-    task :js => :environment do
-      puts "[START] Running jasmine-headless-webkit"
-      
-      require 'open3'
-
-      commands = ["jasmine-headless-webkit"]
-      commands.each do |command|
-        puts command
-        Open3.popen3(command) do |i,o,e,t|
-          puts o.read.chomp
-        end
-      end
-      
-      puts "[END] finishing jasmine-headless-webkit"
-    end
-
-    desc "Generate personas dumps (executed by Domina CI)"
+    desc "Generate personas dumps (executed by CI)"
     task :generate_personas_dumps => :environment do
       Persona.create_dumps(3)
 
@@ -46,13 +29,13 @@ namespace :app do
       File.delete("tmp/rerun.txt") if File.exists?("tmp/rerun.txt")
 
       Rake::Task["leihs:reset"].invoke
+      Rake::Task["app:test:generate_personas_dumps"].invoke
     end
 
     task :run_all do
       Rake::Task["app:test:setup"].invoke
       Rake::Task["app:test:rspec"].invoke
       Rake::Task["app:test:cucumber:all"].invoke
-      Rake::Task["app:test:jasmine"].invoke
     end
 
     task :rspec do
@@ -105,5 +88,13 @@ namespace :app do
       end
 
     end
+
+    desc "Generate structure_with_views.sql (needed by Domina CI)"
+    task :generate_structure_with_views_sql do
+      Rails.env = "test"
+      config = Rails.configuration.database_configuration[Rails.env]
+      `mysqldump #{config['host'] ? "-h #{config['host']}" : nil} -u #{config['username']} #{config['password'] ? "--password=#{config['password']}" : nil}  #{config['database']} --no-create-db --no-data | grep -v 'SQL SECURITY DEFINER' > #{File.join(Rails.root, "db/structure_with_views.sql")}`
+    end
+
   end
 end
