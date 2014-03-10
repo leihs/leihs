@@ -112,7 +112,11 @@ class Manage::ContractsController < Manage::ApplicationController
     contract = current_inventory_pool.contracts.find params[:id]
     contract.user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
     contract.delegated_user = ( params[:delegated_user_id] ? current_inventory_pool.users.find(params[:delegated_user_id]) : nil )
-    contract.save!
+    begin
+      contract.save!
+    rescue
+      render :status => :bad_request, :text => contract.errors.full_messages.uniq.join(", ") and return
+    end
     render :status => :no_content, :nothing => true
   end
 

@@ -2784,3 +2784,9 @@ msgstr "nicht visierungspflichtig"
 
 msgid "Verification required"
 msgstr "Visierungspflichtig"
+
+msgid "Delegated user is not member of the contract's delegation or is empty"
+msgstr "Die Kontaktperson ist nicht Mitglied der Delegation oder ist leer"
+
+msgid "Delegated user must be empty for contract's normal user"
+msgstr "Die Kontaktperson muss leer sein bei einem normalen User"

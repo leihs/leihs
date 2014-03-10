@@ -1404,6 +1404,12 @@ msgstr ""
 msgid "This contract is not signable because the delegated user is either missing or not part of this delegation."
 msgstr ""
 
+msgid "Delegated user is not member of the contract's delegation or is empty"
+msgstr ""
+
+msgid "Delegated user must be empty for contract's normal user"
+msgstr ""
+
 msgid "Groups of this customer"
 msgstr ""
 

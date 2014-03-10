@@ -3598,6 +3598,14 @@ window.i18n.locale_data = {
       "Verification required": [
          null,
          "Visierungspflichtig"
+      ],
+      "Delegated user is not member of the contract's delegation or is empty": [
+         null,
+         "Die Kontaktperson ist nicht Mitglied der Delegation oder ist leer"
+      ],
+      "Delegated user must be empty for contract's normal user": [
+         null,
+         "Die Kontaktperson muss leer sein bei einem normalen User"
       ]
    }
 }

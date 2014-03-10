@@ -39,10 +39,10 @@ class window.App.SwapUsersController extends Spine.Controller
     @contract.swapUser(@searchSetUserController.selectedUserId, @searchSetContactPersonController?.selectedUserId)
     .done =>
       window.location.reload(true)
-    .fail =>
+    .fail (e) =>
       @errorsContainer.removeClass "hidden"
       App.Button.enable @submitButton
-      @errorsContainer.find("strong").text _jed("Invalid data")
+      @errorsContainer.find("strong").text e.responseText
 
   swapContractLines: =>
     App.ContractLine.swapUser(@lines, @searchSetUserController.selectedUserId)

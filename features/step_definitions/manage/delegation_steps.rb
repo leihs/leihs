@@ -491,3 +491,15 @@ end
 Dann(/^sehe ich genau ein Kontaktpersonfeld$/) do
   all("#contact-person").count.should == 1
 end
+
+Wenn(/^ich keine Kontaktperson angebe$/) do
+  find("#contact-person input#user-id", match: :first).value.should be_empty
+end
+
+Wenn(/^ich den Benutzerwechsel bestätige$/) do
+  step "ich bestätige den Benutzerwechsel"
+end
+
+Dann(/^sehe ich im Dialog die Fehlermeldung "(.*?)"$/) do |text|
+  page.has_selector? ".modal .red", text: text
+end
