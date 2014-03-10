@@ -44,13 +44,12 @@ class window.App.SearchSetUserController extends Spine.Controller
     .done (data)=> @setupAutocomplete(App.User.find(datum.id) for datum in data)
 
   selectUser: (user)->
-    @input.hide()
-    @input.attr "value", user.id
+    @input.hide().autocomplete("disable").attr("value", user.id)
     @selectedUserId = user.id
     @selectedUser.html App.Render "manage/views/contracts/edit/swapped_user", user
     @selectCallback?()
 
   removeUser: =>
-    @input.show().val("").focus()
+    @input.show().autocomplete("enable").val("").focus()
     @selectedUserId = null
     @selectedUser.html ""
