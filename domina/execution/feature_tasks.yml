@@ -83,6 +83,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/technical/visit/visits_controller.feature"
+- name: technical/timezone_settings
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/technical/timezone_settings.feature"
 - name: home
   scripts:
     cucumber:
@@ -739,6 +743,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/manage/delegation6.feature"
+- name: manage/delegation7
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/delegation7.feature"
 - name: manage/linegroup/selection
   scripts:
     cucumber:
