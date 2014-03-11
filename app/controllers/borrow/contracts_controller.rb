@@ -18,8 +18,11 @@ class Borrow::ContractsController < Borrow::ApplicationController
   end
 
   def submit
-    unsubmitted_contracts.each {|c| c.created_at = DateTime.now}
     Contract.transaction do
+      unsubmitted_contracts.each do |c|
+        c.created_at = DateTime.now
+        c.delegated_user = c.user.delegated_users.find(session[:delegated_user_id]) if c.user.is_delegation
+      end
       if unsubmitted_contracts.all? {|c| c.submit(params[:purpose])}
         flash[:notice] = _("Your order has been successfully submitted, but is NOT YET APPROVED.")
         redirect_to borrow_root_path

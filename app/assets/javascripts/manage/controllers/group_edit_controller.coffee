@@ -1,19 +1,8 @@
 class window.App.GroupEditController extends App.GroupController
 
-  removeUserHandler: (e) =>
-    e.preventDefault()
-    removeButton = $(e.currentTarget)
-    line = removeButton.closest ".line"
-    userName = line.find "[data-user-name]"
+  @include App.Modules.InlineEntryHandlers
 
-    if userName.hasClass "striked"
-      userName.removeClass "striked"
-      removeButton.text _jed("Remove")
-      line.find("[name*='_destroy']").val(null)
-    else
-      userName.addClass "striked"
-      removeButton.text _jed("undo")
-      line.find("[name*='_destroy']").val(1)
+  removeUserHandler: @::strikeRemoveUserHandler
 
   removePartitionHandler: (e) =>
     e.preventDefault()

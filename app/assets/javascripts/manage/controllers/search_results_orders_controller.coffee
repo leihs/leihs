@@ -34,6 +34,9 @@ class window.App.SearchResultsOrdersController extends App.SearchResultsControll
       data: $.param
         ids: ids
         paginate: false
+    .done (data)=>
+      users = (App.User.find datum.id for datum in data)
+      App.User.fetchDelegators users
 
   fetchContractLines: (orders)=>
     ids = _.flatten _.map orders, (r)-> r.id

@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  include Delegation::User
 
   serialize :extended_info
 
@@ -40,10 +41,6 @@ class User < ActiveRecord::Base
     inventory_pools.flat_map(&:templates).sort
   end
 
-  def short_name
-    "#{firstname[0]}. #{lastname}"
-  end
-
   def start_screen(path = nil)
     if path
       self.settings[:start_screen] = path
@@ -59,9 +56,10 @@ class User < ActiveRecord::Base
   has_many :contract_lines, -> { uniq }, :through => :contracts
   has_many :visits #, :include => :inventory_pool # MySQL View based on contract_lines
 
-  validates_presence_of     :lastname, :firstname, :email, :login
-  validates_length_of       :login, :within => 3..40
-  validates_uniqueness_of   :email
+  validates_presence_of     :firstname
+  validates_presence_of     :lastname, :email, :login, unless: :is_delegation
+  validates_length_of       :login, :within => 3..40, unless: :is_delegation
+  validates_uniqueness_of   :email, unless: :is_delegation
   validates :email, format: /.+@.+\..+/, allow_blank: true
 
   has_many :histories, -> { order(:created_at) }, :as => :target, :dependent => :destroy
@@ -87,13 +85,22 @@ class User < ActiveRecord::Base
     sql = scoped
     return sql if query.blank?
 
+    sql = sql.uniq.joins("LEFT JOIN (`delegations_users` AS `du`, `users` AS `u2`) ON (`du`.`delegation_id` = `users`.`id` AND `du`.`user_id` = `u2`.`id`)")
+    u2_table = Arel::Table.new(:u2)
+
     query.split.each{|q|
       q = "%#{q}%"
       sql = sql.where(arel_table[:login].matches(q).
                       or(arel_table[:firstname].matches(q)).
                       or(arel_table[:lastname].matches(q)).
                       or(arel_table[:badge_id].matches(q)).
-                      or(arel_table[:unique_id].matches(q)))
+                      or(arel_table[:unique_id].matches(q)).
+                      or(u2_table[:login].matches(q)).
+                      or(u2_table[:firstname].matches(q)).
+                      or(u2_table[:lastname].matches(q)).
+                      or(u2_table[:badge_id].matches(q)).
+                      or(u2_table[:unique_id].matches(q))
+                     )
     }
     sql
   }
@@ -103,12 +110,15 @@ class User < ActiveRecord::Base
     # NOTE the case of fetching users with specific ids from a specific inventory_pool is still missing, might be necessary in future
     if inventory_pool and params[:all].blank?
       users = params[:suspended] == "true" ? inventory_pool.suspended_users : inventory_pool.users
+      users = users.find(params[:delegation_id]).delegated_users unless params[:delegation_id].blank?
       users = users.send params[:role] unless params[:role].blank?
     else
       users = scoped
     end
 
     users = users.admins if params[:role] == "admins"
+    users = users.as_delegations if params[:type] == "delegation"
+    users = users.not_as_delegations if params[:type] == "user"
     users = users.where(id: params[:ids]) if params[:ids]
     users = users.search(params[:search_term]) if params[:search_term]
     users = users.order(User.arel_table[:firstname].asc)
@@ -133,7 +143,11 @@ class User < ActiveRecord::Base
   scope :admins, -> {joins(:access_rights).where(access_rights: {role: :admin, deleted_at: nil})}
 
   AccessRight::ROLES_HIERARCHY.each do |role|
+<<<<<<< HEAD
     scope role.to_s.pluralize.to_sym, -> {joins(:access_rights).where(access_rights: {role: role}).uniq}
+=======
+    scope role.to_s.pluralize.to_sym, joins(:access_rights).where(access_rights: {role: role, deleted_at: nil}).uniq
+>>>>>>> mk_delegations
   end
 
 ################################################
@@ -143,7 +157,15 @@ class User < ActiveRecord::Base
   end
 
   def name
-    "#{firstname} #{lastname}"
+    "#{firstname} #{lastname}".strip
+  end
+
+  def short_name
+    if is_delegation
+      name
+    else
+      "#{firstname[0]}. #{lastname}"
+    end
   end
 
   def documents
@@ -151,6 +173,14 @@ class User < ActiveRecord::Base
   end
 
 ################################################
+
+  def email
+    if is_delegation
+      delegator_user.email
+    else
+      read_attribute(:email)
+    end
+  end
 
   def alternative_email
     extended_info["email_alt"] if extended_info
@@ -199,6 +229,7 @@ class User < ActiveRecord::Base
       contract = contracts.create(:status => :approved, :inventory_pool => inventory_pool, :note => inventory_pool.default_contract_note)
       reload
     end
+    contract.update_attributes(delegated_user: nil) # remove delegated user from contract, as it has to be explicitly chosen in the hand over process
     contract
   end
 

@@ -24,7 +24,7 @@ Funktionalität: Werteliste
   Szenario: Werteliste auf der Aushändigungsansicht ausdrucken
     Angenommen es existiert eine Aushändigung mit mindestens zwei Modellen und einer Option, wo die Bestellmenge mindestens drei pro Modell ist
     Und es ist pro Modell genau einer Linie ein Gegenstand zugewiesen
-    Wenn ich eine Aushändigung öffne
+    Wenn ich die Aushändigung öffne
     Und ich mehrere Linien von der Aushändigung auswähle
     Und das Werteverzeichniss öffne
     Dann sehe ich das Werteverzeichniss für die ausgewählten Linien

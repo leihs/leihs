@@ -829,6 +829,9 @@ msgstr "Name"
 msgid "Name / ID"
 msgstr "Name / ID"
 
+msgid "New Delegation"
+msgstr "Neue Delegation"
+
 msgid "New Borrower"
 msgstr "Ausleihende/r wechseln"
 
@@ -1099,6 +1102,9 @@ msgstr "Bestellte Artikel"
 
 msgid "Reservation"
 msgstr "Reservation"
+
+msgid "Contact person"
+msgstr "Kontaktperson"
 
 msgid "Responsible"
 msgstr "Verantwortlich"
@@ -1555,7 +1561,13 @@ msgid "Upload error."
 msgstr "Fehler beim Hochladen."
 
 msgid "User"
-msgstr "Benutzer"
+msgid_plural "Users"
+msgstr[0] "Benutzer"
+
+msgid "Delegation"
+msgid_plural "Delegations"
+msgstr[0] "Delegation"
+msgstr[1] "Delegationen"
 
 msgid "User details were updated successfully."
 msgstr "Die neuen Benutzerinformationen wurden gespeichert."
@@ -2351,6 +2363,9 @@ msgstr "Zweck der Bestellung"
 msgid "Specification of the purpose is required"
 msgstr "Die Angabe eines Zwecks ist verpflichtend"
 
+msgid "Specification of the contact person is required"
+msgstr "Die Angabe einer Kontaktperson ist verpflichtend"
+
 msgid "Change"
 msgstr "Ändern"
 
@@ -2818,3 +2833,9 @@ msgstr "Was sind die meistbesuchten Geräteparks?"
 
 msgid "Who bought the most items?"
 msgstr "Wer hat die meisten Gegenstände gekauft?"
+
+msgid "Delegated user is not member of the contract's delegation or is empty"
+msgstr "Die Kontaktperson ist nicht Mitglied der Delegation oder ist leer"
+
+msgid "Delegated user must be empty for contract's normal user"
+msgstr "Die Kontaktperson muss leer sein bei einem normalen User"

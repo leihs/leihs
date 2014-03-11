@@ -1,11 +1,11 @@
-- content_for :title, _("Edit %s") % _("User")
+- content_for :title, @user
 - content_for :admin_section, "active"
 
 #user.wrapper.margin-top-m
 
   = render :partial => 'manage/tabs/admin', :locals => {:active_tab => :users}
 
-  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+  #form-context.row.content-wrapper.min-height-xl.min-width-full.straight-top
 
     = form_tag manage_update_inventory_pool_user_path(current_inventory_pool, @user), method: :put do
 
@@ -21,15 +21,25 @@
 
         .row.margin-top-m
 
-          .col1of2.padding-right-xs
+          - if @user.is_delegation
 
-            = render partial: "personal_details"
+            = render partial: "delegation"
 
-          .col1of2.padding-left-xs
+            :coffeescript
 
-            = render partial: "login_details" if @db_auth
+              jQuery -> new App.DelegationEditController {el: "#form-context"}
 
-            = render partial: "access_details"
+          - else
+
+            .col1of2.padding-right-xs
+
+              = render partial: "personal_details"
+
+            .col1of2.padding-left-xs
+
+              = render partial: "login_details" if @db_auth
+
+              = render partial: "access_details"
 
 :coffeescript
 

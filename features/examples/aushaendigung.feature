@@ -1,6 +1,6 @@
 # language: de
 
-Funktionalität: Aushaendigung editieren
+Funktionalität: Aushändigung editieren
 
   Grundlage:
     Angenommen Personas existieren
@@ -9,7 +9,7 @@ Funktionalität: Aushaendigung editieren
   @javascript
   Szenario: Systemfeedback bei erfolgreicher manueller Interaktion bei Aushändigung
     Angenommen es gibt eine Aushändigung mit mindestens einem nicht problematischen Modell
-    Und ich öffne diese Aushändigung
+    Und ich die Aushändigung öffne
     Wenn ich dem nicht problematischen Modell einen Inventarcode zuweise
     Dann wird der Gegenstand der Zeile zugeteilt
     Und die Zeile wird selektiert
@@ -25,7 +25,7 @@ Funktionalität: Aushaendigung editieren
   @javascript
   Szenario: Systemfeedback bei Zuteilen eines Gegenstandes zur problematischen Linie
     Angenommen es gibt eine Aushändigung mit mindestens einer problematischen Linie
-    Und ich öffne diese Aushändigung
+    Und ich die Aushändigung öffne
     Dann wird das Problemfeld für das problematische Modell angezeigt
     Wenn ich dieser Linie einen Inventarcode manuell zuweise
     Und die Zeile wird selektiert

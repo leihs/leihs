@@ -12,22 +12,8 @@ class Setting < ActiveRecord::Base
     singleton = first # fetch the singleton from the database
     return unless singleton
     silence_warnings do
-      [:smtp_address,
-       :smtp_port,
-       :smtp_domain,
-       :smtp_username,
-       :smtp_password,
-       :mail_delivery_method,
-       :local_currency_string,
-       :contract_terms,
-       :contract_lending_party_string,
-       :email_signature,
-       :default_email,
-       :deliver_order_notifications,
-       :user_image_url,
-       :ldap_config,
-       :logo_url].each do |k|
-        Setting.const_set k.to_s.upcase, singleton.send(k) if singleton.methods.include?(k)
+      (attribute_names - ["id"]).sort.each do |k|
+        Setting.const_set k.upcase, singleton.send(k.to_sym) if singleton.methods.include?(k.to_sym)
       end
     end
   end
@@ -41,6 +27,18 @@ class Setting < ActiveRecord::Base
 
   after_save do
     self.class.initialize_constants
+
+
+    begin
+      # Only reading from the initializers is not enough, they are only read during
+      # server start, making changes of the time zone during runtime impossible.
+      if self.time_zone_changed? # Check for existence of time_zone first, in case the migration for time_zone has not run yet
+        Rails.configuration.time_zone = self.time_zone
+        Time.zone = self.time_zone
+      end
+    rescue
+      logger.info "Timezone setting could not be loaded. Did the migrations run?"
+    end
   end
 
 end

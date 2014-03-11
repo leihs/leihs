@@ -1,0 +1,16 @@
+- content_for :title, _("Delegations")
+
+.wrapper.margin-top-m
+
+  = render :partial => 'borrow/tabs', :locals => {:tabs => [[request.fullpath, _("Delegations")]]}
+
+  .content-wrapper.straight-top-left
+
+    - @delegations.each do |delegation|
+      .row.line
+        .line-col.col3of4
+          %strong= delegation
+        .line-col.line-actions.col1of4
+          = link_to borrow_user_switch_to_delegation_path(delegation), method: :post, class: "button green text-ellipsis" do
+            %i.icon-group
+            = _("Switch to")

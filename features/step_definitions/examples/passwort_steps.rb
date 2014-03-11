@@ -10,7 +10,7 @@ Angenommen(/^man befindet sich auf der Benutzerliste$/) do
   if @current_user == User.find_by_login("gino")
     step "man befindet sich auf der Benutzerliste ausserhalb der Inventarpools"
   else
-    @inventory_pool = @current_user.inventory_pools.first
+    @inventory_pool = @current_inventory_pool || @current_user.inventory_pools.sample
     visit manage_inventory_pool_users_path(@inventory_pool)
   end
 end
@@ -40,7 +40,7 @@ Dann(/^kann sich der Benutzer "(.*?)" mit "(.*?)" anmelden$/) do |login, passwor
   step %Q{I fill in "username" with "#{login}"}
   step %Q{I fill in "password" with "#{password}"}
   step 'I press "Login"'
-  page.should have_content @user.name
+  page.should have_content @user.short_name
 end
 
 Wenn(/^ich das Passwort von "(.*?)" auf "(.*?)" ändere$/) do |persona, new_password|
@@ -61,7 +61,7 @@ Angenommen(/^man befindet sich auf der Benutzereditieransicht von "(.*?)"$/) do 
   else
     visit manage_edit_inventory_pool_user_path((@user.inventory_pools & @current_user.managed_inventory_pools).first, @user)
   end
-  sleep(0.88)
+  sleep(0.66)
 end
 
 Wenn(/^ich den Benutzernamen auf "(.*?)" und das Passwort auf "(.*?)" ändere$/) do |new_username, new_password|

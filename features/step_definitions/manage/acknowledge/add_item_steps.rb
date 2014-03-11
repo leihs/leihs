@@ -57,7 +57,7 @@ end
 
 Then /^the new line is getting visually merged with the existing line$/ do
   find(".line", match: :prefer_exact, text: @model.name).should have_content @contract.lines.where(:model_id => @model.id).sum(&:quantity)
-  sleep(0.88)
+  sleep(0.66)
   all(".line").count.should == @line_el_count
   find(".line", match: :prefer_exact, text: @model.name).find("div:nth-child(3) > span:nth-child(1)").text.to_i.should == @contract.reload.lines.select{|l| l.model == @model}.size
 end
@@ -94,7 +94,7 @@ And /^I search again for the same model$/ do
 end
 
 Then (/^the model's availability has changed$/) do
-  sleep(0.88)
+  sleep(0.66)
   @changed_aval = find("a.ui-corner-all", match: :prefer_exact, text: @model.name).find("div.col1of4:nth-child(2) > div:nth-child(1)").text
   @changed_aval.slice(0).should_not == @init_aval.slice(0)
 end

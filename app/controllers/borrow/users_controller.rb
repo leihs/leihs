@@ -8,6 +8,27 @@ class Borrow::UsersController < Borrow::ApplicationController
     @contracts.sort! {|a,b| b.time_window_min <=> a.time_window_min}
   end
 
+  def delegations
+    @delegations = current_user.delegations.customers
+  end
+
+  def switch_to_delegation
+    if delegation = current_user.delegations.find(params[:id])
+      session[:delegated_user_id] = current_user.id
+      self.current_user = delegation
+    end
+    redirect_to borrow_root_path
+  end
+
+  def switch_back
+    if current_user.delegated_users.exists? @current_delegated_user
+      session[:delegated_user_id] = nil
+      self.current_user = @current_delegated_user
+      @current_delegated_user = nil
+    end
+    redirect_to borrow_root_path
+  end
+
   ################################################################
 
   before_filter only: [:contract, :value_list] do

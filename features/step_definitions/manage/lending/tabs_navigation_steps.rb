@@ -10,5 +10,5 @@ Then /^I can navigate all navigation items and nested tabs$/ do
       find(".inlinetabs .tab.active").text[tab_text].should be
     end
   end
-  sleep(0.88)
+  sleep(0.66)
 end

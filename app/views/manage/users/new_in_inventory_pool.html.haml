@@ -21,15 +21,25 @@
 
         .row.margin-top-m
 
-          .col1of2.padding-right-xs
+          - if @delegation_type
 
-            = render partial: "personal_details"
+            = render partial: "delegation"
 
-          .col1of2.padding-left-xs
+            :coffeescript
 
-            = render partial: "login_details"
+              jQuery -> new App.DelegationController {el: "#delegation"}
 
-            = render partial: "access_details"
+          - else
+
+            .col1of2.padding-right-xs
+
+              = render partial: "personal_details"
+
+            .col1of2.padding-left-xs
+
+              = render partial: "login_details"
+
+              = render partial: "access_details"
 
 :coffeescript
 

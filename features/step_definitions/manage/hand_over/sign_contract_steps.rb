@@ -19,7 +19,7 @@ When /^I open a hand over with at least one unassigned line$/ do
 end
 
 When /^I select an item line and assign an inventory code$/ do
-  sleep(0.88)
+  sleep(0.66)
   @models_in_stock = @ip.items.by_responsible_or_owner_as_fallback(@ip).in_stock.map(&:model).uniq
   @item_line = @line = @customer.visits.hand_over.flat_map(&:lines).detect {|l| l.class.to_s == "ItemLine" and l.item_id.nil? and @models_in_stock.include? l.model }
   @item_line.should_not be_nil
@@ -48,7 +48,7 @@ When /^I click hand over inside the dialog$/ do
 end
 
 Then /^the contract is signed for the selected items$/ do
-  sleep(0.88)
+  sleep(0.66)
   to_take_back_lines = @customer.visits.take_back.flat_map &:contract_lines
   to_take_back_items = to_take_back_lines.map(&:item)
   @selected_items.each do |item|
@@ -89,7 +89,7 @@ Then /^I see that the time range in the summary starts today$/ do
 end
 
 Then /^the lines start date is today$/ do
-  sleep(0.88)
+  sleep(0.66)
   @line.reload.start_date.should == Date.today
 end
 
@@ -122,7 +122,7 @@ When /^I assign an inventory code the item line$/ do
     find("a.ui-corner-all", text: item.inventory_code)
     find("input[data-assign-item]").native.send_key(:enter)
   end
-  sleep(0.88)
+  sleep(0.66)
 end
 
 Then /^wird die Adresse des Verleihers aufgeführt$/ do

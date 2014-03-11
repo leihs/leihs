@@ -6,9 +6,6 @@ namespace :app do
     `railroad -iv -o doc/diagrams/railroad/models.dot -M`
   end
 
-  desc "Run cucumber tests. Run leihs:test[0] to only test failed scenarios"
-  task :test => 'test:run_all'
-
   namespace :db do
 
     desc "Sync local application instance with test servers most recent database dump"

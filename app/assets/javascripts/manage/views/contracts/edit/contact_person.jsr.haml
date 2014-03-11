@@ -1,0 +1,21 @@
+#contact-person.row.padding-vertical-m
+
+  .row.emboss.padding-inset-m
+
+    #swapped-person.col4of9.text-align-center
+
+      %input#user-id.width-m{:autocomplete => :off, :type => :text, :placeholder => "{{jed 'Contact person'/}} {{jed 'Name / ID'/}}"}
+
+      #selected-user
+
+    .col1of9.text-align-center
+      %i.icon-exchange.icon-size-xxl
+
+    .col4of9.text-align-center
+
+      {{if delegatedUser()}}
+      %p.paragraph-s.padding-top-xxs.margin-top-xxs
+        %strong
+          {{>delegatedUser().firstname}}
+          {{>delegatedUser().lastname}}
+      {{/if}}

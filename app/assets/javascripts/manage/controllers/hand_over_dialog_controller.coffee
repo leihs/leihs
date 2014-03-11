@@ -14,13 +14,26 @@ class window.App.HandOverDialogController extends Spine.Controller
     @purpose = (_.uniq _.map @lines, (l)->l.purpose().description).join ", "
     if @validateDialog()
       do @setupModal
+      if @user.isDelegation()
+        App.User.ajaxFetch
+          data: $.param
+            delegation_id: @user.id
+        .done (data) =>
+          @searchSetContactPersonController = new App.SearchSetUserController
+            el: @el.find("#contact-person")
+            localSearch: true
+            customAutocompleteOptions:
+              source: ( App.User.find(datum.id) for datum in data )
+              minLength: 0
       super
       do @autoFocus
     else
       return false
 
   autoFocus: =>
-    if @purposeTextArea.length
+    if @searchSetContactPersonController?.input.length
+      @searchSetContactPersonController.input.focus()
+    else if @purposeTextArea.length
       @purposeTextArea.focus()
     else
       @noteTextArea.focus()
@@ -69,11 +82,12 @@ class window.App.HandOverDialogController extends Spine.Controller
 
   handOver: =>
     @purpose = @purposeTextArea.val() unless @purpose.length
-    if @validatePurpose()
+    if @validatePurpose() and @validateDelegatedUser()
       @contract.sign
         line_ids: _.map(@lines, (l)->l.id)
         purpose: @purposeTextArea.val()
         note: @noteTextArea.val()
+        delegated_user_id: @contract.delegatedUser()?.id
       .fail (e)=>
         @errorContainer.find("strong").html(e.responseText)
         @errorContainer.removeClass("hidden")
@@ -93,3 +107,12 @@ class window.App.HandOverDialogController extends Spine.Controller
     return true
 
   toggleAddPurpose: =>
+
+  validateDelegatedUser: =>
+    if @contract.user().isDelegation() and not @contract.delegatedUser()
+      @errorContainer.find("strong").html(_jed("Specification of the contact person is required"))
+      @errorContainer.removeClass("hidden")
+      @searchSetContactPersonController.input.focus()
+      false
+    else
+      true

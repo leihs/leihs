@@ -82,6 +82,7 @@ class window.App.ContractsEditController extends Spine.Controller
   swapUser: =>
     new App.SwapUsersController
       contract: @contract
+      manageContactPerson: true
 
   renderPurpose: => @purposeContainer.html @purpose.description
 

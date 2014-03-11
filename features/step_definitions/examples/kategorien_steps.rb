@@ -2,7 +2,7 @@
 
 Dann /^man sieht das Register Kategorien$/ do
   find("nav a[href*='categories']", text: _("Categories"))
-  sleep(0.11)
+  sleep(0.66)
 end
 
 Wenn /^man das Register Kategorien wählt$/ do
@@ -132,7 +132,7 @@ Wenn /^ich das Modell speichere$/ do
 end
 
 Dann /^sind die Kategorien zugeteilt$/ do
-  sleep 0.66 # fix lazy request problem
+  sleep(0.66) # fix lazy request problem
   @model.model_groups.where(id: @category.id).count.should eq 1
 end
 
@@ -166,7 +166,7 @@ Wenn /^man die Kategorie löscht$/ do
 end
 
 Dann /^ist die Kategorie gelöscht und alle Duplikate sind aus dem Baum entfernt$/ do
-  sleep(0.88)
+  sleep(0.66)
   all("#categories-index-view .line[data-id='#{@unused_category.id}']").empty?.should be_true
   lambda{@unused_category.reload}.should raise_error
 end
@@ -203,7 +203,7 @@ Wenn /^man nach einer Kategorie anhand des Namens sucht$/ do
   find("#list-search")
   find(".line", match: :first)
   countBefore.should_not == all(".line").size
-  sleep(0.88)
+  sleep(0.66)
 end
 
 Dann /^sieht man nur die Kategorien, die den Suchbegriff im Namen enthalten$/ do

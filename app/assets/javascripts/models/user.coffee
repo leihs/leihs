@@ -6,10 +6,11 @@
 
 class window.App.User extends Spine.Model
 
-  @configure "User", "id", "firstname", "lastname", "settings", "groupIds", "unique_id"
+  @configure "User", "id", "firstname", "lastname", "settings", "groupIds", "unique_id", "delegator_user_id"
 
   @hasMany "contracts", "App.Contract", "user_id"
   @hasMany "accessRights", "App.AccessRight", "user_id"
+  @belongsTo "delegator_user", "App.User", "delegator_user_id"
 
   @extend Spine.Model.Ajax
   @extend App.Modules.FindOrBuild
@@ -35,3 +36,17 @@ class window.App.User extends Spine.Model
 
   suspended: ->
     if @.suspendedUntil() then moment(@.suspendedUntil()).diff(moment(), "days") >= 0 else false
+
+  isDelegation: -> @.delegator_user_id ? false
+
+  @fetchDelegators: (users, callback = null)->
+    delegations = _.filter users, (r)-> r.isDelegation()
+    delegator_user_ids = _.uniq _.map delegations, (r)-> r.delegator_user_id
+    if delegator_user_ids.length
+      App.User.ajaxFetch
+        data: $.param
+          ids: delegator_user_ids
+      .done ->
+        callback?()
+    else
+      callback?()

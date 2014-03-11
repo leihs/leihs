@@ -6,7 +6,7 @@ class ActionMailer::Base
       :port => 25,
       :domain => "localhost",
       :enable_starttls_auto => false,
-      :openssl_verify_mode => false
+      :openssl_verify_mode => 'none'
     }
 
     # If you don't check for the existence of a settings table, you will break
@@ -24,8 +24,8 @@ class ActionMailer::Base
           :address => Setting::SMTP_ADDRESS,
           :port => Setting::SMTP_PORT,
           :domain => Setting::SMTP_DOMAIN,
-          :enable_starttls_auto => false,
-          :openssl_verify_mode => false
+          :enable_starttls_auto => Setting::SMTP_ENABLE_STARTTLS_AUTO,
+          :openssl_verify_mode => Setting::SMTP_OPENSSL_VERIFY_MODE
         }
       rescue
         logger.info("Could not configure ActionMailer because the database doesn't seem to be in the right shape for it. Check the settings table.")

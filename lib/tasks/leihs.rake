@@ -180,5 +180,4 @@ namespace :leihs do
     sub.set_parent_with_label(parent, sub.name)
   end
   
-  
 end

@@ -54,26 +54,36 @@ class Manage::UsersController < Manage::ApplicationController
   end
 
   def new
+    @delegation_type = true if params[:type] == "delegation"
     @user = User.new
-    @is_admin = false
+    @is_admin = false unless @delegation_type
   end
 
   def new_in_inventory_pool
+    @delegation_type = true if params[:type] == "delegation"
     @user = User.new
     @accessible_roles = get_accessible_roles_for_current_user
     @access_right = @user.access_rights.new inventory_pool_id: current_inventory_pool.id, role: :customer
   end
 
   def create
-
     should_be_admin = params[:user].delete(:admin)
-    @user = User.new(params[:user].merge(login: params[:db_auth][:login]))
+    if users = params[:user].delete(:users)
+      delegated_user_ids = users.map {|h| h["id"]}
+    end
+    @user = User.new(params[:user])
+    @user.login = params[:db_auth][:login] unless @user.is_delegation
 
     begin
       User.transaction do
+        @user.delegated_user_ids = delegated_user_ids if delegated_user_ids
         @user.save!
-        @db_auth = DatabaseAuthentication.create!(params[:db_auth].merge(user: @user))
-        @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
+
+        unless @user.is_delegation
+          @db_auth = DatabaseAuthentication.create!(params[:db_auth].merge(user: @user))
+          @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
+        end
+
         @user.access_rights.create!(role: :admin) if should_be_admin == "true"
 
         respond_to do |format|
@@ -89,6 +99,7 @@ class Manage::UsersController < Manage::ApplicationController
           flash.now[:error] = e.to_s
           @accessible_roles = get_accessible_roles_for_current_user
           @is_admin = should_be_admin
+          @delegation_type = true if params[:user].has_key? :delegator_user_id
           render action: :new
         end
       end
@@ -97,14 +108,24 @@ class Manage::UsersController < Manage::ApplicationController
 
   def create_in_inventory_pool
     groups = params[:user].delete(:groups) if params[:user].has_key?(:groups)
-    @user = User.new(params[:user].merge(login: params[:db_auth][:login]))
+    if users = params[:user].delete(:users)
+      delegated_user_ids = users.map {|h| h["id"]}
+    end
+
+    @user = User.new(params[:user])
+    @user.login = params[:db_auth][:login] if params.has_key?(:db_auth)
     @user.groups = groups.map {|g| Group.find g["id"]} if groups
 
     begin
       User.transaction do
+        @user.delegated_user_ids = delegated_user_ids if delegated_user_ids
         @user.save!
-        DatabaseAuthentication.create!(params[:db_auth].merge(user: @user))
-        @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
+
+        unless @user.is_delegation
+          DatabaseAuthentication.create!(params[:db_auth].merge(user: @user))
+          @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
+        end
+
         @user.access_rights.create!(inventory_pool: @current_inventory_pool, role: params[:access_right][:role]) unless params[:access_right][:role].to_sym == :no_access
 
         respond_to do |format|
@@ -119,6 +140,7 @@ class Manage::UsersController < Manage::ApplicationController
         format.html do
           flash.now[:error] = e.to_s
           @accessible_roles = get_accessible_roles_for_current_user
+          @delegation_type = true if params[:user].has_key? :delegator_user_id
           render action: :new_in_inventory_pool
         end
       end
@@ -131,6 +153,7 @@ class Manage::UsersController < Manage::ApplicationController
   end
 
   def edit_in_inventory_pool
+    @delegation_type = @user.is_delegation
     @accessible_roles = get_accessible_roles_for_current_user
     @db_auth = DatabaseAuthentication.find_by_user_id(@user.id)
     @access_right = @user.access_right_for current_inventory_pool
@@ -139,9 +162,15 @@ class Manage::UsersController < Manage::ApplicationController
   def update
     should_be_admin = params[:user].delete(:admin)
 
+    # for complete users replacement, get only user ids without the _destroy flag
+    if users = params[:user].delete(:users)
+      delegated_user_ids = users.select{|h| h["_destroy"] != "1"}.map {|h| h["id"]}
+    end
+
     begin
       User.transaction do
         params[:user].merge!(login: params[:db_auth][:login]) if params[:db_auth]
+        @user.delegated_user_ids = delegated_user_ids if delegated_user_ids
         @user.update_attributes! params[:user]
         if params[:db_auth]
           DatabaseAuthentication.find_by_user_id(@user.id).update_attributes! params[:db_auth].merge(user: @user)
@@ -170,14 +199,20 @@ class Manage::UsersController < Manage::ApplicationController
   end
 
   def update_in_inventory_pool
-
-    if params[:user] and params[:user].has_key?(:groups) and (groups = params[:user].delete(:groups))
-      @user.groups = groups.map {|g| Group.find g["id"]}
+    if params[:user]
+      if params[:user].has_key?(:groups) and (groups = params[:user].delete(:groups))
+        @user.groups = groups.map {|g| Group.find g["id"]}
+      end
+      # for complete users replacement, get only user ids without the _destroy flag
+      if users = params[:user].delete(:users)
+        delegated_user_ids = users.select{|h| h["_destroy"] != "1"}.map {|h| h["id"]}
+      end
     end
 
     begin
       User.transaction do
         params[:user].merge!(login: params[:db_auth][:login]) if params[:db_auth]
+        @user.delegated_user_ids = delegated_user_ids if delegated_user_ids
         @user.update_attributes! params[:user]
         if params[:db_auth]
           DatabaseAuthentication.find_or_create_by(user_id: @user.id).update_attributes! params[:db_auth].merge(user: @user)
@@ -272,12 +307,15 @@ class Manage::UsersController < Manage::ApplicationController
 
   def get_accessible_roles_for_current_user
     accessible_roles = [[_("No access"), :no_access], [_("Customer"), :customer]]
-    accessible_roles +
-      if @current_user.has_role? :admin or @current_user.has_role? :inventory_manager, @current_inventory_pool
-        [[_("Group manager"), :group_manager], [_("Lending manager"), :lending_manager], [_("Inventory manager"), :inventory_manager]]
+    unless @delegation_type
+      accessible_roles +=
+        if @current_user.has_role? :admin or @current_user.has_role? :inventory_manager, @current_inventory_pool
+          [[_("Group manager"), :group_manager], [_("Lending manager"), :lending_manager], [_("Inventory manager"), :inventory_manager]]
       elsif @current_user.has_role? :lending_manager, @current_inventory_pool
         [[_("Group manager"), :group_manager], [_("Lending manager"), :lending_manager]]
       else [] end
+    end
+    accessible_roles
   end
 
   def hand_over

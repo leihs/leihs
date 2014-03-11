@@ -1135,6 +1135,10 @@ window.i18n.locale_data = {
          null,
          "Name / ID"
       ],
+      "New Delegation": [
+         null,
+         "Neue Delegation"
+      ],
       "New Borrower": [
          null,
          "Ausleihende/r wechseln"
@@ -1483,6 +1487,10 @@ window.i18n.locale_data = {
       "Reservation": [
          null,
          "Reservation"
+      ],
+      "Contact person": [
+         null,
+         "Kontaktperson"
       ],
       "Responsible": [
          null,
@@ -2005,8 +2013,13 @@ window.i18n.locale_data = {
          "Fehler beim Hochladen."
       ],
       "User": [
-         null,
+         "Users",
          "Benutzer"
+      ],
+      "Delegation": [
+         "Delegations",
+         "Delegation",
+         "Delegationen"
       ],
       "User details were updated successfully.": [
          null,
@@ -3015,6 +3028,10 @@ window.i18n.locale_data = {
          null,
          "Die Angabe eines Zwecks ist verpflichtend"
       ],
+      "Specification of the contact person is required": [
+         null,
+         "Die Angabe einer Kontaktperson ist verpflichtend"
+      ],
       "Change": [
          null,
          "Ändern"
@@ -3597,6 +3614,14 @@ window.i18n.locale_data = {
       "Who bought the most items?": [
          null,
          "Wer hat die meisten Gegenstände gekauft?"
+      ],
+      "Delegated user is not member of the contract's delegation or is empty": [
+         null,
+         "Die Kontaktperson ist nicht Mitglied der Delegation oder ist leer"
+      ],
+      "Delegated user must be empty for contract's normal user": [
+         null,
+         "Die Kontaktperson muss leer sein bei einem normalen User"
       ]
    }
 }

@@ -3,7 +3,7 @@ test:
   encoding: utf8
   reconnect: false
   database: leihs2_test
-  username: root
-  password:
+  username: jenkins
+  password: jenkins
   socket: /var/run/mysqld/mysqld.sock
 

@@ -1081,6 +1081,9 @@ msgstr ""
 msgid "Reservation"
 msgstr ""
 
+msgid "Contact person"
+msgstr ""
+
 msgid "Responsible"
 msgstr ""
 
@@ -1398,6 +1401,15 @@ msgstr ""
 msgid "This contract is not signable because some lines are not assigned."
 msgstr ""
 
+msgid "This contract is not signable because the delegated user is either missing or not part of this delegation."
+msgstr ""
+
+msgid "Delegated user is not member of the contract's delegation or is empty"
+msgstr ""
+
+msgid "Delegated user must be empty for contract's normal user"
+msgstr ""
+
 msgid "Groups of this customer"
 msgstr ""
 
@@ -1494,6 +1506,13 @@ msgid "Upload error."
 msgstr ""
 
 msgid "User"
+msgid_plural "Users"
+msgstr[0] ""
+
+msgid "Delegation"
+msgstr ""
+
+msgid "Delegations"
 msgstr ""
 
 msgid "User details were updated successfully."
@@ -1944,6 +1963,9 @@ msgstr ""
 msgid "Inventory manager"
 msgstr ""
 
+msgid "New Delegation"
+msgstr ""
+
 msgid "New User"
 msgstr ""
 
@@ -2267,6 +2289,9 @@ msgid "Purpose of the order"
 msgstr ""
 
 msgid "Specification of the purpose is required"
+msgstr ""
+
+msgid "Specification of the contact person is required"
 msgstr ""
 
 msgid "Change"

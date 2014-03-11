@@ -1,6 +1,6 @@
 # language: de
 
-Funktionalität: Aushaendigung editieren
+Funktionalität: Aushändigung editieren
 
   Grundlage:
     Angenommen Personas existieren
@@ -14,7 +14,7 @@ Funktionalität: Aushaendigung editieren
 
   @javascript
   Szenario: Systemfeedback bei Zuteilen einer Option
-    Angenommen ich öffne eine Aushaendigung
+    Angenommen ich öffne eine Aushändigung
     Wenn ich eine Option hinzufüge
     Dann wird die Zeile selektiert
     Und die Zeile wird grün markiert
@@ -22,7 +22,7 @@ Funktionalität: Aushaendigung editieren
 
   @javascript
   Szenario: Aushändigung eines bereits zugeteilten Gegenstandes
-    Angenommen ich öffne eine Aushaendigung mit mindestens einem zugewiesenen Gegenstand
+    Angenommen ich öffne eine Aushändigung mit mindestens einem zugewiesenen Gegenstand
     Wenn ich einen bereits hinzugefügten Gegenstand zuteile
     Dann erhalte ich eine entsprechende Info-Meldung 'XY ist bereits diesem Vertrag zugewiesen'
     Und die Zeile bleibt selektiert

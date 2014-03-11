@@ -9,7 +9,7 @@ module Persona
   class Pius
 
     @@name = "Pius"
-    @@lastname = Faker::Lorem.word
+    @@lastname = Faker::Name.last_name
     @@email = "pius@zhdk.ch"
     @@inventory_pool_name = "A-Ausleihe"
 
@@ -25,7 +25,6 @@ module Persona
     end
 
     def setup_dependencies 
-      Persona.create :ramon
       Persona.create :mike
     end
 

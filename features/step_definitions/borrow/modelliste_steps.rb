@@ -226,7 +226,7 @@ Wenn(/^man ein Enddatum auswählt$/) do
 end
 
 Dann(/^wird automatisch das Startdatum auf den vorhergehenden Tag gesetzt$/) do
-  sleep(0.88)
+  sleep(0.66)
   @start_date = Date.today
   find("#start-date").value.should == I18n.l(@start_date)
 end

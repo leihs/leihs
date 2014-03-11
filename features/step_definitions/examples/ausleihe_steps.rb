@@ -12,7 +12,7 @@ end
 
 Wenn /^ich öffne eine Bestellung von "(.*?)"$/ do |arg1|
   find("[data-collapsed-toggle='#open-orders']").click unless all("[data-collapsed-toggle='#open-orders']").empty?
-  @contract = Contract.find find("#daily-view #open-orders .line", match: :prefer_exact, :text => arg1)["data-id"]
+  @contract = @current_inventory_pool.contracts.find find("#daily-view #open-orders .line", match: :prefer_exact, :text => arg1)["data-id"]
   within("#daily-view #open-orders .line", match: :prefer_exact, :text => arg1) do
     find(".line-actions .multibutton .dropdown-holder").hover
     find(".dropdown-item", :text => _("Edit")).click
@@ -98,7 +98,7 @@ Wenn /^die Anzahl einer zurückzugebenden Option manuell ändere$/ do
 end
 
 Dann /^wird die Option ausgewählt und der Haken gesetzt$/ do
-  sleep(0.88)
+  sleep(0.66)
   @option_line.find("input[data-select-line]").checked?.should be_true
   step 'the count matches the amount of selected lines'
 end
@@ -218,7 +218,7 @@ end
 Dann /^wird es für die ausgewählte Zeitspanne hinzugefügt$/ do
   find("#flash")
   find(".line", match: :first)
-  sleep(0.88)
+  sleep(0.66)
   @amount_lines_before.should < all(".line").size
 end
 
@@ -296,8 +296,8 @@ Dann /^man sieht auf jeder Zeile die Summe der Gegenstände des jeweiligen Model
   quantities.sum.should >= quantities.size
 end
 
-Angenommen /^ich suche$/ do
-  @search_term = "a"
+Angenommen /^ich suche( '(.*)')?$/ do |arg1, arg2|
+  @search_term = arg2 || "a"
   find("#search_term").set(@search_term)
   find("#search_term").native.send_key :enter
 end

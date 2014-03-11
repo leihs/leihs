@@ -30,7 +30,6 @@ module Persona
     end
     
     def setup_dependencies 
-      Persona.create :ramon
       Persona.create :mike
       # lisa has to be create after normin and petra because she is overbooking things
       Persona.create :normin

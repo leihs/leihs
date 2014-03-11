@@ -1,5 +1,6 @@
 class Contract < ActiveRecord::Base
   include LineModules::GroupedAndMergedLines
+  include Delegation::Contract
 
   has_many :histories, -> { order(:created_at) }, :as => :target, :dependent => :destroy
   has_many :actions, -> { where("type_const = #{History::ACTION}").order(:created_at) }, :as => :target, :class_name => "History"
@@ -22,6 +23,8 @@ class Contract < ActiveRecord::Base
   validate do
     errors.add(:base, _("Invalid contract_lines")) if lines.any? {|l| not l.valid? }
     errors.add(:base, _("The start_date is not unique")) if [:signed, :closed].include?(status) and lines.group(:start_date).count.keys.size != 1
+    errors.add(:base, _("Delegated user is not member of the contract's delegation or is empty")) if user.is_delegation and not user.delegated_users.include?(delegated_user)
+    errors.add(:base, _("Delegated user must be empty for contract's normal user")) if not user.is_delegation and delegated_user
   end
 
 #########################################################################
@@ -38,6 +41,14 @@ class Contract < ActiveRecord::Base
 
   def to_s
     "#{id}"
+  end
+
+  def target_user
+    if user.is_delegation and delegated_user
+      delegated_user
+    else
+      user
+    end
   end
 
   TIMEOUT_MINUTES = 30
@@ -148,6 +159,9 @@ class Contract < ActiveRecord::Base
     elsif selected_lines.any? {|l| l.end_date < Date.today }
       errors.add(:base, _("Start Date must be before End Date"))
       false
+    elsif user.is_delegation and not user.delegated_users.exists?(delegated_user)
+      errors.add(:base, _("This contract is not signable because the delegated user is either missing or not part of this delegation."))
+      false
     else
       transaction do
         unless (lines_for_new_contract = self.contract_lines - selected_lines).empty?
@@ -195,6 +209,7 @@ class Contract < ActiveRecord::Base
       false
     else
       errors.add(:base, _("This user is suspended.")) if user.suspended?(inventory_pool)
+      errors.add(:base, _("The delegated user %s is suspended.") % delegated_user) if delegated_user.try :suspended?, inventory_pool
       errors.add(:base, _("This order is not approvable because doesn't have any models.")) if lines.empty?
       errors.add(:base, _("This order is not approvable because the inventory pool is closed on either the start or enddate.")) if lines.any? {|l| not l.visits_on_open_date? }
       errors.add(:base, _("This order is not approvable because some reserved models are not available.")) if lines.any? {|l| not l.available? }
@@ -214,7 +229,7 @@ class Contract < ActiveRecord::Base
         # can look up what happened
         logger.error "#{exception}\n    #{exception.backtrace.join("\n    ")}"
         self.errors.add(:base,
-                        _("The following error happened while sending a notification email to %{email}:\n") % { :user => user.email } +
+                        _("The following error happened while sending a notification email to %{email}:\n") % { :email => target_user.email } +
                             "#{exception}.\n" +
                             _("That means that the user probably did not get the approval mail and you need to contact him/her in a different way."))
       end

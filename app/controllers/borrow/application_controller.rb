@@ -2,7 +2,7 @@ class Borrow::ApplicationController < ApplicationController
 
   layout "borrow"
 
-  before_filter :require_customer, :redirect_if_order_timed_out, :init_breadcrumbs
+  before_filter :require_customer, :redirect_if_order_timed_out, :init_breadcrumbs, :get_current_delegated_user
 
   def root
     current_user_categories = current_user.all_categories
@@ -57,4 +57,7 @@ class Borrow::ApplicationController < ApplicationController
     @bread_crumbs = BreadCrumbs.new params.delete("_bc")
   end
 
+  def get_current_delegated_user
+    @current_delegated_user ||= User.find(session[:delegated_user_id]) if !!session[:delegated_user_id]
+  end
 end

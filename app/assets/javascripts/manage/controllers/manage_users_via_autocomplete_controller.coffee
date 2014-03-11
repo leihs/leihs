@@ -18,10 +18,12 @@ class window.App.ManageUsersViaAutocompleteController extends Spine.Controller
       @setupAutocomplete(App.User.find datum.id for datum in data)
 
   fetchUsers: =>
+    data =
+      search_term: @input.val()
+      per_page: 5
+    $.extend data, @fetchUsersParams
     App.User.ajaxFetch
-      data: $.param
-        search_term: @input.val()
-        per_page: 5
+      data: $.param data
 
   setupAutocomplete: (users) =>
     @input.autocomplete
@@ -29,7 +31,7 @@ class window.App.ManageUsersViaAutocompleteController extends Spine.Controller
       focus: => return false
       select: @select
     .data("uiAutocomplete")._renderItem = (ul, item) => 
-      $(App.Render "manage/views/groups/users/autocomplete_element", item).data("value", item).appendTo(ul)
+      $(App.Render "manage/views/templates/users/autocomplete_element", item).data("value", item).appendTo(ul)
     @input.autocomplete("search")
 
   select: (e, ui) =>
@@ -37,4 +39,4 @@ class window.App.ManageUsersViaAutocompleteController extends Spine.Controller
     if userElement.length
       @usersList.prepend userElement
     else
-      @usersList.prepend(App.Render "manage/views/groups/users/user_inline_entry", App.User.find(ui.item.id))
+      @usersList.prepend(App.Render "manage/views/templates/users/user_inline_entry", App.User.find(ui.item.id), paramName: @paramName)

@@ -121,7 +121,7 @@ Dann(/^es wurden auch alle Anhängsel gelöscht$/) do
   Attachment.where(model_id: @model.id).should be_empty
   ModelLink.where(model_id: @model.id).should be_empty
   Model.all {|m| m.compatibles.include? Model.find_by_name("Windows Laptop")}.include?(@model).should be_false
-  sleep 0.66 # fix lazy request problem
+  sleep(0.66) # fix lazy request problem
 end
 
 Wenn(/^ich dieses Modell aus der Liste lösche$/) do

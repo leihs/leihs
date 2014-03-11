@@ -16,7 +16,7 @@ When /^I delete a line of this contract$/ do
 end
 
 Then /^this contractline is deleted$/ do
-  sleep(0.88)
+  sleep(0.66)
   @contract.lines.reload.include?(@line).should == false
 end
 
@@ -26,20 +26,14 @@ When /^I delete multiple lines of this contract$/ do
   if all("input[data-select-line]").map{|i| i.checked?}.all?
     find("input[data-select-line]", match: :first).click
   end
-  step 'I delete the selection'
+  find(".multibutton [data-selection-enabled] + .dropdown-holder").hover
+  find("a", :text => _("Delete Selection")).click
   find(".line", match: :first)
 end
 
 When(/^I add a model that is not already part of that contract$/) do
   @item = (@ip.models - @contract.models).sample.items.sample
   step 'I add a model by typing in the inventory code of an item of that model to the quick add'
-end
-
-When /^I delete the selection$/ do
-  line_amount_before = all(".line").size
-  find(".multibutton [data-selection-enabled] + .dropdown-holder").hover
-  find("a", :text => _("Delete Selection")).click
-  find(".line", match: :first)
 end
 
 Then /^these contractlines are deleted$/ do
@@ -49,6 +43,7 @@ Then /^these contractlines are deleted$/ do
 end
 
 When /^I delete all lines of this contract$/ do
+  find(".line input[type=checkbox]", match: :first)
   all(".line input[type=checkbox]").each &:click
   page.execute_script('$("#selection_actions .button").show()')
   find(".multibutton [data-selection-enabled] + .dropdown-holder").hover

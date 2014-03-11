@@ -92,7 +92,8 @@ class window.App.SearchOverviewController extends Spine.Controller
         search_term: @searchTerm
     .done (data, status, xhr)=>
       users = (App.User.find datum.id for datum in data)
-      @render @users, "manage/views/users/search_result_line", users, xhr
+      App.User.fetchDelegators users, =>
+        @render @users, "manage/views/users/search_result_line", users, xhr
 
   searchContracts: =>
     App.Contract.ajaxFetch
@@ -115,6 +116,9 @@ class window.App.SearchOverviewController extends Spine.Controller
     $.extend data, {all: true} if all == "all"
     App.User.ajaxFetch
       data: $.param(data)
+    .done (data)=>
+      users = (App.User.find datum.id for datum in data)
+      App.User.fetchDelegators users
 
   fetchContractLines: (records)=>
     ids = _.flatten _.map records, (r)-> r.id

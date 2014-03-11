@@ -83,6 +83,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/technical/visit/visits_controller.feature"
+- name: technical/timezone_settings
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/technical/timezone_settings.feature"
 - name: home
   scripts:
     cucumber:
@@ -683,6 +687,14 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/manage/navigation.feature"
+- name: manage/delegation2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/delegation2.feature"
+- name: manage/delegation4
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/delegation4.feature"
 - name: manage/acknowledge/edit_purpose
   scripts:
     cucumber:
@@ -715,6 +727,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/manage/acknowledge/quick_approve.feature"
+- name: manage/delegation5
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/delegation5.feature"
 - name: manage/lending/tabs_navigation
   scripts:
     cucumber:
@@ -723,6 +739,14 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/manage/lending/day_navigation.feature"
+- name: manage/delegation6
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/delegation6.feature"
+- name: manage/delegation7
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/delegation7.feature"
 - name: manage/linegroup/selection
   scripts:
     cucumber:
@@ -739,6 +763,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/manage/booking_calendar/closed_day_alert.feature"
+- name: manage/delegation3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/delegation3.feature"
 - name: manage/hand_over/assign
   scripts:
     cucumber:

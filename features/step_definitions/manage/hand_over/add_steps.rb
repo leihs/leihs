@@ -9,7 +9,7 @@ When /^I add an item to the hand over by providing an inventory code and a date 
   find("#flash")
   find(".line", match: :first)
   find("input[value='#{@inventory_code}']")
-  sleep(0.88)
+  sleep(0.66)
   line_amount_before.should < all(".line").size
 end
 
@@ -29,7 +29,7 @@ When /^I add an option to the hand over by providing an inventory code and a dat
 end
 
 Then /^the (.*?) is added to the hand over$/ do |type|
-  sleep(0.88)
+  sleep(0.66)
   contract = @customer.get_approved_contract(@ip)
   case type
     when "option"

@@ -90,6 +90,7 @@ class Manage::ContractsController < Manage::ApplicationController
     
     lines = @contract.contract_lines.find(line_ids)
     @contract.note = note if note
+    @contract.delegated_user = @contract.user.delegated_users.find params[:delegated_user_id] if params[:delegated_user_id]
     if purpose_description
       purpose = Purpose.create :description => purpose_description
       lines.each do |line|
@@ -108,10 +109,14 @@ class Manage::ContractsController < Manage::ApplicationController
   end
 
   def swap_user
-    user = current_inventory_pool.users.find(params[:user_id])
     contract = current_inventory_pool.contracts.find params[:id]
-    contract.user = user
-    contract.save!
+    contract.user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
+    contract.delegated_user = ( params[:delegated_user_id] ? current_inventory_pool.users.find(params[:delegated_user_id]) : nil )
+    begin
+      contract.save!
+    rescue
+      render :status => :bad_request, :text => contract.errors.full_messages.uniq.join(", ") and return
+    end
     render :status => :no_content, :nothing => true
   end
 
