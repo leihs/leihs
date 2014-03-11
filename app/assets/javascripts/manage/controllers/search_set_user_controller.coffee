@@ -12,7 +12,8 @@ class window.App.SearchSetUserController extends Spine.Controller
     super
     if @localSearch == true
       @setupAutocomplete()
-      @input.on "focus", -> $(this).autocomplete("search", "")
+      @input.on "focus", (e) ->
+        $(this).autocomplete("search", ($(this).context.value ? ""))
     else
       @input.preChange {delay: 200} 
 
