@@ -143,11 +143,7 @@ class User < ActiveRecord::Base
   scope :admins, -> {joins(:access_rights).where(access_rights: {role: :admin, deleted_at: nil})}
 
   AccessRight::ROLES_HIERARCHY.each do |role|
-<<<<<<< HEAD
     scope role.to_s.pluralize.to_sym, -> {joins(:access_rights).where(access_rights: {role: role}).uniq}
-=======
-    scope role.to_s.pluralize.to_sym, joins(:access_rights).where(access_rights: {role: role, deleted_at: nil}).uniq
->>>>>>> mk_delegations
   end
 
 ################################################
