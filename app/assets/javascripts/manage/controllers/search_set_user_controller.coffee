@@ -12,7 +12,7 @@ class window.App.SearchSetUserController extends Spine.Controller
     super
     if @localSearch == true
       @setupAutocomplete()
-      @input.on "focus", -> $(this).autocomplete("search")
+      @input.on "focus", -> $(this).autocomplete("search", "")
     else
       @input.preChange {delay: 200} 
 
@@ -32,7 +32,6 @@ class window.App.SearchSetUserController extends Spine.Controller
     .data("uiAutocomplete")
     ._renderItem = (ul, item) => 
       $(App.Render "manage/views/users/autocomplete_element", item).data("value", item).appendTo(ul)
-    @input.autocomplete("search")
 
   searchUser: ->
     term = @input.val()
@@ -41,7 +40,9 @@ class window.App.SearchSetUserController extends Spine.Controller
     $.extend data, @additionalSearchParams
     App.User.ajaxFetch
       data: $.param data
-    .done (data)=> @setupAutocomplete(App.User.find(datum.id) for datum in data)
+    .done (data) =>
+      @setupAutocomplete(App.User.find(datum.id) for datum in data)
+      @input.autocomplete("search")
 
   selectUser: (user)->
     @input.hide().autocomplete("disable").attr("value", user.id)

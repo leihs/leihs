@@ -14,18 +14,25 @@ class window.App.HandOverDialogController extends Spine.Controller
     @purpose = (_.uniq _.map @lines, (l)->l.purpose().description).join ", "
     if @validateDialog()
       do @setupModal
-      @searchSetUserController = new App.SearchSetUserController
-        el: @el.find("#contact-person")
-        additionalSearchParams: { delegation_id: @user.id }
-        selectCallback: => @contract.delegated_user_id = @searchSetUserController.selectedUserId
+      if @user.isDelegation()
+        App.User.ajaxFetch
+          data: $.param
+            delegation_id: @user.id
+        .done (data) =>
+          @searchSetContactPersonController = new App.SearchSetUserController
+            el: @el.find("#contact-person")
+            localSearch: true
+            customAutocompleteOptions:
+              source: ( App.User.find(datum.id) for datum in data )
+              minLength: 0
       super
       do @autoFocus
     else
       return false
 
   autoFocus: =>
-    if @searchSetUserController.input.length
-      @searchSetUserController.input.focus()
+    if @searchSetContactPersonController?.input.length
+      @searchSetContactPersonController.input.focus()
     else if @purposeTextArea.length
       @purposeTextArea.focus()
     else
@@ -105,7 +112,7 @@ class window.App.HandOverDialogController extends Spine.Controller
     if @contract.user().isDelegation() and not @contract.delegatedUser()
       @errorContainer.find("strong").html(_jed("Specification of the contact person is required"))
       @errorContainer.removeClass("hidden")
-      @searchSetUserController.input.focus()
+      @searchSetContactPersonController.input.focus()
       false
     else
       true
