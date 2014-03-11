@@ -95,6 +95,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/availability_story.feature"
+- name: automatische_sperrung
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/automatische_sperrung.feature"
 - name: examples/verfuegbarkeit
   scripts:
     cucumber:
@@ -643,6 +647,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/acknowledge.feature"
+- name: administration/wartungsmodus
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/administration/wartungsmodus.feature"
 - name: category
   scripts:
     cucumber:
