@@ -8,6 +8,7 @@ FactoryGirl.define do
       u
     }
     status { :unsubmitted }
+    delegated_user { user.delegated_users.sample if user.is_delegation }
 
     factory :contract_with_lines do
       ignore do

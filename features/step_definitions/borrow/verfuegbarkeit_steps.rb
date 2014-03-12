@@ -1,7 +1,11 @@
 # -*- encoding : utf-8 -*-
 
 Angenommen(/^ich habe eine offene Bestellung mit Modellen$/) do
-  FactoryGirl.create(:contract_with_lines, inventory_pool: @current_user.inventory_pools.sample, user: @current_user, status: :unsubmitted, lines_count: rand(3..10))
+  FactoryGirl.create(:contract_with_lines,
+                     inventory_pool: @current_user.inventory_pools.sample,
+                     user: @current_user,
+                     status: :unsubmitted,
+                     lines_count: rand(3..10))
 end
 
 Angenommen(/^die Bestellung Timeout ist (\d+) Minuten$/) do |arg1|
