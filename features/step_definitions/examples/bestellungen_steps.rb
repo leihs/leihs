@@ -50,6 +50,10 @@ Dann(/^ist es mir nicht möglich, die Genehmigung zu forcieren$/) do
   page.has_no_text? _("Approve anyway")
 end
 
+Wenn(/^ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen$/) do
+  @current_inventory_pool = @current_user.managed_inventory_pools.find {|ip| not ip.contracts.with_verifiable_user_and_model.empty? }
+end
+
 Wenn(/^ich mich auf der Liste der Bestellungen befinde$/) do
   visit manage_contracts_path(@current_inventory_pool, status: [:approved, :submitted, :rejected]) unless current_path == manage_contracts_path(@current_inventory_pool, status: [:approved, :submitted, :rejected])
 end
@@ -63,17 +67,17 @@ Dann(/^sehe ich die Reiter "(.*?)"$/) do |tabs|
 end
 
 Angenommen(/^es existiert eine visierpflichtige Bestellung$/) do
-  @contract = @current_inventory_pool.contracts.with_verifiable_user_and_model.first
+  @contract = Contract.with_verifiable_user_and_model.first
   @contract.should_not be_nil
 end
 
 Dann(/^wurde diese Bestellung von einem Benutzer aus einer visierpflichtigen Gruppe erstellt$/) do
-  @current_inventory_pool.groups.where(is_verification_required: true).flat_map(&:users).uniq.include? @contract.user
+  Group.where(is_verification_required: true).flat_map(&:users).uniq.include? @contract.user
 end
 
 Dann(/^diese Bestellung beinhaltet ein Modell aus einer visierpflichtigen Gruppe$/) do
   @contract.models.any? do |m|
-    @current_inventory_pool.groups.where(is_verification_required: true).flat_map(&:models).uniq.include? m
+    Group.where(is_verification_required: true).flat_map(&:models).uniq.include? m
   end
 end
 

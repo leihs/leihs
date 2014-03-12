@@ -5,7 +5,7 @@ Funktionalität: Bestellungen
   @javascript
   Szenario: Keine leeren Bestellungen in der Liste der Bestellungen
     Angenommen man ist "Pius"
-    Angenommen es existiert eine leere Bestellung
+    Und es existiert eine leere Bestellung
     Dann sehe ich diese Bestellung nicht in der Liste der Bestellungen
 
   Szenario: Sichtbare Reiter
@@ -14,7 +14,7 @@ Funktionalität: Bestellungen
     Dann sehe ich die Reiter "Alle, Offen, Genehmigt, Abgelehnt"
 
   Szenario: Definition visierpflichtige Bestellungen
-    Angenommen ich bin Andi
+    Angenommen Personas existieren
     Und es existiert eine visierpflichtige Bestellung
     Dann wurde diese Bestellung von einem Benutzer aus einer visierpflichtigen Gruppe erstellt
     Und diese Bestellung beinhaltet ein Modell aus einer visierpflichtigen Gruppe
@@ -22,6 +22,7 @@ Funktionalität: Bestellungen
   @javascript
   Szenario: Alle Bestellungen anzeigen - Reiter Alle Bestellungen
     Angenommen ich bin Andi
+    Und ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen
     Und ich mich auf der Liste der Bestellungen befinde
     Wenn ich den Reiter "Alle" einsehe
     Dann sehe ich alle visierpflichtigen Bestellungen
@@ -30,6 +31,7 @@ Funktionalität: Bestellungen
   @javascript
   Szenario: Reiter Offene Bestellungen Darstellung
     Angenommen ich bin Andi
+    Und ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen
     Und ich mich auf der Liste der Bestellungen befinde
     Wenn ich den Reiter "Offen" einsehe
     Dann sehe ich alle offenen visierpflichtigen Bestellungen
@@ -46,6 +48,7 @@ Funktionalität: Bestellungen
   @javascript
   Szenario: Reiter "Genehmigt" Darstellung
     Angenommen ich bin Andi
+    Und ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen
     Und ich mich auf der Liste der Bestellungen befinde
     Wenn ich den Reiter "Genehmigt" einsehe
     Dann sehe ich alle genehmigten visierpflichtigen Bestellungen
@@ -61,6 +64,7 @@ Funktionalität: Bestellungen
   @javascript
   Szenario: Reiter "Abgelehnt" Darstellung
     Angenommen ich bin Andi
+    Und ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen
     Und ich mich auf der Liste der Bestellungen befinde
     Wenn ich den Reiter "Abgelehnt" einsehe
     Dann sehe ich alle abgelehnten visierpflichtigen Bestellungen
@@ -73,6 +77,7 @@ Funktionalität: Bestellungen
   @javascript
   Szenario: Filter zum visieren aufheben
     Angenommen ich bin Andi
+    Und ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen
     Und ich mich auf der Liste der Bestellungen befinde
     Und sehe ich alle visierpflichtigen Bestellungen
     Wenn ich den Filter "Zu prüfen" aufhebe
@@ -81,6 +86,7 @@ Funktionalität: Bestellungen
   @javascript
   Szenario: Bereits genehmigte Bestellung zurücksetzen
     Angenommen ich bin Andi
+    Und ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen
     Und ich mich auf der Liste der Bestellungen befinde
     Wenn ich den Reiter "Genehmigt" einsehe
     Und ich eine bereits gehmigte Bestellung editiere
@@ -89,4 +95,3 @@ Funktionalität: Bestellungen
     Und ich kann Optionen hinzufügen
     Aber ich kann keine Gegenstände zuteilen
     Und ich kann nicht aushändigen
-
