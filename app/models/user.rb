@@ -222,10 +222,13 @@ class User < ActiveRecord::Base
   def get_approved_contract(inventory_pool)
     contract = approved_contract(inventory_pool)
     if contract.nil?
-      contract = contracts.create(:status => :approved, :inventory_pool => inventory_pool, :note => inventory_pool.default_contract_note)
+      contract = contracts.new(:status => :approved, :inventory_pool => inventory_pool, :note => inventory_pool.default_contract_note)
+      # simply choose the first delegated user in order to pass contract validation. the delegated user has to be chosen again in the hand over process anyway
+      contract.delegated_user = contract.user.delegated_users.first if contract.user.is_delegation
+      contract.save
       reload
     end
-    contract.update_attributes(delegated_user: nil) # remove delegated user from contract, as it has to be explicitly chosen in the hand over process
+    #contract.update_attributes(delegated_user: nil) # remove delegated user from contract, as it has to be explicitly chosen in the hand over process
     contract
   end
 

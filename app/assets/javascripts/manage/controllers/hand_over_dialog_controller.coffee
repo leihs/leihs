@@ -25,6 +25,7 @@ class window.App.HandOverDialogController extends Spine.Controller
             customAutocompleteOptions:
               source: ( App.User.find(datum.id) for datum in data )
               minLength: 0
+            selectCallback: => @contract.delegated_user_id = @searchSetContactPersonController.selectedUserId
       super
       do @autoFocus
     else
