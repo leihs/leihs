@@ -65,13 +65,6 @@ Funktionalität: Delegation
     Dann ist in der Bestellung der Name der Delegation aufgeführt
 
   @javascript
-  Szenario: Aushändigen und eine Kontaktperson hinzufügen
-    Angenommen ich bin Pius
-    Und ich öffne eine Aushändigung für eine Delegation
-    Wenn ich die Gegenstände aushändige
-    Dann muss ich eine Kontaktperson hinzufügen
-
-  @javascript
   Szenario: Anzeige des Tooltipps
     Angenommen ich bin Pius
     Wenn ich nach einer Delegation suche
