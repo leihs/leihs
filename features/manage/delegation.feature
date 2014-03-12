@@ -24,7 +24,8 @@ Funktionalität: Delegation
   @javascript
   Szenario: Kontaktperson bei Aushändigung wählen
     Angenommen ich bin Pius
-    Und ich befinde mich in einer Aushändigung
+    Und es existiert eine Aushändigung für eine Delegation mit zugewiesenen Gegenständen
+    Und ich öffne diese Aushändigung
     Wenn ich die Aushändigung abschliesse
     Dann muss ich eine Kontaktperson auswählen 
 

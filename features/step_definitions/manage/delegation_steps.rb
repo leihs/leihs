@@ -503,3 +503,15 @@ end
 Dann(/^sehe ich im Dialog die Fehlermeldung "(.*?)"$/) do |text|
   page.has_selector? ".modal .red", text: text
 end
+
+Wenn(/^ich die Aushändigung abschliesse$/) do
+  all("input[data-assign-item]").select(&:value).sample.find(:xpath, "ancestor::*[@data-line-type]").find("input[data-select-line]").click
+  find("button[data-hand-over-selection]").click
+end
+
+Dann(/^muss ich eine Kontaktperson auswählen$/) do
+  find(".modal [data-hand-over]").click
+  within ".modal" do
+    has_selector? ".red", text: _("Specification of the contact person is required")
+  end
+end
