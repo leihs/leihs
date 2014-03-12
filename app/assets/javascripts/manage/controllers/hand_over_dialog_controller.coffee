@@ -23,7 +23,7 @@ class window.App.HandOverDialogController extends Spine.Controller
             el: @el.find("#contact-person")
             localSearch: true
             customAutocompleteOptions:
-              source: ( App.User.find(datum.id) for datum in data )
+              source: ( $.extend App.User.find(datum.id), { label: datum.name } for datum in data )
               minLength: 0
             selectCallback: => @contract.delegated_user_id = @searchSetContactPersonController.selectedUserId
       super

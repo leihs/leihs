@@ -69,5 +69,5 @@ class window.App.SwapUsersController extends Spine.Controller
           el: @el.find("#contact-person #swapped-person")
           localSearch: true
           customAutocompleteOptions:
-            source: ( App.User.find(datum.id) for datum in data )
+            source: ( $.extend App.User.find(datum.id), { label: datum.name } for datum in data )
             minLength: 0
