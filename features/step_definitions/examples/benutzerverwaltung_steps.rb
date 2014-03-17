@@ -33,7 +33,7 @@ Dann /^findet man die Benutzeradministration im Bereich "Administration" unter "
 end
 
 Dann /^sieht man eine Liste aller Benutzer$/ do
-  User.scoped.order("firstname ASC").paginate(page: 1, per_page: 20).each do |user|
+  User.order("firstname ASC").paginate(page: 1, per_page: 20).each do |user|
     page.should have_content(user.name)
   end
   page.should have_content _("List of Users")
@@ -71,7 +71,7 @@ Dann /^man kann filtern nach den folgenden Rollen:$/ do |table|
             when "customers", "lending_managers", "inventory_managers"
               @inventory_pool.users.send(role)
             else
-              User.scoped
+              User.all
             end.paginate(page:1, per_page: 20)
     users.each do |user|
       page.should have_content(user.name)
@@ -790,7 +790,7 @@ Dann(/^sind die Benutzer nach ihrem Vornamen alphabetisch sortiert$/) do
       all(".line > div:nth-child(1)").map(&:text).map{|t| t.split(" ").take(2).join(" ")}
     else
       all(".line > div:nth-child(1)").map(&:text)
-    end.should == User.scoped.order(:firstname).paginate(page:1, per_page: 20).map(&:name)
+    end.should == User.order(:firstname).paginate(page:1, per_page: 20).map(&:name)
   end
 end
 

@@ -76,7 +76,7 @@ class InventoryPool < ActiveRecord::Base
 #######################################################################
 
   scope :search, lambda { |query|
-    sql = scoped
+    sql = all
     return sql if query.blank?
     
     query.split.each{|q|

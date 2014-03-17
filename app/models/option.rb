@@ -22,7 +22,7 @@ class Option < ActiveRecord::Base
 ##########################################
 
   scope :search, lambda { |query, fields = []|
-    sql = scoped
+    sql = all
     return sql if query.blank?
     
     query.split.each{|q|
@@ -34,7 +34,7 @@ class Option < ActiveRecord::Base
   }
 
   def self.filter(params, inventory_pool = nil)
-    options = inventory_pool ? inventory_pool.options : scoped
+    options = inventory_pool ? inventory_pool.options : all
     options = options.search(params[:search_term], [:name]) unless params[:search_term].blank?
     options = options.where(:id => params[:ids]) if params[:ids]
     options = options.order("#{params[:sort]} #{params[:order]}") if params[:sort] and params[:order]

@@ -130,7 +130,7 @@ class Model < ActiveRecord::Base
   SEARCHABLE_FIELDS = %w(name manufacturer)
 
   scope :search, lambda { |query , fields = []|
-    return scoped if query.blank?
+    return all if query.blank?
 
     sql = select("DISTINCT models.*") #old# joins(:categories, :properties, :items)
     if fields.empty?
@@ -165,7 +165,7 @@ class Model < ActiveRecord::Base
              elsif subject.is_a? InventoryPool
                filter_for_inventory_pool params, subject, category
              else
-               scoped
+               all
              end
     models = models.where(id: params[:id]) if params[:id]
     models = models.where(id: params[:ids]) if params[:ids]
@@ -184,7 +184,7 @@ class Model < ActiveRecord::Base
 
   def self.filter_for_inventory_pool(params, inventory_pool, category)
     if params[:all]
-      models = scoped
+      models = all
     elsif params[:unused_models]
       models = unused_for_inventory_pool inventory_pool
     else

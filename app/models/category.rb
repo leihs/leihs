@@ -7,7 +7,7 @@ class Category < ModelGroup
   end
 
   def self.filter(params, inventory_pool = nil)
-    categories = scoped
+    categories = all
     categories = categories.search(params[:search_term]) if params[:search_term]
     categories = categories.order("name ASC")
     categories

@@ -51,7 +51,7 @@ class Visit < ActiveRecord::Base
   #######################################################
 
   scope :search, lambda { |query|
-    sql = scoped
+    sql = all
     return sql if query.blank?
 
     # TODO search on contract_lines' models and items
@@ -66,7 +66,7 @@ class Visit < ActiveRecord::Base
   }
 
   def self.filter(params, inventory_pool = nil)
-    visits = inventory_pool.nil? ? scoped : inventory_pool.visits
+    visits = inventory_pool.nil? ? all : inventory_pool.visits
     visits = visits.where Visit.arel_table[:action].eq(params[:type]) if params[:type]
     visits = visits.where(:action => params[:actions]) if params[:actions]
     visits = visits.search(params[:search_term]) unless params[:search_term].blank?

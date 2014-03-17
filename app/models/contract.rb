@@ -88,7 +88,7 @@ class Contract < ActiveRecord::Base
 #########################################################################
 
   scope :search, lambda { |query|
-    return scoped if query.blank?
+    return all if query.blank?
 
     sql = select("DISTINCT contracts.*").
         joins("LEFT JOIN `users` ON `users`.`id` = `contracts`.`user_id`").
@@ -123,7 +123,7 @@ class Contract < ActiveRecord::Base
                     inventory_pool.contracts
                   end
                 else
-                  scoped
+                  all
                 end
     contracts = contracts.search(params[:search_term]) unless params[:search_term].blank?
     contracts = contracts.where(:status => params[:status]) if params[:status]

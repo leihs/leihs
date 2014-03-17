@@ -82,7 +82,7 @@ class User < ActiveRecord::Base
   SEARCHABLE_FIELDS = %w(login firstname lastname badge_id)
 
   scope :search, lambda { |query|
-    sql = scoped
+    sql = all
     return sql if query.blank?
 
     sql = sql.uniq.joins("LEFT JOIN (`delegations_users` AS `du`, `users` AS `u2`) ON (`du`.`delegation_id` = `users`.`id` AND `du`.`user_id` = `u2`.`id`)")
@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
       users = users.find(params[:delegation_id]).delegated_users unless params[:delegation_id].blank?
       users = users.send params[:role] unless params[:role].blank?
     else
-      users = scoped
+      users = all
     end
 
     users = users.admins if params[:role] == "admins"

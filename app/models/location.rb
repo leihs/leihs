@@ -34,7 +34,7 @@ class Location < ActiveRecord::Base
 #################################################################
 
   scope :search, lambda { |query|
-    sql = scoped
+    sql = all
     return sql if query.blank?
     
     query.split.each{|q|
@@ -47,7 +47,7 @@ class Location < ActiveRecord::Base
   }
 
   def self.filter(params)
-    locations = scoped
+    locations = all
     locations = locations.where(id: params[:ids]) if params[:ids]
     locations
   end

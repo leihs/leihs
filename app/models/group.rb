@@ -17,7 +17,7 @@ class Group < ActiveRecord::Base
 ##########################################
 
   scope :search, lambda { |query|
-    return scoped if query.blank?
+    return all if query.blank?
 
     q = query.split.map{|s| "%#{s}%"}
     where(arel_table[:name].matches_all(q))

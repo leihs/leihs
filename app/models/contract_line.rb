@@ -45,7 +45,7 @@ class ContractLine < ActiveRecord::Base
     contract_lines = if inventory_pool
                        inventory_pool.contract_lines
                      else
-                       scoped
+                       all
                      end
     contract_lines = contract_lines.where(contract_id: params[:contract_ids]) if params[:contract_ids]
     contract_lines = contract_lines.where(id: params[:ids]) if params[:ids]

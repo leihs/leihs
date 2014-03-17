@@ -55,7 +55,7 @@ class Item < ActiveRecord::Base
   SEARCHABLE_FIELDS = %w(inventory_code serial_number invoice_number note name user_name properties)
 
   scope :search, lambda { |query|
-    return scoped if query.blank?
+    return all if query.blank?
 
     q = query.split.map{|s| "%#{s}%"}
     model_fields = Model::SEARCHABLE_FIELDS.map{|f| "m.#{f}" }.join(', ')
@@ -89,7 +89,7 @@ class Item < ActiveRecord::Base
   }
 
   def self.filter(params, inventory_pool = nil)
-    items = params[:all] ? unscoped : scoped
+    items = params[:all] ? unscoped : all
     items = if inventory_pool
               if params[:responsible_or_owner_as_fallback]
                 items.by_responsible_or_owner_as_fallback inventory_pool

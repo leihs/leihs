@@ -5,7 +5,7 @@ class Building < ActiveRecord::Base
   end
 
   def self.filter(params)
-    buildings = scoped
+    buildings = all
     buildings = buildings.where(id: params[:ids]) if params[:ids]
     buildings
   end
