@@ -11,6 +11,7 @@ end
 
 Angenommen(/^es existiert ein Benutzer mit Verträgen, der kein Zugriff mehr auf das Gerätepark hat$/) do
   @user = User.find {|u| u.access_rights.find {|ar| ar.inventory_pool == @current_inventory_pool and ar.deleted_at} and !u.contracts.blank?}
+  @user.should_not be_nil
 end
 
 Wenn(/^man nach dem Benutzer sucht$/) do

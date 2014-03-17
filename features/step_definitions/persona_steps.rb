@@ -12,7 +12,7 @@ Given /^I am "(.*)"$/ do |persona_name|
   persona_name = persona_name.gsub "\"", ""
   step 'persona "%s" existing' % persona_name
   step 'man ist eingeloggt als "%s"' % persona_name
-  @current_inventory_pool = @current_user.managed_inventory_pools.sample
+  @current_inventory_pool = @current_user.managed_inventory_pools.first
 end
 
 Angenommen(/^ich bin (.*?)$/) do |persona_name|
