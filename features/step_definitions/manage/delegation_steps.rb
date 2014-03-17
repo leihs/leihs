@@ -75,7 +75,7 @@ Wenn(/^ich kann dieser Delegation keine Delegation zuteile$/) do
 end
 
 Wenn(/^ich genau einen Verantwortlichen eintrage$/) do
-  @responsible = @current_inventory_pool.users.not_as_delegations.sample
+  @responsible ||= @current_inventory_pool.users.not_as_delegations.sample
   find(".row.emboss", text: _("Responsible")).find("input[data-type='autocomplete']").set @responsible.name
   find("ul.ui-autocomplete > li").click
 end
@@ -509,9 +509,82 @@ Wenn(/^ich die Aushändigung abschliesse$/) do
   find("button[data-hand-over-selection]").click
 end
 
+Wenn(/^ich eine gesperrte Kontaktperson wähle$/) do
+  delegated_user = @hand_over.user.delegated_users.select{|u| u.suspended? @current_inventory_pool}.sample
+  delegated_user ||= begin
+    user = @hand_over.user.delegated_users.sample
+    ensure_suspended_user(user, @current_inventory_pool)
+    user
+  end
+  find("input#user-id", match: :first).set delegated_user.name
+  find(".ui-menu-item a", match: :first, text: delegated_user.name).click
+end
+
+Dann(/^ist diese Kontaktperson bei der Auswahl rot markiert$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
 Dann(/^muss ich eine Kontaktperson auswählen$/) do
   find(".modal [data-hand-over]").click
   within ".modal" do
     has_selector? ".red", text: _("Specification of the contact person is required")
   end
+end
+
+Angenommen(/^ich befinde mich in der Editieransicht einer Delegation$/) do
+  @delegation = @current_inventory_pool.users.as_delegations.sample
+  visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @delegation)
+end
+
+Wenn(/^ich einen Verantwortlichen zuteile, der für diesen Gerätepark gesperrt ist$/) do
+  @responsible = @current_inventory_pool.users.select{|u| u.suspended? @current_inventory_pool}.sample
+  step 'ich genau einen Verantwortlichen eintrage'
+end
+
+Dann(/^ist dieser bei der Auswahl rot markiert$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Dann(/^hinter dem Namen steht in rot 'Gesperrt!'$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Wenn(/^ich einen Benutzer hinzufüge, der für diesen Gerätepark gesperrt ist$/) do
+  @delegated_user = @current_inventory_pool.users.select{|u| u.suspended? @current_inventory_pool}.sample
+  @delegated_user ||= begin
+      user = @current_inventory_pool.users.not_as_delegations.sample
+      ensure_suspended_user(user, @current_inventory_pool)
+      user
+  end
+  fill_in_autocomplete_field _("Users"), @delegated_user.name
+end
+
+Dann(/^ist er bei der Auswahl rot markiert$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Dann(/^in der Auwahl steht hinter dem Namen in rot 'Gesperrt!'$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Dann(/^in der Auflistung der Benutzer steht hinter dem Namen in rot 'Gesperrt!'$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Angenommen(/^ich wechsle den Benutzer$/) do
+  click_button "swap-user"
+  find(".modal", match: :first)
+end
+
+Angenommen(/^ich wähle eine Delegation$/) do
+  @delegation = @current_inventory_pool.users.as_delegations.sample
+  find("#user input#user-id", match: :first).set @delegation.name
+  find(".ui-menu-item")
+  find(".ui-menu-item a", match: :first, text: @delegation.name).click
+end
+
+Wenn(/^ich eine Kontaktperson wähle, der für diesen Gerätepark gesperrt ist$/) do
+  delegated_user = @delegation.delegated_users.select{|u| u.suspended? @current_inventory_pool}.sample
+  find("input#user-id", match: :first).set delegated_user.name
+  find(".ui-menu-item a", match: :first, text: delegated_user.name).click
 end

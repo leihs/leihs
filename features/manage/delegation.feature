@@ -6,8 +6,7 @@ Funktionalität: Delegation
   Szenario: Einer Delegation einen gesperrten Verantwortlichen zuteilen 
     Angenommen ich bin Pius
     Und ich befinde mich in der Editieransicht einer Delegation
-    Wenn ich einen Verantwortlichen zuteile
-    Und der Verantwortliche ist für diesen Gerätepark gesperrt
+    Wenn ich einen Verantwortlichen zuteile, der für diesen Gerätepark gesperrt ist
     Dann ist dieser bei der Auswahl rot markiert
     Und hinter dem Namen steht in rot 'Gesperrt!'
 
@@ -15,8 +14,7 @@ Funktionalität: Delegation
   Szenario: Einer Delegation einen gesperrten Benutzer hinzufügen 
     Angenommen ich bin Pius
     Und ich befinde mich in der Editieransicht einer Delegation
-    Wenn ich einen Benutzer hinzufüge
-    Und der Benutzer ist für diesen Gerätepark gesperrt
+    Wenn ich einen Benutzer hinzufüge, der für diesen Gerätepark gesperrt ist
     Dann ist er bei der Auswahl rot markiert
     Und in der Auwahl steht hinter dem Namen in rot 'Gesperrt!'
     Und in der Auflistung der Benutzer steht hinter dem Namen in rot 'Gesperrt!'
@@ -32,10 +30,10 @@ Funktionalität: Delegation
   @javascript
   Szenario: Anzeige einer gesperrten Kontaktperson in Aushändigung
     Angenommen ich bin Pius
-    Und ich befinde mich in einer Aushändigung
+    Und es existiert eine Aushändigung für eine Delegation mit zugewiesenen Gegenständen
+    Und ich öffne diese Aushändigung
     Wenn ich die Aushändigung abschliesse
-    Und ich eine Kontaktperson wähle
-    Und diese Kontaktperson ist gesperrt
+    Und ich eine gesperrte Kontaktperson wähle
     Dann ist diese Kontaktperson bei der Auswahl rot markiert
     Und in der Auwahl steht hinter dem Namen in rot 'Gesperrt!'
 
@@ -45,8 +43,7 @@ Funktionalität: Delegation
     Und ich befinde mich in einer Bestellung
     Und ich wechsle den Benutzer
     Und ich wähle eine Delegation
-    Wenn ich eine Kontaktperson wähle
-    Und diese Kontaktperson ist für diesen Gerätepark gesperrt
+    Wenn ich eine Kontaktperson wähle, der für diesen Gerätepark gesperrt ist
     Dann ist er bei der Auswahl rot markiert
     Und in der Auwahl steht hinter dem Namen in rot 'Gesperrt!'
 
