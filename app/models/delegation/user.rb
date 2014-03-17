@@ -19,8 +19,8 @@ module Delegation::User
                               foreign_key: 'delegation_id',
                               association_foreign_key: 'user_id'
 
-      scope :as_delegations, where(arel_table[:delegator_user_id].not_eq(nil))
-      scope :not_as_delegations, where(delegator_user_id: nil)
+      scope :as_delegations, -> { where(arel_table[:delegator_user_id].not_eq(nil)) }
+      scope :not_as_delegations, -> { where(delegator_user_id: nil) }
 
       before_validation do
         if is_delegation
