@@ -18,7 +18,7 @@ Then(/^I edit the following settings$/) do |table|
   within("form#edit_setting[action='/manage/settings']") do
     table.raw.flatten.each do |k|
       case k
-        when "email_signature", "local_currency_string", "mail_delivery_method", "smtp_address", "smtp_domain", "smtp_password", "smtp_username", "user_image_url"
+        when "email_signature", "local_currency_string", "mail_delivery_method", "smtp_address", "smtp_domain", "smtp_password", "smtp_username", "user_image_url", "smtp_openssl_verify_mode"
           field = find("input[name='setting[#{k}]']")
           Setting.const_get(k.upcase).to_s.should == field.value
           @new_settings[k] = new_value = Faker::Lorem.word
@@ -37,7 +37,7 @@ Then(/^I edit the following settings$/) do |table|
           Setting.const_get(k.upcase).to_s.should == field.value
           @new_settings[k] = new_value = Faker::Lorem.paragraph
           field.set new_value
-        when "deliver_order_notifications", "smtp_enable_starttls_auto", "smtp_openssl_verify_mode"
+        when "deliver_order_notifications", "smtp_enable_starttls_auto"
           field = find("input[name='setting[#{k}]']")
           Setting.const_get(k.upcase).should == field.checked?
           # TODO @new_settings[k]
