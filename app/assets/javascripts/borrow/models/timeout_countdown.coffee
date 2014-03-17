@@ -33,11 +33,14 @@ class window.App.TimeoutCountdown
     @seconds = 59 - Math.floor(Math.floor(moment().diff(@currentTimeout) / 1000) % 60)
 
   timeout: ->
-    $.get("/borrow/refresh_timeout.json").done (data)=>
-      if moment().diff(moment(data.date).add(@timeoutMinutes, "minutes")) <= 0
-        @storeCurrentTimeout moment(data.date).toDate()
-      else
-        $(@).trigger "timeout"
+    unless @timedout?
+      $.get("/borrow/refresh_timeout.json").done (data)=>
+        if moment().diff(moment(data.date).add(@timeoutMinutes, "minutes")) <= 0
+          @storeCurrentTimeout moment(data.date).toDate()
+        else
+          @timedout = true
+          clearInterval @interval
+          $(@).trigger "timeout"
 
   toString: ->
     minutesAsString = if String(@minutes).length == 1 then "0#{@minutes}" else String(@minutes)
