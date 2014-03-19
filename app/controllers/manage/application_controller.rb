@@ -89,14 +89,14 @@ class Manage::ApplicationController < ApplicationController
     helper_method :is_owner?, :is_privileged_user?, :is_super_user?, :is_inventory_manager?, :is_lending_manager?, :is_group_manager?, :current_managed_inventory_pools
 
     # TODO: what's happening here? Explain the goal of this method
+    # looks like getter function, but is also a setter. Should only return the current inventory pool. Current inventory pool should be set elsewhere.
     def current_inventory_pool
       return @current_inventory_pool if @current_inventory_pool # OPTIMIZE
+
       # TODO 28** patch to Rails: actionpack/lib/action_controller/...
       # i.e. /inventory_pools/123 generates automatically params[:inventory_pools_id] additionaly to params[:id]
-      if !params[:inventory_pool_id] and params[:id] and controller_name != "users"
-        request.path_parameters[:inventory_pool_id] = params[:id]
-        request.parameters[:inventory_pool_id] = params[:id]
-      end
+      params[:inventory_pool_id] = params[:id] if !params[:inventory_pool_id] and params[:id] and controller_name != "users"
+
       return nil if current_user.nil? #fixes http://leihs.hoptoadapp.com/errors/756097 (when a user is not logged in but tries to go to a certain action in an inventory pool (for example when clicking a link in hoptoad)
       @current_inventory_pool ||= InventoryPool.find(params[:inventory_pool_id]) if params[:inventory_pool_id]
       session[:current_inventory_pool_id] = @current_inventory_pool.id if @current_inventory_pool
