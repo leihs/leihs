@@ -196,7 +196,7 @@ class User < ActiveRecord::Base
 ################################################
 
   # get or create a new unsubmitted contract for a specific inventory_pool
-  def get_unsubmitted_contract(inventory_pool, current_delegated_user)
+  def get_unsubmitted_contract(inventory_pool, current_delegated_user = nil)
     contract = contracts.unsubmitted.where(inventory_pool_id: inventory_pool).first
     unless contract
       contract = contracts.create(status: :unsubmitted, inventory_pool: inventory_pool, delegated_user: current_delegated_user)
