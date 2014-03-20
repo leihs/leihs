@@ -397,13 +397,15 @@ Wenn(/^ich eine Bestellung für eine Delegationsgruppe erstelle$/) do
     Wenn ich eine Delegation wähle
     Dann wechsle ich die Anmeldung zur Delegation
     Angenommen man befindet sich auf der Modellliste
-    Wenn man einen Gegenstand aus der Modellliste hinzufügt
+    Wenn man auf einem verfügbaren Model "Zur Bestellung hinzufügen" wählt
     Dann öffnet sich der Kalender
     Wenn alle Angaben die ich im Kalender mache gültig sind
     Dann lässt sich das Modell mit Start- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügen
     Wenn ich die Bestellübersicht öffne
     Und ich einen Zweck eingebe
+    Und man merkt sich die Bestellung
     Und ich die Bestellung abschliesse
+    Und ich refreshe die Bestellung
     Dann ändert sich der Status der Bestellung auf Abgeschickt
     Und die Delegation ist als Besteller gespeichert
   }
