@@ -17,7 +17,9 @@ Funktionalität: Delegation
     Dann lässt sich das Modell mit Start- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügen
     Wenn ich die Bestellübersicht öffne
     Und ich einen Zweck eingebe
+    Und man merkt sich die Bestellung
     Und ich die Bestellung abschliesse
+    Und ich refreshe die Bestellung
     Dann ändert sich der Status der Bestellung auf Abgeschickt
     Und die Delegation ist als Besteller gespeichert
     Und ich werde als Kontaktperson hinterlegt

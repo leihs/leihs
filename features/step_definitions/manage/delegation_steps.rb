@@ -595,3 +595,12 @@ Wenn(/^ich eine Kontaktperson wähle, der für diesen Gerätepark gesperrt ist$/
   find("input#user-id", match: :first).set delegated_user.name
   find(".ui-menu-item a", match: :first, text: delegated_user.name).click
 end
+
+Und(/^man merkt sich die Bestellung$/) do
+  @contract = @current_user.contracts.unsubmitted.first
+end
+
+Und(/^ich refreshe die Bestellung$/) do
+  @contract.reload
+  @contract_ids = [@contract.id]
+end
