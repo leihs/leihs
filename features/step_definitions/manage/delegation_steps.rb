@@ -396,8 +396,12 @@ Wenn(/^ich eine Bestellung für eine Delegationsgruppe erstelle$/) do
     Dann werden mir die Delegationen angezeigt, denen ich zugeteilt bin
     Wenn ich eine Delegation wähle
     Dann wechsle ich die Anmeldung zur Delegation
-    Wenn ich habe Gegenstände der Bestellung hinzugefügt
-    Und ich die Bestellübersicht öffne
+    Angenommen man befindet sich auf der Modellliste
+    Wenn man einen Gegenstand aus der Modellliste hinzufügt
+    Dann öffnet sich der Kalender
+    Wenn alle Angaben die ich im Kalender mache gültig sind
+    Dann lässt sich das Modell mit Start- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügen
+    Wenn ich die Bestellübersicht öffne
     Und ich einen Zweck eingebe
     Und ich die Bestellung abschliesse
     Dann ändert sich der Status der Bestellung auf Abgeschickt

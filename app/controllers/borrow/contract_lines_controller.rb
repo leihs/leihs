@@ -6,7 +6,7 @@ class Borrow::ContractLinesController < Borrow::ApplicationController
              end_date = params[:end_date].try{|x| Date.parse(x)} || Date.tomorrow,
              inventory_pool = current_user.inventory_pools.find(params[:inventory_pool_id]))
 
-    target_contract = current_user.get_unsubmitted_contract(inventory_pool)
+    target_contract = current_user.get_unsubmitted_contract(inventory_pool, get_current_delegated_user)
     target_contract.errors.add(:base, _("Inventory pool is closed on start date")) unless inventory_pool.is_open_on?(start_date)
     target_contract.errors.add(:base, _("Inventory pool is closed on end date")) unless inventory_pool.is_open_on?(end_date)
     unless model.availability_in(inventory_pool).maximum_available_in_period_for_groups(start_date, end_date, current_user.group_ids) >= quantity
