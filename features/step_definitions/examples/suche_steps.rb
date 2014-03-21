@@ -34,3 +34,20 @@ Dann(/^die Personalien des Benutzers werden im Tooltip angezeigt$/) do
     [@user.name, @user.email, @user.address, @user.phone, @user.badge_id].each {|info| has_content? info}
   end
 end
+
+Angenommen(/^es gibt einen Benutzer, mit einer nicht genehmigter Bestellung$/) do
+  @user = @current_inventory_pool.users.find {|u| u.contracts.submitted.exists? }
+end
+
+Wenn(/^man nach diesem Benutzer sucht$/) do
+  within "#search" do
+    find("input#search_term").set @user.name
+    find("button[type='submit']").click
+  end
+end
+
+Dann(/^kann ich die nicht genehmigte Bestellung des Benutzers nicht aushändigen ohne sie vorher zu genehmigen$/) do
+  contract = @user.contracts.submitted.first
+  line = find(".line[data-id='#{contract.id}']")
+  line.find(".multibutton").has_no_selector?("li", text: _("Hand Over"), visible: false).should be_true
+end

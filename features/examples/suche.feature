@@ -18,12 +18,10 @@ Funktionalität: Suche
     Dann sieht man alle Veträge des Benutzers
     Und der Name des Benutzers ist in jeder Vertragslinie angezeigt
     Und die Personalien des Benutzers werden im Tooltip angezeigt
-    
-    
+
   @javascript
   Szenario: Keine Aushändigung ohne vorherige Genehmigung
     Angenommen man ist "Pius"
-    Wenn man nach einem Benutzer sucht
-    Und der Benutzer eine nicht genehmigte Bestellung hat
-    Dann kann ich diese nicht aushändigen ohne vorher zu genehmigen
- 
+    Und es gibt einen Benutzer, mit einer nicht genehmigter Bestellung
+    Wenn man nach diesem Benutzer sucht
+    Dann kann ich die nicht genehmigte Bestellung des Benutzers nicht aushändigen ohne sie vorher zu genehmigen

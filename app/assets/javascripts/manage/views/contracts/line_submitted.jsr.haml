@@ -26,12 +26,6 @@
           %a.dropdown-item{:href => "{{>editPath()}}"}
             %i.icon-edit
             {{jed "Edit"/}}
-        {{if ~accessRight.atLeastRole(~currentUserRole, "lending_manager") }}
-        %li
-          %a.dropdown-item{:href => "{{>handOverPath()}}"}
-            %i.icon-signout
-            {{jed "Hand Over"/}}
-        {{/if}}
         %li
           %a.dropdown-item.red{:"data-order-reject" => true}
             %i.icon-thumbs-down
