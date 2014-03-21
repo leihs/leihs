@@ -277,7 +277,10 @@ Wenn(/^ich statt einer Delegation einen Benutzer wähle$/) do
   @new_user = @current_inventory_pool.users.not_as_delegations.sample
 
   page.has_selector?("input[data-select-lines]", match: :first)
-  all("input[data-select-lines]").each {|el| el.click unless el.checked?}
+  all("input[data-select-lines]").each_with_index do |line, i|
+    el = all("input[data-select-lines]")[i]
+    el.click unless el.checked?
+  end
   multibutton = first(".multibutton", text: _("Hand Over Selection"))
   multibutton ||= first(".multibutton", text: _("Edit Selection"))
   multibutton.find(".dropdown-toggle").hover if multibutton
