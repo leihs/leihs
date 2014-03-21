@@ -3,6 +3,8 @@ class Setting < ActiveRecord::Base
   validates_presence_of :local_currency_string,
                         :email_signature,
                         :default_email
+  validates_presence_of :disable_borrow_section_message, if: :disable_borrow_section?
+  validates_presence_of :disable_manage_section_message, if: :disable_manage_section?
 
   #validates_numericality_of :smtp_port, :greater_than => 0
 

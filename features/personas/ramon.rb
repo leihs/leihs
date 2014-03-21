@@ -37,7 +37,9 @@ module Persona
     end
     
     def create_minimal_setup
-      FactoryGirl.create :setting unless Setting.first
+      # i comment it out for now. it makes troubles (see commit 8d22129f661e538e30888854cfb490292ddcb6a0) and settings entry is created in the migration anyway.
+      # FactoryGirl.create :setting unless Setting.first
+
       LeihsFactory.create_default_languages
       LeihsFactory.create_default_authentication_systems
       LeihsFactory.create_default_building

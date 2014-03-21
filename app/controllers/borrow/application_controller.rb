@@ -2,6 +2,7 @@ class Borrow::ApplicationController < ApplicationController
 
   layout "borrow"
 
+  before_filter :check_maintenance_mode, except: :maintenance
   before_filter :require_customer, :redirect_if_order_timed_out, :init_breadcrumbs, :get_current_delegated_user
 
   def root
@@ -32,6 +33,10 @@ class Borrow::ApplicationController < ApplicationController
   end
 
   private
+
+  def check_maintenance_mode
+    redirect_to borrow_maintenance_path if Setting::DISABLE_BORROW_SECTION
+  end
 
   def require_customer
     require_role :customer

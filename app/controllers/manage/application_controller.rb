@@ -13,9 +13,14 @@ class Manage::ApplicationController < ApplicationController
     end
   end
 
+  before_filter :check_maintenance_mode, except: :maintenance
   before_filter :required_manager_role
 
   private
+
+  def check_maintenance_mode
+    redirect_to manage_maintenance_path if current_inventory_pool and Setting::DISABLE_MANAGE_SECTION
+  end
 
   # NOTE this method may be overridden in the sub controllers
   def required_manager_role
@@ -60,6 +65,9 @@ class Manage::ApplicationController < ApplicationController
         render :nothing => true, :status => :bad_request
       end
     end
+  end
+
+  def maintenance
   end
 
 ###############################################################  

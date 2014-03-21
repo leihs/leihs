@@ -52,6 +52,9 @@ Leihs::Application.routes.draw do
   namespace :borrow do
     root to: "application#root"
     
+    # maintenance
+    get "maintenance", to: "application#maintenance"
+
     get "availability", to: "availability#show", as: "availability"
     get "holidays", to: "holidays#index", as: "holidays"
     get "inventory_pools", to: "inventory_pools#index", as: "inventory_pools"
@@ -101,6 +104,9 @@ Leihs::Application.routes.draw do
   # Manage Section
   namespace :manage do
     root to: "application#root"
+    
+    # maintenance
+    get "maintenance", to: "application#maintenance"
 
     # Location
     get 'locations', to: "locations#index"

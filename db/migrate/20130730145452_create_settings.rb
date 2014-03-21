@@ -1,5 +1,9 @@
 class CreateSettings < ActiveRecord::Migration
 
+  # TODO this hack is required in order to skip validations when the setting is created further below. The creation of setting would fail otherwise due to missing validations methods which are added to the Setting model in later migrations
+  class ::Setting < ActiveRecord::Base
+  end
+
   def change
 
     create_table :settings, :force => true do |t|
