@@ -73,3 +73,4 @@
       .col1of1.padding-bottom-s
         %p {{jed "Write a note... the note will be part of the contract"/}}
       %textarea.col1of1#note.height-xs{:name => :note}
+        {{>~currentInventoryPool.default_contract_note}}

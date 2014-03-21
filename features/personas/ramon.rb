@@ -54,7 +54,7 @@ module Persona
     def create_inventory_pool_a_ausleihe
       description = "Wichtige Hinweise...\n Bitte die Gegenstände rechtzeitig zurückbringen"
       contact_details = "A Verleih  /  ZHdK\nav@zh-dk.ch\n+41 00 00 00 00"
-      @a_ausleihe = FactoryGirl.create(:inventory_pool, :name => "A-Ausleihe", :description => description, :contact_details => contact_details, :contract_description => "Gerät erhalten", :email => "av@zhdk.ch", :shortname => "A")
+      @a_ausleihe = FactoryGirl.create(:inventory_pool, :name => "A-Ausleihe", :description => description, :contact_details => contact_details, :contract_description => "Gerät erhalten", :email => "av@zhdk.ch", :shortname => "A", :default_contract_note => Faker::Lorem.sentence)
       create_christmas_holiday @a_ausleihe
     end
 

@@ -6,7 +6,7 @@
 
 class window.App.InventoryPool extends Spine.Model
 
-  @configure "InventoryPool", "id", "name"
+  @configure "InventoryPool", "id", "name", "default_contract_note"
   
   @hasMany "availabilities", "App.Availability", "inventory_pool_id"
   @hasMany "models", "App.Model", "inventory_pool_id"

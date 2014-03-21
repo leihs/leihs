@@ -28,11 +28,12 @@ Funktionalität: Aushändigung editieren
     Und die Zeile bleibt selektiert
     Und die Zeile bleibt grün markiert
 
+  @javascript
   Szenario: Standard-Vertragsnotiz
-    Wenn ich eine Aushändigung mache
     Angenommen für den Gerätepark ist eine Standard-Vertragsnotiz konfiguriert
-    Wenn ich aushändige
-    Dann erscheint ein Dialog
+    Und ich öffne eine Aushändigung mit mindestens einem zugewiesenen Gegenstand
+    Wenn ich die Gegenstände aushändige
+    Dann erscheint ein Aushändigungsdialog
     Und diese Standard-Vertragsnotiz erscheint im Textfeld für die Vertragsnotiz
 
   Szenario: Vertragsnotiz

@@ -76,7 +76,7 @@ class window.App.HandOverDialogController extends Spine.Controller
       user: @user
       itemsCount: @itemsCount
       purpose: @purpose
-    tmpl = $ App.Render "manage/views/users/hand_over_dialog", data, {showAddPurpose: _.any(@lines, (l)-> not l.purpose_id?)}
+    tmpl = $ App.Render "manage/views/users/hand_over_dialog", data, {showAddPurpose: _.any(@lines, (l)-> not l.purpose_id?), currentInventoryPool: App.InventoryPool.current}
     tmpl.find("#add-purpose").on "click", (e)=> $(e.currentTarget).remove() and tmpl.find("#purpose-input").removeClass "hidden"
     @modal = new App.Modal tmpl
     @el = @modal.el

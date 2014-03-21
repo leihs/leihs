@@ -145,3 +145,15 @@ end
 Dann(/^die Zeile bleibt grün markiert$/) do
   page.has_selector? "#{@line_css}.green"
 end
+
+Angenommen(/^für den Gerätepark ist eine Standard\-Vertragsnotiz konfiguriert$/) do
+  @current_inventory_pool.default_contract_note.should_not be_nil
+end
+
+Dann(/^erscheint ein Aushändigungsdialog$/) do
+  page.has_selector? ".modal [data-hand-over]"
+end
+
+Dann(/^diese Standard\-Vertragsnotiz erscheint im Textfeld für die Vertragsnotiz$/) do
+  find("textarea[name='note']").text.should == @current_inventory_pool.default_contract_note
+end
