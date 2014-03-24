@@ -25,9 +25,9 @@ module Persona
     config = Rails.configuration.database_configuration[Rails.env]
     system "rm -r #{File.join(Rails.root, "features/personas/dumps")}"
     system "mkdir -p #{File.join(Rails.root, "features/personas/dumps")}"
-    srand(Digest::MD5.hexdigest(ENV['DOMINA_EXECUTION_ID'] || DateTime.now.to_s).to_i(16))
     n.times do |i|
       DatabaseCleaner.clean_with :truncation
+      srand(Random.new_seed)
       create_all
       cmd= "mysqldump #{config['host'] ? "-h #{config['host']}" : nil} -u #{config['username']} #{config['password'] ? "--password=#{config['password']}" : nil}  #{config['database']} --no-create-db | grep -v 'SQL SECURITY DEFINER' > #{File.join(Rails.root, "features/personas/dumps/personas_#{i}.sql")}"
       puts cmd
