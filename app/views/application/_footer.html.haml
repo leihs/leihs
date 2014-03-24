@@ -15,7 +15,8 @@
 
           .col1of2
             %span.padding-top-s
-              %a.dark-grey.padding-inset-s{:href => "https://github.com/zhdk/leihs", :target => "_blank"}= _("Source code")
+              - unless controller_path =~ /^borrow/
+                %a.dark-grey.padding-inset-s{:href => "https://github.com/zhdk/leihs", :target => "_blank"}= _("Source code")
 
           .col1of2.text-align-right
 
