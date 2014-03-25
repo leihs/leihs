@@ -1,64 +1,144 @@
-#require 'net/ldap'
-    
+class LdapHelper
+  # Needed later on in the auth controller
+  attr_reader :unique_id_field
+  attr_reader :base_dn
+  attr_reader :ldap_config
+  def initialize
+    @ldap_config = YAML::load_file(Setting::LDAP_CONFIG)
+    @base_dn = @ldap_config[Rails.env]["base_dn"]
+    @search_field = @ldap_config[Rails.env]["search_field"]
+    @host = @ldap_config[Rails.env]["host"]
+    @port = @ldap_config[Rails.env]["port"].to_i || 636
+    @encryption = @ldap_config[Rails.env]["encryption"].to_sym || :simple_tls
+    @method = :simple
+    @master_bind_dn = @ldap_config[Rails.env]["master_bind_dn"]
+    @master_bind_pw = @ldap_config[Rails.env]["master_bind_pw"]
+    @unique_id_field = @ldap_config[Rails.env]["unique_id_field"]
+    @video_displayname = @ldap_config[Rails.env]["video_displayname"]
+    raise "'master_bind_dn' and 'master_bind_pw' must be set in LDAP configuration file" if (@master_bind_dn.blank? or @master_bind_pw.blank?)
+    raise "'unique_id_field' in LDAP configuration file must point to an LDAP field that allows unique identification of a user" if @unique_id_field.blank?
+  end
+
+  def bind(username = @master_bind_dn, password = @master_bind_pw)
+    ldap = Net::LDAP.new :host => @host,
+    :port => @port, 
+    :encryption => @encryption,
+    :base => @base_dn,
+    :auth => {
+      :method=> @method,
+      :username => username,
+      :password => password 
+    }
+    if ldap.bind
+      return ldap
+    else
+      logger = Rails.logger
+      logger.error "Can't bind to LDAP server #{@host} as user '#{username}'. Wrong bind credentials or encryption parameters?"
+      return false
+    end
+  end
+end
+
 class Authenticator::LdapAuthenticationController < Authenticator::AuthenticatorController
 
-  layout 'layouts/manage/general'
-        
+
   def login_form_path
     "/authenticator/ldap/login"
+  end
+
+  # @param login [String] The login of the user you want to create
+  # @param email [String] The email address of the user you want to create
+  def create_user(login, email, firstname, lastname)
+    user = User.new(:login => login, :email => "#{email}", :firstname => "#{firstname}", :lastname => "#{lastname}")
+    user.authentication_system = AuthenticationSystem.where(:class_name => 'HsluAuthentication').first
+    if user.save
+      # Assign any default roles you want
+      InventoryPool.all.each do |ip|
+        user.access_rights.create(:inventory_pool => ip, :role => :customer)
+      end
+      return user
+    else
+      logger = Rails.logger
+      logger.error "Could not create user with login #{login}: #{user.errors.full_messages}"
+      return false
+    end
+  end
+
+  # @param user [User] The (local, database) user whose data you want to update
+  # @param user_data [Net::LDAP::Entry] The LDAP entry (it could also just be a hash of hashes and arrays that looks like a Net::LDAP::Entry) of that user
+  def update_user(user, user_data)
+    logger = Rails.logger
+    ldaphelper = LdapHelper.new
+    # Make sure to set "user_image_url" in "/manage/settings" in leihs 3.0 for user images to appear, based
+    # on the unique ID. Example for the format:
+    # http://www.hslu.ch/portrait/{:id}.jpg
+    # {:id} will be interpolated with user.unique_id there.
+    user.unique_id = user_data[ldaphelper.unique_id_field.to_s].first.to_s
+    user.firstname = user_data["givenname"].first.to_s 
+    user.lastname = user_data["sn"].first.to_s
+    user.phone = user_data["telephonenumber"].first.to_s unless user_data["telephonenumber"].blank?
+    user.language = Language.default_language if user.language.blank?
+
+    user.address = user_data["streetaddress"].first.to_s
+    user.city = user_data["l"].first.to_s
+    user.country = user_data["c"].first.to_s
+    user.zip = user_data["postalcode"].first.to_s
+
+    admin_dn = ldaphelper.ldap_config[Rails.env]["admin_dn"]
+    unless admin_dn.blank?
+      if user_data["memberof"].include?(admin_dn)
+        if user.access_rights.active.empty? or !user.access_rights.active.collect(&:role).include?(:admin)
+          user.access_rights.create(:role => :admin)
+        end
+      end
+    end
+
   end
   
   def login
     super
+    @preferred_language = Language.preferred(request.env["HTTP_ACCEPT_LANGUAGE"])
+
     if request.post?
-      user = params[:login][:user]
+      user = params[:login][:username]
       password = params[:login][:password]
       if user == "" || password == ""
         flash[:notice] = _("Empty Username and/or Password")
       else
-        bind_dn = LDAP_CONFIG[Rails.env]["bind_dn"]
-        bind_pwd = LDAP_CONFIG[Rails.env]["bind_pwd"]
-        ldap = Net::LDAP.new :host => LDAP_CONFIG[Rails.env]["host"],
-                          :port => LDAP_CONFIG[Rails.env]["port"].to_i,
-                          :encryption => LDAP_CONFIG[Rails.env]["encryption"].to_sym,
-                          :base => LDAP_CONFIG[Rails.env]["base"],
-                          :auth=>{:method=>:simple, :username => bind_dn, :password => bind_pwd } 
-      
+        ldaphelper = LdapHelper.new
         begin
-          if ldap.bind
-            users = ldap.search(:base => LDAP_CONFIG[Rails.env]["base"], :filter => Net::LDAP::Filter.eq(LDAP_CONFIG[Rails.env]["search_field"], "#{user}"))
+          ldap = ldaphelper.bind
+
+          if ldap
+            users = ldap.search(:base => ldaphelper.base_dn, :filter => Net::LDAP::Filter.eq(ldaphelper.ldap_config[Rails.env]["search_field"], "#{user}"))
 
             if users.size == 1
-              email = users.first.mail if users.first.mail
-              email ||= "#{user}@hkb.bfh.ch"
-              bind_dn = users.first.dn
-              firstname = users.first.givenname
-              lastname = users.first.sn
-              ldap = Net::LDAP.new :host => LDAP_CONFIG[Rails.env]["host"],
-                          :port => LDAP_CONFIG[Rails.env]["port"].to_i,
-                          :encryption => LDAP_CONFIG[Rails.env]["encryption"].to_sym,
-                          :base => LDAP_CONFIG[Rails.env]["base"],
-                          :auth=>{:method=>:simple, :username => bind_dn, :password => password } 
-              if ldap.bind
-             
-                u = User.find_by_login(user)
-               
+              ldap_user = users.first
+              email = ldap_user.mail.first.to_s if ldap_user.mail
+              email ||= "#{user}@localhost"
+              bind_dn = ldap_user.dn
+              firstname = ldap_user.givenname
+              lastname = ldap_user.sn
+              ldaphelper = LdapHelper.new
+              if ldaphelper.bind(bind_dn, password)
+                u = User.find_by_unique_id(ldap_user[ldaphelper.unique_id_field.to_s])
                 if not u
-                  u = User.create(:login => user, :email => "#{email}", :firstname => "#{firstname}", :lastname => "#{lastname}")
-                  InventoryPool.all.each do |ip|
-                    u.access_rights.create(:inventory_pool_id => ip, :role => :customer)
-                  end
+                  u = create_user(user, email, firstname, lastname)
                 end
-                u.firstname = users.first["givenname"].to_s 
-                u.lastname = users.first["sn"].to_s
-                u.phone = users.first["telephonenumber"].to_s unless users.first["telephonenumber"].blank?
 
-                u.save
-                self.current_user = u
-                redirect_back_or_default("/")
-                return true
-              else
-                flash[:notice] = _("Invalid username/password")
+                if not u == false
+                  update_user(u, users.first)
+                  if u.save
+                    self.current_user = u
+                    redirect_back_or_default("/")
+                  else
+                    logger.error(u.errors.full_messages.to_s)
+                    flash[:notice] = _("Could not update user '#{user}' with new LDAP information. Contact your leihs system administrator.")
+                  end
+                else
+                  flash[:notice] = _("Could not create new user for '#{user}' from LDAP source. Contact your leihs system administrator.")
+                end
+              else flash[:notice] = _("Invalid username/password")
               end
             else
               flash[:notice] = _("User unknown") if users.size == 0
@@ -66,12 +146,13 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
             end
           else
             flash[:notice] = _("Invalid technical user - contact your leihs admin")
-            redirect_to :action => 'login'
           end
         rescue Net::LDAP::LdapError
-          flash[:notice] = _("Couldn't connect to LDAP: #{LDAP_CONFIG[:host]}:#{LDAP_CONFIG[:port]}")
+          flash[:notice] = _("Couldn't connect to LDAP: #{ldaphelper.ldap_config[:host]}:#{ldaphelper.ldap_config[:port]}")
         end
       end
     end
-  end  
+  end
+
+
 end

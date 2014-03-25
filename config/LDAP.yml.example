@@ -1,7 +1,3 @@
-# configuration for the LDAP server
-# host: where to reach the DRb server (used by application processes to contact the server)
-# port: which port the server should listen on
-
 production:
   host: hostname
   port: port_number
@@ -9,34 +5,11 @@ production:
   base: dc=xyz,dc=abcc,dc=ch
   log_file: log/ldap_server.log
   log_level: warn
-  search_field: samaccountname
+  master_bind_dn: CN=blah,OU=diblah,DC=example,DC=org
+  master_bind_pw: 12345
+  base_dn: OU=user,DC=example,DC=org
+  admin_dn: CN=admin,DC=example,DC=org
+  port: 636
   unique_id_field: pager
-  master_bind_dn: CN=ldapsearch,OU=Service Accounts,OU=Accounts,OU=_ZHdK manuell,DC=vera,DC=hgka,DC=ch
-  master_bind_pw: ------------------
-
-#test:
-test:
-  host: hostname
-  port: port_number
-  encryption: simple_tls
-  base: dc=xyz,dc=abcc,dc=ch
   log_file: log/ldap_server.log
-  log_level: warn
   search_field: samaccountname
-  unique_id_field: pager
-  master_bind_dn: CN=ldapsearch,OU=Service Accounts,OU=Accounts,OU=_ZHdK manuell,DC=vera,DC=hgka,DC=ch
-  master_bind_pw: ------------------
- 
-
-#dev:
-development:
-  host: hostname
-  port: port_number
-  encryption: simple_tls
-  base: dc=xyz,dc=abcc,dc=ch
-  log_file: log/ldap_server.log
-  log_level: warn
-  search_field: samaccountname
-  unique_id_field: pager
-  master_bind_dn: CN=ldapsearch,OU=Service Accounts,OU=Accounts,OU=_ZHdK manuell,DC=vera,DC=hgka,DC=ch
-  master_bind_pw: ------------------
