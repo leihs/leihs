@@ -21,7 +21,7 @@ Dann /^kann ich für jedes sichtbare Model die Timeline anzeigen lassen$/ do
 
   raise "no lines found for this page" if lines.size.zero?
 
-  page.has_selector?(lines).should be_true
+  page.has_selector?(lines)
   all(lines, visible: true)[0..5].each do |line|
     line.find(".multibutton .dropdown-toggle").click
     line.find(".multibutton .dropdown-toggle").hover
