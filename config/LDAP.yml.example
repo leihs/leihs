@@ -1,6 +1,6 @@
 production:
   host: hostname
-  port: port_number
+  port: 636
   encryption: simple_tls
   base: dc=xyz,dc=abcc,dc=ch
   log_file: log/ldap_server.log
@@ -9,7 +9,6 @@ production:
   master_bind_pw: 12345
   base_dn: OU=user,DC=example,DC=org
   admin_dn: CN=admin,DC=example,DC=org
-  port: 636
   unique_id_field: pager
   log_file: log/ldap_server.log
   search_field: samaccountname
