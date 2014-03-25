@@ -1,4 +1,4 @@
-- content_for :title, _("Maintenance")
+- content_for :title, _("not available")
 
 .wrapper.margin-top-m
 
@@ -8,7 +8,7 @@
 
       .row
 
-        %h1.headline-xxl.float-left.darkred-text= yield :title
+        %h1.headline-xxl.float-left.darkred-text= _("%s not available") % _(section)
 
       .row.margin-top-m
 

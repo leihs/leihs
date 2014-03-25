@@ -1828,6 +1828,12 @@ msgstr ""
 msgid "not available. "
 msgstr ""
 
+msgid "not available"
+msgstr ""
+
+msgid "%s not available"
+msgstr ""
+
 msgid "not borrowable"
 msgstr ""
 
@@ -2108,6 +2114,12 @@ msgid "Closed Day"
 msgstr ""
 
 msgid "Borrow"
+msgstr ""
+
+msgid "Borrow section"
+msgstr ""
+
+msgid "Manage section"
 msgstr ""
 
 msgid "Overview"

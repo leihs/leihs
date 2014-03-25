@@ -1898,6 +1898,12 @@ msgstr "Kein Zweck angegeben."
 msgid "not available. "
 msgstr "nicht verfügbar."
 
+msgid "not available"
+msgstr "nicht verfügbar"
+
+msgid "%s not available"
+msgstr "%s nicht verfügbar"
+
 msgid "not borrowable"
 msgstr "nicht ausleihbar"
 
@@ -2180,6 +2186,12 @@ msgstr "Schliessungstag"
 
 msgid "Borrow"
 msgstr "Ausleihen"
+
+msgid "Borrow section"
+msgstr "Ausleihen-Bereich"
+
+msgid "Manage section"
+msgstr "Verwalten-Bereich"
 
 msgid "Overview"
 msgstr "Übersicht"
