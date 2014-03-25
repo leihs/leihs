@@ -1,7 +1,7 @@
 - name: administration/wartungsmodus
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/manage/administration/wartungsmodus.feature"
+      body: bundle exec cucumber -p default "features/administration/wartungsmodus.feature"
 - name: examples/benutzerverwaltung13
   scripts:
     cucumber:
