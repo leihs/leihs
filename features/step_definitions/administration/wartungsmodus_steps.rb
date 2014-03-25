@@ -96,6 +96,7 @@ end
 
 Dann(/^die eingegebene Meldung für "Verwalten" Bereich ist immer noch gespeichert$/) do
   @setting.reload.disable_manage_section_message.should == @disable_message
+  sleep 0.5 # fix no default authentication system problem on CI
 end
 
 Dann(/^die eingegebene Meldung für "Ausleihen" Bereich ist immer noch gespeichert$/) do
