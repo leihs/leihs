@@ -5,11 +5,11 @@
 - name: examples/benutzerverwaltung13
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "examples/benutzerverwaltung13.feature"
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung13.feature"
 - name: examples/timeline
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "examples/timeline.feature"
+      body: bundle exec cucumber -p default "features/examples/timeline.feature"
 - name: manage/delegation
   scripts:
     cucumber:
