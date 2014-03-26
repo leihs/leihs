@@ -2,7 +2,6 @@ production:
   host: hostname
   port: 636
   encryption: simple_tls
-  base: dc=xyz,dc=abcc,dc=ch
   log_file: log/ldap_server.log
   log_level: warn
   master_bind_dn: CN=blah,OU=diblah,DC=example,DC=org

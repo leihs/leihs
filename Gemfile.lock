@@ -178,6 +178,8 @@ GEM
     jquery-tmpl-rails (1.1.0)
       rails (>= 3.1.0)
     json (1.8.1)
+    ladle (0.2.0)
+      open4 (~> 1.0.0)
     launchy (2.4.2)
       addressable (~> 2.3)
     libv8 (3.16.14.3)
@@ -203,7 +205,7 @@ GEM
     multi_json (1.9.0)
     multi_test (0.0.3)
     mysql2 (0.3.15)
-    net-ldap (0.2.2)
+    net-ldap (0.5.1)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -215,6 +217,7 @@ GEM
     nio4r (1.0.0)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
+    open4 (1.0.1)
     paperclip (3.5.4)
       activemodel (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -385,11 +388,12 @@ DEPENDENCIES
   jruby-openssl
   json (~> 1.8)
   jsrender-rails (~> 1.2)!
+  ladle
   launchy (~> 2.1)
   meta_request
   mini_magick (~> 3.4)
   mysql2 (~> 0.3.11)
-  net-ldap (= 0.2.2)
+  net-ldap
   newrelic_rpm (~> 3.5)
   paperclip (~> 3.5)
   phantomjs (~> 1.9.7)

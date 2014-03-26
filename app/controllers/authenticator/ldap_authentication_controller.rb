@@ -9,7 +9,11 @@ class LdapHelper
     @search_field = @ldap_config[Rails.env]["search_field"]
     @host = @ldap_config[Rails.env]["host"]
     @port = @ldap_config[Rails.env]["port"].to_i || 636
-    @encryption = @ldap_config[Rails.env]["encryption"].to_sym || :simple_tls
+    if @ldap_config[Rails.env]["encryption"] == "none"
+      @encryption = nil
+    else
+      @encryption = @ldap_config[Rails.env]["encryption"].to_sym || :simple_tls
+    end
     @method = :simple
     @master_bind_dn = @ldap_config[Rails.env]["master_bind_dn"]
     @master_bind_pw = @ldap_config[Rails.env]["master_bind_pw"]
@@ -21,14 +25,15 @@ class LdapHelper
 
   def bind(username = @master_bind_dn, password = @master_bind_pw)
     ldap = Net::LDAP.new :host => @host,
-    :port => @port, 
+    :port => @port,
     :encryption => @encryption,
     :base => @base_dn,
     :auth => {
       :method=> @method,
       :username => username,
-      :password => password 
+      :password => password
     }
+
     if ldap.bind
       return ldap
     else
@@ -79,10 +84,10 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
     user.phone = user_data["telephonenumber"].first.to_s unless user_data["telephonenumber"].blank?
     user.language = Language.default_language if user.language.blank?
 
-    user.address = user_data["streetaddress"].first.to_s
-    user.city = user_data["l"].first.to_s
-    user.country = user_data["c"].first.to_s
-    user.zip = user_data["postalcode"].first.to_s
+    user.address = user_data["streetaddress"].first.to_s unless user_data["streetaddress"].blank?
+    user.city = user_data["l"].first.to_s unless user_data["l"].blank?
+    user.country = user_data["c"].first.to_s unless user_data["c"].blank?
+    user.zip = user_data["postalcode"].first.to_s unless user_data["postalcode"].blank?
 
     admin_dn = ldaphelper.ldap_config[Rails.env]["admin_dn"]
     unless admin_dn.blank?
@@ -94,15 +99,46 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
     end
 
   end
-  
+
+
+  def create_and_login_from_ldap_user(ldap_user, username, password)
+    email = ldap_user.mail.first.to_s if ldap_user.mail
+    email ||= "#{user}@localhost"
+    bind_dn = ldap_user.dn
+    firstname = ldap_user.givenname
+    lastname = ldap_user.sn
+    ldaphelper = LdapHelper.new
+    if ldaphelper.bind(bind_dn, password)
+      u = User.find_by_unique_id(ldap_user[ldaphelper.unique_id_field.to_s])
+      if not u
+        u = create_user(username, email, firstname, lastname)
+      end
+
+      unless u == false
+        update_user(u, ldap_user)
+        if u.save
+          self.current_user = u
+          redirect_back_or_default("/")
+        else
+          logger.error(u.errors.full_messages.to_s)
+          flash[:notice] = _("Could not update user '#{username}' with new LDAP information. Contact your leihs system administrator.")
+        end
+      else
+        flash[:notice] = _("Could not create new user for '#{username}' from LDAP source. Contact your leihs system administrator.")
+      end
+    else
+      flash[:notice] = _("Invalid username/password")
+    end
+  end
+
   def login
     super
     @preferred_language = Language.preferred(request.env["HTTP_ACCEPT_LANGUAGE"])
 
     if request.post?
-      user = params[:login][:username]
+      username = params[:login][:username]
       password = params[:login][:password]
-      if user == "" || password == ""
+      if username == "" || password == ""
         flash[:notice] = _("Empty Username and/or Password")
       else
         ldaphelper = LdapHelper.new
@@ -110,36 +146,10 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
           ldap = ldaphelper.bind
 
           if ldap
-            users = ldap.search(:base => ldaphelper.base_dn, :filter => Net::LDAP::Filter.eq(ldaphelper.ldap_config[Rails.env]["search_field"], "#{user}"))
+            users = ldap.search(:base => ldaphelper.base_dn, :filter => Net::LDAP::Filter.eq(ldaphelper.ldap_config[Rails.env]["search_field"], "#{username}"))
 
             if users.size == 1
-              ldap_user = users.first
-              email = ldap_user.mail.first.to_s if ldap_user.mail
-              email ||= "#{user}@localhost"
-              bind_dn = ldap_user.dn
-              firstname = ldap_user.givenname
-              lastname = ldap_user.sn
-              ldaphelper = LdapHelper.new
-              if ldaphelper.bind(bind_dn, password)
-                u = User.find_by_unique_id(ldap_user[ldaphelper.unique_id_field.to_s])
-                if not u
-                  u = create_user(user, email, firstname, lastname)
-                end
-
-                if not u == false
-                  update_user(u, users.first)
-                  if u.save
-                    self.current_user = u
-                    redirect_back_or_default("/")
-                  else
-                    logger.error(u.errors.full_messages.to_s)
-                    flash[:notice] = _("Could not update user '#{user}' with new LDAP information. Contact your leihs system administrator.")
-                  end
-                else
-                  flash[:notice] = _("Could not create new user for '#{user}' from LDAP source. Contact your leihs system administrator.")
-                end
-              else flash[:notice] = _("Invalid username/password")
-              end
+              create_and_login_from_ldap_user(users.first, username, password)
             else
               flash[:notice] = _("User unknown") if users.size == 0
               flash[:notice] = _("Too many users found") if users.size > 0
@@ -153,6 +163,5 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
       end
     end
   end
-
 
 end

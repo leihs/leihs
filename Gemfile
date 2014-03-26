@@ -12,6 +12,8 @@ gem 'capistrano', '~> 2.15', :group => :development
 gem 'capistrano-ext', :group => :development
 gem 'rvm-capistrano', :group => :development
 
+gem "jasminerice", :git => 'https://github.com/bradphelan/jasminerice.git', :group => [:test, :development] # needed for implement coffeescript, fixtures and asset pipeline serverd css into jasmine
+gem "rack_session_access", "~> 0.1.1", group: :test
 gem 'capybara', '~> 2.2', :group => [:test, :development]
 gem 'capybara-screenshot', :group => [:test, :development]
 gem 'chunky_png', '~> 1.2'
@@ -31,26 +33,26 @@ gem 'gettext_i18n_rails', '~> 0.8'
 gem 'guard-jasmine', '~> 1.11', :group => [:test, :development]
 gem 'haml', '~> 3.1'
 gem 'haml_assets', '~> 0.2'
-gem "jasminerice", :git => 'https://github.com/bradphelan/jasminerice.git', :group => [:test, :development] # needed for implement coffeescript, fixtures and asset pipeline serverd css into jasmine
 gem 'jquery-rails', '2.1.3' # '~> 2.1' FIXME the version 2.1.4 clashes with underscore-rails 1.4.2.1
 gem 'jquery-tmpl-rails', '~> 1.1'
 gem 'jruby-openssl', :platform => :jruby
 gem 'json', '~> 1.8'
 gem 'jsrender-rails', '~> 1.2', :git => 'https://github.com/spape/jsrender-rails.git', :branch => 'own_template_prefix'
+gem 'ladle', :group => :test
 gem 'launchy', '~> 2.1', :group => [:test, :development]
 gem 'meta_request', :group => :development
 gem 'mini_magick', '~> 3.4'
 gem 'mysql2', '~> 0.3.11', :platform => :mri
-gem 'net-ldap', '0.2.2', :require => 'net/ldap' # Never upgrade beyond 0.2.2, ruby-net-ldap has broken in many unpredictable ways. Wait for 1.0.0 before upgrading, at least 0.2.2 works.
+#gem 'net-ldap', '0.2.2', :require => 'net/ldap' # Never upgrade beyond 0.2.2, ruby-net-ldap has broken in many unpredictable ways. Wait for 1.0.0 before upgrading, at least 0.2.2 works.
+gem 'net-ldap', :require => 'net/ldap'
 gem 'newrelic_rpm', '~> 3.5', :group => [:profiling, :development]
 gem 'paperclip', '~> 3.5'
 gem 'phantomjs', '~> 1.9.7', :group => [:test, :development] # headless webdriver (UI & JS tests)
 gem 'poltergeist'
+gem 'protected_attributes', '~> 1.0'
 gem 'pry', :group => [:test, :development]
 gem 'pry-debugger', :group => :development
 gem 'pry-rails', :group => [:test, :development]
-gem 'protected_attributes', '~> 1.0'
-gem "rack_session_access", "~> 0.1.1", group: :test
 gem 'rails_autolink', '~> 1.0'
 gem 'rake' # So that cronjobs work -- otherwise they can't find rake
 gem 'redcarpet', :group => [:test, :development] # This isn't being pulled in by yard, but it's required
@@ -72,4 +74,3 @@ gem 'underscore-rails', '~> 1.4'
 gem 'uuidtools', '~> 2.1' # needed for creating unique ids during tests (factories)
 gem 'will_paginate', '~> 3.0'
 gem 'yard', :group => [:test, :development]
- 
