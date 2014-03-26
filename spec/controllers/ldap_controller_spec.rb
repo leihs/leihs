@@ -29,51 +29,7 @@ describe Authenticator::LdapAuthenticationController do
   end
 
   before(:each) do
-
     destroy_user("normal_user")
-
-
-    admin_user_hash = {:samaccountname=>["admin_user"],
-                       :mail=>["testadmin@mail.example.org"],
-                        :department=>["IT Administration"],
-                        :telephonenumber=>["044 999 99 99"],
-                        :samaccounttype=>["805306368"],
-                        :codepage=>["0"],
-                        :displayname=>["Test Admin"],
-                        :primarygroupid=>["513"],
-                        :company=>["University of Test"],
-                        :givenname=>["Test"],
-                        :userprincipalname=>["testuser@campus.intern"],
-                        :sn=>["Benutzer"],
-                        :dn=>
-                      ["CN=Test Admin testadmin,DC=example,DC=org"],
-                        :objectsid=>
-                      ["BINARY DATA HERE"],
-                        :streetaddress=>["Musterstrasse 1, Postfach 999"],
-                        :distinguishedname=>
-                      ["CN=Test Admin testadmin,DC=example,DC=org"],
-                        :title=>["Admin from Hell"],
-                        :cn=>["Test Admin"],
-                        :ipphone=>["9999"],
-                        :memberof=>
-                      ["CN=admin,DC=example,DC=org", "CN=golfclub,DC=example,DC=org"],
-                        :l=>["Musterstadt"],
-                        :objectclass=>["top", "person", "organizationalPerson", "user"],
-                        :st=>["Luzern"],
-                        :c=>["CH"],
-                        :objectcategory=>
-                      ["CN=Person,CN=Schema,CN=Configuration,DC=example,DC=org"],
-                        :name=>["Test Admin testadmin"],
-                        :postalcode=>["9999"],
-                        :pager=>["L2345"],
-                        :co=>["Switzerland"]
-                        }
-
-    #Net::LDAP.stub(:new) { 
-    #  mocked_ldap
-    #}
-
-
   end
 
   context "if the user does not yet exist" do
