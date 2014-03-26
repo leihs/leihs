@@ -1,8 +1,7 @@
 test:
   host: hostname
-  port: port_number
+  port: 12345
   encryption: simple_tls
-  base: dc=xyz,dc=abcc,dc=ch
   log_file: log/ldap_server.log
   log_level: warn
   search_field: userprincipalname
@@ -10,7 +9,6 @@ test:
   master_bind_pw: 12345
   base_dn: OU=p_user,OU=prod,OU=hslu,DC=campus,DC=intern
   admin_dn: CN=blah,OU=diblah,OU=diblahblah,OU=p_ma,OU=p_group,OU=prod,OU=hslu,DC=campus,DC=intern
-  port: 636
   unique_id_field: pager
   log_file: log/ldap_server.log
   video_displayname: DK.BA_VID

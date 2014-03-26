@@ -1,0 +1,72 @@
+version: 1
+
+dn: ou=people,dc=example,dc=org
+objectclass: top
+objectclass: organizationalUnit
+ou: people
+
+dn: uid=ldap_master,ou=people,dc=example,dc=org
+# Password: pass
+uid: ldap_master
+cn: ldap_master
+userpassword: {SHA}nU4eI71bcnBGqeO0t9tXvY1u5oQ=
+mail: ldapmaster@mail.example.org
+objectclass: organizationalPerson
+objectclass: top
+objectclass: person
+objectclass: inetOrgPerson
+sn: Master
+
+dn: uid=normal_user,ou=people,dc=example,dc=org
+uid: normal_user
+cn: normal_user
+# Password: pass
+userpassword: {SHA}nU4eI71bcnBGqeO0t9tXvY1u5oQ=
+description: Test User for leihs
+displayname: Test User
+givenname: Test
+l: Musterstadt
+c: Switzerland
+mail: test@mail.example.org
+# This virtual attribute is NOT supported yet on ApacheDS. Enter
+# it again once it is.
+#memberof: CN=u_all_ad_deny,OU=p_administration,OU=p_group,OU=generic,DC=example,DC=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: country
+pager: L9999
+postalcode: 9999
+sn: User
+st: Zürich
+streetaddress: Musterstrasse 1, Postfach 999
+telephonenumber: 044 999 99 99
+title: Lord of Test
+
+dn: uid=admin_user,ou=people,dc=example,dc=org
+uid: admin_user
+cn: admin_user
+# Password: pass
+userpassword: {SHA}nU4eI71bcnBGqeO0t9tXvY1u5oQ=
+description: Admin Test User for leihs
+displayname: Admin Test User
+givenname: Admintest
+l: Musterstadt
+c: Switzerland
+mail: admintest@mail.example.org
+# This virtual attribute is NOT supported yet on ApacheDS. Enter
+# it again once it is.
+#memberof: CN=u_all_ad_deny,OU=p_administration,OU=p_group,OU=generic,DC=example,DC=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: country
+pager: L9999
+postalcode: 9999
+sn: User
+st: Zürich
+streetaddress: Musterstrasse 1, Postfach 999
+telephonenumber: 044 999 99 99
+title: Admin Lord of Test

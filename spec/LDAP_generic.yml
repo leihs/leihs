@@ -1,15 +1,15 @@
 test:
-  host: hostname
-  port: port_number
-  encryption: simple_tls
-  base: dc=xyz,dc=abcc,dc=ch
+  host: localhost
+  port: 12345
+  #encryption: simple_tls
+  encryption: none
   log_file: log/ldap_server.log
   log_level: warn
-  master_bind_dn: CN=blah,OU=diblah,DC=example,DC=org
-  master_bind_pw: 12345
-  base_dn: OU=user,DC=example,DC=org
-  admin_dn: CN=admin,DC=example,DC=org
-  port: 636
-  unique_id_field: pager
+  master_bind_dn: uid=ldap_master,ou=people,dc=example,dc=org
+  master_bind_pw: pass
+  base_dn: ou=people,dc=example,dc=org
+  admin_dn: cn=admin,ou=generic,dc=example,dc=org
+  unique_id_field: cn
   log_file: log/ldap_server.log
-  search_field: samaccountname
+  search_field: cn
+  #search_field: samaccountname
