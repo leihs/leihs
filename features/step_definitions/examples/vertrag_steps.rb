@@ -213,3 +213,15 @@ When(/^die Modelle sind innerhalb ihrer Gruppe alphabetisch sortiert$/) do
     expect(names.sort == names).to be_true
   end
 end
+
+Dann(/^wird unter 'Verleiher\/in' der Gerätepark aufgeführt$/) do
+  find(".inventory_pool").has_content? @contract.inventory_pool.name
+end
+
+Wenn(/^in den Einstellungen die Adresse des Verleihers konfiguriert ist$/) do
+  @contract.inventory_pool.address.should_not be_nil
+end
+
+Dann(/^wird darunter die Adresse des Verleihers aufgeführt$/) do
+  pending # express the regexp above with the code you wish you had
+end
