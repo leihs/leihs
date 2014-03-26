@@ -1643,7 +1643,7 @@ msgstr ""
 msgid "You don't have any rights to access this application."
 msgstr ""
 
-msgid "You don't have permission"
+msgid "You don't have permission to perform this action"
 msgstr ""
 
 msgid "You have %{no_access} to any inventory pools!"
