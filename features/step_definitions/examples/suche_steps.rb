@@ -24,6 +24,10 @@ Dann(/^sieht man alle Veträge des Benutzers$/) do
   @user.contracts.each {|c| find("#contracts .line[data-id='#{c.id}']") }
 end
 
+Dann(/^sieht man alle unterschriebenen und geschlossenen Veträge des Benutzers$/) do
+  @user.contracts.signed_or_closed.where(inventory_pool: @current_inventory_pool).each {|c| find("#contracts .line[data-id='#{c.id}']") }
+end
+
 Dann(/^der Name des Benutzers ist in jeder Vertragslinie angezeigt$/) do
   all("#contracts .line").each {|el| el.text.include? @user.name }
 end
@@ -50,4 +54,13 @@ Dann(/^kann ich die nicht genehmigte Bestellung des Benutzers nicht aushändigen
   contract = @user.contracts.submitted.first
   line = find(".line[data-id='#{contract.id}']")
   line.find(".multibutton").has_no_selector?("li", text: _("Hand Over"), visible: false).should be_true
+end
+
+Angenommen(/^es existiert ein Benutzer mit mindestens (\d+) und weniger als (\d+) Verträgen$/) do |min, max|
+  @user = @current_inventory_pool.users.find {|u| u.contracts.signed_or_closed.where(inventory_pool: @current_inventory_pool).count.between? min.to_i, max.to_i}
+  @user.should_not be_nil
+end
+
+Dann(/^man sieht keinen Link 'Zeige alle gefundenen Verträge'$/) do
+  page.has_no_selector? "#contracts [data-type='show-all']"
 end

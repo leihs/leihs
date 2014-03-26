@@ -25,3 +25,11 @@ Funktionalität: Suche
     Und es gibt einen Benutzer, mit einer nicht genehmigter Bestellung
     Wenn man nach diesem Benutzer sucht
     Dann kann ich die nicht genehmigte Bestellung des Benutzers nicht aushändigen ohne sie vorher zu genehmigen
+
+  @javascript
+  Szenario: Kein 'zeige alle gefundenen Verträge' Link
+    Angenommen man ist "Mike"
+    Und es existiert ein Benutzer mit mindestens 3 und weniger als 5 Verträgen
+    Wenn man nach dem Benutzer sucht
+    Dann sieht man alle unterschriebenen und geschlossenen Veträge des Benutzers
+    Und man sieht keinen Link 'Zeige alle gefundenen Verträge'

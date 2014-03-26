@@ -106,23 +106,39 @@ module Persona
     end
     
     def create_signed_contracts
-      @approved_contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :approved)
+      contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :approved)
       purpose = FactoryGirl.create :purpose, :description => "Um meine Abschlussarbeit zu fotografieren."
-      @approved_contract.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @approved_contract, :item_id => @inventory_pool.items.in_stock.where(:model_id => @camera_model).first.id, :model => @camera_model, :start_date => Date.yesterday, :end_date => Date.today)
-      @approved_contract.sign(@pius)
+      contract.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => contract, :item_id => @inventory_pool.items.in_stock.where(:model_id => @camera_model).first.id, :model => @camera_model, :start_date => Date.yesterday, :end_date => Date.today)
+      contract.sign(@pius)
 
-      @approved_contract_2 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool_2, :status => :approved)
+      contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :approved)
+      purpose = FactoryGirl.create :purpose, :description => Faker::Lorem.sentence
+      item = FactoryGirl.create(:item, :owner => @inventory_pool)
+      contract.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => contract, :item => item, model: item.model, :start_date => Date.yesterday, :end_date => Date.today)
+      contract.sign(@pius)
+
+      contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool_2, :status => :approved)
       purpose = FactoryGirl.create :purpose, :description => "Um meine Abschlussarbeit zu fotografieren."
       @arbitrary_model_1 = @inventory_pool_2.items.in_stock.first.model
       @arbitrary_model_2 = @inventory_pool_2.items.in_stock.last.model
-      @approved_contract_2.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @approved_contract_2, :item_id => @inventory_pool_2.items.in_stock.where(:model_id => @arbitrary_model_1).first.id, :model => @arbitrary_model_1, :start_date => Date.yesterday, :end_date => Date.today)
-      @approved_contract_2.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @approved_contract_2, :item_id => @inventory_pool_2.items.in_stock.where(:model_id => @arbitrary_model_2).first.id, :model => @arbitrary_model_2, :start_date => Date.yesterday, :end_date => Date.today, :returned_to_user => @pius, :returned_date => Date.today)
-      @approved_contract_2.sign(@pius)
+      contract.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => contract, :item_id => @inventory_pool_2.items.in_stock.where(:model_id => @arbitrary_model_1).first.id, :model => @arbitrary_model_1, :start_date => Date.yesterday, :end_date => Date.today)
+      contract.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => contract, :item_id => @inventory_pool_2.items.in_stock.where(:model_id => @arbitrary_model_2).first.id, :model => @arbitrary_model_2, :start_date => Date.yesterday, :end_date => Date.today, :returned_to_user => @pius, :returned_date => Date.today)
+      contract.sign(@pius)
 
-      @approved_contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool_2, :status => :approved)
+      contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool_2, :status => :approved)
       purpose = FactoryGirl.create :purpose, :description => "Um meine Abschlussarbeit zu fotografieren."
-      @approved_contract.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @approved_contract, :item_id => @inventory_pool_2.items.in_stock.where(:model_id => @beamer_model).first.id, :model => @beamer_model, :start_date => Date.yesterday, :end_date => Date.today)
-      @approved_contract.sign(@pius)
+      contract.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => contract, :item_id => @inventory_pool_2.items.in_stock.where(:model_id => @beamer_model).first.id, :model => @beamer_model, :start_date => Date.yesterday, :end_date => Date.today)
+      contract.sign(@pius)
+    end
+
+    def create_closed_contracts
+      contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :approved)
+      purpose = FactoryGirl.create :purpose, :description => Faker::Lorem.sentence
+      item = FactoryGirl.create(:item, :owner => @inventory_pool)
+      contract.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => contract, :item => item, model: item.model, :start_date => Date.yesterday, :end_date => Date.today)
+      contract.sign(@pius)
+      contract.lines.each {|cl| cl.update_attributes(returned_date: Date.today, returned_to_user_id: @pius)}
+      contract.close
     end
 
     def setup_groups
