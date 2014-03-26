@@ -8,8 +8,8 @@ test:
   master_bind_dn: uid=ldap_master,ou=people,dc=example,dc=org
   master_bind_pw: pass
   base_dn: ou=people,dc=example,dc=org
-  admin_dn: cn=admin,ou=generic,dc=example,dc=org
-  unique_id_field: cn
+  admin_dn: cn=admins,ou=people,dc=example,dc=org
+  unique_id_field: uid
   log_file: log/ldap_server.log
-  search_field: cn
+  search_field: uid
   #search_field: samaccountname
