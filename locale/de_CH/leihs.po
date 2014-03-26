@@ -2188,10 +2188,10 @@ msgid "Borrow"
 msgstr "Ausleihen"
 
 msgid "Borrow section"
-msgstr "Ausleihen-Bereich"
+msgstr "Ausleihe"
 
 msgid "Manage section"
-msgstr "Verwalten-Bereich"
+msgstr "Verwaltung"
 
 msgid "Overview"
 msgstr "Übersicht"
