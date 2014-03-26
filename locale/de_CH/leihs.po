@@ -1709,8 +1709,8 @@ msgstr "Sie haben keinen Zugriff auf diesen Gegenstand."
 msgid "You don't have any rights to access this application."
 msgstr "Sie sind nicht berechtigt, diese Applikation zu verwenden"
 
-msgid "You don't have permission"
-msgstr "Sie haben keine Berechtigung"
+msgid "You don't have permission to perform this action"
+msgstr "Sie haben keine Berechtigung, diese Aktion durchzuführen"
 
 msgid "You have %{no_access} to any inventory pools!"
 msgstr "SIe haben %{no_access} auf diese Geräteparks"

@@ -32,7 +32,7 @@ module AuthenticatedSystem
         redirect_to login_path
       else
         # NOTE in case of post requests
-        render status: :method_not_allowed, text: _("You don't have permission")
+        render status: :method_not_allowed, text: _("You don't have permission to perform this action")
       end
     end
 
