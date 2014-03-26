@@ -18,7 +18,7 @@ Funktionalität: Gerätepark-Grundinformationen
     | Beschreibung |
     | Standard-Vertragsnotiz |
     | Verträge drucken | 
-    | Aut. zuweisen  |     
+    #| Aut. zuweisen  |     
     Und ich kann die angegebenen Grundinformationen speichern
     Dann sehe eine Bestätigung
     Und sind die Informationen aktualisiert
@@ -36,7 +36,7 @@ Funktionalität: Gerätepark-Grundinformationen
     Dann kann das Gerätepark nicht gespeichert werden
     Und ich sehe eine Fehlermeldung
     
-  @javascript
+  @upcoming
   Szenario: Aut. zuweisen bei Login über LDAP-Schnittstelle
     Angenommen Personas existieren
     Und es ist bei mehreren Geräteparks aut. Zuweisung aktiviert 
@@ -45,7 +45,7 @@ Funktionalität: Gerätepark-Grundinformationen
     Dann wird für meine Personendaten aus der Schnittstelle ein neuer Benutzer erstellt
     Und ich kriege bei allen Geräteparks mit aut. Zuweisung die Rolle 'Kunde'
     
-  @javascript
+  @upcoming
   Szenario: Aut. zuweisen beim Benutzererstellen ausserhalb des Geräteparks
     Angenommen Personas existieren
     Und es ist bei mehreren Geräteparks aut. Zuweisung aktiviert 
@@ -53,7 +53,7 @@ Funktionalität: Gerätepark-Grundinformationen
     Und ich erstelle einen neuen Benutzer
     Dann kriegt der neu erstellte Benutzer bei allen Geräteparks mit aut. Zuweisung die Rolle 'Kunde'
     
-  @javascript
+  @upcoming
   Szenario: Aut. zuweisen beim Benutzererstellen innerhalb des Geräteparks
     Angenommen Personas existieren
     Und es ist bei mehreren und meinem Gerätepark aut. Zuweisung aktiviert 
@@ -62,7 +62,7 @@ Funktionalität: Gerätepark-Grundinformationen
     Dann kriegt der neu erstellte Benutzer bei allen Geräteparks mit aut. Zuweisung ausser meinem die Rolle 'Kunde'
     Und in meinem Gerätepark hat er die Rolle 'Inventar-Verwalter'
     
-  @javascript
+  @upcoming
   Szenario: Aut. Zuweisen entfernen
     Angenommen Personas existieren
     Und ich bin Mike
