@@ -5,6 +5,12 @@ objectclass: top
 objectclass: organizationalUnit
 ou: people
 
+dn: cn=admins,ou=people,dc=example,dc=org
+objectClass: groupOfNames
+objectClass: top
+cn: admins
+member: uid=admin_user,ou=people,dc=example,dc=org
+
 dn: uid=ldap_master,ou=people,dc=example,dc=org
 # Password: pass
 uid: ldap_master

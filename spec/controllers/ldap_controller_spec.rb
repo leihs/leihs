@@ -92,4 +92,12 @@ describe Authenticator::LdapAuthenticationController do
     end
   end
 
+  context "if the user is not in the admin DN on LDAP" do
+    it "should not give that user the admin role" do
+      post :login, {:login => { :username => "normal_user", :password => "pass" }}, {}
+      user = User.where(:login => "normal_user").first
+      user.access_rights.active.collect(&:role).include?(:admin).should == false
+    end
+  end
+
 end

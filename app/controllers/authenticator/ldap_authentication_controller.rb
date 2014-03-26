@@ -91,7 +91,21 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
 
     admin_dn = ldaphelper.ldap_config[Rails.env]["admin_dn"]
     unless admin_dn.blank?
-      if user_data["memberof"].include?(admin_dn)
+      in_admin_group = false
+      begin
+        admin_group_filter = Net::LDAP::Filter.eq("member", user_data.dn)
+        ldap = ldaphelper.bind
+        if (
+              ldap.search(:base => admin_dn, :filter => admin_group_filter).count >= 1 or
+              (user_data["memberof"] and user_data["memberof"].include?(admin_dn))
+           )
+          in_admin_group = true
+        end
+      rescue Exception => e
+        logger.error "Could not upgrade user #{user.unique_id} to an admin due to exception: #{e}"
+      end
+
+      if in_admin_group == true
         if user.access_rights.active.empty? or !user.access_rights.active.collect(&:role).include?(:admin)
           user.access_rights.create(:role => :admin)
         end

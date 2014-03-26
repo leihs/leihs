@@ -8,6 +8,6 @@ production:
   master_bind_pw: 12345
   base_dn: OU=user,DC=example,DC=org
   admin_dn: CN=admin,DC=example,DC=org
-  unique_id_field: pager
+  unique_id_field: uid
   log_file: log/ldap_server.log
   search_field: samaccountname
