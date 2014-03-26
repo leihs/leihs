@@ -155,7 +155,7 @@ Angenommen /^eine Gegenstand ist defekt$/ do
   if @event == "hand_over"
     @item = @ip.items.broken.first
     step 'I add an item to the hand over'
-    @line_id = find(".line [data-assign-item][disabled]", match: :first).find(:xpath, "./../../..")[:"data-id"]
+    @line_id = find("input[value='#{@item.inventory_code}']").find(:xpath, "ancestor::div[@data-id]")["data-id"].to_i
   elsif  @event == "take_back"
     @line_id = find(".line[data-line-type='item_line']", match: :first)[:"data-id"]
     step 'markiere ich den Gegenstand als defekt'
