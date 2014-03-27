@@ -26,7 +26,7 @@ Funktionalität: Gerätepark-Grundinformationen
       | Kurzname    |
       | E-Mail      |
 
-  @javascript
+  @upcoming
   Szenario: Automatische Benutzersperrung bei verspäteter Rückgabe
     Angenommen persona "Mike" existing
     Und ich bin Mike
