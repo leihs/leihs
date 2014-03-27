@@ -26,5 +26,5 @@ Funktionalität: Vertrag
   Szenario: Adresse des Verleihers aufführen
     Angenommen man öffnet einen Vertrag bei der Aushändigung
     Dann wird unter 'Verleiher/in' der Gerätepark aufgeführt
-    Wenn in den Einstellungen die Adresse des Verleihers konfiguriert ist
-    Dann wird darunter die Adresse des Verleihers aufgeführt
+    #Wenn in den Einstellungen die Adresse des Verleihers konfiguriert ist
+    #Dann wird darunter die Adresse des Verleihers aufgeführt
