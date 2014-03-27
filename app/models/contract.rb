@@ -139,7 +139,7 @@ class Contract < ActiveRecord::Base
     contracts = contracts.where(Contract.arel_table[:created_at].lt(params[:range][:end_date])) if params[:range] and params[:range][:end_date]
     contracts = contracts.order(Contract.arel_table[:created_at].desc)
     # computing total_entries with count(distinct: true) explicitly, because default contracts.count used by paginate plugin seems to override the DISTINCT option and thus returns wrong result. See https://stackoverflow.com/questions/7939719/will-paginate-generates-wrong-number-of-page-links
-    contracts = contracts.paginate(:page => params[:page]||1, :per_page => [(params[:per_page].try(&:to_i) || 20), 100].min, :total_entries => contracts.count(distinct: true)) unless params[:paginate] == "false"
+    contracts = contracts.paginate(:page => params[:page]||1, :per_page => [(params[:per_page].try(&:to_i) || 20), 100].min, :total_entries => contracts.distinct.count) unless params[:paginate] == "false"
     contracts
   end
 
