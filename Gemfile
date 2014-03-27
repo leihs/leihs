@@ -2,10 +2,9 @@ source 'http://rubygems.org'
 
 gem 'rails', '4.0.3'
 
-
 gem 'active_hash', '~> 0.9'
 gem 'activerecord-jdbcmysql-adapter', :platform => :jruby
-gem 'acts-as-dag', '~> 3.0' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
+gem 'acts-as-dag', :git => 'https://github.com/jheiss/acts-as-dag.git', :branch => 'rails4' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
 gem 'barby', '~> 0.5.0'
 gem 'better_errors', :group => :development
 gem 'binding_of_caller', :group => :development
