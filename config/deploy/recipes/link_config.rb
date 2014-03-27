@@ -1,14 +1,14 @@
 task :link_config do
-  if File.exist?("#{release_path}/config/LDAP.yml")
-    run "rm #{release_path}/config/LDAP.yml"
-    run "ln -s #{ldap_config} #{release_path}/config/LDAP.yml"
+  if exists?(:ldap_config)
+    run "if [[ -f #{ldap_config} ]]; then ln -sf #{ldap_config} #{release_path}/config/LDAP.yml; fi"
+  end
+
+  if exists?(:secret_token)
+    run "if [[ -f #{ldap_config} ]]; then ln -sf #{secret_token} #{release_path}/config/initializers/secret_token.rb; fi"
   end
 
   run "rm -f #{release_path}/config/database.yml"
-#  run "rm -f #{release_path}/config/application.rb"
-
   run "ln -s #{db_config} #{release_path}/config/database.yml"
-#  run "ln -s #{app_config} #{release_path}/config/application.rb"
 
   # So we can check from outside which revision is deployed on that instance
   # Note: Must use a .txt suffix so that Passengers knows to deliver this
