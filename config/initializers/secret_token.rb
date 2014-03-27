@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Leihs::Application.config.secret_token = 'c06439c677c5bbcecf39085670340f8b99f02af5ec5a45af7c700ed18c6f5985989e832af6749599e5d5885e093d5c382c351d59791aff690532c2f41896e37f'
+Leihs::Application.config.secret_token = '57bd131213e58279e9414d2092c7e78c67ce1ce2df5cc155656d9a5c2b1a89490f3481c6a6f3fb61956665963d1de8851a7a521b2f72e4b4919e11fd85968759'
