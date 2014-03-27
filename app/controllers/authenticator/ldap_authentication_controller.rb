@@ -7,9 +7,12 @@ class LdapHelper
   attr_reader :search_field
 
   def initialize
-    #@ldap_config = YAML::load_file(Setting::LDAP_CONFIG)
     begin
-      @ldap_config = YAML::load_file(File.join(Rails.root, "config", "LDAP.yml"))
+      if Setting::LDAP_CONFIG
+        @ldap_config = YAML::load_file(Setting::LDAP_CONFIG)
+      else
+        @ldap_config = YAML::load_file(File.join(Rails.root, "config", "LDAP.yml"))
+      end
     rescue Exception => e
       raise "Could not load LDAP configuration file #{File.join(Rails.root, "config", "LDAP.yml")}: #{e}"
     end
