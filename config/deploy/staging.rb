@@ -15,8 +15,9 @@ set :branch, "next"
 set :deploy_via, :remote_cache
 
 set :db_config, "/home/leihs/#{application}/database.yml"
-#set :app_config, "/home/leihs/#{application}/application.rb"
 set :ldap_config, "/home/leihs/#{application}/LDAP.yml"
+set :secret_token, "/home/leihs/#{application}/secret_token.rb"
+
 set :use_sudo, false
 
 set :rails_env, "production"

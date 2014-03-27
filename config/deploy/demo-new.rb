@@ -21,6 +21,7 @@ set :rails_env, "production"
 default_run_options[:shell] = false
 
 set :deploy_to, "/home/leihs/#{application}"
+set :secret_token, "/home/leihs/#{application}/secret_token.rb"
 
 role :app, "leihs@rails.zhdk.ch"
 role :web, "leihs@rails.zhdk.ch"
