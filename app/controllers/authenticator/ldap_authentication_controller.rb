@@ -1,10 +1,18 @@
 class LdapHelper
-  # Needed later on in the auth controller
   attr_reader :unique_id_field
   attr_reader :base_dn
   attr_reader :ldap_config
+  attr_reader :host
+  attr_reader :port
+  attr_reader :search_field
+
   def initialize
-    @ldap_config = YAML::load_file(Setting::LDAP_CONFIG)
+    #@ldap_config = YAML::load_file(Setting::LDAP_CONFIG)
+    begin
+      @ldap_config = YAML::load_file(File.join(Rails.root, "config", "LDAP.yml"))
+    rescue Exception => e
+      raise "Could not load LDAP configuration file #{File.join(Rails.root, "config", "LDAP.yml")}: #{e}"
+    end
     @base_dn = @ldap_config[Rails.env]["base_dn"]
     @search_field = @ldap_config[Rails.env]["search_field"]
     @host = @ldap_config[Rails.env]["host"]
@@ -38,7 +46,7 @@ class LdapHelper
       return ldap
     else
       logger = Rails.logger
-      logger.error "Can't bind to LDAP server #{@host} as user '#{username}'. Wrong bind credentials or encryption parameters?"
+      logger.error "ERROR: Can't bind to LDAP server #{@host} as user '#{username}'. Wrong bind credentials or encryption parameters?"
       return false
     end
   end
@@ -46,6 +54,16 @@ end
 
 class Authenticator::LdapAuthenticationController < Authenticator::AuthenticatorController
 
+  def validate_configuration
+    logger = Rails.logger
+    begin
+      # This thing will complain with an exception if something is wrong about our configuration
+      helper = LdapHelper.new
+    rescue Exception => e
+      flash[:error] = _("You will not be able to log in because this leihs server is not configured correctly. Contact your leihs system administrator.")
+      logger.error("ERROR: LDAP is not configured correctly: #{e}")
+    end
+  end
 
   def login_form_path
     "/authenticator/ldap/login"
@@ -64,7 +82,7 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
       return user
     else
       logger = Rails.logger
-      logger.error "Could not create user with login #{login}: #{user.errors.full_messages}"
+      logger.error "ERROR: Could not create user with login #{login}: #{user.errors.full_messages}"
       return false
     end
   end
@@ -102,7 +120,7 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
           in_admin_group = true
         end
       rescue Exception => e
-        logger.error "Could not upgrade user #{user.unique_id} to an admin due to exception: #{e}"
+        logger.error "ERROR: Could not upgrade user #{user.unique_id} to an admin due to exception: #{e}"
       end
 
       if in_admin_group == true
@@ -135,13 +153,13 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
           redirect_back_or_default("/")
         else
           logger.error(u.errors.full_messages.to_s)
-          flash[:notice] = _("Could not update user '#{username}' with new LDAP information. Contact your leihs system administrator.")
+          flash[:error] = _("Could not update user '#{username}' with new LDAP information. Contact your leihs system administrator.")
         end
       else
-        flash[:notice] = _("Could not create new user for '#{username}' from LDAP source. Contact your leihs system administrator.")
+        flash[:error] = _("Could not create new user for '#{username}' from LDAP source. Contact your leihs system administrator.")
       end
     else
-      flash[:notice] = _("Invalid username/password")
+      flash[:error] = _("Invalid username/password")
     end
   end
 
@@ -160,21 +178,23 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
           ldap = ldaphelper.bind
 
           if ldap
-            users = ldap.search(:base => ldaphelper.base_dn, :filter => Net::LDAP::Filter.eq(ldaphelper.ldap_config[Rails.env]["search_field"], "#{username}"))
+            users = ldap.search(:base => ldaphelper.base_dn, :filter => Net::LDAP::Filter.eq(ldaphelper.search_field, "#{username}"))
 
             if users.size == 1
               create_and_login_from_ldap_user(users.first, username, password)
             else
-              flash[:notice] = _("User unknown") if users.size == 0
-              flash[:notice] = _("Too many users found") if users.size > 0
+              flash[:error] = _("User unknown") if users.size == 0
+              flash[:error] = _("Too many users found") if users.size > 0
             end
           else
-            flash[:notice] = _("Invalid technical user - contact your leihs admin")
+            flash[:error] = _("Invalid technical user - contact your leihs admin")
           end
         rescue Net::LDAP::LdapError
-          flash[:notice] = _("Couldn't connect to LDAP: #{ldaphelper.ldap_config[:host]}:#{ldaphelper.ldap_config[:port]}")
+          flash[:error] = _("Couldn't connect to LDAP server: #{ldaphelper.host}:#{ldaphelper.port}")
         end
       end
+    else
+      validate_configuration
     end
   end
 
