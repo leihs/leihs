@@ -22,9 +22,9 @@ gem 'compass-rails', '~> 1.1'
 gem 'cucumber-rails', '~> 1.3', :group => [:test, :development], :require => false
 gem 'database_cleaner', :group => [:test, :development]
 gem 'execjs'
-gem 'factory_girl', '~> 4.1' # factories also in production mode to seed our demo data on the demo server
-gem 'factory_girl_rails', '~> 4.1'
-gem 'faker'
+gem 'factory_girl', '~> 4.1', :groups => [:test, :development]
+gem 'factory_girl_rails', '~> 4.1', :groups => [:test, :development]
+gem 'faker', :groups => [:test, :development]
 gem 'font-awesome-rails', '~> 3.2.1'
 gem 'geocoder', '~> 1.1'
 gem 'gettext_i18n_rails', '~> 0.8'
