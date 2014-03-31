@@ -49,9 +49,8 @@ module Leihs
                                     application.css
                                     print.css
                                     i18n/locale/*
-                                    simile_timeline/* 
-                                    timeline.css
-                                    upload.js
+                                    vendor/assets/javascripts/simile_timeline/*
+                                    vendor/assets/stylesheets/timeline.css
                                   )
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
