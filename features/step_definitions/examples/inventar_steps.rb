@@ -592,9 +592,15 @@ Dann /^sind die Attachments gespeichert$/ do
 end
 
 Dann /^sieht man keine Modelle, denen keine Gegenstänge zugewiesen unter keinem der vorhandenen Reiter$/ do
-  all(".inlinetabs .tab").each do |tab|
+  find("#list-tabs")
+  all("#list-tabs .inline-tab-item").each do |tab|
     tab.click
-    page.should_not have_selector(".model.line .toggle .text", :text => "0")
+    find("#inventory .line[data-type]", match: :first)
+    if tab.text == _("Unused Models")
+      page.should_not have_selector(".line[data-type='model'] button[data-type='inventory-expander'] .arrow.right")
+    else
+      page.should_not have_selector(".line[data-type='model'] button[data-type='inventory-expander']", text: "0")
+    end
   end
 end
 

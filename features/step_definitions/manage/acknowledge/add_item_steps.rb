@@ -69,9 +69,8 @@ Given /^I search for a model with default dates and note the current availabilit
     av.changes.keys.size > 1
   end
 
-  total_quantity_in_ip = @current_inventory_pool.items.borrowable.select{|i| i.model == @model}.count
-  @new_start_date = av.changes.select{|k, v| v.values.any? {|v| v[:in_quantity] < total_quantity_in_ip }}.keys.first
-
+  init_start_date = Date.parse find("#add-start-date").value
+  @new_start_date = av.changes.select{|k, v| k > init_start_date }.keys.first
   fill_in "add-input", with: @model.name
   find("a.ui-corner-all", match: :first)
   @init_aval = find("a.ui-corner-all", match: :prefer_exact, text: @model.name).find("div.col1of4:nth-child(2) > div:nth-child(1)").text
