@@ -28,3 +28,9 @@ Funktionalität: Vertrag
     Dann wird unter 'Verleiher/in' der Gerätepark aufgeführt
     #Wenn in den Einstellungen die Adresse des Verleihers konfiguriert ist
     #Dann wird darunter die Adresse des Verleihers aufgeführt
+
+  @javascript
+  Szenario: Adresse des Kunden ohne abschliessenden ", " anzeigen
+    Angenommen es gibt einen Kunden mit Vertrag wessen Addresse mit ", " endet
+    Wenn ich einen Vertrag dieses Kunden öffne
+    Dann wird seine Adresse ohne den abschliessenden ", " angezeigt
