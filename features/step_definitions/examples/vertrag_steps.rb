@@ -225,3 +225,18 @@ end
 Dann(/^wird darunter die Adresse des Verleihers aufgeführt$/) do
   pending # express the regexp above with the code you wish you had
 end
+
+
+Angenommen(/^es gibt einen Kunden mit Vertrag wessen Addresse mit "(.*?)" endet$/) do |arg1|
+  @user = @current_inventory_pool.users.customers.find {|u| u.contracts.where(status: [:signed, :closed]).exists? and u.address =~ /, $/}
+  @user.should_not be_nil
+end
+
+Wenn(/^ich einen Vertrag dieses Kunden öffne$/) do
+  visit manage_contract_path(@current_inventory_pool, @user.contracts.where(status: [:signed, :closed]).sample)
+end
+
+Dann(/^wird seine Adresse ohne den abschliessenden "(.*?)" angezeigt$/) do |arg1|
+  find(".street").text.should == @user.address.chomp(", ")
+  binding.pry
+end
