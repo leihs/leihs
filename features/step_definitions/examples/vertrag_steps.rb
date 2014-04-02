@@ -238,5 +238,4 @@ end
 
 Dann(/^wird seine Adresse ohne den abschliessenden "(.*?)" angezeigt$/) do |arg1|
   find(".street").text.should == @user.address.chomp(", ")
-  binding.pry
 end
