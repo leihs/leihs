@@ -597,6 +597,11 @@ end
 
 Wenn(/^ich eine Kontaktperson wähle, der für diesen Gerätepark gesperrt ist$/) do
   delegated_user = @delegation.delegated_users.select{|u| u.suspended? @current_inventory_pool}.sample
+  delegated_user ||= begin
+    user = @delegation.delegated_users.sample
+    ensure_suspended_user(user, @current_inventory_pool)
+    user
+  end
   find("input#user-id", match: :first).set delegated_user.name
   find(".ui-menu-item a", match: :first, text: delegated_user.name).click
 end

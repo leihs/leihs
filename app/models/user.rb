@@ -67,7 +67,7 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :groups do #tmp#2#, :finder_sql => 'SELECT * FROM `groups` INNER JOIN `groups_users` ON `groups`.id = `groups_users`.group_id OR groups.inventory_pool_id IS NULL WHERE (`groups_users`.user_id = #{id})'
     def with_general
-      all + [Group::GENERAL_GROUP_ID]
+      to_a + [Group::GENERAL_GROUP_ID]
     end
   end
 
