@@ -44,7 +44,7 @@ Dann(/^erhalte ich einen Tag nach Rückgabedatum eine Erinnerungs E\-Mail zugesc
   ActionMailer::Base.deliveries.empty?.should be_true
   @current_user.notifications.reload.empty?.should be_true
 
-  User.remind_all
+  User.remind_and_suspend_all
 
   ActionMailer::Base.deliveries.empty?.should be_false
   @current_user.notifications.reload.empty?.should be_false
@@ -59,7 +59,7 @@ Dann(/^für jeden weiteren Tag erhalte ich erneut eine Erinnerungs E\-Mail zuges
   ActionMailer::Base.deliveries.empty?.should be_true
   @current_user.notifications.reload.empty?.should be_false
 
-  User.remind_all
+  User.remind_and_suspend_all
 
   ActionMailer::Base.deliveries.empty?.should be_false
   @current_user.notifications.reload.empty?.should be_false

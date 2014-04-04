@@ -116,3 +116,38 @@ end
 Wenn(/^ich das gekennzeichnete "(.*?)" des Geräteparks leer lasse$/) do |field_name|
   first(".row.emboss", match: :prefer_exact, :text => field_name).first("input").set ""
 end
+
+Wenn(/^ich für den Gerätepark die automatische Sperrung von Benutzern mit verspäteten Rückgaben einschalte$/) do
+  check "inventory_pool[automatic_suspension]"
+end
+
+Dann(/^muss ich einen Sperrgrund angeben$/) do
+  fill_in "inventory_pool[automatic_suspension_reason]", with: ""
+  step 'ich speichere'
+  step 'ich sehe eine Fehlermeldung'
+  @reason = Faker::Lorem.sentence
+  fill_in "inventory_pool[automatic_suspension_reason]", with: @reason
+  step 'ich speichere'
+end
+
+Dann(/^ist diese Konfiguration gespeichert$/) do
+  page.has_selector?("#flash .notice")
+  @current_inventory_pool.reload
+  @current_inventory_pool.automatic_suspension.should be_true
+  @current_inventory_pool.automatic_suspension_reason.should == @reason
+end
+
+Wenn(/^ein Benutzer wegen verspäteter Rückgaben automatisch gesperrt wird$/) do
+  user_id = ContractLine.by_inventory_pool(@current_inventory_pool).to_take_back.where("end_date < CURDATE()").pluck(:user_id).uniq.sample
+  @user = User.find user_id
+  @user.suspend
+end
+
+Dann(/^wird er für diesen Gerätepark gesperrt bis zum '(\d+)\.(\d+)\.(\d+)'$/) do |day, month, year|
+  @access_right = @user.access_right_for(@current_inventory_pool)
+  @access_right.suspended_until.should == Date.new(year.to_i, month.to_i, day.to_i)
+end
+
+Dann(/^der Sperrgrund ist derjenige, der für diesen Park gespeichert ist$/) do
+  @access_right.suspended_reason.should == @reason
+end

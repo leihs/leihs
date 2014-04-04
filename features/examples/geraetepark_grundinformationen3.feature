@@ -26,16 +26,14 @@ Funktionalität: Gerätepark-Grundinformationen
       | Kurzname    |
       | E-Mail      |
 
-  @upcoming
   Szenario: Automatische Benutzersperrung bei verspäteter Rückgabe
     Angenommen persona "Mike" existing
     Und ich bin Mike
-    Wenn ich die Grundinformationen des Geräteparks editiere
+    Wenn ich die Grundinformationen des Geräteparks abfüllen möchte
     Wenn ich für den Gerätepark die automatische Sperrung von Benutzern mit verspäteten Rückgaben einschalte
     Dann muss ich einen Sperrgrund angeben
     Wenn ich speichere
     Dann ist diese Konfiguration gespeichert
     Wenn ein Benutzer wegen verspäteter Rückgaben automatisch gesperrt wird
-    Dann wird er für diesen Gerätepark gesperrt bis zum 1.1.2099
+    Dann wird er für diesen Gerätepark gesperrt bis zum '1.1.2099'
     Und der Sperrgrund ist derjenige, der für diesen Park gespeichert ist
-    
