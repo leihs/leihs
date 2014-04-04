@@ -4,6 +4,8 @@
 # Job:      Inventory Pool Manager
 #
 
+require "#{Rails.root}/features/support/helper.rb"
+
 module Persona
 
   class Pius
@@ -11,7 +13,7 @@ module Persona
     @@name = "Pius"
     @@lastname = Faker::Name.last_name
     @@email = "pius@zhdk.ch"
-    @@inventory_pool_name = "A-Ausleihe"
+    @@inventory_pool_names = ["A-Ausleihe", "IT-Ausleihe", "AV-Technik"]
 
     def initialize
       setup_dependencies
@@ -21,6 +23,7 @@ module Persona
         create_external_user
         create_user_with_large_hand_over
         create_users_with_take_backs
+        create_users_with_overdued_take_backs
       end
     end
 
@@ -31,8 +34,10 @@ module Persona
     def create_lending_manager_user
       @language = Language.find_by_locale_name "de-CH"
       @user = FactoryGirl.create(:user, :language => @language, :firstname => @@name, :lastname => @@lastname, :login => @@name.downcase, :email => @@email)
-      @inventory_pool = InventoryPool.find_by_name(@@inventory_pool_name)
+      @inventory_pool = InventoryPool.find_by_name(@@inventory_pool_names.first)
+      @inventory_pool_2 = InventoryPool.find_by_name(@@inventory_pool_names.second)
       @user.access_rights.create(:role => :lending_manager, :inventory_pool => @inventory_pool)
+      @user.access_rights.create(:role => :lending_manager, :inventory_pool => @inventory_pool_2)
     end
 
     def create_external_user
@@ -76,6 +81,20 @@ module Persona
       contract.contract_lines << FactoryGirl.create(:option_line, option: option, purpose: contract_purpose, contract: contract, quantity: 2, start_date: Date.yesterday, end_date: Date.today)
       contract.contract_lines << FactoryGirl.create(:option_line, option: option, purpose: contract_purpose, contract: contract, quantity: 1, start_date: Date.yesterday, end_date: Date.tomorrow)
       contract.sign User.find_by_login("pius")
+    end
+
+    def create_users_with_overdued_take_backs
+      back_to_the_future(Date.today - 5.days)
+      user = FactoryGirl.create :user
+      user.access_rights << FactoryGirl.create(:access_right, inventory_pool: @inventory_pool_2, suspended_until: Date.tomorrow, suspended_reason: Faker::Lorem.sentence)
+      overdued_contract = FactoryGirl.create(:contract, :user => user, :inventory_pool => @inventory_pool_2, :status => :approved)
+      purpose = FactoryGirl.create :purpose, :description => Faker::Lorem.sentence
+      model = FactoryGirl.create :model_with_items, inventory_pool: @inventory_pool_2
+      overdued_contract.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => overdued_contract,
+                                                              :item_id => @inventory_pool_2.items.in_stock.where(:model_id => model.id).first.id,
+                                                              :model => model, :start_date => Date.today, :end_date => (Date.today + 4.days))
+      overdued_contract.sign(@user)
+      back_to_the_present
     end
 
   end

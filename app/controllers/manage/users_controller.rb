@@ -293,18 +293,6 @@ class Manage::UsersController < Manage::ApplicationController
     redirect_to :action => 'groups'
   end
 
-  def remind
-    if @user.remind(current_user)
-      respond_to do |format|
-        format.json { render :json => true, :status => 200 }
-      end
-    else
-      respond_to do |format|
-        format.json { render :text => @user.errors, :status => 500 }
-      end
-    end
-  end
-
   def get_accessible_roles_for_current_user
     accessible_roles = [[_("No access"), :no_access], [_("Customer"), :customer]]
     unless @delegation_type

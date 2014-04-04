@@ -64,11 +64,11 @@ namespace :leihs do
     puts "Maintenance complete ------------------------"    
   end
 
-  desc "Remind users"
-  task :remind => :environment do
-    puts "Reminding users..."    
-    User.remind_all
-    puts "Remind complete -----------------------------"    
+  desc "Remind and suspend users"
+  task :remind_and_suspend => :environment do
+    puts "Reminding and suspending users..."
+    User.remind_and_suspend_all
+    puts "Remind and suspend complete -----------------------------"
   end
 
   desc "Deadline soon reminder" 
@@ -77,9 +77,9 @@ namespace :leihs do
     User.send_deadline_soon_reminder_to_everybody
     puts "Deadline soon reminded ----------------------"
   end
-  
+
   desc "Cron: Remind & Maintenance"
-  task :cron => [:remind, :maintenance, :deadline_soon_reminder]
+  task :cron => [:remind_and_suspend, :maintenance, :deadline_soon_reminder]
 
 
   desc "Recreate DB and reindex" 

@@ -63,6 +63,15 @@ msgstr ""
 msgid "** This is an automatically generated response **"
 msgstr ""
 
+msgid "Users who don't bring back the items on the required date are suspended from next day on."
+msgstr ""
+
+msgid "Automatic suspension"
+msgstr ""
+
+msgid "Automatic suspension reason"
+msgstr ""
+
 msgid "A model for the Inventory Code / Serial Number '%s' was not found"
 msgstr ""
 

@@ -59,6 +59,20 @@
           .col1of2.text-align-center
             %input{type: "checkbox", name: "inventory_pool[print_contracts]", checked: @inventory_pool.print_contracts}
 
+        .row.padding-inset-s.emboss.margin-bottom-xxs
+          .col1of2
+            %strong.font-size-m= _("Automatic suspension")
+            %div.padding-top-xs
+              = _("Users who don't bring back the items on the required date are suspended from next day on.")
+          .col1of2.text-align-center
+            %input{type: "checkbox", name: "inventory_pool[automatic_suspension]", checked: @inventory_pool.automatic_suspension}
+
+        .row.padding-inset-s.emboss.margin-bottom-xxs
+          .col1of2
+            %strong.font-size-m= _("Automatic suspension reason")
+          .col1of2.text-align-right
+            %textarea{type: "text", name: "inventory_pool[automatic_suspension_reason]", rows: 6}= @inventory_pool.automatic_suspension_reason
+
     .col1of2.padding-left-xs
 
       %h2.headline-m.padding-left-s= _("Workdays")

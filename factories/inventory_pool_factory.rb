@@ -8,6 +8,7 @@ FactoryGirl.define do
     email { Faker::Internet.email }
     contract_url { email }
     shortname { UUIDTools::UUID.random_create.to_s[0..5].upcase }
+    automatic_suspension { false }
   end
 
 end
