@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 Angenommen /^man ist Inventar\-Verwalter oder Ausleihe\-Verwalter$/ do
-  step 'man ist "%s"' % ["Mike", "Pius"].shuffle.first
+  step 'man ist "%s"' % ["Mike", "Pius"].sample
   ar = @current_user.access_rights.active.where(role: [:lending_manager, :inventory_manager]).first
   ar.should_not be_nil
   @inventory_pool = ar.inventory_pool
@@ -360,7 +360,7 @@ end
 
 Dann /^man kann sie einem anderen Gerätepark als Besitzer zuweisen$/ do
   attributes = {
-    owner_id: (InventoryPool.pluck(:id) - [@inventory_pool.id]).shuffle.first
+    owner_id: (InventoryPool.pluck(:id) - [@inventory_pool.id]).sample
   }
   @item.owner_id.should_not == attributes[:owner_id]
 
@@ -372,7 +372,7 @@ end
 Dann /^man kann die verantwortliche Abteilung eines Gegenstands frei wählen$/ do
   item = @inventory_pool.own_items.find &:in_stock?
   attributes = {
-      inventory_pool_id: (InventoryPool.pluck(:id) - [@inventory_pool.id]).shuffle.first
+      inventory_pool_id: (InventoryPool.pluck(:id) - [@inventory_pool.id]).sample
   }
   item.inventory_pool_id.should_not == attributes[:inventory_pool_id]
 
@@ -618,10 +618,6 @@ Dann(/^hat dieser Benutzer die Rolle Administrator$/) do
   @user.reload.has_role?(:admin).should be_true
 end
 
-Wenn(/^man speichert den Benutzer$/) do
-  find(".button", text: _("Save")).click
-end
-
 Dann(/^alle andere Zugriffe auf Inventarpools bleiben beibehalten$/) do
   (@previous_access_rights - @user.access_rights.reload).should be_empty
 end
@@ -656,6 +652,7 @@ Wenn(/^man versucht auf die Administrator Benutzereditieransicht zu gehen$/) do
 end
 
 Wenn(/^man hat nur die folgenden Rollen zur Auswahl$/) do |table|
+  binding.pry
   find(".row.emboss", match: :prefer_exact, text: _("Access as")).all("option").length.should == table.raw.length
   table.raw.flatten.each do |role|
     find(".row.emboss", match: :prefer_exact, text: _("Access as")).find("option", text: _(role))

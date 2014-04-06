@@ -1,7 +1,7 @@
 When /^I open a take back, hand over or I edit a contract$/ do
   @ip = @current_user.managed_inventory_pools.first
   possible_types = ["take_back", "hand_over", "contract"]
-  type = possible_types.shuffle.first
+  type = possible_types.sample
   case type
     when "take_back"
       @customer = @ip.users.detect {|x| x.contracts.signed.size > 0}

@@ -14,7 +14,7 @@ Funktionalität: Benutzer verwalten
     Und den Vornahmen eingibt
     Und die Email-Addresse eingibt
     Und man gibt die Login-Daten ein
-    Und man speichert den Benutzer
+    Und ich speichere
     Dann wird man auf die Benutzerliste ausserhalb der Inventarpools umgeleitet
     Und man sieht eine Bestätigungsmeldung
     Und der neue Benutzer wurde erstellt

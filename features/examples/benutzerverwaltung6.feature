@@ -16,7 +16,7 @@ Funktionalität: Benutzer verwalten
       | Lending manager    |
       | Inventory manager  |
     Wenn man den Zugriff auf "Inventar-Verwalter" ändert
-    Und man speichert den Benutzer
+    Und ich speichere
     Dann hat der Benutzer die Rolle Inventar-Verwalter
 
   @javascript

@@ -17,13 +17,13 @@ Funktionalität: Gerätepark-Grundinformationen
     | E-Mail |
     | Beschreibung |
     | Standard-Vertragsnotiz |
-    | Verträge drucken | 
-    #| Aut. zuweisen  |     
+    | Verträge drucken |
+    | Automatischer Zugriff |
     Und ich kann die angegebenen Grundinformationen speichern
     Dann sehe eine Bestätigung
     Und sind die Informationen aktualisiert
     Und ich bleibe auf derselben Ansicht 
-    
+
   @javascript
   Szenario: Pflichtfelder der Grundinformationen zusammen prüfen
     Angenommen Personas existieren
@@ -35,8 +35,8 @@ Funktionalität: Gerätepark-Grundinformationen
       | E-Mail   |
     Dann kann das Gerätepark nicht gespeichert werden
     Und ich sehe eine Fehlermeldung
-    
-  @upcoming
+
+  @javascript
   Szenario: Aut. zuweisen bei Login über LDAP-Schnittstelle
     Angenommen Personas existieren
     Und es ist bei mehreren Geräteparks aut. Zuweisung aktiviert 
@@ -44,25 +44,25 @@ Funktionalität: Gerätepark-Grundinformationen
     Wenn ich mich einlogge
     Dann wird für meine Personendaten aus der Schnittstelle ein neuer Benutzer erstellt
     Und ich kriege bei allen Geräteparks mit aut. Zuweisung die Rolle 'Kunde'
-    
-  @upcoming
+
   Szenario: Aut. zuweisen beim Benutzererstellen ausserhalb des Geräteparks
     Angenommen Personas existieren
-    Und es ist bei mehreren Geräteparks aut. Zuweisung aktiviert 
-    Angenommen ich bin Gino
-    Und ich erstelle einen neuen Benutzer
+    Und ich bin Gino
+    Und es ist bei mehreren Geräteparks aut. Zuweisung aktiviert
+    Und man befindet sich auf der Benutzerliste
+    Wenn ich einen Benutzer mit Login "username" und Passwort "password" erstellt habe
     Dann kriegt der neu erstellte Benutzer bei allen Geräteparks mit aut. Zuweisung die Rolle 'Kunde'
-    
-  @upcoming
+
   Szenario: Aut. zuweisen beim Benutzererstellen innerhalb des Geräteparks
     Angenommen Personas existieren
-    Und es ist bei mehreren und meinem Gerätepark aut. Zuweisung aktiviert 
     Und ich bin Mike
-    Wenn ich in meinem Gerätepark einen neuen Benutzer mit Rolle 'Inventar-Verwalter' erstelle 
+    Und es ist bei mehreren Geräteparks aut. Zuweisung aktiviert
+    Und es ist bei meinem Gerätepark aut. Zuweisung aktiviert
+    Wenn ich in meinem Gerätepark einen neuen Benutzer mit Rolle 'Inventar-Verwalter' erstelle
     Dann kriegt der neu erstellte Benutzer bei allen Geräteparks mit aut. Zuweisung ausser meinem die Rolle 'Kunde'
     Und in meinem Gerätepark hat er die Rolle 'Inventar-Verwalter'
-    
-  @upcoming
+
+  @javascript
   Szenario: Aut. Zuweisen entfernen
     Angenommen Personas existieren
     Und ich bin Mike
@@ -70,5 +70,9 @@ Funktionalität: Gerätepark-Grundinformationen
     Wenn ich die aut. Zuweisung deaktiviere
     Und ich speichere
     Dann ist die aut. Zuweisung deaktiviert
-    Angenommen ich bin ein Benutzer, der sich zum ersten Mal einloggt
-    Dann erhalte ich keinen aut. Zugriff für diesen Gerätepark
+    Angenommen ich bin Gino
+    Und man befindet sich auf der Benutzerliste
+    Und ich einen Benutzer mit Login "username" und Passwort "password" erstellt habe
+    Angenommen ich bin Mike
+    Dann kriegt der neu erstellte Benutzer bei dem vorher editierten Gerätepark kein Zugriffsrecht
+    Und ich logge mich aus

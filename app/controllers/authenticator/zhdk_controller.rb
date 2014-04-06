@@ -6,7 +6,6 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
   
   AUTHENTICATION_URL = 'http://www.zhdk.ch/?auth/leihs2'
   APPLICATION_IDENT = '7f6d33ca2ad44359c826e2337d9315b1'
-  DEFAULT_INVENTORY_POOLS = ["ITZ-Ausleihe", "AV-Ausleihe", "Veranstaltungstechnik"]
   SUPER_USERS = ["e157339|zhdk", "e159123|zhdk", "e10262|zhdk", "e162205|zhdk", "e171014|zhdk"] #Jerome, Franco, Ramon, Tomáš
   AUTHENTICATION_SYSTEM_CLASS_NAME = "Zhdk"
   
@@ -55,16 +54,8 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
     user.city = "#{xml["authresponse"]["person"]["place"]}"
     user.authentication_system = AuthenticationSystem.where(:class_name => AUTHENTICATION_SYSTEM_CLASS_NAME).first
     user.extended_info = xml["authresponse"]["person"]
-    if user.new_record?
-      user.save
-      ips = InventoryPool.where(:name => DEFAULT_INVENTORY_POOLS)
-      ips.each do |ip|
-        user.access_rights.create(:role => :customer, :inventory_pool => ip)
-      end
-    else
-      user.save
-    end
-    
+    user.save
+
     if SUPER_USERS.include?(user.unique_id)
       user.access_rights.create(:role => :admin, :inventory_pool => nil)
     end
