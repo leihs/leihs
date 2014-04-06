@@ -29,7 +29,7 @@ Funktionalität: Benutzer verwalten
       | Ausleihe-Verwalter | lending_manager     |
       | Inventar-Verwalter | inventory_manager   |
     Und man teilt mehrere Gruppen zu
-    Und man speichert den Benutzer
+    Und ich speichere
     Dann ist der Benutzer mit all den Informationen gespeichert
 
   @javascript
@@ -39,7 +39,7 @@ Funktionalität: Benutzer verwalten
     Und man einen Benutzer hinzufügt
     Und alle Pflichtfelder sind sichtbar und abgefüllt
     Wenn man ein <Pflichtfeld> nicht eingegeben hat
-    Und man speichert den Benutzer
+    Und ich speichere
     Dann sehe ich eine Fehlermeldung
 
     Beispiele:

@@ -16,7 +16,7 @@ Funktionalität: Benutzer verwalten
     Angenommen man ist "Pius"
     Und man editiert einen Benutzer der kein Zugriff auf das aktuelle Inventarpool hat
     Wenn man ändert die Email
-    Und man speichert den Benutzer
+    Und ich speichere
     Dann sieht man die Erfolgsbestätigung
     Und die neue Email des Benutzers wurde gespeichert
     Und der Benutzer hat nach wie vor keinen Zugriff auf das aktuelle Inventarpool

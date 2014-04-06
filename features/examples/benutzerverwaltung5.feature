@@ -15,7 +15,7 @@ Funktionalität: Benutzer verwalten
       | Group manager      |
       | Lending manager    |
     Wenn man den Zugriff auf "Ausleihe-Verwalter" ändert
-    Und man speichert den Benutzer
+    Und ich speichere
     Dann hat der Benutzer die Rolle Ausleihe-Verwalter
 
   @javascript
@@ -23,7 +23,7 @@ Funktionalität: Benutzer verwalten
     Angenommen man ist "Pius"
     Und man editiert einen Benutzer der Ausleihe-Verwalter ist
     Wenn man den Zugriff auf "Kunde" ändert
-    Und man speichert den Benutzer
+    Und ich speichere
     Dann hat der Benutzer die Rolle Kunde
 
   @javascript
@@ -37,7 +37,7 @@ Funktionalität: Benutzer verwalten
       | Lending manager    |
       | Inventory manager  |
     Wenn man den Zugriff auf "Inventar-Verwalter" ändert
-    Und man speichert den Benutzer
+    Und ich speichere
     Dann hat der Benutzer die Rolle Inventar-Verwalter
 
   @javascript
@@ -45,6 +45,6 @@ Funktionalität: Benutzer verwalten
     Angenommen man ist "Mike"
     Und man editiert einen Benutzer der kein Zugriff auf das aktuelle Inventarpool hat
     Wenn man den Zugriff auf "Kunde" ändert
-    Und man speichert den Benutzer
+    Und ich speichere
     Dann sieht man die Erfolgsbestätigung
     Und hat der Benutzer die Rolle Kunde

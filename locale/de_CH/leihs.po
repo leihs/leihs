@@ -2863,3 +2863,9 @@ msgstr "Die Kontaktperson muss leer sein bei einem normalen User"
 
 msgid "Maintenance"
 msgstr "Wartung"
+
+msgid "Automatic access"
+msgstr "Automatischer Zugriff"
+
+msgid "New users will get customer access automatically."
+msgstr ""

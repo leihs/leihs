@@ -126,7 +126,10 @@ class Manage::UsersController < Manage::ApplicationController
           @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
         end
 
-        @user.access_rights.create!(inventory_pool: @current_inventory_pool, role: params[:access_right][:role]) unless params[:access_right][:role].to_sym == :no_access
+        unless params[:access_right][:role].to_sym == :no_access
+          ar = @user.access_right_for(@current_inventory_pool) || @user.access_rights.build(inventory_pool: @current_inventory_pool)
+          ar.update_attributes! role: params[:access_right][:role]
+        end
 
         respond_to do |format|
           format.html do

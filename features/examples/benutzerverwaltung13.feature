@@ -24,5 +24,5 @@ Funktionalität: Benutzer verwalten
     Angenommen man ist "Pius"
     Und man editiert einen Benutzer der Zugriff auf das aktuelle Inventarpool hat
     Wenn man den Zugriff entfernt
-    Und man speichert den Benutzer
+    Und ich speichere
     Dann hat der Benutzer keinen Zugriff auf das Inventarpool

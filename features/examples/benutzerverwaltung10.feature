@@ -9,7 +9,7 @@ Funktionalität: Benutzer verwalten
     Angenommen man ist "Gino"
     Und man befindet sich auf der Editierseite eines Benutzers, der kein Administrator ist und der Zugriffe auf Inventarpools hat
     Wenn man diesen Benutzer die Rolle Administrator zuweist
-    Und man speichert den Benutzer
+    Und ich speichere
     Dann sieht man die Erfolgsbestätigung
     Und hat dieser Benutzer die Rolle Administrator
     Und alle andere Zugriffe auf Inventarpools bleiben beibehalten
@@ -18,7 +18,7 @@ Funktionalität: Benutzer verwalten
     Angenommen man ist "Gino"
     Und man befindet sich auf der Editierseite eines Benutzers, der ein Administrator ist und der Zugriffe auf Inventarpools hat
     Wenn man diesem Benutzer die Rolle Administrator wegnimmt
-    Und man speichert den Benutzer
+    Und ich speichere
     Dann hat dieser Benutzer die Rolle Administrator nicht mehr
     Und alle andere Zugriffe auf Inventarpools bleiben beibehalten
 

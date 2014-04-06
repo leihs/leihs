@@ -12,6 +12,8 @@ Dann(/^kann ich die Gerätepark\-Grundinformationen eingeben$/) do |table|
     within(".row.padding-inset-s", match: :prefer_exact, text: field_name) do
       if field_name == "Verträge drucken"
         first("input").set false
+      elsif field_name == "Automatischer Zugriff"
+        first("input").set true
       else
         first("input,textarea").set (field_name == "E-Mail" ? "test@test.ch" : "test")
       end
@@ -29,6 +31,8 @@ Dann(/^sind die Informationen aktualisiert$/) do
     within(".row.padding-inset-s", match: :prefer_exact, text: field_name) do
       if field_name == "Verträge drucken"
         first("input").selected?.should be_false
+      elsif field_name == "Automatischer Zugriff"
+        first("input").selected?.should be_true
       else
         first("input,textarea").value.should == (field_name == "E-Mail" ? "test@test.ch" : "test")
       end
@@ -150,4 +154,77 @@ end
 
 Dann(/^der Sperrgrund ist derjenige, der für diesen Park gespeichert ist$/) do
   @access_right.suspended_reason.should == @reason
+end
+
+Angenommen(/^ich editiere meinen Gerätepark$/) do
+  visit manage_edit_inventory_pool_path(@current_inventory_pool)
+end
+
+Wenn(/^ich die aut\. Zuweisung deaktiviere$/) do
+  within(".row.padding-inset-s", match: :prefer_exact, text: _("Automatic access")) do
+    first("input").set false
+  end
+end
+
+Dann(/^ist die aut\. Zuweisung deaktiviert$/) do
+  @current_inventory_pool.reload.automatic_access.should be_false
+  @ip = @current_inventory_pool
+end
+
+Angenommen(/^man ist ein Benutzer, der sich zum ersten Mal einloggt$/) do
+  @username = Faker::Internet.user_name
+  @password = Faker::Internet.password
+  step %Q(ich einen Benutzer mit Login "#{@username}" und Passwort "#{@password}" erstellt habe)
+end
+
+Angenommen(/^es ist bei mehreren Geräteparks aut. Zuweisung aktiviert$/) do
+  InventoryPool.all.sample(rand(2..4)).each do |inventory_pool|
+    inventory_pool.update_attributes automatic_access: true
+  end
+  @inventory_pools_with_automatic_access = InventoryPool.where(automatic_access: true)
+  @inventory_pools_with_automatic_access.count.should > 1
+end
+
+Angenommen(/^es ist bei meinem Gerätepark aut. Zuweisung aktiviert$/) do
+  @current_inventory_pool.update_attributes automatic_access: true
+  @inventory_pools_with_automatic_access = InventoryPool.where(automatic_access: true)
+  @inventory_pools_with_automatic_access.count.should > 1
+end
+
+Dann(/^kriegt der neu erstellte Benutzer bei allen Geräteparks mit aut. Zuweisung die Rolle 'Kunde'$/) do
+  @user.access_rights.count.should == @inventory_pools_with_automatic_access.count
+  @user.access_rights.pluck(:inventory_pool_id).should == @inventory_pools_with_automatic_access.pluck(:id)
+  @user.access_rights.all? {|ar| ar.role == :customer}.should be_true
+end
+
+Wenn(/^ich in meinem Gerätepark einen neuen Benutzer mit Rolle 'Inventar\-Verwalter' erstelle$/) do
+  steps %Q{
+    Wenn man in der Benutzeransicht ist
+    Und man einen Benutzer hinzufügt
+    Und die folgenden Informationen eingibt
+      | Nachname       |
+      | Vorname        |
+      | E-Mail         |
+    Und man gibt die Login-Daten ein
+    Und man gibt eine Badge-Id ein
+    Und eine der folgenden Rollen auswählt
+      | tab                | role              |
+      | Inventar-Verwalter | inventory_manager   |
+    Und ich speichere
+  }
+  @user = User.find_by_lastname "test"
+end
+
+Dann(/^kriegt der neu erstellte Benutzer bei allen Geräteparks mit aut\. Zuweisung ausser meinem die Rolle 'Kunde'$/) do
+  @user.access_rights.count.should == @inventory_pools_with_automatic_access.count
+  @user.access_rights.pluck(:inventory_pool_id).should == @inventory_pools_with_automatic_access.pluck(:id)
+  @user.access_rights.where("inventory_pool_id != ?", @current_inventory_pool ).all? {|ar| ar.role == :customer}.should be_true
+end
+
+Dann(/^in meinem Gerätepark hat er die Rolle 'Inventar\-Verwalter'$/) do
+  @user.access_right_for(@current_inventory_pool).role.should == :inventory_manager
+end
+
+Dann(/^kriegt der neu erstellte Benutzer bei dem vorher editierten Gerätepark kein Zugriffsrecht$/) do
+  @user.access_right_for(@ip).should be_nil
 end

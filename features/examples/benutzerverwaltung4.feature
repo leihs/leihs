@@ -10,7 +10,7 @@ Funktionalität: Benutzer verwalten
     Angenommen man ist "Mike"
     Und man editiert einen Benutzer der Zugriff auf das aktuelle Inventarpool hat und keine Gegenstände mehr zurückzugeben hat
     Wenn man den Zugriff entfernt
-    Und man speichert den Benutzer
+    Und ich speichere
     Dann hat der Benutzer keinen Zugriff auf das Inventarpool
 
   @javascript @upcoming
@@ -51,5 +51,5 @@ Funktionalität: Benutzer verwalten
     | Ausleihe-Verwalter | lending_manager     |
     | Inventar-Verwalter | inventory_manager   |
     Und man teilt mehrere Gruppen zu
-    Und man speichert den Benutzer
+    Und ich speichere
     Dann ist der Benutzer mit all den Informationen gespeichert
