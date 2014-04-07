@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.5.35, for debian-linux-gnu (i686)
 --
--- Host: localhost    Database: leihs2_dev
+-- Host: localhost    Database: leihs2_test
 -- ------------------------------------------------------
 -- Server version	5.5.35-0+wheezy1
 
@@ -26,19 +26,19 @@ CREATE TABLE `access_rights` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `inventory_pool_id` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
   `suspended_until` date DEFAULT NULL,
   `deleted_at` date DEFAULT NULL,
-  `suspended_reason` text,
-  `role` enum('customer','group_manager','lending_manager','inventory_manager','admin') NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `suspended_reason` text COLLATE utf8_unicode_ci,
+  `role` enum('customer','group_manager','lending_manager','inventory_manager','admin') COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_access_rights_on_inventory_pool_id` (`inventory_pool_id`),
   KEY `index_access_rights_on_suspended_until` (`suspended_until`),
   KEY `index_access_rights_on_deleted_at` (`deleted_at`),
+  KEY `index_access_rights_on_inventory_pool_id` (`inventory_pool_id`),
   KEY `index_on_user_id_and_inventory_pool_id_and_deleted_at` (`user_id`,`inventory_pool_id`,`deleted_at`),
   KEY `index_access_rights_on_role` (`role`)
-) ENGINE=InnoDB AUTO_INCREMENT=41792 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,11 +51,11 @@ DROP TABLE IF EXISTS `accessories`;
 CREATE TABLE `accessories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `model_id` int(11) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_accessories_on_model_id` (`model_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=623 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +70,7 @@ CREATE TABLE `accessories_inventory_pools` (
   `inventory_pool_id` int(11) DEFAULT NULL,
   UNIQUE KEY `index_accessories_inventory_pools` (`accessory_id`,`inventory_pool_id`),
   KEY `index_accessories_inventory_pools_on_inventory_pool_id` (`inventory_pool_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -82,15 +82,15 @@ DROP TABLE IF EXISTS `addresses`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `addresses` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `street` varchar(255) DEFAULT NULL,
-  `zip_code` varchar(255) DEFAULT NULL,
-  `city` varchar(255) DEFAULT NULL,
-  `country_code` varchar(255) DEFAULT NULL,
+  `street` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `zip_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `city` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `country_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `latitude` float DEFAULT NULL,
   `longitude` float DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_addresses_on_street_and_zip_code_and_city_and_country_code` (`street`,`zip_code`,`city`,`country_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,44 +104,12 @@ CREATE TABLE `attachments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `model_id` int(11) DEFAULT NULL,
   `is_main` tinyint(1) DEFAULT '0',
-  `content_type` varchar(255) DEFAULT NULL,
-  `filename` varchar(255) DEFAULT NULL,
+  `content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `filename` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `size` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_attachments_on_model_id` (`model_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=717 DEFAULT CHARSET=utf8 CHECKSUM=1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `audits`
---
-
-DROP TABLE IF EXISTS `audits`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `audits` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `thread_id` bigint(20) DEFAULT NULL,
-  `auditable_id` int(11) DEFAULT NULL,
-  `auditable_type` varchar(255) DEFAULT NULL,
-  `associated_id` int(11) DEFAULT NULL,
-  `associated_type` varchar(255) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `user_type` varchar(255) DEFAULT NULL,
-  `username` varchar(255) DEFAULT NULL,
-  `action` varchar(255) DEFAULT NULL,
-  `audited_changes` text,
-  `version` int(11) DEFAULT '0',
-  `comment` varchar(255) DEFAULT NULL,
-  `remote_address` varchar(255) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `index_audits_on_thread_id` (`thread_id`),
-  KEY `auditable_index` (`auditable_id`,`auditable_type`),
-  KEY `associated_index` (`associated_id`,`associated_type`),
-  KEY `user_index` (`user_id`,`user_type`),
-  KEY `index_audits_on_created_at` (`created_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=26226 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -153,12 +121,12 @@ DROP TABLE IF EXISTS `authentication_systems`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `authentication_systems` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `class_name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `class_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `is_default` tinyint(1) DEFAULT '0',
   `is_active` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -170,10 +138,10 @@ DROP TABLE IF EXISTS `buildings`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `buildings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `code` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -186,28 +154,28 @@ DROP TABLE IF EXISTS `contract_lines`;
 CREATE TABLE `contract_lines` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `contract_id` int(11) DEFAULT NULL,
+  `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'ItemLine',
   `item_id` int(11) DEFAULT NULL,
   `model_id` int(11) DEFAULT NULL,
   `quantity` int(11) DEFAULT '1',
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
   `returned_date` date DEFAULT NULL,
+  `option_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `option_id` int(11) DEFAULT NULL,
-  `type` varchar(255) NOT NULL DEFAULT 'ItemLine',
   `purpose_id` int(11) DEFAULT NULL,
   `returned_to_user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_contract_lines_on_start_date` (`start_date`),
   KEY `index_contract_lines_on_end_date` (`end_date`),
   KEY `index_contract_lines_on_option_id` (`option_id`),
-  KEY `index_contract_lines_on_contract_id` (`contract_id`),
-  KEY `index_contract_lines_on_item_id` (`item_id`),
-  KEY `index_contract_lines_on_model_id` (`model_id`),
+  KEY `fk_contract_lines_contract_id` (`contract_id`),
+  KEY `fk_contract_lines_item_id` (`item_id`),
+  KEY `fk_contract_lines_model_id` (`model_id`),
   KEY `index_contract_lines_on_returned_date_and_contract_id` (`returned_date`,`contract_id`),
   KEY `index_contract_lines_on_type_and_contract_id` (`type`,`contract_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=314553 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -221,17 +189,17 @@ CREATE TABLE `contracts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `inventory_pool_id` int(11) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `note` text,
   `handed_over_by_user_id` int(11) DEFAULT NULL,
-  `status` enum('unsubmitted','submitted','rejected','approved','signed','closed') NOT NULL,
+  `status` enum('unsubmitted','submitted','rejected','approved','signed','closed') COLLATE utf8_unicode_ci NOT NULL,
   `delegated_user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_contracts_on_user_id` (`user_id`),
   KEY `index_contracts_on_inventory_pool_id` (`inventory_pool_id`),
+  KEY `index_contracts_on_user_id` (`user_id`),
   KEY `index_contracts_on_status` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=71249 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -243,14 +211,14 @@ DROP TABLE IF EXISTS `database_authentications`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `database_authentications` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `login` varchar(255) DEFAULT NULL,
-  `crypted_password` varchar(40) DEFAULT NULL,
-  `salt` varchar(40) DEFAULT NULL,
+  `login` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `crypted_password` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `salt` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -277,7 +245,7 @@ DROP TABLE IF EXISTS `groups`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `inventory_pool_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -285,7 +253,7 @@ CREATE TABLE `groups` (
   PRIMARY KEY (`id`),
   KEY `index_groups_on_inventory_pool_id` (`inventory_pool_id`),
   KEY `index_groups_on_is_verification_required` (`is_verification_required`)
-) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -300,7 +268,7 @@ CREATE TABLE `groups_users` (
   `group_id` int(11) DEFAULT NULL,
   UNIQUE KEY `index_groups_users_on_user_id_and_group_id` (`user_id`,`group_id`),
   KEY `index_groups_users_on_group_id` (`group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -312,17 +280,17 @@ DROP TABLE IF EXISTS `histories`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `histories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `text` varchar(255) DEFAULT '',
+  `text` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
   `type_const` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `target_id` int(11) NOT NULL,
-  `target_type` varchar(255) NOT NULL,
+  `target_type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_histories_on_user_id` (`user_id`),
   KEY `index_histories_on_target_type_and_target_id` (`target_type`,`target_id`),
-  KEY `index_histories_on_type_const` (`type_const`)
-) ENGINE=InnoDB AUTO_INCREMENT=906116 DEFAULT CHARSET=utf8 CHECKSUM=1;
+  KEY `index_histories_on_type_const` (`type_const`),
+  KEY `index_histories_on_user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -337,11 +305,11 @@ CREATE TABLE `holidays` (
   `inventory_pool_id` int(11) DEFAULT NULL,
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_holidays_on_inventory_pool_id` (`inventory_pool_id`),
   KEY `index_holidays_on_start_date_and_end_date` (`start_date`,`end_date`)
-) ENGINE=InnoDB AUTO_INCREMENT=419 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -355,16 +323,16 @@ CREATE TABLE `images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `model_id` int(11) DEFAULT NULL,
   `is_main` tinyint(1) DEFAULT '0',
-  `content_type` varchar(255) DEFAULT NULL,
-  `filename` varchar(255) DEFAULT NULL,
+  `content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `filename` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `size` int(11) DEFAULT NULL,
   `height` int(11) DEFAULT NULL,
   `width` int(11) DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
-  `thumbnail` varchar(255) DEFAULT NULL,
+  `thumbnail` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_images_on_model_id` (`model_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6539 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -376,22 +344,25 @@ DROP TABLE IF EXISTS `inventory_pools`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `inventory_pools` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `description` text,
-  `contact_details` varchar(255) DEFAULT NULL,
-  `contract_description` varchar(255) DEFAULT NULL,
-  `contract_url` varchar(255) DEFAULT NULL,
-  `logo_url` varchar(255) DEFAULT NULL,
-  `default_contract_note` text,
-  `shortname` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `color` text,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  `contact_details` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `contract_description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `contract_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `logo_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `default_contract_note` text COLLATE utf8_unicode_ci,
+  `shortname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `color` text COLLATE utf8_unicode_ci,
   `print_contracts` tinyint(1) DEFAULT '1',
-  `opening_hours` text,
+  `opening_hours` text COLLATE utf8_unicode_ci,
   `address_id` int(11) DEFAULT NULL,
+  `automatic_access` tinyint(1) DEFAULT NULL,
+  `automatic_suspension` tinyint(1) NOT NULL DEFAULT '0',
+  `automatic_suspension_reason` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_inventory_pools_on_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=171 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -406,7 +377,7 @@ CREATE TABLE `inventory_pools_model_groups` (
   `model_group_id` int(11) DEFAULT NULL,
   KEY `index_inventory_pools_model_groups_on_inventory_pool_id` (`inventory_pool_id`),
   KEY `index_inventory_pools_model_groups_on_model_group_id` (`model_group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -418,97 +389,45 @@ DROP TABLE IF EXISTS `items`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `inventory_code` varchar(255) DEFAULT NULL,
-  `serial_number` varchar(255) DEFAULT NULL,
+  `inventory_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `serial_number` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `model_id` int(11) DEFAULT NULL,
   `location_id` int(11) DEFAULT NULL,
   `supplier_id` int(11) DEFAULT NULL,
   `owner_id` int(11) DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
-  `invoice_number` varchar(255) DEFAULT NULL,
+  `invoice_number` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `invoice_date` date DEFAULT NULL,
   `last_check` date DEFAULT NULL,
   `retired` date DEFAULT NULL,
-  `retired_reason` varchar(255) DEFAULT NULL,
+  `retired_reason` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `price` decimal(8,2) DEFAULT NULL,
   `is_broken` tinyint(1) DEFAULT '0',
   `is_incomplete` tinyint(1) DEFAULT '0',
   `is_borrowable` tinyint(1) DEFAULT '0',
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
   `needs_permission` tinyint(1) DEFAULT '0',
   `inventory_pool_id` int(11) DEFAULT NULL,
   `is_inventory_relevant` tinyint(1) DEFAULT '0',
-  `responsible` varchar(255) DEFAULT NULL,
-  `insurance_number` varchar(255) DEFAULT NULL,
-  `note` text,
-  `name` text,
-  `user_name` varchar(255) DEFAULT NULL,
-  `properties` varchar(2048) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `index_items_on_inventory_code` (`inventory_code`),
-  KEY `index_items_on_is_broken` (`is_broken`),
-  KEY `index_items_on_is_incomplete` (`is_incomplete`),
-  KEY `index_items_on_is_borrowable` (`is_borrowable`),
-  KEY `index_items_on_location_id` (`location_id`),
-  KEY `index_items_on_owner_id` (`owner_id`),
-  KEY `index_items_on_inventory_pool_id` (`inventory_pool_id`),
-  KEY `index_items_on_retired` (`retired`),
-  KEY `index_items_on_parent_id_and_retired` (`parent_id`,`retired`),
-  KEY `index_items_on_model_id_and_retired_and_inventory_pool_id` (`model_id`,`retired`,`inventory_pool_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34877 DEFAULT CHARSET=utf8 CHECKSUM=1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `items_backup`
---
-
-DROP TABLE IF EXISTS `items_backup`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `items_backup` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `inventory_code` varchar(255) DEFAULT NULL,
-  `serial_number` varchar(255) DEFAULT NULL,
-  `model_id` int(11) DEFAULT NULL,
-  `location_id` int(11) DEFAULT NULL,
-  `supplier_id` int(11) DEFAULT NULL,
-  `owner_id` int(11) DEFAULT NULL,
-  `parent_id` int(11) DEFAULT NULL,
-  `invoice_number` varchar(255) DEFAULT NULL,
-  `invoice_date` date DEFAULT NULL,
-  `last_check` date DEFAULT NULL,
-  `retired` date DEFAULT NULL,
-  `retired_reason` varchar(255) DEFAULT NULL,
-  `price` decimal(8,2) DEFAULT NULL,
-  `is_broken` tinyint(1) DEFAULT '0',
-  `is_incomplete` tinyint(1) DEFAULT '0',
-  `is_borrowable` tinyint(1) DEFAULT '0',
+  `responsible` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `insurance_number` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `name` text COLLATE utf8_unicode_ci,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `needs_permission` tinyint(1) DEFAULT '0',
-  `inventory_pool_id` int(11) DEFAULT NULL,
-  `is_inventory_relevant` tinyint(1) DEFAULT '0',
-  `responsible` varchar(255) DEFAULT NULL,
-  `insurance_number` varchar(255) DEFAULT NULL,
-  `note` text,
-  `name` text,
-  `delta` tinyint(1) DEFAULT '1',
-  `user_name` varchar(255) DEFAULT NULL,
-  `properties` varchar(2048) DEFAULT NULL,
+  `user_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `properties` varchar(2048) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_items_on_inventory_code` (`inventory_code`),
-  KEY `index_items_on_is_broken` (`is_broken`),
-  KEY `index_items_on_is_incomplete` (`is_incomplete`),
-  KEY `index_items_on_is_borrowable` (`is_borrowable`),
-  KEY `index_items_on_location_id` (`location_id`),
-  KEY `index_items_on_owner_id` (`owner_id`),
   KEY `index_items_on_inventory_pool_id` (`inventory_pool_id`),
   KEY `index_items_on_retired` (`retired`),
-  KEY `index_items_on_delta` (`delta`),
+  KEY `index_items_on_is_borrowable` (`is_borrowable`),
+  KEY `index_items_on_is_broken` (`is_broken`),
+  KEY `index_items_on_is_incomplete` (`is_incomplete`),
+  KEY `index_items_on_location_id` (`location_id`),
+  KEY `index_items_on_owner_id` (`owner_id`),
   KEY `index_items_on_parent_id_and_retired` (`parent_id`,`retired`),
   KEY `index_items_on_model_id_and_retired_and_inventory_pool_id` (`model_id`,`retired`,`inventory_pool_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18806 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -520,14 +439,14 @@ DROP TABLE IF EXISTS `languages`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `languages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `locale_name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `locale_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `default` tinyint(1) DEFAULT NULL,
   `active` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_languages_on_name` (`name`),
   KEY `index_languages_on_active_and_default` (`active`,`default`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -539,12 +458,12 @@ DROP TABLE IF EXISTS `locations`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `locations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `room` varchar(255) DEFAULT NULL,
-  `shelf` varchar(255) DEFAULT NULL,
+  `room` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `shelf` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `building_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_locations_on_building_id` (`building_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5583 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -560,12 +479,12 @@ CREATE TABLE `model_group_links` (
   `descendant_id` int(11) DEFAULT NULL,
   `direct` tinyint(1) DEFAULT NULL,
   `count` int(11) DEFAULT NULL,
-  `label` varchar(255) DEFAULT NULL,
+  `label` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_model_group_links_on_ancestor_id` (`ancestor_id`),
   KEY `index_model_group_links_on_direct` (`direct`),
   KEY `index_on_descendant_id_and_ancestor_id_and_direct` (`descendant_id`,`ancestor_id`,`direct`)
-) ENGINE=InnoDB AUTO_INCREMENT=1871 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -577,29 +496,13 @@ DROP TABLE IF EXISTS `model_groups`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `model_groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_model_groups_on_type` (`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=721 DEFAULT CHARSET=utf8 CHECKSUM=1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `model_groups_parents_backup`
---
-
-DROP TABLE IF EXISTS `model_groups_parents_backup`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `model_groups_parents_backup` (
-  `model_group_id` int(11) DEFAULT NULL,
-  `parent_id` int(11) DEFAULT NULL,
-  `label` varchar(255) DEFAULT NULL,
-  KEY `index_model_groups_parents_on_model_group_id` (`model_group_id`),
-  KEY `index_model_groups_parents_on_parent_id` (`parent_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -617,7 +520,7 @@ CREATE TABLE `model_links` (
   PRIMARY KEY (`id`),
   KEY `index_model_links_on_model_id_and_model_group_id` (`model_id`,`model_group_id`),
   KEY `index_model_links_on_model_group_id_and_model_id` (`model_group_id`,`model_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18023 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -629,21 +532,21 @@ DROP TABLE IF EXISTS `models`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `models` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `manufacturer` varchar(255) DEFAULT NULL,
-  `description` text,
-  `internal_description` text,
-  `info_url` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `manufacturer` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  `internal_description` text COLLATE utf8_unicode_ci,
+  `info_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `rental_price` decimal(8,2) DEFAULT NULL,
   `maintenance_period` int(11) DEFAULT '0',
   `is_package` tinyint(1) DEFAULT '0',
+  `technical_detail` text COLLATE utf8_unicode_ci,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `technical_detail` text,
-  `hand_over_note` text,
+  `hand_over_note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`),
   KEY `index_models_on_is_package` (`is_package`)
-) ENGINE=InnoDB AUTO_INCREMENT=12817 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -656,9 +559,9 @@ DROP TABLE IF EXISTS `models_compatibles`;
 CREATE TABLE `models_compatibles` (
   `model_id` int(11) DEFAULT NULL,
   `compatible_id` int(11) DEFAULT NULL,
-  KEY `index_models_compatibles_on_model_id` (`model_id`),
-  KEY `index_models_compatibles_on_compatible_id` (`compatible_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1;
+  KEY `index_models_compatibles_on_compatible_id` (`compatible_id`),
+  KEY `index_models_compatibles_on_model_id` (`model_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -671,11 +574,11 @@ DROP TABLE IF EXISTS `notifications`;
 CREATE TABLE `notifications` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
-  `title` varchar(255) DEFAULT '',
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_notifications_on_user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=223374 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -689,7 +592,7 @@ CREATE TABLE `numerators` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `item` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -702,12 +605,12 @@ DROP TABLE IF EXISTS `options`;
 CREATE TABLE `options` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `inventory_pool_id` int(11) DEFAULT NULL,
-  `inventory_code` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `inventory_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `price` decimal(8,2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_options_on_inventory_pool_id` (`inventory_pool_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2723 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -725,7 +628,7 @@ CREATE TABLE `partitions` (
   `quantity` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_partitions_on_model_id_and_inventory_pool_id_and_group_id` (`model_id`,`inventory_pool_id`,`group_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5093 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -754,11 +657,11 @@ DROP TABLE IF EXISTS `properties`;
 CREATE TABLE `properties` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `model_id` int(11) DEFAULT NULL,
-  `key` varchar(255) DEFAULT NULL,
-  `value` varchar(255) DEFAULT NULL,
+  `key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_properties_on_model_id` (`model_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12795 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -770,9 +673,9 @@ DROP TABLE IF EXISTS `purposes`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `purposes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `description` text,
+  `description` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=81300 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -805,9 +708,9 @@ DROP TABLE IF EXISTS `schema_migrations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `schema_migrations` (
-  `version` varchar(255) NOT NULL,
+  `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   UNIQUE KEY `unique_schema_migrations` (`version`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -819,29 +722,30 @@ DROP TABLE IF EXISTS `settings`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `settings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `smtp_address` varchar(255) DEFAULT NULL,
+  `smtp_address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `smtp_port` int(11) DEFAULT NULL,
-  `smtp_domain` varchar(255) DEFAULT NULL,
-  `local_currency_string` varchar(255) DEFAULT NULL,
-  `contract_terms` text,
-  `contract_lending_party_string` text,
-  `email_signature` varchar(255) DEFAULT NULL,
-  `default_email` varchar(255) DEFAULT NULL,
+  `smtp_domain` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `local_currency_string` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `contract_terms` text COLLATE utf8_unicode_ci,
+  `contract_lending_party_string` text COLLATE utf8_unicode_ci,
+  `email_signature` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `default_email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `deliver_order_notifications` tinyint(1) DEFAULT NULL,
-  `user_image_url` varchar(255) DEFAULT NULL,
-  `logo_url` varchar(255) DEFAULT NULL,
-  `mail_delivery_method` varchar(255) DEFAULT NULL,
-  `smtp_username` varchar(255) DEFAULT NULL,
-  `smtp_password` varchar(255) DEFAULT NULL,
+  `user_image_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ldap_config` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `logo_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mail_delivery_method` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `smtp_username` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `smtp_password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `smtp_enable_starttls_auto` tinyint(1) NOT NULL DEFAULT '0',
-  `smtp_openssl_verify_mode` varchar(255) NOT NULL DEFAULT 'none',
-  `time_zone` varchar(255) NOT NULL DEFAULT 'Bern',
+  `smtp_openssl_verify_mode` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'none',
+  `time_zone` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Bern',
   `disable_manage_section` tinyint(1) NOT NULL DEFAULT '0',
-  `disable_manage_section_message` text,
+  `disable_manage_section_message` text COLLATE utf8_unicode_ci,
   `disable_borrow_section` tinyint(1) NOT NULL DEFAULT '0',
-  `disable_borrow_section_message` text,
+  `disable_borrow_section_message` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -853,11 +757,11 @@ DROP TABLE IF EXISTS `suppliers`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `suppliers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=507 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -869,27 +773,27 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `login` varchar(255) DEFAULT NULL,
-  `firstname` varchar(255) DEFAULT NULL,
-  `lastname` varchar(255) DEFAULT NULL,
-  `phone` varchar(255) DEFAULT NULL,
+  `login` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `firstname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `lastname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `phone` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `authentication_system_id` int(11) DEFAULT '1',
-  `unique_id` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
+  `unique_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `badge_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `city` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `zip` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `country` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `language_id` int(11) DEFAULT NULL,
+  `extended_info` text COLLATE utf8_unicode_ci,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `badge_id` varchar(255) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `city` varchar(255) DEFAULT NULL,
-  `zip` varchar(255) DEFAULT NULL,
-  `country` varchar(255) DEFAULT NULL,
-  `language_id` int(11) DEFAULT NULL,
-  `extended_info` text,
-  `settings` varchar(1024) DEFAULT NULL,
+  `settings` varchar(1024) COLLATE utf8_unicode_ci DEFAULT NULL,
   `delegator_user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_users_on_authentication_system_id` (`authentication_system_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9124 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -950,7 +854,7 @@ CREATE TABLE `workdays` (
   `sunday` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `index_workdays_on_inventory_pool_id` (`inventory_pool_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=391 DEFAULT CHARSET=utf8 CHECKSUM=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1038,123 +942,7 @@ CREATE TABLE `workdays` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-21 12:06:27
-INSERT INTO schema_migrations (version) VALUES ('20080401000001');
-
-INSERT INTO schema_migrations (version) VALUES ('20080401000101');
-
-INSERT INTO schema_migrations (version) VALUES ('20080402000003');
-
-INSERT INTO schema_migrations (version) VALUES ('20080403000009');
-
-INSERT INTO schema_migrations (version) VALUES ('20080404000001');
-
-INSERT INTO schema_migrations (version) VALUES ('20080404000002');
-
-INSERT INTO schema_migrations (version) VALUES ('20080601000001');
-
-INSERT INTO schema_migrations (version) VALUES ('20080601000002');
-
-INSERT INTO schema_migrations (version) VALUES ('20080601000003');
-
-INSERT INTO schema_migrations (version) VALUES ('20080601000004');
-
-INSERT INTO schema_migrations (version) VALUES ('20080601000005');
-
-INSERT INTO schema_migrations (version) VALUES ('20080601000011');
-
-INSERT INTO schema_migrations (version) VALUES ('20080601000012');
-
-INSERT INTO schema_migrations (version) VALUES ('20080602000010');
-
-INSERT INTO schema_migrations (version) VALUES ('20080603000001');
-
-INSERT INTO schema_migrations (version) VALUES ('20080701000102');
-
-INSERT INTO schema_migrations (version) VALUES ('20080707081422');
-
-INSERT INTO schema_migrations (version) VALUES ('20080805103302');
-
-INSERT INTO schema_migrations (version) VALUES ('20080929144756');
-
-INSERT INTO schema_migrations (version) VALUES ('20081006150959');
-
-INSERT INTO schema_migrations (version) VALUES ('20081007122945');
-
-INSERT INTO schema_migrations (version) VALUES ('20090106104142');
-
-INSERT INTO schema_migrations (version) VALUES ('20090210170000');
-
-INSERT INTO schema_migrations (version) VALUES ('20090320104643');
-
-INSERT INTO schema_migrations (version) VALUES ('20090421140116');
-
-INSERT INTO schema_migrations (version) VALUES ('20090429075140');
-
-INSERT INTO schema_migrations (version) VALUES ('20090514095032');
-
-INSERT INTO schema_migrations (version) VALUES ('20090518113240');
-
-INSERT INTO schema_migrations (version) VALUES ('20090528122706');
-
-INSERT INTO schema_migrations (version) VALUES ('20090619111757');
-
-INSERT INTO schema_migrations (version) VALUES ('20090709150345');
-
-INSERT INTO schema_migrations (version) VALUES ('20090710124733');
-
-INSERT INTO schema_migrations (version) VALUES ('20090715063454');
-
-INSERT INTO schema_migrations (version) VALUES ('20090724114431');
-
-INSERT INTO schema_migrations (version) VALUES ('20090806120926');
-
-INSERT INTO schema_migrations (version) VALUES ('20090813215900');
-
-INSERT INTO schema_migrations (version) VALUES ('20090814075139');
-
-INSERT INTO schema_migrations (version) VALUES ('20090820145000');
-
-INSERT INTO schema_migrations (version) VALUES ('20090917155340');
-
-INSERT INTO schema_migrations (version) VALUES ('20090924141539');
-
-INSERT INTO schema_migrations (version) VALUES ('20090925135507');
-
-INSERT INTO schema_migrations (version) VALUES ('20090930114610');
-
-INSERT INTO schema_migrations (version) VALUES ('20091022123204');
-
-INSERT INTO schema_migrations (version) VALUES ('20091112145800');
-
-INSERT INTO schema_migrations (version) VALUES ('20091211105020');
-
-INSERT INTO schema_migrations (version) VALUES ('20091211131416');
-
-INSERT INTO schema_migrations (version) VALUES ('20091217121910');
-
-INSERT INTO schema_migrations (version) VALUES ('20091217150952');
-
-INSERT INTO schema_migrations (version) VALUES ('20100105181436');
-
-INSERT INTO schema_migrations (version) VALUES ('20100324134347');
-
-INSERT INTO schema_migrations (version) VALUES ('20100615122038');
-
-INSERT INTO schema_migrations (version) VALUES ('20100616111044');
-
-INSERT INTO schema_migrations (version) VALUES ('20100721114952');
-
-INSERT INTO schema_migrations (version) VALUES ('20100722081900');
-
-INSERT INTO schema_migrations (version) VALUES ('20100823113320');
-
-INSERT INTO schema_migrations (version) VALUES ('20100924083000');
-
-INSERT INTO schema_migrations (version) VALUES ('20101011130358');
-
-INSERT INTO schema_migrations (version) VALUES ('20101011133019');
-
+-- Dump completed on 2014-04-07 14:10:11
 INSERT INTO schema_migrations (version) VALUES ('20101213125330');
 
 INSERT INTO schema_migrations (version) VALUES ('20110111175705');
@@ -1179,8 +967,6 @@ INSERT INTO schema_migrations (version) VALUES ('20110815110417');
 
 INSERT INTO schema_migrations (version) VALUES ('20110921134810');
 
-INSERT INTO schema_migrations (version) VALUES ('20111118141748');
-
 INSERT INTO schema_migrations (version) VALUES ('20111123154235');
 
 INSERT INTO schema_migrations (version) VALUES ('20111215221843');
@@ -1188,8 +974,6 @@ INSERT INTO schema_migrations (version) VALUES ('20111215221843');
 INSERT INTO schema_migrations (version) VALUES ('20120106214650');
 
 INSERT INTO schema_migrations (version) VALUES ('20120301140904');
-
-INSERT INTO schema_migrations (version) VALUES ('20120413154754');
 
 INSERT INTO schema_migrations (version) VALUES ('20120424080000');
 
@@ -1209,15 +993,11 @@ INSERT INTO schema_migrations (version) VALUES ('20120806203246');
 
 INSERT INTO schema_migrations (version) VALUES ('20120806203332');
 
-INSERT INTO schema_migrations (version) VALUES ('20120807101549');
-
 INSERT INTO schema_migrations (version) VALUES ('20120921102118');
 
 INSERT INTO schema_migrations (version) VALUES ('20121109141157');
 
 INSERT INTO schema_migrations (version) VALUES ('20130111105833');
-
-INSERT INTO schema_migrations (version) VALUES ('20130704160000');
 
 INSERT INTO schema_migrations (version) VALUES ('20130729120232');
 
@@ -1249,32 +1029,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140225143238');
 
 INSERT INTO schema_migrations (version) VALUES ('20140318103544');
 
-INSERT INTO schema_migrations (version) VALUES ('90000000000000');
+INSERT INTO schema_migrations (version) VALUES ('20140328105448');
 
-INSERT INTO schema_migrations (version) VALUES ('90000000000001');
-
-INSERT INTO schema_migrations (version) VALUES ('90000000000002');
-
-INSERT INTO schema_migrations (version) VALUES ('90000000000003');
-
-INSERT INTO schema_migrations (version) VALUES ('90000000000004');
-
-INSERT INTO schema_migrations (version) VALUES ('90000000000005');
-
-INSERT INTO schema_migrations (version) VALUES ('90000000000006');
-
-INSERT INTO schema_migrations (version) VALUES ('90000000000007');
-
-INSERT INTO schema_migrations (version) VALUES ('90000000000008');
-
-INSERT INTO schema_migrations (version) VALUES ('90000000000009');
-
-INSERT INTO schema_migrations (version) VALUES ('90000000000010');
-
-INSERT INTO schema_migrations (version) VALUES ('90000000000011');
-
-INSERT INTO schema_migrations (version) VALUES ('90000000000012');
-
-INSERT INTO schema_migrations (version) VALUES ('90000000000013');
-
-INSERT INTO schema_migrations (version) VALUES ('90000000000014');
+INSERT INTO schema_migrations (version) VALUES ('20140402135726');
