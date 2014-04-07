@@ -78,12 +78,8 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
     user = User.new(:login => login, :email => "#{email}", :firstname => "#{firstname}", :lastname => "#{lastname}")
     user.authentication_system = AuthenticationSystem.where(:class_name => 'HsluAuthentication').first
     if user.save
-      # Assign any default roles you want
-      InventoryPool.all.each do |ip|
-        user.access_rights.create(:inventory_pool => ip, :role => :customer)
-      end
       return user
-    else
+    elsif
       logger = Rails.logger
       logger.error "ERROR: Could not create user with login #{login}: #{user.errors.full_messages}"
       return false

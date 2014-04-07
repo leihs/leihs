@@ -38,6 +38,21 @@ describe Authenticator::LdapAuthenticationController do
       User.where(:login => "normal_user").first.should_not == nil
       # TODO: Check that all the data from LDAP made it into our user object
     end
+
+    it "newly created user should get automatically access as customer in all the pools where automatic access is activated" do
+      3.times do
+        FactoryGirl.create :inventory_pool
+      end
+      ips_with_automatic_access = InventoryPool.all.sample(2)
+      ips_with_automatic_access.each {|ip| ip.update_attributes automatic_access: true}
+
+      post :login, {:login => { :username => "normal_user", :password => "pass" }}, {}
+
+      user = User.where(:login => "normal_user").first
+      access_rights = user.access_rights.where(role: "customer")
+      access_rights.count.should == 2
+      ips_with_automatic_access.each {|ip| user.inventory_pools.should include ip}
+    end
   end
 
   context "if the user is in the admin DN on LDAP" do
