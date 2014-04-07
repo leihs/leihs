@@ -60,10 +60,6 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
     user = User.new(:login => login, :email => "#{email}", :firstname => "#{firstname}", :lastname => "#{lastname}")
     user.authentication_system = AuthenticationSystem.where(:class_name => 'HsluAuthentication').first
     if user.save
-      # Assign any default roles you want
-      InventoryPool.all.each do |ip|
-        user.access_rights.create(:inventory_pool => ip, :role => :customer)
-      end
       return user
     else
       logger = Rails.logger
