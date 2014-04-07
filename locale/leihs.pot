@@ -2768,4 +2768,4 @@ msgid "Automatic access"
 msgstr ""
 
 msgid "New users will get customer access automatically."
-msgstr "Neue Benutzer kriegen automatisch den Zugriff als Kunde."
+msgstr ""
