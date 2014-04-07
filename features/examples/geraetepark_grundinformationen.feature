@@ -36,15 +36,6 @@ Funktionalität: Gerätepark-Grundinformationen
     Dann kann das Gerätepark nicht gespeichert werden
     Und ich sehe eine Fehlermeldung
 
-  @javascript
-  Szenario: Aut. zuweisen bei Login über LDAP-Schnittstelle
-    Angenommen Personas existieren
-    Und es ist bei mehreren Geräteparks aut. Zuweisung aktiviert 
-    Angenommen ich bin ein Benutzer, der sich zum ersten Mal einloggt
-    Wenn ich mich einlogge
-    Dann wird für meine Personendaten aus der Schnittstelle ein neuer Benutzer erstellt
-    Und ich kriege bei allen Geräteparks mit aut. Zuweisung die Rolle 'Kunde'
-
   Szenario: Aut. zuweisen beim Benutzererstellen ausserhalb des Geräteparks
     Angenommen Personas existieren
     Und ich bin Gino
