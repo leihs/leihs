@@ -56,7 +56,7 @@ class window.App.ContractsIndexController extends Spine.Controller
     return {done: (c)=>c()} unless ids.length
     App.User.ajaxFetch
       data: $.param
-        ids: ids
+        ids: _.uniq(ids)
         all: true
     .done (data)=>
       users = (App.User.find datum.id for datum in data)
@@ -70,7 +70,7 @@ class window.App.ContractsIndexController extends Spine.Controller
     _(ids).each_slice 300, (slice)=>
       App.Purpose.ajaxFetch
         data: $.param
-          purpose_ids: slice
+          purpose_ids: _.uniq(slice)
       .done done
 
   render: (target, data, page)=> 
