@@ -652,7 +652,6 @@ Wenn(/^man versucht auf die Administrator Benutzereditieransicht zu gehen$/) do
 end
 
 Wenn(/^man hat nur die folgenden Rollen zur Auswahl$/) do |table|
-  binding.pry
   find(".row.emboss", match: :prefer_exact, text: _("Access as")).all("option").length.should == table.raw.length
   table.raw.flatten.each do |role|
     find(".row.emboss", match: :prefer_exact, text: _("Access as")).find("option", text: _(role))
