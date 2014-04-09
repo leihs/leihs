@@ -443,6 +443,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/zweck.feature"
+- name: examples/Software-erfassen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/Software-erfassen.feature"
 - name: examples/hinzufuegen
   scripts:
     cucumber:
