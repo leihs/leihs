@@ -6,6 +6,10 @@ describe Authenticator::LdapAuthenticationController do
 
   before(:all) do
     ENV['TMPDIR'] = File.join(Rails.root, "tmp")
+    # TODO: Move this out to something that runs *before* the test suite itself?
+    unless File.exist?(ENV['TMPDIR'])
+      Dir.mkdir(ENV['TMPDIR'])
+    end
     @ip = FactoryGirl.create(:inventory_pool)
     LeihsFactory.create_default_languages
     Setting::LDAP_CONFIG = File.join(Rails.root, "spec", "LDAP_generic.yml")
