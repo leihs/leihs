@@ -66,6 +66,7 @@ gem 'selenium-webdriver', :group => [:test, :development]
 gem 'simplecov', :require => false, :group => :test
 gem 'therubyracer', :platform => :mri
 gem 'therubyrhino', :platform => :jruby
+gem 'thin', :group => :development, :platform => :mri # web server (Webrick do not support keep-alive connections)
 gem 'timecop', '~> 0.7', :group => [:test, :development]
 gem 'trinidad', :group => :development, :platform => :jruby # web server (Webrick do not support keep-alive connections)
 gem 'uglifier', '~> 2.4'
