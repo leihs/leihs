@@ -67,7 +67,7 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :groups do #tmp#2#, :finder_sql => 'SELECT * FROM `groups` INNER JOIN `groups_users` ON `groups`.id = `groups_users`.group_id OR groups.inventory_pool_id IS NULL WHERE (`groups_users`.user_id = #{id})'
     def with_general
-      all + [Group::GENERAL_GROUP_ID]
+      to_a + [Group::GENERAL_GROUP_ID]
     end
   end
 
@@ -75,6 +75,13 @@ class User < ActiveRecord::Base
 
   before_save do
     self.language ||= Language.default_language
+  end
+
+  after_create do
+    ips = InventoryPool.where(automatic_access: true)
+    ips.each do |ip|
+      access_rights.create(:role => :customer, :inventory_pool => ip)
+    end
   end
 
 ################################################
@@ -234,15 +241,23 @@ class User < ActiveRecord::Base
 
 ####################################################################
 
-  def self.remind_all
-    User.all.each do |u|
-      u.remind
+  def self.remind_and_suspend_all
+    Visit.take_back_overdue.each do |visit|
+      visit.user.remind
+      visit.user.suspend
     end
   end
 
+  def suspend
+    visits_to_suspend = visits.take_back_overdue.select {|visit| visit.inventory_pool.automatic_suspension? }
+    visits_to_suspend.each do |visit|
+      access_right_for(visit.inventory_pool).update_attributes suspended_until: AccessRight::AUTOMATIC_SUSPENSION_DATE,
+                                                               suspended_reason: visit.inventory_pool.automatic_suspension_reason
+    end
+  end
 
   def remind(reminder_user = self)
-    visits_to_remind = to_remind
+    visits_to_remind = visits.take_back_overdue
     unless visits_to_remind.empty?
       begin
         Notification.remind_user(self, visits_to_remind)
@@ -267,10 +282,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def to_remind?
-    not to_remind.empty?
-  end
-
   def self.send_deadline_soon_reminder_to_everybody
     User.all.each do |u|
       u.send_deadline_soon_reminder
@@ -278,12 +289,12 @@ class User < ActiveRecord::Base
   end
 
   def send_deadline_soon_reminder(reminder_user = self)
-    visits_to_remind = deadline_soon
-    unless visits_to_remind.empty?
+    visits_to_remind_deadline_soon = visits.take_back.where("date = ADDDATE(CURDATE(), 1)")
+    unless visits_to_remind_deadline_soon.empty?
       begin
-        Notification.deadline_soon_reminder(self, visits_to_remind)
-        histories.create(:text => _("Deadline soon reminder sent for %{q} items on contracts %{c}") % { :q => visits_to_remind.sum(:quantity),
-                                                                                :c => visits_to_remind.flat_map(&:contract_lines).collect(&:contract_id).uniq.join(',') },
+        Notification.deadline_soon_reminder(self, visits_to_remind_deadline_soon)
+        histories.create(:text => _("Deadline soon reminder sent for %{q} items on contracts %{c}") % { :q => visits_to_remind_deadline_soon.sum(:quantity),
+                                                                                :c => visits_to_remind_deadline_soon.flat_map(&:contract_lines).collect(&:contract_id).uniq.join(',') },
                          :user_id => reminder_user,
                          :type_const => History::REMIND)
         puts "Deadline soon: #{self.name}"
@@ -333,18 +344,6 @@ class User < ActiveRecord::Base
     else
       (Time.now - contracts.unsubmitted.first.updated_at) > Contract::TIMEOUT_MINUTES.minutes
     end
-  end
-
-  ############################################
-
- private
-
-  def to_remind
-    visits.take_back.where("date < CURDATE()")
-  end
-
-  def deadline_soon
-    visits.take_back.where("date = ADDDATE(CURDATE(), 1)")
   end
 
 end

@@ -67,6 +67,15 @@ msgstr "%s bis %s"
 msgid "** This is an automatically generated response **"
 msgstr "** Automatisch generierte E-Mail **"
 
+msgid "Automatic suspension"
+msgstr "Automatische Sperrung"
+
+msgid "Automatic suspension reason"
+msgstr "Grund der automatischen Sperrung"
+
+msgid "Users who don't bring back the items on the required date are suspended from next day on."
+msgstr "Benutzer, die ihre Geräte nicht bis geforderten Tag zurückbringen, werden ab nächstem Tag danach gesperrt."
+
 msgid "A model for the Inventory Code / Serial Number '%s' was not found"
 msgstr "Modell für Inventarcode/Seriennummer '%s' wurde nicht gefunden"
 
@@ -1709,8 +1718,8 @@ msgstr "Sie haben keinen Zugriff auf diesen Gegenstand."
 msgid "You don't have any rights to access this application."
 msgstr "Sie sind nicht berechtigt, diese Applikation zu verwenden"
 
-msgid "You don't have permission"
-msgstr "Sie haben keine Berechtigung"
+msgid "You don't have permission to perform this action"
+msgstr "Sie haben keine Berechtigung, diese Aktion durchzuführen"
 
 msgid "You have %{no_access} to any inventory pools!"
 msgstr "SIe haben %{no_access} auf diese Geräteparks"
@@ -2854,3 +2863,9 @@ msgstr "Die Kontaktperson muss leer sein bei einem normalen User"
 
 msgid "Maintenance"
 msgstr "Wartung"
+
+msgid "Automatic access"
+msgstr "Automatischer Zugriff"
+
+msgid "New users will get customer access automatically."
+msgstr "Neue Benutzer kriegen automatisch den Zugriff als Kunde."

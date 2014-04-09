@@ -213,3 +213,29 @@ When(/^die Modelle sind innerhalb ihrer Gruppe alphabetisch sortiert$/) do
     expect(names.sort == names).to be_true
   end
 end
+
+Dann(/^wird unter 'Verleiher\/in' der Gerätepark aufgeführt$/) do
+  find(".inventory_pool").has_content? @contract.inventory_pool.name
+end
+
+Angenommen(/^es gibt einen Kunden mit Vertrag wessen Addresse mit "(.*?)" endet$/) do |arg1|
+  @user = @current_inventory_pool.users.customers.find {|u| u.contracts.where(status: [:signed, :closed]).exists? and u.address =~ /, $/}
+  @user.should_not be_nil
+end
+
+Wenn(/^ich einen Vertrag dieses Kunden öffne$/) do
+  visit manage_contract_path(@current_inventory_pool, @user.contracts.where(status: [:signed, :closed]).sample)
+end
+
+Dann(/^wird seine Adresse ohne den abschliessenden "(.*?)" angezeigt$/) do |arg1|
+  find(".street").text.should == @user.address.chomp(", ")
+end
+
+Wenn(/^in den globalen Einstellungen die Adresse der Instanz konfiguriert ist$/) do
+  @address = Setting::CONTRACT_LENDING_PARTY_STRING
+  @address.should_not be_nil
+end
+
+Dann(/^wird unter dem Verleiher diese Adresse angezeigt$/) do
+  all(".inventory_pool span")[1].text == @address
+end

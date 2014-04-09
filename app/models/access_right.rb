@@ -10,6 +10,8 @@ class AccessRight < ActiveRecord::Base
   ROLES_HIERARCHY = [:customer, :group_manager, :lending_manager, :inventory_manager]
   AVAILABLE_ROLES = ROLES_HIERARCHY + [:admin]
 
+  AUTOMATIC_SUSPENSION_DATE = Date.new(2099, 1, 1)
+
   def role
     read_attribute(:role).to_sym
   end

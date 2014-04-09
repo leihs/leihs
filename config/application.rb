@@ -27,6 +27,13 @@ module Leihs
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+    #
+    config.i18n.enforce_available_locales = false
+    # The *correct* way to do this is this:
+    #config.i18n.enforce_available_locales = true
+    #config.i18n.available_locales = [:de_CH, :en_GB, :en_US, :es, :gsw_CH]
+    # But the Faker gem is currently broken and does not accept properly spelled locales like 'en_US', it tries
+    # to look for 'en' and that breaks. If Faker is ever fixed, we can uncomment the above lines.
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"

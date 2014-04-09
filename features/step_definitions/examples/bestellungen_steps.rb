@@ -209,7 +209,7 @@ Aber(/^ich kann nicht aushändigen$/) do
     find("#purpose").set Faker::Lorem.paragraph
     find("#note").set Faker::Lorem.paragraph
     find("button.green[data-hand-over]").click
-    find("#error", text: _("You don't have permission"))
+    find("#error", text: _("You don't have permission to perform this action"))
   end
 end
 
@@ -233,5 +233,5 @@ Aber(/^ich kann keine Gegenstände zuteilen$/) do
     find("input[data-assign-item]").click
     find("li.ui-menu-item a", match: :first).click
   end
-  find("#flash .error", text: _("You don't have permission"))
+  find("#flash .error", text: _("You don't have permission to perform this action"))
 end

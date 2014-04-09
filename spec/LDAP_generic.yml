@@ -1,0 +1,15 @@
+test:
+  host: localhost
+  port: 12345
+  #encryption: simple_tls
+  encryption: none
+  log_file: log/ldap_server.log
+  log_level: warn
+  master_bind_dn: uid=ldap_master,ou=people,dc=example,dc=org
+  master_bind_pw: pass
+  base_dn: ou=people,dc=example,dc=org
+  admin_dn: cn=admins,ou=people,dc=example,dc=org
+  unique_id_field: uid
+  log_file: log/ldap_server.log
+  search_field: uid
+  #search_field: samaccountname

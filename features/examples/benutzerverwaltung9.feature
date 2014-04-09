@@ -10,7 +10,7 @@ Funktionalität: Benutzer verwalten
     Angenommen man ist "Mike"
     Und man editiert einen Benutzer der mal einen Zugriff auf das aktuelle Inventarpool hatte
     Wenn man den Zugriff auf "Kunde" ändert
-    Und man speichert den Benutzer
+    Und ich speichere
     Dann sieht man die Erfolgsbestätigung
     Und hat der Benutzer die Rolle Kunde
 

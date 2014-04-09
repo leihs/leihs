@@ -36,7 +36,7 @@ module Persona
         
     def create_user
       @language = Language.find_by_locale_name "de-CH"
-      @user = FactoryGirl.create(:user, :language => @language, :firstname => @@name, :lastname => @@lastname, :login => @@name.downcase, :email => @@email)
+      @user = FactoryGirl.create(:user, :language => @language, :firstname => @@name, :lastname => @@lastname, :login => @@name.downcase, :email => @@email, :address => (Faker::Address.street_address + ", "))
       @user.access_rights.create(:role => :customer, :inventory_pool => @inventory_pool)
     end
     

@@ -1,7 +1,7 @@
 # encoding: utf-8
 require "rvm/capistrano"                  # Load RVM's capistrano plugin.
 set :rvm_type, :system
-set :rvm_ruby_string, '1.9.3-p448'        # Or whatever env you want it to run in.
+set :rvm_ruby_string, '2.1.0'        # Or whatever env you want it to run in.
 set :rvm_path, "/usr/local/rvm"
 
 require "bundler/capistrano"
@@ -13,8 +13,8 @@ set :repository,  "git://github.com/zhdk/leihs.git"
 set :deploy_via, :remote_cache
 
 set :db_config, "/home/leihs/#{application}/database.yml"
-#set :app_config, "/home/leihs/#{application}/application.rb"
 set :ldap_config, "/home/leihs/#{application}/LDAP.yml"
+set :secret_token, "/home/leihs/#{application}/secret_token.rb"
 set :use_sudo, false
 
 set :rails_env, "production"

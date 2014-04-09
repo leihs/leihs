@@ -11,7 +11,6 @@
 
 class Authenticator::ShibbolethAuthenticationController < Authenticator::AuthenticatorController
 
-  DEFAULT_INVENTORY_POOLS = ["ITZ-Ausleihe", "AV-Ausleihe"]
   SUPER_USERS = ["e157339@zhdk.ch", "e159123@zhdk.ch", "e10262@zhdk.ch", "e162205@zhdk.ch", "e171014@zhdk.ch"] #Jerome, Franco, Ramon, Tomáš
   AUTHENTICATION_SYSTEM_CLASS_NAME = "ShibbolethAuthentication"
 
@@ -68,15 +67,7 @@ class Authenticator::ShibbolethAuthenticationController < Authenticator::Authent
     user.lastname = "#{ENV['surname']}"
     user.login = "#{user.firstname} #{user.lastname}"
     user.authentication_system = AuthenticationSystem.where(:class_name => AUTHENTICATION_SYSTEM_CLASS_NAME).first
-    if user.new_record?
-      user.save
-      ips = InventoryPool.where(:name => DEFAULT_INVENTORY_POOLS)
-      ips.each do |ip|
-        user.access_rights.create(:role => :customer, :inventory_pool => ip)
-      end
-    else
-      user.save
-    end
+    user.save
 
     if SUPER_USERS.include?(user.unique_id)
       user.access_rights.create(:role => :admin, :inventory_pool => nil)

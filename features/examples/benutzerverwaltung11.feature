@@ -27,6 +27,6 @@ Funktionalität: Benutzer verwalten
       | Gruppen-Verwalter  | group_manager   |
       | Ausleihe-Verwalter | lending_manager   |
     Und man teilt mehrere Gruppen zu
-    Und man speichert den Benutzer
+    Und ich speichere
     Dann ist der Benutzer mit all den Informationen gespeichert
 

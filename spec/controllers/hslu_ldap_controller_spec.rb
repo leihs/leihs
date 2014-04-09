@@ -11,7 +11,7 @@ describe Authenticator::HsluAuthenticationController do
     LeihsFactory.create_default_languages
     @group = FactoryGirl.create(:group, :name => 'Video')
 
-    Setting::LDAP_CONFIG = File.join(Rails.root, "spec", "LDAP.yml")
+    Setting::LDAP_CONFIG = File.join(Rails.root, "spec", "LDAP_hslu.yml")
     #LDAP_CONFIG = {"test"=>
     #              {"master_bind_pw"=>"12345",
     #               "base_dn"=>"OU=p_user,OU=prod,OU=hslu,DC=campus,DC=intern",

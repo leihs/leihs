@@ -1,16 +1,108 @@
-- name: administration/wartungsmodus
+- name: examples/benutzerverwaltung.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/administration/wartungsmodus.feature"
-- name: examples/benutzerverwaltung13
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung.feature"
+- name: examples/benutzerverwaltung1.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung1.feature"
+- name: examples/benutzerverwaltung2.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung2.feature"
+- name: examples/benutzerverwaltung3.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung3.feature"
+- name: examples/benutzerverwaltung4.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung4.feature"
+- name: examples/benutzerverwaltung5.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung5.feature"
+- name: examples/benutzerverwaltung6.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung6.feature"
+- name: examples/benutzerverwaltung7.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung7.feature"
+- name: examples/benutzerverwaltung8.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung8.feature"
+- name: examples/benutzerverwaltung9.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung9.feature"
+- name: examples/benutzerverwaltung10.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung10.feature"
+- name: examples/benutzerverwaltung11.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung11.feature"
+- name: examples/benutzerverwaltung12.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung12.feature"
+- name: examples/benutzerverwaltung13.feature
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/benutzerverwaltung13.feature"
-- name: examples/timeline
+- name: examples/benutzerverwaltung14.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/timeline.feature"
-- name: manage/delegation
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung14.feature"
+- name: examples/benutzerverwaltung15.feature
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/manage/delegation.feature"
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung15.feature"
+- name: examples/passwort.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/passwort.feature"
+- name: examples/passwort1.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/passwort1.feature"
+- name: examples/passwort2.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/passwort2.feature"
+- name: examples/passwort3.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/passwort3.feature"
+- name: examples/passwort4.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/passwort4.feature"
+- name: examples/passwort5.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/passwort5.feature"
+- name: examples/passwort6.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/passwort6.feature"
+- name: examples/passwort7.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/passwort7.feature"
+- name: examples/passwort8.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/passwort8.feature"
+- name: examples/passwort9.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/passwort9.feature"
+- name: examples/passwort10.feature
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/passwort10.feature"

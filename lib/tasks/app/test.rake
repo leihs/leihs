@@ -93,6 +93,7 @@ namespace :app do
     task :generate_structure_with_views_sql do
       Rails.env = "test"
       config = Rails.configuration.database_configuration[Rails.env]
+      `rake db:drop db:create db:migrate`
       `mysqldump #{config['host'] ? "-h #{config['host']}" : nil} -u #{config['username']} #{config['password'] ? "--password=#{config['password']}" : nil}  #{config['database']} --no-create-db | grep -v 'SQL SECURITY DEFINER' > #{File.join(Rails.root, "db/structure_with_views.sql")}`
     end
 

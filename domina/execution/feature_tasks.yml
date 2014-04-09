@@ -43,6 +43,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/technical/contract/update_lines_model.feature"
+- name: technical/user/suspend
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/technical/user/suspend.feature"
 - name: technical/field/field_instance_methods
   scripts:
     cucumber:
@@ -95,10 +99,6 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/availability_story.feature"
-- name: automatische_sperrung
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/automatische_sperrung.feature"
 - name: examples/verfuegbarkeit
   scripts:
     cucumber:
@@ -443,6 +443,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/zweck.feature"
+- name: examples/Software-erfassen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/Software-erfassen.feature"
 - name: examples/hinzufuegen
   scripts:
     cucumber:

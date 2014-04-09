@@ -68,6 +68,7 @@ class InventoryPool < ActiveRecord::Base
 #######################################################################
 
   validates_presence_of :name, :shortname, :email
+  validates_presence_of :automatic_suspension_reason, if: :automatic_suspension?
 
   validates_uniqueness_of :name
 

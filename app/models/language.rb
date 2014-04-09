@@ -1,6 +1,6 @@
 class Language < ActiveRecord::Base
   
-  default_scope -> {order(:name)}
+  default_scope { order(:name) }
   scope :active_languages, -> {where(:active => true)}
   
   validates_uniqueness_of :default, :if => Proc.new { |l| l.default }

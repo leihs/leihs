@@ -61,6 +61,10 @@ When 'I make sure I am logged out' do
   visit "/logout"
 end
 
+When 'ich logge mich aus' do
+  visit "/logout"
+end
+
 When /^I am redirected to the "([^"]*)" section$/ do |section_name|
   find("nav#topbar .topbar-navigation .active", match: :prefer_exact, text: _(section_name))
 end
