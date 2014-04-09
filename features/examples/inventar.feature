@@ -12,6 +12,7 @@ Funktionalität: Inventar
     Dann sieht man Modelle
     Und man sieht Optionen
     Und man sieht Pakete
+    Und man sieht Software
 
   @javascript
   Szenario: Auswahlmöglichkeiten
