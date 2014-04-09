@@ -19,6 +19,7 @@ Funktionalität: Delegation
     Und ich der Delegation Zugriff für diesen Pool gebe
     Und ich dieser Delegation einen Namen gebe
     Und ich dieser Delegation keinen, einen oder mehrere Personen zuteile
+    Und ich dieser Delegation keinen, einen oder mehrere Gruppen zuteile
     Und ich kann dieser Delegation keine Delegation zuteile
     Und ich genau einen Verantwortlichen eintrage
     Und ich speichere
