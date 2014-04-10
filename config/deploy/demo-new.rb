@@ -10,11 +10,10 @@ set :repository,  "git://github.com/zhdk/leihs.git"
 set :deploy_via, :remote_cache
 
 set :db_config, "/home/leihs/#{application}/database.yml"
+set :ldap_config, false
 set :use_sudo, false
 
 set :rails_env, "production"
-
-default_run_options[:shell] = false
 
 set :deploy_to, "/home/leihs/#{application}"
 set :secret_token, "/home/leihs/#{application}/secret_token.rb"
