@@ -942,7 +942,7 @@ CREATE TABLE `workdays` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-08 13:31:52
+-- Dump completed on 2014-04-10 13:48:19
 INSERT INTO schema_migrations (version) VALUES ('20101213125330');
 
 INSERT INTO schema_migrations (version) VALUES ('20110111175705');

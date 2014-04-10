@@ -2,10 +2,6 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/benutzerverwaltung.feature"
-- name: examples/benutzerverwaltung1.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung1.feature"
 - name: examples/benutzerverwaltung2.feature
   scripts:
     cucumber:
@@ -66,10 +62,6 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/passwort.feature"
-- name: examples/passwort1.feature
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/passwort1.feature"
 - name: examples/passwort2.feature
   scripts:
     cucumber:
