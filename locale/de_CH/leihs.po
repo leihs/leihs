@@ -2176,7 +2176,7 @@ msgid "Workdays"
 msgstr "Arbeitstage"
 
 msgid "Closed Days"
-msgstr "Schliessungszeiten"
+msgstr "Geschlossen"
 
 msgid "Toggle %s"
 msgstr "%s auf/zuklappen"
@@ -2191,7 +2191,7 @@ msgid "Select"
 msgstr "Auswählen"
 
 msgid "Closed Day"
-msgstr "Schliessungstag"
+msgstr "Geschlossen"
 
 msgid "Borrow"
 msgstr "Ausleihen"

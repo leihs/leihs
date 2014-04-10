@@ -145,6 +145,18 @@ window.i18n.locale_data = {
          null,
          "** Automatisch generierte E-Mail **"
       ],
+      "Automatic suspension": [
+         null,
+         "Automatische Sperrung"
+      ],
+      "Automatic suspension reason": [
+         null,
+         "Grund der automatischen Sperrung"
+      ],
+      "Users who don't bring back the items on the required date are suspended from next day on.": [
+         null,
+         "Benutzer, die ihre Geräte nicht bis geforderten Tag zurückbringen, werden ab nächstem Tag danach gesperrt."
+      ],
       "A model for the Inventory Code / Serial Number '%s' was not found": [
          null,
          "Modell für Inventarcode/Seriennummer '%s' wurde nicht gefunden"
@@ -2181,9 +2193,9 @@ window.i18n.locale_data = {
          null,
          "Sie sind nicht berechtigt, diese Applikation zu verwenden"
       ],
-      "You don't have permission": [
+      "You don't have permission to perform this action": [
          null,
-         "Sie haben keine Berechtigung"
+         "Sie haben keine Berechtigung, diese Aktion durchzuführen"
       ],
       "You have %{no_access} to any inventory pools!": [
          null,
@@ -2417,6 +2429,14 @@ window.i18n.locale_data = {
       "not available. ": [
          null,
          "nicht verfügbar."
+      ],
+      "not available": [
+         null,
+         "nicht verfügbar"
+      ],
+      "%s not available": [
+         null,
+         "%s nicht verfügbar"
       ],
       "not borrowable": [
          null,
@@ -2764,7 +2784,7 @@ window.i18n.locale_data = {
       ],
       "Closed Days": [
          null,
-         "Schliessungszeiten"
+         "Geschlossen"
       ],
       "Toggle %s": [
          null,
@@ -2784,11 +2804,19 @@ window.i18n.locale_data = {
       ],
       "Closed Day": [
          null,
-         "Schliessungstag"
+         "Geschlossen"
       ],
       "Borrow": [
          null,
          "Ausleihen"
+      ],
+      "Borrow section": [
+         null,
+         "Ausleihe"
+      ],
+      "Manage section": [
+         null,
+         "Verwaltung"
       ],
       "Overview": [
          null,
@@ -3622,6 +3650,18 @@ window.i18n.locale_data = {
       "Delegated user must be empty for contract's normal user": [
          null,
          "Die Kontaktperson muss leer sein bei einem normalen User"
+      ],
+      "Maintenance": [
+         null,
+         "Wartung"
+      ],
+      "Automatic access": [
+         null,
+         "Automatischer Zugriff"
+      ],
+      "New users will get customer access automatically.": [
+         null,
+         "Neue Benutzer kriegen automatisch den Zugriff als Kunde."
       ]
    }
 }
