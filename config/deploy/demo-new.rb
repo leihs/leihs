@@ -1,11 +1,7 @@
 # encoding: utf-8
-require "rvm/capistrano"                  # Load RVM's capistrano plugin.
-set :rvm_type, :system
-set :rvm_path, "/usr/local/rvm"
-set :rvm_ruby_string, '1.9.3-p448'        # Or whatever env you want it to run in.
 
-
-require "bundler/capistrano"
+set :rbenv_type, :user # or :system, depends on your rbenv setup
+set :rbenv_ruby_version, '2.1.1'
 
 set :application, "leihs-demo-new"
 
