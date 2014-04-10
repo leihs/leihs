@@ -146,6 +146,7 @@ Angenommen /^ein (.*?)Benutzer (mit zugeteilter|ohne zugeteilte) Rolle erscheint
       user.access_rights.active.delete_all
       user.access_rights.active.should be_empty
   end
+  find("#list-search").set user.to_s # this step is needed for CI in order show a line entry which would otherwise be in a non displayed scrollable page
   @el = find("#user-list .line", text: user.to_s)
 end
 
