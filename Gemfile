@@ -8,9 +8,10 @@ gem 'acts-as-dag', :git => 'https://github.com/jheiss/acts-as-dag.git', :branch 
 gem 'barby', '~> 0.5.0'
 gem 'better_errors', :group => :development
 gem 'binding_of_caller', :group => :development
-gem 'capistrano', '~> 2.15', :group => :development
+gem 'capistrano', '2.15.5', :group => :development
 gem 'capistrano-ext', :group => :development
-gem 'rvm-capistrano', :group => :development
+#gem 'rvm-capistrano', :group => :development
+gem 'capistrano-rbenv', '~> 1.0', :group => :development
 
 gem "jasminerice", :git => 'https://github.com/bradphelan/jasminerice.git', :group => [:test, :development] # needed for implement coffeescript, fixtures and asset pipeline serverd css into jasmine
 gem "rack_session_access", "~> 0.1.1", group: :test
