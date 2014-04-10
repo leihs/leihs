@@ -4,6 +4,4 @@
 # configs instead.
 
 
-# Load order is important! bundler/capistrano always before capistrano-rbenv!
-require "bundler/capistrano"
-require 'capistrano-rbenv'
+default_run_options[:shell] = "/bin/bash --login"

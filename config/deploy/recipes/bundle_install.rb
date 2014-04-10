@@ -1,6 +1,6 @@
-# The built-in capistrano/bundler integration seems broken: It does not cd to release_path but instead
-# to the previous release, which has the wrong Gemfile. This fixes that, but of course means we cannot use 
-# the built-in bundler support.
+# The built-in capistrano/bundler integration does not work with rbenv,
+# and the semi-official rbenv integration for Capistrano is broken
+# for Capistrano < 3.0, so we have to write our own.
 task :bundle_install do
-  run "cd #{release_path} && bundle install --path '#{deploy_to}/#{shared_dir}/bundle' --deployment --without development test"
+  run "cd #{release_path} && rbenv shell #{rbenv_ruby_version} && bundle install --path '#{deploy_to}/#{shared_dir}/bundle' --deployment --without development test"
 end

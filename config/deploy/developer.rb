@@ -1,29 +1,27 @@
 # encoding: utf-8
-
-set :rbenv_type, :user # or :system, depends on your rbenv setup
 set :rbenv_ruby_version, '2.1.1'
 
-set :application, "leihs-new"
+set :application, "leihs-test"
 
 set :scm, :git
 set :repository,  "git://github.com/zhdk/leihs.git"
+set :branch, "next"
 set :deploy_via, :remote_cache
 
-set :db_config, "/home/leihs/#{application}/database.yml"
-set :ldap_config, "/home/leihs/#{application}/LDAP.yml"
-set :secret_token, "/home/leihs/#{application}/secret_token.rb"
+set :db_config, "/home/developer/#{application}/database.yml"
+set :ldap_config, "/home/developer/#{application}/LDAP.yml"
+set :secret_token, "/home/developer/#{application}/secret_token.rb"
+
+
 set :use_sudo, false
 
 set :rails_env, "production"
 
-default_run_options[:shell] = false
+set :deploy_to, "/home/developer/#{application}"
 
-set :deploy_to, "/home/leihs/#{application}"
-
-role :app, "leihs@rails.zhdk.ch"
-role :web, "leihs@rails.zhdk.ch"
-role :db,  "leihs@rails.zhdk.ch", :primary => true
-
+role :app, "developer@172.31.2.229"
+role :web, "developer@172.31.2.229"
+role :db,  "developer@172.31.2.229", :primary => true
 
 load 'config/deploy/recipes/set_branch'
 load 'config/deploy/recipes/retrieve_db_config'
@@ -35,11 +33,13 @@ load 'config/deploy/recipes/chmod_tmp'
 load 'config/deploy/recipes/migrate_database'
 load 'config/deploy/recipes/bundle_install'
 load 'config/deploy/recipes/precompile_assets'
+load 'config/deploy/recipes/set_deploy_information'
 
 task :modify_config do
   # On staging/test, we don't want to deliver e-mail
-  #run "sed -i 's/config.action_mailer.perform_deliveries = true/config.action_mailer.perform_deliveries = false/' #{release_path}/config/environments/production.rb"
+  run "sed -i 's/config.action_mailer.perform_deliveries = true/config.action_mailer.perform_deliveries = false/' #{release_path}/config/environments/production.rb"
 end
+
 
 namespace :deploy do
   task :start do
@@ -71,6 +71,7 @@ after "link_config", :migrate_database
 after "link_config", :modify_config
 after "link_config", "precompile_assets"
 
+before "deploy:restart", :set_deploy_information
 before "deploy:restart", :make_tmp
 
 after "deploy", "deploy:cleanup"

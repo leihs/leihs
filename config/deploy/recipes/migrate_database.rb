@@ -8,5 +8,5 @@ task :migrate_database do
   # because run catches the exit code of mysqldump
   run "mysqldump -h #{sql_host} --user=#{sql_username} --password=#{sql_password} -r #{dump_path} #{sql_database}"
   run "bzip2 #{dump_path}"
-  run "cd #{release_path} && RAILS_ENV='production' bundle exec rake db:migrate"
+  run "cd #{release_path} && rbenv shell #{rbenv_ruby_version} && RAILS_ENV='production' bundle exec rake db:migrate"
 end

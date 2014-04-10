@@ -72,6 +72,8 @@ before "deploy:create_symlink", :link_attachments
 before "deploy:create_symlink", :link_db_backups
 before "deploy:create_symlink", :chmod_tmp
 
+before "migrate_database", :bundle_install
+
 after "link_config", :migrate_database
 after "link_config", :modify_config
 after "link_config", "precompile_assets"
