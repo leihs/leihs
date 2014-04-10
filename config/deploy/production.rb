@@ -16,8 +16,6 @@ set :use_sudo, false
 
 set :rails_env, "production"
 
-default_run_options[:shell] = false
-
 set :deploy_to, "/home/leihs/#{application}"
 
 role :app, "leihs@rails.zhdk.ch"
