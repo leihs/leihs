@@ -2,11 +2,11 @@
 
 Funktionalität: Software erfassen
 
-Grundlage:
-Angenommen Personas existieren
-Und man ist "Mike"
+  Grundlage:
+    Angenommen Personas existieren
+    Und man ist "Mike"
 
-  @javascript
+  @upcoming
   Szenario: Software-Produkt erfassen
     Angenommen ich erfasse eine neue Software
     Wenn ich einen Produktnamen erfasse
@@ -14,9 +14,9 @@ Und man ist "Mike"
     Und ich einen Hersteller erfasse
     Und ich speichere
     Dann sind die Informationen dieses Software-Produkts gespeichert
-    
-   @javascript
-   Szenario: Software-Lizenz erfassen
+
+  @upcoming
+  Szenario: Software-Lizenz erfassen
     Angenommen es existiert ein Software-Produkt
     Wenn ich eine neue Software-Lizenz erfasse
     Und ich ein Produkt auswähle
@@ -26,9 +26,3 @@ Und man ist "Mike"
     Und ich eine Lizenzart eingebe
     Und ich speichere
     Dann sind die Informationen dieser Software-Lizenz gespeichert
-    
-    
-    
-    
-    
-    
