@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.35, for debian-linux-gnu (i686)
+-- MySQL dump 10.13  Distrib 5.1.48, for apple-darwin10.3.0 (i386)
 --
 -- Host: localhost    Database: leihs2_test
 -- ------------------------------------------------------
--- Server version	5.5.35-0+wheezy1
+-- Server version	5.1.48
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -27,17 +27,17 @@ CREATE TABLE `access_rights` (
   `user_id` int(11) DEFAULT NULL,
   `inventory_pool_id` int(11) DEFAULT NULL,
   `suspended_until` date DEFAULT NULL,
+  `suspended_reason` text COLLATE utf8_unicode_ci,
   `deleted_at` date DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `suspended_reason` text COLLATE utf8_unicode_ci,
   `role` enum('customer','group_manager','lending_manager','inventory_manager','admin') COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_access_rights_on_suspended_until` (`suspended_until`),
   KEY `index_access_rights_on_deleted_at` (`deleted_at`),
   KEY `index_access_rights_on_inventory_pool_id` (`inventory_pool_id`),
-  KEY `index_on_user_id_and_inventory_pool_id_and_deleted_at` (`user_id`,`inventory_pool_id`,`deleted_at`),
-  KEY `index_access_rights_on_role` (`role`)
+  KEY `index_access_rights_on_role` (`role`),
+  KEY `index_on_user_id_and_inventory_pool_id_and_deleted_at` (`user_id`,`inventory_pool_id`,`deleted_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -225,17 +225,17 @@ CREATE TABLE `contract_lines` (
   `end_date` date DEFAULT NULL,
   `returned_date` date DEFAULT NULL,
   `option_id` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
   `purpose_id` int(11) DEFAULT NULL,
   `returned_to_user_id` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_contract_lines_on_start_date` (`start_date`),
   KEY `index_contract_lines_on_end_date` (`end_date`),
   KEY `index_contract_lines_on_option_id` (`option_id`),
-  KEY `fk_contract_lines_contract_id` (`contract_id`),
-  KEY `fk_contract_lines_item_id` (`item_id`),
-  KEY `fk_contract_lines_model_id` (`model_id`),
+  KEY `index_contract_lines_on_contract_id` (`contract_id`),
+  KEY `index_contract_lines_on_item_id` (`item_id`),
+  KEY `index_contract_lines_on_model_id` (`model_id`),
   KEY `index_contract_lines_on_returned_date_and_contract_id` (`returned_date`,`contract_id`),
   KEY `index_contract_lines_on_type_and_contract_id` (`type`,`contract_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -260,17 +260,17 @@ DROP TABLE IF EXISTS `contracts`;
 CREATE TABLE `contracts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
+  `delegated_user_id` int(11) DEFAULT NULL,
   `inventory_pool_id` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
+  `handed_over_by_user_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `handed_over_by_user_id` int(11) DEFAULT NULL,
   `status` enum('unsubmitted','submitted','rejected','approved','signed','closed') COLLATE utf8_unicode_ci NOT NULL,
-  `delegated_user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_contracts_on_inventory_pool_id` (`inventory_pool_id`),
-  KEY `index_contracts_on_user_id` (`user_id`),
-  KEY `index_contracts_on_status` (`status`)
+  KEY `index_contracts_on_status` (`status`),
+  KEY `index_contracts_on_user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -346,9 +346,9 @@ CREATE TABLE `groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `inventory_pool_id` int(11) DEFAULT NULL,
+  `is_verification_required` tinyint(1) DEFAULT '0',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `is_verification_required` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `index_groups_on_inventory_pool_id` (`inventory_pool_id`),
   KEY `index_groups_on_is_verification_required` (`is_verification_required`)
@@ -574,10 +574,10 @@ CREATE TABLE `items` (
   `insurance_number` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   `name` text COLLATE utf8_unicode_ci,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
   `user_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `properties` varchar(2048) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_items_on_inventory_code` (`inventory_code`),
   KEY `index_items_on_inventory_pool_id` (`inventory_pool_id`),
@@ -617,7 +617,7 @@ CREATE TABLE `languages` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_languages_on_name` (`name`),
   KEY `index_languages_on_active_and_default` (`active`,`default`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -626,7 +626,6 @@ CREATE TABLE `languages` (
 
 LOCK TABLES `languages` WRITE;
 /*!40000 ALTER TABLE `languages` DISABLE KEYS */;
-INSERT INTO `languages` VALUES (1,'English','en-GB',1,1),(2,'Deutsch','de-CH',0,1),(3,'Castellano','es',0,1),(4,'Züritüütsch','gsw-CH',0,1);
 /*!40000 ALTER TABLE `languages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -758,9 +757,9 @@ CREATE TABLE `models` (
   `maintenance_period` int(11) DEFAULT '0',
   `is_package` tinyint(1) DEFAULT '0',
   `technical_detail` text COLLATE utf8_unicode_ci,
+  `hand_over_note` text COLLATE utf8_unicode_ci,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `hand_over_note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`),
   KEY `index_models_on_is_package` (`is_package`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -911,10 +910,10 @@ DROP TABLE IF EXISTS `partitions_with_generals`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `partitions_with_generals` (
-  `model_id` tinyint NOT NULL,
-  `inventory_pool_id` tinyint NOT NULL,
-  `group_id` tinyint NOT NULL,
-  `quantity` tinyint NOT NULL
+  `model_id` int(11),
+  `inventory_pool_id` int(11),
+  `group_id` int(11),
+  `quantity` decimal(33,0)
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -976,16 +975,16 @@ DROP TABLE IF EXISTS `running_lines`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `running_lines` (
-  `id` tinyint NOT NULL,
-  `type` tinyint NOT NULL,
-  `inventory_pool_id` tinyint NOT NULL,
-  `model_id` tinyint NOT NULL,
-  `quantity` tinyint NOT NULL,
-  `start_date` tinyint NOT NULL,
-  `end_date` tinyint NOT NULL,
-  `is_late` tinyint NOT NULL,
-  `unavailable_from` tinyint NOT NULL,
-  `concat_group_ids` tinyint NOT NULL
+  `id` int(11),
+  `type` varchar(255),
+  `inventory_pool_id` int(11),
+  `model_id` int(11),
+  `quantity` int(11),
+  `start_date` date,
+  `end_date` date,
+  `is_late` int(1),
+  `unavailable_from` date,
+  `concat_group_ids` longblob
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -1008,7 +1007,7 @@ CREATE TABLE `schema_migrations` (
 
 LOCK TABLES `schema_migrations` WRITE;
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
-INSERT INTO `schema_migrations` VALUES ('20101213125330'),('20110111175705'),('20110117113700'),('20110119193618'),('20110201160119'),('20110222163245'),('20110318110901'),('20110523133506'),('20110617090905'),('20110704075302'),('20110815110417'),('20110921134810'),('20111123154235'),('20111215221843'),('20120106214650'),('20120301140904'),('20120424080000'),('20120424080001'),('20120427113142'),('20120523134739'),('20120618143839'),('20120619083752'),('20120806140527'),('20120806203246'),('20120806203332'),('20120921102118'),('20121109141157'),('20130111105833'),('20130729120232'),('20130730145452'),('20130823104438'),('20130906084646'),('20130923141326'),('20130924180000'),('20130924180001'),('20131118144431'),('20131121171123'),('20140115134047'),('20140116125357'),('20140203140055'),('20140214111545'),('20140225143238'),('20140318103544'),('20140328105448'),('20140402135726');
+INSERT INTO `schema_migrations` VALUES ('20140410180000');
 /*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1043,8 +1042,9 @@ CREATE TABLE `settings` (
   `disable_manage_section_message` text COLLATE utf8_unicode_ci,
   `disable_borrow_section` tinyint(1) NOT NULL DEFAULT '0',
   `disable_borrow_section_message` text COLLATE utf8_unicode_ci,
+  `text` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1053,7 +1053,6 @@ CREATE TABLE `settings` (
 
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-INSERT INTO `settings` VALUES (1,'localhost',25,'localhost','GBP',NULL,NULL,'Cheers,','your.lending.desk@example.com',0,NULL,NULL,NULL,'smtp',NULL,NULL,0,'0','Bern',0,NULL,0,NULL);
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1105,9 +1104,9 @@ CREATE TABLE `users` (
   `country` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `language_id` int(11) DEFAULT NULL,
   `extended_info` text COLLATE utf8_unicode_ci,
+  `settings` varchar(1024) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `settings` varchar(1024) COLLATE utf8_unicode_ci DEFAULT NULL,
   `delegator_user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_users_on_authentication_system_id` (`authentication_system_id`)
@@ -1132,14 +1131,14 @@ DROP TABLE IF EXISTS `visit_lines`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `visit_lines` (
-  `visit_id` tinyint NOT NULL,
-  `inventory_pool_id` tinyint NOT NULL,
-  `user_id` tinyint NOT NULL,
-  `status` tinyint NOT NULL,
-  `action` tinyint NOT NULL,
-  `date` tinyint NOT NULL,
-  `quantity` tinyint NOT NULL,
-  `contract_line_id` tinyint NOT NULL
+  `visit_id` varchar(86),
+  `inventory_pool_id` int(11),
+  `user_id` int(11),
+  `status` enum('unsubmitted','submitted','rejected','approved','signed','closed'),
+  `action` varchar(9),
+  `date` date,
+  `quantity` int(11),
+  `contract_line_id` int(11)
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -1152,13 +1151,13 @@ DROP TABLE IF EXISTS `visits`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `visits` (
-  `id` tinyint NOT NULL,
-  `inventory_pool_id` tinyint NOT NULL,
-  `user_id` tinyint NOT NULL,
-  `status` tinyint NOT NULL,
-  `action` tinyint NOT NULL,
-  `date` tinyint NOT NULL,
-  `quantity` tinyint NOT NULL
+  `id` varchar(86),
+  `inventory_pool_id` int(11),
+  `user_id` int(11),
+  `status` enum('unsubmitted','submitted','rejected','approved','signed','closed'),
+  `action` varchar(9),
+  `date` date,
+  `quantity` decimal(32,0)
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -1274,4 +1273,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-10 15:42:40
+-- Dump completed on 2014-04-11 12:37:27
