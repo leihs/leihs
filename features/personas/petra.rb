@@ -42,9 +42,9 @@ module Persona
     
     def create_submitted_contracts
       @purpose = FactoryGirl.create :purpose, :description => "Für meinen aktuellen Kurs."
-      @camera_model = Model.find_by_name "Kamera Nikon X12"
-      @tripod_model = Model.find_by_name "Kamera Stativ"
-      @ultra_compact_model_model = Model.find_by_name "Ultra Compact Beamer"
+      @camera_model = Model.find {|m| [m.name, m.product].include? "Kamera Nikon X12" }
+      @tripod_model = Model.find {|m| [m.name, m.product].include? "Kamera Stativ"  }
+      @ultra_compact_model_model = Model.find {|m| [m.name, m.product].include? "Ultra Compact Beamer" }
       @contract_for_camera = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :submitted)
       FactoryGirl.create(:contract_line, :purpose => @purpose, :model => @camera_model, :contract => @contract_for_camera, :start_date => (Date.today + 7.days), :end_date => (Date.today + 10.days))
       FactoryGirl.create(:contract_line, :purpose => @purpose, :model => @tripod_model, :contract => @contract_for_camera, :start_date => (Date.today + 7.days), :end_date => (Date.today + 10.days))
@@ -55,7 +55,7 @@ module Persona
     end
     
     def create_overdue_hand_overs
-      @beamer_model = Model.find_by_name "Sharp Beamer"
+      @beamer_model = Model.find {|m| [m.name, m.product].include? "Sharp Beamer" }
       @approved_contract_1 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :approved)
       @approved_contract_1_purpose = FactoryGirl.create :purpose, :description => "Ersatzstativ für die Ausstellung."
       FactoryGirl.create(:contract_line, :purpose => @approved_contract_1_purpose, :contract => @approved_contract_1, :model => @beamer_model, :start_date => Date.yesterday-1, :end_date => Date.today + 1)
@@ -66,7 +66,7 @@ module Persona
       @approved_contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :approved)
       purpose = FactoryGirl.create :purpose, :description => "Um meine Abschlussarbeit zu fotografieren."
       @approved_contract.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @approved_contract, :item_id => @inventory_pool.items.in_stock.where(:model_id => @beamer_model).first.id, :model => @beamer_model, :start_date => Date.yesterday, :end_date => Date.today)
-      @akku = Option.find_by_name("Akku AA")
+      @akku = Option.find {|m| [m.name, m.product].include? "Akku AA" }
       @approved_contract.contract_lines << FactoryGirl.create(:option_line, :purpose => purpose, :contract => @approved_contract, :option => @akku, :start_date => Date.yesterday, :end_date => Date.today)
       @approved_contract.sign(@pius)
     end

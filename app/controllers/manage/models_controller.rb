@@ -17,7 +17,7 @@ class Manage::ModelsController < Manage::ApplicationController
   def create
     not_authorized! unless is_privileged_user?
     ActiveRecord::Base.transaction do
-      @model = Model.create(name: params[:model][:name])
+      @model = Model.create(product: params[:model][:product], version: params[:model][:version])
       if save_model @model
         render :status => :ok, :json => {id: @model.id}
       else
@@ -106,7 +106,7 @@ class Manage::ModelsController < Manage::ApplicationController
   end
 
   def update_package
-    @model ||= Model.where(:name => params[:model][:name]).first
+    @model ||= Model.find {|m| [m.name, m.product].include? params[:model][:name] }
     @model ||= Model.new(:is_package => true)
     if not @model.is_package?
       flash[:error] = _("The selected model is not a package")

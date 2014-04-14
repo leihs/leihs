@@ -77,7 +77,7 @@ class window.App.TakeBackController extends Spine.Controller
     if line
       App.Flash
         type: "success"
-        message: _jed "%s selected for take back", line.model().name
+        message: _jed "%s selected for take back", line.model().name()
       App.LineSelectionController.add line.id
       @increaseOption line if line.option_id
     # line for assignment not found because it was already assigned maximum possible before
@@ -109,7 +109,7 @@ class window.App.TakeBackController extends Spine.Controller
     input.val quantity
     App.Flash
       type: "success"
-      message: _jed "%s quantity increased to %s", [line.model().name, quantity]
+      message: _jed "%s quantity increased to %s", [line.model().name(), quantity]
     @changeQuantity {currentTarget: input}
 
   setupAutocomplete: =>
@@ -117,7 +117,7 @@ class window.App.TakeBackController extends Spine.Controller
       appendTo: @el
       source: (request, response)=> 
         data = for line in @getLines()
-          name: line.model().name
+          name: line.model().name()
           inventoryCode: line.inventoryCode()
           record: line
         regexp = RegExp(request.term, "i")

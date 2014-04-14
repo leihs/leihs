@@ -13,7 +13,7 @@ Funktionalität: Modell
     Wenn ich ein bestehendes, genutztes Modell bearbeite
     Und ich ändere die folgenden Details
     | Feld                               | Wert                         |
-    | Name                               | Test Modell x                |
+    | Produkt                            | Test Modell x                |
     | Hersteller                         | Test Hersteller x            |
     | Beschreibung                       | Test Beschreibung x          |
     | Technische Details                 | Test Technische Details x    |

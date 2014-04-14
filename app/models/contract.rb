@@ -11,7 +11,7 @@ class Contract < ActiveRecord::Base
   has_many :contract_lines, -> { order('start_date ASC, end_date ASC, contract_lines.created_at ASC') }, :dependent => :destroy #Rails3.1# TODO ContractLin#default_scope
   has_many :item_lines, -> { order('start_date ASC, end_date ASC, contract_lines.created_at ASC') }, :dependent => :destroy
   has_many :option_lines, -> { order('start_date ASC, end_date ASC, contract_lines.created_at ASC') }, :dependent => :destroy
-  has_many :models, -> { order('contract_lines.start_date ASC, contract_lines.end_date ASC, models.name ASC').uniq }, :through => :item_lines
+  has_many :models, -> { order('contract_lines.start_date ASC, contract_lines.end_date ASC, models.product ASC').uniq }, :through => :item_lines
   has_many :items, :through => :item_lines
   has_many :options, -> { uniq }, :through => :option_lines
   belongs_to :handed_over_by_user, :class_name => "User"
@@ -105,8 +105,10 @@ class Contract < ActiveRecord::Base
                           or(User.arel_table[:firstname].matches(qq)).
                           or(User.arel_table[:lastname].matches(qq)).
                           or(User.arel_table[:badge_id].matches(qq)).
-                          or(Model.arel_table[:name].matches(qq)).
-                          or(Option.arel_table[:name].matches(qq)).
+                          or(Model.arel_table[:product].matches(qq)).
+                          or(Model.arel_table[:version].matches(qq)).
+                          or(Option.arel_table[:product].matches(qq)).
+                          or(Option.arel_table[:version].matches(qq)).
                           or(Item.arel_table[:inventory_code].matches(qq)))
     }
     sql

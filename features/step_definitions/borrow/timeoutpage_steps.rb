@@ -2,7 +2,7 @@
 
 def resolve_conflict_for_model name
   # open booking calender for model
-  @model = Model.find_by_name name
+  @model = Model.find {|m| [m.name, m.product].include? name }
   line = find(".line", :text => @model.name, :match => :first)
   ids = line[:"data-ids"]
   line.find(".button", :text => _("Change entry")).click

@@ -21,7 +21,7 @@ Funktionalität: Modell
     Wenn ich ein neues Modell hinzufüge
     Und ich erfasse die folgenden Details
     | Feld                               | Wert                       |
-    | Name                               | Test Modell                |
+    | Produkt                            | Test Modell                |
     | Hersteller                         | Test Hersteller            |
     | Beschreibung                       | Test Beschreibung          |
     | Technische Details                 | Test Technische Details    |

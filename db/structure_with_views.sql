@@ -748,8 +748,9 @@ DROP TABLE IF EXISTS `models`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `models` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `manufacturer` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `product` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `version` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `description` text COLLATE utf8_unicode_ci,
   `internal_description` text COLLATE utf8_unicode_ci,
   `info_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -858,7 +859,9 @@ CREATE TABLE `options` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `inventory_pool_id` int(11) DEFAULT NULL,
   `inventory_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `manufacturer` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `product` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `version` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `price` decimal(8,2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_options_on_inventory_pool_id` (`inventory_pool_id`)
@@ -1273,4 +1276,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-11 12:37:27
+-- Dump completed on 2014-04-11 14:07:43

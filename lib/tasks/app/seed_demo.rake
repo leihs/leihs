@@ -72,24 +72,24 @@ namespace :app do
       head.save
 
       # Models and items
-      tt1 = FactoryGirl.create(:model, :name => 'Test tube, 20 cm', :manufacturer => 'ACME')
+      tt1 = FactoryGirl.create(:model, :product => 'Test tube, 20 cm', :manufacturer => 'ACME')
       tt1.categories << chem
       tt1.save
 
 
-      tt2 = FactoryGirl.create(:model, :name => 'Test tube, 10 cm', :manufacturer => 'ACME')
+      tt2 = FactoryGirl.create(:model, :product => 'Test tube, 10 cm', :manufacturer => 'ACME')
       tt2.categories << chem
       tt2.save
 
-      tt3 = FactoryGirl.create(:model, :name => 'Test tube, 5 cm', :manufacturer => 'ACME')
+      tt3 = FactoryGirl.create(:model, :product => 'Test tube, 5 cm', :manufacturer => 'ACME')
       tt3.categories << chem
       tt3.save
 
-      bb = FactoryGirl.create(:model, :name => 'Bunsen burner', :manufacturer => 'ACME')
+      bb = FactoryGirl.create(:model, :product => 'Bunsen burner', :manufacturer => 'ACME')
       bb.categories << chem
       bb.save
       
-      cob = FactoryGirl.create(:model, :name => 'Chalice of blood', :manufacturer => 'ACME')
+      cob = FactoryGirl.create(:model, :product => 'Chalice of blood', :manufacturer => 'ACME')
       cob.categories << chem
       cob.save
 
@@ -101,39 +101,39 @@ namespace :app do
       end
 
 
-      lc = FactoryGirl.create(:model, :name => 'Lighting case Arri Start-Up-Kit Fresnel', :manufacturer => 'Arri')
+      lc = FactoryGirl.create(:model, :product => 'Lighting case Arri Start-Up-Kit Fresnel', :manufacturer => 'Arri')
       lc.categories << lighting
       lc.save
 
-      pb = FactoryGirl.create(:model, :name => 'Battery-powered light Photon Beard Hyperlight 471', :manufacturer => 'Photon Beard')
+      pb = FactoryGirl.create(:model, :product => 'Battery-powered light Photon Beard Hyperlight 471', :manufacturer => 'Photon Beard')
       pb.categories = [lighting, film]
       pb.save
 
-      arri1 =  FactoryGirl.create(:model, :name => 'Arri Alexa PLUS DTE-SXS Super 35mm', :manufacturer => 'Arri')
+      arri1 =  FactoryGirl.create(:model, :product => 'Arri Alexa PLUS DTE-SXS Super 35mm', :manufacturer => 'Arri')
       arri1.categories = [cams, film]
       arri1.save
       
-      genelec = FactoryGirl.create(:model, :name => 'Genelec 8020B', :manufacturer => 'Genelec')
+      genelec = FactoryGirl.create(:model, :product => 'Genelec 8020B', :manufacturer => 'Genelec')
       genelec.categories << speakers
       genelec.save
 
-      sony = FactoryGirl.create(:model, :name => 'HDCAM Sony HDW-750PC', :manufacturer => 'Sony')
+      sony = FactoryGirl.create(:model, :product => 'HDCAM Sony HDW-750PC', :manufacturer => 'Sony')
       sony.categories << cams
       sony.save
 
-      pana = FactoryGirl.create(:model, :name => 'Panasonic HDC-HS300', :manufacturer => 'Panasonic')
+      pana = FactoryGirl.create(:model, :product => 'Panasonic HDC-HS300', :manufacturer => 'Panasonic')
       pana.categories << cams
       pana.save
 
-      manfrotto = FactoryGirl.create(:model, :name => 'Tripod Manfrotto Slide Leg Century A256SB', :manufacturer => 'Manfrotto')
+      manfrotto = FactoryGirl.create(:model, :product => 'Tripod Manfrotto Slide Leg Century A256SB', :manufacturer => 'Manfrotto')
       manfrotto.categories << tripods
       manfrotto.save
 
-      acer = FactoryGirl.create(:model, :name => 'Acer H7531D Full-HD', :manufacturer => 'Acer')
+      acer = FactoryGirl.create(:model, :product => 'Acer H7531D Full-HD', :manufacturer => 'Acer')
       acer.categories << projectors
       acer.save
 
-      sony_h = FactoryGirl.create(:model, :name => 'Headphones Sony MDR-V500', :manufacturer => 'Sony')
+      sony_h = FactoryGirl.create(:model, :product => 'Headphones Sony MDR-V500', :manufacturer => 'Sony')
       sony_h.categories << head
       sony_h.save
 

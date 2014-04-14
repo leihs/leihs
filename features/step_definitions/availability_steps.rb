@@ -4,7 +4,7 @@ end
 
 Given "a reservation exists for $quantity '$model' from $from to $to" \
 do |quantity, model, from, to|
-  model = Model.find_by_name(model)
+  model = Model.find {|m| [m.name, m.product].include? model }
   contract = FactoryGirl.create :contract, :inventory_pool => model.inventory_pools.first # OPTIMIZE
   contract.add_lines(quantity.to_i, model, nil, to_date(from), to_date(to))
   contract.submit("this is the required purpose").should be_true
@@ -17,7 +17,7 @@ do |quantity, model, from, to|
   from = to_date(from)
   to   = to_date(to)
 
-  model = Model.find_by_name(model)
+  model = Model.find {|m| [m.name, m.product].include? model }
   @contract = LeihsFactory.create_user.get_approved_contract(model.items.first.inventory_pool)
   @contract.add_lines(quantity.to_i, model, nil, from, to)
   @contract.save
@@ -37,7 +37,7 @@ end
 
 Given "$who marks $quantity '$model' as 'in-repair' on 18.3.2030" \
 do |who, quantity, model|
-  @model = Model.find_by_name(model)
+  @model = Model.find {|m| [m.name, m.product].include? model }
   quantity.to_i.times do |i|
     @model.items[i].is_broken = true
     @model.items[i].is_borrowable = false
@@ -53,7 +53,7 @@ end
 # TODO merge with next step
 When "$who checks availability for '$what'" do |who, model|
   @current_user = User.find_by_login(who)
-  @model = Model.find_by_name model
+  @model = Model.find {|m| [m.name, m.product].include? model }
 end
 
 # TODO merge with previous step
@@ -94,7 +94,7 @@ Then "the maximum available quantity from $start_date to $end_date is $quantity"
 end
 
 When "I check the availability changes for '$model'" do |model|
-  @model = Model.find_by_name model
+  @model = Model.find {|m| [m.name, m.product].include? model }
   # we have a look at the model on purpose, since in the pass this
   # could fail - see 5bd28c92d157220a07dff1ba9a7f43b1fac3f5fd and its fix
   #                  2f160defb39c94d489b0115653be5da4c10519c1

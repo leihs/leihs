@@ -72,7 +72,7 @@ class window.App.ContractLineAssignItemController extends Spine.Controller
     do contractLine.removeAssignment
     App.Flash
       type: "notice"
-      message: _jed "The assignment for %s was removed", contractLine.model().name
+      message: _jed "The assignment for %s was removed", contractLine.model().name()
 
   submitAssignment: (e)=>
     e.preventDefault()
@@ -89,4 +89,4 @@ class window.App.ContractLineAssignItemController extends Spine.Controller
       else
         App.Flash
           type: "error"
-          message: _jed "The Inventory Code %s was not found for %s", [inventoryCode, contractLine.model().name]
+          message: _jed "The Inventory Code %s was not found for %s", [inventoryCode, contractLine.model().name()]

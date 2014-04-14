@@ -1159,6 +1159,10 @@
 
   msgstr("Probleme");
 
+  msgid("Product");
+
+  msgstr("Produkt");
+
   msgid("Purpose");
 
   msgstr("Zweck");

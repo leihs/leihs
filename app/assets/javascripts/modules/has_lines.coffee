@@ -27,7 +27,7 @@ App.Modules.HasLines =
     $.each hash, (key, value) ->
       key_obj = JSON.parse key
       lines = if mergeModels then App.Modules.HasLines.mergeLinesByModel(value) else value
-      lines = _.sortBy lines, (l)-> l.model().name
+      lines = _.sortBy lines, (l)-> l.model().name()
       result.push {start_date: key_obj.start_date, end_date: key_obj.end_date, lines: lines}
     result.sort (a,b)->
       if moment(a.start_date).toDate() < moment(b.start_date).toDate()
@@ -55,7 +55,7 @@ App.Modules.HasLines =
     merge = _.groupBy lines, (l)-> JSON.stringify({start_date: l.start_date, inventory_pool_id: l.contract().inventory_pool_id})
     for k, v of merge
       merge[k] = _.chain(v)
-      .sortBy((l)-> l.model().name)
+      .sortBy((l)-> l.model().name())
       .groupBy((l)-> JSON.stringify {model_id: l.model_id, end_date: l.end_date})
       .value()
       merge[k] = _(merge[k]).values().map (lines)-> {lines: if mergeModels then App.Modules.HasLines.mergeLinesByModel(lines) else lines}

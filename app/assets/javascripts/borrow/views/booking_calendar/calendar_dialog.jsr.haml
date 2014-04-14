@@ -3,7 +3,7 @@
   .modal-header.row
     .col3of5
       %h2.headline-l {{>titel}}
-      %h3.headline-m.light {{>model.name}}
+      %h3.headline-m.light {{>model.name()}}
     .col2of5.text-align-right
       .modal-close {{jed "Cancel"/}}
       %button#submit-booking-calendar.button.green{:disabled => :disabled} {{>buttonText}}

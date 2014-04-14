@@ -253,7 +253,8 @@ Dann /^man kann Optionen erstellen$/ do
   factory_attributes = FactoryGirl.attributes_for(:option)
   attributes = {
     inventory_code: factory_attributes[:inventory_code],
-    name: factory_attributes[:name],
+    product: factory_attributes[:product],
+    version: factory_attributes[:version],
     price: factory_attributes[:price]
   }
   page.driver.browser.process(:post, manage_options_path(@inventory_pool, format: :json), option: attributes).redirection?.should be_true
@@ -712,7 +713,7 @@ end
 
 Wenn(/^ich diesen Benutzer aus der Liste lösche$/) do
   @user ||= @users.sample
-  step 'man bis zum Ende der Liste fährt' # loading pages (but probably only the last one)
+  find("#list-search").set @user.to_s
   find("#user-list .line", text: @user.name).find(".multibutton .dropdown-toggle").click
   find("#user-list .line", text: @user.name).find(".multibutton .dropdown-toggle").hover
   find("#user-list .line", text: @user.name).find(".multibutton .dropdown-item.red", text: _("Delete")).click

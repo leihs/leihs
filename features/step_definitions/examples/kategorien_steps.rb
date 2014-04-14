@@ -113,7 +113,7 @@ Und /^man kann die Unterkategorien anzeigen und verstecken$/ do
 end
 
 Wenn /^man das Modell editiert$/ do
-  @model = Model.where(name: "Sharp Beamer").first
+  @model = Model.find {|m| [m.name, m.product].include? "Sharp Beamer" }
   step 'ich nach "%s" suche' % @model.name
   find(".line", :text => "#{@model.name}", match: :prefer_exact).find(".button", :text => _("Edit %s" % "Model")).click
 end

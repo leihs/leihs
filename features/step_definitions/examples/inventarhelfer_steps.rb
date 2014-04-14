@@ -74,7 +74,7 @@ Dann /^ich setze all ihre Initalisierungswerte$/ do
           find("input").set string
         end
         find("a.ui-corner-all", match: :prefer_exact, text: string).click
-        @data[field[:id]] = Model.find_by_name(string).id
+        @data[field[:id]] = Model.find {|m| [m.name, m.product].include? string }.id
       when "checkbox"
         # currently we only have "ausgemustert"
         field_el.find("input[type='checkbox']").click

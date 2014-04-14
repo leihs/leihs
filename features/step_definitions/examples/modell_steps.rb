@@ -6,8 +6,8 @@ Angenommen /^man öffnet die Liste der Modelle$/ do
 end
 
 Wenn(/^ich ein ergänzendes Modell mittel Autocomplete Feld hinzufüge$/) do
-  @comp1 = Model.find_by_name "Sharp Beamer"
-  @comp2 = Model.find_by_name "Kamera Stativ"
+  @comp1 = Model.find {|m| [m.name, m.product].include? "Sharp Beamer" }
+  @comp2 = Model.find {|m| [m.name, m.product].include? "Kamera Stativ" }
   fill_in_autocomplete_field _("Compatibles"), @comp1.name
   fill_in_autocomplete_field _("Compatibles"), @comp2.name
 end
@@ -21,7 +21,7 @@ Dann(/^ist dem Modell das ergänzende Modell hinzugefügt worden$/) do
 end
 
 Wenn(/^ich ein Modell öffne, das bereits ergänzende Modelle hat$/) do
-  @model = Model.find_by_name "Walkera v120"
+  @model = Model.find {|m| [m.name, m.product].include? "Walkera v120" }
   step 'ich nach "%s" suche' % @model.name
   find(".line", match: :first, text: @model.name).find(".button", text: _("Edit Model")).click
 end
@@ -120,7 +120,7 @@ Dann(/^es wurden auch alle Anhängsel gelöscht$/) do
   Image.where(model_id: @model.id).should be_empty
   Attachment.where(model_id: @model.id).should be_empty
   ModelLink.where(model_id: @model.id).should be_empty
-  Model.all {|m| m.compatibles.include? Model.find_by_name("Windows Laptop")}.include?(@model).should be_false
+  Model.all {|n| n.compatibles.include? Model.find {|m| [m.name, m.product].include? "Windows Laptop" }}.include?(@model).should be_false
   sleep(0.66) # fix lazy request problem
 end
 

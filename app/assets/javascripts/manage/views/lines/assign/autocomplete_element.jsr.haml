@@ -4,5 +4,5 @@
       .col1of3
         %strong
           {{>inventoryCode}}
-      .col2of3.text-ellipsis{:title => "{{>name}}"}
-        %span.grey-text {{>name}}
+      .col2of3.text-ellipsis{:title => "{{>name()}}"}
+        %span.grey-text {{>name()}}

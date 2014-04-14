@@ -79,8 +79,8 @@ class Model < ActiveRecord::Base
 
 #############################################
 
-  validates_presence_of :name
-  validates_uniqueness_of :name
+  validates_presence_of :product
+  validates_uniqueness_of :version, scope: :product
 
 #############################################
 
@@ -115,19 +115,19 @@ class Model < ActiveRecord::Base
     joins(:categories).where(:"model_groups.id" => [Category.find(category_id)] + Category.find(category_id).descendants) }
 
   scope :order_by_attribute_and_direction, (lambda do |attr, direction|
-    if ["name", "manufacturer"].include? attr and ["asc", "desc"].include? direction
+    if ["product", "version", "manufacturer"].include? attr and ["asc", "desc"].include? direction
       order "#{attr} #{direction.upcase}"
     else
       default_order
     end
   end)
 
-  scope :default_order, -> {order_by_attribute_and_direction("name", "asc")}
+  scope :default_order, -> {order_by_attribute_and_direction("product", "asc")}
 
 
 #############################################
 
-  SEARCHABLE_FIELDS = %w(name manufacturer)
+  SEARCHABLE_FIELDS = %w(manufacturer product version)
 
   scope :search, lambda { |query , fields = []|
     return all if query.blank?
@@ -145,8 +145,9 @@ class Model < ActiveRecord::Base
     query.split.each do |x|
       s = []
       s1 = ["' '"]
-      s1 << "models.name" if fields.empty? or fields.include?(:name)
-      s1 << "models.manufacturer" if fields.empty? or fields.include?(:manufacturer)
+      SEARCHABLE_FIELDS.each do |field|
+        s1 << "models.#{field}" if fields.empty? or fields.include?(field.to_sym)
+      end
       s << "CONCAT_WS(#{s1.join(', ')}) LIKE :query"
       if fields.empty?
         s << "mg2.name LIKE :query"
@@ -170,7 +171,7 @@ class Model < ActiveRecord::Base
     models = models.where(id: params[:id]) if params[:id]
     models = models.where(id: params[:ids]) if params[:ids]
     models = models.where(:items => {:is_borrowable => true}) if borrowable or params[:borrowable]
-    models = models.search(params[:search_term], params[:search_targets] ? params[:search_targets] : [:name, :manufacturer]) unless params[:search_term].blank?
+    models = models.search(params[:search_term], params[:search_targets] ? params[:search_targets] : [:manufacturer, :product, :version]) unless params[:search_term].blank?
     models = models.order_by_attribute_and_direction params[:sort], params[:order]
     models = models.paginate(:page => params[:page]||1, :per_page => [(params[:per_page].try(&:to_i) || 20), 100].min) unless params[:paginate] == "false"
     models
@@ -208,6 +209,10 @@ class Model < ActiveRecord::Base
 
   def to_s
     "#{name}"
+  end
+
+  def name
+    [product, version].compact.join(' ')
   end
 
   # compares two objects in order to sort them

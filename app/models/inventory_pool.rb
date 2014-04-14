@@ -155,12 +155,12 @@ class InventoryPool < ActiveRecord::Base
     items = Item.filter params.clone.merge({paginate: "false", all: "true", search_term: nil}), self
 
     if [:unborrowable, :retired, :category_id, :in_stock, :incomplete, :broken, :owned, :responsible_id, :unused_models].all? {|param| params[param].blank?}
-      options = Option.filter params.clone.merge({paginate: "false", sort: "name", order: "ASC"}), self
+      options = Option.filter params.clone.merge({paginate: "false", sort: "product", order: "ASC"}), self
     end
 
     item_ids = items.pluck(:id)
 
-    models = Model.filter params.clone.merge({paginate: "false", item_ids: item_ids, include_retired_models: params[:retired], search_targets: [:name, :items]}), self
+    models = Model.filter params.clone.merge({paginate: "false", item_ids: item_ids, include_retired_models: params[:retired], search_targets: [:manufacturer, :product, :version, :items]}), self
 
     inventory = (models + (options || [])).sort{|a,b| a.name.strip <=> b.name.strip}
     inventory = inventory.paginate(:page => params[:page]||1, :per_page => [(params[:per_page].try(&:to_i) || 20), 100].min) unless params[:paginate] == "false"

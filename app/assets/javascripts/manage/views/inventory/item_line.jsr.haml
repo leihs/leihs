@@ -15,7 +15,7 @@
   .col2of5.line-col.text-align-left
     .row {{>inventory_code}}
     {{if parent_id}}
-    %strong.grey-text {{>model().name}}
+    %strong.grey-text {{>model().name()}}
     .row.grey-text.text-ellipsis.width-full{title: '{{jed "is part of a package"/}}'}
       {{jed "is part of a package"/}}
     {{else}}

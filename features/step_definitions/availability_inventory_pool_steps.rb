@@ -8,7 +8,7 @@ end
 
 Then "the maximum number of available '$model' for '$who' is $size" do |model, who, size|
   user = User.find_by_login(who)
-  @model = Model.find_by_name(model)
+  @model = Model.find {|m| [m.name, m.product].include? model }
   user.items.where(:model_id => @model.id).count.should == size.to_i
 end
 
@@ -29,7 +29,7 @@ Then "he gets an empty result set" do
 end
 
 Then "he sees the '$model' model" do |model|
-  m = Model.find_by_name(model)
+  m = Model.find {|m| [m.name, m.product].include? model }
   @models_json.map{|x| x["label"]}.include?(m.name).should be_true
 end
 

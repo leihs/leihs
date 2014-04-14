@@ -109,7 +109,7 @@ module Persona
     end
 
     def setup_sharp_beamers
-      @beamer_model = FactoryGirl.create(:model, :name => "Sharp Beamer",
+      @beamer_model = FactoryGirl.create(:model, :product => "Sharp Beamer",
                                 :manufacturer => "Sharp", 
                                 :description => "Beamer, geeignet für alle Verwendungszwecke.", 
                                 :hand_over_note => "Beamer brauch ein VGA Kabel!", 
@@ -117,27 +117,34 @@ module Persona
       @beamer_model.model_links.create :model_group => @beamer_category
       @beamer_model.model_links.create :model_group => @portable_subcategory
 
-      @beamer_model2 = FactoryGirl.create(:model, :name => "Sharp Beamer 2D",
+      @beamer_model2 = FactoryGirl.create(:model, :product => "Sharp Beamer 2D",
                                           :manufacturer => "Sharp", 
                                           :description => "Beamer, geeignet für alle Verwendungszwecke.", 
                                           :maintenance_period => 0)
       @beamer_model2.model_links.create :model_group => @beamer_category
 
-      @beamer_model3 = FactoryGirl.create(:model, :name => "Mini Beamer",
+      @beamer_model3 = FactoryGirl.create(:model, :product => "Mini Beamer",
                                           :manufacturer => "Panasonic", 
                                           :description => "Beamer, geeignet für alle Verwendungszwecke.", 
                                           :maintenance_period => 0)
       @beamer_model3.model_links.create :model_group => @beamer_category
 
+      @beamer_model4 = FactoryGirl.create(:model, :product => "Sharp Beamer", :version => "Test",
+                                          :manufacturer => "Sharp", 
+                                          :description => "Beamer, geeignet für alle Verwendungszwecke.", 
+                                          :hand_over_note => "Beamer brauch ein VGA Kabel!", 
+                                          :maintenance_period => 0)
+
       @beamer_item = FactoryGirl.create(:item, :inventory_code => "beam123", :serial_number => "xyz456", name: "name123", :model => @beamer_model, :location => @location, :owner => @inventory_pool)
       @beamer_item2 = FactoryGirl.create(:item, :inventory_code => "beam345", :serial_number => "xyz890", :model => @beamer_model, :location => @location, :owner => @inventory_pool)
       @beamer_item3 = FactoryGirl.create(:item, :inventory_code => "beam678", :serial_number => "xyz678", :model => @beamer_model2, :location => @location, :owner => @inventory_pool)
       @beamer_item4 = FactoryGirl.create(:item, :inventory_code => "beam749", :serial_number => "xyz749", :model => @beamer_model, :location => @location, :owner => @inventory_pool, inventory_pool: @inventory_pool_2)
+      @beamer_item5 = FactoryGirl.create(:item, :inventory_code => "beamTest123", :serial_number => "xyz749", :model => @beamer_model4, :location => @location, :owner => @inventory_pool, inventory_pool: @inventory_pool)
     end
 
     def setup_more_beamers
       (1..20).to_a.each do |i|
-        model = FactoryGirl.create(:model, :name => "Beamer #{i} #{Faker::Lorem.word}",
+        model = FactoryGirl.create(:model, :product => "Beamer #{i} #{Faker::Lorem.word}",
                            :manufacturer => "Sony", 
                            :hand_over_note => "Beamer brauch ein VGA Kabel!", 
                            :maintenance_period => 0)
@@ -147,7 +154,7 @@ module Persona
     end
 
     def setup_ultra_compact_beamers
-      @ultra_compact_beamer = FactoryGirl.create(:model, :name => "Ultra Compact Beamer",
+      @ultra_compact_beamer = FactoryGirl.create(:model, :product => "Ultra Compact Beamer",
                                 :manufacturer => "Sony", 
                                 :description => "Besonders kleiner Beamer.", 
                                 :hand_over_note => "Beamer brauch ein VGA Kabel!", 
@@ -158,7 +165,7 @@ module Persona
     end
 
     def setup_micro_beamers
-      @micro_beamer = FactoryGirl.create(:model, :name => "Micro Beamer",
+      @micro_beamer = FactoryGirl.create(:model, :product => "Micro Beamer",
                                 :manufacturer => "Micro", 
                                 :description => "Besonders mikro kleiner Beamer.", 
                                 :hand_over_note => "Beamer brauch ein VGA Kabel!", 
@@ -168,7 +175,7 @@ module Persona
     end
     
     def setup_cameras
-      @camera_model = FactoryGirl.create(:model, :name => "Kamera Nikon X12",
+      @camera_model = FactoryGirl.create(:model, :product => "Kamera Nikon X12",
                                 :manufacturer => "Nikon", 
                                 :description => "Super Kamera.", 
                                 :hand_over_note => "Kamera brauch Akkus!", 
@@ -183,7 +190,7 @@ module Persona
 
     def setup_more_cameras
       (1..30).to_a.each do |i|
-        model = FactoryGirl.create(:model, :name => "Camera #{i} #{Faker::Lorem.word}",
+        model = FactoryGirl.create(:model, :product => "Camera #{i} #{Faker::Lorem.word}",
                                    :manufacturer => "Nikon",
                                    :maintenance_period => 0)
         model.model_links.create :model_group => @camera_category
@@ -192,7 +199,7 @@ module Persona
     end
 
     def setup_tripods
-      @tripod_model = FactoryGirl.create(:model, :name => "Kamera Stativ",
+      @tripod_model = FactoryGirl.create(:model, :product => "Kamera Stativ",
                                 :manufacturer => "Feli", 
                                 :description => "Stabiles Kamera Stativ", 
                                 :hand_over_note => "Stativ muss mit Stativtasche ausgehändigt werden.",
@@ -205,7 +212,7 @@ module Persona
     end
     
     def setup_hifis
-      @hifi_model = FactoryGirl.create(:model, :name => "Hifi Standard", :manufacturer => "Sony")
+      @hifi_model = FactoryGirl.create(:model, :product => "Hifi Standard", :manufacturer => "Sony")
       @hifi_model.model_links.create :model_group => @hifi_category
       @hifi_item = FactoryGirl.create(:item, :inventory_code => "hifi123", :serial_number => "hifi123", :model => @hifi_model, :location => @location, :owner => @inventory_pool)
       @hifi_model.partitions << Partition.create(model_id: @hifi_model.id,
@@ -215,13 +222,13 @@ module Persona
     end
 
     def setup_options
-      @akku_aa = FactoryGirl.create(:option, :name => "Akku AA",
+      @akku_aa = FactoryGirl.create(:option, :product => "Akku AA",
                                              :inventory_pool => @inventory_pool,
                                              :inventory_code => "akku-aa")      
-      @akku_aaa = FactoryGirl.create(:option, :name => "Akku AAA",
+      @akku_aaa = FactoryGirl.create(:option, :product => "Akku AAA",
                                              :inventory_pool => @inventory_pool,
                                              :inventory_code => "akku-aaa")      
-      @usb_cable = FactoryGirl.create(:option, :name => "USB Kabel",
+      @usb_cable = FactoryGirl.create(:option, :product => "USB Kabel",
                                              :inventory_pool => @inventory_pool,
                                              :inventory_code => "usb")      
     end
@@ -247,13 +254,13 @@ module Persona
     end
 
     def setup_packages
-      @camera_package = FactoryGirl.create(:package_with_items, :inventory_pool => @inventory_pool, :name => "Kamera Set")
-      @camera_package2 = FactoryGirl.create(:package_with_items, :inventory_pool => @inventory_pool, :name => "Kamera Set2")
+      @camera_package = FactoryGirl.create(:package_with_items, :inventory_pool => @inventory_pool, :product => "Kamera Set")
+      @camera_package2 = FactoryGirl.create(:package_with_items, :inventory_pool => @inventory_pool, :product => "Kamera Set2")
     end
     
     def setup_not_borrowable
       # canon
-      @canon_d5 = FactoryGirl.create(:model, :name => "Kamera Canon D5",
+      @canon_d5 = FactoryGirl.create(:model, :product => "Kamera Canon D5",
                                 :manufacturer => "Canon", 
                                 :description => "Ganz teure Kamera", 
                                 :hand_over_note => "Kamera brauch Akkus!", 
@@ -268,7 +275,7 @@ module Persona
     end
     
     def setup_broken
-      @windows_laptop_model = FactoryGirl.create(:model, :name => "Windows Laptop",
+      @windows_laptop_model = FactoryGirl.create(:model, :product => "Windows Laptop",
                                 :manufacturer => "Microsoft", 
                                 :description => "Ein Laptop der Marke Microsoft", 
                                 :hand_over_note => "Laptop mit Tasche ausgeben", 
@@ -278,7 +285,7 @@ module Persona
     end
 
     def setup_incomplete
-      @helicopter_model = FactoryGirl.create(:model, :name => "Walkera v120",
+      @helicopter_model = FactoryGirl.create(:model, :product => "Walkera v120",
                                 :manufacturer => "Walkera", 
                                 :description => "3D Helikopter", 
                                 :maintenance_period => 0)
@@ -291,7 +298,7 @@ module Persona
     end
 
     def setup_deletable_model
-      @helicopter_model2 = FactoryGirl.create(:model, :name => "Walkera v120 2G",
+      @helicopter_model2 = FactoryGirl.create(:model, :product => "Walkera v120 2G",
                                 :manufacturer => "Walkera", 
                                 :description => "3D Helikopter", 
                                 :maintenance_period => 0)
@@ -313,7 +320,7 @@ module Persona
       @helicopter_model2.properties << Property.create(:key => "Achsen", :value => "3-Achsen")
       @helicopter_model2.compatibles << @windows_laptop_model
 
-      @helicopter_model3 = FactoryGirl.create(:model, :name => "Walkera v120 3G",
+      @helicopter_model3 = FactoryGirl.create(:model, :product => "Walkera v120 3G",
                                 :manufacturer => "Walkera", 
                                 :description => "3D Helikopter", 
                                 :maintenance_period => 0)
@@ -331,7 +338,7 @@ module Persona
     end
 
     def setup_retired
-      @iMac = FactoryGirl.create(:model, :name => "iMac",
+      @iMac = FactoryGirl.create(:model, :product => "iMac",
                                 :manufacturer => "Apple", 
                                 :description => "Apples alter iMac", 
                                 :maintenance_period => 0)

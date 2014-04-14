@@ -3,7 +3,7 @@
   %input{:type => :hidden, :name => "group[partitions_attributes][][model_id]", :value => "{{>id}}"}
   %input{:type => :hidden, :name => "group[partitions_attributes][][inventory_pool_id]", :value => "{{>~currentInventoryPool.id}}"}
   .line-col.col3of6.text-align-left{:"data-model-name" => true}
-    {{>name}}
+    {{>name()}}
   .line-col.col2of6
     .line-col.col1of2{:"data-quantities" => true}
       %input.width-full.small.text-align-center{type: "text", value: 1, min: 1, name: "group[partitions_attributes][][quantity]"}

@@ -11,7 +11,7 @@ Funktionalität: Gegenstand erstellen
     | Feldname                     | Type         | Wert                          |
 
     | Inventarcode                 |              | Test Inventory Code           |
-    | Modell                       | autocomplete | Sharp Beamer                  |
+    | Modell                       | autocomplete | Sharp Beamer Test             |
 
     | Inventarrelevant             | select       | Ja                            |
     | Anschaffungskategorie        | select       | Werkstatt-Technik             | 

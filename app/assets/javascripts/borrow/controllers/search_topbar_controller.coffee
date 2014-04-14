@@ -58,7 +58,7 @@ class window.App.SearchTopbarController extends Spine.Controller
       appendTo: @autocompleteContainer
       source: (request, response)=> 
         data = _.map @models, (m)=>
-          m.value = m.name
+          m.value = m.name()
           m
         data.push {value: request, searchAll: true}
         response data

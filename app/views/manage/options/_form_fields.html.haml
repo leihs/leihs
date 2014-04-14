@@ -1,0 +1,17 @@
+.padding-horizontal-m.padding-top-l
+
+  .row
+
+    .col1of2.padding-right-xs
+      = render :layout => "manage/fields/field", :locals => {key: _("Product"), required: true} do
+        %input.width-full{:type => :text, :name => "option[product]", :autocomplete => :off, :value => @option.product}
+
+      = render :layout => "manage/fields/field", :locals => {key: _("Version"), required: false} do
+        %input.width-full{:type => :text, :name => "option[version]", :autocomplete => :off, :value => @option.version}
+
+      = render :layout => "manage/fields/field", :locals => {key: _("Price")} do
+        %input.width-full{:type => :text, :name => "option[price]", :autocomplete => :off, :value => @option.price}
+
+    .col1of2
+      = render :layout => "manage/fields/field", :locals => {key: _("Inventory code")} do
+        %input.width-full{:type => :text, :name => "option[inventory_code]", :autocomplete => :off, :value => @option.inventory_code}

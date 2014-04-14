@@ -140,7 +140,7 @@ Dann(/^ich kann Modelle aus der Ansicht entfernen$/) do
 end
 
 Dann(/^ich kann die Anzahl der Modelle ändern$/) do
-  @model = Model.find_by_name find(".row.line .col6of10").text
+  @model = Model.find {|m| [m.name, m.product].include? find(".row.line .col6of10").text }
   find(".line .button", match: :first).click
   page.should have_selector "#booking-calendar .fc-day-content"
   find("#booking-calendar-quantity").set 1

@@ -14,7 +14,7 @@ import_file = "/tmp/items2.csv"
 
 def create_item(model_name, inventory_code, serial_number, manufacturer, category, accessory_string, note, price, invoice_date)
   
-  m = Model.find_by_name(model_name)
+  m = Model.find_by_product(model_name)
   if m.nil?
     m = create_model(model_name, category, manufacturer, accessory_string)    
   end

@@ -6,6 +6,6 @@
     .line-col.col1of2.padding-left-xs.text-align-left{:"data-quantities" => true}
       \/ {{>availability().total_rentable}}
   .line-col.col3of6.text-align-left{:"data-model-name" => true}
-    {{>name}}
+    {{>name()}}
   .line-col.col1of6.text-align-right
     %button.button.inset.small{:"data-remove" => true} {{jed "Remove"/}}

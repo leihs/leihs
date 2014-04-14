@@ -1391,6 +1391,10 @@ window.i18n.locale_data = {
          null,
          "Probleem"
       ],
+      "Product": [
+         null,
+         "Produkt"
+      ],
       "Project Number": [
          null,
          "Projäktnummere"

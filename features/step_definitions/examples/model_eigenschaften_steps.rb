@@ -4,7 +4,7 @@ Angenommen /^ich erstelle ein Modell und gebe die Pflichtfelder an$/ do
   step 'ich ein neues Modell hinzufüge'
   step 'ich erfasse die folgenden Details', table(%{
     | Feld                               | Wert                       |
-    | Name                               | Test Modell                |
+    | Produkt                            | Test Modell                |
   })
 end
 

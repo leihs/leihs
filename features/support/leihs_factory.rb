@@ -143,7 +143,7 @@ module LeihsFactory
   #  }
   #  o = Order.create default_attributes.merge(attributes)
   #  options[:order_lines].times do |i|
-  #      model = LeihsFactory.create_model(:name => "model_#{i}" )
+  #      model = LeihsFactory.create_model(:product => "model_#{i}" )
   #      quantity = rand(3) + 1
   #      quantity.times {
   #        FactoryGirl.create(:item, :owner => o.inventory_pool, :model => model)
@@ -165,7 +165,7 @@ module LeihsFactory
   #  }
   #  c = Contract.create default_attributes.merge(attributes)
   #  options[:contract_lines].times { |i|
-  #      model = LeihsFactory.create_model(:name => "model_#{i}" )
+  #      model = LeihsFactory.create_model(:product => "model_#{i}" )
   #      quantity = rand(3) + 1
   #      quantity.times {
   #        FactoryGirl.create(:item, :owner => c.inventory_pool, :model => model)
@@ -182,10 +182,10 @@ module LeihsFactory
   # 
   def self.create_model(attributes = {})
     default_attributes = {
-      :name => 'model_1'
+      :product => 'model_1'
     }
     attrs = default_attributes.merge(attributes)
-    t = Model.create_with(attrs).find_or_create_by(name: attrs[:name])
+    t = Model.create_with(attrs).find_or_create_by(product: attrs[:product])
     t.save
     t
   end
@@ -223,7 +223,7 @@ module LeihsFactory
   # OrderLine
   # 
   #def self.create_order_line(options = {})
-  #    model = LeihsFactory.create_model :name => options[:model_name]
+  #    model = LeihsFactory.create_model :product => options[:model_name]
   #
   #    if options[:start_date]
   #      start_date = parsedate(options[:start_date])
@@ -246,7 +246,7 @@ module LeihsFactory
   # ContractLine
   # 
   #def self.create_contract_line(options = {})
-  #    model = LeihsFactory.create_model :name => options[:model_name]
+  #    model = LeihsFactory.create_model :product => options[:model_name]
   #
   #    if options[:start_date]
   #      start_date = parsedate(options[:start_date])
@@ -343,7 +343,7 @@ module LeihsFactory
                                     {:role => :customer,
                                      :inventory_pool => inventory_pool})
     # Create Model and Item
-    model = LeihsFactory.create_model(:name => 'holey parachute')
+    model = LeihsFactory.create_model(:product => 'holey parachute')
     FactoryGirl.create(:item, :owner => inventory_pool, :model => model)
     
     # Create Authenication System if not already existing

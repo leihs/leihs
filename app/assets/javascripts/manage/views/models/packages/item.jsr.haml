@@ -4,6 +4,6 @@
       %strong.font-size-m.inline-block
         {{>inventory_code}}
     .col2of4.padding-top-xs
-      {{>model().name}}
+      {{>model().name()}}
     .col1of4.text-align-right
       %button.button.small.inset{:"data-remove" => true, :type => :button}= _("Remove")

@@ -12,7 +12,7 @@ class Option < ActiveRecord::Base
   belongs_to :inventory_pool
   has_many :option_lines
 
-  validates_presence_of :inventory_pool, :name
+  validates_presence_of :inventory_pool, :product
   validates_uniqueness_of :inventory_code, :scope => :inventory_pool_id, :unless => Proc.new { |record| record.inventory_code.blank? }
 
   before_validation do |record|
@@ -21,13 +21,17 @@ class Option < ActiveRecord::Base
 
 ##########################################
 
+  SEARCHABLE_FIELDS = %w(manufacturer product version inventory_code)
+
   scope :search, lambda { |query, fields = []|
     sql = all
     return sql if query.blank?
     
     query.split.each{|q|
       q = "%#{q}%"
-      sql = sql.where(arel_table[:name].matches(q).
+      sql = sql.where(arel_table[:manufacturer].matches(q). # FIXME use fields with SEARCHABLE_FIELDS
+                      or(arel_table[:product].matches(q)).
+                      or(arel_table[:version].matches(q)).
                       or(arel_table[:inventory_code].matches(q)))
     }
     sql
@@ -35,7 +39,7 @@ class Option < ActiveRecord::Base
 
   def self.filter(params, inventory_pool = nil)
     options = inventory_pool ? inventory_pool.options : all
-    options = options.search(params[:search_term], [:name]) unless params[:search_term].blank?
+    options = options.search(params[:search_term], [:manufacturer, :product, :version]) unless params[:search_term].blank?
     options = options.where(:id => params[:ids]) if params[:ids]
     options = options.order("#{params[:sort]} #{params[:order]}") if params[:sort] and params[:order]
     options = options.paginate(:page => params[:page]||1, :per_page => [(params[:per_page].try(&:to_i) || 20), 100].min) unless params[:paginate] == "false"
@@ -49,14 +53,13 @@ class Option < ActiveRecord::Base
   def needs_permission?
     false  
   end
-  
+
   def to_s
-    name
+    "#{name}"
   end
 
-  # OPTIMIZE we might want a real manufacturer attribute (stored in the db) later on
-  def manufacturer
-    nil
+  def name
+    [product, version].compact.join(' ')
   end
 
   # NOTE when we call option_line.item.model, item is actually an option, then model it's itself again

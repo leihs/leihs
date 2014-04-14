@@ -70,7 +70,7 @@ end
 Wenn(/^man einen Gegenstand aus der Modellliste hinzufügt$/) do
   visit borrow_models_path(category_id: Category.find {|c| !c.models.active.blank?})
   @model_name = first(".line .line-col.col3of6").text
-  @model = Model.find_by_name(@model_name)
+  @model = Model.find {|m| [m.name, m.product].include? @model_name}
   first(".line .button").click
 end
 
@@ -141,7 +141,7 @@ end
 
 Wenn(/^man einen in der Zeitspanne verfügbaren Gegenstand aus der Modellliste hinzufügt$/) do
   @model_name = find(".line:not(.grayed-out) .line-col.col3of6", match: :first).text
-  @model = Model.find_by_name(@model_name)
+  @model = Model.find {|m| [m.name, m.product].include? @model_name}
   find(".line .button", match: :first).click
 end
 

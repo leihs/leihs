@@ -16,7 +16,7 @@ Funktionalität: Gegenstand bearbeiten
       | Feldname                     | Type         | Wert                          |
 
       | Inventarcode                 |              | Test Inventory Code           |
-      | Modell                       | autocomplete | Sharp Beamer                  |
+      | Modell                       | autocomplete | Sharp Beamer Test             |
 
       | Ausmusterung                 | select       | Ja                            |
       | Grund der Ausmusterung       |              | Ja                            |

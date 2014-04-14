@@ -48,7 +48,7 @@ module Persona
     end
     
     def create_submitted_contracts
-      @camera_model = Model.find_by_name "Kamera Nikon X12"
+      @camera_model = Model.find {|m| [m.name, m.product].include? "Kamera Nikon X12" }
       @contract_for_camera = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :submitted)
       purpose = FactoryGirl.create :purpose, :description => "Fotoshooting (Kurs Fotografie)."
       FactoryGirl.create(:contract_line, :purpose => purpose, :model => @camera_model, :contract => @contract_for_camera, :start_date => (Date.today + 37.days), :end_date => (Date.today + 45.days))
@@ -78,7 +78,7 @@ module Persona
       back_to_the_future(Date.today - 5.days)
       @overdued_contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :approved)
       purpose = FactoryGirl.create :purpose, :description => "Als Ersatz."
-      @tripod_model = Model.find_by_name "Kamera Stativ"
+      @tripod_model = Model.find {|m| [m.name, m.product].include? "Kamera Stativ" }
       @overdued_contract.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => @overdued_contract,
                                                               :item_id => @inventory_pool.items.in_stock.where(:model_id => @tripod_model.id).first.id,
                                                               :model => @tripod_model, :start_date => Date.today, :end_date => (Date.today + 4.days))

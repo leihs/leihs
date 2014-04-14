@@ -8,10 +8,11 @@
 ###
 
 jQuery ->
-  $("input[data-type='autocomplete']").live "focus", (event)->
+  $("input[data-type='autocomplete']").on "focus", (event)->
+    $(this).removeClass("ui-autocomplete-input")
     if not $(this).hasClass("ui-autocomplete-input")
       new AutoComplete $(this)
-  $("input[data-type='autocomplete']").live "focus", (event)->
+  $("input[data-type='autocomplete']").on "focus", (event)->
     el = $(this)
     do (el)->
       search = -> 
@@ -69,9 +70,15 @@ class AutoComplete
       dataType: "json"
       success: (data)=>
         # compute entries
-        data = data.entries if data.entries?
+        data = data.entries if data.entries?.length
         entries = $.map data, (element)=> 
-          element.label = if @data.autocomplete_display_attribute? then element[@data.autocomplete_display_attribute] else element.label
+          element.label =
+            if @data.autocomplete_display_attribute?
+              l = element[@data.autocomplete_display_attribute]
+              l = [l, element[@data.autocomplete_display_attribute_ext]].join(" ") if @data.autocomplete_display_attribute_ext?
+              l
+            else
+              element.label
           element.value = element[@data.autocomplete_value_attribute] if @data.autocomplete_value_attribute?
           element
         # setup autocomplete search only once & only search on focus
@@ -85,7 +92,9 @@ class AutoComplete
     if @data.autocomplete_clear_input_value_on_select is true
       @el.val ""
     else
-      @el.val element.item[@data.autocomplete_display_attribute]
+      labelValue = element.item[@data.autocomplete_display_attribute]
+      labelValue += " #{element.item[@data.autocomplete_display_attribute_ext]}" if element.item[@data.autocomplete_display_attribute_ext]?
+      @el.val labelValue
     value = if @data.autocomplete_value_attribute? then element.item[@data.autocomplete_value_attribute] else element.item.value
     @el.blur() if @data.autocomplete_blur_on_select == true
     if @data.autocomplete_value_target?

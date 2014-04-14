@@ -37,7 +37,7 @@ class window.App.ContractLinesAddController extends Spine.Controller
         maxAvailableForUser = model.availability().maxAvailableForGroups(@getStartDate(), @getEndDate(), @user.groupIds)
         maxAvailableInTotal = model.availability().maxAvailableInTotal(@getStartDate(), @getEndDate())
         data.push
-          name: model.name
+          name: model.name()
           availability: "#{maxAvailableForUser}(#{maxAvailableInTotal})/#{model.availability().total_rentable}"
           available: maxAvailableForUser > 0
           type: _jed "Model"
@@ -54,7 +54,7 @@ class window.App.ContractLinesAddController extends Spine.Controller
   pushOptionsTo: (data)=>
     for option in @options
       data.push
-        name: option.name
+        name: option.name()
         available: true
         type: _jed "Option"
         record: option
@@ -178,7 +178,7 @@ class window.App.ContractLinesAddController extends Spine.Controller
         App.LineSelectionController.add @id
         App.Flash
           type: "notice"
-          message: _jed("Added %s", model.name)
+          message: _jed("Added %s", model.name())
 
   addOption: (option, startDate, endDate)=>
     line = _.find @contract.lines().all(), (l)-> 
@@ -191,7 +191,7 @@ class window.App.ContractLinesAddController extends Spine.Controller
         quantity: quantity
       App.Flash
         type: "notice"
-        message: _jed("%s quantity increased to %s", [option.name, quantity])
+        message: _jed("%s quantity increased to %s", [option.name(), quantity])
       App.LineSelectionController.add line.id
     else
       App.ContractLine.create
@@ -207,7 +207,7 @@ class window.App.ContractLinesAddController extends Spine.Controller
           App.LineSelectionController.add @id
           App.Flash
             type: "notice"
-            message: _jed("Added %s", option.name)
+            message: _jed("Added %s", option.name())
 
   addTemplate: (template, startDate, endDate)=>
     App.ContractLine.createForTemplate

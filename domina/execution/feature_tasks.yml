@@ -271,6 +271,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/zweck2.feature"
+- name: examples/bestellungen2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/bestellungen2.feature"
 - name: examples/gegenstand_kopieren3
   scripts:
     cucumber:

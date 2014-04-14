@@ -11,7 +11,7 @@
     .grey-text {{jed 'Package'/}}
     {{/if}}
     %strong 
-      {{> name}}
+      {{> name()}}
 
   .col2of10.line-col.no-padding.text-align-center
     %span{:title => "{{jed 'Available for borrower'/}}"} {{>availability().maxAvailableForGroups(~startDate, ~endDate, ~groupIds)}}

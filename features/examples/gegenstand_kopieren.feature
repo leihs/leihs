@@ -10,7 +10,7 @@ Funktionalität: Gegenstand kopieren
   Szenario: Gegenstand erstellen und kopieren
     Angenommen man erstellt einen Gegenstand
     | Feldname                     | Type         | Wert                          |
-    | Modell                       | autocomplete | Sharp Beamer                  |
+    | Modell                       | autocomplete | Sharp Beamer Test             |
     | Ausmusterung                 | checkbox     | unchecked                     |
     | Zustand                      | radio        | OK                            |
     | Vollständigkeit              | radio        | OK                            |

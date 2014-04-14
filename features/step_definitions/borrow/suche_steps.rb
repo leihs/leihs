@@ -14,7 +14,7 @@ Dann(/^sieht man das Foto, den Namen und den Hersteller der ersten 6 Modelle gem
   all(".ui-autocomplete a").length.should >= 6
   6.times do |i|
     first(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//strong").text[@search_term].should_not be_nil
-    model = @current_user.models.borrowable.find_by_name first(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//strong").text
+    model = @current_user.models.borrowable.find {|m| [m.name, m.product].include? first(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//strong").text }
     first(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//*[contains(./text(), '#{model.manufacturer}')]")
     first(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//img[@src='/models/#{model.id}/image_thumb']")
   end
@@ -26,7 +26,7 @@ end
 
 Angenommen(/^man wählt ein Modell von der Vorschlagsliste der Suche$/) do
   step 'man einen Suchbegriff eingibt'
-  @model = @current_user.models.find_by_name(find(".ui-autocomplete a strong", match: :first).text)
+  @model = @current_user.models.find {|m| [m.name, m.product].include? find(".ui-autocomplete a strong", match: :first).text }
   find(".ui-autocomplete a", match: :first, :text => @model.name).click
 end
 
@@ -35,7 +35,7 @@ Dann(/^wird die Modell\-Ansichtsseite geöffnet$/) do
 end
 
 Angenommen(/^man gibt einen Suchbegriff ein$/) do
-  @model ||= @current_user.models.borrowable.detect {|m| @current_user.models.borrowable.where("models.name like '%#{m.name[0..3]}%'").length >= 6}
+  @model ||= @current_user.models.borrowable.detect {|m| @current_user.models.borrowable.where("models.product LIKE '%#{m.name[0..3]}%'").length >= 6}
   @search_term = @model.name[0..3]
   fill_in "search_term", :with => @search_term
 end

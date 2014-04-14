@@ -16,6 +16,7 @@ When /^I select all lines of an open contract$/ do
   within("#assign") do
     @contract_lines_to_take_back.each do |line|
       find("[data-barcode-scanner-target]").set line.item.inventory_code
+      sleep(0.11)
       find("[data-barcode-scanner-target]").native.send_key :enter
     end
   end

@@ -10,6 +10,7 @@
                    :autocomplete_element_tmpl => "views/autocomplete/element",
                    :autocomplete_value_target => '{{>~field.getFormName()}}',
                    :autocomplete_display_attribute => "{{>~field.display_attr}}",
+                   :autocomplete_display_attribute_ext => "{{>~field.display_attr_ext}}",
                    :autocomplete_value_attribute => "{{>~field.value_attr}}",
                    :autocomplete_blur_on_select => "true"}}
   {{else}}
@@ -22,6 +23,7 @@
                      :autocomplete_element_tmpl => "views/autocomplete/element",
                      :autocomplete_value_target => '{{>~field.getFormName()}}',
                      :autocomplete_display_attribute => "{{>~field.display_attr}}",
+                     :autocomplete_display_attribute_ext => "{{>~field.display_attr_ext}}",
                      :autocomplete_value_attribute => "{{>~field.value_attr}}",
                      :autocomplete_blur_on_select => "true" }}
   {{/if}}

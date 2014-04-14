@@ -136,7 +136,7 @@ end
 Wenn /^man eine Modell\-Zeile eines Modells, das weder ein Paket-Modell oder ein Bestandteil eines Paket-Modells ist, sieht$/ do
   page.has_selector? "#inventory .line[data-type='model']"
   all("#inventory .line[data-type='model']").each do |model_line|
-    @model = Model.find_by_name(model_line.find(".col2of5 strong").text)
+    @model = Model.find {|m| [m.name, m.product].include? model_line.find(".col2of5 strong").text }
     next if @model.is_package? or @model.items.all? {|i| i.parent}
     @model_line = model_line and break
   end
@@ -144,7 +144,7 @@ end
 
 Wenn /^man eine Modell\-Zeile sieht$/ do
   @model_line = find("#inventory .line[data-type='model']", match: :first)
-  @model = Model.find_by_name(@model_line.find(".col2of5 strong").text)
+  @model = Model.find {|m| [m.name, m.product].include? @model_line.find(".col2of5 strong").text }
 end
 
 Dann /^enthält die Modell\-Zeile folgende Informationen:$/ do |table|
@@ -399,14 +399,14 @@ Und /^ich speichere die Informationen/ do
 end
 
 Dann /^die Informationen sind gespeichert$/ do
-  search_string = @table_hashes.detect {|h| h["Feld"] == "Name"}["Wert"]
+  search_string = @table_hashes.detect {|h| h["Feld"] == "Produkt"}["Wert"]
   step 'ich nach "%s" suche' % search_string
   find(".line", match: :prefer_exact, text: search_string)
   step 'I should see "%s"' % search_string
 end
 
 Dann /^die Daten wurden entsprechend aktualisiert$/ do
-  search_string = @table_hashes.detect {|h| h["Feld"] == "Name"}["Wert"]
+  search_string = @table_hashes.detect {|h| h["Feld"] == "Produkt"}["Wert"]
   step 'ich nach "%s" suche' % search_string
   find(".line", :text => search_string).find("a", :text => Regexp.new(_("Edit"),"i")).click
 

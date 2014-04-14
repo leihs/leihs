@@ -1,2 +1,5 @@
-= render :layout => "manage/fields/field", :locals => {key: _("Name"), required: true} do
-  %input.width-full{:type => :text, :name => "model[name]", :autocomplete => :off, :value => @model.name}
+= render :layout => "manage/fields/field", :locals => {key: _("Product"), required: true} do
+  %input.width-full{:type => :text, :name => "model[product]", :autocomplete => :off, :value => @model.product}
+
+= render :layout => "manage/fields/field", :locals => {key: _("Version"), required: false} do
+  %input.width-full{:type => :text, :name => "model[version]", :autocomplete => :off, :value => @model.version}

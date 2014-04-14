@@ -6,10 +6,10 @@
 
 class window.App.Field extends Spine.Model
 
-  @configure "Field", "id", "attribute", "default", "display_attr", "forPackage",
+  @configure "Field", "id", "attribute", "default", "display_attr", "display_attr_ext", "forPackage",
                       "extended_key", "extensible", "form_name", "group", "label",
                       "permissions", "required", "search_attr", "search_path", "type", "value_attr",
-                      "value_label", "values", "visibility_dependency_field_id", "visibility_dependency_value"
+                      "value_label", "value_label_ext", "values", "visibility_dependency_field_id", "visibility_dependency_value"
   
   @extend Spine.Model.Ajax
 
@@ -49,15 +49,22 @@ class window.App.Field extends Spine.Model
 
   getItemValueLabel: (value_label, item)=>
     if item?
-      if value_label instanceof Array
-        _.reduce value_label, (hash, attr) -> 
-          if hash? and hash[attr]?
-            hash[attr]
-          else 
-            null
-        , item
-      else
-        item[value_label]
+      # local helper function
+      reduceHelper = (valueLabel) ->
+        if valueLabel instanceof Array
+          _.reduce valueLabel, (hash, attr) -> 
+            if hash? and hash[attr]?
+              hash[attr]
+            else 
+              null
+          , item
+        else
+          item[valueLabel]
+
+      result = reduceHelper(value_label)
+      # append extended value label if present
+      result += " #{reduceHelper(@value_label_ext)}" if @value_label_ext?
+      result
 
   getFormName: (attribute = @attribute, formName = @form_name) ->
     if formName?

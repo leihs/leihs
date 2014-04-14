@@ -47,9 +47,9 @@ module Persona
     end
     
     def create_submitted_contracts
-      @camera_model = Model.find_by_name "Kamera Nikon X12"
-      @tripod_model = Model.find_by_name "Kamera Stativ"
-      @beamer_model = Model.find_by_name "Sharp Beamer"
+      @camera_model = Model.find {|m| [m.name, m.product].include? "Kamera Nikon X12" }
+      @tripod_model = Model.find {|m| [m.name, m.product].include? "Kamera Stativ"    }
+      @beamer_model = Model.find {|m| [m.name, m.product].include? "Sharp Beamer"     }
       @contract_for_camera = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :submitted)
       @contract_for_camera_purpose = FactoryGirl.create :purpose, :description => "Benötige ich für die Aufnahmen meiner Abschlussarbeit."
 
@@ -100,9 +100,8 @@ module Persona
       @approved_contract_5.contract_lines << FactoryGirl.create(:contract_line, :purpose => @approved_contract_5_purpose, :contract => @approved_contract_5, :model => @camera_model)
       @approved_contract_5.contract_lines << FactoryGirl.create(:contract_line, :purpose => @approved_contract_5_purpose, :contract => @approved_contract_5, :model => @camera_model)
       @approved_contract_5.contract_lines << FactoryGirl.create(:contract_line, :purpose => @approved_contract_5_purpose, :contract => @approved_contract_5, :model => @tripod_model)
-      @akku_aa = Option.find_by_name "Akku AA"
+      @akku_aa = Option.find {|m| [m.name, m.product].include? "Akku AA" }
       @approved_contract_5.contract_lines << FactoryGirl.create(:option_line, :purpose => @approved_contract_5_purpose, :contract => @approved_contract_5, :option => @akku_aa, :quantity => 5)
-
     end
     
     def create_signed_contracts

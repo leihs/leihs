@@ -44,7 +44,7 @@ module Persona
     end
     
     def setup_notebooks
-      @notebook_model = FactoryGirl.create(:model, :name => "MacBookPro",
+      @notebook_model = FactoryGirl.create(:model, :product => "MacBookPro",
                                 :manufacturer => "Apple", 
                                 :description => "Laptop für Studis und Angestellte.", 
                                 :hand_over_note => "Mit Verpackung aushändigen.", 

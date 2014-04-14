@@ -27,7 +27,7 @@
     {{/if}}
 
   .col6of10.line-col.text-align-left
-    %strong {{>model().name}}
+    %strong {{>model().name()}}
 
   .col1of10.line-col.text-align-left.padding-horizontal-m
     {{if ~renderAvailability && anyProblems()}}

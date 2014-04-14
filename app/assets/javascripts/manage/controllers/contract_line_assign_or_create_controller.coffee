@@ -44,18 +44,18 @@ class window.App.ContractLineAssignOrCreateController extends Spine.Controller
       if line.model_id?
         App.Flash
           type: "success"
-          message: _jed "%s assigned to %s", [inventoryCode, line.model().name]
+          message: _jed "%s assigned to %s", [inventoryCode, line.model().name()]
       else if line.option_id?
         App.Flash
           type: "notice"
-          message: _jed("%s quantity increased to %s", [line.option().name, line.quantity])
+          message: _jed("%s quantity increased to %s", [line.option().name(), line.quantity])
     else # created
       line = App.ContractLine.addRecord new App.ContractLine(data)
       done = =>
         App.Contract.trigger "refresh", @contract
         App.Flash
           type: "success"
-          message: _jed("Added %s", line.model().name)
+          message: _jed("Added %s", line.model().name())
       if line.model_id?
         App.Item.ajaxFetch
           data: $.param

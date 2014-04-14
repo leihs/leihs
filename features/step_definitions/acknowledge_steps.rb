@@ -27,7 +27,7 @@ When "$who changes number of items of model '$model' to $quantity" do |who, mode
 end
 
 When "$who adds $quantity item '$model'" do |who, quantity, model|
-  model_id = Model.find_by_name(model).id
+  model_id = Model.find {|m| [m.name, m.product].include? model }.id
   post add_line_backend_inventory_pool_acknowledge_path(@inventory_pool, @contract, :model_id => model_id, :quantity => quantity)
   @contract = assigns(:contract)
   @contract.contract_lines.each do | line |
@@ -58,7 +58,7 @@ When "$who searches for '$model'" do |who, model|
 end
 
 When "$who selects '$model'" do |who, model|
-  model_id = Model.where(:name => model).first.id
+  model_id = Model.find {|m| [m.name, m.product].include? model }.id
   post swap_model_line_backend_inventory_pool_acknowledge_path(@inventory_pool, @contract, :line_id => @contract_line_id, :model_id => model_id)
   @contract = assigns(:contract)
   @contract.should_not be_nil

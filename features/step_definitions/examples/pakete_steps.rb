@@ -2,7 +2,7 @@
 
 Wenn /^ich mindestens die Pflichtfelder ausfülle$/ do
   @model_name = "Test Modell-Paket"
-  find(".row.emboss", match: :prefer_exact, :text => _("Name")).fill_in 'model[name]', :with => @model_name
+  find(".row.emboss", match: :prefer_exact, :text => _("Product")).fill_in 'model[product]', :with => @model_name
 end
 
 Wenn /^ich eines oder mehrere Pakete hinzufüge$/ do
@@ -18,7 +18,7 @@ end
 
 Dann /^ist das Modell erstellt und die Pakete und dessen zugeteilten Gegenstände gespeichert$/ do
   page.should have_selector ".success"
-  @model = Model.find_by_name @model_name
+  @model = Model.find {|m| [m.name, m.product].include? @model_name}
   @model.should_not be_nil
   @model.should be_is_package
   @packages = @model.items
@@ -95,7 +95,7 @@ Dann /^kann ich dieses Paket nur speichern, wenn dem Paket auch Gegenstände zug
 end
 
 Wenn /^ich ein Paket editiere$/ do
-  @model = Model.find_by_name "Kamera Set"
+  @model = Model.find {|m| [m.name, m.product].include?"Kamera Set" }
   visit manage_edit_model_path(@current_inventory_pool, @model)
   @package_to_edit = @model.items.detect &:in_stock?
   find(".line[data-id='#{@package_to_edit.id}']").find("button[data-edit-package]").click
@@ -137,7 +137,7 @@ end
 
 Dann /^(?:besitzt das Paket alle angegebenen Informationen|das Paket besitzt alle angegebenen Informationen)$/ do
   sleep(0.66)
-  model = Model.find_by_name @model_name
+  model = Model.find {|m| [m.name, m.product].include? @model_name}
   visit manage_edit_model_path(@current_inventory_pool, model)
   model.items.each do |item|
     page.has_selector? ".line[data-id='#{item.id}']", visible: false

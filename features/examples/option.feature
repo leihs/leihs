@@ -12,7 +12,7 @@ Funktionalität: Option
     Wenn ich eine neue Option hinzufüge
     Und ich ändere die folgenden Details
     | Feld             | Wert         |
-    | Name             | Test Option  |
+    | Produkt          | Test Option  |
     | Preis            | 50           |
     | Inventarcode     | Test Barcode |
     Und ich speichere die Informationen
@@ -23,7 +23,7 @@ Funktionalität: Option
     Wenn ich eine bestehende Option bearbeite
     Und ich erfasse die folgenden Details
     | Feld             | Wert           |
-    | Name             | Test Option x  |
+    | Produkt          | Test Option x  |
     | Preis            | 51             |
     | Inventarcode     | Test Barcode x |
     Und ich speichere die Informationen

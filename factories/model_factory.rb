@@ -1,14 +1,14 @@
 FactoryGirl.define do
 
   factory :model do
-    name do
-      name = Faker::Commerce.product_name
-      while(Model.find_by_name(name)) do 
-        name = Faker::Commerce.product_name
-      end
-      name
-    end
     manufacturer { Faker::Company.name }
+    product do
+      begin
+        r = Faker::Commerce.product_name
+      end while(Model.find_by_product(r))
+      r
+    end
+    version { Faker::Number.number(3) }
     description { Faker::Lorem.sentence }
     internal_description { Faker::Lorem.sentence }
     maintenance_period { rand(4) }

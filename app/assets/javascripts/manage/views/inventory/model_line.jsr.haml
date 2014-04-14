@@ -20,7 +20,7 @@
     .grey-text {{jed 'Package'/}}
     {{/if}}
     %strong 
-      {{> name}}
+      {{> name()}}
 
   .col1of5.line-col.text-align-center
     %span{:title => "{{jed 'in stock'/}}"} {{> availability().in_stock}}

@@ -6,7 +6,7 @@
 
 class window.App.Model extends Spine.Model
 
-  @configure "Model", "id", "name"
+  @configure "Model", "id", "product", "version"
   
   @hasOne "availability", "App.Availability", "model_id"
   @hasMany "plainAvailabilities", "App.PlainAvailability", "model_id"
@@ -17,3 +17,5 @@ class window.App.Model extends Spine.Model
   @extend App.Modules.FindOrBuild
 
   @url: => "/models"
+
+  name: -> [@product, @version].join(" ")

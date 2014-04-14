@@ -60,7 +60,7 @@ module Statistics
           when "Model"
             query.joins(:contract_lines => :contract).
               group("contract_lines.#{klass.name.foreign_key}").
-              select("models.name AS label")
+              select("models.product AS label")
           else
            raise "#{klass} not supported"
         end
@@ -116,7 +116,7 @@ module Statistics
           when "Model"
             query.joins(:items).
               group("items.#{klass.name.foreign_key}").
-              select("models.name AS label")
+              select("models.product AS label")
           else
            raise "#{klass} not supported"
         end

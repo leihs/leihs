@@ -422,9 +422,9 @@ class CreateAllTables < ActiveRecord::Migration
 
       create_table :options, :force => true do |t|
         t.belongs_to :inventory_pool
-        t.string   :inventory_code
-        t.string   :name
-        t.decimal  :price,       :precision => 8, :scale => 2
+        t.string     :inventory_code
+        t.string     :name,           :null => false
+        t.decimal    :price,          :precision => 8, :scale => 2
       end
       change_table :options do |t|
         t.index :inventory_pool_id

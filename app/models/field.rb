@@ -288,14 +288,16 @@ class Field < ActiveHash::Base
       id: 35,
       label: "Model",
       attribute: ["model", "id"],
-      value_label: ["model", "name"],
+      value_label: ["model", "product"],
+      value_label_ext: ["model", "version"],
       form_name: "model_id",
       required: true,
       type: "autocomplete-search",
       search_path: lambda{|inventory_pool| Rails.application.routes.url_helpers.manage_models_path(inventory_pool, {all: true})},
       search_attr: "search_term",
       value_attr: "id",
-      display_attr: "name",
+      display_attr: "product",
+      display_attr_ext: "version",
       group: nil
     }
   ]

@@ -22,7 +22,7 @@ class window.App.UnsubmittedContractsBasketController extends Spine.Controller
       data.push
         model: App.Model.find model_id
         quantity: _.reduce lines, ((mem, line)=> mem+line.quantity), 0
-    data = _.sortBy data, (entry)-> entry.model.name
+    data = _.sortBy data, (entry)-> entry.model.name()
     @linesContainer.html App.Render "borrow/views/order/basket/line", data
     if _.size(data) > 0
       @orderOverviewButton.removeClass "hidden"

@@ -19,7 +19,7 @@ Funktionalität: Modell
     Und ich sehe eine Fehlermeldung
     Wenn ich die folgenden Details ändere
     | Feld                               | Wert                         |
-    | Name                               | Test Modell y                |
+    | Produkt                            | Test Modell y                |
     Und ich speichere die Informationen
     Dann ist das neue Modell erstellt und unter ungenutzen Modellen auffindbar
 

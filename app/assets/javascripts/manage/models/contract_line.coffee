@@ -65,7 +65,7 @@ window.App.ContractLine::assign = (item, callback = null)->
     App.ContractLine.trigger "update", @
     App.Flash
       type: "success"
-      message: _jed "%s assigned to %s", [item.inventory_code, item.model().name]
+      message: _jed "%s assigned to %s", [item.inventory_code, item.model().name()]
     callback?()
 
 window.App.ContractLine::removeAssignment = ->

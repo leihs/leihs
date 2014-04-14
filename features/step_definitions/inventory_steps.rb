@@ -68,7 +68,7 @@ end
 # Models
 
 Given "a model '$model' exists" do | model |
-  @model = LeihsFactory.create_model(:name => model)
+  @model = LeihsFactory.create_model(:product => model)
 end
 
 When /^I register a new model '([^']*)'$/ do |model|
@@ -76,13 +76,13 @@ When /^I register a new model '([^']*)'$/ do |model|
 end
   
 Given "the model '$model' belongs to the category '$category'" do |model, category|
-  @model = Model.where(:name => model).first
+  @model = Model.find {|m| [m.name, m.product].include? model }
   @model.categories << Category.where(:name => category).first    
 end
 
 When "the model '$model' is selected" do | model|
-  @model = Model.where(:name => model).first
-end
+  @model = Model.find {|m| [m.name, m.product].include? model }
+  end
  
 Then "there are $size models belonging to that category" do |size|
   @category.models.size.should == size.to_i
@@ -94,7 +94,7 @@ end
 
 #Given "$number items of model '$model' exist" do |number, model|
 Given /(\d+) item(s?) of model '(.+)' exist(s?)/ do |number, plural1, model, plural2|
-  @model = LeihsFactory.create_model(:name => model)
+  @model = LeihsFactory.create_model(:product => model)
   number.to_i.times do | i |
     FactoryGirl.create(:item, :owner => @inventory_pool, :model => @model)
   end
@@ -104,7 +104,7 @@ Given /^(a?n? ?)item(s?) '([^']*)' of model '([^']*)' exist(s?)( only)?$/ \
 do |particle,plural, inventory_codes, model, plural2, only|
   Item.delete_all if only
 
-  @model = LeihsFactory.create_model(:name => model)
+  @model = LeihsFactory.create_model(:product => model)
 
   inv_codes = inventory_codes.split /,/
   inv_codes.each do | inv_code |

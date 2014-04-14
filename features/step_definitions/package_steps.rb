@@ -1,6 +1,6 @@
 Given "a package '$package' exists" do |package|
   step "a model '#{package}' exists"
-  model = Model.find_by_name package
+  model = Model.find {|m| [m.name, m.product].include? package }
   model.is_package = true
   model.save
 end
