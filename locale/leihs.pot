@@ -2769,3 +2769,9 @@ msgstr ""
 
 msgid "New users will get customer access automatically."
 msgstr ""
+
+msgid "Product"
+msgstr ""
+
+msgid "Version"
+msgstr ""
