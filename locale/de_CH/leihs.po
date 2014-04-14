@@ -2872,9 +2872,3 @@ msgstr "Automatischer Zugriff"
 
 msgid "New users will get customer access automatically."
 msgstr "Neue Benutzer kriegen automatisch den Zugriff als Kunde."
-
-msgid "Product"
-msgstr "Produkt"
-
-msgid "Version"
-msgstr "Version"
