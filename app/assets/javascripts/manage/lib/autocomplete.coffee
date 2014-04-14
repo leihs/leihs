@@ -9,7 +9,6 @@
 
 jQuery ->
   $("input[data-type='autocomplete']").on "focus", (event)->
-    $(this).removeClass("ui-autocomplete-input")
     if not $(this).hasClass("ui-autocomplete-input")
       new AutoComplete $(this)
   $("input[data-type='autocomplete']").on "focus", (event)->
