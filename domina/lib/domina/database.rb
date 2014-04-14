@@ -13,6 +13,10 @@ module Domina
         puts Domina::System.execute_cmd! "mysql -u #{config['username']} --password=#{config['password']} -e 'drop database if exists #{config['database']}'"
       end
 
+      def migrate_db
+        puts Domina::System.execute_cmd! "bundle exec rake db:migrate"
+      end
+
     end
   end
 end
