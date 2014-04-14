@@ -8,7 +8,7 @@ class LdapHelper
 
   def initialize
     begin
-      if Setting::LDAP_CONFIG
+      if defined?(Setting::LDAP_CONFIG)
         @ldap_config = YAML::load_file(Setting::LDAP_CONFIG)
       else
         @ldap_config = YAML::load_file(File.join(Rails.root, "config", "LDAP.yml"))
