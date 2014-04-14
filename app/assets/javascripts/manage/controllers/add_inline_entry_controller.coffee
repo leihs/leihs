@@ -20,7 +20,7 @@ class window.App.AddInlineEntryController extends Spine.Controller
   source: (request, response) => 
     @fetch(request.term).done (data)=>
       data = _.map data, (datum)=>
-        label: datum.name
+        label: @customLabelFn?(datum) ? datum.name
         record: App[@model].find datum.id
       response data if @input.is(":focus")
 

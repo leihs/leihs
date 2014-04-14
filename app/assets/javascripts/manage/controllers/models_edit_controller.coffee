@@ -13,7 +13,12 @@ class window.App.ModelsEditController extends Spine.Controller
     new App.ModelsAllocationsController {el: @el.find("#allocations")}
     new App.ModelsCategoriesController {el: @el.find("#categories")}
     new App.ModelsAccessoriesController {el: @el.find("#accessories")}
-    new App.ModelsCompatiblesController  {el: @el.find("#compatibles")}
+    new App.ModelsCompatiblesController
+      el: @el.find("#compatibles")
+      customLabelFn: (datum) ->
+        label = datum.product
+        label += datum.version if datum.version
+        label
     new App.ModelsPropertiesController  {el: @el.find("#properties")}
     new App.ModelsPackagesController  {el: @el.find("#packages")} if @el.find("#packages").length
     @imagesController = new App.ModelsImagesController  {el: @el.find("#images"), model: @model}
