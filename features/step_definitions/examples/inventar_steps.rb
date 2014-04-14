@@ -462,10 +462,11 @@ Dann /^(?:die|das|der) neue[sr]? (?:.+) ist erstellt$/ do
 end
 
 Wenn /^ich einen Namen eines existierenden Modelles eingebe$/ do
-  existing_model_name = Model.all.first.name
+  model = Model.all.first
   step %{ich ändere die folgenden Details}, table(%{
     | Feld    | Wert                   |
-    | Name    | #{existing_model_name} | })
+    | Produkt | #{model.product}       |
+    | Version | #{model.version}       |})
 end
 
 Dann /^wird das Modell nicht gespeichert, da es keinen (?:eindeutigen\s)?Namen hat$/ do

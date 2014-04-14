@@ -17,7 +17,7 @@ class window.App.ModelsEditController extends Spine.Controller
       el: @el.find("#compatibles")
       customLabelFn: (datum) ->
         label = datum.product
-        label += datum.version if datum.version
+        label = [label, datum.version].join(" ") if datum.version
         label
     new App.ModelsPropertiesController  {el: @el.find("#properties")}
     new App.ModelsPackagesController  {el: @el.find("#packages")} if @el.find("#packages").length
