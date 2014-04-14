@@ -167,7 +167,7 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
     @preferred_language = Language.preferred(request.env["HTTP_ACCEPT_LANGUAGE"])
 
     if request.post?
-      username = params[:login][:username]
+      username = params[:login][:user]
       password = params[:login][:password]
       if username == "" || password == ""
         flash[:notice] = _("Empty Username and/or Password")
