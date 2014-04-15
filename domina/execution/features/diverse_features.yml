@@ -1,93 +1,89 @@
 ---
-- name: examples/gegenstand_editieren2	
+- name: examples/benutzerverwaltung	
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren2.feature"
-- name: examples/gegenstand_editieren4	
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung.feature"
+- name: examples/benutzerverwaltung2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren4.feature"
-- name: examples/gegenstand_editieren6	
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung2.feature"
+- name: examples/benutzerverwaltung3
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren6.feature"
-- name: examples/gegenstand_editieren7	
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung3.feature"
+- name: examples/benutzerverwaltung4
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren7.feature"
-- name: examples/gegenstand_editieren8	
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung4.feature"
+- name: examples/benutzerverwaltung5
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren8.feature"
-- name: examples/gegenstand_erstellen2	
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung5.feature"
+- name: examples/benutzerverwaltung6
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_erstellen2.feature"
-- name: examples/gegenstand_erstellen3	
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung6.feature"
+- name: examples/benutzerverwaltung7
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_erstellen3.feature"
-- name: examples/gegenstand_erstellen4	
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung7.feature"
+- name: examples/benutzerverwaltung8
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_erstellen4.feature"
-- name: examples/gegenstand_erstellen5	
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung8.feature"
+- name: examples/benutzerverwaltung9
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_erstellen5.feature"
-- name: examples/gegenstand_erstellen6	
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung9.feature"
+- name: examples/benutzerverwaltung10
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_erstellen6.feature"
-- name: examples/gegenstand_erstellen7	
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung10.feature"
+- name: examples/benutzerverwaltung11
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_erstellen7.feature"
-- name: examples/gegenstand_erstellen8	
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung11.feature"
+- name: examples/benutzerverwaltung12
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_erstellen8.feature"
-- name: examples/gegenstand_kopieren2	
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung12.feature"
+- name: examples/benutzerverwaltung13
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_kopieren2.feature"
-- name: examples/modell	
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung13.feature"
+- name: examples/benutzerverwaltung14
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/modell.feature"
-- name: examples/modell4	
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung14.feature"
+- name: examples/benutzerverwaltung15
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/modell4.feature"
-- name: examples/modell5	
+      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung15.feature"
+- name: manage/delegation
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/modell5.feature"
-- name: examples/modell7	
+      body: bundle exec cucumber -p default "features/examples/delegation.feature"
+- name: manage/delegation2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/modell7.feature"
-- name: examples/option	
+      body: bundle exec cucumber -p default "features/examples/delegation2.feature"
+- name: manage/delegation3
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/option.feature"
-- name: examples/pakete	
+      body: bundle exec cucumber -p default "features/examples/delegation3.feature"
+- name: manage/delegation4
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/pakete.feature"
-- name: examples/pakete2	
+      body: bundle exec cucumber -p default "features/examples/delegation4.feature"
+- name: manage/delegation5
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/pakete2.feature"
-- name: examples/pakete3	
+      body: bundle exec cucumber -p default "features/examples/delegation5.feature"
+- name: manage/delegation6
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/pakete3.feature"
-- name: examples/pakete4	
+      body: bundle exec cucumber -p default "features/examples/delegation6.feature"
+- name: manage/delegation7
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/pakete4.feature"
-- name: examples/pakete5	
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/pakete5.feature"
+      body: bundle exec cucumber -p default "features/examples/delegation7.feature"

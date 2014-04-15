@@ -24,3 +24,5 @@
         %strong.font-size-m= _("Suspended reason") + " *"
       .col1of2.text-align-right
         %input{type: "text", name: "access_right[suspended_reason]", value: @access_right.try(:suspended_reason), autocomplete: :off}
+
+  = render partial: "groups"
