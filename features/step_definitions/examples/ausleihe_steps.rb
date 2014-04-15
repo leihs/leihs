@@ -13,6 +13,7 @@ end
 Wenn /^ich öffne eine Bestellung von "(.*?)"$/ do |arg1|
   find("[data-collapsed-toggle='#open-orders']").click unless all("[data-collapsed-toggle='#open-orders']").empty?
   @contract = @current_inventory_pool.contracts.find find("#daily-view #open-orders .line", match: :prefer_exact, :text => arg1)["data-id"]
+  @user = @contract.user
   within("#daily-view #open-orders .line", match: :prefer_exact, :text => arg1) do
     find(".line-actions .multibutton .dropdown-holder").hover
     find(".dropdown-item", :text => _("Edit")).click
@@ -424,4 +425,16 @@ When(/^ist das Start- und Enddatum gemäss dem ersten Zeitfenster der Aushändig
   start_date, end_date = first_dates.split('-').map{|x| Date.parse x}
   Date.parse(find("input#add-start-date").value).should == [start_date, Date.today].max
   Date.parse(find("input#add-end-date").value).should == [end_date, Date.today].max
+end
+
+Dann(/^ich sehe den Benutzer der vorher geöffneten Bestellung als letzten Besucher$/) do
+  find("#daily-view #last-visitors", :text => @user.name)
+end
+
+Wenn(/^ich auf den Namen des letzten Benutzers klicke$/) do
+  find("#daily-view #last-visitors a", :text => @user.name).click
+end
+
+Dann(/^wird mir ich ein Suchresultat nach dem Namen des letzten Benutzers angezeigt$/) do
+  find("#search-overview h1", text: _("Search Results for \"%s\"") % @user.name)
 end

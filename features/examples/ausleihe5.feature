@@ -9,12 +9,12 @@ Funktionalität: Ausleihe
   @javascript
   Szenario: Klick auf Letzten Besucher nach Editieren einer Bestellung
     Angenommen ich öffne die Tagesansicht
-    Und ich öffne eine Bestellung von "Normin N."
+    Und ich öffne eine Bestellung
     Dann ich kehre zur Tagesansicht zurück
     Dann sehe ich die letzten Besucher
-    Und ich sehe "Normin N." als letzten Besucher
-    Wenn ich auf "Normin N." klicke
-    Dann wird mir ich ein Suchresultat nach "Normin N." angezeigt
+    Und ich sehe den Benutzer der vorher geöffneten Bestellung als letzten Besucher
+    Wenn ich auf den Namen des letzten Benutzers klicke
+    Dann wird mir ich ein Suchresultat nach dem Namen des letzten Benutzers angezeigt
 
   @javascript
   Szenario: Autocomplete bei der Rücknahme
