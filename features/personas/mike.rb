@@ -84,6 +84,7 @@ module Persona
       
       setup_hifis
       setup_tripods
+      setup_headphones
       setup_options
       
       setup_templates
@@ -221,6 +222,20 @@ module Persona
                                                  quantity: 1)
     end
 
+    def setup_headphones
+      manufacturer = "Bose"
+      @model_with_retired_item = FactoryGirl.create(:model, :product => manufacturer + Faker::Commerce.product_name,
+                                                    :manufacturer => manufacturer, 
+                                                    :description => Faker::Lorem.paragraph, 
+                                                    :maintenance_period => 0)
+
+      extra_model = FactoryGirl.create(:model, :product => manufacturer + Faker::Commerce.product_name,
+                                       :manufacturer => manufacturer,
+                                       :description => Faker::Lorem.paragraph, 
+                                       :maintenance_period => 0)
+      FactoryGirl.create(:item, :inventory_code => Faker::Lorem.characters(6), :serial_number => Faker::Lorem.characters(6), :model => extra_model, :location => @location, :owner => @inventory_pool)
+    end
+
     def setup_options
       @akku_aa = FactoryGirl.create(:option, :product => "Akku AA",
                                              :inventory_pool => @inventory_pool,
@@ -345,6 +360,9 @@ module Persona
       @iMac.model_links.create :model_group => @computer_category
       FactoryGirl.create(:item, :inventory_code => "iMac1", :retired => Date.today, :retired_reason => "This Item is gone", :is_borrowable => true, :serial_number => "iMac5", :model => @iMac, :location => @location, :owner => @inventory_pool)
       FactoryGirl.create(:item, :inventory_code => "iMac2", :retired => Date.today, :retired_reason => "This Item is gone", :is_borrowable => true, :serial_number => "iMac6", :model => @iMac, :location => @location, :inventory_pool => @inventory_pool, :owner => InventoryPool.find {|ip| not @@inventory_pool_names.include?(ip.name)})
+
+      FactoryGirl.create(:item, :inventory_code => Faker::Lorem.characters(6), :retired => Date.today, :retired_reason => "This Item is gone", :is_borrowable => true, :serial_number => Faker::Lorem.characters(6), :model => @model_with_retired_item, :location => @location, :owner => @inventory_pool)
+      FactoryGirl.create(:item, :inventory_code => Faker::Lorem.characters(6), :is_borrowable => true, :serial_number => Faker::Lorem.characters(6), :model => @model_with_retired_item, :location => @location, :owner => @inventory_pool)
     end
     
     def setup_inventory_moved_to_other_responsible
