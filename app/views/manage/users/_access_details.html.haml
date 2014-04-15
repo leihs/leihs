@@ -24,14 +24,3 @@
         %strong.font-size-m= _("Suspended reason") + " *"
       .col1of2.text-align-right
         %input{type: "text", name: "access_right[suspended_reason]", value: @access_right.try(:suspended_reason), autocomplete: :off}
-
-  #change-groups.row.emboss.margin-bottom-xxs
-    .row.padding-inset-s
-      .col1of2
-        %strong.font-size-m= _("Groups")
-      .col1of2.text-align-right
-        %input{type: "text", name: "name", placeholder: _("Group"), autocomplete: :off}
-
-    .row.list-of-lines.even{:"data-group-list" => true}
-
-      = render partial: "group_inline_entry", collection: @user.groups, as: :group unless @user.groups.blank?

@@ -26,6 +26,7 @@ Funktionalität: Delegation
     Und ich den Verantwortlichen ändere
     Und ich einen bestehenden Benutzer lösche
     Und ich der Delegation einen neuen Benutzer hinzufüge
+    Und man teilt mehrere Gruppen zu
     Und ich speichere
     Dann sieht man die Erfolgsbestätigung
     Und ist die bearbeitete Delegation mit den aktuellen Informationen gespeichert

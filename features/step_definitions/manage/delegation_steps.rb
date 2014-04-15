@@ -369,6 +369,7 @@ Dann(/^ist die bearbeitete Delegation mit den aktuellen Informationen gespeicher
   @delegation.reload.delegator_user.should == @responsible
   @delegation.delegated_users.each {|du| @delegated_users.include? du}
   @delegation.delegated_users.count == (@delegated_users + [@responsible]).uniq.count
+  @delegation.groups.should == @current_inventory_pool.groups
 end
 
 Wenn(/^ich eine Delegation mit Zugriff auf das aktuelle Gerätepark editiere$/) do
