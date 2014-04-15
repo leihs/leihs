@@ -129,38 +129,38 @@ Dann /^sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, di
       if field_type == "date"
         unless value.blank?
           value = Date.parse(value) if value.is_a?(String)
-          field_el.should have_content value.year
-          field_el.should have_content value.month
-          field_el.should have_content value.day
+          field_el.has_content? value.year
+          field_el.has_content? value.month
+          field_el.has_content? value.day
         end
       elsif field[:attribute] == "retired"
         unless value.blank?
-          field_el.should have_content _(field[:values].first[:label])
+          field_el.has_content? _(field[:values].first[:label])
         end
       elsif field_type == "radio"
         if value
           value = field[:values].detect{|v| v[:value] == value}[:label]
-          field_el.should have_content _(value)
+          field_el.has_content? _(value)
         end
       elsif field_type == "select"
         if value
           value = field[:values].detect{|v| v[:value] == value}[:label]
-          field_el.should have_content _(value)
+          field_el.has_content? _(value)
         end
       elsif field_type == "autocomplete"
         if value
           value = field.as_json["values"].detect{|v| v["value"] == value}["label"]
-          field_el.should have_content _(value)
+          field_el.has_content? _(value)
         end
       elsif field_type == "autocomplete-search"
         if value
           if field[:label] == "Model"
             value = Model.find(value).name
-            field_el.should have_content value
+            field_el.has_content? value
           end
         end
       else
-        field_el.should have_content _(value)
+        field_el.has_content? _(value)
       end
     end
   end
@@ -301,17 +301,17 @@ Angenommen(/^man editiert das Feld "(.*?)" eines ausgeliehenen Gegenstandes$/) d
 end
 
 Dann(/^erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät ausgeliehen ist$/) do
-  page.should have_content _("The responsible inventory pool cannot be changed because the item is currently not in stock.")
+  page.has_content? _("The responsible inventory pool cannot be changed because the item is currently not in stock.")
   @item_before.should == @item.reload.to_json
 end
 
 Dann(/^erhält man eine Fehlermeldung, dass man den Gegenstand nicht ausmustern kann, da das Gerät ausgeliehen ist$/) do
-  page.should have_content _("The item cannot be retired because it's not returned yet.")
+  page.has_content? _("The item cannot be retired because it's not returned yet.")
   @item_before.should == @item.reload.to_json
 end
 
 Dann(/^erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät in einem Vortrag vorhanden ist$/) do
-  page.should have_content _("The model cannot be changed because the item is used in contracts already.")
+  page.has_content? _("The model cannot be changed because the item is used in contracts already.")
   @item_before.should == @item.reload.to_json
 end
 
