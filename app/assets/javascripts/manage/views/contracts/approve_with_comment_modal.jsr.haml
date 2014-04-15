@@ -10,7 +10,7 @@
     .col1of2
       .float-right
         %a.modal-close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button", :title => '{{jed "close dialog"/}}', :class => "weak"}
-          Abbrechen
+          {{jed "Cancel"/}}
         %button.button.green.text-ellipsis{:"data-order-approve" => true, :"data-id" => "{{>id}}"}
           %i.icon-thumbs-up
           {{jed "Approve"/}}

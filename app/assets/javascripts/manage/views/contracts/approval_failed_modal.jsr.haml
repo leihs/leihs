@@ -12,7 +12,7 @@
       .col1of2
         .float-right
           %a.modal-close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button", :title => '{{jed "close dialog"/}}', :class => "weak"}
-            Abbrechen
+            {{jed "Cancel"/}}
           {{if ~accessRight.atLeastRole(~currentUserRole, "lending_manager") }}
           .multibutton
             %a.button.white.text-ellipsis{:href => "/manage/{{current_inventory_pool_id/}}/contracts/{{>id}}/edit"}
