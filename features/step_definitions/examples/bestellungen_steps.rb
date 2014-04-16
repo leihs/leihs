@@ -39,7 +39,11 @@ Wenn(/^ich die Bestellung editiere$/) do
 end
 
 Wenn(/^die Bestellung genehmige$/) do
-  click_button _("Approve order")
+  if page.has_selector? "button", text: _("Approve order")
+    click_button _("Approve order")
+  elsif page.has_selector? "button", text: _("Verify + approve order")
+    click_button _("Verify + approve order")
+  end
 end
 
 Dann(/^ist es mir nicht möglich, die Genehmigung zu forcieren$/) do
