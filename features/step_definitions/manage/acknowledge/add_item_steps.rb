@@ -72,7 +72,7 @@ Given /^I search for a model with default dates and note the current availabilit
   init_start_date = Date.parse find("#add-start-date").value
   @new_start_date = av.changes.select{|k, v| k > init_start_date }.keys.first
   fill_in "add-input", with: @model.name
-  find("a.ui-corner-all", match: :first)
+  find("a.ui-corner-all", match: :prefer_exact, text: @model.name)
   @init_aval = find("a.ui-corner-all", match: :prefer_exact, text: @model.name).find("div.col1of4:nth-child(2) > div:nth-child(1)").text
 end
 
