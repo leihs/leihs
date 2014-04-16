@@ -3,15 +3,10 @@
 <%= _("** This is an automatically generated response **") %>
 
 <%= _("The following items are overdue or need to be inspected by their owners") %>:
-<% inventory_pools = [] %>
-<% @visits.each do | v | %>
 
-  <%= v.quantity %> <%= _(" item(s) due on ") %><%= v.date %><%= _(" at the inventory pool ") %><%= v.inventory_pool.name %>
-  <% inventory_pools << v.inventory_pool unless inventory_pools.include?(v.inventory_pool) %>
-	<% v.contract_lines.each do |l| %>
-	* <%= l.quantity %> <%= l.model.name %> (<%= l.item.inventory_code %>), <%= l.start_date %> - <%= l.end_date %>
-	
-	<% end %>
+<%= @visit_lines.sum(&:quantity) %> <%= _(" item(s) due on ") %><%= @visit_lines.first.date %><%= _(" at the inventory pool ") %><%= @inventory_pool %>
+<% @visit_lines.map(&:contract_line).each do |l| %>
+    * <%= l.quantity %> <%= l.model.name %> (<%= l.item.inventory_code %>), <%= l.start_date %> - <%= l.end_date %>
 <% end %>
 
 == <%= _("Are any of the above items your personal computer?") %>
@@ -31,7 +26,5 @@
 <%= Setting::EMAIL_SIGNATURE %>
 
 --
-<% inventory_pools.each do |ip| %>
-<%= ip.name unless ip.name.blank? %>
-<%= ip.description unless ip.description.blank? %>
-<% end %>
+<%= @inventory_pool %>
+<%= @inventory_pool.description unless @inventory_pool.description.blank? %>

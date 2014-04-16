@@ -39,7 +39,7 @@ Wenn(/^ich die Bestellung editiere$/) do
 end
 
 Wenn(/^die Bestellung genehmige$/) do
-  find("[data-order-approve]").click
+  click_button _("Approve order")
 end
 
 Dann(/^ist es mir nicht möglich, die Genehmigung zu forcieren$/) do

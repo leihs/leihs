@@ -25,7 +25,6 @@ class Notification < ActiveRecord::Base
   end
   
   def self.order_approved(order, comment, send_mail = true, current_user = nil)
-    current_user ||= order.target_user
     if send_mail
       if order.has_changes?
         o = Mailer::Order.changed(order, comment).deliver
@@ -35,6 +34,7 @@ class Notification < ActiveRecord::Base
     end
     title = (o.nil? ? _("Order approved") : o.subject)
     Notification.create(:user => order.target_user, :title => title)
+    current_user ||= order.target_user
     order.log_history(title, current_user.id)
   end
   
@@ -47,7 +47,7 @@ class Notification < ActiveRecord::Base
   end
   
   def self.deadline_soon_reminder(user, visits, send_mail = true)
-    o = Mailer::User.deadline_soon_reminder(user, visits).deliver if send_mail
+    o = Mailer::User.deadline_soon_reminder(visits).deliver if send_mail
     title = (o.nil? ? _("Deadline soon") : o.subject)
     Notification.create(:user => user, :title => title)
     user.histories.create(:text => title, :user_id => user.id, :type_const => History::ACTION)
@@ -55,7 +55,7 @@ class Notification < ActiveRecord::Base
   
   
   def self.remind_user(user, visits, send_mail = true)
-    o = Mailer::User.remind(user, visits).deliver if send_mail
+    o = Mailer::User.remind(visits).deliver if send_mail
     title = (o.nil? ? _("Reminder") : o.subject)
     Notification.create(:user => user, :title => title)
     user.histories.create(:text => title, :user_id => user.id, :type_const => History::ACTION)

@@ -21,11 +21,11 @@ module Persona
     end
   end
 
-  def create_dumps(n = 10)
+  def create_dumps(n = 3)
     config = Rails.configuration.database_configuration[Rails.env]
     system "rm -r #{File.join(Rails.root, "features/personas/dumps")}"
     system "mkdir -p #{File.join(Rails.root, "features/personas/dumps")}"
-    srand(Digest::MD5.hexdigest(ENV['DOMINA_EXECUTION_ID'] || DateTime.now.to_s).to_i(16))
+    srand(Digest::MD5.hexdigest(ENV['DOMINA_EXECUTION_ID'] || ENV['REPRODUCE_DOMINA_EXECUTION_ID'] || DateTime.now.to_s).to_i(16))
     n.times do |i|
       DatabaseCleaner.clean_with :truncation
       create_all
@@ -39,8 +39,17 @@ module Persona
     return true if Setting.exists? and User.exists? # the data are already restored, so we prevent to restore again in further steps
 
     file = Dir.glob(File.join(Rails.root, "features/personas/dumps", "*.sql")).sample
-    config = Rails.configuration.database_configuration[Rails.env]
 
+    # check whether we need fresh dumps
+    if file.nil? or
+        ENV['REPRODUCE_DOMINA_EXECUTION_ID'] or
+        not (t = File.mtime(file)).today? or
+        Dir.glob(File.join(Rails.root, "features/personas", "*.rb")).map {|f| File.mtime(f) }.max > t
+      create_dumps
+      file ||= Dir.glob(File.join(Rails.root, "features/personas/dumps", "*.sql")).sample
+    end
+
+    config = Rails.configuration.database_configuration[Rails.env]
     cmd = "mysql #{config['host'] ? "-h #{config['host']}" : nil} -u #{config['username']} #{config['password'] ? "--password=#{config['password']}" : nil} #{config['database']} < #{file}"
     puts cmd
 

@@ -253,6 +253,7 @@ class User < ActiveRecord::Base
     visits_to_suspend.each do |visit|
       access_right_for(visit.inventory_pool).update_attributes suspended_until: AccessRight::AUTOMATIC_SUSPENSION_DATE,
                                                                suspended_reason: visit.inventory_pool.automatic_suspension_reason
+      puts "Suspended: #{self.name} on #{visit.inventory_pool} for take back due on #{visit.date}"
     end
   end
 

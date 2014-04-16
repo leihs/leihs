@@ -4,7 +4,7 @@ namespace :app do
 
     desc "Generate personas dumps (executed by CI)"
     task :generate_personas_dumps => :environment do
-      Persona.create_dumps(3)
+      Persona.create_dumps
 
       if execution_id = ENV["DOMINA_EXECUTION_ID"]
         `rm -r /tmp/#{execution_id}`
