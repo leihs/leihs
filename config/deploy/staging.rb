@@ -24,6 +24,11 @@ role :app, "leihs@rails.zhdk.ch"
 role :web, "leihs@rails.zhdk.ch"
 role :db,  "leihs@rails.zhdk.ch", :primary => true
 
+unless exists?(:tag)
+  p "Automatically setting tag to 'next' because this is staging and no tag was specified."
+  set :tag, 'next'
+end
+
 load 'config/deploy/recipes/set_branch'
 load 'config/deploy/recipes/retrieve_db_config'
 load 'config/deploy/recipes/link_config'
