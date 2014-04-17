@@ -319,7 +319,7 @@ window.i18n.locale_data = {
       ],
       "Are any of the above borrowed items?": [
          null,
-         "Handelt es sich um ausgeliehens Material?"
+         "Handelt es sich um ausgeliehenes Material?"
       ],
       "Are any of the above items your personal computer?": [
          null,

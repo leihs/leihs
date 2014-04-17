@@ -201,7 +201,7 @@ msgid "Approved on"
 msgstr "Genehmigt am"
 
 msgid "Are any of the above borrowed items?"
-msgstr "Handelt es sich um ausgeliehens Material?"
+msgstr "Handelt es sich um ausgeliehenes Material?"
 
 msgid "Are any of the above items your personal computer?"
 msgstr "Handelt es sich um ein Mitarbeitergerät?"
