@@ -220,6 +220,7 @@ end
 
 Dann(/^wird der neue Lieferant erstellt$/) do
   page.should have_content _("List of Inventory")
+  find("#inventory")
   Supplier.find_by_name(@new_supplier).should_not be_nil
 end
 

@@ -119,6 +119,7 @@ When /^I assign an inventory code the item line$/ do
   @selected_items << item
   within(".line[data-id='#{@item_line.id}']") do
     find("input[data-assign-item]").set item.inventory_code
+    find("a.ui-corner-all", match: :first)
     find("a.ui-corner-all", text: item.inventory_code)
     find("input[data-assign-item]").native.send_key(:enter)
   end

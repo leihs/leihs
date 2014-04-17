@@ -197,6 +197,7 @@ Dann(/^speichere die Einstellungen$/) do
 end
 
 Dann(/^wird der Eintrag gemäss aktuellen Einstellungen geändert$/) do
+  sleep(0.66)
   find(".line", match: :first)
   find("[data-change-order-lines]", match: :first).click
   find("#booking-calendar .fc-widget-content", :match => :first)
