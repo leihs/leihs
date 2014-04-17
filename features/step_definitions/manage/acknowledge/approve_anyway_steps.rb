@@ -1,5 +1,5 @@
 Given /^I try to approve a contract that has problems$/ do
-  @unapprovable_contract =  @ip.contracts.submitted.shuffle.detect{|o| not o.approvable?}
+  @unapprovable_contract =  @current_inventory_pool.contracts.submitted.shuffle.detect{|o| not o.approvable?}
   find("[data-collapsed-toggle='#open-orders']").click unless all("[data-collapsed-toggle='#open-orders']").empty?
   within(".line[data-id='#{@unapprovable_contract.id}']") do
     find("[data-order-approve]", :text => _("Approve")).click

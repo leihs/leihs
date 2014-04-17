@@ -59,6 +59,7 @@ rescue NameError
 end
 
 Before do
+  srand(ENV['TEST_RANDOM_SEED'].to_i)
   DatabaseCleaner.start
 end
 
@@ -75,4 +76,10 @@ if ENV["PRY"]
   AfterStep do
     binding.pry
   end
+end
+
+at_exit do
+  s = "TEST_RANDOM_SEED=#{ENV['TEST_RANDOM_SEED']}"
+  puts s
+  Rails.logger.info s
 end

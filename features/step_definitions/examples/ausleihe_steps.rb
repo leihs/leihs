@@ -226,7 +226,7 @@ end
 Dann /^habe ich für jeden Gegenstand die Möglichkeit, eine Inspektion auszulösen$/ do
   all(".line[data-line-type='item_line']").each do |x|
     within x.find(".multibutton") do
-      find(".dropdown-toggle").hover
+      find(".dropdown-toggle").click
       find(".dropdown-holder .dropdown-item", text: _("Inspect"))
     end
   end
@@ -236,7 +236,7 @@ Wenn /^ich bei einem Gegenstand eine Inspektion durchführen$/ do
   find(".line[data-line-type='item_line']", match: :first)
   within all(".line[data-line-type='item_line']").to_a.sample.find(".multibutton") do
     @item = ContractLine.find(JSON.parse(find("[data-ids]")["data-ids"]).first).item
-    find(".dropdown-toggle").hover
+    find(".dropdown-toggle").click
     find(".dropdown-holder .dropdown-item", text: _("Inspect")).click
   end
   find(".modal")

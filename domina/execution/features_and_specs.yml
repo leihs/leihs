@@ -86,7 +86,7 @@ contexts:
       order: 3
       body: |
             mkdir -p features/personas/dumps/ \
-            && cp -v /tmp/${DOMINA_EXECUTION_ID}/personas*.sql features/personas/dumps/
+            && cp -v /tmp/${DOMINA_EXECUTION_ID}/seed_*.sql features/personas/dumps/
     setup_leihs:
       order: 4
       body: "substitute_with_path: domina/scripts/setup_leihs.sh"

@@ -95,16 +95,9 @@ Dann(/^die Geräte sind alphabetisch sortiert und gruppiert nach Modellname mit 
 end
 
 Dann(/^die Geräte sind alphabetisch sortiert nach Modellname$/) do
-  @current_user.visits
-    .take_back
-    .joins(:inventory_pool)
-    .order("date", "inventory_pools.name")
-    .map(&:lines)
-    .map{|visit_lines| visit_lines.map(&:model)}
-    .map{|visit_models| visit_models.map(&:name)}
-    .map{|visit_model_names| visit_model_names.sort}
-    .flatten
-    .should == all(".row.line .col6of10").map(&:text)
+  @current_user.visits.take_back.joins(:inventory_pool).order("date", "inventory_pools.name").
+    map(&:lines).map{|visit_lines| visit_lines.map(&:model)}.map{|visit_models| visit_models.map(&:name)}.map{|visit_model_names| visit_model_names.sort}.flatten.
+    should == all(".row.line .col6of10").map(&:text)
 end
 
 Dann(/^jedes Gerät zeigt seinen Inventarcode$/) do
