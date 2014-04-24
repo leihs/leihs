@@ -590,6 +590,7 @@ end
 Dann /^sind die Attachments gespeichert$/ do
   find("#inventory-index-view h1", match: :prefer_exact, text: _("List of Inventory"))
   @model.attachments.reload.where(:filename => @attachment_filename).should_not be_empty
+  sleep 0.5 # fix lazy load request problem
 end
 
 Dann /^sieht man keine Modelle, denen keine Gegenstänge zugewiesen unter keinem der vorhandenen Reiter$/ do
