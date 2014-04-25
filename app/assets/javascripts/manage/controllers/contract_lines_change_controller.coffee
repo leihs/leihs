@@ -17,10 +17,14 @@ class window.App.ContractLinesChangeController extends window.App.ManageBookingC
 
   # overwrite
   store: =>
-    if @models.length == 1
-      do @storeItemLine
-    else if @models.length == 0
-      do @storeOptionLine
+     # the check for the existence of contract is needed for distinguishing the take backs, for which only the changing of end date should be possible (see @changeRange and @startDateDisabled). @contract is not initialized on the take back page, because there may be different contracts
+    if @contract?
+      if @models.length == 1
+        do @storeItemLine
+      else if @models.length == 0
+        do @storeOptionLine
+      else
+        do @changeRange
     else
       do @changeRange
     
