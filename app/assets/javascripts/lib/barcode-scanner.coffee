@@ -3,7 +3,7 @@ class BarcodeScanner
   constructor: ->
     @actions = []
     @buffer = null
-    @delay = 50
+    @delay = 100
     @timer = null
   
   addChar: (char)=>
@@ -27,7 +27,7 @@ class BarcodeScanner
     if action?
       action.callback.apply target, @getArguments(code, action)
     else
-      target.val("").val(code).focus()
+      target.val("").val(code)
       @submit target
     @buffer = null
 
