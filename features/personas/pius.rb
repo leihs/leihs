@@ -90,9 +90,11 @@ module Persona
       overdued_contract = FactoryGirl.create(:contract, :user => user, :inventory_pool => @inventory_pool_2, :status => :approved)
       purpose = FactoryGirl.create :purpose, :description => Faker::Lorem.sentence
       model = FactoryGirl.create :model_with_items, inventory_pool: @inventory_pool_2
-      overdued_contract.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => overdued_contract,
+      overdued_contract.contract_lines << FactoryGirl.create(:item_line, :purpose => purpose, :contract => overdued_contract,
                                                               :item_id => @inventory_pool_2.items.in_stock.where(:model_id => model.id).first.id,
                                                               :model => model, :start_date => Date.today, :end_date => (Date.today + 4.days))
+      overdued_contract.contract_lines << FactoryGirl.create(:option_line, :purpose => purpose, :contract => overdued_contract,
+                                                              :start_date => Date.today, :end_date => (Date.today + 4.days))
       overdued_contract.sign(@user)
       back_to_the_present
     end
