@@ -26,7 +26,9 @@ class window.App.InventoryIndexController extends Spine.Controller
     @inventory = {}
     App.Inventory.deleteAll()
     App.Item.deleteAll()
+    App.License.deleteAll()
     App.Model.deleteAll()
+    App.Software.deleteAll()
     App.Option.deleteAll()
     do @updateExportButton
     @list.html App.Render "manage/views/lists/loading"
@@ -41,7 +43,8 @@ class window.App.InventoryIndexController extends Spine.Controller
     @fetchInventory(page).done =>
       @fetchAvailability(page).done =>
         @fetchItems(page).done =>
-          @render target, @inventory[page], page
+          @fetchLicenses(page).done =>
+            @render target, @inventory[page], page
 
   fetchInventory: (page)=>
     App.Inventory.ajaxFetch
@@ -58,7 +61,7 @@ class window.App.InventoryIndexController extends Spine.Controller
       @inventory[page] = inventory
 
   fetchAvailability: (page)=>
-    models = _.filter @inventory[page], (i)-> i.constructor.className == "Model"
+    models = _.filter @inventory[page], (i)-> _.contains ["Model", "Software"], i.constructor.className
     ids = _.map models, (m)-> m.id
     return {done: (c)->c()} unless ids.length
     App.Availability.ajaxFetch
@@ -67,10 +70,22 @@ class window.App.InventoryIndexController extends Spine.Controller
         model_ids: ids
 
   fetchItems: (page)=>
-    models = _.filter @inventory[page], (i)-> i.constructor.className == "Model"
+    models = _.filter @inventory[page], (i) -> i.constructor.className == "Model"
     ids = _.map models, (m)-> m.id
     return {done: (c)->c()} unless ids.length
     App.Item.ajaxFetch
+      data: $.param $.extend @getData(),
+        model_ids: ids
+        paginate: false
+        search_term: @search.term()
+        all: true
+        unretired: true
+
+  fetchLicenses: (page)=>
+    software = _.filter @inventory[page], (i) -> i.constructor.className == "Software"
+    ids = _.map software, (s)-> s.id
+    return {done: (c)->c()} unless ids.length
+    App.License.ajaxFetch
       data: $.param $.extend @getData(),
         model_ids: ids
         paginate: false

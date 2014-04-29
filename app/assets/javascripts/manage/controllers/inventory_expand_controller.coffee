@@ -20,13 +20,14 @@ class window.App.InventoryExpandController extends Spine.Controller
     target.data "_expanded", true
     target.find(".arrow").removeClass("down right").addClass("down")
     line = target.closest("[data-id]")
-    if line.data("type") == "model" and not line.data("_children")?
+    if _.contains(["model", "software"], line.data("type")) and not line.data("_children")?
       @fetchData line, @updateChildren 
     @setupChildren(line)
 
   fetchData: (line, callback)=>
-    model = App.Model.find line.data("id")
-    itemIds = _.map model.items().all(), (i)->i.id
+    model = App.Model.find(line.data("id")) if line.data("type") == "model"
+    software = App.Software.find(line.data("id")) if line.data("type") == "software"
+    itemIds = _.map (model ? software).items().all(), (i)->i.id
     @fetchCurrentItemLocation(line, itemIds).done => 
       @fetchPackageItems(line, itemIds).done (data)=>
         @fetchPackageModels(line, itemIds).done => callback line
@@ -74,6 +75,8 @@ class window.App.InventoryExpandController extends Spine.Controller
     data = switch line.data("type")
       when "model"
         record.items().all()
+      when "software"
+        record.licenses().all()
       when "item"
         record.children().all()
     childrenContainer = $("<div class='group-of-lines'></div>")

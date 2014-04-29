@@ -1,4 +1,4 @@
-- content_for :title, "#{_("Create new item")}"
+- content_for :title, @type == "license" ? _("Create new software license") : _("Create new item")
 - content_for :inventory_section, "active"
 
 #new-item-view.wrapper.margin-top-m
@@ -10,7 +10,7 @@
     .margin-top-l.padding-horizontal-m
       .row
         .col1of2
-          %h1.headline-l= _("Create new item")
+          %h1.headline-l= yield :title
           %h2.headline-s.light= _("Insert all required information")
         .col1of2.text-align-right
 
@@ -46,4 +46,5 @@
     new App.ItemEditController
       el: $("#new-item-view")
       itemData: #{@item.to_json(:methods => [:current_borrower, :current_return_date, :in_stock?],:include => [:inventory_pool, :location, :model, :owner, :supplier])}
+      itemType: "#{@type.downcase}"
       writeable: true

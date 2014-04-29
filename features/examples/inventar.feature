@@ -10,9 +10,9 @@ Funktionalität: Inventar
   @javascript
   Szenario: Was man auf einer Liste sieht
     Dann sieht man Modelle
+    Und man sieht Software
     Und man sieht Optionen
     Und man sieht Pakete
-    Und man sieht Software
 
   @javascript
   Szenario: Auswahlmöglichkeiten
@@ -23,3 +23,4 @@ Funktionalität: Inventar
     | Nicht ausleihbar   |
     | Ausgemustert       |
     | Ungenutzte Modelle |
+    | Software           |

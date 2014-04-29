@@ -637,9 +637,17 @@ window.i18n.locale_data = {
          null,
          "Modell editieren"
       ],
+      "Edit Software": [
+         null,
+         "Sofware editieren"
+      ],
       "Edit Item": [
          null,
          "Gegenstand editieren"
+      ],
+      "Edit License": [
+         null,
+         "Lizenz editieren"
       ],
       "Edit Option": [
          null,
@@ -1571,6 +1579,10 @@ window.i18n.locale_data = {
       "Copy Item": [
          null,
          "Gegenstand kopieren"
+      ],
+      "Copy License": [
+         null,
+         "Lizenz kopieren"
       ],
       "Create copied item": [
          null,
@@ -3666,6 +3678,50 @@ window.i18n.locale_data = {
       "New users will get customer access automatically.": [
          null,
          "Neue Benutzer kriegen automatisch den Zugriff als Kunde."
+      ],
+      "Software": [
+         null,
+         "Software"
+      ],
+      "Software License": [
+         null,
+         "Software-Lizenz"
+      ],
+      "Activation Type": [
+         null,
+         "Aktivierungstyp"
+      ],
+      "License Type": [
+         null,
+         "Lizenzstyp"
+      ],
+      "Create new software license": [
+         null,
+         "Neue Software-Lizenz erstellen"
+      ],
+      "Create new software": [
+         null,
+         "Neue Software erstellen"
+      ],
+      "Free": [
+         null,
+         "Frei"
+      ],
+      "Single Workplace": [
+         null,
+         "Einzelplatz"
+      ],
+      "Multiple Workplace": [
+         null,
+         "Mehrplatz"
+      ],
+      "License Server": [
+         null,
+         "Lizenzserver"
+      ],
+      "License Number": [
+         null,
+         "Lizenznummer"
       ]
    }
 }

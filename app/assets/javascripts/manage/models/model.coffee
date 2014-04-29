@@ -1,1 +1,1 @@
-window.App.Model.url = => "/manage/#{App.InventoryPool.current.id}/models"
+_.invoke [window.App.Model, window.App.Software], -> this.url = -> "/manage/#{App.InventoryPool.current.id}/models"

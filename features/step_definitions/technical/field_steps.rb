@@ -10,8 +10,7 @@ Given /^a user with role (\w+) exists$/ do |manager_role|
 end
 
 When /^you get the accessible fields for this user$/ do
-  @accessible_fields = Field.accessible_by @user, @inventory_pool
-
+  @accessible_fields = Field.all.select {|f| f.accessible_by? @user, @inventory_pool }
 end
 
 Then /^the user has access to at least all the fields without any permissions$/ do
@@ -30,7 +29,7 @@ Then /^the amount of the accessible fields (.*) (\w+) can be different$/ do |com
   @higher_user = FactoryGirl.create(:user)
   @higher_user.access_rights << FactoryGirl.create(:access_right, :role => higher_manager_role.to_sym, :user => @higher_user, :inventory_pool => @inventory_pool)
   # create also data for an higher level
-  @higher_accessible_fields = Field.accessible_by @higher_user, @inventory_pool
+  @higher_accessible_fields = Field.all.select {|f| f.accessible_by? @higher_user, @inventory_pool }
   # check that the same condition holds true also for higher level
   @higher_accessible_fields.size.should >= @minimum_field_size
 

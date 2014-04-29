@@ -24,6 +24,7 @@ class window.App.ModelsPackageDialogController extends Spine.Controller
     @flexibleFieldsController = new App.ItemFlexibleFieldsController
       el: @itemForm.find("#flexible-fields")
       itemData: @item
+      itemType: "item"
       forPackage: true
       writeable: true
 

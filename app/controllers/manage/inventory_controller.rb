@@ -6,7 +6,7 @@ class Manage::InventoryController < Manage::ApplicationController
   end
 
   def helper
-    @fields = Field.accessible_by current_user, current_inventory_pool
+    @fields = Field.all.select {|f| f.accessible_by? current_user, current_inventory_pool }
   end
 
   def index

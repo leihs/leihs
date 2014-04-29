@@ -35,7 +35,9 @@ class App.InventoryHelperController extends Spine.Controller
     @el.on "submit", "form", (e)=> e.preventDefault()    
     
   fetchFields: =>
-    App.Field.ajaxFetch()
+    App.Field.ajaxFetch
+      data: $.param
+        target_type: "item"
 
   setupFieldAutocomplete: ->
     @fieldInput.autocomplete
