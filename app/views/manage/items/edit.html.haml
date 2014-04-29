@@ -46,4 +46,5 @@
     new App.ItemEditController
       el: $("#edit-item-view")
       itemData: #{@item.to_json(:methods => [:current_borrower, :current_return_date, :in_stock?],:include => [:inventory_pool, :location, :model, :owner, :supplier])}
+      itemType: "#{@item.type.downcase}"
       writeable: true

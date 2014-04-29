@@ -2,6 +2,10 @@ When "I reload the page" do
   visit URI.parse(current_url).path
 end
 
+When "I scroll to the bottom of the page" do
+  page.execute_script "window.scrollBy(0,10000)"
+end
+
 When /^I follow the sloppy link "([^"]*)"(?: within "([^"]*)")?$/ do |text, selector|
   with_scope(selector) do
     

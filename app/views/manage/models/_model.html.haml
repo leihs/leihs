@@ -1,0 +1,34 @@
+%form#model-form
+
+  .col1of2.padding-right-xs
+
+    = render :partial => "manage/models/form/name"
+
+    = render :partial => "manage/models/form/manufacturer"
+
+    = render :partial => "manage/models/form/description"
+
+    = render :partial => "manage/models/form/technical_details"
+
+    = render :partial => "manage/models/form/internal_description"
+
+    = render :partial => "manage/models/form/hand_over_note"
+
+    = render :partial => "manage/models/form/allocations"
+
+    = render :partial => "manage/models/form/categories"
+
+  .col1of2
+
+    = render :partial => "manage/models/form/images"
+
+    = render :partial => "manage/models/form/attachments"
+
+    = render :partial => "manage/models/form/accessories"
+
+    - if @model.is_package? or not @model.persisted?
+      = render :partial => "manage/models/form/packages"
+
+    = render :partial => "manage/models/form/compatibles"
+
+    = render :partial => "manage/models/form/properties"

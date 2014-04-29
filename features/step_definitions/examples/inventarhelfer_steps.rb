@@ -177,7 +177,7 @@ Dann /^die geänderten Werte sind hervorgehoben$/ do
 end
 
 Dann /^wähle ich die Felder über eine List oder per Namen aus$/ do
-  field = Field.all.select{|f| f[:readonly] == nil and f[:type] != "autocomplete-search"}.last
+  field = Field.all.select{|f| f[:readonly] == nil and f[:type] != "autocomplete-search" and f[:target_type] != "license" and not f[:visibility_dependency_field_id]}.last
   find("#field-input").click
   find("#field-input").set field.label
   find("a.ui-corner-all", match: :first, text: field.label).click

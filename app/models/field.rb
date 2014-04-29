@@ -28,6 +28,7 @@ class Field < ActiveHash::Base
       attribute: ["properties", "mac_address"],
       permissions: {role: :lending_manager, owner: true},
       type: "text",
+      target_type: "item",
       group: "General Information"
     },{
       id: 4,
@@ -35,12 +36,14 @@ class Field < ActiveHash::Base
       attribute: ["properties", "imei_number"],
       permissions: {role: :lending_manager, owner: true},
       type: "text",
+      target_type: "item",
       group: "General Information"
     },{
       id: 5,
       label: "Name",
       attribute: "name",
       type: "text",
+      target_type: "item",
       group: "General Information",
       forPackage: true
     },{
@@ -48,6 +51,7 @@ class Field < ActiveHash::Base
       label: "Note",
       attribute: "note",
       type: "textarea",
+      target_type: "item",
       group: "General Information",
       forPackage: true
     },{
@@ -55,6 +59,7 @@ class Field < ActiveHash::Base
       label: "Retirement",
       attribute: "retired",
       type: "select",
+      target_type: "item",
       permissions: {role: :lending_manager, owner: true},
       values: [{label: "No", value: false}, {label: "Yes", value: true}],
       group: "Status"
@@ -63,6 +68,7 @@ class Field < ActiveHash::Base
       label: "Reason for Retirement",
       attribute: "retired_reason",
       type: "textarea",
+      target_type: "item",
       required: true,
       permissions: {role: :lending_manager, owner: true},
       visibility_dependency_field_id: 7,
@@ -73,6 +79,7 @@ class Field < ActiveHash::Base
       label: "Working order",
       attribute: "is_broken",
       type: "radio",
+      target_type: "item",
       values: [{label: "OK", value: false}, {label: "Broken", value: true}],
       default: false,
       group: "Status",
@@ -82,6 +89,7 @@ class Field < ActiveHash::Base
       label: "Completeness",
       attribute: "is_incomplete",
       type: "radio",
+      target_type: "item",
       values: [{label: "OK", value: false}, {label: "Incomplete", value: true}],
       default: false,
       group: "Status",
@@ -91,6 +99,7 @@ class Field < ActiveHash::Base
       label: "Borrowable",
       attribute: "is_borrowable",
       type: "radio",
+      target_type: "item",
       values: [{label: "OK", value: true}, {label: "Unborrowable", value: false}],
       default: false,
       group: "Status",
@@ -100,6 +109,7 @@ class Field < ActiveHash::Base
       label: "Building",
       attribute: ["location", "building_id"],
       type: "autocomplete",
+      target_type: "item",
       values: lambda{([{:value => nil, :label => _("None")}] + Building.all.map {|x| {:value => x.id, :label => x.to_s}}).as_json},
       group: "Location",
       forPackage: true
@@ -108,6 +118,7 @@ class Field < ActiveHash::Base
       label: "Room",
       attribute: ["location", "room"],
       type: "text",
+      target_type: "item",
       group: "Location",
       forPackage: true
     },{
@@ -115,6 +126,7 @@ class Field < ActiveHash::Base
       label: "Shelf",
       attribute: ["location", "shelf"],
       type: "text",
+      target_type: "item",
       group: "Location",
       forPackage: true
     },{
@@ -122,28 +134,18 @@ class Field < ActiveHash::Base
       label: "Relevant for inventory",
       attribute: "is_inventory_relevant",
       type: "select",
+      target_type: "item",
       permissions: {role: :inventory_manager, owner: true},
       values: [{label: "No", value: false}, {label: "Yes", value: true}],
       default: true,
       group: "Inventory",
       forPackage: true
     },{
-      id: 36,
-      label: "Anschaffungskategorie",
-      attribute: ["properties", "anschaffungskategorie"],
-      value_label: ["properties", "anschaffungskategorie"],
-      required: true,
-      type: "select",
-      values: [{label: "", value: nil}, {label: "Werkstatt-Technik", value: "Werkstatt-Technik"}, {label: "Produktionstechnik", value: "Produktionstechnik"}, {label: "AV-Technik", value: "AV-Technik"}, {label: "Musikinstrumente", value: "Musikinstrumente"}, {label: "Facility Management", value: "Facility Management"}, {label: "IC-Technik/Software", value: "IC-Technik/Software"}],
-      visibility_dependency_field_id: 15,
-      visibility_dependency_value: "true",
-      permissions: {role: :inventory_manager, owner: true},
-      group: "Inventory"
-    },{
       id: 16,
       label: "Owner",
       attribute: ["owner", "id"],
       type: "autocomplete",
+      target_type: "item",
       permissions: {role: :inventory_manager, owner: true},
       values: lambda{(InventoryPool.all.map {|x| {:value => x.id, :label => x.name}}).as_json},
       group: "Inventory"
@@ -154,6 +156,7 @@ class Field < ActiveHash::Base
       permissions: {role: :lending_manager, owner: true},
       default: lambda{Date.today.as_json},
       type: "date",
+      target_type: "item",
       group: "Inventory",
       forPackage: true
     },{
@@ -161,6 +164,7 @@ class Field < ActiveHash::Base
       label: "Responsible department",
       attribute: ["inventory_pool", "id"],
       type: "autocomplete",
+      target_type: "item",
       values: lambda{([{:value => nil, :label => _("None")}] + InventoryPool.all.map {|x| {:value => x.id, :label => x.name}}).as_json},
       permissions: {role: :inventory_manager, owner: true},
       group: "Inventory",
@@ -171,6 +175,7 @@ class Field < ActiveHash::Base
       attribute: "responsible",
       permissions: {role: :lending_manager, owner: true},
       type: "text",
+      target_type: "item",
       group: "Inventory",
       forPackage: true
     },{
@@ -179,6 +184,7 @@ class Field < ActiveHash::Base
       attribute: "user_name",
       permissions: {role: :inventory_manager, owner: true},
       type: "text",
+      target_type: "item",
       group: "Inventory",
       forPackage: true
     },{
@@ -190,6 +196,7 @@ class Field < ActiveHash::Base
       values: [{label: "Running Account", value: "invoice"}, {label: "Investment", value: "investment"}],
       default: "invoice", 
       type: "radio",
+      target_type: "item",
       group: "Invoice Information"
     },{
       id: 22,
@@ -197,6 +204,7 @@ class Field < ActiveHash::Base
       attribute: ["properties", "project_number"],
       permissions: {role: :inventory_manager, owner: true},
       type: "text",
+      target_type: "item",
       required: true,
       visibility_dependency_field_id: 21,
       visibility_dependency_value: "investment",
@@ -207,6 +215,7 @@ class Field < ActiveHash::Base
       attribute: "invoice_number",
       permissions: {role: :lending_manager, owner: true},
       type: "text",
+      target_type: "item",
       group: "Invoice Information"
     },{
       id: 24,
@@ -214,6 +223,7 @@ class Field < ActiveHash::Base
       attribute: "invoice_date",
       permissions: {role: :lending_manager, owner: true},
       type: "date",
+      target_type: "item",
       group: "Invoice Information"
     },{
       id: 25,
@@ -221,6 +231,7 @@ class Field < ActiveHash::Base
       attribute: "price",
       permissions: {role: :lending_manager, owner: true},
       type: "text",
+      target_type: "item",
       group: "Invoice Information",
       forPackage: true
     },{
@@ -228,6 +239,7 @@ class Field < ActiveHash::Base
       label: "Supplier",
       attribute: ["supplier", "id"],
       type: "autocomplete",
+      target_type: "item",
       extensible: true,
       extended_key: ["supplier", "name"],
       permissions: {role: :lending_manager, owner: true},
@@ -239,6 +251,7 @@ class Field < ActiveHash::Base
       attribute: ["properties", "warranty_expiration"],
       permissions: {role: :lending_manager, owner: true},
       type: "date",
+      target_type: "item",
       group: "Invoice Information"
     },{
       id: 29,
@@ -246,12 +259,14 @@ class Field < ActiveHash::Base
       attribute: ["properties", "contract_expiration"],
       permissions: {role: :lending_manager, owner: true},
       type: "date",
+      target_type: "item",
       group: "Invoice Information"
     },{
       id: 30,
       label: "Umzug",
       attribute: ["properties", "umzug"],
       type: "select",
+      target_type: "item",
       values: [{label:"zügeln", value:"zügeln"}, {label:"sofort entsorgen", value:"sofort entsorgen"}, {label:"bei Umzug entsorgen", value:"bei Umzug entsorgen"}, {label:"bei Umzug verkaufen", value:"bei Umzug verkaufen"}],
       permissions: {role: :inventory_manager, owner: true},
       group: "Umzug"
@@ -260,6 +275,7 @@ class Field < ActiveHash::Base
       label: "Zielraum",
       attribute: ["properties", "zielraum"],
       type: "text",
+      target_type: "item",
       permissions: {role: :inventory_manager, owner: true},
       group: "Umzug"
     },{
@@ -267,6 +283,7 @@ class Field < ActiveHash::Base
       label: "Ankunftsdatum",
       attribute: ["properties", "ankunftsdatum"],
       type: "date",
+      target_type: "item",
       permissions: {role: :inventory_manager, owner: true},
       group: "Toni Ankunftskontrolle"
     },{
@@ -274,6 +291,7 @@ class Field < ActiveHash::Base
       label: "Ankunftszustand",
       attribute: ["properties", "ankunftszustand"],
       type: "select",
+      target_type: "item",
       values: [{label:"intakt", value:"intakt"}, {label:"transportschaden", value:"transportschaden"}],
       permissions: {role: :inventory_manager, owner: true},
       group: "Toni Ankunftskontrolle"
@@ -282,6 +300,7 @@ class Field < ActiveHash::Base
       label: "Ankunftsnotiz",
       attribute: ["properties", "ankunftsnotiz"],
       type: "textarea",
+      target_type: "item",
       permissions: {role: :inventory_manager, owner: true},
       group: "Toni Ankunftskontrolle"
     },{
@@ -298,6 +317,37 @@ class Field < ActiveHash::Base
       value_attr: "id",
       display_attr: "product",
       display_attr_ext: "version",
+      group: nil
+    },{
+      id: 36,
+      label: "Anschaffungskategorie",
+      attribute: ["properties", "anschaffungskategorie"],
+      value_label: ["properties", "anschaffungskategorie"],
+      required: true,
+      type: "select",
+      target_type: "item",
+      values: [{label: "", value: nil}, {label: "Werkstatt-Technik", value: "Werkstatt-Technik"}, {label: "Produktionstechnik", value: "Produktionstechnik"}, {label: "AV-Technik", value: "AV-Technik"}, {label: "Musikinstrumente", value: "Musikinstrumente"}, {label: "Facility Management", value: "Facility Management"}, {label: "IC-Technik/Software", value: "IC-Technik/Software"}],
+      visibility_dependency_field_id: 15,
+      visibility_dependency_value: "true",
+      permissions: {role: :inventory_manager, owner: true},
+      group: "Inventory"
+    },{
+      id: 37,
+      label: "Activation Type",
+      attribute: ["properties", "activation_type"],
+      type: "select",
+      target_type: "license",
+      values: [{label: "None", value: "none"}, {label: "Dongle", value: "dongle"}, {label: "License Server", value: "license_server"}, {label: "License Number", value: "license_number"}, {label: "Challenge Response/System ID", value: "challenge_response"}],
+      permissions: {role: :inventory_manager, owner: true},
+      group: nil
+    },{
+      id: 38,
+      label: "License Type",
+      attribute: ["properties", "license_type"],
+      type: "select",
+      target_type: "license",
+      values: [{label: "Free", value: "free"}, {label: "Single Workplace", value: "single_workplace"}, {label: "Multiple Workplace", value: "multiple_workplace"}, {label: "Site", value: "site"}, {label: "Floating", value: "floating"}],
+      permissions: {role: :inventory_manager, owner: true},
       group: nil
     }
   ]
@@ -368,14 +418,16 @@ class Field < ActiveHash::Base
 
 ########
 
-  def self.accessible_by user, inventory_pool
-    Field.all.select do |field|
-      if field[:permissions]
-        user.has_role? field[:permissions][:role], inventory_pool
-      else
-        true
-      end
+  def accessible_by? user, inventory_pool
+    if self[:permissions]
+      user.has_role? self[:permissions][:role], inventory_pool
+    else
+      true
     end
+  end
+
+  def has_target_type? type
+    self[:target_type].nil? or self[:target_type] == type
   end
 
 end

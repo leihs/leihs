@@ -107,6 +107,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/inventarhelfer3.feature"
+- name: examples/software_erfassen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/software_erfassen.feature"
 - name: examples/passwort3
   scripts:
     cucumber:
@@ -135,6 +139,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/explorative_suche2.feature"
+- name: examples/software_editieren
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/software_editieren.feature"
 - name: examples/pakete
   scripts:
     cucumber:
@@ -447,10 +455,6 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/zweck.feature"
-- name: examples/Software-erfassen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/Software-erfassen.feature"
 - name: examples/hinzufuegen
   scripts:
     cucumber:

@@ -15,7 +15,9 @@ class window.App.ItemFlexibleFieldsController extends Spine.Controller
 
   fetchFields: =>
     return {done: (c)->c()} if App.Field.all().length
-    App.Field.ajaxFetch()
+    App.Field.ajaxFetch
+      data: $.param
+        target_type: @itemType
 
   renderForm: => 
     @el.html App.Render "manage/views/items/form"

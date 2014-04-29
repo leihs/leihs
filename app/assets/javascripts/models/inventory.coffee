@@ -15,6 +15,7 @@ class window.App.Inventory extends Spine.Model
   constructor: (data)->
     @rooted data, "option"
     @rooted data, "model"
+    @rooted data, "software"
     @rooted data, "item"
     super
 

@@ -154,7 +154,10 @@ class InventoryPool < ActiveRecord::Base
   def inventory(params)
     items = Item.filter params.clone.merge({paginate: "false", all: "true", search_term: nil}), self
 
-    if [:unborrowable, :retired, :category_id, :in_stock, :incomplete, :broken, :owned, :responsible_id, :unused_models].all? {|param| params[param].blank?}
+    if params[:software]
+      items = items.licenses
+      models = Software.all
+    else [:unborrowable, :retired, :category_id, :in_stock, :incomplete, :broken, :owned, :responsible_id, :unused_models].all? {|param| params[param].blank?}
       options = Option.filter params.clone.merge({paginate: "false", sort: "product", order: "ASC"}), self
     end
 

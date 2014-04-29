@@ -16,7 +16,7 @@ Given /^the MacBook availability as of (\d+\-\d+\-\d+)$/ do |date|
     attrs = fixture_instance.attributes.select {|k,v| not mass_attrs.include? k.to_sym }
     o = klass.new(attrs) do |r|
       mass_attrs.each do |a|
-        r.send("#{a}=", fixture_instance.send(a)) if fixture_instance.respond_to?(a)
+        r.send("#{a}=", fixture_instance.send(a)) if fixture_instance.instance_eval { respond_to? a and respond_to? "#{a}=".to_sym }
       end
     end
     o.save(validate: false) # we skip validations because we are sequencially creating objects that are validating each other

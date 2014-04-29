@@ -437,7 +437,13 @@ msgstr ""
 msgid "Edit Model"
 msgstr ""
 
+msgid "Edit Software"
+msgstr ""
+
 msgid "Edit Item"
+msgstr ""
+
+msgid "Edit License"
 msgstr ""
 
 msgid "Edit Option"
@@ -1139,6 +1145,9 @@ msgid "Save and copy %s"
 msgstr ""
 
 msgid "Copy Item"
+msgstr ""
+
+msgid "Copy License"
 msgstr ""
 
 msgid "Create copied item"
@@ -2768,4 +2777,37 @@ msgid "Automatic access"
 msgstr ""
 
 msgid "New users will get customer access automatically."
+msgstr ""
+
+msgid "Software"
+msgstr ""
+
+msgid "Software License"
+msgstr ""
+
+msgid "Activation Type"
+msgstr ""
+
+msgid "License Type"
+msgstr ""
+
+msgid "Create new software license"
+msgstr ""
+
+msgid "Create new software"
+msgstr ""
+
+msgid "Free"
+msgstr ""
+
+msgid "Single Workplace"
+msgstr ""
+
+msgid "Multiple Workplace"
+msgstr ""
+
+msgid "License Server"
+msgstr ""
+
+msgid "License Number"
 msgstr ""

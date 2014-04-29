@@ -14,6 +14,7 @@ class Manage::ItemsController < Manage::ApplicationController
   end
 
   def new
+    @type = params[:type] ? params[:type] : "item"
     @item = Item.new(:owner => current_inventory_pool)
     @item.inventory_code = Item.proposed_inventory_code(current_inventory_pool)
     unless @current_user.has_role?(:lending_manager, current_inventory_pool)
@@ -117,6 +118,7 @@ class Manage::ItemsController < Manage::ApplicationController
 
   def copy
     fetch_item
+    @type = @item.type
     @item = @item.dup
     @item.owner = @current_inventory_pool
     @item.inventory_code = Item.proposed_inventory_code(current_inventory_pool)

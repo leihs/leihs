@@ -16,3 +16,9 @@
       %li
         %a.dropdown-item{:href => manage_new_option_path(current_inventory_pool)}
           = _("Option")
+      %li
+        %a.dropdown-item{:href => manage_new_model_path(current_inventory_pool, type: "software")}
+          = _("Software")
+      %li
+        %a.dropdown-item{:href => manage_new_item_path(current_inventory_pool, type: "license")}
+          = _("Software License")

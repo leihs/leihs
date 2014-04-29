@@ -98,6 +98,8 @@ module Persona
       
       setup_inventory_moved_to_other_responsible
       setup_inventory_for_group_cast
+
+      setup_software
     end
     
     def create_accessories
@@ -381,5 +383,9 @@ module Persona
       next_christmas = (Date.today().month == 12 and Date.today().day > 23)? Date.new(Date.today().year+1.day, 12, 24) : Date.new(Date.today().year, 12, 24)
       Holiday.create({:inventory_pool_id => @inventory_pool.id, :start_date => next_christmas, :end_date => next_christmas, :name => "Christmas"})
     end
-  end  
+
+    def setup_software
+      rand(2..6).times { FactoryGirl.create :license, owner: @inventory_pool }
+    end
+  end
 end

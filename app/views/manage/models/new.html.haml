@@ -1,4 +1,4 @@
-- content_for :title, "#{_("Create new model")}"
+- content_for :title, @type == "software" ? _("Create new software") : _("Create new model")
 - content_for :inventory_section, "active"
 - content_for :head do
   = javascript_include_tag "upload"
@@ -12,7 +12,7 @@
     .margin-top-l.padding-horizontal-m
       .row
         .col1of2
-          %h1.headline-l= _("Create new model")
+          %h1.headline-l= yield :title
           %h2.headline-s.light= _("Insert all required information")
         .col1of2.text-align-right
 

@@ -14,6 +14,7 @@ class window.App.ItemEditController extends Spine.Controller
     @flexibleFieldsController = new App.ItemFlexibleFieldsController
       el: @flexibleFields
       itemData: @itemData
+      itemType: @itemType
       writeable: true
 
   save: =>

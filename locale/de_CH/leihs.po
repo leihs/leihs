@@ -448,8 +448,14 @@ msgstr "%s bearbeiten"
 msgid "Edit Model"
 msgstr "Modell editieren"
 
+msgid "Edit Software"
+msgstr "Sofware editieren"
+
 msgid "Edit Item"
 msgstr "Gegenstand editieren"
+
+msgid "Edit License"
+msgstr "Lizenz editieren"
 
 msgid "Edit Option"
 msgstr "Option editieren"
@@ -1165,6 +1171,9 @@ msgstr "%s speichern und kopieren"
 
 msgid "Copy Item"
 msgstr "Gegenstand kopieren"
+
+msgid "Copy License"
+msgstr "Lizenz kopieren"
 
 msgid "Create copied item"
 msgstr "Kopierten Gegenstand erstellen"
@@ -2872,3 +2881,36 @@ msgstr "Automatischer Zugriff"
 
 msgid "New users will get customer access automatically."
 msgstr "Neue Benutzer kriegen automatisch den Zugriff als Kunde."
+
+msgid "Software"
+msgstr "Software"
+
+msgid "Software License"
+msgstr "Software-Lizenz"
+
+msgid "Activation Type"
+msgstr "Aktivierungstyp"
+
+msgid "License Type"
+msgstr "Lizenzstyp"
+
+msgid "Create new software license"
+msgstr "Neue Software-Lizenz erstellen"
+
+msgid "Create new software"
+msgstr "Neue Software erstellen"
+
+msgid "Free"
+msgstr "Frei"
+
+msgid "Single Workplace"
+msgstr "Einzelplatz"
+
+msgid "Multiple Workplace"
+msgstr "Mehrplatz"
+
+msgid "License Server"
+msgstr "Lizenzserver"
+
+msgid "License Number"
+msgstr "Lizenznummer"

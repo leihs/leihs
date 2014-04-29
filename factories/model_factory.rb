@@ -1,6 +1,6 @@
 FactoryGirl.define do
 
-  factory :model do
+  trait :shared_model_software_attributes do
     manufacturer { Faker::Company.name }
     product do
       begin
@@ -9,13 +9,18 @@ FactoryGirl.define do
       r
     end
     version { Faker::Number.number(3) }
+  end
+
+  factory :model do
+    shared_model_software_attributes
+
     description { Faker::Lorem.sentence }
     internal_description { Faker::Lorem.sentence }
     maintenance_period { rand(4) }
     is_package false
     technical_detail { Faker::Lorem.sentence }
     hand_over_note { Faker::Lorem.sentence }
-    
+
     factory :model_with_items do
       ignore do
         inventory_pool { FactoryGirl.create :inventory_pool }
@@ -26,7 +31,9 @@ FactoryGirl.define do
         end
       end
     end
-    
+
   end
+
+  factory :software, traits: [:shared_model_software_attributes]
 
 end

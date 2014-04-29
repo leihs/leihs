@@ -16,7 +16,13 @@ Dann /^sieht man Modelle$/ do
   find("#inventory .line[data-type='model']", match: :first)
 end
 
+Dann /^man sieht Software$/ do
+  step "I scroll to the bottom of the page"
+  find("#inventory .line[data-type='software']", match: :first)
+end
+
 Dann /^man sieht Optionen$/ do
+  step "I scroll to the bottom of the page"
   find("#inventory .line[data-type='option']", match: :first)
 end
 
@@ -28,9 +34,14 @@ end
 
 ########################################################################
 
-def check_existing_inventory_codes(items)
-  step "sieht man Modelle"
-  all(".line[data-type='model']").each do |model_el|
+def check_existing_inventory_codes(items, type: :model)
+  if type == :model
+    step "sieht man Modelle"
+  elsif type == :software
+    step "man sieht Software"
+  end
+
+  all(".line[data-type='#{type}']").each do |model_el|
     model_el.find(".button[data-type='inventory-expander'] i.arrow.right").click
     model_el.find(".button[data-type='inventory-expander'] i.arrow.down")
     find(".group-of-lines")
@@ -72,9 +83,14 @@ Dann /^hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind$/ do |
         all(".line[data-type='model']").each do |model_el|
           model_el.find(".button[data-type='inventory-expander'] span").text.should == "0"
         end
+      when "Software"
+        tab = section_tabs.find("a[data-software='true']")
+        tab.click
+        check_existing_inventory_codes(items.licenses, type: :software)
     end
     tab.reload[:class].split.include?("active").should be_true
   end
+  sleep 0.5 # fix lazy request problem
 end
 
 ########################################################################

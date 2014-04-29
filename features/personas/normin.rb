@@ -64,8 +64,9 @@ module Persona
       rand(2..4).times do
         random_inventory_pool = @user.inventory_pools.sample
         random_contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => random_inventory_pool, :status => :submitted)
+        purpose = FactoryGirl.create :purpose, description: Faker::Lorem.sentence
         rand(3..5).times do
-          FactoryGirl.create(:contract_line, :contract => random_contract)
+          FactoryGirl.create(:contract_line, :contract => random_contract, :purpose => purpose)
         end
       end
     end
