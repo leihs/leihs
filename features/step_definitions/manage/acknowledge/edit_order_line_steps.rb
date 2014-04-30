@@ -2,7 +2,7 @@
 
 When /^I open a contract for acknowledgement$/ do
   @ip = @current_user.managed_inventory_pools.first
-  @customer = @ip.users.all.detect {|x| x.contracts.submitted.exists? }
+  @customer = @ip.users.to_a.detect {|x| x.contracts.submitted.exists? }
   @contract = @customer.contracts.submitted.first
   visit manage_edit_contract_path(@ip, @contract)
   page.should have_selector("[data-order-approve]", :visible => true)
@@ -40,7 +40,7 @@ end
 
 When /^I save the booking calendar$/ do
   find("#submit-booking-calendar", :text => _("Save")).click
-  sleep(0.66)
+  sleep(0.33)
   page.has_no_selector?("#submit-booking-calendar", :text => _("Save"))
   page.has_no_selector?("#booking-calendar")
 end

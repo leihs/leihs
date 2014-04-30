@@ -28,8 +28,8 @@ class Borrow::TemplatesController < Borrow::ApplicationController
   end
 
   def select_dates
-    model_links = @template.model_links.all
-    @models = @template.models.all
+    model_links = @template.model_links
+    @models = @template.models
     @lines = params[:lines].delete_if{|l| l["quantity"].to_i == 0}.map do |line|
       model = @models.detect{|m| m.id == line["model_id"].to_i}
       quantity = line["quantity"].to_i
@@ -44,8 +44,8 @@ class Borrow::TemplatesController < Borrow::ApplicationController
 
   def availability
     unborrowable_models = @template.unaccomplishable_models current_user, 1
-    model_links = @template.model_links.all
-    @models = @template.models.all
+    model_links = @template.model_links
+    @models = @template.models
     @lines = params[:lines].delete_if{|l| l["quantity"].to_i == 0}.map do |line|
       model = @models.detect{|m| m.id == line["model_id"].to_i}
       quantity = line["quantity"].to_i
@@ -79,7 +79,7 @@ class Borrow::TemplatesController < Borrow::ApplicationController
   end
 
   def show
-    @model_links = @template.model_links.all.sort_by{|link| link.model.name}
+    @model_links = @template.model_links.sort_by{|link| link.model.name}
     @unaccomplishable_models = @template.unaccomplishable_models current_user
   end
 

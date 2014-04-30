@@ -64,7 +64,7 @@ Dann /^ich setze all ihre Initalisierungswerte$/ do
       when "autocomplete"
         target_name = find(".field[data-id='#{field[:id]}'] [data-type='autocomplete']")['data-autocomplete_value_target']
         find(".field[data-id='#{field[:id]}'] [data-type='autocomplete'][data-autocomplete_value_target='#{target_name}']").click
-        sleep(0.44)
+        sleep(0.33)
         find("a.ui-corner-all", match: :first).click
         @data[field[:id]] = find(".field[data-id='#{field[:id]}'] [data-type='autocomplete']")
       when "autocomplete-search"
@@ -256,7 +256,7 @@ end
 Dann(/^wähle ich das Feld "(.*?)" aus der Liste aus$/) do |field|
   find("#field-input").click
   find("#field-input").set field
-  sleep(0.44)
+  sleep(0.33)
   find("a.ui-corner-all", match: :prefer_exact, text: field).click
   @all_editable_fields = all("#field-selection .field", :visible => true)
 end
@@ -282,7 +282,7 @@ end
 Wenn(/^"(.*?)" ausgewählt und auf "(.*?)" gesetzt wird, dann muss auch "(.*?)" angegeben werden$/) do |field, value, dependent_field|
   find("#field-input").click
   find("#field-input").set field
-  sleep(0.5)
+  sleep(0.33)
   find("a.ui-corner-all", match: :prefer_exact, text: field).click
   step 'ich setze das Feld "%s" auf "%s"' % [field, value]
   find(".row.emboss", match: :prefer_exact, text: dependent_field)

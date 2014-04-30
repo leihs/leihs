@@ -3,9 +3,8 @@
 Funktionalität: Bestellenden wechseln
 
   Grundlage:
-    Angenommen Personas existieren
-    Und man ist "Pius"
-    
+    Angenommen ich bin Pius
+
   @javascript
   Szenario: Bestellende Person wechseln
     Angenommen ich öffne eine Bestellung

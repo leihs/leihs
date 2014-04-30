@@ -18,8 +18,10 @@ end
 
 Dann(/^die Anzahl der zugeteilten Modell\-Kapazitäten$/) do
   @current_inventory_pool.groups.each do |group|
-    find(".line", :text => group.name).first(".quantity", :text => group.models.size.to_s)
-    find(".line", :text => group.name).first(".quantity", :text => group.partitions.sum(&:quantity).to_s)
+    within find(".line", :text => group.name) do
+      first(".quantity", :text => group.models.size.to_s)
+      first(".quantity", :text => group.partitions.to_a.sum(&:quantity).to_s)
+    end
   end
 end
 

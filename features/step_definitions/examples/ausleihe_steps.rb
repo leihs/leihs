@@ -42,10 +42,6 @@ Dann /^wird mir ich ein Suchresultat nach "(.*?)" angezeigt/ do |arg1|
   find("#search-overview h1", text: _("Search Results for \"%s\"") % arg1)
 end
 
-Wenn /^ich eine Rücknahme mache$/ do
-  step 'I open a take back'
-end
-
 Wenn /^etwas in das Feld "(.*?)" schreibe$/ do |field_label|
   if field_label == "Inventarcode/Name"
     find("[data-add-contract-line]").set " "
@@ -71,11 +67,6 @@ Dann /^die Fehlermeldung lautet "(.*?)"$/ do |text|
   # default language is english, so its not so easy to test german here
 end
 
-Wenn /^einem Gegenstand einen Inventarcode manuell zuweise$/ do
-  step 'I click an inventory code input field of an item line'
-  step 'I select one of those'
-end
-
 Dann /^wird der Gegenstand ausgewählt und der Haken gesetzt$/ do
   find("#flash")
   within(".line[data-id='#{@item_line.id}']") do
@@ -99,7 +90,7 @@ Wenn /^die Anzahl einer zurückzugebenden Option manuell ändere$/ do
 end
 
 Dann /^wird die Option ausgewählt und der Haken gesetzt$/ do
-  sleep(0.66)
+  sleep(0.33)
   @option_line.find("input[data-select-line]").checked?.should be_true
   step 'the count matches the amount of selected lines'
 end
@@ -136,10 +127,6 @@ end
 Wenn /^die ausgewählten Gegenstände auch solche beinhalten, die in einer zukünftige Aushändigung enthalten sind$/ do
   find("#add-start-date").set (Date.today+2.days).strftime("%d.%m.%Y")
   step 'I add an item to the hand over by providing an inventory code and a date range'
-end
-
-Wenn /^ich versuche, die Gegenstände auszuhändigen$/ do
-  step 'I click hand over'
 end
 
 Dann /^ich kann die Gegenstände nicht aushändigen$/ do
@@ -219,7 +206,7 @@ end
 Dann /^wird es für die ausgewählte Zeitspanne hinzugefügt$/ do
   find("#flash")
   find(".line", match: :first)
-  sleep(0.66)
+  sleep(0.33)
   @amount_lines_before.should < all(".line").size
 end
 

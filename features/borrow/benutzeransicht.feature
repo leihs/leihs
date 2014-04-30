@@ -5,7 +5,7 @@ Funktionalität: Benutzeransicht
   Als Benutzer möchte ich die Möglichkeit haben meine Benutzerdaten zu sehen
 
   Grundlage:
-    Angenommen man ist "Normin"
+    Angenommen ich bin Normin
 
   Szenario: Benutzerdaten ansehen
     Wenn ich auf meinen Namen klicke
@@ -16,7 +16,7 @@ Funktionalität: Benutzeransicht
     |Nachname|
     |E-Mail|
     |Telefon|
-    
+
   @javascript
   Szenario: Benutzerdaten unter dem Benutzername
     Wenn ich über meinen Namen fahre

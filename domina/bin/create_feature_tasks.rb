@@ -5,10 +5,14 @@ require 'pry'
 def task_for_feature_file file_path
   name= file_path.match(/features\/(.*)\.feature/).captures.first
   exec = %{bundle exec cucumber -p default "#{file_path}"}
-  {"name" => name,
+  { "name" => name,
     "scripts" => {
-    "cucumber" => {
-    "body" => exec } } }
+      "cucumber" => {
+        "timeout" => 600,
+        "body" => exec
+      }
+    }
+  }
 end
 
 STDOUT.write \

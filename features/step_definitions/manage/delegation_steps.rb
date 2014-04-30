@@ -70,7 +70,7 @@ end
 
 Wenn(/^ich kann dieser Delegation keine Delegation zuteile$/) do
   find("[data-search-users]").set @current_inventory_pool.users.as_delegations.sample.name
-  sleep(0.66)
+  sleep(0.33)
   all("ul.ui-autocomplete > li").empty?.should be_true
 end
 

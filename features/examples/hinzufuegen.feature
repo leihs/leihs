@@ -3,9 +3,8 @@
 Funktionalität: Hinzufügen von Modellen
 
   Grundlage:
-    Angenommen Personas existieren
-    Und man ist "Pius"
-    
+    Angenommen ich bin Pius
+
   @javascript
   Szenario: Verfügbarkeitsanzeige beim Hinzufügen zu einer Bestellung
     Angenommen ich editiere eine Bestellung

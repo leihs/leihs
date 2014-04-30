@@ -71,7 +71,7 @@ end
 Dann(/^sehe ich die Zeitanzeige$/) do
   visit root_path
   page.should have_selector("#current-order-basket #timeout-countdown", :visible => true)
-  sleep(2)
+  sleep(0.33)
   @timeoutStart = if @current_user.contracts.unsubmitted.empty?
                     Time.now
                   else
@@ -89,7 +89,7 @@ Dann(/^die Zeitanzeige zählt von (\d+) Minuten herunter$/) do |timeout_minutes|
   minutes = @countdown.split(":")[0].to_i
   seconds = @countdown.split(":")[1].to_i
   expect(minutes >= (Contract::TIMEOUT_MINUTES - 1)).to be_true
-  sleep(2)
+  sleep(0.33)
   expect(seconds > first("#timeout-countdown-time").reload.text.split(":")[1].to_i).to be_true
 end
 
@@ -104,7 +104,7 @@ end
 
 Dann(/^wird die Zeit zurückgesetzt$/) do
   seconds = @countdown.split(":")[1].to_i
-  sleep(2)
+  sleep(0.33)
   secondsNow = first("#timeout-countdown-time").reload.text.split(":")[1].to_i
   expect(seconds <= secondsNow).to be_true
 end
@@ -127,5 +127,5 @@ Wenn(/^die Zeit überschritten ist$/) do
     contract.update_attribute :updated_at, past_date
   end
   page.execute_script %Q{ localStorage.currentTimeout = moment("#{past_date.to_s}").toDate() }
-  sleep 2 # fix lazy request problem
+  sleep(0.33) # fix lazy request problem
 end

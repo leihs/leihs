@@ -94,7 +94,7 @@ end
 Dann(/^werde ich gefragt ob ich die Bestellung wirklich löschen möchte$/) do
   alert = page.driver.browser.switch_to.alert
   alert.accept
-  sleep 0.5
+  sleep(0.33)
 end
 
 Dann(/^alle Einträge werden aus der Bestellung gelöscht$/) do
@@ -197,7 +197,7 @@ Dann(/^speichere die Einstellungen$/) do
 end
 
 Dann(/^wird der Eintrag gemäss aktuellen Einstellungen geändert$/) do
-  sleep(0.66)
+  sleep(0.33)
   find(".line", match: :first)
   find("[data-change-order-lines]", match: :first).click
   find("#booking-calendar .fc-widget-content", :match => :first)

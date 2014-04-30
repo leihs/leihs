@@ -1,7 +1,4 @@
 # -*- encoding : utf-8 -*-
-Wenn /^ich eine Bestellung bearbeite$/ do
-  step 'I open a contract for acknowledgement'
-end
 
 Dann /^kann ich für jedes sichtbare Model die Timeline anzeigen lassen$/ do
 
@@ -25,7 +22,7 @@ Dann /^kann ich für jedes sichtbare Model die Timeline anzeigen lassen$/ do
   all(lines, visible: true)[0..5].each do |line|
     line.find(".multibutton .dropdown-toggle").click
     line.find(".multibutton .dropdown-toggle").hover
-    sleep(0.66)
+    sleep(0.33)
     line.find(".multibutton .dropdown-item", text: _("Timeline")).click
     find(".modal iframe")
     evaluate_script %Q{ $(".modal iframe").contents().first("#my_timeline").length; }

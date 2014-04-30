@@ -7,7 +7,7 @@ Funktionalität: Suche
   die Sprache umschalten können
 
   Szenario: Wechsel der Sprache
-    Angenommen man ist "Normin"
+    Angenommen ich bin Normin
     Und man sich auf der Modellliste befindet
     Wenn ich die Sprache auf "English" umschalte
     Dann ist die Sprache "English"

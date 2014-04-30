@@ -18,13 +18,6 @@ Angenommen /^man öffnet einen Vertrag bei der Aushändigung$/ do
   @contract_lines_to_take_back = @customer.contract_lines.to_take_back.joins(:contract).where(contracts: {inventory_pool_id: @ip})
 end
 
-Angenommen /^man öffnet einen Vertrag bei der Rücknahme/ do
-  step 'I open a take back'
-  step 'I select all lines of an open contract'
-  step 'I click take back'
-  step 'I click take back inside the dialog'
-end
-
 Dann /^möchte ich die folgenden Bereiche sehen:$/ do |table|
   table.hashes.each do |area|
     case area["Bereich"]

@@ -49,14 +49,14 @@ Wenn(/^ich das Passwort von "(.*?)" auf "(.*?)" ändere$/) do |persona, password
 end
 
 Angenommen(/^man befindet sich auf der Benutzereditieransicht von "(.*?)"$/) do |persona|
-  step 'persona "%s" existing' % persona
+  step 'personas existing'
   @user = User.find_by_firstname persona
   if @current_user.access_rights.active.map(&:role).include? :admin
     visit manage_edit_user_path @user
   else
     visit manage_edit_inventory_pool_user_path((@user.inventory_pools & @current_user.managed_inventory_pools).first, @user)
   end
-  sleep(0.66)
+  sleep(0.33)
 end
 
 Wenn(/^ich den Benutzernamen auf "(.*?)" und das Passwort auf "(.*?)" ändere$/) do |login, password|

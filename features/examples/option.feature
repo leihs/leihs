@@ -3,8 +3,7 @@
 Funktionalität: Option
 
   Grundlage:
-    Angenommen Personas existieren
-    Und man ist "Mike"
+    Angenommen ich bin Mike
     Und man öffnet die Liste des Inventars
 
   @javascript

@@ -85,7 +85,7 @@ Dann(/^ist der Gegenstand mit all den angegebenen Informationen gespeichert$/) d
   find(".line", :text => @table_hashes.detect {|r| r["Feldname"] == "Modell"} ["Wert"], :visible => true)
   visit manage_edit_item_path @current_inventory_pool.id, @item.id
   step 'hat der Gegenstand alle zuvor eingetragenen Werte'
-  sleep(1.22) # fix lazy request problem
+  sleep(0.33) # fix lazy request problem
 end
 
 Wenn(/^ich den Lieferanten lösche$/) do

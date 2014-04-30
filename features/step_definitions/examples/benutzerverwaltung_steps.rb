@@ -1,42 +1,44 @@
 # -*- encoding : utf-8 -*-
 
 Angenommen /^man ist Inventar\-Verwalter oder Ausleihe\-Verwalter$/ do
-  step 'man ist "%s"' % ["Mike", "Pius"].sample
+  step 'ich bin %s' % ["Mike", "Pius"].sample
   ar = @current_user.access_rights.active.where(role: [:lending_manager, :inventory_manager]).first
   ar.should_not be_nil
   @inventory_pool = ar.inventory_pool
 end
 
 Angenommen /^man ist Ausleihe\-Verwalter$/ do
-  step 'man ist "%s"' % "Pius"
+  step 'ich bin %s' % "Pius"
   ar = @current_user.access_rights.active.where(role: :lending_manager).first
   ar.should_not be_nil
   @inventory_pool = ar.inventory_pool
 end
 
 Angenommen /^man ist Inventar\-Verwalter$/ do
-  step 'man ist "%s"' % "Mike"
+  step 'ich bin %s' % "Mike"
   ar = @current_user.access_rights.active.where(role: :inventory_manager).first
   ar.should_not be_nil
   @inventory_pool = ar.inventory_pool
 end
 
 Angenommen /^man ist Administrator$/ do
-  step 'man ist "%s"' % "Ramon"
+  step 'ich bin %s' % "Ramon"
 end
 
 ####################################################################
 
-Dann /^findet man die Benutzeradministration im Bereich "Administration" unter "Benutzer"$/ do
-  step 'I follow "Admin"'
-  step 'I follow "%s"' % _("Users")
+def check_user_list(users)
+  page.should have_content _("List of Users")
+  within "#user-list" do
+    users.each do |user|
+      page.should have_content(user.name)
+    end
+  end
 end
 
 Dann /^sieht man eine Liste aller Benutzer$/ do
-  User.order("firstname ASC").paginate(page: 1, per_page: 20).each do |user|
-    page.should have_content(user.name)
-  end
-  page.should have_content _("List of Users")
+  users = User.order("firstname ASC").paginate(page: 1, per_page: 20)
+  check_user_list(users)
 end
 
 Dann /^man kann filtern nach "(.*?)" Rolle$/ do |role|
@@ -47,16 +49,12 @@ Dann /^man kann filtern nach den folgenden Eigenschaften: gesperrt$/ do
   step 'man kann filtern nach "%s" Rolle' % _("Customer")
 
   find("#list-filters [type='checkbox'][name='suspended']").click
-  @inventory_pool.suspended_users.customers.paginate(page: 1, per_page: 20).each do |user|
-    page.should have_content(user.name)
-  end
-  page.should have_content _("List of Users")
+  users = @inventory_pool.suspended_users.customers.paginate(page: 1, per_page: 20)
+  check_user_list(users)
 
   find("#list-filters [type='checkbox'][name='suspended']").click
-  @inventory_pool.users.customers.paginate(page: 1, per_page: 20).each do |user|
-    page.should have_content(user.name)
-  end
-  page.should have_content _("List of Users")
+  users = @inventory_pool.users.customers.paginate(page: 1, per_page: 20)
+  check_user_list(users)
 end
 
 Dann /^man kann filtern nach den folgenden Rollen:$/ do |table|
@@ -73,10 +71,7 @@ Dann /^man kann filtern nach den folgenden Rollen:$/ do |table|
             else
               User.all
             end.paginate(page:1, per_page: 20)
-    users.each do |user|
-      page.should have_content(user.name)
-    end
-    page.should have_content _("List of Users")
+    check_user_list(users)
   end
 end
 
@@ -86,9 +81,10 @@ Dann /^man kann für jeden Benutzer die Editieransicht aufrufen$/ do
   within("#user-list") do
     users = User.find all("[data-type='user-cell']").map{|el| el.native.attribute("data-id").to_i}
     users.each do |u|
-      line = find(".line", text: u.name)
-      line.find(".multibutton .dropdown-toggle").click
-      line.find(".multibutton .dropdown-item", text: _("Edit"))
+      within(".line", text: u.name) do
+        find(".multibutton .dropdown-toggle").click
+        find(".multibutton .dropdown-item", text: _("Edit"))
+      end
     end
   end
 end
@@ -218,7 +214,7 @@ end
 Dann /^man kann die vorgenommenen Änderungen abspeichern$/ do
   find(".content_navigation > button.green").click
   if @customer.authentication_system.class_name == "DatabaseAuthentication"
-    sleep(0.5)
+    sleep(0.33)
     @customer.reload
     @attrs.each do |attr|
       (@customer.send(attr) =~ /^#{attr}/).should_not be_nil
@@ -489,13 +485,13 @@ end
 
 Dann(/^speichert den Benutzer$/) do
   find(".button", :text => _("Save %s") % _("User")).click
-  sleep(0.66)
+  sleep(0.33)
   step "man sieht eine Bestätigungsmeldung"
-  sleep(0.66)
+  sleep(0.33)
 end
 
 Dann(/^ist die Gruppenzugehörigkeit gespeichert$/) do
-  sleep(1)
+  sleep(0.33)
   @groups_removed.each {|group| @customer.reload.groups.include?(group).should be_false}
   @groups_added.each {|group| @customer.reload.groups.include?(group).should be_true}
 end
@@ -594,7 +590,7 @@ Dann(/^wird man auf die Benutzerliste ausserhalb der Inventarpools umgeleitet$/)
 end
 
 Dann(/^der neue Benutzer wurde erstellt$/) do
-  sleep(0.66)
+  sleep(0.33)
   @user = User.find_by_firstname_and_lastname "test", "admin"
 end
 
@@ -714,9 +710,11 @@ end
 Wenn(/^ich diesen Benutzer aus der Liste lösche$/) do
   @user ||= @users.sample
   find("#list-search").set @user.to_s
-  find("#user-list .line", text: @user.name).find(".multibutton .dropdown-toggle").click
-  find("#user-list .line", text: @user.name).find(".multibutton .dropdown-toggle").hover
-  find("#user-list .line", text: @user.name).find(".multibutton .dropdown-item.red", text: _("Delete")).click
+  within("#user-list .line", text: @user.name) do
+    find(".multibutton .dropdown-toggle").click
+    find(".multibutton .dropdown-toggle").hover
+    find(".multibutton .dropdown-item.red", text: _("Delete")).click
+  end
 end
 
 Dann(/^wurde der Benutzer aus der Liste gelöscht$/) do

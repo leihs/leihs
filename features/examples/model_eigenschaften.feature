@@ -3,8 +3,7 @@
 Funktionalität: Modell Eigenschaften
 
   Grundlage:
-    Angenommen Personas existieren
-    Und man ist "Mike"
+    Angenommen ich bin Mike
 
   @javascript
   Szenario: Eigenschaften erstellen

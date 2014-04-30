@@ -135,7 +135,7 @@ Dann(/^ich kann Modelle aus der Ansicht entfernen$/) do
     first(".row.line").first(".multibutton .dropdown-toggle").hover
   end
   find(".red", :match => :first, :text => _("Delete")).click
-  sleep(0.6)
+  sleep(0.33)
   page.driver.browser.switch_to.alert.accept rescue nil
 end
 

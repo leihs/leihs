@@ -1,6 +1,10 @@
-@@routes_scenarios = {}
-@@current_scenario_name = nil
-@@scenarios = {}
+class RoutesReport
+  @@routes_scenarios = {}
+  @@current_scenario_name = nil
+  @@scenarios = {}
+
+  cattr_accessor :routes_scenarios, :current_scenario_name, :scenarios
+end
 
 class ActionController::Base
   def route_spec
@@ -17,26 +21,26 @@ class ActionController::Base
     yield
     t2 = Time.now.to_f
     k = {path: route_spec, method: request.method, format: request.format.to_sym}.to_json
-    @@routes_scenarios[k] ||= {}
-    @@routes_scenarios[k][@@current_scenario_name] ||= []
-    @@routes_scenarios[k][@@current_scenario_name] << t2-t1
+    RoutesReport.routes_scenarios[k] ||= {}
+    RoutesReport.routes_scenarios[k][RoutesReport.current_scenario_name] ||= []
+    RoutesReport.routes_scenarios[k][RoutesReport.current_scenario_name] << (t2-t1).round(2)
   end
 end
 
 at_exit do
-  digest = Digest::MD5.hexdigest @@scenarios.to_json
+  digest = Digest::MD5.hexdigest RoutesReport.scenarios.to_json
   filepath = File.join(Rails.root, "features", "reports", "%s.json" % digest)
   File.open(filepath,"w") do |f|
-    f.write({routes: @@routes_scenarios, scenarios: @@scenarios}.to_json)
+    f.write({routes: RoutesReport.routes_scenarios, scenarios: RoutesReport.scenarios}.to_json)
   end
 end
 
 Before do |scenario|
-  @@current_scenario_name = if scenario.respond_to? :scenario_outline
-                              [scenario.scenario_outline.name, scenario.name].join(' ')
-                            else
-                              scenario.name
-                            end
+  RoutesReport.current_scenario_name = if scenario.respond_to? :scenario_outline
+                                          [scenario.scenario_outline.name, scenario.name].join(' ')
+                                        else
+                                          scenario.name
+                                        end
 end
 
 After do |scenario|
@@ -45,5 +49,6 @@ After do |scenario|
          else
            [scenario.name, scenario.location]
          end
-  @@scenarios[k] = {location: l, status: scenario.status} # TODO ?? pending
+  RoutesReport.scenarios[k] = {location: l, status: scenario.status} # TODO ?? pending
 end
+

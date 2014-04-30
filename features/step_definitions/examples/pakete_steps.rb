@@ -33,7 +33,7 @@ end
 
 Dann /^den Paketen wird ein Inventarcode zugewiesen$/ do
   @packages.first.inventory_code.should_not be_nil
-  sleep 1.22 # fix lazy request problem
+  sleep(0.33) # fix lazy request problem
 end
 
 Wenn /^das Paket zurzeit nicht ausgeliehen ist$/ do
@@ -50,7 +50,7 @@ Dann /^kann ich das Paket löschen und die Gegenstände sind nicht mehr dem Pake
   lambda {@package.reload}.should raise_error(ActiveRecord::RecordNotFound)
   @package_item_ids.size.should > 0
   @package_item_ids.each{|id| Item.find(id).parent_id.should be_nil}
-  sleep(0.99) # fix lazy request problem
+  sleep(0.33) # fix lazy request problem
 end
 
 Wenn /^das Paket zurzeit ausgeliehen ist$/ do
@@ -120,7 +120,7 @@ Dann /^dieser Gegenstand ist nicht mehr dem Paket zugeteilt$/ do
   @package_to_edit.reload
   @package_to_edit.children.count.should eq (@number_of_items_before - 1)
   @package_to_edit.children.detect {|i| i.inventory_code == @item_to_remove}.should be_nil
-  sleep(1.22) # fix lazy request problem
+  sleep(0.33) # fix lazy request problem
 end
 
 Dann /^werden die folgenden Felder angezeigt$/ do |table|
@@ -140,7 +140,7 @@ Wenn /^ich das Paket und das Modell speichere$/ do
 end
 
 Dann /^(?:besitzt das Paket alle angegebenen Informationen|das Paket besitzt alle angegebenen Informationen)$/ do
-  sleep(0.66)
+  sleep(0.33)
   model = Model.find {|m| [m.name, m.product].include? @model_name}
   visit manage_edit_model_path(@current_inventory_pool, model)
   model.items.each do |item|

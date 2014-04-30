@@ -23,13 +23,13 @@ end
 
 Dann(/^der Bereich "Verwalten" ist für die Benutzer gesperrt$/) do
   visit logout_path
-  step %Q(man ist "Mike")
+  step %Q(ich bin Mike)
   current_path.should == manage_maintenance_path
 end
 
 Dann(/^der Bereich "Ausleihen" ist für die Benutzer gesperrt$/) do
   visit logout_path
-  step %Q(man ist "Normin")
+  step %Q(ich bin Normin)
   current_path.should == borrow_maintenance_path
 end
 
@@ -84,19 +84,19 @@ end
 
 Dann(/^ist der Bereich "Verwalten" für den Benutzer nicht mehr gesperrt$/) do
   visit logout_path
-  step %Q(man ist "Mike")
+  step %Q(ich bin Mike)
   current_path.should == manage_inventory_path(@current_inventory_pool)
 end
 
 Dann(/^ist der Bereich "Ausleihen" für den Benutzer nicht mehr gesperrt$/) do
   visit logout_path
-  step %Q(man ist "Normin")
+  step %Q(ich bin Normin)
   current_path.should == borrow_root_path
 end
 
 Dann(/^die eingegebene Meldung für "Verwalten" Bereich ist immer noch gespeichert$/) do
   @setting.reload.disable_manage_section_message.should == @disable_message
-  sleep 0.5 # fix no default authentication system problem on CI
+  sleep(0.33) # fix no default authentication system problem on CI
 end
 
 Dann(/^die eingegebene Meldung für "Ausleihen" Bereich ist immer noch gespeichert$/) do

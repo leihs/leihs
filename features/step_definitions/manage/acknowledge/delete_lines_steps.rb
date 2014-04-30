@@ -16,7 +16,7 @@ When /^I delete a line of this contract$/ do
 end
 
 Then /^this contractline is deleted$/ do
-  sleep(0.66)
+  sleep(0.33)
   @contract.lines.reload.include?(@line).should == false
 end
 

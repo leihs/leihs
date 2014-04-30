@@ -5,7 +5,7 @@ Feature: Creating Inventory Pools
 Background:
        Given a minimal leihs setup
 
-@javascript @old-ui 
+ @old-ui
 Scenario: When an inventory is created, it should be visible in the frontend at once
        
        When I log in as the admin

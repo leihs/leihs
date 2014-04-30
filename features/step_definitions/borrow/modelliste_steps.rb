@@ -16,7 +16,7 @@ Wenn(/^man sich auf der Modellliste befindet die nicht verfügbare Modelle beinh
   @start_date ||= Date.today
   @end_date ||= Date.today+1.day
   model = @current_user.models.borrowable.detect do |m|
-    quantity = @current_user.inventory_pools.sum do |ip|
+    quantity = @current_user.inventory_pools.to_a.sum do |ip|
       m.availability_in(ip).maximum_available_in_period_summed_for_groups(@start_date, @end_date, @current_user.groups.map(&:id))
     end
     quantity <= 0 and not m.categories.blank?
@@ -203,11 +203,11 @@ end
 
 Dann(/^die Liste wird gefiltert nach Modellen die in diesem Zeitraum verfügbar sind$/) do
   find("#model-list .line", match: :first)
-  sleep(1.22)
+  sleep(0.33)
   all("#model-list .line[data-id]").each do |model_el|
     model = Model.find_by_id(model_el["data-id"])
     model = Model.find_by_id(model_el.reload["data-id"]) if model.nil?
-    quantity = @current_user.inventory_pools.sum do |ip|
+    quantity = @current_user.inventory_pools.to_a.sum do |ip|
       model.availability_in(ip).maximum_available_in_period_summed_for_groups(@start_date, @end_date, @current_user.groups.map(&:id))
     end
     if quantity <= 0
@@ -226,7 +226,7 @@ Wenn(/^man ein Enddatum auswählt$/) do
 end
 
 Dann(/^wird automatisch das Startdatum auf den vorhergehenden Tag gesetzt$/) do
-  sleep(0.66)
+  sleep(0.33)
   @start_date = Date.today
   find("#start-date").value.should == I18n.l(@start_date)
 end

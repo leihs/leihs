@@ -11,7 +11,7 @@ Background:
        Given comment: And we setup Culerity Logging as we like
 
 
-@javascript @old-ui
+ @old-ui
 Scenario: Admin: create user and directly mail him
 
        When I log in as the admin
@@ -25,7 +25,7 @@ Scenario: Admin: create user and directly mail him
        Then joe@example.com receives an email
        Then I follow "Logout"
 
-@javascript @old-ui
+ @old-ui
 Scenario: Admin: create user in an inventory pool and mail him from there
 
        Given inventory pool 'Central Park'
@@ -42,7 +42,7 @@ Scenario: Admin: create user in an inventory pool and mail him from there
        Then joe@example.com receives an email
        Then I follow "Logout"
 
-@javascript @old-ui
+ @old-ui
 Scenario: When mailing from a greybox then we should stay in it
 
        Given inventory pool 'Central Park'

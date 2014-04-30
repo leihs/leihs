@@ -37,14 +37,14 @@ Wenn(/^man versucht ein Modell zur Bestellung hinzufügen, welches nicht verfüg
   visit borrow_model_path(@model)
   find("*[data-create-order-line][data-model-id='#{@model.id}']").click
   step "ich setze die Anzahl im Kalendar auf #{@quantity}"
-  sleep 1
+  sleep(0.33)
   find("#submit-booking-calendar").click
 end
 
 Wenn(/^ich setze die Anzahl im Kalendar auf (\d+)$/) do |quantity|
   find("#booking-calendar-quantity")
   find(".fc-widget-content", match: :first)
-  sleep 1
+  sleep(0.33)
   find("#booking-calendar-quantity").set quantity
 end
 

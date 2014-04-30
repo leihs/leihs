@@ -22,6 +22,6 @@ When /^I click the open button again$/ do
 end
 
 Then /^the datepicker closes$/ do
-  sleep(1) # wait until the fadeOut animation is finished
+  sleep(0.33) # wait until the fadeOut animation is finished
   all(".ui-datepicker", :visible => true).size.should == 0
 end
