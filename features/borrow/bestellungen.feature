@@ -3,7 +3,7 @@
 Funktionalität: Bestellungen
 
   Grundlage:
-    Angenommen man ist "Normin"
+    Angenommen ich bin Normin
 
   Szenario: Anzahl
     Dann sehe ich die Anzahl meiner abgeschickten, noch nicht genehmigten Bestellungen auf jeder Seite

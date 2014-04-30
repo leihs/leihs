@@ -2,7 +2,7 @@
 
 When /^I open a hand over$/ do
   @ip = @current_user.managed_inventory_pools.detect do |ip|
-    @customer = ip.users.all.shuffle.detect {|c| c.visits.hand_over.exists? and c.visits.hand_over.any?{|v| v.lines.size >= 3}}
+    @customer = ip.users.to_a.shuffle.detect {|c| c.visits.hand_over.exists? and c.visits.hand_over.any?{|v| v.lines.size >= 3}}
   end
   raise "customer not found" unless @customer
   visit manage_hand_over_path(@ip, @customer)
@@ -11,7 +11,7 @@ end
 
 When /^I open a hand over with at least one unassigned line$/ do
   @ip = @current_user.managed_inventory_pools.detect do |ip|
-    @customer = ip.users.all.shuffle.detect {|c| c.visits.hand_over.exists? and c.visits.hand_over.any?{|v| v.lines.size >= 3 and v.lines.any? {|l| not l.item}}}
+    @customer = ip.users.to_a.shuffle.detect {|c| c.visits.hand_over.exists? and c.visits.hand_over.any?{|v| v.lines.size >= 3 and v.lines.any? {|l| not l.item}}}
   end
   raise "customer not found" unless @customer
   visit manage_hand_over_path(@ip, @customer)
@@ -19,7 +19,7 @@ When /^I open a hand over with at least one unassigned line$/ do
 end
 
 When /^I select an item line and assign an inventory code$/ do
-  sleep(0.66)
+  sleep(0.33)
   @models_in_stock = @ip.items.by_responsible_or_owner_as_fallback(@ip).in_stock.map(&:model).uniq
   @item_line = @line = @customer.visits.hand_over.flat_map(&:lines).detect {|l| l.class.to_s == "ItemLine" and l.item_id.nil? and @models_in_stock.include? l.model }
   @item_line.should_not be_nil
@@ -48,7 +48,7 @@ When /^I click hand over inside the dialog$/ do
 end
 
 Then /^the contract is signed for the selected items$/ do
-  sleep(0.66)
+  sleep(0.33)
   to_take_back_lines = @customer.visits.take_back.flat_map &:contract_lines
   to_take_back_items = to_take_back_lines.map(&:item)
   @selected_items.each do |item|
@@ -85,18 +85,18 @@ Then /^I see that the time range in the summary starts today$/ do
   all(".modal-body > div > div > div > p").each do |date_range|
     date_range.should have_content("#{Date.today.strftime("%d.%m.%Y")}")
   end
-  sleep(0.5)
+  sleep(0.33)
 end
 
 Then /^the lines start date is today$/ do
-  sleep(0.66)
+  sleep(0.33)
   @line.reload.start_date.should == Date.today
 end
 
 When /^I open a hand over with overdue lines$/ do
   @ip = @current_user.managed_inventory_pools.first
   @models_in_stock = @ip.items.by_responsible_or_owner_as_fallback(@ip).in_stock.map(&:model).uniq
-  @customer = @ip.users.all.detect do |u|
+  @customer = @ip.users.to_a.detect do |u|
     u.contracts.approved.exists? and u.contracts.approved.any? do |c|
       c.lines.any? {|l| l.start_date < Date.today and @models_in_stock.include? l.model}
     end
@@ -119,11 +119,10 @@ When /^I assign an inventory code the item line$/ do
   @selected_items << item
   within(".line[data-id='#{@item_line.id}']") do
     find("input[data-assign-item]").set item.inventory_code
-    find("a.ui-corner-all", match: :first)
     find("a.ui-corner-all", text: item.inventory_code)
     find("input[data-assign-item]").native.send_key(:enter)
   end
-  sleep(0.66)
+  sleep(0.33)
 end
 
 Then /^wird die Adresse des Verleihers aufgeführt$/ do

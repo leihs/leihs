@@ -130,10 +130,10 @@ def change_line_start_date(line, days = 2)
 end
 
 def hover_for_tooltip(target)
-  sleep(0.99) # wait for potential previous tooltips
+  sleep(0.33) # wait for potential previous tooltips
   step 'man bis zum Ende der Liste fährt' # move mouse somewhere else to ensure its currently not over the target
   target.click
   target.click
-  sleep(0.99) # wait for the css transition
+  sleep(0.33) # wait for the css transition
   all(".tooltipster-content") # there should be just one
 end

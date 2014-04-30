@@ -6,7 +6,7 @@ Funktionalität: Software erfassen
     Angenommen Personas existieren
     Und man ist "Mike"
 
-  @javascript
+
   Szenario: Software-Produkt erfassen
     Wenn ich ein neues Software hinzufüge
     Und ich erfasse die folgenden Details
@@ -20,7 +20,7 @@ Funktionalität: Software erfassen
     Wenn ich speichere
     Dann ist das neue Software erstellt und unter ungenutzen Modellen auffindbar
     
-  @javascript
+
   Szenario: Mögliche Werte in Software-Produkt erfassen
     Wenn ich ein neues Software hinzufüge
     Dann die mögliche Werte für Betriebssystem sind in der folgenden Reihenfolge:
@@ -34,7 +34,7 @@ Funktionalität: Software erfassen
       | Web |
     Dann kann ich auf mehreren Zeilen Hinweise und Links anfügen
     
-  @javascript
+
   Szenario: Mögliche Werte in Software-Lizenz erfassen
     Wenn ich ein neue Lizenz hinzufüge
     Dann die mögliche Werte für Aktivierungsart sind in der folgenden Reihenfolge:
@@ -54,7 +54,7 @@ Funktionalität: Software erfassen
       | Nicht ausleihbar |
       Und die Option "Ausleihbar" ist standardmässig auf "Nicht ausleihbar" gesetzt
       
-  @javascript
+
   Szenario: Software-Lizenz erfassen
     Angenommen es existiert ein Software-Produkt
     Wenn ich eine neue Software-Lizenz erfasse

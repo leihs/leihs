@@ -6,7 +6,7 @@ Grundlage:
 Angenommen Personas existieren
 Und man ist "Mike"
 
- @javascript
+
 Szenario: Software-Produkt editieren
 Wenn ich eine Software editiere
 Dann kann ich die folgenden Details editieren
@@ -21,7 +21,7 @@ Wenn ich speichere
 Dann ist die Software mit den geänderten Informationen gespeichert
 
 
-@javascript
+
 Szenario: Software-Lizenz editieren
 Wenn ich eine bestehende Software-Lizenz editiere
 Und ich ein anderes Produkt auswähle

@@ -3,8 +3,7 @@
 Funktionalität: Timeline der Modell-Verfügbarkeit
 
   Grundlage:
-    Angenommen Personas existieren
-    Und man ist "Mike"
+    Angenommen ich bin Mike
 
   @javascript
   Szenario: Wo man die Timeline sieht

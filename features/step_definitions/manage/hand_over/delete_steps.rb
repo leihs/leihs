@@ -60,7 +60,7 @@ When /^I delete all lines of a model thats availability is blocked by these line
       find(".line[data-id='#{id}'] .multibutton .dropdown-toggle").click
       find(".line[data-id='#{id}'] .multibutton .dropdown-toggle").hover
       find(".line[data-id='#{id}'] .dropdown-item.red", :text => _("Delete")).click
-      sleep(0.6)
+      sleep(0.33)
     end
   end
 end

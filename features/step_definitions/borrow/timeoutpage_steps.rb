@@ -99,7 +99,7 @@ Angenommen(/^ich lösche einen Eintrag$/) do
   line.find("a", text: _("Delete")).click
   alert = page.driver.browser.switch_to.alert
   alert.accept
-  sleep 0.5
+  sleep(0.33)
 end
 
 Dann(/^wird der Eintrag aus der Bestellung gelöscht$/) do

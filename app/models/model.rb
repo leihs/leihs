@@ -255,7 +255,7 @@ class Model < ActiveRecord::Base
       inventory_pool.partitions_with_generals.hash_for_model_and_groups(self, groups).values.sum
       #tmp# inventory_pool.partitions_with_generals.where(model_id: id, group_id: groups).sum(:quantity)
     else
-      inventory_pools.sum {|ip| ip.partitions_with_generals.hash_for_model_and_groups(self, groups).values.sum }
+      inventory_pools.to_a.sum {|ip| ip.partitions_with_generals.hash_for_model_and_groups(self, groups).values.sum }
     end
   end
 

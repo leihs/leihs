@@ -20,17 +20,17 @@ Feature: Creating and editing the category tree in the backend
       #And I press "Backend"  
       #And I follow "MyPool"   
 
-  @javascript @logoutafter @old-ui
+   @logoutafter @old-ui
   Scenario: Browsing the category list to verify that there's something in it
     When I follow the sloppy link "All Models"
     Then I should see "Hasenpfote"
      And I should see "Hasenohr"
       
-  @javascript @logoutafter @old-ui
+   @logoutafter @old-ui
   Scenario: Browsing a specific category
      Then the model "Hasenohr" should be in category "Hasenartige"
   
-  @javascript @logoutafter @old-ui
+   @logoutafter @old-ui
   Scenario: Assigning a model to a category when there are few categories
     When I follow the sloppy link "All Models"
      And I pick the model "Hasenohr" from the list
@@ -40,7 +40,7 @@ Feature: Creating and editing the category tree in the backend
      And the model "Hasenohr" should be in category "Allgemein"
      And the model "Hasenohr" should be in category "Hasenartige"
 
-  @javascript @logoutafter @old-ui
+   @logoutafter @old-ui
   Scenario: Assigning a model to a category when there are more categories
    Given a category 'Fuchshafte' exists
      And the category 'Fuchshafte' is child of 'Tierkörperteile' with label 'Fuchshafte'
@@ -55,7 +55,7 @@ Feature: Creating and editing the category tree in the backend
      And the model "Fuchsschwanz" should be in category "Allgemein"
      And the model "Fuchsschwanz" should be in category "Fuchshafte"
   
-  @javascript @logoutafter @old-ui
+   @logoutafter @old-ui
   Scenario: Removing a model from a category
    Given a category 'Fuchshafte' exists
      And a category 'Benzinkanister' exists

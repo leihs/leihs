@@ -100,7 +100,7 @@ Feature: Inventory
       # first free inventory code after 'ABC01' is 'ABC4'
       Then the generated_code should look like this 'ABC4'
 
-  @old-ui @javascript
+  @old-ui
   Scenario: Level 2 managers should only be able and allowed to assign items to their own pool
       Given inventory pool 'ABC'
       And inventory pool short name 'ABC'
@@ -113,7 +113,7 @@ Feature: Inventory
        And I follow "New Item"
        Then the item should only be assignable to the 'ABC' departement
 
-  @old-ui @javascript
+  @old-ui
   Scenario: Level 3 managers should be able and allowed to assign items to whatever pool
       Given inventory pool 'ABC'
       And inventory pool short name 'ABC'

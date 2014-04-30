@@ -5,13 +5,12 @@ Funktionalität: Wartungsmodus
 Als Administrator möchte ich die Möglichkeit haben,
 für die Bereiche "Verwalten" und "Verleih" bei Wartungsarbeiten das System zu sperren und dem Benutzer eine Meldung anzuzeigen
 
-Grundlage:
-Angenommen Personas existieren
+  Grundlage:
+    Angenommen ich bin Gino
 
   @javascript
   Szenario: "Verwalten"-Bereich sperren
-    Angenommen man ist "Gino"
-    Und ich befinde mich in den Pool-übergreifenden Einstellungen
+    Angenommen ich befinde mich in den Pool-übergreifenden Einstellungen
     Wenn ich die Funktion "Verwaltung sperren" wähle
     Dann muss ich eine Bemerkung angeben
     Wenn ich eine Bemerkung für "Verwalten-Bereich" angebe
@@ -22,8 +21,7 @@ Angenommen Personas existieren
 
   @javascript
   Szenario: "Ausleihen"-Bereich sperren
-    Angenommen man ist "Gino"
-    Und ich befinde mich in den Pool-übergreifenden Einstellungen
+    Angenommen ich befinde mich in den Pool-übergreifenden Einstellungen
     Wenn ich die Funktion "Ausleihen sperren" wähle
     Dann muss ich eine Bemerkung angeben
     Wenn ich eine Bemerkung für "Ausleihen-Bereich" angebe
@@ -34,8 +32,7 @@ Angenommen Personas existieren
 
   @javascript
   Szenario: "Verwalten"-Bereich entsperren
-    Angenommen man ist "Gino"
-    Und der "Verwalten" Bereich ist gesperrt
+    Angenommen der "Verwalten" Bereich ist gesperrt
     Und ich befinde mich in den Pool-übergreifenden Einstellungen
     Wenn ich die Funktion "Verwaltung sperren" deselektiere
     Und ich speichere
@@ -44,8 +41,7 @@ Angenommen Personas existieren
 
   @javascript
   Szenario: "Ausleihen"-Bereich entsperren
-    Angenommen man ist "Gino"
-    Und der "Ausleihen" Bereich ist gesperrt
+    Angenommen der "Ausleihen" Bereich ist gesperrt
     Und ich befinde mich in den Pool-übergreifenden Einstellungen
     Wenn ich die Funktion "Ausleihen sperren" deselektiere
     Und ich speichere

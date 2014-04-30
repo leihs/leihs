@@ -10,5 +10,5 @@ end
 
 Dann(/^ist die Sprache für mich geändert$/) do
   find("footer a[href='']", :text => 'English')
-  sleep(0.66) # fix lazy request problem
+  sleep(0.33) # fix lazy request problem
 end

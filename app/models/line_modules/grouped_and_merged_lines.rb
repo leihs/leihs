@@ -45,10 +45,6 @@ module LineModules
         end
       end
 
-      def group_lines_without_inventory_code(lines)
-
-      end
-
     end
 
   end

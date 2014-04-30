@@ -17,7 +17,7 @@ Dann(/^ist dem Modell das ergänzende Modell hinzugefügt worden$/) do
   @model.compatibles.size.should be 2
   @model.compatibles.any? {|m| m.name == @comp1.name}.should be_true
   @model.compatibles.any? {|m| m.name == @comp2.name}.should be_true
-  sleep(0.66) # fix lazy request fail problem
+  sleep(0.33) # fix lazy request fail problem
 end
 
 Wenn(/^ich ein Modell öffne, das bereits ergänzende Modelle hat$/) do
@@ -33,7 +33,7 @@ end
 Dann(/^ist das Modell ohne das gelöschte ergänzende Modell gespeichert$/) do
   find("#flash")
   @model.reload.compatibles.should be_empty
-  sleep(0.66) # fix lazy request fail problem
+  sleep(0.33) # fix lazy request fail problem
 end
 
 Wenn(/^ich ein bereits bestehendes ergänzende Modell mittel Autocomplete Feld hinzufüge$/) do
@@ -49,7 +49,7 @@ Dann(/^wurde das redundante ergänzende Modell nicht gespeichert$/) do
   find("#flash")
   comp_before = @model.compatibles
   comp_before.count.should == @model.reload.compatibles.count
-  sleep(0.66) # fix lazy request fail problem
+  sleep(0.33) # fix lazy request fail problem
 end
 
 Angenommen(/^es existiert ein Modell mit folgenden Eigenschaften$/) do |table|
@@ -99,14 +99,14 @@ end
 Dann(/^kann ich das Modell aus der Liste nicht löschen$/) do
   find("[data-unused_models]").click unless @current_inventory_pool.models.include? @model
   fill_in 'list-search', with: @model.name
-  sleep(0.44)
+  sleep(0.33)
   within(".line[data-id='#{@model.id}']") do
     find(".dropdown-holder").hover
     find("[data-method='delete']").click
   end
   find("#flash .error")
   @model.reload # is still there
-  sleep(0.66) # fix lazy request fail problem
+  sleep(0.33) # fix lazy request fail problem
 end
 
 Und /^ich sehe eine Dialog-Fehlermeldung$/ do
@@ -121,7 +121,7 @@ Dann(/^es wurden auch alle Anhängsel gelöscht$/) do
   Attachment.where(model_id: @model.id).should be_empty
   ModelLink.where(model_id: @model.id).should be_empty
   Model.all {|n| n.compatibles.include? Model.find {|m| [m.name, m.product].include? "Windows Laptop" }}.include?(@model).should be_false
-  sleep(0.66) # fix lazy request problem
+  sleep(0.33) # fix lazy request problem
 end
 
 Wenn(/^ich dieses Modell aus der Liste lösche$/) do
@@ -157,7 +157,7 @@ Dann(/^sind die geänderten Gruppenzuteilungen gespeichert$/) do
   find("#flash")
   model_group_ids = @model.reload.partitions.map(&:group_id)
   model_group_ids.sort.should == @groups.map(&:id)
-  sleep(0.66) # fix lazy request fail problem
+  sleep(0.33) # fix lazy request fail problem
 end
 
 Dann /^ist das neue (Modell|Software) erstellt und unter ungenutzen Modellen auffindbar$/ do |arg1|

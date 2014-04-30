@@ -4,27 +4,11 @@ Given /^personas existing$/ do
   Persona.restore_random_dump.should be_true
 end
 
-Angenommen(/^persona "(.*?)" existing$/) do |persona_name|
-  step 'personas existing'
-end
-
 Given /^I am "(.*)"$/ do |persona_name|
   persona_name = persona_name.gsub "\"", ""
-  step 'persona "%s" existing' % persona_name
+  step 'personas existing'
   step 'man ist eingeloggt als "%s"' % persona_name
   @current_inventory_pool = @current_user.managed_inventory_pools.first
-end
-
-Angenommen(/^ich bin (.*?)$/) do |persona_name|
-  step 'I am "%s"' % persona_name
-end
-
-Angenommen /^man ist "([^"]*)"$/ do |persona_name|
-  step 'I am "%s"' % persona_name
-end
-
-Angenommen /^Personas existieren$/ do
-  step 'personas existing'
 end
 
 Angenommen(/^man ist ein Kunde$/) do

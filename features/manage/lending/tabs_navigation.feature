@@ -8,7 +8,7 @@ Feature: Tabs Navigation
     Given personas existing
       And I am "Pius"
 
-  @javascript
+
   Scenario: Navigate all lending tabs
     When I open the daily view
     Then I can navigate all navigation items and nested tabs

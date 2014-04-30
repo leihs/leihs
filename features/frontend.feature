@@ -8,7 +8,7 @@ Background: prepare a user and a few groups
          And a model 'Prinzessin Lillifee Schaukel-Einhorn' exists
          And item 'KF1' of model 'Prinzessin Lillifee Schaukel-Einhorn' exists
 
-@javascript @old-ui
+ @old-ui
 Scenario: The user needs to see models that are available in his groups
          When I log in as 'Pepe' with password 'pass'
           And I follow "Models"

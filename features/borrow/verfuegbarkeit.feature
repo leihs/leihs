@@ -3,16 +3,16 @@
 Funktionalität: Verfügbarkeit
 
   Grundlage:
-    Angenommen man ist "Normin"
+    Angenommen ich bin Normin
     Und ich habe eine offene Bestellung mit Modellen
     Und die Bestellung Timeout ist 30 Minuten
 
   Szenario: Überbuchung durch Ausleih-Manager
     Wenn ich ein Modell der Bestellung hinzufüge
-    Angenommen man ist "Pius"
+    Angenommen ich bin Pius
     Wenn ich dasselbe Modell einer Bestellung hinzufüge
     Und die maximale Anzahl der Gegenstände überschritten ist
-    Angenommen man ist "Normin"
+    Angenommen ich bin Normin
     Wenn ich die Bestellübersicht öffne
     Und ich die Bestellung abschliesse
     Dann wird die Bestellung nicht abgeschlossen

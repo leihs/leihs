@@ -8,15 +8,15 @@ Feature: Daily View Day Navigation
     Given personas existing
       And I am "Pius"
 
-  # @javascript
+  #
   # Scenario: Go to the next day
   
-  # @javascript
+  #
   # Scenario: Go to the previous day
     
-  # @javascript
+  #
   # Scenario: Go to today
-    
+
   @javascript
   Scenario: Jump to a specific date
     When I open the daily view

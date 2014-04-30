@@ -31,10 +31,6 @@ Dann /^sehe ich den Zweck$/ do
   end
 end
 
-Wenn /^ich eine Aushändigung mache$/ do
-  step 'I open a hand over which has multiple unassigned lines and models in stock'
-end
-
 Dann /^sehe ich auf jeder Zeile den zugewisenen Zweck$/ do
   @customer.contracts.approved.first.lines.each do |line|
     target = find(".line[data-id='#{line.id}'] [data-tooltip-template*='purpose']")
@@ -84,13 +80,6 @@ Dann /^kann ich die Aushändigung durchführen$/ do
   signed_contracts_size = @customer.contracts.signed.size
   step 'I click hand over inside the dialog'
   @customer.contracts.signed.size.should > signed_contracts_size
-end
-
-Wenn /^einige der ausgewählten Gegenstände hat keinen Zweck angegeben$/ do
-  step 'I click an inventory code input field of an item line'
-  step 'I select one of those'
-  step 'I add an item to the hand over by providing an inventory code and a date range'
-  step 'I add an option to the hand over by providing an inventory code and a date range'
 end
 
 Dann /^muss ich keinen Zweck angeben um die Aushändigung durchzuführen$/ do

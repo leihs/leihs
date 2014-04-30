@@ -3,9 +3,8 @@
 Funktionalität: Reservierenden wechseln
 
   Grundlage:
-    Angenommen Personas existieren
-    Und man ist "Pius"
-    
+    Angenommen ich bin Pius
+
   @javascript
   Szenario: Reservierende Person für ausgewählte Linien wechseln
     Angenommen ich mache eine Aushändigung

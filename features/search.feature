@@ -9,7 +9,7 @@ Feature: A admin can search and sort various things in leihs
       #And I log in as 'inv_man_0' with password 'pass'
       #And I press "Backend"  
 
-  @javascript @old-ui
+   @old-ui
   Scenario: Search and sort customers
    Given a customer 'Customer B' exists
      And a customer 'Customer A' exists
@@ -18,7 +18,7 @@ Feature: A admin can search and sort various things in leihs
     Then "Customer A" should appear before "Customer B"
     Then I go to logout
 
-  @javascript @old-ui
+   @old-ui
   Scenario: Search and sort items
    Given an item 'Item A' of model 'Model A' exists
      And an item 'Item B' of model 'Model B' exists
@@ -27,7 +27,7 @@ Feature: A admin can search and sort various things in leihs
     Then "Item A" should appear before "Item B"
     Then I go to logout
 
-  @javascript @old-ui
+   @old-ui
   Scenario: Search and sort locations
    Given a location in building 'Building A' room 'Room F' and shelf 'Shelf X' exists
      # we're only listing locations that offer items to lend
@@ -43,7 +43,7 @@ Feature: A admin can search and sort various things in leihs
     Then "Building A" should appear before "Building B"
     Then I go to logout
 
-  @javascript @old-ui
+   @old-ui
   Scenario Outline: Search unsortable things
    Given a <kind> '<instance_name> A' exists
      And a <kind> '<instance_name> B' exists

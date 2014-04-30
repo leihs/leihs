@@ -8,7 +8,7 @@ Feature: Quick Approve orders
     Given personas existing
     And I am "Pius"
 
-  @javascript
+
   Scenario: Quick approve an order with no problems
     Given I open the daily view
     When I quick approve a submitted order

@@ -63,12 +63,16 @@ Wenn /^ich die folgenden Informationen erfasse$/ do |table|
         matched_field.select field_value
       when "autocomplete"
         find("form .field", match: :prefer_exact, text: field_name)
-        matched_field.find("input").click
-        matched_field.find("input").set field_value
+        within matched_field do
+          find("input").click
+          find("input").set field_value
+        end
         find(".ui-autocomplete a", match: :prefer_exact, text: field_value, visible: true).click
       else
-        matched_field.find("input,textarea").set ""
-        matched_field.find("input,textarea").set field_value
+        within matched_field do
+          find("input,textarea").set ""
+          find("input,textarea").set field_value
+        end
     end
   end
 end

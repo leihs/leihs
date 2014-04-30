@@ -90,7 +90,7 @@ Dann /^hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind$/ do |
     end
     tab.reload[:class].split.include?("active").should be_true
   end
-  sleep 0.5 # fix lazy request problem
+  sleep(0.33) # fix lazy request problem
 end
 
 ########################################################################
@@ -176,7 +176,7 @@ Dann /^enthält die Modell\-Zeile folgende Informationen:$/ do |table|
         @model_line.find ".col1of5:nth-child(3)", :text => /\/.*?#{@model.borrowable_items.count}/
     end
   end
-  sleep 3.2 # fix lazy request problem
+  sleep(0.33) # fix lazy request problem
 end
 
 ########################################################################
@@ -209,7 +209,7 @@ Dann /^enthält die Gegenstands\-Zeile folgende Informationen:$/ do |table|
         raise 'step not found'
     end
   end
-  sleep(2.88)
+  sleep(0.33)
 end
 
 Dann /^enthält die Gegenstands\-Zeile den Inventarcode$/ do
@@ -387,7 +387,7 @@ Dann /^kann man diese Daten als CSV\-Datei exportieren$/ do
   parsed_query.keys.size.should == 0
   find("input#in_stock").click
   parsed_query.should == {"in_stock"=>"1"}
-  sleep(0.66) # fix lazy request problem
+  sleep(0.33) # fix lazy request problem
 end
 
 Dann /^die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden \(inkl\. Filter\)$/ do
@@ -446,7 +446,7 @@ Dann /^die Daten wurden entsprechend aktualisiert$/ do
 
   click_link("%s" % _("Cancel"))
   find("#inventory-index-view h1", match: :prefer_exact, text: _("List of Inventory"))
-  sleep(0.44)
+  sleep(0.33)
   current_path.should eq @page_to_return
 end
 
@@ -469,7 +469,7 @@ Wenn /^ich eine?n? bestehende[s|n]? (.+) bearbeite$/ do |entity|
 end
 
 Wenn /^ich ein bestehendes, genutztes Modell bearbeite welches bereits Zubehör hat$/ do
-  @model = @current_inventory_pool.models.all.detect {|m| m.accessories.count > 0}
+  @model = @current_inventory_pool.models.to_a.detect {|m| m.accessories.count > 0}
   visit manage_edit_model_path(@current_inventory_pool, @model)
 end
 
@@ -525,10 +525,10 @@ Wenn /^ich Zubehör hinzufüge und falls notwendig die Anzahl des Zubehör ins T
 end
 
 Dann /^ist das Zubehör dem Modell hinzugefügt worden$/ do
-  sleep(0.66)
+  sleep(0.33)
   find("#inventory-index-view h1", match: :prefer_exact, text: _("List of Inventory"))
   @model.accessories.reload.where(:name => @new_accessory_name).should_not be_nil
-  sleep(1.11) # fix lazy request problem
+  sleep(0.33) # fix lazy request problem
 end
 
 Dann /^kann ich ein einzelnes Zubehör löschen, wenn es für keinen anderen Pool aktiviert ist$/ do
@@ -536,7 +536,7 @@ Dann /^kann ich ein einzelnes Zubehör löschen, wenn es für keinen anderen Poo
   find(".row.emboss", match: :prefer_exact, :text => _("Accessories")).find(".list-of-lines .line", text: accessory_to_delete.name).find("button", text: _("Remove")).click
   step 'ich speichere die Informationen'
   find("#inventory-index-view h1", match: :prefer_exact, text: _("List of Inventory"))
-  sleep(0.66) # for fixing the lazy request problem
+  sleep(0.33) # for fixing the lazy request problem
   lambda{accessory_to_delete.reload}.should raise_error(ActiveRecord::RecordNotFound)
 end
 
@@ -545,7 +545,7 @@ Dann /^kann ich ein einzelnes Zubehör für meinen Pool deaktivieren$/ do
   accessory_to_deactivate = @model.accessories.detect{|x| x.inventory_pools.where(id: @current_inventory_pool.id).first}
   find(".row.emboss", match: :prefer_exact, :text => _("Accessories")).find(".list-of-lines .line", text: accessory_to_deactivate.name).find("input").click
   step 'ich speichere die Informationen'
-  sleep(0.66)
+  sleep(0.33)
   find("#inventory-index-view h1", match: :prefer_exact, text: _("List of Inventory"))
   lambda {@current_inventory_pool.accessories.reload.find(accessory_to_deactivate)}.should raise_error(ActiveRecord::RecordNotFound)
 end
@@ -606,7 +606,7 @@ end
 Dann /^sind die Attachments gespeichert$/ do
   find("#inventory-index-view h1", match: :prefer_exact, text: _("List of Inventory"))
   @model.attachments.reload.where(:filename => @attachment_filename).should_not be_empty
-  sleep 0.5 # fix lazy load request problem
+  sleep(0.33) # fix lazy load request problem
 end
 
 Dann /^sieht man keine Modelle, denen keine Gegenstänge zugewiesen unter keinem der vorhandenen Reiter$/ do

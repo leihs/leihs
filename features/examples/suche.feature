@@ -2,17 +2,14 @@
 
 Funktionalität: Suche
 
-  Grundlage:
-    Angenommen Personas existieren
-
-  Szenario: Suche nach Verträgen mittels Inventarcode eines Gegenstandes der dem Vertrag zugewisen ist 
-    Angenommen man ist "Mike"
+  Szenario: Suche nach Verträgen mittels Inventarcode eines Gegenstandes der dem Vertrag zugewisen ist
+    Angenommen ich bin Mike
     Und ich gebe den Inventarcode eines Gegenstandes der einem Vertrag zugewisen ist in die Suche ein
     Dann sehe ich den Vertrag dem der Gegenstand zugewisen ist in der Ergebnisanzeige
 
   @javascript
   Szenario: Such nach einem Benutzer mit Verträgen, der kein Zugriff mehr auf das Gerätepark hat
-    Angenommen man ist "Mike"
+    Angenommen ich bin Mike
     Und es existiert ein Benutzer mit Verträgen, der kein Zugriff mehr auf das Gerätepark hat
     Wenn man nach dem Benutzer sucht
     Dann sieht man alle Veträge des Benutzers
@@ -21,14 +18,14 @@ Funktionalität: Suche
 
   @javascript
   Szenario: Keine Aushändigung ohne vorherige Genehmigung
-    Angenommen man ist "Pius"
+    Angenommen ich bin Pius
     Und es gibt einen Benutzer, mit einer nicht genehmigter Bestellung
     Wenn man nach diesem Benutzer sucht
     Dann kann ich die nicht genehmigte Bestellung des Benutzers nicht aushändigen ohne sie vorher zu genehmigen
 
   @javascript
   Szenario: Kein 'zeige alle gefundenen Verträge' Link
-    Angenommen man ist "Mike"
+    Angenommen ich bin Mike
     Und es existiert ein Benutzer mit mindestens 3 und weniger als 5 Verträgen
     Wenn man nach dem Benutzer sucht
     Dann sieht man alle unterschriebenen und geschlossenen Veträge des Benutzers

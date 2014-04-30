@@ -7,7 +7,7 @@ Feature: Login through database authentication
   Background:
     Given personas existing
 
-  @javascript
+
   Scenario: Login through database authentication
    Given I log out
     When I visit the homepage

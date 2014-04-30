@@ -8,17 +8,15 @@ Funktionalität: Geräteparks administrieren
 
   @javascript
   Szenario: Geräteparkauswahl
-    Angenommen Personas existieren
-    Und man ist "Gino"
+    Angenommen ich bin Gino
     Wenn ich in den Admin-Bereich wechsel
     Dann ich sehe die Geräteparkliste
     Und ich sehe die Geräteparkauswahl
     Und die Geräteparkauswahl ist alphabetish sortiert
 
-  @javascript
+
   Szenario: Den ersten Gerätepark erstellen
-    Angenommen persona "Gino" existing
-    Und ich bin Gino
+    Angenommen ich bin Gino
     Wenn ich im Admin-Bereich unter dem Reiter Geräteparks einen neuen Gerätepark erstelle
     Und ich Name und Kurzname und Email eingebe
     Und ich speichere
@@ -26,10 +24,9 @@ Funktionalität: Geräteparks administrieren
     Und man sieht eine Bestätigungsmeldung
     Und ist der Gerätepark gespeichert
 
-  @javascript
+
   Szenariogrundriss: Pflichtfelder beim erstmaligen Erstellen eines Geräteparks
-    Angenommen persona "Ramon" existing
-    Und ich bin Ramon
+    Angenommen ich bin Ramon
     Wenn ich im Admin-Bereich unter dem Reiter Geräteparks einen neuen Gerätepark erstelle
     Und ich <Pflichtfeld> nicht eingebe
     Und ich speichere
@@ -42,10 +39,9 @@ Funktionalität: Geräteparks administrieren
       | Kurzname    |
       | E-Mail      |
 
-  @javascript
+
   Szenario: Gerätepark ändern
-    Angenommen persona "Ramon" existing
-    Und ich bin Ramon
+    Angenommen ich bin Ramon
     Wenn ich im Admin-Bereich unter dem Reiter Geräteparks einen bestehenden Gerätepark ändere
     Und ich Name und Kurzname und Email ändere
     Und ich speichere
@@ -53,8 +49,7 @@ Funktionalität: Geräteparks administrieren
 
   @javascript
   Szenario: Gerätepark löschen
-    Angenommen persona "Ramon" existing
-    Und ich bin Ramon
+    Angenommen ich bin Ramon
     Wenn ich im Admin-Bereich unter dem Reiter Geräteparks einen bestehenden Gerätepark lösche
     Und der Gerätepark wurde aus der Liste gelöscht
     Und der Gerätepark wurde aus der Datenbank gelöscht

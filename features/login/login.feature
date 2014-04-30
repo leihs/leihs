@@ -7,7 +7,7 @@ Feature: Login
   Background:
     Given personas existing
 
-  @javascript
+
   Scenario: Redirection after successful login
     When I login as "Ramon" via web interface
     Then I am redirected to the "Admin" section

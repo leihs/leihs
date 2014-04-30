@@ -7,15 +7,14 @@ Funktionalität: Rücknahmen
   Gegenstände Zurücknehmen können
 
   Grundlage:
-    Angenommen Personas existieren
-    Angenommen man ist "Pius"
+    Angenommen ich bin Pius
 
   @javascript
   Szenario: Festhalten wer einen Gegenstand zurückgenommen hat
     Wenn ich einen Gegenstand zurücknehme
     Dann wird festgehalten, dass ich diesen Gegenstand zurückgenommen habe
 
-  @javascript
+
   Szenario: Korrekte Reihenfolge mehrerer Verträge
     Und es existiert ein Benutzer mit mindestens 2 Rückgaben an 2 verschiedenen Tagen
     Wenn man die Rücknahmenansicht für den Benutzer öffnet

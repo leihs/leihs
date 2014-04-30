@@ -3,8 +3,7 @@
 Funktionalität: Ausleihe
 
   Grundlage:
-    Angenommen Personas existieren
-    Und man ist "Pius"
+    Angenommen ich bin Pius
 
   @javascript
   Szenario: Menschlich lesbare Anzeige der Differenz zum Datum

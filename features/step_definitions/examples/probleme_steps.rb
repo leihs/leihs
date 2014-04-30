@@ -38,7 +38,7 @@ Angenommen /^ein Modell ist nichtmehr verfügbar$/ do
     step 'I add so many lines that I break the maximal quantity of an model'
     visit manage_take_back_path(@ip, @customer)
   end
-  sleep(0.66)
+  sleep(0.33)
   find(".line", text: @model.name, match: :first)
   @lines = all(".line", text: @model.name)
   @lines.size.should > 0
@@ -105,11 +105,11 @@ end
 
 Angenommen /^eine Gegenstand ist nicht ausleihbar$/ do
   if @event == "hand_over"
-    @item = @ip.items.unborrowable.first
+    @item = @ip.items.unborrowable.sample
     step 'I add an item to the hand over'
-    find(".line [data-assign-item][disabled]", match: :first).find(:xpath, "./../../..")[:"data-id"].should_not be_empty
-    find(".line [data-assign-item][disabled]", match: :first).find(:xpath, "./../../..")[:"data-id"].should_not be_nil
-    @line_id = find(".line [data-assign-item][disabled]", match: :first).find(:xpath, "./../../..")[:"data-id"]
+    sleep(0.33)
+    @line_id = ContractLine.where(item_id: @item.id).first.id
+    find(".line[data-id='#{@line_id}']", text: @item.model.name).find("[data-assign-item][disabled]")
   elsif @event === "take_back"
     @line_id = find(".line[data-line-type='item_line']", match: :first)[:"data-id"]
     step 'markiere ich den Gegenstand als nicht ausleihbar'

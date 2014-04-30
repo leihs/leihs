@@ -8,7 +8,7 @@ Feature: Item Hover on daily view
     Given personas existing
       And I am "Pius"
 
-  @javascript
+
   Scenario: Hover item cell to see lines
     When I open the daily view
     And I hover an item's cell
