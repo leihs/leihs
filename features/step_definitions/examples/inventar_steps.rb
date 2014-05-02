@@ -468,8 +468,14 @@ Wenn /^ich eine?n? bestehende[s|n]? (.+) bearbeite$/ do |entity|
   find(".line", match: :prefer_exact, :text => object_name).find(".button", :text => "#{entity} editieren").click
 end
 
-Wenn /^ich ein bestehendes, genutztes Modell bearbeite welches bereits Zubehör hat$/ do
-  @model = @current_inventory_pool.models.to_a.detect {|m| m.accessories.count > 0}
+Wenn /^ich ein bestehendes, genutztes Modell bearbeite welches bereits( ein aktiviertes)? Zubehör hat$/ do |arg1|
+  @model = @current_inventory_pool.models.to_a.detect do |m|
+    if arg1
+      m.accessories.count > 0 and m.accessories.any? {|a| a.inventory_pools.include? @current_inventory_pool}
+    else
+      m.accessories.count > 0
+    end
+  end
   visit manage_edit_model_path(@current_inventory_pool, @model)
 end
 
@@ -545,7 +551,7 @@ Dann /^kann ich ein einzelnes Zubehör für meinen Pool deaktivieren$/ do
   accessory_to_deactivate = @model.accessories.detect{|x| x.inventory_pools.where(id: @current_inventory_pool.id).first}
   find(".row.emboss", match: :prefer_exact, :text => _("Accessories")).find(".list-of-lines .line", text: accessory_to_deactivate.name).find("input").click
   step 'ich speichere die Informationen'
-  sleep(0.33)
+  sleep(0.66)
   find("#inventory-index-view h1", match: :prefer_exact, text: _("List of Inventory"))
   lambda {@current_inventory_pool.accessories.reload.find(accessory_to_deactivate)}.should raise_error(ActiveRecord::RecordNotFound)
 end

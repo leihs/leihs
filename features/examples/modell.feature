@@ -45,7 +45,7 @@ Funktionalität: Modell
 
   @javascript
   Szenario: Modellzubehör deaktivieren
-    Wenn ich ein bestehendes, genutztes Modell bearbeite welches bereits Zubehör hat
+    Wenn ich ein bestehendes, genutztes Modell bearbeite welches bereits ein aktiviertes Zubehör hat
     Dann kann ich ein einzelnes Zubehör für meinen Pool deaktivieren
 
   @javascript

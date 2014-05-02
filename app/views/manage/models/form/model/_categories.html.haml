@@ -1,5 +1,5 @@
 #categories
-  = render :layout => "manage/fields/field", :locals => {key: _("Categories"), entries: @model.categories, entry_partial: "manage/models/form/category_inline_entry"} do
+  = render :layout => "manage/fields/field", :locals => {key: _("Categories"), entries: @model.categories, entry_partial: "manage/models/form/model/category_inline_entry"} do
     %input{:type => :hidden, :name => "model[category_ids][]"}
     .row
       %input.has-addon.width-full{:"data-type" => "autocomplete", :type => :text, :autocomplete => :off, :placeholder => _("Category")}

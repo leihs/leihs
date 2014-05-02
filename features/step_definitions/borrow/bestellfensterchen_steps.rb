@@ -89,7 +89,7 @@ Dann(/^die Zeitanzeige zählt von (\d+) Minuten herunter$/) do |timeout_minutes|
   minutes = @countdown.split(":")[0].to_i
   seconds = @countdown.split(":")[1].to_i
   expect(minutes >= (Contract::TIMEOUT_MINUTES - 1)).to be_true
-  sleep(0.33)
+  sleep(0.66)
   expect(seconds > first("#timeout-countdown-time").reload.text.split(":")[1].to_i).to be_true
 end
 

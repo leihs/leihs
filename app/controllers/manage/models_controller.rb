@@ -249,7 +249,9 @@ class Manage::ModelsController < Manage::ApplicationController
     end
   end
 
-  def save_model model
+  private
+
+  def save_model(model)
     # PACKAGES
     packages = params[:model].delete(:packages)
     if packages
@@ -257,11 +259,11 @@ class Manage::ModelsController < Manage::ApplicationController
       update_packages packages
     end
     # COMPATIBLES
-    @model.compatibles = []
+    model.compatibles = []
     # PROPERTIES
-    @model.properties.destroy_all
+    model.properties.destroy_all
     # REMAINING DATA
-    @model.update_attributes(params[:model]) and @model.save
+    model.update_attributes(params[:model]) and model.save
   end
 
 end
