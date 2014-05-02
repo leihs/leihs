@@ -1,5 +1,5 @@
 #accessories
-  = render :layout => "manage/fields/field", :locals => {key: _("Accessories"), entries: @model.accessories, entry_partial: "manage/models/form/accessory_inline_entry"} do
+  = render :layout => "manage/fields/field", :locals => {key: _("Accessories"), entries: @model.accessories, entry_partial: "manage/models/form/model/accessory_inline_entry"} do
     .row.text-align-right
       .col4of5
         %input#accessory-name.width-full{:type => :text, :autocomplete => :off, :placeholder => _("Name")}

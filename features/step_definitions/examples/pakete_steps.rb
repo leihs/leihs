@@ -147,13 +147,14 @@ Dann /^(?:besitzt das Paket alle angegebenen Informationen|das Paket besitzt all
     page.has_selector? ".line[data-id='#{item.id}']", visible: false
   end
   page.has_no_selector? "[src*='loading']"
-  find(".line[data-id='#{model.items.first.id}']", visible: false).find("button[data-edit-package]").click
+  find(".line[data-id='#{@package_id}']").find("button[data-edit-package]").click
   page.has_selector? ".modal .row.emboss"
   step 'hat das Paket alle zuvor eingetragenen Werte'
 end
 
 Wenn /^ich ein bestehendes Paket editiere$/ do
-  find("[data-edit-package]", match: :first).click
+  @package_id = @model.items.packages.sample.id
+  find("#packages .line[data-id='#{@package_id}'] [data-edit-package]").click
   find(".modal")
   find(".modal [data-type='field']", match: :first)
 end

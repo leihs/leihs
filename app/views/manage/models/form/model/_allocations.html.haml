@@ -5,7 +5,7 @@
   end
 
 #allocations
-  = render :layout => "manage/fields/field", :locals => {key: key, entries: @model.partitions, entry_partial: "manage/models/form/allocation_inline_entry"} do
+  = render :layout => "manage/fields/field", :locals => {key: key, entries: @model.partitions, entry_partial: "manage/models/form/model/allocation_inline_entry"} do
     .row
       %input.has-addon.width-full{:"data-type" => "autocomplete", :type => :text, :autocomplete => :off, :placeholder => _("Group")}
       .addon.transparent

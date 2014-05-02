@@ -884,7 +884,7 @@ msgid "No take backs found"
 msgstr "Keine Rücknahmen gefunden"
 
 msgid "None"
-msgstr "KeiNe/r"
+msgstr "Keine/r"
 
 msgid "Not Borrowable"
 msgstr "Nicht ausleihbar"
