@@ -20,7 +20,7 @@
             = _("Cancel")
 
           %button#model-save.button.green
-            = _("Save %s") % _("Model")
+            = _("Save %s") % ( @model.is_a?(Software) ? _("Software") : _("Model") )
 
     .padding-inset-m
 

@@ -311,6 +311,7 @@ class Field < ActiveHash::Base
       form_name: "model_id",
       required: true,
       type: "autocomplete-search",
+      target_type: "item",
       search_path: lambda{|inventory_pool| Rails.application.routes.url_helpers.manage_models_path(inventory_pool, {all: true})},
       search_attr: "search_term",
       value_attr: "id",
@@ -319,6 +320,22 @@ class Field < ActiveHash::Base
       group: nil
     },{
       id: 36,
+      label: "Software",
+      attribute: ["model", "id"],
+      value_label: ["model", "product"],
+      value_label_ext: ["model", "version"],
+      form_name: "model_id",
+      required: true,
+      type: "autocomplete-search",
+      target_type: "license",
+      search_path: lambda{|inventory_pool| Rails.application.routes.url_helpers.manage_models_path(inventory_pool, {all: true, type: :software})},
+      search_attr: "search_term",
+      value_attr: "id",
+      display_attr: "product",
+      display_attr_ext: "version",
+      group: nil
+    },{
+      id: 37,
       label: "Anschaffungskategorie",
       attribute: ["properties", "anschaffungskategorie"],
       value_label: ["properties", "anschaffungskategorie"],
@@ -331,7 +348,7 @@ class Field < ActiveHash::Base
       permissions: {role: :inventory_manager, owner: true},
       group: "Inventory"
     },{
-      id: 37,
+      id: 38,
       label: "Activation Type",
       attribute: ["properties", "activation_type"],
       type: "select",
@@ -344,7 +361,7 @@ class Field < ActiveHash::Base
       permissions: {role: :inventory_manager, owner: true},
       group: "General Information"
     },{
-      id: 38,
+      id: 39,
       label: "License Type",
       attribute: ["properties", "license_type"],
       type: "select",

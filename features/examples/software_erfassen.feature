@@ -16,23 +16,24 @@ Funktionalität: Software erfassen
       | Hersteller                         | Test Hersteller            |
       #| Betriebssystem                     | Windows                    |
       #| Installation                       | Citrix                     |
-      | Hinweise                           | Installationslink beachten: http://wwww.dokuwiki.ch    |
+      | Technische Details                 | Installationslink beachten: http://wwww.dokuwiki.ch    |
     Wenn ich speichere
     Dann ist die neue Software erstellt und unter Software auffindbar
 
+  @javascript
   Szenario: Mögliche Werte in Software-Produkt erfassen
     Angenommen ich befinde mich auf der Software-Erstellungsseite
-    Dann die mögliche Werte für Betriebssystem sind in der folgenden Reihenfolge:
-      | Betriebssystem |
-      | Windows |
-      | Mac OS |
-      | Mac OS X |
-      | Linux |
-    Dann die mögliche Werte für Installation sind in der folgenden Reihenfolge:
-      | Citrix |
-      | Lokal |
-      | Web |
-    Dann kann ich auf mehreren Zeilen Hinweise und Links anfügen
+    #Dann die mögliche Werte für Betriebssystem sind in der folgenden Reihenfolge:
+      #| Betriebssystem |
+      #| Windows |
+      #| Mac OS |
+      #| Mac OS X |
+      #| Linux |
+    #Dann die mögliche Werte für Installation sind in der folgenden Reihenfolge:
+      #| Citrix |
+      #| Lokal |
+      #| Web |
+   Dann kann ich auf mehreren Zeilen Hinweise und Links anfügen
 
   @javascript
   Szenario: Mögliche Werte in Software-Lizenz erfassen
@@ -61,7 +62,7 @@ Funktionalität: Software erfassen
   Szenario: Software-Lizenz erfassen
     Angenommen es existiert ein Software-Produkt
     Wenn ich eine neue Software-Lizenz hinzufüge
-    Und ich das Modell setze
+    Und ich die Software setze
     Und eine Inventarnummer vergeben wird
     Und ich eine Seriennummer eingebe
     Und ich eine Aktivierungsart eingebe
