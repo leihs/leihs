@@ -1,10 +1,16 @@
 %form#model-form
-  %input{type: :hidden, name: "model[type]", value: @type}
+  %input{type: :hidden, name: "model[type]", value: "software"}
 
   .col1of2.padding-right-xs
 
     = render :partial => "manage/models/form/name"
 
+    = render :partial => "manage/models/form/manufacturer"
+
   .col1of2
 
-    = render :partial => "manage/models/form/manufacturer"
+    -#= render :partial => "manage/models/form/software/operating_system"
+
+    -#= render :partial => "manage/models/form/software/installation"
+
+    = render :partial => "manage/models/form/software/hints"

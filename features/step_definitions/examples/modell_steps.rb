@@ -160,7 +160,7 @@ Dann(/^sind die geänderten Gruppenzuteilungen gespeichert$/) do
   sleep(0.33) # fix lazy request fail problem
 end
 
-Dann /^ist das neue (Modell|Software) erstellt und unter ungenutzen Modellen auffindbar$/ do |arg1|
+Dann /^ist das neue Modell erstellt und unter ungenutzen Modellen auffindbar$/ do
   find("[data-unused_models]").click
   step "die Informationen sind gespeichert"
 end

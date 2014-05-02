@@ -27,7 +27,7 @@ class window.App.InventoryExpandController extends Spine.Controller
   fetchData: (line, callback)=>
     model = App.Model.find(line.data("id")) if line.data("type") == "model"
     software = App.Software.find(line.data("id")) if line.data("type") == "software"
-    itemIds = _.map (model ? software).items().all(), (i)->i.id
+    itemIds = _.map (model?.items() ? software?.licenses()).all(), (i)->i.id
     @fetchCurrentItemLocation(line, itemIds).done => 
       @fetchPackageItems(line, itemIds).done (data)=>
         @fetchPackageModels(line, itemIds).done => callback line

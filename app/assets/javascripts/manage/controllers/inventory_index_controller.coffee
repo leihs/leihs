@@ -24,12 +24,7 @@ class window.App.InventoryIndexController extends Spine.Controller
 
   reset: =>
     @inventory = {}
-    App.Inventory.deleteAll()
-    App.Item.deleteAll()
-    App.License.deleteAll()
-    App.Model.deleteAll()
-    App.Software.deleteAll()
-    App.Option.deleteAll()
+    _.invoke [App.Inventory, App.Item, App.License, App.Model, App.Software, App.Option], -> this.deleteAll()
     do @updateExportButton
     @list.html App.Render "manage/views/lists/loading"
     @fetch 1, @list

@@ -884,7 +884,7 @@ msgid "No take backs found"
 msgstr "Keine Rücknahmen gefunden"
 
 msgid "None"
-msgstr "Keine/r"
+msgstr "KeiNe/r"
 
 msgid "Not Borrowable"
 msgstr "Nicht ausleihbar"
@@ -2888,6 +2888,9 @@ msgstr "Software"
 msgid "Software License"
 msgstr "Software-Lizenz"
 
+msgid "License"
+msgstr "Lizenz"
+
 msgid "Activation Type"
 msgstr "Aktivierungstyp"
 
@@ -2914,3 +2917,18 @@ msgstr "Lizenzserver"
 
 msgid "License Number"
 msgstr "Lizenznummer"
+
+msgid "Site License"
+msgstr "Site-Lizenz"
+
+msgid "Concurrent"
+msgstr "Konkurrent"
+
+msgid "Operating System"
+msgstr "Betriebssystem"
+
+msgid "Installation"
+msgstr "Installation"
+
+msgid "Hints"
+msgstr "Hinweise"
