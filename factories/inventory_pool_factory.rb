@@ -1,7 +1,7 @@
 FactoryGirl.define do
 
   factory :inventory_pool do |i|
-    name { Faker::Lorem.words(3).join.capitalize }
+    name { Faker::Lorem.words(4).join.capitalize }
     description { Faker::Lorem.sentence }
     contact_details { Faker::Lorem.sentence }
     contract_description { name }
