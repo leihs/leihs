@@ -153,8 +153,12 @@ Dann /^(?:besitzt das Paket alle angegebenen Informationen|das Paket besitzt all
 end
 
 Wenn /^ich ein bestehendes Paket editiere$/ do
-  @package_id = @model.items.packages.sample.id
-  find("#packages .line[data-id='#{@package_id}'] [data-edit-package]").click
+  if @model
+    @package_id = @model.items.packages.sample.id
+    find("#packages .line[data-id='#{@package_id}'] [data-edit-package]").click
+  else
+    find("#packages .line[data-new] [data-edit-package]", match: :first).click
+  end
   find(".modal")
   find(".modal [data-type='field']", match: :first)
 end
