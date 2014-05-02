@@ -2785,6 +2785,9 @@ msgstr ""
 msgid "Software License"
 msgstr ""
 
+msgid "License"
+msgstr ""
+
 msgid "Activation Type"
 msgstr ""
 
@@ -2810,4 +2813,19 @@ msgid "License Server"
 msgstr ""
 
 msgid "License Number"
+msgstr ""
+
+msgid "Site License"
+msgstr ""
+
+msgid "Concurrent"
+msgstr ""
+
+msgid "Operating System"
+msgstr ""
+
+msgid "Installation"
+msgstr ""
+
+msgid "Hints"
 msgstr ""

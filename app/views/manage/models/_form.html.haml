@@ -1,1 +1,1 @@
-= render ( @type == "software" ? "software" : "model" )
+= render ( @model.is_a?(Software) ? "software" : "model" )

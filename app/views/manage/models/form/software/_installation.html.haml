@@ -1,0 +1,2 @@
+= render :layout => "manage/fields/field", :locals => {key: _("Installation")} do
+  = select "model", "installation", [["Citrix", "citrix"], ["Lokal", "local"], ["Web", "web"]]

@@ -152,22 +152,24 @@ class InventoryPool < ActiveRecord::Base
   end
 
   def inventory(params)
-    items = Item.filter params.clone.merge({paginate: "false", all: "true", search_term: nil}), self
+
+    model_filter_params = params.clone.merge({paginate: "false", include_retired_models: params[:retired], search_targets: [:manufacturer, :product, :version, :items]})
 
     if params[:software]
-      items = items.licenses
-      models = Software.all
-    else [:unborrowable, :retired, :category_id, :in_stock, :incomplete, :broken, :owned, :responsible_id, :unused_models].all? {|param| params[param].blank?}
-      options = Option.filter params.clone.merge({paginate: "false", sort: "product", order: "ASC"}), self
+      inventory = Software.filter model_filter_params.merge({all: true})
+    else
+      items = Item.filter params.clone.merge({paginate: "false", all: "true", search_term: nil}), self
+      item_ids = items.pluck(:id)
+      models = Model.filter model_filter_params.merge({item_ids: item_ids}), self
+
+      if [:unborrowable, :retired, :category_id, :in_stock, :incomplete, :broken, :owned, :responsible_id, :unused_models].all? {|param| params[param].blank?}
+        options = Option.filter params.clone.merge({paginate: "false", sort: "product", order: "ASC"}), self
+      end
+
+      inventory = (models + (options || [])).sort{|a,b| a.name.strip <=> b.name.strip}
     end
 
-    item_ids = items.pluck(:id)
-
-    models = Model.filter params.clone.merge({paginate: "false", item_ids: item_ids, include_retired_models: params[:retired], search_targets: [:manufacturer, :product, :version, :items]}), self
-
-    inventory = (models + (options || [])).sort{|a,b| a.name.strip <=> b.name.strip}
     inventory = inventory.paginate(:page => params[:page]||1, :per_page => [(params[:per_page].try(&:to_i) || 20), 100].min) unless params[:paginate] == "false"
-
     inventory
   end
 

@@ -1,4 +1,4 @@
-- content_for :title, @type == "software" ? _("Create new software") : _("Create new model")
+- content_for :title, @model.is_a?(Software) ? _("Create new software") : _("Create new model")
 - content_for :inventory_section, "active"
 - content_for :head do
   = javascript_include_tag "upload"

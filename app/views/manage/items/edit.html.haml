@@ -1,4 +1,4 @@
-- content_for :title, "#{_("Edit Item")}"
+- content_for :title, _("Edit %s") % ( @item.type == "License" ? _("Software License") : _("Item") )
 - content_for :inventory_section, "active"
 
 #edit-item-view.wrapper.margin-top-m
@@ -10,7 +10,7 @@
     .margin-top-l.padding-horizontal-m
       .row
         .col1of2
-          %h1.headline-l= _("Edit Item")
+          %h1.headline-l= yield :title
           %h2.headline-s.light= _("Make changes and save")
         .col1of2.text-align-right
 
@@ -19,7 +19,7 @@
 
           .multibutton
             %button#item-save.button.green
-              = _("Save %s") % _("Item")
+              = _("Save %s") % ( @item.type == "License" ? _("License") : _("Model") )
             .dropdown-holder.inline-block
               .button.green.dropdown-toggle
                 .arrow.down

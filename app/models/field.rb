@@ -99,7 +99,6 @@ class Field < ActiveHash::Base
       label: "Borrowable",
       attribute: "is_borrowable",
       type: "radio",
-      target_type: "item",
       values: [{label: "OK", value: true}, {label: "Unborrowable", value: false}],
       default: false,
       group: "Status",
@@ -337,18 +336,26 @@ class Field < ActiveHash::Base
       attribute: ["properties", "activation_type"],
       type: "select",
       target_type: "license",
-      values: [{label: "None", value: "none"}, {label: "Dongle", value: "dongle"}, {label: "License Server", value: "license_server"}, {label: "License Number", value: "license_number"}, {label: "Challenge Response/System ID", value: "challenge_response"}],
+      values: [{label: "Dongle", value: "dongle"},
+               {label: "Serial Number", value: "serial_number"},
+               {label: "License Server", value: "license_server"},
+               {label: "Challenge Response/System ID", value: "challenge_response"},
+               {label: "None", value: "none"}],
       permissions: {role: :inventory_manager, owner: true},
-      group: nil
+      group: "General Information"
     },{
       id: 38,
       label: "License Type",
       attribute: ["properties", "license_type"],
       type: "select",
       target_type: "license",
-      values: [{label: "Free", value: "free"}, {label: "Single Workplace", value: "single_workplace"}, {label: "Multiple Workplace", value: "multiple_workplace"}, {label: "Site", value: "site"}, {label: "Floating", value: "floating"}],
+      values: [{label: "Free", value: "free"},
+               {label: "Single Workplace", value: "single_workplace"},
+               {label: "Multiple Workplace", value: "multiple_workplace"},
+               {label: "Site License", value: "site_license"},
+               {label: "Concurrent", value: "concurrent"}],
       permissions: {role: :inventory_manager, owner: true},
-      group: nil
+      group: "General Information"
     }
   ]
 

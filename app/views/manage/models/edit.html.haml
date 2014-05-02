@@ -1,4 +1,4 @@
-- content_for :title, "#{_("Edit Model")}"
+- content_for :title, @model.is_a?(Software) ? _("Edit Software") : _("Edit Model")
 - content_for :inventory_section, "active"
 - content_for :head do
   = javascript_include_tag "upload"
@@ -12,7 +12,7 @@
     .margin-top-l.padding-horizontal-m
       .row
         .col1of2
-          %h1.headline-l= _("Edit Model")
+          %h1.headline-l= yield :title
           %h2.headline-s.light= _("Make changes and save")
         .col1of2.text-align-right
 
@@ -20,7 +20,7 @@
             = _("Cancel")
 
           %button#model-save.button.green{:autocomplete => :off}
-            = _("Save %s") % _("Model")
+            = _("Save %s") % ( @model.is_a?(Software) ? _("Software") : _("Model") )
 
     .padding-inset-m
 

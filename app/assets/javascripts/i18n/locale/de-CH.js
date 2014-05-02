@@ -3687,6 +3687,10 @@ window.i18n.locale_data = {
          null,
          "Software-Lizenz"
       ],
+      "License": [
+         null,
+         "Lizenz"
+      ],
       "Activation Type": [
          null,
          "Aktivierungstyp"
@@ -3722,6 +3726,26 @@ window.i18n.locale_data = {
       "License Number": [
          null,
          "Lizenznummer"
+      ],
+      "Site License": [
+         null,
+         "Site-Lizenz"
+      ],
+      "Concurrent": [
+         null,
+         "Konkurrent"
+      ],
+      "Operating System": [
+         null,
+         "Betriebssystem"
+      ],
+      "Installation": [
+         null,
+         "Installation"
+      ],
+      "Hints": [
+         null,
+         "Hinweise"
       ]
    }
 }

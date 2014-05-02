@@ -10,9 +10,8 @@ class Manage::ModelsController < Manage::ApplicationController
   end
 
   def new
-    @type = params[:type] ? params[:type] : "model"
     not_authorized! unless is_privileged_user?
-    @model = Model.new
+    @model = (params[:type].try(:humanize) || "Model").constantize.new
   end
   
   def create
