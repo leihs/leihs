@@ -19,7 +19,7 @@
 
           .multibutton
             %button#item-save.button.green
-              = _("Save %s") % _("Item")
+              = _("Save %s") % ( @type == "license" ? _("License") : _("Item") )
             .dropdown-holder.inline-block
               .button.green.dropdown-toggle
                 .arrow.down

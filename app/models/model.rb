@@ -194,6 +194,8 @@ class Model < ActiveRecord::Base
       models = models.where(:items => {:parent_id => nil}) unless params[:include_package_models]
     end
 
+    models = models.where(type: :Software) if params[:type] == "software"
+
     unless params[:unused_models]
       models = models.joins(:items).where(items: {id: params[:item_ids]}) if params[:item_ids]
       models = models.joins(:items).where(items: {inventory_pool_id: params[:responsible_id]}) if params[:responsible_id]
