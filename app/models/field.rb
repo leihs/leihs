@@ -373,6 +373,29 @@ class Field < ActiveHash::Base
                {label: "Concurrent", value: "concurrent"}],
       permissions: {role: :inventory_manager, owner: true},
       group: "General Information"
+    },{
+      id: 40,
+      label: "Operating System",
+      attribute: ["properties", "operating_system", ""],
+      type: "checkbox",
+      target_type: "license",
+      values: [{label: "Windows", value: "windows"},
+               {label: "Mac OS", value: "mac_os"},
+               {label: "Mac OS X", value: "mac_os_x"},
+               {label: "Linux", value: "linux"}],
+      permissions: {role: :inventory_manager, owner: true},
+      group: "General Information"
+    },{
+      id: 41,
+      label: "Installation",
+      attribute: ["properties", "installation", ""],
+      type: "checkbox",
+      target_type: "license",
+      values: [{label: "Citrix", value: "citrix"},
+               {label: "Local", value: "local"},
+               {label: "Web", value: "web"}],
+      permissions: {role: :inventory_manager, owner: true},
+      group: "General Information"
     }
   ]
 
