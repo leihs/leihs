@@ -3697,7 +3697,7 @@ window.i18n.locale_data = {
       ],
       "License Type": [
          null,
-         "Lizenzstyp"
+         "Lizenztyp"
       ],
       "Create new software license": [
          null,

@@ -33,7 +33,7 @@ Dann(/^die mögliche Werte für Aktivierungstyp sind in der folgenden Reihenfolg
   find(".field", text: _("Activation Type")).all("option").map(&:text).should == table.rows.flatten
 end
 
-Dann(/^die mögliche Werte für Lizenzstyp sind in der folgenden Reihenfolge:$/) do |table|
+Dann(/^die mögliche Werte für Lizenztyp sind in der folgenden Reihenfolge:$/) do |table|
   find(".field", text: _("License Type")).all("option").map(&:text).should == table.rows.flatten
 end
 

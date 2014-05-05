@@ -46,7 +46,7 @@ Funktionalität: Software erfassen
       | Challenge Response/System ID |
       | Keine/r |
     Dann die mögliche Werte für Lizenzstyp sind in der folgenden Reihenfolge:
-      | Lizenztsyp |
+      | Lizenztyp |
       | Frei |
       | Einzelplatz |
       | Mehrplatz |

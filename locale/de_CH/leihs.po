@@ -2895,7 +2895,7 @@ msgid "Activation Type"
 msgstr "Aktivierungstyp"
 
 msgid "License Type"
-msgstr "Lizenzstyp"
+msgstr "Lizenztyp"
 
 msgid "Create new software license"
 msgstr "Neue Software-Lizenz erstellen"
