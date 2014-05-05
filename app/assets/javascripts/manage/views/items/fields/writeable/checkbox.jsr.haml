@@ -1,0 +1,12 @@
+.padding-inset-xxs
+  {{for ~field.values}}
+  %label.padding-inset-xxs
+    {{:~setvar("values", ~field.getValue(~itemData, ~field.attribute, true))}}
+    {{if ~getvar("values") != null && ~getvar("values").indexOf(value) >= 0}}
+    %input{:type => "checkbox", :value => "{{>value}}", :name => "{{>~field.getFormName()}}", :checked => true}
+    {{else}}
+    %input{:type => "checkbox", :value => "{{>value}}", :name => "{{>~field.getFormName()}}"}
+    {{/if}}
+    %span.font-size-m {{jed label/}}
+  {{/for}}
+
