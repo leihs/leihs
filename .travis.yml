@@ -16,4 +16,4 @@ before_install:
   - "sudo apt-get install imagemagick wget memcached phantomjs openjdk-7-jre"
 bundler_args: --without development
 # uncomment this line if your project needs to run something other than `rake`:
-script: "bundle exec rake leihs:reset && bundle exec app:test:generate_personas_dumps && bundle exec rspec spec/ && bundle exec cucumber -t ~@javascript"
+script: "bundle exec rake leihs:reset && bundle exec rake app:test:generate_personas_dumps && bundle exec rspec spec/ && bundle exec cucumber -t ~@javascript"
