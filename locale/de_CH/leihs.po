@@ -2932,3 +2932,6 @@ msgstr "Installation"
 
 msgid "Hints"
 msgstr "Hinweise"
+
+msgid "Local"
+msgstr "Lokal"
