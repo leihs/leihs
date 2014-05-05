@@ -9,16 +9,6 @@ Angenommen(/^ich befinde mich auf der Software\-Erstellungsseite$/) do
   visit manage_new_model_path(inventory_pool_id: @current_inventory_pool.id, type: :software)
 end
 
-Dann(/^die mögliche Werte für Betriebssystem sind in der folgenden Reihenfolge:$/) do |table|
-  # table is a Cucumber::Ast::Table
-  pending # express the regexp above with the code you wish you had
-end
-
-Dann(/^die mögliche Werte für Installation sind in der folgenden Reihenfolge:$/) do |table|
-  # table is a Cucumber::Ast::Table
-  pending # express the regexp above with the code you wish you had
-end
-
 Dann(/^kann ich auf mehreren Zeilen Hinweise und Links anfügen$/) do
   @line_1 = "#{Faker::Lorem.word} #{Faker::Internet.url}"
   @line_2 = Faker::Lorem.sentence
@@ -150,4 +140,12 @@ end
 Wenn(/^ich mich auf der Softwareliste befinde$/) do
   page.has_selector? "Inventarliste"
   find("a", text: _("Software")).click
+end
+
+Wenn(/^one is able to choose as "(.+)" none, one or more of the following options:$/) do |arg, table|
+  within find(".field", text: _(arg)) do
+    table.rows.flatten.each do |value|
+      find("label", text: _(value), match: :prefer_exact).find("input[type='checkbox']")
+    end
+  end
 end

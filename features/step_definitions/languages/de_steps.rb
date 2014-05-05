@@ -57,3 +57,10 @@ Wenn /^einige der ausgewählten Gegenstände hat keinen Zweck angegeben$/ do
   step 'I add an option to the hand over by providing an inventory code and a date range'
 end
 
+Dann(/^kann man als "(.+)" keine, eine oder mehrere der folgenden Möglichkeiten in Form einer Checkbox auswählen:$/) do |arg, table|
+  step %Q(one is able to choose as "#{arg}" none, one or more of the following options:), table
+end
+
+Wenn(/^ich als "(.+)" keine, eine oder mehrere der vorhandenen Möglichkeiten auswähle$/) do |arg|
+  pending # express the regexp above with the code you wish you had
+end

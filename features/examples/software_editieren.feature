@@ -14,8 +14,6 @@ Funktionalität: Software erfassen
       | Produkt | Test Software I |
       | Version | Test Version I |
       | Hersteller | Neuer Hersteller |
-      #| Betriebssystem | Mac OS |
-      #| Installation | lokal |
       | Technische Details | Installationslink beachten: http://wwww.dokuwiki.ch/neue_seite |
     Wenn ich speichere
     Und ich mich auf der Softwareliste befinde

@@ -3746,6 +3746,10 @@ window.i18n.locale_data = {
       "Hints": [
          null,
          "Hinweise"
+      ],
+      "Local": [
+         null,
+         "Lokal"
       ]
    }
 }

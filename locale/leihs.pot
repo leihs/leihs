@@ -2829,3 +2829,6 @@ msgstr ""
 
 msgid "Hints"
 msgstr ""
+
+msgid "Local"
+msgstr ""
