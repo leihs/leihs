@@ -1,5 +1,5 @@
 :ruby
-  auto_link_result = auto_link(@model.technical_detail)
+  auto_link_result = auto_link(@model.technical_detail, html: { target: "_blank" })
   entries = ( auto_link_result =~ /href/ ? auto_link_result.split("\r\n") : [] )
 
 = render :layout => "manage/fields/field", :locals => {key: _("Technical Details"), entries: entries, entry_partial: "manage/models/form/technical_details_inline_entry"} do
