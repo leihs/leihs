@@ -31,9 +31,12 @@ class window.App.Field extends Spine.Model
     if item?
       value = if attribute instanceof Array
           _.reduce attribute, (hash, attr) -> 
-            if hash? and hash[attr]?
-              hash[attr]
-            else 
+            if hash?
+              if _.isEmpty? attr # this case is needed when an array is expected as return value, see example of operating system field
+                hash
+              else if hash[attr]?
+                hash[attr]
+            else
               null
           , item
         else
