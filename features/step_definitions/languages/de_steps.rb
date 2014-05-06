@@ -61,6 +61,18 @@ Dann(/^kann man als "(.+)" keine, eine oder mehrere der folgenden Möglichkeiten
   step %Q(one is able to choose as "#{arg}" none, one or more of the following options:), table
 end
 
-Wenn(/^ich als "(.+)" keine, eine oder mehrere der vorhandenen Möglichkeiten auswähle$/) do |arg|
-  pending # express the regexp above with the code you wish you had
+Wenn(/^ich als Betriebssystem keine, eine oder mehrere der vorhandenen Möglichkeiten auswähle$/) do
+  step %Q(if I choose none, one or more of the available options for operating system)
+end
+
+Wenn(/^ich als Installation keine, eine oder mehrere der vorhandenen Möglichkeiten auswähle$/) do
+  step %Q(if I choose none, one or more of the available options for installation)
+end
+
+Wenn(/^ich die Optionen für das Betriebssystem ändere$/) do
+  step %Q(I change the options for operating system)
+end
+
+Wenn(/^ich die Optionen für die Installation ändere$/) do
+  step %Q(I change the options for installation)
 end

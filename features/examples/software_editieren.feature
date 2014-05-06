@@ -28,6 +28,8 @@ Funktionalität: Software erfassen
     Und ich einen anderen Aktivierungstyp wähle
     Und ich einen anderen Lizenztyp wähle
     Und ich den Wert "Ausleihbar" ändere
-    #Aber ich kann die Inventarnummer nicht ändern
+    Und ich die Optionen für das Betriebssystem ändere
+    Und ich die Optionen für die Installation ändere
+    #Aber ich kann die Inventarnummer nicht ändern # really? inventory manager can change the inventory number of an item right now...
     Wenn ich speichere
     Dann sind die Informationen dieser Software-Lizenz erfolgreich aktualisiert worden
