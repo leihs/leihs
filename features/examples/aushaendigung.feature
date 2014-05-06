@@ -5,7 +5,7 @@ Funktionalität: Aushändigung editieren
   Grundlage:
     Angenommen ich bin Pius
 
-  @javascript
+  @javascript @firefox
   Szenario: Systemfeedback bei erfolgreicher manueller Interaktion bei Aushändigung
     Angenommen es gibt eine Aushändigung mit mindestens einem nicht problematischen Modell
     Und ich die Aushändigung öffne
@@ -21,7 +21,7 @@ Funktionalität: Aushändigung editieren
     Wenn ich den zugeteilten Gegenstand auf der Zeile entferne
     Dann ist die Zeile nicht mehr grün markiert
 
-  @javascript
+  @javascript @firefox
   Szenario: Systemfeedback bei Zuteilen eines Gegenstandes zur problematischen Linie
     Angenommen es gibt eine Aushändigung mit mindestens einer problematischen Linie
     Und ich die Aushändigung öffne
@@ -37,7 +37,7 @@ Funktionalität: Aushändigung editieren
     Und der Benutzer für die Aushändigung ist gesperrt
     Dann sehe ich neben seinem Namen den Sperrstatus 'Gesperrt!'
 
-  @javascript
+  @javascript @firefox
   Szenario: Systemfeedback bei Zuteilen einer Option
     Angenommen ich öffne eine Aushändigung
     Wenn ich eine Option hinzufüge

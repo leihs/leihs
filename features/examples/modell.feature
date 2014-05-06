@@ -15,7 +15,7 @@ Funktionalität: Modell
     | Anhänge      |
     | Zubehör      |
 
-  @javascript
+  @javascript @firefox
   Szenario: Modelldetails abfüllen
     Wenn ich ein neues Modell hinzufüge
     Und ich erfasse die folgenden Details
@@ -48,7 +48,7 @@ Funktionalität: Modell
     Wenn ich ein bestehendes, genutztes Modell bearbeite welches bereits ein aktiviertes Zubehör hat
     Dann kann ich ein einzelnes Zubehör für meinen Pool deaktivieren
 
-  @javascript
+  @javascript @firefox
   Szenario: sich ergänzende Modelle entfernen (kompatibel)
     Angenommen man öffnet die Liste der Modelle
     Wenn ich ein Modell öffne, das bereits ergänzende Modelle hat
@@ -56,7 +56,7 @@ Funktionalität: Modell
     Und ich speichere die Informationen
     Dann ist das Modell ohne das gelöschte ergänzende Modell gespeichert
 
-  @javascript
+  @javascript @firefox
   Szenario: Gruppenverteilung editieren
     Angenommen ich editieren ein bestehndes Modell mit bereits zugeteilten Kapazitäten
     Wenn ich bestehende Zuteilungen entfernen
@@ -74,7 +74,7 @@ Funktionalität: Modell
     Und das Modell wurde aus der Liste gelöscht
     Und das Modell ist gelöscht
 
-  @javascript
+  @javascript @firefox
   Szenario: sich ergänzende Modelle hinzufügen (kompatibel)
     Angenommen man öffnet die Liste der Modelle
     Wenn ich ein bestehendes, genutztes Modell bearbeite
@@ -82,7 +82,7 @@ Funktionalität: Modell
     Und ich speichere die Informationen
     Dann ist dem Modell das ergänzende Modell hinzugefügt worden
 
-  @javascript
+  @javascript @firefox
   Szenario: 2 Mal gleiches ergänzende Modelle hinzufügen (kompatibel)
     Angenommen man öffnet die Liste der Modelle
     Wenn ich ein Modell öffne, das bereits ergänzende Modelle hat
@@ -108,7 +108,7 @@ Funktionalität: Modell
     Und das Modell ist gelöscht
     Und es wurden auch alle Anhängsel gelöscht
 
-  @javascript
+  @javascript @firefox
   Szenario: Modelldetails bearbeiten
     Angenommen man öffnet die Liste der Modelle
     Wenn ich ein bestehendes, genutztes Modell bearbeite
@@ -149,7 +149,7 @@ Funktionalität: Modell
     Und das Modell ist gelöscht
     Und es wurden auch alle Anhängsel gelöscht
 
-  @javascript
+  @javascript @firefox
   Szenariogrundriss: Modelllöschversuch verhindern
     Angenommen das Modell hat <Zuweisung> zugewiesen
     Dann kann ich das Modell aus der Liste nicht löschen
@@ -177,7 +177,7 @@ Funktionalität: Modell
     Und das Modell ist gelöscht
     Und es wurden auch alle Anhängsel gelöscht
 
-  @javascript
+  @javascript @firefox
   Szenario: Modell erstellen nur mit Name
     Wenn ich ein neues Modell hinzufüge
     Und ich speichere die Informationen

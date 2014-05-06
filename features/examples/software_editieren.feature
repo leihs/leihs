@@ -6,7 +6,7 @@ Funktionalität: Software erfassen
     Angenommen Personas existieren
     Und ich bin "Mike"
 
-  @javascript
+  @javascript @firefox
   Szenario: Software-Produkt editieren
     Wenn ich eine Software editiere
     Und ich ändere die folgenden Details

@@ -9,7 +9,7 @@ Funktionalität: Werteliste
   Grundlage:
     Angenommen ich bin Pius
 
-  @javascript
+  @javascript @firefox
   Szenario: Was ich auf der Werteliste sehen möchte
     Angenommen man öffnet eine Werteliste
     Dann möchte ich die folgenden Bereiche in der Werteliste sehen:
@@ -20,7 +20,7 @@ Funktionalität: Werteliste
     | Verleier         |
     | Liste            |
 
-  @javascript
+  @javascript @firefox
   Szenario: Der Inhalt der Werte-Liste
     Angenommen man öffnet eine Werteliste
     Dann beinhaltet die Werte-Liste folgende Spalten:
@@ -56,7 +56,7 @@ Funktionalität: Werteliste
     Und die nicht zugewiesenen Linien sind zusammengefasst
     Und der Preis einer Option ist der innerhalb des Geräteparks
 
-  @javascript
+  @javascript @firefox
   Szenario: Totale Werte
     Angenommen man öffnet eine Werteliste
     Dann gibt es eine Zeile für die totalen Werte
@@ -65,7 +65,7 @@ Funktionalität: Werteliste
      | Anzahl      |
      | Wert        |
 
-  @javascript
+  @javascript @firefox
   Szenario: Totale Werte
     Angenommen man öffnet eine Werteliste
     Dann gibt es eine Zeile für die totalen Werte

@@ -5,7 +5,7 @@ Feature: Submit contract
   Background:
     Given personas existing
     And an inventory pool existing
-    And a contract with lines existing
+    And an unsubmitted contract with lines existing
 
   Scenario: Submitting a contract is creating a purpose associated to the lines
     When the contract is submitted with the purpose description "Some purpose description"

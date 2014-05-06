@@ -5,10 +5,9 @@ Feature: Assign items during hand over
   I want to be able to have functionlities to assign items
 
   Background:
-    Given personas existing
-      And I am "Pius"
+    Given I am "Pius"
 
-  @javascript
+  @javascript @firefox
   Scenario: Assign an inventory code to an itemline
      When I open a hand over
       And I click an inventory code input field of an item line
@@ -24,7 +23,7 @@ Feature: Assign items during hand over
      Then the first itemline in the selection matching the provided inventory code is assigned
       And no new line is added to the hand over
 
-  @javascript
+  @javascript @firefox
   Scenario: Remove the assignment of an inventory code by clear the the inventory code input
      When I open a hand over with lines that have assigned inventory codes
       And I clean the inventory code of one of the lines

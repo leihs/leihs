@@ -5,8 +5,7 @@ Feature: Allocating of capacities inside the availability
   I want that the application allocates capacities correctly
 
   Background:
-    Given personas existing
-      And I am "Pius"
+    Given I am "Pius"
 
   Scenario: Splitting capacities (Group General / Another Group)
     Given a model that has capacities for a group and group general

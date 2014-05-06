@@ -5,8 +5,7 @@ Feature: Add lines during hand over
   I want to be able to have functionlities to add lines
 
   Background:
-    Given personas existing
-      And I am "Pius"
+    Given I am "Pius"
      When I open a hand over
 
   @javascript
@@ -24,26 +23,26 @@ Feature: Add lines during hand over
       And I add an option to the hand over which is already existing in the selected date range by providing an inventory code
      Then the existing option quantity is increased
 
-  @javascript
+  @javascript @firefox
   Scenario: Add a template to the hand over picking an autocomplete element
       And I type the beginning of a template name to the add/assign input field
      Then I see a list of suggested template names
      When I select the template from the list
      Then each model of the template is added to the hand over for the provided date range
 
-  @javascript
+  @javascript @firefox
   Scenario: Add lines which changes other lines availability
       And I add so many lines that I break the maximal quantity of an model
      Then I see that all lines of that model have availability problems
 
-  @javascript
+  @javascript @firefox
   Scenario: Add an option to the hand over picking an autocomplete element
       And I type the beginning of an option name to the add/assign input field
      Then I see a list of suggested option names
      When I select the option from the list
      Then the option is added to the hand over
 
-  @javascript
+  @javascript @firefox
   Scenario: Add an model to the hand over picking an autocomplete element
       And I type the beginning of a model name to the add/assign input field
      Then I see a list of suggested model names

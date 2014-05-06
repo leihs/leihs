@@ -5,8 +5,7 @@ Feature: Daily View Day Navigation
   I want to have functionalities to switch to a specific day
   
   Background:
-    Given personas existing
-      And I am "Pius"
+    Given I am "Pius"
 
   #
   # Scenario: Go to the next day

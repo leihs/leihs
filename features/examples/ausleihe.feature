@@ -5,7 +5,7 @@ Funktionalität: Ausleihe
   Grundlage:
     Angenommen ich bin Pius
 
-  @javascript
+  @javascript @firefox
   Szenario: Selektion bei manueller Interaktion bei Aushändigung
     Wenn ich eine Aushändigung mache
     Und einem Gegenstand einen Inventarcode manuell zuweise
@@ -28,7 +28,7 @@ Funktionalität: Ausleihe
     Wenn ich eine Rücknahme mache
     Dann erscheint der Benutzer unter den letzten Besuchern
 
-  @javascript
+  @javascript @firefox
   Szenario: Fehlermeldung beim Versuch, etwas aus der Zukunft auszuhändigen
     Wenn ich eine Aushändigung mache
      Und die ausgewählten Gegenstände auch solche beinhalten, die in einer zukünftige Aushändigung enthalten sind
@@ -47,7 +47,7 @@ Funktionalität: Ausleihe
     Dann erkenne ich, in welchen Gruppen der Kunde ist
     Und dann erkennen ich, in welchen Gruppen der Kunde nicht ist
 
-  @javascript
+  @javascript @firefox
   Szenario: Scanning-Verhalten beim Aushändigen
     Wenn ich eine Aushändigung mache mit einem Kunden der sowohl am heutigen Tag sowie in der Zukunft Abholungen hat
     Wenn ich etwas scanne (per Inventarcode zuweise) und es in irgendeinem zukünftigen Vertrag existiert
@@ -55,7 +55,7 @@ Funktionalität: Ausleihe
     Wenn es in keinem zukünftigen Vertrag existiert 
     Dann wird es für die ausgewählte Zeitspanne hinzugefügt
 
-  @javascript
+  @javascript @firefox
   Szenario: Inspektion bei Rücknahme
     Angenommen ich mache eine Rücknahme
     Dann habe ich für jeden Gegenstand die Möglichkeit, eine Inspektion auszulösen
@@ -67,7 +67,7 @@ Funktionalität: Ausleihe
     Und wenn ich die Inspektion speichere
     Dann wird der Gegenstand mit den aktuell gesetzten Status gespeichert
 
-  @javascript
+  @javascript @firefox
   Szenario: Automatischer Druck Dialog beim Aushändigen
     Wenn ich eine Aushändigung mache
     Dann wird automatisch der Druck-Dialog geöffnet

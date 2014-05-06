@@ -1,4 +1,4 @@
 default: -p base -e routes_report.rb
-base:  -r features --tags=~@upcoming --format pretty --format rerun --out tmp/rerun.txt --format junit --out tmp/junit --format html --tags=~@old-ui --out tmp/html/cucumber_all.html
+base:  -r features --strict --tags=~@upcoming --format pretty --format rerun --out tmp/rerun.txt --format junit --out tmp/junit --format html --tags=~@old-ui --out tmp/html/cucumber_all.html
 rerun: "-r features @tmp/rerun.txt --format pretty --format junit --out tmp/junit --format rerun --out tmp/rererun.txt"
 reports: -p base

@@ -5,10 +5,9 @@ Feature: Close Contract
   I want to be able to take back items and close a contract
 
   Background:
-    Given personas existing
-      And I am "Pius"
+    Given I am "Pius"
 
-  @javascript
+  @javascript @firefox
   Scenario: Take back all items of a contract
      When I open a take back
       And I select all lines of an open contract

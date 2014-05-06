@@ -33,7 +33,7 @@ Funktionalität: Rücknahme
     Und das Problemfeld für die Linie wird angezeigt
     Und ich erhalte eine Erfolgsmeldung
 
-  @javascript
+  @javascript @firefox
   Szenario: Festhalten wer einen Gegenstand zurückgenommen hat
     Wenn ich einen Gegenstand zurücknehme
     Dann wird festgehalten, dass ich diesen Gegenstand zurückgenommen habe

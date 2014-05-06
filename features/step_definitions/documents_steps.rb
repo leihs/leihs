@@ -54,8 +54,10 @@ end
 Angenommen(/^ich drücke auf den Wertelistelink$/) do
   contracts = @current_user.contracts.where(status: [:signed, :closed])
   @contract = contracts.sample
-  find(".row.line[data-id='#{@contract.id}']").find(".dropdown-toggle").hover
-  find(".row.line[data-id='#{@contract.id}']").click_link _("Value List")
+  within(".row.line[data-id='#{@contract.id}']") do
+    find(".dropdown-toggle").hover
+    click_link _("Value List")
+  end
 end
 
 Dann(/^öffnet sich die Werteliste$/) do
