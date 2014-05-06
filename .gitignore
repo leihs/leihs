@@ -7,7 +7,6 @@
 .sass-cache
 jhw.*
 log/*
-tmp/*
 config/environments/development_mail.rb
 config/development.sphinx.conf
 config/cucumber.sphinx.conf
