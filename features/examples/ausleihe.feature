@@ -55,6 +55,15 @@ Funktionalität: Ausleihe
     Wenn es in keinem zukünftigen Vertrag existiert 
     Dann wird es für die ausgewählte Zeitspanne hinzugefügt
 
+  Szenario: Aushändigung von Gegenständen und Lizenzen
+    Angenommen ich mache eine Aushändigung
+    Wenn ich ein Gegenstand hinzufüge
+    Und ich eine Lizenz hinzufüge
+    Und ich auf "aushändigen" drücke
+    Dann wurde diese Aushändigung gemacht
+    Wenn ich den Vertrag zu dieser Aushändigung öffne
+    Dann sind im Vertrag sowohl der Gegenstand als auch die Lizenz aufgeführt
+
   @javascript @firefox
   Szenario: Inspektion bei Rücknahme
     Angenommen ich mache eine Rücknahme
