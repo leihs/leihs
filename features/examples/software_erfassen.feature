@@ -3,8 +3,7 @@
 Funktionalität: Software erfassen
 
   Grundlage:
-    Angenommen Personas existieren
-    Und ich bin "Mike"
+    Angenommen ich bin "Mike"
 
   @javascript
   Szenario: Software-Produkt erfassen
@@ -54,7 +53,16 @@ Funktionalität: Software erfassen
       | Citrix |
       | Lokal |
       | Web |
-    Dann kann man als "Lizenz-Ablaufdatum" ein Datum auswählen
+    Dann kann man als "Bezug" einen der folgenden Möglichkeiten anhand eines Radio-Buttons wählen:
+     |laufende Rechnung|
+    |Investition                 |
+    Dann kann man als "Lizenzablaufdatum" ein Datum auswählen
+    Dann kann man als "Rechnungsdatum" ein Datum auswählen
+    Dann kann man als "Anschaffungswert" eine Zahl eingeben
+    Dann kann man als "Beschafft durch" einen Text eingeben
+    Dann kann man als "Lieferant" einen Lieferanten auswählen
+    Dann kann man als "Verantwortliche Abteilung" einen Gerätepark auswählen
+    Dann kann man als "Besitzer" einen Gerätepark auswählen
     Dann die mögliche Werte für Maintenance-Vertrag sind in der folgenden Reihenfolge:
       | Nein |
       | Ja   |
@@ -76,6 +84,8 @@ Funktionalität: Software erfassen
     Dann kann ich für den Maintenance-Vertrag kein Ablaufdatum wählen
     Wenn ich als Maintenance-Vertrag "Ja" auswähle
     Und ich für den Maintenance-Vertrag ein Ablaufdatum wähle
+    Wenn ich als Bezug "Investition" wähle
+    Dann muss ich eine Projektnummer eingeben
     Und ich die den Wert "ausleihbar" setze
     Und ich speichere
     Dann sind die Informationen dieser Software-Lizenz gespeichert
