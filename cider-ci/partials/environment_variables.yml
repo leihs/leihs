@@ -1,0 +1,4 @@
+TERM: vt100
+RAILS_ENV: test
+
+

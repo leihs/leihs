@@ -1,0 +1,6 @@
+logs: 
+  glob: 'log/*.log'
+  content-type: text/plain
+screenshots: 
+  glob: 'tmp/capybara/*.png'
+  content-type: image/png
