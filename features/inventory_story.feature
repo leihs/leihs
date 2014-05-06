@@ -89,12 +89,12 @@ Feature: Inventory
            |          ABC11 |
        # we sleep one second, since mysql's datetime is only precise to a second
        # and thus subsequently created items wouldn't get sorted right
-      When we wait 1 second
+      When wait 1 seconds
        And we add an item 'ABC08'
        And leihs generates a new inventory code
       # first free inventory code after 'ABC08' is 'ABC9'
       Then the generated_code should look like this 'ABC9'
-      When we wait 1 second
+      When wait 1 seconds
        And we add an item 'ABC01'
        And leihs generates a new inventory code
       # first free inventory code after 'ABC01' is 'ABC4'

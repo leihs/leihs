@@ -20,14 +20,14 @@ Funktionalität: Timeout Page
     Und ich kann Einträge editieren
     Und ich kann zur Hauptübersicht
 
-  @javascript
+  @javascript @firefox
   Szenario: Eintrag löschen
     Angenommen ich bin Normin
     Und ich zur Timeout Page mit einem Konfliktmodell weitergeleitet werde
     Und ich lösche einen Eintrag
     Dann wird der Eintrag aus der Bestellung gelöscht
 
-  @javascript
+  @javascript @firefox
   Szenario: In Bestellung übernehmen nicht möglich
     Angenommen ich bin Normin
     Und ich zur Timeout Page mit 2 Konfliktmodellen weitergeleitet werde
@@ -58,7 +58,7 @@ Funktionalität: Timeout Page
     Und ich lande auf der Seite der Bestellübersicht
     Und ich sehe eine Information, dass alle Geräte wieder verfügbar sind
 
-  @javascript
+  @javascript @firefox
   Szenario: Eintrag ändern
     Angenommen ich bin Normin
     Und ich zur Timeout Page mit einem Konfliktmodell weitergeleitet werde
@@ -66,7 +66,7 @@ Funktionalität: Timeout Page
     Dann werden die Änderungen gespeichert
     Und lande ich wieder auf der Timeout Page
 
-  @javascript
+  @javascript @firefox
   Szenario: Die Menge eines Eintrags heruntersetzen
     Angenommen ich bin Normin
     Und ich zur Timeout Page mit einem Konfliktmodell weitergeleitet werde

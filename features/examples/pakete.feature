@@ -6,7 +6,7 @@ Funktionalität: Modell mit Paketen erstellen
     Angenommen ich bin Mike
     Und man öffnet die Liste des Inventars
 
-  @javascript
+  @javascript @firefox
   Szenario: Modell mit Paketzuteilung erstellen
     Wenn ich ein neues Modell hinzufüge
     Und ich mindestens die Pflichtfelder ausfülle
@@ -16,23 +16,23 @@ Funktionalität: Modell mit Paketen erstellen
     Dann ist das Modell erstellt und die Pakete und dessen zugeteilten Gegenstände gespeichert
     Und den Paketen wird ein Inventarcode zugewiesen
 
-  @javascript
+  @javascript @firefox
   Szenario: Modell mit bereits vorhandenen Gegenständen kann kein Paket zugewiesen werden
     Wenn ich ein Modell editiere, welches bereits Gegenstände hat
     Dann kann ich diesem Modell keine Pakete mehr zuweisen
 
-  @javascript
+  @javascript @firefox
   Szenario: Pakete nicht ohne Gegenstände erstellen
     Wenn ich einem Modell ein Paket hinzufüge
     Dann kann ich dieses Paket nur speichern, wenn dem Paket auch Gegenstände zugeteilt sind
 
-  @javascript
+  @javascript @firefox
   Szenario: Einzelnen Gegenstand aus Paket entfernen
     Wenn ich ein Paket editiere
     Dann kann ich einen Gegenstand aus dem Paket entfernen
     Und dieser Gegenstand ist nicht mehr dem Paket zugeteilt
 
-  @javascript
+  @javascript @firefox
   Szenario: Paketeigenschaften abfüllen bei existierendem Modell
     Wenn ich ein Modell editiere, welches bereits Pakete hat
     Und ich ein bestehendes Paket editiere
@@ -55,7 +55,7 @@ Funktionalität: Modell mit Paketen erstellen
     Und ich das Paket und das Modell speichere
     Dann besitzt das Paket alle angegebenen Informationen
 
-  @javascript
+  @javascript @firefox
   Szenario: Modell mit Paketzuteilung erstellen und wieder editieren
     Wenn ich ein neues Modell hinzufüge
     Und ich mindestens die Pflichtfelder ausfülle
@@ -67,7 +67,7 @@ Funktionalität: Modell mit Paketen erstellen
     Dann kann ich die Paketeigenschaften erneut bearbeiten
     Und ich kann diesem Paket eines oder mehrere Gegenstände hinzufügen
 
-  @javascript
+  @javascript @firefox
   Szenario: Paketeigenschaften abfüllen bei neu erstelltem Modell
     Wenn ich einem Modell ein Paket hinzufüge
     Und ich diesem Paket eines oder mehrere Gegenstände hinzufügen

@@ -5,8 +5,7 @@ Feature: Edit purpose during acknowledge process
   I want to have functionalities to change the purpose
 
   Background:
-    Given personas existing
-      And I am "Pius"
+    Given I am "Pius"
 
   @javascript
   Scenario: Change the purpose of a contract

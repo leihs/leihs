@@ -5,8 +5,7 @@ Feature: Select lines or linegroups
   I want to be able select multiple lines at once
 
   Background:
-    Given personas existing
-      And I am "Pius"
+    Given I am "Pius"
 
   @javascript
   Scenario: Select multiple lines

@@ -59,3 +59,24 @@ end
 Then /^none of the lines are deleted$/ do
   @contract.lines.count.should > 0
 end
+
+When(/^I delete a hand over$/) do
+  @visit = @ip.visits.hand_over.sample
+  @visit.lines.should_not be_empty
+  @visit_line_ids = @visit.lines.map(&:id)
+  find("[data-collapsed-toggle='#hand_overs']").click unless all("[data-collapsed-toggle='#hand_overs']").empty?
+  within("#hand_overs .line[data-id='#{@visit.id}']") do
+    find(".line-actions .multibutton .dropdown-holder").hover
+    find(".dropdown-item[data-hand-over-delete]", text: _("Delete")).click
+  end
+end
+
+Then(/^all lines of that hand over are deleted$/) do
+  within("#hand_overs .line[data-id='#{@visit.id}']") do
+    find(".line-actions .multibutton", text: _("Deleted"))
+  end
+  expect { @visit.reload }.to raise_error(ActiveRecord::RecordNotFound)
+  @visit_line_ids.each do |line_id|
+    expect { ContractLine.find(line_id) }.to raise_error(ActiveRecord::RecordNotFound)
+  end
+end

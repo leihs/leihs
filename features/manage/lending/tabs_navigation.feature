@@ -5,8 +5,7 @@ Feature: Tabs Navigation
   I want to have functionalities to switch tabs
   
   Background:
-    Given personas existing
-      And I am "Pius"
+    Given I am "Pius"
 
 
   Scenario: Navigate all lending tabs

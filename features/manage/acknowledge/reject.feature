@@ -6,8 +6,7 @@ Feature: Reject Order
 
   Background:
     Given Das System ist für den Mailversand im Testmodus konfiguriert
-    Given personas existing
-      And I am "Pius"
+    Given I am "Pius"
 
   @javascript
   Scenario: Reject a contract on the daily view

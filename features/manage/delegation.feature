@@ -27,7 +27,7 @@ Funktionalität: Delegation
     Wenn ich die Aushändigung abschliesse
     Dann muss ich eine Kontaktperson auswählen
 
-  @javascript
+  @javascript @firefox
   Szenario: Anzeige einer gesperrten Kontaktperson in Aushändigung
     Angenommen ich bin Pius
     Und es existiert eine Aushändigung für eine Delegation mit zugewiesenen Gegenständen
@@ -153,7 +153,7 @@ Funktionalität: Delegation
     Dann sieht man die Erfolgsbestätigung
     Und ist die bearbeitete Delegation mit den aktuellen Informationen gespeichert
 
-  @javascript
+  @javascript @firefox
   Szenario: Delegation Zugriff entziehen
     Angenommen ich bin Pius
     Wenn ich eine Delegation mit Zugriff auf das aktuelle Gerätepark editiere
@@ -190,7 +190,7 @@ Funktionalität: Delegation
     Dann sehe ich den Namen der Delegation
     Und ich sehe die Kontaktperson
 
-  @javascript
+  @javascript @firefox
   Szenario: Definition Kontaktperson auf Auftragserstellung
     Angenommen ich bin Julie
     Wenn ich eine Bestellung für eine Delegationsgruppe erstelle
@@ -223,7 +223,7 @@ Funktionalität: Delegation
     Wenn ich versuche die Delegation zu wechseln
     Dann kann ich nur diejenigen Delegationen wählen, die Zugriff auf meinen Gerätepark haben
 
-  @javascript
+  @javascript @firefox
   Szenario: Auswahl der Kontaktperson in Aushändigung ändern
     Angenommen ich bin Pius
     Und es existiert eine Aushändigung für eine Delegation mit zugewiesenen Gegenständen
@@ -238,7 +238,7 @@ Funktionalität: Delegation
     Wenn ich versuche bei der Bestellung die Kontaktperson zu wechseln
     Dann kann ich bei der Bestellung als Kontaktperson nur diejenigen Personen wählen, die zur Delegationsgruppe gehören
 
-  @javascript
+  @javascript @firefox
   Szenario: Borrow: Bestellung erfassen mit Delegation
     Angenommen ich bin Julie
     Wenn ich über meinen Namen fahre

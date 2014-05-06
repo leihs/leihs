@@ -5,8 +5,7 @@ Feature: Summary of lines in calendar
   I want to see a summary that provides me informations for this use case
 
   Background:
-    Given personas existing
-      And I am "Pius"
+    Given I am "Pius"
 
   @javascript
   Scenario: Automatic update of quantity for line summary in calendar 

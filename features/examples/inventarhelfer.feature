@@ -72,7 +72,7 @@ Funktionalität: Inventarhelfer
     Dann sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert
     Und die geänderten Werte sind hervorgehoben
 
-  @javascript
+  @javascript @firefox
   Szenario: Editeren nach automatischen speichern
     Angenommen man editiert ein Gerät über den Helferschirm mittels Inventarcode
     Wenn man die Editierfunktion nutzt

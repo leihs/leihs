@@ -5,7 +5,7 @@ Funktionalität: Modell Eigenschaften
   Grundlage:
     Angenommen ich bin Mike
 
-  @javascript
+  @javascript @firefox
   Szenario: Eigenschaften erstellen
   Angenommen ich erstelle ein Modell und gebe die Pflichtfelder an
   Wenn ich Eigenschaften hinzufügen und die Felder mit den Platzhaltern Schlüssel und Wert angebe
@@ -13,7 +13,7 @@ Funktionalität: Modell Eigenschaften
   Und ich das Modell speichere
   Dann sind die Eigenschaften gemäss Sortierreihenfolge für dieses Modell gespeichert
 
-  @javascript
+  @javascript @firefox
   Szenario: Eigenschaften editieren
   Angenommen ich editiere ein Modell
   Wenn ich Eigenschaften hinzufügen und die Felder mit den Platzhaltern Schlüssel und Wert angebe

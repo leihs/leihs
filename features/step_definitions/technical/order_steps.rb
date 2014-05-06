@@ -230,6 +230,10 @@ Then /^the size of the contract should increase exactly by the amount of lines a
   @contract.valid?.should be_true
 end
 
+Given /^an unsubmitted contract with lines existing$/ do
+  @contract = FactoryGirl.create :contract_with_lines, :status => :unsubmitted, :inventory_pool => @inventory_pool
+end
+
 Given /^a submitted contract with lines existing$/ do
   @contract = FactoryGirl.create :contract_with_lines, :status => :submitted, :inventory_pool => @inventory_pool
 end

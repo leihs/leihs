@@ -156,7 +156,7 @@ Wenn /^kein Pflichtfeld ist gesetzt$/ do |table|
         find(".row.emboss", match: :prefer_exact, text: "Bezug").find("input[value='investment']").set true
         find(".row.emboss", match: :prefer_exact, text: must_field_name).find("input,textarea").set ""
       when "Anschaffungskategorie"
-        find(".row.emboss", match: :prefer_exact, text: "Anschaffungskategorie").find("select option[value='']").select_option
+        find(".row.emboss", match: :prefer_exact, text: must_field_name).find("select option[value='']").select_option
       else
         raise 'unknown field'
     end

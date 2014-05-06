@@ -3,15 +3,13 @@ Given /^test data setup for "Orders controller" feature$/ do
   @inventory_pool = @lending_manager.inventory_pools.first
 end
 
-When /^the index action of the orders controller is called with the filter parameter "(.*?)"$/ do |arg1|
-  response = get manage_contracts_path(@inventory_pool), {filter: "pending", format: "json"}
+When /^the index action of the contracts controller is called with the filter parameter "(.*?)"$/ do |arg1|
+  response = get manage_contracts_path(@inventory_pool), {status: arg1, format: "json"}
   @json = JSON.parse response.body
 end
 
-Then /^the result of this action are all submitted\/pending orders for the given inventory pool$/ do
-  @json.each do |order|
-    order["lines"].each do |line|
-      OrderLine.find_by_id(line["id"].to_i).order.status.should == :submitted
-    end
+Then /^the result of this action are all submitted contracts for the given inventory pool$/ do
+  @json.each do |contract|
+    contract["status"].to_sym.should == :submitted
   end
 end

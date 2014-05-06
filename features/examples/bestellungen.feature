@@ -28,7 +28,7 @@ Funktionalität: Bestellungen
     Dann sehe ich alle visierpflichtigen Bestellungen
     Und diese Bestellungen sind nach Erstelltdatum aufgelistet
 
-  @javascript
+  @javascript @firefox
   Szenario: Reiter Offene Bestellungen Darstellung
     Angenommen ich bin Andi
     Und ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen
@@ -45,7 +45,7 @@ Funktionalität: Bestellungen
     Und ich kann die Bestellung editieren
     Und ich kann keine Bestellungen aushändigen
 
-  @javascript
+  @javascript @firefox
   Szenario: Reiter "Genehmigt" Darstellung
     Angenommen ich bin Andi
     Und ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen
@@ -61,7 +61,7 @@ Funktionalität: Bestellungen
     Und gelange ich in die Ansicht der Aushändigung
     Aber ich kann nicht aushändigen
 
-  @javascript
+  @javascript @firefox
   Szenario: Reiter "Abgelehnt" Darstellung
     Angenommen ich bin Andi
     Und ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen
@@ -83,7 +83,7 @@ Funktionalität: Bestellungen
     Wenn ich den Filter "Zu prüfen" aufhebe
     Dann sehe ich alle Bestellungen, welche von Benutzern der visierpflichtigen Gruppen erstellt wurden
 
-  @javascript
+  @javascript @firefox
   Szenario: Bereits genehmigte Bestellung zurücksetzen
     Angenommen ich bin Andi
     Und ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen

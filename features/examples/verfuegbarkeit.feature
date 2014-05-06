@@ -28,7 +28,7 @@ Funktionalität: Verfügbarkeit
     	Wenn ein Modell in mehreren Gruppen verfügbar ist
     	Dann wird zuletzt die Gruppe "Allgemein" belastet
 
-    @javascript
+    @javascript @firefox
     Szenario: Keine Verfügbarkeitsberechnung bei Optionen
         Angenommen ich bin Pius
     	Wenn eine Rücknahme nur Optionen enthält

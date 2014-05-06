@@ -6,7 +6,7 @@ Funktionalität: Inventar
     Angenommen ich bin Mike
     Und man öffnet die Liste des Inventars
 
-  @javascript
+  @javascript @firefox
   Szenario: Was man auf einer Liste sieht
     Dann sieht man Modelle
     Und man sieht Software
@@ -92,7 +92,7 @@ Funktionalität: Inventar
     Und man sieht die Gegenstände, die zum Modell gehören
     Und so eine Zeile sieht aus wie eine Gegenstands-Zeile
 
-  @javascript
+  @javascript @firefox
   Szenario: Filtermöglichkeiten von Listen
     Dann hat man folgende Filtermöglichkeiten
     | filtermöglichkeit         |

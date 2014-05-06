@@ -54,7 +54,7 @@ Funktionalität: Gegenstand kopieren
     Dann wird der kopierte Gegenstand gespeichert
     Und man wird zur Liste des Inventars zurückgeführt
 
-  @javascript
+  @javascript @firefox
   Szenario: Bestehenden Gegenstand aus Liste kopieren
     Angenommen man befindet sich auf der Liste des Inventars
     Wenn man einen Gegenstand kopiert
@@ -77,7 +77,7 @@ Funktionalität: Gegenstand kopieren
     Dann wird eine neue Gegenstandskopieransicht geöffnet
     Und alle Felder sind editierbar, da man jetzt Besitzer von diesem Gegenstand ist
 
-  @javascript
+  @javascript @firefox
   Szenario: Neuen Lieferanten erstellen falls nicht vorhanden
     Angenommen man einen Gegenstand kopiert
     Dann wird eine neue Gegenstandskopieransicht geöffnet

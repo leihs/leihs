@@ -20,8 +20,6 @@ require 'pry'
 require 'cucumber/rails'
 require 'rack_session_access/capybara'
 
-Capybara.javascript_driver = :selenium
-
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
 # prefer to use XPath just remove this line and adjust any selectors in your
@@ -61,10 +59,6 @@ end
 Before do
   srand(ENV['TEST_RANDOM_SEED'].to_i)
   DatabaseCleaner.start
-end
-
-Before('@javascript') do
-  page.driver.browser.manage.window.maximize # to prevent Selenium::WebDriver::Error::MoveTargetOutOfBoundsError: Element cannot be scrolled into view
 end
 
 After do |scenario|

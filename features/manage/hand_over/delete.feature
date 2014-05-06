@@ -5,8 +5,7 @@ Feature: Sign Contract
   I want to be able to delete a single line of an hand over (contract line)
 
   Background:
-    Given personas existing
-      And I am "Pius"
+    Given I am "Pius"
 
   @javascript
   Scenario: Delete a single line during the hand over
@@ -21,12 +20,13 @@ Feature: Sign Contract
       And I delete the seleted lines
      Then these lines are deleted
 
-  @javascript
+  @javascript @firefox
   Scenario: Delete lines which changes other lines availability
      When I open a hand over
       And I delete all lines of a model thats availability is blocked by these lines
      Then the availability of the keeped line is updated
 
+  @javascript
   Scenario: Delete a hand over from the daily view
     Given I open the daily view
     When I delete a hand over

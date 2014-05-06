@@ -5,10 +5,9 @@ Feature: Closed day alert feature
   I want to be warned that this day is a closed day
 
   Background:
-    Given personas existing
-      And I am "Pius"
+    Given I am "Pius"
 
-  @javascript
+  @javascript @firefox
   Scenario: Pick a closed day in the calendar
     When I open a booking calendar to edit a singe line
      And I pick a closed day for beeing the "start date"
