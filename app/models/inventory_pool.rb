@@ -156,7 +156,7 @@ class InventoryPool < ActiveRecord::Base
     model_filter_params = params.clone.merge({paginate: "false", include_retired_models: params[:retired], search_targets: [:manufacturer, :product, :version, :items]})
 
     if params[:software]
-      inventory = Software.filter model_filter_params.merge({all: true})
+      inventory = Software.filter model_filter_params.merge({all: true}), self
     else
       items = Item.filter params.clone.merge({paginate: "false", all: "true", search_term: nil}), self
       item_ids = items.pluck(:id)
