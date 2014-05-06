@@ -2,7 +2,7 @@
 require 'yaml'
 require 'set'
 
-feature_tasks = YAML.load_file "domina/execution/feature_tasks.yml"
+feature_tasks = YAML.load_file "cider-ci/tasks/cucumber.yml"
 
 matcher= /.*cucumber.*\"(.*)\".*$/
 
