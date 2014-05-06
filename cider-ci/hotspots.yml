@@ -1,0 +1,32 @@
+---
+name: Leihs
+traits: "substitute_with_path: cider-ci/partials/traits.yml"
+attachments: "substitute_with_path: cider-ci/partials/attachments.yml"
+environment_variables: "substitute_with_path: cider-ci/partials/environment_variables.yml"
+ports: "substitute_with_path: cider-ci/partials/ports.yml"
+
+contexts:
+
+- name: Meta
+  priority: 7
+  tasks: "substitute_with_path: cider-ci/tasks/meta.yml"
+
+- name: Cucumber 
+  priority: 5
+  scripts: "substitute_with_path: cider-ci/partials/cucumber_context_scripts.yml"
+  tasks: 
+  - name: acknowledge
+    scripts:
+      cucumber:
+        timeout: 600
+        body: bundle exec cucumber -p default "features/acknowledge.feature"
+
+- name: Rspec 
+  priority: 3
+  scripts: "substitute_with_path: cider-ci/partials/rspec_context_scripts.yml"
+  tasks: 
+  - name: controllers hslu_ldap_controller
+    scripts:
+      rspec:
+        body: bundle exec rspec "spec/controllers/hslu_ldap_controller_spec.rb"
+  

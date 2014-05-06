@@ -1,0 +1,16 @@
+- name: Show environment
+  scripts:
+    main:
+      body: env | sort
+
+- name: List working directory
+  scripts:
+    main:
+      body: ls -lah
+
+- name: Git log of last commits
+  scripts:
+    main:
+      body: git log -n 3
+
+

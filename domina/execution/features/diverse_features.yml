@@ -1,6 +1,0 @@
----
-- name: examples/benutzerverwaltung
-  scripts:
-    cucumber:
-      timeout: 720
-      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung.feature"

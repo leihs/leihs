@@ -1,0 +1,6 @@
+xvnc_port: 
+  inet_address: "localhost"
+  min: 5900
+  max: 5999
+
+
