@@ -54,6 +54,10 @@ Funktionalität: Software erfassen
       | Citrix |
       | Lokal |
       | Web |
+    Dann kann man als "Lizenz-Ablaufdatum" ein Datum auswählen
+    Dann die mögliche Werte für Maintenance-Vertrag sind in der folgenden Reihenfolge:
+      | Nein |
+      | Ja   |
     Und die Option "Ausleihbar" ist standardmässig auf "Nicht ausleihbar" gesetzt
 
   @javascript
@@ -67,6 +71,11 @@ Funktionalität: Software erfassen
     Und ich eine Lizenzart eingebe
     Und ich als Betriebssystem keine, eine oder mehrere der vorhandenen Möglichkeiten auswähle
     Und ich als Installation keine, eine oder mehrere der vorhandenen Möglichkeiten auswähle
+    Und ich als Lizenz-Ablaufdatum keines oder ein Datum auswähle
+    Wenn ich als Maintenance-Vertrag "Nein" auswähle
+    Dann kann ich für den Maintenance-Vertrag kein Ablaufdatum wählen
+    Wenn ich als Maintenance-Vertrag "Ja" auswähle
+    Und ich für den Maintenance-Vertrag ein Ablaufdatum wähle
     Und ich die den Wert "ausleihbar" setze
     Und ich speichere
     Dann sind die Informationen dieser Software-Lizenz gespeichert
