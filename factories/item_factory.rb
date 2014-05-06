@@ -26,5 +26,9 @@ FactoryGirl.define do
     shared_item_license_attributes
 
     model { FactoryGirl.create :software }
+    properties { { license_type: "single_workspace",
+                   activation_type: "serial_number",
+                   operating_system: ["windows", "linux"],
+                   installation: ["citrix", "web"] } }
   end
 end

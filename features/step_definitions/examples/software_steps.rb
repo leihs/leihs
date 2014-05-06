@@ -80,6 +80,8 @@ Dann(/^sind die Informationen dieser Software\-Lizenz gespeichert$/) do
   license.model.should == @software
   license.properties[:activation_type] == @activation_type
   license.properties[:license_type] == @license_type
+  Set.new(license.properties[:operating_system]).should == Set.new(@operating_system_values)
+  Set.new(license.properties[:installation]).should == Set.new(@installation_values)
   license.is_borrowable?.should be_true
 end
 
@@ -127,6 +129,30 @@ Wenn(/^ich den Wert "Ausleihbar" ändere$/) do
   find(".field", text: _("Borrowable")).find("label", text: "OK").find("input").click
 end
 
+When(/^I change the options for operating system$/) do
+  @new_operating_system_values = []
+  within(".field", text: _("Operating System")) do
+    checkboxes = all("input[type='checkbox']")
+    checkboxes.select(&:checked?).each(&:click)
+    checkboxes.sample(rand(checkboxes.size)).each do |cb|
+      cb.click
+      @new_operating_system_values << cb.value
+    end
+  end
+end
+
+When(/^I change the options for installation$/) do
+  @new_installation_values = []
+  within(".field", text: _("Installation")) do
+    checkboxes = all("input[type='checkbox']")
+    checkboxes.select(&:checked?).each(&:click)
+    checkboxes.sample(rand(checkboxes.size)).each do |cb|
+      cb.click
+      @new_installation_values << cb.value
+    end
+  end
+end
+
 Dann(/^sind die Informationen dieser Software\-Lizenz erfolgreich aktualisiert worden$/) do
   page.has_selector? ".flash.success"
   license = Item.find_by_serial_number(@new_serial_number)
@@ -134,6 +160,8 @@ Dann(/^sind die Informationen dieser Software\-Lizenz erfolgreich aktualisiert w
   license.model.should == @new_software
   license.properties[:activation_type] == @new_activation_type
   license.properties[:license_type] == @new_license_type
+  Set.new(license.properties[:operating_system]).should == Set.new(@new_operating_system_values)
+  Set.new(license.properties[:installation]).should == Set.new(@new_installation_values)
   license.is_borrowable?.should be_true
 end
 
@@ -142,10 +170,32 @@ Wenn(/^ich mich auf der Softwareliste befinde$/) do
   find("a", text: _("Software")).click
 end
 
-Wenn(/^one is able to choose as "(.+)" none, one or more of the following options:$/) do |arg, table|
+When(/^one is able to choose as "(.+)" none, one or more of the following options:$/) do |arg, table|
   within find(".field", text: _(arg)) do
     table.rows.flatten.each do |value|
       find("label", text: _(value), match: :prefer_exact).find("input[type='checkbox']")
+    end
+  end
+end
+
+When(/^if I choose none, one or more of the available options for operating system$/) do
+  @operating_system_values = []
+  within(".field", text: _("Operating System")) do
+    checkboxes = all("input[type='checkbox']")
+    checkboxes.sample(rand(checkboxes.size)).each do |cb|
+      cb.click
+      @operating_system_values << cb.value
+    end
+  end
+end
+
+When(/^if I choose none, one or more of the available options for installation$/) do
+  @installation_values = []
+  within(".field", text: _("Installation")) do
+    checkboxes = all("input[type='checkbox']")
+    checkboxes.sample(rand(checkboxes.size)).each do |cb|
+      cb.click
+      @installation_values << cb.value
     end
   end
 end
