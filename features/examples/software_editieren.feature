@@ -3,8 +3,7 @@
 Funktionalität: Software erfassen
 
   Grundlage:
-    Angenommen Personas existieren
-    Und ich bin "Mike"
+    Angenommen ich bin "Mike"
 
   @javascript @firefox
   Szenario: Software-Produkt editieren
