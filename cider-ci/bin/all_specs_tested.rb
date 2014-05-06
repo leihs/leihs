@@ -2,7 +2,7 @@
 require 'yaml'
 require 'set'
 
-rspec_tasks = YAML.load_file "domina/execution/rspec_tasks.yml"
+rspec_tasks = YAML.load_file "cider-ci/tasks/rspec.yml"
 
 matcher= /.*rspec\s+\"(.*)\".*$/
 
