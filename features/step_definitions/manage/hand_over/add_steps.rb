@@ -1,7 +1,13 @@
-When /^I add an item to the hand over by providing an inventory code and a date range$/ do
+When /^I add (an|a borrowable|an unborrowable) item to the hand over by providing an inventory code and a date range$/ do |arg1|
   existing_model_ids = @customer.contracts.approved.flat_map(&:models).map(&:id)
-  #@ip ||= @current_user.managed_inventory_pools.sample
-  @inventory_code = @ip.items.in_stock.detect{|i| not existing_model_ids.include?(i.model_id)}.inventory_code unless @inventory_code
+  @inventory_code = case arg1
+                      when "an"
+                        @ip.items.in_stock
+                      when "a borrowable"
+                        @ip.items.in_stock.where(is_borrowable: true)
+                      when "an unborrowable"
+                        @ip.items.in_stock.where(is_borrowable: false)
+                    end.detect{|i| not existing_model_ids.include?(i.model_id)}.inventory_code
   find("[data-add-contract-line]").set @inventory_code
   find(".line", match: :first)
   line_amount_before = all(".line").size
