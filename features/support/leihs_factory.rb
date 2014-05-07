@@ -472,11 +472,4 @@ module LeihsFactory
     end
   end
 
-  def self.create_minimal_setup
-    LeihsFactory.create_default_languages
-    LeihsFactory.create_default_authentication_systems
-    superuser = LeihsFactory.create_super_user
-    puts _("The administrator %{a} has been created ") % { :a => superuser.login }
-    LeihsFactory.create_default_building
-  end
 end
