@@ -2,9 +2,7 @@
 
 Funktionalität: Suche
 
-  Um etwas zu finden
-  möchte ich als Ausleiher
-  eine Suchfunktionalität
+  Um etwas zu finden möchte ich als Ausleiher eine Suchfunktionalität
 
   Szenario: Suchfeld
     Angenommen ich bin Normin
