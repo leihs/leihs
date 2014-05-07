@@ -65,8 +65,10 @@ class window.App.Field extends Spine.Model
           item[valueLabel]
 
       result = reduceHelper(value_label)
+
       # append extended value label if present
-      result += " #{reduceHelper(@value_label_ext)}" if @value_label_ext?
+      [result, value_label_ext].join " " if value_label_ext = reduceHelper(@value_label_ext)
+
       result
 
   getFormName: (attribute = @attribute, formName = @form_name) ->

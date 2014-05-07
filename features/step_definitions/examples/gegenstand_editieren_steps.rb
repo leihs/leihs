@@ -147,3 +147,16 @@ Wenn(/^ich den Gegenstand ausmustere$/) do
   find(".row.emboss", match: :prefer_exact, text: _("Retirement")).first("select").select _("Yes")
   find(".row.emboss", match: :prefer_exact, text: _("Reason for Retirement")).first("input, textarea").set "Retirement reason"
 end
+
+Angenommen(/^there is a model without a version$/) do
+  @model = Model.find {|m| !m.version}
+  @model.should_not be_nil
+end
+
+Wenn(/^I assign this model to the item$/) do
+  fill_in_autocomplete_field _("Model"), @model.name
+end
+
+Dann(/^there is only product name in the input field of the model$/) do
+  find("input[data-autocomplete_value_target='item[model_id]']").value.should == @model.product
+end
