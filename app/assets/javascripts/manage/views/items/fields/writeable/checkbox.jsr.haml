@@ -1,12 +1,11 @@
 .padding-inset-xxs
+  {{:~setvar("values", ~field.getValue(~itemData, ~field.attribute, true))}}
   {{for ~field.values}}
   %label.padding-inset-xxs
-    {{:~setvar("values", ~field.getValue(~itemData, ~field.attribute, true))}}
     {{if ~getvar("values") != null && ~getvar("values").indexOf(value) >= 0}}
-    %input{:type => "checkbox", :value => "{{>value}}", :name => "{{>~field.getFormName()}}", :checked => true}
+    %input{:type => "checkbox", :value => "{{>value}}", :name => "{{>~field.getFormName(~field.attribute, ~field.form_name, 'asArray')}}", :checked => true}
     {{else}}
-    %input{:type => "checkbox", :value => "{{>value}}", :name => "{{>~field.getFormName()}}"}
+    %input{:type => "checkbox", :value => "{{>value}}", :name => "{{>~field.getFormName(~field.attribute, ~field.form_name, 'asArray')}}"}
     {{/if}}
     %span.font-size-m {{jed label/}}
   {{/for}}
-
