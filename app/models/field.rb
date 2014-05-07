@@ -376,7 +376,7 @@ class Field < ActiveHash::Base
     },{
       id: 40,
       label: "Operating System",
-      attribute: ["properties", "operating_system", ""],
+      attribute: ["properties", "operating_system"],
       type: "checkbox",
       target_type: "license",
       values: [{label: "Windows", value: "windows"},
@@ -388,7 +388,7 @@ class Field < ActiveHash::Base
     },{
       id: 41,
       label: "Installation",
-      attribute: ["properties", "installation", ""],
+      attribute: ["properties", "installation"],
       type: "checkbox",
       target_type: "license",
       values: [{label: "Citrix", value: "citrix"},

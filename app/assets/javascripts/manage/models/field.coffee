@@ -71,13 +71,15 @@ class window.App.Field extends Spine.Model
 
       result
 
-  getFormName: (attribute = @attribute, formName = @form_name) ->
+  getFormName: (attribute = @attribute, formName = @form_name, asArray = null) ->
     if formName?
       "item[#{formName}]"
     else if attribute instanceof Array
-      _.reduce attribute, (name, attr) -> 
+      formName = _.reduce attribute, (name, attr) -> 
         "#{name}[#{attr}]"
       , "item"
+      formName += "[]" if asArray?
+      formName
     else
       "item[#{attribute}]"
 
