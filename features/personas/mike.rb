@@ -100,6 +100,7 @@ module Persona
       setup_inventory_for_group_cast
 
       setup_software
+      setup_models_without_version
     end
     
     def create_accessories
@@ -386,6 +387,10 @@ module Persona
 
     def setup_software
       rand(2..6).times { FactoryGirl.create :license, owner: @inventory_pool }
+    end
+
+    def setup_models_without_version
+      FactoryGirl.create :model, version: nil
     end
   end
 end

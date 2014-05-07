@@ -76,3 +76,15 @@ end
 Wenn(/^ich die Optionen für die Installation ändere$/) do
   step %Q(I change the options for installation)
 end
+
+Angenommen(/^ein Modell existiert, welches keine Version hat$/) do
+  step "there is a model without a version"
+end
+
+Wenn(/^ich dieses Modell dem Gegestand zuweise$/) do
+  step "I assign this model to the item"
+end
+
+Dann(/^steht in dem Modellfeld nur der Produktname dieses Modell$/) do
+  step "there is only product name in the input field of the model"
+end
