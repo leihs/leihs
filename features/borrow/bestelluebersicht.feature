@@ -46,7 +46,7 @@ Funktionalität: Bestellübersicht
     Dann wird der Eintrag gemäss aktuellen Einstellungen geändert
     Und der Eintrag wird in der Liste anhand der des aktuellen Startdatums und des Geräteparks gruppiert
 
-  @javascript @firefox
+  @javascript
   Szenario: Zeitentität, Ablauf der erlaubten Zeit anzeigen
     Dann sehe ich die Zeitinformationen in folgendem Format "mm:ss"
     Und die Zeitanzeige zählt von 30 Minuten herunter

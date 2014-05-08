@@ -78,7 +78,7 @@ Funktionalität: Modellliste
     Wenn man sich auf der Modellliste befindet
     Dann kann man nicht alle Geräteparks in der Geräteparkauswahl abwählen
 
-  @javascript @firefox
+  @javascript
   Szenario: Ausleihezeitraum Startdatum wählen
     Angenommen ich bin Petra
     Wenn man sich auf der Modellliste befindet die nicht verfügbare Modelle beinhaltet

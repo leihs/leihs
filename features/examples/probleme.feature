@@ -70,7 +70,7 @@ Funktionalität: Anzeige von Problemen
      Und "3" sind insgesamt verfügbar
      Und "7" sind total im Pool bekannt (ausleihbar)
 
-  @javascript @firefox
+  @javascript
   Szenario: Problemanzeige bei Aushändigung wenn Gegenstand unvollständig
     Angenommen ich mache eine Aushändigung
      Und eine Gegenstand ist unvollständig

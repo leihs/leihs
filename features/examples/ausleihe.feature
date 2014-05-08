@@ -18,7 +18,7 @@ Funktionalität: Ausleihe
     Dann schlägt mir das System eine Liste von Gegenständen vor
     Und diejenigen Gegenstände sind gekennzeichnet, welche als nicht ausleihbar markiert sind
 
-  @javascript
+
   Szenario: Wann letzter Besucher erscheint
     Angenommen ich öffne die Tagesansicht
     Wenn ich eine Bestellung editieren

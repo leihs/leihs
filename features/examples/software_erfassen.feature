@@ -17,7 +17,7 @@ Funktionalität: Software erfassen
     Wenn ich speichere
     Dann ist die neue Software erstellt und unter Software auffindbar
 
-  @javascript
+
   Szenario: Mögliche Werte in Software-Produkt erfassen
     Angenommen ich befinde mich auf der Software-Erstellungsseite
     Dann kann ich auf mehreren Zeilen Hinweise und Links anfügen
