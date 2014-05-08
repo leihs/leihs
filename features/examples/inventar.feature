@@ -92,7 +92,7 @@ Funktionalität: Inventar
     Und man sieht die Gegenstände, die zum Modell gehören
     Und so eine Zeile sieht aus wie eine Gegenstands-Zeile
 
-  @javascript @firefox
+  @javascript
   Szenario: Filtermöglichkeiten von Listen
     Dann hat man folgende Filtermöglichkeiten
     | filtermöglichkeit         |

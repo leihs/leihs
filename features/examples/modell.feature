@@ -149,11 +149,10 @@ Funktionalität: Modell
     Und das Modell ist gelöscht
     Und es wurden auch alle Anhängsel gelöscht
 
-  @javascript @firefox
+  @javascript
   Szenariogrundriss: Modelllöschversuch verhindern
     Angenommen das Modell hat <Zuweisung> zugewiesen
     Dann kann ich das Modell aus der Liste nicht löschen
-
   Beispiele:
     | Zuweisung   |
     | Vertrag     |
