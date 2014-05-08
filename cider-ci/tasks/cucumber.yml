@@ -3,674 +3,679 @@
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/acknowledge.feature"
+      body: bundle exec cucumber -p default --strict "features/acknowledge.feature"
 - name: administration/wartungsmodus
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/administration/wartungsmodus.feature"
+      body: bundle exec cucumber -p default --strict "features/administration/wartungsmodus.feature"
 - name: automatischer_email_versand
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/automatischer_email_versand.feature"
+      body: bundle exec cucumber -p default --strict "features/automatischer_email_versand.feature"
 - name: availability_caching
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/availability_caching.feature"
+      body: bundle exec cucumber -p default --strict "features/availability_caching.feature"
 - name: availability_inventory_pool_story
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/availability_inventory_pool_story.feature"
+      body: bundle exec cucumber -p default --strict "features/availability_inventory_pool_story.feature"
 - name: availability_story
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/availability_story.feature"
+      body: bundle exec cucumber -p default --strict "features/availability_story.feature"
 - name: borrow/abholungen
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/borrow/abholungen.feature"
+      body: bundle exec cucumber -p default --strict "features/borrow/abholungen.feature"
 - name: borrow/benutzeransicht
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/borrow/benutzeransicht.feature"
+      body: bundle exec cucumber -p default --strict "features/borrow/benutzeransicht.feature"
 - name: borrow/bestellfensterchen
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/borrow/bestellfensterchen.feature"
+      body: bundle exec cucumber -p default --strict "features/borrow/bestellfensterchen.feature"
 - name: borrow/bestelluebersicht
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/borrow/bestelluebersicht.feature"
+      body: bundle exec cucumber -p default --strict "features/borrow/bestelluebersicht.feature"
 - name: borrow/bestellungen
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/borrow/bestellungen.feature"
+      body: bundle exec cucumber -p default --strict "features/borrow/bestellungen.feature"
 - name: borrow/brotkrumennavigation
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/borrow/brotkrumennavigation.feature"
+      body: bundle exec cucumber -p default --strict "features/borrow/brotkrumennavigation.feature"
 - name: borrow/dokumente
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/borrow/dokumente.feature"
+      body: bundle exec cucumber -p default --strict "features/borrow/dokumente.feature"
 - name: borrow/explorative_suche
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/borrow/explorative_suche.feature"
+      body: bundle exec cucumber -p default --strict "features/borrow/explorative_suche.feature"
 - name: borrow/geraeteparks
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/borrow/geraeteparks.feature"
+      body: bundle exec cucumber -p default --strict "features/borrow/geraeteparks.feature"
 - name: borrow/kalender
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/borrow/kalender.feature"
+      body: bundle exec cucumber -p default --strict "features/borrow/kalender.feature"
 - name: borrow/modellliste
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/borrow/modellliste.feature"
+      body: bundle exec cucumber -p default --strict "features/borrow/modellliste.feature"
 - name: borrow/modelluebersicht
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/borrow/modelluebersicht.feature"
+      body: bundle exec cucumber -p default --strict "features/borrow/modelluebersicht.feature"
 - name: borrow/navigation
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/borrow/navigation.feature"
+      body: bundle exec cucumber -p default --strict "features/borrow/navigation.feature"
 - name: borrow/rueckgaben
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/borrow/rueckgaben.feature"
+      body: bundle exec cucumber -p default --strict "features/borrow/rueckgaben.feature"
 - name: borrow/sprache
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/borrow/sprache.feature"
+      body: bundle exec cucumber -p default --strict "features/borrow/sprache.feature"
 - name: borrow/startseite
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/borrow/startseite.feature"
+      body: bundle exec cucumber -p default --strict "features/borrow/startseite.feature"
 - name: borrow/suche
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/borrow/suche.feature"
+      body: bundle exec cucumber -p default --strict "features/borrow/suche.feature"
 - name: borrow/timeoutpage
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/borrow/timeoutpage.feature"
+      body: bundle exec cucumber -p default --strict "features/borrow/timeoutpage.feature"
 - name: borrow/verfuegbarkeit
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/borrow/verfuegbarkeit.feature"
+      body: bundle exec cucumber -p default --strict "features/borrow/verfuegbarkeit.feature"
 - name: borrow/vorlagen
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/borrow/vorlagen.feature"
+      body: bundle exec cucumber -p default --strict "features/borrow/vorlagen.feature"
 - name: category
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/category.feature"
+      body: bundle exec cucumber -p default --strict "features/category.feature"
 - name: examples/aushaendigung
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/aushaendigung.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/aushaendigung.feature"
 - name: examples/aushaendigungen
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/aushaendigungen.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/aushaendigungen.feature"
 - name: examples/ausleihe
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/ausleihe.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/ausleihe.feature"
 - name: examples/benutzerverwaltung
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/benutzerverwaltung.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/benutzerverwaltung.feature"
 - name: examples/bestellenden_wechseln
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/bestellenden_wechseln.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/bestellenden_wechseln.feature"
 - name: examples/bestellung
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/bestellung.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/bestellung.feature"
 - name: examples/bestellungen
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/bestellungen.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/bestellungen.feature"
 - name: examples/besuche
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/besuche.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/besuche.feature"
 - name: examples/explorative_suche
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/explorative_suche.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/explorative_suche.feature"
 - name: examples/gegenstand_ausmustern
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/gegenstand_ausmustern.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/gegenstand_ausmustern.feature"
 - name: examples/gegenstand_editieren
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/gegenstand_editieren.feature"
 - name: examples/gegenstand_erstellen
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/gegenstand_erstellen.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/gegenstand_erstellen.feature"
 - name: examples/gegenstand_kopieren
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/gegenstand_kopieren.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/gegenstand_kopieren.feature"
 - name: examples/geraetepark_administrieren
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/geraetepark_administrieren.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/geraetepark_administrieren.feature"
 - name: examples/geraetepark_grundinformationen
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/geraetepark_grundinformationen.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/geraetepark_grundinformationen.feature"
 - name: examples/gruppen
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/gruppen.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/gruppen.feature"
 - name: examples/hinweis_wenn_nicht_angemeldet
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/hinweis_wenn_nicht_angemeldet.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/hinweis_wenn_nicht_angemeldet.feature"
 - name: examples/hinzufuegen
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/hinzufuegen.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/hinzufuegen.feature"
 - name: examples/inventar
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/inventar.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/inventar.feature"
 - name: examples/inventar_csv
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/inventar_csv.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/inventar_csv.feature"
 - name: examples/inventarhelfer
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/inventarhelfer.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/inventarhelfer.feature"
 - name: examples/kalender
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/kalender.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/kalender.feature"
 - name: examples/kategorien
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/kategorien.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/kategorien.feature"
 - name: examples/model_eigenschaften
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/model_eigenschaften.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/model_eigenschaften.feature"
 - name: examples/modell
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/modell.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/modell.feature"
 - name: examples/option
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/option.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/option.feature"
 - name: examples/pakete
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/pakete.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/pakete.feature"
 - name: examples/passwort
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/passwort.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/passwort.feature"
 - name: examples/probleme
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/probleme.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/probleme.feature"
 - name: examples/reservierenden_wechseln
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/reservierenden_wechseln.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/reservierenden_wechseln.feature"
 - name: examples/ruecknahme
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/ruecknahme.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/ruecknahme.feature"
 - name: examples/ruecknahmen
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/ruecknahmen.feature"
-- name: examples/Software-erfassen
-  scripts:
-    cucumber:
-      timeout: 600
-      body: bundle exec cucumber -p default "features/examples/Software-erfassen.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/ruecknahmen.feature"
 - name: examples/software_editieren
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/software_editieren.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/software_editieren.feature"
 - name: examples/software_erfassen
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/software_erfassen.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/software_erfassen.feature"
+- name: examples/software_suchen
+  scripts:
+    cucumber:
+      timeout: 600
+      body: bundle exec cucumber -p default --strict "features/examples/software_suchen.feature"
 - name: examples/sprachauswahl
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/sprachauswahl.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/sprachauswahl.feature"
 - name: examples/statistik
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/statistik.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/statistik.feature"
 - name: examples/suche
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/suche.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/suche.feature"
 - name: examples/tagesansicht
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/tagesansicht.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/tagesansicht.feature"
 - name: examples/timeline
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/timeline.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/timeline.feature"
 - name: examples/verfuegbarkeit
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/verfuegbarkeit.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/verfuegbarkeit.feature"
 - name: examples/vertrag
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/vertrag.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/vertrag.feature"
 - name: examples/vorlagen
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/vorlagen.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/vorlagen.feature"
 - name: examples/werteliste
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/werteliste.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/werteliste.feature"
 - name: examples/zweck
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/examples/zweck.feature"
+      body: bundle exec cucumber -p default --strict "features/examples/zweck.feature"
 - name: frontend
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/frontend.feature"
+      body: bundle exec cucumber -p default --strict "features/frontend.feature"
 - name: groups
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/groups.feature"
+      body: bundle exec cucumber -p default --strict "features/groups.feature"
 - name: hand_over_story
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/hand_over_story.feature"
+      body: bundle exec cucumber -p default --strict "features/hand_over_story.feature"
 - name: hauptkategorie
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/hauptkategorie.feature"
+      body: bundle exec cucumber -p default --strict "features/hauptkategorie.feature"
 - name: home
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/home.feature"
+      body: bundle exec cucumber -p default --strict "features/home.feature"
 - name: inventory_creation
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/inventory_creation.feature"
+      body: bundle exec cucumber -p default --strict "features/inventory_creation.feature"
 - name: inventory_story
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/inventory_story.feature"
+      body: bundle exec cucumber -p default --strict "features/inventory_story.feature"
 - name: login/database_login
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/login/database_login.feature"
+      body: bundle exec cucumber -p default --strict "features/login/database_login.feature"
 - name: login/login
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/login/login.feature"
+      body: bundle exec cucumber -p default --strict "features/login/login.feature"
 - name: mail
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/mail.feature"
+      body: bundle exec cucumber -p default --strict "features/mail.feature"
 - name: manage/acknowledge/add_item
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/acknowledge/add_item.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/acknowledge/add_item.feature"
 - name: manage/acknowledge/delete_lines
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/acknowledge/delete_lines.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/acknowledge/delete_lines.feature"
 - name: manage/acknowledge/edit_order_line
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/acknowledge/edit_order_line.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/acknowledge/edit_order_line.feature"
 - name: manage/acknowledge/edit_purpose
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/acknowledge/edit_purpose.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/acknowledge/edit_purpose.feature"
 - name: manage/acknowledge/quick_approve
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/acknowledge/quick_approve.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/acknowledge/quick_approve.feature"
 - name: manage/acknowledge/reject
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/acknowledge/reject.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/acknowledge/reject.feature"
 - name: manage/availability/allocating
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/availability/allocating.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/availability/allocating.feature"
 - name: manage/booking_calendar/availability_changes
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/booking_calendar/availability_changes.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/booking_calendar/availability_changes.feature"
 - name: manage/booking_calendar/closed_day_alert
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/booking_calendar/closed_day_alert.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/booking_calendar/closed_day_alert.feature"
 - name: manage/booking_calendar/summary_of_lines_in_calendar
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/booking_calendar/summary_of_lines_in_calendar.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/booking_calendar/summary_of_lines_in_calendar.feature"
 - name: manage/daily_view/item_hover
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/daily_view/item_hover.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/daily_view/item_hover.feature"
 - name: manage/delegation
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/delegation.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/delegation.feature"
 - name: manage/delegation_mail
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/delegation_mail.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/delegation_mail.feature"
 - name: manage/hand_over/add
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/hand_over/add.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/hand_over/add.feature"
 - name: manage/hand_over/add_purpose
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/hand_over/add_purpose.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/hand_over/add_purpose.feature"
 - name: manage/hand_over/assign
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/hand_over/assign.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/hand_over/assign.feature"
 - name: manage/hand_over/delete
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/hand_over/delete.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/hand_over/delete.feature"
 - name: manage/hand_over/edit_contract_line
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/hand_over/edit_contract_line.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/hand_over/edit_contract_line.feature"
 - name: manage/hand_over/sign_contract
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/hand_over/sign_contract.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/hand_over/sign_contract.feature"
 - name: manage/lending/day_navigation
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/lending/day_navigation.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/lending/day_navigation.feature"
 - name: manage/lending/tabs_navigation
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/lending/tabs_navigation.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/lending/tabs_navigation.feature"
 - name: manage/linegroup/selection
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/linegroup/selection.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/linegroup/selection.feature"
 - name: manage/navigation
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/navigation.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/navigation.feature"
 - name: manage/take_back/close_contract
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/take_back/close_contract.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/take_back/close_contract.feature"
 - name: manage/take_back/edit_take_back_end_date
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/manage/take_back/edit_take_back_end_date.feature"
+      body: bundle exec cucumber -p default --strict "features/manage/take_back/edit_take_back_end_date.feature"
 - name: package
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/package.feature"
+      body: bundle exec cucumber -p default --strict "features/package.feature"
 - name: performance_stability
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/performance_stability.feature"
+      body: bundle exec cucumber -p default --strict "features/performance_stability.feature"
 - name: search
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/search.feature"
+      body: bundle exec cucumber -p default --strict "features/search.feature"
 - name: search_complete
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/search_complete.feature"
+      body: bundle exec cucumber -p default --strict "features/search_complete.feature"
 - name: settings
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/settings.feature"
+      body: bundle exec cucumber -p default --strict "features/settings.feature"
+- name: software_loeschen
+  scripts:
+    cucumber:
+      timeout: 600
+      body: bundle exec cucumber -p default --strict "features/software_loeschen.feature"
 - name: take_back_story
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/take_back_story.feature"
+      body: bundle exec cucumber -p default --strict "features/take_back_story.feature"
 - name: technical/contract/add_lines_model
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/technical/contract/add_lines_model.feature"
+      body: bundle exec cucumber -p default --strict "features/technical/contract/add_lines_model.feature"
 - name: technical/contract/approve_order_model
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/technical/contract/approve_order_model.feature"
+      body: bundle exec cucumber -p default --strict "features/technical/contract/approve_order_model.feature"
 - name: technical/contract/orders_controller
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/technical/contract/orders_controller.feature"
+      body: bundle exec cucumber -p default --strict "features/technical/contract/orders_controller.feature"
 - name: technical/contract/remove_line_model
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/technical/contract/remove_line_model.feature"
+      body: bundle exec cucumber -p default --strict "features/technical/contract/remove_line_model.feature"
 - name: technical/contract/sign_model
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/technical/contract/sign_model.feature"
+      body: bundle exec cucumber -p default --strict "features/technical/contract/sign_model.feature"
 - name: technical/contract/submit_model
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/technical/contract/submit_model.feature"
+      body: bundle exec cucumber -p default --strict "features/technical/contract/submit_model.feature"
 - name: technical/contract/update_lines_model
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/technical/contract/update_lines_model.feature"
+      body: bundle exec cucumber -p default --strict "features/technical/contract/update_lines_model.feature"
 - name: technical/field/field_instance_methods
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/technical/field/field_instance_methods.feature"
+      body: bundle exec cucumber -p default --strict "features/technical/field/field_instance_methods.feature"
 - name: technical/field/fields_controller
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/technical/field/fields_controller.feature"
+      body: bundle exec cucumber -p default --strict "features/technical/field/fields_controller.feature"
 - name: technical/field/provide_accessible_fields_model
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/technical/field/provide_accessible_fields_model.feature"
+      body: bundle exec cucumber -p default --strict "features/technical/field/provide_accessible_fields_model.feature"
 - name: technical/inventory_pool/hand_over_visits_model
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/technical/inventory_pool/hand_over_visits_model.feature"
+      body: bundle exec cucumber -p default --strict "features/technical/inventory_pool/hand_over_visits_model.feature"
 - name: technical/inventory_pool/take_back_visits_model
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/technical/inventory_pool/take_back_visits_model.feature"
+      body: bundle exec cucumber -p default --strict "features/technical/inventory_pool/take_back_visits_model.feature"
 - name: technical/item/search_model
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/technical/item/search_model.feature"
+      body: bundle exec cucumber -p default --strict "features/technical/item/search_model.feature"
 - name: technical/mailer/mailer_settings
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/technical/mailer/mailer_settings.feature"
+      body: bundle exec cucumber -p default --strict "features/technical/mailer/mailer_settings.feature"
 - name: technical/purpose/purpose
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/technical/purpose/purpose.feature"
+      body: bundle exec cucumber -p default --strict "features/technical/purpose/purpose.feature"
 - name: technical/timezone_settings
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/technical/timezone_settings.feature"
+      body: bundle exec cucumber -p default --strict "features/technical/timezone_settings.feature"
 - name: technical/user/suspend
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/technical/user/suspend.feature"
+      body: bundle exec cucumber -p default --strict "features/technical/user/suspend.feature"
 - name: technical/visit/hand_over_and_take_back_model
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/technical/visit/hand_over_and_take_back_model.feature"
+      body: bundle exec cucumber -p default --strict "features/technical/visit/hand_over_and_take_back_model.feature"
 - name: technical/visit/hand_over_controller
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/technical/visit/hand_over_controller.feature"
+      body: bundle exec cucumber -p default --strict "features/technical/visit/hand_over_controller.feature"
 - name: technical/visit/overdue_model
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/technical/visit/overdue_model.feature"
+      body: bundle exec cucumber -p default --strict "features/technical/visit/overdue_model.feature"
 - name: technical/visit/visits_controller
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/technical/visit/visits_controller.feature"
+      body: bundle exec cucumber -p default --strict "features/technical/visit/visits_controller.feature"
 - name: work_days_story
   scripts:
     cucumber:
       timeout: 600
-      body: bundle exec cucumber -p default "features/work_days_story.feature"
+      body: bundle exec cucumber -p default --strict "features/work_days_story.feature"
