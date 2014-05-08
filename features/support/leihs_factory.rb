@@ -278,7 +278,9 @@ module LeihsFactory
       :street => "My Street and Number",
       :zip_code => "12345",
       :city => "Zürich",
-      :country_code => "CH"
+      :country_code => "CH",
+      :latitude => 47.3686498,
+      :longitude => 8.539182499999999
     }
     ip = InventoryPool.find_by_name default_attributes.merge(attributes)[:name]
     if ip.nil?
