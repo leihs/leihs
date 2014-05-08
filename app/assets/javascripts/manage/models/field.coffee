@@ -29,13 +29,11 @@ class window.App.Field extends Spine.Model
 
   getValue: (item, attribute, defaultFallback)->
     if item?
-      value = if attribute instanceof Array
+      value =
+        if attribute instanceof Array
           _.reduce attribute, (hash, attr) -> 
-            if hash?
-              if _.isEmpty? attr # this case is needed when an array is expected as return value, see example of operating system field
-                hash
-              else if hash[attr]?
-                hash[attr]
+            if hash? and hash[attr]?
+              hash[attr]
             else
               null
           , item
