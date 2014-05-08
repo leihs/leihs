@@ -7,15 +7,13 @@ module Persona
   
   def create(name)
     name = name.to_s
-    if FileTest.exist? "features/personas/#{name.downcase}.rb"
-      persona = Persona.get(name)
-      if persona.blank?
-        require Rails.root+"features/personas/#{name.downcase}.rb"
-        Persona.const_get(name.camelize).new
-        return Persona.get(name)
-      else
-        return persona
-      end
+    file_path = File.join(Rails.root, "features/personas/#{name.downcase}.rb")
+    if File.exists? file_path
+      Persona.get(name) || begin
+                              require file_path
+                              Persona.const_get(name.camelize).new
+                              Persona.get(name)
+                            end
     else
       raise "Persona #{name} does not exist"
     end
@@ -27,9 +25,13 @@ module Persona
     system "mkdir -p #{File.join(Rails.root, "features/personas/dumps")}"
     DatabaseCleaner.clean_with :truncation
     create_all
-    cmd= "mysqldump #{config['host'] ? "-h #{config['host']}" : nil} -u #{config['username']} #{config['password'] ? "--password=#{config['password']}" : nil}  #{config['database']} --no-create-db | grep -v 'SQL SECURITY DEFINER' > #{dump_file_name}"
-    puts cmd
-    system cmd
+    cmd1 = "echo \"SET autocommit=0; SET unique_checks=0; SET foreign_key_checks=0;\" > #{dump_file_name}"
+    cmd2 = "mysqldump #{config['host'] ? "-h #{config['host']}" : nil} -u #{config['username']} #{config['password'] ? "--password=#{config['password']}" : nil}  #{config['database']} --no-create-db | grep -v 'SQL SECURITY DEFINER' >> #{dump_file_name}"
+    cmd3 = "echo \"COMMIT;\" >> #{dump_file_name}"
+    puts cmd1, cmd2, cmd3
+    system cmd1
+    system cmd2
+    system cmd3
   end
 
   def restore_random_dump

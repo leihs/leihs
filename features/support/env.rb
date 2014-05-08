@@ -28,7 +28,7 @@ Capybara.default_selector = :css
 
 # screenshot
 require 'capybara-screenshot/cucumber'
-Capybara::Screenshot.autosave_on_failure = true
+Capybara::Screenshot.autosave_on_failure = false # FIXME capybara-screenshot could not detect a screenshot driver for 'selenium_phantomjs' and 'selenium_firefox'. Saving with default with unknown results.
 
 # By default, any exception happening in your Rails application will bubble up
 # to Cucumber so that your scenario will fail. This is a different from how 
@@ -47,23 +47,64 @@ Capybara::Screenshot.autosave_on_failure = true
 #
 ActionController::Base.allow_rescue = false
 
+##################################################################################
+
+require 'selenium/webdriver'
+
+Capybara.register_driver :selenium_phantomjs do |app|
+  Capybara::Selenium::Driver.new app, browser: :phantomjs #, capabilities: {a: 1}
+end
+
+Capybara.register_driver :selenium_firefox do |app|
+  profile = Selenium::WebDriver::Firefox::Profile.new
+  # we need a firefox extension to start intercepting javascript errors before the page scripts load
+  # see https://github.com/mguillem/JSErrorCollector
+  profile.add_extension File.join(Rails.root, "features/support/extensions/JSErrorCollector.xpi")
+  Capybara::Selenium::Driver.new app, :profile => profile
+end
+
+##################################################################################
+
 begin
   # we cannot use transactional tests because we are restoring personas data from sql dumps
-  our_default_strategy = :truncation
-  DatabaseCleaner.strategy = our_default_strategy
-  DatabaseCleaner.clean_with our_default_strategy
+  DatabaseCleaner.strategy = :truncation
 rescue NameError
   raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
 end
 
-Before do
-  srand(ENV['TEST_RANDOM_SEED'].to_i)
-  DatabaseCleaner.start
+Before('@javascript', '~@firefox') do
+  Capybara.current_driver = :selenium_phantomjs
 end
 
-After do |scenario|
-  sleep(0.66) # to prevent lazy failures i.e: features/examples/benutzerverwaltung.feature:328 "Zugriff entfernen als Inventar-Verwalter"
-  DatabaseCleaner.clean
+Before('@javascript', '@firefox') do
+  Capybara.current_driver = :selenium_firefox
+  page.driver.browser.manage.window.maximize # to prevent Selenium::WebDriver::Error::MoveTargetOutOfBoundsError: Element cannot be scrolled into view
+end
+
+Before do
+  srand(ENV['TEST_RANDOM_SEED'].to_i)
+  Cucumber.logger.info "Current capybara driver: %s\n" % Capybara.current_driver
+  back_to_the_present
+  DatabaseCleaner.clean_with :truncation
+end
+
+##################################################################################
+
+After('@javascript', '@firefox') do |scenario|
+  if page.driver.to_s.match("Selenium")
+    errors = page.execute_script("return window.JSErrorCollector_errors.pump()")
+
+    if errors.any?
+      puts '-------------------------------------------------------------'
+      puts "Found #{errors.length} javascript errors"
+      puts '-------------------------------------------------------------'
+      errors.each do |error|
+        puts "    #{error["errorMessage"]} (#{error["sourceName"]}:#{error["lineNumber"]})"
+      end
+      # Raise an error here if you want JS errors to make your Capybara test count as failed
+      #raise "Javascript errors detected, see above"
+    end
+  end
 end
 
 if ENV["PRY"]
@@ -71,6 +112,8 @@ if ENV["PRY"]
     binding.pry
   end
 end
+
+##################################################################################
 
 at_exit do
   s = "TEST_RANDOM_SEED=#{ENV['TEST_RANDOM_SEED']}"
