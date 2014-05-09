@@ -1,6 +1,6 @@
 %select.width-full{:name => "{{>~field.getFormName()}}"}
   {{for ~field.values}}
-  {{if ~field.getValue(~itemData, ~field.attribute, true) == value.toString()}}
+  {{if ~field.getValue(~itemData, ~field.attribute, true) == value}}
   %option{:value => "{{>value}}", :selected => true}
     {{jed label/}}
   {{else}}
