@@ -1,0 +1,41 @@
+---
+name: Leihs
+traits: "substitute_with_path: cider-ci/partials/traits.yml"
+attachments: "substitute_with_path: cider-ci/partials/attachments.yml"
+environment_variables: "substitute_with_path: cider-ci/partials/environment_variables.yml"
+ports: "substitute_with_path: cider-ci/partials/ports.yml"
+
+contexts:
+
+- name: Cucumber 
+  priority: 5
+  scripts: "substitute_with_path: cider-ci/partials/cucumber_context_scripts.yml"
+  tasks: "substitute_with_path: cider-ci/tasks/cucumber_strict.yml"
+
+- name: Rspec 
+  priority: 3
+  scripts: "substitute_with_path: cider-ci/partials/rspec_context_scripts.yml"
+  tasks: "substitute_with_path: cider-ci/tasks/rspec.yml"
+    
+- name: Meta
+  priority: 7
+  tasks: "substitute_with_path: cider-ci/tasks/meta.yml"
+
+
+- name: Completness of CI tasks
+
+  priority: 7
+
+  tasks:
+
+    - name: All spects are tested?
+      scripts:
+        main: 
+          body: cider-ci/bin/all_specs_tested.rb
+
+    - name: All features are tested?
+      scripts:
+        main: 
+          body: cider-ci/bin/all_features_tested.rb 
+
+
