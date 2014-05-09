@@ -7,16 +7,23 @@ organization or institution. In our case, we use it to keep track of who uses
 our cameras, lighting equipment, speakers, microphones etc. 
 
 
+## Live demo
+
+How to access the live demo is described in our wiki:
+
+https://github.com/zhdk/leihs/wiki
+
+
 ## Installation guide
 
-The install guide can be found on GitHub:
+The install guide can be found on the wiki:
 
 https://github.com/zhdk/leihs/wiki
 
 
 ## Project web pages
 
-Please find our project webpage at:
+Please find our other project webpage at:
 http://github.com/zhdk/leihs
 
 
