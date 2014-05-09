@@ -58,7 +58,7 @@ Wenn /^einige der ausgewählten Gegenstände hat keinen Zweck angegeben$/ do
 end
 
 Dann(/^kann man als "(.+)" keine, eine oder mehrere der folgenden Möglichkeiten in Form einer Checkbox auswählen:$/) do |arg, table|
-  step %Q(one is able to choose as "#{arg}" none, one or more of the following options:), table
+  step %Q(one is able to choose for "#{arg}" none, one or more of the following options if form of a checkbox:), table
 end
 
 Wenn(/^ich als Betriebssystem keine, eine oder mehrere der vorhandenen Möglichkeiten auswähle$/) do
@@ -87,4 +87,68 @@ end
 
 Dann(/^steht in dem Modellfeld nur der Produktname dieses Modell$/) do
   step "there is only product name in the input field of the model"
+end
+
+Dann(/^kann man als "(.*?)" einen der folgenden Möglichkeiten anhand eines Radio\-Buttons wählen:$/) do |arg1, table|
+  step %Q(for "#{arg1}" one can select one of the following options with the help of radio button), table
+end
+
+Dann(/^kann man als "(.*?)" ein Datum auswählen$/) do |arg1|
+  step %Q(for "#{arg1}" one can select a date)
+end
+
+Dann(/^die mögliche Werte für Maintenance\-Vertrag sind in der folgenden Reihenfolge:$/) do |table|
+  step "for maintenance contract the available options are in the following order:", table
+end
+
+Dann(/^kann man als "(.*?)" eine Zahl eingeben$/) do |arg1|
+  step %Q(for "#{arg1}" one can enter a number)
+end
+
+Dann(/^kann man als "(.*?)" einen Text eingeben$/) do |arg1|
+  step %Q(for "#{arg1}" one can enter some text)
+end
+
+Dann(/^kann man als "(.*?)" einen Lieferanten auswählen$/) do |arg1|
+  step %Q(for "#{arg1}" one can select a supplier)
+end
+
+Dann(/^kann man als "(.*?)" einen Gerätepark auswählen$/) do |arg1|
+  step %Q(for "#{arg1}" one can select an inventory pool)
+end
+
+Wenn(/^ich als Lizenzablaufdatum ein Datum auswähle$/) do
+  step %Q(I choose a date for license expiration)
+end
+
+Wenn(/^ich als Maintenance\-Vertrag "(.*?)" auswähle$/) do |arg1|
+  step %Q(I choose "#{arg1}" for maintenance contract)
+end
+
+Dann(/^kann ich für den Maintenance\-Vertrag kein Ablaufdatum wählen$/) do
+  step %Q(I am not able to choose the maintenance expiration date)
+end
+
+Wenn(/^ich für den Maintenance\-Vertrag ein Ablaufdatum wähle$/) do
+  step %Q(I choose a date for the maintenance expiration)
+end
+
+Wenn(/^ich als Bezug "(.*?)" wähle$/) do |arg1|
+  step %Q(I choose "#{arg1}" as reference)
+end
+
+Dann(/^muss ich eine Projektnummer eingeben$/) do
+  step %Q(I have to enter a project number)
+end
+
+Wenn(/^ich das Lizenzablaufdatum ändere$/) do
+  step %Q(I change the license expiration date)
+end
+
+Wenn(/^ich den Wert für den Maintenance\-Vertrag ändere$/) do
+  step %Q(I change the value for maintenance contract)
+end
+
+Wenn(/^ich den Wert für Bezug ändere$/) do
+  step %Q(I change the value for reference)
 end

@@ -83,6 +83,11 @@ Dann(/^sind die Informationen dieser Software\-Lizenz gespeichert$/) do
   Set.new(license.properties[:operating_system]).should == Set.new(@operating_system_values)
   Set.new(license.properties[:installation]).should == Set.new(@installation_values)
   license.is_borrowable?.should be_true
+  license.properties[:license_expiration].should == @license_expiration_date.to_s
+  license.properties[:maintenance_contract].should == @maintenance_contract
+  license.properties[:maintenance_expiration].should == @maintenance_expiration_date.to_s
+  license.properties[:reference].should == @reference
+  license.properties[:project_number].should == @project_number
 end
 
 Wenn(/^ich eine Software editiere$/) do
@@ -163,19 +168,16 @@ Dann(/^sind die Informationen dieser Software\-Lizenz erfolgreich aktualisiert w
   Set.new(license.properties[:operating_system]).should == Set.new(@new_operating_system_values)
   Set.new(license.properties[:installation]).should == Set.new(@new_installation_values)
   license.is_borrowable?.should be_true
+  license.properties[:license_expiration].should == @new_license_expiration_date.to_s
+  license.properties[:maintenance_contract].should == @new_maintenance_contract.to_s
+  license.properties[:maintenance_expiration].should == @maintenance_expiration_date.to_s if @new_maintenance_expiration_date
+  license.properties[:reference].should == @new_reference
+  license.properties[:project_number].should == @project_number if @project_number
 end
 
 Wenn(/^ich mich auf der Softwareliste befinde$/) do
   page.has_selector? "Inventarliste"
   find("a", text: _("Software")).click
-end
-
-When(/^one is able to choose as "(.+)" none, one or more of the following options:$/) do |arg, table|
-  within find(".field", text: _(arg)) do
-    table.rows.flatten.each do |value|
-      find("label", text: _(value), match: :prefer_exact).find("input[type='checkbox']")
-    end
-  end
 end
 
 When(/^if I choose none, one or more of the available options for operating system$/) do
@@ -197,5 +199,129 @@ When(/^if I choose none, one or more of the available options for installation$/
       cb.click
       @installation_values << cb.value
     end
+  end
+end
+
+Then(/^one is able to choose for "(.+)" none, one or more of the following options if form of a checkbox:$/) do |arg1, table|
+  within(".field", text: _(arg1)) do
+    table.rows.flatten.each do |option|
+      find("label", text: _(option), match: :prefer_exact).find("input[type='checkbox']")
+    end
+  end
+end
+
+Then(/^for "(.+)" one can select one of the following options with the help of radio button$/) do |arg1, table|
+  within(".field", text: _(arg1)) do
+    table.rows.flatten.each do |option|
+      find("label", text: option).find("input[type='radio']")
+    end
+  end
+end
+
+Then(/^for "(.*?)" one can select a date$/) do |arg1|
+  i = find(".field", text: _(arg1)).find("input")
+  i.click
+  find(".ui-state-default", match: :first).click
+  i.value.should_not be_nil
+end
+
+Then(/^for maintenance contract the available options are in the following order:$/) do |table|
+  find(".field", text: _("Maintenance contract")).all("option").map(&:text).should == table.raw.flatten
+end
+
+Then(/^for "(.*?)" one can enter a number$/) do |arg1|
+  within(".field", text: _(arg1)) do
+    i = find "input[type='text']"
+    i.set (n = rand(500).to_s)
+    i.value.should == n
+  end
+end
+
+Then(/^for "(.*?)" one can enter some text$/) do |arg1|
+  within(".field", text: _(arg1)) do
+    i = find "input[type='text']"
+    i.set (t = Faker::Lorem.words(rand 3).join(" "))
+    i.value.should == t
+  end
+end
+
+Then(/^for "(.*?)" one can select a supplier$/) do |arg1|
+  i = find(".field", text: _(arg1)).find "input"
+  i.click
+  supplier = Supplier.all.sample
+  find(".ui-menu-item", text: supplier.name).click
+  i.value.should == supplier.name
+end
+
+Then(/^for "(.*?)" one can select an inventory pool$/) do |arg1|
+  i = find(".field", text: _(arg1)).find "input"
+  i.click
+  ip = InventoryPool.all.sample
+  find(".ui-menu-item", text: ip.name).click
+  i.value.should == ip.name
+end
+
+When(/^I choose a date for license expiration$/) do
+  @license_expiration_date = rand(12).months.from_now.to_date
+  find(".field", text: _("License expiration")).find("input").set @license_expiration_date.strftime("%d.%m.%Y")
+end
+
+When(/^I choose "(.*?)" for maintenance contract$/) do |arg1|
+  o = find(".field", text: _("Maintenance contract")).find("option", text: _(arg1))
+  o.select_option
+  @maintenance_contract = o.value
+end
+
+Then(/^I am not able to choose the maintenance expiration date$/) do
+  page.has_no_selector? ".field", text: _("Maintenance expiration")
+end
+
+When(/^I choose a date for the maintenance expiration$/) do
+  @maintenance_expiration_date = rand(12).months.from_now.to_date
+  find(".field", text: _("Maintenance expiration")).find("input").set @maintenance_expiration_date.strftime("%d.%m.%Y")
+end
+
+When(/^I choose "(.*?)" as reference$/) do |arg1|
+  i = find(".field", text: _("Reference")).find("label", text: _(arg1)).find("input")
+  i.click
+  @reference = i.value
+end
+
+Then(/^I have to enter a project number$/) do
+  step "ich speichere"
+  step "ich sehe eine Fehlermeldung"
+  @project_number = Faker::Lorem.characters(10)
+  find(".field", text: _("Project Number")).find("input").set @project_number
+end
+
+When(/^I change the license expiration date$/) do
+  @new_license_expiration_date = rand(12).months.from_now.to_date
+  find(".field", text: _("License expiration")).find("input").set @new_license_expiration_date.strftime("%d.%m.%Y")
+end
+
+Wenn(/^I change the value for maintenance contract$/) do
+  within find(".field", text: _("Maintenance contract")) do
+    o = all("option").detect &:selected?
+    find("option[value='#{@new_maintenance_contract = !o.value}']").select_option
+  end
+
+  if @new_maintenance_contract
+    @new_maintenance_expiration_date = rand(12).months.from_now.to_date
+    find(".field", text: _("Maintenance expiration")).find("input").set @new_maintenance_expiration_date.strftime("%d.%m.%Y")
+  end
+end
+
+When(/^I change the value for reference$/) do
+  within(".field", text: _("Reference")) do
+    radio_buttons = all("input")
+    values = radio_buttons.map(&:value)
+    current_value = radio_buttons.detect(&:selected?).value
+    @new_reference = values.detect {|v| v != current_value}
+    find("input[value='#{@new_reference}']").click
+  end
+
+  if @new_reference == "investment"
+    @new_project_number = Faker::Lorem.characters(10)
+    find(".field", text: _("Project Number")).find("input").set @new_project_number
   end
 end

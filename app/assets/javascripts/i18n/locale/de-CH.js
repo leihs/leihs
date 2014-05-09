@@ -3750,6 +3750,22 @@ window.i18n.locale_data = {
       "Local": [
          null,
          "Lokal"
+      ],
+      "License expiration": [
+         null,
+         "Lizenzablaufdatum"
+      ],
+      "Maintenance expiration": [
+         null,
+         "Maintenance-Ablaufdatum"
+      ],
+      "Maintenance contract": [
+         null,
+         "Maintenance-Vertrag"
+      ],
+      "Procured by": [
+         null,
+         "Beschafft durch"
       ]
    }
 }

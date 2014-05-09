@@ -2832,3 +2832,15 @@ msgstr ""
 
 msgid "Local"
 msgstr ""
+
+msgid "License expiration"
+msgstr ""
+
+msgid "Maintenance expiration"
+msgstr ""
+
+msgid "Maintenance contract"
+msgstr ""
+
+msgid "Procured by"
+msgstr ""
