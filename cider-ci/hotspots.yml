@@ -14,12 +14,12 @@ contexts:
 - name: Cucumber 
   priority: 5
   scripts: "substitute_with_path: cider-ci/partials/cucumber_context_scripts.yml"
-  tasks: 
-  - name: acknowledge
-    scripts:
-      cucumber:
-        timeout: 600
-        body: bundle exec cucumber -p default "features/acknowledge.feature"
+  tasks: "substitute_with_path: cider-ci/tasks/cucumber.yml"
+  # - name: acknowledge
+  #   scripts:
+  #     cucumber:
+  #       timeout: 600
+  #       body: bundle exec cucumber -p default "features/acknowledge.feature"
 
 - name: Rspec 
   priority: 3
@@ -29,4 +29,3 @@ contexts:
     scripts:
       rspec:
         body: bundle exec rspec "spec/controllers/hslu_ldap_controller_spec.rb"
-  

@@ -1,0 +1,71 @@
+---
+- name: borrow/dokumente.feature
+  scripts:
+    cucumber:
+      timeout: 600
+      body: bundle exec cucumber -p default "borrow/dokumente.feature"
+- name: borrow/suche.feature
+  scripts:
+    cucumber:
+      timeout: 600
+      body: bundle exec cucumber -p default "borrow/suche.feature"
+- name: borrow/vorlagen.feature
+  scripts:
+    cucumber:
+      timeout: 600
+      body: bundle exec cucumber -p default "borrow/vorlagen.feature"
+- name: examples/gegenstand_ausmustern.feature
+  scripts:
+    cucumber:
+      timeout: 600
+      body: bundle exec cucumber -p default "examples/gegenstand_ausmustern.feature"
+- name: examples/gegenstand_editieren.feature
+  scripts:
+    cucumber:
+      timeout: 600
+      body: bundle exec cucumber -p default "examples/gegenstand_editieren.feature"
+- name: examples/gegenstand_erstellen.feature
+  scripts:
+    cucumber:
+      timeout: 600
+      body: bundle exec cucumber -p default "examples/gegenstand_erstellen.feature"
+- name: examples/gegenstand_kopieren.feature
+  scripts:
+    cucumber:
+      timeout: 600
+      body: bundle exec cucumber -p default "examples/gegenstand_kopieren.feature"
+- name: examples/inventar.feature
+  scripts:
+    cucumber:
+      timeout: 600
+      body: bundle exec cucumber -p default "examples/inventar.feature"
+- name: examples/inventarhelfer.feature
+  scripts:
+    cucumber:
+      timeout: 600
+      body: bundle exec cucumber -p default "examples/inventarhelfer.feature"
+- name: examples/model_eigenschaften.feature
+  scripts:
+    cucumber:
+      timeout: 600
+      body: bundle exec cucumber -p default "examples/model_eigenschaften.feature"
+- name: examples/modell.feature
+  scripts:
+    cucumber:
+      timeout: 600
+      body: bundle exec cucumber -p default "examples/modell.feature"
+- name: examples/pakete.feature
+  scripts:
+    cucumber:
+      timeout: 600
+      body: bundle exec cucumber -p default "examples/pakete.feature"
+- name: manage/acknowledge/add_item.feature
+  scripts:
+    cucumber:
+      timeout: 600
+      body: bundle exec cucumber -p default "manage/acknowledge/add_item.feature"
+- name: manage/delegation.feature
+  scripts:
+    cucumber:
+      timeout: 600
+      body: bundle exec cucumber -p default "manage/delegation.feature"
