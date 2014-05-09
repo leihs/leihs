@@ -1,6 +1,6 @@
 # language: de
 
-Funktionalität: Software erfassen
+Funktionalität: Software editieren
 
   Grundlage:
     Angenommen ich bin "Mike"
@@ -29,6 +29,9 @@ Funktionalität: Software erfassen
     Und ich den Wert "Ausleihbar" ändere
     Und ich die Optionen für das Betriebssystem ändere
     Und ich die Optionen für die Installation ändere
+    Und ich das Lizenzablaufdatum ändere
+    Und ich den Wert für den Maintenance-Vertrag ändere
+    Und ich den Wert für Bezug ändere
     #Aber ich kann die Inventarnummer nicht ändern # really? inventory manager can change the inventory number of an item right now...
     Wenn ich speichere
     Dann sind die Informationen dieser Software-Lizenz erfolgreich aktualisiert worden

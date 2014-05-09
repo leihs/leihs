@@ -17,7 +17,7 @@ Funktionalität: Software erfassen
     Wenn ich speichere
     Dann ist die neue Software erstellt und unter Software auffindbar
 
-
+  @javascript
   Szenario: Mögliche Werte in Software-Produkt erfassen
     Angenommen ich befinde mich auf der Software-Erstellungsseite
     Dann kann ich auf mehreren Zeilen Hinweise und Links anfügen
@@ -54,18 +54,18 @@ Funktionalität: Software erfassen
       | Lokal |
       | Web |
     Dann kann man als "Bezug" einen der folgenden Möglichkeiten anhand eines Radio-Buttons wählen:
-     |laufende Rechnung|
-    |Investition                 |
+      |laufende Rechnung|
+      |Investition                 |
     Dann kann man als "Lizenzablaufdatum" ein Datum auswählen
+    Dann die mögliche Werte für Maintenance-Vertrag sind in der folgenden Reihenfolge:
+      | Nein |
+      | Ja   |
     Dann kann man als "Rechnungsdatum" ein Datum auswählen
     Dann kann man als "Anschaffungswert" eine Zahl eingeben
     Dann kann man als "Beschafft durch" einen Text eingeben
     Dann kann man als "Lieferant" einen Lieferanten auswählen
     Dann kann man als "Verantwortliche Abteilung" einen Gerätepark auswählen
     Dann kann man als "Besitzer" einen Gerätepark auswählen
-    Dann die mögliche Werte für Maintenance-Vertrag sind in der folgenden Reihenfolge:
-      | Nein |
-      | Ja   |
     Und die Option "Ausleihbar" ist standardmässig auf "Nicht ausleihbar" gesetzt
 
   @javascript
@@ -79,7 +79,7 @@ Funktionalität: Software erfassen
     Und ich eine Lizenzart eingebe
     Und ich als Betriebssystem keine, eine oder mehrere der vorhandenen Möglichkeiten auswähle
     Und ich als Installation keine, eine oder mehrere der vorhandenen Möglichkeiten auswähle
-    Und ich als Lizenz-Ablaufdatum keines oder ein Datum auswähle
+    Und ich als Lizenzablaufdatum ein Datum auswähle
     Wenn ich als Maintenance-Vertrag "Nein" auswähle
     Dann kann ich für den Maintenance-Vertrag kein Ablaufdatum wählen
     Wenn ich als Maintenance-Vertrag "Ja" auswähle

@@ -144,7 +144,6 @@ class Field < ActiveHash::Base
       label: "Owner",
       attribute: ["owner", "id"],
       type: "autocomplete",
-      target_type: "item",
       permissions: {role: :inventory_manager, owner: true},
       values: lambda{(InventoryPool.all.map {|x| {:value => x.id, :label => x.name}}).as_json},
       group: "Inventory"
@@ -163,7 +162,6 @@ class Field < ActiveHash::Base
       label: "Responsible department",
       attribute: ["inventory_pool", "id"],
       type: "autocomplete",
-      target_type: "item",
       values: lambda{([{:value => nil, :label => _("None")}] + InventoryPool.all.map {|x| {:value => x.id, :label => x.name}}).as_json},
       permissions: {role: :inventory_manager, owner: true},
       group: "Inventory",
@@ -195,7 +193,6 @@ class Field < ActiveHash::Base
       values: [{label: "Running Account", value: "invoice"}, {label: "Investment", value: "investment"}],
       default: "invoice", 
       type: "radio",
-      target_type: "item",
       group: "Invoice Information"
     },{
       id: 22,
@@ -203,7 +200,6 @@ class Field < ActiveHash::Base
       attribute: ["properties", "project_number"],
       permissions: {role: :inventory_manager, owner: true},
       type: "text",
-      target_type: "item",
       required: true,
       visibility_dependency_field_id: 21,
       visibility_dependency_value: "investment",
@@ -222,7 +218,6 @@ class Field < ActiveHash::Base
       attribute: "invoice_date",
       permissions: {role: :lending_manager, owner: true},
       type: "date",
-      target_type: "item",
       group: "Invoice Information"
     },{
       id: 25,
@@ -230,7 +225,6 @@ class Field < ActiveHash::Base
       attribute: "price",
       permissions: {role: :lending_manager, owner: true},
       type: "text",
-      target_type: "item",
       group: "Invoice Information",
       forPackage: true
     },{
@@ -238,7 +232,6 @@ class Field < ActiveHash::Base
       label: "Supplier",
       attribute: ["supplier", "id"],
       type: "autocomplete",
-      target_type: "item",
       extensible: true,
       extended_key: ["supplier", "name"],
       permissions: {role: :lending_manager, owner: true},
@@ -396,6 +389,41 @@ class Field < ActiveHash::Base
                {label: "Web", value: "web"}],
       permissions: {role: :inventory_manager, owner: true},
       group: "General Information"
+    },{
+      id: 42,
+      label: "License expiration",
+      attribute: ["properties", "license_expiration"],
+      permissions: {role: :inventory_manager, owner: true},
+      type: "date",
+      target_type: "license",
+      group: "General Information"
+    },{
+      id: 43,
+      label: "Maintenance contract",
+      attribute: ["properties", "maintenance_contract"],
+      type: "select",
+      target_type: "license",
+      permissions: {role: :inventory_manager, owner: true},
+      values: [{label: "No", value: false}, {label: "Yes", value: true}],
+      group: "General Information"
+    },{
+      id: 44,
+      label: "Maintenance expiration",
+      attribute: ["properties", "maintenance_expiration"],
+      type: "date",
+      target_type: "license",
+      permissions: {role: :inventory_manager, owner: true},
+      visibility_dependency_field_id: 43,
+      visibility_dependency_value: "true",
+      group: "General Information"
+    },{
+      id: 45,
+      label: "Procured by",
+      attribute: ["properties", "procured_by"],
+      permissions: {role: :inventory_manager, owner: true},
+      type: "text",
+      target_type: "license",
+      group: "Invoice Information"
     }
   ]
 
