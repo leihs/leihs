@@ -1,7 +1,7 @@
 def get_rails_model_name_from_url
   path_array_reversed = current_path.split("/").reverse
 
-  model_name = case path_array_reversed.first
+  model_name = case action = path_array_reversed.first
                when "new"
                  path_array_reversed[1].chomp("s")
                when "edit"
@@ -11,6 +11,6 @@ def get_rails_model_name_from_url
                  raise 'Unspecified action'
                end
 
-  model_name = "software" if model_name == "model" and ( current_url =~ /type=software/ or Model.find(id).is_a?(Software) )
+  model_name = "software" if action == "edit" and model_name == "model" and ( current_url =~ /type=software/ or Model.find(id).is_a?(Software) )
   model_name
 end
