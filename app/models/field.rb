@@ -404,7 +404,7 @@ class Field < ActiveHash::Base
       type: "select",
       target_type: "license",
       permissions: {role: :inventory_manager, owner: true},
-      values: [{label: "No", value: false}, {label: "Yes", value: true}],
+      values: [{label: "No", value: "false"}, {label: "Yes", value: "true"}],
       group: "General Information"
     },{
       id: 44,
