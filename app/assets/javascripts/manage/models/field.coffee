@@ -65,7 +65,7 @@ class window.App.Field extends Spine.Model
       result = reduceHelper(value_label)
 
       # append extended value label if present
-      [result, value_label_ext].join " " if value_label_ext = reduceHelper(@value_label_ext)
+      result = [result, value_label_ext].join(" ") if value_label_ext = reduceHelper(@value_label_ext)
 
       result
 
