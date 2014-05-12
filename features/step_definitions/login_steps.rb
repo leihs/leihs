@@ -17,7 +17,7 @@ Given "I am logged in as '$username' with password '$password'" do |username, pa
   I18n.locale = if @current_user.language then @current_user.language.locale_name.to_sym else Language.default_language end
   @current_inventory_pool = @current_user.managed_inventory_pools.first
   case Capybara.current_driver
-    when :selenium
+    when /selenium/
       visit "/"
       first("[href='#{login_path}']").click
       fill_in 'username', :with => username
