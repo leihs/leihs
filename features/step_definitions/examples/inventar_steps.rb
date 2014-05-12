@@ -17,6 +17,7 @@ Dann /^sieht man Modelle$/ do
 end
 
 Dann /^man sieht Software$/ do
+  find("#list-search").set ""
   step "I scroll to the bottom of the page"
   find("#inventory .line[data-type='software']", match: :first)
 end
