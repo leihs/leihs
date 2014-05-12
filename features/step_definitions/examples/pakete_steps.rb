@@ -147,6 +147,7 @@ Dann /^(?:besitzt das Paket alle angegebenen Informationen|das Paket besitzt all
     page.has_selector? ".line[data-id='#{item.id}']", visible: false
   end
   page.has_no_selector? "[src*='loading']"
+  @package_id ||= model.items.packages.first.id
   find(".line[data-id='#{@package_id}']").find("button[data-edit-package]").click
   page.has_selector? ".modal .row.emboss"
   step 'hat das Paket alle zuvor eingetragenen Werte'
