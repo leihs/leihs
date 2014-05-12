@@ -9,9 +9,10 @@ Funktionalität: Inventar
   @javascript @firefox
   Szenario: Was man auf einer Liste sieht
     Dann sieht man Modelle
-    Und man sieht Software
     Und man sieht Optionen
     Und man sieht Pakete
+    Wenn ich mich auf der Softwareliste befinde
+    Dann man sieht Software
 
   @javascript
   Szenario: Auswahlmöglichkeiten
