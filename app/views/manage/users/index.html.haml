@@ -40,8 +40,10 @@
           %input#list-search{type: "text", class: "width-full", name: "input", placeholder: _("Search..."), autocomplete: :off}
         %form#list-filters.col4of5
           = select_tag "type", options_for_select([[_("All"), ""], [_("Users"), "user"], [_("Delegations"), "delegation"]])
-
-        = render 'manage/users/list/filters' if @role and @role != "admins"
+          - if @role and @role != "admins"
+            %label.button.inset.white.height-xxs
+              %input{:name => :suspended, :type => :checkbox, :value => :true, :autocomplete => :off}
+              %span= _("Suspended")
 
     #user-list.list-of-lines.even.separated-top.padding-bottom-s
 
