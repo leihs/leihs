@@ -325,3 +325,159 @@ When(/^I change the value for reference$/) do
     find(".field", text: _("Project Number")).find("input").set @new_project_number
   end
 end
+
+Given(/^there is a software product with the following properties:$/) do |table|
+  model_attrs = {}
+  @software_product_properties = table.raw.map do |k, v|
+    case k
+      when "Produktname"
+        model_attrs[:product] = v
+      when "Hersteller"
+        model_attrs[:manufacturer] = v
+    end
+    v
+  end
+
+  @software_product = FactoryGirl.create :software, model_attrs
+
+  table.raw.flatten.each do |property|
+    case property
+      when "in keinem Vertrag aufgeführt"
+        @software_product.contract_lines.should be_empty
+      when "keiner Bestellung zugewiesen"
+        @software_product.contract_lines.should be_empty
+      when "keine Software-Lizenz zugefügt"
+        @software_product.items.should be_empty
+    end
+  end
+end
+
+Given(/^there is a software license with the following properties:$/) do |table|
+  item_attrs = {owner: @current_inventory_pool}
+
+  lp = table.raw.map do |k, v|
+    case k
+      when "Lizenznummer"
+        item_attrs[:serial_number] = v
+    end
+    v
+  end
+
+  @software_license_properties = @software_product_properties + lp
+
+  @software_license = FactoryGirl.create :license, item_attrs.merge({model: @software_product})
+  step "this software license is handed over to somebody"
+end
+
+When(/^I search after one of those software product properties$/) do
+  search_field = find("#topbar-search input#search_term")
+  search_field.set @software_product_properties.sample
+  search_field.native.send_key :return
+  sleep(0.33)
+end
+
+When(/^I search after one of those software license properties$/) do
+  search_field = find("#topbar-search input#search_term")
+  search_field.set @software_license_properties.sample
+  search_field.native.send_key :return
+  sleep(0.33)
+end
+
+Then(/^they appear all matched software products$/) do
+  within "#software" do
+    find(".line[data-id='#{@software_product.id}']")
+  end
+end
+
+Then(/^they appear all matched software licenses$/) do
+  within "#licenses" do
+    find(".line[data-id='#{@software_license.id}']")
+  end
+end
+
+Then(/^they appear all matched contracts, in which this software product is contained$/) do
+  within "#orders" do
+    find(".line[data-id='#{@contract_with_software_license.id}']")
+  end
+end
+
+Given(/^a software product exists$/) do
+  @software_product = FactoryGirl.create :software
+end
+
+Given(/^a software license exists$/) do
+  step "a software product exists"
+  step "there exist licenses for this software product"
+end
+
+Given(/^this software license is handed over to somebody$/) do
+  @contract_with_software_license = FactoryGirl.create :contract, {inventory_pool: @current_inventory_pool, status: :submitted}
+  @contract_with_software_license.lines << FactoryGirl.create(:item_line, {contract: @contract_with_software_license, model: @software_product, item: @software_license})
+end
+
+When(/^I search after the name of that person$/) do
+  search_field = find("#topbar-search input#search_term")
+  search_field.set @contract_with_software_license.user.name
+  search_field.native.send_key :return
+  sleep(0.33)
+end
+
+Then(/^it appears the contract of this person in the search results$/) do
+  step "they appear all matched contracts, in which this software product is contained"
+end
+
+Then(/^it appears this person in the search results$/) do
+  within "#users" do
+    find(".line [data-id='#{@contract_with_software_license.user_id}']")
+  end
+end
+
+Given(/^there exist licenses for this software product$/) do
+  rand(1..3).times do
+    @software_product.items << FactoryGirl.create(:license, {owner: @current_inventory_pool, model: @software_product})
+  end
+  @software_license = @software_product.items.sample
+end
+
+When(/^I see these in my search result$/) do
+  search_field = find("#topbar-search input#search_term")
+  search_field.set @software_product.name
+  search_field.native.send_key :return
+  sleep(0.33)
+end
+
+Then(/^I can select to list only software products$/) do
+  find("nav a.navigation-tab-item", text: _("Software")).click
+  within("#models-search-results") do
+    find(".line[data-id='#{@software_product.id}']")
+  end
+end
+
+Then(/^I can select to list only software licenses$/) do
+  find("nav a.navigation-tab-item", text: _("Licenses")).click
+  within("#items-search-results") do
+    find(".line[data-id='#{@software_license.id}']")
+  end
+end
+
+When(/^I delete this software product from the list$/) do
+  find("a", text: _("Software")).click
+  within("#inventory") do
+    within(".line[data-id='#{@software_product.id}']") do
+      find(".multibutton .dropdown-toggle").click
+      find(".multibutton .red", :text => _("Delete")).click
+    end
+  end
+  find("#flash .success", text: _("%s successfully deleted") % _("Model"))
+end
+
+Then(/^the software product is deleted from the list$/) do
+  find("a", text: _("Software")).click
+  within("#inventory") do
+    page.should_not have_selector(".line[data-id='#{@software_product.id}']")
+  end
+end
+
+Then(/^the software product is deleted$/) do
+  lambda {@software_product.reload}.should raise_error(ActiveRecord::RecordNotFound)
+end

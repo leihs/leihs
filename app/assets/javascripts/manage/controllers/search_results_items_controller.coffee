@@ -14,6 +14,7 @@ class window.App.SearchResultsItemsController extends App.SearchResultsControlle
     App.Item.ajaxFetch
       data: $.param
         search_term: @searchTerm
+        type: @type
         page: page
 
   fetchModels:(items) =>

@@ -5,16 +5,22 @@ Funktionalität: Software suchen
   Grundlage:
     Angenommen ich bin "Mike"
 
-  Szenario: Software anhand eines Suchbegriffs finden
-    Angenommen es existiert eine Software mit den folgenden Eigenschaften:
-    |Produktname|suchbegriff1|
-    |Lizenznummer|suchbegriff2|
-    |Hersteller             |suchbegriff4                     |
-    Wenn ich nach einer dieser Eigenschaften suche
-    Dann erscheinen alle zutreffenden Software-Produkte
-    Und es erscehinen alle zutreffenden Software-Lizenzen
-    Und es erscheinen alle zutreffenden  Verträge, in denen diese Software vorkommt
+  @javascript
+  Szenario: Software-Produkte anhand eines Suchbegriffs finden
+    Angenommen es existiert ein Software-Produkt mit folgenden Eigenschaften:
+      | Produktname  | suchbegriff1 |
+      | Hersteller   | suchbegriff4 |
+    Und es existiert eine Software-Lizenz mit folgenden Eigenschaften:
+      | Lizenznummer | suchbegriff2 |
+    Und diese Software-Lizenz ist an jemanden ausgeliehen
+    Wenn ich nach einer dieser Software-Produkt Eigenschaften suche
+    Dann es erscheinen alle zutreffenden Software-Produkte
+    Und es erscheinen alle zutreffenden Verträge, in denen diese Software-Produkt vorkommt
+    Wenn ich nach einer dieser Software-Lizenz Eigenschaften suche
+    Dann es erscheinen alle zutreffenden Software-Lizenzen
+    Und es erscheinen alle zutreffenden Verträge, in denen diese Software-Produkt vorkommt
 
+  @javascript
   Szenario: Verträge für Software-Lizenzen anhand des Ausleihenden finden
     Angenommen es existiert eine Software-Lizenz
     Und diese Software-Lizenz ist an jemanden ausgeliehen
@@ -22,6 +28,7 @@ Funktionalität: Software suchen
     Dann erscheint der Vertrag dieser Person in den Suchresultaten
     Und es erscheint diese Person in den Suchresultaten
 
+  @javascript
   Szenario: Aufteilung der Suchresultate
     Angenommen es existieren Software-Produkte
     Und es existieren für diese Produkte Software-Lizenzen

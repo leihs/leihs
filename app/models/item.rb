@@ -97,13 +97,14 @@ class Item < ActiveRecord::Base
                 items.by_owner_or_responsible inventory_pool
               end
             end
+    items = items.where(:id => params[:ids]) if params[:ids]
+    items = items.where(:id => params[:id]) if params[:id]
+    items = items.send(params[:type].pluralize) unless params[:type].blank?
     items = items.where(Item.arel_table[:retired].not_eq(nil)) if params[:retired]
     items = items.where(:retired => nil) if params[:unretired] and not params[:retired]
     items = items.borrowable if params[:borrowable]
     items = items.unborrowable if params[:unborrowable]
     items = items.where(:model_id => Model.joins(:categories).where(:"model_groups.id" => [Category.find(params[:category_id])] + Category.find(params[:category_id]).descendants)) if params[:category_id]
-    items = items.where(:id => params[:ids]) if params[:ids]
-    items = items.where(:id => params[:id]) if params[:id]
     items = items.where(:parent_id => params[:package_ids]) if params[:package_ids]
     items = items.where(:parent_id => nil) if params[:not_packaged]
     items = items.in_stock if params[:in_stock]

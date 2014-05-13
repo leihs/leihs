@@ -18,6 +18,7 @@ class window.App.SearchResultsModelsController extends App.SearchResultsControll
     App.Model.ajaxFetch
       data: $.param
         search_term: @searchTerm
+        type: @type
         page: page
 
   fetchAvailability: (models)=>

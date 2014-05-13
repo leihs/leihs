@@ -172,3 +172,83 @@ end
 Dann(/^sind im Vertrag sowohl der Gegenstand als auch die Lizenz aufgeführt$/) do
   step %Q(there are inventory codes for item and license in the contract)
 end
+
+Angenommen(/^es existieren Software\-Produkte$/) do
+  step "a software product exists"
+end
+
+Angenommen(/^es existiert eine Software\-Lizenz$/) do
+  step "a software license exists"
+end
+
+Angenommen(/^es existiert ein Software\-Produkt mit folgenden Eigenschaften:$/) do |table|
+  step "there is a software product with the following properties:", table
+end
+
+Angenommen(/^es existiert eine Software\-Lizenz mit folgenden Eigenschaften:$/) do |table|
+  step "there is a software license with the following properties:", table
+end
+
+Wenn(/^ich nach einer dieser Software\-Produkt Eigenschaften suche$/) do
+  step "I search after one of those software product properties"
+end
+
+Wenn(/^ich nach einer dieser Software\-Lizenz Eigenschaften suche$/) do
+  step "I search after one of those software license properties"
+end
+
+Dann(/^es erscheinen alle zutreffenden Software\-Produkte$/) do
+  step "they appear all matched software products"
+end
+
+Dann(/^es erscheinen alle zutreffenden Software\-Lizenzen$/) do
+  step "they appear all matched software licenses"
+end
+
+Dann(/^es erscheinen alle zutreffenden Verträge, in denen diese Software\-Produkt vorkommt$/) do
+  step "they appear all matched contracts, in which this software product is contained"
+end
+
+Angenommen(/^diese Software\-Lizenz ist an jemanden ausgeliehen$/) do
+  step "this software license is handed over to somebody"
+end
+
+Wenn(/^ich nach dem Namen dieser Person suche$/) do
+  step "I search after the name of that person"
+end
+
+Dann(/^erscheint der Vertrag dieser Person in den Suchresultaten$/) do
+  step "it appears the contract of this person in the search results"
+end
+
+Dann(/^es erscheint diese Person in den Suchresultaten$/) do
+  step "it appears this person in the search results"
+end
+
+Angenommen(/^es existieren für diese Produkte Software\-Lizenzen$/) do
+  step "there exist licenses for this software product"
+end
+
+Wenn(/^ich diese in meinen Suchresultaten sehe$/) do
+  step "I see these in my search result"
+end
+
+Dann(/^kann ich wählen, ausschliesslich Software\-Produkte aufzulisten$/) do
+  step "I can select to list only software products"
+end
+
+Dann(/^ich kann wählen, ausschliesslich Software\-Lizenzen aufzulisten$/) do
+  step "I can select to list only software licenses"
+end
+
+Wenn(/^ich dieses Software\-Produkt aus der Liste lösche$/) do
+  step "I delete this software product from the list"
+end
+
+Dann(/^das Software\-Produkt wurde aus der Liste gelöscht$/) do
+  step "the software product is deleted from the list"
+end
+
+Dann(/^das Software\-Produkt ist gelöscht$/) do
+  step "the software product is deleted"
+end

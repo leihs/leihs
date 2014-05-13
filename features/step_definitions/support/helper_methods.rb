@@ -11,6 +11,6 @@ def get_rails_model_name_from_url
                  raise 'Unspecified action'
                end
 
-  model_name = "software" if action == "edit" and model_name == "model" and ( current_url =~ /type=software/ or Model.find(id).is_a?(Software) )
+  model_name = "software" if model_name == "model" and ( current_url =~ /type=software/ or Model.where(id: id, type: "Software").first )
   model_name
 end

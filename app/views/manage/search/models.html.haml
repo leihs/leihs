@@ -1,15 +1,15 @@
-- content_for :title, _("Search results (%s) for %s") % [_("Models"), @search_term]
+- content_for :title, _("Search results (%s) for %s") % [params[:type] == "software" ? _("Software") : _("Models"), @search_term]
 - content_for :search_section, "focus-thin"
 
 #models-search-results.wrapper.margin-top-m
 
-  = render :partial => 'manage/tabs/search', :locals => {:active_tab => :model_search}
+  = render :partial => 'manage/tabs/search', :locals => {:active_tab => "#{params[:type]}_search".to_sym}
 
   .row.content-wrapper.min-height-xl.min-width-full.straight-top
 
     .margin-top-l.padding-horizontal-m.padding-bottom-l
       .row
-        %h1.headline-xl= _("Search results (%s) for \"%s\"") % [_("Models"), @search_term]
+        %h1.headline-xl= _("Search results (%s) for \"%s\"") % [params[:type] == "software" ? _("Software") : _("Models"), @search_term]
         %h2#total-count.headline-m.light
   
     .list-of-lines.separated-top.padding-bottom-s.min-height-l.margin-top-l
@@ -21,4 +21,5 @@
   jQuery ->
     new App.SearchResultsModelsController
       el: $("#models-search-results")
+      type: "#{params[:type]}"
       searchTerm: #{@search_term.to_json}
