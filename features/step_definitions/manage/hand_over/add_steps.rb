@@ -1,6 +1,8 @@
-When /^I add (an|a borrowable|an unborrowable) item to the hand over by providing an inventory code and a date range$/ do |arg1|
+When /^I add (an|a borrowable|an unborrowable) (item|license) to the hand over by providing an inventory code$/ do |item_attr, item_type|
   existing_model_ids = @customer.contracts.approved.flat_map(&:models).map(&:id)
-  @inventory_code = case arg1
+  items = @ip.items.send(item_type.pluralize)
+  @inventory_codes ||= []
+  @inventory_code = case item_attr
                       when "an"
                         @ip.items.in_stock
                       when "a borrowable"
@@ -8,6 +10,7 @@ When /^I add (an|a borrowable|an unborrowable) item to the hand over by providin
                       when "an unborrowable"
                         @ip.items.in_stock.where(is_borrowable: false)
                     end.detect{|i| not existing_model_ids.include?(i.model_id)}.inventory_code
+  @inventory_codes << @inventory_code
   find("[data-add-contract-line]").set @inventory_code
   find(".line", match: :first)
   line_amount_before = all(".line").size

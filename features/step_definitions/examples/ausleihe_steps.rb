@@ -126,7 +126,7 @@ end
 
 Wenn /^die ausgewählten Gegenstände auch solche beinhalten, die in einer zukünftige Aushändigung enthalten sind$/ do
   find("#add-start-date").set (Date.today+2.days).strftime("%d.%m.%Y")
-  step 'I add an item to the hand over by providing an inventory code and a date range'
+  step 'I add an item to the hand over by providing an inventory code'
 end
 
 Dann /^ich kann die Gegenstände nicht aushändigen$/ do
@@ -424,4 +424,16 @@ end
 
 Dann(/^wird mir ich ein Suchresultat nach dem Namen des letzten Benutzers angezeigt$/) do
   find("#search-overview h1", text: _("Search Results for \"%s\"") % @user.name)
+end
+
+When(/^I fill in all the necessary information in hand over dialog$/) do
+  if contact_field = all("#contact-person input#user-id").first
+    contact_field.click
+    find(".ui-menu-item", match: :first).click
+  end
+  fill_in "purpose", with: Faker::Lorem.sentence
+end
+
+Then(/^there are inventory codes for item and license in the contract$/) do
+  @inventory_codes.each {|inv_code| page.has_content? inv_code}
 end

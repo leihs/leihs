@@ -57,7 +57,7 @@ Dann /^kann ich einen Zweck hinzufügen$/ do
 end
 
 Wenn /^keine der ausgewählten Gegenstände hat einen Zweck angegeben$/ do
-  step 'I add an item to the hand over by providing an inventory code and a date range'
+  step 'I add an item to the hand over by providing an inventory code'
   step 'I add an option to the hand over by providing an inventory code and a date range'
   step 'I edit the timerange of the selection'
   step "ich setze das Startdatum im Kalendar auf '#{I18n.l(Date.today)}'"

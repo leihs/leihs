@@ -44,7 +44,7 @@ end
 
 When /^I delete all lines of a model thats availability is blocked by these lines$/ do
   unless @customer.contracts.approved.last.lines.first.available?
-    step 'I add an item to the hand over by providing an inventory code and a date range'
+    step 'I add an item to the hand over by providing an inventory code'
     @model = Item.find_by_inventory_code(@inventory_code).model
     find(".line", match: :prefer_exact, text: @model.name).find("input[type='checkbox'][data-select-line]").click
   end
