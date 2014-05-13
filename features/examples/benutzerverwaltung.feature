@@ -110,7 +110,7 @@ Funktionalität: Benutzer verwalten
     Und man einen Benutzer mit Zugriffsrechten editiert
     Dann werden die ihm zugeteilt Geräteparks mit entsprechender Rolle aufgelistet
 
-  @javascript
+  @javascript @firefox
   Szenario: Voraussetzungen fürs Löschen eines Benutzers im Gerätepark
     Angenommen ich bin Ramon
     Und man sucht sich je einen Benutzer mit Zugriffsrechten, Bestellungen und Verträgen aus
@@ -180,7 +180,7 @@ Funktionalität: Benutzer verwalten
       |Telefonnummer|
       |Rolle|
 
-  @javascript
+  @javascript @firefox
   Szenario: Darstellung eines Benutzers in Listen ohne zugeteilte Rolle
     Angenommen Personas existieren
     Und man ist Inventar-Verwalter oder Ausleihe-Verwalter
@@ -342,7 +342,7 @@ Funktionalität: Benutzer verwalten
     Und ich speichere
     Dann hat der Benutzer die Rolle Inventar-Verwalter
 
-  @javascript
+  @javascript @firefox
   Szenario: Voraussetzungen fürs Löschen eines Benutzers
     Angenommen ich bin Ramon
     Und man befindet sich auf der Benutzerliste ausserhalb der Inventarpools
