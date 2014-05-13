@@ -47,9 +47,6 @@ class Manage::UsersController < Manage::ApplicationController
   def show
     respond_to do |format|
       format.html
-      format.json {
-        render json: view_context.hash_for(@user, {:access_right => true, :preset => :user, :groups => true, :db_auth => true})
-      }
     end
   end
 
