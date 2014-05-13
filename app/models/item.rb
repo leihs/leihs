@@ -165,7 +165,8 @@ class Item < ActiveRecord::Base
   # TODO sql constraint: items.inventory_pool_id cannot be null, but at least equal to items.owner_id
   scope :by_responsible_or_owner_as_fallback, lambda {|ip| where("inventory_pool_id = :id OR (inventory_pool_id IS NULL AND owner_id = :id)", :id => ip.id) }
 
-  scope :licenses, -> { joins(:model).where(models: {type: :software}) }
+  scope :items, -> { joins(:model).where(models: {type: "Model"}) }
+  scope :licenses, -> { joins(:model).where(models: {type: "Software"}) }
 
 ####################################################################
 

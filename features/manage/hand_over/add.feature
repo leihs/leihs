@@ -10,9 +10,9 @@ Feature: Add lines during hand over
 
   @javascript
   Scenario: Add an item to the hand over providing an inventory code
-     When I add a borrowable item to the hand over by providing an inventory code and a date range
+     When I add a borrowable item to the hand over by providing an inventory code
      Then the item is added to the hand over for the provided date range and the inventory code is already assigend
-     When I add an unborrowable item to the hand over by providing an inventory code and a date range
+     When I add an unborrowable item to the hand over by providing an inventory code
      Then the item is added to the hand over for the provided date range and the inventory code is already assigend
 
   @javascript

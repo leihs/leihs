@@ -155,6 +155,7 @@ Wenn(/^ich auf "(.*?)" drücke$/) do |arg1|
       find(".dropdown-item", text: _("Continue with available models only")).click
     when "Delegationen"
       find(".dropdown-item", text: _("Delegations")).click
+    else step %Q(I press "#{arg1}")
   end
 end
 
