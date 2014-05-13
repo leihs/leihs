@@ -3688,8 +3688,9 @@ window.i18n.locale_data = {
          "Software-Lizenz"
       ],
       "License": [
-         null,
-         "Lizenz"
+         "Licenses",
+         "Lizenz",
+         "Lizenzen"
       ],
       "Activation Type": [
          null,

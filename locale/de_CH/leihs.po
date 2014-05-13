@@ -2889,7 +2889,9 @@ msgid "Software License"
 msgstr "Software-Lizenz"
 
 msgid "License"
-msgstr "Lizenz"
+msgid_plural "Licenses"
+msgstr[0] "Lizenz"
+msgstr[1] "Lizenzen"
 
 msgid "Activation Type"
 msgstr "Aktivierungstyp"

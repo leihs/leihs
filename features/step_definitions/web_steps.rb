@@ -37,9 +37,9 @@ When /^(.*) within (.*[^:])$/ do |step, parent|
 end
 
 # Multi-line step scoper
-When /^(.*) within (.*[^:]):$/ do |step, parent, table_or_string|
-  with_scope(parent) { When "#{step}:", table_or_string }
-end
+# When /^(.*) within (.*[^:]):$/ do |step, parent, table_or_string|
+#   with_scope(parent) { When "#{step}:", table_or_string }
+# end
 
 Given /^(?:|I )am on (.+)$/ do |page_name|
   visit path_to(page_name)
@@ -76,31 +76,31 @@ end
 # TODO: Add support for checkbox, select og option
 # based on naming conventions.
 #
-When /^(?:|I )fill in the following:$/ do |fields|
-  fields.rows_hash.each do |name, value|
-    When %{I fill in "#{name}" with "#{value}"}
-  end
-end
+# When /^(?:|I )fill in the following:$/ do |fields|
+#   fields.rows_hash.each do |name, value|
+#     When %{I fill in "#{name}" with "#{value}"}
+#   end
+# end
 
 When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
   select(value, :from => field)
 end
 
-When /^(?:|I )check "([^"]*)"$/ do |field|
-  check(field)
-end
-
-When /^(?:|I )uncheck "([^"]*)"$/ do |field|
-  uncheck(field)
-end
+# When /^(?:|I )check "([^"]*)"$/ do |field|
+#   check(field)
+# end
+#
+# When /^(?:|I )uncheck "([^"]*)"$/ do |field|
+#   uncheck(field)
+# end
 
 When /^(?:|I )choose "([^"]*)"$/ do |field|
   choose(field)
 end
 
-When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
-  attach_file(field, File.expand_path(path))
-end
+# When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
+#   attach_file(field, File.expand_path(path))
+# end
 
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
   page.has_content?(text)
@@ -134,29 +134,29 @@ Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
   end
 end
 
-Then /^the "([^"]*)" field(?: within (.*))? should contain "([^"]*)"$/ do |field, parent, value|
-  with_scope(parent) do
-    field = find_field(field)
-    field_value = (field.tag_name == 'textarea') ? field.text : field.value
-    if field_value.respond_to? :should
-      field_value.should =~ /#{value}/
-    else
-      assert_match(/#{value}/, field_value)
-    end
-  end
-end
+# Then /^the "([^"]*)" field(?: within (.*))? should contain "([^"]*)"$/ do |field, parent, value|
+#   with_scope(parent) do
+#     field = find_field(field)
+#     field_value = (field.tag_name == 'textarea') ? field.text : field.value
+#     if field_value.respond_to? :should
+#       field_value.should =~ /#{value}/
+#     else
+#       assert_match(/#{value}/, field_value)
+#     end
+#   end
+# end
 
-Then /^the "([^"]*)" field(?: within (.*))? should not contain "([^"]*)"$/ do |field, parent, value|
-  with_scope(parent) do
-    field = find_field(field)
-    field_value = (field.tag_name == 'textarea') ? field.text : field.value
-    if field_value.respond_to? :should_not
-      field_value.should_not =~ /#{value}/
-    else
-      assert_no_match(/#{value}/, field_value)
-    end
-  end
-end
+# Then /^the "([^"]*)" field(?: within (.*))? should not contain "([^"]*)"$/ do |field, parent, value|
+#   with_scope(parent) do
+#     field = find_field(field)
+#     field_value = (field.tag_name == 'textarea') ? field.text : field.value
+#     if field_value.respond_to? :should_not
+#       field_value.should_not =~ /#{value}/
+#     else
+#       assert_no_match(/#{value}/, field_value)
+#     end
+#   end
+# end
 
 Then /^the "([^"]*)" checkbox(?: within (.*))? should be checked$/ do |label, parent|
   with_scope(parent) do
@@ -169,16 +169,16 @@ Then /^the "([^"]*)" checkbox(?: within (.*))? should be checked$/ do |label, pa
   end
 end
 
-Then /^the "([^"]*)" checkbox(?: within (.*))? should not be checked$/ do |label, parent|
-  with_scope(parent) do
-    field_checked = find_field(label)['checked']
-    if field_checked.respond_to? :should
-      field_checked.should be_false
-    else
-      assert !field_checked
-    end
-  end
-end
+# Then /^the "([^"]*)" checkbox(?: within (.*))? should not be checked$/ do |label, parent|
+#   with_scope(parent) do
+#     field_checked = find_field(label)['checked']
+#     if field_checked.respond_to? :should
+#       field_checked.should be_false
+#     else
+#       assert !field_checked
+#     end
+#   end
+# end
  
 Then /^(?:|I )should be on (.+)$/ do |page_name|
   current_path = URI.parse(current_url).path
@@ -189,18 +189,18 @@ Then /^(?:|I )should be on (.+)$/ do |page_name|
   end
 end
 
-Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
-  query = URI.parse(current_url).query
-  actual_params = query ? CGI.parse(query) : {}
-  expected_params = {}
-  expected_pairs.rows_hash.each_pair{|k,v| expected_params[k] = v.split(',')} 
-  
-  if actual_params.respond_to? :should
-    actual_params.should == expected_params
-  else
-    assert_equal expected_params, actual_params
-  end
-end
+# Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
+#   query = URI.parse(current_url).query
+#   actual_params = query ? CGI.parse(query) : {}
+#   expected_params = {}
+#   expected_pairs.rows_hash.each_pair{|k,v| expected_params[k] = v.split(',')}
+#
+#   if actual_params.respond_to? :should
+#     actual_params.should == expected_params
+#   else
+#     assert_equal expected_params, actual_params
+#   end
+# end
 
 Then /^show me the page$/ do
   save_and_open_page

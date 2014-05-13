@@ -5,7 +5,7 @@
   .top
     %h1= yield :title
     %p.subtitle= _("Found %d matches") % @hits.values.sum
-  
+
   %section.model
     .inlinetabs
       .tab.active{:disabled => true}
@@ -15,7 +15,7 @@
         .badge
           = @hits["model"]
     .list
-    
+
   %section.item
     .inlinetabs
       .tab.active{:disabled => true}
@@ -25,7 +25,7 @@
         .badge
           = @hits["item"]
     .list
-  
+
   %section.user
     .inlinetabs
       .tab.active{:disabled => true}
@@ -35,7 +35,7 @@
         .badge
           = @hits["user"]
     .list
-    
+
   %section.contract
     .inlinetabs
       .tab.active{:disabled => true}
@@ -45,7 +45,7 @@
         .badge
           = @hits["contract"]
     .list
-    
+
   %section.order
     .inlinetabs
       .tab.active
@@ -71,9 +71,9 @@
     $('.list').hide()
     results = #{@json}
     if results?
-      for result in results 
+      for result in results
         $('.'+result.type+' .list').append($.tmpl("tmpl/line", result)).parent().show()
-    
+
     $(".list").each ->
       text = $(this).parent().find(".tab .text").first().html()
       text = text.replace(/<.*>.*<\/.*>/g, "")
@@ -85,5 +85,5 @@
         less: "<li><span class='text'>#{_('show less')}<span class='icon'></span></span></li>"
       if parseInt($(this).parent().find(".tab .badge").text()) >= $(this).find(".line").length
         $(this).find(".hidden").append $.tmpl("tmpl/line/show_all", {type: $(this).closest("section").attr("class"), text: text})
-      
+
     $('.list').show()

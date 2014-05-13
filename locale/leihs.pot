@@ -2786,7 +2786,9 @@ msgid "Software License"
 msgstr ""
 
 msgid "License"
-msgstr ""
+msgid_plural "Licenses"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Activation Type"
 msgstr ""

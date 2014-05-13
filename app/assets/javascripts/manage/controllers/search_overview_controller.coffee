@@ -2,7 +2,9 @@ class window.App.SearchOverviewController extends Spine.Controller
 
   elements:
     "#models": "models"
+    "#software": "software"
     "#items": "items"
+    "#licenses": "licenses"
     "#users": "users"
     "#contracts": "contracts"
     "#orders": "orders"
@@ -13,7 +15,9 @@ class window.App.SearchOverviewController extends Spine.Controller
     super
     @previewAmount = 5
     do @searchModels
+    do @searchSoftware
     do @searchItems
+    do @searchLicenses
     do @searchOptions
     do @searchUsers
     do @searchContracts
@@ -32,12 +36,24 @@ class window.App.SearchOverviewController extends Spine.Controller
   searchModels: =>
     App.Model.ajaxFetch
       data: $.param
+        type: "model"
         per_page: @previewAmount
         search_term: @searchTerm
     .done (data, status, xhr)=> 
       models = (App.Model.find datum.id for datum in data)
       @fetchAvailability(models).done =>
         @render @models, "manage/views/models/line", models, xhr
+
+  searchSoftware: =>
+    App.Software.ajaxFetch
+      data: $.param
+        type: "software"
+        per_page: @previewAmount
+        search_term: @searchTerm
+    .done (data, status, xhr)=>
+      software = (App.Software.find datum.id for datum in data)
+      @fetchAvailability(software).done =>
+        @render @software, "manage/views/software/line", software, xhr
 
   render: (el, templatePath, records, xhr, additional_data)=>
     totalCount = JSON.parse(xhr.getResponseHeader("X-Pagination")).total_count
@@ -59,6 +75,7 @@ class window.App.SearchOverviewController extends Spine.Controller
   searchItems: =>
     App.Item.ajaxFetch
       data: $.param
+        type: "item"
         per_page: @previewAmount
         search_term: @searchTerm
     .done (data, status, xhr)=> 
@@ -66,6 +83,18 @@ class window.App.SearchOverviewController extends Spine.Controller
       @fetchModels(items).done =>
         @fetchCurrentItemLocation(items).done =>
           @render @items, "manage/views/items/line", items, xhr
+
+  searchLicenses: =>
+    App.License.ajaxFetch
+      data: $.param
+        type: "license"
+        per_page: @previewAmount
+        search_term: @searchTerm
+    .done (data, status, xhr)=>
+      licenses = (App.License.find datum.id for datum in data)
+      @fetchModels(licenses).done =>
+        @fetchCurrentItemLocation(licenses).done =>
+          @render @licenses, "manage/views/licenses/line", licenses, xhr
 
   fetchModels:(items) =>
     ids = _.uniq _.map items, (m)-> m.model_id

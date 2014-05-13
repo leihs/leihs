@@ -9,14 +9,24 @@
           = _("Overview")
 
       %li
-        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => manage_search_models_path(current_inventory_pool, {search_term: @search_term}),
+        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => manage_search_models_path(current_inventory_pool, {search_term: @search_term, type: :model}),
         :class => (defined? active_tab and active_tab == :model_search) ? "active" : ""}
           = _("Models")
           
       %li
-        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => manage_search_items_path(current_inventory_pool, {search_term: @search_term}),
+        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => manage_search_models_path(current_inventory_pool, {search_term: @search_term, type: :software}),
+        :class => (defined? active_tab and active_tab == :software_search) ? "active" : ""}
+          = _("Software")
+
+      %li
+        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => manage_search_items_path(current_inventory_pool, {search_term: @search_term, type: :item}),
         :class => (defined? active_tab and active_tab == :item_search) ? "active" : ""}
           = _("Items")
+
+      %li
+        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => manage_search_items_path(current_inventory_pool, {search_term: @search_term, type: :license}),
+        :class => (defined? active_tab and active_tab == :license_search) ? "active" : ""}
+          = _("Licenses")
 
       %li
         %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => manage_search_options_path(current_inventory_pool, {search_term: @search_term}),
