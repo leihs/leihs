@@ -30,4 +30,6 @@
     {{/if}}
         
   .col1of4
-    %img.max-size-xxs.margin-horziontal-auto{src: "{{if imageUrl}}{{>imageUrl()/}}{{/if}}"}
+    {{if image_url}}
+    %img.max-size-xxs.margin-horziontal-auto{src: "{{>image_url/}}"}
+    {{/if}}
