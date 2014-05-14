@@ -6,7 +6,7 @@ Funktionalität: Software suchen
     Angenommen ich bin "Mike"
 
   @javascript
-  Szenario: Software-Produkte anhand eines Suchbegriffs finden
+  Szenario: Software anhand eines Suchbegriffs finden
     Angenommen es existiert ein Software-Produkt mit folgenden Eigenschaften:
       | Produktname  | suchbegriff1 |
       | Hersteller   | suchbegriff4 |
