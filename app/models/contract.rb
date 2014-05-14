@@ -105,6 +105,7 @@ class Contract < ActiveRecord::Base
                           or(User.arel_table[:firstname].matches(qq)).
                           or(User.arel_table[:lastname].matches(qq)).
                           or(User.arel_table[:badge_id].matches(qq)).
+                          or(Model.arel_table[:manufacturer].matches(qq)).
                           or(Model.arel_table[:product].matches(qq)).
                           or(Model.arel_table[:version].matches(qq)).
                           or(Option.arel_table[:product].matches(qq)).
