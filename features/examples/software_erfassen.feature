@@ -27,12 +27,12 @@ Funktionalität: Software erfassen
     Angenommen ich befinde mich auf der Lizenz-Erstellungsseite
     Dann die mögliche Werte für Aktivierungstyp sind in der folgenden Reihenfolge:
       | Aktivierungstyp |
+      | Keine/r |
       | Dongle |
       | Seriennummer |
       | Lizenzserver |
       | Challenge Response/System ID |
-      | Keine/r |
-    Dann die mögliche Werte für Lizenztyp sind in der folgenden Reihenfolge:
+      Dann die mögliche Werte für Lizenztyp sind in der folgenden Reihenfolge:
       | Lizenztyp |
       | Frei |
       | Einzelplatz |
