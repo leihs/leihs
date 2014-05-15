@@ -61,7 +61,7 @@ Funktionalität: Gegenstand kopieren
     Dann wird eine neue Gegenstandskopieransicht geöffnet
     Und alle Felder bis auf Inventarcode, Seriennummer und Name wurden kopiert
 
-  @javascript
+  @javascript @firefox
   Szenario: Bestehenden Gegenstand aus Editieransicht kopieren
     Angenommen man befindet sich auf der Gegenstandserstellungsansicht
     Wenn man speichert und kopiert

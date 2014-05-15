@@ -1,14 +1,14 @@
-When /^I add (an|a borrowable|an unborrowable) (item|license) to the hand over by providing an inventory code$/ do |item_attr, item_type|
+When /^I add (a|an|a borrowable|an unborrowable) (item|license) to the hand over by providing an inventory code$/ do |item_attr, item_type|
   existing_model_ids = @customer.contracts.approved.flat_map(&:models).map(&:id)
   items = @ip.items.send(item_type.pluralize)
   @inventory_codes ||= []
   @inventory_code = case item_attr
-                      when "an"
-                        @ip.items.in_stock
+                      when "a", "an"
+                        items.in_stock
                       when "a borrowable"
-                        @ip.items.in_stock.where(is_borrowable: true)
+                        items.in_stock.where(is_borrowable: true)
                       when "an unborrowable"
-                        @ip.items.in_stock.where(is_borrowable: false)
+                        items.in_stock.where(is_borrowable: false)
                     end.detect{|i| not existing_model_ids.include?(i.model_id)}.inventory_code
   @inventory_codes << @inventory_code
   find("[data-add-contract-line]").set @inventory_code
@@ -20,6 +20,25 @@ When /^I add (an|a borrowable|an unborrowable) (item|license) to the hand over b
   find("input[value='#{@inventory_code}']")
   sleep(0.33)
   line_amount_before.should < all(".line").size
+end
+
+When /^I add (a|an|a borrowable|an unborrowable) (item|license) to the hand over by using the search input field$/ do |item_attr, item_type|
+  items = @ip.items.send(item_type.pluralize)
+  @inventory_codes ||= []
+  @item = case item_attr
+           when "a", "an"
+             items.in_stock
+           when "a borrowable"
+             items.in_stock.where(is_borrowable: true)
+           when "an unborrowable"
+             items.in_stock.where(is_borrowable: false)
+           end.sample
+  @model = @item.model
+  @inventory_codes << @item.inventory_code
+  fill_in "assign-or-add-input", with: @item.model.name
+  find(".ui-menu-item", text: @item.model.name).click
+  find(".line", text: @item.model.name).find("form[data-assign-item-form] input").click
+  find(".ui-menu-item", text: @item.inventory_code).click
 end
 
 Then /^the item is added to the hand over for the provided date range and the inventory code is already assigend$/ do

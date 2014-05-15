@@ -11,4 +11,6 @@ class window.App.ContractLinesDestroyController extends Spine.Controller
 
   destroySelectedLines: (e)=> @destroyContractLines $(e.currentTarget), App.LineSelectionController.selected
 
-  destroyContractLines: (trigger, ids)=> App.ContractLine.destroyMultiple ids
+  destroyContractLines: (trigger, ids) =>
+    App.LineSelectionController.selected = _.difference App.LineSelectionController.selected, ids
+    App.ContractLine.destroyMultiple ids

@@ -11,8 +11,12 @@ class window.App.ContractLineAssignItemController extends Spine.Controller
   searchItems: (e)=>
     target = $ e.currentTarget
     model = App.ContractLine.find(target.closest("[data-id]").data("id")).model()
-    @fetchItems(model).done (data)=> 
-      items = (App.Item.find(datum.id) for datum in data) 
+    (if model.constructor == App.Model
+      @fetchItems(model)
+    else if model.constructor == App.Software
+      @fetchLicenses(model))
+    .done (data)=> 
+      items = ((App.Item.exists(datum.id) ? App.License.find(datum.id)) for datum in data) 
       if items.length
         location_ids = _.compact _.uniq _.map items, (i)->i.location_id
         @fetchLocations(location_ids).done (data)=>
@@ -20,6 +24,8 @@ class window.App.ContractLineAssignItemController extends Spine.Controller
             locations = (App.Location.find(datum.id) for datum in data)
             building_ids = _.compact _.uniq _.map locations, (l)-> l.building_id
             @fetchBuildings(building_ids).done => @setupAutocomplete(target, items)
+          else
+            @setupAutocomplete(target, items)
 
   setupAutocomplete: (input, items)->
     return false if not input.is(":focus") or input.is(":disabled")
@@ -40,6 +46,13 @@ class window.App.ContractLineAssignItemController extends Spine.Controller
 
   fetchItems: (model)=>
     App.Item.ajaxFetch
+      data: $.param 
+        model_ids: [model.id]
+        in_stock: true
+        responsible_or_owner_as_fallback: true
+
+  fetchLicenses: (model)=>
+    App.License.ajaxFetch
       data: $.param 
         model_ids: [model.id]
         in_stock: true

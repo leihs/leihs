@@ -40,7 +40,7 @@
     #lines.padding-inset-m.padding-top-xxs= render :partial => "manage/lines/grouped_lines_with_action_date", :locals => {:grouped_lines_by_date => @grouped_lines_by_date, :line_partial => "manage/lines/hand_over"}
 
 :coffeescript
-  
+
   jQuery ->
 
     App.User.addRecord new App.User $.extend {groupIds: #{@group_ids}}, #{@user.to_json}
@@ -57,6 +57,9 @@
     for model in #{@models.to_json}
       App.Model.addRecord new App.Model model
 
+    for software in #{@software.to_json}
+      App.Software.addRecord new App.Software software
+
     for option in #{@options.to_json}
       App.Option.addRecord new App.Option option
 
@@ -65,6 +68,9 @@
 
     for item in #{@items.to_json}
       App.Item.addRecord new App.Item item
+
+    for license in #{@licenses.to_json}
+      App.License.addRecord new App.License license
 
     new App.HandOverController
       el: "#hand-over-view"
