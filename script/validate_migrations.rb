@@ -148,6 +148,18 @@ def lookup_ruby_versions_for(version)
   end
 end
 
+
+# These combinations will never work, so we list them here
+def skip_combination?(from, to)
+  skip = false
+  # You can only go from 3.5.0 onwards if you first migrate to 3.5.0
+  if (SemVer.parse(from) < SemVer.parse("3.5.0") and
+      SemVer.parse(to) > SemVer.parse("3.5.0"))
+    skip = true
+  end
+  return skip
+end
+
 def attempt_migrations
   error_messages = []
   error_count = 0
@@ -161,6 +173,10 @@ def attempt_migrations
           "Will try to migrate from #{version} to #{target_versions.join(", ")}",
           "-----------------------------------------------------"]
     target_versions.each do |target_version|
+      if skip_combination?(version, target_version)
+        puts "Skipping #{version} to #{target_version} because we know it won't work."
+        next
+      end
       ruby_versions = lookup_ruby_versions_for(target_version)
       ruby_versions.each do |ruby_version|
         puts "Attempting migration from #{version} to #{target_version} using Ruby #{ruby_version}."
