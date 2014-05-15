@@ -1,6 +1,7 @@
 # encoding: utf-8
 require 'rubygems'
 require 'pry'
+require 'logger'
 require "./#{File.join(File.dirname(__FILE__), "lib", "semverly")}"
 
 REPO_URL = "https://github.com/zhdk/leihs.git"
@@ -8,6 +9,9 @@ TARGET_DIR = File.join("/tmp", "migrations")
 
 # If no :ruby_version is given, we use this
 DEFAULT_RUBY_VERSION = '2.1.1'
+
+$logger = Logger.new(File.join("log", "validate_migrations.log"))
+$logger.level = Logger::INFO
 
 def write_database_config(target_path, mysql_version = "mysql2")
   mysql_version ||= "mysql2"
@@ -28,23 +32,21 @@ def check_and_install_ruby(ruby_version)
     system("bash -l -c 'rbenv install #{ruby_version}'")
     system("bash -l -c 'rbenv shell #{ruby_version} && gem install bundler'")
   else
-    puts "Ruby #{ruby_version} was already installed, skipping installation."
+    $logger.debug "Ruby #{ruby_version} was already installed, skipping installation."
     if system("bash -l -c 'rbenv shell #{ruby_version} && bundle --version'") == false
-      puts "Installing bundler for #{ruby_version}"
+       $logger.debug "Installing bundler for #{ruby_version}"
       system("bash -l -c 'rbenv shell #{ruby_version} && gem install bundler'")
     else
-      puts "Ruby #{ruby_version} already has Bundler, skipping that."
+      $logger.debug "Ruby #{ruby_version} already has Bundler, skipping that."
     end
   end
 end
 
 def wrap(command, ruby_version)
-  puts "Using #{ruby_version}"
   check_and_install_ruby(ruby_version)
   prefix = "bash -l -c 'rbenv shell #{ruby_version} && cd #{TARGET_DIR} && export RAILS_ENV=production && "
   postfix = "'"
   command = "#{prefix}#{command}#{postfix}"
-  #puts "Prepared command: #{command}"
   return command
 end
 
@@ -70,7 +72,7 @@ def attempt_migration(ruby_version: DEFAULT_RUBY_VERSION, from: nil, to: nil)
   end
 
   Dir.chdir(TARGET_DIR)
-  puts "Trying migrations inside #{TARGET_DIR}"
+  $logger.debug "Trying migrations inside #{TARGET_DIR}"
   switch_to_tag(from)
   system(wrap("bundle install --deployment --without test development cucumber --path=#{TARGET_DIR}/bundle", ruby_version))
   system(wrap("bundle exec rake db:drop db:create db:migrate", ruby_version )) or return false
@@ -82,7 +84,7 @@ def attempt_migration(ruby_version: DEFAULT_RUBY_VERSION, from: nil, to: nil)
   if $?.exitstatus == 0
     return true
   else
-    puts "Error during migration attempt to #{to}: #{output}"
+    $logger.error "Error during migration attempt to #{to}: #{output}"
     return false
   end
 end
@@ -169,23 +171,21 @@ def attempt_migrations
   versions.each do |version|
     # Get all versions higher than the current one
     target_versions = get_versions(version)
-    puts ["---------- this is the big one, oh my ---------------",
-          "Will try to migrate from #{version} to #{target_versions.join(", ")}",
-          "-----------------------------------------------------"]
+    $logger.info "---> Will try to migrate from #{version} to #{target_versions.join(", ")}"
     target_versions.each do |target_version|
       if skip_combination?(version, target_version)
-        puts "Skipping #{version} to #{target_version} because we know it won't work."
+        $logger.info "Skipping #{version} to #{target_version} because we know it won't work."
         next
       end
       ruby_versions = lookup_ruby_versions_for(target_version)
       ruby_versions.each do |ruby_version|
-        puts "Attempting migration from #{version} to #{target_version} using Ruby #{ruby_version}."
+        $logger.info "Attempting migration from #{version} to #{target_version} using Ruby #{ruby_version}."
         if attempt_migration(:from => version, :to => target_version, :ruby_version => ruby_version) == true
-          puts "Migration from #{version} to #{target_version} using Ruby #{ruby_version} was successful."
+          $logger.info "Migration from #{version} to #{target_version} using Ruby #{ruby_version} was successful."
         else
           error_message = "Migration from #{version} to #{target_version} using Ruby #{ruby_version} has failed."
           error_messages << error_message
-          puts error_message
+          $logger.error error_message
           error_count += 1
         end
       end
@@ -195,6 +195,9 @@ def attempt_migrations
   if error_count == 0
     exit 0
   else
+    $logger.error "Migrations with errors:"
+    $logger.error error_messages.join("\n")
+
     puts "Migrations with errors:"
     puts error_messages.join("\n")
     exit 1
