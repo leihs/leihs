@@ -2,6 +2,7 @@
 require 'rubygems'
 #require 'pry'
 require 'logger'
+require 'yaml'
 require "./#{File.join(File.dirname(__FILE__), "lib", "semverly")}"
 
 REPO_URL = "https://github.com/zhdk/leihs.git"
