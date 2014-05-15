@@ -1,6 +1,5 @@
 # encoding: utf-8
 require 'rubygems'
-require 'pry'
 require 'logger'
 require "./#{File.join(File.dirname(__FILE__), "lib", "semverly")}"
 
