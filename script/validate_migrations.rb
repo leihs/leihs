@@ -17,7 +17,43 @@ SUPPORTED_MIGRATIONS = [
                            :to => '3.0.2' },
 
                          { :from => '3.0.2',
-                           :to => '3.0.3' }
+                           :to => '3.0.3' },
+
+                         { :from => '3.0.3',
+                           :to => '3.0.4' },
+
+                         { :from => '3.0.4',
+                           :to => '3.1.0' },
+
+                         { :from => '3.1.0',
+                           :to => '3.2.0' },
+
+                         { :from => '3.2.0',
+                           :to => '3.2.1' },
+
+                         { :from => '3.2.1',
+                           :to => '3.3.0' },
+
+                         { :from => '3.3.0',
+                           :to => '3.3.1' },
+
+                         { :from => '3.3.1',
+                           :to => '3.3.2' },
+
+                         { :from => '3.3.2',
+                           :to => '3.4.0' },
+
+                         { :from => '3.4.0',
+                           :to => '3.5.0' },
+
+                         { :from => '3.5.0',
+                           :to => '3.5.1' },
+
+                         { :from => '3.5.1',
+                           :to => '3.6.0' },
+
+                         { :from => '3.6.0',
+                           :to => '3.6.1' }
 ]
 
 
@@ -34,7 +70,7 @@ def write_database_config(target_path)
 
 
   config_file = File.open(target_path, "w+")
-  has_mysql2 = `grep mysql2 #{File.join(target_path, "..", "Gemfile")}`
+  has_mysql2 = `grep mysql2 #{File.join(File.dirname(target_path), "..", "Gemfile")}`
   if has_mysql2 == ""
     config_file.puts old_style_database_config.to_yaml
   else
