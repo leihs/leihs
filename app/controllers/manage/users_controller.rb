@@ -310,9 +310,11 @@ class Manage::UsersController < Manage::ApplicationController
     set_shared_visit_variables 0 do
       @contract = @user.get_approved_contract(current_inventory_pool)
       @lines = @contract.lines.includes([:purpose, :model])
-      @models = @contract.models
+      @models = @contract.models.where(type: :Model)
+      @software = @contract.models.where(type: :Software)
       @options = @contract.options  
-      @items = @contract.items
+      @items = @contract.items.items
+      @licenses = @contract.items.licenses
     end
     @start_date, @end_date = @grouped_lines.keys.sort.first || [Date.today, Date.today]
     add_visitor(@user)

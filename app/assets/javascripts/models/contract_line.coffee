@@ -21,9 +21,11 @@ class window.App.ContractLine extends Spine.Model
 
   model: ->
     if @model_id? 
-      App.Model.find @model_id
+      App.Model.exists(@model_id) ? App.Software.find(@model_id)
     else 
       App.Option.find @option_id
+
+  item: -> App.Item.exists(@item_id) ? App.License.find(@item_id) if @item_id
 
   inventoryCode: ->
     if @item()

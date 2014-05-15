@@ -11,6 +11,9 @@ class window.App.HandOverController extends Spine.Controller
   constructor: ->
     super
     @lineSelection = new App.LineSelectionController {el: @el, markVisitLinesController: new App.MarkVisitLinesController {el: @el}}
+    @fetchFunctionsSetup
+      "Model": "Item"
+      "Software": "License"
     do @initalFetch
     new App.ContractLinesDestroyController {el: @el}
     new App.ContractLineAssignItemController {el: @el}
@@ -25,14 +28,18 @@ class window.App.HandOverController extends Spine.Controller
     App.Contract.on "refresh", @fetchAvailability
     App.ContractLine.on "update", (data)=> 
       if @notFetchedItemIds().length
-        @fetchItems().done => @render(@initalAvailabilityFetched?)
+        @fetchItems().done =>
+          if @notFetchedLicenseIds().length
+            @fetchLicenses().done => @render(@initalAvailabilityFetched?)
       else
         @render(@initalAvailabilityFetched?)
 
   initalFetch: =>
     if @getLines().length
       if @notFetchedItemIds().length
-        @fetchItems().done => do @fetchAvailability 
+        @fetchItems().done =>
+          if @notFetchedLicenseIds().length
+            @fetchLicenses().done => do @fetchAvailability
       else
         do @fetchAvailability 
 
@@ -52,16 +59,24 @@ class window.App.HandOverController extends Spine.Controller
     else
       @status.html App.Render "manage/views/users/hand_over/no_handover_found"
 
-  notFetchedItemIds: => 
-    _.filter _.compact(_.map(@getLines(), (l)->l.item_id)), (id)-> not App.Item.exists(id)?
-
   getLines: => _.flatten _.map(@user.contracts().all(), (c)->c.lines().all())
 
-  fetchItems: =>
-    App.Item.ajaxFetch
-      data: $.param
-        ids: @notFetchedItemIds()
-        paginate: 'false'
+  fetchFunctionsSetup: (classTypePairs) =>
+    # macro for providing functions like 'notFetchedItemIds' and 'fetchItems'
+
+    filterHelper = (modelClass, itemClass) =>
+      _.filter _.compact(_.map(@getLines(), (l) -> if l.model().constructor.name == modelClass then l.item_id else null)), (id) -> not App[itemClass].exists(id)?
+
+    fetchHelper = (className, ids) =>
+      App[className].ajaxFetch
+        data: $.param
+          ids: ids
+          paginate: 'false'
+
+    _.each classTypePairs, (itemClassName, modelClassName) =>
+      filterFunctionName = "notFetched" + itemClassName + "Ids"
+      this[filterFunctionName] = => filterHelper modelClassName, itemClassName
+      this["fetch" + itemClassName + "s"] = => fetchHelper itemClassName, do this[filterFunctionName]
 
   render: (renderAvailability)=> 
     @linesContainer.html App.Render "manage/views/lines/grouped_lines_with_action_date", App.Modules.HasLines.groupByDateRange(@getLines(), false, "start_date"), 

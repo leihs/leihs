@@ -9,7 +9,7 @@ Feature: Assign items during hand over
 
   @javascript @firefox
   Scenario: Assign an inventory code to an itemline
-     When I open a hand over
+     When I open a hand over which has multiple unassigned lines and models in stock
       And I click an inventory code input field of an item line
      Then I see a list of inventory codes of items that are in stock and matching the model
      When I select one of those
