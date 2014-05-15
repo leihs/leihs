@@ -13,7 +13,7 @@ end
 
 REPO_URL = "https://github.com/zhdk/leihs.git"
 
-TARGET_DIR = File.join(File.dirname(__FILE__), "migrations")
+TARGET_DIR = File.join("/tmp", "migrations")
 
 # If no :ruby_version is given, we use this
 DEFAULT_RUBY_VERSION = '2.1.1'
@@ -33,9 +33,11 @@ SUPPORTED_MIGRATIONS = [
 
 def wrap(command, ruby_version)
   puts "Using #{ruby_version}"
-  prefix = "bash -l -c 'rbenv shell #{ruby_version} && RAILS_ENV=production "
+  prefix = "bash -l -c 'rbenv shell #{ruby_version} && cd #{TARGET_DIR} && export RAILS_ENV=production && "
   postfix = "'"
-  return "#{prefix}#{command}#{postfix}"
+  command = "#{prefix}#{command}#{postfix}"
+  #puts "Prepared command: #{command}"
+  return command
 end
 
 def attempt_migration(ruby_version: DEFAULT_RUBY_VERSION, from: nil, to: nil)
@@ -47,7 +49,9 @@ def attempt_migration(ruby_version: DEFAULT_RUBY_VERSION, from: nil, to: nil)
   Dir.chdir(TARGET_DIR)
   puts "Trying migrations inside #{TARGET_DIR}"
   system("git checkout #{from}").should == true
-  system(wrap("bundle install --deployment --without test development", ruby_version)).should == true
+
+  # This is where shit breaks
+  system(wrap("bundle install --deployment --without test development --path=#{TARGET_DIR}/bundle", ruby_version)).should == true
   system(wrap("bundle exec rake db:migrate", ruby_version )).should == true
   system("git checkout #{to}").should == true
   system(wrap("bundle exec rake db:migrate", ruby_version)).should == true
@@ -64,8 +68,18 @@ end
 describe "migration" do
 
   before(:all) do
-    system("rm -rf #{TARGET_DIR}")
-    system("git clone #{REPO_URL} #{TARGET_DIR}")
+    if File.exist?(TARGET_DIR)
+      Dir.chdir(TARGET_DIR)
+      git = system("git status")
+      if git
+        system("git fetch")
+      else
+        system("rm -rf #{TARGET_DIR}")
+        system("git clone #{REPO_URL} #{TARGET_DIR}")
+      end
+    else
+      system("git clone #{REPO_URL} #{TARGET_DIR}")
+    end
   end
 
   it "should migrate from any supported version to another" do
