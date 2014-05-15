@@ -107,12 +107,14 @@ end
 
 def switch_to_tag(tag)
   Dir.chdir(TARGET_DIR) do
-    changed = `git status | grep database.yml`
-    if changed == ""
+    changed = `git status | egrep "(database.yml|schema.rb)"`
+    if changed != ""
       system("git checkout -- config/database.yml")
+      system("git checkout -- db/schema.rb")
     end
     database_config_file_path = File.join(".", "config", "database.yml")
     write_database_config(database_config_file_path)
+    system("git checkout #{tag}")
   end
 end
 
@@ -124,7 +126,6 @@ def attempt_migration(ruby_version: DEFAULT_RUBY_VERSION, from: nil, to: nil)
 
   Dir.chdir(TARGET_DIR) do
     puts "Trying migrations inside #{TARGET_DIR}"
-
     switch_to_tag(from)
     system(wrap("bundle install --deployment --without test development --path=#{TARGET_DIR}/bundle", ruby_version))
     system(wrap("bundle exec rake db:drop db:create db:migrate", ruby_version ))
