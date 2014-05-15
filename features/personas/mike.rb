@@ -386,7 +386,7 @@ module Persona
     end
 
     def setup_software
-      rand(2..6).times { FactoryGirl.create :license, owner: @inventory_pool }
+      rand(2..6).times { FactoryGirl.create :license, owner: @inventory_pool, is_borrowable: [true, false].sample }
     end
 
     def setup_models_without_version

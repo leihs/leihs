@@ -58,7 +58,7 @@ When /^I add an item which is matching the model of one of the selected unassign
 end
 
 Then /^the first itemline in the selection matching the provided inventory code is assigned$/ do
-  page.should have_selector(".line.green")
+  page.has_selector?(".line.green")
   line = @hand_over.reload.lines.detect{|line| line.item == @item}
   line.should_not == nil
 end

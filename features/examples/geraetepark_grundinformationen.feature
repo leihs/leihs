@@ -109,3 +109,10 @@ Funktionalität: Gerätepark-Grundinformationen
     Wenn ein Benutzer wegen verspäteter Rückgaben automatisch gesperrt wird
     Dann wird er für diesen Gerätepark gesperrt bis zum '1.1.2099'
     Und der Sperrgrund ist derjenige, der für diesen Park gespeichert ist
+
+  Szenario: Automatische Benutzersperrung nur wenn Benutzer nicht schon gesperrt
+    Angenommen ich bin Mike
+    Wenn ich für den Gerätepark die automatische Sperrung von Benutzern mit verspäteter Rückgaben einschalte
+    Und ein Benutzer bereits gesperrt ist
+    Dann werden der bestehende Sperrgrund sowie die Sperrzeit dieses Benutzers nicht überschrieben
+

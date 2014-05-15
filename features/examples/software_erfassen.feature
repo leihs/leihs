@@ -27,12 +27,12 @@ Funktionalität: Software erfassen
     Angenommen ich befinde mich auf der Lizenz-Erstellungsseite
     Dann die mögliche Werte für Aktivierungstyp sind in der folgenden Reihenfolge:
       | Aktivierungstyp |
+      | Keine/r |
       | Dongle |
       | Seriennummer |
       | Lizenzserver |
       | Challenge Response/System ID |
-      | Keine/r |
-    Dann die mögliche Werte für Lizenztyp sind in der folgenden Reihenfolge:
+      Dann die mögliche Werte für Lizenztyp sind in der folgenden Reihenfolge:
       | Lizenztyp |
       | Frei |
       | Einzelplatz |
@@ -89,3 +89,10 @@ Funktionalität: Software erfassen
     Und ich die den Wert "ausleihbar" setze
     Und ich speichere
     Dann sind die Informationen dieser Software-Lizenz gespeichert
+
+    Szenario: Software-Lizenz Anschaffungswert mit 2 Dezimalstellen erfassen
+    Angenommen es existiert ein Software-Produkt
+    Wenn ich eine neue Software-Lizenz hinzufüge
+    Und ich im Feld "Anschaffungswert" den Wert 200.00 eingebe
+    Und ich speichere
+    Dann ist der Anschaffungswert mit zwei Dezimalstellen gespeichert
