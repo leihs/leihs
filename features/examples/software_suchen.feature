@@ -15,6 +15,7 @@ Funktionalität: Software suchen
     Und diese Software-Lizenz ist an jemanden ausgeliehen
     Wenn ich nach einer dieser Software-Produkt Eigenschaften suche
     Dann es erscheinen alle zutreffenden Software-Produkte
+    Und es erscheinen alle zutreffenden Software-Lizenzen
     Und es erscheinen alle zutreffenden Verträge, in denen diese Software-Produkt vorkommt
     Wenn ich nach einer dieser Software-Lizenz Eigenschaften suche
     Dann es erscheinen alle zutreffenden Software-Lizenzen
