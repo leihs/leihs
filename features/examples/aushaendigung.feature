@@ -73,4 +73,10 @@ Funktionalität: Aushändigung editieren
     Angenommen ich öffne eine Aushändigung
     Wenn ich ein Modell hinzufüge
     Dann wird auf dieser hinzugefügten Linie der Raum sowie das Gestell des ersten, verfügbaren Gegenstandes angezeigt
+
+  Szenario: Optionen mit einer Midestmenge 1 ausgeben
+    Angenommen ich öffne eine Aushändigung mit einer Option
+    Wenn ich die Anzahl "0" in das Mengenfeld schreibe
+    Dann wird die Menge "0" mit dem Wert "1" überschrieben
+
     
