@@ -1,6 +1,8 @@
 # encoding: utf-8
 require 'rubygems'
 require 'logger'
+#require 'pry'
+require 'yaml'
 require "./#{File.join(File.dirname(__FILE__), "lib", "semverly")}"
 
 REPO_URL = "https://github.com/zhdk/leihs.git"
@@ -9,7 +11,7 @@ TARGET_DIR = File.join("/tmp", "migrations")
 # If no :ruby_version is given, we use this
 DEFAULT_RUBY_VERSION = '2.1.1'
 
-$logger = Logger.new(File.join(".", "log", "validate_migrations.log"))
+$logger = Logger.new(File.join("/tmp", "validate_migrations.log"))
 $logger.level = Logger::INFO
 
 def write_database_config(target_path, mysql_version = "mysql2")
