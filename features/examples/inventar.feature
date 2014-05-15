@@ -14,7 +14,7 @@ Funktionalität: Inventar
     Wenn ich mich auf der Softwareliste befinde
     Dann man sieht Software
 
-  @javascript
+  @javascript @firefox
   Szenario: Auswahlmöglichkeiten
     Dann hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind
     | auswahlmöglichkeit |

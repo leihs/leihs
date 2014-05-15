@@ -56,14 +56,23 @@ Funktionalität: Ausleihe
     Dann wird es für die ausgewählte Zeitspanne hinzugefügt
 
   @javascript @firefox
-  Szenario: Aushändigung von Gegenständen und Lizenzen
+  Szenario: Aushändigung von Gegenständen und Lizenzen anhand von Inventarcode
     Angenommen ich mache eine Aushändigung
-    Wenn ich der Aushändigung ein Gegenstand mit Hilfe eines Inventarcodes hinzufüge
+    Wenn ich der Aushändigung einen Gegenstand mit Hilfe eines Inventarcodes hinzufüge
     Und ich der Aushändigung eine Lizenz mit Hilfe eines Inventarcodes hinzufüge
     Und ich auf "Auswahl aushändigen" drücke
     Und ich die notwendigen Angaben im Aushändigungsdialog mache
     Und ich auf "Aushändigen" drücke
-    # Wenn ich den Vertrag zu dieser Aushändigung öffne
+    Dann sind im Vertrag sowohl der Gegenstand als auch die Lizenz aufgeführt
+
+  @javascript @firefox
+  Szenario: Aushändigung von Gegenständen und Lizenzen anhand von Modellsuche
+    Angenommen ich mache eine Aushändigung
+    Wenn ich der Aushändigung einen ausleihbaren Gegenstand mit Hilfe des Suchfeldes hinzufüge
+    Und ich der Aushändigung eine ausleihbare Lizenz mit Hilfe des Suchfeldes hinzufüge
+    Und ich auf "Auswahl aushändigen" drücke
+    Und ich die notwendigen Angaben im Aushändigungsdialog mache
+    Und ich auf "Aushändigen" drücke
     Dann sind im Vertrag sowohl der Gegenstand als auch die Lizenz aufgeführt
 
   @javascript @firefox
