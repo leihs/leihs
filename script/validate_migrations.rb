@@ -59,23 +59,14 @@ SUPPORTED_MIGRATIONS = [
 
 def write_database_config(target_path)
 
-  old_style_database_config = { "production" => { "host" => "localhost",
-                                                  "username" => "jenkins",
-                                                  "password" => "jenkins",
-                                                  "adapter" => "mysql",
-                                                  "database" => "leihs_migration_tests" } }
-
-  new_style_database_config = old_style_database_config
-  new_style_database_config["production"]["adapter"] = "mysql2"
-
+  database_config = { "production" => { "host" => "localhost",
+                                        "username" => "jenkins",
+                                        "password" => "jenkins",
+                                        "adapter" => "mysql2",
+                                        "database" => "leihs_migration_tests" } }
 
   config_file = File.open(target_path, "w+")
-  has_mysql2 = `grep mysql2 #{File.join(File.dirname(target_path), "..", "Gemfile")}`
-  if has_mysql2 == ""
-    config_file.puts old_style_database_config.to_yaml
-  else
-    config_file.puts new_style_database_config.to_yaml
-  end
+  config_file.puts database_config.to_yaml
   config_file.close
 end
 
@@ -112,9 +103,9 @@ def switch_to_tag(tag)
       system("git checkout -- config/database.yml")
       system("git checkout -- db/schema.rb")
     end
+    system("git checkout #{tag}")
     database_config_file_path = File.join(".", "config", "database.yml")
     write_database_config(database_config_file_path)
-    system("git checkout #{tag}")
   end
 end
 
