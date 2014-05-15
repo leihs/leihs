@@ -89,3 +89,10 @@ Funktionalität: Software erfassen
     Und ich die den Wert "ausleihbar" setze
     Und ich speichere
     Dann sind die Informationen dieser Software-Lizenz gespeichert
+
+    Szenario: Software-Lizenz Anschaffungswert mit 2 Dezimalstellen erfassen
+    Angenommen es existiert ein Software-Produkt
+    Wenn ich eine neue Software-Lizenz hinzufüge
+    Und ich im Feld "Anschaffungswert" den Wert 200.00 eingebe
+    Und ich speichere
+    Dann ist der Anschaffungswert mit zwei Dezimalstellen gespeichert
