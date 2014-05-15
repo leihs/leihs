@@ -35,3 +35,12 @@ Funktionalität: Software editieren
     #Aber ich kann die Inventarnummer nicht ändern # really? inventory manager can change the inventory number of an item right now...
     Wenn ich speichere
     Dann sind die Informationen dieser Software-Lizenz erfolgreich aktualisiert worden
+
+  Szenario: Software-Lizenz editieren - Werte der Datenfelder löschen
+    Wenn ich eine bestehende Software-Lizenz editiere
+    Und es sind Daten für Maintenance-Ablaufdatum, Lizenzablaufdatum und Rechnungsdatum gesetzt
+    Und ich das Maintenance-Ablaufdatum lösche
+    Und ich das Lizenzablaufdatum lösche
+    Und ich das Rechnungsdatum lösche
+    Wenn ich speichere
+    Dann sind die Informationen dieser Software-Lizenz erfolgreich aktualisiert
