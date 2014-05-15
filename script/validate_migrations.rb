@@ -100,8 +100,8 @@ def switch_to_tag(tag)
   Dir.chdir(TARGET_DIR) do
     changed = `git status | egrep "(database.yml|schema.rb)"`
     if changed != ""
-      system("git checkout -- config/database.yml")
-      system("git checkout -- db/schema.rb")
+      system("git checkout -- config/database.yml") if File.exist?(File.join(".", "config", "database.yml"))
+      system("git checkout -- db/schema.rb") if File.exist?(File.join(".", "db", "schema.rb"))
     end
     system("git checkout #{tag}")
     database_config_file_path = File.join(".", "config", "database.yml")
