@@ -90,6 +90,7 @@ Funktionalität: Software erfassen
     Und ich speichere
     Dann sind die Informationen dieser Software-Lizenz gespeichert
 
+    @javascript
     Szenario: Software-Lizenz Anschaffungswert mit 2 Dezimalstellen erfassen
     Angenommen es existiert ein Software-Produkt
     Wenn ich eine neue Software-Lizenz hinzufüge
