@@ -52,8 +52,8 @@ Dann(/^man sieht alle gefundenen Modelle mit Bild, Modellname und Herstellername
   @models = @current_user.models.borrowable.search(@model.name[0..3]).default_order.paginate(page: 1, per_page: 20)
   @models.each do |model|
     within "#model-list .line[data-id='#{model.id}']" do
-      find("div", :text => model.manufacturer)
-      find("div", :text => model.name)
+      find("div", :text => model.manufacturer, match: :prefer_exact)
+      find("div", :text => model.name, match: :prefer_exact)
       find("div img[src='/models/#{model.id}/image_thumb']")
     end
   end
