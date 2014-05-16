@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'rubygems'
-#require 'pry'
 require 'logger'
+require 'pry'
 require 'yaml'
 require "./#{File.join(File.dirname(__FILE__), "lib", "semverly")}"
 
@@ -29,7 +29,7 @@ end
 
 
 def check_and_install_ruby(ruby_version)
-  if system("bash -l -c 'rbenv version #{ruby_version}'") == false
+  if system("bash -l -c 'rbenv versions | grep #{ruby_version}'") == false
     system("bash -l -c 'rbenv install #{ruby_version}'")
     system("bash -l -c 'rbenv shell #{ruby_version} && gem install bundler'")
   else
@@ -45,9 +45,10 @@ end
 
 def wrap(command, ruby_version)
   check_and_install_ruby(ruby_version)
-  prefix = "bash -l -c 'rbenv shell #{ruby_version} && cd #{TARGET_DIR} && export RAILS_ENV=production && "
+  prefix = "bash -l -c 'rbenv shell #{ruby_version} && export RAILS_ENV=production && "
   postfix = "'"
   command = "#{prefix}#{command}#{postfix}"
+  $logger.debug "Assembled command: #{command}"
   return command
 end
 
@@ -66,27 +67,40 @@ def switch_to_tag(tag)
   write_database_config(database_config_file_path, mysql_version)
 end
 
-def attempt_migration(ruby_version: DEFAULT_RUBY_VERSION, from: nil, to: nil)
+def attempt_migration(from: nil, to: nil)
 
   if (from == nil or to == nil)
     raise "Need to give both a from and a to version"
   end
 
+  if skip_combination?(from, to)
+    $logger.info "Skipping #{version} to #{target_version} because we know it won't work."
+    return true
+  end
+
   Dir.chdir(TARGET_DIR)
   $logger.debug "Trying migrations inside #{TARGET_DIR}"
   switch_to_tag(from)
-  system(wrap("bundle install --deployment --without test development cucumber --path=#{TARGET_DIR}/bundle", ruby_version))
-  system(wrap("bundle exec rake db:drop db:create db:migrate", ruby_version )) or return false
+  ruby_versions_for(from).each do |from_ruby_version|
+    system(wrap("bundle install --deployment --without test development cucumber --path=#{TARGET_DIR}/bundle", from_ruby_version))
+    system(wrap("bundle exec rake db:drop db:create db:migrate", from_ruby_version ))
+    if $?.exitstatus != 0
+      $logger.error "Error while setting up 'from' version #{from} using Ruby #{from_ruby_version}."
+      return false
+    else
+      switch_to_tag(to)
+      ruby_versions_for(to).each do |to_ruby_version|
+        system(wrap("bundle install --deployment --without test development cucumber --path=#{TARGET_DIR}/bundle", to_ruby_version))
+        output = `#{wrap("bundle exec rake db:migrate", to_ruby_version)}`
 
-  switch_to_tag(to)
-  system(wrap("bundle install --deployment --without test development cucumber --path=#{TARGET_DIR}/bundle", ruby_version))
-  output = `#{system(wrap("bundle exec rake db:migrate", ruby_version))}`
-
-  if $?.exitstatus == 0
-    return true
-  else
-    $logger.error "Error during migration attempt to #{to}: #{output}"
-    return false
+        if $?.exitstatus == 0
+          return true
+        else
+          $logger.error "Error during migration attempt from #{from} to #{to} using Ruby #{to_ruby_version}: #{output}"
+          return false
+        end
+      end
+    end
   end
 end
 
@@ -127,7 +141,8 @@ def get_versions(higher_than = nil)
 end
 
 
-def lookup_ruby_versions_for(version)
+# Which Ruby should be used/tested for migrating *to* version 'version'?
+def ruby_versions_for(version)
   version_map = {
     "2.9.13" => ["1.8.7-p375"],
     "2.9.14" => ["1.8.7-p375"],
@@ -156,6 +171,7 @@ end
 # These combinations will never work, so we list them here
 def skip_combination?(from, to)
   skip = false
+
   # You can only go from 3.5.0 onwards if you first migrate to 3.5.0
   if (SemVer.parse(from) < SemVer.parse("3.5.0") and
       SemVer.parse(to) > SemVer.parse("3.5.0"))
@@ -169,27 +185,23 @@ def attempt_migrations
   error_count = 0
 
   versions = get_versions("2.9.12")
+  versions = versions.select{|v| v if v == ARGV[0]} if ARGV[0]
 
   versions.each do |version|
     # Get all versions higher than the current one
     target_versions = get_versions(version)
+    target_versions = target_versions.select{|v| v if v == ARGV[1]} if ARGV[1]
+
     $logger.info "---> Will try to migrate from #{version} to #{target_versions.join(", ")}"
     target_versions.each do |target_version|
-      if skip_combination?(version, target_version)
-        $logger.info "Skipping #{version} to #{target_version} because we know it won't work."
-        next
-      end
-      ruby_versions = lookup_ruby_versions_for(target_version)
-      ruby_versions.each do |ruby_version|
-        $logger.info "Attempting migration from #{version} to #{target_version} using Ruby #{ruby_version}."
-        if attempt_migration(:from => version, :to => target_version, :ruby_version => ruby_version) == true
-          $logger.info "Migration from #{version} to #{target_version} using Ruby #{ruby_version} was successful."
-        else
-          error_message = "Migration from #{version} to #{target_version} using Ruby #{ruby_version} has failed."
-          error_messages << error_message
-          $logger.error error_message
-          error_count += 1
-        end
+      $logger.info "Attempting migration from #{version} to #{target_version}."
+      if attempt_migration(:from => version, :to => target_version) == true
+        $logger.info "Migration from #{version} to #{target_version} was successful."
+      else
+        error_message = "Migration from #{version} to #{target_version} has failed."
+        error_messages << error_message
+        $logger.error error_message
+        error_count += 1
       end
     end
   end
