@@ -36,6 +36,7 @@ Funktionalität: Software editieren
     Wenn ich speichere
     Dann sind die Informationen dieser Software-Lizenz erfolgreich aktualisiert worden
 
+  @javascript
   Szenario: Software-Lizenz editieren - Werte der Datenfelder löschen
     Wenn ich eine bestehende Software-Lizenz editiere
     Und es sind Daten für Maintenance-Ablaufdatum, Lizenzablaufdatum und Rechnungsdatum gesetzt
