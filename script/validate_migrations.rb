@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'rubygems'
 require 'logger'
-require 'pry'
+#require 'pry'
 require 'yaml'
 require "./#{File.join(File.dirname(__FILE__), "lib", "semverly")}"
 
