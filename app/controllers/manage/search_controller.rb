@@ -9,28 +9,15 @@ class Manage::SearchController < Manage::ApplicationController
     redirect_to manage_search_results_path(current_inventory_pool, {:search_term => search_term})
   end
 
-  def results
-  end
-
-  def models
-  end
-
-  def software
-  end
-
-  def items
-  end
-
-  def users
-  end
-
-  def contracts
-  end
-
-  def orders
-  end
-
-  def options
-  end
+  [:results,
+   :models,
+   :software,
+   :items,
+   :licenses,
+   :users,
+   :contracts,
+   :orders,
+   :options]
+    .each {|action| define_method(action) {}}
 
 end
