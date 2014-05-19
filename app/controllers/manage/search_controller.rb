@@ -15,6 +15,9 @@ class Manage::SearchController < Manage::ApplicationController
   def models
   end
 
+  def software
+  end
+
   def items
   end
 

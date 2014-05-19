@@ -14,7 +14,7 @@
           = _("Models")
           
       %li
-        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => manage_search_models_path(current_inventory_pool, {search_term: @search_term, type: :software}),
+        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => manage_search_software_path(current_inventory_pool, {search_term: @search_term, type: :software}),
         :class => (defined? active_tab and active_tab == :software_search) ? "active" : ""}
           = _("Software")
 

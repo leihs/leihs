@@ -295,6 +295,7 @@ Leihs::Application.routes.draw do
       post 'search',               to: 'search#search',        as: "search"
       get  'search',               to: 'search#results',       as: "search_results"
       get  'search/models',        to: "search#models",        as: "search_models"
+      get  'search/software',      to: "search#software",      as: "search_software"
       get  'search/items',         to: "search#items",         as: "search_items"
       get  'search/users',         to: "search#users",         as: "search_users"
       get  'search/contracts',     to: "search#contracts",     as: "search_contracts"
