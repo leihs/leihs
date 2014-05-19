@@ -448,14 +448,14 @@ end
 
 Then(/^I can select to list only software products$/) do
   find("nav a.navigation-tab-item", text: _("Software")).click
-  within("#models-search-results") do
+  within("#software-search-results") do
     find(".line[data-id='#{@software_product.id}']")
   end
 end
 
 Then(/^I can select to list only software licenses$/) do
   find("nav a.navigation-tab-item", text: _("Licenses")).click
-  within("#items-search-results") do
+  within("#licenses-search-results") do
     find(".line[data-id='#{@software_license.id}']")
   end
 end
