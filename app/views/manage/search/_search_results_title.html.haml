@@ -1,0 +1,10 @@
+.row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+  .margin-top-l.padding-horizontal-m.padding-bottom-l
+    .row
+      %h1.headline-xl= @search_results_title
+      %h2#total-count.headline-m.light
+
+  .list-of-lines.separated-top.padding-bottom-s.min-height-l.margin-top-l
+    .height-s
+    %img.margin-horziontal-auto.margin-top-xxl.margin-bottom-xxl{:src => asset_path("loading.gif")}
