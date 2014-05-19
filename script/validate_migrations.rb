@@ -1,7 +1,6 @@
 # encoding: utf-8
 require 'rubygems'
 require 'logger'
-require 'pry'
 require 'yaml'
 require "./#{File.join(File.dirname(__FILE__), "lib", "semverly")}"
 
@@ -74,7 +73,7 @@ def attempt_migration(from: nil, to: nil)
   end
 
   if skip_combination?(from, to)
-    $logger.info "Skipping #{version} to #{target_version} because we know it won't work."
+    $logger.info "Skipping #{from} to #{to} because we know it won't work."
     return true
   end
 

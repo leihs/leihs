@@ -10,12 +10,12 @@ class window.App.SearchResultsModelsController extends App.SearchResultsControll
 
   fetch: (page, target, callback)=>
     @fetchModels(page).done (data)=>
-      models = (App.Model.find datum.id for datum in data)
+      models = (App[@model].find datum.id for datum in data)
       @fetchAvailability(models).done =>
         do callback
 
   fetchModels: (page)=>
-    App.Model.ajaxFetch
+    App[@model].ajaxFetch
       data: $.param
         search_term: @searchTerm
         type: @type
