@@ -1,6 +1,4 @@
-- @search_results_title = _("Search results (%s) for %s") % [_("Software"), @search_term]
-- content_for :title, @search_results_title
-- content_for :search_section, "focus-thin"
+= render partial: 'content_for', locals: { container_title: _("Models") }
 
 #models-search-results.wrapper.margin-top-m
 
@@ -13,5 +11,4 @@
   jQuery ->
     new App.SearchResultsModelsController
       el: $("#models-search-results")
-      type: "#{params[:type]}"
       searchTerm: #{@search_term.to_json}

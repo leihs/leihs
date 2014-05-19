@@ -3,6 +3,7 @@ class window.App.SearchResultsModelsController extends App.SearchResultsControll
 
   model: "Model"
   templatePath: "manage/views/models/line"
+  type: "model"
 
   constructor: ->
     super
