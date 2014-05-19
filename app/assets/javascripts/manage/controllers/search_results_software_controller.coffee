@@ -3,3 +3,4 @@ class window.App.SearchResultsSoftwareController extends App.SearchResultsModels
 
   model: "Software"
   templatePath: "manage/views/software/line"
+  type: "software"
