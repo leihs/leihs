@@ -1,8 +1,3 @@
-require 'simplecov'
-SimpleCov.start 'rails' do
-  merge_timeout 3600
-end
-
 require 'rubygems'
 require 'pry'
 
