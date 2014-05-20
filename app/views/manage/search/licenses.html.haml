@@ -1,0 +1,16 @@
+- @search_results_title = _("Search results (%s) for %s") % [_("Licenses"), @search_term]
+- content_for :title, @search_results_title
+- content_for :search_section, "focus-thin"
+
+#licenses-search-results.wrapper.margin-top-m
+
+  = render :partial => 'manage/tabs/search', :locals => {:active_tab => "license_search".to_sym}
+
+  = render 'search_results_title'
+
+:coffeescript
+
+  jQuery ->
+    new App.SearchResultsLicensesController
+      el: $("#licenses-search-results")
+      searchTerm: #{@search_term.to_json}

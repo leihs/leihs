@@ -39,11 +39,14 @@
         .col1of5.padding-right-m
           %input#list-search{type: "text", class: "width-full", name: "input", placeholder: _("Search..."), autocomplete: :off}
         %form#list-filters.col4of5
-          = select_tag "type", options_for_select([[_("All"), ""], [_("Users"), "user"], [_("Delegations"), "delegation"]])
-          - if @role and @role != "admins"
-            %label.button.inset.white.height-xxs
-              %input{:name => :suspended, :type => :checkbox, :value => :true, :autocomplete => :off}
-              %span= _("Suspended")
+          .row
+            .col1of5
+              = select_tag "type", options_for_select([[_("All"), ""], [_("Users"), "user"], [_("Delegations"), "delegation"]])
+            .col1of5
+              - if @role and @role != "admins"
+                %label.button.inset.white.height-xxs
+                  %input{:name => :suspended, :type => :checkbox, :value => :true, :autocomplete => :off}
+                  %span= _("Suspended")
 
     #user-list.list-of-lines.even.separated-top.padding-bottom-s
 

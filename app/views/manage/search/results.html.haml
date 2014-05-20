@@ -15,7 +15,7 @@
 
       #models.hidden= render :partial => "manage/search/result_preview", :locals => {names: [_("Models"),_("models")], :link => manage_search_models_path(current_inventory_pool, {:search_term => @search_term, :type => :model})}
 
-      #software.hidden= render :partial => "manage/search/result_preview", :locals => {names: [_("Software"),_("software")], :link => manage_search_models_path(current_inventory_pool, {:search_term => @search_term, :type => :software})}
+      #software.hidden= render :partial => "manage/search/result_preview", :locals => {names: [_("Software"),_("software")], :link => manage_search_software_path(current_inventory_pool, {:search_term => @search_term, :type => :software})}
 
       #items.hidden= render :partial => "manage/search/result_preview", :locals => {names: [_("Items"),_("items")], :link => manage_search_items_path(current_inventory_pool, {:search_term => @search_term, :type => :item})}
 

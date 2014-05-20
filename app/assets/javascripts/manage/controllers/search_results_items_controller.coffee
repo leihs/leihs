@@ -2,16 +2,18 @@
 class window.App.SearchResultsItemsController extends App.SearchResultsController
 
   model: "Item"
+  dependingOnModel: "Model"
   templatePath: "manage/views/items/line"
+  type: "item"
 
   fetch: (page, target, callback)=>
     @fetchItems(page).done (data)=>
-      items = (App.Item.find datum.id for datum in data)
+      items = (App[@model].find datum.id for datum in data)
       @fetchModels(items).done =>
         @fetchCurrentItemLocation(items).done => do callback
 
   fetchItems: (page)=>
-    App.Item.ajaxFetch
+    App[@model].ajaxFetch
       data: $.param
         search_term: @searchTerm
         type: @type
@@ -20,7 +22,7 @@ class window.App.SearchResultsItemsController extends App.SearchResultsControlle
   fetchModels:(items) =>
     ids = _.uniq _.map items, (i)-> i.model_id
     return {done: (c)->c()} unless ids.length
-    App.Model.ajaxFetch
+    App[@dependingOnModel].ajaxFetch
       data: $.param
         ids: ids
         paginate: false

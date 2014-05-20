@@ -102,7 +102,7 @@ end
 Wenn(/^ich eine bestehende Software\-Lizenz editiere$/) do
   visit manage_inventory_path @current_inventory_pool
   @page_to_return = current_path
-  find("a", text: _("Software")).click
+  find("a", text: _("Software"), match: :first).click
   @software = Software.all.select{|s| not s.items.empty?}.sample
   @license = @software.items.sample
   find(".line[data-type='software'][data-id='#{@software.id}']").find("button[data-type='inventory-expander']") .click
@@ -448,14 +448,14 @@ end
 
 Then(/^I can select to list only software products$/) do
   find("nav a.navigation-tab-item", text: _("Software")).click
-  within("#models-search-results") do
+  within("#software-search-results") do
     find(".line[data-id='#{@software_product.id}']")
   end
 end
 
 Then(/^I can select to list only software licenses$/) do
   find("nav a.navigation-tab-item", text: _("Licenses")).click
-  within("#items-search-results") do
+  within("#licenses-search-results") do
     find(".line[data-id='#{@software_license.id}']")
   end
 end
