@@ -14,7 +14,7 @@ Wenn(/^man die Rücknahmenansicht für den Benutzer öffnet$/) do
 end
 
 Dann(/^sind die Rücknahmen aufsteigend nach Datum sortiert$/) do
-  page.has_selector? ".line[data-line-type='item_line']"
+  page.should have_selector ".line[data-line-type='item_line']"
 
   take_backs = @user.visits.take_back.select{|v| v.inventory_pool == @current_inventory_pool}.sort {|d1, d2| d1.date <=> d2.date }
   lines = take_backs.flat_map &:lines
@@ -76,8 +76,8 @@ Wenn(/^ich einen verspäteten Gegenstand über das Zuweisenfeld zurücknehme$/) 
 end
 
 Dann(/^das Problemfeld für die Linie wird angezeigt$/) do
-  page.has_selector? "#{@line_css} .line-info.red"
-  page.has_selector? "#{@line_css} .red.tooltip"
+  page.should have_selector "#{@line_css} .line-info.red"
+  page.should have_selector "#{@line_css} .red.tooltip"
 end
 
 Angenommen(/^ich befinde mich in einer Rücknahme mit mindestens zwei gleichen Optionen$/) do

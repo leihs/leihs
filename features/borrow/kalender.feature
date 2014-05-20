@@ -9,7 +9,7 @@ Funktionalität: Kalender
   Grundlage:
     Angenommen ich bin Normin
 
-  @javascript @firefox
+  @javascript
   Szenario: Kalenderkomponenten
     Wenn man einen Gegenstand aus der Modellliste hinzufügt
     Dann öffnet sich der Kalender

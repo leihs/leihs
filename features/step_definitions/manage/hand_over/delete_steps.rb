@@ -15,13 +15,13 @@ end
 
 Then /^this line is deleted$/ do
   find(".line", match: :first)
-  page.has_no_selector?(".line[data-id='#{@line.id}']").should be_true
+  page.should_not have_selector(".line[data-id='#{@line.id}']")
   lambda {@line.reload}.should raise_error(ActiveRecord::RecordNotFound) 
 end
 
 When /^I select multiple lines$/ do
   @selected_line_ids = @hand_over.lines.sample(rand(1..@hand_over.lines.count)).map &:id
-  page.has_selector? ".line[data-id]", match: :first
+  page.should have_selector ".line[data-id]", match: :first
   @selected_line_ids.each do |id|
     cb = find(".line[data-id='#{id}'] input[type='checkbox'][data-select-line]")
     cb.click unless cb.checked?
@@ -58,7 +58,6 @@ When /^I delete all lines of a model thats availability is blocked by these line
   line_ids.each do |id|
     if id != @reference_id
       find(".line[data-id='#{id}'] .multibutton .dropdown-toggle").click
-      find(".line[data-id='#{id}'] .multibutton .dropdown-toggle").hover
       find(".line[data-id='#{id}'] .dropdown-item.red", :text => _("Delete")).click
       sleep(0.33)
     end

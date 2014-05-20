@@ -113,7 +113,7 @@ module Persona
     end
 
     def setup_sharp_beamers
-      @beamer_model = FactoryGirl.create(:model, :product => "Sharp Beamer",
+      @beamer_model = FactoryGirl.create(:model, :product => "Sharp Beamer", :version => "123",
                                 :manufacturer => "Sharp", 
                                 :description => "Beamer, geeignet für alle Verwendungszwecke.", 
                                 :hand_over_note => "Beamer brauch ein VGA Kabel!", 
@@ -133,7 +133,7 @@ module Persona
                                           :maintenance_period => 0)
       @beamer_model3.model_links.create :model_group => @beamer_category
 
-      @beamer_model4 = FactoryGirl.create(:model, :product => "Sharp Beamer", :version => "Test",
+      @beamer_model4 = FactoryGirl.create(:model, :product => "Sharp Beamer", :version => "456",
                                           :manufacturer => "Sharp", 
                                           :description => "Beamer, geeignet für alle Verwendungszwecke.", 
                                           :hand_over_note => "Beamer brauch ein VGA Kabel!", 
@@ -179,7 +179,7 @@ module Persona
     end
     
     def setup_cameras
-      @camera_model = FactoryGirl.create(:model, :product => "Kamera Nikon X12",
+      @camera_model = FactoryGirl.create(:model, :product => "Kamera Nikon", :version => "X12",
                                 :manufacturer => "Nikon", 
                                 :description => "Super Kamera.", 
                                 :hand_over_note => "Kamera brauch Akkus!", 
@@ -203,7 +203,7 @@ module Persona
     end
 
     def setup_tripods
-      @tripod_model = FactoryGirl.create(:model, :product => "Kamera Stativ",
+      @tripod_model = FactoryGirl.create(:model, :product => "Kamera Stativ", :version => "123",
                                 :manufacturer => "Feli", 
                                 :description => "Stabiles Kamera Stativ", 
                                 :hand_over_note => "Stativ muss mit Stativtasche ausgehändigt werden.",
@@ -303,7 +303,7 @@ module Persona
     end
 
     def setup_incomplete
-      @helicopter_model = FactoryGirl.create(:model, :product => "Walkera v120",
+      @helicopter_model = FactoryGirl.create(:model, :product => "Walkera v120", :version => "1G",
                                 :manufacturer => "Walkera", 
                                 :description => "3D Helikopter", 
                                 :maintenance_period => 0)
@@ -316,7 +316,7 @@ module Persona
     end
 
     def setup_deletable_model
-      @helicopter_model2 = FactoryGirl.create(:model, :product => "Walkera v120 2G",
+      @helicopter_model2 = FactoryGirl.create(:model, :product => "Walkera v120", :version => "2G",
                                 :manufacturer => "Walkera", 
                                 :description => "3D Helikopter", 
                                 :maintenance_period => 0)
@@ -338,7 +338,7 @@ module Persona
       @helicopter_model2.properties << Property.create(:key => "Achsen", :value => "3-Achsen")
       @helicopter_model2.compatibles << @windows_laptop_model
 
-      @helicopter_model3 = FactoryGirl.create(:model, :product => "Walkera v120 3G",
+      @helicopter_model3 = FactoryGirl.create(:model, :product => "Walkera v120", :version => "3G",
                                 :manufacturer => "Walkera", 
                                 :description => "3D Helikopter", 
                                 :maintenance_period => 0)

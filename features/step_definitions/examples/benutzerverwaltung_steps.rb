@@ -77,7 +77,7 @@ end
 
 Dann /^man kann für jeden Benutzer die Editieransicht aufrufen$/ do
   step 'man kann filtern nach "%s" Rolle' % "All"
-  page.has_selector? "[data-type='user-cell']"
+  page.should have_selector "[data-type='user-cell']"
   within("#user-list") do
     users = User.find all("[data-type='user-cell']").map{|el| el.native.attribute("data-id").to_i}
     users.each do |u|
@@ -688,7 +688,7 @@ Wenn(/^man den Zugriff auf "Inventar-Verwalter" ändert$/) do
 end
 
 Dann(/^hat der Benutzer die Rolle Kunde$/) do
-  page.has_content? _("List of Users")
+  page.should have_content _("List of Users")
   @user.reload.access_right_for(@current_inventory_pool).role.should == :customer
 end
 
@@ -718,7 +718,7 @@ Wenn(/^ich diesen Benutzer aus der Liste lösche$/) do
 end
 
 Dann(/^wurde der Benutzer aus der Liste gelöscht$/) do
-  page.has_no_selector?("#user-list .line", text: @user.name).should be_true
+  page.should_not have_selector("#user-list .line", text: @user.name)
 end
 
 Dann(/^der Benutzer ist gelöscht$/) do
@@ -727,6 +727,7 @@ Dann(/^der Benutzer ist gelöscht$/) do
 end
 
 Dann(/^der Benutzer ist nicht gelöscht$/) do
+  find("#user-list")
   step 'man bis zum Ende der Liste fährt' # loading pages (but probably only the last one)
   find("#user-list .line", text: @user.name)
   User.find_by_id(@user.id).should_not be_nil
@@ -806,7 +807,7 @@ Wenn(/^man ändert die Email$/) do
 end
 
 Dann(/^sieht man die Erfolgsbestätigung$/) do
-  page.has_content? _("List of Users")
+  page.should have_content _("List of Users")
   find(".notice", match: :first)
 end
 

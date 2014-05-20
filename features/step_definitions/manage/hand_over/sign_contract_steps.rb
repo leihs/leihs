@@ -103,7 +103,7 @@ When /^I open a hand over with overdue lines$/ do
   end
   @customer.should_not be_nil
   visit manage_hand_over_path(@ip, @customer)
-  page.has_css?("#hand-over-view", :visible => true)
+  page.should have_selector("#hand-over-view", :visible => true)
 end
 
 When /^I select an overdue item line and assign an inventory code$/ do

@@ -28,7 +28,7 @@ Funktionalität: Ausleihe
     Wenn ich eine Rücknahme mache
     Dann erscheint der Benutzer unter den letzten Besuchern
 
-  @javascript @firefox
+  @javascript
   Szenario: Fehlermeldung beim Versuch, etwas aus der Zukunft auszuhändigen
     Wenn ich eine Aushändigung mache
      Und die ausgewählten Gegenstände auch solche beinhalten, die in einer zukünftige Aushändigung enthalten sind

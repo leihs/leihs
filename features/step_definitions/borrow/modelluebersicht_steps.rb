@@ -56,7 +56,7 @@ Angenommen(/^man befindet sich in einer Modellübersicht mit Bildern$/) do
 end
 
 Wenn(/^ich über ein solches Bild hovere$/) do
-  page.execute_script %Q{ $("img[src='#{model_image_thumb_path(@model, offset: 0)}']").trigger("mouseenter") }
+  find("img[src='#{model_image_thumb_path(@model, offset: 0)}']").hover
 end
 
 Dann(/^wird das Bild zum Hauptbild$/) do
@@ -64,7 +64,7 @@ Dann(/^wird das Bild zum Hauptbild$/) do
 end
 
 Wenn(/^ich über ein weiteres Bild hovere$/) do
-  page.execute_script %Q{ $("img[src='#{model_image_thumb_path(@model, offset: 1)}']").trigger("mouseenter") }
+  find("img[src='#{model_image_thumb_path(@model, offset: 1)}']").hover
 end
 
 Dann(/^wird dieses zum Hauptbild$/) do

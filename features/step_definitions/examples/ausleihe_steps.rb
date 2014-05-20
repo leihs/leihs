@@ -81,7 +81,7 @@ Wenn /^ich eine Rücknahme mache die Optionen beinhaltet$/ do
   @ip = @current_user.managed_inventory_pools.first
   @customer = @ip.users.all.select {|x| x.contracts.signed.size > 0 && !x.contracts.signed.detect{|c| c.options.size > 0}.nil? }.first
   visit manage_take_back_path(@ip, @customer)
-  page.has_css?("#take_back", :visible => true)
+  page.should have_selector("#take_back", :visible => true)
 end
 
 Wenn /^die Anzahl einer zurückzugebenden Option manuell ändere$/ do
@@ -106,7 +106,7 @@ Wenn /^ich eine Aushändigung mache die ein Model enthält dessen Gegenstände e
   @model = @contract_line.model
   @customer = @contract.user
   visit manage_hand_over_path(@ip, @customer)
-  page.has_css?("#hand-over-view", :visible => true)
+  page.should have_selector("#hand-over-view", :visible => true)
 end
 
 Wenn /^diesem Model ein Inventarcode zuweisen möchte$/ do
@@ -178,7 +178,7 @@ Wenn /^ich eine Aushändigung mache mit einem Kunden der sowohl am heutigen Tag 
   @ip = @current_user.managed_inventory_pools.first
   @customer = @ip.users.detect{|u| u.visits.hand_over.size > 1}
   visit manage_hand_over_path(@ip, @customer)
-  page.has_css?("#take_back", :visible => true)
+  page.should have_selector("#take_back", :visible => true)
 end
 
 Wenn /^ich etwas scanne \(per Inventarcode zuweise\) und es in irgendeinem zukünftigen Vertrag existiert$/ do
@@ -435,5 +435,5 @@ When(/^I fill in all the necessary information in hand over dialog$/) do
 end
 
 Then(/^there are inventory codes for item and license in the contract$/) do
-  @inventory_codes.each {|inv_code| page.has_content? inv_code}
+  @inventory_codes.each {|inv_code| page.should have_content inv_code}
 end

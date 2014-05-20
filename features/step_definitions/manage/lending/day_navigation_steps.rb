@@ -12,9 +12,11 @@ When /^I select a specific date$/ do
 end
 
 Then /^the daily view jumps to that day$/ do
-  first("h1").should have_content @day
-  first("h1").should have_content @month
-  first("h1").should have_content @year
+  find("h1", match: :first) do
+    should have_content @day
+    should have_content @month
+    should have_content @year
+  end
 end
 
 When /^I click the open button again$/ do

@@ -1,13 +1,8 @@
 # encoding: utf-8
 
-Angenommen /^man öffnet die Liste der Modelle$/ do
-  @current_inventory_pool = @current_user.managed_inventory_pools.keep_if{|ip| ip.models.any?}.sample
-  visit manage_inventory_path(@current_inventory_pool)
-end
-
 Wenn(/^ich ein ergänzendes Modell mittel Autocomplete Feld hinzufüge$/) do
-  @comp1 = Model.find {|m| [m.name, m.product].include? "Sharp Beamer" }
-  @comp2 = Model.find {|m| [m.name, m.product].include? "Kamera Stativ" }
+  @comp1 = Model.find_by_name("Sharp Beamer 123")
+  @comp2 = Model.find_by_name("Kamera Stativ 123")
   fill_in_autocomplete_field _("Compatibles"), @comp1.name
   fill_in_autocomplete_field _("Compatibles"), @comp2.name
 end
@@ -21,7 +16,14 @@ Dann(/^ist dem Modell das ergänzende Modell hinzugefügt worden$/) do
 end
 
 Wenn(/^ich ein Modell öffne, das bereits ergänzende Modelle hat$/) do
-  @model = Model.find {|m| [m.name, m.product].include? "Walkera v120" }
+  @model = @current_inventory_pool.models.select {|m| m.compatibles.exists? }.sample
+
+  @model ||= begin
+    @current_inventory_pool = @current_user.managed_inventory_pools.select {|ip| not ip.models.empty? and ip.models.any? {|m| m.compatibles.exists?} }.sample
+    visit manage_inventory_path(@current_inventory_pool)
+    @current_inventory_pool.models.select {|m| m.compatibles.exists? }.sample
+  end
+
   step 'ich nach "%s" suche' % @model.name
   find(".line", match: :first, text: @model.name).find(".button", text: _("Edit Model")).click
 end
@@ -86,7 +88,7 @@ Dann(/^das Modell ist gelöscht$/) do
 end
 
 Und /^das Modell hat (.+) zugewiesen$/ do |assoc|
-  @model = Model.find do |m|
+  @model = @current_inventory_pool.models.find do |m|
     case assoc
       when "Vertrag", "Bestellung"
         not m.contract_lines.empty?
@@ -97,15 +99,11 @@ Und /^das Modell hat (.+) zugewiesen$/ do |assoc|
 end
 
 Dann(/^kann ich das Modell aus der Liste nicht löschen$/) do
-  sleep(0.33)
-  find("[data-unused_models]").click unless @current_inventory_pool.models.include? @model
   fill_in 'list-search', with: @model.name
-  sleep(0.33)
   within(".line[data-id='#{@model.id}']") do
     find(".dropdown-holder").hover
-    find("[data-method='delete']").click
+    should_not have_selector("[data-method='delete']")
   end
-  find("#flash .error")
   @model.reload # is still there
   sleep(0.33) # fix lazy request fail problem
 end
@@ -121,7 +119,7 @@ Dann(/^es wurden auch alle Anhängsel gelöscht$/) do
   Image.where(model_id: @model.id).should be_empty
   Attachment.where(model_id: @model.id).should be_empty
   ModelLink.where(model_id: @model.id).should be_empty
-  Model.all {|n| n.compatibles.include? Model.find {|m| [m.name, m.product].include? "Windows Laptop" }}.include?(@model).should be_false
+  Model.all {|n| n.compatibles.include? Model.find_by_name("Windows Laptop")}.include?(@model).should be_false
   sleep(0.33) # fix lazy request problem
 end
 

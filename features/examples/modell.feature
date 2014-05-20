@@ -50,7 +50,6 @@ Funktionalität: Modell
 
   @javascript @firefox
   Szenario: sich ergänzende Modelle entfernen (kompatibel)
-    Angenommen man öffnet die Liste der Modelle
     Wenn ich ein Modell öffne, das bereits ergänzende Modelle hat
     Und ich ein ergänzendes Modell entferne
     Und ich speichere die Informationen
@@ -76,7 +75,6 @@ Funktionalität: Modell
 
   @javascript @firefox
   Szenario: sich ergänzende Modelle hinzufügen (kompatibel)
-    Angenommen man öffnet die Liste der Modelle
     Wenn ich ein bestehendes, genutztes Modell bearbeite
     Und ich ein ergänzendes Modell mittel Autocomplete Feld hinzufüge
     Und ich speichere die Informationen
@@ -84,7 +82,6 @@ Funktionalität: Modell
 
   @javascript @firefox
   Szenario: 2 Mal gleiches ergänzende Modelle hinzufügen (kompatibel)
-    Angenommen man öffnet die Liste der Modelle
     Wenn ich ein Modell öffne, das bereits ergänzende Modelle hat
     Und ich ein bereits bestehendes ergänzende Modell mittel Autocomplete Feld hinzufüge
     Dann wurde das redundante Modell nicht hizugefügt
@@ -110,7 +107,6 @@ Funktionalität: Modell
 
   @javascript @firefox
   Szenario: Modelldetails bearbeiten
-    Angenommen man öffnet die Liste der Modelle
     Wenn ich ein bestehendes, genutztes Modell bearbeite
     Und ich ändere die folgenden Details
     | Feld                               | Wert                         |
@@ -194,7 +190,6 @@ Funktionalität: Modell
 
   @javascript
   Szenario: Bilder
-    Angenommen man öffnet die Liste der Modelle
     Wenn ich ein bestehendes, genutztes Modell bearbeite
     Dann kann ich mehrere Bilder hinzufügen
     Und ich kann Bilder auch wieder entfernen
@@ -204,7 +199,6 @@ Funktionalität: Modell
 
   @javascript
   Szenario: Bilder
-    Angenommen man öffnet die Liste der Modelle
     Wenn ich ein bestehendes, genutztes Modell bearbeite
     Dann kann ich mehrere Bilder hinzufügen
     Und ich kann Bilder auch wieder entfernen

@@ -29,7 +29,7 @@ Funktionalität: Explorative Suche
     Und die Navigation der Kategorien ist aufgeklappt
     Wenn ich nach dem Namen einer Kategorie suche
     Dann werden alle Kategorien angezeigt, welche den Namen beinhalten
-    Und ich wähle eine Kategorie
+    Und ich eine Kategorie anwähle
     Dann sehe ich die darunterliegenden Kategorien
     Und kann die darunterliegende Kategorie anwählen
     Und ich sehe ein Suchicon mit dem Namen des gerade gesuchten Begriffs sowie die aktuell ausgewählte und die darunterliegenden Kategorien
@@ -42,7 +42,7 @@ Funktionalität: Explorative Suche
 
   @javascript
   Szenario: Explorative Suche in der Liste der Modelle
-    Angenommen ich befinde mich in der Liste der Modelle
+    Angenommen man öffnet die Liste des Inventars
     Und ich die Navigation der Kategorien aufklappe
     Wenn ich eine Kategorie anwähle
     Dann sehe ich die darunterliegenden Kategorien

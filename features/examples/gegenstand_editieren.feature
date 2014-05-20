@@ -54,7 +54,7 @@ Funktionalität: Gegenstand bearbeiten
     | Garantieablaufdatum |
     | Vertragsablaufdatum |
 
-  @javascript @firefox
+  @javascript
   Szenario: Lieferanten löschen
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
     Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes mit gesetztem Lieferanten
@@ -71,7 +71,7 @@ Funktionalität: Gegenstand bearbeiten
       | Feldname                     | Type         | Wert                          |
 
       | Inventarcode                 |              | Test Inventory Code           |
-      | Modell                       | autocomplete | Sharp Beamer Test             |
+      | Modell                       | autocomplete | Sharp Beamer 456              |
 
       | Ausmusterung                 | select       | Ja                            |
       | Grund der Ausmusterung       |              | Ja                            |
@@ -93,7 +93,7 @@ Funktionalität: Gegenstand bearbeiten
     Wenn ich dieses Modell dem Gegestand zuweise
     Dann steht in dem Modellfeld nur der Produktname dieses Modell
 
-  @javascript @firefox
+  @javascript
   Szenario: Lieferanten ändern
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
     Wenn ich den Lieferanten ändere
@@ -107,14 +107,14 @@ Funktionalität: Gegenstand bearbeiten
     Und ich speichern druecke
     Dann erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät ausgeliehen ist
 
-  @javascript @firefox
+  @javascript
   Szenario: Einen Gegenstand mit allen Informationen editieren
     Und man navigiert zur Gegenstandsbearbeitungsseite eines Gegenstandes, der am Lager und in keinem Vertrag vorhanden ist
     Wenn ich die folgenden Informationen erfasse
       | Feldname                     | Type         | Wert                          |
 
       | Inventarcode                 |              | Test Inventory Code           |
-      | Modell                       | autocomplete | Sharp Beamer Test             |
+      | Modell                       | autocomplete | Sharp Beamer 456              |
 
       | Inventarrelevant             | select       | Ja                            |
       | Anschaffungskategorie        | select       | Werkstatt-Technik             |
@@ -152,7 +152,7 @@ Funktionalität: Gegenstand bearbeiten
     Und der Benutzer sieht eine Fehlermeldung
     Und die nicht ausgefüllten/ausgewählten Pflichtfelder sind rot markiert
 
-  @javascript @firefox
+  @javascript
   Szenario: Neuen Lieferanten erstellen falls nicht vorhanden
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
     Angenommen man navigiert zur Gegenstandsbearbeitungsseite
@@ -161,7 +161,7 @@ Funktionalität: Gegenstand bearbeiten
     Dann wird der neue Lieferant erstellt
     Und bei dem bearbeiteten Gegestand ist der neue Lieferant eingetragen
 
-  @javascript @firefox
+  @javascript
   Szenario: Bei Gegenständen, die in Verträgen vorhanden sind, kann man das Modell nicht ändern
     Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes, der in einem Vertrag vorhanden ist
     Wenn ich das Modell ändere
@@ -175,7 +175,7 @@ Funktionalität: Gegenstand bearbeiten
     Und ich speichern druecke
     Dann erhält man eine Fehlermeldung, dass man den Gegenstand nicht ausmustern kann, da das Gerät ausgeliehen ist
 
-  @javascript @firefox
+  @javascript
   Szenario: Einen Gegenstand mit allen Informationen editieren
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
     Und ich bin Matti
@@ -184,7 +184,7 @@ Funktionalität: Gegenstand bearbeiten
       | Feldname                     | Type         | Wert                          |
 
       | Inventarcode                 |              | Test Inventory Code           |
-      | Modell                       | autocomplete | Sharp Beamer Test             |
+      | Modell                       | autocomplete | Sharp Beamer 456              |
 
       | Inventarrelevant             | select       | Ja                            |
       | Anschaffungskategorie        | select       | Werkstatt-Technik             |
@@ -201,7 +201,7 @@ Funktionalität: Gegenstand bearbeiten
     Dann man wird zur Liste des Inventars zurueckgefuehrt
     Und ist der Gegenstand mit all den angegebenen Informationen gespeichert
 
-  @javascript @firefox
+  @javascript
   Szenario: Einen Gegenstand mit allen Informationen editieren
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
     Und ich bin Matti
@@ -210,7 +210,7 @@ Funktionalität: Gegenstand bearbeiten
       | Feldname                     | Type         | Wert                          |
 
       | Inventarcode                 |              | Test Inventory Code           |
-      | Modell                       | autocomplete | Sharp Beamer Test             |
+      | Modell                       | autocomplete | Sharp Beamer 456              |
 
       | Inventarrelevant             | select       | Ja                            |
       | Anschaffungskategorie        | select       | Werkstatt-Technik             |

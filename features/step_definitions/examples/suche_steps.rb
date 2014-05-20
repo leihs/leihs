@@ -62,5 +62,5 @@ Angenommen(/^es existiert ein Benutzer mit mindestens (\d+) und weniger als (\d+
 end
 
 Dann(/^man sieht keinen Link 'Zeige alle gefundenen Verträge'$/) do
-  page.has_no_selector? "#contracts [data-type='show-all']"
+  page.should_not have_selector "#contracts [data-type='show-all']"
 end

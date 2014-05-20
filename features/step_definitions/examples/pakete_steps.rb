@@ -116,7 +116,7 @@ Dann /^kann ich einen Gegenstand aus dem Paket entfernen$/ do
 end
 
 Dann /^dieser Gegenstand ist nicht mehr dem Paket zugeteilt$/ do
-  page.has_content? _("List of Models")
+  page.should have_content _("List of Models")
   @package_to_edit.reload
   @package_to_edit.children.count.should eq (@number_of_items_before - 1)
   @package_to_edit.children.detect {|i| i.inventory_code == @item_to_remove}.should be_nil
@@ -144,12 +144,12 @@ Dann /^(?:besitzt das Paket alle angegebenen Informationen|das Paket besitzt all
   model = Model.find {|m| [m.name, m.product].include? @model_name}
   visit manage_edit_model_path(@current_inventory_pool, model)
   model.items.each do |item|
-    page.has_selector? ".line[data-id='#{item.id}']", visible: false
+    page.should have_selector ".line[data-id='#{item.id}']", visible: false
   end
-  page.has_no_selector? "[src*='loading']"
+  page.should_not have_selector "[src*='loading']"
   @package_id ||= model.items.packages.first.id
   find(".line[data-id='#{@package_id}']").find("button[data-edit-package]").click
-  page.has_selector? ".modal .row.emboss"
+  page.should have_selector ".modal .row.emboss"
   step 'hat das Paket alle zuvor eingetragenen Werte'
 end
 
@@ -206,7 +206,7 @@ Dann(/^sehe ich die Meldung "(.*?)"$/) do |text|
 end
 
 Dann /^hat das Paket alle zuvor eingetragenen Werte$/ do
-  page.has_selector? ".modal .row.emboss"
+  page.should have_selector ".modal .row.emboss"
   @table_hashes.each do |hash_row|
     field_name = hash_row["Feldname"]
     field_value = hash_row["Wert"]

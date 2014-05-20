@@ -34,9 +34,10 @@ end
 
 When /^I select the linegroup$/ do
   @linegroup = find("#lines [data-selected-lines-container]", match: :first)
-  @linegroup.find("input[type=checkbox][data-select-lines]").checked?.should be_false
-  @linegroup.find("input[type=checkbox][data-select-lines]").click
-  @linegroup.find("input[type=checkbox][data-select-lines]").checked?.should be_true
+  x = @linegroup.find("input[type=checkbox][data-select-lines]")
+  x.checked?.should be_false
+  x.click
+  x.checked?.should be_true
 end
 
 Then /^all lines of that linegroup are selected$/ do

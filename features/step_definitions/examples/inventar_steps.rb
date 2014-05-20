@@ -151,9 +151,9 @@ end
 ########################################################################
 
 Wenn /^man eine Modell\-Zeile eines Modells, das weder ein Paket-Modell oder ein Bestandteil eines Paket-Modells ist, sieht$/ do
-  page.has_selector? "#inventory .line[data-type='model']"
+  page.should have_selector "#inventory .line[data-type='model']"
   all("#inventory .line[data-type='model']").each do |model_line|
-    @model = Model.find {|m| [m.name, m.product].include? model_line.find(".col2of5 strong").text }
+    @model = Model.find_by_name(model_line.find(".col2of5 strong").text)
     next if @model.is_package? or @model.items.all? {|i| i.parent}
     @model_line = model_line and break
   end
@@ -161,7 +161,7 @@ end
 
 Wenn /^man eine Modell\-Zeile sieht$/ do
   @model_line = find("#inventory .line[data-type='model']", match: :first)
-  @model = Model.find {|m| [m.name, m.product].include? @model_line.find(".col2of5 strong").text }
+  @model = Model.find_by_name(@model_line.find(".col2of5 strong").text)
 end
 
 Dann /^enthält die Modell\-Zeile folgende Informationen:$/ do |table|
@@ -266,7 +266,7 @@ Wenn /^der Gegenstand nicht an Lager ist und eine andere Abteilung für den Gege
   find("#list-filters input#in_stock").click if find("#list-filters input#in_stock").checked?
   item = @current_inventory_pool.own_items.detect{|i| not i.inventory_pool_id.nil? and i.inventory_pool != @current_inventory_pool and not i.in_stock?}
   step 'ich nach "%s" suche' % item.inventory_code
-  page.has_selector? ".line[data-id='#{item.id}']"
+  page.should have_selector ".line[data-id='#{item.id}']"
   find(".line[data-id='#{item.model.id}'] .button[data-type='inventory-expander'] i.arrow.right", match: :first).click
   @item_line = ".group-of-lines .line[data-type='item']"
   @item = Item.find_by_inventory_code(find(@item_line, match: :first).find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text)
@@ -645,5 +645,5 @@ Angenommen(/^man öffnet die Liste der Geräteparks$/) do
 end
 
 Dann(/^kann man das globale Inventar als CSV\-Datei exportieren$/) do
-  page.has_selector?("#csv-export")
+  page.should have_selector("#csv-export")
 end

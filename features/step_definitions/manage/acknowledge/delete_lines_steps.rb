@@ -5,7 +5,7 @@ When(/^I open a contract for acknowledgement that has more then one line$/) do
   @contract = @ip.contracts.detect {|o| o.status == :submitted and o.lines.length > 1}
   @customer = @contract.user
   visit manage_edit_contract_path(@ip, @contract)
-  page.has_css?("#acknowledge", :visible => true)
+  page.should have_selector("#acknowledge", :visible => true)
 end
 
 When /^I delete a line of this contract$/ do

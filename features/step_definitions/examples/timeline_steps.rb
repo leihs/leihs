@@ -18,15 +18,16 @@ Dann /^kann ich für jedes sichtbare Model die Timeline anzeigen lassen$/ do
 
   raise "no lines found for this page" if lines.size.zero?
 
-  page.has_selector?(lines)
+  find(".line", match: :first)
+
   all(lines, visible: true)[0..5].each do |line|
-    line.find(".multibutton .dropdown-toggle").click
-    line.find(".multibutton .dropdown-toggle").hover
-    sleep(0.33)
-    line.find(".multibutton .dropdown-item", text: _("Timeline")).click
+    within line.find(".multibutton") do
+      find(".dropdown-toggle").click
+      find(".dropdown-item", text: _("Timeline")).click
+    end
     find(".modal iframe")
     evaluate_script %Q{ $(".modal iframe").contents().first("#my_timeline").length; }
     find(".modal .button", text: _("Close")).click
-    page.has_no_selector?(".modal", visible: true).should be_true
+    page.should_not have_selector(".modal", visible: true)
   end
 end

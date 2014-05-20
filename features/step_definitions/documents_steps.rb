@@ -214,7 +214,7 @@ Dann(/^sieht man bei den betroffenen Linien die rücknehmende Person im Format "
       new_window = page.driver.browser.window_handles.last
       page.within_window new_window do
         contract.lines.each do |cl|
-          find(".contract .list.returned_items tr", text: cl.item.inventory_code).find(".returning_date", text: cl.returned_to_user.short_name)
+          find(".contract .list.returned_items tr", text: /#{cl.quantity}.*#{cl.item.inventory_code}.*#{I18n.l cl.end_date}/).find(".returning_date", text: cl.returned_to_user.short_name)
         end
       end
     end

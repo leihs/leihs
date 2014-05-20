@@ -10,7 +10,7 @@ Wenn(/^ich die Aushändigung öffne$/) do
 end
 
 Dann(/^sehe ich all die bereits zugewiesenen Gegenstände mittels Inventarcodes$/) do
-  @hand_over.contract_lines.each {|l| page.has_content? l.item.inventory_code}
+  @hand_over.contract_lines.each {|l| page.should have_content l.item.inventory_code}
 end
 
 When(/^der Benutzer für die Aushändigung ist gesperrt$/) do
@@ -116,8 +116,10 @@ Wenn(/^ich dieser Linie einen Inventarcode manuell zuweise$/) do
 end
 
 Dann(/^die problematischen Auszeichnungen bleiben bei der Linie bestehen$/) do
-  find(@line_css).should have_selector ".line-info.red"
-  find(@line_css).should have_selector ".tooltip.red"
+  within(@line_css) do
+    should have_selector ".line-info.red"
+    should have_selector ".tooltip.red"
+  end
 end
 
 Wenn(/^ich einen bereits hinzugefügten Gegenstand zuteile$/) do
@@ -139,11 +141,11 @@ Angenommen(/^ich öffne eine Aushändigung mit mindestens einem zugewiesenen Geg
 end
 
 Dann(/^die Zeile bleibt selektiert$/) do
-  page.has_selector? "#{@line_css} input[type='checkbox']:checked"
+  page.should have_selector "#{@line_css} input[type='checkbox']:checked"
 end
 
 Dann(/^die Zeile bleibt grün markiert$/) do
-  page.has_selector? "#{@line_css}.green"
+  page.should have_selector "#{@line_css}.green"
 end
 
 Angenommen(/^für den Gerätepark ist eine Standard\-Vertragsnotiz konfiguriert$/) do
@@ -151,7 +153,7 @@ Angenommen(/^für den Gerätepark ist eine Standard\-Vertragsnotiz konfiguriert$
 end
 
 Dann(/^erscheint ein Aushändigungsdialog$/) do
-  page.has_selector? ".modal [data-hand-over]"
+  page.should have_selector ".modal [data-hand-over]"
 end
 
 Dann(/^diese Standard\-Vertragsnotiz erscheint im Textfeld für die Vertragsnotiz$/) do

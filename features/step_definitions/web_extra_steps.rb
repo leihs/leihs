@@ -20,7 +20,7 @@ end
 
 When /^I follow the sloppy link "([^"]*)" in the greybox$/ do |text|
   # Wait for the frame to finish appearing
-  page.has_css?("#GB_frame", :visible => true)
+  page.should have_selector("#GB_frame", :visible => true)
 
   within_frame "GB_frame" do
     step "I follow the sloppy link \"#{text}\""

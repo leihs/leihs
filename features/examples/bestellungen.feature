@@ -74,7 +74,7 @@ Funktionalität: Bestellungen
     Und ich sehe auf der Bestellungszeile die Dauer der Bestellung
     Und ich sehe auf der Bestellungszeile den Status
 
-
+  @javascript
   Szenario: Filter zum visieren aufheben
     Angenommen ich bin Andi
     Und ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen

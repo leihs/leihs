@@ -21,7 +21,7 @@ Wenn(/^ich ein Modell der Bestellung hinzufüge$/) do
 end
 
 Wenn(/^ich dasselbe Modell einer Bestellung hinzufüge$/) do
-  contract = @inventory_pool.contracts.submitted.all.sample
+  contract = @inventory_pool.contracts.submitted.sample
   (@new_contract_line.maximum_available_quantity + 1).times do
     contract.contract_lines << FactoryGirl.create(:contract_line,
                                                   :contract => contract,
@@ -58,7 +58,7 @@ Angenommen(/^ein Modell ist nicht verfügbar$/) do
   (line.maximum_available_quantity + 1).times do
     c = FactoryGirl.create(:contract,
                            :inventory_pool => line.inventory_pool)
-    FactoryGirl.create(:contract_line,
+    FactoryGirl.create(:item_line,
                        :contract => c,
                        :model => line.model,
                        :start_date => line.start_date,
@@ -94,14 +94,14 @@ end
 
 Dann(/^werden die Modelle meiner Bestellung freigegeben$/) do
   @current_user.contracts.unsubmitted.flat_map(&:lines).all? do |line|
-    not line.inventory_pool.running_lines.exists? type: "OrderLine", id: line.id
+    not line.inventory_pool.running_lines.detect{|l| l.id == line.id }
   end.should be_true
 end
 
 Dann(/^bleiben die Modelle in der Bestellung blockiert$/) do
   @current_user.contracts.unsubmitted.flat_map(&:lines).all? do |line|
-    line.inventory_pool.running_lines.exists? type: "OrderLine", id: line.id
-  end.should be_false
+    line.inventory_pool.running_lines.detect{|l| l.id == line.id }
+  end.should be_true
 end
 
 #######################################################################

@@ -54,25 +54,25 @@ Dann /^sehe ich auf den beteiligten Linien die Auszeichnung von Problemen$/ do
   @reference_line = @lines.first
   @reference_problem = @problems.first
   @line = if @reference_line["data-id"]
-      ContractLine.find @reference_line["data-id"]
-    else
-      ContractLine.find JSON.parse(@reference_line["data-ids"]).first
-  end
+            ContractLine.find @reference_line["data-id"]
+          else
+            ContractLine.find JSON.parse(@reference_line["data-ids"]).first
+          end
   @av = @line.model.availability_in(@line.inventory_pool)
 end
 
 Dann /^das Problem wird wie folgt dargestellt: "(.*?)"$/ do |format|
   regexp = if format == "Nicht verfügbar 2(3)/7"
-     /#{_("Not available")} -*\d\(-*\d\)\/\d/
-  elsif format == "Gegenstand nicht ausleihbar"
-    /#{_("Item not borrowable")}/
-  elsif format == "Gegenstand ist defekt"
-    /#{_("Item is defective")}/
-  elsif format == "Gegenstand ist unvollständig"
-    /#{_("Item is incomplete")}/
-  elsif format == "Überfällig seit 6 Tagen"
-     /(Überfällig seit \d+ (Tagen|Tag)|#{_("Overdue")} #{_("since")} \d+ (days|day))/
-  end
+             /#{_("Not available")} -*\d\(-*\d\)\/\d/
+           elsif format == "Gegenstand nicht ausleihbar"
+             /#{_("Item not borrowable")}/
+           elsif format == "Gegenstand ist defekt"
+             /#{_("Item is defective")}/
+           elsif format == "Gegenstand ist unvollständig"
+             /#{_("Item is incomplete")}/
+           elsif format == "Überfällig seit 6 Tagen"
+             /(Überfällig seit \d+ (Tagen|Tag)|#{_("Overdue")} #{_("since")} \d+ (days|day))/
+           end
   @problems.each do |problem|
     problem.match(regexp).should_not be_nil
   end
@@ -80,12 +80,12 @@ end
 
 Dann /^"(.*?)" sind verfügbar für den Kunden$/ do |arg1|
   max = if [:unsubmitted, :submitted].include? @line.contract.status
-    @max_before + @quantity_added
-  elsif [:approved, :signed].include? @line.contract.status
-    @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @line.group_ids) + 1 # free up self blocking
-  else
-    @max_before - @quantity_added
-  end
+          @max_before + @quantity_added
+        elsif [:approved, :signed].include? @line.contract.status
+          @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @line.group_ids) + 1 # free up self blocking
+        else
+          @max_before - @quantity_added
+        end
   @reference_problem.should match /#{max}\(/
 end
 
@@ -105,7 +105,7 @@ end
 
 Angenommen /^eine Gegenstand ist nicht ausleihbar$/ do
   if @event == "hand_over"
-    @item = @ip.items.unborrowable.sample
+    @item = @ip.items.in_stock.unborrowable.sample
     step 'I add an item to the hand over'
     sleep(0.33)
     @line_id = ContractLine.where(item_id: @item.id).first.id
@@ -116,12 +116,15 @@ Angenommen /^eine Gegenstand ist nicht ausleihbar$/ do
   end
 end
 
-Angenommen /^ich mache eine Rücknahme eines verspäteten Gegenstandes$/ do
+Angenommen /^ich mache eine Rücknahme eines( verspäteten)? Gegenstandes$/ do |arg1|
   @event = "take_back"
-  @ip = @current_user.managed_inventory_pools.first
-  overdued_take_back = @ip.visits.take_back.detect{|x| x.date < Date.today}
-  @line_id = overdued_take_back.lines.first.id
-  visit manage_take_back_path(@ip, overdued_take_back.user)
+  overdued_take_back = if arg1
+                         @current_inventory_pool.visits.take_back.select { |x| x.date < Date.today }
+                       else
+                         @current_inventory_pool.visits.take_back
+                       end.sample
+  @line_id = overdued_take_back.contract_lines.where(type: "ItemLine").sample.id
+  visit manage_take_back_path(@current_inventory_pool, overdued_take_back.user)
   page.should have_selector(".line[data-id='#{@line_id}']")
 end
 
@@ -153,7 +156,7 @@ end
 
 Angenommen /^eine Gegenstand ist defekt$/ do
   if @event == "hand_over"
-    @item = @ip.items.broken.sample
+    @item = @ip.items.in_stock.broken.sample
     step 'I add an item to the hand over'
     @line_id = find("input[value='#{@item.inventory_code}']").find(:xpath, "ancestor::div[@data-id]")["data-id"]
   elsif  @event == "take_back"
@@ -164,7 +167,7 @@ end
 
 Angenommen /^eine Gegenstand ist unvollständig$/ do
   if @event == "hand_over"
-    @item = @ip.items.incomplete.sample
+    @item = @ip.items.in_stock.incomplete.sample
     step 'I add an item to the hand over'
     @line_id = find("input[value='#{@item.inventory_code}']").find(:xpath, "ancestor::div[@data-id]")["data-id"]
   elsif  @event == "take_back"

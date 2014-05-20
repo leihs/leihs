@@ -34,8 +34,8 @@ Dann(/^der Bereich "Ausleihen" ist für die Benutzer gesperrt$/) do
 end
 
 Dann(/^dem Benutzer wird die eingegebene Bemerkung angezeigt$/) do
-  page.has_selector? "h1", text: _("Maintenance")
-  page.has_content? @disable_message
+  page.should have_selector "h1", text: _("Maintenance")
+  page.should have_content @disable_message
 end
 
 Wenn(/^ich eine Bemerkung für "Verwalten-Bereich" angebe$/) do

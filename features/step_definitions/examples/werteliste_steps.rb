@@ -111,13 +111,13 @@ Wenn(/^es ist pro Modell genau einer Linie ein Gegenstand zugewiesen$/) do
 end
 
 Wenn(/^ich mehrere Linien von der Aushändigung auswähle$/) do
-  page.has_selector? "#lines .line input[type='checkbox']"
+  page.should have_selector "#lines .line input[type='checkbox']"
   @number_of_selected_lines = all("#lines .line input[type='checkbox']").size
   @lines.map(&:id).each {|id| find("#lines .line[data-id='#{id}'] input[type='checkbox']").click }
 end
 
 Wenn(/^ich mehrere Linien von der Bestellung auswähle$/) do
-  page.has_selector? "#lines .emboss .row input[type='checkbox']"
+  page.should have_selector "#lines .emboss .row input[type='checkbox']"
   @number_of_selected_lines = @order.lines.size
   all("#lines .emboss .row input[type='checkbox']").each {|i| i.click unless i.checked? }
 end

@@ -76,12 +76,12 @@ When /^I register a new model '([^']*)'$/ do |model|
 end
   
 Given "the model '$model' belongs to the category '$category'" do |model, category|
-  @model = Model.find {|m| [m.name, m.product].include? model }
+  @model = Model.find_by_name(model)
   @model.categories << Category.where(:name => category).first    
 end
 
 When "the model '$model' is selected" do | model|
-  @model = Model.find {|m| [m.name, m.product].include? model }
+  @model = Model.find_by_name(model)
   end
  
 Then "there are $size models belonging to that category" do |size|

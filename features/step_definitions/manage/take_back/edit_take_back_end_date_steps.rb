@@ -30,7 +30,7 @@ When /^I open a take back which has multiple lines$/ do
   @customer = @ip.users.find {|x| x.contracts.signed.size > 0 && !x.contracts.signed.detect{|c| c.lines.size > 1 and c.inventory_pool == @ip}.nil? }
   @contract = @customer.contracts.signed.detect{|c| c.lines.size > 1 and c.inventory_pool == @ip}
   visit manage_take_back_path(@ip, @customer)
-  page.has_css?("#take_back", :visible => true)
+  page.should have_selector("#take_back", :visible => true)
 end
 
 When /^I change the end date for all contract lines, envolving option and item lines$/ do

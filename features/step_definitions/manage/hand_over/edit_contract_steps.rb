@@ -29,8 +29,7 @@ Then /^the time range for all contract lines is changed$/ do
 end
 
 When /^I change the time range for that option$/ do
-  @option_line = @customer.visits.hand_over.collect(&:lines).flatten.detect{|x| x.is_a?(OptionLine)}
-  find(".line[data-line-type='option_line']", :text => @option_line.option.name).find(".button", :text => _("Change entry")).click
+  find(".line[data-line-type='option_line'][data-id='#{@option_line.id}']", text: @option_line.option.name).find(".button", :text => _("Change entry")).click
   @new_start_date = change_line_start_date(@option_line, 2)
 end
 

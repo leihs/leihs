@@ -153,7 +153,7 @@ Funktionalität: Delegation
     Dann sieht man die Erfolgsbestätigung
     Und ist die bearbeitete Delegation mit den aktuellen Informationen gespeichert
 
-  @javascript @firefox
+  @javascript
   Szenario: Delegation Zugriff entziehen
     Angenommen ich bin Pius
     Wenn ich eine Delegation mit Zugriff auf das aktuelle Gerätepark editiere

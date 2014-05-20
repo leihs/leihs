@@ -18,7 +18,7 @@ end
 
 Dann(/^die Anzahl der zugeteilten Modell\-Kapazitäten$/) do
   @current_inventory_pool.groups.each do |group|
-    within find(".line", :text => group.name) do
+    within(".line", :text => group.name) do
       first(".quantity", :text => group.models.size.to_s)
       first(".quantity", :text => group.partitions.to_a.sum(&:quantity).to_s)
     end
@@ -131,7 +131,7 @@ Wenn(/^ich eine Gruppe lösche$/) do
 end
 
 Wenn(/^die Gruppe wurde aus der Liste gelöscht$/) do
-  page.has_no_selector? "ul.line", text: @group.name
+  page.should_not have_selector "ul.line", text: @group.name
 end
 
 Wenn(/^die Gruppe wurde aus der Datenbank gelöscht$/) do
@@ -151,7 +151,7 @@ Wenn(/^ich ein Modell hinzufüge$/) do
 end
 
 Dann(/^wird das Modell zuoberst in der Liste hinzugefügt$/) do
-  page.has_selector? "#models-allocations .list-of-lines .line", text: @model_name
+  page.should have_selector "#models-allocations .list-of-lines .line", text: @model_name
   find("#models-allocations .list-of-lines .line", match: :first).text.should match @model_name
 end
 

@@ -58,7 +58,7 @@ When /^I add an item which is matching the model of one of the selected unassign
 end
 
 Then /^the first itemline in the selection matching the provided inventory code is assigned$/ do
-  page.has_selector?(".line.green")
+  page.should have_selector(".line.green")
   line = @hand_over.reload.lines.detect{|line| line.item == @item}
   line.should_not == nil
 end
@@ -72,7 +72,7 @@ When /^I open a hand over which has multiple lines$/ do
   @hand_over = @ip.visits.hand_over.detect{|x| x.lines.size > 1}
   @customer = @hand_over.user
   visit manage_hand_over_path(@ip, @customer)
-  page.has_css?("#hand-over-view", :visible => true)
+  page.should have_selector("#hand-over-view", :visible => true)
 end
 
 When /^I open a hand over which has multiple unassigned lines$/ do
@@ -80,7 +80,7 @@ When /^I open a hand over which has multiple unassigned lines$/ do
   @hand_over = @ip.visits.hand_over.detect{|x| x.lines.select{|l| !l.item}.count >= 2}
   @customer = @hand_over.user
   visit manage_hand_over_path(@ip, @customer)
-  page.has_css?("#hand-over-view", :visible => true)
+  page.should have_selector("#hand-over-view", :visible => true)
 end
 
 When /^I open a hand over which has multiple unassigned lines and models in stock$/ do
@@ -89,7 +89,7 @@ When /^I open a hand over which has multiple unassigned lines and models in stoc
   @hand_over = @ip.visits.hand_over.detect{|v| v.lines.select{|l| !l.item and @models_in_stock.include? l.model}.count >= 2}
   @customer = @hand_over.user
   visit manage_hand_over_path(@ip, @customer)
-  page.has_css?("#hand-over-view", :visible => true)
+  page.should have_selector("#hand-over-view", :visible => true)
 end
 
 When /^I open a hand over with lines that have assigned inventory codes$/ do

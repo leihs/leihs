@@ -110,14 +110,14 @@ end
 
 Wenn(/^ein Modell aus der Liste lösche$/) do
   within all("#models .line").to_a.sample do
-    @changed_model = Model.find {|m| [m.name, m.product].include? find("[data-model-name]").text }
+    @changed_model = Model.find_by_name(find("[data-model-name]").text)
     find(".button[data-remove]").click
   end
 end
 
 Wenn(/^die Anzahl bei einem der Modell ändere$/) do
   within all("#models .line:not(.striked)").to_a.sample do
-    @changed_model = Model.find {|m| [m.name, m.product].include? find("[data-model-name]").text }
+    @changed_model = Model.find_by_name(find("[data-model-name]").text)
     @new_value = find("input").value.to_i + 1
     find("input").set @new_value
   end

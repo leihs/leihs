@@ -109,7 +109,7 @@ Und /^man kann die Unterkategorien anzeigen und verstecken$/ do
     find(".button[data-type='expander'] i.arrow.down").click
     find(".button[data-type='expander'] i.arrow.right")
   end
-  page.has_selector?(".group-of-lines .line .col3of9:nth-child(2) strong", visible: true, text: child_name).should be_false
+  page.should_not have_selector(".group-of-lines .line .col3of9:nth-child(2) strong", visible: true, text: child_name)
 end
 
 Wenn /^man das Modell editiert$/ do
@@ -145,7 +145,7 @@ Wenn /^ich eine oder mehrere Kategorien entferne$/ do
 end
 
 Dann /^sind die Kategorien entfernt und das Modell gespeichert$/ do
-  page.has_content? _("List of Models")
+  page.should have_content _("List of Models")
   @model.categories.reload.should be_empty
 end
 

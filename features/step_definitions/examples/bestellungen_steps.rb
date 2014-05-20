@@ -39,19 +39,19 @@ Wenn(/^ich die Bestellung editiere$/) do
 end
 
 Wenn(/^die Bestellung genehmige$/) do
-  if page.has_selector? "button", text: _("Approve order")
+  if page.should have_selector "button", text: _("Approve order")
     click_button _("Approve order")
-  elsif page.has_selector? "button", text: _("Verify + approve order")
+  elsif page.should have_selector "button", text: _("Verify + approve order")
     click_button _("Verify + approve order")
   end
 end
 
 Dann(/^ist es mir nicht möglich, die Genehmigung zu forcieren$/) do
-  page.has_selector? ".modal"
+  page.should have_selector ".modal"
   if all(".modal .multibutton .dropdown-toggle").length > 0
     find(".modal .multibutton .dropdown-toggle").click
   end
-  page.has_no_text? _("Approve anyway")
+  page.should_not have_content _("Approve anyway")
 end
 
 Wenn(/^ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen$/) do
@@ -92,7 +92,7 @@ end
 Dann(/^sehe ich alle visierpflichtigen Bestellungen$/) do
   step 'man bis zum Ende der Liste fährt'
   @contracts = @current_inventory_pool.contracts.where(status: [:submitted, :approved, :rejected]).with_verifiable_user_and_model
-  @contracts.each {|c| page.has_selector? "[data-type='contract'][data-id='#{c.id}']"}
+  @contracts.each {|c| page.should have_selector "[data-type='contract'][data-id='#{c.id}']"}
 end
 
 Dann(/^diese Bestellungen sind nach Erstelltdatum aufgelistet$/) do
@@ -102,7 +102,7 @@ end
 Dann(/^sehe ich alle offenen visierpflichtigen Bestellungen$/) do
   step 'man bis zum Ende der Liste fährt'
   @contracts = @current_inventory_pool.contracts.where(status: :submitted).with_verifiable_user_and_model
-  @contracts.each {|c| page.has_selector? "[data-type='contract'][data-id='#{c.id}']"}
+  @contracts.each {|c| page.should have_selector "[data-type='contract'][data-id='#{c.id}']"}
   @contract = @contracts.order("created_at DESC").first
   @line_css =  "[data-type='contract'][data-id='#{@contract.id}']"
 end
@@ -110,7 +110,7 @@ end
 Dann(/^ich sehe auf der Bestellungszeile den Besteller mit Popup\-Ansicht der Benutzerinformationen$/) do
   find(@line_css).has_text? @contract.user.name
   find("[data-firstname][data-id='#{@contract.user.id}']").hover
-  page.has_css? ".tooltipster", text: @contract.user.name
+  page.should have_selector ".tooltipster", text: @contract.user.name
 end
 
 Dann(/^ich sehe auf der Bestellungszeile das Erstelldatum$/) do
@@ -129,7 +129,7 @@ end
 Dann(/^ich sehe auf der Bestellungszeile die Anzahl Gegenstände mit Popup\-Ansicht der bestellten Gegenstände$/) do
   find("#{@line_css} [data-type='lines-cell']").text.should == "#{@contract.lines.count} #{n_("Item", "Items", @contract.lines.count)}"
   find("#{@line_css} [data-type='lines-cell']").hover
-  @contract.models.each {|m| page.has_css? ".tooltipster", text: m.name}
+  @contract.models.each {|m| page.should have_selector ".tooltipster", text: m.name}
 end
 
 Dann(/^ich sehe auf der Bestellungszeile die Dauer der Bestellung$/) do
@@ -159,7 +159,7 @@ end
 Dann(/^sehe ich alle genehmigten visierpflichtigen Bestellungen$/) do
   step 'man bis zum Ende der Liste fährt'
   @contracts = @current_inventory_pool.contracts.where(status: :approved).with_verifiable_user_and_model
-  @contracts.each {|c| page.has_selector? "[data-type='contract'][data-id='#{c.id}']"}
+  @contracts.each {|c| page.should have_selector "[data-type='contract'][data-id='#{c.id}']"}
   @contract = @contracts.order("created_at DESC").first
   @line_css =  "[data-type='contract'][data-id='#{@contract.id}']"
 end
@@ -171,7 +171,7 @@ end
 Dann(/^sehe ich alle abgelehnten visierpflichtigen Bestellungen$/) do
   step 'man bis zum Ende der Liste fährt'
   @contracts = @current_inventory_pool.contracts.where(status: :rejected).with_verifiable_user_and_model
-  @contracts.each {|c| page.has_selector? "[data-type='contract'][data-id='#{c.id}']"}
+  @contracts.each {|c| page.should have_selector "[data-type='contract'][data-id='#{c.id}']"}
   @contract = @contracts.order("created_at DESC").first
   @line_css =  "[data-type='contract'][data-id='#{@contract.id}']"
 end
@@ -183,7 +183,7 @@ end
 Dann(/^sehe ich alle Bestellungen, welche von Benutzern der visierpflichtigen Gruppen erstellt wurden$/) do
   step 'man bis zum Ende der Liste fährt'
   @contracts = @current_inventory_pool.contracts.where(status: [:submitted, :rejected, :signed]).with_verifiable_user
-  @contracts.each {|c| page.has_selector? "[data-type='contract'][data-id='#{c.id}']"}
+  @contracts.each {|c| page.should have_selector "[data-type='contract'][data-id='#{c.id}']"}
 end
 
 Dann(/^ist die Bestellung wieder im Status noch nicht genehmigt$/) do

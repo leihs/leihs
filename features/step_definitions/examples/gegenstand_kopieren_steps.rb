@@ -13,7 +13,7 @@ Wenn /^man speichert und kopiert$/ do
 end
 
 Dann /^wird der Gegenstand gespeichert$/ do
-  page.has_content? _("Create copied item")
+  page.should have_content _("Create copied item")
   @new_item = Item.find_by_inventory_code(@inventory_code_original)
   @new_item.should_not be_blank
 end
@@ -23,7 +23,7 @@ Dann /^eine neue Gegenstandserstellungsansicht wird geöffnet$/ do
 end
 
 Dann /^man sieht den Seitentitel 'Kopierten Gegenstand erstellen'$/ do
-  page.has_content? _("Create copied item")
+  page.should have_content _("Create copied item")
 end
 
 Dann /^man sieht den Abbrechen\-Knopf$/ do
@@ -66,7 +66,7 @@ Dann /^der Inventarcode ist vorausgefüllt$/ do
 end
 
 Dann /^wird der kopierte Gegenstand gespeichert$/ do
-  page.has_content? _("List of Inventory")
+  page.should have_content _("List of Inventory")
   @copied_item = Item.find_by_inventory_code(@inventory_code_copied)
   @copied_item.should_not be_nil
 end
@@ -108,13 +108,13 @@ end
 Angenommen /^man editiert ein Gegenstand eines anderen Besitzers$/ do
   @item = Item.find {|i| i.inventory_pool_id == @current_inventory_pool.id and @current_inventory_pool.id != i.owner_id}
   visit manage_edit_item_path(@current_inventory_pool, @item)
-  page.has_selector?(".field")
+  page.should have_selector(".field")
   @fields = all(".field:not(.editable)")
   @fields.size.should > 0
 end
 
 Dann /^alle Felder sind editierbar, da man jetzt Besitzer von diesem Gegenstand ist$/ do
-  page.has_selector?(".field")
+  page.should have_selector(".field")
   @fields = all(".field[data-editable='false']")
   @fields.size.should == 0
 end

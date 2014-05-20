@@ -115,7 +115,7 @@ Funktionalität: Gegenstand erstellen
     Dann wird der neue Lieferant erstellt
     Und bei dem erstellten Gegestand ist der neue Lieferant eingetragen
 
-  @javascript @firefox
+  @javascript
   Szenario: Einen Gegenstand mit allen Informationen erstellen
     Angenommen ich bin Matti
     Und man navigiert zur Gegenstandserstellungsseite
@@ -123,7 +123,7 @@ Funktionalität: Gegenstand erstellen
     | Feldname                     | Type         | Wert                          |
 
     | Inventarcode                 |              | Test Inventory Code           |
-    | Modell                       | autocomplete | Sharp Beamer Test             |
+    | Modell                       | autocomplete | Sharp Beamer 456              |
 
     | Inventarrelevant             | select       | Ja                            |
     | Anschaffungskategorie        | select       | Werkstatt-Technik             | 
@@ -140,7 +140,7 @@ Funktionalität: Gegenstand erstellen
     Dann man wird zur Liste des Inventars zurueckgefuehrt
     Und ist der Gegenstand mit all den angegebenen Informationen erstellt
 
-  @javascript @firefox
+  @javascript
   Szenario: Einen Gegenstand mit allen Informationen erstellen
     Angenommen ich bin Matti
     Und man navigiert zur Gegenstandserstellungsseite
@@ -148,7 +148,7 @@ Funktionalität: Gegenstand erstellen
     | Feldname                     | Type         | Wert                          |
 
     | Inventarcode                 |              | Test Inventory Code           |
-    | Modell                       | autocomplete | Sharp Beamer Test             |
+    | Modell                       | autocomplete | Sharp Beamer 456              |
 
     | Ausmusterung                 | select       | Nein                          |
     | Zustand                      | radio        | OK                            |
@@ -196,7 +196,7 @@ Funktionalität: Gegenstand erstellen
     Und ich sehe eine Fehlermeldung
     Und die anderen Angaben wurde nicht gelöscht
 
-  @javascript @firefox
+  @javascript
   Szenario: Einen Gegenstand mit allen Informationen erstellen
     Angenommen ich bin Matti
     Und man navigiert zur Gegenstandserstellungsseite
@@ -204,7 +204,7 @@ Funktionalität: Gegenstand erstellen
     | Feldname                     | Type         | Wert                          |
 
     | Inventarcode                 |              | Test Inventory Code           |
-    | Modell                       | autocomplete | Sharp Beamer Test             |
+    | Modell                       | autocomplete | Sharp Beamer 456              |
 
     | Inventarrelevant             | select       | Ja                            |
     | Anschaffungskategorie        | select       | Werkstatt-Technik             | 
@@ -221,7 +221,7 @@ Funktionalität: Gegenstand erstellen
     Dann man wird zur Liste des Inventars zurueckgefuehrt
     Und ist der Gegenstand mit all den angegebenen Informationen erstellt
 
-  @javascript @firefox
+  @javascript
   Szenario: Einen Gegenstand mit allen Informationen erstellen
     Angenommen ich bin Matti
     Und man navigiert zur Gegenstandserstellungsseite
@@ -229,7 +229,7 @@ Funktionalität: Gegenstand erstellen
     | Feldname                     | Type         | Wert                          |
 
     | Inventarcode                 |              | Test Inventory Code           |
-    | Modell                       | autocomplete | Sharp Beamer Test             |
+    | Modell                       | autocomplete | Sharp Beamer 456              |
 
     | Inventarrelevant             | select       | Ja                            |
     | Anschaffungskategorie        | select       | Werkstatt-Technik             | 

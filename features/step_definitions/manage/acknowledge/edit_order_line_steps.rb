@@ -10,7 +10,7 @@ end
 
 When /^I open a contract for acknowledgement with more then one line$/ do
   @ip = @current_user.managed_inventory_pools.detect do |ip|
-    @customer = ip.users.all.shuffle.detect {|x| x.contracts.submitted.exists? and x.contracts.submitted.first.lines.size > 1}
+    @customer = ip.users.shuffle.detect {|x| x.contracts.submitted.exists? and x.contracts.submitted.first.lines.size > 1}
   end
   raise "customer not found" unless @customer
   @models_in_stock = @ip.items.by_responsible_or_owner_as_fallback(@ip).in_stock.map(&:model).uniq
@@ -41,8 +41,8 @@ end
 When /^I save the booking calendar$/ do
   find("#submit-booking-calendar", :text => _("Save")).click
   sleep(0.33)
-  page.has_no_selector?("#submit-booking-calendar", :text => _("Save"))
-  page.has_no_selector?("#booking-calendar")
+  page.should_not have_selector("#submit-booking-calendar", :text => _("Save"))
+  page.should_not have_selector("#booking-calendar")
 end
 
 When /^I change a contract lines time range$/ do

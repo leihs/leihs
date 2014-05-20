@@ -111,7 +111,7 @@ class Manage::ModelsController < Manage::ApplicationController
   end
 
   def update_package
-    @model ||= Model.find {|m| [m.name, m.product].include? params[:model][:name] }
+    @model ||= Model.find_by_name(params[:model][:name])
     @model ||= Model.new(:is_package => true)
     if not @model.is_package?
       flash[:error] = _("The selected model is not a package")

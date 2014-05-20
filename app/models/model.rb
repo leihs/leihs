@@ -124,6 +124,10 @@ class Model < ActiveRecord::Base
 
   scope :default_order, -> {order_by_attribute_and_direction("product", "asc")}
 
+  # not using scope because not working properly (if result of first is nil, an additional query is performed returning all)
+  def self.find_by_name(name)
+    where("CONCAT_WS(' ', product, version) = ?", name).first
+  end
 
 #############################################
 

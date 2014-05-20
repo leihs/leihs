@@ -66,12 +66,12 @@ Angenommen(/^man befindet sich auf der Gegenstandseditierseite dieses Gegenstand
 end
 
 Wenn(/^man die Ausmusterung bei diesem Gegenstand zurück setzt$/) do
-  page.has_content?(_("Retirement")).should be_true
+  page.should have_content(_("Retirement"))
   find("*[name='item[retired]']").select _("No")
 end
 
 Dann(/^wurde man auf die Inventarliste geleitet$/) do
-  page.has_content?(_("List of Inventory")).should be_true
+  page.should have_content(_("List of Inventory"))
 end
 
 Dann(/^dieses Gegenstand ist nicht mehr ausgemustert$/) do

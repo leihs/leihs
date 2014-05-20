@@ -103,10 +103,6 @@ Then "the total number of contracts is $n_contracts" do |n_contracts|
 	Contract.count.should == n_contracts.to_i
 end
 
-Then /^the resulting contract lines are invalid$/ do
-	  pending # express the regexp above with the code you wish you had
-end
-
 Then /^he should (.*)see a flash error$/ do |shouldNot|
   has_error = @flash.has_key?(:error)
   shouldNot == "" ? has_error.should(be_true) : has_error.should_not(be_true)

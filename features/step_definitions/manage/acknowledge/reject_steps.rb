@@ -26,7 +26,7 @@ end
 
 When /^I reject the contract$/ do
   find(".modal .button.red[type=submit]").click
-  page.has_no_selector?(".modal").should be_true
+  page.should_not have_selector(".modal")
 end
 
 Then /^the contract is rejected$/ do

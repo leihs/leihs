@@ -58,7 +58,7 @@ Given "there are no new contracts" do
 end
 
 Given /it asks for ([0-9]+) item(s?) of model '(.*)'/ do |number, plural, model|
-  @contract.add_lines(number, Model.find {|m| [m.name, m.product].include? model }, @user)
+  @contract.add_lines(number, Model.find_by_name(model), @user)
   @contract.log_history("user submits contract", 1)
   @contract.save
   @contract.has_changes?.should == false
@@ -130,13 +130,13 @@ When "'$who' contracts $quantity '$model'" do |who, quantity, model|
   post login_path(:login => who)
   step "I am logged in as '#{who}' with password '#{nil}'"
   get borrow_root_path
-  model_id = Model.find {|m| [m.name, m.product].include? model }.id
+  model_id = Model.find_by_name(model).id
   post borrow_contract_lines_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => @inventory_pool.id)
   @contract_lines = @current_user.contracts.first.lines
 end
 
 When "'$user' contracts another $quantity '$model' for the same time" do |user, quantity, model|
-  model_id = Model.find {|m| [m.name, m.product].include? model }.id
+  model_id = Model.find_by_name(model).id
   post borrow_contract_lines_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => @inventory_pool.id)
   #old??# @contract = assigns(:contract)
 end
@@ -145,7 +145,7 @@ When "'$who' contracts $quantity '$model' from inventory pool $ip" do |who, quan
   post login_path(:login => who)
   step "I am logged in as '#{who}' with password '#{nil}'"
   get borrow_root_path
-  model_id = Model.find {|m| [m.name, m.product].include? model }.id
+  model_id = Model.find_by_name(model).id
   inv_pool = InventoryPool.find_by_name(ip)
   post borrow_contract_lines_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => inv_pool.id)
   @contract = @current_user.get_unsubmitted_contract

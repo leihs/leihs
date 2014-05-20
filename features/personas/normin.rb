@@ -47,9 +47,9 @@ module Persona
     end
     
     def create_submitted_contracts
-      @camera_model = Model.find {|m| [m.name, m.product].include? "Kamera Nikon X12" }
-      @tripod_model = Model.find {|m| [m.name, m.product].include? "Kamera Stativ"    }
-      @beamer_model = Model.find {|m| [m.name, m.product].include? "Sharp Beamer"     }
+      @camera_model = Model.find_by_name "Kamera Nikon X12"
+      @tripod_model = Model.find_by_name "Kamera Stativ 123"
+      @beamer_model = Model.find_by_name "Sharp Beamer 123"
       @contract_for_camera = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :submitted)
       @contract_for_camera_purpose = FactoryGirl.create :purpose, :description => "Benötige ich für die Aufnahmen meiner Abschlussarbeit."
 

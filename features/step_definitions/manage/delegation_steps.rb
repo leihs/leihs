@@ -149,11 +149,11 @@ Angenommen(/^ich befinde mich in einer Bestellung von einer Delegation$/) do
 end
 
 Dann(/^sehe ich den Namen der Delegation$/) do
-  page.has_content? @contract.user.name
+  page.should have_content @contract.user.name
 end
 
 Dann(/^ich sehe die Kontaktperson$/) do
-  page.has_content? @contract.delegated_user.name
+  page.should have_content @contract.delegated_user.name
 end
 
 Angenommen(/^es existiert eine persönliche Bestellung$/) do
@@ -162,7 +162,7 @@ Angenommen(/^es existiert eine persönliche Bestellung$/) do
 end
 
 Dann(/^ist in der Bestellung der Name des Benutzers aufgeführt$/) do
-  page.has_content? @contract.user.name
+  page.should have_content @contract.user.name
 end
 
 Dann(/^ich sehe keine Kontatkperson$/) do
@@ -184,10 +184,9 @@ Angenommen(/^ich öffne diese Aushändigung$/) do
 end
 
 Wenn(/^ich die Delegation wechsle$/) do
-  page.has_selector?("input[data-select-lines]", match: :first)
+  page.should have_selector("input[data-select-lines]", match: :first)
   all("input[data-select-lines]").each {|el| el.click unless el.checked?}
-  multibutton = first(".multibutton", text: _("Hand Over Selection"))
-  multibutton ||= first(".multibutton", text: _("Edit Selection"))
+  multibutton = first(".multibutton", text: _("Hand Over Selection")) || first(".multibutton", text: _("Edit Selection"))
   multibutton.find(".dropdown-toggle").hover
   find("#swap-user", match: :first).click
   find(".modal", match: :first)
@@ -200,13 +199,12 @@ Wenn(/^ich die Delegation wechsle$/) do
 end
 
 Wenn(/^ich versuche die Delegation zu wechseln$/) do
-  page.has_selector?("input[data-select-lines]", match: :first)
+  page.should have_selector("input[data-select-lines]", match: :first)
   all("input[data-select-lines]").each_with_index do |line, i|
     el = all("input[data-select-lines]")[i]
     el.click unless el.checked?
   end
-  multibutton = first(".multibutton", text: _("Hand Over Selection"))
-  multibutton ||= first(".multibutton", text: _("Edit Selection"))
+  multibutton = first(".multibutton", text: _("Hand Over Selection")) || first(".multibutton", text: _("Edit Selection"))
   multibutton.find(".dropdown-toggle").hover
   find("#swap-user", match: :first).click
   find(".modal", match: :first)
@@ -216,12 +214,12 @@ Wenn(/^ich versuche die Delegation zu wechseln$/) do
 end
 
 Dann(/^lautet die Aushändigung auf diese neu gewählte Delegation$/) do
-  page.has_content? @new_delegation.name
-  page.has_no_content? @old_delegation.name
+  page.should have_content @new_delegation.name
+  page.should_not have_content @old_delegation.name
 end
 
 Wenn(/^ich versuche die Kontaktperson zu wechseln$/) do
-  page.has_selector?("input[data-select-lines]", match: :first)
+  page.should have_selector("input[data-select-lines]", match: :first)
   all("input[data-select-lines]").each {|el| el.click unless el.checked?}
   find("button", text: _("Hand Over Selection")).click
   @delegation = @hand_over.user
@@ -237,7 +235,7 @@ end
 
 Dann(/^kann ich nur diejenigen Personen wählen, die zur Delegationsgruppe gehören$/) do
   find("input#user-id", match: :first).set @not_contact.name
-  page.has_no_selector? ".ui-menu-item a"
+  page.should_not have_selector ".ui-menu-item a"
   find("input#user-id", match: :first).set @contact.name
   find(".ui-menu-item a", match: :first, text: @contact.name).click
   find("#selected-user", text: @contact.name)
@@ -246,7 +244,7 @@ end
 Dann(/^kann ich bei der Bestellung als Kontaktperson nur diejenigen Personen wählen, die zur Delegationsgruppe gehören$/) do
   within "#contact-person" do
     find("input#user-id", match: :first).set @not_contact.name
-    page.has_no_selector? ".ui-menu-item a"
+    page.should_not have_selector ".ui-menu-item a"
     find("input#user-id", match: :first).set @contact.name
     find(".ui-menu-item a", match: :first, text: @contact.name).click
     find("#selected-user", text: @contact.name)
@@ -264,7 +262,7 @@ end
 
 Dann(/^kann ich nur diejenigen Delegationen wählen, die Zugriff auf meinen Gerätepark haben$/) do
   find("input#user-id", match: :first).set @wrong_delegation.name
-  page.has_no_selector? ".ui-menu-item a"
+  page.should_not have_selector ".ui-menu-item a"
   find("input#user-id", match: :first).set @valid_delegation.name
   find(".ui-menu-item a", match: :first, text: @valid_delegation.name).click
   find("#selected-user", text: @valid_delegation.name)
@@ -276,13 +274,12 @@ Wenn(/^ich statt einer Delegation einen Benutzer wähle$/) do
   @delegated_user = @contract.delegated_user
   @new_user = @current_inventory_pool.users.not_as_delegations.sample
 
-  page.has_selector?("input[data-select-lines]", match: :first)
+  page.should have_selector("input[data-select-lines]", match: :first)
   all("input[data-select-lines]").each_with_index do |line, i|
     el = all("input[data-select-lines]")[i]
     el.click unless el.checked?
   end
-  multibutton = first(".multibutton", text: _("Hand Over Selection"))
-  multibutton ||= first(".multibutton", text: _("Edit Selection"))
+  multibutton = first(".multibutton", text: _("Hand Over Selection")) || first(".multibutton", text: _("Edit Selection"))
   multibutton.find(".dropdown-toggle").hover if multibutton
   find("#swap-user", match: :first).click
   find(".modal", match: :first)
@@ -315,7 +312,7 @@ Dann(/^kann ich diese Delegation löschen$/) do
   line = find(".line", text: @delegation.name)
   line.find(".dropdown-toggle").hover
   find("[data-method='delete']").click
-  page.has_selector? ".success"
+  page.should have_selector ".success"
   lambda{ @delegation.reload }.should raise_error ActiveRecord::RecordNotFound
 end
 
@@ -390,7 +387,7 @@ Dann(/^können keine Bestellungen für diese Delegation für dieses Gerätepark 
   find(".dropdown-item[href*='delegations']").click
   find(".row.line", text: @delegation.name).click_link _("Switch to")
   find(".topbar-item", text: _("Inventory Pools")).click
-  page.has_no_content? @ip.name
+  page.should_not have_content @ip.name
 end
 
 Wenn(/^ich eine Bestellung für eine Delegationsgruppe erstelle$/) do
@@ -423,7 +420,7 @@ Wenn(/^ich die Gegenstände für die Delegation an "(.*?)" aushändige$/) do |co
   @contract = @delegation.contracts.submitted.first
   @contract.approve Faker::Lorem.sentence
   visit manage_hand_over_path(@current_inventory_pool, @delegation)
-  page.has_selector?("input[data-assign-item]")
+  page.should have_selector("input[data-assign-item]")
   all("input[data-assign-item]").detect{|el| not el.disabled?}.click
   find(".ui-autocomplete .ui-menu-item", match: :first).click
   has_selector? "[data-remove-assignment]"
@@ -431,7 +428,7 @@ Wenn(/^ich die Gegenstände für die Delegation an "(.*?)" aushändige$/) do |co
   @contact = User.find_by_login(contact_person.downcase)
   step "ich die Kontaktperson wechsle"
   find("button[data-hand-over]").click
-  page.has_no_selector? ".modal button[data-hand-over]"
+  page.should_not have_selector ".modal button[data-hand-over]"
 end
 
 Dann(/^ist "(.*?)" die neue Kontaktperson dieses Auftrages$/) do |contact_person|
@@ -455,10 +452,9 @@ Wenn(/^ich statt eines Benutzers eine Delegation wähle$/) do
   @user = @contract.user
   @delegation = @current_inventory_pool.users.as_delegations.sample
 
-  page.has_selector?("input[data-select-lines]", match: :first)
+  page.should have_selector("input[data-select-lines]", match: :first)
   all("input[data-select-lines]").each {|el| el.click unless el.checked?}
-  multibutton = first(".multibutton", text: _("Hand Over Selection"))
-  multibutton ||= first(".multibutton", text: _("Edit Selection"))
+  multibutton = first(".multibutton", text: _("Hand Over Selection")) || first(".multibutton", text: _("Edit Selection"))
   multibutton.find(".dropdown-toggle").hover if multibutton
   find("#swap-user", match: :first).click
   find(".modal", match: :first)
@@ -474,11 +470,11 @@ Und(/^ich eine Kontaktperson aus der Delegation wähle$/) do
 end
 
 Dann(/^ist in der Bestellung der Name der Delegation aufgeführt$/) do
-  page.has_content? @delegation.name
+  page.should have_content @delegation.name
 end
 
 Dann(/^ist in der Bestellung der Name der Kontaktperson aufgeführt$/) do
-  page.has_content? @contact.name
+  page.should have_content @contact.name
 end
 
 Dann(/^ich bestätige den Benutzerwechsel$/) do
@@ -493,7 +489,7 @@ end
 
 Dann(/^muss ich eine Kontaktperson hinzufügen$/) do
   find("button[data-hand-over]").click
-  page.has_selector? ".modal #contact-person"
+  page.should have_selector ".modal #contact-person"
   find(".modal #error").text.should_not be_empty
 end
 
@@ -514,7 +510,7 @@ Wenn(/^ich den Benutzerwechsel bestätige$/) do
 end
 
 Dann(/^sehe ich im Dialog die Fehlermeldung "(.*?)"$/) do |text|
-  page.has_selector? ".modal .red", text: text
+  page.should have_selector ".modal .red", text: text
 end
 
 Wenn(/^ich die Aushändigung abschliesse$/) do
@@ -531,10 +527,6 @@ Wenn(/^ich eine gesperrte Kontaktperson wähle$/) do
   end
   find("input#user-id", match: :first).set delegated_user.name
   find(".ui-menu-item a", match: :first, text: delegated_user.name).click
-end
-
-Dann(/^ist diese Kontaktperson bei der Auswahl rot markiert$/) do
-  pending # express the regexp above with the code you wish you had
 end
 
 Dann(/^muss ich eine Kontaktperson auswählen$/) do
@@ -554,14 +546,6 @@ Wenn(/^ich einen Verantwortlichen zuteile, der für diesen Gerätepark gesperrt 
   step 'ich genau einen Verantwortlichen eintrage'
 end
 
-Dann(/^ist dieser bei der Auswahl rot markiert$/) do
-  pending # express the regexp above with the code you wish you had
-end
-
-Dann(/^hinter dem Namen steht in rot 'Gesperrt!'$/) do
-  pending # express the regexp above with the code you wish you had
-end
-
 Wenn(/^ich einen Benutzer hinzufüge, der für diesen Gerätepark gesperrt ist$/) do
   @delegated_user = @current_inventory_pool.users.select{|u| u.suspended? @current_inventory_pool}.sample
   @delegated_user ||= begin
@@ -570,18 +554,6 @@ Wenn(/^ich einen Benutzer hinzufüge, der für diesen Gerätepark gesperrt ist$/
       user
   end
   fill_in_autocomplete_field _("Users"), @delegated_user.name
-end
-
-Dann(/^ist er bei der Auswahl rot markiert$/) do
-  pending # express the regexp above with the code you wish you had
-end
-
-Dann(/^in der Auwahl steht hinter dem Namen in rot 'Gesperrt!'$/) do
-  pending # express the regexp above with the code you wish you had
-end
-
-Dann(/^in der Auflistung der Benutzer steht hinter dem Namen in rot 'Gesperrt!'$/) do
-  pending # express the regexp above with the code you wish you had
 end
 
 Angenommen(/^ich wechsle den Benutzer$/) do

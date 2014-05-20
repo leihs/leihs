@@ -5,11 +5,11 @@ Funktionalität: Gegenstand kopieren
   Grundlage:
     Angenommen ich bin Mike
 
-
+  @javascript
   Szenario: Gegenstand erstellen und kopieren
     Angenommen man erstellt einen Gegenstand
     | Feldname                     | Type         | Wert                          |
-    | Modell                       | autocomplete | Sharp Beamer Test             |
+    | Modell                       | autocomplete | Sharp Beamer 456              |
     | Ausmusterung                 | checkbox     | unchecked                     |
     | Zustand                      | radio        | OK                            |
     | Vollständigkeit              | radio        | OK                            |

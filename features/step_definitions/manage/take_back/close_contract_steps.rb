@@ -18,9 +18,10 @@ end
 When /^I select all lines of an open contract$/ do
   within("#assign") do
     @contract_lines_to_take_back.each do |line|
-      find("[data-barcode-scanner-target]").set line.item.inventory_code
-      sleep(0.11)
-      find("[data-barcode-scanner-target]").native.send_key :enter
+      line.quantity.times do
+        find("[data-barcode-scanner-target]").set line.item.inventory_code
+        find("[data-barcode-scanner-target]").native.send_key :enter
+      end
     end
   end
   page.should have_selector(".line input[type=checkbox][data-select-line]")
@@ -32,7 +33,7 @@ When /^I click take back$/ do
 end
 
 Then /^I see a summary of the things I selected for take back$/ do
-  within find(".modal") do
+  within(".modal") do
     @contract_lines_to_take_back.each do |line|
       has_content?(line.item.model.name)
     end

@@ -20,7 +20,6 @@ Funktionalität: Software erfassen
     Wenn ich das Software-Produkt wieder editiere
     Dann werden nur die Linien mit Links zusätzlich ausserhalb des Textfeldes angezeigt
 
-  @javascript
   Szenario: Mögliche Werte in Software-Produkt erfassen
     Angenommen ich befinde mich auf der Software-Erstellungsseite
     Dann kann ich auf mehreren Zeilen Hinweise und Links anfügen

@@ -27,7 +27,7 @@ When /^I approve anyway$/ do
     find(".dropdown-toggle").hover
     find(".dropdown-item[data-approve-anyway]").click
   end
-  page.has_no_selector?(".modal").should be_true
+  page.should_not have_selector(".modal")
 end
 
 Then /^this contract is approved$/ do

@@ -6,9 +6,12 @@ Angenommen(/^ich die Navigation der Kategorien aufklappe$/) do
 end
 
 Wenn(/^ich eine Kategorie anwähle$/) do
-  @category = Category.find find("a[data-type='category-filter']", match: :first)[:"data-id"]
-  page.execute_script %Q{ $("a[data-type='category-filter']").trigger("click") }
-  find("#category-current", :text => @category.name)
+  c = find("#categories #category-list a[data-type='category-filter']", match: :first)
+  c_id = c[:"data-id"]
+  @category = Category.find c_id
+  c.text.should == @category.name
+  c.click
+  find("#categories #category-current a[data-type='category-current'][data-id='#{c_id}']", text: @category.name)
 end
 
 Dann(/^sehe ich die darunterliegenden Kategorien$/) do
@@ -20,7 +23,7 @@ end
 Dann(/^kann die darunterliegende Kategorie anwählen$/) do
   @child_category = Category.find find("a[data-type='category-filter']", match: :first)[:"data-id"]
   @category.children.should include @child_category
-  page.execute_script %Q{ $("a[data-type='category-filter']").trigger("click") }
+  find("a[data-type='category-filter']", match: :first).click
   find("#category-current", :text => @child_category.name)
 end
 
@@ -33,7 +36,7 @@ Dann(/^das Inventar wurde nach dieser Kategorie gefiltert$/) do
   within("#inventory") do
     find(".line[data-type='model']", match: :first)
     all(".line[data-type='model']").each do |model_line|
-      model = Model.find {|m| [m.name, m.product].include? model_line.find(".col2of5 strong").text }
+      model = Model.find_by_name(model_line.find(".col2of5 strong").text)
       (model.categories.include?(@child_category) or @child_category.descendants.any? {|c| model.categories.include? c}).should be_true
     end
   end
@@ -72,14 +75,10 @@ Wenn(/^ich nach dem Namen einer Kategorie suche$/) do
 end
 
 Dann(/^werden alle Kategorien angezeigt, welche den Namen beinhalten$/) do
-  Category.all.map(&:name).reject{|name| ! name[@search_term]}.each do |name|
+  Category.all.map(&:name).reject{|name| not name[@search_term]}.each do |name|
     find("#categories #category-list [data-type='category-filter']", match: :prefer_exact, :text => name)
   end
   all("#categories #category-list [data-type='category-filter']").size.should == all("#categories #category-list [data-type='category-filter']", :text => @search_term).size
-end
-
-Dann(/^ich wähle eine Kategorie$/) do
-  step 'ich eine Kategorie anwähle'
 end
 
 Dann(/^ich sehe ein Suchicon mit dem Namen des gerade gesuchten Begriffs sowie die aktuell ausgewählte und die darunterliegenden Kategorien$/) do
@@ -99,10 +98,6 @@ end
 
 Dann(/^kann ich in die übergeordnete Kategorie navigieren$/) do
   find("#category-current a").click
-end
-
-Angenommen(/^ich befinde mich in der Liste der Modelle$/) do
-  step 'man öffnet die Liste der Modelle'
 end
 
 Dann(/^die Modelle wurden nach dieser Kategorie gefiltert$/) do

@@ -49,7 +49,7 @@ Dann /^sind die Eigenschaften gemäss Sortierreihenfolge für das geänderte Mod
 end
 
 Angenommen /^ich editiere ein Modell$/ do
-  step 'man öffnet die Liste der Modelle'
+  step 'man öffnet die Liste des Inventars'
   step 'ich ein bestehendes Modell bearbeite'
   find("h1", match: :prefer_exact, text: _("Edit Model"))
 end

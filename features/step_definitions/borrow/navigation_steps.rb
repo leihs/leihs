@@ -25,7 +25,7 @@ Dann(/^die Navigation beinhaltet "(.*?)"$/) do |section|
     when "Ausleihen"
       find("nav a[href='#{borrow_root_path}']", :text => _("Borrow"))
     else
-      pending
+      raise "not found"
   end
 end
 

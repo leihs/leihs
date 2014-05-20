@@ -17,7 +17,7 @@ end
 Dann /^wähle ich all die Felder über eine List oder per Namen aus$/ do
   i = find("#field-input")
   i.click
-  page.has_selector?("a.ui-corner-all", :visible => true).should be_true
+  page.should have_selector("a.ui-corner-all", :visible => true).should be_true
   number_of_items_left = all("a.ui-corner-all", :visible => true).size
 
   number_of_items_left.times do
@@ -68,13 +68,13 @@ Dann /^ich setze all ihre Initalisierungswerte$/ do
         find("a.ui-corner-all", match: :first).click
         @data[field[:id]] = find(".field[data-id='#{field[:id]}'] [data-type='autocomplete']")
       when "autocomplete-search"
-        string = "Sharp Beamer"
+        string = "Sharp Beamer 123"
         within ".field[data-id='#{field[:id]}']" do
           find("input").click
           find("input").set string
         end
         find("a.ui-corner-all", match: :prefer_exact, text: string).click
-        @data[field[:id]] = Model.find {|m| [m.name, m.product].include? string }.id
+        @data[field[:id]] = Model.find_by_name(string).id
       when "checkbox"
         # currently we only have "ausgemustert"
         field_el.find("input[type='checkbox']").click
@@ -301,17 +301,17 @@ Angenommen(/^man editiert das Feld "(.*?)" eines ausgeliehenen Gegenstandes$/) d
 end
 
 Dann(/^erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät ausgeliehen ist$/) do
-  page.has_content? _("The responsible inventory pool cannot be changed because the item is currently not in stock.")
+  page.should have_content _("The responsible inventory pool cannot be changed because the item is currently not in stock.")
   @item_before.should == @item.reload.to_json
 end
 
 Dann(/^erhält man eine Fehlermeldung, dass man den Gegenstand nicht ausmustern kann, da das Gerät ausgeliehen ist$/) do
-  page.has_content? _("The item cannot be retired because it's not returned yet.")
+  page.should have_content _("The item cannot be retired because it's not returned yet.")
   @item_before.should == @item.reload.to_json
 end
 
 Dann(/^erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät in einem Vortrag vorhanden ist$/) do
-  page.has_content? _("The model cannot be changed because the item is used in contracts already.")
+  page.should have_content _("The model cannot be changed because the item is used in contracts already.")
   @item_before.should == @item.reload.to_json
 end
 

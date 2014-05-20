@@ -45,14 +45,14 @@ Angenommen(/^man befindet sich auf der Modellliste$/) do
 end
 
 Wenn(/^man ein bestimmten Gerätepark in der Geräteparkauswahl auswählt$/) do
-  page.execute_script %Q($("#ip-selector").trigger("mouseenter"))
+  find("#ip-selector").hover
   page.should have_selector("#ip-selector .dropdown .dropdown-item", :visible => true)
   @ip ||= @current_user.inventory_pools.first
   find("#ip-selector .dropdown .dropdown-item", text: @ip.name).click
 end
 
 Dann(/^sind alle anderen Geräteparks abgewählt$/) do
-  page.execute_script %Q($("#ip-selector").trigger("mouseenter"))
+  find("#ip-selector").hover
   (@current_user.inventory_pools - [@ip]).each do |ip|
     find("#ip-selector .dropdown-item", text: ip.name).first("input").should_not be_checked
   end
@@ -75,7 +75,7 @@ Dann(/^im Filter steht der Name des ausgewählten Geräteparks$/) do
 end
 
 Wenn(/^man einige Geräteparks abwählt$/) do
-  page.execute_script %Q($("#ip-selector").trigger("mouseenter"))
+  find("#ip-selector").hover
   @ip = @current_user.inventory_pools.first
   @dropdown_element = find("#ip-selector .dropdown")
   @dropdown_element.first(".dropdown-item", text: @ip.name).first("input").click
@@ -96,7 +96,7 @@ Dann(/^die Auswahl klappt noch nicht zu$/) do
 end
 
 Wenn(/^man alle Geräteparks bis auf einen abwählt$/) do
-  page.execute_script %Q($("#ip-selector").trigger("mouseenter"))
+  find("#ip-selector").hover
   @ip = @current_user.inventory_pools.first
   @ips_for_unselect = @current_user.inventory_pools.where("inventory_pools.id != ?", @ip.id)
   @ips_for_unselect.each do |ip|
@@ -119,7 +119,7 @@ Dann(/^im Filter steht der Name des übriggebliebenen Geräteparks$/) do
 end
 
 Dann(/^kann man nicht alle Geräteparks in der Geräteparkauswahl abwählen$/) do
-  page.execute_script %Q($("#ip-selector").trigger("mouseenter"))
+  find("#ip-selector").hover
   inventory_pool_ids = all("#ip-selector .dropdown-item[data-id]").map{|item| item["data-id"]}
   inventory_pool_ids.each do |ip_id|
     page.should have_selector("#ip-selector .dropdown .dropdown-item", visible: true)
@@ -139,7 +139,7 @@ Dann(/^im Filter steht die Zahl der ausgewählten Geräteparks$/) do
 end
 
 Wenn(/^man die Liste nach "(.*?)" sortiert$/) do |sort_order|
-  page.execute_script %Q($("#model-sorting").trigger("mouseenter"))
+  find("#model-sorting").hover
   text = case sort_order
     when "Modellname (alphabetisch aufsteigend)"
       "#{_("Model")} (#{_("ascending")})"
@@ -176,8 +176,9 @@ Dann(/^ist die Liste nach "(.*?)" "(.*?)" sortiert$/) do |sort, order|
 end
 
 Wenn(/^man ein Suchwort eingibt$/) do
-  find("#model-list-search input").set " "
-  find("#model-list-search input").set "bea panas"
+  x = find("#model-list-search input")
+  x.set " "
+  x.set "bea panas"
   find("#model-list .line", :match => :first)
 end
 
@@ -205,8 +206,7 @@ Dann(/^die Liste wird gefiltert nach Modellen die in diesem Zeitraum verfügbar 
   find("#model-list .line", match: :first)
   sleep(0.33)
   all("#model-list .line[data-id]").each do |model_el|
-    model = Model.find_by_id(model_el["data-id"])
-    model = Model.find_by_id(model_el.reload["data-id"]) if model.nil?
+    model = Model.find_by_id(model_el["data-id"]) || Model.find_by_id(model_el.reload["data-id"])
     quantity = @current_user.inventory_pools.to_a.sum do |ip|
       model.availability_in(ip).maximum_available_in_period_summed_for_groups(@start_date, @end_date, @current_user.groups.map(&:id))
     end
@@ -380,11 +380,11 @@ Angenommen(/^Filter sind ausgewählt$/) do
   find("input#end-date").set (Date.today + 1).strftime("%d.%m.%Y")
   find("body").click
   page.should_not have_selector(".ui-datepicker-calendar", :visible => true)
-  page.execute_script %Q($("#ip-selector").trigger("mouseenter"))
+  find("#ip-selector").hover
   page.should have_selector("#ip-selector .dropdown-item", :visible => true)
   all("#ip-selector .dropdown-item").last.click
   page.execute_script %Q($("#ip-selector").trigger("mouseleave"))
-  page.execute_script %Q($("#model-sorting").trigger("mouseenter"))
+  find("#model-sorting").hover
   page.should have_selector("#model-sorting a", :visible => true)
   all("#model-sorting a").last.click
   page.execute_script %Q($("#model-sorting").trigger("mouseleave"))
@@ -431,11 +431,11 @@ Wenn(/^ich alle Filter manuell zurücksetze$/) do
   find("input#end-date").set ""
   find("body").click
   all(".ui-datepicker-calendar", :visible => true).empty?.should be_true
-  page.execute_script %Q($("#ip-selector").trigger("mouseenter"))
+  find("#ip-selector").hover
   page.should have_selector("#ip-selector .dropdown-item", :visible => true)
   all("#ip-selector .dropdown-item").first.click
   page.execute_script %Q($("#ip-selector").trigger("mouseleave"))
-  page.execute_script %Q($("#model-sorting").trigger("mouseenter"))
+  find("#model-sorting").hover
   page.should have_selector("#model-sorting a", :visible => true)
   all("#model-sorting a").first.click
   page.execute_script %Q($("#model-sorting").trigger("mouseleave"))

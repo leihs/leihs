@@ -22,7 +22,7 @@ end
 Wenn(/^ich einen Benutzer mit Login "(.*?)" und Passwort "(.*?)" erstellt habe$/) do |login, password|
   step "man einen Benutzer hinzufügt"
   fill_in_user_information(firstname: "test", lastname: "test", email: "test@test.ch", login: login, password: password, password_confirmation: password)
-  page.has_content? _("List of Users")
+  page.should have_content _("List of Users")
   @user = User.find_by_login login
   DatabaseAuthentication.find_by_user_id(@user.id).should_not be_nil
 end
@@ -43,7 +43,7 @@ end
 
 Wenn(/^ich das Passwort von "(.*?)" auf "(.*?)" ändere$/) do |persona, password|
   fill_in_user_information(password: password, password_confirmation: password)
-  page.has_content? _("List of Users")
+  page.should have_content _("List of Users")
   @user = User.find_by_login "#{User.find_by_login("normin").login}"
   DatabaseAuthentication.find_by_user_id(@user.id).should_not be_nil
 end
@@ -61,14 +61,14 @@ end
 
 Wenn(/^ich den Benutzernamen auf "(.*?)" und das Passwort auf "(.*?)" ändere$/) do |login, password|
   fill_in_user_information(login: login, password: password, password_confirmation: password)
-  page.has_content? _("List of Users")
+  page.should have_content _("List of Users")
   @user = User.find_by_login login
   DatabaseAuthentication.find_by_user_id(@user.id).should_not be_nil
 end
 
 Wenn(/^ich den Benutzernamen von "(.*?)" auf "(.*?)" ändere$/) do |person, login|
   fill_in_user_information(login: login)
-  page.has_content? _("List of Users")
+  page.should have_content _("List of Users")
   @user = User.find_by_login login
   DatabaseAuthentication.find_by_user_id(@user.id).should_not be_nil
 end

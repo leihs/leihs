@@ -62,7 +62,7 @@ Then /^the (.*?) is added to the hand over$/ do |type|
   case type
     when "option"
       option = Option.find_by_inventory_code(@inventory_code)
-      @option_line = contract.reload.option_lines.where(:option_id => option).first
+      @option_line = contract.reload.option_lines.where(option_id: option).order(:created_at).last
       contract.reload.options.include?(option).should == true
       first(".line[data-line-type='option_line'] .inventory_code", :text => @inventory_code)
     when "model"

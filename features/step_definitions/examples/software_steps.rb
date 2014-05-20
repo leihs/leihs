@@ -55,14 +55,14 @@ Wenn(/^ich eine Seriennummer eingebe$/) do
 end
 
 Wenn(/^ich eine Aktivierungsart eingebe$/) do
-  within find(".field", text: _("Activation Type")) do
+  within(".field", text: _("Activation Type")) do
     @activation_type = all("option").map(&:value).sample
     find("option[value='#{@activation_type}']").click
   end
 end
 
 Wenn(/^ich eine Lizenzart eingebe$/) do
-  within find(".field", text: _("License Type")) do
+  within(".field", text: _("License Type")) do
     @license_type = all("option").map(&:value).sample
     find("option[value='#{@license_type}']").click
   end
@@ -74,7 +74,7 @@ Wenn(/^ich die den Wert "ausleihbar" setze$/) do
 end
 
 Dann(/^sind die Informationen dieser Software\-Lizenz gespeichert$/) do
-  page.has_selector? ".flash.success"
+  page.should have_selector ".flash.success"
   license = Item.find_by_serial_number(@serial_number)
   license.type.should == "License"
   license.model.should == @software
@@ -159,7 +159,7 @@ When(/^I change the options for installation$/) do
 end
 
 Dann(/^sind die Informationen dieser Software\-Lizenz erfolgreich aktualisiert worden$/) do
-  page.has_selector? ".flash.success"
+  page.should have_selector ".flash.success"
   license = Item.find_by_serial_number(@new_serial_number)
   license.type.should == "License"
   license.model.should == @new_software
@@ -176,7 +176,7 @@ Dann(/^sind die Informationen dieser Software\-Lizenz erfolgreich aktualisiert w
 end
 
 Wenn(/^ich mich auf der Softwareliste befinde$/) do
-  page.has_selector? "Inventarliste"
+  page.should have_selector "Inventarliste"
   find("a", text: _("Software")).click
 end
 
@@ -273,7 +273,7 @@ When(/^I choose "(.*?)" for maintenance contract$/) do |arg1|
 end
 
 Then(/^I am not able to choose the maintenance expiration date$/) do
-  page.has_no_selector? ".field", text: _("Maintenance expiration")
+  page.should_not have_selector ".field", text: _("Maintenance expiration")
 end
 
 When(/^I choose a date for the maintenance expiration$/) do
@@ -300,7 +300,7 @@ When(/^I change the license expiration date$/) do
 end
 
 Wenn(/^I change the value for maintenance contract$/) do
-  within find(".field", text: _("Maintenance contract")) do
+  within(".field", text: _("Maintenance contract")) do
     o = all("option").detect &:selected?
     find("option[value='#{@new_maintenance_contract = !o.value}']").select_option
   end

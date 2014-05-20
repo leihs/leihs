@@ -42,7 +42,7 @@ end
 
 Angenommen /^man navigiert zur Gegenstandserstellungsseite$/ do
   visit manage_new_item_path(@current_inventory_pool)
-  page.has_selector?(".row.emboss")
+  page.should have_selector(".row.emboss")
 end
 
 Wenn /^ich die folgenden Informationen erfasse$/ do |table|
@@ -86,6 +86,7 @@ Dann /^ist der Gegenstand mit all den angegebenen Informationen erstellt$/ do
   find("#list-tabs a[data-retired='true']").click if @table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"} and (@table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"}["Wert"]) == "Ja"
   inventory_code = @table_hashes.detect {|r| r["Feldname"] == "Inventarcode"}["Wert"]
   find("#list-search").set inventory_code
+  sleep(0.11)
   within("#inventory .line[data-type='model']", match: :first, text: /#{@table_hashes.detect {|r| r["Feldname"] == "Modell"}["Wert"]}/) do
     find(".col2of5 strong").text.should =~ /#{@table_hashes.detect {|r| r["Feldname"] == "Modell"}["Wert"]}/
     find(".button[data-type='inventory-expander'] i.arrow.right").click
@@ -96,7 +97,7 @@ Dann /^ist der Gegenstand mit all den angegebenen Informationen erstellt$/ do
 end
 
 Dann /^hat der Gegenstand alle zuvor eingetragenen Werte$/ do
-  page.has_selector? ".row.emboss"
+  page.should have_selector ".row.emboss"
   @table_hashes.each do |hash_row|
     field_name = hash_row["Feldname"]
     field_value = hash_row["Wert"]

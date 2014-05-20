@@ -95,7 +95,7 @@ Wenn(/^alle Angaben die ich im Kalender mache gültig sind$/) do
   step "ich setze das Startdatum im Kalendar auf '#{I18n::l(@start_date)}'"
   step "ich setze das Enddatum im Kalendar auf '#{I18n::l(@end_date)}'"
   find("#submit-booking-calendar").click
-  page.has_no_selector? "#booking-calendar"
+  page.should_not have_selector "#booking-calendar"
 end
 
 Dann(/^ist das Modell mit Start- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügt worden$/) do
@@ -168,8 +168,12 @@ Wenn(/^man dieses Modell aus der Modellliste hinzufügt$/) do
   find(".line", text: @model.name).find(".button").click
 end
 
+def get_selected_inventory_pool
+  InventoryPool.find_by_name find("#booking-calendar-inventory-pool option").value.split(" ").first
+end
+
 Dann(/^wird die Verfügbarkeit des Modells im Kalendar angezeigt$/) do
-  @ip = InventoryPool.find_by_name find("#booking-calendar-inventory-pool option").value.split(" ").first
+  @ip = get_selected_inventory_pool
   av = @model.availability_in(@ip)
   changes = av.available_total_quantities
 
@@ -249,15 +253,14 @@ Dann(/^werden die Schliesstage gemäss gewähltem Gerätepark angezeigt$/) do
 end
 
 Wenn(/^man ein Start und Enddatum ändert$/) do
-  @start = Date.today + 1.day
-  @end = @start + 1.day
+  ip = get_selected_inventory_pool
+  @start = ip.next_open_date(Date.today)
+  @end = ip.next_open_date(@start)
   step "ich setze das Startdatum im Kalendar auf '#{I18n.l(@start)}'"
   step "ich setze das Enddatum im Kalendar auf '#{I18n.l(@end)}'"
 end
 
 Dann(/^wird die Verfügbarkeit des Gegenstandes aktualisiert$/) do
-  @ip = InventoryPool.find_by_name find("#booking-calendar-inventory-pool option").value.split(" ").first
-
   (@start..@end).each do |date|
     date_el = get_fullcalendar_day_element date
     date_el.native.attribute("class").should include "available"

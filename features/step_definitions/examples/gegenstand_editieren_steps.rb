@@ -67,7 +67,7 @@ end
 Angenommen(/^man navigiert zur Gegenstandsbearbeitungsseite eines Gegenstandes, der am Lager und in keinem Vertrag vorhanden ist$/) do
   @item = @current_inventory_pool.items.find {|i| i.in_stock? and i.contract_lines.blank?}
   visit manage_edit_item_path(@current_inventory_pool, @item)
-  page.has_selector?(".row.emboss")
+  page.should have_selector(".row.emboss")
 end
 
 Wenn(/^ich speichern druecke$/) do
@@ -81,7 +81,6 @@ end
 Dann(/^ist der Gegenstand mit all den angegebenen Informationen gespeichert$/) do
   find("[data-retired='true']").click if @table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"} and (@table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"} ["Wert"]) == "Ja"
   find_field('list-search').set (@table_hashes.detect {|r| r["Feldname"] == "Inventarcode"} ["Wert"])
-  find("img[src*='loading.gif']")
   find(".line", :text => @table_hashes.detect {|r| r["Feldname"] == "Modell"} ["Wert"], :visible => true)
   visit manage_edit_item_path @current_inventory_pool.id, @item.id
   step 'hat der Gegenstand alle zuvor eingetragenen Werte'
@@ -130,7 +129,7 @@ Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeli
 end
 
 Wenn(/^ich die verantwortliche Abteilung ändere$/) do
-  fill_in_autocomplete_field _("Responsible"), InventoryPool.all.sample.name
+  fill_in_autocomplete_field _("Responsible"), InventoryPool.where("id != ?", @item.inventory_pool.id).sample.name
 end
 
 Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes, der in einem Vertrag vorhanden ist$/) do

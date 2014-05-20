@@ -17,7 +17,7 @@ Funktionalität: Anzeige von Problemen
 
   @javascript @firefox
   Szenario: Problemanzeige bei Rücknahme wenn Gegenstand defekt
-    Angenommen ich mache eine Rücknahme
+    Angenommen ich mache eine Rücknahme eines Gegenstandes
      Und eine Gegenstand ist defekt
      Dann sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen
      Und das Problem wird wie folgt dargestellt: "Gegenstand ist defekt"
@@ -31,7 +31,7 @@ Funktionalität: Anzeige von Problemen
 
   @javascript @firefox
   Szenario: Problemanzeige bei Rücknahme wenn Gegenstand unvollständig
-    Angenommen ich mache eine Rücknahme
+    Angenommen ich mache eine Rücknahme eines Gegenstandes
      Und eine Gegenstand ist unvollständig
      Dann sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen
      Und das Problem wird wie folgt dargestellt: "Gegenstand ist unvollständig"
@@ -45,7 +45,7 @@ Funktionalität: Anzeige von Problemen
 
   @javascript @firefox
   Szenario: Problemanzeige bei Rücknahme wenn Gegenstand nicht ausleihbar
-    Angenommen ich mache eine Rücknahme
+    Angenommen ich mache eine Rücknahme eines Gegenstandes
     Und eine Gegenstand ist nicht ausleihbar
     Dann sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen
     Und das Problem wird wie folgt dargestellt: "Gegenstand nicht ausleihbar"

@@ -22,9 +22,11 @@ Dann /^möchte ich die folgenden Bereiche sehen:$/ do |table|
   table.hashes.each do |area|
     case area["Bereich"]
        when "Datum"
-         @contract_element.find(".date").should have_content Date.today.year
-         @contract_element.find(".date").should have_content Date.today.month
-         @contract_element.find(".date").should have_content Date.today.day
+         within @contract_element.find(".date") do
+           should have_content Date.today.year
+           should have_content Date.today.month
+           should have_content Date.today.day
+         end
       when "Titel"
          @contract_element.find("h1").should have_content @contract.id
        when "Ausleihender"
@@ -70,24 +72,30 @@ Dann /^beinhalten Liste (\d+) und Liste (\d+) folgende Spalten:$/ do |arg1, arg2
         when "Startdatum"
           @contract.lines.each {|line|
             line_element = find("tr", :text=> line.item.inventory_code)
-            line_element.find(".start_date").should have_content line.start_date.year
-            line_element.find(".start_date").should have_content line.start_date.month
-            line_element.find(".start_date").should have_content line.start_date.day
+            within line_element.find(".start_date") do
+              should have_content line.start_date.year
+              should have_content line.start_date.month
+              should have_content line.start_date.day
+            end
           }
         when "Enddatum"
           @contract.lines.each {|line|
             line_element = find("tr", :text=> line.item.inventory_code)
-            line_element.find(".end_date").should have_content line.end_date.year
-            line_element.find(".end_date").should have_content line.end_date.month
-            line_element.find(".end_date").should have_content line.end_date.day
+            within line_element.find(".end_date") do
+              should have_content line.end_date.year
+              should have_content line.end_date.month
+              should have_content line.end_date.day
+            end
           }
         when "Rückgabedatum"
           @contract.lines.each {|line|
             unless line.returned_date.blank?
               line_element = find("tr", :text=> line.item.inventory_code)
-              line_element.find(".returning_date").should have_content line.returned_date.year
-              line_element.find(".returning_date").should have_content line.returned_date.month
-              line_element.find(".returning_date").should have_content line.returned_date.day
+              within line_element.find(".returning_date") do
+                should have_content line.returned_date.year
+                should have_content line.returned_date.month
+                should have_content line.returned_date.day
+              end
             end
           }
       end
@@ -105,9 +113,11 @@ Dann /^jeder identische Zweck ist maximal einmal aufgelistet$/ do
 end
 
 Dann /^sehe ich das heutige Datum oben rechts$/ do
-  @contract_element.find(".date").should have_content Date.today.year
-  @contract_element.find(".date").should have_content Date.today.month
-  @contract_element.find(".date").should have_content Date.today.day
+  within @contract_element.find(".date") do
+    should have_content Date.today.month
+    should have_content Date.today.day
+    should have_content Date.today.year
+  end
 end
 
 Dann /^sehe ich den Titel im Format "(.*?)"$/ do |format|
@@ -186,8 +196,10 @@ end
 
 Dann /^diese Liste enthält Gegenstände, die ausgeliehen und noch nicht zurückgegeben wurden$/ do
   @not_returned.each do |line|
-    @contract_element.find(".not_returned_items").should have_content line.model.name
-    @contract_element.find(".not_returned_items").should have_content line.item.inventory_code
+    within @contract_element.find(".not_returned_items") do
+      should have_content line.model.name
+      should have_content line.item.inventory_code
+    end
   end
 end
 
@@ -208,7 +220,7 @@ When(/^die Modelle sind innerhalb ihrer Gruppe alphabetisch sortiert$/) do
 end
 
 Dann(/^wird unter 'Verleiher\/in' der Gerätepark aufgeführt$/) do
-  find(".inventory_pool").has_content? @contract.inventory_pool.name
+  find(".inventory_pool", text: @contract.inventory_pool.name)
 end
 
 Angenommen(/^es gibt einen Kunden mit Vertrag wessen Addresse mit "(.*?)" endet$/) do |arg1|

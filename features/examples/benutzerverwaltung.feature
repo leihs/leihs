@@ -180,7 +180,7 @@ Funktionalität: Benutzer verwalten
       |Telefonnummer|
       |Rolle|
 
-  @javascript @firefox
+  @javascript
   Szenario: Darstellung eines Benutzers in Listen ohne zugeteilte Rolle
     Angenommen Personas existieren
     Und man ist Inventar-Verwalter oder Ausleihe-Verwalter

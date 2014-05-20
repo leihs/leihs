@@ -62,7 +62,7 @@ Dann(/^ist der Gerätepark und die eingegebenen Informationen gespeichert$/) do
 end
 
 Wenn(/^ich im Admin\-Bereich unter dem Reiter Geräteparks einen bestehenden Gerätepark lösche$/) do
-  @ip = InventoryPool.find &:can_destroy?
+  @ip = InventoryPool.find(&:can_destroy?) || FactoryGirl.create(:inventory_pool)
   visit manage_inventory_pools_path
   within(".line", text: @ip.name) do
     find(:xpath, ".").click # NOTE it scrolls to the target line

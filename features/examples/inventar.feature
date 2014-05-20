@@ -6,7 +6,7 @@ Funktionalität: Inventar
     Angenommen ich bin Mike
     Und man öffnet die Liste des Inventars
 
-  @javascript @firefox
+  @javascript
   Szenario: Was man auf einer Liste sieht
     Dann sieht man Modelle
     Und man sieht Optionen

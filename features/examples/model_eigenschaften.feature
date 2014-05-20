@@ -5,7 +5,7 @@ Funktionalität: Modell Eigenschaften
   Grundlage:
     Angenommen ich bin Mike
 
-  @javascript @firefox
+  @javascript
   Szenario: Eigenschaften erstellen
   Angenommen ich erstelle ein Modell und gebe die Pflichtfelder an
   Wenn ich Eigenschaften hinzufügen und die Felder mit den Platzhaltern Schlüssel und Wert angebe

@@ -45,16 +45,17 @@ Angenommen(/^drückt ENTER$/) do
 end
 
 Dann(/^wird die Such\-Resultatseite angezeigt$/) do
-  current_path.should eq borrow_search_results_path(@model.name[0..3])
+  find("nav .navigation-tab-item.active", text: _("Search for '%s'") % @search_term)
+  current_path.should eq borrow_search_results_path(@search_term)
 end
 
 Dann(/^man sieht alle gefundenen Modelle mit Bild, Modellname und Herstellername$/) do
   @models = @current_user.models.borrowable.search(@model.name[0..3]).default_order.paginate(page: 1, per_page: 20)
   @models.each do |model|
     within "#model-list .line[data-id='#{model.id}']" do
-      find("div", :text => model.manufacturer, match: :prefer_exact)
-      find("div", :text => model.name, match: :prefer_exact)
-      find("div img[src='/models/#{model.id}/image_thumb']")
+      find("div .col1of6", :text => model.manufacturer, match: :prefer_exact)
+      find("div .col3of6", :text => model.name, match: :prefer_exact)
+      find("div .col1of6 img[src='/models/#{model.id}/image_thumb']")
     end
   end
 end

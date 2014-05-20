@@ -20,7 +20,6 @@ Feature: Add lines during hand over
       And I add an option to the hand over by providing an inventory code and a date range
      Then the option is added to the hand over
 
-  @javascript
   Scenario: Increase the quantity of an option of the hand over by adding an option providing an inventory code
       And I add an option to the hand over which is already existing in the selected date range by providing an inventory code
      Then the existing option quantity is increased

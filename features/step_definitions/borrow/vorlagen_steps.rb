@@ -131,16 +131,16 @@ Dann(/^sind diejenigen Modelle hervorgehoben, die zu diesem Zeitpunkt nicht verf
 end
 
 Dann(/^ich kann Modelle aus der Ansicht entfernen$/) do
-  if first(".row.line").all(".multibutton .dropdown-toggle").length > 0
-    first(".row.line").first(".multibutton .dropdown-toggle").hover
+  within(".row.line", match: :first) do
+    find(".multibutton .dropdown-toggle").click
+    find(".red", text: _("Delete")).click
   end
-  find(".red", :match => :first, :text => _("Delete")).click
   sleep(0.33)
   page.driver.browser.switch_to.alert.accept rescue nil
 end
 
 Dann(/^ich kann die Anzahl der Modelle ändern$/) do
-  @model = Model.find {|m| [m.name, m.product].include? find(".row.line .col6of10").text }
+  @model = Model.find_by_name(find(".row.line .col6of10").text)
   find(".line .button", match: :first).click
   page.should have_selector "#booking-calendar .fc-day-content"
   find("#booking-calendar-quantity").set 1
@@ -156,7 +156,7 @@ Dann(/^ich kann das Zeitfenster für die Verfügbarkeitsberechnung einzelner Mod
   step "ich setze das Startdatum im Kalendar auf '#{I18n::l(current_date)}'"
   step "ich setze das Enddatum im Kalendar auf '#{I18n::l(current_date)}'"
   find(".modal .button.green", match: :first).click
-  page.has_no_selector?("#booking-calendar").should be_true
+  page.should_not have_selector("#booking-calendar")
 end
 
 Wenn(/^ich sämtliche Verfügbarkeitsprobleme gelöst habe$/) do

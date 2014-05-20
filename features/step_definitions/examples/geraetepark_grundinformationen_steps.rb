@@ -135,7 +135,7 @@ Dann(/^muss ich einen Sperrgrund angeben$/) do
 end
 
 Dann(/^ist diese Konfiguration gespeichert$/) do
-  page.has_selector?("#flash .notice")
+  page.should have_selector("#flash .notice")
   @current_inventory_pool.reload
   @current_inventory_pool.automatic_suspension.should be_true
   @current_inventory_pool.automatic_suspension_reason.should == @reason
