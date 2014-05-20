@@ -11,7 +11,7 @@ class InventoryPool < ActiveRecord::Base
 
   has_many :access_rights, :dependent => :delete_all
   has_many :users, -> { where(access_rights: {deleted_at: nil}).uniq }, :through => :access_rights
-  has_many :suspended_users, -> { where("access_rights.deleted_at IS NULL AND access_rights.suspended_until IS NOT NULL AND access_rights.suspended_until >= CURDATE()").uniq } , :through => :access_rights, :source => :user
+  has_many :suspended_users, -> { where(access_rights: {deleted_at: nil}).where("access_rights.suspended_until IS NOT NULL AND access_rights.suspended_until >= ?", Date.today).uniq } , :through => :access_rights, :source => :user
 
   has_many :locations, -> { uniq }, :through => :items
   has_many :items, :dependent => :nullify # OPTIMIZE prevent self.destroy unless self.items.empty? 

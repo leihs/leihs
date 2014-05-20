@@ -17,14 +17,14 @@ end
 Angenommen(/^ich habe eine verspätete Rückgabe$/) do
   jump_to_date = @current_user.contract_lines.to_take_back.first.end_date + 1.day
   back_to_the_future(jump_to_date)
-  overdue_lines = @current_user.contract_lines.to_take_back.where("end_date < CURDATE()")
+  overdue_lines = @current_user.contract_lines.to_take_back.where("end_date < ?", Date.today)
   overdue_lines.empty?.should be_false
 end
 
 Angenommen(/^ich habe eine nicht verspätete Rückgabe$/) do
   jump_to_date = @current_user.contract_lines.to_take_back.first.end_date - 1.day
   back_to_the_future(jump_to_date)
-  deadline_soon_lines = @current_user.contract_lines.to_take_back.where("end_date > CURDATE()")
+  deadline_soon_lines = @current_user.contract_lines.to_take_back.where("end_date > ?", Date.today)
   deadline_soon_lines.empty?.should be_false
 end
 

@@ -142,7 +142,7 @@ Dann(/^ist diese Konfiguration gespeichert$/) do
 end
 
 Wenn(/^ein Benutzer wegen verspäteter Rückgaben automatisch gesperrt wird$/) do
-  user_id = ContractLine.by_inventory_pool(@current_inventory_pool).to_take_back.where("end_date < CURDATE()").pluck(:user_id).uniq.sample
+  user_id = ContractLine.by_inventory_pool(@current_inventory_pool).to_take_back.where("end_date < ?", Date.today).pluck(:user_id).uniq.sample
   @user = User.find user_id
   @user.suspend
 end

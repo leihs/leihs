@@ -77,15 +77,14 @@ Before('@javascript', '@firefox') do
 end
 
 Before do
-  srand(ENV['TEST_RANDOM_SEED'].to_i)
+  Persona.use_test_random_date
   Cucumber.logger.info "Current capybara driver: %s\n" % Capybara.current_driver
-  back_to_the_present
   DatabaseCleaner.clean_with :truncation
 end
 
 ##################################################################################
 
-After('@javascript', '@firefox') do |scenario|
+After('@javascript', '@firefox') do
   if page.driver.to_s.match("Selenium")
     errors = page.execute_script("return window.JSErrorCollector_errors.pump()")
 
@@ -110,8 +109,3 @@ end
 
 ##################################################################################
 
-at_exit do
-  s = "TEST_RANDOM_SEED=#{ENV['TEST_RANDOM_SEED']}"
-  puts s
-  Rails.logger.info s
-end

@@ -2,16 +2,19 @@ namespace :app do
 
   namespace :test do
 
-    desc "Generate personas dumps (executed by CI)"
-    task :generate_personas_dumps => :environment do
-      Persona.generate_dump
+    desc "Prepare execution for Cider-CI"
+    task :prepare => :environment do
+      raise "This task only runs in RAILS_ENV=test !!!" unless Rails.env.test?
 
-      if execution_id = ENV["DOMINA_EXECUTION_ID"]
-        `rm -r /tmp/#{execution_id}`
-        `mkdir -p /tmp/#{execution_id}`
-        `cp -r #{File.join(Rails.root, "features/personas/dumps/*.sql")} /tmp/#{execution_id}`
-      end
+      # generate updated cucumber.yml
+      `#{File.join(Rails.root, "cider-ci/bin/list_cucumber_tasks.rb")} > #{File.join(Rails.root, "cider-ci/tasks/cucumber.yml")}`
+
+      # generate personas dumps
+      require File.join(Rails.root, 'features/support/personas.rb')
+      require File.join(Rails.root, 'features/support/timecop.rb')
+      Persona.generate_dumps
     end
+
 
     desc "Validate Gettext files"
     task :validate_gettext_files do

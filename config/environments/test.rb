@@ -42,14 +42,3 @@ Leihs::Application.configure do
   # Access to rack session
   config.middleware.use RackSessionAccess::Middleware
 end
-
-ENV['TEST_RANDOM_SEED'] ||= if ENV['DOMINA_EXECUTION_ID']
-                                  Digest::MD5.hexdigest(ENV['DOMINA_EXECUTION_ID']).to_i(16)
-                                else
-                                  Random.new_seed
-                                end.to_s
-puts "TEST_RANDOM_SEED=#{ENV['TEST_RANDOM_SEED']}"
-srand(ENV['TEST_RANDOM_SEED'].to_i)
-
-
-require File.join(Rails.root, 'features/support/personas.rb')

@@ -47,7 +47,7 @@ class Visit < ActiveRecord::Base
   
   scope :hand_over, lambda { where(:status => :approved) }
   scope :take_back, lambda { where(:status => :signed) }
-  scope :take_back_overdue, lambda { take_back.where("date < CURDATE()") }
+  scope :take_back_overdue, lambda { take_back.where("date < ?", Date.today) }
 
   #######################################################
 

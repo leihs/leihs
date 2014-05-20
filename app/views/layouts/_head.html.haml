@@ -1,0 +1,16 @@
+%meta{:charset => 'utf-8'}
+= csrf_meta_tag
+
+= favicon_link_tag "favicon.ico", :type => "image/x-icon"
+= stylesheet_link_tag "application", :media => "all"
+
+= javascript_include_tag "i18n/locale/#{I18n.locale}"
+= javascript_include_tag "application"
+
+= yield :head
+
+- if Rails.env.test?
+  = javascript_include_tag "timecop/timecop"
+  :javascript
+    Timecop.install();
+    Timecop.travel(new Date("#{Time.now.iso8601}"));

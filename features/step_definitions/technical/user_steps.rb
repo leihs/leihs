@@ -1,5 +1,5 @@
 Given(/^there are at least (\d+) users with late take backs from at least (\d+) inventory pools where automatic suspension is activated$/) do |users_n, ips_n|
-  cls = ContractLine.to_take_back.where("end_date < CURDATE()").uniq{|cl| cl.contract.inventory_pool and cl.contract.user}
+  cls = ContractLine.to_take_back.where("end_date < ?", Date.today).uniq{|cl| cl.contract.inventory_pool and cl.contract.user}
   cls.count.should >= 2
   @contracts = cls.map(&:contract)
 end

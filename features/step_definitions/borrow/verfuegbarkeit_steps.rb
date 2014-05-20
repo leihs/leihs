@@ -119,7 +119,7 @@ Dann(/^die Modelle werden blockiert$/) do
 end
 
 Wenn(/^eine Rücknahme nur Optionen enthält$/) do
-  @ip = @current_inventory_pool = @current_user.inventory_pools.where("access_rights.suspended_until IS NULL OR access_rights.suspended_until < CURDATE()").first
+  @ip = @current_inventory_pool = @current_user.inventory_pools.where("access_rights.suspended_until IS NULL OR access_rights.suspended_until < ?", Date.today).first
   (@customer = @current_inventory_pool.users.find{|u| u.visits.take_back.count == 0}).should be
   visit manage_hand_over_path @current_inventory_pool, @customer
   step 'I add an option to the hand over by providing an inventory code and a date range'

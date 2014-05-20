@@ -293,7 +293,7 @@ class User < ActiveRecord::Base
   end
 
   def send_deadline_soon_reminder(reminder_user = self)
-    visits_to_remind_deadline_soon = visits.take_back.where("date = ADDDATE(CURDATE(), 1)")
+    visits_to_remind_deadline_soon = visits.take_back.where("date = ?", Date.tomorrow)
     unless visits_to_remind_deadline_soon.empty?
       begin
         Notification.deadline_soon_reminder(self, visits_to_remind_deadline_soon)

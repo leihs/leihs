@@ -34,5 +34,4 @@ Gemfile.local*
 .vagrant*
 /tags
 db/exports/
-features/personas/dumps/
 tmp/

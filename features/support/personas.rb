@@ -19,34 +19,30 @@ module Persona
     end
   end
 
-  def generate_dump
+  def generate_dumps(n = 3)
     config = Rails.configuration.database_configuration[Rails.env]
-    system "rm -r #{File.join(Rails.root, "features/personas/dumps")}"
-    system "mkdir -p #{File.join(Rails.root, "features/personas/dumps")}"
-    DatabaseCleaner.clean_with :truncation
-    create_all
-    cmd1 = "echo \"SET autocommit=0; SET unique_checks=0; SET foreign_key_checks=0;\" > #{dump_file_name}"
-    cmd2 = "mysqldump #{config['host'] ? "-h #{config['host']}" : nil} -u #{config['username']} #{config['password'] ? "--password=#{config['password']}" : nil}  #{config['database']} --no-create-db | grep -v 'SQL SECURITY DEFINER' >> #{dump_file_name}"
-    cmd3 = "echo \"COMMIT;\" >> #{dump_file_name}"
-    puts cmd1, cmd2, cmd3
-    system cmd1
-    system cmd2
-    system cmd3
+    dir = File.join(Rails.root, "features/personas/dumps")
+    system "rm -r #{dir}"
+    system "mkdir -p #{dir}"
+    puts "Deleted:   #{dir}"
+    n.times do
+      Timecop.return
+      use_test_random_date(rand(3.years.ago..3.years.from_now).iso8601)
+      DatabaseCleaner.clean_with :truncation
+      create_all
+      system "echo \"SET autocommit=0; SET unique_checks=0; SET foreign_key_checks=0;\" > #{dump_file_name}"
+      system "mysqldump #{config['host'] ? "-h #{config['host']}" : nil} -u #{config['username']} #{config['password'] ? "--password=#{config['password']}" : nil}  #{config['database']} --no-create-db | grep -v 'SQL SECURITY DEFINER' >> #{dump_file_name}"
+      system "echo \"COMMIT;\" >> #{dump_file_name}"
+      puts "Generated: #{dump_file_name}"
+    end
   end
 
   def restore_random_dump
     return true if Setting.exists? and User.exists? # the data are already restored, so we prevent to restore again in further steps
 
-    # check whether we need fresh dumps
-    if not File.exists?(dump_file_name) or
-        not (t = File.mtime(dump_file_name)).today? or
-        Dir.glob(File.join(Rails.root, "features/personas", "*.rb")).map {|f| File.mtime(f) }.max > t
-      generate_dump
-    end
-
     config = Rails.configuration.database_configuration[Rails.env]
     cmd = "mysql #{config['host'] ? "-h #{config['host']}" : nil} -u #{config['username']} #{config['password'] ? "--password=#{config['password']}" : nil} #{config['database']} < #{dump_file_name}"
-    puts cmd
+    puts "Loading #{dump_file_name}"
 
     # we need this variable assignment in order to wait for the end of the system call. DO NOT DELETE !
     dump_restored = system(cmd)
@@ -58,6 +54,13 @@ module Persona
     dump_restored
   end
 
+  def use_test_random_date(date = nil)
+    ENV['TEST_RANDOM_DATE'] = date || ENV['TEST_RANDOM_DATE'] || get_test_random_date
+    srand(ENV['TEST_RANDOM_DATE'].gsub(/\D/, '').to_i)
+    back_to_the_future(Time.parse(ENV['TEST_RANDOM_DATE']))
+    puts "\n        ------------------------- TEST_RANDOM_DATE=#{ENV['TEST_RANDOM_DATE']} -------------------------"
+  end
+
   private
 
   def create_all
@@ -67,7 +70,23 @@ module Persona
   end
 
   def dump_file_name
-    File.join(Rails.root, "features/personas/dumps", "seed_#{ENV['TEST_RANDOM_SEED']}.sql")
+    File.join(Rails.root, "features/personas/dumps", "seed_#{ENV['TEST_RANDOM_DATE']}.sql")
+  end
+
+  def get_test_random_date
+    dump_file_name = Dir.glob(File.join(Rails.root, "features/personas/dumps", "seed_*.sql")).sample
+
+    # check whether we need fresh dumps
+    cmd = "please run: $ RAILS_ENV=test rake app:test:prepare"
+    unless dump_file_name
+      raise "Persona dumps not found, %s" % cmd
+    end
+    # FIXME not working on CI
+    #if Dir.glob(File.join(Rails.root, "features/personas", "*.rb")).map {|f| File.mtime(f) }.max > File.mtime(dump_file_name)
+    #  raise "Persona dumps are outdated, %s" % cmd
+    #end
+
+    dump_file_name.match(/.*seed_(.*)\.sql/).captures.first
   end
 
 end

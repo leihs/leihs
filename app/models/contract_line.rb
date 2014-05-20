@@ -31,7 +31,7 @@ class ContractLine < ActiveRecord::Base
   # NOTE using table alias to prevent "Not unique table/alias" Mysql error
   scope :to_hand_over, -> {joins(:contract).where(:contracts => {:status => :approved}, :returned_date => nil).readonly(false)}
   scope :to_take_back, -> {joins(:contract).where(:contracts => {:status => :signed}, :returned_date => nil).readonly(false)}
-  scope :handed_over_or_assigned_but_not_returned, -> {where("returned_date IS NULL AND NOT (end_date < CURDATE() AND item_id IS NULL)")}
+  scope :handed_over_or_assigned_but_not_returned, -> { where(returned_date: nil).where("NOT (end_date < ? AND item_id IS NULL)", Date.today)}
   
   # TODO 1209** refactor to InventoryPool has_many :contract_lines_by_user(user) ??
   # NOTE InventoryPool#contract_lines.by_user(user)

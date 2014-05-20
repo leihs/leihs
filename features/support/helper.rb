@@ -90,25 +90,6 @@ def equal_collections?(coll_a, coll_b)
 end
 
 ##############################################################
-#
-# Date changing hackery
-
-def back_to_the_future(date)
-  Timecop.travel(date)
-  change_database_current_date
-end
-
-def back_to_the_present
-  Timecop.return
-  change_database_current_date
-end
-
-def change_database_current_date
-  # The minimum representable time is 1901-12-13, and the maximum representable time is 2038-01-19
-  ActiveRecord::Base.connection.execute "SET TIMESTAMP=unix_timestamp('#{Date.today.to_s}')"
-end
-
-##############################################################
 
 def get_fullcalendar_day_element(date)
   find("td[data-date='#{date}']")
