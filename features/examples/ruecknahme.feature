@@ -53,3 +53,11 @@ Funktionalität: Rücknahme
     Wenn ich alle Optionen der gleichen Zeile zurücknehme
     Dann wird die Zeile grün markiert
     Und ich erhalte eine Erfolgsmeldung
+
+  Szenario: Inspektion während einer Rücknahme
+    Angenommen ich befinde mich in einer Rücknahme mit mindestens einem Gegenstand und einer Option
+    Wenn ich bei der Option eine Stückzahl eingebe
+    Und beim Gegenstand eine Inspektion durchführe
+    Und den Gegenstand auf "defekt" setze
+    Und ich speichere
+    Dann steht bei der Option die zuvor angegebene Stückzahl 
