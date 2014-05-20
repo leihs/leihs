@@ -38,12 +38,12 @@ def check_and_install_ruby(ruby_version)
     system("bash -l -c 'rbenv install #{ruby_version}'")
     system("bash -l -c 'rbenv shell #{ruby_version} && gem install bundler'")
   else
-    $logger.debug "Ruby #{ruby_version} was already installed, skipping installation."
+    log("debug", "Ruby #{ruby_version} was already installed, skipping installation.")
     if system("bash -l -c 'rbenv shell #{ruby_version} && bundle --version'") == false
-       $logger.debug "Installing bundler for #{ruby_version}"
+       log("debug", "Installing bundler for #{ruby_version}")
       system("bash -l -c 'rbenv shell #{ruby_version} && gem install bundler'")
     else
-      $logger.debug "Ruby #{ruby_version} already has Bundler, skipping that."
+      log("debug", "Ruby #{ruby_version} already has Bundler, skipping that.")
     end
   end
 end
@@ -53,7 +53,7 @@ def wrap(command, ruby_version)
   prefix = "bash -l -c 'rbenv shell #{ruby_version} && export RAILS_ENV=production && "
   postfix = "'"
   command = "#{prefix}#{command}#{postfix}"
-  $logger.debug "Assembled command: #{command}"
+  log("debug", "Assembled command: #{command}")
   return command
 end
 
@@ -64,7 +64,9 @@ def switch_to_tag(tag)
     system("git checkout -- config/database.yml") if File.exist?(File.join(".", "config", "database.yml"))
     system("git checkout -- db/schema.rb") if File.exist?(File.join(".", "db", "schema.rb"))
   end
-  system("git checkout #{tag}")
+  if system("git checkout #{tag}")
+    log("info", "Switched repository to tag #{tag}", true)
+  end
   mysql2 = `grep mysql2 Gemfile`
   mysql_version = "mysql" if mysql2 == ""
 
@@ -72,6 +74,10 @@ def switch_to_tag(tag)
   write_database_config(database_config_file_path, mysql_version)
 end
 
+def log(log_level = "info", message = "", stdout = false)
+  $logger.send(log_level, message)
+  puts message if stdout == true
+end
 
 def reset_installation(leihs_version)
   errors = 0
@@ -81,11 +87,13 @@ def reset_installation(leihs_version)
     system(wrap("bundle exec rake db:drop db:create db:migrate", ruby_version ))
     if $?.exitstatus != 0
       errors += 1
+    else
+      log("info", "Reset the database for #{leihs_version} using Ruby #{ruby_version}.")
     end
   end
 
   if errors > 0
-    $logger.error "Error while resetting version #{leihs_version} using Ruby #{ruby_version}."
+    log("error", "Error while resetting version #{leihs_version} using Ruby #{ruby_version}.")
     return false
   else
     return true
@@ -93,8 +101,18 @@ def reset_installation(leihs_version)
 end
 
 def seed_migration_data(leihs_version)
-  ruby_version = ruby_versions_for(leihs_version).first
-  system(wrap("bundle exec ./script/runner #{File.join(TARGET_DIR, "data.rb")}", ruby_version))
+  if leihs_version.to_f > 2.9
+    log("error", "Can't seed data for leihs version #{leihs_version}. The seed data file matches only leihs 2.9, not leihs 3.0 or higher.")
+    return false
+  else
+    ruby_version = ruby_versions_for(leihs_version).first
+    system(wrap("bundle exec ./script/runner #{File.join(TARGET_DIR, "data.rb")}", ruby_version))
+    if $?.exitstatus != 0
+      return false
+    else
+      return true
+    end
+  end
 end
 
 def attempt_migration(from: nil, to: nil)
@@ -105,13 +123,13 @@ def attempt_migration(from: nil, to: nil)
 
   if (from and to)
     if skip_combination?(from, to)
-      $logger.info "Skipping #{from} to #{to} because we know it won't work."
+      log("info", "Skipping #{from} to #{to} because we know it won't work.")
       return true
     end
   end
 
   Dir.chdir(TARGET_DIR)
-  $logger.debug "Trying migrations inside #{TARGET_DIR}"
+  log("debug", "Trying migrations inside #{TARGET_DIR}")
   if from
     if !reset_installation(from)
       return false
@@ -125,7 +143,7 @@ def attempt_migration(from: nil, to: nil)
     if $?.exitstatus == 0
       return true
     else
-      $logger.error "Error during migration attempt from #{from} to #{to} using Ruby #{to_ruby_version}: #{output}"
+      log("error", "Error during migration attempt from #{from} to #{to} using Ruby #{to_ruby_version}: #{output}")
       return false
     end
   end
@@ -187,7 +205,10 @@ def ruby_versions_for(version)
     "3.3.1" => ["1.9.3-p545", "2.1.1"],
     "3.3.2" => ["1.9.3-p545", "2.1.1"],
     "3.4.0" => ["1.9.3-p545", "2.1.1"],
-    "3.5.0" => ["1.9.3-p545", "2.1.1"]
+    "3.5.0" => ["1.9.3-p545", "2.1.1"],
+    "3.6.0" => ["1.9.3-p545", "2.1.1"],
+    "3.6.1" => ["1.9.3-p545", "2.1.1"],
+    "3.7.0" => ["1.9.3-p545", "2.1.1"]
   }
 
   if version_map[version]
@@ -210,7 +231,7 @@ def skip_combination?(from, to)
   return skip
 end
 
-def attempt_migrations
+def attempt_direct_migrations
   error_messages = []
   error_count = 0
 
@@ -223,56 +244,89 @@ def attempt_migrations
   # when it runs the 3.0.0 to 3.0.1 migration, it will reset the database using
   # 3.0.0, it will not upgrade through 2.9.13, 2.9.14 to 3.0.0 first.
   versions.each do |version|
-    # Get all versions higher than the current one
-    target_versions = get_versions(version)
-    target_versions = target_versions.select{|v| v if v == ARGV[1]} if ARGV[1]
+    target_versions = determine_target_versions(version)
 
-    $logger.info "---> Will try to migrate from #{version} to #{target_versions.join(", ")} directly, in pairs."
+    log("info", "---> Will try to migrate from #{version} to #{target_versions.join(", ")} directly, in pairs.")
     target_versions.each do |target_version|
-      $logger.info "Attempting migration from #{version} to #{target_version}."
+      log("info", "Attempting migration from #{version} to #{target_version}.")
       if attempt_migration(:from => version, :to => target_version) == true
-        $logger.info "Migration (direct) from #{version} to #{target_version} was successful."
+        log("info", "Migration (direct) from #{version} to #{target_version} was successful.")
       else
         error_message = "Migration (direct) from #{version} to #{target_version} has failed."
         error_messages << error_message
-        $logger.error error_message
+        log("error", error_message)
         error_count += 1
       end
-    end
-
-    $logger.info "---> Will try to migrate from #{version} to #{target_versions.join(", ")} in sequence, with data."
-    # This is to reset the data to some baseline that works
-    if reset_installation(version) && seed_migration_data(version) == true
-      target_versions.each do |target_version|
-        $logger.info "Attempting migration from #{version} to #{target_version}, keeping data from previous version."
-        if attempt_migration(:to => target_version) == true
-          $logger.info "Migration (sequential) from #{version} to #{target_version} was successful."
-        else
-          error_message = "Migration (sequential) from #{version} to #{target_version} has failed."
-          error_messages << error_message
-          $logger.error error_message
-          error_count += 1
-        end
-      end
-    else
-      error_message = "Initial setup for sequential migration from #{version} to #{target_version} failed."
-      error_messages << error_message
-      $logger.error error_message
-      error_count += 1
     end
   end
 
   if error_count == 0
-    exit 0
+    return 0
   else
-    $logger.error "Migrations with errors:"
-    $logger.error error_messages.join("\n")
-
-    puts "Migrations with errors:"
-    puts error_messages.join("\n")
-    exit 1
+    log("error", "Migrations with errors:", true)
+    log("error", error_messages.join("\n"), true)
+    return error_count
   end
 end
 
+def determine_target_versions(minimum_version, mode = :direct)
+  target_versions = get_versions(minimum_version)
+  if mode == :direct
+    target_versions = target_versions.select{|v| v if v == ARGV[1]} if ARGV[1]
+  # Get all the valid versions in between minimum version and ARGV[1]
+  elsif mode == :sequential
+    target_versions = target_versions.select{|v| v if SemVer.parse(v) <= SemVer.parse(ARGV[1])} if ARGV[1]
+  end
+end
+
+def attempt_sequential_migrations
+  error_messages = []
+  error_count = 0
+
+  version = get_versions("2.9.12").first
+  version = ARGV[0] if ARGV[0]
+
+  target_versions = determine_target_versions(version, :sequential)
+
+  $logger.info "---> Will try to migrate from #{version} through to #{target_versions.join(", ")} each in sequence, keeping the data between migrations."
+  # This is to reset the data to some baseline that works
+  if reset_installation(version) && seed_migration_data(version) == true
+    target_versions.each do |target_version|
+      log("info", "Attempting migration to #{target_version}, keeping data from previous version.")
+      if attempt_migration(:to => target_version) == true
+        log("info", "Migration (sequential) to #{target_version} was successful.")
+      else
+        error_message = "Migration (sequential) to #{target_version} has failed."
+        error_messages << error_message
+        log("error", error_message)
+        error_count += 1
+      end
+    end
+  else
+    error_message = "Initial setup for sequential migration from #{version} to #{target_version} failed."
+    error_messages << error_message
+    $logger.error error_message
+    error_count += 1
+  end
+
+  if error_count == 0
+    return 0
+  else
+    log("error", "Migrations with errors:", true)
+    log("error", error_messages.join("\n"), true)
+    return error_count
+  end
+end
+
+
+errors = 0
 setup_target_directory
-attempt_migrations
+errors += attempt_direct_migrations
+errors += attempt_sequential_migrations
+if errors > 0
+  log("error", "Migration test had some errors. See /tmp/validate_migrations.log for details.", true)
+  exit 1
+else
+  log("info", "All migrations successful.", true)
+  exit 0
+end
