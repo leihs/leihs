@@ -13,9 +13,12 @@ Funktionalität: Software erfassen
       | Produkt                            | Test Software              |
       | Version                            | Test Version               |
       | Hersteller                         | Test Hersteller            |
-      | Technische Details                 | Installationslink beachten: http://wwww.dokuwiki.ch    |
+      | Technische Details                 | Installationslink beachten: http://wwww.dokuwiki.ch
+                                             Dies ist nur ein Text      |
     Wenn ich speichere
     Dann ist die neue Software erstellt und unter Software auffindbar
+    Wenn ich das Software-Produkt wieder editiere
+    Dann werden nur die Linien mit Links zusätzlich ausserhalb des Textfeldes angezeigt
 
   @javascript
   Szenario: Mögliche Werte in Software-Produkt erfassen
