@@ -9,12 +9,13 @@ require "./#{File.join(File.dirname(__FILE__), "lib", "semverly")}"
 # Gotta set this before it gets overwritten
 THIS_FILE = File.absolute_path(__FILE__)
 
+require "./#{File.join(File.dirname(__FILE__), "lib", "semverly")}"
+
 REPO_URL = "https://github.com/zhdk/leihs.git"
 TARGET_DIR = File.join("/tmp", "migrations")
 
 # If no :ruby_version is given, we use this
 DEFAULT_RUBY_VERSION = '2.1.1'
-
 
 $logger = Logger.new(File.join("/tmp", "validate_migrations.log"))
 $logger.level = Logger::INFO
