@@ -90,8 +90,8 @@ module Availability
         inner_changes.each_pair do |key, ic|
           qty = ic[document_line.allocated_group_id]
           qty[:in_quantity]  -= document_line.quantity
-          qty[:out_document_lines][document_line.class.to_s] ||= []
-          qty[:out_document_lines][document_line.class.to_s] << document_line.id 
+          qty[:out_document_lines]["ItemLine"] ||= []
+          qty[:out_document_lines]["ItemLine"] << document_line.id
         end
       end
     end

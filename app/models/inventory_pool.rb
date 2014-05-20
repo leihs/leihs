@@ -63,7 +63,28 @@ class InventoryPool < ActiveRecord::Base
     end
   end
 
-  has_many :running_lines, -> { order(:start_date, :end_date, :type, :id) } # the order is needed by the availability computation TODO sort directly on to the sql-view ??
+  # we don't recalculate the past
+  # if an item is already assigned, we block the availability even if the start_date is in the future
+  # if an item is already assigned but not handed over, it's never considered as late even if end_date is in the past
+  # we ignore the option_lines
+  # we get all lines which are not yet returned
+  # we ignore lines that are not handed over which the end_date is already in the past
+  def running_lines
+    ItemLine.find_by_sql("SELECT contract_lines.id, contracts.inventory_pool_id, model_id, quantity, start_date, end_date, " \
+                            "(end_date < '#{Date.today}' AND contracts.status = '#{:signed}') AS is_late, " \
+                            "IF(item_id IS NOT NULL, DATE('#{Date.today}'), IF(start_date > '#{Date.today}', start_date, DATE('#{Date.today}'))) AS unavailable_from, " \
+                            "GROUP_CONCAT(groups_users.group_id) AS concat_group_ids " \
+                          "FROM contract_lines " \
+                          "INNER JOIN contracts ON contracts.id = contract_lines.contract_id " \
+                          "LEFT JOIN groups_users ON groups_users.user_id = contracts.user_id " \
+                          "WHERE contracts.inventory_pool_id = #{self.id} " \
+                            "AND returned_date IS NULL " \
+                            "AND contracts.status != '#{:rejected}' " \
+                            "AND NOT (contracts.status = '#{:unsubmitted}' AND contracts.updated_at < '#{Time.now.utc - Contract::TIMEOUT_MINUTES.minutes}') " \
+                            "AND NOT (end_date < '#{Date.today}' AND item_id IS NULL) " \
+                          "GROUP BY contract_lines.id " \
+                          "ORDER BY start_date, end_date, id;" ) # the order is needed by the availability computation
+  end
 
 #######################################################################
 
