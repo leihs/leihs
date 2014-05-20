@@ -274,6 +274,7 @@ def determine_target_versions(minimum_version, mode = :direct)
   target_versions = get_versions(minimum_version)
   if mode == :direct
     target_versions = target_versions.select{|v| v if v == ARGV[1]} if ARGV[1]
+    target_versions
   # Get all the valid versions in between minimum version and ARGV[1]
   elsif mode == :sequential
     target_versions = target_versions.select{|v| v if SemVer.parse(v) <= SemVer.parse(ARGV[1])} if ARGV[1]
