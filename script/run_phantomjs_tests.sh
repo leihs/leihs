@@ -6,7 +6,9 @@ bundle exec rake leihs:reset
 bundle exec rspec spec/
 bundle exec cucumber -t @javascript -t ~@firefox features/
 
-if [ -f tmp/rerun.txt ]; then
+if [[ -f tmp/rerun.txt && $? -ne 0 ]]; then
   echo "Rerun necessary, the first execution exited with non-0."
   bundle exec cucumber -t @javascript -t ~@firefox -p rerun
 fi
+
+exit $?
