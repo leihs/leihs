@@ -67,7 +67,9 @@ Funktionalität: Software erfassen
     Dann kann man als "Lieferant" einen Lieferanten auswählen
     Dann kann man als "Verantwortliche Abteilung" einen Gerätepark auswählen
     Dann kann man als "Besitzer" einen Gerätepark auswählen
+    Dann kann man im Notiz-Feld "Lizenzinformation" Text eingeben
     Und die Option "Ausleihbar" ist standardmässig auf "Nicht ausleihbar" gesetzt
+
 
   @javascript
   Szenario: Software-Lizenz erfassen
