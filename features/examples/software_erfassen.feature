@@ -15,6 +15,10 @@ Funktionalität: Software erfassen
       | Hersteller                         | Test Hersteller            |
       | Software Informationen             | Installationslink beachten: http://wwww.dokuwiki.ch
                                              Dies ist nur ein Text      |
+    Wenn der Hersteller bereits existiert
+    Dann kann der Hersteller aus der Liste ausgewählt werden
+    Wenn der Hersteller noch nicht existiert
+    Dann wird der eingegebene Hersteller in der Liste der Hersteller gespeichert
     Wenn ich speichere
     Dann ist die neue Software erstellt und unter Software auffindbar
     Wenn ich das Software-Produkt wieder editiere
