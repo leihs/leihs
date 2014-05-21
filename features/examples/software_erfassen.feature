@@ -13,7 +13,7 @@ Funktionalität: Software erfassen
       | Produkt                            | Test Software              |
       | Version                            | Test Version               |
       | Hersteller                         | Test Hersteller            |
-      | Technische Details                 | Installationslink beachten: http://wwww.dokuwiki.ch
+      | Software Informationen             | Installationslink beachten: http://wwww.dokuwiki.ch
                                              Dies ist nur ein Text      |
     Wenn ich speichere
     Dann ist die neue Software erstellt und unter Software auffindbar
