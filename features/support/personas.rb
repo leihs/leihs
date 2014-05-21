@@ -20,16 +20,26 @@ module Persona
   end
 
   def generate_dumps(n = 3)
+    ENV['TIMECOP_MODE'] = "freeze"
+
     config = Rails.configuration.database_configuration[Rails.env]
     dir = File.join(Rails.root, "features/personas/dumps")
     system "rm -r #{dir}"
     system "mkdir -p #{dir}"
     puts "Deleted:   #{dir}"
+
+    test_datetime = if ENV['TEST_DATETIME']
+      n = 1
+      ENV['TEST_DATETIME']
+    end
+
     n.times do
-      Timecop.return
-      use_test_random_date(rand(3.years.ago..3.years.from_now).iso8601)
       DatabaseCleaner.clean_with :truncation
+      Timecop.return
+
+      use_test_datetime(test_datetime || rand(3.years.ago..3.years.from_now).to_time.iso8601)
       create_all
+
       system "echo \"SET autocommit=0; SET unique_checks=0; SET foreign_key_checks=0;\" > #{dump_file_name}"
       system "mysqldump #{config['host'] ? "-h #{config['host']}" : nil} -u #{config['username']} #{config['password'] ? "--password=#{config['password']}" : nil}  #{config['database']} --no-create-db | grep -v 'SQL SECURITY DEFINER' >> #{dump_file_name}"
       system "echo \"COMMIT;\" >> #{dump_file_name}"
@@ -54,11 +64,11 @@ module Persona
     dump_restored
   end
 
-  def use_test_random_date(date = nil)
-    ENV['TEST_RANDOM_DATE'] = date || ENV['TEST_RANDOM_DATE'] || get_test_random_date
-    srand(ENV['TEST_RANDOM_DATE'].gsub(/\D/, '').to_i)
-    back_to_the_future(Time.parse(ENV['TEST_RANDOM_DATE']))
-    puts "\n        ------------------------- TEST_RANDOM_DATE=#{ENV['TEST_RANDOM_DATE']} -------------------------"
+  def use_test_datetime(date = nil)
+    ENV['TEST_DATETIME'] = date || ENV['TEST_DATETIME'] || get_test_datetime
+    srand(ENV['TEST_DATETIME'].gsub(/\D/, '').to_i)
+    back_to_the_future(Time.parse(ENV['TEST_DATETIME']))
+    puts "\n        ------------------------- TEST_DATETIME=#{ENV['TEST_DATETIME']} -------------------------"
   end
 
   private
@@ -70,10 +80,10 @@ module Persona
   end
 
   def dump_file_name
-    File.join(Rails.root, "features/personas/dumps", "seed_#{ENV['TEST_RANDOM_DATE']}.sql")
+    File.join(Rails.root, "features/personas/dumps", "seed_#{ENV['TEST_DATETIME']}.sql")
   end
 
-  def get_test_random_date
+  def get_test_datetime
     dump_file_name = Dir.glob(File.join(Rails.root, "features/personas/dumps", "seed_*.sql")).sample
 
     # check whether we need fresh dumps

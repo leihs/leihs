@@ -342,7 +342,6 @@ GEM
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     underscore-rails (1.6.0)
-    uuidtools (2.1.4)
     websocket (1.0.7)
     websocket-driver (0.3.2)
     will_paginate (3.0.5)
@@ -421,6 +420,5 @@ DEPENDENCIES
   trinidad
   uglifier (~> 2.4)
   underscore-rails (~> 1.6)
-  uuidtools (~> 2.1)
   will_paginate (~> 3.0)
   yard

@@ -72,6 +72,5 @@ gem 'timecop', '~> 0.7', :group => [:test, :development]
 gem 'trinidad', :group => :development, :platform => :jruby # web server (Webrick do not support keep-alive connections)
 gem 'uglifier', '~> 2.4'
 gem 'underscore-rails', '~> 1.6'
-gem 'uuidtools', '~> 2.1' # needed for creating unique ids during tests (factories)
 gem 'will_paginate', '~> 3.0'
 gem 'yard', :group => [:test, :development]

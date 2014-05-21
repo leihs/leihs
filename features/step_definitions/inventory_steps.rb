@@ -29,11 +29,10 @@ end
 ###############################################
 # Locations
 
-Given "a location in building '$building' room '$room' and shelf '$shelf' exists" do | building, room, shelf |
-  @location = LeihsFactory.create_location(:building => building,
-                                      :room     => room,
-                                      :shelf    => shelf)
-end  
+Given "a location in building '$building' room '$room' and shelf '$shelf' exists" do | building_name, room, shelf |
+  building = FactoryGirl.create(:building, name: building_name)
+  @location = FactoryGirl.create(:location, building: building, room: room, shelf: shelf)
+end
   
 ###############################################
 # Categories

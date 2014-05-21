@@ -61,54 +61,58 @@ module Persona
       @verify_group_1.users << user_1
       @verify_group_2.users << user_1
 
-      date_range = (Date.today - 1.week..Date.today)
+      datetime_range = (1.week.ago..Time.now)
+      Timecop.travel(rand(datetime_range)) do
+        [:submitted, :approved, :rejected].each do |status|
 
-      [:submitted, :approved, :rejected].each do |status|
+          order_to_verify_1 = FactoryGirl.create(:contract, :user => user_1, :inventory_pool => @inventory_pool_1, :status => status)
+          order_to_verify_1_purpose = FactoryGirl.create :purpose, :description => "Ersatzstativ für die Ausstellung."
 
-        order_to_verify_1 = FactoryGirl.create(:contract, :user => user_1, :inventory_pool => @inventory_pool_1, :status => status, :created_at => rand(date_range) + 12.hours)
-        order_to_verify_1_purpose = FactoryGirl.create :purpose, :description => "Ersatzstativ für die Ausstellung."
+          rand(3..5).times do
+            item = FactoryGirl.create :item, inventory_pool: @inventory_pool_1
+            order_to_verify_1.contract_lines << FactoryGirl.create(:contract_line, :purpose => order_to_verify_1_purpose, :contract => order_to_verify_1, :model => item.model)
+          end
+
+          model_1 = FactoryGirl.create :model_with_items, inventory_pool: @inventory_pool_1
+          model_1.partitions << Partition.create(model_id: model_1.id,
+                                                 inventory_pool_id: @inventory_pool_1.id,
+                                                 group_id: @verify_group_1.id,
+                                                 quantity: 1)
+          order_to_verify_1.contract_lines << FactoryGirl.create(:contract_line, :purpose => order_to_verify_1_purpose, :contract => order_to_verify_1, :model => model_1)
+
+        end
+      end
+
+      Timecop.travel(rand(datetime_range)) do
+        order_to_verify_2 = FactoryGirl.create(:contract, :user => user_1, :inventory_pool => @inventory_pool_1, :status => :submitted)
+        order_to_verify_2_purpose = FactoryGirl.create :purpose, :description => "Ersatzstativ für die Ausstellung."
 
         rand(3..5).times do
           item = FactoryGirl.create :item, inventory_pool: @inventory_pool_1
-          order_to_verify_1.contract_lines << FactoryGirl.create(:contract_line, :purpose => order_to_verify_1_purpose, :contract => order_to_verify_1, :model => item.model)
+          order_to_verify_2.contract_lines << FactoryGirl.create(:contract_line, :purpose => order_to_verify_2_purpose, :contract => order_to_verify_2, :model => item.model)
         end
-
-        model_1 = FactoryGirl.create :model_with_items, inventory_pool: @inventory_pool_1
-        model_1.partitions << Partition.create(model_id: model_1.id,
-                                               inventory_pool_id: @inventory_pool_1.id,
-                                               group_id: @verify_group_1.id,
-                                               quantity: 1)
-        order_to_verify_1.contract_lines << FactoryGirl.create(:contract_line, :purpose => order_to_verify_1_purpose, :contract => order_to_verify_1, :model => model_1)
-
-      end
-
-      order_to_verify_2 = FactoryGirl.create(:contract, :user => user_1, :inventory_pool => @inventory_pool_1, :status => :submitted, :created_at => rand(date_range) + 12.hours)
-      order_to_verify_2_purpose = FactoryGirl.create :purpose, :description => "Ersatzstativ für die Ausstellung."
-
-      rand(3..5).times do
-        item = FactoryGirl.create :item, inventory_pool: @inventory_pool_1
-        order_to_verify_2.contract_lines << FactoryGirl.create(:contract_line, :purpose => order_to_verify_2_purpose, :contract => order_to_verify_2, :model => item.model)
       end
 
       # ########################
       # order with one model from two verify groups from the same inventory pool =============
       ##########################
+      Timecop.travel(rand(datetime_range)) do
+        order_to_verify_3 = FactoryGirl.create(:contract, :user => user_1, :inventory_pool => @inventory_pool_1, :status => :submitted)
+        order_to_verify_3_purpose = FactoryGirl.create :purpose, :description => "Ersatzstativ für die Ausstellung."
 
-      order_to_verify_3 = FactoryGirl.create(:contract, :user => user_1, :inventory_pool => @inventory_pool_1, :status => :submitted, :created_at => rand(date_range) + 12.hours)
-      order_to_verify_3_purpose = FactoryGirl.create :purpose, :description => "Ersatzstativ für die Ausstellung."
+        rand(3..5).times do
+          item = FactoryGirl.create :item, inventory_pool: @inventory_pool_1
+          order_to_verify_3.contract_lines << FactoryGirl.create(:contract_line, :purpose => order_to_verify_3_purpose, :contract => order_to_verify_3, :model => item.model)
+        end
 
-      rand(3..5).times do
-        item = FactoryGirl.create :item, inventory_pool: @inventory_pool_1
-        order_to_verify_3.contract_lines << FactoryGirl.create(:contract_line, :purpose => order_to_verify_3_purpose, :contract => order_to_verify_3, :model => item.model)
-      end
-
-      model_2 = FactoryGirl.create :model_with_items, inventory_pool: @inventory_pool_1
-      model_2.partitions << Partition.create(model_id: model_2.id,
-                                             inventory_pool_id: @inventory_pool_1.id,
-                                             group_id: @verify_group_2.id,
-                                             quantity: 1)
-      2.times do
-        order_to_verify_3.contract_lines << FactoryGirl.create(:contract_line, :purpose => order_to_verify_3_purpose, :contract => order_to_verify_3, :model => model_2)
+        model_2 = FactoryGirl.create :model_with_items, inventory_pool: @inventory_pool_1
+        model_2.partitions << Partition.create(model_id: model_2.id,
+                                               inventory_pool_id: @inventory_pool_1.id,
+                                               group_id: @verify_group_2.id,
+                                               quantity: 1)
+        2.times do
+          order_to_verify_3.contract_lines << FactoryGirl.create(:contract_line, :purpose => order_to_verify_3_purpose, :contract => order_to_verify_3, :model => model_2)
+        end
       end
     end
 

@@ -77,7 +77,7 @@ Before('@javascript', '@firefox') do
 end
 
 Before do
-  Persona.use_test_random_date
+  Persona.use_test_datetime
   Cucumber.logger.info "Current capybara driver: %s\n" % Capybara.current_driver
   DatabaseCleaner.clean_with :truncation
 end

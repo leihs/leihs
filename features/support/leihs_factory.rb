@@ -13,24 +13,6 @@ module LeihsFactory
   ##########################################
 
   #
-  # Building
-  # 
-  def self.create_building!(attributes) # needs a hash
-    Building.create! attributes
-  end
-
-  # Location
-  # 
-  def self.create_location(attributes) # needs a hash
-    b = Building.create! :name => attributes[:building]
-    attributes.delete :building
-    l = Location.create! attributes
-    l.building = b
-    l.save
-    l
-  end
-
-  #
   # AuthenticationSystem
   # 
   def self.create_authentication_system!(attributes) # needs a hash
@@ -407,7 +389,7 @@ module LeihsFactory
   # default buildings
   #
   def self.create_default_building
-    LeihsFactory.create_building! :code => 'ZZZ', :name => 'Great Pyramid of Giza'
+    FactoryGirl.create :building, code: 'ZZZ', name: 'Great Pyramid of Giza'
   end
 
   #
@@ -470,7 +452,7 @@ module LeihsFactory
      ["BU",  "Schützenmattstrsse, 1B"],
      ["KST", "Kart-Stauffer-Strasse, 26"]].each do |building|
     
-       LeihsFactory.create_building! :code => building[0], :name => building[1]
+       FactoryGirl.create :building, code: building[0], name: building[1]
     end
   end
 
