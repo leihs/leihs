@@ -107,10 +107,13 @@ def seed_migration_data(leihs_version)
     return false
   else
     ruby_version = ruby_versions_for(leihs_version).first
-    system(wrap("bundle exec ./script/runner #{File.join(TARGET_DIR, "data.rb")}", ruby_version))
+    output = ""
+    output = `#{wrap("bundle exec ./script/runner #{File.join(TARGET_DIR, "data.rb")}", ruby_version)}`
     if $?.exitstatus != 0
+      log("error", "Error during migration data seeding: #{output.strip}.")
       return false
     else
+      log("info", "Data seeding results: #{output.strip}.")
       return true
     end
   end

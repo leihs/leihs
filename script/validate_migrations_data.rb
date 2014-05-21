@@ -53,3 +53,13 @@ Model.all.each do |model|
     create_some_item(model)
   end
 end
+
+unless (Model.all.count > 0 and
+        Item.all.count > 0 and
+        InventoryPool.all.count > 0)
+  puts "Errors during data seeding."
+  exit 1
+else
+  puts "Data seeding created #{Model.all.count} models, #{Item.all.count} items, #{InventoryPool.all.count} inventory pools"
+  exit 0
+end
