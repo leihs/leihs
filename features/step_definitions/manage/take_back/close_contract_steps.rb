@@ -11,7 +11,7 @@ When /^I open a take back(, not overdue)?( with at least an option handed over b
   @ip = contract.inventory_pool
   @customer = contract.user
   visit manage_take_back_path(@ip, @customer)
-  page.has_css?("#take_back", :visible => true)
+  page.should have_selector("#take-back-view")
   @contract_lines_to_take_back = @customer.contract_lines.to_take_back.joins(:contract).where(contracts: {inventory_pool_id: @ip})
 end
 
@@ -42,7 +42,7 @@ end
 
 When /^I click take back inside the dialog$/ do
   find(".modal .button.green[data-take-back]").click
-  page.has_no_selector?(".modal .button.green[data-take-back]")
+  page.should_not have_selector(".modal .button.green[data-take-back]")
 end
 
 Then /^the contract is closed and all items are returned$/ do

@@ -110,7 +110,7 @@ end
 Dann(/^ich sehe auf der Bestellungszeile den Besteller mit Popup\-Ansicht der Benutzerinformationen$/) do
   find(@line_css).has_text? @contract.user.name
   find("[data-firstname][data-id='#{@contract.user.id}']").hover
-  page.should have_selector ".tooltipster", text: @contract.user.name
+  page.should have_selector ".tooltipster-base", text: @contract.user.name
 end
 
 Dann(/^ich sehe auf der Bestellungszeile das Erstelldatum$/) do
@@ -129,7 +129,7 @@ end
 Dann(/^ich sehe auf der Bestellungszeile die Anzahl Gegenstände mit Popup\-Ansicht der bestellten Gegenstände$/) do
   find("#{@line_css} [data-type='lines-cell']").text.should == "#{@contract.lines.count} #{n_("Item", "Items", @contract.lines.count)}"
   find("#{@line_css} [data-type='lines-cell']").hover
-  @contract.models.each {|m| page.should have_selector ".tooltipster", text: m.name}
+  @contract.models.each {|m| page.should have_selector ".tooltipster-base", text: m.name}
 end
 
 Dann(/^ich sehe auf der Bestellungszeile die Dauer der Bestellung$/) do
@@ -141,15 +141,15 @@ Dann(/^ich sehe auf der Bestellungszeile den Zweck$/) do
 end
 
 Dann(/^ich kann die Bestellung genehmigen$/) do
-  find(@line_css).has_css? "[data-order-approve]"
+  find(@line_css).should have_selector "[data-order-approve]"
 end
 
 Dann(/^ich kann die Bestellung ablehnen$/) do
-  find(@line_css).has_css? "[data-order-reject]", visible: false
+  find(@line_css).should have_selector "[data-order-reject]", visible: false
 end
 
 Dann(/^ich kann die Bestellung editieren$/) do
-  find(@line_css).has_css? "[href*='#{manage_edit_contract_path(@current_inventory_pool, @contract)}']", visible: false
+  find(@line_css).should have_selector "[href*='#{manage_edit_contract_path(@current_inventory_pool, @contract)}']", visible: false
 end
 
 Dann(/^ich kann keine Bestellungen aushändigen$/) do

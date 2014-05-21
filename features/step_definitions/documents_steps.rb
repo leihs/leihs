@@ -128,7 +128,7 @@ Dann(/^sehe ich die Werteliste genau wie im Verwalten\-Bereich$/) do
 end
 
 Dann(/^sehe ich den Vertrag genau wie im Verwalten-Bereich$/) do
-  page.has_selector? ".contract"
+  page.should have_selector ".contract"
 
   steps %{
     Dann möchte ich die folgenden Bereiche sehen:

@@ -48,5 +48,5 @@ end
 
 When "I wait for the spinner to disappear" do
   # capybara black magic - wait for div to become invisible
-  page.has_xpath?( "//div[@id='loading_panel']", :visible => false)
+  page.has_xpath?( "//div[@id='loading_panel']", :visible => false).should be_true
 end

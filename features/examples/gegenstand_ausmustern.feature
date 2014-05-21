@@ -14,7 +14,7 @@ Funktionalität: Ausmustern
       | Lizenz     |
 
   @javascript
-  Szenario: Verhinderung von Ausmusterung eines ausgeliehenen Objektes
+  Szenariogrundriss: Verhinderung von Ausmusterung eines ausgeliehenen Objektes
     Angenommen ich bin Mike
     Und man sucht nach einem ausgeliehenen <Objekt>
     Dann hat man keine Möglichkeit solchen <Objekt> auszumustern
@@ -24,7 +24,7 @@ Funktionalität: Ausmustern
       | Lizenz     |
 
   @javascript
-  Szenario: Verhinderung von Ausmusterung eines Objektes bei dem ich nicht als Besitzer eingetragen bin
+  Szenariogrundriss: Verhinderung von Ausmusterung eines Objektes bei dem ich nicht als Besitzer eingetragen bin
     Angenommen ich bin Matti
     Und man sucht nach einem <Objekt> bei dem ich nicht als Besitzer eingetragen bin
     Dann hat man keine Möglichkeit solchen <Objekt> auszumustern
@@ -34,7 +34,7 @@ Funktionalität: Ausmustern
       | Lizenz     |
 
   @javascript
-  Szenario: Fehlermeldung bei der Ausmusterung ohne angabe eines Grundes
+  Szenariogrundriss: Fehlermeldung bei der Ausmusterung ohne angabe eines Grundes
     Angenommen ich bin Matti
     Und man sucht nach einem nicht ausgeliehenen <Objekt>
     Und man gibt bei der Ausmusterung keinen Grund an
@@ -45,7 +45,7 @@ Funktionalität: Ausmustern
       | Lizenz     |
 
   @javascript
-  Szenario: Ausmusterung rückgangig machen
+  Szenariogrundriss: Ausmusterung rückgangig machen
     Angenommen ich bin Mike
     Und man sucht nach einem ausgemusterten <Objekt>, wo man der Besitzer ist
     Und man befindet sich auf der Editierseite von diesem <Objekt>
@@ -60,7 +60,7 @@ Funktionalität: Ausmustern
       | Lizenz     |
 
 
-  Szenario: Ansichtseite von einem ausgemusterten Objekt für Verantwortlichen anzeigen
+  Szenariogrundriss: Ansichtseite von einem ausgemusterten Objekt für Verantwortlichen anzeigen
     Angenommen ich bin Mike
     Und man sucht nach einem ausgemusterten <Objekt>, wo man der Verantwortliche und nicht der Besitzer ist
     Dann man befindet sich auf der Editierseite von diesem <Objekt>

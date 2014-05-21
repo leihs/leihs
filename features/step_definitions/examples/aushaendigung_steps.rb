@@ -10,7 +10,7 @@ Wenn(/^ich die Aushändigung öffne$/) do
 end
 
 Dann(/^sehe ich all die bereits zugewiesenen Gegenstände mittels Inventarcodes$/) do
-  @hand_over.contract_lines.each {|l| page.should have_content l.item.inventory_code}
+  @hand_over.contract_lines.each {|l| find("[data-assign-item][disabled][value='#{l.item.inventory_code}']") }
 end
 
 When(/^der Benutzer für die Aushändigung ist gesperrt$/) do

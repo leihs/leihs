@@ -81,7 +81,7 @@ Wenn /^ich eine Rücknahme mache die Optionen beinhaltet$/ do
   @ip = @current_user.managed_inventory_pools.first
   @customer = @ip.users.all.select {|x| x.contracts.signed.size > 0 && !x.contracts.signed.detect{|c| c.options.size > 0}.nil? }.first
   visit manage_take_back_path(@ip, @customer)
-  page.should have_selector("#take_back", :visible => true)
+  page.should have_selector("#take-back-view")
 end
 
 Wenn /^die Anzahl einer zurückzugebenden Option manuell ändere$/ do
@@ -178,7 +178,7 @@ Wenn /^ich eine Aushändigung mache mit einem Kunden der sowohl am heutigen Tag 
   @ip = @current_user.managed_inventory_pools.first
   @customer = @ip.users.detect{|u| u.visits.hand_over.size > 1}
   visit manage_hand_over_path(@ip, @customer)
-  page.should have_selector("#take_back", :visible => true)
+  page.should have_selector("#take-back-view")
 end
 
 Wenn /^ich etwas scanne \(per Inventarcode zuweise\) und es in irgendeinem zukünftigen Vertrag existiert$/ do

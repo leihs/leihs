@@ -28,7 +28,7 @@ Dann(/^ist der Gerätepark gespeichert$/) do
 end
 
 Dann(/^ich sehe die Geräteparkliste$/) do
-  page.has_content? _("List of Inventory Pools")
+  page.should have_content _("List of Inventory Pools")
 end
 
 Wenn(/^ich (.+) nicht eingebe$/) do |must_field|
@@ -47,7 +47,7 @@ end
 
 Wenn(/^ich im Admin\-Bereich unter dem Reiter Geräteparks einen bestehenden Gerätepark ändere$/) do
   @ip = InventoryPool.first
-  page.has_content? _("List of Inventory Pools")
+  page.should have_content _("List of Inventory Pools")
   find(".line", match: :prefer_exact, text: @ip.name).click_link _("Edit")
 end
 
@@ -73,7 +73,7 @@ end
 
 Wenn(/^der Gerätepark wurde aus der Liste gelöscht$/) do
   find("#flash .success", text: _("%s successfully deleted") % _("Inventory Pool"))
-  page.has_no_text? @ip.name
+  page.should_not have_content @ip.name
 end
 
 Wenn(/^der Gerätepark wurde aus der Datenbank gelöscht$/) do
