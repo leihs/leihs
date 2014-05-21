@@ -72,7 +72,8 @@ Funktionalität: Software erfassen
     Und ich die Software setze
     Und eine Inventarnummer vergeben wird
     Und ich eine Seriennummer eingebe
-    Und ich eine Aktivierungsart eingebe
+    Wenn ich als Aktivierungsart Dongle wähle
+    Dann muss ich eine Dongle-ID eingeben
     Und ich eine Lizenzart eingebe
     Und ich als Betriebssystem keine, eine oder mehrere der vorhandenen Möglichkeiten auswähle
     Und ich als Installation keine, eine oder mehrere der vorhandenen Möglichkeiten auswähle
