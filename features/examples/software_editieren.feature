@@ -22,7 +22,10 @@ Funktionalität: Software editieren
   @javascript
   Szenario: Software-Lizenz editieren
     Wenn ich eine bestehende Software-Lizenz editiere
-    Und ich eine andere Software auswähle
+    Dann sehe ich die "Software Details" angezeigt
+    Wenn ich die Links der "Software Details" anklicke
+    Dann öffnet sich der Browser mit dem entsprechenden URL
+    Wenn ich eine andere Software auswähle
     Und ich eine andere Seriennummer eingebe
     Und ich einen anderen Aktivierungstyp wähle
     Und ich einen anderen Lizenztyp wähle
@@ -32,6 +35,9 @@ Funktionalität: Software editieren
     Und ich das Lizenzablaufdatum ändere
     Und ich den Wert für den Maintenance-Vertrag ändere
     Und ich den Wert für Bezug ändere
+    Und ich den Wert der Lizenzinformation ändere
+    Und ich die Dongle-ID ändere
+    Und ich die Anzahl der Felder "Mehrplatz", "Konkurrent" oder "Site-Lizenz" ändere
     #Aber ich kann die Inventarnummer nicht ändern # really? inventory manager can change the inventory number of an item right now...
     Wenn ich speichere
     Dann sind die Informationen dieser Software-Lizenz erfolgreich aktualisiert worden

@@ -20,10 +20,6 @@ Funktionalität: Software erfassen
     Wenn ich das Software-Produkt wieder editiere
     Dann werden nur die Linien mit Links zusätzlich ausserhalb des Textfeldes angezeigt
 
-  Szenario: Mögliche Werte in Software-Produkt erfassen
-    Angenommen ich befinde mich auf der Software-Erstellungsseite
-    Dann kann ich auf mehreren Zeilen Hinweise und Links anfügen
-
   @javascript
   Szenario: Mögliche Werte in Software-Lizenz erfassen
     Angenommen ich befinde mich auf der Lizenz-Erstellungsseite
@@ -64,7 +60,7 @@ Funktionalität: Software erfassen
       | Ja   |
     Dann kann man als "Rechnungsdatum" ein Datum auswählen
     Dann kann man als "Anschaffungswert" eine Zahl eingeben
-    Dann kann man als "Beschafft durch" einen Text eingeben
+    Dann kann man als "Beschafft durch" einen Benutzer wählen
     Dann kann man als "Lieferant" einen Lieferanten auswählen
     Dann kann man als "Verantwortliche Abteilung" einen Gerätepark auswählen
     Dann kann man als "Besitzer" einen Gerätepark auswählen
