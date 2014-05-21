@@ -11,7 +11,9 @@ Funktionalität: Software suchen
       | Produktname  | suchbegriff1 |
       | Hersteller   | suchbegriff4 |
     Und es existiert eine Software-Lizenz mit folgenden Eigenschaften:
-      | Lizenznummer | suchbegriff2 |
+      | Inventarnummer | suchbegriff2 |
+      | Seriennummer | suchbegriff3 |
+      | Dongle-ID | suchbegriff5 |
     Und diese Software-Lizenz ist an jemanden ausgeliehen
     Wenn ich nach einer dieser Software-Produkt Eigenschaften suche
     Dann es erscheinen alle zutreffenden Software-Produkte
