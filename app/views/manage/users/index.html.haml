@@ -40,8 +40,8 @@
           %input#list-search{type: "text", class: "width-full", name: "input", placeholder: _("Search..."), autocomplete: :off}
         %form#list-filters.col4of5
           .row
-            .col1of5
-              = select_tag "type", options_for_select([[_("All"), ""], [_("Users"), "user"], [_("Delegations"), "delegation"]])
+            .col1of5.padding-right-m
+              = select_tag "type", options_for_select([[_("All"), ""], [_("Users"), "user"], [_("Delegations"), "delegation"]]), class: "width-full"
             .col1of5
               - if @role and @role != "admins"
                 %label.button.inset.white.height-xxs
