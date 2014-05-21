@@ -44,7 +44,6 @@ Funktionalität: Software erfassen
     Dann kann man als "Betriebssystem" keine, eine oder mehrere der folgenden Möglichkeiten in Form einer Checkbox auswählen:
       | Betriebssystem |
       | Windows |
-      | Mac OS |
       | Mac OS X |
       | Linux |
     Dann kann man als "Installation" keine, eine oder mehrere der folgenden Möglichkeiten in Form einer Checkbox auswählen:
