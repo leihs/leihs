@@ -1034,10 +1034,6 @@ window.i18n.locale_data = {
          null,
          "Lischte vo Bsüech"
       ],
-      "List of Models": [
-         null,
-         "Modällischte"
-      ],
       "Loading": [
          null,
          "Lade"

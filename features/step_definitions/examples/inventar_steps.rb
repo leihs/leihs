@@ -1,11 +1,13 @@
 # encoding: utf-8
 
-Angenommen /^man öffnet die Liste des Inventars$/ do
-  begin
-    @current_inventory_pool = @current_user.managed_inventory_pools.sample
-    visit manage_inventory_path(@current_inventory_pool)
-    find("#inventory")
-  end while @current_inventory_pool.models.empty?
+Angenommen /^man öffnet die Liste des Inventars( mit Optionen)?$/ do |arg1|
+  @current_inventory_pool = if arg1
+                              @current_user.managed_inventory_pools.select {|ip| ip.options.exists? }.sample
+                            else
+                              @current_user.managed_inventory_pools.select {|ip| ip.models.exists? }.sample
+                            end
+  visit manage_inventory_path(@current_inventory_pool)
+  find("#inventory")
 end
 
 Wenn /^man die Liste des Inventars öffnet$/ do

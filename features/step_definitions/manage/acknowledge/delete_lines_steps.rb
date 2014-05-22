@@ -1,13 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-When(/^I open a contract for acknowledgement that has more then one line$/) do
-  @ip = @current_user.managed_inventory_pools.first
-  @contract = @ip.contracts.detect {|o| o.status == :submitted and o.lines.length > 1}
-  @customer = @contract.user
-  visit manage_edit_contract_path(@ip, @contract)
-  page.should have_selector("#acknowledge", :visible => true)
-end
-
 When /^I delete a line of this contract$/ do
   @line = @contract.lines.first
   @line_element = find(".line", match: :prefer_exact, :text => @line.model.name)
@@ -61,7 +53,7 @@ Then /^none of the lines are deleted$/ do
 end
 
 When(/^I delete a hand over$/) do
-  @visit = @ip.visits.hand_over.sample
+  @visit = @ip.visits.hand_over.where(date: Date.today).sample
   @visit.lines.should_not be_empty
   @visit_line_ids = @visit.lines.map(&:id)
   find("[data-collapsed-toggle='#hand_overs']").click unless all("[data-collapsed-toggle='#hand_overs']").empty?

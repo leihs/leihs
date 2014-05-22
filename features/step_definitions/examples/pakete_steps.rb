@@ -106,17 +106,21 @@ Wenn /^ich ein Paket editiere$/ do
 end
 
 Dann /^kann ich einen Gegenstand aus dem Paket entfernen$/ do
-  find(".modal #items [data-type='inline-entry']", match: :first)
-  items = all("#items [data-type='inline-entry']")
-  @number_of_items_before = items.size
-  @item_to_remove = items.first.text
-  find("#items [data-remove]", match: :first).click
-  find("#save-package").click
+  within ".modal" do
+    within "#items" do
+      find("[data-type='inline-entry']", match: :first)
+      items = all("[data-type='inline-entry']")
+      @number_of_items_before = items.size
+      @item_to_remove = items.first.text
+      find("[data-remove]", match: :first).click
+    end
+    find("#save-package").click
+  end
   step 'ich speichere die Informationen'
 end
 
 Dann /^dieser Gegenstand ist nicht mehr dem Paket zugeteilt$/ do
-  page.should have_content _("List of Models")
+  page.should have_content _("List of Inventory")
   @package_to_edit.reload
   @package_to_edit.children.count.should eq (@number_of_items_before - 1)
   @package_to_edit.children.detect {|i| i.inventory_code == @item_to_remove}.should be_nil

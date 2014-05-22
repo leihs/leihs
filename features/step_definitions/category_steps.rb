@@ -22,13 +22,13 @@ end
 
 Then /^the model "([^"]*)" should be in category "([^"]*)"$/ do |model_name, category_name|
   step "I follow the sloppy link \"All Models\""
-  category_list = first("tr", :text => "#{model_name}").all("ul")[3]
+  category_list = first("tr", text: model_name).all("ul")[3]
   category_list.text.should =~ /#{category_name}/
 end
 
 Then /^the model "([^"]*)" should not be in category "([^"]*)"$/ do |model_name, category_name|
   step "I follow the sloppy link \"All Models\""
-  category_list = first("tr", :text => "#{model_name}").all("ul")[3]
+  category_list = first("tr", text: model_name).all("ul")[3]
   category_list.text.should_not =~ /#{category_name}/
 end
 

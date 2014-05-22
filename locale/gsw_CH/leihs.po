@@ -751,9 +751,6 @@ msgstr "Bschtelllischtene"
 msgid "List of Visits"
 msgstr "Lischte vo Bsüech"
 
-msgid "List of Models"
-msgstr "Modällischte"
-
 msgid "Loading"
 msgstr "Lade"
 
