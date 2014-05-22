@@ -13,7 +13,8 @@ Funktionalität: Software erfassen
       | Produkt                            | Test Software              |
       | Version                            | Test Version               |
       | Hersteller                         | Test Hersteller            |
-      | Software Informationen             | Installationslink beachten: http://wwww.dokuwiki.ch\nDies ist nur ein Text      |
+      | Software Informationen             | Installationslink beachten: http://wwww.dokuwiki.ch |
+      | Software Informationen             | Dies ist nur ein Text      |
     Wenn der Hersteller bereits existiert
     Dann kann der Hersteller aus der Liste ausgewählt werden
     Wenn der Hersteller noch nicht existiert
@@ -97,6 +98,7 @@ Funktionalität: Software erfassen
     Szenario: Software-Lizenz Anschaffungswert mit 2 Dezimalstellen erfassen
     Angenommen es existiert ein Software-Produkt
     Wenn ich eine neue Software-Lizenz hinzufüge
-    Und ich im Feld "Anschaffungswert" den Wert 200.00 eingebe
+    Und ich alle Pflichtfelder für die Lizenz ausfülle
+    Und ich im Feld "Anschaffungswert" den Wert "200.00" eingebe
     Und ich speichere
-    Dann ist der Anschaffungswert mit zwei Dezimalstellen gespeichert
+    Dann ist der "Anschaffungswert" mit zwei Dezimalstellen gespeichert

@@ -39,12 +39,6 @@ Angenommen(/^es existiert ein Software\-Produkt$/) do
   Software.all.should_not be_empty
 end
 
-Wenn(/^ich die Software setze$/) do
-  @software = Software.all.sample
-  find(".field", text: _("Software")).find("input").set @software.name
-  find(".ui-menu a", text: @software.name).click
-end
-
 Wenn(/^eine Inventarnummer vergeben wird$/) do
   find("input[name='item[inventory_code]']").value.should_not be_nil
 end
@@ -480,4 +474,26 @@ end
 
 Then(/^the software product is deleted$/) do
   lambda {@software_product.reload}.should raise_error(ActiveRecord::RecordNotFound)
+end
+
+When(/^I fill in all the required fields for the license$/) do
+  step "I fill in the software"
+  @inv_code = find(".field", text: _("Inventory Code")).find("input").value
+end
+
+When(/^I fill in the software$/) do
+  @software = Software.all.sample
+  find(".field", text: _("Software")).find("input").set @software.name
+  find(".ui-menu a", text: @software.name).click
+end
+
+When(/^I fill in the field "(.*?)" with the value "(.*?)"$/) do |field, value|
+  @value = value
+  find(".field", text: _(field)).find("input").set @value
+end
+
+Then(/^"(.*?)" is saved with two decimal digits$/) do |field|
+  item = Item.find_by_inventory_code(@inv_code)
+  visit manage_edit_item_path(@current_inventory_pool, item)
+  find(".field", text: _(field)).find("input").value.should == @value
 end

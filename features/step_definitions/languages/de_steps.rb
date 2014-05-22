@@ -252,3 +252,19 @@ end
 Dann(/^das Software\-Produkt ist gelöscht$/) do
   step "the software product is deleted"
 end
+
+Wenn(/^ich alle Pflichtfelder für die Lizenz ausfülle$/) do
+  step "I fill in all the required fields for the license"
+end
+
+Wenn(/^ich die Software setze$/) do
+  step "I fill in the software"
+end
+
+Wenn(/^ich im Feld "(.*?)" den Wert "(.*?)" eingebe$/) do |field, value|
+  step %Q(I fill in the field "#{field}" with the value "#{value}")
+end
+
+Dann(/^ist der "(.*?)" mit zwei Dezimalstellen gespeichert$/) do |field|
+  step %Q("#{field}" is saved with two decimal digits)
+end

@@ -52,4 +52,5 @@
 #####
 
 window.App ?= {}
+window.Tools ?= {}
 window.App.Modules ?= {}
