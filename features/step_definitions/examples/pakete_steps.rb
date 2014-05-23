@@ -190,7 +190,7 @@ Wenn(/^ich die Paketeigenschaften eintrage$/) do
     | Gebäude                      | autocomplete | Keine/r                       |
     | Raum                         |              | Test Raum                     |
     | Gestell                      |              | Test Gestell                  |
-    | Anschaffungswert             |              | 50.0                          |}
+    | Anschaffungswert             |              | 50.00                         |}
 end
 
 Wenn(/^ich dieses Paket speichere$/) do

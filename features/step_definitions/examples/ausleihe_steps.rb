@@ -1,7 +1,8 @@
 # -*- encoding : utf-8 -*-
 
 Angenommen /^ich öffne die Tagesansicht$/ do
-  @current_inventory_pool = @current_user.managed_inventory_pools.sample
+  @current_inventory_pool = @current_user.managed_inventory_pools.select{|ip| ip.contracts.submitted.exists? }.sample
+  raise "contract not found" unless @current_inventory_pool
   visit manage_daily_view_path(@current_inventory_pool)
   find("#daily-view")
 end
@@ -178,7 +179,7 @@ Wenn /^ich eine Aushändigung mache mit einem Kunden der sowohl am heutigen Tag 
   @ip = @current_user.managed_inventory_pools.first
   @customer = @ip.users.detect{|u| u.visits.hand_over.size > 1}
   visit manage_hand_over_path(@ip, @customer)
-  page.should have_selector("#take-back-view")
+  page.should have_selector("#hand-over-view")
 end
 
 Wenn /^ich etwas scanne \(per Inventarcode zuweise\) und es in irgendeinem zukünftigen Vertrag existiert$/ do

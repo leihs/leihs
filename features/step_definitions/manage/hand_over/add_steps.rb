@@ -15,6 +15,7 @@ When /^I add (a|an|a borrowable|an unborrowable) (item|license) to the hand over
   find(".line", match: :first)
   line_amount_before = all(".line").size
   find("[data-add-contract-line] + .addon").click
+  sleep(0.33)
   find("#flash")
   find(".line", match: :first)
   find("input[value='#{@inventory_code}']")
