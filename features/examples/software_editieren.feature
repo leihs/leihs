@@ -35,9 +35,9 @@ Funktionalität: Software editieren
   @javascript
   Szenario: Software-Lizenz editieren
     Wenn ich eine bestehende Software-Lizenz editiere
-    Dann sehe ich die "Software Details" angezeigt
-    Wenn ich die Links der "Software Details" anklicke
-    Dann öffnet sich der Browser mit dem entsprechenden URL
+    Dann sehe ich die Informationen der "Software Details" angezeigt
+    Wenn ich bestehende Links der "Software Details" anklicke
+    Dann öffnet sich ein Browser mit dem entsprechenden URL
     Wenn ich eine andere Software auswähle
     Und ich eine andere Seriennummer eingebe
     Und ich einen anderen Aktivierungstyp wähle
