@@ -1,8 +1,10 @@
 # -*- encoding : utf-8 -*-
 
 Angenommen(/^es existiert eine leere Bestellung$/) do
-  @current_inventory_pool = @current_user.managed_inventory_pools.first
-  @customer = @current_inventory_pool.users.find{|u| u.visits.hand_over.count == 0}
+  @current_inventory_pool = @current_user.managed_inventory_pools.detect do |ip|
+    @customer = ip.users.to_a.shuffle.detect {|c| c.visits.hand_over.empty? }
+  end
+  raise "customer not found" unless @customer
   visit manage_hand_over_path @current_inventory_pool, @customer
   @contract = @current_inventory_pool.contracts.approved.where(user_id: @customer.id).last
 end
@@ -39,16 +41,16 @@ Wenn(/^ich die Bestellung editiere$/) do
 end
 
 Wenn(/^die Bestellung genehmige$/) do
-  if page.should have_selector "button", text: _("Approve order")
+  if page.has_selector? "button", text: _("Approve order")
     click_button _("Approve order")
-  elsif page.should have_selector "button", text: _("Verify + approve order")
+  elsif page.has_selector? "button", text: _("Verify + approve order")
     click_button _("Verify + approve order")
   end
 end
 
 Dann(/^ist es mir nicht möglich, die Genehmigung zu forcieren$/) do
   page.should have_selector ".modal"
-  if all(".modal .multibutton .dropdown-toggle").length > 0
+  if page.has_selector? ".modal .multibutton .dropdown-toggle"
     find(".modal .multibutton .dropdown-toggle").click
   end
   page.should_not have_content _("Approve anyway")

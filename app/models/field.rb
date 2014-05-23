@@ -225,6 +225,7 @@ class Field < ActiveHash::Base
       attribute: "price",
       permissions: {role: :lending_manager, owner: true},
       type: "text",
+      value_formatter: "Tools.formatNumber({padRight: 2})",
       group: "Invoice Information",
       forPackage: true
     },{

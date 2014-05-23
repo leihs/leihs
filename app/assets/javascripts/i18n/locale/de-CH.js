@@ -1059,10 +1059,6 @@ window.i18n.locale_data = {
          null,
          "Liste der Besuche"
       ],
-      "List of Models": [
-         null,
-         "Liste der Modelle"
-      ],
       "Loading": [
          null,
          "Lade"

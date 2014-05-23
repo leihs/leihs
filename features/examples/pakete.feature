@@ -50,7 +50,7 @@ Funktionalität: Modell mit Paketen erstellen
     | Gebäude                      | autocomplete | Keine/r                       |
     | Raum                         |              | Test Raum                     |
     | Gestell                      |              | Test Gestell                  |
-    | Anschaffungswert             |              | 50.0                          |
+    | Anschaffungswert             |              | 50.00                         |
     | Letzte Inventur              |              | 01.01.2013                    |
     Und ich das Paket und das Modell speichere
     Dann besitzt das Paket alle angegebenen Informationen
@@ -86,7 +86,7 @@ Funktionalität: Modell mit Paketen erstellen
     | Gebäude                      | autocomplete | Keine/r                       |
     | Raum                         |              | Test Raum                     |
     | Gestell                      |              | Test Gestell                  |
-    | Anschaffungswert             |              | 50.0                          |
+    | Anschaffungswert             |              | 50.00                         |
     Und ich das Paket und das Modell speichere
     Dann sehe ich die Meldung "Modell gespeichert / Pakete erstellt"
     Und das Paket besitzt alle angegebenen Informationen

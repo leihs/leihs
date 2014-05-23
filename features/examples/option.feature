@@ -4,10 +4,10 @@ Funktionalität: Option
 
   Grundlage:
     Angenommen ich bin Mike
-    Und man öffnet die Liste des Inventars
 
   @javascript @firefox
   Szenario: Option hinzufügen
+    Angenommen man öffnet die Liste des Inventars
     Wenn ich eine neue Option hinzufüge
     Und ich ändere die folgenden Details
     | Feld             | Wert         |
@@ -19,6 +19,7 @@ Funktionalität: Option
 
   @javascript @firefox
   Szenario: Option bearbeiten
+    Angenommen man öffnet die Liste des Inventars mit Optionen
     Wenn ich eine bestehende Option bearbeite
     Und ich erfasse die folgenden Details
     | Feld             | Wert           |

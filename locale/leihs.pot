@@ -757,9 +757,6 @@ msgstr ""
 msgid "List of Visits"
 msgstr ""
 
-msgid "List of Models"
-msgstr ""
-
 msgid "Loading"
 msgstr ""
 

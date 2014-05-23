@@ -115,12 +115,14 @@ end
 Wenn /^man das Modell editiert$/ do
   @model = Model.find {|m| [m.name, m.product].include? "Sharp Beamer" }
   step 'ich nach "%s" suche' % @model.name
-  find(".line", :text => "#{@model.name}", match: :prefer_exact).find(".button", :text => _("Edit %s" % "Model")).click
+  sleep(0.11)
+  find(".line", text: @model.name, match: :prefer_exact).find(".button", :text => _("Edit %s" % "Model")).click
 end
 
 Wenn /^ich die Kategorien zuteile$/ do
   @category = ModelGroup.where(name: "Standard").first
   find("#categories input[data-type='autocomplete']").set @category.name
+  sleep(0.11)
   find("a.ui-corner-all", match: :first, text: @category.name).click
   find("#categories .list-of-lines .line", text: @category.name)
 end
@@ -145,7 +147,7 @@ Wenn /^ich eine oder mehrere Kategorien entferne$/ do
 end
 
 Dann /^sind die Kategorien entfernt und das Modell gespeichert$/ do
-  page.should have_content _("List of Models")
+  page.should have_content _("List of Inventory")
   @model.categories.reload.should be_empty
 end
 

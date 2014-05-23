@@ -6,6 +6,7 @@
 ##### VENDOR
 #
 #= require jqBarGraph/jqBarGraph.1.2
+#= require format-number/format-number
 #
 ##### APP
 #

@@ -1,20 +1,20 @@
 # -*- encoding : utf-8 -*-
 
-When /^I open a contract for acknowledgement$/ do
-  @ip = @current_user.managed_inventory_pools.first
-  @customer = @ip.users.to_a.detect {|x| x.contracts.submitted.exists? }
-  @contract = @customer.contracts.submitted.first
-  visit manage_edit_contract_path(@ip, @contract)
-  page.should have_selector("[data-order-approve]", :visible => true)
-end
-
-When /^I open a contract for acknowledgement with more then one line$/ do
-  @ip = @current_user.managed_inventory_pools.detect do |ip|
-    @customer = ip.users.shuffle.detect {|x| x.contracts.submitted.exists? and x.contracts.submitted.first.lines.size > 1}
+When /^I open a contract for acknowledgement( with more then one line)?$/ do |arg1|
+  if arg1
+    @ip = @current_user.managed_inventory_pools.detect do |ip|
+      @customer = ip.users.shuffle.detect {|x| x.contracts.submitted.exists? and x.contracts.submitted.first.lines.size > 1 }
+    end
+    raise "customer not found" unless @customer
+    @models_in_stock = @ip.items.by_responsible_or_owner_as_fallback(@ip).in_stock.map(&:model).uniq
+    @contract = @customer.contracts.submitted.detect{|v| v.lines.select{|l| !l.item and @models_in_stock.include? l.model}.count >= 2 }
+  else
+    @ip = @current_user.managed_inventory_pools.detect do |ip|
+      @customer = ip.users.shuffle.detect {|x| x.contracts.submitted.exists? }
+    end
+    raise "customer not found" unless @customer
+    @contract = @customer.contracts.submitted.first
   end
-  raise "customer not found" unless @customer
-  @models_in_stock = @ip.items.by_responsible_or_owner_as_fallback(@ip).in_stock.map(&:model).uniq
-  @contract = @customer.contracts.submitted.detect{|v| v.lines.select{|l| !l.item and @models_in_stock.include? l.model}.count >= 2}
   visit manage_edit_contract_path(@ip, @contract)
   page.should have_selector("[data-order-approve]", :visible => true)
 end

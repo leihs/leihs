@@ -13,7 +13,9 @@ Funktionalität: Software erfassen
       | Produkt                            | Test Software              |
       | Version                            | Test Version               |
       | Hersteller                         | Test Hersteller            |
-      | Software Informationen             | Installationslink beachten: http://wwww.dokuwiki.ch\nDies ist nur ein Text      |
+      | Software Informationen             | Installationslink beachten: http://wwww.dokuwiki.ch |
+      | Software Informationen             | Dies ist nur ein Text      |
+      | Anhänge                            | test.pdf      |
     Wenn der Hersteller bereits existiert
     Dann kann der Hersteller aus der Liste ausgewählt werden
     Wenn der Hersteller noch nicht existiert
@@ -23,7 +25,16 @@ Funktionalität: Software erfassen
     Wenn ich das Software-Produkt wieder editiere
     Dann werden nur die Linien mit Links zusätzlich ausserhalb des Textfeldes angezeigt
 
-  @javascript
+     @upcoming
+  Szenario: Anhänge erstellen
+    Wenn ich eine neue Software hinzufüge
+    Dann kann ich Anhänge hinzufügen
+    Und ich kann hinzugefügte Anhänge löschen
+    Wenn ich speichere
+    Dann sind die hinzugefügten Anhänge gespeichert
+    Und die gelöschten Anhänge werden entfernt
+
+    @javascript
   Szenario: Mögliche Werte in Software-Lizenz erfassen
     Angenommen ich befinde mich auf der Lizenz-Erstellungsseite
     Dann die mögliche Werte für Aktivierungstyp sind in der folgenden Reihenfolge:
@@ -89,6 +100,8 @@ Funktionalität: Software erfassen
     Und ich für den Maintenance-Vertrag ein Ablaufdatum wähle
     Wenn ich als Bezug "Investition" wähle
     Dann muss ich eine Projektnummer eingeben
+    Wenn ich als Aktivierungstyp "Mehrplatz", "Konkorrent" oder "Site-Lizenz" wähle
+    Dann kann ich eine Anzahl eingeben
     Und ich die den Wert "ausleihbar" setze
     Und ich speichere
     Dann sind die Informationen dieser Software-Lizenz gespeichert
@@ -97,6 +110,7 @@ Funktionalität: Software erfassen
     Szenario: Software-Lizenz Anschaffungswert mit 2 Dezimalstellen erfassen
     Angenommen es existiert ein Software-Produkt
     Wenn ich eine neue Software-Lizenz hinzufüge
-    Und ich im Feld "Anschaffungswert" den Wert 200.00 eingebe
+    Und ich alle Pflichtfelder für die Lizenz ausfülle
+    Und ich im Feld "Anschaffungswert" den Wert "200.00" eingebe
     Und ich speichere
-    Dann ist der Anschaffungswert mit zwei Dezimalstellen gespeichert
+    Dann ist der "Anschaffungswert" mit zwei Dezimalstellen gespeichert
