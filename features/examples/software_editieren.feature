@@ -50,7 +50,8 @@ Funktionalität: Software editieren
     Und ich den Wert für Bezug ändere
     Und ich den Wert der Lizenzinformation ändere
     Und ich die Dongle-ID ändere
-    Und ich die Anzahl der Felder "Mehrplatz", "Konkurrent" oder "Site-Lizenz" ändere
+    Und ich den Aktivierungstyp "Mehrplatz", "Konkurrent" oder "Site-Lizenz" wähle
+    Und ich eine Anzahl beim Aktivierungstyp eingebe
     #Aber ich kann die Inventarnummer nicht ändern # really? inventory manager can change the inventory number of an item right now...
     Wenn ich speichere
     Dann sind die Informationen dieser Software-Lizenz erfolgreich aktualisiert worden

@@ -100,6 +100,8 @@ Funktionalität: Software erfassen
     Und ich für den Maintenance-Vertrag ein Ablaufdatum wähle
     Wenn ich als Bezug "Investition" wähle
     Dann muss ich eine Projektnummer eingeben
+    Wenn ich als Aktivierungstyp "Mehrplatz", "Konkorrent" oder "Site-Lizenz" wähle
+    Dann kann ich eine Anzahl eingeben
     Und ich die den Wert "ausleihbar" setze
     Und ich speichere
     Dann sind die Informationen dieser Software-Lizenz gespeichert
