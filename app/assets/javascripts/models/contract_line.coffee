@@ -21,11 +21,15 @@ class window.App.ContractLine extends Spine.Model
 
   model: ->
     if @model_id? 
-      App.Model.exists(@model_id) ? App.Software.find(@model_id)
+      model = App.Model.exists(@model_id) ? App.Software.exists(@model_id)
+      model ? throw new Error("Could not find model or software with #{@model_id}")
     else 
       App.Option.find @option_id
 
-  item: -> App.Item.exists(@item_id) ? App.License.find(@item_id) if @item_id
+  item: ->
+    if @item_id
+      item = App.Item.exists(@item_id) ? App.License.exists(@item_id)
+      item ? throw new Error("Could not find item or license with #{@item_id}")
 
   inventoryCode: ->
     if @item()
