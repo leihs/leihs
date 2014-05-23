@@ -38,6 +38,9 @@ Funktionalität: Software editieren
     Dann sehe ich die Informationen der "Software Details" angezeigt
     Wenn ich bestehende Links der "Software Details" anklicke
     Dann öffnet sich ein Browser mit dem entsprechenden URL
+    Wenn der zugeteilten Software Anhänge hinzugefügt sind
+    Dann sehe ich die Anhänge auf der Software-Lizenz unter "Software-Anhänge"
+    Und ich kann die Anhänge öffnen
     Wenn ich eine andere Software auswähle
     Und ich eine andere Seriennummer eingebe
     Und ich einen anderen Aktivierungstyp wähle
