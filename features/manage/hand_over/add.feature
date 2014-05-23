@@ -49,3 +49,15 @@ Feature: Add lines during hand over
      Then I see a list of suggested model names
      When I select the modle from the list
      Then the model is added to the hand over
+
+  @upcoming
+  Scenario: hand over items even if not borrowable
+     Given I open a hand over
+     When I enter a model or a software
+     Then I see a list of suggested model and software names
+     And the models and software shown can be borrowable or not borrowable
+     When all items of a specific model or software are set to "not borrowable"
+     And I enter this specific model or software in the add/assign input field
+     Then I see this specific model in the suggested model list
+
+
