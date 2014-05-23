@@ -90,6 +90,9 @@ Funktionalität: Vertrag
     | Modellname    |
     | Enddatum      |
     | Rückgabedatum / Rücknehmende Person |
+    Wenn der Vertrag eine Software-Lizenz beinhaltet
+    Dann sehe ich neben dem Inventarcode zusätzlich die folgende Information
+    | Seriennummer  |
 
   @javascript @firefox
   Szenario: Rücknehmende Person
