@@ -39,9 +39,12 @@ class window.App.Field extends Spine.Model
           , item
         else
           item[attribute]
+
     # some special behavior for retired ;(
     value = !! value if attribute == "retired"
+
     if value?
+      value = @getFormatValueFunction()(value) if @format?
       return value
     else if @default? and defaultFallback
       @default
@@ -68,6 +71,13 @@ class window.App.Field extends Spine.Model
       result = [result, value_label_ext].join(" ") if value_label_ext = reduceHelper(@value_label_ext)
 
       result
+
+  getFormatValueFunction: =>
+    # returns a function object depending on the format properties
+    if @format[0] == "decimal"
+      Tools.formatNumber {padRight: @format[1]}
+    else
+      _.identity
 
   getFormName: (attribute = @attribute, formName = @form_name, asArray = null) ->
     if formName?
