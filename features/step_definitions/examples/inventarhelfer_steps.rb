@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 Wenn /^man im Inventar Bereich ist$/ do
   find("#topbar .topbar-navigation .topbar-item a", :text => _("Inventory")).click
   current_path.should == manage_inventory_path(@current_inventory_pool)
@@ -15,13 +16,8 @@ Angenommen /^man ist auf dem Helferschirm$/ do
 end
 
 Dann /^wähle ich all die Felder über eine List oder per Namen aus$/ do
-  i = find("#field-input")
-  i.click
-  page.should have_selector("a.ui-corner-all", :visible => true).should be_true
-  number_of_items_left = all("a.ui-corner-all", :visible => true).size
-
-  number_of_items_left.times do
-    i.click
+  i = find("#inventory-helper-view #field-input")
+  while(i.click and page.has_selector?("a.ui-corner-all", visible: true)) do
     find("a.ui-corner-all", match: :first, :visible => true).click
   end
 end
@@ -293,7 +289,6 @@ Wenn(/^ein Pflichtfeld nicht ausgefüllt\/ausgewählt ist, dann lässt sich der 
 end
 
 Angenommen(/^man editiert das Feld "(.*?)" eines ausgeliehenen Gegenstandes$/) do |name|
-  field = Field.all.detect{|f| _(f.label) == name}
   step %Q{wähle ich das Feld "#{name}" aus der Liste aus}
   @item = @current_inventory_pool.items.not_in_stock.sample
   @item_before = @item.to_json
@@ -316,7 +311,6 @@ Dann(/^erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editiere
 end
 
 Angenommen(/^man editiert das Feld "(.*?)" eines Gegenstandes, der im irgendeinen Vertrag vorhanden ist$/) do |name|
-  field = Field.all.detect{|f| _(f.label) == name}
   step %Q{wähle ich das Feld "#{name}" aus der Liste aus}
   @item = @current_inventory_pool.items.select{|i| not i.contract_lines.blank?}.sample
   @item_before = @item.to_json

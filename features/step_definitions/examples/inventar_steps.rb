@@ -265,11 +265,12 @@ Wenn /^der Gegenstand nicht an Lager ist und eine andere Abteilung für den Gege
   find("#list-filters input#in_stock").click if find("#list-filters input#in_stock").checked?
   item = @current_inventory_pool.own_items.detect{|i| not i.inventory_pool_id.nil? and i.inventory_pool != @current_inventory_pool and not i.in_stock?}
   step 'ich nach "%s" suche' % item.inventory_code
-  sleep(0.33)
-  if page.has_selector?(".line[data-type='model'][data-id='#{item.model.id}'] .button[data-type='inventory-expander'] i.arrow.right")
-    find(".line[data-type='model'][data-id='#{item.model.id}'] .button[data-type='inventory-expander']").click
+  sleep(0.66)
+  within ".line[data-type='model'][data-id='#{item.model.id}']" do
+    if has_selector?(".button[data-type='inventory-expander'] i.arrow.right")
+      find(".button[data-type='inventory-expander']").click
+    end
   end
-  sleep(0.11)
   @item_line = ".group-of-lines .line[data-type='item']"
   @item = Item.find_by_inventory_code(find(@item_line, match: :first).find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text)
 end
@@ -277,6 +278,7 @@ end
 Wenn /^meine Abteilung Besitzer des Gegenstands ist die Verantwortung aber auf eine andere Abteilung abgetreten hat$/ do
   all("select#responsibles option:not([selected])").detect{|o| o.value != @current_inventory_pool.id.to_s and o.value != ""}.select_option
   find(".button[data-type='inventory-expander'] i.arrow.right", match: :first).click
+  sleep(0.33)
   @item_line = ".group-of-lines .line[data-type='item']"
   @item = Item.find_by_inventory_code(find(@item_line, match: :first).find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text)
 end
@@ -300,9 +302,9 @@ end
 
 Dann /^kann man jedes Modell aufklappen$/ do
   step "man eine Modell-Zeile eines Modells, das weder ein Paket-Modell oder ein Bestandteil eines Paket-Modells ist, sieht"
-  within @model_line do
-    find(".button[data-type='inventory-expander'] i.arrow.right").click
-    find(".button[data-type='inventory-expander'] i.arrow.down")
+  within @model_line.find(".button[data-type='inventory-expander']") do
+    find("i.arrow.right").click
+    find("i.arrow.down")
   end
 end
 

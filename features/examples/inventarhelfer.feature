@@ -33,7 +33,6 @@ Funktionalität: Inventarhelfer
     Und man mustert einen ausgeliehenen Gegenstand aus
     Dann erhält man eine Fehlermeldung, dass man den Gegenstand nicht ausmustern kann, da das Gerät ausgeliehen ist
 
-  # FIXME this scenario is currently executed as first, otherwise it fails.
   @javascript
   Szenario: Geräte über den Helferschirm editieren, mittels vollständigem Inventarcode (Scanner)
     Angenommen man ist auf dem Helferschirm

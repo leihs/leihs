@@ -26,16 +26,19 @@ Dann(/^schliesst das Dialogfenster$/) do
 end
 
 Wenn(/^man versucht ein Modell zur Bestellung hinzufügen, welches nicht verfügbar ist$/) do
-  @start_date = Date.today
-  @end_date = Date.today + 14
-  @inventory_pool = @current_user.inventory_pools.first
+  start_date = Date.today
+  end_date = Date.today + 14
   @quantity = 3
-  @model = @current_user.models.borrowable.detect do |m| 
-    m.availability_in(@inventory_pool).maximum_available_in_period_summed_for_groups(@start_date, @end_date, @current_user.group_ids) < @quantity and 
-    m.total_borrowable_items_for_user(@current_user, @inventory_pool) >= @quantity
+  inventory_pool = @current_user.inventory_pools.detect do |ip|
+    @model = @current_user.models.borrowable.detect do |m|
+      m.availability_in(ip).maximum_available_in_period_summed_for_groups(start_date, end_date, @current_user.group_ids) < @quantity and
+      m.total_borrowable_items_for_user(@current_user, ip) >= @quantity
+    end
   end
   visit borrow_model_path(@model)
   find("*[data-create-order-line][data-model-id='#{@model.id}']").click
+  step "ich setze das Startdatum im Kalendar auf '%s'" % I18n.l(inventory_pool.next_open_date(start_date))
+  step "ich setze das Enddatum im Kalendar auf '%s'" % I18n.l(inventory_pool.next_open_date(end_date))
   step "ich setze die Anzahl im Kalendar auf #{@quantity}"
   sleep(0.33)
   find("#submit-booking-calendar").click
@@ -64,7 +67,9 @@ Dann(/^schlägt der Versuch es hinzufügen fehl$/) do
 end
 
 Dann(/^ich sehe die Fehlermeldung, dass das ausgewählte Modell im ausgewählten Zeitraum nicht verfügbar ist$/) do
-  find("#booking-calendar-errors").should have_content "Der Gegenstand ist im ausgewählten Zeitraum nicht ausreichend verfügbar"
+  within ".modal" do
+    find("#booking-calendar-errors", text: _("Item is not available in that time range"))
+  end
 end
 
 Wenn(/^man einen Gegenstand aus der Modellliste hinzufügt$/) do
@@ -154,12 +159,10 @@ Dann(/^das Enddatum entspricht dem vorausgewählten Enddatum$/) do
 end
 
 Angenommen(/^es existiert ein Modell für das eine Bestellung vorhanden ist$/) do
-  order_line = ContractLine.find do |cl|
-    cl.start_date.future? and
-    @current_user.inventory_pools.include?(cl.contract.inventory_pool)
+  @current_user.inventory_pools.flat_map(&:contract_lines).shuffle.detect do |cl|
+    @model = cl.model
+    cl.is_a?(ItemLine) and cl.start_date.future? and cl.model.categories.exists?
   end
-
-  @model = order_line.model
 end
 
 Wenn(/^man dieses Modell aus der Modellliste hinzufügt$/) do
