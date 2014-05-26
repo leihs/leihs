@@ -1680,6 +1680,10 @@ window.i18n.locale_data = {
          null,
          "Startdaum muss vor Enddatum liegen"
       ],
+      "End Date cannot be in the past": [
+         null,
+         "Enddatum darf nicht in der Vergangenheit liegen"
+      ],
       "Start Screen": [
          null,
          "Startbildschirm"

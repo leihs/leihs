@@ -19,7 +19,7 @@ Funktionalität: Option
 
   @javascript @firefox
   Szenario: Option bearbeiten
-    Angenommen man öffnet die Liste des Inventars mit Optionen
+    Angenommen man öffnet die Liste des Inventars
     Wenn ich eine bestehende Option bearbeite
     Und ich erfasse die folgenden Details
     | Feld             | Wert           |

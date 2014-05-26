@@ -1251,6 +1251,9 @@ msgstr "Startdatum"
 msgid "Start Date must be before End Date"
 msgstr "Startdaum muss vor Enddatum liegen"
 
+msgid "End Date cannot be in the past"
+msgstr "Enddatum darf nicht in der Vergangenheit liegen"
+
 msgid "Start Screen"
 msgstr "Startbildschirm"
 

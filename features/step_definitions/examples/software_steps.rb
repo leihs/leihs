@@ -170,7 +170,7 @@ Dann(/^sind die Informationen dieser Software\-Lizenz erfolgreich aktualisiert w
 end
 
 Wenn(/^ich mich auf der Softwareliste befinde$/) do
-  page.should have_selector "Inventarliste"
+  page.should have_content _("List of Inventory")
   find("a", text: _("Software")).click
 end
 

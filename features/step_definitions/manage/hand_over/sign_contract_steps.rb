@@ -98,7 +98,7 @@ When /^I open a hand over with overdue lines$/ do
   @models_in_stock = @ip.items.by_responsible_or_owner_as_fallback(@ip).in_stock.map(&:model).uniq
   @customer = @ip.users.to_a.detect do |u|
     u.contracts.approved.exists? and u.contracts.approved.any? do |c|
-      c.lines.any? {|l| l.start_date < Date.today and @models_in_stock.include? l.model}
+      c.lines.any? {|l| l.start_date < Date.today and l.end_date >= Date.today and @models_in_stock.include? l.model}
     end
   end
   @customer.should_not be_nil

@@ -84,11 +84,23 @@ class window.App.HandOverController extends Spine.Controller
       renderAvailability: renderAvailability
     do @lineSelection.restore
 
-  handOver: => new App.HandOverDialogController
-    user: @user
-    contract: @contract
+  handOver: =>
+    if @validate()
+      new App.HandOverDialogController
+        user: @user
+        contract: @contract
+    else
+      App.Flash
+        type: "error"
+        message: _jed('End Date cannot be in the past')
 
   swapUser: =>
     lines = (App.ContractLine.find id for id in App.LineSelectionController.selected)
     new App.SwapUsersController
       lines: lines
+
+  validate: =>
+    lines = (App.ContractLine.find id for id in App.LineSelectionController.selected)
+    _.all lines, (line)->
+      # checking if end_date are in the past
+      not moment(line.end_date).isBefore(moment().format("YYYY-MM-DD"))

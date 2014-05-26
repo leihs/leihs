@@ -1,11 +1,7 @@
 # encoding: utf-8
 
-Angenommen /^man öffnet die Liste des Inventars( mit Optionen)?$/ do |arg1|
-  @current_inventory_pool = if arg1
-                              @current_user.managed_inventory_pools.select {|ip| ip.options.exists? }.sample
-                            else
-                              @current_user.managed_inventory_pools.select {|ip| ip.models.exists? }.sample
-                            end
+Angenommen /^man öffnet die Liste des Inventars?$/ do
+  @current_inventory_pool = @current_user.managed_inventory_pools.select {|ip| ip.models.exists? and ip.options.exists? }.sample
   visit manage_inventory_path(@current_inventory_pool)
   find("#inventory")
 end
@@ -26,6 +22,7 @@ end
 
 Dann /^man sieht Optionen$/ do
   step "I scroll to the bottom of the page"
+  sleep(0.33)
   find("#inventory .line[data-type='option']", match: :first)
 end
 
@@ -268,8 +265,11 @@ Wenn /^der Gegenstand nicht an Lager ist und eine andere Abteilung für den Gege
   find("#list-filters input#in_stock").click if find("#list-filters input#in_stock").checked?
   item = @current_inventory_pool.own_items.detect{|i| not i.inventory_pool_id.nil? and i.inventory_pool != @current_inventory_pool and not i.in_stock?}
   step 'ich nach "%s" suche' % item.inventory_code
-  page.should have_selector ".line[data-id='#{item.id}']"
-  find(".line[data-id='#{item.model.id}'] .button[data-type='inventory-expander'] i.arrow.right", match: :first).click
+  sleep(0.33)
+  if page.has_selector?(".line[data-type='model'][data-id='#{item.model.id}'] .button[data-type='inventory-expander'] i.arrow.right")
+    find(".line[data-type='model'][data-id='#{item.model.id}'] .button[data-type='inventory-expander']").click
+  end
+  sleep(0.11)
   @item_line = ".group-of-lines .line[data-type='item']"
   @item = Item.find_by_inventory_code(find(@item_line, match: :first).find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text)
 end

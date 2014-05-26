@@ -67,6 +67,7 @@ Then(/^all lines of that hand over are deleted$/) do
   within("#hand_overs .line[data-id='#{@visit.id}']") do
     find(".line-actions .multibutton", text: _("Deleted"))
   end
+  sleep(0.11)
   expect { @visit.reload }.to raise_error(ActiveRecord::RecordNotFound)
   @visit_line_ids.each do |line_id|
     expect { ContractLine.find(line_id) }.to raise_error(ActiveRecord::RecordNotFound)

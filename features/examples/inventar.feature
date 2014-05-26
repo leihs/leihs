@@ -56,7 +56,7 @@ Funktionalität: Inventar
     | Anzahl verfügbar (jetzt) |
     | Anzahl verfügbar (Total) |
 
-  @javascript
+  @javascript @firefox
   Szenario: Aussehen einer Gegenstands-Zeile
     Wenn der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist
     Dann enthält die Gegenstands-Zeile folgende Informationen:
