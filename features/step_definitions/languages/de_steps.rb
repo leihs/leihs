@@ -268,3 +268,15 @@ end
 Dann(/^ist der "(.*?)" mit zwei Dezimalstellen gespeichert$/) do |field|
   step %Q("#{field}" is saved with two decimal digits)
 end
+
+Wenn(/^ich für den Gerätepark die automatische Sperrung von Benutzern mit verspäteter Rückgaben einschalte$/) do
+  step "on the inventory pool I enable the automatic suspension for users with overdue take backs"
+end
+
+Wenn(/^ein Benutzer bereits gesperrt ist$/) do
+  step "a user is already suspended for this inventory pool"
+end
+
+Dann(/^werden der bestehende Sperrgrund sowie die Sperrzeit dieses Benutzers nicht überschrieben$/) do
+  step "the existing suspension motivation and the suspended time for this user are not overwritten"
+end

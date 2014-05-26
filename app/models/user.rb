@@ -247,7 +247,7 @@ class User < ActiveRecord::Base
   def self.remind_and_suspend_all
     Visit.take_back_overdue.each do |visit|
       visit.user.remind
-      visit.user.suspend
+      visit.user.suspend unless visit.user.suspended?(visit.inventory_pool)
     end
   end
 

@@ -228,3 +228,28 @@ end
 Dann(/^kriegt der neu erstellte Benutzer bei dem vorher editierten Gerätepark kein Zugriffsrecht$/) do
   @user.access_right_for(@ip).should be_nil
 end
+
+When(/^on the inventory pool I enable the automatic suspension for users with overdue take backs$/) do
+  @current_inventory_pool.update_attributes(automatic_suspension: true, automatic_suspension_reason: Faker::Lorem.paragraph)
+end
+
+When(/^a user is already suspended for this inventory pool$/) do
+  @user = @current_inventory_pool.visits.take_back_overdue.sample.user
+  @suspended_until = rand(1.years.from_now..3.years.from_now).to_date
+  @suspended_reason = Faker::Lorem.paragraph
+
+  ensure_suspended_user(@user, @current_inventory_pool, @suspended_until, @suspended_reason)
+end
+
+Then(/^the existing suspension motivation and the suspended time for this user are not overwritten$/) do
+  def checks_suspension
+    ar = @user.access_right_for(@current_inventory_pool)
+    ar.suspended_until.should == @suspended_until
+    ar.suspended_reason.should == @suspended_reason
+    ar.suspended_reason.should_not == @current_inventory_pool.automatic_suspension_reason
+  end
+
+  checks_suspension
+  step "the cronjob executes the rake task for reminding and suspending all late users"
+  checks_suspension
+end

@@ -24,9 +24,9 @@ When(/^sehe ich neben seinem Namen den Sperrstatus 'Gesperrt!'$/) do
   find("span.darkred-text", text: "%s!" % _("Suspended"))
 end
 
-def ensure_suspended_user(user, inventory_pool)
+def ensure_suspended_user(user, inventory_pool, suspended_until = rand(1.years.from_now..3.years.from_now).to_date, suspended_reason = Faker::Lorem.paragraph)
   unless user.suspended?(inventory_pool)
-    user.access_rights.active.where(inventory_pool_id: inventory_pool).first.update_attributes(suspended_until: Date.today + 1.year, suspended_reason: "suspended reason")
+    user.access_rights.active.where(inventory_pool_id: inventory_pool).first.update_attributes(suspended_until: suspended_until, suspended_reason: suspended_reason)
     user.suspended?(inventory_pool).should be_true
   end
 end
