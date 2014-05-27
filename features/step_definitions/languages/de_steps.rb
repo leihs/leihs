@@ -269,6 +269,22 @@ Dann(/^ist der "(.*?)" mit zwei Dezimalstellen gespeichert$/) do |field|
   step %Q("#{field}" is saved with two decimal digits)
 end
 
+Wenn(/^ich eine Software\-Lizenz mit gesetztem Maintenance\-Ablaufdatum, Lizenzablaufdatum und Rechnungsdatum editiere$/) do
+  step %Q(I edit a license with set dates for maintenance expiration, license expiration and invoice date)
+end
+
+Wenn(/^ich die Daten für die folgenden Feldern lösche:$/) do |table|
+  step %Q(I delete the data for the following fields:), table
+end
+
+Wenn(/^sind die folgenden Felder der Lizenz leer:$/) do |table|
+  step %Q(the following fields of the license are empty:), table
+end
+
+Wenn(/^ich die gleiche Lizenz editiere$/) do
+  step %Q(I edit the same license)
+end
+
 Wenn(/^ich für den Gerätepark die automatische Sperrung von Benutzern mit verspäteter Rückgaben einschalte$/) do
   step "on the inventory pool I enable the automatic suspension for users with overdue take backs"
 end

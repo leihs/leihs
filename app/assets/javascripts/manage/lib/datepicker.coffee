@@ -15,4 +15,6 @@ jQuery ->
       value_el = $this.prev("input[type=hidden]")
       $this.val moment(value_el.val()).format(i18n.date.L) if value_el.val().length
       $this.on "change", -> 
-        value_el.val moment($this.val(), i18n.date.L).format("YYYY-MM-DD")
+        value = $this.val()
+        value = moment(value, i18n.date.L).format("YYYY-MM-DD") unless _.isEmpty value
+        value_el.val value

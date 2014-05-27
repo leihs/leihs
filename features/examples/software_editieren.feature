@@ -61,10 +61,15 @@ Funktionalität: Software editieren
 
   @javascript
   Szenario: Software-Lizenz editieren - Werte der Datenfelder löschen
-    Wenn ich eine bestehende Software-Lizenz editiere
-    Und es sind Daten für Maintenance-Ablaufdatum, Lizenzablaufdatum und Rechnungsdatum gesetzt
-    Und ich das Maintenance-Ablaufdatum lösche
-    Und ich das Lizenzablaufdatum lösche
-    Und ich das Rechnungsdatum lösche
-    Wenn ich speichere
-    Dann sind die Informationen dieser Software-Lizenz erfolgreich aktualisiert
+    Wenn ich eine Software-Lizenz mit gesetztem Maintenance-Ablaufdatum, Lizenzablaufdatum und Rechnungsdatum editiere
+    Und ich die Daten für die folgenden Feldern lösche:
+      | Maintenance-Ablaufdatum |
+      | Lizenzablaufdatum       |
+      | Rechnungsdatum          |
+    Und ich speichere
+    Dann ich erhalte eine Erfolgsmeldung
+    Wenn ich die gleiche Lizenz editiere
+    Dann sind die folgenden Felder der Lizenz leer:
+      | Maintenance-Ablaufdatum |
+      | Lizenzablaufdatum       |
+      | Rechnungsdatum          |

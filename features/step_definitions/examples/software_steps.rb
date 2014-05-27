@@ -162,6 +162,7 @@ Dann(/^sind die Informationen dieser Software\-Lizenz erfolgreich aktualisiert w
   Set.new(license.properties[:operating_system]).should == Set.new(@new_operating_system_values)
   Set.new(license.properties[:installation]).should == Set.new(@new_installation_values)
   license.is_borrowable?.should be_true
+  license.invoice_date.should == @new_invoice_date.to_s
   license.properties[:license_expiration].should == @new_license_expiration_date.to_s
   license.properties[:maintenance_contract].should == @new_maintenance_contract.to_s
   license.properties[:maintenance_expiration].should == @maintenance_expiration_date.to_s if @new_maintenance_expiration_date
@@ -496,4 +497,22 @@ Then(/^"(.*?)" is saved with two decimal digits$/) do |field|
   item = Item.find_by_inventory_code(@inv_code)
   visit manage_edit_item_path(@current_inventory_pool, item)
   find(".field", text: _(field)).find("input").value.should == @value
+end
+
+When(/^I edit a license with set dates for maintenance expiration, license expiration and invoice date$/) do
+  @license = Item.find {|i| i.invoice_date and i.properties[:maintenance_expiration] and i.properties[:license_expiration]}
+  @license.should_not be_nil
+  visit manage_edit_item_path(@current_inventory_pool, @license)
+end
+
+When(/^I delete the data for the following fields:$/) do |table|
+  table.raw.flatten.each {|field| find(".field", text: _(field)).find("input").set ""}
+end
+
+Dann(/^the following fields of the license are empty:$/) do |table|
+  table.raw.flatten.each {|field| find(".field", text: _(field)).find("input").value.should be_empty }
+end
+
+When(/^I edit the same license$/) do
+  visit manage_edit_item_path(@current_inventory_pool, @license)
 end
