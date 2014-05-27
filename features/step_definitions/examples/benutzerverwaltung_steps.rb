@@ -77,14 +77,11 @@ end
 
 Dann /^man kann für jeden Benutzer die Editieransicht aufrufen$/ do
   step 'man kann filtern nach "%s" Rolle' % "All"
-  page.should have_selector "[data-type='user-cell']"
-  within("#user-list") do
-    users = User.find all("[data-type='user-cell']").map{|el| el.native.attribute("data-id").to_i}
-    users.each do |u|
-      within(".line", text: u.name) do
-        find(".multibutton .dropdown-toggle").click
-        find(".multibutton .dropdown-item", text: _("Edit"))
-      end
+  page.should have_selector "#user-list [data-type='user-cell']"
+  all("#user-list > .line").each do |line|
+    within line.find(".multibutton") do
+      find(".dropdown-toggle").click
+      find(".dropdown-item", text: _("Edit"))
     end
   end
 end

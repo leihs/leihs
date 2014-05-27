@@ -4,8 +4,7 @@ Funktionalität: Benutzer verwalten
 
   @javascript
   Szenario: Sperrfunktion
-    Angenommen Personas existieren
-    Und man ist Inventar-Verwalter oder Ausleihe-Verwalter
+    Angenommen man ist Inventar-Verwalter oder Ausleihe-Verwalter
     Und man editiert einen Benutzer
     Und man nutzt die Sperrfunktion
     Dann muss man den Grund der Sperrung eingeben
@@ -13,8 +12,7 @@ Funktionalität: Benutzer verwalten
 
    @upcoming
   Szenario: Elemente der Editieransicht
-    Angenommen Personas existieren
-    Und man ist Inventar-Verwalter oder Ausleihe-Verwalter
+    Angenommen man ist Inventar-Verwalter oder Ausleihe-Verwalter
     Und man editiert einen Benutzer
     Dann sieht man als Titel den Vornamen und Namen des Benutzers, sofern bereits vorhanden
     Dann sieht man die folgenden Daten des Benutzers in der folgenden Reihenfolge:
@@ -157,8 +155,7 @@ Funktionalität: Benutzer verwalten
 
   @javascript
   Szenario: Elemente der Benutzeradministration
-    Angenommen Personas existieren
-    Und man ist Inventar-Verwalter oder Ausleihe-Verwalter
+    Angenommen man ist Inventar-Verwalter oder Ausleihe-Verwalter
     Dann findet man die Benutzeradministration im Bereich "Administration" unter "Benutzer"
     Dann sieht man eine Liste aller Benutzer
     Und man kann filtern nach den folgenden Eigenschaften: gesperrt
@@ -171,8 +168,7 @@ Funktionalität: Benutzer verwalten
 
   @javascript
   Szenario: Darstellung eines Benutzers in Listen mit zugeteilter Rolle
-    Angenommen Personas existieren
-    Und man ist Inventar-Verwalter oder Ausleihe-Verwalter
+    Angenommen man ist Inventar-Verwalter oder Ausleihe-Verwalter
     Und ein Benutzer mit zugeteilter Rolle erscheint in einer Benutzerliste
     Dann sieht man folgende Informationen in folgender Reihenfolge:
       |attr |
@@ -182,8 +178,7 @@ Funktionalität: Benutzer verwalten
 
   @javascript
   Szenario: Darstellung eines Benutzers in Listen ohne zugeteilte Rolle
-    Angenommen Personas existieren
-    Und man ist Inventar-Verwalter oder Ausleihe-Verwalter
+    Angenommen man ist Inventar-Verwalter oder Ausleihe-Verwalter
     Und ein Benutzer ohne zugeteilte Rolle erscheint in einer Benutzerliste
     Dann sieht man folgende Informationen in folgender Reihenfolge:
       |attr |
@@ -193,8 +188,7 @@ Funktionalität: Benutzer verwalten
 
   @javascript
   Szenario: Darstellung eines Benutzers in Listen mit zugeteilter Rolle und Status gesperrt
-    Angenommen Personas existieren
-    Und man ist Inventar-Verwalter oder Ausleihe-Verwalter
+    Angenommen man ist Inventar-Verwalter oder Ausleihe-Verwalter
     Und ein gesperrter Benutzer mit zugeteilter Rolle erscheint in einer Benutzerliste
     Dann sieht man folgende Informationen in folgender Reihenfolge:
       |attr |
@@ -205,8 +199,7 @@ Funktionalität: Benutzer verwalten
 
   # English: lending manager
   Szenario: Benutzerolle "Ausleihe-Verwalter"
-    Angenommen Personas existieren
-    Und man ist Ausleihe-Verwalter
+    Angenommen man ist Ausleihe-Verwalter
     Wenn man im Inventar Bereich ist
     Dann kann man neue Gegenstände erstellen
     Und diese Gegenstände ausschliesslich nicht inventarrelevant sind
@@ -216,8 +209,7 @@ Funktionalität: Benutzer verwalten
 
   # English: inventory manager 
   Szenario: Benutzerolle "Inventar-Verwalter"
-    Angenommen Personas existieren
-    Und man ist Inventar-Verwalter
+    Angenommen man ist Inventar-Verwalter
     Dann kann man neue Modelle erstellen
     Und kann man neue Gegenstände erstellen
     Und diese Gegenstände können inventarrelevant sein
