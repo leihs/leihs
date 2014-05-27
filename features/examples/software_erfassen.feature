@@ -13,8 +13,7 @@ Funktionalität: Software erfassen
       | Produkt                            | Test Software              |
       | Version                            | Test Version               |
       | Hersteller                         | Test Hersteller            |
-      | Software Informationen             | Installationslink beachten: http://wwww.dokuwiki.ch |
-      | Software Informationen             | Dies ist nur ein Text      |
+      | Software Informationen             | Installationslink beachten: http://wwww.dokuwiki.ch\n\nDies ist nur ein Text |
       | Anhänge                            | test.pdf      |
     Wenn der Hersteller bereits existiert
     Dann kann der Hersteller aus der Liste ausgewählt werden

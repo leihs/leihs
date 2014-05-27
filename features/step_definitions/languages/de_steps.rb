@@ -308,3 +308,12 @@ end
 Dann(/^wird die Menge mit dem Wert "(.*?)" gespeichert$/) do |arg1|
   step "the quantity will be stored to the value \"%s\"" % arg1
 end
+
+Wenn(/^ich das Software\-Produkt wieder editiere$/) do
+  step "I edit again this software product"
+end
+
+Dann(/^werden nur die Linien mit Links zusätzlich ausserhalb des Textfeldes angezeigt$/) do
+  step "outside the the text field, they will additionally displayed lines with link only"
+end
+
