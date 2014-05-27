@@ -1,17 +1,18 @@
 # -*- encoding : utf-8 -*-
 
-When /^I open a hand over$/ do
+When /^I open a hand over( with at least one unassigned line)?( with options)?$/ do |arg1, arg2|
   @ip = @current_user.managed_inventory_pools.detect do |ip|
-    @customer = ip.users.to_a.shuffle.detect {|c| c.visits.hand_over.exists? and c.visits.hand_over.any?{|v| v.lines.size >= 3}}
-  end
-  raise "customer not found" unless @customer
-  visit manage_hand_over_path(@ip, @customer)
-  page.should have_selector("#hand-over-view", :visible => true)
-end
-
-When /^I open a hand over with at least one unassigned line$/ do
-  @ip = @current_user.managed_inventory_pools.detect do |ip|
-    @customer = ip.users.to_a.shuffle.detect {|c| c.visits.hand_over.exists? and c.visits.hand_over.any?{|v| v.lines.size >= 3 and v.lines.any? {|l| not l.item}}}
+    @customer = ip.users.to_a.shuffle.detect do |c|
+      b = c.visits.hand_over.exists?
+      b = if arg1
+            b and c.visits.hand_over.any?{|v| v.lines.size >= 3 and v.lines.any? {|l| not l.item}}
+          elsif arg2
+            b and c.visits.hand_over.any?{|v| v.lines.any? {|l| l.is_a? OptionLine}}
+          else
+            b and c.visits.hand_over.any?{|v| v.lines.size >= 3 }
+          end
+      b
+    end
   end
   raise "customer not found" unless @customer
   visit manage_hand_over_path(@ip, @customer)

@@ -66,7 +66,7 @@ class ContractLine < ActiveRecord::Base
 
   before_validation :set_defaults, :on => :create
   validate :date_sequence
-  validates_numericality_of :quantity, :greater_than_or_equal_to => 0, :only_integer => true
+  validates_numericality_of :quantity, :greater_than => 0, :only_integer => true
 
   # compares two objects in order to sort them
   def <=>(other)

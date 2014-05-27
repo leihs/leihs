@@ -69,10 +69,18 @@ Funktionalität: Aushändigung editieren
     Wenn ich eine Notiz für diesen Vertrag eingebe
     Dann erscheint diese Notiz auf dem Vertrag
 
-  Szenario: Optionen mit einer Midestmenge 1 ausgeben
-    Angenommen ich öffne eine Aushändigung mit einer Option
-    Wenn ich die Anzahl "0" in das Mengenfeld schreibe
-    Dann wird die Menge "0" mit dem Wert "1" überschrieben
+  @javascript @firefox
+  Szenario: Optionen mit einer Mindestmenge 1 ausgeben
+    Angenommen ich öffne eine Aushändigung
+    Wenn ich eine Option hinzufüge
+    Und ich die Anzahl "0" in das Mengenfeld schreibe
+    Dann wird die Menge mit dem ursprünglichen Wert überschrieben
+    Wenn ich die Anzahl "-1" in das Mengenfeld schreibe
+    Dann wird die Menge mit dem ursprünglichen Wert überschrieben
+    Wenn ich die Anzahl "abc" in das Mengenfeld schreibe
+    Dann wird die Menge mit dem ursprünglichen Wert überschrieben
+    Wenn ich die Anzahl "2" in das Mengenfeld schreibe
+    Dann wird die Menge mit dem Wert "2" gespeichert
 
   @upcoming
   Szenario: Anzeige der Seriennummer bei Zuteilung der Software-Lizenz

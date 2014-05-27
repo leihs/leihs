@@ -46,15 +46,7 @@ Given "the list of submitted contracts contains $total elements" do | total |
 end
 
 Given "there are no contracts" do
-  Order.destroy_all
-end
-
-Given "there are no contracts" do
   Contract.destroy_all
-end
-
-Given "there are no new contracts" do
-  Order.delete_all :status => :submitted
 end
 
 Given /it asks for ([0-9]+) item(s?) of model '(.*)'/ do |number, plural, model|
@@ -230,12 +222,8 @@ Then /^the size of the contract should increase exactly by the amount of lines a
   @contract.valid?.should be_true
 end
 
-Given /^an unsubmitted contract with lines existing$/ do
-  @contract = FactoryGirl.create :contract_with_lines, :status => :unsubmitted, :inventory_pool => @inventory_pool
-end
-
-Given /^a submitted contract with lines existing$/ do
-  @contract = FactoryGirl.create :contract_with_lines, :status => :submitted, :inventory_pool => @inventory_pool
+Given /^a (submitted|unsubmitted) contract with lines existing$/ do |arg1|
+  @contract = FactoryGirl.create :contract_with_lines, :status => arg1, :inventory_pool => @inventory_pool
 end
 
 Given /^a borrowing user existing$/ do

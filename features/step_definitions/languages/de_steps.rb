@@ -296,3 +296,15 @@ end
 Dann(/^werden der bestehende Sperrgrund sowie die Sperrzeit dieses Benutzers nicht überschrieben$/) do
   step "the existing suspension motivation and the suspended time for this user are not overwritten"
 end
+
+Wenn(/^ich die Anzahl "(.*?)" in das Mengenfeld schreibe$/) do |arg1|
+  step "I change the quantity to \"%s\"" % arg1
+end
+
+Dann(/^wird die Menge mit dem ursprünglichen Wert überschrieben$/) do
+  step "the quantity will be restored to the original value"
+end
+
+Dann(/^wird die Menge mit dem Wert "(.*?)" gespeichert$/) do |arg1|
+  step "the quantity will be stored to the value \"%s\"" % arg1
+end

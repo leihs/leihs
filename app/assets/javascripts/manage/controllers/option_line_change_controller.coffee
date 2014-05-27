@@ -16,4 +16,8 @@ class window.App.OptionLineChangeController extends Spine.Controller
   change: (e)=>
     target = $(e.currentTarget)
     contractLine = App.ContractLine.find target.closest("[data-id]").data("id")
-    contractLine.updateAttributes {quantity: target.val()}
+    new_quantity = parseInt(target.val())
+    if new_quantity > 0 and new_quantity != contractLine.quantity
+      contractLine.updateAttributes {quantity: new_quantity}
+    else
+      target.val(contractLine.quantity)
