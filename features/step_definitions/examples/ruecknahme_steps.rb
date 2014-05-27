@@ -144,3 +144,30 @@ Dann(/^wird die Option dem zweiten Zeitfenster hinzugefügt$/) do
   @option_line = @option_lines.sort{|a, b| a.end_date <=> b.end_date}.second
   all("[data-selected-lines-container]").to_a.second.find(".line[data-id='#{@option_line.id}'] [data-quantity-returned]").value.to_i > 0
 end
+
+Given(/^I open a take back with at least one item and one option$/) do
+  @take_back = @current_inventory_pool.visits.take_back.find {|v| v.lines.any? {|l| l.is_a? OptionLine} and v.lines.any? {|l| l.is_a? ItemLine}}
+  @take_back.should_not be_nil
+  visit manage_take_back_path(@current_inventory_pool, @take_back.user)
+end
+
+When(/^I set a quantity of (\d+) for the option line$/) do |quantity|
+  option_line = find("[data-line-type='option_line']")
+  @line_id = option_line["data-id"]
+  option_line.find("input[data-quantity-returned]").set (@quantity = quantity)
+end
+
+When(/^I inspect an item$/) do
+  within "[data-line-type='item_line']" do
+    find(".dropdown-holder").hover
+    find(".dropdown-item", text: "Inspektion").click
+  end
+end
+
+When(/^I set "(.*?)" to "(.*?)"$/) do |arg1, arg2|
+  select _(arg2), from: _(arg1)
+end
+
+Then(/^the option line has still the same quantity$/) do
+  find(".line[data-id='#{@line_id}'] [data-quantity-returned]").value.should == @quantity
+end

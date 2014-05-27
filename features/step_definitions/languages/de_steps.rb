@@ -297,6 +297,26 @@ Dann(/^werden der bestehende Sperrgrund sowie die Sperrzeit dieses Benutzers nic
   step "the existing suspension motivation and the suspended time for this user are not overwritten"
 end
 
+Angenommen(/^ich befinde mich in einer Rücknahme mit mindestens einem Gegenstand und einer Option$/) do
+  step "I open a take back with at least one item and one option"
+end
+
+Wenn(/^ich bei der Option eine Stückzahl von (\d+) eingebe$/) do |n|
+  step "I set a quantity of #{n} for the option line"
+end
+
+Wenn(/^beim Gegenstand eine Inspektion durchführe$/) do
+  step "I inspect an item"
+end
+
+Wenn(/^ich setze "(.*?)" auf "(.*?)"$/) do |arg1, arg2|
+  step %Q(I set "#{arg1}" to "#{arg2}")
+end
+
+Dann(/^steht bei der Option die zuvor angegebene Stückzahl$/) do
+  step %Q(the option line has still the same quantity)
+end
+
 Wenn(/^ich die Anzahl "(.*?)" in das Mengenfeld schreibe$/) do |arg1|
   step "I change the quantity to \"%s\"" % arg1
 end
@@ -316,4 +336,3 @@ end
 Dann(/^werden nur die Linien mit Links zusätzlich ausserhalb des Textfeldes angezeigt$/) do
   step "outside the the text field, they will additionally displayed lines with link only"
 end
-
