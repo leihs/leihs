@@ -7,7 +7,7 @@ namespace :app do
       raise "This task only runs in RAILS_ENV=test !!!" unless Rails.env.test?
 
       # generate updated cucumber.yml
-      `#{File.join(Rails.root, "cider-ci/bin/list_cucumber_tasks.rb")} > #{File.join(Rails.root, "cider-ci/tasks/cucumber.yml")}`
+      `#{File.join(Rails.root, "cider-ci/bin/list_cucumber_tasks.rb")}`
 
       # generate personas dumps
       require File.join(Rails.root, 'features/support/personas.rb')
