@@ -85,10 +85,10 @@ Dann(/^sind die Informationen dieser Software\-Lizenz gespeichert$/) do
 end
 
 Wenn(/^ich eine Software editiere$/) do
+  @software ||= Software.all.sample
   visit manage_inventory_path @current_inventory_pool
   @page_to_return = current_path
   find("a", text: _("Software")).click
-  @software = Software.all.sample
   @model_id = @software.id
   find(".line[data-type='software'][data-id='#{@software.id}']").find("a", text: _("Edit Software")).click
 end
@@ -516,3 +516,20 @@ end
 When(/^I edit the same license$/) do
   visit manage_edit_item_path(@current_inventory_pool, @license)
 end
+
+When(/^I edit again this software product$/) do
+  string = @table_hashes.select {|x| ["Produkt", "Version", "Hersteller"].include? x["Feld"]}.map {|x| x["Wert"]}.join(' ')
+  results = Software.search(string)
+  results.size.should == 1
+  @software = results.first
+  step "ich eine Software editiere"
+end
+
+Then(/^outside the the text field, they will additionally displayed lines with link only$/) do
+  within "#model-form .field", text: _("Technical Details") do
+    find(".list-of-lines").all(".line").each do |line|
+      line.find("a[target='_blank']")
+    end
+  end
+end
+

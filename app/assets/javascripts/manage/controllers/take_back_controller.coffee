@@ -18,6 +18,7 @@ class window.App.TakeBackController extends Spine.Controller
     super
     App.TakeBackController.readyForTakeBack = []
     @lineSelection = new App.LineSelectionController {el: @el, markVisitLinesController: new App.MarkVisitLinesController {el: @el}}
+    @returnedQuantitiesController = new App.ReturnedQuantityController {el: @el}
     if @getLines().length
       do @fetchAvailability
     do @setupAutocomplete
@@ -53,6 +54,7 @@ class window.App.TakeBackController extends Spine.Controller
     @linesContainer.html App.Render "manage/views/lines/grouped_lines_with_action_date", App.Modules.HasLines.groupByDateRange(@getLines(), false, "end_date"), 
       linePartial: "manage/views/lines/take_back_line"
       renderAvailability: renderAvailability
+    do @returnedQuantitiesController.restore
     do @lineSelection.restore
 
   takeBack: => 
@@ -148,6 +150,8 @@ class window.App.TakeBackController extends Spine.Controller
         message: _jed "You can not take back more items then you handed over"
       target.val line.quantity
       @lineSelection.markVisitLinesController?.update App.LineSelectionController.selected
+    else
+      @returnedQuantitiesController.updateWith line.id, quantity
 
   inspectItem: (e)=>
     item = App.Item.find $(e.currentTarget).data("item-id")

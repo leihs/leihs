@@ -54,10 +54,11 @@ Funktionalität: Rücknahme
     Dann wird die Zeile grün markiert
     Und ich erhalte eine Erfolgsmeldung
 
+  @javascript @firefox
   Szenario: Inspektion während einer Rücknahme
     Angenommen ich befinde mich in einer Rücknahme mit mindestens einem Gegenstand und einer Option
-    Wenn ich bei der Option eine Stückzahl eingebe
+    Wenn ich bei der Option eine Stückzahl von 1 eingebe
     Und beim Gegenstand eine Inspektion durchführe
-    Und den Gegenstand auf "defekt" setze
+    Und ich setze "Zustand" auf "Defekt"
     Und ich speichere
     Dann steht bei der Option die zuvor angegebene Stückzahl 
