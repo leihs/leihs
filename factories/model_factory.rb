@@ -1,5 +1,7 @@
 FactoryGirl.define do
 
+  sequence :version
+
   trait :shared_model_software_attributes do
     manufacturer { Faker::Company.name }
     product do
@@ -8,7 +10,7 @@ FactoryGirl.define do
       end while(Model.find_by_product(r))
       r
     end
-    version { Faker::Number.number(3) }
+    version
   end
 
   factory :model do
