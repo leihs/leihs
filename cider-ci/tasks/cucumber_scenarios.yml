@@ -938,7 +938,15 @@
 - name: Globaler Export des Inventars aller Geräteparks
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventar_csv.feature:10"
+      body: bundle exec cucumber -p default "features/examples/inventar_csv.feature:6"
+- name: Export der aktuellen Ansicht als CSV
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/inventar_csv.feature:12"
+- name: Export der aktuellen Software-Ansicht als CSV
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/inventar_csv.feature:18"
 - name: Bestellende Person wechseln
   scripts:
     cucumber:
@@ -1788,30 +1796,22 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/inventar.feature:60"
-- name: Export der aktuellen Ansicht als CSV
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventar.feature:81"
-- name: Export der aktuellen Software-Ansicht als CSV
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventar.feature:86"
 - name: Keine Resultate auf der Liste des Inventars
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventar.feature:93"
+      body: bundle exec cucumber -p default "features/examples/inventar.feature:81"
 - name: Modell aufklappen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventar.feature:98"
+      body: bundle exec cucumber -p default "features/examples/inventar.feature:86"
 - name: Filtermöglichkeiten von Listen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventar.feature:104"
+      body: bundle exec cucumber -p default "features/examples/inventar.feature:92"
 - name: Grundeinstellung der Listenansicht
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventar.feature:115"
+      body: bundle exec cucumber -p default "features/examples/inventar.feature:103"
 - name: Wie man den Helferschirm erreicht
   scripts:
     cucumber:
