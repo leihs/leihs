@@ -86,7 +86,6 @@ class window.App.InventoryIndexController extends Spine.Controller
         paginate: false
         search_term: @search.term()
         all: true
-        unretired: true
 
   getData: => _.clone $.extend @tabs.getData(), @filter.getData()
 

@@ -91,26 +91,70 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/availability_story.feature:136"
-- name: Anzahl und Rückgabe-Button
+- name: "Überbuchung durch Ausleih-Manager"
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/borrow/abholungen.feature:5"
-- name: Kein Abhol-Button im Fall nicht vorhandenen Rückgaben
+      body: bundle exec cucumber -p default "features/borrow/verfuegbarkeit.feature:10"
+- name: Blockieren der Modelle
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/borrow/abholungen.feature:9"
-- name: Abholungen-Übersichtsseite
+      body: bundle exec cucumber -p default "features/borrow/verfuegbarkeit.feature:22"
+- name: Freigabe der Modelle
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/borrow/abholungen.feature:14"
-- name: Benutzerdaten ansehen
+      body: bundle exec cucumber -p default "features/borrow/verfuegbarkeit.feature:26"
+- name: Erneutes Blockieren nach Inaktivität
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/borrow/benutzeransicht.feature:10"
-- name: Benutzerdaten unter dem Benutzername
+      body: bundle exec cucumber -p default "features/borrow/verfuegbarkeit.feature:30"
+- name: Modelle nach langer Inaktivität nicht mehr verfügbar
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/borrow/benutzeransicht.feature:21"
+      body: bundle exec cucumber -p default "features/borrow/verfuegbarkeit.feature:37"
+- name: Bestellung abgelaufen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/timeoutpage.feature:5"
+- name: Ansicht
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/timeoutpage.feature:14"
+- name: Eintrag löschen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/timeoutpage.feature:24"
+- name: In Bestellung übernehmen nicht möglich
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/timeoutpage.feature:31"
+- name: Bestellung löschen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/timeoutpage.feature:44"
+- name: Nur verfügbare Modelle aus Bestellung übernehmen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/timeoutpage.feature:52"
+- name: Eintrag ändern
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/timeoutpage.feature:62"
+- name: Die Menge eines Eintrags heruntersetzen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/timeoutpage.feature:70"
+- name: Startseite
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/startseite.feature:9"
+- name: Haupt-Kategorien aufklappen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/startseite.feature:17"
+- name: Kinder-Kategorien Dropdown nicht sichtbar
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/startseite.feature:26"
 - name: Bestellfensterchen
   scripts:
     cucumber:
@@ -143,126 +187,22 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/borrow/bestellfensterchen.feature:58"
-- name: Bestellübersicht Auflistung der Gegenstände
+- name: Navigation für Ausleihenden
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/borrow/bestelluebersicht.feature:14"
-- name: Bestellübersicht Aktion 'löschen'
+      body: bundle exec cucumber -p default "features/borrow/navigation.feature:9"
+- name: Navigation für Manager
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/borrow/bestelluebersicht.feature:27"
-- name: Zeit überschritten
+      body: bundle exec cucumber -p default "features/borrow/navigation.feature:20"
+- name: Navigation für Prüfer
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/borrow/bestelluebersicht.feature:33"
-- name: Bestellübersicht Aktion 'ändern'
+      body: bundle exec cucumber -p default "features/borrow/navigation.feature:32"
+- name: Home-Button
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/borrow/bestelluebersicht.feature:41"
-- name: Zeitentität, Ablauf der erlaubten Zeit anzeigen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/bestelluebersicht.feature:50"
-- name: Zeit zurücksetzen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/bestelluebersicht.feature:55"
-- name: Zeit abgelaufen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/bestelluebersicht.feature:62"
-- name: Bestellübersicht Bestellung löschen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/bestelluebersicht.feature:67"
-- name: Bestellübersicht Bestellen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/bestelluebersicht.feature:74"
-- name: Bestellübersicht Zweck nicht eingegeben
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/bestelluebersicht.feature:82"
-- name: Anzahl
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/bestellungen.feature:8"
-- name: Bestellungen-Übersichtsseite
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/bestellungen.feature:11"
-- name: Brotkrumennavigation
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/brotkrumennavigation.feature:12"
-- name: Home-Button der Brotkrumennavigation
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/brotkrumennavigation.feature:16"
-- name: Hauptkategorie auswählen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/brotkrumennavigation.feature:22"
-- name: Unterkategorie auswählen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/brotkrumennavigation.feature:29"
-- name: Weg bis zum Modell anzeigen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/brotkrumennavigation.feature:35"
-- name: Explorative-Suche Kategorie der ersten Stufe auswählen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/brotkrumennavigation.feature:44"
-- name: Explorative-Suche Kategorie der zweiten Stufe auswählen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/brotkrumennavigation.feature:50"
-- name: Schaltfläche zur Dokumentenübersichtsseite
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/dokumente.feature:12"
-- name: Dokumentenübersicht
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/dokumente.feature:17"
-- name: Rücknehmende Person
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/dokumente.feature:30"
-- name: Werteliste öffnen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/dokumente.feature:35"
-- name: Was ich auf der Werteliste sehen möchte
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/dokumente.feature:41"
-- name: Vertrag öffnen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/dokumente.feature:46"
-- name: Was ich auf dem Vertrag sehen möchte
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/dokumente.feature:52"
-- name: Explorative Suche in Modellliste
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/explorative_suche.feature:12"
-- name: Wahl einer Subkategorie
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/explorative_suche.feature:18"
-- name: Unterstes Blatt erreicht
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/explorative_suche.feature:23"
-- name: Gerätepark Informationen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/geraeteparks.feature:5"
+      body: bundle exec cucumber -p default "features/borrow/navigation.feature:44"
 - name: Kalenderkomponenten
   scripts:
     cucumber:
@@ -327,6 +267,38 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/borrow/kalender.feature:130"
+- name: Schaltfläche zur Dokumentenübersichtsseite
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/dokumente.feature:12"
+- name: Dokumentenübersicht
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/dokumente.feature:17"
+- name: Rücknehmende Person
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/dokumente.feature:30"
+- name: Werteliste öffnen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/dokumente.feature:35"
+- name: Was ich auf der Werteliste sehen möchte
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/dokumente.feature:41"
+- name: Vertrag öffnen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/dokumente.feature:46"
+- name: Was ich auf dem Vertrag sehen möchte
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/dokumente.feature:52"
+- name: Gerätepark Informationen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/geraeteparks.feature:5"
 - name: Modelllistenübersicht
   scripts:
     cucumber:
@@ -412,6 +384,14 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/borrow/modellliste.feature:178"
+- name: Benutzerdaten ansehen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/benutzeransicht.feature:10"
+- name: Benutzerdaten unter dem Benutzername
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/benutzeransicht.feature:21"
 - name: Modellübersicht
   scripts:
     cucumber:
@@ -424,50 +404,6 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/borrow/modelluebersicht.feature:35"
-- name: Navigation für Ausleihenden
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/navigation.feature:9"
-- name: Navigation für Manager
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/navigation.feature:20"
-- name: Navigation für Prüfer
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/navigation.feature:32"
-- name: Home-Button
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/navigation.feature:44"
-- name: Anzahl und Rückgabe-Button
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/rueckgaben.feature:5"
-- name: Kein Rückgabe-Button im Fall nicht vorhandenen Rückgaben
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/rueckgaben.feature:9"
-- name: Rückgabe-Übersichtsseite
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/rueckgaben.feature:14"
-- name: Wechsel der Sprache
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/sprache.feature:9"
-- name: Startseite
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/startseite.feature:9"
-- name: Haupt-Kategorien aufklappen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/startseite.feature:17"
-- name: Kinder-Kategorien Dropdown nicht sichtbar
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/borrow/startseite.feature:26"
 - name: Suchfeld
   scripts:
     cucumber:
@@ -492,58 +428,58 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/borrow/suche.feature:39"
-- name: Bestellung abgelaufen
+- name: Explorative Suche in Modellliste
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/borrow/timeoutpage.feature:5"
-- name: Ansicht
+      body: bundle exec cucumber -p default "features/borrow/explorative_suche.feature:12"
+- name: Wahl einer Subkategorie
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/borrow/timeoutpage.feature:14"
-- name: Eintrag löschen
+      body: bundle exec cucumber -p default "features/borrow/explorative_suche.feature:18"
+- name: Unterstes Blatt erreicht
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/borrow/timeoutpage.feature:24"
-- name: In Bestellung übernehmen nicht möglich
+      body: bundle exec cucumber -p default "features/borrow/explorative_suche.feature:23"
+- name: Bestellübersicht Auflistung der Gegenstände
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/borrow/timeoutpage.feature:31"
-- name: Bestellung löschen
+      body: bundle exec cucumber -p default "features/borrow/bestelluebersicht.feature:14"
+- name: Bestellübersicht Aktion 'löschen'
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/borrow/timeoutpage.feature:44"
-- name: Nur verfügbare Modelle aus Bestellung übernehmen
+      body: bundle exec cucumber -p default "features/borrow/bestelluebersicht.feature:27"
+- name: Zeit überschritten
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/borrow/timeoutpage.feature:52"
-- name: Eintrag ändern
+      body: bundle exec cucumber -p default "features/borrow/bestelluebersicht.feature:33"
+- name: Bestellübersicht Aktion 'ändern'
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/borrow/timeoutpage.feature:62"
-- name: Die Menge eines Eintrags heruntersetzen
+      body: bundle exec cucumber -p default "features/borrow/bestelluebersicht.feature:41"
+- name: Zeitentität, Ablauf der erlaubten Zeit anzeigen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/borrow/timeoutpage.feature:70"
-- name: "Überbuchung durch Ausleih-Manager"
+      body: bundle exec cucumber -p default "features/borrow/bestelluebersicht.feature:50"
+- name: Zeit zurücksetzen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/borrow/verfuegbarkeit.feature:10"
-- name: Blockieren der Modelle
+      body: bundle exec cucumber -p default "features/borrow/bestelluebersicht.feature:55"
+- name: Zeit abgelaufen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/borrow/verfuegbarkeit.feature:22"
-- name: Freigabe der Modelle
+      body: bundle exec cucumber -p default "features/borrow/bestelluebersicht.feature:62"
+- name: Bestellübersicht Bestellung löschen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/borrow/verfuegbarkeit.feature:26"
-- name: Erneutes Blockieren nach Inaktivität
+      body: bundle exec cucumber -p default "features/borrow/bestelluebersicht.feature:67"
+- name: Bestellübersicht Bestellen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/borrow/verfuegbarkeit.feature:30"
-- name: Modelle nach langer Inaktivität nicht mehr verfügbar
+      body: bundle exec cucumber -p default "features/borrow/bestelluebersicht.feature:74"
+- name: Bestellübersicht Zweck nicht eingegeben
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/borrow/verfuegbarkeit.feature:37"
+      body: bundle exec cucumber -p default "features/borrow/bestelluebersicht.feature:82"
 - name: Liste der Vorlagen finden
   scripts:
     cucumber:
@@ -572,107 +508,244 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/borrow/vorlagen.feature:53"
-- name: Systemfeedback bei erfolgreicher manueller Interaktion bei Aushändigung
+- name: Anzahl und Rückgabe-Button
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/aushaendigung.feature:9"
-- name: Systemfeedback bei Zuteilen eines Gegenstandes zur problematischen Linie
+      body: bundle exec cucumber -p default "features/borrow/abholungen.feature:5"
+- name: Kein Abhol-Button im Fall nicht vorhandenen Rückgaben
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/aushaendigung.feature:25"
-- name: Sperrstatus des Benutzers anzeigen
+      body: bundle exec cucumber -p default "features/borrow/abholungen.feature:9"
+- name: Abholungen-Übersichtsseite
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/aushaendigung.feature:35"
-- name: Systemfeedback bei Zuteilen einer Option
+      body: bundle exec cucumber -p default "features/borrow/abholungen.feature:14"
+- name: Wechsel der Sprache
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/aushaendigung.feature:41"
-- name: Aushändigung eines bereits zugeteilten Gegenstandes
+      body: bundle exec cucumber -p default "features/borrow/sprache.feature:9"
+- name: Anzahl und Rückgabe-Button
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/aushaendigung.feature:49"
-- name: Standard-Vertragsnotiz
+      body: bundle exec cucumber -p default "features/borrow/rueckgaben.feature:5"
+- name: Kein Rückgabe-Button im Fall nicht vorhandenen Rückgaben
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/aushaendigung.feature:57"
-- name: Vertragsnotiz
+      body: bundle exec cucumber -p default "features/borrow/rueckgaben.feature:9"
+- name: Rückgabe-Übersichtsseite
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/aushaendigung.feature:64"
-- name: Optionen mit einer Mindestmenge 1 ausgeben
+      body: bundle exec cucumber -p default "features/borrow/rueckgaben.feature:14"
+- name: Brotkrumennavigation
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/aushaendigung.feature:73"
+      body: bundle exec cucumber -p default "features/borrow/brotkrumennavigation.feature:12"
+- name: Home-Button der Brotkrumennavigation
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/brotkrumennavigation.feature:16"
+- name: Hauptkategorie auswählen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/brotkrumennavigation.feature:22"
+- name: Unterkategorie auswählen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/brotkrumennavigation.feature:29"
+- name: Weg bis zum Modell anzeigen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/brotkrumennavigation.feature:35"
+- name: Explorative-Suche Kategorie der ersten Stufe auswählen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/brotkrumennavigation.feature:44"
+- name: Explorative-Suche Kategorie der zweiten Stufe auswählen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/brotkrumennavigation.feature:50"
+- name: Anzahl
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/bestellungen.feature:8"
+- name: Bestellungen-Übersichtsseite
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/borrow/bestellungen.feature:11"
+- name: Zuweisung einer Bestellungs-Zeile für ein Nicht-Gruppenmitglied
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/verfuegbarkeit.feature:8"
+- name: Zuweisung einer Bestellungs-Zeile für ein Gruppenmitglied
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/verfuegbarkeit.feature:18"
+- name: Prioritäten der Gruppen bei der Zuweisung
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/verfuegbarkeit.feature:27"
+- name: Keine Verfügbarkeitsberechnung bei Optionen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/verfuegbarkeit.feature:32"
+- name: Software-Produkt erfassen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/software_erfassen.feature:9"
+- name: Mögliche Werte in Software-Lizenz erfassen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/software_erfassen.feature:37"
+- name: Software-Lizenz erfassen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/software_erfassen.feature:84"
+- name: Software-Lizenz Anschaffungswert mit 2 Dezimalstellen erfassen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/software_erfassen.feature:109"
 - name: Anzeige von bereits zugewiesenen Gegenständen
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/aushaendigungen.feature:8"
-- name: Selektion bei manueller Interaktion bei Aushändigung
+- name: Festhalten wer einen Gegenstand zurückgenommen hat
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:9"
-- name: 'Aushändigen: In den Inventarcodelisten nicht verfügbare Gegenstände hervorheben'
+      body: bundle exec cucumber -p default "features/examples/ruecknahmen.feature:13"
+- name: Korrekte Reihenfolge mehrerer Verträge
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:15"
-- name: Wann letzter Besucher erscheint
+      body: bundle exec cucumber -p default "features/examples/ruecknahmen.feature:18"
+- name: Optionen in mehreren Zeitfenstern vorhanden
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:22"
-- name: Fehlermeldung beim Versuch, etwas aus der Zukunft auszuhändigen
+      body: bundle exec cucumber -p default "features/examples/ruecknahmen.feature:24"
+- name: Reihenfolge der Felder
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:32"
-- name: 'Buchungskalender: Bei "Show Availability" anzeigen in welcher Grupper der
-    Kunde ist'
+      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:9"
+- name: Lieferanten löschen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:42"
-- name: Scanning-Verhalten beim Aushändigen
+      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:58"
+- name: Einen Gegenstand mit allen Informationen editieren
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:51"
-- name: Aushändigung von Gegenständen und Lizenzen anhand von Inventarcode
+      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:66"
+- name: Ein Modell ohne Version für den Gegestand wählen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:59"
-- name: Aushändigung von Gegenständen und Lizenzen anhand von Modellsuche
+      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:90"
+- name: Lieferanten ändern
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:69"
-- name: Inspektion bei Rücknahme
+      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:97"
+- name: Bei ausgeliehenen Gegenständen kann man die verantwortliche Abteilung nicht
+    editieren
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:79"
-- name: Automatischer Druck Dialog beim Aushändigen
+      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:104"
+- name: Einen Gegenstand mit allen Informationen editieren
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:91"
-- name: Default des Start- und Enddatums
+      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:111"
+- name: Pflichtfelder
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:96"
-- name: Alle Suchresultate anzeigen
+      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:144"
+- name: Neuen Lieferanten erstellen falls nicht vorhanden
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:101"
-- name: Zusammenziehen der Anzahlen im Item-Popup
+      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:156"
+- name: Bei Gegenständen, die in Verträgen vorhanden sind, kann man das Modell nicht
+    ändern
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:121"
-- name: Klick auf Letzten Besucher nach Editieren einer Bestellung
+      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:165"
+- name: Einen Gegenstand, der ausgeliehen ist, kann man nicht ausmustern
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:128"
-- name: Autocomplete bei der Rücknahme
+      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:172"
+- name: Einen Gegenstand mit allen Informationen editieren
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:138"
-- name: Selektion bei manueller Interaktion bei Rücknahme
+      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:179"
+- name: Einen Gegenstand mit allen Informationen editieren
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:147"
+      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:205"
+- name: Software-Produkt editieren
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/software_editieren.feature:9"
+- name: Software-Lizenz editieren
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/software_editieren.feature:36"
+- name: Software-Lizenz editieren - Werte der Datenfelder löschen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/software_editieren.feature:63"
+- name: Modell mit Paketzuteilung erstellen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/pakete.feature:10"
+- name: Modell mit bereits vorhandenen Gegenständen kann kein Paket zugewiesen werden
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/pakete.feature:20"
+- name: Pakete nicht ohne Gegenstände erstellen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/pakete.feature:25"
+- name: Einzelnen Gegenstand aus Paket entfernen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/pakete.feature:30"
+- name: Paketeigenschaften abfüllen bei existierendem Modell
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/pakete.feature:36"
+- name: Modell mit Paketzuteilung erstellen und wieder editieren
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/pakete.feature:59"
+- name: Paketeigenschaften abfüllen bei neu erstelltem Modell
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/pakete.feature:71"
+- name: Paket löschen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/pakete.feature:95"
+- name: Paket löschen schlägt fehl wenn das Paket gerade ausgeliehen ist
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/pakete.feature:100"
+- name: Was ich auf der Werteliste sehen möchte
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/werteliste.feature:13"
+- name: Der Inhalt der Werte-Liste
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/werteliste.feature:24"
+- name: Werteliste auf Bestellübersicht ausdrucken
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/werteliste.feature:37"
+- name: Werteliste auf der Aushändigungsansicht ausdrucken
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/werteliste.feature:47"
+- name: Totale Werte
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/werteliste.feature:60"
+- name: Totale Werte
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/werteliste.feature:69"
 - name: Sperrfunktion
   scripts:
     cucumber:
@@ -810,161 +883,182 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/benutzerverwaltung.feature:423"
+- name: Hinzufügen eines Gegenstandes in der Rücknahme
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/ruecknahme.feature:13"
+- name: Deselektieren einer Linie
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/ruecknahme.feature:21"
+- name: Zurückzugebender Gegenstand hat Verspätung
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/ruecknahme.feature:28"
+- name: Festhalten wer einen Gegenstand zurückgenommen hat
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/ruecknahme.feature:37"
+- name: Sperrstatus des Benutzers anzeigen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/ruecknahme.feature:42"
+- name: Zurückgeben einer Option
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/ruecknahme.feature:47"
+- name: Inspektion während einer Rücknahme
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/ruecknahme.feature:58"
+- name: Verfügbare Anzahl immer anzeigen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/kalender.feature:9"
+- name: Anzahl im Buchungskalender während einer Bestellung überbuchen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/kalender.feature:14"
+- name: Anzahl im Buchungskalender während einer Aushändigung überbuchen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/kalender.feature:21"
+- name: Nicht verfügbare Zeitspannen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/kalender.feature:28"
+- name: Anzeige der längsten Zeitspanne für Bestellungen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/tagesansicht.feature:10"
+- name: Sperrstatus des Benutzers anzeigen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/tagesansicht.feature:15"
+- name: Globaler Export des Inventars aller Geräteparks
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/inventar_csv.feature:10"
 - name: Bestellende Person wechseln
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/bestellenden_wechseln.feature:9"
-- name: Sperrstatus des Benutzers anzeigen
+- name: Wo die Statistik-Ansicht erscheint
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/bestellung.feature:6"
-- name: Trotzdem genehmigen für Gruppen-Verwalter unterbinden
+      body: bundle exec cucumber -p default "features/examples/statistik.feature:9"
+- name: Zeitliche Eingrenzung der Statistik-Ansicht
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/bestellung.feature:12"
-- name: Keine leeren Bestellungen in der Liste der Bestellungen
+      body: bundle exec cucumber -p default "features/examples/statistik.feature:14"
+- name: Statistik über die Anzahl der Ausleihvorgänge pro Modell
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/bestellungen.feature:6"
-- name: Sichtbare Reiter
+      body: bundle exec cucumber -p default "features/examples/statistik.feature:23"
+- name: Statistik über Benutzer und deren Ausleihvorgänge
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/bestellungen.feature:11"
-- name: Definition visierpflichtige Bestellungen
+      body: bundle exec cucumber -p default "features/examples/statistik.feature:32"
+- name: Expandieren eines Modells
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/bestellungen.feature:16"
-- name: Alle Bestellungen anzeigen - Reiter Alle Bestellungen
+      body: bundle exec cucumber -p default "features/examples/statistik.feature:38"
+- name: Statistik über den Wert der Modelle und Gegenstände
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/bestellungen.feature:23"
-- name: Reiter Offene Bestellungen Darstellung
+      body: bundle exec cucumber -p default "features/examples/statistik.feature:45"
+- name: Software anhand eines Suchbegriffs finden
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/bestellungen.feature:32"
-- name: Reiter "Genehmigt" Darstellung
+      body: bundle exec cucumber -p default "features/examples/software_suchen.feature:9"
+- name: Verträge für Software-Lizenzen anhand des Ausleihenden finden
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/bestellungen.feature:49"
-- name: Reiter "Abgelehnt" Darstellung
+      body: bundle exec cucumber -p default "features/examples/software_suchen.feature:27"
+- name: Aufteilung der Suchresultate
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/bestellungen.feature:65"
-- name: Filter zum visieren aufheben
+      body: bundle exec cucumber -p default "features/examples/software_suchen.feature:35"
+- name: Navigation für Ausleihenden
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/bestellungen.feature:78"
-- name: Bereits genehmigte Bestellung zurücksetzen
+      body: bundle exec cucumber -p default "features/examples/sprachauswahl.feature:10"
+- name: Was ich auf dem Vertrag sehen möchte
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/bestellungen.feature:87"
+      body: bundle exec cucumber -p default "features/examples/vertrag.feature:13"
+- name: Hinweis auf AGB
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/vertrag.feature:33"
+- name: Welche Informationen ich vom Ausleihenden sehen möchte
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/vertrag.feature:38"
+- name: Liste der zurückgebenen Gegenstände
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/vertrag.feature:51"
+- name: Zwecke
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/vertrag.feature:58"
+- name: Datum
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/vertrag.feature:64"
+- name: Titel
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/vertrag.feature:69"
+- name: Position des Barcodes
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/vertrag.feature:74"
+- name: Position des Ausleihenden
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/vertrag.feature:79"
+- name: Inhalt der Liste 1 und Liste 2
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/vertrag.feature:84"
+- name: Rücknehmende Person
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/vertrag.feature:98"
+- name: Verleiher
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/vertrag.feature:103"
+- name: Liste der ausgeliehenen Gegenstände
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/vertrag.feature:108"
+- name: Adresse des Verleihers aufführen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/vertrag.feature:115"
+- name: Adresse des Kunden ohne abschliessenden ", " anzeigen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/vertrag.feature:122"
+- name: Eigenschaften erstellen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/model_eigenschaften.feature:9"
+- name: Eigenschaften editieren
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/model_eigenschaften.feature:17"
+- name: Eigenschaften löschen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/model_eigenschaften.feature:26"
 - name: Menschlich lesbare Anzeige der Differenz zum Datum
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/besuche.feature:9"
-- name: Explorative Suche in der Liste des Inventars
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/explorative_suche.feature:13"
-- name: Kategorie in der explorativen Suche suchen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/explorative_suche.feature:27"
-- name: Zurücknavigieren in der explorativen Suche
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/explorative_suche.feature:39"
-- name: Explorative Suche in der Liste der Modelle
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/explorative_suche.feature:44"
-- name: Explorative Suche in der Bestellung
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/explorative_suche.feature:54"
-- name: Explorative Suche in der Aushändigung
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/explorative_suche.feature:61"
-- name: Ausmustern
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_ausmustern.feature:6"
-- name: Verhinderung von Ausmusterung eines ausgeliehenen Objektes
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_ausmustern.feature:17"
-- name: Verhinderung von Ausmusterung eines Objektes bei dem ich nicht als Besitzer
-    eingetragen bin
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_ausmustern.feature:27"
-- name: Fehlermeldung bei der Ausmusterung ohne angabe eines Grundes
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_ausmustern.feature:37"
-- name: Ausmusterung rückgangig machen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_ausmustern.feature:48"
-- name: Ansichtseite von einem ausgemusterten Objekt für Verantwortlichen anzeigen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_ausmustern.feature:63"
-- name: Reihenfolge der Felder
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:9"
-- name: Lieferanten löschen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:58"
-- name: Einen Gegenstand mit allen Informationen editieren
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:66"
-- name: Ein Modell ohne Version für den Gegestand wählen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:90"
-- name: Lieferanten ändern
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:97"
-- name: Bei ausgeliehenen Gegenständen kann man die verantwortliche Abteilung nicht
-    editieren
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:104"
-- name: Einen Gegenstand mit allen Informationen editieren
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:111"
-- name: Pflichtfelder
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:144"
-- name: Neuen Lieferanten erstellen falls nicht vorhanden
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:156"
-- name: Bei Gegenständen, die in Verträgen vorhanden sind, kann man das Modell nicht
-    ändern
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:165"
-- name: Einen Gegenstand, der ausgeliehen ist, kann man nicht ausmustern
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:172"
-- name: Einen Gegenstand mit allen Informationen editieren
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:179"
-- name: Einen Gegenstand mit allen Informationen editieren
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_editieren.feature:205"
 - name: Felder beim Erstellen eines Gegenstandes
   scripts:
     cucumber:
@@ -1025,86 +1119,46 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/gegenstand_erstellen.feature:270"
-- name: Gegenstand erstellen und kopieren
+- name: Problemanzeige wenn Modell nicht verfügbar bei Bestellungen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_kopieren.feature:9"
-- name: Bestehenden Gegenstand aus Liste kopieren
+      body: bundle exec cucumber -p default "features/examples/probleme.feature:9"
+- name: Problemanzeige bei Rücknahme wenn Gegenstand defekt
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_kopieren.feature:58"
-- name: Bestehenden Gegenstand aus Editieransicht kopieren
+      body: bundle exec cucumber -p default "features/examples/probleme.feature:19"
+- name: Problemanzeige bei Aushändigung wenn Gegenstand defekt
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_kopieren.feature:65"
-- name: Gegenstand aus einem anderem Gerätepark kopieren
+      body: bundle exec cucumber -p default "features/examples/probleme.feature:26"
+- name: Problemanzeige bei Rücknahme wenn Gegenstand unvollständig
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_kopieren.feature:72"
-- name: Neuen Lieferanten erstellen falls nicht vorhanden
+      body: bundle exec cucumber -p default "features/examples/probleme.feature:33"
+- name: Problemanzeige bei Aushändigung wenn Gegenstand nicht ausleihbar
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/gegenstand_kopieren.feature:81"
-- name: Geräteparkauswahl
+      body: bundle exec cucumber -p default "features/examples/probleme.feature:40"
+- name: Problemanzeige bei Rücknahme wenn Gegenstand nicht ausleihbar
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/geraetepark_administrieren.feature:10"
-- name: Den ersten Gerätepark erstellen
+      body: bundle exec cucumber -p default "features/examples/probleme.feature:47"
+- name: Problemanzeige wenn Modell nicht verfügbar bei Aushändigung
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/geraetepark_administrieren.feature:18"
-- name: Pflichtfelder beim erstmaligen Erstellen eines Geräteparks
+      body: bundle exec cucumber -p default "features/examples/probleme.feature:54"
+- name: Problemanzeige wenn Modell nicht verfügbar bei Rücknahmen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/geraetepark_administrieren.feature:28"
-- name: Gerätepark ändern
+      body: bundle exec cucumber -p default "features/examples/probleme.feature:64"
+- name: Problemanzeige bei Aushändigung wenn Gegenstand unvollständig
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/geraetepark_administrieren.feature:43"
-- name: Gerätepark löschen
+      body: bundle exec cucumber -p default "features/examples/probleme.feature:74"
+- name: Problemanzeige bei Rücknahme wenn verspätet
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/geraetepark_administrieren.feature:51"
-- name: Grundinformationen erfassen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/geraetepark_grundinformationen.feature:10"
-- name: Pflichtfelder der Grundinformationen zusammen prüfen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/geraetepark_grundinformationen.feature:27"
-- name: Aut. zuweisen beim Benutzererstellen ausserhalb des Geräteparks
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/geraetepark_grundinformationen.feature:37"
-- name: Aut. zuweisen beim Benutzererstellen innerhalb des Geräteparks
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/geraetepark_grundinformationen.feature:44"
-- name: Aut. Zuweisen entfernen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/geraetepark_grundinformationen.feature:53"
-- name: Arbeitstage verwalten
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/geraetepark_grundinformationen.feature:67"
-- name: Tage der Ausleihschliessung verwalten
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/geraetepark_grundinformationen.feature:75"
-- name: Pflichtfelder der Grundinformationen einzeln prüfen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/geraetepark_grundinformationen.feature:84"
-- name: Automatische Benutzersperrung bei verspäteter Rückgabe
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/geraetepark_grundinformationen.feature:102"
-- name: Automatische Benutzersperrung nur wenn Benutzer nicht schon gesperrt
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/geraetepark_grundinformationen.feature:113"
+      body: bundle exec cucumber -p default "features/examples/probleme.feature:81"
 - name: Anzeige der Gruppenliste
   scripts:
     cucumber:
@@ -1169,10 +1223,124 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/gruppen.feature:138"
-- name: Ausführung einer Aktion für authentifizierte Benutzer ohne angemeldet zu sein
+- name: Geräteparkauswahl
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/hinweis_wenn_nicht_angemeldet.feature:10"
+      body: bundle exec cucumber -p default "features/examples/geraetepark_administrieren.feature:10"
+- name: Den ersten Gerätepark erstellen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/geraetepark_administrieren.feature:18"
+- name: Pflichtfelder beim erstmaligen Erstellen eines Geräteparks
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/geraetepark_administrieren.feature:28"
+- name: Gerätepark ändern
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/geraetepark_administrieren.feature:43"
+- name: Gerätepark löschen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/geraetepark_administrieren.feature:51"
+- name: Benutzer mit Benutzernamen und Passwort erstellen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/passwort.feature:9"
+- name: Benutzernamen und Passwort ändern
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/passwort.feature:23"
+- name: Benutzer mit falscher Passwort-Bestätigung erstellen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/passwort.feature:37"
+- name: Benutzer mit fehlenden Passwortangaben editieren
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/passwort.feature:50"
+- name: Benutzer ohne Loginnamen erstellen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/passwort.feature:63"
+- name: Passwort ändern
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/passwort.feature:76"
+- name: Benutzer mit fehlenden Passwortangaben erstellen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/passwort.feature:90"
+- name: Benutzer ohne Loginnamen editieren
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/passwort.feature:103"
+- name: Benutzer mit falscher Passwort-Bestätigung editieren
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/passwort.feature:116"
+- name: Benutzernamen ändern
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/passwort.feature:129"
+- name: Ausmustern
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/gegenstand_ausmustern.feature:6"
+- name: Verhinderung von Ausmusterung eines ausgeliehenen Objektes
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/gegenstand_ausmustern.feature:17"
+- name: Verhinderung von Ausmusterung eines Objektes bei dem ich nicht als Besitzer
+    eingetragen bin
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/gegenstand_ausmustern.feature:27"
+- name: Fehlermeldung bei der Ausmusterung ohne angabe eines Grundes
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/gegenstand_ausmustern.feature:37"
+- name: Ausmusterung rückgangig machen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/gegenstand_ausmustern.feature:48"
+- name: Ansichtseite von einem ausgemusterten Objekt für Verantwortlichen anzeigen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/gegenstand_ausmustern.feature:62"
+- name: Reservierende Person für ausgewählte Linien wechseln
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/reservierenden_wechseln.feature:9"
+- name: Unabhängigkeit
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/zweck.feature:12"
+- name: Orte, an denen ich den Zweck sehe
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/zweck.feature:18"
+- name: Orte, an denen ich den Zweck editieren kann
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/zweck.feature:25"
+- name: Aushändigung mit Gegenständen teilweise ohne Zweck übertragen einen angegebenen
+    Zweck nur auf die Gegenstände ohne Zweck
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/zweck.feature:30"
+- name: Aushändigung mit Gegenständen die alle einen Zweck haben
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/zweck.feature:37"
+- name: Aushändigung ohne Zweck
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/zweck.feature:43"
+- name: Aushändigung mit Gegenständen teilweise ohne Zweck können durchgeführt werden
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/zweck.feature:51"
 - name: Verfügbarkeitsanzeige beim Hinzufügen zu einer Bestellung
   scripts:
     cucumber:
@@ -1181,126 +1349,185 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/hinzufuegen.feature:15"
-- name: Was man auf einer Liste sieht
+- name: Suche nach Verträgen mittels Inventarcode eines Gegenstandes der dem Vertrag
+    zugewisen ist
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventar.feature:10"
-- name: Auswahlmöglichkeiten
+      body: bundle exec cucumber -p default "features/examples/suche.feature:5"
+- name: Such nach einem Benutzer mit Verträgen, der kein Zugriff mehr auf das Gerätepark
+    hat
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventar.feature:18"
-- name: Aussehen einer Options-Zeile
+      body: bundle exec cucumber -p default "features/examples/suche.feature:11"
+- name: Keine Aushändigung ohne vorherige Genehmigung
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventar.feature:29"
-- name: Keine Leeren Modelle auf der Liste des Inventars
+      body: bundle exec cucumber -p default "features/examples/suche.feature:20"
+- name: Kein 'zeige alle gefundenen Verträge' Link
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventar.feature:37"
-- name: Paket-Modelle aufklappen
+      body: bundle exec cucumber -p default "features/examples/suche.feature:27"
+- name: Selektion bei manueller Interaktion bei Aushändigung
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventar.feature:41"
-- name: Aussehen einer Modell-Zeile
+      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:9"
+- name: 'Aushändigen: In den Inventarcodelisten nicht verfügbare Gegenstände hervorheben'
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventar.feature:50"
-- name: Aussehen einer Gegenstands-Zeile
+      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:15"
+- name: Wann letzter Besucher erscheint
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventar.feature:60"
-- name: Export der aktuellen Ansicht als CSV
+      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:22"
+- name: Fehlermeldung beim Versuch, etwas aus der Zukunft auszuhändigen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventar.feature:81"
-- name: Export der aktuellen Software-Ansicht als CSV
+      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:32"
+- name: 'Buchungskalender: Bei "Show Availability" anzeigen in welcher Grupper der
+    Kunde ist'
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventar.feature:86"
-- name: Keine Resultate auf der Liste des Inventars
+      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:42"
+- name: Scanning-Verhalten beim Aushändigen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventar.feature:93"
-- name: Modell aufklappen
+      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:51"
+- name: Aushändigung von Gegenständen und Lizenzen anhand von Inventarcode
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventar.feature:98"
-- name: Filtermöglichkeiten von Listen
+      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:59"
+- name: Aushändigung von Gegenständen und Lizenzen anhand von Modellsuche
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventar.feature:104"
-- name: Grundeinstellung der Listenansicht
+      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:69"
+- name: Inspektion bei Rücknahme
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventar.feature:115"
-- name: Globaler Export des Inventars aller Geräteparks
+      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:79"
+- name: Automatischer Druck Dialog beim Aushändigen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventar_csv.feature:10"
-- name: Wie man den Helferschirm erreicht
+      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:91"
+- name: Default des Start- und Enddatums
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventarhelfer.feature:8"
-- name: Gestell bei vorhandenem Ort ändern
+      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:96"
+- name: Alle Suchresultate anzeigen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventarhelfer.feature:13"
-- name: Bei ausgeliehenen Gegenständen kann man die verantwortliche Abteilung nicht
-    editieren
+      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:101"
+- name: Zusammenziehen der Anzahlen im Item-Popup
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventarhelfer.feature:25"
-- name: Die ausgeliehenen Gegenständen kann man nicht ausmustern
+      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:121"
+- name: Klick auf Letzten Besucher nach Editieren einer Bestellung
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventarhelfer.feature:31"
-- name: Geräte über den Helferschirm editieren, mittels vollständigem Inventarcode
-    (Scanner)
+      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:128"
+- name: Autocomplete bei der Rücknahme
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventarhelfer.feature:37"
-- name: Pflichtfelder
+      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:138"
+- name: Selektion bei manueller Interaktion bei Rücknahme
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventarhelfer.feature:46"
-- name: Geräte über den Helferschirm editieren, mittels Inventarcode konnte nicht
-    gefunden wurde
+      body: bundle exec cucumber -p default "features/examples/ausleihe.feature:147"
+- name: Option hinzufügen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventarhelfer.feature:57"
-- name: Geräte über den Helferschirm editieren mittels Inventarcode über Autovervollständigung
+      body: bundle exec cucumber -p default "features/examples/option.feature:9"
+- name: Option bearbeiten
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventarhelfer.feature:65"
-- name: Editeren nach automatischen speichern
+      body: bundle exec cucumber -p default "features/examples/option.feature:21"
+- name: Explorative Suche in der Liste des Inventars
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventarhelfer.feature:75"
-- name: Editeren nach automatischen speichern abbrechen
+      body: bundle exec cucumber -p default "features/examples/explorative_suche.feature:13"
+- name: Kategorie in der explorativen Suche suchen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventarhelfer.feature:83"
-- name: Bei Gegenständen, die in Verträgen vorhanden sind, können gewisse Felder nicht
-    editiert werden
+      body: bundle exec cucumber -p default "features/examples/explorative_suche.feature:27"
+- name: Zurücknavigieren in der explorativen Suche
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/inventarhelfer.feature:92"
-- name: Verfügbare Anzahl immer anzeigen
+      body: bundle exec cucumber -p default "features/examples/explorative_suche.feature:39"
+- name: Explorative Suche in der Liste der Modelle
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/kalender.feature:9"
-- name: Anzahl im Buchungskalender während einer Bestellung überbuchen
+      body: bundle exec cucumber -p default "features/examples/explorative_suche.feature:44"
+- name: Explorative Suche in der Bestellung
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/kalender.feature:14"
-- name: Anzahl im Buchungskalender während einer Aushändigung überbuchen
+      body: bundle exec cucumber -p default "features/examples/explorative_suche.feature:54"
+- name: Explorative Suche in der Aushändigung
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/kalender.feature:21"
-- name: Nicht verfügbare Zeitspannen
+      body: bundle exec cucumber -p default "features/examples/explorative_suche.feature:61"
+- name: Ausführung einer Aktion für authentifizierte Benutzer ohne angemeldet zu sein
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/kalender.feature:28"
+      body: bundle exec cucumber -p default "features/examples/hinweis_wenn_nicht_angemeldet.feature:10"
+- name: Wo man die Timeline sieht
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/timeline.feature:9"
+- name: Gegenstand erstellen und kopieren
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/gegenstand_kopieren.feature:9"
+- name: Bestehenden Gegenstand aus Liste kopieren
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/gegenstand_kopieren.feature:58"
+- name: Bestehenden Gegenstand aus Editieransicht kopieren
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/gegenstand_kopieren.feature:65"
+- name: Gegenstand aus einem anderem Gerätepark kopieren
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/gegenstand_kopieren.feature:72"
+- name: Neuen Lieferanten erstellen falls nicht vorhanden
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/gegenstand_kopieren.feature:81"
+- name: Liste aller Vorlagen anzeigen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/vorlagen.feature:11"
+- name: Vorlage erstellen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/vorlagen.feature:17"
+- name: Prüfen, ob max. Anzahl bei den Modellen überschritten ist
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/vorlagen.feature:32"
+- name: Vorlage löschen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/vorlagen.feature:49"
+- name: Vorlage ändern
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/vorlagen.feature:56"
+- name: Pflichtangaben bei der Editieransicht
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/vorlagen.feature:72"
+- name: Pflichtangaben bei der Erstellungsansicht
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/vorlagen.feature:84"
+- name: Sperrstatus des Benutzers anzeigen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/bestellung.feature:6"
+- name: Trotzdem genehmigen für Gruppen-Verwalter unterbinden
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/bestellung.feature:12"
 - name: Top-Level-Kategorien erstellen
   scripts:
     cucumber:
@@ -1349,18 +1576,38 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/kategorien.feature:81"
-- name: Eigenschaften erstellen
+- name: Systemfeedback bei erfolgreicher manueller Interaktion bei Aushändigung
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/model_eigenschaften.feature:9"
-- name: Eigenschaften editieren
+      body: bundle exec cucumber -p default "features/examples/aushaendigung.feature:9"
+- name: Systemfeedback bei Zuteilen eines Gegenstandes zur problematischen Linie
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/model_eigenschaften.feature:17"
-- name: Eigenschaften löschen
+      body: bundle exec cucumber -p default "features/examples/aushaendigung.feature:25"
+- name: Sperrstatus des Benutzers anzeigen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/model_eigenschaften.feature:26"
+      body: bundle exec cucumber -p default "features/examples/aushaendigung.feature:35"
+- name: Systemfeedback bei Zuteilen einer Option
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/aushaendigung.feature:41"
+- name: Aushändigung eines bereits zugeteilten Gegenstandes
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/aushaendigung.feature:49"
+- name: Standard-Vertragsnotiz
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/aushaendigung.feature:57"
+- name: Vertragsnotiz
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/aushaendigung.feature:64"
+- name: Optionen mit einer Mindestmenge 1 ausgeben
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/aushaendigung.feature:73"
 - name: "Übersicht neues Modell hinzufügen"
   scripts:
     cucumber:
@@ -1437,429 +1684,182 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/modell.feature:201"
-- name: Option hinzufügen
+- name: Grundinformationen erfassen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/option.feature:9"
-- name: Option bearbeiten
+      body: bundle exec cucumber -p default "features/examples/geraetepark_grundinformationen.feature:10"
+- name: Pflichtfelder der Grundinformationen zusammen prüfen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/option.feature:21"
-- name: Modell mit Paketzuteilung erstellen
+      body: bundle exec cucumber -p default "features/examples/geraetepark_grundinformationen.feature:27"
+- name: Aut. zuweisen beim Benutzererstellen ausserhalb des Geräteparks
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/pakete.feature:10"
-- name: Modell mit bereits vorhandenen Gegenständen kann kein Paket zugewiesen werden
+      body: bundle exec cucumber -p default "features/examples/geraetepark_grundinformationen.feature:37"
+- name: Aut. zuweisen beim Benutzererstellen innerhalb des Geräteparks
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/pakete.feature:20"
-- name: Pakete nicht ohne Gegenstände erstellen
+      body: bundle exec cucumber -p default "features/examples/geraetepark_grundinformationen.feature:44"
+- name: Aut. Zuweisen entfernen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/pakete.feature:25"
-- name: Einzelnen Gegenstand aus Paket entfernen
+      body: bundle exec cucumber -p default "features/examples/geraetepark_grundinformationen.feature:53"
+- name: Arbeitstage verwalten
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/pakete.feature:30"
-- name: Paketeigenschaften abfüllen bei existierendem Modell
+      body: bundle exec cucumber -p default "features/examples/geraetepark_grundinformationen.feature:67"
+- name: Tage der Ausleihschliessung verwalten
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/pakete.feature:36"
-- name: Modell mit Paketzuteilung erstellen und wieder editieren
+      body: bundle exec cucumber -p default "features/examples/geraetepark_grundinformationen.feature:75"
+- name: Pflichtfelder der Grundinformationen einzeln prüfen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/pakete.feature:59"
-- name: Paketeigenschaften abfüllen bei neu erstelltem Modell
+      body: bundle exec cucumber -p default "features/examples/geraetepark_grundinformationen.feature:84"
+- name: Automatische Benutzersperrung bei verspäteter Rückgabe
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/pakete.feature:71"
-- name: Paket löschen
+      body: bundle exec cucumber -p default "features/examples/geraetepark_grundinformationen.feature:102"
+- name: Automatische Benutzersperrung nur wenn Benutzer nicht schon gesperrt
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/pakete.feature:95"
-- name: Paket löschen schlägt fehl wenn das Paket gerade ausgeliehen ist
+      body: bundle exec cucumber -p default "features/examples/geraetepark_grundinformationen.feature:113"
+- name: Keine leeren Bestellungen in der Liste der Bestellungen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/pakete.feature:100"
-- name: Benutzer mit Benutzernamen und Passwort erstellen
+      body: bundle exec cucumber -p default "features/examples/bestellungen.feature:6"
+- name: Sichtbare Reiter
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/passwort.feature:9"
-- name: Benutzernamen und Passwort ändern
+      body: bundle exec cucumber -p default "features/examples/bestellungen.feature:11"
+- name: Definition visierpflichtige Bestellungen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/passwort.feature:23"
-- name: Benutzer mit falscher Passwort-Bestätigung erstellen
+      body: bundle exec cucumber -p default "features/examples/bestellungen.feature:16"
+- name: Alle Bestellungen anzeigen - Reiter Alle Bestellungen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/passwort.feature:37"
-- name: Benutzer mit fehlenden Passwortangaben editieren
+      body: bundle exec cucumber -p default "features/examples/bestellungen.feature:23"
+- name: Reiter Offene Bestellungen Darstellung
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/passwort.feature:50"
-- name: Benutzer ohne Loginnamen erstellen
+      body: bundle exec cucumber -p default "features/examples/bestellungen.feature:32"
+- name: Reiter "Genehmigt" Darstellung
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/passwort.feature:63"
-- name: Passwort ändern
+      body: bundle exec cucumber -p default "features/examples/bestellungen.feature:49"
+- name: Reiter "Abgelehnt" Darstellung
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/passwort.feature:76"
-- name: Benutzer mit fehlenden Passwortangaben erstellen
+      body: bundle exec cucumber -p default "features/examples/bestellungen.feature:65"
+- name: Filter zum visieren aufheben
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/passwort.feature:90"
-- name: Benutzer ohne Loginnamen editieren
+      body: bundle exec cucumber -p default "features/examples/bestellungen.feature:78"
+- name: Bereits genehmigte Bestellung zurücksetzen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/passwort.feature:103"
-- name: Benutzer mit falscher Passwort-Bestätigung editieren
+      body: bundle exec cucumber -p default "features/examples/bestellungen.feature:87"
+- name: Was man auf einer Liste sieht
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/passwort.feature:116"
-- name: Benutzernamen ändern
+      body: bundle exec cucumber -p default "features/examples/inventar.feature:10"
+- name: Auswahlmöglichkeiten
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/passwort.feature:129"
-- name: Problemanzeige wenn Modell nicht verfügbar bei Bestellungen
+      body: bundle exec cucumber -p default "features/examples/inventar.feature:18"
+- name: Aussehen einer Options-Zeile
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/probleme.feature:9"
-- name: Problemanzeige bei Rücknahme wenn Gegenstand defekt
+      body: bundle exec cucumber -p default "features/examples/inventar.feature:29"
+- name: Keine Leeren Modelle auf der Liste des Inventars
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/probleme.feature:19"
-- name: Problemanzeige bei Aushändigung wenn Gegenstand defekt
+      body: bundle exec cucumber -p default "features/examples/inventar.feature:37"
+- name: Paket-Modelle aufklappen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/probleme.feature:26"
-- name: Problemanzeige bei Rücknahme wenn Gegenstand unvollständig
+      body: bundle exec cucumber -p default "features/examples/inventar.feature:41"
+- name: Aussehen einer Modell-Zeile
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/probleme.feature:33"
-- name: Problemanzeige bei Aushändigung wenn Gegenstand nicht ausleihbar
+      body: bundle exec cucumber -p default "features/examples/inventar.feature:50"
+- name: Aussehen einer Gegenstands-Zeile
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/probleme.feature:40"
-- name: Problemanzeige bei Rücknahme wenn Gegenstand nicht ausleihbar
+      body: bundle exec cucumber -p default "features/examples/inventar.feature:60"
+- name: Export der aktuellen Ansicht als CSV
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/probleme.feature:47"
-- name: Problemanzeige wenn Modell nicht verfügbar bei Aushändigung
+      body: bundle exec cucumber -p default "features/examples/inventar.feature:81"
+- name: Export der aktuellen Software-Ansicht als CSV
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/probleme.feature:54"
-- name: Problemanzeige wenn Modell nicht verfügbar bei Rücknahmen
+      body: bundle exec cucumber -p default "features/examples/inventar.feature:86"
+- name: Keine Resultate auf der Liste des Inventars
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/probleme.feature:64"
-- name: Problemanzeige bei Aushändigung wenn Gegenstand unvollständig
+      body: bundle exec cucumber -p default "features/examples/inventar.feature:93"
+- name: Modell aufklappen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/probleme.feature:74"
-- name: Problemanzeige bei Rücknahme wenn verspätet
+      body: bundle exec cucumber -p default "features/examples/inventar.feature:98"
+- name: Filtermöglichkeiten von Listen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/probleme.feature:81"
-- name: Reservierende Person für ausgewählte Linien wechseln
+      body: bundle exec cucumber -p default "features/examples/inventar.feature:104"
+- name: Grundeinstellung der Listenansicht
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/reservierenden_wechseln.feature:9"
-- name: Hinzufügen eines Gegenstandes in der Rücknahme
+      body: bundle exec cucumber -p default "features/examples/inventar.feature:115"
+- name: Wie man den Helferschirm erreicht
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ruecknahme.feature:13"
-- name: Deselektieren einer Linie
+      body: bundle exec cucumber -p default "features/examples/inventarhelfer.feature:8"
+- name: Gestell bei vorhandenem Ort ändern
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ruecknahme.feature:21"
-- name: Zurückzugebender Gegenstand hat Verspätung
+      body: bundle exec cucumber -p default "features/examples/inventarhelfer.feature:13"
+- name: Bei ausgeliehenen Gegenständen kann man die verantwortliche Abteilung nicht
+    editieren
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ruecknahme.feature:28"
-- name: Festhalten wer einen Gegenstand zurückgenommen hat
+      body: bundle exec cucumber -p default "features/examples/inventarhelfer.feature:25"
+- name: Die ausgeliehenen Gegenständen kann man nicht ausmustern
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ruecknahme.feature:37"
-- name: Sperrstatus des Benutzers anzeigen
+      body: bundle exec cucumber -p default "features/examples/inventarhelfer.feature:31"
+- name: Geräte über den Helferschirm editieren, mittels vollständigem Inventarcode
+    (Scanner)
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ruecknahme.feature:42"
-- name: Zurückgeben einer Option
+      body: bundle exec cucumber -p default "features/examples/inventarhelfer.feature:37"
+- name: Pflichtfelder
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ruecknahme.feature:47"
-- name: Inspektion während einer Rücknahme
+      body: bundle exec cucumber -p default "features/examples/inventarhelfer.feature:46"
+- name: Geräte über den Helferschirm editieren, mittels Inventarcode konnte nicht
+    gefunden wurde
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ruecknahme.feature:58"
-- name: Festhalten wer einen Gegenstand zurückgenommen hat
+      body: bundle exec cucumber -p default "features/examples/inventarhelfer.feature:57"
+- name: Geräte über den Helferschirm editieren mittels Inventarcode über Autovervollständigung
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ruecknahmen.feature:13"
-- name: Korrekte Reihenfolge mehrerer Verträge
+      body: bundle exec cucumber -p default "features/examples/inventarhelfer.feature:65"
+- name: Editeren nach automatischen speichern
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ruecknahmen.feature:18"
-- name: Optionen in mehreren Zeitfenstern vorhanden
+      body: bundle exec cucumber -p default "features/examples/inventarhelfer.feature:75"
+- name: Editeren nach automatischen speichern abbrechen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/ruecknahmen.feature:24"
-- name: Software-Produkt editieren
+      body: bundle exec cucumber -p default "features/examples/inventarhelfer.feature:83"
+- name: Bei Gegenständen, die in Verträgen vorhanden sind, können gewisse Felder nicht
+    editiert werden
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/software_editieren.feature:9"
-- name: Software-Lizenz editieren
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/software_editieren.feature:36"
-- name: Software-Lizenz editieren - Werte der Datenfelder löschen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/software_editieren.feature:63"
-- name: Software-Produkt erfassen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/software_erfassen.feature:9"
-- name: Mögliche Werte in Software-Lizenz erfassen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/software_erfassen.feature:37"
-- name: Software-Lizenz erfassen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/software_erfassen.feature:84"
-- name: Software-Lizenz Anschaffungswert mit 2 Dezimalstellen erfassen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/software_erfassen.feature:109"
-- name: Software anhand eines Suchbegriffs finden
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/software_suchen.feature:9"
-- name: Verträge für Software-Lizenzen anhand des Ausleihenden finden
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/software_suchen.feature:27"
-- name: Aufteilung der Suchresultate
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/software_suchen.feature:35"
-- name: Navigation für Ausleihenden
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/sprachauswahl.feature:10"
-- name: Wo die Statistik-Ansicht erscheint
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/statistik.feature:9"
-- name: Zeitliche Eingrenzung der Statistik-Ansicht
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/statistik.feature:14"
-- name: Statistik über die Anzahl der Ausleihvorgänge pro Modell
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/statistik.feature:23"
-- name: Statistik über Benutzer und deren Ausleihvorgänge
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/statistik.feature:32"
-- name: Expandieren eines Modells
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/statistik.feature:38"
-- name: Statistik über den Wert der Modelle und Gegenstände
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/statistik.feature:45"
-- name: Suche nach Verträgen mittels Inventarcode eines Gegenstandes der dem Vertrag
-    zugewisen ist
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/suche.feature:5"
-- name: Such nach einem Benutzer mit Verträgen, der kein Zugriff mehr auf das Gerätepark
-    hat
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/suche.feature:11"
-- name: Keine Aushändigung ohne vorherige Genehmigung
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/suche.feature:20"
-- name: Kein 'zeige alle gefundenen Verträge' Link
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/suche.feature:27"
-- name: Anzeige der längsten Zeitspanne für Bestellungen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/tagesansicht.feature:10"
-- name: Sperrstatus des Benutzers anzeigen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/tagesansicht.feature:15"
-- name: Wo man die Timeline sieht
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/timeline.feature:9"
-- name: Zuweisung einer Bestellungs-Zeile für ein Nicht-Gruppenmitglied
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/verfuegbarkeit.feature:8"
-- name: Zuweisung einer Bestellungs-Zeile für ein Gruppenmitglied
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/verfuegbarkeit.feature:18"
-- name: Prioritäten der Gruppen bei der Zuweisung
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/verfuegbarkeit.feature:27"
-- name: Keine Verfügbarkeitsberechnung bei Optionen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/verfuegbarkeit.feature:32"
-- name: Was ich auf dem Vertrag sehen möchte
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/vertrag.feature:13"
-- name: Hinweis auf AGB
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/vertrag.feature:33"
-- name: Welche Informationen ich vom Ausleihenden sehen möchte
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/vertrag.feature:38"
-- name: Liste der zurückgebenen Gegenstände
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/vertrag.feature:51"
-- name: Zwecke
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/vertrag.feature:58"
-- name: Datum
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/vertrag.feature:64"
-- name: Titel
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/vertrag.feature:69"
-- name: Position des Barcodes
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/vertrag.feature:74"
-- name: Position des Ausleihenden
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/vertrag.feature:79"
-- name: Inhalt der Liste 1 und Liste 2
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/vertrag.feature:84"
-- name: Rücknehmende Person
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/vertrag.feature:98"
-- name: Verleiher
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/vertrag.feature:103"
-- name: Liste der ausgeliehenen Gegenstände
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/vertrag.feature:108"
-- name: Adresse des Verleihers aufführen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/vertrag.feature:115"
-- name: Adresse des Kunden ohne abschliessenden ", " anzeigen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/vertrag.feature:122"
-- name: Liste aller Vorlagen anzeigen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/vorlagen.feature:11"
-- name: Vorlage erstellen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/vorlagen.feature:17"
-- name: Prüfen, ob max. Anzahl bei den Modellen überschritten ist
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/vorlagen.feature:32"
-- name: Vorlage löschen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/vorlagen.feature:49"
-- name: Vorlage ändern
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/vorlagen.feature:56"
-- name: Pflichtangaben bei der Editieransicht
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/vorlagen.feature:72"
-- name: Pflichtangaben bei der Erstellungsansicht
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/vorlagen.feature:84"
-- name: Was ich auf der Werteliste sehen möchte
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/werteliste.feature:13"
-- name: Der Inhalt der Werte-Liste
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/werteliste.feature:24"
-- name: Werteliste auf Bestellübersicht ausdrucken
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/werteliste.feature:37"
-- name: Werteliste auf der Aushändigungsansicht ausdrucken
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/werteliste.feature:47"
-- name: Totale Werte
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/werteliste.feature:60"
-- name: Totale Werte
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/werteliste.feature:69"
-- name: Unabhängigkeit
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/zweck.feature:12"
-- name: Orte, an denen ich den Zweck sehe
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/zweck.feature:18"
-- name: Orte, an denen ich den Zweck editieren kann
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/zweck.feature:25"
-- name: Aushändigung mit Gegenständen teilweise ohne Zweck übertragen einen angegebenen
-    Zweck nur auf die Gegenstände ohne Zweck
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/zweck.feature:30"
-- name: Aushändigung mit Gegenständen die alle einen Zweck haben
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/zweck.feature:37"
-- name: Aushändigung ohne Zweck
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/zweck.feature:43"
-- name: Aushändigung mit Gegenständen teilweise ohne Zweck können durchgeführt werden
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/zweck.feature:51"
+      body: bundle exec cucumber -p default "features/examples/inventarhelfer.feature:92"
 - name: Have multiple groups, lend and return an item
   scripts:
     cucumber:
@@ -1896,103 +1896,6 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/login/login.feature:11"
-- name: Adding a model quickly to a contract by just typing in the inventory_number
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/acknowledge/add_item.feature:12"
-- name: Autocompletion of the quick add input by model name
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/acknowledge/add_item.feature:17"
-- name: Increase the quantity of a contract line by adding an model from the same
-    type and date range to the contract
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/acknowledge/add_item.feature:25"
-- name: Search results should conform to the actual start and end date
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/acknowledge/add_item.feature:32"
-- name: Show autocomplete also on frenzied interaction
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/acknowledge/add_item.feature:41"
-- name: Delete a single line of an open contract
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/acknowledge/delete_lines.feature:11"
-- name: Delete multiple lines of an open contract
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/acknowledge/delete_lines.feature:17"
-- name: Delete all lines of an open contract
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/acknowledge/delete_lines.feature:23"
-- name: Change the time range of a single contract line
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/acknowledge/edit_order_line.feature:11"
-- name: Change the quantity of a single contract line
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/acknowledge/edit_order_line.feature:17"
-- name: Change the time range of multiple contract lines
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/acknowledge/edit_order_line.feature:25"
-- name: Do multiple things while editing lines
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/acknowledge/edit_order_line.feature:31"
-- name: Preserve the quantity when edit multiple lines
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/acknowledge/edit_order_line.feature:40"
-- name: Change the purpose of a contract
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/acknowledge/edit_purpose.feature:11"
-- name: Quick approve an order with no problems
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/acknowledge/quick_approve.feature:11"
-- name: Approve anyway on daily view
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/acknowledge/quick_approve.feature:18"
-- name: Reject a contract on the daily view
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/acknowledge/reject.feature:12"
-- name: Reject a contract on the edit view
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/acknowledge/reject.feature:20"
-- name: Splitting capacities (Group General / Another Group)
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/availability/allocating.feature:10"
-- name: Allocating should be always the same
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/availability/allocating.feature:17"
-- name: Seeing all availability changes in the booking calendar
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/booking_calendar/availability_changes.feature:11"
-- name: Pick a closed day in the calendar
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/booking_calendar/closed_day_alert.feature:11"
-- name: 'Automatic update of quantity for line summary in calendar '
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/booking_calendar/summary_of_lines_in_calendar.feature:11"
-- name: Hover item cell to see lines
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/daily_view/item_hover.feature:11"
 - name: 'Einer Delegation einen gesperrten Verantwortlichen zuteilen '
   scripts:
     cucumber:
@@ -2117,18 +2020,158 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/manage/delegation.feature:288"
-- name: Handhabung der Genehmigungsmails
+- name: Take back all items of a contract
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/manage/delegation_mail.feature:6"
-- name: Handhabung der Erinnerungsmails
+      body: bundle exec cucumber -p default "features/manage/take_back/close_contract.feature:11"
+- name: Change the time range of a single take back line
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/manage/delegation_mail.feature:16"
-- name: Mail an Delegation senden
+      body: bundle exec cucumber -p default "features/manage/take_back/edit_take_back_end_date.feature:11"
+- name: Change the time range of a single take back option line handed over in the
+    past
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/manage/delegation_mail.feature:24"
+      body: bundle exec cucumber -p default "features/manage/take_back/edit_take_back_end_date.feature:18"
+- name: Change the time range of multiple contract lines
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/take_back/edit_take_back_end_date.feature:25"
+- name: Navigation für Gruppen-Verwalter
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/navigation.feature:5"
+- name: Navigation für Gruppen-Verwalter in Verleih-Bereich
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/navigation.feature:13"
+- name: Change the purpose of a contract
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/acknowledge/edit_purpose.feature:11"
+- name: Change the time range of a single contract line
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/acknowledge/edit_order_line.feature:11"
+- name: Change the quantity of a single contract line
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/acknowledge/edit_order_line.feature:17"
+- name: Change the time range of multiple contract lines
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/acknowledge/edit_order_line.feature:25"
+- name: Do multiple things while editing lines
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/acknowledge/edit_order_line.feature:31"
+- name: Preserve the quantity when edit multiple lines
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/acknowledge/edit_order_line.feature:40"
+- name: Delete a single line of an open contract
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/acknowledge/delete_lines.feature:11"
+- name: Delete multiple lines of an open contract
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/acknowledge/delete_lines.feature:17"
+- name: Delete all lines of an open contract
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/acknowledge/delete_lines.feature:23"
+- name: Reject a contract on the daily view
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/acknowledge/reject.feature:12"
+- name: Reject a contract on the edit view
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/acknowledge/reject.feature:20"
+- name: Adding a model quickly to a contract by just typing in the inventory_number
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/acknowledge/add_item.feature:12"
+- name: Autocompletion of the quick add input by model name
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/acknowledge/add_item.feature:17"
+- name: Increase the quantity of a contract line by adding an model from the same
+    type and date range to the contract
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/acknowledge/add_item.feature:25"
+- name: Search results should conform to the actual start and end date
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/acknowledge/add_item.feature:32"
+- name: Show autocomplete also on frenzied interaction
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/acknowledge/add_item.feature:41"
+- name: Quick approve an order with no problems
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/acknowledge/quick_approve.feature:11"
+- name: Approve anyway on daily view
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/acknowledge/quick_approve.feature:18"
+- name: Navigate all lending tabs
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/lending/tabs_navigation.feature:11"
+- name: Jump to a specific date
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/lending/day_navigation.feature:20"
+- name: Select multiple lines
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/linegroup/selection.feature:11"
+- name: Seeing all availability changes in the booking calendar
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/booking_calendar/availability_changes.feature:11"
+- name: 'Automatic update of quantity for line summary in calendar '
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/booking_calendar/summary_of_lines_in_calendar.feature:11"
+- name: Pick a closed day in the calendar
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/booking_calendar/closed_day_alert.feature:11"
+- name: Assign an inventory code to an itemline
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/hand_over/assign.feature:11"
+- name: Assign an inventory code by providing an inventory code of an item and a set
+    of selected lines
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/hand_over/assign.feature:19"
+- name: Remove the assignment of an inventory code by clear the the inventory code
+    input
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/hand_over/assign.feature:27"
+- name: Hand over an not complete quantity of an option line
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/hand_over/sign_contract.feature:11"
+- name: Hand over lines which start in the history
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/hand_over/sign_contract.feature:22"
+- name: Hand over a selection of items
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/hand_over/sign_contract.feature:31"
+- name: Try to hand over unassigned items
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/manage/hand_over/sign_contract.feature:40"
 - name: Add an item to the hand over providing an inventory code
   scripts:
     cucumber:
@@ -2158,20 +2201,6 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/manage/hand_over/add.feature:48"
-- name: Assign an inventory code to an itemline
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/hand_over/assign.feature:11"
-- name: Assign an inventory code by providing an inventory code of an item and a set
-    of selected lines
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/hand_over/assign.feature:19"
-- name: Remove the assignment of an inventory code by clear the the inventory code
-    input
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/hand_over/assign.feature:27"
 - name: Delete a single line during the hand over
   scripts:
     cucumber:
@@ -2212,59 +2241,30 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/manage/hand_over/edit_contract_line.feature:45"
-- name: Hand over an not complete quantity of an option line
+- name: Handhabung der Genehmigungsmails
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/manage/hand_over/sign_contract.feature:11"
-- name: Hand over lines which start in the history
+      body: bundle exec cucumber -p default "features/manage/delegation_mail.feature:6"
+- name: Handhabung der Erinnerungsmails
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/manage/hand_over/sign_contract.feature:22"
-- name: Hand over a selection of items
+      body: bundle exec cucumber -p default "features/manage/delegation_mail.feature:16"
+- name: Mail an Delegation senden
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/manage/hand_over/sign_contract.feature:31"
-- name: Try to hand over unassigned items
+      body: bundle exec cucumber -p default "features/manage/delegation_mail.feature:24"
+- name: Hover item cell to see lines
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/manage/hand_over/sign_contract.feature:40"
-- name: Jump to a specific date
+      body: bundle exec cucumber -p default "features/manage/daily_view/item_hover.feature:11"
+- name: Splitting capacities (Group General / Another Group)
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/manage/lending/day_navigation.feature:20"
-- name: Navigate all lending tabs
+      body: bundle exec cucumber -p default "features/manage/availability/allocating.feature:10"
+- name: Allocating should be always the same
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/manage/lending/tabs_navigation.feature:11"
-- name: Select multiple lines
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/linegroup/selection.feature:11"
-- name: Navigation für Gruppen-Verwalter
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/navigation.feature:5"
-- name: Navigation für Gruppen-Verwalter in Verleih-Bereich
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/navigation.feature:13"
-- name: Take back all items of a contract
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/take_back/close_contract.feature:11"
-- name: Change the time range of a single take back line
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/take_back/edit_take_back_end_date.feature:11"
-- name: Change the time range of a single take back option line handed over in the
-    past
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/take_back/edit_take_back_end_date.feature:18"
-- name: Change the time range of multiple contract lines
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/manage/take_back/edit_take_back_end_date.feature:25"
+      body: bundle exec cucumber -p default "features/manage/availability/allocating.feature:17"
 - name: Computing availability of a heavily booked model should remain acceptable
   scripts:
     cucumber:
@@ -2285,18 +2285,32 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/software_loeschen.feature:9"
-- name: Adding lines is successful
+- name: Configuring ActionMailer for test mode through the database
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/technical/contract/add_lines_model.feature:9"
-- name: A confirmation email should be sent when a contract is confirmed
+      body: bundle exec cucumber -p default "features/technical/mailer/mailer_settings.feature:10"
+- name: 'Configuring ActionMailer to use sendmail '
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/technical/contract/approve_order_model.feature:9"
-- name: Index action provides all submitted/pending contracts
+      body: bundle exec cucumber -p default "features/technical/mailer/mailer_settings.feature:14"
+- name: Setting SMTP authentication
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/technical/contract/orders_controller.feature:8"
+      body: bundle exec cucumber -p default "features/technical/mailer/mailer_settings.feature:18"
+- name: Forgetting to specify password when specifying SMTP username (we cleverly
+    rescue this)
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/technical/mailer/mailer_settings.feature:26"
+- name: Forgetting to specify username when specifying SMTP password (we cleverly
+    rescue this)
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/technical/mailer/mailer_settings.feature:33"
+- name: Submitting a contract is creating a purpose associated to the lines
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/technical/contract/submit_model.feature:10"
 - name: Removal of a line for UNSUBMITTED contract should be possible
   scripts:
     cucumber:
@@ -2325,6 +2339,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/technical/contract/remove_line_model.feature:44"
+- name: A confirmation email should be sent when a contract is confirmed
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/technical/contract/approve_order_model.feature:9"
 - name: Contract needs at least one contract line
   scripts:
     cucumber:
@@ -2333,10 +2351,18 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/technical/contract/sign_model.feature:15"
-- name: Submitting a contract is creating a purpose associated to the lines
+- name: Index action provides all submitted/pending contracts
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/technical/contract/submit_model.feature:10"
+      body: bundle exec cucumber -p default "features/technical/contract/orders_controller.feature:8"
+- name: Adding lines is successful
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/technical/contract/add_lines_model.feature:9"
+- name: Suspend all users with late take backs
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/technical/user/suspend.feature:8"
 - name: Provides the value of an item's attribute that is specified in the field
   scripts:
     cucumber:
@@ -2345,27 +2371,18 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/technical/field/field_instance_methods.feature:9"
-- name: Index action
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/technical/field/fields_controller.feature:8"
 - name: Accessible fields should be provided according to user's access level
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/technical/field/provide_accessible_fields_model.feature:8"
-- name: Inventory pool returns a list of hand over visits per user
+- name: Index action
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/technical/inventory_pool/hand_over_visits_model.feature:9"
-- name: Inventory pool should return a visit containing contract_lines for items that
-    are reserved from the same day on by a user
+      body: bundle exec cucumber -p default "features/technical/field/fields_controller.feature:8"
+- name: Search in properties' fields
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/technical/inventory_pool/hand_over_visits_model.feature:16"
-- name: Inventory pool should not mix visits of different users
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/technical/inventory_pool/hand_over_visits_model.feature:23"
+      body: bundle exec cucumber -p default "features/technical/item/search_model.feature:5"
 - name: Inventory pool should return a list of take back visits per user
   scripts:
     cucumber:
@@ -2379,56 +2396,19 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/technical/inventory_pool/take_back_visits_model.feature:28"
-- name: Search in properties' fields
+- name: Inventory pool returns a list of hand over visits per user
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/technical/item/search_model.feature:5"
-- name: Configuring ActionMailer for test mode through the database
+      body: bundle exec cucumber -p default "features/technical/inventory_pool/hand_over_visits_model.feature:9"
+- name: Inventory pool should return a visit containing contract_lines for items that
+    are reserved from the same day on by a user
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/technical/mailer/mailer_settings.feature:10"
-- name: 'Configuring ActionMailer to use sendmail '
+      body: bundle exec cucumber -p default "features/technical/inventory_pool/hand_over_visits_model.feature:16"
+- name: Inventory pool should not mix visits of different users
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/technical/mailer/mailer_settings.feature:14"
-- name: Setting SMTP authentication
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/technical/mailer/mailer_settings.feature:18"
-- name: Forgetting to specify password when specifying SMTP username (we cleverly
-    rescue this)
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/technical/mailer/mailer_settings.feature:26"
-- name: Forgetting to specify username when specifying SMTP password (we cleverly
-    rescue this)
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/technical/mailer/mailer_settings.feature:33"
-- name: Configuring leihs' time zone to be UTC
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/technical/timezone_settings.feature:9"
-- name: Configuring leihs' time zone to be CET
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/technical/timezone_settings.feature:14"
-- name: Representing a date and time on automatically managed time fields (created_at)
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/technical/timezone_settings.feature:19"
-- name: Suspend all users with late take backs
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/technical/user/suspend.feature:8"
-- name: Hand overs are related to approved contracts
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/technical/visit/hand_over_and_take_back_model.feature:8"
-- name: Take backs are related to signed contracts
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/technical/visit/hand_over_and_take_back_model.feature:13"
+      body: bundle exec cucumber -p default "features/technical/inventory_pool/hand_over_visits_model.feature:23"
 - name: Writing an unavailable inventory code
   scripts:
     cucumber:
@@ -2441,6 +2421,14 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/technical/visit/hand_over_controller.feature:22"
+- name: Hand overs are related to approved contracts
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/technical/visit/hand_over_and_take_back_model.feature:8"
+- name: Take backs are related to signed contracts
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/technical/visit/hand_over_and_take_back_model.feature:13"
 - name: All hand overs with date < today are overdues
   scripts:
     cucumber:
@@ -2453,6 +2441,18 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/technical/visit/visits_controller.feature:12"
+- name: Configuring leihs' time zone to be UTC
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/technical/timezone_settings.feature:9"
+- name: Configuring leihs' time zone to be CET
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/technical/timezone_settings.feature:14"
+- name: Representing a date and time on automatically managed time fields (created_at)
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/technical/timezone_settings.feature:19"
 - name: Default Workdays
   scripts:
     cucumber:

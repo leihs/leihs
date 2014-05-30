@@ -41,14 +41,22 @@ def check_existing_inventory_codes(items, type: :model)
     step "man sieht Software"
   end
 
-  all(".line[data-type='#{type}']").each do |model_el|
-    model_el.find(".button[data-type='inventory-expander'] i.arrow.right").click
-    model_el.find(".button[data-type='inventory-expander'] i.arrow.down")
+  lines = all(".line[data-type='#{type}']")
+  # select the lines which have an inventory expander that can be clicked (means models with items). this filter is needed for the special case of software.
+  lines = lines.select{|l| l.first ".button[data-type='inventory-expander'] i.arrow.right"} if type == :software
+
+  lines.each do |line|
+    within line do
+      within ".button[data-type='inventory-expander']" do
+        find("i.arrow.right").click
+        find("i.arrow.down")
+      end
+    end
     find(".group-of-lines")
     all(".group-of-lines .line[data-type='item'] .col1of5:nth-child(2)", text: /\w+/).map(&:text).each do |inventory_code|
       items.find_by_inventory_code(inventory_code).should_not be_nil
     end
-    model_el.find(".button[data-type='inventory-expander'] i.arrow.down").click
+    line.find(".button[data-type='inventory-expander'] i.arrow.down").click
   end
 end
 

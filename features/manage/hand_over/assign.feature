@@ -15,7 +15,7 @@ Feature: Assign items during hand over
      When I select one of those
      Then the item line is assigned to the selected inventory code
 
-  @javascript
+  @javascript @firefox
   Scenario: Assign an inventory code by providing an inventory code of an item and a set of selected lines
      When I open a hand over which has multiple unassigned lines and models in stock
       And I select a linegroup

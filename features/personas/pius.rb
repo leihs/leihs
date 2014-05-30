@@ -81,6 +81,17 @@ module Persona
       contract.contract_lines << FactoryGirl.create(:option_line, option: option, purpose: contract_purpose, contract: contract, quantity: 2, start_date: Date.yesterday, end_date: Date.today)
       contract.contract_lines << FactoryGirl.create(:option_line, option: option, purpose: contract_purpose, contract: contract, quantity: 1, start_date: Date.yesterday, end_date: Date.tomorrow)
       contract.sign User.find_by_login("pius")
+
+      # create user with license take back
+      user3 = FactoryGirl.create :user
+      user3.access_rights.create(:role => :customer, :inventory_pool => @inventory_pool)
+
+      contract = FactoryGirl.create(:contract, :user => user3, :inventory_pool => @inventory_pool, :status => :approved)
+      contract_purpose = FactoryGirl.create :purpose, :description => Faker::Lorem.sentence
+
+      license = FactoryGirl.create(:license, owner: @inventory_pool, is_borrowable: true)
+      contract.contract_lines << FactoryGirl.create(:contract_line, item: license, model: license.model, purpose: contract_purpose, contract: contract)
+      contract.sign User.find_by_login("pius")
     end
 
     def create_users_with_overdued_take_backs

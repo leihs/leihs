@@ -5,12 +5,12 @@ Funktionalität: Ausmustern
   @javascript
   Szenariogrundriss: Ausmustern
     Angenommen ich bin Matti
-    Und man sucht nach einem nicht ausgeliehenen <Objekt>
+    Und man sucht nach einem nicht ausgeliehenen <Objekt>, wo man der Besitzer ist
     Dann kann man diesen <Objekt> mit Angabe des Grundes erfolgreich ausmustern
     Und der gerade ausgemusterte <Objekt> verschwindet sofort aus der Inventarliste
     Beispiele:
       | Objekt     |
-      | Gegenstand  |
+      | Gegenstand |
       | Lizenz     |
 
   @javascript
@@ -20,7 +20,7 @@ Funktionalität: Ausmustern
     Dann hat man keine Möglichkeit solchen <Objekt> auszumustern
     Beispiele:
       | Objekt     |
-      | Gegenstand  |
+      | Gegenstand |
       | Lizenz     |
 
   @javascript
@@ -30,18 +30,18 @@ Funktionalität: Ausmustern
     Dann hat man keine Möglichkeit solchen <Objekt> auszumustern
     Beispiele:
       | Objekt     |
-      | Gegenstand  |
+      | Gegenstand |
       | Lizenz     |
 
   @javascript
   Szenariogrundriss: Fehlermeldung bei der Ausmusterung ohne angabe eines Grundes
     Angenommen ich bin Matti
-    Und man sucht nach einem nicht ausgeliehenen <Objekt>
+    Und man sucht nach einem nicht ausgeliehenen <Objekt>, wo man der Besitzer ist
     Und man gibt bei der Ausmusterung keinen Grund an
     Und der <Objekt> ist noch nicht Ausgemustert
     Beispiele:
       | Objekt     |
-      | Gegenstand  |
+      | Gegenstand |
       | Lizenz     |
 
   @javascript
@@ -56,9 +56,8 @@ Funktionalität: Ausmustern
     Und dieses <Objekt> ist nicht mehr ausgemustert
     Beispiele:
       | Objekt     |
-      | Gegenstand  |
+      | Gegenstand |
       | Lizenz     |
-
 
   Szenariogrundriss: Ansichtseite von einem ausgemusterten Objekt für Verantwortlichen anzeigen
     Angenommen ich bin Mike
@@ -66,5 +65,5 @@ Funktionalität: Ausmustern
     Dann man befindet sich auf der Editierseite von diesem <Objekt>
     Beispiele:
       | Objekt     |
-      | Gegenstand  |
+      | Gegenstand |
       | Lizenz     |

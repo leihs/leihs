@@ -387,6 +387,10 @@ module Persona
 
     def setup_software
       rand(2..6).times { FactoryGirl.create :license, owner: @inventory_pool, is_borrowable: [true, false].sample }
+      FactoryGirl.create :license, owner: @inventory_pool, inventory_pool: @inventory_pool_2, is_borrowable: [true, false].sample
+      FactoryGirl.create :license, owner: @inventory_pool, retired: Date.today, retired_reason: Faker::Lorem.sentence, is_borrowable: [true, false].sample
+      FactoryGirl.create :license, owner: @inventory_pool_2, inventory_pool: @inventory_pool, retired: Date.today, retired_reason: Faker::Lorem.sentence, is_borrowable: [true, false].sample
+      FactoryGirl.create :license, owner: @inventory_pool_2, is_borrowable: true
       FactoryGirl.create :license, owner: @inventory_pool, invoice_date: Date.today, properties: { license_expiration: Date.today.to_s, maintenance_contract: true.to_s, maintenance_expiration: Date.today.to_s }
     end
 

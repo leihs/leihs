@@ -59,7 +59,6 @@ class Field < ActiveHash::Base
       label: "Retirement",
       attribute: "retired",
       type: "select",
-      target_type: "item",
       permissions: {role: :lending_manager, owner: true},
       values: [{label: "No", value: false}, {label: "Yes", value: true}],
       group: "Status"
@@ -68,7 +67,6 @@ class Field < ActiveHash::Base
       label: "Reason for Retirement",
       attribute: "retired_reason",
       type: "textarea",
-      target_type: "item",
       required: true,
       permissions: {role: :lending_manager, owner: true},
       visibility_dependency_field_id: 7,
