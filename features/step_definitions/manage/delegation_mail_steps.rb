@@ -22,7 +22,7 @@ Angenommen(/^es existiert eine Rücknahme von einer Delegation$/) do
 end
 
 Wenn(/^ich bei dieser Rücknahme eine Erinnerung sende$/) do
-  find("[data-collapsed-toggle='#take_backs']").click if page.should have_selector("[data-collapsed-toggle='#take_backs']")
+  find("[data-collapsed-toggle='#take_backs']").click if page.has_selector?("[data-collapsed-toggle='#take_backs']")
   within("#take_backs .line", text: /#{@contract.user}.*#{_("Latest reminder")}/) do
     find(".arrow.down").hover
     find("a", text: _("Send reminder")).click

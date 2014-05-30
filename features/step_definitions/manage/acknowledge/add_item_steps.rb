@@ -63,13 +63,12 @@ Then /^the new line is getting visually merged with the existing line$/ do
 end
 
 Given /^I search for a model with default dates and note the current availability$/ do
+  init_start_date = Date.parse find("#add-start-date").value
   av = nil
   @model = @current_inventory_pool.models.detect do |model|
     av = model.availability_in(@current_inventory_pool)
-    av.changes.keys.size > 1
+    av.changes.keys.last > init_start_date
   end
-
-  init_start_date = Date.parse find("#add-start-date").value
   @new_start_date = av.changes.select{|k, v| k > init_start_date }.keys.first
   fill_in "add-input", with: @model.name
   find("a.ui-corner-all", match: :prefer_exact, text: @model.name)
