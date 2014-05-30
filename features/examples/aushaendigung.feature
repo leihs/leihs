@@ -53,7 +53,7 @@ Funktionalität: Aushändigung editieren
     Und die Zeile bleibt selektiert
     Und die Zeile bleibt grün markiert
 
-  @javascript
+  @javascript @firefox
   Szenario: Standard-Vertragsnotiz
     Angenommen für den Gerätepark ist eine Standard-Vertragsnotiz konfiguriert
     Und ich öffne eine Aushändigung mit mindestens einem zugewiesenen Gegenstand

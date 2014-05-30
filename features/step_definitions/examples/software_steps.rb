@@ -379,18 +379,21 @@ When(/^I search after one of those software license properties$/) do
 end
 
 Then(/^they appear all matched software products$/) do
+  page.should have_selector "#software"
   within "#software" do
     find(".line[data-id='#{@software_product.id}']")
   end
 end
 
 Then(/^they appear all matched software licenses$/) do
+  page.should have_selector "#licenses"
   within "#licenses" do
     find(".line[data-id='#{@software_license.id}']")
   end
 end
 
 Then(/^they appear all matched contracts, in which this software product is contained$/) do
+  page.should have_selector "#orders"
   within "#orders" do
     find(".line[data-id='#{@contract_with_software_license.id}']")
   end
