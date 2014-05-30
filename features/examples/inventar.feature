@@ -78,18 +78,6 @@ Funktionalität: Inventar
     | Enddatum der Ausleihe  |
 
   @javascript
-  Szenario: Export der aktuellen Ansicht als CSV
-    Dann kann man diese Daten als CSV-Datei exportieren
-    Und die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden (inkl. Filter)
-
-  @javascript
-  Szenario: Export der aktuellen Software-Ansicht als CSV
-    Angenommen ich befinde mich in der Software-Inventar-Übersicht
-    Wenn ich den CSV-Export anwähle
-    Dann werden alle Lizenz-Zeilen, wie gerade gemäss Filter angezeigt, exportiert
-    Und die Zeilen enthalten alle Lizenz-Felder
-
-  @javascript
   Szenario: Keine Resultate auf der Liste des Inventars
     Wenn ich eine resultatlose Suche mache
     Dann sehe ich "Kein Eintrag gefunden"

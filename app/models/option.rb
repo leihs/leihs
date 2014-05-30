@@ -70,37 +70,13 @@ class Option < ActiveRecord::Base
   # Generates an array suitable for outputting a line of CSV using CSV
   def to_csv_array    
     # Using #{} notation to catch nils gracefully and silently 
-    return [ "#{self.inventory_code}",
-      "#{self.inventory_pool.try(:name)}",  
-      "",
-      "",
-      "#{self.name}",  
-      "",
-      "#{_("Option")}",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "#{self.price}",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-    ]
-    
+    {
+      inventory_code: "#{self.inventory_code}",
+      inventory_pool: "#{self.inventory_pool.try(:name)}",
+      model_name: "#{self.name}",
+      categories: "#{_("Option")}",
+      price: "#{self.price}"
+    }
   end
  
 end

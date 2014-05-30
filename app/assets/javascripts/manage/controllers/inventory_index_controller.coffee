@@ -4,7 +4,6 @@ class window.App.InventoryIndexController extends Spine.Controller
     "#inventory": "list"
     "#list-filters #responsibles": "responsiblesContainer"
     "#csv-export": "exportButton"
-    "#csv-export": "exportButton"
     "#categories": "categoriesContainer"
 
   events: 
@@ -31,6 +30,7 @@ class window.App.InventoryIndexController extends Spine.Controller
 
   updateExportButton: =>
     data = @getData()
+    data.type = "license" if data.software # if we are in the software list, we actually want to export the licenses
     data.search_term = @search.term() if @search.term()?.length
     @exportButton.attr "href", URI(@exportButton.data("href")).query(data).toString()
 

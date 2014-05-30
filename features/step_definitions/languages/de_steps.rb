@@ -336,3 +336,19 @@ end
 Dann(/^werden nur die Linien mit Links zusätzlich ausserhalb des Textfeldes angezeigt$/) do
   step "outside the the text field, they will additionally displayed lines with link only"
 end
+
+Angenommen(/^ich befinde mich in der Software\-Inventar\-Übersicht$/) do
+  step "I'am on the software inventory overview"
+end
+
+Wenn(/^ich den CSV\-Export anwähle$/) do
+  step "I press CSV-Export"
+end
+
+Dann(/^werden alle Lizenz\-Zeilen, wie gerade gemäss Filter angezeigt, exportiert$/) do
+  step "all filtered software licenses will be exported"
+end
+
+Dann(/^die Zeilen enthalten alle Lizenz\-Felder$/) do
+  step "the lines contain all license fields"
+end

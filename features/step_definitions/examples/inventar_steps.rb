@@ -659,3 +659,21 @@ end
 Dann(/^kann man das globale Inventar als CSV\-Datei exportieren$/) do
   page.should have_selector("#csv-export")
 end
+
+Given(/^I'am on the software inventory overview$/) do
+  find("#list-tabs a[data-software='true']").click
+end
+
+When(/^I press CSV\-Export$/) do
+  find("#csv-export").click
+end
+
+Dann(/^all filtered software licenses will be exported$/) do
+  pending # express the regexp above with the code you wish you had
+  # page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
+  # csv = CSV.parse find("body").text
+end
+
+Dann(/^the lines contain all license fields$/) do
+  pending # express the regexp above with the code you wish you had
+end

@@ -183,63 +183,12 @@ class Item < ActiveRecord::Base
     "#{model.name} #{inventory_code}"
   end
 
-  # Returns an array of field headers for CSV, useful for including as first line
-  # using e.g. CSV. Matches what's returned by to_csv_array
-  def self.csv_header
-    ['inventory_code',
-      'inventory_pool',
-      'owner',
-      'serial_number',
-      'model_name',
-      'borrowable',
-      'categories',
-      'invoice_number',
-      'invoice_date',
-      'last_check',
-      'retired',
-      'retired_reason',
-      'price',
-      'current_borrowing_information',
-      'is_broken',
-      'is_incomplete',
-      'is_borrowable',
-      'part_of_package',
-      'created_at',
-      'updated_at',
-      'needs_permission',
-      'is_inventory_relevant',
-      'responsible',
-      'supplier',
-      'model_manufacturer',
-      'name',
-      'user_name',
-      'note',
-      'location',
-      'invoice',
-      'investment',
-      'project_number']
-  end
-
   # Generates an array suitable for outputting a line of CSV using CSV
   def to_csv_array(options = {global: false})
-    if self.inventory_pool.nil? or self.inventory_pool.name.blank?
-      ip = "UNKNOWN"
-    else
-      ip = self.inventory_pool.name
-    end
-
     if self.model.nil? or self.model.name.blank?
-      model_name = "UNKNOWN/CHANGED"
       model_manufacturer = "UNKNOWN" if self.model.try(:manufacturer).blank?
     else
-      model_name = self.model.name.gsub(/\"/, '""')
       model_manufacturer = self.model.manufacturer.gsub(/\"/, '""') unless self.model.manufacturer.blank?
-    end
-
-    if self.owner.nil? or self.owner.name.blank?
-      owner = "UNKNOWN"
-    else
-      owner = self.owner.name
     end
 
     categories = []
@@ -252,12 +201,6 @@ class Item < ActiveRecord::Base
     end
 
     retired = if options[:global] and self.retired? then "X" else self.retired end
-
-    if self.supplier.blank?
-      supplier = "UNKNOWN"
-    else
-      supplier = self.supplier.name
-    end
 
     if self.parent
       part_of_package = "#{self.parent.id} #{self.parent.model.name}"
@@ -274,41 +217,42 @@ class Item < ActiveRecord::Base
       end
     end
 
-    # Using #{} notation to catch nils gracefully and silently
-    return [ self.inventory_code,
-      ip,
-      owner,
-      "#{self.serial_number}",
-      model_name,
-      "#{self.is_borrowable}",
-      categories.join("; "),
-      "#{self.invoice_number}",
-      "#{self.invoice_date}",
-      "#{self.last_check}",
-      "#{retired}",
-      "#{self.retired_reason}",
-      "#{self.price}",
-      "#{self.current_borrowing_info unless options[:global]}",
-      "#{self.is_broken}",
-      "#{self.is_incomplete}",
-      "#{self.is_borrowable}",
-      part_of_package,
-      "#{self.created_at}",
-      "#{self.updated_at}",
-      "#{self.needs_permission}",
-      "#{self.is_inventory_relevant}",
-      "#{self.responsible}",
-      supplier,
-      model_manufacturer,
-      "#{self.name}",
-      "#{self.user_name}",
-      "#{self.note}",
-      "#{self.location.to_s}",
-      invoice,
-      investment,
-      "#{self.properties[:project_number]}"
-    ]
 
+    # Using #{} notation to catch nils gracefully and silently
+    h1 = {
+      categories: categories.join("; "),
+      current_borrowing_information: "#{self.current_borrowing_info unless options[:global]}",
+      part_of_package: part_of_package,
+      created_at: "#{self.created_at}",
+      updated_at: "#{self.updated_at}",
+      needs_permission: "#{self.needs_permission}",
+      responsible: "#{self.responsible}",
+      model_manufacturer: model_manufacturer,
+      location: "#{self.location}",
+      invoice: invoice,
+      investment: investment
+    }
+
+    f1 = Field.where(target_type: nil)
+    f2 = Field.where(target_type: type.downcase)
+
+    h2 = {}
+    (f1 + f2).each do |field|
+      h2[field.label] = Array(field.attribute).inject(self) do |r,m|
+        if r.is_a?(Hash)
+          r[m]
+        else
+          if m == "id"
+            r
+          else
+            r.try(:send, m)
+          end
+        end
+      end
+    end
+    h1.merge! h2
+
+    h1
   end
 
 
