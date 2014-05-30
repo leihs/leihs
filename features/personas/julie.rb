@@ -127,7 +127,7 @@ module Persona
 
       rand(3..5).times do
         item = FactoryGirl.create :item, inventory_pool: @inventory_pool
-        contract.contract_lines << FactoryGirl.create(:contract_line, :purpose => contract_purpose, :contract => contract, :model => item.model)
+        contract.contract_lines << FactoryGirl.create(:contract_line, purpose: contract_purpose, contract: contract, model: item.model, start_date: Date.today)
       end
     end
 
