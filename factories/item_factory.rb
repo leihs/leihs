@@ -1,7 +1,7 @@
 FactoryGirl.define do
 
   trait :shared_item_license_attributes do
-    inventory_code { Faker::Lorem.characters(30) }
+    sequence(:inventory_code) {|n| "#{Faker::Lorem.characters(20)}#{n}"}
     serial_number { "#{Faker::Lorem.words(3).join.slice(0,3)}-#{rand(9999)+1000}#{Faker::Lorem.words(3).join.slice(0,2)}#{rand(9999)+1000}" }
     owner { InventoryPool.count > rand(3..10) ? InventoryPool.all.sample : FactoryGirl.create(:inventory_pool) }
     inventory_pool { owner }
