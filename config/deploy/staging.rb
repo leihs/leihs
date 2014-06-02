@@ -7,7 +7,7 @@ set :application, "leihs-test"
 
 set :scm, :git
 set :repository,  "git://github.com/zhdk/leihs.git"
-set :branch, "next"
+set :branch, "master"
 set :deploy_via, :remote_cache
 
 set :db_config, "/home/leihs/#{application}/database.yml"
@@ -27,7 +27,7 @@ role :db,  "leihs@rails.zhdk.ch", :primary => true
 
 unless exists?(:tag)
   p "Automatically setting tag to 'next' because this is staging and no tag was specified."
-  set :tag, 'next'
+  set :tag, 'master'
 end
 
 load 'config/deploy/recipes/set_branch'
