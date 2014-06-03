@@ -82,7 +82,7 @@ Funktionalität: Aushändigung editieren
     Wenn ich die Anzahl "2" in das Mengenfeld schreibe
     Dann wird die Menge mit dem Wert "2" gespeichert
 
-  @upcoming
+  @current
   Szenario: Anzeige der Seriennummer bei Zuteilung der Software-Lizenz
   Angenommen ich öffne eine Aushändigung mit einer Software
   Wenn ich in das Zuteilungsfeld links vom Software-Namen klicke

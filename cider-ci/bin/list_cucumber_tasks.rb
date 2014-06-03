@@ -39,7 +39,7 @@ end
 filepath = "./cider-ci/tasks/cucumber_scenarios.yml"
 File.open(filepath,"w") do |f|
   h = `egrep -R -n -B 1 "^\s*(Scenario|Szenario)" features/*`.split("--\n").map{|x| x.split("\n")}.map do |t, s|
-    next if t =~ /@old-ui|@upcoming/
+    next if t =~ /@old-ui|@upcoming|@current/
     splitted_string = s.split(/:\s*(Scenario|Szenario)( Outline| Template|grundriss)?: /)
     exec = %{bundle exec cucumber -p default "#{splitted_string.first}"}
     task_hash(splitted_string.last, exec)

@@ -20,7 +20,7 @@ Funktionalität: Software editieren
     Dann die Informationen sind gespeichert
     Und die Daten wurden entsprechend aktualisiert
 
-@upcoming
+  @current
   Szenario: Modellanhänge löschen wenn Software gelöscht wird
     Angenommen es existiert eine Software mit folgenden Eigenschaften
       | in keinem Vertrag aufgeführt |

@@ -24,7 +24,7 @@ Funktionalität: Software erfassen
     Wenn ich das Software-Produkt wieder editiere
     Dann werden nur die Linien mit Links zusätzlich ausserhalb des Textfeldes angezeigt
 
-     @upcoming
+  @current
   Szenario: Anhänge erstellen
     Wenn ich eine neue Software hinzufüge
     Dann kann ich Anhänge hinzufügen

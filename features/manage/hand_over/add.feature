@@ -48,10 +48,10 @@ Feature: Add lines during hand over
   Scenario: Add an model to the hand over picking an autocomplete element
       And I type the beginning of a model name to the add/assign input field
      Then I see a list of suggested model names
-     When I select the modle from the list
+     When I select the model from the list
      Then the model is added to the hand over
 
-  @upcoming
+  @current
   Scenario: hand over items even if not borrowable
      Given I open a hand over
      When I enter a model or a software
