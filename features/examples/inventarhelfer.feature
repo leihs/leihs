@@ -21,10 +21,10 @@ Funktionalität: Inventarhelfer
     Und die geänderten Werte sind hervorgehoben
     Und der Ort des anderen Gegenstandes ist dergleiche geblieben
 
-  @javascript
+  @javascript @firefox
   Szenario: Bei ausgeliehenen Gegenständen kann man die verantwortliche Abteilung nicht editieren
     Angenommen man ist auf dem Helferschirm
-    Und man editiert das Feld "Verantwortliche Abteilung" eines ausgeliehenen Gegenstandes
+    Und man editiert das Feld "Verantwortliche Abteilung" eines ausgeliehenen Gegenstandes, wo man Besitzer ist
     Dann erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät ausgeliehen ist
 
   @javascript

@@ -595,15 +595,15 @@
 - name: Mögliche Werte in Software-Lizenz erfassen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/software_erfassen.feature:37"
+      body: bundle exec cucumber -p default "features/examples/software_erfassen.feature:27"
 - name: Software-Lizenz erfassen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/software_erfassen.feature:84"
+      body: bundle exec cucumber -p default "features/examples/software_erfassen.feature:73"
 - name: Software-Lizenz Anschaffungswert mit 2 Dezimalstellen erfassen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/software_erfassen.feature:109"
+      body: bundle exec cucumber -p default "features/examples/software_erfassen.feature:98"
 - name: Anzeige von bereits zugewiesenen Gegenständen
   scripts:
     cucumber:
@@ -678,14 +678,18 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/software_editieren.feature:9"
+- name: Softwareanhängsel löschen wenn Software gelöscht wird
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/examples/software_editieren.feature:23"
 - name: Software-Lizenz editieren
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/software_editieren.feature:36"
+      body: bundle exec cucumber -p default "features/examples/software_editieren.feature:34"
 - name: Software-Lizenz editieren - Werte der Datenfelder löschen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/software_editieren.feature:63"
+      body: bundle exec cucumber -p default "features/examples/software_editieren.feature:61"
 - name: Modell mit Paketzuteilung erstellen
   scripts:
     cucumber:
@@ -1671,27 +1675,27 @@
 - name: Modelanhängsel löschen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/modell.feature:132"
+      body: bundle exec cucumber -p default "features/examples/modell.feature:136"
 - name: Modelllöschversuch verhindern
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/modell.feature:149"
+      body: bundle exec cucumber -p default "features/examples/modell.feature:153"
 - name: Modelanhängsel löschen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/modell.feature:159"
+      body: bundle exec cucumber -p default "features/examples/modell.feature:163"
 - name: Modell erstellen nur mit Name
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/modell.feature:176"
+      body: bundle exec cucumber -p default "features/examples/modell.feature:180"
 - name: Bilder
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/modell.feature:192"
+      body: bundle exec cucumber -p default "features/examples/modell.feature:196"
 - name: Bilder
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/modell.feature:201"
+      body: bundle exec cucumber -p default "features/examples/modell.feature:205"
 - name: Grundinformationen erfassen
   scripts:
     cucumber:

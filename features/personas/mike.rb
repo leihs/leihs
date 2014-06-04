@@ -392,6 +392,9 @@ module Persona
       FactoryGirl.create :license, owner: @inventory_pool_2, inventory_pool: @inventory_pool, retired: Date.today, retired_reason: Faker::Lorem.sentence, is_borrowable: [true, false].sample
       FactoryGirl.create :license, owner: @inventory_pool_2, is_borrowable: true
       FactoryGirl.create :license, owner: @inventory_pool, invoice_date: Date.today, properties: { license_expiration: Date.today.to_s, maintenance_contract: true.to_s, maintenance_expiration: Date.today.to_s }
+
+      software = FactoryGirl.create :software
+      rand(1..3).times { software.attachments << FactoryGirl.create(:attachment) }
     end
 
     def setup_models_without_version

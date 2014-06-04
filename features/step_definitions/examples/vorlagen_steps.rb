@@ -139,11 +139,6 @@ Dann(/^kann ich beliebige Vorlage direkt aus der Liste löschen$/) do
   end
 end
 
-Dann(/^die Vorlage wurde aus der Liste gelöscht$/) do
-  find(".line", match: :first)
-  page.should_not have_content @template.name
-end
-
 Dann(/^es ist mindestens ein Modell dem Template hinzugefügt$/) do
   fill_in_autocomplete_field("#{_("Quantity")} / #{_("Models")}", @current_inventory_pool.models.first.name)
 end

@@ -54,13 +54,15 @@ Dann(/^wurde das redundante ergänzende Modell nicht gespeichert$/) do
   sleep(0.33) # fix lazy request fail problem
 end
 
-Angenommen(/^es existiert ein Modell mit folgenden Eigenschaften$/) do |table|
+Angenommen(/^es existiert eine? (.+) mit folgenden Eigenschaften$/) do |entity, table|
   conditions = table.raw.flatten.map do |condition|
     case condition
       when "in keinem Vertrag aufgeführt", "keiner Bestellung zugewiesen"
         lambda {|m| m.contract_lines.empty?}
       when "keine Gegenstände zugefügt"
-        lambda {|m| m.items.empty?}
+        lambda {|m| m.items.items.empty?}
+      when "keine Lizenzen zugefügt"
+        lambda {|m| m.items.licenses.empty?}
       when "hat Gruppenkapazitäten zugeteilt"
         lambda {|m| Partition.find_by_model_id(m.id)}
       when "hat Eigenschaften"
@@ -79,12 +81,12 @@ Angenommen(/^es existiert ein Modell mit folgenden Eigenschaften$/) do |table|
         false
     end
   end
-  @model = Model.find {|m| conditions.map{|c| c.class == Proc ? c.call(m) : c}.all?}
-end
-
-Dann(/^das Modell ist gelöscht$/) do
-  find("#flash")
-  Model.find_by_id(@model.id).should be_nil
+  klass = case _(entity)
+          when "Modell" then Model
+          when "Software" then Software
+          end
+  @model = klass.find {|m| conditions.map{|c| c.class == Proc ? c.call(m) : c}.all?}
+  @model.should_not be_nil
 end
 
 Und /^das Modell hat (.+) zugewiesen$/ do |assoc|
@@ -123,16 +125,8 @@ Dann(/^es wurden auch alle Anhängsel gelöscht$/) do
   sleep(0.33) # fix lazy request problem
 end
 
-Wenn(/^ich dieses Modell aus der Liste lösche$/) do
-  visit manage_inventory_path(@current_inventory_pool)
-  find("[data-unused_models]").click
-  fill_in 'list-search', with: @model.name
-  find(".line[data-id='#{@model.id}'] .dropdown-holder").hover
-  find(".line[data-id='#{@model.id}'] [data-method='delete']").click
-end
-
-Dann(/^das Modell wurde aus der Liste gelöscht$/) do
-  page.should_not have_content @model.name
+Dann(/^(?:die|das) (?:.+) wurde aus der Liste gelöscht$/) do
+  [@model, @group, @template].compact.each {|entity| page.should_not have_content entity.name }
 end
 
 Angenommen(/^ich editieren ein bestehndes Modell mit bereits zugeteilten Kapazitäten$/) do
@@ -166,6 +160,31 @@ end
 
 Wenn(/^ich ein bestehendes, genutztes Modell bearbeite$/) do
   @page_to_return = current_path
-  @model = @current_inventory_pool.items.sample.model
+  @model = @current_inventory_pool.items.where(parent_id: nil).sample.model
   visit manage_edit_model_path @current_inventory_pool, @model
 end
+
+Wenn(/^I delete this (.+) from the list$/) do |entity|
+  visit manage_inventory_path(@current_inventory_pool)
+
+  case _(entity)
+  when "Modell"
+    find("[data-unused_models]")
+  when "Software"
+    find("[data-software]")
+  end.click
+
+  fill_in 'list-search', with: @model.name
+  find(".line[data-id='#{@model.id}'] .dropdown-holder").hover
+  find(".line[data-id='#{@model.id}'] [data-method='delete']").click
+end
+
+Dann(/^the "(.+)" is deleted$/) do |entity|
+  find("#flash")
+  klass = case _(entity)
+          when "Modell" then Model
+          when "Software" then Software
+          end
+  klass.find_by_id(@model.id).should be_nil
+end
+

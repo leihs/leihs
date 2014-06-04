@@ -14,23 +14,10 @@ Funktionalität: Software editieren
       | Version | Test Version I |
       | Hersteller | Neuer Hersteller |
       | Technische Details | Installationslink beachten: http://wwww.dokuwiki.ch/neue_seite |
-      | Anhänge | neuer_Anhang.tiff |
     Wenn ich speichere
     Und ich mich auf der Softwareliste befinde
     Dann die Informationen sind gespeichert
     Und die Daten wurden entsprechend aktualisiert
-
-  @current
-  Szenario: Modellanhänge löschen wenn Software gelöscht wird
-    Angenommen es existiert eine Software mit folgenden Eigenschaften
-      | in keinem Vertrag aufgeführt |
-      | keiner Bestellung zugewiesen |
-      | keine Lizenzen zugefügt |
-      | hat Anhänge |
-    Wenn ich diese Software aus der Software-Liste lösche
-    Dann ist die Software gelöscht
-    Und alle Anhänge sind gelöscht
-
 
   @javascript
   Szenario: Software-Lizenz editieren

@@ -536,3 +536,11 @@ Then(/^outside the the text field, they will additionally displayed lines with l
   end
 end
 
+Given(/^ich add a new (?:.+) or I change an existing (.+)$/) do |entity|
+  klass = case _(entity)
+          when "Modell" then Model
+          when "Software" then Software
+          end
+  @model = klass.all.first
+  visit manage_edit_model_path(@current_inventory_pool, @model)
+end

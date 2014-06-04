@@ -322,7 +322,15 @@ Angenommen(/^man mustert einen ausgeliehenen Gegenstand aus$/) do
   step 'wähle ich das Feld "Ausmusterung" aus der Liste aus'
   find(".row.emboss", match: :prefer_exact, text: _("Retirement")).find("select").select _("Yes")
   find(".row.emboss", match: :prefer_exact, text: _("Reason for Retirement")).find("input, textarea").set "Retirement reason"
-  @item = @current_inventory_pool.items.not_in_stock.sample
+  @item = @current_inventory_pool.items.where(owner: @current_inventory_pool).not_in_stock.sample
   @item_before = @item.to_json
   step 'scanne oder gebe ich den Inventarcode ein'
+end
+
+Given(/^one edits the field "Verantwortliche Abteilung" of an owned item not in stock$/) do
+  step %Q{wähle ich das Feld "Verantwortliche Abteilung" aus der Liste aus}
+  @item = @current_inventory_pool.items.where(owner: @current_inventory_pool).select{|i| not i.contract_lines.blank?}.sample
+  @item_before = @item.to_json
+  fill_in_autocomplete_field "Verantwortliche Abteilung", InventoryPool.all.sample.name
+  step %Q{scanne oder gebe ich den Inventarcode ein}
 end

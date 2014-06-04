@@ -7,7 +7,7 @@ Feature: Quick Approve orders
   Background:
     Given I am "Pius"
 
-  @javascript
+  @javascript @firefox
   Scenario: Quick approve an order with no problems
     Given I open the daily view
     When I quick approve a submitted order

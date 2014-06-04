@@ -352,3 +352,19 @@ end
 Dann(/^die Zeilen enthalten alle Lizenz\-Felder$/) do
   step "the lines contain all license fields"
 end
+
+Angenommen /^ich erstelle eine? neues? (?:.+) oder ich ändere eine? bestehendes? (.+)$/ do |entity|
+  step "ich add a new #{entity} or I change an existing #{entity}"
+end
+
+Wenn(/^ich dieses? "(.+)" aus der Liste lösche$/) do |entity|
+  step %Q(I delete this #{entity} from the list)
+end
+
+Dann(/^(?:die|das) "(.+)" ist gelöscht$/) do |entity|
+  step %Q(the "#{entity}" is deleted)
+end
+
+Angenommen(/^man editiert das Feld "(.*?)" eines ausgeliehenen Gegenstandes, wo man Besitzer ist$/) do |arg1|
+  step %Q(one edits the field "#{arg1}" of an owned item not in stock)
+end

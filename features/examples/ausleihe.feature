@@ -77,7 +77,7 @@ Funktionalität: Ausleihe
 
   @javascript @firefox
   Szenario: Inspektion bei Rücknahme
-    Angenommen ich mache eine Rücknahme
+    Angenommen ich mache eine Rücknahme eines Gegenstandes
     Dann habe ich für jeden Gegenstand die Möglichkeit, eine Inspektion auszulösen
     Wenn ich bei einem Gegenstand eine Inspektion durchführen
     Und die Inspektion erlaubt es, den Status von "Zustand" auf "Funktionstüchtig" oder "Defekt" zu setzen

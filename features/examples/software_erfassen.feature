@@ -5,7 +5,7 @@ Funktionalität: Software erfassen
   Grundlage:
     Angenommen ich bin "Mike"
 
-  @javascript
+  @current
   Szenario: Software-Produkt erfassen
     Wenn ich eine neue Software hinzufüge
     Und ich erfasse die folgenden Details
@@ -14,7 +14,6 @@ Funktionalität: Software erfassen
       | Version                            | Test Version               |
       | Hersteller                         | Test Hersteller            |
       | Software Informationen             | Installationslink beachten: http://wwww.dokuwiki.ch\n\nDies ist nur ein Text |
-      | Anhänge                            | test.pdf      |
     Wenn der Hersteller bereits existiert
     Dann kann der Hersteller aus der Liste ausgewählt werden
     Wenn der Hersteller noch nicht existiert
@@ -24,16 +23,7 @@ Funktionalität: Software erfassen
     Wenn ich das Software-Produkt wieder editiere
     Dann werden nur die Linien mit Links zusätzlich ausserhalb des Textfeldes angezeigt
 
-  @current
-  Szenario: Anhänge erstellen
-    Wenn ich eine neue Software hinzufüge
-    Dann kann ich Anhänge hinzufügen
-    Und ich kann hinzugefügte Anhänge löschen
-    Wenn ich speichere
-    Dann sind die hinzugefügten Anhänge gespeichert
-    Und die gelöschten Anhänge werden entfernt
-
-    @javascript
+  @javascript
   Szenario: Mögliche Werte in Software-Lizenz erfassen
     Angenommen ich befinde mich auf der Lizenz-Erstellungsseite
     Dann die mögliche Werte für Aktivierungstyp sind in der folgenden Reihenfolge:
@@ -78,7 +68,6 @@ Funktionalität: Software erfassen
     Dann kann man als "Besitzer" einen Gerätepark auswählen
     Dann kann man im Notiz-Feld "Lizenzinformation" Text eingeben
     Und die Option "Ausleihbar" ist standardmässig auf "Nicht ausleihbar" gesetzt
-
 
   @javascript
   Szenario: Software-Lizenz erfassen

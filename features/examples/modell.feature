@@ -121,12 +121,16 @@ Funktionalität: Modell
     Und die Daten wurden entsprechend aktualisiert
 
   @javascript
-  Szenario: Attachments erstellen
-    Und ich erstelle ein neues Modell oder ich ändere ein bestehendes Modell
+  Szenariogrundriss: Attachments erstellen
+    Angenommen ich erstelle ein neues <Objekt> oder ich ändere ein bestehendes <Objekt>
     Dann füge ich eine oder mehrere Datein den Attachments hinzu
     Und kann Attachments auch wieder entfernen
     Und ich speichere die Informationen
     Dann sind die Attachments gespeichert
+    Beispiele:
+      | Objekt   |
+      | Modell   |
+      | Software |
 
   @javascript
   Szenario: Modelanhängsel löschen
@@ -205,4 +209,3 @@ Funktionalität: Modell
     Und ich speichere das Modell mit Bilder
     Dann wurden die ausgewählten Bilder für dieses Modell gespeichert
     Und zu grosse Bilder werden den erlaubten Grössen entsprechend verkleinert
-    

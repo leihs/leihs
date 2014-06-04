@@ -140,7 +140,7 @@ Funktionalität: Gegenstand bearbeiten
     Dann man wird zur Liste des Inventars zurueckgefuehrt
     Und ist der Gegenstand mit all den angegebenen Informationen gespeichert
 
-  @javascript
+  @javascript @firefox
   Szenario: Pflichtfelder
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
     Dann muss der "Bezug" unter "Rechnungsinformationen" ausgewählt werden

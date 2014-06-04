@@ -5,15 +5,15 @@ Funktionalität: Software suchen
   Grundlage:
     Angenommen ich bin "Mike"
 
-  @javascript
+  @current
   Szenario: Software anhand eines Suchbegriffs finden
     Angenommen es existiert ein Software-Produkt mit folgenden Eigenschaften:
-      | Produktname  | suchbegriff1 |
-      | Hersteller   | suchbegriff4 |
+      | Produktname    | suchbegriff1 |
+      | Hersteller     | suchbegriff4 |
     Und es existiert eine Software-Lizenz mit folgenden Eigenschaften:
       | Inventarnummer | suchbegriff2 |
-      | Seriennummer | suchbegriff3 |
-      | Dongle-ID | suchbegriff5 |
+      | Seriennummer   | suchbegriff3 |
+      | Dongle-ID      | suchbegriff5 |
     Und diese Software-Lizenz ist an jemanden ausgeliehen
     Wenn ich nach einer dieser Software-Produkt Eigenschaften suche
     Dann es erscheinen alle zutreffenden Software-Produkte

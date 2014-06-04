@@ -54,7 +54,7 @@ end
 
 Wenn(/^"(.*?)" bei "(.*?)" ausgewählt ist muss auch "(.*?)" ausgewählt werden$/) do |value, key, newkey|
   field = find("[data-type='field']", text: key)
-  field.first("option", :text => value).select_option
+  field.find("option", :text => value, match: :first).select_option
   newfield = find("[data-type='field']", text: newkey)
   newfield[:"data-required"].should == "true"
 end

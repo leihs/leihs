@@ -604,11 +604,6 @@ Und /^ich speichere das Modell mit Bilder$/ do
   find("#inventory-index-view h1", match: :prefer_exact, text: _("List of Inventory"))
 end
 
-Angenommen /^ich erstelle ein neues Modell oder ich ändere ein bestehendes Modell$/ do
-  @model = Model.all.first
-  visit manage_edit_model_path(@current_inventory_pool, @model)
-end
-
 Dann /^füge ich eine oder mehrere Datein den Attachments hinzu$/ do
   @attachment_filename = "image1.jpg"
   find("#attachments input[type='file']", visible: false)

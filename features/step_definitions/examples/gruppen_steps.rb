@@ -130,10 +130,6 @@ Wenn(/^ich eine Gruppe lösche$/) do
   end
 end
 
-Wenn(/^die Gruppe wurde aus der Liste gelöscht$/) do
-  page.should_not have_selector "ul.line", text: @group.name
-end
-
 Wenn(/^die Gruppe wurde aus der Datenbank gelöscht$/) do
   Group.find_by_name(@group.name).should be_nil
 end
