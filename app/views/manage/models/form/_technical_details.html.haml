@@ -1,6 +1,12 @@
 :ruby
   auto_link_result = auto_link(@model.technical_detail, html: { target: "_blank" })
   entries = auto_link_result.split("\r\n").select {|l| l =~ /href/}
+  key = case @model.type
+        when "Model"
+          _("Technical Details")
+        when "Software"
+          _("Software Information")
+        end
 
-= render :layout => "manage/fields/field", :locals => {key: _("Technical Details"), entries: entries, entry_partial: "manage/models/form/technical_details_inline_entry"} do
+= render :layout => "manage/fields/field", :locals => {key: key, entries: entries, entry_partial: "manage/models/form/technical_details_inline_entry"} do
   %textarea.width-full{:type => :text, :name => "model[technical_detail]", :autocomplete => :off, :rows => 6}= @model.technical_detail

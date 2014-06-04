@@ -2782,6 +2782,9 @@ msgstr ""
 msgid "Software"
 msgstr ""
 
+msgid "Software Information"
+msgstr ""
+
 msgid "Software License"
 msgstr ""
 

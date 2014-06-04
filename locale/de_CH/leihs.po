@@ -2885,6 +2885,9 @@ msgstr "Neue Benutzer kriegen automatisch den Zugriff als Kunde."
 msgid "Software"
 msgstr "Software"
 
+msgid "Software Information"
+msgstr "Software Informationen"
+
 msgid "Software License"
 msgstr "Software-Lizenz"
 
