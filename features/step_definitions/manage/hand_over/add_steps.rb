@@ -90,7 +90,6 @@ Then /^the existing option quantity is increased$/ do
 end
 
 When /^I type the beginning of (.*?) name to the add\/assign input field$/ do |type|
-  #@ip ||= @current_user.managed_inventory_pools.sample
   @target_name = case type
     when "an option"
       @option = @ip.options.first
@@ -98,6 +97,8 @@ When /^I type the beginning of (.*?) name to the add\/assign input field$/ do |t
       @option.name
     when "a model"
       @model = @ip.items.in_stock.first.model
+      @model.name
+    when "that model"
       @model.name
     when "a template"
       @template = @ip.templates.first
@@ -107,9 +108,19 @@ When /^I type the beginning of (.*?) name to the add\/assign input field$/ do |t
 end
 
 Then /^I see a list of suggested (.*?) names$/ do |type|
-  page.execute_script('$("[data-add-contract-line]").focus()')
+  find("[data-add-contract-line]").click
   find(".ui-autocomplete a", match: :first)
 end
+
+Then(/^I see that model in the list of suggested model names as "(.*?)"$/) do |arg1|
+  case arg1
+    when "not borrowable"
+      find(".ui-autocomplete a.light-red", match: :prefer_exact, text: @target_name)
+    else
+      "not found"
+  end
+end
+
 
 When /^I select the (.*?) from the list$/ do |type|
   find(".ui-autocomplete a", match: :prefer_exact, :text => @target_name).click
@@ -154,4 +165,13 @@ When /^I add an item to the hand over$/ do
   find("[data-add-contract-line]").set @item.inventory_code
   page.execute_script('$("[data-add-contract-line]").focus()')
   find("[data-add-contract-line] + .addon").click
+end
+
+Given(/^there is a model or software which all items are set to "(.*?)"$/) do |arg1|
+  @model = case arg1
+             when "not borrowable"
+               @current_inventory_pool.models.shuffle.detect { |m| m.items.all? { |i| not i.is_borrowable? } }
+             else
+               "not found"
+           end
 end

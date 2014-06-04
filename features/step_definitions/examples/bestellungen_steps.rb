@@ -219,18 +219,20 @@ Aber(/^ich kann nicht aushändigen$/) do
   end
 end
 
-Dann(/^ich kann Modelle hinzufügen$/) do
-  model = @current_inventory_pool.models.sample
-  find("input#assign-or-add-input").set model.to_s
+def hand_over_assign_or_add(s)
+  find("input#assign-or-add-input").set s
   find("form#assign-or-add .ui-menu-item a:not(.red)", match: :first).click
-  find("#flash .notice", text: _("Added %s") % model)
+  find("#flash .notice", text: _("Added %s") % s)
+end
+
+Then(/^I can add models$/) do
+  model = @current_inventory_pool.models.sample
+  hand_over_assign_or_add model.to_s
 end
 
 Dann(/^ich kann Optionen hinzufügen$/) do
   option = @current_inventory_pool.options.sample
-  find("input#assign-or-add-input").set option.to_s
-  find("form#assign-or-add .ui-menu-item a", match: :first).click
-  find("#flash .notice", text: _("Added %s") % option)
+  hand_over_assign_or_add option.to_s
 end
 
 Aber(/^ich kann keine Gegenstände zuteilen$/) do

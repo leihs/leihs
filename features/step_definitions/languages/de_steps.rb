@@ -368,3 +368,7 @@ end
 Angenommen(/^man editiert das Feld "(.*?)" eines ausgeliehenen Gegenstandes, wo man Besitzer ist$/) do |arg1|
   step %Q(one edits the field "#{arg1}" of an owned item not in stock)
 end
+
+Dann(/^ich kann Modelle hinzufügen$/) do
+  step "I can add models"
+end
