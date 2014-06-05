@@ -544,3 +544,26 @@ Given(/^ich add a new (?:.+) or I change an existing (.+)$/) do |entity|
   @model = klass.all.first
   visit manage_edit_model_path(@current_inventory_pool, @model)
 end
+
+Then(/^I see the "Software Information"$/) do
+  f = find(".field", text: _("Software Information"))
+  i = f.find("textarea")
+  i.value.should == @license.model.technical_detail.delete("\r")
+  f.should have_selector "a"
+end
+
+When(/^I edit an existing software license with software information and attachments$/) do
+  @license = @current_inventory_pool.items.licenses.find {|i| i.model.technical_detail =~ /http/ and not i.model.attachments.empty? }
+  @license.should_not be_nil
+  visit manage_edit_item_path(@current_inventory_pool, @license)
+end
+
+Then(/^the software information is not editable$/) do
+  f = find(".field", text: _("Software Information"))
+  f.find("textarea").should be_disabled
+end
+
+Dann(/^the links of software information open in a new tab upon clicking$/) do
+  f = find(".field", text: _("Software Information"))
+  f.all("a").each {|link| link.native.attribute("target").should == "_blank"}
+end

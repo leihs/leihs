@@ -9,4 +9,4 @@
         end
 
 = render :layout => "manage/fields/field", :locals => {key: key, entries: entries, entry_partial: "manage/models/form/technical_details_inline_entry"} do
-  %textarea.width-full{:type => :text, :name => "model[technical_detail]", :autocomplete => :off, :rows => 6}= @model.technical_detail
+  %textarea.width-full{:type => :text, :name => "model[technical_detail]", :autocomplete => :off, :rows => 6, :disabled => disabled}= @model.technical_detail

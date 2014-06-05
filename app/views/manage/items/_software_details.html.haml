@@ -1,0 +1,9 @@
+- @model = @item.model
+
+%h2.headline-m.padding-bottom-m= "Software"
+
+.row.margin-bottom-l
+  .col1of2.padding-right-xs
+    = render partial: "manage/models/form/technical_details", locals: { disabled: true }
+
+.separated-bottom.margin-bottom-l

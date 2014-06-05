@@ -175,7 +175,7 @@ Angenommen(/^es existiert eine Aushändigung für eine Delegation$/) do
 end
 
 Angenommen(/^es existiert eine Aushändigung für eine Delegation mit zugewiesenen Gegenständen$/) do
-  @hand_over = @current_inventory_pool.visits.hand_over.find {|v| v.user.is_delegation and v.lines.all? &:item and not v.date.future? }
+  @hand_over = @current_inventory_pool.visits.hand_over.find {|v| v.user.is_delegation and v.lines.all?(&:item) and Date.today >= v.date }
   @hand_over.should_not be_nil
 end
 

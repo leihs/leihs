@@ -369,6 +369,22 @@ Angenommen(/^man editiert das Feld "(.*?)" eines ausgeliehenen Gegenstandes, wo 
   step %Q(one edits the field "#{arg1}" of an owned item not in stock)
 end
 
+Dann(/^sehe ich die "Software Informationen" angezeigt$/) do
+  step %Q(I see the "Software Information")
+end
+
+Wenn(/^ich eine bestehende Software\-Lizenz mit Software\-Informationen und Anhängen editiere$/) do
+  step %Q(I edit an existing software license with software information and attachments)
+end
+
+Dann(/^die "Software Informationen" sind nicht editierbar$/) do
+  step %Q(the software information is not editable)
+end
+
+Dann(/^die bestehende Links der "Software Informationen" öffnen beim Klicken in neuem Browser\-Tab$/) do
+  step %Q(the links of software information open in a new tab upon clicking)
+end
+
 Dann(/^ich kann Modelle hinzufügen$/) do
   step "I can add models"
 end

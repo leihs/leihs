@@ -22,7 +22,7 @@ Funktionalität: Software löschen
       | keiner Bestellung zugewiesen |
       | keine Lizenzen zugefügt      |
       | hat Anhänge                  |
-    Wenn ich diese Software aus der Liste lösche
+    Wenn ich diese "Software" aus der Liste lösche
     Und die "Software" ist gelöscht
     Und es wurden auch alle Anhängsel gelöscht
 

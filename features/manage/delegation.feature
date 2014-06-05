@@ -19,7 +19,7 @@ Funktionalität: Delegation
     Und in der Auwahl steht hinter dem Namen in rot 'Gesperrt!'
     Und in der Auflistung der Benutzer steht hinter dem Namen in rot 'Gesperrt!'
 
-  @javascript
+  @javascript @firefox
   Szenario: Kontaktperson bei Aushändigung wählen
     Angenommen ich bin Pius
     Und es existiert eine Aushändigung für eine Delegation mit zugewiesenen Gegenständen

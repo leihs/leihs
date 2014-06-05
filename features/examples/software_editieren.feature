@@ -9,22 +9,22 @@ Funktionalität: Software editieren
   Szenario: Software-Produkt editieren
     Wenn ich eine Software editiere
     Und ich ändere die folgenden Details
-      | Feld | Wert |
-      | Produkt | Test Software I |
-      | Version | Test Version I |
-      | Hersteller | Neuer Hersteller |
-      | Technische Details | Installationslink beachten: http://wwww.dokuwiki.ch/neue_seite |
+      | Feld                    | Wert                                                           |
+      | Produkt                 | Test Software I                                                |
+      | Version                 | Test Version I                                                 |
+      | Hersteller              | Neuer Hersteller                                               |
+      | Software Informationen  | Installationslink beachten: http://wwww.dokuwiki.ch/neue_seite |
     Wenn ich speichere
     Und ich mich auf der Softwareliste befinde
     Dann die Informationen sind gespeichert
     Und die Daten wurden entsprechend aktualisiert
 
-  @javascript
+  @current
   Szenario: Software-Lizenz editieren
-    Wenn ich eine bestehende Software-Lizenz editiere
-    Dann sehe ich die Informationen der "Software Details" angezeigt
-    Wenn ich bestehende Links der "Software Details" anklicke
-    Dann öffnet sich ein Browser mit dem entsprechenden URL
+    Wenn ich eine bestehende Software-Lizenz mit Software-Informationen und Anhängen editiere
+    Dann sehe ich die "Software Informationen" angezeigt
+    Und die "Software Informationen" sind nicht editierbar
+    Und die bestehende Links der "Software Informationen" öffnen beim Klicken in neuem Browser-Tab
     Wenn der zugeteilten Software Anhänge hinzugefügt sind
     Dann sehe ich die Anhänge auf der Software-Lizenz unter "Software-Anhänge"
     Und ich kann die Anhänge öffnen

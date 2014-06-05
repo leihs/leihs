@@ -588,10 +588,6 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/verfuegbarkeit.feature:32"
-- name: Software-Produkt erfassen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/software_erfassen.feature:9"
 - name: Mögliche Werte in Software-Lizenz erfassen
   scripts:
     cucumber:
@@ -678,18 +674,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/software_editieren.feature:9"
-- name: Softwareanhängsel löschen wenn Software gelöscht wird
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/software_editieren.feature:23"
-- name: Software-Lizenz editieren
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/software_editieren.feature:34"
 - name: Software-Lizenz editieren - Werte der Datenfelder löschen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default "features/examples/software_editieren.feature:61"
+      body: bundle exec cucumber -p default "features/examples/software_editieren.feature:50"
 - name: Modell mit Paketzuteilung erstellen
   scripts:
     cucumber:
@@ -979,10 +967,6 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/examples/statistik.feature:45"
-- name: Software anhand eines Suchbegriffs finden
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default "features/examples/software_suchen.feature:9"
 - name: Verträge für Software-Lizenzen anhand des Ausleihenden finden
   scripts:
     cucumber:
@@ -2289,6 +2273,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default "features/software_loeschen.feature:9"
+- name: Softwareanhängsel löschen wenn Software gelöscht wird
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default "features/software_loeschen.feature:19"
 - name: Configuring ActionMailer for test mode through the database
   scripts:
     cucumber:

@@ -33,8 +33,11 @@
 
       #notifications.padding-vertical-m= render :partial => "notifications"
 
+      = render "software_details" if @item.type == "License"
+
       = form_tag manage_update_item_path(current_inventory_pool, @item), method: :put, id: "item-form" do
         %input{:type => :hidden, :name => "copy", :disabled => :disabled}
+
         #flexible-fields
           .height-s
           %img.margin-horziontal-auto.margin-top-xxl.margin-bottom-xxl{:src => asset_path("loading.gif")}

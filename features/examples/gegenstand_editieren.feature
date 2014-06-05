@@ -86,14 +86,14 @@ Funktionalität: Gegenstand bearbeiten
     Dann man wird zur Liste des Inventars zurueckgefuehrt
     Und ist der Gegenstand mit all den angegebenen Informationen gespeichert
 
-  @javascript @~firefox
+  @javascript @firefox
   Szenario: Ein Modell ohne Version für den Gegestand wählen
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
     Und ein Modell existiert, welches keine Version hat
     Wenn ich dieses Modell dem Gegestand zuweise
     Dann steht in dem Modellfeld nur der Produktname dieses Modell
 
-  @javascript
+  @javascript @firefox
   Szenario: Lieferanten ändern
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
     Wenn ich den Lieferanten ändere
