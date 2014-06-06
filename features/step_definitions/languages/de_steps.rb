@@ -396,3 +396,11 @@ end
 Wenn 'ich logge mich aus' do
   step "I make sure I am logged out"
 end
+
+Wenn(/^ich in das Zuteilungsfeld links vom Software\-Namen klicke$/) do
+  step "I click on the assignment field of software names"
+end
+
+Dann(/^wird mir die Inventarnummer sowie die Seriennummer angezeigt$/) do
+  step "I see the inventory codes and the serial numbers of that software"
+end

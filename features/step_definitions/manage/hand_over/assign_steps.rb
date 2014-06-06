@@ -116,3 +116,19 @@ Then /^the assignment of the line to an inventory code is removed$/ do
   end
   @item_line.reload.item.should be_nil
 end
+
+When(/^I click on the assignment field of software names$/) do
+  @contract_line = @hand_over.lines.find {|l| l.model.is_a? Software }
+  within ".line[data-id='#{@contract_line.id}']" do
+    find("input[data-assign-item]").click
+  end
+end
+
+Then(/^I see the inventory codes and the serial numbers of that software$/) do
+  sleep(0.33)
+  within ".ui-autocomplete" do
+    @contract_line.model.items.each do |item|
+      find(".ui-menu-item a[title='#{item.inventory_code}']", text: item.serial_number)
+    end
+  end
+end

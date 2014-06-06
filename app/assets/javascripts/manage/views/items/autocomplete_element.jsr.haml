@@ -7,4 +7,9 @@
       {{>location().building().name}}
       {{>location().room}}
       {{>location().shelf}}
+    {{else}}
+    {{if serial_number}}
+    .col3of4.text-ellipsis
+      %strong {{>serial_number}}
+    {{/if}}
     {{/if}}

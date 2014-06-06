@@ -18,8 +18,12 @@ When(/^der Benutzer für die Aushändigung ist gesperrt$/) do
   visit manage_hand_over_path(@ip, @customer)
 end
 
-Angenommen(/^ich öffne eine Aushändigung$/) do
-  @hand_over = @current_inventory_pool.visits.hand_over.sample
+Angenommen(/^ich öffne eine Aushändigung( mit einer Software)?$/) do |arg1|
+  @hand_over = if arg1
+                 @current_inventory_pool.visits.hand_over.shuffle.detect {|v| v.contract_lines.any?{|cl| cl.model.is_a? Software } }
+               else
+                 @current_inventory_pool.visits.hand_over.sample
+               end
   step "ich die Aushändigung öffne"
 end
 

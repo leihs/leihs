@@ -104,6 +104,11 @@ module Persona
       @approved_contract_5.contract_lines << FactoryGirl.create(:contract_line, :purpose => @approved_contract_5_purpose, :contract => @approved_contract_5, :model => @tripod_model)
       @akku_aa = Option.find {|m| [m.name, m.product].include? "Akku AA" }
       @approved_contract_5.contract_lines << FactoryGirl.create(:option_line, :purpose => @approved_contract_5_purpose, :contract => @approved_contract_5, :option => @akku_aa, :quantity => 5)
+
+      # approved_contract_6
+      @approved_contract_6 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :approved)
+      @approved_contract_6_purpose = FactoryGirl.create :purpose, :description => "Bestellung mit Software"
+      @approved_contract_6.contract_lines << FactoryGirl.create(:contract_line, :purpose => @approved_contract61_purpose, :contract => @approved_contract_6, :model => @inventory_pool.models.where(type: "Software").first)
     end
     
     def create_signed_contracts
