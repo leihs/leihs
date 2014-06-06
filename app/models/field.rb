@@ -372,7 +372,6 @@ class Field < ActiveHash::Base
       type: "checkbox",
       target_type: "license",
       values: [{label: "Windows", value: "windows"},
-               {label: "Mac OS", value: "mac_os"},
                {label: "Mac OS X", value: "mac_os_x"},
                {label: "Linux", value: "linux"}],
       permissions: {role: :inventory_manager, owner: true},
