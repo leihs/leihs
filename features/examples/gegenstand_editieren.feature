@@ -168,7 +168,7 @@ Funktionalität: Gegenstand bearbeiten
     Und ich speichern druecke
     Dann erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät in einem Vortrag vorhanden ist
 
-  @javascript @firefox @personas
+  @javascript @personas
   Szenario: Einen Gegenstand, der ausgeliehen ist, kann man nicht ausmustern
     Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeliehen ist und wo man Besitzer ist
     Wenn ich den Gegenstand ausmustere

@@ -26,7 +26,7 @@ Feature: Sign Contract
       And I delete all lines of a model thats availability is blocked by these lines
      Then the availability of the keeped line is updated
 
-  @javascript @personas
+  @javascript @firefox @personas
   Scenario: Delete a hand over from the daily view
     Given I open the daily view
     When I delete a hand over

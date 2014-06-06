@@ -25,9 +25,8 @@ Funktionalität: Software editieren
     Dann sehe ich die "Software Informationen" angezeigt
     Und die "Software Informationen" sind nicht editierbar
     Und die bestehende Links der "Software Informationen" öffnen beim Klicken in neuem Browser-Tab
-    Wenn der zugeteilten Software Anhänge hinzugefügt sind
-    Dann sehe ich die Anhänge auf der Software-Lizenz unter "Software-Anhänge"
-    Und ich kann die Anhänge öffnen
+    Dann sehe ich die "Anhänge" der Software angezeigt
+    Und ich kann die Anhänge in neuem Browser-Tab öffnen
     Wenn ich eine andere Software auswähle
     Und ich eine andere Seriennummer eingebe
     Und ich einen anderen Aktivierungstyp wähle

@@ -105,7 +105,7 @@ end
 
 Wenn(/^ich eine andere Software auswähle$/) do
   @new_software = Software.all.select{|s| s != @software}.sample
-  find(".field", text: _("Software")).find("input").set @new_software.name
+  find(".field", text: _("Software"), match: :first).find("input").set @new_software.name
   find(".ui-menu a", text: @new_software.name).click
 end
 
@@ -563,7 +563,18 @@ Then(/^the software information is not editable$/) do
   f.find("textarea").should be_disabled
 end
 
-Dann(/^the links of software information open in a new tab upon clicking$/) do
+Then(/^the links of software information open in a new tab upon clicking$/) do
   f = find(".field", text: _("Software Information"))
+  f.all("a").each {|link| link.native.attribute("target").should == "_blank"}
+end
+
+Then(/^I see the attachments of the software$/) do
+  within(".field", text: _("Attachments")) do
+    @license.model.attachments.all?{|a| has_selector?("a", text: a.filename)}.should be_true
+  end
+end
+
+Then(/^I can open the attachments in a new tab$/) do
+  f = find(".field", text: _("Attachments"))
   f.all("a").each {|link| link.native.attribute("target").should == "_blank"}
 end

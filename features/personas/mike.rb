@@ -394,9 +394,10 @@ module Persona
       FactoryGirl.create :license, owner: @inventory_pool, invoice_date: Date.today, properties: { license_expiration: Date.today.to_s, maintenance_contract: true.to_s, maintenance_expiration: Date.today.to_s }
 
       software = FactoryGirl.create :software, technical_detail: "test http://test.ch\r\nwww.foo.ch\r\njust a text"
+      rand(1..3).times { software.attachments << FactoryGirl.create(:attachment) }
       FactoryGirl.create :license, owner: @inventory_pool, model: software
 
-      software = FactoryGirl.create :software
+      software = FactoryGirl.create :software, technical_detail: "test http://test.ch\r\nwww.foo.ch\r\njust a text"
       rand(1..3).times { software.attachments << FactoryGirl.create(:attachment) }
     end
 

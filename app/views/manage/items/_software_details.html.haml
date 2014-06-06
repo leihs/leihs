@@ -1,9 +1,15 @@
 - @model = @item.model
 
+.separated-top.margin-bottom-m
+
 %h2.headline-m.padding-bottom-m= "Software"
 
 .row.margin-bottom-l
-  .col1of2.padding-right-xs
-    = render partial: "manage/models/form/technical_details", locals: { disabled: true }
 
-.separated-bottom.margin-bottom-l
+  - unless @model.technical_detail.blank?
+    .col1of2.padding-right-xs
+      = render partial: "manage/models/form/technical_details"
+
+  - unless @model.attachments.empty?
+    .col1of2.padding-right-xs
+      = render partial: "manage/models/form/attachments"

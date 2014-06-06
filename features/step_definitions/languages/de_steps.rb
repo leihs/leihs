@@ -385,6 +385,14 @@ Dann(/^ich kann Modelle hinzufügen$/) do
   step "I can add models"
 end
 
+Dann(/^sehe ich die "Anhänge" der Software angezeigt$/) do
+  step %Q(I see the attachments of the software)
+end
+
+Dann(/^ich kann die Anhänge in neuem Browser\-Tab öffnen$/) do
+  step %Q(I can open the attachments in a new tab)
+end
+
 Wenn 'ich logge mich aus' do
   step "I make sure I am logged out"
 end
