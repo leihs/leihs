@@ -6,7 +6,7 @@ Funktionalität: Geräteparks administrieren
   möchte ich als Administrator
   die nötigen Funktionalitäten
 
-  @javascript
+  @javascript @personas
   Szenario: Geräteparkauswahl
     Angenommen ich bin Gino
     Wenn ich in den Admin-Bereich wechsel
@@ -14,7 +14,7 @@ Funktionalität: Geräteparks administrieren
     Und ich sehe die Geräteparkauswahl
     Und die Geräteparkauswahl ist alphabetish sortiert
 
-
+  @personas
   Szenario: Den ersten Gerätepark erstellen
     Angenommen ich bin Gino
     Wenn ich im Admin-Bereich unter dem Reiter Geräteparks einen neuen Gerätepark erstelle
@@ -24,7 +24,7 @@ Funktionalität: Geräteparks administrieren
     Und man sieht eine Bestätigungsmeldung
     Und ist der Gerätepark gespeichert
 
-
+  @personas
   Szenariogrundriss: Pflichtfelder beim erstmaligen Erstellen eines Geräteparks
     Angenommen ich bin Ramon
     Wenn ich im Admin-Bereich unter dem Reiter Geräteparks einen neuen Gerätepark erstelle
@@ -39,7 +39,7 @@ Funktionalität: Geräteparks administrieren
       | Kurzname    |
       | E-Mail      |
 
-
+  @personas
   Szenario: Gerätepark ändern
     Angenommen ich bin Ramon
     Wenn ich im Admin-Bereich unter dem Reiter Geräteparks einen bestehenden Gerätepark ändere
@@ -47,7 +47,7 @@ Funktionalität: Geräteparks administrieren
     Und ich speichere
     Dann ist der Gerätepark und die eingegebenen Informationen gespeichert
 
-  @javascript
+  @javascript @personas
   Szenario: Gerätepark löschen
     Angenommen ich bin Ramon
     Wenn ich im Admin-Bereich unter dem Reiter Geräteparks einen bestehenden Gerätepark lösche

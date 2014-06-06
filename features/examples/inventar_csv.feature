@@ -2,19 +2,20 @@
 
 Funktionalität: Inventar
 
-
+  @personas
   Szenario: Globaler Export des Inventars aller Geräteparks
     Angenommen ich bin Gino
     Und man öffnet die Liste der Geräteparks
     Dann kann man das globale Inventar als CSV-Datei exportieren
 
-  @javascript
+  @javascript @personas
   Szenario: Export der aktuellen Ansicht als CSV
     Angenommen ich bin Mike
     Und man öffnet die Liste des Inventars
     Dann kann man diese Daten als CSV-Datei exportieren
     Und die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden (inkl. Filter)
 
+  @personas
   Szenario: Export der aktuellen Software-Ansicht als CSV
     Angenommen ich bin Mike
     Und man öffnet die Liste des Inventars

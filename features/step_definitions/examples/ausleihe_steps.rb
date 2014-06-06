@@ -16,7 +16,7 @@ Wenn /^ich öffne eine Bestellung von "(.*?)"$/ do |arg1|
   @contract = @current_inventory_pool.contracts.find find("#daily-view #open-orders .line", match: :prefer_exact, :text => arg1)["data-id"]
   @user = @contract.user
   within("#daily-view #open-orders .line", match: :prefer_exact, :text => arg1) do
-    find(".line-actions .multibutton .dropdown-holder").hover
+    find(".line-actions .multibutton .dropdown-holder").click
     find(".dropdown-item", :text => _("Edit")).click
   end
   find("h1", text: _("Edit %s") % _("Order"))
@@ -51,7 +51,7 @@ end
 
 Dann /^werden mir diejenigen Gegenstände vorgeschlagen, die in den dargestellten Rücknahmen vorkommen$/ do
   @customer.visits.take_back.first.lines.all do |line|
-    first(".ui-autocomplete").should have_content line.item.inventory_code
+    find(".ui-autocomplete", match: :first).should have_content line.item.inventory_code
   end
 end
 
@@ -100,7 +100,7 @@ Wenn /^ich eine Aushändigung mache die ein Model enthält dessen Gegenstände e
   @ip = @current_user.managed_inventory_pools.first
   @contract_line = nil
   @contract = @ip.contracts.approved.detect do |c|
-    @contract_line = c.lines.detect do |l|
+    @contract_line = c.lines.where(item_id: nil).detect do |l|
       l.model.items.unborrowable.where(inventory_pool_id: @ip).first
     end
   end
@@ -116,12 +116,12 @@ Wenn /^diesem Model ein Inventarcode zuweisen möchte$/ do
 end
 
 Dann /^schlägt mir das System eine Liste von Gegenständen vor$/ do
-  first(".ui-autocomplete .ui-menu-item")
+  find(".ui-autocomplete .ui-menu-item", match: :first)
 end
 
 Dann /^diejenigen Gegenstände sind gekennzeichnet, welche als nicht ausleihbar markiert sind$/ do
   @model.items.unborrowable.in_stock.each do |item|
-    first(".ui-autocomplete .ui-menu-item a.unborrowable", :text => item.inventory_code)
+    find(".ui-autocomplete .ui-menu-item a.light-red", text: item.inventory_code)
   end
 end
 
@@ -329,13 +329,13 @@ end
 
 Dann /^kann ich wählen, ob ich aus einer Kategorie mehr Resultate sehen will$/ do
   @lists.each do |list|
-    list.first(".toggle")
+    list.find(".toggle", match: :first)
   end
 end
 
 Wenn /^ich mehr Resultate wähle$/ do
   @lists.each do |list|
-    list.first(".toggle .text").click
+    list.find(".toggle .text", match: :first).click
   end
 end
 
@@ -351,7 +351,7 @@ end
 Wenn /^die Kategorie mehr als (\d+) Resultate bringt$/ do |amount|
   amount = amount.to_i
   @list_with_more_matches = all(".inlinetabs .badge").map do |badge|
-    badge.first(:xpath, "../../..").first(".list") if badge.text.to_i > amount
+    badge.first(:xpath, "../../..").find(".list", match: :first) if badge.text.to_i > amount
   end.compact
 end
 
@@ -371,7 +371,7 @@ end
 #Angenommen /^ich sehe Probleme auf einer Zeile, die durch die Verfügbarkeit bedingt sind$/ do
 #  step 'I open a hand over'
 #  step 'I add so many lines that I break the maximal quantity of an model'
-#  @line_el = first(".line.error")
+#  @line_el = find(".line.error", match: :first)
 #  page.evaluate_script %Q{ $(".line.error:first-child").tmplItem().data.id; }
 #  @line = ContractLine.find page.evaluate_script %Q{ $(".line.error:first-child").tmplItem().data.id; }
 #end

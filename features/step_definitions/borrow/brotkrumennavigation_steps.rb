@@ -19,7 +19,7 @@ Dann(/^dieser führt mich immer zur Seite der Hauptkategorien$/) do
 end
 
 Wenn(/^ich eine Kategorie der ersten stufe aus der Explorativen Suche wähle$/) do
-  category_link = first("#explorative-search h2 a")
+  category_link = find("#explorative-search h2 a", match: :first)
   @category = Category.find_by_name category_link[:title]
   category_link.click
 end
@@ -27,7 +27,7 @@ end
 Wenn(/^ich eine Unterkategorie wähle$/) do
   page.execute_script %Q{$('*[data-category_id]').trigger('mouseenter')}
   page.execute_script %Q{$('*[data-category_id]').closest('*[data-category_id]').find('.dropdown').show()}
-  @category_el = first("a.dropdown-item")
+  @category_el = find("a.dropdown-item", match: :first)
   @category_name = @category_el.text
   @category = Category.find_by_name @category_name
   @category_el.click
@@ -38,15 +38,15 @@ Dann(/^öffnet diese Kategorie$/) do
 end
 
 Wenn(/^ich eine Kategorie der zweiten stufe aus der Explorativen Suche wähle$/) do
-  category_link = first("#explorative-search h3 a")
+  category_link = find("#explorative-search h3 a", match: :first)
   @category = Category.find_by_name category_link[:title]
   category_link.click
 end
 
 Wenn(/^ich eine Hauptkategorie wähle$/) do
-  category_el = first(".row.emboss.focus-hover")
-  @category = Category.find_by_name category_el.first("h2").text
-  category_el.first("a").click
+  category_el = find(".row.emboss.focus-hover", match: :first)
+  @category = Category.find_by_name category_el.find("h2", match: :first).text
+  category_el.find("a", match: :first).click
 end
 
 Dann(/^die Kategorie ist das zweite und letzte Element der Brotkrumennavigation$/) do
@@ -55,7 +55,7 @@ Dann(/^die Kategorie ist das zweite und letzte Element der Brotkrumennavigation$
 end
 
 Wenn(/^ich ein Modell öffne$/) do
-  first(".line[data-id]").click
+  find(".line[data-id]", match: :first).click
 end
 
 Dann(/^sehe ich den ganzen Weg den ich zum Modell beschritten habe$/) do

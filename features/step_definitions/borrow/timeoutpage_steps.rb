@@ -56,14 +56,14 @@ end
 Dann(/^die nicht mehr verfügbaren Modelle sind hervorgehoben$/) do
   @current_user.contracts.unsubmitted.flat_map(&:lines).each do |line|
     unless line.available?
-      first("[data-line-ids*='#{line.id}']").find(:xpath, "./../../..").find(".line-info.red[title='#{_("Not available")}']")
+      find("[data-line-ids*='#{line.id}']", match: :first).find(:xpath, "./../../..").find(".line-info.red[title='#{_("Not available")}']")
     end
   end
 end
 
 Dann(/^ich kann Einträge löschen$/) do
   all(".row.line").each do |x|
-    x.first("a", text: _("Delete"))
+    x.find("a", match: :first, text: _("Delete"))
   end
 end
 
@@ -95,7 +95,7 @@ Angenommen(/^ich lösche einen Eintrag$/) do
   line = all(".row.line").to_a.sample
   @line_ids = line.find("button[data-line-ids]")["data-line-ids"].gsub(/\[|\]/, "").split(',').map(&:to_i)
   @line_ids.all? {|id| @current_user.contracts.unsubmitted.flat_map(&:contract_line_ids).include?(id) }.should be_true
-  line.find(".dropdown-toggle").hover
+  line.find(".dropdown-toggle").click
   line.find("a", text: _("Delete")).click
   alert = page.driver.browser.switch_to.alert
   alert.accept
@@ -185,11 +185,11 @@ end
 
 Wenn(/^ich einen der Fehler korrigiere$/) do
   @line_ids = @current_user.contracts.unsubmitted.flat_map(&:lines).select{|l| not l.available?}.map(&:id)
-  resolve_conflict_for_model find(".row.line[data-line-ids='[#{@line_ids.delete_at(0)}]']").first(".col6of10").text
+  resolve_conflict_for_model find(".row.line[data-line-ids='[#{@line_ids.delete_at(0)}]']").find(".col6of10", match: :first).text
 end
 
 Wenn(/^ich alle Fehler korrigiere$/) do
-  @line_ids.each {|line_id| resolve_conflict_for_model find(".row.line[data-line-ids='[#{line_id}]']").first(".col6of10").text}
+  @line_ids.each {|line_id| resolve_conflict_for_model find(".row.line[data-line-ids='[#{line_id}]']").find(".col6of10", match: :first).text}
 end
 
 Dann(/^verschwindet die Fehlermeldung$/) do

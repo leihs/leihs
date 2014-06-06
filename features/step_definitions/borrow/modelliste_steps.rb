@@ -45,16 +45,16 @@ Angenommen(/^man befindet sich auf der Modellliste$/) do
 end
 
 Wenn(/^man ein bestimmten Gerätepark in der Geräteparkauswahl auswählt$/) do
-  find("#ip-selector").hover
+  find("#ip-selector").click
   page.should have_selector("#ip-selector .dropdown .dropdown-item", :visible => true)
   @ip ||= @current_user.inventory_pools.first
   find("#ip-selector .dropdown .dropdown-item", text: @ip.name).click
 end
 
 Dann(/^sind alle anderen Geräteparks abgewählt$/) do
-  find("#ip-selector").hover
+  find("#ip-selector").click
   (@current_user.inventory_pools - [@ip]).each do |ip|
-    find("#ip-selector .dropdown-item", text: ip.name).first("input").should_not be_checked
+    find("#ip-selector .dropdown-item", text: ip.name).find("input", match: :first).should_not be_checked
   end
 end
 
@@ -75,10 +75,10 @@ Dann(/^im Filter steht der Name des ausgewählten Geräteparks$/) do
 end
 
 Wenn(/^man einige Geräteparks abwählt$/) do
-  find("#ip-selector").hover
+  find("#ip-selector").click
   @ip = @current_user.inventory_pools.first
   @dropdown_element = find("#ip-selector .dropdown")
-  @dropdown_element.first(".dropdown-item", text: @ip.name).first("input").click
+  @dropdown_element.find(".dropdown-item", match: :first, text: @ip.name).find("input", match: :first).click
 end
 
 Dann(/^wird die Modellliste nach den übrig gebliebenen Geräteparks gefiltert$/) do
@@ -96,11 +96,11 @@ Dann(/^die Auswahl klappt noch nicht zu$/) do
 end
 
 Wenn(/^man alle Geräteparks bis auf einen abwählt$/) do
-  find("#ip-selector").hover
+  find("#ip-selector").click
   @ip = @current_user.inventory_pools.first
   @ips_for_unselect = @current_user.inventory_pools.where("inventory_pools.id != ?", @ip.id)
   @ips_for_unselect.each do |ip|
-    find("#ip-selector .dropdown-item", text: ip.name).first("input").click
+    find("#ip-selector .dropdown-item", text: ip.name).find("input", match: :first).click
   end
 end
 
@@ -119,7 +119,7 @@ Dann(/^im Filter steht der Name des übriggebliebenen Geräteparks$/) do
 end
 
 Dann(/^kann man nicht alle Geräteparks in der Geräteparkauswahl abwählen$/) do
-  find("#ip-selector").hover
+  find("#ip-selector").click
   inventory_pool_ids = all("#ip-selector .dropdown-item[data-id]").map{|item| item["data-id"]}
   inventory_pool_ids.each do |ip_id|
     page.should have_selector("#ip-selector .dropdown .dropdown-item", visible: true)
@@ -139,7 +139,7 @@ Dann(/^im Filter steht die Zahl der ausgewählten Geräteparks$/) do
 end
 
 Wenn(/^man die Liste nach "(.*?)" sortiert$/) do |sort_order|
-  find("#model-sorting").hover
+  find("#model-sorting").click
   text = case sort_order
     when "Modellname (alphabetisch aufsteigend)"
       "#{_("Model")} (#{_("ascending")})"
@@ -283,18 +283,18 @@ Dann(/^man sieht die Einschränkungsmöglichkeit eines Ausleihzeitraums$/) do
 end
 
 Wenn(/^einen einzelner Modelleintrag beinhaltet$/) do |table|
-  model_line = first("#model-list .line")
+  model_line = find("#model-list .line", match: :first)
   model = Model.find model_line["data-id"]
   table.raw.map{|e| e.first}.each do |row|
     case row
       when "Bild"
-        model_line.first("img[src*='#{model.id}']")
+        model_line.find("img[src*='#{model.id}']", match: :first)
       when "Modellname"
-        model_line.first(".line-col", :text => model.name)
+        model_line.find(".line-col", match: :first, text: model.name)
       when "Herstellname"
-        model_line.first(".line-col", :text => model.manufacturer)
+        model_line.find(".line-col", match: :first, text: model.manufacturer)
       when "Auswahl-Schaltfläche"
-        model_line.first(".line-col .button")
+        model_line.find(".line-col .button", match: :first)
       else
         raise "Unbekannt"
     end
@@ -324,7 +324,7 @@ Dann(/^wurden alle Modelle der ausgewählten Kategorie geladen und angezeigt$/) 
 end
 
 Wenn(/^man über das Modell hovered$/) do
-  find(".line[data-id='#{@model.id}']").hover()
+  find(".line[data-id='#{@model.id}']").hover
 end
 
 Dann(/^werden zusätzliche Informationen angezeigt zu Modellname, Bilder, Beschreibung, Liste der Eigenschaften$/) do
@@ -380,11 +380,11 @@ Angenommen(/^Filter sind ausgewählt$/) do
   find("input#end-date").set (Date.today + 1).strftime("%d.%m.%Y")
   find("body").click
   page.should_not have_selector(".ui-datepicker-calendar", :visible => true)
-  find("#ip-selector").hover
+  find("#ip-selector").click
   page.should have_selector("#ip-selector .dropdown-item", :visible => true)
   all("#ip-selector .dropdown-item").last.click
   page.execute_script %Q($("#ip-selector").trigger("mouseleave"))
-  find("#model-sorting").hover
+  find("#model-sorting").click
   page.should have_selector("#model-sorting a", :visible => true)
   all("#model-sorting a").last.click
   page.execute_script %Q($("#model-sorting").trigger("mouseleave"))
@@ -410,7 +410,7 @@ Dann(/^der Ausleihezeitraum ist leer$/) do
 end
 
 Dann(/^die Sortierung ist nach Modellnamen \(aufsteigend\)$/) do
-  find(".button", text: _("Model")).first(".icon-circle-arrow-up")
+  find(".button", text: _("Model")).find(".icon-circle-arrow-up", match: :first)
 end
 
 Dann(/^die Schaltfläche "(?:.+)" ist deaktiviert$/) do
@@ -431,11 +431,11 @@ Wenn(/^ich alle Filter manuell zurücksetze$/) do
   find("input#end-date").set ""
   find("body").click
   all(".ui-datepicker-calendar", :visible => true).empty?.should be_true
-  find("#ip-selector").hover
+  find("#ip-selector").click
   page.should have_selector("#ip-selector .dropdown-item", :visible => true)
   all("#ip-selector .dropdown-item").first.click
   page.execute_script %Q($("#ip-selector").trigger("mouseleave"))
-  find("#model-sorting").hover
+  find("#model-sorting").click
   page.should have_selector("#model-sorting a", :visible => true)
   all("#model-sorting a").first.click
   page.execute_script %Q($("#model-sorting").trigger("mouseleave"))

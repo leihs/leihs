@@ -2,24 +2,25 @@
 
 Funktionalität: Bestellungen
 
-
+  @personas
   Szenario: Keine leeren Bestellungen in der Liste der Bestellungen
     Angenommen ich bin Pius
     Und es existiert eine leere Bestellung
     Dann sehe ich diese Bestellung nicht in der Liste der Bestellungen
 
+  @personas
   Szenario: Sichtbare Reiter
     Angenommen ich bin Andi
     Wenn ich mich auf der Liste der Bestellungen befinde
     Dann sehe ich die Reiter "Alle, Offen, Genehmigt, Abgelehnt"
 
+  @personas
   Szenario: Definition visierpflichtige Bestellungen
-    Angenommen Personas existieren
-    Und es existiert eine visierpflichtige Bestellung
+    Angenommen es existiert eine visierpflichtige Bestellung
     Dann wurde diese Bestellung von einem Benutzer aus einer visierpflichtigen Gruppe erstellt
     Und diese Bestellung beinhaltet ein Modell aus einer visierpflichtigen Gruppe
 
-  @javascript
+  @javascript @personas
   Szenario: Alle Bestellungen anzeigen - Reiter Alle Bestellungen
     Angenommen ich bin Andi
     Und ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen
@@ -28,7 +29,7 @@ Funktionalität: Bestellungen
     Dann sehe ich alle visierpflichtigen Bestellungen
     Und diese Bestellungen sind nach Erstelltdatum aufgelistet
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Reiter Offene Bestellungen Darstellung
     Angenommen ich bin Andi
     Und ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen
@@ -45,7 +46,7 @@ Funktionalität: Bestellungen
     Und ich kann die Bestellung editieren
     Und ich kann keine Bestellungen aushändigen
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Reiter "Genehmigt" Darstellung
     Angenommen ich bin Andi
     Und ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen
@@ -61,7 +62,7 @@ Funktionalität: Bestellungen
     Und gelange ich in die Ansicht der Aushändigung
     Aber ich kann nicht aushändigen
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Reiter "Abgelehnt" Darstellung
     Angenommen ich bin Andi
     Und ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen
@@ -74,7 +75,7 @@ Funktionalität: Bestellungen
     Und ich sehe auf der Bestellungszeile die Dauer der Bestellung
     Und ich sehe auf der Bestellungszeile den Status
 
-  @javascript
+  @javascript @personas
   Szenario: Filter zum visieren aufheben
     Angenommen ich bin Andi
     Und ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen
@@ -83,7 +84,7 @@ Funktionalität: Bestellungen
     Wenn ich den Filter "Zu prüfen" aufhebe
     Dann sehe ich alle Bestellungen, welche von Benutzern der visierpflichtigen Gruppen erstellt wurden
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Bereits genehmigte Bestellung zurücksetzen
     Angenommen ich bin Andi
     Und ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen

@@ -2,6 +2,7 @@
 
 Funktionalität: Geräteparks
 
+  @personas
   Szenario: Gerätepark Informationen
     Angenommen ich bin Normin
     Wenn ich den Gerätepark Link drücke

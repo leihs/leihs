@@ -78,7 +78,7 @@ When /^I change the contract lines time range to tomorrow$/ do
   puts "@new_start_date = #{@new_start_date}"
   puts "@new_start_date_element = #{@new_start_date_element.text}"
   @new_start_date_element.click
-  first("a", :text => /(Start Date|Startdatum)/).click
+  find("a", match: :first, :text => /(Start Date|Startdatum)/).click
   step 'I save the booking calendar'
 end
 

@@ -43,7 +43,7 @@ end
 
 Wenn(/^ich eine neue Delegation erstelle$/) do
   within(".multibutton", text: _("New User")) do
-    find(".dropdown-toggle").hover
+    find(".dropdown-toggle").click
     find(".dropdown-item", text: _("New Delegation")).click
   end
 end
@@ -187,7 +187,7 @@ Wenn(/^ich die Delegation wechsle$/) do
   page.should have_selector("input[data-select-lines]", match: :first)
   all("input[data-select-lines]").each {|el| el.click unless el.checked?}
   multibutton = first(".multibutton", text: _("Hand Over Selection")) || first(".multibutton", text: _("Edit Selection"))
-  multibutton.find(".dropdown-toggle").hover
+  multibutton.find(".dropdown-toggle").click
   find("#swap-user", match: :first).click
   find(".modal", match: :first)
   @contract ||= @hand_over.lines.map(&:contract).uniq.first
@@ -205,7 +205,7 @@ Wenn(/^ich versuche die Delegation zu wechseln$/) do
     el.click unless el.checked?
   end
   multibutton = first(".multibutton", text: _("Hand Over Selection")) || first(".multibutton", text: _("Edit Selection"))
-  multibutton.find(".dropdown-toggle").hover
+  multibutton.find(".dropdown-toggle").click
   find("#swap-user", match: :first).click
   find(".modal", match: :first)
   find("input#user-id", match: :first)
@@ -280,7 +280,7 @@ Wenn(/^ich statt einer Delegation einen Benutzer wähle$/) do
     el.click unless el.checked?
   end
   multibutton = first(".multibutton", text: _("Hand Over Selection")) || first(".multibutton", text: _("Edit Selection"))
-  multibutton.find(".dropdown-toggle").hover if multibutton
+  multibutton.find(".dropdown-toggle").click if multibutton
   find("#swap-user", match: :first).click
   find(".modal", match: :first)
   find("#user input#user-id", match: :first).set @new_user.name
@@ -310,7 +310,7 @@ end
 Dann(/^kann ich diese Delegation löschen$/) do
   fill_in "list-search", with: @delegation.name
   line = find(".line", text: @delegation.name)
-  line.find(".dropdown-toggle").hover
+  line.find(".dropdown-toggle").click
   find("[data-method='delete']").click
   page.should have_selector ".success"
   lambda{ @delegation.reload }.should raise_error ActiveRecord::RecordNotFound
@@ -383,7 +383,7 @@ end
 Dann(/^können keine Bestellungen für diese Delegation für dieses Gerätepark erstellt werden$/) do
   visit logout_path
   step %Q(I am logged in as '#{@delegation.delegator_user.login}' with password 'password')
-  find(".dropdown-holder", text: @current_user.lastname).hover
+  find(".dropdown-holder", text: @current_user.lastname).click
   find(".dropdown-item[href*='delegations']").click
   find(".row.line", text: @delegation.name).click_link _("Switch to")
   find(".topbar-item", text: _("Inventory Pools")).click
@@ -455,7 +455,7 @@ Wenn(/^ich statt eines Benutzers eine Delegation wähle$/) do
   page.should have_selector("input[data-select-lines]", match: :first)
   all("input[data-select-lines]").each {|el| el.click unless el.checked?}
   multibutton = first(".multibutton", text: _("Hand Over Selection")) || first(".multibutton", text: _("Edit Selection"))
-  multibutton.find(".dropdown-toggle").hover if multibutton
+  multibutton.find(".dropdown-toggle").click if multibutton
   find("#swap-user", match: :first).click
   find(".modal", match: :first)
   find("#user input#user-id", match: :first).set @delegation.name

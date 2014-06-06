@@ -14,7 +14,7 @@ When(/^I login as "(.*?)" via web interface$/) do |persona|
   find("a[href='#{login_path}']", match: :first).click
   fill_in 'username', :with => persona.downcase
   fill_in 'password', :with => 'password'
-  first("[type='submit']").click
+  find("[type='submit']", match: :first).click
 end
 
 Then(/^I am logged in$/) do

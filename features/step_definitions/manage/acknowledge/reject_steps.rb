@@ -7,7 +7,7 @@ When /^I reject a contract$/ do
   @contract = @ip.contracts.submitted.sample
   find("[data-collapsed-toggle='#open-orders']").click unless all("[data-collapsed-toggle='#open-orders']").empty?
   within("#open-orders .line[data-id='#{@contract.id}']") do
-    find(".line-actions .multibutton .dropdown-holder").hover
+    find(".line-actions .multibutton .dropdown-holder").click
     find(".dropdown-item[data-order-reject]", :text => _("Reject")).click
   end
 end

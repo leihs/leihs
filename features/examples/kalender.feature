@@ -5,26 +5,26 @@ Funktionalität: Kalender-Ansicht im Backend
   Grundlage:
     Angenommen ich bin Pius
 
-  @javascript
+  @javascript @personas
   Szenario: Verfügbare Anzahl immer anzeigen
     Wenn man den Kalender sieht
     Dann sehe ich die Verfügbarkeit von Modellen auch an Feier- und Ferientagen sowie Wochenenden
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Anzahl im Buchungskalender während einer Bestellung überbuchen
     Angenommen ich editiere eine Bestellung
      Und ich öffne den Kalender
      Dann kann ich die Anzahl unbegrenzt erhöhen / überbuchen
      Und die Bestellung kann gespeichert werden
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Anzahl im Buchungskalender während einer Aushändigung überbuchen
     Angenommen ich mache eine Aushändigung
      Und ich öffne den Kalender
      Dann kann ich die Anzahl unbegrenzt erhöhen / überbuchen
      Und die Aushändigung kann gespeichert werden
 
-
+  @personas
   Szenario: Nicht verfügbare Zeitspannen
     Angenommen ich mache eine Aushändigung
      Und eine Model ist nichtmehr verfügbar

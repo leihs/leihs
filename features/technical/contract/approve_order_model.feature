@@ -3,9 +3,9 @@ Feature: Send email upon confirmation
   Model test
 
   Background:
-    Given personas existing
-    And required test data for contract tests existing
+    Given required test data for contract tests existing
 
+  @personas
   Scenario: A confirmation email should be sent when a contract is confirmed
     Given a submitted contract with lines existing
     And a borrowing user existing

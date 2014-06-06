@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 When(/^sehe ich unterhalb der Kategorien einen Link zur Liste der Vorlagen$/) do
-  first("a[href='#{borrow_templates_path}'][title='#{_("Borrow template")}']")
+  find("a[href='#{borrow_templates_path}'][title='#{_("Borrow template")}']", match: :first)
 end
 
 When(/^ich schaue mir die Liste der Vorlagen an$/) do
@@ -10,7 +10,7 @@ end
 
 Dann(/^sehe ich die Vorlagen$/) do
   @current_user.templates.each do |template|
-    first("a[href='#{borrow_template_path(template)}']", text: template.name)
+    find("a[href='#{borrow_template_path(template)}']", match: :first, text: template.name)
   end
 end
 
@@ -22,19 +22,19 @@ end
 
 When(/^ich kann eine der Vorlagen detailliert betrachten$/) do
   template = @current_user.templates.sample
-  first("a[href='#{borrow_template_path(template)}']", text: template.name).click
-  first("nav a[href='#{borrow_template_path(template)}']")
+  find("a[href='#{borrow_template_path(template)}']", match: :first, text: template.name).click
+  find("nav a[href='#{borrow_template_path(template)}']", match: :first)
 end
 
 When(/^ich sehe mir eine Vorlage an$/) do
   @template = @current_user.templates.sample
   visit borrow_template_path(@template)
-  first("nav a[href='#{borrow_template_path(@template)}']")
+  find("nav a[href='#{borrow_template_path(@template)}']", match: :first)
 end
 
 Dann(/^sehe ich alle Modelle, die diese Vorlage beinhaltet$/) do
-  @template.models.each do |model|
-    first(".row", text: model.name).first("input[name='lines[][model_id]'][value='#{model.id}']")
+  @template.model_links.each do |model_link|
+    find(".line", match: :prefer_exact, text: model_link.model.name).find("input[name='lines[][quantity]'][value='#{model_link.quantity}']")
   end
 end
 
@@ -46,39 +46,39 @@ end
 
 When(/^ich sehe für jedes Modell die Anzahl Gegenstände dieses Modells, welche die Vorlage vorgibt$/) do
   @template.model_links.each do |model_link|
-    first(".row", text: model_link.model.name).first("input[name='lines[][quantity]'][value='#{model_link.quantity}']")
+    find(".row", match: :first, text: model_link.model.name).find("input[name='lines[][quantity]'][value='#{model_link.quantity}']", match: :first)
   end
 end
 
 When(/^ich kann die Anzahl jedes Modells verändern, bevor ich den Prozess fortsetze$/) do
   @model_link = @template.model_links.sample
-  first(".row", text: @model_link.model.name).first("input[name='lines[][quantity]'][value='#{@model_link.quantity}']").set rand(10)
+  find(".row", match: :first, text: @model_link.model.name).find("input[name='lines[][quantity]'][value='#{@model_link.quantity}']", match: :first).set rand(10)
 end
 
 When(/^ich kann höchstens die maximale Anzahl an verfügbaren Geräten eingeben$/) do
-  max = first(".row", text: @model_link.model.name).first("input[name='lines[][quantity]']")[:max].to_i
-  first(".row", text: @model_link.model.name).first("input[name='lines[][quantity]']").set max+1
-  first(".row", text: @model_link.model.name).first("input[name='lines[][quantity]']").value.to_i.should == max
+  max = find(".row", match: :first, text: @model_link.model.name).find("input[name='lines[][quantity]']", match: :first)[:max].to_i
+  find(".row", match: :first, text: @model_link.model.name).find("input[name='lines[][quantity]']", match: :first).set max+1
+  find(".row", match: :first, text: @model_link.model.name).find("input[name='lines[][quantity]']", match: :first).value.to_i.should == max
 end
 
 When(/^sehe ich eine auffällige Warnung sowohl auf der Seite wie bei den betroffenen Modellen$/) do
-  first(".emboss.red", text: _("The highlighted entries are not accomplishable for the intended quantity."))
+  find(".emboss.red", match: :first, text: _("The highlighted entries are not accomplishable for the intended quantity."))
   all(".separated-top .row.line .line-info.red").size.should > 0
 end
 
 Dann(/^kann ich Start\- und Enddatum einer potenziellen Bestellung angeben$/) do
   @start_date = Date.tomorrow
   @end_date = Date.tomorrow + 4.days
-  first("#start_date").set I18n.localize @start_date
-  first("#end_date").set I18n.localize @end_date
+  find("#start_date", match: :first).set I18n.localize @start_date
+  find("#end_date", match: :first).set I18n.localize @end_date
 end
 
 Dann(/^ich kann im Prozess weiterfahren zur Verfügbarkeitsanzeige der Vorlage$/) do
-  first(".green[type='submit']").click
+  find(".green[type='submit']", match: :first).click
 end
 
 Dann(/^alle Einträge erhalten das ausgewählte Start\- und Enddatum$/) do
-  first(".headline-m").text.should == I18n.localize(@start_date)
+  find(".headline-m", match: :first).text.should == I18n.localize(@start_date)
   all(".line-col.col1of9.text-align-left").each do |date|
     date = date.text.split(" ").last
     date.should == I18n.localize(@end_date)
@@ -88,7 +88,7 @@ end
 When(/^in dieser Vorlage hat es Modelle, die nicht genügeng Gegenstände haben, um die in der Vorlage gewünschte Anzahl zu erfüllen$/) do
   @template = @current_user.templates.detect {|t| not t.accomplishable?(@current_user) }
   visit borrow_template_path(@template)
-  first("nav a[href='#{borrow_template_path(@template)}']")
+  find("nav a[href='#{borrow_template_path(@template)}']", match: :first)
 end
 
 When(/^ich sehe die Verfügbarkeit einer Vorlage$/) do
@@ -99,21 +99,21 @@ end
 When(/^ich sehe die Verfügbarkeit einer nicht verfügbaren Vorlage$/) do
   step "in dieser Vorlage hat es Modelle, die nicht genügeng Gegenstände haben, um die in der Vorlage gewünschte Anzahl zu erfüllen"
   step "ich kann im Prozess weiterfahren zur Verfügbarkeitsanzeige der Vorlage"
-  first("*[type='submit']").click
+  find("[type='submit']", match: :first).click
 end
 
 Angenommen(/^einige Modelle sind nicht verfügbar$/) do
-  first(".emboss.red", text: _("Please solve the conflicts for all highlighted lines in order to continue."))
+  find(".emboss.red", match: :first, text: _("Please solve the conflicts for all highlighted lines in order to continue."))
   all(".separated-top .row.line .line-info.red").size.should > 0
 end
 
 Dann(/^kann ich diejenigen Modelle, die verfügbar sind, gesamthaft einer Bestellung hinzufügen$/) do
   page.should have_selector ".separated-top .row.line .line-info.red"
-  @unavailable_model_ids = all(".separated-top .row.line .line-info.red").map {|x| x.first(:xpath, "./..").first("input[name='lines[][model_id]']", visible: false).value.to_i}
+  @unavailable_model_ids = all(".separated-top .row.line .line-info.red").map {|x| x.first(:xpath, "./..").find("input[name='lines[][model_id]']", match: :first, visible: false).value.to_i}
   @unavailable_model_ids -= @current_user.contracts.unsubmitted.flat_map(&:lines).map(&:model_id).uniq
-  first(".button.green.dropdown-toggle").click
+  find(".button.green.dropdown-toggle", match: :first).click
   page.should have_content _("Continue with available models only")
-  first("*[name='force_continue']", :text => _("Continue with available models only")).click
+  find("[name='force_continue']", match: :first, :text => _("Continue with available models only")).click
 end
 
 Dann(/^die restlichen Modelle werden verworfen$/) do
@@ -126,7 +126,7 @@ end
 
 Dann(/^sind diejenigen Modelle hervorgehoben, die zu diesem Zeitpunkt nicht verfügbar sind$/) do
   all(".row.line").each_with_index do |line, i|
-    all(".row.line")[i].first(".line-info.red")
+    all(".row.line")[i].find(".line-info.red", match: :first)
   end
 end
 
@@ -164,47 +164,47 @@ Wenn(/^ich sämtliche Verfügbarkeitsprobleme gelöst habe$/) do
 end
 
 Dann(/^kann ich im Prozess weiterfahren und alle Modelle gesamthaft zu einer Bestellung hinzufügen$/) do
-  first(".button.green", text: _("Add to order")).click
+  find(".button.green", match: :first, text: _("Add to order")).click
   find("#current-order-show", match: :first)
   @current_user.contracts.unsubmitted.flat_map(&:models).should eq [@model]
 end
 
 Angenommen(/^ich sehe die Verfügbarkeit einer Vorlage, die nicht verfügbare Modelle enthält$/) do
   step "ich sehe mir eine Vorlage an"
-  first("*[type='submit']").click
+  find("[type='submit']", match: :first).click
   date = Date.today
   while @template.inventory_pools.first.is_open_on?(date) do
    date += 1.day 
   end
-  first("#start_date").set I18n::localize(date)
-  first("#end_date").set I18n::localize(date)
+  find("#start_date").set I18n::localize(date)
+  find("#end_date").set I18n::localize(date)
   step "ich kann im Prozess weiterfahren zur Verfügbarkeitsanzeige der Vorlage"
 end
 
 Dann(/^ich muss den Prozess zur Datumseingabe fortsetzen$/) do
-  first("*[type='submit']").click
-  first("*[name='start_date']")
-  first("*[name='end_date']")
+  find("[type='submit']", match: :first).click
+  find("#start_date")
+  find("#end_date")
 end
 
 Angenommen(/^ich habe die Mengen in der Vorlage gewählt$/) do
   step "ich sehe mir eine Vorlage an"
-  first("*[type='submit']").click
+  find("[type='submit']", match: :first).click
 end
 
 Dann(/^ist das Startdatum heute und das Enddatum morgen$/) do
-  first("#start_date").value.should == I18n.localize(Date.today)
-  first("#end_date").value.should == I18n.localize(Date.tomorrow)
+  find("#start_date").value.should == I18n.localize(Date.today)
+  find("#end_date").value.should == I18n.localize(Date.tomorrow)
 end
 
 Dann(/^ich kann das Start\- und Enddatum einer potenziellen Bestellung ändern$/) do
   @start_date = Date.tomorrow
   @end_date = Date.tomorrow + 4.days
-  first("#start_date").set I18n.localize @start_date
-  first("#end_date").set I18n.localize @end_date
+  find("#start_date").set I18n.localize @start_date
+  find("#end_date").set I18n.localize @end_date
 end
 
 Dann(/^ich muss im Prozess weiterfahren zur Verfügbarkeitsanzeige der Vorlage$/) do
-  first("*[type='submit']").click
+  find("[type='submit']", match: :first).click
   current_path.should == borrow_template_availability_path(@template)
 end

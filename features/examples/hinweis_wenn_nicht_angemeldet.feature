@@ -6,7 +6,7 @@ Funktionalität: Umleitung zur Anmeldung
   möchte ich als Benutzer
   vom System darauf hingewiesen werden sobald ich abgemeldet bin
 
-  @javascript
+  @javascript @personas
   Szenario: Ausführung einer Aktion für authentifizierte Benutzer ohne angemeldet zu sein
     Angenommen ich bin Pius
     Und versuche eine Aktion im Backend auszuführen obwohl ich abgemeldet bin

@@ -20,9 +20,6 @@ class Setting < ActiveRecord::Base
     end
   end
 
-  # initialize the constants at the application startup
-  initialize_constants
-
   before_create do
     raise "Setting is a singleton" if Setting.count > 0
   end

@@ -175,9 +175,8 @@ When "we add an item '$inventory_code'" do |inventory_code|
 end
 
 # this test is specifically for the 'New Item' page
-Then /^the item should( only)? be assignable to the '([^']*)' departement$/ \
-do |only,name|
-  select = first("#item_inventory_pool_id")
+Then /^the item should( only)? be assignable to the '([^']*)' departement$/ do |only,name|
+  select = find("#item_inventory_pool_id")
   options = select.all("option")
   if only
     options.size.should == 1

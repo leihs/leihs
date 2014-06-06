@@ -103,7 +103,7 @@ end
 Dann(/^kann ich das Modell aus der Liste nicht löschen$/) do
   fill_in 'list-search', with: @model.name
   within(".line[data-id='#{@model.id}']") do
-    find(".dropdown-holder").hover
+    find(".dropdown-holder").click
     should_not have_selector("[data-method='delete']")
   end
   @model.reload # is still there
@@ -175,7 +175,7 @@ Wenn(/^I delete this (.+) from the list$/) do |entity|
   end.click
 
   fill_in 'list-search', with: @model.name
-  find(".line[data-id='#{@model.id}'] .dropdown-holder").hover
+  find(".line[data-id='#{@model.id}'] .dropdown-holder").click
   find(".line[data-id='#{@model.id}'] [data-method='delete']").click
 end
 

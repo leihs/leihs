@@ -2,17 +2,17 @@
 
 Wenn /^man den Kalender sieht$/ do
   step 'I open a contract for acknowledgement'
-  @line_element = first(".line")
+  @line_element = find(".line", match: :first)
   step 'I open the booking calendar for this line'
 end
 
 Dann /^sehe ich die Verfügbarkeit von Modellen auch an Feier\- und Ferientagen sowie Wochenenden$/ do
   while all(".fc-widget-content.holiday").empty? do
-    first(".fc-button-next").click
+    find(".fc-button-next", match: :first).click
   end
-  first(".fc-widget-content.holiday .fc-day-content div").text.should_not == ""
-  first(".fc-widget-content.holiday .fc-day-content div").text.to_i >= 0
-  first(".fc-widget-content.holiday .fc-day-content .total_quantity").text.should_not == ""
+  find(".fc-widget-content.holiday .fc-day-content div", match: :first).text.should_not == ""
+  find(".fc-widget-content.holiday .fc-day-content div", match: :first).text.to_i >= 0
+  find(".fc-widget-content.holiday .fc-day-content .total_quantity", match: :first).text.should_not == ""
 end
 
 Angenommen /^ich öffne den Kalender$/ do

@@ -36,7 +36,7 @@ Dann(/^für jeden Eintrag sehe ich die folgenden Informationen$/) do |table|
     table.raw.map{|e| e.first}.each do |row|
       case row
         when "Bild"
-          line.first("img")[:src][contract_lines.first.model.id.to_s].should be
+          line.find("img", match: :first)[:src][contract_lines.first.model.id.to_s].should be
         when "Anzahl"
            line.should have_content contract_lines.sum(&:quantity)
         when "Modellname"
@@ -48,7 +48,7 @@ Dann(/^für jeden Eintrag sehe ich die folgenden Informationen$/) do |table|
         when "Enddatum"
           line.should have_content I18n.l contract_lines.first.end_date
         when "die versch. Aktionen"
-          line.first(".line-actions")
+          line.find(".line-actions", match: :first)
         else
           raise "Unbekannt"
       end
@@ -69,7 +69,7 @@ end
 
 Wenn(/^ich einen Eintrag lösche$/) do
   line = find(".line", :match => :first)
-  line.find(".dropdown-holder").hover
+  line.find(".dropdown-holder").click
   @before_max_available = before_max_available(@current_user)
   line.find("a[data-method='delete']").click
   step "werde ich gefragt ob ich die Bestellung wirklich löschen möchte"
@@ -87,7 +87,7 @@ Wenn(/^ich die Bestellung lösche$/) do
 
   @before_max_available = before_max_available(@current_user)
 
-  a = first("a[data-method='delete'][href='/borrow/order/remove']")
+  a = find("a[data-method='delete'][href='/borrow/order/remove']", match: :first)
   a.click
 end
 
@@ -122,11 +122,11 @@ end
 #############################################################################
 
 Wenn(/^ich einen Zweck eingebe$/) do
-  first("form textarea[name='purpose']").set Faker::Lorem.sentences(2).join()
+  find("form textarea[name='purpose']", match: :first).set Faker::Lorem.sentences(2).join()
 end
 
 Wenn(/^ich die Bestellung abschliesse$/) do
-  first("form button.green").click
+  find("form button.green", match: :first).click
 end
 
 Dann(/^ändert sich der Status der Bestellung auf Abgeschickt$/) do
@@ -136,17 +136,17 @@ Dann(/^ändert sich der Status der Bestellung auf Abgeschickt$/) do
 end
 
 Dann(/^ich erhalte eine Bestellbestätigung$/) do
-  first(".notice")
+  find(".notice", match: :first)
 end
 
 Dann(/^in der Bestellbestätigung wird mitgeteilt, dass die Bestellung in Kürze bearbeitet wird$/) do
-  first(".notice", text: _("Your order has been successfully submitted, but is NOT YET APPROVED."))
+  find(".notice", match: :first, text: _("Your order has been successfully submitted, but is NOT YET APPROVED."))
 end
 
 #############################################################################
 
 Wenn(/^der Zweck nicht abgefüllt wird$/) do
-  first("form textarea[name='purpose']").set ""
+  find("form textarea[name='purpose']", match: :first).set ""
 end
 
 Dann(/^hat der Benutzer keine Möglichkeit die Bestellung abzuschicken$/) do
@@ -172,8 +172,8 @@ Wenn(/^ich den Eintrag ändere$/) do
     if line_to_edit
       line_to_edit.click
     else
-      @changed_lines = ContractLine.find JSON.parse first("[data-change-order-lines]")["data-line-ids"]
-      first("[data-change-order-lines]").click
+      @changed_lines = ContractLine.find JSON.parse find("[data-change-order-lines]", match: :first)["data-line-ids"]
+      find("[data-change-order-lines]", match: :first).click
     end
   end
 end
@@ -193,7 +193,7 @@ Dann(/^ich ändere die aktuellen Einstellung$/) do
 end
 
 Dann(/^speichere die Einstellungen$/) do
-  first("#submit-booking-calendar").click
+  find("#submit-booking-calendar", match: :first).click
 end
 
 Dann(/^wird der Eintrag gemäss aktuellen Einstellungen geändert$/) do
@@ -220,5 +220,5 @@ Dann(/^der Eintrag wird in der Liste anhand der des aktuellen Startdatums und de
 end
 
 Dann(/^sehe ich die Zeitinformationen in folgendem Format "(.*?)"$/) do |format|
-  first("#timeout-countdown-time", :text => Regexp.new(format.gsub("mm", "\\d+").gsub("ss", "\\d+")))
+  find("#timeout-countdown-time", match: :first, text: Regexp.new(format.gsub("mm", "\\d+").gsub("ss", "\\d+")))
 end

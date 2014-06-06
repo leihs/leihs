@@ -709,7 +709,7 @@ Wenn(/^ich diesen Benutzer aus der Liste lösche$/) do
   find("#list-search").set @user.to_s
   within("#user-list .line", text: @user.name) do
     find(".multibutton .dropdown-toggle").click
-    find(".multibutton .dropdown-toggle").hover
+    find(".multibutton .dropdown-toggle").click
     find(".multibutton .dropdown-item.red", text: _("Delete")).click
   end
 end
@@ -745,7 +745,7 @@ Dann(/^wird der Delete Button für diese Benutzer nicht angezeigt$/) do
   @users.each do |user|
     find("#list-search").set user.name
     within("#user-list .line", text: user.name) do
-      find(".multibutton .dropdown-toggle").hover
+      find(".multibutton .dropdown-toggle").click
       page.should_not have_selector(".multibutton .dropdown-item.red", text: _("Delete"))
     end
   end

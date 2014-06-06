@@ -6,6 +6,7 @@ Funktionalität: Startseite
   möchte ich als Ausleiher
   einen Einstieg/Übersicht über das ausleihbare Inventar
 
+  @personas
   Szenario: Startseite
     Angenommen ich bin Normin
     Und man befindet sich auf der Seite der Hauptkategorien
@@ -13,7 +14,7 @@ Funktionalität: Startseite
     Wenn man eine Hauptkategorie auswählt
     Dann lande ich in der Modellliste für diese Hauptkategorie
 
-  @javascript
+  @javascript @personas
   Szenario: Haupt-Kategorien aufklappen
     Angenommen ich bin Normin
     Und man befindet sich auf der Seite der Hauptkategorien
@@ -22,7 +23,7 @@ Funktionalität: Startseite
     Wenn ich eines dieser Kinder anwähle
     Dann lande ich in der Modellliste für diese Kategorie
 
-
+  @personas
   Szenario: Kinder-Kategorien Dropdown nicht sichtbar
     Angenommen ich bin Normin
     Und man befindet sich auf der Seite der Hauptkategorien

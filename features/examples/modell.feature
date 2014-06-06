@@ -6,7 +6,7 @@ Funktionalität: Modell
     Angenommen ich bin Mike
     Und man öffnet die Liste des Inventars
 
-  @javascript
+  @javascript @personas
   Szenario: Übersicht neues Modell hinzufügen
   Wenn ich ein neues Modell hinzufüge
   Dann habe ich die Möglichkeit, folgende Informationen zu erfassen:
@@ -15,7 +15,7 @@ Funktionalität: Modell
     | Anhänge      |
     | Zubehör      |
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Modelldetails abfüllen
     Wenn ich ein neues Modell hinzufüge
     Und ich erfasse die folgenden Details
@@ -29,7 +29,7 @@ Funktionalität: Modell
     Und ich speichere die Informationen
     Dann ist das neue Modell erstellt und unter ungenutzen Modellen auffindbar
 
-  @javascript
+  @javascript @personas
   Szenario: Modellzubehör bearbeiten
     Wenn ich ein bestehendes, genutztes Modell bearbeite welches bereits Zubehör hat
     Dann ich sehe das gesamte Zubehöre für dieses Modell
@@ -38,24 +38,24 @@ Funktionalität: Modell
     Und ich speichere die Informationen
     Dann ist das Zubehör dem Modell hinzugefügt worden
 
-  @javascript
+  @javascript @personas
   Szenario: Modellzubehör löschen
     Wenn ich ein bestehendes, genutztes Modell bearbeite welches bereits Zubehör hat
     Dann kann ich ein einzelnes Zubehör löschen, wenn es für keinen anderen Pool aktiviert ist
 
-  @javascript
+  @javascript @personas
   Szenario: Modellzubehör deaktivieren
     Wenn ich ein bestehendes, genutztes Modell bearbeite welches bereits ein aktiviertes Zubehör hat
     Dann kann ich ein einzelnes Zubehör für meinen Pool deaktivieren
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: sich ergänzende Modelle entfernen (kompatibel)
     Wenn ich ein Modell öffne, das bereits ergänzende Modelle hat
     Und ich ein ergänzendes Modell entferne
     Und ich speichere die Informationen
     Dann ist das Modell ohne das gelöschte ergänzende Modell gespeichert
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Gruppenverteilung editieren
     Angenommen ich editieren ein bestehndes Modell mit bereits zugeteilten Kapazitäten
     Wenn ich bestehende Zuteilungen entfernen
@@ -63,7 +63,7 @@ Funktionalität: Modell
     Und ich speichere die Informationen
     Dann sind die geänderten Gruppenzuteilungen gespeichert
 
-  @javascript
+  @javascript @personas
   Szenario: Modell löschen
     Angenommen es existiert ein Modell mit folgenden Eigenschaften
       | in keinem Vertrag aufgeführt |
@@ -73,14 +73,14 @@ Funktionalität: Modell
     Und das Modell wurde aus der Liste gelöscht
     Und das Modell ist gelöscht
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: sich ergänzende Modelle hinzufügen (kompatibel)
     Wenn ich ein bestehendes, genutztes Modell bearbeite
     Und ich ein ergänzendes Modell mittel Autocomplete Feld hinzufüge
     Und ich speichere die Informationen
     Dann ist dem Modell das ergänzende Modell hinzugefügt worden
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: 2 Mal gleiches ergänzende Modelle hinzufügen (kompatibel)
     Wenn ich ein Modell öffne, das bereits ergänzende Modelle hat
     Und ich ein bereits bestehendes ergänzende Modell mittel Autocomplete Feld hinzufüge
@@ -88,7 +88,7 @@ Funktionalität: Modell
     Und ich speichere die Informationen
     Dann wurde das redundante ergänzende Modell nicht gespeichert
 
-  @javascript
+  @javascript @personas
   Szenario: Modelanhängsel löschen
     Angenommen es existiert ein Modell mit folgenden Eigenschaften
       | in keinem Vertrag aufgeführt |
@@ -105,7 +105,7 @@ Funktionalität: Modell
     Und das Modell ist gelöscht
     Und es wurden auch alle Anhängsel gelöscht
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Modelldetails bearbeiten
     Wenn ich ein bestehendes, genutztes Modell bearbeite
     Und ich ändere die folgenden Details
@@ -120,7 +120,7 @@ Funktionalität: Modell
     Und die Informationen sind gespeichert
     Und die Daten wurden entsprechend aktualisiert
 
-  @javascript
+  @javascript @personas
   Szenariogrundriss: Attachments erstellen
     Angenommen ich erstelle ein neues <Objekt> oder ich ändere ein bestehendes <Objekt>
     Dann füge ich eine oder mehrere Datein den Attachments hinzu
@@ -132,7 +132,7 @@ Funktionalität: Modell
       | Modell   |
       | Software |
 
-  @javascript
+  @javascript @personas
   Szenario: Modelanhängsel löschen
     Angenommen es existiert ein Modell mit folgenden Eigenschaften
       | in keinem Vertrag aufgeführt |
@@ -149,7 +149,7 @@ Funktionalität: Modell
     Und das Modell ist gelöscht
     Und es wurden auch alle Anhängsel gelöscht
 
-  @javascript
+  @javascript @personas
   Szenariogrundriss: Modelllöschversuch verhindern
     Angenommen das Modell hat <Zuweisung> zugewiesen
     Dann kann ich das Modell aus der Liste nicht löschen
@@ -159,7 +159,7 @@ Funktionalität: Modell
     | Bestellung  |
     | Gegenstand  |
 
-  @javascript
+  @javascript @personas
   Szenario: Modelanhängsel löschen
     Angenommen es existiert ein Modell mit folgenden Eigenschaften
       | in keinem Vertrag aufgeführt |
@@ -176,7 +176,7 @@ Funktionalität: Modell
     Und das Modell ist gelöscht
     Und es wurden auch alle Anhängsel gelöscht
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Modell erstellen nur mit Name
     Wenn ich ein neues Modell hinzufüge
     Und ich speichere die Informationen
@@ -192,7 +192,7 @@ Funktionalität: Modell
     Und ich speichere die Informationen
     Dann ist das neue Modell erstellt und unter ungenutzen Modellen auffindbar
 
-  @javascript
+  @javascript @personas
   Szenario: Bilder
     Wenn ich ein bestehendes, genutztes Modell bearbeite
     Dann kann ich mehrere Bilder hinzufügen
@@ -201,7 +201,7 @@ Funktionalität: Modell
     Dann wurden die ausgewählten Bilder für dieses Modell gespeichert
     Und zu grosse Bilder werden den erlaubten Grössen entsprechend verkleinert
 
-  @javascript
+  @javascript @personas
   Szenario: Bilder
     Wenn ich ein bestehendes, genutztes Modell bearbeite
     Dann kann ich mehrere Bilder hinzufügen

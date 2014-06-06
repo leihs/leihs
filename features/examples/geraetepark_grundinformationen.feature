@@ -6,7 +6,7 @@ Funktionalität: Gerätepark-Grundinformationen
   möchte ich als Zuständiger
   die Informationen/Einstellungen für einen Gerätepark bearbeiten können
 
-  @javascript
+  @javascript @personas
   Szenario: Grundinformationen erfassen
     Angenommen ich bin Mike
     Wenn ich den Admin-Bereich betrete
@@ -21,9 +21,9 @@ Funktionalität: Gerätepark-Grundinformationen
     Und ich kann die angegebenen Grundinformationen speichern
     Dann sehe eine Bestätigung
     Und sind die Informationen aktualisiert
-    Und ich bleibe auf derselben Ansicht 
+    Und ich bleibe auf derselben Ansicht
 
-
+  @personas
   Szenario: Pflichtfelder der Grundinformationen zusammen prüfen
     Angenommen ich bin Mike
     Und ich die Grundinformationen des Geräteparks abfüllen möchte
@@ -34,6 +34,7 @@ Funktionalität: Gerätepark-Grundinformationen
     Dann kann das Gerätepark nicht gespeichert werden
     Und ich sehe eine Fehlermeldung
 
+  @personas
   Szenario: Aut. zuweisen beim Benutzererstellen ausserhalb des Geräteparks
     Angenommen ich bin Gino
     Und es ist bei mehreren Geräteparks aut. Zuweisung aktiviert
@@ -41,6 +42,7 @@ Funktionalität: Gerätepark-Grundinformationen
     Wenn ich einen Benutzer mit Login "username" und Passwort "password" erstellt habe
     Dann kriegt der neu erstellte Benutzer bei allen Geräteparks mit aut. Zuweisung die Rolle 'Kunde'
 
+  @personas
   Szenario: Aut. zuweisen beim Benutzererstellen innerhalb des Geräteparks
     Angenommen ich bin Mike
     Und es ist bei mehreren Geräteparks aut. Zuweisung aktiviert
@@ -49,7 +51,7 @@ Funktionalität: Gerätepark-Grundinformationen
     Dann kriegt der neu erstellte Benutzer bei allen Geräteparks mit aut. Zuweisung ausser meinem die Rolle 'Kunde'
     Und in meinem Gerätepark hat er die Rolle 'Inventar-Verwalter'
 
-
+  @personas
   Szenario: Aut. Zuweisen entfernen
     Angenommen ich bin Mike
     Und ich editiere meinen Gerätepark
@@ -63,7 +65,7 @@ Funktionalität: Gerätepark-Grundinformationen
     Dann kriegt der neu erstellte Benutzer bei dem vorher editierten Gerätepark kein Zugriffsrecht
     Und ich logge mich aus
 
-
+  @personas
   Szenario: Arbeitstage verwalten
    Angenommen ich bin Mike
    Und ich verwalte die Gerätepark Grundinformationen
@@ -71,16 +73,16 @@ Funktionalität: Gerätepark-Grundinformationen
    Und ich speichere
    Dann sind die Arbeitstage gespeichert
 
-  @javascript
+  @javascript @personas
   Szenario: Tage der Ausleihschliessung verwalten
    Angenommen ich bin Mike
    Und ich verwalte die Gerätepark Grundinformationen
    Wenn ich eine oder mehrere Zeitspannen und einen Namen für die Ausleihsschliessung angebe
    Und ich speichere
    Dann werden die Ausleihschliessungszeiten gespeichert
-   Und ich kann die Ausleihschliessungszeiten wieder löschen  
+   Und ich kann die Ausleihschliessungszeiten wieder löschen
 
-
+  @personas
   Szenariogrundriss: Pflichtfelder der Grundinformationen einzeln prüfen
     Angenommen ich bin Mike
     Wenn ich die Grundinformationen des Geräteparks abfüllen möchte
@@ -92,13 +94,13 @@ Funktionalität: Gerätepark-Grundinformationen
     Dann kann das Gerätepark nicht gespeichert werden
     Und ich sehe eine Fehlermeldung
     Und die anderen Angaben wurde nicht gelöscht
-
     Beispiele:
       | Pflichtfeld |
       | Name        |
       | Kurzname    |
       | E-Mail      |
 
+  @personas
   Szenario: Automatische Benutzersperrung bei verspäteter Rückgabe
     Angenommen ich bin Mike
     Wenn ich die Grundinformationen des Geräteparks abfüllen möchte
@@ -110,6 +112,7 @@ Funktionalität: Gerätepark-Grundinformationen
     Dann wird er für diesen Gerätepark gesperrt bis zum '1.1.2099'
     Und der Sperrgrund ist derjenige, der für diesen Park gespeichert ist
 
+  @personas
   Szenario: Automatische Benutzersperrung nur wenn Benutzer nicht schon gesperrt
     Angenommen ich bin Mike
     Wenn ich für den Gerätepark die automatische Sperrung von Benutzern mit verspäteter Rückgaben einschalte

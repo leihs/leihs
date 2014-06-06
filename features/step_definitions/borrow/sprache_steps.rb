@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 Wenn(/^ich die Sprache auf "(.*?)" umschalte$/) do |language|
-  first("a[href*='locale']", :text => language).click
+  find("a[href*='locale']", match: :first, :text => language).click
 end
 
 Dann(/^ist die Sprache "(.*?)"$/) do |language|
@@ -12,5 +12,5 @@ Dann(/^ist die Sprache "(.*?)"$/) do |language|
           "de-CH"
   end
   @current_user.reload.language.locale_name.should == s
-  first("a[href=''] strong", :text => language)
+  find("a[href=''] strong", match: :first, :text => language)
 end

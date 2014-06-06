@@ -12,15 +12,17 @@ end
 
 Dann(/^die Anzahl zugeteilter Benutzer$/) do
   @current_inventory_pool.groups.each do |group|
-    find(".line", :text => group.name).first(".quantity", :text => group.users.size.to_s)
+    within(".line", text: group.name) do
+      find(".line-col", text: "%d %s" % [group.users.size, _("Users")])
+    end
   end
 end
 
 Dann(/^die Anzahl der zugeteilten Modell\-Kapazitäten$/) do
   @current_inventory_pool.groups.each do |group|
-    within(".line", :text => group.name) do
-      first(".quantity", :text => group.models.size.to_s)
-      first(".quantity", :text => group.partitions.to_a.sum(&:quantity).to_s)
+    within(".line", text: group.name) do
+      find(".line-col", text: "%d %s" % [group.models.size, _("Models")])
+      find(".line-col", text: "%d %s" % [group.partitions.to_a.sum(&:quantity), _("Allocations")])
     end
   end
 end
@@ -125,7 +127,7 @@ Wenn(/^ich eine Gruppe lösche$/) do
   @group = @current_inventory_pool.groups.detect &:can_destroy?
   visit manage_inventory_pool_groups_path @current_inventory_pool
   within(".list-of-lines .line", text: @group.name) do
-    find(".multibutton .dropdown-toggle").hover
+    find(".multibutton .dropdown-toggle").click
     find(".multibutton .dropdown-item.red", text: _("Delete")).click
   end
 end

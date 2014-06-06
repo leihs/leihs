@@ -5,9 +5,11 @@ Funktionalität: Bestellungen
   Grundlage:
     Angenommen ich bin Normin
 
+  @personas
   Szenario: Anzahl
     Dann sehe ich die Anzahl meiner abgeschickten, noch nicht genehmigten Bestellungen auf jeder Seite
 
+  @personas
   Szenario: Bestellungen-Übersichtsseite
     Wenn ich auf den Bestellungen Link drücke
     Dann sehe ich meine abgeschickten, noch nicht genehmigten Bestellungen

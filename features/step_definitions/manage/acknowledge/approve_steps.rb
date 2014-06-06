@@ -24,7 +24,7 @@ end
 
 When /^I approve anyway$/ do
   within(".modal") do
-    find(".dropdown-toggle").hover
+    find(".dropdown-toggle").click
     find(".dropdown-item[data-approve-anyway]").click
   end
   page.should_not have_selector(".modal")

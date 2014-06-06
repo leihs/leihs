@@ -4,12 +4,9 @@ Feature: Login through database authentication
   As a normal user
   I want to be able to login using a database authentication
 
-  Background:
-    Given personas existing
-
-
+  @personas
   Scenario: Login through database authentication
-   Given I log out
+    Given I log out
     When I visit the homepage
-     And I login as "Normin" via web interface
+    And I login as "Normin" via web interface
     Then I am logged in

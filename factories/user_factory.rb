@@ -7,7 +7,13 @@ FactoryGirl.define do
     phone { Faker::PhoneNumber.phone_number.gsub(/\D/, "") }
     authentication_system { AuthenticationSystem.first.blank? ? FactoryGirl.create(:authentication_system) : AuthenticationSystem.first }
     unique_id { Faker::Lorem.characters(18) }
-    email { Faker::Internet.email }
+    email {
+      existing_emails = User.pluck :email
+      begin
+        r = Faker::Internet.email
+      end while existing_emails.include? r
+      r
+    }
     badge_id { Faker::Lorem.characters(18) }
     address { Faker::Address.street_address }
     city { Faker::Address.city }

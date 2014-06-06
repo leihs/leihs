@@ -1,19 +1,13 @@
 # -*- encoding : utf-8 -*-
 
-Given /^personas existing$/ do
-  Persona.restore_random_dump.should be_true
-end
-
-Given /^I am "(.*)"$/ do |persona_name|
-  persona_name = persona_name.gsub "\"", ""
-  step 'personas existing'
+Given /^I am ([a-zA-Z]*)$/ do |persona_name|
   step 'man ist eingeloggt als "%s"' % persona_name
   @current_inventory_pool = @current_user.managed_inventory_pools.first
 end
 
 Angenommen(/^man ist ein Kunde$/) do
   user = AccessRight.where(role: :customer).map(&:user).uniq.sample
-  step 'I am "%s"' % user.firstname
+  step "I am %s" % user.firstname
 end
 
 Angenommen(/^man ist ein Kunde mit Verträge$/) do

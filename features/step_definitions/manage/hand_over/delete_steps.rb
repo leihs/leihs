@@ -8,7 +8,7 @@ end
 
 When /^I delete this line element$/ do
   within(".line[data-id='#{@line.id}']") do
-    find(".dropdown-toggle").hover
+    find(".dropdown-toggle").click
     find(".red[data-destroy-line]", :text => _("Delete")).click
   end
 end

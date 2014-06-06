@@ -40,9 +40,9 @@ Dann(/^für jede Vertrag sehe ich folgende Informationen$/) do |table|
           when "Vertraglink"
             page.should have_selector("a[href='#{borrow_user_contract_path(contract.id)}']", text: _("Contract"))
           when "Wertelistelink"
-            find("a[href='#{borrow_user_contract_path(contract.id)}'] + .dropdown-holder > .dropdown-toggle").hover
+            find("a[href='#{borrow_user_contract_path(contract.id)}'] + .dropdown-holder > .dropdown-toggle").click
             page.should have_selector("a[href='#{borrow_user_value_list_path(contract.id)}']")
-            find("a[href='#{borrow_user_contract_path(contract.id)}']").hover # release the previous hover
+            find("a[href='#{borrow_user_contract_path(contract.id)}']").click # release the previous click
           else
             raise "unkown section"
         end
@@ -55,7 +55,7 @@ Angenommen(/^ich drücke auf den Wertelistelink$/) do
   contracts = @current_user.contracts.where(status: [:signed, :closed])
   @contract = contracts.sample
   within(".row.line[data-id='#{@contract.id}']") do
-    find(".dropdown-toggle").hover
+    find(".dropdown-toggle").click
     click_link _("Value List")
   end
 end
@@ -81,7 +81,7 @@ Wenn(/^ich eine Werteliste aus meinen Dokumenten öffne$/) do
   @contract = contracts.sample
   visit borrow_user_value_list_path(@contract.id)
   step "öffnet sich die Werteliste"
-  @value_list_element = first(".value_list")
+  @value_list_element = find(".value_list", match: :first)
 end
 
 Wenn(/^ich einen Vertrag aus meinen Dokumenten öffne$/) do
@@ -89,7 +89,7 @@ Wenn(/^ich einen Vertrag aus meinen Dokumenten öffne$/) do
   @contract = contracts.sample
   visit borrow_user_contract_path(@contract.id)
   step "öffnet sich der Vertrag"
-  @contract_element = first(".contract")
+  @contract_element = find(".contract", match: :first)
 end
 
 Wenn(/^ich einen Vertrag mit zurück gebrachten Gegenständen aus meinen Dokumenten öffne$/) do
@@ -197,8 +197,10 @@ Dann(/^sehe ich den Vertrag genau wie im Verwalten-Bereich$/) do
       date.text.should == ""
     end
     not_returned_lines.each do |line|
-      @contract_element.first(".not_returned_items").should have_content line.model.name
-      @contract_element.first(".not_returned_items").should have_content line.item.inventory_code
+      within @contract_element.find(".not_returned_items", match: :first) do
+        should have_content line.model.name
+        should have_content line.item.inventory_code
+      end
     end
   end
 

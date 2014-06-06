@@ -5,9 +5,9 @@ Feature: Item Hover on daily view
   I want to see a list of lines on hover
 
   Background:
-    Given I am "Pius"
+    Given I am Pius
 
-
+  @personas
   Scenario: Hover item cell to see lines
     When I open the daily view
     And I hover an item's cell

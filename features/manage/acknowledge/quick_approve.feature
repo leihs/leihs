@@ -5,16 +5,16 @@ Feature: Quick Approve orders
   I want to have quick approve functionalities on the submitted orders
 
   Background:
-    Given I am "Pius"
+    Given I am Pius
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Scenario: Quick approve an order with no problems
     Given I open the daily view
     When I quick approve a submitted order
     Then this contract is approved
     And I see a link to the hand over process of that order
 
-  @javascript @firefox
+  @javascript @personas @firefox
   Scenario: Approve anyway on daily view
     Given I open the daily view
     And I try to approve a contract that has problems

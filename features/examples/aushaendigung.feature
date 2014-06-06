@@ -5,7 +5,7 @@ Funktionalität: Aushändigung editieren
   Grundlage:
     Angenommen ich bin Pius
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Systemfeedback bei erfolgreicher manueller Interaktion bei Aushändigung
     Angenommen es gibt eine Aushändigung mit mindestens einem nicht problematischen Modell
     Und ich die Aushändigung öffne
@@ -21,7 +21,7 @@ Funktionalität: Aushändigung editieren
     Wenn ich den zugeteilten Gegenstand auf der Zeile entferne
     Dann ist die Zeile nicht mehr grün markiert
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Systemfeedback bei Zuteilen eines Gegenstandes zur problematischen Linie
     Angenommen es gibt eine Aushändigung mit mindestens einer problematischen Linie
     Und ich die Aushändigung öffne
@@ -31,13 +31,13 @@ Funktionalität: Aushändigung editieren
     Dann wird die Zeile grün markiert
     Und die problematischen Auszeichnungen bleiben bei der Linie bestehen
 
-
+  @personas
   Szenario: Sperrstatus des Benutzers anzeigen
     Angenommen ich eine Aushändigung mache
     Und der Benutzer für die Aushändigung ist gesperrt
     Dann sehe ich neben seinem Namen den Sperrstatus 'Gesperrt!'
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Systemfeedback bei Zuteilen einer Option
     Angenommen ich öffne eine Aushändigung
     Wenn ich eine Option hinzufüge
@@ -45,7 +45,7 @@ Funktionalität: Aushändigung editieren
     Und die Zeile wird grün markiert
     Und ich erhalte eine Meldung
 
-  @javascript
+  @javascript @personas
   Szenario: Aushändigung eines bereits zugeteilten Gegenstandes
     Angenommen ich öffne eine Aushändigung mit mindestens einem zugewiesenen Gegenstand
     Wenn ich einen bereits hinzugefügten Gegenstand zuteile
@@ -53,7 +53,7 @@ Funktionalität: Aushändigung editieren
     Und die Zeile bleibt selektiert
     Und die Zeile bleibt grün markiert
 
-  @javascript @firefox
+  @javascript @personas
   Szenario: Standard-Vertragsnotiz
     Angenommen für den Gerätepark ist eine Standard-Vertragsnotiz konfiguriert
     Und ich öffne eine Aushändigung mit mindestens einem zugewiesenen Gegenstand
@@ -61,6 +61,7 @@ Funktionalität: Aushändigung editieren
     Dann erscheint ein Aushändigungsdialog
     Und diese Standard-Vertragsnotiz erscheint im Textfeld für die Vertragsnotiz
 
+  @personas
   Szenario: Vertragsnotiz
     Wenn ich eine Aushändigung mache
     Wenn ich aushändige
@@ -69,7 +70,7 @@ Funktionalität: Aushändigung editieren
     Wenn ich eine Notiz für diesen Vertrag eingebe
     Dann erscheint diese Notiz auf dem Vertrag
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Optionen mit einer Mindestmenge 1 ausgeben
     Angenommen ich öffne eine Aushändigung
     Wenn ich eine Option hinzufüge
@@ -82,7 +83,7 @@ Funktionalität: Aushändigung editieren
     Wenn ich die Anzahl "2" in das Mengenfeld schreibe
     Dann wird die Menge mit dem Wert "2" gespeichert
 
-  @current
+  @personas @current
   Szenario: Anzeige der Seriennummer bei Zuteilung der Software-Lizenz
   Angenommen ich öffne eine Aushändigung mit einer Software
   Wenn ich in das Zuteilungsfeld links vom Software-Namen klicke

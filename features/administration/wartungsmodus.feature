@@ -8,8 +8,8 @@ für die Bereiche "Verwalten" und "Verleih" bei Wartungsarbeiten das System zu s
   Grundlage:
     Angenommen ich bin Gino
 
-  @javascript
-  Szenario: "Verwalten"-Bereich sperren
+  @javascript @personas
+  Szenario: Verwalten-Bereich sperren
     Angenommen ich befinde mich in den Pool-übergreifenden Einstellungen
     Wenn ich die Funktion "Verwaltung sperren" wähle
     Dann muss ich eine Bemerkung angeben
@@ -19,8 +19,8 @@ für die Bereiche "Verwalten" und "Verleih" bei Wartungsarbeiten das System zu s
     Und der Bereich "Verwalten" ist für die Benutzer gesperrt
     Und dem Benutzer wird die eingegebene Bemerkung angezeigt
 
-  @javascript
-  Szenario: "Ausleihen"-Bereich sperren
+  @javascript @personas
+  Szenario: Ausleihen-Bereich sperren
     Angenommen ich befinde mich in den Pool-übergreifenden Einstellungen
     Wenn ich die Funktion "Ausleihen sperren" wähle
     Dann muss ich eine Bemerkung angeben
@@ -30,8 +30,8 @@ für die Bereiche "Verwalten" und "Verleih" bei Wartungsarbeiten das System zu s
     Und der Bereich "Ausleihen" ist für die Benutzer gesperrt
     Und dem Benutzer wird die eingegebene Bemerkung angezeigt
 
-  @javascript
-  Szenario: "Verwalten"-Bereich entsperren
+  @javascript @personas
+  Szenario: Verwalten-Bereich entsperren
     Angenommen der "Verwalten" Bereich ist gesperrt
     Und ich befinde mich in den Pool-übergreifenden Einstellungen
     Wenn ich die Funktion "Verwaltung sperren" deselektiere
@@ -39,8 +39,8 @@ für die Bereiche "Verwalten" und "Verleih" bei Wartungsarbeiten das System zu s
     Dann ist der Bereich "Verwalten" für den Benutzer nicht mehr gesperrt
     Und die eingegebene Meldung für "Verwalten" Bereich ist immer noch gespeichert
 
-  @javascript
-  Szenario: "Ausleihen"-Bereich entsperren
+  @javascript @personas
+  Szenario: Ausleihen-Bereich entsperren
     Angenommen der "Ausleihen" Bereich ist gesperrt
     Und ich befinde mich in den Pool-übergreifenden Einstellungen
     Wenn ich die Funktion "Ausleihen sperren" deselektiere

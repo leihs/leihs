@@ -3,9 +3,9 @@
 Funktionalität: Software löschen
 
   Grundlage:
-    Angenommen ich bin "Mike"
+    Angenommen ich bin Mike
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Software-Produkt löschen
     Angenommen es existiert eine Software mit folgenden Eigenschaften
       | in keinem Vertrag aufgeführt |
@@ -15,7 +15,7 @@ Funktionalität: Software löschen
     Dann die Software wurde aus der Liste gelöscht
     Und die "Software" ist gelöscht
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Softwareanhängsel löschen wenn Software gelöscht wird
     Angenommen es existiert eine Software mit folgenden Eigenschaften
       | in keinem Vertrag aufgeführt |

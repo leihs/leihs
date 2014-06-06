@@ -5,9 +5,9 @@ Feature: Summary of lines in calendar
   I want to see a summary that provides me informations for this use case
 
   Background:
-    Given I am "Pius"
+    Given I am Pius
 
-  @javascript
+  @javascript @personas
   Scenario: Automatic update of quantity for line summary in calendar 
     When I open a booking calendar to edit a singe line
      And I change the quantity

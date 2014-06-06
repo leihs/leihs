@@ -18,7 +18,7 @@ end
 
 Dann(/^erscheint es im Bestellfensterchen$/) do
   visit borrow_root_path
-  first("#current-order-basket")
+  find("#current-order-basket", match: :first)
 end
 
 Dann(/^die Modelle im Bestellfensterchen sind alphabetisch sortiert$/) do
@@ -38,12 +38,12 @@ Wenn(/^das gleiche Modell nochmals hinzugefügt wird$/) do
 end
 
 Dann(/^wird die Anzahl dieses Modells erhöht$/) do
-  line = first("#current-order-basket #current-order-lines .line[title='#{@new_contract_line.model.name}']")
-  line.first("span").text.should == "2x #{@new_contract_line.model.name}"
+  line = find("#current-order-basket #current-order-lines .line[title='#{@new_contract_line.model.name}']", match: :first)
+  line.find("span", match: :first).text.should == "2x #{@new_contract_line.model.name}"
 end
 
 Dann(/^ich kann zur detaillierten Bestellübersicht gelangen$/) do
-  first("#current-order-basket .button.green", text: _("Order overview"))
+  find("#current-order-basket .button.green", text: _("Complete order"))
 end
 
 Wenn(/^ich mit dem Kalender ein Modell der Bestellung hinzufüge$/) do
@@ -57,7 +57,7 @@ end
 Dann(/^wird das Bestellfensterchen aktualisiert$/) do
   step 'ist das Modell mit Start- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügt worden'
   step "erscheint es im Bestellfensterchen"
-  first("#current-order-basket #current-order-lines .line[title='#{@model.name}']", :text => "#{@quantity}x #{@model.name}")
+  find("#current-order-basket #current-order-lines .line[title='#{@model.name}']", match: :first, text: "#{@quantity}x #{@model.name}")
 end
 
 Angenommen(/^meine Bestellung ist leer$/) do
@@ -77,20 +77,20 @@ Dann(/^sehe ich die Zeitanzeige$/) do
                   else
                     @current_user.contracts.unsubmitted.sample.updated_at
                   end
-  @countdown = first("#timeout-countdown-time").text
+  @countdown = find("#timeout-countdown-time", match: :first).text
 end
 
 Dann(/^die Zeitanzeige ist in einer Schaltfläche im Reiter "Bestellung" auf der rechten Seite$/) do
-  first("#current-order-basket .navigation-tab-item #timeout-countdown #timeout-countdown-time")
+  find("#current-order-basket .navigation-tab-item #timeout-countdown #timeout-countdown-time", match: :first)
 end
 
 Dann(/^die Zeitanzeige zählt von (\d+) Minuten herunter$/) do |timeout_minutes|
-  @countdown = first("#timeout-countdown-time").text
+  @countdown = find("#timeout-countdown-time", match: :first).text
   minutes = @countdown.split(":")[0].to_i
   seconds = @countdown.split(":")[1].to_i
   expect(minutes >= (Contract::TIMEOUT_MINUTES - 1)).to be_true
   sleep(0.66)
-  expect(seconds > first("#timeout-countdown-time").reload.text.split(":")[1].to_i).to be_true
+  expect(seconds > find("#timeout-countdown-time", match: :first).reload.text.split(":")[1].to_i).to be_true
 end
 
 Angenommen(/^die Bestellung ist nicht leer$/) do
@@ -98,14 +98,14 @@ Angenommen(/^die Bestellung ist nicht leer$/) do
 end
 
 Wenn(/^ich den Time-Out zurücksetze$/) do
-  @countdown = first("#timeout-countdown-time").text
-  first("#timeout-countdown-refresh").click
+  @countdown = find("#timeout-countdown-time", match: :first).text
+  find("#timeout-countdown-refresh", match: :first).click
 end
 
 Dann(/^wird die Zeit zurückgesetzt$/) do
   seconds = @countdown.split(":")[1].to_i
   sleep(0.33)
-  secondsNow = first("#timeout-countdown-time").reload.text.split(":")[1].to_i
+  secondsNow = find("#timeout-countdown-time", match: :first).reload.text.split(":")[1].to_i
   expect(seconds <= secondsNow).to be_true
 end
 

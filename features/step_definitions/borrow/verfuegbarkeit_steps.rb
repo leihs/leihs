@@ -42,7 +42,7 @@ Dann(/^wird die Bestellung nicht abgeschlossen$/) do
 end
 
 Dann(/^ich erhalte eine Fehlermeldung$/) do
-  first(".error")
+  find(".error", match: :first)
 end
 
 #######################################################################

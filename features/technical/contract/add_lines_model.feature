@@ -3,9 +3,9 @@ Feature: Add lines
   Model test (instance methods)
 
   Background:
-    Given personas existing
-    And required test data for contract tests existing
+    Given required test data for contract tests existing
 
+  @personas
   Scenario Outline: Adding lines is successful
     Given an empty contract of <allowed type> existing
     And I log in as 'ramon' with password 'password'

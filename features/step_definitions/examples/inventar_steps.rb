@@ -35,28 +35,34 @@ end
 ########################################################################
 
 def check_existing_inventory_codes(items, type: :model)
-  if type == :model
-    step "sieht man Modelle"
-  elsif type == :software
-    step "man sieht Software"
-  end
+  item_type = if type == :model
+                step "sieht man Modelle"
+                :item
+              elsif type == :software
+                step "man sieht Software"
+                :license
+              end
 
   lines = all(".line[data-type='#{type}']")
   # select the lines which have an inventory expander that can be clicked (means models with items). this filter is needed for the special case of software.
-  lines = lines.select{|l| l.first ".button[data-type='inventory-expander'] i.arrow.right"} if type == :software
+  lines = lines.select{|l| l.has_selector? ".button[data-type='inventory-expander'] i.arrow.right"} if type == :software
 
-  lines.each do |line|
-    within line do
-      within ".button[data-type='inventory-expander']" do
+  within "#inventory" do
+    lines.each do |line|
+      within line.find ".button[data-type='inventory-expander']" do
         find("i.arrow.right").click
         find("i.arrow.down")
       end
+      sleep(0.22)
+      within line.find(:xpath, "./following-sibling::div[@class='group-of-lines']") do
+        inventory_code = find(".line[data-type='#{item_type}'] .col2of5 > .row:nth-child(1)", match: :first).text
+        items.find_by_inventory_code(inventory_code).should_not be_nil
+      end
+      within line.find ".button[data-type='inventory-expander']" do
+        find("i.arrow.down").click
+        find("i.arrow.right")
+      end
     end
-    find(".group-of-lines")
-    all(".group-of-lines .line[data-type='item'] .col1of5:nth-child(2)", text: /\w+/).map(&:text).each do |inventory_code|
-      items.find_by_inventory_code(inventory_code).should_not be_nil
-    end
-    line.find(".button[data-type='inventory-expander'] i.arrow.down").click
   end
 end
 
@@ -69,7 +75,7 @@ Dann /^hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind$/ do |
     tab = nil
     case row["auswahlmöglichkeit"]
       when "Aktives Inventar"
-        tab = section_tabs.first("a")
+        tab = section_tabs.find("a", match: :first)
         tab.text.should == _("Active Inventory")
         check_existing_inventory_codes(items)
       when "Ausleihbar"
@@ -408,7 +414,7 @@ Dann /^die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden \(ink
 end
 
 Wenn /^ich ein[en]* neue[srn]? (.+) hinzufüge$/ do |entity|
-  find(".dropdown-holder", text: _("Add inventory")).hover
+  find(".dropdown-holder", text: _("Add inventory")).click
   click_link entity
 end
 

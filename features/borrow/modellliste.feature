@@ -6,6 +6,7 @@ Funktionalität: Modellliste
   möchte ich als Kunde
   die Möglichkeit haben Modelle zu finden
 
+  @personas
   Szenario: Modelllistenübersicht
     Angenommen ich bin Normin
     Wenn man sich auf der Modellliste befindet
@@ -15,6 +16,7 @@ Funktionalität: Modellliste
     Und man sieht die Gerätepark-Auswahl
     Und man sieht die Einschränkungsmöglichkeit eines Ausleihzeitraums
 
+  @personas
   Szenario: Ein einzelner Modelllisteneintrag
     Angenommen ich bin Normin
     Wenn man sich auf der Modellliste befindet
@@ -24,7 +26,7 @@ Funktionalität: Modellliste
     | Herstellname         |
     | Auswahl-Schaltfläche |
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Modellliste scrollen
     Angenommen ich bin Normin
     Und man sieht eine Modellliste die gescroll werden muss
@@ -33,7 +35,7 @@ Funktionalität: Modellliste
     Wenn man bis zum Ende der Liste fährt
     Dann wurden alle Modelle der ausgewählten Kategorie geladen und angezeigt
 
-  @javascript
+  @javascript @personas
   Szenario: Modellliste sortieren
     Angenommen ich bin Normin
     Und man sich auf der Modellliste befindet
@@ -46,23 +48,25 @@ Funktionalität: Modellliste
     Wenn man die Liste nach "Herstellername (alphabetisch absteigend)" sortiert
     Dann ist die Liste nach "Herstellername" "(alphabetisch absteigend)" sortiert
 
+  @personas
   Szenario: Ausleihezeitraum Standarteinstellung
     Angenommen ich bin Normin
     Wenn man sich auf der Modellliste befindet
     Dann ist kein Ausleihzeitraum ausgewählt
 
-  @javascript
+  @javascript @personas
   Szenario: Geräteparkauswahl kann nicht leer sein
     Angenommen ich bin Normin
     Wenn man sich auf der Modellliste befindet
     Dann kann man nicht alle Geräteparks in der Geräteparkauswahl abwählen
 
+  @personas
   Szenario: Geräteparkauswahl sortierung
     Angenommen ich bin Normin
     Wenn man sich auf der Modellliste befindet
     Dann ist die Geräteparkauswahl alphabetisch sortiert
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Geräteparkauswahl "alle auswählen"
     Angenommen ich bin Normin
     Wenn man sich auf der Modellliste befindet
@@ -72,13 +76,13 @@ Funktionalität: Modellliste
     Und die Auswahl klappt noch nicht zu
     Und die Liste zeigt Modelle aller Geräteparks
 
-  @javascript
+  @javascript @personas
   Szenario: Geräteparkauswahl kann nicht leer sein
     Angenommen ich bin Normin
     Wenn man sich auf der Modellliste befindet
     Dann kann man nicht alle Geräteparks in der Geräteparkauswahl abwählen
 
-  @javascript
+  @javascript @personas
   Szenario: Ausleihezeitraum Startdatum wählen
     Angenommen ich bin Petra
     Wenn man sich auf der Modellliste befindet die nicht verfügbare Modelle beinhaltet
@@ -86,7 +90,7 @@ Funktionalität: Modellliste
     Dann wird automatisch das Enddatum auf den folgenden Tag gesetzt
     Und die Liste wird gefiltert nach Modellen die in diesem Zeitraum verfügbar sind
 
-  @javascript
+  @javascript @personas
   Szenario: Ausleihezeitraum Enddatum wählen
     Angenommen ich bin Petra
     Wenn man sich auf der Modellliste befindet die nicht verfügbare Modelle beinhaltet
@@ -94,7 +98,7 @@ Funktionalität: Modellliste
     Dann wird automatisch das Startdatum auf den vorhergehenden Tag gesetzt
     Und die Liste wird gefiltert nach Modellen die in diesem Zeitraum verfügbar sind
 
-  @javascript
+  @javascript @personas
   Szenario: Ausleihzeitraum löschen
     Angenommen ich bin Petra
     Wenn man sich auf der Modellliste befindet die nicht verfügbare Modelle beinhaltet
@@ -102,20 +106,20 @@ Funktionalität: Modellliste
     Wenn man das Startdatum und Enddatum leert
     Dann wird die Liste nichtmehr nach Ausleihzeitraum gefiltert
 
-  @javascript
+  @javascript @personas
   Szenario: Ausleihzeitraum Datepicker
     Angenommen ich bin Normin
     Und man sich auf der Modellliste befindet
     Dann kann man für das Startdatum und für das Enddatum den Datepick benutzen
 
-  @javascript
+  @javascript @personas
   Szenario: Modell suchen
     Angenommen ich bin Normin
     Und man befindet sich auf der Modellliste 
     Wenn man ein Suchwort eingibt
     Dann werden diejenigen Modelle angezeigt, deren Name oder Hersteller dem Suchwort entsprechen
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Hovern über Modellen
     Angenommen ich bin Normin
     Und es gibt ein Modell mit Bilder, Beschreibung und Eigenschaften
@@ -125,6 +129,7 @@ Funktionalität: Modellliste
     Und wenn ich den Kalendar für dieses Modell benutze
     Dann können die zusätzliche Informationen immer noch abgerufen werden
 
+  @personas
   Szenario: Geräteparkauswahl Standartwert
     Angenommen ich bin Normin
     Wenn man sich auf der Modellliste befindet
@@ -132,7 +137,7 @@ Funktionalität: Modellliste
     Und die Modellliste zeigt Modelle aller Geräteparks an
     Und im Filter steht "Alle Geräteparks"
 
-  @javascript
+  @javascript @personas
   Szenario: Geräteparkauswahl Einzelauswählen
     Angenommen ich bin Normin
     Und man befindet sich auf der Modellliste
@@ -142,7 +147,7 @@ Funktionalität: Modellliste
     Und die Auswahl klappt noch nicht zu
     Und im Filter steht der Name des ausgewählten Geräteparks
 
-  @javascript
+  @javascript @personas
   Szenario: Geräteparkauswahl Einzelabwahl
     Angenommen ich bin Normin
     Und man befindet sich auf der Modellliste
@@ -151,7 +156,7 @@ Funktionalität: Modellliste
     Und die Auswahl klappt nocht nicht zu
     Und im Filter steht die Zahl der ausgewählten Geräteparks
 
-  @javascript
+  @javascript @personas
   Szenario: Geräteparkauswahl Einzelabwahl bis auf einen Gerätepark
     Angenommen ich bin Normin
     Und man befindet sich auf der Modellliste
@@ -160,7 +165,7 @@ Funktionalität: Modellliste
     Und die Auswahl klappt nocht nicht zu
     Und im Filter steht der Name des übriggebliebenen Geräteparks
 
-  @javascript
+  @javascript @personas
   Szenario: Alles zurücksetzen
     Angenommen ich bin Normin
     Und man befindet sich auf der Modellliste
@@ -174,7 +179,7 @@ Funktionalität: Modellliste
     Und man sieht wieder die ungefilterte Liste der Modelle
     Und die Schaltfläche "Alles zurücksetzen" ist deaktiviert
 
-  @javascript
+  @javascript @personas
   Szenario: Alles zurücksetzen verschwindet automatisch, wenn die Filter wieder auf die Starteinstellungen gesetzt werden
     Angenommen ich bin Normin
     Und man befindet sich auf der Modellliste

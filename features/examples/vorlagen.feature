@@ -8,12 +8,13 @@ Funktionalität: Vorlagen verwalten
   Grundlage:
     Angenommen ich bin Mike
 
+  @personas
   Szenario: Liste aller Vorlagen anzeigen
     Wenn ich im Inventarbereich auf den Link "Vorlagen" klicke
     Dann öffnet sich die Seite mit der Liste der im aktuellen Inventarpool erfassten Vorlagen
     Und die Vorlagen für dieses Inventarpool sind alphabetisch nach Namen sortiert
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Vorlage erstellen
     Und ich befinde mich auf der Liste der Vorlagen
     Wenn ich auf den Button "Neue Vorlage" klicke
@@ -28,7 +29,7 @@ Funktionalität: Vorlagen verwalten
     Und ich sehe die Erfolgsbestätigung
     Und die neue Vorlage wurde mit all den erfassten Informationen erfolgreich gespeichert
 
-  @javascript
+  @javascript @personas
   Szenario: Prüfen, ob max. Anzahl bei den Modellen überschritten ist
     Und ich befinde mich der Seite zur Erstellung einer neuen Vorlage
     Und ich habe den Namen der Vorlage eingegeben
@@ -45,14 +46,14 @@ Funktionalität: Vorlagen verwalten
     Und die bearbeitete Vorlage wurde mit all den erfassten Informationen erfolgreich gespeichert
     Und die Vorlage ist in der Liste nicht als unerfüllbar markiert
 
-  @javascript
+  @javascript @personas
   Szenario: Vorlage löschen
     Und ich befinde mich auf der Liste der Vorlagen
     Dann kann ich beliebige Vorlage direkt aus der Liste löschen
     Und die Vorlage wurde aus der Liste gelöscht
     Und die Vorlage wurde erfolgreich aus der Datenbank gelöscht
 
-  @javascript
+  @javascript @personas
   Szenario: Vorlage ändern
     Und ich befinde mich auf der Liste der Vorlagen
     Und es existiert eine Vorlage mit mindestens zwei Modellen
@@ -68,7 +69,7 @@ Funktionalität: Vorlagen verwalten
     Und ich sehe die Erfolgsbestätigung
     Und die bearbeitete Vorlage wurde mit all den erfassten Informationen erfolgreich gespeichert
 
-  @javascript
+  @javascript @personas
   Szenario: Pflichtangaben bei der Editieransicht
     Und ich befinde mich auf der Editieransicht einer Vorlage
     Wenn der Name nicht ausgefüllt ist
@@ -80,7 +81,7 @@ Funktionalität: Vorlagen verwalten
     Und ich speichere
     Dann sehe ich eine Fehlermeldung
 
-  @javascript
+  @javascript @personas
   Szenario: Pflichtangaben bei der Erstellungsansicht
     Und ich befinde mich auf der Erstellungsansicht einer Vorlage
     Wenn der Name nicht ausgefüllt ist

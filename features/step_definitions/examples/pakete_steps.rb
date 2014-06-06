@@ -68,7 +68,7 @@ Wenn /^ich ein Modell editiere, welches bereits Pakete hat$/ do
   @model_name = @model.name
   step 'ich nach "%s" suche' % @model.name
   page.should have_selector(".line", text: @model.name)
-  find(".line", match: :prefer_exact, :text => @model.name).first(".button", :text => _("Edit Model")).click
+  find(".line", match: :prefer_exact, :text => @model.name).find(".button", match: :first, :text => _("Edit Model")).click
 end
 
 Wenn /^ich ein Modell editiere, welches bereits Gegenstände hat$/ do
@@ -77,7 +77,7 @@ Wenn /^ich ein Modell editiere, welches bereits Gegenstände hat$/ do
   @model_name = @model.name
   step 'ich nach "%s" suche' % @model.name
   page.should have_selector(".line", text: @model.name)
-  find(".line", match: :prefer_exact, :text => @model.name).first(".button", :text => _("Edit Model")).click
+  find(".line", match: :prefer_exact, :text => @model.name).find(".button", match: :first, :text => _("Edit Model")).click
 end
 
 Dann /^kann ich diesem Modell keine Pakete mehr zuweisen$/ do

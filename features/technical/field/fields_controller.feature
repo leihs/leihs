@@ -2,9 +2,7 @@ Feature: Fields controller
 
   Controller test
 
-  Background:
-    Given personas existing
-
+  @personas
   Scenario: Index action
     Given I log in as 'pius' with password 'password'
     When the fields in json format are fetched via the index action

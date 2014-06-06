@@ -7,6 +7,7 @@ Funktionalität: Benutzeransicht
   Grundlage:
     Angenommen ich bin Normin
 
+  @personas
   Szenario: Benutzerdaten ansehen
     Wenn ich auf meinen Namen klicke
     Dann gelange ich auf die Seite der Benutzerdaten
@@ -17,7 +18,7 @@ Funktionalität: Benutzeransicht
     |E-Mail|
     |Telefon|
 
-  @javascript
+  @javascript @personas
   Szenario: Benutzerdaten unter dem Benutzername
     Wenn ich über meinen Namen fahre
     Dann sehe ich im Dropdown eine Schaltfläche die zur Benutzeransicht führt

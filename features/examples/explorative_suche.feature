@@ -9,7 +9,7 @@ Funktionalität: Explorative Suche
   Grundlage:
     Angenommen ich bin Pius
 
-  @javascript
+  @javascript @personas
   Szenario: Explorative Suche in der Liste des Inventars
     Angenommen man öffnet die Liste des Inventars
     Und ich die Navigation der Kategorien aufklappe
@@ -23,7 +23,7 @@ Funktionalität: Explorative Suche
     Wenn ich die Navigation der Kategorien wieder zuklappe
     Dann sehe ich nur noch die Liste des Inventars
 
-  @javascript
+  @javascript @personas
   Szenario: Kategorie in der explorativen Suche suchen
     Angenommen man öffnet die Liste des Inventars
     Und die Navigation der Kategorien ist aufgeklappt
@@ -35,12 +35,12 @@ Funktionalität: Explorative Suche
     Und ich sehe ein Suchicon mit dem Namen des gerade gesuchten Begriffs sowie die aktuell ausgewählte und die darunterliegenden Kategorien
     Und das Inventar wurde nach dieser Kategorie gefiltert
 
-  @javascript
+  @javascript @personas
   Szenario: Zurücknavigieren in der explorativen Suche
     Angenommen ich befinde mich in der Unterkategorie der explorativen Suche
     Dann kann ich in die übergeordnete Kategorie navigieren
 
-  @javascript
+  @javascript @personas
   Szenario: Explorative Suche in der Liste der Modelle
     Angenommen man öffnet die Liste des Inventars
     Und ich die Navigation der Kategorien aufklappe
@@ -50,14 +50,14 @@ Funktionalität: Explorative Suche
     Und ich sehe die Hauptkategorie sowie die aktuell ausgewählte und die darunterliegenden Kategorien
     Und die Modelle wurden nach dieser Kategorie gefiltert
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Explorative Suche in der Bestellung
     Angenommen ich befinde mich in einer Bestellung
     Dann kann ich ein Modell anhand der explorativen Suche wählen
     Und die explorative Suche zeigt nur Modelle aus meinem Park an
     Und die nicht verfügbaren Modelle sind rot markiert
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Explorative Suche in der Aushändigung
     Wenn ich eine Aushändigung mache
     Dann kann ich ein Modell anhand der explorativen Suche wählen

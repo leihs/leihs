@@ -5,7 +5,7 @@ Funktionalität: Timeline der Modell-Verfügbarkeit
   Grundlage:
     Angenommen ich bin Mike
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Wo man die Timeline sieht
     Wenn ich eine Bestellung bearbeite
     Dann kann ich für jedes sichtbare Model die Timeline anzeigen lassen

@@ -6,9 +6,9 @@ Feature: Reject Order
 
   Background:
     Given Das System ist für den Mailversand im Testmodus konfiguriert
-    Given I am "Pius"
+    Given I am Pius
 
-  @javascript
+  @javascript @personas
   Scenario: Reject a contract on the daily view
     When I open the daily view
      And I reject a contract
@@ -17,6 +17,7 @@ Feature: Reject Order
     When I reject the contract
     Then the contract is rejected
 
+  @personas
   Scenario: Reject a contract on the edit view
     When I open the daily view
     And I edit a submitted contract

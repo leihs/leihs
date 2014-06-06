@@ -125,7 +125,7 @@ end
 Dann(/^wird die Option dem ersten Zeitfenster hinzugefügt$/) do
   @option_lines = @option.option_lines.select{|l| l.contract.status == :signed and l.contract.user == @user}
   @option_line = @option_lines.sort{|a, b| a.end_date <=> b.end_date}.first
-  first("[data-selected-lines-container]").find(".line[data-id='#{@option_line.id}'] [data-quantity-returned]").value.to_i > 0
+  find("[data-selected-lines-container]", match: :first).find(".line[data-id='#{@option_line.id}'] [data-quantity-returned]").value.to_i > 0
 end
 
 Wenn(/^ich dieselbe Option nochmals hinzufüge$/) do
@@ -134,7 +134,7 @@ Wenn(/^ich dieselbe Option nochmals hinzufüge$/) do
 end
 
 Wenn(/^im ersten Zeitfenster bereits die maximale Anzahl dieser Option erreicht ist$/) do
-  until first("[data-selected-lines-container]").find(".line[data-id='#{@option_line.id}'] [data-quantity-returned]").value.to_i == @option_line.quantity
+  until find("[data-selected-lines-container]", match: :first).find(".line[data-id='#{@option_line.id}'] [data-quantity-returned]").value.to_i == @option_line.quantity
     find("form#assign input#assign-input").set @option.inventory_code
     find("form#assign button .icon-ok-sign").click
   end
@@ -159,7 +159,7 @@ end
 
 When(/^I inspect an item$/) do
   within "[data-line-type='item_line']" do
-    find(".dropdown-holder").hover
+    find(".dropdown-holder").click
     find(".dropdown-item", text: "Inspektion").click
   end
 end

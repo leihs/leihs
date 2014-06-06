@@ -3,9 +3,9 @@
 Funktionalität: Software suchen
 
   Grundlage:
-    Angenommen ich bin "Mike"
+    Angenommen ich bin Mike
 
-  @current
+  @current @personas
   Szenario: Software anhand eines Suchbegriffs finden
     Angenommen es existiert ein Software-Produkt mit folgenden Eigenschaften:
       | Produktname    | suchbegriff1 |
@@ -23,7 +23,7 @@ Funktionalität: Software suchen
     Dann es erscheinen alle zutreffenden Software-Lizenzen
     Und es erscheinen alle zutreffenden Verträge, in denen diese Software-Produkt vorkommt
 
-  @javascript
+  @javascript @personas
   Szenario: Verträge für Software-Lizenzen anhand des Ausleihenden finden
     Angenommen es existiert eine Software-Lizenz
     Und diese Software-Lizenz ist an jemanden ausgeliehen
@@ -31,7 +31,7 @@ Funktionalität: Software suchen
     Dann erscheint der Vertrag dieser Person in den Suchresultaten
     Und es erscheint diese Person in den Suchresultaten
 
-  @javascript
+  @javascript @personas
   Szenario: Aufteilung der Suchresultate
     Angenommen es existieren Software-Produkte
     Und es existieren für diese Produkte Software-Lizenzen

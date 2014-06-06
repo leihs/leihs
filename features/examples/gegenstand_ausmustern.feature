@@ -2,7 +2,7 @@
 
 Funktionalität: Ausmustern
 
-  @javascript
+  @javascript @personas
   Szenariogrundriss: Ausmustern
     Angenommen ich bin Matti
     Und man sucht nach einem nicht ausgeliehenen <Objekt>, wo man der Besitzer ist
@@ -13,7 +13,7 @@ Funktionalität: Ausmustern
       | Gegenstand |
       | Lizenz     |
 
-  @javascript
+  @javascript @personas
   Szenariogrundriss: Verhinderung von Ausmusterung eines ausgeliehenen Objektes
     Angenommen ich bin Mike
     Und man sucht nach einem ausgeliehenen <Objekt>
@@ -23,7 +23,7 @@ Funktionalität: Ausmustern
       | Gegenstand |
       | Lizenz     |
 
-  @javascript
+  @javascript @personas
   Szenariogrundriss: Verhinderung von Ausmusterung eines Objektes bei dem ich nicht als Besitzer eingetragen bin
     Angenommen ich bin Matti
     Und man sucht nach einem <Objekt> bei dem ich nicht als Besitzer eingetragen bin
@@ -33,7 +33,7 @@ Funktionalität: Ausmustern
       | Gegenstand |
       | Lizenz     |
 
-  @javascript
+  @javascript @personas
   Szenariogrundriss: Fehlermeldung bei der Ausmusterung ohne angabe eines Grundes
     Angenommen ich bin Matti
     Und man sucht nach einem nicht ausgeliehenen <Objekt>, wo man der Besitzer ist
@@ -44,7 +44,7 @@ Funktionalität: Ausmustern
       | Gegenstand |
       | Lizenz     |
 
-  @javascript
+  @javascript @personas
   Szenariogrundriss: Ausmusterung rückgangig machen
     Angenommen ich bin Mike
     Und man sucht nach einem ausgemusterten <Objekt>, wo man der Besitzer ist
@@ -59,6 +59,7 @@ Funktionalität: Ausmustern
       | Gegenstand |
       | Lizenz     |
 
+  @personas
   Szenariogrundriss: Ansichtseite von einem ausgemusterten Objekt für Verantwortlichen anzeigen
     Angenommen ich bin Mike
     Und man sucht nach einem ausgemusterten <Objekt>, wo man der Verantwortliche und nicht der Besitzer ist

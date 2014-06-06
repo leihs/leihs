@@ -45,7 +45,7 @@ end
 
 Wenn(/^ich eine Seriennummer eingebe$/) do
   @serial_number = Faker::Lorem.characters(8)
-  first(".field[data-type='field']", text: _("Serial Number")).find("input").set @serial_number
+  find(".field[data-type='field']", match: :first, text: _("Serial Number")).find("input").set @serial_number
 end
 
 Wenn(/^ich eine Aktivierungsart eingebe$/) do
@@ -111,7 +111,7 @@ end
 
 Wenn(/^ich eine andere Seriennummer eingebe$/) do
   @new_serial_number = Faker::Lorem.characters(8)
-  first(".field[data-type='field']", text: _("Serial Number")).find("input").set @new_serial_number
+  find(".field[data-type='field']", match: :first, text: _("Serial Number")).find("input").set @new_serial_number
 end
 
 Wenn(/^ich einen anderen Aktivierungstyp wähle$/) do

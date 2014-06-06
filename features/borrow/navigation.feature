@@ -6,6 +6,7 @@ Funktionalität: Navigation
   möchte ich als Ausleiher
   Navigationsmöglichkeiten haben
 
+  @personas
   Szenario: Navigation für Ausleihenden
     Angenommen ich bin Normin
     Und man befindet sich auf der Seite der Hauptkategorien
@@ -17,6 +18,7 @@ Funktionalität: Navigation
     Und die Navigation beinhaltet "Benutzer"
     Und die Navigation beinhaltet "Logout"
 
+  @personas
   Szenario: Navigation für Manager
     Angenommen ich bin Pius
     Und man befindet sich auf der Seite der Hauptkategorien
@@ -28,7 +30,8 @@ Funktionalität: Navigation
     Und die Navigation beinhaltet "Verwalten"
     Und die Navigation beinhaltet "Benutzer"
     Und die Navigation beinhaltet "Logout"
-    
+
+  @personas
   Szenario: Navigation für Prüfer
     Angenommen ich bin Andi
     Und man befindet sich auf der Seite der Hauptkategorien
@@ -40,7 +43,8 @@ Funktionalität: Navigation
     Und die Navigation beinhaltet "Verwalten"
     Und die Navigation beinhaltet "Benutzer"
     Und die Navigation beinhaltet "Logout"
-    
+
+  @personas
   Szenario: Home-Button
     Angenommen ich bin Normin
     Dann seh ich in der Navigation den Home-Button

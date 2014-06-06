@@ -5,7 +5,7 @@ Funktionalität: Gegenstand bearbeiten
   Grundlage:
     Angenommen ich bin Matti
 
-  @javascript
+  @javascript @personas
   Szenario: Reihenfolge der Felder
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
     Wenn I select "Ja" from "item[retired]"
@@ -54,7 +54,7 @@ Funktionalität: Gegenstand bearbeiten
     | Garantieablaufdatum |
     | Vertragsablaufdatum |
 
-  @javascript
+  @javascript @personas
   Szenario: Lieferanten löschen
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
     Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes mit gesetztem Lieferanten
@@ -62,7 +62,7 @@ Funktionalität: Gegenstand bearbeiten
     Und ich speichern druecke
     Dann ist bei dem bearbeiteten Gegenstand keiner Lieferant eingetragen
 
-  @javascript @firefox
+  @javascript @personas
   Szenario: Einen Gegenstand mit allen Informationen editieren
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
     Und ich bin Matti
@@ -86,28 +86,28 @@ Funktionalität: Gegenstand bearbeiten
     Dann man wird zur Liste des Inventars zurueckgefuehrt
     Und ist der Gegenstand mit all den angegebenen Informationen gespeichert
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Ein Modell ohne Version für den Gegestand wählen
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
     Und ein Modell existiert, welches keine Version hat
     Wenn ich dieses Modell dem Gegestand zuweise
     Dann steht in dem Modellfeld nur der Produktname dieses Modell
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Lieferanten ändern
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
     Wenn ich den Lieferanten ändere
     Und ich speichern druecke
     Dann ist bei dem bearbeiteten Gegestand der geänderte Lieferant eingetragen
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Bei ausgeliehenen Gegenständen kann man die verantwortliche Abteilung nicht editieren
     Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeliehen ist und wo man Besitzer ist
     Wenn ich die verantwortliche Abteilung ändere
     Und ich speichern druecke
     Dann erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät ausgeliehen ist
 
-  @javascript
+  @javascript @personas
   Szenario: Einen Gegenstand mit allen Informationen editieren
     Und man navigiert zur Gegenstandsbearbeitungsseite eines Gegenstandes, der am Lager und in keinem Vertrag vorhanden ist
     Wenn ich die folgenden Informationen erfasse
@@ -140,7 +140,7 @@ Funktionalität: Gegenstand bearbeiten
     Dann man wird zur Liste des Inventars zurueckgefuehrt
     Und ist der Gegenstand mit all den angegebenen Informationen gespeichert
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Pflichtfelder
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
     Dann muss der "Bezug" unter "Rechnungsinformationen" ausgewählt werden
@@ -149,10 +149,10 @@ Funktionalität: Gegenstand bearbeiten
     Wenn "Ja" bei "Ausmusterung" ausgewählt ist muss auch "Grund der Ausmusterung" angegeben werden
     Dann sind alle Pflichtfelder mit einem Stern gekenzeichnet
     Wenn ein Pflichtfeld nicht ausgefüllt/ausgewählt ist, dann lässt sich der Gegenstand nicht speichern 
-    Und der Benutzer sieht eine Fehlermeldung
+    Und ich sehe eine Fehlermeldung
     Und die nicht ausgefüllten/ausgewählten Pflichtfelder sind rot markiert
 
-  @javascript
+  @javascript @personas
   Szenario: Neuen Lieferanten erstellen falls nicht vorhanden
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
     Angenommen man navigiert zur Gegenstandsbearbeitungsseite
@@ -161,21 +161,21 @@ Funktionalität: Gegenstand bearbeiten
     Dann wird der neue Lieferant erstellt
     Und bei dem bearbeiteten Gegestand ist der neue Lieferant eingetragen
 
-  @javascript
+  @javascript @personas
   Szenario: Bei Gegenständen, die in Verträgen vorhanden sind, kann man das Modell nicht ändern
     Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes, der in einem Vertrag vorhanden ist
     Wenn ich das Modell ändere
     Und ich speichern druecke
     Dann erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät in einem Vortrag vorhanden ist
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Einen Gegenstand, der ausgeliehen ist, kann man nicht ausmustern
     Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeliehen ist und wo man Besitzer ist
     Wenn ich den Gegenstand ausmustere
     Und ich speichern druecke
     Dann erhält man eine Fehlermeldung, dass man den Gegenstand nicht ausmustern kann, da das Gerät ausgeliehen ist
 
-  @javascript
+  @javascript @personas
   Szenario: Einen Gegenstand mit allen Informationen editieren
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
     Und ich bin Matti
@@ -201,7 +201,7 @@ Funktionalität: Gegenstand bearbeiten
     Dann man wird zur Liste des Inventars zurueckgefuehrt
     Und ist der Gegenstand mit all den angegebenen Informationen gespeichert
 
-  @javascript
+  @javascript @personas
   Szenario: Einen Gegenstand mit allen Informationen editieren
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
     Und ich bin Matti

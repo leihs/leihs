@@ -6,6 +6,7 @@ Funktionalität: Suche
   möchte ich als Benutzer
   die Sprache umschalten können
 
+  @personas
   Szenario: Wechsel der Sprache
     Angenommen ich bin Normin
     Und man sich auf der Modellliste befindet

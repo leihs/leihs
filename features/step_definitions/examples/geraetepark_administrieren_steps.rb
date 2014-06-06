@@ -66,7 +66,7 @@ Wenn(/^ich im Admin\-Bereich unter dem Reiter Geräteparks einen bestehenden Ger
   visit manage_inventory_pools_path
   within(".line", text: @ip.name) do
     find(:xpath, ".").click # NOTE it scrolls to the target line
-    find(".multibutton .dropdown-toggle").hover
+    find(".multibutton .dropdown-toggle").click
     find(".multibutton a", text: _("Delete")).click
   end
 end
@@ -81,7 +81,7 @@ Wenn(/^der Gerätepark wurde aus der Datenbank gelöscht$/) do
 end
 
 Dann(/^ich sehe die Geräteparkauswahl$/) do
-  find("div.dropdown-holder:nth-child(1)").hover
+  find("div.dropdown-holder:nth-child(1)").click
 end
 
 Dann(/^die Geräteparkauswahl ist alphabetish sortiert$/) do

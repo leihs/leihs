@@ -7,6 +7,7 @@ Funktionalität: Verfügbarkeit
     Und ich habe eine offene Bestellung mit Modellen
     Und die Bestellung Timeout ist 30 Minuten
 
+  @personas
   Szenario: Überbuchung durch Ausleih-Manager
     Wenn ich ein Modell der Bestellung hinzufüge
     Angenommen ich bin Pius
@@ -19,14 +20,17 @@ Funktionalität: Verfügbarkeit
     Und ich lande auf der Seite der Bestellübersicht
     Und ich erhalte eine Fehlermeldung
 
+  @personas
   Szenario: Blockieren der Modelle
     Wenn ich eine Aktivität ausführe
     Dann bleiben die Modelle in der Bestellung blockiert
-    
+
+  @personas
   Szenario: Freigabe der Modelle
     Wenn ich länger als 30 Minuten keine Aktivität ausgeführt habe
     Dann werden die Modelle meiner Bestellung freigegeben
-  
+
+  @personas
   Szenario: Erneutes Blockieren nach Inaktivität
     Angenommen ich länger als 30 Minuten keine Aktivität ausgeführt habe
     Und alle Modelle verfügbar sind
@@ -34,6 +38,7 @@ Funktionalität: Verfügbarkeit
     Dann kann man sein Prozess fortsetzen
     Und die Modelle werden blockiert
 
+  @personas
   Szenario: Modelle nach langer Inaktivität nicht mehr verfügbar
     Angenommen ein Modell ist nicht verfügbar
     Und ich länger als 30 Minuten keine Aktivität ausgeführt habe

@@ -3,7 +3,7 @@
 When /^I delete a line of this contract$/ do
   @line = @contract.lines.first
   @line_element = find(".line", match: :prefer_exact, :text => @line.model.name)
-  @line_element.find(".multibutton .dropdown-toggle").hover
+  @line_element.find(".multibutton .dropdown-toggle").click
   @line_element.find(".multibutton .red[data-destroy-lines]", :text => _("Delete")).click
 end
 
@@ -18,7 +18,7 @@ When /^I delete multiple lines of this contract$/ do
   if all("input[data-select-line]").map{|i| i.checked?}.all?
     find("input[data-select-line]", match: :first).click
   end
-  find(".multibutton [data-selection-enabled] + .dropdown-holder").hover
+  find(".multibutton [data-selection-enabled] + .dropdown-holder").click
   find("a", :text => _("Delete Selection")).click
   find(".line", match: :first)
 end
@@ -38,14 +38,13 @@ When /^I delete all lines of this contract$/ do
   find(".line input[type=checkbox]", match: :first)
   all(".line input[type=checkbox]").each &:click
   page.execute_script('$("#selection_actions .button").show()')
-  find(".multibutton [data-selection-enabled] + .dropdown-holder").hover
+  find(".multibutton [data-selection-enabled] + .dropdown-holder").click
   find("a", :text => _("Delete Selection")).click
   find(".line", match: :first)
 end
 
 Then /^I got an error message that not all lines can be deleted$/ do
-  first(".notification")
-  first(".error.notification")
+  find("#flash .error", text: _("You cannot delete all lines of an contract. Perhaps you want to reject it instead?"))
 end
 
 Then /^none of the lines are deleted$/ do
@@ -58,7 +57,7 @@ When(/^I delete a hand over$/) do
   @visit_line_ids = @visit.lines.map(&:id)
   find("[data-collapsed-toggle='#hand_overs']").click unless all("[data-collapsed-toggle='#hand_overs']").empty?
   within("#hand_overs .line[data-id='#{@visit.id}']") do
-    find(".line-actions .multibutton .dropdown-holder").hover
+    find(".line-actions .multibutton .dropdown-holder").click
     find(".dropdown-item[data-hand-over-delete]", text: _("Delete")).click
   end
 end

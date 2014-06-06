@@ -2,7 +2,7 @@
 
 Funktionalität: Delegation
 
-  @javascript
+  @javascript @personas
   Szenario: Einer Delegation einen gesperrten Verantwortlichen zuteilen 
     Angenommen ich bin Pius
     Und ich befinde mich in der Editieransicht einer Delegation
@@ -10,7 +10,7 @@ Funktionalität: Delegation
     Dann ist dieser bei der Auswahl rot markiert
     Und hinter dem Namen steht in rot 'Gesperrt!'
 
-  @javascript
+  @javascript @personas
   Szenario: Einer Delegation einen gesperrten Benutzer hinzufügen 
     Angenommen ich bin Pius
     Und ich befinde mich in der Editieransicht einer Delegation
@@ -19,7 +19,7 @@ Funktionalität: Delegation
     Und in der Auwahl steht hinter dem Namen in rot 'Gesperrt!'
     Und in der Auflistung der Benutzer steht hinter dem Namen in rot 'Gesperrt!'
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Kontaktperson bei Aushändigung wählen
     Angenommen ich bin Pius
     Und es existiert eine Aushändigung für eine Delegation mit zugewiesenen Gegenständen
@@ -27,7 +27,7 @@ Funktionalität: Delegation
     Wenn ich die Aushändigung abschliesse
     Dann muss ich eine Kontaktperson auswählen
 
-  @javascript @firefox
+  @javascript @personas @firefox
   Szenario: Anzeige einer gesperrten Kontaktperson in Aushändigung
     Angenommen ich bin Pius
     Und es existiert eine Aushändigung für eine Delegation mit zugewiesenen Gegenständen
@@ -37,7 +37,7 @@ Funktionalität: Delegation
     Dann ist diese Kontaktperson bei der Auswahl rot markiert
     Und in der Auwahl steht hinter dem Namen in rot 'Gesperrt!'
 
-  @javascript
+  @javascript @personas
   Szenario: Auswahl einer gesperrten Kontaktperson in Bestellung
     Angenommen ich bin Pius
     Und ich befinde mich in einer Bestellung
@@ -47,28 +47,28 @@ Funktionalität: Delegation
     Dann ist er bei der Auswahl rot markiert
     Und in der Auwahl steht hinter dem Namen in rot 'Gesperrt!'
 
-  @javascript
+  @javascript @personas
   Szenario: Delegation in persönliche Bestellungen ändern in Aushändigung
     Angenommen ich bin Pius
     Und ich öffne eine Aushändigung für eine Delegation
     Wenn ich statt einer Delegation einen Benutzer wähle
     Dann ist in der Aushändigung der Benutzer aufgeführt
 
-  @javascript
+  @javascript @personas
   Szenario: Persönliche Bestellung in Delegationsbestellung ändern in Aushändigung
     Angenommen ich bin Pius
     Und ich öffne eine Aushändigung
     Wenn ich statt eines Benutzers eine Delegation wähle
     Dann ist in der Bestellung der Name der Delegation aufgeführt
 
-  @javascript
+  @javascript @personas
   Szenario: Anzeige des Tooltipps
     Angenommen ich bin Pius
     Wenn ich nach einer Delegation suche
     Und ich über den Delegationname fahre
     Dann werden mir im Tooltipp der Name und der Verantwortliche der Delegation angezeigt
 
-  @javascript
+  @javascript @personas
   Szenario: Globale Suche
     Angenommen ich bin Pius
     Und ich suche 'Julie'
@@ -76,7 +76,7 @@ Funktionalität: Delegation
     Dann werden mir im alle Suchresultate von Julie oder Delegation mit Namen Julie angezeigt
     Und mir werden alle Delegationen angezeigt, den Julie zugeteilt ist
 
-
+  @personas
   Szenario: Gesperrte Benutzer können keine Bestellungen senden
     Angenommen ich bin Julie
     Wenn ich von meinem Benutzer zu einer Delegation wechsle
@@ -84,7 +84,7 @@ Funktionalität: Delegation
     Aber ich bin für diesen Gerätepark gesperrt
     Dann kann ich keine Gegenstände dieses Geräteparks absenden
 
-  @javascript
+  @javascript @personas
   Szenario: Filter der Delegationen
     Angenommen ich bin Pius
     Wenn ich in den Admin-Bereich wechsel
@@ -92,7 +92,7 @@ Funktionalität: Delegation
     Dann kann ich in der Benutzerliste nach Delegationen einschränken
     Und ich kann in der Benutzerliste nach Benutzer einschränken
 
-  @javascript
+  @javascript @personas
   Szenario: Erfassung einer Delegation
     Angenommen ich bin Pius
     Und ich in den Admin-Bereich wechsel
@@ -107,7 +107,7 @@ Funktionalität: Delegation
     Und ich speichere
     Dann ist die neue Delegation mit den aktuellen Informationen gespeichert
 
-  @javascript
+  @javascript @personas
   Szenario: Delegation erhält Zugriff als Kunde
     Angenommen ich bin Pius
     Und ich in den Admin-Bereich wechsel
@@ -115,7 +115,7 @@ Funktionalität: Delegation
     Wenn ich eine neue Delegation erstelle
     Dann kann ich dieser Delegation ausschliesslich Zugriff als Kunde zuteilen
 
-  @javascript
+  @javascript @personas
   Szenario: Delegation in persönliche Bestellungen ändern in Bestellung
     Angenommen ich bin Pius
     Und es wurde für eine Delegation eine Bestellung erstellt
@@ -124,7 +124,7 @@ Funktionalität: Delegation
     Dann ist in der Bestellung der Benutzer aufgeführt
     Und es ist keine Kontaktperson aufgeführt
 
-  @javascript
+  @javascript @personas
   Szenario: Delegation erfassen ohne Pflichtfelder abzufüllen
     Angenommen ich bin Pius
     Und ich in den Admin-Bereich wechsel
@@ -139,7 +139,7 @@ Funktionalität: Delegation
     Und ich speichere
     Dann sehe ich eine Fehlermeldung
 
-  @javascript
+  @javascript @personas
   Szenario: Delegation editieren
     Angenommen ich bin Pius
     Und ich in den Admin-Bereich wechsel
@@ -153,7 +153,7 @@ Funktionalität: Delegation
     Dann sieht man die Erfolgsbestätigung
     Und ist die bearbeitete Delegation mit den aktuellen Informationen gespeichert
 
-  @javascript
+  @javascript @personas
   Szenario: Delegation Zugriff entziehen
     Angenommen ich bin Pius
     Wenn ich eine Delegation mit Zugriff auf das aktuelle Gerätepark editiere
@@ -161,7 +161,7 @@ Funktionalität: Delegation
     Und ich speichere
     Dann können keine Bestellungen für diese Delegation für dieses Gerätepark erstellt werden
 
-  @javascript
+  @javascript @personas
   Szenario: Persönliche Bestellung in Delegationsbestellung ändern in Bestellung
     Angenommen ich bin Pius
     Und ich befinde mich in einer Bestellung
@@ -171,7 +171,7 @@ Funktionalität: Delegation
     Dann ist in der Bestellung der Name der Delegation aufgeführt
     Und ist in der Bestellung der Name der Kontaktperson aufgeführt
 
-  @javascript
+  @javascript @personas
   Szenario: Delegation löschen
     Angenommen ich bin Gino
     Und ich in den Admin-Bereich wechsle
@@ -182,7 +182,7 @@ Funktionalität: Delegation
 
   #  ANZEIGE BACKEND
 
-
+  @personas
   Szenario: Anzeige der Bestellungen für eine Delegation
     Angenommen ich bin Pius
     Und es wurde für eine Delegation eine Bestellung erstellt
@@ -190,7 +190,7 @@ Funktionalität: Delegation
     Dann sehe ich den Namen der Delegation
     Und ich sehe die Kontaktperson
 
-  @javascript @firefox
+  @javascript @personas @firefox
   Szenario: Definition Kontaktperson auf Auftragserstellung
     Angenommen ich bin Julie
     Wenn ich eine Bestellung für eine Delegationsgruppe erstelle
@@ -199,7 +199,7 @@ Funktionalität: Delegation
     Wenn ich die Gegenstände für die Delegation an "Mina" aushändige
     Dann ist "Mina" die neue Kontaktperson dieses Auftrages
 
-
+  @personas
   Szenario: Anzeige der Bestellungen einer persönlichen Bestellung
     Angenommen ich bin Pius
     Und es existiert eine persönliche Bestellung
@@ -207,7 +207,7 @@ Funktionalität: Delegation
     Dann ist in der Bestellung der Name des Benutzers aufgeführt
     Und ich sehe keine Kontatkperson
 
-  @javascript
+  @javascript @personas
   Szenario: Delegation in Aushändigung ändern
     Angenommen ich bin Pius
     Und es existiert eine Aushändigung für eine Delegation
@@ -216,14 +216,14 @@ Funktionalität: Delegation
     Und ich bestätige den Benutzerwechsel
     Dann lautet die Aushändigung auf diese neu gewählte Delegation
 
-  @javascript
+  @javascript @personas
   Szenario: Auswahl der Delegation in Aushändigung ändern
     Angenommen ich bin Pius
     Und ich öffne eine Aushändigung
     Wenn ich versuche die Delegation zu wechseln
     Dann kann ich nur diejenigen Delegationen wählen, die Zugriff auf meinen Gerätepark haben
 
-  @javascript @firefox
+  @javascript @personas @firefox
   Szenario: Auswahl der Kontaktperson in Aushändigung ändern
     Angenommen ich bin Pius
     Und es existiert eine Aushändigung für eine Delegation mit zugewiesenen Gegenständen
@@ -231,14 +231,14 @@ Funktionalität: Delegation
     Wenn ich versuche die Kontaktperson zu wechseln
     Dann kann ich nur diejenigen Personen wählen, die zur Delegationsgruppe gehören
 
-  @javascript
+  @javascript @personas
   Szenario: Auswahl der Kontaktperson in Bestellung ändern
     Angenommen ich bin Pius
     Und ich befinde mich in einer Bestellung von einer Delegation
     Wenn ich versuche bei der Bestellung die Kontaktperson zu wechseln
     Dann kann ich bei der Bestellung als Kontaktperson nur diejenigen Personen wählen, die zur Delegationsgruppe gehören
 
-  @javascript @firefox
+  @javascript @personas @firefox
   Szenario: Borrow: Bestellung erfassen mit Delegation
     Angenommen ich bin Julie
     Wenn ich über meinen Namen fahre
@@ -260,7 +260,7 @@ Funktionalität: Delegation
     Und die Delegation ist als Besteller gespeichert
     Und ich werde als Kontaktperson hinterlegt
 
-  @javascript
+  @javascript @personas
   Szenario: Delegation in Bestellungen ändern
     Angenommen ich bin Pius
     Und ich befinde mich in einer Bestellung
@@ -270,21 +270,21 @@ Funktionalität: Delegation
     Dann lautet die Aushändigung auf diese neu gewählte Delegation
     Und die neu gewählte Kontaktperson wird gespeichert
 
-  @javascript
+  @javascript @personas
   Szenario: Auswahl der Delegation in Bestellung ändern
     Angenommen ich bin Pius
     Und ich befinde mich in einer Bestellung
     Wenn ich versuche die Delegation zu wechseln
     Dann kann ich nur diejenigen Delegationen wählen, die Zugriff auf meinen Gerätepark haben
 
-  @javascript
+  @javascript @personas
   Szenario: Delegation wechseln - nur ein Kontaktpersonfeld
     Angenommen ich bin Pius
     Und ich befinde mich in einer Bestellung von einer Delegation
     Wenn ich die Delegation wechsle
     Dann sehe ich genau ein Kontaktpersonfeld
 
-  @javascript
+  @javascript @personas
   Szenario: Delegation wechseln - Kontaktperson ist ein Muss
     Angenommen ich bin Pius
     Und ich befinde mich in einer Bestellung

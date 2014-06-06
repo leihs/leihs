@@ -83,7 +83,7 @@ end
 
 Wenn(/^man die Ausmusterung bei diese(?:.) (?:.*) zurück setzt$/) do
   page.should have_content(_("Retirement"))
-  find("*[name='item[retired]']").select _("No")
+  find("[name='item[retired]']").select _("No")
 end
 
 Dann(/^wurde man auf die Inventarliste geleitet$/) do

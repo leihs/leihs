@@ -3,9 +3,9 @@
 Funktionalität: Software erfassen
 
   Grundlage:
-    Angenommen ich bin "Mike"
+    Angenommen ich bin Mike
 
-  @current
+  @current @personas
   Szenario: Software-Produkt erfassen
     Wenn ich eine neue Software hinzufüge
     Und ich erfasse die folgenden Details
@@ -23,7 +23,7 @@ Funktionalität: Software erfassen
     Wenn ich das Software-Produkt wieder editiere
     Dann werden nur die Linien mit Links zusätzlich ausserhalb des Textfeldes angezeigt
 
-  @javascript
+  @javascript @personas
   Szenario: Mögliche Werte in Software-Lizenz erfassen
     Angenommen ich befinde mich auf der Lizenz-Erstellungsseite
     Dann die mögliche Werte für Aktivierungstyp sind in der folgenden Reihenfolge:
@@ -69,7 +69,7 @@ Funktionalität: Software erfassen
     Dann kann man im Notiz-Feld "Lizenzinformation" Text eingeben
     Und die Option "Ausleihbar" ist standardmässig auf "Nicht ausleihbar" gesetzt
 
-  @javascript
+  @javascript @personas
   Szenario: Software-Lizenz erfassen
     Angenommen es existiert ein Software-Produkt
     Wenn ich eine neue Software-Lizenz hinzufüge
@@ -94,7 +94,7 @@ Funktionalität: Software erfassen
     Und ich speichere
     Dann sind die Informationen dieser Software-Lizenz gespeichert
 
-    @javascript
+    @javascript @personas
     Szenario: Software-Lizenz Anschaffungswert mit 2 Dezimalstellen erfassen
     Angenommen es existiert ein Software-Produkt
     Wenn ich eine neue Software-Lizenz hinzufüge

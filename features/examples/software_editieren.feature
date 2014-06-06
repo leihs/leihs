@@ -3,9 +3,9 @@
 Funktionalität: Software editieren
 
   Grundlage:
-    Angenommen ich bin "Mike"
+    Angenommen ich bin Mike
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Software-Produkt editieren
     Wenn ich eine Software editiere
     Und ich ändere die folgenden Details
@@ -19,7 +19,7 @@ Funktionalität: Software editieren
     Dann die Informationen sind gespeichert
     Und die Daten wurden entsprechend aktualisiert
 
-  @current
+  @current @javascript @personas
   Szenario: Software-Lizenz editieren
     Wenn ich eine bestehende Software-Lizenz mit Software-Informationen und Anhängen editiere
     Dann sehe ich die "Software Informationen" angezeigt
@@ -46,7 +46,7 @@ Funktionalität: Software editieren
     Wenn ich speichere
     Dann sind die Informationen dieser Software-Lizenz erfolgreich aktualisiert worden
 
-  @javascript
+  @javascript @personas
   Szenario: Software-Lizenz editieren - Werte der Datenfelder löschen
     Wenn ich eine Software-Lizenz mit gesetztem Maintenance-Ablaufdatum, Lizenzablaufdatum und Rechnungsdatum editiere
     Und ich die Daten für die folgenden Feldern lösche:

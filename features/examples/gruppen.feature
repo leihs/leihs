@@ -9,14 +9,14 @@ Funktionalität: Gruppen
   Grundlage:
     Angenommen ich bin Pius
 
-
+  @personas
   Szenario: Anzeige der Gruppenliste
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
     Dann sehe ich die Liste der Gruppen
     Und die Anzahl zugeteilter Benutzer
     Und die Anzahl der zugeteilten Modell-Kapazitäten
 
-
+  @personas
   Szenario: Visierungspflichtige Gruppe erstellen
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
     Wenn ich eine Gruppe erstelle
@@ -31,7 +31,7 @@ Funktionalität: Gruppen
     Und ich sehe die Gruppenliste alphabetisch sortiert
     Und ich sehe eine Bestätigung
 
-
+  @personas
   Szenario: Gruppe editieren und als visierungspflichtig kennzeichnen
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
     Wenn ich eine bestehende, nicht visierungspflichtige Gruppe editiere
@@ -46,7 +46,7 @@ Funktionalität: Gruppen
     Und ich sehe die Gruppenliste
     Und ich sehe eine Bestätigung
 
-
+  @personas
   Szenario: Gruppe ist nicht visierungspflichtig
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
     Wenn ich eine bestehende visierungspflichtige Gruppe editiere
@@ -61,57 +61,60 @@ Funktionalität: Gruppen
     Und ich sehe die Gruppenliste
     Und ich sehe eine Bestätigung
 
-  @javascript
+  @javascript @personas
   Szenario: Noch nicht zugeteilten Kapazitäten
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
     Wenn ich eine Gruppe erstelle
     Und die Modelle und deren Kapazität hinzufüge
     Dann sehe ich die noch nicht zugeteilten Kapazitäten
 
-  @javascript
+  @javascript @personas
   Szenario: Gruppe löschen
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
     Wenn ich eine Gruppe lösche
     Und die Gruppe wurde aus der Liste gelöscht
     Und die Gruppe wurde aus der Datenbank gelöscht
 
-  @javascript
+  @javascript @personas
   Szenario: Benutzer hinzufügen
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
     Und ich eine bestehende Gruppe editiere
     Wenn ich einen Benutzer hinzufüge
     Dann wird der Benutzer zuoberst in der Liste hinzugefügt
 
+  @personas
   Szenario: Benutzer sortieren
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
     Und ich eine bestehende Gruppe editiere
     Dann sind die bereits hinzugefügten Benutzer alphabetisch sortiert
 
-  @javascript
+  @javascript @personas
   Szenario: Modelle hinzufügen
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
     Und ich eine bestehende Gruppe editiere
     Wenn ich ein Modell hinzufüge
     Dann wird das Modell zuoberst in der Liste hinzugefügt
-    
+
+  @personas
   Szenario: Modelle sortieren
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
     Und ich eine bestehende Gruppe editiere
     Dann sind die bereits hinzugefügten Modelle alphabetisch sortiert
 
-  @javascript
+  @javascript @personas
   Szenario: Modelle hinzufügen
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
     Und ich eine bestehende Gruppe editiere
     Wenn ich ein Modell hinzufüge
     Dann wird das Modell zuoberst in der Liste hinzugefügt
-    
+
+  @personas
   Szenario: Modelle sortieren
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
     Und ich eine bestehende Gruppe editiere
     Dann sind die bereits hinzugefügten Modelle alphabetisch sortiert
 
-  @javascript
+  @javascript @personas
   Szenario: bereits bestehende Modelle hinzufügen
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
     Und ich eine bestehende Gruppe editiere
@@ -120,7 +123,7 @@ Funktionalität: Gruppen
     Und das vorhandene Modell ist nach oben gerutscht
     Und das vorhandene Modell behält die eingestellte Anzahl
 
-  @javascript
+  @javascript @personas
   Szenario: bereits bestehende Benutzer hinzufügen
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
     Und ich eine bestehende Gruppe editiere
@@ -128,13 +131,13 @@ Funktionalität: Gruppen
     Dann wird der Benutzer nicht hinzugefügt
     Und der vorhandene Benutzer ist nach oben gerutscht
 
-
+  @personas
   Szenario: Gruppenliste Sortierung
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
     Dann sehe ich die Liste der Gruppen
     Und die Liste ist alphabetisch sortiert
 
-  @javascript
+  @javascript @personas
   Szenario: Gruppe erstellen
     Angenommen ich befinde mich im Admin-Bereich im Reiter Gruppen
     Wenn ich eine Gruppe erstelle

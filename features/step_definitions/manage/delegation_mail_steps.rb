@@ -24,7 +24,7 @@ end
 Wenn(/^ich bei dieser Rücknahme eine Erinnerung sende$/) do
   find("[data-collapsed-toggle='#take_backs']").click if page.has_selector?("[data-collapsed-toggle='#take_backs']")
   within("#take_backs .line", text: /#{@contract.user}.*#{_("Latest reminder")}/) do
-    find(".arrow.down").hover
+    find(".arrow.down").click
     find("a", text: _("Send reminder")).click
   end
 end
@@ -41,7 +41,7 @@ end
 Wenn(/^ich die Mailfunktion wähle$/) do
   ActionMailer::Base.deliveries.count.should == 0
   within("#users .line", text: @delegation) do
-    find(".arrow.down").hover
+    find(".arrow.down").click
     @mailto_link = find("a", text: _("E-Mail"))[:href]
   end
 end

@@ -9,18 +9,18 @@ Funktionalität: Rücknahmen
   Grundlage:
     Angenommen ich bin Pius
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Festhalten wer einen Gegenstand zurückgenommen hat
     Wenn ich einen Gegenstand zurücknehme
     Dann wird festgehalten, dass ich diesen Gegenstand zurückgenommen habe
 
-
+  @personas
   Szenario: Korrekte Reihenfolge mehrerer Verträge
     Und es existiert ein Benutzer mit mindestens 2 Rückgaben an 2 verschiedenen Tagen
     Wenn man die Rücknahmenansicht für den Benutzer öffnet
     Dann sind die Rücknahmen aufsteigend nach Datum sortiert
 
-  @javascript
+  @javascript @personas
   Szenario: Optionen in mehreren Zeitfenstern vorhanden
     Angenommen es existiert ein Benutzer mit einer zurückzugebender Option in zwei verschiedenen Zeitfenstern
     Und ich öffne die Rücknahmeansicht für diesen Benutzer

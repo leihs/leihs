@@ -2,7 +2,7 @@
 
 Funktionalität: Gegenstand erstellen
 
-  @javascript
+  @javascript @personas
   Szenario: Felder beim Erstellen eines Gegenstandes
     Angenommen ich bin Matti
     Und man navigiert zur Gegenstandserstellungsseite
@@ -52,7 +52,7 @@ Funktionalität: Gegenstand erstellen
     | Garantieablaufdatum          |
     | Vertragsablaufdatum          |
 
-  @javascript
+  @javascript @personas
   Szenario: Einen Gegenstand mit allen fehlenden Pflichtangaben erstellen
     Angenommen ich bin Matti
     Und man navigiert zur Gegenstandserstellungsseite
@@ -65,7 +65,7 @@ Funktionalität: Gegenstand erstellen
     Dann kann das Modell nicht erstellt werden
     Und ich sehe eine Fehlermeldung
 
-  @javascript
+  @javascript @personas
   Szenario: Einen Gegenstand mit einer fehlenden Pflichtangabe erstellen
     Angenommen ich bin Matti
     Und man navigiert zur Gegenstandserstellungsseite
@@ -80,7 +80,7 @@ Funktionalität: Gegenstand erstellen
     Und ich sehe eine Fehlermeldung
     Und die anderen Angaben wurde nicht gelöscht
 
-  @javascript
+  @javascript @personas
   Szenario: Einen Gegenstand mit einer fehlenden Pflichtangabe erstellen
     Angenommen ich bin Matti
     Und man navigiert zur Gegenstandserstellungsseite
@@ -95,13 +95,13 @@ Funktionalität: Gegenstand erstellen
     Und ich sehe eine Fehlermeldung
     Und die anderen Angaben wurde nicht gelöscht
 
-  @javascript
+  @javascript @personas
   Szenario: Wo man einen Gegenstand erstellen kann
     Angenommen ich bin Matti
     Und man befindet sich auf der Liste des Inventars
     Dann kann man einen Gegenstand erstellen
 
-  @javascript
+  @javascript @personas
   Szenario: Neuen Lieferanten erstellen falls nicht vorhanden
     Angenommen ich bin Mike
     Und ich befinde mich auf der Erstellungsseite eines Gegenstandes
@@ -115,7 +115,7 @@ Funktionalität: Gegenstand erstellen
     Dann wird der neue Lieferant erstellt
     Und bei dem erstellten Gegestand ist der neue Lieferant eingetragen
 
-  @javascript
+  @javascript @personas
   Szenario: Einen Gegenstand mit allen Informationen erstellen
     Angenommen ich bin Matti
     Und man navigiert zur Gegenstandserstellungsseite
@@ -140,7 +140,7 @@ Funktionalität: Gegenstand erstellen
     Dann man wird zur Liste des Inventars zurueckgefuehrt
     Und ist der Gegenstand mit all den angegebenen Informationen erstellt
 
-  @javascript
+  @javascript @personas
   Szenario: Einen Gegenstand mit allen Informationen erstellen
     Angenommen ich bin Matti
     Und man navigiert zur Gegenstandserstellungsseite
@@ -166,7 +166,7 @@ Funktionalität: Gegenstand erstellen
     Dann man wird zur Liste des Inventars zurueckgefuehrt
     Und ist der Gegenstand mit all den angegebenen Informationen erstellt
 
-  @javascript
+  @javascript @personas
   Szenario: Einen Gegenstand mit einer fehlenden Pflichtangabe erstellen
     Angenommen ich bin Matti
     Und man navigiert zur Gegenstandserstellungsseite
@@ -181,7 +181,7 @@ Funktionalität: Gegenstand erstellen
     Und ich sehe eine Fehlermeldung
     Und die anderen Angaben wurde nicht gelöscht
 
-  @javascript
+  @javascript @personas
   Szenario: Einen Gegenstand mit einer fehlenden Pflichtangabe erstellen
     Angenommen ich bin Matti
     Und man navigiert zur Gegenstandserstellungsseite
@@ -196,7 +196,7 @@ Funktionalität: Gegenstand erstellen
     Und ich sehe eine Fehlermeldung
     Und die anderen Angaben wurde nicht gelöscht
 
-  @javascript
+  @javascript @personas
   Szenario: Einen Gegenstand mit allen Informationen erstellen
     Angenommen ich bin Matti
     Und man navigiert zur Gegenstandserstellungsseite
@@ -221,7 +221,7 @@ Funktionalität: Gegenstand erstellen
     Dann man wird zur Liste des Inventars zurueckgefuehrt
     Und ist der Gegenstand mit all den angegebenen Informationen erstellt
 
-  @javascript
+  @javascript @personas
   Szenario: Einen Gegenstand mit allen Informationen erstellen
     Angenommen ich bin Matti
     Und man navigiert zur Gegenstandserstellungsseite
@@ -246,13 +246,13 @@ Funktionalität: Gegenstand erstellen
     Dann man wird zur Liste des Inventars zurueckgefuehrt
     Und ist der Gegenstand mit all den angegebenen Informationen erstellt
 
-  @javascript
+  @javascript @personas
   Szenario: Wo man einen Gegenstand erstellen kann
     Angenommen ich bin Matti
     Und man befindet sich auf der Liste des Inventars
     Dann kann man einen Gegenstand erstellen
 
-  @javascript
+  @javascript @personas
   Szenario: Felder die bereits vorausgefüllt sind
     Angenommen ich bin Matti
     Und man navigiert zur Gegenstandserstellungsseite
@@ -266,7 +266,7 @@ Funktionalität: Gegenstand erstellen
     | Vollständigkeit  | radio            | OK               |
     | Anschaffungskategorie  | select     |                  |
 
-  @javascript
+  @javascript @personas
   Szenario: Werte für Anschaffungskategorie hinterlegen
     Angenommen ich bin Matti
     Und man navigiert zur Gegenstandserstellungsseite

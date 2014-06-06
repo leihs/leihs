@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 Wenn(/^man auf einem Model "Zur Bestellung hinzufügen" wählt$/) do
-  line = first("#model-list .line")
+  line = find("#model-list .line", match: :first)
   @model = Model.find line["data-id"]
   line.find("button[data-create-order-line]").click
 end
@@ -14,7 +14,7 @@ Wenn(/^man auf einem verfügbaren Model "Zur Bestellung hinzufügen" wählt$/) d
 end
 
 Dann(/^öffnet sich der Kalender$/) do
-  first("#booking-calendar .fc-day-content")
+  find("#booking-calendar .fc-day-content", match: :first)
 end
 
 Wenn(/^ich den Kalender schliesse$/) do
@@ -36,7 +36,7 @@ Wenn(/^man versucht ein Modell zur Bestellung hinzufügen, welches nicht verfüg
     end
   end
   visit borrow_model_path(@model)
-  find("*[data-create-order-line][data-model-id='#{@model.id}']").click
+  find("[data-create-order-line][data-model-id='#{@model.id}']").click
   step "ich setze das Startdatum im Kalendar auf '%s'" % I18n.l(inventory_pool.next_open_date(start_date))
   step "ich setze das Enddatum im Kalendar auf '%s'" % I18n.l(inventory_pool.next_open_date(end_date))
   step "ich setze die Anzahl im Kalendar auf #{@quantity}"
@@ -52,13 +52,11 @@ Wenn(/^ich setze die Anzahl im Kalendar auf (\d+)$/) do |quantity|
 end
 
 Wenn(/^ich setze das Startdatum im Kalendar auf '(.*?)'$/) do |date|
-  page.should have_selector("#booking-calendar-start-date")
-  page.execute_script %Q{ $("#booking-calendar-start-date").focus().select().val("#{date}").change() }
+  find("#booking-calendar-start-date").set date
 end
 
 Wenn(/^ich setze das Enddatum im Kalendar auf '(.*?)'$/) do |date|
-  page.should have_selector("#booking-calendar-end-date")
-  page.execute_script %Q{ $("#booking-calendar-end-date").focus().select().val("#{date}").change() }
+  find("#booking-calendar-end-date").set date
 end
 
 Dann(/^schlägt der Versuch es hinzufügen fehl$/) do
@@ -74,9 +72,9 @@ end
 
 Wenn(/^man einen Gegenstand aus der Modellliste hinzufügt$/) do
   visit borrow_models_path(category_id: Category.find {|c| !c.models.active.blank?})
-  @model_name = first(".line .line-col.col3of6").text
+  @model_name = find(".line .line-col.col3of6", match: :first).text
   @model = Model.find {|m| [m.name, m.product].include? @model_name}
-  first(".line .button").click
+  find(".line .button", match: :first).click
 end
 
 Dann(/^der Kalender beinhaltet die folgenden Komponenten$/) do |table|
@@ -347,7 +345,7 @@ end
 Dann(/^kann ich dieses Modell ausleihen, wenn ich in dieser Gruppe bin$/) do
   @current_user.groups << Group.find(@partition.group_id)
   visit borrow_model_path(@model)
-  find("*[data-create-order-line][data-model-id='#{@model.id}']").click
+  find("[data-create-order-line][data-model-id='#{@model.id}']").click
   date = @current_user.inventory_pools.first.next_open_date
   step "ich setze das Startdatum im Kalendar auf '#{I18n::l(date)}'"
   step "ich setze das Enddatum im Kalendar auf '#{I18n::l(date)}'"

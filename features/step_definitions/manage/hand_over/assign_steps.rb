@@ -1,7 +1,5 @@
 When /^I click an inventory code input field of an item line$/ do
-  @item_line = @customer.contracts.approved.last.lines.first
-  #@item = @item_line.model.items.in_stock.last
-  #@item_line_element = find(".line", match: :prefer_exact, :text => @item.model.name)
+  @item_line = @customer.contracts.approved.last.item_lines.sample
   @item_line_element = find(".line", match: :prefer_exact, :text => @item_line.model.name)
   @item_line_element.find("[data-assign-item]").click
 end
@@ -51,8 +49,9 @@ When /^I select a linegroup$/ do
 end
 
 When /^I add an item which is matching the model of one of the selected unassigned lines to the hand over by providing an inventory code$/ do
+  page.should have_selector(".line")
   selected_ids = all(".line [data-select-line]:checked").map {|cb| cb.find(:xpath, "ancestor::div[@data-id]")["data-id"]}
-  @item = @hand_over.lines.select{|l| !l.item and selected_ids.include? l.id.to_s and l.model.items.in_stock.exists?}.first.model.items.in_stock.first
+  @item = @hand_over.lines.select{|l| !l.item and selected_ids.include?(l.id.to_s) and l.model.items.in_stock.exists?}.first.model.items.in_stock.first
   find("[data-add-contract-line]").set @item.inventory_code
   find("[data-add-contract-line] + .addon").click
 end

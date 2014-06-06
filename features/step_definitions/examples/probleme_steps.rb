@@ -130,7 +130,7 @@ end
 
 def open_inspection_for_line(line_id)
   within(".line[data-id='#{line_id}'] .multibutton") do
-    find(".dropdown-toggle").hover
+    find(".dropdown-toggle").click
     find(".dropdown-holder .dropdown-item", text: _("Inspect")).click
   end
   find(".modal")

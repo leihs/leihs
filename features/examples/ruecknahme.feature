@@ -9,7 +9,7 @@ Funktionalität: Rücknahme
   Grundlage:
     Angenommen ich bin Pius
 
-  @javascript
+  @javascript @personas
   Szenario: Hinzufügen eines Gegenstandes in der Rücknahme
     Angenommen ich befinde mich in einer Rücknahme
     Wenn ich einen Gegenstand über das Zuweisenfeld zurücknehme
@@ -17,14 +17,14 @@ Funktionalität: Rücknahme
     Und die Zeile wird grün markiert
     Und ich erhalte eine Erfolgsmeldung
 
-
+  @personas
   Szenario: Deselektieren einer Linie
     Angenommen ich befinde mich in einer Rücknahme
     Wenn ich einen Gegenstand über das Zuweisenfeld zurücknehme
     Und ich die Zeile deselektiere
     Dann ist die Zeile nicht mehr grün markiert
 
-  @javascript
+  @javascript @personas
   Szenario: Zurückzugebender Gegenstand hat Verspätung
     Angenommen ich befinde mich in einer Rücknahme mit mindestens einem verspäteten Gegenstand
     Wenn ich einen verspäteten Gegenstand über das Zuweisenfeld zurücknehme
@@ -33,17 +33,17 @@ Funktionalität: Rücknahme
     Und das Problemfeld für die Linie wird angezeigt
     Und ich erhalte eine Erfolgsmeldung
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Festhalten wer einen Gegenstand zurückgenommen hat
     Wenn ich einen Gegenstand zurücknehme
     Dann wird festgehalten, dass ich diesen Gegenstand zurückgenommen habe
 
-
+  @personas
   Szenario: Sperrstatus des Benutzers anzeigen
     Angenommen ich befinde mich in einer Rücknahme für ein gesperrter Benutzer
     Dann sehe ich neben seinem Namen den Sperrstatus 'Gesperrt!'
 
-  @javascript
+  @javascript @personas
   Szenario: Zurückgeben einer Option
     Angenommen ich befinde mich in einer Rücknahme mit mindestens zwei gleichen Optionen
     Wenn ich eine Option über das Zuweisenfeld zurücknehme
@@ -54,7 +54,7 @@ Funktionalität: Rücknahme
     Dann wird die Zeile grün markiert
     Und ich erhalte eine Erfolgsmeldung
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Inspektion während einer Rücknahme
     Angenommen ich befinde mich in einer Rücknahme mit mindestens einem Gegenstand und einer Option
     Wenn ich bei der Option eine Stückzahl von 1 eingebe

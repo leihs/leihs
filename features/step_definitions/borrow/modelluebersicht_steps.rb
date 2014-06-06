@@ -13,7 +13,7 @@ Angenommen(/^man befindet sich auf der Liste der Modelle$/) do
 end
 
 Wenn(/^ich ein Modell auswähle$/) do
-  first(".line[data-id='#{@model.id}']").click
+  find(".line[data-id='#{@model.id}']", match: :first).click
 end
 
 Dann(/^lande ich auf der Modellübersicht$/) do
@@ -28,11 +28,11 @@ Dann(/^ich sehe die folgenden Informationen$/) do |table|
       when "Hersteller"
         page.should have_content @model.manufacturer
       when "Bilder"
-        @model.images.each_with_index {|image,i| first("img[src='#{model_image_thumb_path(@model, :offset => i)}']")}
+        @model.images.each_with_index {|image,i| find("img[src='#{model_image_thumb_path(@model, :offset => i)}']", match: :first)}
       when "Beschreibung"
         page.should have_content @model.description
       when "Anhänge"
-        @model.attachments.each {|a| first("a[href='#{a.public_filename}']")}
+        @model.attachments.each {|a| find("a[href='#{a.public_filename}']", match: :first)}
       when "Eigenschaften"
         @model.properties.each do |p|
           page.should have_content p.key
@@ -40,8 +40,8 @@ Dann(/^ich sehe die folgenden Informationen$/) do |table|
         end
       when "Ergänzende Modelle"
         @model.compatibles.each do |c|
-          first("a[href='#{borrow_model_path(c)}']")
-          first("img[src='#{model_image_thumb_path(c)}']")
+          find("a[href='#{borrow_model_path(c)}']", match: :first)
+          find("img[src='#{model_image_thumb_path(c)}']", match: :first)
           page.should have_content c.name
         end
       else
@@ -87,19 +87,19 @@ end
 
 Dann(/^werden die ersten fünf Eigenschaften mit Schlüssel und Wert angezeigt$/) do
   @model.properties[0..4].each do |property|
-    first("*", :text => property.key, :visible => true)
+    find("*", match: :first, :text => property.key, :visible => true)
   end
 end
 
 Dann(/^wenn man 'Alle Eigenschaften anzeigen' wählt$/) do
-  first("#properties-toggle").click
+  find("#properties-toggle", match: :first).click
 end
 
 Dann(/^werden alle weiteren Eigenschaften angezeigt$/) do
-  first("#collapsed-properties")["class"]["collapsed"].nil?.should be_true
+  find("#collapsed-properties", match: :first)["class"]["collapsed"].nil?.should be_true
 end
 
 Dann(/^man kann an derselben Stelle die Eigenschaften wieder zuklappen$/) do
-  first("#properties-toggle").click
-  first("#collapsed-properties")["class"]["collapsed"].nil?.should be_false
+  find("#properties-toggle", match: :first).click
+  find("#collapsed-properties", match: :first)["class"]["collapsed"].nil?.should be_false
 end

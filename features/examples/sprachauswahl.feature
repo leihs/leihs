@@ -6,7 +6,7 @@ Funktionalität: Sprachauswahl
   möchte ich Benutzer
   die Möglichkeit haben meine Sprache einzustellen
 
-
+  @personas
   Szenario: Navigation für Ausleihenden
     Angenommen ich bin Mike
     Und ich sehe die Sprachauswahl

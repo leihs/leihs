@@ -67,27 +67,42 @@ rescue NameError
   raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
 end
 
-Before('@javascript', '~@firefox') do
-  Capybara.current_driver = :selenium_phantomjs
+Before('@personas') do
+  @use_personas = true
 end
 
-Before('@javascript', '@firefox') do
-  Capybara.current_driver = :selenium_firefox
-  page.driver.browser.manage.window.maximize # to prevent Selenium::WebDriver::Error::MoveTargetOutOfBoundsError: Element cannot be scrolled into view
+Before('@javascript') do
+  @use_phantomjs = true
+end
+
+Before('@firefox') do
+  @use_firefox = ENV["FIREFOX"] == "0" ? false : true
 end
 
 Before do
-  Persona.use_test_datetime
+  if @use_firefox ||= ENV["FIREFOX"] == "1"
+    Capybara.current_driver = :selenium_firefox
+    page.driver.browser.manage.window.maximize # to prevent Selenium::WebDriver::Error::MoveTargetOutOfBoundsError: Element cannot be scrolled into view
+  elsif @use_phantomjs
+    Capybara.current_driver = :selenium_phantomjs
+  end
+
   Cucumber.logger.info "Current capybara driver: %s\n" % Capybara.current_driver
   DatabaseCleaner.clean_with :truncation
+  Persona.use_test_datetime
+
+  if @use_personas
+    Persona.restore_random_dump
+  else
+    Persona.restore_minimal_dump
+  end
 end
 
 ##################################################################################
 
-After('@javascript', '@firefox') do
-  if page.driver.to_s.match("Selenium")
+After do
+  if @use_firefox
     errors = page.execute_script("return window.JSErrorCollector_errors.pump()")
-
     if errors.any?
       puts '-------------------------------------------------------------'
       puts "Found #{errors.length} javascript errors"

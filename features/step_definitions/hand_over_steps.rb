@@ -135,7 +135,7 @@ end
 Then /^I choose "([^"]*)" for the order by "([^"]*)"$/ do |button, person|
   all("#list_table tr").each do |row|
     if row.text =~ /#{person.to_s}/
-      row.first("td.buttons").find('a', :text => /.*#{button}.*/i).click
+      row.find("td.buttons", match: :first).find('a', :text => /.*#{button}.*/i).click
     end
   end
 #   debugger

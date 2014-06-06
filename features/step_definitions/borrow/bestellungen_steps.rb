@@ -26,7 +26,7 @@ Dann(/^ich sehe die Information, dass die Bestellung noch nicht genehmigt wurde$
 end
 
 Dann(/^die Bestellungen sind nach Datum und Gerätepark sortiert$/) do
-  titles = all(".row.padding-inset-l").map {|x| [Date.parse(x.first("h3").text), x.first("h2").text]}
+  titles = all(".row.padding-inset-l").map {|x| [Date.parse(x.find("h3", match: :first).text), x.find("h2", match: :first).text]}
   titles.empty?.should be_false
   expect(titles.sort == titles).to be_true
 end

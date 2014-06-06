@@ -5,9 +5,9 @@ Feature: Select lines or linegroups
   I want to be able select multiple lines at once
 
   Background:
-    Given I am "Pius"
+    Given I am Pius
 
-  @javascript
+  @javascript @personas
   Scenario: Select multiple lines
      When I open a take back, hand over or I edit a contract 
       And I select all lines of an linegroup

@@ -2,7 +2,7 @@
 
 Wenn(/^ich den Gerätepark Link drücke$/) do
   visit borrow_root_path
-  first("a[href='#{borrow_inventory_pools_path}']").click
+  find("a[href='#{borrow_inventory_pools_path}']", match: :first).click
 end
 
 Dann(/^sehe ich die Geräteparks für die ich berechtigt bin$/) do

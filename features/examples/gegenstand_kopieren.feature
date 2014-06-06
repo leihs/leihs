@@ -5,7 +5,7 @@ Funktionalität: Gegenstand kopieren
   Grundlage:
     Angenommen ich bin Mike
 
-  @javascript
+  @javascript @personas
   Szenario: Gegenstand erstellen und kopieren
     Angenommen man erstellt einen Gegenstand
     | Feldname                     | Type         | Wert                          |
@@ -54,21 +54,21 @@ Funktionalität: Gegenstand kopieren
     Dann wird der kopierte Gegenstand gespeichert
     Und man wird zur Liste des Inventars zurückgeführt
 
-  @javascript @firefox
+  @javascript @personas
   Szenario: Bestehenden Gegenstand aus Liste kopieren
     Angenommen man befindet sich auf der Liste des Inventars
     Wenn man einen Gegenstand kopiert
     Dann wird eine neue Gegenstandskopieransicht geöffnet
     Und alle Felder bis auf Inventarcode, Seriennummer und Name wurden kopiert
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Bestehenden Gegenstand aus Editieransicht kopieren
     Angenommen man befindet sich auf der Gegenstandserstellungsansicht
     Wenn man speichert und kopiert
     Dann wird eine neue Gegenstandskopieransicht geöffnet
     Und alle Felder bis auf Inventarcode, Seriennummer und Name wurden kopiert
 
-  @javascript
+  @javascript @personas
   Szenario: Gegenstand aus einem anderem Gerätepark kopieren
     Angenommen I go to logout
     Und ich bin Matti
@@ -77,7 +77,7 @@ Funktionalität: Gegenstand kopieren
     Dann wird eine neue Gegenstandskopieransicht geöffnet
     Und alle Felder sind editierbar, da man jetzt Besitzer von diesem Gegenstand ist
 
-  @javascript @firefox
+  @javascript @personas
   Szenario: Neuen Lieferanten erstellen falls nicht vorhanden
     Angenommen man einen Gegenstand kopiert
     Dann wird eine neue Gegenstandskopieransicht geöffnet

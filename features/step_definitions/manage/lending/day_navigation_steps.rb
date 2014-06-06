@@ -1,14 +1,14 @@
 When /^I open the datepicker$/ do
-  first(".button.datepicker").click
+  find(".button.datepicker", match: :first).click
 end
 
 When /^I select a specific date$/ do
-  first(".ui-datepicker")
-  first("a.ui-datepicker-next").click
-  @day = first(".ui-state-default").text
-  @month = first(".ui-datepicker-month").text
-  @year = first(".ui-datepicker-year").text
-  first(".ui-state-default").click
+  find(".ui-datepicker", match: :first)
+  find("a.ui-datepicker-next", match: :first).click
+  @day = find(".ui-state-default", match: :first).text
+  @month = find(".ui-datepicker-month", match: :first).text
+  @year = find(".ui-datepicker-year", match: :first).text
+  find(".ui-state-default", match: :first).click
 end
 
 Then /^the daily view jumps to that day$/ do
@@ -20,7 +20,7 @@ Then /^the daily view jumps to that day$/ do
 end
 
 When /^I click the open button again$/ do
-  first(".button.datepicker").click
+  find(".button.datepicker", match: :first).click
 end
 
 Then /^the datepicker closes$/ do

@@ -5,21 +5,21 @@ Feature: Delete lines of an open order
   I want to be able to delete single or multiple lines
 
   Background:
-    Given I am "Pius"
+    Given I am Pius
 
-  @javascript
+  @javascript @personas
   Scenario: Delete a single line of an open contract
      When I open a contract for acknowledgement with more then one line
       And I delete a line of this contract
      Then this contractline is deleted
 
-  @javascript @firefox
+  @javascript @personas @firefox
   Scenario: Delete multiple lines of an open contract
      When I open a contract for acknowledgement with more then one line
       And I delete multiple lines of this contract
      Then these contractlines are deleted
 
-  @javascript
+  @javascript @personas
   Scenario: Delete all lines of an open contract
      When I open a contract for acknowledgement with more then one line
       And I delete all lines of this contract

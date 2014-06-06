@@ -19,10 +19,10 @@ Given "I am logged in as '$username' with password '$password'" do |username, pa
   case Capybara.current_driver
     when /selenium/
       visit "/"
-      first("[href='#{login_path}']").click
+      find("[href='#{login_path}']", match: :first).click
       fill_in 'username', :with => username
       fill_in 'password', :with => password
-      first("[type='submit']").click
+      find("[type='submit']", match: :first).click
     when :rack_test
       step "I log in as '%s' with password '%s'" % [username, password]
   end
@@ -61,16 +61,12 @@ When 'I make sure I am logged out' do
   visit "/logout"
 end
 
-When 'ich logge mich aus' do
-  visit "/logout"
-end
-
 When /^I am redirected to the "([^"]*)" section$/ do |section_name|
   find("nav#topbar .topbar-navigation .active", match: :prefer_exact, text: _(section_name))
 end
 
 Angenommen(/^man ist eingeloggt als "(.*?)"$/) do |persona|
-  visit "/logout"
+  step "I make sure I am logged out"
   @current_user = User.where(:login => persona.downcase).first
   I18n.locale = if @current_user.language then @current_user.language.locale_name.to_sym else Language.default_language end
   page.set_rack_session user_id: @current_user.id

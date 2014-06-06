@@ -2,6 +2,7 @@
 
 Funktionalität: Navigation
 
+  @personas
   Szenario: Navigation für Gruppen-Verwalter
     Angenommen ich bin Andi
     Und man befindet sich im Verleih-Bereich
@@ -10,6 +11,7 @@ Funktionalität: Navigation
     Und die Navigation beinhaltet "Ausleihen"
     Und die Navigation beinhaltet "Benutzer"
 
+  @personas
   Szenario: Navigation für Gruppen-Verwalter in Verleih-Bereich
     Angenommen ich bin Andi
     Und man befindet sich im Verleih-Bereich

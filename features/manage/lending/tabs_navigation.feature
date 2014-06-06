@@ -5,9 +5,9 @@ Feature: Tabs Navigation
   I want to have functionalities to switch tabs
   
   Background:
-    Given I am "Pius"
+    Given I am Pius
 
-
+  @personas
   Scenario: Navigate all lending tabs
     When I open the daily view
     Then I can navigate all navigation items and nested tabs

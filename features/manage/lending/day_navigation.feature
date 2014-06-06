@@ -5,7 +5,7 @@ Feature: Daily View Day Navigation
   I want to have functionalities to switch to a specific day
   
   Background:
-    Given I am "Pius"
+    Given I am Pius
 
   #
   # Scenario: Go to the next day
@@ -16,7 +16,7 @@ Feature: Daily View Day Navigation
   #
   # Scenario: Go to today
 
-  @javascript
+  @javascript @personas
   Scenario: Jump to a specific date
     When I open the daily view
      And I open the datepicker

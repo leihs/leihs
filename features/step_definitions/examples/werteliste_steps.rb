@@ -19,47 +19,53 @@ Dann /^möchte ich die folgenden Bereiche in der Werteliste sehen:$/ do |table|
     table.hashes.each do |area|
       case area["Bereich"]
         when "Datum"
-          first(".date").should have_content Date.today.year
-          first(".date").should have_content Date.today.month
-          first(".date").should have_content Date.today.day
+          within(".date", match: :first) do
+            should have_content Date.today.year
+            should have_content Date.today.month
+            should have_content Date.today.day
+          end
         when "Titel"
-          first("h1").should have_content @contract.id
+          find("h1", match: :first).should have_content @contract.id
         when "Ausleihender"
-          first(".customer").should have_content @contract.user.firstname
-          first(".customer").should have_content @contract.user.lastname
-          first(".customer").should have_content @contract.user.address
-          first(".customer").should have_content @contract.user.zip
-          first(".customer").should have_content @contract.user.city
+          within(".customer", match: :first) do
+            should have_content @contract.user.firstname
+            should have_content @contract.user.lastname
+            should have_content @contract.user.address
+            should have_content @contract.user.zip
+            should have_content @contract.user.city
+          end
         when "Verleiher"
-          first(".inventory_pool")
+          find(".inventory_pool", match: :first)
         when "Liste"
-          first(".list")
+          find(".list", match: :first)
       end
     end
   end
 end
 
 Dann /^beinhaltet die Werte\-Liste folgende Spalten:$/ do |table| 
-  within @value_list_element.first(".list") do
+  within @value_list_element.find(".list", match: :first) do
     table.hashes.each do |area|
       case area["Spaltenname"]
         when "Laufende Nummer"
-          @contract.lines.each {|line| first("tr", :text=> line.item.inventory_code).first(".consecutive_number") }
+          @contract.lines.each {|line| find("tr", match: :first, :text=> line.item.inventory_code).find(".consecutive_number", match: :first) }
         when "Inventarcode"
-          @contract.lines.each {|line| first("tr", :text=> line.item.inventory_code).first(".inventory_code") }
+          @contract.lines.each {|line| find("tr", match: :first, :text=> line.item.inventory_code).find(".inventory_code", match: :first) }
         when "Modellname"
-          @contract.lines.each {|line| first("tr", :text=> line.item.inventory_code).first(".model_name").should have_content line.model.name }
+          @contract.lines.each {|line| find("tr", match: :first, :text=> line.item.inventory_code).find(".model_name", match: :first).should have_content line.model.name }
         when "End Datum"
           @contract.lines.each {|line|
-            first("tr", :text=> line.item.inventory_code).first(".end_date").should have_content line.end_date.year
-            first("tr", :text=> line.item.inventory_code).first(".end_date").should have_content line.end_date.month
-            first("tr", :text=> line.item.inventory_code).first(".end_date").should have_content line.end_date.day
+            within find("tr", match: :first, :text=> line.item.inventory_code).find(".end_date", match: :first) do
+              should have_content line.end_date.year
+              should have_content line.end_date.month
+              should have_content line.end_date.day
+            end
           }
         when "Anzahl"
-          @contract.lines.each {|line| first("tr", :text=> line.item.inventory_code).first(".quantity").should have_content line.quantity }
+          @contract.lines.each {|line| find("tr", match: :first, :text=> line.item.inventory_code).find(".quantity", match: :first).should have_content line.quantity }
         when "Wert"
           @contract.lines.each {|line|
-            first("tbody tr", :text=> line.item.inventory_code).first(".item_price").text.gsub(/\D/, "").should == ("%.2f" % line.item.price).gsub(/\D/, "")
+            find("tbody tr", match: :first, :text=> line.item.inventory_code).find(".item_price", match: :first).text.gsub(/\D/, "").should == ("%.2f" % line.item.price).gsub(/\D/, "")
           }
       end
     end
@@ -67,17 +73,17 @@ Dann /^beinhaltet die Werte\-Liste folgende Spalten:$/ do |table|
 end
 
 Dann /^gibt es eine Zeile für die totalen Werte$/ do
-  @list = @value_list_element.first(".list")
-  @total = @list.first("tfoot.total")
+  @list = @value_list_element.find(".list", match: :first)
+  @total = @list.find("tfoot.total", match: :first)
 end
 
 Dann /^diese summierte die Spalten:$/ do |table|
   table.hashes.each do |area|
     case area["Spaltenname"]
       when "Anzahl"
-        @total.first(".quantity").should have_content @contract.quantity
+        @total.find(".quantity", match: :first).should have_content @contract.quantity
       when "Wert"
-        @total.first(".value").text.gsub(/\D/, "").should == ("%.2f" % @contract.lines.map(&:price).sum).gsub(/\D/, "")
+        @total.find(".value", match: :first).text.gsub(/\D/, "").should == ("%.2f" % @contract.lines.map(&:price).sum).gsub(/\D/, "")
     end
   end
 end
@@ -89,13 +95,12 @@ When(/^die Modelle in der Werteliste sind alphabetisch sortiert$/) do
 end
 
 Angenommen(/^es existiert eine Aushändigung mit mindestens zwei Modellen und einer Option, wo die Bestellmenge mindestens drei pro Modell ist$/) do
-  @hand_over = @current_inventory_pool.visits.hand_over.find do |ho|
-    ho.contract_lines.instance_eval do
-      any? {|cl| cl.is_a? OptionLine } and
-        map(&:model).instance_eval do
-          uniq.count >= 2 and select{|m| ho.contract_lines.select{|l| l.model == m}.count >= 3 }.uniq.count >= 2
-      end
-    end
+  @hand_over = @current_inventory_pool.visits.hand_over.detect do |ho|
+    ho.contract_lines.where(type: "OptionLine").exists? and
+      ho.contract_lines.where(type: "ItemLine").exists? and
+        (g = ho.contract_lines.where(type: "ItemLine").group_by(&:model_id)) and
+          g.keys.size >= 2 and
+            g.values.detect {|x| x.size >= 3}
   end
   @hand_over.should_not be_nil
   @lines = @hand_over.lines

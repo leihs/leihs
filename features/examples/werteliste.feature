@@ -9,7 +9,7 @@ Funktionalität: Werteliste
   Grundlage:
     Angenommen ich bin Pius
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Was ich auf der Werteliste sehen möchte
     Angenommen man öffnet eine Werteliste
     Dann möchte ich die folgenden Bereiche in der Werteliste sehen:
@@ -20,7 +20,7 @@ Funktionalität: Werteliste
     | Verleier         |
     | Liste            |
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Der Inhalt der Werte-Liste
     Angenommen man öffnet eine Werteliste
     Dann beinhaltet die Werte-Liste folgende Spalten:
@@ -33,7 +33,7 @@ Funktionalität: Werteliste
     | Wert            |
     Und die Modelle in der Werteliste sind alphabetisch sortiert
 
-  @javascript
+  @javascript @personas
   Szenario: Werteliste auf Bestellübersicht ausdrucken
     Angenommen es existiert eine Bestellung mit mindestens zwei Modellen, wo die Bestellmenge mindestens drei pro Modell ist
     Wenn ich eine Bestellung öffne
@@ -43,7 +43,7 @@ Funktionalität: Werteliste
     Und die nicht zugewiesenen Linien sind zusammengefasst
     Und für die nicht zugewiesenen Linien ist der Preis der höchste Preis eines Gegenstandes eines Models innerhalb des Geräteparks
 
-  @javascript
+  @javascript @personas
   Szenario: Werteliste auf der Aushändigungsansicht ausdrucken
     Angenommen es existiert eine Aushändigung mit mindestens zwei Modellen und einer Option, wo die Bestellmenge mindestens drei pro Modell ist
     Und es ist pro Modell genau einer Linie ein Gegenstand zugewiesen
@@ -56,7 +56,7 @@ Funktionalität: Werteliste
     Und die nicht zugewiesenen Linien sind zusammengefasst
     Und der Preis einer Option ist der innerhalb des Geräteparks
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Totale Werte
     Angenommen man öffnet eine Werteliste
     Dann gibt es eine Zeile für die totalen Werte
@@ -65,7 +65,7 @@ Funktionalität: Werteliste
      | Anzahl      |
      | Wert        |
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Totale Werte
     Angenommen man öffnet eine Werteliste
     Dann gibt es eine Zeile für die totalen Werte

@@ -5,7 +5,7 @@ Funktionalität: Passwörter von Benutzern
   Als Ausleihe-Verwalter, Inventar-Verwalter oder Administrator,
   möchte ich eine Benutzer ein Login und Passwort zuteilen
 
-
+  @personas
   Szenariogrundriss: Benutzer mit Benutzernamen und Passwort erstellen
     Angenommen ich bin <Person>
     Und man befindet sich auf der Benutzerliste
@@ -19,7 +19,7 @@ Funktionalität: Passwörter von Benutzern
       | Pius   |
       | Gino   |
 
-
+  @personas
   Szenariogrundriss: Benutzernamen und Passwort ändern
     Angenommen ich bin <Person>
     Und man befindet sich auf der Benutzereditieransicht von "Normin"
@@ -33,7 +33,7 @@ Funktionalität: Passwörter von Benutzern
       | Pius   |
       | Gino   |
 
-
+  @personas
   Szenariogrundriss: Benutzer mit falscher Passwort-Bestätigung erstellen
     Angenommen ich bin <Person>
     Und man befindet sich auf der Benutzerliste
@@ -46,7 +46,7 @@ Funktionalität: Passwörter von Benutzern
       | Pius   |
       | Gino   |
 
-
+  @personas
   Szenariogrundriss: Benutzer mit fehlenden Passwortangaben editieren
     Angenommen ich bin <Person>
     Und man befindet sich auf der Benutzereditieransicht von "Normin"
@@ -59,7 +59,7 @@ Funktionalität: Passwörter von Benutzern
       | Pius   |
       | Gino   |
 
-
+  @personas
   Szenariogrundriss: Benutzer ohne Loginnamen erstellen
     Angenommen ich bin <Person>
     Und man befindet sich auf der Benutzerliste
@@ -72,7 +72,7 @@ Funktionalität: Passwörter von Benutzern
       | Pius   |
       | Gino   |
 
-
+  @personas
   Szenariogrundriss: Passwort ändern
     Angenommen ich bin <Person>
     Und man befindet sich auf der Benutzereditieransicht von "Normin"
@@ -86,7 +86,7 @@ Funktionalität: Passwörter von Benutzern
       | Pius   |
       | Gino   |
 
-
+  @personas
   Szenariogrundriss: Benutzer mit fehlenden Passwortangaben erstellen
     Angenommen ich bin <Person>
     Und man befindet sich auf der Benutzerliste
@@ -99,7 +99,7 @@ Funktionalität: Passwörter von Benutzern
       | Pius   |
       | Gino   |
 
-
+  @personas
   Szenariogrundriss: Benutzer ohne Loginnamen editieren
     Angenommen ich bin <Person>
     Und man befindet sich auf der Benutzereditieransicht von "Normin"
@@ -112,7 +112,7 @@ Funktionalität: Passwörter von Benutzern
       | Pius   |
       | Gino   |
 
-
+  @personas
   Szenariogrundriss: Benutzer mit falscher Passwort-Bestätigung editieren
     Angenommen ich bin <Person>
     Und man befindet sich auf der Benutzereditieransicht von "Normin"
@@ -125,7 +125,7 @@ Funktionalität: Passwörter von Benutzern
       | Pius   |
       | Gino   |
 
-
+  @personas
   Szenariogrundriss: Benutzernamen ändern
     Angenommen ich bin <Person>
     Und man befindet sich auf der Benutzereditieransicht von "Normin"

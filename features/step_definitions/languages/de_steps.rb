@@ -1,11 +1,7 @@
 # -*- encoding : utf-8 -*-
 
-Angenommen /^Personas existieren$/ do
-  step 'personas existing'
-end
-
 Angenommen /^ich bin (.*?)$/ do |persona_name|
-  step 'I am "%s"' % persona_name
+  step "I am %s" % persona_name
 end
 
 Wenn /^ich eine Rücknahme mache$/ do
@@ -387,4 +383,8 @@ end
 
 Dann(/^ich kann Modelle hinzufügen$/) do
   step "I can add models"
+end
+
+Wenn 'ich logge mich aus' do
+  step "I make sure I am logged out"
 end

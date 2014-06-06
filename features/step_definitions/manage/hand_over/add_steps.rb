@@ -65,10 +65,10 @@ Then /^the (.*?) is added to the hand over$/ do |type|
       option = Option.find_by_inventory_code(@inventory_code)
       @option_line = contract.reload.option_lines.where(option_id: option).order(:created_at).last
       contract.reload.options.include?(option).should == true
-      first(".line[data-line-type='option_line'] .inventory_code", :text => @inventory_code)
+      find(".line[data-line-type='option_line'] .col1of10", match: :prefer_exact, text: @inventory_code)
     when "model"
       contract.reload.models.include?(@model).should == true
-      first(".item_line", :text => @model.name)
+      find(".line[data-line-type='item_line'] .col4of10", match: :prefer_exact, text: @model.name)
   end
 end
 
@@ -157,13 +157,12 @@ Then /^I see that all lines of that model have availability problems$/ do
   find(".line[data-line-type='item_line']", match: :prefer_exact, :text => @target_name)
   @lines = all(".line[data-line-type='item_line']", :text => @target_name)
   @lines.each do |line|
-    line.first(".problem.icon")
+    line.find(".line-info.red")
   end
 end
 
 When /^I add an item to the hand over$/ do
   find("[data-add-contract-line]").set @item.inventory_code
-  page.execute_script('$("[data-add-contract-line]").focus()')
   find("[data-add-contract-line] + .addon").click
 end
 

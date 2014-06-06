@@ -6,6 +6,7 @@ Funktionalität: Modellübersicht
   möchte ich als Ausleihender
   die Möglichkeit haben ausführliche Informationen über ein Modell zu sehen
 
+  @personas
   Szenario: Modellübersicht
     Angenommen ich bin Normin
     Und man befindet sich auf der Liste der Modelle
@@ -20,7 +21,7 @@ Funktionalität: Modellübersicht
     | Eigenschaften      |  
     | Ergänzende Modelle |
 
-  @javascript
+  @javascript @personas
   Szenario: Bilder vergrössern
     Angenommen ich bin Normin
     Und man befindet sich in einer Modellübersicht mit Bildern
@@ -31,7 +32,7 @@ Funktionalität: Modellübersicht
     Wenn ich ein Bild anklicke
     Dann wird das Bild zum Hauptbild auch wenn ich das hovern beende
 
-  @javascript
+  @javascript @personas
   Szenario: Eigenschaften anzeigen
     Angenommen ich bin Normin
     Und man befindet sich in einer Modellübersicht mit Eigenschaften

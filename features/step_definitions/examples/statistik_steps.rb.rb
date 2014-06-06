@@ -5,5 +5,5 @@ Wenn(/^ich im Verwalten\-Bereich bin$/) do
 end
 
 Dann(/^habe ich die Möglichkeit zur Statistik\-Ansicht zu wechseln$/) do
-  first("a[href='#{admin_statistics_path}']")
+  find("a[href='#{admin_statistics_path}']", match: :first)
 end

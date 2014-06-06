@@ -20,7 +20,7 @@ When /^I select all lines of an linegroup$/ do
   find("#lines")
   @linegroup = find("#lines [data-selected-lines-container]", match: :first)
   @linegroup.all(".line").each do |line|
-    line.first("input[type=checkbox][data-select-line]").click
+    line.find("input[type=checkbox][data-select-line]", match: :first).click
   end
 end
 
@@ -42,6 +42,6 @@ end
 
 Then /^all lines of that linegroup are selected$/ do
   @linegroup.all(".line").each do |line|
-    line.first("input[type=checkbox][data-select-line]").checked?.should be_true
+    line.find("input[type=checkbox][data-select-line]", match: :first).checked?.should be_true
   end
 end

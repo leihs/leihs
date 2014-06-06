@@ -2,7 +2,7 @@
 
 Angenommen /^man editiert einen Gegenstand, wo man der Besitzer ist$/ do
   @ip = @current_user.managed_inventory_pools.first
-  @item = @ip.items.where(:owner_id => @ip.id).sample
+  @item = @ip.items.items.where(:owner_id => @ip.id).sample
   visit manage_edit_item_path @ip, @item
 end
 
@@ -13,7 +13,7 @@ end
 
 Wenn /^"(.*?)" bei "(.*?)" ausgewählt ist muss auch "(.*?)" angegeben werden$/ do |value, key, newkey|
   field = find("[data-type='field']", text: key)
-  field.first("label,option", :text => value).click
+  field.find("label,option", match: :first, :text => value).click
   newfield = find("[data-type='field']", text: newkey)
   newfield[:"data-required"].should == "true"
 end
@@ -24,15 +24,11 @@ Dann /^sind alle Pflichtfelder mit einem Stern gekenzeichnet$/ do
 end
 
 Wenn /^ein Pflichtfeld nicht ausgefüllt\/ausgewählt ist, dann lässt sich der Gegenstand nicht speichern$/ do
-  first(".field[data-required='true'] textarea").set("")
-  first(".field[data-required='true'] input[type='text']").set("")
+  find(".field[data-required='true'] textarea", match: :first).set("")
+  find(".field[data-required='true'] input[type='text']", match: :first).set("")
   find("#item-save").click
   find("#flash .error")
   @item.to_json.should == @item.reload.to_json
-end
-
-Wenn /^der Benutzer sieht eine Fehlermeldung$/ do
-  first(".notification.error")
 end
 
 Wenn /^die nicht ausgefüllten\/ausgewählten Pflichtfelder sind rot markiert$/ do
@@ -54,7 +50,7 @@ end
 
 Wenn(/^"(.*?)" bei "(.*?)" ausgewählt ist muss auch "(.*?)" ausgewählt werden$/) do |value, key, newkey|
   field = find("[data-type='field']", text: key)
-  field.find("option", :text => value, match: :first).select_option
+  field.find("option", match: :first, :text => value).select_option
   newfield = find("[data-type='field']", text: newkey)
   newfield[:"data-required"].should == "true"
 end
@@ -79,9 +75,9 @@ Dann(/^bei dem bearbeiteten Gegestand ist der neue Lieferant eingetragen$/) do
 end
 
 Dann(/^ist der Gegenstand mit all den angegebenen Informationen gespeichert$/) do
-  find("[data-retired='true']").click if @table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"} and (@table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"} ["Wert"]) == "Ja"
-  find_field('list-search').set (@table_hashes.detect {|r| r["Feldname"] == "Inventarcode"} ["Wert"])
-  find(".line", :text => @table_hashes.detect {|r| r["Feldname"] == "Modell"} ["Wert"], :visible => true)
+  find("[data-retired='true']").click if @table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"} and (@table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"}["Wert"]) == "Ja"
+  find("#list-search").set (@table_hashes.detect {|r| r["Feldname"] == "Inventarcode"}["Wert"])
+  find(".line", :text => @table_hashes.detect {|r| r["Feldname"] == "Modell"}["Wert"], :visible => true)
   visit manage_edit_item_path @current_inventory_pool.id, @item.id
   step 'hat der Gegenstand alle zuvor eingetragenen Werte'
   sleep(0.33) # fix lazy request problem
@@ -143,8 +139,8 @@ Wenn(/^ich das Modell ändere$/) do
 end
 
 Wenn(/^ich den Gegenstand ausmustere$/) do
-  find(".row.emboss", match: :prefer_exact, text: _("Retirement")).first("select").select _("Yes")
-  find(".row.emboss", match: :prefer_exact, text: _("Reason for Retirement")).first("input, textarea").set "Retirement reason"
+  find(".row.emboss", match: :prefer_exact, text: _("Retirement")).find("select", match: :first).select _("Yes")
+  find(".row.emboss", match: :prefer_exact, text: _("Reason for Retirement")).find("input, textarea", match: :first).set "Retirement reason"
 end
 
 Angenommen(/^there is a model without a version$/) do

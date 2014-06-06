@@ -11,11 +11,11 @@ Dann(/^kann ich die Gerätepark\-Grundinformationen eingeben$/) do |table|
   @table_raw.flatten.each do |field_name|
     within(".row.padding-inset-s", match: :prefer_exact, text: field_name) do
       if field_name == "Verträge drucken"
-        first("input").set false
+        find("input", match: :first).set false
       elsif field_name == "Automatischer Zugriff"
-        first("input").set true
+        find("input", match: :first).set true
       else
-        first("input,textarea").set (field_name == "E-Mail" ? "test@test.ch" : "test")
+        find("input,textarea", match: :first).set (field_name == "E-Mail" ? "test@test.ch" : "test")
       end
     end
   end
@@ -30,11 +30,11 @@ Dann(/^sind die Informationen aktualisiert$/) do
   @table_raw.flatten.each do |field_name|
     within(".row.padding-inset-s", match: :prefer_exact, text: field_name) do
       if field_name == "Verträge drucken"
-        first("input").selected?.should be_false
+        find("input", match: :first).selected?.should be_false
       elsif field_name == "Automatischer Zugriff"
-        first("input").selected?.should be_true
+        find("input", match: :first).selected?.should be_true
       else
-        first("input,textarea").value.should == (field_name == "E-Mail" ? "test@test.ch" : "test")
+        find("input,textarea", match: :first).value.should == (field_name == "E-Mail" ? "test@test.ch" : "test")
       end
     end
   end
@@ -59,7 +59,7 @@ end
 
 Angenommen(/^ich die folgenden Felder nicht befüllt habe$/) do |table|
   table.raw.flatten.each do |must_field_name|
-    first(".row.emboss", match: :prefer_exact, text: must_field_name).first("input,textarea").set ""
+    find(".row.emboss", match: :prefer_exact, text: must_field_name).find("input,textarea", match: :first).set ""
   end
 end
 
@@ -70,9 +70,9 @@ end
 Wenn(/^ich die Arbeitstage Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag, Sonntag ändere$/) do
   @workdays = {}
   [0,1,2,3,4,5,6].each do |day|
-    select = first(".row.emboss", match: :prefer_exact, text: I18n.t('date.day_names')[day]).first("select")
+    select = find(".row.emboss", match: :prefer_exact, text: I18n.t('date.day_names')[day]).find("select", match: :first)
     @workdays[day] = rand > 0.5 ? _("Open") : _("Closed")
-    select.first("option[label='#{@workdays[day]}']").click
+    select.find("option[label='#{@workdays[day]}']", match: :first).click
   end
 end
 
@@ -113,12 +113,12 @@ end
 
 Wenn(/^jedes Pflichtfeld des Geräteparks ist gesetzt$/) do |table|
   table.raw.flatten.each do |field_name|
-    first(".row.emboss", match: :prefer_exact, :text => field_name).first("input").value.length.should > 0
+    find(".row.emboss", match: :prefer_exact, :text => field_name).find("input", match: :first).value.length.should > 0
   end
 end
 
 Wenn(/^ich das gekennzeichnete "(.*?)" des Geräteparks leer lasse$/) do |field_name|
-  first(".row.emboss", match: :prefer_exact, :text => field_name).first("input").set ""
+  find(".row.emboss", match: :prefer_exact, :text => field_name).find("input", match: :first).set ""
 end
 
 Wenn(/^ich für den Gerätepark die automatische Sperrung von Benutzern mit verspäteten Rückgaben einschalte$/) do
@@ -162,7 +162,7 @@ end
 
 Wenn(/^ich die aut\. Zuweisung deaktiviere$/) do
   within(".row.padding-inset-s", match: :prefer_exact, text: _("Automatic access")) do
-    first("input").set false
+    find("input", match: :first).set false
   end
 end
 

@@ -5,20 +5,20 @@ Funktionalität: Ausleihe
   Grundlage:
     Angenommen ich bin Pius
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Selektion bei manueller Interaktion bei Aushändigung
     Wenn ich eine Aushändigung mache
     Und einem Gegenstand einen Inventarcode manuell zuweise
     Dann wird der Gegenstand ausgewählt und der Haken gesetzt
 
-
+  @javascript @firefox @personas
   Szenario: Aushändigen: In den Inventarcodelisten nicht verfügbare Gegenstände hervorheben
     Wenn ich eine Aushändigung mache die ein Model enthält dessen Gegenstände ein nicht ausleihbares enthält
     Und diesem Model ein Inventarcode zuweisen möchte
     Dann schlägt mir das System eine Liste von Gegenständen vor
     Und diejenigen Gegenstände sind gekennzeichnet, welche als nicht ausleihbar markiert sind
 
-
+  @personas
   Szenario: Wann letzter Besucher erscheint
     Angenommen ich öffne die Tagesansicht
     Wenn ich eine Bestellung editieren
@@ -28,7 +28,7 @@ Funktionalität: Ausleihe
     Wenn ich eine Rücknahme mache
     Dann erscheint der Benutzer unter den letzten Besuchern
 
-  @javascript
+  @javascript @personas
   Szenario: Fehlermeldung beim Versuch, etwas aus der Zukunft auszuhändigen
     Wenn ich eine Aushändigung mache
      Und die ausgewählten Gegenstände auch solche beinhalten, die in einer zukünftige Aushändigung enthalten sind
@@ -38,7 +38,7 @@ Funktionalität: Ausleihe
      Und ich kann die Gegenstände nicht aushändigen
 
   # https://www.pivotaltracker.com/story/show/29455957
-  @javascript
+  @javascript @personas
   Szenario: Buchungskalender: Bei "Show Availability" anzeigen in welcher Grupper der Kunde ist
     Angenommen der Kunde ist in mehreren Gruppen
     Wenn ich eine Aushändigung an diesen Kunden mache
@@ -47,7 +47,7 @@ Funktionalität: Ausleihe
     Dann erkenne ich, in welchen Gruppen der Kunde ist
     Und dann erkennen ich, in welchen Gruppen der Kunde nicht ist
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Scanning-Verhalten beim Aushändigen
     Wenn ich eine Aushändigung mache mit einem Kunden der sowohl am heutigen Tag sowie in der Zukunft Abholungen hat
     Wenn ich etwas scanne (per Inventarcode zuweise) und es in irgendeinem zukünftigen Vertrag existiert
@@ -55,7 +55,7 @@ Funktionalität: Ausleihe
     Wenn es in keinem zukünftigen Vertrag existiert 
     Dann wird es für die ausgewählte Zeitspanne hinzugefügt
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Aushändigung von Gegenständen und Lizenzen anhand von Inventarcode
     Angenommen ich mache eine Aushändigung
     Wenn ich der Aushändigung einen Gegenstand mit Hilfe eines Inventarcodes hinzufüge
@@ -65,7 +65,7 @@ Funktionalität: Ausleihe
     Und ich auf "Aushändigen" drücke
     Dann sind im Vertrag sowohl der Gegenstand als auch die Lizenz aufgeführt
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Aushändigung von Gegenständen und Lizenzen anhand von Modellsuche
     Angenommen ich mache eine Aushändigung
     Wenn ich der Aushändigung einen ausleihbaren Gegenstand mit Hilfe des Suchfeldes hinzufüge
@@ -75,7 +75,7 @@ Funktionalität: Ausleihe
     Und ich auf "Aushändigen" drücke
     Dann sind im Vertrag sowohl der Gegenstand als auch die Lizenz aufgeführt
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Inspektion bei Rücknahme
     Angenommen ich mache eine Rücknahme eines Gegenstandes
     Dann habe ich für jeden Gegenstand die Möglichkeit, eine Inspektion auszulösen
@@ -87,17 +87,17 @@ Funktionalität: Ausleihe
     Und wenn ich die Inspektion speichere
     Dann wird der Gegenstand mit den aktuell gesetzten Status gespeichert
 
-  @javascript @firefox
+  @javascript @firefox @personas
   Szenario: Automatischer Druck Dialog beim Aushändigen
     Wenn ich eine Aushändigung mache
     Dann wird automatisch der Druck-Dialog geöffnet
 
-  @javascript
+  @javascript @personas
   Szenario: Default des Start- und Enddatums
     Wenn ich eine Aushändigung mache
     Dann ist das Start- und Enddatum gemäss dem ersten Zeitfenster der Aushändigung gesetzt
 
-  @javascript
+  @javascript @personas
   Szenario: Alle Suchresultate anzeigen
     Angenommen ich suche
     Dann erhalte ich Suchresultate in den Kategorien:
@@ -117,14 +117,14 @@ Funktionalität: Ausleihe
     Dann kann ich wählen, ob ich alle Resultate sehen will
     Wenn ich alle Resultate wähle erhalte ich eine separate Liste aller Resultate dieser Kategorie
 
-  @javascript
+  @javascript @personas
   Szenario: Zusammenziehen der Anzahlen im Item-Popup
     Angenommen man fährt über die Anzahl von Gegenständen in einer Zeile
     Dann werden alle diese Gegenstände aufgelistet
     Und man sieht pro Modell eine Zeile
     Und man sieht auf jeder Zeile die Summe der Gegenstände des jeweiligen Modells
 
-  @javascript
+  @javascript @personas
   Szenario: Klick auf Letzten Besucher nach Editieren einer Bestellung
     Angenommen ich öffne die Tagesansicht
     Und ich öffne eine Bestellung
@@ -134,7 +134,7 @@ Funktionalität: Ausleihe
     Wenn ich auf den Namen des letzten Benutzers klicke
     Dann wird mir ich ein Suchresultat nach dem Namen des letzten Benutzers angezeigt
 
-  @javascript
+  @javascript @personas
   Szenario: Autocomplete bei der Rücknahme
     Wenn ich eine Rücknahme mache
     Und etwas in das Feld "Inventarcode/Name" schreibe
@@ -143,7 +143,7 @@ Funktionalität: Ausleihe
     Dann sehe ich eine Fehlermeldung
     Und die Fehlermeldung lautet "In dieser Rücknahme nicht gefunden"
 
-  @javascript
+  @javascript @personas
   Szenario: Selektion bei manueller Interaktion bei Rücknahme
     Wenn ich eine Rücknahme mache die Optionen beinhaltet
     Und die Anzahl einer zurückzugebenden Option manuell ändere

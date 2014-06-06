@@ -4,12 +4,13 @@ Funktionalität: Suche
 
   Um etwas zu finden möchte ich als Ausleiher eine Suchfunktionalität
 
+  @personas
   Szenario: Suchfeld
     Angenommen ich bin Normin
     Und man befindet sich auf der Seite der Hauptkategorien
     Dann sieht man die Suche
 
-  @javascript
+  @javascript @personas
   Szenario: Liste gemäss Suchkritieren anzeigen
     Angenommen ich bin Normin
     Und man befindet sich auf der Seite der Hauptkategorien
@@ -17,25 +18,26 @@ Funktionalität: Suche
     Dann sieht man das Foto, den Namen und den Hersteller der ersten 6 Modelle gemäss aktuellem Suchbegriff
     Und sieht den Link 'Alle Suchresultate anzeigen'
 
-  @javascript
+  @javascript @personas
   Szenario: Man findet nur Modelle die man auch ausleihen kann
     Angenommen ich bin Normin
     Wenn ich nach einem Modell suche, welches in nicht ausleihen kann
     Dann wird dieses Modell auch nicht in den Suchergebnissen angezeigt
 
-  @javascript
+  @javascript @personas
   Szenario: Vorschlag wählen
     Angenommen ich bin Normin
     Und man befindet sich auf der Seite der Hauptkategorien
     Und man wählt ein Modell von der Vorschlagsliste der Suche
     Dann wird die Modell-Ansichtsseite geöffnet
 
+  @personas
   Szenario: Suchfeld
     Angenommen ich bin Normin
     Und man befindet sich auf der Seite der Hauptkategorien
     Dann sieht man die Suche
 
-  @javascript
+  @javascript @personas
   Szenario: Suchresultate anzeigen
     Angenommen ich bin Normin
     Und man befindet sich auf der Seite der Hauptkategorien

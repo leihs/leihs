@@ -98,7 +98,7 @@ When /^I change a contract lines quantity$/ do
   @line_element_css ||= ".line[data-ids*='#{@line.id}']" if @line
   @line_element ||= all(@line_element_css).first
   step 'I open the booking calendar for this line'
-  first("input#booking-calendar-quantity").set @new_quantity
+  find("input#booking-calendar-quantity", match: :first).set @new_quantity
   step 'I save the booking calendar'
   find("#status .icon-ok")
 end
@@ -139,7 +139,7 @@ end
 
 When /^I edit one of the selected lines$/ do
   all(".line").each do |line|
-    if line.first("input").checked?
+    if line.find("input", match: :first).checked?
       @line_element = line
     end
   end

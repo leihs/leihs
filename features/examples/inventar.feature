@@ -6,7 +6,7 @@ Funktionalität: Inventar
     Angenommen ich bin Mike
     Und man öffnet die Liste des Inventars
 
-  @javascript
+  @javascript @personas
   Szenario: Was man auf einer Liste sieht
     Dann sieht man Modelle
     Und man sieht Optionen
@@ -14,7 +14,7 @@ Funktionalität: Inventar
     Wenn ich mich auf der Softwareliste befinde
     Dann man sieht Software
 
-  @javascript @firefox
+  @javascript @personas
   Szenario: Auswahlmöglichkeiten
     Dann hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind
     | auswahlmöglichkeit |
@@ -25,7 +25,7 @@ Funktionalität: Inventar
     | Ungenutzte Modelle |
     | Software           |
 
-  @javascript
+  @javascript @personas
   Szenario: Aussehen einer Options-Zeile
     Dann enthält die Options-Zeile folgende Informationen
     | information |
@@ -33,11 +33,11 @@ Funktionalität: Inventar
     | Name        |
     | Preis       |
 
-  @javascript
+  @javascript @personas
   Szenario: Keine Leeren Modelle auf der Liste des Inventars
     Dann sieht man keine Modelle, denen keine Gegenstänge zugewiesen unter keinem der vorhandenen Reiter
 
-  @javascript
+  @javascript @personas
   Szenario: Paket-Modelle aufklappen
     Dann kann man jedes Paket-Modell aufklappen
     Und man sieht die Pakete dieses Paket-Modells
@@ -46,7 +46,7 @@ Funktionalität: Inventar
     Und man sieht die Bestandteile, die zum Paket gehören
     Und so eine Zeile zeigt nur noch Inventarcode und Modellname des Bestandteils
 
-  @javascript
+  @javascript @personas
   Szenario: Aussehen einer Modell-Zeile
     Wenn man eine Modell-Zeile sieht
     Dann enthält die Modell-Zeile folgende Informationen:
@@ -56,7 +56,7 @@ Funktionalität: Inventar
     | Anzahl verfügbar (jetzt) |
     | Anzahl verfügbar (Total) |
 
-  @javascript @firefox
+  @javascript @personas
   Szenario: Aussehen einer Gegenstands-Zeile
     Wenn der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist
     Dann enthält die Gegenstands-Zeile folgende Informationen:
@@ -77,18 +77,18 @@ Funktionalität: Inventar
     | Aktueller Ausleihender |
     | Enddatum der Ausleihe  |
 
-  @javascript
+  @javascript @personas
   Szenario: Keine Resultate auf der Liste des Inventars
     Wenn ich eine resultatlose Suche mache
     Dann sehe ich "Kein Eintrag gefunden"
 
-  @javascript
+  @javascript @personas
   Szenario: Modell aufklappen
     Dann kann man jedes Modell aufklappen
     Und man sieht die Gegenstände, die zum Modell gehören
     Und so eine Zeile sieht aus wie eine Gegenstands-Zeile
 
-  @javascript
+  @javascript @personas
   Szenario: Filtermöglichkeiten von Listen
     Dann hat man folgende Filtermöglichkeiten
     | filtermöglichkeit         |
@@ -99,7 +99,7 @@ Funktionalität: Inventar
     | Unvollständig             |
     Und die Filter können kombiniert werden
 
-
+  @personas
   Szenario: Grundeinstellung der Listenansicht
     Dann ist die Auswahl "Aktives Inventar" aktiviert
     Und es sind keine Filtermöglichkeiten aktiviert

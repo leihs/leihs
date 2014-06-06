@@ -28,6 +28,14 @@ module Persona
     system "mkdir -p #{dir}"
     puts "Deleted:   #{dir}"
 
+
+    DatabaseCleaner.clean_with :truncation
+    FactoryGirl.create :setting
+    LeihsFactory.create_default_languages
+    system "mysqldump #{config['host'] ? "-h #{config['host']}" : nil} -u #{config['username']} #{config['password'] ? "--password=#{config['password']}" : nil}  #{config['database']} --no-create-db | grep -v 'SQL SECURITY DEFINER' > #{minimal_dump_file_name}"
+    puts "Generated: #{minimal_dump_file_name}"
+
+
     test_datetime = if ENV['TEST_DATETIME']
       n = 1
       ENV['TEST_DATETIME']
@@ -47,9 +55,19 @@ module Persona
     end
   end
 
-  def restore_random_dump
-    return true if Setting.exists? and User.exists? # the data are already restored, so we prevent to restore again in further steps
+  def restore_minimal_dump
+    config = Rails.configuration.database_configuration[Rails.env]
+    cmd = "mysql #{config['host'] ? "-h #{config['host']}" : nil} -u #{config['username']} #{config['password'] ? "--password=#{config['password']}" : nil} #{config['database']} < #{minimal_dump_file_name}"
+    puts "Loading #{minimal_dump_file_name}"
 
+    # we need this variable assignment in order to wait for the end of the system call. DO NOT DELETE !
+    dump_restored = system(cmd)
+    raise "empty dump not loaded" unless dump_restored
+
+    dump_restored
+  end
+
+  def restore_random_dump
     config = Rails.configuration.database_configuration[Rails.env]
     cmd = "mysql #{config['host'] ? "-h #{config['host']}" : nil} -u #{config['username']} #{config['password'] ? "--password=#{config['password']}" : nil} #{config['database']} < #{dump_file_name}"
     puts "Loading #{dump_file_name}"
@@ -77,6 +95,10 @@ module Persona
     Dir.glob(File.join(Rails.root, "features/personas", "*.rb")).each do |file|
       Persona.create File.basename(file, File.extname(file))
     end
+  end
+
+  def minimal_dump_file_name
+    File.join(Rails.root, "features/personas/dumps", "minimal_seed.sql")
   end
 
   def dump_file_name

@@ -1,17 +1,17 @@
 # -*- encoding : utf-8 -*-
 
 Dann(/^sehe ich die Anzahl meiner "(.*?)" auf jeder Seite$/) do |visit_type|
-  first("a[href*='borrow/#{case visit_type
+  find("a[href*='borrow/#{case visit_type
                           when "Rückgaben"
                             "returns"
                           when "Abholungen"
                             "to_pick_up"
-                          end}'] > span", text: case visit_type
-                                                when "Rückgaben"
-                                                  @current_user.visits.take_back
-                                                when "Abholungen"
-                                                  @current_user.visits.hand_over
-                                                end.count.to_s)
+                          end}'] > span", match: :first, text: case visit_type
+                                                                when "Rückgaben"
+                                                                  @current_user.visits.take_back
+                                                                when "Abholungen"
+                                                                  @current_user.visits.hand_over
+                                                                end.count.to_s)
 end
 
 Angenommen(/^man befindet sich im Ausleihen\-Bereich$/) do
@@ -28,12 +28,12 @@ Dann(/^sehe ich den "(.*?)" Button nicht$/) do |visit_type|
 end
 
 Wenn(/^ich auf den "(.*?)" Link drücke$/) do |visit_type|
-  first("a[href*='borrow/#{case visit_type
+  find("a[href*='borrow/#{case visit_type
                           when "Rückgaben"
                             "returns"
                           when "Abholungen"
                             "to_pick_up"
-                          end}']").click
+                          end}']", match: :first).click
 end
 
 Dann(/^sehe ich meine "(.*?)"$/) do |visit_type|
@@ -102,6 +102,6 @@ end
 
 Dann(/^jedes Gerät zeigt seinen Inventarcode$/) do
   @current_user.contract_lines.to_take_back.each do |line|
-    first(".line.row", text: line.model.name).should have_content line.item.inventory_code
+    find(".line.row", match: :first, text: line.model.name).should have_content line.item.inventory_code
   end
 end
