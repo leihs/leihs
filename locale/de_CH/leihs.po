@@ -1376,10 +1376,8 @@ msgstr "Inventarcode %s ist nicht gültig für dieses Modell"
 msgid "The item belongs to a package"
 msgstr "Der Gegenstand gehört zu einem Paket"
 
-msgid "The item cannot be retired because it's not returned yet."
-msgstr ""
-"Das Gerät kann nicht ausgemustert werden, weil es noch nicht zurückgebracht "
-"worden ist"
+msgid "The item cannot be retired because it's not returned yet or has already been assigned to a contract line."
+msgstr "Den Gegenstand kann man nicht ausmustern, da das Gerät bereits ausgeliehen oder einer Vertragslinie zugewiesen ist."
 
 msgid "The item doesn't belong to the inventory pool related to this contract"
 msgstr "Das Gerät gehört nicht zum Gerätepark dieses Vertrags"

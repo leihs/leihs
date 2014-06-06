@@ -32,7 +32,7 @@ Funktionalität: Inventarhelfer
   Szenario: Die ausgeliehenen Gegenständen kann man nicht ausmustern
     Angenommen man ist auf dem Helferschirm
     Und man mustert einen ausgeliehenen Gegenstand aus
-    Dann erhält man eine Fehlermeldung, dass man den Gegenstand nicht ausmustern kann, da das Gerät ausgeliehen ist
+    Dann erhält man eine Fehlermeldung, dass man den Gegenstand nicht ausmustern kann, da das Gerät bereits ausgeliehen oder einer Vertragslinie zugewiesen ist
 
   @javascript @personas
   Szenario: Geräte über den Helferschirm editieren, mittels vollständigem Inventarcode (Scanner)

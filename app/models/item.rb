@@ -512,7 +512,7 @@ class Item < ActiveRecord::Base
   def validates_changes
     errors.add(:base, _("The model cannot be changed because the item is used in contracts already.")) if model_id_changed? and not contract_lines.empty?
     errors.add(:base, _("The responsible inventory pool cannot be changed because the item is currently not in stock.")) if inventory_pool_id_changed? and not in_stock?
-    errors.add(:base, _("The item cannot be retired because it's not returned yet.")) if not retired.nil? and not in_stock?
+    errors.add(:base, _("The item cannot be retired because it's not returned yet or has already been assigned to a contract line.")) if not retired.nil? and contract_lines.where(returned_to_user_id: nil).exists?
   end
 
   def update_child_attributes(item)

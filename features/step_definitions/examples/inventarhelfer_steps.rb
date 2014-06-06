@@ -300,8 +300,8 @@ Dann(/^erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editiere
   @item_before.should == @item.reload.to_json
 end
 
-Dann(/^erhält man eine Fehlermeldung, dass man den Gegenstand nicht ausmustern kann, da das Gerät ausgeliehen ist$/) do
-  page.has_content?(_("The item cannot be retired because it's not returned yet.")).should be_true
+Dann(/^erhält man eine Fehlermeldung, dass man den Gegenstand nicht ausmustern kann, da das Gerät bereits ausgeliehen oder einer Vertragslinie zugewiesen ist$/) do
+  page.has_content?(_("The item cannot be retired because it's not returned yet or has already been assigned to a contract line.")).should be_true
   @item_before.should == @item.reload.to_json
 end
 

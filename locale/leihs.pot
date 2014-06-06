@@ -1341,7 +1341,7 @@ msgstr ""
 msgid "The item belongs to a package"
 msgstr ""
 
-msgid "The item cannot be retired because it's not returned yet."
+msgid "The item cannot be retired because it's not returned yet or has already been assigned to a contract line."
 msgstr ""
 
 msgid "The item doesn't belong to the inventory pool related to this contract"

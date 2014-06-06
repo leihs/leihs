@@ -173,7 +173,7 @@ Funktionalität: Gegenstand bearbeiten
     Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeliehen ist und wo man Besitzer ist
     Wenn ich den Gegenstand ausmustere
     Und ich speichern druecke
-    Dann erhält man eine Fehlermeldung, dass man den Gegenstand nicht ausmustern kann, da das Gerät ausgeliehen ist
+    Dann erhält man eine Fehlermeldung, dass man den Gegenstand nicht ausmustern kann, da das Gerät bereits ausgeliehen oder einer Vertragslinie zugewiesen ist
 
   @javascript @personas
   Szenario: Einen Gegenstand mit allen Informationen editieren
