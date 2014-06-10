@@ -83,7 +83,6 @@ class Field < ActiveHash::Base
       label: "Note",
       attribute: "note",
       type: "textarea",
-      target_type: "item",
       group: "General Information",
       forPackage: true
     },{

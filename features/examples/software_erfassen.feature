@@ -23,7 +23,8 @@ Funktionalität: Software erfassen
     Wenn ich das Software-Produkt wieder editiere
     Dann werden nur die Linien mit Links zusätzlich ausserhalb des Textfeldes angezeigt
 
-  @javascript @personas
+  # marked as upcoming due to ticket 71745006
+  @upcoming @javascript @personas
   Szenario: Mögliche Werte in Software-Lizenz erfassen
     Angenommen ich befinde mich auf der Lizenz-Erstellungsseite
     Dann die mögliche Werte für Aktivierungstyp sind in der folgenden Reihenfolge:
@@ -66,7 +67,7 @@ Funktionalität: Software erfassen
     Dann kann man als "Lieferant" einen Lieferanten auswählen
     Dann kann man als "Verantwortliche Abteilung" einen Gerätepark auswählen
     Dann kann man als "Besitzer" einen Gerätepark auswählen
-    Dann kann man im Notiz-Feld "Lizenzinformation" Text eingeben
+    Dann kann man als "Notiz" einen Text eingeben
     Und die Option "Ausleihbar" ist standardmässig auf "Nicht ausleihbar" gesetzt
 
   @javascript @personas

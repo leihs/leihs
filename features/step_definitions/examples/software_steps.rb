@@ -234,7 +234,7 @@ end
 
 Then(/^for "(.*?)" one can enter some text$/) do |arg1|
   within(".field", text: _(arg1)) do
-    i = find "input[type='text']"
+    i = find "input[type='text'],textarea"
     i.set (t = Faker::Lorem.words(rand 3).join(" "))
     i.value.should == t
   end
