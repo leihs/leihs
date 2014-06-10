@@ -5,7 +5,7 @@ Funktionalität: Software suchen
   Grundlage:
     Angenommen ich bin Mike
 
-  @current @personas
+  @javascript @personas
   Szenario: Software anhand eines Suchbegriffs finden
     Angenommen es existiert ein Software-Produkt mit folgenden Eigenschaften:
       | Produktname    | suchbegriff1 |

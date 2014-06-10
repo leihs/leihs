@@ -353,8 +353,14 @@ Given(/^there is a software license with the following properties:$/) do |table|
 
   lp = table.raw.map do |k, v|
     case k
-      when "Lizenznummer"
+      when "Inventarnummer"
+        item_attrs[:inventory_code] = v
+      when "Seriennummer"
         item_attrs[:serial_number] = v
+      when "Dongle-ID"
+        item_attrs[:properties] ||= {}
+        item_attrs[:properties][:activation_type] = "dongle"
+        item_attrs[:properties][:dongle_id] = v
     end
     v
   end
@@ -380,21 +386,18 @@ When(/^I search after one of those software license properties$/) do
 end
 
 Then(/^they appear all matched software products$/) do
-  page.should have_selector "#software"
   within "#software" do
     find(".line[data-id='#{@software_product.id}']")
   end
 end
 
 Then(/^they appear all matched software licenses$/) do
-  page.should have_selector "#licenses"
   within "#licenses" do
     find(".line[data-id='#{@software_license.id}']")
   end
 end
 
 Then(/^they appear all matched contracts, in which this software product is contained$/) do
-  page.should have_selector "#orders"
   within "#orders" do
     find(".line[data-id='#{@contract_with_software_license.id}']")
   end
@@ -412,6 +415,7 @@ end
 Given(/^this software license is handed over to somebody$/) do
   @contract_with_software_license = FactoryGirl.create :contract, {inventory_pool: @current_inventory_pool, status: :submitted}
   @contract_with_software_license.lines << FactoryGirl.create(:item_line, {contract: @contract_with_software_license, model: @software_product, item: @software_license})
+  @contract_with_software_license.lines.reload.should_not be_empty
 end
 
 When(/^I search after the name of that person$/) do
