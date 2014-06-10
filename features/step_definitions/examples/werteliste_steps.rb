@@ -158,7 +158,7 @@ end
 
 Dann(/^die nicht zugewiesenen Linien sind zusammengefasst$/) do
   @models.each do |m|
-    all("tr", text: m.name).select{|line| line.find(".inventory_code").text == "" }.size.should == 1
+    all("tr", text: m.name).select{|line| line.find(".inventory_code").text == "" }.size.should <= 1 # for models with quantity 1 and an assigned item size == 0, that's why <= 1
   end
 end
 

@@ -33,3 +33,4 @@
   jQuery -> new App.ModelsNewController
     el: $("#new-model-view")
     model: new App.Model #{@model.to_json}
+    manufacturers: #{Kernel.const_get(@model.type).manufacturers.to_json}

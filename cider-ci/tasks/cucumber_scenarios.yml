@@ -593,10 +593,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/verfuegbarkeit.feature:33
-- name: Mögliche Werte in Software-Lizenz erfassen - features/examples/software_erfassen.feature:27
+- name: Software-Produkt erfassen - features/examples/software_erfassen.feature:9
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/software_erfassen.feature:27
+      body: bundle exec cucumber -p default features/examples/software_erfassen.feature:9
 - name: Software-Lizenz erfassen - features/examples/software_erfassen.feature:73
   scripts:
     cucumber:
@@ -1619,6 +1619,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/aushaendigung.feature:74
+- name: Anzeige der Seriennummer bei Zuteilung der Software-Lizenz - features/examples/aushaendigung.feature:87
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/aushaendigung.feature:87
 - name: "Übersicht neues Modell hinzufügen - features/examples/modell.feature:10"
   scripts:
     cucumber:

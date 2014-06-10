@@ -3,6 +3,7 @@ class window.App.ModelsEditController extends Spine.Controller
   elements:
     "#model-form": "form"
     "#model-save": "saveButton"
+    "input[name='model[manufacturer]']": "manufacturer"
 
   events:
     "click #model-save": "submit"
@@ -24,6 +25,16 @@ class window.App.ModelsEditController extends Spine.Controller
     @imagesController = new App.ModelsImagesController  {el: @el.find("#images"), model: @model}
     @attachmentsController = new App.ModelsAttachmentsController  {el: @el.find("#attachments"), model: @model}
     new App.InlineEntryRemoveController {el: @el}
+    do @setupManufacturer
+
+  setupManufacturer:  =>
+    @manufacturer.autocomplete
+      source: @manufacturers
+      minLength: 0
+      delay: 0
+    .data("uiAutocomplete")._renderItem = (ul, item) => 
+      $(App.Render "views/autocomplete/element", item).data("value", item).appendTo(ul)
+    @manufacturer.focus -> $(this).autocomplete("search")
 
   preventDefaultSubmit: (e)=> e.preventDefault()
 

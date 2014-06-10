@@ -529,7 +529,7 @@ When(/^I edit again this software product$/) do
 end
 
 Then(/^outside the the text field, they will additionally displayed lines with link only$/) do
-  within "#model-form .field", text: _("Technical Details") do
+  within "#model-form .field", text: _("Software Information") do
     find(".list-of-lines").all(".line").each do |line|
       line.find("a[target='_blank']")
     end
@@ -577,4 +577,30 @@ end
 Then(/^I can open the attachments in a new tab$/) do
   f = find(".field", text: _("Attachments"))
   f.all("a").each {|link| link.native.attribute("target").should == "_blank"}
+end
+
+When(/^there exists already a manufacturer$/) do
+  @manufacturer = Software.manufacturers.sample
+end
+
+Then(/^the manufacturer can be selected from the list$/) do
+  input_field = find(".field", text: _("Manufacturer")).find("input")
+  input_field.click
+  find(".ui-menu-item", text: @manufacturer).click
+  input_field.value.should == @manufacturer
+end
+
+Wenn(/^I set a non existing manufacturer$/) do
+  input_field = find(".field", text: _("Manufacturer")).find("input")
+  @manufacturer = Faker::Company.name
+  while Software.manufacturers.include?(@manufacturer) do
+    @manufacturer = Faker::Company.name
+  end
+  input_field.set @manufacturer
+end
+
+Then(/^the new manufacturer can be found in the manufacturer list$/) do
+  input_field = find(".field", text: _("Manufacturer")).find("input")
+  input_field.click
+  find(".ui-menu-item", text: @manufacturer).click
 end

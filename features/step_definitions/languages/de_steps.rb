@@ -404,3 +404,19 @@ end
 Dann(/^wird mir die Inventarnummer sowie die Seriennummer angezeigt$/) do
   step "I see the inventory codes and the serial numbers of that software"
 end
+
+Wenn(/^der Hersteller bereits existiert$/) do
+  step %(there exists already a manufacturer)
+end
+
+Dann(/^kann der Hersteller aus der Liste ausgewählt werden$/) do
+  step %Q(the manufacturer can be selected from the list)
+end
+
+Wenn(/^ich einen nicht existierenden Hersteller eingebe$/) do
+  step %Q(I set a non existing manufacturer)
+end
+
+Dann(/^der neue Hersteller ist in der Herstellerliste auffindbar$/) do
+  step %Q(the new manufacturer can be found in the manufacturer list)
+end

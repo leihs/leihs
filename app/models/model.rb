@@ -129,6 +129,10 @@ class Model < ActiveRecord::Base
     where("CONCAT_WS(' ', product, version) = ?", name).first
   end
 
+  def self.manufacturers
+    distinct.order(:manufacturer).pluck(:manufacturer).reject { |s| s.nil? || s.strip.empty? }
+  end
+
 #############################################
 
   SEARCHABLE_FIELDS = %w(manufacturer product version)

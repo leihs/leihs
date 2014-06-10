@@ -35,3 +35,4 @@
   jQuery -> new App.ModelsEditController
     el: $("#edit-model-view")
     model: App.Model.find #{@model.id}
+    manufacturers: #{Kernel.const_get(@model.type).manufacturers.to_json}

@@ -5,23 +5,22 @@ Funktionalität: Software erfassen
   Grundlage:
     Angenommen ich bin Mike
 
-  @current @personas
+  @javascript @personas
   Szenario: Software-Produkt erfassen
     Wenn ich eine neue Software hinzufüge
     Und ich erfasse die folgenden Details
       | Feld                               | Wert                       |
       | Produkt                            | Test Software              |
       | Version                            | Test Version               |
-      | Hersteller                         | Test Hersteller            |
       | Software Informationen             | Installationslink beachten: http://wwww.dokuwiki.ch\n\nDies ist nur ein Text |
     Wenn der Hersteller bereits existiert
     Dann kann der Hersteller aus der Liste ausgewählt werden
-    Wenn der Hersteller noch nicht existiert
-    Dann wird der eingegebene Hersteller in der Liste der Hersteller gespeichert
-    Wenn ich speichere
+    Wenn ich einen nicht existierenden Hersteller eingebe
+    Und ich speichere
     Dann ist die neue Software erstellt und unter Software auffindbar
     Wenn ich das Software-Produkt wieder editiere
     Dann werden nur die Linien mit Links zusätzlich ausserhalb des Textfeldes angezeigt
+    Und der neue Hersteller ist in der Herstellerliste auffindbar
 
   # marked as upcoming due to ticket 71745006
   @upcoming @javascript @personas
