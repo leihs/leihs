@@ -68,11 +68,12 @@ Wenn(/^ich die den Wert "ausleihbar" setze$/) do
 end
 
 Dann(/^sind die Informationen dieser Software\-Lizenz gespeichert$/) do
-  page.should have_selector ".flash.success"
+  page.should have_selector "#flash .success"
   license = Item.find_by_serial_number(@serial_number)
   license.type.should == "License"
   license.model.should == @software
   license.properties[:activation_type] == @activation_type
+  license.properties[:dongle_id] == @dongle_id
   license.properties[:license_type] == @license_type
   Set.new(license.properties[:operating_system]).should == Set.new(@operating_system_values)
   Set.new(license.properties[:installation]).should == Set.new(@installation_values)
@@ -603,4 +604,17 @@ Then(/^the new manufacturer can be found in the manufacturer list$/) do
   input_field = find(".field", text: _("Manufacturer")).find("input")
   input_field.click
   find(".ui-menu-item", text: @manufacturer).click
+end
+
+Then(/^I choose dongle as activation type$/) do
+  within(".field", text: _("Activation Type")) do
+    find("option[value='dongle']").click
+  end
+end
+
+Then(/^I have to provide a dongle id$/) do
+  step "ich speichere"
+  step "ich sehe eine Fehlermeldung"
+  @dongle_id = Faker::Lorem.characters(10)
+  find(".field", text: _("Dongle ID")).find("input").set @dongle_id
 end

@@ -420,3 +420,11 @@ end
 Dann(/^der neue Hersteller ist in der Herstellerliste auffindbar$/) do
   step %Q(the new manufacturer can be found in the manufacturer list)
 end
+
+Wenn(/^ich als Aktivierungsart Dongle wähle$/) do
+  step %Q(I choose dongle as activation type)
+end
+
+Dann(/^muss ich eine Dongle\-ID eingeben$/) do
+  step %Q(I have to provide a dongle id)
+end

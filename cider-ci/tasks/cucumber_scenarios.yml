@@ -597,10 +597,6 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/software_erfassen.feature:9
-- name: Software-Lizenz erfassen - features/examples/software_erfassen.feature:73
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default features/examples/software_erfassen.feature:73
 - name: Software-Lizenz Anschaffungswert mit 2 Dezimalstellen erfassen - features/examples/software_erfassen.feature:98
   scripts:
     cucumber:
