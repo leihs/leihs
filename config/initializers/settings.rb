@@ -1,4 +1,4 @@
-if ActiveRecord::Base.connection.tables.include?("settings")
+if ActiveRecord::Base.connection.tables.include?("settings") and not Rails.env.test?
 
   if Setting.const_defined? :TIME_ZONE
     Rails.configuration.time_zone = Setting::TIME_ZONE

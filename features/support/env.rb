@@ -94,7 +94,7 @@ Before do
   if @use_personas
     Persona.restore_random_dump
   else
-    Persona.restore_minimal_dump
+    Persona.restore_random_dump(true)
   end
 end
 

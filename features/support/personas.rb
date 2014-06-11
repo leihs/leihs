@@ -55,22 +55,15 @@ module Persona
     end
   end
 
-  def restore_minimal_dump
+  def restore_random_dump(minimal = false)
     config = Rails.configuration.database_configuration[Rails.env]
-    cmd = "mysql #{config['host'] ? "-h #{config['host']}" : nil} -u #{config['username']} #{config['password'] ? "--password=#{config['password']}" : nil} #{config['database']} < #{minimal_dump_file_name}"
-    puts "Loading #{minimal_dump_file_name}"
-
-    # we need this variable assignment in order to wait for the end of the system call. DO NOT DELETE !
-    dump_restored = system(cmd)
-    raise "empty dump not loaded" unless dump_restored
-
-    dump_restored
-  end
-
-  def restore_random_dump
-    config = Rails.configuration.database_configuration[Rails.env]
-    cmd = "mysql #{config['host'] ? "-h #{config['host']}" : nil} -u #{config['username']} #{config['password'] ? "--password=#{config['password']}" : nil} #{config['database']} < #{dump_file_name}"
-    puts "Loading #{dump_file_name}"
+    file_name = if minimal
+                  minimal_dump_file_name
+                else
+                  dump_file_name
+                end
+    cmd = "mysql #{config['host'] ? "-h #{config['host']}" : nil} -u #{config['username']} #{config['password'] ? "--password=#{config['password']}" : nil} #{config['database']} < #{file_name}"
+    puts "Loading #{file_name}"
 
     # we need this variable assignment in order to wait for the end of the system call. DO NOT DELETE !
     dump_restored = system(cmd)
