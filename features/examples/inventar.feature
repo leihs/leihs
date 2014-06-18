@@ -77,6 +77,36 @@ Funktionalität: Inventar
     | Aktueller Ausleihender |
     | Enddatum der Ausleihe  |
 
+  #73278560
+  @current
+  Szenario: Aussehen einer Software-Lizenz-Zeile
+    Wenn eine Software-Lizenz-Zeile angezeigt wird
+    Dann enthält die Software-Lizenz-Zeile folgende Informationen:
+      | information    |
+      | Betriebssystem |
+      | Lizenztyp      |
+    Wenn die Software-Lizenz den Lizenztyp "Konkurrent", "Site-Lizenz" oder "Mehrplatz" hat
+    Dann enthält die Software-Lizenz-Zeile folgende Informationen:
+      | information    |
+      | Anzahl         |
+      | Betriebssystem |
+      | Lizenztyp      |
+    Wenn meine Abteilung Besitzer der Software-Lizenz ist, die Verantwortung aber auf eine andere Abteilung abgetreten hat
+    Dann enthält die Software-Lizenz-Zeile folgende Informationen:
+      | information               |
+      | Verantwortliche Abteilung |
+      | Betriebssystem            |
+      | Lizenztyp                 |
+    Wenn die Software-Lizenz nicht an Lager ist und eine andere Abteilung für die Software-Lizenz verantwortlich ist
+    Dann enthält die Software-Lizenz-Zeile folgende Informationen:
+      | information            |
+      | Verantwortliche Abteilung |
+      | Betriebssystem            |
+      | Lizenztyp                 |
+      | Aktueller Ausleihender |
+      | Enddatum der Ausleihe  |
+
+
   @javascript @personas
   Szenario: Keine Resultate auf der Liste des Inventars
     Wenn ich eine resultatlose Suche mache
