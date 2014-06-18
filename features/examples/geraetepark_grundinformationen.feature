@@ -51,10 +51,11 @@ Funktionalität: Gerätepark-Grundinformationen
     Dann kriegt der neu erstellte Benutzer bei allen Geräteparks mit aut. Zuweisung ausser meinem die Rolle 'Kunde'
     Und in meinem Gerätepark hat er die Rolle 'Inventar-Verwalter'
 
-  @personas
+  #72676850
+  @personas @current
   Szenario: Aut. Zuweisen entfernen
     Angenommen ich bin Mike
-    Und ich editiere meinen Gerätepark
+    Und ich editiere eine Gerätepark bei dem die aut. Zuweisung aktiviert ist
     Wenn ich die aut. Zuweisung deaktiviere
     Und ich speichere
     Dann ist die aut. Zuweisung deaktiviert
@@ -64,6 +65,23 @@ Funktionalität: Gerätepark-Grundinformationen
     Angenommen ich bin Mike
     Dann kriegt der neu erstellte Benutzer bei dem vorher editierten Gerätepark kein Zugriffsrecht
     Und ich logge mich aus
+
+  #72676850
+  @current
+  Szenariogrundriss: Checkboxen abwählen
+    Angenommen ich bin Mike
+    Und ich editiere meinen Gerätepark
+    Wenn ich <Checkbox> aktiviere
+    Und ich speichere
+    Dann ist <Checkbox> aktiviert
+    Wenn ich <Checkbox> deaktiviere
+    Und ich speichere
+    Dann ist <Checkbox> deaktiviert
+    Beispiele:
+      | Checkbox                |
+      | Verträge drucken        |
+      | Automatische Sperrung   |
+      | Automatischer Zugriff   |
 
   @personas
   Szenario: Arbeitstage verwalten
@@ -100,7 +118,7 @@ Funktionalität: Gerätepark-Grundinformationen
       | Kurzname    |
       | E-Mail      |
 
-  @personas
+  @personas @current
   Szenario: Automatische Benutzersperrung bei verspäteter Rückgabe
     Angenommen ich bin Mike
     Wenn ich die Grundinformationen des Geräteparks abfüllen möchte
@@ -111,6 +129,9 @@ Funktionalität: Gerätepark-Grundinformationen
     Wenn ein Benutzer wegen verspäteter Rückgaben automatisch gesperrt wird
     Dann wird er für diesen Gerätepark gesperrt bis zum '1.1.2099'
     Und der Sperrgrund ist derjenige, der für diesen Park gespeichert ist
+    Wenn ich "Automatische Sperrung" abwähle
+    Und ich speichere
+    Dann ist "Automatische Sperrung" für diesen Gerätepark nicht aktiviert
 
   @personas
   Szenario: Automatische Benutzersperrung nur wenn Benutzer nicht schon gesperrt
