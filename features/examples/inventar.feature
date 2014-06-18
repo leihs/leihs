@@ -129,6 +129,15 @@ Funktionalität: Inventar
     | Unvollständig             |
     Und die Filter können kombiniert werden
 
+  #73278620
+  @current
+  Szenario: Verhalten nach Speichern
+    Wenn ich einen Reiter auswähle
+    Und ich eine oder mehrere Filtermöglichkeiten verwende
+    Wenn ich eine aufgeführte Zeile editiere
+    Und ich speichere
+    Dann werde ich zur Liste des eben gewählten Reiters mit den eben ausgewählten Filtern zurueckgefuehrt
+
   @personas
   Szenario: Grundeinstellung der Listenansicht
     Dann ist die Auswahl "Aktives Inventar" aktiviert
