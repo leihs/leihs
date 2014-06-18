@@ -19,6 +19,16 @@ Funktionalität: Software editieren
     Dann die Informationen sind gespeichert
     Und die Daten wurden entsprechend aktualisiert
 
+  #73278586
+  @current
+  Szenario: Grösse des Software Informationen-Felds
+    Angenommen eine Software mit mehr als 6 Zeilen Text im Feld "Software Informationen" existiert
+    Wenn ich diese Software editiere
+    Und ich in das Feld "Software-Information" klicke
+    Dann wächst das Feld, bis es den ganzen Text anzeigt
+    Wenn ich aus dem Feld herausgehe
+    Dann schrumpft das Feld wieder auf die Ausgangsgrösse
+
   @current @javascript @personas
   Szenario: Software-Lizenz editieren
     Wenn ich eine bestehende Software-Lizenz mit Software-Informationen und Anhängen editiere
@@ -39,7 +49,7 @@ Funktionalität: Software editieren
     Und ich den Wert für Bezug ändere
     Und ich den Wert der Lizenzinformation ändere
     Und ich die Dongle-ID ändere
-    Und ich den Aktivierungstyp "Mehrplatz", "Konkurrent" oder "Site-Lizenz" wähle
+    Und ich den Lizenztyp "Mehrplatz", "Konkurrent" oder "Site-Lizenz" wähle
     Und ich eine Anzahl beim Aktivierungstyp eingebe
     #Aber ich kann die Inventarnummer nicht ändern # really? inventory manager can change the inventory number of an item right now...
     Wenn ich speichere
