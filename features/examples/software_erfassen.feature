@@ -69,8 +69,7 @@ Funktionalität: Software erfassen
     Dann kann man als "Notiz" einen Text eingeben
     Und die Option "Ausleihbar" ist standardmässig auf "Nicht ausleihbar" gesetzt
 
-  # marked as upcoming due to ticket 71744884
-  @upcoming @javascript @personas
+  @current @javascript @personas
   Szenario: Software-Lizenz erfassen
     Angenommen es existiert ein Software-Produkt
     Wenn ich eine neue Software-Lizenz hinzufüge
@@ -79,7 +78,7 @@ Funktionalität: Software erfassen
     Und ich eine Seriennummer eingebe
     Wenn ich als Aktivierungsart Dongle wähle
     Dann muss ich eine Dongle-ID eingeben
-    Wenn ich als Lizenzart "Mehrplatz", "Konkurrent" oder "Site-Lizenz" wähle
+    Wenn ich als Lizenztyp "Mehrplatz", "Konkurrent" oder "Site-Lizenz" wähle
     Dann kann ich eine Anzahl eingeben
     Und ich als Betriebssystem keine, eine oder mehrere der vorhandenen Möglichkeiten auswähle
     Und ich als Installation keine, eine oder mehrere der vorhandenen Möglichkeiten auswähle
