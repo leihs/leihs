@@ -80,7 +80,8 @@ Funktionalität: Vertrag
     Angenommen man öffnet einen Vertrag bei der Aushändigung
     Dann sehe ich den Ausleihenden oben links
 
-  @javascript @firefox @personas
+  #71745162
+  @javascript @firefox @personas @current
   Szenario: Inhalt der Liste 1 und Liste 2
     Angenommen man öffnet einen Vertrag bei der Aushändigung
     Dann beinhalten Liste 1 und Liste 2 folgende Spalten:
@@ -91,7 +92,7 @@ Funktionalität: Vertrag
     | Enddatum      |
     | Rückgabedatum / Rücknehmende Person |
     Wenn der Vertrag eine Software-Lizenz beinhaltet
-    Dann sehe ich neben dem Inventarcode zusätzlich die folgende Information
+    Dann sehe ich zusätzlich die folgende Information
     | Seriennummer  |
 
   @javascript @firefox @personas
