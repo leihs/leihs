@@ -20,6 +20,11 @@ class Setting < ActiveRecord::Base
     end
   end
 
+  if Rails.env.development?
+    # initialize the constants at each code reload, since we are running with config.cache_classes = false
+    initialize_constants
+  end
+
   before_create do
     raise "Setting is a singleton" if Setting.count > 0
   end
