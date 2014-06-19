@@ -972,6 +972,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/statistik.feature:45
+- name: Software anhand eines Suchbegriffs finden - features/examples/software_suchen.feature:9
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/software_suchen.feature:9
 - name: Verträge für Software-Lizenzen anhand des Ausleihenden finden - features/examples/software_suchen.feature:27
   scripts:
     cucumber:

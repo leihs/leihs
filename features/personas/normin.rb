@@ -100,8 +100,8 @@ module Persona
       @approved_contract_5_purpose = FactoryGirl.create :purpose, :description => "Ersatzstativ für die Ausstellung."
       3.times do
         @approved_contract_5.contract_lines << FactoryGirl.create(:contract_line, :purpose => @approved_contract_5_purpose, :contract => @approved_contract_5, :model => @camera_model)
+        @approved_contract_5.contract_lines << FactoryGirl.create(:contract_line, :purpose => @approved_contract_5_purpose, :contract => @approved_contract_5, :model => @tripod_model)
       end
-      @approved_contract_5.contract_lines << FactoryGirl.create(:contract_line, :purpose => @approved_contract_5_purpose, :contract => @approved_contract_5, :model => @tripod_model)
       @akku_aa = Option.find {|m| [m.name, m.product].include? "Akku AA" }
       @approved_contract_5.contract_lines << FactoryGirl.create(:option_line, :purpose => @approved_contract_5_purpose, :contract => @approved_contract_5, :option => @akku_aa, :quantity => 5)
 
