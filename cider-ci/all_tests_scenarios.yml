@@ -16,7 +16,7 @@ contexts:
   priority: 3
   scripts: "substitute_with_path: cider-ci/partials/rspec_context_scripts.yml"
   tasks: "substitute_with_path: cider-ci/tasks/rspec.yml"
-    
+
 - name: Meta
   priority: 7
   tasks: "substitute_with_path: cider-ci/tasks/meta.yml"
@@ -28,14 +28,7 @@ contexts:
 
   tasks:
 
-    - name: All spects are tested?
+    - name: All specs are tested?
       scripts:
         main: 
           body: cider-ci/bin/all_specs_tested.rb
-
-    - name: All features are tested?
-      scripts:
-        main: 
-          body: cider-ci/bin/all_features_tested.rb 
-
-
