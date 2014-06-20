@@ -31,6 +31,7 @@ module Persona
 
     DatabaseCleaner.clean_with :truncation
     FactoryGirl.create :setting
+    require "#{Rails.root}/features/support/leihs_factory.rb"
     LeihsFactory.create_default_languages
     system "mysqldump #{config['host'] ? "-h #{config['host']}" : nil} -u #{config['username']} #{config['password'] ? "--password=#{config['password']}" : nil}  #{config['database']} --no-create-db | grep -v 'SQL SECURITY DEFINER' > #{minimal_dump_file_name}"
     puts "Generated: #{minimal_dump_file_name}"
