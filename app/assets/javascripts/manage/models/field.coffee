@@ -145,7 +145,7 @@ class window.App.Field extends Spine.Model
     children = field.children() if field.children?
     if children? and children.length
       for child in children
-        if App.Field.getValue(target) == child.visibility_dependency_value
+        if App.Field.getValue(target) == child.visibility_dependency_value or _.contains child.visibility_dependency_value, App.Field.getValue(target)
           unless App.Field.isPresent child, form
             if (forPackage and child.forPackage) or not forPackage
               target.after App.Render "manage/views/items/field", {}, $.extend(options, {field: child})

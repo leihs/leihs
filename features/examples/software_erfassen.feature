@@ -78,8 +78,11 @@ Funktionalität: Software erfassen
     Und ich eine Seriennummer eingebe
     Wenn ich als Aktivierungsart Dongle wähle
     Dann muss ich eine Dongle-ID eingeben
-    Wenn ich als Lizenztyp "Mehrplatz", "Konkurrent" oder "Site-Lizenz" wähle
-    Dann kann ich eine Anzahl eingeben
+    Wenn ich einen der folgenden Lizenztypen wähle:
+      | Mehrplatz   |
+      | Konkurrent  |
+      | Site-Lizenz |
+    Und ich eine Anzahl eingebe
     Und ich als Betriebssystem keine, eine oder mehrere der vorhandenen Möglichkeiten auswähle
     Und ich als Installation keine, eine oder mehrere der vorhandenen Möglichkeiten auswähle
     Und ich als Lizenzablaufdatum ein Datum auswähle

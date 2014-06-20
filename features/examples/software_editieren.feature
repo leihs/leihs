@@ -40,7 +40,6 @@ Funktionalität: Software editieren
     Wenn ich eine andere Software auswähle
     Und ich eine andere Seriennummer eingebe
     Und ich einen anderen Aktivierungstyp wähle
-    Und ich einen anderen Lizenztyp wähle
     Und ich den Wert "Ausleihbar" ändere
     Und ich die Optionen für das Betriebssystem ändere
     Und ich die Optionen für die Installation ändere
@@ -49,8 +48,11 @@ Funktionalität: Software editieren
     Und ich den Wert für Bezug ändere
     Und ich den Wert der Lizenzinformation ändere
     Und ich die Dongle-ID ändere
-    Und ich den Lizenztyp "Mehrplatz", "Konkurrent" oder "Site-Lizenz" wähle
-    Und ich eine Anzahl beim Aktivierungstyp eingebe
+    Und ich einen der folgenden Lizenztypen wähle:
+      | Mehrplatz   |
+      | Konkurrent  |
+      | Site-Lizenz |
+    Und ich eine Anzahl eingebe
     #Aber ich kann die Inventarnummer nicht ändern # really? inventory manager can change the inventory number of an item right now...
     Wenn ich speichere
     Dann sind die Informationen dieser Software-Lizenz erfolgreich aktualisiert worden

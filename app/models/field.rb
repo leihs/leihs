@@ -377,6 +377,16 @@ class Field < ActiveHash::Base
       group: "General Information"
     },{
       id: 40,
+      label: "Quantity",
+      attribute: ["properties", "quantity"],
+      type: "text",
+      target_type: "license",
+      permissions: {role: :inventory_manager, owner: true},
+      visibility_dependency_field_id: 39,
+      visibility_dependency_value: ["multiple_workplace", "site_license", "concurrent"],
+      group: "General Information"
+    },{
+      id: 41,
       label: "Operating System",
       attribute: ["properties", "operating_system"],
       type: "checkbox",
@@ -387,7 +397,7 @@ class Field < ActiveHash::Base
       permissions: {role: :inventory_manager, owner: true},
       group: "General Information"
     },{
-      id: 41,
+      id: 42,
       label: "Installation",
       attribute: ["properties", "installation"],
       type: "checkbox",
@@ -398,7 +408,7 @@ class Field < ActiveHash::Base
       permissions: {role: :inventory_manager, owner: true},
       group: "General Information"
     },{
-      id: 42,
+      id: 43,
       label: "License expiration",
       attribute: ["properties", "license_expiration"],
       permissions: {role: :inventory_manager, owner: true},
@@ -406,7 +416,7 @@ class Field < ActiveHash::Base
       target_type: "license",
       group: "General Information"
     },{
-      id: 43,
+      id: 44,
       label: "Maintenance contract",
       attribute: ["properties", "maintenance_contract"],
       type: "select",
@@ -415,17 +425,17 @@ class Field < ActiveHash::Base
       values: [{label: "No", value: "false"}, {label: "Yes", value: "true"}],
       group: "General Information"
     },{
-      id: 44,
+      id: 45,
       label: "Maintenance expiration",
       attribute: ["properties", "maintenance_expiration"],
       type: "date",
       target_type: "license",
       permissions: {role: :inventory_manager, owner: true},
-      visibility_dependency_field_id: 43,
+      visibility_dependency_field_id: 44,
       visibility_dependency_value: "true",
       group: "General Information"
     },{
-      id: 45,
+      id: 46,
       label: "Procured by",
       attribute: ["properties", "procured_by"],
       permissions: {role: :inventory_manager, owner: true},

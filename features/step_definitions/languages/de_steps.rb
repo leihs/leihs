@@ -428,3 +428,11 @@ end
 Dann(/^muss ich eine Dongle\-ID eingeben$/) do
   step %Q(I have to provide a dongle id)
 end
+
+Wenn(/^ich einen der folgenden Lizenztypen wähle:$/) do |table|
+  step %Q(I choose one of the following license types), table
+end
+
+Wenn(/^ich eine Anzahl eingebe$/) do
+  step %Q(I fill in a value)
+end

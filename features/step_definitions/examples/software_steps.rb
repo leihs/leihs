@@ -75,6 +75,7 @@ Dann(/^sind die Informationen dieser Software\-Lizenz gespeichert$/) do
   license.properties[:activation_type] == @activation_type
   license.properties[:dongle_id] == @dongle_id
   license.properties[:license_type] == @license_type
+  license.properties[:quantity] == @quantity
   Set.new(license.properties[:operating_system]).should == Set.new(@operating_system_values)
   Set.new(license.properties[:installation]).should == Set.new(@installation_values)
   license.is_borrowable?.should be_true
@@ -154,16 +155,17 @@ When(/^I change the options for installation$/) do
 end
 
 Dann(/^sind die Informationen dieser Software\-Lizenz erfolgreich aktualisiert worden$/) do
-  page.should have_selector ".flash.success"
+  page.should have_selector "#flash .success"
   license = Item.find_by_serial_number(@new_serial_number)
   license.type.should == "License"
   license.model.should == @new_software
   license.properties[:activation_type] == @new_activation_type
   license.properties[:license_type] == @new_license_type
+  license.properties[:quantity] == @quantity
   Set.new(license.properties[:operating_system]).should == Set.new(@new_operating_system_values)
   Set.new(license.properties[:installation]).should == Set.new(@new_installation_values)
   license.is_borrowable?.should be_true
-  license.invoice_date.should == @new_invoice_date.to_s
+  license.invoice_date.should == (@new_invoice_date.blank? ? nil : @new_invoice_date.to_s)
   license.properties[:license_expiration].should == @new_license_expiration_date.to_s
   license.properties[:maintenance_contract].should == @new_maintenance_contract.to_s
   license.properties[:maintenance_expiration].should == @maintenance_expiration_date.to_s if @new_maintenance_expiration_date
@@ -621,4 +623,12 @@ Then(/^I have to provide a dongle id$/) do
   step "ich sehe eine Fehlermeldung"
   @dongle_id = Faker::Lorem.characters(10)
   find(".field", text: _("Dongle ID")).find("input").set @dongle_id
+end
+
+When(/^I choose one of the following license types$/) do |table|
+  find(".field", text: _("License Type")).find("option", text: _(table.rows.flatten.sample)).select_option
+end
+
+When(/^I fill in a value$/) do
+  find(".field", text: _("Quantity")).find("input").set (@quantity = rand(5..500))
 end
