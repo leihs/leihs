@@ -124,11 +124,14 @@ When(/^I click on the assignment field of software names$/) do
   end
 end
 
-Then(/^I see the inventory codes and the serial numbers of that software$/) do
+Then(/^I see the inventory codes and the complete serial numbers of that software$/) do
   sleep(0.33)
   within ".ui-autocomplete" do
     @contract_line.model.items.each do |item|
-      find(".ui-menu-item a[title='#{item.inventory_code}']", text: item.serial_number)
+      within(".ui-menu-item a[title='#{item.inventory_code}']", text: item.serial_number) do
+        find(".col3of4", text: item.serial_number)
+        has_selector?(".col3of4.text-ellipsis", text: item.serial_number).should be_false
+      end
     end
   end
 end

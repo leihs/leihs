@@ -1,4 +1,4 @@
-%li.separated-bottom.exclude-last-child.width-xl{}
+%li.separated-bottom.exclude-last-child.width-xxl{}
   %a{ :class => "row{{if hasProblems()}} light-red{{/if}}", :title => "{{>inventory_code}}{{if location()}} {{>location().building().name}} {{>location().room}} {{>location().shelf}}{{/if}}"}
     .col1of4.text-ellipsis 
       %strong {{>inventory_code}}
@@ -9,7 +9,7 @@
       {{>location().shelf}}
     {{else}}
     {{if serial_number}}
-    .col3of4.text-ellipsis
+    .col3of4
       %strong {{>serial_number}}
     {{/if}}
     {{/if}}
