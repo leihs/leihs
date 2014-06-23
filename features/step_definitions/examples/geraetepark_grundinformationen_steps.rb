@@ -156,10 +156,6 @@ Dann(/^der Sperrgrund ist derjenige, der für diesen Park gespeichert ist$/) do
   @access_right.suspended_reason.should == @reason
 end
 
-Angenommen(/^ich editiere meinen Gerätepark$/) do
-  visit manage_edit_inventory_pool_path(@current_inventory_pool)
-end
-
 Wenn(/^ich die aut\. Zuweisung deaktiviere$/) do
   within(".row.padding-inset-s", match: :prefer_exact, text: _("Automatic access")) do
     find("input", match: :first).set false
@@ -177,8 +173,18 @@ Angenommen(/^man ist ein Benutzer, der sich zum ersten Mal einloggt$/) do
   step %Q(ich einen Benutzer mit Login "#{@username}" und Passwort "#{@password}" erstellt habe)
 end
 
+Given(/^I edit an inventory pool( which has the automatic access enabled)?$/) do |arg1|
+  if arg1
+    @current_inventory_pool = @current_user.managed_inventory_pools.select{|ip| ip.automatic_access? }.sample
+  end
+  visit manage_edit_inventory_pool_path(@current_inventory_pool)
+end
+
 Angenommen(/^es ist bei mehreren Geräteparks aut. Zuweisung aktiviert$/) do
   InventoryPool.all.sample(rand(2..4)).each do |inventory_pool|
+    inventory_pool.update_attributes automatic_access: true
+  end
+  if inventory_pool = @current_user.managed_inventory_pools.select{|ip| not ip.automatic_access? }.sample
     inventory_pool.update_attributes automatic_access: true
   end
   @inventory_pools_with_automatic_access = InventoryPool.where(automatic_access: true)
@@ -252,4 +258,46 @@ Then(/^the existing suspension motivation and the suspended time for this user a
   checks_suspension
   step "the cronjob executes the rake task for reminding and suspending all late users"
   checks_suspension
+end
+
+When(/^I (enable|disable) "(.*)"$/) do |arg1, arg2|
+  b = case arg1
+        when "enable"
+          true
+        when "disable"
+          false
+        else
+          raise "not found"
+      end
+  case arg2
+    when "Verträge drucken"
+      find("input[type='checkbox'][name='inventory_pool[print_contracts]']").set b
+    when "Automatische Sperrung"
+      find("input[type='checkbox'][name='inventory_pool[automatic_suspension]']").set b
+    when "Automatischer Zugriff"
+      find("input[type='checkbox'][name='inventory_pool[automatic_access]']").set b
+    else
+      raise "not found"
+  end
+end
+
+Then(/^"(.*)" is (enabled|disabled)$/) do |arg1, arg2|
+  b = case arg2
+        when "enabled"
+          true
+        when "disabled"
+          false
+        else
+          raise "not found"
+      end
+  case arg1
+    when "Verträge drucken"
+      @current_inventory_pool.reload.print_contracts.should == b
+    when "Automatische Sperrung"
+      @current_inventory_pool.reload.automatic_suspension.should == b
+    when "Automatischer Zugriff"
+      @current_inventory_pool.reload.automatic_access.should == b
+    else
+      raise "not found"
+  end
 end

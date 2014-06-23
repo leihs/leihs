@@ -436,3 +436,24 @@ end
 Wenn(/^ich eine Anzahl eingebe$/) do
   step %Q(I fill in a value)
 end
+
+Angenommen(/^ich editiere eine Gerätepark( bei dem die aut. Zuweisung aktiviert ist)?$/) do |arg1|
+  step "I edit an inventory pool%s" % (arg1 ? " which has the automatic access enabled" : nil)
+end
+
+Wenn(/^ich "(.*)" aktiviere$/) do |arg1|
+  step %Q(I enable "%s") % arg1
+end
+
+Dann(/^ist "(.*)" aktiviert$/) do |arg1|
+  step %Q("%s" is enabled) % arg1
+end
+
+Wenn(/^ich "(.*)" deaktiviere$/) do |arg1|
+  step %Q(I disable "%s") % arg1
+end
+
+Dann(/^ist "(.*)" deaktiviert$/) do |arg1|
+  step %Q("%s" is disabled) % arg1
+end
+
