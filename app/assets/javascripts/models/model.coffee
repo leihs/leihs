@@ -6,7 +6,7 @@
 
 class window.App.Model extends Spine.Model
 
-  @configure "Model", "id", "product", "version", "type"
+  @configure "Model", "id", "product", "version", "type", "properties"
   
   @hasOne "availability", "App.Availability", "model_id"
   @hasMany "plainAvailabilities", "App.PlainAvailability", "model_id"

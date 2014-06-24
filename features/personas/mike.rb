@@ -399,6 +399,8 @@ module Persona
 
       software = FactoryGirl.create :software, technical_detail: "test http://test.ch\r\nwww.foo.ch\r\njust a text"
       rand(1..3).times { software.attachments << FactoryGirl.create(:attachment) }
+
+      FactoryGirl.create :license, owner: @inventory_pool, properties: { operating_system: ["windows","linux", "mac_os_x"][0..rand(0..2)], license_type: ["concurrent", "site_license", "multiple_workplace"].sample, quantity: rand(300) }
     end
 
     def setup_models_without_version

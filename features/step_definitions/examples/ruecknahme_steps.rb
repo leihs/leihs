@@ -14,7 +14,7 @@ Wenn(/^man die Rücknahmenansicht für den Benutzer öffnet$/) do
 end
 
 Dann(/^sind die Rücknahmen aufsteigend nach Datum sortiert$/) do
-  page.should have_selector ".line[data-line-type='item_line']"
+  page.should have_selector ".line[data-line-type]"
 
   take_backs = @user.visits.take_back.select{|v| v.inventory_pool == @current_inventory_pool}.sort {|d1, d2| d1.date <=> d2.date }
   lines = take_backs.flat_map &:lines

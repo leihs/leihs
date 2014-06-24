@@ -6,7 +6,7 @@
 
 class window.App.Item extends Spine.Model
 
-  @configure "Item", "id", "inventory_code", "serial_number", "is_broken", "is_incomplete", "is_borrowable", "model_id", "current_location"
+  @configure "Item", "id", "inventory_code", "serial_number", "is_broken", "is_incomplete", "is_borrowable", "model_id", "current_location", "properties"
   @belongsTo "location", "App.Location", "location_id"
   @belongsTo "model", "App.Model", "model_id"
   @hasOne "currentLocation", "App.CurrentItemLocation", "id"

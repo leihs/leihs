@@ -1,29 +1,19 @@
 .line.row.focus-hover-thin{:"data-type" => "license", :"data-id" => "{{>id}}"}
   
   .col1of5.line-col 
-    {{if software().is_package}}
-    .row
-      .col1of2
-      .col1of2
-        %button.button.inset.small.width-full{:"data-type" => "inventory-expander"}
-          {{if children().count()>0}}
-          %i.arrow.right
-          {{/if}}
-          %span {{>children().count()}}
-    {{/if}}
 
   .col2of5.line-col.text-align-left
     .row {{>inventory_code}}
-    {{if parent_id}}
-    %strong.grey-text {{>software().name()}}
-    .row.grey-text.text-ellipsis.width-full{title: '{{jed "is part of a package"/}}'}
-      {{jed "is part of a package"/}}
-    {{else}}
-    .row.grey-text {{>currentLocation()}}
-    {{/if}}
+    .row.grey-text
+      {{if ~additionalDataFetched}}
+      {{if currentLocation()}}{{>currentLocation()}},{{/if}}
+      {{else}}
+      %span
+        {{partial "views/loading" {"size":"micro"}/}}
+      {{/if}}
+      {{>licenseInformation()}}
 
-  .col1of5.line-col.text-align-center
-    %strong.darkred-text {{>getProblems()}}
+  .col1of5.line-col
 
   .col1of5.line-col.line-actions.padding-right-xs
     .multibutton.width-full.text-align-right

@@ -437,6 +437,26 @@ Wenn(/^ich eine Anzahl eingebe$/) do
   step %Q(I fill in a value)
 end
 
+Angenommen(/^es gibt eine Software\-Lizenz$/) do
+  step %Q(there exists a software license)
+end
+
+Wenn(/^ich diese Lizenz in der Softwareliste anschaue$/) do
+  step %Q(I look at this license in the software list)
+end
+
+Angenommen(/^es gibt eine Software\-Lizenz mit einem der folgenden Typen:$/) do |table|
+  step %Q(there exists a software license of one of the following types), table
+end
+
+Angenommen(/^es gibt eine Software\-Lizenz, wo meine Abteilung der Besitzer ist, die Verantwortung aber auf eine andere Abteilung abgetreten hat$/) do
+  step %Q(there exists a software license, owned by my inventory pool, but given responsibility to another inventory pool)
+end
+
+Angenommen(/^es gibt eine Software\-Lizenz, die nicht an Lager ist und eine andere Abteilung für die Software\-Lizenz verantwortlich ist$/) do
+  step %Q(there exists a software license, which is not in stock and another inventory pool is responsible for it)
+end
+
 Angenommen(/^ich editiere eine Gerätepark( bei dem die aut. Zuweisung aktiviert ist)?$/) do |arg1|
   step "I edit an inventory pool%s" % (arg1 ? " which has the automatic access enabled" : nil)
 end
@@ -456,4 +476,3 @@ end
 Dann(/^ist "(.*)" deaktiviert$/) do |arg1|
   step %Q("%s" is disabled) % arg1
 end
-

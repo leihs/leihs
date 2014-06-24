@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 
-When /^I open a hand over( with at least one unassigned line)?( with options)?$/ do |arg1, arg2|
+When /^I open a hand over( with at least one unassigned line for today)?( with options)?$/ do |arg1, arg2|
   @ip = @current_user.managed_inventory_pools.detect do |ip|
     @customer = ip.users.to_a.shuffle.detect do |c|
       b = c.visits.hand_over.exists?
       b = if arg1
-            b and c.visits.hand_over.any?{|v| v.lines.size >= 3 and v.lines.any? {|l| not l.item}}
+            b and c.visits.hand_over.any?{|v| v.lines.size >= 3 and v.lines.any? {|l| not l.item and l.end_date == Date.today}}
           elsif arg2
             b and c.visits.hand_over.any?{|v| v.lines.any? {|l| l.is_a? OptionLine}}
           else
@@ -63,7 +63,7 @@ When /^I select an item without assigning an inventory code$/ do
 end
 
 Then /^I got an error that i have to assign all selected item lines$/ do
-  find("#flash .error").has_content? _("you cannot hand out lines with unassigned inventory codes")
+  find("#flash .error").has_content?(_ "you cannot hand out lines with unassigned inventory codes").should be_true
 end
 
 When /^I change the contract lines time range to tomorrow$/ do
