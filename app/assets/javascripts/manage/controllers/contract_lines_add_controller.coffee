@@ -63,7 +63,7 @@ class window.App.ContractLinesAddController extends Spine.Controller
     App.Model.ajaxFetch
       data: $.param
         search_term: @input.val()
-        inventory_pool_id: App.InventoryPool.current.id
+        as_responsible_only: true
         per_page: 5
     .done (data)=> 
       @models = (App.Model.find(datum.id) for datum in data)
