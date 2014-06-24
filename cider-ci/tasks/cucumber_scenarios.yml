@@ -1097,22 +1097,30 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/geraetepark_grundinformationen.feature:46
-- name: Arbeitstage verwalten - features/examples/geraetepark_grundinformationen.feature:87
+- name: Aut. Zuweisen entfernen - features/examples/geraetepark_grundinformationen.feature:56
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/geraetepark_grundinformationen.feature:87
-- name: Tage der Ausleihschliessung verwalten - features/examples/geraetepark_grundinformationen.feature:95
+      body: bundle exec cucumber -p default features/examples/geraetepark_grundinformationen.feature:56
+- name: Checkboxen abwählen - features/examples/geraetepark_grundinformationen.feature:72
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/geraetepark_grundinformationen.feature:95
-- name: Pflichtfelder der Grundinformationen einzeln prüfen - features/examples/geraetepark_grundinformationen.feature:104
+      body: bundle exec cucumber -p default features/examples/geraetepark_grundinformationen.feature:72
+- name: Arbeitstage verwalten - features/examples/geraetepark_grundinformationen.feature:88
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/geraetepark_grundinformationen.feature:104
-- name: Automatische Benutzersperrung nur wenn Benutzer nicht schon gesperrt - features/examples/geraetepark_grundinformationen.feature:137
+      body: bundle exec cucumber -p default features/examples/geraetepark_grundinformationen.feature:88
+- name: Tage der Ausleihschliessung verwalten - features/examples/geraetepark_grundinformationen.feature:96
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/geraetepark_grundinformationen.feature:137
+      body: bundle exec cucumber -p default features/examples/geraetepark_grundinformationen.feature:96
+- name: Pflichtfelder der Grundinformationen einzeln prüfen - features/examples/geraetepark_grundinformationen.feature:105
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/geraetepark_grundinformationen.feature:105
+- name: Automatische Benutzersperrung nur wenn Benutzer nicht schon gesperrt - features/examples/geraetepark_grundinformationen.feature:138
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/geraetepark_grundinformationen.feature:138
 - name: Anzeige der Gruppenliste - features/examples/gruppen.feature:13
   scripts:
     cucumber:
