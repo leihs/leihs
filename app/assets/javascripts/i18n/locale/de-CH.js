@@ -1946,7 +1946,7 @@ window.i18n.locale_data = {
       ],
       "This item was retired": [
          null,
-         "Dieser Gegenstand würde ausgemustert"
+         "Dieser Gegenstand wurde ausgemustert"
       ],
       "This item will be given to a different inventory pool and not show up in yours anymore!": [
          null,
