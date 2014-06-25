@@ -457,6 +457,14 @@ Angenommen(/^es gibt eine Software\-Lizenz, die nicht an Lager ist und eine ande
   step %Q(there exists a software license, which is not in stock and another inventory pool is responsible for it)
 end
 
+Wenn(/^der Vertrag eine Software\-Lizenz beinhaltet$/) do
+  step "the contract contains a software license"
+end
+
+Dann(/^sehe ich zusätzlich die folgende Information$/) do |table|
+  step "I additionally see the following informatins", table
+end
+
 Angenommen(/^ich editiere eine Gerätepark( bei dem die aut. Zuweisung aktiviert ist)?$/) do |arg1|
   step "I edit an inventory pool%s" % (arg1 ? " which has the automatic access enabled" : nil)
 end

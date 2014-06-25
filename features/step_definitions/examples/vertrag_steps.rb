@@ -1,10 +1,15 @@
 # -*- encoding : utf-8 -*-
 
-Angenommen /^man öffnet einen Vertrag bei der Aushändigung$/ do
-  step 'I open a hand over which has multiple unassigned lines and models in stock'
+Angenommen /^man öffnet einen Vertrag bei der Aushändigung( mit Software)?$/ do |arg1|
+  step "I open a hand over which has multiple unassigned lines and models in stock%s" % (arg1 ? " with software" : nil)
+
   3.times do
     step 'I select an item line and assign an inventory code'
   end
+  if arg1
+    step 'I select a license line and assign an inventory code'
+  end
+
   step 'I click hand over'
   step 'I see a summary of the things I selected for hand over'
   step 'I click hand over inside the dialog'
@@ -243,4 +248,14 @@ end
 
 Dann(/^wird unter dem Verleiher diese Adresse angezeigt$/) do
   all(".inventory_pool span")[1].text == @address
+end
+
+Wenn(/^the contract contains a software license$/) do
+  @selected_items_with_software_license = @selected_items.select {|i| i.model.is_a? Software }
+end
+
+Dann(/^I additionally see the following informatins$/) do |table|
+  pending
+  @selected_items_with_software_license.each do |cl|
+  end
 end

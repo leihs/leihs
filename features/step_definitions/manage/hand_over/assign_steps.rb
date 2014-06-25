@@ -66,26 +66,28 @@ Then /^no new line is added to the hand over$/ do
   @hand_over.lines.size.should == @hand_over.reload.lines.size
 end
 
-When /^I open a hand over which has multiple lines$/ do
+When /^I open a hand over which has multiple( unassigned)? lines( and models in stock)?( with software)?$/ do |arg1, arg2, arg3|
   @ip = @current_user.managed_inventory_pools.first
-  @hand_over = @ip.visits.hand_over.detect{|x| x.lines.size > 1}
-  @customer = @hand_over.user
-  visit manage_hand_over_path(@ip, @customer)
-  page.should have_selector("#hand-over-view", :visible => true)
-end
 
-When /^I open a hand over which has multiple unassigned lines$/ do
-  @ip = @current_user.managed_inventory_pools.first
-  @hand_over = @ip.visits.hand_over.detect{|x| x.lines.select{|l| !l.item}.count >= 2}
-  @customer = @hand_over.user
-  visit manage_hand_over_path(@ip, @customer)
-  page.should have_selector("#hand-over-view", :visible => true)
-end
+  @hand_over = if arg1
+                 if arg2
+                   @models_in_stock = @ip.items.by_responsible_or_owner_as_fallback(@ip).in_stock.map(&:model).uniq
+                   @ip.visits.hand_over.detect { |v|
+                     b = v.lines.select { |l| !l.item and @models_in_stock.include? l.model }.count >= 2
+                     if arg3
+                       (b and !!v.lines.detect {|cl| cl.model.is_a? Software })
+                     else
+                       b
+                     end
+                   }
+                 else
+                   @ip.visits.hand_over.detect { |x| x.lines.select { |l| !l.item }.count >= 2 }
+                 end
+               else
+                 @ip.visits.hand_over.detect { |x| x.lines.size > 1 }
+               end
+  raise "not found" unless @hand_over
 
-When /^I open a hand over which has multiple unassigned lines and models in stock$/ do
-  @ip = @current_user.managed_inventory_pools.first
-  @models_in_stock = @ip.items.by_responsible_or_owner_as_fallback(@ip).in_stock.map(&:model).uniq
-  @hand_over = @ip.visits.hand_over.detect{|v| v.lines.select{|l| !l.item and @models_in_stock.include? l.model}.count >= 2}
   @customer = @hand_over.user
   visit manage_hand_over_path(@ip, @customer)
   page.should have_selector("#hand-over-view", :visible => true)

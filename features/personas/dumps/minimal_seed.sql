@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.37, for debian-linux-gnu (i686)
+-- MySQL dump 10.13  Distrib 5.6.19, for osx10.9 (x86_64)
 --
 -- Host: localhost    Database: leihs2_test
 -- ------------------------------------------------------
--- Server version	5.5.37-0+wheezy1
+-- Server version	5.6.19
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -908,19 +908,18 @@ LOCK TABLES `partitions` WRITE;
 UNLOCK TABLES;
 
 --
--- Temporary table structure for view `partitions_with_generals`
+-- Temporary view structure for view `partitions_with_generals`
 --
 
 DROP TABLE IF EXISTS `partitions_with_generals`;
 /*!50001 DROP VIEW IF EXISTS `partitions_with_generals`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE TABLE `partitions_with_generals` (
-  `model_id` tinyint NOT NULL,
-  `inventory_pool_id` tinyint NOT NULL,
-  `group_id` tinyint NOT NULL,
-  `quantity` tinyint NOT NULL
-) ENGINE=MyISAM */;
+/*!50001 CREATE VIEW `partitions_with_generals` AS SELECT 
+ 1 AS `model_id`,
+ 1 AS `inventory_pool_id`,
+ 1 AS `group_id`,
+ 1 AS `quantity`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -1108,43 +1107,41 @@ LOCK TABLES `users` WRITE;
 UNLOCK TABLES;
 
 --
--- Temporary table structure for view `visit_lines`
+-- Temporary view structure for view `visit_lines`
 --
 
 DROP TABLE IF EXISTS `visit_lines`;
 /*!50001 DROP VIEW IF EXISTS `visit_lines`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE TABLE `visit_lines` (
-  `visit_id` tinyint NOT NULL,
-  `inventory_pool_id` tinyint NOT NULL,
-  `user_id` tinyint NOT NULL,
-  `delegated_user_id` tinyint NOT NULL,
-  `status` tinyint NOT NULL,
-  `action` tinyint NOT NULL,
-  `date` tinyint NOT NULL,
-  `quantity` tinyint NOT NULL,
-  `contract_line_id` tinyint NOT NULL
-) ENGINE=MyISAM */;
+/*!50001 CREATE VIEW `visit_lines` AS SELECT 
+ 1 AS `visit_id`,
+ 1 AS `inventory_pool_id`,
+ 1 AS `user_id`,
+ 1 AS `delegated_user_id`,
+ 1 AS `status`,
+ 1 AS `action`,
+ 1 AS `date`,
+ 1 AS `quantity`,
+ 1 AS `contract_line_id`*/;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `visits`
+-- Temporary view structure for view `visits`
 --
 
 DROP TABLE IF EXISTS `visits`;
 /*!50001 DROP VIEW IF EXISTS `visits`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE TABLE `visits` (
-  `id` tinyint NOT NULL,
-  `inventory_pool_id` tinyint NOT NULL,
-  `user_id` tinyint NOT NULL,
-  `status` tinyint NOT NULL,
-  `action` tinyint NOT NULL,
-  `date` tinyint NOT NULL,
-  `quantity` tinyint NOT NULL
-) ENGINE=MyISAM */;
+/*!50001 CREATE VIEW `visits` AS SELECT 
+ 1 AS `id`,
+ 1 AS `inventory_pool_id`,
+ 1 AS `user_id`,
+ 1 AS `status`,
+ 1 AS `action`,
+ 1 AS `date`,
+ 1 AS `quantity`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -1182,7 +1179,6 @@ UNLOCK TABLES;
 -- Final view structure for view `partitions_with_generals`
 --
 
-/*!50001 DROP TABLE IF EXISTS `partitions_with_generals`*/;
 /*!50001 DROP VIEW IF EXISTS `partitions_with_generals`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -1200,7 +1196,6 @@ UNLOCK TABLES;
 -- Final view structure for view `visit_lines`
 --
 
-/*!50001 DROP TABLE IF EXISTS `visit_lines`*/;
 /*!50001 DROP VIEW IF EXISTS `visit_lines`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -1218,7 +1213,6 @@ UNLOCK TABLES;
 -- Final view structure for view `visits`
 --
 
-/*!50001 DROP TABLE IF EXISTS `visits`*/;
 /*!50001 DROP VIEW IF EXISTS `visits`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -1241,4 +1235,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-24 14:08:06
+-- Dump completed on 2014-06-25 16:55:56

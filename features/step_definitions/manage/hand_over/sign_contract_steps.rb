@@ -19,16 +19,27 @@ When /^I open a hand over( with at least one unassigned line for today)?( with o
   page.should have_selector("#hand-over-view", :visible => true)
 end
 
-When /^I select an item line and assign an inventory code$/ do
+When /^I select (an item|a license) line and assign an inventory code$/ do |arg1|
   sleep(0.33)
   @models_in_stock = @ip.items.by_responsible_or_owner_as_fallback(@ip).in_stock.map(&:model).uniq
-  @item_line = @line = @customer.visits.hand_over.flat_map(&:lines).detect {|l| l.class.to_s == "ItemLine" and l.item_id.nil? and @models_in_stock.include? l.model }
+  lines = @customer.visits.hand_over.flat_map(&:lines)
+
+  @item_line = @line = case arg1
+                         when "an item"
+                           lines.detect {|l| l.class.to_s == "ItemLine" and l.item_id.nil? and @models_in_stock.include? l.model }
+                         when "a license"
+                           lines.detect {|l| l.class.to_s == "ItemLine" and l.item_id.nil? and @models_in_stock.include? l.model and l.model.is_a? Software }
+                         else
+                           raise "not found"
+                       end
+
   @item_line.should_not be_nil
   step 'I assign an inventory code the item line'
   find(".button[data-edit-lines][data-ids='[#{@item_line.id}]']").click
   step "ich setze das Startdatum im Kalendar auf '#{I18n.l(Date.today)}'"
   find("#submit-booking-calendar").click
   find(".button[data-edit-lines][data-ids='[#{@item_line.id}]']")
+  sleep(0.33)
 end
 
 Then /^I see a summary of the things I selected for hand over$/ do
@@ -40,7 +51,7 @@ Then /^I see a summary of the things I selected for hand over$/ do
 end
 
 When /^I click hand over$/ do
-  find("[data-hand-over-selection]").click
+  find(".button[data-hand-over-selection]").click
 end
 
 When /^I click hand over inside the dialog$/ do
