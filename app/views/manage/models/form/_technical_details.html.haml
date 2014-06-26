@@ -8,8 +8,6 @@
           _("Software Information")
         end
 
-= javascript_include_tag "jquery-autosize/jquery.autosize"
-
 = render :layout => "manage/fields/field", :locals => {key: key, entries: entries, entry_partial: "manage/models/form/technical_details_inline_entry"} do
   %textarea.width-full{:type => :text, :name => "model[technical_detail]", :autocomplete => :off, :rows => 6, :disabled => (@item ? true : false)}= @model.technical_detail
 

@@ -7,6 +7,7 @@
 #
 #= require jqBarGraph/jqBarGraph.1.2
 #= require format-number/format-number
+#= require jquery-autosize/jquery.autosize
 #
 ##### APP
 #
