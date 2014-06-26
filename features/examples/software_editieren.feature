@@ -20,11 +20,11 @@ Funktionalität: Software editieren
     Und die Daten wurden entsprechend aktualisiert
 
   #73278586
-  @current
+  @javascript @personas
   Szenario: Grösse des Software Informationen-Felds
-    Angenommen eine Software mit mehr als 6 Zeilen Text im Feld "Software Informationen" existiert
+    Angenommen eine Software-Produkt mit mehr als 6 Zeilen Text im Feld "Software Informationen" existiert
     Wenn ich diese Software editiere
-    Und ich in das Feld "Software-Information" klicke
+    Und ich in das Feld "Software Informationen" klicke
     Dann wächst das Feld, bis es den ganzen Text anzeigt
     Wenn ich aus dem Feld herausgehe
     Dann schrumpft das Feld wieder auf die Ausgangsgrösse

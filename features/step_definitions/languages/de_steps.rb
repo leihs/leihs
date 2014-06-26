@@ -484,3 +484,27 @@ end
 Dann(/^ist "(.*)" deaktiviert$/) do |arg1|
   step %Q("%s" is disabled) % arg1
 end
+
+Angenommen(/^eine Software\-Produkt mit mehr als (\d+) Zeilen Text im Feld "(.*?)" existiert$/) do |arg1, arg2|
+  step %Q(a software product with more than %d text rows in field "%s" exists) % [arg1, arg2]
+end
+
+Wenn(/^ich diese Software editiere$/) do
+  step "I edit this software"
+end
+
+Wenn(/^ich in das Feld "(.*?)" klicke$/) do |arg1|
+  step %Q(I click in the field "%s") % arg1
+end
+
+Dann(/^wächst das Feld, bis es den ganzen Text anzeigt$/) do
+  step "this field grows up till showing the complete text"
+end
+
+Wenn(/^ich aus dem Feld herausgehe$/) do
+  step "I release the focus from this field"
+end
+
+Dann(/^schrumpft das Feld wieder auf die Ausgangsgrösse$/) do
+  step "this field shrinks back to the original size"
+end
