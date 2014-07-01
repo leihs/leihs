@@ -90,6 +90,16 @@ Funktionalität: Modell mit Paketen erstellen
     Und ich das Paket und das Modell speichere
     Dann sehe ich die Meldung "Modell gespeichert / Pakete erstellt"
     Und das Paket besitzt alle angegebenen Informationen
+    Und alle die zugeteilten Gegenstände erhalten dieselben Werte, die auf diesem Paket erfasst sind
+    | Feldname                   |
+    | Verantwortliche Abteilung  |
+    | Verantwortliche Person     |
+    | Gebäude                    |
+    | Raum                       |
+    | Gestell                    |
+    | Toni-Ankunftsdatum         |
+    | Letzte Inventur            |
+
 
   @javascript @personas
   Szenario: Paket löschen
