@@ -19,7 +19,12 @@
     .row.grey-text.text-ellipsis.width-full{title: '{{jed "is part of a package"/}}'}
       {{jed "is part of a package"/}}
     {{else}}
-    .row.grey-text {{>currentLocation()}}
+    .row.grey-text
+      {{if ~additionalDataFetched}}
+      {{>currentLocation()}}
+      {{else}}
+      {{partial "views/loading" {"size":"micro"}/}}
+      {{/if}}
     {{/if}}
 
   .col1of5.line-col.text-align-center

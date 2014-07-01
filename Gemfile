@@ -52,7 +52,7 @@ gem 'phantomjs', '~> 1.9.7', :group => [:test, :development] # headless webdrive
 gem 'poltergeist'
 gem 'protected_attributes', '~> 1.0'
 gem 'pry', :group => [:test, :development]
-gem 'pry-debugger', :group => :development
+gem 'pry-byebug', :group => [:test, :development]
 gem 'pry-rails', :group => [:test, :development]
 gem 'rails_autolink', '~> 1.0'
 gem 'rake' # So that cronjobs work -- otherwise they can't find rake

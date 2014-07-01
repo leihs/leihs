@@ -49,10 +49,7 @@
       if purpose != null
         App.Purpose.addRecord new App.Purpose purpose 
 
-    c = App.Contract.addRecord new App.Contract #{@contract.to_json}
-
-    if c.delegated_user_id
-      App.User.addRecord new App.User #{@contract.delegated_user.to_json}
+    App.Contract.addRecord new App.Contract #{@contract.to_json}
 
     for model in #{@models.to_json}
       App.Model.addRecord new App.Model model

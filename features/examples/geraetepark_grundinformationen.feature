@@ -52,9 +52,10 @@ Funktionalität: Gerätepark-Grundinformationen
     Und in meinem Gerätepark hat er die Rolle 'Inventar-Verwalter'
 
   #72676850
-  @personas @current
+  @personas @javascript
   Szenario: Aut. Zuweisen entfernen
     Angenommen ich bin Mike
+    Und es ist bei mehreren Geräteparks aut. Zuweisung aktiviert
     Und ich editiere eine Gerätepark bei dem die aut. Zuweisung aktiviert ist
     Wenn ich die aut. Zuweisung deaktiviere
     Und ich speichere
@@ -67,16 +68,16 @@ Funktionalität: Gerätepark-Grundinformationen
     Und ich logge mich aus
 
   #72676850
-  @current
+  @personas
   Szenariogrundriss: Checkboxen abwählen
     Angenommen ich bin Mike
-    Und ich editiere meinen Gerätepark
-    Wenn ich <Checkbox> aktiviere
+    Und ich editiere eine Gerätepark
+    Wenn ich "<Checkbox>" aktiviere
     Und ich speichere
-    Dann ist <Checkbox> aktiviert
-    Wenn ich <Checkbox> deaktiviere
+    Dann ist "<Checkbox>" aktiviert
+    Wenn ich "<Checkbox>" deaktiviere
     Und ich speichere
-    Dann ist <Checkbox> deaktiviert
+    Dann ist "<Checkbox>" deaktiviert
     Beispiele:
       | Checkbox                |
       | Verträge drucken        |

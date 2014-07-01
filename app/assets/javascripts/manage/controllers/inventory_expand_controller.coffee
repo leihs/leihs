@@ -67,10 +67,10 @@ class window.App.InventoryExpandController extends Spine.Controller
 
   updateChildren: (line)=>
     currentContainer = line.data "_children"
-    @renderChildren line
+    @renderChildren line, "additionalDataFetched"
     currentContainer.replaceWith line.data "_children"
 
-  renderChildren: (line)=>
+  renderChildren: (line, additionalDataFetched = false)=>
     record = App[_.string.classify(line.data("type"))].find line.data("id")
     data = switch line.data("type")
       when "model"
@@ -80,5 +80,5 @@ class window.App.InventoryExpandController extends Spine.Controller
       when "item"
         record.children().all()
     childrenContainer = $("<div class='group-of-lines'></div>")
-    childrenContainer.html $(App.Render("manage/views/inventory/line", data))
+    childrenContainer.html $(App.Render("manage/views/inventory/line", data, {additionalDataFetched: additionalDataFetched}))
     line.data "_children", childrenContainer

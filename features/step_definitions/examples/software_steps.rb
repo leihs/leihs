@@ -632,3 +632,46 @@ end
 When(/^I fill in a value$/) do
   find(".field", text: _("Quantity")).find("input").set (@quantity = rand(5..500))
 end
+
+Given(/^a software product with more than (\d+) text rows in field "(.*?)" exists$/) do |arg1, arg2|
+  @model = case arg2
+             when "Software Informationen"
+               r = @current_inventory_pool.models.where(type: "Software").detect {|m| m.technical_detail.to_s.split("\r\n").size > arg1.to_i}
+               r ||= begin
+                 td = []
+                 (arg1.to_i + rand(1..10)).times { td << Faker::Lorem.paragraph }
+                 m = @current_inventory_pool.models.sample
+                 m.update_attributes(technical_detail: td.join("\r\n"))
+                 m
+               end
+             else
+               raise "not found"
+           end
+end
+
+When(/^I edit this software$/) do
+  visit manage_edit_model_path(@current_inventory_pool, @model)
+end
+
+When(/^I click in the field "(.*?)"$/) do |arg1|
+  case arg1
+    when "Software Informationen"
+      el = find("textarea[name='model[technical_detail]']")
+      @original_size = el.native.css_value('height')
+      el.click
+    else
+      raise "not found"
+  end
+end
+
+When(/^this field grows up till showing the complete text$/) do
+  find("textarea[name='model[technical_detail]']").native.css_value('height').to_i.should > @original_size.to_i
+end
+
+When(/^I release the focus from this field$/) do
+  find("body").click
+end
+
+Then(/^this field shrinks back to the original size$/) do
+  find("textarea[name='model[technical_detail]']").native.css_value('height').to_i.should == @original_size.to_i
+end

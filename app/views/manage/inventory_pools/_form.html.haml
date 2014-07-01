@@ -57,7 +57,8 @@
             %div.padding-top-xs
               = _("Print dialog will open aut.")
           .col1of2.text-align-center
-            %input{type: "checkbox", name: "inventory_pool[print_contracts]", checked: @inventory_pool.print_contracts}
+            %input{type: "hidden",   name: "inventory_pool[print_contracts]", value: "0"}
+            %input{type: "checkbox", name: "inventory_pool[print_contracts]", value: "1", checked: @inventory_pool.print_contracts}
 
         .row.padding-inset-s.emboss.margin-bottom-xxs
           .col1of2
@@ -65,7 +66,8 @@
             %div.padding-top-xs
               = _("Users who don't bring back the items on the required date are suspended from next day on.")
           .col1of2.text-align-center
-            %input{type: "checkbox", name: "inventory_pool[automatic_suspension]", checked: @inventory_pool.automatic_suspension}
+            %input{type: "hidden",   name: "inventory_pool[automatic_suspension]", value: "0"}
+            %input{type: "checkbox", name: "inventory_pool[automatic_suspension]", value: "1", checked: @inventory_pool.automatic_suspension}
 
         .row.padding-inset-s.emboss.margin-bottom-xxs
           .col1of2
@@ -79,7 +81,8 @@
             %div.padding-top-xs
               = _("New users will get customer access automatically.")
           .col1of2.text-align-center
-            %input{type: "checkbox", name: "inventory_pool[automatic_access]", checked: @inventory_pool.automatic_access}
+            %input{type: "hidden",   name: "inventory_pool[automatic_access]", value: "0"}
+            %input{type: "checkbox", name: "inventory_pool[automatic_access]", value: "1", checked: @inventory_pool.automatic_access}
 
     .col1of2.padding-left-xs
 

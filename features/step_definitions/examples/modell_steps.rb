@@ -12,7 +12,6 @@ Dann(/^ist dem Modell das ergänzende Modell hinzugefügt worden$/) do
   @model.compatibles.size.should be 2
   @model.compatibles.any? {|m| m.name == @comp1.name}.should be_true
   @model.compatibles.any? {|m| m.name == @comp2.name}.should be_true
-  sleep(0.33) # fix lazy request fail problem
 end
 
 Wenn(/^ich ein Modell öffne, das bereits ergänzende Modelle hat$/) do
@@ -35,7 +34,6 @@ end
 Dann(/^ist das Modell ohne das gelöschte ergänzende Modell gespeichert$/) do
   find("#flash")
   @model.reload.compatibles.should be_empty
-  sleep(0.33) # fix lazy request fail problem
 end
 
 Wenn(/^ich ein bereits bestehendes ergänzende Modell mittel Autocomplete Feld hinzufüge$/) do
@@ -51,7 +49,6 @@ Dann(/^wurde das redundante ergänzende Modell nicht gespeichert$/) do
   find("#flash")
   comp_before = @model.compatibles
   comp_before.count.should == @model.reload.compatibles.count
-  sleep(0.33) # fix lazy request fail problem
 end
 
 Angenommen(/^es existiert eine? (.+) mit folgenden Eigenschaften$/) do |entity, table|
@@ -107,7 +104,6 @@ Dann(/^kann ich das Modell aus der Liste nicht löschen$/) do
     should_not have_selector("[data-method='delete']")
   end
   @model.reload # is still there
-  sleep(0.33) # fix lazy request fail problem
 end
 
 Und /^ich sehe eine Dialog-Fehlermeldung$/ do
@@ -150,7 +146,6 @@ Dann(/^sind die geänderten Gruppenzuteilungen gespeichert$/) do
   find("#flash")
   model_group_ids = @model.reload.partitions.map(&:group_id)
   model_group_ids.sort.should == @groups.map(&:id)
-  sleep(0.33) # fix lazy request fail problem
 end
 
 Dann /^ist das neue Modell erstellt und unter ungenutzen Modellen auffindbar$/ do

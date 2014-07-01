@@ -56,7 +56,7 @@ Funktionalität: Inventar
     | Anzahl verfügbar (jetzt) |
     | Anzahl verfügbar (Total) |
 
-  @javascript @personas
+  @javascript @personas @firefox
   Szenario: Aussehen einer Gegenstands-Zeile
     Wenn der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist
     Dann enthält die Gegenstands-Zeile folgende Informationen:
@@ -77,35 +77,41 @@ Funktionalität: Inventar
     | Aktueller Ausleihender |
     | Enddatum der Ausleihe  |
 
-  #73278560
-  @current
+  @javascript @personas @firefox
   Szenario: Aussehen einer Software-Lizenz-Zeile
-    Wenn eine Software-Lizenz-Zeile angezeigt wird
+    Angenommen es gibt eine Software-Lizenz
+    Wenn ich diese Lizenz in der Softwareliste anschaue
     Dann enthält die Software-Lizenz-Zeile folgende Informationen:
       | information    |
       | Betriebssystem |
       | Lizenztyp      |
-    Wenn die Software-Lizenz den Lizenztyp "Konkurrent", "Site-Lizenz" oder "Mehrplatz" hat
+    Angenommen es gibt eine Software-Lizenz mit einem der folgenden Typen:
+      | Typ         | technical          |
+      | Konkurrent  | concurrent         |
+      | Site-Lizenz | site_license       |
+      | Mehrplatz   | multiple_workplace |
+    Wenn ich diese Lizenz in der Softwareliste anschaue
     Dann enthält die Software-Lizenz-Zeile folgende Informationen:
       | information    |
+      | Betriebssystem |
+      | Lizenztyp      |
       | Anzahl         |
-      | Betriebssystem |
-      | Lizenztyp      |
-    Wenn meine Abteilung Besitzer der Software-Lizenz ist, die Verantwortung aber auf eine andere Abteilung abgetreten hat
+    Angenommen es gibt eine Software-Lizenz, wo meine Abteilung der Besitzer ist, die Verantwortung aber auf eine andere Abteilung abgetreten hat
+    Wenn ich diese Lizenz in der Softwareliste anschaue
     Dann enthält die Software-Lizenz-Zeile folgende Informationen:
       | information               |
       | Verantwortliche Abteilung |
       | Betriebssystem            |
       | Lizenztyp                 |
-    Wenn die Software-Lizenz nicht an Lager ist und eine andere Abteilung für die Software-Lizenz verantwortlich ist
+    Angenommen es gibt eine Software-Lizenz, die nicht an Lager ist und eine andere Abteilung für die Software-Lizenz verantwortlich ist
+    Wenn ich diese Lizenz in der Softwareliste anschaue
     Dann enthält die Software-Lizenz-Zeile folgende Informationen:
-      | information            |
+      | information               |
       | Verantwortliche Abteilung |
+      | Aktueller Ausleihender    |
+      | Enddatum der Ausleihe     |
       | Betriebssystem            |
       | Lizenztyp                 |
-      | Aktueller Ausleihender |
-      | Enddatum der Ausleihe  |
-
 
   @javascript @personas
   Szenario: Keine Resultate auf der Liste des Inventars

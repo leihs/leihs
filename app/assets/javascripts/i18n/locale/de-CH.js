@@ -1828,9 +1828,9 @@ window.i18n.locale_data = {
          null,
          "Der Gegenstand gehört zu einem Paket"
       ],
-      "The item cannot be retired because it's not returned yet.": [
+      "The item cannot be retired because it's not returned yet or has already been assigned to a contract line.": [
          null,
-         "Das Gerät kann nicht ausgemustert werden, weil es noch nicht zurückgebracht worden ist"
+         "Den Gegenstand kann man nicht ausmustern, da das Gerät bereits ausgeliehen oder einer Vertragslinie zugewiesen ist."
       ],
       "The item doesn't belong to the inventory pool related to this contract": [
          null,
@@ -1946,7 +1946,7 @@ window.i18n.locale_data = {
       ],
       "This item was retired": [
          null,
-         "Dieser Gegenstand würde ausgemustert"
+         "Dieser Gegenstand wurde ausgemustert"
       ],
       "This item will be given to a different inventory pool and not show up in yours anymore!": [
          null,
@@ -3682,6 +3682,10 @@ window.i18n.locale_data = {
       "Software": [
          null,
          "Software"
+      ],
+      "Software Information": [
+         null,
+         "Software Informationen"
       ],
       "Software License": [
          null,

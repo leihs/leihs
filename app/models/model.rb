@@ -197,7 +197,11 @@ class Model < ActiveRecord::Base
     elsif params[:unused_models]
       models = unused_for_inventory_pool inventory_pool
     else
-      models = joins(:items).where(":id IN (`items`.`owner_id`, `items`.`inventory_pool_id`)", :id => inventory_pool.id).uniq
+      models = if params[:as_responsible_only]
+                 joins(:items).where(":id IN (`items`.`inventory_pool_id`)", :id => inventory_pool.id).uniq
+               else
+                 joins(:items).where(":id IN (`items`.`owner_id`, `items`.`inventory_pool_id`)", :id => inventory_pool.id).uniq
+               end
       models = models.where(:items => {:retired => nil}) unless params[:include_retired_models]
       models = models.where(:items => {:parent_id => nil}) unless params[:include_package_models]
     end

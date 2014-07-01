@@ -10,3 +10,12 @@
 
 = render :layout => "manage/fields/field", :locals => {key: key, entries: entries, entry_partial: "manage/models/form/technical_details_inline_entry"} do
   %textarea.width-full{:type => :text, :name => "model[technical_detail]", :autocomplete => :off, :rows => 6, :disabled => (@item ? true : false)}= @model.technical_detail
+
+:javascript
+  $(document).ready(function() {
+    $("textarea[name='model[technical_detail]']").on('focus', function(){
+      $(this).autosize();
+    }).on('blur', function(){
+      $(this).trigger('autosize.destroy');
+    });
+  });

@@ -1485,7 +1485,7 @@ msgstr ""
 "vervollständigen, %s bitte."
 
 msgid "This item was retired"
-msgstr "Dieser Gegenstand würde ausgemustert"
+msgstr "Dieser Gegenstand wurde ausgemustert"
 
 msgid ""
 "This item will be given to a different inventory pool and not show up in "

@@ -436,3 +436,75 @@ end
 Wenn(/^ich eine Anzahl eingebe$/) do
   step %Q(I fill in a value)
 end
+
+Angenommen(/^es gibt eine Software\-Lizenz$/) do
+  step %Q(there exists a software license)
+end
+
+Wenn(/^ich diese Lizenz in der Softwareliste anschaue$/) do
+  step %Q(I look at this license in the software list)
+end
+
+Angenommen(/^es gibt eine Software\-Lizenz mit einem der folgenden Typen:$/) do |table|
+  step %Q(there exists a software license of one of the following types), table
+end
+
+Angenommen(/^es gibt eine Software\-Lizenz, wo meine Abteilung der Besitzer ist, die Verantwortung aber auf eine andere Abteilung abgetreten hat$/) do
+  step %Q(there exists a software license, owned by my inventory pool, but given responsibility to another inventory pool)
+end
+
+Angenommen(/^es gibt eine Software\-Lizenz, die nicht an Lager ist und eine andere Abteilung für die Software\-Lizenz verantwortlich ist$/) do
+  step %Q(there exists a software license, which is not in stock and another inventory pool is responsible for it)
+end
+
+Wenn(/^der Vertrag eine Software\-Lizenz beinhaltet$/) do
+  step "the contract contains a software license"
+end
+
+Dann(/^sehe ich zusätzlich die folgende Information$/) do |table|
+  step "I additionally see the following informatins", table
+end
+
+Angenommen(/^ich editiere eine Gerätepark( bei dem die aut. Zuweisung aktiviert ist)?$/) do |arg1|
+  step "I edit an inventory pool%s" % (arg1 ? " which has the automatic access enabled" : nil)
+end
+
+Wenn(/^ich "(.*)" aktiviere$/) do |arg1|
+  step %Q(I enable "%s") % arg1
+end
+
+Dann(/^ist "(.*)" aktiviert$/) do |arg1|
+  step %Q("%s" is enabled) % arg1
+end
+
+Wenn(/^ich "(.*)" deaktiviere$/) do |arg1|
+  step %Q(I disable "%s") % arg1
+end
+
+Dann(/^ist "(.*)" deaktiviert$/) do |arg1|
+  step %Q("%s" is disabled) % arg1
+end
+
+Angenommen(/^eine Software\-Produkt mit mehr als (\d+) Zeilen Text im Feld "(.*?)" existiert$/) do |arg1, arg2|
+  step %Q(a software product with more than %d text rows in field "%s" exists) % [arg1, arg2]
+end
+
+Wenn(/^ich diese Software editiere$/) do
+  step "I edit this software"
+end
+
+Wenn(/^ich in das Feld "(.*?)" klicke$/) do |arg1|
+  step %Q(I click in the field "%s") % arg1
+end
+
+Dann(/^wächst das Feld, bis es den ganzen Text anzeigt$/) do
+  step "this field grows up till showing the complete text"
+end
+
+Wenn(/^ich aus dem Feld herausgehe$/) do
+  step "I release the focus from this field"
+end
+
+Dann(/^schrumpft das Feld wieder auf die Ausgangsgrösse$/) do
+  step "this field shrinks back to the original size"
+end

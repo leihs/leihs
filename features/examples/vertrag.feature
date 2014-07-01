@@ -81,9 +81,9 @@ Funktionalität: Vertrag
     Dann sehe ich den Ausleihenden oben links
 
   #71745162
-  @javascript @firefox @personas @current
+  @javascript @firefox @personas
   Szenario: Inhalt der Liste 1 und Liste 2
-    Angenommen man öffnet einen Vertrag bei der Aushändigung
+    Angenommen man öffnet einen Vertrag bei der Aushändigung mit Software
     Dann beinhalten Liste 1 und Liste 2 folgende Spalten:
     | Spaltenname   |
     | Anzahl        |

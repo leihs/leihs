@@ -27,6 +27,7 @@ class window.App.HandOverDialogController extends Spine.Controller
               minLength: 0
             selectCallback: => @contract.delegated_user_id = @searchSetContactPersonController.selectedUserId
       super
+      @contract.delegated_user_id = null # reset delegated user in order to force the user to set him explicitly
       do @autoFocus
     else
       return false

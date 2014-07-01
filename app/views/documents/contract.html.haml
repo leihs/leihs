@@ -32,10 +32,14 @@
             %td.returning_date= _("Return")
         %tbody
           - returned_lines.sort.each do |line|
-            %tr
+            %tr{style: "vertical-align: top"}
               %td.quantity= line.quantity
               %td.inventory_code= line.item.inventory_code
-              %td.model_name= line.model.name
+              %td.model_name
+                = line.model.name
+                - if line.model.is_a? Software
+                  %br
+                  = line.item.serial_number
               %td.end_date= l line.end_date
               %td.returning_date
                 = l line.returned_date
@@ -54,10 +58,14 @@
             %td.returning_date= _("Return")
         %tbody
           - not_returned_lines.sort.each do |line|
-            %tr
+            %tr{style: "vertical-align: top"}
               %td.quantity= line.quantity
               %td.inventory_code= line.item.inventory_code
-              %td.model_name= line.model.name
+              %td.model_name
+                = line.model.name
+                - if line.model.is_a? Software
+                  %br
+                  = line.item.serial_number
               %td.end_date= l line.end_date
               %td.returning_date
 

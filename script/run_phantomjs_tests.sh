@@ -1,9 +1,8 @@
 #!/bin/bash
 
-bash script/validate_gettext_files.sh
-
-bundle exec rake leihs:reset
-bundle exec rspec spec/
+bash script/validate_gettext_files.sh && \
+bundle exec rake leihs:reset && \
+bundle exec rspec spec/ && \
 bundle exec cucumber -t @javascript -t ~@firefox features/
 
 if [[ -f tmp/rerun.txt && -s tmp/rerun.txt && $? -ne 0 ]]; then

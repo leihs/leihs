@@ -82,6 +82,26 @@ window.i18n.locale_data = {
          "Content-Transfer-Encoding": " 8bit",
          "Plural-Forms": " nplurals=INTEGER; plural=EXPRESSION;"
       },
+      "Additional label in inventory codes": [
+         null,
+         ""
+      ],
+      "Visible for borrowers in frontend": [
+         null,
+         ""
+      ],
+      "Print dialog will open aut.": [
+         null,
+         ""
+      ],
+      "Used for sending e-mails from leihs": [
+         null,
+         ""
+      ],
+      "This note is added to any contract, but can be changed individually before actually printing and signing each contract.": [
+         null,
+         ""
+      ],
       " at the inventory pool ": [
          null,
          ""
@@ -137,11 +157,11 @@ window.i18n.locale_data = {
       ],
       "Ablauf Garantie": [
          null,
-         ""
+         "Warranty Expiration"
       ],
       "Ablauf Vertrag": [
          null,
-         ""
+         "Contract Expiration"
       ],
       "Access Level: %d": [
          null,
@@ -164,6 +184,10 @@ window.i18n.locale_data = {
          ""
       ],
       "Add": [
+         null,
+         ""
+      ],
+      "Add %s": [
          null,
          ""
       ],
@@ -209,15 +233,43 @@ window.i18n.locale_data = {
       ],
       "Ankunftsdatum": [
          null,
-         ""
+         "Check-In Date"
       ],
       "Ankunftsnotiz": [
          null,
-         ""
+         "Check-In Note"
       ],
       "Ankunftszustand": [
          null,
+         "Check-In State"
+      ],
+      "Anschaffungskategorie": [
+         null,
+         "Supply Category"
+      ],
+      "Werkstatt-Technik": [
+         null,
+         "Workshop Technology"
+      ],
+      "Produktionstechnik": [
+         null,
+         "Production Technology"
+      ],
+      "AV-Technik": [
+         null,
+         "AV Technology"
+      ],
+      "Musikinstrumente": [
+         null,
+         "Musical Instrument"
+      ],
+      "Facility Management": [
+         null,
          ""
+      ],
+      "IC-Technik/Software": [
+         null,
+         "IT/Software"
       ],
       "Approval Successful": [
          null,
@@ -273,7 +325,7 @@ window.i18n.locale_data = {
       ],
       "Auswahl": [
          null,
-         ""
+         "Selection"
       ],
       "Availability Timeline": [
          null,
@@ -299,6 +351,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Back to this hand over": [
+         null,
+         ""
+      ],
       "Backend": [
          null,
          ""
@@ -315,7 +371,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Bezug": [
+      "Reference": [
          null,
          ""
       ],
@@ -367,6 +423,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Category": [
+         null,
+         ""
+      ],
       "Change Borrower": [
          null,
          ""
@@ -399,6 +459,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Compatibles": [
+         null,
+         ""
+      ],
       "Complete": [
          null,
          ""
@@ -411,11 +475,15 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Consider Opening Hours": [
+      "Consider opening hours": [
          null,
          ""
       ],
       "Contract": [
+         null,
+         ""
+      ],
+      "Default Contract Note": [
          null,
          ""
       ],
@@ -429,7 +497,7 @@ window.i18n.locale_data = {
       ],
       "Contract Nr.": [
          null,
-         ""
+         "Contract No."
       ],
       "Contracts": [
          null,
@@ -499,6 +567,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Delete %s": [
+         null,
+         ""
+      ],
       "Delete Selection": [
          null,
          ""
@@ -512,6 +584,10 @@ window.i18n.locale_data = {
          ""
       ],
       "Documents": [
+         null,
+         ""
+      ],
+      "My documents": [
          null,
          ""
       ],
@@ -532,6 +608,10 @@ window.i18n.locale_data = {
          ""
       ],
       "Edit": [
+         null,
+         ""
+      ],
+      "Edit %s": [
          null,
          ""
       ],
@@ -691,7 +771,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "IMEI-Nummer": [
+      "IMEI-Number": [
          null,
          ""
       ],
@@ -700,6 +780,18 @@ window.i18n.locale_data = {
          ""
       ],
       "In Stock": [
+         null,
+         ""
+      ],
+      "in stock": [
+         null,
+         ""
+      ],
+      "rentable": [
+         null,
+         ""
+      ],
+      "not in stock": [
          null,
          ""
       ],
@@ -771,6 +863,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Inventory pool successfully created": [
+         null,
+         ""
+      ],
       "Inventory Pool is missing": [
          null,
          ""
@@ -788,10 +884,19 @@ window.i18n.locale_data = {
          ""
       ],
       "Inventory pool": [
+         "Inventory pools",
+         "",
+         ""
+      ],
+      "InventoryPool|Email": [
          null,
          ""
       ],
-      "Investition": [
+      "InventoryPool|Shortname": [
+         null,
+         ""
+      ],
+      "Investment": [
          null,
          ""
       ],
@@ -856,6 +961,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Key": [
+         null,
+         ""
+      ],
       "Kind regards,": [
          null,
          ""
@@ -912,11 +1021,19 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "List of Inventory Pools": [
+         null,
+         ""
+      ],
       "List of Orders": [
          null,
          ""
       ],
       "List of Visits": [
+         null,
+         ""
+      ],
+      "List of Models": [
          null,
          ""
       ],
@@ -944,7 +1061,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "MAC-Addresse": [
+      "MAC-Address": [
          null,
          ""
       ],
@@ -992,6 +1109,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Model successfully removed": [
+         null,
+         ""
+      ],
       "Models": [
          null,
          ""
@@ -1013,6 +1134,10 @@ window.i18n.locale_data = {
          ""
       ],
       "New Orderer": [
+         null,
+         ""
+      ],
+      "New Package": [
          null,
          ""
       ],
@@ -1049,10 +1174,6 @@ window.i18n.locale_data = {
          ""
       ],
       "No take backs found": [
-         null,
-         ""
-      ],
-      "No.": [
          null,
          ""
       ],
@@ -1102,6 +1223,11 @@ window.i18n.locale_data = {
       ],
       "Order": [
          null,
+         ""
+      ],
+      "%s Order": [
+         "%s Orders",
+         "",
          ""
       ],
       "Order History": [
@@ -1172,6 +1298,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Packages": [
+         null,
+         ""
+      ],
       "Package Code": [
          null,
          ""
@@ -1189,6 +1319,10 @@ window.i18n.locale_data = {
          ""
       ],
       "Password": [
+         null,
+         ""
+      ],
+      "Password Confirmation": [
          null,
          ""
       ],
@@ -1212,7 +1346,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Place reservations on items and then pick them up": [
+      "Manage inventory, place reservations on items and pick them up": [
          null,
          ""
       ],
@@ -1225,6 +1359,10 @@ window.i18n.locale_data = {
          ""
       ],
       "Please provide all required fields": [
+         null,
+         ""
+      ],
+      "Please provide an inventory code": [
          null,
          ""
       ],
@@ -1244,11 +1382,15 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Print Contracts": [
+         null,
+         ""
+      ],
       "Problems": [
          null,
          ""
       ],
-      "Projektnummer": [
+      "Project Number": [
          null,
          ""
       ],
@@ -1285,6 +1427,10 @@ window.i18n.locale_data = {
          ""
       ],
       "Recommended Accessories": [
+         null,
+         ""
+      ],
+      "Accessories": [
          null,
          ""
       ],
@@ -1384,7 +1530,23 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Save Changes": [
+      "Save and copy": [
+         null,
+         ""
+      ],
+      "Save and copy %s": [
+         null,
+         ""
+      ],
+      "Copy Item": [
+         null,
+         ""
+      ],
+      "Create copied item": [
+         null,
+         ""
+      ],
+      "Save changes": [
          null,
          ""
       ],
@@ -1572,6 +1734,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "The Inventory Code %s was not found for %s": [
+         null,
+         ""
+      ],
       "The Inventory Pool must be empty": [
          null,
          ""
@@ -1581,6 +1747,10 @@ window.i18n.locale_data = {
          ""
       ],
       "The accessory was successfully deleted.": [
+         null,
+         ""
+      ],
+      "%s successfully deleted": [
          null,
          ""
       ],
@@ -1633,6 +1803,10 @@ window.i18n.locale_data = {
          ""
       ],
       "The item with the inventory code %s was not found": [
+         null,
+         ""
+      ],
+      "The item %s will be retired and no longer available for rentals.": [
          null,
          ""
       ],
@@ -1716,6 +1890,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Inventory pool successfully updated.": [
+         null,
+         ""
+      ],
       "This is a package containing the following items": [
          null,
          ""
@@ -1786,7 +1964,7 @@ window.i18n.locale_data = {
       ],
       "Umzug": [
          null,
-         ""
+         "Move"
       ],
       "Unborrowable": [
          null,
@@ -1825,6 +2003,14 @@ window.i18n.locale_data = {
          ""
       ],
       "User details were updated successfully.": [
+         null,
+         ""
+      ],
+      "User data": [
+         null,
+         ""
+      ],
+      "User created successfully": [
          null,
          ""
       ],
@@ -1924,11 +2110,15 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Write a note... (the note will be part of the contract)": [
+         null,
+         ""
+      ],
       "Write a comment. The comment will be part of the rejection e-mail.": [
          null,
          ""
       ],
-      "Write a comment... your comment will be part of the confirmation e-mail": [
+      "Write a comment... (your comment will be part of the confirmation e-mail)": [
          null,
          ""
       ],
@@ -1992,6 +2182,14 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "You are not logged in.": [
+         null,
+         ""
+      ],
+      "You were served by %s": [
+         null,
+         ""
+      ],
       "You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from the reservation system for up to 6 months.": [
          null,
          ""
@@ -2030,7 +2228,7 @@ window.i18n.locale_data = {
       ],
       "Zielraum": [
          null,
-         ""
+         "Target area"
       ],
       "[Model %s] ": [
          null,
@@ -2145,11 +2343,11 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "inventory pool is closed on end_date. ": [
+      "Inventory pool is closed on end date": [
          null,
          ""
       ],
-      "inventory pool is closed on start_date. ": [
+      "Inventory pool is closed on start date": [
          null,
          ""
       ],
@@ -2174,6 +2372,14 @@ window.i18n.locale_data = {
          ""
       ],
       "more properties": [
+         null,
+         ""
+      ],
+      "Property": [
+         null,
+         ""
+      ],
+      "Properties": [
          null,
          ""
       ],
@@ -2333,11 +2539,99 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "you cannot hand out lines wich are starting in the future": [
+      "you cannot hand out lines which are starting in the future": [
+         null,
+         ""
+      ],
+      "you cannot hand out lines which are ending in the past": [
          null,
          ""
       ],
       "you cannot hand out lines with unassigned inventory codes": [
+         null,
+         ""
+      ],
+      "Helper": [
+         null,
+         ""
+      ],
+      "Suspended": [
+         null,
+         ""
+      ],
+      "Edit User": [
+         null,
+         ""
+      ],
+      "Customer": [
+         null,
+         ""
+      ],
+      "Group manager": [
+         null,
+         ""
+      ],
+      "Lending manager": [
+         null,
+         ""
+      ],
+      "Inventory manager": [
+         null,
+         ""
+      ],
+      "New User": [
+         null,
+         ""
+      ],
+      "New Template": [
+         null,
+         ""
+      ],
+      "New Category": [
+         null,
+         ""
+      ],
+      "New Group": [
+         null,
+         ""
+      ],
+      "List of %d Users": [
+         null,
+         ""
+      ],
+      "List of Users": [
+         null,
+         ""
+      ],
+      "Contract expiration": [
+         null,
+         ""
+      ],
+      "Warranty expiration": [
+         null,
+         ""
+      ],
+      "Process multiple fields for multiple items in a row": [
+         null,
+         ""
+      ],
+      "Select Field": [
+         null,
+         ""
+      ],
+      "no fields selected": [
+         null,
+         ""
+      ],
+      "Apply Fields on Item": [
+         null,
+         ""
+      ],
+      "no item selected": [
+         null,
+         ""
+      ],
+      "requested": [
          null,
          ""
       ],
@@ -2346,6 +2640,935 @@ window.i18n.locale_data = {
          ""
       ],
       "Options": [
+         null,
+         ""
+      ],
+      "Inventory Helper": [
+         null,
+         ""
+      ],
+      "Select Image": [
+         null,
+         ""
+      ],
+      "Select File": [
+         null,
+         ""
+      ],
+      "Images": [
+         null,
+         ""
+      ],
+      "Attachments": [
+         null,
+         ""
+      ],
+      "undo": [
+         null,
+         ""
+      ],
+      "Do you realy want to delete the '%s' category?": [
+         null,
+         ""
+      ],
+      "Create %s": [
+         null,
+         ""
+      ],
+      "Create new category": [
+         null,
+         ""
+      ],
+      "Category name": [
+         null,
+         ""
+      ],
+      "List of Categories": [
+         null,
+         ""
+      ],
+      "Label": [
+         null,
+         ""
+      ],
+      "not used": [
+         null,
+         ""
+      ],
+      "Model|Images|File file size": [
+         null,
+         ""
+      ],
+      "Model|Images|File content type": [
+         null,
+         ""
+      ],
+      "Item|Retired reason": [
+         null,
+         ""
+      ],
+      "You can not create a package without any item": [
+         null,
+         ""
+      ],
+      "Packages created": [
+         null,
+         ""
+      ],
+      "Attention": [
+         null,
+         ""
+      ],
+      "This user is suspended.": [
+         null,
+         ""
+      ],
+      "Email": [
+         null,
+         ""
+      ],
+      "Short Name": [
+         null,
+         ""
+      ],
+      "Inventory pool successfully updated": [
+         null,
+         ""
+      ],
+      "Basic Information": [
+         null,
+         ""
+      ],
+      "Workdays": [
+         null,
+         ""
+      ],
+      "Closed Days": [
+         null,
+         ""
+      ],
+      "Toggle %s": [
+         null,
+         ""
+      ],
+      "Search %s": [
+         null,
+         ""
+      ],
+      "by browsing categories": [
+         null,
+         ""
+      ],
+      "Select": [
+         null,
+         ""
+      ],
+      "Closed Day": [
+         null,
+         ""
+      ],
+      "Borrow": [
+         null,
+         ""
+      ],
+      "Overview": [
+         null,
+         ""
+      ],
+      "Manage": [
+         null,
+         ""
+      ],
+      "Nothing selected": [
+         null,
+         ""
+      ],
+      "Collection": [
+         "Collections",
+         "",
+         ""
+      ],
+      "%s Return": [
+         "%s Returns",
+         "",
+         ""
+      ],
+      "not yet saved": [
+         null,
+         ""
+      ],
+      "Prepackaged": [
+         null,
+         ""
+      ],
+      "Model saved": [
+         null,
+         ""
+      ],
+      "The package is not in stock": [
+         null,
+         ""
+      ],
+      "The items of the package can not be edited": [
+         null,
+         ""
+      ],
+      "Access": [
+         null,
+         ""
+      ],
+      "Access rights": [
+         null,
+         ""
+      ],
+      "Group": [
+         null,
+         ""
+      ],
+      "Groups": [
+         null,
+         ""
+      ],
+      "Remove": [
+         null,
+         ""
+      ],
+      "List of Groups": [
+         null,
+         ""
+      ],
+      "Allocations": [
+         null,
+         ""
+      ],
+      "%s created": [
+         null,
+         ""
+      ],
+      "Name of the user": [
+         null,
+         ""
+      ],
+      "Name of the model": [
+         null,
+         ""
+      ],
+      "Name of the group": [
+         null,
+         ""
+      ],
+      "Name of the template": [
+         null,
+         ""
+      ],
+      "%s saved": [
+         null,
+         ""
+      ],
+      "Order overview": [
+         null,
+         ""
+      ],
+      "To pick up": [
+         null,
+         ""
+      ],
+      "deployed %s ago": [
+         null,
+         ""
+      ],
+      "is %s ago": [
+         null,
+         ""
+      ],
+      "one day ago": [
+         null,
+         ""
+      ],
+      "this is the branch '%s'": [
+         null,
+         ""
+      ],
+      "last change by '%s'": [
+         null,
+         ""
+      ],
+      "Add to order": [
+         null,
+         ""
+      ],
+      "Reset": [
+         null,
+         ""
+      ],
+      "Reset all filter": [
+         null,
+         ""
+      ],
+      "All %s": [
+         null,
+         ""
+      ],
+      "ascending": [
+         null,
+         ""
+      ],
+      "descending": [
+         null,
+         ""
+      ],
+      "All inventory pools": [
+         null,
+         ""
+      ],
+      "Inventory pools": [
+         null,
+         ""
+      ],
+      "Show all search results": [
+         null,
+         ""
+      ],
+      "Show all properties": [
+         null,
+         ""
+      ],
+      "Show less properties": [
+         null,
+         ""
+      ],
+      "Last name": [
+         null,
+         ""
+      ],
+      "First name": [
+         null,
+         ""
+      ],
+      "City": [
+         null,
+         ""
+      ],
+      "Country": [
+         null,
+         ""
+      ],
+      "Zip": [
+         null,
+         ""
+      ],
+      "Suspended until": [
+         null,
+         ""
+      ],
+      "Suspended reason": [
+         null,
+         ""
+      ],
+      "Role": [
+         null,
+         ""
+      ],
+      "Access as": [
+         null,
+         ""
+      ],
+      "No access": [
+         null,
+         ""
+      ],
+      "User|Email": [
+         null,
+         ""
+      ],
+      "User|Lastname": [
+         null,
+         ""
+      ],
+      "User|Firstname": [
+         null,
+         ""
+      ],
+      "User|AccessRight|Suspended reason": [
+         null,
+         ""
+      ],
+      "The selected inventory pool is closed on that day": [
+         null,
+         ""
+      ],
+      "Item is not available in that time range": [
+         null,
+         ""
+      ],
+      "Purpose of the order": [
+         null,
+         ""
+      ],
+      "Specification of the purpose is required": [
+         null,
+         ""
+      ],
+      "Change": [
+         null,
+         ""
+      ],
+      "Change %s": [
+         null,
+         ""
+      ],
+      "Change entry": [
+         null,
+         ""
+      ],
+      "Save change": [
+         null,
+         ""
+      ],
+      "Continue this order": [
+         null,
+         ""
+      ],
+      "Please solve the conflicts for all highlighted lines in order to continue.": [
+         null,
+         ""
+      ],
+      "You have permission to access the following inventory pool": [
+         "You have permission to access the following inventory pools",
+         "",
+         ""
+      ],
+      "No description": [
+         null,
+         ""
+      ],
+      "for": [
+         null,
+         ""
+      ],
+      "Open orders": [
+         null,
+         ""
+      ],
+      "These orders have been successfully submitted, but are NOT YET APPROVED": [
+         null,
+         ""
+      ],
+      "Search for '%s'": [
+         null,
+         ""
+      ],
+      "Your order has been successfully submitted, but is NOT YET APPROVED": [
+         null,
+         ""
+      ],
+      "Continue with available models only": [
+         null,
+         ""
+      ],
+      "Your order has been modified. All reservations are now available.": [
+         null,
+         ""
+      ],
+      "Borrow template": [
+         null,
+         ""
+      ],
+      "Please select a template.": [
+         null,
+         ""
+      ],
+      "The template \"%s\" will be deleted and no longer available for usage.": [
+         null,
+         ""
+      ],
+      "Please adapt the specific quantities to fit your needs.": [
+         null,
+         ""
+      ],
+      "Insert 0 for the entries you dont need.": [
+         null,
+         ""
+      ],
+      "The highlighted entries are not accomplishable for the intended quantity.": [
+         null,
+         ""
+      ],
+      "Please contact the concerned inventory pool.": [
+         null,
+         ""
+      ],
+      "Continue": [
+         null,
+         ""
+      ],
+      "Availability": [
+         null,
+         ""
+      ],
+      "Entry": [
+         null,
+         ""
+      ],
+      "Delete entry": [
+         null,
+         ""
+      ],
+      "%s will be removed from the template and not been added to your order.": [
+         null,
+         ""
+      ],
+      "The order will be discarded.": [
+         null,
+         ""
+      ],
+      "This entry will be removed from the order.": [
+         null,
+         ""
+      ],
+      "The template has been added to your order.": [
+         null,
+         ""
+      ],
+      "Settings": [
+         null,
+         ""
+      ],
+      "Document": [
+         null,
+         ""
+      ],
+      "%d minutes passed. The items are not reserved for you any more!": [
+         null,
+         ""
+      ],
+      "Time until your order times out. Click to reset.": [
+         null,
+         ""
+      ],
+      "Your order will time out in %s.": [
+         null,
+         ""
+      ],
+      "Reset timeout": [
+         null,
+         ""
+      ],
+      "Your order ist empty.": [
+         null,
+         ""
+      ],
+      "Borrow items": [
+         null,
+         ""
+      ],
+      "from %s": [
+         null,
+         ""
+      ],
+      "Please select a time range and continue.": [
+         null,
+         ""
+      ],
+      "You can modify the time range for each separate model in the next step.": [
+         null,
+         ""
+      ],
+      "List of templates": [
+         null,
+         ""
+      ],
+      "Template": [
+         null,
+         ""
+      ],
+      "Template must have at least one model": [
+         null,
+         ""
+      ],
+      "%s created successfully": [
+         null,
+         ""
+      ],
+      "%s successfully saved": [
+         null,
+         ""
+      ],
+      "Source code": [
+         null,
+         ""
+      ],
+      "Complete order": [
+         null,
+         ""
+      ],
+      "The responsible inventory pool cannot be changed because the item is currently not in stock.": [
+         null,
+         ""
+      ],
+      "Send reminder": [
+         null,
+         ""
+      ],
+      "Approval failed": [
+         null,
+         ""
+      ],
+      "Deleted": [
+         null,
+         ""
+      ],
+      "Reminder send": [
+         null,
+         ""
+      ],
+      "Available in total": [
+         null,
+         ""
+      ],
+      "Loading availability": [
+         null,
+         ""
+      ],
+      "Availability loaded": [
+         null,
+         ""
+      ],
+      "Invalid data": [
+         null,
+         ""
+      ],
+      "Reject order": [
+         null,
+         ""
+      ],
+      "Inventory code, model name, search term": [
+         null,
+         ""
+      ],
+      "Adding item": [
+         null,
+         ""
+      ],
+      "Added %s": [
+         null,
+         ""
+      ],
+      "Close": [
+         null,
+         ""
+      ],
+      "Removing items": [
+         null,
+         ""
+      ],
+      "Edit reservation": [
+         null,
+         ""
+      ],
+      "Availability for": [
+         null,
+         ""
+      ],
+      "Please select an inventory pool": [
+         null,
+         ""
+      ],
+      "%s visit overdue": [
+         "%s visits overdue",
+         "",
+         ""
+      ],
+      "%s future visit": [
+         "%s future visits",
+         "",
+         ""
+      ],
+      "%s visit today": [
+         "%s visits today",
+         "",
+         ""
+      ],
+      "%s quantity increased to %s": [
+         null,
+         ""
+      ],
+      "%s assigned to %s": [
+         null,
+         ""
+      ],
+      "%s is already assigned to a contract": [
+         null,
+         ""
+      ],
+      "%s is already assigned to this contract": [
+         null,
+         ""
+      ],
+      "%s is already assigned to a different contract": [
+         null,
+         ""
+      ],
+      "Hand over of %s item": [
+         "Hand over of %s items",
+         "",
+         ""
+      ],
+      "Hand over completed": [
+         null,
+         ""
+      ],
+      "Open %s": [
+         null,
+         ""
+      ],
+      "%s item": [
+         "%s items",
+         "",
+         ""
+      ],
+      "to %s": [
+         null,
+         ""
+      ],
+      "Back to this user": [
+         null,
+         ""
+      ],
+      "Extend entry": [
+         null,
+         ""
+      ],
+      "%s selected for take back": [
+         null,
+         ""
+      ],
+      "%s was not found for this take back": [
+         null,
+         ""
+      ],
+      "You can not take back more items then you handed over": [
+         null,
+         ""
+      ],
+      "You can not take back more options then you handed over": [
+         null,
+         ""
+      ],
+      "You have to provide the quantity for the things you want to return": [
+         null,
+         ""
+      ],
+      "Take back completed": [
+         null,
+         ""
+      ],
+      "Take back of %s item": [
+         "Take back of %s items",
+         "",
+         ""
+      ],
+      "No.": [
+         null,
+         ""
+      ],
+      "Contract signed": [
+         null,
+         ""
+      ],
+      "You cannot delete this user": [
+         null,
+         ""
+      ],
+      "Add inventory": [
+         null,
+         ""
+      ],
+      "Active Inventory": [
+         null,
+         ""
+      ],
+      "Unused Models": [
+         null,
+         ""
+      ],
+      "Responsible inventory pool": [
+         null,
+         ""
+      ],
+      "from": [
+         null,
+         ""
+      ],
+      "to": [
+         null,
+         ""
+      ],
+      "Create new item": [
+         null,
+         ""
+      ],
+      "Insert all required information": [
+         null,
+         ""
+      ],
+      "Make changes and save": [
+         null,
+         ""
+      ],
+      "Create new model": [
+         null,
+         ""
+      ],
+      "Removed on save": [
+         null,
+         ""
+      ],
+      "File has to be uploaded on save": [
+         null,
+         ""
+      ],
+      "Upload problems": [
+         null,
+         ""
+      ],
+      "The model was saved, but there were problems uploading files": [
+         null,
+         ""
+      ],
+      "Uploading files - please wait": [
+         null,
+         ""
+      ],
+      "Save package": [
+         null,
+         ""
+      ],
+      "Add item": [
+         null,
+         ""
+      ],
+      "Search Results for %s": [
+         null,
+         ""
+      ],
+      "Show all found %s": [
+         null,
+         ""
+      ],
+      "Please provide a search term": [
+         null,
+         ""
+      ],
+      "Start search": [
+         null,
+         ""
+      ],
+      "models": [
+         null,
+         ""
+      ],
+      "items": [
+         null,
+         ""
+      ],
+      "contracts": [
+         null,
+         ""
+      ],
+      "orders": [
+         null,
+         ""
+      ],
+      "Search results (%s) for %s": [
+         null,
+         ""
+      ],
+      "Search results (%s) for \"%s\"": [
+         null,
+         ""
+      ],
+      "Create new option": [
+         null,
+         ""
+      ],
+      "Option saved": [
+         null,
+         ""
+      ],
+      "Hide notification": [
+         null,
+         ""
+      ],
+      "Changed": [
+         null,
+         ""
+      ],
+      "Parent categories": [
+         null,
+         ""
+      ],
+      "Subordinate to %s": [
+         null,
+         ""
+      ],
+      "Category saved": [
+         null,
+         ""
+      ],
+      "in the future": [
+         null,
+         ""
+      ],
+      "in the past": [
+         null,
+         ""
+      ],
+      "Borrowable items": [
+         null,
+         ""
+      ],
+      "Available for borrower": [
+         null,
+         ""
+      ],
+      "is part of a package": [
+         null,
+         ""
+      ],
+      "Packages updated": [
+         null,
+         ""
+      ],
+      "Save Package": [
+         null,
+         ""
+      ],
+      "Print Selection": [
+         null,
+         ""
+      ],
+      "Undo approval": [
+         null,
+         ""
+      ],
+      "Verify": [
+         null,
+         ""
+      ],
+      "To be verified": [
+         null,
+         ""
+      ],
+      "Verify + approve order": [
+         null,
+         ""
+      ],
+      "No verification required": [
+         null,
+         ""
+      ],
+      "Verification required": [
          null,
          ""
       ]

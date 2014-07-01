@@ -124,7 +124,6 @@ class Manage::InventoryPoolsController < Manage::ApplicationController
   end
 
   def process_params ip
-    ip[:print_contracts] ||= "false" # unchecked checkboxes are *not* being sent
     ip[:email] = nil if params[:inventory_pool][:email].blank?
     ip[:workday_attributes][:workdays].delete "" if ip[:workday_attributes]
   end
