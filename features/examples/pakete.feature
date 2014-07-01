@@ -67,7 +67,7 @@ Funktionalität: Modell mit Paketen erstellen
     Dann kann ich die Paketeigenschaften erneut bearbeiten
     Und ich kann diesem Paket eines oder mehrere Gegenstände hinzufügen
 
-  @javascript @firefox @personas
+  @javascript @firefox @personas @current
   Szenario: Paketeigenschaften abfüllen bei neu erstelltem Modell
     Wenn ich einem Modell ein Paket hinzufüge
     Und ich diesem Paket eines oder mehrere Gegenstände hinzufügen
