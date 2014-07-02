@@ -140,7 +140,7 @@ Wenn /^ich das Paket und das Modell speichere$/ do
   find("button#model-save", match: :first).click
 end
 
-Dann /^(?:besitzt das Paket alle angegebenen Informationen|das Paket besitzt alle angegebenen Informationen)$/ do
+Dann /^besitzt das Paket alle angegebenen Informationen$/ do
   sleep(0.33)
   model = Model.find {|m| [m.name, m.product].include? @model_name}
   visit manage_edit_model_path(@current_inventory_pool, model)
@@ -148,16 +148,16 @@ Dann /^(?:besitzt das Paket alle angegebenen Informationen|das Paket besitzt all
     page.should have_selector ".line[data-id='#{item.id}']", visible: false
   end
   page.should_not have_selector "[src*='loading']"
-  @package_id ||= model.items.packages.first.id
-  find(".line[data-id='#{@package_id}']").find("button[data-edit-package]").click
+  @package ||= model.items.packages.first
+  find(".line[data-id='#{@package.id}']").find("button[data-edit-package]").click
   page.should have_selector ".modal .row.emboss"
   step 'hat das Paket alle zuvor eingetragenen Werte'
 end
 
 Wenn /^ich ein bestehendes Paket editiere$/ do
   if @model
-    @package_id = @model.items.packages.sample.id
-    find("#packages .line[data-id='#{@package_id}'] [data-edit-package]").click
+    @package = @model.items.packages.sample
+    find("#packages .line[data-id='#{@package.id}'] [data-edit-package]").click
   else
     find("#packages .line[data-new] [data-edit-package]", match: :first).click
   end
@@ -207,7 +207,7 @@ Dann(/^sehe ich die Meldung "(.*?)"$/) do |text|
 end
 
 Dann /^hat das Paket alle zuvor eingetragenen Werte$/ do
-  page.should have_selector ".modal .row.emboss"
+  page.has_selector?(".modal .row.emboss").should be_true
   @table_hashes.each do |hash_row|
     field_name = hash_row["Feldname"]
     field_value = hash_row["Wert"]
@@ -218,15 +218,37 @@ Dann /^hat das Paket alle zuvor eingetragenen Werte$/ do
       matched_field = all("[data-type='field'][data-id='#{field.id}']").last
       raise "no field found" if matched_field.blank?
       case field_type
-      when "autocomplete"
-        matched_field.find("input,textarea").value.should == (field_value != "Keine/r" ? field_value : "")
-      when "select"
-        matched_field.all("option").detect(&:selected?).text.should == field_value
-      when "radio must"
-        matched_field.find("input[checked][type='radio']").value.should == field_value
-      when ""
-        matched_field.find("input,textarea").value.should == field_value
+        when "autocomplete"
+          matched_field.find("input,textarea").value.should == (field_value != "Keine/r" ? field_value : "")
+        when "select"
+          matched_field.all("option").detect(&:selected?).text.should == field_value
+        when "radio must"
+          matched_field.find("input[checked][type='radio']").value.should == field_value
+        when ""
+          matched_field.find("input,textarea").value.should == field_value
       end
     end
   end
 end
+
+Then(/^all the packaged items receive these same values store to this package$/) do |table|
+  table.hashes.each do |t|
+    @package.children.all? {|c|
+      case t[:Feldname]
+        when "Verantwortliche Abteilung"
+          c.inventory_pool_id == @package.inventory_pool_id
+        when "Verantwortliche Person"
+          c.responsible == @package.responsible
+        when "Gebäude", "Raum", "Gestell"
+          c.location_id == @package.location_id
+        when "Toni-Ankunftsdatum"
+          c.properties[:ankunftsdatum] == @package.properties[:ankunftsdatum]
+        when "Letzte Inventur"
+          c.last_check == @package.last_check
+        else
+          "not found"
+      end
+    }.should be_true
+  end
+end
+

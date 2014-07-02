@@ -516,9 +516,12 @@ class Item < ActiveRecord::Base
   end
 
   def update_child_attributes(item)
-    item.update_attributes(:inventory_pool_id => self.inventory_pool_id || item.inventory_pool_id,
-                           :location_id => self.location_id,
-                           :responsible => self.responsible)
+    item.inventory_pool = self.inventory_pool
+    item.location = self.location
+    item.responsible = self.responsible
+    item.last_check = self.last_check
+    item.properties[:ankunftsdatum] = self.properties[:ankunftsdatum]
+    item.save
   end
 
 end

@@ -67,7 +67,8 @@ Funktionalität: Modell mit Paketen erstellen
     Dann kann ich die Paketeigenschaften erneut bearbeiten
     Und ich kann diesem Paket eines oder mehrere Gegenstände hinzufügen
 
-  @javascript @firefox @personas @current
+  #74210792
+  @javascript @firefox @personas
   Szenario: Paketeigenschaften abfüllen bei neu erstelltem Modell
     Wenn ich einem Modell ein Paket hinzufüge
     Und ich diesem Paket eines oder mehrere Gegenstände hinzufügen
@@ -89,7 +90,7 @@ Funktionalität: Modell mit Paketen erstellen
     | Anschaffungswert             |              | 50.00                         |
     Und ich das Paket und das Modell speichere
     Dann sehe ich die Meldung "Modell gespeichert / Pakete erstellt"
-    Und das Paket besitzt alle angegebenen Informationen
+    Und besitzt das Paket alle angegebenen Informationen
     Und alle die zugeteilten Gegenstände erhalten dieselben Werte, die auf diesem Paket erfasst sind
     | Feldname                   |
     | Verantwortliche Abteilung  |

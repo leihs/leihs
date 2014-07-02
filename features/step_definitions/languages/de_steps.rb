@@ -508,3 +508,7 @@ end
 Dann(/^schrumpft das Feld wieder auf die Ausgangsgrösse$/) do
   step "this field shrinks back to the original size"
 end
+
+Dann(/^alle die zugeteilten Gegenstände erhalten dieselben Werte, die auf diesem Paket erfasst sind$/) do |table|
+  step "all the packaged items receive these same values store to this package", table
+end
