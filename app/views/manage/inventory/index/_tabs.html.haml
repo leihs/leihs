@@ -1,19 +1,19 @@
 #list-tabs.inline-tab-navigation
 
-  %a.inline-tab-item.active
+  %a.inline-tab-item{class: ([:borrowable, :unborrowable, :retired, :unused_models, :software].map {|x| session[:params].try(:fetch, x, nil) }.compact.empty? ? "active" : nil)}
     = _("Active Inventory")
 
-  %a.inline-tab-item{:"data-borrowable" => "true"}
+  %a.inline-tab-item{data: {borrowable: "true"}, class: (session[:params].try(:fetch, :borrowable, nil) ? "active" : nil)}
     = _("Borrowable")
 
-  %a.inline-tab-item{:"data-unborrowable" => "true"}
+  %a.inline-tab-item{data: {unborrowable: "true"}, class: (session[:params].try(:fetch, :unborrowable, nil) ? "active" : nil)}
     = _("Not Borrowable")
 
-  %a.inline-tab-item{:"data-retired" => "true"}
+  %a.inline-tab-item{data: {retired: "true"}, class: (session[:params].try(:fetch, :retired, nil) ? "active" : nil)}
     = _("Retired")
 
-  %a.inline-tab-item{:"data-unused_models" => "true"}
+  %a.inline-tab-item{data: {unused_models: "true"}, class: (session[:params].try(:fetch, :unused_models, nil) ? "active" : nil)}
     = _("Unused Models")
 
-  %a.inline-tab-item{:"data-software" => "true"}
+  %a.inline-tab-item{data: {software: "true"}, class: (session[:params].try(:fetch, :software, nil) ? "active" : nil)}
     = _("Software")

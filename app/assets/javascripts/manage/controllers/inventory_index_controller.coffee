@@ -2,7 +2,6 @@ class window.App.InventoryIndexController extends Spine.Controller
 
   elements:
     "#inventory": "list"
-    "#list-filters #responsibles": "responsiblesContainer"
     "#csv-export": "exportButton"
     "#categories": "categoriesContainer"
 
@@ -17,7 +16,6 @@ class window.App.InventoryIndexController extends Spine.Controller
     @filter = new App.ListFiltersController {el: @el.find("#list-filters"), reset: @reset}
     new App.TimeLineController {el: @el}
     new App.InventoryExpandController {el: @el}
-    @fetchResponsibles().done @renderResponsibles
     @exportButton.data "href", @exportButton.attr("href")
     do @reset
 
@@ -88,13 +86,6 @@ class window.App.InventoryIndexController extends Spine.Controller
         all: true
 
   getData: => _.clone $.extend @tabs.getData(), @filter.getData()
-
-  fetchResponsibles: =>
-    App.Inventory.fetchResponsibles @getData()
-
-  renderResponsibles: (data)=>
-    for datum in data
-      @responsiblesContainer.append App.Render "manage/views/inventory/responsible", datum
 
   render: (target, data, page)=> 
     if data?

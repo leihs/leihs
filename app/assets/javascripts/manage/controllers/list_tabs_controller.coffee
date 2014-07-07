@@ -5,6 +5,7 @@ class window.App.ListTabsController extends Spine.Controller
 
   constructor: ->
     super
+    @data = @el.find(".active").data()
 
   switch: (e)=>
     target = $ e.currentTarget

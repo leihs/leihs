@@ -213,7 +213,6 @@ Leihs::Application.routes.draw do
       # Inventory
       get 'inventory',                  :to => "inventory#index",       :as => "inventory"
       get 'inventory/csv',              :to => "inventory#csv_export",  :as => "inventory_csv_export"
-      get 'inventory/responsibles',     :to => "inventory#responsibles"
       get 'inventory/helper',           :to => "inventory#helper",      :as => "inventory_helper"
       get 'inventory/:inventory_code',  :to => "inventory#show"
 
