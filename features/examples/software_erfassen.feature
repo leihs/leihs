@@ -49,6 +49,7 @@ Funktionalität: Software erfassen
       | Windows |
       | Mac OS X |
       | Linux |
+      | iOS |
     Dann kann man als "Installation" keine, eine oder mehrere der folgenden Möglichkeiten in Form einer Checkbox auswählen:
       | Citrix |
       | Lokal |
