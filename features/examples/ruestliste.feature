@@ -26,10 +26,15 @@ Funktionalität: Rüstliste
     Dann werden alle Gegenstände wie folgt aufgelistet 
     | Spaltenname     |
     | Anzahl 		  |
+    | Inventarcode  |
     | Modellname      |
     | verfügbare Anzahl x Raum / Gestell |
-    Und die Liste ist zuerst nach Ausleihdatum, dann nach Raum und Gestell sortiert
-    Und die meistverfügbaren pro Ort werden zuoberst aufgeführt
+    Wenn ein Gegenstand zugeteilt ist und diese Zeile ist markiert
+    Dann wird in der Rüstliste die Inventarnummer dieses Gegenstandes mit Angabe dessen Raums und Gestells angezeigt
+    Wenn einem Modell noch kein Gegenstand zugeteilt ist und diese Zeile ist markiert
+    Dann wird in der Rüstliste die markierte Zeile ohne Angabe eines Inventarcodes angezeigt
+    Und die Listen sind zuerst nach Ausleihdatum
+    Und innerhalb jeder Liste wird nach Modell, dann nach Raum und Gestell des meistverfügbaren Ortes sortiert
     Wenn Gegenständen kein Raum oder Gestell zugeteilt sind, wird die verfügbare Anzahl und "Ort nicht definiert" angezeigt
     Und fehlende Rauminformationen bei Optionen werden als "Ort nicht definiert" angezeigt
 
@@ -38,7 +43,7 @@ Funktionalität: Rüstliste
     Angenommen es existiert ein Vertrag
     Dann werden alle Gegenstände wie folgt aufgelistet 
     | Spaltenname     |
-    | Inventarnummer  |
+    | Inventarcode  |
     | Modellname      |
     | Raum / Gestell    |
     Und die Liste ist zuerst nach Rückgabedatum, dann nach Raum und Gestell sortiert
@@ -56,9 +61,9 @@ Funktionalität: Rüstliste
     Wenn ich mich im Verleih im Reiter der geschlossenen Verträge befinde
     Und ich sehe mindestens einen Vertrag
     Dann kann ich die Rüstliste auf den jeweiligen Vertrags-Zeilen öffnen
-    Wenn ich mich im Verleih im Reiter der genehmigten Bestellungen befinde
-    Und ich sehe mindestens eine Bestellung
-    Dann kann ich die Rüstliste auf den jeweiligen Bestell-Zeilen öffnen
+    Wenn ich mich im Verleih in einer Aushändigung befinde
+    Und ich mindestens ein Modell in dieser Aushändigung markiere
+    Dann kann ich die Rüstliste öffnen
 
 
 
