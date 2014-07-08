@@ -23,7 +23,7 @@ Funktionalität: Software erfassen
     Und der neue Hersteller ist in der Herstellerliste auffindbar
 
   # marked as upcoming due to ticket 71745006
-  @upcoming @javascript @personas @current
+  @upcoming @javascript @personas
   Szenario: Mögliche Werte in Software-Lizenz erfassen
     Angenommen ich befinde mich auf der Lizenz-Erstellungsseite
     Dann die mögliche Werte für Aktivierungstyp sind in der folgenden Reihenfolge:

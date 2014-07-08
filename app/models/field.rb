@@ -393,7 +393,8 @@ class Field < ActiveHash::Base
       target_type: "license",
       values: [{label: "Windows", value: "windows"},
                {label: "Mac OS X", value: "mac_os_x"},
-               {label: "Linux", value: "linux"}],
+               {label: "Linux", value: "linux"},
+               {label: "iOS", value: "ios"}],
       permissions: {role: :inventory_manager, owner: true},
       group: "General Information"
     },{
