@@ -72,7 +72,7 @@
   .dontbreak
     %section.purposes
       %h2= _("Purpose these items are borrowed for")
-      %p= @contract.purpose
+      %p= simple_format @contract.purpose
     %section.note
       - if @contract.note
         %h2= _("Additional notes")
