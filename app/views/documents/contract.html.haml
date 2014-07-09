@@ -76,7 +76,7 @@
     %section.note
       - if @contract.note
         %h2= _("Additional notes")
-        %p= @contract.note
+        %p= simple_format @contract.note
     %section.terms_and_signature
       %p.terms= _("Terms and conditions of the lender apply.")
       %hr
