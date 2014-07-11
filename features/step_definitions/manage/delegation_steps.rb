@@ -169,13 +169,14 @@ Dann(/^ich sehe keine Kontatkperson$/) do
   all("h2", text: @contract.user.name).size.should == 1
 end
 
-Angenommen(/^es existiert eine Aushändigung für eine Delegation$/) do
-  @hand_over = @current_inventory_pool.visits.hand_over.find {|v| v.user.is_delegation and v.lines.any? &:item and not v.date.future? }
-  @hand_over.should_not be_nil
-end
-
-Angenommen(/^es existiert eine Aushändigung für eine Delegation mit zugewiesenen Gegenständen$/) do
-  @hand_over = @current_inventory_pool.visits.hand_over.find {|v| v.user.is_delegation and v.lines.all?(&:item) and Date.today >= v.date }
+Angenommen(/^es existiert eine Aushändigung( für eine Delegation)?( mit zugewiesenen Gegenständen)?$/) do |arg1, arg2|
+  @hand_over = if arg1 and arg2
+                 @current_inventory_pool.visits.hand_over.find {|v| v.user.is_delegation and v.lines.all?(&:item) and Date.today >= v.date }
+               elsif arg1
+                 @current_inventory_pool.visits.hand_over.find {|v| v.user.is_delegation and v.lines.any? &:item and not v.date.future? }
+               else
+                 @current_inventory_pool.visits.hand_over.sample
+               end
   @hand_over.should_not be_nil
 end
 

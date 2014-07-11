@@ -90,7 +90,7 @@ window.i18n.locale_data = {
       },
       "Additional label in inventory codes": [
          null,
-         "Zusatzbezeichnung in Inventarnummern"
+         "Zusatzbezeichnung in Inventarcodes"
       ],
       "Visible for borrowers in frontend": [
          null,
@@ -3771,6 +3771,10 @@ window.i18n.locale_data = {
       "Procured by": [
          null,
          "Beschafft durch"
+      ],
+      "Picking List": [
+         null,
+         "Rüstliste"
       ]
    }
 }

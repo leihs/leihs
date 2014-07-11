@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 msgid "Additional label in inventory codes"
-msgstr "Zusatzbezeichnung in Inventarnummern"
+msgstr "Zusatzbezeichnung in Inventarcodes"
 
 msgid "Visible for borrowers in frontend"
 msgstr "In Frontend für Ausleihende sichtbar"
@@ -232,6 +232,9 @@ msgstr "Verfügbar in Gruppe '"
 
 msgid "Available in total: "
 msgstr "Total verfügbar:"
+
+msgid "available quantity"
+msgstr "verfügbare Anzahl"
 
 msgid "Back"
 msgstr "Zurück"
@@ -780,6 +783,9 @@ msgstr "Ort"
 
 msgid "Locations"
 msgstr "Orte"
+
+msgid "location not defined"
+msgstr "Ort nicht definiert"
 
 msgid "Logged in successfully"
 msgstr "Erfolgreich eingeloggt"
@@ -2950,3 +2956,6 @@ msgstr "Maintenance-Vertrag"
 
 msgid "Procured by"
 msgstr "Beschafft durch"
+
+msgid "Picking List"
+msgstr "Rüstliste"

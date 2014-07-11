@@ -401,7 +401,7 @@ Wenn(/^ich in das Zuteilungsfeld links vom Software\-Namen klicke$/) do
   step "I click on the assignment field of software names"
 end
 
-Dann(/^wird mir die Inventarnummer sowie die vollständige Seriennummer angezeigt$/) do
+Dann(/^wird mir der Inventarcode sowie die vollständige Seriennummer angezeigt$/) do
   step "I see the inventory codes and the complete serial numbers of that software"
 end
 
@@ -511,4 +511,124 @@ end
 
 Dann(/^alle die zugeteilten Gegenstände erhalten dieselben Werte, die auf diesem Paket erfasst sind$/) do |table|
   step "all the packaged items receive these same values store to this package", table
+end
+
+Wenn(/^man öffnet (eine|die) Rüstliste( für einen unterschriebenen Vertrag)?$/) do |arg1, arg2|
+  s1 = case arg1
+         when "eine"
+           "a"
+         when "die"
+           "the"
+       end
+  s2 = arg2 ? " for a signed contract" : ""
+  step "I open %s picking list%s" % [s1, s2]
+end
+
+Wenn(/^man befindet sich im Verleih\-Bereich$/) do
+  step "I visit the lending section"
+end
+
+Wenn(/^ich mich im Verleih im Reiter (aller|der offenen|der geschlossenen) Verträge befinde$/) do |arg1|
+  s = case arg1
+        when "aller"
+          "all"
+        when "der offenen"
+          "open"
+        when "der geschlossenen"
+          "closed"
+      end
+  step "I visit the lending section on the list of %s contracts" % s
+end
+
+Wenn(/^ich sehe mindestens (eine Bestellung|einen Vertrag)$/) do |arg1|
+  case arg1
+    when "einen Vertrag"
+      step "I see at least a contract"
+    when "eine Bestellung"
+      step "I see at least an order"
+  end
+end
+
+Dann(/^kann ich die Rüstliste auf den jeweiligen (Bestell|Vertrags)\-Zeilen öffnen$/) do |arg1|
+  s = case arg1
+        when "Bestell"
+          "order"
+        when "Vertrags"
+          "contract"
+      end
+  step "I can open the picking list of any %s line" % s
+end
+
+Wenn(/^ich mich im Verleih in einer Aushändigung befinde$/) do
+  step "I open a hand over which has multiple lines"
+end
+
+Wenn(/^ich mindestens eine Zeile in dieser Aushändigung markiere$/) do
+  step "I select at least one line"
+end
+
+Dann(/^kann ich die Rüstliste öffnen$/) do
+  step "I can open the picking list"
+end
+
+Angenommen(/^ein Gegenstand zugeteilt ist und diese Zeile markiert ist$/) do
+  step "ich dem nicht problematischen Modell einen Inventarcode zuweise"
+  step "wird der Gegenstand der Zeile zugeteilt"
+end
+
+Angenommen(/^einer Zeile noch kein Gegenstand zugeteilt ist und diese Zeile markiert ist$/) do
+  step "a line has no item assigned yet and this line is marked"
+end
+
+Dann(/^sind die Listen zuerst nach (Ausleihdatum|Rückgabedatum) sortiert$/) do |arg1|
+  s = case arg1
+        when "Ausleihdatum"
+          "hand over"
+        when "Rückgabedatum"
+          "take back"
+        else
+          raise "not found"
+      end
+  step "the lists are sorted by %s date" % s
+end
+
+Dann(/^jede Liste beinhaltet folgende Spalten:$/) do |table|
+  step "each list contains following columns", table
+end
+
+Dann(/^innerhalb jeder Liste wird nach Raum und Gestell sortiert$/) do
+  step "each list will sorted after room and shelf"
+end
+
+Dann(/^innerhalb jeder Liste wird nach Modell, dann nach Raum und Gestell des meistverfügbaren Ortes sortiert$/) do
+  step "each list will sorted after models, then sorted after room and shelf of the most available locations"
+end
+
+Dann(/^in der Liste wird der Inventarcode des zugeteilten Gegenstandes mit Angabe dessen Raums und Gestells angezeigt$/) do
+  step "in the list, the assigned items will displayed with inventory code, room and shelf"
+end
+
+Dann(/^in der Liste wird der nicht zugeteilte Gegenstand ohne Angabe eines Inventarcodes angezeigt$/) do
+  step "in the list, the not assigned items will displayed without inventory code"
+end
+
+Dann(/^Gegenständen kein Raum oder Gestell zugeteilt sind, wird (die verfügbare Anzahl und )?"(.*?)" angezeigt$/) do |arg1, arg2|
+  s1 = arg1 ? "the available quantity and " : nil
+  s2 = case arg2
+        when "Ort nicht definiert"
+          _("location not defined")
+        else
+          raise "not found"
+      end
+  step %Q(the items without location, are displayed with #{s1}"#{s2}")
+end
+
+Dann(/^fehlende Rauminformationen bei Optionen werden als "(.*?)" angezeigt$/) do |arg1|
+  s = case arg1
+        when "Ort nicht definiert"
+          _("location not defined")
+        else
+          raise "not found"
+      end
+  step %Q(the missing location information for options, are displayed with "#{s}")
 end

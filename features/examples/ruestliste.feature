@@ -9,9 +9,9 @@ Funktionalität: Rüstliste
   Grundlage:
     Angenommen ich bin Pius
 
-  @current
+  @personas
   Szenario: Was ich auf der Rüstliste sehen möchte
-    Angenommen man öffnet eine Rüstliste
+    Wenn man öffnet eine Rüstliste
     Dann möchte ich die folgenden Bereiche in der Rüstliste sehen:
     | Bereich          |
     | Datum            |
@@ -20,37 +20,41 @@ Funktionalität: Rüstliste
     | Verleiher        |
     | Liste            |
 
-  @current
-  Szenario: Inhalt der Rüstliste vor Aushändigung - keine Zuteilung von Inventarnummern
-    Angenommen es existiert eine Aushädigung
-    Dann werden alle Gegenstände wie folgt aufgelistet 
-    | Spaltenname     |
-    | Anzahl 		  |
-    | Inventarcode  |
-    | Modellname      |
+  @personas @javascript @firefox
+  Szenario: Inhalt der Rüstliste vor Aushändigung - keine Zuteilung von Inventarcode
+    Angenommen es gibt eine Aushändigung mit mindestens einem nicht problematischen Modell
+    Und ich die Aushändigung öffne
+    Und ein Gegenstand zugeteilt ist und diese Zeile markiert ist
+    Und einer Zeile noch kein Gegenstand zugeteilt ist und diese Zeile markiert ist
+    Wenn man öffnet die Rüstliste
+    Dann sind die Listen zuerst nach Ausleihdatum sortiert
+    Und jede Liste beinhaltet folgende Spalten:
+    | Spaltenname                        |
+    | Anzahl                             |
+    | Inventarcode                       |
+    | Modellname                         |
     | verfügbare Anzahl x Raum / Gestell |
-    Wenn ein Gegenstand zugeteilt ist und diese Zeile ist markiert
-    Dann wird in der Rüstliste die Inventarnummer dieses Gegenstandes mit Angabe dessen Raums und Gestells angezeigt
-    Wenn einem Modell noch kein Gegenstand zugeteilt ist und diese Zeile ist markiert
-    Dann wird in der Rüstliste die markierte Zeile ohne Angabe eines Inventarcodes angezeigt
-    Und die Listen sind zuerst nach Ausleihdatum
     Und innerhalb jeder Liste wird nach Modell, dann nach Raum und Gestell des meistverfügbaren Ortes sortiert
-    Wenn Gegenständen kein Raum oder Gestell zugeteilt sind, wird die verfügbare Anzahl und "Ort nicht definiert" angezeigt
+    Und in der Liste wird der Inventarcode des zugeteilten Gegenstandes mit Angabe dessen Raums und Gestells angezeigt
+    Und in der Liste wird der nicht zugeteilte Gegenstand ohne Angabe eines Inventarcodes angezeigt
+    Und Gegenständen kein Raum oder Gestell zugeteilt sind, wird die verfügbare Anzahl und "Ort nicht definiert" angezeigt
     Und fehlende Rauminformationen bei Optionen werden als "Ort nicht definiert" angezeigt
 
-  @current
-  Szenario: Inhalt der Rüstliste nach Aushändigung - Inventarnummern sind bekannt
-    Angenommen es existiert ein Vertrag
-    Dann werden alle Gegenstände wie folgt aufgelistet 
-    | Spaltenname     |
-    | Inventarcode  |
-    | Modellname      |
-    | Raum / Gestell    |
-    Und die Liste ist zuerst nach Rückgabedatum, dann nach Raum und Gestell sortiert
+  @personas @javascript
+  Szenario: Inhalt der Rüstliste nach Aushändigung - Inventarcodes sind bekannt
+    Wenn man öffnet die Rüstliste für einen unterschriebenen Vertrag
+    Dann sind die Listen zuerst nach Rückgabedatum sortiert
+    Und jede Liste beinhaltet folgende Spalten:
+    | Spaltenname    |
+    | Anzahl         |
+    | Inventarcode   |
+    | Modellname     |
+    | Raum / Gestell |
+    Und innerhalb jeder Liste wird nach Raum und Gestell sortiert
     Wenn Gegenständen kein Raum oder Gestell zugeteilt sind, wird "Ort nicht definiert" angezeigt
     Und fehlende Rauminformationen bei Optionen werden als "Ort nicht definiert" angezeigt
 
-  @current
+  @personas @javascript
   Szenario: Wo wird die Rüstliste aufgerufen
   	Wenn ich mich im Verleih im Reiter aller Verträge befinde
     Und ich sehe mindestens einen Vertrag
@@ -62,9 +66,8 @@ Funktionalität: Rüstliste
     Und ich sehe mindestens einen Vertrag
     Dann kann ich die Rüstliste auf den jeweiligen Vertrags-Zeilen öffnen
     Wenn ich mich im Verleih in einer Aushändigung befinde
-    Und ich mindestens ein Modell in dieser Aushändigung markiere
+    Und ich mindestens eine Zeile in dieser Aushändigung markiere
     Dann kann ich die Rüstliste öffnen
-
 
 
 

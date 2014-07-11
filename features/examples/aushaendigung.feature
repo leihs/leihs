@@ -87,4 +87,4 @@ Funktionalität: Aushändigung editieren
   Szenario: Anzeige der Seriennummer bei Zuteilung der Software-Lizenz
   Angenommen ich öffne eine Aushändigung mit einer Software
   Wenn ich in das Zuteilungsfeld links vom Software-Namen klicke
-  Dann wird mir die Inventarnummer sowie die vollständige Seriennummer angezeigt
+  Dann wird mir der Inventarcode sowie die vollständige Seriennummer angezeigt

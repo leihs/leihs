@@ -17,7 +17,9 @@
             %i.icon-exchange
             = _("Change Borrower")
         %li
-          = render 'manage/templates/print_selection'
+          = render partial: 'manage/templates/print_selection', locals: {type: "value_list"}
+        %li
+          = render partial: 'manage/templates/print_selection', locals: {type: "picking_list"}
         %li
           %a.dropdown-item.red{:"data-destroy-selected-lines" => true}
             %i.icon-trash

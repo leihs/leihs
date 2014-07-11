@@ -39,7 +39,7 @@ Angenommen(/^es existiert ein Software\-Produkt$/) do
   Software.all.should_not be_empty
 end
 
-Wenn(/^eine Inventarnummer vergeben wird$/) do
+Wenn(/^ein Inventarcode vergeben wird$/) do
   find("input[name='item[inventory_code]']").value.should_not be_nil
 end
 
@@ -355,7 +355,7 @@ Given(/^there is a software license with the following properties:$/) do |table|
 
   lp = table.raw.map do |k, v|
     case k
-      when "Inventarnummer"
+      when "Inventarcode"
         item_attrs[:inventory_code] = v
       when "Seriennummer"
         item_attrs[:serial_number] = v

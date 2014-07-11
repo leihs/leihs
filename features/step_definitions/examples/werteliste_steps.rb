@@ -11,70 +11,135 @@ Angenommen /^man öffnet eine Werteliste$/ do
   new_window = page.driver.browser.window_handles.last
   page.driver.browser.switch_to.window new_window
 
-  @value_list_element = find(".value_list")
+  @list_element = find(".value_list")
 end
 
-Dann /^möchte ich die folgenden Bereiche in der Werteliste sehen:$/ do |table|
-  within @value_list_element do
+Dann /^möchte ich die folgenden Bereiche in der (Werteliste|Rüstliste) sehen:$/ do |arg1, table|
+  within @list_element do
     table.hashes.each do |area|
       case area["Bereich"]
         when "Datum"
-          within(".date", match: :first) do
+          within(".date") do
             should have_content Date.today.year
             should have_content Date.today.month
             should have_content Date.today.day
           end
         when "Titel"
-          find("h1", match: :first).should have_content @contract.id
+          case arg1
+            when "Werteliste"
+              find("h1", text: _("Value List")).should have_content @contract.id
+            when "Rüstliste"
+              find("h1", text: _("Picking List"))
+          end
         when "Ausleihender"
-          within(".customer", match: :first) do
+          within(".customer") do
             should have_content @contract.user.firstname
             should have_content @contract.user.lastname
-            should have_content @contract.user.address
+            should have_content @contract.user.address.chomp(", ")
             should have_content @contract.user.zip
             should have_content @contract.user.city
           end
         when "Verleiher"
-          find(".inventory_pool", match: :first)
+          find(".inventory_pool")
         when "Liste"
-          find(".list", match: :first)
+          case arg1
+            when "Werteliste"
+              find(".list")
+            when "Rüstliste"
+              find(".list", match: :first)
+          end
       end
     end
   end
 end
 
-Dann /^beinhaltet die Werte\-Liste folgende Spalten:$/ do |table| 
-  within @value_list_element.find(".list", match: :first) do
+Dann /^beinhaltet die Liste folgende Spalten:$/ do |table|
+  @list ||= @list_element.find(".list")
+  within @list do
     table.hashes.each do |area|
       case area["Spaltenname"]
         when "Laufende Nummer"
-          @contract.lines.each {|line| find("tr", match: :first, :text=> line.item.inventory_code).find(".consecutive_number", match: :first) }
+          @contract.lines.each {|line| find("tr", text: line.item.inventory_code).find(".consecutive_number") }
         when "Inventarcode"
-          @contract.lines.each {|line| find("tr", match: :first, :text=> line.item.inventory_code).find(".inventory_code", match: :first) }
+          lines = if @list_element[:class] == "picking_list"
+                    @selected_lines_by_date ? @selected_lines_by_date : @contract.lines
+                  elsif @list_element[:class] == "value_list"
+                    @contract.lines
+                  else
+                    raise "not found"
+                  end
+          lines.each do |line|
+            next if line.item_id.nil?
+            find("tr .inventory_code", text: line.item.inventory_code)
+          end
         when "Modellname"
-          @contract.lines.each {|line| find("tr", match: :first, :text=> line.item.inventory_code).find(".model_name", match: :first).should have_content line.model.name }
+          if @list_element[:class] == "picking_list"
+            lines = @selected_lines_by_date ? @selected_lines_by_date : @contract.lines
+            lines.group_by(&:model).each_pair do |model, lines|
+              find("tr", match: :prefer_exact, text: model).find(".model_name", text: model.name)
+            end
+          elsif @list_element[:class] == "value_list"
+            @contract.lines.each {|line| find("tr", text: line.item.inventory_code).find(".model_name", text: line.model.name) }
+          else
+            raise "not found"
+          end
         when "End Datum"
           @contract.lines.each {|line|
-            within find("tr", match: :first, :text=> line.item.inventory_code).find(".end_date", match: :first) do
+            within find("tr", text: line.item.inventory_code).find(".end_date") do
               should have_content line.end_date.year
               should have_content line.end_date.month
               should have_content line.end_date.day
             end
           }
         when "Anzahl"
-          @contract.lines.each {|line| find("tr", match: :first, :text=> line.item.inventory_code).find(".quantity", match: :first).should have_content line.quantity }
+          if @list_element[:class] == "picking_list"
+            picking_lines = @selected_lines_by_date ? @selected_lines_by_date : @contract.lines
+            picking_lines.group_by(&:model).each_pair do |model, lines|
+              find("tr", match: :prefer_exact, text: model).find(".quantity", text: lines.sum(&:quantity))
+            end
+          elsif @list_element[:class] == "value_list"
+            @contract.lines.each {|line|
+              find("tr", text: line.item.inventory_code).find(".quantity", text: line.quantity)
+            }
+          else
+            raise "not found"
+          end
         when "Wert"
           @contract.lines.each {|line|
-            find("tbody tr", match: :first, :text=> line.item.inventory_code).find(".item_price", match: :first).text.gsub(/\D/, "").should == ("%.2f" % line.item.price).gsub(/\D/, "")
+            find("tbody tr", text: line.item.inventory_code).find(".item_price").text.gsub(/\D/, "").should == ("%.2f" % line.item.price).gsub(/\D/, "")
           }
+        when "Raum / Gestell"
+          find("table thead tr td.location", text: "%s / %s" % [_("Room"), _("Shelf")])
+          @contract.lines.each {|line|
+            find("tbody tr", text: line.item.inventory_code).find(".location", text: (line.model.is_a?(Option) ? _("location not defined") : "%s / %s" % [line.item.location.room, line.item.location.shelf]))
+          }
+        when "verfügbare Anzahl x Raum / Gestell"
+          find("table thead tr td.location", text: "%s x %s / %s" % [_("available quantity"), _("Room"), _("Shelf")])
+          lines = @selected_lines_by_date ? @selected_lines_by_date : @contract.lines
+          lines.each do |line|
+            within find("tr", match: :prefer_exact, text: line.model).find(".location") do
+              locations = line.model.items.in_stock.where(inventory_pool_id: @current_inventory_pool).select("COUNT(items.location_id) AS count, locations.room AS room, locations.shelf AS shelf").joins(:location).group(:location_id).order("count DESC")
+              locations.delete_if {|location| location.room.blank? and location.shelf.blank? }
+              locations.each do |location|
+                if line.item_id
+                  find("tr", text: "%s / %s" % [location.room, location.shelf])
+                else
+                  find("tr", text: "%dx %s / %s" % [location.count, location.room, location.shelf])
+                end
+              end
+            end
+          end
+        else
+          raise "not found"
       end
     end
   end
 end
 
 Dann /^gibt es eine Zeile für die totalen Werte$/ do
-  @list = @value_list_element.find(".list", match: :first)
-  @total = @list.find("tfoot.total", match: :first)
+  within @list_element.find(".list") do
+    @total = find("tfoot.total")
+  end
 end
 
 Dann /^diese summierte die Spalten:$/ do |table|

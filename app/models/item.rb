@@ -114,7 +114,6 @@ class Item < ActiveRecord::Base
     items = items.where(:inventory_pool_id => params[:responsible_id]) if params[:responsible_id]
     items = items.where(:inventory_code => params[:inventory_code]) if params[:inventory_code]
     items = items.where(:model_id => params[:model_ids]) if params[:model_ids]
-    items = items.in_stock if params[:in_stock]
     items = items.search(params[:search_term]) unless params[:search_term].blank?
     items = items.paginate(:page => params[:page]||1, :per_page => [(params[:per_page].try(&:to_i) || 20), 100].min) unless params[:paginate] == "false"
     items

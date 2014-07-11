@@ -75,7 +75,7 @@ Funktionalität: Software erfassen
     Angenommen es existiert ein Software-Produkt
     Wenn ich eine neue Software-Lizenz hinzufüge
     Und ich die Software setze
-    Und eine Inventarnummer vergeben wird
+    Und ein Inventarcode vergeben wird
     Und ich eine Seriennummer eingebe
     Wenn ich als Aktivierungsart Dongle wähle
     Dann muss ich eine Dongle-ID eingeben

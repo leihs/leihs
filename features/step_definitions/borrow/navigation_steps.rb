@@ -41,8 +41,7 @@ Dann(/^lande ich auf der Seite der Hauptkategorien$/) do
   current_path.should == borrow_root_path
 end
 
-Und(/^man befindet sich im Verleih\-Bereich$/) do
-  @current_inventory_pool = @current_user.managed_inventory_pools(:group_manager).sample
+When(/^I visit the lending section$/) do
   visit manage_daily_view_path(@current_inventory_pool)
 end
 
@@ -56,5 +55,30 @@ end
 Dann(/^man sieht die Gerätepark\-Auswahl im Verwalten\-Bereich$/) do
   within("#contracts-index-view > .row:nth-child(1) > nav:nth-child(2) .dropdown-holder") do
     find("div[title]", match: :prefer_exact, text: @current_inventory_pool.name)
+  end
+end
+
+When(/^I visit the lending section on the list of (all|open|closed) contracts$/) do |arg1|
+  visit manage_contracts_path(@current_inventory_pool, status: [:signed, :closed])
+  case arg1
+    when "all"
+    when "open"
+      find("#list-tabs a.inline-tab-item", text: _("Open")).click
+    when "closed"
+      find("#list-tabs a.inline-tab-item", text: _("Closed")).click
+    else
+      raise "not found"
+  end
+  find("#contracts.list-of-lines .line", match: :first)
+end
+
+Then(/^I see at least (an order|a contract)$/) do |arg1|
+  case arg1
+    when "an order"
+      find("#orders.list-of-lines .line", match: :first)
+    when "a contract"
+      find("#contracts.list-of-lines .line", match: :first)
+    else
+      raise "not found"
   end
 end

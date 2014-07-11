@@ -85,7 +85,7 @@ window.i18n.locale_data = {
       },
       "Additional label in inventory codes": [
          null,
-         "Zuesatzbezeichnige ide Inventarnummere"
+         "Zuesatzbezeichnige ide Inventarcodes"
       ],
       "Visible for borrowers in frontend": [
          null,

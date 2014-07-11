@@ -211,9 +211,14 @@ class Manage::ContractLinesController < Manage::ApplicationController
 
   def print
     @contract_lines = current_inventory_pool.contract_lines.where(id: params[:ids])
-    @user = @contract_lines.first.user
-    @inventory_pool = current_inventory_pool
-    render "documents/contract_lines", layout: "print"
+    case params[:type]
+      when "value_list"
+        @user = @contract_lines.first.user
+        render "documents/contract_lines", layout: "print"
+      when "picking_list"
+        @contract = @contract_lines.first.contract
+        render "documents/picking_list", layout: "print"
+    end
   end
 
   private

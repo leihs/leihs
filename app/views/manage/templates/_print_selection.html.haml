@@ -1,5 +1,10 @@
 = form_tag manage_print_contract_lines_path(current_inventory_pool), target: "_blank" do
-  = hidden_field_tag "merge", true
+  = hidden_field_tag :merge, true
+  = hidden_field_tag :type, type
   %button.dropdown-item.font-size-larger{:"data-insert-before" => true}
-    %i.icon-print
-    = _("Print Selection")
+    - if type == "value_list"
+      %i.icon-print
+      = _("Print Selection")
+    - elsif type == "picking_list"
+      %i.icon-list-ol
+      = _("Picking List")

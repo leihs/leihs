@@ -9,7 +9,7 @@
         .arrow.down
       %ul.dropdown.right
         %li
-          = render 'manage/templates/print_selection'
+          = render partial: 'manage/templates/print_selection', locals: {type: "value_list"}
         %li
           %a.dropdown-item.red{:"data-destroy-selected-lines" => true}
             %i.icon-trash

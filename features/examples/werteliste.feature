@@ -23,7 +23,7 @@ Funktionalität: Werteliste
   @javascript @firefox @personas
   Szenario: Der Inhalt der Werte-Liste
     Angenommen man öffnet eine Werteliste
-    Dann beinhaltet die Werte-Liste folgende Spalten:
+    Dann beinhaltet die Liste folgende Spalten:
     | Spaltenname     |
     | Laufende Nummer |
     | Inventarcode    |
@@ -60,7 +60,7 @@ Funktionalität: Werteliste
   Szenario: Totale Werte
     Angenommen man öffnet eine Werteliste
     Dann gibt es eine Zeile für die totalen Werte
-     Und diese summierte die Spalten:
+    Und diese summierte die Spalten:
      | Spaltenname |
      | Anzahl      |
      | Wert        |
@@ -69,7 +69,7 @@ Funktionalität: Werteliste
   Szenario: Totale Werte
     Angenommen man öffnet eine Werteliste
     Dann gibt es eine Zeile für die totalen Werte
-     Und diese summierte die Spalten:
+    Und diese summierte die Spalten:
      | Spaltenname |
      | Anzahl      |
      | Wert        |

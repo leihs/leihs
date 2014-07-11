@@ -55,6 +55,10 @@ class Manage::ContractsController < Manage::ApplicationController
     render "documents/value_list", layout: "print"
   end
 
+  def picking_list
+    render "documents/picking_list", layout: "print"
+  end
+
   def approve(force = (params.has_key? :force) ? true : false)
     if @contract.approve(params[:comment], true, current_user, force)
       respond_to do |format|

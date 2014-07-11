@@ -231,7 +231,7 @@ class Model < ActiveRecord::Base
 
   # compares two objects in order to sort them
   def <=>(other)
-    self.name <=> other.name
+    self.name.downcase <=> other.name.downcase
   end
 
   # TODO 06** define main image

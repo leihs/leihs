@@ -3,11 +3,11 @@
     %label= _("Borrower")
     %span.name= @user
     %span.street= @user.address
-    %span.plz_city= "%s %s" % [@user.zip, @user.city]
+    %span.zip_city= "%s %s" % [@user.zip, @user.city]
   .inventory_pool
     %label= _("Lender")
-    %span.name= @inventory_pool.name
-    - if @inventory_pool.address
-      %span.street= @inventory_pool.address.street
-      %span.plz_city= "%s-%s %s" % [@inventory_pool.address.country_code, @inventory_pool.address.zip_code, @inventory_pool.address.city]
+    %span.name= current_inventory_pool.name
+    - if current_inventory_pool.address
+      %span.street= current_inventory_pool.address.street
+      %span.zip_city= "%s-%s %s" % [current_inventory_pool.address.country_code, current_inventory_pool.address.zip_code, current_inventory_pool.address.city]
   .clear

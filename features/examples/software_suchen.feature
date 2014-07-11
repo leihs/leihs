@@ -5,13 +5,13 @@ Funktionalität: Software suchen
   Grundlage:
     Angenommen ich bin Mike
 
-  @javascript @personas
+  @javascript @firefox @personas
   Szenario: Software anhand eines Suchbegriffs finden
     Angenommen es existiert ein Software-Produkt mit folgenden Eigenschaften:
       | Produktname    | suchbegriff1 |
       | Hersteller     | suchbegriff4 |
     Und es existiert eine Software-Lizenz mit folgenden Eigenschaften:
-      | Inventarnummer | suchbegriff2 |
+      | Inventarcode   | suchbegriff2 |
       | Seriennummer   | suchbegriff3 |
       | Dongle-ID      | suchbegriff5 |
     Und diese Software-Lizenz ist an jemanden ausgeliehen

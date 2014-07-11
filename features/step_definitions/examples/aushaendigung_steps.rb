@@ -94,7 +94,6 @@ Wenn(/^ich eine Option hinzufüge$/) do
 end
 
 Angenommen(/^es gibt eine Aushändigung mit mindestens einer problematischen Linie$/) do
-  items_in_stock = Item.by_responsible_or_owner_as_fallback(@current_inventory_pool).in_stock
   @hand_over = @current_inventory_pool.visits.hand_over.find {|ho| ho.lines.any? do |l|
     if l.is_a? ItemLine
       av = l.model.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups(l.start_date, l.end_date, ho.user.groups)
@@ -180,4 +179,16 @@ end
 Then(/^the quantity will be stored to the value "(.*?)"$/) do |arg1|
   step "the quantity will be restored to the original value"
   @option_line.quantity.to_s.should == arg1
+end
+
+Given(/^a line has no item assigned yet and this line is marked$/) do
+  step "I can add models"
+  @contract_line = @hand_over.lines.find {|l| not l.item }
+  @line_css = ".line[data-id='#{@contract_line.id}']"
+  step "ich die Zeile wieder selektiere"
+end
+
+When(/^I select at least one line$/) do
+  @line_css = all(".line[data-id]").to_a.sample
+  step "ich die Zeile wieder selektiere"
 end

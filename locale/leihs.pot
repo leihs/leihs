@@ -227,6 +227,9 @@ msgstr ""
 msgid "Available in total: "
 msgstr ""
 
+msgid "available quantity"
+msgstr ""
+
 msgid "Back"
 msgstr ""
 
@@ -764,6 +767,9 @@ msgid "Location"
 msgstr ""
 
 msgid "Locations"
+msgstr ""
+
+msgid "location not defined"
 msgstr ""
 
 msgid "Logged in successfully"
@@ -2848,4 +2854,7 @@ msgid "Maintenance contract"
 msgstr ""
 
 msgid "Procured by"
+msgstr ""
+
+msgid "Picking List"
 msgstr ""

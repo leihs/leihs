@@ -81,7 +81,7 @@ Wenn(/^ich eine Werteliste aus meinen Dokumenten öffne$/) do
   @contract = contracts.sample
   visit borrow_user_value_list_path(@contract.id)
   step "öffnet sich die Werteliste"
-  @value_list_element = find(".value_list", match: :first)
+  @list_element = find(".value_list")
 end
 
 Wenn(/^ich einen Vertrag aus meinen Dokumenten öffne$/) do
@@ -110,7 +110,7 @@ Dann(/^sehe ich die Werteliste genau wie im Verwalten\-Bereich$/) do
     | Liste            |
     Und die Modelle in der Werteliste sind alphabetisch sortiert
 
-    Dann beinhaltet die Werte-Liste folgende Spalten:
+    Dann beinhaltet die Liste folgende Spalten:
     | Spaltenname     |
     | Laufende Nummer |
     | Inventarcode    |

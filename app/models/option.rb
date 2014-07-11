@@ -10,6 +10,8 @@
 class Option < ActiveRecord::Base
 
   belongs_to :inventory_pool
+  belongs_to :location # NOTE this association is not in the database, it's just to reflect the same eager-loader behaviour as Item (see picking_list template)
+
   has_many :option_lines
 
   validates_presence_of :inventory_pool, :product

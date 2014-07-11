@@ -1,0 +1,90 @@
+- content_for :title, "#{_("Picking List")}"
+
+.picking_list
+
+  %h1
+    = _("Picking List")
+  .date
+    = l Time.now.to_date
+
+  %section.parties
+    = render "documents/customer"
+    = render "documents/inventory_pool"
+    .clear
+
+
+  - if [:signed, :closed].include?(@contract.status)
+    - lines_by_end_date = @contract.lines.includes(:item, :item => :location).group_by{|line| line.end_date }
+    - lines_by_end_date.each_pair do |end_date, lines|
+      %section.list
+        %table
+          %thead
+            %tr
+              %th.end_date{colspan: 4, style: "text-align: left; padding: 2em 0em 1em 0em;"}
+                = "%s: %s" % [_("End date"), l(end_date)]
+            %tr
+              %td.quantity= _("Quantity")
+              %td.inventory_code= _("Inventory Code")
+              %td.model_name= _("Model")
+              %td.location= "%s / %s" % [_("Room"), _("Shelf")]
+          %tbody
+            - sorted_lines = lines.sort_by{|line| line.item.location ? "%s / %s" % [line.item.location.room, line.item.location.shelf] : "zzzz (no locations displayed at the end of the list)" }
+            - sorted_lines.each do |line|
+              %tr{style: "vertical-align: top"}
+                %td.quantity= line.quantity
+                %td.inventory_code= line.item.inventory_code
+                %td.model_name= line.model.name
+                %td.location
+                  - if line.model.is_a?(Option)
+                    %i= _("location not defined")
+                  - else
+                    = "%s / %s" % [line.item.location.room, line.item.location.shelf]
+
+
+  - else
+    - lines_by_start_date = (@contract_lines || @contract.lines).includes(:model).group_by{|line| line.start_date }
+    - lines_by_start_date.each_pair do |start_date, lines|
+      %section.list
+        %table
+          %thead
+            %tr
+              %th.start_date{colspan: 4, style: "text-align: left; padding: 2em 0em 1em 0em;"}
+                = "%s: %s" % [_("Start date"), l(start_date)]
+            %tr
+              %td.quantity= _("Quantity")
+              %td.inventory_code= _("Inventory Code")
+              %td.model_name= _("Model")
+              %td.location= "%s x %s / %s" % [_("available quantity"), _("Room"), _("Shelf")]
+          %tbody
+            - models_lines = lines.group_by{|line| [line.model, line.item] }
+            -  Hash[models_lines.sort].each_pair do |model_item, lines|
+              %tr{style: "vertical-align: top"}
+                %td.quantity= lines.sum &:quantity
+                %td.inventory_code= model_item.last.inventory_code if model_item.last
+                %td.model_name= model_item.first.name
+                %td.location
+                  - if model_item.first.is_a?(Option)
+                    %i= _("location not defined")
+                  - else
+                    %table
+                      - if model_item.last
+                        %tr
+                          %td{style: "width: 4em; text-align: right; border: none"}
+                          %td{style: "border: none"}
+                            = "%s / %s" % [model_item.last.location.try(:room), model_item.last.location.try(:shelf)]
+                      - else
+                        - locations = model_item.first.items.in_stock.where(inventory_pool_id: current_inventory_pool).select("COUNT(items.location_id) AS count, locations.room AS room, locations.shelf AS shelf").joins(:location).group(:location_id).order("count DESC, room ASC, shelf ASC")
+                        - locations.delete_if {|location| location.room.blank? and location.shelf.blank? }
+                        - locations.each do |location|
+                          %tr
+                            %td{style: "width: 4em; text-align: right; border: none"}
+                              = "%dx" % location.count
+                            %td{style: "border: none"}
+                              = "%s / %s" % [location.room, location.shelf]
+                        - not_defined_count = model_item.first.items.in_stock.where(inventory_pool_id: current_inventory_pool).count - locations.to_a.sum(&:count)
+                        - if not_defined_count > 0
+                          %tr
+                            %td{style: "width: 4em; text-align: right; border: none"}
+                              = "%dx" % not_defined_count
+                            %td{style: "border: none"}
+                              %i= _("location not defined")

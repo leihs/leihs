@@ -156,15 +156,16 @@ Leihs::Application.routes.draw do
       get 'daily', to: "inventory_pools#daily", as: "daily_view"
 
       ## Contracts
-      get   'contracts',                to: "contracts#index",      as: "contracts"
-      get   "contracts/:id",            to: "contracts#show",       as: "contract"
-      post  "contracts/:id/approve",    to: "contracts#approve",    as: "approve_contract"
-      post  "contracts/:id/reject",     to: "contracts#reject"
-      post  'contracts/:id/sign',       to: "contracts#sign"
-      get   'contracts/:id/edit',       to: "contracts#edit",       as: "edit_contract"
-      get   'contracts/:id/hand_over',  to: "contracts#hand_over",  as: "hand_over_contract"
-      post  'contracts/:id/swap_user',  to: "contracts#swap_user"
-      get   "contracts/:id/value_list", to: "contracts#value_list", as: "value_list"
+      get   'contracts',                  to: "contracts#index",      as: "contracts"
+      get   "contracts/:id",              to: "contracts#show",       as: "contract"
+      post  "contracts/:id/approve",      to: "contracts#approve",    as: "approve_contract"
+      post  "contracts/:id/reject",       to: "contracts#reject"
+      post  'contracts/:id/sign',         to: "contracts#sign"
+      get   'contracts/:id/edit',         to: "contracts#edit",       as: "edit_contract"
+      get   'contracts/:id/hand_over',    to: "contracts#hand_over",  as: "hand_over_contract"
+      post  'contracts/:id/swap_user',    to: "contracts#swap_user"
+      get   "contracts/:id/value_list",   to: "contracts#value_list", as: "value_list"
+      get   "contracts/:id/picking_list", to: "contracts#picking_list", as: "picking_list"
 
       ## Visits
       delete  'visits/hand_overs/:visit_id',        to: 'visits#destroy',   type: "hand_over", as: "inventory_pool_destroy_hand_over"

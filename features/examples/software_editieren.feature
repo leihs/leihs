@@ -53,7 +53,7 @@ Funktionalität: Software editieren
       | Konkurrent  |
       | Site-Lizenz |
     Und ich eine Anzahl eingebe
-    #Aber ich kann die Inventarnummer nicht ändern # really? inventory manager can change the inventory number of an item right now...
+    #Aber ich kann den Inventarcode nicht ändern # really? inventory manager can change the inventory number of an item right now...
     Wenn ich speichere
     Dann sind die Informationen dieser Software-Lizenz erfolgreich aktualisiert worden
 

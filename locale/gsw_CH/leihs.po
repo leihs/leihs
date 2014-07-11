@@ -16,7 +16,7 @@ msgstr ""
 "X-Generator: Poedit 1.6.3\n"
 
 msgid "Additional label in inventory codes"
-msgstr "Zuesatzbezeichnige ide Inventarnummere"
+msgstr "Zuesatzbezeichnige ide Inventarcodes"
 
 msgid "Visible for borrowers in frontend"
 msgstr "Für Benutzer im Frontend sichtbar."
