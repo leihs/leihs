@@ -57,7 +57,7 @@
               %td.location= "%s x %s / %s" % [_("available quantity"), _("Room"), _("Shelf")]
           %tbody
             - models_lines = lines.group_by{|line| [line.model, line.item] }
-            -  Hash[models_lines.sort].each_pair do |model_item, lines|
+            -  Hash[models_lines.sort_by {|k,v| k.first or k.last }].each_pair do |model_item, lines|
               %tr{style: "vertical-align: top"}
                 %td.quantity= lines.sum &:quantity
                 %td.inventory_code= model_item.last.inventory_code if model_item.last
