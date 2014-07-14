@@ -14,6 +14,7 @@ Funktionalität: Inventar
     Und man öffnet die Liste des Inventars
     Dann kann man diese Daten als CSV-Datei exportieren
     Und die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden (inkl. Filter)
+    Und die Zeilen enthalten alle Gegenstands-Felder
 
   @personas
   Szenario: Export der aktuellen Software-Ansicht als CSV
