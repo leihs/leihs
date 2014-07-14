@@ -16,6 +16,7 @@ Funktionalität: Software kopieren
     Und die folgenden Felder werden von der kopierten Lizenz übernommen
     | Software   |
     | Bezug  |
+    | Besitzer |
     | Verantwortliche Abteilung |
     | Rechnungsdatum |
     | Anschaffungswert |
@@ -24,6 +25,7 @@ Funktionalität: Software kopieren
     | Notiz |
     | Aktivierungstyp |
     | Lizenztyp |
+    | Anzahl |
     | Betriebssystem |
     | Installation |
     | Lizenzablaufdatum |
