@@ -5,7 +5,7 @@ Funktionalität: Software suchen
   Grundlage:
     Angenommen ich bin Mike
 
-  @javascript @firefox @personas
+  @javascript @firefox @personas @current
   Szenario: Software anhand eines Suchbegriffs finden
     Angenommen es existiert ein Software-Produkt mit folgenden Eigenschaften:
       | Produktname    | suchbegriff1 |
@@ -14,6 +14,7 @@ Funktionalität: Software suchen
       | Inventarcode   | suchbegriff2 |
       | Seriennummer   | suchbegriff3 |
       | Dongle-ID      | suchbegriff5 |
+      | Lizenzanzahl-Zeile      | Christina Meier |
     Und diese Software-Lizenz ist an jemanden ausgeliehen
     Wenn ich nach einer dieser Software-Produkt Eigenschaften suche
     Dann es erscheinen alle zutreffenden Software-Produkte

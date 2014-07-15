@@ -9,10 +9,10 @@ Funktionalität: Software editieren
   Szenario: Software-Produkt editieren
     Wenn ich eine Software editiere
     Und ich ändere die folgenden Details
-      | Feld                    | Wert                                                           |
-      | Produkt                 | Test Software I                                                |
-      | Version                 | Test Version I                                                 |
-      | Hersteller              | Neuer Hersteller                                               |
+      | Feld                    | Wert           |
+      | Produkt                 | Test Software I|
+      | Version                 | Test Version I|
+      | Hersteller              | Neuer Hersteller|
       | Software Informationen  | Installationslink beachten: http://wwww.dokuwiki.ch/neue_seite |
     Wenn ich speichere
     Und ich mich auf der Softwareliste befinde
@@ -52,7 +52,8 @@ Funktionalität: Software editieren
       | Mehrplatz   |
       | Konkurrent  |
       | Site-Lizenz |
-    Und ich eine Anzahl eingebe
+    Und ich die Gesamtanzahl ändere
+    Und ich die Lizenzanzahl und den Text ändere
     #Aber ich kann den Inventarcode nicht ändern # really? inventory manager can change the inventory number of an item right now...
     Wenn ich speichere
     Dann sind die Informationen dieser Software-Lizenz erfolgreich aktualisiert worden

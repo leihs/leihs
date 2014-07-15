@@ -83,7 +83,8 @@ Funktionalität: Software erfassen
       | Mehrplatz   |
       | Konkurrent  |
       | Site-Lizenz |
-    Und ich eine Anzahl eingebe
+    Und ich eine Gesamtanzahl eingebe
+    Und ich die Lizenzanzahl und einen Text eingebe
     Und ich als Betriebssystem keine, eine oder mehrere der vorhandenen Möglichkeiten auswähle
     Und ich als Installation keine, eine oder mehrere der vorhandenen Möglichkeiten auswähle
     Und ich als Lizenzablaufdatum ein Datum auswähle
@@ -97,8 +98,32 @@ Funktionalität: Software erfassen
     Und ich speichere
     Dann sind die Informationen dieser Software-Lizenz gespeichert
 
-    @javascript @personas
-    Szenario: Software-Lizenz Anschaffungswert mit 2 Dezimalstellen erfassen
+  @current @personas
+  Szenario: Lizenzanzahl bei Mehrplatz/Konkurrent/Site-Lizenzen
+    Angenommen es existiert ein Software-Produkt
+    Wenn ich eine neue Software-Lizenz hinzufüge
+    Und ich alle Pflichtfelder für die Lizenz ausfülle
+    Wenn ich einen der folgenden Lizenztypen wähle:
+      | Mehrplatz   |
+      | Konkurrent  |
+      | Site-Lizenz |
+    Und ich die Gesamtanzahl "50" eingebe
+    Dann wird mir die verbleibenden Lizenzen wie folgt angezeigt "verbleibend 50"
+    Und ich die folgenden Lizenzanzahl-Zeilen hinzufüge
+      | Anzahl   | Text | 
+      | 1        | Christina Meier| 
+      | 10       | Raum ITZ.Z40| 
+    Dann wird mir die verbleibenden Lizenzen wie folgt angezeigt "verbleibend 39"
+    Und ich die folgenden Lizenzanzahl-Zeilen hinzufüge
+      | Anzahl   | Text | 
+      | 40        | Raum Z50 | 
+    Dann wird mir die verbleibenden Lizenzen wie folgt angezeigt "verbleibend -1"
+    Wenn ich die folgende Zeile lösche
+      | 1        | Christina Meier| 
+    Dann wird mir die verbleibenden Lizenzen wie folgt angezeigt "verbleibend 0" 
+
+  @javascript @personas
+  Szenario: Software-Lizenz Anschaffungswert mit 2 Dezimalstellen erfassen
     Angenommen es existiert ein Software-Produkt
     Wenn ich eine neue Software-Lizenz hinzufüge
     Und ich alle Pflichtfelder für die Lizenz ausfülle
