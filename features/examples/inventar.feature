@@ -14,6 +14,33 @@ Funktionalität: Inventar
     Wenn ich mich auf der Softwareliste befinde
     Dann man sieht Software
 
+
+  @current
+  Szenario: Inventar anhand eines Suchbegriffs finden
+    Angenommen es existiert ein Modell mit folgenden Eigenschaften:
+      | Name           | suchbegriff1 |
+      | Hersteller     | suchbegriff4 |
+    Und es existiert ein Gegenstand mit folgenden Eigenschaften:
+      | Inventarcode   | suchbegriff2 |
+    Wenn ich nach einer dieser Modell-Eigenschaften suche
+    Dann es erscheinen alle zutreffenden Modelle
+    Und es erscheinen alle zutreffenden Gegenstände
+
+  @current
+  Szenario: Pakete anhand eines Suchbegriffs finden
+    Angenommen es existiert ein Paket-Modell mit folgenden :
+      | Name           | suchbegriff1 |
+    Und es existiert ein Paket-Gegenstand mit folgenden Eigenschaften:
+      | Inventarcode           | AVZ40001 |
+    Und diese Paket-Gegenstand ist Teil des Pakets-Modells
+    Und es existiert ein Gegenstand mit folgenden Eigenschaften:
+      | Inventarcode           | AVZ40020 |
+    Und dieser Gegenstand ist Teil des Paket-Gegenstandes
+    Wenn ich nach einer dieser Suchbegriffe suche
+    Dann es erscheinen alle zutreffenden Paket-Modelle
+    Und es erscheinen alle zutreffenden Paket-Gegenstände
+    Und es erscheinen alle zutreffenden Gegenstände
+
   @javascript @personas @firefox
   Szenario: Auswahlmöglichkeiten
     Dann hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind
