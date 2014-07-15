@@ -5,7 +5,7 @@ Funktionalität: Software kopieren
   Grundlage:
     Angenommen ich bin Mike
 
-  @upcoming
+  @current
   Szenario: Software kopieren
     Angenommen es existiert eine Software-Lizenz
     Wenn ich eine bestehende Software-Lizenz kopiere
@@ -25,7 +25,7 @@ Funktionalität: Software kopieren
     | Notiz |
     | Aktivierungstyp |
     | Lizenztyp |
-    | Anzahl |
+    | Gesamtanzahl |
     | Betriebssystem |
     | Installation |
     | Lizenzablaufdatum |
@@ -34,7 +34,7 @@ Funktionalität: Software kopieren
     Wenn ich die Lizenz speichere
     Dann ist die Lizenz mit den angegebenen Informationen gespeichert
 
-  @upcoming
+  @current
   Szenario: Wo kann Software kopiert werden
     Angenommen es existiert eine Software-Lizenz
     Wenn ich mich in der Inventarliste befinde
