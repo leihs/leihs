@@ -2,7 +2,9 @@ require "#{Rails.root}/features/support/leihs_factory.rb"
 
 LeihsFactory.create_default_languages
 LeihsFactory.create_default_authentication_systems
-LeihsFactory.create_default_building
+
+main_building = Building.new(:name => "Main building", :code => "ZZZ")
+main_building.save
 
 admin = User.where(:login => 'admin').first
 unless admin
