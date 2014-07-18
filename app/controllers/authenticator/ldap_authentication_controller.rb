@@ -76,7 +76,7 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
   # @param email [String] The email address of the user you want to create
   def create_user(login, email, firstname, lastname)
     user = User.new(:login => login, :email => "#{email}", :firstname => "#{firstname}", :lastname => "#{lastname}")
-    user.authentication_system = AuthenticationSystem.where(:class_name => 'HsluAuthentication').first
+    user.authentication_system = AuthenticationSystem.where(:class_name => 'LdapAuthentication').first
     if user.save
       return user
     elsif

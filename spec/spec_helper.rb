@@ -40,16 +40,7 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
   end
 
-  # we want to reset everything before testing
-  config.before :all do
-    DatabaseCleaner.clean_with :truncation
-  end
 
-  # we have to clean everything after testing
-  config.after :all do
-    DatabaseCleaner.clean_with :truncation
-  end
-  
   config.before :each  do
     DatabaseCleaner.start
   end

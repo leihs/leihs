@@ -38,10 +38,16 @@ describe Authenticator::LdapAuthenticationController do
   end
 
   context "if the user does not yet exist" do
-    it "should be able to create a normal with various useful data grabbed from LDAP" do
+    it "should be able to create a normal user with various useful data grabbed from LDAP" do
       post :login, {:login => { :user => "normal_user", :password => "pass" }}, {}
       User.where(:login => "normal_user").first.should_not == nil
       # TODO: Check that all the data from LDAP made it into our user object
+    end
+    it "should make sure that users it creates have LDAP as authentication system" do
+      post :login, {:login => { :user => "normal_user", :password => "pass" }}, {}
+      as = AuthenticationSystem.where(:class_name => "LdapAuthentication").first
+      as.should_not == nil
+      User.where(:login => "normal_user").first.authentication_system.should == as
     end
 
     it "newly created user should get automatically access as customer in all the pools where automatic access is activated" do
