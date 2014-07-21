@@ -768,63 +768,63 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:237
-- name: Neuen Benutzer im Geräterpark als Inventar-Verwalter hinzufügen - features/examples/benutzerverwaltung.feature:254
+- name: Neuen Benutzer im Geräterpark als Inventar-Verwalter hinzufügen - features/examples/benutzerverwaltung.feature:270
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:254
-- name: Zugriff auf Ausleihe-Verwalter ändern als Ausleihe-Verwalter - features/examples/benutzerverwaltung.feature:286
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:270
+- name: Zugriff auf Ausleihe-Verwalter ändern als Ausleihe-Verwalter - features/examples/benutzerverwaltung.feature:302
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:286
-- name: Zugriff auf Kunde ändern als Ausleihe-Verwalter - features/examples/benutzerverwaltung.feature:299
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:302
+- name: Zugriff auf Kunde ändern als Ausleihe-Verwalter - features/examples/benutzerverwaltung.feature:315
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:299
-- name: Zugriff ändern als Inventar-Verwalter - features/examples/benutzerverwaltung.feature:307
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:315
+- name: Zugriff ändern als Inventar-Verwalter - features/examples/benutzerverwaltung.feature:323
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:307
-- name: Zugriff auf ein Inventarpool gewährleisten als Inventar-Verwalter - features/examples/benutzerverwaltung.feature:321
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:323
+- name: Zugriff auf ein Inventarpool gewährleisten als Inventar-Verwalter - features/examples/benutzerverwaltung.feature:337
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:321
-- name: Zugriff ändern als Administrator - features/examples/benutzerverwaltung.feature:330
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:337
+- name: Zugriff ändern als Administrator - features/examples/benutzerverwaltung.feature:346
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:330
-- name: Voraussetzungen fürs Löschen eines Benutzers - features/examples/benutzerverwaltung.feature:344
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:346
+- name: Voraussetzungen fürs Löschen eines Benutzers - features/examples/benutzerverwaltung.feature:360
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:344
-- name: Alphabetische Sortierung der Benutzer innerhalb vom Inventarpool - features/examples/benutzerverwaltung.feature:353
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:353
-- name: Benutzer ohne Zugriff im Inventarpool editieren ohne ihm dabei Zugriff zu
-    gewährleisten - features/examples/benutzerverwaltung.feature:359
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:359
-- name: Neuen Benutzer im Geräterpark als Administrator hinzufügen - features/examples/benutzerverwaltung.feature:369
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:360
+- name: Alphabetische Sortierung der Benutzer innerhalb vom Inventarpool - features/examples/benutzerverwaltung.feature:369
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:369
-- name: Neuen Benutzer hinzufügen - ohne Eingabe der Pflichtfelder - features/examples/benutzerverwaltung.feature:396
+- name: Benutzer ohne Zugriff im Inventarpool editieren ohne ihm dabei Zugriff zu
+    gewährleisten - features/examples/benutzerverwaltung.feature:375
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:396
-- name: Benutzer den Zugriff auf ein Inventarpool reaktivieren - features/examples/benutzerverwaltung.feature:411
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:375
+- name: Neuen Benutzer im Geräterpark als Administrator hinzufügen - features/examples/benutzerverwaltung.feature:385
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:411
-- name: Benutzer als Administrator löschen - features/examples/benutzerverwaltung.feature:420
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:385
+- name: Neuen Benutzer hinzufügen - ohne Eingabe der Pflichtfelder - features/examples/benutzerverwaltung.feature:412
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:420
-- name: Startseite zurücksetzen - features/examples/benutzerverwaltung.feature:429
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:412
+- name: Benutzer den Zugriff auf ein Inventarpool reaktivieren - features/examples/benutzerverwaltung.feature:427
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:429
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:427
+- name: Benutzer als Administrator löschen - features/examples/benutzerverwaltung.feature:436
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:436
+- name: Startseite zurücksetzen - features/examples/benutzerverwaltung.feature:445
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:445
 - name: Bestellende Person wechseln - features/examples/bestellenden_wechseln.feature:9
   scripts:
     cucumber:
