@@ -107,7 +107,7 @@ items_to_import.each do |item|
   #end
 
   # Properties
-  #i.properties[:anschaffungskategorie] = item["Anschaffungskategorie"]
+  i.properties[:anschaffungskategorie] = item["Anschaffungskategorie"]
   #i.properties[:reference] = "invoice" if item["Bezug"] == "laufende Rechnung"
   #i.properties[:reference] = "investment" if item["Bezug"] == "Investition"
 
