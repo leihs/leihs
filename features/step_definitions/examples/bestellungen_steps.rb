@@ -60,10 +60,6 @@ Wenn(/^ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen$/) do
   @current_inventory_pool = @current_user.managed_inventory_pools.find {|ip| not ip.contracts.with_verifiable_user_and_model.empty? }
 end
 
-Wenn(/^ich mich auf der Liste der Bestellungen befinde$/) do
-  visit manage_contracts_path(@current_inventory_pool, status: [:approved, :submitted, :rejected]) unless current_path == manage_contracts_path(@current_inventory_pool, status: [:approved, :submitted, :rejected])
-end
-
 Dann(/^sehe ich die Reiter "(.*?)"$/) do |tabs|
   within ".inline-tab-navigation" do
     tabs.split(", ").each do |tab|
@@ -242,4 +238,53 @@ Aber(/^ich kann keine Gegenstände zuteilen$/) do
     find("li.ui-menu-item a", match: :first).click
   end
   find("#flash .error", text: _("You don't have permission to perform this action"))
+end
+
+Wenn(/^I am listing the (orders|contracts|visits)$/) do |arg1|
+  case arg1
+    when "orders"
+      visit manage_contracts_path(@current_inventory_pool, status: [:approved, :submitted, :rejected])
+    when "contracts"
+      visit manage_contracts_path(@current_inventory_pool, status: [:signed, :closed])
+    when "visits"
+      visit manage_inventory_pool_visits_path(@current_inventory_pool)
+    else
+      raise "not found"
+  end
+end
+
+Given(/^(orders|contracts|visits) exist$/) do |arg1|
+  @contracts = case arg1
+                 when "orders"
+                   @current_inventory_pool.contracts.submitted_or_approved_or_rejected
+                 when "contracts"
+                   @current_inventory_pool.contracts.signed_or_closed
+                 when "visits"
+                   @current_inventory_pool.visits
+                 else
+                   raise "not found"
+               end
+  @contracts.exists?.should be_true
+end
+
+When(/^I search for (an order|a contract|a visit)$/) do |arg1|
+  @contract = @contracts.sample
+  @search_term = @contract.user.to_s
+  el = arg1 == "a visit" ? "#visits-index-view" : "#contracts-index-view"
+  within el do
+    find("#list-search").set @search_term
+    sleep(0.33)
+  end
+end
+
+Then(/^all listed (orders|contracts|visits), are matched by the search term$/) do |arg1|
+  el = arg1 == "visits" ? "#visits-index-view" : "#contracts-index-view"
+  within el do
+    within ".list-of-lines" do
+      find(".line[data-id='#{@contract.id}']")
+      contract_ids = all(".line").map{|x| x["data-id"] }.sort
+      matching_contracts_ids = @contracts.search(@search_term).pluck(:id).map(&:to_s).sort
+      contract_ids.should == matching_contracts_ids
+    end
+  end
 end

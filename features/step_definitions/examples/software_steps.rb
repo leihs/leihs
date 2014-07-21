@@ -711,7 +711,7 @@ When(/^this field grows up till showing the complete text$/) do
 end
 
 When(/^I release the focus from this field$/) do
-  find("body").click
+  find("body").click # blur all possible focused autocomplete inputs
 end
 
 Then(/^this field shrinks back to the original size$/) do

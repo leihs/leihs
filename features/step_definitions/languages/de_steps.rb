@@ -667,3 +667,59 @@ Dann(/^fehlende Rauminformationen bei Optionen werden als "(.*?)" angezeigt$/) d
       end
   step %Q(the missing location information for options, are displayed with "#{s}")
 end
+Angenommen(/^es existieren (Bestellungen|Verträge|Besuche)$/) do |arg1|
+  s = case arg1
+        when "Bestellungen"
+          "orders"
+        when "Verträge"
+          "contracts"
+        when "Besuche"
+          "visits"
+        else
+          raise "not found"
+      end
+  step "%s exist" % s
+end
+
+Wenn(/^ich mich auf der Liste der (Bestellungen|Verträge|Besuche) befinde$/) do |arg1|
+  s = case arg1
+        when "Bestellungen"
+          "orders"
+        when "Verträge"
+          "contracts"
+        when "Besuche"
+          "visits"
+        else
+          raise "not found"
+      end
+  step "I am listing the %s" % s
+
+end
+
+Wenn(/^ich nach (einer Bestellung|einem Vertrag|einem Besuch) suche$/) do |arg1|
+  s = case arg1
+        when "einer Bestellung"
+          "an order"
+        when "einem Vertrag"
+          "a contract"
+        when "einem Besuch"
+          "a visit"
+        else
+          raise "not found"
+      end
+  step "I search for %s" % s
+end
+
+Dann(/^werden mir alle (Bestellungen|Verträge|Besuche) aufgeführt, die zu meinem Suchbegriff passen$/) do |arg1|
+  s = case arg1
+        when "Bestellungen"
+          "orders"
+        when "Verträge"
+          "contracts"
+        when "Besuche"
+          "visits"
+        else
+          raise "not found"
+      end
+  step "all listed %s, are matched by the search term" % s
+end

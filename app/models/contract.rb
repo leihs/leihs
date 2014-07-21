@@ -69,7 +69,7 @@ class Contract < ActiveRecord::Base
   scope :not_empty, -> {joins(:contract_lines).uniq}
 
   # OPTIMIZE use INNER JOIN (:joins => :contract_lines) -OR- union :approved + :signed (with lines)
-  scope :pending, -> { select("DISTINCT contracts.*").
+  scope :pending, -> { uniq.
       joins("LEFT JOIN contract_lines ON contract_lines.contract_id = contracts.id").
       where("contracts.status = '#{:signed}'
                          OR (contracts.status = '#{:approved}' AND
@@ -90,7 +90,7 @@ class Contract < ActiveRecord::Base
   scope :search, lambda { |query|
     return all if query.blank?
 
-    sql = select("DISTINCT contracts.*").
+    sql = uniq.
         joins("LEFT JOIN `users` ON `users`.`id` = `contracts`.`user_id`").
         joins("INNER JOIN `contract_lines` ON `contract_lines`.`contract_id` = `contracts`.`id`").
         joins("LEFT JOIN `options` ON `options`.`id` = `contract_lines`.`option_id`").
