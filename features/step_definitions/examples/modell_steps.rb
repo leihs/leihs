@@ -51,7 +51,7 @@ Dann(/^wurde das redundante ergänzende Modell nicht gespeichert$/) do
   comp_before.count.should == @model.reload.compatibles.count
 end
 
-Angenommen(/^es existiert eine? (.+) mit folgenden Eigenschaften$/) do |entity, table|
+Angenommen(/^es existiert eine? (.+) mit folgenden Konditionen:$/) do |entity, table|
   conditions = table.raw.flatten.map do |condition|
     case condition
       when "in keinem Vertrag aufgeführt", "keiner Bestellung zugewiesen"

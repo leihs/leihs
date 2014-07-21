@@ -65,7 +65,7 @@ Funktionalität: Modell
 
   @javascript @personas
   Szenario: Modell löschen
-    Angenommen es existiert ein Modell mit folgenden Eigenschaften
+    Angenommen es existiert ein Modell mit folgenden Konditionen:
       | in keinem Vertrag aufgeführt |
       | keiner Bestellung zugewiesen |
       | keine Gegenstände zugefügt |
@@ -90,7 +90,7 @@ Funktionalität: Modell
 
   @javascript @personas
   Szenario: Modelanhängsel löschen
-    Angenommen es existiert ein Modell mit folgenden Eigenschaften
+    Angenommen es existiert ein Modell mit folgenden Konditionen:
       | in keinem Vertrag aufgeführt |
       | keiner Bestellung zugewiesen |
       | keine Gegenstände zugefügt |
@@ -134,7 +134,7 @@ Funktionalität: Modell
 
   @javascript @personas
   Szenario: Modelanhängsel löschen
-    Angenommen es existiert ein Modell mit folgenden Eigenschaften
+    Angenommen es existiert ein Modell mit folgenden Konditionen:
       | in keinem Vertrag aufgeführt |
       | keiner Bestellung zugewiesen |
       | keine Gegenstände zugefügt |
@@ -161,7 +161,7 @@ Funktionalität: Modell
 
   @javascript @personas
   Szenario: Modelanhängsel löschen
-    Angenommen es existiert ein Modell mit folgenden Eigenschaften
+    Angenommen es existiert ein Modell mit folgenden Konditionen:
       | in keinem Vertrag aufgeführt |
       | keiner Bestellung zugewiesen |
       | keine Gegenstände zugefügt |

@@ -110,7 +110,8 @@ class Contract < ActiveRecord::Base
                           or(Model.arel_table[:version].matches(qq)).
                           or(Option.arel_table[:product].matches(qq)).
                           or(Option.arel_table[:version].matches(qq)).
-                          or(Item.arel_table[:inventory_code].matches(qq)))
+                          or(Item.arel_table[:inventory_code].matches(qq)).
+                          or(Item.arel_table[:properties].matches(qq)))
     }
     sql
   }

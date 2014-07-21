@@ -1202,62 +1202,66 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/inventar.feature:10
-- name: Auswahlmöglichkeiten - features/examples/inventar.feature:18
+- name: Inventar anhand eines Suchbegriffs finden - features/examples/inventar.feature:18
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/inventar.feature:18
-- name: Aussehen einer Options-Zeile - features/examples/inventar.feature:29
+- name: Pakete anhand eines Suchbegriffs finden - features/examples/inventar.feature:29
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/inventar.feature:29
-- name: Keine Leeren Modelle auf der Liste des Inventars - features/examples/inventar.feature:37
+- name: Auswahlmöglichkeiten - features/examples/inventar.feature:47
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar.feature:37
-- name: Paket-Modelle aufklappen - features/examples/inventar.feature:41
+      body: bundle exec cucumber -p default features/examples/inventar.feature:47
+- name: Aussehen einer Options-Zeile - features/examples/inventar.feature:58
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar.feature:41
-- name: Aussehen einer Modell-Zeile - features/examples/inventar.feature:50
+      body: bundle exec cucumber -p default features/examples/inventar.feature:58
+- name: Keine Leeren Modelle auf der Liste des Inventars - features/examples/inventar.feature:66
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar.feature:50
-- name: Aussehen einer Gegenstands-Zeile - features/examples/inventar.feature:60
+      body: bundle exec cucumber -p default features/examples/inventar.feature:66
+- name: Paket-Modelle aufklappen - features/examples/inventar.feature:70
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar.feature:60
-- name: Aussehen einer Software-Lizenz-Zeile - features/examples/inventar.feature:81
+      body: bundle exec cucumber -p default features/examples/inventar.feature:70
+- name: Aussehen einer Modell-Zeile - features/examples/inventar.feature:79
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar.feature:81
-- name: Keine Resultate auf der Liste des Inventars - features/examples/inventar.feature:117
+      body: bundle exec cucumber -p default features/examples/inventar.feature:79
+- name: Aussehen einer Gegenstands-Zeile - features/examples/inventar.feature:89
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar.feature:117
-- name: Modell aufklappen - features/examples/inventar.feature:122
+      body: bundle exec cucumber -p default features/examples/inventar.feature:89
+- name: Aussehen einer Software-Lizenz-Zeile - features/examples/inventar.feature:110
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar.feature:122
-- name: Filtermöglichkeiten von Listen - features/examples/inventar.feature:128
+      body: bundle exec cucumber -p default features/examples/inventar.feature:110
+- name: Keine Resultate auf der Liste des Inventars - features/examples/inventar.feature:146
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar.feature:128
-- name: Grundeinstellung der Listenansicht - features/examples/inventar.feature:148
+      body: bundle exec cucumber -p default features/examples/inventar.feature:146
+- name: Modell aufklappen - features/examples/inventar.feature:151
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar.feature:148
+      body: bundle exec cucumber -p default features/examples/inventar.feature:151
+- name: Filtermöglichkeiten von Listen - features/examples/inventar.feature:157
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/inventar.feature:157
+- name: Grundeinstellung der Listenansicht - features/examples/inventar.feature:177
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/inventar.feature:177
 - name: Globaler Export des Inventars aller Geräteparks - features/examples/inventar_csv.feature:6
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/inventar_csv.feature:6
-- name: Export der aktuellen Ansicht als CSV - features/examples/inventar_csv.feature:12
+- name: Export der aktuellen Software-Ansicht als CSV - features/examples/inventar_csv.feature:20
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar_csv.feature:12
-- name: Export der aktuellen Software-Ansicht als CSV - features/examples/inventar_csv.feature:19
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar_csv.feature:19
+      body: bundle exec cucumber -p default features/examples/inventar_csv.feature:20
 - name: Wie man den Helferschirm erreicht - features/examples/inventarhelfer.feature:9
   scripts:
     cucumber:
@@ -1492,18 +1496,18 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/pakete.feature:59
-- name: Paketeigenschaften abfüllen bei neu erstelltem Modell - features/examples/pakete.feature:71
+- name: Paketeigenschaften abfüllen bei neu erstelltem Modell - features/examples/pakete.feature:72
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/pakete.feature:71
-- name: Paket löschen - features/examples/pakete.feature:95
+      body: bundle exec cucumber -p default features/examples/pakete.feature:72
+- name: Paket löschen - features/examples/pakete.feature:106
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/pakete.feature:95
-- name: Paket löschen schlägt fehl wenn das Paket gerade ausgeliehen ist - features/examples/pakete.feature:100
+      body: bundle exec cucumber -p default features/examples/pakete.feature:106
+- name: Paket löschen schlägt fehl wenn das Paket gerade ausgeliehen ist - features/examples/pakete.feature:111
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/pakete.feature:100
+      body: bundle exec cucumber -p default features/examples/pakete.feature:111
 - name: Benutzer mit Benutzernamen und Passwort erstellen - features/examples/passwort.feature:9
   scripts:
     cucumber:
@@ -1628,22 +1632,43 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/ruecknahmen.feature:24
+- name: Was ich auf der Rüstliste sehen möchte - features/examples/ruestliste.feature:13
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/ruestliste.feature:13
+- name: Inhalt der Rüstliste vor Aushändigung - keine Zuteilung von Inventarcode -
+    features/examples/ruestliste.feature:24
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/ruestliste.feature:24
+- name: Inhalt der Rüstliste nach Aushändigung - Inventarcodes sind bekannt - features/examples/ruestliste.feature:44
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/ruestliste.feature:44
+- name: Wo wird die Rüstliste aufgerufen - features/examples/ruestliste.feature:58
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/ruestliste.feature:58
 - name: Software-Produkt editieren - features/examples/software_editieren.feature:9
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/software_editieren.feature:9
-- name: Software-Lizenz editieren - Werte der Datenfelder löschen - features/examples/software_editieren.feature:61
+- name: Grösse des Software Informationen-Felds - features/examples/software_editieren.feature:24
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/software_editieren.feature:61
+      body: bundle exec cucumber -p default features/examples/software_editieren.feature:24
+- name: Software-Lizenz editieren - Werte der Datenfelder löschen - features/examples/software_editieren.feature:62
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/software_editieren.feature:62
 - name: Software-Produkt erfassen - features/examples/software_erfassen.feature:9
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/software_erfassen.feature:9
-- name: Software-Lizenz Anschaffungswert mit 2 Dezimalstellen erfassen - features/examples/software_erfassen.feature:100
+- name: Software-Lizenz Anschaffungswert mit 2 Dezimalstellen erfassen - features/examples/software_erfassen.feature:126
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/software_erfassen.feature:100
+      body: bundle exec cucumber -p default features/examples/software_erfassen.feature:126
 - name: Software-Produkt löschen - features/examples/software_loeschen.feature:9
   scripts:
     cucumber:
@@ -1656,14 +1681,14 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/software_suchen.feature:9
-- name: Verträge für Software-Lizenzen anhand des Ausleihenden finden - features/examples/software_suchen.feature:27
+- name: Verträge für Software-Lizenzen anhand des Ausleihenden finden - features/examples/software_suchen.feature:28
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/software_suchen.feature:27
-- name: Aufteilung der Suchresultate - features/examples/software_suchen.feature:35
+      body: bundle exec cucumber -p default features/examples/software_suchen.feature:28
+- name: Aufteilung der Suchresultate - features/examples/software_suchen.feature:36
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/software_suchen.feature:35
+      body: bundle exec cucumber -p default features/examples/software_suchen.feature:36
 - name: Navigation für Ausleihenden - features/examples/sprachauswahl.feature:10
   scripts:
     cucumber:

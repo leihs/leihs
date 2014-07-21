@@ -147,7 +147,11 @@ class Model < ActiveRecord::Base
         joins("LEFT JOIN `model_groups` AS mg2 ON `mg2`.`id` = `ml2`.`model_group_id` AND `mg2`.`type` = 'Category'").
         joins("LEFT JOIN `properties` AS p2 ON `p2`.`model_id` = `models`.`id`")
     end
-    sql = sql.joins("LEFT JOIN `items` AS i2 ON `i2`.`model_id` = `models`.`id`") if fields.empty? or fields.include?(:items)
+    if fields.empty? or fields.include?(:items)
+      sql = sql.joins("LEFT JOIN `items` AS i2 ON `i2`.`model_id` = `models`.`id`").
+                joins("LEFT JOIN `items` AS i3 ON `i3`.`parent_id` = `i2`.`id`").
+                joins("LEFT JOIN `models` AS m3 ON `m3`.`id` = `i3`.`model_id`")
+    end
 
     # FIXME refactor to Arel
     query.split.each do |x|
@@ -161,7 +165,12 @@ class Model < ActiveRecord::Base
         s << "mg2.name LIKE :query"
         s << "p2.value LIKE :query"
       end
-      s << "CONCAT_WS(' ', i2.inventory_code, i2.serial_number, i2.invoice_number, i2.note, i2.name, i2.user_name, i2.properties) LIKE :query" if fields.empty? or fields.include?(:items)
+      if fields.empty? or fields.include?(:items)
+        model_fields = Model::SEARCHABLE_FIELDS.map{|f| "m3.#{f}" }.join(', ')
+        item_fields_2 = Item::SEARCHABLE_FIELDS.map{|f| "i2.#{f}" }.join(', ')
+        item_fields_3 = Item::SEARCHABLE_FIELDS.map{|f| "i3.#{f}" }.join(', ')
+        s << "CONCAT_WS(' ', #{model_fields}, #{item_fields_2}, #{item_fields_3}) LIKE :query"
+      end
 
       sql = sql.where("%s" % s.join(' OR '), :query => "%#{x}%")
     end

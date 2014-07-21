@@ -685,6 +685,7 @@ When(/^I look at this license in the software list$/) do
   find("a[data-software='true']").click
   step 'ich nach "%s" suche' % @license.inventory_code
   within ".line[data-type='software'][data-id='#{@license.model.id}']" do
+    sleep(0.11)
     if has_selector?(".button[data-type='inventory-expander'] i.arrow.right")
       find(".button[data-type='inventory-expander']").click
     end

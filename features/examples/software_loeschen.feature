@@ -7,7 +7,7 @@ Funktionalität: Software löschen
 
   @javascript @firefox @personas
   Szenario: Software-Produkt löschen
-    Angenommen es existiert eine Software mit folgenden Eigenschaften
+    Angenommen es existiert eine Software mit folgenden Konditionen:
       | in keinem Vertrag aufgeführt |
       | keiner Bestellung zugewiesen |
       | keine Lizenzen zugefügt      |
@@ -17,7 +17,7 @@ Funktionalität: Software löschen
 
   @javascript @firefox @personas
   Szenario: Softwareanhängsel löschen wenn Software gelöscht wird
-    Angenommen es existiert eine Software mit folgenden Eigenschaften
+    Angenommen es existiert eine Software mit folgenden Konditionen:
       | in keinem Vertrag aufgeführt |
       | keiner Bestellung zugewiesen |
       | keine Lizenzen zugefügt      |

@@ -294,6 +294,11 @@
     cucumber:
       body: bundle exec cucumber -p default --strict "features/examples/ruecknahmen.feature"
       timeout: 600
+- name: examples/ruestliste
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default --strict "features/examples/ruestliste.feature"
+      timeout: 600
 - name: examples/software_editieren
   scripts:
     cucumber:
@@ -303,6 +308,11 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default --strict "features/examples/software_erfassen.feature"
+      timeout: 600
+- name: examples/software_kopieren
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default --strict "features/examples/software_kopieren.feature"
       timeout: 600
 - name: examples/software_loeschen
   scripts:

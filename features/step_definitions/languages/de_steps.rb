@@ -177,32 +177,55 @@ Angenommen(/^es existiert eine Software\-Lizenz$/) do
   step "a software license exists"
 end
 
-Angenommen(/^es existiert ein Software\-Produkt mit folgenden Eigenschaften:$/) do |table|
-  step "there is a software product with the following properties:", table
+Angenommen(/^es existiert ein(e)? (.*) mit folgenden Eigenschaften:$/) do |arg0, arg1, table|
+  s = case arg1
+        when "Modell"
+          "model"
+        when "Gegenstand"
+          "item"
+        when "Software-Produkt"
+          "software product"
+        when "Software-Lizenz"
+          "software license"
+        else
+          raise "not found"
+      end
+  step "there is a #{s} with the following properties:", table
 end
 
-Angenommen(/^es existiert eine Software\-Lizenz mit folgenden Eigenschaften:$/) do |table|
-  step "there is a software license with the following properties:", table
+Wenn(/^ich (im Inventarbereich )?nach einer dieser (.*)?Eigenschaften suche$/) do |arg1, arg2|
+  s1 = "in inventory "
+  s2 = case arg2
+         when "Software-Produkt "
+           "software product "
+         when "Software-Lizenz "
+           "software license "
+         else
+           ""
+       end
+  step "I search #{s1}after one of those #{s2}properties"
 end
 
-Wenn(/^ich nach einer dieser Software\-Produkt Eigenschaften suche$/) do
-  step "I search after one of those software product properties"
-end
-
-Wenn(/^ich nach einer dieser Software\-Lizenz Eigenschaften suche$/) do
-  step "I search after one of those software license properties"
-end
-
-Dann(/^es erscheinen alle zutreffenden Software\-Produkte$/) do
-  step "they appear all matched software products"
-end
-
-Dann(/^es erscheinen alle zutreffenden Software\-Lizenzen$/) do
-  step "they appear all matched software licenses"
-end
-
-Dann(/^es erscheinen alle zutreffenden Verträge, in denen diese Software\-Produkt vorkommt$/) do
-  step "they appear all matched contracts, in which this software product is contained"
+Dann(/^es erscheinen alle zutreffenden (.*)$/) do |arg1|
+  s = case arg1
+        when "Modelle"
+          "models"
+        when "Gegenstände"
+          "items"
+        when "Paket-Modelle"
+          "package models"
+        when "Paket-Gegenstände"
+          "package items"
+        when "Software-Produkte"
+          "software products"
+        when "Software-Lizenzen"
+          "software licenses"
+        when "Verträge, in denen diese Software-Produkt vorkommt"
+          "contracts, in which this software product is contained"
+        else
+          raise "not found"
+      end
+  step "they appear all matched %s" % s
 end
 
 Angenommen(/^diese Software\-Lizenz ist an jemanden ausgeliehen$/) do
@@ -513,6 +536,18 @@ Dann(/^alle die zugeteilten Gegenstände erhalten dieselben Werte, die auf diese
   step "all the packaged items receive these same values store to this package", table
 end
 
+Angenommen(/^diese Modell ein Paket ist$/) do
+  step "this model is a package"
+end
+
+Angenommen(/^diese Paket\-Gegenstand ist Teil des Pakets\-Modells$/) do
+  step "this package item is part of this package model"
+end
+
+Angenommen(/^dieser Gegenstand ist Teil des Paket\-Gegenstandes$/) do
+  step "this item is part of this package item"
+end
+
 Wenn(/^man öffnet (eine|die) Rüstliste( für einen unterschriebenen Vertrag)?$/) do |arg1, arg2|
   s1 = case arg1
          when "eine"
@@ -615,11 +650,11 @@ end
 Dann(/^Gegenständen kein Raum oder Gestell zugeteilt sind, wird (die verfügbare Anzahl und )?"(.*?)" angezeigt$/) do |arg1, arg2|
   s1 = arg1 ? "the available quantity and " : nil
   s2 = case arg2
-        when "Ort nicht definiert"
-          _("location not defined")
-        else
-          raise "not found"
-      end
+         when "Ort nicht definiert"
+           _("location not defined")
+         else
+           raise "not found"
+       end
   step %Q(the items without location, are displayed with #{s1}"#{s2}")
 end
 
