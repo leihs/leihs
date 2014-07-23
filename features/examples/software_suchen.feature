@@ -14,7 +14,7 @@ Funktionalität: Software suchen
       | Inventarcode         | suchbegriff2 |
       | Seriennummer         | suchbegriff3 |
       | Dongle-ID            | suchbegriff5 |
-      | Lizenzanzahl-Zeile   | 1 / Christina Meier |
+      | Anzahl-Zuteilung     | 1 / Christina Meier |
     Und diese Software-Lizenz ist an jemanden ausgeliehen
     Wenn ich nach einer dieser Software-Produkt Eigenschaften suche
     Dann es erscheinen alle zutreffenden Software-Produkte

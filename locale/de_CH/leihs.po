@@ -1079,6 +1079,12 @@ msgstr "Anz."
 msgid "Quantity"
 msgstr "Anzahl"
 
+msgid "Quantity allocations"
+msgstr "Anzahl-Zuteilungen"
+
+msgid "Total quantity"
+msgstr "Gesamtanzahl"
+
 msgid "Quantity: %d"
 msgstr "Anzahl: %d"
 
@@ -2959,3 +2965,6 @@ msgstr "Beschafft durch"
 
 msgid "Picking List"
 msgstr "Rüstliste"
+
+msgid "remaining"
+msgstr "verbleibend"

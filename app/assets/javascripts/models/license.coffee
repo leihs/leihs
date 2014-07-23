@@ -13,7 +13,7 @@ class window.App.License extends window.App.Item
     _.compact(
       [ @osInformation(),
         @licenseTypeInformation(),
-        @properties.quantity ]
+        @properties.total_quantity ]
     ).join ", "
 
   osInformation: ->

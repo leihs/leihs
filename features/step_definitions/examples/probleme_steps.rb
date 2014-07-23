@@ -118,11 +118,9 @@ end
 
 Angenommen /^ich mache eine Rücknahme eines( verspäteten)? Gegenstandes$/ do |arg1|
   @event = "take_back"
-  overdued_take_back = if arg1
-                         @current_inventory_pool.visits.take_back.select { |x| x.date < Date.today }
-                       else
-                         @current_inventory_pool.visits.take_back
-                       end.sample
+  overdued_take_backs = @current_inventory_pool.visits.take_back.select{|v| v.lines.any? {|l| l.is_a? ItemLine}}
+  overdued_take_backs = overdued_take_backs.select { |x| x.date < Date.today } if arg1
+  overdued_take_back = overdued_take_backs.sample
   @line_id = overdued_take_back.contract_lines.where(type: "ItemLine").sample.id
   visit manage_take_back_path(@current_inventory_pool, overdued_take_back.user)
   page.should have_selector(".line[data-id='#{@line_id}']")

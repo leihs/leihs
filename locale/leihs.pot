@@ -1054,6 +1054,12 @@ msgstr ""
 msgid "Quantity"
 msgstr ""
 
+msgid "Quantity allocations"
+msgstr ""
+
+msgid "Total quantity"
+msgstr ""
+
 msgid "Quantity: %d"
 msgstr ""
 
@@ -2857,4 +2863,7 @@ msgid "Procured by"
 msgstr ""
 
 msgid "Picking List"
+msgstr ""
+
+msgid "remaining"
 msgstr ""

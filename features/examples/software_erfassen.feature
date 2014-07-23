@@ -70,7 +70,7 @@ Funktionalität: Software erfassen
     Dann kann man als "Notiz" einen Text eingeben
     Und die Option "Ausleihbar" ist standardmässig auf "Nicht ausleihbar" gesetzt
 
-  @current @javascript @personas
+  @javascript @personas
   Szenario: Software-Lizenz erfassen
     Angenommen es existiert ein Software-Produkt
     Wenn ich eine neue Software-Lizenz hinzufüge
@@ -84,7 +84,7 @@ Funktionalität: Software erfassen
       | Konkurrent  |
       | Site-Lizenz |
     Und ich eine Gesamtanzahl eingebe
-    Und ich die Lizenzanzahl und einen Text eingebe
+    Und ich die Anzahl-Zuteilungen hinzufüge
     Und ich als Betriebssystem keine, eine oder mehrere der vorhandenen Möglichkeiten auswähle
     Und ich als Installation keine, eine oder mehrere der vorhandenen Möglichkeiten auswähle
     Und ich als Lizenzablaufdatum ein Datum auswähle
@@ -98,7 +98,7 @@ Funktionalität: Software erfassen
     Und ich speichere
     Dann sind die Informationen dieser Software-Lizenz gespeichert
 
-  @current @personas
+  @personas @firefox
   Szenario: Lizenzanzahl bei Mehrplatz/Konkurrent/Site-Lizenzen
     Angenommen es existiert ein Software-Produkt
     Wenn ich eine neue Software-Lizenz hinzufüge
@@ -108,19 +108,20 @@ Funktionalität: Software erfassen
       | Konkurrent  |
       | Site-Lizenz |
     Und ich die Gesamtanzahl "50" eingebe
-    Dann wird mir die verbleibenden Lizenzen wie folgt angezeigt "verbleibend 50"
-    Und ich die folgenden Lizenzanzahl-Zeilen hinzufüge
+    Dann wird mir die verbleibende Anzahl der Lizenzen wie folgt angezeigt "verbleibend 50"
+    Und ich die folgenden Anzahl-Zuteilungen hinzufüge
       | Anzahl   | Text | 
       | 1        | Christina Meier| 
       | 10       | Raum ITZ.Z40| 
-    Dann wird mir die verbleibenden Lizenzen wie folgt angezeigt "verbleibend 39"
-    Und ich die folgenden Lizenzanzahl-Zeilen hinzufüge
+    Dann wird mir die verbleibende Anzahl der Lizenzen wie folgt angezeigt "verbleibend 39"
+    Und ich die folgenden Anzahl-Zuteilungen hinzufüge
       | Anzahl   | Text | 
-      | 40        | Raum Z50 | 
-    Dann wird mir die verbleibenden Lizenzen wie folgt angezeigt "verbleibend -1"
-    Wenn ich die folgende Zeile lösche
+      | 40       | Raum Z50 | 
+    Dann wird mir die verbleibende Anzahl der Lizenzen wie folgt angezeigt "verbleibend -1"
+    Wenn ich die folgenden Anzahl-Zuteilungen lösche
+      | Anzahl   | Text | 
       | 1        | Christina Meier| 
-    Dann wird mir die verbleibenden Lizenzen wie folgt angezeigt "verbleibend 0" 
+    Dann wird mir die verbleibende Anzahl der Lizenzen wie folgt angezeigt "verbleibend 0" 
 
   @javascript @personas
   Szenario: Software-Lizenz Anschaffungswert mit 2 Dezimalstellen erfassen

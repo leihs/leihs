@@ -9,6 +9,7 @@ class window.App.InlineEntryRemoveController extends Spine.Controller
     line.trigger "inline-entry-remove", line
     if line.data("new")?
       line.remove()
+      @removeCallback?(line)
     else
       @toggleDestroy line, $(e.currentTarget)
 
@@ -22,6 +23,8 @@ class window.App.InlineEntryRemoveController extends Spine.Controller
       line.find("[data-disable-on-remove]").attr "disabled", false
       destroyInput.val(null) if destroyInput.length
       line.data "destroyOnSave", null
+      target.text _jed "Remove"
+      @unstrikeCallback?(line)
     else
       line.addClass "striked"
       line.find("input:visible").attr("disabled", true)
@@ -31,3 +34,5 @@ class window.App.InlineEntryRemoveController extends Spine.Controller
       line.find("[data-disable-on-remove]").attr "disabled", true
       destroyInput.val(1) if destroyInput.length
       line.data "destroyOnSave", true
+      target.text _jed "undo"
+      @strikeCallback?(line)

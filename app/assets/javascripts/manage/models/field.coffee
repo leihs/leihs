@@ -96,6 +96,13 @@ class window.App.Field extends Spine.Model
   children: ->
     _.filter App.Field.all(), (field)=> field.visibility_dependency_field_id == @id
 
+  descendants: ->
+    children = @children()
+    if _.isEmpty children
+      children
+    else
+      _.union children, _.flatten _.map children, (field) -> field.descendants()
+
   parent: ->
     if @visibility_dependency_field_id?
       App.Field.find @visibility_dependency_field_id
@@ -143,14 +150,30 @@ class window.App.Field extends Spine.Model
     field = App.Field.find target.data("id")
     form = $(form)
     children = field.children() if field.children?
+
     if children? and children.length
+
       for child in children
-        if App.Field.getValue(target) == child.visibility_dependency_value or _.contains child.visibility_dependency_value, App.Field.getValue(target)
+        dep_value = child.visibility_dependency_value
+
+           # check if parent's value is the dependancy value
+        if ( App.Field.getValue(target) == dep_value or _.contains(dep_value, App.Field.getValue(target)) ) or \
+           # check if the dependancy value is undefined and the parent is present
+           ( _.isUndefined(dep_value) and App.Field.isPresent(App.Field.find(child.visibility_dependency_field_id), form) )
+
           unless App.Field.isPresent child, form
             if (forPackage and child.forPackage) or not forPackage
               target.after App.Render "manage/views/items/field", {}, $.extend(options, {field: child})
+              child_el = $("[data-type='field'][data-id='#{child.id}']")
+              new App.CompositeFieldController {el: child_el, data: options} if child.type == "composite"
+
+              # recurse if there is a nested dependency relation
+              children = child.children() if child.children?
+              Field.toggleChildren(child_el, form, options, forPackage) if children? and children.length
+
         else
-          form.find("[name='#{child.getFormName()}']").closest("[data-type='field']").remove()
+          # remove element and all its dependent descendants
+          form.find("[data-type='field'][data-id='#{element.id}']").remove() for element in [child].concat(child.descendants())
 
   @isPresent: (field, form)-> !! $(form).find("[data-id='#{field.id}']").length
 

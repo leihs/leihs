@@ -392,8 +392,8 @@ Dann(/^sehe ich die "Software Informationen" angezeigt$/) do
   step %Q(I see the "Software Information")
 end
 
-Wenn(/^ich eine bestehende Software\-Lizenz mit Software\-Informationen und Anhängen editiere$/) do
-  step %Q(I edit an existing software license with software information and attachments)
+Wenn(/^ich eine bestehende Software\-Lizenz mit Software\-Informationen, Anzahl-Zuteilungen und Anhängen editiere$/) do
+  step %Q(I edit an existing software license with software information, quantity allocations and attachments)
 end
 
 Dann(/^die "Software Informationen" sind nicht editierbar$/) do
@@ -722,4 +722,44 @@ Dann(/^werden mir alle (Bestellungen|Verträge|Besuche) aufgeführt, die zu mein
           raise "not found"
       end
   step "all listed %s, are matched by the search term" % s
+end
+
+Wenn(/^ich den Wert der Notiz ändere$/) do
+  step %Q(I change the value of the note)
+end
+
+Wenn(/^ich die Dongle\-ID ändere$/) do
+  step %Q(I change the value of dongle id)
+end
+
+Wenn(/^ich die Gesamtanzahl ändere$/) do
+  step %Q(I change the value of total quantity)
+end
+
+Wenn(/^ich die Anzahl\-Zuteilungen ändere$/) do
+  step %Q(I change the quantity allocations)
+end
+
+Wenn(/^ich eine Gesamtanzahl eingebe$/) do
+  step %Q(I fill in the value of total quantity)
+end
+
+Wenn(/^ich die Anzahl\-Zuteilungen hinzufüge$/) do
+  step %Q(I add the quantity allocations)
+end
+
+Wenn(/^ich die Gesamtanzahl "(.*?)" eingebe$/) do |arg1|
+  step %Q(I fill in total quantity with value "#{arg1}")
+end
+
+Dann(/^wird mir die verbleibende Anzahl der Lizenzen wie folgt angezeigt "(.*?)"$/) do |arg1|
+  step %Q(I see the remaining number of licenses shown as follows "#{arg1}")
+end
+
+Dann(/^ich die folgenden Anzahl\-Zuteilungen hinzufüge$/) do |table|
+  step %Q(I add the following quantity allocations:), table
+end
+
+Wenn(/^ich die folgenden Anzahl\-Zuteilungen lösche$/) do |table|
+  step %Q(I delete the following quantity allocations:), table
 end

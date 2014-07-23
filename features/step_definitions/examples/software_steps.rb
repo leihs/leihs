@@ -75,7 +75,7 @@ Dann(/^sind die Informationen dieser Software\-Lizenz gespeichert$/) do
   license.properties[:activation_type] == @activation_type
   license.properties[:dongle_id] == @dongle_id
   license.properties[:license_type] == @license_type
-  license.properties[:quantity] == @quantity
+  license.properties[:total_quantity] == @total_quantity
   Set.new(license.properties[:operating_system]).should == Set.new(@operating_system_values)
   Set.new(license.properties[:installation]).should == Set.new(@installation_values)
   license.is_borrowable?.should be_true
@@ -84,6 +84,7 @@ Dann(/^sind die Informationen dieser Software\-Lizenz gespeichert$/) do
   license.properties[:maintenance_expiration].should == @maintenance_expiration_date.to_s
   license.properties[:reference].should == @reference
   license.properties[:project_number].should == @project_number
+  license.properties[:quantity_allocations] == @quantity_allocations
 end
 
 Wenn(/^ich eine Software editiere$/) do
@@ -107,8 +108,7 @@ end
 
 Wenn(/^ich eine andere Software auswähle$/) do
   @new_software = Software.all.select{|s| s != @software}.sample
-  find(".field", text: _("Software"), match: :first).find("input").set @new_software.name
-  find(".ui-menu a", text: @new_software.name).click
+  fill_in_autocomplete_field _("Software"), @new_software.name
 end
 
 Wenn(/^ich eine andere Seriennummer eingebe$/) do
@@ -161,7 +161,7 @@ Dann(/^sind die Informationen dieser Software\-Lizenz erfolgreich aktualisiert w
   license.model.should == @new_software
   license.properties[:activation_type] == @new_activation_type
   license.properties[:license_type] == @new_license_type
-  license.properties[:quantity] == @quantity
+  license.properties[:total_quantity] == @new_total_quantity
   Set.new(license.properties[:operating_system]).should == Set.new(@new_operating_system_values)
   Set.new(license.properties[:installation]).should == Set.new(@new_installation_values)
   license.is_borrowable?.should be_true
@@ -171,6 +171,9 @@ Dann(/^sind die Informationen dieser Software\-Lizenz erfolgreich aktualisiert w
   license.properties[:maintenance_expiration].should == @maintenance_expiration_date.to_s if @new_maintenance_expiration_date
   license.properties[:reference].should == @new_reference
   license.properties[:project_number].should == @project_number if @project_number
+  license.note.should == @note
+  license.properties[:dongle_id] == @dongle_id
+  license.properties[:quantity_allocations] == @new_quantity_allocations
 end
 
 Wenn(/^ich mich auf der Softwareliste befinde$/) do
@@ -359,10 +362,10 @@ Given(/^there is a (.*) with the following properties:$/) do |arg1, table|
             item_attrs[:properties] ||= {}
             item_attrs[:properties][:activation_type] = "dongle"
             item_attrs[:properties][:dongle_id] = v
-          when "Lizenzanzahl-Zeile"
+          when "Anzahl-Zuteilung"
             x,y = v.split(" / ")
-            item_attrs[:properties][:quantity_partitions] ||= []
-            item_attrs[:properties][:quantity_partitions] << [x, y]
+            item_attrs[:properties][:quantity_allocations] ||= []
+            item_attrs[:properties][:quantity_allocations] << [x, y]
             y
           else
             raise "not found"
@@ -380,7 +383,7 @@ Given(/^there is a (.*) with the following properties:$/) do |arg1, table|
       end
 
     else
-      raise "not fount"
+      raise "not found"
   end
 
 end
@@ -536,8 +539,7 @@ end
 
 When(/^I fill in the software$/) do
   @software = Software.all.sample
-  find(".field", text: _("Software")).find("input").set @software.name
-  find(".ui-menu a", text: @software.name).click
+  fill_in_autocomplete_field _("Software"), @software.name
 end
 
 When(/^I fill in the field "(.*?)" with the value "(.*?)"$/) do |field, value|
@@ -601,8 +603,8 @@ Then(/^I see the "Software Information"$/) do
   f.should have_selector "a"
 end
 
-When(/^I edit an existing software license with software information and attachments$/) do
-  @license = @current_inventory_pool.items.licenses.find {|i| i.model.technical_detail =~ /http/ and not i.model.attachments.empty? }
+When(/^I edit an existing software license with software information, quantity allocations and attachments$/) do
+  @license = @current_inventory_pool.items.licenses.find {|i| i.model.technical_detail =~ /http/ and not i.model.attachments.empty? and i.properties[:quantity_allocations] }
   @license.should_not be_nil
   visit manage_edit_item_path(@current_inventory_pool, @license)
 end
@@ -672,7 +674,7 @@ When(/^I choose one of the following license types$/) do |table|
 end
 
 When(/^I fill in a value$/) do
-  find(".field", text: _("Quantity")).find("input").set (@quantity = rand(5..500))
+  find(".field", text: _("Quantity")).find("input").set (@total_quantity = rand(5..500))
 end
 
 Given(/^a software product with more than (\d+) text rows in field "(.*?)" exists$/) do |arg1, arg2|
@@ -716,4 +718,84 @@ end
 
 Then(/^this field shrinks back to the original size$/) do
   find("textarea[name='model[technical_detail]']").native.css_value('height').to_i.should == @original_size.to_i
+end
+
+When(/^I change the value of the note$/) do
+  find(".field", text: _("Note")).find("textarea").set (@note = Faker::Lorem.sentence)
+end
+
+When(/^I change the value of dongle id$/) do
+  dongle_field = first(".field", text: _("Dongle ID"))
+  unless dongle_field
+    step %Q(I choose dongle as activation type)
+    dongle_field = first(".field", text: _("Dongle ID"))
+  end
+  dongle_field.find("input").set (@dongle_id = Faker::Lorem.characters(8))
+end
+
+When(/^I change the value of total quantity$/) do
+  find(".field", text: _("Total quantity")).find("input").set (@new_total_quantity = rand(10..100))
+end
+
+When(/^I change the quantity allocations$/) do
+  @new_quantity_allocations = @license.properties[:quantity_allocations]
+  within find(".field", text: _("Quantity allocations")) do
+    first("[data-remove]").click
+    @new_quantity_allocations.shift
+    all("[data-quantity-allocation]").last.set (q = rand(1..50))
+    @new_quantity_allocations.last[:quantity] = q
+    first("#add-inline-entry").click
+    new_inline_entry = first(".list-of-lines .row")
+    new_inline_entry.first("[data-quantity-allocation]").set (q = rand(1..50))
+    new_inline_entry.first("[data-room-allocation]").set (r = Faker::Lorem.word)
+    @new_quantity_allocations.unshift({room: r, quantity: q})
+  end
+end
+
+When(/^I fill in the value of total quantity$/) do
+  find(".field", text: _("Total quantity")).find("input").set (@total_quantity = rand(10..100))
+end
+
+When(/^I add the quantity allocations$/) do
+  @quantity_allocations = []
+  within find(".field", text: _("Quantity allocations")) do
+    rand(2..5).times do
+      first("#add-inline-entry").click
+      new_inline_entry = first(".list-of-lines .row")
+      new_inline_entry.first("[data-quantity-allocation]").set (q = rand(1..50))
+      new_inline_entry.first("[data-room-allocation]").set (r = Faker::Lorem.word)
+      @quantity_allocations.unshift({room: r, quantity: q})
+    end
+  end
+end
+
+When(/^I fill in total quantity with value "(.*?)"$/) do |arg1|
+  find(".field", text: _("Total quantity")).find("input").set (@total_quantity = arg1.to_i)
+end
+
+Then(/^I see the remaining number of licenses shown as follows "(.*?)"$/) do |arg1|
+  within find(".field", text: _("Quantity allocations")) do
+    find("#remaining-total-quantity").text.should == arg1
+  end
+end
+
+Then(/^I add the following quantity allocations:$/) do |table|
+  within find(".field", text: _("Quantity allocations")) do
+    table.rows.each do |row|
+      first("#add-inline-entry").click
+      new_inline_entry = first(".list-of-lines .row")
+      new_inline_entry.first("[data-quantity-allocation]").set row.first
+      new_inline_entry.first("[data-room-allocation]").set row.second
+    end
+  end
+end
+
+When(/^I delete the following quantity allocations:$/) do |table|
+  within find(".field", text: _("Quantity allocations")) do
+    inline_entries = all("[data-type='inline-entry']")
+    table.rows.each do |row|
+      inline_entry = inline_entries.detect {|ie| ie.find("[data-room-allocation]").value == row.second}
+      inline_entry.find("[data-remove]").click
+    end
+  end
 end

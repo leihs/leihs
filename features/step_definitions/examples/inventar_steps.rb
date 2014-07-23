@@ -713,7 +713,7 @@ end
 
 Then(/^the license line contains the 'quantity' information$/) do
   line = @license_line.is_a?(String) ? find(@license_line, match: :first) : @license_line
-  line.should have_content @license.properties[:quantity]
+  line.should have_content @license.properties[:total_quantity]
 end
 
 Given(/^there exists a software license, owned by my inventory pool, but given responsibility to another inventory pool$/) do

@@ -361,6 +361,10 @@ window.i18n.locale_data = {
          null,
          "Total verfügbar:"
       ],
+      "available quantity": [
+         null,
+         "verfügbare Anzahl"
+      ],
       "Back": [
          null,
          "Zurück"
@@ -1071,6 +1075,10 @@ window.i18n.locale_data = {
          null,
          "Orte"
       ],
+      "location not defined": [
+         null,
+         "Ort nicht definiert"
+      ],
       "Logged in successfully": [
          null,
          "Erfolgreich eingeloggt"
@@ -1447,6 +1455,14 @@ window.i18n.locale_data = {
       "Quantity": [
          null,
          "Anzahl"
+      ],
+      "Quantity allocations": [
+         null,
+         "Anzahl-Zuteilungen"
+      ],
+      "Total quantity": [
+         null,
+         "Gesamtanzahl"
       ],
       "Quantity: %d": [
          null,
@@ -3775,6 +3791,10 @@ window.i18n.locale_data = {
       "Picking List": [
          null,
          "Rüstliste"
+      ],
+      "remaining": [
+         null,
+         "verbleibend"
       ]
    }
 }

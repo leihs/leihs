@@ -31,7 +31,7 @@ class window.App.ItemFlexibleFieldsController extends Spine.Controller
       template = $ App.Render "manage/views/items/group_of_fields", {name: groupName}
       group = template.find(".group-of-fields")
       for field in fields
-        group.append App.Render "manage/views/items/field", {}, {field: field, itemData: @itemData, writeable: @writeable, value_formatter: ( eval(field.value_formatter) if field.value_formatter ) }
+        group.append App.Render "manage/views/items/field", {}, { field: field, itemData: @itemData, writeable: @writeable }
       target = if @formLeftSide.find("[data-type='field']").length <= @formRightSide.find("[data-type='field']").length
         @formLeftSide
       else

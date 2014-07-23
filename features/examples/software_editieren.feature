@@ -29,9 +29,9 @@ Funktionalität: Software editieren
     Wenn ich aus dem Feld herausgehe
     Dann schrumpft das Feld wieder auf die Ausgangsgrösse
 
-  @current @javascript @personas
+  @javascript @personas
   Szenario: Software-Lizenz editieren
-    Wenn ich eine bestehende Software-Lizenz mit Software-Informationen und Anhängen editiere
+    Wenn ich eine bestehende Software-Lizenz mit Software-Informationen, Anzahl-Zuteilungen und Anhängen editiere
     Dann sehe ich die "Software Informationen" angezeigt
     Und die "Software Informationen" sind nicht editierbar
     Und die bestehende Links der "Software Informationen" öffnen beim Klicken in neuem Browser-Tab
@@ -46,14 +46,14 @@ Funktionalität: Software editieren
     Und ich das Lizenzablaufdatum ändere
     Und ich den Wert für den Maintenance-Vertrag ändere
     Und ich den Wert für Bezug ändere
-    Und ich den Wert der Lizenzinformation ändere
+    Und ich den Wert der Notiz ändere
     Und ich die Dongle-ID ändere
     Und ich einen der folgenden Lizenztypen wähle:
       | Mehrplatz   |
       | Konkurrent  |
       | Site-Lizenz |
     Und ich die Gesamtanzahl ändere
-    Und ich die Lizenzanzahl und den Text ändere
+    Und ich die Anzahl-Zuteilungen ändere
     #Aber ich kann den Inventarcode nicht ändern # really? inventory manager can change the inventory number of an item right now...
     Wenn ich speichere
     Dann sind die Informationen dieser Software-Lizenz erfolgreich aktualisiert worden
