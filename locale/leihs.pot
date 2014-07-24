@@ -365,7 +365,10 @@ msgstr ""
 msgid "Currently Borrowed Items"
 msgstr ""
 
-msgid "Currently has things to return"
+msgid "Currently has items to return"
+msgstr ""
+
+msgid "Currently has open orders"
 msgstr ""
 
 msgid "Currently you have no items in your order."

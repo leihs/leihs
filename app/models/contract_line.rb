@@ -27,10 +27,13 @@ class ContractLine < ActiveRecord::Base
   # TODO default_scope :joins ??
   #Rails3.1# default_scope -> {order("start_date ASC, end_date ASC, contract_lines.created_at ASC")}
   
-  # these are the things we need to_take_back, to_hand_over, ...
+  # these are the things we need to_take_back, to_hand_over, to_approve, ...
   # NOTE using table alias to prevent "Not unique table/alias" Mysql error
-  scope :to_hand_over, -> {joins(:contract).where(:contracts => {:status => :approved}, :returned_date => nil).readonly(false)}
-  scope :to_take_back, -> {joins(:contract).where(:contracts => {:status => :signed}, :returned_date => nil).readonly(false)}
+
+  scope :with_contract_status, -> (status) { joins(:contract).where(:contracts => {:status => status}, :returned_date => nil).readonly(false) }
+  scope :to_approve, -> { with_contract_status(:submitted) }
+  scope :to_hand_over, -> { with_contract_status(:approved) }
+  scope :to_take_back, -> { with_contract_status(:signed) }
   scope :handed_over_or_assigned_but_not_returned, -> { where(returned_date: nil).where("NOT (end_date < ? AND item_id IS NULL)", Date.today)}
   
   # TODO 1209** refactor to InventoryPool has_many :contract_lines_by_user(user) ??

@@ -833,3 +833,26 @@ Dann(/^werden die ihm zugeteilt Geräteparks mit entsprechender Rolle aufgeliste
     find(".row.emboss .padding-inset-s", text: access_right.to_s)
   end
 end
+
+Given(/^there exists a contract with status "(.*?)" for a user with otherwise no other contracts$/) do |arg1|
+  state = case arg1
+          when "abgeschickt" then :submitted
+          when "genehmigt" then :approved
+          when "unterschrieben" then :signed
+          end
+  @contract = @current_inventory_pool.contracts.send(state).detect {|c| c.user.contracts.all? {|c| c.status == state}}
+  @contract.should_not be_nil
+end
+
+When(/^I edit the user of this contract$/) do
+  @user = @contract.user
+  visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @user)
+end
+
+Then(/^this user has access to the current inventory pool$/) do
+  @user.access_right_for(@current_inventory_pool).should_not be_nil
+end
+
+Then(/^I see the error message "(.*?)"$/) do |arg1|
+  find("#flash .error", text: _(arg1))
+end

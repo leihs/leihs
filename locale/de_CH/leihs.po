@@ -374,8 +374,11 @@ msgstr "Aktuelle Bestellung"
 msgid "Currently Borrowed Items"
 msgstr "Momentan geliehene Gegenstände"
 
-msgid "Currently has things to return"
-msgstr "Hat momentan Dinge zurückzugeben"
+msgid "Currently has items to return"
+msgstr "Hat momentan Gegenstände zurückzugeben"
+
+msgid "Currently has open orders"
+msgstr "Hat momentan offene Bestellungen"
 
 msgid "Currently you have no items in your order."
 msgstr "Momentan haben Sie keine Gegenstände in Ihrer Bestellung."

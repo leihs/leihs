@@ -763,3 +763,19 @@ end
 Wenn(/^ich die folgenden Anzahl\-Zuteilungen lösche$/) do |table|
   step %Q(I delete the following quantity allocations:), table
 end
+
+Angenommen(/^es existiert ein Vertrag mit Status "(.*?)" für einen Benutzer mit sonst keinem anderen Verträgen$/) do |arg1|
+  step %Q(there exists a contract with status "#{arg1}" for a user with otherwise no other contracts)
+end
+
+Wenn(/^man den Benutzer für diesen Vertrag editiert$/) do
+  step %Q(I edit the user of this contract)
+end
+
+Dann(/^hat dieser Benutzer Zugriff auf das aktuelle Inventarpool$/) do
+  step %Q(this user has access to the current inventory pool)
+end
+
+Dann(/^erhalte ich die Fehlermeldung "(.*?)"$/) do |arg1|
+  step %Q(I see the error message "#{arg1}")
+end
