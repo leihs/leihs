@@ -26,22 +26,22 @@ class window.App.HandOverController extends Spine.Controller
     super
     App.ContractLine.on "change destroy", (data)=> if data.option_id? then @render(true) else do @fetchAvailability
     App.Contract.on "refresh", @fetchAvailability
-    App.ContractLine.on "update", (data)=> 
-      if @notFetchedItemIds().length
-        @fetchItems().done =>
-          if @notFetchedLicenseIds().length
-            @fetchLicenses().done => @render(@initalAvailabilityFetched?)
+    App.ContractLine.on "update", (data)=>
+      fi = $.Deferred @fetchItems if @notFetchedItemIds().length
+      fl = $.Deferred @fetchLicenses if @notFetchedLicenseIds().length
+      if fi or fl
+        $.when(fi, fl).done => @render(@initialAvailabilityFetched?)
       else
-        @render(@initalAvailabilityFetched?)
+        @render(@initialAvailabilityFetched?)
 
   initalFetch: =>
     if @getLines().length
-      if @notFetchedItemIds().length
-        @fetchItems().done =>
-          if @notFetchedLicenseIds().length
-            @fetchLicenses().done => do @fetchAvailability
+      fi = $.Deferred @fetchItems if @notFetchedItemIds().length
+      fl = $.Deferred @fetchLicenses if @notFetchedLicenseIds().length
+      if fi or fl
+        $.when(fi, fl).done(@fetchAvailability)
       else
-        do @fetchAvailability 
+        @fetchAvailability()
 
   fetchAvailability: =>
     @render false
@@ -53,7 +53,7 @@ class window.App.HandOverController extends Spine.Controller
           model_ids: ids
           user_id: @user.id
       .done (data)=>
-        @initalAvailabilityFetched = true
+        @initialAvailabilityFetched = true
         @status.html App.Render "manage/views/availabilities/loaded"
         @render true
     else

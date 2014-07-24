@@ -129,7 +129,7 @@ Wenn(/^ich die verantwortliche Abteilung ändere$/) do
 end
 
 Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes, der in einem Vertrag vorhanden ist$/) do
-  @item = @current_inventory_pool.items.select{|i| not i.contract_lines.blank?}.sample
+  @item = @current_inventory_pool.items.items.select{|i| not i.contract_lines.blank?}.sample
   @item_before = @item.to_json
   visit manage_edit_item_path(@current_inventory_pool, @item)
 end
