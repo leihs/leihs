@@ -10,7 +10,11 @@ Wenn(/^ich eine Kategorie anwähle$/) do
   c_id = c[:"data-id"]
   @category = Category.find c_id
   c.text.should == @category.name
-  c.click
+
+  # c.click
+  # using js script to click on the link, because capybara cannot do that during the test execution (only in binding.pry)
+  page.execute_script %Q( $("#categories #category-list a[data-id='#{c_id}']").click().focus() )
+
   find("#categories #category-current a[data-type='category-current'][data-id='#{c_id}']", text: @category.name)
 end
 
@@ -23,7 +27,11 @@ end
 Dann(/^kann die darunterliegende Kategorie anwählen$/) do
   @child_category = Category.find find("a[data-type='category-filter']", match: :first)[:"data-id"]
   @category.children.should include @child_category
-  find("a[data-type='category-filter']", match: :first).click
+
+  # find("a[data-type='category-filter']", match: :first).click
+  # using js script to click on the link, because capybara cannot do that during the test execution (only in binding.pry)
+  page.execute_script %Q( $("a[data-type='category-filter']").click().focus() )
+
   find("#category-current", :text => @child_category.name)
 end
 

@@ -23,8 +23,7 @@ Funktionalität: Explorative Suche
     Wenn ich die Navigation der Kategorien wieder zuklappe
     Dann sehe ich nur noch die Liste des Inventars
 
-  # CI-ISSUE: capybara cannot click on the category link during the flow of the test execution, but it works if binding.pry and click step executed by hand
-  @current @javascript @personas
+  @javascript @personas
   Szenario: Kategorie in der explorativen Suche suchen
     Angenommen man öffnet die Liste des Inventars
     Und die Navigation der Kategorien ist aufgeklappt

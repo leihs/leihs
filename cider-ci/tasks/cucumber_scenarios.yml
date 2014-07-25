@@ -1505,22 +1505,26 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/explorative_suche.feature:13
-- name: Zurücknavigieren in der explorativen Suche - features/examples/explorative_suche.feature:40
+- name: Kategorie in der explorativen Suche suchen - features/examples/explorative_suche.feature:27
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/explorative_suche.feature:40
-- name: Explorative Suche in der Liste der Modelle - features/examples/explorative_suche.feature:45
+      body: bundle exec cucumber -p default features/examples/explorative_suche.feature:27
+- name: Zurücknavigieren in der explorativen Suche - features/examples/explorative_suche.feature:39
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/explorative_suche.feature:45
-- name: Explorative Suche in der Bestellung - features/examples/explorative_suche.feature:55
+      body: bundle exec cucumber -p default features/examples/explorative_suche.feature:39
+- name: Explorative Suche in der Liste der Modelle - features/examples/explorative_suche.feature:44
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/explorative_suche.feature:55
-- name: Explorative Suche in der Aushändigung - features/examples/explorative_suche.feature:62
+      body: bundle exec cucumber -p default features/examples/explorative_suche.feature:44
+- name: Explorative Suche in der Bestellung - features/examples/explorative_suche.feature:54
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/explorative_suche.feature:62
+      body: bundle exec cucumber -p default features/examples/explorative_suche.feature:54
+- name: Explorative Suche in der Aushändigung - features/examples/explorative_suche.feature:61
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/explorative_suche.feature:61
 - name: Ausführung einer Aktion für authentifizierte Benutzer ohne angemeldet zu sein
     - features/examples/hinweis_wenn_nicht_angemeldet.feature:10
   scripts:
