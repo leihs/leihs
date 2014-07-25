@@ -241,7 +241,7 @@ Funktionalität: Benutzer verwalten
     Und ich speichere
     Dann hat der Benutzer keinen Zugriff auf das Inventarpool
 
-  @current @personas
+  @personas
   Szenariogrundriss: Zugriff entfernen für einen Benutzer mit offenen Vertrag
     Angenommen ich bin <Persona>
     Und es existiert ein Vertrag mit Status "<Vertragsstatus>" für einen Benutzer mit sonst keinem anderen Verträgen
