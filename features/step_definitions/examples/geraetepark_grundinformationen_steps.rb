@@ -122,7 +122,7 @@ Wenn(/^ich das gekennzeichnete "(.*?)" des Geräteparks leer lasse$/) do |field_
 end
 
 Wenn(/^ich für den Gerätepark die automatische Sperrung von Benutzern mit verspäteten Rückgaben einschalte$/) do
-  check "inventory_pool[automatic_suspension]"
+  step %Q(ich "Automatische Sperrung" aktiviere)
 end
 
 Dann(/^muss ich einen Sperrgrund angeben$/) do
@@ -137,7 +137,7 @@ end
 Dann(/^ist diese Konfiguration gespeichert$/) do
   page.should have_selector("#flash .notice")
   @current_inventory_pool.reload
-  @current_inventory_pool.automatic_suspension.should be_true
+  step %Q(ist "Automatische Sperrung" aktiviert)
   @current_inventory_pool.automatic_suspension_reason.should == @reason
 end
 
