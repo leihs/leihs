@@ -58,6 +58,10 @@ Capybara.register_driver :selenium_firefox do |app|
   Capybara::Selenium::Driver.new app, :profile => profile
 end
 
+Capybara.register_driver :selenium_chrome do |app|
+  Capybara::Selenium::Driver.new app, browser: :chrome
+end
+
 ##################################################################################
 
 begin
@@ -79,10 +83,16 @@ Before('@firefox') do
   @use_firefox = ENV["FIREFOX"] == "0" ? false : true
 end
 
+Before('@chrome') do
+  @use_chrome = true
+end
+
 Before do
   if @use_firefox ||= ENV["FIREFOX"] == "1"
     Capybara.current_driver = :selenium_firefox
     page.driver.browser.manage.window.maximize # to prevent Selenium::WebDriver::Error::MoveTargetOutOfBoundsError: Element cannot be scrolled into view
+  elsif @use_chrome
+    Capybara.current_driver = :selenium_chrome
   elsif @use_phantomjs
     Capybara.current_driver = :selenium_phantomjs
   end
