@@ -177,6 +177,10 @@ Angenommen(/^es existiert eine Software\-Lizenz$/) do
   step "a software license exists"
 end
 
+Wenn(/^ich eine bestehende Software\-Lizenz kopiere$/) do
+  step "I copy an existing software license"
+end
+
 Angenommen(/^es existiert ein(e)? (.*) mit folgenden Eigenschaften:$/) do |arg0, arg1, table|
   s = case arg1
         when "Modell"
@@ -667,6 +671,11 @@ Dann(/^fehlende Rauminformationen bei Optionen werden als "(.*?)" angezeigt$/) d
       end
   step %Q(the missing location information for options, are displayed with "#{s}")
 end
+
+Dann(/^wird die Editieransicht der neuen Software\-Lizenz geöffnet$/) do
+  step "it opens the edit view of the new software license"
+end
+
 Angenommen(/^es existieren (Bestellungen|Verträge|Besuche)$/) do |arg1|
   s = case arg1
         when "Bestellungen"
@@ -762,6 +771,34 @@ end
 
 Wenn(/^ich die folgenden Anzahl\-Zuteilungen lösche$/) do |table|
   step %Q(I delete the following quantity allocations:), table
+end
+
+Dann(/^der (.*) heisst "(.*?)"$/) do |arg1, arg2|
+  s = case arg1
+        when "Titel"
+          "title"
+        when "Speichern-Button"
+          "save button"
+        else
+          raise "not found"
+      end
+  step %Q(the #{s} is labeled as "#{arg2}")
+end
+
+Dann(/^ist die neue Lizenz erstellt$/) do
+  step "the new software license is created"
+end
+
+Dann(/^wurden die folgenden Felder von der kopierten Lizenz übernommen$/) do |table|
+  step "the following fields were copied from the original software license", table
+end
+
+Dann(/^kann ich die bestehende Software-Lizenz kopieren$/) do
+  step "I can copy an existing software license"
+end
+
+Dann(/^kann ich die bestehende Software-Lizenz speichern und kopieren$/) do
+  step "I can save and copy the existing software license"
 end
 
 Angenommen(/^es existiert ein Vertrag mit Status "(.*?)" für einen Benutzer mit sonst keinem anderen Verträgen$/) do |arg1|

@@ -3203,9 +3203,9 @@ window.i18n.locale_data = {
          null,
          "Bschtelig abschlüsse"
       ],
-      "The responsible inventory pool cannot be changed because the item is currently not in stock.": [
+      "The responsible inventory pool cannot be changed because it's not returned yet or has already been assigned to a contract line.": [
          null,
-         "Di verantwortlich Abteilig chan näd gändert werdä, will de Gägenstand nöd a Lager isch."
+         "Di verantwortlich Abteilig chan näd gändert werdä, will si nonig zruggbracht worde isch."
       ],
       "Send reminder": [
          null,

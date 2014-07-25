@@ -43,7 +43,19 @@ end
 
 Then /^each field provides the value of the item's attribute$/ do
   Field.all.each do |field|
-    field.value(@item).should == Array(field.attribute).inject(@item){|i,m| i.is_a?(Hash) ? OpenStruct.new(i).send(m) : i.send(m) }
+    expected_value = Array(field.attribute).inject(@item) do |r, m|
+      if r.is_a?(Hash)
+        r[m]
+      else
+        if m == "id"
+          r
+        else
+          r.try(:send, m)
+        end
+      end
+    end
+
+    field.value(@item).should == expected_value
   end
 end
 

@@ -75,17 +75,6 @@ Dann /^man wird zur Liste des Inventars zurückgeführt$/ do
   current_path.should == manage_inventory_path(@current_inventory_pool)
 end
 
-Wenn /^man einen Gegenstand kopiert$/ do
-  @item = Item.where(inventory_pool_id: @current_inventory_pool).detect {|i| not i.retired? and not i.serial_number.nil? and not i.name.nil?}
-  find("#list-search").set @item.model.name
-  find(".line[data-type='model'] .col2of5", match: :first, text: @item.model.name)
-  find("[data-type='inventory-expander']", match: :first).click
-  within(".line[data-type='item'][data-id='#{@item.id}']", text: @item.inventory_code) do
-    find(".dropdown-holder").click
-    find("a", text: _("Copy Item")).click
-  end
-end
-
 Dann /^wird eine neue Gegenstandskopieransicht geöffnet$/ do
   current_path.should == manage_copy_item_path(@current_inventory_pool, @item)
 end
@@ -98,14 +87,33 @@ Dann /^alle Felder bis auf Inventarcode, Seriennummer und Name wurden kopiert$/ 
   expect(find(".row.emboss", match: :prefer_exact, text: _("Name")).find("input,textarea", match: :first).value.empty?).to be_true
 end
 
-Angenommen /^man befindet sich auf der Gegenstandserstellungsansicht$/ do
-  @item = Item.where(inventory_pool_id: @current_inventory_pool.id).detect {|i| not i.retired?}
+Wenn /^man einen Gegenstand kopiert$/ do
+  @item = Item.where(inventory_pool_id: @current_inventory_pool).detect {|i| not i.retired? and not i.serial_number.nil? and not i.name.nil?}
   find("#list-search").set @item.model.name
-  find(".line[data-type='model'] .col2of5", match: :first, text: @item.model.name)
-  find("[data-type='inventory-expander']", match: :first).click
+  within(".line[data-type='model']", match: :prefer_exact, text: @item.model.name) do
+    find("[data-type='inventory-expander']").click
+  end
   within(".line[data-type='item'][data-id='#{@item.id}']", text: @item.inventory_code) do
     find(".dropdown-holder").click
-    find(".button", text: _("Edit Item")).click
+    find("a", text: _("Copy Item")).click
+  end
+end
+
+Wenn /^ich mich in der Editieransicht einer (Gegenstand|Sofware-Lizenz) befinde$/ do |arg1|
+  s0, s1, s2, s3 = case arg1
+                     when "Gegenstand"
+                       ["items", "model", "item", _("Edit Item")]
+                     when "Sofware-Lizenz"
+                       ["licenses", "software", "license", _("Edit License")]
+                   end
+
+  @item = @current_inventory_pool.items.send(s0).where(retired: nil).sample
+  find("#list-search").set @item.model.name
+  within(".line[data-type='#{s1}']", match: :prefer_exact, text: @item.model.name) do
+    find("[data-type='inventory-expander']").click
+  end
+  within(".group-of-lines .line[data-type='#{s2}'][data-id='#{@item.id}']", text: @item.inventory_code) do
+    find(".button", text: s3).click
   end
 end
 

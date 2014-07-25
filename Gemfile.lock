@@ -211,6 +211,9 @@ GEM
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
     newrelic_rpm (3.7.3.204)
+    nilify_blanks (1.1.0)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
     nio4r (1.0.0)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
@@ -386,6 +389,7 @@ DEPENDENCIES
   mysql2 (~> 0.3.11)
   net-ldap
   newrelic_rpm (~> 3.5)
+  nilify_blanks (~> 1.1)
   paperclip (~> 3.5)
   phantomjs (~> 1.9.7)
   poltergeist

@@ -92,6 +92,7 @@ class Field < ActiveHash::Base
       type: "select",
       permissions: {role: :lending_manager, owner: true},
       values: [{label: "No", value: false}, {label: "Yes", value: true}],
+      default: false,
       group: "Status"
     },{
       id: 10,
@@ -290,6 +291,7 @@ class Field < ActiveHash::Base
       type: "select",
       target_type: "item",
       values: [{label:"zügeln", value:"zügeln"}, {label:"sofort entsorgen", value:"sofort entsorgen"}, {label:"bei Umzug entsorgen", value:"bei Umzug entsorgen"}, {label:"bei Umzug verkaufen", value:"bei Umzug verkaufen"}],
+      default: "zügeln",
       permissions: {role: :inventory_manager, owner: true},
       group: "Umzug"
     },{
@@ -315,6 +317,7 @@ class Field < ActiveHash::Base
       type: "select",
       target_type: "item",
       values: [{label:"intakt", value:"intakt"}, {label:"transportschaden", value:"transportschaden"}],
+      default: "intakt",
       permissions: {role: :inventory_manager, owner: true},
       group: "Toni Ankunftskontrolle"
     },{
@@ -334,6 +337,7 @@ class Field < ActiveHash::Base
       type: "select",
       target_type: "item",
       values: [{label: "", value: nil}, {label: "Werkstatt-Technik", value: "Werkstatt-Technik"}, {label: "Produktionstechnik", value: "Produktionstechnik"}, {label: "AV-Technik", value: "AV-Technik"}, {label: "Musikinstrumente", value: "Musikinstrumente"}, {label: "Facility Management", value: "Facility Management"}, {label: "IC-Technik/Software", value: "IC-Technik/Software"}],
+      default: nil,
       visibility_dependency_field_id: 17,
       visibility_dependency_value: "true",
       permissions: {role: :inventory_manager, owner: true},
@@ -349,6 +353,7 @@ class Field < ActiveHash::Base
                {label: "Serial Number", value: "serial_number"},
                {label: "License Server", value: "license_server"},
                {label: "Challenge Response/System ID", value: "challenge_response"}],
+      default: "none",
       permissions: {role: :inventory_manager, owner: true},
       group: "General Information"
     },{
@@ -373,6 +378,7 @@ class Field < ActiveHash::Base
                {label: "Multiple Workplace", value: "multiple_workplace"},
                {label: "Site License", value: "site_license"},
                {label: "Concurrent", value: "concurrent"}],
+      default: "free",
       permissions: {role: :inventory_manager, owner: true},
       group: "General Information"
     },{
@@ -434,6 +440,7 @@ class Field < ActiveHash::Base
       target_type: "license",
       permissions: {role: :inventory_manager, owner: true},
       values: [{label: "No", value: "false"}, {label: "Yes", value: "true"}],
+      default: "false",
       group: "General Information"
     },{
       id: 46,
@@ -457,8 +464,39 @@ class Field < ActiveHash::Base
   ]
 
   def value(item)
-    # NOTE OpenStruct is only used for serialized attributes
-    Array(self.attribute).inject(item){|i,m| i.is_a?(Hash) ? OpenStruct.new(i).send(m) : i.send(m) }
+    Array(attribute).inject(item) do |r,m|
+      if r.is_a?(Hash)
+        r[m]
+      else
+        if m == "id"
+          r
+        else
+          r.try(:send, m)
+        end
+      end
+    end
+  end
+
+  def set_default_value(item)
+    return unless attributes.has_key?(:default)
+    return unless value(item).nil?
+
+    attrs = Array(attribute)
+    attrs.inject(item) do |r,m|
+      if m == attrs[-1]
+        if r.is_a?(Hash)
+          r[m] = default
+        else
+          r.send "#{m}=", default
+        end
+      else
+        if r.is_a?(Hash)
+          r[m]
+        else
+          r.send m
+        end
+      end
+    end
   end
 
   def values

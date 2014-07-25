@@ -39,8 +39,10 @@ Angenommen(/^es existiert ein Software\-Produkt$/) do
   Software.all.should_not be_empty
 end
 
-Wenn(/^ein Inventarcode vergeben wird$/) do
-  find("input[name='item[inventory_code]']").value.should_not be_nil
+Wenn(/^ein neuer Inventarcode vergeben wird$/) do
+  @target_inventory_code = find("input[name='item[inventory_code]']").value
+  @target_inventory_code.should_not be_blank
+  Item.find_by_inventory_code(@target_inventory_code).should be_nil
 end
 
 Wenn(/^ich eine Seriennummer eingebe$/) do
@@ -102,8 +104,24 @@ Wenn(/^ich eine bestehende Software\-Lizenz editiere$/) do
   find("a", text: _("Software"), match: :first).click
   @software = Software.all.select{|s| not s.items.empty?}.sample
   @license = @software.items.sample
-  find(".line[data-type='software'][data-id='#{@software.id}']").find("button[data-type='inventory-expander']") .click
+  find(".line[data-type='software'][data-id='#{@software.id}']").find("button[data-type='inventory-expander']").click
   find(".line[data-type='license'][data-id='#{@license.id}']").find("a", text: _("Edit License")).click
+end
+
+Then(/^I can copy an existing software license$/) do
+  step "I'am on the software inventory overview"
+  within("#inventory") do
+    find(".line[data-type='software'] .button[data-type='inventory-expander'] i.arrow.right", match: :first).click
+    within(".group-of-lines .line[data-type='license']", match: :first) do
+      find(".multibutton .dropdown-toggle").click
+      find(".multibutton .dropdown-item", text: _("Copy License"))
+    end
+  end
+end
+
+Then(/^I can save and copy the existing software license$/) do
+  find(".multibutton .dropdown-toggle.green").click
+  find("a[id='item-save-and-copy']", text: _("Save and copy"))
 end
 
 Wenn(/^ich eine andere Software auswähle$/) do
@@ -554,7 +572,10 @@ Then(/^"(.*?)" is saved with two decimal digits$/) do |field|
 end
 
 When(/^I edit a license with set dates for maintenance expiration, license expiration and invoice date$/) do
-  @license = Item.find {|i| i.invoice_date and i.properties[:maintenance_expiration] and i.properties[:license_expiration]}
+  @license = @current_inventory_pool.items.licenses.find {|i| i.invoice_date and
+                                                              i.properties[:maintenance_contract] == "true" and
+                                                              i.properties[:maintenance_expiration] and
+                                                              i.properties[:license_expiration] }
   @license.should_not be_nil
   visit manage_edit_item_path(@current_inventory_pool, @license)
 end
@@ -797,5 +818,80 @@ When(/^I delete the following quantity allocations:$/) do |table|
       inline_entry = inline_entries.detect {|ie| ie.find("[data-room-allocation]").value == row.second}
       inline_entry.find("[data-remove]").click
     end
+  end
+end
+
+When(/^I copy an existing software license$/) do
+  step "I'am on the software inventory overview"
+  within("#inventory") do
+    find(".line[data-id='#{@item.model_id}'][data-type='software'] button[data-type='inventory-expander']").click
+    within(".group-of-lines .line[data-id='#{@item.id}'][data-type='license']") do
+      find(".multibutton .dropdown-toggle").click
+      find(".multibutton .dropdown-item", text: _("Copy License")).click
+    end
+  end
+end
+
+Then(/^it opens the edit view of the new software license$/) do
+  manage_copy_item_path(@current_inventory_pool, @item).should == current_path
+end
+
+Then(/^the (.*) is labeled as "(.*?)"$/) do |arg1, arg2|
+  case arg1
+    when "title"
+      find("h1.headline-l", text: arg2)
+    when "save button"
+      find("button.green", text: arg2)
+    else
+      raise "not found"
+  end
+end
+
+Dann(/^the new software license is created$/) do
+  @target_item = @current_inventory_pool.items.find_by_inventory_code(@target_inventory_code)
+  @target_item.should_not be_nil
+end
+
+Dann(/^the following fields were copied from the original software license$/) do |table|
+  table.rows.flatten.each do |field|
+    case field
+      when "Software"
+        @target_item.model_id.should == @item.model_id
+      when "Bezug"
+        @target_item.properties[:reference].should == @item.properties[:reference]
+      when "Besitzer"
+        @target_item.owner_id.should == @item.owner_id
+      when "Verantwortliche Abteilung"
+        @target_item.inventory_pool_id.should == @item.inventory_pool_id
+      when "Rechnungsdatum"
+        @target_item.invoice_date.should == @item.invoice_date
+      when "Anschaffungswert"
+        @target_item.price.should == @item.price
+      when "Lieferant"
+        @target_item.supplier_id.should == @item.supplier_id
+      when "Beschafft durch"
+        @target_item.properties[:procured_by].should == @item.properties[:procured_by]
+      when "Notiz"
+        @target_item.note.should == @item.note
+      when "Aktivierungstyp"
+        @target_item.properties[:activation_type].should == @item.properties[:activation_type]
+      when "Lizenztyp"
+        @target_item.properties[:license_type].should == @item.properties[:license_type]
+      when "Gesamtanzahl"
+        @target_item.properties[:quantity].should == @item.properties[:quantity]
+      when "Betriebssystem"
+        @target_item.properties[:operating_system].should == @item.properties[:operating_system]
+      when "Installation"
+        @target_item.properties[:installation].should == @item.properties[:installation]
+      when "Lizenzablaufdatum"
+        @target_item.properties[:license_expiration].should == @item.properties[:license_expiration]
+      when "Maintenance-Vertrag"
+        @target_item.properties[:maintenance_contract].should == @item.properties[:maintenance_contract]
+      when "Maintenance-Ablaufdatum"
+        @target_item.properties[:maintenance_expiration].should == @item.properties[:maintenance_expiration]
+      else
+        raise "not found"
+    end
+
   end
 end

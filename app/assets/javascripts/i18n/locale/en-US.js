@@ -3202,7 +3202,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "The responsible inventory pool cannot be changed because the item is currently not in stock.": [
+      "The responsible inventory pool cannot be changed because it's not returned yet or has already been assigned to a contract line.": [
          null,
          ""
       ],

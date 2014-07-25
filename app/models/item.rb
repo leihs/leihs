@@ -41,11 +41,15 @@ class Item < ActiveRecord::Base
   before_validation do
     self.owner ||= inventory_pool
     self.inventory_code ||= Item.proposed_inventory_code(owner)
-  end
-
-  before_save do
-    self.properties = properties.to_hash.delete_if{|k,v| v.blank?}.deep_symbolize_keys # we want to store serialized plain Hash (not HashWithIndifferentAccess) and remove empty values
     self.retired_reason = nil unless retired?
+
+    # we want remove empty values (and we keep it as HashWithIndifferentAccess)
+    self.properties = properties.delete_if{|k,v| v.blank?}
+
+    fields = Field.all.select{|field| [nil, type.downcase].include?(field.target_type) and field.attributes.has_key?(:default)}
+    fields.each do |field|
+      field.set_default_value(self)
+    end
   end
 
   after_save :update_children_attributes
@@ -241,23 +245,12 @@ class Item < ActiveRecord::Base
 
     h2 = {}
     (f1 + f2).each do |field|
-      h2[field.label] = Array(field.attribute).inject(self) do |r,m|
-        if r.is_a?(Hash)
-          r[m]
-        else
-          if m == "id"
-            r
-          else
-            r.try(:send, m)
-          end
-        end
-      end
+      h2[field.label] = field.value(self)
     end
     h1.merge! h2
 
     h1
   end
-
 
 #old??#
  # def inventory_code
@@ -513,9 +506,13 @@ class Item < ActiveRecord::Base
   end
 
   def validates_changes
-    errors.add(:base, _("The model cannot be changed because the item is used in contracts already.")) if model_id_changed? and not contract_lines.empty?
-    errors.add(:base, _("The responsible inventory pool cannot be changed because the item is currently not in stock.")) if inventory_pool_id_changed? and not in_stock?
-    errors.add(:base, _("The item cannot be retired because it's not returned yet or has already been assigned to a contract line.")) if not retired.nil? and contract_lines.where(returned_date: nil).exists?
+    unless contract_lines.empty?
+      errors.add(:base, _("The model cannot be changed because the item is used in contracts already.")) if model_id_changed?
+    end
+    if contract_lines.where(returned_date: nil).exists? # TODO use not_in_stock scope ??
+      errors.add(:base, _("The responsible inventory pool cannot be changed because it's not returned yet or has already been assigned to a contract line.")) if inventory_pool_id_changed?
+      errors.add(:base, _("The item cannot be retired because it's not returned yet or has already been assigned to a contract line.")) if not retired.nil?
+    end
   end
 
   def update_child_attributes(item)

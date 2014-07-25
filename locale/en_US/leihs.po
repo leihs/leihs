@@ -2423,9 +2423,7 @@ msgstr ""
 msgid "Complete order"
 msgstr ""
 
-msgid ""
-"The responsible inventory pool cannot be changed because the item is "
-"currently not in stock."
+msgid "The responsible inventory pool cannot be changed because it's not returned yet or has already been assigned to a contract line."
 msgstr ""
 
 msgid "Send reminder"
