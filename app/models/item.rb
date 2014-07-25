@@ -179,10 +179,14 @@ class Item < ActiveRecord::Base
 ####################################################################
 
   def type
-    case model.type
-    when "Model" then "Item"
-    when "Software" then "License"
-    else raise "Unknown type"
+    #case model.type
+    case model.try :type # FIXME database consistency: there are items with model_id as nil
+      when "Model", nil
+        "Item"
+      when "Software"
+        "License"
+      else
+        raise "Unknown type"
     end
   end
 
