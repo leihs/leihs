@@ -345,12 +345,12 @@ class Item < ActiveRecord::Base
 
 ####################################################################
 
-  # an item is in stock if it's not handed over
+  # an item is in stock if it's not handed over or it's not assigned to an approved contract_line
   def in_stock?
     if parent_id
       parent.in_stock?
     else
-      contract_lines.to_take_back.empty?
+      contract_lines.to_take_back.empty? and contract_lines.where(returned_date: nil).empty?
     end
   end
 
@@ -513,7 +513,7 @@ class Item < ActiveRecord::Base
     unless contract_lines.empty?
       errors.add(:base, _("The model cannot be changed because the item is used in contracts already.")) if model_id_changed?
     end
-    if contract_lines.where(returned_date: nil).exists? # TODO use not_in_stock scope ??
+    unless in_stock?
       errors.add(:base, _("The responsible inventory pool cannot be changed because it's not returned yet or has already been assigned to a contract line.")) if inventory_pool_id_changed?
       errors.add(:base, _("The item cannot be retired because it's not returned yet or has already been assigned to a contract line.")) if not retired.nil?
     end

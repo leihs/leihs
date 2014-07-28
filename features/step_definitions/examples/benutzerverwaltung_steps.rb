@@ -367,7 +367,7 @@ end
 Dann /^man kann die verantwortliche Abteilung eines Gegenstands frei wählen$/ do
   item = @inventory_pool.own_items.find &:in_stock?
   attributes = {
-      inventory_pool_id: (InventoryPool.pluck(:id) - [@inventory_pool.id]).sample
+      inventory_pool_id: (InventoryPool.pluck(:id) - [@inventory_pool.id, item.inventory_pool_id]).sample
   }
   item.inventory_pool_id.should_not == attributes[:inventory_pool_id]
 

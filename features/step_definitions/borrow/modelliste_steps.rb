@@ -207,6 +207,7 @@ Dann(/^die Liste wird gefiltert nach Modellen die in diesem Zeitraum verfügbar 
   sleep(0.33)
   all("#model-list .line[data-id]").each do |model_el|
     model = Model.find_by_id(model_el["data-id"]) || Model.find_by_id(model_el.reload["data-id"])
+    raise "not found" unless model
     quantity = @current_user.inventory_pools.to_a.sum do |ip|
       model.availability_in(ip).maximum_available_in_period_summed_for_groups(@start_date, @end_date, @current_user.groups.map(&:id))
     end
