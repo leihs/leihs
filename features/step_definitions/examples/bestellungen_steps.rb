@@ -272,6 +272,13 @@ When(/^I search for (an order|a contract|a visit)$/) do |arg1|
   @search_term = @contract.user.to_s
   el = arg1 == "a visit" ? "#visits-index-view" : "#contracts-index-view"
   within el do
+    if arg1 != "a visit"
+      cb = find("#list-filters input[name='no_verification_required']")
+      if cb.checked?
+        cb.click
+      end
+    end
+
     find("#list-search").set @search_term
     sleep(0.33)
   end
