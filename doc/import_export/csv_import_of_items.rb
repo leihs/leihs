@@ -13,43 +13,38 @@ import_file = "/tmp/items.csv"
 items_to_import = CSV.open(import_file, :col_sep => "\t", :headers => true)
 
 def log_error(error, item)
-  @errorlog.puts "ERROR: #{error}. Item: #{item}"
+  @errorlog.puts "ERROR: #{error}. --- Item: #{item}"
 end
 
 def validate_item(item)
   errors = false
 
-  unless item["Leihs - Modellnummer"].match(/^\d+$/)
-    log_error "Model ID is not numeric.", item
+  begin
+    Model.where(:product => item["Model"]).first
+  rescue
     errors = true
-  else
-    begin
-      Model.find(item["Leihs - Modellnummer"])
-    rescue
-      errors = true
-      log_error "Model not found.", item
-    end
+    log_error "Model '#{item["Model"]}' not found.", item
   end
 
-  if item["Verantwortliche Abteilung"].blank?
+  if item["Responsible department"].blank?
     errors = true
-    log_error "Verantwortliche Abteilung is blank", item
+    log_error "Responsible department is blank", item
   else
-    responsible_ip = InventoryPool.where(:name => item["Verantwortliche Abteilung"]).first
+    responsible_ip = InventoryPool.where(:name => item["Responsible department"]).first
     if responsible_ip.nil?
       errors = true
-      log_error "Responsible inventory pool does not exist", item
+      log_error "Responsible inventory pool '#{item["Responsible department"]}' does not exist", item
     end
   end
 
-  if item["Besitzer"].blank?
+  if item["Owner"].blank?
     errors = true
-    log_error "Besitzer is blank", item
+    log_error "Owner is blank", item
   else
-    owner_ip = InventoryPool.where(:name => item["Besitzer"]).first
+    owner_ip = InventoryPool.where(:name => item["Owner"]).first
     if owner_ip.nil?
       errors = true
-      log_error "Owner does not exist", item
+      log_error "Owner '#{item["Owner"]}' does not exist", item
     end
   end
 
@@ -64,50 +59,57 @@ end
 items_to_import.each do |item|
   next if not validate_item(item)
   i = Item.new
-  i.model = Model.find(item["Leihs - Modellnummer"])
-  i.inventory_code = item["Inv-Code:"]
-  i.serial_number = item["Seriennummer"]
-  i.note = item["Notitz"] # That typo is in the original CSV file already
+  i.model = Model.where(:product => item["Model"]).first
+  #i.inventory_code = item["Inv-Code:"]
+  i.serial_number = item["Serial Number"]
+  i.note = item["Note"]
 
   # Inventory relevance
   i.is_inventory_relevant = false
-  i.is_inventory_relevant = true if item["Inventarrelevant:"] == "JA"
+  i.is_inventory_relevant = true if item["Relevant for inventory"] == "true"
 
   # Borrowability
   i.is_borrowable = false
 
   # Ownership
-  owner_ip = InventoryPool.where(:name => item["Besitzer"]).first
+  owner_ip = InventoryPool.where(:name => item["Owner"]).first
   i.owner = owner_ip
 
   # Responsible department
-  responsible_ip = InventoryPool.where(:name => item["Verantwortliche Abteilung"]).first
-  i.inventory_pool = responsible_ip
+  unless item["Responsible department"] == "frei"
+    responsible_ip = InventoryPool.where(:name => item["Responsible department"]).first
+    i.inventory_pool = responsible_ip
+  end
 
   # Building and room
-  building_code = item["Gebäude"].match(/.*\((.*)\)$/)[1]
+  building_code = item["Building"].match(/.*\((.*)\)$/)[1]
   b = Building.where(:code => building_code).first
+
   room = nil
-  room = item["Raum"] unless item["Raum"].blank?
+  #room = item["Raum"] unless item["Raum"].blank?
   location = Location.find_or_create({"building_id" => b.id, "room" => room})
   i.location = location
 
   # Invoice
-  i.invoice_number = item["Rechungsnummer"]
-  i.invoice_date = Date.strptime(item["Rechnungsdatum"], "%m/%d/%Y") unless item["Rechnungsdatum"].blank?
+  i.invoice_number = item["Invoice Number"]
+  i.invoice_date = Date.strptime(item["Invoice Date"], "%m/%d/%Y") unless item["Invoice Date"].blank?
 
-  i.last_check = Date.strptime(item["letzte Inventur"], "%m/%d/%Y") unless item["letzte Inventur"].blank?
+
+  i.responsible = item["Responsible person"] unless item["Responsible person"].blank?
+  i.price = item["Initial Price"] unless item["Initial Price"].blank?
+
+  #i.last_check = Date.strptime(item["letzte Inventur"], "%m/%d/%Y") unless item["letzte Inventur"].blank?
 
   # Supplier
-  i.supplier = Supplier.where(:name => item["Lieferant"]).first
-  if i.supplier.nil?
-    i.supplier = Supplier.create(:name => item["Lieferant"])
-  end
+  #i.supplier = Supplier.where(:name => item["Lieferant"]).first
+  #if i.supplier.nil?
+  #  i.supplier = Supplier.create(:name => item["Lieferant"])
+  #end
 
   # Properties
   i.properties[:anschaffungskategorie] = item["Anschaffungskategorie"]
-  i.properties[:reference] = "invoice" if item["Bezug"] == "laufende Rechnung"
-  i.properties[:reference] = "investment" if item["Bezug"] == "Investition"
+  #i.properties[:reference] = "invoice" if item["Bezug"] == "laufende Rechnung"
+  #i.properties[:reference] = "investment" if item["Bezug"] == "Investition"
 
   puts i
 

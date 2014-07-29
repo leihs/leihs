@@ -88,3 +88,18 @@ Funktionalität: Aushändigung editieren
   Angenommen ich öffne eine Aushändigung mit einer Software
   Wenn ich in das Zuteilungsfeld links vom Software-Namen klicke
   Dann wird mir der Inventarcode sowie die vollständige Seriennummer angezeigt
+
+  @current
+  Szenario: Listung von problematischen Gegenständen
+    Angenommen es existiert ein Modell mit problematischen Gegenständen 
+    Wenn ich in einer Aushändigung ein Modell zuteile
+    Und ich auf der Modelllinie den Gegenstand von Hand wähle
+    Dann werden die problematischen Gegenstände in rot aufgelistet
+
+  @current
+  Szenario: Keine Auflistung von ausgemusterten Gegenständen
+    Angenommen es existiert ein Modell mit ausgemusterten Gegenständen 
+    Wenn ich in einer Aushändigung ein Modell zuteile
+    Und ich auf der Modelllinie den Gegenstand von Hand wähle
+    Dann werden die ausgemusterten Gegenstände nicht aufgelistet
+

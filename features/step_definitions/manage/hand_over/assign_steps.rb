@@ -127,7 +127,7 @@ When(/^I click on the assignment field of software names$/) do
 end
 
 Then(/^I see the inventory codes and the complete serial numbers of that software$/) do
-  sleep(0.33)
+  sleep(0.66)
   within ".ui-autocomplete" do
     @contract_line.model.items.each do |item|
       within(".ui-menu-item a[title='#{item.inventory_code}']", text: item.serial_number) do

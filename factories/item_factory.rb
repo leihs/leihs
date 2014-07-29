@@ -5,6 +5,12 @@ FactoryGirl.define do
     serial_number { 3.times.map { Faker::Internet.mac_address }.join('-') }
     owner { InventoryPool.count > rand(3..10) ? InventoryPool.all.sample : FactoryGirl.create(:inventory_pool) }
     inventory_pool { owner }
+
+    after(:build) do |item|
+      if item.properties?
+        item.properties = item.properties.with_indifferent_access
+      end
+    end
   end
 
   factory :item do

@@ -50,7 +50,7 @@ Dann(/^wird die Such\-Resultatseite angezeigt$/) do
 end
 
 Dann(/^man sieht alle gefundenen Modelle mit Bild, Modellname und Herstellername$/) do
-  @models = @current_user.models.borrowable.search(@model.name[0..3]).default_order.paginate(page: 1, per_page: 20)
+  @models = @current_user.models.borrowable.search(@model.name[0..3], [:manufacturer, :product, :version]).default_order.paginate(page: 1, per_page: 20)
   @models.each do |model|
     within "#model-list .line[data-id='#{model.id}']" do
       find("div .col1of6", :text => model.manufacturer, match: :prefer_exact)

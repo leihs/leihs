@@ -63,8 +63,8 @@ Funktionalität: Gegenstand kopieren
 
   @javascript @firefox @personas
   Szenario: Bestehenden Gegenstand aus Editieransicht kopieren
-    Angenommen man befindet sich auf der Gegenstandserstellungsansicht
-    Wenn man speichert und kopiert
+    Wenn ich mich in der Editieransicht einer Gegenstand befinde
+    Und man speichert und kopiert
     Dann wird eine neue Gegenstandskopieransicht geöffnet
     Und alle Felder bis auf Inventarcode, Seriennummer und Name wurden kopiert
 

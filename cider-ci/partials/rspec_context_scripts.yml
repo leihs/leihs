@@ -9,6 +9,9 @@ configer_db:
 setup_database:
   order: 3
   body: bundle exec rake db:create db:migrate
+reset_and_seed:
+  order: 4
+  body: bundle exec rake leihs:reset
 rspec:
   order: 5
 drop_test_db: 

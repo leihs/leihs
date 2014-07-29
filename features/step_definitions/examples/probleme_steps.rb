@@ -78,7 +78,7 @@ Dann /^das Problem wird wie folgt dargestellt: "(.*?)"$/ do |format|
   end
 end
 
-Dann /^"(.*?)" sind verfügbar für den Kunden$/ do |arg1|
+Dann /^"(.*?)" sind verfügbar für den Kunden inklusive seinen Gruppenzugehörigen$/ do |arg1|
   max = if [:unsubmitted, :submitted].include? @line.contract.status
           @max_before + @quantity_added
         elsif [:approved, :signed].include? @line.contract.status
@@ -89,7 +89,7 @@ Dann /^"(.*?)" sind verfügbar für den Kunden$/ do |arg1|
   @reference_problem.should match /#{max}\(/
 end
 
-Dann /^"(.*?)" sind insgesamt verfügbar$/ do |arg1|
+Dann /^"(.*?)" sind insgesamt verfügbar inklusive diejenigen Gruppen, welchen der Kunde nicht angehört$/ do |arg1|
   max = @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @ip.group_ids)
   if [:unsubmitted, :submitted].include? @line.contract.status
     max += @line.contract.lines.where(:start_date => @line.start_date, :end_date => @line.end_date, :model_id => @line.model).size
@@ -118,11 +118,9 @@ end
 
 Angenommen /^ich mache eine Rücknahme eines( verspäteten)? Gegenstandes$/ do |arg1|
   @event = "take_back"
-  overdued_take_back = if arg1
-                         @current_inventory_pool.visits.take_back.select { |x| x.date < Date.today }
-                       else
-                         @current_inventory_pool.visits.take_back
-                       end.sample
+  overdued_take_backs = @current_inventory_pool.visits.take_back.select{|v| v.lines.any? {|l| l.is_a? ItemLine}}
+  overdued_take_backs = overdued_take_backs.select { |x| x.date < Date.today } if arg1
+  overdued_take_back = overdued_take_backs.sample
   @line_id = overdued_take_back.contract_lines.where(type: "ItemLine").sample.id
   visit manage_take_back_path(@current_inventory_pool, overdued_take_back.user)
   page.should have_selector(".line[data-id='#{@line_id}']")

@@ -11,8 +11,8 @@ Funktionalität: Anzeige von Problemen
      Und ein Modell ist nichtmehr verfügbar
      Dann sehe ich auf den beteiligten Linien die Auszeichnung von Problemen
      Und das Problem wird wie folgt dargestellt: "Nicht verfügbar 2(3)/7"
-     Und "2" sind verfügbar für den Kunden
-     Und "3" sind insgesamt verfügbar
+     Und "2" sind verfügbar für den Kunden inklusive seinen Gruppenzugehörigen
+     Und "3" sind insgesamt verfügbar inklusive diejenigen Gruppen, welchen der Kunde nicht angehört
      Und "7" sind total im Pool bekannt (ausleihbar)
 
   @javascript @firefox @personas
@@ -56,8 +56,8 @@ Funktionalität: Anzeige von Problemen
      Und eine Model ist nichtmehr verfügbar
      Dann sehe ich auf den beteiligten Linien die Auszeichnung von Problemen
      Und das Problem wird wie folgt dargestellt: "Nicht verfügbar 2(3)/7"
-     Und "2" sind verfügbar für den Kunden
-     Und "3" sind insgesamt verfügbar
+     Und "2" sind verfügbar für den Kunden inklusive seinen Gruppenzugehörigen
+     Und "3" sind insgesamt verfügbar inklusive diejenigen Gruppen, welchen der Kunde nicht angehört
      Und "7" sind total im Pool bekannt (ausleihbar)
 
   @personas
@@ -66,8 +66,8 @@ Funktionalität: Anzeige von Problemen
      Und eine Model ist nichtmehr verfügbar
      Dann sehe ich auf den beteiligten Linien die Auszeichnung von Problemen
      Und das Problem wird wie folgt dargestellt: "Nicht verfügbar 2(3)/7"
-     Und "2" sind verfügbar für den Kunden
-     Und "3" sind insgesamt verfügbar
+     Und "2" sind verfügbar für den Kunden inklusive seinen Gruppenzugehörigen
+     Und "3" sind insgesamt verfügbar inklusive diejenigen Gruppen, welchen der Kunde nicht angehört
      Und "7" sind total im Pool bekannt (ausleihbar)
 
   @javascript @personas

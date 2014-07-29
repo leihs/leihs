@@ -374,8 +374,11 @@ msgstr "Aktuelle Bestellung"
 msgid "Currently Borrowed Items"
 msgstr "Momentan geliehene Gegenstände"
 
-msgid "Currently has things to return"
-msgstr "Hat momentan Dinge zurückzugeben"
+msgid "Currently has items to return"
+msgstr "Hat momentan Gegenstände zurückzugeben"
+
+msgid "Currently has open orders"
+msgstr "Hat momentan offene Bestellungen"
 
 msgid "Currently you have no items in your order."
 msgstr "Momentan haben Sie keine Gegenstände in Ihrer Bestellung."
@@ -1078,6 +1081,12 @@ msgstr "Anz."
 
 msgid "Quantity"
 msgstr "Anzahl"
+
+msgid "Quantity allocations"
+msgstr "Anzahl-Zuteilungen"
+
+msgid "Total quantity"
+msgstr "Gesamtanzahl"
 
 msgid "Quantity: %d"
 msgstr "Anzahl: %d"
@@ -2564,12 +2573,8 @@ msgstr "Quellcode"
 msgid "Complete order"
 msgstr "Bestellung abschliessen"
 
-msgid ""
-"The responsible inventory pool cannot be changed because the item is "
-"currently not in stock."
-msgstr ""
-"Die verantwortliche Abteilung kann nicht geändert werden, da der Gegenstand "
-"nicht am Lager ist."
+msgid "The responsible inventory pool cannot be changed because it's not returned yet or has already been assigned to a contract line."
+msgstr "Die verantwortliche Abteilung kann nicht geändert werden, da das Gerät bereits ausgeliehen oder einer Vertragslinie zugewiesen ist."
 
 msgid "Send reminder"
 msgstr "Erinnerung senden"
@@ -2959,3 +2964,6 @@ msgstr "Beschafft durch"
 
 msgid "Picking List"
 msgstr "Rüstliste"
+
+msgid "remaining"
+msgstr "verbleibend"

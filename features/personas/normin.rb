@@ -139,7 +139,7 @@ module Persona
       # contract with a software license
       contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool_2, :status => :approved)
       purpose = FactoryGirl.create :purpose, :description => Faker::Lorem.sentence
-      license = FactoryGirl.create :license, owner: @inventory_pool, inventory_pool: @inventory_pool_2, properties: { operating_system: ["windows","linux", "mac_os_x"][0..rand(0..2)], license_type: ["concurrent", "site_license", "multiple_workplace"].sample, quantity: rand(300) }
+      license = FactoryGirl.create :license, owner: @inventory_pool, inventory_pool: @inventory_pool_2, properties: { operating_system: ["windows","linux", "mac_os_x"][0..rand(0..2)], license_type: ["concurrent", "site_license", "multiple_workplace"].sample, total_quantity: rand(300) }
       contract.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => contract, :item => license, :model => license.model, :start_date => Date.yesterday, :end_date => Date.today)
       contract.sign(@pius)
     end

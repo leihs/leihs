@@ -33,6 +33,7 @@ load 'config/deploy/recipes/chmod_tmp'
 load 'config/deploy/recipes/migrate_database'
 load 'config/deploy/recipes/bundle_install'
 load 'config/deploy/recipes/precompile_assets'
+load 'config/deploy/recipes/send_mail'
 
 task :modify_config do
   # On staging/test, we don't want to deliver e-mail
@@ -72,3 +73,4 @@ after "link_config", "precompile_assets"
 before "deploy:restart", :make_tmp
 
 after "deploy", "deploy:cleanup"
+after "deploy", :send_mail

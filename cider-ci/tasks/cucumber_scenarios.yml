@@ -569,14 +569,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/borrow/vorlagen.feature:37
-- name: Verfügbarkeitsansicht der Vorlage - features/borrow/vorlagen.feature:45
+- name: Nur verfügbaren Modelle aus Vorlage in Bestellung übernehmen - features/borrow/vorlagen.feature:57
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/borrow/vorlagen.feature:45
-- name: Nur verfügbaren Modelle aus Vorlage in Bestellung übernehmen - features/borrow/vorlagen.feature:56
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default features/borrow/vorlagen.feature:56
+      body: bundle exec cucumber -p default features/borrow/vorlagen.feature:57
 - name: Systemfeedback bei erfolgreicher manueller Interaktion bei Aushändigung -
     features/examples/aushaendigung.feature:9
   scripts:
@@ -685,6 +681,18 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/ausleihe.feature:147
+- name: Suche innerhalb Bestellungen - features/examples/ausleihe.feature:153
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/ausleihe.feature:153
+- name: Suche innerhalb Verträgen - features/examples/ausleihe.feature:160
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/ausleihe.feature:160
+- name: Suche innerhalb Besuche - features/examples/ausleihe.feature:167
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/ausleihe.feature:167
 - name: Sperrfunktion - features/examples/benutzerverwaltung.feature:6
   scripts:
     cucumber:
@@ -768,63 +776,67 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:237
-- name: Neuen Benutzer im Geräterpark als Inventar-Verwalter hinzufügen - features/examples/benutzerverwaltung.feature:254
+- name: Zugriff entfernen für einen Benutzer mit offenen Vertrag - features/examples/benutzerverwaltung.feature:245
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:254
-- name: Zugriff auf Ausleihe-Verwalter ändern als Ausleihe-Verwalter - features/examples/benutzerverwaltung.feature:286
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:245
+- name: Neuen Benutzer im Geräterpark als Inventar-Verwalter hinzufügen - features/examples/benutzerverwaltung.feature:272
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:286
-- name: Zugriff auf Kunde ändern als Ausleihe-Verwalter - features/examples/benutzerverwaltung.feature:299
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:272
+- name: Zugriff auf Ausleihe-Verwalter ändern als Ausleihe-Verwalter - features/examples/benutzerverwaltung.feature:304
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:299
-- name: Zugriff ändern als Inventar-Verwalter - features/examples/benutzerverwaltung.feature:307
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:304
+- name: Zugriff auf Kunde ändern als Ausleihe-Verwalter - features/examples/benutzerverwaltung.feature:317
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:307
-- name: Zugriff auf ein Inventarpool gewährleisten als Inventar-Verwalter - features/examples/benutzerverwaltung.feature:321
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:317
+- name: Zugriff ändern als Inventar-Verwalter - features/examples/benutzerverwaltung.feature:325
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:321
-- name: Zugriff ändern als Administrator - features/examples/benutzerverwaltung.feature:330
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:325
+- name: Zugriff auf ein Inventarpool gewährleisten als Inventar-Verwalter - features/examples/benutzerverwaltung.feature:339
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:330
-- name: Voraussetzungen fürs Löschen eines Benutzers - features/examples/benutzerverwaltung.feature:344
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:339
+- name: Zugriff ändern als Administrator - features/examples/benutzerverwaltung.feature:348
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:344
-- name: Alphabetische Sortierung der Benutzer innerhalb vom Inventarpool - features/examples/benutzerverwaltung.feature:353
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:348
+- name: Voraussetzungen fürs Löschen eines Benutzers - features/examples/benutzerverwaltung.feature:362
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:353
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:362
+- name: Alphabetische Sortierung der Benutzer innerhalb vom Inventarpool - features/examples/benutzerverwaltung.feature:371
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:371
 - name: Benutzer ohne Zugriff im Inventarpool editieren ohne ihm dabei Zugriff zu
-    gewährleisten - features/examples/benutzerverwaltung.feature:359
+    gewährleisten - features/examples/benutzerverwaltung.feature:377
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:359
-- name: Neuen Benutzer im Geräterpark als Administrator hinzufügen - features/examples/benutzerverwaltung.feature:369
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:377
+- name: Neuen Benutzer im Geräterpark als Administrator hinzufügen - features/examples/benutzerverwaltung.feature:387
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:369
-- name: Neuen Benutzer hinzufügen - ohne Eingabe der Pflichtfelder - features/examples/benutzerverwaltung.feature:396
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:387
+- name: Neuen Benutzer hinzufügen - ohne Eingabe der Pflichtfelder - features/examples/benutzerverwaltung.feature:414
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:396
-- name: Benutzer den Zugriff auf ein Inventarpool reaktivieren - features/examples/benutzerverwaltung.feature:411
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:411
-- name: Benutzer als Administrator löschen - features/examples/benutzerverwaltung.feature:420
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:420
-- name: Startseite zurücksetzen - features/examples/benutzerverwaltung.feature:429
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:414
+- name: Benutzer den Zugriff auf ein Inventarpool reaktivieren - features/examples/benutzerverwaltung.feature:429
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:429
+- name: Benutzer als Administrator löschen - features/examples/benutzerverwaltung.feature:438
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:438
+- name: Startseite zurücksetzen - features/examples/benutzerverwaltung.feature:447
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/benutzerverwaltung.feature:447
 - name: Bestellende Person wechseln - features/examples/bestellenden_wechseln.feature:9
   scripts:
     cucumber:
@@ -1117,6 +1129,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/geraetepark_grundinformationen.feature:105
+- name: Automatische Benutzersperrung bei verspäteter Rückgabe - features/examples/geraetepark_grundinformationen.feature:123
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/geraetepark_grundinformationen.feature:123
 - name: Automatische Benutzersperrung nur wenn Benutzer nicht schon gesperrt - features/examples/geraetepark_grundinformationen.feature:138
   scripts:
     cucumber:
@@ -1202,50 +1218,58 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/inventar.feature:10
-- name: Auswahlmöglichkeiten - features/examples/inventar.feature:18
+- name: Inventar anhand eines Suchbegriffs finden - features/examples/inventar.feature:18
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/inventar.feature:18
-- name: Aussehen einer Options-Zeile - features/examples/inventar.feature:29
+- name: Pakete anhand eines Suchbegriffs finden - features/examples/inventar.feature:29
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/inventar.feature:29
-- name: Keine Leeren Modelle auf der Liste des Inventars - features/examples/inventar.feature:37
+- name: Auswahlmöglichkeiten - features/examples/inventar.feature:47
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar.feature:37
-- name: Paket-Modelle aufklappen - features/examples/inventar.feature:41
+      body: bundle exec cucumber -p default features/examples/inventar.feature:47
+- name: Aussehen einer Options-Zeile - features/examples/inventar.feature:58
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar.feature:41
-- name: Aussehen einer Modell-Zeile - features/examples/inventar.feature:50
+      body: bundle exec cucumber -p default features/examples/inventar.feature:58
+- name: Keine Leeren Modelle auf der Liste des Inventars - features/examples/inventar.feature:66
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar.feature:50
-- name: Aussehen einer Gegenstands-Zeile - features/examples/inventar.feature:60
+      body: bundle exec cucumber -p default features/examples/inventar.feature:66
+- name: Paket-Modelle aufklappen - features/examples/inventar.feature:70
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar.feature:60
-- name: Aussehen einer Software-Lizenz-Zeile - features/examples/inventar.feature:81
+      body: bundle exec cucumber -p default features/examples/inventar.feature:70
+- name: Aussehen einer Modell-Zeile - features/examples/inventar.feature:79
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar.feature:81
-- name: Keine Resultate auf der Liste des Inventars - features/examples/inventar.feature:117
+      body: bundle exec cucumber -p default features/examples/inventar.feature:79
+- name: Aussehen einer Gegenstands-Zeile - features/examples/inventar.feature:89
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar.feature:117
-- name: Modell aufklappen - features/examples/inventar.feature:122
+      body: bundle exec cucumber -p default features/examples/inventar.feature:89
+- name: Aussehen einer Software-Lizenz-Zeile - features/examples/inventar.feature:110
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar.feature:122
-- name: Filtermöglichkeiten von Listen - features/examples/inventar.feature:128
+      body: bundle exec cucumber -p default features/examples/inventar.feature:110
+- name: Keine Resultate auf der Liste des Inventars - features/examples/inventar.feature:146
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar.feature:128
-- name: Grundeinstellung der Listenansicht - features/examples/inventar.feature:148
+      body: bundle exec cucumber -p default features/examples/inventar.feature:146
+- name: Modell aufklappen - features/examples/inventar.feature:151
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar.feature:148
+      body: bundle exec cucumber -p default features/examples/inventar.feature:151
+- name: Filtermöglichkeiten von Listen - features/examples/inventar.feature:157
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/inventar.feature:157
+- name: Grundeinstellung der Listenansicht - features/examples/inventar.feature:177
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/inventar.feature:177
 - name: Globaler Export des Inventars aller Geräteparks - features/examples/inventar_csv.feature:6
   scripts:
     cucumber:
@@ -1254,10 +1278,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/inventar_csv.feature:12
-- name: Export der aktuellen Software-Ansicht als CSV - features/examples/inventar_csv.feature:19
+- name: Export der aktuellen Software-Ansicht als CSV - features/examples/inventar_csv.feature:20
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar_csv.feature:19
+      body: bundle exec cucumber -p default features/examples/inventar_csv.feature:20
 - name: Wie man den Helferschirm erreicht - features/examples/inventarhelfer.feature:9
   scripts:
     cucumber:
@@ -1492,18 +1516,18 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/pakete.feature:59
-- name: Paketeigenschaften abfüllen bei neu erstelltem Modell - features/examples/pakete.feature:71
+- name: Paketeigenschaften abfüllen bei neu erstelltem Modell - features/examples/pakete.feature:72
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/pakete.feature:71
-- name: Paket löschen - features/examples/pakete.feature:95
+      body: bundle exec cucumber -p default features/examples/pakete.feature:72
+- name: Paket löschen - features/examples/pakete.feature:106
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/pakete.feature:95
-- name: Paket löschen schlägt fehl wenn das Paket gerade ausgeliehen ist - features/examples/pakete.feature:100
+      body: bundle exec cucumber -p default features/examples/pakete.feature:106
+- name: Paket löschen schlägt fehl wenn das Paket gerade ausgeliehen ist - features/examples/pakete.feature:111
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/pakete.feature:100
+      body: bundle exec cucumber -p default features/examples/pakete.feature:111
 - name: Benutzer mit Benutzernamen und Passwort erstellen - features/examples/passwort.feature:9
   scripts:
     cucumber:
@@ -1628,22 +1652,63 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/ruecknahmen.feature:24
+- name: Was ich auf der Rüstliste sehen möchte - features/examples/ruestliste.feature:13
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/ruestliste.feature:13
+- name: Inhalt der Rüstliste vor Aushändigung - keine Zuteilung von Inventarcode -
+    features/examples/ruestliste.feature:24
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/ruestliste.feature:24
+- name: Inhalt der Rüstliste nach Aushändigung - Inventarcodes sind bekannt - features/examples/ruestliste.feature:44
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/ruestliste.feature:44
+- name: Wo wird die Rüstliste aufgerufen - features/examples/ruestliste.feature:58
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/ruestliste.feature:58
 - name: Software-Produkt editieren - features/examples/software_editieren.feature:9
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/software_editieren.feature:9
-- name: Software-Lizenz editieren - Werte der Datenfelder löschen - features/examples/software_editieren.feature:61
+- name: Grösse des Software Informationen-Felds - features/examples/software_editieren.feature:24
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/software_editieren.feature:61
+      body: bundle exec cucumber -p default features/examples/software_editieren.feature:24
+- name: Software-Lizenz editieren - features/examples/software_editieren.feature:33
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/software_editieren.feature:33
+- name: Software-Lizenz editieren - Werte der Datenfelder löschen - features/examples/software_editieren.feature:62
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/software_editieren.feature:62
 - name: Software-Produkt erfassen - features/examples/software_erfassen.feature:9
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/software_erfassen.feature:9
-- name: Software-Lizenz Anschaffungswert mit 2 Dezimalstellen erfassen - features/examples/software_erfassen.feature:100
+- name: Software-Lizenz erfassen - features/examples/software_erfassen.feature:74
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/software_erfassen.feature:100
+      body: bundle exec cucumber -p default features/examples/software_erfassen.feature:74
+- name: Lizenzanzahl bei Mehrplatz/Konkurrent/Site-Lizenzen - features/examples/software_erfassen.feature:102
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/software_erfassen.feature:102
+- name: Software-Lizenz Anschaffungswert mit 2 Dezimalstellen erfassen - features/examples/software_erfassen.feature:127
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/software_erfassen.feature:127
+- name: Software kopieren - features/examples/software_kopieren.feature:9
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/software_kopieren.feature:9
+- name: Wo kann Software kopiert werden - features/examples/software_kopieren.feature:38
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/software_kopieren.feature:38
 - name: Software-Produkt löschen - features/examples/software_loeschen.feature:9
   scripts:
     cucumber:
@@ -1656,14 +1721,14 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/software_suchen.feature:9
-- name: Verträge für Software-Lizenzen anhand des Ausleihenden finden - features/examples/software_suchen.feature:27
+- name: Verträge für Software-Lizenzen anhand des Ausleihenden finden - features/examples/software_suchen.feature:28
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/software_suchen.feature:27
-- name: Aufteilung der Suchresultate - features/examples/software_suchen.feature:35
+      body: bundle exec cucumber -p default features/examples/software_suchen.feature:28
+- name: Aufteilung der Suchresultate - features/examples/software_suchen.feature:36
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/software_suchen.feature:35
+      body: bundle exec cucumber -p default features/examples/software_suchen.feature:36
 - name: Navigation für Ausleihenden - features/examples/sprachauswahl.feature:10
   scripts:
     cucumber:
@@ -1774,10 +1839,6 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/vertrag.feature:79
-- name: Inhalt der Liste 1 und Liste 2 - features/examples/vertrag.feature:85
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default features/examples/vertrag.feature:85
 - name: Rücknehmende Person - features/examples/vertrag.feature:99
   scripts:
     cucumber:
@@ -2188,16 +2249,11 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/manage/hand_over/assign.feature:11
-- name: Assign an inventory code by providing an inventory code of an item and a set
-    of selected lines - features/manage/hand_over/assign.feature:19
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default features/manage/hand_over/assign.feature:19
 - name: Remove the assignment of an inventory code by clear the the inventory code
-    input - features/manage/hand_over/assign.feature:27
+    input - features/manage/hand_over/assign.feature:28
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/manage/hand_over/assign.feature:27
+      body: bundle exec cucumber -p default features/manage/hand_over/assign.feature:28
 - name: Delete a single line during the hand over - features/manage/hand_over/delete.feature:11
   scripts:
     cucumber:

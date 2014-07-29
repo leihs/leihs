@@ -212,8 +212,10 @@ Dann /^wird es für die ausgewählte Zeitspanne hinzugefügt$/ do
 end
 
 Dann /^habe ich für jeden Gegenstand die Möglichkeit, eine Inspektion auszulösen$/ do
-  all(".line[data-line-type='item_line']").each do |x|
-    within x.find(".multibutton") do
+  all_lines = all(".line[data-line-type='item_line']")
+  # each_with_index in order to prevent 'Element not found in the cache' from CI
+  all_lines.each_with_index do |line, i|
+    within all_lines[i].find(".multibutton") do
       find(".dropdown-toggle").click
       find(".dropdown-holder .dropdown-item", text: _("Inspect"))
     end

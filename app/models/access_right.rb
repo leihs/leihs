@@ -45,7 +45,12 @@ class AccessRight < ActiveRecord::Base
       errors.add(:base, _("The admin role cannot be scoped to an inventory pool")) unless inventory_pool.nil?
     else
       errors.add(:base, _("Inventory Pool is missing")) if inventory_pool.nil?
-      errors.add(:base, _("Currently has things to return")) if not deleted_at.nil? and not inventory_pool.contract_lines.by_user(user).to_take_back.empty?
+
+      if deleted_at
+        lines = inventory_pool.contract_lines.by_user(user)
+        errors.add(:base, _("Currently has open orders")) if lines.to_approve.exists? or lines.to_hand_over.exists?
+        errors.add(:base, _("Currently has items to return")) if lines.to_take_back.exists?
+      end
     end
   end
 

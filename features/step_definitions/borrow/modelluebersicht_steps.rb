@@ -76,7 +76,7 @@ Wenn(/^ich ein Bild anklicke$/) do
 end
 
 Dann(/^wird das Bild zum Hauptbild auch wenn ich das hovern beende$/) do
-  find("body").click
+  step "I release the focus from this field"
   find("#main-image", :visible => false)["src"][model_image_path(@model, offset: 1)].should_not be_nil
 end
 

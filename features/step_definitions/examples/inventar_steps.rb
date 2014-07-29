@@ -48,17 +48,18 @@ def check_existing_inventory_codes(items, type: :model)
   lines = lines.select{|l| l.has_selector? ".button[data-type='inventory-expander'] i.arrow.right"} if type == :software
 
   within "#inventory" do
-    lines.each do |line|
-      within line.find ".button[data-type='inventory-expander']" do
+    # each_with_index in order to prevent 'Element not found in the cache' from CI
+    lines.each_with_index do |line, i|
+      within lines[i].find ".button[data-type='inventory-expander']" do
         find("i.arrow.right").click
         find("i.arrow.down")
       end
       sleep(0.22)
-      within line.find(:xpath, "./following-sibling::div[@class='group-of-lines']") do
+      within lines[i].find(:xpath, "./following-sibling::div[@class='group-of-lines']") do
         inventory_code = find(".line[data-type='#{item_type}'] .col2of5 > .row:nth-child(1)", match: :first).text
         items.find_by_inventory_code(inventory_code).should_not be_nil
       end
-      within line.find ".button[data-type='inventory-expander']" do
+      within lines[i].find ".button[data-type='inventory-expander']" do
         find("i.arrow.down").click
         find("i.arrow.right")
       end
@@ -685,6 +686,7 @@ When(/^I look at this license in the software list$/) do
   find("a[data-software='true']").click
   step 'ich nach "%s" suche' % @license.inventory_code
   within ".line[data-type='software'][data-id='#{@license.model.id}']" do
+    sleep(0.11)
     if has_selector?(".button[data-type='inventory-expander'] i.arrow.right")
       find(".button[data-type='inventory-expander']").click
     end
@@ -712,7 +714,7 @@ end
 
 Then(/^the license line contains the 'quantity' information$/) do
   line = @license_line.is_a?(String) ? find(@license_line, match: :first) : @license_line
-  line.should have_content @license.properties[:quantity]
+  line.should have_content @license.properties[:total_quantity]
 end
 
 Given(/^there exists a software license, owned by my inventory pool, but given responsibility to another inventory pool$/) do

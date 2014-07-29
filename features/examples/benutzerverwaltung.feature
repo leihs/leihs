@@ -241,21 +241,23 @@ Funktionalität: Benutzer verwalten
     Und ich speichere
     Dann hat der Benutzer keinen Zugriff auf das Inventarpool
 
-  @current @personas
-  Szenariogrundriss: Grundriss Zugriff entfernen als Inventar-Verwalter
+  @personas
+  Szenariogrundriss: Zugriff entfernen für einen Benutzer mit offenen Vertrag
     Angenommen ich bin <Persona>
-    Und man editiert einen Benutzer der Zugriff auf das aktuelle Inventarpool und dort einen Vertrag mit Status <Vertragsstatus> hat
+    Und es existiert ein Vertrag mit Status "<Vertragsstatus>" für einen Benutzer mit sonst keinem anderen Verträgen
+    Wenn man den Benutzer für diesen Vertrag editiert
+    Dann hat dieser Benutzer Zugriff auf das aktuelle Inventarpool
     Wenn man den Zugriff entfernt
     Und ich speichere
     Dann erhalte ich die Fehlermeldung "<Fehlermeldung>"
     Beispiele:
-    |Persona|Vertragsstatus|Fehlermeldung|
-    |Mike|abgeschickt|Hat momentan offene Bestellungen|
-    |Pius|abgeschickt|Hat momentan offene Bestellungen|
-    |Mike|genehmigt|Hat momentan offene Bestellungen|
-    |Pius|genehmigt|Hat momentan offene Bestellungen|
-    |Mike|unterschrieben|Hat momentan Gegenstände zurückzugeben|
-    |Pius|unterschrieben|Hat momentan Gegenstände zurückzugeben|
+      | Persona | Vertragsstatus | Fehlermeldung                          |
+      | Mike    | abgeschickt    | Hat momentan offene Bestellungen       |
+      | Pius    | abgeschickt    | Hat momentan offene Bestellungen       |
+      | Mike    | genehmigt      | Hat momentan offene Bestellungen       |
+      | Pius    | genehmigt      | Hat momentan offene Bestellungen       |
+      | Mike    | unterschrieben | Hat momentan Gegenstände zurückzugeben |
+      | Pius    | unterschrieben | Hat momentan Gegenstände zurückzugeben |
 
    @upcoming
   Szenario: Gruppenzuteilung in Benutzeransicht hinzufügen/entfernen

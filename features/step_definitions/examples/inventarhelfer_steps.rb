@@ -296,7 +296,7 @@ Angenommen(/^man editiert das Feld "(.*?)" eines ausgeliehenen Gegenstandes$/) d
 end
 
 Dann(/^erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät ausgeliehen ist$/) do
-  page.should have_content _("The responsible inventory pool cannot be changed because the item is currently not in stock.")
+  page.should have_content _("The responsible inventory pool cannot be changed because it's not returned yet or has already been assigned to a contract line.")
   @item_before.should == @item.reload.to_json
 end
 

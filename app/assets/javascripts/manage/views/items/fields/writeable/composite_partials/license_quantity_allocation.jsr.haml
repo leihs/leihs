@@ -1,0 +1,14 @@
+.row.line.font-size-xs.focus-hover-thin{:"data-type" => "inline-entry"}
+
+  .line-col.col1of10.text-align-center= "#{_('Quantity')}:"
+
+  .line-col.col2of10
+    %input.width-full.small.text-align-center{type: "text", value: "", name: "{{>field.getFormName()}}[][quantity]", value: "{{if allocation}}{{>allocation.quantity}}{{/if}}", "data-quantity-allocation" => "true"}
+
+  .line-col.col1of10.text-align-center= "#{_('Location')}:"
+
+  .line-col.col5of10
+    %input.width-full.small.text-align-center{type: "text", value: "", name: "{{>field.getFormName()}}[][room]", value: "{{if allocation}}{{>allocation.room}}{{/if}}", "data-room-allocation" => "true"}
+
+  .line-col.col1of10
+    %button.button.inset.small{:"data-remove" => true}= _("Remove")

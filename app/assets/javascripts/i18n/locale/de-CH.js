@@ -361,6 +361,10 @@ window.i18n.locale_data = {
          null,
          "Total verfügbar:"
       ],
+      "available quantity": [
+         null,
+         "verfügbare Anzahl"
+      ],
       "Back": [
          null,
          "Zurück"
@@ -537,9 +541,13 @@ window.i18n.locale_data = {
          null,
          "Momentan geliehene Gegenstände"
       ],
-      "Currently has things to return": [
+      "Currently has items to return": [
          null,
-         "Hat momentan Dinge zurückzugeben"
+         "Hat momentan Gegenstände zurückzugeben"
+      ],
+      "Currently has open orders": [
+         null,
+         "Hat momentan offene Bestellungen"
       ],
       "Currently you have no items in your order.": [
          null,
@@ -1071,6 +1079,10 @@ window.i18n.locale_data = {
          null,
          "Orte"
       ],
+      "location not defined": [
+         null,
+         "Ort nicht definiert"
+      ],
       "Logged in successfully": [
          null,
          "Erfolgreich eingeloggt"
@@ -1447,6 +1459,14 @@ window.i18n.locale_data = {
       "Quantity": [
          null,
          "Anzahl"
+      ],
+      "Quantity allocations": [
+         null,
+         "Anzahl-Zuteilungen"
+      ],
+      "Total quantity": [
+         null,
+         "Gesamtanzahl"
       ],
       "Quantity: %d": [
          null,
@@ -3269,9 +3289,9 @@ window.i18n.locale_data = {
          null,
          "Bestellung abschliessen"
       ],
-      "The responsible inventory pool cannot be changed because the item is currently not in stock.": [
+      "The responsible inventory pool cannot be changed because it's not returned yet or has already been assigned to a contract line.": [
          null,
-         "Die verantwortliche Abteilung kann nicht geändert werden, da der Gegenstand nicht am Lager ist."
+         "Die verantwortliche Abteilung kann nicht geändert werden, da das Gerät bereits ausgeliehen oder einer Vertragslinie zugewiesen ist."
       ],
       "Send reminder": [
          null,
@@ -3775,6 +3795,10 @@ window.i18n.locale_data = {
       "Picking List": [
          null,
          "Rüstliste"
+      ],
+      "remaining": [
+         null,
+         "verbleibend"
       ]
    }
 }

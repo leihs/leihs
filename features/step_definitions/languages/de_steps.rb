@@ -177,32 +177,59 @@ Angenommen(/^es existiert eine Software\-Lizenz$/) do
   step "a software license exists"
 end
 
-Angenommen(/^es existiert ein Software\-Produkt mit folgenden Eigenschaften:$/) do |table|
-  step "there is a software product with the following properties:", table
+Wenn(/^ich eine bestehende Software\-Lizenz kopiere$/) do
+  step "I copy an existing software license"
 end
 
-Angenommen(/^es existiert eine Software\-Lizenz mit folgenden Eigenschaften:$/) do |table|
-  step "there is a software license with the following properties:", table
+Angenommen(/^es existiert ein(e)? (.*) mit folgenden Eigenschaften:$/) do |arg0, arg1, table|
+  s = case arg1
+        when "Modell"
+          "model"
+        when "Gegenstand"
+          "item"
+        when "Software-Produkt"
+          "software product"
+        when "Software-Lizenz"
+          "software license"
+        else
+          raise "not found"
+      end
+  step "there is a #{s} with the following properties:", table
 end
 
-Wenn(/^ich nach einer dieser Software\-Produkt Eigenschaften suche$/) do
-  step "I search after one of those software product properties"
+Wenn(/^ich (im Inventarbereich )?nach einer dieser (.*)?Eigenschaften suche$/) do |arg1, arg2|
+  s1 = "in inventory "
+  s2 = case arg2
+         when "Software-Produkt "
+           "software product "
+         when "Software-Lizenz "
+           "software license "
+         else
+           ""
+       end
+  step "I search #{s1}after one of those #{s2}properties"
 end
 
-Wenn(/^ich nach einer dieser Software\-Lizenz Eigenschaften suche$/) do
-  step "I search after one of those software license properties"
-end
-
-Dann(/^es erscheinen alle zutreffenden Software\-Produkte$/) do
-  step "they appear all matched software products"
-end
-
-Dann(/^es erscheinen alle zutreffenden Software\-Lizenzen$/) do
-  step "they appear all matched software licenses"
-end
-
-Dann(/^es erscheinen alle zutreffenden Verträge, in denen diese Software\-Produkt vorkommt$/) do
-  step "they appear all matched contracts, in which this software product is contained"
+Dann(/^es erscheinen alle zutreffenden (.*)$/) do |arg1|
+  s = case arg1
+        when "Modelle"
+          "models"
+        when "Gegenstände"
+          "items"
+        when "Paket-Modelle"
+          "package models"
+        when "Paket-Gegenstände"
+          "package items"
+        when "Software-Produkte"
+          "software products"
+        when "Software-Lizenzen"
+          "software licenses"
+        when "Verträge, in denen diese Software-Produkt vorkommt"
+          "contracts, in which this software product is contained"
+        else
+          raise "not found"
+      end
+  step "they appear all matched %s" % s
 end
 
 Angenommen(/^diese Software\-Lizenz ist an jemanden ausgeliehen$/) do
@@ -369,8 +396,8 @@ Dann(/^sehe ich die "Software Informationen" angezeigt$/) do
   step %Q(I see the "Software Information")
 end
 
-Wenn(/^ich eine bestehende Software\-Lizenz mit Software\-Informationen und Anhängen editiere$/) do
-  step %Q(I edit an existing software license with software information and attachments)
+Wenn(/^ich eine bestehende Software\-Lizenz mit Software\-Informationen, Anzahl-Zuteilungen und Anhängen editiere$/) do
+  step %Q(I edit an existing software license with software information, quantity allocations and attachments)
 end
 
 Dann(/^die "Software Informationen" sind nicht editierbar$/) do
@@ -513,6 +540,18 @@ Dann(/^alle die zugeteilten Gegenstände erhalten dieselben Werte, die auf diese
   step "all the packaged items receive these same values store to this package", table
 end
 
+Angenommen(/^diese Modell ein Paket ist$/) do
+  step "this model is a package"
+end
+
+Angenommen(/^diese Paket\-Gegenstand ist Teil des Pakets\-Modells$/) do
+  step "this package item is part of this package model"
+end
+
+Angenommen(/^dieser Gegenstand ist Teil des Paket\-Gegenstandes$/) do
+  step "this item is part of this package item"
+end
+
 Wenn(/^man öffnet (eine|die) Rüstliste( für einen unterschriebenen Vertrag)?$/) do |arg1, arg2|
   s1 = case arg1
          when "eine"
@@ -615,11 +654,11 @@ end
 Dann(/^Gegenständen kein Raum oder Gestell zugeteilt sind, wird (die verfügbare Anzahl und )?"(.*?)" angezeigt$/) do |arg1, arg2|
   s1 = arg1 ? "the available quantity and " : nil
   s2 = case arg2
-        when "Ort nicht definiert"
-          _("location not defined")
-        else
-          raise "not found"
-      end
+         when "Ort nicht definiert"
+           _("location not defined")
+         else
+           raise "not found"
+       end
   step %Q(the items without location, are displayed with #{s1}"#{s2}")
 end
 
@@ -631,4 +670,149 @@ Dann(/^fehlende Rauminformationen bei Optionen werden als "(.*?)" angezeigt$/) d
           raise "not found"
       end
   step %Q(the missing location information for options, are displayed with "#{s}")
+end
+
+Dann(/^wird die Editieransicht der neuen Software\-Lizenz geöffnet$/) do
+  step "it opens the edit view of the new software license"
+end
+
+Angenommen(/^es existieren (Bestellungen|Verträge|Besuche)$/) do |arg1|
+  s = case arg1
+        when "Bestellungen"
+          "orders"
+        when "Verträge"
+          "contracts"
+        when "Besuche"
+          "visits"
+        else
+          raise "not found"
+      end
+  step "%s exist" % s
+end
+
+Wenn(/^ich mich auf der Liste der (Bestellungen|Verträge|Besuche) befinde$/) do |arg1|
+  s = case arg1
+        when "Bestellungen"
+          "orders"
+        when "Verträge"
+          "contracts"
+        when "Besuche"
+          "visits"
+        else
+          raise "not found"
+      end
+  step "I am listing the %s" % s
+
+end
+
+Wenn(/^ich nach (einer Bestellung|einem Vertrag|einem Besuch) suche$/) do |arg1|
+  s = case arg1
+        when "einer Bestellung"
+          "an order"
+        when "einem Vertrag"
+          "a contract"
+        when "einem Besuch"
+          "a visit"
+        else
+          raise "not found"
+      end
+  step "I search for %s" % s
+end
+
+Dann(/^werden mir alle (Bestellungen|Verträge|Besuche) aufgeführt, die zu meinem Suchbegriff passen$/) do |arg1|
+  s = case arg1
+        when "Bestellungen"
+          "orders"
+        when "Verträge"
+          "contracts"
+        when "Besuche"
+          "visits"
+        else
+          raise "not found"
+      end
+  step "all listed %s, are matched by the search term" % s
+end
+
+Wenn(/^ich den Wert der Notiz ändere$/) do
+  step %Q(I change the value of the note)
+end
+
+Wenn(/^ich die Dongle\-ID ändere$/) do
+  step %Q(I change the value of dongle id)
+end
+
+Wenn(/^ich die Gesamtanzahl ändere$/) do
+  step %Q(I change the value of total quantity)
+end
+
+Wenn(/^ich die Anzahl\-Zuteilungen ändere$/) do
+  step %Q(I change the quantity allocations)
+end
+
+Wenn(/^ich eine Gesamtanzahl eingebe$/) do
+  step %Q(I fill in the value of total quantity)
+end
+
+Wenn(/^ich die Anzahl\-Zuteilungen hinzufüge$/) do
+  step %Q(I add the quantity allocations)
+end
+
+Wenn(/^ich die Gesamtanzahl "(.*?)" eingebe$/) do |arg1|
+  step %Q(I fill in total quantity with value "#{arg1}")
+end
+
+Dann(/^wird mir die verbleibende Anzahl der Lizenzen wie folgt angezeigt "(.*?)"$/) do |arg1|
+  step %Q(I see the remaining number of licenses shown as follows "#{arg1}")
+end
+
+Dann(/^ich die folgenden Anzahl\-Zuteilungen hinzufüge$/) do |table|
+  step %Q(I add the following quantity allocations:), table
+end
+
+Wenn(/^ich die folgenden Anzahl\-Zuteilungen lösche$/) do |table|
+  step %Q(I delete the following quantity allocations:), table
+end
+
+Dann(/^der (.*) heisst "(.*?)"$/) do |arg1, arg2|
+  s = case arg1
+        when "Titel"
+          "title"
+        when "Speichern-Button"
+          "save button"
+        else
+          raise "not found"
+      end
+  step %Q(the #{s} is labeled as "#{arg2}")
+end
+
+Dann(/^ist die neue Lizenz erstellt$/) do
+  step "the new software license is created"
+end
+
+Dann(/^wurden die folgenden Felder von der kopierten Lizenz übernommen$/) do |table|
+  step "the following fields were copied from the original software license", table
+end
+
+Dann(/^kann ich die bestehende Software-Lizenz kopieren$/) do
+  step "I can copy an existing software license"
+end
+
+Dann(/^kann ich die bestehende Software-Lizenz speichern und kopieren$/) do
+  step "I can save and copy the existing software license"
+end
+
+Angenommen(/^es existiert ein Vertrag mit Status "(.*?)" für einen Benutzer mit sonst keinem anderen Verträgen$/) do |arg1|
+  step %Q(there exists a contract with status "#{arg1}" for a user with otherwise no other contracts)
+end
+
+Wenn(/^man den Benutzer für diesen Vertrag editiert$/) do
+  step %Q(I edit the user of this contract)
+end
+
+Dann(/^hat dieser Benutzer Zugriff auf das aktuelle Inventarpool$/) do
+  step %Q(this user has access to the current inventory pool)
+end
+
+Dann(/^erhalte ich die Fehlermeldung "(.*?)"$/) do |arg1|
+  step %Q(I see the error message "#{arg1}")
 end

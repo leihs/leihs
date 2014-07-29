@@ -365,7 +365,10 @@ msgstr ""
 msgid "Currently Borrowed Items"
 msgstr ""
 
-msgid "Currently has things to return"
+msgid "Currently has items to return"
+msgstr ""
+
+msgid "Currently has open orders"
 msgstr ""
 
 msgid "Currently you have no items in your order."
@@ -1052,6 +1055,12 @@ msgid "Qty."
 msgstr ""
 
 msgid "Quantity"
+msgstr ""
+
+msgid "Quantity allocations"
+msgstr ""
+
+msgid "Total quantity"
 msgstr ""
 
 msgid "Quantity: %d"
@@ -2476,7 +2485,7 @@ msgstr ""
 msgid "Complete order"
 msgstr ""
 
-msgid "The responsible inventory pool cannot be changed because the item is currently not in stock."
+msgid "The responsible inventory pool cannot be changed because it's not returned yet or has already been assigned to a contract line."
 msgstr ""
 
 msgid "Send reminder"
@@ -2857,4 +2866,7 @@ msgid "Procured by"
 msgstr ""
 
 msgid "Picking List"
+msgstr ""
+
+msgid "remaining"
 msgstr ""

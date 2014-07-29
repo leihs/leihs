@@ -395,12 +395,22 @@ module Persona
 
       software = FactoryGirl.create :software, technical_detail: "test http://test.ch\r\nwww.foo.ch\r\njust a text"
       rand(1..3).times { software.attachments << FactoryGirl.create(:attachment) }
-      FactoryGirl.create :license, owner: @inventory_pool, model: software
+      FactoryGirl.create :license,
+        owner: @inventory_pool,
+        model: software,
+        properties: { quantity_allocations: [{room: Faker::Lorem.word, quantity: rand(1..50)},
+                                             {room: Faker::Lorem.word, quantity: rand(1..50)}]}
 
       software = FactoryGirl.create :software, technical_detail: "test http://test.ch\r\nwww.foo.ch\r\njust a text"
       rand(1..3).times { software.attachments << FactoryGirl.create(:attachment) }
 
-      FactoryGirl.create :license, owner: @inventory_pool, properties: { operating_system: ["windows","linux", "mac_os_x"][0..rand(0..2)], license_type: ["concurrent", "site_license", "multiple_workplace"].sample, quantity: rand(300) }
+      FactoryGirl.create :license,
+        owner: @inventory_pool,
+        properties: { operating_system: ["windows","linux", "mac_os_x"][0..rand(0..2)],
+                      license_type: ["concurrent", "site_license", "multiple_workplace"].sample,
+                      total_quantity: rand(300),
+                      quantity_allocations: [{room: Faker::Lorem.word, quantity: rand(1..50)},
+                                             {room: Faker::Lorem.word, quantity: rand(1..50)}]}
     end
 
     def setup_models_without_version

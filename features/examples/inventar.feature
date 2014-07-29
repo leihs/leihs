@@ -14,51 +14,53 @@ Funktionalität: Inventar
     Wenn ich mich auf der Softwareliste befinde
     Dann man sieht Software
 
-
-  @current
+  @javascript @personas
   Szenario: Inventar anhand eines Suchbegriffs finden
     Angenommen es existiert ein Modell mit folgenden Eigenschaften:
       | Name           | suchbegriff1 |
       | Hersteller     | suchbegriff4 |
     Und es existiert ein Gegenstand mit folgenden Eigenschaften:
       | Inventarcode   | suchbegriff2 |
-    Wenn ich nach einer dieser Modell-Eigenschaften suche
+    Wenn ich im Inventarbereich nach einer dieser Eigenschaften suche
     Dann es erscheinen alle zutreffenden Modelle
     Und es erscheinen alle zutreffenden Gegenstände
 
-  @current
+  @javascript @personas
   Szenario: Pakete anhand eines Suchbegriffs finden
-    Angenommen es existiert ein Paket-Modell mit folgenden :
-      | Name           | suchbegriff1 |
-    Und es existiert ein Paket-Gegenstand mit folgenden Eigenschaften:
+    Angenommen es existiert ein Modell mit folgenden Eigenschaften:
+      | Name           | Package Model |
+    Und diese Modell ein Paket ist
+    Und es existiert ein Gegenstand mit folgenden Eigenschaften:
       | Inventarcode           | AVZ40001 |
     Und diese Paket-Gegenstand ist Teil des Pakets-Modells
+    Und es existiert ein Modell mit folgenden Eigenschaften:
+      | Name           | Normal Model |
     Und es existiert ein Gegenstand mit folgenden Eigenschaften:
       | Inventarcode           | AVZ40020 |
     Und dieser Gegenstand ist Teil des Paket-Gegenstandes
-    Wenn ich nach einer dieser Suchbegriffe suche
+    Wenn ich im Inventarbereich nach einer dieser Eigenschaften suche
     Dann es erscheinen alle zutreffenden Paket-Modelle
     Und es erscheinen alle zutreffenden Paket-Gegenstände
     Und es erscheinen alle zutreffenden Gegenstände
 
-  @javascript @personas @firefox
+  @javascript @personas
   Szenario: Auswahlmöglichkeiten
     Dann hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind
-    | auswahlmöglichkeit |
-    | Aktives Inventar   |
-    | Ausleihbar         |
-    | Nicht ausleihbar   |
-    | Ausgemustert       |
-    | Ungenutzte Modelle |
-    | Software           |
+      | auswahlmöglichkeit |
+      | Aktives Inventar   |
+      | Ausleihbar         |
+      | Nicht ausleihbar   |
+      | Ausgemustert       |
+      | Ungenutzte Modelle |
+      | Software           |
 
   @javascript @personas
   Szenario: Aussehen einer Options-Zeile
     Dann enthält die Options-Zeile folgende Informationen
-    | information |
-    | Barcode     |
-    | Name        |
-    | Preis       |
+      | information |
+      | Barcode     |
+      | Name        |
+      | Preis       |
 
   @javascript @personas
   Szenario: Keine Leeren Modelle auf der Liste des Inventars
@@ -77,32 +79,32 @@ Funktionalität: Inventar
   Szenario: Aussehen einer Modell-Zeile
     Wenn man eine Modell-Zeile sieht
     Dann enthält die Modell-Zeile folgende Informationen:
-    | information              |
-    | Bild                     |
-    | Name des Modells         |
-    | Anzahl verfügbar (jetzt) |
-    | Anzahl verfügbar (Total) |
+      | information              |
+      | Bild                     |
+      | Name des Modells         |
+      | Anzahl verfügbar (jetzt) |
+      | Anzahl verfügbar (Total) |
 
   @javascript @personas @firefox
   Szenario: Aussehen einer Gegenstands-Zeile
     Wenn der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist
     Dann enthält die Gegenstands-Zeile folgende Informationen:
-    | information      |
-    | Gebäudeabkürzung |
-    | Raum             |
-    | Gestell          |
+      | information      |
+      | Gebäudeabkürzung |
+      | Raum             |
+      | Gestell          |
     Wenn meine Abteilung Besitzer des Gegenstands ist die Verantwortung aber auf eine andere Abteilung abgetreten hat
     Dann enthält die Gegenstands-Zeile folgende Informationen:
-    | information               |
-    | Verantwortliche Abteilung |
-    | Gebäudeabkürzung          |
-    | Raum                      |
+      | information               |
+      | Verantwortliche Abteilung |
+      | Gebäudeabkürzung          |
+      | Raum                      |
     Wenn der Gegenstand nicht an Lager ist und eine andere Abteilung für den Gegenstand verantwortlich ist
     Dann enthält die Gegenstands-Zeile folgende Informationen:
-    | information            |
-    | Verantwortliche Abteilung |
-    | Aktueller Ausleihender |
-    | Enddatum der Ausleihe  |
+      | information            |
+      | Verantwortliche Abteilung |
+      | Aktueller Ausleihender |
+      | Enddatum der Ausleihe  |
 
   @javascript @personas @firefox
   Szenario: Aussehen einer Software-Lizenz-Zeile
@@ -154,12 +156,12 @@ Funktionalität: Inventar
   @javascript @personas
   Szenario: Filtermöglichkeiten von Listen
     Dann hat man folgende Filtermöglichkeiten
-    | filtermöglichkeit         |
-    | An Lager                  |
-    | Besitzer bin ich          |
-    | Verantwortliche Abteilung |
-    | Defekt                    |
-    | Unvollständig             |
+      | filtermöglichkeit         |
+      | An Lager                  |
+      | Besitzer bin ich          |
+      | Verantwortliche Abteilung |
+      | Defekt                    |
+      | Unvollständig             |
     Und die Filter können kombiniert werden
 
   #73278620

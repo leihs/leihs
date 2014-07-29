@@ -118,7 +118,7 @@ class Manage::ItemsController < Manage::ApplicationController
 
   def copy
     fetch_item
-    @type = @item.type
+    @type = @item.type.downcase
     @item = @item.dup
     @item.owner = @current_inventory_pool
     @item.inventory_code = Item.proposed_inventory_code(current_inventory_pool)

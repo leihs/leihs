@@ -207,6 +207,7 @@ Dann(/^die Liste wird gefiltert nach Modellen die in diesem Zeitraum verfügbar 
   sleep(0.33)
   all("#model-list .line[data-id]").each do |model_el|
     model = Model.find_by_id(model_el["data-id"]) || Model.find_by_id(model_el.reload["data-id"])
+    raise "not found" unless model
     quantity = @current_user.inventory_pools.to_a.sum do |ip|
       model.availability_in(ip).maximum_available_in_period_summed_for_groups(@start_date, @end_date, @current_user.groups.map(&:id))
     end
@@ -378,7 +379,7 @@ Angenommen(/^Filter sind ausgewählt$/) do
   find("#model-list-search input").set "a"
   find("input#start-date").set Date.today.strftime("%d.%m.%Y")
   find("input#end-date").set (Date.today + 1).strftime("%d.%m.%Y")
-  find("body").click
+  step "I release the focus from this field"
   page.should_not have_selector(".ui-datepicker-calendar", :visible => true)
   find("#ip-selector").click
   page.should have_selector("#ip-selector .dropdown-item", :visible => true)
@@ -429,7 +430,7 @@ Wenn(/^ich alle Filter manuell zurücksetze$/) do
   find("#model-list-search input").set ""
   find("input#start-date").set ""
   find("input#end-date").set ""
-  find("body").click
+  step "I release the focus from this field"
   all(".ui-datepicker-calendar", :visible => true).empty?.should be_true
   find("#ip-selector").click
   page.should have_selector("#ip-selector .dropdown-item", :visible => true)
