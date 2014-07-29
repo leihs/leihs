@@ -515,7 +515,7 @@ Dann(/^sehe ich im Dialog die Fehlermeldung "(.*?)"$/) do |text|
 end
 
 Wenn(/^ich die Aushändigung abschliesse$/) do
-  all("input[data-assign-item]").select(&:value).sample.find(:xpath, "ancestor::*[@data-line-type]").find("input[data-select-line]").click
+  find(:xpath, "//*[@data-line-type and descendant::*[contains(@id, 'assigned-item')]]//*[@data-select-line]", match: :first).click
   find("button[data-hand-over-selection]").click
 end
 
