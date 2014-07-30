@@ -676,34 +676,40 @@ When(/^I press CSV\-Export$/) do
   find("#csv-export").click
 end
 
-Given(/^there exists a software license$/) do
-  @item = @license = Item.licenses.where(inventory_pool_id: @current_inventory_pool.id).select{|l| l.properties[:operating_system] and l.properties[:license_type]}.sample
-  @license.should_not be_nil
-end
-
 When(/^I look at this license in the software list$/) do
   visit manage_inventory_path(@current_inventory_pool)
   find("a[data-software='true']").click
   step 'ich nach "%s" suche' % @license.inventory_code
   within ".line[data-type='software'][data-id='#{@license.model.id}']" do
+    el = find(".button[data-type='inventory-expander']")
     sleep(0.11)
-    if has_selector?(".button[data-type='inventory-expander'] i.arrow.right")
-      find(".button[data-type='inventory-expander']").click
+    if el.has_selector?("i.arrow.right")
+      el.click
+      el.find("i.arrow.down")
     end
   end
   @item_line = @license_line = ".group-of-lines .line[data-type='license'][data-id='#{@license.id}']"
 end
 
-Then(/^the license line contains the 'operating system' information$/) do
+Then(/^the license line contains the '(.*)' information$/) do |arg1|
   line = @license_line.is_a?(String) ? find(@license_line, match: :first) : @license_line
-  @license.properties[:operating_system].map(&:titleize).each do |os|
-    line.should have_content _(os)
+  case arg1
+    when "operating system"
+      @license.properties[:operating_system].map(&:titleize).each do |os|
+        line.should have_content _(os)
+      end
+    when "license type"
+      line.should have_content _(@license.properties[:license_type].titleize)
+    when "quantity"
+      line.should have_content @license.properties[:total_quantity]
+    else
+      raise "not found"
   end
 end
 
-Then(/^the license line contains the 'license type' information$/) do
-  line = @license_line.is_a?(String) ? find(@license_line, match: :first) : @license_line
-  line.should have_content _(@license.properties[:license_type].titleize)
+Given(/^there exists a software license$/) do
+  @item = @license = Item.licenses.where(inventory_pool_id: @current_inventory_pool.id).select{|l| l.properties[:operating_system] and l.properties[:license_type]}.sample
+  @license.should_not be_nil
 end
 
 Given(/^there exists a software license of one of the following types$/) do |table|
@@ -712,17 +718,12 @@ Given(/^there exists a software license of one of the following types$/) do |tab
   @license.should_not be_nil
 end
 
-Then(/^the license line contains the 'quantity' information$/) do
-  line = @license_line.is_a?(String) ? find(@license_line, match: :first) : @license_line
-  line.should have_content @license.properties[:total_quantity]
-end
-
 Given(/^there exists a software license, owned by my inventory pool, but given responsibility to another inventory pool$/) do
   @item = @license = Item.licenses.where("owner_id = :ip_id AND inventory_pool_id != :ip_id AND inventory_pool_id IS NOT NULL", {ip_id: @current_inventory_pool.id}).select{|l| l.properties[:operating_system] and l.properties[:license_type]}.sample
   @license.should_not be_nil
 end
 
-Angenommen(/^there exists a software license, which is not in stock and another inventory pool is responsible for it$/) do
+Given(/^there exists a software license, which is not in stock and another inventory pool is responsible for it$/) do
   @item = @license = Item.licenses.where("owner_id = :ip_id AND inventory_pool_id != :ip_id AND inventory_pool_id IS NOT NULL", {ip_id: @current_inventory_pool.id}).detect{|i| not i.in_stock?}
   @license.should_not be_nil
 end
