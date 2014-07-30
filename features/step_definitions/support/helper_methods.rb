@@ -1,3 +1,8 @@
+def fill_in_via_autocomplete(css:, text: nil, value:)
+  find(css, text: text).set value
+  find(".ui-menu-item", match: :prefer_exact, text: value, visible: true).click
+end
+
 def get_rails_model_name_from_url
   path_array_reversed = current_path.split("/").reverse
 

@@ -141,16 +141,10 @@ class Item < ActiveRecord::Base
     end
   end
 
-####################################################################
-
-  #### working here, just a try... #### default_scope { where(retired: nil) }
-  #scope :retired, unscoped { where{{retired.not_eq => nil}} } # NOTE using squeel gem # where(arel_table[:retired].not_eq(nil))
-  #scope :retired_and_unretired, unscoped {}
-
-####################################################################
-
   scope :borrowable, -> {where(:is_borrowable => true, :parent_id => nil)}
   scope :unborrowable, -> {where(:is_borrowable => false)}
+
+  scope :retired, -> {where.not(retired: nil)}
 
   scope :broken, -> {where(:is_broken => true)}
   scope :incomplete, -> {where(:is_incomplete => true)}

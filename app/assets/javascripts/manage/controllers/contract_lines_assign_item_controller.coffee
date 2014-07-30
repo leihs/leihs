@@ -44,31 +44,25 @@ class window.App.ContractLineAssignItemController extends Spine.Controller
       $(App.Render "manage/views/items/autocomplete_element", item).data("value", item).appendTo(ul)
     input.autocomplete("search", "")
 
-  fetchItems: (model)=>
-    App.Item.ajaxFetch
+  fetchItemsOrLicences: (klass, model) =>
+    klass.ajaxFetch
       data: $.param 
         model_ids: [model.id]
         in_stock: true
         responsible_or_owner_as_fallback: true
+        unretired: false
 
-  fetchLicenses: (model)=>
-    App.License.ajaxFetch
-      data: $.param 
-        model_ids: [model.id]
-        in_stock: true
-        responsible_or_owner_as_fallback: true
+  fetchItems: _.partial this::fetchItemsOrLicences, App.Item
+  fetchLicenses: _.partial this::fetchItemsOrLicences, App.License
 
-  fetchLocations: (ids)=>
+  fetchWithIds: (klass, ids) =>
     return {done: (c)-> c()} unless ids.length
-    App.Location.ajaxFetch
+    klass.ajaxFetch
       data: $.param 
         ids: ids
 
-  fetchBuildings: (ids)=>
-    return {done: (c)-> c()} unless ids.length
-    App.Building.ajaxFetch
-      data: $.param 
-        ids: ids
+  fetchLocations: _.partial this::fetchWithIds, App.Location
+  fetchBuildings: _.partial this::fetchWithIds, App.Building
 
   assignItem: (input, item)=>
     input.blur()

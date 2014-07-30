@@ -192,3 +192,40 @@ When(/^I select at least one line$/) do
   @line_css = all(".line[data-id]").to_a.sample
   step "ich die Zeile wieder selektiere"
 end
+
+Given(/^there exists a model with a problematic item$/) do
+  @item = @current_inventory_pool.items.borrowable.in_stock.find {|item| item.is_broken? or item.is_incomplete?}
+  @item.should_not be_nil
+  @model = @item.model
+  @model.should_not be_nil
+end
+
+And(/^I open a hand over for some user$/) do
+  @user = @current_inventory_pool.users.sample
+  visit manage_hand_over_path(@current_inventory_pool, @user)
+end
+
+When(/^I add this model to the hand over$/) do
+  fill_in_via_autocomplete css: "#assign-or-add-input", value: @model.name
+end
+
+When(/^I open the item choice list on the model line$/) do
+  within "#lines" do
+    find("[data-line-type]", text: @model.name).find("[data-assign-item]").click
+    has_selector?(".ui-menu").should be_true
+  end
+end
+
+Then(/^the problematic item is displayed red$/) do
+  find(".ui-menu .ui-menu-item .light-red", text: @item.inventory_code)
+end
+
+Given(/^there exists a model with a retired and a borrowable item$/) do
+  @model = @current_inventory_pool.models.find { |m| m.items.borrowable.where(retired: nil).exists? and m.items.retired.exists? }
+  @model.should_not be_nil
+  @item = @model.items.retired.sample
+end
+
+Then(/^the retired item is not displayed in the list$/) do
+  expect(page).not_to have_selector(".ui-menu .ui-menu-item", text: @item.inventory_code)
+end
