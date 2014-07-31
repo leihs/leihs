@@ -28,12 +28,12 @@ Dann /^möchte ich die folgenden Bereiche sehen:$/ do |table|
     case area["Bereich"]
        when "Datum"
          within @contract_element.find(".date") do
-           should have_content Date.today.year
-           should have_content Date.today.month
-           should have_content Date.today.day
+           expect(has_content?(Date.today.year)).to be true
+           expect(has_content?(Date.today.month)).to be true
+           expect(has_content?(Date.today.day)).to be true
          end
-      when "Titel"
-         @contract_element.find("h1").should have_content @contract.id
+      when "Titel", "Vertragsnummer"
+         expect(@contract_element.find("h1").has_content?(@contract.id)).to be true
        when "Ausleihender"
          @contract_element.find(".customer")
        when "Verleier"
@@ -43,7 +43,7 @@ Dann /^möchte ich die folgenden Bereiche sehen:$/ do |table|
        when "Liste 2"
          # this list is not always there
        when "Liste der Zwecke"
-         @contract_element.find("section.purposes").should have_content @contract.purpose
+         expect(@contract_element.find("section.purposes").has_content?(@contract.purpose)).to be true
        when "Zusätzliche Notiz"
          @contract_element.find("section.note")
        when "Hinweis auf AGB"
@@ -54,14 +54,12 @@ Dann /^möchte ich die folgenden Bereiche sehen:$/ do |table|
          # depends on browser settings
        when "Barcode"
          @contract_element.find(".barcode")
-       when "Vertragsnummer"
-         @contract_element.find("h1").should have_content @contract.id
      end
    end
 end
 
 Dann /^seh ich den Hinweis auf AGB "(.*?)"$/ do |note|
-  @contract_element.find(".terms").should_not be_nil
+  expect(@contract_element.find(".terms")).not_to eq nil
 end
 
 Dann /^beinhalten Liste (\d+) und Liste (\d+) folgende Spalten:$/ do |arg1, arg2, table|
@@ -78,18 +76,18 @@ Dann /^beinhalten Liste (\d+) und Liste (\d+) folgende Spalten:$/ do |arg1, arg2
           @contract.lines.each {|line|
             line_element = find("tr", :text=> line.item.inventory_code)
             within line_element.find(".start_date") do
-              should have_content line.start_date.year
-              should have_content line.start_date.month
-              should have_content line.start_date.day
+              expect(has_content? line.start_date.year).to be true
+              expect(has_content? line.start_date.month).to be true
+              expect(has_content? line.start_date.day).to be true
             end
           }
         when "Enddatum"
           @contract.lines.each {|line|
             line_element = find("tr", :text=> line.item.inventory_code)
             within line_element.find(".end_date") do
-              should have_content line.end_date.year
-              should have_content line.end_date.month
-              should have_content line.end_date.day
+              expect(has_content? line.end_date.year).to be true
+              expect(has_content? line.end_date.month).to be true
+              expect(has_content? line.end_date.day).to be true
             end
           }
         when "Rückgabedatum"
@@ -97,9 +95,9 @@ Dann /^beinhalten Liste (\d+) und Liste (\d+) folgende Spalten:$/ do |arg1, arg2
             unless line.returned_date.blank?
               line_element = find("tr", :text=> line.item.inventory_code)
               within line_element.find(".returning_date") do
-                should have_content line.returned_date.year
-                should have_content line.returned_date.month
-                should have_content line.returned_date.day
+                expect(has_content? line.returned_date.year).to be true
+                expect(has_content? line.returned_date.month).to be true
+                expect(has_content? line.returned_date.day).to be true
               end
             end
           }
@@ -114,14 +112,14 @@ end
 
 Dann /^jeder identische Zweck ist maximal einmal aufgelistet$/ do
   purposes = @contract.lines.sort.map{|l| l.purpose.to_s }.uniq.join('; ')
-  @contract_element.find(".purposes > p").text.should == purposes
+  expect(@contract_element.find(".purposes > p").text).to eq purposes
 end
 
 Dann /^sehe ich das heutige Datum oben rechts$/ do
   within @contract_element.find(".date") do
-    should have_content Date.today.month
-    should have_content Date.today.day
-    should have_content Date.today.year
+    expect(has_content? Date.today.month).to be true
+    expect(has_content? Date.today.day).to be true
+    expect(has_content? Date.today.year).to be true
   end
 end
 
@@ -147,19 +145,19 @@ Dann /^möchte ich im Feld des Ausleihenden die folgenden Bereiche sehen:$/ do |
   table.hashes.each do |area|
     case area["Bereich"]
        when "Vorname"
-         @customer_element.should have_content @customer.firstname
+         expect(@customer_element.has_content?(@customer.firstname)).to be true
        when "Nachname"
-         @customer_element.should have_content @customer.lastname
+         expect(@customer_element.has_content?(@customer.lastname)).to be true
        when "Strasse"
-         @customer_element.should have_content @customer.address
+         expect(@customer_element.has_content?(@customer.address)).to be true
        when "Hausnummer"
-         @customer_element.should have_content @customer.address
+         expect(@customer_element.has_content?(@customer.address)).to be true
        when "Länderkürzel"
-         @customer_element.should have_content @customer.zip
+         expect(@customer_element.has_content?(@customer.zip)).to be true
        when "PLZ"
-         @customer_element.should have_content @customer.zip
+         expect(@customer_element.has_content?(@customer.zip)).to be true
        when "Stadt"
-         @customer_element.should have_content @customer.city
+         expect(@customer_element.has_content?(@customer.city)).to be true
      end
    end
 end
@@ -191,7 +189,7 @@ end
 
 Dann /^diese Liste enthält Gegenstände die ausgeliehen und zurückgegeben wurden$/ do
   all(".modal .contract .returning_date").each do |date|
-    date.should_not == ""
+    expect(date).not_to eq ""
   end
 end
 
@@ -202,8 +200,8 @@ end
 Dann /^diese Liste enthält Gegenstände, die ausgeliehen und noch nicht zurückgegeben wurden$/ do
   @not_returned.each do |line|
     within @contract_element.find(".not_returned_items") do
-      should have_content line.model.name
-      should have_content line.item.inventory_code
+      expect(has_content? line.model.name).to be true
+      expect(has_content? line.item.inventory_code).to be true
     end
   end
 end
@@ -213,14 +211,14 @@ When(/^die Modelle sind innerhalb ihrer Gruppe alphabetisch sortiert$/) do
 
   unless returned_lines.empty?
     names = all(".contract .returned_items tbody .model_name").map{|name| name.text}
-    names.empty?.should be_false
-    expect(names.sort == names).to be_true
+    expect(names.empty?).to be false
+    expect(names.sort == names).to be true
   end
 
   unless not_returned_lines.empty?
     names = all(".contract .not_returned_items tbody .model_name").map{|name| name.text}
-    names.empty?.should be_false
-    expect(names.sort == names).to be_true
+    expect(names.empty?).to be false
+    expect(names.sort == names).to be true
   end
 end
 
@@ -230,7 +228,7 @@ end
 
 Angenommen(/^es gibt einen Kunden mit Vertrag wessen Addresse mit "(.*?)" endet$/) do |arg1|
   @user = @current_inventory_pool.users.customers.find {|u| u.contracts.where(status: [:signed, :closed]).exists? and u.address =~ /, $/}
-  @user.should_not be_nil
+  expect(@user).not_to eq nil
 end
 
 Wenn(/^ich einen Vertrag dieses Kunden öffne$/) do
@@ -238,12 +236,12 @@ Wenn(/^ich einen Vertrag dieses Kunden öffne$/) do
 end
 
 Dann(/^wird seine Adresse ohne den abschliessenden "(.*?)" angezeigt$/) do |arg1|
-  find(".street").text.should == @user.address.chomp(", ")
+  expect(find(".street").text).to eq @user.address.chomp(", ")
 end
 
 Wenn(/^in den globalen Einstellungen die Adresse der Instanz konfiguriert ist$/) do
   @address = Setting::CONTRACT_LENDING_PARTY_STRING
-  @address.should_not be_nil
+  expect(@address).not_to eq nil
 end
 
 Dann(/^wird unter dem Verleiher diese Adresse angezeigt$/) do

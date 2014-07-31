@@ -51,7 +51,7 @@ end
 
 Dann /^werden mir diejenigen Gegenstände vorgeschlagen, die in den dargestellten Rücknahmen vorkommen$/ do
   @customer.visits.take_back.first.lines.all do |line|
-    find(".ui-autocomplete", match: :first).should have_content line.item.inventory_code
+    expect(find(".ui-autocomplete", match: :first).has_content? line.item.inventory_code).to be true
   end
 end
 
@@ -72,8 +72,8 @@ Dann /^wird der Gegenstand ausgewählt und der Haken gesetzt$/ do
   find("#flash")
   within(".line[data-id='#{@item_line.id}']") do
     find("input[data-assign-item][value='#{@selected_inventory_code}']")
-    find("input[type='checkbox'][data-select-line]").checked?.should be_true
-    @item_line.reload.item.inventory_code.should == @selected_inventory_code
+    find("input[type='checkbox'][data-select-line]:checked")
+    expect(@item_line.reload.item.inventory_code).to eq @selected_inventory_code
   end
   step 'the count matches the amount of selected lines'
 end
@@ -82,7 +82,7 @@ Wenn /^ich eine Rücknahme mache die Optionen beinhaltet$/ do
   @ip = @current_user.managed_inventory_pools.first
   @customer = @ip.users.all.select {|x| x.contracts.signed.size > 0 && !x.contracts.signed.detect{|c| c.options.size > 0}.nil? }.first
   visit manage_take_back_path(@ip, @customer)
-  page.should have_selector("#take-back-view")
+  expect(has_selector?("#take-back-view")).to be true
 end
 
 Wenn /^die Anzahl einer zurückzugebenden Option manuell ändere$/ do
@@ -92,7 +92,7 @@ end
 
 Dann /^wird die Option ausgewählt und der Haken gesetzt$/ do
   sleep(0.66)
-  @option_line.find("input[data-select-line]").checked?.should be_true
+  @option_line.find("input[data-select-line]:checked")
   step 'the count matches the amount of selected lines'
 end
 
@@ -107,7 +107,7 @@ Wenn /^ich eine Aushändigung mache die ein Model enthält dessen Gegenstände e
   @model = @contract_line.model
   @customer = @contract.user
   visit manage_hand_over_path(@ip, @customer)
-  page.should have_selector("#hand-over-view", :visible => true)
+  expect(has_selector?("#hand-over-view", :visible => true)).to be true
 end
 
 Wenn /^diesem Model ein Inventarcode zuweisen möchte$/ do
@@ -131,13 +131,13 @@ Wenn /^die ausgewählten Gegenstände auch solche beinhalten, die in einer zukü
 end
 
 Dann /^ich kann die Gegenstände nicht aushändigen$/ do
-  all(".hand_over .summary").size.should == 0
+  expect(all(".hand_over .summary").size).to eq 0
 end
 
 Angenommen /^der Kunde ist in mehreren Gruppen$/ do
   @ip = @current_user.managed_inventory_pools.first
   @customer = @ip.users.detect{|u| u.groups.size > 0}
-  @customer.should_not be_nil
+  expect(@customer).not_to eq nil
 end
 
 Wenn /^ich eine Aushändigung an diesen Kunden mache$/ do
@@ -161,7 +161,7 @@ Dann /^erkenne ich, in welchen Gruppen der Kunde ist$/ do
   @model.partitions.each do |partition|
     next if partition.group_id.nil?
     if @customer_group_ids.include? partition.group_id
-      find("#booking-calendar-partitions optgroup[label='#{_("Groups of this customer")}']").should have_content partition.group.name
+      expect(find("#booking-calendar-partitions optgroup[label='#{_("Groups of this customer")}']").has_content? partition.group.name).to be true
     end
   end
 end
@@ -170,7 +170,7 @@ Dann /^dann erkennen ich, in welchen Gruppen der Kunde nicht ist$/ do
   @model.partitions.each do |partition|
     next if partition.group_id.nil?
     unless @customer_group_ids.include?(partition.group_id)
-      find("#booking-calendar-partitions optgroup[label='#{_("Other Groups")}']").should have_content partition.group.name
+      expect(find("#booking-calendar-partitions optgroup[label='#{_("Other Groups")}']").has_content? partition.group.name).to be true
     end
   end
 end
@@ -179,7 +179,7 @@ Wenn /^ich eine Aushändigung mache mit einem Kunden der sowohl am heutigen Tag 
   @ip = @current_user.managed_inventory_pools.first
   @customer = @ip.users.detect{|u| u.visits.hand_over.size > 1}
   visit manage_hand_over_path(@ip, @customer)
-  page.should have_selector("#hand-over-view")
+  expect(has_selector?("#hand-over-view")).to be true
 end
 
 Wenn /^ich etwas scanne \(per Inventarcode zuweise\) und es in irgendeinem zukünftigen Vertrag existiert$/ do
@@ -191,7 +191,7 @@ Wenn /^ich etwas scanne \(per Inventarcode zuweise\) und es in irgendeinem zukü
 end
 
 Dann /^wird es zugewiesen \(unabhängig ob es ausgewählt ist\)$/ do
-  @assigned_line.find(:xpath, "./../../..").find("input[type='checkbox'][data-select-line]").checked?.should be_true
+  @assigned_line.find(:xpath, "./../../..").find("input[type='checkbox'][data-select-line]:checked")
 end
 
 Wenn /^es in keinem zukünftigen Vertrag existiert$/ do
@@ -255,9 +255,9 @@ end
 Dann /^wird der Gegenstand mit den aktuell gesetzten Status gespeichert$/ do
   visit current_path
   @item.reload
-  @item.is_borrowable.should == @is_borrowable
-  @item.is_broken.should == @is_broken
-  @item.is_incomplete.should == @is_incomplete
+  expect(@item.is_borrowable).to eq @is_borrowable
+  expect(@item.is_broken).to eq @is_broken
+  expect(@item.is_incomplete).to eq @is_incomplete
 end
 
 Angenommen /^man fährt über die Anzahl von Gegenständen in einer Zeile$/ do
@@ -276,7 +276,7 @@ Dann /^man sieht pro Modell eine Zeile$/ do
     find(".exclude-last-child", match: :first)
     all(".exclude-last-child").each do |div|
       model_names = div.all(".row .col7of8:nth-child(2) strong", text: /.+/).map &:text
-      model_names.size.should == model_names.uniq.size
+      expect(model_names.size).to eq model_names.uniq.size
     end
   end
 end
@@ -345,7 +345,7 @@ Dann /^sehe ich die ersten (\d+) Resultate$/ do |amount|
   amount = amount.to_i + 2
   @lists.each do |list|
     if list.all(".show-all").size > 0
-      list.all(".line").size.should == amount
+      expect(list.all(".line").size).to eq amount
     end
   end
 end
@@ -394,8 +394,8 @@ def check_printed_contract(window_handles, ip = nil, contract = nil)
   new_window = (page.driver.browser.window_handles - window_handles).first
   page.within_window new_window do
     find(".contract")
-    current_path.should == manage_contract_path(ip, contract) if ip and contract
-    page.evaluate_script("window.printed").should == 1
+    expect(current_path).to eq manage_contract_path(ip, contract) if ip and contract
+    expect(page.evaluate_script("window.printed")).to eq 1
   end
 end
 
@@ -413,8 +413,8 @@ end
 When(/^ist das Start- und Enddatum gemäss dem ersten Zeitfenster der Aushändigung gesetzt$/) do
   first_dates = find("#hand-over-view #lines [data-selected-lines-container]", match: :first).find(".row .col1of2 p.paragraph-s", match: :first).text
   start_date, end_date = first_dates.split('-').map{|x| Date.parse x}
-  Date.parse(find("input#add-start-date").value).should == [start_date, Date.today].max
-  Date.parse(find("input#add-end-date").value).should == [end_date, Date.today].max
+  expect(Date.parse(find("input#add-start-date").value)).to eq [start_date, Date.today].max
+  expect(Date.parse(find("input#add-end-date").value)).to eq [end_date, Date.today].max
 end
 
 Dann(/^ich sehe den Benutzer der vorher geöffneten Bestellung als letzten Besucher$/) do
@@ -438,5 +438,7 @@ When(/^I fill in all the necessary information in hand over dialog$/) do
 end
 
 Then(/^there are inventory codes for item and license in the contract$/) do
-  @inventory_codes.each {|inv_code| page.should have_content inv_code}
+  @inventory_codes.each {|inv_code|
+    expect(has_content?(inv_code)).to be true
+  }
 end

@@ -5,15 +5,15 @@ Angenommen(/^man befindet sich auf der Bestellübersicht$/) do
 end
 
 Dann(/^ich lande auf der Seite der Bestellübersicht$/) do
-  current_path.should == borrow_current_order_path
+  expect(current_path).to eq borrow_current_order_path
 end
 
 Dann(/^sehe ich kein Bestellfensterchen$/) do
-  page.should_not have_selector(".col1of5 .navigation-tab-item", text: _("Order"))
+  expect(has_no_selector?(".col1of5 .navigation-tab-item", text: _("Order"))).to be true
 end
 
 Dann(/^sehe ich das Bestellfensterchen$/) do
-  page.should have_selector(".col1of5 .navigation-tab-item", text: _("Order"))
+  expect(has_selector?(".col1of5 .navigation-tab-item", text: _("Order"))).to be true
 end
 
 Dann(/^erscheint es im Bestellfensterchen$/) do
@@ -23,11 +23,11 @@ end
 
 Dann(/^die Modelle im Bestellfensterchen sind alphabetisch sortiert$/) do
   @names = all("#current-order-basket #current-order-lines .line").map{|l| l[:title] }
-  expect(@names.sort == @names).to be_true
+  expect(@names.sort == @names).to be true
 end
 
 Dann(/^gleiche Modelle werden zusammengefasst$/) do
-  expect(@names.uniq == @names).to be_true
+  expect(@names.uniq == @names).to be true
 end
 
 Wenn(/^das gleiche Modell nochmals hinzugefügt wird$/) do
@@ -39,7 +39,7 @@ end
 
 Dann(/^wird die Anzahl dieses Modells erhöht$/) do
   line = find("#current-order-basket #current-order-lines .line[title='#{@new_contract_line.model.name}']", match: :first)
-  line.find("span", match: :first).text.should == "2x #{@new_contract_line.model.name}"
+  expect(line.find("span", match: :first).text).to eq "2x #{@new_contract_line.model.name}"
 end
 
 Dann(/^ich kann zur detaillierten Bestellübersicht gelangen$/) do
@@ -61,16 +61,16 @@ Dann(/^wird das Bestellfensterchen aktualisiert$/) do
 end
 
 Angenommen(/^meine Bestellung ist leer$/) do
-  @current_user.contracts.unsubmitted.flat_map(&:lines).empty?.should be_true
+  expect(@current_user.contracts.unsubmitted.flat_map(&:lines).empty?).to be true
 end
 
 Dann(/^sehe ich keine Zeitanzeige$/) do
-  all("#current-order-basket #timeout-countdown", :visible => true).empty?.should be_true
+  expect(all("#current-order-basket #timeout-countdown", :visible => true).empty?).to be true
 end
 
 Dann(/^sehe ich die Zeitanzeige$/) do
   visit root_path
-  page.should have_selector("#current-order-basket #timeout-countdown", :visible => true)
+  expect(has_selector?("#current-order-basket #timeout-countdown", :visible => true)).to be true
   sleep(0.33)
   @timeoutStart = if @current_user.contracts.unsubmitted.empty?
                     Time.now
@@ -88,9 +88,9 @@ Dann(/^die Zeitanzeige zählt von (\d+) Minuten herunter$/) do |timeout_minutes|
   @countdown = find("#timeout-countdown-time", match: :first).text
   minutes = @countdown.split(":")[0].to_i
   seconds = @countdown.split(":")[1].to_i
-  expect(minutes >= (Contract::TIMEOUT_MINUTES - 1)).to be_true
+  expect(minutes >= (Contract::TIMEOUT_MINUTES - 1)).to be true
   sleep(0.66)
-  expect(seconds > find("#timeout-countdown-time", match: :first).reload.text.split(":")[1].to_i).to be_true
+  expect(seconds > find("#timeout-countdown-time", match: :first).reload.text.split(":")[1].to_i).to be true
 end
 
 Angenommen(/^die Bestellung ist nicht leer$/) do
@@ -106,7 +106,7 @@ Dann(/^wird die Zeit zurückgesetzt$/) do
   seconds = @countdown.split(":")[1].to_i
   sleep(0.33)
   secondsNow = find("#timeout-countdown-time", match: :first).reload.text.split(":")[1].to_i
-  expect(seconds <= secondsNow).to be_true
+  expect(seconds <= secondsNow).to be true
 end
 
 Wenn(/^die Zeit abgelaufen ist$/) do
@@ -118,7 +118,7 @@ end
 
 Dann(/^werde ich auf die Timeout Page weitergeleitet$/) do
   step "ich sehe eine Information, dass die Geräte nicht mehr reserviert sind"
-  current_path.should == borrow_order_timed_out_path
+  expect(current_path).to eq borrow_order_timed_out_path
 end
 
 Wenn(/^die Zeit überschritten ist$/) do

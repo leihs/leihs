@@ -24,7 +24,7 @@ Wenn(/^ich eine Kategorie wähle$/) do
 end
 
 Dann(/^werden die Modelle der aktuell angewählten Kategorie angezeigt$/) do
-  (Rack::Utils.parse_nested_query URI.parse(current_url).query)["category_id"].to_i.should == @category.id
+  expect((Rack::Utils.parse_nested_query URI.parse(current_url).query)["category_id"].to_i).to eq @category.id
   find("#model-list", match: :first)
   models = Model.from_category_and_all_its_descendants(@category.id).active
   within "#model-list" do
@@ -40,5 +40,5 @@ Angenommen(/^man befindet sich auf der Modellliste einer Kategorie ohne Kinder$/
 end
 
 Dann(/^ist die explorative Suche nicht sichtbar und die Modellliste ist erweitert$/) do
-  page.should have_selector ".col1of1 #model-list"
+  expect(has_selector?(".col1of1 #model-list")).to be true
 end

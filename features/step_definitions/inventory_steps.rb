@@ -21,7 +21,7 @@ Given /^(\d+) inventory pool(s?)$/ do | size, plural |
     LeihsFactory.create_inventory_pool(:name => (i+1))
   end
   @inventory_pools = InventoryPool.all
-  @inventory_pools.size.should == size.to_i
+  expect(@inventory_pools.size).to eq size.to_i
   # default inventory pool
   @inventory_pool = InventoryPool.first
 end
@@ -52,14 +52,14 @@ When "the category '$category' is selected" do |category|
 end
 
 Then "there are $d_size direct children and $t_size total children" do | d_size, t_size | 
-  @category.children.size.should == d_size.to_i
-  @category.descendants.size.should == t_size.to_i
+  expect(@category.children.size).to eq d_size.to_i
+  expect(@category.descendants.size).to eq t_size.to_i
 end
 
 Then "the label of the direct children are '$labels'" do | labels |
   @category_labels = @category.children.map {|c| c.label(@category.id) }
   labels.split(',').each do |l|
-    @category_labels.include?(l).should == true
+    expect(@category_labels.include?(l)).to be true
   end
 end
 
@@ -84,7 +84,7 @@ When "the model '$model' is selected" do | model|
   end
  
 Then "there are $size models belonging to that category" do |size|
-  @category.models.size.should == size.to_i
+  expect(@category.models.size).to eq size.to_i
 end
 
 
@@ -167,7 +167,7 @@ When "leihs generates a new inventory code" do
 end
 
 Then "the generated_code should look like this '$result'" do |result|
-  @inventory_code.should == result
+  expect(@inventory_code).to eq result
 end
 
 When "we add an item '$inventory_code'" do |inventory_code|
@@ -179,11 +179,11 @@ Then /^the item should( only)? be assignable to the '([^']*)' departement$/ do |
   select = find("#item_inventory_pool_id")
   options = select.all("option")
   if only
-    options.size.should == 1
+    expect(options.size).to eq 1
   else
-    options.size.should > 1
+    expect(options.size).to be > 1
   end
-  options.detect { |option| option.text == name }.should_not == nil
+  expect(options.detect { |option| option.text == name }).not_to eq nil
 end
 
 # Customers

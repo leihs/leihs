@@ -9,9 +9,9 @@ end
 
 Dann /^werden ich auf die Startseite weitergeleitet$/ do
   find("#flash")
-  current_path.should == root_path
+  expect(current_path).to eq root_path
 end
 
 Dann /^sehe einen Hinweis, dass ich nicht angemeldet bin$/ do
-  page.should have_content _("You are not logged in.")
+  expect(has_content?(_("You are not logged in."))).to be true
 end

@@ -10,9 +10,9 @@ Dann /^sehe ich die Verfügbarkeit von Modellen auch an Feier\- und Ferientagen 
   while all(".fc-widget-content.holiday").empty? do
     find(".fc-button-next", match: :first).click
   end
-  find(".fc-widget-content.holiday .fc-day-content div", match: :first).text.should_not == ""
+  expect(find(".fc-widget-content.holiday .fc-day-content div", match: :first).text).not_to eq ""
   find(".fc-widget-content.holiday .fc-day-content div", match: :first).text.to_i >= 0
-  find(".fc-widget-content.holiday .fc-day-content .total_quantity", match: :first).text.should_not == ""
+  expect(find(".fc-widget-content.holiday .fc-day-content .total_quantity", match: :first).text).not_to eq ""
 end
 
 Angenommen /^ich öffne den Kalender$/ do
@@ -26,7 +26,7 @@ end
 Dann /^kann ich die Anzahl unbegrenzt erhöhen \/ überbuchen$/ do
   @size = @line.model.items.where(:inventory_pool_id => @ip).size*2
   find(".modal #booking-calendar-quantity").set @size
-  find(".modal #booking-calendar-quantity").value.to_i.should == @size
+  expect(find(".modal #booking-calendar-quantity").value.to_i).to eq @size
 end
 
 Dann /^die Bestellung kann gespeichert werden$/ do

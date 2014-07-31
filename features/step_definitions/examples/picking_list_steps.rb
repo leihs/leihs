@@ -39,7 +39,7 @@ Then(/^the lists are sorted by (hand over|take back) date$/) do |arg1|
            end
   find("section.list table thead tr th.#{@s1}", match: :first)
   dates = all("section.list table thead tr th.#{@s1}").map{|el| Date.parse el.text.gsub("#{@s2}: ", '') }
-  dates.should == dates.sort
+  expect(dates).to eq dates.sort
 end
 
 Then(/^each list contains following columns$/) do |table|
@@ -55,12 +55,12 @@ Then(/^each list will sorted after (models, then sorted after )?room and shelf( 
     within find("section.list", text: "%s: %s" % [@s2, I18n.l(date)] ) do
       if arg1
         model_texts = all("tbody .model_name").map(&:text)
-        model_texts.should == model_texts.sort
+        expect(model_texts).to eq model_texts.sort
       end
 
       all("tbody .location").each do |td|
         location_texts = td.all("table tr").map(&:text)
-        location_texts.should == location_texts.sort
+        expect(location_texts).to eq location_texts.sort
       end
     end
   end
@@ -74,7 +74,7 @@ end
 
 Then(/^in the list, the not assigned items will displayed without inventory code$/) do
   @selected_lines.select{|line| not line.item_id }.each do |line|
-    find("section.list .model_name", match: :prefer_exact, text: line.model.name).find(:xpath, "./..").find(".inventory_code").text.should == ""
+    expect(find("section.list .model_name", match: :prefer_exact, text: line.model.name).find(:xpath, "./..").find(".inventory_code").text).to eq ""
   end
 end
 

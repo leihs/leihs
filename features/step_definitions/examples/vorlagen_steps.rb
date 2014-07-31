@@ -7,17 +7,17 @@ Wenn(/^ich im Inventarbereich auf den Link "Vorlagen" klicke$/) do
 end
 
 Dann(/^öffnet sich die Seite mit der Liste der im aktuellen Inventarpool erfassten Vorlagen$/) do
-  page.should have_content _("List of templates")
+  expect(has_content?(_("List of templates"))).to be true
   @current_inventory_pool.templates.each do |t|
-    page.should have_content t.name
+    expect(has_content?(t.name)).to be true
   end
 end
 
 Dann(/^die Vorlagen für dieses Inventarpool sind alphabetisch nach Namen sortiert$/) do
   find(".line .col3of4 strong", match: :first)
   all_names = all(".line .col3of4 strong").map(&:text)
-  all_names.sort.should == @current_inventory_pool.templates.sort.map(&:name)
-  all_names.count.should == @current_inventory_pool.templates.count
+  expect(all_names.sort).to eq @current_inventory_pool.templates.sort.map(&:name)
+  expect(all_names.count).to eq @current_inventory_pool.templates.count
 end
 
 Angenommen(/^ich befinde mich auf der Liste der Vorlagen$/) do
@@ -29,7 +29,7 @@ Wenn(/^ich auf den Button "Neue Vorlage" klicke$/) do
 end
 
 Dann(/^öffnet sich die Seite zur Erstellung einer neuen Vorlage$/) do
-  current_path.should == manage_new_template_path(@current_inventory_pool)
+  expect(current_path).to eq manage_new_template_path(@current_inventory_pool)
 end
 
 Wenn(/^ich den Namen der Vorlage eingebe$/) do
@@ -49,12 +49,12 @@ end
 
 Dann(/^für jedes hinzugefügte Modell ist die Mindestanzahl (\d+)$/) do |n|
   all("#models .line").each do |line|
-    line.find("input[name='template[model_links_attributes][][quantity]']").value.should == n
+    expect(line.find("input[name='template[model_links_attributes][][quantity]']").value).to eq n
   end
 end
 
 Dann(/^für das hinzugefügte Modell ist die Mindestanzahl (\d+)$/) do |n|
-  find("#models .line", match: :first, text: @additional_model.name).find("input[name='template[model_links_attributes][][quantity]']").value.should == n
+  expect(find("#models .line", match: :first, text: @additional_model.name).find("input[name='template[model_links_attributes][][quantity]']").value).to eq n
 end
 
 Wenn(/^ich zu jedem Modell die Anzahl angebe$/) do
@@ -66,14 +66,14 @@ end
 
 Dann(/^die neue Vorlage wurde mit all den erfassten Informationen erfolgreich gespeichert$/) do
   @template = @current_inventory_pool.templates.find_by_name("test")
-  @template.model_links.size.should == 1
-  @template.model_links.first.model.should == @changed_model
-  @template.model_links.first.quantity.should == @new_value
+  expect(@template.model_links.size).to eq 1
+  expect(@template.model_links.first.model).to eq @changed_model
+  expect(@template.model_links.first.quantity).to eq @new_value
 end
 
 Dann(/^ich wurde auf die Liste der Vorlagen weitergeleitet$/) do
-  current_path.should == manage_templates_path(@current_inventory_pool)
-  page.should have_content _("List of templates")
+  expect(current_path).to eq manage_templates_path(@current_inventory_pool)
+  expect(has_content?(_("List of templates"))).to be true
 end
 
 Dann(/^ich sehe die Erfolgsbestätigung$/) do
@@ -84,7 +84,7 @@ Angenommen(/^es existiert eine Vorlage mit mindestens zwei Modellen$/) do
   @template = @current_inventory_pool.templates.find do |t|
     t.models.size >= 2 and t.models.any? {|m| m.borrowable_items.size >= 2}
   end
-  @template.should_not be_nil
+  expect(@template).not_to eq nil
   @template_models_count_original = @template.models.count
 end
 
@@ -93,7 +93,7 @@ Wenn(/^ich auf den Button "Vorlage bearbeiten" klicke$/) do
 end
 
 Dann(/^öffnet sich die Seite zur Bearbeitung einer existierenden Vorlage$/) do
-  current_path.should == manage_edit_template_path(@current_inventory_pool, @template)
+  expect(current_path).to eq manage_edit_template_path(@current_inventory_pool, @template)
 end
 
 Wenn(/^ich den Namen ändere$/) do
@@ -127,8 +127,8 @@ Dann(/^die bearbeitete Vorlage wurde mit all den erfassten Informationen erfolgr
   @template.reload
   @template.models.map(&:name).should_not include @removed_model.name if @removed_model
   @template.models.map(&:name).should include @additional_model.name if @additional_model
-  @template.model_links.find_by_model_id(@changed_model.id).quantity.should == @new_value
-  @template.models.count.should == @template_models_count_original if @template_models_count_original
+  expect(@template.model_links.find_by_model_id(@changed_model.id).quantity).to eq @new_value
+  expect(@template.models.count).to eq @template_models_count_original if @template_models_count_original
 end
 
 Dann(/^kann ich beliebige Vorlage direkt aus der Liste löschen$/) do
@@ -154,7 +154,7 @@ end
 Wenn(/^der Name nicht ausgefüllt ist$/) do
   within(".row.emboss.padding-inset-s", match: :prefer_exact, text: _("Name")) do
     find("input").set ""
-    find("input").value.should be_empty
+    expect(find("input").value.empty?).to be true
   end
 end
 
@@ -194,9 +194,9 @@ end
 Dann(/^die Vorlage ist in der Liste (nicht )?als unerfüllbar markiert$/) do |n|
   within(".line", text: @template.name) do
     if n
-      page.should_not have_selector(".line-info.red")
+      expect(has_no_selector?(".line-info.red")).to be true
     else
-      page.should have_selector(".line-info.red")
+      expect(has_selector?(".line-info.red")).to be true
     end
   end
 end

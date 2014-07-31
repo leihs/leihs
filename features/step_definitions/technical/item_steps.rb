@@ -14,7 +14,7 @@ Then /^there are no items found$/ do
 end
 
 Then /^there are (\d+) items found$/ do |n|
-  @search_result.count.should == n.to_i
+  expect(@search_result.count).to eq n.to_i
 end
 
 When /^I fetch a random item$/ do

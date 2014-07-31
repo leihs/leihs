@@ -11,6 +11,6 @@ Dann(/^ist die Sprache "(.*?)"$/) do |language|
         when "Deutsch"
           "de-CH"
   end
-  @current_user.reload.language.locale_name.should == s
+  expect(@current_user.reload.language.locale_name).to eq s
   find("a[href=''] strong", match: :first, :text => language)
 end

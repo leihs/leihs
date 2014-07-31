@@ -2,16 +2,16 @@ Given "the list of approved orders contains $total elements" do | total |
   contracts = @inventory_pool.contracts.approved
   user = LeihsFactory.create_user
   total.to_i.times { contracts << FactoryGirl.create(:contract, :user => user, :status => :approved) }
-  contracts.size.should == total.to_i
+  expect(contracts.size).to eq total.to_i
 end
 
 When "$who approves the order" do | who |
   post login_path(:login => @last_manager_login_name)
   post manage_approve_contract_path(@inventory_pool, @order, :comment => "test comment")
   @order = assigns(:order)
-  @order.should_not be_nil
+  expect(@order).not_to eq nil
   @contract = @order.user.reload.approved_contract(@order.inventory_pool)
-  @contract.should_not be_nil
+  expect(@contract).not_to eq nil
 end
 
 # OPTIMIZE 0402
@@ -25,26 +25,26 @@ When "he tries to hand over an item to a customer" do
   get manage_hand_over_path(@inventory_pool, @user)
   
   @contract = assigns(:contract)
-  @contract.lines.size.should == 0
+  expect(@contract.lines.size).to eq 0
   
   post add_line_backend_inventory_pool_user_hand_over_path(@inventory_pool, @user, :model_id => Model.first.id, :quantity => 1)
                              
   @contract = assigns(:contract)
-  @contract.lines.size.should == 1
+  expect(@contract.lines.size).to eq 1
 end
 
 
 Then /he sees ([0-9]+) line(s?) with a total quantity of ([0-9]+)$/ do |total, s, quantity |
-   @visits.size.should == total.to_i
+   expect(@visits.size).to eq total.to_i
    s = @visits.sum(:quantity)
-   s.should == quantity.to_i 
+   expect(s).to eq quantity.to_i
 end
 
 ###############################################
 
 Then "line $line has a quantity of $quantity for customer '$who'" do | line, quantity, who |
-  @visits[line.to_i - 1].quantity.should == quantity.to_i
-  @visits[line.to_i - 1].user.login.should == who
+  expect(@visits[line.to_i - 1].quantity).to eq quantity.to_i
+  expect(@visits[line.to_i - 1].user.login).to eq who
 end
 
 ###############################################
@@ -92,20 +92,20 @@ When "he signs the contract" do
 end
 
 Then "a new contract is generated" do
-  @contract.nil?.should == false
+  expect(@contract.nil?).to be false
 end
 
 Then /^he sees ([0-9]+) contract line(s?) for all approved order lines$/ do | size, s |
-  @contract.contract_lines.size.should == size.to_i
+  expect(@contract.contract_lines.size).to eq size.to_i
 end
 
 Then "the total number of contracts is $n_contracts" do |n_contracts|
-	Contract.count.should == n_contracts.to_i
+	expect(Contract.count).to eq n_contracts.to_i
 end
 
 Then /^he should (.*)see a flash error$/ do |shouldNot|
   has_error = @flash.has_key?(:error)
-  shouldNot == "" ? has_error.should(be_true) : has_error.should_not(be_true)
+  expect(has_error).to eq (shouldNot == "")
 end
 
 Then "that should check that line since it's from this day on" do
@@ -121,7 +121,7 @@ Then "that should not check that line since it's not from this day on" do
 end
 
 Then "the contract should only contain the item '$item'" do |item|
-  @contract.contract_lines.size.should == 1
+  expect(@contract.contract_lines.size).to eq 1
   @contract.contract_lines.first.item.inventory_code.shoul == item
 end
 

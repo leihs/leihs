@@ -29,13 +29,13 @@ end
 
 Dann /^ist die Kategorie mit dem angegegebenen Namen erstellt$/ do
   find("#categories-index-view h1", text: _("List of Categories"))
-  current_path.should == manage_categories_path(@current_inventory_pool)
+  expect(current_path).to eq manage_categories_path(@current_inventory_pool)
   ModelGroup.where(name: "#{@new_category_name}").count.should eql 1
 end
 
 Dann /^ist die Kategorie mit dem angegegebenen Namen und den zugewiesenen Elternelementen erstellt$/ do
   find("#categories-index-view h1", text: _("List of Categories"))
-  current_path.should == manage_categories_path(@current_inventory_pool)
+  expect(current_path).to eq manage_categories_path(@current_inventory_pool)
   ModelGroup.where(name: "#{@new_category_name}").count.should eql 1
   ModelGroupLink.where("ancestor_id = ? AND label = ?", @parent_category.id, @label_1).count.should eql 1
 end
@@ -43,7 +43,7 @@ end
 Dann /^sieht man die Liste der Kategorien$/ do
   within("#categories-index-view") do
     find("h1", text: _("List of Categories"))
-    current_path.should == manage_categories_path(@current_inventory_pool)
+    expect(current_path).to eq manage_categories_path(@current_inventory_pool)
     @parent_categories = ModelGroup.where(type: "Category").select { |mg| ModelGroupLink.where(descendant_id: mg.id).empty? }
     @parent_categories.each do |pc|
       find ".line", visible: true, text: pc.name
@@ -65,7 +65,7 @@ Wenn /^man den Namen und die Elternelemente anpasst$/ do
   @new_category_name = "Neue Kategorie"
   find("input[name='category[name]']").set @new_category_name
 
-  @category.parents.count.should == 2
+  expect(@category.parents.count).to eq 2
 
   within("#categories .list-of-lines") do
     @parent_category_labels = @category.parents.map do |parent|
@@ -78,7 +78,7 @@ end
 
 Dann /^werden die Werte gespeichert$/ do
   find("#categories-index-view h1", text: _("List of Categories"))
-  current_path.should == manage_categories_path(@current_inventory_pool)
+  expect(current_path).to eq manage_categories_path(@current_inventory_pool)
   @category.reload
   @category.name.should eql @new_category_name
   @category.links_as_child.count.should eql 2
@@ -109,7 +109,7 @@ Und /^man kann die Unterkategorien anzeigen und verstecken$/ do
     find(".button[data-type='expander'] i.arrow.down").click
     find(".button[data-type='expander'] i.arrow.right")
   end
-  page.should_not have_selector(".group-of-lines .line .col3of9:nth-child(2) strong", visible: true, text: child_name)
+  expect(has_no_selector?(".group-of-lines .line .col3of9:nth-child(2) strong", visible: true, text: child_name)).to be true
 end
 
 Wenn /^man das Modell editiert$/ do
@@ -147,8 +147,8 @@ Wenn /^ich eine oder mehrere Kategorien entferne$/ do
 end
 
 Dann /^sind die Kategorien entfernt und das Modell gespeichert$/ do
-  page.should have_content _("List of Inventory")
-  @model.categories.reload.should be_empty
+  expect(has_content?(_("List of Inventory"))).to be true
+  expect(@model.categories.reload.empty?).to be true
 end
 
 Wenn /^eine Kategorie nicht genutzt ist$/ do
@@ -169,13 +169,13 @@ end
 
 Dann /^ist die Kategorie gelöscht und alle Duplikate sind aus dem Baum entfernt$/ do
   sleep(0.33)
-  all("#categories-index-view .line[data-id='#{@unused_category.id}']").empty?.should be_true
+  expect(all("#categories-index-view .line[data-id='#{@unused_category.id}']").empty?).to be true
   lambda{@unused_category.reload}.should raise_error
 end
 
 Dann /^man bleibt in der Liste der Kategorien$/ do
   find("#categories-index-view h1", text: _("List of Categories"))
-  current_path.should == manage_categories_path(@current_inventory_pool)
+  expect(current_path).to eq manage_categories_path(@current_inventory_pool)
 end
 
 Wenn /^eine Kategorie genutzt ist$/ do
@@ -186,8 +186,8 @@ Dann /^ist es nicht möglich die Kategorie zu löschen$/ do
   visit manage_categories_path @current_inventory_pool
   within("#categories-index-view #list") do
     within(".line[data-id='#{@used_category.id}']") do
-      all(".multibutton .dropdown-holder .dropdown-toggle").size.should == 0
-      all(".multibutton .dropdown-item.red[data-method='delete']", text: _("Delete")).size.should == 0
+      expect(all(".multibutton .dropdown-holder .dropdown-toggle").size).to eq 0
+      expect(all(".multibutton .dropdown-item.red[data-method='delete']", text: _("Delete")).size).to eq 0
     end
   end
 end
@@ -204,7 +204,7 @@ Wenn /^man nach einer Kategorie anhand des Namens sucht$/ do
   find("#list-search").set @searchTerm
   find("#list-search")
   find(".line", match: :first)
-  countBefore.should_not == all(".line").size
+  expect(countBefore).not_to eq all(".line").size
   sleep(0.33)
 end
 
@@ -216,7 +216,7 @@ end
 
 Dann /^sieht die Ergebnisse in alphabetischer Reihenfolge$/ do
   names = all(".category_name", :visible => true).map{|name| name.text}
-  expect(names.sort == names).to be_true
+  expect(names.sort == names).to be true
 end
 
 Dann /^man kann diese Kategorien editieren$/ do

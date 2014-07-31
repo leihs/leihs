@@ -36,6 +36,6 @@ When /^its availability is recalculate$/ do
 end
 
 Then /^it should take at maximum (\d+) seconds$/ do |seconds|
-  @time.real.should < seconds.to_f
+  expect(@time.real).to be < seconds.to_f
 end
 

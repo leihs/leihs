@@ -3,7 +3,7 @@ Then /^I can navigate all navigation items and nested tabs$/ do
   texts.shift
   texts.each do |text|
     find_link(text).click
-    page.should have_selector(".inlinetabs .tab")
+    expect(has_selector?(".inlinetabs .tab")).to be true
     tab_texts = all(".inlinetabs .tab").map{|x| x.text}
     tab_texts.each do |tab_text|
       find(".tab", :text => tab_text, :match => :prefer_exact).click

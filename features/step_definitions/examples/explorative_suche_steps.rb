@@ -9,7 +9,7 @@ Wenn(/^ich eine Kategorie anwähle$/) do
   c = find("#categories #category-list a[data-type='category-filter']", match: :first)
   c_id = c[:"data-id"]
   @category = Category.find c_id
-  c.text.should == @category.name
+  expect(c.text).to eq @category.name
 
   # c.click
   # using js script to click on the link, because capybara cannot do that during the test execution (only in binding.pry)
@@ -45,7 +45,7 @@ Dann(/^das Inventar wurde nach dieser Kategorie gefiltert$/) do
     find(".line[data-type='model']", match: :first)
     all(".line[data-type='model']").each do |model_line|
       model = Model.find_by_name(model_line.find(".col2of5 strong").text)
-      (model.categories.include?(@child_category) or @child_category.descendants.any? {|c| model.categories.include? c}).should be_true
+      expect((model.categories.include?(@child_category) or @child_category.descendants.any? {|c| model.categories.include? c})).to be true
     end
   end
 end
@@ -67,7 +67,7 @@ Wenn(/^ich die Navigation der Kategorien wieder zuklappe$/) do
 end
 
 Dann(/^sehe ich nur noch die Liste des Inventars$/) do
-  page.should_not have_selector("#categories #category-list", visible: true)
+  expect(has_no_selector?("#categories #category-list", visible: true)).to be true
 end
 
 Angenommen(/^die Navigation der Kategorien ist aufgeklappt$/) do
@@ -86,7 +86,7 @@ Dann(/^werden alle Kategorien angezeigt, welche den Namen beinhalten$/) do
   Category.all.map(&:name).reject{|name| not name[@search_term]}.each do |name|
     find("#categories #category-list [data-type='category-filter']", match: :prefer_exact, :text => name)
   end
-  all("#categories #category-list [data-type='category-filter']").size.should == all("#categories #category-list [data-type='category-filter']", :text => @search_term).size
+  expect(all("#categories #category-list [data-type='category-filter']").size).to eq all("#categories #category-list [data-type='category-filter']", :text => @search_term).size
 end
 
 Dann(/^ich sehe ein Suchicon mit dem Namen des gerade gesuchten Begriffs sowie die aktuell ausgewählte und die darunterliegenden Kategorien$/) do
@@ -125,9 +125,9 @@ Dann(/^kann ich ein Modell anhand der explorativen Suche wählen$/) do
   find(".modal.ui-shown .line .button", match: :first).click
   find("#flash")
   if @contract
-    expect(@contract.models.include? model).to be_true
+    expect(@contract.models.include? model).to be true
   else
-    expect(@customer.contracts.map(&:models).flatten.include? model).to be_true
+    expect(@customer.contracts.map(&:models).flatten.include? model).to be true
   end
 end
 
@@ -136,13 +136,13 @@ Dann(/^die explorative Suche zeigt nur Modelle aus meinem Park an$/) do
   find(".modal.ui-shown .line", match: :first)
   all(".modal .line[data-id]").each do |line|
     model = Model.find line["data-id"]
-    expect(@current_inventory_pool.models.include? model).to be_true
+    expect(@current_inventory_pool.models.include? model).to be true
   end
 end
 
 Dann(/^die nicht verfügbaren Modelle sind rot markiert$/) do
   all(".model.line .availability", :text => /0 \(\d+\) \/ \d+/).each do |cell|
     line = cell.find(:xpath, "./../..")
-    (line[:class] =~ /error/).should_not be_nil
+    expect(line[:class] =~ /error/).not_to eq nil
   end
 end

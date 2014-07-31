@@ -11,8 +11,8 @@ end
 
 Wenn(/^ich die Bestellübersicht öffne$/) do
   visit borrow_current_order_path
-  page.should have_content _("Order overview")
-  all(".line").count.should == @current_user.contracts.unsubmitted.flat_map(&:lines).count
+  expect(has_content?(_("Order overview"))).to be true
+  expect(all(".line").count).to eq @current_user.contracts.unsubmitted.flat_map(&:lines).count
 end
 
 #############################################################################
@@ -26,7 +26,7 @@ end
 Dann(/^die Modelle sind alphabetisch sortiert$/) do
   all(".emboss.deep").each do |x|
     names = x.all(".line .name").map{|name| name.text}
-    expect(names.sort == names).to be_true
+    expect(names.sort == names).to be true
   end
 end
 
@@ -38,15 +38,15 @@ Dann(/^für jeden Eintrag sehe ich die folgenden Informationen$/) do |table|
         when "Bild"
           line.find("img", match: :first)[:src][contract_lines.first.model.id.to_s].should be
         when "Anzahl"
-           line.should have_content contract_lines.sum(&:quantity)
+          expect(line.has_content?(contract_lines.sum(&:quantity))).to be true
         when "Modellname"
-          line.should have_content contract_lines.first.model.name
+          expect(line.has_content?(contract_lines.first.model.name)).to be true
         when "Hersteller"
-          line.should have_content contract_lines.first.model.manufacturer
+          expect(line.has_content?(contract_lines.first.model.manufacturer)).to be true
         when "Anzahl der Tage"
-          line.should have_content ((contract_lines.first.end_date - contract_lines.first.start_date).to_i+1).to_s
+          expect(line.has_content?(((contract_lines.first.end_date - contract_lines.first.start_date).to_i+1).to_s)).to be true
         when "Enddatum"
-          line.should have_content I18n.l contract_lines.first.end_date
+          expect(line.has_content?(I18n.l contract_lines.first.end_date)).to be true
         when "die versch. Aktionen"
           line.find(".line-actions", match: :first)
         else
@@ -76,7 +76,7 @@ Wenn(/^ich einen Eintrag lösche$/) do
 end
 
 Dann(/^wird der Eintrag aus der Bestellung entfernt$/) do
-  all(".line").count.should == @current_user.contracts.unsubmitted.flat_map(&:lines).count
+  expect(all(".line").count).to eq @current_user.contracts.unsubmitted.flat_map(&:lines).count
 end
 
 #############################################################################
@@ -98,8 +98,8 @@ Dann(/^werde ich gefragt ob ich die Bestellung wirklich löschen möchte$/) do
 end
 
 Dann(/^alle Einträge werden aus der Bestellung gelöscht$/) do
-  ContractLine.where(id: @contract_line_ids).count.should == 0
-  Contract.where(id: @contract_ids).count.should == 0
+  expect(ContractLine.where(id: @contract_line_ids).count).to eq 0
+  expect(Contract.where(id: @contract_ids).count).to eq 0
 end
 
 Dann(/^die Gegenstände sind wieder zur Ausleihe verfügbar$/) do
@@ -111,12 +111,12 @@ Dann(/^die Gegenstände sind wieder zur Ausleihe verfügbar$/) do
     #                              else
     #                                @before_max_available[contract_line.id]
     #                              end
-    after_max_available.should == @before_max_available[contract_line.id]
+    expect(after_max_available).to eq @before_max_available[contract_line.id]
   end
 end
 
 Dann(/^ich befinde mich wieder auf der Startseite$/) do
-  current_path.should == borrow_root_path
+  expect(current_path).to eq borrow_root_path
 end
 
 #############################################################################
@@ -131,7 +131,7 @@ end
 
 Dann(/^ändert sich der Status der Bestellung auf Abgeschickt$/) do
   @current_user.contracts.find(@contract_ids).each do |contract|
-    contract.status.should == :submitted
+    expect(contract.status).to eq :submitted
   end
 end
 
@@ -203,12 +203,13 @@ Dann(/^wird der Eintrag gemäss aktuellen Einstellungen geändert$/) do
   find("#booking-calendar .fc-widget-content", :match => :first)
   find(".modal-close").click
   if @new_date
-    @changed_lines.first.reload.start_date.should == @new_date
+    expect(@changed_lines.first.reload.start_date).to eq @new_date
   end
   if @new_quantity
-    @changed_lines.first.contract.lines.where(model_id: @changed_lines.first.model_id,
+    t = @changed_lines.first.contract.lines.where(model_id: @changed_lines.first.model_id,
                                               start_date: @changed_lines.first.start_date,
-                                              end_date: @changed_lines.first.end_date).sum(:quantity).should == @new_quantity
+                                              end_date: @changed_lines.first.end_date).sum(:quantity)
+    expect(t).to eq @new_quantity
     
     @just_changed_line = find("[data-model-id='#{@changed_lines.first.model_id}'][data-start-date='#{@changed_lines.first.start_date}'][data-end-date='#{@changed_lines.first.end_date}']")
   end

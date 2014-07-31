@@ -173,7 +173,7 @@ Funktionalität: Inventar
     Und ich speichere
     Dann werde ich zur Liste des eben gewählten Reiters mit den eben ausgewählten Filtern zurueckgefuehrt
 
-  @personas
+  @personas @javascript
   Szenario: Grundeinstellung der Listenansicht
     Dann ist die Auswahl "Aktives Inventar" aktiviert
     Und es sind keine Filtermöglichkeiten aktiviert

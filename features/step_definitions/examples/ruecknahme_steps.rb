@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 Dann(/^wird festgehalten, dass ich diesen Gegenstand zurückgenommen habe$/) do
-  @contract_lines_to_take_back.map(&:returned_to_user_id).uniq.first.should == @current_user.id
+  expect(@contract_lines_to_take_back.map(&:returned_to_user_id).uniq.first).to eq @current_user.id
   step 'sieht man bei den betroffenen Linien die rücknehmende Person im Format "V. Nachname"'
 end
 
@@ -14,7 +14,7 @@ Wenn(/^man die Rücknahmenansicht für den Benutzer öffnet$/) do
 end
 
 Dann(/^sind die Rücknahmen aufsteigend nach Datum sortiert$/) do
-  page.should have_selector ".line[data-line-type]"
+  expect(has_selector?(".line[data-line-type]")).to be true
 
   take_backs = @user.visits.take_back.select{|v| v.inventory_pool == @current_inventory_pool}.sort {|d1, d2| d1.date <=> d2.date }
   lines = take_backs.flat_map &:lines
@@ -76,8 +76,8 @@ Wenn(/^ich einen verspäteten Gegenstand über das Zuweisenfeld zurücknehme$/) 
 end
 
 Dann(/^das Problemfeld für die Linie wird angezeigt$/) do
-  page.should have_selector "#{@line_css} .line-info.red"
-  page.should have_selector "#{@line_css} .red.tooltip"
+  expect(has_selector?("#{@line_css} .line-info.red")).to be true
+  expect(has_selector?("#{@line_css} .red.tooltip")).to be true
 end
 
 Angenommen(/^ich befinde mich in einer Rücknahme mit mindestens zwei gleichen Optionen$/) do
@@ -109,7 +109,7 @@ Angenommen(/^es existiert ein Benutzer mit einer zurückzugebender Option in zwe
     option_lines = u.visits.take_back.flat_map(&:lines).select {|l| l.is_a? OptionLine}
     option_lines.uniq(&:option).size < option_lines.size
   end
-  @user.should_not be_nil
+  expect(@user).not_to eq nil
 end
 
 Wenn(/^ich öffne die Rücknahmeansicht für diesen Benutzer$/) do
@@ -147,7 +147,7 @@ end
 
 Given(/^I open a take back with at least one item and one option$/) do
   @take_back = @current_inventory_pool.visits.take_back.find {|v| v.lines.any? {|l| l.is_a? OptionLine} and v.lines.any? {|l| l.is_a? ItemLine}}
-  @take_back.should_not be_nil
+  expect(@take_back).not_to eq nil
   visit manage_take_back_path(@current_inventory_pool, @take_back.user)
 end
 
@@ -169,5 +169,5 @@ When(/^I set "(.*?)" to "(.*?)"$/) do |arg1, arg2|
 end
 
 Then(/^the option line has still the same quantity$/) do
-  find(".line[data-id='#{@line_id}'] [data-quantity-returned]").value.should == @quantity
+  expect(find(".line[data-id='#{@line_id}'] [data-quantity-returned]").value).to eq @quantity
 end

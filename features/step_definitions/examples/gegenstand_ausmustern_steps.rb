@@ -39,11 +39,11 @@ Dann(/^hat man keine Möglichkeit solche(?:.?) (?:.*) auszumustern$/) do
     find("#flash .error")
   end
   @item.reload
-  @item.retired.should be_nil
+  expect(@item.retired).to eq nil
 end
 
 Dann /^(?:die|der) gerade ausgemusterte (?:.*) verschwindet sofort aus der Inventarliste$/ do
-  page.should_not have_content @item.inventory_code
+  expect(has_no_content?(@item.inventory_code)).to be true
 end
 
 Angenommen /^man sucht nach eine(?:.?) ausgeliehenen (.*)$/ do |item_type|
@@ -66,7 +66,7 @@ Angenommen /^man gibt bei der Ausmusterung keinen Grund an$/ do
 end
 
 Dann /^(?:die|der) (?:.*) ist noch nicht Ausgemustert$/ do
-  @item.reload.retired.should be_nil
+  expect(@item.reload.retired).to eq nil
 end
 
 Angenommen(/^man sucht nach eine(?:.) ausgemusterten (.*), wo man der Besitzer ist$/) do |item_type|
@@ -82,16 +82,16 @@ Angenommen(/^man befindet sich auf der Editierseite von diese(?:.) (?:Gegenstand
 end
 
 Wenn(/^man die Ausmusterung bei diese(?:.) (?:.*) zurück setzt$/) do
-  page.should have_content(_("Retirement"))
+  expect(has_content?(_("Retirement"))).to be true
   find("[name='item[retired]']").select _("No")
 end
 
 Dann(/^wurde man auf die Inventarliste geleitet$/) do
-  page.should have_content(_("List of Inventory"))
+  expect(has_content?(_("List of Inventory"))).to be true
 end
 
 Dann(/^diese(?:.?) (?:.*) ist nicht mehr ausgemustert$/) do
-  @item.reload.should_not be_retired
+  expect(@item.reload.retired?).to be false
   sleep(0.33) # fix lazy request problem
 end
 

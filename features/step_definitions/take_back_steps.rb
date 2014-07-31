@@ -42,5 +42,5 @@ end
 Then "$who's contract should be closed" do |who|
   user = User.find_by_login( who )
   contract = Contract.find_by_user_id user.id
-  contract.status.should == :closed
+  expect(contract.status).to eq :closed
 end

@@ -13,9 +13,9 @@ end
 
 Then /^the daily view jumps to that day$/ do
   find("h1", match: :first) do
-    should have_content @day
-    should have_content @month
-    should have_content @year
+    expect(has_content?(@day)).to be true
+    expect(has_content?(@month)).to be true
+    expect(has_content?(@year)).to be true
   end
 end
 
@@ -25,5 +25,5 @@ end
 
 Then /^the datepicker closes$/ do
   sleep(0.33) # wait until the fadeOut animation is finished
-  all(".ui-datepicker", :visible => true).size.should == 0
+  expect(all(".ui-datepicker", :visible => true).size).to eq 0
 end

@@ -17,15 +17,15 @@ def check_fields_and_their_values table
     within(".row.emboss", match: :prefer_exact, text: field_name) do
       case field_type
       when "autocomplete"
-        find("input,textarea").value.should == (field_value != "Keine/r" ? field_value : "")
+        expect(find("input,textarea").value).to eq (field_value != "Keine/r" ? field_value : "")
       when "select"
-        all("option").detect(&:selected?).text.should == field_value
+        expect(all("option").detect(&:selected?).text).to eq field_value
       when "radio must"
-        find("input[checked][type='radio']").value.should == field_value
+        expect(find("input[checked][type='radio']").value).to eq field_value
       when "radio"
-        find("label", text: field_value).find("input").checked?.should be_true
+        expect(find("label", text: field_value).find("input").checked?).to be true
       else
-        find("input,textarea").value.should == field_value
+        expect(find("input,textarea").value).to eq field_value
       end
     end
   end
@@ -42,7 +42,7 @@ end
 
 Angenommen /^man navigiert zur Gegenstandserstellungsseite$/ do
   visit manage_new_item_path(@current_inventory_pool)
-  page.should have_selector(".row.emboss")
+  expect(has_selector?(".row.emboss")).to be true
 end
 
 Wenn /^ich die folgenden Informationen erfasse$/ do |table|
@@ -97,7 +97,7 @@ Dann /^ist der Gegenstand mit all den angegebenen Informationen erstellt$/ do
 end
 
 Dann /^hat der Gegenstand alle zuvor eingetragenen Werte$/ do
-  page.should have_selector ".row.emboss"
+  expect(has_selector?(".row.emboss")).to be true
   @table_hashes.each do |hash_row|
     field_name = hash_row["Feldname"]
     field_value = hash_row["Wert"]
@@ -108,13 +108,13 @@ Dann /^hat der Gegenstand alle zuvor eingetragenen Werte$/ do
     raise "no field found" if matched_field.blank?
     case field_type
       when "autocomplete"
-        matched_field.find("input,textarea").value.should == (field_value != "Keine/r" ? field_value : "")
+        expect(matched_field.find("input,textarea").value).to eq (field_value != "Keine/r" ? field_value : "")
       when "select"
-        matched_field.all("option").detect(&:selected?).text.should == field_value
+        expect(matched_field.all("option").detect(&:selected?).text).to eq field_value
       when "radio must"
-        matched_field.find("input[checked][type='radio']").value.should == field_value
+        expect(matched_field.find("input[checked][type='radio']").value).to eq field_value
       when ""
-        matched_field.find("input,textarea").value.should == field_value
+        expect(matched_field.find("input,textarea").value).to eq field_value
     end
   end
 end
@@ -179,8 +179,8 @@ end
 
 Dann /^kann das Modell nicht erstellt werden$/ do
   step "ich erstellen druecke"
-  Item.find_by_inventory_code("").should be_nil
-  Item.find_by_inventory_code("test").should be_nil
+  expect(Item.find_by_inventory_code("")).to eq nil
+  expect(Item.find_by_inventory_code("test")).to eq nil
 end
 
 Dann /^die anderen Angaben wurde nicht gelöscht$/ do
@@ -191,7 +191,7 @@ Dann /^die anderen Angaben wurde nicht gelöscht$/ do
 end
 
 Dann /^ist der Barcode bereits gesetzt$/ do
-  find(".row.emboss", match: :prefer_exact, text: "Inventarcode").find("input").value.should_not be_empty
+  expect(find(".row.emboss", match: :prefer_exact, text: "Inventarcode").find("input").value.empty?).to be false
 end
 
 Dann /^Letzte Inventur ist das heutige Datum$/ do
@@ -219,16 +219,16 @@ end
 
 Wenn(/^ich einen nicht existierenen Lieferanten angebe$/) do
   @new_supplier = Faker::Lorem.words(rand 1..3).join(' ')
-  Supplier.find_by_name(@new_supplier).should be_nil
+  expect(Supplier.find_by_name(@new_supplier)).to eq nil
   find(".row.emboss", match: :prefer_exact, text: _("Supplier")).find("input").set @new_supplier
 end
 
 Dann(/^wird der neue Lieferant erstellt$/) do
-  page.should have_content _("List of Inventory")
+  expect(has_content?(_("List of Inventory"))).to be true
   find("#inventory")
-  Supplier.find_by_name(@new_supplier).should_not be_nil
+  expect(Supplier.find_by_name(@new_supplier)).not_to eq nil
 end
 
 Dann(/^bei dem erstellten Gegestand ist der neue Lieferant eingetragen$/) do
-  Item.find_by_inventory_code("test").supplier.name.should == @new_supplier
+  expect(Item.find_by_inventory_code("test").supplier.name).to eq @new_supplier
 end

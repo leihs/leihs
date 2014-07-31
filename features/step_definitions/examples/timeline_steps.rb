@@ -28,6 +28,6 @@ Dann /^kann ich für jedes sichtbare Model die Timeline anzeigen lassen$/ do
     find(".modal iframe")
     evaluate_script %Q{ $(".modal iframe").contents().first("#my_timeline").length; }
     find(".modal .button", text: _("Close")).click
-    page.should_not have_selector(".modal", visible: true)
+    expect(has_no_selector?(".modal", visible: true)).to be true
   end
 end

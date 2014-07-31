@@ -30,18 +30,18 @@ Dann(/^sind die Informationen aktualisiert$/) do
   @table_raw.flatten.each do |field_name|
     within(".row.padding-inset-s", match: :prefer_exact, text: field_name) do
       if field_name == "Verträge drucken"
-        find("input", match: :first).selected?.should be_false
+        expect(find("input", match: :first).selected?).to be false
       elsif field_name == "Automatischer Zugriff"
-        find("input", match: :first).selected?.should be_true
+        expect(find("input", match: :first).selected?).to be true
       else
-        find("input,textarea", match: :first).value.should == (field_name == "E-Mail" ? "test@test.ch" : "test")
+        expect(find("input,textarea", match: :first).value).to eq (field_name == "E-Mail" ? "test@test.ch" : "test")
       end
     end
   end
 end
 
 Dann(/^ich bleibe auf derselben Ansicht$/) do
-  current_path.should == @path_before_save
+  expect(current_path).to eq @path_before_save
 end
 
 Dann(/^sehe eine Bestätigung$/) do
@@ -79,9 +79,9 @@ end
 Dann(/^sind die Arbeitstage gespeichert$/) do
   @workdays.each_pair do |day, status|
     if status == "closed"
-      expect(@current_inventory_pool.workday.closed_days.include?(day)).to be_true
+      expect(@current_inventory_pool.workday.closed_days.include?(day)).to be true
     elsif status == "open"
-      expect(@current_inventory_pool.workday.closed_days.include?(day)).to be_false
+      expect(@current_inventory_pool.workday.closed_days.include?(day)).to be false
     end
   end
 end
@@ -100,7 +100,7 @@ end
 
 Dann(/^werden die Ausleihschliessungszeiten gespeichert$/) do
   @holidays.each do |holiday|
-    @current_inventory_pool.holidays.where(:start_date => holiday[:start_date], :end_date => holiday[:end_date], :name => holiday[:name]).should_not be_empty
+    expect(@current_inventory_pool.holidays.where(:start_date => holiday[:start_date], :end_date => holiday[:end_date], :name => holiday[:name]).empty?).to be false
   end
 end
 
@@ -108,7 +108,7 @@ Dann(/^ich kann die Ausleihschliessungszeiten wieder löschen$/) do
   holiday = @holidays.last
   find(".row[data-holidays-list] .line", :text => holiday[:name]).find(".button[data-remove-holiday]").click
   step 'ich speichere'
-  @current_inventory_pool.holidays.where(:start_date => holiday[:start_date], :end_date => holiday[:end_date], :name => holiday[:name]).should be_empty
+  expect(@current_inventory_pool.holidays.where(:start_date => holiday[:start_date], :end_date => holiday[:end_date], :name => holiday[:name]).empty?).to be true
 end
 
 Wenn(/^jedes Pflichtfeld des Geräteparks ist gesetzt$/) do |table|
@@ -135,10 +135,10 @@ Dann(/^muss ich einen Sperrgrund angeben$/) do
 end
 
 Dann(/^ist diese Konfiguration gespeichert$/) do
-  page.should have_selector("#flash .notice")
+  expect(has_selector?("#flash .notice")).to be true
   @current_inventory_pool.reload
   step %Q(ist "Automatische Sperrung" aktiviert)
-  @current_inventory_pool.automatic_suspension_reason.should == @reason
+  expect(@current_inventory_pool.automatic_suspension_reason).to eq @reason
 end
 
 Wenn(/^ein Benutzer wegen verspäteter Rückgaben automatisch gesperrt wird$/) do
@@ -149,11 +149,11 @@ end
 
 Dann(/^wird er für diesen Gerätepark gesperrt bis zum '(\d+)\.(\d+)\.(\d+)'$/) do |day, month, year|
   @access_right = @user.access_right_for(@current_inventory_pool)
-  @access_right.suspended_until.should == Date.new(year.to_i, month.to_i, day.to_i)
+  expect(@access_right.suspended_until).to eq Date.new(year.to_i, month.to_i, day.to_i)
 end
 
 Dann(/^der Sperrgrund ist derjenige, der für diesen Park gespeichert ist$/) do
-  @access_right.suspended_reason.should == @reason
+  expect(@access_right.suspended_reason).to eq @reason
 end
 
 Wenn(/^ich die aut\. Zuweisung deaktiviere$/) do
@@ -163,7 +163,7 @@ Wenn(/^ich die aut\. Zuweisung deaktiviere$/) do
 end
 
 Dann(/^ist die aut\. Zuweisung deaktiviert$/) do
-  @current_inventory_pool.reload.automatic_access.should be_false
+  expect(@current_inventory_pool.reload.automatic_access).to be false
   @ip = @current_inventory_pool
 end
 
@@ -198,9 +198,9 @@ Angenommen(/^es ist bei meinem Gerätepark aut. Zuweisung aktiviert$/) do
 end
 
 Dann(/^kriegt der neu erstellte Benutzer bei allen Geräteparks mit aut. Zuweisung die Rolle 'Kunde'$/) do
-  @user.access_rights.count.should == @inventory_pools_with_automatic_access.count
-  @user.access_rights.pluck(:inventory_pool_id).should == @inventory_pools_with_automatic_access.pluck(:id)
-  @user.access_rights.all? {|ar| ar.role == :customer}.should be_true
+  expect(@user.access_rights.count).to eq @inventory_pools_with_automatic_access.count
+  expect(@user.access_rights.pluck(:inventory_pool_id)).to eq @inventory_pools_with_automatic_access.pluck(:id)
+  expect(@user.access_rights.all? {|ar| ar.role == :customer}).to be true
 end
 
 Wenn(/^ich in meinem Gerätepark einen neuen Benutzer mit Rolle 'Inventar\-Verwalter' erstelle$/) do
@@ -222,17 +222,17 @@ Wenn(/^ich in meinem Gerätepark einen neuen Benutzer mit Rolle 'Inventar\-Verwa
 end
 
 Dann(/^kriegt der neu erstellte Benutzer bei allen Geräteparks mit aut\. Zuweisung ausser meinem die Rolle 'Kunde'$/) do
-  @user.access_rights.count.should == @inventory_pools_with_automatic_access.count
-  @user.access_rights.pluck(:inventory_pool_id).should == @inventory_pools_with_automatic_access.pluck(:id)
-  @user.access_rights.where("inventory_pool_id != ?", @current_inventory_pool ).all? {|ar| ar.role == :customer}.should be_true
+  expect(@user.access_rights.count).to eq @inventory_pools_with_automatic_access.count
+  expect(@user.access_rights.pluck(:inventory_pool_id)).to eq @inventory_pools_with_automatic_access.pluck(:id)
+  expect(@user.access_rights.where("inventory_pool_id != ?", @current_inventory_pool ).all? {|ar| ar.role == :customer}).to be true
 end
 
 Dann(/^in meinem Gerätepark hat er die Rolle 'Inventar\-Verwalter'$/) do
-  @user.access_right_for(@current_inventory_pool).role.should == :inventory_manager
+  expect(@user.access_right_for(@current_inventory_pool).role).to eq :inventory_manager
 end
 
 Dann(/^kriegt der neu erstellte Benutzer bei dem vorher editierten Gerätepark kein Zugriffsrecht$/) do
-  @user.access_right_for(@ip).should be_nil
+  expect(@user.access_right_for(@ip)).to eq nil
 end
 
 When(/^on the inventory pool I enable the automatic suspension for users with overdue take backs$/) do
@@ -250,9 +250,9 @@ end
 Then(/^the existing suspension motivation and the suspended time for this user are not overwritten$/) do
   def checks_suspension
     ar = @user.access_right_for(@current_inventory_pool)
-    ar.suspended_until.should == @suspended_until
-    ar.suspended_reason.should == @suspended_reason
-    ar.suspended_reason.should_not == @current_inventory_pool.automatic_suspension_reason
+    expect(ar.suspended_until).to eq @suspended_until
+    expect(ar.suspended_reason).to eq @suspended_reason
+    expect(ar.suspended_reason).not_to eq @current_inventory_pool.automatic_suspension_reason
   end
 
   checks_suspension
@@ -292,11 +292,11 @@ Then(/^"(.*)" is (enabled|disabled)$/) do |arg1, arg2|
       end
   case arg1
     when "Verträge drucken"
-      @current_inventory_pool.reload.print_contracts.should == b
+      expect(@current_inventory_pool.reload.print_contracts).to eq b
     when "Automatische Sperrung"
-      @current_inventory_pool.reload.automatic_suspension.should == b
+      expect(@current_inventory_pool.reload.automatic_suspension).to eq b
     when "Automatischer Zugriff"
-      @current_inventory_pool.reload.automatic_access.should == b
+      expect(@current_inventory_pool.reload.automatic_access).to eq b
     else
       raise "not found"
   end

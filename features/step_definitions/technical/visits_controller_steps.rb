@@ -8,10 +8,10 @@ Given /^test data setup for scenario "Writing an unavailable inventory code"$/ d
     m.contract_lines.where(returned_date: nil, item_id: nil).first and
     m.contract_lines.where(returned_date: nil).where("item_id IS NOT NULL").first 
   end
-  model.should_not be_nil
+  expect(model).not_to eq nil
   @line = model.contract_lines.where(returned_date: nil, item_id: nil).first
   @item = model.contract_lines.where(returned_date: nil).where("item_id IS NOT NULL").first.item
-  @line.item.should be_nil
+  expect(@line.item).to eq nil
 end
 
 When /^an unavailable inventory code is assigned to a contract line$/ do
@@ -19,15 +19,15 @@ When /^an unavailable inventory code is assigned to a contract line$/ do
 end
 
 Then /^the response from this action should be successful$/ do
-  @response.should be_successful
+  expect(@response.successful?).to be true
 end
 
 Then /^the response from this action should not be successful$/ do
-  @response.should_not be_successful
+  expect(@response.successful?).to be false
 end
 
 Then /^the contract line has no item$/ do
-  @line.reload.item.should be_nil
+  expect(@line.reload.item).to eq nil
 end
 
 Given /^visit that is overdue$/ do
@@ -44,8 +44,8 @@ When /^the visit is deleted$/ do
 end
 
 Then /^the visit does not exist anymore$/ do
-  Visit.find_by_id(@visit).should be_nil
-  @visit_count.should == Visit.count + 1
+  expect(Visit.find_by_id(@visit)).to eq nil
+  expect(@visit_count).to eq Visit.count + 1
 end
 
 When /^the index action of the visits controller is called with the filter parameter "take back" and a given date$/ do
@@ -61,25 +61,25 @@ When /^the index action of the visits controller is called with the filter param
 end
 
 Then /^the result of this action are all take back visits for the given inventory pool and the given date$/ do
-  @json.should_not be_empty
+  expect(@json.empty?).to be false
   @json.each do |visit|
-    visit["action"].should == "take_back"
+    expect(visit["action"]).to eq "take_back"
     if @date <= Date.today
       Date.parse(visit["date"]).should <= @date
     else 
-      Date.parse(visit["date"]).should == @date
+      expect(Date.parse(visit["date"])).to eq @date
     end
   end
 end
 
 Then /^the result of this action are all hand over visits for the given inventory pool and the given date$/ do
-  @json.should_not be_empty
+  expect(@json.empty?).to be false
   @json.each do |visit|
-    visit["action"].should == "hand_over"
+    expect(visit["action"]).to eq "hand_over"
     if @date <= Date.today
       Date.parse(visit["date"]).should <= @date
     else 
-      Date.parse(visit["date"]).should == @date
+      expect(Date.parse(visit["date"])).to eq @date
     end
   end
 end

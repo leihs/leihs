@@ -1,7 +1,7 @@
 When /^I pick a closed day for beeing the "(.*?)"$/ do |date_target|
   next_closed_day = nil
   date = Date.today
-  page.should have_selector "td[data-date]"
+  expect(has_selector?("td[data-date]")).to be true
   if all("td[data-date='#{date}']").empty? then date = Date.new(date.year, date.month + 1) end
 
   while next_closed_day.nil?
@@ -16,6 +16,6 @@ When /^I pick a closed day for beeing the "(.*?)"$/ do |date_target|
 end
 
 Then /^this date becomes red and I see a closed day warning$/ do
-  @date_el[:class][/closed/].should_not be_nil
+  expect(@date_el[:class][/closed/]).not_to eq nil
   find(".red", text: _("This inventory pool is closed on that day."))
 end

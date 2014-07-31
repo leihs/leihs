@@ -19,12 +19,13 @@ Angenommen(/^man befindet sich im Ausleihen\-Bereich$/) do
 end
 
 Dann(/^sehe ich den "(.*?)" Button nicht$/) do |visit_type|
-  page.should_not have_selector("a[href*='borrow/#{case visit_type
-                                                   when "Rückgaben"
-                                                     "returns"
-                                                   when "Abholungen"
-                                                     "to_pick_up"
-                                                   end}']")
+  s = case visit_type
+        when "Rückgaben"
+          "returns"
+        when "Abholungen"
+          "to_pick_up"
+      end
+  expect(has_no_selector?("a[href*='borrow/#{s}']")).to be true
 end
 
 Wenn(/^ich auf den "(.*?)" Link drücke$/) do |visit_type|
@@ -43,13 +44,13 @@ Dann(/^sehe ich meine "(.*?)"$/) do |visit_type|
   when "Abholungen"
     @current_user.visits.hand_over
   end.each do |visit|
-    page.should have_selector(".row h3", text: I18n.l(visit.date).to_s)
-    page.should have_selector(".row h2", text: visit.inventory_pool.name)
+    expect(has_selector?(".row h3", text: I18n.l(visit.date).to_s)).to be true
+    expect(has_selector?(".row h2", text: visit.inventory_pool.name)).to be true
   end
 end
 
 Dann(/^die "(.*?)" sind nach Datum und Gerätepark sortiert$/) do |visit_type|
-  all(".row h3").map(&:text).should == case visit_type
+  expect(all(".row h3").map(&:text)).to eq case visit_type
                                        when "Rückgaben"
                                          @current_user.visits.take_back
                                        when "Abholungen"
@@ -65,7 +66,7 @@ Dann(/^jede der "(.*?)" zeigt die (?:.+) Geräte$/) do |visit_type|
     @current_user.visits.hand_over
   end.each do |visit|
     visit.lines.each do |line|
-      page.should have_selector(".row.line", text: line.model.name)
+      expect(has_selector?(".row.line", text: line.model.name)).to be true
     end
   end
 end
@@ -77,12 +78,12 @@ Dann(/^die Geräte sind alphabetisch sortiert und gruppiert nach Modellname mit 
            @current_user.visits.hand_over
          end.joins(:inventory_pool).order("date", "inventory_pools.name").map(&:lines)
 
-  temp.map{|visit_lines| visit_lines.to_a.uniq(&:model_id)}.
-    map{|visit_lines| visit_lines.map(&:model)}.
-    map{|visit_models| visit_models.map(&:name)}.
-    map{|visit_model_names| visit_model_names.sort}.
-    flatten.
-    should == all(".row.line .col6of10").map(&:text)
+  t = temp.map{|visit_lines| visit_lines.to_a.uniq(&:model_id)}.
+        map{|visit_lines| visit_lines.map(&:model)}.
+        map{|visit_models| visit_models.map(&:name)}.
+        map{|visit_model_names| visit_model_names.sort}.
+        flatten
+  expect(t).to eq all(".row.line .col6of10").map(&:text)
 
   temp.
     map{|visit_lines| visit_lines.group_by {|l| l.model.name}}.
@@ -90,18 +91,21 @@ Dann(/^die Geräte sind alphabetisch sortiert und gruppiert nach Modellname mit 
     flatten(1).
     map{|vl| [vl.first, (if vl.second.first.is_a? OptionLine then vl.second.first.quantity else vl.second.length end)]}.
     each do |element|
-      page.should have_selector(".row.line", text: /#{element.second}[\sx]*#{element.first}/)
+      expect(has_selector?(".row.line", text: /#{element.second}[\sx]*#{element.first}/)).to be true
     end
 end
 
 Dann(/^die Geräte sind alphabetisch sortiert nach Modellname$/) do
-  @current_user.visits.take_back.joins(:inventory_pool).order("date", "inventory_pools.name").
-    map(&:lines).map{|visit_lines| visit_lines.map(&:model)}.map{|visit_models| visit_models.map(&:name)}.map{|visit_model_names| visit_model_names.sort}.flatten.
-    should == all(".row.line .col6of10").map(&:text)
+  t = @current_user.visits.take_back.
+        joins(:inventory_pool).order("date", "inventory_pools.name").
+        map(&:lines).map{|visit_lines| visit_lines.map(&:model)}.
+        map{|visit_models| visit_models.map(&:name)}.
+        map{|visit_model_names| visit_model_names.sort}.flatten
+  expect(t).to eq all(".row.line .col6of10").map(&:text)
 end
 
 Dann(/^jedes Gerät zeigt seinen Inventarcode$/) do
   @current_user.contract_lines.to_take_back.each do |line|
-    find(".line.row", match: :first, text: line.model.name).should have_content line.item.inventory_code
+    expect(find(".line.row", match: :first, text: line.model.name).has_content?(line.item.inventory_code)).to be true
   end
 end

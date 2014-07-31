@@ -7,9 +7,9 @@ do |quantity, model, from, to|
   model = Model.find_by_name(model)
   contract = FactoryGirl.create :contract, :inventory_pool => model.inventory_pools.first # OPTIMIZE
   contract.add_lines(quantity.to_i, model, nil, to_date(from), to_date(to))
-  contract.submit("this is the required purpose").should be_true
-  contract.lines.size.should >= 1
-  model.availability_in(contract.inventory_pool.reload).document_lines.size.should >= 1
+  expect(contract.submit("this is the required purpose")).to be true
+  expect(contract.lines.size).to be >= 1
+  expect(model.availability_in(contract.inventory_pool.reload).document_lines.size).to be >= 1
 end
 
 Given "a contract exists for $quantity '$model' from $from to $to" \
@@ -24,9 +24,9 @@ do |quantity, model, from, to|
   line = @contract.item_lines.first
   line.update_attributes(item: model.items.first, purpose: FactoryGirl.create(:purpose))
   @contract.reload
-  @contract.lines.size.should >= 1
-  @contract.lines.first.item.should_not be_nil
-  model.availability_in(@contract.inventory_pool).document_lines.size.should >= 1
+  expect(@contract.lines.size).to be >= 1
+  expect(@contract.lines.first.item).not_to eq nil
+  expect(model.availability_in(@contract.inventory_pool).document_lines.size).to be >= 1
 end
 
 
@@ -47,7 +47,7 @@ end
 
 Given "the $who signs the contract" do |who|
   @contract.sign(User.find_by_login(who))
-  @contract.status.should == :signed
+  expect(@contract.status).to eq :signed
 end
 
 # TODO merge with next step
@@ -64,25 +64,25 @@ do |who, model, date|
 end
 
 Then "it should always be available" do
-  @model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(Date.today, Availability::ETERNITY, @user.group_ids).should > 0
+  expect(@model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(Date.today, Availability::ETERNITY, @user.group_ids)).to be > 0
 end
 
 Then "$quantity should be available from $from to $to" do |quantity, from, to|
   from = to_date( from )
   to   = to_date( to )
-  @model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(from, to, @user.group_ids).should == quantity.to_i
+  expect(@model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(from, to, @user.group_ids)).to eq quantity.to_i
 end
 
 Then "the maximum available quantity on $date is $quantity" do |date, quantity|
   date = to_date(date)
-  @model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(date, date, @user.group_ids).should == quantity.to_i      
+  expect(@model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(date, date, @user.group_ids)).to eq quantity.to_i
 end
 
 Then "if I check the maximum available quantity for $date it is $quantity on $current_date" do |date, quantity, current_date|
   date = to_date(date)
   back_to_the_future( to_date(current_date) )
   @inventory_pool.reload
-  @model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(date, date, @user.group_ids).should == quantity.to_i
+  expect(@model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(date, date, @user.group_ids)).to eq quantity.to_i
   back_to_the_present
   @inventory_pool.reload
 end
@@ -90,7 +90,7 @@ end
 Then "the maximum available quantity from $start_date to $end_date is $quantity" do |start_date, end_date, quantity|
   start_date = to_date(start_date)
   end_date   = to_date(end_date)
-  @model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(start_date, end_date, @user.group_ids).should == quantity.to_i
+  expect(@model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(start_date, end_date, @user.group_ids)).to eq quantity.to_i
 end
 
 When "I check the availability changes for '$model'" do |model|
@@ -120,5 +120,5 @@ Then /^([^ ]*) reservation(.*)? should show an influence on the borrowability on
   # next 'tr' element
   tr = tr_head.first(:xpath,'following-sibling::*')
   # all list entries inside that 'tr' element
-  tr.all('li').count().should == number
+  expect(tr.all('li').count()).to eq number
 end

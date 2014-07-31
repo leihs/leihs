@@ -10,5 +10,5 @@ Dann /^kann ich die bestellende Person wechseln$/ do
   find(".ui-menu-item a", match: :first).click
   find(".modal .button[type='submit']", match: :first).click
   find(".content-wrapper", :text => @new_user.name, match: :first)
-  @order.reload.user.id.should == @new_user.id
+  expect(@order.reload.user.id).to eq @new_user.id
 end

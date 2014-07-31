@@ -7,8 +7,10 @@
 #end
 
 Then "I see the '$title' list" do | title |
-  page.should have_selector(".buttons .activated", :text => title)
-  page.should have_selector(".table-overview .fresh")
+  expect(has_selector?(".buttons .activated", :text => title)).to be true
+  expect(has_selector?(".table-overview .fresh")).to be true
+
+  expect(has_selector?(".contract")).to be true
 end
 
 Then /^(\w+) can "([^\"]*)"$/ do |who, what|

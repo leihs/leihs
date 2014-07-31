@@ -22,7 +22,7 @@ Wenn(/^ich den Kalender schliesse$/) do
 end
 
 Dann(/^schliesst das Dialogfenster$/) do
-  page.should_not have_selector("#booking-calendar")
+  expect(has_no_selector?("#booking-calendar")).to be true
 end
 
 Wenn(/^man versucht ein Modell zur Bestellung hinzufügen, welches nicht verfügbar ist$/) do
@@ -61,7 +61,7 @@ end
 
 Dann(/^schlägt der Versuch es hinzufügen fehl$/) do
   find("#booking-calendar")
-  @current_user.contracts.unsubmitted.flat_map(&:lines).length.should == 0
+  expect(@current_user.contracts.unsubmitted.flat_map(&:lines).length).to eq 0
 end
 
 Dann(/^ich sehe die Fehlermeldung, dass das ausgewählte Modell im ausgewählten Zeitraum nicht verfügbar ist$/) do
@@ -91,14 +91,14 @@ end
 
 Wenn(/^alle Angaben die ich im Kalender mache gültig sind$/) do
   @quantity = 1
-  page.should have_selector("#booking-calendar-inventory-pool option")
+  expect(has_selector?("#booking-calendar-inventory-pool option")).to be true
   @inventory_pool = InventoryPool.find all("#booking-calendar-inventory-pool option").detect{|o| o.selected?}["data-id"]
   step "ich setze die Anzahl im Kalendar auf #{@quantity}"
   @start_date = @end_date = @inventory_pool.next_open_date
   step "ich setze das Startdatum im Kalendar auf '#{I18n::l(@start_date)}'"
   step "ich setze das Enddatum im Kalendar auf '#{I18n::l(@end_date)}'"
   find("#submit-booking-calendar").click
-  page.should_not have_selector "#booking-calendar"
+  expect(has_no_selector?("#booking-calendar")).to be true
 end
 
 Dann(/^ist das Modell mit Start- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügt worden$/) do
@@ -112,15 +112,15 @@ Dann(/^lässt sich das Modell mit Start\- und Enddatum, Anzahl und Gerätepark d
 end
 
 Dann(/^das aktuelle Startdatum ist heute$/) do
-  find("#booking-calendar-start-date").value.should == I18n.l(Date.today)
+  expect(find("#booking-calendar-start-date").value).to eq I18n.l(Date.today)
 end
 
 Dann(/^das Enddatum ist morgen$/) do
-  find("#booking-calendar-end-date").value.should == I18n.l(Date.tomorrow)
+  expect(find("#booking-calendar-end-date").value).to eq I18n.l(Date.tomorrow)
 end
 
 Dann(/^die Anzahl ist 1$/) do
-  find("#booking-calendar-quantity").value.should == 1.to_s
+  expect(find("#booking-calendar-quantity").value).to eq 1.to_s
 end
 
 Dann(/^es sind alle Geräteparks angezeigt die Gegenstände von dem Modell haben$/) do
@@ -149,11 +149,11 @@ Wenn(/^man einen in der Zeitspanne verfügbaren Gegenstand aus der Modellliste h
 end
 
 Dann(/^das Startdatum entspricht dem vorausgewählten Startdatum$/) do
-  find("#booking-calendar-start-date").value.should == I18n.l(Date.today + 1)
+  expect(find("#booking-calendar-start-date").value).to eq I18n.l(Date.today + 1)
 end
 
 Dann(/^das Enddatum entspricht dem vorausgewählten Enddatum$/) do
-  find("#booking-calendar-end-date").value.should == I18n.l(Date.today + 2)
+  expect(find("#booking-calendar-end-date").value).to eq I18n.l(Date.today + 2)
 end
 
 Angenommen(/^es existiert ein Modell für das eine Bestellung vorhanden ist$/) do
@@ -201,7 +201,7 @@ Dann(/^wird die Verfügbarkeit des Modells im Kalendar angezeigt$/) do
         next unless @ip.is_open_on? change_date_el[:"data-date"].to_date
         # check borrower availability
         quantity_for_borrower = av.maximum_available_in_period_summed_for_groups next_date, next_date, @current_user.group_ids
-        change_date_el.find(".fc-day-content div").text.to_i.should == quantity_for_borrower
+        expect(change_date_el.find(".fc-day-content div").text.to_i).to eq quantity_for_borrower
         next_date += 1.day
       end
     end
@@ -239,11 +239,11 @@ Wenn(/^man zwischen den Monaten hin und herspring$/) do
 end
 
 Dann(/^wird der Kalender gemäss aktuell gewähltem Monat angezeigt$/) do
-  find(".fc-header-title").text.should == I18n.l(Date.today.next_month, format: "%B %Y")
+  expect(find(".fc-header-title").text).to eq I18n.l(Date.today.next_month, format: "%B %Y")
 end
 
 Dann(/^werden die Schliesstage gemäss gewähltem Gerätepark angezeigt$/) do
-  page.should have_selector("#booking-calendar-inventory-pool option")
+  expect(has_selector?("#booking-calendar-inventory-pool option")).to be true
   @inventory_pool = InventoryPool.find all("#booking-calendar-inventory-pool option").detect{|o| o.selected?}["data-id"]
   @holiday = @inventory_pool.holidays.first
   holiday_not_found = all(".fc-day-content", :text => @holiday.name).empty?
@@ -276,13 +276,13 @@ end
 Dann(/^sind nur diejenigen Geräteparks auswählbar, welche über Kapizäteten für das ausgewählte Modell verfügen$/) do
   @inventory_pools = @model.inventory_pools.reject {|ip| @model.total_borrowable_items_for_user(@current_user, ip) <= 0 }
   all("#booking-calendar-inventory-pool option").each do |option|
-    expect(@inventory_pools.include?(InventoryPool.find(option["data-id"]))).to be_true
+    expect(@inventory_pools.include?(InventoryPool.find(option["data-id"]))).to be true
   end
 end
 
 Dann(/^die Geräteparks sind alphabetisch sortiert$/) do
-  page.should have_selector("#booking-calendar-inventory-pool option")
-  all("#booking-calendar-inventory-pool option").map(&:text).should == all("#booking-calendar-inventory-pool option").map(&:text).sort
+  expect(has_selector?("#booking-calendar-inventory-pool option")).to be true
+  expect(all("#booking-calendar-inventory-pool option").map(&:text)).to eq all("#booking-calendar-inventory-pool option").map(&:text).sort
 end
 
 Dann(/^wird die maximal ausleihbare Anzahl des ausgewählten Modells angezeigt$/) do
@@ -293,11 +293,11 @@ Dann(/^wird die maximal ausleihbare Anzahl des ausgewählten Modells angezeigt$/
 end
 
 Dann(/^man kann maximal die maximal ausleihbare Anzahl eingeben$/) do
-  page.should have_selector("#booking-calendar-inventory-pool option")
+  expect(has_selector?("#booking-calendar-inventory-pool option")).to be true
   inventory_pool = InventoryPool.find(all("#booking-calendar-inventory-pool option").detect{|o| o.selected?}["data-id"])
   max_quantity = @model.total_borrowable_items_for_user(@current_user, inventory_pool)
   find("#booking-calendar-quantity").set (max_quantity+1).to_s
-  find("#booking-calendar-quantity").value.should == (max_quantity).to_s
+  expect(find("#booking-calendar-quantity").value).to eq (max_quantity).to_s
 end
 
 Wenn(/^man den letzten Gerätepark in der Geräteparkauswahl auswählt$/) do
@@ -319,7 +319,7 @@ Angenommen(/^man die Geräteparks begrenzt$/) do
 end
 
 Angenommen(/^man ein Modell welches über alle Geräteparks der begrenzten Liste beziehbar ist zur Bestellung hinzufügt$/) do
-  page.should have_selector(".line[data-id]", :visible => true)
+  expect(has_selector?(".line[data-id]", :visible => true)).to be true
   all(".line[data-id]").each do |line|
     model = Model.find line["data-id"]
     if @inventory_pools.all?{|ip| ip.models.include?(model)}
@@ -327,18 +327,18 @@ Angenommen(/^man ein Modell welches über alle Geräteparks der begrenzten Liste
     end
   end
   find(:xpath, "(//*[@id='ip-selector']//input)[2]", :visible => true).click
-  page.should have_selector(".line[data-id]", :visible => true)
+  expect(has_selector?(".line[data-id]", :visible => true)).to be true
   @inventory_pools.shift
   find(".line[data-id='#{@model.id}'] *[data-create-order-line]").click
 end
 
 Dann(/^es wird der alphabetisch erste Gerätepark ausgewählt der teil der begrenzten Geräteparks ist$/) do
-  find("#booking-calendar-inventory-pool").value.split(" ")[0].should == @inventory_pools.first.name
+  expect(find("#booking-calendar-inventory-pool").value.split(" ")[0]).to eq @inventory_pools.first.name
 end
 
 Wenn(/^ein Modell existiert, welches nur einer Gruppe vorbehalten ist$/) do
   @model = Model.all.detect{|m| m.partitions_with_generals.length > 1 and m.partitions_with_generals.find{|p| p.group_id == nil}.quantity == 0}
-  @model.blank?.should be_false
+  expect(@model.blank?).to be false
   @partition = @model.partitions.sample
 end
 
@@ -351,6 +351,6 @@ Dann(/^kann ich dieses Modell ausleihen, wenn ich in dieser Gruppe bin$/) do
   step "ich setze das Enddatum im Kalendar auf '#{I18n::l(date)}'"
   find(".fc-widget-content", :match => :first)
   find("#submit-booking-calendar").click
-  find("#current-order-lines").should have_content @model.name
-  @current_user.contracts.unsubmitted.flat_map(&:lines).map(&:model).include?(@model).should be_true
+  expect(find("#current-order-lines").has_content?(@model.name)).to be true
+  expect(@current_user.contracts.unsubmitted.flat_map(&:lines).map(&:model).include?(@model)).to be true
 end

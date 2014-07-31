@@ -21,10 +21,10 @@ Wenn /^ich(?: kann | )diesem Paket eines oder mehrere Gegenstände hinzufügen$/
 end
 
 Dann /^ist das Modell erstellt und die Pakete und dessen zugeteilten Gegenstände gespeichert$/ do
-  page.should have_selector ".success"
+  expect(has_selector?(".success")).to be true
   @model = Model.find {|m| [m.name, m.product].include? @model_name}
-  @model.should_not be_nil
-  @model.should be_is_package
+  expect(@model.nil?).to be false
+  expect(@model.is_package?).to be true
   @packages = @model.items
   @packages.count.should eq 1
   @packages.first.children.first.inventory_code.should eql "beam123"
@@ -32,7 +32,7 @@ Dann /^ist das Modell erstellt und die Pakete und dessen zugeteilten Gegenständ
 end
 
 Dann /^den Paketen wird ein Inventarcode zugewiesen$/ do
-  @packages.first.inventory_code.should_not be_nil
+  expect(@packages.first.inventory_code).not_to eq nil
 end
 
 Wenn /^das Paket zurzeit nicht ausgeliehen ist$/ do
@@ -45,10 +45,12 @@ Dann /^kann ich das Paket löschen und die Gegenstände sind nicht mehr dem Pake
   find("[data-type='inline-entry'][data-id='#{@package.id}'] [data-remove]").click
   step 'ich speichere die Informationen'
   find("#flash")
-  Item.find_by_id(@package.id).nil?.should be_true
+  expect(Item.find_by_id(@package.id).nil?).to be true
   lambda {@package.reload}.should raise_error(ActiveRecord::RecordNotFound)
   @package_item_ids.size.should > 0
-  @package_item_ids.each{|id| Item.find(id).parent_id.should be_nil}
+  @package_item_ids.each do |id|
+    expect(Item.find(id).parent_id).to eq nil
+  end
 end
 
 Wenn /^das Paket zurzeit ausgeliehen ist$/ do
@@ -57,7 +59,7 @@ Wenn /^das Paket zurzeit ausgeliehen ist$/ do
 end
 
 Dann /^kann ich das Paket nicht löschen$/ do
-  page.should_not have_selector("[data-type='inline-entry'][data-id='#{@package_not_in_stock.id}'] [data-remove]")
+  expect(has_no_selector?("[data-type='inline-entry'][data-id='#{@package_not_in_stock.id}'] [data-remove]")).to be true
 end
 
 Wenn /^ich ein Modell editiere, welches bereits Pakete hat$/ do
@@ -65,7 +67,7 @@ Wenn /^ich ein Modell editiere, welches bereits Pakete hat$/ do
   @model = @current_inventory_pool.models.detect {|m| not m.items.empty? and m.is_package?}
   @model_name = @model.name
   step 'ich nach "%s" suche' % @model.name
-  page.should have_selector(".line", text: @model.name)
+  expect(has_selector?(".line", text: @model.name)).to be true
   find(".line", match: :prefer_exact, :text => @model.name).find(".button", match: :first, :text => _("Edit Model")).click
 end
 
@@ -74,12 +76,12 @@ Wenn /^ich ein Modell editiere, welches bereits Gegenstände hat$/ do
   @model = @current_inventory_pool.models.detect {|m| not (m.items.empty? and m.is_package?)}
   @model_name = @model.name
   step 'ich nach "%s" suche' % @model.name
-  page.should have_selector(".line", text: @model.name)
+  expect(has_selector?(".line", text: @model.name)).to be true
   find(".line", match: :prefer_exact, :text => @model.name).find(".button", match: :first, :text => _("Edit Model")).click
 end
 
 Dann /^kann ich diesem Modell keine Pakete mehr zuweisen$/ do
-  page.should_not have_selector("a", text: _("Add %s") % _("Package"))
+  expect(has_no_selector?("a", text: _("Add %s") % _("Package"))).to be true
 end
 
 Wenn /^ich einem Modell ein Paket hinzufüge$/ do
@@ -90,10 +92,10 @@ end
 
 Dann /^kann ich dieses Paket nur speichern, wenn dem Paket auch Gegenstände zugeteilt sind$/ do
   find("#save-package").click
-  page.should have_content _("You can not create a package without any item")
-  page.should have_content _("New Package")
+  expect(has_content?(_("You can not create a package without any item"))).to be true
+  expect(has_content?(_("New Package"))).to be true
   find(".modal-close").click
-  page.should_not have_selector("[data-type='field-inline-entry']")
+  expect(has_no_selector?("[data-type='field-inline-entry']")).to be true
 end
 
 Wenn /^ich ein Paket editiere$/ do
@@ -118,17 +120,17 @@ Dann /^kann ich einen Gegenstand aus dem Paket entfernen$/ do
 end
 
 Dann /^dieser Gegenstand ist nicht mehr dem Paket zugeteilt$/ do
-  page.should have_content _("List of Inventory")
+  expect(has_content?(_("List of Inventory"))).to be true
   @package_to_edit.reload
   @package_to_edit.children.count.should eq (@number_of_items_before - 1)
-  @package_to_edit.children.detect {|i| i.inventory_code == @item_to_remove}.should be_nil
+  expect(@package_to_edit.children.detect {|i| i.inventory_code == @item_to_remove}).to eq nil
 end
 
 Dann /^werden die folgenden Felder angezeigt$/ do |table|
   values = table.raw.map do |x|
     x.first.gsub(/^\-\ |\ \-$/, '')
   end
-  (page.text =~ Regexp.new(values.join('.*'), Regexp::MULTILINE)).should_not be_nil
+  expect(page.text =~ Regexp.new(values.join('.*'), Regexp::MULTILINE)).not_to eq nil
 end
 
 Wenn /^ich das Paket speichere$/ do
@@ -145,12 +147,12 @@ Dann /^besitzt das Paket alle angegebenen Informationen$/ do
   model = Model.find {|m| [m.name, m.product].include? @model_name}
   visit manage_edit_model_path(@current_inventory_pool, model)
   model.items.each do |item|
-    page.should have_selector ".line[data-id='#{item.id}']", visible: false
+    expect(has_selector?(".line[data-id='#{item.id}']", visible: false)).to be true
   end
-  page.should_not have_selector "[src*='loading']"
+  expect(has_no_selector?("[src*='loading']")).to be true
   @package ||= model.items.packages.first
   find(".line[data-id='#{@package.id}']").find("button[data-edit-package]").click
-  page.should have_selector ".modal .row.emboss"
+  expect(has_selector?(".modal .row.emboss")).to be true
   step 'hat das Paket alle zuvor eingetragenen Werte'
 end
 
@@ -207,7 +209,7 @@ Dann(/^sehe ich die Meldung "(.*?)"$/) do |text|
 end
 
 Dann /^hat das Paket alle zuvor eingetragenen Werte$/ do
-  page.has_selector?(".modal .row.emboss").should be_true
+  expect(has_selector?(".modal .row.emboss")).to be true
   @table_hashes.each do |hash_row|
     field_name = hash_row["Feldname"]
     field_value = hash_row["Wert"]
@@ -219,13 +221,13 @@ Dann /^hat das Paket alle zuvor eingetragenen Werte$/ do
       raise "no field found" if matched_field.blank?
       case field_type
         when "autocomplete"
-          matched_field.find("input,textarea").value.should == (field_value != "Keine/r" ? field_value : "")
+          expect(matched_field.find("input,textarea").value).to eq (field_value != "Keine/r" ? field_value : "")
         when "select"
-          matched_field.all("option").detect(&:selected?).text.should == field_value
+          expect(matched_field.all("option").detect(&:selected?).text).to eq field_value
         when "radio must"
-          matched_field.find("input[checked][type='radio']").value.should == field_value
+          expect(matched_field.find("input[checked][type='radio']").value).to eq field_value
         when ""
-          matched_field.find("input,textarea").value.should == field_value
+          expect(matched_field.find("input,textarea").value).to eq field_value
       end
     end
   end
@@ -233,7 +235,7 @@ end
 
 Then(/^all the packaged items receive these same values store to this package$/) do |table|
   table.hashes.each do |t|
-    @package.children.all? {|c|
+    b = @package.children.all? {|c|
       case t[:Feldname]
         when "Verantwortliche Abteilung"
           c.inventory_pool_id == @package.inventory_pool_id
@@ -248,7 +250,8 @@ Then(/^all the packaged items receive these same values store to this package$/)
         else
           "not found"
       end
-    }.should be_true
+    }
+    expect(b).to be true
   end
 end
 

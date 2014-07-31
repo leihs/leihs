@@ -11,7 +11,7 @@ When /^I open a take back(, not overdue)?( with at least an option handed over b
   @ip = contract.inventory_pool
   @customer = contract.user
   visit manage_take_back_path(@ip, @customer)
-  page.should have_selector("#take-back-view")
+  expect(has_selector?("#take-back-view")).to be true
   @contract_lines_to_take_back = @customer.contract_lines.to_take_back.joins(:contract).where(contracts: {inventory_pool_id: @ip})
 end
 
@@ -24,8 +24,8 @@ When /^I select all lines of an open contract$/ do
       end
     end
   end
-  page.should have_selector(".line input[type=checkbox][data-select-line]")
-  all(".line input[type=checkbox][data-select-line]").all? {|x| x.checked? }.should be_true
+  expect(has_selector?(".line input[type=checkbox][data-select-line]")).to be true
+  expect(all(".line input[type=checkbox][data-select-line]").all? {|x| x.checked? }).to be true
 end
 
 When /^I click take back$/ do
@@ -42,15 +42,15 @@ end
 
 When /^I click take back inside the dialog$/ do
   find(".modal .button.green[data-take-back]").click
-  page.should_not have_selector(".modal .button.green[data-take-back]")
+  expect(has_no_selector?(".modal .button.green[data-take-back]")).to be true
 end
 
 Then /^the contract is closed and all items are returned$/ do
   find(".modal .multibutton", text: _("Finish this take back"))
   @contract_lines_to_take_back.each do |line|
     line.reload
-    line.item.in_stock?.should be_true unless line.is_a? OptionLine
-    line.contract.status.should == :closed
+    expect(line.item.in_stock?).to be true unless line.is_a? OptionLine
+    expect(line.contract.status).to eq :closed
   end
-  @customer.contract_lines.to_take_back.joins(:contract).where(contracts: {inventory_pool_id: @ip}).should be_empty
+  expect(@customer.contract_lines.to_take_back.joins(:contract).where(contracts: {inventory_pool_id: @ip}).empty?).to be true
 end

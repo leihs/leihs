@@ -43,12 +43,12 @@ Then /^I see all availabilities in that calendar, where the small number is the 
           if change_date_el[:class].match("selected") != nil
             total_quantity += find("#booking-calendar-quantity").value.to_i
           end
-          change_date_el.find(".total_quantity").text[/-*\d+/].to_i.should == total_quantity
+          expect(change_date_el.find(".total_quantity").text[/-*\d+/].to_i).to eq total_quantity
           # check selected partition/borrower quantity
           quantity_for_borrower = av.maximum_available_in_period_summed_for_groups next_date, next_date, @contract.user.group_ids
           quantity_for_borrower += find("#booking-calendar-quantity").value.to_i if change_date_el[:class].match("selected") != nil
 
-          change_date_el.find(".fc-day-content div").text.to_i.should == quantity_for_borrower
+          expect(change_date_el.find(".fc-day-content div").text.to_i).to eq quantity_for_borrower
           last_month = next_date.month
           next_date += 1.day
         end

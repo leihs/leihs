@@ -9,7 +9,7 @@ Angenommen(/^es existiert noch kein Gerätepark$/) do
 end
 
 Wenn(/^ich im Admin\-Bereich unter dem Reiter Geräteparks einen neuen Gerätepark erstelle$/) do
-  current_path.should == manage_inventory_pools_path
+  expect(current_path).to eq manage_inventory_pools_path
   click_link _("Create %s") % _("Inventory Pool")
 end
 
@@ -24,11 +24,11 @@ Wenn(/^ich speichere$/) do
 end
 
 Dann(/^ist der Gerätepark gespeichert$/) do
-  InventoryPool.find_by_name_and_shortname_and_email("test", "test", "test@test.ch").should_not be_nil
+  expect(InventoryPool.find_by_name_and_shortname_and_email("test", "test", "test@test.ch")).not_to eq nil
 end
 
 Dann(/^ich sehe die Geräteparkliste$/) do
-  page.should have_content _("List of Inventory Pools")
+  expect(has_content?(_("List of Inventory Pools"))).to be true
 end
 
 Wenn(/^ich (.+) nicht eingebe$/) do |must_field|
@@ -41,13 +41,13 @@ Dann(/^wird mir eine Fehlermeldung angezeigt$/) do
 end
 
 Dann(/^der Gerätepark wird nicht erstellt$/) do
-  page.should_not have_content _("List of Inventory Pools")
-  page.should_not have_selector ".success"
+  expect(has_no_content?(_("List of Inventory Pools"))).to be true
+  expect(has_no_selector?(".success")).to be true
 end
 
 Wenn(/^ich im Admin\-Bereich unter dem Reiter Geräteparks einen bestehenden Gerätepark ändere$/) do
   @ip = InventoryPool.first
-  page.should have_content _("List of Inventory Pools")
+  expect(has_content?(_("List of Inventory Pools"))).to be true
   find(".line", match: :prefer_exact, text: @ip.name).click_link _("Edit")
 end
 
@@ -73,11 +73,11 @@ end
 
 Wenn(/^der Gerätepark wurde aus der Liste gelöscht$/) do
   find("#flash .success", text: _("%s successfully deleted") % _("Inventory Pool"))
-  page.should_not have_content @ip.name
+  expect(has_no_content?(@ip.name)).to be true
 end
 
 Wenn(/^der Gerätepark wurde aus der Datenbank gelöscht$/) do
-  InventoryPool.find_by_name(@ip.name).should be_nil
+  expect(InventoryPool.find_by_name(@ip.name)).to eq nil
 end
 
 Dann(/^ich sehe die Geräteparkauswahl$/) do
@@ -86,5 +86,5 @@ end
 
 Dann(/^die Geräteparkauswahl ist alphabetish sortiert$/) do
   names = all("div.dropdown-holder:nth-child(1) .dropdown .dropdown-item").map(&:text)
-  names.map(&:downcase).sort.should == names.map(&:downcase)
+  expect(names.map(&:downcase).sort).to eq names.map(&:downcase)
 end

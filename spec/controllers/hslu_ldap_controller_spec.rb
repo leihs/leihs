@@ -256,7 +256,7 @@ describe Authenticator::HsluAuthenticationController do
   context "if the user does not yet exist" do
     it "should be able to create a normal with various useful data grabbed from LDAP" do
       post :login, {:login => { :username => "normal_user", :password => "1234" }}, {}
-      User.where(:login => "normal_user").first.should_not == nil
+      expect(User.where(:login => "normal_user").first).not_to eq nil
     end
   end
 
@@ -264,14 +264,14 @@ describe Authenticator::HsluAuthenticationController do
     it "should assign users to the group if they have the right displayName" do
       post :login, {:login => { :username => "video_user", :password => "1234" }}, {}
       user = User.where(:login => "video_user" ).first
-      user.should_not == nil
-      user.groups.include?(Group.where(:name => "Video").first).should == true
+      expect(user).not_to eq nil
+      expect(user.groups.include?(Group.where(:name => "Video").first)).to be true
     end
     it "should not assign users to the group if they don't have the right displayName" do
       post :login, {:login => { :username => "normal_user", :password => "1234" }}, {}
       user = User.where(:login => "normal_user").first
-      user.should_not == nil
-      user.groups.include?(Group.where(:name => "Video").first).should == false
+      expect(user).not_to eq nil
+      expect(user.groups.include?(Group.where(:name => "Video").first)).to be false
     end
   end
 
@@ -279,7 +279,7 @@ describe Authenticator::HsluAuthenticationController do
     it "should give that user the admin role" do
       post :login, {:login => { :username => "admin_user", :password => "1234" }}, {}
       user = User.where(:login => "admin_user").first
-      user.access_rights.active.collect(&:role).include?(:admin).should == true
+      expect(user.access_rights.active.collect(&:role).include?(:admin)).to be true
     end
   end
   
@@ -288,8 +288,8 @@ describe Authenticator::HsluAuthenticationController do
       post :login, {:login => { :username => "normal_user", :password => "1234" }}, {}
       user = User.where(:login => "normal_user").first
       user.reload
-      user.should_not == nil
-      user.badge_id.should == "L9999"
+      expect(user).not_to eq nil
+      expect(user.badge_id).to eq "L9999"
     end
   end
 
@@ -298,8 +298,8 @@ describe Authenticator::HsluAuthenticationController do
       post :login, {:login => { :username => "numeric_unique_id_user", :password => "1234" }}, {}
       user = User.where(:login => "numeric_unique_id_user").first
       user.reload
-      user.should_not == nil
-      user.badge_id.should == "L1234"
+      expect(user).not_to eq nil
+      expect(user.badge_id).to eq "L1234"
     end
   end
 

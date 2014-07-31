@@ -40,14 +40,14 @@ describe Authenticator::LdapAuthenticationController do
   context "if the user does not yet exist" do
     it "should be able to create a normal user with various useful data grabbed from LDAP" do
       post :login, {:login => { :user => "normal_user", :password => "pass" }}, {}
-      User.where(:login => "normal_user").first.should_not == nil
+      expect(User.where(:login => "normal_user").first).not_to eq nil
       # TODO: Check that all the data from LDAP made it into our user object
     end
     it "should make sure that users it creates have LDAP as authentication system" do
       post :login, {:login => { :user => "normal_user", :password => "pass" }}, {}
       as = AuthenticationSystem.where(:class_name => "LdapAuthentication").first
-      as.should_not == nil
-      User.where(:login => "normal_user").first.authentication_system.should == as
+      expect(as).not_to eq nil
+      expect(User.where(:login => "normal_user").first.authentication_system).to eq as
     end
 
     it "newly created user should get automatically access as customer in all the pools where automatic access is activated" do
@@ -61,7 +61,7 @@ describe Authenticator::LdapAuthenticationController do
 
       user = User.where(:login => "normal_user").first
       access_rights = user.access_rights.where(role: "customer")
-      access_rights.count.should == 2
+      expect(access_rights.count).to eq 2
       ips_with_automatic_access.each {|ip| user.inventory_pools.should include ip}
     end
   end
@@ -70,7 +70,7 @@ describe Authenticator::LdapAuthenticationController do
     it "should give that user the admin role" do
       post :login, {:login => { :user => "admin_user", :password => "pass" }}, {}
       user = User.where(:login => "admin_user").first
-      user.access_rights.active.collect(&:role).include?(:admin).should == true
+      expect(user.access_rights.active.collect(&:role).include?(:admin)).to be true
     end
   end
 
@@ -78,7 +78,7 @@ describe Authenticator::LdapAuthenticationController do
     it "should not give that user the admin role" do
       post :login, {:login => { :user => "normal_user", :password => "pass" }}, {}
       user = User.where(:login => "normal_user").first
-      user.access_rights.active.collect(&:role).include?(:admin).should == false
+      expect(user.access_rights.active.collect(&:role).include?(:admin)).to be false
     end
   end
 

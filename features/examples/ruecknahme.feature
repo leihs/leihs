@@ -17,7 +17,7 @@ Funktionalität: Rücknahme
     Und die Zeile wird grün markiert
     Und ich erhalte eine Erfolgsmeldung
 
-  @personas
+  @personas @javascript
   Szenario: Deselektieren einer Linie
     Angenommen ich befinde mich in einer Rücknahme
     Wenn ich einen Gegenstand über das Zuweisenfeld zurücknehme

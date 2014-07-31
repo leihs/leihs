@@ -15,13 +15,13 @@ end
 
 Then /^this line is deleted$/ do
   find(".line", match: :first)
-  page.should_not have_selector(".line[data-id='#{@line.id}']")
+  expect(has_no_selector?(".line[data-id='#{@line.id}']")).to be true
   lambda {@line.reload}.should raise_error(ActiveRecord::RecordNotFound) 
 end
 
 When /^I select multiple lines$/ do
   @selected_line_ids = @hand_over.lines.sample(rand(1..@hand_over.lines.count)).map &:id
-  page.should have_selector ".line[data-id]", match: :first
+  expect(has_selector?(".line[data-id]", match: :first)).to be true
   @selected_line_ids.each do |id|
     cb = find(".line[data-id='#{id}'] input[type='checkbox'][data-select-line]")
     cb.click unless cb.checked?
@@ -37,7 +37,7 @@ end
 
 Then /^these lines are deleted$/ do
   @selected_line_ids.each do |line_id|
-    page.should_not have_selector(".line[data-id='#{line_id}']")
+    expect(has_no_selector?(".line[data-id='#{line_id}']")).to be true
   end
   @selected_line_ids.each {|id| lambda{ContractLine.find(id)}.should raise_error(ActiveRecord::RecordNotFound)}
 end
@@ -66,5 +66,5 @@ end
 
 Then /^the availability of the keeped line is updated$/ do
   reference_line = all(".line").detect{|line| line["data-id"] == @reference_id}
-  reference_line[:class].match("error").should be_nil
+  expect(reference_line[:class].match("error")).to eq nil
 end

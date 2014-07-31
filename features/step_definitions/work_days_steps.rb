@@ -74,10 +74,10 @@ When "$who clicks '$action'" do |who, action|
 end
 
 Then "that should be possible$reason" do |reason|
-  @contract.lines.size.should == 1
+  expect(@contract.lines.size).to eq 1
   line = @contract.lines.first
   line.start_date = LeihsFactory.parsedate(@date)
-  line.save.should == true
+  expect(line.save).to be true
 end
 
 When "trying to set the end date to the same date" do  
@@ -87,14 +87,14 @@ When "trying to set the end date to the same date" do
 end
 
 Then "that should not be possible $reason" do
-  @save_successful.should == false
+  expect(@save_successful).to be false
 end
 
 Then "he sees that his inventory pool is currently open on $days" do |days|
   other_days = Workday::DAYS
   days.split(',').each do |day|
     other_days.delete(day.strip)
-    @workday.send(day.strip).should == true
+    expect(@workday.send(day.strip)).to be true
   end
   
   other_days.each do |day|
@@ -103,7 +103,7 @@ Then "he sees that his inventory pool is currently open on $days" do |days|
 #      puts @workday.inspect
 #      puts "****************"
 #    end
-    @workday.send(day).should == false
+    expect(@workday.send(day)).to be false
   end
 end
 

@@ -13,7 +13,7 @@ Then(/^every such user is suspended until '(\d+)\.(\d+)\.(\d+)' in the correspon
     ip = c.inventory_pool
     u = c.user
     ar = u.access_right_for(ip)
-    ar.suspended_until.should == Date.new(year.to_i, month.to_i, day.to_i)
+    expect(ar.suspended_until).to eq Date.new(year.to_i, month.to_i, day.to_i)
   end
 end
 

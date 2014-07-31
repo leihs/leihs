@@ -569,10 +569,14 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/borrow/vorlagen.feature:37
-- name: Nur verfügbaren Modelle aus Vorlage in Bestellung übernehmen - features/borrow/vorlagen.feature:57
+- name: Verfügbarkeitsansicht der Vorlage - features/borrow/vorlagen.feature:45
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/borrow/vorlagen.feature:57
+      body: bundle exec cucumber -p default features/borrow/vorlagen.feature:45
+- name: Nur verfügbaren Modelle aus Vorlage in Bestellung übernehmen - features/borrow/vorlagen.feature:56
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/borrow/vorlagen.feature:56
 - name: Systemfeedback bei erfolgreicher manueller Interaktion bei Aushändigung -
     features/examples/aushaendigung.feature:9
   scripts:
@@ -611,6 +615,14 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/aushaendigung.feature:87
+- name: Listung von problematischen Gegenständen - features/examples/aushaendigung.feature:93
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/aushaendigung.feature:93
+- name: Keine Auflistung von ausgemusterten Gegenständen - features/examples/aushaendigung.feature:101
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/aushaendigung.feature:101
 - name: Anzeige von bereits zugewiesenen Gegenständen - features/examples/aushaendigungen.feature:9
   scripts:
     cucumber:
@@ -1656,19 +1668,14 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/ruestliste.feature:13
-- name: Inhalt der Rüstliste vor Aushändigung - keine Zuteilung von Inventarcode -
-    features/examples/ruestliste.feature:24
+- name: Inhalt der Rüstliste nach Aushändigung - Inventarcodes sind bekannt - features/examples/ruestliste.feature:47
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/ruestliste.feature:24
-- name: Inhalt der Rüstliste nach Aushändigung - Inventarcodes sind bekannt - features/examples/ruestliste.feature:44
+      body: bundle exec cucumber -p default features/examples/ruestliste.feature:47
+- name: Wo wird die Rüstliste aufgerufen - features/examples/ruestliste.feature:61
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/ruestliste.feature:44
-- name: Wo wird die Rüstliste aufgerufen - features/examples/ruestliste.feature:58
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default features/examples/ruestliste.feature:58
+      body: bundle exec cucumber -p default features/examples/ruestliste.feature:61
 - name: Software-Produkt editieren - features/examples/software_editieren.feature:9
   scripts:
     cucumber:

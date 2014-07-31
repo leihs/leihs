@@ -18,6 +18,6 @@ When(/^I login as "(.*?)" via web interface$/) do |persona|
 end
 
 Then(/^I am logged in$/) do
-  page.should have_content @current_user.short_name
+  expect(has_content?(@current_user.short_name)).to be true
 end
 

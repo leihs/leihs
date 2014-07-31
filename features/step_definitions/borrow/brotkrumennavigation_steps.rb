@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 Dann(/^sehe ich die Brotkrumennavigation$/) do
-  page.should have_selector "nav .navigation-tab-item", text: _("Start")
+  expect(has_selector?("nav .navigation-tab-item", text: _("Start"))).to be true
 end
 
 Angenommen(/^ich sehe die Brotkrumennavigation$/) do
@@ -34,7 +34,7 @@ Wenn(/^ich eine Unterkategorie wähle$/) do
 end
 
 Dann(/^öffnet diese Kategorie$/) do
-  (Rack::Utils.parse_nested_query URI.parse(current_url).query)["category_id"].to_i.should == @category.id
+  expect((Rack::Utils.parse_nested_query URI.parse(current_url).query)["category_id"].to_i).to eq @category.id
 end
 
 Wenn(/^ich eine Kategorie der zweiten stufe aus der Explorativen Suche wähle$/) do
@@ -51,7 +51,7 @@ end
 
 Dann(/^die Kategorie ist das zweite und letzte Element der Brotkrumennavigation$/) do
   all("nav .navigation-tab-item")[1].text[@category.name].should be
-  all("nav .navigation-tab-item").length.should == 2
+  expect(all("nav .navigation-tab-item").length).to eq 2
 end
 
 Wenn(/^ich ein Modell öffne$/) do
@@ -63,5 +63,5 @@ Dann(/^sehe ich den ganzen Weg den ich zum Modell beschritten habe$/) do
 end
 
 Dann(/^kein Element der Brotkrumennavigation ist aktiv$/) do
-  all("nav .navigation-tab-item.active").length.should == 0
+  expect(all("nav .navigation-tab-item.active").length).to eq 0
 end

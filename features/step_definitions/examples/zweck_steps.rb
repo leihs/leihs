@@ -7,14 +7,14 @@ end
 
 Wenn /^jeder Eintrag einer abgeschickten Bestellung referenziert auf einen Zweck$/ do
   FactoryGirl.create(:contract_with_lines, status: :submitted).lines.each do |line|
-    line.purpose.should be_a_kind_of Purpose
+    expect(line.purpose.is_a?(Purpose)).to be true
   end
 end
 
 Wenn /^jeder Eintrag eines Vertrages kann auf einen Zweck referenzieren$/ do
   FactoryGirl.create(:contract_with_lines).lines.each do |line|
     line.purpose = FactoryGirl.create :purpose
-    line.purpose.should be_a_kind_of Purpose
+    expect(line.purpose.is_a?(Purpose)).to be true
   end
 end
 
@@ -27,7 +27,7 @@ end
 
 Dann /^sehe ich den Zweck$/ do
   if @contract.lines.first.purpose
-    page.should have_content @contract.lines.first.purpose.description
+    expect(has_content?(@contract.lines.first.purpose.description)).to be true
   end
 end
 
@@ -45,7 +45,7 @@ Dann /^kann ich den Zweck editieren$/ do
   find(".modal textarea[name='purpose']").set @new_purpose_description
   find(".modal button[type=submit]").click
   find("#purpose", text: @new_purpose_description)
-  @contract.reload.lines.first.purpose.description.should == @new_purpose_description
+  expect(@contract.reload.lines.first.purpose.description).to eq @new_purpose_description
 end
 
 Dann /^kann ich einen Zweck hinzufügen$/ do
@@ -105,7 +105,7 @@ end
 
 Dann /^wird nur den Gegenständen ohne Zweck der angegebene Zweck zugewiesen$/ do
   @approved_lines.select{|l| l.purpose.blank?}.each do |line|
-    line.purpose.description.should == @added_purpose
+    expect(line.purpose.description).to eq @added_purpose
   end
 end
 
@@ -118,7 +118,7 @@ Wenn /^alle der ausgewählten Gegenstände haben einen Zweck angegeben$/ do
       step 'I select one of those'
     rescue
       # if we ran out of available items, and an Capybara::Element not found exception was raised, just ensure that all the selected and assigned contract lines so far, have a purpose
-      lines.reload.select(&:item).all?(&:purpose).should be_true
+      expect(lines.reload.select(&:item).all?(&:purpose)).to be true
       break
     end
   end
@@ -141,5 +141,5 @@ Wenn /^alle der ausgewählten Gegenstände haben einen Zweck angegeben$/ do
 end
 
 Dann /^kann ich keinen weiteren Zweck angeben$/ do
-  page.should_not have_selector(".modal .purpose button", :visible => true)
+  expect(has_no_selector?(".modal .purpose button", :visible => true)).to be true
 end

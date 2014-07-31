@@ -2,23 +2,23 @@
 
 Angenommen(/^es existiert eine Bestellung von einer Delegation die nicht von einem Delegationsverantwortlichen erstellt wurde$/) do
   @contract = @current_inventory_pool.contracts.submitted.where(user_id: User.as_delegations).sample
-  @contract.user.delegator_user.should_not == @contract.delegated_user
-  ActionMailer::Base.deliveries.count.should == 0
+  expect(@contract.user.delegator_user).not_to eq @contract.delegated_user
+  expect(ActionMailer::Base.deliveries.count).to eq 0
 end
 
 Dann(/^wird das Genehmigungsmail an den Besteller versendet$/) do
-  ActionMailer::Base.deliveries.count.should == 1
-  ActionMailer::Base.deliveries.first.to.should ==  @contract.delegated_user.emails
+  expect(ActionMailer::Base.deliveries.count).to eq 1
+  expect(ActionMailer::Base.deliveries.first.to).to eq  @contract.delegated_user.emails
 end
 
 Dann(/^das Genehmigungsmail wird nicht an den Delegationsverantwortlichen versendet$/) do
-  (ActionMailer::Base.deliveries.first.to & @contract.user.delegator_user.emails).should be_empty
+  expect((ActionMailer::Base.deliveries.first.to & @contract.user.delegator_user.emails).empty?).to be true
 end
 
 Angenommen(/^es existiert eine Rücknahme von einer Delegation$/) do
   @contract = @current_inventory_pool.contracts.signed.where(user_id: User.as_delegations).sample
-  @contract.user.delegator_user.should_not == @contract.delegated_user
-  ActionMailer::Base.deliveries.count.should == 0
+  expect(@contract.user.delegator_user).not_to eq @contract.delegated_user
+  expect(ActionMailer::Base.deliveries.count).to eq 0
 end
 
 Wenn(/^ich bei dieser Rücknahme eine Erinnerung sende$/) do
@@ -39,7 +39,7 @@ Dann(/^das Erinnerungsmail wird nicht an den Delegationsverantwortlichen versend
 end
 
 Wenn(/^ich die Mailfunktion wähle$/) do
-  ActionMailer::Base.deliveries.count.should == 0
+  expect(ActionMailer::Base.deliveries.count).to eq 0
   within("#users .line", text: @delegation) do
     find(".arrow.down").click
     @mailto_link = find("a", text: _("E-Mail"))[:href]
@@ -47,5 +47,5 @@ Wenn(/^ich die Mailfunktion wähle$/) do
 end
 
 Dann(/^wird das Mail an den Delegationsverantwrotlichen verschickt$/) do
-  @mailto_link.should == "mailto:%s" % @delegation.delegator_user.email
+  expect(@mailto_link).to eq "mailto:%s" % @delegation.delegator_user.email
 end

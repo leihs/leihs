@@ -6,15 +6,15 @@ Given "$name's email address is $email" do |name, email|
 end
 
 Then "$email receives an email" do |email|
-  ActionMailer::Base.deliveries.size.should == 1
+  expect(ActionMailer::Base.deliveries.size).to eq 1
   @mail = ActionMailer::Base.deliveries[0]  
   # ActiveMailer upcases the first letter?!
-  @mail.to[0].downcase.should == email.downcase
+  expect(@mail.to[0].downcase).to eq email.downcase
   ActionMailer::Base.deliveries.clear
 end
 
 Then "its subject is '$subject'" do |subject|
-  @mail.subject.should == subject
+  expect(@mail.subject).to eq subject
 end
 
 Then "it contains information '$line'" do |line|

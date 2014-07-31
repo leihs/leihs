@@ -2,7 +2,7 @@
 
 Wenn /^man im Inventar Bereich ist$/ do
   find("#topbar .topbar-navigation .topbar-item a", :text => _("Inventory")).click
-  current_path.should == manage_inventory_path(@current_inventory_pool)
+  expect(current_path).to eq manage_inventory_path(@current_inventory_pool)
 end
 
 Dann /^kann man über die Tabnavigation zum Helferschirm wechseln$/ do
@@ -168,7 +168,7 @@ Dann /^die geänderten Werte sind hervorgehoben$/ do
   find("#field-selection .field", match: :first)
   all("#field-selection .field").each do |selected_field|
     c = all("#item-section .field[data-id='#{selected_field['data-id']}'].success").count + all("#item-section .field[data-id='#{selected_field['data-id']}'].error").count
-    c.should == 1
+    expect(c).to eq 1
   end
 end
 
@@ -206,7 +206,7 @@ Dann /^gebe ich den Anfang des Inventarcodes eines Gegenstand ein$/ do
 end
 
 Dann /^wähle den Gegenstand über die mir vorgeschlagenen Suchtreffer$/ do
-  page.should have_selector(".ui-menu-item")
+  expect(has_selector?(".ui-menu-item")).to be true
   find("a.ui-corner-all", :text => @item.inventory_code).click
 end
 
@@ -242,7 +242,7 @@ Wenn /^man seine Änderungen widerruft$/ do
 end
 
 Dann /^sind die Änderungen widerrufen$/ do
-  @item.to_json.should == @item.reload.to_json
+  expect(@item.to_json).to eq @item.reload.to_json
 end
 
 Dann /^man sieht alle ursprünglichen Werte des Gegenstandes in der Übersicht$/ do
@@ -272,7 +272,7 @@ Dann(/^gebe ich den Anfang des Inventarcodes des spezifischen Gegenstandes ein$/
 end
 
 Dann(/^der Ort des anderen Gegenstandes ist dergleiche geblieben$/) do
-  @item_2.reload.location.should == @item_2_location
+  expect(@item_2.reload.location).to eq @item_2_location
 end
 
 Wenn(/^"(.*?)" ausgewählt und auf "(.*?)" gesetzt wird, dann muss auch "(.*?)" angegeben werden$/) do |field, value, dependent_field|
@@ -296,18 +296,18 @@ Angenommen(/^man editiert das Feld "(.*?)" eines ausgeliehenen Gegenstandes$/) d
 end
 
 Dann(/^erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät ausgeliehen ist$/) do
-  page.should have_content _("The responsible inventory pool cannot be changed because it's not returned yet or has already been assigned to a contract line.")
-  @item_before.should == @item.reload.to_json
+  expect(has_content?(_("The responsible inventory pool cannot be changed because it's not returned yet or has already been assigned to a contract line."))).to be true
+  expect(@item_before).to eq @item.reload.to_json
 end
 
 Dann(/^erhält man eine Fehlermeldung, dass man den Gegenstand nicht ausmustern kann, da das Gerät bereits ausgeliehen oder einer Vertragslinie zugewiesen ist$/) do
-  page.has_content?(_("The item cannot be retired because it's not returned yet or has already been assigned to a contract line.")).should be_true
-  @item_before.should == @item.reload.to_json
+  expect(has_content?(_("The item cannot be retired because it's not returned yet or has already been assigned to a contract line."))).to be true
+  expect(@item_before).to eq @item.reload.to_json
 end
 
 Dann(/^erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät in einem Vortrag vorhanden ist$/) do
-  page.should have_content _("The model cannot be changed because the item is used in contracts already.")
-  @item_before.should == @item.reload.to_json
+  expect(has_content?(_("The model cannot be changed because the item is used in contracts already."))).to be true
+  expect(@item_before).to eq @item.reload.to_json
 end
 
 Angenommen(/^man editiert das Feld "(.*?)" eines Gegenstandes, der im irgendeinen Vertrag vorhanden ist$/) do |name|

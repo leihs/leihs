@@ -6,7 +6,7 @@ def resolve_conflict_for_model name
   line = find(".line", :text => @model.name, :match => :first)
   ids = line[:"data-ids"]
   line.find(".button", :text => _("Change entry")).click
-  page.should have_selector("#booking-calendar .fc-day-content")
+  expect(has_selector?("#booking-calendar .fc-day-content")).to be true
   find("#booking-calendar-quantity").set 1
   # find available start and end date
   date = Date.today
@@ -17,8 +17,8 @@ def resolve_conflict_for_model name
   step "ich setze das Enddatum im Kalendar auf '#{I18n::l(date)}'"
   find(".modal .button.green").click
   find(".line", :text => @model.name, :match => :first)
-  page.should_not have_selector("#booking-calendar")
-  page.should_not have_selector(".line[data-ids='#{ids}'] .line-info.red")
+  expect(has_no_selector?("#booking-calendar")).to be true
+  expect(has_no_selector?(".line[data-ids='#{ids}'] .line-info.red")).to be true
 end
 
 Angenommen(/^ich zur Timeout Page mit einem Konfliktmodell weitergeleitet werde$/) do
@@ -40,11 +40,11 @@ Angenommen(/^ich zur Timeout Page mit (\d+) Konfliktmodellen weitergeleitet werd
 end
 
 Dann(/^ich sehe eine Information, dass die Geräte nicht mehr reserviert sind$/) do
-  page.should have_content _("%d minutes passed. The items are not reserved for you any more!") % Contract::TIMEOUT_MINUTES
+  expect(has_content?(_("%d minutes passed. The items are not reserved for you any more!") % Contract::TIMEOUT_MINUTES)).to be true
 end
 
 Dann(/^ich sehe eine Information, dass alle Geräte wieder verfügbar sind$/) do
-  page.should have_content _("Your order has been modified. All reservations are now available.")
+  expect(has_content?(_("Your order has been modified. All reservations are now available."))).to be true
 end
 
 #########################################################################
@@ -86,7 +86,7 @@ Dann(/^wird die Bestellung des Benutzers gelöscht$/) do
 end
 
 Dann(/^ich lande auf der Seite der Hauptkategorien$/) do
-  current_path.should == borrow_root_path
+  expect(current_path).to eq borrow_root_path
 end
 
 #########################################################################
@@ -94,7 +94,7 @@ end
 Angenommen(/^ich lösche einen Eintrag$/) do
   line = all(".row.line").to_a.sample
   @line_ids = line.find("button[data-line-ids]")["data-line-ids"].gsub(/\[|\]/, "").split(',').map(&:to_i)
-  @line_ids.all? {|id| @current_user.contracts.unsubmitted.flat_map(&:contract_line_ids).include?(id) }.should be_true
+  expect(@line_ids.all? {|id| @current_user.contracts.unsubmitted.flat_map(&:contract_line_ids).include?(id) }).to be true
   line.find(".dropdown-toggle").click
   line.find("a", text: _("Delete")).click
   alert = page.driver.browser.switch_to.alert
@@ -103,8 +103,8 @@ Angenommen(/^ich lösche einen Eintrag$/) do
 end
 
 Dann(/^wird der Eintrag aus der Bestellung gelöscht$/) do
-  @line_ids.all? {|id| page.has_no_selector? "button[data-line-ids='[#{id}]']"}.should be_true
-  @line_ids.all? {|id| not @current_user.contracts.unsubmitted.flat_map(&:contract_line_ids).include?(id) }.should be_true
+  expect(@line_ids.all? {|id| page.has_no_selector? "button[data-line-ids='[#{id}]']"}).to be true
+  expect(@line_ids.all? {|id| not @current_user.contracts.unsubmitted.flat_map(&:contract_line_ids).include?(id) }).to be true
 end
 
 #########################################################################
@@ -144,7 +144,7 @@ end
 #########################################################################
 
 Wenn(/^ein Modell nicht verfügbar ist$/) do
-  @current_user.contracts.unsubmitted.flat_map(&:lines).any?{|l| not l.available?}.should be_true
+  expect(@current_user.contracts.unsubmitted.flat_map(&:lines).any?{|l| not l.available?}).to be true
 end
 
 Wenn(/^ich auf "(.*?)" drücke$/) do |arg1|
@@ -160,7 +160,7 @@ Wenn(/^ich auf "(.*?)" drücke$/) do |arg1|
 end
 
 Dann(/^ich erhalte einen Fehler$/) do
-  page.should have_content _("Please solve the conflicts for all highlighted lines in order to continue.")
+  expect(has_content?(_("Please solve the conflicts for all highlighted lines in order to continue."))).to be true
 end
 
 #########################################################################
@@ -176,11 +176,11 @@ Wenn(/^ich die Seite der Hauptkategorien besuche$/) do
 end
 
 Dann(/^lande ich auf der Bestellung\-Abgelaufen\-Seite$/) do
-  current_path.should == borrow_order_timed_out_path
+  expect(current_path).to eq borrow_order_timed_out_path
 end
 
 When(/^werden die nicht verfügbaren Modelle aus der Bestellung gelöscht$/) do
-  @current_user.contracts.unsubmitted.flat_map(&:lines).all? {|l| l.available? }.should be_true
+  expect(@current_user.contracts.unsubmitted.flat_map(&:lines).all? {|l| l.available? }).to be true
 end
 
 Wenn(/^ich einen der Fehler korrigiere$/) do

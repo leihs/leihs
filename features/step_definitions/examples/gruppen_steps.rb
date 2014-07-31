@@ -28,7 +28,7 @@ Dann(/^die Anzahl der zugeteilten Modell\-Kapazitäten$/) do
 end
 
 Dann(/^die Liste ist alphabetisch sortiert$/) do
-  (all(".list-of-lines .line strong").map(&:text).to_json == @current_inventory_pool.groups.map(&:name).sort.to_json).should be_true
+  expect((all(".list-of-lines .line strong").map(&:text).to_json == @current_inventory_pool.groups.map(&:name).sort.to_json)).to be true
 end
 
 Wenn(/^ich eine Gruppe erstelle$/) do
@@ -63,12 +63,12 @@ end
 
 Dann(/^ist die Gruppe gespeichert$/) do
   @group = Group.find_by_name @name
-  @group.should_not be_nil
+  expect(@group).not_to eq nil
 end
 
 Dann(/^die Benutzer und Modelle mit deren Kapazitäten sind zugeteilt$/) do
-  @group.users.reload.map(&:id).sort.should == @users.map(&:id).sort
-  Set.new(@group.partitions.map{|p| {:model_id => p.model_id, :quantity => p.quantity}}).should == Set.new(@partitions)
+  expect(@group.users.reload.map(&:id).sort).to eq @users.map(&:id).sort
+  expect(Set.new(@group.partitions.map{|p| {:model_id => p.model_id, :quantity => p.quantity}})).to eq Set.new(@partitions)
 end
 
 Dann(/^ich sehe die Gruppenliste alphabetisch sortiert$/) do
@@ -133,7 +133,7 @@ Wenn(/^ich eine Gruppe lösche$/) do
 end
 
 Wenn(/^die Gruppe wurde aus der Datenbank gelöscht$/) do
-  Group.find_by_name(@group.name).should be_nil
+  expect(Group.find_by_name(@group.name)).to eq nil
 end
 
 Wenn(/^ich einen Benutzer hinzufüge$/) do
@@ -149,7 +149,7 @@ Wenn(/^ich ein Modell hinzufüge$/) do
 end
 
 Dann(/^wird das Modell zuoberst in der Liste hinzugefügt$/) do
-  page.should have_selector "#models-allocations .list-of-lines .line", text: @model_name
+  expect(has_selector?("#models-allocations .list-of-lines .line", text: @model_name)).to be true
   find("#models-allocations .list-of-lines .line", match: :first).text.should match @model_name
 end
 
@@ -157,7 +157,7 @@ Dann(/^sind die bereits hinzugefügten Benutzer alphabetisch sortiert$/) do
   within("#users") do
     all(".list-of-lines .line").size.should > 0
     entries = all(".list-of-lines .line")
-    entries.map(&:text).sort.should == entries.map(&:text)
+    expect(entries.map(&:text).sort).to eq entries.map(&:text)
   end
 end
 
@@ -165,7 +165,7 @@ Dann(/^sind die bereits hinzugefügten Modelle alphabetisch sortiert$/) do
   within("#models-allocations") do
     all(".list-of-lines .line").size.should > 0
     entries = all(".list-of-lines .line")
-    entries.map(&:text).sort.should == entries.map(&:text)
+    expect(entries.map(&:text).sort).to eq entries.map(&:text)
   end
 end
 
@@ -199,5 +199,5 @@ Dann(/^der vorhandene Benutzer ist nach oben gerutscht$/) do
 end
 
 Dann(/^das vorhandene Modell behält die eingestellte Anzahl$/) do
-  find("#models-allocations .list-of-lines .line", match: :prefer_exact, text: @model.name).find("input[name='group[partitions_attributes][][quantity]']").value.to_i.should == @quantity
+  expect(find("#models-allocations .list-of-lines .line", match: :prefer_exact, text: @model.name).find("input[name='group[partitions_attributes][][quantity]']").value.to_i).to eq @quantity
 end

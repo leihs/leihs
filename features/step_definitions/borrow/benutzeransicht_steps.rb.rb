@@ -5,7 +5,7 @@ Wenn(/^ich auf meinen Namen klicke$/) do
 end
 
 Dann(/^gelange ich auf die Seite der Benutzerdaten$/) do
-  current_path.should == borrow_current_user_path
+  expect(current_path).to eq borrow_current_user_path
 end
 
 Dann(/^werden mir meine Benutzerdaten angezeigt$/) do
@@ -16,17 +16,17 @@ Dann(/^die Benutzerdaten beinhalten$/) do |table|
   table.raw.flatten.each do |section|
     case section
       when "Vorname"
-        page.should have_content _("First name")
-        page.should have_content @current_user.firstname
+        expect(has_content?(_("First name"))).to be true
+        expect(has_content?(@current_user.firstname)).to be true
       when "Nachname"
-        page.should have_content _("Last name")
-        page.should have_content @current_user.lastname
+        expect(has_content?(_("Last name"))).to be true
+        expect(has_content?(@current_user.lastname)).to be true
       when "E-Mail"
-        page.should have_content _("Email")
-        page.should have_content @current_user.email
+        expect(has_content?(_("Email"))).to be true
+        expect(has_content?(@current_user.email)).to be true
       when "Telefon"
-        page.should have_content _("Phone")
-        page.should have_content @current_user.phone
+        expect(has_content?(_("Phone"))).to be true
+        expect(has_content?(@current_user.phone)).to be true
       else
         raise "unkown section"
     end

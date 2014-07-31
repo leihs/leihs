@@ -10,5 +10,5 @@ end
 
 Then "that number must be the same as the number of search partials" do
   # see app/views/backend/backend/search/_nilclass.html.erb on why we exclude nilclass
-  @number.should == `ls #{Rails.root}/app/views/backend/backend/search | grep -v nilclass | wc -l`
+  expect(@number).to eq `ls #{Rails.root}/app/views/backend/backend/search | grep -v nilclass | wc -l`
 end

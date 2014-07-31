@@ -26,7 +26,7 @@ end
 
 Then /^the model is added to the contract$/ do
   find(".line", text: @item.model.name)
-  @contract.models.include?(@item.model).should be_true
+  expect(@contract.models.include?(@item.model)).to be true
 end
 
 When /^I start to type the name of a model$/ do
@@ -47,19 +47,19 @@ end
 
 Then /^the existing line quantity is not increased$/ do
   old_quantity = @line.quantity 
-  @line.reload.quantity.should == old_quantity
+  expect(@line.reload.quantity).to eq old_quantity
 end
 
 Then /^an additional line has been created in the backend system$/ do
   find("#flash")
-  @contract.lines.reload.count.should == @old_lines_count + 1
+  expect(@contract.lines.reload.count).to eq @old_lines_count + 1
 end
 
 Then /^the new line is getting visually merged with the existing line$/ do
   find(".line", match: :prefer_exact, text: @model.name).should have_content @contract.lines.where(:model_id => @model.id).to_a.sum(&:quantity)
   sleep(0.33)
-  all(".line").count.should == @line_el_count
-  find(".line", match: :prefer_exact, text: @model.name).find("div:nth-child(3) > span:nth-child(1)").text.to_i.should == @contract.reload.lines.select{|l| l.model == @model}.size
+  expect(all(".line").count).to eq @line_el_count
+  expect(find(".line", match: :prefer_exact, text: @model.name).find("div:nth-child(3) > span:nth-child(1)").text.to_i).to eq @contract.reload.lines.select{|l| l.model == @model}.size
 end
 
 Given /^I search for a model with default dates and note the current availability$/ do
@@ -94,7 +94,7 @@ end
 Then (/^the model's availability has changed$/) do
   sleep(0.33)
   @changed_aval = find("a.ui-corner-all", match: :prefer_exact, text: @model.name).find("div.col1of4:nth-child(2) > div:nth-child(1)").text
-  @changed_aval.slice(0).should_not == @init_aval.slice(0)
+  expect(@changed_aval.slice(0)).not_to eq @init_aval.slice(0)
 end
 
 When(/^I start searching some model for adding it$/) do

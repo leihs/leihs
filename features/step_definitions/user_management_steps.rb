@@ -38,7 +38,7 @@ Given "customer '$who' has access to inventory pool $ip_s" do |who, ip_s|
   user = User.find_by_login(who) || FactoryGirl.create(:user, :login => who)
   inventory_pools.each { |ip|
     LeihsFactory.define_role(user, ip, :customer)
-    user.inventory_pools.include?(ip).should == true
+    expect(user.inventory_pools.include?(ip)).to be true
   }
 end
 

@@ -6,6 +6,6 @@ end
 
 When /^I request that list multiple times the allocation of the lines should always be the same$/ do
   50.times do
-    @reference.to_json.should == @model.availability_in(@ip).available_total_quantities.to_json
+    expect(@reference.to_json).to eq @model.availability_in(@ip).available_total_quantities.to_json
   end
 end

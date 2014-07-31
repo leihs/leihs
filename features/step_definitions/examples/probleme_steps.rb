@@ -74,7 +74,7 @@ Dann /^das Problem wird wie folgt dargestellt: "(.*?)"$/ do |format|
              /(Überfällig seit \d+ (Tagen|Tag)|#{_("Overdue")} #{_("since")} \d+ (days|day))/
            end
   @problems.each do |problem|
-    problem.match(regexp).should_not be_nil
+    expect(problem.match(regexp)).not_to eq nil
   end
 end
 
@@ -123,7 +123,7 @@ Angenommen /^ich mache eine Rücknahme eines( verspäteten)? Gegenstandes$/ do |
   overdued_take_back = overdued_take_backs.sample
   @line_id = overdued_take_back.contract_lines.where(type: "ItemLine").sample.id
   visit manage_take_back_path(@current_inventory_pool, overdued_take_back.user)
-  page.should have_selector(".line[data-id='#{@line_id}']")
+  expect(has_selector?(".line[data-id='#{@line_id}']")).to be true
 end
 
 def open_inspection_for_line(line_id)

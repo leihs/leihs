@@ -17,32 +17,32 @@ Wenn(/^ich ein Modell auswähle$/) do
 end
 
 Dann(/^lande ich auf der Modellübersicht$/) do
-  current_path.should == borrow_model_path(@model)
+  expect(current_path).to eq borrow_model_path(@model)
 end
 
 Dann(/^ich sehe die folgenden Informationen$/) do |table|
   table.raw.flatten.each do |section|
     case section
       when "Modellname" 
-        page.should have_content @model.name
+        expect(has_content?(@model.name)).to be true
       when "Hersteller"
-        page.should have_content @model.manufacturer
+        expect(has_content?(@model.manufacturer)).to be true
       when "Bilder"
         @model.images.each_with_index {|image,i| find("img[src='#{model_image_thumb_path(@model, :offset => i)}']", match: :first)}
       when "Beschreibung"
-        page.should have_content @model.description
+        expect(has_content?(@model.description)).to be true
       when "Anhänge"
         @model.attachments.each {|a| find("a[href='#{a.public_filename}']", match: :first)}
       when "Eigenschaften"
         @model.properties.each do |p|
-          page.should have_content p.key
-          page.should have_content p.value
+          expect(has_content?(p.key)).to be true
+          expect(has_content?(p.value)).to be true
         end
       when "Ergänzende Modelle"
         @model.compatibles.each do |c|
           find("a[href='#{borrow_model_path(c)}']", match: :first)
           find("img[src='#{model_image_thumb_path(c)}']", match: :first)
-          page.should have_content c.name
+          expect(has_content?(c.name)).to be true
         end
       else
         rais "unkown section"
@@ -60,7 +60,7 @@ Wenn(/^ich über ein solches Bild hovere$/) do
 end
 
 Dann(/^wird das Bild zum Hauptbild$/) do
-  find("#main-image", :visible => false)["src"][model_image_path(@model, offset: 0)].blank?.should be_false
+  expect(find("#main-image", :visible => false)["src"][model_image_path(@model, offset: 0)].blank?).to be false
 end
 
 Wenn(/^ich über ein weiteres Bild hovere$/) do
@@ -68,7 +68,7 @@ Wenn(/^ich über ein weiteres Bild hovere$/) do
 end
 
 Dann(/^wird dieses zum Hauptbild$/) do
-  find("#main-image", :visible => false)["src"][model_image_path(@model, offset: 1)].blank?.should be_false
+  expect(find("#main-image", :visible => false)["src"][model_image_path(@model, offset: 1)].blank?).to be false
 end
 
 Wenn(/^ich ein Bild anklicke$/) do
@@ -77,7 +77,7 @@ end
 
 Dann(/^wird das Bild zum Hauptbild auch wenn ich das hovern beende$/) do
   step "I release the focus from this field"
-  find("#main-image", :visible => false)["src"][model_image_path(@model, offset: 1)].should_not be_nil
+  expect(find("#main-image", :visible => false)["src"][model_image_path(@model, offset: 1)]).not_to eq nil
 end
 
 Angenommen(/^man befindet sich in einer Modellübersicht mit Eigenschaften$/) do
@@ -96,10 +96,10 @@ Dann(/^wenn man 'Alle Eigenschaften anzeigen' wählt$/) do
 end
 
 Dann(/^werden alle weiteren Eigenschaften angezeigt$/) do
-  find("#collapsed-properties", match: :first)["class"]["collapsed"].nil?.should be_true
+  expect(find("#collapsed-properties", match: :first)["class"]["collapsed"].nil?).to be true
 end
 
 Dann(/^man kann an derselben Stelle die Eigenschaften wieder zuklappen$/) do
   find("#properties-toggle", match: :first).click
-  find("#collapsed-properties", match: :first)["class"]["collapsed"].nil?.should be_false
+  expect(find("#collapsed-properties", match: :first)["class"]["collapsed"].nil?).to be false
 end

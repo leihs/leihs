@@ -25,23 +25,23 @@ When /^I select all lines of an linegroup$/ do
 end
 
 Then /^the linegroup is selected$/ do
-  @linegroup.find("input[type=checkbox][data-select-lines]").checked?.should be_true
+  @linegroup.find("input[type=checkbox][data-select-lines]:checked")
 end
 
 Then /^the count matches the amount of selected lines$/ do
-  all("input[type=checkbox][data-select-line]").select{|x| x.checked? }.size.should == find("#line-selection-counter").text.to_i
+  expect(all("input[type=checkbox][data-select-line]").select{|x| x.checked? }.size).to eq find("#line-selection-counter").text.to_i
 end
 
 When /^I select the linegroup$/ do
   @linegroup = find("#lines [data-selected-lines-container]", match: :first)
   x = @linegroup.find("input[type=checkbox][data-select-lines]")
-  x.checked?.should be_false
+  expect(x.checked?).to be false
   x.click
-  x.checked?.should be_true
+  expect(x.checked?).to be true
 end
 
 Then /^all lines of that linegroup are selected$/ do
   @linegroup.all(".line").each do |line|
-    line.find("input[type=checkbox][data-select-line]", match: :first).checked?.should be_true
+    line.find("input[type=checkbox][data-select-line]:checked")
   end
 end

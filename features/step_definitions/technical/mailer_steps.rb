@@ -1,34 +1,34 @@
 When(/^the mail delivery method is set to "(.*?)"$/) do |method|
-  @setting.update_attributes({:mail_delivery_method => method}).should be_true
-  Setting::MAIL_DELIVERY_METHOD.should == method
+  expect(@setting.update_attributes({:mail_delivery_method => method})).to be true
+  expect(Setting::MAIL_DELIVERY_METHOD).to eq method
 end
 
 Then(/^ActionMailer's delivery method is "(.*?)"$/) do |method|
-  ActionMailer::Base.delivery_method.should == method.to_sym
+  expect(ActionMailer::Base.delivery_method).to eq method.to_sym
 end
 
 When(/^the SMTP username is set to "(.*?)"$/) do |username|
-  @setting.update_attributes({:smtp_username => username}).should be_true
-  Setting::SMTP_USERNAME.should == username
+  expect(@setting.update_attributes({:smtp_username => username})).to be true
+  expect(Setting::SMTP_USERNAME).to eq username
 end
 
 When(/^the SMTP password is set to "(.*?)"$/) do |password|
-  @setting.update_attributes({:smtp_password => password}).should be_true
-  Setting::SMTP_PASSWORD.should == password
+  expect(@setting.update_attributes({:smtp_password => password})).to be true
+  expect(Setting::SMTP_PASSWORD).to eq password
 end
 
 Then(/^ActionMailer's SMTP username is "(.*?)"$/) do |username|
-  ActionMailer::Base.smtp_settings['user_name'.to_sym].should == username
+  expect(ActionMailer::Base.smtp_settings['user_name'.to_sym]).to eq username
 end
 
 Then(/^ActionMailer's SMTP password is "(.*?)"$/) do |password|
-  ActionMailer::Base.smtp_settings['password'.to_sym].should == password
+  expect(ActionMailer::Base.smtp_settings['password'.to_sym]).to eq password
 end
 
 Then(/^ActionMailer's SMTP username is nil$/) do
-  ActionMailer::Base.smtp_settings['user_name'.to_sym].should == nil
+  expect(ActionMailer::Base.smtp_settings['user_name'.to_sym]).to eq nil
 end
 
 Then(/^ActionMailer's SMTP password is nil$/) do
-  ActionMailer::Base.smtp_settings['password'.to_sym].should == nil
+  expect(ActionMailer::Base.smtp_settings['password'.to_sym]).to eq nil
 end

@@ -11,7 +11,7 @@ end
 
 Angenommen(/^es existiert ein Benutzer mit Verträgen, der kein Zugriff mehr auf das Gerätepark hat$/) do
   @user = User.find {|u| u.access_rights.find {|ar| ar.inventory_pool == @current_inventory_pool and ar.deleted_at} and !u.contracts.blank?}
-  @user.should_not be_nil
+  expect(@user).not_to eq nil
 end
 
 Wenn(/^man nach dem Benutzer sucht$/) do
@@ -53,14 +53,14 @@ end
 Dann(/^kann ich die nicht genehmigte Bestellung des Benutzers nicht aushändigen ohne sie vorher zu genehmigen$/) do
   contract = @user.contracts.submitted.first
   line = find(".line[data-id='#{contract.id}']")
-  line.find(".multibutton").has_no_selector?("li", text: _("Hand Over"), visible: false).should be_true
+  expect(line.find(".multibutton").has_no_selector?("li", text: _("Hand Over"), visible: false)).to be true
 end
 
 Angenommen(/^es existiert ein Benutzer mit mindestens (\d+) und weniger als (\d+) Verträgen$/) do |min, max|
   @user = @current_inventory_pool.users.find {|u| u.contracts.signed_or_closed.where(inventory_pool: @current_inventory_pool).count.between? min.to_i, max.to_i}
-  @user.should_not be_nil
+  expect(@user).not_to eq nil
 end
 
 Dann(/^man sieht keinen Link 'Zeige alle gefundenen Verträge'$/) do
-  page.should_not have_selector "#contracts [data-type='show-all']"
+  expect(has_no_selector?("#contracts [data-type='show-all']")).to be true
 end

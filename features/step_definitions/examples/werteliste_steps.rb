@@ -20,9 +20,9 @@ Dann /^möchte ich die folgenden Bereiche in der (Werteliste|Rüstliste) sehen:$
       case area["Bereich"]
         when "Datum"
           within(".date") do
-            should have_content Date.today.year
-            should have_content Date.today.month
-            should have_content Date.today.day
+            expect(has_content? Date.today.year).to be true
+            expect(has_content? Date.today.month).to be true
+            expect(has_content? Date.today.day).to be true
           end
         when "Titel"
           case arg1
@@ -33,11 +33,11 @@ Dann /^möchte ich die folgenden Bereiche in der (Werteliste|Rüstliste) sehen:$
           end
         when "Ausleihender"
           within(".customer") do
-            should have_content @contract.user.firstname
-            should have_content @contract.user.lastname
-            should have_content @contract.user.address.chomp(", ")
-            should have_content @contract.user.zip
-            should have_content @contract.user.city
+            expect(has_content? @contract.user.firstname).to be true
+            expect(has_content? @contract.user.lastname).to be true
+            expect(has_content? @contract.user.address.chomp(", ")).to be true
+            expect(has_content? @contract.user.zip).to be true
+            expect(has_content? @contract.user.city).to be true
           end
         when "Verleiher"
           find(".inventory_pool")
@@ -86,9 +86,9 @@ Dann /^beinhaltet die Liste folgende Spalten:$/ do |table|
         when "End Datum"
           @contract.lines.each {|line|
             within find("tr", text: line.item.inventory_code).find(".end_date") do
-              should have_content line.end_date.year
-              should have_content line.end_date.month
-              should have_content line.end_date.day
+              expect(has_content? line.end_date.year).to be true
+              expect(has_content? line.end_date.month).to be true
+              expect(has_content? line.end_date.day).to be true
             end
           }
         when "Anzahl"
@@ -106,7 +106,7 @@ Dann /^beinhaltet die Liste folgende Spalten:$/ do |table|
           end
         when "Wert"
           @contract.lines.each {|line|
-            find("tbody tr", text: line.item.inventory_code).find(".item_price").text.gsub(/\D/, "").should == ("%.2f" % line.item.price).gsub(/\D/, "")
+            expect(find("tbody tr", text: line.item.inventory_code).find(".item_price").text.gsub(/\D/, "")).to eq ("%.2f" % line.item.price).gsub(/\D/, "")
           }
         when "Raum / Gestell"
           find("table thead tr td.location", text: "%s / %s" % [_("Room"), _("Shelf")])
@@ -148,15 +148,15 @@ Dann /^diese summierte die Spalten:$/ do |table|
       when "Anzahl"
         @total.find(".quantity", match: :first).should have_content @contract.quantity
       when "Wert"
-        @total.find(".value", match: :first).text.gsub(/\D/, "").should == ("%.2f" % @contract.lines.map(&:price).sum).gsub(/\D/, "")
+        expect(@total.find(".value", match: :first).text.gsub(/\D/, "")).to eq ("%.2f" % @contract.lines.map(&:price).sum).gsub(/\D/, "")
     end
   end
 end
 
 When(/^die Modelle in der Werteliste sind alphabetisch sortiert$/) do
   names = all(".value_list tbody .model_name").map{|name| name.text}
-  names.empty?.should be_false
-  expect(names.sort == names).to be_true
+  expect(names.empty?).to be false
+  expect(names.sort == names).to be true
 end
 
 Angenommen(/^es existiert eine Aushändigung mit mindestens zwei Modellen und einer Option, wo die Bestellmenge mindestens drei pro Modell ist$/) do
@@ -167,7 +167,7 @@ Angenommen(/^es existiert eine Aushändigung mit mindestens zwei Modellen und ei
           g.keys.size >= 2 and
             g.values.detect {|x| x.size >= 3}
   end
-  @hand_over.should_not be_nil
+  expect(@hand_over).not_to eq nil
   @lines = @hand_over.lines
 end
 
@@ -181,13 +181,13 @@ Wenn(/^es ist pro Modell genau einer Linie ein Gegenstand zugewiesen$/) do
 end
 
 Wenn(/^ich mehrere Linien von der Aushändigung auswähle$/) do
-  page.should have_selector "#lines .line input[type='checkbox']"
+  expect(has_selector?("#lines .line input[type='checkbox']")).to be true
   @number_of_selected_lines = all("#lines .line input[type='checkbox']").size
   @lines.map(&:id).each {|id| find("#lines .line[data-id='#{id}'] input[type='checkbox']").click }
 end
 
 Wenn(/^ich mehrere Linien von der Bestellung auswähle$/) do
-  page.should have_selector "#lines .emboss .row input[type='checkbox']"
+  expect(has_selector?("#lines .emboss .row input[type='checkbox']")).to be true
   @number_of_selected_lines = @order.lines.size
   all("#lines .emboss .row input[type='checkbox']").each {|i| i.click unless i.checked? }
 end
@@ -241,7 +241,7 @@ Angenommen(/^es existiert eine Bestellung mit mindestens zwei Modellen, wo die B
       uniq.count >= 2 and select{|m| o.contract_lines.select{|l| l.model == m}.count >= 3 }.uniq.count >= 2
     end
   end
-  @order.should_not be_nil
+  expect(@order).not_to eq nil
   @lines = @order.lines
   @models = @lines.select{|l| l.is_a? ItemLine}.map(&:model)
 end

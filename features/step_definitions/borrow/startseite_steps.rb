@@ -45,8 +45,7 @@ Dann(/^sehe ich nur die Kinder dieser Hauptkategorie, die dem User zur Verfügun
       visible_2nd_level_categories_count += 1
     end
   end
-
-  visible_2nd_level_categories_count.should == visible_2nd_level_categories.size
+  expect(visible_2nd_level_categories_count).to eq visible_2nd_level_categories.size
 end
 
 Wenn(/^ich eines dieser Kinder anwähle$/) do
@@ -54,11 +53,11 @@ Wenn(/^ich eines dieser Kinder anwähle$/) do
 end
 
 Dann(/^lande ich in der Modellliste für diese Hauptkategorie$/) do
-  (Rack::Utils.parse_nested_query URI.parse(current_url).query)["category_id"].to_i.should == @main_category.id
+  expect((Rack::Utils.parse_nested_query URI.parse(current_url).query)["category_id"].to_i).to eq @main_category.id
 end
 
 Dann(/^lande ich in der Modellliste für diese Kategorie$/) do
-  (Rack::Utils.parse_nested_query URI.parse(current_url).query)["category_id"].to_i.should == @second_level_category.id
+  expect((Rack::Utils.parse_nested_query URI.parse(current_url).query)["category_id"].to_i).to eq @second_level_category.id
 end
 
 Angenommen(/^es gibt eine Hauptkategorie, derer Kinderkategorien keine dem User zur Verfügung stehende Gegenstände enthalten$/) do

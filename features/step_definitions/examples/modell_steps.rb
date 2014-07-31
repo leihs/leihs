@@ -10,8 +10,8 @@ end
 Dann(/^ist dem Modell das ergänzende Modell hinzugefügt worden$/) do
   find("#flash")
   @model.compatibles.size.should be 2
-  @model.compatibles.any? {|m| m.name == @comp1.name}.should be_true
-  @model.compatibles.any? {|m| m.name == @comp2.name}.should be_true
+  expect(@model.compatibles.any? {|m| m.name == @comp1.name}).to be true
+  expect(@model.compatibles.any? {|m| m.name == @comp2.name}).to be true
 end
 
 Wenn(/^ich ein Modell öffne, das bereits ergänzende Modelle hat$/) do
@@ -33,7 +33,7 @@ end
 
 Dann(/^ist das Modell ohne das gelöschte ergänzende Modell gespeichert$/) do
   find("#flash")
-  @model.reload.compatibles.should be_empty
+  expect(@model.reload.compatibles.empty?).to be true
 end
 
 Wenn(/^ich ein bereits bestehendes ergänzende Modell mittel Autocomplete Feld hinzufüge$/) do
@@ -42,13 +42,13 @@ Wenn(/^ich ein bereits bestehendes ergänzende Modell mittel Autocomplete Feld h
 end
 
 Dann(/^wurde das redundante Modell nicht hizugefügt$/) do
-  find(".row.emboss", match: :first, text: _("Compatibles")).all("[data-type='inline-entry']", text: @comp.name).count.should == 1
+  expect(find(".row.emboss", match: :first, text: _("Compatibles")).all("[data-type='inline-entry']", text: @comp.name).count).to eq 1
 end
 
 Dann(/^wurde das redundante ergänzende Modell nicht gespeichert$/) do
   find("#flash")
   comp_before = @model.compatibles
-  comp_before.count.should == @model.reload.compatibles.count
+  expect(comp_before.count).to eq @model.reload.compatibles.count
 end
 
 Angenommen(/^es existiert eine? (.+) mit folgenden Konditionen:$/) do |entity, table|
@@ -83,7 +83,7 @@ Angenommen(/^es existiert eine? (.+) mit folgenden Konditionen:$/) do |entity, t
           when "Software" then Software
           end
   @model = klass.find {|m| conditions.map{|c| c.class == Proc ? c.call(m) : c}.all?}
-  @model.should_not be_nil
+  expect(@model).not_to eq nil
 end
 
 Und /^das Modell hat (.+) zugewiesen$/ do |assoc|
@@ -107,22 +107,24 @@ Dann(/^kann ich das Modell aus der Liste nicht löschen$/) do
 end
 
 Und /^ich sehe eine Dialog-Fehlermeldung$/ do
-  find(".flash_message").text.should_not be_empty
+  expect(find(".flash_message").text.empty?).to be false
 end
 
 Dann(/^es wurden auch alle Anhängsel gelöscht$/) do
-  Partition.find_by_model_id(@model.id).should be_nil
-  Property.where(model_id: @model.id).should be_empty
-  Accessory.where(model_id: @model.id).should be_empty
-  Image.where(model_id: @model.id).should be_empty
-  Attachment.where(model_id: @model.id).should be_empty
-  ModelLink.where(model_id: @model.id).should be_empty
-  Model.all {|n| n.compatibles.include? Model.find_by_name("Windows Laptop")}.include?(@model).should be_false
+  expect(Partition.find_by_model_id(@model.id)).to eq nil
+  expect(Property.where(model_id: @model.id).empty?).to be true
+  expect(Accessory.where(model_id: @model.id).empty?).to be true
+  expect(Image.where(model_id: @model.id).empty?).to be true
+  expect(Attachment.where(model_id: @model.id).empty?).to be true
+  expect(ModelLink.where(model_id: @model.id).empty?).to be true
+  expect(Model.all {|n| n.compatibles.include? Model.find_by_name("Windows Laptop")}.include?(@model)).to be false
   sleep(0.33) # fix lazy request problem
 end
 
 Dann(/^(?:die|das) (?:.+) wurde aus der Liste gelöscht$/) do
-  [@model, @group, @template].compact.each {|entity| page.should_not have_content entity.name }
+  [@model, @group, @template].compact.each {|entity|
+    expect(has_no_content?(entity.name)).to be true
+  }
 end
 
 Angenommen(/^ich editieren ein bestehndes Modell mit bereits zugeteilten Kapazitäten$/) do
@@ -145,7 +147,7 @@ end
 Dann(/^sind die geänderten Gruppenzuteilungen gespeichert$/) do
   find("#flash")
   model_group_ids = @model.reload.partitions.map(&:group_id)
-  model_group_ids.sort.should == @groups.map(&:id)
+  expect(model_group_ids.sort).to eq @groups.map(&:id)
 end
 
 Dann /^ist das neue Modell erstellt und unter ungenutzen Modellen auffindbar$/ do
@@ -180,6 +182,6 @@ Dann(/^the "(.+)" is deleted$/) do |entity|
           when "Modell" then Model
           when "Software" then Software
           end
-  klass.find_by_id(@model.id).should be_nil
+  expect(klass.find_by_id(@model.id)).to eq nil
 end
 

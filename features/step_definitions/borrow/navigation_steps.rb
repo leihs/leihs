@@ -38,7 +38,7 @@ Wenn(/^ich den Home\-Button bediene$/) do
 end
 
 Dann(/^lande ich auf der Seite der Hauptkategorien$/) do
-  current_path.should == borrow_root_path
+  expect(current_path).to eq borrow_root_path
 end
 
 When(/^I visit the lending section$/) do
@@ -47,7 +47,7 @@ end
 
 Und(/^die Navigation beinhaltet nur die Bestellungen$/) do
   within("#contracts-index-view > .row:nth-child(1) > nav:nth-child(1) ul") do
-    all("li").size.should == 1
+    expect(all("li").size).to eq 1
     find("li", text: _("Orders"))
   end
 end

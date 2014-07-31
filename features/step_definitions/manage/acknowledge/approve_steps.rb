@@ -27,10 +27,10 @@ When /^I approve anyway$/ do
     find(".dropdown-toggle").click
     find(".dropdown-item[data-approve-anyway]").click
   end
-  page.should_not have_selector(".modal")
+  expect(has_no_selector?(".modal")).to be true
 end
 
 Then /^this contract is approved$/ do
   find(".line[data-id='#{@contract.id}']", text: _("Approved"))
-  @contract.reload.status.should == :approved
+  expect(@contract.reload.status).to eq :approved
 end

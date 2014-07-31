@@ -30,10 +30,10 @@ end
 Dann /^sind die Eigenschaften gemäss Sortierreihenfolge für dieses Modell gespeichert$/ do
   find(".line", match: :first)
   all(".line").size.should > 0
-  Model.last.properties.empty?.should be_false
+  expect(Model.last.properties.empty?).to be false
   Model.last.properties.each_with_index do |property, i|
-    property.key.should == @properties[i][:key]
-    property.value.should == @properties[i][:value]
+    expect(property.key).to eq @properties[i][:key]
+    expect(property.value).to eq @properties[i][:value]
   end
 end
 
@@ -41,10 +41,10 @@ Dann /^sind die Eigenschaften gemäss Sortierreihenfolge für das geänderte Mod
   find(".line", match: :first)
   all(".line").size.should > 0
   @model = @model.reload
-  @model.properties.size.should == @properties.size
+  expect(@model.properties.size).to eq @properties.size
   @model.properties.each_with_index do |property, i|
-    property.key.should == @properties[i][:key]
-    property.value.should == @properties[i][:value]
+    expect(property.key).to eq @properties[i][:key]
+    expect(property.value).to eq @properties[i][:value]
   end
 end
 

@@ -43,7 +43,7 @@ When /^I add (a|an|a borrowable|an unborrowable) (item|license) to the hand over
 end
 
 Then /^the item is added to the hand over for the provided date range and the inventory code is already assigend$/ do
-  @customer.get_approved_contract(@ip).items.include?(Item.find_by_inventory_code(@inventory_code)).should == true
+  expect(@customer.get_approved_contract(@ip).items.include?(Item.find_by_inventory_code(@inventory_code))).to be true
   assigned_inventory_codes = all(".line input[data-assign-item]").map(&:value)
   assigned_inventory_codes.should include(@inventory_code)
 end
@@ -64,10 +64,10 @@ Then /^the (.*?) is added to the hand over$/ do |type|
     when "option"
       option = Option.find_by_inventory_code(@inventory_code)
       @option_line = contract.reload.option_lines.where(option_id: option).order(:created_at).last
-      contract.reload.options.include?(option).should == true
+      expect(contract.reload.options.include?(option)).to be true
       find(".line[data-line-type='option_line'] .col1of10", match: :prefer_exact, text: @inventory_code)
     when "model"
-      contract.reload.models.include?(@model).should == true
+      expect(contract.reload.models.include?(@model)).to be true
       find(".line[data-line-type='item_line'] .col4of10", match: :prefer_exact, text: @model.name)
   end
 end
@@ -86,7 +86,7 @@ Then /^the existing option quantity is increased$/ do
   within(".line[data-line-type='option_line']", text: @option.inventory_code) do
     find("input[value='#{@option_line.quantity}']")
   end
-  @option_line.quantity.should == @n
+  expect(@option_line.quantity).to eq @n
 end
 
 When /^I type the beginning of (.*?) name to the add\/assign input field$/ do |type|

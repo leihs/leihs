@@ -20,7 +20,7 @@ Then "the availability of all $document_type lines should be cached" do |documen
   # updated. See Rails docu -> Associations -> Caching
 #tmp#8#old-availability#
 #  @document.lines(true).each do |l|
-#    l.cached_available.should_not be_nil
+#    l.cached_available.should_not == nil
 #  end
 end
 
@@ -38,7 +38,7 @@ Then "the availability cache of $quantifier $document_type lines should have bee
   end
 #tmp#8#old-availability#
 #  @document.lines(true).each do |l|
-#    l.cached_available.should be_nil
+#    l.cached_available.should == nil
 #  end
 end
 

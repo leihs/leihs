@@ -2,7 +2,7 @@
 
 Dann(/^sieht man die Suche$/) do
   visit borrow_root_path
-  page.should have_selector(".topbar .topbar-search")
+  expect(has_selector?(".topbar .topbar-search")).to be true
 end
 
 Wenn(/^man einen Suchbegriff eingibt$/) do
@@ -10,10 +10,10 @@ Wenn(/^man einen Suchbegriff eingibt$/) do
 end
 
 Dann(/^sieht man das Foto, den Namen und den Hersteller der ersten 6 Modelle gemäss aktuellem Suchbegriff$/) do
-  page.should have_selector(".ui-autocomplete")
+  expect(has_selector?(".ui-autocomplete")).to be true
   all(".ui-autocomplete a").length.should >= 6
   6.times do |i|
-    first(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//strong").text[@search_term].should_not be_nil
+    expect(first(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//strong").text[@search_term]).not_to eq nil
     model = @current_user.models.borrowable.find {|m| [m.name, m.product].include? first(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//strong").text }
     first(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//*[contains(./text(), '#{model.manufacturer}')]")
     first(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//img[@src='/models/#{model.id}/image_thumb']")
@@ -21,7 +21,7 @@ Dann(/^sieht man das Foto, den Namen und den Hersteller der ersten 6 Modelle gem
 end
 
 Dann(/^sieht den Link 'Alle Suchresultate anzeigen'$/) do
-  page.should have_selector(".ui-autocomplete a", :text => _("Show all search results"))
+  expect(has_selector?(".ui-autocomplete a", :text => _("Show all search results"))).to be true
 end
 
 Angenommen(/^man wählt ein Modell von der Vorschlagsliste der Suche$/) do
@@ -73,7 +73,7 @@ Dann(/^man sieht die Ausleihzeitraumwahl$/) do
 end
 
 Dann(/^die Vorschlagswerte sind verschwunden$/) do
-  page.should_not have_selector(".ui-autocomplete")
+  expect(has_no_selector?(".ui-autocomplete")).to be true
 end
 
 Wenn(/^ich nach einem Modell suche, welches in nicht ausleihen kann$/) do
@@ -82,7 +82,7 @@ end
 
 Dann(/^wird dieses Modell auch nicht in den Suchergebnissen angezeigt$/) do
   step 'man einen Suchbegriff eingibt'
-  page.should_not have_content @model.name
+  expect(has_no_content?(@model.name)).to be true
   step 'drückt ENTER'
-  page.should_not have_content @model.name
+  expect(has_no_content?(@model.name)).to be true
 end

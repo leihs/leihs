@@ -11,5 +11,7 @@ Dann /^kann ich die reservierende Person für eine Auswahl an Linien wechseln$/ 
   find(".ui-menu-item a", :visible => true, :text => @new_user.name).click
   find(".modal .button[type='submit']").click
   find("h1", :text => @new_user.name)
-  @line_ids.each {|l| ContractLine.find(l).user.should == @new_user}
+  @line_ids.each do |l|
+    expect(ContractLine.find(l).user).to eq @new_user
+  end
 end

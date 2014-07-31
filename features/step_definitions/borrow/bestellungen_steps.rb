@@ -6,7 +6,7 @@ Dann(/^sehe ich die Anzahl meiner abgeschickten, noch nicht genehmigten Bestellu
    borrow_current_order_path,
    borrow_current_user_path].each do |path|
     visit path
-    find("nav a[href='#{borrow_orders_path}'] .badge", match: :first).text.to_i.should == @current_user.contracts.submitted.count
+    expect(find("nav a[href='#{borrow_orders_path}'] .badge", match: :first).text.to_i).to eq @current_user.contracts.submitted.count
   end
 end
 
@@ -17,18 +17,18 @@ end
 
 Dann(/^sehe ich meine abgeschickten, noch nicht genehmigten Bestellungen$/) do
   @current_user.contracts.submitted.each do |contract|
-    page.should have_content contract.inventory_pool.name
+    expect(has_content?(contract.inventory_pool.name)).to be true
   end
 end
 
 Dann(/^ich sehe die Information, dass die Bestellung noch nicht genehmigt wurde$/) do
-  page.should have_content _("These orders have been successfully submitted, but are NOT YET APPROVED.")
+  expect(has_content?(_("These orders have been successfully submitted, but are NOT YET APPROVED."))).to be true
 end
 
 Dann(/^die Bestellungen sind nach Datum und Gerätepark sortiert$/) do
   titles = all(".row.padding-inset-l").map {|x| [Date.parse(x.find("h3", match: :first).text), x.find("h2", match: :first).text]}
-  titles.empty?.should be_false
-  expect(titles.sort == titles).to be_true
+  expect(titles.empty?).to be false
+  expect(titles.sort == titles).to be true
 end
 
 Dann(/^jede Bestellung zeigt die zu genehmigenden Geräte$/) do
@@ -42,7 +42,7 @@ end
 Dann(/^die Geräte der Bestellung sind alphabetisch sortiert nach Modellname$/) do
   all(".separated-top").each do |block|
     names = block.all(".line").map {|x| x.text.split("\n")[1]}
-    expect(names.sort == names).to be_true
+    expect(names.sort == names).to be true
   end
 end
 

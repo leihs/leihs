@@ -13,17 +13,17 @@ Wenn /^man speichert und kopiert$/ do
 end
 
 Dann /^wird der Gegenstand gespeichert$/ do
-  page.should have_content _("Create copied item")
+  expect(has_content?(_("Create copied item"))).to be true
   @new_item = Item.find_by_inventory_code(@inventory_code_original)
-  @new_item.should_not be_blank
+  expect(@new_item.blank?).to be false
 end
 
 Dann /^eine neue Gegenstandserstellungsansicht wird geöffnet$/ do
-  current_path.should == manage_copy_item_path(@current_inventory_pool, @new_item.id)
+  expect(current_path).to eq manage_copy_item_path(@current_inventory_pool, @new_item.id)
 end
 
 Dann /^man sieht den Seitentitel 'Kopierten Gegenstand erstellen'$/ do
-  page.should have_content _("Create copied item")
+  expect(has_content?(_("Create copied item"))).to be true
 end
 
 Dann /^man sieht den Abbrechen\-Knopf$/ do
@@ -40,20 +40,20 @@ Dann /^alle Felder bis auf die folgenden wurden kopiert:$/ do |table|
     within(".row.emboss", match: :prefer_exact, text: field_name) do
       case field_type
       when "autocomplete"
-        find("input,textarea", match: :first).value.should == (field_value != "Keine/r" ? field_value : "")
+        expect(find("input,textarea", match: :first).value).to eq (field_value != "Keine/r" ? field_value : "")
       when "select"
-        all("option").detect(&:selected?).text.should == field_value
+        expect(all("option").detect(&:selected?).text).to eq field_value
       when "radio must"
-        find("input[checked][type='radio']", match: :first).value.should == field_value
+        expect(find("input[checked][type='radio']", match: :first).value).to eq field_value
       when ""
         if not_copied_fields.include? field_name
           if field_name == _("Inventory code")
-            find("input,textarea", match: :first).value.should_not == @inventory_code_original
+            expect(find("input,textarea", match: :first).value).not_to eq @inventory_code_original
           else
-            find("input,textarea", match: :first).value.should be_blank
+            expect(find("input,textarea", match: :first).value.blank?).to be true
           end
         else
-          find("input,textarea", match: :first).value.should == field_value
+          expect(find("input,textarea", match: :first).value).to eq field_value
         end
       end
     end
@@ -62,29 +62,29 @@ end
 
 Dann /^der Inventarcode ist vorausgefüllt$/ do
   @inventory_code_copied = find(".row.emboss", match: :prefer_exact, text: _("Inventory code")).find("input", match: :first).value
-  @inventory_code_copied.should_not be_blank
+  expect(@inventory_code_copied.blank?).to be false
 end
 
 Dann /^wird der kopierte Gegenstand gespeichert$/ do
-  page.should have_content _("List of Inventory")
+  expect(has_content?(_("List of Inventory"))).to be true
   @copied_item = Item.find_by_inventory_code(@inventory_code_copied)
-  @copied_item.should_not be_nil
+  expect(@copied_item).not_to eq nil
 end
 
 Dann /^man wird zur Liste des Inventars zurückgeführt$/ do
-  current_path.should == manage_inventory_path(@current_inventory_pool)
+  expect(current_path).to eq manage_inventory_path(@current_inventory_pool)
 end
 
 Dann /^wird eine neue Gegenstandskopieransicht geöffnet$/ do
-  current_path.should == manage_copy_item_path(@current_inventory_pool, @item)
+  expect(current_path).to eq manage_copy_item_path(@current_inventory_pool, @item)
 end
 
 Dann /^alle Felder bis auf Inventarcode, Seriennummer und Name wurden kopiert$/ do
-  expect(find(".row.emboss", match: :prefer_exact, text: _("Inventory code")).find("input,textarea", match: :first).value == @item.inventory_code).to be_false
-  expect(find(".row.emboss", match: :prefer_exact, text: _("Inventory code")).find("input,textarea", match: :first).value.empty?).to be_false
+  expect(find(".row.emboss", match: :prefer_exact, text: _("Inventory code")).find("input,textarea", match: :first).value == @item.inventory_code).to be false
+  expect(find(".row.emboss", match: :prefer_exact, text: _("Inventory code")).find("input,textarea", match: :first).value.empty?).to be false
   expect(find(".row.emboss", match: :prefer_exact, text: _("Model")).find("input,textarea", match: :first).value).to eql @item.model.name
-  expect(find(".row.emboss", match: :prefer_exact, text: _("Serial Number")).find("input,textarea", match: :first).value.empty?).to be_true
-  expect(find(".row.emboss", match: :prefer_exact, text: _("Name")).find("input,textarea", match: :first).value.empty?).to be_true
+  expect(find(".row.emboss", match: :prefer_exact, text: _("Serial Number")).find("input,textarea", match: :first).value.empty?).to be true
+  expect(find(".row.emboss", match: :prefer_exact, text: _("Name")).find("input,textarea", match: :first).value.empty?).to be true
 end
 
 Wenn /^man einen Gegenstand kopiert$/ do
@@ -120,19 +120,19 @@ end
 Angenommen /^man editiert ein Gegenstand eines anderen Besitzers$/ do
   @item = Item.find {|i| i.inventory_pool_id == @current_inventory_pool.id and @current_inventory_pool.id != i.owner_id}
   visit manage_edit_item_path(@current_inventory_pool, @item)
-  page.should have_selector(".field")
+  expect(has_selector?(".field")).to be true
   @fields = all(".field:not(.editable)")
   @fields.size.should > 0
 end
 
 Dann /^alle Felder sind editierbar, da man jetzt Besitzer von diesem Gegenstand ist$/ do
-  page.should have_selector(".field")
+  expect(has_selector?(".field")).to be true
   @fields = all(".field[data-editable='false']")
-  @fields.size.should == 0
+  expect(@fields.size).to eq 0
 end
 
 Dann(/^bei dem kopierten Gegestand ist der neue Lieferant eingetragen$/) do
-  Item.find_by_inventory_code(@inventory_code).supplier.name.should == @new_supplier
+  expect(Item.find_by_inventory_code(@inventory_code).supplier.name).to eq @new_supplier
 end
 
 Wenn(/^ich merke mir den Inventarcode für weitere Schritte$/) do

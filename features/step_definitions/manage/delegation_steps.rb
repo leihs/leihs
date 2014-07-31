@@ -2,7 +2,7 @@
 
 Wenn(/^Julie in einer Delegation ist$/) do
   @user = Persona.get :julie
-  @user.delegations.should_not be_empty
+  expect(@user.delegations.empty?).to be false
 end
 
 Dann(/^werden mir im alle Suchresultate von Julie oder Delegation mit Namen Julie angezeigt$/) do
@@ -25,14 +25,14 @@ Dann(/^kann ich in der Benutzerliste nach Delegationen einschränken$/) do
   find("#user-index-view form#list-filters select#type").select _("Delegations")
   find("#user-list.list-of-lines .line", match: :first)
   ids = all("#user-list.list-of-lines .line [data-type='user-cell']").map {|user_data| user_data["data-id"] }
-  User.find(ids).all?(&:is_delegation).should be_true
+  expect(User.find(ids).all?(&:is_delegation)).to be true
 end
 
 Dann(/^ich kann in der Benutzerliste nach Benutzer einschränken$/) do
   find("#user-index-view form#list-filters select#type").select _("Users")
   find("#user-list.list-of-lines .line", match: :first)
   ids = all("#user-list.list-of-lines .line [data-type='user-cell']").map {|user_data| user_data["data-id"] }
-  User.find(ids).any?(&:is_delegation).should be_false
+  expect(User.find(ids).any?(&:is_delegation)).to be false
 end
 
 Angenommen(/^ich befinde mich im Reiter '(.*)'$/) do |arg1|
@@ -71,7 +71,7 @@ end
 Wenn(/^ich kann dieser Delegation keine Delegation zuteile$/) do
   find("[data-search-users]").set @current_inventory_pool.users.as_delegations.sample.name
   sleep(0.33)
-  all("ul.ui-autocomplete > li").empty?.should be_true
+  expect(all("ul.ui-autocomplete > li").empty?).to be true
 end
 
 Wenn(/^ich genau einen Verantwortlichen eintrage$/) do
@@ -82,7 +82,7 @@ end
 
 Dann(/^ist die neue Delegation mit den aktuellen Informationen gespeichert$/) do
   delegation = User.find_by_firstname(@name)
-  delegation.delegator_user.should == @responsible
+  expect(delegation.delegator_user).to eq @responsible
   delegation.delegated_users.each {|du| @delegated_users.include? du.name}
   delegation.delegated_users.count == (@delegated_users + [@resonsible]).uniq.count
 end
@@ -123,19 +123,19 @@ end
 
 Dann(/^die Delegation ist als Besteller gespeichert$/) do
   @current_user.contracts.find(@contract_ids).each do |contract|
-    contract.user.should == @delegation
+    expect(contract.user).to eq @delegation
   end
 end
 
 Dann(/^ich werde als Kontaktperson hinterlegt$/) do
   @current_user.contracts.find(@contract_ids).each do |contract|
-    contract.delegated_user.should == @delegated_user
+    expect(contract.delegated_user).to eq @delegated_user
   end
 end
 
 Angenommen(/^es wurde für eine Delegation eine Bestellung erstellt$/) do
   @contract = @current_inventory_pool.contracts.submitted.find {|c| c.user.is_delegation }
-  @contract.should_not be_nil
+  expect(@contract).not_to eq nil
 end
 
 Angenommen(/^ich befinde mich in dieser Bestellung$/) do
@@ -149,24 +149,24 @@ Angenommen(/^ich befinde mich in einer Bestellung von einer Delegation$/) do
 end
 
 Dann(/^sehe ich den Namen der Delegation$/) do
-  page.should have_content @contract.user.name
+  expect(has_content?(@contract.user.name)).to be true
 end
 
 Dann(/^ich sehe die Kontaktperson$/) do
-  page.should have_content @contract.delegated_user.name
+  expect(has_content?(@contract.delegated_user.name)).to be true
 end
 
 Angenommen(/^es existiert eine persönliche Bestellung$/) do
   @contract = @current_inventory_pool.contracts.submitted.find {|c| not c.user.is_delegation }
-  @contract.should_not be_nil
+  expect(@contract).not_to eq nil
 end
 
 Dann(/^ist in der Bestellung der Name des Benutzers aufgeführt$/) do
-  page.should have_content @contract.user.name
+  expect(has_content?(@contract.user.name)).to be true
 end
 
 Dann(/^ich sehe keine Kontatkperson$/) do
-  all("h2", text: @contract.user.name).size.should == 1
+  expect(all("h2", text: @contract.user.name).size).to eq 1
 end
 
 Angenommen(/^es existiert eine Aushändigung( für eine Delegation)?( mit zugewiesenen Gegenständen)?$/) do |arg1, arg2|
@@ -177,7 +177,7 @@ Angenommen(/^es existiert eine Aushändigung( für eine Delegation)?( mit zugewi
                else
                  @current_inventory_pool.visits.hand_over.sample
                end
-  @hand_over.should_not be_nil
+  expect(@hand_over).not_to eq nil
 end
 
 Angenommen(/^ich öffne diese Aushändigung$/) do
@@ -185,7 +185,7 @@ Angenommen(/^ich öffne diese Aushändigung$/) do
 end
 
 Wenn(/^ich die Delegation wechsle$/) do
-  page.should have_selector("input[data-select-lines]", match: :first)
+  expect(has_selector?("input[data-select-lines]", match: :first)).to be true
   all("input[data-select-lines]").each {|el| el.click unless el.checked?}
   multibutton = first(".multibutton", text: _("Hand Over Selection")) || first(".multibutton", text: _("Edit Selection"))
   multibutton.find(".dropdown-toggle").click
@@ -200,7 +200,7 @@ Wenn(/^ich die Delegation wechsle$/) do
 end
 
 Wenn(/^ich versuche die Delegation zu wechseln$/) do
-  page.should have_selector("input[data-select-lines]", match: :first)
+  expect(has_selector?("input[data-select-lines]", match: :first)).to be true
   all("input[data-select-lines]").each_with_index do |line, i|
     el = all("input[data-select-lines]")[i]
     el.click unless el.checked?
@@ -215,12 +215,12 @@ Wenn(/^ich versuche die Delegation zu wechseln$/) do
 end
 
 Dann(/^lautet die Aushändigung auf diese neu gewählte Delegation$/) do
-  page.should have_content @new_delegation.name
-  page.should_not have_content @old_delegation.name
+  expect(has_content?(@new_delegation.name)).to be true
+  expect(has_no_content?(@old_delegation.name)).to be true
 end
 
 Wenn(/^ich versuche die Kontaktperson zu wechseln$/) do
-  page.should have_selector("input[data-select-lines]", match: :first)
+  expect(has_selector?("input[data-select-lines]", match: :first)).to be true
   all("input[data-select-lines]").each {|el| el.click unless el.checked?}
   find("button", text: _("Hand Over Selection")).click
   @delegation = @hand_over.user
@@ -236,7 +236,7 @@ end
 
 Dann(/^kann ich nur diejenigen Personen wählen, die zur Delegationsgruppe gehören$/) do
   find("input#user-id", match: :first).set @not_contact.name
-  page.should_not have_selector ".ui-menu-item a"
+  expect(has_no_selector?(".ui-menu-item a")).to be true
   find("input#user-id", match: :first).set @contact.name
   find(".ui-menu-item a", match: :first, text: @contact.name).click
   find("#selected-user", text: @contact.name)
@@ -245,7 +245,7 @@ end
 Dann(/^kann ich bei der Bestellung als Kontaktperson nur diejenigen Personen wählen, die zur Delegationsgruppe gehören$/) do
   within "#contact-person" do
     find("input#user-id", match: :first).set @not_contact.name
-    page.should_not have_selector ".ui-menu-item a"
+    expect(has_no_selector?(".ui-menu-item a")).to be true
     find("input#user-id", match: :first).set @contact.name
     find(".ui-menu-item a", match: :first, text: @contact.name).click
     find("#selected-user", text: @contact.name)
@@ -263,7 +263,7 @@ end
 
 Dann(/^kann ich nur diejenigen Delegationen wählen, die Zugriff auf meinen Gerätepark haben$/) do
   find("input#user-id", match: :first).set @wrong_delegation.name
-  page.should_not have_selector ".ui-menu-item a"
+  expect(has_no_selector?(".ui-menu-item a")).to be true
   find("input#user-id", match: :first).set @valid_delegation.name
   find(".ui-menu-item a", match: :first, text: @valid_delegation.name).click
   find("#selected-user", text: @valid_delegation.name)
@@ -274,8 +274,7 @@ Wenn(/^ich statt einer Delegation einen Benutzer wähle$/) do
   @delegation = @contract.user
   @delegated_user = @contract.delegated_user
   @new_user = @current_inventory_pool.users.not_as_delegations.sample
-
-  page.should have_selector("input[data-select-lines]", match: :first)
+  expect(has_selector?("input[data-select-lines]", match: :first)).to be true
   all("input[data-select-lines]").each_with_index do |line, i|
     el = all("input[data-select-lines]")[i]
     el.click unless el.checked?
@@ -291,12 +290,12 @@ end
 
 Dann(/^ist in der Bestellung der Benutzer aufgeführt$/) do
   find(".content-wrapper", :text => @new_user.name, match: :first)
-  @contract.reload.user.should == @new_user
+  expect(@contract.reload.user).to eq @new_user
 end
 
 Dann(/^es ist keine Kontaktperson aufgeführt$/) do
-  page.should_not have_content "(#{@delegated_user.name})"
-  @contract.reload.delegated_user.should be_nil
+  expect(has_no_content?("(#{@delegated_user.name})")).to be true
+  expect(@contract.reload.delegated_user).to eq nil
 end
 
 Wenn(/^keine Bestellung, Aushändigung oder ein Vertrag für eine Delegation besteht$/) do
@@ -305,7 +304,7 @@ end
 
 Wenn(/^wenn für diese Delegation keine Zugriffsrechte für irgendwelches Gerätepark bestehen$/) do
   @delegation = @delegations.find {|d| d.access_rights.empty?}
-  @delegation.should_not be_nil
+  expect(@delegation).not_to eq nil
 end
 
 Dann(/^kann ich diese Delegation löschen$/) do
@@ -313,7 +312,7 @@ Dann(/^kann ich diese Delegation löschen$/) do
   line = find(".line", text: @delegation.name)
   line.find(".dropdown-toggle").click
   find("[data-method='delete']").click
-  page.should have_selector ".success"
+  expect(has_selector?(".success")).to be true
   lambda{ @delegation.reload }.should raise_error ActiveRecord::RecordNotFound
 end
 
@@ -323,13 +322,13 @@ end
 
 Dann(/^kann ich dieser Delegation ausschliesslich Zugriff als Kunde zuteilen$/) do
   roles = all("[name='access_right[role]'] option")
-  roles.size.should == 2
+  expect(roles.size).to eq 2
   roles.include? "no_access"
   roles.include? "customer"
 end
 
 Wenn(/^ich keinen Verantwortlichen zuteile$/) do
-  find("input[name='user[delegator_user_id]']", visible: false)["value"].should be_empty
+  expect(find("input[name='user[delegator_user_id]']", visible: false)["value"].empty?).to be true
 end
 
 Dann(/^ich keinen Namen angebe$/) do
@@ -364,15 +363,15 @@ Wenn(/^ich der Delegation einen neuen Benutzer hinzufüge$/) do
 end
 
 Dann(/^ist die bearbeitete Delegation mit den aktuellen Informationen gespeichert$/) do
-  @delegation.reload.delegator_user.should == @responsible
+  expect(@delegation.reload.delegator_user).to eq @responsible
   @delegation.delegated_users.each {|du| @delegated_users.include? du}
   @delegation.delegated_users.count == (@delegated_users + [@responsible]).uniq.count
-  @delegation.groups.should == @current_inventory_pool.groups
+  expect(@delegation.groups).to eq @current_inventory_pool.groups
 end
 
 Wenn(/^ich eine Delegation mit Zugriff auf das aktuelle Gerätepark editiere$/) do
   @delegation = @current_inventory_pool.users.find {|u| u.is_delegation and not u.visits.take_back.exists? and u.inventory_pools.count >= 2}
-  @delegation.should_not be_nil
+  expect(@delegation).not_to eq nil
   visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @delegation)
 end
 
@@ -388,7 +387,7 @@ Dann(/^können keine Bestellungen für diese Delegation für dieses Gerätepark 
   find(".dropdown-item[href*='delegations']").click
   find(".row.line", text: @delegation.name).click_link _("Switch to")
   find(".topbar-item", text: _("Inventory Pools")).click
-  page.should_not have_content @ip.name
+  expect(has_no_content?(@ip.name)).to be true
 end
 
 Wenn(/^ich eine Bestellung für eine Delegationsgruppe erstelle$/) do
@@ -421,7 +420,7 @@ Wenn(/^ich die Gegenstände für die Delegation an "(.*?)" aushändige$/) do |co
   @contract = @delegation.contracts.submitted.first
   @contract.approve Faker::Lorem.sentence
   visit manage_hand_over_path(@current_inventory_pool, @delegation)
-  page.should have_selector("input[data-assign-item]")
+  expect(has_selector?("input[data-assign-item]")).to be true
   all("input[data-assign-item]").detect{|el| not el.disabled?}.click
   find(".ui-autocomplete .ui-menu-item", match: :first).click
   has_selector? "[data-remove-assignment]"
@@ -429,17 +428,17 @@ Wenn(/^ich die Gegenstände für die Delegation an "(.*?)" aushändige$/) do |co
   @contact = User.find_by_login(contact_person.downcase)
   step "ich die Kontaktperson wechsle"
   find("button[data-hand-over]").click
-  page.should_not have_selector ".modal button[data-hand-over]"
+  expect(has_no_selector?(".modal button[data-hand-over]")).to be true
 end
 
 Dann(/^ist "(.*?)" die neue Kontaktperson dieses Auftrages$/) do |contact_person|
-  @delegation.contracts.signed.first.delegated_user.should == @contact
+  expect(@delegation.contracts.signed.first.delegated_user).to eq @contact
 end
 
 Dann(/^ist in der Aushändigung der Benutzer aufgeführt$/) do
   find(".content-wrapper", :text => @new_user.name, match: :first)
-  current_path.should == manage_hand_over_path(@current_inventory_pool, @new_user)
-  @delegation.visits.hand_over.should be_blank
+  expect(current_path).to eq manage_hand_over_path(@current_inventory_pool, @new_user)
+  expect(@delegation.visits.hand_over.blank?).to be true
 end
 
 Dann(/^ich öffne eine Aushändigung für eine Delegation$/) do
@@ -452,8 +451,7 @@ Wenn(/^ich statt eines Benutzers eine Delegation wähle$/) do
   @contract ||= @hand_over.lines.map(&:contract).uniq.first
   @user = @contract.user
   @delegation = @current_inventory_pool.users.as_delegations.sample
-
-  page.should have_selector("input[data-select-lines]", match: :first)
+  expect(has_selector?("input[data-select-lines]", match: :first)).to be true
   all("input[data-select-lines]").each {|el| el.click unless el.checked?}
   multibutton = first(".multibutton", text: _("Hand Over Selection")) || first(".multibutton", text: _("Edit Selection"))
   multibutton.find(".dropdown-toggle").click if multibutton
@@ -471,11 +469,11 @@ Und(/^ich eine Kontaktperson aus der Delegation wähle$/) do
 end
 
 Dann(/^ist in der Bestellung der Name der Delegation aufgeführt$/) do
-  page.should have_content @delegation.name
+  expect(has_content?(@delegation.name)).to be true
 end
 
 Dann(/^ist in der Bestellung der Name der Kontaktperson aufgeführt$/) do
-  page.should have_content @contact.name
+  expect(has_content?(@contact.name)).to be true
 end
 
 Dann(/^ich bestätige den Benutzerwechsel$/) do
@@ -490,20 +488,20 @@ end
 
 Dann(/^muss ich eine Kontaktperson hinzufügen$/) do
   find("button[data-hand-over]").click
-  page.should have_selector ".modal #contact-person"
-  find(".modal #error").text.should_not be_empty
+  expect(has_selector?(".modal #contact-person")).to be true
+  expect(find(".modal #error").text.empty?).to be false
 end
 
 Dann(/^die neu gewählte Kontaktperson wird gespeichert$/) do
-  @contract.reload.delegated_user.should == @contact
+  expect(@contract.reload.delegated_user).to eq @contact
 end
 
 Dann(/^sehe ich genau ein Kontaktpersonfeld$/) do
-  all("#contact-person").count.should == 1
+  expect(all("#contact-person").count).to eq 1
 end
 
 Wenn(/^ich keine Kontaktperson angebe$/) do
-  find("#contact-person input#user-id", match: :first).value.should be_empty
+  expect(find("#contact-person input#user-id", match: :first).value.empty?).to be true
 end
 
 Wenn(/^ich den Benutzerwechsel bestätige$/) do
@@ -511,7 +509,7 @@ Wenn(/^ich den Benutzerwechsel bestätige$/) do
 end
 
 Dann(/^sehe ich im Dialog die Fehlermeldung "(.*?)"$/) do |text|
-  page.should have_selector ".modal .red", text: text
+  expect(has_selector?(".modal .red", text: text)).to be true
 end
 
 Wenn(/^ich die Aushändigung abschliesse$/) do

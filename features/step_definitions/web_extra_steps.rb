@@ -20,7 +20,7 @@ end
 
 When /^I follow the sloppy link "([^"]*)" in the greybox$/ do |text|
   # Wait for the frame to finish appearing
-  page.should have_selector("#GB_frame", :visible => true)
+  expect(has_selector?("#GB_frame", :visible => true)).to be true
 
   within_frame "GB_frame" do
     step "I follow the sloppy link \"#{text}\""
@@ -48,5 +48,5 @@ end
 
 When "I wait for the spinner to disappear" do
   # capybara black magic - wait for div to become invisible
-  page.has_xpath?( "//div[@id='loading_panel']", :visible => false).should be_true
+  expect(has_xpath?( "//div[@id='loading_panel']", :visible => false)).to be true
 end

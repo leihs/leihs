@@ -16,7 +16,7 @@ When /^I open a contract for acknowledgement( with more then one line)?$/ do |ar
     @contract = @customer.contracts.submitted.first
   end
   visit manage_edit_contract_path(@ip, @contract)
-  page.should have_selector("[data-order-approve]", :visible => true)
+  expect(has_selector?("[data-order-approve]", :visible => true)).to be true
 end
 
 When /^I open the booking calendar for this line$/ do
@@ -41,8 +41,8 @@ end
 When /^I save the booking calendar$/ do
   find("#submit-booking-calendar", :text => _("Save")).click
   sleep(0.33)
-  page.has_selector?("#submit-booking-calendar", :text => _("Save")).should be_false
-  page.has_selector?("#booking-calendar").should be_false
+  expect(has_no_selector?("#submit-booking-calendar", :text => _("Save"))).to be true
+  expect(has_no_selector?("#booking-calendar")).to be true
 end
 
 When /^I change a contract lines time range$/ do
@@ -59,18 +59,18 @@ When /^I change a contract lines time range$/ do
     else
       @line.start_date + 1.day
   end
-  page.should have_selector(".fc-widget-content .fc-day-number")
+  expect(has_selector?(".fc-widget-content .fc-day-number")).to be true
   get_fullcalendar_day_element(@new_start_date).click
   find("#set-start-date", :text => _("Start Date")).click
   step 'I save the booking calendar'
 end
 
 Then /^the time range of that line is changed$/ do
-  @line.reload.start_date.should == @new_start_date
+  expect(@line.reload.start_date).to eq @new_start_date
 end
 
 When /^I increase a submitted contract lines quantity$/ do
-  page.should have_selector(".line[data-ids]")
+  expect(has_selector?(".line[data-ids]")).to be true
   @line_element ||= all(".line[data-ids]").to_a.sample
   @line_model_name = @line_element.find(".col6of10 strong").text
   @new_quantity = @line_element.find("div:nth-child(3) > span:nth-child(1)").text.to_i + 1
@@ -104,12 +104,12 @@ When /^I change a contract lines quantity$/ do
 end
 
 Then(/^the contract line was duplicated$/) do
-  @line.contract.lines.where(:model_id => @line.model_id).sum(&:quantity).should == @total_quantity + 1
+  expect(@line.contract.lines.where(:model_id => @line.model_id).sum(&:quantity)).to eq @total_quantity + 1
 end
 
 Then /^the quantity of that submitted contract line is changed$/ do
   @line_element = find(".line", match: :prefer_exact, :text => @line_model_name)
-  @line_element.find("div:nth-child(3) > span:nth-child(1)").text.should == @new_quantity.to_s
+  expect(@line_element.find("div:nth-child(3) > span:nth-child(1)").text).to eq @new_quantity.to_s
 end
 
 When /^I select two lines$/ do
@@ -129,8 +129,8 @@ When /^I change the time range for multiple lines$/ do
 end
 
 Then /^the time range for that lines is changed$/ do
-  @line1.reload.start_date.should == @line2.reload.start_date 
-  @line1.reload.start_date.should == @new_start_date
+  expect(@line1.reload.start_date).to eq @line2.reload.start_date
+  expect(@line1.reload.start_date).to eq @new_start_date
 end
 
 When /^I close the booking calendar$/ do
@@ -147,11 +147,11 @@ When /^I edit one of the selected lines$/ do
 end
 
 Then /^I see the booking calendar$/ do
-  page.should have_selector("#booking-calendar .fc-day-content")
+  expect(has_selector?("#booking-calendar .fc-day-content")).to be true
 end
 
 When /^I change the time range for multiple lines that have quantity bigger then (\d+)$/ do |arg1|
-  page.should have_selector(".line[data-ids]")
+  expect(has_selector?(".line[data-ids]")).to be true
   all_ids = all(".line[data-ids]").to_a.map {|x| x["data-ids"]}
   @models_quantities = all_ids.map do |ids|
     @line_element = find(".line[data-ids='#{ids}']")
@@ -167,6 +167,6 @@ end
 Then /^the quantity is not changed after just moving the lines start and end date$/ do
   @models_quantities.each do |x|
     line_element = find(".line", match: :prefer_exact, :text => x[:name])
-    line_element.find("div:nth-child(3) > span:nth-child(1)").text.to_i.should == x[:quantity]
+    expect(line_element.find("div:nth-child(3) > span:nth-child(1)").text.to_i).to eq x[:quantity]
   end
 end

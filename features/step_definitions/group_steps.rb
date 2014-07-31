@@ -12,15 +12,15 @@ Then /^(\w+) item(s?) of that model should be available in group '([^"]*)'( only
   @group = @inventory_pool.groups.find_by_name(group_name)
   all_groups = [Group::GENERAL_GROUP_ID] + @inventory_pool.group_ids
   quantities = @inventory_pool.partitions_with_generals.hash_for_model_and_groups(@model)
-  quantities[@group.id].to_i.should == to_number(n)
+  expect(quantities[@group.id].to_i).to eq to_number(n)
 
   all_groups.each do |group|
-    quantities[group].to_i.should == 0 if (group ? group.name : "General") != group_name
+    expect(quantities[group].to_i).to eq 0 if (group ? group.name : "General") != group_name
   end if exclusivity
 end
 
 Then "that model should not be available in any group"  do
-  @inventory_pool.partitions_with_generals.hash_for_model_and_groups(@model).reject { |group_id, num| group_id == Group::GENERAL_GROUP_ID }.size.should == 0
+  expect(@inventory_pool.partitions_with_generals.hash_for_model_and_groups(@model).reject { |group_id, num| group_id == Group::GENERAL_GROUP_ID }.size).to eq 0
 end
 
 # TODO: currently unused
@@ -61,7 +61,7 @@ end
 
 Then /^(\w+) item(s?) of that model should be available to "([^"]*)"$/ do |n, plural, user|
   @user = User.find_by_login user
-  @model.availability_in(@inventory_pool.reload).maximum_available_in_period_for_groups(Date.today, Date.tomorrow, @user.groups).should == n.to_i
+  expect(@model.availability_in(@inventory_pool.reload).maximum_available_in_period_for_groups(Date.today, Date.tomorrow, @user.groups)).to eq n.to_i
 end
 
 #
@@ -88,7 +88,7 @@ do |group, filler, inventory_pool|
 
   groups = inventory_pools.collect { |ip| ip.groups.where(name: group).first }
   groups.each do |group|
-    group.users.find_by_id( @user.id ).should_not be nil
+    expect(group.users.find_by_id( @user.id )).not_to be nil
   end
 end
 
@@ -113,8 +113,8 @@ When /^I lend (\w+) item(s?) of that model to "([^"]*)"$/ do |n, plural, user_lo
   n = to_number(n)
   contract = FactoryGirl.create :contract, :user => user, :inventory_pool => @inventory_pool, :purpose => "this is the required purpose"
   contract.add_lines(n, @model, nil, Date.today, Date.tomorrow)
-  contract.submit("this is the required purpose").should be_true
-  contract.approve("foo'lish comment").should be_true
+  expect(contract.submit("this is the required purpose")).to be true
+  expect(contract.approve("foo'lish comment")).to be true
   c = Contract.find_by_user_id user
   c.sign(@user)
 end
@@ -122,5 +122,5 @@ end
 When /^"([^"]*)" returns the item$/ do |user|
   @user = User.find_by_login user
   c = Contract.find_by_user_id @user
-  c.close.should be_true
+  expect(c.close).to be true
 end

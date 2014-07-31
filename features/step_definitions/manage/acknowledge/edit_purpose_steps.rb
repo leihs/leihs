@@ -12,5 +12,5 @@ end
 Then /^the contract's purpose is changed$/ do
   find("#purpose", :text => @new_purpose)
   visit current_path
-  @contract.reload.purpose.description.should == @new_purpose
+  expect(@contract.reload.purpose.description).to eq @new_purpose
 end

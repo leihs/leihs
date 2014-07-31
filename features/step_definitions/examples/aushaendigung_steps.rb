@@ -2,7 +2,7 @@
 
 Angenommen(/^es besteht bereits eine Aushändigung mit mindestens (\d+) zugewiesenen Gegenständen für einen Benutzer$/) do |count|
   @hand_over = @current_inventory_pool.visits.hand_over.find {|ho| ho.contract_lines.select(&:item).size >= count.to_i}
-  @hand_over.should_not be_nil
+  expect(@hand_over).not_to eq nil
 end
 
 Wenn(/^ich die Aushändigung öffne$/) do
@@ -47,11 +47,11 @@ end
 
 Dann(/^wird der Gegenstand der Zeile zugeteilt$/) do
   find("#flash")
-  @contract_line.reload.item.should_not be_nil
+  expect(@contract_line.reload.item).not_to eq nil
 end
 
 Dann(/^die Zeile wird selektiert|wird die Zeile selektiert$/) do
-  find(@line_css).find("input[type=checkbox]").should be_checked
+  find(@line_css).find("input[type=checkbox]:checked")
 end
 
 Dann(/^die Zeile wird grün markiert|wird die Zeile grün markiert$/) do
@@ -61,7 +61,7 @@ end
 Wenn(/^ich die Zeile deselektiere$/) do
   within @line_css do
     find("input[type=checkbox]").click
-    find("input[type=checkbox]").should_not be_checked
+    expect(find("input[type=checkbox]").checked?).to be false
   end
 end
 
@@ -72,7 +72,7 @@ end
 Wenn(/^ich die Zeile wieder selektiere$/) do
   within @line_css do
     find("input[type=checkbox]").click
-    find("input[type=checkbox]").should be_checked
+    find("input[type=checkbox]:checked")
   end
 end
 
@@ -120,8 +120,8 @@ end
 
 Dann(/^die problematischen Auszeichnungen bleiben bei der Linie bestehen$/) do
   within(@line_css) do
-    should have_selector ".line-info.red"
-    should have_selector ".tooltip.red"
+    expect(has_selector?(".line-info.red")).to be true
+    expect(has_selector?(".tooltip.red")).to be true
   end
 end
 
@@ -144,23 +144,23 @@ Angenommen(/^ich öffne eine Aushändigung mit mindestens einem zugewiesenen Geg
 end
 
 Dann(/^die Zeile bleibt selektiert$/) do
-  page.should have_selector "#{@line_css} input[type='checkbox']:checked"
+  expect(has_selector?("#{@line_css} input[type='checkbox']:checked")).to be true
 end
 
 Dann(/^die Zeile bleibt grün markiert$/) do
-  page.should have_selector "#{@line_css}.green"
+  expect(has_selector?("#{@line_css}.green")).to be true
 end
 
 Angenommen(/^für den Gerätepark ist eine Standard\-Vertragsnotiz konfiguriert$/) do
-  @current_inventory_pool.default_contract_note.should_not be_nil
+  expect(@current_inventory_pool.default_contract_note).not_to eq nil
 end
 
 Dann(/^erscheint ein Aushändigungsdialog$/) do
-  page.should have_selector ".modal [data-hand-over]"
+  expect(has_selector?(".modal [data-hand-over]")).to be true
 end
 
 Dann(/^diese Standard\-Vertragsnotiz erscheint im Textfeld für die Vertragsnotiz$/) do
-  find("textarea[name='note']").text.should == @current_inventory_pool.default_contract_note
+  expect(find("textarea[name='note']").text).to eq @current_inventory_pool.default_contract_note
 end
 
 When(/^I change the quantity to "(.*?)"$/) do |arg1|
@@ -172,13 +172,13 @@ end
 
 Then(/^the quantity will be restored to the original value$/) do
   within @line_css do
-    find("input[data-line-quantity]").value.should == @option_line.reload.quantity.to_s
+    expect(find("input[data-line-quantity]").value).to eq @option_line.reload.quantity.to_s
   end
 end
 
 Then(/^the quantity will be stored to the value "(.*?)"$/) do |arg1|
   step "the quantity will be restored to the original value"
-  @option_line.quantity.to_s.should == arg1
+  expect(@option_line.quantity.to_s).to eq arg1
 end
 
 Given(/^a line has no item assigned yet and this line is marked$/) do
@@ -195,9 +195,9 @@ end
 
 Given(/^there exists a model with a problematic item$/) do
   @item = @current_inventory_pool.items.borrowable.in_stock.find {|item| item.is_broken? or item.is_incomplete?}
-  @item.should_not be_nil
+  expect(@item).not_to eq nil
   @model = @item.model
-  @model.should_not be_nil
+  expect(@model).not_to eq nil
 end
 
 And(/^I open a hand over for some user$/) do
@@ -212,7 +212,7 @@ end
 When(/^I open the item choice list on the model line$/) do
   within "#lines" do
     find("[data-line-type]", text: @model.name).find("[data-assign-item]").click
-    has_selector?(".ui-menu").should be_true
+    expect(has_selector?(".ui-menu")).to be true
   end
 end
 
@@ -222,7 +222,7 @@ end
 
 Given(/^there exists a model with a retired and a borrowable item$/) do
   @model = @current_inventory_pool.models.find { |m| m.items.borrowable.where(retired: nil).exists? and m.items.retired.exists? }
-  @model.should_not be_nil
+  expect(@model).not_to eq nil
   @item = @model.items.retired.sample
 end
 

@@ -16,7 +16,7 @@ When /^I open a hand over( with at least one unassigned line for today)?( with o
   end
   raise "customer not found" unless @customer
   visit manage_hand_over_path(@ip, @customer)
-  page.should have_selector("#hand-over-view", :visible => true)
+  expect(has_selector?("#hand-over-view", :visible => true)).to be true
 end
 
 When /^I select (an item|a license) line and assign an inventory code$/ do |arg1|
@@ -32,8 +32,7 @@ When /^I select (an item|a license) line and assign an inventory code$/ do |arg1
                          else
                            raise "not found"
                        end
-
-  @item_line.should_not be_nil
+  expect(@item_line).not_to eq nil
   step 'I assign an inventory code the item line'
   find(".button[data-edit-lines][data-ids='[#{@item_line.id}]']").click
   step "ich setze das Startdatum im Kalendar auf '#{I18n.l(Date.today)}'"
@@ -45,7 +44,7 @@ end
 Then /^I see a summary of the things I selected for hand over$/ do
   within(".modal") do
     @selected_items.each do |item|
-      page.should have_content(item.model.name)
+      expect(has_content?(item.model.name)).to be true
     end
   end
 end
@@ -64,7 +63,7 @@ Then /^the contract is signed for the selected items$/ do
   to_take_back_lines = @customer.visits.take_back.flat_map &:contract_lines
   to_take_back_items = to_take_back_lines.map(&:item)
   @selected_items.each do |item|
-    to_take_back_items.include?(item).should be_true
+    expect(to_take_back_items.include?(item)).to be true
   end
 end
 
@@ -74,7 +73,7 @@ When /^I select an item without assigning an inventory code$/ do
 end
 
 Then /^I got an error that i have to assign all selected item lines$/ do
-  find("#flash .error").has_content?(_ "you cannot hand out lines with unassigned inventory codes").should be_true
+  expect(find("#flash .error").has_content?(_ "you cannot hand out lines with unassigned inventory codes")).to be true
 end
 
 When /^I change the contract lines time range to tomorrow$/ do
@@ -84,7 +83,7 @@ When /^I change the contract lines time range to tomorrow$/ do
   else
     @line.start_date + 1.day
   end
-  page.should have_selector(".fc-widget-content .fc-day-number")
+  expect(has_selector?(".fc-widget-content .fc-day-number")).to be true
   @new_start_date_element = get_fullcalendar_day_element(@new_start_date)
   puts "@new_start_date = #{@new_start_date}"
   puts "@new_start_date_element = #{@new_start_date_element.text}"
@@ -102,7 +101,7 @@ end
 
 Then /^the lines start date is today$/ do
   sleep(0.33)
-  @line.reload.start_date.should == Date.today
+  expect(@line.reload.start_date).to eq Date.today
 end
 
 When /^I open a hand over with overdue lines$/ do
@@ -113,20 +112,20 @@ When /^I open a hand over with overdue lines$/ do
       c.lines.any? {|l| l.start_date < Date.today and l.end_date >= Date.today and @models_in_stock.include? l.model}
     end
   end
-  @customer.should_not be_nil
+  expect(@customer).not_to eq nil
   visit manage_hand_over_path(@ip, @customer)
-  page.should have_selector("#hand-over-view", :visible => true)
+  expect(has_selector?("#hand-over-view", :visible => true)).to be true
 end
 
 When /^I select an overdue item line and assign an inventory code$/ do
   @item_line = @line = @customer.visits.hand_over.detect{|v| v.date < Date.today}.lines.detect {|l| l.class.to_s == "ItemLine" and @models_in_stock.include? l.model}
-  @item_line.should_not be_nil
+  expect(@item_line).not_to eq nil
   step 'I assign an inventory code the item line'
 end
 
 When /^I assign an inventory code the item line$/ do
   item = @ip.items.by_responsible_or_owner_as_fallback(@ip).in_stock.where(model_id: @item_line.model).first
-  item.should_not be_nil
+  expect(item).not_to eq nil
   @selected_items ||= []
   @selected_items << item
   within(".line[data-id='#{@item_line.id}']") do
@@ -138,5 +137,5 @@ When /^I assign an inventory code the item line$/ do
 end
 
 Then /^wird die Adresse des Verleihers aufgeführt$/ do
-  page.should have_selector(".parties .inventory_pool .name")
+  expect(has_selector?(".parties .inventory_pool .name")).to be true
 end

@@ -41,8 +41,7 @@ Funktionalität: Vorlagen
     Und ich muss im Prozess weiterfahren zur Verfügbarkeitsanzeige der Vorlage
     Und alle Einträge erhalten das ausgewählte Start- und Enddatum
 
-  # CI-ISSUE: capybara seems to have problems with input field of type number
-  @current @javascript @firefox @personas
+  @javascript @firefox @personas
   Szenario: Verfügbarkeitsansicht der Vorlage
     Angenommen ich sehe die Verfügbarkeit einer Vorlage, die nicht verfügbare Modelle enthält
     Dann sind diejenigen Modelle hervorgehoben, die zu diesem Zeitpunkt nicht verfügbar sind

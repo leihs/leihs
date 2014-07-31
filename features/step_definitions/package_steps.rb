@@ -20,7 +20,7 @@ end
 #Then /^he sees 0 lines 'Khil Remix'$/ do
 # the check actually doesn't bother about lines at all...
 Then /^(.*) sees (\d*) line(s?) '(.*)'$/ do |who, number, plural, text|
-  @response.body.scan(text).size.should == number.to_i
+  expect(@response.body.scan(text).size).to eq number.to_i
 end
 
 Then "even though 'Khil Remix' is not part of a package in inventory pool 2!" do
@@ -34,14 +34,14 @@ end
 Given(/^this package item is part of this package model$/) do
   @item.model = @model
   @item.save
-  @item.reload.model.should == @model
-  @model.items.include?(@item).should be_true
+  expect(@item.reload.model).to eq @model
+  expect(@model.items.include?(@item)).to be true
   @package_item = @item
 end
 
 Given(/^this item is part of this package item$/) do
   @item.parent = @package_item
   @item.save
-  @item.reload.parent.should == @package_item
-  @package_item.children.include?(@item).should be_true
+  expect(@item.reload.parent).to eq @package_item
+  expect(@package_item.children.include?(@item)).to be true
 end

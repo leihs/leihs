@@ -8,19 +8,23 @@ end
 
 Dann /^muss der "(.*?)" unter "(.*?)" ausgewählt werden$/ do |key, section|
   field = find("[data-type='field']", text: key)
-  field[:"data-required"].should == "true"
+  expect(field[:"data-required"]).to eq "true"
 end
 
 Wenn /^"(.*?)" bei "(.*?)" ausgewählt ist muss auch "(.*?)" angegeben werden$/ do |value, key, newkey|
   field = find("[data-type='field']", text: key)
   field.find("label,option", match: :first, :text => value).click
   newfield = find("[data-type='field']", text: newkey)
-  newfield[:"data-required"].should == "true"
+  expect(newfield[:"data-required"]).to eq "true"
 end
 
 Dann /^sind alle Pflichtfelder mit einem Stern gekenzeichnet$/ do
-  all(".field[data-required='true']", :visible => true).each {|field| field.text[/\*/].should_not be_nil}
-  all(".field:not([data-required='true'])").each {|field| field.text[/\*/].should be_nil}
+  all(".field[data-required='true']", :visible => true).each do |field|
+    expect(field.text[/\*/]).not_to eq nil
+  end
+  all(".field:not([data-required='true'])").each do |field|
+    expect(field.text[/\*/]).to eq nil
+  end
 end
 
 Wenn /^ein Pflichtfeld nicht ausgefüllt\/ausgewählt ist, dann lässt sich der Gegenstand nicht speichern$/ do
@@ -28,15 +32,15 @@ Wenn /^ein Pflichtfeld nicht ausgefüllt\/ausgewählt ist, dann lässt sich der 
   find(".field[data-required='true'] input[type='text']", match: :first).set("")
   find("#item-save").click
   find("#flash .error")
-  @item.to_json.should == @item.reload.to_json
+  expect(@item.to_json).to eq @item.reload.to_json
 end
 
 Wenn /^die nicht ausgefüllten\/ausgewählten Pflichtfelder sind rot markiert$/ do
   all(".field[data-required='true']", :visible => true).each do |field|
-    if field.all("input[type=text]").any?{|input| input.value == 0} or 
-      field.all("textarea").any?{|textarea| textarea.value == 0} or
-      (ips = field.all("input[type=radio]"); ips.all?{|input| not input.checked?} if not ips.empty?)
-        field[:class][/invalid/].should_not be_nil
+    if field.all("input[type=text]").any? { |input| input.value == 0 } or
+        field.all("textarea").any? { |textarea| textarea.value == 0 } or
+        (ips = field.all("input[type=radio]"); ips.all? { |input| not input.checked? } if not ips.empty?)
+      expect(field[:class][/invalid/]).not_to eq nil
     end
   end
 end
@@ -45,14 +49,14 @@ Dann /^sehe ich die Felder in folgender Reihenfolge:$/ do |table|
   values = table.raw.map do |x|
     x.first.gsub(/^\-\ |\ \-$/, '')
   end
-  (page.text =~ Regexp.new(values.join('.*'), Regexp::MULTILINE)).should_not be_nil
+  expect(page.text =~ Regexp.new(values.join('.*'), Regexp::MULTILINE)).not_to eq nil
 end
 
 Wenn(/^"(.*?)" bei "(.*?)" ausgewählt ist muss auch "(.*?)" ausgewählt werden$/) do |value, key, newkey|
   field = find("[data-type='field']", text: key)
   field.find("option", match: :first, :text => value).select_option
   newfield = find("[data-type='field']", text: newkey)
-  newfield[:"data-required"].should == "true"
+  expect(newfield[:"data-required"]).to eq "true"
 end
 
 Angenommen(/^man navigiert zur Gegenstandsbearbeitungsseite$/) do
@@ -63,7 +67,7 @@ end
 Angenommen(/^man navigiert zur Gegenstandsbearbeitungsseite eines Gegenstandes, der am Lager und in keinem Vertrag vorhanden ist$/) do
   @item = @current_inventory_pool.items.find {|i| i.in_stock? and i.contract_lines.blank?}
   visit manage_edit_item_path(@current_inventory_pool, @item)
-  page.should have_selector(".row.emboss")
+  expect(has_selector?(".row.emboss")).to be true
 end
 
 Wenn(/^ich speichern druecke$/) do
@@ -71,7 +75,7 @@ Wenn(/^ich speichern druecke$/) do
 end
 
 Dann(/^bei dem bearbeiteten Gegestand ist der neue Lieferant eingetragen$/) do
-  @item.reload.supplier.name.should == @new_supplier
+  expect(@item.reload.supplier.name).to eq @new_supplier
 end
 
 Dann(/^ist der Gegenstand mit all den angegebenen Informationen gespeichert$/) do
@@ -89,13 +93,13 @@ Wenn(/^ich den Lieferanten lösche$/) do
 end
 
 Dann(/^wird der neue Lieferant gelöscht$/) do
-  page.should have_content _("List of Inventory")
-  Supplier.find_by_name(@new_supplier).should_not be_nil
+  expect(has_content?(_("List of Inventory"))).to be true
+  expect(Supplier.find_by_name(@new_supplier)).not_to eq nil
 end
 
 Dann(/^ist bei dem bearbeiteten Gegenstand keiner Lieferant eingetragen$/) do
-  page.should have_content _("List of Inventory")
-  @item.reload.supplier.should be_nil
+  expect(has_content?(_("List of Inventory"))).to be true
+  expect(@item.reload.supplier).to eq nil
 end
 
 Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes mit gesetztem Lieferanten$/) do
@@ -109,7 +113,7 @@ Wenn(/^ich den Lieferanten ändere$/) do
 end
 
 Dann(/^ist bei dem bearbeiteten Gegestand der geänderte Lieferant eingetragen$/) do
-  @item.reload.supplier.should == @supplier
+  expect(@item.reload.supplier).to eq @supplier
 end
 
 Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeliehen ist und wo man Besitzer ist$/) do
@@ -145,7 +149,7 @@ end
 
 Angenommen(/^there is a model without a version$/) do
   @model = Model.find {|m| !m.version}
-  @model.should_not be_nil
+  expect(@model).not_to eq nil
 end
 
 Wenn(/^I assign this model to the item$/) do
@@ -153,5 +157,5 @@ Wenn(/^I assign this model to the item$/) do
 end
 
 Dann(/^there is only product name in the input field of the model$/) do
-  find("input[data-autocomplete_value_target='item[model_id]']").value.should == @model.product
+  expect(find("input[data-autocomplete_value_target='item[model_id]']").value).to eq @model.product
 end

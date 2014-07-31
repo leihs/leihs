@@ -6,7 +6,7 @@ When(/^ich unter meinem Benutzernamen auf "([^"]*)" klicke$/) do |arg|
 end
 
 Dann(/^gelange ich zu der Dokumentenübersichtsseite/) do
-  current_path.should == borrow_user_documents_path
+  expect(current_path).to eq borrow_user_documents_path
 end
 
 Angenommen(/^ich befinde mich auf der Dokumentenübersichtsseite$/) do
@@ -15,7 +15,7 @@ end
 
 Dann(/^sind die Verträge nach neuestem Zeitfenster sortiert$/) do
   dates = all("div.line-col", text: /\d{2}.\d{2}.\d{4}\s\-\s\d{2}.\d{2}.\d{4}/).map {|x| Date.parse(x.text.split.first) }
-  dates.sort.should == dates
+  expect(dates.sort).to eq dates
 end
 
 Dann(/^für jede Vertrag sehe ich folgende Informationen$/) do |table|
@@ -26,22 +26,22 @@ Dann(/^für jede Vertrag sehe ich folgende Informationen$/) do |table|
       table.raw.flatten.each do |s|
         case s
           when "Vertragsnummer"
-            should have_content contract.id
+            expect(has_content?(contract.id)).to be true
           when "Zeitfenster mit von bis Datum und Dauer"
-            should have_content contract.time_window_min.strftime("%d.%m.%Y")
-            should have_content contract.time_window_max.strftime("%d.%m.%Y")
-            should have_content (contract.time_window_max - contract.time_window_min).to_i.abs + 1
+            expect(has_content?(contract.time_window_min.strftime("%d.%m.%Y"))).to be true
+            expect(has_content?(contract.time_window_max.strftime("%d.%m.%Y"))).to be true
+            expect(has_content?((contract.time_window_max - contract.time_window_min).to_i.abs + 1)).to be true
           when "Gerätepark"
-            should have_content contract.inventory_pool.shortname
+            expect(has_content?(contract.inventory_pool.shortname)).to be true
           when "Zweck"
-            should have_content contract.purpose
+            expect(has_content?(contract.purpose)).to be true
           when "Status"
-            should have_content _("Open") if contract.status == :signed
+            expect(has_content?(_("Open"))).to be true if contract.status == :signed
           when "Vertraglink"
-            page.should have_selector("a[href='#{borrow_user_contract_path(contract.id)}']", text: _("Contract"))
+            expect(has_selector?("a[href='#{borrow_user_contract_path(contract.id)}']", text: _("Contract"))).to be true
           when "Wertelistelink"
             find("a[href='#{borrow_user_contract_path(contract.id)}'] + .dropdown-holder > .dropdown-toggle").click
-            page.should have_selector("a[href='#{borrow_user_value_list_path(contract.id)}']")
+            expect(has_selector?("a[href='#{borrow_user_value_list_path(contract.id)}']")).to be true
             find("a[href='#{borrow_user_contract_path(contract.id)}']").click # release the previous click
           else
             raise "unkown section"
@@ -62,7 +62,7 @@ end
 
 Dann(/^öffnet sich die Werteliste$/) do
   page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
-  current_path.should == borrow_user_value_list_path(@contract.id)
+  expect(current_path).to eq borrow_user_value_list_path(@contract.id)
 end
 
 Angenommen(/^ich drücke auf den Vertraglink$/) do
@@ -73,7 +73,7 @@ end
 
 Dann(/^öffnet sich der Vertrag$/) do
   page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
-  current_path.should == borrow_user_contract_path(@contract.id)
+  expect(current_path).to eq borrow_user_contract_path(@contract.id)
 end
 
 Wenn(/^ich eine Werteliste aus meinen Dokumenten öffne$/) do
@@ -128,7 +128,7 @@ Dann(/^sehe ich die Werteliste genau wie im Verwalten\-Bereich$/) do
 end
 
 Dann(/^sehe ich den Vertrag genau wie im Verwalten-Bereich$/) do
-  page.should have_selector ".contract"
+  expect(has_selector?(".contract")).to be true
 
   steps %{
     Dann möchte ich die folgenden Bereiche sehen:
@@ -185,21 +185,21 @@ Dann(/^sehe ich den Vertrag genau wie im Verwalten-Bereich$/) do
   not_returned_lines, returned_lines = @contract.lines.partition {|line| line.returned_date.blank? }
 
   unless returned_lines.empty?
-    @contract_element.text.should have_content _("Returned Items")
+    expect(@contract_element.has_content?(_("Returned Items"))).to be true
     @contract_element.all("tbody .returning_date").each do |date|
       date.text.should match @current_user.short_name
     end
   end
 
   unless not_returned_lines.empty?
-    @contract_element.text.should have_content _("Borrowed Items")
+    expect(@contract_element.has_content?(_("Borrowed Items"))).to be true
     @contract_element.all("tbody .returning_date").each do |date|
-      date.text.should == ""
+      expect(date.text).to eq ""
     end
     not_returned_lines.each do |line|
       within @contract_element.find(".not_returned_items", match: :first) do
-        should have_content line.model.name
-        should have_content line.item.inventory_code
+        expect(has_content?(line.model.name)).to be true
+        expect(has_content?(line.item.inventory_code)).to be true
       end
     end
   end
@@ -222,7 +222,7 @@ Dann(/^sieht man bei den betroffenen Linien die rücknehmende Person im Format "
     end
   elsif @contract
     lines = @contract.lines.where("returned_date IS NOT NULL")
-    lines.size.should > 0
+    expect(lines.size).to be > 0
     lines.each do |cl|
       find(".contract .list.returned_items tr", text: cl.item.inventory_code).find(".returning_date", text: cl.returned_to_user.short_name)
     end

@@ -16,10 +16,10 @@ end
 When "$who rejects order with reason '$reason'" do |who, reason|
   post "/manage/#{@inventory_pool.id}/contracts/#{@contract.id}/reject", {:comment => reason}
   @contract = assigns(:contract)
-  @contracts.should_not be_nil
-  @contract.should_not be_nil
+  expect(@contracts).not_to eq nil
+  expect(@contract).not_to eq nil
   @response = response
-  response.redirect_url.should == "http://www.example.com/backend/inventory_pools/#{@inventory_pool.id}/acknowledge"
+  expect(response.redirect_url).to eq "http://www.example.com/backend/inventory_pools/#{@inventory_pool.id}/acknowledge"
 end
 
 When "$who adds $quantity item '$model'" do |who, quantity, model|
@@ -27,7 +27,7 @@ When "$who adds $quantity item '$model'" do |who, quantity, model|
   post add_line_backend_inventory_pool_acknowledge_path(@inventory_pool, @contract, :model_id => model_id, :quantity => quantity)
   @contract = assigns(:contract)
   @contract.contract_lines.each do | line |
-    line.model.should_not be_nil
+    expect(line.model).not_to eq nil
   end
   @response = response #new#
   @response.redirect_url.should include("backend/inventory_pools/#{@inventory_pool.id}/acknowledge/#{@contract.id}")
@@ -50,18 +50,18 @@ When "$who searches for '$model'" do |who, model|
                                         :source_path => swap_model_line_backend_inventory_pool_acknowledge_path(@inventory_pool, @contract, :line_id => @contract_line_id),
                                         :contract_line_id => @contract_line_id )
   @models = assigns(:models)
-  @models.should_not be_nil
+  expect(@models).not_to eq nil
 end
 
 When "$who selects '$model'" do |who, model|
   model_id = Model.find_by_name(model).id
   post swap_model_line_backend_inventory_pool_acknowledge_path(@inventory_pool, @contract, :line_id => @contract_line_id, :model_id => model_id)
   @contract = assigns(:contract)
-  @contract.should_not be_nil
+  expect(@contract).not_to eq nil
 end
 
 Then /^(.*) see(s)? ([0-9]+) order(s?)$/ do | who, foo, size, s |
-  page.all(".table-overview .fresh").count.should == 1
+  expect(page.all(".table-overview .fresh").count).to eq 1
 end
 
 # NOTE this is not actually what he sees on the first page, but the total submitted contracts
@@ -83,13 +83,13 @@ Then "Swap Item screen opens" do
 end
 
 Then "a choice of $size item appears" do |size|
-  @models.size.should == size.to_i
+  expect(@models.size).to eq size.to_i
 end
 
 Then "$who sees $quantity items of model '$model'" do |who, quantity, model|
   line = find_line(model)
-  line.should_not be_nil
-  line.quantity.should == quantity.to_i
+  expect(line).not_to eq nil
+  expect(line.quantity).to eq quantity.to_i
 end
 
 Then "all '$what' order lines are marked as invalid" do |what|
@@ -98,11 +98,11 @@ Then "all '$what' order lines are marked as invalid" do |what|
 end
 
 Then "the order should not be approvable$reason" do |reason|
-  @contract.approvable?.should == false
+  expect(@contract.approvable?).to be false
 end
 
 Then "the order should be approvable$reason" do |reason|
-  @contract.approvable?.should == true
+  expect(@contract.approvable?).to be true
 end
 
 ###############################################

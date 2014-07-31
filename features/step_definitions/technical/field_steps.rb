@@ -19,7 +19,7 @@ end
 
 Then /^the amount of the accessible fields (.*) (\w+) can be different$/ do |compare_op, higher_manager_role|
   user_role = @user.access_right_for(@inventory_pool).role
-  user_role.should == @manager_role
+  expect(user_role).to eq @manager_role
   user_role_level = AccessRight::ROLES_HIERARCHY.index user_role
   unless @accessible_fields.empty?
     @accessible_fields.each {|field| AccessRight::ROLES_HIERARCHY.index(field[:permissions][:role]).should <= user_role_level if field[:permissions] and field[:permissions][:role]}
@@ -33,7 +33,7 @@ Then /^the amount of the accessible fields (.*) (\w+) can be different$/ do |com
   # check that the same condition holds true also for higher level
   @higher_accessible_fields.size.should >= @minimum_field_size
 
-  @accessible_fields.size.should == @higher_accessible_fields.size if compare_op == "equals"
+  expect(@accessible_fields.size).to eq @higher_accessible_fields.size if compare_op == "equals"
   @accessible_fields.size.should < @higher_accessible_fields.size if compare_op == "less than"
 end
 
@@ -55,14 +55,14 @@ Then /^each field provides the value of the item's attribute$/ do
       end
     end
 
-    field.value(@item).should == expected_value
+    expect(field.value(@item)).to eq expected_value
   end
 end
 
 Then /^each field is capable of providing values even if its values attribute is a lambda\/proc$/ do
   Field.all.each do |field|
     if field.values
-      field.values.should_not be_nil
+      expect(field.values).not_to eq nil
     end
   end
 end

@@ -16,8 +16,8 @@ end
 
 Dann(/^die Vorlagen sind alphabetisch nach Namen sortiert$/) do
   all_names = all(".separated-top > a[href*='#{borrow_templates_path}']").map {|x| x.text.strip }
-  all_names.sort.should == all_names
-  all_names.count.should == @current_user.templates.count
+  expect(all_names.sort).to eq all_names
+  expect(all_names.count).to eq @current_user.templates.count
 end
 
 When(/^ich kann eine der Vorlagen detailliert betrachten$/) do
@@ -40,8 +40,8 @@ end
 
 Dann(/^die Modelle in dieser Vorlage sind alphabetisch sortiert$/) do
   all_names = all(".separated-top > .row.line").map {|x| x.text.strip }
-  all_names.sort.should == all_names
-  all_names.count.should == @template.models.count
+  expect(all_names.sort).to eq all_names
+  expect(all_names.count).to eq @template.models.count
 end
 
 When(/^ich sehe für jedes Modell die Anzahl Gegenstände dieses Modells, welche die Vorlage vorgibt$/) do
@@ -58,7 +58,7 @@ end
 When(/^ich kann höchstens die maximale Anzahl an verfügbaren Geräten eingeben$/) do
   max = find(".row", match: :first, text: @model_link.model.name).find("input[name='lines[][quantity]']", match: :first)[:max].to_i
   find(".row", match: :first, text: @model_link.model.name).find("input[name='lines[][quantity]']", match: :first).set max+1
-  find(".row", match: :first, text: @model_link.model.name).find("input[name='lines[][quantity]']", match: :first).value.to_i.should == max
+  expect(find(".row", match: :first, text: @model_link.model.name).find("input[name='lines[][quantity]']", match: :first).value.to_i).to eq max
 end
 
 When(/^sehe ich eine auffällige Warnung sowohl auf der Seite wie bei den betroffenen Modellen$/) do
@@ -78,10 +78,10 @@ Dann(/^ich kann im Prozess weiterfahren zur Verfügbarkeitsanzeige der Vorlage$/
 end
 
 Dann(/^alle Einträge erhalten das ausgewählte Start\- und Enddatum$/) do
-  find(".headline-m", match: :first).text.should == I18n.localize(@start_date)
+  expect(find(".headline-m", match: :first).text).to eq I18n.localize(@start_date)
   all(".line-col.col1of9.text-align-left").each do |date|
     date = date.text.split(" ").last
-    date.should == I18n.localize(@end_date)
+    expect(date).to eq I18n.localize(@end_date)
   end
 end
 
@@ -108,16 +108,16 @@ Angenommen(/^einige Modelle sind nicht verfügbar$/) do
 end
 
 Dann(/^kann ich diejenigen Modelle, die verfügbar sind, gesamthaft einer Bestellung hinzufügen$/) do
-  page.should have_selector ".separated-top .row.line .line-info.red"
+  expect(has_selector?(".separated-top .row.line .line-info.red")).to be true
   @unavailable_model_ids = all(".separated-top .row.line .line-info.red").map {|x| x.first(:xpath, "./..").find("input[name='lines[][model_id]']", match: :first, visible: false).value.to_i}
   @unavailable_model_ids -= @current_user.contracts.unsubmitted.flat_map(&:lines).map(&:model_id).uniq
   find(".button.green.dropdown-toggle", match: :first).click
-  page.should have_content _("Continue with available models only")
+  expect(has_content?(_("Continue with available models only"))).to be true
   find("[name='force_continue']", match: :first, :text => _("Continue with available models only")).click
 end
 
 Dann(/^die restlichen Modelle werden verworfen$/) do
-  (@unavailable_model_ids - @current_user.contracts.unsubmitted.reload.flat_map(&:lines).map(&:model_id).uniq).should == @unavailable_model_ids
+  expect(@unavailable_model_ids - @current_user.contracts.unsubmitted.reload.flat_map(&:lines).map(&:model_id).uniq).to eq @unavailable_model_ids
 end
 
 Dann(/^die Modelle sind innerhalb eine Gruppe alphabetisch sortiert$/) do
@@ -132,7 +132,9 @@ end
 
 Dann(/^ich kann Modelle aus der Ansicht entfernen$/) do
   within(".row.line", match: :first) do
-    find(".multibutton .dropdown-toggle").click
+    if has_selector? ".multibutton .dropdown-toggle"
+      find(".multibutton .dropdown-toggle").click
+    end
     find(".red", text: _("Delete")).click
   end
   sleep(0.33)
@@ -142,7 +144,7 @@ end
 Dann(/^ich kann die Anzahl der Modelle ändern$/) do
   @model = Model.find_by_name(find(".row.line .col6of10").text)
   find(".line .button", match: :first).click
-  page.should have_selector "#booking-calendar .fc-day-content"
+  find("#booking-calendar .fc-day-content", match: :first)
   find("#booking-calendar-quantity").set 1
 end
 
@@ -156,11 +158,11 @@ Dann(/^ich kann das Zeitfenster für die Verfügbarkeitsberechnung einzelner Mod
   step "ich setze das Startdatum im Kalendar auf '#{I18n::l(current_date)}'"
   step "ich setze das Enddatum im Kalendar auf '#{I18n::l(current_date)}'"
   find(".modal .button.green", match: :first).click
-  page.should_not have_selector("#booking-calendar")
+  expect(has_no_selector?("#booking-calendar")).to be true
 end
 
 Wenn(/^ich sämtliche Verfügbarkeitsprobleme gelöst habe$/) do
-  page.should_not have_selector ".line-info.red"
+  expect(has_no_selector?(".line-info.red")).to be true
 end
 
 Dann(/^kann ich im Prozess weiterfahren und alle Modelle gesamthaft zu einer Bestellung hinzufügen$/) do
@@ -193,8 +195,8 @@ Angenommen(/^ich habe die Mengen in der Vorlage gewählt$/) do
 end
 
 Dann(/^ist das Startdatum heute und das Enddatum morgen$/) do
-  find("#start_date").value.should == I18n.localize(Date.today)
-  find("#end_date").value.should == I18n.localize(Date.tomorrow)
+  expect(find("#start_date").value).to eq I18n.localize(Date.today)
+  expect(find("#end_date").value).to eq I18n.localize(Date.tomorrow)
 end
 
 Dann(/^ich kann das Start\- und Enddatum einer potenziellen Bestellung ändern$/) do
@@ -206,5 +208,5 @@ end
 
 Dann(/^ich muss im Prozess weiterfahren zur Verfügbarkeitsanzeige der Vorlage$/) do
   find("[type='submit']", match: :first).click
-  current_path.should == borrow_template_availability_path(@template)
+  expect(current_path).to eq borrow_template_availability_path(@template)
 end

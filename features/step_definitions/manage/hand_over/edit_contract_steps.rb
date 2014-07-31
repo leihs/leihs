@@ -3,7 +3,7 @@ When /^I select all lines$/ do
     cb = line.find("input[type=checkbox][data-select-line]")
     cb.click unless cb.checked?
   end
-  all(".line input[type=checkbox][data-select-line]").all? {|x| x.checked? }.should be_true
+  expect(all(".line input[type=checkbox][data-select-line]").all? {|x| x.checked? }).to be true
 end
 
 When /^I change the time range for all contract lines, envolving option and item lines$/ do
@@ -24,7 +24,7 @@ end
 
 Then /^the time range for all contract lines is changed$/ do
   @customer.visits.hand_over.detect{|x| x.lines.size > 1}.lines.each do |line|
-    line.start_date.should == @new_start_date
+    expect(line.start_date).to eq @new_start_date
   end
 end
 
@@ -34,7 +34,7 @@ When /^I change the time range for that option$/ do
 end
 
 Then /^the time range for that option line is changed$/ do
-  @option_line.reload.start_date.should == @new_start_date
+  expect(@option_line.reload.start_date).to eq @new_start_date
 end
 
 When(/^I add an option$/) do
@@ -49,7 +49,7 @@ When(/^I change the quantity right on the line$/) do
   @quantity = rand(2..9)
   within(".line[data-line-type='option_line'][data-id='#{@option_line.id}']") do
     find("input[data-line-quantity]").set @quantity
-    find("input[data-line-quantity]").value.should == @quantity.to_s
+    expect(find("input[data-line-quantity]").value).to eq @quantity.to_s
   end
 end
 
@@ -60,7 +60,7 @@ end
 
 Then(/^the quantity for that option line is changed$/) do
   visit current_path
-  @option_line.reload.quantity.should == @quantity
+  expect(@option_line.reload.quantity).to eq @quantity
 end
 
 When(/^I change the quantity through the edit dialog$/) do
@@ -68,5 +68,5 @@ When(/^I change the quantity through the edit dialog$/) do
   @quantity = @option_line.quantity > 1 ? 1 : rand(2..9)
   find("#booking-calendar-quantity").set @quantity
   find("#submit-booking-calendar").click
-  find(".line[data-id='#{@option_line.id}'] input[data-line-quantity]").value.to_i.should == @quantity
+  expect(find(".line[data-id='#{@option_line.id}'] input[data-line-quantity]").value.to_i).to eq @quantity
 end

@@ -20,15 +20,15 @@ end
 
 Given "the contract was submitted" do
   @contract.submit
-  @contract.status.should == :submitted
+  expect(@contract.status).to eq :submitted
 end
 
 When "he submits the new contract" do
   @contract = @current_user.get_unsubmitted_contract
-  @contract.status.should == :unsubmitted
+  expect(@contract.status).to eq :unsubmitted
   post borrow_contract_path(purpose: "this is the required purpose")
   @contract = @contract.reload
-  @contract.status.should == :submitted
+  expect(@contract.status).to eq :submitted
 end
 
 Given "there are only $total contracts" do | total |
@@ -39,10 +39,10 @@ Given "there are only $total contracts" do | total |
 end
 
 Given "the list of submitted contracts contains $total elements" do | total |
-  Contract.submitted.count.should == 0
+  expect(Contract.submitted.count).to eq 0
   user = LeihsFactory.create_user
   total.to_i.times { FactoryGirl.create(:contract, :user => user).submit }
-  Contract.submitted.count.should == total.to_i
+  expect(Contract.submitted.count).to eq total.to_i
 end
 
 Given "there are no contracts" do
@@ -53,8 +53,8 @@ Given /it asks for ([0-9]+) item(s?) of model '(.*)'/ do |number, plural, model|
   @contract.add_lines(number, Model.find_by_name(model), @user)
   @contract.log_history("user submits contract", 1)
   @contract.save
-  @contract.has_changes?.should == false
-  @contract.contract_lines[0].model.name.should == model
+  expect(@contract.has_changes?).to be false
+  expect(@contract.contract_lines[0].model.name).to eq model
 end
 
 When "he asks for another $number items of model '$model'" do |number, model|
@@ -75,7 +75,7 @@ end
 
 Then "$name's contract is shown" do |who|
   # body =~ /.*Order.*Joe.*/
-  page.should have_xpath("//body[contains(.,'#{who}')][contains(.,'Order')]")
+  expect(has_xpath?("//body[contains(.,'#{who}')][contains(.,'Order')]")).to be true
 end
 
 ###############################################
@@ -94,12 +94,12 @@ end
 
 #When "$who approves contract" do |who|
 #  @comment ||= ""
-#  @contract.approvable?.should be_true
+#  @contract.approvable?.should == true
 ##0402  post login_path(:login => @last_manager_login_name)
 #  post manage_approve_contract_path(@inventory_pool, @contract, :comment => @comment)
 #  @contract = assigns(:contract)
-#  @contract.should_not be_nil
-#  @contract.approvable?.should be_false
+#  @contract.should_not == nil
+#  @contract.approvable?.should == false
 #  response.redirect_url.should == "http://www.example.com/backend/inventory_pools/#{@inventory_pool.id}/acknowledge"
 #  @response = response
 #end
@@ -108,14 +108,14 @@ When "$who rejects contract" do |who|
   @comment ||= ""
   post reject_backend_inventory_pool_acknowledge_path(@inventory_pool, @contract, :comment => @comment)
   #old??# @contract = assigns(:contract)
-  response.redirect_url.should == "http://www.example.com/backend/inventory_pools/#{@inventory_pool.id}/acknowledge"
+  expect(response.redirect_url).to eq "http://www.example.com/backend/inventory_pools/#{@inventory_pool.id}/acknowledge"
 end
 
 
 When "he deletes contract" do
   @contract = @user.get_unsubmitted_contract
   delete backend_inventory_pool_acknowledge_path(@inventory_pool, @contract)
-  response.redirect_url.should == "http://www.example.com/backend/inventory_pools/#{@inventory_pool.id}/acknowledge"
+  expect(response.redirect_url).to eq "http://www.example.com/backend/inventory_pools/#{@inventory_pool.id}/acknowledge"
 end
 
 When "'$who' contracts $quantity '$model'" do |who, quantity, model|
@@ -157,12 +157,12 @@ end
 Then /([0-9]+) contract(s?) exist(s?) for inventory pool (.*)/ do |size, s1, s2, ip|
   inventory_pool = InventoryPool.find_by_name(ip)
   @contracts = inventory_pool.contracts.submitted
-  @contracts.size.should == size.to_i
+  expect(@contracts.size).to eq size.to_i
 end
 
 Then "customer '$user' gets notified that his contract has been submitted" do |who|
   user = LeihsFactory.create_user({:login => who })
-  user.notifications.size.should == 1
+  expect(user.notifications.size).to eq 1
   user.notifications.first.title = "Order submitted"
 end
 
@@ -191,7 +191,7 @@ Then /^the amount of lines decreases by one$/ do
 end
 
 Then /^the line is (.*)(?:\s?)deleted$/ do |not_specifier|
-  @result_of_line_removal.should (not_specifier.blank? ? be_true : be_false)
+  expect(@result_of_line_removal).to eq not_specifier.blank?
 end
 
 Then /^the amount of lines remains unchanged$/ do
@@ -213,13 +213,13 @@ end
 
 When /^I add some lines for this contract$/ do
   @quantity = 3
-  @contract.lines.size.should == 0
+  expect(@contract.lines.size).to eq 0
   @contract.add_lines(@quantity, @model_with_items, @user, Date.tomorrow, Date.tomorrow + 1.week)
 end
 
 Then /^the size of the contract should increase exactly by the amount of lines added$/ do
-  @contract.reload.lines.size.should == @quantity
-  @contract.valid?.should be_true
+  expect(@contract.reload.lines.size).to eq @quantity
+  expect(@contract.valid?).to be true
 end
 
 Given /^a (submitted|unsubmitted) contract with lines existing$/ do |arg1|
@@ -232,16 +232,16 @@ end
 
 When /^I approve the contract of the borrowing user$/ do
   @contract.approve("That will be fine.", Persona::get("Ramon"))
-  @contract.status.should == :approved
+  expect(@contract.status).to eq :approved
 end
 
 Then /^the borrowing user gets one confirmation email$/ do
   @emails = ActionMailer::Base.deliveries
-  @emails.count.should == 1
+  expect(@emails.count).to eq 1
 end
 
 Then /^the subject of the email is "(.*?)"$/ do |arg1|
-  @emails[0].subject.should == "[leihs] Reservation Confirmation"
+  expect(@emails[0].subject).to eq "[leihs] Reservation Confirmation"
 end
 
 When /^the contract is submitted with the purpose description "(.*?)"$/ do |purpose|
@@ -251,6 +251,6 @@ end
 
 Then /^each line associated with the contract must have the same purpose description$/ do
   @contract.lines.each do |l|
-    l.purpose.description.should == @purpose
+    expect(l.purpose.description).to eq @purpose
   end
 end

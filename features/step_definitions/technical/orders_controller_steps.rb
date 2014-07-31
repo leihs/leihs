@@ -10,6 +10,6 @@ end
 
 Then /^the result of this action are all submitted contracts for the given inventory pool$/ do
   @json.each do |contract|
-    contract["status"].to_sym.should == :submitted
+    expect(contract["status"].to_sym).to eq :submitted
   end
 end

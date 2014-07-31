@@ -9,7 +9,7 @@ end
 
 Then /^this contractline is deleted$/ do
   sleep(0.33)
-  @contract.lines.reload.include?(@line).should == false
+  expect(@contract.lines.reload.include?(@line)).to be false
 end
 
 When /^I delete multiple lines of this contract$/ do
@@ -53,7 +53,7 @@ end
 
 When(/^I delete a hand over$/) do
   @visit = @ip.visits.hand_over.where(date: Date.today).sample
-  @visit.lines.should_not be_empty
+  expect(@visit.lines.empty?).to be false
   @visit_line_ids = @visit.lines.map(&:id)
   find("[data-collapsed-toggle='#hand_overs']").click unless all("[data-collapsed-toggle='#hand_overs']").empty?
   within("#hand_overs .line[data-id='#{@visit.id}']") do
