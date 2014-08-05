@@ -14,7 +14,7 @@ Funktionalität: Inventar
     Und man öffnet die Liste des Inventars
     Dann kann man diese Daten als CSV-Datei exportieren
     Und die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden (inkl. Filter)
-    Und die Zeilen enthalten die folgenden Modell- und Gegenstands oder Optionsfelder in aufgeführter Reihenfolge
+    Und die Gegenstands und Optionszeilen enthalten die folgenden Felder in aufgeführter Reihenfolge
     | Felder                            |  
     | Erstellt am                       |  
     | Aktualisiert am                   |  
@@ -64,7 +64,7 @@ Funktionalität: Inventar
     | Lieferant                         |  
     | Garantieablaufdatum               |  
     | Vertragsablaufdatum               |  
-    Und die Zeilen enthalten die folgenden Software- und Software-Lizenzfelder in aufgeführter Reihenfolge
+    Und die Software-Lizenzzeilen enthalten die folgenden Felder in aufgeführter Reihenfolge
     | Felder                            |  
     | Produktname                       |  
     | Version                           |  
@@ -93,17 +93,3 @@ Funktionalität: Inventar
     | Lizenzablaufdatum                 |  
     | Maintenance-Vertrag               |  
     | Maintenance-Ablaufdatum           |  
-
-    
-
-     
-
-
-  @personas
-  Szenario: Export der aktuellen Software-Ansicht als CSV
-    Angenommen ich bin Mike
-    Und man öffnet die Liste des Inventars
-    Und ich befinde mich in der Software-Inventar-Übersicht
-    Wenn ich den CSV-Export anwähle
-    Dann werden alle Lizenz-Zeilen, wie gerade gemäss Filter angezeigt, exportiert
-    Und die Zeilen enthalten alle Lizenz-Felder
