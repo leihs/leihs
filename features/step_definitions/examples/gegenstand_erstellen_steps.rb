@@ -16,16 +16,16 @@ def check_fields_and_their_values table
 
     within(".row.emboss", match: :prefer_exact, text: field_name) do
       case field_type
-      when "autocomplete"
-        expect(find("input,textarea").value).to eq (field_value != "Keine/r" ? field_value : "")
-      when "select"
-        expect(all("option").detect(&:selected?).text).to eq field_value
-      when "radio must"
-        expect(find("input[checked][type='radio']").value).to eq field_value
-      when "radio"
-        expect(find("label", text: field_value).find("input").checked?).to be true
-      else
-        expect(find("input,textarea").value).to eq field_value
+        when "autocomplete"
+          expect(find("input,textarea").value).to eq (field_value != "Keine/r" ? field_value : "")
+        when "select"
+          expect(all("option").detect(&:selected?).text).to eq field_value
+        when "radio must"
+          expect(find("input[checked][type='radio']").value).to eq field_value
+        when "radio"
+          expect(find("label", text: field_value).find("input").checked?).to be true
+        else
+          expect(find("input,textarea").value).to eq field_value
       end
     end
   end
@@ -83,12 +83,12 @@ Wenn /^ich erstellen druecke$/ do
 end
 
 Dann /^ist der Gegenstand mit all den angegebenen Informationen erstellt$/ do
-  find("#list-tabs a[data-retired='true']").click if @table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"} and (@table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"}["Wert"]) == "Ja"
-  inventory_code = @table_hashes.detect {|r| r["Feldname"] == "Inventarcode"}["Wert"]
+  find("#list-tabs a[data-retired='true']").click if @table_hashes.detect { |r| r["Feldname"] == "Ausmusterung" } and (@table_hashes.detect { |r| r["Feldname"] == "Ausmusterung" }["Wert"]) == "Ja"
+  inventory_code = @table_hashes.detect { |r| r["Feldname"] == "Inventarcode" }["Wert"]
   find("#list-search").set inventory_code
   sleep(0.11)
-  within("#inventory .line[data-type='model']", match: :first, text: /#{@table_hashes.detect {|r| r["Feldname"] == "Modell"}["Wert"]}/) do
-    find(".col2of5 strong").text.should =~ /#{@table_hashes.detect {|r| r["Feldname"] == "Modell"}["Wert"]}/
+  within("#inventory .line[data-type='model']", match: :first, text: /#{@table_hashes.detect { |r| r["Feldname"] == "Modell" }["Wert"]}/) do
+    find(".col2of5 strong").text.should =~ /#{@table_hashes.detect { |r| r["Feldname"] == "Modell" }["Wert"]}/
     find(".button[data-type='inventory-expander'] i.arrow.right").click
     find(".button[data-type='inventory-expander'] i.arrow.down")
   end
@@ -102,7 +102,7 @@ Dann /^hat der Gegenstand alle zuvor eingetragenen Werte$/ do
     field_name = hash_row["Feldname"]
     field_value = hash_row["Wert"]
     field_type = hash_row["Type"]
-    field = Field.all.detect{|f| _(f.label) == field_name}
+    field = Field.all.detect { |f| _(f.label) == field_name }
     find("[data-type='field'][data-id='#{field.id}']", match: :first)
     matched_field = all("[data-type='field'][data-id='#{field.id}']").last
     raise "no field found" if matched_field.blank?
@@ -120,28 +120,28 @@ Dann /^hat der Gegenstand alle zuvor eingetragenen Werte$/ do
 end
 
 Dann /^man wird zur Liste des Inventars zurueckgefuehrt$/ do
-  current_path.should eql manage_inventory_path(@current_inventory_pool)
+  expect(current_path).to eq manage_inventory_path(@current_inventory_pool)
 end
 
 Wenn /^jedes Pflichtfeld ist gesetzt$/ do |table|
   table.raw.flatten.each do |must_field_name|
     case must_field_name
-    when "Inventarcode"
-      @inventory_code_value = "test"
-      @inventory_code_field = find(".row.emboss", match: :prefer_exact, text: must_field_name).find("input,textarea")
-      @inventory_code_field.set @inventory_code_value
-    when "Modell"
-      model_name = Model.first.name
-      fill_in_autocomplete_field must_field_name, model_name
-    when "Projektnummer"
-      find(".row.emboss", match: :prefer_exact, text: "Bezug").find("input[value='investment']").set true
-      @project_number_value = "test"
-      @project_number_field = find(".row.emboss", match: :prefer_exact, text: must_field_name).find("input,textarea")
-      @project_number_field.set @project_number_value
-    when "Anschaffungskategorie"
-      find(".row.emboss", match: :prefer_exact, text: "Anschaffungskategorie").find("select option:not([value=''])", match: :first).select_option
-    else
-      raise 'unknown field'
+      when "Inventarcode"
+        @inventory_code_value = "test"
+        @inventory_code_field = find(".row.emboss", match: :prefer_exact, text: must_field_name).find("input,textarea")
+        @inventory_code_field.set @inventory_code_value
+      when "Modell"
+        model_name = Model.first.name
+        fill_in_autocomplete_field must_field_name, model_name
+      when "Projektnummer"
+        find(".row.emboss", match: :prefer_exact, text: "Bezug").find("input[value='investment']").set true
+        @project_number_value = "test"
+        @project_number_field = find(".row.emboss", match: :prefer_exact, text: must_field_name).find("input,textarea")
+        @project_number_field.set @project_number_value
+      when "Anschaffungskategorie"
+        find(".row.emboss", match: :prefer_exact, text: "Anschaffungskategorie").find("select option:not([value=''])", match: :first).select_option
+      else
+        raise 'unknown field'
     end
   end
 end

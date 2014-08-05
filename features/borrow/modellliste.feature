@@ -165,7 +165,8 @@ Funktionalität: Modellliste
     Und die Auswahl klappt nocht nicht zu
     Und im Filter steht der Name des übriggebliebenen Geräteparks
 
-  @javascript @personas
+  # CI-ISSUE: cannot be reproduced locally
+  @javascript @personas @current
   Szenario: Alles zurücksetzen
     Angenommen ich bin Normin
     Und man befindet sich auf der Modellliste

@@ -7,14 +7,14 @@ Feature: Quick Approve orders
   Background:
     Given I am Pius
 
-  @javascript @firefox @personas
+  @javascript @personas
   Scenario: Quick approve an order with no problems
     Given I open the daily view
     When I quick approve a submitted order
     Then this contract is approved
     And I see a link to the hand over process of that order
 
-  @javascript @personas @firefox
+  @javascript @personas
   Scenario: Approve anyway on daily view
     Given I open the daily view
     And I try to approve a contract that has problems

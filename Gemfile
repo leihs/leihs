@@ -10,7 +10,6 @@ gem 'better_errors', group: :development
 gem 'binding_of_caller', group: :development
 gem 'capistrano', '2.15.5', group: :development
 gem 'capistrano-ext', group: :development
-#gem 'rvm-capistrano', group: :development
 gem 'capistrano-rbenv', '~> 1.0', group: :development
 
 gem "jasminerice", git: 'https://github.com/bradphelan/jasminerice.git', group: [:test, :development] # needed for implement coffeescript, fixtures and asset pipeline serverd css into jasmine
@@ -23,7 +22,6 @@ gem 'coffee-script', '~> 2.2'
 gem 'compass-rails', '~> 1.1'
 gem 'cucumber-rails', '~> 1.3', group: [:test, :development], require: false
 gem 'database_cleaner', group: [:test, :development]
-gem 'execjs'
 gem 'factory_girl', '~> 4.1', group: [:test, :development]
 gem 'factory_girl_rails', '~> 4.1', group: [:test, :development]
 gem 'faker', '1.3.0', group: [:test, :development] # NOTE '~> 1.4' doesn't work beacause "I18n::InvalidLocale" error, see note for config.i18n in config/application.rb
@@ -43,13 +41,11 @@ gem 'launchy', '~> 2.1', group: [:test, :development]
 gem 'meta_request', group: :development
 gem 'mini_magick', '~> 3.4'
 gem 'mysql2', '~> 0.3.11', platform: :mri
-#gem 'net-ldap', '0.2.2', require: 'net/ldap' # Never upgrade beyond 0.2.2, ruby-net-ldap has broken in many unpredictable ways. Wait for 1.0.0 before upgrading, at least 0.2.2 works.
 gem 'net-ldap', require: 'net/ldap'
 gem 'newrelic_rpm', '~> 3.5'
 gem 'nilify_blanks', '~> 1.1'
 gem 'paperclip', '~> 3.5' # NOTE in order to upgrate to '~> 4.0', first adapt the code to avoid the Paperclip::Errors::MissingRequiredValidatorError
 gem 'phantomjs', '~> 1.9.7', group: [:test, :development] # headless webdriver (UI & JS tests)
-gem 'poltergeist'
 gem 'protected_attributes', '~> 1.0'
 gem 'pry', group: [:test, :development]
 gem 'pry-byebug', group: [:test, :development]
@@ -64,9 +60,6 @@ gem 'ruby_parser', '~> 3.1' # gettext dependency that Bundler seems unable to re
 gem 'sass', '~> 3.2'
 gem 'sass-rails', '~> 4.0'
 gem 'selenium-webdriver', group: [:test, :development]
-#gem 'simplecov', require: false, group: :test
-gem 'therubyracer', platform: :mri
-gem 'therubyrhino', platform: :jruby
 gem 'thin', group: :development, platform: :mri # web server (Webrick do not support keep-alive connections)
 gem 'timecop', '~> 0.7', group: [:test, :development]
 gem 'trinidad', group: :development, platform: :jruby # web server (Webrick do not support keep-alive connections)

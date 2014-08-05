@@ -193,5 +193,5 @@ Wenn(/^ich alle Fehler korrigiere$/) do
 end
 
 Dann(/^verschwindet die Fehlermeldung$/) do
-  should_not have_content _("Please solve the conflicts for all highlighted lines in order to continue.")
+  expect(has_no_content? _("Please solve the conflicts for all highlighted lines in order to continue.")).to be true
 end

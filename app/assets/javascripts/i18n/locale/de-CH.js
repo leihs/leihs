@@ -1079,7 +1079,7 @@ window.i18n.locale_data = {
          null,
          "Orte"
       ],
-      "location not defined": [
+      "Location not defined": [
          null,
          "Ort nicht definiert"
       ],

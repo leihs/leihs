@@ -97,7 +97,8 @@ Funktionalität: Ausleihe
     Wenn ich eine Aushändigung mache
     Dann ist das Start- und Enddatum gemäss dem ersten Zeitfenster der Aushändigung gesetzt
 
-  @javascript @personas
+  # CI-ISSUE: cannot be reproduced locally
+  @javascript @personas @current
   Szenario: Alle Suchresultate anzeigen
     Angenommen ich suche
     Dann erhalte ich Suchresultate in den Kategorien:

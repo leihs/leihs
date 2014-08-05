@@ -101,7 +101,7 @@ Dann(/^kann ich das Modell aus der Liste nicht löschen$/) do
   fill_in 'list-search', with: @model.name
   within(".line[data-id='#{@model.id}']") do
     find(".dropdown-holder").click
-    should_not have_selector("[data-method='delete']")
+    expect(has_no_selector?("[data-method='delete']")).to be true
   end
   @model.reload # is still there
 end

@@ -1,10 +1,10 @@
 When /^I open the daily view$/ do
-  @ip = @current_inventory_pool || @current_user.managed_inventory_pools.sample
-  visit manage_daily_view_path @ip
+  @current_inventory_pool = @current_inventory_pool || @current_user.managed_inventory_pools.sample
+  visit manage_daily_view_path @current_inventory_pool
 end
 
 When /^I reject a contract$/ do
-  @contract = @ip.contracts.submitted.sample
+  @contract = @current_inventory_pool.contracts.submitted.sample
   find("[data-collapsed-toggle='#open-orders']").click unless all("[data-collapsed-toggle='#open-orders']").empty?
   within("#open-orders .line[data-id='#{@contract.id}']") do
     find(".line-actions .multibutton .dropdown-holder").click

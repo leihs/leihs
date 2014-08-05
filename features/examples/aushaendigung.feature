@@ -85,9 +85,9 @@ Funktionalität: Aushändigung editieren
 
   @javascript @firefox @personas
   Szenario: Anzeige der Seriennummer bei Zuteilung der Software-Lizenz
-  Angenommen ich öffne eine Aushändigung mit einer Software
-  Wenn ich in das Zuteilungsfeld links vom Software-Namen klicke
-  Dann wird mir der Inventarcode sowie die vollständige Seriennummer angezeigt
+    Angenommen ich öffne eine Aushändigung mit einer Software
+    Wenn ich in das Zuteilungsfeld links vom Software-Namen klicke
+    Dann wird mir der Inventarcode sowie die vollständige Seriennummer angezeigt
 
   @javascript @firefox @personas
   Szenario: Listung von problematischen Gegenständen

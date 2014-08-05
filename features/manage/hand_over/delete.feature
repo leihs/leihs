@@ -9,24 +9,24 @@ Feature: Sign Contract
 
   @javascript @personas
   Scenario: Delete a single line during the hand over
-     When I open a hand over
-      And I delete a line
-     Then this line is deleted
+    When I open a hand over
+    And I delete a line
+    Then this line is deleted
 
   @javascript @personas
   Scenario: Delete multiple lines during the hand over
-     When I open a hand over which has multiple lines
-      And I select multiple lines
-      And I delete the seleted lines
-     Then these lines are deleted
+    When I open a hand over which has multiple lines
+    And I select multiple lines
+    And I delete the seleted lines
+    Then these lines are deleted
 
   @javascript @personas @firefox
   Scenario: Delete lines which changes other lines availability
-     When I open a hand over
-      And I delete all lines of a model thats availability is blocked by these lines
-     Then the availability of the keeped line is updated
+    When I open a hand over
+    And I delete all lines of a model thats availability is blocked by these lines
+    Then the availability of the keeped line is updated
 
-  @javascript @firefox @personas
+  @javascript @personas
   Scenario: Delete a hand over from the daily view
     Given I open the daily view
     When I delete a hand over

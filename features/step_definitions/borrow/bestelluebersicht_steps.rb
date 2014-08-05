@@ -19,7 +19,7 @@ end
 
 Dann(/^sehe ich die Einträge gruppiert nach Startdatum und Gerätepark$/) do
   @current_user.contracts.unsubmitted.flat_map(&:lines).group_by{|l| [l.start_date, l.inventory_pool]}.each do |k,v|
-    find("#current-order-lines .row", text: I18n.l(k[0]), match: :first).should have_content k[1].name
+    expect(find("#current-order-lines .row", text: I18n.l(k[0]), match: :first).has_content? k[1].name).to be true
   end
 end
 

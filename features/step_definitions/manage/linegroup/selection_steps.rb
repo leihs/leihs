@@ -1,18 +1,17 @@
 When /^I open a take back, hand over or I edit a contract$/ do
-  @ip = @current_user.managed_inventory_pools.first
   possible_types = ["take_back", "hand_over", "contract"]
   type = possible_types.sample
   case type
     when "take_back"
-      @customer = @ip.users.detect {|x| x.contracts.signed.size > 0}
-      visit manage_take_back_path(@ip, @customer)
+      @customer = @current_inventory_pool.users.detect {|x| x.contracts.signed.size > 0}
+      visit manage_take_back_path(@current_inventory_pool, @customer)
     when "hand_over"
-      @customer = @ip.users.detect {|x| x.contracts.approved.size > 0}
-      visit manage_hand_over_path(@ip, @customer)
+      @customer = @current_inventory_pool.users.detect {|x| x.contracts.approved.size > 0}
+      visit manage_hand_over_path(@current_inventory_pool, @customer)
     when "contract"
-      @customer = @ip.users.detect {|x| x.contracts.submitted.size > 0}
+      @customer = @current_inventory_pool.users.detect {|x| x.contracts.submitted.size > 0}
       @entity = @customer.contracts.submitted.first
-      visit manage_edit_contract_path(@ip, @entity)
+      visit manage_edit_contract_path(@current_inventory_pool, @entity)
   end
 end
 

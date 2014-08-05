@@ -9,19 +9,19 @@ Feature: Delete lines of an open order
 
   @javascript @personas
   Scenario: Delete a single line of an open contract
-     When I open a contract for acknowledgement with more then one line
-      And I delete a line of this contract
-     Then this contractline is deleted
+    When I open a contract for acknowledgement with more then one line
+    And I delete a line of this contract
+    Then this contractline is deleted
 
-  @javascript @personas @firefox
+  @javascript @personas
   Scenario: Delete multiple lines of an open contract
-     When I open a contract for acknowledgement with more then one line
-      And I delete multiple lines of this contract
-     Then these contractlines are deleted
+    When I open a contract for acknowledgement with more then one line
+    And I delete multiple lines of this contract
+    Then these contractlines are deleted
 
   @javascript @personas
   Scenario: Delete all lines of an open contract
-     When I open a contract for acknowledgement with more then one line
-      And I delete all lines of this contract
-     Then I got an error message that not all lines can be deleted
-      And none of the lines are deleted
+    When I open a contract for acknowledgement with more then one line
+    And I delete all lines of this contract
+    Then I got an error message that not all lines can be deleted
+    And none of the lines are deleted

@@ -26,10 +26,9 @@ Then /^the start date of that line is not changed$/ do
 end
 
 When /^I open a take back which has multiple lines$/ do
-  @ip = @current_user.managed_inventory_pools.first
-  @customer = @ip.users.find {|x| x.contracts.signed.size > 0 && !x.contracts.signed.detect{|c| c.lines.size > 1 and c.inventory_pool == @ip}.nil? }
-  @contract = @customer.contracts.signed.detect{|c| c.lines.size > 1 and c.inventory_pool == @ip}
-  visit manage_take_back_path(@ip, @customer)
+  @customer = @current_inventory_pool.users.find {|x| x.contracts.signed.size > 0 && !x.contracts.signed.detect{|c| c.lines.size > 1 and c.inventory_pool == @current_inventory_pool}.nil? }
+  @contract = @customer.contracts.signed.detect{|c| c.lines.size > 1 and c.inventory_pool == @current_inventory_pool}
+  visit manage_take_back_path(@current_inventory_pool, @customer)
   expect(has_selector?("#take-back-view")).to be true
 end
 

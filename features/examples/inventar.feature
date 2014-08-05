@@ -17,10 +17,10 @@ Funktionalität: Inventar
   @javascript @personas
   Szenario: Inventar anhand eines Suchbegriffs finden
     Angenommen es existiert ein Modell mit folgenden Eigenschaften:
-      | Name           | suchbegriff1 |
-      | Hersteller     | suchbegriff4 |
+      | Name       | suchbegriff1 |
+      | Hersteller | suchbegriff4 |
     Und es existiert ein Gegenstand mit folgenden Eigenschaften:
-      | Inventarcode   | suchbegriff2 |
+      | Inventarcode | suchbegriff2 |
     Wenn ich im Inventarbereich nach einer dieser Eigenschaften suche
     Dann es erscheinen alle zutreffenden Modelle
     Und es erscheinen alle zutreffenden Gegenstände
@@ -28,15 +28,15 @@ Funktionalität: Inventar
   @javascript @personas
   Szenario: Pakete anhand eines Suchbegriffs finden
     Angenommen es existiert ein Modell mit folgenden Eigenschaften:
-      | Name           | Package Model |
+      | Name | Package Model |
     Und diese Modell ein Paket ist
     Und es existiert ein Gegenstand mit folgenden Eigenschaften:
-      | Inventarcode           | AVZ40001 |
+      | Inventarcode | AVZ40001 |
     Und diese Paket-Gegenstand ist Teil des Pakets-Modells
     Und es existiert ein Modell mit folgenden Eigenschaften:
-      | Name           | Normal Model |
+      | Name | Normal Model |
     Und es existiert ein Gegenstand mit folgenden Eigenschaften:
-      | Inventarcode           | AVZ40020 |
+      | Inventarcode | AVZ40020 |
     Und dieser Gegenstand ist Teil des Paket-Gegenstandes
     Wenn ich im Inventarbereich nach einer dieser Eigenschaften suche
     Dann es erscheinen alle zutreffenden Paket-Modelle
@@ -85,7 +85,7 @@ Funktionalität: Inventar
       | Anzahl verfügbar (jetzt) |
       | Anzahl verfügbar (Total) |
 
-  @javascript @personas @firefox
+  @javascript @personas
   Szenario: Aussehen einer Gegenstands-Zeile
     Wenn der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist
     Dann enthält die Gegenstands-Zeile folgende Informationen:
@@ -101,10 +101,10 @@ Funktionalität: Inventar
       | Raum                      |
     Wenn der Gegenstand nicht an Lager ist und eine andere Abteilung für den Gegenstand verantwortlich ist
     Dann enthält die Gegenstands-Zeile folgende Informationen:
-      | information            |
+      | information               |
       | Verantwortliche Abteilung |
-      | Aktueller Ausleihender |
-      | Enddatum der Ausleihe  |
+      | Aktueller Ausleihender    |
+      | Enddatum der Ausleihe     |
 
   @javascript @personas @firefox
   Szenario: Aussehen einer Software-Lizenz-Zeile
@@ -147,7 +147,7 @@ Funktionalität: Inventar
     Wenn ich eine resultatlose Suche mache
     Dann sehe ich "Kein Eintrag gefunden"
 
-  @javascript @firefox @personas
+  @javascript @personas
   Szenario: Modell aufklappen
     Dann kann man jedes Modell aufklappen
     Und man sieht die Gegenstände, die zum Modell gehören

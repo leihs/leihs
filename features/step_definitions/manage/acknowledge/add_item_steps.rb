@@ -1,11 +1,11 @@
 When /^I add a model by typing in the inventory code of an item of that model to the quick add$/ do
-  @item ||= @ip.items.detect {|x| not x.inventory_code.blank? }
+  @item ||= @current_inventory_pool.items.detect {|x| not x.inventory_code.blank? }
   find("#add-input").set @item.inventory_code
   find("button[type='submit'][title='#{_("Add")}']").click
 end
 
 When /^I start to type the inventory code of an item$/ do
-  @item = @ip.items.borrowable.sample
+  @item = @current_inventory_pool.items.borrowable.sample
   fill_in "add-input", :with => @item.inventory_code[0..3]
 end
 
@@ -30,7 +30,7 @@ Then /^the model is added to the contract$/ do
 end
 
 When /^I start to type the name of a model$/ do
-  @item = @ip.items.borrowable.sample
+  @item = @current_inventory_pool.items.borrowable.sample
   fill_in 'add-input', :with => @item.model.name[0..-1]
 end
 
@@ -56,7 +56,7 @@ Then /^an additional line has been created in the backend system$/ do
 end
 
 Then /^the new line is getting visually merged with the existing line$/ do
-  find(".line", match: :prefer_exact, text: @model.name).should have_content @contract.lines.where(:model_id => @model.id).to_a.sum(&:quantity)
+  expect(find(".line", match: :prefer_exact, text: @model.name).has_content? @contract.lines.where(:model_id => @model.id).to_a.sum(&:quantity)).to be true
   sleep(0.33)
   expect(all(".line").count).to eq @line_el_count
   expect(find(".line", match: :prefer_exact, text: @model.name).find("div:nth-child(3) > span:nth-child(1)").text.to_i).to eq @contract.reload.lines.select{|l| l.model == @model}.size

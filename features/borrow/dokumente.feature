@@ -12,18 +12,18 @@ Funktionalität: Benutzerdokumente
     Wenn ich unter meinem Benutzernamen auf "Meine Dokumente" klicke
     Dann gelange ich zu der Dokumentenübersichtsseite
 
-  @javascript @firefox @personas
+  @javascript @personas
   Szenario: Dokumentenübersicht
     Angenommen ich befinde mich auf der Dokumentenübersichtsseite
     Dann sind die Verträge nach neuestem Zeitfenster sortiert
     Und für jede Vertrag sehe ich folgende Informationen
-    |Vertragsnummer|
-    |Zeitfenster mit von bis Datum und Dauer|
-    |Gerätepark|
-    |Zweck|
-    |Status|
-    |Vertraglink|
-    |Wertelistelink|
+      | Vertragsnummer                          |
+      | Zeitfenster mit von bis Datum und Dauer |
+      | Gerätepark                              |
+      | Zweck                                   |
+      | Status                                  |
+      | Vertraglink                             |
+      | Wertelistelink                          |
 
   @javascript @personas
   Szenario: Rücknehmende Person

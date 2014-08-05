@@ -1,9 +1,8 @@
 When /^I open a booking calendar to edit a singe line$/ do
-  @ip = @current_user.managed_inventory_pools.first
   # high frequently booked model
-  @model = @ip.models.max {|a,b| a.availability_in(@ip).changes.length <=> b.availability_in(@ip).changes.length}
+  @model = @current_inventory_pool.models.max {|a,b| a.availability_in(@current_inventory_pool).changes.length <=> b.availability_in(@current_inventory_pool).changes.length}
   @contract = Contract.joins(:contract_lines).where(:status => :submitted, :contract_lines => {:model_id => @model.id}).first
-  visit manage_edit_contract_path(@ip, @contract)
+  visit manage_edit_contract_path(@current_inventory_pool, @contract)
   @edited_line = find(".line", :text => @model.name)
   @edited_line.find("[data-edit-lines]").click
   find(".modal")
@@ -16,7 +15,7 @@ Then /^I see all availabilities in that calendar, where the small number is the 
     while(all(".fc-button-prev:not(.fc-state-disabled)").length != 0)
       find(".fc-button-prev").click
     end
-    av = @model.availability_in(@ip)
+    av = @model.availability_in(@current_inventory_pool)
     changes = av.available_total_quantities
     changes.each_with_index do |c, i|
       current_calendar_date = Date.parse find(".fc-widget-content:not(.fc-other-month)", match: :first)["data-date"]

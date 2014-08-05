@@ -3,7 +3,7 @@
 Funktionalität: Delegation
 
   @javascript @personas
-  Szenario: Einer Delegation einen gesperrten Verantwortlichen zuteilen 
+  Szenario: Einer Delegation einen gesperrten Verantwortlichen zuteilen
     Angenommen ich bin Pius
     Und ich befinde mich in der Editieransicht einer Delegation
     Wenn ich einen Verantwortlichen zuteile, der für diesen Gerätepark gesperrt ist
@@ -11,7 +11,7 @@ Funktionalität: Delegation
     Und hinter dem Namen steht in rot 'Gesperrt!'
 
   @javascript @personas
-  Szenario: Einer Delegation einen gesperrten Benutzer hinzufügen 
+  Szenario: Einer Delegation einen gesperrten Benutzer hinzufügen
     Angenommen ich bin Pius
     Und ich befinde mich in der Editieransicht einer Delegation
     Wenn ich einen Benutzer hinzufüge, der für diesen Gerätepark gesperrt ist
@@ -19,7 +19,7 @@ Funktionalität: Delegation
     Und in der Auwahl steht hinter dem Namen in rot 'Gesperrt!'
     Und in der Auflistung der Benutzer steht hinter dem Namen in rot 'Gesperrt!'
 
-  @javascript @firefox @personas
+  @javascript @personas
   Szenario: Kontaktperson bei Aushändigung wählen
     Angenommen ich bin Pius
     Und es existiert eine Aushändigung für eine Delegation mit zugewiesenen Gegenständen

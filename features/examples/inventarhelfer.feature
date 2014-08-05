@@ -28,7 +28,7 @@ Funktionalität: Inventarhelfer
     Und man editiert das Feld "Verantwortliche Abteilung" eines ausgeliehenen Gegenstandes, wo man Besitzer ist
     Dann erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät ausgeliehen ist
 
-  @javascript @firefox @personas
+  @javascript @personas
   Szenario: Die ausgeliehenen Gegenständen kann man nicht ausmustern
     Angenommen man ist auf dem Helferschirm
     Und man mustert einen ausgeliehenen Gegenstand aus

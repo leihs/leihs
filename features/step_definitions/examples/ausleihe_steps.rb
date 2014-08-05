@@ -79,9 +79,8 @@ Dann /^wird der Gegenstand ausgewählt und der Haken gesetzt$/ do
 end
 
 Wenn /^ich eine Rücknahme mache die Optionen beinhaltet$/ do
-  @ip = @current_user.managed_inventory_pools.first
-  @customer = @ip.users.all.select {|x| x.contracts.signed.size > 0 && !x.contracts.signed.detect{|c| c.options.size > 0}.nil? }.first
-  visit manage_take_back_path(@ip, @customer)
+  @customer = @current_inventory_pool.users.all.select {|x| x.contracts.signed.size > 0 && !x.contracts.signed.detect{|c| c.options.size > 0}.nil? }.first
+  visit manage_take_back_path(@current_inventory_pool, @customer)
   expect(has_selector?("#take-back-view")).to be true
 end
 
@@ -97,16 +96,15 @@ Dann /^wird die Option ausgewählt und der Haken gesetzt$/ do
 end
 
 Wenn /^ich eine Aushändigung mache die ein Model enthält dessen Gegenstände ein nicht ausleihbares enthält$/ do
-  @ip = @current_user.managed_inventory_pools.first
   @contract_line = nil
-  @contract = @ip.contracts.approved.detect do |c|
+  @contract = @current_inventory_pool.contracts.approved.detect do |c|
     @contract_line = c.lines.where(item_id: nil).detect do |l|
-      l.model.items.unborrowable.where(inventory_pool_id: @ip).first
+      l.model.items.unborrowable.where(inventory_pool_id: @current_inventory_pool).first
     end
   end
   @model = @contract_line.model
   @customer = @contract.user
-  visit manage_hand_over_path(@ip, @customer)
+  visit manage_hand_over_path(@current_inventory_pool, @customer)
   expect(has_selector?("#hand-over-view", :visible => true)).to be true
 end
 
@@ -135,18 +133,17 @@ Dann /^ich kann die Gegenstände nicht aushändigen$/ do
 end
 
 Angenommen /^der Kunde ist in mehreren Gruppen$/ do
-  @ip = @current_user.managed_inventory_pools.first
-  @customer = @ip.users.detect{|u| u.groups.size > 0}
+  @customer = @current_inventory_pool.users.detect{|u| u.groups.size > 0}
   expect(@customer).not_to eq nil
 end
 
 Wenn /^ich eine Aushändigung an diesen Kunden mache$/ do
-  visit manage_hand_over_path(@ip, @customer)
+  visit manage_hand_over_path(@current_inventory_pool, @customer)
   find("#status .icon-ok")
 end
 
 Wenn /^eine Zeile mit Gruppen-Partitionen editiere$/ do
-  @inventory_code = @ip.models.detect {|m| m.partitions.size > 1}.items.in_stock.borrowable.first.inventory_code
+  @inventory_code = @current_inventory_pool.models.detect {|m| m.partitions.size > 1}.items.in_stock.borrowable.first.inventory_code
   @model = Item.find_by_inventory_code(@inventory_code).model
   step 'I assign an item to the hand over by providing an inventory code and a date range'
   find(".line [data-assign-item][disabled]", match: :first).find(:xpath, "./../../..").find(".button", text: _("Change entry")).click
@@ -176,15 +173,14 @@ Dann /^dann erkennen ich, in welchen Gruppen der Kunde nicht ist$/ do
 end
 
 Wenn /^ich eine Aushändigung mache mit einem Kunden der sowohl am heutigen Tag sowie in der Zukunft Abholungen hat$/ do
-  @ip = @current_user.managed_inventory_pools.first
-  @customer = @ip.users.detect{|u| u.visits.hand_over.size > 1}
-  visit manage_hand_over_path(@ip, @customer)
+  @customer = @current_inventory_pool.users.detect{|u| u.visits.hand_over.size > 1}
+  visit manage_hand_over_path(@current_inventory_pool, @customer)
   expect(has_selector?("#hand-over-view")).to be true
 end
 
 Wenn /^ich etwas scanne \(per Inventarcode zuweise\) und es in irgendeinem zukünftigen Vertrag existiert$/ do
-  @model = @customer.contracts.approved.first.models.first
-  @item = @model.items.borrowable.in_stock.first
+  @model = @customer.contracts.approved.where(inventory_pool: @current_inventory_pool).sample.models.sample
+  @item = @model.items.borrowable.in_stock.where(inventory_pool: @current_inventory_pool).sample
   find("[data-add-contract-line]").set @item.inventory_code
   find("[data-add-contract-line] + .addon").click
   @assigned_line = find("[data-assign-item][disabled][value='#{@item.inventory_code}']")
@@ -195,7 +191,7 @@ Dann /^wird es zugewiesen \(unabhängig ob es ausgewählt ist\)$/ do
 end
 
 Wenn /^es in keinem zukünftigen Vertrag existiert$/ do
-  @model_not_in_contract = (@ip.items.borrowable.in_stock.map(&:model).uniq - @customer.contracts.approved.flat_map(&:models)).sample
+  @model_not_in_contract = (@current_inventory_pool.items.borrowable.in_stock.map(&:model).uniq - @customer.contracts.approved.flat_map(&:models)).sample
   @item = @model_not_in_contract.items.borrowable.in_stock.sample
   find("#add-start-date").set (Date.today+7.days).strftime("%d.%m.%Y")
   find("#add-end-date").set (Date.today+8.days).strftime("%d.%m.%Y")
@@ -315,11 +311,11 @@ end
 
 Dann /^ich sehe aus jeder Kategorie maximal die (\d+) ersten Resultate$/ do |amount|
   amount = (amount.to_i+2)
-  all(".user .list .line:not(.toggle)", :visible => true).size.should <= amount
-  all(".model .list .line:not(.toggle)", :visible => true).size.should <= amount
-  all(".item .list .line:not(.toggle)", :visible => true).size.should <= amount
-  all(".contract .list .line:not(.toggle)", :visible => true).size.should <= amount
-  all(".order .list .line:not(.toggle)", :visible => true).size.should <= amount 
+  expect(all(".user .list .line:not(.toggle)", :visible => true).size).to be <= amount
+  expect(all(".model .list .line:not(.toggle)", :visible => true).size).to be <= amount
+  expect(all(".item .list .line:not(.toggle)", :visible => true).size).to be <= amount
+  expect(all(".contract .list .line:not(.toggle)", :visible => true).size).to be <= amount
+  expect(all(".order .list .line:not(.toggle)", :visible => true).size).to be <= amount
 end
 
 Wenn /^eine Kategorie mehr als (\d+) Resultate bringt$/ do |amount|
@@ -386,7 +382,7 @@ Dann /^wird automatisch der Druck\-Dialog geöffnet$/ do
   step 'I select an item line and assign an inventory code'
   step 'I click hand over'
   find(".modal .button", match: :first, :text => _("Hand Over")).click
-  check_printed_contract(page.driver.browser.window_handles, @ip, @item_line.contract)
+  check_printed_contract(page.driver.browser.window_handles, @current_inventory_pool, @item_line.contract)
 end
 
 def check_printed_contract(window_handles, ip = nil, contract = nil)

@@ -1,5 +1,5 @@
 #Then "$who sees '$what'" do | who, what |
-#  @response.should have_tag("a", what)
+#  expect(@response.has_tag?("a", what)).to be true
 #end
 
 #Then "he sees the '$title' list" do | title |
@@ -14,7 +14,7 @@ Then "I see the '$title' list" do | title |
 end
 
 Then /^(\w+) can "([^\"]*)"$/ do |who, what|
-  @response.should have_tag("a", what)
+  expect(@response.has_tag?("a", what)).to be true
 end
 
 When "lending_manager looks at the screen" do
@@ -28,5 +28,5 @@ end
 
 # Flash error message
 Then "$who sees an error message" do |who|
-  response.should have_tag('div.error')
+  expect(response.has_tag?('div.error')).to be true
 end

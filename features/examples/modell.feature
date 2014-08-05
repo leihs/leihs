@@ -8,24 +8,24 @@ Funktionalität: Modell
 
   @javascript @personas
   Szenario: Übersicht neues Modell hinzufügen
-  Wenn ich ein neues Modell hinzufüge
-  Dann habe ich die Möglichkeit, folgende Informationen zu erfassen:
-    | Details      |
-    | Bilder       |
-    | Anhänge      |
-    | Zubehör      |
+    Wenn ich ein neues Modell hinzufüge
+    Dann habe ich die Möglichkeit, folgende Informationen zu erfassen:
+      | Details |
+      | Bilder  |
+      | Anhänge |
+      | Zubehör |
 
   @javascript @firefox @personas
   Szenario: Modelldetails abfüllen
     Wenn ich ein neues Modell hinzufüge
     Und ich erfasse die folgenden Details
-    | Feld                               | Wert                       |
-    | Produkt                            | Test Modell                |
-    | Hersteller                         | Test Hersteller            |
-    | Beschreibung                       | Test Beschreibung          |
-    | Technische Details                 | Test Technische Details    |
-    | Interne Beschreibung               | Test Interne Beschreibung  |
-    | Wichtige Notizen zur Aushändigung  | Test Notizen               |
+      | Feld                              | Wert                      |
+      | Produkt                           | Test Modell               |
+      | Hersteller                        | Test Hersteller           |
+      | Beschreibung                      | Test Beschreibung         |
+      | Technische Details                | Test Technische Details   |
+      | Interne Beschreibung              | Test Interne Beschreibung |
+      | Wichtige Notizen zur Aushändigung | Test Notizen              |
     Und ich speichere die Informationen
     Dann ist das neue Modell erstellt und unter ungenutzen Modellen auffindbar
 
@@ -68,7 +68,7 @@ Funktionalität: Modell
     Angenommen es existiert ein Modell mit folgenden Konditionen:
       | in keinem Vertrag aufgeführt |
       | keiner Bestellung zugewiesen |
-      | keine Gegenstände zugefügt |
+      | keine Gegenstände zugefügt   |
     Wenn ich dieses Modell aus der Liste lösche
     Und das Modell wurde aus der Liste gelöscht
     Und das Modell ist gelöscht
@@ -91,31 +91,32 @@ Funktionalität: Modell
   @javascript @personas
   Szenario: Modelanhängsel löschen
     Angenommen es existiert ein Modell mit folgenden Konditionen:
-      | in keinem Vertrag aufgeführt |
-      | keiner Bestellung zugewiesen |
-      | keine Gegenstände zugefügt |
+      | in keinem Vertrag aufgeführt     |
+      | keiner Bestellung zugewiesen     |
+      | keine Gegenstände zugefügt       |
       | hat Gruppenkapazitäten zugeteilt |
-      | hat Eigenschaften |
-      | hat Zubehör |
-      | hat Bilder |
-      | hat Anhänge |
-      | hat Kategoriezuweisungen |
-      | hat sich ergänzende Modelle |
+      | hat Eigenschaften                |
+      | hat Zubehör                      |
+      | hat Bilder                       |
+      | hat Anhänge                      |
+      | hat Kategoriezuweisungen         |
+      | hat sich ergänzende Modelle      |
     Wenn ich dieses Modell aus der Liste lösche
     Und das Modell ist gelöscht
     Und es wurden auch alle Anhängsel gelöscht
 
-  @javascript @firefox @personas
+  # CI-ISSUE: cannot be reproduced locally
+  @javascript @personas @current
   Szenario: Modelldetails bearbeiten
     Wenn ich ein bestehendes, genutztes Modell bearbeite
     Und ich ändere die folgenden Details
-    | Feld                               | Wert                         |
-    | Produkt                            | Test Modell x                |
-    | Hersteller                         | Test Hersteller x            |
-    | Beschreibung                       | Test Beschreibung x          |
-    | Technische Details                 | Test Technische Details x    |
-    | Interne Beschreibung               | Test Interne Beschreibung x  |
-    | Wichtige Notizen zur Aushändigung  | Test Notizen x               |
+      | Feld                              | Wert                        |
+      | Produkt                           | Test Modell x               |
+      | Hersteller                        | Test Hersteller x           |
+      | Beschreibung                      | Test Beschreibung x         |
+      | Technische Details                | Test Technische Details x   |
+      | Interne Beschreibung              | Test Interne Beschreibung x |
+      | Wichtige Notizen zur Aushändigung | Test Notizen x              |
     Und ich speichere die Informationen
     Und die Informationen sind gespeichert
     Und die Daten wurden entsprechend aktualisiert
@@ -127,24 +128,24 @@ Funktionalität: Modell
     Und kann Attachments auch wieder entfernen
     Und ich speichere die Informationen
     Dann sind die Attachments gespeichert
-    Beispiele:
-      | Objekt   |
-      | Modell   |
-      | Software |
+  Beispiele:
+    | Objekt   |
+    | Modell   |
+    | Software |
 
   @javascript @personas
   Szenario: Modelanhängsel löschen
     Angenommen es existiert ein Modell mit folgenden Konditionen:
-      | in keinem Vertrag aufgeführt |
-      | keiner Bestellung zugewiesen |
-      | keine Gegenstände zugefügt |
+      | in keinem Vertrag aufgeführt     |
+      | keiner Bestellung zugewiesen     |
+      | keine Gegenstände zugefügt       |
       | hat Gruppenkapazitäten zugeteilt |
-      | hat Eigenschaften |
-      | hat Zubehör |
-      | hat Bilder |
-      | hat Anhänge |
-      | hat Kategoriezuweisungen |
-      | hat sich ergänzende Modelle |
+      | hat Eigenschaften                |
+      | hat Zubehör                      |
+      | hat Bilder                       |
+      | hat Anhänge                      |
+      | hat Kategoriezuweisungen         |
+      | hat sich ergänzende Modelle      |
     Wenn ich dieses Modell aus der Liste lösche
     Und das Modell ist gelöscht
     Und es wurden auch alle Anhängsel gelöscht
@@ -154,24 +155,24 @@ Funktionalität: Modell
     Angenommen das Modell hat <Zuweisung> zugewiesen
     Dann kann ich das Modell aus der Liste nicht löschen
   Beispiele:
-    | Zuweisung   |
-    | Vertrag     |
-    | Bestellung  |
-    | Gegenstand  |
+    | Zuweisung  |
+    | Vertrag    |
+    | Bestellung |
+    | Gegenstand |
 
   @javascript @personas
   Szenario: Modelanhängsel löschen
     Angenommen es existiert ein Modell mit folgenden Konditionen:
-      | in keinem Vertrag aufgeführt |
-      | keiner Bestellung zugewiesen |
-      | keine Gegenstände zugefügt |
+      | in keinem Vertrag aufgeführt     |
+      | keiner Bestellung zugewiesen     |
+      | keine Gegenstände zugefügt       |
       | hat Gruppenkapazitäten zugeteilt |
-      | hat Eigenschaften |
-      | hat Zubehör |
-      | hat Bilder |
-      | hat Anhänge |
-      | hat Kategoriezuweisungen |
-      | hat sich ergänzende Modelle |
+      | hat Eigenschaften                |
+      | hat Zubehör                      |
+      | hat Bilder                       |
+      | hat Anhänge                      |
+      | hat Kategoriezuweisungen         |
+      | hat sich ergänzende Modelle      |
     Wenn ich dieses Modell aus der Liste lösche
     Und das Modell ist gelöscht
     Und es wurden auch alle Anhängsel gelöscht
@@ -187,8 +188,8 @@ Funktionalität: Modell
     Dann wird das Modell nicht gespeichert, da es keinen eindeutigen Namen hat
     Und ich sehe eine Fehlermeldung
     Wenn ich die folgenden Details ändere
-    | Feld                               | Wert                         |
-    | Produkt                            | Test Modell y                |
+      | Feld    | Wert          |
+      | Produkt | Test Modell y |
     Und ich speichere die Informationen
     Dann ist das neue Modell erstellt und unter ungenutzen Modellen auffindbar
 

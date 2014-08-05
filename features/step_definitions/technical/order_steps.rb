@@ -167,7 +167,7 @@ Then "customer '$user' gets notified that his contract has been submitted" do |w
 end
 
 Then "the contract was placed by a customer named '$name'" do | name |
-  page.find(".table-overview .fresh", match: :first).should have_content(name)
+  expect(find(".table-overview .fresh", match: :first).has_content?(name)).to be true
 end
 
 When(/^the contract is deleted$/) do

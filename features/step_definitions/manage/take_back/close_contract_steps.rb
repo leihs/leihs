@@ -8,11 +8,11 @@ When /^I open a take back(, not overdue)?( with at least an option handed over b
                contracts
              end.sample
   raise "No contract found" unless contract
-  @ip = contract.inventory_pool
+  @current_inventory_pool = contract.inventory_pool
   @customer = contract.user
-  visit manage_take_back_path(@ip, @customer)
+  visit manage_take_back_path(@current_inventory_pool, @customer)
   expect(has_selector?("#take-back-view")).to be true
-  @contract_lines_to_take_back = @customer.contract_lines.to_take_back.joins(:contract).where(contracts: {inventory_pool_id: @ip})
+  @contract_lines_to_take_back = @customer.contract_lines.to_take_back.joins(:contract).where(contracts: {inventory_pool_id: @current_inventory_pool})
 end
 
 When /^I select all lines of an open contract$/ do
@@ -52,5 +52,5 @@ Then /^the contract is closed and all items are returned$/ do
     expect(line.item.in_stock?).to be true unless line.is_a? OptionLine
     expect(line.contract.status).to eq :closed
   end
-  expect(@customer.contract_lines.to_take_back.joins(:contract).where(contracts: {inventory_pool_id: @ip}).empty?).to be true
+  expect(@customer.contract_lines.to_take_back.joins(:contract).where(contracts: {inventory_pool_id: @current_inventory_pool}).empty?).to be true
 end

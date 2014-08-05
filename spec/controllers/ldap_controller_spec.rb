@@ -2,7 +2,7 @@
 require 'spec_helper.rb'
 require "#{Rails.root}/features/support/leihs_factory.rb"
 
-describe Authenticator::LdapAuthenticationController do
+describe Authenticator::LdapAuthenticationController, type: :request do
 
   before(:all) do
     ENV['TMPDIR'] = File.join(Rails.root, "tmp")
@@ -10,7 +10,7 @@ describe Authenticator::LdapAuthenticationController do
     unless File.exist?(ENV['TMPDIR'])
       Dir.mkdir(ENV['TMPDIR'])
     end
-    @ip = FactoryGirl.create(:inventory_pool)
+    FactoryGirl.create(:inventory_pool)
     LeihsFactory.create_default_languages
     Setting::LDAP_CONFIG = File.join(Rails.root, "spec", "LDAP_generic.yml")
 
@@ -39,12 +39,12 @@ describe Authenticator::LdapAuthenticationController do
 
   context "if the user does not yet exist" do
     it "should be able to create a normal user with various useful data grabbed from LDAP" do
-      post :login, {:login => { :user => "normal_user", :password => "pass" }}, {}
+      post 'authenticator/hslu/login', {:login => { :user => "normal_user", :password => "pass" }}, {}
       expect(User.where(:login => "normal_user").first).not_to eq nil
       # TODO: Check that all the data from LDAP made it into our user object
     end
     it "should make sure that users it creates have LDAP as authentication system" do
-      post :login, {:login => { :user => "normal_user", :password => "pass" }}, {}
+      post 'authenticator/hslu/login', {:login => { :user => "normal_user", :password => "pass" }}, {}
       as = AuthenticationSystem.where(:class_name => "LdapAuthentication").first
       expect(as).not_to eq nil
       expect(User.where(:login => "normal_user").first.authentication_system).to eq as
@@ -57,18 +57,18 @@ describe Authenticator::LdapAuthenticationController do
       ips_with_automatic_access = InventoryPool.all.sample(2)
       ips_with_automatic_access.each {|ip| ip.update_attributes automatic_access: true}
 
-      post :login, {:login => { :user => "normal_user", :password => "pass" }}, {}
+      post 'authenticator/hslu/login', {:login => { :user => "normal_user", :password => "pass" }}, {}
 
       user = User.where(:login => "normal_user").first
       access_rights = user.access_rights.where(role: "customer")
       expect(access_rights.count).to eq 2
-      ips_with_automatic_access.each {|ip| user.inventory_pools.should include ip}
+      ips_with_automatic_access.each {|ip| expect(user.inventory_pools.include? ip).to be true }
     end
   end
 
   context "if the user is in the admin DN on LDAP" do
     it "should give that user the admin role" do
-      post :login, {:login => { :user => "admin_user", :password => "pass" }}, {}
+      post 'authenticator/hslu/login', {:login => { :user => "admin_user", :password => "pass" }}, {}
       user = User.where(:login => "admin_user").first
       expect(user.access_rights.active.collect(&:role).include?(:admin)).to be true
     end
@@ -76,7 +76,7 @@ describe Authenticator::LdapAuthenticationController do
 
   context "if the user is not in the admin DN on LDAP" do
     it "should not give that user the admin role" do
-      post :login, {:login => { :user => "normal_user", :password => "pass" }}, {}
+      post 'authenticator/hslu/login', {:login => { :user => "normal_user", :password => "pass" }}, {}
       user = User.where(:login => "normal_user").first
       expect(user.access_rights.active.collect(&:role).include?(:admin)).to be false
     end

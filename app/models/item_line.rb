@@ -17,6 +17,7 @@ class ItemLine < ContractLine
 
   validates_numericality_of :quantity, :equal_to => 1
   validate :validate_item
+  validates_presence_of :model_id
 
 # TODO 1301  default_scope -> {includes(:model).order("models.product")}
 

@@ -11,48 +11,48 @@ Funktionalität: Gegenstand bearbeiten
     Wenn I select "Ja" from "item[retired]"
     Wenn I choose "Investition"
     Dann sehe ich die Felder in folgender Reihenfolge:
-    | Inventarcode |
-    | Modell |
-    | - Zustand - |
-    | Ausmusterung |
-    | Grund der Ausmusterung |
-    | Zustand |
-    | Vollständigkeit |
-    | Ausleihbar |
-    | - Inventar - |
-    | Inventarrelevant |
-    | Anschaffungskategorie |
-    | Besitzer |
-    | Letzte Inventur |
-    | Verantwortliche Abteilung |
-    | Verantwortliche Person |
-    | Benutzer/Verwendung |
-    | - Umzug - |
-    | Umzug |
-    | Zielraum |
-    | - Toni Ankunftskontrolle - |
-    | Ankunftsdatum |
-    | Ankunftszustand |
-    | Ankunftsnotiz |
-    | - Allgemeine Informationen - |
-    | Seriennummer |
-    | MAC-Adresse |
-    | IMEI-Nummer |
-    | Name |
-    | Notiz |
-    | - Ort - |
-    | Gebäude |
-    | Raum |
-    | Gestell |
-    | - Rechnungsinformationen - |
-    | Bezug |
-    | Projektnummer |
-    | Rechnungsnummer |
-    | Rechnungsdatum |
-    | Anschaffungswert |
-    | Lieferant |
-    | Garantieablaufdatum |
-    | Vertragsablaufdatum |
+      | Inventarcode                 |
+      | Modell                       |
+      | - Zustand -                  |
+      | Ausmusterung                 |
+      | Grund der Ausmusterung       |
+      | Zustand                      |
+      | Vollständigkeit              |
+      | Ausleihbar                   |
+      | - Inventar -                 |
+      | Inventarrelevant             |
+      | Anschaffungskategorie        |
+      | Besitzer                     |
+      | Letzte Inventur              |
+      | Verantwortliche Abteilung    |
+      | Verantwortliche Person       |
+      | Benutzer/Verwendung          |
+      | - Umzug -                    |
+      | Umzug                        |
+      | Zielraum                     |
+      | - Toni Ankunftskontrolle -   |
+      | Ankunftsdatum                |
+      | Ankunftszustand              |
+      | Ankunftsnotiz                |
+      | - Allgemeine Informationen - |
+      | Seriennummer                 |
+      | MAC-Adresse                  |
+      | IMEI-Nummer                  |
+      | Name                         |
+      | Notiz                        |
+      | - Ort -                      |
+      | Gebäude                      |
+      | Raum                         |
+      | Gestell                      |
+      | - Rechnungsinformationen -   |
+      | Bezug                        |
+      | Projektnummer                |
+      | Rechnungsnummer              |
+      | Rechnungsdatum               |
+      | Anschaffungswert             |
+      | Lieferant                    |
+      | Garantieablaufdatum          |
+      | Vertragsablaufdatum          |
 
   @javascript @personas
   Szenario: Lieferanten löschen
@@ -65,42 +65,41 @@ Funktionalität: Gegenstand bearbeiten
   @javascript @personas
   Szenario: Einen Gegenstand mit allen Informationen editieren
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
-    Und ich bin Matti
     Und man navigiert zur Gegenstandsbearbeitungsseite eines Gegenstandes, der am Lager und in keinem Vertrag vorhanden ist
     Wenn ich die folgenden Informationen erfasse
-      | Feldname                     | Type         | Wert                          |
+      | Feldname               | Type         | Wert                |
 
-      | Inventarcode                 |              | Test Inventory Code           |
-      | Modell                       | autocomplete | Sharp Beamer 456              |
+      | Inventarcode           |              | Test Inventory Code |
+      | Modell                 | autocomplete | Sharp Beamer 456    |
 
-      | Ausmusterung                 | select       | Ja                            |
-      | Grund der Ausmusterung       |              | Ja                            |
-      | Zustand                      | radio        | OK                            |
-      | Vollständigkeit              | radio        | OK                            |
-      | Ausleihbar                   | radio        | OK                            |
+      | Ausmusterung           | select       | Ja                  |
+      | Grund der Ausmusterung |              | Ja                  |
+      | Zustand                | radio        | OK                  |
+      | Vollständigkeit        | radio        | OK                  |
+      | Ausleihbar             | radio        | OK                  |
 
-      | Inventarrelevant             | select       | Ja                            |
-      | Anschaffungskategorie        | select       | Werkstatt-Technik             |
+      | Inventarrelevant       | select       | Ja                  |
+      | Anschaffungskategorie  | select       | Werkstatt-Technik   |
 
     Und ich speichern druecke
     Dann man wird zur Liste des Inventars zurueckgefuehrt
     Und ist der Gegenstand mit all den angegebenen Informationen gespeichert
 
-  @javascript @firefox @personas
+  @javascript @personas
   Szenario: Ein Modell ohne Version für den Gegestand wählen
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
     Und ein Modell existiert, welches keine Version hat
     Wenn ich dieses Modell dem Gegestand zuweise
     Dann steht in dem Modellfeld nur der Produktname dieses Modell
 
-  @javascript @firefox @personas
+  @javascript @personas
   Szenario: Lieferanten ändern
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
     Wenn ich den Lieferanten ändere
     Und ich speichern druecke
     Dann ist bei dem bearbeiteten Gegestand der geänderte Lieferant eingetragen
 
-  @javascript @firefox @personas
+  @javascript @personas
   Szenario: Bei ausgeliehenen Gegenständen kann man die verantwortliche Abteilung nicht editieren
     Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeliehen ist und wo man Besitzer ist
     Wenn ich die verantwortliche Abteilung ändere
@@ -111,36 +110,36 @@ Funktionalität: Gegenstand bearbeiten
   Szenario: Einen Gegenstand mit allen Informationen editieren
     Und man navigiert zur Gegenstandsbearbeitungsseite eines Gegenstandes, der am Lager und in keinem Vertrag vorhanden ist
     Wenn ich die folgenden Informationen erfasse
-      | Feldname                     | Type         | Wert                          |
+      | Feldname              | Type         | Wert                |
 
-      | Inventarcode                 |              | Test Inventory Code           |
-      | Modell                       | autocomplete | Sharp Beamer 456              |
+      | Inventarcode          |              | Test Inventory Code |
+      | Modell                | autocomplete | Sharp Beamer 456    |
 
-      | Inventarrelevant             | select       | Ja                            |
-      | Anschaffungskategorie        | select       | Werkstatt-Technik             |
+      | Inventarrelevant      | select       | Ja                  |
+      | Anschaffungskategorie | select       | Werkstatt-Technik   |
 
-      | Umzug                        | select       | sofort entsorgen              |
-      | Zielraum                     |              | Test Raum                     |
+      | Umzug                 | select       | sofort entsorgen    |
+      | Zielraum              |              | Test Raum           |
 
-      | Ankunftsdatum                |              | 01.01.2013                    |
-      | Ankunftszustand              | select       | transportschaden              |
-      | Ankunftsnotiz                |              | Test Notiz                    |
+      | Ankunftsdatum         |              | 01.01.2013          |
+      | Ankunftszustand       | select       | transportschaden    |
+      | Ankunftsnotiz         |              | Test Notiz          |
 
-      | Seriennummer                 |              | Test Seriennummer             |
-      | MAC-Adresse                  |              | Test MAC-Adresse              |
-      | IMEI-Nummer                  |              | Test IMEI-Nummer              |
-      | Name                         |              | Test Name                     |
-      | Notiz                        |              | Test Notiz                    |
+      | Seriennummer          |              | Test Seriennummer   |
+      | MAC-Adresse           |              | Test MAC-Adresse    |
+      | IMEI-Nummer           |              | Test IMEI-Nummer    |
+      | Name                  |              | Test Name           |
+      | Notiz                 |              | Test Notiz          |
 
-      | Gebäude                      | autocomplete | Keine/r                       |
-      | Raum                         |              | Test Raum                     |
-      | Gestell                      |              | Test Gestell                  |
+      | Gebäude               | autocomplete | Keine/r             |
+      | Raum                  |              | Test Raum           |
+      | Gestell               |              | Test Gestell        |
 
     Und ich speichern druecke
     Dann man wird zur Liste des Inventars zurueckgefuehrt
     Und ist der Gegenstand mit all den angegebenen Informationen gespeichert
 
-  @javascript @firefox @personas
+  @javascript @personas
   Szenario: Pflichtfelder
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
     Dann muss der "Bezug" unter "Rechnungsinformationen" ausgewählt werden
@@ -148,7 +147,7 @@ Funktionalität: Gegenstand bearbeiten
     Wenn "Ja" bei "Inventarrelevant" ausgewählt ist muss auch "Anschaffungskategorie" ausgewählt werden
     Wenn "Ja" bei "Ausmusterung" ausgewählt ist muss auch "Grund der Ausmusterung" angegeben werden
     Dann sind alle Pflichtfelder mit einem Stern gekenzeichnet
-    Wenn ein Pflichtfeld nicht ausgefüllt/ausgewählt ist, dann lässt sich der Gegenstand nicht speichern 
+    Wenn ein Pflichtfeld nicht ausgefüllt/ausgewählt ist, dann lässt sich der Gegenstand nicht speichern
     Und ich sehe eine Fehlermeldung
     Und die nicht ausgefüllten/ausgewählten Pflichtfelder sind rot markiert
 
@@ -178,24 +177,23 @@ Funktionalität: Gegenstand bearbeiten
   @javascript @personas
   Szenario: Einen Gegenstand mit allen Informationen editieren
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
-    Und ich bin Matti
     Und man navigiert zur Gegenstandsbearbeitungsseite eines Gegenstandes, der am Lager und in keinem Vertrag vorhanden ist
     Wenn ich die folgenden Informationen erfasse
-      | Feldname                     | Type         | Wert                          |
+      | Feldname              | Type         | Wert                |
 
-      | Inventarcode                 |              | Test Inventory Code           |
-      | Modell                       | autocomplete | Sharp Beamer 456              |
+      | Inventarcode          |              | Test Inventory Code |
+      | Modell                | autocomplete | Sharp Beamer 456    |
 
-      | Inventarrelevant             | select       | Ja                            |
-      | Anschaffungskategorie        | select       | Werkstatt-Technik             |
+      | Inventarrelevant      | select       | Ja                  |
+      | Anschaffungskategorie | select       | Werkstatt-Technik   |
 
-      | Bezug                        | radio must   | investment                    |
-      | Projektnummer                |              | Test Nummer                   |
-      | Rechnungsnummer              |              | Test Nummer                   |
-      | Rechnungsdatum               |              | 01.01.2013                    |
-      | Anschaffungswert             |              | 50.00                         |
-      | Garantieablaufdatum          |              | 01.01.2013                    |
-      | Vertragsablaufdatum          |              | 01.01.2013                    |
+      | Bezug                 | radio must   | investment          |
+      | Projektnummer         |              | Test Nummer         |
+      | Rechnungsnummer       |              | Test Nummer         |
+      | Rechnungsdatum        |              | 01.01.2013          |
+      | Anschaffungswert      |              | 50.00               |
+      | Garantieablaufdatum   |              | 01.01.2013          |
+      | Vertragsablaufdatum   |              | 01.01.2013          |
 
     Und ich speichern druecke
     Dann man wird zur Liste des Inventars zurueckgefuehrt
@@ -204,20 +202,19 @@ Funktionalität: Gegenstand bearbeiten
   @javascript @personas
   Szenario: Einen Gegenstand mit allen Informationen editieren
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
-    Und ich bin Matti
     Und man navigiert zur Gegenstandsbearbeitungsseite eines Gegenstandes, der am Lager und in keinem Vertrag vorhanden ist
     Wenn ich die folgenden Informationen erfasse
-      | Feldname                     | Type         | Wert                          |
+      | Feldname                  | Type         | Wert                |
 
-      | Inventarcode                 |              | Test Inventory Code           |
-      | Modell                       | autocomplete | Sharp Beamer 456              |
+      | Inventarcode              |              | Test Inventory Code |
+      | Modell                    | autocomplete | Sharp Beamer 456    |
 
-      | Inventarrelevant             | select       | Ja                            |
-      | Anschaffungskategorie        | select       | Werkstatt-Technik             |
-      | Letzte Inventur              |              | 01.01.2013                    |
-      | Verantwortliche Abteilung    | autocomplete | A-Ausleihe                    |
-      | Verantwortliche Person       |              | Matus Kmit                    |
-      | Benutzer/Verwendung          |              | Test Verwendung               |
+      | Inventarrelevant          | select       | Ja                  |
+      | Anschaffungskategorie     | select       | Werkstatt-Technik   |
+      | Letzte Inventur           |              | 01.01.2013          |
+      | Verantwortliche Abteilung | autocomplete | A-Ausleihe          |
+      | Verantwortliche Person    |              | Matus Kmit          |
+      | Benutzer/Verwendung       |              | Test Verwendung     |
 
     Und ich speichern druecke
     Dann man wird zur Liste des Inventars zurueckgefuehrt

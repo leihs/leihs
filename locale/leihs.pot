@@ -772,7 +772,7 @@ msgstr ""
 msgid "Locations"
 msgstr ""
 
-msgid "location not defined"
+msgid "Location not defined"
 msgstr ""
 
 msgid "Logged in successfully"

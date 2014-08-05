@@ -787,7 +787,7 @@ msgstr "Ort"
 msgid "Locations"
 msgstr "Orte"
 
-msgid "location not defined"
+msgid "Location not defined"
 msgstr "Ort nicht definiert"
 
 msgid "Logged in successfully"

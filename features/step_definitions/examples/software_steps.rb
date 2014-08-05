@@ -623,7 +623,7 @@ Then(/^I see the "Software Information"$/) do
   f = find(".field", text: _("Software Information"))
   i = f.find("textarea")
   expect(i.value).to eq @license.model.technical_detail.delete("\r")
-  f.should have_selector "a"
+  expect(f.has_selector? "a").to be true
 end
 
 When(/^I edit an existing software license with software information, quantity allocations and attachments$/) do

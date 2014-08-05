@@ -174,8 +174,8 @@ def get_selected_inventory_pool
 end
 
 Dann(/^wird die Verfügbarkeit des Modells im Kalendar angezeigt$/) do
-  @ip = get_selected_inventory_pool
-  av = @model.availability_in(@ip)
+  @current_inventory_pool = get_selected_inventory_pool
+  av = @model.availability_in(@current_inventory_pool)
   changes = av.available_total_quantities
 
   changes.each_with_index do |change, i|
@@ -198,7 +198,7 @@ Dann(/^wird die Verfügbarkeit des Modells im Kalendar angezeigt$/) do
         end
         last_month = next_date.month
         change_date_el = find(".fc-widget-content:not(.fc-other-month) .fc-day-number", match: :prefer_exact, :text => /#{next_date.day}/).first(:xpath, "../..")
-        next unless @ip.is_open_on? change_date_el[:"data-date"].to_date
+        next unless @current_inventory_pool.is_open_on? change_date_el[:"data-date"].to_date
         # check borrower availability
         quantity_for_borrower = av.maximum_available_in_period_summed_for_groups next_date, next_date, @current_user.group_ids
         expect(change_date_el.find(".fc-day-content div").text.to_i).to eq quantity_for_borrower
@@ -301,12 +301,12 @@ Dann(/^man kann maximal die maximal ausleihbare Anzahl eingeben$/) do
 end
 
 Wenn(/^man den letzten Gerätepark in der Geräteparkauswahl auswählt$/) do
-  @ip = @current_user.inventory_pools.sort.last
+  @current_inventory_pool = @current_user.inventory_pools.sort.last
   step 'man ein bestimmten Gerätepark in der Geräteparkauswahl auswählt'
 end
 
 Wenn(/^man den zweiten Gerätepark in der Geräteparkauswahl auswählt$/) do
-  @ip = @current_user.inventory_pools.sort[1]
+  @current_inventory_pool = @current_user.inventory_pools.sort[1]
   step 'man ein bestimmten Gerätepark in der Geräteparkauswahl auswählt'
 end
 

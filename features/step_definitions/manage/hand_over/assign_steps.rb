@@ -67,12 +67,10 @@ Then /^no new line is added to the hand over$/ do
 end
 
 When /^I open a hand over which has multiple( unassigned)? lines( and models in stock)?( with software)?$/ do |arg1, arg2, arg3|
-  @ip = @current_user.managed_inventory_pools.first
-
   @hand_over = if arg1
                  if arg2
-                   @models_in_stock = @ip.items.by_responsible_or_owner_as_fallback(@ip).in_stock.map(&:model).uniq
-                   @ip.visits.hand_over.detect { |v|
+                   @models_in_stock = @current_inventory_pool.items.by_responsible_or_owner_as_fallback(@current_inventory_pool).in_stock.map(&:model).uniq
+                   @current_inventory_pool.visits.hand_over.detect { |v|
                      b = v.lines.select { |l| !l.item and @models_in_stock.include? l.model }.count >= 2
                      if arg3
                        (b and !!v.lines.detect {|cl| cl.model.is_a? Software })
@@ -81,15 +79,15 @@ When /^I open a hand over which has multiple( unassigned)? lines( and models in 
                      end
                    }
                  else
-                   @ip.visits.hand_over.detect { |x| x.lines.select { |l| !l.item }.count >= 2 }
+                   @current_inventory_pool.visits.hand_over.detect { |x| x.lines.select { |l| !l.item }.count >= 2 }
                  end
                else
-                 @ip.visits.hand_over.detect { |x| x.lines.size > 1 }
+                 @current_inventory_pool.visits.hand_over.detect { |x| x.lines.size > 1 }
                end
   raise "not found" unless @hand_over
 
   @customer = @hand_over.user
-  visit manage_hand_over_path(@ip, @customer)
+  visit manage_hand_over_path(@current_inventory_pool, @customer)
   expect(has_selector?("#hand-over-view", :visible => true)).to be true
 end
 

@@ -14,8 +14,8 @@ Dann(/^sehe ich all die bereits zugewiesenen Gegenstände mittels Inventarcodes$
 end
 
 When(/^der Benutzer für die Aushändigung ist gesperrt$/) do
-  ensure_suspended_user(@customer, @ip)
-  visit manage_hand_over_path(@ip, @customer)
+  ensure_suspended_user(@customer, @current_inventory_pool)
+  visit manage_hand_over_path(@current_inventory_pool, @customer)
 end
 
 Angenommen(/^ich öffne eine Aushändigung( mit einer Software)?$/) do |arg1|
@@ -27,13 +27,18 @@ Angenommen(/^ich öffne eine Aushändigung( mit einer Software)?$/) do |arg1|
   step "ich die Aushändigung öffne"
 end
 
-Angenommen(/^es gibt eine Aushändigung mit mindestens einem nicht problematischen Modell$/) do
+Angenommen(/^es gibt eine Aushändigung mit mindestens einem nicht problematischen Modell( und einer Option)?$/) do |arg1|
   @models_in_stock = Item.by_responsible_or_owner_as_fallback(@current_inventory_pool).in_stock.map(&:model).uniq
   @hand_over = @current_inventory_pool.visits.hand_over.detect do |v|
-    v.lines.select do |l|
-      !l.start_date.past? and !l.item and @models_in_stock.include?(l.model)
+    b = v.lines.select do |line|
+      !line.start_date.past? and !line.item and @models_in_stock.include?(line.model)
     end.count >= 1
+    if arg1 and b
+      b = (b and v.lines.any? {|line| line.is_a? OptionLine })
+    end
+    b
   end
+  expect(@hand_over).not_to be nil
 end
 
 Wenn(/^ich dem nicht problematischen Modell einen Inventarcode zuweise$/) do
@@ -41,6 +46,7 @@ Wenn(/^ich dem nicht problematischen Modell einen Inventarcode zuweise$/) do
   @line_css = ".line[data-id='#{@contract_line.id}']"
   within @line_css do
     find("input[data-assign-item]").click
+    sleep(1.66)
     find("li.ui-menu-item a", match: :first).click
   end
 end
@@ -184,6 +190,12 @@ end
 Given(/^a line has no item assigned yet and this line is marked$/) do
   step "I can add models"
   @contract_line = @hand_over.lines.find {|l| not l.item }
+  @line_css = ".line[data-id='#{@contract_line.id}']"
+  step "ich die Zeile wieder selektiere"
+end
+
+Given(/^an option line is marked$/) do
+  @contract_line = @hand_over.lines.where(type: "OptionLine").sample
   @line_css = ".line[data-id='#{@contract_line.id}']"
   step "ich die Zeile wieder selektiere"
 end

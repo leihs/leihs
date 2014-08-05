@@ -376,7 +376,7 @@ Wenn(/^ich eine Delegation mit Zugriff auf das aktuelle Gerätepark editiere$/) 
 end
 
 Wenn(/^ich dieser Delegation den Zugriff für den aktuellen Gerätepark entziehe$/) do
-  @ip = @current_inventory_pool
+  @ip_name = @current_inventory_pool.name
   select _("No access"), from: "access_right[role]"
 end
 
@@ -387,7 +387,7 @@ Dann(/^können keine Bestellungen für diese Delegation für dieses Gerätepark 
   find(".dropdown-item[href*='delegations']").click
   find(".row.line", text: @delegation.name).click_link _("Switch to")
   find(".topbar-item", text: _("Inventory Pools")).click
-  expect(has_no_content?(@ip.name)).to be true
+  expect(has_no_content?(@ip_name)).to be true
 end
 
 Wenn(/^ich eine Bestellung für eine Delegationsgruppe erstelle$/) do
@@ -420,10 +420,11 @@ Wenn(/^ich die Gegenstände für die Delegation an "(.*?)" aushändige$/) do |co
   @contract = @delegation.contracts.submitted.first
   @contract.approve Faker::Lorem.sentence
   visit manage_hand_over_path(@current_inventory_pool, @delegation)
+  sleep(0.33)
   expect(has_selector?("input[data-assign-item]")).to be true
   all("input[data-assign-item]").detect{|el| not el.disabled?}.click
   find(".ui-autocomplete .ui-menu-item", match: :first).click
-  has_selector? "[data-remove-assignment]"
+  expect(has_selector? "[data-remove-assignment]").to be true
   find(".multibutton button[data-hand-over-selection]").click
   @contact = User.find_by_login(contact_person.downcase)
   step "ich die Kontaktperson wechsle"

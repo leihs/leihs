@@ -20,13 +20,14 @@ Funktionalität: Rüstliste
     | Verleiher        |
     | Liste            |
 
+  # CI-ISSUE: cannot be reproduced locally
   @personas @javascript @firefox @current
   Szenario: Inhalt der Rüstliste vor Aushändigung - keine Zuteilung von Inventarcode
     Angenommen es gibt eine Aushändigung mit mindestens einem nicht problematischen Modell und einer Option
     Und ich die Aushändigung öffne
     Und ein Gegenstand zugeteilt ist und diese Zeile markiert ist
     Und einer Zeile noch kein Gegenstand zugeteilt ist und diese Zeile markiert ist
-    Und diese Option markiert ist
+    Und eine Option markiert ist
     Wenn man öffnet die Rüstliste
     Dann sind die Listen zuerst nach Ausleihdatum sortiert
     Und jede Liste beinhaltet folgende Spalten:
@@ -40,8 +41,15 @@ Funktionalität: Rüstliste
     Und in der Liste wird der nicht zugeteilte Gegenstand ohne Angabe eines Inventarcodes angezeigt
     Und Gegenständen kein Raum oder Gestell zugeteilt sind, wird die verfügbare Anzahl für den Kunden und "x Ort nicht definiert" angezeigt
     Und fehlende Rauminformationen bei Optionen werden als "Ort nicht definiert" angezeigt
-    Und wenn keine Gegenstände verfügbar sind, wird "Nicht verfügbar" angezeigt
 
+  @personas @javascript @firefox
+  Szenario: Inhalt der Rüstliste vor Aushändigung - nicht verfügbare Gegenstände
+    Angenommen es gibt eine Aushändigung mit mindestens einer problematischen Linie
+    Und ich die Aushändigung öffne
+    Und einer Zeile noch kein Gegenstand zugeteilt ist und diese Zeile markiert ist
+    Wenn man öffnet die Rüstliste
+    Dann sind die Listen zuerst nach Ausleihdatum sortiert
+    Und nicht verfügbaren Gegenständen, wird "Nicht verfügbar" angezeigt
 
   @personas @javascript
   Szenario: Inhalt der Rüstliste nach Aushändigung - Inventarcodes sind bekannt

@@ -67,5 +67,5 @@ Angenommen(/^es gibt eine Hauptkategorie, derer Kinderkategorien keine dem User 
 end
 
 Dann(/^hat diese Hauptkategorie keine Kinderkategorie\-Dropdown$/) do
-  find(".row.emboss.focus-hover", match: :first, text: @main_category.name).should_not have_selector ".dropdown-holder"
+  expect(find(".row.emboss.focus-hover", match: :first, text: @main_category.name).has_no_selector? ".dropdown-holder").to be true
 end

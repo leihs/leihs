@@ -24,7 +24,7 @@ Angenommen /^ein Modell ist nichtmehr verfügbar$/ do
     @entity = if @contract
                 @contract
               else
-                @customer.get_approved_contract(@ip)
+                @customer.get_approved_contract(@current_inventory_pool)
               end
     contract_line = @entity.lines.sample
     @model = contract_line.model
@@ -33,15 +33,15 @@ Angenommen /^ein Modell ist nichtmehr verfügbar$/ do
   else
     contract_line = @contract_lines_to_take_back.where(option_id: nil).sample
     @model = contract_line.model
-    visit manage_hand_over_path(@ip, @customer)
-    @max_before = @model.availability_in(@ip).maximum_available_in_period_summed_for_groups(contract_line.start_date, contract_line.end_date, contract_line.group_ids)
+    visit manage_hand_over_path(@current_inventory_pool, @customer)
+    @max_before = @model.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups(contract_line.start_date, contract_line.end_date, contract_line.group_ids)
     step 'I add so many lines that I break the maximal quantity of an model'
-    visit manage_take_back_path(@ip, @customer)
+    visit manage_take_back_path(@current_inventory_pool, @customer)
   end
   sleep(0.33)
   find(".line", text: @model.name, match: :first)
   @lines = all(".line", text: @model.name)
-  @lines.size.should > 0
+  expect(@lines.size).to be > 0
   @max_before = [@max_before, 0].max
 end
 
@@ -90,7 +90,7 @@ Dann /^"(.*?)" sind verfügbar für den Kunden inklusive seinen Gruppenzugehöri
 end
 
 Dann /^"(.*?)" sind insgesamt verfügbar inklusive diejenigen Gruppen, welchen der Kunde nicht angehört$/ do |arg1|
-  max = @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @ip.group_ids)
+  max = @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @current_inventory_pool.group_ids)
   if [:unsubmitted, :submitted].include? @line.contract.status
     max += @line.contract.lines.where(:start_date => @line.start_date, :end_date => @line.end_date, :model_id => @line.model).size
   else
@@ -105,7 +105,7 @@ end
 
 Angenommen /^eine Gegenstand ist nicht ausleihbar$/ do
   if @event == "hand_over"
-    @item = @ip.items.in_stock.unborrowable.sample
+    @item = @current_inventory_pool.items.in_stock.unborrowable.sample
     step 'I add an item to the hand over'
     sleep(0.33)
     @line_id = ContractLine.where(item_id: @item.id).first.id
@@ -154,7 +154,7 @@ end
 
 Angenommen /^eine Gegenstand ist defekt$/ do
   if @event == "hand_over"
-    @item = @ip.items.in_stock.broken.sample
+    @item = @current_inventory_pool.items.in_stock.broken.sample
     step 'I add an item to the hand over'
     @line_id = find("input[value='#{@item.inventory_code}']").find(:xpath, "ancestor::div[@data-id]")["data-id"]
   elsif  @event == "take_back"
@@ -165,7 +165,7 @@ end
 
 Angenommen /^eine Gegenstand ist unvollständig$/ do
   if @event == "hand_over"
-    @item = @ip.items.in_stock.incomplete.sample
+    @item = @current_inventory_pool.items.in_stock.incomplete.sample
     step 'I add an item to the hand over'
     @line_id = find("input[value='#{@item.inventory_code}']").find(:xpath, "ancestor::div[@data-id]")["data-id"]
   elsif  @event == "take_back"

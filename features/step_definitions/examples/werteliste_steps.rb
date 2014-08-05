@@ -27,7 +27,7 @@ Dann /^möchte ich die folgenden Bereiche in der (Werteliste|Rüstliste) sehen:$
         when "Titel"
           case arg1
             when "Werteliste"
-              find("h1", text: _("Value List")).should have_content @contract.id
+              expect(find("h1", text: _("Value List")).has_content? @contract.id).to be true
             when "Rüstliste"
               find("h1", text: _("Picking List"))
           end
@@ -111,7 +111,7 @@ Dann /^beinhaltet die Liste folgende Spalten:$/ do |table|
         when "Raum / Gestell"
           find("table thead tr td.location", text: "%s / %s" % [_("Room"), _("Shelf")])
           @contract.lines.each {|line|
-            find("tbody tr", text: line.item.inventory_code).find(".location", text: (line.model.is_a?(Option) ? _("location not defined") : "%s / %s" % [line.item.location.room, line.item.location.shelf]))
+            find("tbody tr", text: line.item.inventory_code).find(".location", text: (line.model.is_a?(Option) ? _("Location not defined") : "%s / %s" % [line.item.location.room, line.item.location.shelf]))
           }
         when "verfügbare Anzahl x Raum / Gestell"
           find("table thead tr td.location", text: "%s x %s / %s" % [_("available quantity"), _("Room"), _("Shelf")])
@@ -146,7 +146,7 @@ Dann /^diese summierte die Spalten:$/ do |table|
   table.hashes.each do |area|
     case area["Spaltenname"]
       when "Anzahl"
-        @total.find(".quantity", match: :first).should have_content @contract.quantity
+        expect(@total.find(".quantity", match: :first).has_content? @contract.quantity).to be true
       when "Wert"
         expect(@total.find(".value", match: :first).text.gsub(/\D/, "")).to eq ("%.2f" % @contract.lines.map(&:price).sum).gsub(/\D/, "")
     end

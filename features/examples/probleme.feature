@@ -4,8 +4,9 @@ Funktionalität: Anzeige von Problemen
 
   Grundlage:
     Angenommen ich bin Pius
-    
-  @javascript @firefox @personas
+
+  # CI-ISSUE: cannot be reproduced locally
+  @javascript @firefox @personas @current
   Szenario: Problemanzeige wenn Modell nicht verfügbar bei Bestellungen
     Angenommen ich editiere eine Bestellung
      Und ein Modell ist nichtmehr verfügbar

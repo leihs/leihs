@@ -619,6 +619,10 @@ Angenommen(/^einer Zeile noch kein Gegenstand zugeteilt ist und diese Zeile mark
   step "a line has no item assigned yet and this line is marked"
 end
 
+Angenommen(/^eine Option markiert ist$/) do
+  step "an option line is marked"
+end
+
 Dann(/^sind die Listen zuerst nach (Ausleihdatum|Rückgabedatum) sortiert$/) do |arg1|
   s = case arg1
         when "Ausleihdatum"
@@ -651,11 +655,13 @@ Dann(/^in der Liste wird der nicht zugeteilte Gegenstand ohne Angabe eines Inven
   step "in the list, the not assigned items will displayed without inventory code"
 end
 
-Dann(/^Gegenständen kein Raum oder Gestell zugeteilt sind, wird (die verfügbare Anzahl und )?"(.*?)" angezeigt$/) do |arg1, arg2|
-  s1 = arg1 ? "the available quantity and " : nil
+Dann(/^Gegenständen kein Raum oder Gestell zugeteilt sind, wird (die verfügbare Anzahl für den Kunden und )?"(.*?)" angezeigt$/) do |arg1, arg2|
+  s1 = arg1 ? "the available quantity for this customer and " : nil
   s2 = case arg2
+         when "x Ort nicht definiert"
+           "x %s" % _("Location not defined")
          when "Ort nicht definiert"
-           _("location not defined")
+           _("Location not defined")
          else
            raise "not found"
        end
@@ -665,11 +671,15 @@ end
 Dann(/^fehlende Rauminformationen bei Optionen werden als "(.*?)" angezeigt$/) do |arg1|
   s = case arg1
         when "Ort nicht definiert"
-          _("location not defined")
+          _("Location not defined")
         else
           raise "not found"
       end
   step %Q(the missing location information for options, are displayed with "#{s}")
+end
+
+Dann(/^nicht verfügbaren Gegenständen, wird "(.*?)" angezeigt$/) do |arg1|
+  step %Q(the not available items, are displayed with "#{arg1}")
 end
 
 Dann(/^wird die Editieransicht der neuen Software\-Lizenz geöffnet$/) do
@@ -815,32 +825,4 @@ end
 
 Dann(/^erhalte ich die Fehlermeldung "(.*?)"$/) do |arg1|
   step %Q(I see the error message "#{arg1}")
-end
-
-Angenommen(/^es existiert ein Modell mit einem problematischen Gegenstand$/) do
-  step %Q(there exists a model with a problematic item)
-end
-
-Angenommen(/^ich öffne eine Aushändigung für irgendeinen Benutzer$/) do
-  step %Q(I open a hand over for some user)
-end
-
-Wenn(/^ich diesen Modell der Aushändigung hinzufüge$/) do
-  step %Q(I add this model to the hand over)
-end
-
-Wenn(/^ich auf der Modelllinie die Gegenstandsauswahl öffne$/) do
-  step %Q(I open the item choice list on the model line)
-end
-
-Dann(/^wird der problematische Gegenstand in rot aufgelistet$/) do
-  step %Q(the problematic item is displayed red)
-end
-
-Angenommen(/^es existiert ein Modell mit einem ausgemusterten und einem ausleihbaren Gegenstand$/) do
-  step %Q(there exists a model with a retired and a borrowable item)
-end
-
-Dann(/^wird der ausgemusterte Gegenstand nicht aufgelistet$/) do
-  step %Q(the retired item is not displayed in the list)
 end

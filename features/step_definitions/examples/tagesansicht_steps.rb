@@ -12,7 +12,7 @@ Dann(/^sehe ich für diese Bestellung die längste Zeitspanne direkt auf der Lin
   line_with_max_range = @contract.item_lines.max{|line| line.end_date - line.start_date}
   range = (line_with_max_range.end_date-line_with_max_range.start_date).to_i+1
   find("[data-collapsed-toggle='#open-orders']").click if page.has_selector?("[data-collapsed-toggle='#open-orders']")
-  find(".line[data-id='#{@contract.id}']").should have_content "#{range} #{_('days')}"
+  expect(find(".line[data-id='#{@contract.id}']").has_content? "#{range} #{_('days')}").to be true
 end
 
 When(/^eigenes Benutzer sind gesperrt$/) do

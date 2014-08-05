@@ -212,7 +212,7 @@ end
 Dann(/^sieht man bei den betroffenen Linien die rücknehmende Person im Format "V. Nachname"$/) do
   if @contract_lines_to_take_back
     @contract_lines_to_take_back.map(&:contract).uniq.each do |contract|
-      find(".button[target='_blank'][href='#{manage_contract_path(@ip, contract)}']").click
+      find(".button[target='_blank'][href='#{manage_contract_path(@current_inventory_pool, contract)}']").click
       new_window = page.driver.browser.window_handles.last
       page.within_window new_window do
         contract.lines.each do |cl|

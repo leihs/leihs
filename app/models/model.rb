@@ -126,7 +126,7 @@ class Model < ActiveRecord::Base
 
   # not using scope because not working properly (if result of first is nil, an additional query is performed returning all)
   def self.find_by_name(name)
-    where("CONCAT_WS(' ', product, version) = ?", name).first
+    where("CONCAT_WS(' ', product, version) = ?", name).first || find_by_product(name) || find_by_version(name)
   end
 
   def self.manufacturers

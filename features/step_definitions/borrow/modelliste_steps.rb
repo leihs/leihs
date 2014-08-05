@@ -47,13 +47,13 @@ end
 Wenn(/^man ein bestimmten Gerätepark in der Geräteparkauswahl auswählt$/) do
   find("#ip-selector").click
   expect(has_selector?("#ip-selector .dropdown .dropdown-item", :visible => true)).to be true
-  @ip ||= @current_user.inventory_pools.first
-  find("#ip-selector .dropdown .dropdown-item", text: @ip.name).click
+  @current_inventory_pool ||= @current_user.inventory_pools.first
+  find("#ip-selector .dropdown .dropdown-item", text: @current_inventory_pool.name).click
 end
 
 Dann(/^sind alle anderen Geräteparks abgewählt$/) do
   find("#ip-selector").click
-  (@current_user.inventory_pools - [@ip]).each do |ip|
+  (@current_user.inventory_pools - [@current_inventory_pool]).each do |ip|
     expect(find("#ip-selector .dropdown-item", text: ip.name).find("input", match: :first).checked?).to be false
   end
 end
@@ -61,7 +61,7 @@ end
 Dann(/^die Modellliste zeigt nur Modelle dieses Geräteparks an$/) do
   all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}.should eq @current_user.models.borrowable
                                                   .from_category_and_all_its_descendants(@category.id)
-                                                  .by_inventory_pool(@ip.id)
+                                                  .by_inventory_pool(@current_inventory_pool.id)
                                                   .default_order.paginate(page: 1, per_page: 20)
                                                   .map(&:name)
 end
@@ -71,21 +71,21 @@ Dann(/^die Auswahl klappt zu$/) do
 end
 
 Dann(/^im Filter steht der Name des ausgewählten Geräteparks$/) do
-  expect(has_selector?("#ip-selector .button", text: @ip.name)).to be true
+  expect(has_selector?("#ip-selector .button", text: @current_inventory_pool.name)).to be true
 end
 
 Wenn(/^man einige Geräteparks abwählt$/) do
   find("#ip-selector").click
-  @ip = @current_user.inventory_pools.first
+  @current_inventory_pool = @current_user.inventory_pools.first
   @dropdown_element = find("#ip-selector .dropdown")
-  @dropdown_element.find(".dropdown-item", match: :first, text: @ip.name).find("input", match: :first).click
+  @dropdown_element.find(".dropdown-item", match: :first, text: @current_inventory_pool.name).find("input", match: :first).click
 end
 
 Dann(/^wird die Modellliste nach den übrig gebliebenen Geräteparks gefiltert$/) do
   expect(has_selector?("#model-list .text-align-left")).to be true
   all("#model-list .text-align-left").map(&:text).should eq @current_user.models.borrowable
                                                   .from_category_and_all_its_descendants(@category.id)
-                                                  .all_from_inventory_pools(@current_user.inventory_pool_ids - [@ip.id])
+                                                  .all_from_inventory_pools(@current_user.inventory_pool_ids - [@current_inventory_pool.id])
                                                   .default_order
                                                   .paginate(page: 1, per_page: 20)
                                                   .map(&:name)
@@ -97,8 +97,8 @@ end
 
 Wenn(/^man alle Geräteparks bis auf einen abwählt$/) do
   find("#ip-selector").click
-  @ip = @current_user.inventory_pools.first
-  @ips_for_unselect = @current_user.inventory_pools.where("inventory_pools.id != ?", @ip.id)
+  @current_inventory_pool = @current_user.inventory_pools.first
+  @ips_for_unselect = @current_user.inventory_pools.where("inventory_pools.id != ?", @current_inventory_pool.id)
   @ips_for_unselect.each do |ip|
     find("#ip-selector .dropdown-item", text: ip.name).find("input", match: :first).click
   end
@@ -115,7 +115,7 @@ Dann(/^wird die Modellliste nach dem übrig gebliebenen Gerätepark gefiltert$/)
 end
 
 Dann(/^im Filter steht der Name des übriggebliebenen Geräteparks$/) do
-  find("#ip-selector .button", text: @ip.name)
+  find("#ip-selector .button", text: @current_inventory_pool.name)
 end
 
 Dann(/^kann man nicht alle Geräteparks in der Geräteparkauswahl abwählen$/) do
@@ -134,7 +134,7 @@ Dann(/^ist die Geräteparkauswahl alphabetisch sortiert$/) do
 end
 
 Dann(/^im Filter steht die Zahl der ausgewählten Geräteparks$/) do
-  number_of_selected_ips = (@current_user.inventory_pool_ids - [@ip.id]).length
+  number_of_selected_ips = (@current_user.inventory_pool_ids - [@current_inventory_pool.id]).length
   find("#ip-selector .button", text: (number_of_selected_ips.to_s + " " + _("Inventory pools")))
 end
 

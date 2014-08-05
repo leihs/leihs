@@ -46,9 +46,9 @@ Dann(/^der Gerätepark wird nicht erstellt$/) do
 end
 
 Wenn(/^ich im Admin\-Bereich unter dem Reiter Geräteparks einen bestehenden Gerätepark ändere$/) do
-  @ip = InventoryPool.first
+  @current_inventory_pool = InventoryPool.first
   expect(has_content?(_("List of Inventory Pools"))).to be true
-  find(".line", match: :prefer_exact, text: @ip.name).click_link _("Edit")
+  find(".line", match: :prefer_exact, text: @current_inventory_pool.name).click_link _("Edit")
 end
 
 Wenn(/^ich Name und Kurzname und Email ändere$/) do
@@ -62,9 +62,9 @@ Dann(/^ist der Gerätepark und die eingegebenen Informationen gespeichert$/) do
 end
 
 Wenn(/^ich im Admin\-Bereich unter dem Reiter Geräteparks einen bestehenden Gerätepark lösche$/) do
-  @ip = InventoryPool.find(&:can_destroy?) || FactoryGirl.create(:inventory_pool)
+  @current_inventory_pool = InventoryPool.find(&:can_destroy?) || FactoryGirl.create(:inventory_pool)
   visit manage_inventory_pools_path
-  within(".line", text: @ip.name) do
+  within(".line", text: @current_inventory_pool.name) do
     find(:xpath, ".").click # NOTE it scrolls to the target line
     find(".multibutton .dropdown-toggle").click
     find(".multibutton a", text: _("Delete")).click
@@ -73,11 +73,11 @@ end
 
 Wenn(/^der Gerätepark wurde aus der Liste gelöscht$/) do
   find("#flash .success", text: _("%s successfully deleted") % _("Inventory Pool"))
-  expect(has_no_content?(@ip.name)).to be true
+  expect(has_no_content?(@current_inventory_pool.name)).to be true
 end
 
 Wenn(/^der Gerätepark wurde aus der Datenbank gelöscht$/) do
-  expect(InventoryPool.find_by_name(@ip.name)).to eq nil
+  expect(InventoryPool.find_by_name(@current_inventory_pool.name)).to eq nil
 end
 
 Dann(/^ich sehe die Geräteparkauswahl$/) do

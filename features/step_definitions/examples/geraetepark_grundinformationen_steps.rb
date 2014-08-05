@@ -164,7 +164,6 @@ end
 
 Dann(/^ist die aut\. Zuweisung deaktiviert$/) do
   expect(@current_inventory_pool.reload.automatic_access).to be false
-  @ip = @current_inventory_pool
 end
 
 Angenommen(/^man ist ein Benutzer, der sich zum ersten Mal einloggt$/) do
@@ -232,7 +231,7 @@ Dann(/^in meinem Gerätepark hat er die Rolle 'Inventar\-Verwalter'$/) do
 end
 
 Dann(/^kriegt der neu erstellte Benutzer bei dem vorher editierten Gerätepark kein Zugriffsrecht$/) do
-  expect(@user.access_right_for(@ip)).to eq nil
+  expect(@user.access_right_for(@current_inventory_pool)).to eq nil
 end
 
 When(/^on the inventory pool I enable the automatic suspension for users with overdue take backs$/) do

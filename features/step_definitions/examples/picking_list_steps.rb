@@ -84,17 +84,30 @@ Then(/^I can open the picking list$/) do
   find("button", text: _("Picking List"))
 end
 
-Then(/^the items without location, are displayed with (the available quantity and )?"(.*?)"$/) do |arg1, arg2|
-  (@selected_lines || @contract.lines).select{|line| line.item_id }.each do |line|
-    next if line.item.location and not line.item.location.room.blank? and not line.item.location.shelf.blank?
-    # FIXME use arg1
-    s = arg2
-    find("section.list .model_name", match: :prefer_exact, text: line.model.name).find(:xpath, "./..").find(".location", text: s)
+Then(/^the items without location, are displayed with (the available quantity for this customer and )?"(.*?)"$/) do |arg1, arg2|
+  (@selected_lines || @contract.lines).each do |line|
+    if line.item_id
+      next if line.item.location and not line.item.location.room.blank? and not line.item.location.shelf.blank?
+      find("section.list .model_name", match: :prefer_exact, text: line.model.name).find(:xpath, "./..").find(".location", text: arg2)
+    else
+      locations = line.model.items.in_stock.where(inventory_pool_id: @current_inventory_pool).select("COUNT(items.location_id) AS count, locations.room AS room, locations.shelf AS shelf").joins(:location).group(:location_id).order("count DESC, room ASC, shelf ASC")
+      locations.delete_if {|location| location.room.blank? and location.shelf.blank? }
+      not_defined_count = line.model.items.in_stock.where(inventory_pool_id: @current_inventory_pool).count - locations.to_a.sum(&:count)
+      if not_defined_count > 0
+        find("section.list .model_name", match: :prefer_exact, text: line.model.name).find(:xpath, "./..").find(".location", text: arg2)
+      end
+    end
   end
 end
 
 Then(/^the missing location information for options, are displayed with "(.*?)"$/) do |arg1|
   (@selected_lines || @contract.lines).select{|line| line.is_a? OptionLine }.each do |line|
+    find("section.list .model_name", match: :prefer_exact, text: line.model.name).find(:xpath, "./..").find(".location", text: arg1)
+  end
+end
+
+Then(/^the not available items, are displayed with "(.*?)"$/) do |arg1|
+  (@selected_lines || @contract.lines).select{|line| not line.available? }.each do |line|
     find("section.list .model_name", match: :prefer_exact, text: line.model.name).find(:xpath, "./..").find(".location", text: arg1)
   end
 end

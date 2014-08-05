@@ -2,12 +2,12 @@
 require 'spec_helper.rb'
 require "#{Rails.root}/features/support/leihs_factory.rb"
 
-describe Authenticator::HsluAuthenticationController do
+describe Authenticator::HsluAuthenticationController, type: :request do
 
   before(:all) do
 #    pending # hslu ldap controller conflicts with required pre and last name
     
-    @ip = FactoryGirl.create(:inventory_pool)
+    FactoryGirl.create(:inventory_pool)
     LeihsFactory.create_default_languages
     @group = FactoryGirl.create(:group, :name => 'Video')
 
@@ -240,13 +240,13 @@ describe Authenticator::HsluAuthenticationController do
 
 
     mocked_ldap = double("mocked_ldap")
-    mocked_ldap.stub(:bind).with(any_args()).and_return(true)
-    mocked_ldap.stub(:search).with({:base => anything(), :filter => Net::LDAP::Filter.eq("samaccountname", "normal_user")}).and_return(normal_user_result)
-    mocked_ldap.stub(:search).with({:base => anything(), :filter => Net::LDAP::Filter.eq("samaccountname", "video_user")}).and_return(video_user_result)
-    mocked_ldap.stub(:search).with({:base => anything(), :filter => Net::LDAP::Filter.eq("samaccountname", "numeric_unique_id_user")}).and_return(numeric_unique_id_user_result)
-    mocked_ldap.stub(:search).with({:base => anything(), :filter => Net::LDAP::Filter.eq("samaccountname", "admin_user")}).and_return(admin_user_result)
+    allow(mocked_ldap).to receive(:bind).with(any_args).and_return(true)
+    allow(mocked_ldap).to receive(:search).with({:base => anything, :filter => Net::LDAP::Filter.eq("samaccountname", "normal_user")}).and_return(normal_user_result)
+    allow(mocked_ldap).to receive(:search).with({:base => anything, :filter => Net::LDAP::Filter.eq("samaccountname", "video_user")}).and_return(video_user_result)
+    allow(mocked_ldap).to receive(:search).with({:base => anything, :filter => Net::LDAP::Filter.eq("samaccountname", "numeric_unique_id_user")}).and_return(numeric_unique_id_user_result)
+    allow(mocked_ldap).to receive(:search).with({:base => anything, :filter => Net::LDAP::Filter.eq("samaccountname", "admin_user")}).and_return(admin_user_result)
 
-    Net::LDAP.stub(:new) { 
+    allow(Net::LDAP).to receive(:new) {
       mocked_ldap
     }
 
@@ -255,20 +255,20 @@ describe Authenticator::HsluAuthenticationController do
 
   context "if the user does not yet exist" do
     it "should be able to create a normal with various useful data grabbed from LDAP" do
-      post :login, {:login => { :username => "normal_user", :password => "1234" }}, {}
+      post 'authenticator/hslu/login', {:login => { :username => "normal_user", :password => "1234" }}, {}
       expect(User.where(:login => "normal_user").first).not_to eq nil
     end
   end
 
   context "when dealing with users for the Video group" do
     it "should assign users to the group if they have the right displayName" do
-      post :login, {:login => { :username => "video_user", :password => "1234" }}, {}
+      post 'authenticator/hslu/login', {:login => { :username => "video_user", :password => "1234" }}, {}
       user = User.where(:login => "video_user" ).first
       expect(user).not_to eq nil
       expect(user.groups.include?(Group.where(:name => "Video").first)).to be true
     end
     it "should not assign users to the group if they don't have the right displayName" do
-      post :login, {:login => { :username => "normal_user", :password => "1234" }}, {}
+      post 'authenticator/hslu/login', {:login => { :username => "normal_user", :password => "1234" }}, {}
       user = User.where(:login => "normal_user").first
       expect(user).not_to eq nil
       expect(user.groups.include?(Group.where(:name => "Video").first)).to be false
@@ -277,7 +277,7 @@ describe Authenticator::HsluAuthenticationController do
 
   context "if the user is in the admin DN on LDAP" do
     it "should give that user the admin role" do
-      post :login, {:login => { :username => "admin_user", :password => "1234" }}, {}
+      post 'authenticator/hslu/login', {:login => { :username => "admin_user", :password => "1234" }}, {}
       user = User.where(:login => "admin_user").first
       expect(user.access_rights.active.collect(&:role).include?(:admin)).to be true
     end
@@ -285,7 +285,7 @@ describe Authenticator::HsluAuthenticationController do
   
   context "when copying the LDAP user's unique_id to the leihs user's badge_id" do
     it "should just use the unique_id as it is in most cases" do
-      post :login, {:login => { :username => "normal_user", :password => "1234" }}, {}
+      post 'authenticator/hslu/login', {:login => { :username => "normal_user", :password => "1234" }}, {}
       user = User.where(:login => "normal_user").first
       user.reload
       expect(user).not_to eq nil
@@ -295,7 +295,7 @@ describe Authenticator::HsluAuthenticationController do
 
   context "when the user has a unique_id that is completely numeric" do
     it "should append an 'L' to the start of the user's unique_id and use that instead" do 
-      post :login, {:login => { :username => "numeric_unique_id_user", :password => "1234" }}, {}
+      post 'authenticator/hslu/login', {:login => { :username => "numeric_unique_id_user", :password => "1234" }}, {}
       user = User.where(:login => "numeric_unique_id_user").first
       user.reload
       expect(user).not_to eq nil

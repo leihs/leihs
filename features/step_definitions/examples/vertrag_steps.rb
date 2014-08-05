@@ -19,8 +19,8 @@ Angenommen /^man öffnet einen Vertrag bei der Aushändigung( mit Software)?$/ d
   page.driver.browser.switch_to.window new_window
 
   @contract_element = find(".contract")
-  @contract = @customer.contracts.where(inventory_pool_id: @ip).signed.sort_by(&:updated_at).last
-  @contract_lines_to_take_back = @customer.contract_lines.to_take_back.joins(:contract).where(contracts: {inventory_pool_id: @ip})
+  @contract = @customer.contracts.where(inventory_pool_id: @current_inventory_pool).signed.sort_by(&:updated_at).last
+  @contract_lines_to_take_back = @customer.contract_lines.to_take_back.joins(:contract).where(contracts: {inventory_pool_id: @current_inventory_pool})
 end
 
 Dann /^möchte ich die folgenden Bereiche sehen:$/ do |table|
@@ -107,7 +107,7 @@ Dann /^beinhalten Liste (\d+) und Liste (\d+) folgende Spalten:$/ do |arg1, arg2
 end
 
 Dann /^sehe ich eine Liste Zwecken, getrennt durch Kommas$/ do
-  @contract.lines.each {|line| @contract_element.find(".purposes").should have_content line.purpose.to_s }
+  @contract.lines.each {|line| expect(@contract_element.find(".purposes").has_content? line.purpose.to_s).to be true }
 end
 
 Dann /^jeder identische Zweck ist maximal einmal aufgelistet$/ do
@@ -163,12 +163,12 @@ Dann /^möchte ich im Feld des Ausleihenden die folgenden Bereiche sehen:$/ do |
 end
 
 Wenn /^es Gegenstände gibt, die zurückgegeben wurden$/ do
-  visit manage_take_back_path(@ip, @customer)
+  visit manage_take_back_path(@current_inventory_pool, @customer)
   step 'I select all lines of an open contract'
   step 'I click take back'
   step 'I see a summary of the things I selected for take back'
   step 'I click take back inside the dialog'
-  visit manage_contracts_path(@ip, status: [:signed, :closed])
+  visit manage_contracts_path(@current_inventory_pool, status: [:signed, :closed])
   find(".line .multibutton a", match: :first, text: _("Contract")).click
 end
 

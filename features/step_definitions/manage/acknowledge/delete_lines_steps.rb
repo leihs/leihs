@@ -24,7 +24,7 @@ When /^I delete multiple lines of this contract$/ do
 end
 
 When(/^I add a model that is not already part of that contract$/) do
-  @item = (@ip.models - @contract.models).sample.items.sample
+  @item = (@current_inventory_pool.models - @contract.models).sample.items.sample
   step 'I add a model by typing in the inventory code of an item of that model to the quick add'
 end
 
@@ -52,7 +52,7 @@ Then /^none of the lines are deleted$/ do
 end
 
 When(/^I delete a hand over$/) do
-  @visit = @ip.visits.hand_over.where(date: Date.today).sample
+  @visit = @current_inventory_pool.visits.hand_over.where(date: Date.today).sample
   expect(@visit.lines.empty?).to be false
   @visit_line_ids = @visit.lines.map(&:id)
   find("[data-collapsed-toggle='#hand_overs']").click unless all("[data-collapsed-toggle='#hand_overs']").empty?
@@ -66,7 +66,7 @@ Then(/^all lines of that hand over are deleted$/) do
   within("#hand_overs .line[data-id='#{@visit.id}']") do
     find(".line-actions .multibutton", text: _("Deleted"))
   end
-  sleep(0.11)
+  sleep(0.33)
   expect { @visit.reload }.to raise_error(ActiveRecord::RecordNotFound)
   @visit_line_ids.each do |line_id|
     expect { ContractLine.find(line_id) }.to raise_error(ActiveRecord::RecordNotFound)

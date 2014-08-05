@@ -63,7 +63,7 @@ Given /^inventory pool model test data setup$/ do
   LeihsFactory.create_default_languages
 
   # create default inventory_pool
-  @ip = LeihsFactory.create_inventory_pool
+  @current_inventory_pool = LeihsFactory.create_inventory_pool
 
   User.delete_all
 
@@ -81,7 +81,7 @@ end
 
 Given /^there are open contracts for all users$/ do
   @open_contracts = User.all.map { |user|
-    FactoryGirl.create :contract_with_lines, :user => user, :inventory_pool => @ip, :status => :approved
+    FactoryGirl.create :contract_with_lines, :user => user, :inventory_pool => @current_inventory_pool, :status => :approved
   }
 end
 
@@ -94,7 +94,7 @@ Given /^every contract has a different start date$/ do
 end
 
 Given /^there are hand over visits for the specific inventory pool$/ do
-  @hand_over_visits = @ip.visits.hand_over
+  @hand_over_visits = @current_inventory_pool.visits.hand_over
 end
 
 When /^all the contract lines of all the events are combined$/ do
@@ -106,7 +106,7 @@ Then /^the result is a set of contract lines that are associated with the users'
 end
 
 Given /^there is an open contract with lines for a user$/ do
-  @open_contract = FactoryGirl.create :contract_with_lines, :user => User.first, :inventory_pool => @ip, :status => :approved
+  @open_contract = FactoryGirl.create :contract_with_lines, :user => User.first, :inventory_pool => @current_inventory_pool, :status => :approved
 end
 
 Given /^the first contract line starts on the same date as the second one$/ do
@@ -118,7 +118,7 @@ Given /^the third contract line starts on a different date as the other two$/ do
 end
 
 When /^the visits of the inventory pool are fetched$/ do
-  @hand_over_visits = @ip.visits.hand_over
+  @hand_over_visits = @current_inventory_pool.visits.hand_over
 end
 
 Then /^the first two contract lines should now be grouped inside the first visit, which makes it two visits in total$/ do
@@ -126,21 +126,21 @@ Then /^the first two contract lines should now be grouped inside the first visit
 end
 
 Given /^there are 2 different contracts for 2 different users$/ do
-  @open_contract  = FactoryGirl.create :contract_with_lines, :user => User.first, :inventory_pool => @ip, :status => :approved, :lines_count => 1
-  @open_contract2 = FactoryGirl.create :contract_with_lines, :user => User.last, :inventory_pool => @ip, :status => :approved, :lines_count => 1
+  @open_contract  = FactoryGirl.create :contract_with_lines, :user => User.first, :inventory_pool => @current_inventory_pool, :status => :approved, :lines_count => 1
+  @open_contract2 = FactoryGirl.create :contract_with_lines, :user => User.last, :inventory_pool => @current_inventory_pool, :status => :approved, :lines_count => 1
 end
 
 Given /^there are 2 different contracts with lines for 2 different users$/ do
-  @open_contract  = FactoryGirl.create :contract_with_lines, :user => User.first, :inventory_pool => @ip, :status => :approved
-  @open_contract2 = FactoryGirl.create :contract_with_lines, :user => User.last, :inventory_pool => @ip, :status => :approved
+  @open_contract  = FactoryGirl.create :contract_with_lines, :user => User.first, :inventory_pool => @current_inventory_pool, :status => :approved
+  @open_contract2 = FactoryGirl.create :contract_with_lines, :user => User.last, :inventory_pool => @current_inventory_pool, :status => :approved
 end
 
 Then /^there are 2 hand over visits for the given inventory pool$/ do
-  @ip.visits.hand_over.reload.count.should equal(2)
+  @current_inventory_pool.visits.hand_over.reload.count.should equal(2)
 end
 
 Then /^there are 2 take back visits for the given inventory pool$/ do
-  @ip.visits.take_back.reload.count.should equal(2)
+  @current_inventory_pool.visits.take_back.reload.count.should equal(2)
 end
 
 Given /^1st contract line of 2nd contract has the same start date as the 1st contract line of the 1st contract$/ do
@@ -164,7 +164,7 @@ Then /^there should be different visits for 2 users with same start and end date
              else
                2
              end
-  @ip.visits.hand_over.reload.count.should equal(expected)
+  @current_inventory_pool.visits.hand_over.reload.count.should equal(expected)
 end
 
 Given /^make sure no end date is identical to any other$/ do
@@ -188,7 +188,7 @@ Given /^all contracts are signed$/ do
 end
 
 When /^the take back visits of the given inventory pool are fetched$/ do
-  @take_back_visits = @ip.visits.take_back
+  @take_back_visits = @current_inventory_pool.visits.take_back
 end
 
 Then /^there should be as many events as there are different start dates$/ do

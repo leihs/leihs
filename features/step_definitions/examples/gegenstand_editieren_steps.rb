@@ -1,9 +1,8 @@
 # -*- encoding : utf-8 -*-
 
 Angenommen /^man editiert einen Gegenstand, wo man der Besitzer ist$/ do
-  @ip = @current_user.managed_inventory_pools.first
-  @item = @ip.items.items.where(:owner_id => @ip.id).sample
-  visit manage_edit_item_path @ip, @item
+  @item = @current_inventory_pool.items.items.where(owner_id: @current_inventory_pool).sample
+  visit manage_edit_item_path @current_inventory_pool, @item
 end
 
 Dann /^muss der "(.*?)" unter "(.*?)" ausgewählt werden$/ do |key, section|
@@ -59,13 +58,12 @@ Wenn(/^"(.*?)" bei "(.*?)" ausgewählt ist muss auch "(.*?)" ausgewählt werden$
   expect(newfield[:"data-required"]).to eq "true"
 end
 
-Angenommen(/^man navigiert zur Gegenstandsbearbeitungsseite$/) do
-  @item = @current_inventory_pool.items.first
-  visit manage_edit_item_path(@current_inventory_pool, @item)
-end
-
-Angenommen(/^man navigiert zur Gegenstandsbearbeitungsseite eines Gegenstandes, der am Lager und in keinem Vertrag vorhanden ist$/) do
-  @item = @current_inventory_pool.items.find {|i| i.in_stock? and i.contract_lines.blank?}
+Angenommen(/^man navigiert zur Gegenstandsbearbeitungsseite( eines Gegenstandes, der am Lager und in keinem Vertrag vorhanden ist)$/) do |arg1|
+  @item ||= if arg1
+              @current_inventory_pool.items.in_stock.sample
+            else
+              @current_inventory_pool.items.sample
+            end
   visit manage_edit_item_path(@current_inventory_pool, @item)
   expect(has_selector?(".row.emboss")).to be true
 end
@@ -79,9 +77,9 @@ Dann(/^bei dem bearbeiteten Gegestand ist der neue Lieferant eingetragen$/) do
 end
 
 Dann(/^ist der Gegenstand mit all den angegebenen Informationen gespeichert$/) do
-  find("[data-retired='true']").click if @table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"} and (@table_hashes.detect {|r| r["Feldname"] == "Ausmusterung"}["Wert"]) == "Ja"
-  find("#list-search").set (@table_hashes.detect {|r| r["Feldname"] == "Inventarcode"}["Wert"])
-  find(".line", :text => @table_hashes.detect {|r| r["Feldname"] == "Modell"}["Wert"], :visible => true)
+  find("[data-retired='true']").click if @table_hashes.detect { |r| r["Feldname"] == "Ausmusterung" } and (@table_hashes.detect { |r| r["Feldname"] == "Ausmusterung" }["Wert"]) == "Ja"
+  find("#list-search").set (@table_hashes.detect { |r| r["Feldname"] == "Inventarcode" }["Wert"])
+  find(".line", :text => @table_hashes.detect { |r| r["Feldname"] == "Modell" }["Wert"], :visible => true)
   visit manage_edit_item_path @current_inventory_pool.id, @item.id
   step 'hat der Gegenstand alle zuvor eingetragenen Werte'
   sleep(0.33) # fix lazy request problem
@@ -103,7 +101,7 @@ Dann(/^ist bei dem bearbeiteten Gegenstand keiner Lieferant eingetragen$/) do
 end
 
 Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes mit gesetztem Lieferanten$/) do
-  @item = @current_inventory_pool.items.find {|i| not i.supplier.nil?}
+  @item = @current_inventory_pool.items.find { |i| not i.supplier.nil? }
   visit manage_edit_item_path(@current_inventory_pool, @item)
 end
 
@@ -133,13 +131,13 @@ Wenn(/^ich die verantwortliche Abteilung ändere$/) do
 end
 
 Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes, der in einem Vertrag vorhanden ist$/) do
-  @item = @current_inventory_pool.items.items.select{|i| not i.contract_lines.blank?}.sample
+  @item = @current_inventory_pool.items.items.not_in_stock.sample
   @item_before = @item.to_json
   visit manage_edit_item_path(@current_inventory_pool, @item)
 end
 
 Wenn(/^ich das Modell ändere$/) do
-  fill_in_autocomplete_field _("Model"), @current_inventory_pool.models.select{|m| m != @item.model}.sample.name
+  fill_in_autocomplete_field _("Model"), @current_inventory_pool.models.select { |m| m != @item.model }.sample.name
 end
 
 Wenn(/^ich den Gegenstand ausmustere$/) do
@@ -148,7 +146,7 @@ Wenn(/^ich den Gegenstand ausmustere$/) do
 end
 
 Angenommen(/^there is a model without a version$/) do
-  @model = Model.find {|m| !m.version}
+  @model = Model.find { |m| !m.version }
   expect(@model).not_to eq nil
 end
 

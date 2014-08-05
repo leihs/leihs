@@ -1,6 +1,6 @@
 When /^I add (a|an|a borrowable|an unborrowable) (item|license) to the hand over by providing an inventory code$/ do |item_attr, item_type|
   existing_model_ids = @customer.contracts.approved.flat_map(&:models).map(&:id)
-  items = @ip.items.send(item_type.pluralize)
+  items = @current_inventory_pool.items.send(item_type.pluralize)
   @inventory_codes ||= []
   @inventory_code = case item_attr
                       when "a", "an"
@@ -24,7 +24,7 @@ When /^I add (a|an|a borrowable|an unborrowable) (item|license) to the hand over
 end
 
 When /^I add (a|an|a borrowable|an unborrowable) (item|license) to the hand over by using the search input field$/ do |item_attr, item_type|
-  items = @ip.items.send(item_type.pluralize)
+  items = @current_inventory_pool.items.send(item_type.pluralize)
   @inventory_codes ||= []
   @item = case item_attr
            when "a", "an"
@@ -43,14 +43,14 @@ When /^I add (a|an|a borrowable|an unborrowable) (item|license) to the hand over
 end
 
 Then /^the item is added to the hand over for the provided date range and the inventory code is already assigend$/ do
-  expect(@customer.get_approved_contract(@ip).items.include?(Item.find_by_inventory_code(@inventory_code))).to be true
+  expect(@customer.get_approved_contract(@current_inventory_pool).items.include?(Item.find_by_inventory_code(@inventory_code))).to be true
   assigned_inventory_codes = all(".line input[data-assign-item]").map(&:value)
   assigned_inventory_codes.should include(@inventory_code)
 end
 
 When /^I add an option to the hand over by providing an inventory code and a date range$/ do
-  #@ip ||= @current_user.managed_inventory_pools.sample
-  @inventory_code = (@option || @ip.options.sample).inventory_code
+  #@current_inventory_pool ||= @current_user.managed_inventory_pools.sample
+  @inventory_code = (@option || @current_inventory_pool.options.sample).inventory_code
   find("[data-add-contract-line]").set @inventory_code
   find("[data-add-contract-line] + .addon").click
   find(".line[data-line-type='option_line'] .grey-text", :text => @inventory_code)
@@ -59,7 +59,7 @@ end
 
 Then /^the (.*?) is added to the hand over$/ do |type|
   sleep(0.33)
-  contract = @customer.get_approved_contract(@ip)
+  contract = @customer.get_approved_contract(@current_inventory_pool)
   case type
     when "option"
       option = Option.find_by_inventory_code(@inventory_code)
@@ -74,7 +74,7 @@ end
 
 When /^I add an option to the hand over which is already existing in the selected date range by providing an inventory code$/ do
   @n = rand(2..5)
-  @option = @ip.options.sample
+  @option = @current_inventory_pool.options.sample
   @n.times do
     step 'I add an option to the hand over by providing an inventory code and a date range'
   end
@@ -92,16 +92,16 @@ end
 When /^I type the beginning of (.*?) name to the add\/assign input field$/ do |type|
   @target_name = case type
     when "an option"
-      @option = @ip.options.first
+      @option = @current_inventory_pool.options.first
       @inventory_code = @option.inventory_code
       @option.name
     when "a model"
-      @model = @ip.items.in_stock.first.model
+      @model = @current_inventory_pool.items.in_stock.first.model
       @model.name
     when "that model"
       @model.name
     when "a template"
-      @template = @ip.templates.first
+      @template = @current_inventory_pool.templates.first
       @template.name
   end
   type_into_autocomplete "[data-add-contract-line]", @target_name[0..-2]
@@ -137,11 +137,11 @@ When /^I add so many lines that I break the maximal quantity of an model$/ do
   @model ||= if @contract
     @contract.lines.sample.model
   else
-    @customer.get_approved_contract(@ip).lines.sample.model
+    @customer.get_approved_contract(@current_inventory_pool).lines.sample.model
   end
   @target_name = @model.name
   quantity_to_add = if @contract
-    @model.availability_in(@ip).maximum_available_in_period_summed_for_groups @contract.lines.first.start_date, @contract.lines.first.end_date, @contract.user.groups.map(&:id)
+    @model.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups @contract.lines.first.start_date, @contract.lines.first.end_date, @contract.user.groups.map(&:id)
   else
     @model.items.size
   end

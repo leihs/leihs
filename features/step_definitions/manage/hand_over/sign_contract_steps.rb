@@ -1,27 +1,27 @@
 # -*- encoding : utf-8 -*-
 
 When /^I open a hand over( with at least one unassigned line for today)?( with options)?$/ do |arg1, arg2|
-  @ip = @current_user.managed_inventory_pools.detect do |ip|
-    @customer = ip.users.to_a.shuffle.detect do |c|
-      b = c.visits.hand_over.exists?
+  @current_inventory_pool = @current_user.managed_inventory_pools.detect do |ip|
+    @customer = ip.users.to_a.shuffle.detect do |user|
+      b = user.visits.hand_over.exists?
       b = if arg1
-            b and c.visits.hand_over.any?{|v| v.lines.size >= 3 and v.lines.any? {|l| not l.item and l.end_date == Date.today}}
+            b and user.visits.hand_over.any?{|v| v.lines.size >= 3 and v.lines.any? {|l| not l.item and l.start_date == ip.next_open_date(Date.today)}}
           elsif arg2
-            b and c.visits.hand_over.any?{|v| v.lines.any? {|l| l.is_a? OptionLine}}
+            b and user.visits.hand_over.any?{|v| v.lines.any? {|l| l.is_a? OptionLine}}
           else
-            b and c.visits.hand_over.any?{|v| v.lines.size >= 3 }
+            b and user.visits.hand_over.any?{|v| v.lines.size >= 3 }
           end
       b
     end
   end
   raise "customer not found" unless @customer
-  visit manage_hand_over_path(@ip, @customer)
+  visit manage_hand_over_path(@current_inventory_pool, @customer)
   expect(has_selector?("#hand-over-view", :visible => true)).to be true
 end
 
 When /^I select (an item|a license) line and assign an inventory code$/ do |arg1|
   sleep(0.33)
-  @models_in_stock = @ip.items.by_responsible_or_owner_as_fallback(@ip).in_stock.map(&:model).uniq
+  @models_in_stock = @current_inventory_pool.items.by_responsible_or_owner_as_fallback(@current_inventory_pool).in_stock.map(&:model).uniq
   lines = @customer.visits.hand_over.flat_map(&:lines)
 
   @item_line = @line = case arg1
@@ -94,7 +94,7 @@ end
 
 Then /^I see that the time range in the summary starts today$/ do
   all(".modal-body > div > div > div > p").each do |date_range|
-    date_range.should have_content("#{Date.today.strftime("%d.%m.%Y")}")
+    expect(date_range.has_content?("#{Date.today.strftime("%d.%m.%Y")}")).to be true
   end
   sleep(0.33)
 end
@@ -105,15 +105,14 @@ Then /^the lines start date is today$/ do
 end
 
 When /^I open a hand over with overdue lines$/ do
-  @ip = @current_user.managed_inventory_pools.first
-  @models_in_stock = @ip.items.by_responsible_or_owner_as_fallback(@ip).in_stock.map(&:model).uniq
-  @customer = @ip.users.to_a.detect do |u|
+  @models_in_stock = @current_inventory_pool.items.by_responsible_or_owner_as_fallback(@current_inventory_pool).in_stock.map(&:model).uniq
+  @customer = @current_inventory_pool.users.to_a.detect do |u|
     u.contracts.approved.exists? and u.contracts.approved.any? do |c|
       c.lines.any? {|l| l.start_date < Date.today and l.end_date >= Date.today and @models_in_stock.include? l.model}
     end
   end
   expect(@customer).not_to eq nil
-  visit manage_hand_over_path(@ip, @customer)
+  visit manage_hand_over_path(@current_inventory_pool, @customer)
   expect(has_selector?("#hand-over-view", :visible => true)).to be true
 end
 
@@ -124,7 +123,7 @@ When /^I select an overdue item line and assign an inventory code$/ do
 end
 
 When /^I assign an inventory code the item line$/ do
-  item = @ip.items.by_responsible_or_owner_as_fallback(@ip).in_stock.where(model_id: @item_line.model).first
+  item = @current_inventory_pool.items.by_responsible_or_owner_as_fallback(@current_inventory_pool).in_stock.where(model_id: @item_line.model).first
   expect(item).not_to eq nil
   @selected_items ||= []
   @selected_items << item

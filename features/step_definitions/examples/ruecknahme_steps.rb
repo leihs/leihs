@@ -37,8 +37,8 @@ end
 
 When(/^ich befinde mich in einer Rücknahme für ein gesperrter Benutzer$/) do
   step 'I open a take back'
-  ensure_suspended_user(@customer, @ip)
-  visit manage_take_back_path(@ip, @customer)
+  ensure_suspended_user(@customer, @current_inventory_pool)
+  visit manage_take_back_path(@current_inventory_pool, @customer)
 end
 
 Angenommen(/^ich befinde mich in einer Rücknahme$/) do

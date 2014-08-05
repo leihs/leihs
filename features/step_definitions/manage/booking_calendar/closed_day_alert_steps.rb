@@ -5,7 +5,7 @@ When /^I pick a closed day for beeing the "(.*?)"$/ do |date_target|
   if all("td[data-date='#{date}']").empty? then date = Date.new(date.year, date.month + 1) end
 
   while next_closed_day.nil?
-    next_date = @ip.next_open_date date+1.day
+    next_date = @current_inventory_pool.next_open_date date+1.day
     next_closed_day = (next_date - 1.day) if (next_date-date).to_i > 1
     date = date+1.day
   end

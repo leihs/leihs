@@ -36,7 +36,7 @@
                 %td.model_name= line.model.name
                 %td.location
                   - if line.model.is_a?(Option)
-                    %i= _("location not defined")
+                    %i= _("Location not defined")
                   - else
                     = "%s / %s" % [line.item.location.room, line.item.location.shelf]
 
@@ -57,14 +57,14 @@
               %td.location= "%s x %s / %s" % [_("available quantity"), _("Room"), _("Shelf")]
           %tbody
             - models_lines = lines.group_by{|line| [line.model, line.item] }
-            -  Hash[models_lines.sort_by {|k,v| k.first or k.last }].each_pair do |model_item, lines|
+            - Hash[models_lines.sort_by {|k,v| k.first.to_s or k.last }].each_pair do |model_item, lines|
               %tr{style: "vertical-align: top"}
                 %td.quantity= lines.sum &:quantity
                 %td.inventory_code= model_item.last.inventory_code if model_item.last
                 %td.model_name= model_item.first.name
                 %td.location
                   - if model_item.first.is_a?(Option)
-                    %i= _("location not defined")
+                    %i= _("Location not defined")
                   - else
                     %table
                       - if model_item.last
@@ -72,8 +72,10 @@
                           %td{style: "width: 4em; text-align: right; border: none"}
                           %td{style: "border: none"}
                             = "%s / %s" % [model_item.last.location.try(:room), model_item.last.location.try(:shelf)]
+                      - elsif (items_in_stock = model_item.first.items.in_stock.where(inventory_pool_id: current_inventory_pool)).count == 0
+                        %i= _("Not available")
                       - else
-                        - locations = model_item.first.items.in_stock.where(inventory_pool_id: current_inventory_pool).select("COUNT(items.location_id) AS count, locations.room AS room, locations.shelf AS shelf").joins(:location).group(:location_id).order("count DESC, room ASC, shelf ASC")
+                        - locations = items_in_stock.select("COUNT(items.location_id) AS count, locations.room AS room, locations.shelf AS shelf").joins(:location).group(:location_id).order("count DESC, room ASC, shelf ASC")
                         - locations.delete_if {|location| location.room.blank? and location.shelf.blank? }
                         - locations.each do |location|
                           %tr
@@ -81,10 +83,10 @@
                               = "%dx" % location.count
                             %td{style: "border: none"}
                               = "%s / %s" % [location.room, location.shelf]
-                        - not_defined_count = model_item.first.items.in_stock.where(inventory_pool_id: current_inventory_pool).count - locations.to_a.sum(&:count)
+                        - not_defined_count = items_in_stock.count - locations.to_a.sum(&:count)
                         - if not_defined_count > 0
                           %tr
                             %td{style: "width: 4em; text-align: right; border: none"}
                               = "%dx" % not_defined_count
                             %td{style: "border: none"}
-                              %i= _("location not defined")
+                              %i= _("Location not defined")

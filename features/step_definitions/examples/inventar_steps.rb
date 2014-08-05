@@ -376,7 +376,7 @@ end
 Dann /^man sieht die Pakete dieses Paket\-Modells$/ do
   @packages_element = @package_line.find(:xpath, "following-sibling::div[@class='group-of-lines']")
   @package.items.each do |package|
-    @packages_element.should have_content package.inventory_code  
+    expect(@packages_element.has_content? package.inventory_code).to be true
   end
   @item_line = @packages_element.all(".line[data-type='item']").to_a.sample
   @item = Item.find_by_inventory_code(@item_line.find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text)
@@ -392,14 +392,14 @@ end
 
 Dann /^man sieht die Bestandteile, die zum Paket gehören$/ do
   @item.children.each do |part|
-    @package_parts_element.should have_content part.inventory_code
+    expect(@package_parts_element.has_content? part.inventory_code).to be true
   end
 end
 
 Dann /^so eine Zeile zeigt nur noch Inventarcode und Modellname des Bestandteils$/ do
   @item.children.each do |part|
-    @package_parts_element.should have_content part.inventory_code
-    @package_parts_element.should have_content part.name
+    expect(@package_parts_element.has_content? part.inventory_code).to be true
+    expect(@package_parts_element.has_content? part.name).to be true
   end
 end
 
@@ -443,6 +443,7 @@ end
 Dann /^die Informationen sind gespeichert$/ do
   search_string = @table_hashes.detect {|h| h["Feld"] == "Produkt"}["Wert"]
   step 'ich nach "%s" suche' % search_string
+  sleep(0.33)
   find(".line", match: :prefer_exact, text: search_string)
   step 'I should see "%s"' % search_string
 end
@@ -453,7 +454,7 @@ Dann /^die Daten wurden entsprechend aktualisiert$/ do
   find(".line", :text => search_string).find("a", :text => Regexp.new(_("Edit"),"i")).click
 
   # check that the same model was modified
-  (Rails.application.routes.recognize_path current_path)[:id].to_i.should eq @model_id
+  expect((Rails.application.routes.recognize_path current_path)[:id].to_i).to eq @model_id
 
   @table_hashes.each do |row|
     field_name = row["Feld"]
@@ -467,13 +468,13 @@ Dann /^die Daten wurden entsprechend aktualisiert$/ do
       value_in_field = value_in_field.to_i
     end
 
-    field_value.should eq value_in_field
+    expect(field_value).to eq value_in_field
   end
 
   click_link("%s" % _("Cancel"))
   find("#inventory-index-view h1", match: :prefer_exact, text: _("List of Inventory"))
   sleep(0.33)
-  current_path.should eq @page_to_return
+  expect(current_path).to eq @page_to_return
 end
 
 Wenn /^ich nach "(.+)" suche$/ do |option_name|
@@ -608,7 +609,7 @@ Dann /^zu grosse Bilder werden den erlaubten Grössen entsprechend verkleinert$/
 end
 
 Dann /^wurden die ausgewählten Bilder für dieses Modell gespeichert$/ do
-  @model.images.map(&:filename).sort.should eql @images_to_save.sort
+  expect(@model.images.map(&:filename).sort).to eq @images_to_save.sort
 end
 
 Und /^ich speichere das Modell mit Bilder$/ do

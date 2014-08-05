@@ -24,7 +24,7 @@ Angenommen /^ich öffne den Kalender$/ do
 end
 
 Dann /^kann ich die Anzahl unbegrenzt erhöhen \/ überbuchen$/ do
-  @size = @line.model.items.where(:inventory_pool_id => @ip).size*2
+  @size = @line.model.items.where(:inventory_pool_id => @current_inventory_pool).size*2
   find(".modal #booking-calendar-quantity").set @size
   expect(find(".modal #booking-calendar-quantity").value.to_i).to eq @size
 end
