@@ -43,17 +43,57 @@ Funktionalität: Inventar
     Und es erscheinen alle zutreffenden Paket-Gegenstände
     Und es erscheinen alle zutreffenden Gegenstände
 
-  @javascript @personas
+  @current
   Szenario: Auswahlmöglichkeiten
-    Dann hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind
-      | auswahlmöglichkeit |
-      | Aktives Inventar   |
-      | Ausleihbar         |
-      | Nicht ausleihbar   |
-      | Ausgemustert       |
-      | Ungenutzte Modelle |
-      | Software           |
+    Dann kann man die folgende Auswahl treffen, die nicht kombinierbar ist
+      | Auswahlmöglichkeit   |
+      | Alle                 |
+      | Modelle              |
+      | Optionen             |  
+      | Software             |
+    Und ich kann innerhalb der Auswahl zusätzlich jeweils einen der folgenden Filtermöglichkeiten wählen
+      | Filtermöglichkeit I             | Filtermöglichkeit II             | Filtermöglichkeit III |
+      | Alle Geräteparks                | Einzelne verantw. Geräteparks    |                       |
+      | Genutzt & Ungenutzt             | Genutzt                          | Ungenutzt             |
+      | Ausleihbar & Nicht Ausleihbar   | Ausleihbar                       | Nicht Ausleihbar      |
+    Und die Filter sind kombinierbar
+    Und ich kann innerhalb der Auswahl zusätzlich die folgenden Filter setzen, die kombinierbar sind
+      | Filterwahl           |
+      | Im Besitz            |
+      | An Lager             |
+      | Unvollständig        |
+      | Defekt               |
+      | Ausgemustert         |
+  
+ #@current
+ #Szenario: Inhalt der Auswahl "Alle"
+ # Dann enthält die Auswahl "Alle" das gesamte Inventar
+ # Und der Filter "Nicht Ausgemustert" ist aktiviert
+ # Und der Filter "Genutzt" ist aktiviert
 
+  @current
+  Szenario: Inhalt der Auswahl "Modelle"
+    Dann enthält die Auswahl "Modelle" Modelle, Gegenstände und Pakete
+ #  Und der Filter "Nicht Ausgemustert" ist aktiviert
+ #  Und der Filter "Genutzt" ist aktiviert
+
+   @current
+  Szenario: Inhalt der Auswahl "Optionen"
+    Dann enthält die Auswahl "Optionen" Optionen
+ #  Und der Filter "Nicht Ausgemustert" ist aktiviert
+ #  Und der Filter "Genutzt" ist aktiviert
+
+  @current
+  Szenario: Inhalt der Auswahl "Software"
+    Dann enthält die Auswahl "Software" Software und Software-Lizenzen
+ #   Und der Filter "Nicht Ausgemustert" ist aktiviert
+ #   Und der Filter "Genutzt" ist aktiviert
+
+  @personas @javascript @current
+  Szenario: Grundeinstellung der Listenansicht
+    Dann ist die Auswahl "Alle" aktiviert
+
+    
   @javascript @personas
   Szenario: Aussehen einer Options-Zeile
     Dann enthält die Options-Zeile folgende Informationen
@@ -61,10 +101,6 @@ Funktionalität: Inventar
       | Barcode     |
       | Name        |
       | Preis       |
-
-  @javascript @personas
-  Szenario: Keine Leeren Modelle auf der Liste des Inventars
-    Dann sieht man keine Modelle, denen keine Gegenstänge zugewiesen unter keinem der vorhandenen Reiter
 
   @javascript @personas
   Szenario: Paket-Modelle aufklappen
@@ -153,17 +189,6 @@ Funktionalität: Inventar
     Und man sieht die Gegenstände, die zum Modell gehören
     Und so eine Zeile sieht aus wie eine Gegenstands-Zeile
 
-  @javascript @personas
-  Szenario: Filtermöglichkeiten von Listen
-    Dann hat man folgende Filtermöglichkeiten
-      | filtermöglichkeit         |
-      | An Lager                  |
-      | Besitzer bin ich          |
-      | Verantwortliche Abteilung |
-      | Defekt                    |
-      | Unvollständig             |
-    Und die Filter können kombiniert werden
-
   #73278620
   @current
   Szenario: Verhalten nach Speichern
@@ -173,7 +198,5 @@ Funktionalität: Inventar
     Und ich speichere
     Dann werde ich zur Liste des eben gewählten Reiters mit den eben ausgewählten Filtern zurueckgefuehrt
 
-  @personas @javascript
-  Szenario: Grundeinstellung der Listenansicht
-    Dann ist die Auswahl "Aktives Inventar" aktiviert
-    Und es sind keine Filtermöglichkeiten aktiviert
+
+  

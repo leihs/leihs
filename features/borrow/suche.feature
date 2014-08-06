@@ -49,3 +49,12 @@ Funktionalität: Suche
     Und man sieht die Geräteparkeinschränkung
     Und man sieht die Ausleihzeitraumwahl
     Und die Vorschlagswerte sind verschwunden
+
+  @javascript @personas @current
+  Szenario: Suchbegriff mit Leerschlag anzeigen
+    Angenommen ich bin Normin
+    Und man befindet sich auf der Seite der Hauptkategorien
+    Wenn ich einen Suchbegriff bestehend aus mindestens zwei Wörtern und einem Leerschlage eigebe
+    Dann wird die Such-Resultatseite angezeigt
+    Und man sieht alle gefundenen Modelle mit Bild, Modellname und Herstellername
+

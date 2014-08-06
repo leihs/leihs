@@ -32,12 +32,4 @@ Funktionalität: Suche
     Dann sieht man alle unterschriebenen und geschlossenen Veträge des Benutzers
     Und man sieht keinen Link 'Zeige alle gefundenen Verträge'
 
-  @upcoming
-  Szenario: Suche anhand Name mit Leerschlägen
-    Angenommen ich bin Pius
-    Angenommen es existiert ein Modell mit folgendem Namen
-    | Galaxy Tab 6.0  |
-    Wenn ich in der globalen Suche nach dem folgenden String suche
-    | Galaxy Tab |
-    Dann wird mir das entsprechende Modell im Suchergebnis angezeigt
 
