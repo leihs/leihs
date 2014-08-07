@@ -18,21 +18,17 @@ Funktionalität: Inventar
     | Felder                            |  
     | Erstellt am                       |  
     | Aktualisiert am                   |  
-    | Modellname                        |  
+    | Produkt                           |  
     | Version                           |  
     | Hersteller                        |  
     | Beschreibung                      |  
     | Technische Details                |  
     | Interne Beschreibung              |  
     | Wichtige Notizen zur Aushändigung |  
-    | Zuteilungen                       |  
     | Kategorien                        |  
-    | Bildernamen                       |  
-    | Anhangsnamen                      |  
     | Zubehör                           |  
     | Ergänzende Modelle                |  
     | Eigenschaften                     |  
-    | Paketnummern                      |  
     | Inventarcode                      |  
     | Ausmusterung                      |  
     | Grund der Ausmusterung            |  
@@ -66,11 +62,10 @@ Funktionalität: Inventar
     | Vertragsablaufdatum               |  
     Und die Software-Lizenzzeilen enthalten die folgenden Felder in aufgeführter Reihenfolge
     | Felder                            |  
-    | Produktname                       |  
+    | Produkt                           |  
     | Version                           |  
     | Hersteller                        |  
     | Software Informationen            |  
-    | Anhänge                           |  
     | Inventarcode                      |  
     | Ausmusterung                      |  
     | Ausleihbar                        |  
