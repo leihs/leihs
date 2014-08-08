@@ -305,4 +305,10 @@ Leihs::Application.routes.draw do
     end
 
   end
+
+  if Rails.env.test?
+    get "/images/attachments/:dir1/:dir2/:file", to: redirect('/images/test.jpg')
+    get "/attachments/:dir1/:dir2/:file", to: redirect('/images/test.jpg')
+  end
+
 end
