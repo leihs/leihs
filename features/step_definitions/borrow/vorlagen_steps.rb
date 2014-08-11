@@ -121,7 +121,7 @@ Dann(/^die restlichen Modelle werden verworfen$/) do
 end
 
 Dann(/^die Modelle sind innerhalb eine Gruppe alphabetisch sortiert$/) do
-  all(".row.line .col6of10").map(&:text).should eq @template.models.sort.map(&:name)
+  expect(all(".row.line .col6of10").map(&:text)).to eq @template.models.sort.map(&:name)
 end
 
 Dann(/^sind diejenigen Modelle hervorgehoben, die zu diesem Zeitpunkt nicht verfügbar sind$/) do

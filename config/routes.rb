@@ -81,7 +81,7 @@ Leihs::Application.routes.draw do
     get "returns", to: "returns#index", as: "returns"
 
     post  'search',               to: 'search#search',  as: "search"
-    get   'search/:search_term',  to: 'search#results', as: "search_results"
+    get   'search',               to: 'search#results', as: "search_results"
 
     get   'templates',                  to: 'templates#index',        as: "templates"
     get   'templates/:id',              to: 'templates#show',         as: "template"

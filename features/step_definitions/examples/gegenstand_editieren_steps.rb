@@ -1,8 +1,13 @@
 # -*- encoding : utf-8 -*-
 
-Angenommen /^man editiert einen Gegenstand, wo man der Besitzer ist$/ do
-  @item = @current_inventory_pool.items.items.where(owner_id: @current_inventory_pool).sample
+Angenommen /^man editiert einen Gegenstand, wo man der Besitzer ist(, der am Lager und in keinem Vertrag vorhanden ist)?$/ do |arg1|
+  @item = if arg1
+            @current_inventory_pool.items.items.in_stock.where(owner_id: @current_inventory_pool).sample
+          else
+            @current_inventory_pool.items.items.where(owner_id: @current_inventory_pool).sample
+          end
   visit manage_edit_item_path @current_inventory_pool, @item
+  expect(has_selector?(".row.emboss")).to be true
 end
 
 Dann /^muss der "(.*?)" unter "(.*?)" ausgewählt werden$/ do |key, section|
@@ -58,16 +63,6 @@ Wenn(/^"(.*?)" bei "(.*?)" ausgewählt ist muss auch "(.*?)" ausgewählt werden$
   expect(newfield[:"data-required"]).to eq "true"
 end
 
-Angenommen(/^man navigiert zur Gegenstandsbearbeitungsseite( eines Gegenstandes, der am Lager und in keinem Vertrag vorhanden ist)$/) do |arg1|
-  @item ||= if arg1
-              @current_inventory_pool.items.in_stock.sample
-            else
-              @current_inventory_pool.items.sample
-            end
-  visit manage_edit_item_path(@current_inventory_pool, @item)
-  expect(has_selector?(".row.emboss")).to be true
-end
-
 Wenn(/^ich speichern druecke$/) do
   find("button", text: _("Save %s") % _("Item")).click
 end
@@ -80,7 +75,7 @@ Dann(/^ist der Gegenstand mit all den angegebenen Informationen gespeichert$/) d
   find("[data-retired='true']").click if @table_hashes.detect { |r| r["Feldname"] == "Ausmusterung" } and (@table_hashes.detect { |r| r["Feldname"] == "Ausmusterung" }["Wert"]) == "Ja"
   find("#list-search").set (@table_hashes.detect { |r| r["Feldname"] == "Inventarcode" }["Wert"])
   find(".line", :text => @table_hashes.detect { |r| r["Feldname"] == "Modell" }["Wert"], :visible => true)
-  visit manage_edit_item_path @current_inventory_pool.id, @item.id
+  step "man befindet sich auf der Editierseite von diesem Gegenstand"
   step 'hat der Gegenstand alle zuvor eingetragenen Werte'
   sleep(0.33) # fix lazy request problem
 end
@@ -102,7 +97,7 @@ end
 
 Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes mit gesetztem Lieferanten$/) do
   @item = @current_inventory_pool.items.find { |i| not i.supplier.nil? }
-  visit manage_edit_item_path(@current_inventory_pool, @item)
+  step "man befindet sich auf der Editierseite von diesem Gegenstand"
 end
 
 Wenn(/^ich den Lieferanten ändere$/) do
@@ -117,13 +112,13 @@ end
 Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeliehen ist und wo man Besitzer ist$/) do
   @item = @current_inventory_pool.own_items.not_in_stock.sample
   @item_before = @item.to_json
-  visit manage_edit_item_path(@current_inventory_pool, @item)
+  step "man befindet sich auf der Editierseite von diesem Gegenstand"
 end
 
 Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeliehen ist$/) do
   @item = @current_inventory_pool.items.not_in_stock.sample
   @item_before = @item.to_json
-  visit manage_edit_item_path(@current_inventory_pool, @item)
+  step "man befindet sich auf der Editierseite von diesem Gegenstand"
 end
 
 Wenn(/^ich die verantwortliche Abteilung ändere$/) do
@@ -133,7 +128,7 @@ end
 Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes, der in einem Vertrag vorhanden ist$/) do
   @item = @current_inventory_pool.items.items.not_in_stock.sample
   @item_before = @item.to_json
-  visit manage_edit_item_path(@current_inventory_pool, @item)
+  step "man befindet sich auf der Editierseite von diesem Gegenstand"
 end
 
 Wenn(/^ich das Modell ändere$/) do

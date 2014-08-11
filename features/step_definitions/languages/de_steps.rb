@@ -743,6 +743,10 @@ Dann(/^werden mir alle (Bestellungen|Verträge|Besuche) aufgeführt, die zu mein
   step "all listed %s, are matched by the search term" % s
 end
 
+Wenn(/^ich einen Suchbegriff bestehend aus mindestens zwei Wörtern und einem Leerschlage eigebe$/) do
+  step "I search for models giving at least two space separated terms"
+end
+
 Wenn(/^ich den Wert der Notiz ändere$/) do
   step %Q(I change the value of the note)
 end

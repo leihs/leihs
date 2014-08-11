@@ -9,12 +9,12 @@ end
 
 Angenommen /^man sucht nach eine(?:m|r) nicht ausgeliehenen (Lizenz|Gegenstand)$/ do |item_type|
   @item = Item.send(get_scope item_type).where(inventory_pool_id: @current_inventory_pool.id).detect {|i| not i.retired? and i.is_borrowable? and i.in_stock?}
-  visit manage_edit_item_path @current_inventory_pool, @item
+  step "man befindet sich auf der Editierseite von diesem %s" % item_type
 end
 
 Angenommen /^man sucht nach eine(?:m|r) nicht ausgeliehenen (Lizenz|Gegenstand), wo man der Besitzer ist$/ do |item_type|
   @item = Item.send(get_scope item_type).where(inventory_pool_id: @current_inventory_pool.id).detect {|i| not i.retired? and i.is_borrowable? and i.in_stock? and i.owner_id == @current_inventory_pool.id}
-  visit manage_edit_item_path @current_inventory_pool, @item
+  step "man befindet sich auf der Editierseite von diesem %s" % item_type
 end
 
 Dann /^kann man diese(?:.?) (?:.*) mit Angabe des Grundes erfolgreich ausmustern$/ do
@@ -48,12 +48,12 @@ end
 
 Angenommen /^man sucht nach eine(?:.?) ausgeliehenen (.*)$/ do |item_type|
   @item = Item.send(get_scope item_type).where(inventory_pool_id: @current_inventory_pool.id).detect {|i| not (i.retired? or i.in_stock?)}
-  visit manage_edit_item_path @current_inventory_pool, @item
+  step "man befindet sich auf der Editierseite von diesem %s" % item_type
 end
 
 Angenommen /^man sucht nach eine(?:.?) (.*) bei dem ich nicht als Besitzer eingetragen bin$/ do |item_type|
   @item = Item.send(get_scope item_type).where(inventory_pool_id: @current_inventory_pool.id).detect {|i| i.in_stock? and i.owner_id != @current_inventory_pool.id}
-  visit manage_edit_item_path @current_inventory_pool, @item
+  step "man befindet sich auf der Editierseite von diesem %s" % item_type
 end
 
 Angenommen /^man gibt bei der Ausmusterung keinen Grund an$/ do
@@ -73,12 +73,8 @@ Angenommen(/^man sucht nach eine(?:.) ausgemusterten (.*), wo man der Besitzer i
   @item = Item.unscoped.send(get_scope item_type).find {|i| i.retired? and i.owner_id == @current_inventory_pool.id}
 end
 
-Angenommen(/^man befindet sich auf der Gegenstandseditierseite dieses Gegenstands$/) do
+Angenommen(/^man befindet sich auf der Editierseite von diesem (Gegenstand|Lizenz)$/) do |arg1|
   visit manage_edit_item_path(@current_inventory_pool, @item)
-end
-
-Angenommen(/^man befindet sich auf der Editierseite von diese(?:.) (?:Gegenstand|Lizenz)$/) do
-  step "man befindet sich auf der Gegenstandseditierseite dieses Gegenstands"
 end
 
 Wenn(/^man die Ausmusterung bei diese(?:.) (?:.*) zurück setzt$/) do

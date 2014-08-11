@@ -64,8 +64,7 @@ Funktionalität: Gegenstand bearbeiten
 
   @javascript @personas
   Szenario: Einen Gegenstand mit allen Informationen editieren
-    Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
-    Und man navigiert zur Gegenstandsbearbeitungsseite eines Gegenstandes, der am Lager und in keinem Vertrag vorhanden ist
+    Angenommen man editiert einen Gegenstand, wo man der Besitzer ist, der am Lager und in keinem Vertrag vorhanden ist
     Wenn ich die folgenden Informationen erfasse
       | Feldname               | Type         | Wert                |
 
@@ -108,7 +107,7 @@ Funktionalität: Gegenstand bearbeiten
 
   @javascript @personas
   Szenario: Einen Gegenstand mit allen Informationen editieren
-    Und man navigiert zur Gegenstandsbearbeitungsseite eines Gegenstandes, der am Lager und in keinem Vertrag vorhanden ist
+    Angenommen man editiert einen Gegenstand, wo man der Besitzer ist, der am Lager und in keinem Vertrag vorhanden ist
     Wenn ich die folgenden Informationen erfasse
       | Feldname              | Type         | Wert                |
 
@@ -154,7 +153,6 @@ Funktionalität: Gegenstand bearbeiten
   @javascript @personas
   Szenario: Neuen Lieferanten erstellen falls nicht vorhanden
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
-    Angenommen man navigiert zur Gegenstandsbearbeitungsseite
     Wenn ich einen nicht existierenen Lieferanten angebe
     Und ich speichern druecke
     Dann wird der neue Lieferant erstellt
@@ -176,8 +174,7 @@ Funktionalität: Gegenstand bearbeiten
 
   @javascript @personas
   Szenario: Einen Gegenstand mit allen Informationen editieren
-    Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
-    Und man navigiert zur Gegenstandsbearbeitungsseite eines Gegenstandes, der am Lager und in keinem Vertrag vorhanden ist
+    Angenommen man editiert einen Gegenstand, wo man der Besitzer ist, der am Lager und in keinem Vertrag vorhanden ist
     Wenn ich die folgenden Informationen erfasse
       | Feldname              | Type         | Wert                |
 
@@ -201,8 +198,7 @@ Funktionalität: Gegenstand bearbeiten
 
   @javascript @personas
   Szenario: Einen Gegenstand mit allen Informationen editieren
-    Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
-    Und man navigiert zur Gegenstandsbearbeitungsseite eines Gegenstandes, der am Lager und in keinem Vertrag vorhanden ist
+    Angenommen man editiert einen Gegenstand, wo man der Besitzer ist, der am Lager und in keinem Vertrag vorhanden ist
     Wenn ich die folgenden Informationen erfasse
       | Feldname                  | Type         | Wert                |
 
