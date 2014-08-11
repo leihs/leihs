@@ -258,7 +258,6 @@ Dann /^enthält die Gegenstands\-Zeile den aktuell Ausleihenden$/ do
 end
 
 Dann /^enthält die Gegenstands\-Zeile das Enddatum der Ausleihe$/ do
-  binding.pry
   expect((@item_line.is_a?(String) ? find(@item_line, match: :first) : @item_line).has_content?(@item.current_return_date.year)).to be true
   expect((@item_line.is_a?(String) ? find(@item_line, match: :first) : @item_line).has_content?(@item.current_return_date.month)).to be true
   expect((@item_line.is_a?(String) ? find(@item_line, match: :first) : @item_line).has_content?(@item.current_return_date.day)).to be true
