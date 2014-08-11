@@ -16,6 +16,6 @@ When /^I pick a closed day for beeing the "(.*?)"$/ do |date_target|
 end
 
 Then /^this date becomes red and I see a closed day warning$/ do
-  expect(@date_el[:class][/closed/]).not_to eq nil
+  expect(@date_el[:class][/closed/]).not_to be nil
   find(".red", text: _("This inventory pool is closed on that day."))
 end

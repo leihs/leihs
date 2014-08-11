@@ -152,7 +152,7 @@ Wenn(/^man die Liste nach "(.*?)" sortiert$/) do |sort_order|
   end
   find("#model-sorting a", :text => text).click
   find("#model-list .line", :match => :first)
-  all("#model-list .line").count.should > 0
+  expect(all("#model-list .line").count).to be > 0
 end
 
 Dann(/^ist die Liste nach "(.*?)" "(.*?)" sortiert$/) do |sort, order|
@@ -312,7 +312,7 @@ Wenn(/^bis ans ende der bereits geladenen Modelle fährt$/) do
 end
 
 Dann(/^wird der nächste Block an Modellen geladen und angezeigt$/) do
-  all("#model-list .line").count.should > 20
+  expect(all("#model-list .line").count).to be > 20
 end
 
 Wenn(/^man bis zum Ende der Liste fährt$/) do

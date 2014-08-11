@@ -106,10 +106,10 @@ end
 
 Angenommen(/^es existiert ein Benutzer mit einer zurückzugebender Option in zwei verschiedenen Zeitfenstern$/) do
   @user = User.find do |u|
-    option_lines = u.visits.take_back.flat_map(&:lines).select {|l| l.is_a? OptionLine}
+    option_lines = u.visits.take_back.select{|v| v.inventory_pool == @current_inventory_pool}.flat_map(&:lines).select {|l| l.is_a? OptionLine}
     option_lines.uniq(&:option).size < option_lines.size
   end
-  expect(@user).not_to eq nil
+  expect(@user).not_to be nil
 end
 
 Wenn(/^ich öffne die Rücknahmeansicht für diesen Benutzer$/) do
@@ -142,12 +142,12 @@ end
 
 Dann(/^wird die Option dem zweiten Zeitfenster hinzugefügt$/) do
   @option_line = @option_lines.sort{|a, b| a.end_date <=> b.end_date}.second
-  all("[data-selected-lines-container]").to_a.second.find(".line[data-id='#{@option_line.id}'] [data-quantity-returned]").value.to_i > 0
+  expect(all("[data-selected-lines-container]").to_a.second.find(".line[data-id='#{@option_line.id}'] [data-quantity-returned]").value.to_i).to be > 0
 end
 
 Given(/^I open a take back with at least one item and one option$/) do
   @take_back = @current_inventory_pool.visits.take_back.find {|v| v.lines.any? {|l| l.is_a? OptionLine} and v.lines.any? {|l| l.is_a? ItemLine}}
-  expect(@take_back).not_to eq nil
+  expect(@take_back).not_to be nil
   visit manage_take_back_path(@current_inventory_pool, @take_back.user)
 end
 

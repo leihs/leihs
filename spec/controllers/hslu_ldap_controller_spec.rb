@@ -256,7 +256,7 @@ describe Authenticator::HsluAuthenticationController, type: :request do
   context "if the user does not yet exist" do
     it "should be able to create a normal with various useful data grabbed from LDAP" do
       post 'authenticator/hslu/login', {:login => { :username => "normal_user", :password => "1234" }}, {}
-      expect(User.where(:login => "normal_user").first).not_to eq nil
+      expect(User.where(:login => "normal_user").first).not_to be nil
     end
   end
 
@@ -264,13 +264,13 @@ describe Authenticator::HsluAuthenticationController, type: :request do
     it "should assign users to the group if they have the right displayName" do
       post 'authenticator/hslu/login', {:login => { :username => "video_user", :password => "1234" }}, {}
       user = User.where(:login => "video_user" ).first
-      expect(user).not_to eq nil
+      expect(user).not_to be nil
       expect(user.groups.include?(Group.where(:name => "Video").first)).to be true
     end
     it "should not assign users to the group if they don't have the right displayName" do
       post 'authenticator/hslu/login', {:login => { :username => "normal_user", :password => "1234" }}, {}
       user = User.where(:login => "normal_user").first
-      expect(user).not_to eq nil
+      expect(user).not_to be nil
       expect(user.groups.include?(Group.where(:name => "Video").first)).to be false
     end
   end
@@ -288,7 +288,7 @@ describe Authenticator::HsluAuthenticationController, type: :request do
       post 'authenticator/hslu/login', {:login => { :username => "normal_user", :password => "1234" }}, {}
       user = User.where(:login => "normal_user").first
       user.reload
-      expect(user).not_to eq nil
+      expect(user).not_to be nil
       expect(user.badge_id).to eq "L9999"
     end
   end
@@ -298,7 +298,7 @@ describe Authenticator::HsluAuthenticationController, type: :request do
       post 'authenticator/hslu/login', {:login => { :username => "numeric_unique_id_user", :password => "1234" }}, {}
       user = User.where(:login => "numeric_unique_id_user").first
       user.reload
-      expect(user).not_to eq nil
+      expect(user).not_to be nil
       expect(user.badge_id).to eq "L1234"
     end
   end

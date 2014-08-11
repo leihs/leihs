@@ -10,8 +10,7 @@ Funktionalität: Kalender-Ansicht im Backend
     Wenn man den Kalender sieht
     Dann sehe ich die Verfügbarkeit von Modellen auch an Feier- und Ferientagen sowie Wochenenden
 
-  # CI-ISSUE: cannot be reproduced locally
-  @javascript @firefox @personas @current
+  @javascript @firefox @personas
   Szenario: Anzahl im Buchungskalender während einer Bestellung überbuchen
     Angenommen ich editiere eine Bestellung
      Und ich öffne den Kalender

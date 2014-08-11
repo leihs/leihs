@@ -63,7 +63,7 @@ end
 
 Dann(/^ist die Gruppe gespeichert$/) do
   @group = Group.find_by_name @name
-  expect(@group).not_to eq nil
+  expect(@group).not_to be nil
 end
 
 Dann(/^die Benutzer und Modelle mit deren Kapazitäten sind zugeteilt$/) do
@@ -155,7 +155,7 @@ end
 
 Dann(/^sind die bereits hinzugefügten Benutzer alphabetisch sortiert$/) do
   within("#users") do
-    all(".list-of-lines .line").size.should > 0
+    expect(all(".list-of-lines .line").size).to be > 0
     entries = all(".list-of-lines .line")
     expect(entries.map(&:text).sort).to eq entries.map(&:text)
   end
@@ -163,7 +163,7 @@ end
 
 Dann(/^sind die bereits hinzugefügten Modelle alphabetisch sortiert$/) do
   within("#models-allocations") do
-    all(".list-of-lines .line").size.should > 0
+    expect(all(".list-of-lines .line").size).to be > 0
     entries = all(".list-of-lines .line")
     expect(entries.map(&:text).sort).to eq entries.map(&:text)
   end

@@ -18,7 +18,7 @@ class Option < ActiveRecord::Base
   validates_uniqueness_of :inventory_code, :scope => :inventory_pool_id, :unless => Proc.new { |record| record.inventory_code.blank? }
 
   before_validation do |record|
-    record.inventory_code = nil if !record.inventory_code.nil? and record.inventory_code.blank? 
+    record.inventory_code = nil if !record.inventory_code.nil? and record.inventory_code.blank?
   end
 
 ##########################################
@@ -28,7 +28,7 @@ class Option < ActiveRecord::Base
   scope :search, lambda { |query, fields = []|
     sql = all
     return sql if query.blank?
-    
+
     query.split.each{|q|
       q = "%#{q}%"
       sql = sql.where(arel_table[:manufacturer].matches(q). # FIXME use fields with SEARCHABLE_FIELDS
@@ -53,7 +53,7 @@ class Option < ActiveRecord::Base
   # TODO 2702** before_destroy: check if option_lines.empty?
 
   def needs_permission?
-    false  
+    false
   end
 
   def to_s
@@ -70,16 +70,16 @@ class Option < ActiveRecord::Base
   end
 
   # Generates an array suitable for outputting a line of CSV using CSV
-  def to_csv_array    
-    # Using #{} notation to catch nils gracefully and silently 
+  def to_csv_array
+    # Using #{} notation to catch nils gracefully and silently
     {
-      inventory_code: "#{self.inventory_code}",
-      inventory_pool: "#{self.inventory_pool.try(:name)}",
-      model_name: "#{self.name}",
-      categories: "#{_("Option")}",
-      price: "#{self.price}"
+        model_name: "#{self.name}",
+        _("Inventory Code") => "#{self.inventory_code}",
+        _("Responsible department") => "#{self.inventory_pool.try(:name)}",
+        _("Categories") => "#{_("Option")}",
+        _("Initial Price") => "#{self.price}"
     }
   end
- 
+
 end
  

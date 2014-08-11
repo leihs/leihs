@@ -79,7 +79,7 @@ end
 Dann /^kann ich die Aushändigung durchführen$/ do
   signed_contracts_size = @customer.contracts.signed.size
   step 'I click hand over inside the dialog'
-  @customer.contracts.signed.size.should > signed_contracts_size
+  expect(@customer.contracts.signed.size).to be > signed_contracts_size
 end
 
 Dann /^muss ich keinen Zweck angeben um die Aushändigung durchzuführen$/ do

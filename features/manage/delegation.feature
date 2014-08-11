@@ -37,7 +37,7 @@ Funktionalität: Delegation
     Dann ist diese Kontaktperson bei der Auswahl rot markiert
     Und in der Auwahl steht hinter dem Namen in rot 'Gesperrt!'
 
-  @javascript @personas
+  @javascript @personas @firefox
   Szenario: Auswahl einer gesperrten Kontaktperson in Bestellung
     Angenommen ich bin Pius
     Und ich befinde mich in einer Bestellung
@@ -47,7 +47,7 @@ Funktionalität: Delegation
     Dann ist er bei der Auswahl rot markiert
     Und in der Auwahl steht hinter dem Namen in rot 'Gesperrt!'
 
-  @javascript @personas
+  @javascript @personas @firefox
   Szenario: Delegation in persönliche Bestellungen ändern in Aushändigung
     Angenommen ich bin Pius
     Und ich öffne eine Aushändigung für eine Delegation
@@ -115,7 +115,7 @@ Funktionalität: Delegation
     Wenn ich eine neue Delegation erstelle
     Dann kann ich dieser Delegation ausschliesslich Zugriff als Kunde zuteilen
 
-  @javascript @personas
+  @javascript @personas @firefox
   Szenario: Delegation in persönliche Bestellungen ändern in Bestellung
     Angenommen ich bin Pius
     Und es wurde für eine Delegation eine Bestellung erstellt
@@ -161,7 +161,7 @@ Funktionalität: Delegation
     Und ich speichere
     Dann können keine Bestellungen für diese Delegation für dieses Gerätepark erstellt werden
 
-  @javascript @personas
+  @javascript @personas @firefox
   Szenario: Persönliche Bestellung in Delegationsbestellung ändern in Bestellung
     Angenommen ich bin Pius
     Und ich befinde mich in einer Bestellung
@@ -231,7 +231,7 @@ Funktionalität: Delegation
     Wenn ich versuche die Kontaktperson zu wechseln
     Dann kann ich nur diejenigen Personen wählen, die zur Delegationsgruppe gehören
 
-  @javascript @personas
+  @javascript @personas @firefox
   Szenario: Auswahl der Kontaktperson in Bestellung ändern
     Angenommen ich bin Pius
     Und ich befinde mich in einer Bestellung von einer Delegation
@@ -260,7 +260,7 @@ Funktionalität: Delegation
     Und die Delegation ist als Besteller gespeichert
     Und ich werde als Kontaktperson hinterlegt
 
-  @javascript @personas
+  @javascript @personas @firefox
   Szenario: Delegation in Bestellungen ändern
     Angenommen ich bin Pius
     Und ich befinde mich in einer Bestellung

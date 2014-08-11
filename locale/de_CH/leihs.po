@@ -1591,6 +1591,9 @@ msgstr "Nicht abgeschickt"
 msgid "Unsuccessful reminder of %{q} items for contracts %{c}"
 msgstr "%{q} konnte nicht für Vertrag %{c} erinnert werden"
 
+msgid "Updated at"
+msgstr "Aktualisiert am"
+
 msgid "Upload error."
 msgstr "Fehler beim Hochladen."
 

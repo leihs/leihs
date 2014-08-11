@@ -20,8 +20,7 @@ Funktionalität: Rüstliste
     | Verleiher        |
     | Liste            |
 
-  # CI-ISSUE: cannot be reproduced locally
-  @personas @javascript @firefox @current
+  @personas @javascript @firefox
   Szenario: Inhalt der Rüstliste vor Aushändigung - keine Zuteilung von Inventarcode
     Angenommen es gibt eine Aushändigung mit mindestens einem nicht problematischen Modell und einer Option
     Und ich die Aushändigung öffne

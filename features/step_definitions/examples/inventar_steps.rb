@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 Angenommen /^man öffnet die Liste des Inventars?$/ do
-  @current_inventory_pool = @current_user.managed_inventory_pools.select {|ip| ip.models.exists? and ip.options.exists? }.sample
+  @current_inventory_pool = @current_user.managed_inventory_pools.select { |ip| ip.models.exists? and ip.options.exists? }.sample
   visit manage_inventory_path(@current_inventory_pool)
   find("#inventory")
 end
@@ -45,7 +45,7 @@ def check_existing_inventory_codes(items, type: :model)
 
   lines = all(".line[data-type='#{type}']")
   # select the lines which have an inventory expander that can be clicked (means models with items). this filter is needed for the special case of software.
-  lines = lines.select{|l| l.has_selector? ".button[data-type='inventory-expander'] i.arrow.right"} if type == :software
+  lines = lines.select { |l| l.has_selector? ".button[data-type='inventory-expander'] i.arrow.right" } if type == :software
 
   within "#inventory" do
     # each_with_index in order to prevent 'Element not found in the cache' from CI
@@ -57,7 +57,7 @@ def check_existing_inventory_codes(items, type: :model)
       sleep(0.22)
       within lines[i].find(:xpath, "./following-sibling::div[@class='group-of-lines']") do
         inventory_code = find(".line[data-type='#{item_type}'] .col2of5 > .row:nth-child(1)", match: :first).text
-        expect(items.find_by_inventory_code(inventory_code)).not_to eq nil
+        expect(items.find_by_inventory_code(inventory_code)).not_to be nil
       end
       within lines[i].find ".button[data-type='inventory-expander']" do
         find("i.arrow.down").click
@@ -116,8 +116,8 @@ Dann /^hat man folgende Filtermöglichkeiten$/ do |table|
   section_filter = find("#list-filters")
 
   table.hashes.each do |row|
-    section_filter.all("input[type='checkbox']").select{|x| x.checked?}.map(&:click)
-    expect(section_filter.all("input[type='checkbox']").select{|x| x.checked?}.empty?).to be true
+    section_filter.all("input[type='checkbox']").select { |x| x.checked? }.map(&:click)
+    expect(section_filter.all("input[type='checkbox']").select { |x| x.checked? }.empty?).to be true
     case row["filtermöglichkeit"]
       when "An Lager"
         section_filter.find("input#in_stock[type='checkbox']").click
@@ -143,8 +143,8 @@ end
 
 Dann /^die Filter können kombiniert werden$/ do
   section_filter = find("#list-filters")
-  section_filter.all("input[type='checkbox']").select{|x| not x.checked?}.map(&:click)
-  section_filter.all("input[type='checkbox']").select{|x| x.checked?}.size.should > 1
+  section_filter.all("input[type='checkbox']").select { |x| not x.checked? }.map(&:click)
+  expect(section_filter.all("input[type='checkbox']").select { |x| x.checked? }.size).to be > 1
 end
 
 ########################################################################
@@ -168,7 +168,7 @@ Wenn /^man eine Modell\-Zeile eines Modells, das weder ein Paket-Modell oder ein
   expect(has_selector?("#inventory .line[data-type='model']")).to be true
   all("#inventory .line[data-type='model']").each do |model_line|
     @model = Model.find_by_name(model_line.find(".col2of5 strong").text)
-    next if @model.is_package? or @model.items.all? {|i| i.parent}
+    next if @model.is_package? or @model.items.all? { |i| i.parent }
     @model_line = model_line and break
   end
 end
@@ -197,7 +197,7 @@ end
 ########################################################################
 
 Wenn /^man eine Gegenstands\-Zeile sieht$/ do
-  all(".tab").detect{|x| x["data-tab"] == '{"borrowable":true}'}.click
+  all(".tab").detect { |x| x["data-tab"] == '{"borrowable":true}' }.click
   find(".filter input#in_stock").click unless find(".filter input#in_stock").checked?
 end
 
@@ -258,6 +258,7 @@ Dann /^enthält die Gegenstands\-Zeile den aktuell Ausleihenden$/ do
 end
 
 Dann /^enthält die Gegenstands\-Zeile das Enddatum der Ausleihe$/ do
+  binding.pry
   expect((@item_line.is_a?(String) ? find(@item_line, match: :first) : @item_line).has_content?(@item.current_return_date.year)).to be true
   expect((@item_line.is_a?(String) ? find(@item_line, match: :first) : @item_line).has_content?(@item.current_return_date.month)).to be true
   expect((@item_line.is_a?(String) ? find(@item_line, match: :first) : @item_line).has_content?(@item.current_return_date.day)).to be true
@@ -270,7 +271,7 @@ end
 
 # not needed -> is a problem for capybara: "element not found in cache" error
 #def get_item_by_inventory_code(item_line)
-  #Item.find_by_inventory_code item_line.find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text
+#Item.find_by_inventory_code item_line.find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text
 #end
 
 Wenn /^der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist$/ do
@@ -282,9 +283,9 @@ Wenn /^der Gegenstand an Lager ist und meine Abteilung für den Gegenstand veran
 end
 
 Wenn /^der Gegenstand nicht an Lager ist und eine andere Abteilung für den Gegenstand verantwortlich ist$/ do
-  all("select#responsibles option:not([selected])").detect{|o| o.value != @current_inventory_pool.id.to_s and o.value != ""}.select_option
+  all("select#responsibles option:not([selected])").detect { |o| o.value != @current_inventory_pool.id.to_s and o.value != "" }.select_option
   find("#list-filters input#in_stock").click if find("#list-filters input#in_stock").checked?
-  item = @current_inventory_pool.own_items.detect{|i| not i.inventory_pool_id.nil? and i.inventory_pool != @current_inventory_pool and not i.in_stock?}
+  item = @current_inventory_pool.own_items.detect { |i| not i.inventory_pool_id.nil? and i.inventory_pool != @current_inventory_pool and not i.in_stock? }
   step 'ich nach "%s" suche' % item.inventory_code
   sleep(0.66)
   within ".line[data-type='model'][data-id='#{item.model.id}']" do
@@ -297,7 +298,7 @@ Wenn /^der Gegenstand nicht an Lager ist und eine andere Abteilung für den Gege
 end
 
 Wenn /^meine Abteilung Besitzer des Gegenstands ist die Verantwortung aber auf eine andere Abteilung abgetreten hat$/ do
-  all("select#responsibles option:not([selected])").detect{|o| o.value != @current_inventory_pool.id.to_s and o.value != ""}.select_option
+  all("select#responsibles option:not([selected])").detect { |o| o.value != @current_inventory_pool.id.to_s and o.value != "" }.select_option
   find(".button[data-type='inventory-expander'] i.arrow.right", match: :first).click
   sleep(0.33)
   @item_line = ".group-of-lines .line[data-type='item']"
@@ -331,27 +332,29 @@ end
 
 Dann /^man sieht die Gegenstände, die zum Modell gehören$/ do
   @items_element = @model_line.find(:xpath, "following-sibling::div[@class='group-of-lines']")
-  @model.items.each do |item|
-    expect(@items_element.has_content? item.inventory_code).to be true
+  items = @model.items.by_owner_or_responsible(@current_inventory_pool)
+  expect(items).to exist
+  items.each do |item|
+    @items_element.find(".line", text: item.inventory_code)
   end
 end
 
 Dann /^so eine Zeile sieht aus wie eine Gegenstands\-Zeile$/ do
   @item_line ||= @items_element.find(".line", match: :first)
   @item ||= Item.find_by_inventory_code(@item_line.find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text)
-  
+
   # this check is to cover the case where there is item assigned but the user has not signed yet
-  if @item.in_stock? && @item.current_borrower && @item.inventory_pool == @current_inventory_pool
+  if @item.in_stock? and @item.current_borrower and @item.inventory_pool == @current_inventory_pool
     step 'enthält die Gegenstands-Zeile den aktuell Ausleihenden'
-    step 'enthält die Gegenstands-Zeile das Enddatum der Ausleihe'
-  elsif @item.in_stock? && @item.inventory_pool == @current_inventory_pool
+    step 'enthält die Gegenstandsand-Zeile das Enddatum der Ausleihe'
+  elsif @item.in_stock? and @item.inventory_pool == @current_inventory_pool
     step 'enthält die Gegenstands-Zeile die Gebäudeabkürzung'
     step 'enthält die Gegenstands-Zeile den Raum'
-    step 'enthält die Gegenstands-Zeile das Gestell'
-  elsif not @item.in_stock? && @item.inventory_pool == @current_inventory_pool
+    step 'enthält die Gegenstandsand-Zeile das Gestell'
+  elsif not @item.in_stock? and @item.inventory_pool == @current_inventory_pool
     step 'enthält die Gegenstands-Zeile den aktuell Ausleihenden'
     step 'enthält die Gegenstands-Zeile das Enddatum der Ausleihe'
-  elsif @item.owner == @current_inventory_pool && @item.inventory_pool != @current_inventory_pool
+  elsif @item.owner == @current_inventory_pool and @item.inventory_pool != @current_inventory_pool
     step 'enthält die Gegenstands-Zeile die Verantwortliche Abteilung'
     step 'enthält die Gegenstands-Zeile die Gebäudeabkürzung'
     step 'enthält die Gegenstands-Zeile den Raum'
@@ -360,7 +363,7 @@ Dann /^so eine Zeile sieht aus wie eine Gegenstands\-Zeile$/ do
     step 'enthält die Gegenstands-Zeile den Raum'
     step 'enthält die Gegenstands-Zeile das Gestell'
   end
-    
+
 end
 
 Dann /^kann man jedes Paket\-Modell aufklappen$/ do
@@ -410,14 +413,35 @@ Dann /^kann man diese Daten als CSV\-Datei exportieren$/ do
     expect(uri.path).to eq manage_inventory_csv_export_path(@current_inventory_pool)
     Rack::Utils.parse_nested_query uri.query
   end
+
   expect(parsed_query.keys.size).to eq 0
   find("input#in_stock").click
-  parsed_query.should == {"in_stock"=>"1"}
-  sleep(0.33) # fix lazy request problem
+  expect(parsed_query).to eq({"in_stock" => "1"})
+  @params = ActionController::Parameters.new(parsed_query)
 end
 
 Dann /^die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden \(inkl\. Filter\)$/ do
-  # not testable without an bigger amount of work
+  # not really downloading the file, but invoking directly the model class method
+  @csv = CSV.parse InventoryPool.csv_export(@current_inventory_pool, @params),
+                   {col_sep: ";", quote_char: "\"", force_quotes: true, headers: :first_row}
+  within "#inventory" do
+    step "I fetch all pages of the list"
+    while has_selector?(".line[data-type='model'] .button[data-type='inventory-expander'] i.arrow.right") do
+      all(".line[data-type='model'] .button[data-type='inventory-expander'] i.arrow.right").each &:click
+    end
+    line_codes = all(".line[data-type='item']").map { |l| l.find(".col2of5 .row", match: :first).text }
+    csv_codes = @csv.map {|csv_row| csv_row["Inventarcode"] }
+    expect(csv_codes.sort).to eq line_codes.sort
+  end
+end
+
+Dann(/^die (Gegenstands und Optionszeilen|Software-Lizenzzeilen) enthalten die folgenden Felder in aufgeführter Reihenfolge$/) do |table|
+  csv_headers = @csv.headers
+  expect(csv_headers.size).to eq table.hashes.size
+  table.hashes.each do |row|
+    expect(csv_headers).to include row["Felder"]
+  end
+  expect(csv_headers).to eq table.raw.flatten[1..-1]
 end
 
 Wenn /^ich ein[en]* neue[srn]? (.+) hinzufüge$/ do |entity|
@@ -441,7 +465,7 @@ Und /^ich speichere die Informationen/ do
 end
 
 Dann /^die Informationen sind gespeichert$/ do
-  search_string = @table_hashes.detect {|h| h["Feld"] == "Produkt"}["Wert"]
+  search_string = @table_hashes.detect { |h| h["Feld"] == "Produkt" }["Wert"]
   step 'ich nach "%s" suche' % search_string
   sleep(0.33)
   find(".line", match: :prefer_exact, text: search_string)
@@ -449,9 +473,9 @@ Dann /^die Informationen sind gespeichert$/ do
 end
 
 Dann /^die Daten wurden entsprechend aktualisiert$/ do
-  search_string = @table_hashes.detect {|h| h["Feld"] == "Produkt"}["Wert"]
+  search_string = @table_hashes.detect { |h| h["Feld"] == "Produkt" }["Wert"]
   step 'ich nach "%s" suche' % search_string
-  find(".line", :text => search_string).find("a", :text => Regexp.new(_("Edit"),"i")).click
+  find(".line", :text => search_string).find("a", :text => Regexp.new(_("Edit"), "i")).click
 
   # check that the same model was modified
   expect((Rails.application.routes.recognize_path current_path)[:id].to_i).to eq @model_id
@@ -498,7 +522,7 @@ end
 Wenn /^ich ein bestehendes, genutztes Modell bearbeite welches bereits( ein aktiviertes)? Zubehör hat$/ do |arg1|
   @model = @current_inventory_pool.models.to_a.detect do |m|
     if arg1
-      m.accessories.count > 0 and m.accessories.any? {|a| a.inventory_pools.include? @current_inventory_pool}
+      m.accessories.count > 0 and m.accessories.any? { |a| a.inventory_pools.include? @current_inventory_pool }
     else
       m.accessories.count > 0
     end
@@ -560,27 +584,27 @@ end
 Dann /^ist das Zubehör dem Modell hinzugefügt worden$/ do
   sleep(0.33)
   find("#inventory-index-view h1", match: :prefer_exact, text: _("List of Inventory"))
-  expect(@model.accessories.reload.where(:name => @new_accessory_name)).not_to eq nil
+  expect(@model.accessories.reload.where(:name => @new_accessory_name)).not_to be nil
   sleep(0.33) # fix lazy request problem
 end
 
 Dann /^kann ich ein einzelnes Zubehör löschen, wenn es für keinen anderen Pool aktiviert ist$/ do
-  accessory_to_delete = @model.accessories.detect{|x| x.inventory_pools.count <= 1}
+  accessory_to_delete = @model.accessories.detect { |x| x.inventory_pools.count <= 1 }
   find(".row.emboss", match: :prefer_exact, :text => _("Accessories")).find(".list-of-lines .line", text: accessory_to_delete.name).find("button", text: _("Remove")).click
   step 'ich speichere die Informationen'
   find("#inventory-index-view h1", match: :prefer_exact, text: _("List of Inventory"))
   sleep(0.33) # for fixing the lazy request problem
-  lambda{accessory_to_delete.reload}.should raise_error(ActiveRecord::RecordNotFound)
+  lambda { accessory_to_delete.reload }.should raise_error(ActiveRecord::RecordNotFound)
 end
 
 Dann /^kann ich ein einzelnes Zubehör für meinen Pool deaktivieren$/ do
   find(".row.emboss", match: :prefer_exact, :text => _("Accessories"))
-  accessory_to_deactivate = @model.accessories.detect{|x| x.inventory_pools.where(id: @current_inventory_pool.id).first}
+  accessory_to_deactivate = @model.accessories.detect { |x| x.inventory_pools.where(id: @current_inventory_pool.id).first }
   find(".row.emboss", match: :prefer_exact, :text => _("Accessories")).find(".list-of-lines .line", text: accessory_to_deactivate.name).find("input").click
   step 'ich speichere die Informationen'
   sleep(0.66)
   find("#inventory-index-view h1", match: :prefer_exact, text: _("List of Inventory"))
-  lambda {@current_inventory_pool.accessories.reload.find(accessory_to_deactivate)}.should raise_error(ActiveRecord::RecordNotFound)
+  lambda { @current_inventory_pool.accessories.reload.find(accessory_to_deactivate) }.should raise_error(ActiveRecord::RecordNotFound)
 end
 
 Dann /^kann ich mehrere Bilder hinzufügen$/ do
@@ -623,7 +647,7 @@ Dann /^füge ich eine oder mehrere Datein den Attachments hinzu$/ do
   find("#attachments input[type='file']", visible: false)
   page.execute_script %Q{ $("#attachments input[type='file']").removeClass("invisible"); }
   2.times do
-    find("#attachments input[type='file']", visible: true).set Rails.root.join("features","data","images", @attachment_filename)
+    find("#attachments input[type='file']", visible: true).set Rails.root.join("features", "data", "images", @attachment_filename)
   end
 end
 
@@ -683,7 +707,7 @@ When(/^I look at this license in the software list$/) do
   step 'ich nach "%s" suche' % @license.inventory_code
   within ".line[data-type='software'][data-id='#{@license.model.id}']" do
     el = find(".button[data-type='inventory-expander']")
-    sleep(0.11)
+    sleep(0.33)
     if el.has_selector?("i.arrow.right")
       el.click
       el.find("i.arrow.down")
@@ -709,22 +733,22 @@ Then(/^the license line contains the '(.*)' information$/) do |arg1|
 end
 
 Given(/^there exists a software license$/) do
-  @item = @license = Item.licenses.where(inventory_pool_id: @current_inventory_pool.id).select{|l| l.properties[:operating_system] and l.properties[:license_type]}.sample
-  expect(@license).not_to eq nil
+  @item = @license = Item.licenses.where(inventory_pool_id: @current_inventory_pool.id).select { |l| l.properties[:operating_system] and l.properties[:license_type] }.sample
+  expect(@license).not_to be nil
 end
 
 Given(/^there exists a software license of one of the following types$/) do |table|
-  types = table.hashes.map {|h| h["technical"]}
-  @item = @license = Item.licenses.where(inventory_pool_id: @current_inventory_pool.id).select{|l| types.include?(l.properties[:license_type]) and l.properties[:operating_system]}.sample
-  expect(@license).not_to eq nil
+  types = table.hashes.map { |h| h["technical"] }
+  @item = @license = Item.licenses.where(inventory_pool_id: @current_inventory_pool.id).select { |l| types.include?(l.properties[:license_type]) and l.properties[:operating_system] }.sample
+  expect(@license).not_to be nil
 end
 
 Given(/^there exists a software license, owned by my inventory pool, but given responsibility to another inventory pool$/) do
-  @item = @license = Item.licenses.where("owner_id = :ip_id AND inventory_pool_id != :ip_id AND inventory_pool_id IS NOT NULL", {ip_id: @current_inventory_pool.id}).select{|l| l.properties[:operating_system] and l.properties[:license_type]}.sample
-  expect(@license).not_to eq nil
+  @item = @license = Item.licenses.where("owner_id = :ip_id AND inventory_pool_id != :ip_id AND inventory_pool_id IS NOT NULL", {ip_id: @current_inventory_pool.id}).select { |l| l.properties[:operating_system] and l.properties[:license_type] }.sample
+  expect(@license).not_to be nil
 end
 
 Given(/^there exists a software license, which is not in stock and another inventory pool is responsible for it$/) do
-  @item = @license = Item.licenses.where("owner_id = :ip_id AND inventory_pool_id != :ip_id AND inventory_pool_id IS NOT NULL", {ip_id: @current_inventory_pool.id}).detect{|i| not i.in_stock?}
-  expect(@license).not_to eq nil
+  @item = @license = Item.licenses.where("owner_id = :ip_id AND inventory_pool_id != :ip_id AND inventory_pool_id IS NOT NULL", {ip_id: @current_inventory_pool.id}).detect { |i| not i.in_stock? }
+  expect(@license).not_to be nil
 end

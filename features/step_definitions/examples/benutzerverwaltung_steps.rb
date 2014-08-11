@@ -3,21 +3,21 @@
 Angenommen /^man ist Inventar\-Verwalter oder Ausleihe\-Verwalter$/ do
   step 'ich bin %s' % ["Mike", "Pius"].sample
   ar = @current_user.access_rights.active.where(role: [:lending_manager, :inventory_manager]).first
-  expect(ar).not_to eq nil
+  expect(ar).not_to be nil
   @inventory_pool = ar.inventory_pool
 end
 
 Angenommen /^man ist Ausleihe\-Verwalter$/ do
   step 'ich bin %s' % "Pius"
   ar = @current_user.access_rights.active.where(role: :lending_manager).first
-  expect(ar).not_to eq nil
+  expect(ar).not_to be nil
   @inventory_pool = ar.inventory_pool
 end
 
 Angenommen /^man ist Inventar\-Verwalter$/ do
   step 'ich bin %s' % "Mike"
   ar = @current_user.access_rights.active.where(role: :inventory_manager).first
-  expect(ar).not_to eq nil
+  expect(ar).not_to be nil
   @inventory_pool = ar.inventory_pool
 end
 
@@ -119,7 +119,7 @@ Dann /^sofern der Benutzer gesperrt ist, kann man die Sperrung aufheben$/ do
   find(".button.white", :text => _("New User"))
   expect(current_path).to eq manage_inventory_pool_users_path(@inventory_pool)
   expect(@inventory_pool.suspended_users.find_by_id(@customer.id)).to eq nil
-  expect(@inventory_pool.users.find_by_id(@customer.id)).not_to eq nil
+  expect(@inventory_pool.users.find_by_id(@customer.id)).not_to be nil
   expect(@customer.access_right_for(@inventory_pool).suspended?).to be false
 end
 
@@ -161,7 +161,7 @@ Dann /^sieht man folgende Informationen in folgender Reihenfolge:$/ do |table|
     end
   end
 
-  @el.text.should =~ Regexp.new(strings.join(".*"))
+  expect(@el.text).to match Regexp.new(strings.join(".*"))
 end
 
 ####################################################################
@@ -174,7 +174,7 @@ Dann /^sieht man die folgenden Daten des Benutzers in der folgenden Reihenfolge:
   values = table.hashes.map do |x|
     _(x[:en])
   end
-  expect(page.text =~ Regexp.new(values.join('.*'), Regexp::MULTILINE)).not_to eq nil
+  expect(page.text).to match Regexp.new(values.join('.*'), Regexp::MULTILINE)
 end
 
 Dann /^sieht man die Sperrfunktion für diesen Benutzer$/ do
@@ -214,7 +214,7 @@ Dann /^man kann die vorgenommenen Änderungen abspeichern$/ do
     sleep(0.33)
     @customer.reload
     @attrs.each do |attr|
-      expect(@customer.send(attr) =~ /^#{attr}/).not_to eq nil
+      expect(@customer.send(attr)).to match /^#{attr}/
     end
   end
 end
@@ -399,8 +399,8 @@ Dann /^man kann Ausmusterungen wieder zurücknehmen, sofern man Besitzer der jew
   attributes = {
       retired: nil
   }
-  expect(item.retired).not_to eq nil
-  expect(item.retired_reason).not_to eq nil
+  expect(item.retired).not_to be nil
+  expect(item.retired_reason).not_to be nil
 
   expect(page.driver.browser.process(:put, manage_update_item_path(@inventory_pool, item, format: :json), item: attributes).successful?).to be true
   expect(item.reload.retired).to eq nil
@@ -455,7 +455,7 @@ Dann /^man kann Benutzern jegliche Rollen zuweisen und wegnehmen$/ do
   expect(page.driver.browser.process(:put, manage_user_path(user, format: :json), access_right: {inventory_pool_id: inventory_pool.id, role: :no_access}).successful?).to be true
 
   expect(user.has_role?(:inventory_manager, inventory_pool)).to be false
-  expect(user.access_rights.where("deleted_at IS NOT NULL").where(inventory_pool_id: inventory_pool).first.deleted_at).not_to eq nil
+  expect(user.access_rights.where("deleted_at IS NOT NULL").where(inventory_pool_id: inventory_pool).first.deleted_at).not_to be nil
 end
 
 Dann(/^kann man Gruppen über eine Autocomplete\-Liste hinzufügen$/) do
@@ -532,7 +532,7 @@ Dann(/^ist der Benutzer mit all den Informationen gespeichert$/) do
   find_link _("New User")
   find("#flash .notice", text: _("User created successfully"))
   user = User.find_by_lastname "test"
-  expect(user).not_to eq nil
+  expect(user).not_to be nil
   user.access_right_for(@current_inventory_pool).role.should eq @role_hash[:role].to_sym
   expect(user.groups).to eq @current_inventory_pool.groups
 end
@@ -724,7 +724,7 @@ Dann(/^der Benutzer ist nicht gelöscht$/) do
   find("#user-list")
   step 'man bis zum Ende der Liste fährt' # loading pages (but probably only the last one)
   find("#user-list .line", text: @user.name)
-  expect(User.find_by_id(@user.id)).not_to eq nil
+  expect(User.find_by_id(@user.id)).not_to be nil
 end
 
 Angenommen(/^man befindet sich auf der Benutzerliste im beliebigen Inventarpool$/) do
@@ -822,7 +822,7 @@ end
 
 Angenommen(/^man einen Benutzer mit Zugriffsrechten editiert$/) do
   @user =  User.find {|u| u.access_rights.active.count >= 2 }
-  @user.access_rights.active.count.should >= 2
+  expect(@user.access_rights.active.count).to be >= 2
   visit manage_edit_user_path(@user)
 end
 
@@ -839,7 +839,7 @@ Given(/^there exists a contract with status "(.*?)" for a user with otherwise no
           when "unterschrieben" then :signed
           end
   @contract = @current_inventory_pool.contracts.send(state).detect {|c| c.user.contracts.all? {|c| c.status == state}}
-  expect(@contract).not_to eq nil
+  expect(@contract).not_to be nil
 end
 
 When(/^I edit the user of this contract$/) do
@@ -848,7 +848,7 @@ When(/^I edit the user of this contract$/) do
 end
 
 Then(/^this user has access to the current inventory pool$/) do
-  expect(@user.access_right_for(@current_inventory_pool)).not_to eq nil
+  expect(@user.access_right_for(@current_inventory_pool)).not_to be nil
 end
 
 Then(/^I see the error message "(.*?)"$/) do |arg1|

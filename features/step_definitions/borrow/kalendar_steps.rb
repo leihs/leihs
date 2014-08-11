@@ -104,7 +104,7 @@ end
 Dann(/^ist das Modell mit Start- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügt worden$/) do
   find("#current-order-lines .line", match: :first)
   find("#current-order-lines .line", :text => "#{@quantity}x #{@model.name}")
-  @current_user.contracts.unsubmitted.flat_map(&:lines).detect{|line| line.model == @model}.should be
+  expect(@current_user.contracts.unsubmitted.flat_map(&:lines).detect{|line| line.model == @model}).not_to be nil
 end
 
 Dann(/^lässt sich das Modell mit Start\- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügen$/) do

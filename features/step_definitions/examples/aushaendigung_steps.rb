@@ -2,7 +2,7 @@
 
 Angenommen(/^es besteht bereits eine Aushändigung mit mindestens (\d+) zugewiesenen Gegenständen für einen Benutzer$/) do |count|
   @hand_over = @current_inventory_pool.visits.hand_over.find {|ho| ho.contract_lines.select(&:item).size >= count.to_i}
-  expect(@hand_over).not_to eq nil
+  expect(@hand_over).not_to be nil
 end
 
 Wenn(/^ich die Aushändigung öffne$/) do
@@ -53,7 +53,7 @@ end
 
 Dann(/^wird der Gegenstand der Zeile zugeteilt$/) do
   find("#flash")
-  expect(@contract_line.reload.item).not_to eq nil
+  expect(@contract_line.reload.item).not_to be nil
 end
 
 Dann(/^die Zeile wird selektiert|wird die Zeile selektiert$/) do
@@ -158,7 +158,7 @@ Dann(/^die Zeile bleibt grün markiert$/) do
 end
 
 Angenommen(/^für den Gerätepark ist eine Standard\-Vertragsnotiz konfiguriert$/) do
-  expect(@current_inventory_pool.default_contract_note).not_to eq nil
+  expect(@current_inventory_pool.default_contract_note).not_to be nil
 end
 
 Dann(/^erscheint ein Aushändigungsdialog$/) do
@@ -207,9 +207,9 @@ end
 
 Given(/^there exists a model with a problematic item$/) do
   @item = @current_inventory_pool.items.borrowable.in_stock.find {|item| item.is_broken? or item.is_incomplete?}
-  expect(@item).not_to eq nil
+  expect(@item).not_to be nil
   @model = @item.model
-  expect(@model).not_to eq nil
+  expect(@model).not_to be nil
 end
 
 And(/^I open a hand over for some user$/) do
@@ -234,7 +234,7 @@ end
 
 Given(/^there exists a model with a retired and a borrowable item$/) do
   @model = @current_inventory_pool.models.find { |m| m.items.borrowable.where(retired: nil).exists? and m.items.retired.exists? }
-  expect(@model).not_to eq nil
+  expect(@model).not_to be nil
   @item = @model.items.retired.sample
 end
 

@@ -63,7 +63,7 @@ end
 
 When(/^sehe ich eine auffällige Warnung sowohl auf der Seite wie bei den betroffenen Modellen$/) do
   find(".emboss.red", match: :first, text: _("The highlighted entries are not accomplishable for the intended quantity."))
-  all(".separated-top .row.line .line-info.red").size.should > 0
+  expect(all(".separated-top .row.line .line-info.red").size).to be > 0
 end
 
 Dann(/^kann ich Start\- und Enddatum einer potenziellen Bestellung angeben$/) do
@@ -104,7 +104,7 @@ end
 
 Angenommen(/^einige Modelle sind nicht verfügbar$/) do
   find(".emboss.red", match: :first, text: _("Please solve the conflicts for all highlighted lines in order to continue."))
-  all(".separated-top .row.line .line-info.red").size.should > 0
+  expect(all(".separated-top .row.line .line-info.red").size).to be > 0
 end
 
 Dann(/^kann ich diejenigen Modelle, die verfügbar sind, gesamthaft einer Bestellung hinzufügen$/) do
@@ -185,8 +185,10 @@ end
 
 Dann(/^ich muss den Prozess zur Datumseingabe fortsetzen$/) do
   find("[type='submit']", match: :first).click
-  find("#start_date")
-  find("#end_date")
+  within "#template-select-dates" do
+    find("#start_date")
+    find("#end_date")
+  end
 end
 
 Angenommen(/^ich habe die Mengen in der Vorlage gewählt$/) do

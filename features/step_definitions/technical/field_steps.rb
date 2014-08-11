@@ -14,7 +14,7 @@ When /^you get the accessible fields for this user$/ do
 end
 
 Then /^the user has access to at least all the fields without any permissions$/ do
-  @accessible_fields.size.should >= @minimum_field_size
+  expect(@accessible_fields.size).to be >= @minimum_field_size
 end
 
 Then /^the amount of the accessible fields (.*) (\w+) can be different$/ do |compare_op, higher_manager_role|
@@ -22,7 +22,9 @@ Then /^the amount of the accessible fields (.*) (\w+) can be different$/ do |com
   expect(user_role).to eq @manager_role
   user_role_level = AccessRight::ROLES_HIERARCHY.index user_role
   unless @accessible_fields.empty?
-    @accessible_fields.each {|field| AccessRight::ROLES_HIERARCHY.index(field[:permissions][:role]).should <= user_role_level if field[:permissions] and field[:permissions][:role]}
+    @accessible_fields.each {|field|
+      expect(AccessRight::ROLES_HIERARCHY.index(field[:permissions][:role])).to be <= user_role_level if field[:permissions] and field[:permissions][:role]
+    }
   end
 
   # create a user with higher level
@@ -31,10 +33,13 @@ Then /^the amount of the accessible fields (.*) (\w+) can be different$/ do |com
   # create also data for an higher level
   @higher_accessible_fields = Field.all.select {|f| f.accessible_by? @higher_user, @inventory_pool }
   # check that the same condition holds true also for higher level
-  @higher_accessible_fields.size.should >= @minimum_field_size
+  expect(@higher_accessible_fields.size).to be >= @minimum_field_size
 
-  expect(@accessible_fields.size).to eq @higher_accessible_fields.size if compare_op == "equals"
-  @accessible_fields.size.should < @higher_accessible_fields.size if compare_op == "less than"
+  if compare_op == "equals"
+    expect(@accessible_fields.size).to eq @higher_accessible_fields.size
+  elsif compare_op == "less than"
+    expect(@accessible_fields.size).to be < @higher_accessible_fields.size
+  end
 end
 
 Given /^an item is existing$/ do
@@ -62,7 +67,7 @@ end
 Then /^each field is capable of providing values even if its values attribute is a lambda\/proc$/ do
   Field.all.each do |field|
     if field.values
-      expect(field.values).not_to eq nil
+      expect(field.values).not_to be nil
     end
   end
 end

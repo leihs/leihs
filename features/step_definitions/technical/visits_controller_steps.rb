@@ -8,7 +8,7 @@ Given /^test data setup for scenario "Writing an unavailable inventory code"$/ d
     m.contract_lines.where(returned_date: nil, item_id: nil).first and
     m.contract_lines.where(returned_date: nil).where("item_id IS NOT NULL").first 
   end
-  expect(model).not_to eq nil
+  expect(model).not_to be nil
   @line = model.contract_lines.where(returned_date: nil, item_id: nil).first
   @item = model.contract_lines.where(returned_date: nil).where("item_id IS NOT NULL").first.item
   expect(@line.item).to eq nil
@@ -65,7 +65,7 @@ Then /^the result of this action are all take back visits for the given inventor
   @json.each do |visit|
     expect(visit["action"]).to eq "take_back"
     if @date <= Date.today
-      Date.parse(visit["date"]).should <= @date
+      expect(Date.parse(visit["date"])).to be <= @date
     else 
       expect(Date.parse(visit["date"])).to eq @date
     end
@@ -77,7 +77,7 @@ Then /^the result of this action are all hand over visits for the given inventor
   @json.each do |visit|
     expect(visit["action"]).to eq "hand_over"
     if @date <= Date.today
-      Date.parse(visit["date"]).should <= @date
+      expect(Date.parse(visit["date"])).to be <= @date
     else 
       expect(Date.parse(visit["date"])).to eq @date
     end

@@ -74,7 +74,7 @@ Dann /^das Problem wird wie folgt dargestellt: "(.*?)"$/ do |format|
              /(Überfällig seit \d+ (Tagen|Tag)|#{_("Overdue")} #{_("since")} \d+ (days|day))/
            end
   @problems.each do |problem|
-    expect(problem.match(regexp)).not_to eq nil
+    expect(problem.match(regexp)).not_to be nil
   end
 end
 

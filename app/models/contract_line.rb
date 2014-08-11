@@ -62,7 +62,7 @@ class ContractLine < ActiveRecord::Base
   end
   
   def is_reserved?
-    start_date > Date.today && item
+    start_date > Date.today and item
   end
 
 ###############################################

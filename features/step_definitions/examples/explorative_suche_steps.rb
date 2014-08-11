@@ -143,6 +143,6 @@ end
 Dann(/^die nicht verfügbaren Modelle sind rot markiert$/) do
   all(".model.line .availability", :text => /0 \(\d+\) \/ \d+/).each do |cell|
     line = cell.find(:xpath, "./../..")
-    expect(line[:class] =~ /error/).not_to eq nil
+    expect(line[:class]).to match /error/
   end
 end

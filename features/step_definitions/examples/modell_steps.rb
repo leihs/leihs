@@ -83,7 +83,7 @@ Angenommen(/^es existiert eine? (.+) mit folgenden Konditionen:$/) do |entity, t
           when "Software" then Software
           end
   @model = klass.find {|m| conditions.map{|c| c.class == Proc ? c.call(m) : c}.all?}
-  expect(@model).not_to eq nil
+  expect(@model).not_to be nil
 end
 
 Und /^das Modell hat (.+) zugewiesen$/ do |assoc|

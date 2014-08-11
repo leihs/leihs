@@ -185,7 +185,7 @@ end
 
 Dann /^ich setze ihre Initalisierungswerte$/ do
   fields = all("#field-selection .field input, #field-selection .field textarea", :visible => true)
-  fields.count.should > 0
+  expect(fields.count).to be > 0
   fields.each do |input|
     input.set "Test123"
   end

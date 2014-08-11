@@ -24,7 +24,7 @@ end
 
 Dann /^sind alle Pflichtfelder mit einem Stern gekenzeichnet$/ do
   all(".field[data-required='true']", :visible => true).each do |field|
-    expect(field.text[/\*/]).not_to eq nil
+    expect(field.text[/\*/]).not_to be nil
   end
   all(".field:not([data-required='true'])").each do |field|
     expect(field.text[/\*/]).to eq nil
@@ -44,7 +44,7 @@ Wenn /^die nicht ausgefüllten\/ausgewählten Pflichtfelder sind rot markiert$/ 
     if field.all("input[type=text]").any? { |input| input.value == 0 } or
         field.all("textarea").any? { |textarea| textarea.value == 0 } or
         (ips = field.all("input[type=radio]"); ips.all? { |input| not input.checked? } if not ips.empty?)
-      expect(field[:class][/invalid/]).not_to eq nil
+      expect(field[:class][/invalid/]).not_to be nil
     end
   end
 end
@@ -53,7 +53,7 @@ Dann /^sehe ich die Felder in folgender Reihenfolge:$/ do |table|
   values = table.raw.map do |x|
     x.first.gsub(/^\-\ |\ \-$/, '')
   end
-  expect(page.text =~ Regexp.new(values.join('.*'), Regexp::MULTILINE)).not_to eq nil
+  expect(page.text).to match Regexp.new(values.join('.*'), Regexp::MULTILINE)
 end
 
 Wenn(/^"(.*?)" bei "(.*?)" ausgewählt ist muss auch "(.*?)" ausgewählt werden$/) do |value, key, newkey|
@@ -87,7 +87,7 @@ end
 
 Dann(/^wird der neue Lieferant gelöscht$/) do
   expect(has_content?(_("List of Inventory"))).to be true
-  expect(Supplier.find_by_name(@new_supplier)).not_to eq nil
+  expect(Supplier.find_by_name(@new_supplier)).not_to be nil
 end
 
 Dann(/^ist bei dem bearbeiteten Gegenstand keiner Lieferant eingetragen$/) do
@@ -142,7 +142,7 @@ end
 
 Angenommen(/^there is a model without a version$/) do
   @model = Model.find { |m| !m.version }
-  expect(@model).not_to eq nil
+  expect(@model).not_to be nil
 end
 
 Wenn(/^I assign this model to the item$/) do

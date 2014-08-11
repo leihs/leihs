@@ -88,7 +88,7 @@ Dann /^ist der Gegenstand mit all den angegebenen Informationen erstellt$/ do
   find("#list-search").set inventory_code
   sleep(0.11)
   within("#inventory .line[data-type='model']", match: :first, text: /#{@table_hashes.detect { |r| r["Feldname"] == "Modell" }["Wert"]}/) do
-    find(".col2of5 strong").text.should =~ /#{@table_hashes.detect { |r| r["Feldname"] == "Modell" }["Wert"]}/
+    expect(find(".col2of5 strong").text).to match /#{@table_hashes.detect { |r| r["Feldname"] == "Modell" }["Wert"]}/
     find(".button[data-type='inventory-expander'] i.arrow.right").click
     find(".button[data-type='inventory-expander'] i.arrow.down")
   end
@@ -226,7 +226,7 @@ end
 Dann(/^wird der neue Lieferant erstellt$/) do
   expect(has_content?(_("List of Inventory"))).to be true
   find("#inventory")
-  expect(Supplier.find_by_name(@new_supplier)).not_to eq nil
+  expect(Supplier.find_by_name(@new_supplier)).not_to be nil
 end
 
 Dann(/^bei dem erstellten Gegestand ist der neue Lieferant eingetragen$/) do

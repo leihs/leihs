@@ -84,7 +84,7 @@ Angenommen(/^es existiert eine Vorlage mit mindestens zwei Modellen$/) do
   @template = @current_inventory_pool.templates.find do |t|
     t.models.size >= 2 and t.models.any? {|m| m.borrowable_items.size >= 2}
   end
-  expect(@template).not_to eq nil
+  expect(@template).not_to be nil
   @template_models_count_original = @template.models.count
 end
 

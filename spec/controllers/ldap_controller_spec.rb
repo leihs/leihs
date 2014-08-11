@@ -40,13 +40,13 @@ describe Authenticator::LdapAuthenticationController, type: :request do
   context "if the user does not yet exist" do
     it "should be able to create a normal user with various useful data grabbed from LDAP" do
       post 'authenticator/hslu/login', {:login => { :user => "normal_user", :password => "pass" }}, {}
-      expect(User.where(:login => "normal_user").first).not_to eq nil
+      expect(User.where(:login => "normal_user").first).not_to be nil
       # TODO: Check that all the data from LDAP made it into our user object
     end
     it "should make sure that users it creates have LDAP as authentication system" do
       post 'authenticator/hslu/login', {:login => { :user => "normal_user", :password => "pass" }}, {}
       as = AuthenticationSystem.where(:class_name => "LdapAuthentication").first
-      expect(as).not_to eq nil
+      expect(as).not_to be nil
       expect(User.where(:login => "normal_user").first.authentication_system).to eq as
     end
 

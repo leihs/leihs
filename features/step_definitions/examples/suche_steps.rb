@@ -11,7 +11,7 @@ end
 
 Angenommen(/^es existiert ein Benutzer mit Verträgen, der kein Zugriff mehr auf das Gerätepark hat$/) do
   @user = User.find {|u| u.access_rights.find {|ar| ar.inventory_pool == @current_inventory_pool and ar.deleted_at} and !u.contracts.blank?}
-  expect(@user).not_to eq nil
+  expect(@user).not_to be nil
 end
 
 Wenn(/^man nach dem Benutzer sucht$/) do
@@ -58,7 +58,7 @@ end
 
 Angenommen(/^es existiert ein Benutzer mit mindestens (\d+) und weniger als (\d+) Verträgen$/) do |min, max|
   @user = @current_inventory_pool.users.find {|u| u.contracts.signed_or_closed.where(inventory_pool: @current_inventory_pool).count.between? min.to_i, max.to_i}
-  expect(@user).not_to eq nil
+  expect(@user).not_to be nil
 end
 
 Dann(/^man sieht keinen Link 'Zeige alle gefundenen Verträge'$/) do

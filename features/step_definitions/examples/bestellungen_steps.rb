@@ -33,7 +33,7 @@ end
 
 Angenommen(/^eine Bestellung enhält überbuchte Modelle$/) do
   @contract = @current_inventory_pool.contracts.submitted.with_verifiable_user_and_model.detect {|c| not c.approvable?}
-  expect(@contract).not_to eq nil
+  expect(@contract).not_to be nil
 end
 
 Wenn(/^ich die Bestellung editiere$/) do
@@ -70,7 +70,7 @@ end
 
 Angenommen(/^es existiert eine visierpflichtige Bestellung$/) do
   @contract = Contract.with_verifiable_user_and_model.first
-  expect(@contract).not_to eq nil
+  expect(@contract).not_to be nil
 end
 
 Dann(/^wurde diese Bestellung von einem Benutzer aus einer visierpflichtigen Gruppe erstellt$/) do

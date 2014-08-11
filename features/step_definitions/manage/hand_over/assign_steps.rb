@@ -25,7 +25,7 @@ When /^I assign an item to the hand over by providing an inventory code and a da
   line_amount_after = all(".line").count
   # if we addcurrent_user item for whose model there is already a visit line, then not new line is created but the inv code is added to the existing one
   expect(line_amount_before).to eq ( model_already_there ? line_amount_after : line_amount_after - 1 )
-  assigned_amount_before.should < all(".line [data-assign-item][disabled]").count
+  expect(assigned_amount_before).to be < all(".line [data-assign-item][disabled]").count
 end
 
 When /^I select one of those$/ do
@@ -59,7 +59,7 @@ end
 Then /^the first itemline in the selection matching the provided inventory code is assigned$/ do
   expect(has_selector?(".line.green")).to be true
   line = @hand_over.reload.lines.detect{|line| line.item == @item}
-  expect(line).not_to eq nil
+  expect(line).not_to be nil
 end
 
 Then /^no new line is added to the hand over$/ do

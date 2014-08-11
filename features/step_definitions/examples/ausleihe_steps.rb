@@ -79,7 +79,7 @@ Dann /^wird der Gegenstand ausgewählt und der Haken gesetzt$/ do
 end
 
 Wenn /^ich eine Rücknahme mache die Optionen beinhaltet$/ do
-  @customer = @current_inventory_pool.users.all.select {|x| x.contracts.signed.size > 0 && !x.contracts.signed.detect{|c| c.options.size > 0}.nil? }.first
+  @customer = @current_inventory_pool.users.all.select {|x| x.contracts.signed.size > 0 and !x.contracts.signed.detect{|c| c.options.size > 0}.nil? }.first
   visit manage_take_back_path(@current_inventory_pool, @customer)
   expect(has_selector?("#take-back-view")).to be true
 end
@@ -134,7 +134,7 @@ end
 
 Angenommen /^der Kunde ist in mehreren Gruppen$/ do
   @customer = @current_inventory_pool.users.detect{|u| u.groups.size > 0}
-  expect(@customer).not_to eq nil
+  expect(@customer).not_to be nil
 end
 
 Wenn /^ich eine Aushändigung an diesen Kunden mache$/ do
@@ -204,7 +204,7 @@ Dann /^wird es für die ausgewählte Zeitspanne hinzugefügt$/ do
   find("#flash")
   find(".line", match: :first)
   sleep(0.33)
-  @amount_lines_before.should < all(".line").size
+  expect(@amount_lines_before).to be < all(".line").size
 end
 
 Dann /^habe ich für jeden Gegenstand die Möglichkeit, eine Inspektion auszulösen$/ do
@@ -281,7 +281,7 @@ Dann /^man sieht auf jeder Zeile die Summe der Gegenstände des jeweiligen Model
   step 'werden alle diese Gegenstände aufgelistet'
   find(".tooltipster-default .row .col1of8:nth-child(1)", match: :first)
   quantities = find(".tooltipster-default", match: :first, :visible => true).all(".row .col1of8:nth-child(1)", text: /.+/).map{|x| x.text.to_i}
-  quantities.sum.should >= quantities.size
+  expect(quantities.sum).to be >= quantities.size
 end
 
 Angenommen /^ich suche( '(.*)')?$/ do |arg1, arg2|

@@ -32,7 +32,7 @@ When /^I select (an item|a license) line and assign an inventory code$/ do |arg1
                          else
                            raise "not found"
                        end
-  expect(@item_line).not_to eq nil
+  expect(@item_line).not_to be nil
   step 'I assign an inventory code the item line'
   find(".button[data-edit-lines][data-ids='[#{@item_line.id}]']").click
   step "ich setze das Startdatum im Kalendar auf '#{I18n.l(Date.today)}'"
@@ -111,20 +111,20 @@ When /^I open a hand over with overdue lines$/ do
       c.lines.any? {|l| l.start_date < Date.today and l.end_date >= Date.today and @models_in_stock.include? l.model}
     end
   end
-  expect(@customer).not_to eq nil
+  expect(@customer).not_to be nil
   visit manage_hand_over_path(@current_inventory_pool, @customer)
   expect(has_selector?("#hand-over-view", :visible => true)).to be true
 end
 
 When /^I select an overdue item line and assign an inventory code$/ do
   @item_line = @line = @customer.visits.hand_over.detect{|v| v.date < Date.today}.lines.detect {|l| l.class.to_s == "ItemLine" and @models_in_stock.include? l.model}
-  expect(@item_line).not_to eq nil
+  expect(@item_line).not_to be nil
   step 'I assign an inventory code the item line'
 end
 
 When /^I assign an inventory code the item line$/ do
   item = @current_inventory_pool.items.by_responsible_or_owner_as_fallback(@current_inventory_pool).in_stock.where(model_id: @item_line.model).first
-  expect(item).not_to eq nil
+  expect(item).not_to be nil
   @selected_items ||= []
   @selected_items << item
   within(".line[data-id='#{@item_line.id}']") do

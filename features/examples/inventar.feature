@@ -178,7 +178,7 @@ Funktionalität: Inventar
     Wenn ich eine resultatlose Suche mache
     Dann sehe ich "Kein Eintrag gefunden"
 
-  @javascript @personas
+  @javascript @personas @firefox
   Szenario: Modell aufklappen
     Dann kann man jedes Modell aufklappen
     Und man sieht die Gegenstände, die zum Modell gehören

@@ -113,7 +113,7 @@ end
 
 Wenn(/^jedes Pflichtfeld des Geräteparks ist gesetzt$/) do |table|
   table.raw.flatten.each do |field_name|
-    find(".row.emboss", match: :prefer_exact, :text => field_name).find("input", match: :first).value.length.should > 0
+    expect(find(".row.emboss", match: :prefer_exact, :text => field_name).find("input", match: :first).value.length).to be > 0
   end
 end
 
@@ -187,13 +187,13 @@ Angenommen(/^es ist bei mehreren Geräteparks aut. Zuweisung aktiviert$/) do
     inventory_pool.update_attributes automatic_access: true
   end
   @inventory_pools_with_automatic_access = InventoryPool.where(automatic_access: true)
-  @inventory_pools_with_automatic_access.count.should > 1
+  expect(@inventory_pools_with_automatic_access.count).to be > 1
 end
 
 Angenommen(/^es ist bei meinem Gerätepark aut. Zuweisung aktiviert$/) do
   @current_inventory_pool.update_attributes automatic_access: true
   @inventory_pools_with_automatic_access = InventoryPool.where(automatic_access: true)
-  @inventory_pools_with_automatic_access.count.should > 1
+  expect(@inventory_pools_with_automatic_access.count).to be > 1
 end
 
 Dann(/^kriegt der neu erstellte Benutzer bei allen Geräteparks mit aut. Zuweisung die Rolle 'Kunde'$/) do

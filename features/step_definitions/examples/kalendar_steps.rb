@@ -36,7 +36,7 @@ end
 
 Dann /^die Aushändigung kann gespeichert werden$/ do
   step 'I save the booking calendar'
-  @line.contract.lines.where(:model_id => @line.model).size.should >= @size
+  expect(@line.contract.lines.where(:model_id => @line.model).size).to be >= @size
 end
 
 Angenommen /^ich editiere alle Linien$/ do

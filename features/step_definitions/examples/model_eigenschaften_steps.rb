@@ -29,7 +29,7 @@ end
 
 Dann /^sind die Eigenschaften gemäss Sortierreihenfolge für dieses Modell gespeichert$/ do
   find(".line", match: :first)
-  all(".line").size.should > 0
+  expect(all(".line").size).to be > 0
   expect(Model.last.properties.empty?).to be false
   Model.last.properties.each_with_index do |property, i|
     expect(property.key).to eq @properties[i][:key]
@@ -39,7 +39,7 @@ end
 
 Dann /^sind die Eigenschaften gemäss Sortierreihenfolge für das geänderte Modell gespeichert$/ do
   find(".line", match: :first)
-  all(".line").size.should > 0
+  expect(all(".line").size).to be > 0
   @model = @model.reload
   expect(@model.properties.size).to eq @properties.size
   @model.properties.each_with_index do |property, i|

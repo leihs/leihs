@@ -9,7 +9,7 @@ Given /^there are "(.*?)" visits$/ do |visit_type|
   else
     @visits = Visit.method(visit_type.sub(' ', '_').to_sym).call
   end
-  expect(@visits).not_to eq nil
+  expect(@visits).not_to be nil
 end
 
 Then /^the associated contract of each such visit must be "(.*?)"$/ do |contract_state|

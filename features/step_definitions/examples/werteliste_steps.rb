@@ -167,7 +167,7 @@ Angenommen(/^es existiert eine Aushändigung mit mindestens zwei Modellen und ei
           g.keys.size >= 2 and
             g.values.detect {|x| x.size >= 3}
   end
-  expect(@hand_over).not_to eq nil
+  expect(@hand_over).not_to be nil
   @lines = @hand_over.lines
 end
 
@@ -223,7 +223,7 @@ end
 
 Dann(/^die nicht zugewiesenen Linien sind zusammengefasst$/) do
   @models.each do |m|
-    all("tr", text: m.name).select{|line| line.find(".inventory_code").text == "" }.size.should <= 1 # for models with quantity 1 and an assigned item size == 0, that's why <= 1
+    expect(all("tr", text: m.name).select{|line| line.find(".inventory_code").text == "" }.size).to be <= 1 # for models with quantity 1 and an assigned item size == 0, that's why <= 1
   end
 end
 
@@ -241,7 +241,7 @@ Angenommen(/^es existiert eine Bestellung mit mindestens zwei Modellen, wo die B
       uniq.count >= 2 and select{|m| o.contract_lines.select{|l| l.model == m}.count >= 3 }.uniq.count >= 2
     end
   end
-  expect(@order).not_to eq nil
+  expect(@order).not_to be nil
   @lines = @order.lines
   @models = @lines.select{|l| l.is_a? ItemLine}.map(&:model)
 end

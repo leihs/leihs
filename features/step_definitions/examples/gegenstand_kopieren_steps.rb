@@ -68,7 +68,7 @@ end
 Dann /^wird der kopierte Gegenstand gespeichert$/ do
   expect(has_content?(_("List of Inventory"))).to be true
   @copied_item = Item.find_by_inventory_code(@inventory_code_copied)
-  expect(@copied_item).not_to eq nil
+  expect(@copied_item).not_to be nil
 end
 
 Dann /^man wird zur Liste des Inventars zurückgeführt$/ do
@@ -122,7 +122,7 @@ Angenommen /^man editiert ein Gegenstand eines anderen Besitzers$/ do
   step "man befindet sich auf der Editierseite von diesem Gegenstand"
   expect(has_selector?(".field")).to be true
   @fields = all(".field:not(.editable)")
-  @fields.size.should > 0
+  expect(@fields.size).to be > 0
 end
 
 Dann /^alle Felder sind editierbar, da man jetzt Besitzer von diesem Gegenstand ist$/ do

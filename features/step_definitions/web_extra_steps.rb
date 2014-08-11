@@ -6,6 +6,10 @@ When "I scroll to the bottom of the page" do
   page.execute_script "window.scrollBy(0,10000)"
 end
 
+When "I fetch all pages of the list" do
+  all(".page[data-page]").each &:click
+end
+
 When /^I follow the sloppy link "([^"]*)"(?: within "([^"]*)")?$/ do |text, selector|
   with_scope(selector) do
     

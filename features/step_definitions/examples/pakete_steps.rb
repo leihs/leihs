@@ -32,7 +32,7 @@ Dann /^ist das Modell erstellt und die Pakete und dessen zugeteilten Gegenständ
 end
 
 Dann /^den Paketen wird ein Inventarcode zugewiesen$/ do
-  expect(@packages.first.inventory_code).not_to eq nil
+  expect(@packages.first.inventory_code).not_to be nil
 end
 
 Wenn /^das Paket zurzeit nicht ausgeliehen ist$/ do
@@ -47,7 +47,7 @@ Dann /^kann ich das Paket löschen und die Gegenstände sind nicht mehr dem Pake
   find("#flash")
   expect(Item.find_by_id(@package.id).nil?).to be true
   lambda {@package.reload}.should raise_error(ActiveRecord::RecordNotFound)
-  @package_item_ids.size.should > 0
+  expect(@package_item_ids.size).to be > 0
   @package_item_ids.each do |id|
     expect(Item.find(id).parent_id).to eq nil
   end
@@ -130,7 +130,7 @@ Dann /^werden die folgenden Felder angezeigt$/ do |table|
   values = table.raw.map do |x|
     x.first.gsub(/^\-\ |\ \-$/, '')
   end
-  expect(page.text =~ Regexp.new(values.join('.*'), Regexp::MULTILINE)).not_to eq nil
+  expect(page.text).to match Regexp.new(values.join('.*'), Regexp::MULTILINE)
 end
 
 Wenn /^ich das Paket speichere$/ do

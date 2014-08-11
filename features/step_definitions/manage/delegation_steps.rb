@@ -135,7 +135,7 @@ end
 
 Angenommen(/^es wurde für eine Delegation eine Bestellung erstellt$/) do
   @contract = @current_inventory_pool.contracts.submitted.find {|c| c.user.is_delegation }
-  expect(@contract).not_to eq nil
+  expect(@contract).not_to be nil
 end
 
 Angenommen(/^ich befinde mich in dieser Bestellung$/) do
@@ -158,7 +158,7 @@ end
 
 Angenommen(/^es existiert eine persönliche Bestellung$/) do
   @contract = @current_inventory_pool.contracts.submitted.find {|c| not c.user.is_delegation }
-  expect(@contract).not_to eq nil
+  expect(@contract).not_to be nil
 end
 
 Dann(/^ist in der Bestellung der Name des Benutzers aufgeführt$/) do
@@ -177,7 +177,7 @@ Angenommen(/^es existiert eine Aushändigung( für eine Delegation)?( mit zugewi
                else
                  @current_inventory_pool.visits.hand_over.sample
                end
-  expect(@hand_over).not_to eq nil
+  expect(@hand_over).not_to be nil
 end
 
 Angenommen(/^ich öffne diese Aushändigung$/) do
@@ -304,7 +304,7 @@ end
 
 Wenn(/^wenn für diese Delegation keine Zugriffsrechte für irgendwelches Gerätepark bestehen$/) do
   @delegation = @delegations.find {|d| d.access_rights.empty?}
-  expect(@delegation).not_to eq nil
+  expect(@delegation).not_to be nil
 end
 
 Dann(/^kann ich diese Delegation löschen$/) do
@@ -371,7 +371,7 @@ end
 
 Wenn(/^ich eine Delegation mit Zugriff auf das aktuelle Gerätepark editiere$/) do
   @delegation = @current_inventory_pool.users.find {|u| u.is_delegation and not u.visits.take_back.exists? and u.inventory_pools.count >= 2}
-  expect(@delegation).not_to eq nil
+  expect(@delegation).not_to be nil
   visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @delegation)
 end
 

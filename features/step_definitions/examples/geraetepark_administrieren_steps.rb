@@ -24,7 +24,7 @@ Wenn(/^ich speichere$/) do
 end
 
 Dann(/^ist der Gerätepark gespeichert$/) do
-  expect(InventoryPool.find_by_name_and_shortname_and_email("test", "test", "test@test.ch")).not_to eq nil
+  expect(InventoryPool.find_by_name_and_shortname_and_email("test", "test", "test@test.ch")).not_to be nil
 end
 
 Dann(/^ich sehe die Geräteparkliste$/) do

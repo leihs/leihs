@@ -25,7 +25,7 @@ do |quantity, model, from, to|
   line.update_attributes(item: model.items.first, purpose: FactoryGirl.create(:purpose))
   @contract.reload
   expect(@contract.lines.size).to be >= 1
-  expect(@contract.lines.first.item).not_to eq nil
+  expect(@contract.lines.first.item).not_to be nil
   expect(model.availability_in(@contract.inventory_pool).document_lines.size).to be >= 1
 end
 

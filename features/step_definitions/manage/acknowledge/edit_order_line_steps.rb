@@ -157,10 +157,10 @@ When /^I change the time range for multiple lines that have quantity bigger then
     @line_element = find(".line[data-ids='#{ids}']")
     step 'I increase a submitted contract lines quantity'
     step 'the quantity of that submitted contract line is changed'
-    @new_quantity.should > arg1.to_i
+    expect(@new_quantity).to be > arg1.to_i
     {name: @line_model_name, quantity: @new_quantity}
   end
-  @models_quantities.size.should > 0
+  expect(@models_quantities.size).to be > 0
   step 'I change the time range for multiple lines'
 end
 

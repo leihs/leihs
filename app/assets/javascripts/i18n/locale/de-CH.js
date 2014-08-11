@@ -2056,6 +2056,10 @@ window.i18n.locale_data = {
          null,
          "%{q} konnte nicht für Vertrag %{c} erinnert werden"
       ],
+      "Updated at": [
+         null,
+         "Aktualisiert am"
+      ],
       "Upload error.": [
          null,
          "Fehler beim Hochladen."

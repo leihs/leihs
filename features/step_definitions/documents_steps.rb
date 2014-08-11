@@ -187,7 +187,7 @@ Dann(/^sehe ich den Vertrag genau wie im Verwalten-Bereich$/) do
   unless returned_lines.empty?
     expect(@contract_element.has_content?(_("Returned Items"))).to be true
     @contract_element.all("tbody .returning_date").each do |date|
-      date.text.should match @current_user.short_name
+      expect(date.text).to match @current_user.short_name
     end
   end
 

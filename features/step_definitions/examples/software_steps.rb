@@ -241,7 +241,7 @@ Then(/^for "(.*?)" one can select a date$/) do |arg1|
   i = find(".field", text: _(arg1)).find("input")
   i.click
   find(".ui-state-default", match: :first).click
-  expect(i.value).not_to eq nil
+  expect(i.value).not_to be nil
 end
 
 Then(/^for maintenance contract the available options are in the following order:$/) do |table|
@@ -576,7 +576,7 @@ When(/^I edit a license with set dates for maintenance expiration, license expir
                                                               i.properties[:maintenance_contract] == "true" and
                                                               i.properties[:maintenance_expiration] and
                                                               i.properties[:license_expiration] }
-  expect(@license).not_to eq nil
+  expect(@license).not_to be nil
   visit manage_edit_item_path(@current_inventory_pool, @license)
 end
 
@@ -628,7 +628,7 @@ end
 
 When(/^I edit an existing software license with software information, quantity allocations and attachments$/) do
   @license = @current_inventory_pool.items.licenses.find {|i| i.model.technical_detail =~ /http/ and not i.model.attachments.empty? and i.properties[:quantity_allocations] }
-  expect(@license).not_to eq nil
+  expect(@license).not_to be nil
   visit manage_edit_item_path(@current_inventory_pool, @license)
 end
 
@@ -736,7 +736,7 @@ When(/^I click in the field "(.*?)"$/) do |arg1|
 end
 
 When(/^this field grows up till showing the complete text$/) do
-  find("textarea[name='model[technical_detail]']").native.css_value('height').to_i.should > @original_size.to_i
+  expect(find("textarea[name='model[technical_detail]']").native.css_value('height').to_i).to be > @original_size.to_i
 end
 
 When(/^I release the focus from this field$/) do
@@ -855,7 +855,7 @@ end
 
 Dann(/^the new software license is created$/) do
   @target_item = @current_inventory_pool.items.find_by_inventory_code(@target_inventory_code)
-  expect(@target_item).not_to eq nil
+  expect(@target_item).not_to be nil
 end
 
 Dann(/^the following fields were copied from the original software license$/) do |table|

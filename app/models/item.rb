@@ -15,7 +15,7 @@ class Item < ActiveRecord::Base
 
   belongs_to :parent, :class_name => "Item", :foreign_key => 'parent_id'
   has_many :children, :class_name => "Item", :foreign_key => 'parent_id', :dependent => :nullify,
-                      :after_add => :update_child_attributes
+           :after_add => :update_child_attributes
 
   belongs_to :model
   belongs_to :location
@@ -44,9 +44,9 @@ class Item < ActiveRecord::Base
     self.retired_reason = nil unless retired?
 
     # we want remove empty values (and we keep it as HashWithIndifferentAccess)
-    self.properties = properties.delete_if{|k,v| v.blank?}
+    self.properties = properties.delete_if { |k, v| v.blank? }
 
-    fields = Field.all.select{|field| [nil, type.downcase].include?(field.target_type) and field.attributes.has_key?(:default)}
+    fields = Field.all.select { |field| [nil, type.downcase].include?(field.target_type) and field.attributes.has_key?(:default) }
     fields.each do |field|
       field.set_default_value(self)
     end
@@ -61,11 +61,11 @@ class Item < ActiveRecord::Base
   scope :search, lambda { |query|
     return all if query.blank?
 
-    q = query.split.map{|s| "%#{s}%"}
-    model_fields_1 = Model::SEARCHABLE_FIELDS.map{|f| "m1.#{f}" }.join(', ')
-    model_fields_2 = Model::SEARCHABLE_FIELDS.map{|f| "m2.#{f}" }.join(', ')
-    item_fields_1 = Item::SEARCHABLE_FIELDS.map{|f| "i1.#{f}" }.join(', ')
-    item_fields_2 = Item::SEARCHABLE_FIELDS.map{|f| "i2.#{f}" }.join(', ')
+    q = query.split.map { |s| "%#{s}%" }
+    model_fields_1 = Model::SEARCHABLE_FIELDS.map { |f| "m1.#{f}" }.join(', ')
+    model_fields_2 = Model::SEARCHABLE_FIELDS.map { |f| "m2.#{f}" }.join(', ')
+    item_fields_1 = Item::SEARCHABLE_FIELDS.map { |f| "i1.#{f}" }.join(', ')
+    item_fields_2 = Item::SEARCHABLE_FIELDS.map { |f| "i2.#{f}" }.join(', ')
     joins(%Q(INNER JOIN (SELECT i1.id, CAST(CONCAT_WS(' ', #{model_fields_1}, #{model_fields_2}, #{item_fields_1}, #{item_fields_2}) AS CHAR) AS text
                         FROM items AS i1
                           INNER JOIN models AS m1 ON i1.model_id = m1.id
@@ -141,31 +141,31 @@ class Item < ActiveRecord::Base
     end
   end
 
-  scope :borrowable, -> {where(:is_borrowable => true, :parent_id => nil)}
-  scope :unborrowable, -> {where(:is_borrowable => false)}
+  scope :borrowable, -> { where(:is_borrowable => true, :parent_id => nil) }
+  scope :unborrowable, -> { where(:is_borrowable => false) }
 
-  scope :retired, -> {where.not(retired: nil)}
+  scope :retired, -> { where.not(retired: nil) }
 
-  scope :broken, -> {where(:is_broken => true)}
-  scope :incomplete, -> {where(:is_incomplete => true)}
+  scope :broken, -> { where(:is_broken => true) }
+  scope :incomplete, -> { where(:is_incomplete => true) }
 
-  scope :unfinished, -> {where(['inventory_code IS NULL OR model_id IS NULL'])}
-  scope :unallocated, -> {where(['inventory_pool_id IS NULL'])}
+  scope :unfinished, -> { where(['inventory_code IS NULL OR model_id IS NULL']) }
+  scope :unallocated, -> { where(['inventory_pool_id IS NULL']) }
 
-  scope :inventory_relevant, -> {where(:is_inventory_relevant => true)}
-  scope :not_inventory_relevant, -> {where(:is_inventory_relevant => false)}
+  scope :inventory_relevant, -> { where(:is_inventory_relevant => true) }
+  scope :not_inventory_relevant, -> { where(:is_inventory_relevant => false) }
 
   # OPTIMIZE 1102** use item_lines association
-  scope :packages, -> {where(['items.id IN (SELECT DISTINCT parent_id FROM items WHERE retired IS NULL)'])}
+  scope :packages, -> { where(['items.id IN (SELECT DISTINCT parent_id FROM items WHERE retired IS NULL)']) }
   #temp# scope :packaged, -> {where("parent_id IS NOT NULL")}
 
   # Added parent_id to "in_stock" so items that are in packages are considered to not be available
-  scope :in_stock, -> {joins("LEFT JOIN contract_lines ON items.id=contract_lines.item_id AND returned_date IS NULL").where("contract_lines.id IS NULL AND parent_id IS NULL")}
-  scope :not_in_stock, -> {joins("INNER JOIN contract_lines ON items.id=contract_lines.item_id AND returned_date IS NULL")}
+  scope :in_stock, -> { joins("LEFT JOIN contract_lines ON items.id=contract_lines.item_id AND returned_date IS NULL").where("contract_lines.id IS NULL AND parent_id IS NULL") }
+  scope :not_in_stock, -> { joins("INNER JOIN contract_lines ON items.id=contract_lines.item_id AND returned_date IS NULL") }
 
-  scope :by_owner_or_responsible, lambda {|ip| where(":id IN (owner_id, inventory_pool_id)", :id => ip.id) }
+  scope :by_owner_or_responsible, lambda { |ip| where(":id IN (owner_id, inventory_pool_id)", :id => ip.id) }
   # TODO sql constraint: items.inventory_pool_id cannot be null, but at least equal to items.owner_id
-  scope :by_responsible_or_owner_as_fallback, lambda {|ip| where("inventory_pool_id = :id OR (inventory_pool_id IS NULL AND owner_id = :id)", :id => ip.id) }
+  scope :by_responsible_or_owner_as_fallback, lambda { |ip| where("inventory_pool_id = :id OR (inventory_pool_id IS NULL AND owner_id = :id)", :id => ip.id) }
 
   scope :items, -> { joins(:model).where(models: {type: "Model"}) }
   scope :licenses, -> { joins(:model).where(models: {type: "Software"}) }
@@ -205,7 +205,11 @@ class Item < ActiveRecord::Base
       end
     end
 
-    retired = if options[:global] and self.retired? then "X" else self.retired end
+    retired = if options[:global] and self.retired? then
+                "X"
+              else
+                self.retired
+              end
 
     if self.parent
       part_of_package = "#{self.parent.id} #{self.parent.model.name}"
@@ -215,27 +219,27 @@ class Item < ActiveRecord::Base
 
     if ref = self.properties[:reference]
       case ref
-      when "invoice"
-        invoice = "X"
-      when "investment"
-        investment = "X"
+        when "invoice"
+          invoice = "X"
+        when "investment"
+          investment = "X"
       end
     end
 
 
     # Using #{} notation to catch nils gracefully and silently
     h1 = {
-      categories: categories.join("; "),
-      current_borrowing_information: "#{self.current_borrowing_info unless options[:global]}",
-      part_of_package: part_of_package,
-      created_at: "#{self.created_at}",
-      updated_at: "#{self.updated_at}",
-      needs_permission: "#{self.needs_permission}",
-      responsible: "#{self.responsible}",
-      model_manufacturer: model_manufacturer,
-      location: "#{self.location}",
-      invoice: invoice,
-      investment: investment
+        _("Created at") => "#{self.created_at}",
+        _("Updated at") => "#{self.updated_at}",
+        _("Manufacturer") => model_manufacturer,
+        _("Categories") => categories.join("; ") #,
+        # current_borrowing_information: "#{self.current_borrowing_info unless options[:global]}",
+        # part_of_package: part_of_package,
+        # needs_permission: "#{self.needs_permission}",
+        # responsible: "#{self.responsible}",
+        # location: "#{self.location}",
+        # invoice: invoice,
+        # investment: investment
     }
 
     f1 = Field.where(target_type: nil)
@@ -243,7 +247,7 @@ class Item < ActiveRecord::Base
 
     h2 = {}
     (f1 + f2).each do |field|
-      h2[field.label] = field.value(self)
+      h2[_(field.label)] = field.value(self)
     end
     h1.merge! h2
 
@@ -251,11 +255,11 @@ class Item < ActiveRecord::Base
   end
 
 #old??#
- # def inventory_code
- #   s = read_attribute('inventory_code')
- #   s = "#{parent.inventory_code}/#{s}" if parent
- #   s
- # end
+# def inventory_code
+#   s = read_attribute('inventory_code')
+#   s = "#{parent.inventory_code}/#{s}" if parent
+#   s
+# end
 
   def inv_code_with_location
     "#{inventory_code}<br/><div>#{location}</div>"
@@ -263,10 +267,10 @@ class Item < ActiveRecord::Base
 
 ####################################################################
 
-  # extract *last* number sequence in string
+# extract *last* number sequence in string
   def self.last_number(inventory_code)
     inventory_code ||= ""
-    inventory_code.reverse.sub(/[^\d]*/,'').sub(/[^\d]+.*/,'').reverse.to_i
+    inventory_code.reverse.sub(/[^\d]*/, '').sub(/[^\d]+.*/, '').reverse.to_i
   end
 
   # proposes the next available number based on the owner inventory_pool
@@ -303,7 +307,7 @@ class Item < ActiveRecord::Base
   end
 
   def self.inventory_code_conflicts
-    allocated_inventory_code_numbers(true).delete_if {|k, v| not v.is_a? Array }
+    allocated_inventory_code_numbers(true).delete_if { |k, v| not v.is_a? Array }
   end
 
   # returns [ [1, 2], [5, 23], [28, 29], ... [9990, Infinity] ]
@@ -313,10 +317,10 @@ class Item < ActiveRecord::Base
   #
   def self.free_inventory_code_ranges(params)
     infinity = 1/0.0
-    default_params = { :from => 1, :to => infinity, :min_gap => 1 }
+    default_params = {:from => 1, :to => infinity, :min_gap => 1}
     params.reverse_merge!(default_params)
 
-    from = [ params[:from].to_i, 1 ].max
+    from = [params[:from].to_i, 1].max
     if params[:to] == infinity
       to = infinity
     else
@@ -327,7 +331,7 @@ class Item < ActiveRecord::Base
     ranges = []
     last_n = from-1
 
-    sorted_numbers = allocated_inventory_code_numbers.keys.select {|n| n >= from and n <= to}.sort
+    sorted_numbers = allocated_inventory_code_numbers.keys.select { |n| n >= from and n <= to }.sort
     sorted_numbers.each do |n|
       ranges << [last_n+1, n-1] if n-1 != last_n and (n-1 - last_n >= min_gap)
       last_n = n
@@ -339,7 +343,7 @@ class Item < ActiveRecord::Base
 
 ####################################################################
 
-  # an item is in stock if it's not handed over or it's not assigned to an approved contract_line
+# an item is in stock if it's not handed over or it's not assigned to an approved contract_line
   def in_stock?
     if parent_id
       parent.in_stock?
@@ -402,6 +406,7 @@ class Item < ActiveRecord::Base
   def latest_contract_line
     contract_lines.where("returned_date IS NOT NULL").order("returned_date").last
   end
+
   public
 
 ####################################################################
@@ -423,7 +428,7 @@ class Item < ActiveRecord::Base
 ####################################################################
 
 
-  # overriding attribute setter
+# overriding attribute setter
   def retired=(v)
     if v.is_a? Date
       write_attribute :retired, v
@@ -447,44 +452,48 @@ class Item < ActiveRecord::Base
                                      location_attrs
                                    end
   end
+
   alias_method_chain :location=, :params
 
   # overriding association setter
   def supplier_with_params=(v)
     self.supplier_without_params =
-      if v.is_a? Hash
-        # if id is provided, then use an already existing supplier
-        if not v[:id].blank?
-          Supplier.find v[:id]
-        # if id is empty, but name is provided, then create a supplier
-        elsif v[:id].blank? and not v[:name].blank?
-          Supplier.create v
+        if v.is_a? Hash
+          # if id is provided, then use an already existing supplier
+          if not v[:id].blank?
+            Supplier.find v[:id]
+            # if id is empty, but name is provided, then create a supplier
+          elsif v[:id].blank? and not v[:name].blank?
+            Supplier.create v
+          end
+          # otherwise, item.supplier is set to nil automatically
+        else
+          v
         end
-        # otherwise, item.supplier is set to nil automatically
-      else
-        v
-      end
   end
+
   alias_method_chain :supplier=, :params
 
   # overriding association setter
   def owner_with_params=(v)
     self.owner_without_params = if v.is_a? Hash
-      InventoryPool.find(v[:id]) unless v[:id].blank?
-    else
-      v
-    end
+                                  InventoryPool.find(v[:id]) unless v[:id].blank?
+                                else
+                                  v
+                                end
   end
+
   alias_method_chain :owner=, :params
 
   # overriding association setter
   def inventory_pool_with_params=(v)
     self.inventory_pool_without_params = if v.is_a? Hash
-      InventoryPool.find(v[:id]) unless v[:id].blank?
-    else
-      v
-    end
+                                           InventoryPool.find(v[:id]) unless v[:id].blank?
+                                         else
+                                           v
+                                         end
   end
+
   alias_method_chain :inventory_pool=, :params
 
 ####################################################################

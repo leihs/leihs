@@ -408,11 +408,15 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/borrow/modellliste.feature:160
-- name: Alles zurücksetzen verschwindet automatisch, wenn die Filter wieder auf die
-    Starteinstellungen gesetzt werden - features/borrow/modellliste.feature:184
+- name: Alles zurücksetzen - features/borrow/modellliste.feature:169
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/borrow/modellliste.feature:184
+      body: bundle exec cucumber -p default features/borrow/modellliste.feature:169
+- name: Alles zurücksetzen verschwindet automatisch, wenn die Filter wieder auf die
+    Starteinstellungen gesetzt werden - features/borrow/modellliste.feature:183
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/borrow/modellliste.feature:183
 - name: Modellübersicht - features/borrow/modelluebersicht.feature:10
   scripts:
     cucumber:
@@ -959,48 +963,48 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/gegenstand_editieren.feature:66
-- name: Ein Modell ohne Version für den Gegestand wählen - features/examples/gegenstand_editieren.feature:89
+- name: Ein Modell ohne Version für den Gegestand wählen - features/examples/gegenstand_editieren.feature:88
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/gegenstand_editieren.feature:89
-- name: Lieferanten ändern - features/examples/gegenstand_editieren.feature:96
+      body: bundle exec cucumber -p default features/examples/gegenstand_editieren.feature:88
+- name: Lieferanten ändern - features/examples/gegenstand_editieren.feature:95
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/gegenstand_editieren.feature:96
+      body: bundle exec cucumber -p default features/examples/gegenstand_editieren.feature:95
 - name: Bei ausgeliehenen Gegenständen kann man die verantwortliche Abteilung nicht
-    editieren - features/examples/gegenstand_editieren.feature:103
+    editieren - features/examples/gegenstand_editieren.feature:102
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/gegenstand_editieren.feature:103
-- name: Einen Gegenstand mit allen Informationen editieren - features/examples/gegenstand_editieren.feature:110
+      body: bundle exec cucumber -p default features/examples/gegenstand_editieren.feature:102
+- name: Einen Gegenstand mit allen Informationen editieren - features/examples/gegenstand_editieren.feature:109
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/gegenstand_editieren.feature:110
-- name: Pflichtfelder - features/examples/gegenstand_editieren.feature:143
+      body: bundle exec cucumber -p default features/examples/gegenstand_editieren.feature:109
+- name: Pflichtfelder - features/examples/gegenstand_editieren.feature:142
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/gegenstand_editieren.feature:143
-- name: Neuen Lieferanten erstellen falls nicht vorhanden - features/examples/gegenstand_editieren.feature:155
+      body: bundle exec cucumber -p default features/examples/gegenstand_editieren.feature:142
+- name: Neuen Lieferanten erstellen falls nicht vorhanden - features/examples/gegenstand_editieren.feature:154
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/gegenstand_editieren.feature:155
+      body: bundle exec cucumber -p default features/examples/gegenstand_editieren.feature:154
 - name: Bei Gegenständen, die in Verträgen vorhanden sind, kann man das Modell nicht
-    ändern - features/examples/gegenstand_editieren.feature:164
+    ändern - features/examples/gegenstand_editieren.feature:162
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/gegenstand_editieren.feature:164
-- name: Einen Gegenstand, der ausgeliehen ist, kann man nicht ausmustern - features/examples/gegenstand_editieren.feature:171
+      body: bundle exec cucumber -p default features/examples/gegenstand_editieren.feature:162
+- name: Einen Gegenstand, der ausgeliehen ist, kann man nicht ausmustern - features/examples/gegenstand_editieren.feature:169
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/gegenstand_editieren.feature:171
-- name: Einen Gegenstand mit allen Informationen editieren - features/examples/gegenstand_editieren.feature:178
+      body: bundle exec cucumber -p default features/examples/gegenstand_editieren.feature:169
+- name: Einen Gegenstand mit allen Informationen editieren - features/examples/gegenstand_editieren.feature:176
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/gegenstand_editieren.feature:178
-- name: Einen Gegenstand mit allen Informationen editieren - features/examples/gegenstand_editieren.feature:203
+      body: bundle exec cucumber -p default features/examples/gegenstand_editieren.feature:176
+- name: Einen Gegenstand mit allen Informationen editieren - features/examples/gegenstand_editieren.feature:200
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/gegenstand_editieren.feature:203
+      body: bundle exec cucumber -p default features/examples/gegenstand_editieren.feature:200
 - name: Felder beim Erstellen eines Gegenstandes - features/examples/gegenstand_erstellen.feature:6
   scripts:
     cucumber:
@@ -1234,38 +1238,42 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/inventar.feature:29
-- name: Aussehen einer Options-Zeile - features/examples/inventar.feature:98
+- name: Aussehen einer Options-Zeile - features/examples/inventar.feature:93
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar.feature:98
-- name: Paket-Modelle aufklappen - features/examples/inventar.feature:106
+      body: bundle exec cucumber -p default features/examples/inventar.feature:93
+- name: Paket-Modelle aufklappen - features/examples/inventar.feature:101
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar.feature:106
-- name: Aussehen einer Modell-Zeile - features/examples/inventar.feature:115
+      body: bundle exec cucumber -p default features/examples/inventar.feature:101
+- name: Aussehen einer Modell-Zeile - features/examples/inventar.feature:110
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar.feature:115
-- name: Aussehen einer Gegenstands-Zeile - features/examples/inventar.feature:125
+      body: bundle exec cucumber -p default features/examples/inventar.feature:110
+- name: Aussehen einer Gegenstands-Zeile - features/examples/inventar.feature:120
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar.feature:125
-- name: Aussehen einer Software-Lizenz-Zeile - features/examples/inventar.feature:146
+      body: bundle exec cucumber -p default features/examples/inventar.feature:120
+- name: Aussehen einer Software-Lizenz-Zeile - features/examples/inventar.feature:141
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar.feature:146
-- name: Keine Resultate auf der Liste des Inventars - features/examples/inventar.feature:182
+      body: bundle exec cucumber -p default features/examples/inventar.feature:141
+- name: Keine Resultate auf der Liste des Inventars - features/examples/inventar.feature:177
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/inventar.feature:177
+- name: Modell aufklappen - features/examples/inventar.feature:182
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/inventar.feature:182
-- name: Modell aufklappen - features/examples/inventar.feature:187
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default features/examples/inventar.feature:187
 - name: Globaler Export des Inventars aller Geräteparks - features/examples/inventar_csv.feature:6
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/inventar_csv.feature:6
+- name: Export der aktuellen Ansicht als CSV - features/examples/inventar_csv.feature:12
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/inventar_csv.feature:12
 - name: Wie man den Helferschirm erreicht - features/examples/inventarhelfer.feature:9
   scripts:
     cucumber:
@@ -1319,14 +1327,18 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/kalender.feature:9
-- name: Anzahl im Buchungskalender während einer Aushändigung überbuchen - features/examples/kalender.feature:22
+- name: Anzahl im Buchungskalender während einer Bestellung überbuchen - features/examples/kalender.feature:14
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/kalender.feature:22
-- name: Nicht verfügbare Zeitspannen - features/examples/kalender.feature:29
+      body: bundle exec cucumber -p default features/examples/kalender.feature:14
+- name: Anzahl im Buchungskalender während einer Aushändigung überbuchen - features/examples/kalender.feature:21
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/kalender.feature:29
+      body: bundle exec cucumber -p default features/examples/kalender.feature:21
+- name: Nicht verfügbare Zeitspannen - features/examples/kalender.feature:28
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/kalender.feature:28
 - name: Top-Level-Kategorien erstellen - features/examples/kategorien.feature:10
   scripts:
     cucumber:
@@ -1544,42 +1556,46 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/passwort.feature:129
-- name: Problemanzeige bei Rücknahme wenn Gegenstand defekt - features/examples/probleme.feature:20
+- name: Problemanzeige wenn Modell nicht verfügbar bei Bestellungen - features/examples/probleme.feature:9
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/probleme.feature:20
-- name: Problemanzeige bei Aushändigung wenn Gegenstand defekt - features/examples/probleme.feature:27
+      body: bundle exec cucumber -p default features/examples/probleme.feature:9
+- name: Problemanzeige bei Rücknahme wenn Gegenstand defekt - features/examples/probleme.feature:19
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/probleme.feature:27
-- name: Problemanzeige bei Rücknahme wenn Gegenstand unvollständig - features/examples/probleme.feature:34
+      body: bundle exec cucumber -p default features/examples/probleme.feature:19
+- name: Problemanzeige bei Aushändigung wenn Gegenstand defekt - features/examples/probleme.feature:26
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/probleme.feature:34
-- name: Problemanzeige bei Aushändigung wenn Gegenstand nicht ausleihbar - features/examples/probleme.feature:41
+      body: bundle exec cucumber -p default features/examples/probleme.feature:26
+- name: Problemanzeige bei Rücknahme wenn Gegenstand unvollständig - features/examples/probleme.feature:33
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/probleme.feature:41
-- name: Problemanzeige bei Rücknahme wenn Gegenstand nicht ausleihbar - features/examples/probleme.feature:48
+      body: bundle exec cucumber -p default features/examples/probleme.feature:33
+- name: Problemanzeige bei Aushändigung wenn Gegenstand nicht ausleihbar - features/examples/probleme.feature:40
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/probleme.feature:48
-- name: Problemanzeige wenn Modell nicht verfügbar bei Aushändigung - features/examples/probleme.feature:55
+      body: bundle exec cucumber -p default features/examples/probleme.feature:40
+- name: Problemanzeige bei Rücknahme wenn Gegenstand nicht ausleihbar - features/examples/probleme.feature:47
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/probleme.feature:55
-- name: Problemanzeige wenn Modell nicht verfügbar bei Rücknahmen - features/examples/probleme.feature:65
+      body: bundle exec cucumber -p default features/examples/probleme.feature:47
+- name: Problemanzeige wenn Modell nicht verfügbar bei Aushändigung - features/examples/probleme.feature:54
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/probleme.feature:65
-- name: Problemanzeige bei Aushändigung wenn Gegenstand unvollständig - features/examples/probleme.feature:75
+      body: bundle exec cucumber -p default features/examples/probleme.feature:54
+- name: Problemanzeige wenn Modell nicht verfügbar bei Rücknahmen - features/examples/probleme.feature:64
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/probleme.feature:75
-- name: Problemanzeige bei Rücknahme wenn verspätet - features/examples/probleme.feature:82
+      body: bundle exec cucumber -p default features/examples/probleme.feature:64
+- name: Problemanzeige bei Aushändigung wenn Gegenstand unvollständig - features/examples/probleme.feature:74
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/probleme.feature:82
+      body: bundle exec cucumber -p default features/examples/probleme.feature:74
+- name: Problemanzeige bei Rücknahme wenn verspätet - features/examples/probleme.feature:81
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/probleme.feature:81
 - name: Reservierende Person für ausgewählte Linien wechseln - features/examples/reservierenden_wechseln.feature:9
   scripts:
     cucumber:
@@ -1628,18 +1644,23 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/ruestliste.feature:13
-- name: Inhalt der Rüstliste vor Aushändigung - nicht verfügbare Gegenstände - features/examples/ruestliste.feature:46
+- name: Inhalt der Rüstliste vor Aushändigung - keine Zuteilung von Inventarcode -
+    features/examples/ruestliste.feature:24
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/ruestliste.feature:46
-- name: Inhalt der Rüstliste nach Aushändigung - Inventarcodes sind bekannt - features/examples/ruestliste.feature:55
+      body: bundle exec cucumber -p default features/examples/ruestliste.feature:24
+- name: Inhalt der Rüstliste vor Aushändigung - nicht verfügbare Gegenstände - features/examples/ruestliste.feature:45
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/ruestliste.feature:55
-- name: Wo wird die Rüstliste aufgerufen - features/examples/ruestliste.feature:69
+      body: bundle exec cucumber -p default features/examples/ruestliste.feature:45
+- name: Inhalt der Rüstliste nach Aushändigung - Inventarcodes sind bekannt - features/examples/ruestliste.feature:54
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/ruestliste.feature:69
+      body: bundle exec cucumber -p default features/examples/ruestliste.feature:54
+- name: Wo wird die Rüstliste aufgerufen - features/examples/ruestliste.feature:68
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/ruestliste.feature:68
 - name: Software-Produkt editieren - features/examples/software_editieren.feature:9
   scripts:
     cucumber:

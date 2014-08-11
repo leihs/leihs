@@ -48,7 +48,7 @@ Then /^I got an error message that not all lines can be deleted$/ do
 end
 
 Then /^none of the lines are deleted$/ do
-  @contract.lines.count.should > 0
+  expect(@contract.lines.count).to be > 0
 end
 
 When(/^I delete a hand over$/) do

@@ -20,7 +20,7 @@ When /^I add (a|an|a borrowable|an unborrowable) (item|license) to the hand over
   find(".line", match: :first)
   find("input[value='#{@inventory_code}']")
   sleep(0.33)
-  line_amount_before.should < all(".line").size
+  expect(line_amount_before).to be < all(".line").size
 end
 
 When /^I add (a|an|a borrowable|an unborrowable) (item|license) to the hand over by using the search input field$/ do |item_attr, item_type|

@@ -1535,6 +1535,9 @@ msgstr ""
 msgid "Unsuccessful reminder of %{q} items for contracts %{c}"
 msgstr ""
 
+msgid "Updated at"
+msgstr ""
+
 msgid "Upload error."
 msgstr ""
 

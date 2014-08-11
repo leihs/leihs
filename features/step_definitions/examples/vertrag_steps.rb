@@ -59,7 +59,7 @@ Dann /^möchte ich die folgenden Bereiche sehen:$/ do |table|
 end
 
 Dann /^seh ich den Hinweis auf AGB "(.*?)"$/ do |note|
-  expect(@contract_element.find(".terms")).not_to eq nil
+  expect(@contract_element.find(".terms")).not_to be nil
 end
 
 Dann /^beinhalten Liste (\d+) und Liste (\d+) folgende Spalten:$/ do |arg1, arg2, table|
@@ -228,7 +228,7 @@ end
 
 Angenommen(/^es gibt einen Kunden mit Vertrag wessen Addresse mit "(.*?)" endet$/) do |arg1|
   @user = @current_inventory_pool.users.customers.find {|u| u.contracts.where(status: [:signed, :closed]).exists? and u.address =~ /, $/}
-  expect(@user).not_to eq nil
+  expect(@user).not_to be nil
 end
 
 Wenn(/^ich einen Vertrag dieses Kunden öffne$/) do
@@ -241,7 +241,7 @@ end
 
 Wenn(/^in den globalen Einstellungen die Adresse der Instanz konfiguriert ist$/) do
   @address = Setting::CONTRACT_LENDING_PARTY_STRING
-  expect(@address).not_to eq nil
+  expect(@address).not_to be nil
 end
 
 Dann(/^wird unter dem Verleiher diese Adresse angezeigt$/) do

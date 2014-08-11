@@ -18,9 +18,7 @@ Dann /^sehe ich die Verfügbarkeit innerhalb der gefundenen Modelle im Format: "
     max_available_in_total = av.maximum_available_in_period_summed_for_groups(start_date, end_date)
     total_rentable = model.total_borrowable_items_for_user(@customer, @current_inventory_pool)
     availability_text = item.find(".col1of4 .row:nth-child(1)").text
-    expect(availability_text.match(/#{max_available}\(/)).not_to eq nil
-    expect(availability_text.match(/\(#{max_available_in_total}\)/)).not_to eq nil
-    expect(availability_text.match(/\/#{total_rentable}/)).not_to eq nil
+    expect(availability_text).to eq "#{max_available}(#{max_available_in_total})/#{total_rentable}"
   end
   find(".ui-autocomplete .ui-menu-item", match: :first)
 end
