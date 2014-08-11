@@ -56,6 +56,7 @@ Funktionalität: Inventar
       | Alle Geräteparks                | Einzelne verantw. Geräteparks    |                       |
       | Genutzt & Ungenutzt             | Genutzt                          | Ungenutzt             |
       | Ausleihbar & Nicht Ausleihbar   | Ausleihbar                       | Nicht Ausleihbar      |
+      | Ausgemustert & Nicht Ausgemustert | Ausgemustert                   | Nicht ausgemustert      |
     Und die Filter sind kombinierbar
     Und ich kann innerhalb der Auswahl zusätzlich die folgenden Filter setzen, die kombinierbar sind
       | Filterwahl           |
@@ -63,31 +64,25 @@ Funktionalität: Inventar
       | An Lager             |
       | Unvollständig        |
       | Defekt               |
-      | Ausgemustert         |
   
- #@current
- #Szenario: Inhalt der Auswahl "Alle"
- # Dann enthält die Auswahl "Alle" das gesamte Inventar
- # Und der Filter "Nicht Ausgemustert" ist aktiviert
- # Und der Filter "Genutzt" ist aktiviert
+  @current
+  Szenario: Inhalt der Auswahl "Alle"
+    Dann enthält die Auswahl "Alle" das gesamte Inventar
+    Und der Filter "Nicht Ausgemustert" ist aktiviert
 
   @current
   Szenario: Inhalt der Auswahl "Modelle"
     Dann enthält die Auswahl "Modelle" Modelle, Gegenstände und Pakete
- #  Und der Filter "Nicht Ausgemustert" ist aktiviert
- #  Und der Filter "Genutzt" ist aktiviert
+    Und der Filter "Nicht Ausgemustert" ist aktiviert
 
    @current
   Szenario: Inhalt der Auswahl "Optionen"
     Dann enthält die Auswahl "Optionen" Optionen
- #  Und der Filter "Nicht Ausgemustert" ist aktiviert
- #  Und der Filter "Genutzt" ist aktiviert
 
   @current
   Szenario: Inhalt der Auswahl "Software"
     Dann enthält die Auswahl "Software" Software und Software-Lizenzen
- #   Und der Filter "Nicht Ausgemustert" ist aktiviert
- #   Und der Filter "Genutzt" ist aktiviert
+    Und der Filter "Nicht Ausgemustert" ist aktiviert
 
   @personas @javascript @current
   Szenario: Grundeinstellung der Listenansicht
