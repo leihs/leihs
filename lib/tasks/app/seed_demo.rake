@@ -5,8 +5,8 @@ namespace :app do
 
     def set_stupid_password_for(user)
       dba = DatabaseAuthentication.where(:login => user.login).first
-      dba.password = 'pass'
-      dba.password_confirmation = 'pass'
+      dba.password = 'password'
+      dba.password_confirmation = 'password'
       dba.save
     end
 
