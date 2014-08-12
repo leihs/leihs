@@ -41,6 +41,25 @@ Angenommen(/^es gibt eine Aushändigung mit mindestens einem nicht problematisch
   expect(@hand_over).not_to be nil
 end
 
+Angenommen(/^es gibt eine Aushändigung mit mindestens (einer problematischen Linie|einem Gegenstand ohne zugeteilt Raum und Gestell)$/) do |arg1|
+  @hand_over = @current_inventory_pool.visits.hand_over.find do |ho|
+    ho.lines.any? do |l|
+      if l.is_a? ItemLine
+        case arg1
+          when "einer problematischen Linie"
+            av = l.model.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups(l.start_date, l.end_date, ho.user.groups)
+            l.start_date.past? and av > 1
+          when "einem Gegenstand ohne zugeteilt Raum und Gestell"
+            l.item and (l.item.location.nil? or (l.item.location.room.blank? and l.item.location.shelf.blank?))
+          else
+            raise "not found"
+        end
+      end
+    end
+  end
+  expect(@hand_over).not_to be nil
+end
+
 Wenn(/^ich dem nicht problematischen Modell einen Inventarcode zuweise$/) do
   @contract_line = @hand_over.lines.find {|l| !l.start_date.past? and !l.item and @models_in_stock.include?(l.model) }
   @line_css = ".line[data-id='#{@contract_line.id}']"
@@ -97,15 +116,6 @@ Wenn(/^ich eine Option hinzufüge$/) do
   find("#flash")
   @option_line = @hand_over.user.contracts.approved.flat_map(&:lines).find{|l| l.item == @option}
   @line_css = ".line[data-id='#{@option_line.id}']"
-end
-
-Angenommen(/^es gibt eine Aushändigung mit mindestens einer problematischen Linie$/) do
-  @hand_over = @current_inventory_pool.visits.hand_over.find {|ho| ho.lines.any? do |l|
-    if l.is_a? ItemLine
-      av = l.model.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups(l.start_date, l.end_date, ho.user.groups)
-      l.start_date.past? and av > 1
-    end
-  end }
 end
 
 Dann(/^wird das Problemfeld für das problematische Modell angezeigt$/) do
@@ -190,6 +200,12 @@ end
 Given(/^a line has no item assigned yet and this line is marked$/) do
   step "I can add models"
   @contract_line = @hand_over.lines.find {|l| not l.item }
+  @line_css = ".line[data-id='#{@contract_line.id}']"
+  step "ich die Zeile wieder selektiere"
+end
+
+Given(/^a line with an assigned item which doesn't have a location is marked$/) do
+  @contract_line = @hand_over.lines.where(type: "ItemLine").find {|l| l.item and (l.item.location.nil? or (l.item.location.room.blank? and l.item.location.shelf.blank?)) }
   @line_css = ".line[data-id='#{@contract_line.id}']"
   step "ich die Zeile wieder selektiere"
 end

@@ -619,6 +619,10 @@ Angenommen(/^einer Zeile noch kein Gegenstand zugeteilt ist und diese Zeile mark
   step "a line has no item assigned yet and this line is marked"
 end
 
+Angenommen(/^einer Zeile mit einem Gegenstand ohne zugeteilt Raum und Gestell markiert ist$/) do
+  step "a line with an assigned item which doesn't have a location is marked"
+end
+
 Angenommen(/^eine Option markiert ist$/) do
   step "an option line is marked"
 end

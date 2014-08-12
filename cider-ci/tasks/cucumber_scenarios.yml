@@ -1653,14 +1653,19 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/ruestliste.feature:45
-- name: Inhalt der Rüstliste nach Aushändigung - Inventarcodes sind bekannt - features/examples/ruestliste.feature:54
+- name: Inhalt der Rüstliste vor Aushändigung - nicht zugeteilt Raum und Gestell -
+    features/examples/ruestliste.feature:54
   scripts:
     cucumber:
       body: bundle exec cucumber -p default features/examples/ruestliste.feature:54
-- name: Wo wird die Rüstliste aufgerufen - features/examples/ruestliste.feature:68
+- name: Inhalt der Rüstliste nach Aushändigung - Inventarcodes sind bekannt - features/examples/ruestliste.feature:63
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default features/examples/ruestliste.feature:68
+      body: bundle exec cucumber -p default features/examples/ruestliste.feature:63
+- name: Wo wird die Rüstliste aufgerufen - features/examples/ruestliste.feature:77
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default features/examples/ruestliste.feature:77
 - name: Software-Produkt editieren - features/examples/software_editieren.feature:9
   scripts:
     cucumber:

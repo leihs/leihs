@@ -67,13 +67,18 @@
                     %i= _("Location not defined")
                   - else
                     %table
-                      - if model_item.last
+                      - if item = model_item.last
                         %tr
                           %td{style: "width: 4em; text-align: right; border: none"}
                           %td{style: "border: none"}
-                            = "%s / %s" % [model_item.last.location.try(:room), model_item.last.location.try(:shelf)]
+                            - if item.location.nil? or (item.location.room.blank? and item.location.shelf.blank?)
+                              %i= _("Location not defined")
+                            - else
+                              = "%s / %s" % [item.location.try(:room), item.location.try(:shelf)]
                       - elsif (items_in_stock = model_item.first.items.in_stock.where(inventory_pool_id: current_inventory_pool)).count == 0
-                        %i= _("Not available")
+                        %td{style: "width: 4em; text-align: right; border: none"}
+                        %td{style: "border: none"}
+                          %i= _("Not available")
                       - else
                         - locations = items_in_stock.select("COUNT(items.location_id) AS count, locations.room AS room, locations.shelf AS shelf").joins(:location).group(:location_id).order("count DESC, room ASC, shelf ASC")
                         - locations.delete_if {|location| location.room.blank? and location.shelf.blank? }

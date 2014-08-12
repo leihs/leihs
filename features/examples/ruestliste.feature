@@ -50,6 +50,14 @@ Funktionalität: Rüstliste
     Dann sind die Listen zuerst nach Ausleihdatum sortiert
     Und nicht verfügbaren Gegenständen, wird "Nicht verfügbar" angezeigt
 
+  @personas @javascript @firefox
+  Szenario: Inhalt der Rüstliste vor Aushändigung - nicht zugeteilt Raum und Gestell
+    Angenommen es gibt eine Aushändigung mit mindestens einem Gegenstand ohne zugeteilt Raum und Gestell
+    Und ich die Aushändigung öffne
+    Und einer Zeile mit einem Gegenstand ohne zugeteilt Raum und Gestell markiert ist
+    Wenn man öffnet die Rüstliste
+    Dann Gegenständen kein Raum oder Gestell zugeteilt sind, wird "Ort nicht definiert" angezeigt
+
   @personas @javascript
   Szenario: Inhalt der Rüstliste nach Aushändigung - Inventarcodes sind bekannt
     Wenn man öffnet die Rüstliste für einen unterschriebenen Vertrag

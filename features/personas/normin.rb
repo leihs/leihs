@@ -108,7 +108,13 @@ module Persona
       # approved_contract_6
       @approved_contract_6 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :approved)
       @approved_contract_6_purpose = FactoryGirl.create :purpose, :description => "Bestellung mit Software"
-      @approved_contract_6.contract_lines << FactoryGirl.create(:contract_line, :purpose => @approved_contract61_purpose, :contract => @approved_contract_6, :model => @inventory_pool.models.where(type: "Software").first)
+      @approved_contract_6.contract_lines << FactoryGirl.create(:contract_line, :purpose => @approved_contract6_purpose, :contract => @approved_contract_6, :model => @inventory_pool.models.where(type: "Software").first)
+
+      # approved_contract_7
+      @approved_contract_7 = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :approved)
+      @approved_contract_7_purpose = FactoryGirl.create :purpose, :description => "Bestellung mit Gegenstand ohne Ort"
+      item = FactoryGirl.create(:item, :owner => @inventory_pool, :location => nil)
+      @approved_contract_7.contract_lines << FactoryGirl.create(:contract_line, :purpose => @approved_contract7_purpose, :contract => @approved_contract_7, :model => item.model, :item => item)
     end
     
     def create_signed_contracts
