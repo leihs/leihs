@@ -830,3 +830,31 @@ end
 Dann(/^erhalte ich die Fehlermeldung "(.*?)"$/) do |arg1|
   step %Q(I see the error message "#{arg1}")
 end
+
+Angenommen(/^es existiert ein Modell mit einem problematischen Gegenstand$/) do
+  step %Q(there exists a model with a problematic item)
+end
+
+Angenommen(/^ich öffne eine Aushändigung für irgendeinen Benutzer$/) do
+  step %Q(I open a hand over for some user)
+end
+
+Wenn(/^ich diesen Modell der Aushändigung hinzufüge$/) do
+  step %Q(I add this model to the hand over)
+end
+
+Wenn(/^ich auf der Modelllinie die Gegenstandsauswahl öffne$/) do
+  step %Q(I open the item choice list on the model line)
+end
+
+Dann(/^wird der problematische Gegenstand in rot aufgelistet$/) do
+  step %Q(the problematic item is displayed red)
+end
+
+Angenommen(/^es existiert ein Modell mit einem ausgemusterten und einem ausleihbaren Gegenstand$/) do
+  step %Q(there exists a model with a retired and a borrowable item)
+end
+
+Dann(/^wird der ausgemusterte Gegenstand nicht aufgelistet$/) do
+  step %Q(the retired item is not displayed in the list)
+end
