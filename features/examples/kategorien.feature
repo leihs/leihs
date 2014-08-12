@@ -77,11 +77,12 @@ Funktionalität: Kategorien
   Szenario: Kategorien
     Dann man sieht das Register Kategorien
 
-  @javascript @personas
+  @javascript @personas @current
   Szenario: Kategorien erstellen
     Wenn man das Register Kategorien wählt
     Und man eine neue Kategorie erstellt
     Und man gibt man den Namen der Kategorie ein
     Und man gibt die Elternelemente und die dazugehörigen Bezeichnungen ein
+    Und ich wähle ein Bild
     Und ich speichere
-    Dann ist die Kategorie mit dem angegegebenen Namen und den zugewiesenen Elternelementen erstellt
+    Dann ist die Kategorie mit dem angegegebenen Namen und den zugewiesenen Elternelementen und dem Bild erstellt
