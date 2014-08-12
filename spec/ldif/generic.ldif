@@ -32,7 +32,6 @@ description: Test User for leihs
 displayname: Test User
 givenname: Test
 l: Musterstadt
-c: Switzerland
 mail: test@mail.example.org
 # This virtual attribute is NOT supported yet on ApacheDS. Enter
 # it again once it is.
@@ -41,8 +40,7 @@ objectclass: top
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
-objectclass: country
-pager: L9999
+pager: 1239999
 postalcode: 9999
 sn: User
 st: Zürich
@@ -59,7 +57,6 @@ description: Admin Test User for leihs
 displayname: Admin Test User
 givenname: Admintest
 l: Musterstadt
-c: Switzerland
 mail: admintest@mail.example.org
 # This virtual attribute is NOT supported yet on ApacheDS. Enter
 # it again once it is.
@@ -68,8 +65,7 @@ objectclass: top
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
-objectclass: country
-pager: L9999
+pager: 1249999
 postalcode: 9999
 sn: User
 st: Zürich

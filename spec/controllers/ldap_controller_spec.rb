@@ -39,12 +39,13 @@ describe Authenticator::LdapAuthenticationController, type: :request do
 
   context "if the user does not yet exist" do
     it "should be able to create a normal user with various useful data grabbed from LDAP" do
-      post 'authenticator/hslu/login', {:login => { :user => "normal_user", :password => "pass" }}, {}
+    FactoryGirl.create :setting unless Setting.first
+      post 'authenticator/ldap/login', {:login => { :user => "normal_user", :password => "pass" }}, {}
       expect(User.where(:login => "normal_user").first).not_to be nil
       # TODO: Check that all the data from LDAP made it into our user object
     end
     it "should make sure that users it creates have LDAP as authentication system" do
-      post 'authenticator/hslu/login', {:login => { :user => "normal_user", :password => "pass" }}, {}
+      post 'authenticator/ldap/login', {:login => { :user => "normal_user", :password => "pass" }}, {}
       as = AuthenticationSystem.where(:class_name => "LdapAuthentication").first
       expect(as).not_to be nil
       expect(User.where(:login => "normal_user").first.authentication_system).to eq as
@@ -57,7 +58,7 @@ describe Authenticator::LdapAuthenticationController, type: :request do
       ips_with_automatic_access = InventoryPool.all.sample(2)
       ips_with_automatic_access.each {|ip| ip.update_attributes automatic_access: true}
 
-      post 'authenticator/hslu/login', {:login => { :user => "normal_user", :password => "pass" }}, {}
+      post 'authenticator/ldap/login', {:login => { :user => "normal_user", :password => "pass" }}, {}
 
       user = User.where(:login => "normal_user").first
       access_rights = user.access_rights.where(role: "customer")
@@ -68,7 +69,7 @@ describe Authenticator::LdapAuthenticationController, type: :request do
 
   context "if the user is in the admin DN on LDAP" do
     it "should give that user the admin role" do
-      post 'authenticator/hslu/login', {:login => { :user => "admin_user", :password => "pass" }}, {}
+      post 'authenticator/ldap/login', {:login => { :user => "admin_user", :password => "pass" }}, {}
       user = User.where(:login => "admin_user").first
       expect(user.access_rights.active.collect(&:role).include?(:admin)).to be true
     end
@@ -76,7 +77,7 @@ describe Authenticator::LdapAuthenticationController, type: :request do
 
   context "if the user is not in the admin DN on LDAP" do
     it "should not give that user the admin role" do
-      post 'authenticator/hslu/login', {:login => { :user => "normal_user", :password => "pass" }}, {}
+      post 'authenticator/ldap/login', {:login => { :user => "normal_user", :password => "pass" }}, {}
       user = User.where(:login => "normal_user").first
       expect(user.access_rights.active.collect(&:role).include?(:admin)).to be false
     end
