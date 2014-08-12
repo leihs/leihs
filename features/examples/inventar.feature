@@ -25,7 +25,7 @@ Funktionalität: Inventar
     Dann es erscheinen alle zutreffenden Modelle
     Und es erscheinen alle zutreffenden Gegenstände
 
-  @javascript @personas
+  @javascript @personas @current
   Szenario: Pakete anhand eines Suchbegriffs finden
     Angenommen es existiert ein Modell mit folgenden Eigenschaften:
       | Name | Package Model |
@@ -42,7 +42,12 @@ Funktionalität: Inventar
     Dann es erscheinen alle zutreffenden Paket-Modelle
     Und es erscheinen alle zutreffenden Paket-Gegenstände
     Und es erscheinen alle zutreffenden Gegenstände
-
+    Wenn der Besitzergerätepark und der verantwortliche Gerätepark sich unterscheiden
+    Und ich im Besitzergerätepark nach einem der folgenden Eigenschaften suche
+      | Normal Model |
+      | AVZ40020 |
+    Dann wird mir das Modell sowie der Gegenstand angezeigt
+ 
   @current
   Szenario: Auswahlmöglichkeiten
     Dann kann man die folgende Auswahl treffen, die nicht kombinierbar ist
