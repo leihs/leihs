@@ -7,7 +7,10 @@ When "I scroll to the bottom of the page" do
 end
 
 When "I fetch all pages of the list" do
-  all(".page[data-page]").each &:click
+  all(".page[data-page]").each do |data_page|
+    data_page.click
+    expect(data_page).to have_css ".line div"
+  end
 end
 
 When /^I follow the sloppy link "([^"]*)"(?: within "([^"]*)")?$/ do |text, selector|

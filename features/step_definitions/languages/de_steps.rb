@@ -835,30 +835,34 @@ Dann(/^erhalte ich die Fehlermeldung "(.*?)"$/) do |arg1|
   step %Q(I see the error message "#{arg1}")
 end
 
-Angenommen(/^es existiert ein Modell mit einem problematischen Gegenstand$/) do
-  step %Q(there exists a model with a problematic item)
+Wenn(/^ich innerhalb des gesamten Inventars als "(.*?)" die Option "(.*?)" wähle$/) do |arg1, arg2|
+  step %Q(I choose inside all inventory as "#{arg1}" the option "#{arg2}")
 end
 
-Angenommen(/^ich öffne eine Aushändigung für irgendeinen Benutzer$/) do
-  step %Q(I open a hand over for some user)
+Dann(/^wird nur das "(.*?)" Inventar angezeigt$/) do |arg1|
+  step %Q(only the "#{arg1}" inventory is shown)
 end
 
-Wenn(/^ich diesen Modell der Aushändigung hinzufüge$/) do
-  step %Q(I add this model to the hand over)
+Angenommen(/^ich sehe ausgemustertes und nicht ausgemustertes Inventar$/) do
+  step %Q(I see retired and not retired inventory)
 end
 
-Wenn(/^ich auf der Modelllinie die Gegenstandsauswahl öffne$/) do
-  step %Q(I open the item choice list on the model line)
+Wenn(/^ich innerhalb des gesamten Inventars die "(.*?)" setze$/) do |arg1|
+  step %Q(I set the option "#{arg1}" inside of the full inventory)
 end
 
-Dann(/^wird der problematische Gegenstand in rot aufgelistet$/) do
-  step %Q(the problematic item is displayed red)
+Dann(/^ist bei folgenden Inventargruppen der Filter "(.*?)" per Default eingestellt:$/) do |arg1, table|
+  step %Q(for the following inventory groups the filter "#{arg1}" is set), table
 end
 
-Angenommen(/^es existiert ein Modell mit einem ausgemusterten und einem ausleihbaren Gegenstand$/) do
-  step %Q(there exists a model with a retired and a borrowable item)
+Angenommen(/^man befindet sich auf der Liste der Optionen$/) do
+  step %Q(one is on the list of the options)
 end
 
-Dann(/^wird der ausgemusterte Gegenstand nicht aufgelistet$/) do
-  step %Q(the retired item is not displayed in the list)
+Wenn(/^ich innerhalb des gesamten Inventars ein bestimmtes verantwortliche Gerätepark wähle$/) do
+  step %Q(I choose a certain responsible pool inside the whole inventory)
+end
+
+Dann(/^wird nur das Inventar angezeigt, für welche dieses Gerätepark verantwortlich ist$/) do
+  step %Q(only the inventory is shown, for which this pool is responsible)
 end

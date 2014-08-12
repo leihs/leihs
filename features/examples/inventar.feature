@@ -7,14 +7,6 @@ Funktionalität: Inventar
     Und man öffnet die Liste des Inventars
 
   @javascript @personas
-  Szenario: Was man auf einer Liste sieht
-    Dann sieht man Modelle
-    Und man sieht Optionen
-    Und man sieht Pakete
-    Wenn ich mich auf der Softwareliste befinde
-    Dann man sieht Software
-
-  @javascript @personas
   Szenario: Inventar anhand eines Suchbegriffs finden
     Angenommen es existiert ein Modell mit folgenden Eigenschaften:
       | Name       | suchbegriff1 |
@@ -43,41 +35,92 @@ Funktionalität: Inventar
     Und es erscheinen alle zutreffenden Paket-Gegenstände
     Und es erscheinen alle zutreffenden Gegenstände
 
-  @current
-  Szenario: Auswahlmöglichkeiten
-    Dann kann man die folgende Auswahl treffen, die nicht kombinierbar ist
+  @personas @javascript @firefox
+  Szenario: Auswahlmöglichkeiten: Alle-Tab
+    Dann kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:
       | Auswahlmöglichkeit   |
       | Alle                 |
+
+  @personas @javascript @firefox
+  Szenario: Auswahlmöglichkeiten: Modell-Tab
+    Dann kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:
+      | Auswahlmöglichkeit   |
       | Modelle              |
-      | Optionen             |  
+
+  @personas @javascript @firefox
+  Szenario: Auswahlmöglichkeiten: Optionen-Tab
+    Dann kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:
+      | Auswahlmöglichkeit   |
+      | Optionen             |
+
+  @personas @javascript @firefox
+  Szenario: Auswahlmöglichkeiten: Software-Tab
+    Dann kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:
+      | Auswahlmöglichkeit   |
       | Software             |
-    Und ich kann innerhalb der Auswahl zusätzlich jeweils einen der folgenden Filtermöglichkeiten wählen
-      | Filtermöglichkeit I             | Filtermöglichkeit II             | Filtermöglichkeit III |
-      | Alle Geräteparks                | Einzelne verantw. Geräteparks    |                       |
-      | Genutzt & Ungenutzt             | Genutzt                          | Ungenutzt             |
-      | Ausleihbar & Nicht Ausleihbar   | Ausleihbar                       | Nicht Ausleihbar      |
-      | Ausgemustert & Nicht Ausgemustert | Ausgemustert                   | Nicht ausgemustert      |
-    Und die Filter sind kombinierbar
-    Und ich kann innerhalb der Auswahl zusätzlich die folgenden Filter setzen, die kombinierbar sind
+
+  @personas @javascript @firefox
+  Szenariogrundriss: Auswahlmöglichkeiten: genutzt & ungenutzt
+    Angenommen ich sehe ausgemustertes und nicht ausgemustertes Inventar
+    Wenn ich innerhalb des gesamten Inventars als "<Select-Feld>" die Option "<Eigenschaft>" wähle
+    Dann wird nur das "<Eigenschaft>" Inventar angezeigt
+    Beispiele:
+      | Select-Feld                       | Eigenschaft                   |
+      | genutzt & ungenutzt               | genutzt                       |
+      | genutzt & ungenutzt               | nicht genutzt                 |
+
+  @personas @javascript @firefox
+  Szenariogrundriss: Auswahlmöglichkeiten: ausleihbar & nicht ausleihbar
+    Angenommen ich sehe ausgemustertes und nicht ausgemustertes Inventar
+    Wenn ich innerhalb des gesamten Inventars als "<Select-Feld>" die Option "<Eigenschaft>" wähle
+    Dann wird nur das "<Eigenschaft>" Inventar angezeigt
+    Beispiele:
+      | Select-Feld                       | Eigenschaft                   |
+      | ausleihbar & nicht ausleihbar     | ausleihbar                    |
+      | ausleihbar & nicht ausleihbar     | nicht ausleihbar              |
+
+  @personas @javascript @firefox
+  Szenariogrundriss: Auswahlmöglichkeiten: ausgemustert & nicht ausgemustert
+    Angenommen ich sehe ausgemustertes und nicht ausgemustertes Inventar
+    Wenn ich innerhalb des gesamten Inventars als "<Select-Feld>" die Option "<Eigenschaft>" wähle
+    Dann wird nur das "<Eigenschaft>" Inventar angezeigt
+    Beispiele:
+      | Select-Feld                       | Eigenschaft                   |
+      | ausgemustert & nicht ausgemustert | ausgemustert                  |
+      | ausgemustert & nicht ausgemustert | nicht ausgemustert            |
+
+  @personas @javascript @firefox
+  Szenariogrundriss: Auswahlmöglichkeiten: Checkboxen
+    Angenommen ich sehe ausgemustertes und nicht ausgemustertes Inventar
+    Wenn ich innerhalb des gesamten Inventars die "<Filterwahl>" setze
+    Dann wird nur das "<Filterwahl>" Inventar angezeigt
+    Beispiele:
       | Filterwahl           |
       | Im Besitz            |
       | An Lager             |
       | Unvollständig        |
       | Defekt               |
-  
-  @current
-  Szenario: Inhalt der Auswahl "Alle"
-    Dann enthält die Auswahl "Alle" das gesamte Inventar
-    Und der Filter "Nicht Ausgemustert" ist aktiviert
 
-  @current
-  Szenario: Inhalt der Auswahl "Modelle"
-    Dann enthält die Auswahl "Modelle" Modelle, Gegenstände und Pakete
-    Und der Filter "Nicht Ausgemustert" ist aktiviert
+  @personas @javascript
+  Szenario: Auswahlmöglichkeiten: verantwortliche Abteilung
+    Angenommen ich sehe ausgemustertes und nicht ausgemustertes Inventar
+    Wenn ich innerhalb des gesamten Inventars ein bestimmtes verantwortliche Gerätepark wähle
+    Dann wird nur das Inventar angezeigt, für welche dieses Gerätepark verantwortlich ist
 
-   @current
-  Szenario: Inhalt der Auswahl "Optionen"
-    Dann enthält die Auswahl "Optionen" Optionen
+  @personas @javascript
+  Szenario: Default-Filter "nicht ausgemustert"
+    Dann ist bei folgenden Inventargruppen der Filter "nicht ausgemustert" per Default eingestellt:
+      | Alle            |
+      | Modelle         |
+      | Software        |
+
+  @personas @javascript
+  Szenario: Grundeinstellung der Listenansicht
+    Dann ist die Auswahl "Alle" aktiviert
+
+  @personas @javascript
+  Szenario: Grundeinstellung der Listenansicht
+    Dann ist die Auswahl "Alle" aktiviert
 
   @current
   Szenario: Inhalt der Auswahl "Software"
@@ -88,9 +131,18 @@ Funktionalität: Inventar
   Szenario: Grundeinstellung der Listenansicht
     Dann ist die Auswahl "Alle" aktiviert
 
-    
+  @current
+  Szenario: Inhalt der Auswahl "Software"
+    Dann enthält die Auswahl "Software" Software und Software-Lizenzen
+    Und der Filter "Nicht Ausgemustert" ist aktiviert
+
+  @personas @javascript @current
+  Szenario: Grundeinstellung der Listenansicht
+    Dann ist die Auswahl "Alle" aktiviert
+
   @javascript @personas
   Szenario: Aussehen einer Options-Zeile
+    Angenommen man befindet sich auf der Liste der Optionen
     Dann enthält die Options-Zeile folgende Informationen
       | information |
       | Barcode     |
@@ -192,6 +244,3 @@ Funktionalität: Inventar
     Wenn ich eine aufgeführte Zeile editiere
     Und ich speichere
     Dann werde ich zur Liste des eben gewählten Reiters mit den eben ausgewählten Filtern zurueckgefuehrt
-
-
-  

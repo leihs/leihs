@@ -97,7 +97,9 @@ class Item < ActiveRecord::Base
   }
 
   def self.filter(params, inventory_pool = nil)
-    items = params[:all] ? unscoped : all
+    items = Item.all
+    items = items.send(params[:type].pluralize) unless params[:type].blank?
+
     items = if inventory_pool
               if params[:responsible_or_owner_as_fallback]
                 items.by_responsible_or_owner_as_fallback inventory_pool
@@ -107,11 +109,21 @@ class Item < ActiveRecord::Base
             end
     items = items.where(:id => params[:ids]) if params[:ids]
     items = items.where(:id => params[:id]) if params[:id]
-    items = items.send(params[:type].pluralize) unless params[:type].blank?
-    items = items.where(Item.arel_table[:retired].not_eq(nil)) if params[:retired]
-    items = items.where(:retired => nil) if params[:unretired] and not params[:retired]
+    items = items.retired if params[:retired] == "true"
+    items = items.unretired if params[:retired] == "false"
+
+    # there are 2 kinds of borrowable:
+    # the first is item attribute
+    if params[:is_borrowable] == "true"
+      items = items.where(is_borrowable: true)
+    elsif params[:is_borrowable] == "false"
+      items = items.where(is_borrowable: false)
+    end
+    # the second is item scope
     items = items.borrowable if params[:borrowable]
+
     items = items.unborrowable if params[:unborrowable]
+
     items = items.where(:model_id => Model.joins(:categories).where(:"model_groups.id" => [Category.find(params[:category_id])] + Category.find(params[:category_id]).descendants)) if params[:category_id]
     items = items.where(:parent_id => params[:package_ids]) if params[:package_ids]
     items = items.where(:parent_id => nil) if params[:not_packaged]
@@ -144,7 +156,8 @@ class Item < ActiveRecord::Base
   scope :borrowable, -> { where(:is_borrowable => true, :parent_id => nil) }
   scope :unborrowable, -> { where(:is_borrowable => false) }
 
-  scope :retired, -> { where.not(retired: nil) }
+  scope :retired, -> {where.not(retired: nil)}
+  scope :unretired, -> {where(retired: nil)}
 
   scope :broken, -> { where(:is_broken => true) }
   scope :incomplete, -> { where(:is_incomplete => true) }
@@ -276,7 +289,7 @@ class Item < ActiveRecord::Base
   # proposes the next available number based on the owner inventory_pool
   # tries to take the next free inventory code after the previously created Item
   def self.proposed_inventory_code(inventory_pool)
-    last_inventory_code = Item.unscoped { Item.where(:owner_id => inventory_pool).order("created_at DESC").first.try(:inventory_code) }
+    last_inventory_code = Item.where(:owner_id => inventory_pool).order("created_at DESC").first.try(:inventory_code)
     num = last_number(last_inventory_code)
     next_num = free_inventory_code_ranges({:from => num}).first.first
     return "#{inventory_pool.shortname}#{next_num}"

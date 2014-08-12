@@ -35,6 +35,7 @@ class window.App.ContractLinesExplorativeAddController extends Spine.Controller
       data: $.param
         page: page
         category_id: @categoriesFilter.getCurrent()?.id
+        used: true
         borrowable: true
         responsible_id: App.InventoryPool.current.id
     .done (data, status, xhr) => 

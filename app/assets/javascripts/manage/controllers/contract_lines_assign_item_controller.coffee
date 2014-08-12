@@ -50,7 +50,7 @@ class window.App.ContractLineAssignItemController extends Spine.Controller
         model_ids: [model.id]
         in_stock: true
         responsible_or_owner_as_fallback: true
-        unretired: false
+        retired: false
 
   fetchItems: _.partial this::fetchItemsOrLicences, App.Item
   fetchLicenses: _.partial this::fetchItemsOrLicences, App.License

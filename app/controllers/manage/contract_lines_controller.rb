@@ -30,10 +30,10 @@ class Manage::ContractLinesController < Manage::ApplicationController
   def create
     contract_id = params[:contract_id] || current_inventory_pool.users.find(params[:user_id]).get_approved_contract(current_inventory_pool).id
     record = if params[:model_id] 
-        current_inventory_pool.models.find(params[:model_id]) 
-      else 
-        current_inventory_pool.options.find(params[:option_id])
-    end
+               current_inventory_pool.models.find(params[:model_id]) 
+             else
+               current_inventory_pool.options.find(params[:option_id])
+             end
     @contract_line = create_contract_line contract_id, record, 1, params[:start_date], params[:end_date], params[:purpose_id]
   end
 

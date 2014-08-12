@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 Dann(/^ist die neue Software erstellt und unter Software auffindbar$/) do
-  find("[data-software]").click
+  find("[data-type='license']").click
   step "die Informationen sind gespeichert"
 end
 
@@ -94,6 +94,7 @@ Wenn(/^ich eine Software editiere$/) do
   visit manage_inventory_path @current_inventory_pool
   @page_to_return = current_path
   find("a", text: _("Software")).click
+  find(:select, "retired").first("option").select_option
   @model_id = @software.id
   find(".line[data-type='software'][data-id='#{@software.id}']").find("a", text: _("Edit Software")).click
 end

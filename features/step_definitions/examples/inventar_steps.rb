@@ -34,78 +34,67 @@ end
 
 ########################################################################
 
-def check_existing_inventory_codes(items, type: :model)
-  item_type = if type == :model
-                step "sieht man Modelle"
-                :item
-              elsif type == :software
-                step "man sieht Software"
-                :license
-              end
-
-  lines = all(".line[data-type='#{type}']")
-  # select the lines which have an inventory expander that can be clicked (means models with items). this filter is needed for the special case of software.
-  lines = lines.select { |l| l.has_selector? ".button[data-type='inventory-expander'] i.arrow.right" } if type == :software
-
-  within "#inventory" do
-    # each_with_index in order to prevent 'Element not found in the cache' from CI
-    lines.each_with_index do |line, i|
-      within lines[i].find ".button[data-type='inventory-expander']" do
-        find("i.arrow.right").click
-        find("i.arrow.down")
-      end
-      sleep(0.22)
-      within lines[i].find(:xpath, "./following-sibling::div[@class='group-of-lines']") do
-        inventory_code = find(".line[data-type='#{item_type}'] .col2of5 > .row:nth-child(1)", match: :first).text
-        expect(items.find_by_inventory_code(inventory_code)).not_to be nil
-      end
-      within lines[i].find ".button[data-type='inventory-expander']" do
-        find("i.arrow.down").click
-        find("i.arrow.right")
-      end
-    end
+def check_existing_inventory_codes(items)
+  inventory = find "#inventory"
+  inventory.all(".button[data-type='inventory-expander']").each &:click
+  inventory_text = inventory.text
+  items.each do |i|
+    expect(inventory_text).to match /#{i.inventory_code}/
   end
 end
 
-Dann /^hat man folgende Auswahlmöglichkeiten die nicht kombinierbar sind$/ do |table|
+def check_amount_of_lines(amount)
+  expect(find("#inventory").all(".line").count).to eq amount
+end
+
+Dann /^kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:$/ do |table|
   items = Item.by_owner_or_responsible(@current_inventory_pool)
+  options = @current_inventory_pool.options
   section_tabs = find("#list-tabs")
   expect(section_tabs.all(".active").size).to eq 1
+  retired_unretired_option = find(:select, "retired").first("option")
 
   table.hashes.each do |row|
     tab = nil
-    case row["auswahlmöglichkeit"]
-      when "Aktives Inventar"
+    case row["Auswahlmöglichkeit"]
+      when "Alle"
         tab = section_tabs.find("a", match: :first)
-        expect(tab.text).to eq _("Active Inventory")
-        check_existing_inventory_codes(items)
-      when "Ausleihbar"
-        tab = section_tabs.find("a[data-borrowable='true']")
-        tab.click
-        check_existing_inventory_codes(items.borrowable)
-      when "Nicht ausleihbar"
-        tab = section_tabs.find("a[data-unborrowable='true']")
-        tab.click
-        check_existing_inventory_codes(items.unborrowable)
-      when "Ausgemustert"
-        tab = section_tabs.find("a[data-retired='true']")
-        tab.click
-        check_existing_inventory_codes(items.unscoped.where(Item.arel_table[:retired].not_eq(nil)))
-      when "Ungenutzte Modelle"
-        tab = section_tabs.find("a[data-unused_models='true']")
-        tab.click
-        step "sieht man Modelle"
-        all(".line[data-type='model']").each do |model_el|
-          expect(model_el.find(".button[data-type='inventory-expander'] span").text).to eq "0"
-        end
+        expect(tab.text).to eq _("All")
+        inventory = items + options
+        amount = Model.owned_or_responsible_by_inventory_pool(@current_inventory_pool).count + Model.unused_for_inventory_pool(@current_inventory_pool).count + options.count
+        retired_unretired_option.select_option
+      when "Modelle"
+        items = items.items
+        tab = section_tabs.find("a[data-type='item']", match: :first)
+        expect(tab.text).to eq _("Models")
+        inventory = items.items
+        models = Model.where(type: :Model)
+        amount = models.owned_or_responsible_by_inventory_pool(@current_inventory_pool).count + models.unused_for_inventory_pool(@current_inventory_pool).count
+        retired_unretired_option.select_option
+      when "Optionen"
+        tab = section_tabs.find("a[data-type='option']", match: :first)
+        expect(tab.text).to eq _("Options")
+        inventory = options
+        amount = inventory.count
       when "Software"
-        tab = section_tabs.find("a[data-software='true']")
-        tab.click
-        check_existing_inventory_codes(items.licenses, type: :software)
+        items = items.licenses
+        tab = section_tabs.find("a[data-type='license']")
+        expect(tab.text).to eq _("Software")
+        inventory = items.licenses
+        models = Model.where(type: :Software)
+        amount = models.owned_or_responsible_by_inventory_pool(@current_inventory_pool).count + models.unused_for_inventory_pool(@current_inventory_pool).count
+        retired_unretired_option.select_option
     end
+
+    tab.click
     expect(tab.reload[:class].split.include?("active")).to be true
+    should have_selector ".line"
+    step "I fetch all pages of the list"
+
+    check_amount_of_lines(amount)
+
+    check_existing_inventory_codes(inventory)
   end
-  sleep(0.33) # fix lazy request problem
 end
 
 ########################################################################
@@ -274,17 +263,17 @@ end
 #end
 
 Wenn /^der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist$/ do
-  find("select#responsibles option[value='#{@current_inventory_pool.id}']").select_option
-  find("#list-filters input#in_stock").click unless find("#list-filters input#in_stock").checked?
+  find("select[name='responsible_id'] option[value='#{@current_inventory_pool.id}']").select_option
+  find("input[name='in_stock']").click unless find("input[name='in_stock']").checked?
   find(".button[data-type='inventory-expander'] i.arrow.right", match: :first).click
   @item_line = ".group-of-lines .line[data-type='item']"
   @item = Item.find_by_inventory_code(find(@item_line, match: :first).find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text)
 end
 
 Wenn /^der Gegenstand nicht an Lager ist und eine andere Abteilung für den Gegenstand verantwortlich ist$/ do
-  all("select#responsibles option:not([selected])").detect { |o| o.value != @current_inventory_pool.id.to_s and o.value != "" }.select_option
-  find("#list-filters input#in_stock").click if find("#list-filters input#in_stock").checked?
-  item = @current_inventory_pool.own_items.detect { |i| not i.inventory_pool_id.nil? and i.inventory_pool != @current_inventory_pool and not i.in_stock? }
+  all("select[name='responsible_id'] option:not([selected])").detect{|o| o.value != @current_inventory_pool.id.to_s and o.value != ""}.select_option
+  find("input[name='in_stock']").click if find("input[name='in_stock']").checked?
+  item = @current_inventory_pool.own_items.detect{|i| not i.inventory_pool_id.nil? and i.inventory_pool != @current_inventory_pool and not i.in_stock?}
   step 'ich nach "%s" suche' % item.inventory_code
   sleep(0.66)
   within ".line[data-type='model'][data-id='#{item.model.id}']" do
@@ -297,8 +286,8 @@ Wenn /^der Gegenstand nicht an Lager ist und eine andere Abteilung für den Gege
 end
 
 Wenn /^meine Abteilung Besitzer des Gegenstands ist die Verantwortung aber auf eine andere Abteilung abgetreten hat$/ do
-  all("select#responsibles option:not([selected])").detect { |o| o.value != @current_inventory_pool.id.to_s and o.value != "" }.select_option
-  find(".button[data-type='inventory-expander'] i.arrow.right", match: :first).click
+  all("select[name='responsible_id'] option:not([selected])").detect{|o| o.value != @current_inventory_pool.id.to_s and o.value != ""}.select_option
+  find(".line[data-type='model'] .button[data-type='inventory-expander'] i.arrow.right", match: :first).click
   sleep(0.33)
   @item_line = ".group-of-lines .line[data-type='item']"
   @item = Item.find_by_inventory_code(find(@item_line, match: :first).find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text)
@@ -464,7 +453,8 @@ Und /^ich speichere die Informationen/ do
 end
 
 Dann /^die Informationen sind gespeichert$/ do
-  search_string = @table_hashes.detect { |h| h["Feld"] == "Produkt" }["Wert"]
+  search_string = @table_hashes.detect {|h| h["Feld"] == "Produkt"}["Wert"]
+  find(:select, "retired").first("option").select_option
   step 'ich nach "%s" suche' % search_string
   sleep(0.33)
   find(".line", match: :prefer_exact, text: search_string)
@@ -511,6 +501,7 @@ Wenn /^ich eine?n? bestehende[s|n]? (.+) bearbeite$/ do |entity|
                     @model = @current_inventory_pool.models.sample
                     @model.name
                   when "Option"
+                    find(:select, "retired").first("option").select_option
                     @option = @current_inventory_pool.options.sample
                     @option.name
                 end
@@ -693,7 +684,7 @@ Dann(/^kann man das globale Inventar als CSV\-Datei exportieren$/) do
 end
 
 Given(/^I'am on the software inventory overview$/) do
-  find("#list-tabs a[data-software='true']").click
+  find("#list-tabs a[data-type='license']").click
 end
 
 When(/^I press CSV\-Export$/) do
@@ -702,7 +693,7 @@ end
 
 When(/^I look at this license in the software list$/) do
   visit manage_inventory_path(@current_inventory_pool)
-  find("a[data-software='true']").click
+  find("a[data-type='license']").click
   step 'ich nach "%s" suche' % @license.inventory_code
   within ".line[data-type='software'][data-id='#{@license.model.id}']" do
     el = find(".button[data-type='inventory-expander']")
@@ -750,4 +741,96 @@ end
 Given(/^there exists a software license, which is not in stock and another inventory pool is responsible for it$/) do
   @item = @license = Item.licenses.where("owner_id = :ip_id AND inventory_pool_id != :ip_id AND inventory_pool_id IS NOT NULL", {ip_id: @current_inventory_pool.id}).detect { |i| not i.in_stock? }
   expect(@license).not_to be nil
+end
+
+When(/^I choose inside all inventory as "(.*?)" the option "(.*?)"$/) do |arg1, arg2|
+  case arg1
+  when "genutzt & ungenutzt"
+    filter = find(:select, "used")
+  when "ausleihbar & nicht ausleihbar"
+    filter = find(:select, "is_borrowable")
+  when "ausgemustert & nicht ausgemustert"
+    filter = find(:select, "retired")
+  end
+
+  filter.find(:option, arg2).select_option
+  should have_selector ".line"
+  step "I fetch all pages of the list"
+end
+
+Then(/^only the "(.*?)" inventory is shown$/) do |arg1|
+  if arg1 == "nicht genutzt"
+    models = Model.unused_for_inventory_pool(@current_inventory_pool)
+  elsif arg1 == "An Lager"
+    items = Item.by_owner_or_responsible(@current_inventory_pool).in_stock
+    models = items.map(&:model).uniq
+  elsif arg1 == "Im Besitz"
+    models = Model.joins(:items).where(items: {owner_id: @current_inventory_pool.id}).uniq
+  else
+    models = Model.owned_or_responsible_by_inventory_pool(@current_inventory_pool)
+    case arg1
+    when "ausleihbar"
+      models = models.where(items: {is_borrowable: true})
+    when "nicht ausleihbar"
+      models = models.where(items: {is_borrowable: false})
+    when "ausgemustert"
+      models = models.where.not(items: {retired: nil})
+    when "nicht ausgemustert"
+      models = models.where(items: {retired: nil})
+    when "Defekt"
+      models = models.where(items: {is_broken: true})
+    when "Unvollständig"
+      models = models.where(items: {is_incomplete: true})
+    end
+  end
+
+  # filter out models, whose items are all packaged (and thus not visible in the root of inventory)
+  models = models.select {|m| not m.items.all? &:parent_id} unless arg1 == "nicht genutzt"
+
+  check_amount_of_lines(models.count)
+end
+
+Given(/^I see retired and not retired inventory$/) do
+  find(:select, "retired").first("option").select_option
+  should have_selector "#inventory .line"
+end
+
+When(/^I set the option "(.*?)" inside of the full inventory$/) do |arg1|
+  case arg1
+  when "Im Besitz"
+    filter = find(:checkbox, "owned")
+  when "An Lager"
+    filter = find(:checkbox, "in_stock")
+  when "Unvollständig"
+    filter = find(:checkbox, "incomplete")
+  when "Defekt"
+    filter = find(:checkbox, "broken")
+  end
+
+  filter.click
+  should have_selector ".line"
+  step "I fetch all pages of the list"
+end
+
+Then(/^for the following inventory groups the filter "(.*?)" is set$/) do |arg1, table|
+  table.raw.flatten.each do |tab|
+    find("a", text: _(tab)).click
+    expect(find(:select, "retired").find(:option, arg1)).to be_checked
+  end
+end
+
+Given(/^one is on the list of the options$/) do
+  find("a", text: _("Options")).click
+end
+
+When(/^I choose a certain responsible pool inside the whole inventory$/) do
+  @responsible_pool = @current_inventory_pool.own_items.select(:inventory_pool_id).where.not(items: {inventory_pool_id: [@current_inventory_pool.id, nil]}).uniq.sample.inventory_pool
+  find(:select, "responsible_id").find(:option, @responsible_pool.name).select_option
+end
+
+Then(/^only the inventory is shown, for which this pool is responsible$/) do
+  inventory = @responsible_pool.items.where(items: {owner_id: @current_inventory_pool.id})
+  step "I fetch all pages of the list"
+  check_amount_of_lines inventory.joins(:model).select(:model_id).uniq.count
+  check_existing_inventory_codes(inventory)
 end

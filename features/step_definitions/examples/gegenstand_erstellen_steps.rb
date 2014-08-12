@@ -83,7 +83,7 @@ Wenn /^ich erstellen druecke$/ do
 end
 
 Dann /^ist der Gegenstand mit all den angegebenen Informationen erstellt$/ do
-  find("#list-tabs a[data-retired='true']").click if @table_hashes.detect { |r| r["Feldname"] == "Ausmusterung" } and (@table_hashes.detect { |r| r["Feldname"] == "Ausmusterung" }["Wert"]) == "Ja"
+  select "true", from: "retired" if @table_hashes.detect { |r| r["Feldname"] == "Ausmusterung" } and (@table_hashes.detect { |r| r["Feldname"] == "Ausmusterung" }["Wert"]) == "Ja"
   inventory_code = @table_hashes.detect { |r| r["Feldname"] == "Inventarcode" }["Wert"]
   find("#list-search").set inventory_code
   sleep(0.11)

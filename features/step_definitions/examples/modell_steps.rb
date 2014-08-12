@@ -151,7 +151,8 @@ Dann(/^sind die geänderten Gruppenzuteilungen gespeichert$/) do
 end
 
 Dann /^ist das neue Modell erstellt und unter ungenutzen Modellen auffindbar$/ do
-  find("[data-unused_models]").click
+  find(:select, "retired").first("option").select_option
+  select _("not used"), from: "used"
   step "die Informationen sind gespeichert"
 end
 
@@ -166,10 +167,11 @@ Wenn(/^I delete this (.+) from the list$/) do |entity|
 
   case _(entity)
   when "Modell"
-    find("[data-unused_models]")
+    find("[data-type='item']").click
   when "Software"
-    find("[data-software]")
-  end.click
+    find("[data-type='license']").click
+    find(:select, "retired").first("option").select_option
+  end
 
   fill_in 'list-search', with: @model.name
   find(".line[data-id='#{@model.id}'] .dropdown-holder").click

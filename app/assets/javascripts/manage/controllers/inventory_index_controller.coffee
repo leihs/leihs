@@ -4,6 +4,7 @@ class window.App.InventoryIndexController extends Spine.Controller
     "#inventory": "list"
     "#csv-export": "exportButton"
     "#categories": "categoriesContainer"
+    "[data-filter]": "filterElement"
 
   events: 
     "click #categories-toggle": "toggleCategories"
@@ -12,8 +13,8 @@ class window.App.InventoryIndexController extends Spine.Controller
     super
     @pagination = new App.ListPaginationController {el: @list, fetch: @fetch}
     @search = new App.ListSearchController {el: @el.find("#list-search"), reset: @reset}
-    @tabs = new App.ListTabsController {el: @el.find("#list-tabs"), reset: @reset}
-    @filter = new App.ListFiltersController {el: @el.find("#list-filters"), reset: @reset}
+    @tabs = new App.ListTabsController {el: @el.find("#list-tabs"), reset: @reset, callback: @toggleFiltersVisibility}
+    @filter = new App.ListFiltersController {el: @filterElement, reset: @reset}
     new App.TimeLineController {el: @el}
     new App.InventoryExpandController {el: @el}
     @exportButton.data "href", @exportButton.attr("href")
@@ -45,7 +46,6 @@ class window.App.InventoryIndexController extends Spine.Controller
         page: page
         search_term: @search.term()
         category_id: @categoriesFilter?.getCurrent()?.id
-        unretired: true
         sort: "name"
         order: "ASC"
     .done (data, status, xhr) => 
@@ -72,7 +72,6 @@ class window.App.InventoryIndexController extends Spine.Controller
         paginate: false
         search_term: @search.term()
         all: true
-        unretired: true
 
   fetchLicenses: (page)=>
     software = _.filter @inventory[page], (i) -> i.constructor.className == "Software"
@@ -109,3 +108,11 @@ class window.App.InventoryIndexController extends Spine.Controller
   closeCategories: =>
     @list.removeClass "col4of5"
     @categoriesContainer.removeClass("col1of5").addClass("hidden")
+
+  toggleFiltersVisibility: =>
+    if @tabs.getData().type == "option"
+      @filterElement.addClass "hidden"
+      @filter.ignoreData = true
+    else
+      @filterElement.removeClass "hidden"
+      @filter.ignoreData = false

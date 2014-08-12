@@ -174,22 +174,37 @@ class InventoryPool < ActiveRecord::Base
 
   def inventory(params)
 
-    model_filter_params = params.clone.merge({paginate: "false", include_retired_models: params[:retired], search_targets: [:manufacturer, :product, :version, :items]})
+    model_type = case params[:type]
+                 when "item" then "model"
+                 when "license" then "software"
+                 when "option" then "option"
+                 end
 
-    if params[:software]
-      inventory = Software.filter model_filter_params.merge({all: true}), self
-    else
-      items = Item.filter params.clone.merge({paginate: "false", all: "true", search_term: nil}), self
-      item_ids = items.pluck(:id)
-      models = Model.where(type: :Model)
-      models = models.filter model_filter_params.merge({item_ids: item_ids}), self
+    model_filter_params = params.clone.merge({paginate: "false", search_targets: [:manufacturer, :product, :version, :items], type: model_type})
 
-      if [:unborrowable, :retired, :category_id, :in_stock, :incomplete, :broken, :owned, :responsible_id, :unused_models].all? {|param| params[param].blank?}
+    # if there are NOT any params related to items
+    if [:is_borrowable, :retired, :category_id, :in_stock, :incomplete, :broken, :owned, :responsible_id].all? {|param| params[param].blank?}
+      # and one does not explicitly ask for software, models or used/unused models
+      unless ["model", "software"].include?(model_type) or params[:used]
+        # then include options
         options = Option.filter params.clone.merge({paginate: "false", sort: "product", order: "ASC"}), self
       end
-
-      inventory = (models + (options || [])).sort{|a,b| a.name.strip <=> b.name.strip}
+    # otherwise if there is some param related to items
+    else
+      # don't include options and consider only used models
+      model_filter_params = model_filter_params.merge({ used: "true" })
     end
+
+    # exlude models if asked only for options
+    unless model_type == "option"
+      items = Item.filter params.clone.merge({paginate: "false", search_term: nil}), self
+      item_ids = items.pluck(:id)
+      models = Model.filter model_filter_params.merge({item_ids: item_ids}), self
+    else
+      models = []
+    end
+
+    inventory = (models + (options || [])).sort{|a,b| a.name.strip <=> b.name.strip}
 
     inventory = inventory.paginate(:page => params[:page]||1, :per_page => [(params[:per_page].try(&:to_i) || 20), 100].min) unless params[:paginate] == "false"
     inventory

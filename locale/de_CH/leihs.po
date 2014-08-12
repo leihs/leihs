@@ -1154,6 +1154,12 @@ msgstr "Gegenstand ausmustern"
 msgid "Retired"
 msgstr "Ausgemustert"
 
+msgid "retired"
+msgstr "ausgemustert"
+
+msgid "not retired"
+msgstr "nicht ausgemustert"
+
 msgid "Retirement"
 msgstr "Ausmusterung"
 
@@ -1564,8 +1570,20 @@ msgstr "Di"
 msgid "Umzug"
 msgstr "Umzug"
 
+msgid "borrowable"
+msgstr "ausleihbar"
+
+msgid "unborrowable"
+msgstr "nicht ausleihbar"
+
 msgid "Unborrowable"
 msgstr "Nicht ausleihbar"
+
+msgid "Borrowable Items"
+msgstr "Ausleihbare Gegenstände"
+
+msgid "Unborrowable Items"
+msgstr "Nicht ausleihbare Gegenstände"
 
 msgid ""
 "Unfortunately your order is still pending, but you will soon receive a "
@@ -2167,6 +2185,9 @@ msgstr "Bezeichnung"
 msgid "not used"
 msgstr "nicht genutzt"
 
+msgid "used"
+msgstr "genutzt"
+
 msgid "Model|Images|File file size"
 msgstr "Dateigrösse"
 
@@ -2726,6 +2747,9 @@ msgstr "Aktives Inventar"
 
 msgid "Unused Models"
 msgstr "Ungenutzte Modelle"
+
+msgid "Used Models"
+msgstr "Genutzte Modelle"
 
 msgid "Responsible inventory pool"
 msgstr "Verantwortlicher Gerätepark"

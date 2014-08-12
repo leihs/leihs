@@ -24,7 +24,7 @@ class Manage::ItemsController < Manage::ApplicationController
   end
 
   def edit
-    fetch_item
+    fetch_item_by_id
   end
  
   def create
@@ -71,7 +71,7 @@ class Manage::ItemsController < Manage::ApplicationController
   end
 
   def update
-    fetch_item
+    fetch_item_by_id
     if @item
       # check permissions by checking flexible field permissions
       Field.all.each do |field|
@@ -117,7 +117,7 @@ class Manage::ItemsController < Manage::ApplicationController
   end
 
   def copy
-    fetch_item
+    fetch_item_by_id
     @type = @item.type.downcase
     @item = @item.dup
     @item.owner = @current_inventory_pool
@@ -128,11 +128,11 @@ class Manage::ItemsController < Manage::ApplicationController
   end
   
   def show
-    fetch_item
+    fetch_item_by_id
   end
 
   def inspect
-    fetch_item
+    fetch_item_by_id
     [:is_borrowable, :is_incomplete, :is_broken].each do |attr|
       @item.update_attributes(attr => params[attr])
     end
@@ -142,8 +142,8 @@ class Manage::ItemsController < Manage::ApplicationController
 
   private
 
-  def fetch_item
-    @item = Item.filter(params.clone.merge(all: true), current_inventory_pool).first
+  def fetch_item_by_id
+    @item = Item.find params[:id]
   end
   
 end

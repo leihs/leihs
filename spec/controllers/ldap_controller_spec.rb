@@ -39,7 +39,7 @@ describe Authenticator::LdapAuthenticationController, type: :request do
 
   context "if the user does not yet exist" do
     it "should be able to create a normal user with various useful data grabbed from LDAP" do
-    FactoryGirl.create :setting unless Setting.first
+      FactoryGirl.create :setting unless Setting.first
       post 'authenticator/ldap/login', {:login => { :user => "normal_user", :password => "pass" }}, {}
       expect(User.where(:login => "normal_user").first).not_to be nil
       # TODO: Check that all the data from LDAP made it into our user object

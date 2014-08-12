@@ -17,43 +17,62 @@
       
       = render :partial => "manage/inventory/index/tabs"
 
-      .row.margin-vertical-xs.padding-horizontal-s
+      #filter-search-container.row.margin-vertical-xs.padding-horizontal-s
 
-        .col1of5.padding-right-s
-          .row
-            .col1of5.padding-right-xs
-              %button#categories-toggle.button.inset.width-full.height-full.no-padding.text-align-center
-                %i.icon-reorder.vertical-align-middle
-            .col4of5
-              %input#list-search.width-full{type: "text", name: "input", placeholder: _("Search..."), autocomplete: :off, value: session[:params].try(:fetch, :search_term, nil)}
-
-        %form#list-filters.col4of5
-          .row
-            .col1of5.padding-right-xs
-              %select#responsibles.width-full{:name => "responsible_id", :title => _("Responsible inventory pool")}
-                %option{:value => nil}
-                - @responsibles.each do |responsible|
-                  %option{value: responsible.id, selected: (session[:params].try(:fetch, :responsible_id, nil).try(:to_i) == responsible.id)}= responsible.name
-            .col1of5.padding-right-xs
-              %label.button.inset.white.width-full.height-xxs{:for => :owned}
-                %input{:name => :owned, :type => :hidden, :value => "0"}
-                %input#owned{:name => :owned, :type => :checkbox, :value => "1", :autocomplete => :off, checked: session[:params].try(:fetch, :owned, nil)}
-                %span= _("Owned")
-            .col1of5.padding-right-xs
-              %label.button.inset.white.width-full.height-xxs{:for => :in_stock}
-                %input{:name => :in_stock, :type => :hidden, :value => "0"}
-                %input#in_stock{:name => :in_stock, :type => :checkbox, :value => "1", :autocomplete => :off, checked: session[:params].try(:fetch, :in_stock, nil)}
-                %span= _("In Stock")
-            .col1of5.padding-right-xs
-              %label.button.inset.white.width-full.height-xxs{:for => :incomplete}
-                %input{:name => :incomplete, :type => :hidden, :value => "0"}
-                %input#incomplete{:name => :incomplete, :type => :checkbox, :value => "1", :autocomplete => :off, checked: session[:params].try(:fetch, :incomplete, nil)}
-                %span= _("Incomplete")
-            .col1of5.padding-right-xs
-              %label.button.inset.white.width-full.height-xxs{:for => :broken}
-                %input{:name => :broken, :type => :hidden, :value => "0"}
-                %input#broken{:name => :broken, :type => :checkbox, :value => "1", :autocomplete => :off, checked: session[:params].try(:fetch, :broken, nil)}
-                %span= _("Broken")
+        %form.row.margin-bottom-xs{data: {filter: "true"}, class: ( "hidden" if session[:params].try(:fetch, :type, nil) == "option" )}
+          .col1of4.padding-right-xs
+            %select.width-full{name: "retired", title: "#{_("retired")} / #{_("not retired")}"}
+              - retired_param_session_value = session[:params].try(:fetch, :retired, nil)
+              %option{:value => "", selected: retired_param_session_value == ""}= "#{_("retired")} & #{_("not retired")}"
+              %option{:value => "true", selected: retired_param_session_value == "true"}= _("retired")
+              %option{:value => "false", selected: ( retired_param_session_value.nil? or retired_param_session_value == "false" )}= _("not retired")
+          .col1of4.padding-right-xs
+            %select.width-full{name: "used", title: "#{_("Used Models")} / #{_("Unused Models")}"}
+              - used_param_session_value = session[:params].try(:fetch, :used, nil)
+              %option{:value => "", selected: used_param_session_value == ""}= "#{_("used")} & #{_("not used")}"
+              %option{:value => "true", selected: used_param_session_value == "true"}= _("used")
+              %option{:value => "false", selected: used_param_session_value == "false"}= _("not used")
+          .col1of4.padding-right-xs
+            %select.width-full{name: "is_borrowable", title: "#{_("Borrowable Items")} / #{_("Unborrowable Items")}"}
+              - is_borrowable_param_session_value = session[:params].try(:fetch, :is_borrowable, nil)
+              %option{:value => "", selected: is_borrowable_param_session_value == ""}= "#{_("borrowable")} & #{_("unborrowable")}"
+              %option{:value => "true", selected: is_borrowable_param_session_value == "true"}= _("borrowable")
+              %option{:value => "false", selected: is_borrowable_param_session_value == "false"}= _("unborrowable")
+          .col1of4.padding-right-xs
+            %select.width-full{:name => "responsible_id", :title => _("Responsible inventory pool")}
+              %option{value: ""}= _("All inventory pools")
+              - @responsibles.each do |responsible|
+                %option{value: responsible.id, selected: (session[:params].try(:fetch, :responsible_id, nil).try(:to_i) == responsible.id)}= responsible.name
+        .row
+          .col2of6.padding-right-xs
+            .row
+              .col1of6.padding-right-xs
+                %button#categories-toggle.button.inset.width-full.height-full.no-padding.text-align-center
+                  %i.icon-reorder.vertical-align-middle
+              .col5of6
+                %input#list-search.width-full{type: "text", name: "input", placeholder: _("Search..."), autocomplete: :off, value: session[:params].try(:fetch, :search_term, nil)}
+          %form.col4of6{data: {filter: "true"}, class: ( "hidden" if session[:params].try(:fetch, :type, nil) == "option" )}
+            .row
+              .col1of4.padding-right-xs
+                %label.button.inset.white.width-full.height-xxs{:for => :owned}
+                  %input{:name => :owned, :type => :hidden, :value => "0"}
+                  %input#owned{:name => :owned, :type => :checkbox, :value => "1", :autocomplete => :off, checked: session[:params].try(:fetch, :owned, nil)}
+                  %span= _("Owned")
+              .col1of4.padding-right-xs
+                %label.button.inset.white.width-full.height-xxs{:for => :in_stock}
+                  %input{:name => :in_stock, :type => :hidden, :value => "0"}
+                  %input#in_stock{:name => :in_stock, :type => :checkbox, :value => "1", :autocomplete => :off, checked: session[:params].try(:fetch, :in_stock, nil)}
+                  %span= _("In Stock")
+              .col1of4.padding-right-xs
+                %label.button.inset.white.width-full.height-xxs{:for => :incomplete}
+                  %input{:name => :incomplete, :type => :hidden, :value => "0"}
+                  %input#incomplete{:name => :incomplete, :type => :checkbox, :value => "1", :autocomplete => :off, checked: session[:params].try(:fetch, :incomplete, nil)}
+                  %span= _("Incomplete")
+              .col1of4.padding-right-xs
+                %label.button.inset.white.width-full.height-xxs{:for => :broken}
+                  %input{:name => :broken, :type => :hidden, :value => "0"}
+                  %input#broken{:name => :broken, :type => :checkbox, :value => "1", :autocomplete => :off, checked: session[:params].try(:fetch, :broken, nil)}
+                  %span= _("Broken")
 
       .table
 

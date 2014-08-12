@@ -72,7 +72,7 @@ Dann(/^bei dem bearbeiteten Gegestand ist der neue Lieferant eingetragen$/) do
 end
 
 Dann(/^ist der Gegenstand mit all den angegebenen Informationen gespeichert$/) do
-  find("[data-retired='true']").click if @table_hashes.detect { |r| r["Feldname"] == "Ausmusterung" } and (@table_hashes.detect { |r| r["Feldname"] == "Ausmusterung" }["Wert"]) == "Ja"
+  find(:select, "retired").first("option").select_option if @table_hashes.detect { |r| r["Feldname"] == "Ausmusterung" } and (@table_hashes.detect { |r| r["Feldname"] == "Ausmusterung" }["Wert"]) == "Ja"
   find("#list-search").set (@table_hashes.detect { |r| r["Feldname"] == "Inventarcode" }["Wert"])
   find(".line", :text => @table_hashes.detect { |r| r["Feldname"] == "Modell" }["Wert"], :visible => true)
   step "man befindet sich auf der Editierseite von diesem Gegenstand"

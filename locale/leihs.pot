@@ -1129,6 +1129,12 @@ msgstr ""
 msgid "Retired"
 msgstr ""
 
+msgid "retired"
+msgstr ""
+
+msgid "not retired"
+msgstr ""
+
 msgid "Retirement"
 msgstr ""
 
@@ -1511,7 +1517,19 @@ msgstr ""
 msgid "Umzug"
 msgstr ""
 
+msgid "borrowable"
+msgstr ""
+
+msgid "unborrowable"
+msgstr ""
+
 msgid "Unborrowable"
+msgstr ""
+
+msgid "Borrowable Items"
+msgstr ""
+
+msgid "Unborrowable Items"
 msgstr ""
 
 msgid ""
@@ -2095,6 +2113,9 @@ msgstr ""
 msgid "not used"
 msgstr ""
 
+msgid "used"
+msgstr ""
+
 msgid "Model|Images|File file size"
 msgstr ""
 
@@ -2636,6 +2657,9 @@ msgid "Active Inventory"
 msgstr ""
 
 msgid "Unused Models"
+msgstr ""
+
+msgid "Used Models"
 msgstr ""
 
 msgid "Responsible inventory pool"

@@ -50,7 +50,7 @@ class window.App.ModelsPackageDialogController extends Spine.Controller
       data: $.param
         search_term: searchTerm
         not_packaged: true
-        unretired: true
+        retired: false
 
   fetchModels: (items)=>
     ids = _.uniq _.map items, (i)->i.model_id

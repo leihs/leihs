@@ -106,6 +106,8 @@ class Model < ActiveRecord::Base
   scope :by_inventory_pool, lambda { |inventory_pool| select("DISTINCT models.*").joins(:items).
                                                       where(["items.inventory_pool_id = ?", inventory_pool]) }
 
+  scope :owned_or_responsible_by_inventory_pool, -> (ip) { joins(:items).where(":id IN (items.owner_id, items.inventory_pool_id)", :id => ip.id).uniq }
+
   scope :all_from_inventory_pools, lambda { |inventory_pool_ids| where(items: {inventory_pool_id: inventory_pool_ids}) }
 
   scope :by_categories, lambda { |categories| joins("INNER JOIN model_links AS ml"). # OPTIMIZE no ON ??
@@ -178,46 +180,44 @@ class Model < ActiveRecord::Base
   }
 
   def self.filter(params, subject = nil, category = nil, borrowable = false)
+    models = Model.all
+    models = models.where(type: params[:type].capitalize) if ["model", "software"].include? params[:type]
+
     models = if subject.is_a? User
-               filter_for_user params, subject, category, borrowable
+               filter_for_user models, params, subject, category, borrowable
              elsif subject.is_a? InventoryPool
-               filter_for_inventory_pool params, subject, category
+               filter_for_inventory_pool models, params, subject, category
              else
-               all
+               models
              end
+
     models = models.where(id: params[:id]) if params[:id]
     models = models.where(id: params[:ids]) if params[:ids]
-    models = models.where(:items => {:is_borrowable => true}) if borrowable or params[:borrowable]
+
     models = models.search(params[:search_term], params[:search_targets] ? params[:search_targets] : [:manufacturer, :product, :version]) unless params[:search_term].blank?
     models = models.order_by_attribute_and_direction params[:sort], params[:order]
     models = models.paginate(:page => params[:page]||1, :per_page => [(params[:per_page].try(&:to_i) || 20), 100].min) unless params[:paginate] == "false"
     models
   end
 
-  def self.filter_for_user(params, user, category, borrowable = false)
-    models = if category then user.models.from_category_and_all_its_descendants(category.id).borrowable else user.models.borrowable end
+  def self.filter_for_user(models, params, user, category, borrowable = false)
+    models = user.models
+    models = if category then models.from_category_and_all_its_descendants(category.id).borrowable else models.borrowable end
     models = models.all_from_inventory_pools(user.inventory_pools.where(id: params[:inventory_pool_ids]).map(&:id)) unless params[:inventory_pool_ids].blank?
     models
   end
 
-  def self.filter_for_inventory_pool(params, inventory_pool, category)
-    if params[:all]
-      models = all
-    elsif params[:unused_models]
-      models = unused_for_inventory_pool inventory_pool
-    else
+  def self.filter_for_inventory_pool(models, params, inventory_pool, category)
+    if params[:used] == "false"
+      models = models.unused_for_inventory_pool inventory_pool
+    elsif params[:used] == "true"
       models = if params[:as_responsible_only]
-                 joins(:items).where(":id IN (`items`.`inventory_pool_id`)", :id => inventory_pool.id).uniq
+                 models.joins(:items).where(":id IN (`items`.`inventory_pool_id`)", :id => inventory_pool.id).uniq
                else
-                 joins(:items).where(":id IN (`items`.`owner_id`, `items`.`inventory_pool_id`)", :id => inventory_pool.id).uniq
+                 models.joins(:items).where(":id IN (`items`.`owner_id`, `items`.`inventory_pool_id`)", :id => inventory_pool.id).uniq
                end
-      models = models.where(:items => {:retired => nil}) unless params[:include_retired_models]
       models = models.where(:items => {:parent_id => nil}) unless params[:include_package_models]
-    end
-
-    models = models.where(type: params[:type].capitalize) unless params[:type].blank?
-
-    unless params[:unused_models]
+      models = models.joins(:items).where(items: {is_borrowable: true}) if params[:borrowable] == "true"
       models = models.joins(:items).where(items: {id: params[:item_ids]}) if params[:item_ids]
       models = models.joins(:items).where(items: {inventory_pool_id: params[:responsible_id]}) if params[:responsible_id]
     end
