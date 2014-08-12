@@ -22,6 +22,7 @@ gem 'coffee-script', '~> 2.2'
 gem 'compass-rails', '~> 1.1'
 gem 'cucumber-rails', '~> 1.3', group: [:test, :development], require: false
 gem 'database_cleaner', group: [:test, :development]
+gem 'execjs'
 gem 'factory_girl', '~> 4.1', group: [:test, :development]
 gem 'factory_girl_rails', '~> 4.1', group: [:test, :development]
 gem 'faker', '1.3.0', group: [:test, :development] # NOTE '~> 1.4' doesn't work beacause "I18n::InvalidLocale" error, see note for config.i18n in config/application.rb
@@ -60,6 +61,8 @@ gem 'ruby_parser', '~> 3.1' # gettext dependency that Bundler seems unable to re
 gem 'sass', '~> 3.2'
 gem 'sass-rails', '~> 4.0'
 gem 'selenium-webdriver', group: [:test, :development]
+gem 'therubyracer', platform: :mri
+gem 'therubyrhino', platform: :jruby
 gem 'thin', group: :development, platform: :mri # web server (Webrick do not support keep-alive connections)
 gem 'timecop', '~> 0.7', group: [:test, :development]
 gem 'trinidad', group: :development, platform: :jruby # web server (Webrick do not support keep-alive connections)
