@@ -16,7 +16,7 @@ end
 
 def task_for_feature_file file_path, timeout = 200, strict = false
   name= file_path.match(/features\/(.*)\.feature/).captures.first
-  exec = %{bundle exec cucumber -p default #{strict ? "--strict " : nil}"#{file_path}"}
+  exec = %{bundle exec cucumber -p default -f json -o log/cucumber_report.json #{strict ? "--strict " : nil}"#{file_path}"}
   task_hash(name, exec, timeout)
 end
 
@@ -46,7 +46,7 @@ File.open(filepath,"w") do |f|
     next if t =~ /@old-ui|@upcoming|@current/
     splitted_string = s.split(/:\s*(Scenario|Szenario)( Outline| Template|grundriss)?: /)
     name = "%s - %s" % [splitted_string.last.strip, splitted_string.first]
-    exec = "bundle exec cucumber -p default %s" % splitted_string.first
+    exec = "bundle exec cucumber -p default -f json -o log/cucumber_report.json %s" % splitted_string.first
     task_hash(name, exec)
   end.compact
   f.write (h1 + h2).to_yaml

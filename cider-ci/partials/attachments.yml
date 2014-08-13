@@ -4,3 +4,6 @@ logs:
 screenshots: 
   glob: 'tmp/capybara/*.png'
   content-type: image/png
+cucumber_report:
+  glob: 'log/cucumber_report.json'
+  content-type: application/json
