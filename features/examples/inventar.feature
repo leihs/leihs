@@ -35,6 +35,62 @@ Funktionalität: Inventar
     Und es erscheinen alle zutreffenden Paket-Gegenstände
     Und es erscheinen alle zutreffenden Gegenstände
 
+    @current
+    Szenario: Modell und Gegenstand eines Pakets in Besitzergerätepark finden
+    Angenommen es existiert ein Modell mit folgenden Eigenschaften:
+      | Name | Package Model |
+    Und diese Modell ein Paket ist
+    Und es existiert ein Gegenstand mit folgenden Eigenschaften:
+      | Inventarcode | AVZ40001 |
+      | Besitzergerätepark | Anderer Gerätepark |
+      | verantwortlicher Gerätepark | Anderer Gerätepark |
+    Und diese Paket-Gegenstand ist Teil des Pakets-Modells
+    Und es existiert ein Modell mit folgenden Eigenschaften:
+      | Name | Normal Model |
+    Und es existiert ein Gegenstand mit folgenden Eigenschaften:
+      | Inventarcode | AVZ40020 |
+      | Besitzergerätepark | Mein Gerätepark |
+      | verantwortlicher Gerätepark | Anderer Gerätepark |
+    Wenn ich im Inventarbereich nach den folgenden Eigenschaften suche
+      | Normal Model |
+    Dann erscheint das entsprechende Modell zum Gegenstand "AVZ40020"
+    Und es erscheint der Gegenstand "AVZ40020"
+    Wenn ich im Inventarbereich nach den folgenden Eigenschaften suche
+      | AVZ40020 |
+    Dann erscheint das entsprechende Modell zum Gegenstand "AVZ40020"
+    Und es erscheint der Gegenstand "AVZ40020"
+
+    @current
+    Szenario: Modell und Gegenstand eines Pakets in Verantwortlichem Gerätepark finden
+    Angenommen es existiert ein Modell mit folgenden Eigenschaften:
+      | Name | Package Model |
+    Und diese Modell ein Paket ist
+    Und es existiert ein Gegenstand mit folgenden Eigenschaften:
+      | Inventarcode | AVZ40001 |
+      | Besitzergerätepark | Mein Gerätepark |
+      | verantwortlicher Gerätepark | Mein Gerätepark |
+    Und diese Paket-Gegenstand ist Teil des Pakets-Modells
+    Und es existiert ein Modell mit folgenden Eigenschaften:
+      | Name | Normal Model |
+    Und es existiert ein Gegenstand mit folgenden Eigenschaften:
+      | Inventarcode | AVZ40020 |
+      | Besitzergerätepark | Anderer Gerätepark |
+      | verantwortlicher Gerätepark | Mein Gerätepark |
+    Wenn ich im Inventarbereich nach den folgenden Eigenschaften suche
+      | Normal Model |
+    Dann erscheint das entsprechende Modell zum Gegenstand "AVZ40020"
+    Und es erscheint der Gegenstand "AVZ40020"
+    Dann es erscheinen alle zutreffenden Paket-Modelle die den Gegenstand "AVZ40020" enthalten
+    Und es erscheinen alle zutreffenden Paket-Gegenstände die den Gegenstand "AVZ40020" enthalten
+    Und es erscheint der im Paket enthaltene Gegenstand "AVZ40020"
+    Wenn ich im Inventarbereich nach den folgenden Eigenschaften suche
+      | AVZ40020 |
+    Dann erscheint das entsprechende Modell zum Gegenstand "AVZ40020"
+    Und es erscheint der Gegenstand "AVZ40020"
+    Dann es erscheinen alle zutreffenden Paket-Modelle die den Gegenstand "AVZ40020" enthalten
+    Und es erscheinen alle zutreffenden Paket-Gegenstände die den Gegenstand "AVZ40020" enthalten
+    Und es erscheint der im Paket enthaltene Gegenstand "AVZ40020"
+   
   @personas @javascript @firefox
   Szenario: Auswahlmöglichkeiten: Alle-Tab
     Dann kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:

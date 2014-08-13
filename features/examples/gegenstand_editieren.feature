@@ -158,6 +158,15 @@ Funktionalität: Gegenstand bearbeiten
     Dann wird der neue Lieferant erstellt
     Und bei dem bearbeiteten Gegestand ist der neue Lieferant eingetragen
 
+  @current @javascript @personas
+  Szenario: Neuen Lieferanten nicht erstellen falls einer mit gleichem Namen schon vorhanden
+    Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
+    Wenn ich einen existierenen Lieferanten angebe
+    Und ich speichern druecke
+    Dann wird kein neuer Lieferant erstellt
+    Und bei dem bearbeiteten Gegestand ist der bereits vorhandenen Lieferant genau einmal eingetragen
+  
+
   @javascript @personas
   Szenario: Bei Gegenständen, die in Verträgen vorhanden sind, kann man das Modell nicht ändern
     Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes, der in einem Vertrag vorhanden ist
