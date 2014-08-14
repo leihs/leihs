@@ -36,7 +36,8 @@ end
 
 def check_existing_inventory_codes(items)
   inventory = find "#inventory"
-  inventory.all(".button[data-type='inventory-expander']").each &:click
+  # clicking on all togglers via javascript is significantly faster than doing it with capybara in this case
+  page.execute_script %Q( $(".button[data-type='inventory-expander']").click() )
   inventory_text = inventory.text
   items.each do |i|
     expect(inventory_text).to match /#{i.inventory_code}/

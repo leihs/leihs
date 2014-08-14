@@ -11,7 +11,8 @@ Funktionalität: Geräteparks administrieren
     Angenommen ich bin Gino
     Wenn ich in den Admin-Bereich wechsel
     Dann ich sehe die Geräteparkliste
-    Und ich sehe die Geräteparkauswahl
+    Wenn ich auf die Geraetepark-Auswahl klicke
+    Dann sehe ich alle Geraeteparks
     Und die Geräteparkauswahl ist alphabetish sortiert
 
   @personas

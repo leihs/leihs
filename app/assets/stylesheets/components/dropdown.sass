@@ -1,7 +1,7 @@
-.dropdown-holder
+.dropdown-holder, .bs-dropdown-holder
   position: relative
 
-.dropdown
+.dropdown, .bs-dropdown
   background: white
   border: 1px solid $almostwhite
   display: none
@@ -19,7 +19,7 @@
     max-width: 650px
     min-width: 160px
 
-  &.show
+  &.show, &.open
     display: inline-block
 
   &.right
@@ -29,6 +29,7 @@
   &:not(.straight-top)
     li:first-child .dropdown-item
       @include border-top-radius($border-radius-m)
+
   li
     &:last-child .dropdown-item
       @include border-bottom-radius($border-radius-m)

@@ -866,3 +866,31 @@ end
 Dann(/^wird nur das Inventar angezeigt, für welche dieses Gerätepark verantwortlich ist$/) do
   step %Q(only the inventory is shown, for which this pool is responsible)
 end
+
+Wenn(/^ich(?: erneut)? auf die Geraetepark\-Auswahl klicke$/) do
+  step %Q(I click on the inventory pool selection toggler again)
+end
+
+Dann(/^sehe ich alle Geraeteparks, zu denen ich Zugriff als Verwalter habe$/) do
+  step %Q(I see all inventory pools for which I am a manager)
+end
+
+Wenn(/^ich auf einen Geraetepark klicke$/) do
+  step %Q(I click on one of the inventory pools)
+end
+
+Dann(/^wechsle ich zu diesem Geraetepark$/) do
+  step %Q(I switch to that inventory pool)
+end
+
+Wenn(/^ich ausserhalb der Geraetepark\-Auswahl klicke$/) do
+  step %Q(I click somewhere outside of the inventory pool menu list)
+end
+
+Dann(/^schliesst sich die Geraetepark\-Auswahl$/) do
+  step %Q(the inventory pool menu list closes)
+end
+
+Dann(/^sehe ich alle Geraeteparks$/) do
+  step %Q(I see all the inventory pools)
+end

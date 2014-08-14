@@ -90,8 +90,8 @@ Funktionalität: Inventar
     Dann es erscheinen alle zutreffenden Paket-Modelle die den Gegenstand "AVZ40020" enthalten
     Und es erscheinen alle zutreffenden Paket-Gegenstände die den Gegenstand "AVZ40020" enthalten
     Und es erscheint der im Paket enthaltene Gegenstand "AVZ40020"
-   
-  @personas @javascript @firefox
+
+  @current @personas @javascript @firefox
   Szenario: Auswahlmöglichkeiten: Alle-Tab
     Dann kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:
       | Auswahlmöglichkeit   |
@@ -224,7 +224,8 @@ Funktionalität: Inventar
       | Anzahl verfügbar (jetzt) |
       | Anzahl verfügbar (Total) |
 
-  @javascript @personas
+  # CI-ISSUE; not reproducible locally
+  @current @javascript @personas
   Szenario: Aussehen einer Gegenstands-Zeile
     Wenn der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist
     Dann enthält die Gegenstands-Zeile folgende Informationen:

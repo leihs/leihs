@@ -14,6 +14,7 @@
 #= require underscore/underscore.string
 #= require underscore/underscore.each_slice
 #= require bootstrap/bootstrap-modal
+#= require bootstrap/bootstrap-dropdown
 #= require tooltipster/tooltipster
 #= require jquery.inview/jquery.inview
 #= require jed/jed

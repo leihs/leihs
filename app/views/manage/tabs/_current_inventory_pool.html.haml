@@ -3,14 +3,14 @@
   %ul
 
     %li
-      .dropdown-holder
-        .navigation-tab-item.margin-right-xxs.padding-horizontal-m.text-ellipsis.max-width-m{:title => current_inventory_pool.try(&:name)}
+      .bs-dropdown-holder
+        .navigation-tab-item.margin-right-xxs.padding-horizontal-m.text-ellipsis.max-width-m{:title => current_inventory_pool.try(&:name), data: {toggle: "dropdown", target: "#ip-dropdown-menu"}}
           - if current_inventory_pool
             = current_inventory_pool
-            %i.arrow.down.margin-left-xs
+            %i.icon-chevron-sign-down.vertical-align-baseline.margin-left-xxs
           - else
             %span.italic.grey-text= _("Please select an inventory pool")
             %i.arrow.grey.down.margin-left-xs
-        .dropdown.right.width-m
+        #ip-dropdown-menu.bs-dropdown.right.width-m
           - current_managed_inventory_pools.each do |ip|
             %a.dropdown-item.text-ellipsis{:title => ip, :href => manage_root_path(:inventory_pool_id => ip.id)}= ip

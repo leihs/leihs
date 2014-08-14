@@ -80,11 +80,13 @@ Wenn(/^der Gerätepark wurde aus der Datenbank gelöscht$/) do
   expect(InventoryPool.find_by_name(@current_inventory_pool.name)).to eq nil
 end
 
-Dann(/^ich sehe die Geräteparkauswahl$/) do
-  find("div.dropdown-holder:nth-child(1)").click
-end
-
 Dann(/^die Geräteparkauswahl ist alphabetish sortiert$/) do
   names = all("div.dropdown-holder:nth-child(1) .dropdown .dropdown-item").map(&:text)
   expect(names.map(&:downcase).sort).to eq names.map(&:downcase)
+end
+
+Then(/^I see all the inventory pools$/) do
+  within "#ip-dropdown-menu" do
+    InventoryPool.all.each {|ip| has_content? ip.name}
+  end
 end

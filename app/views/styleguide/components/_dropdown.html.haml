@@ -1,12 +1,27 @@
-.dropdown-holder
-  
-  .button
-    = ".dropdown-holder"
-    .arrow.down
-  
-  .dropdown
+.row
 
-    %a.dropdown-item .dropdown-item
-    %a.dropdown-item .dropdown-item
-    %button.dropdown-item .dropdown-item 
-    %a.dropdown-item.red .dropdown-item.red
+  .col1of2.dropdown-holder
+
+    .button
+      = ".dropdown-holder"
+      .arrow.down
+
+    .dropdown
+
+      %a.dropdown-item .dropdown-item
+      %a.dropdown-item .dropdown-item
+      %button.dropdown-item .dropdown-item 
+      %a.dropdown-item.red .dropdown-item.red
+
+  .col1of2.bs-dropdown-holder
+
+    .button{data: {toggle: "dropdown", target: "#dropdown-menu"}}
+      = ".bs-dropdown-holder"
+      %i.icon-chevron-sign-down.vertical-align-baseline.margin-left-xxs.black
+
+    #dropdown-menu.bs-dropdown
+
+      %a.dropdown-item .dropdown-item
+      %a.dropdown-item .dropdown-item
+      %button.dropdown-item .dropdown-item 
+      %a.dropdown-item.red .dropdown-item.red

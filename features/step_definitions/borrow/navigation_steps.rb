@@ -53,9 +53,7 @@ Und(/^die Navigation beinhaltet nur die Bestellungen$/) do
 end
 
 Dann(/^man sieht die Gerätepark\-Auswahl im Verwalten\-Bereich$/) do
-  within("#contracts-index-view > .row:nth-child(1) > nav:nth-child(2) .dropdown-holder") do
-    find("div[title]", match: :prefer_exact, text: @current_inventory_pool.name)
-  end
+  find("[data-target='#ip-dropdown-menu']", text: @current_inventory_pool.name)
 end
 
 When(/^I visit the lending section on the list of (all|open|closed) contracts$/) do |arg1|
