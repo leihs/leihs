@@ -12,11 +12,6 @@ contexts:
   scripts: "substitute_with_path: cider-ci/partials/cucumber_context_scripts.yml"
   tasks: "substitute_with_path: cider-ci/tasks/cucumber_scenarios.yml"
 
-- name: Rspec 
-  priority: 3
-  scripts: "substitute_with_path: cider-ci/partials/rspec_context_scripts.yml"
-  tasks: "substitute_with_path: cider-ci/tasks/rspec.yml"
-
 - name: Meta
   priority: 7
   tasks: "substitute_with_path: cider-ci/tasks/meta.yml"
@@ -28,7 +23,7 @@ contexts:
 
   tasks:
 
-    - name: All specs are tested?
+    - name: All features are tested?
       scripts:
         main: 
-          body: cider-ci/bin/all_specs_tested.rb
+          body: cider-ci/bin/all_features_tested.rb 

@@ -1,9 +1,0 @@
----
-- name: controllers hslu_ldap_controller
-  scripts:
-    rspec:
-      body: bundle exec rspec "spec/controllers/hslu_ldap_controller_spec.rb"
-- name: controllers ldap_controller
-  scripts:
-    rspec:
-      body: bundle exec rspec "spec/controllers/ldap_controller_spec.rb"

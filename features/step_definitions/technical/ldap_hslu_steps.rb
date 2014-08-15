@@ -1,45 +1,14 @@
-# encoding: utf-8
-require 'spec_helper.rb'
-require "#{Rails.root}/features/support/leihs_factory.rb"
+require 'cucumber/rspec/doubles'
 
-describe Authenticator::HsluAuthenticationController, type: :request do
+Given(/^the LDAP\-HSLU authentication system is enabled and configured$/) do
+  as = AuthenticationSystem.new(:name => "HsluAuthentication",
+                                :class_name => "HsluAuthentication")
+  as.is_active = true
+  expect(as.save).to be true
+  Setting::LDAP_CONFIG = File.join(Rails.root, "features", "data", "LDAP_hslu.yml")
+end
 
-  before(:all) do
-#    pending # hslu ldap controller conflicts with required pre and last name
-    
-    FactoryGirl.create(:inventory_pool)
-    LeihsFactory.create_default_languages
-    @group = FactoryGirl.create(:group, :name => 'Video')
-
-    Setting::LDAP_CONFIG = File.join(Rails.root, "spec", "LDAP_hslu.yml")
-    #LDAP_CONFIG = {"test"=>
-    #              {"master_bind_pw"=>"12345",
-    #               "base_dn"=>"OU=p_user,OU=prod,OU=hslu,DC=campus,DC=intern",
-    #               "encryption"=>"simple_tls",
-    #               "master_bind_dn"=> "CN=blah,OU=diblah,OU=diblahblah,OU=hslu,OU=enterprise,DC=campus,DC=intern",
-    #               "admin_dn"=> "CN=blah,OU=diblah,OU=diblahblah,OU=p_ma,OU=p_group,OU=prod,OU=hslu,DC=campus,DC=intern",
-    #               "port"=>636,
-    #               "unique_id_field"=>"pager",
-    #               "log_file"=>"log/ldap_server.log",
-    #               "video_displayname"=>"DK.BA_VID",
-    #               "host"=>"ldap.host",
-    #               "search_field"=>"samaccountname",
-    #               "log_level"=>"warn"}}
-  end
-
-  def destroy_user(login)
-    user = User.where(:login => login).first
-    if user
-      return user.destroy
-    end
-  end
-
-  before(:each) do
-
-    destroy_user("normal_user")
-    destroy_user("video_user")
-    destroy_user("numeric_unique_id_user")
-
+Given(/^an LDAP response object for HSLU is mocked$/) do
     # So we can overwrite the @myhash of LDAP entries and construct a hash of Net::LDAP::Entry just
     # like the real Net::LDAP would
     class Net::LDAP::Entry
@@ -249,58 +218,23 @@ describe Authenticator::HsluAuthenticationController, type: :request do
     allow(Net::LDAP).to receive(:new) {
       mocked_ldap
     }
-
-
-  end
-
-  context "if the user does not yet exist" do
-    it "should be able to create a normal with various useful data grabbed from LDAP" do
-      post 'authenticator/hslu/login', {:login => { :username => "normal_user", :password => "1234" }}, {}
-      expect(User.where(:login => "normal_user").first).not_to be nil
-    end
-  end
-
-  context "when dealing with users for the Video group" do
-    it "should assign users to the group if they have the right displayName" do
-      post 'authenticator/hslu/login', {:login => { :username => "video_user", :password => "1234" }}, {}
-      user = User.where(:login => "video_user" ).first
-      expect(user).not_to be nil
-      expect(user.groups.include?(Group.where(:name => "Video").first)).to be true
-    end
-    it "should not assign users to the group if they don't have the right displayName" do
-      post 'authenticator/hslu/login', {:login => { :username => "normal_user", :password => "1234" }}, {}
-      user = User.where(:login => "normal_user").first
-      expect(user).not_to be nil
-      expect(user.groups.include?(Group.where(:name => "Video").first)).to be false
-    end
-  end
-
-  context "if the user is in the admin DN on LDAP" do
-    it "should give that user the admin role" do
-      post 'authenticator/hslu/login', {:login => { :username => "admin_user", :password => "1234" }}, {}
-      user = User.where(:login => "admin_user").first
-      expect(user.access_rights.active.collect(&:role).include?(:admin)).to be true
-    end
-  end
-  
-  context "when copying the LDAP user's unique_id to the leihs user's badge_id" do
-    it "should just use the unique_id as it is in most cases" do
-      post 'authenticator/hslu/login', {:login => { :username => "normal_user", :password => "1234" }}, {}
-      user = User.where(:login => "normal_user").first
-      user.reload
-      expect(user).not_to be nil
-      expect(user.badge_id).to eq "L9999"
-    end
-  end
-
-  context "when the user has a unique_id that is completely numeric" do
-    it "should append an 'L' to the start of the user's unique_id and use that instead" do 
-      post 'authenticator/hslu/login', {:login => { :username => "numeric_unique_id_user", :password => "1234" }}, {}
-      user = User.where(:login => "numeric_unique_id_user").first
-      user.reload
-      expect(user).not_to be nil
-      expect(user.badge_id).to eq "L1234"
-    end
-  end
-
 end
+
+Given(/^a group called "(.*?)" exists$/) do |groupname|
+  @group = FactoryGirl.create(:group, :name => groupname)
+end
+
+When(/^I log in as HSLU-LDAP user "(.*?)"$/) do |username|
+  post 'authenticator/hslu/login', {:login => { :username => username, :password => "1234" }}, {}
+end
+
+Then(/^the user "(.*?)" should have HSLU-LDAP as an authentication system$/) do |username|
+  as = AuthenticationSystem.where(:class_name => "HsluAuthentication").first
+  expect(as).not_to be nil
+  expect(User.where(:login => username).first.authentication_system).to eq as
+end
+
+Then(/^the user "(.*?)" should have a badge ID of "(.*?)"$/) do |username, badge_id|
+  expect(User.where(:login => username).first.badge_id).to eq badge_id
+end
+

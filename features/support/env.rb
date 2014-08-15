@@ -75,6 +75,21 @@ Before('@personas') do
   @use_personas = true
 end
 
+Before('@ldap') do
+  ENV['TMPDIR'] = File.join(Rails.root, "tmp")
+  # TODO: Move this out to something that runs *before* the test suite itself?
+  unless File.exist?(ENV['TMPDIR'])
+    Dir.mkdir(ENV['TMPDIR'])
+  end
+  Setting::LDAP_CONFIG = File.join(Rails.root, "features", "data", "LDAP_generic.yml")
+  @ldap_server = Ladle::Server.new(
+    :port => 12345,
+    :ldif => File.join(Rails.root, "features", "data", "ldif", "generic.ldif"),
+    :domain => "dc=example,dc=org"
+  )
+  @ldap_server.start
+end
+
 Before('@javascript') do
   @use_phantomjs = true
 end
@@ -124,6 +139,10 @@ After do
       #raise "Javascript errors detected, see above"
     end
   end
+end
+
+After('@ldap') do
+  @ldap_server.stop
 end
 
 if ENV["PRY"]
