@@ -5,5 +5,9 @@ class Property < ActiveRecord::Base
 
   validates_presence_of :key, :value
 
+  def to_s
+    "%s: %s" % [key, value]
+  end
+
 end
 

@@ -26,4 +26,8 @@ class Accessory < ActiveRecord::Base
 
   attr_writer :is_deletable
 
+  def to_s
+    name
+  end
+
 end

@@ -35,6 +35,8 @@ FactoryGirl.define do
     properties { { license_type: "single_workplace",
                    activation_type: "serial_number",
                    operating_system: ["windows", "linux"],
-                   installation: ["citrix", "web"] } }
+                   installation: ["citrix", "web"],
+                   procured_by: [true, false].sample ? User.all.sample.to_s : nil
+                  } }
   end
 end

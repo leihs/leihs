@@ -403,9 +403,11 @@ Dann /^kann man diese Daten als CSV\-Datei exportieren$/ do
     Rack::Utils.parse_nested_query uri.query
   end
 
-  expect(parsed_query.keys.size).to eq 0
-  find("input#in_stock").click
-  expect(parsed_query).to eq({"in_stock" => "1"})
+  expect(parsed_query["retired"]).to eq "false"
+  if [nil, "0"].include? parsed_query["in_stock"]
+    find("input#in_stock").click
+  end
+  expect(parsed_query["in_stock"]).to eq "1"
   @params = ActionController::Parameters.new(parsed_query)
 end
 
@@ -415,18 +417,21 @@ Dann /^die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden \(ink
                    {col_sep: ";", quote_char: "\"", force_quotes: true, headers: :first_row}
   within "#inventory" do
     step "I fetch all pages of the list"
-    while has_selector?(".line[data-type='model'] .button[data-type='inventory-expander'] i.arrow.right") do
-      all(".line[data-type='model'] .button[data-type='inventory-expander'] i.arrow.right").each &:click
+    ["model", "software"].each do |type|
+      selector = ".line[data-type='#{type}'] .button[data-type='inventory-expander'] i.arrow.right"
+      while has_selector?(selector) do
+        all(selector).each &:click
+      end
     end
-    line_codes = all(".line[data-type='item']").map { |l| l.find(".col2of5 .row", match: :first).text }
+    sleep(0.33)
+    line_codes = (all(".line[data-type='item']").to_a + all(".line[data-type='license']").to_a).map { |l| l.find(".col2of5 .row", match: :first).text }
     csv_codes = @csv.map {|csv_row| csv_row["Inventarcode"] }
     expect(csv_codes.sort).to eq line_codes.sort
   end
 end
 
-Dann(/^die (Gegenstands und Optionszeilen|Software-Lizenzzeilen) enthalten die folgenden Felder in aufgeführter Reihenfolge$/) do |table|
+Dann(/^die Zeilen enthalten die folgenden Felder in aufgeführter Reihenfolge$/) do |table|
   csv_headers = @csv.headers
-  expect(csv_headers.size).to eq table.hashes.size
   table.hashes.each do |row|
     expect(csv_headers).to include row["Felder"]
   end

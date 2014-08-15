@@ -12,79 +12,90 @@ Funktionalität: Inventar
   Szenario: Export der aktuellen Ansicht als CSV
     Angenommen ich bin Mike
     Und man öffnet die Liste des Inventars
+    Wenn ich den Reiter "Modelle" einsehe
     Dann kann man diese Daten als CSV-Datei exportieren
     Und die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden (inkl. Filter)
-    Und die Gegenstands und Optionszeilen enthalten die folgenden Felder in aufgeführter Reihenfolge
-    | Felder                            |  
-    | Erstellt am                       |  
-    | Aktualisiert am                   |  
-    | Produkt                           |  
-    | Version                           |  
-    | Hersteller                        |  
-    | Beschreibung                      |  
-    | Technische Details                |  
-    | Interne Beschreibung              |  
-    | Wichtige Notizen zur Aushändigung |  
-    | Kategorien                        |  
-    | Zubehör                           |  
-    | Ergänzende Modelle                |  
-    | Eigenschaften                     |  
-    | Inventarcode                      |  
-    | Ausmusterung                      |  
-    | Grund der Ausmusterung            |  
-    | Zustand                           |  
-    | Vollständigkeit                   |  
-    | Ausleihbar                        |  
-    | Inventarrelevant                  |  
-    | Besitzer                          |  
-    | Letzte Inventur                   |  
-    | Verantwortliche Abteilung         |  
-    | Benutzer/Verwendung               |  
-    | Umzug                             |  
-    | Zielraum                          |  
-    | Ankunftsdatum                     |  
-    | Ankunftszustand                   |  
-    | Ankunftsnotiz                     |  
-    | Seriennummer                      |  
-    | MAC-Adresse                       |  
-    | IMEI-Nummer                       |  
-    | Name                              |  
-    | Notiz                             |  
-    | Gebäude                           |  
-    | Raum                              |  
-    | Gestell                           |  
-    | Bezug                             |  
-    | Rechnungsnummer                   |  
-    | Rechnungsdatum                    |  
-    | Anschaffungswert                  |  
-    | Lieferant                         |  
-    | Garantieablaufdatum               |  
-    | Vertragsablaufdatum               |  
-    Und die Software-Lizenzzeilen enthalten die folgenden Felder in aufgeführter Reihenfolge
-    | Felder                            |  
-    | Produkt                           |  
-    | Version                           |  
-    | Hersteller                        |  
-    | Software Informationen            |  
-    | Inventarcode                      |  
-    | Ausmusterung                      |  
-    | Ausleihbar                        |  
-    | Besitzer                          |  
-    | Verantwortliche Abteilung         |  
-    | Bezug                             |  
-    | Rechnungsdatum                    |  
-    | Anschaffungswert                  |  
-    | Lieferant                         |  
-    | Beschafft durch                   |  
-    | Seriennummer                      |  
-    | Notiz                             |  
-    | Aktivierungstyp                   |  
-    | Dongle ID                         |  
-    | Lizenztyp                         |  
-    | Gesamtanzahl                      |  
-    | Anzahl Zuteilungen                |  
-    | Betriebssystem                    |  
-    | Installation                      |  
-    | Lizenzablaufdatum                 |  
-    | Maintenance-Vertrag               |  
-    | Maintenance-Ablaufdatum           |  
+    Und die Zeilen enthalten die folgenden Felder in aufgeführter Reihenfolge
+    | Felder                            |
+    | Erstellt am                       |
+    | Aktualisiert am                   |
+    | Produkt                           |
+    | Version                           |
+    | Hersteller                        |
+    | Beschreibung                      |
+    | Technische Details                |
+    | Interne Beschreibung              |
+    | Wichtige Notizen zur Aushändigung |
+    | Kategorien                        |
+    | Zubehör                           |
+    | Ergänzende Modelle                |
+    | Eigenschaften                     |
+    | Inventarcode                      |
+    | Seriennummer                      |
+    | MAC-Adresse                       |
+    | IMEI-Nummer                       |
+    | Name                              |
+    | Notiz                             |
+    | Ausmusterung                      |
+    | Grund der Ausmusterung            |
+    | Zustand                           |
+    | Vollständigkeit                   |
+    | Ausleihbar                        |
+    | Gebäude                           |
+    | Raum                              |
+    | Gestell                           |
+    | Inventarrelevant                  |
+    | Besitzer                          |
+    | Letzte Inventur                   |
+    | Verantwortliche Abteilung         |
+    | Verantwortliche Person            |
+    | Benutzer/Verwendung               |
+    | Anschaffungskategorie             |
+    | Bezug                             |
+    | Projektnummer                     |
+    | Rechnungsnummer                   |
+    | Rechnungsdatum                    |
+    | Anschaffungswert                  |
+    | Lieferant                         |
+    | Garantieablaufdatum               |
+    | Vertragsablaufdatum               |
+    | Umzug                             |
+    | Zielraum                          |
+    | Ankunftsdatum                     |
+    | Ankunftszustand                   |
+    | Ankunftsnotiz                     |
+    Wenn ich den Reiter "Software" einsehe
+    Dann kann man diese Daten als CSV-Datei exportieren
+    Und die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden (inkl. Filter)
+    Und die Zeilen enthalten die folgenden Felder in aufgeführter Reihenfolge
+    | Felder                            |
+    | Erstellt am                       |
+    | Aktualisiert am                   |
+    | Produkt                           |
+    | Version                           |
+    | Hersteller                        |
+    | Software Informationen            |
+    | Inventarcode                      |
+    | Seriennummer                      |
+    | Notiz                             |
+    | Aktivierungstyp                   |
+    | Dongle ID                         |
+    | Lizenztyp                         |
+    | Gesamtanzahl                      |
+    | Anzahl-Zuteilungen                |
+    | Betriebssystem                    |
+    | Installation                      |
+    | Lizenzablaufdatum                 |
+    | Maintenance-Vertrag               |
+    | Maintenance-Ablaufdatum           |
+    | Ausmusterung                      |
+    | Grund der Ausmusterung            |
+    | Ausleihbar                        |
+    | Besitzer                          |
+    | Verantwortliche Abteilung         |
+    | Bezug                             |
+    | Projektnummer                     |
+    | Rechnungsdatum                    |
+    | Anschaffungswert                  |
+    | Lieferant                         |
+    | Beschafft durch                   |

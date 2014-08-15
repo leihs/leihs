@@ -204,62 +204,88 @@ class Item < ActiveRecord::Base
   # Generates an array suitable for outputting a line of CSV using CSV
   def to_csv_array(options = {global: false})
     if self.model.nil? or self.model.name.blank?
-      model_manufacturer = "UNKNOWN" if self.model.try(:manufacturer).blank?
+      model_manufacturer = "UNKNOWN" if self.model.try(:manufacturer).blank? # FIXME using model.try because database inconsistency
     else
       model_manufacturer = self.model.manufacturer.gsub(/\"/, '""') unless self.model.manufacturer.blank?
     end
 
     categories = []
     unless options[:global]
-      unless self.model.try(:categories).nil? or self.model.categories.count == 0
+      unless self.model.try(:categories).nil? or self.model.categories.count == 0 # FIXME using model.try because database inconsistency
         self.model.categories.each do |c|
           categories << c.name
         end
       end
     end
 
-    retired = if options[:global] and self.retired? then
-                "X"
-              else
-                self.retired
-              end
-
-    if self.parent
-      part_of_package = "#{self.parent.id} #{self.parent.model.name}"
-    else
-      part_of_package = "NONE"
-    end
-
-    if ref = self.properties[:reference]
-      case ref
-        when "invoice"
-          invoice = "X"
-        when "investment"
-          investment = "X"
-      end
-    end
-
+    # retired = if options[:global] and self.retired? then
+    #             "X"
+    #           else
+    #             self.retired
+    #           end
+    #
+    # if self.parent
+    #   part_of_package = "#{self.parent.id} #{self.parent.model.name}"
+    # else
+    #   part_of_package = "NONE"
+    # end
+    #
+    # if ref = self.properties[:reference]
+    #   case ref
+    #     when "invoice"
+    #       invoice = "X"
+    #     when "investment"
+    #       investment = "X"
+    #   end
+    # end
 
     # Using #{} notation to catch nils gracefully and silently
     h1 = {
         _("Created at") => "#{self.created_at}",
         _("Updated at") => "#{self.updated_at}",
-        _("Manufacturer") => model_manufacturer,
-        _("Categories") => categories.join("; ") #,
-        # current_borrowing_information: "#{self.current_borrowing_info unless options[:global]}",
-        # part_of_package: part_of_package,
-        # needs_permission: "#{self.needs_permission}",
-        # responsible: "#{self.responsible}",
-        # location: "#{self.location}",
-        # invoice: invoice,
-        # investment: investment
+        _("Product") => model.try(:product), # FIXME using model.try because database inconsistency
+        _("Version") => model.try(:version), # FIXME using model.try because database inconsistency
+        _("Manufacturer") => model_manufacturer
     }
+    if type == "Item"
+      h1.merge!({
+                    _("Description") => model.try(:description) # FIXME using model.try because database inconsistency
+                })
+    end
+    h1.merge!({
+                  case model.try(:type) # FIXME using model.try because database inconsistency
+                    when "Software"
+                      _("Software Information")
+                    else
+                      _("Technical Details")
+                  end => model.try(:technical_detail) # FIXME using model.try because database inconsistency
+              })
+    if type == "Item"
+      h1.merge!({
+                    _("Internal Description") => model.try(:internal_description), # FIXME using model.try because database inconsistency
+                    _("Important notes for hand over") => model.try(:hand_over_note), # FIXME using model.try because database inconsistency
+                    _("Categories") => categories.join("; "),
+                    _("Accessories") => (model ? model.accessories.map(&:to_s) : []).join("; "), # FIXME using model.try because database inconsistency
+                    _("Compatibles") => (model ? model.compatibles.map(&:to_s) : []).join("; "), # FIXME using model.try because database inconsistency
+                    _("Properties") => (model ? model.properties.map(&:to_s) : []).join("; ") # FIXME using model.try because database inconsistency
+                    # current_borrowing_information: "#{self.current_borrowing_info unless options[:global]}",
+                    # part_of_package: part_of_package,
+                    # needs_permission: "#{self.needs_permission}",
+                    # responsible: "#{self.responsible}",
+                    # location: "#{self.location}",
+                    # invoice: invoice,
+                    # investment: investment
+                })
+    end
 
-    f1 = Field.where(target_type: nil)
-    f2 = Field.where(target_type: type.downcase)
+    # we use select instead of multiple where because we need to keep the sorting
+    # we exclude what is already hardcoded before (model_id as product and version)
+    fields = Field.all.select do |f|
+      [nil, type.downcase].include?(f.target_type) and not ['model_id'].include?(f.form_name)
+    end.group_by(&:group).values.flatten
 
     h2 = {}
-    (f1 + f2).each do |field|
+    fields.each do |field|
       h2[_(field.label)] = field.value(self)
     end
     h1.merge! h2
