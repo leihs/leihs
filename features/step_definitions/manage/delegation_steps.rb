@@ -482,7 +482,7 @@ Dann(/^ich bestätige den Benutzerwechsel$/) do
 end
 
 Wenn(/^ich die Gegenstände aushändige$/) do
-  line = find(".line[data-line-type='item_line'] input[id*='assigned-item']", match: :first).find(:xpath, "ancestor::div[@data-line-type]")
+  line = find(".line[data-line-type='item_line'] input[id*='assigned-item'][value][disabled]", match: :first).find(:xpath, "ancestor::div[@data-line-type]")
   line.find("input[data-select-line]").click
   find(".multibutton", text: _("Hand Over Selection")).find("button").click
 end
