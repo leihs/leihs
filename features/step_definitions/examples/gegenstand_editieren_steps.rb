@@ -63,14 +63,6 @@ Wenn(/^"(.*?)" bei "(.*?)" ausgewählt ist muss auch "(.*?)" ausgewählt werden$
   expect(newfield[:"data-required"]).to eq "true"
 end
 
-Wenn(/^ich speichern druecke$/) do
-  find("button", text: _("Save %s") % _("Item")).click
-end
-
-Dann(/^bei dem bearbeiteten Gegestand ist der neue Lieferant eingetragen$/) do
-  expect(@item.reload.supplier.name).to eq @new_supplier
-end
-
 Dann(/^ist der Gegenstand mit all den angegebenen Informationen gespeichert$/) do
   find(:select, "retired").first("option").select_option if @table_hashes.detect { |r| r["Feldname"] == "Ausmusterung" } and (@table_hashes.detect { |r| r["Feldname"] == "Ausmusterung" }["Wert"]) == "Ja"
   find("#list-search").set (@table_hashes.detect { |r| r["Feldname"] == "Inventarcode" }["Wert"])

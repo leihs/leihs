@@ -83,6 +83,6 @@ Funktionalität: Gegenstand kopieren
     Dann wird eine neue Gegenstandskopieransicht geöffnet
     Wenn ich einen nicht existierenen Lieferanten angebe
     Und ich merke mir den Inventarcode für weitere Schritte
-    Und ich speichern druecke
+    Und ich speichere
     Dann wird der neue Lieferant erstellt
     Und bei dem kopierten Gegestand ist der neue Lieferant eingetragen

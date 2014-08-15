@@ -131,10 +131,6 @@ Dann /^alle Felder sind editierbar, da man jetzt Besitzer von diesem Gegenstand 
   expect(@fields.size).to eq 0
 end
 
-Dann(/^bei dem kopierten Gegestand ist der neue Lieferant eingetragen$/) do
-  expect(Item.find_by_inventory_code(@inventory_code).supplier.name).to eq @new_supplier
-end
-
 Wenn(/^ich merke mir den Inventarcode für weitere Schritte$/) do
   @inventory_code = find(".row.emboss", match: :prefer_exact, text: _("Inventory code")).find("input,textarea").value
 end

@@ -59,7 +59,7 @@ Funktionalität: Gegenstand bearbeiten
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
     Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes mit gesetztem Lieferanten
     Wenn ich den Lieferanten lösche
-    Und ich speichern druecke
+    Und ich speichere
     Dann ist bei dem bearbeiteten Gegenstand keiner Lieferant eingetragen
 
   @javascript @personas @firefox
@@ -80,7 +80,7 @@ Funktionalität: Gegenstand bearbeiten
       | Inventarrelevant       | select       | Ja                  |
       | Anschaffungskategorie  | select       | Werkstatt-Technik   |
 
-    Und ich speichern druecke
+    Und ich speichere
     Dann man wird zur Liste des Inventars zurueckgefuehrt
     Und ist der Gegenstand mit all den angegebenen Informationen gespeichert
 
@@ -95,14 +95,14 @@ Funktionalität: Gegenstand bearbeiten
   Szenario: Lieferanten ändern
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
     Wenn ich den Lieferanten ändere
-    Und ich speichern druecke
+    Und ich speichere
     Dann ist bei dem bearbeiteten Gegestand der geänderte Lieferant eingetragen
 
   @javascript @personas
   Szenario: Bei ausgeliehenen Gegenständen kann man die verantwortliche Abteilung nicht editieren
     Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeliehen ist und wo man Besitzer ist
     Wenn ich die verantwortliche Abteilung ändere
-    Und ich speichern druecke
+    Und ich speichere
     Dann erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät ausgeliehen ist
 
   @javascript @personas @firefox
@@ -134,7 +134,7 @@ Funktionalität: Gegenstand bearbeiten
       | Raum                  |              | Test Raum           |
       | Gestell               |              | Test Gestell        |
 
-    Und ich speichern druecke
+    Und ich speichere
     Dann man wird zur Liste des Inventars zurueckgefuehrt
     Und ist der Gegenstand mit all den angegebenen Informationen gespeichert
 
@@ -154,31 +154,31 @@ Funktionalität: Gegenstand bearbeiten
   Szenario: Neuen Lieferanten erstellen falls nicht vorhanden
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
     Wenn ich einen nicht existierenen Lieferanten angebe
-    Und ich speichern druecke
+    Und ich speichere
     Dann wird der neue Lieferant erstellt
     Und bei dem bearbeiteten Gegestand ist der neue Lieferant eingetragen
 
-  @current @javascript @personas
+  @javascript @personas
   Szenario: Neuen Lieferanten nicht erstellen falls einer mit gleichem Namen schon vorhanden
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
     Wenn ich einen existierenen Lieferanten angebe
-    Und ich speichern druecke
+    Und ich speichere
     Dann wird kein neuer Lieferant erstellt
-    Und bei dem bearbeiteten Gegestand ist der bereits vorhandenen Lieferant genau einmal eingetragen
+    Und bei dem bearbeiteten Gegestand ist der bereits vorhandenen Lieferant eingetragen
   
 
   @javascript @personas
   Szenario: Bei Gegenständen, die in Verträgen vorhanden sind, kann man das Modell nicht ändern
     Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes, der in einem Vertrag vorhanden ist
     Wenn ich das Modell ändere
-    Und ich speichern druecke
+    Und ich speichere
     Dann erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät in einem Vortrag vorhanden ist
 
   @javascript @personas
   Szenario: Einen Gegenstand, der ausgeliehen ist, kann man nicht ausmustern
     Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeliehen ist und wo man Besitzer ist
     Wenn ich den Gegenstand ausmustere
-    Und ich speichern druecke
+    Und ich speichere
     Dann erhält man eine Fehlermeldung, dass man den Gegenstand nicht ausmustern kann, da das Gerät bereits ausgeliehen oder einer Vertragslinie zugewiesen ist
 
   @javascript @personas @firefox
@@ -201,7 +201,7 @@ Funktionalität: Gegenstand bearbeiten
       | Garantieablaufdatum   |              | 01.01.2013          |
       | Vertragsablaufdatum   |              | 01.01.2013          |
 
-    Und ich speichern druecke
+    Und ich speichere
     Dann man wird zur Liste des Inventars zurueckgefuehrt
     Und ist der Gegenstand mit all den angegebenen Informationen gespeichert
 
@@ -221,6 +221,6 @@ Funktionalität: Gegenstand bearbeiten
       | Verantwortliche Person    |              | Matus Kmit          |
       | Benutzer/Verwendung       |              | Test Verwendung     |
 
-    Und ich speichern druecke
+    Und ich speichere
     Dann man wird zur Liste des Inventars zurueckgefuehrt
     Und ist der Gegenstand mit all den angegebenen Informationen gespeichert

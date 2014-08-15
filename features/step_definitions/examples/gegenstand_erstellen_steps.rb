@@ -217,18 +217,42 @@ Angenommen(/^ich befinde mich auf der Erstellungsseite eines Gegenstandes$/) do
   visit manage_new_item_path(@current_inventory_pool)
 end
 
-Wenn(/^ich einen nicht existierenen Lieferanten angebe$/) do
-  @new_supplier = Faker::Lorem.words(rand 1..3).join(' ')
-  expect(Supplier.find_by_name(@new_supplier)).to eq nil
+Wenn(/^ich einen( nicht)? existierenen Lieferanten angebe$/) do |arg1|
+  @suppliers_count = Supplier.count
+  if arg1
+    @new_supplier = Faker::Lorem.words(rand 1..3).join(' ')
+    expect(Supplier.find_by_name(@new_supplier)).to eq nil
+  else
+    @new_supplier = Supplier.all.sample.name
+  end
   find(".row.emboss", match: :prefer_exact, text: _("Supplier")).find("input").set @new_supplier
 end
 
-Dann(/^wird der neue Lieferant erstellt$/) do
+Dann(/^wird (der neue|kein neuer) Lieferant erstellt$/) do |arg1|
   expect(has_content?(_("List of Inventory"))).to be true
   find("#inventory")
   expect(Supplier.find_by_name(@new_supplier)).not_to be nil
+  expect(Supplier.where(name: @new_supplier).count).to eq 1
+  case arg1
+    when "der neue"
+      expect(Supplier.count).to eq @suppliers_count + 1
+    when "kein neuer"
+      expect(Supplier.count).to eq @suppliers_count
+  end
 end
 
-Dann(/^bei dem erstellten Gegestand ist der neue Lieferant eingetragen$/) do
-  expect(Item.find_by_inventory_code("test").supplier.name).to eq @new_supplier
+Dann(/^bei dem (erstellten|bearbeiteten|kopierten) Gegestand ist der (neue|bereits vorhandenen) Lieferant eingetragen$/) do |arg1, arg2|
+  expect(
+    case arg1
+      when "erstellten"
+        Item.find_by_inventory_code("test").supplier.name
+      when "bearbeiteten"
+        case arg2
+          when "neue", "bereits vorhandenen"
+            @item.reload.supplier.name
+        end
+      when "kopierten"
+        Item.find_by_inventory_code(@inventory_code).supplier.name
+    end
+  ).to eq @new_supplier
 end
