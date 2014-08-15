@@ -1,17 +1,17 @@
 GIT
-  remote: https://github.com/bradphelan/jasminerice.git
-  revision: 091349c27343bfa728b8e5745675f9ddbb7d9699
-  specs:
-    jasminerice (0.1.0)
-      coffee-rails
-
-GIT
   remote: https://github.com/spape/jsrender-rails.git
   revision: 952103bb94511e4ea06f6024f79d02a719430163
   branch: own_template_prefix
   specs:
     jsrender-rails (1.2)
       rails (>= 3.1.0)
+
+GIT
+  remote: https://github.com/bradphelan/jasminerice.git
+  revision: 091349c27343bfa728b8e5745675f9ddbb7d9699
+  specs:
+    jasminerice (0.1.0)
+      coffee-rails
 
 GEM
   remote: http://rubygems.org/
