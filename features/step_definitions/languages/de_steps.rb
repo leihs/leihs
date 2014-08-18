@@ -210,6 +210,11 @@ Wenn(/^ich (im Inventarbereich )?nach einer dieser (.*)?Eigenschaften suche$/) d
   step "I search #{s1}after one of those #{s2}properties"
 end
 
+Wenn(/^ich (im Inventarbereich )?nach den folgenden Eigenschaften suche$/) do |arg1, table|
+  s1 = "in inventory "
+  step "I search #{s1}after following properties", table
+end
+
 Dann(/^es erscheinen alle zutreffenden (.*)$/) do |arg1|
   s = case arg1
         when "Modelle"
@@ -893,4 +898,12 @@ end
 
 Dann(/^sehe ich alle Geraeteparks$/) do
   step %Q(I see all the inventory pools)
+end
+
+Dann(/^erscheint das entsprechende Modell zum Gegenstand$/) do
+  step %Q(appears the corresponding model to the item)
+end
+
+Dann(/^es erscheint der Gegenstand$/) do
+  step %Q(appears the item)
 end

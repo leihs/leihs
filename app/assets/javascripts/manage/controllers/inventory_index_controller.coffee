@@ -46,6 +46,7 @@ class window.App.InventoryIndexController extends Spine.Controller
         page: page
         search_term: @search.term()
         category_id: @categoriesFilter?.getCurrent()?.id
+        include_package_models: true
         sort: "name"
         order: "ASC"
     .done (data, status, xhr) => 

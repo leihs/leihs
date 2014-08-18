@@ -840,3 +840,22 @@ Then(/^only the inventory is shown, for which this pool is responsible$/) do
   check_amount_of_lines inventory.joins(:model).select(:model_id).uniq.count
   check_existing_inventory_codes(inventory)
 end
+
+Then(/^appears the corresponding model to the item$/) do
+  within "#inventory" do
+    find(".line[data-type='model']", match: :prefer_exact, text: @item.model.name)
+  end
+end
+
+Then(/^appears the item$/) do
+  within "#inventory" do
+    step "expand the corresponding model"
+    find(".line[data-type='item'][data-id='#{@item.id}']", text: @item.inventory_code)
+  end
+end
+
+When(/^expand the corresponding model$/) do
+  within(".line[data-type='model']", match: :prefer_exact, text: @item.model.name) do
+    find("[data-type='inventory-expander']").click
+  end
+end

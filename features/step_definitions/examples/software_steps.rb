@@ -386,6 +386,19 @@ Given(/^there is a (.*) with the following properties:$/) do |arg1, table|
             item_attrs[:properties][:quantity_allocations] ||= []
             item_attrs[:properties][:quantity_allocations] << [x, y]
             y
+          when "Besitzergerätepark", "verantwortlicher Gerätepark"
+            ip_key = case k
+                       when "Besitzergerätepark"
+                         :owner
+                       when "verantwortlicher Gerätepark"
+                         :inventory_pool
+                     end
+            item_attrs[ip_key] = case v
+                                   when "Mein Gerätepark"
+                                     @current_inventory_pool
+                                   when "Anderer Gerätepark"
+                                     @other_inventory_pool ||= InventoryPool.where.not(id: @current_inventory_pool).sample
+                                 end
           else
             raise "not found"
         end
@@ -419,6 +432,18 @@ When(/^I search (in inventory )?after one of those (.*)?properties$/) do |arg1, 
         when "software license ", ""
           @item_properties.sample
       end
+  search_field.set s
+  search_field.native.send_key :return
+  sleep(0.33)
+end
+
+When(/^I search (in inventory )?after following properties$/) do |arg1, table|
+  search_field = if arg1
+                   find("#inventory-index-view input#list-search")
+                 else
+                   find("#topbar-search input#search_term")
+                 end
+  s = table.raw.flatten.sample
   search_field.set s
   search_field.native.send_key :return
   sleep(0.33)
@@ -466,7 +491,6 @@ Then(/^they appear all matched (.*)$/) do |arg1|
   else
     raise
   end
-
 end
 
 Given(/^a software product exists$/) do

@@ -90,9 +90,7 @@ end
 Wenn /^man einen Gegenstand kopiert$/ do
   @item = Item.where(inventory_pool_id: @current_inventory_pool).detect {|i| not i.retired? and not i.serial_number.nil? and not i.name.nil?}
   find("#list-search").set @item.model.name
-  within(".line[data-type='model']", match: :prefer_exact, text: @item.model.name) do
-    find("[data-type='inventory-expander']").click
-  end
+  step "expand the corresponding model"
   within(".line[data-type='item'][data-id='#{@item.id}']", text: @item.inventory_code) do
     find(".dropdown-holder").click
     find("a", text: _("Copy Item")).click
