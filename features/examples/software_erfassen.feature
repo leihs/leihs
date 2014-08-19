@@ -123,11 +123,11 @@ Funktionalität: Software erfassen
       | 1        | Christina Meier| 
     Dann wird mir die verbleibende Anzahl der Lizenzen wie folgt angezeigt "verbleibend 0" 
 
-  @javascript @personas
+  @javascript @personas @current
   Szenario: Software-Lizenz Anschaffungswert mit 2 Dezimalstellen erfassen
     Angenommen es existiert ein Software-Produkt
     Wenn ich eine neue Software-Lizenz hinzufüge
     Und ich alle Pflichtfelder für die Lizenz ausfülle
-    Und ich im Feld "Anschaffungswert" den Wert "200.00" eingebe
+    Und ich im Feld "Anschaffungswert" den Wert "1200" eingebe
     Und ich speichere
-    Dann ist der "Anschaffungswert" mit zwei Dezimalstellen gespeichert
+    Dann ist der "Anschaffungswert" als "1'200.00" gespeichert
