@@ -299,3 +299,19 @@ Funktionalität: Inventar
     Wenn ich eine aufgeführte Zeile editiere
     Und ich speichere
     Dann werde ich zur Liste des eben gewählten Reiters mit den eben ausgewählten Filtern zurueckgefuehrt
+
+
+  Szenariogrundriss: Auszeichnung von defekten, ausgemusterten, unvollständigen oder nicht ausleihbaren Gegenstandszeilen
+    Wenn ich eine Liste von Gegenständen sehe
+    Und diese Liste enthält einen Gegenstand, der <Zustand> ist
+    Dann ist dessen Zeile ausgezeichnet mit <Zustand> in rot
+    Beispiele:
+    |Zustand|
+    |defekt|
+    |ausgemustert|
+    |unvollständig|
+    |nicht ausleihbar|
+    Wenn ein Gegenstand mehrere Zustände hat
+    Dann sind diese Zustände kommagetrennt aneinandergereiht
+
+
