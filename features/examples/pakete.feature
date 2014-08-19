@@ -111,3 +111,8 @@ Funktionalität: Modell mit Paketen erstellen
   Szenario: Paket löschen schlägt fehl wenn das Paket gerade ausgeliehen ist
     Wenn das Paket zurzeit ausgeliehen ist 
     Dann kann ich das Paket nicht löschen
+
+  @current
+  Szenario: Nur meine Pakete werden im Modell angezeigt
+    Wenn ich ein bestehendes Modell mit Paketen editiere
+    Dann sehe ich nur diejenigen Pakete, für welche ich verantwortlich bin
