@@ -9,7 +9,7 @@ end
 When "I fetch all pages of the list" do
   all(".page[data-page]").each do |data_page|
     data_page.click
-    expect(data_page).to have_css ".line div"
+    expect(data_page.has_selector? ".line div").to be true
   end
 end
 

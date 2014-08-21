@@ -408,11 +408,15 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/borrow/modellliste.feature:160
-- name: Alles zurücksetzen verschwindet automatisch, wenn die Filter wieder auf die
-    Starteinstellungen gesetzt werden - features/borrow/modellliste.feature:184
+- name: Alles zurücksetzen - features/borrow/modellliste.feature:169
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/borrow/modellliste.feature:184
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/borrow/modellliste.feature:169
+- name: Alles zurücksetzen verschwindet automatisch, wenn die Filter wieder auf die
+    Starteinstellungen gesetzt werden - features/borrow/modellliste.feature:183
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/borrow/modellliste.feature:183
 - name: Modellübersicht - features/borrow/modelluebersicht.feature:10
   scripts:
     cucumber:
@@ -673,34 +677,38 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/ausleihe.feature:96
-- name: Zusammenziehen der Anzahlen im Item-Popup - features/examples/ausleihe.feature:122
+- name: Alle Suchresultate anzeigen - features/examples/ausleihe.feature:101
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/ausleihe.feature:122
-- name: Klick auf Letzten Besucher nach Editieren einer Bestellung - features/examples/ausleihe.feature:129
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/ausleihe.feature:101
+- name: Zusammenziehen der Anzahlen im Item-Popup - features/examples/ausleihe.feature:121
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/ausleihe.feature:129
-- name: Autocomplete bei der Rücknahme - features/examples/ausleihe.feature:139
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/ausleihe.feature:121
+- name: Klick auf Letzten Besucher nach Editieren einer Bestellung - features/examples/ausleihe.feature:128
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/ausleihe.feature:139
-- name: Selektion bei manueller Interaktion bei Rücknahme - features/examples/ausleihe.feature:148
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/ausleihe.feature:128
+- name: Autocomplete bei der Rücknahme - features/examples/ausleihe.feature:138
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/ausleihe.feature:148
-- name: Suche innerhalb Bestellungen - features/examples/ausleihe.feature:154
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/ausleihe.feature:138
+- name: Selektion bei manueller Interaktion bei Rücknahme - features/examples/ausleihe.feature:147
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/ausleihe.feature:154
-- name: Suche innerhalb Verträgen - features/examples/ausleihe.feature:161
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/ausleihe.feature:147
+- name: Suche innerhalb Bestellungen - features/examples/ausleihe.feature:153
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/ausleihe.feature:161
-- name: Suche innerhalb Besuche - features/examples/ausleihe.feature:168
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/ausleihe.feature:153
+- name: Suche innerhalb Verträgen - features/examples/ausleihe.feature:160
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/ausleihe.feature:168
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/ausleihe.feature:160
+- name: Suche innerhalb Besuche - features/examples/ausleihe.feature:167
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/ausleihe.feature:167
 - name: Sperrfunktion - features/examples/benutzerverwaltung.feature:6
   scripts:
     cucumber:
@@ -1244,6 +1252,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/inventar.feature:65
+- name: 'Auswahlmöglichkeiten: Alle-Tab - features/examples/inventar.feature:93'
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/inventar.feature:93
 - name: 'Auswahlmöglichkeiten: Modell-Tab - features/examples/inventar.feature:99'
   scripts:
     cucumber:
@@ -1288,6 +1300,14 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/inventar.feature:176
+- name: Grundeinstellung der Listenansicht - features/examples/inventar.feature:185
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/inventar.feature:185
+- name: Grundeinstellung der Listenansicht - features/examples/inventar.feature:194
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/inventar.feature:194
 - name: Aussehen einer Options-Zeile - features/examples/inventar.feature:198
   scripts:
     cucumber:
@@ -1300,18 +1320,22 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/inventar.feature:216
-- name: Aussehen einer Software-Lizenz-Zeile - features/examples/inventar.feature:248
+- name: Aussehen einer Gegenstands-Zeile - features/examples/inventar.feature:226
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/inventar.feature:248
-- name: Keine Resultate auf der Liste des Inventars - features/examples/inventar.feature:284
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/inventar.feature:226
+- name: Aussehen einer Software-Lizenz-Zeile - features/examples/inventar.feature:247
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/inventar.feature:284
-- name: Modell aufklappen - features/examples/inventar.feature:289
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/inventar.feature:247
+- name: Keine Resultate auf der Liste des Inventars - features/examples/inventar.feature:283
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/inventar.feature:289
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/inventar.feature:283
+- name: Modell aufklappen - features/examples/inventar.feature:288
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/inventar.feature:288
 - name: Globaler Export des Inventars aller Geräteparks - features/examples/inventar_csv.feature:6
   scripts:
     cucumber:
@@ -1373,14 +1397,18 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/kalender.feature:9
-- name: Anzahl im Buchungskalender während einer Aushändigung überbuchen - features/examples/kalender.feature:22
+- name: Anzahl im Buchungskalender während einer Bestellung überbuchen - features/examples/kalender.feature:14
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/kalender.feature:22
-- name: Nicht verfügbare Zeitspannen - features/examples/kalender.feature:29
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/kalender.feature:14
+- name: Anzahl im Buchungskalender während einer Aushändigung überbuchen - features/examples/kalender.feature:21
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/kalender.feature:29
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/kalender.feature:21
+- name: Nicht verfügbare Zeitspannen - features/examples/kalender.feature:28
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/kalender.feature:28
 - name: Top-Level-Kategorien erstellen - features/examples/kategorien.feature:10
   scripts:
     cucumber:

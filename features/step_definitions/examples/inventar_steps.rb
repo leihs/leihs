@@ -89,7 +89,7 @@ Dann /^kann man auf ein der folgenden Tabs klicken und dabei die entsprechende I
 
     tab.click
     expect(tab.reload[:class].split.include?("active")).to be true
-    should have_selector ".line"
+    expect(has_selector? "#inventory > .line").to be true
     step "I fetch all pages of the list"
 
     check_amount_of_lines(amount)
@@ -155,7 +155,7 @@ end
 ########################################################################
 
 Wenn /^man eine Modell\-Zeile eines Modells, das weder ein Paket-Modell oder ein Bestandteil eines Paket-Modells ist, sieht$/ do
-  expect(has_selector?("#inventory .line[data-type='model']")).to be true
+  expect(has_selector?("#inventory > .line[data-type='model']")).to be true
   all("#inventory .line[data-type='model']").each do |model_line|
     @model = Model.find_by_name(model_line.find(".col2of5 strong").text)
     next if @model.is_package? or @model.items.all? { |i| i.parent }
@@ -176,9 +176,9 @@ Dann /^enthält die Modell\-Zeile folgende Informationen:$/ do |table|
       when "Name des Modells"
         @model_line.find ".col2of5 strong"
       when "Anzahl verfügbar (jetzt)"
-        @model_line.find ".col1of5:nth-child(3)", :text => /#{@model.borrowable_items.in_stock.count}.*?\//
+        @model_line.find ".col1of5:nth-child(3)", :text => /#{@model.borrowable_items.in_stock.where(inventory_pool_id: @current_inventory_pool).count}.*?\//
       when "Anzahl verfügbar (Total)"
-        @model_line.find ".col1of5:nth-child(3)", :text => /\/.*?#{@model.borrowable_items.count}/
+        @model_line.find ".col1of5:nth-child(3)", :text => /\/.*?#{@model.borrowable_items.where(inventory_pool_id: @current_inventory_pool).count}/
     end
   end
   sleep(0.33) # fix lazy request problem
@@ -760,7 +760,7 @@ When(/^I choose inside all inventory as "(.*?)" the option "(.*?)"$/) do |arg1, 
   end
 
   filter.find(:option, arg2).select_option
-  should have_selector ".line"
+  expect(has_selector? "#inventory > .line").to be true
   step "I fetch all pages of the list"
 end
 
@@ -790,15 +790,12 @@ Then(/^only the "(.*?)" inventory is shown$/) do |arg1|
     end
   end
 
-  # filter out models, whose items are all packaged (and thus not visible in the root of inventory)
-  models = models.select {|m| not m.items.all? &:parent_id} unless arg1 == "nicht genutzt"
-
   check_amount_of_lines(models.count)
 end
 
 Given(/^I see retired and not retired inventory$/) do
   find(:select, "retired").first("option").select_option
-  should have_selector "#inventory .line"
+  expect(has_selector? "#inventory > .line").to be true
 end
 
 When(/^I set the option "(.*?)" inside of the full inventory$/) do |arg1|
@@ -814,7 +811,7 @@ When(/^I set the option "(.*?)" inside of the full inventory$/) do |arg1|
   end
 
   filter.click
-  should have_selector ".line"
+  expect(has_selector? "#inventory > .line").to be true
   step "I fetch all pages of the list"
 end
 

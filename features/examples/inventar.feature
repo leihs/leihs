@@ -89,7 +89,7 @@ Funktionalität: Inventar
     | Normal Model |
     | AVZ40020     |
 
-  @current @personas @javascript @firefox
+  @personas @javascript @firefox
   Szenario: Auswahlmöglichkeiten: Alle-Tab
     Dann kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:
       | Auswahlmöglichkeit   |
@@ -176,21 +176,21 @@ Funktionalität: Inventar
   Szenario: Grundeinstellung der Listenansicht
     Dann ist die Auswahl "Alle" aktiviert
 
-  @current
+  @personas @current
   Szenario: Inhalt der Auswahl "Software"
     Dann enthält die Auswahl "Software" Software und Software-Lizenzen
     Und der Filter "Nicht Ausgemustert" ist aktiviert
 
-  @personas @javascript @current
+  @personas @javascript
   Szenario: Grundeinstellung der Listenansicht
     Dann ist die Auswahl "Alle" aktiviert
 
-  @current
+  @personas @current
   Szenario: Inhalt der Auswahl "Software"
     Dann enthält die Auswahl "Software" Software und Software-Lizenzen
     Und der Filter "Nicht Ausgemustert" ist aktiviert
 
-  @personas @javascript @current
+  @personas @javascript
   Szenario: Grundeinstellung der Listenansicht
     Dann ist die Auswahl "Alle" aktiviert
 
@@ -222,8 +222,7 @@ Funktionalität: Inventar
       | Anzahl verfügbar (jetzt) |
       | Anzahl verfügbar (Total) |
 
-  # CI-ISSUE; not reproducible locally
-  @current @javascript @personas
+  @javascript @personas @firefox
   Szenario: Aussehen einer Gegenstands-Zeile
     Wenn der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist
     Dann enthält die Gegenstands-Zeile folgende Informationen:
@@ -292,7 +291,7 @@ Funktionalität: Inventar
     Und so eine Zeile sieht aus wie eine Gegenstands-Zeile
 
   #73278620
-  @current
+  @current @personas
   Szenario: Verhalten nach Speichern
     Wenn ich einen Reiter auswähle
     Und ich eine oder mehrere Filtermöglichkeiten verwende

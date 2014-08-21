@@ -146,6 +146,7 @@ When /^I add so many lines that I break the maximal quantity of an model$/ do
     @model.items.size
   end
   @quantity_added = [quantity_to_add+1, 0].max
+  sleep(0.33)
   @quantity_added.times do
     type_into_autocomplete "[data-add-contract-line]", @target_name
     step 'I see a list of suggested model names'

@@ -48,6 +48,7 @@ end
 Dann /^sehe ich auf den beteiligten Linien die Auszeichnung von Problemen$/ do
   @problems = []
   @lines.each do |line|
+    sleep(0.33)
     hover_for_tooltip line.find("[data-tooltip-template='manage/views/lines/problems_tooltip']")
     @problems << find(".tooltipster-content strong", match: :first).text
   end
@@ -86,7 +87,7 @@ Dann /^"(.*?)" sind verfügbar für den Kunden inklusive seinen Gruppenzugehöri
         else
           @max_before - @quantity_added
         end
-  @reference_problem.should match /#{max}\(/
+  expect(@reference_problem).to match /#{max}\(/
 end
 
 Dann /^"(.*?)" sind insgesamt verfügbar inklusive diejenigen Gruppen, welchen der Kunde nicht angehört$/ do |arg1|
@@ -96,11 +97,11 @@ Dann /^"(.*?)" sind insgesamt verfügbar inklusive diejenigen Gruppen, welchen d
   else
     max += @line.quantity
   end
-  @reference_problem.should match(/\(#{max}/)
+  expect(@reference_problem).to match(/\(#{max}/)
 end
 
 Dann /^"(.*?)" sind total im Pool bekannt \(ausleihbar\)$/ do |arg1|
-  @reference_problem.should match("/#{@line.model.items.where(inventory_pool_id: @line.inventory_pool).borrowable.size}")
+  expect(@reference_problem).to match("/#{@line.model.items.where(inventory_pool_id: @line.inventory_pool).borrowable.size}")
 end
 
 Angenommen /^eine Gegenstand ist nicht ausleihbar$/ do
