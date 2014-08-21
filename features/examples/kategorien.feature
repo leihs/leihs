@@ -81,8 +81,18 @@ Funktionalität: Kategorien
   Szenario: Kategorien erstellen
     Wenn man das Register Kategorien wählt
     Und man eine neue Kategorie erstellt
-    Und man gibt man den Namen der Kategorie ein
+    Und man gibt den Namen der Kategorie ein
     Und man gibt die Elternelemente und die dazugehörigen Bezeichnungen ein
     Und ich wähle ein Bild
-    Und ich speichere
+    Dann kann ich kein zweites Bild hochladen
+    Wenn ich speichere
     Dann ist die Kategorie mit dem angegegebenen Namen und den zugewiesenen Elternelementen und dem Bild erstellt
+  
+  @current
+  Szenario: Kategorien bearbeiten
+    Angenommen es existiert eine Kategorie mit Bild
+    Wenn ich das Bild in der Kategoriebearbeitung entferne
+    Dann kann ich erneut ein Bild hochladen
+    Wenn ich der Kategorie kein neues Bild hinzufüge
+    Und ich speichere
+    Dann wird der Kategorie standardmässig das Bild des ersten Modells dieser Kategorie zugeteilt
