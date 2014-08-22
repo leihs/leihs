@@ -62,9 +62,16 @@ Dann /^kann ich das Paket nicht löschen$/ do
   expect(has_no_selector?("[data-type='inline-entry'][data-id='#{@package_not_in_stock.id}'] [data-remove]")).to be true
 end
 
-Wenn /^ich ein Modell editiere, welches bereits Pakete hat$/ do
+Wenn /^ich ein Modell editiere, welches bereits Pakete( in meine und andere Gerätepark)? hat$/ do |arg1|
   visit manage_inventory_path(@current_inventory_pool)
-  @model = @current_inventory_pool.models.detect {|m| not m.items.empty? and m.is_package?}
+  @model = @current_inventory_pool.models.shuffle.detect do |m|
+    b = (not m.items.empty? and m.is_package?)
+    if arg1
+      b = (b and m.items.map(&:inventory_pool_id).uniq.size > 1)
+    end
+    b
+  end
+  expect(@model).not_to be nil
   @model_name = @model.name
   step 'ich nach "%s" suche' % @model.name
   expect(has_selector?(".line", text: @model.name)).to be true
@@ -255,3 +262,10 @@ Then(/^all the packaged items receive these same values store to this package$/)
   end
 end
 
+Then(/^I only see packages which I am responsible for$/) do
+  within "#packages" do
+    dom_package_items = Item.find(all(".list-of-lines > .line").map{|x| x["data-id"] })
+    db_items = @model.items.where(inventory_pool_id: @current_inventory_pool)
+    expect(dom_package_items).to eq db_items
+  end
+end

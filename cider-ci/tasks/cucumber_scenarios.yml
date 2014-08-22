@@ -1336,6 +1336,11 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/inventar.feature:288
+- name: Auszeichnung von defekten, ausgemusterten, unvollständigen oder nicht ausleihbaren
+    Gegenstandszeilen - features/examples/inventar.feature:303
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/inventar.feature:303
 - name: Globaler Export des Inventars aller Geräteparks - features/examples/inventar_csv.feature:6
   scripts:
     cucumber:
@@ -1582,6 +1587,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/pakete.feature:111
+- name: Nur meine Pakete werden im Modell angezeigt - features/examples/pakete.feature:116
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/pakete.feature:116
 - name: Benutzer mit Benutzernamen und Passwort erstellen - features/examples/passwort.feature:9
   scripts:
     cucumber:
@@ -1760,10 +1769,6 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/software_erfassen.feature:102
-- name: Software-Lizenz Anschaffungswert mit 2 Dezimalstellen erfassen - features/examples/software_erfassen.feature:127
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/software_erfassen.feature:127
 - name: Software kopieren - features/examples/software_kopieren.feature:9
   scripts:
     cucumber:

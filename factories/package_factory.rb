@@ -1,9 +1,9 @@
 FactoryGirl.define do
 
-  factory :package, parent: :model do
+  factory :package_model, parent: :model do
     is_package true
     
-    factory :package_with_items do
+    factory :package_model_with_items do
       ignore do
         inventory_pool { FactoryGirl.create :inventory_pool }
       end
@@ -14,4 +14,15 @@ FactoryGirl.define do
       end
     end
   end
+
+  factory :package_item, parent: :item do
+    factory :package_item_with_parts do
+      after(:create) do |item, evaluator|
+        3.times do
+          item.children << FactoryGirl.create(:item, :owner => evaluator.owner)
+        end
+      end
+    end
+  end
+
 end

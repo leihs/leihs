@@ -112,7 +112,7 @@ Funktionalität: Modell mit Paketen erstellen
     Wenn das Paket zurzeit ausgeliehen ist 
     Dann kann ich das Paket nicht löschen
 
-  @current
+  @personas @javascript @firefox
   Szenario: Nur meine Pakete werden im Modell angezeigt
-    Wenn ich ein bestehendes Modell mit Paketen editiere
+    Wenn ich ein Modell editiere, welches bereits Pakete in meine und andere Gerätepark hat
     Dann sehe ich nur diejenigen Pakete, für welche ich verantwortlich bin

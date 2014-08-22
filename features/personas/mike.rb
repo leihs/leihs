@@ -272,8 +272,11 @@ module Persona
     end
 
     def setup_packages
-      @camera_package = FactoryGirl.create(:package_with_items, :inventory_pool => @inventory_pool, :product => "Kamera Set")
-      @camera_package2 = FactoryGirl.create(:package_with_items, :inventory_pool => @inventory_pool, :product => "Kamera Set2")
+      @camera_package = FactoryGirl.create(:package_model_with_items, :inventory_pool => @inventory_pool, :product => "Kamera Set")
+      @camera_package2 = FactoryGirl.create(:package_model_with_items, :inventory_pool => @inventory_pool, :product => "Kamera Set2")
+
+      # create packages in multiple inventory_pools related to the same model
+      @camera_package.items << FactoryGirl.create(:package_item_with_parts, owner: @inventory_pool_2, inventory_pool: @inventory_pool_2)
     end
     
     def setup_not_borrowable

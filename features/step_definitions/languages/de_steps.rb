@@ -907,3 +907,7 @@ end
 Dann(/^es erscheint der Gegenstand$/) do
   step %Q(appears the item)
 end
+
+Dann(/^sehe ich nur diejenigen Pakete, für welche ich verantwortlich bin$/) do
+  step "I only see packages which I am responsible for"
+end
