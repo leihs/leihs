@@ -92,68 +92,68 @@ Funktionalität: Inventar
   @personas @javascript @firefox
   Szenario: Auswahlmöglichkeiten: Alle-Tab
     Dann kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:
-      | Auswahlmöglichkeit   |
-      | Alle                 |
+      | Auswahlmöglichkeit |
+      | Alle               |
 
   @personas @javascript @firefox
   Szenario: Auswahlmöglichkeiten: Modell-Tab
     Dann kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:
-      | Auswahlmöglichkeit   |
-      | Modelle              |
+      | Auswahlmöglichkeit |
+      | Modelle            |
 
   @personas @javascript @firefox
   Szenario: Auswahlmöglichkeiten: Optionen-Tab
     Dann kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:
-      | Auswahlmöglichkeit   |
-      | Optionen             |
+      | Auswahlmöglichkeit |
+      | Optionen           |
 
   @personas @javascript @firefox
   Szenario: Auswahlmöglichkeiten: Software-Tab
     Dann kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:
-      | Auswahlmöglichkeit   |
-      | Software             |
+      | Auswahlmöglichkeit |
+      | Software           |
 
   @personas @javascript @firefox
   Szenariogrundriss: Auswahlmöglichkeiten: genutzt & ungenutzt
     Angenommen ich sehe ausgemustertes und nicht ausgemustertes Inventar
     Wenn ich innerhalb des gesamten Inventars als "<Select-Feld>" die Option "<Eigenschaft>" wähle
     Dann wird nur das "<Eigenschaft>" Inventar angezeigt
-    Beispiele:
-      | Select-Feld                       | Eigenschaft                   |
-      | genutzt & ungenutzt               | genutzt                       |
-      | genutzt & ungenutzt               | nicht genutzt                 |
+  Beispiele:
+    | Select-Feld         | Eigenschaft   |
+    | genutzt & ungenutzt | genutzt       |
+    | genutzt & ungenutzt | nicht genutzt |
 
   @personas @javascript @firefox
   Szenariogrundriss: Auswahlmöglichkeiten: ausleihbar & nicht ausleihbar
     Angenommen ich sehe ausgemustertes und nicht ausgemustertes Inventar
     Wenn ich innerhalb des gesamten Inventars als "<Select-Feld>" die Option "<Eigenschaft>" wähle
     Dann wird nur das "<Eigenschaft>" Inventar angezeigt
-    Beispiele:
-      | Select-Feld                       | Eigenschaft                   |
-      | ausleihbar & nicht ausleihbar     | ausleihbar                    |
-      | ausleihbar & nicht ausleihbar     | nicht ausleihbar              |
+  Beispiele:
+    | Select-Feld                   | Eigenschaft      |
+    | ausleihbar & nicht ausleihbar | ausleihbar       |
+    | ausleihbar & nicht ausleihbar | nicht ausleihbar |
 
   @personas @javascript @firefox
   Szenariogrundriss: Auswahlmöglichkeiten: ausgemustert & nicht ausgemustert
     Angenommen ich sehe ausgemustertes und nicht ausgemustertes Inventar
     Wenn ich innerhalb des gesamten Inventars als "<Select-Feld>" die Option "<Eigenschaft>" wähle
     Dann wird nur das "<Eigenschaft>" Inventar angezeigt
-    Beispiele:
-      | Select-Feld                       | Eigenschaft                   |
-      | ausgemustert & nicht ausgemustert | ausgemustert                  |
-      | ausgemustert & nicht ausgemustert | nicht ausgemustert            |
+  Beispiele:
+    | Select-Feld                       | Eigenschaft        |
+    | ausgemustert & nicht ausgemustert | ausgemustert       |
+    | ausgemustert & nicht ausgemustert | nicht ausgemustert |
 
   @personas @javascript @firefox
   Szenariogrundriss: Auswahlmöglichkeiten: Checkboxen
     Angenommen ich sehe ausgemustertes und nicht ausgemustertes Inventar
     Wenn ich innerhalb des gesamten Inventars die "<Filterwahl>" setze
     Dann wird nur das "<Filterwahl>" Inventar angezeigt
-    Beispiele:
-      | Filterwahl           |
-      | Im Besitz            |
-      | An Lager             |
-      | Unvollständig        |
-      | Defekt               |
+  Beispiele:
+    | Filterwahl    |
+    | Im Besitz     |
+    | An Lager      |
+    | Unvollständig |
+    | Defekt        |
 
   @personas @javascript
   Szenario: Auswahlmöglichkeiten: verantwortliche Abteilung
@@ -164,9 +164,9 @@ Funktionalität: Inventar
   @personas @javascript
   Szenario: Default-Filter "nicht ausgemustert"
     Dann ist bei folgenden Inventargruppen der Filter "nicht ausgemustert" per Default eingestellt:
-      | Alle            |
-      | Modelle         |
-      | Software        |
+      | Alle     |
+      | Modelle  |
+      | Software |
 
   @personas @javascript
   Szenario: Grundeinstellung der Listenansicht
@@ -299,18 +299,16 @@ Funktionalität: Inventar
     Und ich speichere
     Dann werde ich zur Liste des eben gewählten Reiters mit den eben ausgewählten Filtern zurueckgefuehrt
 
-
+  @personas
   Szenariogrundriss: Auszeichnung von defekten, ausgemusterten, unvollständigen oder nicht ausleihbaren Gegenstandszeilen
     Wenn ich eine Liste von Gegenständen sehe
     Und diese Liste enthält einen Gegenstand, der <Zustand> ist
     Dann ist dessen Zeile ausgezeichnet mit <Zustand> in rot
-    Beispiele:
-    |Zustand|
-    |defekt|
-    |ausgemustert|
-    |unvollständig|
-    |nicht ausleihbar|
     Wenn ein Gegenstand mehrere Zustände hat
     Dann sind diese Zustände kommagetrennt aneinandergereiht
-
-
+    Beispiele:
+      | Zustand          |
+      | defekt           |
+      | ausgemustert     |
+      | unvollständig    |
+      | nicht ausleihbar |
