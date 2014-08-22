@@ -586,14 +586,13 @@ When(/^I fill in the software$/) do
 end
 
 When(/^I fill in the field "(.*?)" with the value "(.*?)"$/) do |field, value|
-  @value = value
-  find(".field", text: _(field)).find("input").set @value
+  find(".field", text: _(field)).find("input").set value
 end
 
-Then(/^"(.*?)" is saved with two decimal digits$/) do |field|
+Then(/^"(.*?)" is saved as "(.*?)"$/) do |field, format|
   item = Item.find_by_inventory_code(@inv_code)
   visit manage_edit_item_path(@current_inventory_pool, item)
-  expect(find(".field", text: _(field)).find("input").value).to eq @value
+  expect(find(".field", text: _(field)).find("input").value).to eq format
 end
 
 When(/^I edit a license with set dates for maintenance expiration, license expiration and invoice date$/) do

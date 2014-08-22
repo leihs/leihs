@@ -293,8 +293,8 @@ Wenn(/^ich im Feld "(.*?)" den Wert "(.*?)" eingebe$/) do |field, value|
   step %Q(I fill in the field "#{field}" with the value "#{value}")
 end
 
-Dann(/^ist der "(.*?)" mit zwei Dezimalstellen gespeichert$/) do |field|
-  step %Q("#{field}" is saved with two decimal digits)
+Dann(/^ist der "(.*?)" als "(.*?)" gespeichert$/) do |arg1, arg2|
+  step %Q("#{arg1}" is saved as "#{arg2}")
 end
 
 Wenn(/^ich eine Software\-Lizenz mit gesetztem Maintenance\-Ablaufdatum, Lizenzablaufdatum und Rechnungsdatum editiere$/) do
