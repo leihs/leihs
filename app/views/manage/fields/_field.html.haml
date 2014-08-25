@@ -1,3 +1,12 @@
+:ruby
+  if defined? render_env
+    key ||= render_env[:key]
+    description ||= render_env[:description]
+    entries ||= render_env[:entries]
+    entry_partial ||= render_env[:entry_partial]
+    entry_type ||= render_env[:entry_type]
+  end
+
 .field.row.emboss.margin-vertical-xxs.margin-right-xs
   .row.padding-inset-xs
     .col1of2.padding-vertical-xs
@@ -5,9 +14,12 @@
         = key
         - if defined?(required) and required
           *
+      - if defined?(description) and description
+        .padding-top-xs= description
     .col1of2
       = yield
 
   .list-of-lines.even.padding-bottom-xxs
+
     - if defined?(entries) and not entries.blank?
-      = render :partial => entry_partial, :collection => entries, :as => :entry
+      = render :partial => entry_partial, :collection => entries, :as => :entry, locals: {entry_type: (defined?(entry_type) ? entry_type : nil)}

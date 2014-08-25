@@ -2155,6 +2155,9 @@ msgstr "Bild auswählen"
 msgid "Select File"
 msgstr "Datei auswählen"
 
+msgid "Image"
+msgstr "Bild"
+
 msgid "Images"
 msgstr "Bilder"
 
@@ -2781,10 +2784,8 @@ msgstr "Datei wird beim speichern hochgeladen"
 msgid "Upload problems"
 msgstr "Probleme beim hochladen"
 
-msgid "The model was saved, but there were problems uploading files"
-msgstr ""
-"Das Modell wurde gespeichert, beim heraufladen von Dateien ist es allerdings "
-"zu Problemen gekommen"
+msgid "%s was saved, but there were problems uploading files"
+msgstr "%s wurde gespeichert, beim heraufladen von Dateien ist es allerdings zu Problemen gekommen"
 
 msgid "Uploading files - please wait"
 msgstr "Dateien werden hochgeladen - bitte warten"
@@ -2994,3 +2995,9 @@ msgstr "Rüstliste"
 
 msgid "remaining"
 msgstr "verbleibend"
+
+msgid "Category can have only one image."
+msgstr "Kategorie darf nur ein Bild haben."
+
+msgid "Used on the start page in the borrow section"
+msgstr "Verwendet auf der Startseite im Ausleihbereich"

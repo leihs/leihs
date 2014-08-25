@@ -4,12 +4,12 @@
     .col2of3
       %h3.headline-l {{jed "Upload problems"/}}
       %h3.headline-s.light 
-        {{jed "The model was saved, but there were problems uploading files"/}}
+        {{>headlineMessage}}
 
     .col1of3
       .float-right
-        %a.button.white{:href => "{{>model.url('edit')}}"}
-          {{jed 'Edit Model'/}}
+        %a.button.white{:href => "{{>url}}"}
+          {{>buttonLabel}}
 
   .modal-body.row.margin-top-m
 

@@ -114,7 +114,7 @@ Dann(/^es wurden auch alle Anhängsel gelöscht$/) do
   expect(Partition.find_by_model_id(@model.id)).to eq nil
   expect(Property.where(model_id: @model.id).empty?).to be true
   expect(Accessory.where(model_id: @model.id).empty?).to be true
-  expect(Image.where(model_id: @model.id).empty?).to be true
+  expect(Image.where(target_id: @model.id).empty?).to be true
   expect(Attachment.where(model_id: @model.id).empty?).to be true
   expect(ModelLink.where(model_id: @model.id).empty?).to be true
   expect(Model.all {|n| n.compatibles.include? Model.find_by_name("Windows Laptop")}.include?(@model)).to be false

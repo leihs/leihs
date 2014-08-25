@@ -908,6 +908,46 @@ Dann(/^es erscheint der Gegenstand$/) do
   step %Q(appears the item)
 end
 
+Wenn(/^ich füge ein Bild hinzu$/) do
+  step %Q(I add an image)
+end
+
+Dann(/^kann ich kein zweites Bild hinzufügen$/) do
+  step %Q(I can not add a second image)
+end
+
+Angenommen(/^es existiert eine Kategorie mit Bild$/) do
+  step %Q(there exists a category with an image)
+end
+
+Wenn(/^ich das Bild entferne$/) do
+  step %Q(I remove the image)
+end
+
+Angenommen(/^man editiert diese Kategorie$/) do
+  step %Q(one edits this category)
+end
+
+Wenn(/^ich ein neues Bild wähle$/) do
+  step %Q(I add a new image)
+end
+
+Dann(/^ist die Kategorie mit dem neuen Bild gespeichert$/) do
+  step %Q(the category was saved with the new image)
+end
+
+Dann(/^man sieht für jede Kategorie ihr Bild, oder falls nicht vorhanden, das erste Bild eines Modells dieser Kategorie$/) do
+  step %Q(one sees for each category its image, or if not set, the first image of a model from this category)
+end
+
+Angenommen(/^es existiert eine Hauptkategorie mit eigenem Bild$/) do
+  step %Q(there exists a main category with own image)
+end
+
+Angenommen(/^es existiert eine Hauptkategorie ohne eigenes Bild aber mit einem Modell mit Bild$/) do
+  step %Q(there exists a main category without own image but with a model with image)
+end
+
 Dann(/^sehe ich nur diejenigen Pakete, für welche ich verantwortlich bin$/) do
   step "I only see packages which I am responsible for"
 end

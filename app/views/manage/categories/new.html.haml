@@ -1,50 +1,18 @@
 - content_for :title, _("Create %s") % _("Category")
 - content_for :inventory_section, "active"
 
-#new-category-view.wrapper.margin-top-m
+#category-view.wrapper.margin-top-m
 
   = render :partial => 'manage/tabs/inventory', :locals => {:active_tab => :categories}
 
   .row.content-wrapper.min-height-xl.min-width-full.straight-top
 
-    = form_tag manage_categories_path(current_inventory_pool) do
-
-      .margin-top-l.padding-horizontal-m.margin-bottom-s
-
-        .row
-
-          %h1.headline-l.float-left= yield :title
-
-          .float-right
-            %a.button.grey{:href => manage_categories_path(current_inventory_pool)}= _("Cancel")
-            %button.button.green{:type => :submit}= _("Save")
-
-        #category.row.margin-top-m
-
-          .col1of2.padding-right-xs
-
-            .row.padding-inset-s.emboss.margin-bottom-xxs
-              .col1of2
-                %strong.font-size-m= _("Name") + " *"
-              .col1of2.text-align-right
-                %input#name-input{type: "text", name: "category[name]", value: @category.try(:name), :"data-id" => @category.try(:id), :autocomplete => :off}
-
-          .col1of2.padding-left-xs
-
-            #categories
-              = render :layout => "manage/fields/field", :locals => {key: _("Parent categories")} do
-                .row
-                  %input.has-addon.width-full{:"data-type" => "autocomplete", :type => :text, :autocomplete => :off, :placeholder => _("Category")}
-                  .addon.transparent
-                    %i.arrow.down
+    = render 'form'
 
 :coffeescript
-  
-  jQuery -> 
 
-    new App.InlineEntryRemoveController
-      el: $("#new-category-view")
+  jQuery ->
 
-    new App.CategoriesLinksController
-      el: $("#categories")
-      labelInput: $("#name-input")
+    new App.NewCategoryController
+      el: $("#category-view")
+      category: new App.Category #{@category.to_json}

@@ -10,6 +10,7 @@ namespace :app do
       `#{File.join(Rails.root, "cider-ci/bin/list_cucumber_tasks.rb")}`
 
       # generate personas dumps
+      Rake::Task["db:migrate"].invoke
       require File.join(Rails.root, 'features/support/personas.rb')
       require File.join(Rails.root, 'features/support/timecop.rb')
       Persona.generate_dumps

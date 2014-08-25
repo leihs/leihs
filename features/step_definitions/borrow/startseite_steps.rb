@@ -4,7 +4,7 @@ Angenommen(/^man befindet sich auf der Seite der Hauptkategorien$/) do
   visit borrow_root_path
 end
 
-Dann(/^sieht man genau die für den User bestimmte Haupt\-Kategorien mit Bild und Namen$/) do
+Dann(/^sieht man genau die für den User bestimmte Haupt\-Kategorien mit Namen$/) do
   @main_categories = @current_user.all_categories.select {|c| c.parents.empty?}
   categories_counter = 0
   @main_categories.each do |mc|
@@ -68,4 +68,26 @@ end
 
 Dann(/^hat diese Hauptkategorie keine Kinderkategorie\-Dropdown$/) do
   expect(find(".row.emboss.focus-hover", match: :first, text: @main_category.name).has_no_selector? ".dropdown-holder").to be true
+end
+
+Then(/^one sees for each category its image, or if not set, the first image of a model from this category$/) do
+  @main_categories.each do |mc|
+    img_el = find("a", match: :first, text: mc.name).find("img")
+    response = get img_el[:src]
+    if image = mc.image
+      expect(response.location).to match /#{image.public_filename}/
+    end
+  end
+end
+
+Given(/^there exists a main category with own image$/) do
+  (@current_user.all_categories & Category.roots).find do |c|
+    expect(c.images.exists?).not_to be_nil
+  end
+end
+
+Given(/^there exists a main category without own image but with a model with image$/) do
+  expect((@current_user.all_categories & Category.roots).find do |c|
+    not c.images.exists? and c.all_models.detect{|m| not m.image.blank? }
+  end).not_to be_nil
 end

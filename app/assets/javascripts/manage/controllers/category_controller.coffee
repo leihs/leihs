@@ -1,40 +1,36 @@
-class window.App.CategoryController
+#= require ./form_with_upload_controller
 
-  constructor: (options)->
-    @currentCategoryId = options.currentCategoryId
-    do @removeCategoryItself
-    do @delegateEvents
+class window.App.CategoryController extends App.FormWithUploadController
 
-  delegateEvents: ->
-    $(".simple_tree input[type='checkbox']").on "change", @changeCategoryLink
-    $(document).on "keyup change", "input[name='category[name]']", @changeCurrentCategoryName
-    $(document).on "keyup change", ".simple_tree input[name='label']", @changeLabel
+  constructor: ->
+    super
 
-  removeCategoryItself: -> # we have an acyclic graph no cycles !
-    for currentCategory in $(".simple_tree input[type='checkbox'][value='#{@currentCategoryId}']")
-      unless $(currentCategory).is(":disabled")
-        $(currentCategory).closest("li").remove()
+    @imagesController = new App.ImagesController
+      el: @el.find("#images")
+      url: @category.url("upload/image")
+      click: ->
+        if @list.find(".line:not(.striked)").length or @uploadList.length
+          alert _jed "Category can have only one image."
+        else
+          @el.find("input[type='file']").trigger "click"
 
-  changeCategoryLink: ->
-    target = $(this)
-    sameCategories = $(".simple_tree input[type='checkbox'][value='#{target.val()}']")
-    sameCategories.attr 'checked', target.is(":checked")
-    if target.is(":checked")
-      for treeElement in sameCategories
-        listElement = $(treeElement).closest("li")
-        template = $.tmpl "app/views/categories/tree_element", {parent_id: target.val(), name: $("input[name='category[name]']").val()}
-        $(listElement).append("<ul class='simple_tree'></ul>") unless listElement.children("ul").length
-        $(listElement).children("ul").prepend template
+    new App.InlineEntryRemoveController
+      el: @el
+
+    new App.CategoriesLinksController
+      el: @el.find("#categories")
+      labelInput: @el.find("#name-input")
+      category: @category
+
+  done: =>
+    @imagesController.upload =>
+      do @finish
+
+  finish: =>
+    if @imagesController.uploadErrors.length
+      @setupErrorModal(@category)
     else
-      for treeElement in sameCategories
-        listElement = $(treeElement).closest("li")
-        $(listElement).children("ul").children("li.current_category").remove()
-  
-  changeCurrentCategoryName: ->
-    $("li.current_category .name").html $(this).val()
+      window.location = App.Category.url()+"?flash[success]=#{_jed('Category saved')}"
 
-  changeLabel: ->
-    changedLink = $(this).closest(".model_group_link")
-    sameLinks = $(".model_group_link[data-parent_id='#{changedLink.data("parent_id")}']")
-    for sameLink in sameLinks
-      $(sameLink).find("input[name='label']").val $(this).val()
+  collectErrorMessages: =>
+    @imagesController.uploadErrors.join(", ")

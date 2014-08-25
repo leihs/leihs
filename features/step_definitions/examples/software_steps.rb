@@ -627,7 +627,7 @@ When(/^I edit again this software product$/) do
 end
 
 Then(/^outside the the text field, they will additionally displayed lines with link only$/) do
-  within "#model-form .field", text: _("Software Information") do
+  within "#form .field", text: _("Software Information") do
     find(".list-of-lines").all(".line").each do |line|
       line.find("a[target='_blank']")
     end

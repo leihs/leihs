@@ -1,0 +1,38 @@
+.margin-top-l.padding-horizontal-m.margin-bottom-s
+
+  .row
+
+    %h1.headline-l.float-left= yield :title
+
+    .float-right
+      %a.button.grey{:href => manage_categories_path(current_inventory_pool)}= _("Cancel")
+      %button#save.button.green{:type => :submit}= _("Save")
+
+.padding-inset-m
+
+  %form#form
+
+    .row.padding-top-s
+
+      .col1of2
+
+        .row.padding-inset-s.emboss.margin-bottom-xxs
+          .col1of2
+            %strong.font-size-m= _("Name") + " *"
+          .col1of2.text-align-right
+            %input#name-input{type: "text", name: "category[name]", value: @category.name, :"data-id" => @category.id}
+
+        = render :partial => "manage/shared/images",
+            locals: { render_env: { entry_type: :category,
+                                    entries: @category.images,
+                                    key: _("Image"),
+                                    description: _("Used on the start page in the borrow section") }}
+
+      .col1of2.padding-left-xs
+
+        #categories
+          = render :layout => "manage/fields/field", :locals => {key: _("Parent categories"), entries: @category.parents, entry_partial: "manage/categories/category_link_inline_entry"} do
+            .row
+              %input.has-addon.width-full{:"data-type" => "autocomplete", :type => :text, :autocomplete => :off, :placeholder => _("Category")}
+              .addon.transparent
+                %i.arrow.down

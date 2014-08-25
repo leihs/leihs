@@ -2083,6 +2083,9 @@ msgstr ""
 msgid "Select File"
 msgstr ""
 
+msgid "Image"
+msgstr ""
+
 msgid "Images"
 msgstr ""
 
@@ -2692,7 +2695,7 @@ msgstr ""
 msgid "Upload problems"
 msgstr ""
 
-msgid "The model was saved, but there were problems uploading files"
+msgid "%s was saved, but there were problems uploading files"
 msgstr ""
 
 msgid "Uploading files - please wait"
@@ -2896,4 +2899,10 @@ msgid "Picking List"
 msgstr ""
 
 msgid "remaining"
+msgstr ""
+
+msgid "Category can have only one image."
+msgstr ""
+
+msgid "Used on the start page in the borrow section"
 msgstr ""

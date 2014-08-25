@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.1.48, for apple-darwin10.3.0 (i386)
+-- MySQL dump 10.13  Distrib 5.5.38, for debian-linux-gnu (i686)
 --
 -- Host: localhost    Database: leihs2_test
 -- ------------------------------------------------------
--- Server version	5.1.48
+-- Server version	5.5.38-0+wheezy1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -456,7 +456,6 @@ DROP TABLE IF EXISTS `images`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `model_id` int(11) DEFAULT NULL,
   `is_main` tinyint(1) DEFAULT '0',
   `content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `filename` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -465,8 +464,10 @@ CREATE TABLE `images` (
   `width` int(11) DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
   `thumbnail` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `target_id` int(11) DEFAULT NULL,
+  `target_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_images_on_model_id` (`model_id`)
+  KEY `index_images_on_target_id_and_target_type` (`target_id`,`target_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -916,10 +917,10 @@ DROP TABLE IF EXISTS `partitions_with_generals`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `partitions_with_generals` (
-  `model_id` int(11),
-  `inventory_pool_id` int(11),
-  `group_id` int(11),
-  `quantity` decimal(33,0)
+  `model_id` tinyint NOT NULL,
+  `inventory_pool_id` tinyint NOT NULL,
+  `group_id` tinyint NOT NULL,
+  `quantity` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -991,7 +992,7 @@ CREATE TABLE `schema_migrations` (
 
 LOCK TABLES `schema_migrations` WRITE;
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
-INSERT INTO `schema_migrations` VALUES ('20140410180000'),('20140414100000'),('20140415083535'),('20140417113831'),('20140428092844'),('20140515131025');
+INSERT INTO `schema_migrations` VALUES ('20140410180000'),('20140414100000'),('20140415083535'),('20140417113831'),('20140428092844'),('20140515131025'),('20140812132326'),('20140820100242');
 /*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1050,10 +1051,11 @@ DROP TABLE IF EXISTS `suppliers`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `suppliers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `index_suppliers_on_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1116,15 +1118,15 @@ DROP TABLE IF EXISTS `visit_lines`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `visit_lines` (
-  `visit_id` varchar(86),
-  `inventory_pool_id` int(11),
-  `user_id` int(11),
-  `delegated_user_id` int(11),
-  `status` enum('unsubmitted','submitted','rejected','approved','signed','closed'),
-  `action` varchar(9),
-  `date` date,
-  `quantity` int(11),
-  `contract_line_id` int(11)
+  `visit_id` tinyint NOT NULL,
+  `inventory_pool_id` tinyint NOT NULL,
+  `user_id` tinyint NOT NULL,
+  `delegated_user_id` tinyint NOT NULL,
+  `status` tinyint NOT NULL,
+  `action` tinyint NOT NULL,
+  `date` tinyint NOT NULL,
+  `quantity` tinyint NOT NULL,
+  `contract_line_id` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -1137,13 +1139,13 @@ DROP TABLE IF EXISTS `visits`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `visits` (
-  `id` varchar(86),
-  `inventory_pool_id` int(11),
-  `user_id` int(11),
-  `status` enum('unsubmitted','submitted','rejected','approved','signed','closed'),
-  `action` varchar(9),
-  `date` date,
-  `quantity` decimal(32,0)
+  `id` tinyint NOT NULL,
+  `inventory_pool_id` tinyint NOT NULL,
+  `user_id` tinyint NOT NULL,
+  `status` tinyint NOT NULL,
+  `action` tinyint NOT NULL,
+  `date` tinyint NOT NULL,
+  `quantity` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -1241,4 +1243,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-08-22 14:09:43
+-- Dump completed on 2014-08-23 12:58:37

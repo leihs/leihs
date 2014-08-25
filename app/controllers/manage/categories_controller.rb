@@ -44,16 +44,28 @@ class Manage::CategoriesController < Manage::ApplicationController
     end
   end
 
+  def upload
+    @category = Category.find params[:id]
+    params[:files].each do |file|
+      if params[:type] == "image"
+        image = @category.images.build(:file => file, :filename => file.original_filename)
+        unless image.save
+          render status: :bad_request, text: image.errors.full_messages.uniq.join(", ") and return
+        end
+      end
+    end
+    render status: :no_content, nothing: true
+  end
+
   private
 
   def update_category
     links = params[:category].delete(:links)
     if @category.update_attributes(params[:category]) and @category.save!
       manage_links @category, links
-      redirect_to manage_categories_path(current_inventory_pool), flash: {success: _("Category saved")}
+      render :status => :ok, :json => {id: @category.id}
     else
-      flash[:error] = @option.errors.full_messages.uniq.join(", ")
-      render :new
+      render :status => :bad_request, :text => @model.errors.full_messages.uniq.join(", ")
     end
   end
 

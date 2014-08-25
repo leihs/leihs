@@ -2,20 +2,25 @@ class Image < ActiveRecord::Base
 
   PATH_PREFIX = "/images/attachments"
 
-  belongs_to :model
+  belongs_to :target, :polymorphic => true
 
   has_attached_file :file,
                     :url => ":public_filename",
                     :path => ':rails_root/public:url',
                     :styles => { :original => "640x480>", :thumb => '100x100>' }
-                    
+
   attr_accessor :file_file_name
   attr_accessor :file_file_size
   attr_accessor :file_content_type
 
+  validates_presence_of :target, if: ->(image) { image.parent_id.nil? }
   validates_attachment_size :file, :greater_than => 4.kilobytes, :less_than => 8.megabytes
 
   validates_attachment_content_type :file, :content_type => /^image\/(png|gif|jpeg)/
+
+  validate do
+    errors.add(:base, _("Category can have only one image.")) if Image.where(target_id: target_id, target_type: "ModelGroup").exists?
+  end
 
   def base64_string=(v)
     data = StringIO.new(Base64.decode64(v))
@@ -28,7 +33,7 @@ class Image < ActiveRecord::Base
   # paperclip callback
   def destroy_attached_files
     File.delete("#{Rails.root}/public#{public_filename}")
-    File.delete("#{Rails.root}/public#{public_filename_thumb}")
+    File.delete("#{Rails.root}/public#{public_filename(:thumb)}")
   end
 
 ####################################
@@ -53,12 +58,6 @@ class Image < ActiveRecord::Base
     "#{PATH_PREFIX}/#{partitioned_path}/#{filename}"
   end
   attr_writer :public_filename
-
-  # alias for serialization
-  def public_filename_thumb
-    public_filename(:thumb)
-  end
-  attr_writer :public_filename_thumb
 
 end
 

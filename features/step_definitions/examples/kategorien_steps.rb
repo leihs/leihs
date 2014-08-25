@@ -14,7 +14,7 @@ Und /^man eine neue Kategorie erstellt$/ do
   find("a", text: _("New Category")).click
 end
 
-Und /^man gibt man den Namen der Kategorie ein$/ do
+Und /^man gibt den Namen der Kategorie ein$/ do
   @new_category_name = "Neue Kategorie"
   find("input[name='category[name]']").set @new_category_name
 end
@@ -33,11 +33,15 @@ Dann /^ist die Kategorie mit dem angegegebenen Namen erstellt$/ do
   ModelGroup.where(name: "#{@new_category_name}").count.should eql 1
 end
 
-Dann /^ist die Kategorie mit dem angegegebenen Namen und den zugewiesenen Elternelementen erstellt$/ do
+Dann /^ist die Kategorie mit dem angegegebenen Namen und den zugewiesenen Elternelementen( und dem Bild)? erstellt$/ do |image|
   find("#categories-index-view h1", text: _("List of Categories"))
   expect(current_path).to eq manage_categories_path(@current_inventory_pool)
-  ModelGroup.where(name: "#{@new_category_name}").count.should eql 1
+  @category = Category.find_by_name "#{@new_category_name}"
+  expect(@category).not_to be_nil
   ModelGroupLink.where("ancestor_id = ? AND label = ?", @parent_category.id, @label_1).count.should eql 1
+  if image
+    expect(@category.images.count).to eq 1
+  end
 end
 
 Dann /^sieht man die Liste der Kategorien$/ do
@@ -236,4 +240,49 @@ Dann /^man kann diese Kategorien löschen$/ do
     find(".multibutton .dropdown-holder .dropdown-toggle").click
     find(".multibutton .dropdown-item.red[data-method='delete']", text: _("Delete"))
   end
+end
+
+When(/^I add an image$/) do
+  find("input[type='file']", match: :first, visible: false)
+  page.execute_script("$('input:file').attr('class', 'visible');")
+  image_field_id = find(".visible", match: :first)
+  image_field_id.set Rails.root.join("features", "data", "images", "image1.jpg")
+end
+
+Then(/^I can not add a second image$/) do
+  find("#images [data-type='select']").click
+  alert = page.driver.browser.switch_to.alert
+  expect(alert.text).to eq _("Category can have only one image.")
+  alert.accept
+  expect(all("#images .line").count).to eq 1
+end
+
+Given(/^there exists a category with an image$/) do
+  @category = Category.find {|c| c.images.exists?}
+  expect(@category).not_to be_nil
+end
+
+When(/^I remove the image$/) do
+  find(".row.emboss", text: _('Image')).find("[data-type='inline-entry'] button[data-remove]").click
+end
+
+Given(/^one edits this category$/) do
+  visit manage_edit_category_path(@current_inventory_pool, @category)
+end
+
+When(/^I add a new image$/) do
+  find("input[type='file']", match: :first, visible: false)
+  page.execute_script("$('input:file').attr('class', 'visible');")
+  image_field_id = find(".visible", match: :first)
+  @filename = "image2.jpg"
+  image_field_id.set Rails.root.join("features", "data", "images", @filename)
+end
+
+Then(/^the category was saved with the new image$/) do
+  find("#categories-index-view h1", text: _("List of Categories"))
+  expect(current_path).to eq manage_categories_path(@current_inventory_pool)
+  images = @category.images
+  expect(images.count).to eq 1
+  image = images.first
+  expect(image.filename).to eq @filename
 end

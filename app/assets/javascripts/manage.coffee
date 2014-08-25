@@ -12,6 +12,8 @@
 #
 #= require_self
 #
+#= require ./upload
+#
 #= require_tree ./manage/lib
 #= require_tree ./manage/modules
 #= require_tree ./manage/models

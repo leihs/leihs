@@ -57,8 +57,8 @@ class Model < ActiveRecord::Base
   has_many :accessories, :dependent => :destroy
   accepts_nested_attributes_for :accessories, :allow_destroy => true
 
-  has_many :images, :dependent => :destroy
-  accepts_nested_attributes_for :images, :allow_destroy => true
+  has_many :images, as: :target, dependent: :destroy
+  accepts_nested_attributes_for :images, allow_destroy: true
 
   has_many :attachments, :dependent => :destroy
   accepts_nested_attributes_for :attachments, :allow_destroy => true
@@ -243,13 +243,8 @@ class Model < ActiveRecord::Base
     self.name.downcase <=> other.name.downcase
   end
 
-  # TODO 06** define main image
-  def image_thumb(offset = 0)
-    image(offset, :thumb)
-  end
-
-  def image(offset = 0, size = nil)
-    images.limit(1).offset(offset).first.try(:public_filename, size)
+  def image(offset = 0)
+    images.offset(offset).first
   end
 
   def lines

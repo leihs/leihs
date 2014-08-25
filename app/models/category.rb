@@ -2,6 +2,9 @@ class Category < ModelGroup
 
   has_many :templates, -> { uniq }, :through => :models
 
+  has_many :images, as: :target, dependent: :destroy
+  accepts_nested_attributes_for :images, allow_destroy: true
+
   def is_used
     not(self.models.empty? and self.children.empty?)
   end
@@ -14,4 +17,3 @@ class Category < ModelGroup
   end
 
 end
-

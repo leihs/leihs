@@ -30,7 +30,7 @@ Leihs::Application.routes.draw do
 
   # Models
   get "models/:id/image",       to: "models#image", as: "model_image"
-  get "models/:id/image_thumb", to: "models#image_thumb", as: "model_image_thumb"
+  get "models/:id/image_thumb", to: "models#image", as: "model_image_thumb", size: :thumb
   get "models/placeholder",     to: "models#placeholder"
 
   # Properties
@@ -230,12 +230,13 @@ Leihs::Application.routes.draw do
       post    'models/:id/upload/attachment', to: "models#upload",    type: "attachment"
 
       # Categories
-      get     'categories',               to: 'categories#index',           as: 'categories'
-      post    'categories',               to: 'categories#create'
-      get     'categories/new',           to: 'categories#new',             as: 'new_category'
-      get     'categories/:id/edit',      to: 'categories#edit'
-      put     'categories/:id',           to: 'categories#update',          as: 'update_category'
-      delete  'categories/:id',           to: 'categories#destroy'
+      get     'categories',                       to: 'categories#index',           as: 'categories'
+      post    'categories',                       to: 'categories#create'
+      get     'categories/new',                   to: 'categories#new',             as: 'new_category'
+      get     'categories/:id/edit',              to: 'categories#edit',            as: 'edit_category'
+      put     'categories/:id',                   to: 'categories#update',          as: 'update_category'
+      delete  'categories/:id',                   to: 'categories#destroy'
+      post    'categories/:id/upload/image',      to: "categories#upload",          type: "image"
 
       # Options
       get   'options',            to: "options#index"
@@ -306,7 +307,7 @@ Leihs::Application.routes.draw do
 
   end
 
-  if Rails.env.test?
+  if Rails.env.test? or Rails.env.development?
     get "/images/attachments/:dir1/:dir2/:file", to: redirect('/images/test.jpg')
     get "/attachments/:dir1/:dir2/:file", to: redirect('/images/test.jpg')
   end

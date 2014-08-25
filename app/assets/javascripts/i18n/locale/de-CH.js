@@ -1556,6 +1556,14 @@ window.i18n.locale_data = {
          null,
          "Ausgemustert"
       ],
+      "retired": [
+         null,
+         "ausgemustert"
+      ],
+      "not retired": [
+         null,
+         "nicht ausgemustert"
+      ],
       "Retirement": [
          null,
          "Ausmusterung"
@@ -2028,9 +2036,25 @@ window.i18n.locale_data = {
          null,
          "Umzug"
       ],
+      "borrowable": [
+         null,
+         "ausleihbar"
+      ],
+      "unborrowable": [
+         null,
+         "nicht ausleihbar"
+      ],
       "Unborrowable": [
          null,
          "Nicht ausleihbar"
+      ],
+      "Borrowable Items": [
+         null,
+         "Ausleihbare Gegenstände"
+      ],
+      "Unborrowable Items": [
+         null,
+         "Nicht ausleihbare Gegenstände"
       ],
       "Unfortunately your order is still pending, but you will soon receive a confirmation of order by separate e-mail. You can view the status of your order through your leihs account.": [
          null,
@@ -2734,6 +2758,10 @@ window.i18n.locale_data = {
          null,
          "Datei auswählen"
       ],
+      "Image": [
+         null,
+         "Bild"
+      ],
       "Images": [
          null,
          "Bilder"
@@ -2773,6 +2801,10 @@ window.i18n.locale_data = {
       "not used": [
          null,
          "nicht genutzt"
+      ],
+      "used": [
+         null,
+         "genutzt"
       ],
       "Model|Images|File file size": [
          null,
@@ -3483,6 +3515,10 @@ window.i18n.locale_data = {
          null,
          "Ungenutzte Modelle"
       ],
+      "Used Models": [
+         null,
+         "Genutzte Modelle"
+      ],
       "Responsible inventory pool": [
          null,
          "Verantwortlicher Gerätepark"
@@ -3523,9 +3559,9 @@ window.i18n.locale_data = {
          null,
          "Probleme beim hochladen"
       ],
-      "The model was saved, but there were problems uploading files": [
+      "%s was saved, but there were problems uploading files": [
          null,
-         "Das Modell wurde gespeichert, beim heraufladen von Dateien ist es allerdings zu Problemen gekommen"
+         "%s wurde gespeichert, beim heraufladen von Dateien ist es allerdings zu Problemen gekommen"
       ],
       "Uploading files - please wait": [
          null,
@@ -3803,6 +3839,14 @@ window.i18n.locale_data = {
       "remaining": [
          null,
          "verbleibend"
+      ],
+      "Category can have only one image.": [
+         null,
+         "Kategorie darf nur ein Bild haben."
+      ],
+      "Used on the start page in the borrow section": [
+         null,
+         "Verwendet auf der Startseite im Ausleihbereich"
       ]
    }
 }

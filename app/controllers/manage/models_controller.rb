@@ -51,7 +51,7 @@ class Manage::ModelsController < Manage::ApplicationController
     @model = fetch_model
     params[:files].each do |file|
       if params[:type] == "image"
-        image = Image.new :file => file, :filename => file.original_filename, :model_id => @model.id
+        image = @model.images.build(:file => file, :filename => file.original_filename)
         image.save
       elsif params[:type] == "attachment"
         attachment = Attachment.new :file => file, :filename => file.original_filename, :model_id => @model.id

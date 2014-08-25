@@ -6,15 +6,7 @@ class ModelsController < ApplicationController
   
   def image
     if img = Model.find(params[:id]).image(params[:offset])
-      redirect_to img
-    else
-      redirect_to :action => :placeholder
-    end
-  end
-
-  def image_thumb
-    if img = Model.find(params[:id]).image_thumb(params[:offset])
-      redirect_to img
+      redirect_to img.public_filename(params[:size])
     else
       redirect_to :action => :placeholder
     end

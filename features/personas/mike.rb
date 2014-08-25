@@ -53,6 +53,7 @@ module Persona
 
     def create_categories
       @beamer_category = FactoryGirl.create(:category, :name => "Beamer")
+      @beamer_category.images << FactoryGirl.create(:image, target: @beamer_category)
       @camera_category = FactoryGirl.create(:category, :name => "Kameras")
       @tripod_category = FactoryGirl.create(:category, :name => "Stative")
       @hifi_category = FactoryGirl.create(:category, :name => "Hifi-Anlagen")
@@ -330,8 +331,8 @@ module Persona
                                                       group_id: Group.create(name: "Group A", inventory_pool_id: @inventory_pool.id).id,
                                                       quantity: 1)
       @helicopter_model2.attachments << FactoryGirl.create(:attachment)
-      @helicopter_model2.images << FactoryGirl.create(:image)
-      @helicopter_model2.images << FactoryGirl.create(:image, :another)
+      @helicopter_model2.images << FactoryGirl.create(:image, target: @helicopter_model2)
+      @helicopter_model2.images << FactoryGirl.create(:image, :another, target: @helicopter_model2)
       @helicopter_model2.model_links.create :model_group => @helicopter_category
       @helicopter_model2.properties << Property.create(:key => "Rotorduchmesser", :value => "120")
       @helicopter_model2.properties << Property.create(:key => "Akkus", :value => "2")
@@ -350,7 +351,7 @@ module Persona
                                                       group_id: Group.create(name: "Group B", inventory_pool_id: @inventory_pool.id).id,
                                                       quantity: 5)
       @helicopter_model3.attachments << FactoryGirl.create(:attachment)
-      @helicopter_model3.images << FactoryGirl.create(:image)
+      @helicopter_model3.images << FactoryGirl.create(:image, target: @helicopter_model3)
       @helicopter_model3.model_links.create :model_group => @helicopter_category
       @helicopter_model3.properties << Property.create(:key => "Rotorduchmesser", :value => "120")
       @helicopter_model3.properties << Property.create(:key => "Akkus", :value => "2")

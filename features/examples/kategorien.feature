@@ -6,11 +6,11 @@ Funktionalität: Kategorien
     Angenommen ich bin Mike
     Und man öffnet die Liste des Inventars
 
-  @personas
+  @javascript @personas
   Szenario: Top-Level-Kategorien erstellen
     Wenn man das Register Kategorien wählt
     Und man eine neue Kategorie erstellt
-    Und man gibt man den Namen der Kategorie ein
+    Und man gibt den Namen der Kategorie ein
     Und ich speichere
     Dann ist die Kategorie mit dem angegegebenen Namen erstellt
 
@@ -77,22 +77,22 @@ Funktionalität: Kategorien
   Szenario: Kategorien
     Dann man sieht das Register Kategorien
 
-  @javascript @personas @current
+  @javascript @personas @firefox
   Szenario: Kategorien erstellen
     Wenn man das Register Kategorien wählt
     Und man eine neue Kategorie erstellt
     Und man gibt den Namen der Kategorie ein
     Und man gibt die Elternelemente und die dazugehörigen Bezeichnungen ein
-    Und ich wähle ein Bild
-    Dann kann ich kein zweites Bild hochladen
+    Und ich füge ein Bild hinzu
+    Dann kann ich kein zweites Bild hinzufügen
     Wenn ich speichere
     Dann ist die Kategorie mit dem angegegebenen Namen und den zugewiesenen Elternelementen und dem Bild erstellt
-  
-  @current
+
+  @personas @javascript
   Szenario: Kategorien bearbeiten
     Angenommen es existiert eine Kategorie mit Bild
-    Wenn ich das Bild in der Kategoriebearbeitung entferne
-    Dann kann ich erneut ein Bild hochladen
-    Wenn ich der Kategorie kein neues Bild hinzufüge
+    Und man editiert diese Kategorie
+    Wenn ich das Bild entferne
+    Und ich ein neues Bild wähle
     Und ich speichere
-    Dann wird der Kategorie standardmässig das Bild des ersten Modells dieser Kategorie zugeteilt
+    Dann ist die Kategorie mit dem neuen Bild gespeichert

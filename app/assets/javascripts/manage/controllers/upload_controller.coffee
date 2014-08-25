@@ -1,4 +1,4 @@
-class window.App.ModelsUploadController extends Spine.Controller
+class window.App.UploadController extends Spine.Controller
 
   elements:
     ".list-of-lines": "list"
@@ -15,7 +15,6 @@ class window.App.ModelsUploadController extends Spine.Controller
     @uploadList = []
     @uploadErrors = []
     @el.fileupload
-      fileInput: @fileInput
       autoUpload: false
 
   add: (e, uploadData)=> 
@@ -26,7 +25,7 @@ class window.App.ModelsUploadController extends Spine.Controller
   processNewFile: (template, file)=> #virtual
 
   renderFile: (file, uploadData)=>
-    template = $ App.Render @templatePath, file, {uid: App.Model.uid("uid")}
+    template = $ App.Render @templatePath, file
     template.data "uploadData", uploadData
     @list.prepend template
     template
@@ -41,7 +40,7 @@ class window.App.ModelsUploadController extends Spine.Controller
       do callback  
       return
     do @showUploading
-    @el.data("blueimpFileupload").options.url = @model.url("upload/#{@type}")
+    @el.data("blueimpFileupload").options.url = @url
     always = _.after @uploadList.length, => do callback
     fail = (e)=> @uploadErrors.push(e.responseText)
     for upload in @uploadList

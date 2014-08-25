@@ -1,4 +1,4 @@
-%form#model-form
+%form#form
 
   .col1of2.padding-right-xs
 
@@ -20,7 +20,7 @@
 
   .col1of2
 
-    = render :partial => "manage/models/form/model/images"
+    = render :partial => "manage/shared/images", locals: {render_env: {entry_type: :model, entries: @model.images, key: _("Images")}}
 
     = render :partial => "manage/models/form/attachments"
 

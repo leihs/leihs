@@ -28,12 +28,8 @@ class ModelGroup < ActiveRecord::Base
     Model.select("DISTINCT models.*").joins(:model_links).where(:model_links => {:model_group_id => self_and_descendant_ids})
   end
   
-  def image_thumb
-    all_models.detect {|m| not m.image_thumb.blank? }.try(:image_thumb)
-  end
-  
   def image
-    all_models.detect {|m| not m.image.blank? }.try(:image)
+    self.images.first || all_models.detect {|m| not m.image.blank? }.try(:image)
   end
 
   scope :with_borrowable_models_for_user, lambda { |user|

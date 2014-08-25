@@ -146,7 +146,7 @@ end
 
 Wenn /^ich das Paket und das Modell speichere$/ do
   step 'ich das Paket speichere'
-  find("button#model-save", match: :first).click
+  find("button#save", match: :first).click
 end
 
 Dann /^besitzt das Paket alle angegebenen Informationen$/ do
