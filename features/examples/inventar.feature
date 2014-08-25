@@ -299,16 +299,22 @@ Funktionalität: Inventar
     Und ich speichere
     Dann werde ich zur Liste des eben gewählten Reiters mit den eben ausgewählten Filtern zurueckgefuehrt
 
-  @personas
+  @personas @javascript
   Szenariogrundriss: Auszeichnung von defekten, ausgemusterten, unvollständigen oder nicht ausleihbaren Gegenstandszeilen
-    Wenn ich eine Liste von Gegenständen sehe
-    Und diese Liste enthält einen Gegenstand, der <Zustand> ist
-    Dann ist dessen Zeile ausgezeichnet mit <Zustand> in rot
-    Wenn ein Gegenstand mehrere Zustände hat
-    Dann sind diese Zustände kommagetrennt aneinandergereiht
+    Angenommen ich befinde mich auf der Liste eines "<Zustand>"en Inventars
+    Wenn ich eine Modellzeile öffne
+    Dann ist die Gegenstandszeile mit "<Zustand>" in rot ausgezeichnet
     Beispiele:
       | Zustand          |
-      | defekt           |
-      | ausgemustert     |
-      | unvollständig    |
-      | nicht ausleihbar |
+      | Defekt           |
+      | Ausgemustert     |
+      | Unvollständig    |
+      | Nicht ausleihbar |
+
+  @personas @javascript @firefox
+  Szenario: Auszeichnung von mehreren Zuständen auf der Gegenstandszeile
+    Angenommen ich sehe ausgemustertes und nicht ausgemustertes Inventar
+    Und es exisitert ein Gegenstand mit mehreren Problemen
+    Wenn ich nach diesem Gegenstand in der Inventarliste suche
+    Und ich öffne die Modellzeile von diesem Gegenstand
+    Dann sind die Probleme des Gegestandes komma getrennt aneinander gereiht

@@ -64,3 +64,29 @@ end
 Dann(/^man sieht keinen Link 'Zeige alle gefundenen Verträge'$/) do
   expect(has_no_selector?("#contracts [data-type='show-all']")).to be true
 end
+
+Given(/^there is a "(.*?)" item in my inventory pool$/) do |arg1|
+  items = @current_inventory_pool.items
+  @item = case arg1
+          when "Defekt"
+            items.find &:is_broken
+          when "Ausgemustert"
+            items.find &:retired
+          when "Unvollständig"
+            items.find &:is_incomplete
+          when "Nicht ausleihbar"
+            items.find {|i| not i.is_borrowable}
+          end
+  expect(@item).not_to be_nil
+end
+
+When(/^I search globally after this item with its inventory code$/) do
+  within "#topbar #search" do
+    find("input#search_term").set @item.inventory_code
+    find("button[type='submit']").click
+  end
+end
+
+Then(/^I see the item in the items container$/) do
+  expect(find("#items")).to have_selector(".line[data-type='item']", text: @item.inventory_code)
+end

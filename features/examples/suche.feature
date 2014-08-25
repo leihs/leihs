@@ -49,3 +49,17 @@ Funktionalität: Suche
     Dann sehe ich keinen Gegenstände-Container
     Und wenn ich über die Liste der Gegenstände auf der Vertragslinie hovere
     Dann sehe ich das Modell dieses Gegenstandes
+
+  @personas @javascript
+  Szenariogrundriss: Probleme bei Gegenständen in globaler Suche anzeigen
+    Angenommen ich bin Mike
+    Und es gibt in meinem Gerätepark einen "<Zustand>"en Gegenstand
+    Wenn ich anhand der Inventarnummer nach diesem Gegenstand global suche
+    Dann sehe ich diesen Gegenstand im Gegenstände-Container
+    Und die Gegenstandszeile ist mit "<Zustand>" in rot ausgezeichnet
+    Beispiele:
+      | Zustand          |
+      | Defekt           |
+      | Ausgemustert     |
+      | Unvollständig    |
+      | Nicht ausleihbar |

@@ -951,3 +951,47 @@ end
 Dann(/^sehe ich nur diejenigen Pakete, für welche ich verantwortlich bin$/) do
   step "I only see packages which I am responsible for"
 end
+
+Angenommen(/^ich befinde mich auf der Liste eines "(.*?)"en Inventars$/) do |arg1|
+  step %Q(I see the list of "#{arg1}" inventory)
+end
+
+Wenn(/^ich eine Modellzeile öffne$/) do
+  step %Q(I open a model line)
+end
+
+Dann(/^ist die Gegenstandszeile mit "(.*?)" in rot ausgezeichnet$/) do |arg1|
+  step %Q(the item line ist marked as "#{arg1}" in red)
+end
+
+Angenommen(/^es exisitert ein Gegenstand mit mehreren Problemen$/) do
+  step %Q(there exists an item with many problems)
+end
+
+Wenn(/^ich nach diesem Gegenstand in der Inventarliste suche$/) do
+  step %Q(I search after this item in the inventory list)
+end
+
+Wenn(/^ich öffne die Modellzeile von diesem Gegenstand$/) do
+  step %Q(I open the model line of this item)
+end
+
+Dann(/^sind die Probleme des Gegestandes komma getrennt aneinander gereiht$/) do
+  step %Q(the problems of this item are displayed separated by a comma)
+end
+
+Angenommen(/^es gibt in meinem Gerätepark einen "(.*?)"en Gegenstand$/) do |arg1|
+  step %Q(there is a "#{arg1}" item in my inventory pool)
+end
+
+Wenn(/^ich anhand der Inventarnummer nach diesem Gegenstand global suche$/) do
+  step %Q(I search globally after this item with its inventory code)
+end
+
+Dann(/^sehe ich diesen Gegenstand im Gegenstände\-Container$/) do
+  step %Q(I see the item in the items container)
+end
+
+Dann(/^die Gegenstandszeile ist mit "(.*?)" in rot ausgezeichnet$/) do |arg1|
+  step %Q(the item line ist marked as "#{arg1}" in red)
+end

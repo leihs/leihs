@@ -68,10 +68,3 @@ Funktionalität: Ausmustern
       | Objekt     |
       | Gegenstand |
       | Lizenz     |
-
-  @current
-  Szenario: Status "ausgemustert" in Globalsuche anzeigen
-    Angenommen ich bin Mike
-    Wenn ich in der Globalsuche nach einem ausgemusterten Gegenstand meines Geräteparks suche
-    Dann werden mir die Ergebnisse zu diesem Gegenstand angezeigt
-    Und auf der Gegenstandszeile hinter dem Gegenstandsnamen steht in rot "Ausgemustert"

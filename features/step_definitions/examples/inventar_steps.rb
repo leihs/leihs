@@ -856,3 +856,47 @@ When(/^expand the corresponding model$/) do
     find("[data-type='inventory-expander']").click
   end
 end
+
+Given(/^I see the list of "(.*?)" inventory$/) do |arg1|
+  case arg1
+  when "Defekt"
+    find("input#broken[type='checkbox']").click
+  when "Ausgemustert"
+    find(:select, "retired").find(:option, _("retired")).select_option
+  when "Unvollständig"
+    find("input#incomplete[type='checkbox']").click
+  when "Nicht ausleihbar"
+    find(:select, "is_borrowable").find(:option, _("not borrowable")).select_option
+  end
+end
+
+When(/^I open a model line$/) do
+  find(".line[data-type='model'] [data-type='inventory-expander']", match: :first).click
+end
+
+Then(/^the item line ist marked as "(.*?)" in red$/) do |arg1|
+  find(".line[data-type='item'] .darkred-text", text: arg1)
+end
+
+Given(/^there exists an item with many problems$/) do
+  Item.select("items.id", :retired, :is_incomplete, :is_broken, :is_borrowable).by_owner_or_responsible(@current_inventory_pool).items.find do |i|
+    attrs = i.attributes
+    item_id = attrs.delete("id")
+    attrs["is_borrowable"] = !attrs["is_borrowable"]
+    attrs.values.select{|v| v}.count >= 2 and (@item_id = item_id)
+  end
+  @item = Item.find @item_id
+  expect(@item).not_to be_nil
+end
+
+When(/^I search after this item in the inventory list$/) do
+  step 'ich nach "%s" suche' % @item.inventory_code
+end
+
+When(/^I open the model line of this item$/) do
+  find(".line[data-type='model']", text: @item.model.name).find("[data-type='inventory-expander']", match: :first).click
+end
+
+Then(/^the problems of this item are displayed separated by a comma$/) do
+  expect(find(".line[data-type='item'] .darkred-text").text).to match /.*, .*/
+end

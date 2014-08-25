@@ -1964,6 +1964,10 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/inventar.feature:303
+- name: Auszeichnung von mehreren Zuständen auf der Gegenstandszeile - features/examples/inventar.feature:315
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/inventar.feature:315
 - name: Wie man den Helferschirm erreicht - features/examples/inventarhelfer.feature:9
   scripts:
     cucumber:

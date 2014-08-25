@@ -95,6 +95,7 @@ module Persona
       setup_retired
       setup_broken
       setup_incomplete
+      setup_problematic
       setup_deletable_model
       
       setup_inventory_moved_to_other_responsible
@@ -317,6 +318,10 @@ module Persona
       @helicopter_model.properties << Property.create(:key => "Akkus", :value => "2")
       @helicopter_model.properties << Property.create(:key => "Farbe", :value => "Rot")
       @helicopter_model.compatibles << @windows_laptop_model
+    end
+
+    def setup_problematic
+      FactoryGirl.create(:item, model: @helicopter_model, owner: @inventory_pool, retired: Date.today, retired_reason: Faker::Lorem.sentence, is_broken: true, is_incomplete: true, is_borrowable: false)
     end
 
     def setup_deletable_model
