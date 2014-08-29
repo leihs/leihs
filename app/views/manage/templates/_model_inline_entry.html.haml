@@ -4,7 +4,7 @@
   %input{:type => :hidden, :name => "template[model_links_attributes][][model_id]", :value => model_link.model_id}
   %input{:type => :hidden, :name => "template[model_links_attributes][][_destroy]", :value => nil}
 
-  - max_borrowable_items = model_link.model.borrowable_items.by_responsible_or_owner_as_fallback(current_inventory_pool).count
+  - max_borrowable_items = model_link.model.borrowable_items.where(inventory_pool_id: current_inventory_pool).count
 
   - if model_link.quantity > max_borrowable_items
     .line-info.red

@@ -6,7 +6,7 @@ When /^I open a contract for acknowledgement( with more then one line)?$/ do |ar
       @customer = ip.users.shuffle.detect {|x| x.contracts.submitted.exists? and x.contracts.submitted.first.lines.size > 1 }
     end
     raise "customer not found" unless @customer
-    @models_in_stock = @current_inventory_pool.items.by_responsible_or_owner_as_fallback(@current_inventory_pool).in_stock.map(&:model).uniq
+    @models_in_stock = @current_inventory_pool.items.in_stock.map(&:model).uniq
     @contract = @customer.contracts.submitted.detect{|v| v.lines.select{|l| !l.item and @models_in_stock.include? l.model}.count >= 2 }
   else
     @current_inventory_pool = @current_user.managed_inventory_pools.detect do |ip|

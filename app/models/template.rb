@@ -41,7 +41,7 @@ class Template < ModelGroup
         if user
           model.total_borrowable_items_for_user(user, ip) >= q
         else
-          model.borrowable_items.by_responsible_or_owner_as_fallback(ip).count >= q
+          model.borrowable_items.where(inventory_pool_id: ip).count >= q
         end
       end
     end

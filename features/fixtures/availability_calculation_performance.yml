@@ -4183,7 +4183,7 @@
     location_id:
     is_incomplete: "0"
     model_id: "2208"
-    inventory_pool_id: 
+    inventory_pool_id: "90"
     retired: 
   attributes_cache: {}
 

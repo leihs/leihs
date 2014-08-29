@@ -21,7 +21,7 @@ end
 
 When /^I select (an item|a license) line and assign an inventory code$/ do |arg1|
   sleep(0.33)
-  @models_in_stock = @current_inventory_pool.items.by_responsible_or_owner_as_fallback(@current_inventory_pool).in_stock.map(&:model).uniq
+  @models_in_stock = @current_inventory_pool.items.in_stock.map(&:model).uniq
   lines = @customer.visits.hand_over.flat_map(&:lines)
 
   @item_line = @line = case arg1
@@ -105,7 +105,7 @@ Then /^the lines start date is today$/ do
 end
 
 When /^I open a hand over with overdue lines$/ do
-  @models_in_stock = @current_inventory_pool.items.by_responsible_or_owner_as_fallback(@current_inventory_pool).in_stock.map(&:model).uniq
+  @models_in_stock = @current_inventory_pool.items.in_stock.map(&:model).uniq
   @customer = @current_inventory_pool.users.to_a.detect do |u|
     u.contracts.approved.exists? and u.contracts.approved.any? do |c|
       c.lines.any? {|l| l.start_date < Date.today and l.end_date >= Date.today and @models_in_stock.include? l.model}
@@ -123,7 +123,7 @@ When /^I select an overdue item line and assign an inventory code$/ do
 end
 
 When /^I assign an inventory code the item line$/ do
-  item = @current_inventory_pool.items.by_responsible_or_owner_as_fallback(@current_inventory_pool).in_stock.where(model_id: @item_line.model).first
+  item = @current_inventory_pool.items.in_stock.where(model_id: @item_line.model).first
   expect(item).not_to be nil
   @selected_items ||= []
   @selected_items << item

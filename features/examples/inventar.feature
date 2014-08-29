@@ -23,7 +23,7 @@ Funktionalität: Inventar
       | Name | Package Model |
     Und diese Modell ein Paket ist
     Und es existiert ein Gegenstand mit folgenden Eigenschaften:
-      | Inventarcode | AVZ40001 |
+      | Inventarcode | P-AVZ40001 |
     Und diese Paket-Gegenstand ist Teil des Pakets-Modells
     Und es existiert ein Modell mit folgenden Eigenschaften:
       | Name | Normal Model |
@@ -41,7 +41,7 @@ Funktionalität: Inventar
       | Name | Package Model |
     Und diese Modell ein Paket ist
     Und es existiert ein Gegenstand mit folgenden Eigenschaften:
-      | Inventarcode                | AVZ40001           |
+      | Inventarcode                | P-AVZ40001         |
       | Besitzergerätepark          | Anderer Gerätepark |
       | verantwortlicher Gerätepark | Anderer Gerätepark |
     Und diese Paket-Gegenstand ist Teil des Pakets-Modells
@@ -67,7 +67,7 @@ Funktionalität: Inventar
       | Name | Package Model |
     Und diese Modell ein Paket ist
     Und es existiert ein Gegenstand mit folgenden Eigenschaften:
-      | Inventarcode                | AVZ40001        |
+      | Inventarcode                | P-AVZ40001      |
       | Besitzergerätepark          | Mein Gerätepark |
       | verantwortlicher Gerätepark | Mein Gerätepark |
     Und diese Paket-Gegenstand ist Teil des Pakets-Modells
@@ -84,6 +84,7 @@ Funktionalität: Inventar
     Und es erscheint der Gegenstand
     Dann es erscheinen alle zutreffenden Paket-Modelle
     Und es erscheinen alle zutreffenden Paket-Gegenstände
+    Und es erscheinen alle zutreffenden Gegenstände
   Beispiele:
     | Eigenschaft  |
     | Normal Model |

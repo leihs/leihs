@@ -85,7 +85,7 @@ Then(/^I can open the picking list$/) do
 end
 
 Then(/^the items without location, are displayed with (the available quantity for this customer and )?"(.*?)"$/) do |arg1, arg2|
-  (@selected_lines || @contract.lines).each do |line|
+  (@selected_lines || @contract.lines).select{|line| line.is_a? ItemLine }.each do |line|
     if line.item_id
       next if line.item.location and not line.item.location.room.blank? and not line.item.location.shelf.blank?
       find("section.list .model_name", match: :prefer_exact, text: line.model.name).find(:xpath, "./..").find(".location", text: arg2)

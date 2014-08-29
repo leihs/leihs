@@ -361,23 +361,26 @@ Dann /^man kann sie einem anderen Gerätepark als Besitzer zuweisen$/ do
   expect(@item.reload.owner_id).to eq attributes[:owner_id]
 end
 
-Dann /^man kann die verantwortliche Abteilung eines Gegenstands frei wählen$/ do
-  item = @inventory_pool.own_items.find &:in_stock?
+Wenn /^man keine verantwortliche Abteilung auswählt$/ do
+  @item = @inventory_pool.own_items.find &:in_stock?
   attributes = {
-      inventory_pool_id: (InventoryPool.pluck(:id) - [@inventory_pool.id, item.inventory_pool_id]).sample
+      inventory_pool_id: (InventoryPool.pluck(:id) - [@inventory_pool.id, @item.inventory_pool_id]).sample
   }
-  expect(item.inventory_pool_id).not_to eq attributes[:inventory_pool_id]
+  expect(@item.inventory_pool_id).not_to eq attributes[:inventory_pool_id]
 
-  expect(page.driver.browser.process(:put, manage_update_item_path(@inventory_pool, item, format: :json), item: attributes).successful?).to be true
-  expect(item.reload.inventory_pool_id).to eq attributes[:inventory_pool_id]
+  expect(page.driver.browser.process(:put, manage_update_item_path(@inventory_pool, @item, format: :json), item: attributes).successful?).to be true
+  expect(@item.reload.inventory_pool_id).to eq attributes[:inventory_pool_id]
 
   attributes = {
       inventory_pool_id: nil
   }
-  expect(item.inventory_pool_id).not_to eq attributes[:inventory_pool_id]
+  expect(@item.inventory_pool_id).not_to eq attributes[:inventory_pool_id]
 
-  expect(page.driver.browser.process(:put, manage_update_item_path(@inventory_pool, item, format: :json), item: attributes).successful?).to be true
-  expect(item.reload.inventory_pool_id).to eq attributes[:inventory_pool_id]
+  expect(page.driver.browser.process(:put, manage_update_item_path(@inventory_pool, @item, format: :json), item: attributes).successful?).to be true
+end
+
+Dann /^ist die Verantwortliche Abteilung gleich wie der Besitzer$/ do
+  expect(@item.reload.inventory_pool_id).to eq @item.owner_id
 end
 
 Dann /^man kann Gegenstände ausmustern, sofern man deren Besitzer ist$/ do

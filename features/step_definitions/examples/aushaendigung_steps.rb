@@ -28,7 +28,7 @@ Angenommen(/^ich öffne eine Aushändigung( mit einer Software)?$/) do |arg1|
 end
 
 Angenommen(/^es gibt eine Aushändigung mit mindestens einem nicht problematischen Modell( und einer Option)?$/) do |arg1|
-  @models_in_stock = Item.by_responsible_or_owner_as_fallback(@current_inventory_pool).in_stock.map(&:model).uniq
+  @models_in_stock = @current_inventory_pool.items.in_stock.map(&:model).uniq
   @hand_over = @current_inventory_pool.visits.hand_over.detect do |v|
     b = v.lines.select do |line|
       !line.start_date.past? and !line.item and @models_in_stock.include?(line.model)

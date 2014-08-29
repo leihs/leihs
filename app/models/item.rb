@@ -31,7 +31,7 @@ class Item < ActiveRecord::Base
 ####################################################################
 
   validates_uniqueness_of :inventory_code
-  validates_presence_of :inventory_code, :model, :owner
+  validates_presence_of :inventory_code, :model, :owner, :inventory_pool
 
   validate :validates_package, :validates_changes
   validates :retired_reason, presence: true, if: :retired?
@@ -40,6 +40,8 @@ class Item < ActiveRecord::Base
 
   before_validation do
     self.owner ||= inventory_pool
+    self.inventory_pool ||= owner
+
     self.inventory_code ||= Item.proposed_inventory_code(owner)
     self.retired_reason = nil unless retired?
 
@@ -100,13 +102,10 @@ class Item < ActiveRecord::Base
     items = Item.all
     items = items.send(params[:type].pluralize) unless params[:type].blank?
 
-    items = if inventory_pool
-              if params[:responsible_or_owner_as_fallback]
-                items.by_responsible_or_owner_as_fallback inventory_pool
-              else
-                items.by_owner_or_responsible inventory_pool
-              end
-            end
+    items = items.by_owner_or_responsible inventory_pool if inventory_pool
+    items = items.where(:owner_id => inventory_pool) if params[:owned]
+    items = items.where(:inventory_pool_id => params[:responsible_id]) if params[:responsible_id]
+
     items = items.where(:id => params[:ids]) if params[:ids]
     items = items.where(:id => params[:id]) if params[:id]
     items = items.retired if params[:retired] == "true"
@@ -130,8 +129,6 @@ class Item < ActiveRecord::Base
     items = items.in_stock if params[:in_stock]
     items = items.incomplete if params[:incomplete]
     items = items.broken if params[:broken]
-    items = items.where(:owner_id => inventory_pool) if params[:owned]
-    items = items.where(:inventory_pool_id => params[:responsible_id]) if params[:responsible_id]
     items = items.where(:inventory_code => params[:inventory_code]) if params[:inventory_code]
     items = items.where(:model_id => params[:model_ids]) if params[:model_ids]
     items = items.search(params[:search_term]) unless params[:search_term].blank?
@@ -163,7 +160,6 @@ class Item < ActiveRecord::Base
   scope :incomplete, -> { where(:is_incomplete => true) }
 
   scope :unfinished, -> { where(['inventory_code IS NULL OR model_id IS NULL']) }
-  scope :unallocated, -> { where(['inventory_pool_id IS NULL']) }
 
   scope :inventory_relevant, -> { where(:is_inventory_relevant => true) }
   scope :not_inventory_relevant, -> { where(:is_inventory_relevant => false) }
@@ -177,8 +173,6 @@ class Item < ActiveRecord::Base
   scope :not_in_stock, -> { joins("INNER JOIN contract_lines ON items.id=contract_lines.item_id AND returned_date IS NULL") }
 
   scope :by_owner_or_responsible, lambda { |ip| where(":id IN (owner_id, inventory_pool_id)", :id => ip.id) }
-  # TODO sql constraint: items.inventory_pool_id cannot be null, but at least equal to items.owner_id
-  scope :by_responsible_or_owner_as_fallback, lambda { |ip| where("inventory_pool_id = :id OR (inventory_pool_id IS NULL AND owner_id = :id)", :id => ip.id) }
 
   scope :items, -> { joins(:model).where(models: {type: "Model"}) }
   scope :licenses, -> { joins(:model).where(models: {type: "Software"}) }

@@ -176,7 +176,7 @@ Wenn(/^es ist pro Modell genau einer Linie ein Gegenstand zugewiesen$/) do
 
   @models.uniq.each do |m|
     l = @lines.find{|l| l.model == m}
-    l.update_attribute(:item, l.model.borrowable_items.by_responsible_or_owner_as_fallback(@current_inventory_pool).sample) unless l.is_a? OptionLine
+    l.update_attribute(:item, l.model.borrowable_items.where(inventory_pool_id: @current_inventory_pool).sample) unless l.is_a? OptionLine
   end
 end
 

@@ -69,7 +69,7 @@ end
 When /^I open a hand over which has multiple( unassigned)? lines( and models in stock)?( with software)?$/ do |arg1, arg2, arg3|
   @hand_over = if arg1
                  if arg2
-                   @models_in_stock = @current_inventory_pool.items.by_responsible_or_owner_as_fallback(@current_inventory_pool).in_stock.map(&:model).uniq
+                   @models_in_stock = @current_inventory_pool.items.in_stock.map(&:model).uniq
                    @current_inventory_pool.visits.hand_over.detect { |v|
                      b = v.lines.select { |l| !l.item and @models_in_stock.include? l.model }.count >= 2
                      if arg3

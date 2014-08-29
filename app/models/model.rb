@@ -212,7 +212,7 @@ class Model < ActiveRecord::Base
       models = models.unused_for_inventory_pool inventory_pool
     elsif params[:used] == "true"
       models = if params[:as_responsible_only]
-                 models.joins(:items).where(":id IN (`items`.`inventory_pool_id`)", :id => inventory_pool.id).uniq
+                 models.joins(:items).where(inventory_pool_id: inventory_pool).uniq
                else
                  models.joins(:items).where(":id IN (`items`.`owner_id`, `items`.`inventory_pool_id`)", :id => inventory_pool.id).uniq
                end

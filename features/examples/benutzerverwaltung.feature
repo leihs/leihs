@@ -220,7 +220,6 @@ Funktionalität: Benutzer verwalten
     Und kann man neue Gegenstände erstellen
     Und diese Gegenstände können inventarrelevant sein
     Und man kann sie einem anderen Gerätepark als Besitzer zuweisen
-    Und man kann die verantwortliche Abteilung eines Gegenstands frei wählen
     Und man kann Gegenstände ausmustern, sofern man deren Besitzer ist
     Und man kann Ausmusterungen wieder zurücknehmen, sofern man Besitzer der jeweiligen Gegenstände ist
     Und man kann die Arbeitstage und Ferientage seines Geräteparks anpassen
@@ -232,6 +231,8 @@ Funktionalität: Benutzer verwalten
     | Ausleihe-Verwalter  |
     | Inventar-Verwalter  |
     Und man kann alles, was ein Ausleihe-Verwalter kann
+    Wenn man keine verantwortliche Abteilung auswählt
+    Dann ist die Verantwortliche Abteilung gleich wie der Besitzer
 
   @personas
   Szenario: Zugriff entfernen als Inventar-Verwalter
