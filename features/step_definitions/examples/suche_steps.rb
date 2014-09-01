@@ -58,7 +58,7 @@ end
 
 Angenommen(/^es existiert ein Benutzer mit mindestens (\d+) und weniger als (\d+) Verträgen$/) do |min, max|
   @user = @current_inventory_pool.users.find {|u| u.contracts.signed_or_closed.where(inventory_pool: @current_inventory_pool).count.between? min.to_i, max.to_i}
-  expect(@user).not_to be nil
+  expect(@user).not_to be_nil
 end
 
 Dann(/^man sieht keinen Link 'Zeige alle gefundenen Verträge'$/) do
@@ -89,4 +89,34 @@ end
 
 Then(/^I see the item in the items container$/) do
   expect(find("#items")).to have_selector(".line[data-type='item']", text: @item.inventory_code)
+end
+
+Given(/^there exists a closed contract with a retired item$/) do
+  @contract = @current_inventory_pool.contracts.closed.find do |c|
+    @item = c.items.find &:retired
+  end
+  expect(@contract).not_to be_nil
+end
+
+Then(/^sehe den Gegenstand ihn im Gegenstände\-Container$/) do
+  find("#items .line", text: @item.inventory_code)
+end
+
+Then(/^I hover over the list of items on the contract line$/) do
+  find("#contracts .line [data-type='lines-cell']", match: :first).hover
+end
+
+Then(/^I see in the tooltip the model of this item$/) do
+  find(".tooltipster-base", text: @item.model.name)
+end
+
+Given(/^there exists a closed contract with an item, for which an other inventory pool is responsible and owner$/) do
+  @contract = @current_inventory_pool.contracts.closed.find do |c|
+    @item = c.items.find {|i| i.inventory_pool != @current_inventory_pool and i.owner != @current_inventory_pool }
+  end
+  expect(@contract).not_to be_nil
+end
+
+Then(/^I do not see the items container$/) do
+  expect(page).to have_no_selector "#items"
 end

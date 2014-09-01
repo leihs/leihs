@@ -995,3 +995,27 @@ end
 Dann(/^die Gegenstandszeile ist mit "(.*?)" in rot ausgezeichnet$/) do |arg1|
   step %Q(the item line ist marked as "#{arg1}" in red)
 end
+
+Angenommen(/^es gibt einen geschlossenen Vertrag mit ausgemustertem Gegenstand$/) do
+  step %Q(there exists a closed contract with a retired item)
+end
+
+Dann(/^sehe ich ihn im Gegenstände\-Container$/) do
+  step %Q(I see the item in the items container)
+end
+
+Dann(/^wenn ich über die Liste der Gegenstände auf der Vertragslinie hovere$/) do
+  step %Q(I hover over the list of items on the contract line)
+end
+
+Dann(/^sehe ich im Tooltip das Modell dieses Gegenstandes$/) do
+  step %Q(I see in the tooltip the model of this item)
+end
+
+Angenommen(/^es gibt einen geschlossenen Vertrag mit einem Gegenstand, wofür ein anderer Gerätepark verantwortlich und Besitzer ist$/) do
+  step %Q(there exists a closed contract with an item, for which an other inventory pool is responsible and owner)
+end
+
+Dann(/^sehe ich keinen Gegenstände\-Container$/) do
+  step %Q(I do not see the items container)
+end

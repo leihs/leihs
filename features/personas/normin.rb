@@ -150,16 +150,6 @@ module Persona
       contract.sign(@pius)
     end
 
-    def create_closed_contracts
-      contract = FactoryGirl.create(:contract, :user => @user, :inventory_pool => @inventory_pool, :status => :approved)
-      purpose = FactoryGirl.create :purpose, :description => Faker::Lorem.sentence
-      item = FactoryGirl.create(:item, :owner => @inventory_pool)
-      contract.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => contract, :item => item, model: item.model, :start_date => Date.yesterday, :end_date => Date.today)
-      contract.sign(@pius)
-      contract.lines.each {|cl| cl.update_attributes(returned_date: Date.today, returned_to_user_id: @pius)}
-      contract.close
-    end
-
     def setup_groups
       @group_cast = Group.find_by_name("Cast")
       @group_cast.users << @user

@@ -24,6 +24,7 @@ module Persona
         create_user_with_large_hand_over
         create_users_with_take_backs
         create_users_with_overdued_take_backs
+        create_users_with_closed_contracts
       end
     end
 
@@ -108,6 +109,32 @@ module Persona
                                                               :start_date => Date.today, :end_date => (Date.today + 4.days))
       overdued_contract.sign(@user)
       back_to_the_present
+    end
+
+    def create_users_with_closed_contracts
+
+      # closed contract with a retired item
+      user = FactoryGirl.create :user
+      contract = FactoryGirl.create(:contract, :user => user, :inventory_pool => @inventory_pool, :status => :approved)
+      purpose = FactoryGirl.create :purpose, :description => Faker::Lorem.sentence
+      item = FactoryGirl.create(:item, :owner => @inventory_pool)
+      contract.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => contract, :item => item, model: item.model, :start_date => Date.yesterday, :end_date => Date.today)
+      contract.sign(@user)
+      contract.lines.each {|cl| cl.update_attributes(returned_date: Date.today, returned_to_user_id: @user)}
+      contract.close
+      item.update_attributes retired: Date.today, retired_reason: Faker::Lorem.sentence
+
+      # closed contract with an item, where owner and responsible is a different inventory pool
+      user = FactoryGirl.create :user
+      contract = FactoryGirl.create(:contract, :user => user, :inventory_pool => @inventory_pool, :status => :approved)
+      purpose = FactoryGirl.create :purpose, :description => Faker::Lorem.sentence
+      item = FactoryGirl.create(:item, :owner => @inventory_pool)
+      contract.contract_lines << FactoryGirl.create(:contract_line, :purpose => purpose, :contract => contract, :item => item, model: item.model, :start_date => Date.yesterday, :end_date => Date.today)
+      contract.sign(@user)
+      contract.lines.each {|cl| cl.update_attributes(returned_date: Date.today, returned_to_user_id: @user)}
+      contract.close
+      item.update_attributes inventory_pool: @inventory_pool_2, owner: @inventory_pool_2
+
     end
 
   end

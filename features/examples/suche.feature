@@ -32,23 +32,23 @@ Funktionalität: Suche
     Dann sieht man alle unterschriebenen und geschlossenen Veträge des Benutzers
     Und man sieht keinen Link 'Zeige alle gefundenen Verträge'
 
-  @current @personas
+  @javascript @personas
   Szenario: Anzeige von ausgemusterten Gegenständen
     Angenommen ich bin Mike
     Und es gibt einen geschlossenen Vertrag mit ausgemustertem Gegenstand
-    Wenn ich nach diesem Gegenstand suche
-    Dann sehe ich ihn im Gegenstände-Container
+    Wenn ich anhand der Inventarnummer nach diesem Gegenstand global suche
+    Dann sehe den Gegenstand ihn im Gegenstände-Container
     Und wenn ich über die Liste der Gegenstände auf der Vertragslinie hovere
-    Dann sehe ich das Modell dieses Gegenstandes
+    Dann sehe ich im Tooltip das Modell dieses Gegenstandes
 
-  @current @personas
+  @javascript @personas
   Szenario: Anzeige von Gegenständen eines anderen Geräteparks in geschlossenen Verträgen
     Angenommen ich bin Mike
     Und es gibt einen geschlossenen Vertrag mit einem Gegenstand, wofür ein anderer Gerätepark verantwortlich und Besitzer ist
-    Wenn ich nach diesem Gegenstand suche
+    Wenn ich anhand der Inventarnummer nach diesem Gegenstand global suche
     Dann sehe ich keinen Gegenstände-Container
     Und wenn ich über die Liste der Gegenstände auf der Vertragslinie hovere
-    Dann sehe ich das Modell dieses Gegenstandes
+    Dann sehe ich im Tooltip das Modell dieses Gegenstandes
 
   @personas @javascript
   Szenariogrundriss: Probleme bei Gegenständen in globaler Suche anzeigen
