@@ -2,16 +2,7 @@
 
 .wrapper.margin-top-m
 
-  .row
-    %nav
-      %ul
-        %li
-          %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => "/admin/database_indexes", :class => "active"}
-            = _("Indexes")
-        %li
-          %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => "/admin/database_consistency"}
-            = _("Consistency")
-
+  = render partial: "header"
 
   .row.content-wrapper.min-height-xl.min-width-full.straight-top
     .row.margin-top-l.padding-horizontal-m

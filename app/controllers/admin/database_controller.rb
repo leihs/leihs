@@ -115,6 +115,20 @@ class Admin::DatabaseController < Admin::ApplicationController
     }
   end
 
+  def empty_columns
+    connection = ActiveRecord::Base.connection
+
+    @empty_columns = {}
+    connection.tables.each do |table_name|
+      connection.columns(table_name).select{|c| c.type == :string and c.null }.each do |column|
+        r = connection.execute(%Q(SELECT * FROM `#{table_name}` WHERE `#{column.name}` REGEXP '^\ *$')).to_a
+        next if r.empty?
+        @empty_columns[[table_name, column.name]] = r
+      end
+    end
+
+  end
+
 end
 
 
