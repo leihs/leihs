@@ -20,36 +20,37 @@ def validate_item(item)
   errors = false
 
   begin
-    Model.where(:product => item["Model"]).first
+    Model.find item["Leihs-Modellnummer"]
   rescue
     errors = true
-    log_error "Model '#{item["Model"]}' not found.", item
+    log_error "Model '#{item["Leihs-Modellname"]}' not found.", item
   end
 
-  if item["Responsible department"].blank?
+  if item["Verantwortliche Abteilung"].blank?
     errors = true
     log_error "Responsible department is blank", item
   else
-    responsible_ip = InventoryPool.where(:name => item["Responsible department"]).first
+    responsible_ip = InventoryPool.where(:name => item["Verantwortliche Abteilung"]).first
     if responsible_ip.nil?
       errors = true
-      log_error "Responsible inventory pool '#{item["Responsible department"]}' does not exist", item
+      log_error "Responsible inventory pool '#{item["Verantwortliche Abteilung"]}' does not exist", item
     end
   end
 
-  if item["Owner"].blank?
+  if item["Besitzer"].blank?
     errors = true
     log_error "Owner is blank", item
   else
-    owner_ip = InventoryPool.where(:name => item["Owner"]).first
+    owner_ip = InventoryPool.where(:name => item["Besitzer"]).first
     if owner_ip.nil?
       errors = true
-      log_error "Owner '#{item["Owner"]}' does not exist", item
+      log_error "Owner '#{item["Besitzer"]}' does not exist", item
     end
   end
 
 
   if errors
+    @failures += 1
     return false
   else
     return true
@@ -59,34 +60,34 @@ end
 items_to_import.each do |item|
   next if not validate_item(item)
   i = Item.new
-  i.model = Model.where(:product => item["Model"]).first
-  #i.inventory_code = item["Inv-Code:"]
-  i.serial_number = item["Serial Number"]
-  i.note = item["Note"]
+  i.model = Model.find item["Leihs-Modellnummer"]
+  i.inventory_code = item["Inv-Code:"]
+  i.serial_number = item["Seriennummer"]
+  #i.note = item["Note"]
 
   # Inventory relevance
   i.is_inventory_relevant = false
-  i.is_inventory_relevant = true if item["Relevant for inventory"] == "true"
+  i.is_inventory_relevant = true if item["Inventarrelevant:"] == "ja"
 
   # Borrowability
   i.is_borrowable = false
 
   # Ownership
-  owner_ip = InventoryPool.where(:name => item["Owner"]).first
+  owner_ip = InventoryPool.where(:name => item["Besitzer"]).first
   i.owner = owner_ip
 
   # Responsible department
-  unless item["Responsible department"] == "frei"
-    responsible_ip = InventoryPool.where(:name => item["Responsible department"]).first
+  unless item["Verantwortliche Abteilung"] == "frei"
+    responsible_ip = InventoryPool.where(:name => item["Verantwortliche Abteilung"]).first
     i.inventory_pool = responsible_ip
   end
 
   # Building and room
-  building_code = item["Building"].match(/.*\((.*)\)$/)[1]
-  b = Building.where(:code => building_code).first
+  #building_code = item["Building"].match(/.*\((.*)\)$/)[1]
+  b = Building.where(:code => "TONI").first
 
   room = nil
-  #room = item["Raum"] unless item["Raum"].blank?
+  room = item["Raum"] unless item["Raum"].blank?
   location = Location.find_or_create({"building_id" => b.id, "room" => room})
   i.location = location
 
@@ -98,13 +99,13 @@ items_to_import.each do |item|
   i.responsible = item["Responsible person"] unless item["Responsible person"].blank?
   i.price = item["Initial Price"] unless item["Initial Price"].blank?
 
-  #i.last_check = Date.strptime(item["letzte Inventur"], "%m/%d/%Y") unless item["letzte Inventur"].blank?
+  i.last_check = Date.strptime(item["letzte Inventur"], "%m/%d/%Y") unless item["letzte Inventur"].blank?
 
   # Supplier
-  #i.supplier = Supplier.where(:name => item["Lieferant"]).first
-  #if i.supplier.nil?
-  #  i.supplier = Supplier.create(:name => item["Lieferant"])
-  #end
+  i.supplier = Supplier.where(:name => item["Lieferant"]).first
+  if i.supplier.nil?
+    i.supplier = Supplier.create(:name => item["Lieferant"])
+  end
 
   # Properties
   i.properties[:anschaffungskategorie] = item["Anschaffungskategorie"]
