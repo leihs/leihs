@@ -1,5 +1,4 @@
 reports: -p base
 default: -p base -e routes_report.rb
-base:  -r features --format pretty --format rerun --out tmp/rerun.txt --tags=~@current --tags=~@upcoming --tags=~@old-ui
+base:  -r features --format pretty --format rerun --out tmp/rerun.txt --tags=~@upcoming --tags=~@old-ui
 rerun: "-r features @tmp/rerun.txt --format pretty --format rerun --out tmp/rererun.txt"
-current: -r features --format pretty --tags=@current -e routes_report.rb

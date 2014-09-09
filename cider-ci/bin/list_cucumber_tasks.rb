@@ -38,16 +38,12 @@ end
 
 filepath = "./cider-ci/tasks/cucumber_scenarios.yml"
 File.open(filepath,"w") do |f|
-  name = "@@@ Current Iteration @@@"
-  exec = "bundle exec cucumber -p current"
-  h1 = [task_hash(name, exec)]
-
   h2 = `egrep -R -n -B 1 "^\s*(Scenario|Szenario)" features/*`.split("--\n").map{|x| x.split("\n")}.map do |t, s|
-    next if t =~ /@old-ui|@upcoming|@current/
+    next if t =~ /@old-ui|@upcoming/
     splitted_string = s.split(/:\s*(Scenario|Szenario)( Outline| Template|grundriss)?: /)
     name = "%s - %s" % [splitted_string.last.strip, splitted_string.first]
     exec = "bundle exec cucumber -p default -f json -o log/cucumber_report.json %s" % splitted_string.first
     task_hash(name, exec)
   end.compact
-  f.write (h1 + h2).to_yaml
+  f.write h2.to_yaml
 end

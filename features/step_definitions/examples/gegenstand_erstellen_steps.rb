@@ -55,8 +55,7 @@ Wenn /^ich die folgenden Informationen erfasse$/ do |table|
     matched_field = all(".row.emboss", match: :prefer_exact, text: field_name).last
     case field_type
       when "radio", "radio must"
-        field_value = true if field_value == "OK"
-        matched_field.find("input[value='#{field_value}']").set true
+        matched_field.find("label", text: field_value).find("input").set true
       when "checkbox"
         matched_field.find("input").set (field_value == "checked")
       when "select"
@@ -112,7 +111,7 @@ Dann /^hat der Gegenstand alle zuvor eingetragenen Werte$/ do
       when "select"
         expect(matched_field.all("option").detect(&:selected?).text).to eq field_value
       when "radio must"
-        expect(matched_field.find("input[checked][type='radio']").value).to eq field_value
+        expect(matched_field.find("label", text: field_value).find("input").checked?).to eq true
       when ""
         expect(matched_field.find("input,textarea").value).to eq field_value
     end

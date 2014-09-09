@@ -195,7 +195,8 @@ Funktionalität: Delegation
     Angenommen ich bin Julie
     Wenn ich eine Bestellung für eine Delegationsgruppe erstelle
     Dann bin ich die Kontaktperson für diesen Auftrag
-    Angenommen ich bin Pius
+    Angenommen heute entspricht dem Startdatum der Bestellung
+    Und ich bin Pius
     Wenn ich die Gegenstände für die Delegation an "Mina" aushändige
     Dann ist "Mina" die neue Kontaktperson dieses Auftrages
 

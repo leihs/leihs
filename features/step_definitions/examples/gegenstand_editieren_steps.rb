@@ -1,13 +1,11 @@
 # -*- encoding : utf-8 -*-
 
-Angenommen /^man editiert einen Gegenstand, wo man der Besitzer ist(, der am Lager und in keinem Vertrag vorhanden ist)?$/ do |arg1|
+Angenommen /^man editiert einen Gegenstand, wo man der Besitzer ist(, der am Lager)?( und in keinem Vertrag vorhanden ist)?$/ do |arg1, arg2|
   items = @current_inventory_pool.items.items.where(owner_id: @current_inventory_pool, models: {is_package: false})
+  items = items.in_stock if arg1
+  items = items.select {|i| ContractLine.where(item_id: i.id).empty?} if arg2
 
-  @item = if arg1
-            items.in_stock
-          else
-            items
-          end.sample
+  @item = items.sample
 
   visit manage_edit_item_path @current_inventory_pool, @item
   expect(has_selector?(".row.emboss")).to be true

@@ -153,7 +153,7 @@ Dann /^besitzt das Paket alle angegebenen Informationen$/ do
   sleep(0.33)
   model = Model.find {|m| [m.name, m.product].include? @model_name}
   visit manage_edit_model_path(@current_inventory_pool, model)
-  model.items.each do |item|
+  model.items.where(inventory_pool: @current_inventory_pool).each do |item|
     expect(has_selector?(".line[data-id='#{item.id}']", visible: false)).to be true
   end
   expect(has_no_selector?("[src*='loading']")).to be true

@@ -80,8 +80,7 @@ Funktionalität: Vertrag
     Angenommen man öffnet einen Vertrag bei der Aushändigung
     Dann sehe ich den Ausleihenden oben links
 
-  # CI-ISSUE: there is a javascript error, which cannot be reproduced by hand in browser started normally, not through cucumber. perhaps connected to manage/hand_over/assign.feature:19
-  @current @javascript @firefox @personas
+  @javascript @firefox @personas
   Szenario: Inhalt der Liste 1 und Liste 2
     Angenommen man öffnet einen Vertrag bei der Aushändigung mit Software
     Dann beinhalten Liste 1 und Liste 2 folgende Spalten:

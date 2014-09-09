@@ -24,7 +24,7 @@ class window.App.ManageBookingCalendar extends App.BookingCalendar
   setDayElement: (date, dayElement, holidays)=>
     available = true
     for model in @models
-      availability = model.availability().withoutLines(@lines)
+      availability = model.availability().withoutLines(@lines, true)
       requiredQuantity = if @quantity_el.val().length
           parseInt @quantity_el.val() 
         else 

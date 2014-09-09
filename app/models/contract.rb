@@ -99,19 +99,20 @@ class Contract < ActiveRecord::Base
 
     query.split.each{|q|
       qq = "%#{q}%"
-      sql = sql.where(arel_table[:id].eq(q).
-                          or(arel_table[:note].matches(qq)).
-                          or(User.arel_table[:login].matches(qq)).
-                          or(User.arel_table[:firstname].matches(qq)).
-                          or(User.arel_table[:lastname].matches(qq)).
-                          or(User.arel_table[:badge_id].matches(qq)).
-                          or(Model.arel_table[:manufacturer].matches(qq)).
-                          or(Model.arel_table[:product].matches(qq)).
-                          or(Model.arel_table[:version].matches(qq)).
-                          or(Option.arel_table[:product].matches(qq)).
-                          or(Option.arel_table[:version].matches(qq)).
-                          or(Item.arel_table[:inventory_code].matches(qq)).
-                          or(Item.arel_table[:properties].matches(qq)))
+      sql = sql.where(
+        arel_table[:id].matches(qq) # NOTE we cannot use eq(q) because alphanumeric string is truncated and casted to integer, causing wrong matches (contracts.id)
+        .or(arel_table[:note].matches(qq))
+        .or(User.arel_table[:login].matches(qq))
+        .or(User.arel_table[:firstname].matches(qq))
+        .or(User.arel_table[:lastname].matches(qq))
+        .or(User.arel_table[:badge_id].matches(qq))
+        .or(Model.arel_table[:manufacturer].matches(qq))
+        .or(Model.arel_table[:product].matches(qq))
+        .or(Model.arel_table[:version].matches(qq))
+        .or(Option.arel_table[:product].matches(qq))
+        .or(Option.arel_table[:version].matches(qq))
+        .or(Item.arel_table[:inventory_code].matches(qq))
+        .or(Item.arel_table[:properties].matches(qq)))
     }
     sql
   }

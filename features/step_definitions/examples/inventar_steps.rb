@@ -698,7 +698,6 @@ When(/^I press CSV\-Export$/) do
 end
 
 When(/^I look at this license in the software list$/) do
-  visit manage_inventory_path(@current_inventory_pool)
   find("a[data-type='license']").click
   step 'ich nach "%s" suche' % @license.inventory_code
   within ".line[data-type='software'][data-id='#{@license.model.id}']" do

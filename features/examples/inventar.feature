@@ -177,7 +177,7 @@ Funktionalität: Inventar
   Szenario: Grundeinstellung der Listenansicht
     Dann ist die Auswahl "Alle" aktiviert
 
-  @personas @current
+  @personas
   Szenario: Inhalt der Auswahl "Software"
     Dann enthält die Auswahl "Software" Software und Software-Lizenzen
     Und der Filter "Nicht Ausgemustert" ist aktiviert
@@ -186,7 +186,7 @@ Funktionalität: Inventar
   Szenario: Grundeinstellung der Listenansicht
     Dann ist die Auswahl "Alle" aktiviert
 
-  @personas @current
+  @personas
   Szenario: Inhalt der Auswahl "Software"
     Dann enthält die Auswahl "Software" Software und Software-Lizenzen
     Und der Filter "Nicht Ausgemustert" ist aktiviert
@@ -247,6 +247,7 @@ Funktionalität: Inventar
   @javascript @personas @firefox
   Szenario: Aussehen einer Software-Lizenz-Zeile
     Angenommen es gibt eine Software-Lizenz
+    Und ich sehe ausgemustertes und nicht ausgemustertes Inventar
     Wenn ich diese Lizenz in der Softwareliste anschaue
     Dann enthält die Software-Lizenz-Zeile folgende Informationen:
       | information    |
@@ -292,7 +293,7 @@ Funktionalität: Inventar
     Und so eine Zeile sieht aus wie eine Gegenstands-Zeile
 
   #73278620
-  @current @personas
+   @personas
   Szenario: Verhalten nach Speichern
     Wenn ich einen Reiter auswähle
     Und ich eine oder mehrere Filtermöglichkeiten verwende

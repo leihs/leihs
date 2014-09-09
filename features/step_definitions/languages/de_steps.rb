@@ -1019,3 +1019,7 @@ end
 Dann(/^sehe ich keinen Gegenstände\-Container$/) do
   step %Q(I do not see the items container)
 end
+
+Angenommen(/^heute entspricht dem Startdatum der Bestellung$/) do
+  step %Q(today corresponds to the start date of the order)
+end

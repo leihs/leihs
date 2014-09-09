@@ -123,7 +123,7 @@ Funktionalität: Software erfassen
       | 1        | Christina Meier| 
     Dann wird mir die verbleibende Anzahl der Lizenzen wie folgt angezeigt "verbleibend 0" 
 
-  @javascript @personas @current
+  @javascript @personas
   Szenario: Software-Lizenz Anschaffungswert mit 2 Dezimalstellen erfassen
     Angenommen es existiert ein Software-Produkt
     Wenn ich eine neue Software-Lizenz hinzufüge

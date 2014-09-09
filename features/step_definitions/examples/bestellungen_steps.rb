@@ -234,8 +234,8 @@ def hand_over_assign_or_add(s)
 end
 
 Then(/^I can add models$/) do
-  model = @current_inventory_pool.models.sample
-  hand_over_assign_or_add model.to_s
+  @model = @current_inventory_pool.models.sample
+  hand_over_assign_or_add @model.to_s
 end
 
 Dann(/^ich kann Optionen hinzufügen$/) do

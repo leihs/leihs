@@ -39,6 +39,9 @@ Feature: Sign Contract
   @javascript @personas
   Scenario: Try to hand over unassigned items
     When I open a hand over with at least one unassigned line for today
+    # travel in time in case today is not an open day of the pool
+    And today corresponds to the start date of the order
+    # continue
     And I select an item without assigning an inventory code
     And I click hand over
     Then I got an error that i have to assign all selected item lines

@@ -6,7 +6,7 @@ Funktionalität: Startseite
   möchte ich als Ausleiher
   einen Einstieg/Übersicht über das ausleihbare Inventar
 
-  @personas @current
+  @personas
   Szenario: Startseite
     Angenommen ich bin Normin
     Und es existiert eine Hauptkategorie mit eigenem Bild

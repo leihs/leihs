@@ -86,13 +86,17 @@ class window.App.ContractLineAssignItemController extends Spine.Controller
     target = $(e.currentTarget).find("[data-assign-item]")
     contractLine = App.ContractLine.find target.closest("[data-id]").data("id")
     inventoryCode = target.val()
-    App.Item.ajaxFetch
+    model = contractLine.model()
+    spineModel = if model.constructor == App.Model
+      App.Item
+    else if model.constructor == App.Software
+      App.License
+    spineModel.ajaxFetch
       data: $.param
         inventory_code: inventoryCode
-        model_ids: [contractLine.model().id]
     .done (data)=>
       if data.length == 1
-        @assignItem target, App.Item.find(data[0].id)
+        @assignItem target, spineModel.find(data[0].id)
       else
         App.Flash
           type: "error"

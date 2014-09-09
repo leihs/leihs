@@ -27,8 +27,8 @@ class window.App.HandOverController extends Spine.Controller
     App.ContractLine.on "change destroy", (data)=> if data.option_id? then @render(true) else do @fetchAvailability
     App.Contract.on "refresh", @fetchAvailability
     App.ContractLine.on "update", (data)=>
-      fi = $.Deferred @fetchItems if @notFetchedItemIds().length
-      fl = $.Deferred @fetchLicenses if @notFetchedLicenseIds().length
+      fi = @fetchItems() if @notFetchedItemIds().length
+      fl = @fetchLicenses() if @notFetchedLicenseIds().length
       if fi or fl
         $.when(fi, fl).done => @render(@initialAvailabilityFetched?)
       else
@@ -38,7 +38,7 @@ class window.App.HandOverController extends Spine.Controller
     if @getLines().length
       fi = $.Deferred @fetchItems if @notFetchedItemIds().length
       fl = $.Deferred @fetchLicenses if @notFetchedLicenseIds().length
-      if fi or fl
+      if fi? or fl?
         $.when(fi, fl).done(@fetchAvailability)
       else
         @fetchAvailability()

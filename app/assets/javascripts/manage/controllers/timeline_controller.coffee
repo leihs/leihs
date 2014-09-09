@@ -5,7 +5,8 @@ class window.App.TimeLineController extends Spine.Controller
 
   show: (e)->
     trigger = $ e.currentTarget
-    model = App.Model.find trigger.data "model-id"
+    id = parseInt trigger.data "model-id"
+    model = ( App.Model.exists(id) or App.Software.find(id) )
     tmpl = App.Render "manage/views/models/timeline_modal", model
     @modal = new App.Modal tmpl
     @modal.el.find("iframe").load @onload

@@ -17,6 +17,7 @@ When /^I open a hand over( with at least one unassigned line for today)?( with o
   raise "customer not found" unless @customer
   visit manage_hand_over_path(@current_inventory_pool, @customer)
   expect(has_selector?("#hand-over-view", :visible => true)).to be true
+  @contract = @customer.contracts.approved.first
 end
 
 When /^I select (an item|a license) line and assign an inventory code$/ do |arg1|
@@ -50,6 +51,7 @@ Then /^I see a summary of the things I selected for hand over$/ do
 end
 
 When /^I click hand over$/ do
+  expect(page).to have_no_selector ".button[data-hand-over-selection][disabled]"
   find(".button[data-hand-over-selection]").click
 end
 
@@ -126,13 +128,13 @@ When /^I assign an inventory code the item line$/ do
   item = @current_inventory_pool.items.in_stock.where(model_id: @item_line.model).first
   expect(item).not_to be nil
   @selected_items ||= []
-  @selected_items << item
   within(".line[data-id='#{@item_line.id}']") do
     find("input[data-assign-item]").set item.inventory_code
     find("a.ui-corner-all", text: item.inventory_code)
     find("input[data-assign-item]").native.send_key(:enter)
   end
-  sleep(0.33)
+  line_selected = first(".line[data-id='#{@item_line.id}'].green")
+  @selected_items << item if line_selected
 end
 
 Then /^wird die Adresse des Verleihers aufgeführt$/ do

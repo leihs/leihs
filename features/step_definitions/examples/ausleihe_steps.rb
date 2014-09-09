@@ -146,7 +146,7 @@ Wenn /^eine Zeile mit Gruppen-Partitionen editiere$/ do
   @inventory_code = @current_inventory_pool.models.detect {|m| m.partitions.size > 1}.items.in_stock.borrowable.first.inventory_code
   @model = Item.find_by_inventory_code(@inventory_code).model
   step 'I assign an item to the hand over by providing an inventory code and a date range'
-  find(".line [data-assign-item][disabled]", match: :first).find(:xpath, "./../../..").find(".button", text: _("Change entry")).click
+  find(:xpath, "//*[contains(@class, 'line') and descendant::input[@data-assign-item and @value='#{@inventory_code}']]", match: :first).find("button[data-edit-lines]").click
 end
 
 Wenn /^die Gruppenauswahl aufklappe$/ do

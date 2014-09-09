@@ -65,7 +65,6 @@ Wenn(/^ich dem nicht problematischen Modell einen Inventarcode zuweise$/) do
   @line_css = ".line[data-id='#{@contract_line.id}']"
   within @line_css do
     find("input[data-assign-item]").click
-    sleep(1.66)
     find("li.ui-menu-item a", match: :first).click
   end
 end
@@ -80,7 +79,7 @@ Dann(/^die Zeile wird selektiert|wird die Zeile selektiert$/) do
 end
 
 Dann(/^die Zeile wird grün markiert|wird die Zeile grün markiert$/) do
-  find(@line_css).native.attribute("class").should include "green"
+  expect(find(@line_css).native.attribute("class")).to include "green"
 end
 
 Wenn(/^ich die Zeile deselektiere$/) do
@@ -199,9 +198,8 @@ end
 
 Given(/^a line has no item assigned yet and this line is marked$/) do
   step "I can add models"
-  @contract_line = @hand_over.lines.find {|l| not l.item }
+  @contract_line = @hand_over.lines.order(created_at: :desc).first
   @line_css = ".line[data-id='#{@contract_line.id}']"
-  step "ich die Zeile wieder selektiere"
 end
 
 Given(/^a line with an assigned item which doesn't have a location is marked$/) do

@@ -105,8 +105,7 @@ Funktionalität: Modell
     Und das Modell ist gelöscht
     Und es wurden auch alle Anhängsel gelöscht
 
-  # CI-ISSUE: cannot be reproduced locally
-  @javascript @personas @current
+  @javascript @personas @firefox
   Szenario: Modelldetails bearbeiten
     Wenn ich ein bestehendes, genutztes Modell bearbeite
     Und ich ändere die folgenden Details
@@ -202,7 +201,7 @@ Funktionalität: Modell
     Dann wurden die ausgewählten Bilder für dieses Modell gespeichert
     Und zu grosse Bilder werden den erlaubten Grössen entsprechend verkleinert
 
-  @javascript @personas
+  @javascript @personas @firefox
   Szenario: Bilder
     Wenn ich ein bestehendes, genutztes Modell bearbeite
     Dann kann ich mehrere Bilder hinzufügen

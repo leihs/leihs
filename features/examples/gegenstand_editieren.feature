@@ -193,7 +193,7 @@ Funktionalität: Gegenstand bearbeiten
       | Inventarrelevant      | select       | Ja                  |
       | Anschaffungskategorie | select       | Werkstatt-Technik   |
 
-      | Bezug                 | radio must   | investment          |
+      | Bezug                 | radio must   | Investition         |
       | Projektnummer         |              | Test Nummer         |
       | Rechnungsnummer       |              | Test Nummer         |
       | Rechnungsdatum        |              | 01.01.2013          |

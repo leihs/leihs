@@ -27,27 +27,48 @@ Then /^I see all availabilities in that calendar, where the small number is the 
 
       # iterate days between this change and the next one
       next_change = changes[i+1]
+
       if next_change
         days_between_changes = (next_change[0]-c[0]).to_i
         next_date = c[0]
         last_month = next_date.month
+
         days_between_changes.times do
+
           if next_date.month != last_month
             find(".fc-button-next").click
           end
+
           change_date_el = find(".fc-widget-content:not(.fc-other-month)[data-date='#{next_date.to_s(:db)}']")
+
+          #######################################################################################################################
           # check total, where the small number is the total quantity of that specific date
+
           total_quantity = c[1]
           # add quantity of edited line when date element is selected
           if change_date_el[:class].match("selected") != nil
             total_quantity += find("#booking-calendar-quantity").value.to_i
           end
           expect(change_date_el.find(".total_quantity").text[/-*\d+/].to_i).to eq total_quantity
-          # check selected partition/borrower quantity
+
+          #######################################################################################################################
+          # check selected partition/borrower quantity (big number)
+ 
           quantity_for_borrower = av.maximum_available_in_period_summed_for_groups next_date, next_date, @contract.user.group_ids
-          quantity_for_borrower += find("#booking-calendar-quantity").value.to_i if change_date_el[:class].match("selected") != nil
+
+          # the quantity is considering only the partitions with groups we are member of (exclude soft overbookings)
+          if change_date_el[:class].match("selected") != nil
+            x = c[2].select {|h| ([nil] + @contract.user.group_ids).include? h[:group_id]}
+            y = x.map {|h| h[:out_document_lines]}
+            z = y.flat_map {|h| h["ItemLine"]}
+            quantity_to_restore = (z & @contract.lines.pluck(:id)).size
+            quantity_for_borrower += quantity_to_restore
+          end
 
           expect(change_date_el.find(".fc-day-content div").text.to_i).to eq quantity_for_borrower
+
+          #######################################################################################################################
+
           last_month = next_date.month
           next_date += 1.day
         end
