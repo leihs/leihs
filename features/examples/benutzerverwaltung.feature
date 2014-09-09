@@ -2,13 +2,17 @@
 
 Funktionalität: Benutzer verwalten 
 
-  @javascript @personas
-  Szenario: Sperrfunktion
+  @current @javascript @personas
+  Szenariogrundriss: Sperrfunktion für Benutzer und Delegation
     Angenommen man ist Inventar-Verwalter oder Ausleihe-Verwalter
-    Und man editiert einen Benutzer
+    Und man editiert <Benutzertyp>
     Und man nutzt die Sperrfunktion
     Dann muss man den Grund der Sperrung eingeben
-    Und sofern der Benutzer gesperrt ist, kann man die Sperrung aufheben
+    Und sofern <Benutzertyp> gesperrt ist, kann man die Sperrung aufheben
+    Examples:
+      | Benutzertyp |
+      | Benutzer    |
+      | Delegation  |
 
   @upcoming @personas
   Szenario: Elemente der Editieransicht
