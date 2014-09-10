@@ -987,9 +987,6 @@ msgstr "Pakete"
 msgid "Package Code"
 msgstr "Paketcode"
 
-msgid "Package error"
-msgstr "Paketfehler"
-
 msgid "Package successfully destroyed"
 msgstr "Paket gelöscht"
 
@@ -3001,3 +2998,6 @@ msgstr "Kategorie darf nur ein Bild haben."
 
 msgid "Used on the start page in the borrow section"
 msgstr "Verwendet auf der Startseite im Ausleihbereich"
+
+msgid "A package item must belong to a package model"
+msgstr "Ein Paketgegenstand muss zu einem Paketmodel gehören"

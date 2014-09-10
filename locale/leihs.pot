@@ -969,9 +969,6 @@ msgstr ""
 msgid "Package Code"
 msgstr ""
 
-msgid "Package error"
-msgstr ""
-
 msgid "Package successfully destroyed"
 msgstr ""
 
@@ -2905,4 +2902,7 @@ msgid "Category can have only one image."
 msgstr ""
 
 msgid "Used on the start page in the borrow section"
+msgstr ""
+
+msgid "A package item must belong to a package model"
 msgstr ""

@@ -1344,10 +1344,6 @@ window.i18n.locale_data = {
          null,
          "Paketcode"
       ],
-      "Package error": [
-         null,
-         "Paketfehler"
-      ],
       "Package successfully destroyed": [
          null,
          "Paket gelöscht"
@@ -3847,6 +3843,10 @@ window.i18n.locale_data = {
       "Used on the start page in the borrow section": [
          null,
          "Verwendet auf der Startseite im Ausleihbereich"
+      ],
+      "A package item must belong to a package model": [
+         null,
+         "Ein Paketgegenstand muss zu einem Paketmodel gehören"
       ]
    }
 }

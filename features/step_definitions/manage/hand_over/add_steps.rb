@@ -135,10 +135,10 @@ end
 
 When /^I add so many lines that I break the maximal quantity of an model$/ do
   @model ||= if @contract
-    @contract.lines.sample.model
-  else
-    @customer.get_approved_contract(@current_inventory_pool).lines.sample.model
-  end
+               @contract.lines.where(option_id: nil).sample.model
+             else
+               @customer.get_approved_contract(@current_inventory_pool).lines.sample.model
+             end
   @target_name = @model.name
   quantity_to_add = if @contract
     @model.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups @contract.lines.first.start_date, @contract.lines.first.end_date, @contract.user.groups.map(&:id)

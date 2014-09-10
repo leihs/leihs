@@ -541,7 +541,7 @@ class Item < ActiveRecord::Base
         errors.add(:base, _("A package cannot be nested to another package"))
       end
     else
-      errors.add(:base, _("Package error")) unless children.empty? or model.is_package
+      errors.add(:base, _("A package item must belong to a package model")) unless children.empty? or model.is_package
     end
   end
 

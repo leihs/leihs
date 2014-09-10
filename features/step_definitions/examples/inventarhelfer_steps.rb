@@ -63,7 +63,12 @@ Dann /^ich setze all ihre Initalisierungswerte$/ do
         find("a.ui-corner-all", match: :first).click
         @data[field[:id]] = find(".field[data-id='#{field[:id]}'] [data-type='autocomplete']")
       when "autocomplete-search"
-        string = "Sharp Beamer 123"
+        model = if @item and @item.children.exists? # item is a package
+                  Model.all.find &:is_package?
+                else
+                  Model.all.find {|m| not m.is_package?}
+                end
+        string = model.name
         within ".field[data-id='#{field[:id]}']" do
           find("input").click
           find("input").set string

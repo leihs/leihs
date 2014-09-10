@@ -4,6 +4,7 @@ require 'pry'
 
 def task_hash(name, exec, timeout = nil)
   h = { "name" => name,
+        "auto_trials" => 2,
         "scripts" => {
             "cucumber" => {
                 "body" => exec

@@ -1,55 +1,5 @@
-- name: features/borrow/vorlagen 	
+- name: Anzeige der Seriennummer bei Zuteilung der Software-Lizenz - features/examples/aushaendigung.feature:87
+  auto_trials: 2
   scripts:
     cucumber:
-      timeout: 600
-      body: bundle exec cucumber -p default "features/borrow/vorlagen.feature"
-- name: features/examples/aushaendigung 	
-  scripts:
-    cucumber:
-      timeout: 600
-      body: bundle exec cucumber -p default "features/examples/aushaendigung.feature"
-- name: features/examples/explorative_suche 	
-  scripts:
-    cucumber:
-      timeout: 600
-      body: bundle exec cucumber -p default "features/examples/explorative_suche.feature"
-- name: features/examples/inventar 	
-  scripts:
-    cucumber:
-      timeout: 600
-      body: bundle exec cucumber -p default "features/examples/inventar.feature" 	
-- name: features/examples/inventarhelfer 	
-  scripts:
-    cucumber:
-      timeout: 600
-      body: bundle exec cucumber -p default "features/examples/inventarhelfer.feature" 	
-- name: features/examples/probleme 	
-  scripts:
-    cucumber:
-      timeout: 600
-      body: bundle exec cucumber -p default "features/examples/probleme.feature" 	
-- name: features/examples/software_editieren 	
-  scripts:
-    cucumber:
-      timeout: 600
-      body: bundle exec cucumber -p default "features/examples/software_editieren.feature" 	
-- name: features/examples/software_erfassen 	
-  scripts:
-    cucumber:
-      timeout: 600
-      body: bundle exec cucumber -p default "features/examples/software_erfassen.feature" 	
-- name: features/manage/booking_calendar/availability_changes 	
-  scripts:
-    cucumber:
-      timeout: 600
-      body: bundle exec cucumber -p default "features/manage/booking_calendar/availability_changes.feature" 	
-- name: features/manage/hand_over/assign 	
-  scripts:
-    cucumber:
-      timeout: 600
-      body: bundle exec cucumber -p default "features/manage/hand_over/assign.feature" 	
-- name: features/manage/hand_over/edit_contract_line 	
-  scripts:
-    cucumber:
-      timeout: 600
-      body: bundle exec cucumber -p default "features/manage/hand_over/edit_contract_line.feature" 	
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/aushaendigung.feature:87

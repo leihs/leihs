@@ -27,7 +27,15 @@ When(/^ich kann eine der Vorlagen detailliert betrachten$/) do
 end
 
 When(/^ich sehe mir eine Vorlage an$/) do
-  @template = @current_user.templates.sample
+  @template = @current_user.templates.find do |t|
+    # choose a template, whose all models provide some borrowable quantity (> 0) considering all customer's groups from all his inventory pools
+    t.models.all? do |m|
+      t.inventory_pools.map do |ip|
+        m.total_borrowable_items_for_user(@current_user, ip)
+      end.max > 0
+    end
+  end
+
   visit borrow_template_path(@template)
   find("nav a[href='#{borrow_template_path(@template)}']", match: :first)
 end

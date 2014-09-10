@@ -119,14 +119,10 @@ end
 
 When(/^I click on the assignment field of software names$/) do
   @contract_line = @hand_over.lines.find {|l| l.model.is_a? Software }
-  within ".line[data-id='#{@contract_line.id}']" do
-    find("input[data-assign-item]").click
-    sleep(0.33)
-  end
+  find(".line[data-id='#{@contract_line.id}'] input[data-assign-item]").click
 end
 
 Then(/^I see the inventory codes and the complete serial numbers of that software$/) do
-  sleep(0.66)
   within ".ui-autocomplete" do
     @contract_line.model.items.each do |item|
       within(".ui-menu-item a[title='#{item.inventory_code}']", text: item.serial_number) do
