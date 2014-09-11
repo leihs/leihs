@@ -12,5 +12,9 @@
             %span.italic.grey-text= _("Please select an inventory pool")
             %i.arrow.grey.down.margin-left-xs
         #ip-dropdown-menu.bs-dropdown.right.width-m
-          - current_managed_inventory_pools.each do |ip|
-            %a.dropdown-item.text-ellipsis{:title => ip, :href => manage_root_path(:inventory_pool_id => ip.id)}= ip
+          - if action_name == "daily"
+            - current_managed_inventory_pools.each do |ip|
+              %a.dropdown-item.text-ellipsis{:title => ip, :href => manage_daily_view_path(:inventory_pool_id => ip.id)}= ip
+          - else
+            - current_managed_inventory_pools.each do |ip|
+              %a.dropdown-item.text-ellipsis{:title => ip, :href => manage_root_path(:inventory_pool_id => ip.id)}= ip
