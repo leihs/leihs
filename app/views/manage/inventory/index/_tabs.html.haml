@@ -1,7 +1,7 @@
 #list-tabs.inline-tab-navigation
 
   %a.inline-tab-item{class: ("active" unless session[:params].try(:fetch, :type, nil))}
-    = _("Alle")
+    = _("All")
 
   %a.inline-tab-item{data: {type: "item"}, class: (session[:params].try(:fetch, :type, nil) == "item" ? "active" : nil)}
     = _("Models")
