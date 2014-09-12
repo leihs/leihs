@@ -5,7 +5,7 @@ Funktionalität: Anzeige von Problemen
   Grundlage:
     Angenommen ich bin Pius
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Problemanzeige wenn Modell nicht verfügbar bei Bestellungen
     Angenommen ich editiere eine Bestellung
      Und ein Modell ist nichtmehr verfügbar
@@ -15,7 +15,7 @@ Funktionalität: Anzeige von Problemen
      Und "3" sind insgesamt verfügbar inklusive diejenigen Gruppen, welchen der Kunde nicht angehört
      Und "7" sind total im Pool bekannt (ausleihbar)
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Problemanzeige bei Rücknahme wenn Gegenstand defekt
     Angenommen ich mache eine Rücknahme eines Gegenstandes
      Und eine Gegenstand ist defekt
@@ -29,7 +29,7 @@ Funktionalität: Anzeige von Problemen
      Dann sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen
      Und das Problem wird wie folgt dargestellt: "Gegenstand ist defekt"
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Problemanzeige bei Rücknahme wenn Gegenstand unvollständig
     Angenommen ich mache eine Rücknahme eines Gegenstandes
      Und eine Gegenstand ist unvollständig
@@ -43,7 +43,7 @@ Funktionalität: Anzeige von Problemen
      Dann sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen
      Und das Problem wird wie folgt dargestellt: "Gegenstand nicht ausleihbar"
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Problemanzeige bei Rücknahme wenn Gegenstand nicht ausleihbar
     Angenommen ich mache eine Rücknahme eines Gegenstandes
     Und eine Gegenstand ist nicht ausleihbar

@@ -62,7 +62,7 @@ Funktionalität: Gegenstand bearbeiten
     Und ich speichere
     Dann ist bei dem bearbeiteten Gegenstand keiner Lieferant eingetragen
 
-  @javascript @personas @firefox
+  @javascript @personas @browser
   Szenario: Einen Gegenstand mit allen Informationen editieren
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist, der am Lager und in keinem Vertrag vorhanden ist
     Wenn ich die folgenden Informationen erfasse
@@ -105,7 +105,7 @@ Funktionalität: Gegenstand bearbeiten
     Und ich speichere
     Dann erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät ausgeliehen ist
 
-  @javascript @personas @firefox
+  @javascript @personas @browser
   Szenario: Einen Gegenstand mit allen Informationen editieren
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist, der am Lager und in keinem Vertrag vorhanden ist
     Wenn ich die folgenden Informationen erfasse
@@ -181,7 +181,7 @@ Funktionalität: Gegenstand bearbeiten
     Und ich speichere
     Dann erhält man eine Fehlermeldung, dass man den Gegenstand nicht ausmustern kann, da das Gerät bereits ausgeliehen oder einer Vertragslinie zugewiesen ist
 
-  @javascript @personas @firefox
+  @javascript @personas @browser
   Szenario: Einen Gegenstand mit allen Informationen editieren
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist, der am Lager und in keinem Vertrag vorhanden ist
     Wenn ich die folgenden Informationen erfasse
@@ -205,7 +205,7 @@ Funktionalität: Gegenstand bearbeiten
     Dann man wird zur Liste des Inventars zurueckgefuehrt
     Und ist der Gegenstand mit all den angegebenen Informationen gespeichert
 
-  @javascript @personas @firefox
+  @javascript @personas @browser
   Szenario: Einen Gegenstand mit allen Informationen editieren
     Angenommen man editiert einen Gegenstand, wo man der Besitzer ist, der am Lager und in keinem Vertrag vorhanden ist
     Wenn ich die folgenden Informationen erfasse

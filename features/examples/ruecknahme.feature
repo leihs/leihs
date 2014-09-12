@@ -33,7 +33,7 @@ Funktionalität: Rücknahme
     Und das Problemfeld für die Linie wird angezeigt
     Und ich erhalte eine Erfolgsmeldung
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Festhalten wer einen Gegenstand zurückgenommen hat
     Wenn ich einen Gegenstand zurücknehme
     Dann wird festgehalten, dass ich diesen Gegenstand zurückgenommen habe
@@ -54,7 +54,7 @@ Funktionalität: Rücknahme
     Dann wird die Zeile grün markiert
     Und ich erhalte eine Erfolgsmeldung
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Inspektion während einer Rücknahme
     Angenommen ich befinde mich in einer Rücknahme mit mindestens einem Gegenstand und einer Option
     Wenn ich bei der Option eine Stückzahl von 1 eingebe

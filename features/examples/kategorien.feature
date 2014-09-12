@@ -46,28 +46,28 @@ Funktionalität: Kategorien
     Wenn eine Kategorie genutzt ist
     Dann ist es nicht möglich die Kategorie zu löschen
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Modell der Kategorie zuteilen
     Wenn man das Modell editiert
     Und ich die Kategorien zuteile
     Und ich das Modell speichere
     Dann sind die Kategorien zugeteilt
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Kategorien entfernen
     Wenn man das Modell editiert
     Und ich eine oder mehrere Kategorien entferne
     Und ich das Modell speichere
     Dann sind die Kategorien entfernt und das Modell gespeichert
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Kategorie suchen
     Wenn man nach einer Kategorie anhand des Namens sucht
     Dann sieht man nur die Kategorien, die den Suchbegriff im Namen enthalten
     Und sieht die Ergebnisse in alphabetischer Reihenfolge
     Und man kann diese Kategorien editieren
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: nicht genutzte Kategorie suchen und löschen 
     Wenn man nach einer ungenutzten Kategorie anhand des Namens sucht
     Dann sieht man nur die Kategorien, die den Suchbegriff im Namen enthalten
@@ -77,7 +77,7 @@ Funktionalität: Kategorien
   Szenario: Kategorien
     Dann man sieht das Register Kategorien
 
-  @javascript @personas @firefox
+  @javascript @personas @browser
   Szenario: Kategorien erstellen
     Wenn man das Register Kategorien wählt
     Und man eine neue Kategorie erstellt

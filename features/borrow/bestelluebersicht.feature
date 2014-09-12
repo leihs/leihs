@@ -24,7 +24,7 @@ Funktionalität: Bestellübersicht
     |Enddatum|
     |die versch. Aktionen|
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Bestellübersicht Aktion 'löschen'
     Wenn ich einen Eintrag lösche
     Dann die Gegenstände sind wieder zur Ausleihe verfügbar
@@ -64,7 +64,7 @@ Funktionalität: Bestellübersicht
     Wenn die Zeit abgelaufen ist
     Dann werde ich auf die Timeout Page weitergeleitet
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Bestellübersicht Bestellung löschen
     Wenn ich die Bestellung lösche
     Dann werde ich gefragt ob ich die Bestellung wirklich löschen möchte

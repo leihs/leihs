@@ -47,7 +47,7 @@ ActionController::Base.allow_rescue = false
 require 'selenium/webdriver'
 
 Capybara.register_driver :selenium_phantomjs do |app|
-  Capybara::Selenium::Driver.new app, browser: :phantomjs #, capabilities: {a: 1}
+  Capybara::Selenium::Driver.new app, browser: :phantomjs
 end
 
 Capybara.register_driver :selenium_firefox do |app|
@@ -94,20 +94,47 @@ Before('@javascript') do
   @use_phantomjs = true
 end
 
-Before('@firefox') do
-  @use_firefox = ENV["FIREFOX"] == "0" ? false : true
+Before('@browser', '@firefox') do
+  @use_browser = :firefox
 end
 
-Before('@chrome') do
-  @use_chrome = true
+Before('@browser', '@chrome') do
+  @use_browser = :chrome
+end
+
+Before('@browser') do
+  @use_browser = case ENV["BROWSER"]
+                   when "0"
+                     false
+                   when "chrome"
+                     :chrome
+                   when "firefox"
+                     :firefox
+                   else
+                     @use_browser || ENV['DEFAULT_BROWSER'].try(:to_sym) || :firefox
+                 end
+end
+
+Before('~@browser') do
+  @use_browser = case ENV["BROWSER"]
+                   when "chrome"
+                     :chrome
+                   when "firefox"
+                     :firefox
+                   else
+                     false
+                 end
 end
 
 Before do
-  if @use_firefox ||= ENV["FIREFOX"] == "1"
-    Capybara.current_driver = :selenium_firefox
+  if @use_browser
+    case @use_browser
+      when :firefox
+        Capybara.current_driver = :selenium_firefox
+      when :chrome
+        Capybara.current_driver = :selenium_chrome
+    end
     page.driver.browser.manage.window.maximize # to prevent Selenium::WebDriver::Error::MoveTargetOutOfBoundsError: Element cannot be scrolled into view
-  elsif @use_chrome
-    Capybara.current_driver = :selenium_chrome
   elsif @use_phantomjs
     Capybara.current_driver = :selenium_phantomjs
   end
@@ -126,7 +153,7 @@ end
 ##################################################################################
 
 After do
-  if @use_firefox
+  if @use_browser and @use_browser == :firefox
     errors = page.execute_script("return window.JSErrorCollector_errors.pump()")
     if errors.any?
       puts '-------------------------------------------------------------'

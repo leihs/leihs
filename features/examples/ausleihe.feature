@@ -5,13 +5,13 @@ Funktionalität: Ausleihe
   Grundlage:
     Angenommen ich bin Pius
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Selektion bei manueller Interaktion bei Aushändigung
     Wenn ich eine Aushändigung mache
     Und einem Gegenstand einen Inventarcode manuell zuweise
     Dann wird der Gegenstand ausgewählt und der Haken gesetzt
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Aushändigen: In den Inventarcodelisten nicht verfügbare Gegenstände hervorheben
     Wenn ich eine Aushändigung mache die ein Model enthält dessen Gegenstände ein nicht ausleihbares enthält
     Und diesem Model ein Inventarcode zuweisen möchte
@@ -47,7 +47,7 @@ Funktionalität: Ausleihe
     Dann erkenne ich, in welchen Gruppen der Kunde ist
     Und dann erkennen ich, in welchen Gruppen der Kunde nicht ist
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Scanning-Verhalten beim Aushändigen
     Wenn ich eine Aushändigung mache mit einem Kunden der sowohl am heutigen Tag sowie in der Zukunft Abholungen hat
     Wenn ich etwas scanne (per Inventarcode zuweise) und es in irgendeinem zukünftigen Vertrag existiert
@@ -55,7 +55,7 @@ Funktionalität: Ausleihe
     Wenn es in keinem zukünftigen Vertrag existiert 
     Dann wird es für die ausgewählte Zeitspanne hinzugefügt
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Aushändigung von Gegenständen und Lizenzen anhand von Inventarcode
     Angenommen ich mache eine Aushändigung
     Wenn ich der Aushändigung einen Gegenstand mit Hilfe eines Inventarcodes hinzufüge
@@ -65,7 +65,7 @@ Funktionalität: Ausleihe
     Und ich auf "Aushändigen" drücke
     Dann sind im Vertrag sowohl der Gegenstand als auch die Lizenz aufgeführt
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Aushändigung von Gegenständen und Lizenzen anhand von Modellsuche
     Angenommen ich mache eine Aushändigung
     Wenn ich der Aushändigung einen ausleihbaren Gegenstand mit Hilfe des Suchfeldes hinzufüge
@@ -75,7 +75,7 @@ Funktionalität: Ausleihe
     Und ich auf "Aushändigen" drücke
     Dann sind im Vertrag sowohl der Gegenstand als auch die Lizenz aufgeführt
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Inspektion bei Rücknahme
     Angenommen ich mache eine Rücknahme eines Gegenstandes
     Dann habe ich für jeden Gegenstand die Möglichkeit, eine Inspektion auszulösen
@@ -87,7 +87,7 @@ Funktionalität: Ausleihe
     Und wenn ich die Inspektion speichere
     Dann wird der Gegenstand mit den aktuell gesetzten Status gespeichert
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Automatischer Druck Dialog beim Aushändigen
     Wenn ich eine Aushändigung mache
     Dann wird automatisch der Druck-Dialog geöffnet

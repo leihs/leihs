@@ -26,7 +26,7 @@ Funktionalität: Modellliste
     | Herstellname         |
     | Auswahl-Schaltfläche |
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Modellliste scrollen
     Angenommen ich bin Normin
     Und man sieht eine Modellliste die gescroll werden muss
@@ -66,7 +66,7 @@ Funktionalität: Modellliste
     Wenn man sich auf der Modellliste befindet
     Dann ist die Geräteparkauswahl alphabetisch sortiert
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Geräteparkauswahl "alle auswählen"
     Angenommen ich bin Normin
     Wenn man sich auf der Modellliste befindet
@@ -82,7 +82,7 @@ Funktionalität: Modellliste
     Wenn man sich auf der Modellliste befindet
     Dann kann man nicht alle Geräteparks in der Geräteparkauswahl abwählen
 
-  @javascript @personas @firefox
+  @javascript @personas @browser
   Szenario: Ausleihezeitraum Startdatum wählen
     Angenommen ich bin Petra
     Wenn man sich auf der Modellliste befindet die nicht verfügbare Modelle beinhaltet
@@ -119,7 +119,7 @@ Funktionalität: Modellliste
     Wenn man ein Suchwort eingibt
     Dann werden diejenigen Modelle angezeigt, deren Name oder Hersteller dem Suchwort entsprechen
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Hovern über Modellen
     Angenommen ich bin Normin
     Und es gibt ein Modell mit Bilder, Beschreibung und Eigenschaften

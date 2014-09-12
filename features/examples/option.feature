@@ -5,7 +5,7 @@ Funktionalität: Option
   Grundlage:
     Angenommen ich bin Mike
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Option hinzufügen
     Angenommen man öffnet die Liste des Inventars
     Wenn ich eine neue Option hinzufüge
@@ -17,7 +17,7 @@ Funktionalität: Option
     Und ich speichere die Informationen
     Dann die neue Option ist erstellt
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Option bearbeiten
     Angenommen man öffnet die Liste des Inventars
     Wenn ich eine bestehende Option bearbeite

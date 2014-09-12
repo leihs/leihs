@@ -5,7 +5,7 @@ Funktionalität: Software kopieren
   Grundlage:
     Angenommen ich bin Mike
 
-  @personas @javascript @firefox
+  @personas @javascript @browser
   Szenario: Software kopieren
     Angenommen es existiert eine Software-Lizenz
     Wenn ich eine bestehende Software-Lizenz kopiere
@@ -34,7 +34,7 @@ Funktionalität: Software kopieren
       | Maintenance-Vertrag       |
       | Maintenance-Ablaufdatum   |
 
-  @personas @javascript @firefox
+  @personas @javascript @browser
   Szenario: Wo kann Software kopiert werden
     Angenommen es existiert eine Software-Lizenz
     Wenn man im Inventar Bereich ist

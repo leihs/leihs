@@ -8,7 +8,7 @@ Funktionalität: Inventar
     Und man öffnet die Liste der Geräteparks
     Dann kann man das globale Inventar als CSV-Datei exportieren
 
-  @javascript @personas @firefox
+  @javascript @personas @browser
   Szenario: Export der aktuellen Ansicht als CSV
     Angenommen ich bin Mike
     Und man öffnet die Liste des Inventars

@@ -9,7 +9,7 @@ Funktionalität: Rücknahmen
   Grundlage:
     Angenommen ich bin Pius
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Festhalten wer einen Gegenstand zurückgenommen hat
     Wenn ich einen Gegenstand zurücknehme
     Dann wird festgehalten, dass ich diesen Gegenstand zurückgenommen habe

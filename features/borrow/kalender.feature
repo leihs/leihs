@@ -9,7 +9,7 @@ Funktionalität: Kalender
   Grundlage:
     Angenommen ich bin Normin
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Kalenderkomponenten
     Wenn man einen Gegenstand aus der Modellliste hinzufügt
     Dann öffnet sich der Kalender
@@ -33,7 +33,7 @@ Funktionalität: Kalender
     Und die Anzahl ist 1
     Und es sind alle Geräteparks angezeigt die Gegenstände von dem Modell haben
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Kalender Grundeinstellung wenn Zeitspanne bereits ausgewählt
     Angenommen man befindet sich auf der Modellliste
     Und man hat eine Zeitspanne ausgewählt
@@ -51,7 +51,7 @@ Funktionalität: Kalender
     Und es wird der alphabetisch erste Gerätepark ausgewählt der teil der begrenzten Geräteparks ist
     Dann werden die Schliesstage gemäss gewähltem Gerätepark angezeigt
 
-  @javascript  @firefox @personas
+  @javascript  @browser @personas
   Szenario: Kalender zwischen Monaten hin und herspringen
     Angenommen man hat den Buchungskalender geöffnet
     Wenn man zwischen den Monaten hin und herspring
@@ -65,7 +65,7 @@ Funktionalität: Kalender
     Wenn man anhand der Sprungtaste zum aktuellen Enddatum springt
     Dann wird das Enddatum im Kalender angezeigt
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Meiner Bestellung einen Gegenstand hinzufügen
     Wenn man sich auf der Modellliste befindet die verfügbare Modelle beinhaltet
     Und man auf einem verfügbaren Model "Zur Bestellung hinzufügen" wählt
@@ -89,7 +89,7 @@ Funktionalität: Kalender
   Szenario: Kalender Anzeige der Schliesstage
     Angenommen man hat den Buchungskalender geöffnet
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Bestellkalender nutzen nach dem man alle Filter zurückgesetzt hat
     Angenommen ich ein Modell der Bestellung hinzufüge
     Und man sich auf der Modellliste befindet
@@ -100,12 +100,12 @@ Funktionalität: Kalender
     Wenn alle Angaben die ich im Kalender mache gültig sind
     Dann lässt sich das Modell mit Start- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügen
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Etwas bestellen, was nur Gruppen vorbehalten ist
     Wenn ein Modell existiert, welches nur einer Gruppe vorbehalten ist
     Dann kann ich dieses Modell ausleihen, wenn ich in dieser Gruppe bin
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Kalender Bestellung nicht möglich, wenn Auswahl nicht verfügbar
     Wenn man versucht ein Modell zur Bestellung hinzufügen, welches nicht verfügbar ist
     Dann schlägt der Versuch es hinzufügen fehl

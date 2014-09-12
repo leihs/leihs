@@ -22,7 +22,7 @@ Funktionalität: Inventarhelfer
     Und die geänderten Werte sind hervorgehoben
     Und der Ort des anderen Gegenstandes ist dergleiche geblieben
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Bei ausgeliehenen Gegenständen kann man die verantwortliche Abteilung nicht editieren
     Angenommen man ist auf dem Helferschirm
     Und man editiert das Feld "Verantwortliche Abteilung" eines ausgeliehenen Gegenstandes, wo man Besitzer ist
@@ -72,7 +72,7 @@ Funktionalität: Inventarhelfer
     Dann sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert
     Und die geänderten Werte sind hervorgehoben
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Editeren nach automatischen speichern
     Angenommen man editiert ein Gerät über den Helferschirm mittels Inventarcode
     Wenn man die Editierfunktion nutzt

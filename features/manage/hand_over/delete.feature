@@ -20,7 +20,7 @@ Feature: Sign Contract
     And I delete the seleted lines
     Then these lines are deleted
 
-  @javascript @personas @firefox
+  @javascript @personas @browser
   Scenario: Delete lines which changes other lines availability
     When I open a hand over
     And I delete all lines of a model thats availability is blocked by these lines

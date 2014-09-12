@@ -50,14 +50,14 @@ Funktionalität: Explorative Suche
     Und ich sehe die Hauptkategorie sowie die aktuell ausgewählte und die darunterliegenden Kategorien
     Und die Modelle wurden nach dieser Kategorie gefiltert
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Explorative Suche in der Bestellung
     Angenommen ich befinde mich in einer Bestellung
     Dann kann ich ein Modell anhand der explorativen Suche wählen
     Und die explorative Suche zeigt nur Modelle aus meinem Park an
     Und die nicht verfügbaren Modelle sind rot markiert
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Explorative Suche in der Aushändigung
     Wenn ich eine Aushändigung mache
     Dann kann ich ein Modell anhand der explorativen Suche wählen

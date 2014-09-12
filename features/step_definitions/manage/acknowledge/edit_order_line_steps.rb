@@ -19,6 +19,14 @@ When /^I open a contract for acknowledgement( with more then one line)?$/ do |ar
   expect(has_selector?("[data-order-approve]", :visible => true)).to be true
 end
 
+When /^I open a contract for acknowledgement, whose start date is not in the past$/ do
+  @contract = @current_inventory_pool.contracts.submitted.find {|c| c.min_date >= Date.today}
+  expect(@contract).not_to be_nil
+  @customer = @contract.user
+  visit manage_edit_contract_path(@current_inventory_pool, @contract)
+  expect(has_selector?("[data-order-approve]", :visible => true)).to be true
+end
+
 When /^I open the booking calendar for this line$/ do
   begin
     el = @line_element

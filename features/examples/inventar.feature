@@ -90,31 +90,31 @@ Funktionalität: Inventar
     | Normal Model |
     | AVZ40020     |
 
-  @personas @javascript @firefox
+  @personas @javascript @browser
   Szenario: Auswahlmöglichkeiten: Alle-Tab
     Dann kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:
       | Auswahlmöglichkeit |
       | Alle               |
 
-  @personas @javascript @firefox
+  @personas @javascript @browser
   Szenario: Auswahlmöglichkeiten: Modell-Tab
     Dann kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:
       | Auswahlmöglichkeit |
       | Modelle            |
 
-  @personas @javascript @firefox
+  @personas @javascript @browser
   Szenario: Auswahlmöglichkeiten: Optionen-Tab
     Dann kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:
       | Auswahlmöglichkeit |
       | Optionen           |
 
-  @personas @javascript @firefox
+  @personas @javascript @browser
   Szenario: Auswahlmöglichkeiten: Software-Tab
     Dann kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:
       | Auswahlmöglichkeit |
       | Software           |
 
-  @personas @javascript @firefox
+  @personas @javascript @browser
   Szenariogrundriss: Auswahlmöglichkeiten: genutzt & ungenutzt
     Angenommen ich sehe ausgemustertes und nicht ausgemustertes Inventar
     Wenn ich innerhalb des gesamten Inventars als "<Select-Feld>" die Option "<Eigenschaft>" wähle
@@ -124,7 +124,7 @@ Funktionalität: Inventar
     | genutzt & ungenutzt | genutzt       |
     | genutzt & ungenutzt | nicht genutzt |
 
-  @personas @javascript @firefox
+  @personas @javascript @browser
   Szenariogrundriss: Auswahlmöglichkeiten: ausleihbar & nicht ausleihbar
     Angenommen ich sehe ausgemustertes und nicht ausgemustertes Inventar
     Wenn ich innerhalb des gesamten Inventars als "<Select-Feld>" die Option "<Eigenschaft>" wähle
@@ -134,7 +134,7 @@ Funktionalität: Inventar
     | ausleihbar & nicht ausleihbar | ausleihbar       |
     | ausleihbar & nicht ausleihbar | nicht ausleihbar |
 
-  @personas @javascript @firefox
+  @personas @javascript @browser
   Szenariogrundriss: Auswahlmöglichkeiten: ausgemustert & nicht ausgemustert
     Angenommen ich sehe ausgemustertes und nicht ausgemustertes Inventar
     Wenn ich innerhalb des gesamten Inventars als "<Select-Feld>" die Option "<Eigenschaft>" wähle
@@ -144,7 +144,7 @@ Funktionalität: Inventar
     | ausgemustert & nicht ausgemustert | ausgemustert       |
     | ausgemustert & nicht ausgemustert | nicht ausgemustert |
 
-  @personas @javascript @firefox
+  @personas @javascript @browser
   Szenariogrundriss: Auswahlmöglichkeiten: Checkboxen
     Angenommen ich sehe ausgemustertes und nicht ausgemustertes Inventar
     Wenn ich innerhalb des gesamten Inventars die "<Filterwahl>" setze
@@ -223,7 +223,7 @@ Funktionalität: Inventar
       | Anzahl verfügbar (jetzt) |
       | Anzahl verfügbar (Total) |
 
-  @javascript @personas @firefox
+  @javascript @personas @browser
   Szenario: Aussehen einer Gegenstands-Zeile
     Wenn der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist
     Dann enthält die Gegenstands-Zeile folgende Informationen:
@@ -244,7 +244,7 @@ Funktionalität: Inventar
       | Aktueller Ausleihender    |
       | Enddatum der Ausleihe     |
 
-  @javascript @personas @firefox
+  @javascript @personas @browser
   Szenario: Aussehen einer Software-Lizenz-Zeile
     Angenommen es gibt eine Software-Lizenz
     Und ich sehe ausgemustertes und nicht ausgemustertes Inventar
@@ -286,7 +286,7 @@ Funktionalität: Inventar
     Wenn ich eine resultatlose Suche mache
     Dann sehe ich "Kein Eintrag gefunden"
 
-  @javascript @personas @firefox
+  @javascript @personas @browser
   Szenario: Modell aufklappen
     Dann kann man jedes Modell aufklappen
     Und man sieht die Gegenstände, die zum Modell gehören
@@ -313,7 +313,7 @@ Funktionalität: Inventar
       | Unvollständig    |
       | Nicht ausleihbar |
 
-  @personas @javascript @firefox
+  @personas @javascript @browser
   Szenario: Auszeichnung von mehreren Zuständen auf der Gegenstandszeile
     Angenommen ich sehe ausgemustertes und nicht ausgemustertes Inventar
     Und es exisitert ein Gegenstand mit mehreren Problemen

@@ -98,7 +98,7 @@ Funktionalität: Software erfassen
     Und ich speichere
     Dann sind die Informationen dieser Software-Lizenz gespeichert
 
-  @personas @javascript @firefox
+  @personas @javascript @browser
   Szenario: Lizenzanzahl bei Mehrplatz/Konkurrent/Site-Lizenzen
     Angenommen es existiert ein Software-Produkt
     Wenn ich eine neue Software-Lizenz hinzufüge

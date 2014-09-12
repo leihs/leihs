@@ -17,7 +17,9 @@ After do |scenario|
 end
 
 AfterStep do |scenario| 
-  if scenario.instance_eval{@tags}.tags.map(&:name).include? "@take_screenshots" 
-    take_screenshot
+  if t = scenario.instance_eval{@tags}
+    if t.tags.map(&:name).include? "@take_screenshots" 
+      take_screenshot
+    end
   end
 end

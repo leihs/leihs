@@ -17,7 +17,7 @@ Funktionalität: Vorlagen
     Und die Vorlagen sind alphabetisch nach Namen sortiert
     Und ich kann eine der Vorlagen detailliert betrachten
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Betrachten einer Vorlage
     Angenommen ich sehe mir eine Vorlage an
     Dann sehe ich alle Modelle, die diese Vorlage beinhaltet
@@ -41,7 +41,7 @@ Funktionalität: Vorlagen
     Und ich muss im Prozess weiterfahren zur Verfügbarkeitsanzeige der Vorlage
     Und alle Einträge erhalten das ausgewählte Start- und Enddatum
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Verfügbarkeitsansicht der Vorlage
     Angenommen ich sehe die Verfügbarkeit einer Vorlage, die nicht verfügbare Modelle enthält
     Dann sind diejenigen Modelle hervorgehoben, die zu diesem Zeitpunkt nicht verfügbar sind

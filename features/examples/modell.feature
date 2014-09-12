@@ -15,7 +15,7 @@ Funktionalität: Modell
       | Anhänge |
       | Zubehör |
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Modelldetails abfüllen
     Wenn ich ein neues Modell hinzufüge
     Und ich erfasse die folgenden Details
@@ -48,14 +48,14 @@ Funktionalität: Modell
     Wenn ich ein bestehendes, genutztes Modell bearbeite welches bereits ein aktiviertes Zubehör hat
     Dann kann ich ein einzelnes Zubehör für meinen Pool deaktivieren
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: sich ergänzende Modelle entfernen (kompatibel)
     Wenn ich ein Modell öffne, das bereits ergänzende Modelle hat
     Und ich ein ergänzendes Modell entferne
     Und ich speichere die Informationen
     Dann ist das Modell ohne das gelöschte ergänzende Modell gespeichert
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Gruppenverteilung editieren
     Angenommen ich editieren ein bestehndes Modell mit bereits zugeteilten Kapazitäten
     Wenn ich bestehende Zuteilungen entfernen
@@ -73,14 +73,14 @@ Funktionalität: Modell
     Und das Modell wurde aus der Liste gelöscht
     Und das Modell ist gelöscht
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: sich ergänzende Modelle hinzufügen (kompatibel)
     Wenn ich ein bestehendes, genutztes Modell bearbeite
     Und ich ein ergänzendes Modell mittel Autocomplete Feld hinzufüge
     Und ich speichere die Informationen
     Dann ist dem Modell das ergänzende Modell hinzugefügt worden
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: 2 Mal gleiches ergänzende Modelle hinzufügen (kompatibel)
     Wenn ich ein Modell öffne, das bereits ergänzende Modelle hat
     Und ich ein bereits bestehendes ergänzende Modell mittel Autocomplete Feld hinzufüge
@@ -105,7 +105,7 @@ Funktionalität: Modell
     Und das Modell ist gelöscht
     Und es wurden auch alle Anhängsel gelöscht
 
-  @javascript @personas @firefox
+  @javascript @personas @browser
   Szenario: Modelldetails bearbeiten
     Wenn ich ein bestehendes, genutztes Modell bearbeite
     Und ich ändere die folgenden Details
@@ -176,7 +176,7 @@ Funktionalität: Modell
     Und das Modell ist gelöscht
     Und es wurden auch alle Anhängsel gelöscht
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Modell erstellen nur mit Name
     Wenn ich ein neues Modell hinzufüge
     Und ich speichere die Informationen
@@ -201,7 +201,7 @@ Funktionalität: Modell
     Dann wurden die ausgewählten Bilder für dieses Modell gespeichert
     Und zu grosse Bilder werden den erlaubten Grössen entsprechend verkleinert
 
-  @javascript @personas @firefox
+  @javascript @personas @browser
   Szenario: Bilder
     Wenn ich ein bestehendes, genutztes Modell bearbeite
     Dann kann ich mehrere Bilder hinzufügen

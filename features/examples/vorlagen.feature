@@ -14,7 +14,7 @@ Funktionalität: Vorlagen verwalten
     Dann öffnet sich die Seite mit der Liste der im aktuellen Inventarpool erfassten Vorlagen
     Und die Vorlagen für dieses Inventarpool sind alphabetisch nach Namen sortiert
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Vorlage erstellen
     Und ich befinde mich auf der Liste der Vorlagen
     Wenn ich auf den Button "Neue Vorlage" klicke

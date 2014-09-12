@@ -27,20 +27,20 @@ Funktionalität: Zweck
     Wenn ich eine Bestellung editiere
     Dann kann ich den Zweck editieren
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Aushändigung mit Gegenständen teilweise ohne Zweck übertragen einen angegebenen Zweck nur auf die Gegenstände ohne Zweck
     Wenn ich eine Aushändigung mache
      Und einige der ausgewählten Gegenstände hat keinen Zweck angegeben
      Und ich einen Zweck angebe
     Dann wird nur den Gegenständen ohne Zweck der angegebene Zweck zugewiesen
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Aushändigung mit Gegenständen die alle einen Zweck haben
     Wenn ich eine Aushändigung mache
     Und alle der ausgewählten Gegenstände haben einen Zweck angegeben
     Dann kann ich keinen weiteren Zweck angeben
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Aushändigung ohne Zweck
     Wenn ich eine Aushändigung mache
     Und keine der ausgewählten Gegenstände hat einen Zweck angegeben
@@ -48,7 +48,7 @@ Funktionalität: Zweck
     Und erst wenn ich einen Zweck angebebe
     Dann kann ich die Aushändigung durchführen
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Aushändigung mit Gegenständen teilweise ohne Zweck können durchgeführt werden
     Wenn ich eine Aushändigung mache
     Und einige der ausgewählten Gegenstände hat keinen Zweck angegeben

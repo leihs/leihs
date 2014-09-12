@@ -118,6 +118,14 @@ When /^I open a hand over with overdue lines$/ do
   expect(has_selector?("#hand-over-view", :visible => true)).to be true
 end
 
+When /^I open a hand over for today$/ do
+  @hand_over = @current_inventory_pool.visits.hand_over.find {|ho| ho.date == Date.today}
+  expect(@hand_over).not_to be nil
+  @customer = @hand_over.user
+  visit manage_hand_over_path(@current_inventory_pool, @customer)
+  expect(has_selector?("#hand-over-view", :visible => true)).to be true
+end
+
 When /^I select an overdue item line and assign an inventory code$/ do
   @item_line = @line = @customer.visits.hand_over.detect{|v| v.date < Date.today}.lines.detect {|l| l.class.to_s == "ItemLine" and @models_in_stock.include? l.model}
   expect(@item_line).not_to be nil

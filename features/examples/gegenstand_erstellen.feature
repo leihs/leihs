@@ -115,7 +115,7 @@ Funktionalität: Gegenstand erstellen
     Dann wird der neue Lieferant erstellt
     Und bei dem erstellten Gegestand ist der neue Lieferant eingetragen
 
-  @javascript @personas @firefox
+  @javascript @personas @browser
   Szenario: Einen Gegenstand mit allen Informationen erstellen
     Angenommen ich bin Matti
     Und man navigiert zur Gegenstandserstellungsseite
@@ -140,7 +140,7 @@ Funktionalität: Gegenstand erstellen
     Dann man wird zur Liste des Inventars zurueckgefuehrt
     Und ist der Gegenstand mit all den angegebenen Informationen erstellt
 
-  @javascript @personas @firefox
+  @javascript @personas @browser
   Szenario: Einen Gegenstand mit allen Informationen erstellen
     Angenommen ich bin Matti
     Und man navigiert zur Gegenstandserstellungsseite
@@ -196,7 +196,7 @@ Funktionalität: Gegenstand erstellen
     Und ich sehe eine Fehlermeldung
     Und die anderen Angaben wurde nicht gelöscht
 
-  @javascript @personas @firefox
+  @javascript @personas @browser
   Szenario: Einen Gegenstand mit allen Informationen erstellen
     Angenommen ich bin Matti
     Und man navigiert zur Gegenstandserstellungsseite
@@ -221,7 +221,7 @@ Funktionalität: Gegenstand erstellen
     Dann man wird zur Liste des Inventars zurueckgefuehrt
     Und ist der Gegenstand mit all den angegebenen Informationen erstellt
 
-  @javascript @personas @firefox
+  @javascript @personas @browser
   Szenario: Einen Gegenstand mit allen Informationen erstellen
     Angenommen ich bin Matti
     Und man navigiert zur Gegenstandserstellungsseite

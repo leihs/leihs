@@ -13,7 +13,7 @@ Funktionalität: Modell Eigenschaften
   Und ich das Modell speichere
   Dann sind die Eigenschaften gemäss Sortierreihenfolge für dieses Modell gespeichert
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Eigenschaften editieren
   Angenommen ich editiere ein Modell
   Wenn ich Eigenschaften hinzufügen und die Felder mit den Platzhaltern Schlüssel und Wert angebe

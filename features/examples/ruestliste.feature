@@ -20,7 +20,8 @@ Funktionalität: Rüstliste
     | Verleiher        |
     | Liste            |
 
-  @personas @javascript @firefox
+  # using chrome because clicking in autocomplete input field with selenium firefox does not work (manually with firefox it does)
+  @personas @javascript @browser @chrome
   Szenario: Inhalt der Rüstliste vor Aushändigung - keine Zuteilung von Inventarcode
     Angenommen es gibt eine Aushändigung mit mindestens einem nicht problematischen Modell und einer Option
     Und ich die Aushändigung öffne
@@ -41,7 +42,7 @@ Funktionalität: Rüstliste
     Und Gegenständen kein Raum oder Gestell zugeteilt sind, wird die verfügbare Anzahl für den Kunden und "x Ort nicht definiert" angezeigt
     Und fehlende Rauminformationen bei Optionen werden als "Ort nicht definiert" angezeigt
 
-  @personas @javascript @firefox
+  @personas @javascript @browser
   Szenario: Inhalt der Rüstliste vor Aushändigung - nicht verfügbare Gegenstände
     Angenommen es gibt eine Aushändigung mit mindestens einer problematischen Linie
     Und ich die Aushändigung öffne
@@ -50,7 +51,7 @@ Funktionalität: Rüstliste
     Dann sind die Listen zuerst nach Ausleihdatum sortiert
     Und nicht verfügbaren Gegenständen, wird "Nicht verfügbar" angezeigt
 
-  @personas @javascript @firefox
+  @personas @javascript @browser
   Szenario: Inhalt der Rüstliste vor Aushändigung - nicht zugeteilt Raum und Gestell
     Angenommen es gibt eine Aushändigung mit mindestens einem Gegenstand ohne zugeteilt Raum und Gestell
     Und ich die Aushändigung öffne

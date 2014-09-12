@@ -5,7 +5,7 @@ Funktionalität: Aushändigung editieren
   Grundlage:
     Angenommen ich bin Pius
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Systemfeedback bei erfolgreicher manueller Interaktion bei Aushändigung
     Angenommen es gibt eine Aushändigung mit mindestens einem nicht problematischen Modell
     Und ich die Aushändigung öffne
@@ -21,7 +21,7 @@ Funktionalität: Aushändigung editieren
     Wenn ich den zugeteilten Gegenstand auf der Zeile entferne
     Dann ist die Zeile nicht mehr grün markiert
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Systemfeedback bei Zuteilen eines Gegenstandes zur problematischen Linie
     Angenommen es gibt eine Aushändigung mit mindestens einer problematischen Linie
     Und ich die Aushändigung öffne
@@ -37,7 +37,7 @@ Funktionalität: Aushändigung editieren
     Und der Benutzer für die Aushändigung ist gesperrt
     Dann sehe ich neben seinem Namen den Sperrstatus 'Gesperrt!'
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Systemfeedback bei Zuteilen einer Option
     Angenommen ich öffne eine Aushändigung
     Wenn ich eine Option hinzufüge
@@ -70,7 +70,7 @@ Funktionalität: Aushändigung editieren
     Wenn ich eine Notiz für diesen Vertrag eingebe
     Dann erscheint diese Notiz auf dem Vertrag
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Optionen mit einer Mindestmenge 1 ausgeben
     Angenommen ich öffne eine Aushändigung
     Wenn ich eine Option hinzufüge
@@ -83,13 +83,14 @@ Funktionalität: Aushändigung editieren
     Wenn ich die Anzahl "2" in das Mengenfeld schreibe
     Dann wird die Menge mit dem Wert "2" gespeichert
 
-  @javascript @chrome @personas
+  # test failing with @firefox only on CI
+  @javascript @browser @chrome @personas
   Szenario: Anzeige der Seriennummer bei Zuteilung der Software-Lizenz
     Angenommen ich öffne eine Aushändigung mit einer Software
     Wenn ich in das Zuteilungsfeld links vom Software-Namen klicke
     Dann wird mir der Inventarcode sowie die vollständige Seriennummer angezeigt
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Listung von problematischen Gegenständen
     Angenommen es existiert ein Modell mit einem problematischen Gegenstand
     Und ich öffne eine Aushändigung für irgendeinen Benutzer
@@ -97,7 +98,7 @@ Funktionalität: Aushändigung editieren
     Und ich auf der Modelllinie die Gegenstandsauswahl öffne
     Dann wird der problematische Gegenstand in rot aufgelistet
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Keine Auflistung von ausgemusterten Gegenständen
     Angenommen es existiert ein Modell mit einem ausgemusterten und einem ausleihbaren Gegenstand
     Und ich öffne eine Aushändigung für irgendeinen Benutzer

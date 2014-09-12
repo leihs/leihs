@@ -7,7 +7,7 @@ Feature: Close Contract
   Background:
     Given I am Pius
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Scenario: Take back all items of a contract
      When I open a take back
       And I select all lines of an open contract

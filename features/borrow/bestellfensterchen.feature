@@ -31,7 +31,7 @@ Funktionalität: Bestellfensterchen
     Und gleiche Modelle werden zusammengefasst
     Und ich kann zur detaillierten Bestellübersicht gelangen
 
-  @javascript @firefox @personas
+  @javascript @browser @personas
   Szenario: Bestellfensterchen aus Kalender updaten
     Wenn ich mit dem Kalender ein Modell der Bestellung hinzufüge
     Dann wird das Bestellfensterchen aktualisiert
