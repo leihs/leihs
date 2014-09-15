@@ -11,11 +11,11 @@
     cucumber:
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/administration/database.feature:12
         DEFAULT_BROWSER=firefox
-- name: Check empty columns - features/administration/database.feature:17
+- name: Check empty columns - features/administration/database.feature:21
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/administration/database.feature:17
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/administration/database.feature:21
         DEFAULT_BROWSER=firefox
 - name: Verwalten-Bereich sperren - features/administration/wartungsmodus.feature:12
   auto_trials: 2

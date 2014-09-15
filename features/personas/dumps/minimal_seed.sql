@@ -37,7 +37,9 @@ CREATE TABLE `access_rights` (
   KEY `index_access_rights_on_deleted_at` (`deleted_at`),
   KEY `index_access_rights_on_inventory_pool_id` (`inventory_pool_id`),
   KEY `index_access_rights_on_role` (`role`),
-  KEY `index_on_user_id_and_inventory_pool_id_and_deleted_at` (`user_id`,`inventory_pool_id`,`deleted_at`)
+  KEY `index_on_user_id_and_inventory_pool_id_and_deleted_at` (`user_id`,`inventory_pool_id`,`deleted_at`),
+  CONSTRAINT `access_rights_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `access_rights_inventory_pool_id_fk` FOREIGN KEY (`inventory_pool_id`) REFERENCES `inventory_pools` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -63,7 +65,8 @@ CREATE TABLE `accessories` (
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_accessories_on_model_id` (`model_id`)
+  KEY `index_accessories_on_model_id` (`model_id`),
+  CONSTRAINT `accessories_model_id_fk` FOREIGN KEY (`model_id`) REFERENCES `models` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -87,7 +90,9 @@ CREATE TABLE `accessories_inventory_pools` (
   `accessory_id` int(11) DEFAULT NULL,
   `inventory_pool_id` int(11) DEFAULT NULL,
   UNIQUE KEY `index_accessories_inventory_pools` (`accessory_id`,`inventory_pool_id`),
-  KEY `index_accessories_inventory_pools_on_inventory_pool_id` (`inventory_pool_id`)
+  KEY `index_accessories_inventory_pools_on_inventory_pool_id` (`inventory_pool_id`),
+  CONSTRAINT `accessories_inventory_pools_inventory_pool_id_fk` FOREIGN KEY (`inventory_pool_id`) REFERENCES `inventory_pools` (`id`),
+  CONSTRAINT `accessories_inventory_pools_accessory_id_fk` FOREIGN KEY (`accessory_id`) REFERENCES `accessories` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -144,7 +149,8 @@ CREATE TABLE `attachments` (
   `filename` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `size` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_attachments_on_model_id` (`model_id`)
+  KEY `index_attachments_on_model_id` (`model_id`),
+  CONSTRAINT `attachments_model_id_fk` FOREIGN KEY (`model_id`) REFERENCES `models` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -237,7 +243,15 @@ CREATE TABLE `contract_lines` (
   KEY `index_contract_lines_on_item_id` (`item_id`),
   KEY `index_contract_lines_on_model_id` (`model_id`),
   KEY `index_contract_lines_on_returned_date_and_contract_id` (`returned_date`,`contract_id`),
-  KEY `index_contract_lines_on_type_and_contract_id` (`type`,`contract_id`)
+  KEY `index_contract_lines_on_type_and_contract_id` (`type`,`contract_id`),
+  KEY `contract_lines_purpose_id_fk` (`purpose_id`),
+  KEY `contract_lines_returned_to_user_id_fk` (`returned_to_user_id`),
+  CONSTRAINT `contract_lines_returned_to_user_id_fk` FOREIGN KEY (`returned_to_user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `contract_lines_contract_id_fk` FOREIGN KEY (`contract_id`) REFERENCES `contracts` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `contract_lines_item_id_fk` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`),
+  CONSTRAINT `contract_lines_model_id_fk` FOREIGN KEY (`model_id`) REFERENCES `models` (`id`),
+  CONSTRAINT `contract_lines_option_id_fk` FOREIGN KEY (`option_id`) REFERENCES `options` (`id`),
+  CONSTRAINT `contract_lines_purpose_id_fk` FOREIGN KEY (`purpose_id`) REFERENCES `purposes` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -270,7 +284,13 @@ CREATE TABLE `contracts` (
   PRIMARY KEY (`id`),
   KEY `index_contracts_on_inventory_pool_id` (`inventory_pool_id`),
   KEY `index_contracts_on_status` (`status`),
-  KEY `index_contracts_on_user_id` (`user_id`)
+  KEY `index_contracts_on_user_id` (`user_id`),
+  KEY `contracts_delegated_user_id_fk` (`delegated_user_id`),
+  KEY `contracts_handed_over_by_user_id_fk` (`handed_over_by_user_id`),
+  CONSTRAINT `contracts_handed_over_by_user_id_fk` FOREIGN KEY (`handed_over_by_user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `contracts_delegated_user_id_fk` FOREIGN KEY (`delegated_user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `contracts_inventory_pool_id_fk` FOREIGN KEY (`inventory_pool_id`) REFERENCES `inventory_pools` (`id`),
+  CONSTRAINT `contracts_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -298,7 +318,9 @@ CREATE TABLE `database_authentications` (
   `user_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `database_authentications_user_id_fk` (`user_id`),
+  CONSTRAINT `database_authentications_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -322,7 +344,9 @@ CREATE TABLE `delegations_users` (
   `delegation_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   UNIQUE KEY `index_delegations_users_on_user_id_and_delegation_id` (`user_id`,`delegation_id`),
-  KEY `index_delegations_users_on_delegation_id` (`delegation_id`)
+  KEY `index_delegations_users_on_delegation_id` (`delegation_id`),
+  CONSTRAINT `delegations_users_delegation_id_fk` FOREIGN KEY (`delegation_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `delegations_users_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -351,7 +375,8 @@ CREATE TABLE `groups` (
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_groups_on_inventory_pool_id` (`inventory_pool_id`),
-  KEY `index_groups_on_is_verification_required` (`is_verification_required`)
+  KEY `index_groups_on_is_verification_required` (`is_verification_required`),
+  CONSTRAINT `groups_inventory_pool_id_fk` FOREIGN KEY (`inventory_pool_id`) REFERENCES `inventory_pools` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -375,7 +400,9 @@ CREATE TABLE `groups_users` (
   `user_id` int(11) DEFAULT NULL,
   `group_id` int(11) DEFAULT NULL,
   UNIQUE KEY `index_groups_users_on_user_id_and_group_id` (`user_id`,`group_id`),
-  KEY `index_groups_users_on_group_id` (`group_id`)
+  KEY `index_groups_users_on_group_id` (`group_id`),
+  CONSTRAINT `groups_users_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `groups_users_group_id_fk` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -406,7 +433,8 @@ CREATE TABLE `histories` (
   PRIMARY KEY (`id`),
   KEY `index_histories_on_target_type_and_target_id` (`target_type`,`target_id`),
   KEY `index_histories_on_type_const` (`type_const`),
-  KEY `index_histories_on_user_id` (`user_id`)
+  KEY `index_histories_on_user_id` (`user_id`),
+  CONSTRAINT `histories_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -434,7 +462,8 @@ CREATE TABLE `holidays` (
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_holidays_on_inventory_pool_id` (`inventory_pool_id`),
-  KEY `index_holidays_on_start_date_and_end_date` (`start_date`,`end_date`)
+  KEY `index_holidays_on_start_date_and_end_date` (`start_date`,`end_date`),
+  CONSTRAINT `holidays_inventory_pool_id_fk` FOREIGN KEY (`inventory_pool_id`) REFERENCES `inventory_pools` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -506,7 +535,9 @@ CREATE TABLE `inventory_pools` (
   `automatic_suspension_reason` text COLLATE utf8_unicode_ci,
   `automatic_access` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `index_inventory_pools_on_name` (`name`)
+  UNIQUE KEY `index_inventory_pools_on_name` (`name`),
+  KEY `inventory_pools_address_id_fk` (`address_id`),
+  CONSTRAINT `inventory_pools_address_id_fk` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -530,7 +561,9 @@ CREATE TABLE `inventory_pools_model_groups` (
   `inventory_pool_id` int(11) DEFAULT NULL,
   `model_group_id` int(11) DEFAULT NULL,
   KEY `index_inventory_pools_model_groups_on_inventory_pool_id` (`inventory_pool_id`),
-  KEY `index_inventory_pools_model_groups_on_model_group_id` (`model_group_id`)
+  KEY `index_inventory_pools_model_groups_on_model_group_id` (`model_group_id`),
+  CONSTRAINT `inventory_pools_model_groups_model_group_id_fk` FOREIGN KEY (`model_group_id`) REFERENCES `model_groups` (`id`),
+  CONSTRAINT `inventory_pools_model_groups_inventory_pool_id_fk` FOREIGN KEY (`inventory_pool_id`) REFERENCES `inventory_pools` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -589,7 +622,14 @@ CREATE TABLE `items` (
   KEY `index_items_on_location_id` (`location_id`),
   KEY `index_items_on_owner_id` (`owner_id`),
   KEY `index_items_on_parent_id_and_retired` (`parent_id`,`retired`),
-  KEY `index_items_on_model_id_and_retired_and_inventory_pool_id` (`model_id`,`retired`,`inventory_pool_id`)
+  KEY `index_items_on_model_id_and_retired_and_inventory_pool_id` (`model_id`,`retired`,`inventory_pool_id`),
+  KEY `items_supplier_id_fk` (`supplier_id`),
+  CONSTRAINT `items_supplier_id_fk` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`),
+  CONSTRAINT `items_inventory_pool_id_fk` FOREIGN KEY (`inventory_pool_id`) REFERENCES `inventory_pools` (`id`),
+  CONSTRAINT `items_location_id_fk` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`),
+  CONSTRAINT `items_model_id_fk` FOREIGN KEY (`model_id`) REFERENCES `models` (`id`),
+  CONSTRAINT `items_owner_id_fk` FOREIGN KEY (`owner_id`) REFERENCES `inventory_pools` (`id`),
+  CONSTRAINT `items_parent_id_fk` FOREIGN KEY (`parent_id`) REFERENCES `items` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -644,7 +684,8 @@ CREATE TABLE `locations` (
   `shelf` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `building_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_locations_on_building_id` (`building_id`)
+  KEY `index_locations_on_building_id` (`building_id`),
+  CONSTRAINT `locations_building_id_fk` FOREIGN KEY (`building_id`) REFERENCES `buildings` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -674,7 +715,9 @@ CREATE TABLE `model_group_links` (
   PRIMARY KEY (`id`),
   KEY `index_model_group_links_on_ancestor_id` (`ancestor_id`),
   KEY `index_model_group_links_on_direct` (`direct`),
-  KEY `index_on_descendant_id_and_ancestor_id_and_direct` (`descendant_id`,`ancestor_id`,`direct`)
+  KEY `index_on_descendant_id_and_ancestor_id_and_direct` (`descendant_id`,`ancestor_id`,`direct`),
+  CONSTRAINT `model_group_links_descendant_id_fk` FOREIGN KEY (`descendant_id`) REFERENCES `model_groups` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `model_group_links_ancestor_id_fk` FOREIGN KEY (`ancestor_id`) REFERENCES `model_groups` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -728,7 +771,9 @@ CREATE TABLE `model_links` (
   `quantity` int(11) DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `index_model_links_on_model_id_and_model_group_id` (`model_id`,`model_group_id`),
-  KEY `index_model_links_on_model_group_id_and_model_id` (`model_group_id`,`model_id`)
+  KEY `index_model_links_on_model_group_id_and_model_id` (`model_group_id`,`model_id`),
+  CONSTRAINT `model_links_model_id_fk` FOREIGN KEY (`model_id`) REFERENCES `models` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `model_links_model_group_id_fk` FOREIGN KEY (`model_group_id`) REFERENCES `model_groups` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -790,7 +835,9 @@ CREATE TABLE `models_compatibles` (
   `model_id` int(11) DEFAULT NULL,
   `compatible_id` int(11) DEFAULT NULL,
   KEY `index_models_compatibles_on_compatible_id` (`compatible_id`),
-  KEY `index_models_compatibles_on_model_id` (`model_id`)
+  KEY `index_models_compatibles_on_model_id` (`model_id`),
+  CONSTRAINT `models_compatibles_compatible_id_fk` FOREIGN KEY (`compatible_id`) REFERENCES `models` (`id`),
+  CONSTRAINT `models_compatibles_model_id_fk` FOREIGN KEY (`model_id`) REFERENCES `models` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -816,7 +863,8 @@ CREATE TABLE `notifications` (
   `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_notifications_on_user_id` (`user_id`)
+  KEY `index_notifications_on_user_id` (`user_id`),
+  CONSTRAINT `notifications_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -868,7 +916,8 @@ CREATE TABLE `options` (
   `version` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `price` decimal(8,2) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_options_on_inventory_pool_id` (`inventory_pool_id`)
+  KEY `index_options_on_inventory_pool_id` (`inventory_pool_id`),
+  CONSTRAINT `options_inventory_pool_id_fk` FOREIGN KEY (`inventory_pool_id`) REFERENCES `inventory_pools` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -895,7 +944,12 @@ CREATE TABLE `partitions` (
   `group_id` int(11) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `index_partitions_on_model_id_and_inventory_pool_id_and_group_id` (`model_id`,`inventory_pool_id`,`group_id`)
+  UNIQUE KEY `index_partitions_on_model_id_and_inventory_pool_id_and_group_id` (`model_id`,`inventory_pool_id`,`group_id`),
+  KEY `partitions_group_id_fk` (`group_id`),
+  KEY `partitions_inventory_pool_id_fk` (`inventory_pool_id`),
+  CONSTRAINT `partitions_model_id_fk` FOREIGN KEY (`model_id`) REFERENCES `models` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `partitions_group_id_fk` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`),
+  CONSTRAINT `partitions_inventory_pool_id_fk` FOREIGN KEY (`inventory_pool_id`) REFERENCES `inventory_pools` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -937,7 +991,8 @@ CREATE TABLE `properties` (
   `key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_properties_on_model_id` (`model_id`)
+  KEY `index_properties_on_model_id` (`model_id`),
+  CONSTRAINT `properties_model_id_fk` FOREIGN KEY (`model_id`) REFERENCES `models` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -992,7 +1047,7 @@ CREATE TABLE `schema_migrations` (
 
 LOCK TABLES `schema_migrations` WRITE;
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
-INSERT INTO `schema_migrations` VALUES ('20140410180000'),('20140414100000'),('20140415083535'),('20140417113831'),('20140428092844'),('20140515131025'),('20140812132326'),('20140820100242'),('20140828082448'),('20140901141016'),('20140905091014');
+INSERT INTO `schema_migrations` VALUES ('20140410180000'),('20140414100000'),('20140415083535'),('20140417113831'),('20140428092844'),('20140515131025'),('20140812132326'),('20140820100242'),('20140828082448'),('20140901141016'),('20140903105715'),('20140905091014');
 /*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1096,7 +1151,12 @@ CREATE TABLE `users` (
   `updated_at` datetime DEFAULT NULL,
   `delegator_user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_users_on_authentication_system_id` (`authentication_system_id`)
+  KEY `index_users_on_authentication_system_id` (`authentication_system_id`),
+  KEY `users_language_id_fk` (`language_id`),
+  KEY `users_delegator_user_id_fk` (`delegator_user_id`),
+  CONSTRAINT `users_delegator_user_id_fk` FOREIGN KEY (`delegator_user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `users_authentication_system_id_fk` FOREIGN KEY (`authentication_system_id`) REFERENCES `authentication_systems` (`id`),
+  CONSTRAINT `users_language_id_fk` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1167,7 +1227,8 @@ CREATE TABLE `workdays` (
   `saturday` tinyint(1) DEFAULT '0',
   `sunday` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `index_workdays_on_inventory_pool_id` (`inventory_pool_id`)
+  KEY `index_workdays_on_inventory_pool_id` (`inventory_pool_id`),
+  CONSTRAINT `workdays_inventory_pool_id_fk` FOREIGN KEY (`inventory_pool_id`) REFERENCES `inventory_pools` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1243,4 +1304,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-09-15 11:29:04
+-- Dump completed on 2014-09-15 12:12:49

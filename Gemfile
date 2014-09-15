@@ -23,6 +23,7 @@ gem 'factory_girl', '~> 4.1', group: [:test, :development]
 gem 'factory_girl_rails', '~> 4.1', group: [:test, :development]
 gem 'faker', '1.3.0', group: [:test, :development] # NOTE '~> 1.4' doesn't work beacause "I18n::InvalidLocale" error, see note for config.i18n in config/application.rb
 gem 'font-awesome-rails', '~> 3.2.1' # NOTE in order to upgrade to '~> 4.0', use .fa css class instead of .icon
+gem 'foreigner', '~> 1.6'
 gem 'geocoder', '~> 1.1'
 gem 'gettext_i18n_rails', '~> 1.0'
 gem 'guard-jasmine', '~> 1.19', group: [:test, :development]

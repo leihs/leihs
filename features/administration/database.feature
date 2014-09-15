@@ -12,6 +12,10 @@ Feature: Database
   Scenario: Check data consistency
     When I visit "/admin/database/consistency"
     Then all is correct
+    When a database admin deletes some referenced records directly on the database
+    Then the delete is prevented
+    When I visit "/admin/database/consistency"
+    Then all is correct
 
   @personas
   Scenario: Check empty columns
