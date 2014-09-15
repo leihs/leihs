@@ -304,8 +304,6 @@ Leihs::Application.routes.draw do
       get  'search/contracts',     to: "search#contracts",     as: "search_contracts"
       get  'search/orders',        to: "search#orders",        as: "search_orders"
       get  'search/options',       to: "search#options",       as: "search_options"
-      get  'search/software',      to: "search#software",      as: "search_software"
-      get  'search/licenses',      to: "search#licenses",      as: "search_licenses"
     end
 
   end
