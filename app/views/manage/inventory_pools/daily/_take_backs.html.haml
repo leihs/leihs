@@ -9,8 +9,8 @@
       = _("Take Backs")
       - if @overdue_take_backs_count and @overdue_take_backs_count > 0
         %span.badge.red= @overdue_take_backs_count
-      %span.badge= @take_backs_count
-
+      - if @take_backs_count > 0
+        %span.badge= @take_backs_count
   #take_backs{:class => total_take_backs_count > 5 ? "collapsed" : ""}
     .list-of-lines{:class => total_take_backs_count > 5 ? "collapsed-inner max-height-m" : ""}
       .height-m.padding-top-l

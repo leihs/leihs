@@ -2,6 +2,6 @@
 
   %label.row.margin-bottom-xxs{:for => "assign"}= _("Assign")
   .row
-    %input.row.has-addone{:autocomplete => :off, :id => "assign-input", :"data-add-contract-line" => true, :name => "input", :type => :text, :placeholder => "#{_("Inventory code")}", :"data-barcode-scanner-target" => true}
-    %button.addon{:type => :submit, :title => _("Add")}
+    %input.row.has-addon{:autocomplete => :off, :id => "assign-input", :"data-add-contract-line" => true, :name => "input", :type => :text, :placeholder => "#{_("Inventory code")}", :"data-barcode-scanner-target" => true}
+    %label.addon{:type => :submit, :title => _("Add")}
       %i.icon-ok-sign

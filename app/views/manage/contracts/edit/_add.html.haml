@@ -12,13 +12,13 @@
     .padding-right-xs
       %label.row.margin-bottom-xxs{:for => "add-end-date"}= _("End Date")
       .row
-        %input.has-addone{:id => "add-end-date", :name => "end-date", :type => :text, :value => l(@end_date)}
+        %input.has-addon{:id => "add-end-date", :name => "end-date", :type => :text, :value => l(@end_date)}
         %label.addon{:for => "add-end-date"}
           %i.icon-calendar
 
   .col4of8
     %label.row.margin-bottom-xxs{:for => "add-input"}= _("Add")
     .row
-      %input.row.has-addone{:id => "add-input", :"data-add-contract-line" => true, :name => "input", :type => :text, :placeholder => "#{_("Inventory code, model name, search term")}", :"data-barcode-scanner-target" => true}
-      %button.addon{:type => :submit, :title => _("Add")}
+      %input.row.has-addon{:id => "add-input", :"data-add-contract-line" => true, :name => "input", :type => :text, :placeholder => "#{_("Inventory code, model name, search term")}", :"data-barcode-scanner-target" => true}
+      %label.addon{:type => :submit, :title => _("Add")}
         %i.icon-plus-sign-alt
