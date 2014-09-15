@@ -9,7 +9,8 @@
       = _("Hand Overs")
       - if @overdue_hand_overs_count and @overdue_hand_overs_count > 0
         %span.badge.red= @overdue_hand_overs_count
-      %span.badge= @hand_overs_count
+      - if @hand_overs_count > 0
+        %span.badge= @hand_overs_count
 
   #hand_overs{:class => total_hand_overs_count > 5 ? "collapsed" : ""}
     .list-of-lines{:class => total_hand_overs_count > 5 ? "collapsed-inner max-height-m" : ""}
