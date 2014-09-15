@@ -4187,6 +4187,2102 @@
     retired: 
   attributes_cache: {}
 
+- !ruby/object:AuthenticationSystem
+  attributes:
+    id: 1
+    name: Database Authentication
+    class_name: DatabaseAuthentication
+    is_default: false
+    is_active: false
+
+- !ruby/object:AuthenticationSystem
+  attributes:
+    id: 3
+    name: ZHDK Authentication
+    class_name: Zhdk
+    is_default: true
+    is_active: true
+
+# Users that have borrowed that Model
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-01-19 10:41:17
+    country:
+    unique_id:
+    updated_at: 2010-12-20 14:50:03
+    lastname:
+    id: "2473"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2473
+    email: user2473@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:17:05
+    country:
+    unique_id:
+    updated_at: 2010-04-22 11:10:43
+    lastname:
+    id: "174"
+    language_id: "4"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user174
+    email: user174@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:19:32
+    country:
+    unique_id:
+    updated_at: 2010-02-03 15:16:14
+    lastname:
+    id: "1436"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user1436
+    email: user1436@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-02-04 16:37:30
+    country:
+    unique_id:
+    updated_at: 2010-02-05 08:32:13
+    lastname:
+    id: "2500"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2500
+    email: user2500@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-09-15 08:41:33
+    country:
+    unique_id:
+    updated_at: 2011-01-10 07:45:44
+    lastname:
+    id: "2123"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2123
+    email: user2123@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:17:00
+    country:
+    unique_id:
+    updated_at: 2010-10-21 13:37:36
+    lastname:
+    id: "134"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user134
+    email: user134@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-02-16 17:55:23
+    country:
+    unique_id:
+    updated_at: 2010-05-19 05:30:25
+    lastname:
+    id: "2530"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2530
+    email: user2530@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-02-19 12:01:31
+    country:
+    unique_id:
+    updated_at: 2010-05-28 09:56:44
+    lastname:
+    id: "2536"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2536
+    email: user2536@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:19:45
+    country:
+    unique_id:
+    updated_at: 2010-12-03 15:44:38
+    lastname:
+    id: "1545"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user1545
+    email: user1545@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:17:52
+    country:
+    unique_id:
+    updated_at: 2010-09-01 06:01:10
+    lastname:
+    id: "564"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user564
+    email: user564@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:18:27
+    country:
+    unique_id:
+    updated_at: 2010-12-01 10:07:21
+    lastname:
+    id: "864"
+    language_id: "4"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user864
+    email: user864@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-03-09 17:34:02
+    country:
+    unique_id:
+    updated_at: 2010-05-19 05:30:29
+    lastname:
+    id: "2576"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2576
+    email: user2576@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-03-10 15:48:03
+    country:
+    unique_id:
+    updated_at: 2010-11-08 14:26:09
+    lastname:
+    id: "2579"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2579
+    email: user2579@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:19:39
+    country:
+    unique_id:
+    updated_at: 2010-05-19 05:30:27
+    lastname:
+    id: "1496"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user1496
+    email: user1496@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-03-24 08:16:30
+    country:
+    unique_id:
+    updated_at: 2010-05-30 12:50:03
+    lastname:
+    id: "2608"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2608
+    email: user2608@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:17:49
+    country:
+    unique_id:
+    updated_at: 2010-06-16 14:41:31
+    lastname:
+    id: "535"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user535
+    email: user535@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-04-08 14:09:22
+    country:
+    unique_id:
+    updated_at: 2010-05-31 06:31:03
+    lastname:
+    id: "2631"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2631
+    email: user2631@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:19:53
+    country:
+    unique_id:
+    updated_at: 2010-12-17 08:30:39
+    lastname:
+    id: "1608"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user1608
+    email: user1608@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:20:18
+    country:
+    unique_id:
+    updated_at: 2010-09-02 12:57:54
+    lastname:
+    id: "1806"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user1806
+    email: user1806@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-02-11 17:01:33
+    country:
+    unique_id:
+    updated_at: 2010-04-22 13:12:09
+    lastname:
+    id: "2513"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2513
+    email: user2513@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-04-21 16:52:50
+    country:
+    unique_id:
+    updated_at: 2010-05-19 05:30:30
+    lastname:
+    id: "2667"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2667
+    email: user2667@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-04-22 16:55:26
+    country:
+    unique_id:
+    updated_at: 2010-04-23 06:35:53
+    lastname:
+    id: "2668"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2668
+    email: user2668@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:19:09
+    country:
+    unique_id:
+    updated_at: 2010-11-12 12:33:21
+    lastname:
+    id: "1227"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user1227
+    email: user1227@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-04-28 14:42:07
+    country:
+    unique_id:
+    updated_at: 2010-05-19 05:30:50
+    lastname:
+    id: "2678"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2678
+    email: user2678@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:18:05
+    country:
+    unique_id:
+    updated_at: 2010-05-17 07:43:42
+    lastname:
+    id: "682"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user682
+    email: user682@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-05-03 13:02:38
+    country:
+    unique_id:
+    updated_at: 2010-05-03 13:03:34
+    lastname:
+    id: "2684"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2684
+    email: user2684@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:20:02
+    country:
+    unique_id:
+    updated_at: 2010-10-09 08:34:33
+    lastname:
+    id: "1687"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user1687
+    email: user1687@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-05-18 09:33:21
+    country:
+    unique_id:
+    updated_at: 2010-05-19 05:30:49
+    lastname:
+    id: "2713"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2713
+    email: user2713@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:16:49
+    country:
+    unique_id:
+    updated_at: 2010-05-19 07:31:06
+    lastname:
+    id: "14"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user14
+    email: user14@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:19:49
+    country:
+    unique_id:
+    updated_at: 2011-01-11 08:43:17
+    lastname:
+    id: "1574"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user1574
+    email: user1574@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-05-28 16:04:56
+    country:
+    unique_id:
+    updated_at: 2010-05-28 16:34:01
+    lastname:
+    id: "2741"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2741
+    email: user2741@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:17:57
+    country:
+    unique_id:
+    updated_at: 2010-07-19 11:38:43
+    lastname:
+    id: "602"
+    language_id: "4"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user602
+    email: user602@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-06-02 14:31:15
+    country:
+    unique_id:
+    updated_at: 2010-06-08 13:16:50
+    lastname:
+    id: "2749"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2749
+    email: user2749@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:19:09
+    country:
+    unique_id:
+    updated_at: 2010-11-04 08:23:51
+    lastname:
+    id: "1231"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user1231
+    email: user1231@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-09-10 09:52:05
+    country:
+    unique_id:
+    updated_at: 2010-06-04 12:40:44
+    lastname:
+    id: "2115"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2115
+    email: user2115@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-02-05 15:21:35
+    country:
+    unique_id:
+    updated_at: 2011-01-10 09:02:25
+    lastname:
+    id: "1971"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user1971
+    email: user1971@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-05-13 10:28:48
+    country:
+    unique_id:
+    updated_at: 2011-01-11 08:26:38
+    lastname:
+    id: "2015"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2015
+    email: user2015@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:17:51
+    country:
+    unique_id:
+    updated_at: 2010-12-09 08:56:17
+    lastname:
+    id: "553"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user553
+    email: user553@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:17:02
+    country:
+    unique_id:
+    updated_at: 2010-12-22 12:08:19
+    lastname:
+    id: "147"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user147
+    email: user147@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:16:57
+    country:
+    unique_id:
+    updated_at: 2011-01-06 14:20:52
+    lastname:
+    id: "92"
+    language_id: "4"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user92
+    email: user92@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:19:49
+    country:
+    unique_id:
+    updated_at: 2010-12-13 07:28:32
+    lastname:
+    id: "1572"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user1572
+    email: user1572@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-06-11 15:16:01
+    country:
+    unique_id:
+    updated_at: 2010-07-21 08:02:59
+    lastname:
+    id: "3881"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user3881
+    email: user3881@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:18:48
+    country:
+    unique_id:
+    updated_at: 2010-12-15 19:58:32
+    lastname:
+    id: "1047"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user1047
+    email: user1047@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:17:25
+    country:
+    unique_id:
+    updated_at: 2011-01-11 09:37:32
+    lastname:
+    id: "369"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user369
+    email: user369@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:18:31
+    country:
+    unique_id:
+    updated_at: 2010-09-08 11:46:19
+    lastname:
+    id: "897"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user897
+    email: user897@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-05-17 09:35:28
+    country:
+    unique_id:
+    updated_at: 2011-01-05 21:03:23
+    lastname:
+    id: "2706"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2706
+    email: user2706@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:18:11
+    country:
+    unique_id:
+    updated_at: 2010-12-02 11:35:35
+    lastname:
+    id: "731"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user731
+    email: user731@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-06-08 13:26:20
+    country:
+    unique_id:
+    updated_at: 2010-07-05 13:45:17
+    lastname:
+    id: "3846"
+    language_id: "2"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user3846
+    email: user3846@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-06-08 13:26:31
+    country:
+    unique_id:
+    updated_at: 2010-07-06 13:31:59
+    lastname:
+    id: "3862"
+    language_id: "2"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user3862
+    email: user3862@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:16:50
+    country:
+    unique_id:
+    updated_at: 2010-11-17 09:24:51
+    lastname:
+    id: "25"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user25
+    email: user25@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:17:30
+    country:
+    unique_id:
+    updated_at: 2010-11-25 09:14:13
+    lastname:
+    id: "417"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user417
+    email: user417@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-07-06 15:49:58
+    country:
+    unique_id:
+    updated_at: 2010-12-03 11:52:57
+    lastname:
+    id: "3900"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user3900
+    email: user3900@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-07-26 09:15:35
+    country:
+    unique_id:
+    updated_at: 2010-07-27 10:15:50
+    lastname:
+    id: "3907"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user3907
+    email: user3907@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:18:22
+    country:
+    unique_id:
+    updated_at: 2010-06-24 08:37:56
+    lastname:
+    id: "823"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user823
+    email: user823@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:17:41
+    country:
+    unique_id:
+    updated_at: 2010-12-09 08:44:08
+    lastname:
+    id: "486"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user486
+    email: user486@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:16:57
+    country:
+    unique_id:
+    updated_at: 2011-01-09 15:45:14
+    lastname:
+    id: "91"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user91
+    email: user91@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:17:20
+    country:
+    unique_id:
+    updated_at: 2010-12-01 12:23:33
+    lastname:
+    id: "317"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user317
+    email: user317@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-08-13 13:29:12
+    country:
+    unique_id:
+    updated_at: 2010-08-13 13:36:52
+    lastname:
+    id: "3927"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user3927
+    email: user3927@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-08-02 08:49:04
+    country:
+    unique_id:
+    updated_at: 2010-11-08 08:56:42
+    lastname:
+    id: "3912"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user3912
+    email: user3912@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:17:20
+    country:
+    unique_id:
+    updated_at: 2010-12-15 21:27:21
+    lastname:
+    id: "320"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user320
+    email: user320@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:19:28
+    country:
+    unique_id:
+    updated_at: 2010-08-24 14:40:30
+    lastname:
+    id: "1403"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user1403
+    email: user1403@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-07-15 09:09:16
+    country:
+    unique_id:
+    updated_at: 2010-11-03 09:42:58
+    lastname:
+    id: "3903"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user3903
+    email: user3903@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:17:30
+    country:
+    unique_id:
+    updated_at: 2010-08-25 14:11:11
+    lastname:
+    id: "413"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user413
+    email: user413@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:17:50
+    country:
+    unique_id:
+    updated_at: 2010-08-26 09:15:03
+    lastname:
+    id: "540"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user540
+    email: user540@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-04-06 10:08:25
+    country:
+    unique_id:
+    updated_at: 2010-11-16 09:46:13
+    lastname:
+    id: "2628"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2628
+    email: user2628@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:18:01
+    country:
+    unique_id:
+    updated_at: 2011-01-10 17:25:45
+    lastname:
+    id: "641"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user641
+    email: user641@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:18:59
+    country:
+    unique_id:
+    updated_at: 2010-12-07 07:47:14
+    lastname:
+    id: "1149"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user1149
+    email: user1149@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:19:54
+    country:
+    unique_id:
+    updated_at: 2010-11-08 19:22:27
+    lastname:
+    id: "1620"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user1620
+    email: user1620@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-09-02 10:11:38
+    country:
+    unique_id:
+    updated_at: 2010-09-02 10:17:31
+    lastname:
+    id: "3962"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user3962
+    email: user3962@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-09-02 10:14:53
+    country:
+    unique_id:
+    updated_at: 2010-09-02 10:21:38
+    lastname:
+    id: "3963"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user3963
+    email: user3963@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:18:43
+    country:
+    unique_id:
+    updated_at: 2010-09-02 10:28:07
+    lastname:
+    id: "1006"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user1006
+    email: user1006@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:16:48
+    country:
+    unique_id:
+    updated_at: 2010-09-03 09:41:16
+    lastname:
+    id: "12"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user12
+    email: user12@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-06-08 13:18:00
+    country:
+    unique_id:
+    updated_at: 2010-09-07 13:18:44
+    lastname:
+    id: "2984"
+    language_id: "2"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2984
+    email: user2984@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:16:55
+    country:
+    unique_id:
+    updated_at: 2010-11-15 09:45:07
+    lastname:
+    id: "73"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user73
+    email: user73@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:18:12
+    country:
+    unique_id:
+    updated_at: 2010-12-22 10:50:09
+    lastname:
+    id: "739"
+    language_id: "4"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user739
+    email: user739@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-09-07 11:32:38
+    country:
+    unique_id:
+    updated_at: 2010-09-20 13:38:58
+    lastname:
+    id: "2101"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2101
+    email: user2101@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-06-08 13:17:22
+    country:
+    unique_id:
+    updated_at: 2010-09-22 10:59:55
+    lastname:
+    id: "2897"
+    language_id: "2"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2897
+    email: user2897@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:18:57
+    country:
+    unique_id:
+    updated_at: 2010-09-24 07:58:41
+    lastname:
+    id: "1130"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "1"
+    login: user1130
+    email: user1130@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-04-27 09:05:23
+    country:
+    unique_id:
+    updated_at: 2010-10-04 11:48:23
+    lastname:
+    id: "2673"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2673
+    email: user2673@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-10-08 14:36:16
+    country:
+    unique_id:
+    updated_at: 2010-10-08 14:37:43
+    lastname:
+    id: "4191"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user4191
+    email: user4191@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-10-11 10:58:14
+    country:
+    unique_id:
+    updated_at: 2010-11-08 11:19:21
+    lastname:
+    id: "4199"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user4199
+    email: user4199@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:18:12
+    country:
+    unique_id:
+    updated_at: 2010-10-26 14:04:18
+    lastname:
+    id: "748"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user748
+    email: user748@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-10-21 08:23:12
+    country:
+    unique_id:
+    updated_at: 2010-10-21 15:15:12
+    lastname:
+    id: "4263"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user4263
+    email: user4263@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-09-10 08:59:32
+    country:
+    unique_id:
+    updated_at: 2010-10-21 15:24:38
+    lastname:
+    id: "3983"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user3983
+    email: user3983@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-06-08 13:18:36
+    country:
+    unique_id:
+    updated_at: 2010-11-04 12:12:51
+    lastname:
+    id: "3061"
+    language_id: "2"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user3061
+    email: user3061@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:18:27
+    country:
+    unique_id:
+    updated_at: 2010-11-04 16:12:59
+    lastname:
+    id: "862"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "1"
+    login: user862
+    email: user862@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:17:38
+    country:
+    unique_id:
+    updated_at: 2010-11-08 14:52:26
+    lastname:
+    id: "476"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "1"
+    login: user476
+    email: user476@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:16:59
+    country:
+    unique_id:
+    updated_at: 2010-11-12 15:35:55
+    lastname:
+    id: "117"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user117
+    email: user117@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:17:23
+    country:
+    unique_id:
+    updated_at: 2010-11-18 13:12:29
+    lastname:
+    id: "354"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user354
+    email: user354@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:18:49
+    country:
+    unique_id:
+    updated_at: 2010-11-18 14:40:45
+    lastname:
+    id: "1059"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "1"
+    login: user1059
+    email: user1059@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-08-11 16:57:01
+    country:
+    unique_id:
+    updated_at: 2010-11-23 19:11:36
+    lastname:
+    id: "2061"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2061
+    email: user2061@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-06-08 13:26:34
+    country:
+    unique_id:
+    updated_at: 2010-11-26 13:03:33
+    lastname:
+    id: "3866"
+    language_id: "2"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user3866
+    email: user3866@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-12-08 14:13:10
+    country:
+    unique_id:
+    updated_at: 2010-12-08 14:13:54
+    lastname:
+    id: "4593"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user4593
+    email: user4593@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:20:00
+    country:
+    unique_id:
+    updated_at: 2010-12-09 14:13:04
+    lastname:
+    id: "1669"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user1669
+    email: user1669@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-11-05 11:01:15
+    country:
+    unique_id:
+    updated_at: 2010-12-15 12:17:51
+    lastname:
+    id: "2308"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2308
+    email: user2308@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:19:40
+    country:
+    unique_id:
+    updated_at: 2010-12-16 10:44:40
+    lastname:
+    id: "1502"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user1502
+    email: user1502@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-07-01 12:37:52
+    country:
+    unique_id:
+    updated_at: 2010-12-17 12:44:03
+    lastname:
+    id: "3897"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user3897
+    email: user3897@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2010-02-15 07:42:59
+    country:
+    unique_id:
+    updated_at: 2010-12-20 12:18:39
+    lastname:
+    id: "2526"
+    language_id: "4"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user2526
+    email: user2526@example.org
+  attributes_cache: {}
+
+- !ruby/object:User
+  attributes:
+    extended_info:
+    city:
+    address:
+    zip:
+    badge_id:
+    created_at: 2009-01-28 08:17:05
+    country:
+    unique_id:
+    updated_at: 2010-12-02 15:58:19
+    lastname:
+    id: "176"
+    language_id: "1"
+    phone:
+    firstname:
+    authentication_system_id: "3"
+    login: user176
+    email: user176@example.org
+  attributes_cache: {}
+
 # Contracts with a reservation of that Model
 - !ruby/object:Contract 
   attributes: 
@@ -5319,2086 +7415,6 @@
     user_id: "731"
     note:
     inventory_pool_id: "8"
-  attributes_cache: {}
-
-# Users that have borrowed that Model
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-01-19 10:41:17
-    country: 
-    unique_id: 
-    updated_at: 2010-12-20 14:50:03
-    lastname: 
-    id: "2473"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2473
-    email: user2473@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:17:05
-    country: 
-    unique_id: 
-    updated_at: 2010-04-22 11:10:43
-    lastname: 
-    id: "174"
-    language_id: "4"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user174
-    email: user174@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:19:32
-    country: 
-    unique_id: 
-    updated_at: 2010-02-03 15:16:14
-    lastname: 
-    id: "1436"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user1436
-    email: user1436@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-02-04 16:37:30
-    country: 
-    unique_id: 
-    updated_at: 2010-02-05 08:32:13
-    lastname: 
-    id: "2500"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2500
-    email: user2500@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-09-15 08:41:33
-    country: 
-    unique_id: 
-    updated_at: 2011-01-10 07:45:44
-    lastname: 
-    id: "2123"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2123
-    email: user2123@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:17:00
-    country: 
-    unique_id: 
-    updated_at: 2010-10-21 13:37:36
-    lastname: 
-    id: "134"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user134
-    email: user134@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-02-16 17:55:23
-    country: 
-    unique_id: 
-    updated_at: 2010-05-19 05:30:25
-    lastname: 
-    id: "2530"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2530
-    email: user2530@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-02-19 12:01:31
-    country: 
-    unique_id: 
-    updated_at: 2010-05-28 09:56:44
-    lastname: 
-    id: "2536"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2536
-    email: user2536@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:19:45
-    country: 
-    unique_id: 
-    updated_at: 2010-12-03 15:44:38
-    lastname: 
-    id: "1545"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user1545
-    email: user1545@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:17:52
-    country: 
-    unique_id: 
-    updated_at: 2010-09-01 06:01:10
-    lastname: 
-    id: "564"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user564
-    email: user564@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:18:27
-    country: 
-    unique_id: 
-    updated_at: 2010-12-01 10:07:21
-    lastname: 
-    id: "864"
-    language_id: "4"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user864
-    email: user864@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-03-09 17:34:02
-    country: 
-    unique_id: 
-    updated_at: 2010-05-19 05:30:29
-    lastname: 
-    id: "2576"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2576
-    email: user2576@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-03-10 15:48:03
-    country: 
-    unique_id: 
-    updated_at: 2010-11-08 14:26:09
-    lastname: 
-    id: "2579"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2579
-    email: user2579@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:19:39
-    country: 
-    unique_id: 
-    updated_at: 2010-05-19 05:30:27
-    lastname: 
-    id: "1496"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user1496
-    email: user1496@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-03-24 08:16:30
-    country: 
-    unique_id: 
-    updated_at: 2010-05-30 12:50:03
-    lastname: 
-    id: "2608"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2608
-    email: user2608@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:17:49
-    country: 
-    unique_id: 
-    updated_at: 2010-06-16 14:41:31
-    lastname: 
-    id: "535"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user535
-    email: user535@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-04-08 14:09:22
-    country: 
-    unique_id: 
-    updated_at: 2010-05-31 06:31:03
-    lastname: 
-    id: "2631"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2631
-    email: user2631@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:19:53
-    country: 
-    unique_id: 
-    updated_at: 2010-12-17 08:30:39
-    lastname: 
-    id: "1608"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user1608
-    email: user1608@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:20:18
-    country: 
-    unique_id: 
-    updated_at: 2010-09-02 12:57:54
-    lastname: 
-    id: "1806"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user1806
-    email: user1806@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-02-11 17:01:33
-    country: 
-    unique_id: 
-    updated_at: 2010-04-22 13:12:09
-    lastname: 
-    id: "2513"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2513
-    email: user2513@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-04-21 16:52:50
-    country: 
-    unique_id: 
-    updated_at: 2010-05-19 05:30:30
-    lastname: 
-    id: "2667"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2667
-    email: user2667@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-04-22 16:55:26
-    country: 
-    unique_id: 
-    updated_at: 2010-04-23 06:35:53
-    lastname: 
-    id: "2668"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2668
-    email: user2668@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:19:09
-    country: 
-    unique_id: 
-    updated_at: 2010-11-12 12:33:21
-    lastname: 
-    id: "1227"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user1227
-    email: user1227@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-04-28 14:42:07
-    country: 
-    unique_id: 
-    updated_at: 2010-05-19 05:30:50
-    lastname: 
-    id: "2678"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2678
-    email: user2678@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:18:05
-    country: 
-    unique_id: 
-    updated_at: 2010-05-17 07:43:42
-    lastname: 
-    id: "682"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user682
-    email: user682@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-05-03 13:02:38
-    country: 
-    unique_id: 
-    updated_at: 2010-05-03 13:03:34
-    lastname: 
-    id: "2684"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2684
-    email: user2684@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:20:02
-    country: 
-    unique_id: 
-    updated_at: 2010-10-09 08:34:33
-    lastname: 
-    id: "1687"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user1687
-    email: user1687@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-05-18 09:33:21
-    country: 
-    unique_id: 
-    updated_at: 2010-05-19 05:30:49
-    lastname: 
-    id: "2713"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2713
-    email: user2713@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:16:49
-    country: 
-    unique_id: 
-    updated_at: 2010-05-19 07:31:06
-    lastname: 
-    id: "14"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user14
-    email: user14@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:19:49
-    country: 
-    unique_id: 
-    updated_at: 2011-01-11 08:43:17
-    lastname: 
-    id: "1574"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user1574
-    email: user1574@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-05-28 16:04:56
-    country: 
-    unique_id: 
-    updated_at: 2010-05-28 16:34:01
-    lastname: 
-    id: "2741"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2741
-    email: user2741@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:17:57
-    country: 
-    unique_id: 
-    updated_at: 2010-07-19 11:38:43
-    lastname: 
-    id: "602"
-    language_id: "4"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user602
-    email: user602@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-06-02 14:31:15
-    country: 
-    unique_id: 
-    updated_at: 2010-06-08 13:16:50
-    lastname: 
-    id: "2749"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2749
-    email: user2749@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:19:09
-    country: 
-    unique_id: 
-    updated_at: 2010-11-04 08:23:51
-    lastname: 
-    id: "1231"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user1231
-    email: user1231@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-09-10 09:52:05
-    country: 
-    unique_id: 
-    updated_at: 2010-06-04 12:40:44
-    lastname: 
-    id: "2115"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2115
-    email: user2115@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-02-05 15:21:35
-    country: 
-    unique_id: 
-    updated_at: 2011-01-10 09:02:25
-    lastname: 
-    id: "1971"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user1971
-    email: user1971@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-05-13 10:28:48
-    country: 
-    unique_id: 
-    updated_at: 2011-01-11 08:26:38
-    lastname: 
-    id: "2015"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2015
-    email: user2015@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:17:51
-    country: 
-    unique_id: 
-    updated_at: 2010-12-09 08:56:17
-    lastname: 
-    id: "553"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user553
-    email: user553@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:17:02
-    country: 
-    unique_id: 
-    updated_at: 2010-12-22 12:08:19
-    lastname: 
-    id: "147"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user147
-    email: user147@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:16:57
-    country: 
-    unique_id: 
-    updated_at: 2011-01-06 14:20:52
-    lastname: 
-    id: "92"
-    language_id: "4"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user92
-    email: user92@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:19:49
-    country: 
-    unique_id: 
-    updated_at: 2010-12-13 07:28:32
-    lastname: 
-    id: "1572"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user1572
-    email: user1572@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-06-11 15:16:01
-    country: 
-    unique_id: 
-    updated_at: 2010-07-21 08:02:59
-    lastname: 
-    id: "3881"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user3881
-    email: user3881@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:18:48
-    country: 
-    unique_id: 
-    updated_at: 2010-12-15 19:58:32
-    lastname: 
-    id: "1047"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user1047
-    email: user1047@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:17:25
-    country: 
-    unique_id: 
-    updated_at: 2011-01-11 09:37:32
-    lastname: 
-    id: "369"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user369
-    email: user369@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:18:31
-    country: 
-    unique_id: 
-    updated_at: 2010-09-08 11:46:19
-    lastname: 
-    id: "897"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user897
-    email: user897@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-05-17 09:35:28
-    country: 
-    unique_id: 
-    updated_at: 2011-01-05 21:03:23
-    lastname: 
-    id: "2706"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2706
-    email: user2706@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:18:11
-    country: 
-    unique_id: 
-    updated_at: 2010-12-02 11:35:35
-    lastname: 
-    id: "731"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user731
-    email: user731@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-06-08 13:26:20
-    country: 
-    unique_id: 
-    updated_at: 2010-07-05 13:45:17
-    lastname: 
-    id: "3846"
-    language_id: "2"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user3846
-    email: user3846@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-06-08 13:26:31
-    country: 
-    unique_id: 
-    updated_at: 2010-07-06 13:31:59
-    lastname: 
-    id: "3862"
-    language_id: "2"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user3862
-    email: user3862@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:16:50
-    country: 
-    unique_id: 
-    updated_at: 2010-11-17 09:24:51
-    lastname: 
-    id: "25"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user25
-    email: user25@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:17:30
-    country: 
-    unique_id: 
-    updated_at: 2010-11-25 09:14:13
-    lastname: 
-    id: "417"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user417
-    email: user417@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-07-06 15:49:58
-    country: 
-    unique_id: 
-    updated_at: 2010-12-03 11:52:57
-    lastname: 
-    id: "3900"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user3900
-    email: user3900@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-07-26 09:15:35
-    country: 
-    unique_id: 
-    updated_at: 2010-07-27 10:15:50
-    lastname: 
-    id: "3907"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user3907
-    email: user3907@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:18:22
-    country: 
-    unique_id: 
-    updated_at: 2010-06-24 08:37:56
-    lastname: 
-    id: "823"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user823
-    email: user823@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:17:41
-    country: 
-    unique_id: 
-    updated_at: 2010-12-09 08:44:08
-    lastname: 
-    id: "486"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user486
-    email: user486@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:16:57
-    country: 
-    unique_id: 
-    updated_at: 2011-01-09 15:45:14
-    lastname: 
-    id: "91"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user91
-    email: user91@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:17:20
-    country: 
-    unique_id: 
-    updated_at: 2010-12-01 12:23:33
-    lastname: 
-    id: "317"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user317
-    email: user317@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-08-13 13:29:12
-    country: 
-    unique_id: 
-    updated_at: 2010-08-13 13:36:52
-    lastname: 
-    id: "3927"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user3927
-    email: user3927@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-08-02 08:49:04
-    country: 
-    unique_id: 
-    updated_at: 2010-11-08 08:56:42
-    lastname: 
-    id: "3912"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user3912
-    email: user3912@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:17:20
-    country: 
-    unique_id: 
-    updated_at: 2010-12-15 21:27:21
-    lastname: 
-    id: "320"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user320
-    email: user320@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:19:28
-    country: 
-    unique_id: 
-    updated_at: 2010-08-24 14:40:30
-    lastname: 
-    id: "1403"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user1403
-    email: user1403@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-07-15 09:09:16
-    country: 
-    unique_id: 
-    updated_at: 2010-11-03 09:42:58
-    lastname: 
-    id: "3903"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user3903
-    email: user3903@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:17:30
-    country: 
-    unique_id: 
-    updated_at: 2010-08-25 14:11:11
-    lastname: 
-    id: "413"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user413
-    email: user413@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:17:50
-    country: 
-    unique_id: 
-    updated_at: 2010-08-26 09:15:03
-    lastname: 
-    id: "540"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user540
-    email: user540@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-04-06 10:08:25
-    country: 
-    unique_id: 
-    updated_at: 2010-11-16 09:46:13
-    lastname: 
-    id: "2628"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2628
-    email: user2628@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:18:01
-    country: 
-    unique_id: 
-    updated_at: 2011-01-10 17:25:45
-    lastname: 
-    id: "641"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user641
-    email: user641@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:18:59
-    country: 
-    unique_id: 
-    updated_at: 2010-12-07 07:47:14
-    lastname: 
-    id: "1149"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user1149
-    email: user1149@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:19:54
-    country: 
-    unique_id: 
-    updated_at: 2010-11-08 19:22:27
-    lastname: 
-    id: "1620"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user1620
-    email: user1620@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-09-02 10:11:38
-    country: 
-    unique_id: 
-    updated_at: 2010-09-02 10:17:31
-    lastname: 
-    id: "3962"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user3962
-    email: user3962@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-09-02 10:14:53
-    country: 
-    unique_id: 
-    updated_at: 2010-09-02 10:21:38
-    lastname: 
-    id: "3963"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user3963
-    email: user3963@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:18:43
-    country: 
-    unique_id: 
-    updated_at: 2010-09-02 10:28:07
-    lastname: 
-    id: "1006"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user1006
-    email: user1006@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:16:48
-    country: 
-    unique_id: 
-    updated_at: 2010-09-03 09:41:16
-    lastname: 
-    id: "12"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user12
-    email: user12@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-06-08 13:18:00
-    country: 
-    unique_id: 
-    updated_at: 2010-09-07 13:18:44
-    lastname: 
-    id: "2984"
-    language_id: "2"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2984
-    email: user2984@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:16:55
-    country: 
-    unique_id: 
-    updated_at: 2010-11-15 09:45:07
-    lastname: 
-    id: "73"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user73
-    email: user73@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:18:12
-    country: 
-    unique_id: 
-    updated_at: 2010-12-22 10:50:09
-    lastname: 
-    id: "739"
-    language_id: "4"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user739
-    email: user739@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-09-07 11:32:38
-    country: 
-    unique_id: 
-    updated_at: 2010-09-20 13:38:58
-    lastname: 
-    id: "2101"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2101
-    email: user2101@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-06-08 13:17:22
-    country: 
-    unique_id: 
-    updated_at: 2010-09-22 10:59:55
-    lastname: 
-    id: "2897"
-    language_id: "2"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2897
-    email: user2897@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:18:57
-    country: 
-    unique_id: 
-    updated_at: 2010-09-24 07:58:41
-    lastname: 
-    id: "1130"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "1"
-    login: user1130
-    email: user1130@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-04-27 09:05:23
-    country: 
-    unique_id: 
-    updated_at: 2010-10-04 11:48:23
-    lastname: 
-    id: "2673"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2673
-    email: user2673@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-10-08 14:36:16
-    country: 
-    unique_id: 
-    updated_at: 2010-10-08 14:37:43
-    lastname: 
-    id: "4191"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user4191
-    email: user4191@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-10-11 10:58:14
-    country: 
-    unique_id: 
-    updated_at: 2010-11-08 11:19:21
-    lastname: 
-    id: "4199"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user4199
-    email: user4199@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:18:12
-    country: 
-    unique_id: 
-    updated_at: 2010-10-26 14:04:18
-    lastname: 
-    id: "748"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user748
-    email: user748@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-10-21 08:23:12
-    country: 
-    unique_id: 
-    updated_at: 2010-10-21 15:15:12
-    lastname: 
-    id: "4263"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user4263
-    email: user4263@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-09-10 08:59:32
-    country: 
-    unique_id: 
-    updated_at: 2010-10-21 15:24:38
-    lastname: 
-    id: "3983"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user3983
-    email: user3983@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-06-08 13:18:36
-    country: 
-    unique_id: 
-    updated_at: 2010-11-04 12:12:51
-    lastname: 
-    id: "3061"
-    language_id: "2"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user3061
-    email: user3061@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:18:27
-    country: 
-    unique_id: 
-    updated_at: 2010-11-04 16:12:59
-    lastname: 
-    id: "862"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "1"
-    login: user862
-    email: user862@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:17:38
-    country: 
-    unique_id: 
-    updated_at: 2010-11-08 14:52:26
-    lastname: 
-    id: "476"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "1"
-    login: user476
-    email: user476@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:16:59
-    country: 
-    unique_id: 
-    updated_at: 2010-11-12 15:35:55
-    lastname: 
-    id: "117"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user117
-    email: user117@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:17:23
-    country: 
-    unique_id: 
-    updated_at: 2010-11-18 13:12:29
-    lastname: 
-    id: "354"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user354
-    email: user354@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:18:49
-    country: 
-    unique_id: 
-    updated_at: 2010-11-18 14:40:45
-    lastname: 
-    id: "1059"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "1"
-    login: user1059
-    email: user1059@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-08-11 16:57:01
-    country: 
-    unique_id: 
-    updated_at: 2010-11-23 19:11:36
-    lastname: 
-    id: "2061"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2061
-    email: user2061@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-06-08 13:26:34
-    country: 
-    unique_id: 
-    updated_at: 2010-11-26 13:03:33
-    lastname: 
-    id: "3866"
-    language_id: "2"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user3866
-    email: user3866@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-12-08 14:13:10
-    country: 
-    unique_id: 
-    updated_at: 2010-12-08 14:13:54
-    lastname: 
-    id: "4593"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user4593
-    email: user4593@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:20:00
-    country: 
-    unique_id: 
-    updated_at: 2010-12-09 14:13:04
-    lastname: 
-    id: "1669"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user1669
-    email: user1669@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-11-05 11:01:15
-    country: 
-    unique_id: 
-    updated_at: 2010-12-15 12:17:51
-    lastname: 
-    id: "2308"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2308
-    email: user2308@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:19:40
-    country: 
-    unique_id: 
-    updated_at: 2010-12-16 10:44:40
-    lastname: 
-    id: "1502"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user1502
-    email: user1502@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-07-01 12:37:52
-    country: 
-    unique_id: 
-    updated_at: 2010-12-17 12:44:03
-    lastname: 
-    id: "3897"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user3897
-    email: user3897@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2010-02-15 07:42:59
-    country: 
-    unique_id: 
-    updated_at: 2010-12-20 12:18:39
-    lastname: 
-    id: "2526"
-    language_id: "4"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user2526
-    email: user2526@example.org
-  attributes_cache: {}
-
-- !ruby/object:User 
-  attributes: 
-    extended_info: 
-    city: 
-    address: 
-    zip: 
-    badge_id: 
-    created_at: 2009-01-28 08:17:05
-    country: 
-    unique_id: 
-    updated_at: 2010-12-02 15:58:19
-    lastname: 
-    id: "176"
-    language_id: "1"
-    phone: 
-    firstname: 
-    authentication_system_id: "3"
-    login: user176
-    email: user176@example.org
   attributes_cache: {}
 
 - !ruby/object:ItemLine 

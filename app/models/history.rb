@@ -5,7 +5,7 @@ class History < ActiveRecord::Base
   REMIND = 3      # User
   BROKEN = 4      # Item
   
-  belongs_to :target, :polymorphic => true
+  belongs_to :target, polymorphic: true, inverse_of: :histories
   belongs_to :user
 
   validates_presence_of :text

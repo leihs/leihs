@@ -6,7 +6,6 @@ Feature: Availability depending on Pools
   I want to be sure that a customer only gets to see models from inventory pools he has access to
   In order to prevent a customer from ordering things he cannot borrow
 
-  @personas
   Scenario: Basic
     Given 2 inventory pools
     And a model 'Coffee Mug' exists
@@ -19,7 +18,6 @@ Feature: Availability depending on Pools
     And the maximum number of available 'Coffee Mug' for 'jack' is 5
     And the maximum number of available 'Coffee Mug' for 'john' is 3
 
-  @personas
   Scenario: Items available in different pools
     Given 2 inventory pools
     And a model 'Coffee Mug' exists
@@ -35,7 +33,6 @@ Feature: Availability depending on Pools
     And it asks for 3 items
     And 0 orders exist for inventory pool 2
 
-# @personas
 # Scenario: Splitting order and notifying customer
 #        Given 2 inventory pools
 #                And a model 'Coffee Mug' exists
@@ -52,7 +49,6 @@ Feature: Availability depending on Pools
 #                And it asks for 3 items
 #                And customer 'jack' gets notified that his order has been submitted
 
-# @personas
 # Scenario: Customer can't order things that he can't see
 #        Given 2 inventory pools
 #                And a model 'Coffee Mug' exists
@@ -65,7 +61,6 @@ Feature: Availability depending on Pools
 #        When 'jack' searches for 'Coffee' on frontend
 #        Then he sees the 'Coffee Machine' model
 
-  @personas
   Scenario: Customer orders the same item multiple times, thus exceeding maximum quantity
     Given 1 inventory pool
     And a model 'Pink Hairbrush' exists
@@ -76,7 +71,6 @@ Feature: Availability depending on Pools
     When 'samantha' orders another 2 'Pink Hairbrush' for the same time
     Then these additional order lines were not created
 
-  @personas
   Scenario: Customer can decide from which pool he orders
     Given 2 inventory pools
     And a model 'Coffee Mug' exists

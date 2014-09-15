@@ -13,19 +13,19 @@
 #
 class Item < ActiveRecord::Base
 
-  belongs_to :parent, :class_name => "Item", :foreign_key => 'parent_id'
+  belongs_to :parent, :class_name => "Item", :foreign_key => 'parent_id', inverse_of: :children
   has_many :children, :class_name => "Item", :foreign_key => 'parent_id', :dependent => :nullify,
            :after_add => :update_child_attributes
 
-  belongs_to :model
-  belongs_to :location
-  belongs_to :owner, :class_name => "InventoryPool", :foreign_key => "owner_id"
+  belongs_to :model, inverse_of: :items
+  belongs_to :location, inverse_of: :items
+  belongs_to :owner, :class_name => "InventoryPool", :foreign_key => "owner_id", inverse_of: :own_items
   belongs_to :supplier
-  belongs_to :inventory_pool
+  belongs_to :inventory_pool, inverse_of: :items
 
-  has_many :item_lines
+  has_many :item_lines, dependent: :restrict_with_exception
   alias :contract_lines :item_lines
-  has_many :histories, -> { order(:created_at) }, :as => :target, :dependent => :destroy
+  has_many :histories, -> { order(:created_at) }, as: :target, dependent: :delete_all
   store :properties
 
 ####################################################################

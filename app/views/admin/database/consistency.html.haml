@@ -1,3 +1,6 @@
+:ruby
+  missing_references = @references.select {|r| not r[:values].to_a.empty? }
+
 - content_for :title, _("Database consistency")
 
 .wrapper.margin-top-m
@@ -5,14 +8,40 @@
   = render partial: "header"
 
   .row.content-wrapper.min-height-xl.min-width-full.straight-top
-    - @missing_references.each_pair do |key, v|
-      - values = v.to_a # NOTE it performs the executions. so that the next size check doesn't execute an additional mysql count(*)
+    - if missing_references.empty?
       .row.margin-top-l.padding-horizontal-m
         .row
           .headline-l.float-left
-            = "%d %s" % [values.size, key]
+            = _("All correct")
+            %i.icon-check-sign.icon-size-s
+
+    - missing_references.each do |h|
+      .row.margin-top-l.padding-horizontal-m
+        .row
+          .headline-l
+            = h[:values].size
+            = _("%s with missing %s") % [h[:from_table], h[:to_table]]
+            = _(" (polymorphic association)") if h[:polymorphic]
+            = _(" (join table)") if h[:join_table]
+
+        .row
+          = h[:query]
+
+        .row
+          :ruby
+            button_label = case h[:dependent]
+                             when :delete, :delete_all
+                               _("%s from the database") % h[:dependent].to_s.humanize
+                             when :nullify, :destroy
+                               _("%s on the database") % h[:dependent].to_s.humanize
+                             else
+                               _("Delete from the database")
+                           end
+          = link_to admin_consistency_path(from_table: h[:from_table], to_table: h[:to_table], from_column: h[:from_column], to_column: h[:to_column], dependent: h[:dependent]), method: :delete, class: "button red", data: { confirm: _("Are you sure?") } do
+            = button_label
+
         .row.emboss.margin-vertical-s
-          - values.each do |value|
+          - h[:values].each do |value|
             .row.line
               .line-info.red
               .col1of1.line-col

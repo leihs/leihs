@@ -26,9 +26,9 @@ Dann /^ist das Modell erstellt und die Pakete und dessen zugeteilten Gegenständ
   expect(@model.nil?).to be false
   expect(@model.is_package?).to be true
   @packages = @model.items
-  @packages.count.should eq 1
-  @packages.first.children.first.inventory_code.should eql "beam123"
-  @packages.first.children.second.inventory_code.should eql "beam345"
+  expect(@packages.count).to eq 1
+  expect(@packages.first.children.first.inventory_code).to eq "beam123"
+  expect(@packages.first.children.second.inventory_code).to eq "beam345"
 end
 
 Dann /^den Paketen wird ein Inventarcode zugewiesen$/ do
@@ -46,7 +46,7 @@ Dann /^kann ich das Paket löschen und die Gegenstände sind nicht mehr dem Pake
   step 'ich speichere die Informationen'
   find("#flash")
   expect(Item.find_by_id(@package.id).nil?).to be true
-  lambda {@package.reload}.should raise_error(ActiveRecord::RecordNotFound)
+  expect { @package.reload }.to raise_error(ActiveRecord::RecordNotFound)
   expect(@package_item_ids.size).to be > 0
   @package_item_ids.each do |id|
     expect(Item.find(id).parent_id).to eq nil
@@ -129,7 +129,7 @@ end
 Dann /^dieser Gegenstand ist nicht mehr dem Paket zugeteilt$/ do
   expect(has_content?(_("List of Inventory"))).to be true
   @package_to_edit.reload
-  @package_to_edit.children.count.should eq (@number_of_items_before - 1)
+  expect(@package_to_edit.children.count).to eq (@number_of_items_before - 1)
   expect(@package_to_edit.children.detect {|i| i.inventory_code == @item_to_remove}).to eq nil
 end
 

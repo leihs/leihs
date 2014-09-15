@@ -35,5 +35,5 @@ Then /^there is one item found$/ do
 end
 
 Then /^the item found is the one with the new property$/ do
-  @search_result.first.should eql @fetched_item
+  expect(@search_result.first).to eq @fetched_item
 end

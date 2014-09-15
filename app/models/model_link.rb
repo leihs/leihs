@@ -1,7 +1,7 @@
 class ModelLink < ActiveRecord::Base
   
   belongs_to :model_group, inverse_of: :model_links
-  belongs_to :model
+  belongs_to :model, inverse_of: :model_links
 
   before_validation do
     self.quantity ||= 1

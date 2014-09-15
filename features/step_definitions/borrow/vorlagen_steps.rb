@@ -176,7 +176,7 @@ end
 Dann(/^kann ich im Prozess weiterfahren und alle Modelle gesamthaft zu einer Bestellung hinzufügen$/) do
   find(".button.green", match: :first, text: _("Add to order")).click
   find("#current-order-show", match: :first)
-  @current_user.contracts.unsubmitted.flat_map(&:models).should eq [@model]
+  expect(@current_user.contracts.unsubmitted.flat_map(&:models)).to eq [@model]
 end
 
 Angenommen(/^ich sehe die Verfügbarkeit einer Vorlage, die nicht verfügbare Modelle enthält$/) do

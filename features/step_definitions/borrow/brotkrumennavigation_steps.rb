@@ -10,12 +10,12 @@ end
 
 Dann(/^beinhaltet diese immer an erster Stelle das Übersichtsbutton$/) do
   @home_button = all("nav .navigation-tab-item").first
-  @home_button.text.should match _("Start")
+  expect(@home_button.text).to match _("Start")
 end
 
 Dann(/^dieser führt mich immer zur Seite der Hauptkategorien$/) do
   @home_button.click
-  current_path.should eq borrow_root_path
+  expect(current_path).to eq borrow_root_path
 end
 
 Wenn(/^ich eine Kategorie der ersten stufe aus der Explorativen Suche wähle$/) do

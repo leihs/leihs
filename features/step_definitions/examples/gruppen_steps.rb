@@ -150,7 +150,7 @@ end
 
 Dann(/^wird das Modell zuoberst in der Liste hinzugefügt$/) do
   expect(has_selector?("#models-allocations .list-of-lines .line", text: @model_name)).to be true
-  find("#models-allocations .list-of-lines .line", match: :first).text.should match @model_name
+  expect(find("#models-allocations .list-of-lines .line", match: :first).text).to match @model_name
 end
 
 Dann(/^sind die bereits hinzugefügten Benutzer alphabetisch sortiert$/) do
@@ -191,11 +191,11 @@ Dann(/^wird der Benutzer nicht hinzugefügt$/) do
 end
 
 Dann(/^das vorhandene Modell ist nach oben gerutscht$/) do
-  find("#models-allocations .list-of-lines .line", match: :first).text.should match @model.name
+  expect(find("#models-allocations .list-of-lines .line", match: :first).text).to match @model.name
 end
 
 Dann(/^der vorhandene Benutzer ist nach oben gerutscht$/) do
-  find("#users .list-of-lines .line", match: :first).text.should match @user.name
+  expect(find("#users .list-of-lines .line", match: :first).text).to match @user.name
 end
 
 Dann(/^das vorhandene Modell behält die eingestellte Anzahl$/) do

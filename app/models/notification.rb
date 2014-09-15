@@ -8,7 +8,7 @@
 #
 class Notification < ActiveRecord::Base
 
-  belongs_to :user
+  belongs_to :user, inverse_of: :notifications
   
   def self.order_submitted(order, purpose, send_mail = false)
     o = Mailer::Order.submitted(order, purpose).deliver if send_mail

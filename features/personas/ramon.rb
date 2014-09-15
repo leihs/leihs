@@ -59,8 +59,10 @@ module Persona
     end
 
     def create_christmas_holiday inventory_pool
-      next_christmas = (Date.today().month == 12 and Date.today().day > 23)? Date.new(Date.today().year+1.day, 12, 24) : Date.new(Date.today().year, 12, 24)
-      Holiday.create({:inventory_pool_id => inventory_pool.id, :start_date => next_christmas, :end_date => next_christmas, :name => "Christmas"})
+      (0..1).each do |n|
+        christmas = Date.new(Date.today.year + n, 12, 24)
+        inventory_pool.holidays.create(start_date: christmas, end_date: christmas + 2.days, name: "Christmas")
+      end
     end
     
     def create_inventory_pool_it_ausleihe

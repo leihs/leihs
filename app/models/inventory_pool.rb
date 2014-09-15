@@ -14,9 +14,8 @@ class InventoryPool < ActiveRecord::Base
   has_many :suspended_users, -> { where(access_rights: {deleted_at: nil}).where("access_rights.suspended_until IS NOT NULL AND access_rights.suspended_until >= ?", Date.today).uniq } , :through => :access_rights, :source => :user
 
   has_many :locations, -> { uniq }, :through => :items
-  has_many :items, :dependent => :nullify # OPTIMIZE prevent self.destroy unless self.items.empty? 
-                                          # NOTE these are only the active items (unretired), because Item has a default_scope
-  has_many :own_items, :class_name => "Item", :foreign_key => "owner_id", :dependent => :restrict_with_exception
+  has_many :items, dependent: :restrict_with_exception
+  has_many :own_items, :class_name => "Item", :foreign_key => "owner_id", dependent: :restrict_with_exception
   has_many :models, -> { uniq }, :through => :items
   has_many :options
 

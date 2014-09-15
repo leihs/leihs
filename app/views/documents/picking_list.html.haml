@@ -14,7 +14,7 @@
 
 
   - if [:signed, :closed].include?(@contract.status)
-    - lines_by_end_date = @contract.lines.includes(:item, :item => :location).group_by{|line| line.end_date }
+    - lines_by_end_date = @contract.lines.includes(:item).group_by{|line| line.end_date }
     - lines_by_end_date.each_pair do |end_date, lines|
       %section.list
         %table
@@ -28,7 +28,7 @@
               %td.model_name= _("Model")
               %td.location= "%s / %s" % [_("Room"), _("Shelf")]
           %tbody
-            - sorted_lines = lines.sort_by{|line| line.item.location ? "%s / %s" % [line.item.location.room, line.item.location.shelf] : "zzzz (no locations displayed at the end of the list)" }
+            - sorted_lines = lines.sort_by{|line| (line.item.respond_to?(:location) and line.item.location) ? "%s / %s" % [line.item.location.room, line.item.location.shelf] : "zzzz (no locations displayed at the end of the list)" }
             - sorted_lines.each do |line|
               %tr{style: "vertical-align: top"}
                 %td.quantity= line.quantity

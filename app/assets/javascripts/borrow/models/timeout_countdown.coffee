@@ -49,7 +49,7 @@ class window.App.TimeoutCountdown
 
   updateTime: =>
     do @sync
-    remainingSeconds = _.clone(@currentTimeout).add("minutes", @timeoutMinutes).diff(moment(), "seconds")
+    remainingSeconds = moment(@currentTimeout).add("minutes", @timeoutMinutes).diff(moment(), "seconds")
     if remainingSeconds <= 0
       do @timeout
     if @seconds <= 0 and @minutes > 0

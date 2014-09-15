@@ -37,7 +37,7 @@ end
 
 Dann /^kann man einen Gegenstand erstellen$/ do
   step 'ich einen neuen Gegenstand hinzufüge'
-  current_path.should eql manage_new_item_path(@current_inventory_pool)
+  expect(current_path).to eq manage_new_item_path(@current_inventory_pool)
 end
 
 Angenommen /^man navigiert zur Gegenstandserstellungsseite$/ do
@@ -184,8 +184,8 @@ end
 
 Dann /^die anderen Angaben wurde nicht gelöscht$/ do
   if @must_field_name == "Modell"
-    @inventory_code_field.value.should eql @inventory_code_value
-    @project_number_field.value.should eql @project_number_value
+    expect(@inventory_code_field.value).to eq @inventory_code_value
+    expect(@project_number_field.value).to eq @project_number_value
   end
 end
 
@@ -194,7 +194,7 @@ Dann /^ist der Barcode bereits gesetzt$/ do
 end
 
 Dann /^Letzte Inventur ist das heutige Datum$/ do
-  find(".row.emboss", match: :prefer_exact, text: "Letzte Inventur").find("input").value.should eq Date.today.strftime("%d.%m.%Y")
+  expect(find(".row.emboss", match: :prefer_exact, text: "Letzte Inventur").find("input").value).to eq Date.today.strftime("%d.%m.%Y")
 end
 
 Dann /^folgende Felder haben folgende Standardwerte$/ do |table|

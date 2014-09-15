@@ -16,7 +16,7 @@ end
 Then /^this line is deleted$/ do
   find(".line", match: :first)
   expect(has_no_selector?(".line[data-id='#{@line.id}']")).to be true
-  lambda {@line.reload}.should raise_error(ActiveRecord::RecordNotFound) 
+  expect { @line.reload }.to raise_error(ActiveRecord::RecordNotFound)
 end
 
 When /^I select multiple lines$/ do
@@ -39,7 +39,7 @@ Then /^these lines are deleted$/ do
   @selected_line_ids.each do |line_id|
     expect(has_no_selector?(".line[data-id='#{line_id}']")).to be true
   end
-  @selected_line_ids.each {|id| lambda{ContractLine.find(id)}.should raise_error(ActiveRecord::RecordNotFound)}
+  @selected_line_ids.each {|id| expect { ContractLine.find(id) }.to raise_error(ActiveRecord::RecordNotFound)}
 end
 
 When /^I delete all lines of a model thats availability is blocked by these lines$/ do

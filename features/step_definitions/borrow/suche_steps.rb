@@ -31,7 +31,7 @@ Angenommen(/^man wählt ein Modell von der Vorschlagsliste der Suche$/) do
 end
 
 Dann(/^wird die Modell\-Ansichtsseite geöffnet$/) do
-  current_path.should eq borrow_model_path(@model)
+  expect(current_path).to eq borrow_model_path(@model)
 end
 
 Angenommen(/^man gibt einen Suchbegriff ein$/) do

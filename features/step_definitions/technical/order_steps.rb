@@ -171,7 +171,7 @@ Then "the contract was placed by a customer named '$name'" do | name |
 end
 
 When(/^the contract is deleted$/) do
-  lambda {@contract.reload}.should raise_error(ActiveRecord::RecordNotFound)
+  expect { @contract.reload }.to raise_error(ActiveRecord::RecordNotFound)
 end
 
 Given /^there is a "(.*?)" contract with (\d+) lines?$/ do |contract_type, no_of_lines|
@@ -187,7 +187,7 @@ When /^one tries to delete a line$/ do
 end
 
 Then /^the amount of lines decreases by one$/ do
-  @contract.lines.size.should eq(@no_of_lines_at_start - 1)
+  expect(@contract.lines.size).to eq(@no_of_lines_at_start - 1)
 end
 
 Then /^the line is (.*)(?:\s?)deleted$/ do |not_specifier|
@@ -195,7 +195,7 @@ Then /^the line is (.*)(?:\s?)deleted$/ do |not_specifier|
 end
 
 Then /^the amount of lines remains unchanged$/ do
-  @contract.lines.size.should eq @no_of_lines_at_start
+  expect(@contract.lines.size).to eq @no_of_lines_at_start
 end
 
 Given /^required test data for contract tests existing$/ do

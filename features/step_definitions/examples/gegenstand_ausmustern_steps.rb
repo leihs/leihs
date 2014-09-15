@@ -25,8 +25,8 @@ Dann /^kann man diese(?:.?) (?:.*) mit Angabe des Grundes erfolgreich ausmustern
   find("#item-save").click
   find("#flash .success")
   @item.reload
-  @item.retired.should eq Date.today
-  @item.retired_reason.should eq "test"
+  expect(@item.retired).to eq Date.today
+  expect(@item.retired_reason).to eq "test"
 end
 
 Dann(/^hat man keine Möglichkeit solche(?:.?) (?:.*) auszumustern$/) do

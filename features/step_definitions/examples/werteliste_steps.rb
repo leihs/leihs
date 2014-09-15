@@ -209,7 +209,7 @@ Dann(/^für die nicht zugewiesenen Linien ist der Preis der höchste Preis eines
     quantity = lines.size
     line = all("tr", text: m.name).find {|line| line.find(".inventory_code").text == "" }
     if line
-      line.find(".item_price").text.delete("'").should match /#{(@lines.reload.find{|l| not l.item and l.model == m}.price_or_max_price * quantity).to_s}/
+      expect(line.find(".item_price").text.delete("'")).to match /#{(@lines.reload.find{|l| not l.item and l.model == m}.price_or_max_price * quantity).to_s}/
     end
   end
 end
@@ -217,7 +217,7 @@ end
 Dann(/^für die zugewiesenen Linien ist der Preis der des Gegenstandes$/) do
   lines = @lines.select {|l| l.item.try(:inventory_code)}
   lines.each do |line|
-    find("tr", text: line.item.inventory_code).find(".item_price").text.delete("'").should match /#{line.price_or_max_price.to_s}/
+    expect(find("tr", text: line.item.inventory_code).find(".item_price").text.delete("'")).to match /#{line.price_or_max_price.to_s}/
   end
 end
 
@@ -231,7 +231,7 @@ Dann(/^der Preis einer Option ist der innerhalb des Geräteparks$/) do
   lines = @lines.select {|l| l.is_a? OptionLine }
   lines.each do |l|
     line = find("tr", text: l.model.name)
-    line.find(".item_price").text.delete("'").should match /#{@current_inventory_pool.options.find(l.item.id).price * l.quantity}/
+    expect(line.find(".item_price").text.delete("'")).to match /#{@current_inventory_pool.options.find(l.item.id).price * l.quantity}/
   end
 end
 

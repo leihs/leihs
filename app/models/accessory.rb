@@ -1,6 +1,6 @@
 class Accessory < ActiveRecord::Base
   
-  belongs_to :model
+  belongs_to :model, inverse_of: :accessories
   has_and_belongs_to_many :inventory_pools
 
   # TODO - a manager can only create if the required accessory doesn't yet exist,

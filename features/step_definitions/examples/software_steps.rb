@@ -572,7 +572,7 @@ Then(/^the software product is deleted from the list$/) do
 end
 
 Then(/^the software product is deleted$/) do
-  lambda {@model.reload}.should raise_error(ActiveRecord::RecordNotFound)
+  expect { @model.reload }.to raise_error(ActiveRecord::RecordNotFound)
 end
 
 When(/^I fill in all the required fields for the license$/) do

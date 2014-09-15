@@ -15,7 +15,7 @@ Dann(/^sie beinhaltet die direkten Kinder und deren Kinder gemäss aktuell ausge
 end
 
 Dann(/^diejenigen Kategorien, die oder deren Nachfolger keine ausleihbare Gegenstände beinhalten, werden nicht angezeigt$/) do
-  (@children + @grand_children).length.should eq find("#explorative-search", match: :first).all("a").length
+  expect((@children + @grand_children).length).to eq find("#explorative-search", match: :first).all("a").length
 end
 
 Wenn(/^ich eine Kategorie wähle$/) do

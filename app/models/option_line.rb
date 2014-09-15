@@ -3,7 +3,7 @@
 #
 class OptionLine < ContractLine
 
-  belongs_to :option
+  belongs_to :option, inverse_of: :option_lines
 
   # aliases, fetching option anyway
   belongs_to :item, :class_name => "Option", :foreign_key => :option_id

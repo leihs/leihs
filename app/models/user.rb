@@ -62,8 +62,8 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :email, unless: :is_delegation
   validates :email, format: /.+@.+\..+/, allow_blank: true
 
-  has_many :histories, -> { order(:created_at) }, :as => :target, :dependent => :destroy
-  has_many :reminders, -> { where(:type_const => History::REMIND).order(:created_at) }, :as => :target, :class_name => "History", :dependent => :destroy
+  has_many :histories, -> { order(:created_at) }, as: :target, dependent: :delete_all
+  has_many :reminders, -> { where(:type_const => History::REMIND).order(:created_at) }, class_name: "History", as: :target, dependent: :delete_all
 
   has_and_belongs_to_many :groups do #tmp#2#, :finder_sql => 'SELECT * FROM `groups` INNER JOIN `groups_users` ON `groups`.id = `groups_users`.group_id OR groups.inventory_pool_id IS NULL WHERE (`groups_users`.user_id = #{id})'
     def with_general

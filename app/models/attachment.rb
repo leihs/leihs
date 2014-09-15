@@ -2,7 +2,7 @@ class Attachment < ActiveRecord::Base
 
   PATH_PREFIX = "/attachments"
 
-  belongs_to :model
+  belongs_to :model, inverse_of: :attachments
 
   # paperclip gem
   has_attached_file :file,

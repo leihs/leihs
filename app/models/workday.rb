@@ -1,6 +1,6 @@
 class Workday < ActiveRecord::Base
 
-  belongs_to :inventory_pool
+  belongs_to :inventory_pool, inverse_of: :workday
   
   # deprecated
   DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]

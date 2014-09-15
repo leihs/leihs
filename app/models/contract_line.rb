@@ -11,7 +11,7 @@ class ContractLine < ActiveRecord::Base
   include Availability::ContractLine
 
   belongs_to :purpose
-  belongs_to :contract
+  belongs_to :contract, inverse_of: :contract_lines
   alias :document :contract
   has_one :user, :through => :contract
   has_many :groups, :through => :user

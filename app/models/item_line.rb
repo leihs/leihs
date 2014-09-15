@@ -12,8 +12,8 @@
 #
 class ItemLine < ContractLine
   
-  belongs_to :item
-  belongs_to :model
+  belongs_to :item, inverse_of: :item_lines
+  belongs_to :model, inverse_of: :contract_lines
 
   validates_numericality_of :quantity, :equal_to => 1
   validate :validate_item

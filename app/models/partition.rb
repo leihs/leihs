@@ -1,8 +1,8 @@
 class Partition < ActiveRecord::Base
   
-  belongs_to :model
+  belongs_to :model, inverse_of: :partitions
   belongs_to :inventory_pool
-  belongs_to :group
+  belongs_to :group, inverse_of: :partitions
   
   validates_presence_of :model, :inventory_pool, :group, :quantity
   validates_numericality_of :quantity, :only_integer => true, :greater_than => 0

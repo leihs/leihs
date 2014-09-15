@@ -313,7 +313,7 @@ Dann(/^kann ich diese Delegation löschen$/) do
   line.find(".dropdown-toggle").click
   find("[data-method='delete']").click
   expect(has_selector?(".success")).to be true
-  lambda{ @delegation.reload }.should raise_error ActiveRecord::RecordNotFound
+  expect { @delegation.reload }.to raise_error ActiveRecord::RecordNotFound
 end
 
 Angenommen(/^ich in den Admin\-Bereich wechsle$/) do

@@ -590,7 +590,7 @@ Dann /^kann ich ein einzelnes Zubehör löschen, wenn es für keinen anderen Poo
   step 'ich speichere die Informationen'
   find("#inventory-index-view h1", match: :prefer_exact, text: _("List of Inventory"))
   sleep(0.33) # for fixing the lazy request problem
-  lambda { accessory_to_delete.reload }.should raise_error(ActiveRecord::RecordNotFound)
+  expect { accessory_to_delete.reload }.to raise_error(ActiveRecord::RecordNotFound)
 end
 
 Dann /^kann ich ein einzelnes Zubehör für meinen Pool deaktivieren$/ do
@@ -600,7 +600,7 @@ Dann /^kann ich ein einzelnes Zubehör für meinen Pool deaktivieren$/ do
   step 'ich speichere die Informationen'
   sleep(0.66)
   find("#inventory-index-view h1", match: :prefer_exact, text: _("List of Inventory"))
-  lambda { @current_inventory_pool.accessories.reload.find(accessory_to_deactivate) }.should raise_error(ActiveRecord::RecordNotFound)
+  expect { @current_inventory_pool.accessories.reload.find(accessory_to_deactivate) }.to raise_error(ActiveRecord::RecordNotFound)
 end
 
 Dann /^kann ich mehrere Bilder hinzufügen$/ do

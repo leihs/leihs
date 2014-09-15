@@ -1,7 +1,7 @@
 class Holiday < ActiveRecord::Base
   attr_accessor :_destroy
 
-  belongs_to :inventory_pool
+  belongs_to :inventory_pool, inverse_of: :holidays
 
   scope :future, -> {where(['end_date >= ?', Date.today])}
 

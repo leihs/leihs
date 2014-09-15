@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '4.0.4'
+gem 'rails', '4.0.9'
 
 gem 'active_hash', '~> 1.3'
 gem 'activerecord-jdbcmysql-adapter', platform: :jruby
@@ -11,9 +11,6 @@ gem 'binding_of_caller', group: :development
 gem 'capistrano', '2.15.5', group: :development
 gem 'capistrano-ext', group: :development
 gem 'capistrano-rbenv', '~> 1.0', group: :development
-
-gem "jasminerice", git: 'https://github.com/bradphelan/jasminerice.git', group: [:test, :development] # needed for implement coffeescript, fixtures and asset pipeline serverd css into jasmine
-gem "rack_session_access", "~> 0.1.1", group: :test
 gem 'capybara', '~> 2.4', group: [:test, :development]
 gem 'capybara-screenshot', group: [:test, :development]
 gem 'chunky_png', '~> 1.2'
@@ -31,6 +28,7 @@ gem 'gettext_i18n_rails', '~> 1.0'
 gem 'guard-jasmine', '~> 1.19', group: [:test, :development]
 gem 'haml', '~> 4.0'
 gem 'haml_assets', '~> 0.2'
+gem "jasminerice", git: 'https://github.com/bradphelan/jasminerice.git', group: [:test, :development] # needed for implement coffeescript, fixtures and asset pipeline serverd css into jasmine
 gem 'jquery-rails', '2.1.3' # '~> 2.1' FIXME the version 2.1.4 clashes with underscore-rails 1.4.2.1 + # NOTE in order to upgrate to '~> 3.1', first adapt the code removing the .live() functions
 gem 'jquery-tmpl-rails', '~> 1.1'
 gem 'jruby-openssl', platform: :jruby
@@ -50,6 +48,7 @@ gem 'protected_attributes', '~> 1.0'
 gem 'pry', group: [:test, :development]
 gem 'pry-byebug', group: [:test, :development]
 gem 'pry-rails', group: [:test, :development]
+gem "rack_session_access", "~> 0.1.1", group: :test
 gem 'rails_autolink', '~> 1.0'
 gem 'rake' # So that cronjobs work -- otherwise they can't find rake
 gem 'redcarpet', group: [:test, :development] # This isn't being pulled in by yard, but it's required

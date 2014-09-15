@@ -30,8 +30,8 @@ end
 
 Then /^these contractlines are deleted$/ do
   visit current_path
-  lambda {@line1.reload}.should raise_error(ActiveRecord::RecordNotFound)
-  lambda {@line2.reload}.should raise_error(ActiveRecord::RecordNotFound)
+  expect { @line1.reload }.to raise_error(ActiveRecord::RecordNotFound)
+  expect { @line2.reload }.to raise_error(ActiveRecord::RecordNotFound)
 end
 
 When /^I delete all lines of this contract$/ do

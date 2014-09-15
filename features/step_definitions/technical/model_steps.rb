@@ -27,5 +27,5 @@ When /^the quantity of items of a model for a specific user is retrieved$/ do
 end
 
 Then /^these quantities must be equal$/ do
-  @quantities_1.should eq @quantities_2
+  expect(@quantities_1).to eq @quantities_2
 end

@@ -11,7 +11,7 @@ Dann(/^sieht man genau die für den User bestimmte Haupt\-Kategorien mit Namen$/
     find("a", match: :first, text: mc.name)
     categories_counter += 1
   end
-  categories_counter.should eq @main_categories.count
+  expect(categories_counter).to eq @main_categories.count
 end
 
 Wenn(/^man eine Hauptkategorie auswählt$/) do

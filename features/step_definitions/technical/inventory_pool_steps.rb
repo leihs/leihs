@@ -102,7 +102,7 @@ When /^all the contract lines of all the events are combined$/ do
 end
 
 Then /^the result is a set of contract lines that are associated with the users' contracts$/ do
-  @hand_over_visits.count.should eq @open_contracts.flat_map(&:contract_lines).count
+  expect(@hand_over_visits.count).to eq @open_contracts.flat_map(&:contract_lines).count
 end
 
 Given /^there is an open contract with lines for a user$/ do
@@ -122,7 +122,7 @@ When /^the visits of the inventory pool are fetched$/ do
 end
 
 Then /^the first two contract lines should now be grouped inside the first visit, which makes it two visits in total$/ do
-  @hand_over_visits.count.should equal(2)
+  expect(@hand_over_visits.count).to eq 2
 end
 
 Given /^there are 2 different contracts for 2 different users$/ do
@@ -136,11 +136,11 @@ Given /^there are 2 different contracts with lines for 2 different users$/ do
 end
 
 Then /^there are 2 hand over visits for the given inventory pool$/ do
-  @current_inventory_pool.visits.hand_over.reload.count.should equal(2)
+  expect(@current_inventory_pool.visits.hand_over.reload.count).to eq 2
 end
 
 Then /^there are 2 take back visits for the given inventory pool$/ do
-  @current_inventory_pool.visits.take_back.reload.count.should equal(2)
+  expect(@current_inventory_pool.visits.take_back.reload.count).to eq 2
 end
 
 Given /^1st contract line of 2nd contract has the same start date as the 1st contract line of the 1st contract$/ do
@@ -164,7 +164,7 @@ Then /^there should be different visits for 2 users with same start and end date
              else
                2
              end
-  @current_inventory_pool.visits.hand_over.reload.count.should equal(expected)
+  expect(@current_inventory_pool.visits.hand_over.reload.count).to eq expected
 end
 
 Given /^make sure no end date is identical to any other$/ do
@@ -192,8 +192,7 @@ When /^the take back visits of the given inventory pool are fetched$/ do
 end
 
 Then /^there should be as many events as there are different start dates$/ do
-  @take_back_visits.count.should equal(
-    @open_contracts.flat_map(&:contract_lines).map(&:end_date).uniq.count )
+  expect(@take_back_visits.count).to eq @open_contracts.flat_map(&:contract_lines).map(&:end_date).uniq.count
 end
 
 When /^all the contract lines of all the visits are combined$/ do
@@ -201,7 +200,7 @@ When /^all the contract lines of all the visits are combined$/ do
 end
 
 Then /^one should get the set of contract lines that are associated with the users' contracts$/ do
-  @take_back_lines.count.should equal( @open_contracts.flat_map(&:contract_lines).count )
+  expect(@take_back_lines.count).to eq @open_contracts.flat_map(&:contract_lines).count
 end
 
 Given /^1st contract line ends on the same date as 2nd$/ do
@@ -213,7 +212,7 @@ Given /^3rd contract line ends on a different date than the other two$/ do
 end
 
 Then /^the first 2 contract lines should be grouped inside the 1st visit, which makes it two visits in total$/ do
-  @take_back_visits.count.should equal(2)
+  expect(@take_back_visits.count).to eq 2
 end
 
 Given /^to each contract line of the user's contract an item is assigned$/ do
@@ -243,5 +242,5 @@ Given /^both contracts are signed$/ do
 end
 
 Then /^the first 2 contract lines should now be grouped inside the 1st visit, which makes it 2 visits in total$/ do
-  @take_back_visits.count.should equal(2)
+  expect(@take_back_visits.count).to eq 2
 end

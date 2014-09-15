@@ -536,7 +536,7 @@ Dann(/^ist der Benutzer mit all den Informationen gespeichert$/) do
   find("#flash .notice", text: _("User created successfully"))
   user = User.find_by_lastname "test"
   expect(user).not_to be nil
-  user.access_right_for(@current_inventory_pool).role.should eq @role_hash[:role].to_sym
+  expect(user.access_right_for(@current_inventory_pool).role).to eq @role_hash[:role].to_sym
   expect(user.groups).to eq @current_inventory_pool.groups
 end
 

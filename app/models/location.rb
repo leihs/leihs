@@ -1,6 +1,6 @@
 class Location < ActiveRecord::Base
 
-  has_many :items
+  has_many :items, dependent: :nullify
   belongs_to :building
 
   validates_uniqueness_of :building_id, :scope => [:room, :shelf]

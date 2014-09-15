@@ -10,27 +10,18 @@ namespace :app do
 
     desc "Sync local application instance with test servers most recent database dump"
     task :sync do
-      puts "Syncing database with testserver's..."
-      
-      require 'open3'
+      puts `mkdir ./db/backups/`
+      puts `rsync -avuz leihs@rails.zhdk.ch:/tmp/leihs-current.sql ./db/backups/`
 
-      commands = []
-      commands << "mkdir ./db/backups/"
-      commands << "scp leihs@rails.zhdk.ch:/tmp/leihs-current.sql ./db/backups/"
-      commands << "rake db:drop db:create"
-      commands << "mysql -h localhost -u root leihs2_dev < ./db/backups/leihs-current.sql"
-      commands << "rake db:migrate"
-      commands << "rake leihs:maintenance"
-      commands << "RAILS_ENV=test rake db:drop db:create db:migrate"
+      Rake::Task["db:drop"].invoke
+      Rake::Task["db:create"].invoke
 
-      commands.each do |command|
-        puts command
-        Open3.popen3(command) do |i,o,e,t|
-          puts o.read.chomp
-        end
-      end
-      
-      puts " DONE"
+      puts `mysql -h localhost -u root leihs2_dev < ./db/backups/leihs-current.sql`
+
+      Rake::Task["db:migrate"].invoke
+      Rake::Task["leihs:maintenance"].invoke
+
+      puts `RAILS_ENV=test rake db:drop db:create db:migrate`
     end
     
   end

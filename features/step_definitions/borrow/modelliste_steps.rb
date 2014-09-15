@@ -32,8 +32,8 @@ Dann(/^sind alle Geräteparks ausgewählt$/) do
 end
 
 Dann(/^die Modellliste zeigt Modelle aller Geräteparks an$/) do
-  @current_user.models.borrowable.from_category_and_all_its_descendants(@category.id).default_order.paginate(page: 1, per_page: 20).map(&:name)
-    .should eq all("#model-list .text-align-left").map(&:text)
+  expect(@current_user.models.borrowable.from_category_and_all_its_descendants(@category.id).default_order.paginate(page: 1, per_page: 20).map(&:name))
+    .to eq all("#model-list .text-align-left").map(&:text)
 end
 
 Dann(/^im Filter steht "(.*?)"$/) do |button_label_de|
@@ -59,7 +59,7 @@ Dann(/^sind alle anderen Geräteparks abgewählt$/) do
 end
 
 Dann(/^die Modellliste zeigt nur Modelle dieses Geräteparks an$/) do
-  all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}.should eq @current_user.models.borrowable
+  expect(all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}).to eq @current_user.models.borrowable
                                                   .from_category_and_all_its_descendants(@category.id)
                                                   .by_inventory_pool(@current_inventory_pool.id)
                                                   .default_order.paginate(page: 1, per_page: 20)
@@ -83,7 +83,7 @@ end
 
 Dann(/^wird die Modellliste nach den übrig gebliebenen Geräteparks gefiltert$/) do
   expect(has_selector?("#model-list .text-align-left")).to be true
-  all("#model-list .text-align-left").map(&:text).should eq @current_user.models.borrowable
+  expect(all("#model-list .text-align-left").map(&:text)).to eq @current_user.models.borrowable
                                                   .from_category_and_all_its_descendants(@category.id)
                                                   .all_from_inventory_pools(@current_user.inventory_pool_ids - [@current_inventory_pool.id])
                                                   .default_order
@@ -106,7 +106,7 @@ end
 
 Dann(/^wird die Modellliste nach dem übrig gebliebenen Gerätepark gefiltert$/) do
   expect(has_selector?("#model-list .text-align-left")).to be true
-  all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}[0..20].should eq @current_user.models.borrowable
+  expect(all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}[0..20]).to eq @current_user.models.borrowable
                                                   .from_category_and_all_its_descendants(@category.id)
                                                   .all_from_inventory_pools(@current_user.inventory_pool_ids - @ips_for_unselect.map(&:id))
                                                   .default_order
@@ -130,7 +130,7 @@ Dann(/^kann man nicht alle Geräteparks in der Geräteparkauswahl abwählen$/) d
 end
 
 Dann(/^ist die Geräteparkauswahl alphabetisch sortiert$/) do
-  all("#ip-selector .dropdown-item[data-id]").map(&:text).should eq @current_user.inventory_pools.order("inventory_pools.name").map(&:name)
+  expect(all("#ip-selector .dropdown-item[data-id]").map(&:text)).to eq @current_user.inventory_pools.order("inventory_pools.name").map(&:name)
 end
 
 Dann(/^im Filter steht die Zahl der ausgewählten Geräteparks$/) do
@@ -168,7 +168,7 @@ Dann(/^ist die Liste nach "(.*?)" "(.*?)" sortiert$/) do |sort, order|
               when "(alphabetisch absteigend)"
                 "desc"
               end
-  all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}.should eq @current_user.models.borrowable
+  expect(all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}).to eq @current_user.models.borrowable
                                                   .from_category_and_all_its_descendants(@category.id)
                                                   .order_by_attribute_and_direction(attribute, direction)
                                                   .paginate(page: 1, per_page: 20)
@@ -183,7 +183,7 @@ Wenn(/^man ein Suchwort eingibt$/) do
 end
 
 Dann(/^werden diejenigen Modelle angezeigt, deren Name oder Hersteller dem Suchwort entsprechen$/) do
-  find("#model-list .line").text.should match /bea.*panas/i
+  expect(find("#model-list .line").text).to match /bea.*panas/i
 end
 
 Dann(/^ist kein Ausleihzeitraum ausgewählt$/) do

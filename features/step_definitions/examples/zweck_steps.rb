@@ -2,7 +2,7 @@
 
 Wenn /^ein Zweck gespeichert wird ist er unabhängig von einer Bestellung$/ do
   purpose = FactoryGirl.create :purpose
-  lambda{ purpose.contract }.should raise_error(NoMethodError)
+  expect { purpose.contract }.to raise_error(NoMethodError)
 end
 
 Wenn /^jeder Eintrag einer abgeschickten Bestellung referenziert auf einen Zweck$/ do

@@ -2,7 +2,7 @@ class ModelGroup < ActiveRecord::Base
   
   attr_accessor :current_parent_id
 
-  has_many :model_links, inverse_of: :model_group
+  has_many :model_links, inverse_of: :model_group, dependent: :delete_all
   has_many :models, -> { uniq }, :through => :model_links
   has_many :items, -> { uniq }, :through => :models
   

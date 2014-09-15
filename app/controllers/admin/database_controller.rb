@@ -1,4 +1,3 @@
-#### Quickly list missing foreign key indexes
 #### source: https://tomafro.net/2009/09/quickly-list-missing-foreign-key-indexes
 #
 #c = ActiveRecord::Base.connection
@@ -13,124 +12,233 @@
 
 class Admin::DatabaseController < Admin::ApplicationController
 
-  def indexes
-    connection = ActiveRecord::Base.connection
-
-    @indexes_found, @indexes_not_found = begin
-      [
-        ["access_rights", ["deleted_at"]],
-        ["access_rights", ["inventory_pool_id"]],
-        ["access_rights", ["suspended_until"]],
-        ["access_rights", ["user_id", "inventory_pool_id", "deleted_at"]],
-        ["accessories", ["model_id"]],
-        ["accessories_inventory_pools", ["accessory_id", "inventory_pool_id"], :unique => true],
-        ["accessories_inventory_pools", ["inventory_pool_id"]],
-        ["addresses", ["street", "zip_code", "city", "country_code"], :unique => true],
-        ["attachments", ["model_id"]],
-        ["audits", ["associated_id", "associated_type"]],
-        ["audits", ["auditable_id", "auditable_type"]],
-        ["audits", ["created_at"]],
-        ["audits", ["thread_id"]],
-        ["audits", ["user_id", "user_type"]],
-        ["contract_lines", ["contract_id"]],
-        ["contract_lines", ["end_date"]],
-        ["contract_lines", ["item_id"]],
-        ["contract_lines", ["model_id"]],
-        ["contract_lines", ["option_id"]],
-        ["contract_lines", ["returned_date", "contract_id"]],
-        ["contract_lines", ["start_date"]],
-        ["contract_lines", ["type", "contract_id"]],
-        ["contracts", ["inventory_pool_id"]],
-        ["contracts", ["status"]],
-        ["contracts", ["user_id"]],
-        ["groups", ["inventory_pool_id"]],
-        ["groups_users", ["group_id"]],
-        ["groups_users", ["user_id", "group_id"], :unique => true],
-        ["histories", ["target_type", "target_id"]],
-        ["histories", ["type_const"]],
-        ["histories", ["user_id"]],
-        ["holidays", ["inventory_pool_id"]],
-        ["holidays", ["start_date", "end_date"]],
-        ["images", ["model_id"]],
-        ["inventory_pools", ["name"], :unique => true],
-        ["inventory_pools_model_groups", ["inventory_pool_id"]],
-        ["inventory_pools_model_groups", ["model_group_id"]],
-        ["items", ["inventory_code"], :unique => true],
-        ["items", ["inventory_pool_id"]],
-        ["items", ["is_borrowable"]],
-        ["items", ["is_broken"]],
-        ["items", ["is_incomplete"]],
-        ["items", ["location_id"]],
-        ["items", ["model_id", "retired", "inventory_pool_id"]],
-        ["items", ["owner_id"]],
-        ["items", ["parent_id", "retired"]],
-        ["items", ["retired"]],
-        ["languages", ["active", "default"]],
-        ["languages", ["name"], :unique => true],
-        ["locations", ["building_id"]],
-        ["model_group_links", ["ancestor_id"]],
-        ["model_group_links", ["descendant_id", "ancestor_id", "direct"]],
-        ["model_group_links", ["direct"]],
-        ["model_groups", ["type"]],
-        ["model_groups_parents_backup", ["model_group_id"]],
-        ["model_groups_parents_backup", ["parent_id"]],
-        ["model_links", ["model_group_id", "model_id"]],
-        ["model_links", ["model_id", "model_group_id"]],
-        ["models", ["is_package"]],
-        ["models_compatibles", ["compatible_id"]],
-        ["models_compatibles", ["model_id"]],
-        ["notifications", ["user_id"]],
-        ["options", ["inventory_pool_id"]],
-        ["partitions", ["model_id", "inventory_pool_id", "group_id"], :unique => true],
-        ["properties", ["model_id"]],
-        ["users", ["authentication_system_id"]],
-        ["workdays", ["inventory_pool_id"]]
-      ].partition do |table, columns, options|
-          indexes = connection.indexes(table)
-          index = indexes.detect {|x| x.columns == columns}
-          if not index
-            false
-          elsif options.blank?
-            true
-          else
-            index.unique == !!options[:unique]
-          end
-        end
-      end
+  before_filter do
+    @connection = ActiveRecord::Base.connection
   end
 
-  def consistency
-    flash[:error] = _("This report is not complete yet! Additional checks are coming soon...")
-    @missing_references = {
-        "items with missing model" => Item.unscoped.joins("LEFT JOIN models AS x ON items.model_id = x.id").where(x: {id: nil}),
-        "items with missing parent item" => Item.unscoped.joins("LEFT JOIN items AS x ON items.parent_id = x.id").where(x: {id: nil}).where("items.parent_id IS NOT NULL"),
-        "items with missing owner inventory_pool" => Item.unscoped.joins("LEFT JOIN inventory_pools AS x ON items.owner_id = x.id").where(x: {id: nil}),
-        "items with missing responsible inventory_pool" => Item.unscoped.joins("LEFT JOIN inventory_pools AS x ON items.inventory_pool_id = x.id").where(x: {id: nil}).where("items.inventory_pool_id IS NOT NULL"),
-
-        "contracts with missing inventory_pool" => Contract.unscoped.joins("LEFT JOIN inventory_pools AS x ON contracts.inventory_pool_id = x.id").where(x: {id: nil}),
-        "contracts with missing user" => Contract.unscoped.joins("LEFT JOIN users AS x ON contracts.user_id = x.id").where(x: {id: nil}),
-
-        "item_lines with missing item" => ItemLine.unscoped.joins("LEFT JOIN items AS x ON contract_lines.item_id = x.id").where(x: {id: nil}).where("contract_lines.item_id IS NOT NULL"),
-        "option_lines with missing option" => OptionLine.unscoped.joins("LEFT JOIN options AS x ON contract_lines.option_id = x.id").where(x: {id: nil})
-    }
+  def indexes
+    @indexes_found, @indexes_not_found = begin
+      [
+          ["access_rights", ["deleted_at"]],
+          ["access_rights", ["inventory_pool_id"]],
+          ["access_rights", ["suspended_until"]],
+          ["access_rights", ["user_id", "inventory_pool_id", "deleted_at"]],
+          ["accessories", ["model_id"]],
+          ["accessories_inventory_pools", ["accessory_id", "inventory_pool_id"], :unique => true],
+          ["accessories_inventory_pools", ["inventory_pool_id"]],
+          ["addresses", ["street", "zip_code", "city", "country_code"], :unique => true],
+          ["attachments", ["model_id"]],
+          # ["audits", ["associated_id", "associated_type"]],
+          # ["audits", ["auditable_id", "auditable_type"]],
+          # ["audits", ["created_at"]],
+          # ["audits", ["thread_id"]],
+          # ["audits", ["user_id", "user_type"]],
+          ["contract_lines", ["contract_id"]],
+          ["contract_lines", ["end_date"]],
+          ["contract_lines", ["item_id"]],
+          ["contract_lines", ["model_id"]],
+          ["contract_lines", ["option_id"]],
+          ["contract_lines", ["returned_date", "contract_id"]],
+          ["contract_lines", ["start_date"]],
+          ["contract_lines", ["type", "contract_id"]],
+          ["contracts", ["inventory_pool_id"]],
+          ["contracts", ["status"]],
+          ["contracts", ["user_id"]],
+          ["groups", ["inventory_pool_id"]],
+          ["groups_users", ["group_id"]],
+          ["groups_users", ["user_id", "group_id"], :unique => true],
+          ["histories", ["target_type", "target_id"]],
+          ["histories", ["type_const"]],
+          ["histories", ["user_id"]],
+          ["holidays", ["inventory_pool_id"]],
+          ["holidays", ["start_date", "end_date"]],
+          ["images", ["target_id", "target_type"]],
+          ["inventory_pools", ["name"], :unique => true],
+          ["inventory_pools_model_groups", ["inventory_pool_id"]],
+          ["inventory_pools_model_groups", ["model_group_id"]],
+          ["items", ["inventory_code"], :unique => true],
+          ["items", ["inventory_pool_id"]],
+          ["items", ["is_borrowable"]],
+          ["items", ["is_broken"]],
+          ["items", ["is_incomplete"]],
+          ["items", ["location_id"]],
+          ["items", ["model_id", "retired", "inventory_pool_id"]],
+          ["items", ["owner_id"]],
+          ["items", ["parent_id", "retired"]],
+          ["items", ["retired"]],
+          ["languages", ["active", "default"]],
+          ["languages", ["name"], :unique => true],
+          ["locations", ["building_id"]],
+          ["model_group_links", ["ancestor_id"]],
+          ["model_group_links", ["descendant_id", "ancestor_id", "direct"]],
+          ["model_group_links", ["direct"]],
+          ["model_groups", ["type"]],
+          ["model_links", ["model_group_id", "model_id"]],
+          ["model_links", ["model_id", "model_group_id"]],
+          ["models", ["is_package"]],
+          ["models_compatibles", ["compatible_id"]],
+          ["models_compatibles", ["model_id"]],
+          ["notifications", ["user_id"]],
+          ["options", ["inventory_pool_id"]],
+          ["partitions", ["model_id", "inventory_pool_id", "group_id"], :unique => true],
+          ["properties", ["model_id"]],
+          ["users", ["authentication_system_id"]],
+          ["workdays", ["inventory_pool_id"]]
+      ].partition do |table, columns, options|
+        indexes = @connection.indexes(table)
+        index = indexes.detect { |x| x.columns == columns }
+        if not index
+          false
+        elsif options.blank?
+          true
+        else
+          index.unique == !!options[:unique]
+        end
+      end
+    end
   end
 
   def empty_columns
-    connection = ActiveRecord::Base.connection
-
     @empty_columns = {}
-    connection.tables.each do |table_name|
-      connection.columns(table_name).select{|c| c.type == :string and c.null }.each do |column|
-        r = connection.execute(%Q(SELECT * FROM `#{table_name}` WHERE `#{column.name}` REGEXP '^\ *$')).to_a
+    @connection.tables.each do |table_name|
+      @connection.columns(table_name).select { |c| c.type == :string and c.null }.each do |column|
+        r = @connection.execute(%Q(SELECT * FROM `#{table_name}` WHERE `#{column.name}` REGEXP '^\ *$')).to_a
         next if r.empty?
         @empty_columns[[table_name, column.name]] = r
       end
     end
+  end
+
+  def consistency
+    @only_tables_no_views = @connection.execute("SHOW FULL TABLES WHERE Table_type = 'BASE TABLE'").to_h.keys
+
+    @references = []
+
+    def collect_missing_references(klass, other_table, this_table, this_column, other_column, additional_where = nil, polymorphic = false, dependent = nil)
+      # NOTE we skip references on sql-views
+      return if not @only_tables_no_views.include?(this_table) or not @only_tables_no_views.include?(other_table)
+
+      h = {from_table: this_table,
+           to_table: other_table,
+           from_column: this_column,
+           to_column: other_column}
+
+      if request.delete?
+        return unless h[:from_table] == params[:from_table] and
+                      h[:to_table] == params[:to_table] and
+                      h[:from_column] == params[:from_column] and
+                      h[:to_column] == params[:to_column]
+      end
+
+      return if @references.detect {|x| h[:from_table] == x[:from_table] and
+                                      h[:to_table] == x[:to_table] and
+                                      h[:from_column] == x[:from_column] and
+                                      h[:to_column] == x[:to_column]  }
+
+      r = left_join_query(klass, other_table, this_table, this_column, other_column, additional_where)
+
+      @references << h.merge(query: r.to_sql,
+                             values: r,
+                             polymorphic: polymorphic,
+                             dependent: dependent)
+    end
+
+    Rails.application.eager_load! if Rails.env.development?
+
+    ActiveRecord::Base.descendants.each do |klass|
+      klass.reflect_on_all_associations(:belongs_to).each do |ref|
+        if ref.polymorphic?
+          # NOTE we cannot define foreign keys on multiple parent tables
+          type_column = "#{ref.name}_type".to_sym
+          klass.unscoped.select(type_column).uniq.pluck(type_column).flat_map do |target_type|
+            target_klass = target_type.constantize
+            inverse_of = target_klass.reflect_on_association(klass.name.underscore.pluralize.to_sym)
+            dependent = if inverse_of and inverse_of.options[:dependent]
+                          inverse_of.options[:dependent]
+                        else
+                          nil
+                        end
+            collect_missing_references(klass, target_klass.table_name, klass.table_name, ref.foreign_key, target_klass.primary_key, {type_column => target_type}, true, dependent)
+          end
+        else
+          dependent = if ref.inverse_of and ref.inverse_of.options[:dependent]
+                        ref.inverse_of.options[:dependent]
+                      else
+                        nil
+                      end
+          collect_missing_references(klass, ref.table_name, klass.table_name, ref.foreign_key, ref.primary_key_column.name, nil, false, dependent)
+        end
+      end
+    end
+
+    ActiveRecord::Base.descendants.each do |klass|
+      klass.reflect_on_all_associations(:has_and_belongs_to_many).each do |ref|
+
+        ah = [
+            {from_table: ref.join_table,
+             to_table: klass.table_name,
+             from_column: ref.foreign_key,
+             to_column: ref.primary_key_column.name},
+            {from_table: ref.join_table,
+             to_table: ref.klass.table_name,
+             from_column: ref.association_foreign_key,
+             to_column: ref.association_primary_key}
+        ]
+
+        ah.each do |h|
+
+          if request.delete?
+            next unless h[:from_table] == params[:from_table] and
+                        h[:to_table] == params[:to_table] and
+                        h[:from_column] == params[:from_column] and
+                        h[:to_column] == params[:to_column]
+          end
+
+          next if @references.detect {|x| h[:from_table] == x[:from_table] and
+                                          h[:to_table] == x[:to_table] and
+                                          h[:from_column] == x[:from_column] and
+                                          h[:to_column] == x[:to_column]  }
+
+          query = "SELECT #{h[:from_table]}.* FROM #{h[:from_table]} LEFT JOIN #{h[:to_table]} ON #{h[:from_table]}.#{h[:from_column]}=#{h[:to_table]}.#{h[:to_column]} WHERE #{h[:to_table]}.#{h[:to_column]} IS NULL"
+
+          @references << h.merge(query: query,
+                                 values: @connection.execute(query).to_a,
+                                 polymorphic: false,
+                                 dependent: nil,
+                                 join_table: true)
+
+        end
+      end
+    end
+
+    if request.delete? and @references.size == 1
+      missing_reference = @references.first
+
+      case params[:dependent].try :to_sym
+        when :delete_all, :delete
+          missing_reference[:values].delete_all
+        when :destroy
+          missing_reference[:values].readonly(false).destroy_all
+        when :nullify
+          missing_reference[:values].update_all(missing_reference[:from_column] => nil)
+        else
+          query = missing_reference[:query].gsub(/^SELECT /, 'DELETE ')
+          @connection.execute(query)
+      end
+      redirect_to admin_consistency_path
+    end
 
   end
 
+  private
+
+  def left_join_query(klass, other_table, this_table, this_column, other_column, additional_where)
+    r = klass.unscoped.
+        joins("LEFT JOIN %s AS t2 ON %s.%s = t2.%s" % [other_table, this_table, this_column, other_column]).
+        where.not(this_column => nil).
+        where(t2: {other_column => nil})
+    r = r.where(additional_where) if additional_where
+    r
+  end
+
 end
-
-
-
-

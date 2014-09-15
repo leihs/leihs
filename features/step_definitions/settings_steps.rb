@@ -10,7 +10,7 @@ When(/^the settings are not exising$/) do
 end
 
 Then(/^there is an error for the missing settings$/) do
-  lambda { step "I go to the home page" }.should raise_error(RuntimeError)
+  expect { step "I go to the home page" }.to raise_error(RuntimeError)
 end
 
 Then(/^I edit the following settings$/) do |table|

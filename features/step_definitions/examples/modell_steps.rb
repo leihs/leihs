@@ -9,7 +9,7 @@ end
 
 Dann(/^ist dem Modell das ergänzende Modell hinzugefügt worden$/) do
   find("#flash")
-  @model.compatibles.size.should be 2
+  expect(@model.compatibles.size).to be 2
   expect(@model.compatibles.any? {|m| m.name == @comp1.name}).to be true
   expect(@model.compatibles.any? {|m| m.name == @comp2.name}).to be true
 end

@@ -10,6 +10,8 @@
         .row
           .headline-l.float-left
             = _("All correct")
+            %i.icon-check-sign.icon-size-s
+
     - else
       - @empty_columns.each_pair do |key, v|
         - values = v.to_a # NOTE it performs the executions. so that the next size check doesn't execute an additional mysql count(*)

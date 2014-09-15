@@ -18,5 +18,5 @@ Then "its subject is '$subject'" do |subject|
 end
 
 Then "it contains information '$line'" do |line|
-  @mail.body.should match(Regexp.new(line))
+  expect(@mail.body).to match(Regexp.new(line))
 end
