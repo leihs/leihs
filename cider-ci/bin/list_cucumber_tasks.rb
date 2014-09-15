@@ -44,6 +44,7 @@ File.open(filepath,"w") do |f|
     next if t =~ /@old-ui|@upcoming/
     splitted_string = s.split(/:\s*(Scenario|Szenario)( Outline| Template|grundriss)?: /)
     name = "%s - %s" % [splitted_string.last.strip, splitted_string.first]
+    name += " ** @current **" if t =~ /@current/
     exec = "bundle exec cucumber -p default -f json -o log/cucumber_report.json %s DEFAULT_BROWSER=%s" % [splitted_string.first, default_browser]
     task_hash(name, exec)
   end.compact

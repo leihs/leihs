@@ -92,9 +92,14 @@ end
 
 ####################################################################
 
-Angenommen /^man editiert einen Benutzer$/ do
+Angenommen /^man editiert einen (Benutzer|Delegation)$/ do |arg1|
   @inventory_pool ||= @current_user.managed_inventory_pools.first
-  @customer = @inventory_pool.users.customers.first
+  @customer = case arg1
+                when "Delegation"
+                  @inventory_pool.users.customers.as_delegations
+                when "Benutzer"
+                  @inventory_pool.users.customers.not_as_delegations
+              end.sample
   visit manage_edit_inventory_pool_user_path(@inventory_pool, @customer)
 end
 
@@ -112,7 +117,7 @@ Dann /^muss man den Grund der Sperrung eingeben$/ do
   el.set("this is the reason")
 end
 
-Dann /^sofern der Benutzer gesperrt ist, kann man die Sperrung aufheben$/ do
+Dann /^sofern der (Benutzer|Delegation) gesperrt ist, kann man die Sperrung aufheben$/ do |arg1|
   visit manage_edit_inventory_pool_user_path(@inventory_pool, @customer)
   find("[data-suspended-until-input]").set("")
   find(".button", text: _("Save")).click

@@ -1,0 +1,14 @@
+- unless @user.new_record?
+
+  #suspended-until.row.padding-inset-s.emboss.margin-bottom-xxs
+    .col1of2
+      %strong.font-size-m= _("Suspended until")
+    .col1of2.text-align-right
+      - suspended_until = @access_right.try :suspended_until
+      %input{type: "text", name: "access_right[suspended_until]", value: ( l suspended_until if suspended_until ), :"data-suspended-until-input" => true, autocomplete: :off}
+
+  #suspended-reason.row.padding-inset-s.emboss.margin-bottom-xxs{class: ("hidden" unless @access_right.try(:suspended_until))}
+    .col1of2
+      %strong.font-size-m= _("Suspended reason") + " *"
+    .col1of2.text-align-right
+      %input{type: "text", name: "access_right[suspended_reason]", value: @access_right.try(:suspended_reason), autocomplete: :off}

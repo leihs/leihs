@@ -5,11 +5,11 @@ Funktionalität: Benutzer verwalten
   @current @javascript @personas
   Szenariogrundriss: Sperrfunktion für Benutzer und Delegation
     Angenommen man ist Inventar-Verwalter oder Ausleihe-Verwalter
-    Und man editiert <Benutzertyp>
+    Und man editiert einen <Benutzertyp>
     Und man nutzt die Sperrfunktion
     Dann muss man den Grund der Sperrung eingeben
-    Und sofern <Benutzertyp> gesperrt ist, kann man die Sperrung aufheben
-    Examples:
+    Und sofern der <Benutzertyp> gesperrt ist, kann man die Sperrung aufheben
+    Beispiele:
       | Benutzertyp |
       | Benutzer    |
       | Delegation  |

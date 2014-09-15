@@ -42,7 +42,11 @@
                                        :autocomplete_value_attribute => "id",
                                        :autocomplete_blur_on_select => "true" }}
 
-    = render "access_right_for_ip" if current_inventory_pool
+    - if current_inventory_pool
 
-    = render partial: "groups" if current_inventory_pool
+      = render "access_right_for_ip"
+
+      = render partial: "suspend"
+
+      = render partial: "groups"
 

@@ -1073,219 +1073,220 @@
     cucumber:
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/ausleihe.feature:167
         DEFAULT_BROWSER=firefox
-- name: Sperrfunktion - features/examples/benutzerverwaltung.feature:6
+- name: Sperrfunktion für Benutzer und Delegation - features/examples/benutzerverwaltung.feature:6
+    ** @current **
   auto_trials: 2
   scripts:
     cucumber:
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:6
         DEFAULT_BROWSER=firefox
-- name: Als Administrator einen anderen Benutzer Administrator machen - features/examples/benutzerverwaltung.feature:37
+- name: Als Administrator einen anderen Benutzer Administrator machen - features/examples/benutzerverwaltung.feature:41
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:37
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:41
         DEFAULT_BROWSER=firefox
 - name: Als Administrator einem anderen Benutzer die Rolle Administrator wegnehmen
-    - features/examples/benutzerverwaltung.feature:47
+    - features/examples/benutzerverwaltung.feature:51
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:47
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:51
         DEFAULT_BROWSER=firefox
 - name: Als Ausleihe- oder Inventar-Verwalter hat man kein Zugriff auf die Administrator-User-Pfade
-    - features/examples/benutzerverwaltung.feature:56
+    - features/examples/benutzerverwaltung.feature:60
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:56
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:60
         DEFAULT_BROWSER=firefox
-- name: Neuen Benutzer im Geräterpark als Ausleihe-Verwalter hinzufügen - features/examples/benutzerverwaltung.feature:68
+- name: Neuen Benutzer im Geräterpark als Ausleihe-Verwalter hinzufügen - features/examples/benutzerverwaltung.feature:72
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:68
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:72
         DEFAULT_BROWSER=firefox
-- name: Als Administrator neuen Benutzer erstellen - features/examples/benutzerverwaltung.feature:93
+- name: Als Administrator neuen Benutzer erstellen - features/examples/benutzerverwaltung.feature:97
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:93
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:97
         DEFAULT_BROWSER=firefox
-- name: Auflistung der Inventarpools eines Benutzers - features/examples/benutzerverwaltung.feature:108
+- name: Auflistung der Inventarpools eines Benutzers - features/examples/benutzerverwaltung.feature:112
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:108
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:112
         DEFAULT_BROWSER=firefox
-- name: Voraussetzungen fürs Löschen eines Benutzers im Gerätepark - features/examples/benutzerverwaltung.feature:115
+- name: Voraussetzungen fürs Löschen eines Benutzers im Gerätepark - features/examples/benutzerverwaltung.feature:119
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:115
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:119
         DEFAULT_BROWSER=firefox
-- name: Alphabetische Sortierung der Benutzer ausserhalb vom Inventarpool - features/examples/benutzerverwaltung.feature:124
+- name: Alphabetische Sortierung der Benutzer ausserhalb vom Inventarpool - features/examples/benutzerverwaltung.feature:128
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:124
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:128
         DEFAULT_BROWSER=firefox
-- name: Zugriff entfernen als Ausleihe-Verwalter - features/examples/benutzerverwaltung.feature:129
+- name: Zugriff entfernen als Ausleihe-Verwalter - features/examples/benutzerverwaltung.feature:133
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:129
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:133
         DEFAULT_BROWSER=firefox
-- name: Benutzer im Geräterpark als Administrator löschen - features/examples/benutzerverwaltung.feature:137
+- name: Benutzer im Geräterpark als Administrator löschen - features/examples/benutzerverwaltung.feature:141
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:137
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:141
         DEFAULT_BROWSER=firefox
-- name: Zugriff entfernen als Administrator - features/examples/benutzerverwaltung.feature:146
+- name: Zugriff entfernen als Administrator - features/examples/benutzerverwaltung.feature:150
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:146
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:150
         DEFAULT_BROWSER=firefox
-- name: Startseite setzen - features/examples/benutzerverwaltung.feature:154
+- name: Startseite setzen - features/examples/benutzerverwaltung.feature:158
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:154
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:158
         DEFAULT_BROWSER=firefox
-- name: Elemente der Benutzeradministration - features/examples/benutzerverwaltung.feature:161
+- name: Elemente der Benutzeradministration - features/examples/benutzerverwaltung.feature:165
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:161
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:165
         DEFAULT_BROWSER=firefox
-- name: Darstellung eines Benutzers in Listen mit zugeteilter Rolle - features/examples/benutzerverwaltung.feature:174
+- name: Darstellung eines Benutzers in Listen mit zugeteilter Rolle - features/examples/benutzerverwaltung.feature:178
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:174
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:178
         DEFAULT_BROWSER=firefox
-- name: Darstellung eines Benutzers in Listen ohne zugeteilte Rolle - features/examples/benutzerverwaltung.feature:184
+- name: Darstellung eines Benutzers in Listen ohne zugeteilte Rolle - features/examples/benutzerverwaltung.feature:188
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:184
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:188
         DEFAULT_BROWSER=firefox
 - name: Darstellung eines Benutzers in Listen mit zugeteilter Rolle und Status gesperrt
-    - features/examples/benutzerverwaltung.feature:194
+    - features/examples/benutzerverwaltung.feature:198
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:194
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:198
         DEFAULT_BROWSER=firefox
-- name: Benutzerolle "Ausleihe-Verwalter" - features/examples/benutzerverwaltung.feature:206
+- name: Benutzerolle "Ausleihe-Verwalter" - features/examples/benutzerverwaltung.feature:210
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:206
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:210
         DEFAULT_BROWSER=firefox
-- name: Benutzerolle "Inventar-Verwalter" - features/examples/benutzerverwaltung.feature:217
+- name: Benutzerolle "Inventar-Verwalter" - features/examples/benutzerverwaltung.feature:221
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:217
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:221
         DEFAULT_BROWSER=firefox
-- name: Zugriff entfernen als Inventar-Verwalter - features/examples/benutzerverwaltung.feature:238
+- name: Zugriff entfernen als Inventar-Verwalter - features/examples/benutzerverwaltung.feature:242
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:238
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:242
         DEFAULT_BROWSER=firefox
-- name: Zugriff entfernen für einen Benutzer mit offenen Vertrag - features/examples/benutzerverwaltung.feature:246
+- name: Zugriff entfernen für einen Benutzer mit offenen Vertrag - features/examples/benutzerverwaltung.feature:250
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:246
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:250
         DEFAULT_BROWSER=firefox
-- name: Neuen Benutzer im Geräterpark als Inventar-Verwalter hinzufügen - features/examples/benutzerverwaltung.feature:273
+- name: Neuen Benutzer im Geräterpark als Inventar-Verwalter hinzufügen - features/examples/benutzerverwaltung.feature:277
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:273
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:277
         DEFAULT_BROWSER=firefox
-- name: Zugriff auf Ausleihe-Verwalter ändern als Ausleihe-Verwalter - features/examples/benutzerverwaltung.feature:305
+- name: Zugriff auf Ausleihe-Verwalter ändern als Ausleihe-Verwalter - features/examples/benutzerverwaltung.feature:309
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:305
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:309
         DEFAULT_BROWSER=firefox
-- name: Zugriff auf Kunde ändern als Ausleihe-Verwalter - features/examples/benutzerverwaltung.feature:318
+- name: Zugriff auf Kunde ändern als Ausleihe-Verwalter - features/examples/benutzerverwaltung.feature:322
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:318
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:322
         DEFAULT_BROWSER=firefox
-- name: Zugriff ändern als Inventar-Verwalter - features/examples/benutzerverwaltung.feature:326
+- name: Zugriff ändern als Inventar-Verwalter - features/examples/benutzerverwaltung.feature:330
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:326
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:330
         DEFAULT_BROWSER=firefox
-- name: Zugriff auf ein Inventarpool gewährleisten als Inventar-Verwalter - features/examples/benutzerverwaltung.feature:340
+- name: Zugriff auf ein Inventarpool gewährleisten als Inventar-Verwalter - features/examples/benutzerverwaltung.feature:344
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:340
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:344
         DEFAULT_BROWSER=firefox
-- name: Zugriff ändern als Administrator - features/examples/benutzerverwaltung.feature:349
+- name: Zugriff ändern als Administrator - features/examples/benutzerverwaltung.feature:353
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:349
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:353
         DEFAULT_BROWSER=firefox
-- name: Voraussetzungen fürs Löschen eines Benutzers - features/examples/benutzerverwaltung.feature:363
+- name: Voraussetzungen fürs Löschen eines Benutzers - features/examples/benutzerverwaltung.feature:367
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:363
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:367
         DEFAULT_BROWSER=firefox
-- name: Alphabetische Sortierung der Benutzer innerhalb vom Inventarpool - features/examples/benutzerverwaltung.feature:372
+- name: Alphabetische Sortierung der Benutzer innerhalb vom Inventarpool - features/examples/benutzerverwaltung.feature:376
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:372
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:376
         DEFAULT_BROWSER=firefox
 - name: Benutzer ohne Zugriff im Inventarpool editieren ohne ihm dabei Zugriff zu
-    gewährleisten - features/examples/benutzerverwaltung.feature:378
+    gewährleisten - features/examples/benutzerverwaltung.feature:382
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:378
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:382
         DEFAULT_BROWSER=firefox
-- name: Neuen Benutzer im Geräterpark als Administrator hinzufügen - features/examples/benutzerverwaltung.feature:388
+- name: Neuen Benutzer im Geräterpark als Administrator hinzufügen - features/examples/benutzerverwaltung.feature:392
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:388
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:392
         DEFAULT_BROWSER=firefox
-- name: Neuen Benutzer hinzufügen - ohne Eingabe der Pflichtfelder - features/examples/benutzerverwaltung.feature:415
+- name: Neuen Benutzer hinzufügen - ohne Eingabe der Pflichtfelder - features/examples/benutzerverwaltung.feature:419
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:415
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:419
         DEFAULT_BROWSER=firefox
-- name: Benutzer den Zugriff auf ein Inventarpool reaktivieren - features/examples/benutzerverwaltung.feature:430
+- name: Benutzer den Zugriff auf ein Inventarpool reaktivieren - features/examples/benutzerverwaltung.feature:434
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:430
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:434
         DEFAULT_BROWSER=firefox
-- name: Benutzer als Administrator löschen - features/examples/benutzerverwaltung.feature:439
+- name: Benutzer als Administrator löschen - features/examples/benutzerverwaltung.feature:443
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:439
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:443
         DEFAULT_BROWSER=firefox
-- name: Startseite zurücksetzen - features/examples/benutzerverwaltung.feature:448
+- name: Startseite zurücksetzen - features/examples/benutzerverwaltung.feature:452
   auto_trials: 2
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:448
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:452
         DEFAULT_BROWSER=firefox
 - name: Bestellende Person wechseln - features/examples/bestellenden_wechseln.feature:9
   auto_trials: 2
