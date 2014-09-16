@@ -186,20 +186,22 @@ Dann(/^sehe ich den Vertrag genau wie im Verwalten-Bereich$/) do
 
   unless returned_lines.empty?
     expect(@contract_element.has_content?(_("Returned Items"))).to be true
-    @contract_element.all("tbody .returning_date").each do |date|
-      expect(date.text).to match @current_user.short_name
+    returned_lines.each do |line|
+      within @contract_element.find(".returned_items tbody tr", match: :prefer_exact, text: line.item.inventory_code) do
+        text = find(".returning_date").text
+        expect(text).to match (I18n.l line.returned_date)
+        expect(text).to match line.returned_to_user.short_name
+      end
     end
   end
 
   unless not_returned_lines.empty?
     expect(@contract_element.has_content?(_("Borrowed Items"))).to be true
-    @contract_element.all("tbody .returning_date").each do |date|
-      expect(date.text).to eq ""
-    end
-    not_returned_lines.each do |line|
-      within @contract_element.find(".not_returned_items", match: :first) do
+    within @contract_element.find(".not_returned_items tbody") do
+      not_returned_lines.each do |line|
         expect(has_content?(line.model.name)).to be true
         expect(has_content?(line.item.inventory_code)).to be true
+        find(".returning_date", text: "")
       end
     end
   end

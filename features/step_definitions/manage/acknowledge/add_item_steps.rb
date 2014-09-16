@@ -29,8 +29,10 @@ Then /^the model is added to the contract$/ do
   expect(@contract.models.include?(@item.model)).to be true
 end
 
-When /^I start to type the name of a model$/ do
-  @item = @current_inventory_pool.items.borrowable.sample
+When /^I start to type the name of a model( which is not yet in the contract)?$/ do |arg1|
+  items = @current_inventory_pool.items.borrowable
+  items = items.select {|i| not @contract.models.include? i.model} if arg1
+  @item = items.sample
   fill_in 'add-input', :with => @item.model.name[0..-1]
 end
 

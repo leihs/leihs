@@ -62,10 +62,8 @@ Funktionalität: Gerätepark-Grundinformationen
     Dann ist die aut. Zuweisung deaktiviert
     Angenommen ich bin Gino
     Und man befindet sich auf der Benutzerliste
-    Und ich einen Benutzer mit Login "username" und Passwort "password" erstellt habe
-    Angenommen ich bin Mike
+    Wenn ich einen Benutzer mit Login "username" und Passwort "password" erstellt habe
     Dann kriegt der neu erstellte Benutzer bei dem vorher editierten Gerätepark kein Zugriffsrecht
-    Und ich logge mich aus
 
   #72676850
   @personas

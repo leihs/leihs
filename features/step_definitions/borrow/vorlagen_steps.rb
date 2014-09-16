@@ -86,7 +86,7 @@ Dann(/^ich kann im Prozess weiterfahren zur Verfügbarkeitsanzeige der Vorlage$/
 end
 
 Dann(/^alle Einträge erhalten das ausgewählte Start\- und Enddatum$/) do
-  expect(find(".headline-m", match: :first).text).to eq I18n.localize(@start_date)
+  find(".headline-m", match: :first, text: I18n.localize(@start_date))
   all(".line-col.col1of9.text-align-left").each do |date|
     date = date.text.split(" ").last
     expect(date).to eq I18n.localize(@end_date)

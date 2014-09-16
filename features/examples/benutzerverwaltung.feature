@@ -2,7 +2,7 @@
 
 Funktionalität: Benutzer verwalten 
 
-  @current @javascript @personas
+  @javascript @personas
   Szenariogrundriss: Sperrfunktion für Benutzer und Delegation
     Angenommen man ist Inventar-Verwalter oder Ausleihe-Verwalter
     Und man editiert einen <Benutzertyp>

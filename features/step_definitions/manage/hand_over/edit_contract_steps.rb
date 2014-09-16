@@ -49,7 +49,7 @@ When(/^I change the quantity right on the line$/) do
   @quantity = rand(2..9)
   within(".line[data-line-type='option_line'][data-id='#{@option_line.id}']") do
     find("input[data-line-quantity]").set @quantity
-    expect(find("input[data-line-quantity]").value).to eq @quantity.to_s
+    find("input[data-line-quantity][value='#{@quantity}']")
   end
 end
 

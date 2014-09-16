@@ -1,28 +1,15 @@
 # -*- encoding : utf-8 -*-
 
-When /^I open a contract for acknowledgement( with more then one line)?$/ do |arg1|
-  if arg1
-    @current_inventory_pool = @current_user.managed_inventory_pools.detect do |ip|
-      @customer = ip.users.shuffle.detect {|x| x.contracts.submitted.exists? and x.contracts.submitted.first.lines.size > 1 }
-    end
-    raise "customer not found" unless @customer
-    @models_in_stock = @current_inventory_pool.items.in_stock.map(&:model).uniq
-    @contract = @customer.contracts.submitted.detect{|v| v.lines.select{|l| !l.item and @models_in_stock.include? l.model}.count >= 2 }
-  else
-    @current_inventory_pool = @current_user.managed_inventory_pools.detect do |ip|
-      @customer = ip.users.shuffle.detect {|x| x.contracts.submitted.exists? }
-    end
-    raise "customer not found" unless @customer
-    @contract = @customer.contracts.submitted.first
-  end
-  visit manage_edit_contract_path(@current_inventory_pool, @contract)
-  expect(has_selector?("[data-order-approve]", :visible => true)).to be true
-end
+When /^I open a contract for acknowledgement( with more then one line)?(, whose start date is not in the past)?$/ do |arg1, arg2|
+  contracts = @current_inventory_pool.contracts.submitted
+  contracts = contracts.select {|c| c.lines.size > 1 } if arg1
+  contracts = contracts.select {|c| c.min_date >= Date.today} if arg2
 
-When /^I open a contract for acknowledgement, whose start date is not in the past$/ do
-  @contract = @current_inventory_pool.contracts.submitted.find {|c| c.min_date >= Date.today}
+  @contract = contracts.sample
   expect(@contract).not_to be_nil
+
   @customer = @contract.user
+
   visit manage_edit_contract_path(@current_inventory_pool, @contract)
   expect(has_selector?("[data-order-approve]", :visible => true)).to be true
 end
@@ -117,7 +104,7 @@ end
 
 Then /^the quantity of that submitted contract line is changed$/ do
   @line_element = find(".line", match: :prefer_exact, :text => @line_model_name)
-  expect(@line_element.find("div:nth-child(3) > span:nth-child(1)").text).to eq @new_quantity.to_s
+  @line_element.find("div:nth-child(3) > span:nth-child(1)", text: @new_quantity)
 end
 
 When /^I select two lines$/ do

@@ -43,7 +43,7 @@ end
 
 Dann(/^steht bei jedem Modell die höchst mögliche ausleihbare Anzahl der Gegenstände für dieses Modell$/) do
   all("#models .line").each do |line|
-    expect(line.find("input[name='template[model_links_attributes][][quantity]']").text).to match /\/\s#{@changed_model.items.borrowable.size}/
+    line.find("input[name='template[model_links_attributes][][quantity]']", text: /\/\s#{@changed_model.items.borrowable.size}/)
   end
 end
 

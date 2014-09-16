@@ -7,7 +7,7 @@ Funktionalität: Anzeige von Problemen
 
   @javascript @browser @personas
   Szenario: Problemanzeige wenn Modell nicht verfügbar bei Bestellungen
-    Angenommen ich editiere eine Bestellung
+    Angenommen ich editiere eine Bestellung die nicht in der Vergangenheit liegt
      Und ein Modell ist nichtmehr verfügbar
      Dann sehe ich auf den beteiligten Linien die Auszeichnung von Problemen
      Und das Problem wird wie folgt dargestellt: "Nicht verfügbar 2(3)/7"

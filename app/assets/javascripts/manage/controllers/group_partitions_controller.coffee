@@ -39,4 +39,8 @@ class window.App.GroupPartitionsController extends Spine.Controller
       data: $.param
         model_ids: ui.item.id
     .done (data) =>
-      @modelsList.prepend(App.Render "manage/views/groups/partitions/model_allocation_entry", App.Model.find(ui.item.id), currentInventoryPool: App.InventoryPool.current) unless _.any @modelsList.find("input[name*='model_id']"), (i) -> Number($(i).val()) == Number(ui.item.id)
+      modelElement = @modelsList.find("input[name='group[partitions_attributes][][model_id]'][value='#{ui.item.id}']").closest(".line")
+      if modelElement.length
+        @modelsList.prepend modelElement
+      else
+        @modelsList.prepend(App.Render "manage/views/groups/partitions/model_allocation_entry", App.Model.find(ui.item.id), currentInventoryPool: App.InventoryPool.current)

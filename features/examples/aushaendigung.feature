@@ -5,7 +5,7 @@ Funktionalität: Aushändigung editieren
   Grundlage:
     Angenommen ich bin Pius
 
-  @javascript @browser @personas
+  @javascript @browser @chrome @personas
   Szenario: Systemfeedback bei erfolgreicher manueller Interaktion bei Aushändigung
     Angenommen es gibt eine Aushändigung mit mindestens einem nicht problematischen Modell
     Und ich die Aushändigung öffne

@@ -129,7 +129,7 @@ Dann(/^ich sehe auf der Bestellungszeile das Erstelldatum$/) do
 end
 
 Dann(/^ich sehe auf der Bestellungszeile die Anzahl Gegenstände mit Popup\-Ansicht der bestellten Gegenstände$/) do
-  expect(find("#{@line_css} [data-type='lines-cell']").text).to eq "#{@contract.lines.count} #{n_("Item", "Items", @contract.lines.count)}"
+  find("#{@line_css} [data-type='lines-cell']", text: "#{@contract.lines.count} #{n_("Item", "Items", @contract.lines.count)}")
   find("#{@line_css} [data-type='lines-cell']").hover
   @contract.models.each {|m|
     expect(has_selector?(".tooltipster-base", text: m.name)).to be true

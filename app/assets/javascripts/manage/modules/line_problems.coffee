@@ -26,7 +26,7 @@ window.App.Modules.LineProblems =
 
     # AVAILABILITY
     else if maxAvailableForUser? and maxAvailableForUser < quantity
-      maxAvailableInTotal = @model().availability().withoutLines(linesToExclude).maxAvailableInTotal(@start_date, @end_date)
+      maxAvailableInTotal = @model().availability().withoutLines(linesToExclude, true).maxAvailableInTotal(@start_date, @end_date)
       problems.push 
         type: "availability"
         message: "#{_jed("Not available")} #{maxAvailableForUser}(#{maxAvailableInTotal})/#{@model().availability().total_rentable}"

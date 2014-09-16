@@ -897,5 +897,5 @@ When(/^I open the model line of this item$/) do
 end
 
 Then(/^the problems of this item are displayed separated by a comma$/) do
-  expect(find(".line[data-type='item'] .darkred-text").text).to match /.*, .*/
+  find(".line[data-type='item'] .darkred-text", text: /.*, .*/)
 end

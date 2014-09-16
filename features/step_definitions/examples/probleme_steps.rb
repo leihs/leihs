@@ -1,8 +1,8 @@
 # encoding: utf-8
 
-Angenommen /^ich editiere eine Bestellung$/ do
+Angenommen /^ich editiere eine Bestellung( die nicht in der Vergangenheit liegt)?$/ do |arg1|
   @event = "order"
-  step 'I open a contract for acknowledgement'
+  step "I open a contract for acknowledgement%s" % (arg1 ? ", whose start date is not in the past" : "")
 end
 
 Angenommen /^ich mache eine Rücknahme(, die nicht überfällig ist)?$/ do |arg1|
@@ -28,6 +28,7 @@ Angenommen /^ein Modell ist nichtmehr verfügbar$/ do
               end
     contract_line = @entity.lines.sample
     @model = contract_line.model
+    @initial_quantity = @contract.lines.where(model_id: @model.id).count
     @max_before = contract_line.model.availability_in(@entity.inventory_pool).maximum_available_in_period_summed_for_groups(contract_line.start_date, contract_line.end_date, contract_line.group_ids)
     step 'I add so many lines that I break the maximal quantity of an model'
   else
@@ -81,7 +82,7 @@ end
 
 Dann /^"(.*?)" sind verfügbar für den Kunden inklusive seinen Gruppenzugehörigen$/ do |arg1|
   max = if [:unsubmitted, :submitted].include? @line.contract.status
-          @max_before + @quantity_added
+          @initial_quantity + @max_before
         elsif [:approved, :signed].include? @line.contract.status
           @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @line.group_ids) + 1 # free up self blocking
         else
@@ -91,7 +92,7 @@ Dann /^"(.*?)" sind verfügbar für den Kunden inklusive seinen Gruppenzugehöri
 end
 
 Dann /^"(.*?)" sind insgesamt verfügbar inklusive diejenigen Gruppen, welchen der Kunde nicht angehört$/ do |arg1|
-  max = @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @current_inventory_pool.group_ids)
+  max = @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @av.inventory_pool_and_model_group_ids)
   if [:unsubmitted, :submitted].include? @line.contract.status
     max += @line.contract.lines.where(:start_date => @line.start_date, :end_date => @line.end_date, :model_id => @line.model).size
   else

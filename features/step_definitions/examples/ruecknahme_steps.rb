@@ -94,7 +94,7 @@ Wenn(/^ich eine Option über das Zuweisenfeld zurücknehme$/) do
 end
 
 Dann(/^die Zeile ist nicht grün markiert$/) do
-  find(@line_css).native.attribute("class").should_not include "green"
+  expect(find(@line_css).native.attribute("class")).not_to include "green"
 end
 
 Wenn(/^ich alle Optionen der gleichen Zeile zurücknehme$/) do
